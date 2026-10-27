@@ -85,6 +85,8 @@ def get(
     None per selected atom when the hierarchy is partially populated. The same
     missing-parent mapping applies to group-based molecule/entity identities.
     A wholly absent group table retains its group-identity None result.
+    Native hierarchical atom-index membership follows the requested source element
+    order, including empty elements; atoms without that parent are excluded.
 
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in

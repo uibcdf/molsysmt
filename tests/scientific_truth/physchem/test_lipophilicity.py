@@ -20,3 +20,15 @@ def test_wildman_crippen_primary_atomic_sums():
         atol=1e-12,
         rtol=0,
     )
+
+
+def test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution():
+    from rdkit import Chem
+
+    indexed = Chem.AddHs(Chem.MolFromSmiles("C"))
+    atomic = msm.physchem.get_lipophilicity(indexed, element="atom")
+    np.testing.assert_allclose(
+        atomic, [0.1441, 0.1230, 0.1230, 0.1230, 0.1230], atol=1e-12, rtol=0
+    )
+    folded = msm.physchem.get_lipophilicity(Chem.MolFromSmiles("C"), element="atom")
+    np.testing.assert_allclose(folded, [0.1441 + 4 * 0.1230], atol=1e-12, rtol=0)

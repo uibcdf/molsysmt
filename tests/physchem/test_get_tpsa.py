@@ -188,7 +188,7 @@ def test_unsupported_chemistry_fails(smiles):
 @pytest.mark.parametrize(
     "name,value",
     [
-        ("element", "atom"),
+        ("element", "bond"),
         ("method", "rdkit"),
         ("include_sulfur_phosphorus", 1),
         ("return_report", "yes"),

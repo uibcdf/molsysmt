@@ -2919,20 +2919,13 @@ def get_atom_index_from_group(item, indices="all", skip_digestion=False):
     """
     group_index_from_atom = item.atoms["group_index"].to_numpy()
 
-    if indices == "all":
-        aux_dict = defaultdict(list)
-        for atom_index, group_index in enumerate(group_index_from_atom):
-            aux_dict[group_index].append(atom_index)
-
-        output = list(aux_dict.values())
-
-    else:
-        aux_dict = {ii: [] for ii in indices}
-        for atom_index, group_index in enumerate(group_index_from_atom):
-            if group_index in aux_dict:
-                aux_dict[group_index].append(atom_index)
-
-        output = [aux_dict[m] for m in indices]
+    if is_all(indices):
+        indices = range(item.n_groups)
+    aux_dict = {ii: [] for ii in indices}
+    for atom_index, parent_index in enumerate(group_index_from_atom):
+        if pd.notna(parent_index) and parent_index in aux_dict:
+            aux_dict[parent_index].append(atom_index)
+    output = [aux_dict[ii] for ii in indices]
 
     del group_index_from_atom, aux_dict
 
@@ -5538,20 +5531,13 @@ def get_atom_index_from_molecule(item, indices="all", skip_digestion=False):
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = _molecule_indices_from_atoms(item)
 
-    if indices == "all":
-        aux_dict = defaultdict(list)
-        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
-            aux_dict[molecule_index].append(atom_index)
-
-        output = list(aux_dict.values())
-
-    else:
-        aux_dict = {ii: [] for ii in indices}
-        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
-            if molecule_index in aux_dict:
-                aux_dict[molecule_index].append(atom_index)
-
-        output = [aux_dict[m] for m in indices]
+    if is_all(indices):
+        indices = range(item.n_molecules)
+    aux_dict = {ii: [] for ii in indices}
+    for atom_index, parent_index in enumerate(molecule_index_from_atom):
+        if pd.notna(parent_index) and parent_index in aux_dict:
+            aux_dict[parent_index].append(atom_index)
+    output = [aux_dict[ii] for ii in indices]
 
     del (
         group_index_from_atom,
@@ -8269,29 +8255,17 @@ def get_atom_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms["group_index"].to_numpy()
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    molecule_index_from_atom = _molecule_indices_from_atoms(item)
-    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_index_from_atom = _get_hierarchy_from_atom(item, "entity", "index", "all")
 
-    if indices == "all":
-        aux_dict = defaultdict(list)
-        for atom_index, entity_index in enumerate(entity_index_from_atom):
-            aux_dict[entity_index].append(atom_index)
+    if is_all(indices):
+        indices = range(item.n_entities)
+    aux_dict = {ii: [] for ii in indices}
+    for atom_index, parent_index in enumerate(entity_index_from_atom):
+        if pd.notna(parent_index) and parent_index in aux_dict:
+            aux_dict[parent_index].append(atom_index)
+    output = [aux_dict[ii] for ii in indices]
 
-        output = list(aux_dict.values())
-
-    else:
-        aux_dict = {ii: [] for ii in indices}
-        for atom_index, entity_index in enumerate(entity_index_from_atom):
-            if entity_index in aux_dict:
-                aux_dict[entity_index].append(atom_index)
-
-        output = [aux_dict[m] for m in indices]
-
-    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, aux_dict
+    del entity_index_from_atom, aux_dict
 
     return output
 
@@ -11089,20 +11063,13 @@ def get_atom_index_from_component(item, indices="all", skip_digestion=False):
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
 
-    if indices == "all":
-        aux_dict = defaultdict(list)
-        for atom_index, component_index in enumerate(component_index_from_atom):
-            aux_dict[component_index].append(atom_index)
-
-        output = list(aux_dict.values())
-
-    else:
-        aux_dict = {ii: [] for ii in indices}
-        for atom_index, component_index in enumerate(component_index_from_atom):
-            if component_index in aux_dict:
-                aux_dict[component_index].append(atom_index)
-
-        output = [aux_dict[m] for m in indices]
+    if is_all(indices):
+        indices = range(item.n_components)
+    aux_dict = {ii: [] for ii in indices}
+    for atom_index, parent_index in enumerate(component_index_from_atom):
+        if pd.notna(parent_index) and parent_index in aux_dict:
+            aux_dict[parent_index].append(atom_index)
+    output = [aux_dict[ii] for ii in indices]
 
     del component_index_from_atom, aux_dict
 
@@ -13920,20 +13887,13 @@ def get_atom_index_from_chain(item, indices="all", skip_digestion=False):
     """
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
-    if indices == "all":
-        aux_dict = defaultdict(list)
-        for atom_index, chain_index in enumerate(chain_index_from_atom):
-            aux_dict[chain_index].append(atom_index)
-
-        output = list(aux_dict.values())
-
-    else:
-        aux_dict = {ii: [] for ii in indices}
-        for atom_index, chain_index in enumerate(chain_index_from_atom):
-            if chain_index in aux_dict:
-                aux_dict[chain_index].append(atom_index)
-
-        output = [aux_dict[m] for m in indices]
+    if is_all(indices):
+        indices = range(item.n_chains)
+    aux_dict = {ii: [] for ii in indices}
+    for atom_index, parent_index in enumerate(chain_index_from_atom):
+        if pd.notna(parent_index) and parent_index in aux_dict:
+            aux_dict[parent_index].append(atom_index)
+    output = [aux_dict[ii] for ii in indices]
 
     del chain_index_from_atom, aux_dict
 

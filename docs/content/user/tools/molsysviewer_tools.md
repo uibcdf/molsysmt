@@ -1958,3 +1958,13 @@ published-package compatibility.
 
 - {ref}`Tutorial_Get_tpsa` — complete chemistry, descriptor variants and evidence.
 :::
+
+### Native TPSA contribution outputs
+
+The bound `physchem.get_tpsa()` also forwards the native atom, group, component,
+chain, entity and system levels. Numeric selections address the selected element;
+`system` returns a scalar sum over selected atoms. Contributions retain complete
+molecular context. Indexed H keeps its row; nonindexed H is attributed to its
+attachment atom. In reports, `element_*` maps identify output rows, while the
+molecular maps identify evaluated contexts. This reader does not change or
+synchronize the scene. See {ref}`Tutorial_Get_tpsa` for executed examples.

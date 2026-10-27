@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-27",
+  "issues": [
+    "uibcdf/molsysmt#497",
+    "uibcdf/molsysmt#498"
+  ],
+  "source_basis": "69f357e7eb0f53151e60de294ea58791e2f2dd59",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "rdkit_executed": "2025.09.5",
+    "profile": "Shared local development environment, not a clean installed pair."
+  },
+  "contract": {
+    "default": "Complete source molecule descriptors; unchanged default and public signatures.",
+    "new_levels": [
+      "atom",
+      "group",
+      "component",
+      "chain",
+      "entity",
+      "system"
+    ],
+    "context": "Only needed complete source parent molecules are evaluated, once per parent, regardless of output selection.",
+    "system": "Scalar over selected atom contributions; zero for an empty atom selection. Repeated atom indices repeat contributions. This is not a physical mixture partition coefficient.",
+    "hydrogens": "Indexed H keeps its own contribution. Nonindexed H materialized on a detached graph is attributed to its retained attachment atom. TPSA H terms are zero.",
+    "reports": "element_* maps align with outputs. Existing molecule/atom maps, charges and charged-site maps align with complete calculation contexts.",
+    "native_queries": "Declared source element order, repeated/empty selections and empty parent rows; missing parents excluded. Entity projection reuses the nullable hierarchy mapper."
+  },
+  "checks": {
+    "broad": {
+      "command": "python -m pytest tests/physchem tests/scientific_truth/physchem tests/form/molsysmt_Topology tests/native/test_group_free_molecules.py tests/basic/get --receptor=llm -n 12",
+      "result": "3185 passed in 102.42s, 160 warnings. Precedes final nullable entity projection and compact atomic projection; targeted follow-up scopes below qualify those changes."
+    },
+    "final_native": {
+      "command": "python -m pytest tests/form/molsysmt_Topology tests/basic/get tests/native/test_group_free_molecules.py --receptor=llm -n 12",
+      "result": "1464 passed in 32.91s, 30 existing legacy-H5MSM/structural-off-axis/PDB box warnings."
+    },
+    "final_descriptors": {
+      "command": "python -m pytest tests/physchem/test_descriptor_contributions.py tests/physchem/test_get_tpsa.py tests/physchem/test_get_lipophilicity.py tests/scientific_truth/physchem/test_tpsa.py tests/scientific_truth/physchem/test_lipophilicity.py --receptor=llm -n 12",
+      "result": "218 passed in 20.06s after compact atomic projection and final membership repair."
+    },
+    "docs_and_receiver": {
+      "command": "python -m pytest molsysmt/physchem/get_tpsa.py molsysmt/physchem/get_lipophilicity.py --doctest-modules devtools/tests/test_documentation_notebook_schema.py tests/molsysviewer_molsysmt/test_tpsa_tools.py --receptor=llm -n 12",
+      "result": "556 passed in 15.34s. Includes two descriptor doctests, 59 bound TPSA tests and notebook schema controls. Earlier two rejection tests failed because atom/group became valid; they were replaced by unsupported bond rejection plus positive all-level forwarding and scene-preservation controls."
+    },
+    "fast_gates": "14/14 passed; the fast portion only.",
+    "static": "Scoped Ruff and 255 public docstrings pass; zero unauthorized public signature drifts; scientific evidence registry remains partial for the two descriptors.",
+    "documentation": "Final TPSA/lipophilicity tutorials executed in 8.2/8.5s. Paired-descriptor recipe executed with atomic output-order/value assertions. Five course notebooks preserve every original code cell and saved output. HTML build exits zero; remaining warning scope is recorded in the implementation report."
+  },
+  "scientific_scope": "Bounded primary OH TPSA and methane C1/H1 atomic sums, separately from charged/aromatic/S/P/isotope provider-parity tests and hierarchy/selection contracts. No general physical partition, fragment applicability, permeability, benchmark, installed-pair or release qualification.",
+  "provider_sources": {
+    "reference_checkout": "cbfb37abddcd5b5feeac97d53530ae6be83cac0d",
+    "files": [
+      "Code/GraphMol/Descriptors/Wrap/rdMolDescriptors.cpp",
+      "Code/GraphMol/Descriptors/MolSurf.cpp",
+      "Code/GraphMol/Descriptors/Crippen.cpp"
+    ],
+    "maintainer_explanation": "https://github.com/rdkit/rdkit/discussions/5352",
+    "prior_primary_review": "devtools/data/tpsa_logp_contract_review_20261026.json"
+  },
+  "sha256": {
+    "molsysmt/physchem/_molecular_descriptors.py": "81c0076fddf27b67a405ee7e71fc3cc1f2efc80332897619fefd03ffc4a9c112",
+    "molsysmt/physchem/get_tpsa.py": "3223c923bfaf63c38f5976b0601be98298f56bbe266651b142d40a5ac65932b0",
+    "molsysmt/physchem/get_lipophilicity.py": "77c7d62bfb7df72eaf4d15c956bc8f536e7b43823079795620e325a3c3a5d53a",
+    "molsysmt/basic/get.py": "cab254d3e8ee731a4be0b8e943252f9b9a3a103b9b66ea1f802c2d99659f1c62",
+    "molsysmt/form/molsysmt_Topology/get_topological_attributes.py": "ebf103bb2b72440a7b0b956f7b1467e64a1ba01a8710f688771bfc3739586322",
+    "molsysviewer_molsysmt/_basic.py": "c49ffd451ea96eaa5e0fb25e01d67f2b8720c3f418b101d3d2de83faed920a31",
+    "tests/physchem/test_descriptor_contributions.py": "76ad377196a7b2ccb868b19fbd56814e064ebd2faef5bfd609bc2e5b44d2b261",
+    "tests/form/molsysmt_Topology/test_atom_membership_order.py": "42ed639f5a413a49a9b443c7d5c3748671cdac05b64ec4290f4715a48a125bfa",
+    "tests/molsysviewer_molsysmt/test_tpsa_tools.py": "aa7c7fd14f6ff30a45d9b68b5bfcde7f2d9fcb948e36bae87c8fc1d345a6b7b1",
+    "tests/scientific_truth/physchem/test_tpsa.py": "476e9e5ac4ee60b3d24642c46983115684531dd63eceb254c5976a570dcba39c",
+    "tests/scientific_truth/physchem/test_lipophilicity.py": "a8acdb3466d62aab45c44de4f6ff79b2ab059013832c893327c00cb4fbe4c7ff"
+  }
+}

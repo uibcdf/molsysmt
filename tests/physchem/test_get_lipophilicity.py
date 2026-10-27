@@ -179,7 +179,7 @@ def test_unsupported_graphs_fail(smiles):
 @pytest.mark.parametrize(
     "name,value",
     [
-        ("element", "atom"),
+        ("element", "bond"),
         ("method", "rdkit"),
         ("return_report", "yes"),
         ("skip_digestion", "yes"),

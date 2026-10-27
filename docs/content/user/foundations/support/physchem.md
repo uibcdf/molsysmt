@@ -188,3 +188,11 @@ neutralizes a molecule. Numeric availability for ions or zwitterions does not
 certify physical logP accuracy. This is not logD and has no pH parameter. Request
 a report to retain charges, source maps, model and actual producer versions.
 See {ref}`Tutorial_Get_lipophilicity` and {ref}`Cookbook_Molecular_Descriptors`.
+
+Both graph tools also support atomic contributions and sums by group, component,
+chain and entity. The molecular output remains the default; `system` gives one
+scalar sum over selected atom indices. Every contribution is evaluated in its
+complete parent molecule, including chemistry outside the output selection.
+No capped fragment is prepared. Nonindexed H is attributed to its attachment
+atom; indexed H retains its own row. Report `element_*` maps describe output,
+while molecular membership maps describe full evaluation contexts.

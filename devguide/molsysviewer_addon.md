@@ -1364,3 +1364,14 @@ hierarchy/selector workaround. Actual optional-provider absence, GUI, installed
 artifacts, universal model accuracy, performance and other platforms remain
 separate. Both 1.0 publications stay paused. This evidence-only closeout changes
 no runtime and reuses the exact completed source gates.
+
+### TPSA native contribution extension — 2026-10-27
+
+Native uibcdf/molsysmt#497 adds atom/group/component/chain/entity/system
+contribution outputs while preserving the molecule default. The existing bound
+reader delegates these levels without a new control or scene update. Consumer
+guards now test all seven valid levels and retain unsupported bond-level
+rejection. Reports distinguish output `element_*` maps from evaluated molecular
+contexts; H attribution and scalar system selections follow native semantics.
+This does not receive the separate lipophilicity reader or claim installed-pair
+qualification. The general native membership prerequisite is uibcdf/molsysmt#498.

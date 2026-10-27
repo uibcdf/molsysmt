@@ -22,7 +22,7 @@ def get_tpsa(
     syntax="MolSysMT",
     skip_digestion=False,
 ):
-    """Calculating Ertl topological polar surface areas for complete molecules.
+    """Calculating Ertl molecular TPSA and selected atomic contribution sums.
 
     Parameters
     ----------
@@ -30,11 +30,14 @@ def get_tpsa(
         Molecular system in any supported form supplying complete chemistry,
         element symbols, hydrogen inventory and molecular membership.
     element : str, default='molecule'
-        Only 'molecule' is supported. No fragment or whole-system sum is inferred.
+        Output level: 'atom', 'group', 'component', 'molecule', 'chain',
+        'entity' or 'system'. Molecules return complete descriptors; other
+        levels return atomic contributions or their sums in complete context.
     selection : str, int, list, tuple, or numpy.ndarray, default='all'
-        Molecules to return. Numeric molecule indices preserve order and
-        repetitions. String expressions identify whole molecules, never capped
-        atom fragments, using the requested syntax.
+        Elements to return. Numeric indices address the chosen element and
+        preserve order and repetitions. For 'system', they are atom indices
+        whose contributions are summed. Strings select whole parent elements
+        at grouped levels; selected atoms never define capped fragments.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices for spatial selection and chemical-state resolution.
         No structure axis is added to these graph-derived outputs.
@@ -56,15 +59,16 @@ def get_tpsa(
     Returns
     -------
     quantity or dict
-        Area quantity with shape (n_selected_molecules,), standardized through
-        PyUnitWizard (nm² by default). Empty selections retain shape (0,).
+        Area quantity with shape (n_selected_elements,), standardized through
+        PyUnitWizard (nm² by default). 'system' returns a scalar, including zero
+        for an empty atom selection; other empty selections retain shape (0,).
         With return_report=True, keys are tpsa and report; the report retains
         source molecule/atom indices, state, method, parameters and attribution.
 
     Raises
     ------
     ArgumentChoiceError
-        If element requests a level other than molecule.
+        If element requests an unsupported level, such as bond.
     ArgumentError
         If method, selections, state or other arguments are invalid.
     StructuralInconsistencyError
@@ -91,12 +95,28 @@ def get_tpsa(
 
     Molecule membership belongs to the source topology; other chemical states
     cannot silently repartition it. Disconnected salt labels and covalent
-    adducts crossing a selected molecule boundary fail. Several independent
-    selected molecules produce separate values. Atom-level contributions and
-    system-level aggregation are not exposed by this experimental boundary.
+    adducts crossing a context molecule boundary fail. Several independent
+    selected molecules produce separate values. Other levels sum contributions
+    evaluated on complete parent molecules; no cut fragment is recalculated.
+    These sums describe model contributions, not exposed physical area.
     Optional Ackredit credits the original model and actual executed software;
     completed empty selections retain provenance. Default quantity outputs
     carry no report; request return_report=True to retain scientific provenance.
+
+    For atom-level output, indexed hydrogens retain their own contributions.
+    Contributions from nonindexed hydrogens are assigned to their retained
+    attachment atom; no new source indices are invented. Consequently individual
+    heavy-atom values depend on H presentation, while sums covering the same
+    atoms and attached H agree. This is an attribution convention, not a change
+    to the original model. Each needed parent molecule is calculated once.
+
+    Reports distinguish output element_indices, element_atom_indices and
+    element_atom_offsets from evaluated molecule_indices, atom_indices and
+    atom_offsets. The latter describe
+    complete calculation contexts, so their rows need not match nonmolecular
+    output rows. output_kind distinguishes molecular descriptors from atomic
+    contribution sums. State, units and original scientific provenance remain
+    explicit; grouped contributions do not assign new chemical properties.
 
     See Also
     --------
@@ -130,9 +150,28 @@ def get_tpsa(
     from ._molecular_descriptors import calculate_molecular_descriptor
 
     caller = "molsysmt.physchem.get_tpsa"
-    if element != "molecule":
+    if element not in {
+        "atom",
+        "group",
+        "component",
+        "molecule",
+        "chain",
+        "entity",
+        "system",
+    }:
         raise ArgumentChoiceError(
-            argument="element", value=element, choices=["molecule"], caller=caller
+            argument="element",
+            value=element,
+            choices=[
+                "atom",
+                "group",
+                "component",
+                "molecule",
+                "chain",
+                "entity",
+                "system",
+            ],
+            caller=caller,
         )
     values, report = calculate_molecular_descriptor(
         molecular_system,
@@ -140,6 +179,7 @@ def get_tpsa(
         structure_indices,
         chemical_state,
         syntax,
+        element=element,
         descriptor="tpsa",
         method=method,
         article_key="ertl_2000",

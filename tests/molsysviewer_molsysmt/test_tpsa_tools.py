@@ -217,8 +217,7 @@ def test_explicit_and_structure_associated_states_are_not_the_visible_frame():
 @pytest.mark.parametrize(
     "args",
     [
-        dict(element="atom"),
-        dict(element="group"),
+        dict(element="bond"),
         dict(method="rdkit"),
         dict(selection=[999]),
         dict(structure_indices=[999]),
@@ -363,3 +362,17 @@ def test_real_optional_attribution_including_evaluated_empty_output(view):
             in ackredit.current_session().usage_tree["consumer.bound_tpsa"]["children"]
         )
         assert result["report"]["method"] == "ertl_rohde_selzer"
+
+
+@pytest.mark.parametrize(
+    "element", ["atom", "group", "component", "molecule", "chain", "entity", "system"]
+)
+def test_native_contribution_levels_are_forwarded_without_scene_changes(view, element):
+    state, status = view.export_state(), view.addons.molsysmt.get_sync_status()
+    kwargs = dict(element=element, return_report=True)
+    native = msm.physchem.get_tpsa(view.molsys, **kwargs)
+    received = view.addons.molsysmt.physchem.get_tpsa(**kwargs)
+    same(received, native)
+    assert received["report"]["element"] == element
+    assert view.export_state() == state
+    assert view.addons.molsysmt.get_sync_status() == status

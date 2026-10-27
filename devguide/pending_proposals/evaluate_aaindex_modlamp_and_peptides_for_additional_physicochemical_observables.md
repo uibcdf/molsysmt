@@ -908,3 +908,14 @@ additional pending API. Independent scientific evidence remains partial: bounded
 original atomic sums, distinct from provider/form parity and experimental
 prediction accuracy. See the [implementation record](../archive/resolved_proposals/implement_state_aware_wildman_crippen_molecular_lipophilicity_descriptors.md).
 The wider #485 capability inventory remains partial and open.
+
+## Selected contribution outputs — 2026-10-27
+
+Following maintainer acceptance, uibcdf/molsysmt#497 extends both molecular graph
+tools to atomic contributions and sums by group/component/chain/entity/system.
+Molecule defaults are preserved. Contributions retain complete source molecular
+context, with explicit nonindexed-H attachment attribution and independent output
+versus evaluation-context maps. These are not prepared-fragment or physical
+mixture properties. The general atom-membership order/missing-parent prerequisite
+is repaired in its owning adapter under uibcdf/molsysmt#498. This supersedes the
+earlier deferred atomic-output scope; the wider #485 inventory remains partial.

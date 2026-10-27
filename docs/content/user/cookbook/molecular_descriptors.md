@@ -40,6 +40,39 @@ For charged graphs the returned number remains the supplied-state model score,
 with no pH-dependent logD or experimental accuracy guarantee. These descriptors
 also do not measure a conformation's solvent exposure or predict permeability.
 
+## Exporting atomic contributions
+
+For an atom-aligned table, request the atom level from both tools. Preserve the
+same source system, state, ordering and H presentation in the two calls. The
+complete parent molecules are still evaluated even though only selected atoms
+are exported.
+
+```python
+selection = [2, 0, 2]
+polar_atoms = msm.physchem.get_tpsa(
+    molsys, element='atom', selection=selection, return_report=True,
+)
+lipophilic_atoms = msm.physchem.get_lipophilicity(
+    molsys, element='atom', selection=selection, return_report=True,
+)
+atom_records = [
+    {'atom_index': int(index), 'tpsa_contribution_angstrom2': float(area),
+     'wildman_crippen_contribution': float(score)}
+    for index, area, score in zip(
+        polar_atoms['report']['element_indices'],
+        msm.pyunitwizard.get_value(polar_atoms['tpsa'], to_unit='angstrom**2'),
+        lipophilic_atoms['lipophilicity'],
+    )
+]
+```
+
+Use `element='group'` for sums over complete source groups, or `element='system'`
+for one scalar over an atom selection. These are contributions in full context,
+not independently prepared fragment properties. Reports distinguish output
+`element_*` maps from the complete molecular context maps. Indexed H retains its
+own contribution; nonindexed H is attributed to its attachment atom. Preserve
+that convention when joining tables from different H presentations.
+
 :::{seealso}
 :class: dropdown
 

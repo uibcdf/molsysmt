@@ -19,3 +19,16 @@ def test_tpsa_matches_primary_ertl_fragment_sums():
         atol=1e-12,
         rtol=0,
     )
+
+
+def test_primary_oxygen_fragment_is_retained_in_atomic_context():
+    from rdkit import Chem
+
+    molsys = Chem.MolFromSmiles("CCO")
+    atomic = msm.physchem.get_tpsa(molsys, element="atom", selection=[2, 0, 2])
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(atomic, to_unit="angstrom**2"),
+        [20.23, 0, 20.23],
+        atol=1e-12,
+        rtol=0,
+    )

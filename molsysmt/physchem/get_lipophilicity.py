@@ -21,7 +21,7 @@ def get_lipophilicity(
     syntax="MolSysMT",
     skip_digestion=False,
 ):
-    """Calculating Wildman–Crippen descriptors for complete molecular graphs.
+    """Calculating Wildman–Crippen molecular scores and atomic contribution sums.
 
     Parameters
     ----------
@@ -29,11 +29,14 @@ def get_lipophilicity(
         Molecular system in any supported form supplying complete chemistry,
         element symbols, declared hydrogen inventory and molecular membership.
     element : str, default='molecule'
-        Only 'molecule' is supported. No fragment or whole-system sum is inferred.
+        Output level: 'atom', 'group', 'component', 'molecule', 'chain',
+        'entity' or 'system'. Molecules return complete descriptors; other
+        levels return atomic contributions or their sums in complete context.
     selection : str, int, list, tuple, or numpy.ndarray, default='all'
-        Molecules to return. Numeric molecule indices preserve order and
-        repetitions. String selections identify whole molecules using syntax;
-        they do not define capped atom fragments.
+        Elements to return. Numeric indices address the chosen element and
+        preserve order and repetitions. For 'system', they are atom indices
+        whose contributions are summed. Strings select whole parent elements
+        at grouped levels; selected atoms never define capped fragments.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices for spatial selection and chemical-state resolution.
         The graph-derived result has no structure axis.
@@ -53,9 +56,10 @@ def get_lipophilicity(
 
     Returns
     -------
-    numpy.ndarray or dict
-        Dimensionless float64 model scores of shape (n_selected_molecules,).
-        Negative scores are allowed; an empty selection has shape (0,).
+    numpy.ndarray, numpy.float64 or dict
+        Dimensionless float64 values of shape (n_selected_elements,). 'system'
+        returns a scalar, including zero for an empty atom selection. Other
+        empty selections retain shape (0,). Negative contributions are allowed.
         With return_report=True, keys are lipophilicity and report. The report
         contains ragged source atom membership and formally charged atom indices,
         including those in net-neutral molecules. Scores are not area quantities
@@ -64,7 +68,7 @@ def get_lipophilicity(
     Raises
     ------
     ArgumentChoiceError
-        If element requests a level other than molecule.
+        If element requests an unsupported level, such as bond.
     ArgumentError
         If method, selections, state or other arguments are invalid.
     StructuralInconsistencyError
@@ -93,12 +97,28 @@ def get_lipophilicity(
 
     Source molecule membership is retained across chemical states. Disconnected
     salt labels and bonds crossing selected molecule boundaries fail. Independent
-    molecules return separate scores; neither summation over molecules nor
-    atomic contributions are exposed. No coordinates are copied for descriptor
-    calculation. Default arrays carry no provenance; request return_report=True
+    molecules return separate scores. Other levels sum atomic contributions
+    evaluated on complete parent molecules, without recalculating cut fragments.
+    A sum spanning molecules is a model-contribution sum, not a mixture logP.
+    No coordinates are copied for descriptor calculation. Default arrays carry no provenance; request return_report=True
     when exporting results. The report is not automatically attached to MolSys
     or stored as a new H5MSM analysis. Optional Ackredit records the original
     scientific model separately from the software actually executed.
+
+    For atom-level output, indexed hydrogens retain their own contributions.
+    Contributions from nonindexed hydrogens are assigned to their retained
+    attachment atom; no new source indices are invented. Consequently individual
+    heavy-atom values depend on H presentation, while sums covering the same
+    atoms and attached H agree. This is an attribution convention, not a change
+    to the original model. Each needed parent molecule is calculated once.
+
+    Reports distinguish output element_indices, element_atom_indices and
+    element_atom_offsets from evaluated molecule_indices, atom_indices and
+    atom_offsets. The latter describe
+    complete calculation contexts, so their rows need not match nonmolecular
+    output rows. output_kind distinguishes molecular descriptors from atomic
+    contribution sums. State, units and original scientific provenance remain
+    explicit; grouped contributions do not assign new chemical properties.
 
     See Also
     --------
@@ -129,9 +149,28 @@ def get_lipophilicity(
     from ._molecular_descriptors import calculate_molecular_descriptor
 
     caller = "molsysmt.physchem.get_lipophilicity"
-    if element != "molecule":
+    if element not in {
+        "atom",
+        "group",
+        "component",
+        "molecule",
+        "chain",
+        "entity",
+        "system",
+    }:
         raise ArgumentChoiceError(
-            argument="element", value=element, choices=["molecule"], caller=caller
+            argument="element",
+            value=element,
+            choices=[
+                "atom",
+                "group",
+                "component",
+                "molecule",
+                "chain",
+                "entity",
+                "system",
+            ],
+            caller=caller,
         )
     values, report = calculate_molecular_descriptor(
         molecular_system,
@@ -139,6 +178,7 @@ def get_lipophilicity(
         structure_indices,
         chemical_state,
         syntax,
+        element=element,
         descriptor="lipophilicity",
         method=method,
         article_key="wildman_1999",

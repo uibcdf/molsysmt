@@ -152,7 +152,7 @@
   "molsysmt.physchem.get_tpsa": {
     "domain": "physchem",
     "status": "partial",
-    "claim": "Bounded N/O Ertl fragment sums for ethanol, dimethyl ether and acetic acid, with area-unit conversion. Broader form/element-scope checks are contract/provider parity, not permeability validation.",
+    "claim": "Bounded N/O Ertl fragment sums for ethanol, dimethyl ether and acetic acid, with area-unit conversion. Broader form/element-scope checks are contract/provider parity, not permeability validation. Bounded atomic-context and hydrogen-attribution controls also cover the selected-contribution extension.",
     "units": [
       "nm**2"
     ],
@@ -164,6 +164,12 @@
         "test": "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
         "oracle": "Ertl, Rohde, Selzer (2000), doi:10.1021/jm000942e, Table 1, OH=20.23, ether O=9.23, carbonyl O=17.07 angstrom squared. Source review: devtools/data/tpsa_logp_contract_review_20261026.json.",
         "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "versioned-reference",
+        "test": "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+        "oracle": "Atomic OH contribution of 20.23 angstrom squared is retained with zero carbon contribution and repeated atom selection in complete ethanol context. Original references and coefficients are documented in the assertion-bearing test.",
+        "tolerance": "float64_kernel_atol"
       }
     ],
     "gap": "Only bounded original-fragment sums independently checked; no general transport/permeability, solvent exposure, metal/radical, arbitrary unsupported chemistry or all-fragment scientific validation. N/O and N/O/S/P remain explicit provider variants."
@@ -171,7 +177,7 @@
   "molsysmt.physchem.get_lipophilicity": {
     "domain": "physchem",
     "status": "partial",
-    "claim": "Bounded Wildman-Crippen primary atomic sums for methane, ethane and benzene; state-preserving model scores, not logD or a general experimental logP accuracy claim.",
+    "claim": "Bounded Wildman-Crippen primary atomic sums for methane, ethane and benzene; state-preserving model scores, not logD or a general experimental logP accuracy claim. Bounded atomic-context and hydrogen-attribution controls also cover the selected-contribution extension.",
     "units": [
       "dimensionless"
     ],
@@ -182,6 +188,12 @@
         "class": "versioned-reference",
         "test": "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
         "oracle": "Wildman and Crippen (1999), doi:10.1021/ci990307l, Table 1: C1=0.1441, C18=0.1581, H1=0.1230. Independent methane, ethane and benzene atomic sums. Author-uploaded primary text inspected 2026-10-27; original method and executed RDKit implementation remain distinct.",
+        "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "versioned-reference",
+        "test": "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+        "oracle": "Primary methane C1/H1 contributions match indexed atom values and the declared nonindexed-H folding convention. Original references and coefficients are documented in the assertion-bearing test.",
         "tolerance": "float64_kernel_atol"
       }
     ],
