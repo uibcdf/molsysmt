@@ -537,3 +537,108 @@ values remain unchanged. The complete reference-table claim has independent
 primary-table controls; no sequence-prediction or observed-assignment accuracy
 is implied. See [its implementation receipt](../../devtools/data/secondary_structure_propensity_implementation_20261026.json).
 The wider catalogue and remaining variant/source decisions keep #485 open.
+
+## Broader physicochemical priorities — 2026-10-26
+
+**Requested:** the maintainer asked whether further reference tables risk making
+`physchem` an outdated property catalogue. This is an inspected capability review
+and a recommendation for discussion, not implementation authorization or an
+accuracy benchmark. The earlier ranking compared a bounded set of reference and
+sequence readers; it must not be interpreted as the priority of the entire module.
+
+A classic scale remains useful for reproducing a published descriptor. Its age
+alone does not invalidate it, but a name-based amino-acid lookup cannot represent
+the actual molecule's protonation, conformation, solvent exposure or local
+field. Adding more such lookups has diminishing value after the two bounded
+readers already delivered. Conversely, a recent learned method is not inherently
+more accurate, physically interpretable or appropriate outside its training domain.
+The useful distinction is reference data versus explicit molecular models and
+coordinate-dependent observables, with declared applicability and evidence.
+
+### Inspected existing foundation
+
+At source 5681f5e78, `physchem` already exposes coordinate-based SASA, chemical
+readiness, aromaticity/CIP interpretation, charge centers, site recognition and
+partial-charge tools in addition to reference scales. These must be reused.
+`get_partial_charges` currently supports Gasteiger–Marsili through RDKit and
+force-field template charges through OpenMM, with explicit chemical admission
+and charge conservation. It does not currently expose AM1-BCC, NAGL or general
+quantum-derived charges. A bounded search found no public TPSA/logP, dipole,
+electrostatic-potential or general electronic-property reader in the inspected
+physchem exports. This is a source inventory, not proof of missing capability
+in every external adapter.
+
+### Recommended capability priorities
+
+| Priority | Capability and concrete use | Existing pieces / candidate reference | Boundary to settle before coding |
+| --- | --- | --- | --- |
+| First bounded tranche | State-aware molecular TPSA and predicted logP, useful to DockingMT and PharmacophoreMT | Complete chemical graph and RDKit conversion; official RDKit `CalcTPSA` and Wildman–Crippen `MolLogP` | Whole-molecule population; declared protonation/tautomer and hydrogen treatment; model definition, contributions and units. A selected fragment must not become a silently capped molecule. TPSA is a topological area descriptor, not geometric SASA; predicted logP is not pH-dependent logD. Client usefulness is a hypothesis pending feedback. |
+| High scientific value, larger contract | Environment-dependent pKa and state populations | Existing ChemicalStates, chemical preparation and uibcdf/molsysmt#177; PROPKA | Protein/complex applicability, index maps, required coordinates and protonation model. pKa, site occupancy and coupled microstate probabilities are distinct. A collection of predicted pKa values is not automatically a validated microstate ensemble. |
+| Extend an existing tool | Additional partial-charge models for small molecules | Existing public charge calculation/assignment split; OpenFF Toolkit AM1-BCC and OpenFF NAGL | Explicit provider/model and model-file identity, chemical domain, conformer generation policy, total charge, original atom maps and force-field compatibility. Do not silently change charge methods based on installed software. |
+| Structure-dependent descriptors | Polar/nonpolar solvent exposure and interface burial; dipole from declared point charges | Existing SASA, charge retrieval, coordinate/geometry/PBC tools | Explicit atom classification and radii/probe; complex versus separated reference state for burial. Charge-based dipoles require a declared origin for charged systems, compact molecular reconstruction under PBC, charge model and units. A point-charge dipole is not an electronic-structure calculation. Geometric shape primitives remain in `structure`. |
+| Later provider integration | Electrostatic potentials and continuum-solvation properties | APBS; existing charges, radii and structural forms | Explicit dielectric/ionic-strength/temperature, boundary conditions, grid and units. Input preparation and iterative workflows may belong in Praxis; do not reimplement a mature solver or equate Coulomb and screened Poisson–Boltzmann models. |
+| Research/client-driven | Electronic properties and local atomistic descriptors | xTB electronic-property interfaces; DScribe SOAP/MBTR | Separate approximate electronic observables from representation vectors. Require charge/spin, geometry, method and model domain. SOAP vectors have an explicit basis/species/cutoff and are not direct physical measurements. No indiscriminate learned-descriptor catalogue or hard dependency is proposed. |
+
+### Sources and limits
+
+Official documentation inspected on 2026-10-26:
+
+- [RDKit molecular descriptors](https://www.rdkit.org/docs/source/rdkit.Chem.rdMolDescriptors.html)
+  and [Crippen](https://www.rdkit.org/docs/source/rdkit.Chem.Crippen.html)
+  document TPSA and atom-based logP/MR. These established models are not recent
+  inventions; their value here is chemical-graph-based molecular scope and
+  integration into current workflows. Original formulas/units still require
+  bounded verification before implementation.
+- [OpenFF charge assignment](https://docs.openforcefield.org/projects/toolkit/en/stable/api/generated/openff.toolkit.topology.Molecule.html)
+  distinguishes charge methods, conformer use and provider requirements.
+  In particular AM1-BCC-ELF10 is not interchangeable with single-conformer AM1-BCC.
+- [NAGL AM1-BCC GNN model](https://docs.openforcefield.org/projects/nagl-models/en/stable/models/openff-gnn-am1bcc-1.0.0/)
+  targets charges resembling an ELF10 implementation, with a specified element
+  domain and molecular charge constraint. This does not establish universal
+  electrostatic accuracy or justify replacing force-field charges.
+- [PROPKA](https://propka.readthedocs.io/en/stable/command.html)
+  predicts ionizable-group pKa from protein/complex structures; the existing #177
+  owns integration decisions. That source is not evidence of a universal
+  arbitrary-ligand pKa model.
+- [APBS](https://apbs.readthedocs.io/en/latest/)
+  supplies continuum electrostatics. Solver outputs depend on the declared
+  physical model and preparation; no solver or package qualification was run.
+- [xTB properties](https://xtb-docs.readthedocs.io/en/latest/properties.html)
+  expose dipoles, population charges, orbital information and bond-order
+  analysis. This inspection does not establish their accuracy for MolSysMT clients.
+- [DScribe SOAP](https://singroup.github.io/dscribe/latest/tutorials/descriptors/soap.html)
+  specifies local geometric representations with configurable species, cutoff,
+  basis, periodicity and output size. Fingerprint quality requires a downstream
+  task and benchmark, not a declaration of generic physical superiority.
+
+Method and implementation names must remain distinct. Use named original
+criteria/models where known, credit faithful/adapted implementations separately
+and retain method parameters, units, producer versions and optional Ackredit
+attribution. Python form-agnostic validation, explicit chemical-state admission,
+source maps and lazy providers are more valuable than copying a provider's entire
+API. Calculations need bounded execution for large structure sets; no performance
+or memory claim is made without workload measurements.
+
+### Proposed direction; maintainer decision pending
+
+Pause automatic expansion of the reference-scale catalogue. Keep the completed
+bulkiness/Levitt readers for reproducibility and record the remaining variants.
+The next new bounded molecular-property design should compare TPSA and logP
+contracts; pursue environment-sensitive pKa under its existing owner in parallel
+only when its larger mapping/preparation contract is accepted. Evaluate charge
+model extensions against actual force-field/client needs.
+
+Simple graph counts belong in `topology` when reusable independently; chemistry
+interpretation remains in `physchem`, HB-specific definitions in
+`interactions.hbonds`, observed interactions in `interactions`, construction and
+stored assignment in `build`/ChemicalStates, geometric operations in `structure`
+and periodic reconstruction in `pbc`. Small-molecule-specific wrappers may use
+`element.molecule.small_molecule`, but the model and generally useful operations
+must not be hidden in client pipelines. Scientific workflow orchestration and
+compound scores such as drug-likeness may belong in the consuming component or
+Praxis rather than becoming universal physical attributes.
+
+This recommendation does not remove existing APIs, add a dependency, adopt a
+new predictor, or move the 1.0 publication boundary. Original-source, license,
+provider compatibility, client feedback and benchmark reviews are still needed
+for each adopted capability. No extra implementation is included in #490.
