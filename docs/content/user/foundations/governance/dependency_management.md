@@ -19,3 +19,10 @@ Dependency status is managed centrally through **DepDigest** ([https://www.uibcd
 - **Lazy Import Policy**: Soft dependencies are never imported at top-level module evaluation. They are imported inside functions or methods on demand.
 - **The `@dep_digest` Decorator**: Functions requiring optional libraries use `@dep_digest(library)` to verify availability before execution, offering clear installation instructions if missing.
 - **Capability Inspection**: Users can inspect installed ecosystem capabilities dynamically via `molsysmt.configure.show_all_capabilities`.
+
+Optional capabilities can also require a compatibility constraint on a
+provider's transitive dependency. The `soft` extra excludes PyParsing 3.3.3 for
+MDTraj input selection; this does not make either package a hard dependency.
+Existing externally assembled environments must also satisfy the constraint.
+See {ref}`user-foundations-support-selection-syntaxes` for the affected
+comparisons, supported checked pairs and update instructions.

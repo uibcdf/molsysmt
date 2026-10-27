@@ -57,6 +57,8 @@ molsysmt-tools = "molsysviewer_molsysmt.tools"
 [project.optional-dependencies]
 soft = [
   "mdtraj",
+  # MDTraj's transitive parser regression; keep Python 3.11 support (#484).
+  "pyparsing!=3.3.3",
   "openmm",
   "openmmtools",
   "MDAnalysis",

@@ -46,6 +46,11 @@ a provisional angstrom² table convention; original-paper verification stays ope
 observable exploration. These source contracts require applicable new candidate
 qualification; they do not change the publication pause or prior artifact evidence.
 
+The #484 compatibility correction excludes PyParsing 3.3.3 in optional/source
+test solve routes without raising MDTraj's global floor or removing Python
+3.11 support. The existing development runtime now uses validated PyParsing
+3.3.2; this is source/development evidence, not a new installed release pair.
+
 ## Release coordination paused — 2026-10-08
 
 On 2026-10-20 the maintainer extends the publication postponement by a couple

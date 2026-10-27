@@ -1,0 +1,874 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#484",
+  "source_parent": "a5a1e66d189715897f14ea758658f7cbc8675c65",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "installed_mdtraj": "1.11.1",
+    "installed_pyparsing_at_start": "3.3.3"
+  },
+  "source_sha256": {
+    "pyproject.toml": "c5eef59dad792e349880a7ea48d24cb8a8d7f0ea68d10fbaca7449f85b5a8a06",
+    "devtools/conda-envs/development_env.yaml": "d9980f9a67290e625ef969abe050fe5499e58cef4d5327f612754ca83958280d",
+    "devtools/conda-envs/test_env.yaml": "1b977f7753fa50c0c3906ffe29a1e5f95675bebefad25e8bba043a7a10ba1265",
+    "tests/basic/select/test_mdtraj_comparisons.py": "6f597a5add24901c3b80bafa8d2ca1f4fcd8384662790a2b5104a38706b7b324",
+    "devtools/tests/test_mdtraj_parser_constraint.py": "25f06b9ced262b2352a3e5c2442b696c24ff85b2cf4abde2f0a7e2857f7330b8"
+  },
+  "upstream": {
+    "parser_regression": "https://github.com/pyparsing/pyparsing/issues/672",
+    "provider_confirmation": "https://github.com/mdtraj/mdtraj/issues/2190",
+    "mdtraj_1_11_2_metadata": {
+      "info": {
+        "version": "1.11.2",
+        "requires_python": ">=3.12",
+        "requires_dist": [
+          "numpy~=2.0",
+          "packaging",
+          "pyparsing!=3.3.3",
+          "scipy",
+          "mdtraj[optional]; extra == \"all\"",
+          "mdtraj[tests]; extra == \"all\"",
+          "netcdf4; extra == \"optional\"",
+          "networkx; extra == \"optional\"",
+          "pandas; extra == \"optional\"",
+          "pyarrow; extra == \"optional\"",
+          "tables; extra == \"optional\"",
+          "pytest; extra == \"tests\"",
+          "pytest-recording; extra == \"tests\"",
+          "pytest-rerunfailures; extra == \"tests\"",
+          "pytest-xdist; extra == \"tests\""
+        ]
+      }
+    }
+  },
+  "parser_matrix": [
+    {
+      "mdtraj": "1.11.1",
+      "pyparsing": "3.2.5",
+      "parser_path": "/tmp/molsysmt-484-parser-matrix/pyparsing-3.2.5-py3-none-any.whl/pyparsing/__init__.py",
+      "results": [
+        {
+          "operator": "<",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "<=",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">=",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "==",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "!=",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "lt",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "le",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "gt",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ge",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "eq",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ne",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        }
+      ],
+      "wheel": {
+        "filename": "pyparsing-3.2.5-py3-none-any.whl",
+        "sha256": "e38a4f02064cf41fe6593d328d0512495ad1f3d8a91c4f73fc401b3079a59a5e",
+        "url": "https://files.pythonhosted.org/packages/10/5e/1aa9a93198c6b64513c9d7752de7422c06402de6600a8767da1524f9570b/pyparsing-3.2.5-py3-none-any.whl"
+      }
+    },
+    {
+      "mdtraj": "1.11.1",
+      "pyparsing": "3.3.0",
+      "parser_path": "/tmp/molsysmt-484-parser-matrix/pyparsing-3.3.0-py3-none-any.whl/pyparsing/__init__.py",
+      "results": [
+        {
+          "operator": "<",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "<=",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">=",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "==",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "!=",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "lt",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "le",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "gt",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ge",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "eq",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ne",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        }
+      ],
+      "wheel": {
+        "filename": "pyparsing-3.3.0-py3-none-any.whl",
+        "sha256": "d15038408e0097d3a01e7e0846731f7f2450c5b6e4a75a52baabd6bbf24585be",
+        "url": "https://files.pythonhosted.org/packages/c8/23/c8dd17cbb1bd6614f306a983e260e31c01f3e8e8cc8954ba68749db6ae82/pyparsing-3.3.0-py3-none-any.whl"
+      }
+    },
+    {
+      "mdtraj": "1.11.1",
+      "pyparsing": "3.3.1",
+      "parser_path": "/tmp/molsysmt-484-parser-matrix/pyparsing-3.3.1-py3-none-any.whl/pyparsing/__init__.py",
+      "results": [
+        {
+          "operator": "<",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "<=",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">=",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "==",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "!=",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "lt",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "le",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "gt",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ge",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "eq",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ne",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        }
+      ],
+      "wheel": {
+        "filename": "pyparsing-3.3.1-py3-none-any.whl",
+        "sha256": "023b5e7e5520ad96642e2c6db4cb683d3970bd640cdf7115049a6e9c3682df82",
+        "url": "https://files.pythonhosted.org/packages/8b/40/2614036cdd416452f5bf98ec037f38a1afb17f327cb8e6b652d4729e0af8/pyparsing-3.3.1-py3-none-any.whl"
+      }
+    },
+    {
+      "mdtraj": "1.11.1",
+      "pyparsing": "3.3.2",
+      "parser_path": "/tmp/molsysmt-484-parser-matrix/pyparsing-3.3.2-py3-none-any.whl/pyparsing/__init__.py",
+      "results": [
+        {
+          "operator": "<",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "<=",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">=",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "==",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "!=",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "lt",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "le",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "gt",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ge",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "eq",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ne",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        }
+      ],
+      "wheel": {
+        "filename": "pyparsing-3.3.2-py3-none-any.whl",
+        "sha256": "850ba148bd908d7e2411587e247a1e4f0327839c40e2e5e6d05a007ecc69911d",
+        "url": "https://files.pythonhosted.org/packages/10/bd/c038d7cc38edc1aa5bf91ab8068b63d4308c66c4c8bb3cbba7dfbc049f9c/pyparsing-3.3.2-py3-none-any.whl"
+      }
+    },
+    {
+      "mdtraj": "1.11.1",
+      "pyparsing": "3.3.3",
+      "parser_path": "/tmp/molsysmt-484-parser-matrix/pyparsing-3.3.3-py3-none-any.whl/pyparsing/__init__.py",
+      "results": [
+        {
+          "operator": "<",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "<=",
+          "expected": [
+            0,
+            1
+          ],
+          "passed": false,
+          "error": "ValueError",
+          "cause": "                                                                                                 ^^^"
+        },
+        {
+          "operator": ">",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": ">=",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "passed": false,
+          "error": "ValueError",
+          "cause": "                                                                                                 ^^^"
+        },
+        {
+          "operator": "==",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "!=",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "lt",
+          "expected": [
+            0
+          ],
+          "observed": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "operator": "le",
+          "expected": [
+            0,
+            1
+          ],
+          "observed": [
+            0,
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "gt",
+          "expected": [
+            2,
+            3
+          ],
+          "observed": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ge",
+          "expected": [
+            1,
+            2,
+            3
+          ],
+          "observed": [
+            1,
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "operator": "eq",
+          "expected": [
+            1
+          ],
+          "observed": [
+            1
+          ],
+          "passed": true
+        },
+        {
+          "operator": "ne",
+          "expected": [
+            0,
+            2,
+            3
+          ],
+          "observed": [
+            0,
+            2,
+            3
+          ],
+          "passed": true
+        }
+      ],
+      "wheel": {
+        "filename": "pyparsing-3.3.3-py3-none-any.whl",
+        "sha256": "ece8c00a69cf01b45d0b1dedabb469c90d8caf996d4fda40f147627a122849a4",
+        "url": "https://files.pythonhosted.org/packages/38/bb/d215ee7c73b61497b28a5503f9f53523f294fcc936762b7caf90e0c1c2b5/pyparsing-3.3.3-py3-none-any.whl"
+      }
+    }
+  ],
+  "local_tests": {
+    "baseline": {
+      "command": "python -m pytest tests/basic/select/test_mdtraj_comparisons.py --receptor=llm -n 12",
+      "result": "28 failed, 44 passed",
+      "seconds": 12.35,
+      "log": "/tmp/molsysmt-484-public-before-final.log"
+    },
+    "compatible_public_and_metadata": {
+      "command": "PYTHONPATH=<verified 3.3.2 wheel> python -m pytest tests/basic/select/test_mdtraj_comparisons.py devtools/tests/test_mdtraj_parser_constraint.py --receptor=llm -n 12",
+      "result": "75 passed",
+      "seconds": 10.31,
+      "log": "/tmp/molsysmt-484-public-after-final.log"
+    },
+    "regression": {
+      "command": "PYTHONPATH=<verified 3.3.2 wheel> python -m pytest tests/basic/select tests/topology/test_chemical_reference_selection.py devtools/tests/test_mdtraj_parser_constraint.py devtools/tests/test_audit_dependency_contract.py --receptor=llm -n 12",
+      "result": "292 passed; 18 expected legacy-H5MSM warnings",
+      "seconds": 12.85,
+      "log": "/tmp/molsysmt-484-regression.log"
+    },
+    "installed_runtime": {
+      "command": "python -m pytest tests/basic/select tests/topology/test_chemical_reference_selection.py devtools/tests/test_mdtraj_parser_constraint.py devtools/tests/test_audit_dependency_contract.py --receptor=llm -n 12",
+      "result": "292 passed; 16 expected legacy-H5MSM warnings",
+      "seconds": 12.13,
+      "log": "/tmp/molsysmt-484-installed-regression.log",
+      "imports": "Actual Conda-installed MDTraj 1.11.1 and PyParsing 3.3.2; no PYTHONPATH overlay."
+    }
+  },
+  "checks": {
+    "notebook_schemas": "491 passed in 8.05 seconds",
+    "fast_release_gates": "14/14 passed",
+    "html": "Incremental compilation: zero errors, 50 warnings under #144; not comparable to a fresh build baseline.",
+    "dependency_contract_audit": "PASS",
+    "soft_import_audit": "PASS",
+    "notebook_payloads": "Three notebooks change prose only; code, outputs and metadata identical.",
+    "installed_runtime_fast_release_gates": "14/14 passed without a parser overlay."
+  },
+  "decision": "Exclude only pyparsing 3.3.3 in optional soft installation and maintained development/test environments. Do not raise the global MDTraj minimum to 1.11.2 because its Python floor is 3.12. No runtime selector changes.",
+  "limitations": [
+    "Only Linux/Python 3.14.7 measured; this is not a cross-platform, full scientific suite or installed MolSysMT/Viewer pair qualification.",
+    "The parser matrix uses process-local wheel imports, not full clean installations.",
+    "Later PyParsing versions are not inferred to be validated; no 3.3.4 artifact was available at inspection.",
+    "The original incomplete native fixture conversion attempt is excluded from defect evidence."
+  ],
+  "installed_correction": {
+    "name": "pyparsing",
+    "version": "3.3.2",
+    "build": "pyhcf101f3_0",
+    "url": "https://conda.anaconda.org/conda-forge/noarch/pyparsing-3.3.2-pyhcf101f3_0.conda",
+    "sha256": "417fba4783e528ee732afa82999300859b065dc59927344b4859c64aae7182de",
+    "scope": "Mamba changes only pyparsing from 3.3.3 to 3.3.2 in the existing shared development environment; no auxiliary environment or package-provider patch."
+  }
+}

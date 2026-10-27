@@ -20,10 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
-- [`mdtraj_symbolic_comparison_compatibility.md`](mdtraj_symbolic_comparison_compatibility.md) — [#484](https://github.com/uibcdf/molsysmt/issues/484) — The installed MDTraj parser rejects symbolic non-strict comparisons. *(medium, reproduced)*
 
 ### Partially resolved (2)
 

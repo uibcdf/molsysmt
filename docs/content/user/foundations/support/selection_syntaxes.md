@@ -27,3 +27,30 @@ an empty selection; `not bonded to` that operand retains the left selection.
 An empty match is valid even inside a larger logical expression. Missing or
 ambiguous chemistry continues to raise its documented diagnostic. See
 {ref}`Tutorial_Select` for connectivity selection examples.
+
+## MDTraj parser compatibility
+
+MDTraj input selection uses its installed PyParsing provider. PyParsing 3.3.3
+regresses symbolic `<=` and `>=` comparisons; MolSysMT's optional `soft` extra
+and maintained development/test environments exclude that exact version.
+MDTraj 1.11.2 also excludes it in its public dependency metadata, but requires
+Python 3.12 or later. MolSysMT therefore keeps older MDTraj available on Python
+3.11 and constrains the transitive parser rather than raising MDTraj's floor.
+
+For an existing Conda environment containing the incompatible parser, resolve
+the dependency explicitly:
+
+```bash
+mamba install -c conda-forge 'pyparsing!=3.3.3'
+```
+
+With MDTraj 1.11.1, twelve symbolic/alias comparisons were verified using
+PyParsing 3.2.5, 3.3.0, 3.3.1 and 3.3.2 on Linux/Python 3.14.7. Future parser
+releases still require normal compatibility checks. The explicit `le` and `ge`
+aliases work in the observed 3.3.3 pair, but MolSysMT does not rewrite queries,
+patch the provider or silently change syntax. Provider parsing failures retain
+their cause in the public `ArgumentError`.
+
+See [MDTraj #2190](https://github.com/mdtraj/mdtraj/issues/2190),
+[PyParsing #672](https://github.com/pyparsing/pyparsing/issues/672) and
+[MolSysMT #484](https://github.com/uibcdf/molsysmt/issues/484).
