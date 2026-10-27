@@ -1378,10 +1378,11 @@ ProtOr tools, four reference-descriptor tables, conformational SASA and two
 stored-chemistry reports, plus stored aromatic-ring recognition and detached
 aromaticity perception and three chemical-feature readers (formal-charge
 centers, hydrophobic atoms and ordered halogen sites). SASA and the chemical
-readers have bounded receiving, not universal scientific qualification. Ten of
-the 31 reviewed native exports, including the newly added bulkiness lookup,
-further feature perception and chemical preparation, remain pending
-in the addon.
+readers have bounded receiving, not universal scientific qualification. The
+inspected native inventory has grown to 32 exports; eleven, including bulkiness,
+secondary-structure propensities, further feature perception and chemical
+preparation, remain pending in the addon. The source gate below retains its
+31-export baseline and does not qualify the later native addition.
 
 | Tool | Native result and received scope |
 | --- | --- |
@@ -1777,8 +1778,15 @@ structure-associated SMARTS requests retain the public selector restrictions;
 use MolSysMT syntax or explicit atom indices where required. The addon neither
 translates selectors nor changes states to make a request succeed.
 
-Results are detached scientific reports. Editing their arrays or metadata does
-not edit the primary or scene. Calls resolve the current resident `view.molsys`,
+Numeric feature arrays are independent reports; editing them does not edit
+the primary or scene. Result-level reference metadata has a separate ownership
+limit: source `02671792f` shares mutable `method_reference` dictionaries between
+the SMARTS readers, tracked under [#490](https://github.com/uibcdf/molsysmt/issues/490).
+Editing that field can contaminate later reported method references, including
+the other reader. Keep reference declarations unchanged until using a qualified
+provider repair. This source gate does not certify arbitrary mutation of returned
+reference metadata; the addon supplies no consumer-specific copy or transformation.
+Calls resolve the current resident `view.molsys`,
 including after replacement and while managed edits await synchronization;
 they neither call `sync_view()` nor accept `update_view`. Optional RDKit absence
 and unsupported chemistry retain native diagnostics. These adapters do not

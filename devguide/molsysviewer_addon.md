@@ -28,8 +28,11 @@ explicit single-structure/state scopes and native readiness external syntax
 repaired under uibcdf/molsysmt#480; independent unequal-cardinality persistence
 is repaired under uibcdf/molsysmt#481. Two aromatic participant/flag
 readers brought physchem exposure to eighteen of thirty reviewed exports.
-Three feature readers now bring current exposure to 21/31 after native bulkiness
-was added; ten remain pending. The native SMARTS reference repair is received under #488. Native graph selector/scope repairs are received
+Three feature readers bring exposure to 21 tools on the qualified 31-export
+baseline. Native 5681f5e78 adds secondary-structure propensities: the inspected
+inventory is now 32, with eleven pending addon tools. The newer native reader
+is not qualified by the older source gate. The SMARTS repair is received under
+#488; baseline reference-metadata ownership is tracked in #490. Native graph selector/scope repairs are received
 under uibcdf/molsysmt#482 / #483; source evidence and remaining limits are
 recorded in the dated section below.
 Other scientific namespaces, edit families and graphical task panels remain pending. Old root entry points and retired adapter files remain
@@ -1167,8 +1170,8 @@ environment also has stale 3.3.3 distribution metadata, so its metadata alone
 must not be reported as the executed parser or a clean package qualification.
 The SMARTS selection branch originally lost the reference request; native
 uibcdf/molsysmt#488 repairs the shared-boundary delegation. Positive default/None
-reference and nonzero-reference receiving now passes for all three feature tools. The initial reopen of #482 was
-restored to its qualified aromatic/ring scope to preserve the immutable archive.
+reference and nonzero-reference receiving now passes for all three feature tools.
+The initial reopen of #482 was restored to its qualified aromatic/ring scope to preserve the immutable archive.
 Explicit and structure-associated SMARTS syntax retains its native restrictions;
 the facade supplies no selector or state rewrite.
 
@@ -1180,6 +1183,29 @@ file. These are distinct source observations, not two full-suite gates. The
 CI is recorded after final integration. The received native repair is fixed at
 `c64e3599c2b772320b8bb4ec5e1842d3f997a63b`; all four tested native files match
 that commit byte for byte. The [source receipt](../devtools/data/molsysviewer_tools_feature_sites_receiving_20261026.json)
-retains the initial failures, sequential test phases, provenance and exclusions. This scope does not qualify
-all chemistry, optional-provider absence, installed artifacts, graphical panels,
+retains the initial failures, sequential test phases, provenance and exclusions.
+This scope does not qualify all chemistry, optional-provider absence, installed artifacts, graphical panels,
 benchmarks or release candidates. Both 1.0 publications remain paused.
+
+
+### Feature readers: exact-source CI received — 2026-10-26
+
+Producer `02671792f3b90de654b467683a8d394118dc4ccb` completes all six source controls.
+[Fixed-ref smoke 40446657873](https://github.com/uibcdf/molsysmt/actions/runs/40446657873)
+passes 2,293 native and 1,548 addon cases with zero failures,
+errors or skips. This includes the native SMARTS reference guard and the expanded
+81-case consumer feature file. Dependency 40445094701, Ruff 40445094654, guide
+integrity 40445094707, suite policy 40445095033 and Conda governance 40445095086
+also pass. The [terminal CI receipt](../devtools/data/molsysviewer_tools_feature_sites_source_ci_20261026.json) retains exact source/job/step
+identity and original-log SHA-256 `7d2c3ee12b8bbd4ebff4a00214cac570eb3b145509e9d7208b73a2d3eef014e5`. This supersedes the pending hosted
+state in the immutable local receipt without changing its sequential evidence.
+Original main smoke 40445094772 remains cancelled; one manual recovery uses
+`receiving/physchem-sites-02671792f` at the same SHA, isolating the source gate
+from concurrent main pushes. The original cancellation is retained in the receipt.
+Native mutable reference metadata remains tracked under uibcdf/molsysmt#490;
+these passing cases do not qualify arbitrary mutation of returned references.
+At this producer ten native paths remain unwrapped. Subsequent native 5681f5e78
+adds secondary-structure propensities: the inspected inventory is now 32, with
+21 wrappers and eleven pending tools. The newer export is not qualified by this
+older source gate. GUI and installed qualification remain pending; no host
+runtime, package floor or paused-publication change is introduced.

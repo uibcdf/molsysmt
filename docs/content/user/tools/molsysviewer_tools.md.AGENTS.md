@@ -120,6 +120,14 @@ attribution separate from interactions and rendering. Default/None-reference MDT
 works for all three readers after native #488; explicit/associated SMARTS states
 retain their selector restrictions. No selector
 rewrite, implicit preparation or scene synchronization. The current reviewed
-inventory has 31 native physchem exports after bulkiness was added; 21 have
-wrappers and ten, including bulkiness, remain pending. This is source exposure,
+inventory has 32 native physchem exports after bulkiness and secondary-structure
+propensities were added; 21 have wrappers and eleven, including both new readers,
+remain pending. The qualified source baseline still has 31 native exports. This is source exposure,
 not installed or universal scientific qualification.
+
+
+Keep #490's reference-metadata ownership limit explicit for the 02671792f
+qualification baseline: independent numeric arrays and primary/scene preservation
+do not establish independence of every metadata dictionary. A native repair
+needs its own receiving; never silently deepcopy results in this consumer or
+claim the older green source gate qualifies later metadata changes.
