@@ -24,6 +24,8 @@ class _PhyschemTools:
         "get_sasa",
         "get_hydrogen_inventory",
         "get_chemical_readiness",
+        "get_aromatic_rings",
+        "get_aromaticity",
     )
 
     def __init__(self, owner):
@@ -385,6 +387,61 @@ class _PhyschemTools:
                 "selection": selection,
                 "structure_indices": structure_indices,
                 "chemical_state": chemical_state,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_aromatic_rings", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_aromatic_rings(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        definition="stored_aromatic_bonds",
+        method="minimum_cycle_basis",
+        assume_complete_connectivity=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_cyclic_block_size=256,
+    ):
+        return self._call(
+            "get_aromatic_rings",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "definition": definition,
+                "method": method,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_cyclic_block_size": max_cyclic_block_size,
+            },
+        )
+
+    @_native_documentation("get_aromaticity", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_aromaticity(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="fused_ring_electron_count",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_aromaticity",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },

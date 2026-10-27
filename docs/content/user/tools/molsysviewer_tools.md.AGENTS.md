@@ -73,7 +73,7 @@ units and containers, explicit definitions, missing-table errors and the
 separation between tabulated group charge and parameterized partial charge.
 Keep OpenMM form/box prerequisites and pending-reader behavior visible.
 The native selection/scope repairs are now received: preserve positive syntax
-checks and explicit unsupported-level rejection. Do not present the other 14 physchem
+checks and explicit unsupported-level rejection. Do not present the other 12 physchem
 exports as received or introduce implicit coloring, preparation or assignment.
 
 
@@ -101,3 +101,11 @@ explicit. Do not interpret availability as chemical validity or introduce repair
 assignment, a universal ready flag or a file-backed view query promise.
 Preserve positive default-reference readiness syntax receiving under
 uibcdf/molsysmt#480 and the separate restrictions for explicit/associated states.
+
+
+Preserve the separation between stored aromatic-ring memberships and detached
+RDKit-model perception. Keep full-graph prerequisites, explicit declarations,
+whole/fused ring selection, packed source axes, nonunique basis and block bounds.
+Perception neither assigns flags nor prepares the stored-ring reader. Preserve
+internal-bond output filtering, model attribution and received native #482/#483 reference/frame contracts
+without downstream scientific workarounds.

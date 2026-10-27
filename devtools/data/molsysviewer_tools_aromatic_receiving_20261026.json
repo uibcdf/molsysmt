@@ -1,0 +1,176 @@
+{
+  "schema": "molsysmt.viewer_tools_aromatic_receiving@1",
+  "date": "2026-10-26",
+  "base_source": "8cf8b0107b4772c48d220416dc9a4e1f36b38679",
+  "host_source": "7e7588b26b0cddc9a83678d7325de9f280154ad6",
+  "scope": "Experimental resident-primary readers; native scientific contracts/results retained. No host runtime, preparation, scene projection, installed package, optional-provider absence or release qualification.",
+  "new_paths": [
+    "view.addons.molsysmt.physchem.get_aromatic_rings",
+    "view.addons.molsysmt.physchem.get_aromaticity"
+  ],
+  "reviewed_physchem": {
+    "source_exposed": 18,
+    "total_reviewed": 30,
+    "pending": 12
+  },
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "python": "3.14.7",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "rdkit": "2025.9.5",
+      "mdtraj": "1.11.1",
+      "pyparsing": "3.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394"
+    }
+  },
+  "fixtures": [
+    "Real bundled caffeine with explicit pre-view group/chain declarations, aromatic atom/bond flags, three coordinate copies and distinct structure IDs 70/200.",
+    "Explicit biphenyl RDKit graph with a nonaromatic bridge joining aromatic atoms; 2D coordinates are fixture geometry, not aromaticity evidence.",
+    "Real dialanine replacement and named evaluated-empty interactions/region preserve current-primary, managed-edit and scene ownership checks."
+  ],
+  "guards": [
+    "tests/molsysviewer_molsysmt/test_aromatic_tools.py",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py"
+  ],
+  "phases": {
+    "broad_applicable": {
+      "base_source": "35ef8f5f23d5d3a0cce5ff3209172b71b2f62982",
+      "counts": {
+        "tests": 1935,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "aromatic_cases": 51,
+      "arguments": [
+        "--receptor=llm",
+        "-n",
+        "4",
+        "-o",
+        "faulthandler_timeout=120",
+        "tests/molsysviewer_molsysmt/",
+        "tests/physchem/get_sasa/",
+        "tests/physchem/get_hydrogen_inventory/",
+        "tests/physchem/test_get_chemical_readiness.py",
+        "tests/physchem/test_get_aromatic_rings.py",
+        "tests/physchem/test_get_aromaticity.py",
+        "tests/physchem/test_collantes_legacy_contract.py",
+        "tests/form/file_h5msm/test_associations_v05_probe.py",
+        "tests/scientific_truth/physchem/test_sasa.py",
+        "devtools/tests/test_native_viewer_integration.py",
+        "devtools/tests/test_validate_rust_wheel.py",
+        "devtools/tests/test_validate_rust_sdist.py",
+        "devtools/tests/test_audit_dependency_contract.py",
+        "devtools/tests/test_validate_devguide.py",
+        "--junitxml=/tmp/msv-aromatic-regression.xml"
+      ],
+      "started": "2026-10-27T01:57:26.069413+00:00",
+      "finished": "2026-10-27T02:00:31.671764+00:00",
+      "source_changed": [],
+      "source_tree_digest_before": "77fa083518824d61253c3a5af02aa5f03195af051a271fc72d47b9d156b2f10c",
+      "source_tree_digest_after": "77fa083518824d61253c3a5af02aa5f03195af051a271fc72d47b9d156b2f10c",
+      "raw_source_receipt_sha256": "cd4541b2667a526d4915807ec314e0a05216b2de35a3fc91a233b32128bd7932",
+      "junit_sha256": "14fd6ab5864ace32033f99dc4b377b781ce1ba2f06dd650a929b429d05eeff76",
+      "limit": "Completed before f234396bb and 8cf8b0107; not a full regression claim on the final composition."
+    },
+    "graph_repair_followup": {
+      "base_source": "f234396bb46e384e1d3b30b369de9798aafbf91c",
+      "counts": {
+        "tests": 363,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "aromatic_cases": 93,
+      "junit_sha256": "eeabe9f5ec2730d6e5d1e438a0c05ef8e6da9c43052d5291a09554188c731a8b"
+    },
+    "final_changed_area_followup": {
+      "base_source": "8cf8b0107b4772c48d220416dc9a4e1f36b38679",
+      "counts": {
+        "tests": 910,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "warnings": {
+        "LegacyH5MSMWarning": 143
+      },
+      "junit_sha256": "48740871851505958c60beb3029ed8c523523145d2400a29802e7354bcc548dd",
+      "files": [
+        "tests/molsysviewer_molsysmt/test_aromatic_tools.py",
+        "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py",
+        "tests/molsysviewer_molsysmt/test_chemical_audit_tools.py",
+        "tests/physchem/get_surface_area/test_get_surface_area.py",
+        "tests/physchem/test_property_selection_contract.py",
+        "tests/physchem/test_collantes_legacy_contract.py",
+        "tests/topology/test_chemical_reference_selection.py",
+        "tests/topology/test_ring_structure_scope.py",
+        "tests/physchem/test_get_aromatic_rings.py",
+        "tests/physchem/test_get_aromaticity.py"
+      ]
+    },
+    "examples": {
+      "base_source": "8cf8b0107b4772c48d220416dc9a4e1f36b38679",
+      "guide_blocks": 38,
+      "inherited_native_context_doctests": 65,
+      "failures": 0,
+      "log_sha256": "30e24f5940ce161351ed2c49608a6c6d1c54f93afaef6c37adb18d08d8af65be"
+    }
+  },
+  "backend": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "provenance": "Existing frozen ABI3 backend hardlinked from retained source snapshot, no rebuild or installed qualification.",
+    "unchanged_during_broad_run": true
+  },
+  "native_repairs_received": {
+    "uibcdf/molsysmt#480": "f27406cd67c49ea7e3435c9ab856c24aa7eb965e",
+    "uibcdf/molsysmt#481": "c4b7abacd575f440bc73acfb8005a20f8cebff95",
+    "uibcdf/molsysmt#482": "f234396bb46e384e1d3b30b369de9798aafbf91c",
+    "uibcdf/molsysmt#483": "f234396bb46e384e1d3b30b369de9798aafbf91c"
+  },
+  "native_contract_change_received": {
+    "source": "8cf8b0107b4772c48d220416dc9a4e1f36b38679",
+    "path": "get_surface_area",
+    "contract": "Native standardized area quantity from provisional angstrom-squared table convention; no consumer scaling. Original paper unit/normalization/value verification remains pending under #473."
+  },
+  "additional_reports": {
+    "uibcdf/molsysmt#484": "Direct MDTraj >=/<= comparison failure in installed MDTraj 1.11.1 / PyParsing 3.3.3; no compatibility-range or clean-install claim.",
+    "uibcdf/pytest-receptor#46": "Collection SyntaxError counted as one failed executed test in compact presentation; exit 2 remains correct."
+  },
+  "corrected_attempts": [
+    "Initial expected empty selector used float NumPy indices; corrected test reference to int64, no runtime repair.",
+    "A fixture-edit missing comma produced a collection error; corrected syntax, then successful focused validation. Compact count defect reported separately.",
+    "Initial #482 draft lacked full hierarchy and used an independently broken >= comparator. Opening corrected transparently after complete-hierarchy native-only reproduction with directly validated all and all; neither refuted path is bug evidence."
+  ],
+  "exact_source_ci": "Pending final integration/commit at receipt creation. Earlier passing gates do not qualify this new source.",
+  "exclusions": [
+    "No universal aromaticity or geometric/chemical validity certificate.",
+    "No automatic assignments, hydrogen preparation, new dependencies, scene objects or synchronization.",
+    "No optional-provider-absence, GPU, out-of-memory file access, installed artifact or publication qualification."
+  ],
+  "integration_parent": "a5a1e66d189715897f14ea758658f7cbc8675c65",
+  "integration_parent_scope": "Adds reference-observable inventory tooling/docs only; no native scientific or addon implementation changes beyond tested 8cf8b0107.",
+  "authored_file_sha256": {
+    ".github/workflows/ci-smoke.yaml": "0b12a4343b1fea08d6756dbb49f460b7f216c82e52dd1a5dff757553cc8fa282",
+    "devguide/molsysviewer_addon.md": "cdc7eef7efcc6b176d92a7132a2ffb3b124cbc4a9590a611548cb1f2a17d152d",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "da98e65bd03e6d49be5190ee438ed602e237aba8f8ca16f7d35b2212369506ac",
+    "devtools/tests/run_tiers.sh": "99074b76d0ce51e500d7c41cceef0b6d0eafc891f3b28840ef4999a442eb3856",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "c04f2be7cc72df093db6504676d71fedf604b0bba478261cf413ae10fb01ad4d",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "174012e05f49fdaf998a2d112bc82f16e49dcc935ba85269d62d8c07623a0c51",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "7bc53c6586bdbb18193cdb6bc3fa71d6fdcbba449941922c658f942efb8b9cc7",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "a2b6c2c5d1db27e40cd3d3bd4fbf51bf979b90ccecd7ae4a27ecc967e30f6e60",
+    "docs/content/user/tools/molsysviewer_tools.md": "3e9b1cfb7720f59a10a23af8dcba5db1ba809157f839b77d139cc50108643eac",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "9450eb85cc3227c4df10db1696892b883ef92045e71fb213cea91bdf582123a9",
+    "docs/docs_manifest.yml": "3f4c4a2fcfde28ea2aff41774039ae214623e7a8b4eed24d7baf3aefd4f1f30b",
+    "molsysviewer_molsysmt/_basic.py": "f4c3454a47323974439c8c6761c93783ba04bf9ead2b0c1023f540e7074cfb07",
+    "molsysviewer_molsysmt/_physchem.py": "98bb42198b298e9d3ce3765512c366dc31a2eff0149a39e336bf27da7aaa6d47",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "1a13a993ed838f7c4b9f609478b764cfefffd1135d28dafc35e709a52a7c211b",
+    "tests/molsysviewer_molsysmt/test_aromatic_tools.py": "7a5117874492b01bac1fa244156337071c070dce5cafc36ce1eee307200301f6"
+  }
+}

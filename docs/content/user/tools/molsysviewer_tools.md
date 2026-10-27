@@ -1372,13 +1372,14 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes sixteen tools under
+The source addon now exposes eighteen tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
 ProtOr tools, four reference-descriptor tables, conformational SASA and two
-stored-chemistry reports. SASA has bounded CPU receiving and native limitations
-explained below; it is not universally qualified. The two reports inspect stored
-information without preparing chemistry. The other 14 reviewed native exports,
-including feature perception and chemical preparation, remain pending in the addon.
+stored-chemistry reports, plus stored aromatic-ring recognition and detached
+aromaticity perception. SASA and the chemical readers have bounded receiving,
+not universal scientific qualification. The other 12 reviewed native exports,
+including further feature perception and chemical preparation, remain pending
+in the addon.
 
 | Tool | Native result and received scope |
 | --- | --- |
@@ -1611,4 +1612,92 @@ engine is introduced by these wrappers.
 
 - {ref}`Tutorial_Hydrogen_Inventory` — counts, source scopes and scientific limits.
 - {ref}`Tutorial_Chemical_Readiness` — stored-field coverage, states and evidence.
+:::
+
+
+## Reading aromatic participants and perceiving aromatic flags
+
+The two bound tools answer different questions:
+
+| Tool | Result and prerequisites |
+| --- | --- |
+| `physchem.get_aromatic_rings(...)` | Packed complete ring participants from **stored** atom and bond aromatic flags. Requires declared complete connectivity or an explicit native completeness assumption. |
+| `physchem.get_aromaticity(...)` | Detached source-indexed atom and bond flags calculated with the explicit optional RDKit model. Requires complete supported closed-shell chemical evidence; known contradictions reject. |
+
+Neither operation stores assignments, repairs chemistry, adds hydrogens, creates
+shapes or draws interactions. Planarity alone is not chemical aromaticity.
+Perception does not silently prepare the stored-ring reader's input.
+
+This example makes the preparation explicit **before** creating the view. It
+requires RDKit for the native perception step; ring recognition itself can use
+already declared flags without that provider.
+
+```python
+import molsysmt as msm
+import molsysviewer as msv
+
+molsys = msm.convert(msm.systems["caffeine"]["caffeine.sdf"])
+flags = msm.physchem.get_aromaticity(molsys)
+msm.set(molsys, element="atom", atom_is_aromatic=flags["atom_is_aromatic"])
+msm.set(molsys, element="bond", bond_is_aromatic=flags["bond_is_aromatic"])
+
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt.physchem
+    rings = tools.get_aromatic_rings(max_cyclic_block_size=256)
+    perceived = tools.get_aromaticity(selection=[11, 1, 11, 4])
+    assert rings["atom_offsets"].tolist() == [0, 5, 11]
+    assert perceived["atom_indices"].tolist() == [1, 4, 11]
+    assert perceived["implementation"] == "rdkit.AROMATICITY_RDKIT"
+```
+
+Stored rings use `definition='stored_aromatic_bonds'` and
+`method='minimum_cycle_basis'`. Every source atom and bond requires a known
+aromatic flag, including explicit False for nonaromatic entries. Numeric output
+`atom_indices` and `atom_offsets` packs sorted atom memberships, **not cyclic
+traversal order**. Empty output has offsets `[0]`. Shared atoms may occur in
+several memberships. A basis is not every possible cycle, and ties can depend
+on atom order or NetworkX version.
+
+Select complete rings. A selection that cuts a ring raises instead of completing
+it implicitly; in fused systems a whole selected ring can still cut its neighbor.
+A nonaromatic fusion bond is omitted from the declared aromatic subgraph, so the
+result can be a perimeter instead of separate subrings. The keyword-only cyclic
+block limit bounds an expensive graph calculation; raise it only after assessing
+cost. `assume_complete_connectivity=True` is an explicit scientific declaration
+recorded in evidence, not preparation or a source edit.
+
+Perception uses `method='fused_ring_electron_count'`, implemented by the native
+`rdkit.AROMATICITY_RDKIT` route. It evaluates the whole graph before output
+selection. Atom indices are sorted and deduplicated; only bonds whose two
+endpoints are selected appear in the result. Two aromatic atoms need not have
+an aromatic joining bond. Flags, original provider versions, model references
+and attribution remain native. This supported model is not a universal
+aromaticity definition, a geometric test or a charge/protonation assignment.
+
+`chemical_state` and `structure_indices` retain native resolution. Several
+nonconsecutive/repeated structure indices can refer to one chemical state;
+a mixed structure-state request rejects instead of choosing the first state.
+The result is a chemical participant/flag report, not occurrences per structure.
+Full-graph validation precedes empty or subset output. Returned report edits do
+not alter the primary, its named analyses or the scene; readers do not call
+`sync_view()` or accept `update_view`.
+
+The native repairs under [#482](https://github.com/uibcdf/molsysmt/issues/482)
+and [#483](https://github.com/uibcdf/molsysmt/issues/483) preserve default-reference
+external syntax and validate explicit ring structure indices. Explicit or
+structure-associated chemical-state syntax keeps its native restrictions;
+unsupported combinations reject. The addon neither translates selectors nor
+adds a separate scientific range checker. This is distinct from installed
+MDTraj operator compatibility, tracked under [#484](https://github.com/uibcdf/molsysmt/issues/484).
+
+
+The primary is the current resident `view.molsys`. Native H5MSM chemistry-only
+reading capabilities do not make this bound view a new file-query API.
+Optional RDKit absence and unsupported chemistry retain native diagnostics;
+there is no provider fallback or hidden molecule preparation.
+
+:::{seealso}
+
+- {ref}`Tutorial_Get_aromatic_rings` — stored flags, sparse membership and basis limits.
+- {ref}`Tutorial_Get_Aromaticity` — model, evidence and supported chemistry.
 :::

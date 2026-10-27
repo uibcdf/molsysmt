@@ -26,7 +26,11 @@ qualified by these controlled fixtures.
 Two detached chemistry reports bring source exposure to sixteen tools, with
 explicit single-structure/state scopes and native readiness external syntax
 repaired under uibcdf/molsysmt#480; independent unequal-cardinality persistence
-is tracked under uibcdf/molsysmt#481.
+is repaired under uibcdf/molsysmt#481. Two aromatic participant/flag
+readers bring current physchem source exposure to eighteen of thirty reviewed
+exports, with twelve pending. Native graph selector/scope repairs are received
+under uibcdf/molsysmt#482 / #483; source evidence and remaining limits are
+recorded in the dated section below.
 Other scientific namespaces, edit families and graphical task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -1074,3 +1078,50 @@ The owning resolution and local qualification are
 [recorded in #480](https://github.com/uibcdf/molsysmt/issues/480).
 Unequal structure/state population persistence exposed a separate writer issue,
 uibcdf/molsysmt#481; the selection repair does not fix that storage defect.
+
+
+## Aromatic participant and flag readers — 2026-10-26
+
+Explicit `physchem.get_aromatic_rings` and `get_aromaticity` wrappers bring
+source exposure to 18/30 reviewed physchem exports; twelve remain pending.
+Both bind only the current resident primary through the serialized reader and
+forward every native scientific parameter/default and digestion flag. No host
+runtime or molecular/scene preparation is introduced.
+
+Stored participants require declared complete aromatic chemistry and whole ring
+selections, retaining sparse sorted memberships, fused/perimeter and tied-basis
+limits, explicit completeness evidence and the cyclic block bound. Perception
+uses the explicit optional RDKit model, returns detached flags with native
+attribution, filters internal bonds after full-graph evaluation and never
+assigns results to the source. These are chemical reports, not geometric
+interactions or per-structure occurrences.
+
+Native repairs f234396bb46e384e1d3b30b369de9798aafbf91c close
+uibcdf/molsysmt#482 and uibcdf/molsysmt#483: default-reference external syntax
+is retained and explicit resident ring structure indices are validated. Explicit
+and structure-associated state syntax still obeys the native selector's
+restrictions. Readiness #480 is received from f27406cd6, and c4b7abacd preserves
+explicit H5MSM maps across unequal populations. No consumer compensation is
+introduced. Installed MDTraj symbolic-comparison compatibility is separately
+tracked under uibcdf/molsysmt#484; aliases and numeric selections are not silently
+substituted. Compact collection-count presentation is pytest-receptor#46; pytest
+exit status remains authoritative.
+
+One frozen applicable regression passed 1,935 cases on 35ef8f5f plus the initial
+51 aromatic cases, before incoming native repairs. The f234396bb follow-up passed
+363 cases, including the expanded 93-case aromatic addon file. After receiving
+8cf8b0107, the changed-area follow-up passed 910 cases with no failures, errors
+or skips (143 legacy H5MSM warnings). All 38 guide blocks and 65 inherited
+native-context examples also passed. These are sequential source observations,
+not three independent full-suite gates. The compiled backend was retained,
+not rebuilt; installed-artifact qualification is separate.
+
+The current native surface-area reader now returns a standardized quantity from
+the provisional Collantes Å² convention. The addon preserves that quantity;
+original-paper units, normalization and values remain unverified under
+uibcdf/molsysmt#473. Table lookup is not conformational SASA.
+
+The [source receipt](../devtools/data/molsysviewer_tools_aromatic_receiving_20261026.json) preserves inputs, test phases, fixture corrections
+and evidence limits. Final exact-source CI is pending at receipt creation.
+Source exposure does not qualify every model, missing optional provider,
+installed artifact, GUI or release. Both 1.0 publications remain paused.

@@ -96,6 +96,8 @@ def test_signatures_help_digestion_and_no_invented_scientific_inputs(view, name)
         "get_sasa",
         "get_hydrogen_inventory",
         "get_chemical_readiness",
+        "get_aromatic_rings",
+        "get_aromaticity",
     }
 
 

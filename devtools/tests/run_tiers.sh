@@ -26,6 +26,8 @@ run_smoke() {
     tests/physchem/test_property_selection_contract.py \
     tests/physchem/get_hydrogen_inventory/test_inventory.py \
     tests/physchem/test_get_chemical_readiness.py \
+    tests/physchem/test_get_aromatic_rings.py \
+    tests/physchem/test_get_aromaticity.py \
     tests/structure/test_dihedral_edit_contract.py
 }
 

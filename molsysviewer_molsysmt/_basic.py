@@ -181,6 +181,35 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "Explicit/associated states retain the public selector's restrictions; "
                 "no selector translation or implicit state choice is added.\n"
             )
+        if module == "physchem" and name in {"get_aromatic_rings", "get_aromaticity"}:
+            function.__doc__ += (
+                "The selected native chemical state supplies the full graph before "
+                "output selection. Results are detached source-indexed chemical "
+                "data, not geometry, contacts or scene objects. No aromatic flags, "
+                "charges, hydrogens or connectivity are assigned or repaired. "
+                "State association across structures remains explicit; this is "
+                "not a per-structure occurrence detector. Native external reference "
+                "syntax follows the repaired contract under uibcdf/molsysmt#482.\n"
+            )
+        if module == "physchem" and name == "get_aromatic_rings":
+            function.__doc__ += (
+                "All atoms and bonds need declared aromatic flags, including False "
+                "for nonaromatic entries. Whole ring selection is required, including "
+                "intersected fused rings. Packed memberships are sorted atom sets, "
+                "not cyclic traversal order; the minimum basis can be nonunique. "
+                "Completeness assumptions and cyclic-block limits are forwarded "
+                "and recorded without changing the primary. Native explicit "
+                "structure indices retain the repaired validation under uibcdf/molsysmt#483.\n"
+            )
+        if module == "physchem" and name == "get_aromaticity":
+            function.__doc__ += (
+                "The explicit optional RDKit model perceives flags on a detached "
+                "complete graph and retains its own prerequisites, contradictions "
+                "and attribution. Selecting atoms filters results after perception; "
+                "only bonds with both endpoints selected are returned. Two aromatic "
+                "atoms need not have an aromatic joining bond. Returned flags are "
+                "not stored automatically or passed to ring recognition implicitly.\n"
+            )
         if module == "physchem" and name == "get_sasa":
             function.__doc__ += (
                 "This is a conformational surface calculation. All primary atoms "
