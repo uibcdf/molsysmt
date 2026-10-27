@@ -1050,5 +1050,12 @@ The existing GPU-selector compatibility tests execute CPU fallback; they are not
 GPU qualification. All 37 guide blocks and 53 inherited examples pass. The
 [source receipt](../devtools/data/molsysviewer_tools_chemical_audits_receiving_20261026.json) retains the initial native #480 failure, corrected
 reference-test input, exact parent, environment, source hashes and prior CI.
-Final combined-source CI remains pending. No host runtime, dependency floor,
-installed qualification or paused publication changes.
+The final producer d0563c61ddf70ef62e08f4676c1fe4ba1b11a15b passes all six
+source controls. [Smoke 40430386606](https://github.com/uibcdf/molsysmt/actions/runs/40430386606)
+passes 2,033 native and 1,373 addon cases, zero failures/errors/skips; suite policy
+40430387125, Conda governance 40430387183, guide integrity 40430386488, dependency
+40430386549 and Ruff 40430386451 also pass. The [terminal CI receipt](../devtools/data/molsysviewer_tools_chemical_audits_source_ci_20261026.json)
+preserves the exact source, job/step identity and original-log SHA-256
+174f60a533e5685f87cb98cc82ee0fbb6749d6620654255f39f8dcd3328e7b41. This supersedes the pending-CI state in the immutable local receiving
+snapshot; #480 and other remaining tools keep their own scope. No host runtime,
+dependency floor, installed qualification or paused publication changes.
