@@ -15,9 +15,10 @@ supersedes: []
 # Evaluating external sources for physicochemical observables
 
 **Requested:** 2026-10-26 by the maintainer during the Collantes review.
-**Status:** Preliminary inventory and ranking completed; no new observable or
-implementation adopted. Original-source, licensing and client-priority reviews
-remain pending.
+**Status:** Preliminary inventory and ranking completed. The first selected
+Zimmerman bulkiness reader is implemented under uibcdf/molsysmt#487;
+wider candidate, original-source, licensing and client-priority reviews remain
+partial.
 
 ## What
 
@@ -289,7 +290,7 @@ review. Do not turn the bare word "index" into a dimensionless declaration.
 Conversely, do not assert that a reference lookup measures the actual selected
 system's steric cross-section or coordinate-dependent surface area.
 
-### Concrete proposed public boundary
+### Reviewed public boundary (adopted under #487)
 
 The candidate signature follows the adjacent reference readers:
 
@@ -304,7 +305,7 @@ msm.physchem.get_bulkiness(
 )
 ```
 
-This is a proposal, not an exported function. The recommended return is a
+This boundary is implemented under uibcdf/molsysmt#487. The return is a
 PyUnitWizard area quantity with shape `(n_groups,)`, standardized to the active
 unit policy. Explicit angstrom-squared extraction retains the unchanged table
 scale: ALA 11.5 angstrom squared corresponds to 0.115 nm squared. No per-system
@@ -348,7 +349,7 @@ belongs in the existing group helper. No new chemical store, sequence object,
 network access, optional scientific runtime dependency or Rust kernel is needed
 for this O(n_groups) lookup. This is a workload estimate, not a benchmark claim.
 
-### Meaningful implementation qualification, if adopted
+### Qualification requirements adopted under #487
 
 - Compare all twenty outputs against the independently inspected curation,
   retaining explicit source identifiers, precision and unit interpretation.
@@ -383,3 +384,13 @@ The existing six research-runner controls pass again (3.93 seconds) and the
 unchanged local-table hash is rechecked. Developer-guide schema/link/index
 validation passes. These controls do not test a new molecular observable or
 replace the pending scientific/adoption decisions.
+
+## First implementation received
+
+The reviewed reader is now implemented as experimental `physchem.get_bulkiness`
+under uibcdf/molsysmt#487. The proposed quantity/selection/strict-lookup contract
+and optional attribution are covered by public tests and the documentation/course
+lifecycle. The implementation uses existing data and general helpers. See
+[its qualification receipt](../../devtools/data/zimmerman_bulkiness_implementation_20261026.json).
+This proposal remains partial for the remaining candidate inventory and choices;
+the original 1968 derivation is still outside the audited scientific claim.

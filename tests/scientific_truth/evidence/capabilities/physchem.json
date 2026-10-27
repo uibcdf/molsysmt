@@ -110,5 +110,24 @@
       }
     ],
     "gap": "Evidence remains partial: controlled carbon fixtures only. Other elements, general proteins, arbitrary periodic cells, own-image overlap and sampling convergence need separate governed evidence; wrapper-engine agreement is regression parity."
+  },
+  "molsysmt.physchem.get_bulkiness": {
+    "domain": "physchem",
+    "status": "partial",
+    "claim": "Bounded ALA/GLY/TRP Zimmerman reference area values with physical conversion following Proust et al. (2019), Table 1. Twenty-entry curation parity is separately contract-tested; no coordinate-derived area claim.",
+    "units": [
+      "nm**2"
+    ],
+    "periodic_behavior": "Not periodic; no coordinates are used.",
+    "contract_test_area": "tests/physchem/test_get_bulkiness.py",
+    "scientific_evidence": [
+      {
+        "class": "versioned-reference",
+        "test": "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+        "oracle": "Independent ALA/GLY/TRP entries 11.5, 3.4 and 21.67 from AAindex1 ZIMJ680102/official ProtScale, with area convention of Proust et al., doi:10.3389/fmicb.2019.00906 Table 1. Source snapshots/hashes: devtools/data/zimmerman_bulkiness_review_20261026.json.",
+        "tolerance": "float64_kernel_atol"
+      }
+    ],
+    "gap": "The original 1968 full-text derivation and normalization have not been re-audited. Numeric agreement with curated tables and later published area interpretation do not validate the geometry of a molecular conformation, arbitrary modified groups or molecular area aggregation."
   }
 }

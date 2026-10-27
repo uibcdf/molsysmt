@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-26",
+  "issue": "uibcdf/molsysmt#487",
+  "related": "uibcdf/molsysmt#485",
+  "source_parent": "8346db49566bc09f771db5d927342ab7d4f95a69",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "ackredit": "0.12.1+2.ge233973",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "source_sha256": {
+    "molsysmt/physchem/get_bulkiness.py": "2de13352bb929a0c8f4ae9c3d0073522eac90b9ac32051d2c7b067415d8fcdf9",
+    "molsysmt/physchem/groups/_lookup.py": "351b510331d909bbe9fd2c1a5616f6d1899f3b3b75981d1767d8436e61d80bce",
+    "molsysmt/physchem/groups/bulkiness.py": "c4f2b6a5fa8771f25b56cef600c22532babb06be78c74ea649495627ad669233",
+    "molsysmt/physchem/__init__.py": "f4e77a8b13326c383d3b6e5acf33c7f1bf038947cc8f26c2acf49423ad30fef3",
+    "molsysmt/_private/argdigest/argument/definition.py": "cabd41fcbdaaa8037d1d2abf0caf0b27e6d5b4020980d7c2bb34029175fff25f",
+    "molsysmt/_private/scientific_citations.py": "b9c255c40b7e08a7b12d39ce1b9fd5ed1681a2e6f96625a660440458a066ee18",
+    "tests/physchem/test_get_bulkiness.py": "ae529cc4c5733e0c9c2a0f489fe13d8d1c879fdbdcf1c45b6513db3a56de24ba",
+    "tests/scientific_truth/physchem/test_bulkiness.py": "73afc902940a9b1d6af9803a2a331e5fac607a6bf6762503bb2ef9d7f66a681f",
+    "tests/scientific_truth/evidence/capabilities/physchem.json": "59ce78deaaa8eb7f0b08b7f13a280b7ef2340606e89cbb2ebc856223edee0a65",
+    "tests/scientific_truth/evidence/registry.json": "9ea4a1c284cce4a64157ef191b21607bae218351a26b28a4e55b186153018692",
+    "devtools/data/public_api_stability.json": "c4e74ce94683d45890da00a4b3a861d2342908c5b822f2848813f279cebd9818"
+  },
+  "implementation": [
+    "Unchanged twenty-entry table; only explicit units/provenance added. AST comparison against parent verifies every value.",
+    "General private table lookup adds keyword-only allow_placeholders=True; new reader requests False. Legacy defaults remain tested.",
+    "Form-agnostic selected group-name retrieval, explicit missing-name diagnostics, ArgDigest and standardized PyUnitWizard areas.",
+    "Optional Ackredit credits scale and unit interpretation once after successful evaluation, including empty selections.",
+    "Experimental API and partial scientific evidence; original 1968 full-text derivation remains outside the audited claim."
+  ],
+  "validation": {
+    "regression": {
+      "command": "python -m pytest tests/physchem tests/scientific_truth/physchem/test_bulkiness.py tests/molsysviewer_molsysmt/test_physchem_tables_tools.py --doctest-modules molsysmt/physchem/get_bulkiness.py --receptor=llm -n 12",
+      "result": "1407 passed",
+      "seconds": 75.33,
+      "warnings": {
+        "LegacyH5MSMWarning": 171,
+        "FutureWarning": 31,
+        "GpuNotAvailableWarning": 6
+      },
+      "log": "/tmp/molsysmt-487-regression-final.log"
+    },
+    "notebook_schemas": "492 passed in 7.50 seconds",
+    "tutorial": "Forced execution of get_bulkiness.ipynb: 1 executed, 9.0 seconds.",
+    "recipe": "Standalone Python block executes with its stated assertions.",
+    "course": "Five notebooks change prose only; code/outputs/metadata preserved against source parent.",
+    "docstrings": "252 public docstrings pass fidelity/content validator.",
+    "signatures": "Zero unauthorized signature drift against parent.",
+    "fast_release_gates": "14/14 passed.",
+    "html": "Final incremental compilation: zero errors, 17 existing warnings under #144; no diagnostic for either new page. Incremental counts are not a warning-debt comparison.",
+    "static": "Selected Ruff check/format, soft-import/dependency audit and developer-guide schema/link/index validation pass."
+  },
+  "scientific_sources": "devtools/data/zimmerman_bulkiness_review_20261026.json",
+  "scope": "Local Linux/Python 3.14 development-source qualification only. No full scientific-suite, exact installed package pair, cross-platform, benchmark or release qualification is asserted."
+}

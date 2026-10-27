@@ -15,7 +15,8 @@
     "molsysmt.build.build_peptide",
     "molsysmt.physchem.get_sasa",
     "molsysmt.structure.get_rmsf",
-    "molsysmt.structure.get_secondary_structure"
+    "molsysmt.structure.get_secondary_structure",
+    "molsysmt.physchem.get_bulkiness"
   ],
   "experimental_api_scopes": [
     "molsysmt.build",

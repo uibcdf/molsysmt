@@ -51,6 +51,12 @@ test solve routes without raising MDTraj's global floor or removing Python
 3.11 support. The existing development runtime now uses validated PyParsing
 3.3.2; this is source/development evidence, not a new installed release pair.
 
+The first #485 reader, experimental `physchem.get_bulkiness`, is implemented
+under #487 with unit-aware reference values, strict unsupported-group diagnostics
+and optional attribution. Evidence remains partial for the original derivation;
+this source addition requires applicable new candidate qualification and does
+not change the publication pause.
+
 ## Release coordination paused — 2026-10-08
 
 On 2026-10-20 the maintainer extends the publication postponement by a couple

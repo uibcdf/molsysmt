@@ -301,6 +301,10 @@ sections:
           - name: get_hydrophobicity
             file: docs/content/user/tools/physchem/get_hydrophobicity.ipynb
             agents_file: docs/content/user/tools/physchem/get_hydrophobicity.ipynb.AGENTS.md
+          - name: get_bulkiness
+            file: docs/content/user/tools/physchem/get_bulkiness.ipynb
+            agents_file: docs/content/user/tools/physchem/get_bulkiness.ipynb.AGENTS.md
+            description: Reading Zimmerman reference bulkiness areas with explicit units and strict group scope
           - name: get_polarity
             file: docs/content/user/tools/physchem/get_polarity.ipynb
             agents_file: docs/content/user/tools/physchem/get_polarity.ipynb.AGENTS.md
@@ -523,6 +527,10 @@ sections:
         agents_file: docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb.AGENTS.md
         description: Public string atom-ID edits, selected B-factor axes and H5MSM 0.5 persistence.
         status: reviewed
+      - name: exporting_bulkiness
+        file: docs/content/user/cookbook/exporting_bulkiness.md
+        agents_file: docs/content/user/cookbook/exporting_bulkiness.md.AGENTS.md
+        description: Exporting source-indexed reference bulkiness with explicit area units
       - name: assigning_partial_charges
         file: docs/content/user/cookbook/assigning_partial_charges.md
         agents_file: docs/content/user/cookbook/assigning_partial_charges.md.AGENTS.md

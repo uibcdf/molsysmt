@@ -2122,6 +2122,13 @@
       "owner": "basic",
       "documentation": "docs/content/user/tools/basic/permute_atoms.md",
       "contract_tests": "tests/basic/test_permute_atoms.py"
+    },
+    "molsysmt.physchem.get_bulkiness": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/get_bulkiness.ipynb",
+      "contract_tests": "tests/physchem/test_get_bulkiness.py"
     }
   }
 }

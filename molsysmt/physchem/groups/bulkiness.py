@@ -1,4 +1,9 @@
 # J. M. Zimmerman, N. Eliezer, R. Simha, J. Theor. Biol. 1968, 21, 170–201.
+# The unchanged numbers match AAindex1 ZIMJ680102 and official ProtScale.
+# Area interpretation follows Proust et al. (2019), Table 1,
+# DOI: 10.3389/fmicb.2019.00906; the original derivation was not re-audited.
+
+units = "angstrom**2"
 
 zimmerman = {
     "ALA": 11.500,

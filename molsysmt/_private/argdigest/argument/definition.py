@@ -24,6 +24,7 @@ definitions = {
     "get_charge_centers": ["formal_charge"],
     "get_surface_area": ["collantes"],
     "get_polarity": ["grantham", "zimmerman"],
+    "get_bulkiness": ["zimmerman"],
     "get_area_buried": ["rose"],
     "get_buried_fraction": ["janin"],
     "get_atomic_radius": ["vdw", "protor"],
@@ -33,6 +34,11 @@ definitions = {
 
 
 def digest_definition(definition, caller=None):
+
+    if caller == "molsysmt.physchem.get_bulkiness.get_bulkiness":
+        if isinstance(definition, str) and definition in definitions["get_bulkiness"]:
+            return definition
+        raise ArgumentError("definition", value=definition, caller=caller)
 
     if caller == "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings":
         if isinstance(definition, str) and definition == "stored_aromatic_bonds":

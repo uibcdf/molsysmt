@@ -18,9 +18,9 @@ belong to both. APIs outside these scopes are not certified by this matrix.
 | Status | Stable APIs | Claimed APIs |
 | --- | ---: | ---: |
 | validated | 42 | 1 |
-| partial | 1 | 2 |
+| partial | 1 | 3 |
 | gap | 0 | 1 |
-| total | 43 | 4 |
+| total | 43 | 5 |
 
 ## Governed tolerances
 
@@ -84,6 +84,7 @@ belong to both. APIs outside these scopes are not certified by this matrix.
 | API | Stability | Status | Declared claim and scope | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
 | `molsysmt.build.build_peptide` | experimental | partial | Native standard-peptide construction: inventory and named bond graph against independently scripted Amber LEaP for three declared sequences. | external: `tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap` (exact) | Only three standard sequences are governed here; the existing 40-sequence wrapper parity campaign remains additional regression evidence. Geometry, energies, force-field assignments and arbitrary chemistry are not certified. |
+| `molsysmt.physchem.get_bulkiness` | experimental | partial | Bounded ALA/GLY/TRP Zimmerman reference area values with physical conversion following Proust et al. (2019), Table 1. Twenty-entry curation parity is separately contract-tested; no coordinate-derived area claim. | versioned-reference: `tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids` (float64_kernel_atol) | The original 1968 full-text derivation and normalization have not been re-audited. Numeric agreement with curated tables and later published area interpretation do not validate the geometry of a molecular conformation, arbitrary modified groups or molecular area aggregation. |
 | `molsysmt.physchem.get_sasa` | experimental | partial | Native Shrake–Rupley carbon-sphere SASA against isolated, separated and one-cap overlap analytic constructions; a controlled opposite-face pair under Cartesian and MIC screening, with brute-force/cell-list searches and nm/pm standard units. | analytic: `tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form` (external_float32_atol)<br>analytic: `tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area` (shrake_rupley_sampling_area_atol)<br>external: `tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj` (shrake_rupley_sampling_area_atol)<br>analytic: `tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap` (shrake_rupley_sampling_area_atol) | Evidence remains partial: controlled carbon fixtures only. Other elements, general proteins, arbitrary periodic cells, own-image overlap and sampling convergence need separate governed evidence; wrapper-engine agreement is regression parity. |
 | `molsysmt.structure.get_rmsf` | experimental | validated | Unaligned per-atom RMSF about the selected ensemble mean on a three-structure analytic fixture. | analytic: `tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance` (float64_kernel_atol) | — |
 | `molsysmt.structure.get_secondary_structure` | experimental | gap | Secondary-structure assignment for protein groups through the supported backend. | — | No governed independent assignment oracle is registered. Existing backend/shape/vocabulary tests do not establish independent DSSP accuracy; obtain a versioned assignment reference or independent implementation with declared conventions. |

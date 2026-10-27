@@ -125,3 +125,15 @@ external selection syntax. Explicit or structure-associated states retain the
 common selector restrictions. Ring readers also validate explicit structure
 indices on the original source axis; chemistry-only objects use `all` or `None`.
 These checks neither infer aromaticity from geometry nor attach ring interactions.
+
+## Reference bulkiness
+
+{func}`molsysmt.physchem.get_bulkiness` returns one area quantity per selected
+standard amino-acid group, using Zimmerman reference values and the angstrom²
+interpretation explicitly published by Proust et al. (2019), Table 1.
+PyUnitWizard standardizes the result (nm² by default). This experimental lookup
+requires group names, not structures; it neither measures conformational surface
+area nor assigns missing chemistry. Unsupported modified/cap/dummy names raise
+instead of receiving zero or an inferred parent value. The original full-text
+derivation remains unaudited and evidence is partial. See
+{ref}`Tutorial_Get_bulkiness` and {ref}`Cookbook_Export_Bulkiness`.

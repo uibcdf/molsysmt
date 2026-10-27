@@ -6,6 +6,34 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    # Bulkiness reference and explicitly documented later area interpretation.
+    # Reviewed 2026-10-26; original full-text derivation remains unaudited (#485).
+    "zimmerman_1968": dict(
+        doi="10.1016/0022-5193(68)90069-6",
+        title="The characterization of amino acid sequences in proteins by statistical methods",
+        authors=["Zimmerman, J. M.", "Eliezer, N.", "Simha, R."],
+        year=1968,
+        journal="Journal of Theoretical Biology",
+        volume="21",
+        pages="170-201",
+    ),
+    "proust_2019": dict(
+        doi="10.3389/fmicb.2019.00906",
+        title="Insights Into the Complexity of Yeast Extract Peptides and Their Utilization by Streptococcus thermophilus",
+        authors=[
+            "Proust, Lucas",
+            "Sourabié, Alain",
+            "Pedersen, Martin",
+            "Besançon, Iris",
+            "Haudebourg, Eloi",
+            "Monnet, Véronique",
+            "Juillard, Vincent",
+        ],
+        year=2019,
+        journal="Frontiers in Microbiology",
+        volume="10",
+        pages="906",
+    ),
     "hanson_2018": dict(
         doi="10.1021/acs.jcim.8b00324",
         title="Algorithmic Analysis of Cahn-Ingold-Prelog Rules of Stereochemistry: Proposals for Revised Rules and a Guide for Machine Implementation",
