@@ -1214,3 +1214,30 @@ help/guide warnings are removed. Raw table unit review uibcdf/molsysmt#473,
 other tool families and installed qualification remain separate. The new
 `molsysviewer_tools_physchem_query_repairs_receiving_20261026.json` receipt in
 devtools/data records source hashes and scope. Final committed-head CI follows.
+
+
+## Exact-source fixed-ref qualification completed — 2026-10-26
+
+Producer 77657b030ac0e0a7858e6a3db70628e93b5c0c8c completes source qualification. Five original
+controls pass on that exact SHA: Ruff 40420418943, dependency 40420418946,
+developer guide 40420419175, suite policy 40420419530 and Conda governance
+40420419490. Original main smoke 40420419017 and later composed main smoke
+40420849878 remain cancelled by legitimate concurrent main-branch commits;
+neither is counted as a passing test result.
+
+Exactly one replacement [smoke 40421689803](https://github.com/uibcdf/molsysmt/actions/runs/40421689803)
+runs on fixed source ref qualification/viewer-tools-77657b0, independently of
+main concurrency. GitHub run/ref metadata both resolve to 77657b030ac0e0a7858e6a3db70628e93b5c0c8c.
+Job 121917427555 passes 2,011 native and 1,246 addon cases with no
+failures/errors/skips. GH Run Receptor confirms terminal success. Original log
+`/tmp/msm-addon-77657b03-fixed-smoke.log` has SHA-256
+`12494e500201f3875ba486e89f62dd04ae99447eb461dfbf7fd7f6f742973b25`. The reference stays fixed as a source-CI record; it is
+not a release tag, artifact producer, promotion or package qualification.
+
+This supersedes the pending-CI state of the query-repair receipt, without
+rewriting its snapshot or the earlier full-local-run failure. The thirteen
+physchem paths and received native PBC/query repairs have completed this source
+gate. Native unit review uibcdf/molsysmt#473, the other seventeen physchem
+exports, panels and installed compatibility remain separate. Later owner
+I/O, fixture and course commits retain their own qualification; this record
+does not label every later main revision green. Both 1.0 publications stay paused.
