@@ -1372,13 +1372,13 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes fourteen tools under
+The source addon now exposes sixteen tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
-ProtOr tools, four reference-descriptor tables and conformational SASA.
-SASA has bounded CPU receiving and unresolved native unit/periodic limitations
-explained below; it is not universally qualified. The other 16 reviewed native
-exports, including feature perception and chemical preparation, remain pending
-in the addon.
+ProtOr tools, four reference-descriptor tables, conformational SASA and two
+stored-chemistry reports. SASA has bounded CPU receiving and native limitations
+explained below; it is not universally qualified. The two reports inspect stored
+information without preparing chemistry. The other 14 reviewed native exports,
+including feature perception and chemical preparation, remain pending in the addon.
 
 | Tool | Native result and received scope |
 | --- | --- |
@@ -1539,3 +1539,78 @@ without calling `sync_view()`, adopting a result or publishing scene changes.
 `skip_digestion` preserves the native public flag; there is no `update_view`
 argument on this nonmutating calculation. Runtime results, visual interpretation
 and scientific attribution retain their respective owners.
+
+
+## Inspecting stored chemistry and hydrogen inventory
+
+`view.addons.molsysmt.physchem.get_hydrogen_inventory(...)` and
+`get_chemical_readiness(...)` return detached native dictionaries. They do not
+add atoms, infer a protonation state, assign charges, repair connectivity or
+change the scene. Read their coverage, issues and `unassessed_checks`; neither
+report is a chemical-validity certificate or a universal readiness flag.
+
+Choose one structure explicitly when the primary has multiple structures.
+Repeated copies of the same structure index are deduplicated; several distinct
+indices raise a native argument error. The addon does not replace the native
+`structure_indices='all'` default with the currently visible structure. Use
+`chemical_state='reference'`, an explicit state index, or `'structure'` according
+to the native state/reference-association contract. Ambiguous or unassociated
+chemistry remains unassessed rather than silently choosing the first state.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    properties = view.addons.molsysmt.physchem
+    inventory = properties.get_hydrogen_inventory(
+        selection="atom_name=='CA'", structure_indices=[1]
+    )
+    report = properties.get_chemical_readiness(
+        selection="atom_name=='CA'", structure_indices=[1]
+    )
+    assert inventory["schema"] == "molsysmt.hydrogen_inventory@1"
+    assert report["schema"] == "molsysmt.chemical_readiness@1"
+    assert len(inventory["atom_indices"]) == len(report["atom_indices"]) == 5
+    assert "valence" in inventory["unassessed_checks"]
+    assert "ready" not in report
+```
+
+The hydrogen inventory separates indexed covalent H neighbors from stored
+virtual `n_implicit_hydrogens` and `n_explicit_hydrogens` annotations. Virtual
+counts add to the indexed count. The int64 arrays use **-1 for unknown**, never
+an invented zero. `parent_hydrogen_pairs` has shape `(n_pairs, 2)`, parent first;
+selected parents retain their external H neighbors even when those H atoms are
+outside the output selection. `available` describes readable inventory, not
+validated valence, protonation or coordinate quality. Full-graph conflicts may
+remain visible when selecting only a few parents.
+
+Readiness retains incident bond indices, external endpoints and explicit crossing
+bonds. It reports stored-field availability and declared evidence without
+validating their scientific origin. Coordinate entries are finite-position
+booleans assessed in nm; formal charge is in elementary charge units. Nonfinite
+positions and unknown chemistry are reported without repair. Atom selections
+are returned as sorted unique source indices, and empty arrays retain defined
+types and shapes. Neither reader invents missing group/atom data.
+
+:::{warning} Native external-syntax limitation
+The default-reference readiness path currently rejects external MDTraj string
+syntax under [#480](https://github.com/uibcdf/molsysmt/issues/480). Use explicit
+atom indices or MolSysMT syntax for that report. The hydrogen inventory has
+positive default-reference MDTraj selection receiving. Explicit non-reference
+state syntax retains the native selector's actual restrictions; the addon does
+not translate selectors to hide them.
+:::
+
+Both calls bind the current resident `view.molsys`, including after replacement
+or while managed edits await synchronization. They do not call `sync_view()` or
+accept `update_view`. Editing a returned report does not edit the primary;
+request a new report after changing molecular data. Native standalone H5MSM
+selective-reading guarantees do not turn an already loaded view into a new
+out-of-memory file-query interface. No hydrogen-placement or optional chemistry
+engine is introduced by these wrappers.
+
+:::{seealso}
+
+- {ref}`Tutorial_Hydrogen_Inventory` — counts, source scopes and scientific limits.
+- {ref}`Tutorial_Chemical_Readiness` — stored-field coverage, states and evidence.
+:::

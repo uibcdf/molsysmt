@@ -153,6 +153,8 @@ jobs:
             tests/basic/test_file_copy_lifecycle.py \
             tests/form/test_raw_file_copy.py \
             tests/physchem/test_property_selection_contract.py \
+            tests/physchem/get_hydrogen_inventory/test_inventory.py \
+            tests/physchem/test_get_chemical_readiness.py \
             tests/structure/test_dihedral_edit_contract.py
 
 
@@ -185,4 +187,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_pbc_edit_tools.py \
             tests/molsysviewer_molsysmt/test_physchem_tools.py \
             tests/molsysviewer_molsysmt/test_physchem_tables_tools.py \
-            tests/molsysviewer_molsysmt/test_sasa_tools.py
+            tests/molsysviewer_molsysmt/test_sasa_tools.py \
+            tests/molsysviewer_molsysmt/test_chemical_audit_tools.py

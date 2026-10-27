@@ -23,6 +23,9 @@ exposure to fourteen tools, with bounded CPU receiving. Native area-unit
 context and explicit periodic controls are corrected under uibcdf/molsysmt#478
 and uibcdf/molsysmt#479; own-image screening and general SASA accuracy are not
 qualified by these controlled fixtures.
+Two detached chemistry reports bring source exposure to sixteen tools, with
+explicit single-structure/state scopes and native readiness external syntax
+tracked under uibcdf/molsysmt#480.
 Other scientific namespaces, edit families and graphical task panels remain pending. Old root entry points and retired adapter files remain
 unsupported; source support is not installed-package qualification. Domain addons
 remain owned by their providers and MolSysViewer's independent extension API.
@@ -1009,3 +1012,43 @@ fixtures and existing diagnostic/third-party cases. All 36 guide blocks and
 retains the corrected pending-export test mistake and initial wrong-import-route
 example attempt; neither is hidden or counted as a product defect.
 Exact-producer CI is pending; earlier thirteen-tool receipts are unchanged.
+
+
+## SASA source gate completed — 2026-10-26
+
+Producer 9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc passes all six source
+controls: dependency 40427400706, Conda governance 40427401058, Ruff 40427400528,
+suite policy 40427400994, guide integrity 40427400665 and
+[smoke 40427400657](https://github.com/uibcdf/molsysmt/actions/runs/40427400657).
+Smoke passes 2,011 native and 1,302 addon cases, zero failures/errors/skips.
+This closes the preceding pending source-CI status at the original bounded SASA
+contract; it does not resolve #478/#479 or qualify new native fixes, GPU or
+installed artifacts. The source log has SHA-256
+e60208c15f7d5028c07aacca383e9efea4f21458521f7d0660cbc664e97cdf72.
+
+## Detached stored-chemistry reports — 2026-10-26
+
+Explicit bound `physchem.get_hydrogen_inventory` and `get_chemical_readiness`
+wrappers add two of the reviewed exports: source exposure is 16/30, with
+fourteen pending. Both reuse the serialized reader and current resident primary,
+forward native scientific parameters/results and introduce no scene or chemical
+preparation effect. A distinct single structure must be requested on trajectories;
+no visible-frame substitution or implicit first-state resolution is introduced.
+
+Receiving covers native coverage/issues, int64 unknown H counts, indexed/virtual
+separation, selected parents with external H neighbors, incident/crossing bonds,
+typed empties, explicit and ambiguous/unassociated states, detached result edits,
+nonfinite-coordinate reporting, unit metadata, pending/replacement/close behavior
+and preserved molecular/interaction/scene domains. Reference-state external
+readiness syntax is unresolved under uibcdf/molsysmt#480; no scientific selector
+compensation is made. The report labels never certify valence or protonation.
+
+Local receiving passes 66 report cases, plus 61 focused SASA cases on native
+repair d8bda65ec. One joint regression passes 1,760 cases with zero failures,
+errors or skips, stable native/addon/backend hashes and 1,325 retained warnings.
+The existing GPU-selector compatibility tests execute CPU fallback; they are not
+GPU qualification. All 37 guide blocks and 53 inherited examples pass. The
+[source receipt](../devtools/data/molsysviewer_tools_chemical_audits_receiving_20261026.json) retains the initial native #480 failure, corrected
+reference-test input, exact parent, environment, source hashes and prior CI.
+Final combined-source CI remains pending. No host runtime, dependency floor,
+installed qualification or paused publication changes.

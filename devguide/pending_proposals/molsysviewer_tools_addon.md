@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, fourteen physchem source wrappers (SASA has bounded CPU receiving) and sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, sixteen physchem source wrappers (including detached chemistry reports and bounded CPU SASA receiving) and sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -1269,3 +1269,43 @@ fixtures and existing diagnostic/third-party cases. All 36 guide blocks and
 retains the corrected pending-export test mistake and initial wrong-import-route
 example attempt; neither is hidden or counted as a product defect.
 Exact-producer CI is pending; earlier thirteen-tool receipts are unchanged.
+
+
+## SASA source gate completed — 2026-10-26
+
+Producer 9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc passes all six source
+controls: dependency 40427400706, Conda governance 40427401058, Ruff 40427400528,
+suite policy 40427400994, guide integrity 40427400665 and
+[smoke 40427400657](https://github.com/uibcdf/molsysmt/actions/runs/40427400657).
+Smoke passes 2,011 native and 1,302 addon cases, zero failures/errors/skips.
+This closes the preceding pending source-CI status at the original bounded SASA
+contract; it does not resolve #478/#479 or qualify new native fixes, GPU or
+installed artifacts. The source log has SHA-256
+e60208c15f7d5028c07aacca383e9efea4f21458521f7d0660cbc664e97cdf72.
+
+## Detached stored-chemistry reports — 2026-10-26
+
+Explicit bound `physchem.get_hydrogen_inventory` and `get_chemical_readiness`
+wrappers add two of the reviewed exports: source exposure is 16/30, with
+fourteen pending. Both reuse the serialized reader and current resident primary,
+forward native scientific parameters/results and introduce no scene or chemical
+preparation effect. A distinct single structure must be requested on trajectories;
+no visible-frame substitution or implicit first-state resolution is introduced.
+
+Receiving covers native coverage/issues, int64 unknown H counts, indexed/virtual
+separation, selected parents with external H neighbors, incident/crossing bonds,
+typed empties, explicit and ambiguous/unassociated states, detached result edits,
+nonfinite-coordinate reporting, unit metadata, pending/replacement/close behavior
+and preserved molecular/interaction/scene domains. Reference-state external
+readiness syntax is unresolved under uibcdf/molsysmt#480; no scientific selector
+compensation is made. The report labels never certify valence or protonation.
+
+Local receiving passes 66 report cases, plus 61 focused SASA cases on native
+repair d8bda65ec. One joint regression passes 1,760 cases with zero failures,
+errors or skips, stable native/addon/backend hashes and 1,325 retained warnings.
+The existing GPU-selector compatibility tests execute CPU fallback; they are not
+GPU qualification. All 37 guide blocks and 53 inherited examples pass. The
+[source receipt](../../devtools/data/molsysviewer_tools_chemical_audits_receiving_20261026.json) retains the initial native #480 failure, corrected
+reference-test input, exact parent, environment, source hashes and prior CI.
+Final combined-source CI remains pending. No host runtime, dependency floor,
+installed qualification or paused publication changes.

@@ -73,7 +73,7 @@ units and containers, explicit definitions, missing-table errors and the
 separation between tabulated group charge and parameterized partial charge.
 Keep OpenMM form/box prerequisites and pending-reader behavior visible.
 The native selection/scope repairs are now received: preserve positive syntax
-checks and explicit unsupported-level rejection. Do not present the other 16 physchem
+checks and explicit unsupported-level rejection. Do not present the other 14 physchem
 exports as received or introduce implicit coloring, preparation or assignment.
 
 
@@ -90,3 +90,11 @@ Preserve the separate conformational SASA reader and all-atom occlusion contract
 Keep the #478 squared-unit contract and #479 explicit Cartesian/MIC engine
 limits visible; bounded CPU receiving does not qualify arbitrary-cell surface
 accuracy, GPU execution or installed artifacts. Do not add scene effects or hidden preparation.
+
+
+Preserve both detached stored-chemistry reports, explicit single-structure/state
+selection, sorted unique indices and typed empties. Keep unknown inventory counts
+at -1, indexed/virtual H separate, full-graph auditing and incident/crossing bonds
+explicit. Do not interpret availability as chemical validity or introduce repair,
+assignment, a universal ready flag or a file-backed view query promise. Native
+readiness external-syntax receiving remains tracked under uibcdf/molsysmt#480.

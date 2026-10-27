@@ -24,6 +24,8 @@ run_smoke() {
     tests/basic/test_file_copy_lifecycle.py \
     tests/form/test_raw_file_copy.py \
     tests/physchem/test_property_selection_contract.py \
+    tests/physchem/get_hydrogen_inventory/test_inventory.py \
+    tests/physchem/test_get_chemical_readiness.py \
     tests/structure/test_dihedral_edit_contract.py
 }
 

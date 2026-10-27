@@ -22,6 +22,8 @@ class _PhyschemTools:
         "get_area_buried",
         "get_buried_fraction",
         "get_sasa",
+        "get_hydrogen_inventory",
+        "get_chemical_readiness",
     )
 
     def __init__(self, owner):
@@ -341,5 +343,49 @@ class _PhyschemTools:
                 "num_threads": num_threads,
                 "skip_digestion": skip_digestion,
                 "pbc": pbc,
+            },
+        )
+
+    @_native_documentation("get_hydrogen_inventory", module="physchem")
+    @signal(tags=["addon", "physchem", "diagnostics"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_hydrogen_inventory(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_hydrogen_inventory",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_chemical_readiness", module="physchem")
+    @signal(tags=["addon", "physchem", "diagnostics"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_chemical_readiness(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_chemical_readiness",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
             },
         )

@@ -149,6 +149,37 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "get_area_buried has no native syntax argument. Other native syntax "
                 "and supported-level choices retain ordinary public validation.\n"
             )
+        if module == "physchem" and name in {
+            "get_hydrogen_inventory",
+            "get_chemical_readiness",
+        }:
+            function.__doc__ += (
+                "This is a detached stored-chemistry report, not a preparation "
+                "operation or chemical-validity certificate. Select one distinct "
+                "structure when coordinates exist; the addon does not substitute "
+                "the visible structure for the native default. Native chemical "
+                "state/reference resolution, sorted unique source indices, empty "
+                "arrays and issue/coverage semantics are retained. Missing data "
+                "remain unknown; no valence, protonation or missing atoms are inferred. "
+                "No hydrogen placement dependency is added. Returned report edits "
+                "do not update the primary or scene.\n"
+            )
+        if module == "physchem" and name == "get_hydrogen_inventory":
+            function.__doc__ += (
+                "Indexed H neighbors and stored virtual H annotations are separate. "
+                "Counts are dimensionless int64; -1 is unknown, not zero. The full "
+                "graph is audited before filtering selected parents, whose H pairs "
+                "may include H atoms outside the output atom selection.\n"
+            )
+        if module == "physchem" and name == "get_chemical_readiness":
+            function.__doc__ += (
+                "Incident/crossing bonds retain source indices, including external "
+                "endpoints. Coordinate values are finite-position booleans, not "
+                "coordinate arrays. Stored-field availability and declared evidence "
+                "do not establish a universal ready flag or downstream suitability. "
+                "External reference-state syntax is currently limited by "
+                "uibcdf/molsysmt#480; numeric or MolSysMT selections remain explicit.\n"
+            )
         if module == "physchem" and name == "get_sasa":
             function.__doc__ += (
                 "This is a conformational surface calculation. All primary atoms "

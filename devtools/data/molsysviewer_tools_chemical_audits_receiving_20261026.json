@@ -1,0 +1,233 @@
+{
+  "schema": "molsysmt.viewer_tools_chemical_audits_receiving@1",
+  "date": "2026-10-26",
+  "base_source": "d8bda65ec14ccde99925a85a3dadc008b0154a40",
+  "initial_receiving_source": "9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc",
+  "host_source": "d052560ffb0a5a756ade6316e9068e92a19ffdba",
+  "scope": "Experimental source wrappers for detached stored-chemistry reports; native SASA source repair received. No molecular preparation, scene changes, installed artifact, GPU, version or release qualification.",
+  "inventory": {
+    "physchem_exposed": 16,
+    "physchem_reviewed": 30,
+    "pending": 14
+  },
+  "new_methods": [
+    "physchem.get_hydrogen_inventory",
+    "physchem.get_chemical_readiness"
+  ],
+  "open_native_issue": "uibcdf/molsysmt#480",
+  "closed_sasa_issues": [
+    "uibcdf/molsysmt#478",
+    "uibcdf/molsysmt#479"
+  ],
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "numpy": "2.4.6",
+      "mdtraj": "1.11.1",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "pytest-xdist": "3.8.0"
+    }
+  },
+  "focused": {
+    "new_report_cases": 66,
+    "sasa_repair_receiver_cases": 61,
+    "initial_attempts": [
+      {
+        "passed": 21,
+        "failed": 1,
+        "collected": 63,
+        "diagnosis": "Native default-reference readiness MDTraj failure reproduced separately and filed as #480; no consumer selector compensation."
+      },
+      {
+        "passed": 45,
+        "failed": 1,
+        "collected": 61,
+        "diagnosis": "Test omitted element=atom in an independent get(atom_type=True) reference. Corrected test input, no product fix."
+      },
+      {
+        "passed": 61,
+        "failed": 0,
+        "note": "Revised original report receiver file."
+      },
+      {
+        "passed": 5,
+        "failed": 0,
+        "note": "Additional unit/nonfinite/global-conflict checks."
+      }
+    ]
+  },
+  "full_applicable_regression": {
+    "arguments": [
+      "--receptor=llm",
+      "-n",
+      "4",
+      "-o",
+      "faulthandler_timeout=120",
+      "tests/molsysviewer_molsysmt/",
+      "tests/physchem/get_sasa/",
+      "tests/physchem/get_hydrogen_inventory/",
+      "tests/physchem/test_get_chemical_readiness.py",
+      "tests/scientific_truth/physchem/test_sasa.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "devtools/tests/test_validate_rust_wheel.py",
+      "devtools/tests/test_validate_rust_sdist.py",
+      "devtools/tests/test_audit_dependency_contract.py",
+      "devtools/tests/test_validate_devguide.py",
+      "--junitxml=/tmp/msv-chemical-audits-regression.xml"
+    ],
+    "started": "2026-10-27T00:57:49.592645+00:00",
+    "finished": "2026-10-27T01:00:35.578496+00:00",
+    "exit_code": 0,
+    "junit": {
+      "tests": 1760,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "warnings": 1325,
+    "junit_sha256": "4de5f21309addb77c7cfbee6771980dfc2d1947b516aa49d7e5e92966456856d",
+    "source_changed": [],
+    "source_tree_digest_before": "604a1411f082a557e03e3b21398f6027ebfba3df4430f18dc92f7194f0648bb8",
+    "source_tree_digest_after": "604a1411f082a557e03e3b21398f6027ebfba3df4430f18dc92f7194f0648bb8"
+  },
+  "backend": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "provenance": "Existing frozen ABI3 backend hardlinked from retained source snapshot, no rebuild or installed qualification."
+  },
+  "examples": {
+    "guide_blocks": 37,
+    "inherited_native_context_doctests": 53,
+    "failures": 0,
+    "log_sha256": "6b8ab5ca8b1f44163af9d812f778e948019c828b86f63902653409901b47bd02"
+  },
+  "prior_sasa_ci": {
+    "source": "9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc",
+    "controls": [
+      {
+        "conclusion": "success",
+        "databaseId": 40427400706,
+        "headSha": "9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc",
+        "name": "Dependency contract",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40427401058,
+        "headSha": "9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc",
+        "name": "Conda publication governance",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40427400528,
+        "headSha": "9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc",
+        "name": "Ruff",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40427400665,
+        "headSha": "9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc",
+        "name": "Developer guide integrity",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40427400994,
+        "headSha": "9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc",
+        "name": "MolSysSuite policy",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40427400657,
+        "headSha": "9442e0df20a659b9d8fa6c9a8a6bc0d115a074fc",
+        "name": "CI smoke",
+        "status": "completed"
+      }
+    ],
+    "native_cases": 2011,
+    "addon_cases": 1302,
+    "run": 40427400657,
+    "log_sha256": "e60208c15f7d5028c07aacca383e9efea4f21458521f7d0660cbc664e97cdf72"
+  },
+  "native_sasa_repair_ci": {
+    "source": "d8bda65ec14ccde99925a85a3dadc008b0154a40",
+    "controls": [
+      {
+        "conclusion": "success",
+        "databaseId": 40429149090,
+        "headSha": "d8bda65ec14ccde99925a85a3dadc008b0154a40",
+        "name": "Developer guide integrity",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40429149226,
+        "headSha": "d8bda65ec14ccde99925a85a3dadc008b0154a40",
+        "name": "MolSysSuite policy",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40429148778,
+        "headSha": "d8bda65ec14ccde99925a85a3dadc008b0154a40",
+        "name": "Ruff",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40429149354,
+        "headSha": "d8bda65ec14ccde99925a85a3dadc008b0154a40",
+        "name": "Conda publication governance",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 40429148780,
+        "headSha": "d8bda65ec14ccde99925a85a3dadc008b0154a40",
+        "name": "CI smoke",
+        "status": "completed"
+      }
+    ],
+    "run": 40429148780,
+    "log_sha256": "6ff30920360b1b769e7e61609b644dbf87571d0ef664d04dac57804b1f357a0a",
+    "scope": "Incoming owner commit, not final qualification of these additional two wrappers."
+  },
+  "ci": {
+    "state": "pending",
+    "note": "Final combined producer has not yet been published; prior successful source runs do not qualify new wrappers."
+  },
+  "exclusions": [
+    "General chemical validity, protonation or downstream readiness certification",
+    "Native readiness external-reference syntax #480",
+    "New GUI panels or scene coloring",
+    "Universal out-of-memory access through resident view.molsys",
+    "Native periodic self-image/all-images SASA",
+    "Actual GPU execution",
+    "Installed artifact and dependency-floor changes",
+    "Tags, Releases, promotions and both paused 1.0 publications"
+  ],
+  "files": {
+    ".github/workflows/ci-smoke.yaml": "439c0211bfae0dcbacc3bff3d10ecd116f4a96bfb8587adc373642c08d177d29",
+    "devguide/molsysviewer_addon.md": "bc8fd220aece16560ae7344b690ae659aa5ee4fb39a610d6a8049ccbeb7f86e1",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "633ab63388796a7145865c876e2f0ed5ec8dac968d261e6c4069d8e9c5842efa",
+    "devtools/tests/run_tiers.sh": "c0e6a5a62b12ef403144378e3f11638f3c8c620746312d7d89357d9d16059fdd",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "2ab9e2e509edbd522d101f12fb3045cb792ba8c9176adf17d4df721f5f75a4fa",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "2ace4f1ea88511ca1c389514fbe3e7957d7d19b8439f2c5b083955ad40cc2103",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "b0ca985565274a038c83d9a1b178484458d3bcd3e836b5a0366fd1d64d1e74af",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "797c7a766026f1d4e4a438b5310dcc5f885ee4c3de6259ae92200728a816b344",
+    "docs/content/user/tools/molsysviewer_tools.md": "98e3af7978146b9360cc0a0848289ffeef5323af27d1d1c490e74b781034ebdd",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "d58d4633096d83fdc0855b0f43dabca874681b98ef8aa68140eb0d66c8cc6a9b",
+    "docs/docs_manifest.yml": "93f88968f3485c0d6da5dbba6778f24b70421323f1dfd58cc37962670da32913",
+    "molsysviewer_molsysmt/_basic.py": "8138531610ef617ff4e5c7935f842a7da3917d357f008ea4ce97fe9e44b456ab",
+    "molsysviewer_molsysmt/_physchem.py": "f27726eca0d99b0aa01e118e6f2323a786edd164ea94827e25255dad9801b639",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "f76848e404ee3f5f607f8abaea8fe68a6dfc066f8f4d5811d006bc2bb59c1697",
+    "tests/molsysviewer_molsysmt/test_chemical_audit_tools.py": "0fff7e9c65293bb4599970a9d838af6db11770d90ff85bb7ffe9af29461156a9"
+  }
+}
