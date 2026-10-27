@@ -96,3 +96,14 @@ Future replacement qualification and retirement of this ceiling are tracked by
 [active acceptance plan](pending_proposals/requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md).
 A replacement may be a corrected build of 2026.2.0 or a later version. Withdrawal
 of a broken package alone does not qualify that replacement.
+
+## Optional MDTraj parser compatibility
+
+The optional `soft` extra and maintained development/test specifications exclude
+PyParsing 3.3.3 after its MDTraj selection regression (uibcdf/molsysmt#484).
+Keep the public and Conda compatibility constraints aligned; this does not add
+a hard dependency or raise MDTraj's floor on Python 3.11. Follow
+uibcdf/molsysmt#486 when a corrected parser is published. The exact exclusion
+already permits successors, so receiving a fixed version does not require
+re-admitting the broken artifact. Qualify actual package imports before
+changing the verified development baseline or claiming compatibility.
