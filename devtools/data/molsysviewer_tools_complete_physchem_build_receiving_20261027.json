@@ -1,0 +1,136 @@
+{
+  "schema": "molsysviewer.tools.complete-physchem-build-receiving@1",
+  "date": "2026-10-27",
+  "native_basis": "87a86d43916b406844dd97e886c3839f22ba82cd",
+  "scope": "Experimental source path exposure and bounded receiving, not installed/platform/scientific accuracy or release qualification.",
+  "environment": {
+    "name": "molsyssuite@uibcdf_3.14",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "backend_scope": "Retained ABI3 backend; no rebuild.",
+    "suite_status_sha256": "74799b0c2016a491dfd3cf9e494507fe75b85aa2234af8c2bd52424774fd9202",
+    "workspace_policy": "Nonparticipating dirty/ahead/behind/missing checkouts preserved explicitly; no shared dependency updates."
+  },
+  "exposed": {
+    "physchem": {
+      "native": 34,
+      "addon": 34
+    },
+    "build": {
+      "native": 30,
+      "addon": 3
+    },
+    "inventory": {
+      "functional_paths": 231,
+      "exposed": 108,
+      "unexposed": 123,
+      "scope": "Includes separately identified historical aliases; excludes classes, format adapters, configuration, datasets and third-party bridges.",
+      "file": "devtools/data/molsysviewer_tools_api_inventory_20261027.json"
+    }
+  },
+  "local": {
+    "physchem_directed": {
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "build_directed": {
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "broad": {
+      "junit": {
+        "tests": 4283,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "official_exit": 1,
+      "reason": "Only failure: source file allowlist had not yet admitted _build.py; original failure retained.",
+      "seconds": 340.13,
+      "warnings": 1565,
+      "source_changed_during_run": [],
+      "repeated": false,
+      "junit_sha256": "cfb003e1f2b37a74c2060333d5a2186f145b6cc5ce8ef29550b46bc535728185",
+      "scope_sha256": "c4fe1eae7a75a872cff073024bc4fdd5d1b90e45ea5bb709898af8c163665128"
+    },
+    "packaging_fix_followup": {
+      "tests": 32,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "help_only_followup": {
+      "tests": 115,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "guide_blocks": 49,
+    "inherited_native_context_doctests": 155,
+    "guide_log_sha256": "7fcc7adebf48a179c25e5f45270af0d75fe6b00ab6b71be0d92c406b89f5fe3c",
+    "static": "Scoped Ruff/format, shell syntax, devguide validation passed; five course Markdown updates preserve code/outputs."
+  },
+  "prior_ci": {
+    "source": "63600396584f78aef05500cd13a1c5fd37b75728",
+    "run": 40580219002,
+    "official_conclusion": "failure",
+    "native": {
+      "passed": 2963,
+      "skipped": 9,
+      "skip_reason": "Optional Ackredit unavailable"
+    },
+    "bound_executed": {
+      "passed": 1845,
+      "skipped": 3,
+      "omitted_new_module": true
+    },
+    "reason": "Missing continuation made the new test module a standalone shell command: permission denied / exit 126. Not relabelled as successful.",
+    "log_sha256": "e97a70ddaaaa091576ca60cce15fa06f6dc615c562ea33f943a6de835e53b8dd",
+    "command_guard": "devtools/tests/test_smoke_addon_test_command.py",
+    "source_file_guard": "devtools/tests/test_native_viewer_integration.py",
+    "tests_removed": 0,
+    "budget_minutes": 25
+  },
+  "prior_viewer_e2e": {
+    "run": 40580448080,
+    "source": "196c47b0e53f91862c38e282d6dee8c360ec62f3",
+    "official_conclusion": "success"
+  },
+  "qualification_limits": [
+    "Native CIP nested reference ownership uibcdf/molsysmt#503 remains open.",
+    "Legacy pentalanine atom-chain indices are -1; no chain inference is added. The absence origin is not diagnosed.",
+    "New exact-source hosted CI pending.",
+    "Both 1.0 publications remain paused."
+  ],
+  "authored_sha256": {
+    ".github/workflows/ci-smoke.yaml": "bfd4115f1aa964cf15f269d84ec4ab1bbd95324980d5bec6924cc1894efbe146",
+    "devguide/molsysviewer_addon.md": "8582b036be5a227e37e37127a77b24c72722959e459c61d76ecd410adc418310",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "2add8a4d96cabf8fb87abd0883470136de0c6381357eb2c193d6b61bccc2a10e",
+    "devtools/scripts/viewer_tools_contract.py": "782dbc0f22518b58af5982d457f675832ee75ba3b4ad8567b7c9911275311f53",
+    "devtools/tests/run_tiers.sh": "eebce3f749ecf9895c4380ec9b0079974e6b5abe9c24519024295aa66bc4ff3d",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "ba70063bf87a65e2c5c870f7d3588c57795f1eae259f69eb6b81492e63ff4f84",
+    "docs/content/course/Path_Alzheimer/39_Physicochemical_Properties.ipynb": "5d3792d1fa95be640d95989507a6abde0a54189fa80656d7354ca9f88048097e",
+    "docs/content/course/Path_Antiviral/39_Physicochemical_Properties.ipynb": "6f156b47cc1f2e2c55cd2cb01acda71a85817c999f58ffd442b21e1c989b631a",
+    "docs/content/course/Path_Biophysics/39_Physicochemical_Properties.ipynb": "459c7d37db4432744ee2c2d7685e712cb72fd86ecdda74bbb6bd83f29f4047e4",
+    "docs/content/course/Path_Enzyme/39_Physicochemical_Properties.ipynb": "a4dc90d3ce8136d7539e006ce19bc3e93136cf295e488135a7078991157292f5",
+    "docs/content/user/tools/molsysviewer_tools.md": "2cc653630d214dbd527626098d93b5d6cacf011c4b5532beee6fbf5ea57795b5",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "302f62bd7dc43c168467e8c27b443a503d066a8873b89e60836c8cf317f44d76",
+    "molsysviewer_molsysmt/_api.py": "83edcbc78fc9696d2bf4101b4f0d165ec6140c5446403ac8b4232180701ab498",
+    "molsysviewer_molsysmt/_basic.py": "33c93819b942676d7dac8c3544845f64dfc75a08144a55014ef65062abaae517",
+    "molsysviewer_molsysmt/_physchem.py": "99f76ea9d68f1768c2626702d14d3a0aafe7adbc88dfc5b41c58839f0913ce92",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "2663f0eeba805e8232e35b6da3a2056ec583c3243c3f4e1cf89fde4f11bdeec9",
+    "devguide/molsysviewer_tools_api_inventory.md": "031440bd956277b2078699995df244538a252c17fba25dd0fbce545b5ae87647",
+    "devtools/data/molsysviewer_tools_api_inventory_20261027.json": "2a9b98b251c059cd12f8aff3634ca35103cb8cf794cd6da30e8b2066611be373",
+    "devtools/scripts/audit_molsysviewer_tools_api.py": "da51af72e40d9569c0462283a2088e4352ff5bfb491b7b3497ec6e6972f9f7b6",
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": "22053a4545ddb651cb6ffdc566d6a42421931a788862ed0e5f24837dc85ff5bf",
+    "devtools/tests/test_smoke_addon_test_command.py": "8e380adb3bc7c36fb1cc04cefd0513423f678f4bce3fab602a8885c0206a5cfd",
+    "molsysviewer_molsysmt/_build.py": "adb9a36b603499577b25188d5758c67c693711f2380ae2446f08b2faa8987a93",
+    "tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py": "00adf1f6d50c7c3ccf3a1472b8e5eed999a05272a79e0de0b426800d530fe596",
+    "tests/molsysviewer_molsysmt/test_physchem_remainder_tools.py": "868a219794b1cb28be9b5be7c6e7c3d217ce778cc972428333eac51e3b713231"
+  }
+}

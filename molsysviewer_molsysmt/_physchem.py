@@ -36,6 +36,12 @@ class _PhyschemTools:
         "get_autodock_atom_types",
         "get_cip_stereochemistry",
         "get_partial_charges",
+        "get_water_sites",
+        "get_metal_coordination_sites",
+        "assess_chemical_template",
+        "apply_chemical_template",
+        "normalize_aromatic_bond_orders",
+        "get_peptide_chemical_template",
     )
 
     def __init__(self, owner):
@@ -730,4 +736,167 @@ class _PhyschemTools:
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },
+        )
+
+    @_native_documentation("get_water_sites", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_water_sites(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="explicit_water_graph",
+        assume_complete_connectivity=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_matches=100000,
+    ):
+        return self._call(
+            "get_water_sites",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_matches": max_matches,
+            },
+        )
+
+    @_native_documentation("get_metal_coordination_sites", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_metal_coordination_sites(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="smarts_metal_ligand",
+        assume_complete_connectivity=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_matches=100000,
+    ):
+        return self._call(
+            "get_metal_coordination_sites",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_matches": max_matches,
+            },
+        )
+
+    @_native_documentation("assess_chemical_template", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def assess_chemical_template(
+        self,
+        template,
+        atom_correspondence,
+        template_provenance,
+        chemical_state="reference",
+        template_chemical_state="reference",
+        skip_digestion=False,
+        *,
+        connectivity_policy="require_same_graph",
+        selection="all",
+        syntax="MolSysMT",
+        context_atom_correspondence=None,
+    ):
+        return self._call(
+            "assess_chemical_template",
+            {
+                "template": template,
+                "atom_correspondence": atom_correspondence,
+                "template_provenance": template_provenance,
+                "chemical_state": chemical_state,
+                "template_chemical_state": template_chemical_state,
+                "skip_digestion": skip_digestion,
+                "connectivity_policy": connectivity_policy,
+                "selection": selection,
+                "syntax": syntax,
+                "context_atom_correspondence": context_atom_correspondence,
+            },
+        )
+
+    @_native_documentation("apply_chemical_template", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def apply_chemical_template(
+        self,
+        template,
+        atom_correspondence,
+        template_provenance,
+        chemical_state="reference",
+        template_chemical_state="reference",
+        skip_digestion=False,
+        *,
+        connectivity_policy="require_same_graph",
+        selection="all",
+        syntax="MolSysMT",
+        context_atom_correspondence=None,
+    ):
+        return self._call(
+            "apply_chemical_template",
+            {
+                "template": template,
+                "atom_correspondence": atom_correspondence,
+                "template_provenance": template_provenance,
+                "chemical_state": chemical_state,
+                "template_chemical_state": template_chemical_state,
+                "skip_digestion": skip_digestion,
+                "connectivity_policy": connectivity_policy,
+                "selection": selection,
+                "syntax": syntax,
+                "context_atom_correspondence": context_atom_correspondence,
+            },
+        )
+
+    @_native_documentation("normalize_aromatic_bond_orders", module="physchem")
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def normalize_aromatic_bond_orders(
+        self, chemical_state="reference", skip_digestion=False
+    ):
+        return self._call(
+            "normalize_aromatic_bond_orders",
+            {
+                "chemical_state": chemical_state,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation(
+        "get_peptide_chemical_template", module="physchem", bind_primary=False
+    )
+    @signal(tags=["addon", "physchem"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_peptide_chemical_template(
+        self,
+        residue_names,
+        n_terminal_state,
+        c_terminal_state,
+        skip_digestion=False,
+        *,
+        disulfide_group_pairs=None,
+    ):
+        from molsysmt import physchem
+
+        self._owner._view()
+        return physchem.get_peptide_chemical_template(
+            residue_names=residue_names,
+            n_terminal_state=n_terminal_state,
+            c_terminal_state=c_terminal_state,
+            skip_digestion=skip_digestion,
+            disulfide_group_pairs=disulfide_group_pairs,
         )

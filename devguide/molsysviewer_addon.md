@@ -32,7 +32,9 @@ Three feature readers bring exposure to 21 tools on the qualified 31-export
 baseline. Native 5681f5e78 adds secondary-structure propensities: the inspected
 inventory at that source is 32. The two reference readers now bring the facade
 to 23 tools. The bound molecular descriptors and three explicit chemical readers
-bring the facade to 28 of the reviewed 34 exports, with six pending. Their separate receiving does not relabel older
+bring the facade to all 34 reviewed physchem exports. Three of the 30 reviewed
+build exports also have source receiving; wider expansion follows the maintained
+API inventory. Their separate receiving does not relabel older
 source gates. The SMARTS repair is received under
 #488; native reference-metadata ownership is repaired under #490 and its guard is
 included in the new receiving tier. Native graph selector/scope repairs are received
@@ -1509,3 +1511,72 @@ is implied or required by that formatting change. All 45 bound-guide blocks and
 only explanatory Markdown, preserving code and outputs. Scoped Ruff, shell
 syntax and devguide validation pass. Exact new-source hosted CI remains pending.
 Native #503 and source-versus-installed limits remain explicit.
+
+
+### Complete physchem paths and initial build diagnostics — 2026-10-27
+
+The six remaining native physchem functions now have explicit expert wrappers:
+get_water_sites, get_metal_coordination_sites, assess_chemical_template,
+apply_chemical_template, normalize_aromatic_bond_orders and
+get_peptide_chemical_template. This closes source exposure at 34/34 reviewed
+physchem exports, not universal scientific or installed qualification. Site
+readers preserve whole participants, roles, full-source matching and budgets.
+Template/context maps and provenance stay explicit. Application/normalization
+return independent native systems and reports, without primary/scene adoption;
+invalidation/history affects the returned copy. The peptide factory keeps every
+scientific input explicit and works before a system is loaded while its view
+is open. It produces no coordinates or assumed protonation/stereochemistry.
+All 40 directed consumer cases pass with real source chemistry and current-view
+lifetime, replacement, pending-read, source/scene/coverage and independent-result
+checks. No scientific preparation or algorithm is implemented in the consumer.
+
+A new build namespace starts with get_residue_chemical_coverage,
+get_covalent_bond_candidates and get_peptide_bond_candidates, 3/30 reviewed
+build exports. All 18 directed cases pass, including literal alanine edges and
+positive real 181L C/N candidates/units. Groups and atoms keep their distinct
+selection axes; one required structure is explicit, not the visible default.
+The legacy pentalanine fixture has atom-chain indices -1 and correctly remains
+without peptide candidates; the wrapper does not infer chain membership.
+The cause of the source metadata absence is not established by that observation.
+
+The source inventory and expansion order are maintained in
+[molsysviewer_tools_api_inventory.md](molsysviewer_tools_api_inventory.md), with a
+reproducible real-facade audit and dated machine-readable path/signature output.
+It finds 108 exposed of 231 inspected functional paths, including separately
+identified historical aliases. Many build, molecular-mechanics, interaction,
+element and file routes remain unreceived. Exposing a path does not qualify its
+science, engines, performance or installed artifact. Other native classes,
+adapters/configuration/datasets/third-party bridges are explicitly outside
+this functional mirror inventory. Python remains the expert foundation.
+
+### Qualification and CI command repair — 2026-10-27
+
+The one frozen 4,283-case applicable regression records 4,282 passes and one
+failure: the source/installed file allowlist had not yet admitted the new
+_build.py module. All 58 new scientific consumer cases pass. The allowlist is
+updated rather than weakened; 32 focused packaging/wheel/sdist and command/
+inventory controls then pass. The broad run is preserved as failure evidence,
+with zero runtime/source/backend changes during execution, and is not repeated.
+A subsequent help-only clarification separates table/OpenMM notes from factory
+and independent-output contracts; all 115 selected signature/help cases pass.
+The final guide has 49 executable blocks and 155 inherited native-context
+examples, all passing, including the three build readers. Five course updates
+change explanatory Markdown while preserving scientific code and outputs.
+
+Prior exact source 636003965 run 40580219002 ended officially failure, exit 126.
+It completed 2,963 native passes / nine optional Ackredit skips and 1,845 old
+addon passes / three optional skips, but the new chemical-reader module was a
+separate shell command rather than a pytest argument. These partial pytest
+successes do not qualify the workflow or its omitted module. The logical command
+is corrected without removing tests. A new guard verifies every addon test module
+is an argument of the single hosted pytest invocation and no test file is an
+orphan command. That command guard, real API inventory and source package guard
+now execute before the scientific tiers. All added native/consumer tests remain
+in the selected tier; its finite 25-minute budget is retained. New exact-source
+hosted CI is required. Prior Viewer E2E 40580448080 passes on 196c47b0.
+
+Native CIP reference ownership under uibcdf/molsysmt#503 remains open and explicit.
+The two observed operational/data findings have been offered to the maintainer
+for separate owning reports; no additional issue authorization is assumed.
+Installed artifacts, GUI tasks, broader edits and both paused 1.0 publications
+remain separate. No tag, package or release is produced by this work.

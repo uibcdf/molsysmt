@@ -29,6 +29,9 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             else (
                 "The primary molecular system is the current view.molsys. "
                 if bind_primary
+                else "This factory keeps its explicit scientific inputs; "
+                "no current view.molsys is inserted. "
+                if module == "physchem"
                 else "This utility keeps its explicit scientific inputs; "
                 "no current view.molsys or implicit box is inserted. "
             )
@@ -105,9 +108,24 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "The native scientific value is returned, not a scene object. "
-                "No assignment, implicit preparation, result adoption or scene update "
+                "No assignment to the source, implicit preparation, automatic adoption or scene update "
                 "is introduced. Native derived/cache behavior, definitions, units, "
                 "container types and supported element scopes remain unchanged. "
+            )
+        if module == "physchem" and name in {
+            "get_mass",
+            "get_charge",
+            "get_atomic_radius",
+            "get_electronegativity",
+            "get_hydrophobicity",
+            "get_polarity",
+            "get_transmembrane_tendency",
+            "get_surface_area",
+            "get_volume",
+            "get_area_buried",
+            "get_buried_fraction",
+        }:
+            function.__doc__ += (
                 "Group scales require names present in their native table; missing "
                 "chemical groups are not silently assigned neutral values. "
                 "OpenMM definitions retain their native form/parameterization limits; "
@@ -280,6 +298,99 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "or coordinate-based secondary-structure assignment. Values can "
                 "exceed one; categories need not sum to one. No clipping, "
                 "renormalization or implicit coil remainder is introduced.\n"
+            )
+        if module == "build":
+            function.__doc__ += (
+                "The result is an independent native diagnostic or candidate report, "
+                "not a scene object, preparation edit or inserted bond. Explicit "
+                "scientific scope, native units and unassessed outcomes are retained. "
+                "Select one structure when required; the visible structure is never "
+                "substituted for the native default. No hydrogen, protonation, "
+                "template matching, inferred bond assignment or synchronization "
+                "is added. A candidate is not a declared covalent bond or a "
+                "chemical-validity certificate. update_view is not accepted.\n"
+            )
+        if module == "build" and name == "get_residue_chemical_coverage":
+            function.__doc__ += (
+                "Numeric selection addresses source groups and atom expressions "
+                "select whole containing groups, preserving exact native residue "
+                "template identity and unsupported-template limits.\n"
+            )
+        if module == "build" and name in {
+            "get_covalent_bond_candidates",
+            "get_peptide_bond_candidates",
+        }:
+            function.__doc__ += (
+                "Numeric selection addresses source atoms; both candidate endpoints "
+                "must be selected. Whole-group audits and full-source competition "
+                "precede output filtering where the chosen native method requires "
+                "them. No candidate truncation or method substitution is added.\n"
+            )
+        if module == "physchem" and name in {
+            "get_water_sites",
+            "get_metal_coordination_sites",
+        }:
+            function.__doc__ += (
+                "Full-source chemistry is recognized before output selection. "
+                "Results are independent chemical participant candidates, not "
+                "interaction occurrences, measured contacts or scene objects. "
+                "Native explicit state/structure scopes and match limits are "
+                "preserved; no coordinate, hydrogen, aromaticity or charge "
+                "preparation, source assignment or scene synchronization is added.\n"
+            )
+        if module == "physchem" and name == "get_water_sites":
+            function.__doc__ += (
+                "Retain only whole neutral indexed O-H-H participants. An oxygen-only "
+                "water name or implicit H does not qualify. Selecting a fragment "
+                "does not expand the selection or add its missing atoms.\n"
+            )
+        if module == "physchem" and name == "get_metal_coordination_sites":
+            function.__doc__ += (
+                "The bounded native metal and ligand roles remain distinct. "
+                "Recognition does not prove a coordination bond, oxidation state "
+                "or geometry. ProLIF is a reference, not an executed provider.\n"
+            )
+        if module == "physchem" and name in {
+            "assess_chemical_template",
+            "apply_chemical_template",
+        }:
+            function.__doc__ += (
+                "The current primary is the source; template, provenance and atom "
+                "correspondence stay explicit and caller-owned. No atom matching, "
+                "authentication, protonation choice or coordinate inference is "
+                "introduced. Explicit context and connectivity policies remain "
+                "native, with original source/template index domains.\n"
+            )
+        if module == "physchem" and name == "assess_chemical_template":
+            function.__doc__ += (
+                "The returned assessment changes neither input nor the scene. "
+                "Compatible describes the declared mapped scope, not universal "
+                "chemical readiness.\n"
+            )
+        if module == "physchem" and name in {
+            "apply_chemical_template",
+            "normalize_aromatic_bond_orders",
+        }:
+            function.__doc__ += (
+                "The native result contains an independent molecular_system and "
+                "report; it is not a managed in-place edit and is never adopted "
+                "automatically. Source view.molsys and its scene/coverage remain "
+                "unchanged; native invalidation affects the returned copy only. "
+                "No update_view argument or synchronization is added. History "
+                "retains original operation indices and producer provenance.\n"
+            )
+        if module == "physchem" and name == "normalize_aromatic_bond_orders":
+            function.__doc__ += (
+                "Only already declared aromatic bonds are normalized to fractional "
+                "order 1.5. This does not perceive aromaticity or guess chemistry.\n"
+            )
+        if module == "physchem" and name == "get_peptide_chemical_template":
+            function.__doc__ += (
+                "This explicit-input factory works before a system is loaded while "
+                "its view remains open. The returned coordinate-free template is "
+                "independent of the primary and is not loaded or adopted. Required "
+                "sequence/terminal states and declared disulfides remain native; "
+                "no H geometry, L stereochemistry or protonation model is inferred.\n"
             )
         if module == "physchem" and name in {
             "get_autodock_atom_types",

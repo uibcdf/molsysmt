@@ -179,3 +179,16 @@ limits explicit. The source-qualified #503 nested CIP author-list defect remains
 visible until an owner repair is received; no consumer deepcopy or claim of full
 nested ownership is permitted. The three reader help/doc examples remain native
 contracts; tutorial links describe their scientific definitions.
+
+
+Preserve all 34 explicit physchem paths at the recorded baseline, including
+whole indexed waters, bounded metal/ligand roles, explicit template/context maps,
+independent template application/aromatic normalization and the explicit-input
+coordinate-free peptide factory. Do not conflate source, returned copy and scene
+adoption. Preserve native copy costs, history/index domains, invalidation, unknown
+chemistry, required scientific choices and no automatic primary/visible-frame use
+for explicit-input factories. The initial three build diagnostics select native
+group/atom scopes and one structure explicitly; candidates remain unassigned.
+Retain the legacy pentalanine chain-metadata limitation and positive 181L route
+until the data contract is independently resolved. Broad API inventories measure
+source exposure, not scientific or installed qualification.

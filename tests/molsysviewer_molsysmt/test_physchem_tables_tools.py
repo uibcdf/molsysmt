@@ -108,6 +108,12 @@ def test_signatures_help_digestion_and_no_invented_scientific_inputs(view, name)
         "get_autodock_atom_types",
         "get_cip_stereochemistry",
         "get_partial_charges",
+        "get_water_sites",
+        "get_metal_coordination_sites",
+        "assess_chemical_template",
+        "apply_chemical_template",
+        "normalize_aromatic_bond_orders",
+        "get_peptide_chemical_template",
     }
 
 

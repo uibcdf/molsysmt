@@ -6,6 +6,7 @@ from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _BasicTools
+from ._build import _BuildTools
 from ._pbc import _PbcTools
 from ._physchem import _PhyschemTools
 from ._structure import _StructureTools
@@ -16,6 +17,7 @@ class _MolSysMTTools:
     def __init__(self, view):
         self._view_ref = ref(view)
         self.basic = _BasicTools(self)
+        self.build = _BuildTools(self)
         self.topology = _TopologyTools(self)
         self.structure = _StructureTools(self)
         self.pbc = _PbcTools(self)
@@ -81,6 +83,7 @@ class _MolSysMTTools:
     def __dir__(self):
         return [
             "basic",
+            "build",
             "topology",
             "structure",
             "pbc",

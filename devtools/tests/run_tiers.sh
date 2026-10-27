@@ -38,6 +38,18 @@ run_smoke() {
     tests/physchem/test_get_autodock_atom_types.py \
     tests/physchem/test_get_cip_stereochemistry.py \
     tests/physchem/test_get_partial_charges.py \
+    tests/physchem/test_get_water_sites.py \
+    tests/physchem/test_get_metal_coordination_sites.py \
+    tests/physchem/test_chemical_template.py \
+    tests/physchem/test_chemical_template_connectivity.py \
+    tests/physchem/test_chemical_template_selection.py \
+    tests/physchem/test_chemical_template_context.py \
+    tests/physchem/test_chemical_template_stereochemistry.py \
+    tests/physchem/test_get_peptide_chemical_template.py \
+    tests/physchem/test_normalize_aromatic_bond_orders.py \
+    tests/build/test_get_residue_chemical_coverage.py \
+    tests/build/test_get_covalent_bond_candidates.py \
+    tests/build/test_get_peptide_bond_candidates.py \
     tests/form/molsysmt_Topology/test_atom_membership_order.py \
     tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py \
     tests/native/test_builder_inherited_molecules.py \

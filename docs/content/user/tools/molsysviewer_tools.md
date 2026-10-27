@@ -47,6 +47,12 @@ editors: `wrap_to_pbc`, `wrap_to_mic` and `unwrap`, with native independent
 outputs or managed in-place updates. Centered in-place wrapping remains
 unreceived under #467; see the periodic sections for units and precise limits.
 
+The `view.addons.molsysmt.build` namespace starts with three read-only tools:
+`get_residue_chemical_coverage`, `get_covalent_bond_candidates` and
+`get_peptide_bond_candidates`. They return diagnostics/candidates, not prepared
+systems or assigned bonds. Their native single-structure, exact-template and
+source metadata requirements remain explicit. Broader build editing is pending.
+
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -1372,7 +1378,7 @@ possible geometric input or an installed release pair.
 
 ## Reading physical and chemical properties
 
-The source addon now exposes twenty-eight tools under
+The source addon now exposes all thirty-four reviewed tools under
 `view.addons.molsysmt.physchem`: the seven readers below, followed by the two
 ProtOr tools, four reference-descriptor tables, conformational SASA and two
 stored-chemistry reports, plus stored aromatic-ring recognition and detached
@@ -1382,8 +1388,8 @@ bulkiness and Levitt secondary-structure propensity reference lookups, and
 state-aware TPSA and Wildman–Crippen lipophilicity with native contribution
 outputs. Three further readers expose AutoDock types, CIP stereochemistry and
 explicit partial-charge models. SASA and the chemical readers have bounded receiving, not universal scientific qualification. The
-inspected native inventory has 34 exports; six further feature-perception and
-chemical-preparation functions remain pending in the addon. The new reference lookups have their own source receiving; earlier hosted
+inspected native inventory has 34 exports; all now have explicit source wrappers.
+The final six retain their distinct reader, independent-output and factory contracts. The new reference lookups have their own source receiving; earlier hosted
 gates retain their original source identities and scopes.
 
 | Tool | Native result and received scope |
@@ -2172,3 +2178,140 @@ at each call, including pending managed edits, and do not synchronize pending
 projection. `update_view` is not a reader parameter. See
 {ref}`Tutorial_AutoDock_Typing`, {ref}`Tutorial_Get_CIP_stereochemistry` and
 {ref}`Tutorial_Partial_Charge_Assignment` for native method profiles and limits.
+
+
+## Recognizing waters and metal participants
+
+`physchem.get_water_sites()` recognizes whole neutral O-H-H graphs with indexed
+hydrogens. An oxygen-only water name or implicit H does not create a water site.
+`get_metal_coordination_sites()` returns the native bounded metal/ligand roles.
+These are chemical candidates, not measured interactions or assigned bonds.
+Full-source recognition and match budgets precede output selection. Requested
+structures resolve chemistry and selectors; the visible structure is not chosen
+implicitly. An explicit completeness assumption is recorded without preparing
+or changing the input.
+
+```python
+import molsysviewer as msv
+from rdkit import Chem
+from rdkit.Chem import rdDepictor
+
+molsys = Chem.AddHs(Chem.MolFromSmiles("O.CO.[Zn+2]"))
+rdDepictor.Compute2DCoords(molsys)
+with msv.new_view(molsys) as view:
+    sites = view.addons.molsysmt.physchem
+    assert sites.get_water_sites()["water_atom_indices"].shape == (1, 3)
+    assert sites.get_water_sites(selection=[0])["water_atom_indices"].shape == (0, 3)
+    assert sites.get_metal_coordination_sites()["metal_atom_indices"].tolist() == [3]
+```
+
+Metal and ligand arrays retain separate roles, including permitted overlap.
+They do not determine oxidation states, geometry or coordination numbers.
+Water recognition does not certify a water force field or hydrogen-bond roles.
+No H, coordinates, charges or aromatic assignments are generated. See
+{ref}`Tutorial_Get_water_sites` and {ref}`Tutorial_Get_metal_coordination_sites`.
+
+## Assessing and applying explicit chemical templates
+
+`assess_chemical_template()` assesses the current primary against an explicit
+caller-owned template, exhaustive atom correspondence and provenance.
+`apply_chemical_template()` returns a new native system and report. It does not
+replace `view.molsys`. Existing conflicting declarations are not overwritten.
+Map columns address template then full source indices; explicit context mapping
+and connectivity policies retain the native scoped contract. A checksum/identity
+is a declaration, not authentication or proof that the template is correct.
+
+```python
+import molsysmt as msm
+import molsysviewer as msv
+import numpy as np
+from rdkit import Chem
+from rdkit.Chem import rdDepictor
+
+template = Chem.AddHs(Chem.MolFromSmiles("CO"))
+rdDepictor.Compute2DCoords(template)
+provenance = dict(identity="methanol", version="1", source_uri="example:methanol",
+                  checksum="caller-declared", hydrogen_policy="explicit_atoms")
+with msv.new_view(template) as view:
+    options = dict(template=template, template_provenance=provenance,
+                   atom_correspondence=np.column_stack((np.arange(6), np.arange(6))))
+    tools = view.addons.molsysmt.physchem
+    assert tools.assess_chemical_template(**options)["status"] == "compatible"
+    primary, scene = view.molsys, view.export_state()
+    result = tools.apply_chemical_template(**options)
+    assert result["report"]["status"] == "applied"
+    assert result["molecular_system"] is not primary
+    assert view.molsys is primary and view.export_state() == scene
+```
+
+The default requires the same stored graph. Explicit native completion may add
+missing declared template edges to the returned copy; context transfer keeps its
+native restrictions. Partial assessment does not certify unrelated atoms or
+silently change global completeness. Source and reference inputs stay unchanged.
+The returned copy retains native history, remapping and interaction invalidation;
+its arrays can include all source structures and follow native copy costs.
+The wrapper adds no second copy, molecular matching, protonation choice, H
+placement, pose transfer or automatic adoption. See {ref}`Tutorial_Chemical_Templates`.
+
+`normalize_aromatic_bond_orders()` is also an independent-result operation. It
+normalizes only stored aromatic declarations to fractional order 1.5, preserving
+native reports/history and invalidation on the returned copy. It does not perceive
+aromaticity, choose Kekule structures or repair unknown chemistry. An unchanged
+normalization retains native interaction coverage. No scene or source is adopted.
+See {ref}`Tutorial_Normalize_Aromatic_Bond_Orders`.
+
+## Constructing an independent peptide template
+
+`get_peptide_chemical_template()` keeps every native scientific input explicit.
+It can run in an empty, open view because it does not use the primary system.
+The template has stored H counts and no geometry; it is not loaded automatically.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    factory = view.addons.molsysmt.physchem.get_peptide_chemical_template
+    result = factory(["GLY", "GLY"], "ammonium", "carboxylate")
+    assert result["template"].get_n_atoms() == 9
+    assert result["report"]["n_stored_hydrogens"] == 8
+    assert view.molsys is None
+```
+
+Sequence names, terminal states and disulfide group pairs are declarations.
+This factory does not infer pH, L stereochemistry, H positions, atom matches or
+force-field parameters. Its provenance/history keeps the synthetic operation
+indices; later extraction or edits do not turn them into current source indices.
+All wrappers retain closed-view lifetime checks and native `skip_digestion`.
+Independent-result operations/factories do not accept `update_view`.
+
+## Inspecting preparation needs without editing
+
+The first `build` tools separate diagnostics and candidates from molecular repair.
+`get_residue_chemical_coverage()` selects source groups, including whole groups
+containing atoms selected by an expression. Unsupported identities remain
+unassessed. `get_covalent_bond_candidates()` and `get_peptide_bond_candidates()`
+select source atoms and retain a candidate only when both endpoints are selected.
+Group audits and full-source competition follow the chosen native policy.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["181L"] as view:
+    tools = view.addons.molsysmt.build
+    coverage = tools.get_residue_chemical_coverage(structure_indices=[0])
+    covalent = tools.get_covalent_bond_candidates(structure_indices=[0])
+    peptide = tools.get_peptide_bond_candidates(structure_indices=[0], pbc=False)
+    assert coverage["groups"]
+    assert covalent["bonded_atom_pairs"].shape[1] == 2
+    assert peptide["bonded_atom_pairs"].shape[1] == 2
+```
+
+Select one structure when the native diagnostic requires it. Native defaults
+are preserved; the addon never substitutes the visible structure. The legacy
+pentalanine demo has unknown atom-chain membership and returns no peptide
+candidates under the current policy; no chain is inferred to make it pass.
+The PDB demo above supplies declared chain membership. Candidate distance units,
+cutoffs and PBC remain explicit. A candidate does not certify valence, protonation,
+a declared bond or chemical validity. No missing atom/bond is assigned and no
+result is colored or adopted. See {ref}`Tutorial_Residue_Chemical_Coverage`,
+{ref}`Tutorial_Covalent_Bond_Candidates` and {ref}`Tutorial_Peptide_Bond_Candidates`.
