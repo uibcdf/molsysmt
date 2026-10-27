@@ -1,0 +1,269 @@
+{
+  "schema": "molsysmt.viewer_tools_reference_scales_source_ci@1",
+  "date": "2026-10-26",
+  "source": "efc9b94f37bbad8af251b58f81bbb17db029793f",
+  "viewer_source": "deaba4cbea43015859544b1b393ecbe02dd2ee19",
+  "run": {
+    "conclusion": "success",
+    "databaseId": 40453242375,
+    "event": "push",
+    "headBranch": "main",
+    "headSha": "efc9b94f37bbad8af251b58f81bbb17db029793f",
+    "jobs": [
+      {
+        "completedAt": "2026-10-27T05:13:09Z",
+        "conclusion": "success",
+        "databaseId": 122020573488,
+        "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+        "startedAt": "2026-10-27T05:04:53Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T05:04:56Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T05:04:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:05:08Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-10-27T05:04:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:05:09Z",
+            "conclusion": "success",
+            "name": "Additional info about the build",
+            "number": 3,
+            "startedAt": "2026-10-27T05:05:08Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:05:09Z",
+            "conclusion": "success",
+            "name": "Set up Python",
+            "number": 4,
+            "startedAt": "2026-10-27T05:05:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:06:02Z",
+            "conclusion": "success",
+            "name": "Setup conda env",
+            "number": 5,
+            "startedAt": "2026-10-27T05:05:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:06:09Z",
+            "conclusion": "success",
+            "name": "Select the pinned minimal Rust toolchain",
+            "number": 6,
+            "startedAt": "2026-10-27T05:06:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:07:10Z",
+            "conclusion": "success",
+            "name": "Install package",
+            "number": 7,
+            "startedAt": "2026-10-27T05:06:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:07:10Z",
+            "conclusion": "success",
+            "name": "Validate controlled dependency versions",
+            "number": 8,
+            "startedAt": "2026-10-27T05:07:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:07:10Z",
+            "conclusion": "success",
+            "name": "Test import",
+            "number": 9,
+            "startedAt": "2026-10-27T05:07:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:07:10Z",
+            "conclusion": "success",
+            "name": "Validate public API stability against parent",
+            "number": 10,
+            "startedAt": "2026-10-27T05:07:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:07:12Z",
+            "conclusion": "success",
+            "name": "Validate docstrings bidirectionally",
+            "number": 11,
+            "startedAt": "2026-10-27T05:07:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:07:16Z",
+            "conclusion": "success",
+            "name": "Validate form contracts",
+            "number": 12,
+            "startedAt": "2026-10-27T05:07:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:07:19Z",
+            "conclusion": "success",
+            "name": "Enforce the Rust-only runtime",
+            "number": 13,
+            "startedAt": "2026-10-27T05:07:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:10:02Z",
+            "conclusion": "success",
+            "name": "Run test suite",
+            "number": 14,
+            "startedAt": "2026-10-27T05:07:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:13:06Z",
+            "conclusion": "success",
+            "name": "Receive the bound MolSysViewer tools",
+            "number": 15,
+            "startedAt": "2026-10-27T05:10:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:13:06Z",
+            "conclusion": "success",
+            "name": "Post Setup conda env",
+            "number": 28,
+            "startedAt": "2026-10-27T05:13:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:13:06Z",
+            "conclusion": "success",
+            "name": "Post Set up Python",
+            "number": 29,
+            "startedAt": "2026-10-27T05:13:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:13:07Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 30,
+            "startedAt": "2026-10-27T05:13:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T05:13:07Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 31,
+            "startedAt": "2026-10-27T05:13:07Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/uibcdf/molsysmt/actions/runs/40453242375/job/122020573488"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/40453242375"
+  },
+  "controls": [
+    {
+      "conclusion": "success",
+      "databaseId": 40453242325,
+      "event": "push",
+      "headSha": "efc9b94f37bbad8af251b58f81bbb17db029793f",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40453242325",
+      "workflowName": "Ruff"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40453242350,
+      "event": "push",
+      "headSha": "efc9b94f37bbad8af251b58f81bbb17db029793f",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40453242350",
+      "workflowName": "Dependency contract"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40453242361,
+      "event": "push",
+      "headSha": "efc9b94f37bbad8af251b58f81bbb17db029793f",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40453242361",
+      "workflowName": "Developer guide integrity"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40453242846,
+      "event": "push",
+      "headSha": "efc9b94f37bbad8af251b58f81bbb17db029793f",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40453242846",
+      "workflowName": "Conda publication governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40453242823,
+      "event": "push",
+      "headSha": "efc9b94f37bbad8af251b58f81bbb17db029793f",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40453242823",
+      "workflowName": "MolSysSuite policy"
+    }
+  ],
+  "native_cases": 2576,
+  "addon_cases": 1666,
+  "failures": 0,
+  "errors": 0,
+  "skips": {
+    "native": 2,
+    "addon": 1
+  },
+  "log_sha256": "11c17fb352936eef0e069acd2f4771f7512c45a6f45f43e29505e9413f39bd40",
+  "log_pass_summaries": [
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tRun test suite\t2026-10-27T05:09:59.9169992Z PASS exit=0 | 2576 passed, 2 skipped | 159.21s | 397 warnings",
+    "Smoke test \u2014 ubuntu-latest, Python 3.14\tReceive the bound MolSysViewer tools\t2026-10-27T05:13:04.0358566Z PASS exit=0 | 1666 passed, 1 skipped | 179.86s | 1423 warnings"
+  ],
+  "local_receipt": "molsysviewer_tools_reference_scales_receiving_20261026.json",
+  "inventory": {
+    "native_exports": 33,
+    "addon_physchem_wrappers": 23,
+    "unreceived": 10
+  },
+  "scope": "Exact-source Linux/Python 3.14 CI. Adds bound bulkiness and required-category secondary-structure propensity mirrors, native reference metadata independence and group-free query/build guards. TPSA is not wrapped or separately scientifically qualified. No new Viewer runtime, optional-provider absence, GUI, installed package, benchmark, tag or release qualification.",
+  "skip_reason": "All three omissions are optional Ackredit tests: could not import 'ackredit': No module named 'ackredit'. Local receiving executes real Ackredit tests; that does not relabel the hosted omissions.",
+  "receptor_bundle_file_sha256": {
+    "artifacts.json": "733015529a249a421892ec83190af9d23593d1877609d3653ae94f945a220490",
+    "checks.json": "14f3b3d8dbf09b06b57d375cfb76fc7fb20dc3fb9e174dd387eb0c0c9c3da228",
+    "config.json": "df2ae1d12fc253da5eccb6b11ff5f07b7c7fd498b32df90b62981827903c6acd",
+    "jobs.json": "fa4dc80f89463b69c4e7c9985ff87589faca426c9faa739eec8b3db27946dea0",
+    "logs.zip": "4f2bbab172fb31290076709627ae283db293daaf2e2a41067e6a0b06eb4d7833",
+    "manifest.json": "6d86f5c6722f378b8111c234f57da41a0af06ee9efd51dbed1b3e265d1aad157",
+    "run.json": "2fb40ff19cc654eadccbb5a6b7f45fdaeb1695c747b0ff2a1aa2d0ebdab7ac79",
+    "workflow.json": "91b2e1211dcb4389258dfe83b50a6036ac3d38f4928d0dcbe4e2f73ab953ec69"
+  },
+  "receptor_bundle_complete": true,
+  "warning_counts": {
+    "native": 397,
+    "addon": 1423
+  },
+  "unrelated_scheduled_run_excluded": {
+    "run": 40453758126,
+    "workflow": "Verify Zenodo release",
+    "event": "schedule",
+    "reason": "Independent historical-release probe, not a required source gate for these wrappers."
+  }
+}

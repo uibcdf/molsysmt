@@ -1274,3 +1274,22 @@ composition passes, zero failures/errors/skips, retaining the two scale signatur
 and contracts; no second full regression is claimed. The group-free native guard
 is included in the bounded CI tier. TPSA remains unreceived by the addon; a new
 native export does not automatically expand its facade or qualify that science.
+
+
+### Reference scales: exact-source hosted receiving completed — 2026-10-26
+
+All six applicable source gates pass for efc9b94f37bbad8af251b58f81bbb17db029793f.
+Smoke [40453242375](https://github.com/uibcdf/molsysmt/actions/runs/40453242375)
+passes 2,576 native and 1,666 addon cases on Linux/Python 3.14, zero failures or
+errors. Two native and one addon attribution tests are skipped because optional
+Ackredit is absent. Local receiving executes them; it does not turn hosted skips
+into passes. Dependency, Ruff, guide integrity, suite policy and Conda governance
+all pass on this same source. The [terminal receipt](../devtools/data/molsysviewer_tools_reference_scales_source_ci_20261026.json) preserves official job/step
+identities, exact Viewer deaba4cbea source, log and receptor-bundle file digests,
+counts, optional omissions and remaining scope. It supersedes the earlier local
+receipt's pending hosted state without changing that immutable observation.
+
+The evidence-only closeout does not expand the 23-tool facade or receive TPSA,
+optional-provider absence, graphical tasks, installed artifacts, performance or
+another platform. Both 1.0 publications remain paused. No runtime change is made
+by this receipt; no duplicate heavy smoke is needed for this evidence-only commit.
