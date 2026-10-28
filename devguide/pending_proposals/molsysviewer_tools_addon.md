@@ -19,7 +19,7 @@ visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
 lifetime and new discovery/packaging route; retained-axis removal, geometry setting,
 copy/conversion/preflight, composition/identity queries, read-only comparison,
-all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, thirty-four physchem source wrappers and eleven build diagnostics (including strict bulkiness/propensity lookups, formal-charge/hydrophobic/halogen features, aromatic participant/flag readers, detached chemistry reports and bounded CPU SASA receiving) and eleven canonical interaction paths plus sync controls
+all eleven current topology readers, eighteen structure calculations, native translation/rotation/reflection/fitting/centering/displacement/principal-axis alignment/dihedral editing, ten PBC queries/factories, three periodic coordinate editors, thirty-four physchem source wrappers and eleven build diagnostics (including strict bulkiness/propensity lookups, formal-charge/hydrophobic/halogen features, aromatic participant/flag readers, detached chemistry reports and bounded CPU SASA receiving) and fifteen canonical interaction paths plus sync controls
 now have source receiving, while other editing families, panels and broad coverage
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
@@ -2025,3 +2025,72 @@ The [local contact-detector receipt](../../devtools/data/molsysviewer_tools_cont
 76 directed cases, 32 package guards, 57/241 executable examples and failed-test
 diagnoses. Hosted source, clean installed artifacts and scientific stability
 remain separate qualification scopes.
+
+
+### Final canonical interaction family mirrors — 2026-10-28
+
+The explicit interactions.metal_coordination.get_metal_coordination,
+interactions.pi_pi.get_pi_pi_interactions,
+interactions.cation_pi.get_cation_pi_interactions and
+interactions.water_bridges.get_water_bridges readers complete fifteen canonical
+scientific function paths across nine family namespaces. They bind only the
+current primary, preserve native signatures/defaults/keyword-only scientific
+arguments, digestion and diagnostics, and run through the same serialized
+reader. No preparation, formula, assignment, name, storage or scene effect is
+introduced. Source-path exposure is 131/244 inspected callables; aliases,
+utilities and native stubs are not independent qualified scientific algorithms.
+
+Metal roles remain directed proximity candidates, independent of stored dative
+bonds, coordination number or physical metal models. Aromatic whole rings and
+compound centers preserve methods/profiles, normal/plane definitions, reference
+adaptation limits, NaN meaning and explicit custom cutoffs. Split periodic
+participants retain native rejection. Water order is exactly one or two indexed
+mediators with six/nine actual D-H-A roles, alternative H paths and repeated
+shared oxygen images. Internal/between include actual used mediators; endpoint
+scope is not inferred. Coordinate blocks do not make resident leg, join or
+sparse-result arrays out-of-core or guarantee process RSS.
+
+All 133 directed cases pass: nonconsecutive/repeated structures, empty versus
+unevaluated coverage, native scope reversal, pending readers, cached handles,
+replacement/lifetime, alternate units, rotated/skew periodic boxes, profiles and
+geometry filters, typed/H5MSM persistence on independent copies, stored dative
+bond preservation and all eight two-water orientations under three leg criteria.
+At the original bb808a8b1 basis, 61 guide blocks and 269 inherited doctests pass. Four course notes extend
+only an existing Markdown cell, preserving schemas, keys, IDs, code and outputs;
+no new cell metadata or schema upgrade is introduced. One frozen joint regression at bb808a8b1 passes 5,840 cases with zero
+failures/errors/skips and unchanged source/backend hashes. After receiving
+e4691b16d, 1,004 affected-route/schema/reader cases pass with unchanged sources
+and backend; all 61 guide blocks / 279 inherited examples pass on that basis.
+Native #506/#507 repairs and owner FASTA ingestion are preserved. New
+exact-source hosted qualification remains pending.
+
+Native #516 independently reproduces reference-state MDTraj rejection in both
+aromatic detector callers: integer state forwarding loses the requested
+reference sentinel. Explicit numerical and supported MolSysMT selections remain
+received; the facade propagates the error and does not translate inputs or
+force chemistry. The initial directed attempt passed 49 cases before exposing
+this native limitation. Provider #508's integer-axis/empty-width correction and
+its added donor-empty guard are retained from 2083a105b. #514's stored-notebook
+schema repair is preserved; raw schema guards are part of this receiving.
+Other scientific-owner issues retain their separate scope.
+
+Earlier 24ee46486 smoke 40618125703 is cancelled during native pytest, with no
+completed native verdict and addon tier skipped; its five auxiliary controls
+pass. Later 2083a105b source smoke 40619213988 passes 3,722 native / 2,219 addon
+cases with fifteen/four optional skips. The [supersession receipt](../../devtools/data/molsysviewer_tools_contact_ci_supersession_20261028.json)
+retains these distinct identities and conclusions. That bounded success does not
+clear weekly 40693271675: four Linux minors fail the same seven tests and macOS
+is cancelled. Native #515 records contract-based triage; the 79/79 certificate
+is not a full-suite pass. No duplicate old-source recovery or new weekly matrix
+is dispatched. Exact-source acceptance of this extension remains pending.
+
+Broader expert utilities, molecular mechanics, preparation/editing contracts,
+graphical tasks and installed qualification remain under the accepted plan.
+Core host/GUI, dependency floor, packages and release status do not change;
+both 1.0 publications remain paused. Ownership: uibcdf/molsysmt#421 /
+uibcdf/molsysviewer#264.
+
+The [final interaction source receipt](../../devtools/data/molsysviewer_tools_final_interactions_receiving_20261028.json) records the two separate source/test scopes, 496 raw notebook-schema
+guards, 133 directed cases, 61/279 current examples, unchanged backend hashes
+and provider issues #515/#516. Prior cancelled and full-suite failure evidence
+remain visible. Source exposure does not authorize a release or installed claim.

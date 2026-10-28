@@ -1,0 +1,237 @@
+{
+  "schema": "molsysmt.viewer-tools.contact-supersession@1",
+  "date": "2026-10-28",
+  "original_source": "24ee46486fec5c19da847a61229f553f5200921e",
+  "original_run": {
+    "conclusion": "cancelled",
+    "databaseId": 40618125703,
+    "headSha": "24ee46486fec5c19da847a61229f553f5200921e",
+    "jobs": [
+      {
+        "completedAt": "2026-10-28T02:09:33Z",
+        "conclusion": "cancelled",
+        "databaseId": 122585320317,
+        "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+        "startedAt": "2026-10-28T01:58:00Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-28T01:58:02Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-28T01:58:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T01:58:24Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-10-28T01:58:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T01:58:24Z",
+            "conclusion": "success",
+            "name": "Additional info about the build",
+            "number": 3,
+            "startedAt": "2026-10-28T01:58:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T01:58:24Z",
+            "conclusion": "success",
+            "name": "Set up Python",
+            "number": 4,
+            "startedAt": "2026-10-28T01:58:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T01:59:14Z",
+            "conclusion": "success",
+            "name": "Setup conda env",
+            "number": 5,
+            "startedAt": "2026-10-28T01:58:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T01:59:22Z",
+            "conclusion": "success",
+            "name": "Select the pinned minimal Rust toolchain",
+            "number": 6,
+            "startedAt": "2026-10-28T01:59:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:00:40Z",
+            "conclusion": "success",
+            "name": "Install package",
+            "number": 7,
+            "startedAt": "2026-10-28T01:59:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:00:40Z",
+            "conclusion": "success",
+            "name": "Validate controlled dependency versions",
+            "number": 8,
+            "startedAt": "2026-10-28T02:00:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:00:43Z",
+            "conclusion": "success",
+            "name": "Validate bound addon test command",
+            "number": 9,
+            "startedAt": "2026-10-28T02:00:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:00:44Z",
+            "conclusion": "success",
+            "name": "Test import",
+            "number": 10,
+            "startedAt": "2026-10-28T02:00:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:00:44Z",
+            "conclusion": "success",
+            "name": "Validate public API stability against parent",
+            "number": 11,
+            "startedAt": "2026-10-28T02:00:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:00:46Z",
+            "conclusion": "success",
+            "name": "Validate docstrings bidirectionally",
+            "number": 12,
+            "startedAt": "2026-10-28T02:00:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:00:51Z",
+            "conclusion": "success",
+            "name": "Validate form contracts",
+            "number": 13,
+            "startedAt": "2026-10-28T02:00:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:00:54Z",
+            "conclusion": "success",
+            "name": "Enforce the Rust-only runtime",
+            "number": 14,
+            "startedAt": "2026-10-28T02:00:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:09:29Z",
+            "conclusion": "cancelled",
+            "name": "Run test suite",
+            "number": 15,
+            "startedAt": "2026-10-28T02:00:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:09:29Z",
+            "conclusion": "skipped",
+            "name": "Receive the bound MolSysViewer tools",
+            "number": 16,
+            "startedAt": "2026-10-28T02:09:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:09:30Z",
+            "conclusion": "success",
+            "name": "Post Setup conda env",
+            "number": 30,
+            "startedAt": "2026-10-28T02:09:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:09:30Z",
+            "conclusion": "skipped",
+            "name": "Post Set up Python",
+            "number": 31,
+            "startedAt": "2026-10-28T02:09:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:09:30Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 32,
+            "startedAt": "2026-10-28T02:09:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-28T02:09:30Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 33,
+            "startedAt": "2026-10-28T02:09:30Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/uibcdf/molsysmt/actions/runs/40618125703/job/122585320317"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/40618125703"
+  },
+  "original_scope": "Cancelled during native pytest, with no completed native pytest verdict; addon tier skipped. Original five auxiliary controls remain independently successful.",
+  "original_log_sha256": "d359945ae156e47d4878ef35380880495c100f79fa1b8c33cf93cd2a5262588a",
+  "later_source": "2083a105b4e79217bfada833cd061e416dfb4b57",
+  "later_smoke_run": 40619213988,
+  "later_conclusion": "success",
+  "later_controls": [
+    {
+      "conclusion": "success",
+      "databaseId": 40619214016,
+      "headSha": "2083a105b4e79217bfada833cd061e416dfb4b57",
+      "name": "Ruff",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40619214312,
+      "headSha": "2083a105b4e79217bfada833cd061e416dfb4b57",
+      "name": "Conda publication governance",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40619214311,
+      "headSha": "2083a105b4e79217bfada833cd061e416dfb4b57",
+      "name": "MolSysSuite policy",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40619213971,
+      "headSha": "2083a105b4e79217bfada833cd061e416dfb4b57",
+      "name": "Developer guide integrity",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40619213988,
+      "headSha": "2083a105b4e79217bfada833cd061e416dfb4b57",
+      "name": "CI smoke",
+      "status": "completed"
+    }
+  ],
+  "native": {
+    "passed": 3722,
+    "skipped": 15
+  },
+  "addon": {
+    "passed": 2219,
+    "skipped": 4
+  },
+  "later_log_sha256": "4487661d7dc4b3ed23009f8a0270225249147348690466bd6ee9eaff5de6171a",
+  "scope": "The later source receives the existing three chemical families and native #508 repair. It does not relabel 24ee46486 as success, qualify the new four wrappers, clear weekly #515 or establish installed/artifact compatibility."
+}

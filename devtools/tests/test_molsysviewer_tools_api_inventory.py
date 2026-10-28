@@ -44,7 +44,14 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "interactions.halogen_bonds.get_halogen_bonds",
     ]:
         assert rows[path]["exposed"]
-    assert not rows["interactions.metal_coordination.get_metal_coordination"]["exposed"]
+    for path in [
+        "interactions.metal_coordination.get_metal_coordination",
+        "interactions.pi_pi.get_pi_pi_interactions",
+        "interactions.cation_pi.get_cation_pi_interactions",
+        "interactions.water_bridges.get_water_bridges",
+    ]:
+        assert rows[path]["exposed"]
+    assert inventory["modules"]["interactions"]["missing"] == []
     assert not rows["molecular_mechanics.get_forces"]["exposed"]
     assert (
         rows["basic.are_multiple_molecular_systems"]["input_kind"]

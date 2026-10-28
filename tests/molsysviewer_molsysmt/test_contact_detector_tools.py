@@ -122,7 +122,7 @@ def test_explicit_signature_help_defaults_and_independent_navigation(view):
     assert method.digestion_plan is not None
     assert dir(getattr(value.addons.molsysmt.interactions, family)) == [NAMES[family]]
     assert not hasattr(value.addons.molsysmt, NAMES[family])
-    assert not hasattr(value.addons.molsysmt.interactions, "metal_coordination")
+    assert not hasattr(value.addons.molsysmt.interactions, "nonexistent_family")
     doc = inspect.getdoc(method)
     assert "not a scene object" in doc and "experimental" in doc
     assert "RSS" in doc and "not global identities" in doc

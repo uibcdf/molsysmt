@@ -234,3 +234,16 @@ Preserve chemical prerequisites, optional RDKit, three calculation scope modes,
 sorted/deduplicated structure coverage, declared units, estimates and resident
 sparse-output limits. Legacy incomplete demo data must reject without hidden
 preparation. These independent analyses do not attach, edit or update the scene.
+
+
+Preserve all fifteen explicit canonical interaction function paths at this source
+baseline, without equating source exposure with universal qualification. Metal
+roles are directed proximity candidates, independent from stored dative bonds or
+coordination assignment. Aromatic methods/profiles keep whole participants,
+different plane/reference definitions, NaN meaning, native periodic rejection
+and the custom four-cutoff proposal. Water order is exactly one or two indexed
+mediators with six/nine actual leg roles; preserve alternative H paths and shared
+oxygen images. Keep native selector limitations and resource/provider boundaries
+visible. Do not add implicit chemistry, virtual H, unwrapping, storage or scene
+updates. Extend course prose without changing declared notebook schemas or
+existing cell IDs, code and outputs; validate raw stored schemas.

@@ -13,9 +13,23 @@ class _InteractionsTools:
         self.ionic = _IonicTools(owner)
         self.hydrophobic = _HydrophobicTools(owner)
         self.halogen_bonds = _HalogenTools(owner)
+        self.metal_coordination = _MetalCoordinationTools(owner)
+        self.pi_pi = _PiPiTools(owner)
+        self.cation_pi = _CationPiTools(owner)
+        self.water_bridges = _WaterBridgeTools(owner)
 
     def __dir__(self):
-        return ["hbonds", "disulfides", "ionic", "hydrophobic", "halogen_bonds"]
+        return [
+            "hbonds",
+            "disulfides",
+            "ionic",
+            "hydrophobic",
+            "halogen_bonds",
+            "metal_coordination",
+            "pi_pi",
+            "cation_pi",
+            "water_bridges",
+        ]
 
 
 class _HbondTools:
@@ -499,5 +513,255 @@ class _HalogenTools:
                 "max_matches": max_matches,
                 "heavy_mode": heavy_mode,
                 "profile": profile,
+            },
+        )
+
+
+class _MetalCoordinationTools:
+    _NAMES = ("get_metal_coordination",)
+
+    def __init__(self, owner):
+        self._owner = owner
+
+    def __dir__(self):
+        return list(self._NAMES)
+
+    @_native_documentation(
+        "get_metal_coordination", module="interactions.metal_coordination"
+    )
+    @signal(tags=["addon", "interactions", "metal_coordination"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_metal_coordination(
+        self,
+        selection="all",
+        selection_2=None,
+        structure_indices="all",
+        chemical_state="reference",
+        method="metal_ligand_distance",
+        distance_threshold=None,
+        selection_mode="internal",
+        pbc=True,
+        assume_complete_connectivity=False,
+        output_type="molsysmt.Interactions",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_matches=100000,
+        heavy_mode="auto",
+        profile=None,
+    ):
+        from molsysmt.interactions.metal_coordination import get_metal_coordination
+
+        return self._owner._read(
+            get_metal_coordination,
+            {
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "distance_threshold": distance_threshold,
+                "selection_mode": selection_mode,
+                "pbc": pbc,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "output_type": output_type,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_matches": max_matches,
+                "heavy_mode": heavy_mode,
+                "profile": profile,
+            },
+        )
+
+
+class _PiPiTools:
+    _NAMES = ("get_pi_pi_interactions",)
+
+    def __init__(self, owner):
+        self._owner = owner
+
+    def __dir__(self):
+        return list(self._NAMES)
+
+    @_native_documentation("get_pi_pi_interactions", module="interactions.pi_pi")
+    @signal(tags=["addon", "interactions", "pi_pi"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_pi_pi_interactions(
+        self,
+        distance_threshold=None,
+        angle_threshold=None,
+        offset_threshold=None,
+        planarity_threshold=None,
+        selection="all",
+        selection_2=None,
+        structure_indices="all",
+        chemical_state="reference",
+        method="centroid_angle_offset",
+        selection_mode="internal",
+        pbc=True,
+        assume_complete_connectivity=False,
+        output_type="molsysmt.Interactions",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        geometry="both",
+        max_cyclic_block_size=256,
+        max_matches=100000,
+        heavy_mode="auto",
+        profile=None,
+    ):
+        from molsysmt.interactions.pi_pi import get_pi_pi_interactions
+
+        return self._owner._read(
+            get_pi_pi_interactions,
+            {
+                "distance_threshold": distance_threshold,
+                "angle_threshold": angle_threshold,
+                "offset_threshold": offset_threshold,
+                "planarity_threshold": planarity_threshold,
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "selection_mode": selection_mode,
+                "pbc": pbc,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "output_type": output_type,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "geometry": geometry,
+                "max_cyclic_block_size": max_cyclic_block_size,
+                "max_matches": max_matches,
+                "heavy_mode": heavy_mode,
+                "profile": profile,
+            },
+        )
+
+
+class _CationPiTools:
+    _NAMES = ("get_cation_pi_interactions",)
+
+    def __init__(self, owner):
+        self._owner = owner
+
+    def __dir__(self):
+        return list(self._NAMES)
+
+    @_native_documentation(
+        "get_cation_pi_interactions", module="interactions.cation_pi"
+    )
+    @signal(tags=["addon", "interactions", "cation_pi"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_cation_pi_interactions(
+        self,
+        distance_threshold=None,
+        angle_threshold=None,
+        offset_threshold=None,
+        planarity_threshold=None,
+        selection="all",
+        selection_2=None,
+        structure_indices="all",
+        chemical_state="reference",
+        method="centroid_distance_angle",
+        selection_mode="internal",
+        pbc=True,
+        assume_complete_connectivity=False,
+        output_type="molsysmt.Interactions",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_cyclic_block_size=256,
+        max_matches=100000,
+        heavy_mode="auto",
+        profile=None,
+    ):
+        from molsysmt.interactions.cation_pi import get_cation_pi_interactions
+
+        return self._owner._read(
+            get_cation_pi_interactions,
+            {
+                "distance_threshold": distance_threshold,
+                "angle_threshold": angle_threshold,
+                "offset_threshold": offset_threshold,
+                "planarity_threshold": planarity_threshold,
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "selection_mode": selection_mode,
+                "pbc": pbc,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "output_type": output_type,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_cyclic_block_size": max_cyclic_block_size,
+                "max_matches": max_matches,
+                "heavy_mode": heavy_mode,
+                "profile": profile,
+            },
+        )
+
+
+class _WaterBridgeTools:
+    _NAMES = ("get_water_bridges",)
+
+    def __init__(self, owner):
+        self._owner = owner
+
+    def __dir__(self):
+        return list(self._NAMES)
+
+    @_native_documentation("get_water_bridges", module="interactions.water_bridges")
+    @signal(tags=["addon", "interactions", "water_bridges"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_water_bridges(
+        self,
+        selection="all",
+        selection_2=None,
+        structure_indices="all",
+        chemical_state="reference",
+        method="hbond_water_path",
+        distance_threshold=None,
+        angle_threshold=None,
+        selection_mode="internal",
+        pbc=True,
+        assume_complete_connectivity=False,
+        output_type="molsysmt.Interactions",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        hbond_method="baker_hubbard",
+        hbond_profile=None,
+        max_matches=100000,
+        heavy_mode="auto",
+        profile=None,
+        order=1,
+    ):
+        from molsysmt.interactions.water_bridges import get_water_bridges
+
+        return self._owner._read(
+            get_water_bridges,
+            {
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "distance_threshold": distance_threshold,
+                "angle_threshold": angle_threshold,
+                "selection_mode": selection_mode,
+                "pbc": pbc,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "output_type": output_type,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "hbond_method": hbond_method,
+                "hbond_profile": hbond_profile,
+                "max_matches": max_matches,
+                "heavy_mode": heavy_mode,
+                "profile": profile,
+                "order": order,
             },
         )

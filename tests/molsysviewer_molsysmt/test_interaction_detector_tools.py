@@ -152,6 +152,10 @@ def test_explicit_signature_native_defaults_and_family_navigation(view, request)
         "ionic",
         "hydrophobic",
         "halogen_bonds",
+        "metal_coordination",
+        "pi_pi",
+        "cation_pi",
+        "water_bridges",
     }
     assert set(dir(view.addons.molsysmt.interactions.hbonds)) == set(
         RECOGNITION + HBONDS
@@ -160,7 +164,7 @@ def test_explicit_signature_native_defaults_and_family_navigation(view, request)
         "get_disulfide_candidates"
     ]
     assert not hasattr(view.addons.molsysmt, name)
-    assert not hasattr(view.addons.molsysmt.interactions, "metal_coordination")
+    assert not hasattr(view.addons.molsysmt.interactions, "nonexistent_family")
     assert "not a scene object" in inspect.getdoc(method)
     assert "These tools do not detect interaction occurrences" not in inspect.getdoc(
         method

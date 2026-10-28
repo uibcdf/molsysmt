@@ -308,6 +308,10 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             "interactions.ionic",
             "interactions.hydrophobic",
             "interactions.halogen_bonds",
+            "interactions.metal_coordination",
+            "interactions.pi_pi",
+            "interactions.cation_pi",
+            "interactions.water_bridges",
         }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -337,6 +341,10 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "get_ionic_interactions",
                 "get_hydrophobic_interactions",
                 "get_halogen_bonds",
+                "get_metal_coordination",
+                "get_pi_pi_interactions",
+                "get_cation_pi_interactions",
+                "get_water_bridges",
             }:
                 function.__doc__ += (
                     "Results use the native output_type default and remain independent. "
@@ -414,6 +422,63 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                     "This is the declared profile's geometric core, not proof of an "
                     "attractive energy or the paper's exact element-specific criterion.\n"
                 )
+            if name in {
+                "get_metal_coordination",
+                "get_pi_pi_interactions",
+                "get_cation_pi_interactions",
+                "get_water_bridges",
+            }:
+                function.__doc__ += (
+                    "These experimental observations preserve native chemical state, "
+                    "method/profile choices, internal/incident/between atom scopes, "
+                    "sorted unique evaluated structures and declared units/evidence. "
+                    "Selections do not silently complete participants. Bounded "
+                    "coordinate processing leaves accepted sparse results resident; "
+                    "working estimates are not a universal process-RSS guarantee.\n"
+                )
+            if name == "get_metal_coordination":
+                function.__doc__ += (
+                    "Metal/ligand roles are directed, including reversed role "
+                    "assignments when the native profile permits both. This "
+                    "experimental proximity criterion is not a metal-specific "
+                    "physical model, assigned coordination bond/number, oxidation "
+                    "state or energy. Stored dative bonds remain separate and "
+                    "unchanged; no preparation or bond assignment is introduced.\n"
+                )
+            if name in {"get_pi_pi_interactions", "get_cation_pi_interactions"}:
+                function.__doc__ += (
+                    "Whole declared aromatic rings and any compound centers keep "
+                    "source memberships. Native reference profiles, normal/plane "
+                    "construction, exclusions and the custom least-squares proposal "
+                    "are distinct scientific definitions. The custom "
+                    "centroid_angle_offset method requires four explicit cutoffs; "
+                    "none is guessed. Split periodic participants retain native "
+                    "rejection rather than hidden unwrapping. NaN in an "
+                    "inapplicable reference measurement is preserved. Native "
+                    "reference-state MDTraj string selections currently reject "
+                    "while equivalent atom indices work; the facade does not "
+                    "translate selectors or override the requested state.\n"
+                )
+            if name == "get_pi_pi_interactions":
+                function.__doc__ += (
+                    "The default custom method does not supply its required "
+                    "cutoffs. geometry preserves parallel/edge_to_face/both "
+                    "filters. A complete adapted reference geometry tester does "
+                    "not imply a complete Mol*/MDTraj/ProLIF feature pipeline "
+                    "or attractive interaction energy.\n"
+                )
+            if name == "get_water_bridges":
+                function.__doc__ += (
+                    "order is exactly one or two indexed mediator waters, not "
+                    "an upper bound. Six/nine D-H-A roles retain every actual "
+                    "leg and repeated oxygen image, alternative H paths and "
+                    "per-leg parameters. Internal/between scopes include used "
+                    "mediator atoms; endpoint-only requests need the explicit "
+                    "native incident scope. Waters need two indexed hydrogens. "
+                    "No water, H, protonation or optimized network is generated. "
+                    "Accepted legs, joins and bridges remain resident; this is "
+                    "not an incremental file writer or a frequency analysis.\n"
+                )
             if "skip_digestion" not in inspect.signature(native).parameters:
                 function.__doc__ += (
                     "skip_digestion : bool, keyword-only, default=False\n"
@@ -424,11 +489,12 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 function.__doc__ += (
                     "These are legacy rule-based candidates, distinct from "
                     "get_hbond_sites profiles and their chemical-state contract. "
-                    "Native mutable rule-list and external-default-rule syntax "
-                    "limitations (uibcdf/molsysmt#506 and uibcdf/molsysmt#507) "
-                    "are preserved, not repaired in this facade. "
-                    "Use native immutable tuple rules for an independent caller "
-                    "container when appropriate. No universal acceptor chemistry "
+                    "Native uibcdf/molsysmt#506 and uibcdf/molsysmt#507 repairs "
+                    "preserve caller rule containers and evaluate built-in "
+                    "MolSysMT rules separately from the declared custom-rule "
+                    "syntax. No consumer copy or selector translation is added. "
+                    "Custom rules keep the caller's chosen language. "
+                    "No universal acceptor chemistry "
                     "or complete hydrogen inventory is certified.\n"
                 )
             if name == "get_hbond_sites":

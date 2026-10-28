@@ -112,10 +112,14 @@ def test_nested_explicit_signatures_help_and_no_unreceived_detectors(view, name)
         "ionic",
         "hydrophobic",
         "halogen_bonds",
+        "metal_coordination",
+        "pi_pi",
+        "cation_pi",
+        "water_bridges",
     }
     assert set(NAMES).issubset(dir(tools.hbonds))
     assert core is view.interactions and tools is not core
-    assert not hasattr(tools, "metal_coordination")
+    assert not hasattr(tools, "nonexistent_family")
     assert not hasattr(view.addons.molsysmt, name)
     method = getattr(tools.hbonds, name)
     signature = inspect.signature(getattr(msm.interactions.hbonds, name))

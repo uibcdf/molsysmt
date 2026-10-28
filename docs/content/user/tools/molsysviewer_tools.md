@@ -69,6 +69,13 @@ Three further families mirror native detection: `interactions.ionic.get_ionic_in
 `interactions.halogen_bonds.get_halogen_bonds`. They keep required scientific
 inputs, optional providers and sparse output contracts. See their examples below.
 
+The source now also exposes `interactions.metal_coordination.get_metal_coordination`,
+`interactions.pi_pi.get_pi_pi_interactions`,
+`interactions.cation_pi.get_cation_pi_interactions` and
+`interactions.water_bridges.get_water_bridges`. All fifteen inventoried canonical
+interaction function paths have explicit expert wrappers. This counts source
+exposure, not unconditional scientific accuracy, stability or installed compatibility.
+
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -2749,3 +2756,188 @@ results stay resident; estimates exclude some source/Python overhead and do not
 guarantee process RAM. There is no automatic named storage or scene attachment.
 Use the explicit independent-copy H5MSM procedure above when you choose to save
 an analysis, or the separate core `view.interactions` workflow to represent one.
+
+
+## Observing metal-ligand proximity candidates
+
+Use `view.addons.molsysmt.interactions.metal_coordination.get_metal_coordination()`
+for the native broad, experimental proximity profile. Metal and ligand roles stay
+directed even when the selections are reversed. This does not assign a
+coordination bond, oxidation state, coordination number or binding energy.
+Stored dative bonds remain independent and unchanged. RDKit supplies the declared
+SMARTS profile; the reference ProLIF package is not required at runtime.
+
+```python
+import numpy as np
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+molsys = msm.convert(Chem.MolFromSmiles("[Zn+2].O.N"))
+xyz = np.array([[[0, 0, 0], [.20, 0, 0], [0, .27, 0]]])
+molsys.structures.append(coordinates=msm.pyunitwizard.quantity(xyz, "nm"))
+with msv.new_view(molsys) as view:
+    analysis = view.addons.molsysmt.interactions.metal_coordination.get_metal_coordination(
+        selection=[1, 2], selection_2=[0], selection_mode="between", pbc=False,
+    )
+    assert analysis.n_interactions == 2
+    assert analysis.participant_roles == ("metal", "ligand", "metal", "ligand")
+    np.testing.assert_allclose(analysis.measurements["distance"], [.20, .27])
+    assert analysis.measure_units["distance"] == "nm"
+    assert not view.molsys.interactions
+```
+
+The default inclusive cutoff is 0.28 nm. Water oxygen may be eligible, and this
+reference core adds no universal covalent-neighbor exclusion. If a site has both
+roles, reversed role assignments are distinct native relations. Full declared
+chemistry, method/profile and match caps stay explicit. See
+{func}`molsysmt.interactions.metal_coordination.get_metal_coordination`.
+
+## Comparing declared aromatic-ring geometries
+
+Use `view.addons.molsysmt.interactions.pi_pi.get_pi_pi_interactions()` with a
+scientific method/profile chosen explicitly. The default custom
+`centroid_angle_offset` / `least_squares` proposal requires four unit-bearing
+cutoffs; the addon does not fill them. An adapted reference geometry has different
+recognition, plane construction, exclusions and acceptance rules. A selected
+geometry tester does not reproduce a complete reference feature pipeline.
+
+```python
+import numpy as np
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+angles = np.arange(6)*np.pi/3
+ring = np.column_stack((.14*np.cos(angles), .14*np.sin(angles), np.zeros(6)))
+coordinates = np.array([np.vstack((ring, ring+[0, 0, z])) for z in [.35, 2, .4]])
+molsys = msm.convert(Chem.MolFromSmiles("c1ccccc1.c1ccccc1"))
+molsys.structures.append(coordinates=msm.pyunitwizard.quantity(coordinates, "nm"))
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt.interactions.pi_pi
+    custom = tools.get_pi_pi_interactions(
+        ".6 nm", "30 degrees", ".2 nm", ".02 nm",
+        geometry="parallel", structure_indices=[2, 0, 2], pbc=False,
+    )
+    assert custom.participant_roles == ("ring_a", "ring_b")
+    assert custom.participant_atom_offsets.tolist() == [0, 6, 12]
+    assert custom.evaluated_structure_indices.tolist() == [0, 2]
+    np.testing.assert_allclose(custom.measurements["distance"], [.35, .4])
+    reference = tools.get_pi_pi_interactions(
+        method="plane_angle_intersection", profile="smarts_5_6", pbc=False,
+    )
+    assert reference.n_interactions == 2
+    assert reference.measure_units["plane_angle"] == "radians"
+    assert not view.molsys.interactions
+```
+
+The custom `geometry` filter distinguishes parallel, edge-to-face and both.
+Canonical reference profiles include `three_atom_plane` with
+`centroid_angle_offset`, or `smarts_5_6` / `aromatic_cycles` with
+`plane_angle_intersection`. Historical software selectors remain native aliases.
+Do not mix custom-only cutoffs into reference criteria that reject them. A
+measurement that does not apply to a reference geometry can legitimately be NaN;
+its declared unit and that meaning survive typed output and H5MSM persistence.
+Whole declared rings must be selected, including required fused neighbors.
+Aromatic chemistry is not perceived or repaired implicitly. Split periodic rings
+retain native rejection. These are geometric observations, not attractive energy.
+See {func}`molsysmt.interactions.pi_pi.get_pi_pi_interactions`.
+
+## Observing cations relative to aromatic participants
+
+Use `view.addons.molsysmt.interactions.cation_pi.get_cation_pi_interactions()`.
+The default `centroid_distance_angle` / `smarts_5_6` profile and the adapted
+`centroid_distance_offset` / `three_atom_plane` profile have distinct cation,
+normal and cutoff definitions. The separate custom `centroid_angle_offset` /
+`least_squares` proposal again requires four explicit cutoffs. Keep formal-charge
+centers distinct from partial charges, energy and protonation assignments.
+
+```python
+import numpy as np
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+angles = np.arange(6)*np.pi/3
+ring = np.column_stack((.14*np.cos(angles), .14*np.sin(angles), np.zeros(6)))
+molsys = msm.convert(Chem.MolFromSmiles("c1ccccc1.[NH4+]"))
+molsys.structures.append(coordinates=msm.pyunitwizard.quantity(
+    np.vstack((ring, [0, 0, .35]))[None], "nm"))
+with msv.new_view(molsys) as view:
+    analysis = view.addons.molsysmt.interactions.cation_pi.get_cation_pi_interactions(
+        selection=[6], selection_2=list(range(6)), selection_mode="between", pbc=False,
+    )
+    assert analysis.participant_roles == ("cation", "ring")
+    assert analysis.participant_atoms.tolist() == [6, 0, 1, 2, 3, 4, 5]
+    np.testing.assert_allclose(analysis.measurements["distance"], [.35])
+    assert analysis.measure_units["normal_angle"] == "radians"
+    assert analysis.measure_units["cation_charge"] == "e"
+    assert not view.molsys.interactions
+```
+
+Selections include every atom of an intersected ring or compound center; neither
+selection is assumed to be the cation side. The selected native profile determines
+whether a cation is a singleton or a compound center and which exclusions apply.
+The addon adds no protonation, charges, aromaticity, ring fitting or periodic
+unwrapping beyond the chosen native calculation. See
+{func}`molsysmt.interactions.cation_pi.get_cation_pi_interactions`.
+
+The current native pi-pi/cation-pi reference-state selector path rejects MDTraj
+string selections even though equivalent explicit atom indices work. Keep this
+provider limitation ([#516](https://github.com/uibcdf/molsysmt/issues/516)) visible;
+the facade does not translate selectors or override
+the requested chemical state. MolSysMT string and numerical scopes retain their
+native semantics. This limitation is tracked separately from geometry/profile
+qualification.
+
+## Following simultaneous hydrogen bonds through indexed waters
+
+Use `view.addons.molsysmt.interactions.water_bridges.get_water_bridges()` for
+paths made from observed D-H-A legs. `order=1` requires exactly one mediator
+water and two simultaneous legs; `order=2` requires exactly two distinct waters
+and three legs. It is not a maximum-order request. Every water needs two indexed
+hydrogens. This example creates its declared source explicitly, outside the addon.
+
+```python
+import numpy as np
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+molecule = Chem.AddHs(Chem.MolFromSmiles("O.C=O.C=O"))
+molsys = msm.convert(molecule)
+xyz = np.zeros((molecule.GetNumAtoms(), 3))
+xyz[:, 2] = np.arange(molecule.GetNumAtoms())*3 + 3
+water_h = sorted(a.GetIdx() for a in molecule.GetAtomWithIdx(0).GetNeighbors())
+xyz[0] = [0, 0, 0]
+xyz[water_h] = [[.1, 0, 0], [0, .1, 0]]
+xyz[2], xyz[4] = [.3, 0, 0], [0, .3, 0]
+molsys.structures.append(coordinates=msm.pyunitwizard.quantity(xyz[None], "nm"))
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt.interactions.water_bridges
+    analysis = tools.get_water_bridges(order=1, pbc=False)
+    assert analysis.n_interactions == 1
+    assert len(analysis.participant_roles) == 6
+    np.testing.assert_allclose(analysis.measurements["leg_1_dha_angle"], np.pi)
+    assert analysis.measure_units["leg_1_donor_acceptor_distance"] == "nm"
+    assert tools.get_water_bridges(order=2, pbc=False).n_interactions == 0
+    assert not view.molsys.interactions
+```
+
+This controlled fixture demonstrates leg geometry, not an optimized solvent
+configuration. Order-two results contain nine roles. Repeated water oxygens and
+alternative observed hydrogens retain their actual leg identities/images and
+per-leg parameters. Internal/between calculation scopes include the used mediator
+atoms and hydrogens; endpoint-only sets need explicit `incident` semantics.
+The detector never adds waters, hydrogens or an optimized network. It does not
+compute global occurrence frequency or paths beyond order two. Accepted leg,
+join and bridge arrays remain resident; bounded coordinate execution is not an
+incremental file writer or process-RAM guarantee. See
+{func}`molsysmt.interactions.water_bridges.get_water_bridges`.
+
+All four families return independent native results, with original atom/structure
+axes, sorted unique evaluated coverage, occurrence references, evidence and declared
+units. No source, named analysis or scene is changed automatically. Read incomplete
+chemistry as a diagnostic, not an evaluated absence. Use explicit named storage on
+an independent copied system when saving H5MSM; graphical attachment remains a
+separate qualified core workflow. All detector contracts remain experimental.
