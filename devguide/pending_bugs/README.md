@@ -20,8 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (7)
+### Open (8)
 
+- [`append_structures_named_analyses_partial_state.md`](append_structures_named_analyses_partial_state.md) — [#520](https://github.com/uibcdf/molsysmt/issues/520) — append_structures partially publishes structures before validating named analyses and state links. *(high, reproduced)*
 - [`aromatic_detectors_reject_reference_mdtraj_selection.md`](aromatic_detectors_reject_reference_mdtraj_selection.md) — [#516](https://github.com/uibcdf/molsysmt/issues/516) — Aromatic detectors reject MDTraj string selections for reference chemistry. *(medium, reproduced)*
 - [`cip_result_reference_authors_are_shared_with_later_calculations.md`](cip_result_reference_authors_are_shared_with_later_calculations.md) — [#503](https://github.com/uibcdf/molsysmt/issues/503) — CIP result reference authors are shared with later calculations. *(medium, reproduced)*
 - [`classic_hbond_precomputed_donors_have_inconsistent_shapes.md`](classic_hbond_precomputed_donors_have_inconsistent_shapes.md) — [#511](https://github.com/uibcdf/molsysmt/issues/511) — Classic hydrogen-bond detectors mishandle precomputed donor shapes. *(medium, reproduced)*
