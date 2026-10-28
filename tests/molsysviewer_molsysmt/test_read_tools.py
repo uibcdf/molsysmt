@@ -221,3 +221,28 @@ def test_extract_preserves_native_copy_policy_and_rejects_invalid_indices(view):
     with pytest.raises(type(native_failure.value)):
         view.addons.molsysmt.extract(structure_indices=[1000000])
     assert view.molsys is target and view.export_state() == before
+
+
+@pytest.mark.parametrize("element, selection", [("group", [2, 1]), ("chain", [0])])
+def test_extract_explicit_hierarchy_axis_preserves_independent_native_output(
+    view, element, selection
+):
+    target = view.molsys
+    scene = view.export_state()
+    coordinates = target.structures.coordinates.copy()
+    arguments = dict(element=element, selection=selection, structure_indices=[2, 0, 2])
+    expected = msm.basic.extract(target, **arguments)
+    result = view.addons.molsysmt.basic.extract(**arguments)
+    assert result is not target
+    assert result.get_n_atoms() == expected.get_n_atoms()
+    assert result.topology.groups.equals(expected.topology.groups)
+    assert result.topology.chains.equals(expected.topology.chains)
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(result.structures.coordinates),
+        msm.pyunitwizard.get_value(expected.structures.coordinates),
+    )
+    assert view.molsys is target and view.export_state() == scene
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(target.structures.coordinates),
+        msm.pyunitwizard.get_value(coordinates),
+    )

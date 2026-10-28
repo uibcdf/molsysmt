@@ -68,7 +68,8 @@ def test_native_topology_add_keeps_labels_and_can_explicitly_regenerate_them(
     assert str(target.chains["chain_id"].dtype) == "string"
 
     target.add(source, keep_ids=False)
-    assert target.chains["chain_id"].tolist() == ["0", "1", "2"]
+    assert target.chains["chain_id"].tolist() == ["A", "B", "C"]
+    assert str(target.chains["chain_id"].dtype) == "string"
     assert source.chains["chain_id"].tolist() == ["A"]
 
 

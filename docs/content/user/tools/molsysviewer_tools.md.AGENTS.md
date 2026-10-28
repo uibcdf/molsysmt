@@ -259,3 +259,17 @@ rejection, legacy-source preservation and native append/overwrite limits. FASTA
 readers preserve raw occurrences/newlines and decoded-character spans without
 sequence admission, topology construction or an optional Biopython import.
 Keep all file results independent of scene load/save/synchronization.
+
+
+Preserve the four explicit composition mirrors: current destination only for
+add/append_structures; complete caller collections for merge/concatenate.
+Keep native True in_place defaults, None returns, independent output ownership,
+keyword-only update_view, per-system list versus common-array conventions and
+complementary source items. Preserve native atom/structure order, chemistry/state,
+box/attribute/mechanics and analysis limitations. Receive prefix identities,
+new-origin/source accounting, deferred composition and recovery through the
+host axis_growth capability, without a full candidate-preparation framework.
+Do not invent new per-structure visual values or repeat completed science.
+Keep native #520 partial-publication receiving separate from successful implicit
+state/no-analysis cases, and distinguish missing-coordinate synchronization
+failure from uncertain scientific writes. Installed compatibility is separate.

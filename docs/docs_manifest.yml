@@ -90,7 +90,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental expert MolSysViewer addon with native basic tools, all eleven topology, twenty-eight structure, thirteen PBC, thirty-four physchem and fifteen canonical interaction paths at the recorded baseline; eleven build diagnostics, managed edits and synchronization recovery; independent atom maps/order, seven explicit H5MSM file utilities and two raw FASTA occurrence readers. Source exposure and bounded receiving retain native scientific prerequisites, provider limits and separate installed qualification.
+          description: Experimental expert MolSysViewer addon with native basic tools, all eleven topology, twenty-eight structure, thirteen PBC, thirty-four physchem and fifteen canonical interaction paths at the recorded baseline; eleven build diagnostics, managed edits and synchronization recovery; independent atom maps/order, four system-composition mirrors with managed prefix additions and native partial-write limits, seven explicit H5MSM file utilities and two raw FASTA occurrence readers. Source exposure and bounded receiving retain native scientific prerequisites, provider limits and separate installed qualification.
       groups:
       - name: basic
         path: docs/content/user/tools/basic

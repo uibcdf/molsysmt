@@ -82,7 +82,16 @@ def test_exact_native_signature_and_digestion(path):
         if path.startswith("basic."):
             assert resolve(view.addons.molsysmt, path.split(".")[-1]) == method
         else:
-            assert not hasattr(view.addons.molsysmt, path.split(".")[-1])
+            name = path.split(".")[-1]
+            if name in dir(view.addons.molsysmt.basic):
+                # Root aliases follow basic. H5MSM.append_structures stays a
+                # distinct explicit-file operation rather than shadowing it.
+                assert getattr(view.addons.molsysmt, name) == getattr(
+                    view.addons.molsysmt.basic, name
+                )
+                assert getattr(view.addons.molsysmt, name) != method
+            else:
+                assert not hasattr(view.addons.molsysmt, name)
 
 
 def atom_map(n_source, inverse):

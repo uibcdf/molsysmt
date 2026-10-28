@@ -2007,3 +2007,69 @@ qualification of those providers. This is bounded source receiving; native
 #515 full weekly and #516 selector limitations retain their independent scope.
 Source exposure is 140/244 plus two FASTA readers, not installed qualification
 or a completed expert API. Core/GUI, packages and both 1.0 publications stay unchanged.
+
+
+### Native composition expert paths received in source — 2026-10-28
+
+Four explicit mirrors add basic.add, append_structures, merge and
+concatenate_structures on scientific basis ac30d5ba4. The first two bind only the
+current destination, preserve native in_place=True/None semantics and expose
+keyword-only update_view; independent outputs are not adopted. Collections stay
+complete explicit inputs, including before loading a primary. Complementary
+source lists are one system, not collections. Per-input list versus shared-array
+selectors, order/repetition, output forms, units, attribute/box/mechanics and
+analysis restrictions remain native. No preparation, matching, broadcasting or
+joint assignment is added.
+
+Managed prefix additions use the generic host axis_growth capability, pinned to
+Viewer 0a160febc5acab2781c8492d47a806d53796cf46 in routine and default exact-source routes.
+Old identities and source runs retain their meaning; new atoms have unmapped
+source origin and new structures have None old scene origins. Deferred edits
+compose through further additions/removal. Unknown per-structure shape/plot
+values reject before science. A one-atom/one-structure read checks coordinate
+presence without a new complete trajectory scan. Completed coordinate-free
+science can need explicit data and synchronization retry; a partial write stays
+uncertain and needs replacement. Native #520 independently reproduces the
+named-analysis/explicit-state append defect; no scientific fix is hidden here.
+Successful implicit-state and no-analysis cases retain their separate receiving.
+
+All 52 directed cases pass. The original broad attempt hits /tmp user quota:
+4,886 pass, 164 fail and 63 error, with unexecuted cases after worker exits.
+The original failure remains preserved. Real pytest collection and original
+JUnit select exactly 1,280 failed/unexecuted nodeids for recovery on disk; all
+1,280 pass without skips. Thus 6,166 distinct cases are covered across two
+attempts, not presented as one successful run. The source/backend hashes stay
+unchanged during each run; the changed root-alias assertion explicitly verifies
+basic.append_structures remains distinct from h5msm.append_structures.
+
+All 67 guide blocks / 331 inherited doctests pass. The two course notes preserve
+all cell keys, IDs, code, outputs and stored schemas. Whole-tree Ruff and the
+source dependency audit pass; new package files and actual hosted pytest
+selection are guarded. Source exposure is 144/244, basic 25/26, plus two FASTA
+readers outside that denominator. basic.view remains a separate bridge decision;
+mechanics/preparation, GUI tasks and installed qualification remain pending.
+The [composition receipt](../devtools/data/molsysviewer_tools_composition_receiving_20261028.json)
+keeps sources, commands, failures and selective recovery. Hosted exact-source
+CI is pending; no dependency floor, package, tag or release changes.
+
+
+### Owner hierarchy update received — 2026-10-28
+
+The isolated worktree now includes owner source 5bcd2b76086b1fc4af9d1ab595cfb2866fad7d41;
+all reviewed addon/runtime bytes and independent manifest edits are retained.
+Affected addon/basic/hierarchy/sequence/schema/route tests pass 812/813 cases.
+The single failure is the obsolete numeric chain-ID assertion addressed under
+uibcdf/molsysmt#522: current native documentation and generator define A-Z, AA,
+AB onward. The test-only correction preserves declared IDs and source ownership;
+the addressed guard passes 1/1 and the full module 5/5. No scientific code is
+changed. The original 6,166-case source/regression record keeps its own basis.
+Native #520 still limits named-analysis append with explicit state links.
+
+
+The owner smoke 40767706046 passes 4,028 native cases (sixteen optional skips)
+but fails one of 2,399 addon cases: extract acquired a keyword-only element
+argument in 5bcd2b760. The mirror now delegates that argument unchanged.
+All 22 read-tool cases pass, including exact signature/digestion/help and two
+real group/chain output-parity cases preserving primary coordinates and scene.
+This consumer adjustment is part of the existing #421 receiving; it does not
+repair native science. The updated extraction guide block is checked separately.

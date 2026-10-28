@@ -26,6 +26,10 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     assert not rows["build.infer_covalent_bonds"]["exposed"]
     for path in [
         "basic.compose_atom_maps",
+        "basic.add",
+        "basic.append_structures",
+        "basic.concatenate_structures",
+        "basic.merge",
         "basic.permute_atoms",
         "h5msm.read",
         "h5msm.write",

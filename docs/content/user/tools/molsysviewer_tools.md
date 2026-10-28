@@ -353,7 +353,15 @@ with msv.demo["pentalanine"] as view:
         selection=[0, 2, 4], structure_indices=[2, 0, 2],
         to_form="molsysmt.MolSys",
     )
+    selected_groups = view.addons.molsysmt.basic.extract(
+        element="group", selection=[2, 1], structure_indices=[2, 0, 2],
+    )
 ```
+
+The keyword-only `element` follows native hierarchy selection: `None` uses
+atoms for atomistic systems and groups for atom-free inventories. Explicit
+group, chain, molecule, entity and component selections follow the provider's
+projection and validation. No topology or coordinates are synthesized.
 
 This returns the native molecular result and leaves the view unchanged. Structure
 order and repetitions follow {doc}`basic/extract`, as do output formats/files,
@@ -3074,3 +3082,113 @@ with msv.new_view() as view:
     assert "".join(record["raw_record"] for record in result["records"]) == text
     assert view.molsys is None
 ```
+
+
+## Composing molecular systems and extending their structures
+
+The expert API preserves the native two-by-two composition model:
+
+| Axis | Edit the current primary | Return an independent result |
+| --- | --- | --- |
+| Atoms | `basic.add(from_molecular_system, ...)` | `basic.merge(molecular_systems, ...)` |
+| Structures | `basic.append_structures(from_molecular_system, ...)` | `basic.concatenate_structures(molecular_systems, ...)` |
+
+`add` and `append_structures` bind only the destination to `view.molsys`.
+`from_molecular_system` stays explicit. Their native `in_place=True` default
+modifies that actual object and returns `None`. With `in_place=False`, the
+serialized reader returns the native independent result, without adoption.
+`update_view=True` synchronizes an admitted in-place edit; False performs the
+science now and leaves a pending scene update for `tools.sync_view()`.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["dialanine"] as view:
+    tools = view.addons.molsysmt
+    incoming = tools.basic.copy()
+    independent = tools.basic.add(incoming, in_place=False)
+    assert independent.get_n_atoms() == 44
+    assert view.molsys.get_n_atoms() == 22
+    region = view.regions.add(atom_indices=[0, 1], tag="original-atoms")
+    tools.basic.add(incoming, update_view=False)
+    structures = tools.basic.copy()
+    tools.basic.append_structures(structures, update_view=False)
+    assert tools.get_sync_status()["state"] == "pending"
+    tools.sync_view()
+    assert view.molsys.get_n_atoms() == 44 and view.player.n_structures == 2
+    assert view.regions["original-atoms"] is region
+```
+
+Native prefix identities retain existing regions, colors, selections, anchored
+objects and original source indices. Added atoms have an explicitly unmapped
+upstream origin; new structures do not acquire invented original indices.
+These scientific edits do not create the source regions that `view.load` owns.
+Managed growth, retained-axis removal and further edits compose from the last
+synchronized scene. Rendering checks coordinate presence with one bounded
+atom/structure query rather than a full additional trajectory scan. Native
+operations and their independent outputs retain their own allocation costs.
+
+Before adding new structures, clear per-structure shapes and trajectory plot
+cards: the addon cannot invent their new values. Static atom-anchored shapes
+and explicit filters selecting old structures keep their meaning. Keep source
+inputs stable during calls; the view's edit lock does not lock unrelated systems.
+
+`merge` and `concatenate_structures` keep their complete ordered input collection
+explicit. They do not insert the current primary or synchronize the scene, and
+work on an open empty view. If the current primary is one input, include it
+explicitly and keep its data stable. Native `to_form` controls the result form;
+for file inputs, request `to_form="molsysmt.MolSys"` when you want an in-memory
+result. Unsupported file-output defaults retain native `NotImplementedMethodError`.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.convert(msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"])
+with msv.new_view() as view:
+    tools = view.addons.molsysmt
+    merged = tools.basic.merge([molsys, molsys])
+    ensemble = tools.basic.concatenate_structures([molsys, molsys])
+    assert merged.get_n_atoms() == 44
+    assert ensemble.structures.n_structures == 2
+    assert view.molsys is None
+```
+
+Lists/tuples in collection `selections` and `structure_indices` express
+per-system intent; NumPy arrays or ranges express a common index collection.
+In contrast, a list passed as one `from_molecular_system` describes complementary
+items of one system, not successive independent systems. Keep native selection,
+structure order/repetition, units and scientific parameters explicit. The addon
+adds no atom matching, alignment, structural broadcasting or chemical preparation.
+Structure addition requires matching atom correspondence; coordinate-only sources
+cannot authenticate that correspondence. Atom addition preserves the target box
+and native warnings. `attribute_policy="intersection"` retains native attribute
+loss warnings; `"strict"` rejects one-sided structural attributes. Charge/type
+columns, assignment-report invalidation and state associations follow native
+rules, without a new joint scientific calculation.
+
+Native target analyses retain their declared evaluation universe. Atom growth
+does not mean new atoms were evaluated; structure growth leaves new structures
+unevaluated. Incoming analyses retain native rejection until an explicit merge
+policy exists. Native [#520](https://github.com/uibcdf/molsysmt/issues/520)
+currently affects named target analyses with explicit structure/state links:
+append can raise after partially extending structures. The host marks that
+outcome uncertain and requires explicit replacement; the facade does not clear
+analyses or reorder the scientific operation to conceal it. Implicit single-state
+association and explicit no-analysis paths are qualified separately.
+
+A native operation can also complete successfully yet produce coordinate-free
+data under its attribute policy. Such a result is valid independently, but cannot
+be displayed. In-place synchronization then raises `SystemEditSyncError` with
+`science_completed=True` and the native result. Supply the missing scientific
+data explicitly and retry synchronization, or replace the system; retry never
+repeats addition. Atomic native rejection retains scientific data and pending
+maps/revisions; an attempted operation may receive a new diagnostic ID.
+
+See {func}`molsysmt.basic.add`, {func}`molsysmt.basic.append_structures`,
+{func}`molsysmt.basic.merge` and {func}`molsysmt.basic.concatenate_structures`.
+The managed prefix-addition route requires a Viewer host with the explicit
+`axis_growth` capability. An older retained-axis-only host rejects it before
+science. Independent outputs and explicit collection routes keep their separate
+contracts. This is source receiving, not published-package or universal scientific
+qualification.

@@ -17,7 +17,7 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
         native = getattr(namespace, name)
         doc = inspect.getdoc(native) or ""
         doc = re.sub(
-            r"(?m)^molecular_system :[^\n]*\n(?:[ \t]+[^\n]*\n|\n)*",
+            r"(?m)^(?:molecular_system|to_molecular_system) :[^\n]*\n(?:[ \t]+[^\n]*\n|\n)*",
             "",
             doc,
             count=1,
@@ -28,7 +28,8 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
         binding = (
             "This utility keeps its explicit molecular_systems collection; "
             "no current view.molsys is inserted. "
-            if name == "are_multiple_molecular_systems"
+            if name
+            in {"are_multiple_molecular_systems", "merge", "concatenate_structures"}
             else (
                 "The primary molecular system is the current view.molsys. "
                 if bind_primary
@@ -46,6 +47,46 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if module == "basic" and name in {
+            "add",
+            "append_structures",
+            "merge",
+            "concatenate_structures",
+        }:
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "Native selection/list conventions, forms, units, chemistry/state "
+                "associations, attribute policies, warnings, mechanics and analysis "
+                "limitations remain unchanged. No molecular alignment, preparation, "
+                "analysis merge or implicit broadcasting is added.\n"
+            )
+            if name in {"merge", "concatenate_structures"}:
+                function.__doc__ += (
+                    "The explicit ordered molecular_systems collection is not "
+                    "prefixed by view.molsys. The native independent result is "
+                    "returned without adoption or scene update. This utility works "
+                    "on an open empty view; the caller keeps all inputs stable.\n"
+                )
+            else:
+                function.__doc__ += (
+                    "The destination to_molecular_system is the current view.molsys; "
+                    "from_molecular_system stays explicit, including complementary "
+                    "items interpreted as one source. Native in_place=True remains "
+                    "the default and returns None. False returns an independent "
+                    "system without adoption, under the serialized reader.\n"
+                    "update_view : bool, keyword-only, default=True\n"
+                    "    Reconcile an admitted in-place prefix addition; False leaves "
+                    "declared pending work for sync_view(), without deferring science. "
+                    "Old scene/source identities remain on the retained prefix. New "
+                    "atoms have unmapped source origin; new structures have no old "
+                    "scene origin. Per-structure shapes/trajectory cards with no new "
+                    "values reject before structure addition; clear them first. "
+                    "Native coverage/universes are retained, not recalculated. "
+                    "A source with analyses retains native rejection. Missing "
+                    "coordinates or unsupported rendering can fail synchronization "
+                    "after completed science; retry never repeats the operation. "
+                    "Requires the host axis_growth capability.\n"
+                )
         if module == "basic" and name in {"compose_atom_maps", "permute_atoms"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -1082,6 +1123,10 @@ class _BasicTools:
         "get_conversion_report",
         "compose_atom_maps",
         "permute_atoms",
+        "add",
+        "append_structures",
+        "merge",
+        "concatenate_structures",
         "remove",
         "set",
     )
@@ -1386,6 +1431,8 @@ class _BasicTools:
         copy_if_all=True,
         syntax="MolSysMT",
         skip_digestion=False,
+        *,
+        element=None,
     ):
         return self._call(
             "extract",
@@ -1397,6 +1444,7 @@ class _BasicTools:
                 "copy_if_all": copy_if_all,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
+                "element": element,
             },
         )
 
@@ -1479,6 +1527,124 @@ class _BasicTools:
                 "return_report": return_report,
                 "skip_digestion": skip_digestion,
             },
+        )
+
+    @_native_documentation("add")
+    @signal(tags=["addon", "basic", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add(
+        self,
+        from_molecular_system,
+        selection="all",
+        structure_indices="all",
+        keep_ids=True,
+        in_place=True,
+        syntax="MolSysMT",
+        attribute_policy="intersection",
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._composition import _compose_bound
+
+        return _compose_bound(
+            self._owner,
+            "add",
+            dict(
+                from_molecular_system=from_molecular_system,
+                selection=selection,
+                structure_indices=structure_indices,
+                keep_ids=keep_ids,
+                in_place=in_place,
+                syntax=syntax,
+                attribute_policy=attribute_policy,
+                skip_digestion=skip_digestion,
+            ),
+            update_view,
+        )
+
+    @_native_documentation("append_structures")
+    @signal(tags=["addon", "basic", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def append_structures(
+        self,
+        from_molecular_system,
+        selection="all",
+        structure_indices="all",
+        syntax="MolSysMT",
+        in_place=True,
+        attribute_policy="intersection",
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        from ._composition import _compose_bound
+
+        return _compose_bound(
+            self._owner,
+            "append_structures",
+            dict(
+                from_molecular_system=from_molecular_system,
+                selection=selection,
+                structure_indices=structure_indices,
+                syntax=syntax,
+                in_place=in_place,
+                attribute_policy=attribute_policy,
+                skip_digestion=skip_digestion,
+            ),
+            update_view,
+        )
+
+    @_native_documentation("merge", bind_primary=False)
+    @signal(tags=["addon", "basic"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def merge(
+        self,
+        molecular_systems,
+        selections="all",
+        structure_indices="all",
+        keep_ids=True,
+        syntax="MolSysMT",
+        to_form=None,
+        skip_digestion=False,
+    ):
+        from molsysmt.basic import merge
+
+        self._owner._view()
+        return merge(
+            molecular_systems,
+            selections=selections,
+            structure_indices=structure_indices,
+            keep_ids=keep_ids,
+            syntax=syntax,
+            to_form=to_form,
+            skip_digestion=skip_digestion,
+        )
+
+    @_native_documentation("concatenate_structures", bind_primary=False)
+    @signal(tags=["addon", "basic"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def concatenate_structures(
+        self,
+        molecular_systems,
+        selections="all",
+        structure_indices="all",
+        to_form=None,
+        syntax="MolSysMT",
+        attribute_policy="intersection",
+        skip_digestion=False,
+    ):
+        from molsysmt.basic import concatenate_structures
+
+        self._owner._view()
+        return concatenate_structures(
+            molecular_systems,
+            selections=selections,
+            structure_indices=structure_indices,
+            to_form=to_form,
+            syntax=syntax,
+            attribute_policy=attribute_policy,
+            skip_digestion=skip_digestion,
         )
 
     @_native_documentation("remove")
