@@ -384,7 +384,7 @@ parameters include: `molecular_system`, `to_form`, `selection`, `structure_indic
 
 Examples:
 
-```python
+```rst
 Returns
 -------
 molecular system or None
@@ -392,7 +392,7 @@ molecular system or None
     If `in_place=True`, returns None and modifies the input in place.
 ```
 
-```python
+```rst
 Returns
 -------
 bool
@@ -403,7 +403,7 @@ bool
 - Only define a single **Returns** section.  
 - Use syntax like:
 
-  ```python
+  ```rst
   Returns
   -------
   molecular system or None
@@ -415,7 +415,7 @@ bool
   **Return type** field. Do **not** add one manually.
 - If the function can return multiple types conceptually different, use different lines in the Returns section:
 
-  ```python
+  ```rst
   Returns
   -------
   Type1
@@ -437,7 +437,7 @@ bool
   Selection syntaxes, Attributes).
 - Add clarifications, implementation notes, or links to other docs, for example:
 
-  ```python
+  ```rst
   - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
   - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
   ```
@@ -486,7 +486,7 @@ bool
 - A closing `.. admonition:: User guide` block that links to the corresponding tutorial.
 - Use Sphinx's `.. admonition::` directive
 
-```python
+```rst
 .. admonition:: Tutorial with more examples
 
    See the following tutorial for a practical demonstration of how to use this function,
@@ -505,7 +505,7 @@ bool
 
 Always indicate the version when the function was added at the end of the docstring.
 
-```python
+```rst
 .. versionadded:: 1.0.0
 ```
 

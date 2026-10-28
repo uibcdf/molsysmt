@@ -68,6 +68,16 @@ No suppression or source exclusion is added. The
 retains source differences and preservation proof. Remaining header/reference
 debt stays partial and supplies no new release qualification.
 
+The following #144 reference/rendering slice moves a fresh forced full-site
+baseline from 465 to 456 warnings, with zero errors. Real-source rendering and
+schema checks pass 519 cases; focused API/doctests pass 15. It repairs highlighting,
+reference destinations, existing attribution and list markup, plus four newly
+introduced cell-ID/schema mismatches while preserving all notebook contents.
+The original parent navigation anchor and executable Python ASTs are preserved.
+The [reference receipt](../devtools/data/documentation_reference_repair_20261027.json)
+records the scope and remaining 435 header, 17 orphan-page and four internal-link
+warnings. No warning is suppressed and #144 remains partial.
+
 ## Current source stabilization — 2026-10-26
 
 Default-reference readiness selection is source-resolved under

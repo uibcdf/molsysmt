@@ -611,3 +611,75 @@ records versions, source differences, log digests, every document/body preservat
 hash and guard intent. #144 remains partial for its header/navigation/reference/
 highlighting debt. No warning-free site, new scientific result, performance
 benchmark, installed-pair or release qualification is claimed.
+
+
+## Public reference and literal rendering repair — 2026-10-27
+
+A fresh forced build on b50edcc52 reproduces the preceding 465-warning
+checkpoint, with zero errors. Four generated API pages already have unrelated
+working-tree edits; their hashes are retained and those edits are not included.
+The first attempt to build another complete HTML copy under a new temporary
+directory fails with OSError 122 (disk quota). Only that incomplete output is
+removed. Reusing the existing HTML output directory succeeds; the failed attempt
+is not counted as baseline evidence.
+
+This slice fixes nine warnings without suppression or source exclusions:
+
+- Seven standalone reStructuredText examples in the docstring-writing guide
+  receive the correct lexer, removing four highlighting warnings. Every code
+  fence body remains byte-identical, including actual Python examples.
+- The sequence-identity Notes paragraph cites its existing Ensembler footnote.
+  No attribution, scientific definition or producer reference is invented.
+- The Iterator Notes list retains its full last item with correct continuation
+  indentation. Both Python modules have identical executable ASTs after
+  removing docstrings.
+- The nested OpenMM toctree gets a distinct name. The parent `items` name and
+  every navigation entry remain unchanged.
+- The missing-bond tutorial links to the existing Topology guide for the real
+  `Topology.add_bonds()` method, replacing a reference to a nonexistent tutorial.
+- The home page retains its pending-paper statement and links to the actual
+  citation guide. There is no `papers.bib` file; no paper reference is fabricated.
+  The software BibTeX download, authors, version and DOI remain unchanged.
+  Its paired instructions reflect this truthful publication state.
+
+Real-source Sphinx controls render all literal examples, both public docstrings,
+both third-party navigation levels, the tutorial reference and the home citation.
+Assertions protect full literal text, attribution linkage, list membership,
+navigation entries, destination links and downloaded bibliography bytes. Paired
+negative controls restore each original failure. The footnote check uses actual
+reStructuredText pages: an initial eval-rst miniature did not reproduce the
+full-site unreferenced-footnote warning. Fixture-only corrections account for
+23 actual code fences and inspect final HTML links instead of unresolved
+environment nodes. No product assertion is weakened to accept a defect.
+
+The schema regression also detects four new Markdown cells introduced by
+b50edcc52 in the advanced hydrogen-bond course modules. Their `id` fields are
+invalid under those notebooks' declared 4.4 schema. Removing exactly these four
+new fields preserves their declared format, every source cell, metadata, code,
+output and order, including the new addon explanation. The existing raw-JSON
+schema guard fails on the source revision and passes after this correction.
+
+```bash
+python -m pytest tests/documentation/test_directive_rendering.py devtools/tests/test_course_takeaway_rendering.py devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12
+python -m pytest --doctest-modules molsysmt/basic/iterator.py molsysmt/topology/get_sequence_identity.py tests/basic/iterator/test_iterator.py tests/topology/get_sequence_identity/test_get_sequence_identity.py --receptor=llm -n 12
+python -m sphinx -E -a -q -j 12 -b html -w <warning-log> docs docs/_build/html
+```
+
+The final documentation regression passes 519 cases without skips. The focused
+API/doctest run passes 15 cases; its legacy-H5MSM/off-axis warnings remain
+visible. The rendering regression retains MyST's Sphinx-11 API deprecation
+warnings. These provider warnings are separate from the Sphinx site inventory.
+
+The forced full-site comparison is **465 to 456 warnings**, with zero errors:
+four highlighting warnings, one footnote, one list-format warning, one duplicate
+label and two broken links disappear. Remaining counts are 435 myst.header,
+17 toc.not_included and four myst.xref_missing. All other warning families are
+zero. Notebook execution remains off. The parent/child navigation guard also
+checks preservation of the original parent anchor.
+
+The [receipt](../../devtools/data/documentation_reference_repair_20261027.json)
+retains source identities, preservation proofs, warning inventories, log digests
+and test intent. Ruff lint/format, citation and developer-guide checks pass.
+#144 remains partial: the remaining internal navigation/reference debt and course
+heading policy are not silently hidden or rewritten. This checkpoint is not a
+full scientific-suite, installed-pair, performance or release qualification.

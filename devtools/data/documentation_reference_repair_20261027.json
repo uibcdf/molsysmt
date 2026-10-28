@@ -1,0 +1,352 @@
+{
+  "issue": "uibcdf/molsysmt#144",
+  "date": "2026-10-27",
+  "scope": "Public reference, literal rendering and four invalid newly introduced course cell IDs",
+  "source_basis_commit": "b50edcc52d9556038f6c8af9d6da60a79da65b9e",
+  "environment": {
+    "python": "3.14.7",
+    "sphinx": "9.1.0",
+    "myst-parser": "5.1.0",
+    "myst-nb": "1.4.0",
+    "nbformat": "5.11.1",
+    "pytest": "9.1.1",
+    "pytest-xdist": "3.8.0",
+    "pytest-receptor": "1.2.1+22.g00a31c4"
+  },
+  "baseline": {
+    "warning_count": 465,
+    "families": {
+      "docutils": 1,
+      "misc.highlighting_failure": 4,
+      "myst.header": 435,
+      "myst.xref_missing": 5,
+      "ref.footnote": 1,
+      "ref.ref": 1,
+      "toc.not_included": 17,
+      "untagged": 1
+    },
+    "warning_log_sha256": "8f4d5234328ea811e3501dbe189d3cb774dcd441b6099ed20ab8accdbb15a96f",
+    "build_log_sha256": "9f2050e545e6472279718d5be65bd8aafb135918ab940a25ea33ae5d667e014d",
+    "exit_code": 0
+  },
+  "qualified": {
+    "warning_count": 456,
+    "families": {
+      "myst.header": 435,
+      "myst.xref_missing": 4,
+      "toc.not_included": 17
+    },
+    "warning_log_sha256": "7ae6dad628361b04f8e732379a566fe7260b360e1425ea8611ed27492583cadc",
+    "build_log_sha256": "278489cebd6aea0a9ef091103a22f7972439fae19b19db063228246c35f23a2d",
+    "exit_code": 0
+  },
+  "removed_warnings": [
+    "molsysmt/topology/get_sequence_identity.py:docstring of molsysmt.topology.get_sequence_identity.get_sequence_identity:49: WARNING: Footnote [1] is not referenced. [ref.footnote]",
+    "docs/api/third_party/openmm/api_openmm.rst:: WARNING: duplicate label items, other instance in docs/api/third_party/api_thirds.rst",
+    "molsysmt/basic/iterator.py:docstring of molsysmt.basic.iterator.Iterator:61: WARNING: Bullet list ends without a blank line; unexpected unindent. [docutils]",
+    "docs/content/user/tools/build/add_missing_bonds.ipynb:180011: WARNING: undefined label: 'tutorial_add_bonds' [ref.ref]",
+    "docs/content/developer/documentation/api/docstrings.md:387: WARNING: Lexing literal_block 'Returns\\n-------\\nmolecular system or None\\n    If `in_place=False`, returns a new molecular system.  \\n    If `in_place=True`, returns None and modifies the input in place.\\n' as \"python\" resulted in an error at token: '`'. Retrying in relaxed mode. [misc.highlighting_failure]",
+    "docs/content/developer/documentation/api/docstrings.md:406: WARNING: Lexing literal_block 'Returns\\n-------\\nmolecular system or None\\n    If `in_place=False`, returns a new molecular system.  \\n    If `in_place=True`, returns None and modifies the input in place.\\n' as \"python\" resulted in an error at token: '`'. Retrying in relaxed mode. [misc.highlighting_failure]",
+    "docs/content/developer/documentation/api/docstrings.md:440: WARNING: Lexing literal_block '- Supported molecular-system forms are described in :ref:`Introduction_Forms`.\\n- Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.\\n' as \"python\" resulted in an error at token: '`'. Retrying in relaxed mode. [misc.highlighting_failure]",
+    "docs/content/developer/documentation/api/docstrings.md:489: WARNING: Lexing literal_block '.. admonition:: Tutorial with more examples\\n\\n   See the following tutorial for a practical demonstration of how to use this function,\\n   along with additional examples:\\n   :ref:`User Guide > Tools > Basic > Add <Tutorial_Add>`.\\n' as \"python\" resulted in an error at token: '`'. Retrying in relaxed mode. [misc.highlighting_failure]",
+    "docs/index.ipynb:60008: WARNING: 'myst' cross-reference target not found: '_bibtex/papers.bib' [myst.xref_missing]"
+  ],
+  "new_warning_records": [],
+  "notebook_execution_mode": "off",
+  "scientific_runtime_changed": false,
+  "warning_suppressions_added": false,
+  "source_exclusions_added": false,
+  "literal_content_preservation": {
+    "all_23_fence_bodies_identical": true,
+    "lexer_changes": [
+      {
+        "line": 387,
+        "before_lexer": "python",
+        "after_lexer": "rst",
+        "preserved_body_sha256": "e8fcc5e57aa6210849d7b510641f607b17d8b9312f34290af916ace8c6a139fc"
+      },
+      {
+        "line": 395,
+        "before_lexer": "python",
+        "after_lexer": "rst",
+        "preserved_body_sha256": "b3daafc36c1fac15122dc97fa58ef6fb4583e2fdc5c4e76d5a7127b6683c35dc"
+      },
+      {
+        "line": 406,
+        "before_lexer": "python",
+        "after_lexer": "rst",
+        "preserved_body_sha256": "e8fcc5e57aa6210849d7b510641f607b17d8b9312f34290af916ace8c6a139fc"
+      },
+      {
+        "line": 418,
+        "before_lexer": "python",
+        "after_lexer": "rst",
+        "preserved_body_sha256": "a9c001cbeeb9e3176d38f242883e2f9087c1658c11c0c73bebcb9d7f5d2916cc"
+      },
+      {
+        "line": 440,
+        "before_lexer": "python",
+        "after_lexer": "rst",
+        "preserved_body_sha256": "8990b25a4f9cf1299ec062402dad59a955e1670253725400ded2cbef6f4e329a"
+      },
+      {
+        "line": 489,
+        "before_lexer": "python",
+        "after_lexer": "rst",
+        "preserved_body_sha256": "9b78369639c7968c37a40899fbce0986e8b16c091786c93c47bc9d65a8d5c95d"
+      },
+      {
+        "line": 508,
+        "before_lexer": "python",
+        "after_lexer": "rst",
+        "preserved_body_sha256": "b329a42840d3860364ea275585cbb5ade0bf97e37603e7893d474c496ffaa6c3"
+      }
+    ]
+  },
+  "notebook_preservation": [
+    {
+      "path": "docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb",
+      "declared_format": [
+        4,
+        4
+      ],
+      "edits": [
+        {
+          "cell_index": 10,
+          "change": "remove unsupported id under declared nbformat 4.4",
+          "removed_id": "98defa21fa815ff0"
+        }
+      ],
+      "all_other_json_values_identical": true
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb",
+      "declared_format": [
+        4,
+        4
+      ],
+      "edits": [
+        {
+          "cell_index": 3,
+          "change": "remove unsupported id under declared nbformat 4.4",
+          "removed_id": "5baa77462ef8534b"
+        }
+      ],
+      "all_other_json_values_identical": true
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb",
+      "declared_format": [
+        4,
+        4
+      ],
+      "edits": [
+        {
+          "cell_index": 3,
+          "change": "remove unsupported id under declared nbformat 4.4",
+          "removed_id": "b69227a53abefaf6"
+        }
+      ],
+      "all_other_json_values_identical": true
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb",
+      "declared_format": [
+        4,
+        4
+      ],
+      "edits": [
+        {
+          "cell_index": 10,
+          "change": "remove unsupported id under declared nbformat 4.4",
+          "removed_id": "7799c00726cecee1"
+        }
+      ],
+      "all_other_json_values_identical": true
+    },
+    {
+      "path": "docs/content/user/tools/build/add_missing_bonds.ipynb",
+      "declared_format": [
+        4,
+        5
+      ],
+      "edits": [
+        {
+          "cell_index": 17,
+          "change": "replace broken reference with existing supported destination",
+          "before_markdown_sha256": "e0b13114e7ca54e424cdea99cc890c11d544c84200892c85248488121217c424",
+          "after_markdown_sha256": "8a4a9369ea32942de2d32e87bc7b59eed7f942445f44d477d89553cdffd76db6"
+        }
+      ],
+      "all_other_json_values_identical": true
+    },
+    {
+      "path": "docs/index.ipynb",
+      "declared_format": [
+        4,
+        5
+      ],
+      "edits": [
+        {
+          "cell_index": 5,
+          "change": "replace broken reference with existing supported destination",
+          "before_markdown_sha256": "48ee1ab7b88a28f3e53788e3eddd65d42aebe61344379d223d8d784b2630fa83",
+          "after_markdown_sha256": "cc9ce51c25d665e7a154cda289c70d33e203d4ff91da2bd31e162207af0abff4"
+        }
+      ],
+      "all_other_json_values_identical": true
+    }
+  ],
+  "executable_ast_preservation": [
+    {
+      "path": "molsysmt/basic/iterator.py",
+      "executable_ast_unchanged": true,
+      "ast_without_docstrings_sha256": "7182acdca6b179fd90c9ffcb4ed977e0d4c36dd4384f5303df0be46161bbcede"
+    },
+    {
+      "path": "molsysmt/topology/get_sequence_identity.py",
+      "executable_ast_unchanged": true,
+      "ast_without_docstrings_sha256": "c02b6a7ffc6998f0e8f90858b1ebe6475ca760dfe31afa731dd142ba87928b1d"
+    }
+  ],
+  "navigation": {
+    "parent_items_anchor_preserved": true,
+    "only_child_toctree_name_changed": true,
+    "all_entries_preserved": true
+  },
+  "source_files": [
+    {
+      "path": "devguide/pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md",
+      "before_sha256": "d9d44247bf246f47512d72adac337b302cc4abd84df0fbef2cf69126864d6120",
+      "after_sha256": "11f0aab06e139a58fb2c04094847718568283fc0548907af7df509cef277d4e4"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "before_sha256": "f9a9328b4a08aa69a560c6ce8d58379f076fc083a2258a94c0ca27290f6fc958",
+      "after_sha256": "e84579d2875da459d767cb3853a97e986434f4ccd68708db79137cbe6fc4eb03"
+    },
+    {
+      "path": "devtools/tests/test_documentation_directive_rendering.py",
+      "before_sha256": "e5c45e8a7ba9ff5ba3d19c2de2435bfc0193725427ddff3931dd7b957e27353b",
+      "after_sha256": "3eb2a3f9b19b2672963c988f1a322dc00269a37dd5454e5878b17eee7d250ece"
+    },
+    {
+      "path": "docs/api/third_party/openmm/api_openmm.rst",
+      "before_sha256": "fd8060ac11bad2d76da09c8d753e20416c57674e04f285cc256cf43a382f4a72",
+      "after_sha256": "120c8f83f5830c2ffd03c28f95bff0a9f162a70a822ee74cd4619906aa133de2"
+    },
+    {
+      "path": "docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb",
+      "before_sha256": "113337733e563ed570f90b2630064e6102fb5194ade4ddeab0457a7bcbef255d",
+      "after_sha256": "d90809328a91942421a516dd19ad3d24dcbac28f38e56d5358dd6f38132247a4"
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb",
+      "before_sha256": "02df8881ac595bf882f7be339ddb16e9134f9a04b7291d7599efe160f17b08a6",
+      "after_sha256": "db5ebbc54ac3bb33ab16a9d1121156524bab5edcb50d3279d8c49d502d469407"
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb",
+      "before_sha256": "74c8d7b13db505bb5cbf397b2a6a2f68240673aca02c5236c7bf7d93f877effe",
+      "after_sha256": "4eece9a5d625cbe912cf01c0f7e4b13984dac3dd1c183bda82d14f7d14fc537f"
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb",
+      "before_sha256": "436125ce6455b037144652752053d74344997cf3d1d1e3d780f79d120c8fcb06",
+      "after_sha256": "8dce2b9b21ec1a9c7a0dfa957c8ce7ca5d38fd21e77a0fccca0f42beb50bf3ca"
+    },
+    {
+      "path": "docs/content/developer/documentation/api/docstrings.md",
+      "before_sha256": "54e05aed761b06103a962d2fe2ab688d66d070053271eee399cfc6fd808742a6",
+      "after_sha256": "d8c04e275af8d9ab3a1cd9117ebeda0b5b238ca11e52debb796f5485102cb611"
+    },
+    {
+      "path": "docs/content/user/tools/build/add_missing_bonds.ipynb",
+      "before_sha256": "393262ce30b1fdcc2b0451acee6ad6f157d2ba4e97ad75cfee80e4dc800d0dbe",
+      "after_sha256": "1994f6c5df4d2dd17789ef9bf45fd988834e2a728f0cde7983961fca33c78062"
+    },
+    {
+      "path": "docs/index.AGENTS.md",
+      "before_sha256": "d401af595513d8a2c045b580de5871341a065ed9e95ef4e19a567e7eab73fd59",
+      "after_sha256": "aafc9962d0c8a92fdc7e1b4ec93083794c1f2da3cb574ea5e7bac860fdadb12d"
+    },
+    {
+      "path": "docs/index.ipynb",
+      "before_sha256": "53e9667cfd346a066790a100423ac15121081bc1343e6e819f6245161ce768bc",
+      "after_sha256": "d04029c0663280b6b1882cc3049672e168504a59de4e9d324e135462ecbe5ece"
+    },
+    {
+      "path": "molsysmt/basic/iterator.py",
+      "before_sha256": "83a6bf3509d4ca29bfb8982675010e42f2cb570997d56fd451701539701ea3a6",
+      "after_sha256": "837b9368ca367f8dd832769884394ef6e2dfa202eb35a325d31c748303d62ae1"
+    },
+    {
+      "path": "molsysmt/topology/get_sequence_identity.py",
+      "before_sha256": "512e499ea5adbd15f2c54c74d643bae133d41a4009bab1fc9078c478f0cad442",
+      "after_sha256": "70c1899591e43ffbd1380e0db3b021290a5845ccad15f4ef969e0594df6e081e"
+    },
+    {
+      "path": "tests/documentation/test_directive_rendering.py",
+      "before_sha256": "534f9523d1e974a1537fbdf2eef0c04b1ee7343d4655472ec3a74c7a0f5128c6",
+      "after_sha256": "bde7e2c6be9e8ddb38ef34377e282be07467b5f730f473941b9cfe7d3e7d4c89"
+    }
+  ],
+  "preserved_foreign_worktree_sha256": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "checks": [
+    {
+      "command": "python -m pytest tests/documentation/test_directive_rendering.py devtools/tests/test_course_takeaway_rendering.py devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12",
+      "passed": 519,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_seconds": 16.57,
+      "provider_deprecation_warnings": 10,
+      "log_sha256": "e12c0a37660bb73a54a585fc1632df961c59c35e99682316249b9d75044e127e"
+    },
+    {
+      "command": "python -m pytest --doctest-modules molsysmt/basic/iterator.py molsysmt/topology/get_sequence_identity.py tests/basic/iterator/test_iterator.py tests/topology/get_sequence_identity/test_get_sequence_identity.py --receptor=llm -n 12",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_seconds": 52.23,
+      "log_sha256": "037150e27b78c9e9d4713f08d2032594e5bdc0e6330d456725ca9ceafdbe0450"
+    },
+    {
+      "command": "python -m sphinx -E -a -q -j 12 -b html -w <warning-log> docs docs/_build/html",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 456
+    },
+    {
+      "command": "ruff check .",
+      "exit_code": 0
+    },
+    {
+      "command": "ruff format --check .",
+      "exit_code": 0
+    },
+    {
+      "command": "python devtools/scripts/validate_citation.py",
+      "exit_code": 0
+    }
+  ],
+  "guard_intent": [
+    "Render all actual guide literals, preserving every body and distinguishing Python programs from RST fragments; restoring Python labels reproduces lexer failures.",
+    "Render actual AST-extracted NumPy docstrings as RST, checking the linked existing Ensembler footnote and the complete final Iterator Notes list item; restoring either defect produces its original warning.",
+    "Render actual parent and child toctrees, verifying original parent anchor and all entries; duplicate names reproduce the warning.",
+    "Render the real tutorial related-tools block against its actual destination header and inspect its final link, with no fabricated missing-tutorial label.",
+    "Render the actual home citation cell and citation guide, retaining the pending paper statement, live destination and software download bytes; restoring the absent paper file produces its original missing-reference warning.",
+    "The existing raw-JSON notebook schema guard rejects the four new 4.4-schema cell IDs before correction and validates all original notebook fields after correction."
+  ],
+  "unsuccessful_attempts": [
+    "A separate temporary full HTML output exceeds disk quota. Only its incomplete generated output is deleted; its logs remain local. Successful qualification reuses the existing build directory.",
+    "The first eval-rst footnote fixture did not reproduce the full-site warning; actual RST documents do and both restored defects are required to fail.",
+    "Fixture refinements correct the measured 23 code-fence count, isolate the actual home citation cell instead of unrelated navigation, and inspect final HTML links instead of unresolved environment nodes.",
+    "The schema-removal transform stages changes and initially refuses a last-field comma layout before writing. The corrected transform removes exactly one incompatible field per notebook and proves equality of every other JSON value."
+  ],
+  "remaining_debt": "435 heading warnings, 17 orphan-page warnings and four internal missing references. Issue remains partial; no installed-pair, complete scientific suite or release qualification."
+}

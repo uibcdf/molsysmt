@@ -43,7 +43,7 @@ class Iterator:
     - This class implements the Python iterator protocol:
       `__iter__()` returns `self`, and `__next__()` returns the next item or raises `StopIteration`.
     - If no attributes are requested, the iterator returns a molecular system per iteration
-    with updated structural attributes.
+      with updated structural attributes.
 
     See Also
     --------

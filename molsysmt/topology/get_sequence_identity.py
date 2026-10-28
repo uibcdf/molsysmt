@@ -68,7 +68,7 @@ def get_sequence_identity(
     types contribute neither a letter nor a denominator term. Sequence-only
     inputs retain their supplied characters and source positions.
 
-    Counting is adapted from Ensembler's calculate_seq_identity. MolSysMT
+    Counting is adapted from Ensembler's calculate_seq_identity [1]_. MolSysMT
     preserves its query-length normalization; Ensembler instead uses the shorter
     sequence length. Alignment uses Biopython through get_sequence_alignment.
     Optional Ackredit records the adapted reference and executed provider version

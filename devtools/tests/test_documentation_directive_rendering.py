@@ -1,5 +1,6 @@
 """Render real citation, portal and topology blocks without hiding parser warnings."""
 
+import ast
 import json
 import re
 from io import StringIO
@@ -107,6 +108,232 @@ def _markdown(path):
         "".join(cell["source"])
         for cell in json.loads(path.read_text())["cells"]
         if cell["cell_type"] == "markdown"
+    )
+
+
+@pytest.mark.parametrize(
+    "legacy", [False, True], ids=["actual", "broken-negative-control"]
+)
+def test_docstring_guide_preserves_literal_examples_with_correct_highlighting(
+    build, legacy
+):
+    from docutils import nodes
+    from markdown_it import MarkdownIt
+
+    text = (ROOT / "docs/content/developer/documentation/api/docstrings.md").read_text()
+    if legacy:
+        text = text.replace("```rst\n", "```python\n")
+    fences = [token for token in MarkdownIt().parse(text) if token.type == "fence"]
+    app, warnings, html = build(text)
+    if legacy:
+        assert "[misc.highlighting_failure]" in warnings
+        return
+    assert warnings == ""
+    literal = list(app.env.get_doctree("index").findall(nodes.literal_block))
+    assert len(literal) == len(fences) >= 23
+    assert [node.astext().strip() for node in literal] == [
+        token.content.strip() for token in fences
+    ]
+    fragments = [
+        token
+        for token in fences
+        if token.content.startswith(("Returns\n", ".. ", "- Supported"))
+    ]
+    assert len(fragments) == 8
+    assert all(token.info == "rst" for token in fragments)
+    assert (
+        "If `in_place=False`, returns a new molecular system."
+        in app.env.get_doctree("index").astext()
+    )
+    assert "highlight-rst" in html and "highlight-python" in html
+
+
+@pytest.mark.parametrize(
+    "legacy", [False, True], ids=["actual", "broken-negative-control"]
+)
+def test_public_docstring_notes_and_attribution_render_without_loss(build, legacy):
+    from docutils import nodes
+    from sphinx.ext.napoleon.docstring import NumpyDocstring
+
+    sequence_tree = ast.parse(
+        (ROOT / "molsysmt/topology/get_sequence_identity.py").read_text()
+    )
+    sequence = ast.get_docstring(
+        next(node for node in sequence_tree.body if isinstance(node, ast.FunctionDef))
+    )
+    iterator_tree = ast.parse((ROOT / "molsysmt/basic/iterator.py").read_text())
+    iterator = ast.get_docstring(
+        next(node for node in iterator_tree.body if isinstance(node, ast.ClassDef))
+    )
+    if legacy:
+        sequence = sequence.replace(
+            "calculate_seq_identity [1]_", "calculate_seq_identity"
+        )
+        iterator = iterator.replace(
+            "  with updated structural attributes.",
+            "with updated structural attributes.",
+        )
+    labels = "\n\n".join(
+        f"({label})=\n## {label}"
+        for label in (
+            "Introduction_Forms",
+            "Introduction_Selection",
+            "Tutorial_Iterator",
+        )
+    )
+    extras = {
+        f"{name}.rst": f"{name}\n{'=' * len(name)}\n\n" + str(NumpyDocstring(docstring))
+        for name, docstring in (("sequence", sequence), ("iterator", iterator))
+    }
+    app, warnings, _ = build(
+        "# Public docstrings\n\n```{toctree}\nsequence\niterator\n```\n\n" + labels,
+        extras,
+    )
+    if legacy:
+        assert "[ref.footnote]" in warnings and "[docutils]" in warnings
+        return
+    assert warnings == ""
+    tree = app.env.get_doctree("sequence")
+    references = list(tree.findall(nodes.footnote_reference))
+    footnotes = list(tree.findall(nodes.footnote))
+    assert len(references) == len(footnotes) == 1
+    assert references[0]["refid"] in footnotes[0]["ids"]
+    assert "264930d28d3d4987c4fc0c03caba6cf0066e12ca" in footnotes[0].astext()
+    assert any(
+        "If no attributes are requested, the iterator returns a molecular system per iteration\nwith updated structural attributes."
+        in item.astext()
+        for item in app.env.get_doctree("iterator").findall(nodes.list_item)
+    )
+
+
+@pytest.mark.parametrize(
+    "legacy", [False, True], ids=["actual", "broken-negative-control"]
+)
+def test_third_party_trees_keep_distinct_targets_and_navigation(build, legacy):
+    from sphinx import addnodes
+
+    parent = (ROOT / "docs/api/third_party/api_thirds.rst").read_text()
+    child = (ROOT / "docs/api/third_party/openmm/api_openmm.rst").read_text()
+    if legacy:
+        parent = re.sub(r":name: [^\n]+", ":name: items", parent)
+        child = re.sub(r":name: [^\n]+", ":name: items", child)
+    extras = {
+        "api/third_party/api_thirds.rst": parent,
+        "api/third_party/openmm/api_openmm.rst": child,
+    }
+    for target in (
+        "nglview/api_nglview",
+        "openmm/forces/api_forces",
+        "openmm/platforms/api_platforms",
+        "openmm/reporters/api_reporters",
+    ):
+        extras[f"api/third_party/{target}.rst"] = f"{target}\n{'=' * len(target)}\n"
+    app, warnings, _ = build(
+        "# Third-party navigation\n\n```{toctree}\napi/third_party/api_thirds\n```\n",
+        extras,
+    )
+    if legacy:
+        assert "duplicate label items" in warnings
+        return
+    assert warnings == ""
+    parent_tree = list(
+        app.env.get_doctree("api/third_party/api_thirds").findall(addnodes.toctree)
+    )
+    child_tree = list(
+        app.env.get_doctree("api/third_party/openmm/api_openmm").findall(
+            addnodes.toctree
+        )
+    )
+    assert len(parent_tree) == len(child_tree) == 1
+    assert parent_tree[0]["includefiles"] == [
+        "api/third_party/nglview/api_nglview",
+        "api/third_party/openmm/api_openmm",
+    ]
+    assert child_tree[0]["includefiles"] == [
+        f"api/third_party/openmm/{part}/api_{part}"
+        for part in ("forces", "platforms", "reporters")
+    ]
+    for name in ("items", "openmm-items"):
+        assert name in app.env.domaindata["std"]["labels"]
+
+
+@pytest.mark.parametrize(
+    "legacy", [False, True], ids=["actual", "broken-negative-control"]
+)
+def test_bond_tutorial_links_to_existing_native_bond_editing_guide(build, legacy):
+    text = _markdown(ROOT / "docs/content/user/tools/build/add_missing_bonds.ipynb")
+    block = next(
+        block["text"] for block in _dropdown_blocks(text) if block["kind"] == "seealso"
+    )
+    target_path = "content/user/foundations/native_world/classes/molsysmt_Topology"
+    target = (ROOT / f"docs/{target_path}.md").read_text()
+    if legacy:
+        block = block.replace(
+            "user-foundations-native-world-classes-molsysmt-topology",
+            "Tutorial_Add_bonds",
+        )
+    # Use the real target header, not a fabricated label for the missing tutorial.
+    extra = {
+        target_path + ".md": "---\norphan: true\n---\n\n"
+        + target.split("\n\n", 1)[0]
+        + "\n"
+    }
+    other_labels = (
+        "user-foundations-entrance-demo-systems",
+        "Tutorial_Convert",
+        "Tutorial_Get",
+        "Tutorial_Add_missing_bonds",
+    )
+    labels = "\n\n".join(f"({label})=\n## {label}" for label in other_labels)
+    app, warnings, html = build(
+        "# Related bond tools\n\n" + block + "\n" + labels, extra
+    )
+    if legacy:
+        assert "undefined label: 'tutorial_add_bonds'" in warnings
+        return
+    assert warnings == ""
+    tree = app.env.get_doctree("index")
+    assert "Topology.add_bonds" in tree.astext()
+    assert f'href="{target_path}.html' in html
+
+
+@pytest.mark.parametrize(
+    "legacy", [False, True], ids=["actual", "broken-negative-control"]
+)
+def test_home_citation_has_live_guidance_and_real_bibliography_download(build, legacy):
+    cells = json.loads((ROOT / "docs/index.ipynb").read_text())["cells"]
+    sections = [
+        "".join(cell["source"])
+        for cell in cells
+        if cell["cell_type"] == "markdown"
+        and "".join(cell["source"]).startswith("## Citation")
+    ]
+    assert len(sections) == 1
+    text = sections[0]
+    if legacy:
+        text = text.replace(
+            "See {ref}`citation guidance <About_Citation>`.",
+            "[[BibTeX](_bibtex/papers.bib)]",
+        )
+    citation = (ROOT / "docs/content/about/citation.md").read_text()
+    app, warnings, html = build(
+        "# Home citation\n\n" + text,
+        {
+            "content/about/citation.md": "---\norphan: true\n---\n\n" + citation,
+            "_bibtex/software.bib": (ROOT / "docs/_bibtex/software.bib").read_text(),
+        },
+    )
+    if legacy:
+        assert "_bibtex/papers.bib" in warnings and "[myst.xref_missing]" in warnings
+        return
+    assert warnings == ""
+    tree = app.env.get_doctree("index")
+    assert "The paper is coming soon" in tree.astext()
+    assert 'href="content/about/citation.html' in html
+    downloads = list(Path(app.outdir).glob("_downloads/*/software.bib"))
+    assert len(downloads) == 1
+    assert (
+        downloads[0].read_bytes() == (ROOT / "docs/_bibtex/software.bib").read_bytes()
     )
 
 

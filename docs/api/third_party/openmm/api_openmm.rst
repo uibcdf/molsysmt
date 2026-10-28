@@ -2,7 +2,7 @@ OpenMM
 ======
 
 .. toctree::
-   :name: items
+   :name: openmm-items
    :caption: Items
    :maxdepth: 2
 

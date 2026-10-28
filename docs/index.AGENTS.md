@@ -52,7 +52,8 @@ No contributor or AI agent may alter or remove the following core elements:
 
 4. **Citation Section:**
    - Section heading: `## Citation`
-   - Tabbed block (```{tabs}`) with tabs for **Paper** (BibTeX link) and **Software** (Zenodo citation & BibTeX link).
+   - Preserve the paper publication status and link to the maintained citation guide. Offer a paper BibTeX download only once a real bibliographic record exists.
+   - Preserve the software Zenodo citation and working BibTeX download. When using tabs, use supported `{tab-set}` / `{tab-item}` directives.
    - The software citation uses the concept DOI and names the current release version.
      Direct readers to Zenodo when they need the DOI for one exact archived version.
 
