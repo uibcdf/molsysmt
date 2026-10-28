@@ -140,6 +140,20 @@ exclude_patterns = [
     "temp",
     "**/AGENTS.md",
     "**/*.AGENTS.md",
+    # Root-level contributor instructions need explicit patterns as well.
+    "AGENTS.md",
+    "*.AGENTS.md",
+    # Maintainer guides, authoring templates and prototypes stay in the repository.
+    # Published pages are the maintained indexes and their documented children.
+    "README.md",
+    "api/index_v2.md",
+    "content/user/tools/index_v2.md",
+    "content/user/tools/Supported.ipynb",
+    "content/course/README.md",
+    "content/course/_template.ipynb",
+    "content/course/devtools/**",
+    "content/course/pending_fixes/**",
+    "content/course/pending_proposals/**",
 ]
 
 # The name of the Pygments (syntax highlighting) style to use.

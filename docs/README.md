@@ -6,18 +6,33 @@ explains the layout of the repository, and notes the conventions that give the s
 
 ## Build the docs locally
 
-1. Create and activate a conda environment with Sphinx and the Read the Docs theme:
+1. Use a working development environment with the documentation dependencies declared in
+   [`devtools/conda-envs/docs_env.yaml`](../devtools/conda-envs/docs_env.yaml).
+   The controlled Viewer source/runtime setup is recorded in the
+   [documentation workflow](../.github/workflows/sphinx_docs_to_gh_pages.yaml).
+2. From the repository root, build the HTML site:
    ```bash
-   conda install sphinx sphinx_rtd_theme
+   make -C docs html SPHINXOPTS="-q -j 12"
    ```
-2. From this `docs/` directory, build the HTML site:
-   ```bash
-   make html
-   ```
-3. Open `_build/html/index.html` in a browser to preview the site. The `make clean` target removes previous builds.
+3. Open `docs/_build/html/index.html` in a browser to preview the site.
 
-MolSysMT ships a [Read the Docs configuration](../.readthedocs.yaml) so the online build matches local output. If you add
-optional dependencies that are needed for `autodoc`, list them in `docs/requirements.yaml`.
+GitHub Pages publication uses the documentation workflow above and the PyData Sphinx
+theme configured in `conf.py`. Update the audited documentation environment when adding
+an optional dependency needed by `autodoc`; there is no separate Read the Docs profile.
+
+## Publication boundaries
+
+The published site uses the maintained indexes under `content/` and `api/`.
+This README, contributor instructions, course authoring tools and queues, the course
+template, alternate `index_v2.md` drafts and the unfinished `Supported.ipynb` scratch
+notebook remain repository material. `conf.py` declares their specific exclusions.
+The supported-capability API is documented in `api/supported/api_supported.rst`.
+
+Keep public pages connected to the appropriate toctree. Historical hydrogen-bond
+reference pages remain reachable through the canonical hydrogen-bond API index.
+An exclusion is a publication-scope decision, not a substitute for repairing a broken
+public page or suppressing its warnings. Source-discovery tests protect the maintained
+User Guide, manifested pages, course modules and API references against broad exclusions.
 
 ## Notebook Pre-Execution and 3D Visualization
 
@@ -27,7 +42,7 @@ Before pushing documentation updates, execute modified Jupyter notebooks using t
 python docs/execute_notebooks.py -q -n 12 -r docs/content/user
 ```
 
-- **Incremental Execution & Timestamps**: `execute_notebooks.py` tracks changes using a hybrid `git status` / commit timestamp approach. Unchanged notebooks are skipped instantly.
+- **Incremental Execution**: `execute_notebooks.py` tracks code-cell fingerprints and stored execution state. Markdown-only edits do not require rerunning scientific examples.
 - **3D Molecular Viewer Export**: Static HTML scenes are exported via `view.export.html("docs/_static/views/name.html", shared_runtime="docs/_static")` and embedded using `msv.tools.embed_iframe("docs/_static/views/name.html", path=target_path)` (renders directly in `.ipynb` cells or returns pre-calculated relative `<iframe>` HTML for `.md` pages).
 - **Shared Runtime Hook**: `docs/conf.py` automatically extracts the runtime JS asset into `docs/_static` during Sphinx build (gitignored).
 - **Complete Architecture Specification**: See [`devguide/notebook_compilation_and_visualization.md`](../devguide/notebook_compilation_and_visualization.md) for full technical details.
@@ -63,8 +78,8 @@ To export MolSysMT’s documentation style to a new codebase:
 2. Replace MolSysMT-specific names in `conf.py`, `index.ipynb`, and `content/` landing pages with the new project’s branding.
 3. Update `api/` generation scripts to point to the new Python package while preserving the existing section order and headings.
 4. Keep the writing conventions above so new sections feel consistent, and use the same heading hierarchy (`##`, then `###`).
-5. Validate the migrated docs locally with `make html` and, if using Read the Docs, connect the repository with the provided
-   `.readthedocs.yaml` template as a baseline.
+5. Validate the migrated docs locally with `make html` and adapt the reviewed
+   documentation workflow to the new project's hosting setup.
 
 By keeping these guidelines in mind, contributors can extend MolSysMT’s documentation—or replicate it elsewhere—without losing
 the clear, welcoming tone readers expect.

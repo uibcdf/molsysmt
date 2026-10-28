@@ -16,6 +16,7 @@ API Element
    :hidden:
 
    atom/api_atom
+   bond/api_bond
    group/api_group
    component/api_component
    molecule/api_molecule

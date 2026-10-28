@@ -1,0 +1,267 @@
+{
+  "issue": "uibcdf/molsysmt#144",
+  "date": "2026-10-27",
+  "source_basis_commit": "050375083518a88bc08d2ed9a31d50c8fb2fa575",
+  "scope": "Published Sphinx sources and five public API navigation routes",
+  "baseline_checkpoint_receipt": "devtools/data/documentation_reference_repair_20261027.json",
+  "baseline": {
+    "warnings": 456,
+    "families": {
+      "myst.header": 435,
+      "myst.xref_missing": 4,
+      "toc.not_included": 17
+    },
+    "log_sha256": "7ae6dad628361b04f8e732379a566fe7260b360e1425ea8611ed27492583cadc"
+  },
+  "qualified": {
+    "warnings": 433,
+    "families": {
+      "myst.header": 433
+    },
+    "log_sha256": "eb2497479f15d9de83ff5ca75a7b1172d03ad814b07db1333e5eba60fb67da2a",
+    "exit_code": 0,
+    "errors": 0,
+    "build_log_sha256": "27ea6262ca209f203fc156e3d352f134ce15940c2723d02aeddc521a7df886f3"
+  },
+  "removed_warnings": [
+    "docs/content/course/_template.ipynb:30002: WARNING: Non-consecutive header level increase; H1 to H3 [myst.header]",
+    "docs/content/course/_template.ipynb:60004: WARNING: Non-consecutive header level increase; H1 to H3 [myst.header]",
+    "docs/AGENTS.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/README.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/api/element/bond/api_bond.rst: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/api/hbonds/autosummary/molsysmt.hbonds.get_acceptor_atoms.rst: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/api/hbonds/autosummary/molsysmt.hbonds.get_buch_hbonds.rst: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/api/hbonds/autosummary/molsysmt.hbonds.get_donor_atoms.rst: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/api/hbonds/autosummary/molsysmt.hbonds.get_luzard_chandler_hbonds.rst: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/api/index_v2.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/content/course/README.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/content/course/_template.ipynb: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/content/course/devtools/README.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/content/course/pending_fixes/README.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/content/course/pending_fixes/unit_01_supported_forms_link.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/content/course/pending_proposals/README.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/content/user/tools/Supported.ipynb: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/content/user/tools/index_v2.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/index.AGENTS.md: WARNING: document isn't included in any toctree [toc.not_included]",
+    "docs/README.md:19: WARNING: 'myst' cross-reference target not found: '../.readthedocs.yaml' [myst.xref_missing]",
+    "docs/README.md:33: WARNING: Unknown source document 'devguide/notebook_compilation_and_visualization' [myst.xref_missing]",
+    "docs/content/course/README.md:33: WARNING: Unknown source document 'content/course/AGENTS' [myst.xref_missing]",
+    "docs/content/course/_template.ipynb:70010: WARNING: 'myst' cross-reference target not found: '../path/next_module.ipynb' [myst.xref_missing]"
+  ],
+  "new_warnings": [],
+  "warning_suppressions_added": false,
+  "publication_exclusions_added": [
+    "AGENTS.md",
+    "*.AGENTS.md",
+    "README.md",
+    "api/index_v2.md",
+    "content/user/tools/index_v2.md",
+    "content/user/tools/Supported.ipynb",
+    "content/course/README.md",
+    "content/course/_template.ipynb",
+    "content/course/devtools/**",
+    "content/course/pending_fixes/**",
+    "content/course/pending_proposals/**"
+  ],
+  "publication_scope_dispositions": [
+    {
+      "path": "docs/AGENTS.md",
+      "reason": "root contributor rules, matching already excluded nested rules",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "e7dcff1f83fe6aebef92bdc056b33300e3e9ecea810636ba69257fbecd35a971"
+    },
+    {
+      "path": "docs/index.AGENTS.md",
+      "reason": "home-page contributor contract, matching nested contracts",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "aafc9962d0c8a92fdc7e1b4ec93083794c1f2da3cb574ea5e7bac860fdadb12d"
+    },
+    {
+      "path": "docs/README.md",
+      "reason": "repository documentation-build and authoring guide",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "6d75cd6120d17b7056f3e8f8084a707d27968b6b06270bbd27d1013038de6b72"
+    },
+    {
+      "path": "docs/api/index_v2.md",
+      "reason": "unused alternative API index draft",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "fb1685928e3645f791840d86e9b8c02678bad59b250cc080fc9d7342a41b85cc"
+    },
+    {
+      "path": "docs/content/user/tools/index_v2.md",
+      "reason": "unused alternative Toolbox index draft",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "0a7838533716b1f3cdbc3c2b510bf70e28be7bd82c71c8dd6f0e33759f10c52a"
+    },
+    {
+      "path": "docs/content/user/tools/Supported.ipynb",
+      "reason": "untitled scratch notebook including the removed supported.viewers surface; public capability API remains published",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "9745c08cdc453591b2bb45443c1d2cad6ec8c0ca995d2c4cd1e589c2a42b3f67"
+    },
+    {
+      "path": "docs/content/course/README.md",
+      "reason": "contributor curriculum overview; published curriculum uses index.md",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "6abe451856c5a0afae8a24119921d8fc23329329888a470194462aaa9d7215df"
+    },
+    {
+      "path": "docs/content/course/_template.ipynb",
+      "reason": "authoring template containing placeholder API and next-module targets",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "0e374654f86532f11dd481583846d1ee0a29e6f8d4f489a34f1e587a0f60b4d1"
+    },
+    {
+      "path": "docs/content/course/devtools/README.md",
+      "reason": "course-maintenance scripts documentation",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "977a7f0e9f10ad844d04b00cb39a79c1f60beba2dc45b8cfd1911989837ee7bd"
+    },
+    {
+      "path": "docs/content/course/pending_fixes/README.md",
+      "reason": "repository course-maintenance queue index",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "9305e4f722c9652ceea06161c47bd03205cfd8a5bbc3e6f827a263f65594bebd"
+    },
+    {
+      "path": "docs/content/course/pending_fixes/unit_01_supported_forms_link.md",
+      "reason": "repository course-maintenance record",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "57a1d04b5f8e4eff70a3f929f61958b21dae4875304112405d07ac866897d282"
+    },
+    {
+      "path": "docs/content/course/pending_proposals/README.md",
+      "reason": "repository course-planning queue index",
+      "preserved_in_repository": true,
+      "absent_from_source_set_search_and_html": true,
+      "sha256": "3d1f3dbac3107ef3610a8ffdeea2963d6aca4d265d18dedf565fcea6b03e4d6b"
+    }
+  ],
+  "published_source_count": 992,
+  "search_index_matches_source_set": true,
+  "public_pages_connected_and_present_in_search_and_html": [
+    "api/element/bond/api_bond",
+    "api/hbonds/autosummary/molsysmt.hbonds.get_acceptor_atoms",
+    "api/hbonds/autosummary/molsysmt.hbonds.get_donor_atoms",
+    "api/hbonds/autosummary/molsysmt.hbonds.get_buch_hbonds",
+    "api/hbonds/autosummary/molsysmt.hbonds.get_luzard_chandler_hbonds"
+  ],
+  "preservation": {
+    "all_package_source_unchanged": true,
+    "all_notebooks_unchanged": true,
+    "all_canonical_hbond_entries_preserved": true,
+    "historical_api_urls_preserved": true,
+    "foreign_rst_sha256": {
+      "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+    }
+  },
+  "source_files": [
+    {
+      "path": "devguide/pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md",
+      "before_sha256": "11f0aab06e139a58fb2c04094847718568283fc0548907af7df509cef277d4e4",
+      "after_sha256": "f748c4d68e7bf19a9a082a3e2d37d5e82fe14b78582d5876225537dd5633270f"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "before_sha256": "e84579d2875da459d767cb3853a97e986434f4ccd68708db79137cbe6fc4eb03",
+      "after_sha256": "c792617fcdd876f732a1bef0a6a12ea6d63ec43d483dd5a4f7b61bcd1fcbcd4e"
+    },
+    {
+      "path": "docs/README.md",
+      "before_sha256": "e1b70b385fcca8efcebfddc97c2f8cd94c382c0d1f9b983068d3917abdd17905",
+      "after_sha256": "6d75cd6120d17b7056f3e8f8084a707d27968b6b06270bbd27d1013038de6b72"
+    },
+    {
+      "path": "docs/api/element/api_element.rst",
+      "before_sha256": "e27a997044f0377892d7835430a8bc98d5f9fca22da8191d7f531ad74a0d85f9",
+      "after_sha256": "2b63f00bd9ca6f8bffbf9922094b325e7ff10e730dc345d3bd631db260d20ab6"
+    },
+    {
+      "path": "docs/api/element/bond/api_bond.rst",
+      "before_sha256": "74038174da0693f864c0456a4f419fdc4b8b1e78941b3f2c9be1904e9ee83a69",
+      "after_sha256": "9c22e606c8718abe40b0c6fa3b8343edd0e9db56e6a23f1da45a7552d02c9d61"
+    },
+    {
+      "path": "docs/api/hbonds/api_hbonds.rst",
+      "before_sha256": "1bbac4e1f6b42edfd073c0a8664a37b73ad8efdc5d21d57137a445ebfbe217e5",
+      "after_sha256": "c6e3698a15f8ed22e4b4df3400e5d92b58c25ba3cbf61badc82db35eeff6636e"
+    },
+    {
+      "path": "docs/conf.py",
+      "before_sha256": "85d9b7f402d84285927e5dafbd546c283bc5ac5d71227596fa62b16891d94d86",
+      "after_sha256": "4852f783a6a7c087d523044c7bfc4a86eab54f7db21d87d4e42c84bffbc020b2"
+    },
+    {
+      "path": "docs/docs_manifest.yml",
+      "before_sha256": "d98c2a868645c6724f691791680a0969bdb59cbd4edb423222d92e79d2fd2602",
+      "after_sha256": "21a7d30dded143543ab27df308933703898208ea1bd70801c6c91dd1fcb9e9f6"
+    },
+    {
+      "path": "devtools/tests/test_documentation_source_boundary.py",
+      "before_sha256": null,
+      "after_sha256": "f10c84074ad0f52801bdc4d08e65fdea2ee87e839b91ea5ea3c4405a288a7fd3"
+    },
+    {
+      "path": "tests/documentation/test_source_boundary.py",
+      "before_sha256": null,
+      "after_sha256": "9533ba104d242275743fdd897ddeb9a717ef97be46ba958fa49c8205ac84d561"
+    }
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "sphinx": "9.1.0",
+    "myst-nb": "1.4.0",
+    "pytest": "9.1.1",
+    "pytest-xdist": "3.8.0",
+    "pytest-receptor": "1.2.1+22.g00a31c4"
+  },
+  "checks": [
+    {
+      "command": "python -m pytest tests/documentation/test_source_boundary.py tests/documentation/test_directive_rendering.py devtools/tests/test_course_takeaway_rendering.py devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_public_api_docs.py --receptor=llm -n 12",
+      "passed": 554,
+      "failed": 0,
+      "skipped": 0,
+      "elapsed_seconds": 21.36,
+      "visible_provider_deprecations": 570,
+      "visible_legacy_h5msm_warnings": 3,
+      "log_sha256": "0a9516c67f86f53be7d4b39b588f315fc45401261e5ad3780b30560478c424bd"
+    },
+    {
+      "command": "python -m sphinx -E -a -q -j 12 -b html -w <warning-log> docs docs/_build/html",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 433,
+      "notebook_execution": "off",
+      "previous_generated_html_removed_to_avoid_stale_pages": true
+    }
+  ],
+  "guard_intent": [
+    "Sphinx Project discovers the actual source set using the actual configuration; twelve known repository-only documents are absent, while the old boundary leaks all twelve.",
+    "Every real User Guide and API source, all 156 course modules and course indexes, and manifested public pages remain discoverable. Manifested contributor files exist but are not published. The guard cannot pass by broadly excluding user content.",
+    "The real API subtrees render and import successfully; five public pages are connected and contain the bond data contracts or historical import links. Removing their routes reproduces exactly five orphan warnings. Tutorial labels come from real source pages.",
+    "The final search-index document set equals Sphinx discovery, all five public HTML pages exist, and none of the twelve repository-only HTML pages survive in the clean output."
+  ],
+  "unsuccessful_attempts": [
+    "Initial source-discovery coverage detects stale get_plane and thirds manifest paths; all paths and paired contributor references are repaired.",
+    "Initial autodata directives render unrelated built-in dict docstrings and produce docutils errors, even though Sphinx exits zero. Explicit py:data declarations fix that description. The exploratory build is not counted as successful qualification.",
+    "Initial source discovery omits the HTML builder resource/template exclusions, overcounting three asset README files; it now matches the actual HTML source/search set.",
+    "The miniature API site initially lacks real public tutorial context and assumes three newer tutorials live under hbonds. Fixtures now use their actual interactions paths and actual existing anchors."
+  ],
+  "remaining_debt": "433 real published heading-policy warnings. No course heading was changed; the two other removed header warnings belonged to the authoring template. Issue #144 remains partial.",
+  "qualification_limits": "Documentation source/rendering checks only; no new scientific calculation, installed-pair, performance, package or release qualification."
+}

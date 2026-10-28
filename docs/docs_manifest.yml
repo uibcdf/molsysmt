@@ -264,9 +264,9 @@ sections:
           - name: get_vectors
             file: docs/content/user/tools/structure/get_vectors.ipynb
             agents_file: docs/content/user/tools/structure/get_vectors.ipynb.AGENTS.md
-          - name: get_plane
-            file: docs/content/user/tools/structure/get_plane.ipynb
-            agents_file: docs/content/user/tools/structure/get_plane.ipynb.AGENTS.md
+          - name: get_least_squares_plane
+            file: docs/content/user/tools/structure/get_least_squares_plane.ipynb
+            agents_file: docs/content/user/tools/structure/get_least_squares_plane.ipynb.AGENTS.md
       - name: pbc
         path: docs/content/user/tools/pbc
         agents_file: docs/content/user/tools/pbc/AGENTS.md
@@ -480,11 +480,11 @@ sections:
           - file: docs/content/user/tools/form/file/file_structures_yaml.ipynb
             agents_file: docs/content/user/tools/form/file/file_structures_yaml.ipynb.AGENTS.md
             description: Structures YAML 0.2 quantity records, sparse alternate geometry, local indices and explicit 0.1 migration.
-      - name: thirds
-        path: docs/content/user/tools/thirds
-        agents_file: docs/content/user/tools/thirds/AGENTS.md
-        index_file: docs/content/user/tools/thirds/index.md
-        index_agents_file: docs/content/user/tools/thirds/index.AGENTS.md
+      - name: third_party
+        path: docs/content/user/tools/third_party
+        agents_file: docs/content/user/tools/third_party/AGENTS.md
+        index_file: docs/content/user/tools/third_party/index.md
+        index_agents_file: docs/content/user/tools/third_party/index.AGENTS.md
         status: pending_review
     course:
       path: docs/content/course
@@ -667,6 +667,7 @@ sections:
         agents_file: docs/content/developer/testing/AGENTS.md
         description: Scientific evidence review, executable resident/H5MSM/PDB/SDF/PDBQT profiles, schema/resource/dependency boundaries and source/package/documentation CI.
   api_reference:
+    description: Published API indexes include the covalent-bond heuristic data and historical hydrogen-bond import references alongside canonical interaction APIs.
     path: docs/api
     status: stable
     pages:

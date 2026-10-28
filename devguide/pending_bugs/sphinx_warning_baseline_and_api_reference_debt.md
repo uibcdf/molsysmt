@@ -683,3 +683,75 @@ and test intent. Ruff lint/format, citation and developer-guide checks pass.
 #144 remains partial: the remaining internal navigation/reference debt and course
 heading policy are not silently hidden or rewritten. This checkpoint is not a
 full scientific-suite, installed-pair, performance or release qualification.
+
+
+## Published source boundary and API navigation repair — 2026-10-27
+
+On source 050375083, the preceding forced-site checkpoint has 456 warnings:
+435 header warnings, 17 orphan documents and four unresolved source links.
+The seventeen documents have two different dispositions; eliminating warnings
+alone would not justify excluding useful public content.
+
+Five public API documents are connected to their owning indexes. The bond
+reference now appears in the element toctree and documents the two existing
+unit-bearing heuristic data exports and their coverage limits. Four historical
+hydrogen-bond import pages appear under a clearly named compatibility section
+of the canonical hydrogen-bond API. Their existing paths and all canonical
+entries remain unchanged. No Python export, chemical criterion or unit changes.
+
+Twelve documents are repository-only material: root contributor instructions,
+the documentation README, two alternate index drafts, the unfinished Supported
+scratch notebook, the contributor course README, the authoring template and
+the course devtools/pending-fix/pending-proposal records. They remain in Git with
+specific publication exclusions. Existing nested-instruction exclusions gain
+their missing root counterparts. The scratch notebook has no narrative/title
+and includes the removed supported.viewers surface; the maintained capability
+API remains published. All 156 course modules and course navigation indexes
+remain published. The documentation README now points to the real Pages
+workflow/environment, correct PyData theme and code-fingerprint execution rule;
+it no longer advertises nonexistent Read the Docs configuration/requirements.
+Source-relative links in contributor guides remain valid in their repository
+context. The template's placeholder is not promoted into a public lesson.
+
+The source-boundary guard uses Sphinx's actual Project discovery, not a string
+check for exclusion names. It verifies the twelve repository-only documents
+are absent and every actual User Guide/API source, manifested public page and
+course module remains discoverable. Manifested contributor files must exist
+and stay outside that published set. This catches stale get_plane and thirds
+manifest paths; they now name the existing get_least_squares_plane and
+third_party pages and their matching instructions.
+
+A miniature site renders the actual element and hydrogen-bond source trees,
+checking both navigation and real API import paths. Its tutorial labels are
+read from existing public sources. Negative controls restore the old discovery
+boundary and remove the five API connections; they reproduce the twelve leaks
+and five orphan warnings. Initial fixture attempts reveal the old manifest
+paths, missing tutorial context and three tutorials living under interactions
+rather than hbonds. An initial autodata description pulls in a built-in dict
+docstring and produces parser errors; explicit py:data declarations document
+the existing exported data without rendering that unrelated built-in text.
+That exploratory full-site build is not successful qualification merely
+because Sphinx returns zero despite docutils errors.
+
+```bash
+python -m pytest tests/documentation/test_source_boundary.py tests/documentation/test_directive_rendering.py devtools/tests/test_course_takeaway_rendering.py devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_public_api_docs.py --receptor=llm -n 12
+python -m sphinx -E -a -q -j 12 -b html -w <warning-log> docs docs/_build/html
+```
+
+The regression passes **554 tests**, without skips. Sphinx/Napoleon
+deprecations and three expected legacy-H5MSM warnings remain visible in pytest;
+they are separate from site-build diagnostics. The final full-site build has
+zero errors and **433 warnings, all myst.header**. The 17 orphan and four
+reference warnings disappear. Two additional header warnings belonged to the
+excluded authoring template: no public course heading is reformatted and no
+warning category is suppressed.
+
+The previous generated HTML output is removed before the source-boundary build
+so obsolete pages cannot survive as stale files. Final HTML/search-index checks
+verify the twelve exclusions and the five retained public pages. Package source
+and every notebook are unchanged; the four pre-existing generated RST edits
+retain their original hashes and remain outside this commit. The
+[receipt](../../devtools/data/documentation_navigation_repair_20261027.json)
+records discovery, rendered-output checks, warning provenance and unsuccessful
+attempts. Ruff lint/format and developer-guide checks pass. #144 stays partial
+for the explicit heading-policy debt, without a new release qualification.

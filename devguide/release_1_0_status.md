@@ -78,6 +78,17 @@ The [reference receipt](../devtools/data/documentation_reference_repair_20261027
 records the scope and remaining 435 header, 17 orphan-page and four internal-link
 warnings. No warning is suppressed and #144 remains partial.
 
+The #144 publication-boundary pass connects five public API pages and retains
+twelve contributor/template/prototype documents in Git outside the published
+site. Source-discovery guards protect every User Guide/API page, all 156 course
+modules and manifested public pages; stale manifest paths are repaired. All
+554 documentation checks pass. A clean-output full-site build has 433 warnings,
+all from heading policy, and zero errors; the 17 orphan and four reference
+warnings are gone. Two template-only header warnings leave the site with the
+template. Public notebook content and package source remain unchanged. The
+[navigation receipt](../devtools/data/documentation_navigation_repair_20261027.json)
+separates publication scope from warning suppression. #144 remains partial.
+
 ## Current source stabilization — 2026-10-26
 
 Default-reference readiness selection is source-resolved under
