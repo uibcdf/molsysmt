@@ -50,6 +50,7 @@ applicability and the component's actual adoption/evidence state.
 | Adding or changing a capability | Consult the [responsibility map](#component-responsibility-map), reuse supported [tools/contracts](#modular-reusable-tools), and review [support-library](#applicable-support-libraries-and-developer-tools), [quantity](#physical-quantities-and-units) and [optional-engine](#optional-engines-and-external-methods) boundaries. |
 | Changing dependencies or acquisition routes | Align manifests/environments/recipes and update the [dependency inventory and CI route](#dependencies-and-ci-acquisition). |
 | Finding a defect or improvement | Follow [issue feedback](#human-facing-issue-feedback); hand provider limitations to their [owning component](#shared-stewardship-across-components), with consumer evidence. |
+| Asking usage questions or discussing early ideas | Use the owning repository's [Discussions](#github-discussions); actionable work and decisions retain their durable issue/document destinations. |
 | Changing shared guidance, APIs or tooling | Give the [consumer-impact notice](#shared-stewardship-across-components); publish canonical sources and use the registered [guide-adoption route](#guide-revisions-and-distribution). |
 | Preparing a commit or push | Select relevant [quality checks](#common-development-baseline) and follow the authorized [CI checkpoint route](#direct-pushes-and-validation-checkpoints). |
 | Preparing a release or package | Verify exact-candidate [version](#public-release-versions), [platform](#supported-platforms), [publication](#conda-staging-and-publication) and applicable [archival](#release-archival-and-doi-claims) gates; deliver the [release notice](#release-and-package-publication-notices). |
@@ -63,6 +64,17 @@ rules activate only within their stated scope.
 
 ## Where suite governance lives
 
+### MolI platform and Moli agent
+
+Use **MolI** for the Molecular Intelligence platform and **Moli** for its
+optional scientific agent in new or substantively revised prose. Molecular
+Intelligence is the complete capability; people and other systems can use MolI
+directly without Moli or an LLM. Moli is distinct from MolSys-AI and its
+specialist agents. Preserve exact technical identifiers, URLs, quotations and
+history, including `MOLI_GUIDE.md` and `architecture_1.0/MOLI_AGENT.md`.
+Follow the [display-name policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/naming_policy.md);
+this changes no repository/package/API identity or scientific ownership.
+
 Use [the MolSysSuite repository](https://github.com/uibcdf/molsyssuite) for MolSysSuite-specific compatibility contracts, member governance, domain extensions, common suite tooling, cross-component proposals, coordinated rollouts, and decisions affecting two or more suite members. Its `suite.toml` is the
 machine-readable registry of members, classification fields, initiatives, and accepted
 policies. Its `devguide/` contains the full normative texts and decision history.
@@ -72,22 +84,22 @@ API, scientific evidence, releases, and local development tools. Local rules may
 stricter, but they must not silently contradict a common policy. A deviation needs a
 tracked exception with its reason and expiration condition.
 
-MolSysSuite is a first-class MOLI component with delegated internal governance. MOLI governs the suite's platform boundary. MolSysSuite owns normative engineering and modeling rules, rollout and enforcement for its registered members.
+MolSysSuite is a first-class MolI component with delegated internal governance. MolI governs the suite's platform boundary. MolSysSuite owns normative engineering and modeling rules, rollout and enforcement for its registered members.
 
-A member follows **MolSysSuite member governance + repository-local rules**. MolSysSuite as a unit remains accountable for its MOLI platform contracts.
+A member follows **MolSysSuite member governance + repository-local rules**. MolSysSuite as a unit remains accountable for its MolI platform contracts.
 
 The current central member-policy release is recorded in `suite.toml`. Each
 member's effective automated policy is the
 release pinned by its workflow; older compatible releases remain visible in
-the adoption inventory. The MOLI commit recorded in `suite.toml` identifies
+the adoption inventory. The MolI commit recorded in `suite.toml` identifies
 platform-contract context for the suite; it is not a source of member
 engineering values.
 
 For a new member absent from its frozen policy registry, the [official starter admission route](https://github.com/uibcdf/molsyssuite/blob/main/devguide/new_component_starter_kit.md#immutable-policy-and-separate-admission) supports a separate full central admission commit from `policy-v1.5.5`. It adds registration and classification only; engineering rules and exceptions remain those of the selected policy.
 
-The wider platform architecture belongs to [MOLI Architecture 1.0](https://github.com/uibcdf/moli/blob/main/architecture_1.0/README.md). MOLI describes MolSysSuite as
+The wider platform architecture belongs to [MolI Architecture 1.0](https://github.com/uibcdf/moli/blob/main/architecture_1.0/README.md). MolI describes MolSysSuite as
 the molecular modeling ecosystem alongside Scientific Context and optional
-MOLI Agent reasoning.
+Moli reasoning.
 
 Start with these central documents:
 
@@ -101,12 +113,12 @@ Start with these central documents:
 - [MolSysSuite distribution policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_distribution_policy.md);
 - [GH Run Receptor dogfooding policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/gh_run_receptor_policy.md).
 
-MOLI's conceptual architecture does not admit repositories to MolSysSuite.
+MolI's conceptual architecture does not admit repositories to MolSysSuite.
 `suite.toml` alone records governed members; its `role`, `membership`,
 `maturity`, `development-mode`, and `capabilities` fields classify real
 repositories rather than platform concepts.
 
-Consult MOLI governance when changing MolSysSuite's platform obligations or a contract with another MOLI component. Consult MolSysSuite governance before changing a member engineering rule, suite-member contract, dependency boundary, reusable workflow, vendored integration guide, or behavior expected across members.
+Consult MolI governance when changing MolSysSuite's platform obligations or a contract with another MolI component. Consult MolSysSuite governance before changing a member engineering rule, suite-member contract, dependency boundary, reusable workflow, vendored integration guide, or behavior expected across members.
 
 Canonical-guide publication and versioned policy adoption are independent. A guide-only
 change does not require a policy caller bump, and a caller bump does not prove that guide
@@ -148,7 +160,7 @@ the local reporting protocol. Start with current guidance and relevant active
 queues; use archive indexes for orientation and open historical records for a
 stated question. Preserve local queue layouts and commands. Propose working
 rules useful to other members in `uibcdf/molsyssuite` with local evidence;
-cross-MOLI contracts belong in `uibcdf/moli`. Upstream changes require explicit
+cross-MolI contracts belong in `uibcdf/moli`. Upstream changes require explicit
 suite adoption. Mechanical checks verify active routes, not prose quality;
 bounded exceptions and member adoption are recorded by the policy. The accepted
 human-facing action below and the remaining pilots are tracked separately in
@@ -178,7 +190,7 @@ proposals in the owning repository. Open an issue or add evidence to an existing
 if you cannot file it, ask a maintainer to record it. Do not leave the finding only
 in a chat, workaround or downstream issue. Reporting does not promise immediate
 implementation. Use private reporting first for exploitable or confidential findings.
-This adopts [MOLI's universal issue-feedback commitment](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/governance/reporting_protocol.md#universal-issue-feedback-commitment).
+This adopts [MolI's universal issue-feedback commitment](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/governance/reporting_protocol.md#universal-issue-feedback-commitment).
 
 ### Human-facing issue feedback
 
@@ -236,6 +248,31 @@ selected assertion protects the reported failure mechanism. Non-pytest repositor
 targets require a bounded local selector profile as defined by the central reporting
 protocol.
 
+## GitHub Discussions
+
+Every registered member enables Discussions, including early and auxiliary
+repositories. Keep **Announcements** / `announcements` (Announcement),
+**Q&A** / `q-a` (Question and answer), and **Ideas** / `ideas` (Open-ended
+discussion), even when empty. Adapt descriptions/forms to the component and
+retain purposeful local categories with their owner and durable destination.
+The repository's maintainers own triage until explicitly delegated; there is
+no response-time promise.
+
+Use Discussions for usage questions, maintainer announcements and early ideas.
+Actionable suspected bugs, missing capabilities and concrete improvements go
+to owning issues even when uncertain or nonblocking. Record conclusions and
+accepted/deferred/rejected decisions in an issue or named versioned record,
+with date/reason and a revisit trigger for deferral. Link both directions.
+A thread, vote or closure is not contract acceptance or implementation evidence.
+
+Before retiring unused defaults, inspect content and preserve useful threads,
+decisions and links. No conversation is deleted to make the configuration match.
+Apply the normal privacy and task-authorization rules; reading does not grant
+posting, notification or scientific-implementation authority. Follow the
+[Discussions policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/github_discussions.md)
+for onboarding, local extensions, API/UI observation, ownership and bounded
+exceptions. Source/guide delivery does not certify remote category configuration.
+
 ## Shared stewardship across components
 
 Every component is a UIBCDF team development. When developing one component reveals a
@@ -272,7 +309,7 @@ theme. Provider implementation and release ownership, internal direct pushes and
 accepted CI lanes follow their existing policies.
 
 Use the [shared-provider impact rule](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md#shared-provider-changes-and-consumer-impact)
-for applicability, timing and bounded exceptions. Cross-link MOLI when its direct
+for applicability, timing and bounded exceptions. Cross-link MolI when its direct
 components or platform contracts are affected. One-consumer findings stay local until
 wider impact becomes plausible; confidential findings use private reporting first.
 
@@ -296,7 +333,7 @@ exception or private/sanitized handoff when required by that policy.
 
 ## UIBCDF development support
 
-MOLI [catalogs four UIBCDF-owned support resources](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/governance/support_infrastructure.md):
+MolI [catalogs four UIBCDF-owned support resources](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/governance/support_infrastructure.md):
 [Pytest Receptor](https://github.com/uibcdf/pytest-receptor) for Python test reporting,
 [GH Run Receptor](https://github.com/uibcdf/gh-run-receptor) for Actions inspection,
 [the Conda build/upload action](https://github.com/uibcdf/action-build-and-upload-conda-packages)
@@ -304,7 +341,7 @@ for applicable Conda releases, and
 [the Sphinx-to-Pages action](https://github.com/uibcdf/action-sphinx-docs-to-gh-pages)
 for applicable Sphinx documentation publication. Use the applicable resource and report
 tool defects or improvements in its own issue board. MolSysSuite governs member
-use and adoption; MOLI owns direct-component usage and suite-level platform
+use and adoption; MolI owns direct-component usage and suite-level platform
 obligations. Both receptors are primary suite members with the developer-tool
 role; role and membership are independent registry fields.
 
@@ -338,7 +375,7 @@ the same object; readers verify the record and explicitly name the expected fiel
 unit or dimension. Never infer a unit from a bare number, field name or session default.
 Use an explicit target unit for boundary conversions and test under a non-default
 session policy. A wrong but internally consistent source also needs domain checks.
-The [published MOLI quantity integrity policy](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/policies/quantity_integrity_policy.md)
+The [published MolI quantity integrity policy](https://github.com/uibcdf/moli/blob/8056b7861ce9238d75a3b957322d839ccb6c7ca6/devguide/policies/quantity_integrity_policy.md)
 defines the target contract; member adoption is tracked below and is not established
 by this guide alone.
 
@@ -447,7 +484,7 @@ linked development-workspace receipts; no fixed member count in this guide
 substitutes for them. A member not yet qualified uses its own compatible Python 3.14 Conda
 development environment and tracks the shared-environment gap and exit condition
 in its owning issue. An older interpreter requires the existing bounded migration
-exception. MolSys-AI's umbrella is not an installable Python package; a MOLI
+exception. MolSys-AI's umbrella is not an installable Python package; a MolI
 component such as Sabueso retains its own membership and qualification owner.
 
 Use the [development workspace contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/development_workspace.md)
@@ -490,6 +527,14 @@ or extend missing independently useful operations as documented general tools in
 owner, with their own contracts and tests, and have consumers call them. Keep feature
 selection, interpretation, rendering and orchestration in the consumer; implementation
 helpers remain private behind supported tools.
+
+Find existing operations in the [shared development-tool catalogue](https://github.com/uibcdf/molsyssuite/blob/main/devguide/shared_tools.md).
+It includes dependency/CI preflight, workspace installation, publication and
+the [optional Conda environment tools](https://github.com/uibcdf/molsyssuite/blob/main/devguide/conda_environment_tools.md).
+Choose a qualified immutable tool revision and respect its operation/platform
+limits. Catalogue availability does not require migration from qualified local
+tools or make Mamba/channel restrictions a suite-wide requirement. The environment
+contract owns the monitored Mamba range and future-major notices.
 
 Document reusable inputs/outputs, units, selection/frame and index mappings,
 configuration authority, empty/degenerate cases and failure behavior. Preserve
@@ -552,8 +597,8 @@ an implementation because its owner is incubating or the needed API is absent.
 This map routes ownership, not a promise that an API is implemented or stable.
 Review current registration, actual contracts and evidence before depending on a
 capability. It does not require eager dependencies, force all numerical work into
-one library or authorize a scientific implementation. Other direct MOLI components
-keep their own contracts; propose cross-platform boundaries through MOLI.
+one library or authorize a scientific implementation. Other direct MolI components
+keep their own contracts; propose cross-platform boundaries through MolI.
 
 ## Temporary development resources
 
@@ -623,8 +668,8 @@ with the API, including when generating notes. This applies to every registered
 member; existing governance policy-release and archive namespaces retain their
 separate meanings. Follow the release policy's documented exception route.
 Accepted under [MolSysSuite #119](https://github.com/uibcdf/molsyssuite/issues/119),
-with direct MOLI-component adoption in
-[MOLI #68](https://github.com/uibcdf/moli/issues/68).
+with direct MolI-component adoption in
+[MolI #68](https://github.com/uibcdf/moli/issues/68).
 
 ### Archive tags
 
@@ -874,6 +919,8 @@ release continues to own frozen automated values.
 | `ackredit-clients` | [devguide/ackredit_client_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/ackredit_client_policy.md) |
 | `repository-badges` | [devguide/repository_badges.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_badges.md) |
 | `working-instructions` | [devguide/working_instructions_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/working_instructions_policy.md) |
+| `github-discussions` | [devguide/github_discussions.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/github_discussions.md) |
+| `naming` | [devguide/naming_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/naming_policy.md) |
 | `release-notices` | [devguide/release_notifications.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_notifications.md) |
 | `temporary-resources` | [devguide/temporary_resources.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/temporary_resources.md) |
 | `component-dependencies` | [devguide/dependency_graph_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/dependency_graph_policy.md) |
