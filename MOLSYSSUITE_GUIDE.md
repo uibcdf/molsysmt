@@ -39,6 +39,28 @@ scientific scope, keep changes focused and never publish credentials, private
 attachments or unrestricted evidence. Existing explicit authorization for the
 same work persists across commits; this guide does not add a permission round.
 
+## Find the rules for the current task
+
+Use this map after reading the common instructions. Follow each linked rule's
+applicability and the component's actual adoption/evidence state.
+
+| When | Required action and owning guidance |
+| --- | --- |
+| Starting work or coordinating clones | Read local instructions; verify the [development workspace](#local-development-workspace) and inspect [cross-repository state](#cross-repository-working-state) when applicable. |
+| Adding or changing a capability | Consult the [responsibility map](#component-responsibility-map), reuse supported [tools/contracts](#modular-reusable-tools), and review [support-library](#applicable-support-libraries-and-developer-tools), [quantity](#physical-quantities-and-units) and [optional-engine](#optional-engines-and-external-methods) boundaries. |
+| Changing dependencies or acquisition routes | Align manifests/environments/recipes and update the [dependency inventory and CI route](#dependencies-and-ci-acquisition). |
+| Finding a defect or improvement | Follow [issue feedback](#human-facing-issue-feedback); hand provider limitations to their [owning component](#shared-stewardship-across-components), with consumer evidence. |
+| Changing shared guidance, APIs or tooling | Give the [consumer-impact notice](#shared-stewardship-across-components); publish canonical sources and use the registered [guide-adoption route](#guide-revisions-and-distribution). |
+| Preparing a commit or push | Select relevant [quality checks](#common-development-baseline) and follow the authorized [CI checkpoint route](#direct-pushes-and-validation-checkpoints). |
+| Preparing a release or package | Verify exact-candidate [version](#public-release-versions), [platform](#supported-platforms), [publication](#conda-staging-and-publication) and applicable [archival](#release-archival-and-doi-claims) gates; deliver the [release notice](#release-and-package-publication-notices). |
+| Closing work | Follow [closeout](#before-finishing-component-work), update owning records and review [temporary resources](#temporary-development-resources). |
+
+An applicable rule with pending adoption remains owned work. Non-applicability
+names the absent boundary and its reassessment condition. A deviation needs the
+owning policy's bounded exception; neither early development nor an exception
+turns an unexecuted gate into passing evidence. Python-only and release-specific
+rules activate only within their stated scope.
+
 ## Where suite governance lives
 
 Use [the MolSysSuite repository](https://github.com/uibcdf/molsyssuite) for MolSysSuite-specific compatibility contracts, member governance, domain extensions, common suite tooling, cross-component proposals, coordinated rollouts, and decisions affecting two or more suite members. Its `suite.toml` is the
@@ -63,7 +85,7 @@ engineering values.
 
 For a new member absent from its frozen policy registry, the [official starter admission route](https://github.com/uibcdf/molsyssuite/blob/main/devguide/new_component_starter_kit.md#immutable-policy-and-separate-admission) supports a separate full central admission commit from `policy-v1.5.5`. It adds registration and classification only; engineering rules and exceptions remain those of the selected policy.
 
-The wider platform architecture belongs to [MOLI Architecture 1.0](https://github.com/uibcdf/moli/blob/main/architecture_1.0/README.md). MolSysSuite is a first-class MOLI component with delegated internal governance. MOLI describes MolSysSuite as
+The wider platform architecture belongs to [MOLI Architecture 1.0](https://github.com/uibcdf/moli/blob/main/architecture_1.0/README.md). MOLI describes MolSysSuite as
 the molecular modeling ecosystem alongside Scientific Context and optional
 MOLI Agent reasoning.
 
@@ -92,6 +114,25 @@ copies were synchronized. Use the central `devtools/scripts/adoption_status.py` 
 and `devguide/adoption_lifecycle.md` procedure to find the responsible consumer, observed
 state and next action for each relationship.
 
+### Guide revisions and distribution
+
+The guide's exact revision is its canonical Git commit and content SHA-256;
+delivery records retain the consumer commits and applicable executed checks.
+Its links to `blob/main` are live maintained documents. Recovering an old guide
+commit reproduces those guide bytes, not a frozen snapshot of every linked
+policy. Use recorded exact document/input revisions for historical decisions
+and candidate evidence. A compatible older automated caller retains its frozen
+behavior without waiving current normative obligations or certifying adoption.
+
+Edit and publish the canonical source in its owner first. From the MolSysSuite
+clone, distribute registered copies with `sync_vendored_guides.py`, then publish
+the reviewed consumer commits and verify their live adoption. The synchronizer
+requires published, committed canonical input and protects modified consumer
+copies. Report a bounded inability to adopt through the owning policy's
+exception mechanism. Follow the [vendored-guide policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/vendored_guides.md)
+and [adoption lifecycle](https://github.com/uibcdf/molsyssuite/blob/main/devguide/adoption_lifecycle.md);
+keep advance notice, delivered bytes and tested runtime/public artifacts separate.
+
 ## Durable working instructions
 
 Follow the [durable working-instruction policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/working_instructions_policy.md).
@@ -109,8 +150,9 @@ stated question. Preserve local queue layouts and commands. Propose working
 rules useful to other members in `uibcdf/molsyssuite` with local evidence;
 cross-MOLI contracts belong in `uibcdf/moli`. Upstream changes require explicit
 suite adoption. Mechanical checks verify active routes, not prose quality;
-bounded exceptions and member adoption are recorded by the policy. Future
-human-facing reporting integration remains uibcdf/molsyssuite#65.
+bounded exceptions and member adoption are recorded by the policy. The accepted
+human-facing action below and the remaining pilots are tracked separately in
+uibcdf/molsyssuite#65.
 
 ## Cross-repository working state
 
@@ -263,7 +305,8 @@ for applicable Conda releases, and
 for applicable Sphinx documentation publication. Use the applicable resource and report
 tool defects or improvements in its own issue board. MolSysSuite governs member
 use and adoption; MOLI owns direct-component usage and suite-level platform
-obligations. The receptors remain suite auxiliary members.
+obligations. Both receptors are primary suite members with the developer-tool
+role; role and membership are independent registry fields.
 
 ## Applicable support libraries and developer tools
 
@@ -299,12 +342,13 @@ The [published MOLI quantity integrity policy](https://github.com/uibcdf/moli/bl
 defines the target contract; member adoption is tracked below and is not established
 by this guide alone.
 
-PyUnitWizard owns the [serialization design](https://github.com/uibcdf/pyunitwizard/issues/83)
-and [QuantityRecord codec](https://github.com/uibcdf/pyunitwizard/issues/82); take
-format questions there. [MolSysSuite #46](https://github.com/uibcdf/molsyssuite/issues/46)
-tracks member adoption and migrations. A member's engineering policy remains the
-MolSysSuite release pinned by its workflow until that member adopts another release.
-The MOLI commit in `suite.toml` records platform-contract context for the suite.
+Unit-policy authority is explicit operation parameter, local context, application
+policy, then factory default. Importing or lazily activating a sibling must not
+overwrite an application choice. A member needing the shared suite baseline
+initializes it only when `has_active_policy()` is false. The accepted provider
+context mechanism serializes writers in one process; it is not thread/async-local
+isolation. Follow the [session-authority contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/quantity_boundaries.md#session-authority)
+and the boundary/adoption route below.
 
 ## Common development baseline
 
@@ -319,6 +363,14 @@ called suite policy release supply their machine-readable values. Follow the
 and [release policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md)
 for adoption, evidence and historical exceptions. Type checking and scientific
 or UI gates remain repository-local.
+
+For applicable Python changes, run `ruff check .` and `ruff format --check .`
+with the shared lint/format baseline. Keep Ruff's target `py311` for the oldest
+supported syntax even though routine development uses Python 3.14. The called
+policy supplies the exact reviewed CI tool version; local development may use
+that version or a compatible newer version producing the same required result.
+Preserve additional local rules. Replace legacy format/lint gates only after
+the equivalent Ruff migration checks pass, as specified by the tooling policy.
 
 The new support-library and developer-tool policies require member-specific review.
 Their publication does not establish adoption by a member. `suite.toml` records
@@ -405,6 +457,31 @@ a public artifact, full scientific suite, GUI rendering or another platform.
 
 Every root integration guide synchronized from another repository is generated, read-only content. List its exact path in Ruff `extend-exclude`; propose changes at the canonical source and resynchronize the exact copy. The suite checks the exclusion and byte-level drift.
 
+### Dependencies and CI acquisition
+
+When changing a dependency, Python bound or runtime-bearing route, align the
+required names and constraints in `pyproject.toml`, maintained environments and
+Conda recipe. Keep optional features optional and record intentional Python/Conda
+name translations. Review provider API floors and actual installed versions;
+solver success alone does not prove the required capability exists. Run the
+applicable dependency-route preflight before an expensive candidate build and
+for the exact release candidate, under the [distribution contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_distribution_policy.md#early-dependency-contract-preflight).
+
+Required siblings need a working CI acquisition route on every claimed lane.
+Use a committed resolvable Conda environment, or a reviewed source installation
+pinned to a full commit where permitted. Suite packages are not assumed to be
+on PyPI. Floating branches and local editable siblings do not establish release
+evidence; a source pin supports tests without proving public availability.
+Follow [CI dependency resolution](https://github.com/uibcdf/molsyssuite/blob/main/devguide/ci_dependency_resolution.md).
+
+After affected direct dependency or development-profile changes, coordinate the
+registry graph update with immutable inspected source evidence and regenerate
+its human view through central `dependency_graph.py`. Keep runtime, optional,
+test, CI and documentation edges distinct. Use its provider/consumer queries to
+plan impact and prerequisite order; a cycle is a coordinated unit, not an
+arbitrary release order. The [dependency graph policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/dependency_graph_policy.md)
+owns these records; inspected edges do not certify installed compatibility.
+
 ## Modular reusable tools
 
 Before implementing a new or changed capability, inspect existing tools and identify
@@ -413,6 +490,13 @@ or extend missing independently useful operations as documented general tools in
 owner, with their own contracts and tests, and have consumers call them. Keep feature
 selection, interpretation, rendering and orchestration in the consumer; implementation
 helpers remain private behind supported tools.
+
+Document reusable inputs/outputs, units, selection/frame and index mappings,
+configuration authority, empty/degenerate cases and failure behavior. Preserve
+supported signatures, diagnostics and justified environments; an intentional
+scientific-definition or schema change needs its owner's compatibility/migration
+decision, with a shared contract change registered centrally before requiring
+it from other components.
 
 Apply the [modular reusable tools policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/modular_reusable_tools.md)
 to every registered component, including support libraries, scientific components,
@@ -567,6 +651,22 @@ component's actual platform/Python matrix, recipe, installed-resource/launcher
 checks, secrets and scientific gates. A member without Conda publication records
 non-applicability.
 
+The official public route is the `uibcdf` Conda channel, with third-party
+dependencies from `conda-forge`. PyPI is optional and may be advertised only
+after the published artifacts and full declared dependency closure install on
+the claimed platforms/minors. A GitHub Release or local pip install proves
+neither channel availability nor installed compatibility.
+
+Request selected-repository access to `ANACONDA_UIBCDF_TOKEN` from Diego
+(`dprada`) through the owning distribution/release issue, linking central #45
+and `uibcdf/moli#8`. Identify the package, release maintainer and trusted
+publisher/events/environments. Record the administrator's disposition and
+presence-only readiness in the actual trusted workflow; never retain the
+credential value. PR/fork tests receive no upload credential, and there is no
+personal-token fallback. The shared workflow retains its explicit
+`ANACONDA_TOKEN` input mapping. Follow the [credential-access contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_distribution_policy.md#conda-publication-credential-access);
+an access grant alone does not authorize a release or prove delivery.
+
 For qualifying new or changed Conda routes, apply `noarch: python` when Python
 code and resources are independent of OS/architecture/ABI. Third-party native
 dependencies alone do not disqualify the consumer; bundled extensions/platform
@@ -578,6 +678,14 @@ matrix. The first migration requires staging and installed qualification. Pinned
 wrappers reuse common build/upload and exact-file promotion; components own their
 scientific installed gates. A green probe with skipped tests cannot authorize
 publication. These controls add no suite to ordinary internal pushes.
+
+For a noarch Python recipe, `build.entry_points` must match
+`[project.scripts]` exactly, including command names and callable targets.
+Exercise every command's `--help` from the installed Conda artifact on every
+claimed platform, including Windows when claimed. A passing Linux build or
+corrected source recipe does not repair or qualify an existing public file.
+Follow the [launcher contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_distribution_policy.md#console-commands-in-noarch-conda-recipes)
+and retain resource/archive checks separately for each distribution route.
 
 Commit a reviewed route decision before tagging. Stage candidates that require
 pre-public installed/pair validation, add unvalidated compatibility, are coupled
@@ -642,7 +750,18 @@ unit-preserving controls, owner, expiry and removal condition. These focused
 compatibility checks do not require full scientific suites at every internal push.
 Complete adoption remains tracked in `uibcdf/molsyssuite#46` and #18.
 
-## macOS support boundary
+## Supported platforms
+
+Linux and macOS arm64 are the suite support target for public Python packages;
+Windows is optional. A component claims support only with its own evidence.
+Keep required Linux lanes; an incubating member may make no public OS claim.
+For macOS arm64, and Windows if claimed, execute required tests at least weekly
+on the routine Python minor. Before a release claim, test the exact installed
+candidate and dependency closure on every claimed OS and supported Python minor,
+including representative behavior, resources and entry points. Bounded
+exceptions retain their actual limitations and never certify an untested platform.
+
+### macOS support boundary
 
 macOS support is currently limited to Apple Silicon (arm64). Intel-based macOS
 (x86_64) is not part of the supported platform matrix. Support may be
@@ -688,8 +807,11 @@ member exception. Guide presence alone does not establish active adoption.
 
 MolSysSuite owns member DOI/archival rules, applicability, evidence inventory,
 rollout and exceptions; each component still owns its metadata, release gates,
-artifacts and release
-decision. A successful GitHub Release, metadata file, reported account toggle or observed
+artifacts and release decision. Archival is required for primary members with
+stabilizing/stable maturity. Auxiliary or incubating members use the registered
+optional mode and explicitly review applicability when preparing a public
+release; electing archival activates its verification/recovery obligations.
+A successful GitHub Release, metadata file, reported account toggle or observed
 webhook is not proof of archival. Only an independently verified public Zenodo record and
 exact file inventory permit an archival claim.
 
@@ -715,13 +837,10 @@ work, and `capabilities` activate concrete technical policies. These fields must
 collapsed into a single cohort. Both primary and auxiliary repositories are fully
 governed suite members.
 
-The active stabilization initiative currently prioritizes SMonitor, ArgDigest,
-DepDigest, PyUnitWizard, MolSysMT and MolSysViewer. TopoMT, PharmacophoreMT, ElastNetMT,
-DockingMT and the support library Ackredit are incubating. Lindelint is an auxiliary
-developer tool created for ElastNetMT and the wider suite. Priority affects scheduling,
-not governance or whether contributors communicate valuable discoveries from any
-component. Consult the central `devguide/member_classification.md` and `suite.toml` for
-the complete vocabulary and current assignments.
+Read the active initiatives and current member assignments from `suite.toml`
+and the central `devguide/member_classification.md`, rather than inferring them
+from a version number or another member's status. Priority affects scheduling,
+not governance or the responsibility to communicate valuable discoveries.
 
 ## Before finishing component work
 
