@@ -431,3 +431,16 @@ molsysmt.physchem.get_lipophilicity:
   first_introduced_in: "Common_Core/20_The_Specialized_Domains.ipynb"
   summary: "Calculates dimensionless state-preserving Wildman-Crippen model scores for complete molecules."
   doc_ref: "{func}`molsysmt.physchem.get_lipophilicity`"
+
+
+molsysmt.form.file_fasta.parse_records:
+  name: "msm.form.file_fasta.parse_records"
+  first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
+  summary: "Inspects submitted FASTA records without normalization or chemical admission."
+  doc_ref: "{func}`molsysmt.form.file_fasta.parse_records`"
+
+molsysmt.form.file_fasta.read_records:
+  name: "msm.form.file_fasta.read_records"
+  first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
+  summary: "Reads UTF-8 FASTA retaining raw records and source character spans."
+  doc_ref: "{func}`molsysmt.form.file_fasta.read_records`"

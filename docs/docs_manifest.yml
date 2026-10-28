@@ -51,7 +51,7 @@ sections:
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
-            description: Native hierarchy, source-index covalent walks and empty pattern widths, inherited construction, slot and table copy boundaries, controlled chemical-state editing, weak owner notification and detached copies.
+            description: Native hierarchy, source-index covalent walks and FASTA occurrence correspondence, inherited construction, slot and table copy boundaries, controlled chemical-state editing, weak owner notification and detached copies.
           - name: molsys
             description: Native domains, explicit standalone-provider composition, chemical ownership, copy boundaries, bounded metadata, controlled edits and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
@@ -455,6 +455,10 @@ sections:
         status: pending_review
         description: Form contracts, including bounded GRO native/OpenMM bridges, selected coordinate and box correspondence, complete-handler copies and preserved reader ownership.
         pages:
+          - name: fasta
+            file: docs/content/user/tools/form/file/file_fasta.ipynb
+            agents_file: docs/content/user/tools/form/file/file_fasta.ipynb.AGENTS.md
+            description: Source-preserving native FASTA records, raw text and character spans alongside existing normalized conversions.
           - name: pdbqt_file_handler
             file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md
             agents_file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md.AGENTS.md
@@ -527,7 +531,7 @@ sections:
       - name: comparing_sequence_source_groups
         file: docs/content/user/cookbook/comparing_sequence_source_groups.md
         agents_file: docs/content/user/cookbook/comparing_sequence_source_groups.md.AGENTS.md
-        description: Query-normalized identity, original sequence groups, native string codecs and explicit optional Biopython output.
+        description: Source-preserving FASTA admission, query-normalized identity, original sequence groups, native string codecs and explicit optional Biopython output.
         status: reviewed
       - name: symmetry_pose_rmsd
         file: docs/content/user/cookbook/symmetry_pose_rmsd.ipynb

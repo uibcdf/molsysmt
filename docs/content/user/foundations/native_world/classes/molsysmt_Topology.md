@@ -189,3 +189,14 @@ absent groups and validates group-free molecule records against the fallback.
 Builders decoded from such records, or initialized from a native group-free
 molecule inventory, retain that absence when built. Empty incremental builders
 keep their usual grouping defaults.
+
+
+## Sequence Sources
+
+A submitted FASTA occurrence is not a molecular group or a verified chemical
+realization. Source-preserving FASTA inspection retains full headers, original
+text and record-character spans before normalized sequence conversion. Empty
+and repeated records remain independently addressable. These source axes do
+not create a topology or imply molecular identity; the application decides
+which sequence view is admissible. See
+{ref}`FASTA ingestion <Tutorial_Form_file_fasta>`.

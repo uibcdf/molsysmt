@@ -38,3 +38,16 @@ letter. An empty selection produces an empty Seq/SeqRecord, whereas an empty
 alignment selection still rejects. Explicit prefixes are representation markers,
 not sequence characters. Native one/three-letter translation and extraction do
 not require Biopython; only the requested object output and alignment do.
+
+
+## Inspecting FASTA sources
+
+For submitted FASTA libraries, first inspect
+`msm.form.file_fasta.read_records(path)` (or `parse_records(text)`) before
+conversion or alignment. Retain each source record index, full header, raw
+record and character span. Repeated and empty proposals remain distinct;
+scientific admission belongs to your workflow. The joined sequence preserves
+spaces, case, leading M and symbols, so an admitted molecular sequence view
+must be chosen explicitly. Source record indices are separate from molecular
+group indices and alignment positions. See
+{ref}`FASTA ingestion <Tutorial_Form_file_fasta>` for the complete contract.
