@@ -31,10 +31,12 @@ def get_acceptor_atoms(
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    inclusion_rules : dict, default=None
-        Custom inclusion rules dictionary for hydrogen bond detection.
-    exclusion_rules : dict, default=None
-        Custom exclusion rules dictionary for hydrogen bond detection.
+    inclusion_rules : str, list of str, tuple of str, or None, default=None
+        Additional atom-selection rules identifying acceptor atoms.
+        Caller-owned rule lists are not modified.
+    exclusion_rules : str, list of str, tuple of str, or None, default=None
+        Additional atom-selection rules excluding acceptor atoms.
+        Caller-owned rule lists are not modified.
     default_inclusion_rules : bool, default=True
         Whether to apply default chemical inclusion rules.
     default_exclusion_rules : bool, default=True
@@ -53,6 +55,25 @@ def get_acceptor_atoms(
     A rule with no matching atoms is a valid empty selection. Hydrogen-free
     inputs may contain acceptor candidates but no explicit donor-hydrogen
     pairs; this operation does not reconstruct hydrogens.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> builder = msm.MolSysBuilder()
+    >>> _ = builder.add_atom(atom_name='O', atom_type='O')
+    >>> _ = builder.add_group([0], group_name='LIG')
+    >>> rules = ["atom_type=='O'"]
+    >>> msm.interactions.hbonds.get_acceptor_atoms(
+    ...     builder.build(), inclusion_rules=rules).tolist()
+    [0]
+    >>> rules
+    ["atom_type=='O'"]
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Get_acceptor_atoms` for customizing acceptor rules.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt import select
@@ -62,10 +83,10 @@ def get_acceptor_atoms(
     mask = select(molecular_system, selection=selection, syntax=syntax)
 
     if default_inclusion_rules:
-        inclusion_rules += acceptor_inclusion_rules
+        inclusion_rules = inclusion_rules + acceptor_inclusion_rules
 
     if default_exclusion_rules:
-        exclusion_rules += acceptor_exclusion_rules
+        exclusion_rules = exclusion_rules + acceptor_exclusion_rules
 
     for rule in inclusion_rules:
         tmp_acceptors = select(

@@ -1,13 +1,13 @@
 ---
 summary: Hydrogen-bond role helpers mutate caller-owned rule lists.
 issue: uibcdf/molsysmt#506
-status: open
+status: resolved
 opened: 2026-10-27
-closed:
+closed: 2026-10-28
 severity: medium
 verification: reproduced
 area: [interactions, molsysviewer]
-guard:
+guard: tests/interactions/hbonds/test_role_rule_ownership.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Hydrogen-bond role helpers mutate caller-owned rule lists.
 
 **Reported:** 2026-10-27 during expert-addon receiving.
-**Status:** open; native owner correction pending.
+**Status:** resolved; caller-owned containers remain unchanged.
 
 ## What
 
@@ -83,3 +83,32 @@ fix separately before lifting the documented facade limitation.
 
 The scientific owner must define the durable behavior. Source availability of a
 thin wrapper does not qualify every input/container/syntax path.
+
+## Resolution — 2026-10-28
+
+Both helpers now concatenate enabled defaults into independent local lists
+instead of extending the supplied list in place. ArgDigest still normalizes
+None/string/tuple/list inputs at the public boundary. Custom/default inclusion
+and exclusion meanings, union-before-exclusion semantics, native pair sorting
+and original source indices are unchanged. The exported default lists retain
+their existing public types and values.
+
+The guard covers both helpers, four input representations and all four default
+flag combinations; repeated calls, shared lists across helpers, the same list
+for both roles, exported defaults passed as input, and independent returned
+arrays are checked. Initial red run: 11 failed, 26 passed. Corrected matrix:
+37 passed; including the existing interleaved-pair/detector regressions and
+both public doctests, 43 passed with Pytest Receptor and 12 workers.
+
+Docstrings correct the accepted rule-container contract (the acceptor text
+incorrectly said dictionary). Both role tutorials and the Alzheimer/Enzyme
+course narratives explain input ownership and enabled defaults; their existing
+scientific code and stored outputs are retained. No existing Cookbook recipe
+relies on mutating these inputs. The strict parallel documentation build,
+Ruff and public API/default checks pass. Unit/PBC/compiled-backend behavior is
+unaffected, and no new chemical method or third-party implementation is used.
+
+The mixed internal/external rule language defect is separately reproduced and
+remains owned by uibcdf/molsysmt#507. Consumer receiving and removal of its
+current limitation will be performed explicitly; this source fix alone is not
+installed-package or universal chemistry qualification.

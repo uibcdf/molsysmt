@@ -34,9 +34,11 @@ def get_donor_atoms(
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     inclusion_rules : list of str or None, default=None
-        Additional atom-selection rules identifying donor heavy atoms.
+        Additional atom-selection rules identifying donor heavy atoms. String,
+        tuple and list inputs are accepted; caller-owned lists are not modified.
     exclusion_rules : list of str or None, default=None
-        Additional atom-selection rules excluding donor heavy atoms.
+        Additional atom-selection rules excluding donor heavy atoms. String,
+        tuple and list inputs are accepted; caller-owned lists are not modified.
     default_inclusion_rules : bool, default=True
         Whether to apply default chemical inclusion rules.
     default_exclusion_rules : bool, default=True
@@ -63,6 +65,12 @@ def get_donor_atoms(
     >>> _ = builder.add_bond(2, 1)
     >>> get_donor_atoms(builder.build()).tolist()
     [[0, 3], [2, 1]]
+    >>> rules = ["atom_name=='N1'"]
+    >>> get_donor_atoms(builder.build(), inclusion_rules=rules,
+    ...                 default_inclusion_rules=False).tolist()
+    [[0, 3]]
+    >>> rules
+    ["atom_name=='N1'"]
 
     .. admonition:: User guide
 
@@ -79,10 +87,10 @@ def get_donor_atoms(
     mask = select(molecular_system, selection=selection, syntax=syntax)
 
     if default_inclusion_rules:
-        inclusion_rules += donor_inclusion_rules
+        inclusion_rules = inclusion_rules + donor_inclusion_rules
 
     if default_exclusion_rules:
-        exclusion_rules += donor_exclusion_rules
+        exclusion_rules = exclusion_rules + donor_exclusion_rules
 
     for rule in inclusion_rules:
         tmp_donors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
