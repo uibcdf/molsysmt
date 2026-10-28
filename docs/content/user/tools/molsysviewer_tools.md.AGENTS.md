@@ -213,3 +213,12 @@ undefined status, repeated structure positions, origins' units, row-box support
 images and bounded-estimate limitations visible. Native mutable-list/external-rule
 and empty-path/frame-validation limits remain native until separately received.
 Do not weaken the expert API or introduce a scientific repair in the facade.
+
+
+Preserve the three raw hydrogen-bond detectors and disulfide-candidate family,
+their exact native output defaults, tuple/ragged ordering versus sparse coverage,
+selection/profile/site-array and secondary-system limits, provenance, physical
+units and observed PBC images. Results remain independent from named storage and
+core visualization. Named analysis maps use the native validated setter, not
+mutation of a read-only map. Keep eager and budget limits explicit; no universal
+RAM, preparation or covalent-assignment promise follows from thin wrappers.

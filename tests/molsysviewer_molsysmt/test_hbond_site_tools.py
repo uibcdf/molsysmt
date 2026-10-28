@@ -92,10 +92,9 @@ def kwargs_for(name):
 def test_nested_explicit_signatures_help_and_no_unreceived_detectors(view, name):
     core = view.interactions
     tools = view.addons.molsysmt.interactions
-    assert dir(tools) == ["hbonds"]
-    assert set(dir(tools.hbonds)) == set(NAMES)
+    assert set(dir(tools)) == {"hbonds", "disulfides"}
+    assert set(NAMES).issubset(dir(tools.hbonds))
     assert core is view.interactions and tools is not core
-    assert not hasattr(tools.hbonds, "get_hbonds")
     assert not hasattr(tools, "ionic")
     assert not hasattr(view.addons.molsysmt, name)
     method = getattr(tools.hbonds, name)

@@ -1712,3 +1712,61 @@ The [local hydrogen-bond receiving receipt](../devtools/data/molsysviewer_tools_
 source/backend identity, failed-attempt diagnoses, four owning reports and the
 4,536-pass regression separately from earlier build CI. Hosted qualification
 of this extension remains pending; no installed artifact is asserted.
+
+
+### Raw hydrogen-bond and disulfide detectors — 2026-10-27
+
+The expert facade adds get_buch_hbonds, get_luzard_chandler_hbonds and get_hbonds
+under interactions.hbonds, plus interactions.disulfides.get_disulfide_candidates.
+All are explicit native calls through the serialized current-primary reader.
+No preparation, scientific formula, role reconstruction, name, attachment or
+scene synchronization is introduced. Caller-owned secondary systems/roles stay
+explicit and their native unsupported cases reject. Existing recognition/direction
+bindings keep their distinct help and purpose; no blanket forwarding is added.
+
+Defaults and data contracts remain different: classic tuple order/repetitions,
+rectangular/ragged typed empties and eager execution; native optional sparse
+coverage; modern sorted/deduplicated sparse results or InteractionsDict, explicit
+profiles/site arrays and scope; geometric disulfide candidates independent from
+recorded covalent bonds. Origins/measurements/PBC images, per-analysis occurrence
+references, evaluated-empty versus unevaluated structures and execution records
+stay native. Scientific criteria and execution metadata are compared separately
+when deliberately choosing different execution policies. Named maps are native
+read-only views; explicit validated setter assignment is used on a copied system
+for H5MSM receiving, with the bound source left unchanged.
+
+All 63 focused cases and two real-pentalanine receivers pass. The five-profile/
+four-scope matrix, nm/radian outputs under alternate unit policy, repeated axes,
+rotated/orthogonal periodic images, typed output, H5MSM persistence and cached
+handles/pending edits/empty/closed views are covered. Thirty-two package,
+command and inventory checks pass. All 54 guide blocks and 214 inherited examples
+pass; four course narratives preserve every code/output cell and its identity.
+Whole-tree Ruff/format pass. One frozen regression passes 4,710 cases with zero failures/errors/skips and
+unchanged Python/backend hashes during execution.
+
+The native supplied-donor failure is independently reproduced and filed as
+uibcdf/molsysmt#511. Supplied acceptors with automatic donors remain received;
+the addon adds no shape cast or chemical reconstruction. Initial tests also
+placed a positive CPPTRAJ case on a floating-point cutoff boundary, compared
+read-only mappings as opaque objects, and tried item assignment to a read-only
+native named map. Fixture/assertion code is corrected to the native contracts;
+no product scientific behavior changes. The failed attempts remain in evidence.
+Existing native #503/#504 and #506 through #509 remain separate owner findings.
+
+Prior b50edcc52 smoke 40608186286 is cancelled during addon receiving after nine
+early guards and a completed native tier (3,501 passes, thirteen optional Ackredit
+skips). The addon tier has no completed pytest result. Five other exact-source
+controls pass. The [supersession receipt](../devtools/data/molsysviewer_tools_hbond_sites_ci_supersession_20261027.json)
+retains those facts without relabelling cancellation as scientific success.
+The next source campaign includes all earlier and new addon guards; no duplicate
+recovery of the superseded source is dispatched. Current source exposure is
+124/244 inspected callable paths, canonical interactions 8/15. The remaining
+seven families are next; source availability is not blanket scientific or
+installed-package compatibility. Core runtime, dependency floor, GUI and release
+status do not change; both 1.0 publications remain paused.
+
+The [local detector receiving receipt](../devtools/data/molsysviewer_tools_interaction_detectors_receiving_20261027.json) records exact frozen
+source/backend scope, 65 directed cases, 4,710 regression passes and 54 guide
+blocks / 214 inherited examples. Native #511 and prior CI cancellation retain
+separate evidence. New exact-source hosted qualification is pending; no
+installed artifact, dependency floor, scientific stability or release is inferred.

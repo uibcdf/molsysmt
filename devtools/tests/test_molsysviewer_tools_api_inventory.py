@@ -31,7 +31,14 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "get_hbond_site_directions",
     ):
         assert rows[f"interactions.hbonds.{name}"]["exposed"]
-    assert not rows["interactions.hbonds.get_hbonds"]["exposed"]
+    for path in [
+        "interactions.hbonds.get_buch_hbonds",
+        "interactions.hbonds.get_luzard_chandler_hbonds",
+        "interactions.hbonds.get_hbonds",
+        "interactions.disulfides.get_disulfide_candidates",
+    ]:
+        assert rows[path]["exposed"]
+    assert not rows["interactions.ionic.get_ionic_interactions"]["exposed"]
     assert not rows["molecular_mechanics.get_forces"]["exposed"]
     assert (
         rows["basic.are_multiple_molecular_systems"]["input_kind"]

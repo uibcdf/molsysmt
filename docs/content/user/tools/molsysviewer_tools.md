@@ -58,9 +58,11 @@ source metadata requirements remain explicit. Broader build editing is pending.
 
 The explicit `view.addons.molsysmt.interactions.hbonds` namespace now provides
 four recognition/characterization tools: `get_donor_atoms`, `get_acceptor_atoms`,
-`get_hbond_sites` and `get_hbond_site_directions`. It does not yet mirror the
-native detectors. These raw scientific values remain distinct from the core
-`view.interactions` scene owner; none is attached or represented automatically.
+`get_hbond_sites` and `get_hbond_site_directions`, plus native `get_hbonds`,
+`get_buch_hbonds` and `get_luzard_chandler_hbonds` detection. The separate
+`interactions.disulfides` family adds `get_disulfide_candidates`. These raw
+scientific values remain distinct from the core `view.interactions` scene
+owner; none is attached or represented automatically.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -2486,3 +2488,120 @@ edits, and follow replacement/closed-view handling. Their results remain ordinar
 native values: no named analysis, saved interaction set, visual selection, shape,
 color, preparation or scene synchronization is added. `update_view` is rejected.
 Use the core `view.interactions` API separately for qualified visual workflows.
+
+
+## Calculating raw hydrogen-bond observations
+
+Use `view.addons.molsysmt.interactions.hbonds.get_hbonds()` for the native modern
+criterion/profile API. It returns `molsysmt.Interactions` by default, or the
+explicit typed `molsysmt.InteractionsDict` output. Methods, explicit donor-H/
+acceptor arrays, selections, chemistry, PBC, cutoffs, execution mode and match
+budgets remain scientific inputs. The wrapper supplies only current view.molsys.
+
+```python
+from pathlib import Path
+import tempfile
+import numpy as np
+from rdkit import Chem
+
+# Declare chemistry and indexed H explicitly before starting the molecular view.
+molsys = msm.convert(Chem.AddHs(Chem.MolFromSmiles("O.O")))
+molsys.structures.append(coordinates=msm.pyunitwizard.quantity(
+    [[[0, 0, 0], [.28, 0, 0], [.1, 0, 0], [0, .1, 0],
+      [.28, .1, 0], [.28, 0, .1]]], "nm",
+))
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt.interactions.hbonds
+    observed = tools.get_hbonds(
+        method="baker_hubbard", structure_indices=[0], pbc=False,
+    )
+    assert observed.n_interactions == 1
+    assert observed.participant_atoms.tolist() == [0, 2, 1]
+    np.testing.assert_allclose(observed.measurements["hydrogen_acceptor_distance"], .18)
+    assert observed.measure_units["hydrogen_acceptor_distance"] == "nm"
+    triples, distances = tools.get_buch_hbonds(structure_indices=[0], pbc=False)
+    angular = tools.get_luzard_chandler_hbonds(structure_indices=[0], pbc=False)
+    assert triples.tolist() == [[[0, 2, 1]]] and len(angular) == 3
+    assert not view.molsys.interactions
+    # Saving is an explicit operation on an independent molecular copy.
+    saved = view.addons.molsysmt.basic.copy()
+    saved.interactions = {**saved.interactions, "calculated-hbonds": observed}
+    with tempfile.TemporaryDirectory() as directory:
+        path = str(Path(directory) / "observations.h5msm")
+        msm.convert(saved, to_form=path)
+        restored = msm.convert(path).interactions["calculated-hbonds"]
+        assert restored.n_interactions == observed.n_interactions
+```
+
+Modern `selection_mode` preserves the native internal/incident/between calculation
+scopes. These are different from result-query modes. Choose the profile explicitly
+when recognition or geometric conventions matter; the facade adds no hydrogen,
+partial-charge, aromatic or connectivity preparation and no alternative engine.
+Record-level measurements carry declared nm/radian units even under another
+application unit policy. Read native mappings/arrays through their supported
+interfaces; occurrence references belong to one version of an analysis.
+
+The classic `get_buch_hbonds` and `get_luzard_chandler_hbonds` defaults stay tuples.
+Their triples contain donor, indexed H and acceptor source indices. Equal counts
+use rectangular arrays; varying counts use aligned lists with shaped empty
+entries. Tuple requests retain structure order/repetition. Optional sparse
+`output_type="molsysmt.Interactions"` keeps evaluated-empty coverage and native
+deduplication; each method's native ordering remains intact. The classic methods
+retain eager execution and their optional-analysis limitations. Modern native
+sparse output deduplicates repeated structures in sorted order. No common
+ordering policy is imposed on these distinct returns.
+
+Caller-supplied roles and secondary systems remain explicit inputs. Native
+unsupported combinations reject, including a second molecular system and
+provided roles/secondary axes in the classic sparse-output route. The classic
+supplied-donor tuple path is independently reproduced as failing under
+[#511](https://github.com/uibcdf/molsysmt/issues/511). Precomputed acceptors with automatic donors work. The
+facade does not flatten donor pairs, rebuild missing roles or translate selectors
+to conceal a provider limitation. The modern explicit-site route retains its
+separate validated pair/acceptor-array contract.
+
+Evaluated structures with no observations remain evaluated; unrequested
+structures stay unevaluated. The visible canvas structure never replaces the
+native `structure_indices` argument. Periodic observations retain the images
+actually used, with box vectors as rows, rather than guessed display offsets.
+The modern execution/result budgets remain native estimates and exclude some
+caller/source/Python overhead. No universal RSS or out-of-memory-file claim is
+added. The wrapper itself adds no whole-trajectory conversion or scientific cache.
+
+All calls use the serialized primary reader, including pending scientific edits.
+Returned analyses are independent of the view lifetime and are not stored in
+view.molsys.interactions, given a name or represented. The native map property is
+read-only; explicit assignment of a new named map validates correspondence.
+Use the core `view.interactions` API separately when you choose visual attachment.
+`update_view` is not a detector argument.
+
+## Calculating disulfide candidates
+
+`view.addons.molsysmt.interactions.disulfides.get_disulfide_candidates()` preserves
+the native eligible group names, S-S cutoff, source atom indices, PBC, structure
+scope, sorting and default pair/distance lists. Its optional sparse analysis
+records observed images, coverage, method, units and producer provenance.
+
+```python
+builder = msm.MolSysBuilder()
+first = builder.add_atom(atom_name="SG", atom_type="S")
+second = builder.add_atom(atom_name="SG", atom_type="S")
+builder.add_group([first], group_name="CYS")
+builder.add_group([second], group_name="CYS")
+builder.set_coordinates(msm.pyunitwizard.quantity([[0, 0, 0], [.2, 0, 0]], "nm"))
+with msv.new_view(builder.build()) as view:
+    tools = view.addons.molsysmt.interactions.disulfides
+    pairs, distances = tools.get_disulfide_candidates(structure_indices=[0], pbc=False)
+    assert pairs[0].tolist() == [[0, 1]]
+    observed = tools.get_disulfide_candidates(
+        structure_indices=[0], pbc=False, output_type="molsysmt.Interactions",
+    )
+    assert observed.n_interactions == 1
+    assert not view.molsys.interactions
+```
+
+A geometric candidate can already be a recorded covalent bond; it is not proof
+of a missing bond, oxidation state or chemically valid disulfide. Calculation
+neither inserts nor removes bonds. Default and extended group-name filters are
+native scientific choices. Scope, quantities and sparse coverage remain distinct
+from a rendered connection.

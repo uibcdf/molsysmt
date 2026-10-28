@@ -302,18 +302,68 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "exceed one; categories need not sum to one. No clipping, "
                 "renormalization or implicit coil remainder is introduced.\n"
             )
-        if module == "interactions.hbonds":
+        if module in {"interactions.hbonds", "interactions.disulfides"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "The result remains a native scientific value, not a scene object. "
                 "Calls read the current primary through the serialized reader, "
                 "including pending scientific edits. No hydrogens, connectivity, "
                 "protonation, aromatic flags or coordinates are prepared. There "
-                "is no result attachment, named analysis, visual selection, "
+                "is no automatic result attachment, named storage, visual selection, "
                 "representation or synchronization; update_view is not accepted. "
                 "The visible structure is never substituted for explicit native "
-                "structure scope. These tools do not detect interaction occurrences.\n"
+                "structure scope.\n"
             )
+            if name in {
+                "get_donor_atoms",
+                "get_acceptor_atoms",
+                "get_hbond_sites",
+                "get_hbond_site_directions",
+            }:
+                function.__doc__ += (
+                    "These tools do not detect interaction occurrences.\n"
+                )
+            if name in {
+                "get_buch_hbonds",
+                "get_luzard_chandler_hbonds",
+                "get_hbonds",
+                "get_disulfide_candidates",
+            }:
+                function.__doc__ += (
+                    "Results use the native output_type default and remain independent. "
+                    "Tuple order/repetitions and sparse evaluated coverage follow their "
+                    "own native contracts; there is no common reorder or deduplication. "
+                    "Evaluated-empty and unevaluated structures remain distinct. "
+                    "Returned analyses are not saved into view.molsys.interactions. "
+                    "Occurrence references belong to one analysis version, not global identities.\n"
+                )
+            if name in {"get_buch_hbonds", "get_luzard_chandler_hbonds"}:
+                function.__doc__ += (
+                    "The primary alone is managed by the view. The explicit "
+                    "molecular_system_2 and supplied role/secondary-axis inputs "
+                    "remain caller-owned; native unsupported combinations reject. "
+                    "No second system is inferred, copied or aligned. Legacy eager "
+                    "calculation and optional sparse-output limits stay visible. "
+                    "The supplied-donor tuple mismatch is tracked in "
+                    "uibcdf/molsysmt#511; no mask flattening or reconstructed "
+                    "donor-H pairs are introduced here.\n"
+                )
+            if name == "get_hbonds":
+                function.__doc__ += (
+                    "Methods/profiles, explicit donor-H/acceptor arrays, selection "
+                    "modes, chemical state, thresholds, heavy execution and match "
+                    "budgets remain native scientific choices. No hydrogen network "
+                    "or recognition profile is substituted. Sparse measurements "
+                    "carry their declared nm/radian units; budget estimates exclude "
+                    "some caller/source/Python overhead and are not an RSS guarantee.\n"
+                )
+            if name == "get_disulfide_candidates":
+                function.__doc__ += (
+                    "These are per-structure geometric sulfur candidates, not a "
+                    "covalent assignment or proof that a bond is absent. Native "
+                    "eligible group names, cutoff, sorting, PBC images and source "
+                    "indices remain explicit. No bond is inserted or removed.\n"
+                )
             if "skip_digestion" not in inspect.signature(native).parameters:
                 function.__doc__ += (
                     "skip_digestion : bool, keyword-only, default=False\n"

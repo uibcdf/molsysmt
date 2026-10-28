@@ -20,9 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (7)
+### Open (8)
 
 - [`cip_result_reference_authors_are_shared_with_later_calculations.md`](cip_result_reference_authors_are_shared_with_later_calculations.md) — [#503](https://github.com/uibcdf/molsysmt/issues/503) — CIP result reference authors are shared with later calculations. *(medium, reproduced)*
+- [`classic_hbond_precomputed_donors_have_inconsistent_shapes.md`](classic_hbond_precomputed_donors_have_inconsistent_shapes.md) — [#511](https://github.com/uibcdf/molsysmt/issues/511) — Classic hydrogen-bond detectors mishandle precomputed donor shapes. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`covalent_paths_lose_integer_axes_and_empty_path_width.md`](covalent_paths_lose_integer_axes_and_empty_path_width.md) — [#508](https://github.com/uibcdf/molsysmt/issues/508) — Covalent paths lose integer axes and empty path width. *(medium, reproduced)*
 - [`hbond_role_default_rules_fail_with_external_syntax.md`](hbond_role_default_rules_fail_with_external_syntax.md) — [#507](https://github.com/uibcdf/molsysmt/issues/507) — Hydrogen-bond default role rules fail with external syntax. *(medium, reproduced)*

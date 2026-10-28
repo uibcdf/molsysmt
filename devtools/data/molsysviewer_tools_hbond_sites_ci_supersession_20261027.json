@@ -1,0 +1,39 @@
+{
+  "schema": "molsysmt.viewer-tools.hbond-sites-ci-supersession@1",
+  "date": "2026-10-27",
+  "runtime_source": "b50edcc52d9556038f6c8af9d6da60a79da65b9e",
+  "run": 40608186286,
+  "official_conclusion": "cancelled",
+  "steps": {
+    "Install package": "success",
+    "Run test suite": "success",
+    "Receive the bound MolSysViewer tools": "cancelled"
+  },
+  "completed_tiers": {
+    "early": 9,
+    "native": {
+      "passed": 3501,
+      "skipped": 13,
+      "skip_reason": "Optional Ackredit unavailable"
+    }
+  },
+  "addon_qualification": "Cancelled without a completed pytest result. No addon success or full source qualification inferred.",
+  "additional_source_success": {
+    "ruff": 40608186203,
+    "dependency": 40608186380,
+    "devguide": 40608186210,
+    "suite": 40608186621,
+    "conda": 40608186651
+  },
+  "scope": "No duplicate recovery of this superseded runtime is dispatched. The forthcoming detector producer includes all earlier addon tests; its exact-source campaign retains its own identity.",
+  "evidence_sha256": {
+    "manifest.json": "29a2d93ed2457e544bb606d817514a66eb018c96d671c9ef936ba6c4c69cd63d",
+    "logs.zip": "f36856a1dc6474eb1dd264de73da37bd642b00d26e189f3a034801587c13ff47",
+    "config.json": "df2ae1d12fc253da5eccb6b11ff5f07b7c7fd498b32df90b62981827903c6acd",
+    "checks.json": "b5daf42f56832f54df8f4ff958d4147ed4203213a3bb94ff50a72715f0a22d86",
+    "artifacts.json": "733015529a249a421892ec83190af9d23593d1877609d3653ae94f945a220490",
+    "jobs.json": "a6c372cebe364fb7d46aad81a31e8b3265e6b4e31bb3984fa8de3736d66753d3",
+    "workflow.json": "91b2e1211dcb4389258dfe83b50a6036ac3d38f4928d0dcbe4e2f73ab953ec69",
+    "run.json": "a392d76e203d9cd11f93d5a0eea1f17ba1d6d629bd30a0dc57dba780a20fab8a"
+  }
+}

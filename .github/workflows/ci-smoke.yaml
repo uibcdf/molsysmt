@@ -191,6 +191,9 @@ jobs:
             tests/interactions/hbonds/test_get_hbond_sites.py \
             tests/interactions/hbonds/test_get_hbond_site_directions.py \
             tests/interactions/hbonds/test_donor_pair_integrity.py \
+            tests/interactions/hbonds/test_attributed_hbonds.py \
+            tests/interactions/hbonds/test_buch_results.py \
+            tests/interactions/hbonds/test_luzard_chandler_results.py \
             tests/form/molsysmt_Topology/test_atom_membership_order.py \
             tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py \
             tests/native/test_builder_inherited_molecules.py \
@@ -242,4 +245,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_physchem_remainder_tools.py \
             tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py \
             tests/molsysviewer_molsysmt/test_build_audit_tools.py \
-            tests/molsysviewer_molsysmt/test_hbond_site_tools.py
+            tests/molsysviewer_molsysmt/test_hbond_site_tools.py \
+            tests/molsysviewer_molsysmt/test_interaction_detector_tools.py
