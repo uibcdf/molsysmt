@@ -1,0 +1,1364 @@
+{
+  "schema": "molsysmt.viewer-tools.map-file-ci-supersession@1",
+  "observed": "2026-10-28T19:43:06.594245+00:00",
+  "producer": "9f6e2e011033fa9e031ea37af0f49f0de9b6c0ee",
+  "successor": "1f0bef2128b0937c0f322ee00070b6314cf32541",
+  "scope": "Original cancellation preserved; successor source qualification is separate from original producer and all installed/public packages.",
+  "original": {
+    "40753622322": {
+      "conclusion": "success",
+      "headSha": "9f6e2e011033fa9e031ea37af0f49f0de9b6c0ee",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:22:21Z",
+          "conclusion": "success",
+          "databaseId": 123046625972,
+          "name": "audit",
+          "startedAt": "2026-10-28T19:22:03Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:22:05Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:22:04Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:10Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v7",
+              "number": 2,
+              "startedAt": "2026-10-28T19:22:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:10Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v7",
+              "number": 3,
+              "startedAt": "2026-10-28T19:22:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:18Z",
+              "conclusion": "success",
+              "name": "Install audit parser dependencies",
+              "number": 4,
+              "startedAt": "2026-10-28T19:22:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:18Z",
+              "conclusion": "success",
+              "name": "Audit runtime dependency routes",
+              "number": 5,
+              "startedAt": "2026-10-28T19:22:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v7",
+              "number": 9,
+              "startedAt": "2026-10-28T19:22:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v7",
+              "number": 10,
+              "startedAt": "2026-10-28T19:22:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 11,
+              "startedAt": "2026-10-28T19:22:19Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622322/job/123046625972"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622322"
+    },
+    "40753622434": {
+      "conclusion": "success",
+      "headSha": "9f6e2e011033fa9e031ea37af0f49f0de9b6c0ee",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:22:30Z",
+          "conclusion": "success",
+          "databaseId": 123046566080,
+          "name": "Ruff lint checks",
+          "startedAt": "2026-10-28T19:21:54Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:21:57Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:21:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:24Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v7",
+              "number": 2,
+              "startedAt": "2026-10-28T19:21:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:24Z",
+              "conclusion": "success",
+              "name": "Set up Python",
+              "number": 3,
+              "startedAt": "2026-10-28T19:22:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:27Z",
+              "conclusion": "success",
+              "name": "Install Ruff",
+              "number": 4,
+              "startedAt": "2026-10-28T19:22:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:27Z",
+              "conclusion": "success",
+              "name": "Check Python source",
+              "number": 5,
+              "startedAt": "2026-10-28T19:22:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:27Z",
+              "conclusion": "success",
+              "name": "Post Set up Python",
+              "number": 9,
+              "startedAt": "2026-10-28T19:22:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:28Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v7",
+              "number": 10,
+              "startedAt": "2026-10-28T19:22:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:28Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 11,
+              "startedAt": "2026-10-28T19:22:28Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622434/job/123046566080"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622434"
+    },
+    "40753622550": {
+      "conclusion": "cancelled",
+      "headSha": "9f6e2e011033fa9e031ea37af0f49f0de9b6c0ee",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:26:58Z",
+          "conclusion": "cancelled",
+          "databaseId": 123046566343,
+          "name": "validate",
+          "startedAt": "2026-10-28T19:21:54Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:21:57Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:21:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "cancelled",
+              "name": "Run actions/checkout@v7",
+              "number": 2,
+              "startedAt": "2026-10-28T19:21:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "skipped",
+              "name": "Run actions/setup-python@v7",
+              "number": 3,
+              "startedAt": "2026-10-28T19:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "skipped",
+              "name": "Validate developer guide",
+              "number": 4,
+              "startedAt": "2026-10-28T19:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "skipped",
+              "name": "Restore preserved development experiments",
+              "number": 5,
+              "startedAt": "2026-10-28T19:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "skipped",
+              "name": "Validate public API stability registry",
+              "number": 6,
+              "startedAt": "2026-10-28T19:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "skipped",
+              "name": "Validate scientific evidence registry structure",
+              "number": 7,
+              "startedAt": "2026-10-28T19:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "skipped",
+              "name": "Reject forbidden API stability transitions",
+              "number": 8,
+              "startedAt": "2026-10-28T19:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v7",
+              "number": 16,
+              "startedAt": "2026-10-28T19:26:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:26:56Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 17,
+              "startedAt": "2026-10-28T19:26:56Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622550/job/123046566343"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622550"
+    },
+    "40753622566": {
+      "conclusion": "cancelled",
+      "headSha": "9f6e2e011033fa9e031ea37af0f49f0de9b6c0ee",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:25:56Z",
+          "conclusion": "cancelled",
+          "databaseId": 123046566159,
+          "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+          "startedAt": "2026-10-28T19:21:54Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:21:57Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:21:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:13Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v7",
+              "number": 2,
+              "startedAt": "2026-10-28T19:21:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:13Z",
+              "conclusion": "success",
+              "name": "Additional info about the build",
+              "number": 3,
+              "startedAt": "2026-10-28T19:22:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:13Z",
+              "conclusion": "success",
+              "name": "Set up Python",
+              "number": 4,
+              "startedAt": "2026-10-28T19:22:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:23:18Z",
+              "conclusion": "success",
+              "name": "Setup conda env",
+              "number": 5,
+              "startedAt": "2026-10-28T19:22:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:23:26Z",
+              "conclusion": "success",
+              "name": "Select the pinned minimal Rust toolchain",
+              "number": 6,
+              "startedAt": "2026-10-28T19:23:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:24:52Z",
+              "conclusion": "success",
+              "name": "Install package",
+              "number": 7,
+              "startedAt": "2026-10-28T19:23:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:24:52Z",
+              "conclusion": "success",
+              "name": "Validate controlled dependency versions",
+              "number": 8,
+              "startedAt": "2026-10-28T19:24:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:24:55Z",
+              "conclusion": "success",
+              "name": "Validate bound addon test command",
+              "number": 9,
+              "startedAt": "2026-10-28T19:24:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:24:55Z",
+              "conclusion": "success",
+              "name": "Test import",
+              "number": 10,
+              "startedAt": "2026-10-28T19:24:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:24:55Z",
+              "conclusion": "success",
+              "name": "Validate public API stability against parent",
+              "number": 11,
+              "startedAt": "2026-10-28T19:24:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:24:57Z",
+              "conclusion": "success",
+              "name": "Validate docstrings bidirectionally",
+              "number": 12,
+              "startedAt": "2026-10-28T19:24:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:02Z",
+              "conclusion": "success",
+              "name": "Validate form contracts",
+              "number": 13,
+              "startedAt": "2026-10-28T19:24:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:05Z",
+              "conclusion": "success",
+              "name": "Enforce the Rust-only runtime",
+              "number": 14,
+              "startedAt": "2026-10-28T19:25:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:53Z",
+              "conclusion": "cancelled",
+              "name": "Run test suite",
+              "number": 15,
+              "startedAt": "2026-10-28T19:25:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:53Z",
+              "conclusion": "skipped",
+              "name": "Receive the bound MolSysViewer tools",
+              "number": 16,
+              "startedAt": "2026-10-28T19:25:53Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:53Z",
+              "conclusion": "success",
+              "name": "Post Setup conda env",
+              "number": 30,
+              "startedAt": "2026-10-28T19:25:53Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:53Z",
+              "conclusion": "skipped",
+              "name": "Post Set up Python",
+              "number": 31,
+              "startedAt": "2026-10-28T19:25:53Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:53Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v7",
+              "number": 32,
+              "startedAt": "2026-10-28T19:25:53Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:53Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 33,
+              "startedAt": "2026-10-28T19:25:53Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622566/job/123046566159"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622566"
+    },
+    "40753622677": {
+      "conclusion": "success",
+      "headSha": "9f6e2e011033fa9e031ea37af0f49f0de9b6c0ee",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:22:23Z",
+          "conclusion": "success",
+          "databaseId": 123046566347,
+          "name": "policy / conformance",
+          "startedAt": "2026-10-28T19:21:54Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:21:56Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:21:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:11Z",
+              "conclusion": "success",
+              "name": "Check out member repository",
+              "number": 2,
+              "startedAt": "2026-10-28T19:21:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:11Z",
+              "conclusion": "success",
+              "name": "Set up policy Python",
+              "number": 3,
+              "startedAt": "2026-10-28T19:22:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:13Z",
+              "conclusion": "success",
+              "name": "Check out MolSysSuite policy",
+              "number": 4,
+              "startedAt": "2026-10-28T19:22:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:13Z",
+              "conclusion": "skipped",
+              "name": "Validate immutable admission input",
+              "number": 5,
+              "startedAt": "2026-10-28T19:22:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:13Z",
+              "conclusion": "skipped",
+              "name": "Check out central admission data",
+              "number": 6,
+              "startedAt": "2026-10-28T19:22:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:17Z",
+              "conclusion": "success",
+              "name": "Install the workflow parser",
+              "number": 7,
+              "startedAt": "2026-10-28T19:22:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:17Z",
+              "conclusion": "success",
+              "name": "Check repository conformance",
+              "number": 8,
+              "startedAt": "2026-10-28T19:22:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:18Z",
+              "conclusion": "success",
+              "name": "Install the policy Ruff version",
+              "number": 9,
+              "startedAt": "2026-10-28T19:22:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Check Python lint and imports",
+              "number": 10,
+              "startedAt": "2026-10-28T19:22:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Check Python formatting",
+              "number": 11,
+              "startedAt": "2026-10-28T19:22:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Post Check out MolSysSuite policy",
+              "number": 20,
+              "startedAt": "2026-10-28T19:22:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Post Set up policy Python",
+              "number": 21,
+              "startedAt": "2026-10-28T19:22:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Post Check out member repository",
+              "number": 22,
+              "startedAt": "2026-10-28T19:22:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:19Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-28T19:22:19Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622677/job/123046566347"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622677"
+    },
+    "40753622762": {
+      "conclusion": "success",
+      "headSha": "9f6e2e011033fa9e031ea37af0f49f0de9b6c0ee",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:22:08Z",
+          "conclusion": "success",
+          "databaseId": 123046566510,
+          "name": "publication / check",
+          "startedAt": "2026-10-28T19:21:54Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:21:56Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:21:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:03Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-28T19:21:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:04Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 3,
+              "startedAt": "2026-10-28T19:22:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:04Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 4,
+              "startedAt": "2026-10-28T19:22:04Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:06Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install --disable-pip-version-check PyYAML==6.0.3",
+              "number": 5,
+              "startedAt": "2026-10-28T19:22:04Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:06Z",
+              "conclusion": "success",
+              "name": "Check publication workflow controls",
+              "number": 6,
+              "startedAt": "2026-10-28T19:22:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 10,
+              "startedAt": "2026-10-28T19:22:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 11,
+              "startedAt": "2026-10-28T19:22:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 12,
+              "startedAt": "2026-10-28T19:22:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:22:06Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 13,
+              "startedAt": "2026-10-28T19:22:06Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622762/job/123046566510"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40753622762"
+    }
+  },
+  "successor_campaign": {
+    "40754038881": {
+      "conclusion": "success",
+      "headSha": "1f0bef2128b0937c0f322ee00070b6314cf32541",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:42:25Z",
+          "conclusion": "success",
+          "databaseId": 123048025813,
+          "name": "Smoke test \u2014 ubuntu-latest, Python 3.14",
+          "startedAt": "2026-10-28T19:25:59Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:26:02Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:26:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:16Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v7",
+              "number": 2,
+              "startedAt": "2026-10-28T19:26:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:16Z",
+              "conclusion": "success",
+              "name": "Additional info about the build",
+              "number": 3,
+              "startedAt": "2026-10-28T19:27:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:16Z",
+              "conclusion": "success",
+              "name": "Set up Python",
+              "number": 4,
+              "startedAt": "2026-10-28T19:27:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:28:25Z",
+              "conclusion": "success",
+              "name": "Setup conda env",
+              "number": 5,
+              "startedAt": "2026-10-28T19:27:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:28:32Z",
+              "conclusion": "success",
+              "name": "Select the pinned minimal Rust toolchain",
+              "number": 6,
+              "startedAt": "2026-10-28T19:28:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:29:52Z",
+              "conclusion": "success",
+              "name": "Install package",
+              "number": 7,
+              "startedAt": "2026-10-28T19:28:32Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:29:52Z",
+              "conclusion": "success",
+              "name": "Validate controlled dependency versions",
+              "number": 8,
+              "startedAt": "2026-10-28T19:29:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:29:56Z",
+              "conclusion": "success",
+              "name": "Validate bound addon test command",
+              "number": 9,
+              "startedAt": "2026-10-28T19:29:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:29:56Z",
+              "conclusion": "success",
+              "name": "Test import",
+              "number": 10,
+              "startedAt": "2026-10-28T19:29:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:29:56Z",
+              "conclusion": "success",
+              "name": "Validate public API stability against parent",
+              "number": 11,
+              "startedAt": "2026-10-28T19:29:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:29:58Z",
+              "conclusion": "success",
+              "name": "Validate docstrings bidirectionally",
+              "number": 12,
+              "startedAt": "2026-10-28T19:29:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:02Z",
+              "conclusion": "success",
+              "name": "Validate form contracts",
+              "number": 13,
+              "startedAt": "2026-10-28T19:29:58Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:06Z",
+              "conclusion": "success",
+              "name": "Enforce the Rust-only runtime",
+              "number": 14,
+              "startedAt": "2026-10-28T19:30:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:36:49Z",
+              "conclusion": "success",
+              "name": "Run test suite",
+              "number": 15,
+              "startedAt": "2026-10-28T19:30:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:42:21Z",
+              "conclusion": "success",
+              "name": "Receive the bound MolSysViewer tools",
+              "number": 16,
+              "startedAt": "2026-10-28T19:36:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:42:22Z",
+              "conclusion": "success",
+              "name": "Post Setup conda env",
+              "number": 30,
+              "startedAt": "2026-10-28T19:42:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:42:22Z",
+              "conclusion": "success",
+              "name": "Post Set up Python",
+              "number": 31,
+              "startedAt": "2026-10-28T19:42:22Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:42:22Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v7",
+              "number": 32,
+              "startedAt": "2026-10-28T19:42:22Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:42:22Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 33,
+              "startedAt": "2026-10-28T19:42:22Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754038881/job/123048025813"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754038881"
+    },
+    "40754038887": {
+      "conclusion": "success",
+      "headSha": "1f0bef2128b0937c0f322ee00070b6314cf32541",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:25:08Z",
+          "conclusion": "success",
+          "databaseId": 123048025691,
+          "name": "Ruff lint checks",
+          "startedAt": "2026-10-28T19:24:54Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:24:55Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:24:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:03Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v7",
+              "number": 2,
+              "startedAt": "2026-10-28T19:24:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:03Z",
+              "conclusion": "success",
+              "name": "Set up Python",
+              "number": 3,
+              "startedAt": "2026-10-28T19:25:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:05Z",
+              "conclusion": "success",
+              "name": "Install Ruff",
+              "number": 4,
+              "startedAt": "2026-10-28T19:25:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:05Z",
+              "conclusion": "success",
+              "name": "Check Python source",
+              "number": 5,
+              "startedAt": "2026-10-28T19:25:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:06Z",
+              "conclusion": "success",
+              "name": "Post Set up Python",
+              "number": 9,
+              "startedAt": "2026-10-28T19:25:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v7",
+              "number": 10,
+              "startedAt": "2026-10-28T19:25:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:25:06Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 11,
+              "startedAt": "2026-10-28T19:25:06Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754038887/job/123048025691"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754038887"
+    },
+    "40754038896": {
+      "conclusion": "success",
+      "headSha": "1f0bef2128b0937c0f322ee00070b6314cf32541",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:27:57Z",
+          "conclusion": "success",
+          "databaseId": 123048025342,
+          "name": "validate",
+          "startedAt": "2026-10-28T19:25:11Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:25:12Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:25:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:54Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v7",
+              "number": 2,
+              "startedAt": "2026-10-28T19:25:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:54Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v7",
+              "number": 3,
+              "startedAt": "2026-10-28T19:27:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:54Z",
+              "conclusion": "success",
+              "name": "Validate developer guide",
+              "number": 4,
+              "startedAt": "2026-10-28T19:27:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:54Z",
+              "conclusion": "success",
+              "name": "Restore preserved development experiments",
+              "number": 5,
+              "startedAt": "2026-10-28T19:27:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:54Z",
+              "conclusion": "success",
+              "name": "Validate public API stability registry",
+              "number": 6,
+              "startedAt": "2026-10-28T19:27:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:54Z",
+              "conclusion": "success",
+              "name": "Validate scientific evidence registry structure",
+              "number": 7,
+              "startedAt": "2026-10-28T19:27:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:54Z",
+              "conclusion": "success",
+              "name": "Reject forbidden API stability transitions",
+              "number": 8,
+              "startedAt": "2026-10-28T19:27:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:55Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v7",
+              "number": 15,
+              "startedAt": "2026-10-28T19:27:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:55Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v7",
+              "number": 16,
+              "startedAt": "2026-10-28T19:27:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:27:55Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 17,
+              "startedAt": "2026-10-28T19:27:55Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754038896/job/123048025342"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754038896"
+    },
+    "40754039474": {
+      "conclusion": "success",
+      "headSha": "1f0bef2128b0937c0f322ee00070b6314cf32541",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:30:21Z",
+          "conclusion": "success",
+          "databaseId": 123048027952,
+          "name": "policy / conformance",
+          "startedAt": "2026-10-28T19:29:11Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:29:13Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:29:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:10Z",
+              "conclusion": "success",
+              "name": "Check out member repository",
+              "number": 2,
+              "startedAt": "2026-10-28T19:29:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:10Z",
+              "conclusion": "success",
+              "name": "Set up policy Python",
+              "number": 3,
+              "startedAt": "2026-10-28T19:30:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:11Z",
+              "conclusion": "success",
+              "name": "Check out MolSysSuite policy",
+              "number": 4,
+              "startedAt": "2026-10-28T19:30:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:11Z",
+              "conclusion": "skipped",
+              "name": "Validate immutable admission input",
+              "number": 5,
+              "startedAt": "2026-10-28T19:30:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:11Z",
+              "conclusion": "skipped",
+              "name": "Check out central admission data",
+              "number": 6,
+              "startedAt": "2026-10-28T19:30:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:14Z",
+              "conclusion": "success",
+              "name": "Install the workflow parser",
+              "number": 7,
+              "startedAt": "2026-10-28T19:30:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:14Z",
+              "conclusion": "success",
+              "name": "Check repository conformance",
+              "number": 8,
+              "startedAt": "2026-10-28T19:30:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:16Z",
+              "conclusion": "success",
+              "name": "Install the policy Ruff version",
+              "number": 9,
+              "startedAt": "2026-10-28T19:30:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:17Z",
+              "conclusion": "success",
+              "name": "Check Python lint and imports",
+              "number": 10,
+              "startedAt": "2026-10-28T19:30:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:17Z",
+              "conclusion": "success",
+              "name": "Check Python formatting",
+              "number": 11,
+              "startedAt": "2026-10-28T19:30:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:17Z",
+              "conclusion": "success",
+              "name": "Post Check out MolSysSuite policy",
+              "number": 20,
+              "startedAt": "2026-10-28T19:30:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:18Z",
+              "conclusion": "success",
+              "name": "Post Set up policy Python",
+              "number": 21,
+              "startedAt": "2026-10-28T19:30:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:18Z",
+              "conclusion": "success",
+              "name": "Post Check out member repository",
+              "number": 22,
+              "startedAt": "2026-10-28T19:30:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:18Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-28T19:30:18Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754039474/job/123048027952"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754039474"
+    },
+    "40754039559": {
+      "conclusion": "success",
+      "headSha": "1f0bef2128b0937c0f322ee00070b6314cf32541",
+      "jobs": [
+        {
+          "completedAt": "2026-10-28T19:30:57Z",
+          "conclusion": "success",
+          "databaseId": 123048029268,
+          "name": "publication / check",
+          "startedAt": "2026-10-28T19:30:23Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-28T19:30:24Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-28T19:30:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:48Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-28T19:30:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:48Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 3,
+              "startedAt": "2026-10-28T19:30:48Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:49Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 4,
+              "startedAt": "2026-10-28T19:30:48Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:55Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install --disable-pip-version-check PyYAML==6.0.3",
+              "number": 5,
+              "startedAt": "2026-10-28T19:30:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:55Z",
+              "conclusion": "success",
+              "name": "Check publication workflow controls",
+              "number": 6,
+              "startedAt": "2026-10-28T19:30:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:55Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 10,
+              "startedAt": "2026-10-28T19:30:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:55Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 11,
+              "startedAt": "2026-10-28T19:30:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:55Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 12,
+              "startedAt": "2026-10-28T19:30:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-28T19:30:55Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 13,
+              "startedAt": "2026-10-28T19:30:55Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754039559/job/123048029268"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/40754039559"
+    }
+  },
+  "addon_runtime_tests_smoke_selection_and_package_inventory_identical": true,
+  "successor_diff": [
+    "devguide/archive/resolved_proposals/sequence_only_native_topology_conversions.md",
+    "devguide/pending_proposals/README.md",
+    "devguide/pending_proposals/complete_atom_free_native_hierarchy_operations.md",
+    "devguide/pending_proposals/fasta_handler_for_partial_sequence_systems.md",
+    "devtools/data/public_api_stability.json",
+    "docs/content/course/Common_Core/13_Topological_Analysis.ipynb",
+    "docs/content/user/cookbook/comparing_sequence_source_groups.md",
+    "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+    "docs/content/user/tools/form/file/file_fasta.ipynb",
+    "docs/content/user/tools/form/file/file_fasta.ipynb.AGENTS.md",
+    "docs/content/user/tools/form/string/string_amino_acids_1.ipynb",
+    "docs/content/user/tools/form/string/string_amino_acids_1.ipynb.AGENTS.md",
+    "docs/content/user/tools/form/string/string_amino_acids_3.ipynb",
+    "docs/content/user/tools/form/string/string_amino_acids_3.ipynb.AGENTS.md",
+    "docs/docs_manifest.yml",
+    "molsysmt/_private/argdigest/argument/_correspondence_axes.py",
+    "molsysmt/form/_sequence_topology.py",
+    "molsysmt/form/file_fasta/__init__.py",
+    "molsysmt/form/file_fasta/to_molsysmt_MolSys.py",
+    "molsysmt/form/file_fasta/to_molsysmt_Topology.py",
+    "molsysmt/form/string_amino_acids_1/__init__.py",
+    "molsysmt/form/string_amino_acids_1/to_molsysmt_MolSys.py",
+    "molsysmt/form/string_amino_acids_1/to_molsysmt_Topology.py",
+    "molsysmt/form/string_amino_acids_3/__init__.py",
+    "molsysmt/form/string_amino_acids_3/to_molsysmt_MolSys.py",
+    "molsysmt/form/string_amino_acids_3/to_molsysmt_Topology.py",
+    "molsysmt/native/_sequence_topology.py",
+    "tests/form/test_sequence_only_topology.py"
+  ],
+  "successor_local_receiving": {
+    "tests": 600,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "arguments": [
+      "tests/molsysviewer_molsysmt/test_map_and_file_tools.py",
+      "tests/form/file_fasta/test_source_records.py",
+      "tests/form/test_sequence_only_topology.py",
+      "devtools/tests/test_documentation_notebook_schema.py"
+    ],
+    "schema_guards": 496,
+    "source_after_clean": true,
+    "backend": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "backend_rebuilt": false
+  },
+  "hosted_tiers": [
+    {
+      "passed": 9,
+      "skipped": 0
+    },
+    {
+      "passed": 4028,
+      "skipped": 16
+    },
+    {
+      "passed": 2395,
+      "skipped": 4
+    }
+  ],
+  "successor_log_sha256": "6f14f76dd54856a7cd6e7ad334bad085fd96c4b730bf8fb1f4b49df94d99eb0b",
+  "original_cancelled_log_sha256": "661a1876934e1c112ff796dadaacbf79b6d78251ecdcfebccc15edd4e6a0c8bd",
+  "note": "No duplicate old-source dispatch. Native #515 full weekly triage is not cleared by this bounded smoke. Native #516 selector limitation remains separate. No release, package, tag or dependency-floor change."
+}

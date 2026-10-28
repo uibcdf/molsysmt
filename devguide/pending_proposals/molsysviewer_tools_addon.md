@@ -2147,3 +2147,27 @@ Whole-tree Ruff and developer-guide checks pass. Parent b0f21e58d hosted smoke
 40735430385 is success (4,028 native / 2,354 addon cases; sixteen/four optional
 skips), and developer-guide 40735430415 is success. New-producer CI remains
 pending; parent success is not its qualification. Native #515/#516 are not cleared.
+
+
+### Hosted source receiving completed on the successor — 2026-10-28
+
+Original producer 9f6e2e011 passes four auxiliary controls, but smoke
+40753622566 and developer-guide 40753622550 are cancelled; no native/addon
+completion is claimed for them. Owner successor 1f0bef2128b0937c0f322ee00070b6314cf32541
+adds sequence-only native conversions without changing any addon source, addon
+regression, smoke selection or package-file inventory. Its smoke 40754038881
+passes 4,028 native / 2,395 addon cases with
+16/4 optional skips; all four other triggered
+controls also pass. The unchanged dependency contract remains separately green
+on 9f6e2e011. No duplicate old-source campaign is dispatched.
+
+An isolated source checkout of 1f0bef212 also passes all 600 affected addon,
+FASTA, sequence-conversion and raw-notebook-schema cases with no failures,
+errors or skips, clean tracked sources and unchanged retained ABI3 backend.
+The earlier 6,024-case regression retains its original basis and hashes.
+The [CI supersession receipt](../../devtools/data/molsysviewer_tools_map_file_ci_supersession_20261028.json)
+records exact runs, steps and log digests. Optional-provider skips are not
+qualification of those providers. This is bounded source receiving; native
+#515 full weekly and #516 selector limitations retain their independent scope.
+Source exposure is 140/244 plus two FASTA readers, not installed qualification
+or a completed expert API. Core/GUI, packages and both 1.0 publications stay unchanged.
