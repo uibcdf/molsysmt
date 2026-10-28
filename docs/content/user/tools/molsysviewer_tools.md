@@ -2941,3 +2941,136 @@ units. No source, named analysis or scene is changed automatically. Read incompl
 chemistry as a diagnostic, not an evaluated absence. Use explicit named storage on
 an independent copied system when saving H5MSM; graphical attachment remains a
 separate qualified core workflow. All detector contracts remain experimental.
+
+
+## Keeping atom correspondence and independent atom order
+
+Use `tools.basic.compose_atom_maps(atom_maps)` to compose explicit native map
+reports, including before loading a system. It carries declared correspondence;
+it does not match molecules, authenticate identity, transfer coordinates or
+recalculate charges. Direct absent-origin `-1` and merged representatives have
+different meanings. Inputs can contain JSON lists; the result keeps native typed
+arrays and quantity records. Keep reports as sidecars: they are not an H5MSM 0.5
+domain. See {func}`molsysmt.basic.compose_atom_maps`.
+
+```python
+import molsysviewer as msv
+
+first = dict(schema="molsysmt.atom_map@1", n_source_atoms=2, n_output_atoms=3,
+             source_to_output_atom_indices=[0, 1],
+             output_to_source_atom_indices=[0, 1, -1])
+second = dict(schema="molsysmt.atom_map@1", n_source_atoms=3, n_output_atoms=2,
+              source_to_output_atom_indices=[1, -1, 0],
+              output_to_source_atom_indices=[2, 0])
+with msv.new_view() as view:
+    report = view.addons.molsysmt.basic.compose_atom_maps([first, second])
+    assert report["output_to_source_atom_indices"].tolist() == [-1, 0]
+    assert view.molsys is None
+```
+
+`tools.basic.permute_atoms(atom_indices, return_report=True)` reads the current
+primary and returns an independent MolSys plus its atom map. The order is a full
+new-to-old positional bijection, not an extraction selection. Native bonds,
+chemical states, structural series, mechanics and named interactions follow their
+remapping contracts; historical preparation records keep their original axes.
+Native consistency and unsupported-domain errors remain visible. In particular,
+legacy demo systems with inconsistent chain metadata are not silently repaired.
+The source and scene keep their atom order. There is no `update_view` switch:
+load the independent output explicitly only if you want to replace the scene.
+Full output remains resident; a numeric estimate is not a universal RAM bound.
+See {func}`molsysmt.basic.permute_atoms`.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+source = msm.convert(Chem.MolFromSmiles("CCO"))
+source.structures.append(coordinates=msm.pyunitwizard.quantity(
+    [[[0, 0, 0], [.15, 0, 0], [.25, .1, 0]]], "nm"))
+with msv.new_view(source) as view:
+    original = view.molsys
+    result = view.addons.molsysmt.basic.permute_atoms([2, 0, 1], return_report=True)
+    assert result["report"]["output_to_source_atom_indices"].tolist() == [2, 0, 1]
+    assert result["molecular_system"] is not original
+    assert view.molsys is original
+```
+
+## Working with molecular files explicitly
+
+`tools.h5msm.write(output_filename)` writes the current primary, including pending
+native edits, through the serialized reader. It does not synchronize the scene.
+All other H5MSM utilities keep filenames and domain objects explicit and work
+before loading a system while the view is open. Paths refer to the Python process
+filesystem, which may be remote. They are molecular-domain operations, not a
+Viewer scene/session save or a browser download.
+
+- `read(filename)` returns an independent native MolSys, including supported
+  partial files; it does not load it into the view.
+- `read_layers(filename, layers=None, analysis_names=None)` returns selected native
+  domains/analyses. An absent layer is `None`; present-empty interactions are `{}`.
+  This is not a public out-of-core interaction query.
+- `write_layers(output_filename, *, topology=None, chemical_states=None,
+  structures=None, interactions=None, associations=None)` writes only explicit
+  caller-owned domains and declared associations, never implicitly adding the
+  primary's topology, analyses or structures.
+- `append_structures(filename, structures, *, structure_state_indices=None,
+  block_size=256)` extends an explicit topology/interaction-free file. It neither
+  edits nor reloads a loaded primary, even if the original path is the same.
+  Native validation precedes resize; this is not a crash-transactional editor.
+- `migrate_04_to_05(filename, output_filename)` and
+  `migrate_to_05(filename, output_filename)` preserve the legacy source and write
+  a distinct destination under native schema and information-loss restrictions.
+
+Native units, sparse coverage, associations, producer metadata, return types,
+errors and overwrite behavior remain unchanged. H5MSM 0.5 rejects nonempty
+molecular-mechanics data rather than silently discarding it. Explicit external
+inputs/files must remain stable during calls; the view's molecular edit lock does
+not lock those resources. See {func}`molsysmt.h5msm.read`,
+{func}`molsysmt.h5msm.write`, {func}`molsysmt.h5msm.read_layers`,
+{func}`molsysmt.h5msm.write_layers`, {func}`molsysmt.h5msm.append_structures`,
+{func}`molsysmt.h5msm.migrate_04_to_05` and {func}`molsysmt.h5msm.migrate_to_05`.
+
+```python
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import molsysviewer as msv
+import molsysmt as msm
+
+with TemporaryDirectory() as directory, msv.new_view() as view:
+    files = view.addons.molsysmt.h5msm
+    path = str(Path(directory) / "times.h5msm")
+    from molsysmt.native import Structures
+    times = Structures(time=msm.pyunitwizard.quantity([0, 1], "ps"))
+    files.write_layers(path, structures=times)
+    files.append_structures(path, times, block_size=1)
+    restored = files.read(path)
+    assert restored.structures.n_structures == 4
+    assert restored.topology is None and view.molsys is None
+```
+
+## Inspecting submitted FASTA records without admitting a molecular system
+
+`tools.form.file_fasta.read_records(item)` and
+`parse_records(fasta_text, *, source_label=None)` keep explicit file/text inputs.
+They work before loading and return fresh JSON-compatible `fasta_source@1`
+records. Record indices identify occurrences within that source, not biological
+identity. Headers, case, whitespace, modifications, empty/repeated records and
+CR/LF/CRLF endings remain raw. Source spans are half-open **decoded character**
+offsets, not UTF-8 byte offsets. Native UTF-8 and pre-header validation remains
+visible. These readers do not normalize/admit sequences, create topology or
+coordinates, load a view, or require Biopython. Ordinary sequence conversion is
+a separate scientific operation. See
+{func}`molsysmt.form.file_fasta.read_records` and
+{func}`molsysmt.form.file_fasta.parse_records`.
+
+```python
+import molsysviewer as msv
+
+text = ">β  \r\n acD*\n>β\r\n"
+with msv.new_view() as view:
+    result = view.addons.molsysmt.form.file_fasta.parse_records(text)
+    assert [record["record_index"] for record in result["records"]] == [0, 1]
+    assert "".join(record["raw_record"] for record in result["records"]) == text
+    assert view.molsys is None
+```

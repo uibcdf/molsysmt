@@ -2,9 +2,9 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-10-28, source receiving extends basis e4691b16d with the
-four remaining canonical interaction families. All fifteen canonical function
-paths are exposed explicitly. Prior source and installed qualification retain
+**Snapshot:** 2026-10-28, source receiving extends b0f21e58d with two basic
+map/order utilities and seven H5MSM file functions. All fifteen canonical
+interaction paths remain exposed explicitly. Prior source and installed qualification retain
 their own identities; this count is not universal scientific accuracy or stability.
 
 Regenerate the full path/signature/missing-route inventory in the participating
@@ -12,7 +12,7 @@ source environment:
 
 ```bash
 python devtools/scripts/audit_molsysviewer_tools_api.py \
-  --output devtools/data/molsysviewer_tools_final_interactions_inventory_20261028.json
+  --output devtools/data/molsysviewer_tools_map_file_inventory_20261028.json
 ```
 
 The command uses real native declarations and an actual empty view's addon,
@@ -25,7 +25,7 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 
 | Namespace | Exposed source paths | Declared native paths | Remaining |
 | --- | ---: | ---: | ---: |
-| basic | 19 | 26 | 7 |
+| basic | 21 | 26 | 5 |
 | topology | 11 | 11 | 0 |
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
@@ -34,13 +34,13 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | molecular_mechanics | 0 | 6 | 6 |
 | interactions (canonical families) | 15 | 15 | 0 |
 | element and declared children | 0 | 57 | 57 |
-| h5msm file utilities | 0 | 7 | 7 |
+| h5msm file utilities | 7 | 7 | 0 |
 | historical hbonds aliases | 0 | 4 | 4 |
 | attribute metadata helpers | 0 | 7 | 7 |
 | supported-capability reports | 0 | 4 | 4 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 131 exposed out of 244 inspected public callable paths. This is not
+These are 140 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -66,8 +66,9 @@ not infer universal availability for other callables. The earlier 231-path
 The new source-preserving `form.file_fasta.read_records` and `parse_records`
 utilities (ae24866ba) are outside this 244-path functional inventory, which
 excludes form adapters. They are explicit file/text operations without a primary
-system slot. Review their expert-addon place during the independent-utility
-phase; do not silently count them as received or bind them to view.molsys.
+system slot. Both are now explicitly exposed at those same addon paths and independently
+received as file/text utilities. They are not included in 140/244 and do not
+justify exposing arbitrary adapters or binding filenames/text to view.molsys.
 
 ## Ordered expansion
 
@@ -265,3 +266,14 @@ These source checkpoints do not clear the failed full weekly matrix under #515.
 Next: independent basic/maps and explicit utilities, then mechanics and qualified
 editing families. All fifteen paths exposed does not imply all inputs or
 scientific profiles are qualified; wider GUI and installed receiving stay separate.
+
+
+The [map/file receiving receipt](../devtools/data/molsysviewer_tools_map_file_receiving_20261028.json)
+records 6,024 joint cases and 41 directed cases with zero
+failures/errors/skips, 65 guide blocks and 305 inherited doctests. Source/backend
+hashes stay unchanged during regression; all 496 raw stored-notebook guards pass,
+and both course notes preserve every key, ID, code cell, output and schema.
+Whole-tree Ruff and developer-guide checks pass. Parent b0f21e58d hosted smoke
+40735430385 is success (4,028 native / 2,354 addon cases; sixteen/four optional
+skips), and developer-guide 40735430415 is success. New-producer CI remains
+pending; parent success is not its qualification. Native #515/#516 are not cleared.

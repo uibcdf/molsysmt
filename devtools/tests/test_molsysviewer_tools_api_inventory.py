@@ -24,6 +24,19 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     ):
         assert rows[f"build.{name}"]["exposed"]
     assert not rows["build.infer_covalent_bonds"]["exposed"]
+    for path in [
+        "basic.compose_atom_maps",
+        "basic.permute_atoms",
+        "h5msm.read",
+        "h5msm.write",
+        "h5msm.read_layers",
+        "h5msm.write_layers",
+        "h5msm.append_structures",
+        "h5msm.migrate_04_to_05",
+        "h5msm.migrate_to_05",
+    ]:
+        assert rows[path]["exposed"]
+    assert inventory["modules"]["h5msm"]["missing"] == []
     for name in (
         "get_donor_atoms",
         "get_acceptor_atoms",

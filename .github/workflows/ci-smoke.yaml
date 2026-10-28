@@ -257,4 +257,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_hbond_site_tools.py \
             tests/molsysviewer_molsysmt/test_interaction_detector_tools.py \
             tests/molsysviewer_molsysmt/test_contact_detector_tools.py \
-            tests/molsysviewer_molsysmt/test_remaining_interaction_tools.py
+            tests/molsysviewer_molsysmt/test_remaining_interaction_tools.py \
+            tests/molsysviewer_molsysmt/test_map_and_file_tools.py

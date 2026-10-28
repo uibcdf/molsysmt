@@ -1930,3 +1930,56 @@ The [final interaction source receipt](../devtools/data/molsysviewer_tools_final
 guards, 133 directed cases, 61/279 current examples, unchanged backend hashes
 and provider issues #515/#516. Prior cancelled and full-suite failure evidence
 remain visible. Source exposure does not authorize a release or installed claim.
+
+
+### Basic atom maps and explicit file utilities — 2026-10-28
+
+The expert facade adds eleven explicit methods on basis b0f21e58d:
+`basic.compose_atom_maps`, `basic.permute_atoms`, all seven native `h5msm`
+functions and `form.file_fasta.read_records` / `parse_records`. Only permutation
+and `h5msm.write` bind the current primary through the serialized reader. They
+observe pending native edits without publishing the scene. Map composition,
+filenames, domain layers, associations, appended Structures and FASTA text remain
+explicit caller inputs; no molecular-edit lock is claimed for external resources.
+File readers and explicit utilities work on open empty views. Cached handles
+check view lifetime before native work; outputs never adopt themselves.
+
+Permutation is a full new-to-old bijection, not extraction or an in-place edit.
+Native chemical states, mechanics, named sparse analyses and structural series
+retain their remapping contracts; historical reports retain their old axes.
+Composed maps preserve generated/direct-absent versus representative lineage.
+No matching, chemistry preparation, charge calculation or identity authentication
+is introduced. Legacy pentalanine chain metadata retains native consistency
+rejection; successful receiving uses declared chemistry and the rich native-domain
+fixture instead of changing that data in the facade.
+
+H5MSM paths address the Python process filesystem, not browser downloads or
+Viewer scene/session persistence. Partial and absent/present-empty layers,
+selected named analyses, units, associations and original producer metadata remain
+native. Nonempty mechanics retain 0.5 writer rejection. Explicit append only
+extends the supported topology/interaction-free file, never a loaded primary;
+validation before resize does not promise crash transactions. Legacy migrations
+preserve their source and require a distinct destination. FASTA keeps raw text,
+occurrence order, newlines, decoded-character spans and fresh JSON-compatible
+records, without sequence admission, topology/coordinates or Biopython import.
+
+The source inventory now exposes 140/244 scoped function paths: basic 21/26 and
+H5MSM 7/7. The two FASTA adapter readers are received separately outside that
+functional denominator. Aliases/stubs do not become independent scientific
+capabilities. Collection composition, other edits, element/attribute/capability
+helpers, mechanics, graphical tasks and installed qualification remain pending.
+The new module is included in the shared source/wheel/sdist/installed file
+contract, and its regression file belongs to the actual single hosted pytest
+invocation. Both 1.0 publications remain paused; no host/GUI/dependency/package
+change or release is part of this source extension.
+
+
+The [map/file receiving receipt](../devtools/data/molsysviewer_tools_map_file_receiving_20261028.json)
+records 6,024 joint cases and 41 directed cases with zero
+failures/errors/skips, 65 guide blocks and 305 inherited doctests. Source/backend
+hashes stay unchanged during regression; all 496 raw stored-notebook guards pass,
+and both course notes preserve every key, ID, code cell, output and schema.
+Whole-tree Ruff and developer-guide checks pass. Parent b0f21e58d hosted smoke
+40735430385 is success (4,028 native / 2,354 addon cases; sixteen/four optional
+skips), and developer-guide 40735430415 is success. New-producer CI remains
+pending; parent success is not its qualification. Native #515/#516 are not cleared.

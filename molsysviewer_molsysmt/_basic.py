@@ -36,7 +36,7 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "no current view.molsys is inserted. "
                 if module == "physchem"
                 else "This utility keeps its explicit scientific inputs; "
-                "no current view.molsys or implicit box is inserted. "
+                "no current view.molsys is inserted. "
             )
         )
         function.__doc__ = (
@@ -46,6 +46,91 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if module == "basic" and name in {"compose_atom_maps", "permute_atoms"}:
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The native result remains independent; there is no scene update, "
+                "automatic result adoption or update_view control. Atom indices are "
+                "positions, not labels. Native types, errors, memory limits, "
+                "provenance and quantity records remain unchanged.\n"
+            )
+            if name == "compose_atom_maps":
+                function.__doc__ += (
+                    "Explicit caller-owned reports may be composed before loading a "
+                    "system while the view is open. No managed molecular lock is "
+                    "acquired for them; inputs must remain stable during the call. "
+                    "This transports declared correspondence, not matching, "
+                    "coordinates, generated atom positions, charges or authenticated "
+                    "identity. Keep direct absent-origin -1 distinct from merged "
+                    "representatives. The map is a sidecar, not an H5MSM 0.5 domain.\n"
+                )
+            else:
+                function.__doc__ += (
+                    "The current primary is read through the serialized reader, "
+                    "including pending edits. atom_indices is the full new-to-old "
+                    "bijection; output is a separate MolSys, not an extraction or "
+                    "an in-place scene reorder. Named interactions and scientific "
+                    "domains follow native remapping; historical reports keep their "
+                    "old axes. Output remains resident; numeric estimates do not "
+                    "guarantee process RSS. Unsupported domains retain rejection.\n"
+                )
+        if module == "h5msm":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "Paths address the Python process filesystem. Native file effects "
+                "are explicit; they never load, replace or synchronize this view "
+                "automatically. Native schema, associations, coverage, original "
+                "producer metadata, units and error/overwrite behavior are retained. "
+                "This is molecular-domain I/O, not a Viewer scene/session save. "
+                "No browser download or implicit output filename is introduced.\n"
+            )
+            if name == "write":
+                function.__doc__ += (
+                    "The current primary is serialized through the managed reader, "
+                    "including pending native edits; the scene is not reconciled. "
+                    "Molecular-mechanics data retain H5MSM 0.5 rejection, not silent "
+                    "discard. No source arrays or saved analyses are modified.\n"
+                )
+            else:
+                function.__doc__ += (
+                    "All filenames, layers, structures and associations remain "
+                    "explicit and caller-owned. The utility works before a system "
+                    "is loaded while the view remains open; external inputs/files "
+                    "must remain stable during the native call. No molecular-edit "
+                    "lock, current structures or named analyses are inserted.\n"
+                )
+            if name == "read_layers":
+                function.__doc__ += (
+                    "Absent None and present-empty interaction layers remain "
+                    "distinct. analysis_names selects named analyses without "
+                    "attaching them; no public out-of-core query is implied.\n"
+                )
+            if name == "append_structures":
+                function.__doc__ += (
+                    "Only the explicit topology/interaction-free file is extended. "
+                    "The loaded primary is unchanged, even when its source path "
+                    "names that file. Native validation precedes resize, but append "
+                    "is not crash transactional. No structures/state links are "
+                    "inferred from the view.\n"
+                )
+            if name in {"migrate_04_to_05", "migrate_to_05"}:
+                function.__doc__ += (
+                    "Migration requires a distinct explicit output path and keeps "
+                    "the source file unchanged. Native legacy-version, ambiguous "
+                    "scaffolding and information-loss limits remain visible.\n"
+                )
+        if module == "form.file_fasta":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The current molecular system is not an input. Explicit text/file "
+                "operations work before loading while the view is open, without "
+                "a managed molecular lock or scene effect. Callers own file/input "
+                "stability. Native resident records preserve every occurrence, "
+                "header, original newline and decoded-character span; no sequence "
+                "normalization, molecular admission, identity authentication, "
+                "topology, coordinates or optional Biopython import is introduced. "
+                "The result remains a fresh native JSON-compatible document.\n"
+            )
         if module == "pbc" and name not in {"wrap_to_pbc", "wrap_to_mic", "unwrap"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -995,6 +1080,8 @@ class _BasicTools:
         "copy",
         "convert",
         "get_conversion_report",
+        "compose_atom_maps",
+        "permute_atoms",
         "remove",
         "set",
     )
@@ -1368,6 +1455,28 @@ class _BasicTools:
                 "selection": selection,
                 "structure_indices": structure_indices,
                 "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("compose_atom_maps", bind_primary=False)
+    @signal(tags=["addon", "basic", "maps"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def compose_atom_maps(self, atom_maps, skip_digestion=False):
+        from molsysmt.basic import compose_atom_maps
+
+        self._owner._view()
+        return compose_atom_maps(atom_maps, skip_digestion=skip_digestion)
+
+    @_native_documentation("permute_atoms")
+    @signal(tags=["addon", "basic", "maps"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def permute_atoms(self, atom_indices, return_report=False, skip_digestion=False):
+        return self._call(
+            "permute_atoms",
+            {
+                "atom_indices": atom_indices,
+                "return_report": return_report,
                 "skip_digestion": skip_digestion,
             },
         )

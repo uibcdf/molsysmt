@@ -7,6 +7,7 @@ from smonitor import signal
 
 from ._basic import _BasicTools
 from ._build import _BuildTools
+from ._files import _FormTools, _H5MSMTools
 from ._interactions import _InteractionsTools
 from ._pbc import _PbcTools
 from ._physchem import _PhyschemTools
@@ -18,6 +19,8 @@ class _MolSysMTTools:
     def __init__(self, view):
         self._view_ref = ref(view)
         self.basic = _BasicTools(self)
+        self.h5msm = _H5MSMTools(self)
+        self.form = _FormTools(self)
         self.build = _BuildTools(self)
         self.interactions = _InteractionsTools(self)
         self.topology = _TopologyTools(self)
@@ -85,6 +88,8 @@ class _MolSysMTTools:
     def __dir__(self):
         return [
             "basic",
+            "h5msm",
+            "form",
             "build",
             "interactions",
             "topology",

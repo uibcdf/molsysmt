@@ -247,3 +247,15 @@ oxygen images. Keep native selector limitations and resource/provider boundaries
 visible. Do not add implicit chemistry, virtual H, unwrapping, storage or scene
 updates. Extend course prose without changing declared notebook schemas or
 existing cell IDs, code and outputs; validate raw stored schemas.
+
+
+Preserve primary-bound independent permute_atoms and explicit compose_atom_maps:
+full new-to-old bijections, native domain remapping, historical axes, generated
+versus representative lineage, detached reports, resident-output limits and no
+implicit adoption. File tools retain Python-process paths and explicit caller
+layers/text; only h5msm.write binds the current primary through its serialized
+reader. Preserve partial/absent/empty distinctions, named analyses, mechanics
+rejection, legacy-source preservation and native append/overwrite limits. FASTA
+readers preserve raw occurrences/newlines and decoded-character spans without
+sequence admission, topology construction or an optional Biopython import.
+Keep all file results independent of scene load/save/synchronization.
