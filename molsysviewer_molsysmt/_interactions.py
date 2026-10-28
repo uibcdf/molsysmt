@@ -10,9 +10,12 @@ class _InteractionsTools:
     def __init__(self, owner):
         self.hbonds = _HbondTools(owner)
         self.disulfides = _DisulfideTools(owner)
+        self.ionic = _IonicTools(owner)
+        self.hydrophobic = _HydrophobicTools(owner)
+        self.halogen_bonds = _HalogenTools(owner)
 
     def __dir__(self):
-        return ["hbonds", "disulfides"]
+        return ["hbonds", "disulfides", "ionic", "hydrophobic", "halogen_bonds"]
 
 
 class _HbondTools:
@@ -329,5 +332,172 @@ class _DisulfideTools:
                 "sorted": sorted,
                 "skip_digestion": skip_digestion,
                 "output_type": output_type,
+            },
+        )
+
+
+class _IonicTools:
+    _NAMES = ("get_ionic_interactions",)
+
+    def __init__(self, owner):
+        self._owner = owner
+
+    def __dir__(self):
+        return list(self._NAMES)
+
+    @_native_documentation("get_ionic_interactions", module="interactions.ionic")
+    @signal(tags=["addon", "interactions", "ionic"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_ionic_interactions(
+        self,
+        distance_threshold,
+        selection="all",
+        selection_2=None,
+        structure_indices="all",
+        chemical_state="reference",
+        method="minimum_distance",
+        selection_mode="internal",
+        pbc=True,
+        assume_complete_connectivity=False,
+        output_type="molsysmt.Interactions",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        heavy_mode="auto",
+    ):
+        from molsysmt.interactions.ionic import get_ionic_interactions
+
+        return self._owner._read(
+            get_ionic_interactions,
+            {
+                "distance_threshold": distance_threshold,
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "selection_mode": selection_mode,
+                "pbc": pbc,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "output_type": output_type,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "heavy_mode": heavy_mode,
+            },
+        )
+
+
+class _HydrophobicTools:
+    _NAMES = ("get_hydrophobic_interactions",)
+
+    def __init__(self, owner):
+        self._owner = owner
+
+    def __dir__(self):
+        return list(self._NAMES)
+
+    @_native_documentation(
+        "get_hydrophobic_interactions", module="interactions.hydrophobic"
+    )
+    @signal(tags=["addon", "interactions", "hydrophobic"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_hydrophobic_interactions(
+        self,
+        selection="all",
+        selection_2=None,
+        structure_indices="all",
+        chemical_state="reference",
+        method="atom_pair_distance",
+        distance_threshold=None,
+        selection_mode="internal",
+        pbc=True,
+        assume_complete_connectivity=False,
+        output_type="molsysmt.Interactions",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_matches=100000,
+        heavy_mode="auto",
+        profile=None,
+    ):
+        from molsysmt.interactions.hydrophobic import get_hydrophobic_interactions
+
+        return self._owner._read(
+            get_hydrophobic_interactions,
+            {
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "distance_threshold": distance_threshold,
+                "selection_mode": selection_mode,
+                "pbc": pbc,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "output_type": output_type,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_matches": max_matches,
+                "heavy_mode": heavy_mode,
+                "profile": profile,
+            },
+        )
+
+
+class _HalogenTools:
+    _NAMES = ("get_halogen_bonds",)
+
+    def __init__(self, owner):
+        self._owner = owner
+
+    def __dir__(self):
+        return list(self._NAMES)
+
+    @_native_documentation("get_halogen_bonds", module="interactions.halogen_bonds")
+    @signal(tags=["addon", "interactions", "halogen_bonds"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_halogen_bonds(
+        self,
+        selection="all",
+        selection_2=None,
+        structure_indices="all",
+        chemical_state="reference",
+        method="distance_two_angles",
+        distance_threshold=None,
+        donor_angle_range=None,
+        acceptor_angle_range=None,
+        selection_mode="internal",
+        pbc=True,
+        assume_complete_connectivity=False,
+        output_type="molsysmt.Interactions",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        max_matches=100000,
+        heavy_mode="auto",
+        profile=None,
+    ):
+        from molsysmt.interactions.halogen_bonds import get_halogen_bonds
+
+        return self._owner._read(
+            get_halogen_bonds,
+            {
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "distance_threshold": distance_threshold,
+                "donor_angle_range": donor_angle_range,
+                "acceptor_angle_range": acceptor_angle_range,
+                "selection_mode": selection_mode,
+                "pbc": pbc,
+                "assume_complete_connectivity": assume_complete_connectivity,
+                "output_type": output_type,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "max_matches": max_matches,
+                "heavy_mode": heavy_mode,
+                "profile": profile,
             },
         )

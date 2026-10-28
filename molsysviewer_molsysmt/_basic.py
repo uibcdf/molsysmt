@@ -302,7 +302,13 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "exceed one; categories need not sum to one. No clipping, "
                 "renormalization or implicit coil remainder is introduced.\n"
             )
-        if module in {"interactions.hbonds", "interactions.disulfides"}:
+        if module in {
+            "interactions.hbonds",
+            "interactions.disulfides",
+            "interactions.ionic",
+            "interactions.hydrophobic",
+            "interactions.halogen_bonds",
+        }:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
                 "The result remains a native scientific value, not a scene object. "
@@ -328,6 +334,9 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "get_luzard_chandler_hbonds",
                 "get_hbonds",
                 "get_disulfide_candidates",
+                "get_ionic_interactions",
+                "get_hydrophobic_interactions",
+                "get_halogen_bonds",
             }:
                 function.__doc__ += (
                     "Results use the native output_type default and remain independent. "
@@ -363,6 +372,47 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                     "covalent assignment or proof that a bond is absent. Native "
                     "eligible group names, cutoff, sorting, PBC images and source "
                     "indices remain explicit. No bond is inserted or removed.\n"
+                )
+            if name in {
+                "get_ionic_interactions",
+                "get_hydrophobic_interactions",
+                "get_halogen_bonds",
+            }:
+                function.__doc__ += (
+                    "These experimental detectors keep native internal/incident/between "
+                    "scopes and full-source chemistry before selection. Repeated structure "
+                    "indices are evaluated once in sorted order; no query-mode alias or "
+                    "visible-structure default is substituted. Heavy execution is native; "
+                    "bounded coordinate processing does not make the resident sparse result "
+                    "out-of-core or guarantee process RSS. Thresholds, profiles, chemical "
+                    "state, connectivity declarations and evidence remain explicit.\n"
+                )
+            if name == "get_ionic_interactions":
+                function.__doc__ += (
+                    "A unit-bearing distance_threshold is required; no cutoff is guessed. "
+                    "Formal-charge centers can be compound participants and must be selected "
+                    "whole. Distances use their recorded geometry references, not every "
+                    "participant atom or a center-of-mass substitution. This is proximity "
+                    "evidence, not electrostatic energy, a salt-bridge assignment or "
+                    "parameterized partial charge. Split periodic centers retain native "
+                    "rejection; no internal unwrapping is introduced.\n"
+                )
+            if name == "get_hydrophobic_interactions":
+                function.__doc__ += (
+                    "Chemically typed unordered atom pairs retain canonical source-index "
+                    "order and native MIC images; roles do not encode ligand ownership. "
+                    "The recognition profile and inclusive distance core are not a "
+                    "hydrophobicity scale, energy, Mol* rule or residue fingerprint. "
+                    "Optional RDKit availability and max_matches retain native validation.\n"
+                )
+            if name == "get_halogen_bonds":
+                function.__doc__ += (
+                    "All four D-X-A-R roles define selection membership; X-A selection "
+                    "alone does not imply internal coverage. Preserve separate acceptor "
+                    "reference observations, distances in nm, angles in radians and "
+                    "coherent chain MIC images. Undefined angles remain unobserved. "
+                    "This is the declared profile's geometric core, not proof of an "
+                    "attractive energy or the paper's exact element-specific criterion.\n"
                 )
             if "skip_digestion" not in inspect.signature(native).parameters:
                 function.__doc__ += (

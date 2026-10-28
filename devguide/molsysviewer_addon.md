@@ -32,9 +32,12 @@ Three feature readers bring exposure to 21 tools on the qualified 31-export
 baseline. Native 5681f5e78 adds secondary-structure propensities: the inspected
 inventory at that source is 32. The two reference readers now bring the facade
 to 23 tools. The bound molecular descriptors and three explicit chemical readers
-bring the facade to all 34 reviewed physchem exports. Three of the 30 reviewed
-build exports also have source receiving; wider expansion follows the maintained
-API inventory. Their separate receiving does not relabel older
+bring the facade to all 34 reviewed physchem exports. Eleven of the 30 reviewed
+build exports have source receiving; wider expansion follows the maintained
+API inventory. Eleven canonical interaction paths also have source receiving:
+seven hydrogen-bond recognition/direction/detection methods, disulfide
+candidates, ionic, hydrophobic and directional halogen calculations. Their
+separate receiving does not relabel older
 source gates. The SMARTS repair is received under
 #488; native reference-metadata ownership is repaired under #490 and its guard is
 included in the new receiving tier. Native graph selector/scope repairs are received
@@ -1768,5 +1771,65 @@ status do not change; both 1.0 publications remain paused.
 The [local detector receiving receipt](../devtools/data/molsysviewer_tools_interaction_detectors_receiving_20261027.json) records exact frozen
 source/backend scope, 65 directed cases, 4,710 regression passes and 54 guide
 blocks / 214 inherited examples. Native #511 and prior CI cancellation retain
-separate evidence. New exact-source hosted qualification is pending; no
-installed artifact, dependency floor, scientific stability or release is inferred.
+separate evidence. Exact-source hosted qualification of 8d129124e completes in the separate
+closeout below; no installed artifact, dependency floor, scientific stability
+or release is inferred.
+
+
+### Ionic, hydrophobic and halogen detection — 2026-10-27
+
+Three explicit family methods bind the current primary through the serialized
+reader: interactions.ionic.get_ionic_interactions,
+interactions.hydrophobic.get_hydrophobic_interactions and
+interactions.halogen_bonds.get_halogen_bonds. Native signatures, keyword-only
+parameters, defaults, digestion, errors and optional providers remain intact.
+The ionic distance_threshold remains required and unit-bearing. No scientific
+calculation, preparation, result attachment, naming, source mutation, visual
+selection or synchronization is introduced. Pending edits are readable without
+being silently published to the scene; cached handles resolve a replaced primary
+and reject empty/closed views.
+
+Keep distinct chemistry and geometry: ionic whole centers and distance-reference
+atoms versus formal charges, not energy/partial-charge assignment; hydrophobic
+canonical unordered typed atom pairs, not a group scale, fingerprint or Mol*
+criterion; halogen D-X-A-R membership, reference-neighbor identity, two angles
+and chain MIC images. Native state, profile, completeness, three calculation
+scopes, nm/radian/e units, attribution, evaluated-empty/unassessed structures,
+source occurrence references, heavy execution and resident sparse-output limits
+remain explicit. No universal process-memory or public out-of-core promise is
+introduced.
+
+All 76 directed cases pass, including native result parity, nonconsecutive and
+repeated structure requests, scope reversal, alternate unit policy, rotated/skew
+row boxes, typed results and H5MSM storage through a validated named-map setter
+on an independent copy. The legacy pentalanine demo is deliberately a rejection
+case: it lacks formal-charge/bond-chemistry evidence needed by these detectors.
+The initial test incorrectly treated it as a prepared positive case; the next
+attempt used a nonexistent direct structure-count method. Both test expectations
+are corrected without native or facade scientific changes. Earlier failed
+attempts retain their evidence. Positive tests use explicitly declared chemistry.
+All 57 executable guide blocks and 241 inherited doctests pass; four course
+cross-reference notes preserve every existing cell, output and ID. One frozen
+joint regression passes 4,915 cases with zero failures/errors/skips and unchanged
+source/backend hashes. Its 32 package, command and inventory guards pass.
+New exact-source hosted qualification remains pending.
+
+Previous detector source 8d129124e now completes smoke 40613617586: nine early
+guards, 3,595 native / 2,142 addon passes and thirteen/four optional-provider skips.
+Native skips are eleven Ackredit, one Unyt and one Astropy; addon skips are four
+Ackredit. All five source controls pass. The [separate closeout receipt](../devtools/data/molsysviewer_tools_interaction_detectors_ci_closeout_20261027.json)
+preserves exact identity and native job/step conclusions. Earlier b50edcc52
+cancellation remains historical evidence, not relabelled success. These gates
+qualify the previous source only, not the new wrappers or installed packages.
+Current exposure is 127/244 inspected callable paths, canonical interactions
+11/15; aliases/utilities/stubs are not separate scientific algorithms. The four
+remaining raw families are metal coordination, pi-pi, cation-pi and water
+bridges. Native #503/#504/#506 through #509 and #511 remain separate owner work.
+Core runtime, dependency floor, GUI, packages and release status do not change;
+both 1.0 publications remain paused. Ownership: uibcdf/molsysmt#421 and
+uibcdf/molsysviewer#264.
+
+The [local contact-detector receipt](../devtools/data/molsysviewer_tools_contact_detectors_receiving_20261027.json) records the frozen source/backend hashes, all 4,915 regression results,
+76 directed cases, 32 package guards, 57/241 executable examples and failed-test
+diagnoses. Hosted source, clean installed artifacts and scientific stability
+remain separate qualification scopes.

@@ -64,6 +64,11 @@ four recognition/characterization tools: `get_donor_atoms`, `get_acceptor_atoms`
 scientific values remain distinct from the core `view.interactions` scene
 owner; none is attached or represented automatically.
 
+Three further families mirror native detection: `interactions.ionic.get_ionic_interactions`,
+`interactions.hydrophobic.get_hydrophobic_interactions` and
+`interactions.halogen_bonds.get_halogen_bonds`. They keep required scientific
+inputs, optional providers and sparse output contracts. See their examples below.
+
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -2605,3 +2610,140 @@ of a missing bond, oxidation state or chemically valid disulfide. Calculation
 neither inserts nor removes bonds. Default and extended group-name filters are
 native scientific choices. Scope, quantities and sparse coverage remain distinct
 from a rendered connection.
+
+
+## Calculating ionic contacts with an explicit cutoff
+
+Use `view.addons.molsysmt.interactions.ionic.get_ionic_interactions()` when you
+want minimum-distance observations between opposite formal-charge centers.
+A unit-bearing `distance_threshold` is required. This bounded geometric criterion
+is not an electrostatic energy, parameterized partial charge or universal
+salt-bridge assignment. Select every atom of a compound center; its recorded
+geometry references can be a subset of those participant atoms.
+
+```python
+import numpy as np
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+molsys = msm.convert(Chem.MolFromSmiles("[Na+].[Cl-]"))
+coordinates = np.array([
+    [[0, 0, 0], [.30, 0, 0]],
+    [[0, 0, 0], [.80, 0, 0]],
+    [[0, 0, 0], [.25, 0, 0]],
+])
+molsys.structures.append(coordinates=msm.pyunitwizard.quantity(coordinates, "nm"))
+with msv.new_view(molsys) as view:
+    analysis = view.addons.molsysmt.interactions.ionic.get_ionic_interactions(
+        "4 angstrom", structure_indices=[2, 0, 2], pbc=False,
+    )
+    assert analysis.participant_roles == ("positive", "negative")
+    assert analysis.evaluated_structure_indices.tolist() == [0, 2]
+    np.testing.assert_allclose(analysis.measurements["distance"], [.30, .25])
+    assert analysis.measure_units["positive_charge"] == "e"
+    assert not view.molsys.interactions
+```
+
+The selected chemical state needs explicit formal charges and declared
+connectivity. The current recognizer treats its documented carboxylate,
+guanidinium and literal-charge definitions; it does not universally resolve
+phosphate, sulfate or aromatic delocalization. Direct covalent center links are
+excluded natively. Periodic images move each whole participant; a center split
+across the cell boundary retains native rejection rather than implicit unwrapping.
+See {func}`molsysmt.interactions.ionic.get_ionic_interactions` for the complete contract.
+
+## Calculating chemically typed hydrophobic atom pairs
+
+Use `view.addons.molsysmt.interactions.hydrophobic.get_hydrophobic_interactions()`
+for the native SMARTS profile and inclusive atom-pair distance criterion. Its
+ProLIF 2.2.2 reference core is not a group hydrophobicity scale, interaction
+energy, Mol* rule or ligand/protein fingerprint. RDKit is required by this native
+route; the ProLIF package itself is not required. The source declares its chemistry
+before the addon reads it; no hydrogen, charge or aromatic preparation is hidden.
+
+```python
+import numpy as np
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+molsys = msm.convert(Chem.MolFromSmiles("CCC.CCC"))
+xyz = np.array([[0, 0, 0], [.15, 0, 0], [.30, 0, 0],
+                [0, .30, 0], [.15, .30, 0], [.30, .30, 0]])
+molsys.structures.append(coordinates=msm.pyunitwizard.quantity(xyz[None], "nm"))
+with msv.new_view(molsys) as view:
+    analysis = view.addons.molsysmt.interactions.hydrophobic.get_hydrophobic_interactions(
+        selection=[4], selection_2=[1], selection_mode="between", pbc=False,
+    )
+    assert analysis.participant_atoms.tolist() == [1, 4]
+    assert analysis.participant_roles == ("hydrophobic_1", "hydrophobic_2")
+    np.testing.assert_allclose(analysis.measurements["distance"], [.30])
+    assert analysis.measure_units["distance"] == "nm"
+    assert not view.molsys.interactions
+```
+
+Pairs have canonical source-index order even when selections are reversed;
+roles do not identify a ligand. The default cutoff is 0.45 nm. Distinct
+coincident atoms can be observed, and the declared reference core adds no extra
+covalent or intramolecular exclusion. Full-source recognition precedes selection;
+`max_matches` remains an explicit native cap rather than silent truncation.
+See {func}`molsysmt.interactions.hydrophobic.get_hydrophobic_interactions`.
+
+## Calculating directional halogen observations
+
+Use `view.addons.molsysmt.interactions.halogen_bonds.get_halogen_bonds()` for
+the D-X...A-R profile's distance and two inclusive angular intervals. All four
+roles count for calculation selection, including the donor neighbor and acceptor
+reference. Selecting X and A alone is not a complete internal search. Distinct
+acceptor-reference neighbors retain separate observations. Undefined angles do
+not become fabricated directions or evidence of an attractive energy.
+
+```python
+import numpy as np
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+molsys = msm.convert(Chem.MolFromSmiles("CCl.C=O"))
+xyz = np.array([[-.15, 0, 0], [0, 0, 0],
+                [.36, .12*np.sqrt(.75), 0], [.30, 0, 0]])
+molsys.structures.append(coordinates=msm.pyunitwizard.quantity(xyz[None], "nm"))
+with msv.new_view(molsys) as view:
+    analysis = view.addons.molsysmt.interactions.halogen_bonds.get_halogen_bonds(
+        selection=[0, 1], selection_2=[2, 3], selection_mode="between",
+        donor_angle_range=msm.pyunitwizard.quantity([130, 180], "degrees"),
+        acceptor_angle_range=msm.pyunitwizard.quantity([80, 140], "degrees"),
+        pbc=False,
+    )
+    assert analysis.participant_atoms.tolist() == [0, 1, 3, 2]
+    assert analysis.participant_roles == ("donor", "halogen", "acceptor", "acceptor_reference")
+    np.testing.assert_allclose(analysis.measurements["donor_angle"], np.pi)
+    np.testing.assert_allclose(analysis.measurements["acceptor_angle"], 2*np.pi/3)
+    assert analysis.measure_units["acceptor_angle"] == "radians"
+    assert not view.molsys.interactions
+```
+
+The default X-A cutoff is 0.35 nm. The adapted ProLIF core is not the paper's
+exact element-specific van der Waals criterion. Coherent chain MIC images
+reconstruct the measured adjacent D-X-A-R vectors, with box vectors as rows;
+this does not provide arbitrary molecular or ring unwrapping. Read distances
+in nm and angles in radians from the result's declared units even when the
+application uses another unit policy. See
+{func}`molsysmt.interactions.halogen_bonds.get_halogen_bonds`.
+
+All three families preserve native `internal`, `incident` and `between`
+calculation modes, separately from the explicit result-query modes.
+Nonconsecutive structure indices remain source indices; repeats are evaluated
+once in sorted order. Evaluated-empty and unrequested structures remain distinct.
+The visible structure is not an implicit calculation default. Methods, profiles,
+chemical state, completeness declarations, units and attribution remain explicit.
+The legacy pentalanine H5MSM demo lacks the formal-charge/bond-chemistry evidence
+these detectors require; native rejection is preserved, not repaired in the facade.
+
+`heavy_mode` keeps native projected-coordinate execution for admitted native/H5MSM
+routes. Rich-selection and unsupported-form restrictions remain native. Sparse
+results stay resident; estimates exclude some source/Python overhead and do not
+guarantee process RAM. There is no automatic named storage or scene attachment.
+Use the explicit independent-copy H5MSM procedure above when you choose to save
+an analysis, or the separate core `view.interactions` workflow to represent one.

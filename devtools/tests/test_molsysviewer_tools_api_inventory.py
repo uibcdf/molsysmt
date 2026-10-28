@@ -38,7 +38,13 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "interactions.disulfides.get_disulfide_candidates",
     ]:
         assert rows[path]["exposed"]
-    assert not rows["interactions.ionic.get_ionic_interactions"]["exposed"]
+    for path in [
+        "interactions.ionic.get_ionic_interactions",
+        "interactions.hydrophobic.get_hydrophobic_interactions",
+        "interactions.halogen_bonds.get_halogen_bonds",
+    ]:
+        assert rows[path]["exposed"]
+    assert not rows["interactions.metal_coordination.get_metal_coordination"]["exposed"]
     assert not rows["molecular_mechanics.get_forces"]["exposed"]
     assert (
         rows["basic.are_multiple_molecular_systems"]["input_kind"]

@@ -222,3 +222,15 @@ units and observed PBC images. Results remain independent from named storage and
 core visualization. Named analysis maps use the native validated setter, not
 mutation of a read-only map. Keep eager and budget limits explicit; no universal
 RAM, preparation or covalent-assignment promise follows from thin wrappers.
+
+
+Preserve the three explicit ionic, hydrophobic and halogen detection mirrors.
+Keep ionic's required unit-bearing cutoff, compound whole-center selection and
+formal-charge geometry references distinct from partial charges/energy. Keep
+hydrophobic canonical unordered pairs and native SMARTS profile distinct from
+scales/fingerprints/Mol* rules. Halogen selection includes all D-X-A-R roles;
+retain two angular intervals, reference-neighbor identity and chain MIC images.
+Preserve chemical prerequisites, optional RDKit, three calculation scope modes,
+sorted/deduplicated structure coverage, declared units, estimates and resident
+sparse-output limits. Legacy incomplete demo data must reject without hidden
+preparation. These independent analyses do not attach, edit or update the scene.

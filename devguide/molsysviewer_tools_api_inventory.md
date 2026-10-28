@@ -2,8 +2,8 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-10-27, the source receiving extends basis 050375083
-with three explicit hydrogen-bond detectors and the disulfide-candidate family.
+**Snapshot:** 2026-10-27, the source receiving extends basis 8d129124e
+with ionic, hydrophobic and directional halogen detector families.
 Prior recognition/direction and build qualification retain their own source identities. This is source exposure, not
 installed compatibility, scientific accuracy or unconditional stability.
 
@@ -12,7 +12,7 @@ source environment:
 
 ```bash
 python devtools/scripts/audit_molsysviewer_tools_api.py \
-  --output devtools/data/molsysviewer_tools_interaction_detectors_inventory_20261027.json
+  --output devtools/data/molsysviewer_tools_contact_detectors_inventory_20261027.json
 ```
 
 The command uses real native declarations and an actual empty view's addon,
@@ -32,7 +32,7 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | physchem | 34 | 34 | 0 |
 | build | 11 | 30 | 19 |
 | molecular_mechanics | 0 | 6 | 6 |
-| interactions (canonical families) | 8 | 15 | 7 |
+| interactions (canonical families) | 11 | 15 | 4 |
 | element and declared children | 0 | 57 | 57 |
 | h5msm file utilities | 0 | 7 | 7 |
 | historical hbonds aliases | 0 | 4 | 4 |
@@ -40,7 +40,7 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | supported-capability reports | 0 | 4 | 4 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 124 exposed out of 244 inspected public callable paths. This is not
+These are 127 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -215,3 +215,23 @@ native passes / thirteen optional Ackredit skips and nine early guards. Its
 cancellation and five passing source controls are preserved separately; a
 completed addon tier is not inferred. The next producer includes both earlier
 and new consumer tests rather than duplicating a recovery of a superseded source.
+
+
+### Three chemical contact families received — 2026-10-27
+
+Three explicit readers now mirror ionic.get_ionic_interactions,
+hydrophobic.get_hydrophobic_interactions and halogen_bonds.get_halogen_bonds.
+They preserve their distinct required/default thresholds, roles, chemical-state
+requirements, native three calculation scopes, units and coherent PBC contracts.
+Analyses are detached; neither the source nor saved analyses/scene are changed.
+All 76 directed cases pass. The current legacy pentalanine source correctly
+rejects missing formal-charge/bond-chemistry evidence; positive chemistry is
+explicit in separate fixtures, with no repair in the facade. Native #511 remains
+an independent classic-hbond limitation. The prior 8d129124e campaign passes
+3,595 native / 2,142 addon cases, with thirteen/four optional-provider skips.
+One frozen joint regression passes 4,915 cases with zero failures/errors/skips;
+57 guide blocks / 241 inherited examples pass. The new exact-source hosted
+campaign remains pending.
+Four canonical families remain: metal coordination, pi-pi, cation-pi and water
+bridges. Source exposure does not promote scientific stability or installed
+compatibility; broader expert modules and graphical tasks retain their plan.
