@@ -96,7 +96,7 @@ jobs:
         with:
           branch: ''            # publish the reference this workflow checked out, not the tip of main
           sphinx-apidoc: false  # MolSysMT writes its own API reference under docs/api
-          sphinx-opts: '-j auto'
+          sphinx-opts: '-q -j 12 -W --keep-going'
 
       - name: Verify that documentation did not alter bundled data
         if: always()

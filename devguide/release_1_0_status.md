@@ -57,7 +57,7 @@ explicit and nonblocking. A later joint-head build with the addon prose update r
 Real-source rendering/negative controls and raw notebook
 schema checks pass. Scientific code and saved notebook outputs are unchanged;
 one new course-cell ID is repaired separately. See the
-[documentation record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-directive-rendering-and-cell-id-repair--2026-10-27).
+[documentation record](archive/resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-directive-rendering-and-cell-id-repair--2026-10-27).
 
 The next #144 markup-only slice removes the full inline-title parse-warning
 family: 261 corrected directives in 161 source documents. The forced full-site
@@ -88,6 +88,20 @@ warnings are gone. Two template-only header warnings leave the site with the
 template. Public notebook content and package source remain unchanged. The
 [navigation receipt](../devtools/data/documentation_navigation_repair_20261027.json)
 separates publication scope from warning suppression. #144 remains partial.
+
+The final #144 pass normalizes the maintainer-approved course heading hierarchy,
+repairs the six other skipped levels and gives the home page one semantic title
+with scoped presentation. Heading-marker changes preserve all code/results and
+other notebook values; the 101 normalized public articles retain equivalent HTML
+apart from section-close/horizontal-rule delimiter placement. A latent duplicate
+Basic/Element tutorial label is separated, preserving the Basic API anchor.
+All 565 documentation regressions pass, and both 12-worker and serial strict
+full-site builds produce zero warnings and errors. The existing publication
+workflow rejects warnings through executed -W option tests. #144 is source-resolved;
+the [heading receipt](../devtools/data/documentation_heading_repair_20261027.json)
+retains the evidence and browser-check limitation. Missing module-specific course
+contracts are deferred independently under #512. These source checks neither
+publish documentation nor qualify a release or installed pair under #334.
 
 ## Current source stabilization — 2026-10-26
 
@@ -370,7 +384,7 @@ records and must be included when replacement-candidate scope is agreed:
 | #310/#387: declared-state atom correspondences and symmetry-corrected pose RMSD, including anchors and caller-supplied maps | [Chemical correspondence/RMSD record](archive/resolved_proposals/chemically_constrained_pose_rmsd.md) and [explicit-map extension](archive/resolved_proposals/support_anchored_and_caller_supplied_chemical_correspondences_for_pose_rmsd.md) own scientific criteria, optional-engine boundaries, attribution and regression evidence. These source tools are not included merely by retaining the old installed pair. |
 | #385: native gzip PDB input | [Input-adapter record](archive/resolved_proposals/read_gzip_pdb_inputs_through_native_parser.md) owns real-fixture parity, selection, integrity and handler-lifecycle evidence. Experimental Tier 3 and eager input-only scope remain explicit. Exact form rosters now include the adapter. |
 | #386: obsolete pandas composition keywords | [Composition record](archive/resolved_bugs/topology_composition_emits_obsolete_pandas_copy_warnings.md) owns separately executed pandas 2/3 controls for connectivity, chemical-state values and independent output storage. |
-| #144: six notebook-schema repairs | [Active documentation record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-notebook-schema-repair--2026-10-13) and [receipt](../devtools/data/notebook_schema_repair_20261013.json) preserve every JSON value except schema minor and cell IDs. Six guards fail before repair; 11 schema/executor checks pass afterward. A focused six-page HTML build retains stored outputs without schema errors; it does not certify the whole site or re-execute examples. |
+| #144: six notebook-schema repairs | [Active documentation record](archive/resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-notebook-schema-repair--2026-10-13) and [receipt](../devtools/data/notebook_schema_repair_20261013.json) preserve every JSON value except schema minor and cell IDs. Six guards fail before repair; 11 schema/executor checks pass afterward. A focused six-page HTML build retains stored outputs without schema errors; it does not certify the whole site or re-execute examples. |
 
 For #382, DepDigest 0.15.1 is publicly admitted and uibcdf/depdigest#39 is closed.
 The maintainer's provider-team handoff has led to adoption of DeclaredRegistry
@@ -396,7 +410,7 @@ suite pass. This is bounded stabilization, not a new molecular protocol.
 
 An additional #144 source checkpoint repairs three broken API-to-tutorial links
 and the alternate-location tutorial's plural API roles. The
-[active record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-api-to-tutorial-link-repair--2026-10-13)
+[active record](archive/resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-api-to-tutorial-link-repair--2026-10-13)
 and [receipt](../devtools/data/api_tutorial_links_repair_20261013.json) retain
 three failing-before/passing-after HTML-link guards, 29 passing API rendering
 cases, three passing module doctests and preservation of notebook code/outputs.
@@ -406,7 +420,7 @@ not a warning-clean full site or a replacement installed candidate.
 
 The 2026-10-14 #144 checkpoint additionally repairs Core-to-Foundations and
 renamed-module navigation. The
-[active record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-common-core-navigation-repair--2026-10-14)
+[active record](archive/resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-common-core-navigation-repair--2026-10-14)
 and [receipt](../devtools/data/course_navigation_repair_20261014.json) retain
 37 passing course/API/schema controls, an HTML guard for twenty Foundations
 links and nineteen sequential destinations, and a replay rejecting 37 original

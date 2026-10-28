@@ -24,6 +24,7 @@ This file defines the micro-governance rules, design philosophy, and content con
 No contributor or AI agent may alter or remove the following core elements:
 
 1. **Brand Identity Header:**
+   - Keep one semantic `# MolSysMT` document title and the `index-top` anchor. Its `molsysmt-home` section class lets CSS visually hide only the title while retaining it for assistive technology; the logos remain the visible brand header.
    - Centered logo figure referencing `_static/logo.svg` with `50%` width.
    - Tagline: *"A **Mol**ecular **Sys**tems **M**ulti**T**oolkit designed to simplify work with molecular models and simulations."*
    - **Badges Block Requirements:**
@@ -36,6 +37,7 @@ No contributor or AI agent may alter or remove the following core elements:
 
 2. **Installation Block:**
    - Section heading: `## Install it`
+   - Home-page section typography retains the former rendered size through scoped CSS; heading levels express the document hierarchy.
    - Single command block: `conda install -c uibcdf molsysmt`
 
 3. **Usage Demonstration ("Use it"):**

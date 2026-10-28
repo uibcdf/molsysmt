@@ -129,7 +129,7 @@ three Python versions, 9,989 passing. The failure itself belongs to
 that it is the only automatic signal and has been red for three weeks is recorded in #185.
 
 **The Sphinx warning population.** Confirmed still open as
-[`../../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md`](../../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md);
+[`../resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md`](../resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md);
 not re-measured here.
 
 ## What the audit got wrong

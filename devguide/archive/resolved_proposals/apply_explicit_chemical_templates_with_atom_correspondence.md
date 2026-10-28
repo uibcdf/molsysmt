@@ -404,7 +404,7 @@ reader. Ruff, dependency import/contract checks, docstring validation, course
 structure and developer-guide/index validation pass. The Sphinx HTML build exits
 0 with existing documentation diagnostics, including docutils errors in unrelated
 legacy pages; this is not a globally clean documentation gate. The debt is recorded
-in [the Sphinx baseline report](../../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md).
+in [the Sphinx baseline report](../resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md).
 Neither template page emits a warning. These are Python 3.13 source-checkout observations under #237, not a full
 supported-interpreter matrix or consumer biological acceptance.
 

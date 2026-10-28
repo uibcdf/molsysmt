@@ -16,7 +16,7 @@ The normative statement lives in `devguide/INTERFACES.md`, section *Scalar types
 
 ---
 
-### 1. Shape decides nothing
+## 1. Shape decides nothing
 
 This is the tempting mistake: to look at `bonded_atom_pairs`, see *n* rows of exactly two integers, and conclude that something so rectangular ought to be an array.
 
@@ -32,7 +32,7 @@ The library already draws that line consistently:
 
 There is a second reason not to reason from shape: **shape is a property of the data, not of the attribute**. `component_index` per molecule is rectangular in every system where each molecule has one component, and ragged the moment one does not. An attribute cannot switch container between one molecular system and the next without becoming impossible to program against.
 
-### 2. Why the scalars inside must be native
+## 2. Why the scalars inside must be native
 
 Whatever the container, a NumPy scalar inside a Python one is not a middle ground between list and array. NumPy's advantages come from the **array**: contiguous memory and vectorised operations over a typed buffer. A scalar extracted into a Python container has left that buffer behind and carries only NumPy's object overhead.
 
@@ -46,7 +46,7 @@ Measured over 200 000 integers:
 
 A `list` of `np.int64` is worse than a `list` of `int` on both axes, and far worse than the array on both. It is not a middle option; it is the worst of the three.
 
-### 3. Three consequences that make this a contract
+## 3. Three consequences that make this a contract
 
 **Serialisation.** `json.dumps` and `yaml.safe_dump` raise on a NumPy scalar. A user who dumps what a public function returned gets an exception:
 
@@ -61,7 +61,7 @@ json.dumps(msm.get(molsys, element='system', bonded_atom_pairs=True))
 
 Nothing is lost in exchange. `np.array` over a list of Python `int` infers `int64`, and both types index an array identically; there is no `dtype` to preserve in a container that holds one Python object per element.
 
-### 4. How to comply
+## 4. How to comply
 
 Prefer `ndarray.tolist()` over iterating an array in Python, and `.item()` over indexing out a single element. `tolist()` converts NumPy scalars to native types recursively in C, in one pass, and never materialises the boxed scalars — which is why it is roughly six times faster than building the list and converting it afterwards. It is also how the flat attribute paths already produce `list[int]` today.
 

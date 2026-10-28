@@ -31,10 +31,9 @@ that front matter -- edit the entries, not this list.
 - [`hbond_site_structure_bounds_differ_between_resident_and_h5msm.md`](hbond_site_structure_bounds_differ_between_resident_and_h5msm.md) — [#509](https://github.com/uibcdf/molsysmt/issues/509) — Hydrogen-bond site structure bounds differ between resident and H5MSM. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 
-### Partially resolved (2)
+### Partially resolved (1)
 
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
-- [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
 
 <!-- /generated -->
 

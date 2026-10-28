@@ -1,3 +1,21 @@
+/* Keep a semantic home-page title available to assistive technology while the
+   existing logos remain the visible header. Scope typography to this page. */
+.molsysmt-home > h1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.molsysmt-home > section > h2 {
+  font-size: var(--pst-font-size-h1);
+}
+
 /* Change the default width of primary sidebar */
 .bd-sidebar-primary { 
     width: 16%;

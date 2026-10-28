@@ -139,8 +139,10 @@ Do not substitute a partial or single-platform run.
 ## 5. Documentation build
 
 - `sphinx_docs_to_gh_pages.yaml` builds the docs (`nb_execution_mode = "off"`). The build
-  must be warning-clean for the course tree (no "toctree contains reference to nonexistent
-  document"); `validate_course.py` guards the structure statically, the build confirms it.
+  must be warning-clean across the published site. Its `-W --keep-going` options
+  make any Sphinx warning fail before publication. `validate_course.py` guards
+  course structure statically; source/rendering tests and the strict HTML build
+  confirm the full documentation boundary without re-executing notebooks.
 
 ## 6. Sign-off checklist (all must hold on the tag commit)
 

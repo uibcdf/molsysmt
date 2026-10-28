@@ -99,7 +99,7 @@ Three orphans of the same abandoned `_v2` experiment are still tracked and still
 have no inbound reference from any page: `docs/api/index_v2.md`,
 `docs/content/user/tools/index_v2.md`, and `docs/temp/index_v2.ipynb`. They carry
 the same risk described below and feed the `toc.not_included` warning family
-measured in `pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md`.
+measured in `../archive/resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md`.
 Removing them is the same decision, not a new one, and is left pending only because
 it was not part of the instruction.
 

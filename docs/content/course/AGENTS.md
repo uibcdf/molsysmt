@@ -24,9 +24,9 @@ All human contributors and AI agents working on course content must strictly adh
 
 1. **Heading Hierarchy & Visual Balance:**
    - Notebook Main Title: `# Module X: Title` (H1).
-   - Main Sections: `### 1. Section Title` (H3).
-   - Subsections: `#### Subsection Title` (H4).
-   - **Do NOT use `##` (H2)** for section headers in notebooks, as Sphinx Book Theme renders H2 headings with oversized typography.
+   - Main Sections: `## 1. Section Title` (H2).
+   - Subsections: `### Subsection Title` (H3), with deeper levels only under their immediate parent.
+   - Keep a continuous semantic hierarchy. Do not skip heading levels to control typography; visual sizing belongs in the theme CSS. The current PyData build already renders the former skipped H3/H4 sections as H2/H3, so normalization must preserve their published hierarchy, titles and anchors.
 
 2. **Collapsible Learning Outcomes Admonition (`:class: dropdown`):**  
    The Learning Outcomes section must be formatted as a collapsible dropdown admonition positioned at the end of the introductory block:
@@ -131,8 +131,8 @@ Every course notebook (`*.ipynb`) **must** follow this layout unless an explicit
 1. **Top Anchor & Title:** `(course-[path]-[semantic_module_slug])=` and `# Module X: Title`
 2. **Introductory Narrative & Glossaries / Portals** (with `:class: dropdown`)
 3. **`> **🎯 Learning Outcomes**` Blockquote** (3-4 schematic bullets with vertical gray line)
-4. **Numbered Sections (`### 1. ...`, `### 2. ...`)** interleaved with code cells and concluding admonitions (with `:class: dropdown`) at thread endings
-5. **`### 🏆 Challenge X: Title` & ````{key-takeaway}`**
+4. **Numbered Sections (`## 1. ...`, `## 2. ...`)** interleaved with code cells and concluding admonitions (with `:class: dropdown`) at thread endings
+5. **`## 🏆 Challenge X: Title` & ````{key-takeaway}`**
 6. **`:::{seealso}` Admonition** (with `:class: dropdown` and `(course-[path]-[semantic_module_slug]-see-also)=` anchor)
 
 ---

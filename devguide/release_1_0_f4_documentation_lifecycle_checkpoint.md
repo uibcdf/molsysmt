@@ -80,7 +80,7 @@ The forced Sphinx build succeeds but is not globally warning-clean. Before the
 bounded navigation repairs it recorded 1,223 warnings, dominated by historical
 heading, title, orphan-page, cross-reference, and stale autosummary debt. The
 complete classification and remediation plan are in
-`pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md`.
+`archive/resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md`.
 
 This debt is accepted for the source release because the required course
 structure is warning-clean, affected workflows are synchronized and executable,

@@ -91,7 +91,7 @@ autosummary only writes stubs for names a directive lists, and nothing deletes i
 the rest if that script were ever run. Meanwhile Sphinx still reads it as a source
 page, which makes it one concrete, attributable instance of both dominant warning
 families measured in
-[`../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md`](../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md):
+[`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md):
 an `autodoc.import_object` failure on a module that cannot be imported, and a
 `toc.not_included` orphan.
 
@@ -129,7 +129,7 @@ Independent of the option chosen:
 
 ## Related
 
-- [`../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md`](../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md)
+- [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md)
   — the warning inventory this branch contributes to.
 - [`presentation_and_citation_surface.md`](presentation_and_citation_surface.md)
   — the other open questions about what MolSysMT publishes about itself.

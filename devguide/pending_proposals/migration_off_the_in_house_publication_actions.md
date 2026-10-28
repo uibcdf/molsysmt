@@ -370,6 +370,6 @@ without having to run the audit again.
   problem; §2 of this document is the mechanical answer to it.
 - [`git_history_bloat_cleanup.md`](git_history_bloat_cleanup.md) — §1 removes the one
   exception that report deliberately left in place.
-- [`../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md`](../pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md)
+- [`../archive/resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md`](../archive/resolved_bugs/sphinx_warning_baseline_and_api_reference_debt.md)
   — the warning inventory, which the `sphinx-apidoc` change of v3.0.0 already reduces and
   which the migration does not otherwise affect.
