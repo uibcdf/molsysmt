@@ -32,22 +32,29 @@ def get_acceptor_atoms(
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     inclusion_rules : str, list of str, tuple of str, or None, default=None
-        Additional atom-selection rules identifying acceptor atoms.
+        Additional atom-selection rules in `syntax` identifying acceptor atoms.
         Caller-owned rule lists are not modified.
     exclusion_rules : str, list of str, tuple of str, or None, default=None
-        Additional atom-selection rules excluding acceptor atoms.
+        Additional atom-selection rules in `syntax` excluding acceptor atoms.
         Caller-owned rule lists are not modified.
     default_inclusion_rules : bool, default=True
         Whether to apply default chemical inclusion rules.
     default_exclusion_rules : bool, default=True
         Whether to apply default chemical exclusion rules.
     syntax : str, default='MolSysMT'
-        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+        Selection syntax for `selection` and custom rules. Built-in default
+        rules always use MolSysMT syntax, independently of this argument.
 
     Returns
     -------
     numpy.ndarray
-        Sorted array of acceptor atom indices.
+        Sorted int64 array of source acceptor atom indices, with shape ``(n,)``.
+        A valid no-match query returns shape ``(0,)`` with the same integer dtype.
+
+    Raises
+    ------
+    ArgumentError
+        If the declared syntax, selection or a custom rule is invalid.
 
     Notes
     -----
@@ -76,30 +83,15 @@ def get_acceptor_atoms(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt import select
+    from ._role_rules import select_role_atoms
 
-    output = set()
-
-    mask = select(molecular_system, selection=selection, syntax=syntax)
-
-    if default_inclusion_rules:
-        inclusion_rules = inclusion_rules + acceptor_inclusion_rules
-
-    if default_exclusion_rules:
-        exclusion_rules = exclusion_rules + acceptor_exclusion_rules
-
-    for rule in inclusion_rules:
-        tmp_acceptors = select(
-            molecular_system, selection=rule, mask=mask, syntax=syntax
-        )
-        output.update(tmp_acceptors)
-
-    for rule in exclusion_rules:
-        tmp_not_acceptors = select(
-            molecular_system, selection=rule, mask=mask, syntax=syntax
-        )
-        output.difference_update(tmp_not_acceptors)
-
-    output = np.sort(list(output))
-
-    return output
+    output = select_role_atoms(
+        molecular_system,
+        selection,
+        syntax,
+        inclusion_rules,
+        exclusion_rules,
+        acceptor_inclusion_rules if default_inclusion_rules else (),
+        acceptor_exclusion_rules if default_exclusion_rules else (),
+    )
+    return np.asarray(sorted(output), dtype=np.int64)

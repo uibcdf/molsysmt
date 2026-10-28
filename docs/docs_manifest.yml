@@ -389,6 +389,14 @@ sections:
         index_file: docs/content/user/tools/hbonds/index.md
         index_agents_file: docs/content/user/tools/hbonds/index.AGENTS.md
         status: pending_review
+        description: Classic roles preserve caller-owned rule lists and separate built-in chemistry from the declared user syntax.
+        pages:
+          - name: get_donor_atoms
+            file: docs/content/user/tools/hbonds/get_donor_atoms.ipynb
+            agents_file: docs/content/user/tools/hbonds/get_donor_atoms.ipynb.AGENTS.md
+          - name: get_acceptor_atoms
+            file: docs/content/user/tools/hbonds/get_acceptor_atoms.ipynb
+            agents_file: docs/content/user/tools/hbonds/get_acceptor_atoms.ipynb.AGENTS.md
       - name: interactions
         path: docs/content/user/tools/interactions
         agents_file: docs/content/user/tools/interactions/AGENTS.md

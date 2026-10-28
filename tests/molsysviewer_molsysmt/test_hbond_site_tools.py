@@ -314,6 +314,27 @@ def test_native_custom_tuple_rules_and_flags_are_forwarded(name):
         )
 
 
+@pytest.mark.parametrize("name", LEGACY)
+def test_native_role_rule_ownership_and_language_repairs_are_received(name):
+    with msv.new_view(water_system()) as view:
+        before = view.export_state()
+        include, exclude = ["element O"], []
+        for _ in range(2):
+            actual = call(
+                view,
+                name,
+                selection="index 0",
+                syntax="MDTraj",
+                inclusion_rules=include,
+                exclusion_rules=exclude,
+            )
+            assert include == ["element O"] and exclude == []
+            assert actual.tolist() == (
+                [0] if name == "get_acceptor_atoms" else [[0, 1], [0, 2]]
+            )
+        assert view.export_state() == before
+
+
 @pytest.mark.parametrize("name", MODERN)
 def test_external_selection_numeric_equivalence_and_explicit_state_scope(view, name):
     same(

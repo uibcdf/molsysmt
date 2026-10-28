@@ -33,18 +33,19 @@ def get_donor_atoms(
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    inclusion_rules : list of str or None, default=None
-        Additional atom-selection rules identifying donor heavy atoms. String,
+    inclusion_rules : str, list of str, tuple of str, or None, default=None
+        Additional atom-selection rules in `syntax` identifying donor heavy atoms. String,
         tuple and list inputs are accepted; caller-owned lists are not modified.
-    exclusion_rules : list of str or None, default=None
-        Additional atom-selection rules excluding donor heavy atoms. String,
+    exclusion_rules : str, list of str, tuple of str, or None, default=None
+        Additional atom-selection rules in `syntax` excluding donor heavy atoms. String,
         tuple and list inputs are accepted; caller-owned lists are not modified.
     default_inclusion_rules : bool, default=True
         Whether to apply default chemical inclusion rules.
     default_exclusion_rules : bool, default=True
         Whether to apply default chemical exclusion rules.
     syntax : str, default='MolSysMT'
-        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+        Selection syntax for `selection` and custom rules. Built-in default
+        rules always use MolSysMT syntax, independently of this argument.
 
     Returns
     -------
@@ -52,6 +53,20 @@ def get_donor_atoms(
         Integer array of covalently bonded donor–hydrogen pairs with shape
         ``(n, 2)``, sorted by donor and then hydrogen index. Row sorting keeps
         each covalent pair intact even when the two index orders differ.
+
+    Raises
+    ------
+    ArgumentError
+        If the declared syntax, selection or a custom rule is invalid.
+
+    Notes
+    -----
+    The selection and rules filter donor anchors. Their covalently attached
+    H atoms may lie outside that selection. Inclusions are combined before
+    exclusions, without changing caller-owned rule containers. Defaults keep
+    their native MolSysMT language; malformed custom expressions are not
+    translated or retried. No hydrogens or chemical assignments are inferred.
+    Valid queries without explicit donor-H pairs return int64 shape ``(0, 2)``.
 
     Examples
     --------
@@ -79,28 +94,19 @@ def get_donor_atoms(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt import select
     from molsysmt.topology import get_covalent_paths
 
-    output = set()
+    from ._role_rules import select_role_atoms
 
-    mask = select(molecular_system, selection=selection, syntax=syntax)
-
-    if default_inclusion_rules:
-        inclusion_rules = inclusion_rules + donor_inclusion_rules
-
-    if default_exclusion_rules:
-        exclusion_rules = exclusion_rules + donor_exclusion_rules
-
-    for rule in inclusion_rules:
-        tmp_donors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
-        output.update(tmp_donors)
-
-    for rule in exclusion_rules:
-        tmp_not_donors = select(
-            molecular_system, selection=rule, mask=mask, syntax=syntax
-        )
-        output.difference_update(tmp_not_donors)
+    output = select_role_atoms(
+        molecular_system,
+        selection,
+        syntax,
+        inclusion_rules,
+        exclusion_rules,
+        donor_inclusion_rules if default_inclusion_rules else (),
+        donor_exclusion_rules if default_exclusion_rules else (),
+    )
 
     if not output:
         return np.empty((0, 2), dtype=np.int64)

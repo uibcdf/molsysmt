@@ -1,13 +1,13 @@
 ---
 summary: Hydrogen-bond default role rules fail with external syntax.
 issue: uibcdf/molsysmt#507
-status: open
+status: resolved
 opened: 2026-10-27
-closed:
+closed: 2026-10-28
 severity: medium
 verification: reproduced
 area: [interactions, molsysviewer]
-guard:
+guard: tests/interactions/hbonds/test_role_rule_syntax.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Hydrogen-bond default role rules fail with external syntax.
 
 **Reported:** 2026-10-27 during expert-addon receiving.
-**Status:** open; native owner correction pending.
+**Status:** resolved; rule languages have explicit independent ownership.
 
 ## What
 
@@ -82,3 +82,38 @@ fix separately before lifting the documented facade limitation.
 
 The scientific owner must define the durable behavior. Source availability of a
 thin wrapper does not qualify every input/container/syntax path.
+
+## Resolution — 2026-10-28
+
+The two readers delegate rule application to one small private hydrogen-bond
+helper. It uses the existing public form-agnostic selection tool; no second
+parser, chemical store or recognition model is introduced. User selection and
+custom inclusion/exclusion expressions use the declared `syntax`. Enabled
+defaults retain MolSysMT syntax. All inclusions are combined before exclusions,
+so default/custom precedence is preserved. Supplied lists are never extended.
+Default scientific expressions, source indices and donor-H sorting are unchanged.
+
+The custom-rule language is now documented explicitly. Unsupported syntax or
+malformed user rules reject through the normal public argument/selection
+boundary, without translation or retries. Numeric masks and external strings
+retain source correspondence. A donor mask filters anchors, not their attached
+H atoms; no-H queries retain the #508 empty-pair contract. Acceptor no-match
+outputs now explicitly retain int64 shape (0,), rather than NumPy's inferred
+floating dtype for an empty Python list.
+
+Initial independent syntax matrix: 22 failed, 13 passed, with the default rules
+being rejected by MDTraj's parser. After repair, 78 role/ownership/pair cases
+and both doctests pass. A wider run passes 347 native classic/modern H-bond,
+legacy namespace, topology-path and addon-role regressions with Pytest Receptor
+and 12 workers. Expected legacy-format/artificial-memory-budget diagnostics
+remain visible. The new expert receiving cases assert mutable-list independence,
+MDTraj rules, explicit donor-H correspondence and unchanged scene state.
+
+Both docstrings/tutorials, the selection-syntax foundation, Alzheimer/Enzyme
+course narratives and current addon guidance describe the language boundary.
+Existing scientific examples and outputs are retained. No affected Cookbook
+recipe uses custom classic role rules; no unrelated recipe is added. Strict
+parallel documentation, Ruff, dependency leakage, public signature and docstring
+checks pass. This source repair does not qualify an installed package, universal
+chemical recognition, a new scientific profile or a release. #509/#511 remain
+separate owner work; modern site/profile recognition is unchanged.

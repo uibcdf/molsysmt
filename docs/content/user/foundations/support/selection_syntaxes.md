@@ -71,3 +71,14 @@ target metadata, including placeholders. Missing biological identity is not
 inferred; UNL placeholders do not count as proteins or water. Returned atom
 indices remain aligned with the source used for selection. See
 {ref}`Cookbook_Group_Free_Hierarchy` for executable source-preservation examples.
+
+
+## Rule Languages
+
+A function's built-in chemical rules and the user's query language are separate
+contracts. The classic hydrogen-bond donor/acceptor readers evaluate their
+built-in rules in MolSysMT syntax. Their `syntax` argument governs your selection
+and custom inclusion/exclusion expressions, including supported MDTraj inputs.
+An unsupported or malformed query raises rather than being silently translated
+or retried in another language. Input rule lists remain unchanged. See
+{ref}`Tutorial_Get_donor_atoms` and {ref}`Tutorial_Get_acceptor_atoms`.

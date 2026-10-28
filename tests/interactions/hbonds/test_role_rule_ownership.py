@@ -1,7 +1,7 @@
 """Keep custom rule containers and exported defaults independent of role queries."""
 
-from copy import deepcopy
 import importlib
+from copy import deepcopy
 
 import numpy as np
 import pytest

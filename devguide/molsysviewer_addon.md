@@ -1846,3 +1846,18 @@ The path mirror forwards the newly native keyword-only `skip_digestion`;
 ordinary calls retain validation. The dated findings above remain historical;
 #506/#507/#509/#511 still own their distinct unresolved limits. No installed
 artifact, scientific-profile stability or release qualification follows.
+
+
+### Native role-rule repairs received — 2026-10-28
+
+uibcdf/molsysmt#506 preserves caller-owned inclusion/exclusion lists even when
+defaults are enabled or one list is reused across helpers. The separate #507
+repair evaluates built-in rules in their MolSysMT language while applying the
+user's syntax to selection and custom rules. The expert facade receives both
+through its existing native boundary, without copying caller lists, translating
+queries or adding chemical criteria. Directed cases check repeated mutable
+lists, MDTraj expressions, source donor-H membership and unchanged scene state.
+The earlier dated limitation reports remain historical; #509/#511 still own
+their distinct pending contracts. Native readers still lack skip controls;
+the existing addon-only flag remains local. This is bounded source receiving,
+not installed package, scientific-profile or release qualification.

@@ -2477,12 +2477,12 @@ this differs from the modern whole-pair output filter. Default rules do not
 certify universal donor/acceptor chemistry, protonation or hydrogen completeness.
 Native ordering preserves donor-H membership, including interleaved indices.
 
-Two provider defects remain visible: mutable rule lists accumulate defaults
-([#506](https://github.com/uibcdf/molsysmt/issues/506)), and default internal rules
-are not compatible with a declared external MDTraj syntax
-([#507](https://github.com/uibcdf/molsysmt/issues/507)). Tuple rules retain their
-native independently normalized container; this does not repair rule-language
-semantics. Custom donors without matching indexed H return a native empty
+The native repairs [#506](https://github.com/uibcdf/molsysmt/issues/506) and
+[#507](https://github.com/uibcdf/molsysmt/issues/507) preserve supplied rule lists
+and separate the default-rule language from user selections and custom rules.
+`syntax` governs user expressions; built-in criteria retain MolSysMT syntax.
+Repeated calls and shared rule lists are safe. Malformed queries reject rather
+than being translated or retried. Custom donors without matching indexed H return a native empty
 `int64` array with shape `(0, 2)` after the owner repair
 ([#508](https://github.com/uibcdf/molsysmt/issues/508)). This outcome does not add
 hydrogens or certify chemical completeness. No consumer copy, parser translation
