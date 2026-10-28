@@ -16,6 +16,90 @@ TOPOLOGY_PAGES = (
     "get_sequence_alignment",
     "get_sequence_identity",
 )
+OTHER_DROPDOWN_SOURCES = (
+    "docs/content/course/Path_Enzyme/32_Interaction_Matrices.ipynb",
+    "docs/content/developer/core_architecture/return_types.md",
+    "docs/content/user/cookbook/preparing_charged_participants.ipynb",
+    "docs/content/user/cookbook/saving_pi_pi_interactions.ipynb",
+)
+DROPDOWN_LABELS = {
+    "Demo Systems Catalog",
+    "Molecular Mechanics Backend Engine",
+    "Related Tools & References",
+    "Related",
+}
+
+
+def _dropdown_blocks(text):
+    """Locate actual directives, leaving fenced code examples opaque."""
+    pytest.importorskip("myst_parser")
+    from markdown_it.renderer import RendererHTML
+    from myst_parser.config.main import MdParserConfig
+    from myst_parser.parsers.mdit import create_md_parser
+
+    parser = create_md_parser(
+        MdParserConfig(enable_extensions={"colon_fence"}), RendererHTML
+    )
+    lines = text.splitlines(keepends=True)
+    blocks = []
+    for token in parser.parse(text):
+        if token.type not in {"fence", "colon_fence"}:
+            continue
+        match = re.fullmatch(r"\{(note|seealso)\}(?:\s+(.*))?", token.info.strip())
+        if not match:
+            continue
+        title = match[2] or ""
+        label = re.search(r"(?:\A|\n\n)\*\*([^*\n]+)\*\*(?:\n|$)", token.content)
+        label = title or (label[1] if label else "")
+        if title or label in DROPDOWN_LABELS:
+            blocks.append(
+                {
+                    "kind": match[1],
+                    "title": title,
+                    "label": label,
+                    "lines": token.map,
+                    "markup": token.markup,
+                    "content": token.content,
+                    "text": "".join(lines[token.map[0] : token.map[1]]),
+                }
+            )
+    return blocks
+
+
+def _standard_dropdown_sources():
+    paths = sorted((ROOT / "docs/content/user/tools").rglob("*.ipynb"))
+    paths += [ROOT / name for name in OTHER_DROPDOWN_SOURCES]
+    for path in paths:
+        if ".ipynb_checkpoints" in path.parts:
+            continue
+        cells = (
+            json.loads(path.read_text())["cells"]
+            if path.suffix == ".ipynb"
+            else [{"cell_type": "markdown", "source": path.read_text()}]
+        )
+        for index, cell in enumerate(cells):
+            if cell["cell_type"] == "markdown":
+                for block in _dropdown_blocks("".join(cell["source"])):
+                    yield {
+                        "path": path.relative_to(ROOT).as_posix(),
+                        "cell": index,
+                        **block,
+                    }
+
+
+@pytest.mark.parametrize(
+    "text,count",
+    [
+        (":::{note} Demo Systems Catalog\n:class: dropdown\n\nBody.\n:::\n", 1),
+        (":::{note}\n:class: dropdown\n\n**Demo Systems Catalog**\n\nBody.\n:::\n", 1),
+        (
+            "````markdown\n:::{note} Demo Systems Catalog\n:class: dropdown\n\nBody.\n:::\n````\n",
+            0,
+        ),
+    ],
+)
+def test_dropdown_inventory_distinguishes_directives_from_code_examples(text, count):
+    assert len(_dropdown_blocks(text)) == count
 
 
 def _markdown(path):
@@ -179,3 +263,105 @@ def test_topology_dropdowns_keep_tutorial_bodies_and_reference_lists(build, lega
         assert "Related Tools & References" in node.astext()
         assert len(list(node.findall(nodes.list_item))) >= 3
     assert html.count('class="reference internal"') >= len(related)
+
+
+@pytest.mark.parametrize(
+    "legacy", [False, True], ids=["actual", "broken-negative-control"]
+)
+def test_all_standard_dropdowns_keep_contents_and_links(build, legacy):
+    from docutils import nodes
+    from sphinx import addnodes
+
+    records = list(_standard_dropdown_sources())
+    # Do not make a syntax gate pass by deleting the problematic blocks.
+    assert len(records) >= 278
+    blocks = []
+    for record in records:
+        block = record["text"]
+        if legacy and not record["title"]:
+            lines = block.splitlines(keepends=True)
+            label_index = next(
+                i
+                for i, line in enumerate(lines)
+                if line.strip() == f"**{record['label']}**"
+            )
+            del lines[label_index]
+            if label_index < len(lines) and not lines[label_index].strip():
+                del lines[label_index]
+            lines[0] = lines[0].rstrip("\n") + " " + record["label"] + "\n"
+            block = "".join(lines)
+        blocks.append(block)
+    text = "\n\n".join(blocks)
+    labels = {
+        nodes.fully_normalize_name(target.split("<")[-1].rstrip(">"))
+        for target in re.findall(r"\{ref\}`([^`]+)`", text)
+    }
+    references = "---\norphan: true\n---\n\n# Fixture labels\n\n" + "\n\n".join(
+        f"({label})=\n## {label}" for label in sorted(labels)
+    )
+    extra = {"references.md": references}
+    # Render each complete body independently as ordinary Markdown. Comparing
+    # parsed text and links catches truncation while allowing legitimate prose
+    # differences between catalog, backend and scientific-scope notices.
+    oracle_blocks = []
+    for index, record in enumerate(records):
+        assert record["content"].startswith(":class: dropdown\n\n")
+        body = record["content"].split("\n\n", 1)[1]
+        oracle_blocks.append(f"::::{{container}} dropdown-body-{index}\n\n{body}\n::::")
+    extra["oracle.md"] = "---\norphan: true\n---\n\n# Body oracle\n\n" + "\n\n".join(
+        oracle_blocks
+    )
+    for target in re.findall(r"\{doc\}`([^`]+)`", text):
+        target = target.split("<")[-1].rstrip(">")
+        extra[target.lstrip("/") + ".md"] = (
+            "---\norphan: true\n---\n\n# Fixture document\n"
+        )
+    app, warnings, html = build("# Standard dropdowns\n\n" + text, extra)
+    if legacy:
+        assert "[myst.directive_parse]" in warnings
+        return
+    assert warnings == ""
+    tree = app.env.get_doctree("index")
+    rendered = list(
+        tree.findall(lambda node: isinstance(node, (nodes.note, addnodes.seealso)))
+    )
+    oracle = list(
+        app.env.get_doctree("oracle").findall(
+            lambda node: (
+                isinstance(node, nodes.container)
+                and any(c.startswith("dropdown-body-") for c in node["classes"])
+            )
+        )
+    )
+    assert len(rendered) == len(oracle) == len(records)
+    for record, node, expected in zip(records, rendered, oracle, strict=True):
+        assert "dropdown" in node["classes"], record["path"]
+        assert record["label"] in node.astext(), record["path"]
+        assert node.astext() == expected.astext(), record["path"]
+        assert len(node.astext()) > len(record["label"]) + 20
+        for reference_type in (nodes.reference, addnodes.pending_xref):
+            assert [
+                (ref.astext(), ref.get("reftarget"), ref.get("refuri"))
+                for ref in node.findall(reference_type)
+            ] == [
+                (ref.astext(), ref.get("reftarget"), ref.get("refuri"))
+                for ref in expected.findall(reference_type)
+            ], record["path"]
+        if record["kind"] == "note":
+            assert isinstance(node, nodes.note)
+            if record["label"] == "Molecular Mechanics Backend Engine":
+                assert (
+                    "OpenMM" in node.astext()
+                    and "delegating energy evaluations" in node.astext()
+                )
+        else:
+            assert isinstance(node, addnodes.seealso)
+            assert list(node.findall(nodes.list_item)), record["path"]
+            assert list(
+                node.findall(
+                    lambda child: isinstance(
+                        child, (nodes.reference, addnodes.pending_xref)
+                    )
+                )
+            ), record["path"]
+    assert "dropdown" in html

@@ -71,8 +71,10 @@ Do not normalise at the return boundary instead. Walking every returned structur
 
 The failure mode this rule prevents is a **mixed container**: some elements `int`, others `np.int64`. It appears when a structure is assembled element by element from arrays instead of through `tolist()`, and it is not cosmetic — the elements of one collection then answer `isinstance` differently from one another.
 
-:::{seealso} Related
+:::{seealso}
 :class: dropdown
+
+**Related**
 
 - {doc}`declarative_serialization_forms`: the YAML formats that require natively serialisable values.
 - {doc}`pyunitwizard`: how physical magnitudes are returned as `Quantity`, the other half of the return contract.

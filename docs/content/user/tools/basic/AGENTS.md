@@ -45,8 +45,10 @@ Every tool tutorial unit (`*.ipynb`) represents a 1:1 tutorial for a public surf
 
 - **Demo Systems Note Rule**: Whenever a tutorial notebook uses bundled datasets via `msm.systems`, include a collapsible `{note}` dropdown (`:class: dropdown`) right after the code cell that first calls `msm.systems`:
   ```markdown
-  :::{note} Demo Systems Catalog
+  :::{note}
   :class: dropdown
+
+  **Demo Systems Catalog**
 
   This tutorial uses demonstration datasets provided by MolSysMT. To explore the full catalog of bundled systems, forms, and file paths, visit the {ref}`Demo Systems <user-foundations-entrance-demo-systems>` guide.
   :::
@@ -59,15 +61,13 @@ Every tool tutorial unit (`*.ipynb`) represents a 1:1 tutorial for a public surf
   - **API Documentation Reference**: Placed in the intro header block as a collapsible dropdown (`:class: dropdown`).
   - **`{tip}`, `{hint}` & `{hint}` Boxes**: Must be collapsible dropdowns (`:::{tip}
 :class: dropdown`).
-  - **`{seealso}` Box**: Must be a collapsible dropdown (`:::{seealso} Related Tools & References
-:class: dropdown`).
+  - **`{seealso}` Box**: Must be a collapsible dropdown (`:::{seealso}` with `:class: dropdown`). Put **Related Tools & References** in the body after a blank line.
 - **Non-Collapsible Warnings (`{warning}`)**:
   - **`{warning}` Boxes**: MUST NOT be collapsible (`:::{warning}`). Structural constraints, data drop warnings, and safety rules must remain open and immediately visible to the reader.
 
 ## `{seealso}` Formatting & Content Rules
 
-- **Title**: `:::{seealso} Related Tools & References
-:class: dropdown`.
+- **Body label**: Use `:::{seealso}` without an argument, followed by `:class: dropdown`, a blank line and `**Related Tools & References**`. Standard `note` and `seealso` directives do not accept custom-title arguments. Use `{admonition}` when an actual custom title is needed.
 - **Filtered Content**: Include ONLY MolSysMT functions in `tools/` that are actually used or referenced within that tutorial unit.
 - **Order of Appearance**: Entries MUST appear in the exact chronological order of their first appearance in the notebook code or text.
 - **Explicit Function Reference**: Each entry MUST state the tool title link, a short action description, and the explicit function name with `{func}`:

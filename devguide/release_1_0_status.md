@@ -59,6 +59,15 @@ schema checks pass. Scientific code and saved notebook outputs are unchanged;
 one new course-cell ID is repaired separately. See the
 [documentation record](pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md#bounded-directive-rendering-and-cell-id-repair--2026-10-27).
 
+The next #144 markup-only slice removes the full inline-title parse-warning
+family: 261 corrected directives in 161 source documents. The forced full-site
+checkpoint has 465 warnings and zero errors; 509 schema/rendering controls pass.
+All scientific code, saved outputs and other notebook payloads are unchanged.
+No suppression or source exclusion is added. The
+[family receipt](../devtools/data/documentation_dropdown_family_repair_20261027.json)
+retains source differences and preservation proof. Remaining header/reference
+debt stays partial and supplies no new release qualification.
+
 ## Current source stabilization — 2026-10-26
 
 Default-reference readiness selection is source-resolved under

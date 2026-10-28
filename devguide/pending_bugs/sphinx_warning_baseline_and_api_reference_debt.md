@@ -559,3 +559,55 @@ comparison and receipt retain their original source identity and numbers;
 Integrated warning-log SHA-256: c68e593804b84cbe49ffadd31c1432dfd79301f6260aa10aef717f5f99abf523.
 No scientific notebook execution, warning suppression or release qualification
 is inferred from this rendering/schema checkpoint.
+
+
+## Complete inline-title directive family repair — 2026-10-27
+
+The preceding successful full-site checkpoint has 726 warnings. Before this
+repair, source 40a8ac2ea changes four governance guides under #505, including
+the rendered docs/AGENTS page; native/addon executables and user/course content
+are unchanged. The retained checkpoint is an observation, not an identical-source
+controlled experiment. The generated API working-tree changes retain their
+recorded hashes. We do not rerun an otherwise unchanged scientific suite.
+
+MyST tokenization identifies exactly 261 remaining invalid first-line titles:
+257 in Toolbox tutorials and four in the Enzyme interaction-matrix module,
+two charged/aromatic recipes and the return-types guide. Literal fenced code
+examples remain opaque. Moving each title to its bold first body paragraph
+preserves note/seealso kind, dropdown class, complete body bytes, closing fence
+and links. The repair changes 160 notebooks and one Markdown document. Every
+other raw notebook JSON value, including code, outputs, cell IDs, metadata and
+order, is identical. The copied Basic Tools instructions receive valid syntax.
+No scientific statement, method, cutoff or unit is changed.
+
+The staged transform refuses a two-block layout variation before any write:
+get_vectors omits the optional blank line after options. The final transform
+handles both known layouts and proves body preservation. No unconditional
+regex replacement, code/example execution or general source reformat is used.
+
+The normal-discovery guard now inventories 278 standard dropdowns across 173
+documents. It renders actual source and compares complete parsed text and
+reference order against independent ordinary-Markdown body containers. It
+preserves typed nodes, dropdown styling, useful content and backend disclosure.
+Case-only aliases are normalized only in the isolated fixture. Original
+six-page topology content assertions remain unchanged. Negative controls
+restore invalid syntax; lexical controls protect literal code examples.
+Initially the new corpus guard fails one case while ten controls pass.
+
+```bash
+python -m pytest tests/documentation/test_directive_rendering.py devtools/tests/test_course_takeaway_rendering.py devtools/tests/test_documentation_notebook_schema.py --receptor=llm -n 12
+python -m sphinx -E -a -q -j 12 -b html -w <warning-log> docs docs/_build/html
+```
+
+Final qualification passes **509 tests in 16.13 s**, without skips. The forced
+full-site build exits zero, with zero errors and **465 warnings**, compared
+with the preceding 726-warning checkpoint. All 261 myst.directive_parse
+warnings disappear; myst.directive_unknown remains zero. Every other family
+count is unchanged, including 435 header warnings. No warning is suppressed
+and no source excluded. Notebook execution remains off.
+
+The [receipt](../../devtools/data/documentation_dropdown_family_repair_20261027.json)
+records versions, source differences, log digests, every document/body preservation
+hash and guard intent. #144 remains partial for its header/navigation/reference/
+highlighting debt. No warning-free site, new scientific result, performance
+benchmark, installed-pair or release qualification is claimed.
