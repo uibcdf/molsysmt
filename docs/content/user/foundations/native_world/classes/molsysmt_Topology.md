@@ -200,3 +200,23 @@ and repeated records remain independently addressable. These source axes do
 not create a topology or imply molecular identity; the application decides
 which sequence view is admissible. See
 {ref}`FASTA ingestion <Tutorial_Form_file_fasta>`.
+
+
+## Group Inventories
+
+A sequence-only topology can hold known groups, their order and declared
+molecule occurrences without representing any atoms. Single sequences provide
+one declared occurrence; FASTA collections provide separate record occurrences.
+The native conversion retains caps and group-to-molecule links and does not
+synthesize representative CA atoms, chemical bonds or Cartesian coordinates.
+The zero-row atom table measures represented inventory, not a chemically
+established count of physical atoms. Native chemistry retains unavailable
+connectivity rather than a complete inferred graph.
+
+This first representation has bounded support: direct group data, molecule
+membership, copies and supported MolSys/H5MSM table round trips work. Several
+hierarchy operations still pass through atoms, including group/chain projections,
+text selectors, builder/dictionary reconstruction and atom-driven extraction.
+These limits are explicit in [#518](https://github.com/uibcdf/molsysmt/issues/518).
+Group-chain membership is not added by storing chain labels. No new native
+schema, chemical store or implicit atomic-building policy is introduced.

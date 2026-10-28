@@ -51,3 +51,23 @@ spaces, case, leading M and symbols, so an admitted molecular sequence view
 must be chosen explicitly. Source record indices are separate from molecular
 group indices and alignment positions. See
 {ref}`FASTA ingestion <Tutorial_Form_file_fasta>` for the complete contract.
+
+
+## Choosing native inventory
+
+After admitting a sequence view, convert it to `molsysmt.Topology` or
+`molsysmt.MolSys` when you need native group names and molecule membership.
+The one-/three-letter string routes require no Biopython; FASTA conversion
+retains its existing optional normalized reader. Three-letter caps survive,
+and each FASTA record remains a separate declared occurrence. Keep the raw
+source report alongside the result when source attribution matters.
+
+These outputs contain no representative CA atoms or coordinates. Choose a
+separate atomic-construction workflow when required by a downstream method.
+For this initial delivery, use represented group fields directly: textual
+selection, chain/group projections and atom-driven extraction have the known
+[#518 limits](https://github.com/uibcdf/molsysmt/issues/518). A global one-letter
+string also cannot encode boundaries between several molecules. The
+{ref}`Topology foundation <user-foundations-native-world-classes-molsysmt-topology>`
+explains the partial inventory, and {ref}`FASTA adapter <Tutorial_Form_file_fasta>`
+documents its conversion contract.

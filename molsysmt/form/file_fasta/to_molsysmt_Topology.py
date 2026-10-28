@@ -1,91 +1,100 @@
 from depdigest import dep_digest
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.variables import is_all
 
 
 @arg_digest(form="file:fasta")
 @dep_digest("Bio")
-def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
-    """
-    Converting from file:fasta to molsysmt.Topology.
-
+def to_molsysmt_Topology(
+    item, atom_indices="all", skip_digestion=False, *, structure_indices="all"
+):
+    """Converting FASTA sequence occurrences to a topology without synthetic atoms.
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+    item : str or pathlib.Path
+        Amino-acid FASTA file. Its existing optional Biopython reader supplies normalized
+        sequence text, record IDs and complete descriptions. Use read_records
+        separately when original text/normalization evidence is required.
+    atom_indices : str, default='all'
+        Only 'all' is accepted. Sequence-only conversion no longer constructs
+        representative CA atoms and therefore has no selectable atomic axis.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    structure_indices : str, default='all'
+        Only 'all' is accepted; FASTA records are not coordinate structures.
 
     Returns
     -------
     molsysmt.Topology
-        Resulting object in molsysmt.Topology form.
+        Native groups and group-to-molecule membership, with one declared
+        molecule/entity/chain slot per record, including repeated and empty
+        records. IDs are string labels; equal labels or sequences do not merge
+        occurrences or certify chemical identity. Atomic inventory, bonds and
+        coordinates remain unspecified, with zero stored atom/bond rows.
 
+    Raises
+    ------
+    ArgumentError
+        If atomic indices are requested or the normalized sequence contains
+        unsupported symbols, gaps or stops needing explicit interpretation.
+    NotWithThisFormError
+        If coordinate structures are requested.
+
+    Notes
+    -----
+    This intentionally replaces the older implicit one-CA-per-position output.
+    The existing amino-acid interpretation is retained; alphabet overlap cannot
+    disambiguate a nucleotide sequence from a peptide. No nucleotide inference
+    or new automatic alphabet-selection policy is introduced.
+    Native hierarchy limits remain tracked by MolSysMT #518: group/chain
+    projections, text selections and atom-driven extraction require follow-up.
+    Chain labels are retained, but group-chain membership is not represented
+    by the current atom-only native relation. Entity slots retain record-level
+    separation, without inferring equality/inequality of molecular identities.
+    Stored atom count zero is not a claim of zero physical atoms. Full atomic
+    construction must be explicitly requested through an appropriate build tool.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> from pathlib import Path
+    >>> from tempfile import TemporaryDirectory
+    >>> with TemporaryDirectory() as directory:
+    ...     path = Path(directory) / 'sequences.fasta'
+    ...     _ = path.write_text('>first\\nAG\\n>second\\nW\\n', encoding='utf-8')
+    ...     topology = msm.convert(str(path), to_form='molsysmt.Topology')
+    >>> topology.n_atoms, topology.n_groups, topology.n_molecules
+    (0, 3, 2)
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Form_file_fasta` for normalization and partial hierarchy limits.
 
     .. versionadded:: 1.0.0
     """
-
     from Bio import SeqIO
 
-    from molsysmt.element.group.amino_acid.codes import aa1_to_aa3
-    from molsysmt.native import MolSysBuilder
+    from molsysmt.form._sequence_topology import group_names, require_no_structures
+    from molsysmt.native._sequence_topology import from_group_records
 
-    records = list(SeqIO.parse(item, "fasta"))
-
-    builder = MolSysBuilder(skip_digestion=True)
-
-    for chain_idx, record in enumerate(records):
-        seq = str(record.seq)
-        chain_id = record.id
-        entity_name = record.description
-
-        group_indices_in_chain = []
-
-        for aa1 in seq:
-            aa3 = aa1_to_aa3.get(aa1.upper(), "XAA")
-
-            # Add one representative atom (CA) per residue
-            atom_index = builder.add_atom(atom_name="CA", skip_digestion=True)
-
-            # Add a group for this residue
-            group_index = builder.add_group(
-                atom_indices=[atom_index],
-                group_name=aa3,
-                group_type="amino acid",
-                skip_digestion=True,
-            )
-            group_indices_in_chain.append(group_index)
-
-        # Add chain
-        builder.add_chain(
-            group_indices=group_indices_in_chain,
-            chain_id=chain_id,
-            chain_type="protein",
-            skip_digestion=True,
+    require_no_structures(structure_indices, caller=__name__, form="file:fasta")
+    if not is_all(atom_indices):
+        raise ArgumentError(
+            "atom_indices",
+            value=atom_indices,
+            caller=__name__,
+            message="Sequence-only topology has no atomic selection axis.",
         )
-
-        # Add molecule (one per chain/sequence)
-        molecule_index = builder.add_molecule(
-            group_indices=group_indices_in_chain,
-            molecule_name=chain_id,
-            molecule_type="protein",
-            skip_digestion=True,
+    records = []
+    for record in SeqIO.parse(item, "fasta"):
+        records.append(
+            {
+                "groups": group_names(str(record.seq), 1, caller=__name__),
+                "id": record.id,
+                "description": record.description,
+            }
         )
-
-        # Add entity (one per sequence record)
-        builder.add_entity(
-            molecule_indices=[molecule_index],
-            entity_name=entity_name,
-            entity_type="protein",
-            skip_digestion=True,
-        )
-
-    tmp_item = builder.topology
-    tmp_item = tmp_item.extract(
-        atom_indices=atom_indices, copy_if_all=False, skip_digestion=True
-    )
-
-    return tmp_item
+    return from_group_records(records)

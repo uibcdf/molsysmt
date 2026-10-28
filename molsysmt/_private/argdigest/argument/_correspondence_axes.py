@@ -31,6 +31,8 @@ SEQUENCE_CALLERS = {
         "to_biopython_SeqRecord",
         "to_string_amino_acids_1",
         "to_string_amino_acids_3",
+        "to_molsysmt_Topology",
+        "to_molsysmt_MolSys",
     )
 }
 

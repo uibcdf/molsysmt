@@ -34,4 +34,5 @@ _convert_to = {
     "biopython.Seq": "to_biopython_Seq",
     "string:amino_acids_1": "to_string_amino_acids_1",
     "molsysmt.Topology": "to_molsysmt_Topology",
+    "molsysmt.MolSys": "to_molsysmt_MolSys",
 }

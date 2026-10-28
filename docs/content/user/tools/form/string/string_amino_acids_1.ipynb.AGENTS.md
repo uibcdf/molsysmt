@@ -8,5 +8,5 @@ Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/doc
 2. **Cell 2 (Markdown - Header & Overview)**: Target anchor `(Tutorial_Form_string_amino_acids_1)=`, clean title `# string:amino_acids_1`, technical metadata, versionadded, collapsible API documentation dropdown, and Overview.
 3. **Cell 3 (Markdown - Supported Attributes)**: Single unified Markdown table listing all 2 supported attributes. No code cells.
 4. **Cell 4 (Markdown - Implemented Operations)**: Table with columns `Function / Module` and `Description` for all public functions/modules in `{mod}`molsysmt.form.string_amino_acids_1`` plus collapsible `{note}` dropdown.
-5. **Cell 5 (Markdown - Supported Conversions)**: Table with columns `Target Form`, `Form Type`, and `API Documentation` covering all 4 direct conversions.
+5. **Cell 5 (Markdown - Supported Conversions)**: Table with columns `Target Form`, `Form Type`, and `API Documentation` covering the four existing sequence/Biopython routes and the two native group-only Topology/MolSys routes. Preserve numeric group selections, caps, empty atomic/coordinate inventory and the documented #518 limits.
 6. **Cell 6 (Markdown - Related Tools & References)**: Collapsible `{seealso}` dropdown linking to Foundations and Form tools.

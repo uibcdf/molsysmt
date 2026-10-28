@@ -28,6 +28,8 @@ from .iterators import TopologyIterator  # noqa: E402
 
 
 _convert_to = {
+    "molsysmt.Topology": "to_molsysmt_Topology",
+    "molsysmt.MolSys": "to_molsysmt_MolSys",
     "string:amino_acids_3": "to_string_amino_acids_3",
     "string:amino_acids_1": "to_string_amino_acids_1",
     "biopython.SeqRecord": "to_biopython_SeqRecord",

@@ -463,10 +463,18 @@ sections:
         status: pending_review
         description: Form contracts, including bounded GRO native/OpenMM bridges, selected coordinate and box correspondence, complete-handler copies and preserved reader ownership.
         pages:
+          - name: one_letter_native_sequence
+            file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb
+            agents_file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb.AGENTS.md
+            description: Native one-letter group-only Topology/MolSys conversions and deferred hierarchy limits.
+          - name: three_letter_native_sequence
+            file: docs/content/user/tools/form/string/string_amino_acids_3.ipynb
+            agents_file: docs/content/user/tools/form/string/string_amino_acids_3.ipynb.AGENTS.md
+            description: Native three-letter groups and caps without atomic projection, with explicit hierarchy limits.
           - name: fasta
             file: docs/content/user/tools/form/file/file_fasta.ipynb
             agents_file: docs/content/user/tools/form/file/file_fasta.ipynb.AGENTS.md
-            description: Source-preserving native FASTA records, raw text and character spans alongside existing normalized conversions.
+            description: Source-preserving FASTA records and normalized atom-free Topology/MolSys projection with explicit record and hierarchy limits.
           - name: pdbqt_file_handler
             file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md
             agents_file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md.AGENTS.md
@@ -539,7 +547,7 @@ sections:
       - name: comparing_sequence_source_groups
         file: docs/content/user/cookbook/comparing_sequence_source_groups.md
         agents_file: docs/content/user/cookbook/comparing_sequence_source_groups.md.AGENTS.md
-        description: Source-preserving FASTA admission, query-normalized identity, original sequence groups, native string codecs and explicit optional Biopython output.
+        description: Source-preserving FASTA admission, bounded native group inventories, query-normalized identity, native string codecs and optional Biopython output.
         status: reviewed
       - name: symmetry_pose_rmsd
         file: docs/content/user/cookbook/symmetry_pose_rmsd.ipynb
