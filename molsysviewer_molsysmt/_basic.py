@@ -11,7 +11,10 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
     def decorate(function):
         import molsysmt
 
-        native = getattr(getattr(molsysmt, module), name)
+        namespace = molsysmt
+        for part in module.split("."):
+            namespace = getattr(namespace, part)
+        native = getattr(namespace, name)
         doc = inspect.getdoc(native) or ""
         doc = re.sub(
             r"(?m)^molecular_system :[^\n]*\n(?:[ \t]+[^\n]*\n|\n)*",
@@ -299,6 +302,60 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "exceed one; categories need not sum to one. No clipping, "
                 "renormalization or implicit coil remainder is introduced.\n"
             )
+        if module == "interactions.hbonds":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The result remains a native scientific value, not a scene object. "
+                "Calls read the current primary through the serialized reader, "
+                "including pending scientific edits. No hydrogens, connectivity, "
+                "protonation, aromatic flags or coordinates are prepared. There "
+                "is no result attachment, named analysis, visual selection, "
+                "representation or synchronization; update_view is not accepted. "
+                "The visible structure is never substituted for explicit native "
+                "structure scope. These tools do not detect interaction occurrences.\n"
+            )
+            if "skip_digestion" not in inspect.signature(native).parameters:
+                function.__doc__ += (
+                    "skip_digestion : bool, keyword-only, default=False\n"
+                    "    Control addon digestion only. Native validation still "
+                    "runs and receives no such keyword.\n"
+                )
+            if name in {"get_donor_atoms", "get_acceptor_atoms"}:
+                function.__doc__ += (
+                    "These are legacy rule-based candidates, distinct from "
+                    "get_hbond_sites profiles and their chemical-state contract. "
+                    "Native mutable rule-list and external-default-rule syntax "
+                    "limitations (uibcdf/molsysmt#506 and uibcdf/molsysmt#507) "
+                    "are preserved, not repaired in this facade. "
+                    "Use native immutable tuple rules for an independent caller "
+                    "container when appropriate. No universal acceptor chemistry "
+                    "or complete hydrogen inventory is certified.\n"
+                )
+            if name == "get_hbond_sites":
+                function.__doc__ += (
+                    "Recognition uses the full declared graph before output "
+                    "filtering. Both donor and indexed H must be selected. "
+                    "Elemental and SMARTS rules are distinct scientific choices; "
+                    "recognition itself needs no coordinates, but the resident "
+                    "view and spatial selection retain their own requirements. "
+                    "Unknown connectivity requires the native explicit assumption; "
+                    "no assumption is inserted. Match limits reject truncation. "
+                    "Native resident reference-state requests currently differ "
+                    "from H5MSM in validating unused structure indices; the "
+                    "facade adds no independent frame-validation policy.\n"
+                )
+            if name == "get_hbond_site_directions":
+                function.__doc__ += (
+                    "Directions are experimental local hypotheses, not detected "
+                    "bonds, orbitals or an optimized H network. Keep evaluated "
+                    "structure positions distinct from source indices when "
+                    "requests repeat. Origins retain length units; directions "
+                    "are dimensionless. Packed support images use row-vector "
+                    "boxes and the site anchor reference. Unsupported/undefined "
+                    "status does not become a fabricated axis or virtual H. "
+                    "Native block/output budgets exclude some Python/source "
+                    "overhead and are not an RSS guarantee.\n"
+                )
         if module == "build":
             function.__doc__ += (
                 "The result is an independent native diagnostic or candidate report, "

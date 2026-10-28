@@ -20,10 +20,14 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (7)
 
 - [`cip_result_reference_authors_are_shared_with_later_calculations.md`](cip_result_reference_authors_are_shared_with_later_calculations.md) — [#503](https://github.com/uibcdf/molsysmt/issues/503) — CIP result reference authors are shared with later calculations. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
+- [`covalent_paths_lose_integer_axes_and_empty_path_width.md`](covalent_paths_lose_integer_axes_and_empty_path_width.md) — [#508](https://github.com/uibcdf/molsysmt/issues/508) — Covalent paths lose integer axes and empty path width. *(medium, reproduced)*
+- [`hbond_role_default_rules_fail_with_external_syntax.md`](hbond_role_default_rules_fail_with_external_syntax.md) — [#507](https://github.com/uibcdf/molsysmt/issues/507) — Hydrogen-bond default role rules fail with external syntax. *(medium, reproduced)*
+- [`hbond_role_helpers_mutate_caller_rule_lists.md`](hbond_role_helpers_mutate_caller_rule_lists.md) — [#506](https://github.com/uibcdf/molsysmt/issues/506) — Hydrogen-bond role helpers mutate caller-owned rule lists. *(medium, reproduced)*
+- [`hbond_site_structure_bounds_differ_between_resident_and_h5msm.md`](hbond_site_structure_bounds_differ_between_resident_and_h5msm.md) — [#509](https://github.com/uibcdf/molsysmt/issues/509) — Hydrogen-bond site structure bounds differ between resident and H5MSM. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 
 ### Partially resolved (2)

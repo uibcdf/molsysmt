@@ -56,6 +56,12 @@ residues and terminal cappings, nonstandard groups, indexed hydrogens, solvation
 and disulfide candidates; see the preparation-audit section below. Their native single-structure, exact-template and
 source metadata requirements remain explicit. Broader build editing is pending.
 
+The explicit `view.addons.molsysmt.interactions.hbonds` namespace now provides
+four recognition/characterization tools: `get_donor_atoms`, `get_acceptor_atoms`,
+`get_hbond_sites` and `get_hbond_site_directions`. It does not yet mirror the
+native detectors. These raw scientific values remain distinct from the core
+`view.interactions` scene owner; none is attached or represented automatically.
+
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -2376,3 +2382,107 @@ argument. The addon does not choose an implicit first/any/all aggregation.
 Use an explicitly selected independent molecular system with native MolSysMT
 when a per-structure diagnostic is required. The receiving records preserve this
 limitation without treating an exception as a successful solvation result.
+
+
+## Recognizing hydrogen-bond sites and local directions
+
+The expert route follows the native family path:
+`view.addons.molsysmt.interactions.hbonds`. Recognition and directional hypotheses
+do not require a previously detected interaction. The primary is the current
+resident `view.molsys`; rules, state, selection, structure indices, execution
+mode and scientific assumptions stay explicit. These are experimental source
+bindings, not a new detector or a stable electronic-structure model.
+
+```python
+from rdkit import Chem
+import numpy as np
+
+# Explicit fixture chemistry and coordinates are supplied before loading the view.
+molecule = Chem.MolFromSmiles("C#N")
+conformer = Chem.Conformer(2)
+conformer.SetAtomPosition(0, (0, 0, 0))
+conformer.SetAtomPosition(1, (1.2, 0, 0))  # RDKit positions use angstroms.
+molecule.AddConformer(conformer)
+molsys = msm.convert(molecule)
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt.interactions.hbonds
+    sites = tools.get_hbond_sites(
+        method="smarts_donor_acceptor", structure_indices=[0],
+    )
+    directions = tools.get_hbond_site_directions(
+        structure_indices=[0], pbc=False,
+    )
+    assert sites["acceptor_atom_indices"].tolist() == [1]
+    np.testing.assert_allclose(directions["directions"], [[1, 0, 0]])
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(directions["origins"], to_unit="nm"),
+        [[0.12, 0, 0]],
+    )
+    assert not view.molsys.interactions
+```
+
+`get_hbond_sites()` matches the complete declared source graph before filtering.
+A donor and its indexed H must both be selected; an acceptor anchor must be
+selected. No implicit H is converted to an indexed atom. Elemental N/O,
+elemental F/O/N and attributed SMARTS definitions differ: elemental rules can
+include chemically unsuitable acceptors. Complete declared connectivity and
+profile-specific bond/charge/aromatic chemistry remain prerequisites. The
+explicit completeness assumption does not fill missing chemical columns.
+Match limits reject excessive matches rather than truncating a result.
+
+`get_hbond_site_directions()` returns observed donor-to-H directions and a
+bounded set of ideal acceptor hypotheses. Directions are normalized and
+dimensionless; origins are length quantities. `status` keeps unsupported,
+defined and undefined geometry distinct. Unsupported sites and degenerate
+local planes do not acquire an arbitrary axis or virtual H. These hypotheses
+are not orbitals, interaction occurrences or an optimized hydrogen network.
+
+Nonconsecutive and repeated structure requests retain source indices and
+separate request positions: use `direction_structure_positions` to distinguish
+repeated occurrences of the same structure. Supporting atoms can be outside the
+selected anchors. Packed support images use box vectors as rows and refer to
+the site anchor; reconstruct with the reported images and physical box units.
+The uint8 status matrix scales with requested structures times sites, while
+directional records are packed sparsely. Full source graphs and maps also scale
+with the system. Execution/output budgets remain native estimates, excluding some source/Python
+overhead. They do not establish a universal RSS bound or file-backed query API.
+
+Native reference-state site recognition currently accepts some invalid resident
+structure indices that modular H5MSM rejects
+([#509](https://github.com/uibcdf/molsysmt/issues/509)). Use valid explicit resident indices;
+the addon does not introduce a second validation policy. Coordinate-free native
+recognition and a resident view's loading requirements are separate contracts.
+
+### Keeping the classic role rules explicit
+
+```python
+with msv.demo["pentalanine"] as view:
+    roles = view.addons.molsysmt.interactions.hbonds
+    donor_hydrogen_pairs = roles.get_donor_atoms()
+    acceptor_indices = roles.get_acceptor_atoms()
+    assert donor_hydrogen_pairs.shape[1] == 2
+    assert len(donor_hydrogen_pairs) > 0 and len(acceptor_indices) > 0
+```
+
+These classic rules preserve their own semantics. Their donor selection filters
+the donor anchor and can retain its covalently attached H outside that selection;
+this differs from the modern whole-pair output filter. Default rules do not
+certify universal donor/acceptor chemistry, protonation or hydrogen completeness.
+Native ordering preserves donor-H membership, including interleaved indices.
+
+Two provider defects remain visible: mutable rule lists accumulate defaults
+([#506](https://github.com/uibcdf/molsysmt/issues/506)), and default internal rules
+are not compatible with a declared external MDTraj syntax
+([#507](https://github.com/uibcdf/molsysmt/issues/507)). Tuple rules retain their
+native independently normalized container; this does not repair rule-language
+semantics. Custom donors without matching H also encounter the native empty-path
+limitation ([#508](https://github.com/uibcdf/molsysmt/issues/508)). No consumer
+copy, parser translation or scientific fallback is added.
+The two classic methods have a keyword-only addon `skip_digestion` flag; it is
+not forwarded because their native signatures do not declare that escape hatch.
+
+All four tools use the serialized current primary, including pending scientific
+edits, and follow replacement/closed-view handling. Their results remain ordinary
+native values: no named analysis, saved interaction set, visual selection, shape,
+color, preparation or scene synchronization is added. `update_view` is rejected.
+Use the core `view.interactions` API separately for qualified visual workflows.

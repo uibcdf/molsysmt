@@ -2,9 +2,9 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-10-27, the source receiving extends producer 4e544cb12
-with eight explicit build-audit wrappers; prior 511fafb54 qualification remains
-a separate earlier runtime baseline. This is source exposure, not
+**Snapshot:** 2026-10-27, the source receiving extends basis 40a8ac2ea
+with four explicit nested hydrogen-bond recognition/direction wrappers. Prior
+11e7ab7f0 qualification of eleven build audits remains a separate runtime gate. This is source exposure, not
 installed compatibility, scientific accuracy or unconditional stability.
 
 Regenerate the full path/signature/missing-route inventory in the participating
@@ -12,7 +12,7 @@ source environment:
 
 ```bash
 python devtools/scripts/audit_molsysviewer_tools_api.py \
-  --output devtools/data/molsysviewer_tools_build_audits_inventory_20261027.json
+  --output devtools/data/molsysviewer_tools_hbond_sites_inventory_20261027.json
 ```
 
 The command uses real native declarations and an actual empty view's addon,
@@ -32,7 +32,7 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | physchem | 34 | 34 | 0 |
 | build | 11 | 30 | 19 |
 | molecular_mechanics | 0 | 6 | 6 |
-| interactions (canonical families) | 0 | 15 | 15 |
+| interactions (canonical families) | 4 | 15 | 11 |
 | element and declared children | 0 | 57 | 57 |
 | h5msm file utilities | 0 | 7 | 7 |
 | historical hbonds aliases | 0 | 4 | 4 |
@@ -40,7 +40,7 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | supported-capability reports | 0 | 4 | 4 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 116 exposed out of 244 inspected public callable paths. This is not
+These are 120 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -49,9 +49,9 @@ visible rather than inflated into new scientific algorithms. It records
 primary, destination-system, explicit-collection and explicit-input contracts;
 it does not authorize automatic binding or infer effects from function names.
 
-The zero for addon interactions does not describe Viewer core availability.
+The four addon recognition/direction paths do not describe Viewer core availability.
 `view.interactions` already owns visual calculations/attachment and presentation.
-The future expert mirror returns ordinary native scientific results, without
+The received and future expert mirrors return ordinary native scientific results, without
 implicitly attaching or representing them. Direct MolSysMT remains available.
 
 The final review includes attribute classifiers and supported-capability reports.
@@ -161,3 +161,29 @@ resolving exactly to 11e7ab7f0; it is still pending. No original run is relabell
 no main campaign is cancelled by this recovery, and no tag/package is created.
 The docs-only b7b88d94e owner work is preserved separately. This administrative
 follow-up does not change runtime and does not clear full-suite backlog.
+
+
+## Hydrogen-bond recognition and directions continuation
+
+The nested interactions.hbonds expert namespace exposes get_donor_atoms,
+get_acceptor_atoms, get_hbond_sites and get_hbond_site_directions. The inventory
+is 120/244 paths, with 4/15 canonical interaction paths received. Eleven raw
+canonical detectors remain pending; historical hbonds aliases remain unexposed.
+Do not conflate recognition, local hypotheses, occurrence detection and rendering.
+All four use the serialized reader and add no preparation, attachment or scene
+update. Legacy local digestion controls, selections and profile prerequisites
+remain distinct. Direction origins retain units, repeated structure positions,
+unsupported/undefined status and actual row-box support images stay explicit.
+The uint8 status matrix is dense in requested structures times sites; numeric
+records are packed, with no universal RSS promise.
+
+Native mutable-list/external-rule limitations are uibcdf/molsysmt#506 and #507.
+Empty covalent paths and resident/H5MSM site-frame validation differences are
+independently reproduced under uibcdf/molsysmt#508 and #509.
+No scientific repair, parser translation, extra chemical inference or result copy
+is introduced by the facade. Native #503/#504 remain separate open findings.
+
+The earlier eleven-build-audit runtime 11e7ab7f0 now passes single recovery
+40598751459 (3,431 native / 2,033 addon passes; fifteen optional Ackredit skips),
+with the five exact-source controls already green. Original main cancellation
+40598293439 remains preserved. That success does not qualify these new wrappers.

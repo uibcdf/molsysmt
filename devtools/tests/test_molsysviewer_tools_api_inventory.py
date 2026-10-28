@@ -24,6 +24,14 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     ):
         assert rows[f"build.{name}"]["exposed"]
     assert not rows["build.infer_covalent_bonds"]["exposed"]
+    for name in (
+        "get_donor_atoms",
+        "get_acceptor_atoms",
+        "get_hbond_sites",
+        "get_hbond_site_directions",
+    ):
+        assert rows[f"interactions.hbonds.{name}"]["exposed"]
+    assert not rows["interactions.hbonds.get_hbonds"]["exposed"]
     assert not rows["molecular_mechanics.get_forces"]["exposed"]
     assert (
         rows["basic.are_multiple_molecular_systems"]["input_kind"]

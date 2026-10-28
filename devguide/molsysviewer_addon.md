@@ -1662,3 +1662,53 @@ receiving/build-audits-11e7ab7f0 at the same producer. It is pending, with origi
 cancellation evidence retained. The docs-only b7b88d94e owner commit preserves
 the new addon course note and its metadata; runtime stays unchanged. This
 administrative handoff adds no gate waiver, package or publication.
+
+
+### Raw hydrogen-bond recognition and directions — 2026-10-27
+
+The explicit source namespace view.addons.molsysmt.interactions.hbonds adds four
+thin methods: classic get_donor_atoms/get_acceptor_atoms, get_hbond_sites and
+get_hbond_site_directions. Primary resolution/lifetime/pending work uses the
+existing serialized reader. Scientific signatures, native flags and returns stay
+explicit; the classic readers' additional keyword-only skip_digestion controls
+only addon validation. Core view.interactions and saved analyses remain separate.
+There is no preparation, occurrence detection, attachment or representation.
+
+Bound modern recognition retains full-source chemistry before output selection,
+whole selected donor-H pairs, explicit profiles/states/match limits and chemistry
+prerequisites. Classic donor selections have their distinct anchor/H behavior.
+Directions preserve dimensionless geometry, physical origins, repeated structure
+positions, sparse support images and unsupported/undefined statuses. No invented
+axis, H or universal memory guarantee is introduced. Source-path coverage is now
+120/244, canonical interactions 4/15; eleven detector paths remain pending.
+
+Native uibcdf/molsysmt#506 tracks caller rule-list mutation; #507 tracks internal
+rule language with external user syntax. Empty covalent-path and resident/H5MSM
+frame-validation differences are independently reproduced and filed as
+uibcdf/molsysmt#508 and #509. The native provider owns correction; the facade
+adds no compensating parser, selection, copy or scientific formula.
+
+Forty-four focused consumer cases and 32 package/inventory/command guards pass.
+One test fixture initially lacked declared bond-chemistry columns and is corrected
+at fixture construction, without product preparation. Native empty-path/frame
+limits discovered by negative cases are retained separately. A demo assertion
+also incorrectly requested atom_type at the system level and now names element
+atom explicitly. User Guide and four course narratives preserve all code/outputs.
+A single broad regression passes 4,536 cases with zero failures/errors/skips
+and no source/backend hash changes during execution. All 52 guide blocks and
+184 inherited doctest examples pass. Exact-source hosted qualification of this
+new runtime is pending; installed qualification is not claimed. Existing environment pip check
+is nonzero for unrelated AmberTools-family missing/incompatible dependencies,
+so this is not described as a clean solver/artifact environment.
+
+The previous build runtime's single recovery 40598751459 is now success:
+3,431 native / 2,033 addon passes, with 11+4 optional Ackredit skips, plus the
+five exact-runtime source controls. Original cancellation 40598293439 remains
+cancellation evidence. The [separate closeout receipt](../devtools/data/molsysviewer_tools_build_audits_ci_closeout_20261027.json)
+qualifies only 11e7ab7f0, not the new hydrogen-bond wrappers. No package, tag,
+release, dependency floor or host runtime is changed.
+
+The [local hydrogen-bond receiving receipt](../devtools/data/molsysviewer_tools_hbond_sites_receiving_20261027.json) retains the frozen
+source/backend identity, failed-attempt diagnoses, four owning reports and the
+4,536-pass regression separately from earlier build CI. Hosted qualification
+of this extension remains pending; no installed artifact is asserted.

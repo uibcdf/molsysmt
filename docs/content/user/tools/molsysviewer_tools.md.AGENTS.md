@@ -203,3 +203,13 @@ Hydrogen presence and water-density predicates are not chemical preparation.
 Keep addon-only keyword digestion controls explicit where native readers lack
 that parameter, and preserve the native multi-structure solvation limitation
 until an owning scientific repair is independently received.
+
+
+Preserve the explicit interactions.hbonds expert path and the distinction between
+legacy roles, full-graph site recognition, local directional hypotheses and actual
+detection. No named attachment or scene effect is implicit. Keep indexed-H and
+selection differences, scientific profiles, chemistry prerequisites, unsupported/
+undefined status, repeated structure positions, origins' units, row-box support
+images and bounded-estimate limitations visible. Native mutable-list/external-rule
+and empty-path/frame-validation limits remain native until separately received.
+Do not weaken the expert API or introduce a scientific repair in the facade.

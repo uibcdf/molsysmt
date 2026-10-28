@@ -1,0 +1,44 @@
+{
+  "schema": "molsysmt.viewer-tools.build-audits-ci-closeout@1",
+  "date": "2026-10-27",
+  "runtime_source": "11e7ab7f031830c8b4324152efd0dc35879f2110",
+  "run": 40598751459,
+  "official_conclusion": "success",
+  "ref": "receiving/build-audits-11e7ab7f0",
+  "checks": {
+    "early": 9,
+    "native": {
+      "passed": 3431,
+      "skipped": 11
+    },
+    "addon": {
+      "passed": 2033,
+      "skipped": 4
+    },
+    "skips": "Optional Ackredit unavailable",
+    "additional_source_success": {
+      "ruff": 40598293672,
+      "dependency": 40598293501,
+      "devguide": 40598293438,
+      "suite": 40598294051,
+      "conda": 40598293980
+    }
+  },
+  "original": {
+    "run": 40598293439,
+    "conclusion": "cancelled",
+    "step": "Install package",
+    "scientific_tiers": "skipped"
+  },
+  "evidence_sha256": {
+    "manifest.json": "39b60fd06618f908defe724189bf6726f0c76ec3896b74c28b91af77ee9a7c6c",
+    "logs.zip": "7d3780920bc7540344753625d1daa1a23873f69e1a0d92877962b226722538c0",
+    "config.json": "df2ae1d12fc253da5eccb6b11ff5f07b7c7fd498b32df90b62981827903c6acd",
+    "checks.json": "7b8bea880f62c80cf712f8fa35297431ce1430b9562cdc52dab87eb7eadb8ff7",
+    "artifacts.json": "733015529a249a421892ec83190af9d23593d1877609d3653ae94f945a220490",
+    "jobs.json": "8c61da4557dfb15b93056403ee3c3084888547fade11009f5b3235d3033e558f",
+    "workflow.json": "91b2e1211dcb4389258dfe83b50a6036ac3d38f4928d0dcbe4e2f73ab953ec69",
+    "run.json": "0afc88d552300eddf3c8c5d36c668e9219129e24ba30d83b772cfe25451ecd0d"
+  },
+  "scope": "Qualification of eleven build audits at exact runtime 11e7ab7f0; no installed/public package or later hbond wrappers qualification."
+}
