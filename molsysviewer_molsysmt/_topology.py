@@ -94,7 +94,12 @@ class _TopologyTools:
     ):
         return self._call(
             "get_covalent_paths",
-            {"path": path, "selection": selection, "syntax": syntax},
+            {
+                "path": path,
+                "selection": selection,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
         )
 
     @_native_documentation("get_dihedral_quartets", module="topology")

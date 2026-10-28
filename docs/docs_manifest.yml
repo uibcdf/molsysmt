@@ -51,7 +51,7 @@ sections:
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
-            description: Native hierarchy, inherited construction, slot and table copy boundaries, controlled chemical-state editing, weak owner notification and detached copies.
+            description: Native hierarchy, source-index covalent walks and empty pattern widths, inherited construction, slot and table copy boundaries, controlled chemical-state editing, weak owner notification and detached copies.
           - name: molsys
             description: Native domains, explicit standalone-provider composition, chemical ownership, copy boundaries, bounded metadata, controlled edits and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md

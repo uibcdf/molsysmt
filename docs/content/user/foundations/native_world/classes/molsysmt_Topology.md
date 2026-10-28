@@ -80,6 +80,17 @@ the same operation while continuing to infer names.
 
 ---
 
+## Covalent Walks
+
+Pattern-based covalent queries retain full source atom indices. A selected
+subset restricts candidates without renumbering the source. Each pattern
+position defines one column of the result: no matches retain an empty row
+axis and the complete pattern width. This allows downstream recognition, such
+as donor–hydrogen pairing, to distinguish valid no-match results from invalid
+selectors without inventing bonds or hydrogens. A pattern-matching walk may
+revisit atoms; it does not measure a shortest-path distance. See
+{ref}`Tutorial_Get_covalent_paths` for executed examples.
+
 ## Ring Participants
 
 Covalent connectivity and aromatic flags belong to the selected `ChemicalStates`

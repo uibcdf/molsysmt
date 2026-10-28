@@ -1833,3 +1833,16 @@ The [local contact-detector receipt](../devtools/data/molsysviewer_tools_contact
 76 directed cases, 32 package guards, 57/241 executable examples and failed-test
 diagnoses. Hosted source, clean installed artifacts and scientific stability
 remain separate qualification scopes.
+
+
+### Native covalent no-match repair received — 2026-10-27
+
+uibcdf/molsysmt#508 now preserves integer source axes and `(0, len(path))`
+width for valid empty/disconnected walks. Classic custom donors without indexed
+H consequently return int64 shape `(0, 2)` through the native helper and expert
+facade without consumer reshaping, invented H or scientific fallback. Focused
+native tests and 77 addon topology/role tests verify this bounded receiving.
+The path mirror forwards the newly native keyword-only `skip_digestion`;
+ordinary calls retain validation. The dated findings above remain historical;
+#506/#507/#509/#511 still own their distinct unresolved limits. No installed
+artifact, scientific-profile stability or release qualification follows.

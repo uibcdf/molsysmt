@@ -88,6 +88,20 @@ def kwargs_for(name):
     return {}
 
 
+def test_hydrogen_free_custom_donor_receives_native_empty_pair_contract(view):
+    before = view.export_state()
+    arguments = dict(
+        inclusion_rules=("atom_type=='O'",),
+        default_inclusion_rules=False,
+        default_exclusion_rules=False,
+    )
+    expected = call(view, "get_donor_atoms", native=True, **arguments)
+    actual = call(view, "get_donor_atoms", **arguments)
+    assert actual.shape == expected.shape == (0, 2)
+    assert actual.dtype == expected.dtype == np.dtype(np.int64)
+    assert view.export_state() == before
+
+
 @pytest.mark.parametrize("name", NAMES)
 def test_nested_explicit_signatures_help_and_no_unreceived_detectors(view, name):
     core = view.interactions

@@ -558,10 +558,10 @@ No topology is prepared, connectivity certified complete, analysis attached or
 scene updated by these wrappers. Native derived/cache behavior remains native.
 The additional received graph and sequence tools are described below.
 
-`get_bondgraph` and `get_covalent_blocks` forward native `skip_digestion`.
-The native path/quartet signatures do not declare it, so their addon-only keyword
-controls the wrapper boundary and is never inserted into scientific **kwargs.
-Their native public validation remains active. The same view-lifetime and
+`get_bondgraph`, `get_covalent_blocks` and `get_covalent_paths` forward native
+`skip_digestion`. The native quartet signature does not declare it, so its
+addon-only keyword controls the wrapper boundary and is never inserted into
+scientific **kwargs. Its native public validation remains active. The same view-lifetime and
 pending-read rules apply to these calls as to the received `basic` readers.
 
 ## Reading chemical graphs and sequences
@@ -2482,9 +2482,11 @@ Two provider defects remain visible: mutable rule lists accumulate defaults
 are not compatible with a declared external MDTraj syntax
 ([#507](https://github.com/uibcdf/molsysmt/issues/507)). Tuple rules retain their
 native independently normalized container; this does not repair rule-language
-semantics. Custom donors without matching H also encounter the native empty-path
-limitation ([#508](https://github.com/uibcdf/molsysmt/issues/508)). No consumer
-copy, parser translation or scientific fallback is added.
+semantics. Custom donors without matching indexed H return a native empty
+`int64` array with shape `(0, 2)` after the owner repair
+([#508](https://github.com/uibcdf/molsysmt/issues/508)). This outcome does not add
+hydrogens or certify chemical completeness. No consumer copy, parser translation
+or scientific fallback is added.
 The two classic methods have a keyword-only addon `skip_digestion` flag; it is
 not forwarded because their native signatures do not declare that escape hatch.
 
