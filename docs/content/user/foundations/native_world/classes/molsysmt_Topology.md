@@ -213,10 +213,31 @@ The zero-row atom table measures represented inventory, not a chemically
 established count of physical atoms. Native chemistry retains unavailable
 connectivity rather than a complete inferred graph.
 
-This first representation has bounded support: direct group data, molecule
-membership, copies and supported MolSys/H5MSM table round trips work. Several
-hierarchy operations still pass through atoms, including group/chain projections,
-text selectors, builder/dictionary reconstruction and atom-driven extraction.
-These limits are explicit in [#518](https://github.com/uibcdf/molsysmt/issues/518).
-Group-chain membership is not added by storing chain labels. No new native
-schema, chemical store or implicit atomic-building policy is introduced.
+`topology.chain_groups` exposes one ordered tuple of group indices per chain,
+including empty chains. Use `topology.set_chain_groups(...)` to declare this
+relation without assigning nonexistent atoms. The declaration uses compact
+integer offsets and group indices, not an extra `groups.chain_index` column.
+A group may belong to several chains; group-to-chain queries then return all
+of them. An explicit declaration must include every observed atom/chain pair.
+An empty chain has no group-mediated molecule relation; matching empty-container
+row positions or names do not establish membership.
+Passing `None` removes the declaration and restores atom-derived membership;
+resetting the groups or chains table also clears it. Raw table edits do not
+remap this relation: update it explicitly after changing the hierarchy.
+
+Native `get()` and public `msm.get()` project represented groups, chains,
+molecules and entities. Text selectors operate on that hierarchy without
+building an atom table. Use `msm.extract(..., element="group", selection=[2, 0])`
+for an ordered group subset, or choose `chain`, `molecule` or `entity`, including
+empty declarations. With no `element`, native inventories without atoms use
+groups; atomistic systems retain their atom default. Group reordering remaps
+memberships; related parent tables keep source order. Repeated extraction
+indices are rejected, while queries can repeat indices. Scientific operations
+requiring atomic geometry or chemical assignments still require those domains.
+
+FASTA conversion creates one chain per record. Generated IDs follow
+`A` through `Z`, then `AA`, `AB`, through `AZ`, `BA`, and onward. Record tokens
+remain names, full descriptions remain entity names, and the raw source report
+retains the original text. Explicit source chain IDs are preserved when supplied
+by a form that defines them. Copy, TopologyDict and H5MSM 0.5 retain the ordered
+relation; a single one-letter string still cannot encode multiple chain boundaries.

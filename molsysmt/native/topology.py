@@ -80,8 +80,9 @@ class Groups_DataFrame(pd.DataFrame):
     Schema (fixed): group_id, group_name, group_type, molecule_index.
 
     component_index and chain_index are NOT group-level attributes. Component
-    membership is atom-aligned chemical-state data and chain membership lives
-    on stable atoms. Writing either here raises AttributeError.
+    membership is atom-aligned chemical-state data. Chain membership lives on
+    stable atoms, with an optional separate ordered chain/group declaration.
+    Writing either column here raises AttributeError.
     """
 
     def __init__(self, n_groups=0):
@@ -744,6 +745,7 @@ class Topology(NativeQueries):
         self.reset_entities(n_entities=n_entities)
         self.reset_chains(n_chains=n_chains)
         self.reset_bonds(n_bonds=n_bonds)
+        self._chain_group_membership = None
         self._coerce_id_columns_to_string()
 
         # Dirty bits for hierarchy reconstruction
@@ -1864,6 +1866,63 @@ class Topology(NativeQueries):
 
         return self._get_component_indices(state_index=state_index).isnull().any()
 
+    @property
+    def chain_groups(self):
+        """Getting ordered source group memberships for every native chain.
+
+        Returns an immutable tuple per chain, including empty declared chains.
+        Without an explicit declaration, memberships derive from stored atoms.
+        A group may belong to multiple chains; no atom or bond is synthesized.
+        """
+        from ._chain_groups import by_chain
+
+        return tuple(
+            tuple(int(index) for index in members) for members in by_chain(self)
+        )
+
+    @arg_digest()
+    def set_chain_groups(self, chain_groups, skip_digestion=False):
+        """Declaring ordered group membership independently of atomic realization.
+
+        Parameters
+        ----------
+        chain_groups : list, tuple, or None
+            One ordered list of unique source group indices per chain. Groups
+            can occur in multiple chains. None restores atom-derived membership.
+            Declarations must agree with every known atom/group/chain assignment.
+        skip_digestion : bool, default=False
+            Whether to skip MolSysMT's internal argument digestion mechanism.
+
+        Returns
+        -------
+        None
+            Publish independent compact integer membership after full validation.
+
+        Raises
+        ------
+        ArgumentError
+            If dimensions, integer indices or within-chain uniqueness are invalid.
+        StructuralInconsistencyError
+            If a declaration contradicts stored atom membership.
+
+        Examples
+        --------
+        >>> topology = Topology(n_groups=2, n_chains=1)
+        >>> topology.set_chain_groups([[1, 0]])
+        >>> topology.chain_groups
+        ((1, 0),)
+
+        .. admonition:: User guide
+
+           See :ref:`API Native Group Membership` and the Topology foundation
+           for declared hierarchy without an atomic realization.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._chain_groups import pack
+
+        self._chain_group_membership = pack(self, chain_groups)
+
     def get_n_atoms(self):
         return self.atoms.shape[0]
 
@@ -1911,6 +1970,7 @@ class Topology(NativeQueries):
         """Reset groups table to a new size."""
 
         self.groups = Groups_DataFrame(n_groups=n_groups)
+        self._chain_group_membership = None
 
     def reset_components(self, n_components=0):
         """Reset components table to a new size."""
@@ -1931,6 +1991,7 @@ class Topology(NativeQueries):
         """Reset chains table to a new size."""
 
         self.chains = Chains_DataFrame(n_chains=n_chains)
+        self._chain_group_membership = None
 
     def reset_bonds(self, n_bonds=0):
         """Reset bonds table to a new size."""
@@ -2045,6 +2106,21 @@ class Topology(NativeQueries):
             tmp_item._chemical_states_domain = (
                 self._chemical_states_domain._extract_atoms(atom_indices)
             )
+            if self._chain_group_membership is not None:
+                from ._chain_groups import by_chain
+
+                membership = by_chain(self)
+                group_map = {old: new for new, old in enumerate(old_group_indices)}
+                tmp_item.set_chain_groups(
+                    [
+                        [
+                            group_map[int(g)]
+                            for g in membership[chain]
+                            if int(g) in group_map
+                        ]
+                        for chain in old_chain_indices
+                    ]
+                )
             tmp_item.atoms["atom_id"] = tmp_item.atoms["atom_id"].astype("string")
             tmp_item.groups["group_id"] = tmp_item.groups["group_id"].astype("string")
             tmp_item.molecules["molecule_id"] = tmp_item.molecules[
@@ -2108,6 +2184,20 @@ class Topology(NativeQueries):
         else:
             tmp_item = item.extract(atom_indices=atom_indices, skip_digestion=True)
 
+        from ._chain_groups import by_chain
+
+        declared = (
+            self._chain_group_membership is not None
+            or tmp_item._chain_group_membership is not None
+        )
+        membership = None
+        if declared:
+            membership = [groups.tolist() for groups in by_chain(self)] + [
+                (groups + self.n_groups).tolist() for groups in by_chain(tmp_item)
+            ]
+            tmp_item.molecules["entity_index"] += self.n_entities
+            entities = pd.concat([self.entities, tmp_item.entities], ignore_index=True)
+
         n_atoms = self.atoms.shape[0]
         n_groups = self.groups.shape[0]
         n_components = self.components.shape[0]
@@ -2159,6 +2249,31 @@ class Topology(NativeQueries):
         self._reference_chemical_state._preparation_history.extend(
             deepcopy(tmp_item._reference_chemical_state._preparation_history)
         )
+
+        if declared:
+            self.entities = entities
+            self.set_chain_groups(membership)
+            if not keep_ids:
+                from ._topology_infer import fallback_ids, infer_chain_ids_from_topology
+
+                for plural, singular in (
+                    ("atoms", "atom"),
+                    ("groups", "group"),
+                    ("molecules", "molecule"),
+                    ("entities", "entity"),
+                ):
+                    table = getattr(self, plural)
+                    table[singular + "_id"] = fallback_ids(len(table))
+                self.chains["chain_id"] = infer_chain_ids_from_topology(self)
+            if self.n_atoms:
+                self.rebuild_components(
+                    redefine_indices=True,
+                    redefine_ids=not keep_ids,
+                    redefine_names=True,
+                    redefine_types=True,
+                )
+            self._coerce_id_columns_to_string()
+            return
 
         if not keep_ids:
             self.rebuild_atoms(redefine_ids=True, redefine_types=False)
@@ -2589,7 +2704,10 @@ class Topology(NativeQueries):
         -----
         When no better molecule definition is available, molecules fall back to
         components. Under that fallback, molecule name and type inherit from the
-        corresponding component. An inventory without groups uses the reference
+        corresponding component. Atom-free group inventories retain declared
+        molecule slots, including empty occurrences, and fill only missing owners
+        from the represented group/chain hierarchy. No atomic connectivity is
+        inferred for these inventories. An inventory without groups uses the reference
         component partition directly, retaining zero groups. Other chemical
         states do not silently redefine this fallback molecular axis. This
         method is a native API and is not form-agnostic.
@@ -2611,7 +2729,9 @@ class Topology(NativeQueries):
         need_component_indices = (
             redefine_names or redefine_types or redefine_indices
         ) and self._component_indices_are_missing()
-        if need_component_indices or need_component_types or need_component_names:
+        if self.n_atoms and (
+            need_component_indices or need_component_types or need_component_names
+        ):
             self.rebuild_components(
                 redefine_indices=need_component_indices,
                 redefine_ids=False,
@@ -2626,7 +2746,11 @@ class Topology(NativeQueries):
             self.groups, ["molecule_index"]
         )
 
-        if redefine_indices or force or need_molecule_indices:
+        if self.n_atoms == 0:
+            from ._topology_infer import complete_missing_molecule_membership
+
+            complete_missing_molecule_membership(self)
+        elif redefine_indices or force or need_molecule_indices:
             molecule_index_of_groups = infer_molecule_indices_from_topology(self)
             self.groups["molecule_index"] = molecule_index_of_groups.astype(int)
             if len(molecule_index_of_groups) > 0:
@@ -2667,7 +2791,8 @@ class Topology(NativeQueries):
         Notes
         -----
         Chain indices are rebuilt from the current native atom/group assignment.
-        Chain ids and names are regenerated as stable local values when
+        An explicit chain/group relation and empty chain declarations are retained.
+        Generated IDs follow A through Z, then AA, AB and onward. Chain ids and names are regenerated as stable local values when
         requested. Chain types are inferred from locally available molecule
         types. This method is a native API and is not form-agnostic.
         """
@@ -2694,7 +2819,9 @@ class Topology(NativeQueries):
             self.atoms, ["chain_index"]
         )
 
-        if redefine_indices or need_chain_indices:
+        if (redefine_indices or need_chain_indices) and not (
+            self.n_atoms == 0 or self._chain_group_membership is not None
+        ):
             chain_index_of_atoms = infer_chain_indices_from_topology(self)
             self.atoms["chain_index"] = np.array(chain_index_of_atoms, dtype=int)
 

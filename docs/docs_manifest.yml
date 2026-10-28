@@ -51,7 +51,7 @@ sections:
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
-            description: Native hierarchy, source-index covalent walks and FASTA occurrence correspondence, inherited construction, slot and table copy boundaries, controlled chemical-state editing, weak owner notification and detached copies.
+            description: Native hierarchy with ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA occurrence correspondence, inherited construction, slot and table copy boundaries, controlled chemical-state editing, weak owner notification and detached copies.
           - name: molsys
             description: Native domains, explicit standalone-provider composition, chemical ownership, copy boundaries, bounded metadata, controlled edits and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
@@ -470,11 +470,11 @@ sections:
           - name: three_letter_native_sequence
             file: docs/content/user/tools/form/string/string_amino_acids_3.ipynb
             agents_file: docs/content/user/tools/form/string/string_amino_acids_3.ipynb.AGENTS.md
-            description: Native three-letter groups and caps without atomic projection, with explicit hierarchy limits.
+            description: Native three-letter groups and caps without atomic projection, with ordered native hierarchy and explicit chemical prerequisites.
           - name: fasta
             file: docs/content/user/tools/form/file/file_fasta.ipynb
             agents_file: docs/content/user/tools/form/file/file_fasta.ipynb.AGENTS.md
-            description: Source-preserving FASTA records and normalized atom-free Topology/MolSys projection with explicit record and hierarchy limits.
+            description: Source-preserving FASTA records, alphabetic chain IDs and native group hierarchy queries, extraction and persistence without atomic realization.
           - name: pdbqt_file_handler
             file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md
             agents_file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md.AGENTS.md
@@ -496,7 +496,7 @@ sections:
             description: Header axis counts, eager structural queries and ordered subset export through StructuresDict.
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
-            description: Modular persistence, typed construction, normalization and geometry history, complementary file composition, shared axes, unequal structure/state populations with explicit maps, and legacy migration.
+            description: Modular persistence, ordered topology layer-2 chain/group membership, typed construction, normalization and geometry history, complementary file composition, shared axes, unequal structure/state populations with explicit maps, and legacy migration.
           - file: docs/content/user/tools/form/file/file_structures_yaml.ipynb
             agents_file: docs/content/user/tools/form/file/file_structures_yaml.ipynb.AGENTS.md
             description: Structures YAML 0.2 quantity records, sparse alternate geometry, local indices and explicit 0.1 migration.
@@ -547,7 +547,7 @@ sections:
       - name: comparing_sequence_source_groups
         file: docs/content/user/cookbook/comparing_sequence_source_groups.md
         agents_file: docs/content/user/cookbook/comparing_sequence_source_groups.md.AGENTS.md
-        description: Source-preserving FASTA admission, bounded native group inventories, query-normalized identity, native string codecs and optional Biopython output.
+        description: Source-preserving FASTA admission, selectable and extractable native group inventories, query-normalized identity, native string codecs and optional Biopython output.
         status: reviewed
       - name: symmetry_pose_rmsd
         file: docs/content/user/cookbook/symmetry_pose_rmsd.ipynb

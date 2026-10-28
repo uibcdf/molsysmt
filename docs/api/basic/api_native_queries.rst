@@ -44,3 +44,15 @@ one-dimensional series. Query output follows the active unit policy.
 .. automethod:: molsysmt.native.Structures.__init__
 
 .. automethod:: molsysmt.native.Structures.append
+
+.. _API Native Group Membership:
+
+Declaring group membership
+--------------------------
+
+Partial topologies can declare ordered chain/group membership without an atom
+inventory. Existing atom-level evidence must agree with the declaration.
+
+.. autoproperty:: molsysmt.native.Topology.chain_groups
+
+.. automethod:: molsysmt.native.Topology.set_chain_groups

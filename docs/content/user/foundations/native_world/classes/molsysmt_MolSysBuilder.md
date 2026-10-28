@@ -138,3 +138,13 @@ metadata for new disconnected components. Inherited molecule positions and label
 remain aligned even for a permuted source. A connectivity edit that splits or
 merges inherited molecules cannot silently redefine their group-free axis;
 explicit groups are required to retain those boundaries.
+
+## Group Inventories
+
+`add_group([], ...)` can declare a group before any atoms exist. `add_chain`
+accepts ordered group indices and also an empty list for a declared empty chain.
+Generated chain IDs follow `A` through `Z`, then `AA`, `AB`, and onward;
+explicit IDs are preserved. `build()` retains these groups and chain memberships,
+fills missing hierarchy metadata from local declarations and leaves atomic
+connectivity unavailable. It does not create representative atoms or a chemical
+realization. Known group types and molecule occurrences survive compilation.

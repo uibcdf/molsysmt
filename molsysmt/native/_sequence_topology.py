@@ -6,6 +6,7 @@ import pandas as pd
 
 def from_group_records(records):
     """Build independent canonical tables from already interpreted record groups."""
+    from molsysmt.element.chain.chain_names import _alphabetic_chain_id
     from molsysmt.element.group import get_group_type_from_group_name
     from molsysmt.element.group.amino_acid.codes import aa3_to_aa1
 
@@ -45,7 +46,12 @@ def from_group_records(records):
         ("chain", topology.chains),
     ]:
         table[f"{singular}_id"] = pd.array(
-            labels if singular == "chain" else [str(i) for i in range(count)],
+            [
+                record.get("chain_id", _alphabetic_chain_id(i))
+                for i, record in enumerate(records)
+            ]
+            if singular == "chain"
+            else [str(i) for i in range(count)],
             dtype="string",
         )
         table[f"{singular}_name"] = pd.array(
@@ -53,4 +59,10 @@ def from_group_records(records):
         )
         table[f"{singular}_type"] = pd.array(types, dtype="string")
     topology.molecules["entity_index"] = pd.array(range(count), dtype="Int64")
+    offsets = np.concatenate(
+        ([0], np.cumsum([len(record["groups"]) for record in records]))
+    )
+    topology.set_chain_groups(
+        [list(range(int(offsets[i]), int(offsets[i + 1]))) for i in range(count)]
+    )
     return topology

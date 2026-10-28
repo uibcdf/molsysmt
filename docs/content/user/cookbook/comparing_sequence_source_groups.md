@@ -64,10 +64,22 @@ source report alongside the result when source attribution matters.
 
 These outputs contain no representative CA atoms or coordinates. Choose a
 separate atomic-construction workflow when required by a downstream method.
-For this initial delivery, use represented group fields directly: textual
-selection, chain/group projections and atom-driven extraction have the known
-[#518 limits](https://github.com/uibcdf/molsysmt/issues/518). A global one-letter
-string also cannot encode boundaries between several molecules. The
+You can query and select represented groups and their parents without atoms:
+
+```python
+molsys = msm.convert("AGW", to_form="molsysmt.MolSys")
+assert molsys.get(element="chain", group_index=True) == [[0, 1, 2]]
+subset = msm.extract(molsys, element="group", selection=[2, 0])
+assert subset.get(element="group", group_name=True) == ["TRP", "ALA"]
+assert subset.topology.chain_groups == ((1, 0),)
+```
+
+The group table follows your requested extraction order; chain membership keeps
+its source sequence order with remapped group indices. Choose `element="chain"`
+when you want to retain a chain as a whole, including an empty record. FASTA
+chains receive generated IDs `A`, `B`, ..., `Z`, `AA`, `AB`, ...; record headers
+remain separate metadata. A global one-letter string cannot encode boundaries
+between multiple molecules. The
 {ref}`Topology foundation <user-foundations-native-world-classes-molsysmt-topology>`
 explains the partial inventory, and {ref}`FASTA adapter <Tutorial_Form_file_fasta>`
 documents its conversion contract.

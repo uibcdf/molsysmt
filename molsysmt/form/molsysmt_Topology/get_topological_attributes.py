@@ -8,6 +8,10 @@ from networkx import Graph
 
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
+from molsysmt.native._chain_groups import (
+    uses_declared_hierarchy as _uses_declared_hierarchy,
+)
+from molsysmt.native._group_hierarchy import project as _project_hierarchy
 from molsysmt.native._topology_infer import (
     molecule_indices_from_atoms as _molecule_indices_from_atoms,
 )
@@ -3093,6 +3097,9 @@ def get_group_index_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "group_index", indices)
+
     if indices == "all":
         output = list(range(item.groups.shape[0]))
     else:
@@ -3124,6 +3131,9 @@ def get_group_id_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "group_id", indices)
+
     group_id_from_group = item.groups["group_id"].to_numpy()
 
     if indices == "all":
@@ -3159,6 +3169,9 @@ def get_group_name_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "group_name", indices)
+
     group_name_from_group = item.groups["group_name"].to_numpy()
 
     if indices == "all":
@@ -3194,6 +3207,9 @@ def get_group_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "group_type", indices)
+
     group_type_from_group = item.groups["group_type"].to_numpy()
 
     if indices == "all":
@@ -3229,6 +3245,9 @@ def get_molecule_index_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "molecule_index", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
 
     if indices == "all":
@@ -3264,6 +3283,9 @@ def get_molecule_id_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "molecule_id", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
@@ -3302,6 +3324,9 @@ def get_molecule_name_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "molecule_name", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
@@ -3340,6 +3365,9 @@ def get_molecule_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "molecule_type", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
@@ -3378,6 +3406,9 @@ def get_entity_index_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "entity_index", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
 
@@ -3416,6 +3447,9 @@ def get_entity_id_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "entity_id", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_id_from_entity = item.entities["entity_id"].to_numpy()
@@ -3456,6 +3490,9 @@ def get_entity_name_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "entity_name", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_name_from_entity = item.entities["entity_name"].to_numpy()
@@ -3496,6 +3533,9 @@ def get_entity_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "entity_type", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_type_from_entity = item.entities["entity_type"].to_numpy()
@@ -3765,6 +3805,9 @@ def get_chain_index_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "chain_index", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     chain_index_from_atom = item.atoms["chain_index"].to_numpy(
         dtype=object, na_value=None
@@ -3815,6 +3858,9 @@ def get_chain_id_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "chain_id", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_id_from_chain = item.chains["chain_id"].to_numpy()
@@ -3869,6 +3915,9 @@ def get_chain_name_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "chain_name", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_name_from_chain = item.chains["chain_name"].to_numpy()
@@ -3923,6 +3972,9 @@ def get_chain_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "chain_type", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     chain_type_from_chain = item.chains["chain_type"].to_numpy()
@@ -4301,6 +4353,9 @@ def get_n_atoms_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_atoms", indices)
+
     output = get_atom_index_from_group(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -4363,6 +4418,9 @@ def get_n_groups_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_groups", indices)
+
     if indices == "all":
         output = item.groups.shape[0]
     else:
@@ -4420,6 +4478,9 @@ def get_n_molecules_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_molecules", indices)
+
     if indices == "all":
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
@@ -4480,6 +4541,9 @@ def get_n_entities_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_entities", indices)
+
     if indices == "all":
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
@@ -4605,6 +4669,9 @@ def get_n_chains_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_chains", indices)
+
     output = get_chain_index_from_group(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -4812,6 +4879,9 @@ def get_n_amino_acids_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_amino_acids", indices)
+
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count("amino acid")
@@ -4868,6 +4938,9 @@ def get_n_nucleotides_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_nucleotides", indices)
+
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count("nucleotide")
@@ -4924,6 +4997,9 @@ def get_n_ions_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_ions", indices)
+
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count("ion")
@@ -4980,6 +5056,9 @@ def get_n_waters_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_waters", indices)
+
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count("water")
@@ -5036,6 +5115,9 @@ def get_n_small_molecules_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_small_molecules", indices)
+
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count("small molecule")
@@ -5092,6 +5174,9 @@ def get_n_lipids_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_lipids", indices)
+
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count("lipid")
@@ -5148,6 +5233,9 @@ def get_n_saccharides_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_saccharides", indices)
+
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count("saccharide")
@@ -5204,6 +5292,9 @@ def get_n_peptides_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_peptides", indices)
+
     if indices == "all":
         output = get_n_peptides_from_system(item, skip_digestion=True)
     else:
@@ -5268,6 +5359,9 @@ def get_n_proteins_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_proteins", indices)
+
     if indices == "all":
         output = get_n_proteins_from_system(item, skip_digestion=True)
     else:
@@ -5332,6 +5426,9 @@ def get_n_dnas_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_dnas", indices)
+
     if indices == "all":
         output = get_n_dnas_from_system(item, skip_digestion=True)
     else:
@@ -5396,6 +5493,9 @@ def get_n_rnas_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_rnas", indices)
+
     if indices == "all":
         output = get_n_rnas_from_system(item, skip_digestion=True)
     else:
@@ -5460,6 +5560,9 @@ def get_n_polysaccharides_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "group", "n_polysaccharides", indices)
+
     if indices == "all":
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
     else:
@@ -5728,6 +5831,9 @@ def get_group_index_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "group_index", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
 
     if indices == "all":
@@ -5773,6 +5879,9 @@ def get_group_id_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "group_id", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     group_id_from_group = item.groups["group_id"].to_numpy()
 
@@ -5819,6 +5928,9 @@ def get_group_name_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "group_name", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     group_name_from_group = item.groups["group_name"].to_numpy()
 
@@ -5865,6 +5977,9 @@ def get_group_type_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "group_type", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     group_type_from_group = item.groups["group_type"].to_numpy()
 
@@ -5911,6 +6026,9 @@ def get_molecule_index_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "molecule_index", indices)
+
     if indices == "all":
         output = list(range(item.molecules.shape[0]))
     else:
@@ -5942,6 +6060,9 @@ def get_molecule_id_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "molecule_id", indices)
+
     molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
     if indices == "all":
@@ -5977,6 +6098,9 @@ def get_molecule_name_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "molecule_name", indices)
+
     molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
     if indices == "all":
@@ -6012,6 +6136,9 @@ def get_molecule_type_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "molecule_type", indices)
+
     molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
     if indices == "all":
@@ -6047,6 +6174,9 @@ def get_entity_index_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "entity_index", indices)
+
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
 
     if indices == "all":
@@ -6082,6 +6212,9 @@ def get_entity_id_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "entity_id", indices)
+
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
@@ -6120,6 +6253,9 @@ def get_entity_name_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "entity_name", indices)
+
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
@@ -6158,6 +6294,9 @@ def get_entity_type_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "entity_type", indices)
+
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
@@ -6422,6 +6561,9 @@ def get_chain_index_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "chain_index", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = _molecule_indices_from_atoms(item)
@@ -6474,6 +6616,9 @@ def get_chain_id_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "chain_id", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = _molecule_indices_from_atoms(item)
@@ -6535,6 +6680,9 @@ def get_chain_name_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "chain_name", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = _molecule_indices_from_atoms(item)
@@ -6596,6 +6744,9 @@ def get_chain_type_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "chain_type", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = _molecule_indices_from_atoms(item)
@@ -6995,6 +7146,9 @@ def get_n_atoms_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_atoms", indices)
+
     output = get_atom_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -7057,6 +7211,9 @@ def get_n_groups_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_groups", indices)
+
     output = get_group_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -7119,6 +7276,9 @@ def get_n_molecules_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_molecules", indices)
+
     if indices == "all":
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
@@ -7176,6 +7336,9 @@ def get_n_entities_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_entities", indices)
+
     if indices == "all":
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
@@ -7303,6 +7466,9 @@ def get_n_chains_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_chains", indices)
+
     output = get_chain_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -7495,6 +7661,9 @@ def get_n_amino_acids_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_amino_acids", indices)
+
     group_types = get_group_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -7561,6 +7730,9 @@ def get_n_nucleotides_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_nucleotides", indices)
+
     group_types = get_group_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -7627,6 +7799,9 @@ def get_n_ions_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_ions", indices)
+
     group_types = get_group_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -7691,6 +7866,9 @@ def get_n_waters_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_waters", indices)
+
     group_types = get_group_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -7755,6 +7933,9 @@ def get_n_small_molecules_from_molecule(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_small_molecules", indices)
+
     group_types = get_group_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -7823,6 +8004,9 @@ def get_n_lipids_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_lipids", indices)
+
     group_types = get_group_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -7887,6 +8071,9 @@ def get_n_saccharides_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_saccharides", indices)
+
     group_types = get_group_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -7953,6 +8140,9 @@ def get_n_peptides_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_peptides", indices)
+
     molecule_types = get_molecule_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -8012,6 +8202,9 @@ def get_n_proteins_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_proteins", indices)
+
     molecule_types = get_molecule_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -8071,6 +8264,9 @@ def get_n_polysaccharides_from_molecule(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_polysaccharides", indices)
+
     molecule_types = get_molecule_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -8134,6 +8330,9 @@ def get_n_dnas_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_dnas", indices)
+
     molecule_types = get_molecule_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -8193,6 +8392,9 @@ def get_n_rnas_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "molecule", "n_rnas", indices)
+
     molecule_types = get_molecule_type_from_molecule(
         item, indices=indices, skip_digestion=True
     )
@@ -8446,6 +8648,9 @@ def get_group_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "group_index", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_index_from_group = entity_index_from_molecule[molecule_index_from_group]
@@ -8498,6 +8703,9 @@ def get_group_id_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "group_id", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_index_from_group = entity_index_from_molecule[molecule_index_from_group]
@@ -8551,6 +8759,9 @@ def get_group_name_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "group_name", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_index_from_group = entity_index_from_molecule[molecule_index_from_group]
@@ -8604,6 +8815,9 @@ def get_group_type_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "group_type", indices)
+
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     entity_index_from_group = entity_index_from_molecule[molecule_index_from_group]
@@ -8657,6 +8871,9 @@ def get_molecule_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "molecule_index", indices)
+
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
 
     if indices == "all":
@@ -8702,6 +8919,9 @@ def get_molecule_id_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "molecule_id", indices)
+
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
@@ -8748,6 +8968,9 @@ def get_molecule_name_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "molecule_name", indices)
+
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
@@ -8796,6 +9019,9 @@ def get_molecule_type_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "molecule_type", indices)
+
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
@@ -8844,6 +9070,9 @@ def get_entity_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "entity_index", indices)
+
     if indices == "all":
         output = list(range(item.entities.shape[0]))
     else:
@@ -8875,6 +9104,9 @@ def get_entity_id_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "entity_id", indices)
+
     entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
     if indices == "all":
@@ -8910,6 +9142,9 @@ def get_entity_name_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "entity_name", indices)
+
     entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
     if indices == "all":
@@ -8945,6 +9180,9 @@ def get_entity_type_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "entity_type", indices)
+
     entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
     if indices == "all":
@@ -9218,6 +9456,9 @@ def get_chain_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "chain_index", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
@@ -9276,6 +9517,9 @@ def get_chain_id_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "chain_id", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
@@ -9336,6 +9580,9 @@ def get_chain_name_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "chain_name", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
@@ -9396,6 +9643,9 @@ def get_chain_type_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "chain_type", indices)
+
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
@@ -9792,6 +10042,9 @@ def get_n_atoms_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_atoms", indices)
+
     output = get_atom_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -9854,6 +10107,9 @@ def get_n_groups_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_groups", indices)
+
     output = get_group_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -9916,6 +10172,9 @@ def get_n_molecules_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_molecules", indices)
+
     output = get_molecule_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -9978,6 +10237,9 @@ def get_n_entities_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_entities", indices)
+
     if indices == "all":
         output = get_n_entities_from_system(item)
     else:
@@ -10102,6 +10364,9 @@ def get_n_chains_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_chains", indices)
+
     output = get_chain_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -10294,6 +10559,9 @@ def get_n_amino_acids_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_amino_acids", indices)
+
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ii.count("amino acid") for ii in group_types]
 
@@ -10358,6 +10626,9 @@ def get_n_nucleotides_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_nucleotides", indices)
+
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ii.count("nucleotide") for ii in group_types]
 
@@ -10422,6 +10693,9 @@ def get_n_ions_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_ions", indices)
+
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ii.count("ion") for ii in group_types]
 
@@ -10484,6 +10758,9 @@ def get_n_waters_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_waters", indices)
+
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ii.count("water") for ii in group_types]
 
@@ -10546,6 +10823,9 @@ def get_n_small_molecules_from_entity(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_small_molecules", indices)
+
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ii.count("small molecule") for ii in group_types]
 
@@ -10610,6 +10890,9 @@ def get_n_lipids_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_lipids", indices)
+
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ii.count("lipid") for ii in group_types]
 
@@ -10672,6 +10955,9 @@ def get_n_saccharides_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_saccharides", indices)
+
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ii.count("saccharide") for ii in group_types]
 
@@ -10736,6 +11022,9 @@ def get_n_peptides_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_peptides", indices)
+
     molecule_types = get_molecule_type_from_entity(
         item, indices=indices, skip_digestion=True
     )
@@ -10800,6 +11089,9 @@ def get_n_proteins_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_proteins", indices)
+
     molecule_types = get_molecule_type_from_entity(
         item, indices=indices, skip_digestion=True
     )
@@ -10864,6 +11156,9 @@ def get_n_polysaccharides_from_entity(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_polysaccharides", indices)
+
     molecule_types = get_molecule_type_from_entity(
         item, indices=indices, skip_digestion=True
     )
@@ -10930,6 +11225,9 @@ def get_n_dnas_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_dnas", indices)
+
     molecule_types = get_molecule_type_from_entity(
         item, indices=indices, skip_digestion=True
     )
@@ -10994,6 +11292,9 @@ def get_n_rnas_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "entity", "n_rnas", indices)
+
     molecule_types = get_molecule_type_from_entity(
         item, indices=indices, skip_digestion=True
     )
@@ -14061,6 +14362,9 @@ def get_group_index_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "group_index", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
 
@@ -14109,6 +14413,9 @@ def get_group_id_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "group_id", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     group_id_from_group = item.groups["group_id"].to_numpy()
@@ -14159,6 +14466,9 @@ def get_group_name_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "group_name", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     group_name_from_group = item.groups["group_name"].to_numpy()
@@ -14209,6 +14519,9 @@ def get_group_type_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "group_type", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     group_type_from_group = item.groups["group_type"].to_numpy()
@@ -14259,6 +14572,9 @@ def get_molecule_index_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "molecule_index", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
@@ -14314,6 +14630,9 @@ def get_molecule_id_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "molecule_id", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
@@ -14366,6 +14685,9 @@ def get_molecule_name_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "molecule_name", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
@@ -14418,6 +14740,9 @@ def get_molecule_type_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "molecule_type", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
@@ -14479,6 +14804,9 @@ def get_entity_index_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "entity_index", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
@@ -14533,6 +14861,9 @@ def get_entity_id_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "entity_id", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
@@ -14588,6 +14919,9 @@ def get_entity_name_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "entity_name", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
@@ -14643,6 +14977,9 @@ def get_entity_type_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "entity_type", indices)
+
     chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     group_index_from_atom = item.atoms["group_index"].to_numpy()
     molecule_index_from_group = item.groups["molecule_index"].to_numpy()
@@ -14910,6 +15247,9 @@ def get_chain_index_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "chain_index", indices)
+
     if indices == "all":
         output = list(range(item.chains.shape[0]))
     else:
@@ -14941,6 +15281,9 @@ def get_chain_id_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "chain_id", indices)
+
     chain_id_from_chain = item.chains["chain_id"].to_numpy()
 
     if indices == "all":
@@ -14976,6 +15319,9 @@ def get_chain_name_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "chain_name", indices)
+
     chain_name_from_chain = item.chains["chain_name"].to_numpy()
 
     if indices == "all":
@@ -15011,6 +15357,9 @@ def get_chain_type_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "chain_type", indices)
+
     chain_type_from_chain = item.chains["chain_type"].to_numpy()
 
     if indices == "all":
@@ -15370,6 +15719,9 @@ def get_n_atoms_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_atoms", indices)
+
     output = get_atom_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -15432,6 +15784,9 @@ def get_n_groups_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_groups", indices)
+
     output = get_group_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -15499,6 +15854,9 @@ def get_n_molecules_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_molecules", indices)
+
     output = get_molecule_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -15566,6 +15924,9 @@ def get_n_entities_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_entities", indices)
+
     output = get_entity_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -15705,6 +16066,9 @@ def get_n_chains_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_chains", indices)
+
     if indices == "all":
         output = item.chains.shape[0]
     else:
@@ -15886,6 +16250,9 @@ def get_n_amino_acids_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_amino_acids", indices)
+
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ii.count("amino acid") for ii in group_types]
 
@@ -15950,6 +16317,9 @@ def get_n_nucleotides_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_nucleotides", indices)
+
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ii.count("nucleotide") for ii in group_types]
 
@@ -16014,6 +16384,9 @@ def get_n_ions_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_ions", indices)
+
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ii.count("ion") for ii in group_types]
 
@@ -16076,6 +16449,9 @@ def get_n_waters_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_waters", indices)
+
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ii.count("water") for ii in group_types]
 
@@ -16138,6 +16514,9 @@ def get_n_small_molecules_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_small_molecules", indices)
+
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ii.count("small molecule") for ii in group_types]
 
@@ -16202,6 +16581,9 @@ def get_n_lipids_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_lipids", indices)
+
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ii.count("lipid") for ii in group_types]
 
@@ -16264,6 +16646,9 @@ def get_n_saccharides_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_saccharides", indices)
+
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ii.count("saccharide") for ii in group_types]
 
@@ -16328,6 +16713,9 @@ def get_n_polysaccharides_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_polysaccharides", indices)
+
     molecule_types = get_molecule_type_from_chain(
         item, indices=indices, skip_digestion=True
     )
@@ -16394,6 +16782,9 @@ def get_n_peptides_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_peptides", indices)
+
     molecule_types = get_molecule_type_from_chain(
         item, indices=indices, skip_digestion=True
     )
@@ -16458,6 +16849,9 @@ def get_n_proteins_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_proteins", indices)
+
     molecule_types = get_molecule_type_from_chain(
         item, indices=indices, skip_digestion=True
     )
@@ -16522,6 +16916,9 @@ def get_n_dnas_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_dnas", indices)
+
     molecule_types = get_molecule_type_from_chain(
         item, indices=indices, skip_digestion=True
     )
@@ -16586,6 +16983,9 @@ def get_n_rnas_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "chain", "n_rnas", indices)
+
     molecule_types = get_molecule_type_from_chain(
         item, indices=indices, skip_digestion=True
     )
@@ -17115,6 +17515,9 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_atoms")
+
     return item.atoms.shape[0]
 
 
@@ -17139,6 +17542,9 @@ def get_n_groups_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_groups")
+
     return item.groups.shape[0]
 
 
@@ -17163,6 +17569,9 @@ def get_n_molecules_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_molecules")
+
     if item._molecules_dirty or item.groups["molecule_index"].isnull().any():
         item.rebuild_molecules(force=True)
 
@@ -17190,6 +17599,9 @@ def get_n_entities_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_entities")
+
     if item._entities_dirty or item.molecules["entity_index"].isnull().any():
         item.rebuild_entities(force=True)
 
@@ -17244,6 +17656,9 @@ def get_n_chains_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_chains")
+
     return item.chains.shape[0]
 
 
@@ -17292,6 +17707,9 @@ def get_n_amino_acids_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_amino_acids")
+
     output = item.groups["group_type"].tolist().count("amino acid")
 
     return output
@@ -17318,6 +17736,9 @@ def get_n_nucleotides_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_nucleotides")
+
     output = item.groups["group_type"].tolist().count("nucleotide")
 
     return output
@@ -17344,6 +17765,9 @@ def get_n_ions_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_ions")
+
     output = item.groups["group_type"].tolist().count("ion")
 
     return output
@@ -17370,6 +17794,9 @@ def get_n_waters_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_waters")
+
     output = item.groups["group_type"].tolist().count("water")
 
     return output
@@ -17396,6 +17823,9 @@ def get_n_small_molecules_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_small_molecules")
+
     output = item.groups["group_type"].tolist().count("small molecule")
 
     return output
@@ -17422,6 +17852,9 @@ def get_n_lipids_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_lipids")
+
     output = item.groups["group_type"].tolist().count("lipid")
 
     return output
@@ -17448,6 +17881,9 @@ def get_n_saccharides_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_saccharides")
+
     output = item.groups["group_type"].tolist().count("saccharide")
 
     return output
@@ -17474,6 +17910,9 @@ def get_n_peptides_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_peptides")
+
     output = item.molecules["molecule_type"].tolist().count("peptide")
 
     return output
@@ -17500,6 +17939,9 @@ def get_n_proteins_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_proteins")
+
     output = item.molecules["molecule_type"].tolist().count("protein")
 
     return output
@@ -17526,6 +17968,9 @@ def get_n_polysaccharides_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_polysaccharides")
+
     output = item.molecules["molecule_type"].tolist().count("polysaccharide")
 
     return output
@@ -17552,6 +17997,9 @@ def get_n_dnas_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_dnas")
+
     output = item.molecules["molecule_type"].tolist().count("dna")
 
     return output
@@ -17578,6 +18026,9 @@ def get_n_rnas_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    if _uses_declared_hierarchy(item):
+        return _project_hierarchy(item, "system", "n_rnas")
+
     output = item.molecules["molecule_type"].tolist().count("rna")
 
     return output

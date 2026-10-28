@@ -37,11 +37,11 @@ def to_molsysmt_Topology(
 
     Notes
     -----
-    Atom-free hierarchy limitations remain under MolSysMT #518. Group/chain
-    projections, text selections, builder/dictionary reconstruction and
-    atom-driven extraction require follow-up. Stored counts are representation
-    counts; they do not certify physical atom composition or molecular identity.
-    No Biopython dependency or atomic/coordinate construction is introduced.
+    Ordered chain/group membership is represented independently of atoms.
+    Native hierarchy queries, text selections, extraction and dictionary/H5MSM
+    round trips preserve it. Stored counts describe representation, not complete
+    physical composition or chemical identity. No Biopython dependency is needed.
+    Atomic construction is an explicit build operation, not an implicit CA model.
 
     Examples
     --------

@@ -39,7 +39,7 @@ def extract(item, width, atom_indices, group_indices, structure_indices, *, call
         raise ArgumentError(
             "group_indices",
             caller=caller,
-            message="Sequence positions are outside the original group axis.",
+            message=f"Sequence positions are outside the original group axis of {form}.",
         )
     selected = "".join(
         sequence[index * width : (index + 1) * width] for index in indices

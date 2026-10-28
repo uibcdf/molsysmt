@@ -58,8 +58,8 @@ def test_n_amino_acids_from_system(fasta_two_chains):
 
 def test_chain_id_from_chain(fasta_two_chains):
     ids = msm.get(fasta_two_chains, element="chain", chain_id=True)
-    assert ids[0] == "chain_A"
-    assert ids[1] == "chain_B"
+    assert ids[0] == "A"
+    assert ids[1] == "B"
 
 
 def test_chain_type_from_chain(fasta_two_chains):

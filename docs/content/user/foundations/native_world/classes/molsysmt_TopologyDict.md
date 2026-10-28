@@ -74,9 +74,19 @@ rejected. Other lost assignments are described by the conversion report.
 For versioned chemical-state storage, use `ChemicalStatesDict` or
 {ref}`H5MSM <user-foundations-native-world-files-file-h5msm>`.
 
-Reconstruction uses the native builder: missing memberships/defaults may be
-filled and group/molecule/entity information inferred. Raw record counts do
-not necessarily equal the finalized hierarchy counts.
+Atom-backed reconstruction uses the native builder: missing memberships/defaults
+may be filled and group/molecule/entity information inferred. Raw record counts
+do not necessarily equal the finalized atomic hierarchy counts.
+
+When `atoms` is empty, reconstruction instead retains the declared group,
+molecule, entity and chain rows, including empty occurrences, without inferring
+an atom graph. Chain `group_indices` preserve order and allow a group in several
+chains. Groups still have a single molecule parent, and molecules a single entity
+parent; overlapping or out-of-range parent declarations are rejected. Missing
+memberships remain unknown. This group-inventory route does not establish
+complete chemical connectivity. Schema 0.1 has no per-atom chain-membership
+field; use H5MSM for atomic cases that require preserving a split group across
+several chains.
 
 ## Invariants and Performance
 

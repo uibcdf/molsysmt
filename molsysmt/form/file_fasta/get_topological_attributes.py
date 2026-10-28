@@ -175,28 +175,33 @@ def get_chain_index_from_chain(item, indices="all", skip_digestion=False):
 @dep_digest("Bio")
 def get_chain_id_from_chain(item, indices="all", skip_digestion=False):
     """
-    Getting chain id from chain in form file:fasta.
+    Getting generated alphabetic chain IDs from FASTA records.
 
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
+        FASTA path containing source sequence records.
+    indices : str or array_like of int, default='all'
+        Source record positions, retaining the requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list of str or None
+        IDs A through Z, then AA, AB and onward. Record tokens remain names,
+        rather than being interpreted as explicit chain declarations.
 
 
     .. versionadded:: 1.0.0
     """
+    from molsysmt.element.chain.chain_names import _alphabetic_chain_id
+
+    if indices is None:
+        return None
     records = _parse_fasta(item)
-    ids = [r.id for r in records]
+    ids = [_alphabetic_chain_id(i) for i in range(len(records))]
     if indices == "all":
         return ids
     return [ids[i] for i in indices]
@@ -396,7 +401,10 @@ def get_entity_id_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return get_chain_id_from_chain(item, indices=indices, skip_digestion=True)
+    if indices is None:
+        return None
+    ids = [record.id for record in _parse_fasta(item)]
+    return ids if is_all(indices) else [ids[i] for i in indices]
 
 
 @arg_digest(form=form)

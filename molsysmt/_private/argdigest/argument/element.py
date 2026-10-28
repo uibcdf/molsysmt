@@ -27,7 +27,7 @@ def digest_element(element, caller=None):
         if element_name_lower in _elements:
             return element_name_lower
     elif element is None:
-        if caller == "molsysmt.basic.set.set":
+        if caller in ("molsysmt.basic.set.set", "molsysmt.basic.extract.extract"):
             return element
 
     raise ArgumentError("element", value=element, caller=caller, message=None)

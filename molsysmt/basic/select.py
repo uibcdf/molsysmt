@@ -221,6 +221,21 @@ def select(
                     molecular_system, structure_indices, "molsysmt.select"
                 )
                 direct_bond_selection = False
+                direct_group_selection = False
+                if syntax == "MolSysMT" and element in {
+                    "group",
+                    "chain",
+                    "molecule",
+                    "entity",
+                }:
+                    from .selector._group_inventory import select_inventory
+
+                    hierarchy_indices = select_inventory(
+                        molecular_system, selection, element
+                    )
+                    if hierarchy_indices is not None:
+                        output_indices = hierarchy_indices
+                        direct_group_selection = True
                 if syntax == "MolSysMT" and element == "bond":
                     from .selector.molsysmt import (
                         select_bonds_standard,
@@ -228,7 +243,9 @@ def select(
                     )
 
                     direct_bond_selection = selection_uses_bond_attributes(selection)
-                if direct_bond_selection:
+                if direct_group_selection:
+                    pass
+                elif direct_bond_selection:
                     output_indices = select_bonds_standard(molecular_system, selection)
                 else:
                     atom_indices = _dict_select[syntax](
@@ -253,7 +270,7 @@ def select(
         else:
             raise NotSupportedSyntaxError(syntax=syntax)
 
-        if direct_bond_selection:
+        if direct_bond_selection or direct_group_selection:
             pass
 
         elif element == "atom":

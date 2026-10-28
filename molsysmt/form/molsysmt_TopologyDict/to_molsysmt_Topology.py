@@ -27,9 +27,14 @@ def to_molsysmt_Topology(item, skip_digestion=False):
 
     from molsysmt import MolSysBuilder
 
-    builder = MolSysBuilder()
     data = item.to_dict(copy=True)
 
+    if not data.get("atoms"):
+        from molsysmt.native._group_records import from_records
+
+        return from_records(data)
+
+    builder = MolSysBuilder()
     atoms = data.get("atoms", []) or []
     for atom in atoms:
         builder.add_atom(

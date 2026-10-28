@@ -140,22 +140,9 @@ def to_molsysmt_MolSysDict(
 
     chains = []
     if item.topology.n_chains > 0:
-        # chain_index is atom-level only; derive per-group from atoms
-        if "chain_index" in item.topology.atoms.columns:
-            atom_chain_index = item.topology.atoms["chain_index"].to_numpy(dtype=object)
-            group_chain_index = []
-            for group_index in range(item.topology.n_groups):
-                chain_candidates = [
-                    atom_chain_index[ii]
-                    for ii in range(item.topology.n_atoms)
-                    if atom_group_index[ii] == group_index
-                ]
-                group_chain_index.append(
-                    chain_candidates[0] if chain_candidates else None
-                )
-        else:
-            group_chain_index = [None] * item.topology.n_groups
+        from molsysmt.native._chain_groups import by_chain
 
+        chain_group_indices = by_chain(item.topology)
         for chain_index in range(item.topology.n_chains):
             row = item.topology.chains.iloc[chain_index]
             chains.append(
@@ -165,11 +152,7 @@ def to_molsysmt_MolSysDict(
                     else str(_normalize_scalar(row["chain_id"])),
                     "chain_name": _normalize_scalar(row["chain_name"]),
                     "chain_type": _normalize_scalar(row["chain_type"]),
-                    "group_indices": [
-                        int(ii)
-                        for ii in range(item.topology.n_groups)
-                        if group_chain_index[ii] == chain_index
-                    ],
+                    "group_indices": chain_group_indices[chain_index].tolist(),
                 }
             )
 

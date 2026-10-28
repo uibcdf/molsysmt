@@ -49,11 +49,12 @@ def to_molsysmt_Topology(
     The existing amino-acid interpretation is retained; alphabet overlap cannot
     disambiguate a nucleotide sequence from a peptide. No nucleotide inference
     or new automatic alphabet-selection policy is introduced.
-    Native hierarchy limits remain tracked by MolSysMT #518: group/chain
-    projections, text selections and atom-driven extraction require follow-up.
-    Chain labels are retained, but group-chain membership is not represented
-    by the current atom-only native relation. Entity slots retain record-level
-    separation, without inferring equality/inequality of molecular identities.
+    Ordered chain/group membership is stored independently of atoms, including
+    empty chains. Generated chain IDs follow A through Z, then AA, AB and onward;
+    record tokens remain chain/molecule names and full descriptions entity names.
+    Native hierarchy queries, selectors and extraction retain those declarations.
+    TopologyDict and H5MSM 0.5 preserve the relation. Separate entity slots do not
+    infer equality or inequality of molecular identities.
     Stored atom count zero is not a claim of zero physical atoms. Full atomic
     construction must be explicitly requested through an appropriate build tool.
 
@@ -71,7 +72,7 @@ def to_molsysmt_Topology(
 
     .. admonition:: User guide
 
-       See :ref:`Tutorial_Form_file_fasta` for normalization and partial hierarchy limits.
+       See :ref:`Tutorial_Form_file_fasta` for normalization and represented hierarchy.
 
     .. versionadded:: 1.0.0
     """

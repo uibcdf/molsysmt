@@ -120,3 +120,13 @@ serialized domains.
 See {func}`molsysmt.basic.convert`, {func}`molsysmt.basic.get` and
 {ref}`the conversion tutorial <Tutorial_Convert>`. The resident owner is
 {ref}`MolSys <user-foundations-native-world-classes-molsysmt-molsys>`.
+
+## Group Declarations
+
+Omitting the nested `topology.groups` field retains builder fallback inference
+for an atomic inventory with missing hierarchy. Explicit `groups: []` instead
+declares that the atom inventory has no groups; reconstruction preserves that
+absence and uses the reference component partition for molecules. Native
+MolSysDict projection includes this explicit empty list for group-free systems.
+A declared group inventory with no atoms retains its known groups and ordered
+chain memberships without inventing chemical connectivity or coordinates.

@@ -20,6 +20,19 @@ def _materialize_derived_components(builder):
     )
 
 
+def _set_stored_structures(builder, structures):
+    if structures.get("coordinates", None) is not None:
+        builder.set_coordinates(
+            puw.quantity(structures["coordinates"], "nm"), skip_digestion=True
+        )
+    if structures.get("box", None) is not None:
+        builder.set_box(puw.quantity(structures["box"], "nm"), skip_digestion=True)
+    if structures.get("time", None) is not None:
+        builder.set_time(puw.quantity(structures["time"], "ps"), skip_digestion=True)
+    if structures.get("structure_id", None) is not None:
+        builder.set_structure_id(structures["structure_id"], skip_digestion=True)
+
+
 def build_molsys_builder_from_molsys_dict(item):
     """
     Performing build molsys builder from molsys dict on form molsysmt.MolSysDict.
@@ -46,6 +59,13 @@ def build_molsys_builder_from_molsys_dict(item):
     builder = MolSysBuilder(skip_digestion=True)
 
     atoms = topology.get("atoms", []) or []
+    builder._preserve_absent_groups = "groups" in topology and not topology["groups"]
+    if not atoms:
+        from molsysmt.native._group_records import from_records
+
+        builder.topology = from_records(topology)
+        _set_stored_structures(builder, structures)
+        return builder
     for atom in atoms:
         builder.add_atom(
             atom_id=atom.get("atom_id", None),
@@ -81,7 +101,7 @@ def build_molsys_builder_from_molsys_dict(item):
             skip_digestion=True,
         )
 
-    group_free = not topology.get("groups")
+    group_free = "groups" in topology and not topology["groups"]
     builder._preserve_absent_groups = group_free
     molecules = topology.get("molecules", []) or []
     if group_free and molecules:
@@ -113,16 +133,7 @@ def build_molsys_builder_from_molsys_dict(item):
             atom.get("isotope", None) for atom in atoms
         ]
 
-    if structures.get("coordinates", None) is not None:
-        builder.set_coordinates(
-            puw.quantity(structures["coordinates"], "nm"), skip_digestion=True
-        )
-    if structures.get("box", None) is not None:
-        builder.set_box(puw.quantity(structures["box"], "nm"), skip_digestion=True)
-    if structures.get("time", None) is not None:
-        builder.set_time(puw.quantity(structures["time"], "ps"), skip_digestion=True)
-    if structures.get("structure_id", None) is not None:
-        builder.set_structure_id(structures["structure_id"], skip_digestion=True)
+    _set_stored_structures(builder, structures)
 
     _materialize_derived_components(builder)
 

@@ -103,19 +103,19 @@ def has_attribute(
         return molecular_system.atoms["isotope"].notna().any()
 
     hierarchy = {
-        "group_index": molecular_system.atoms["group_index"].notna().any(),
+        "group_index": molecular_system.n_groups > 0,
         "group_id": molecular_system.n_groups > 0,
         "group_name": molecular_system.n_groups > 0,
         "group_type": molecular_system.n_groups > 0,
-        "chain_index": molecular_system.atoms["chain_index"].notna().any(),
+        "chain_index": molecular_system.n_chains > 0,
         "chain_id": molecular_system.n_chains > 0,
         "chain_name": molecular_system.n_chains > 0,
         "chain_type": molecular_system.n_chains > 0,
-        "molecule_index": molecular_system.groups["molecule_index"].notna().any(),
+        "molecule_index": molecular_system.n_molecules > 0,
         "molecule_id": molecular_system.n_molecules > 0,
         "molecule_name": molecular_system.n_molecules > 0,
         "molecule_type": molecular_system.n_molecules > 0,
-        "entity_index": molecular_system.molecules["entity_index"].notna().any(),
+        "entity_index": molecular_system.n_entities > 0,
         "entity_id": molecular_system.n_entities > 0,
         "entity_name": molecular_system.n_entities > 0,
         "entity_type": molecular_system.n_entities > 0,

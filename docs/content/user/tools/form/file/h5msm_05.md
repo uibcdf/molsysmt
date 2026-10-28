@@ -40,6 +40,22 @@ This bound covers observation-column writes, not total RAM or other domains;
 selection/remapping before writing can still materialize data.
 See {ref}`user-tools-interactions-result`.
 
+## Storing group inventories
+
+A Topology layer may contain known groups, chains and molecule occurrences with
+zero stored atoms. An optional ordered chain/group relation preserves sequence
+boundaries and empty chains without inventing representative atoms. Topology
+layer schema 2 adds signed 64-bit `chain_groups/offsets` and
+`chain_groups/indices` datasets. Offsets have length `n_chains + 1`; their slices
+select each chain's ordered groups. A group can participate in several chains.
+This does not change the H5MSM root version, which remains 0.5.
+
+Current readers accept topology layer schemas 1 and 2. Writers retain schema 1
+when no explicit relation is present, and emit schema 2 when it is present.
+Builds that only understand topology layer 1 must be updated before reading
+files containing the new relation; they cannot recover it from empty atom tables.
+No changes are made to atomic coordinates, chemical-state or interaction codecs.
+
 ## Reading legacy units
 
 Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.

@@ -116,7 +116,7 @@ def test_fasta_records_are_distinct_occurrences_without_fake_ca(tmp_path):
     assert topology.n_molecules == topology.n_chains == topology.n_entities == 4
     assert topology.groups.group_name.tolist() == ["ALA", "GLY", "TRP", "ALA", "GLY"]
     assert topology.groups.molecule_index.tolist() == [0, 0, 1, 2, 2]
-    assert topology.chains.chain_id.tolist() == ["same", "other", "same", "empty"]
+    assert topology.chains.chain_id.tolist() == ["A", "B", "C", "D"]
     assert topology.entities.entity_name.tolist() == [
         "same complete header",
         "other",

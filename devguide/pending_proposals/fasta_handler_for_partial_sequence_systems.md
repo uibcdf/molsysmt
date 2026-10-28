@@ -39,11 +39,12 @@ maps. Keep literal raw input separate from explicit normalized molecular views.
 
 ## Scope and dependencies
 
-#517 supplies the native partial table construction. #518 owns deeper
-atom-free hierarchy/selection/build/dictionary gaps. A handler may expose
-record metadata efficiently while those limits remain explicit; it must not
-claim their completion, create CA atoms, infer coordinates or merge molecular
-identities. A new sequence value class remains separate under #242.
+#517 supplies the native partial table construction. #518 completes the ordered
+chain/group relation, native queries and selectors, hierarchy extraction,
+construction and dictionary/H5MSM persistence without atoms. Reuse those tools
+rather than reconstructing hierarchy in the handler. Resource/indexed I/O,
+streaming record iteration and source binding remain this proposal's work;
+none may create CA atoms, infer coordinates or merge molecular identities. A new sequence value class remains separate under #242.
 
 ## Acceptance
 

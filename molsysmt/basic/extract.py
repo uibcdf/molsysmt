@@ -15,9 +15,11 @@ def extract(
     copy_if_all=True,
     syntax="MolSysMT",
     skip_digestion=False,
+    *,
+    element=None,
 ):
     """
-    Extracting a subset of atoms and/or structures from a molecular system.
+    Extracting selected molecular elements and/or structures from a system.
 
     This function creates a new molecular system containing only the elements and structures
     specified by `selection` and `structure_indices`. Composite inputs are materialized as a
@@ -44,11 +46,17 @@ def extract(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    element : str or None, default=None
+        Axis of `selection`. None uses atoms for atomistic systems and groups
+        for atom-free group inventories. Explicit group, chain, molecule and
+        entity selections retain their represented hierarchy; atomistic systems
+        project these selections to their atoms.
+
     Returns
     -------
     molecular system
-        A new molecular system containing only the selected atoms and structures, in `to_form`
-        if provided. Otherwise, the result uses the singular input form or `molsysmt.MolSys`
+        A new molecular system containing the selected inventory and structures,
+        in `to_form` if provided. Otherwise, the result uses the singular input form or `molsysmt.MolSys`
         for a composite input.
 
 
@@ -106,7 +114,22 @@ def extract(
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt._private.smonitor import ArgumentError
     from molsysmt.form import _dict_modules
+
+    if element not in (
+        None,
+        "atom",
+        "group",
+        "chain",
+        "molecule",
+        "entity",
+        "component",
+    ):
+        raise ArgumentError(
+            "element",
+            message="Extraction requires atom, group, chain, molecule, entity or component selection.",
+        )
 
     from . import convert, get_form, select
 
@@ -135,7 +158,34 @@ def extract(
             copy_if_all=copy_if_all,
             syntax=syntax,
             skip_digestion=True,
+            element=element,
         )
+
+    from ._extract_group_inventory import extract_inventory
+
+    inventory = extract_inventory(
+        molecular_system,
+        forms_in,
+        selection,
+        structure_indices,
+        element,
+        syntax,
+        copy_if_all,
+        to_form,
+    )
+    if inventory is not None:
+        return inventory
+    if element not in (None, "atom"):
+        from . import get
+
+        selected = select(
+            molecular_system, selection=selection, element=element, syntax=syntax
+        )
+        parents = get(molecular_system, element="atom", **{element + "_index": True})
+        selected = set(selected)
+        selection = [
+            index for index, parent in enumerate(parents) if parent in selected
+        ]
 
     if to_form is not None:
         return convert(

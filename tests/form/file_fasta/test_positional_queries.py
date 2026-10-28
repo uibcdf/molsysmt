@@ -31,7 +31,7 @@ def sequence_file(request, tmp_path):
 def test_positional_queries_preserve_source_order(
     sequence_file, element, selection, expected
 ):
-    path, _ = sequence_file
+    path, extension = sequence_file
     attribute = f"{element}_index"
     assert (
         msm.get(path, element=element, selection=selection, **{attribute: True})
@@ -45,7 +45,10 @@ def test_positional_queries_preserve_source_order(
         **{attribute: True, f"{element}_id": True},
     )
     assert result[attribute] == expected
-    assert result[f"{element}_id"] == [["alpha", "beta"][i] for i in expected]
+    labels = (
+        ["A", "B"] if element == "chain" and extension == "fasta" else ["alpha", "beta"]
+    )
+    assert result[f"{element}_id"] == [labels[i] for i in expected]
 
 
 @pytest.mark.parametrize("element", ["chain", "entity"])

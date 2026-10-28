@@ -356,6 +356,7 @@ class MolSysBuilder(NativeQueries):
         ----------
         atom_indices : list, tuple, or numpy.ndarray
             Existing atom indices to assign to this group. Atoms must be ungrouped.
+            An empty collection declares a group without stored atoms.
         group_id : str or int, optional
             Group label, normalized to a string. None uses its new index.
         group_name : str, optional
@@ -399,9 +400,10 @@ class MolSysBuilder(NativeQueries):
         .. versionadded:: 1.0.0
         """
         atom_indices = self._indices_array(atom_indices)
-        self._validate_existing_indices(
-            atom_indices, upper_bound=self.topology.n_atoms, element_name="Group"
-        )
+        if len(atom_indices):
+            self._validate_existing_indices(
+                atom_indices, upper_bound=self.topology.n_atoms, element_name="Group"
+            )
 
         current_group_index = self.topology.atoms.loc[atom_indices, "group_index"]
         if current_group_index.notna().any():
@@ -529,38 +531,95 @@ class MolSysBuilder(NativeQueries):
         allow_reassign=False,
         skip_digestion=False,
     ):
-        """Add a new chain and assign *group_indices* to it.
+        """Adding a chain with ordered declared group membership.
 
         Parameters
         ----------
-        group_indices : array-like of int
-            Groups to assign to the new chain.
-        chain_id, chain_name, chain_type : str, optional
-            Metadata for the new chain entry.
-        allow_reassign : bool, default False
-            When False (default), raises StructuralInconsistencyError if any
-            of the requested groups is already assigned to a chain.
-            Set ``allow_reassign=True`` to allow reassignment (e.g. moving
-            waters to a dedicated chain after loading).
+        group_indices : array_like of int
+            Unique existing group indices, in chain order. An empty collection
+            declares an empty chain. No atomic realization is required.
+        chain_id : str or int, optional
+            Chain label. None generates A through Z, then AA, AB and onward.
+            Supplied labels are preserved as strings.
+        chain_name : str, optional
+            Chain name. None leaves the name unspecified until build time.
+        chain_type : str, optional
+            Chain type. None leaves the type available for local inference.
+        allow_reassign : bool, default=False
+            Whether to move already assigned groups from their previous chains.
+        skip_digestion : bool, default=False
+            Whether to skip MolSysMT's internal argument digestion mechanism.
+
+        Returns
+        -------
+        int
+            Index of the appended chain.
+
+        Raises
+        ------
+        StructuralInconsistencyError
+            If groups are undefined, repeated or already assigned and reassignment
+            is disabled. Rejection leaves the staged chains unchanged.
+
+        Notes
+        -----
+        Atom-backed membership is updated when atoms exist. Groups without atoms
+        use Topology's separate compact chain/group declaration. No group-level
+        chain_index column or atomic inventory is created.
+
+        Examples
+        --------
+        >>> builder = MolSysBuilder()
+        >>> group = builder.add_group([], group_name='ALA')
+        >>> builder.add_chain([group])
+        0
+        >>> builder.topology.chain_groups
+        ((0,),)
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Editable` for staging native hierarchy.
+
+        .. versionadded:: 1.0.0
         """
         group_indices = self._indices_array(group_indices)
-        self._validate_existing_indices(
-            group_indices, upper_bound=self.topology.n_groups, element_name="Chain"
-        )
+        if len(group_indices):
+            self._validate_existing_indices(
+                group_indices, upper_bound=self.topology.n_groups, element_name="Chain"
+            )
 
+        from molsysmt.element.chain.chain_names import _alphabetic_chain_id
+
+        from ._chain_groups import by_chain
+
+        membership = by_chain(self.topology)
+        declared = (
+            self.topology._chain_group_membership is not None
+            or self.topology.n_atoms == 0
+            or not len(group_indices)
+            or not set(group_indices).issubset(
+                set(self.topology.atoms.group_index.dropna().astype(int))
+            )
+        )
+        if not allow_reassign and any(
+            set(group_indices).intersection(groups) for groups in membership
+        ):
+            raise StructuralInconsistencyError(
+                reason="Groups already assigned to a chain cannot be reassigned."
+            )
         if not allow_reassign and "chain_index" in self.topology.atoms.columns:
             group_mask = self.topology.atoms["group_index"].isin(group_indices.tolist())
             existing = self.topology.atoms.loc[group_mask, "chain_index"]
             if len(existing) and existing.notna().any():
-                from molsysmt._private.smonitor import StructuralInconsistencyError
-
                 raise StructuralInconsistencyError(
                     "Groups already assigned to a chain cannot be reassigned."
                 )
 
         chain_index = self.topology.n_chains
         self.topology.chains.loc[chain_index, "chain_id"] = (
-            self._normalize_optional_string(chain_id, default=str(chain_index))
+            self._normalize_optional_string(
+                chain_id, default=_alphabetic_chain_id(chain_index)
+            )
         )
         self.topology.chains.loc[chain_index, "chain_name"] = (
             self._normalize_optional_string(chain_name, default=pd.NA)
@@ -578,6 +637,13 @@ class MolSysBuilder(NativeQueries):
             atom_mask = self.topology.atoms["group_index"] == int(group_index)
             self.topology.atoms.loc[atom_mask, "chain_index"] = int(chain_index)
 
+        if declared:
+            selected = set(group_indices)
+            membership = [
+                [int(g) for g in groups if int(g) not in selected]
+                for groups in membership
+            ]
+            self.topology.set_chain_groups(membership + [group_indices.tolist()])
         return chain_index
 
     def assign_groups_to_new_chain(
@@ -608,11 +674,51 @@ class MolSysBuilder(NativeQueries):
         molecule_type=None,
         skip_digestion=False,
     ):
+        """Adding a declared molecule and assigning its groups.
 
+        Parameters
+        ----------
+        group_indices : array_like of int
+            Unique existing unassigned groups. An empty collection declares an
+            empty molecule occurrence without creating atoms or bonds.
+        molecule_id : str or int, optional
+            Molecule label. None uses the new index, stored as a string.
+        molecule_name : str, optional
+            Molecule name. None leaves the name for inference during build.
+        molecule_type : str, optional
+            Molecule type. None leaves the type for inference during build.
+        skip_digestion : bool, default=False
+            Whether to skip MolSysMT's internal argument digestion mechanism.
+
+        Returns
+        -------
+        int
+            Index of the appended molecule.
+
+        Raises
+        ------
+        StructuralInconsistencyError
+            If groups are undefined, repeated or already assigned to a molecule.
+
+        Examples
+        --------
+        >>> builder = MolSysBuilder()
+        >>> builder.add_molecule([], molecule_name='unbuilt')
+        0
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Editable` for staging native hierarchy.
+
+        .. versionadded:: 1.0.0
+        """
         group_indices = self._indices_array(group_indices)
-        self._validate_existing_indices(
-            group_indices, upper_bound=self.topology.n_groups, element_name="Molecule"
-        )
+        if len(group_indices):
+            self._validate_existing_indices(
+                group_indices,
+                upper_bound=self.topology.n_groups,
+                element_name="Molecule",
+            )
 
         current_molecule_index = self.topology.groups.loc[
             group_indices, "molecule_index"
@@ -764,7 +870,13 @@ class MolSysBuilder(NativeQueries):
             topology.atoms.loc[atom_index, "group_index"] = int(group_index)
 
     def _fill_chain_fallbacks(self, topology):
-        # Architecture invariant: chain_index lives on atoms only.
+        from molsysmt.element.chain.chain_names import _alphabetic_chain_id
+
+        from ._chain_groups import by_chain
+
+        membership = (
+            by_chain(topology) if topology._chain_group_membership is not None else None
+        )
         if topology.n_atoms == 0:
             return
 
@@ -779,7 +891,9 @@ class MolSysBuilder(NativeQueries):
         if len(assigned) > 0:
             required_n_chains = int(assigned.astype(int).max()) + 1
             for chain_index in range(topology.n_chains, required_n_chains):
-                topology.chains.loc[chain_index, "chain_id"] = str(chain_index)
+                topology.chains.loc[chain_index, "chain_id"] = _alphabetic_chain_id(
+                    chain_index
+                )
                 topology.chains.loc[chain_index, "chain_name"] = pd.NA
                 topology.chains.loc[chain_index, "chain_type"] = pd.NA
 
@@ -787,10 +901,27 @@ class MolSysBuilder(NativeQueries):
         unassigned = topology.atoms["chain_index"].isna()
         if unassigned.any():
             chain_index = topology.n_chains
-            topology.chains.loc[chain_index, "chain_id"] = str(chain_index)
+            topology.chains.loc[chain_index, "chain_id"] = _alphabetic_chain_id(
+                chain_index
+            )
             topology.chains.loc[chain_index, "chain_name"] = pd.NA
             topology.chains.loc[chain_index, "chain_type"] = pd.NA
             topology.atoms.loc[unassigned, "chain_index"] = int(chain_index)
+        if membership is not None:
+            membership = [groups.tolist() for groups in membership]
+            membership.extend([] for _ in range(topology.n_chains - len(membership)))
+            seen = [set(groups) for groups in membership]
+            for group, chain in topology.atoms[
+                ["group_index", "chain_index"]
+            ].itertuples(index=False, name=None):
+                if (
+                    not pd.isna(group)
+                    and not pd.isna(chain)
+                    and int(group) not in seen[int(chain)]
+                ):
+                    membership[int(chain)].append(int(group))
+                    seen[int(chain)].add(int(group))
+            topology.set_chain_groups(membership)
 
     def _fill_molecule_fallbacks(self, topology):
         from ._topology_infer import (
@@ -839,10 +970,15 @@ class MolSysBuilder(NativeQueries):
                 component_to_molecule[component_index] = molecule_index
             for group_index in topology.groups.index[unassigned]:
                 ci = int(group_component_index[group_index])
+                if ci < 0:
+                    continue
                 topology.groups.loc[group_index, "molecule_index"] = int(
                     component_to_molecule[ci]
                 )
 
+        from ._topology_infer import complete_missing_molecule_membership
+
+        complete_missing_molecule_membership(topology)
         self._fill_molecule_metadata(topology)
 
     def _fill_molecule_metadata(self, topology):
@@ -955,9 +1091,58 @@ class MolSysBuilder(NativeQueries):
                     entity_index
                 ]
 
+    def _finalize_group_inventory(self, topology):
+        """Complete missing hierarchy metadata without inventing atomic evidence."""
+        from molsysmt.element.chain.chain_names import _alphabetic_chain_id
+
+        from ._chain_groups import by_chain
+        from ._topology_infer import (
+            complete_missing_molecule_membership,
+            infer_group_types_from_topology,
+        )
+
+        topology.groups["group_id"] = self._fill_missing_string_ids(
+            topology.groups["group_id"]
+        )
+        missing = topology.groups["group_type"].isna()
+        if missing.any():
+            inferred = infer_group_types_from_topology(topology)
+            topology.groups.loc[missing, "group_type"] = inferred[missing]
+        membership = by_chain(topology)
+        represented = {int(g) for groups in membership for g in groups}
+        missing_groups = [g for g in range(topology.n_groups) if g not in represented]
+        if missing_groups:
+            chain = topology.n_chains
+            topology.chains.loc[chain, "chain_id"] = _alphabetic_chain_id(chain)
+            topology.chains.loc[chain, "chain_name"] = pd.NA
+            topology.chains.loc[chain, "chain_type"] = pd.NA
+            membership.append(missing_groups)
+        topology.set_chain_groups(membership)
+        complete_missing_molecule_membership(topology)
+        self._fill_molecule_metadata(topology)
+        for chain in range(topology.n_chains):
+            if pd.isna(topology.chains.loc[chain, "chain_id"]):
+                topology.chains.loc[chain, "chain_id"] = _alphabetic_chain_id(chain)
+        from ._topology_infer import (
+            infer_chain_names_from_topology,
+            infer_chain_types_from_topology,
+        )
+
+        for column, inferred in (
+            ("chain_name", infer_chain_names_from_topology(topology)),
+            ("chain_type", infer_chain_types_from_topology(topology)),
+        ):
+            missing = topology.chains[column].isna()
+            topology.chains.loc[missing, column] = inferred[missing]
+        self._fill_entity_fallbacks(topology)
+        topology._coerce_id_columns_to_string()
+        return topology
+
     def _finalize_topology(self, *, preserve_absent_groups=False):
         topology = self.topology.copy()
         topology._coerce_id_columns_to_string()
+        if topology.n_atoms == 0:
+            return self._finalize_group_inventory(topology)
         bonds = topology._get_chemical_state_bonds()
         if not hasattr(bonds, "_sort_bonds"):
             topology._set_chemical_state_bonds(bonds)
@@ -973,11 +1158,26 @@ class MolSysBuilder(NativeQueries):
         topology.groups["group_id"] = self._fill_missing_string_ids(
             topology.groups["group_id"]
         )
-        topology.rebuild_groups(redefine_ids=False, redefine_types=True)
+        if topology._chain_group_membership is None:
+            topology.rebuild_groups(redefine_ids=False, redefine_types=True)
+        else:
+            from ._topology_infer import infer_group_types_from_topology
+
+            missing = topology.groups["group_type"].isna()
+            if missing.any():
+                topology.groups.loc[missing, "group_type"] = (
+                    infer_group_types_from_topology(topology)[missing]
+                )
         self._fill_molecule_fallbacks(topology)
         self._fill_chain_fallbacks(topology)
-        topology.chains["chain_id"] = self._fill_missing_string_ids(
-            topology.chains["chain_id"]
+        from molsysmt.element.chain.chain_names import _alphabetic_chain_id
+
+        topology.chains["chain_id"] = pd.array(
+            [
+                _alphabetic_chain_id(index) if pd.isna(value) else str(value)
+                for index, value in enumerate(topology.chains["chain_id"])
+            ],
+            dtype="string",
         )
         topology.rebuild_chains(
             redefine_indices=False,

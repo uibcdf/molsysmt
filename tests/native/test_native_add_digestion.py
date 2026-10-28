@@ -28,7 +28,7 @@ def test_native_add_accepts_boolean_keep_ids(
     topology = target.topology if form == "molsys" else target
     added_count = n_atoms if atom_indices == "all" else 2
     assert topology.n_atoms == n_atoms + added_count
-    expected_ids = ["0", "1"] if keep_ids is False else ["A", "A"]
+    expected_ids = ["A", "B"] if keep_ids is False else ["A", "A"]
     assert topology.chains["chain_id"].tolist() == expected_ids
     assert topology.atoms["chain_index"].iloc[n_atoms:].tolist() == [1] * added_count
     assert original.n_atoms == n_atoms

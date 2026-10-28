@@ -265,11 +265,27 @@ def infer_molecule_indices_from_topology(topology):
 
     # Architecture invariant: chain_index is an ATOM-level attribute only.
     # Groups do NOT have a chain_index column. Derive per-group chain from atoms.
-    _atom_df = topology.atoms[["group_index", "chain_index"]].dropna()
-    _grp_chain = _atom_df.groupby("group_index", sort=False)["chain_index"].first()
+    from ._chain_groups import by_group, uses_declared_hierarchy
+
     chain_indices = np.full(n_groups, -1, dtype=np.int64)
-    _valid_gidx = _grp_chain.index.to_numpy(dtype=np.int64)
-    chain_indices[_valid_gidx] = _grp_chain.to_numpy(dtype=np.int64)
+    if uses_declared_hierarchy(topology):
+        for group, chains in enumerate(by_group(topology)):
+            if len(chains) > 1 and pd.isna(
+                topology.groups.loc[group, "molecule_index"]
+            ):
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason="Declare molecule ownership for groups shared by multiple chains."
+                )
+            if chains:
+                chain_indices[group] = chains[0]
+    else:
+        atom_df = topology.atoms[["group_index", "chain_index"]].dropna()
+        grp_chain = atom_df.groupby("group_index", sort=False)["chain_index"].first()
+        chain_indices[grp_chain.index.to_numpy(dtype=np.int64)] = grp_chain.to_numpy(
+            dtype=np.int64
+        )
     group_types = topology.groups["group_type"].to_numpy(dtype=object)
 
     molecule_index_of_groups = np.empty(n_groups, dtype=np.int64)
@@ -278,7 +294,7 @@ def infer_molecule_indices_from_topology(topology):
     prev_gtype = None
 
     for g in range(n_groups):
-        gtype = group_types[g]
+        gtype = "unknown" if pd.isna(group_types[g]) else group_types[g]
         chain = chain_indices[g]
 
         if gtype in _STANDALONE:
@@ -300,6 +316,25 @@ def infer_molecule_indices_from_topology(topology):
     return molecule_index_of_groups
 
 
+def complete_missing_molecule_membership(topology):
+    """Fill missing group owners while retaining declared occurrence slots."""
+    missing = topology.groups["molecule_index"].isna()
+    if not missing.any():
+        return
+    inferred = infer_molecule_indices_from_topology(topology)
+    mapping = {}
+    for group in topology.groups.index[missing]:
+        key = int(inferred[group])
+        if key not in mapping:
+            molecule = topology.n_molecules
+            topology.molecules.loc[molecule, "molecule_id"] = str(molecule)
+            topology.molecules.loc[molecule, "molecule_name"] = pd.NA
+            topology.molecules.loc[molecule, "molecule_type"] = pd.NA
+            topology.molecules.loc[molecule, "entity_index"] = pd.NA
+            mapping[key] = molecule
+        topology.groups.loc[group, "molecule_index"] = mapping[key]
+
+
 def infer_molecule_types_from_topology(topology):
     """
     Infer molecule_type from the group_types within each molecule.
@@ -316,6 +351,8 @@ def infer_molecule_types_from_topology(topology):
         _get_component_type_from_group_names_and_types,
     )
 
+    if topology.n_groups == 0 and topology.n_atoms == 0:
+        return np.array(["unknown"] * topology.n_molecules, dtype=object)
     if topology.n_groups == 0:
         return (
             topology._resolve_reference_chemical_state()
@@ -349,6 +386,10 @@ def infer_molecule_names_from_topology(topology):
     topology : object
         Argument topology.
     """
+    if topology.n_groups == 0 and topology.n_atoms == 0:
+        return np.array(
+            [f"unknown {i}" for i in range(topology.n_molecules)], dtype=object
+        )
     if topology.n_groups == 0:
         return (
             topology._resolve_reference_chemical_state()
@@ -484,14 +525,15 @@ def infer_chain_indices_from_topology(topology):
 
 
 def infer_chain_ids_from_topology(topology):
-    return fallback_ids(topology.n_chains)
+    from molsysmt.element.chain.chain_names import _alphabetic_chain_id
+
+    return np.array(
+        [_alphabetic_chain_id(i) for i in range(topology.n_chains)], dtype=object
+    )
 
 
 def infer_chain_names_from_topology(topology):
-    from molsysmt.element.chain.chain_names import all_chain_names
-
-    n_chains = topology.n_chains
-    return np.array([all_chain_names[ii] for ii in range(n_chains)], dtype=object)
+    return infer_chain_ids_from_topology(topology)
 
 
 def infer_chain_types_from_topology(topology):
@@ -506,17 +548,21 @@ def infer_chain_types_from_topology(topology):
     )
     molecule_types = topology.molecules["molecule_type"].to_numpy(dtype=object)
 
-    if topology.n_chains == 1 and topology.n_molecules > 0:
+    if topology.n_atoms and topology.n_chains == 1 and topology.n_molecules > 0:
         if np.all(atom_chain_index == atom_chain_index[0]):
             return np.array(["system"], dtype=object)
 
+    from ._chain_groups import by_chain, uses_declared_hierarchy
+
+    declared = by_chain(topology) if uses_declared_hierarchy(topology) else None
     output = []
     for chain_index in range(topology.n_chains):
         atom_indices = np.where(atom_chain_index == chain_index)[0]
-        if len(atom_indices) == 0:
-            output.append("unknown")
-            continue
-        chain_group_indices = np.unique(group_index_from_atom[atom_indices])
+        chain_group_indices = (
+            declared[chain_index]
+            if declared is not None
+            else np.unique(group_index_from_atom[atom_indices])
+        )
         chain_group_indices = chain_group_indices[chain_group_indices >= 0]
         if len(chain_group_indices) == 0:
             output.append("unknown")

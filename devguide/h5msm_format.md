@@ -25,6 +25,23 @@ with explicit associations; MolecularMechanics is outside 0.5. Absence of an opt
 dataset is different from a present nullable dataset and from a dataset filled
 with zero or `False`.
 
+## Version 0.5 topology membership
+
+The canonical atoms, groups, molecules, entities and chains tables remain unchanged.
+Topology layer `schema_version=1` derives chain/group membership from stored atoms.
+Layer 2 contains the same tables plus `chain_groups/offsets` and
+`chain_groups/indices`, signed 64-bit integer vectors. Offsets start at zero,
+are nondecreasing, have `n_chains + 1` entries and end at the number of indices.
+Each slice lists unique valid group indices in chain order. Groups may occur in
+several chains. Empty slices retain empty chains; empty atom tables do not erase
+this declaration. Every observed atom group/chain pair must be included.
+
+Writers use layer 1 without an explicit relation and layer 2 with it. Readers
+accept both and reject unsupported versions, malformed offsets, duplicate or
+out-of-range memberships and declarations conflicting with observed atoms. Layer
+2 requires an updated reader; the H5MSM root remains version 0.5. Guard:
+`tests/native/test_group_inventory_hierarchy.py`.
+
 ## Modular axis-link encoding
 
 An `identity` association maps every source index to the same target index and

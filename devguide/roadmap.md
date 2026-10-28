@@ -265,3 +265,10 @@ in the #304 record. It does not establish arbitrary-group geometry, complete H
 coverage or independent chemical truth. Those remaining extensions stay in #304
 after 1.0 under the scope freeze, while current-profile correctness remains part
 of stabilization.
+
+## Maintainer-requested follow-up — 2026-10-28
+
+After completing uibcdf/molsysmt#518 and its validation, review the current state
+and remaining scope of uibcdf/molsysmt#447, uibcdf/molsysmt#375 and
+uibcdf/molsysmt#323, in that order. This is a request to reassess the owning
+issues, not a claim that their work is included in #518 or in a release gate.

@@ -37,12 +37,11 @@ def to_molsysmt_Topology(
 
     Notes
     -----
-    Initial atom-free hierarchy limits are tracked by MolSysMT #518: text-based
-    selections, group/chain membership, builder and dictionary reconstruction
-    and atom-driven extraction are not completed by this conversion. The
-    separate chain label does not provide queryable group-chain membership.
-    No Biopython dependency is needed. Atomic construction is an explicit
-    operation such as build.build_peptide, not an implicit CA representation.
+    Ordered chain/group membership is represented independently of atoms.
+    Native hierarchy queries, text selections, extraction and dictionary/H5MSM
+    round trips preserve it. Stored counts describe representation, not complete
+    physical composition or chemical identity. No Biopython dependency is needed.
+    Atomic construction is an explicit build operation, not an implicit CA model.
 
     Examples
     --------

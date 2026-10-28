@@ -1,5 +1,3 @@
-import numpy as np
-
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt.form._serialization import normalize_scalar as _normalize_scalar
@@ -135,14 +133,9 @@ def to_molsysmt_MolSysDict(
 
     chains = []
     if topology.n_chains > 0:
-        # chain_index is atom-level only; derive per-group from atoms
-        if "chain_index" in topology.atoms.columns:
-            _adf = topology.atoms[["group_index", "chain_index"]].dropna()
-            _gc = _adf.groupby("group_index", sort=False)["chain_index"].first()
-            group_chain_index = np.full(topology.n_groups, None, dtype=object)
-            group_chain_index[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy()
-        else:
-            group_chain_index = np.full(topology.n_groups, None, dtype=object)
+        from molsysmt.native._chain_groups import by_chain
+
+        chain_group_indices = by_chain(topology)
         for chain_index in range(topology.n_chains):
             row = topology.chains.iloc[chain_index]
             chains.append(
@@ -152,11 +145,7 @@ def to_molsysmt_MolSysDict(
                     else str(_normalize_scalar(row["chain_id"])),
                     "chain_name": _normalize_scalar(row["chain_name"]),
                     "chain_type": _normalize_scalar(row["chain_type"]),
-                    "group_indices": [
-                        int(ii)
-                        for ii in range(topology.n_groups)
-                        if _matches_index(group_chain_index[ii], chain_index)
-                    ],
+                    "group_indices": chain_group_indices[chain_index].tolist(),
                 }
             )
 
