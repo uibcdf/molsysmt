@@ -82,8 +82,11 @@ class NativeQueries:
         form discovery. Selection expressions and nested selections retain the
         existing general selector. This operation does not build or convert a
         molecular system. The specialized Structures getters remain available.
-        ChemicalStates supplies stored atom/bond/component axes, counts and
-        selected-state completeness directly. Its state inventory remains
+        ChemicalStates supplies stored atom/bond/component axes, counts,
+        nullable atom assignments, bond fields, component labels and selected-state
+        completeness directly. Formal charges are integers in elementary-charge
+        units. Missing atom columns return None; missing bond fields retain one
+        nullable entry per edge (two for stereo references). Its state inventory remains
         collection-wide. Unknown connectivity is not inferred by these queries.
 
         See Also
@@ -104,6 +107,11 @@ class NativeQueries:
         0
         >>> states.get(n_bonds=True, connectivity_completeness=True)
         [0, 'unavailable']
+        >>> states.add_bonds([[0, 1]])
+        >>> states.get(element='bond', bond_order=True)
+        [None]
+        >>> states.get(formal_charge=True) is None
+        True
 
         .. admonition:: User guide
 

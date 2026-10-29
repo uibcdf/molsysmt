@@ -59,7 +59,7 @@ sections:
           - name: chemical_states
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md.AGENTS.md
-            description: Ordered native chemistry, state-local stored axes and counts, collection inventory, completeness, staged graph editing, stable context, invalidation and live-table boundaries.
+            description: Ordered native chemistry, stored axes and nullable assignments, component labels, state-local bounds, completeness, staged edits and live-table boundaries.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md
@@ -145,7 +145,7 @@ sections:
           - name: native_chemical_editing
             file: docs/content/user/tools/basic/native_chemical_editing.md
             agents_file: docs/content/user/tools/basic/native_chemical_editing.md.AGENTS.md
-            description: Selected-state stored queries and graph edits, reconstruction flags, independent context and staged publication with preserved coordinates, histories and associations.
+            description: Selected-state field and graph queries, missing-value rules, reconstruction flags and staged edits with preserved coordinates, histories and associations.
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
             agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md
@@ -578,7 +578,7 @@ sections:
       - name: group_free_hierarchy
         file: docs/content/user/cookbook/group_free_hierarchy.ipynb
         agents_file: docs/content/user/cookbook/group_free_hierarchy.ipynb.AGENTS.md
-        description: Declaring stable atom/molecule membership, comparing complete and partial graph restriction, retaining ownership through bond edits, adding groups and using MDTraj selectors
+        description: Declaring stable atom/molecule membership, inspecting nullable selected-state assignments, comparing graph restriction, retaining ownership through edits and using MDTraj selectors
       - name: molecular_descriptors
         file: docs/content/user/cookbook/molecular_descriptors.md
         agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md

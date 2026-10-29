@@ -8,3 +8,5 @@ states, unknown new assignments, partial completeness, validation-before-publica
 and structural-array refusal. Do not present atom growth as chemical preparation.
 Retain selected-state stored count/membership inspection alongside stable molecule
 identity; repeated atom positions retain their order and no reference change occurs.
+Preserve the executed contrast between known zero/False reference assignments and
+missing alternative-state properties, with declared charge units and no perception.

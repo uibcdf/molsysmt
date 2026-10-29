@@ -34,7 +34,7 @@ component partition, including isolated atoms and an empty edge set.
 
 Use `chemical_states.get(..., chemical_state=...)` or
 `msm.get(chemical_states, ..., chemical_state=...)` to read stored indices,
-counts and completeness without constructing Topology. System-level `n_bonds`
+counts, stored assignments and completeness without constructing Topology. System-level `n_bonds`
 and `n_components` refer to the selected state. `chemical_state_index`,
 `chemical_state_id` and `n_chemical_states` describe the whole collection;
 `reference_chemical_state_index` reports its reference without changing it.
@@ -61,10 +61,43 @@ or certify preparation. A zero-state collection still has an atom domain and
 state inventory, but querying its chemical counts raises an unavailable-state
 error. A missing reference with multiple states requires an explicit index.
 
-`info()` summaries currently follow reference-state rules. These capabilities
-do not yet include standalone rich chemical fields, state-aware dictionary
-query dispatch or stable group/chain/molecule context. A query needing such
-absent context cannot reconstruct it from component membership.
+`info()` summaries currently follow reference-state rules. State-aware dictionary
+query dispatch and stable group/chain/molecule context are still being migrated.
+A query needing absent context cannot reconstruct it from component membership.
+
+## Stored Assignments
+
+Atom queries can read `formal_charge`, `atom_is_aromatic`,
+`n_unpaired_electrons`, `n_implicit_hydrogens`, `n_explicit_hydrogens`,
+`allows_implicit_hydrogens` and `atom_stereochemistry`. These are stored
+assignments: reading hydrogen counts does not recount atoms or bonds, and reading
+aromaticity does not run perception. An absent atom-property column returns
+`None`. A materialized column returns one value per selected atom, with `None`
+for unknown values and `[]` for an empty selection. Zero and False are known
+values. `has_attribute(..., chemical_state=...)` checks the selected state's
+nonmissing values; `include_none=True` asks about the supported delivery route.
+
+Formal charge retains the established integer schema: each value is an integer
+multiple of the elementary charge, not a partial charge or a unit-bearing
+quantity. `get(formal_charge=True)` returns the atom vector, not its sum.
+This ownership migration does not change the charge-unit policy.
+
+Use `element='bond'` for `bond_id`, `bond_order`, `fractional_bond_order`,
+`bond_type`, `bond_is_aromatic`, `bond_is_conjugated`, `bond_stereochemistry`,
+`bond_stereo_atom_indices`, `bond_donor_atom_index`, `bond_acceptor_atom_index`,
+`bond_joins_components` and `bond_evidence`. Optional missing fields return
+one `None` per selected edge. Stereo references return two independently nullable
+atom indices per edge, including `[None, None]` if neither is known. Empty bond
+selections return `[]`. Bond order is dimensionless; direction and component
+participation are read as declared, never inferred during querying.
+
+`component_id`, `component_name` and `component_type` can be read from
+`element='component'` or projected to `element='atom'`. Unknown component
+membership gives `None`, even if other component rows have labels. Bond and
+component IDs remain string labels, independent of positional indices. All these
+queries retain ordered repetitions, selected-state bounds and source tables.
+Standalone assignment dispatch and chemical predicates remain separate pending
+work; query support does not make live-table mutation a validated edit.
 
 ## Controlled Editing
 

@@ -10,6 +10,7 @@ provides_primary_topology = False
 provides_atom_domain = True
 
 from .attributes import attributes  # noqa: E402
+from .get_chemical_attributes import *  # noqa: E402, F403
 from .get_topological_attributes import *  # noqa: E402, F403
 from .has_attribute import has_attribute  # noqa: E402
 from .is_form import is_form  # noqa: E402

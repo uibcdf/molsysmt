@@ -30,6 +30,16 @@ for the supported element/attribute table and the executed Cookbook example.
 Completeness/evidence describe the selected state; state indices/IDs describe
 the entire collection. These reads never rebuild or prepare chemistry.
 
+The same queries can read stored atom charges/aromaticity/hydrogen assignments,
+bond metadata and state-local component labels. For example,
+`chemical_states.get(element='bond', chemical_state=1, bond_order=True)` reads
+the selected edge rows without assigning an unknown order. Atom properties with
+no stored column return `None`; existing columns retain one nullable value per
+selected atom. Missing bond fields retain one nullable entry per edge (two atom
+references for bond stereochemistry). Formal charges are integer multiples of
+the elementary charge, following the existing schema. See the foundation for
+the complete supported field list and the Cookbook for executed examples.
+
 ## Choosing an operation
 
 | Method | Use |
@@ -72,7 +82,7 @@ Label-only reconstruction preserves observations.
 `get_bonds()` exposes a live table for reading and interchange. Direct table
 writes bypass this contract. Existing atom/bond assignment routes on MolSys
 remain available through supported `msm.set` attributes; general standalone
-assignment/query dispatch is still being migrated. Use these native methods
+assignment and dictionary query dispatch are still being migrated. Use these native methods
 for graph editing. No detector,
 chemical perception, cap placement or hydrogen addition runs automatically.
 

@@ -1,4 +1,5 @@
 from molsysmt.attribute.attributes import attributes as _all_attributes
+from molsysmt.native._chemical_fields import ATOM_FIELDS, BOND_FIELDS, COMPONENT_FIELDS
 
 attributes = {name: False for name in _all_attributes}
 for name in (
@@ -16,4 +17,6 @@ for name in (
     "component_completeness",
     "component_evidence",
 ):
+    attributes[name] = True
+for name in (*ATOM_FIELDS, *BOND_FIELDS, *COMPONENT_FIELDS):
     attributes[name] = True

@@ -32,11 +32,13 @@ def indices(item, element, selected):
     )
 
 
-def _membership(item, state):
-    values = state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
+def _membership(item, state, positions=None):
+    membership = state.component_indices
+    selected = membership if positions is None else membership.iloc[positions]
+    values = selected.to_numpy(dtype=np.int64, na_value=-1)
     if (
-        len(values) != item.n_atoms
-        or state.component_indices.lt(0).any()
+        len(membership) != item.n_atoms
+        or selected.lt(0).any()
         or np.any(values >= len(state.components))
     ):
         raise StructuralInconsistencyError(

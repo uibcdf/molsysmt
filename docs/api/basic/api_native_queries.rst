@@ -36,8 +36,12 @@ Reading stored chemical axes
 -----------------------------
 
 ChemicalStates.get reads shared atom positions, state-local bond/component
-positions, stored counts, membership and completeness without constructing
-Topology. State inventory remains collection-wide. A zero-state collection
+positions, stored counts, membership, completeness, atom assignments, bond fields
+and component labels without constructing Topology. Formal charges retain integer
+multiples of the elementary charge. Unknown atom columns return None; missing
+bond fields retain nullable entries per selected edge. Stereo references retain
+two independently nullable atom indices per edge. State inventory remains
+collection-wide. A zero-state collection
 retains its atom domain but cannot supply chemical counts. See
 :ref:`user-foundations-native-world-classes-molsysmt-chemicalstates` for the
 implemented element/attribute table and experimental migration boundary.
