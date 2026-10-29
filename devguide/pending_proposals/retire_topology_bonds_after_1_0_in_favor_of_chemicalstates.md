@@ -223,7 +223,7 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
 | P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules, C3 graph edits and private typed assignment authority implemented on development branch; pure Topology and consumer cutover remain | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned scopes, stored-axis/count and nullable field queries implemented on development branch; assignments, dictionaries and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
+| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned scopes, stored/nullable queries and atom/bond assignments implemented on development branch; component assignment, dictionaries and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
 | P4: builder and lifecycle | P2, P3 | Stable molecule transport, C4 restriction and atomic selected-state graph edits implemented; MolSys/Builder ownership cutover remains | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
@@ -1543,11 +1543,119 @@ RST edits are unchanged. No dependency/environment installation, main merge,
 release or tag is included. Successful test payloads are removed; compact logs
 remain in ignored `chemical-domain-255-qualification` cache.
 
-**Next:** selected-state assignment delivery using the existing chemical owner's
+**Next at that checkpoint:** selected-state assignment delivery using the existing chemical owner's
 validated staged setters; then dictionary/predicate and mixed-owner routing,
 MolSys/Builder ownership, functional API/codec cutover and C7 receiving checks.
 P3 as a whole and #255 remain open. Topology's temporary delegations and the
 separate live-table mutation limitation remain explicit until coherent C6.
+
+### P3 third slice: standalone atom/bond assignment
+
+Development commit
+[`faa783d5aa4798ce652de17ea35b20fe450bea7d`](https://github.com/uibcdf/molsysmt/commit/faa783d5aa4798ce652de17ea35b20fe450bea7d)
+provides `msm.set(chemical_states, ..., chemical_state=...)` for all seven stored
+atom assignments and twelve rich bond fields. Thin decorated form setters reuse
+the chemical owner's existing staged atom/bond primitives through one private
+mapping/selection helper; they do not reconstruct Topology or introduce a second
+chemical store. Attribute-inferred destinations and explicit atom/bond selectors
+are supported. These routes are **Contract-tested** and **Parity-tested** as
+stored assignments, not new scientific preparation methods.
+
+Resolve the selected state before editing, including empty selections. Missing,
+invalid and ambiguous states reject without implicit creation/reference changes.
+Values follow ordered unique selected positions. Scalars broadcast; None records
+unknown values, retaining nullable columns. A first subset atom assignment leaves
+unselected atoms unknown. Repeated write positions reject rather than choosing
+an ambiguous value; read-only repeated selections remain supported.
+
+One attribute stages typed validation and owner invalidation before publication.
+Failure retains source table identities, analysis objects and geometry. Other
+states, preparation history, reference and structure associations remain intact.
+A controlled edit through `molsys.chemical_states` conservatively invalidates all
+named analyses, including evaluated-empty coverage; old analysis snapshots retain
+their old contents. A multi-attribute basic.set call is a sequence of independent
+assignments, not one transaction across attributes. This new staging statement
+applies to the standalone/alias ChemicalStates route; final MolSys/Topology
+adapter cutover remains pending.
+
+New public-boundary controls exposed and corrected these concrete defects:
+
+- Nullable aromaticity, hydrogen-count, unpaired-electron and stereochemistry
+  setters rejected scalar None. Assignment contexts now accept it without
+  relaxing existing get/compare query-flag handling.
+- Native integer atom fields could accept booleans as counts. The canonical
+  chemical storage validator now rejects them. Formal-charge digestion also
+  checks Int16 bounds before narrowing and rejects boolean counts; typed missing
+  values remain supported. Formal-charge quantities explicitly extract in
+  elementary charge, reject nonfinite/fractional values and retain the existing
+  integer-count output/schema. A real nondefault Coulomb/angstrom application
+  context and default elementary-charge/nm context both pass.
+- A bond-ID-only edit could promote unavailable connectivity to partial and
+  consequently invalidate observations. An independent control reproduced that
+  promotion; label publication now preserves the original declaration as well
+  as row layout, nullable columns and named analysis identity.
+
+Bond metadata retains existing canonical normalization, participation/evidence
+and stereo-reference checks. Metadata assignment does not automatically rebuild
+components; use the explicit reconstruction method after changing participation
+when requesting the modified graph partition. A public test records the stored
+partition before, and reconstructed partition after, that operation. Review this
+explicit-reconstruction/declaration boundary during C6 rather than accidentally
+introducing different behavior in the new form adapter. No new perception,
+force-field protocol, compiled kernel, schema, dependency or scientific-credit
+boundary is included.
+
+Executed in the existing Linux/Python 3.14.7 development environment:
+
+- Extended native/get/select/topology/H5MSM/component/template/extract/remove
+  regression plus affected basic-set and argument-digester suites: **5,085 passed**,
+  exit 0, **98.69 s**, 775 warnings, Pytest Receptor with **12 workers**. The
+  unfinished target-contract module is selected separately. No auxiliary
+  environment or installation is used.
+- Final selected public/private assignment, nullable query and direct-form
+  controls: **224 passed**, exit 0, **6.65 s**. There are 69 new public/direct-form
+  cases. They cover literal value/dtype/null expectations, selected-state bounds,
+  malformed/duplicate positions, no implicit states, charge units, failure and
+  invalidation allocation, no Topology/repair, source immutability and H5MSM 0.5.
+  This overlaps the broad regression; counts are not additive.
+- Basic.set, ChemicalStates/native-query and all nineteen new adapter docstrings:
+  **29 passed**, exit 0, **7.46 s**, with executable public-route examples.
+- Original migration contract: **17 passed, 19 failed**, exit 1, **5.74 s**.
+  Pure-Topology authority/copy, topology replacement, Builder associations,
+  dictionary associations and the new functional namespace remain outstanding.
+  No target is weakened, skipped or xfailed.
+
+```bash
+python -m pytest --receptor=llm -n 12 \
+  tests/native/test_chemical_state_public_assignments.py \
+  tests/native/test_chemical_state_assignments.py \
+  tests/native/test_chemical_state_field_queries.py \
+  tests/form/molsysmt_ChemicalStates
+python -m pytest --receptor=llm -n 12 --doctest-modules \
+  molsysmt/basic/set.py molsysmt/native/queries.py \
+  molsysmt/native/chemical_states.py molsysmt/form/molsysmt_ChemicalStates/set.py
+```
+
+Foundations, native-editing/API notes, the Set tutorial, course Common Core 10
+and the group-free Cookbook describe the same boundaries. Three notebooks execute
+in 7.7 s, 9.8 s and 8.0 s, preserving all old executable cells and updated outputs/
+fingerprints. The touched basic.set inventory entry now points to the actual
+Common Core 10 path rather than its obsolete module name. Sphinx HTML succeeds
+with the established diagnostic static-assets exclusion and two pre-existing
+static README toctree warnings; changed sections/anchors/rendered nullable
+examples are inspected. This is not deployed Viewer qualification.
+
+All 97 adapter structural/delivery-ratchet checks, the maintained 156-module
+course validator, Ruff/formatting, docstring fidelity, optional-import checks,
+277-symbol registry and signature comparison against
+`26efebbecc77a96c8020346a3f680c9c6081adca` pass. The Rust binary and four unrelated
+RST edits are unchanged. Successful regression payloads are removed and compact
+logs remain in ignored qualification cache. No main merge, tag or release.
+
+**Next:** standalone component membership/label assignment and declarations with
+explicit inventory/graph consistency; then dictionary/predicate and mixed-domain
+routing, MolSys/Builder authority, functional module and codec cutover. P3 and
+#255 remain open. C6/C7 receiving and release qualification remain separate.
 
 ## Acceptance matrix
 
