@@ -188,7 +188,7 @@ class ChemicalStates(NativeQueries):
         """
         import pandas as pd
 
-        from .topology import _CHEMICAL_STATE_COMPLETENESS_VALUES
+        from ._chemical_state import _CHEMICAL_STATE_COMPLETENESS_VALUES
 
         if (
             not isinstance(n_atoms, (int, np.integer))
@@ -276,7 +276,7 @@ class ChemicalStates(NativeQueries):
         .. versionadded:: 1.0.0
         """
 
-        from .topology import _ChemicalStateStorage
+        from ._chemical_state import _ChemicalStateStorage
 
         return self._append_state(_ChemicalStateStorage(n_atoms=self._n_atoms))
 
@@ -493,7 +493,11 @@ class ChemicalStates(NativeQueries):
     def _extract_atoms(self, atom_indices):
         """Return states remapped to one ordered subset of the atom axis."""
 
-        from .topology import Topology, _ChemicalStateStorage
+        from ._chemical_state import (
+            _ChemicalStateStorage,
+            _coerce_bond_table,
+            _remap_bond_atom_indices,
+        )
 
         atoms = np.asarray(atom_indices)
         if atoms.size == 0:
@@ -525,10 +529,10 @@ class ChemicalStates(NativeQueries):
             )
             bonds = bonds[kept].copy()
             bonds.index = range(len(bonds))
-            bonds = Topology._remap_bond_atom_indices(bonds, atom_map)
+            bonds = _remap_bond_atom_indices(bonds, atom_map)
             state = _ChemicalStateStorage(
                 n_atoms=len(atoms),
-                bonds=Topology._coerce_bond_table(bonds, n_atoms=len(atoms)),
+                bonds=_coerce_bond_table(bonds, n_atoms=len(atoms)),
                 components=components,
                 component_indices=membership,
                 state_id=source_state.state_id,

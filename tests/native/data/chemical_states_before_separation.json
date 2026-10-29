@@ -1,0 +1,10 @@
+{
+  "producer_runtime": "4e9bf09c4e02d49ab81082bc9a5706d6bab3c3f8",
+  "fixture_source": "6dcedaa80cc5d3531c67e3483d69fd2e35c15f54",
+  "date": "2026-10-29",
+  "pickle_protocol": 4,
+  "sha256": "a9675d019bce8eccdabb1548efb4349674e07709af9e5be791c0ff96f37c5cf0",
+  "bytes": 4591,
+  "input": "states.__wrapped__() from tests/native/test_chemical_domain_separation.py at fixture_source; public version-1 ChemicalStatesDict analytical path/split states",
+  "scope": "Trusted repository-generated compatibility fixture; original classes were stored under molsysmt.native.topology. No molecular owner or external data."
+}

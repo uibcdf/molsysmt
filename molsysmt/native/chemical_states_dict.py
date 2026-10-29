@@ -143,7 +143,7 @@ def _decode_table(payload):
 def _encode_chemical_states(states):
     from molsysmt._private.preparation_history import encode_history
 
-    from .topology import _BOND_OPTIONAL_DTYPES, _BOND_REQUIRED_COLUMNS
+    from ._chemical_state import _BOND_OPTIONAL_DTYPES, _BOND_REQUIRED_COLUMNS
 
     bond_dtypes = {
         **_BOND_OPTIONAL_DTYPES,
@@ -186,8 +186,12 @@ def _encode_chemical_states(states):
 def _decode_chemical_states(payload):
     from molsysmt._private.preparation_history import decode_history
 
+    from ._chemical_state import (
+        Bonds_DataFrame,
+        Components_DataFrame,
+        _ChemicalStateStorage,
+    )
     from .chemical_states import ChemicalStates
-    from .topology import Bonds_DataFrame, Components_DataFrame, _ChemicalStateStorage
 
     data = payload.data
     if data.get("schema") != "molsysmt.chemical_states_dict" or data.get(
