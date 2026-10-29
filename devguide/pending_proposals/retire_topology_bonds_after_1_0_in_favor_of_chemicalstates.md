@@ -222,12 +222,12 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | --- | --- | --- | --- |
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
-| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage foundation implemented on development branch; native cutover remains | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Not started | Basic/native/form parity and truthful capabilities |
-| P4: builder and lifecycle | P2, P3 | Not started | Coordinated edits/remaps/copies and invalidation |
+| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Chemical storage foundation and C1 stable molecule declarations implemented on development branch; native cutover remains | Standalone state operations; pure Topology; no hidden recovery |
+| P3: query/form dispatch | P2 | Atom/molecule projection uses stable ownership; broader dispatch remains | Basic/native/form parity and truthful capabilities |
+| P4: builder and lifecycle | P2, P3 | Stable molecule transport implemented; chemical authority and lifecycle cutover remain | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
-| P6: conversions/persistence | P3, P4 | Not started | Versioned payloads, legacy readers, partial and full round trips |
-| P7: docs and consumer receiving | P5, P6 | Not started | Lifecycle docs and immutable consumer receipts |
+| P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
+| P7: docs and consumer receiving | P5, P6 | C1 lifecycle documentation updated on development branch; final migration and receiving remain | Lifecycle docs and immutable consumer receipts |
 | P8: integrated source closeout | P1-P7 | Not started | Exact-source checks, published implementation and issue receipt |
 
 Documentation work can accompany each implementation phase. Independent execution
@@ -861,10 +861,120 @@ chemical-edit and projected-file measurements. No post-migration speedup or RAM
 reduction is claimed. Preserve original bytes and extend evidence before changing
 remaining measured paths.
 
-Next: finish chemical-owned data primitives and stable molecule membership, then
-stage owner binding/editing and queries together under C6. Remaining P1 fixtures/
-measurements and the 32 open targets stay visible. Storage relocation alone does
-not finish P2 or authorize the final cutover.
+At that checkpoint, the next work was stable molecule membership and the
+remaining chemical-owned primitives. The following receipt records the molecule
+work. Owner binding/editing and queries still require the coordinated C6 cutover;
+storage relocation alone does not finish P2.
+
+### C1 stable molecule membership
+
+[Implementation checkpoint 77bc140ff0ba4c05df6b537d979333b1aad9c393](https://github.com/uibcdf/molsysmt/commit/77bc140ff0ba4c05df6b537d979333b1aad9c393)
+is on `dev/chemical-states-separation-255`, ahead of the final domain cutover.
+Main remains at documentary checkpoint `a3eeb2dabf35fdd5abd6aac81b4e5f6e87e049f5`;
+this runtime is not merged there. Topology declares ungrouped atom ownership through
+`set_atom_molecules(molecule_indices, atom_indices='all')`. Indices are positional;
+labels do not qualify. Unknown entries are nullable at the public boundary.
+Grouped atoms inherit their group's owner, and conflicting declarations reject
+before publication. There is no additional atom-table column. An optional
+int64 vector stores only ungrouped ownership, with `-1` for unknown positions;
+it is absent when no ungrouped assignment is known and costs eight bytes per
+atom when present. This is a storage bound, not a measured whole-object RAM
+improvement. Argument digestion preserves strict boolean/integer distinctions
+and rejects units, duplicate selectors, malformed shapes and invalid domains.
+
+Atom/molecule queries now project this stable hierarchy rather than consulting
+the reference chemical state's components. Initial explicit graph construction
+may snapshot a partition once. Bond edits and changes of selected state do not
+redefine known molecule ownership. The existing native comparison's molecule
+flag now reaches its boolean argument contract and compares the stored map.
+Other comparison and state-query migration belongs to P2/P3.
+
+Copying, extraction, atom permutation, native addition and builder atom/group
+growth transport the independent vector. Extraction retains molecules reached
+only through ungrouped atoms and remaps entities. Addition offsets molecule
+positions independently of IDs. Group insertion reconciles the direct vector
+with grouped ownership. Rebuilding a component graph can merge two fully
+declared molecules without merging their stable hierarchy. A newly added atom
+that bridges several declared owners still requires an explicit declaration;
+the builder does not choose an owner arbitrarily. Existing explicit unknown
+positions are not assigned merely because new atoms were added.
+
+A changed supported declaration stages invalidation of attached named analyses
+before publishing membership. Evaluated-empty coverage is invalidated too;
+old analysis snapshots and coordinate storage remain intact. No-op assignments
+preserve analysis identity. Failure-injection controls verify atomic rejection.
+
+H5MSM root 0.5 now supports topology layer 3 with typed `atom_molecules` and
+optional existing `chain_groups` membership. Topology-only reads preserve the
+stable map without reading chemistry. Newly unknown group-free ownership also
+uses layer 3 with an all-`-1` dataset, so a later joint read cannot mistake it
+for the legacy implicit partition. Native storage remains absent in that case.
+Layers 1/2 remain readable. Their legacy molecule representation is recovered
+only when both domains are decoded with a declared identity atom-axis link and
+an unambiguous reference partition matching the molecule inventory. Equal axis
+lengths alone are insufficient. A topology-only legacy projection leaves
+unavailable ownership unknown. Old native pickle decoding similarly snapshots
+its original shared-domain representation once; queries never invoke recovery.
+
+Dictionary 0.2 is not implemented yet. The two legacy 0.1 writers explicitly
+reject independent molecule assignments that their schema cannot represent,
+rather than silently dropping them. H5MSM is the supported transport for those
+declarations during this development checkpoint. The legacy decoder remains in
+place; it is not the planned chemical-owner cutover.
+
+Guards are in `tests/native/test_atom_molecule_membership.py` and the extended
+`tests/form/file_h5msm/test_topology_v05_probe.py`. Existing hierarchy fixtures
+now explicitly clear or reconcile their source declarations before replacing
+group tables. Assertions remain; the MDTraj partial-group case covers both
+unknown and known molecule ownership, including target-only fallback groups.
+The earlier empty-selection case also exercises correctly typed empty indices.
+
+The focused membership/H5MSM selection passes **48 tests** (exit 0, 7.74 s).
+Validation in the existing Linux/Python 3.14.7 development environment uses
+`pytest-receptor` and twelve workers. The broad command above, excluding only
+the explicitly unfinished target module, executes **3,830 passing tests and one
+network-dependent failure** (188.31 s). The failing 2NZT alignment control passes
+separately in 8.99 s when DNS/network access is available. These are split
+results, not a single exit-zero broad run. The prior C1 iteration passed all
+3,828 tests before the three final H5MSM controls/reader refinements. No tests
+were skipped, marked xfail or weakened to conceal incomplete work.
+
+The 36 future targets now report **6 passed, 30 failed** (exit 1, 5.77 s), compared
+with the storage checkpoint's 4/32. Remaining failures include pure Topology
+ownership/copy isolation, explicit chemical-state queries, MolSys/Builder
+association preservation, state editing, dictionary 0.2 and the functional
+namespace. These are required implementation work, not release-qualified
+expected failures. Do not merge runtime changes to main while they remain.
+
+Eight doctests pass across Topology and the two modified dictionary writers.
+The Topology foundation, API reference, form Toolbox, group-free Cookbook,
+H5MSM guide/specification and Common Core Module 4 now explain the implemented
+declaration and persistence behavior. All three affected notebooks execute
+successfully in the development environment; previous executable examples are
+retained. Public API stability, docstring fidelity, course structure, Ruff and
+dependency validation pass. Four pre-existing unrelated API-RST edits and the
+native binary retain their original hashes. No dependency floor, environment,
+scientific method or attribution requirement changes.
+
+An initial full HTML build exhausted temporary-storage quota while copying
+large static views. A concurrent repeat of write tests reported quota errors
+and two HDF5 worker crashes under that condition; it is not passing evidence.
+Only this checkpoint's failed build directories were removed. The subsequent
+broad test result above is after that cleanup. Static-view duplication is not
+necessary to validate the edited references. A subsequent full-source HTML
+structure build using the Sphinx Python API, twelve workers,
+`autosummary_generate=False` and an explicit `html_static_path=[]` succeeds
+(exit 0). Extension/theme assets remain; repository static views are omitted
+from this diagnostic output. Two existing `_static` README toctree warnings
+remain, with no warnings for the edited API/pages. This is reference/HTML
+structure evidence; it does not qualify the complete deployed assets or replace
+the final P7/P8 documentation and exact-candidate gates.
+
+Next: finish the remaining chemical-owned primitives, then coordinate native
+owner binding, state-aware editing and query dispatch under C6. The nine moved
+functional APIs, pure Topology, dictionary 0.2, final client receiving and C7
+performance measurements remain pending. This checkpoint does not close #255,
+qualify a release or deliver a new minimum package version to clients.
 
 ## Acceptance matrix
 
