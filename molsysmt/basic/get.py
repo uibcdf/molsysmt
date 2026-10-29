@@ -112,7 +112,8 @@ def get(
     - A partial native MolSys without topology can still expose its atom count,
       chemical-state inventory, and stored structural series. Attributes that
       require an absent domain return ``None``. Explicit chemical-state
-      selection on such an object is not supported yet.
+      selection requires a present chemical collection; actual attribute
+      delivery still depends on the native domain providers.
     - ``isotope`` is stable atom metadata. Rich bond attributes keep integral
       and fractional order, relationship type, aromaticity, conjugation,
       stereochemistry and reference atoms, direction, component participation,
@@ -120,8 +121,15 @@ def get(
     - State inventory attributes such as ``chemical_state_index`` and
       ``chemical_state_id`` continue to describe every state even when
       ``chemical_state`` selects one state for other requested attributes.
-    - Explicit integer state selection currently requires a native Topology or
-      MolSys. Convert an external form before querying a non-reference state.
+    - A standalone native ChemicalStates exposes stored atom/bond/component
+      indices and counts, selected-state completeness/evidence, and its complete
+      state inventory without constructing Topology. Empty stored counts do not
+      certify complete chemistry. Rich chemical fields and general standalone
+      assignment dispatch are still being migrated; see
+      :ref:`user-foundations-native-world-classes-molsysmt-chemicalstates`.
+    - Explicit integer state selection accepts native ChemicalStates, MolSys and
+      the transitional Topology route. Convert an external form before querying
+      a non-reference state.
     - ``chemical_state='structure'`` requires a native MolSys and rejects
       missing associations or structure selections spanning multiple states.
     - ``structure_indices`` also scopes internal spatial selections and masks;

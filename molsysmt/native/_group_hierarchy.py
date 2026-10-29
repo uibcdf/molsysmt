@@ -8,6 +8,8 @@ from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 
 from ._chain_groups import by_chain, by_group
+from ._membership import lookup as _lookup
+from ._membership import pack as _children
 
 TABLES = {
     "group": "groups",
@@ -39,20 +41,6 @@ def _clean(value):
 
 def _unique(values):
     return sorted({int(value) for value in values if not pd.isna(value)})
-
-
-def _children(parents, count):
-    valid = np.flatnonzero((parents >= 0) & (parents < count))
-    order = valid[np.argsort(parents[valid], kind="stable")]
-    offsets = np.concatenate(
-        ([0], np.cumsum(np.bincount(parents[valid], minlength=count)))
-    )
-    return offsets, order
-
-
-def _lookup(index, packed):
-    offsets, children = packed
-    return children[offsets[index] : offsets[index + 1]]
 
 
 def members(topology, source, index, target, *, context=None):

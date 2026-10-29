@@ -7,3 +7,5 @@ from graph reconstruction and preparation. Explain staged failure behavior,
 label-only versus scientific invalidation, snapshots and live-table limitations.
 Link executed examples and the API instead of introducing unsupported universal
 graph-editing functions or placeholder standalone query capabilities.
+Preserve the distinction between stored-axis/count queries and pending rich-field
+or dictionary delivery; counts alone never certify chemical completeness.

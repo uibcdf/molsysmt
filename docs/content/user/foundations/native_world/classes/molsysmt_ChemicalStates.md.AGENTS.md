@@ -8,3 +8,6 @@ and native editing versus chemical preparation. Explain staged failure behavior,
 analysis invalidation, immutable old snapshots, unchanged coordinates and the
 live-table boundary. Describe only implemented APIs and retain the experimental
 migration boundary. Keep serialization guidance linked to its owning format.
+Retain the implemented element/attribute query table, state-local index bounds,
+collection-wide inventory, empty/unknown distinctions and the explicit limits of
+standalone field/dictionary queries and reference-scoped info summaries.

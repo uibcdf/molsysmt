@@ -34,6 +34,12 @@ molsysmt.native.Topology.set_atom_molecules:
   summary: "Declares stable molecule ownership for ungrouped atoms independently of chemical components."
   doc_ref: "{meth}`molsysmt.native.Topology.set_atom_molecules`"
 
+molsysmt.native.ChemicalStates.get:
+  name: "chemical_states.get"
+  first_introduced_in: "Common_Core/04_Native_Forms.ipynb"
+  summary: "Reads stored chemical axes, selected-state counts and completeness without reconstructing Topology."
+  doc_ref: "{meth}`molsysmt.native.ChemicalStates.get`"
+
 molsysmt.native.ChemicalStates.add_bonds:
   name: "chemical_states.add_bonds"
   first_introduced_in: "Common_Core/04_Native_Forms.ipynb"

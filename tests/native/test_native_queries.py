@@ -88,7 +88,7 @@ def test_all_native_boundaries_reject_unknown_keywords_and_bad_info(molsys, posi
             obj.info(**options)
 
 
-@pytest.mark.parametrize("position", [0, 1, 2, 4])
+@pytest.mark.parametrize("position", [0, 1, 2, 3, 4])
 def test_aliases_indices_mask_order_and_bounds(molsys, position):
     obj = objects(molsys)[position]
     assert obj.get(element="ATOMS", selection=[3, 0, 3], atom_index=True) == [3, 0, 3]

@@ -59,7 +59,7 @@ sections:
           - name: chemical_states
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md.AGENTS.md
-            description: Ordered native chemistry, explicit state availability, staged graph editing, stable context, component evidence, analysis invalidation and live-table boundaries.
+            description: Ordered native chemistry, state-local stored axes and counts, collection inventory, completeness, staged graph editing, stable context, invalidation and live-table boundaries.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md
@@ -145,7 +145,7 @@ sections:
           - name: native_chemical_editing
             file: docs/content/user/tools/basic/native_chemical_editing.md
             agents_file: docs/content/user/tools/basic/native_chemical_editing.md.AGENTS.md
-            description: Selected-state native graph edits, reconstruction flags, independent context and staged publication with preserved coordinates, histories and associations.
+            description: Selected-state stored queries and graph edits, reconstruction flags, independent context and staged publication with preserved coordinates, histories and associations.
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
             agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md

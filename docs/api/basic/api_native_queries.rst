@@ -32,6 +32,16 @@ complement its specialized sparse occurrence queries.
 
 .. automethod:: molsysmt.Interactions.info
 
+Reading stored chemical axes
+-----------------------------
+
+ChemicalStates.get reads shared atom positions, state-local bond/component
+positions, stored counts, membership and completeness without constructing
+Topology. State inventory remains collection-wide. A zero-state collection
+retains its atom domain but cannot supply chemical counts. See
+:ref:`user-foundations-native-world-classes-molsysmt-chemicalstates` for the
+implemented element/attribute table and experimental migration boundary.
+
 .. _API Native Structure Inputs:
 
 Constructing and appending Structures

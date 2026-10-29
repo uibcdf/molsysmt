@@ -23,6 +23,8 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must explain that `Topology.bonds` is a compatibility view of the reference chemical state, not a second bond authority.
 * Preserve declared ChemicalStates/Structures composition without topology,
   ordered index selection and unknown multi-state structure association.
+* Preserve the executed stored-axis query example: selected-state counts and
+  component indices, collection-wide state inventory and unchanged reference.
 * Must include explicit hyperlinked cross-references pointing to where deeper analysis of each domain can be found in future modules.
 
 ### 3. Section 3: Native Disk Storage (`file:h5msm`)

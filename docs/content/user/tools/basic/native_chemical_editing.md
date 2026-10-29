@@ -19,6 +19,17 @@ executed standalone and selected-state examples.
 contracts for these methods and the live `get_bonds` interchange view.
 :::
 
+## Inspecting stored chemistry
+
+Use `chemical_states.get(n_bonds=True, n_components=True, chemical_state=...)`
+to inspect one state's stored graph inventory. The same attributes are available
+through `msm.get(chemical_states, ...)`. Atom and component queries can also read
+declared membership and incident counts; see the
+{ref}`ChemicalStates foundation <user-foundations-native-world-classes-molsysmt-chemicalstates>`
+for the supported element/attribute table and the executed Cookbook example.
+Completeness/evidence describe the selected state; state indices/IDs describe
+the entire collection. These reads never rebuild or prepare chemistry.
+
 ## Choosing an operation
 
 | Method | Use |

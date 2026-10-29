@@ -30,6 +30,42 @@ complete knowledge. Rebuilding an observed graph does not certify complete
 chemistry. Complete connectivity with known participation can yield a complete
 component partition, including isolated atoms and an empty edge set.
 
+## Stored Queries
+
+Use `chemical_states.get(..., chemical_state=...)` or
+`msm.get(chemical_states, ..., chemical_state=...)` to read stored indices,
+counts and completeness without constructing Topology. System-level `n_bonds`
+and `n_components` refer to the selected state. `chemical_state_index`,
+`chemical_state_id` and `n_chemical_states` describe the whole collection;
+`reference_chemical_state_index` reports its reference without changing it.
+
+| Source element | Available indices and counts |
+| :--- | :--- |
+| `system` | Shared `n_atoms`; selected-state `n_bonds` and `n_components`; collection inventory and reference. |
+| `atom` | `atom_index`, nullable `component_index`, incident `bond_index`, selected length `n_atoms`, per-atom incident `n_bonds`, and distinct declared `n_components`. |
+| `component` | `component_index`, member `atom_index`, per-component `n_atoms` and incident `n_bonds`, and selected length `n_components`. |
+| `bond` | `bond_index` in the selected state's own bond table. |
+
+Explicit selections retain order and repetitions. Masks produce a sorted set
+intersection, as in `basic.get`. Bond/component bounds are resolved in the
+selected state. Boolean flags belong in masks, not mixed into index lists.
+Empty selections retain defined scalar/list shapes. Declared components with
+no atom members remain visible; unknown membership is not assigned to a new
+component. An explicit atom selection counts distinct known components, while
+`selection='all'` counts the full declared component inventory.
+
+`connectivity_completeness`, `component_completeness` and `component_evidence`
+return the selected state's stored declaration. Zero edges can be unavailable,
+partial or complete knowledge. Queries do not rebuild components, infer bonds
+or certify preparation. A zero-state collection still has an atom domain and
+state inventory, but querying its chemical counts raises an unavailable-state
+error. A missing reference with multiple states requires an explicit index.
+
+`info()` summaries currently follow reference-state rules. These capabilities
+do not yet include standalone rich chemical fields, state-aware dictionary
+query dispatch or stable group/chain/molecule context. A query needing such
+absent context cannot reconstruct it from component membership.
+
 ## Controlled Editing
 
 `add_bonds`, `remove_bonds` and `rebuild_components` edit only the selected state.
@@ -77,7 +113,7 @@ scope are described in {ref}`Tutorial_Extract`.
 ## API Documentation
 
 See {ref}`API Native Chemical Editing` for exact signatures and failure behavior,
-and {ref}`API Native Queries` for available resident-object queries. General
-selected-state query routing is still part of the domain migration; the new
-editing methods do not imply support for every molecular attribute on a
+and {ref}`API Native Queries` for available resident-object queries. Further
+chemical-attribute and assignment routing remains part of the domain migration;
+the stored-axis queries do not imply support for every molecular attribute on a
 standalone collection.

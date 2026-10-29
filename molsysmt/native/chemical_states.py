@@ -45,6 +45,10 @@ class ChemicalStates(NativeQueries):
     0
     >>> states.get_bonds().empty
     True
+    >>> states.get(n_bonds=True, connectivity_completeness=True)
+    [0, 'unavailable']
+    >>> states.get(element='atom', selection=[1, 0, 1], atom_index=True)
+    [1, 0, 1]
 
     .. versionadded:: 1.0.0
     """

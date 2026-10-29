@@ -82,6 +82,9 @@ class NativeQueries:
         form discovery. Selection expressions and nested selections retain the
         existing general selector. This operation does not build or convert a
         molecular system. The specialized Structures getters remain available.
+        ChemicalStates supplies stored atom/bond/component axes, counts and
+        selected-state completeness directly. Its state inventory remains
+        collection-wide. Unknown connectivity is not inferred by these queries.
 
         See Also
         --------
@@ -95,6 +98,12 @@ class NativeQueries:
         [2, 0]
         >>> topology.get(n_atoms=True, output_type='dictionary')
         {'n_atoms': 3}
+        >>> from molsysmt.native import ChemicalStates
+        >>> states = ChemicalStates(n_atoms=2)
+        >>> states.append_state()
+        0
+        >>> states.get(n_bonds=True, connectivity_completeness=True)
+        [0, 'unavailable']
 
         .. admonition:: User guide
 
