@@ -14,3 +14,7 @@ Retain controlled assignment to that alternative state without changing referenc
 chemistry; component reconstruction remains explicit for participation edits.
 Preserve the atom-projected label and partial declaration example: untouched
 singleton labels survive, changed pair labels clear, and inventory/molecules stay fixed.
+
+Preserve the executed ChemicalStatesDict direct-read example, selected-state bounds,
+ordered/repeated positions and unchanged reference. Queries do not decode unrelated
+states or history; dictionary mutation is not a controlled editing interface.

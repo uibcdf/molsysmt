@@ -1,6 +1,6 @@
 # Native query API reference
 
-Keep the inherited get/info docstrings discoverable for the six implemented
+Keep the inherited get/info docstrings discoverable for the seven implemented
 resident types. Preserve their actual signatures, basic-tool result semantics,
 legacy positional order and keyword-only additions. Distinguish molecular
 metadata from the specialized Interactions occurrence API. Do not promise

@@ -30,6 +30,12 @@ for the supported element/attribute table and the executed Cookbook example.
 Completeness/evidence describe the selected state; state indices/IDs describe
 the entire collection. These reads never rebuild or prepare chemistry.
 
+The typed `ChemicalStatesDict` wrapper also provides `get()` and `info()` directly
+over stored columns. State-local numeric selections retain the native semantics
+without decoding other records; see
+{ref}`the dictionary contract <user-foundations-native-world-classes-molsysmt-chemicalstatesdict>`.
+Convert explicitly to ChemicalStates before controlled editing.
+
 The same queries can read stored atom charges/aromaticity/hydrogen assignments,
 bond metadata and state-local component labels. For example,
 `chemical_states.get(element='bond', chemical_state=1, bond_order=True)` reads

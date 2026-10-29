@@ -13,6 +13,7 @@ Cover native Python classes and declarative dictionaries representing molecular 
 - `molsysmt_Topology.md` ➔ `molsysmt_Topology.md.AGENTS.md`: Native topology container (`# Topology`).
 - `molsysmt_TopologyDict.md` ➔ `molsysmt_TopologyDict.md.AGENTS.md`: Declarative topology dict (`# TopologyDict`).
 - `molsysmt_ChemicalStates.md` ➔ `molsysmt_ChemicalStates.md.AGENTS.md`: Ordered chemical-state collection (`# ChemicalStates`).
+- `molsysmt_ChemicalStatesDict.md` ➔ `molsysmt_ChemicalStatesDict.md.AGENTS.md`: Typed chemical columns with direct queries (`# ChemicalStatesDict`).
 - `molsysmt_Structures.md` ➔ `molsysmt_Structures.md.AGENTS.md`: Native structures container (`# Structures`).
 - `molsysmt_StructuresDict.md` ➔ `molsysmt_StructuresDict.md.AGENTS.md`: Declarative structures dict (`# StructuresDict`).
 - `molsysmt_MolecularMechanics.md` ➔ `molsysmt_MolecularMechanics.md.AGENTS.md`: Native mechanics container (`# MolecularMechanics`).

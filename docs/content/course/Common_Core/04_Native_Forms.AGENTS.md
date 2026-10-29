@@ -37,3 +37,7 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must present lightweight native dictionary forms (`TopologyDict`, `StructuresDict`, `MolSysDict`).
 * Must demonstrate transparent dictionary key lookup (e.g. `topo_dict.data['atoms']`) to showcase zero-overhead Python data access.
 * Must distinguish the typed NumPy column payloads in `ChemicalStatesDict` and `InteractionsDict` from JSON-compatible record dictionaries.
+
+Preserve the executed ChemicalStatesDict direct-read example, selected-state bounds,
+ordered/repeated positions and unchanged reference. Queries do not decode unrelated
+states or history; dictionary mutation is not a controlled editing interface.

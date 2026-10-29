@@ -60,6 +60,10 @@ sections:
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md.AGENTS.md
             description: Ordered native chemistry, nullable queries, staged field/component assignments, exact metadata correspondence, state-local bounds, completeness and live-table boundaries.
+          - name: chemical_states_dict
+            file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md
+            agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md.AGENTS.md
+            description: Typed chemical columns, direct selected-state get/info, null masks, bounded reads, explicit conversion for edits and persistence.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md

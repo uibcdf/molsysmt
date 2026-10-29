@@ -8,7 +8,7 @@ from inspect import signature
 def _native_chemical_collections(molecular_system):
     """Yield chemical owners once, without requiring a stable Topology domain."""
 
-    from molsysmt.native import ChemicalStates, MolSys, Topology
+    from molsysmt.native import ChemicalStates, ChemicalStatesDict, MolSys, Topology
 
     pending = [molecular_system]
     seen = set()
@@ -19,7 +19,7 @@ def _native_chemical_collections(molecular_system):
             continue
         if isinstance(item, MolSys):
             collection = item.chemical_states
-        elif isinstance(item, ChemicalStates):
+        elif isinstance(item, (ChemicalStates, ChemicalStatesDict)):
             collection = item
         elif isinstance(item, Topology):
             # Transitional branch callers retain their existing route until C6

@@ -291,8 +291,8 @@
       "stability": "experimental",
       "introduced": "1.0.0",
       "owner": "native",
-      "documentation": "docs/content/user/tools/topology/index.md",
-      "contract_tests": "tests/form/molsysmt_ChemicalStatesDict/test_roundtrip.py"
+      "documentation": "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md",
+      "contract_tests": "tests/form/molsysmt_ChemicalStatesDict/test_queries.py"
     },
     "molsysmt.Interactions": {
       "stability": "experimental",

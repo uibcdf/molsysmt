@@ -61,8 +61,10 @@ or certify preparation. A zero-state collection still has an atom domain and
 state inventory, but querying its chemical counts raises an unavailable-state
 error. A missing reference with multiple states requires an explicit index.
 
-`info()` summaries currently follow reference-state rules. State-aware dictionary
-query dispatch and stable group/chain/molecule context are still being migrated.
+`info()` summaries currently follow reference-state rules. The typed dictionary
+offers direct stored queries; see
+{ref}`ChemicalStatesDict <user-foundations-native-world-classes-molsysmt-chemicalstatesdict>`.
+Stable group/chain/molecule context and mixed-owner routing are still being migrated.
 A query needing absent context cannot reconstruct it from component membership.
 
 ## Stored Assignments
@@ -96,7 +98,7 @@ participation are read as declared, never inferred during querying.
 membership gives `None`, even if other component rows have labels. Bond and
 component IDs remain string labels, independent of positional indices. All these
 queries retain ordered repetitions, selected-state bounds and source tables.
-Chemical predicates and dictionary dispatch remain separate pending work;
+General chemical predicates and dictionary editing remain separate pending work;
 query support does not make live-table mutation a validated edit.
 
 ## Assigning State Fields

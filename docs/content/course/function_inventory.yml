@@ -40,6 +40,18 @@ molsysmt.native.ChemicalStates.get:
   summary: "Reads stored chemical axes, selected-state counts and completeness without reconstructing Topology."
   doc_ref: "{meth}`molsysmt.native.ChemicalStates.get`"
 
+molsysmt.native.ChemicalStatesDict.get:
+  name: "payload.get"
+  first_introduced_in: "Common_Core/04_Native_Forms.ipynb"
+  summary: "Reads selected typed chemical columns without decoding the native collection."
+  doc_ref: "{meth}`molsysmt.native.ChemicalStatesDict.get`"
+
+molsysmt.native.ChemicalStatesDict.info:
+  name: "payload.info"
+  first_introduced_in: "Common_Core/04_Native_Forms.ipynb"
+  summary: "Formats reference-state summaries from typed chemical columns."
+  doc_ref: "{meth}`molsysmt.native.ChemicalStatesDict.info`"
+
 molsysmt.native.ChemicalStates.add_bonds:
   name: "chemical_states.add_bonds"
   first_introduced_in: "Common_Core/04_Native_Forms.ipynb"

@@ -88,6 +88,8 @@ class NativeQueries:
         units. Missing atom columns return None; missing bond fields retain one
         nullable entry per edge (two for stereo references). Its state inventory remains
         collection-wide. Unknown connectivity is not inferred by these queries.
+        ChemicalStatesDict reads the corresponding typed columns directly;
+        it does not decode a native collection or certify unrelated payload/history.
 
         See Also
         --------
@@ -225,6 +227,7 @@ class _NativeProvider:
         from molsysmt.interactions.result import Interactions
         from molsysmt.native import (
             ChemicalStates,
+            ChemicalStatesDict,
             MolSys,
             MolSysBuilder,
             Structures,
@@ -236,6 +239,7 @@ class _NativeProvider:
             Topology,
             Structures,
             ChemicalStates,
+            ChemicalStatesDict,
             MolSysBuilder,
             Interactions,
         ):

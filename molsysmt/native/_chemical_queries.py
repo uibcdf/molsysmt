@@ -88,32 +88,47 @@ def project(item, element, attribute, selected="all"):
     if attribute == "n_" + element + "s":
         return len(positions)
     state = item._resolve_chemical_state()
+    return project_arrays(
+        element,
+        attribute,
+        positions,
+        n_atoms=item.n_atoms,
+        n_components=len(state.components),
+        membership=lambda selected=None: _membership(item, state, selected),
+        pairs=lambda: state.bonds[["atom1_index", "atom2_index"]].to_numpy(
+            dtype=np.int64
+        ),
+    )
+
+
+def project_arrays(
+    element, attribute, positions, *, n_atoms, n_components, membership, pairs
+):
+    """Project stored incidence/membership arrays independently of their container."""
     if element == "atom":
         if attribute in {"component_index", "n_components"}:
-            membership = _membership(item, state)[positions]
+            members = membership(positions)
             if attribute == "component_index":
-                return [int(value) if value >= 0 else None for value in membership]
-            return int(len(np.unique(membership[membership >= 0])))
-        pairs = state.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=np.int64)
+                return [int(value) if value >= 0 else None for value in members]
+            return int(len(np.unique(members[members >= 0])))
+        bond_pairs = pairs()
         if attribute == "n_bonds":
-            degrees = np.bincount(pairs.ravel(), minlength=item.n_atoms)
+            degrees = np.bincount(bond_pairs.ravel(), minlength=n_atoms)
             return degrees[positions].tolist()
-        grouped = pack(pairs.ravel(), item.n_atoms)
+        grouped = pack(bond_pairs.ravel(), n_atoms)
         return [(lookup(index, grouped) // 2).tolist() for index in positions]
-    membership = _membership(item, state)
+    members = membership()
     if attribute == "n_atoms":
-        counts = np.bincount(
-            membership[membership >= 0], minlength=len(state.components)
-        )
+        counts = np.bincount(members[members >= 0], minlength=n_components)
         return counts[positions].tolist()
     if attribute == "atom_index":
-        grouped = pack(membership, len(state.components))
+        grouped = pack(members, n_components)
         return [lookup(index, grouped).tolist() for index in positions]
     # Count each stored edge once per incident component. Cross-component edges
     # count for both declared endpoints; unknown endpoints acquire no membership.
-    pairs = state.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=np.int64)
-    endpoints = membership[pairs]
+    bond_pairs = pairs()
+    endpoints = members[bond_pairs]
     first, second = endpoints[:, 0], endpoints[:, 1]
     parents = np.r_[first[first >= 0], second[(second >= 0) & (second != first)]]
-    counts = np.bincount(parents, minlength=len(state.components))
+    counts = np.bincount(parents, minlength=n_components)
     return counts[positions].tolist()

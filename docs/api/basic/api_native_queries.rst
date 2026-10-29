@@ -24,6 +24,10 @@ complement its specialized sparse occurrence queries.
 
 .. automethod:: molsysmt.native.ChemicalStates.info
 
+.. automethod:: molsysmt.native.ChemicalStatesDict.get
+
+.. automethod:: molsysmt.native.ChemicalStatesDict.info
+
 .. automethod:: molsysmt.native.MolSysBuilder.get
 
 .. automethod:: molsysmt.native.MolSysBuilder.info

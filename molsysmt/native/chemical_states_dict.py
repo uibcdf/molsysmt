@@ -8,13 +8,37 @@ import pandas as pd
 
 from molsysmt._private.argdigest import arg_digest
 
+from .queries import NativeQueries
+
 
 @dataclass
-class ChemicalStatesDict:
+class ChemicalStatesDict(NativeQueries):
     """Holding a lossless, versioned chemical-state payload.
 
     State tables are stored as typed columns with explicit null masks. The
     representation uses NumPy arrays and is not directly JSON serializable.
+
+    Notes
+    -----
+    get/info read stored typed columns directly. Explicit state selection does
+    not decode other states or change the reference. Queries validate requested
+    metadata/columns, not the entire payload or preparation history. Native
+    editing requires conversion to ChemicalStates; data remains a mutable
+    transport payload, whose raw edits bypass validation and owner notification.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> payload = msm.convert(chemical_states, to_form='molsysmt.ChemicalStatesDict')
+    >>> payload.get(n_atoms=True, n_bonds=True, connectivity_completeness=True)
+    [2, 0, 'unavailable']
+    >>> payload.get(element='atom', selection=[1, 0, 1], atom_index=True)
+    [1, 0, 1]
+
+    .. versionadded:: 1.0.0
     """
 
     def __repr__(self):
@@ -30,6 +54,20 @@ class ChemicalStatesDict:
         )
 
     data: dict
+
+    def _resolve_index(self, state_index=None):
+        from ._chemical_dict_queries import header
+        from ._chemical_scope import resolve_index
+
+        _, _, count, reference = header(self)
+        return resolve_index(
+            count, reference, state_index, "molsysmt.native.ChemicalStatesDict"
+        )
+
+    def _using_chemical_state(self, state_index):
+        from ._chemical_scope import using_state
+
+        return using_state(self, state_index)
 
     def to_dict(self, copy=True):
         """Returning the underlying typed payload."""

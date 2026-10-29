@@ -1,16 +1,14 @@
 """Native collection of discrete chemical states."""
 
 from contextlib import contextmanager, nullcontext
-from contextvars import ContextVar
 
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
+from ._chemical_scope import active_index, resolve_index, using_state
 from .queries import NativeQueries
-
-_ACTIVE_STATE_INDICES = ContextVar("molsysmt_active_chemical_state_indices", default={})
 
 
 class ChemicalStates(NativeQueries):
@@ -96,38 +94,12 @@ class ChemicalStates(NativeQueries):
         return self._reference_index
 
     def _resolve_index(self, state_index=None):
-        if not self._states:
-            raise StructuralInconsistencyError(
-                reason="The collection has no chemical state; chemical data are unavailable.",
-                caller="molsysmt.native.ChemicalStates",
-            )
-        if state_index is None:
-            state_index = self.reference_chemical_state_index
-            if state_index is None:
-                raise StructuralInconsistencyError(
-                    reason=(
-                        f"The collection has {len(self._states)} chemical states "
-                        "and no reference state; state-dependent access is ambiguous."
-                    ),
-                    caller="molsysmt.native.ChemicalStates",
-                )
-        if isinstance(state_index, (bool, np.bool_)) or not isinstance(
-            state_index, (int, np.integer)
-        ):
-            raise StructuralInconsistencyError(
-                reason="Chemical-state index must be an integer.",
-                caller="molsysmt.native.ChemicalStates",
-            )
-        state_index = int(state_index)
-        if not 0 <= state_index < len(self._states):
-            raise StructuralInconsistencyError(
-                reason=(
-                    f"Chemical-state index {state_index} is invalid for "
-                    f"{len(self._states)} states."
-                ),
-                caller="molsysmt.native.ChemicalStates",
-            )
-        return state_index
+        return resolve_index(
+            len(self._states),
+            self.reference_chemical_state_index,
+            state_index,
+            "molsysmt.native.ChemicalStates",
+        )
 
     def _inventory_equals(self, other):
         """Compare ordered chemical inventory without resolving or selecting a state.
@@ -165,21 +137,13 @@ class ChemicalStates(NativeQueries):
 
     def _resolve_chemical_state(self, state_index=None):
         """Resolve scoped or explicit chemistry without changing the reference."""
-        if state_index is None:
-            state_index = _ACTIVE_STATE_INDICES.get().get(id(self))
-        return self._states[self._resolve_index(state_index)]
+        return self._states[self._resolve_index(active_index(self, state_index))]
 
     @contextmanager
     def _using_chemical_state(self, state_index):
-        """Scope controlled provider access to this collection, not a Topology."""
-        state_index = self._resolve_index(state_index)
-        token = _ACTIVE_STATE_INDICES.set(
-            {**_ACTIVE_STATE_INDICES.get(), id(self): state_index}
-        )
-        try:
+        """Scope controlled provider access without mutating the reference."""
+        with using_state(self, state_index):
             yield self
-        finally:
-            _ACTIVE_STATE_INDICES.reset(token)
 
     def _invalidating_chemical_interactions(self, changed=True):
         """Prepare owner invalidation before publishing a chemical assignment."""

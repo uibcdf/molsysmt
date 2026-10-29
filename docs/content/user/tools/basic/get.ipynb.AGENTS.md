@@ -23,3 +23,7 @@ Governance rules and frozen contracts for `docs/content/user/tools/basic/get.ipy
 6. **Collapsible Demo Systems Note**: Right after the code cell using `msm.systems`.
 7. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance.
+
+Preserve the executed ChemicalStatesDict direct-read example, selected-state bounds,
+ordered/repeated positions and unchanged reference. Queries do not decode unrelated
+states or history; dictionary mutation is not a controlled editing interface.

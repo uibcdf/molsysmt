@@ -37,10 +37,11 @@ def objects(molsys):
         molsys.chemical_states,
         MolSysBuilder(molsys),
         interactions,
+        msm.convert(molsys.chemical_states, to_form="molsysmt.ChemicalStatesDict"),
     ]
 
 
-@pytest.mark.parametrize("position", range(6))
+@pytest.mark.parametrize("position", range(7))
 def test_common_metadata_empty_queries_and_representations(molsys, position):
     obj = objects(molsys)[position]
     assert obj.get(n_atoms=True) == 4
@@ -59,7 +60,7 @@ def test_common_metadata_empty_queries_and_representations(molsys, position):
         assert expected["n_atoms"].tolist() == [4]
 
 
-@pytest.mark.parametrize("position", range(6))
+@pytest.mark.parametrize("position", range(7))
 @pytest.mark.parametrize(
     "options",
     [
@@ -74,7 +75,7 @@ def test_all_native_boundaries_reject_invalid_values(molsys, position, options):
         objects(molsys)[position].get(**{"n_atoms": True, **options})
 
 
-@pytest.mark.parametrize("position", range(6))
+@pytest.mark.parametrize("position", range(7))
 def test_all_native_boundaries_reject_unknown_keywords_and_bad_info(molsys, position):
     from argdigest.core.errors import UnknownArgumentError
 
@@ -88,7 +89,7 @@ def test_all_native_boundaries_reject_unknown_keywords_and_bad_info(molsys, posi
             obj.info(**options)
 
 
-@pytest.mark.parametrize("position", [0, 1, 2, 3, 4])
+@pytest.mark.parametrize("position", [0, 1, 2, 3, 4, 6])
 def test_aliases_indices_mask_order_and_bounds(molsys, position):
     obj = objects(molsys)[position]
     assert obj.get(element="ATOMS", selection=[3, 0, 3], atom_index=True) == [3, 0, 3]
@@ -244,7 +245,9 @@ def test_inherited_native_boundary_keeps_its_attribute_contract(molsys):
 
 
 def test_sparse_specialized_methods_and_views_remain_available(molsys):
-    result = objects(molsys)[-1]
+    result = next(
+        item for item in objects(molsys) if isinstance(item, msm.Interactions)
+    )
     selected = result.query(structure_indices=[2, 1, 2])
     assert selected.get(n_atoms=True, n_structures=True) == [4, 3]
     assert selected.n_interactions == 0
