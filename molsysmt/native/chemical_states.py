@@ -1,6 +1,7 @@
 """Native collection of discrete chemical states."""
 
-from contextlib import nullcontext
+from contextlib import contextmanager, nullcontext
+from contextvars import ContextVar
 
 import numpy as np
 
@@ -8,6 +9,8 @@ from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
 from .queries import NativeQueries
+
+_ACTIVE_STATE_INDICES = ContextVar("molsysmt_active_chemical_state_indices", default={})
 
 
 class ChemicalStates(NativeQueries):
@@ -91,7 +94,7 @@ class ChemicalStates(NativeQueries):
     def _resolve_index(self, state_index=None):
         if not self._states:
             raise StructuralInconsistencyError(
-                reason="Chemical states are unavailable.",
+                reason="The collection has no chemical state; chemical data are unavailable.",
                 caller="molsysmt.native.ChemicalStates",
             )
         if state_index is None:
@@ -100,7 +103,7 @@ class ChemicalStates(NativeQueries):
                 raise StructuralInconsistencyError(
                     reason=(
                         f"The collection has {len(self._states)} chemical states "
-                        "and no reference state."
+                        "and no reference state; state-dependent access is ambiguous."
                     ),
                     caller="molsysmt.native.ChemicalStates",
                 )
@@ -155,6 +158,156 @@ class ChemicalStates(NativeQueries):
                 if not getattr(left, field).equals(getattr(right, field)):
                     return False
         return True
+
+    def _resolve_chemical_state(self, state_index=None):
+        """Resolve scoped or explicit chemistry without changing the reference."""
+        if state_index is None:
+            state_index = _ACTIVE_STATE_INDICES.get().get(id(self))
+        return self._states[self._resolve_index(state_index)]
+
+    @contextmanager
+    def _using_chemical_state(self, state_index):
+        """Scope controlled provider access to this collection, not a Topology."""
+        state_index = self._resolve_index(state_index)
+        token = _ACTIVE_STATE_INDICES.set(
+            {**_ACTIVE_STATE_INDICES.get(), id(self): state_index}
+        )
+        try:
+            yield self
+        finally:
+            _ACTIVE_STATE_INDICES.reset(token)
+
+    def _invalidating_chemical_interactions(self, changed=True):
+        """Prepare owner invalidation before publishing a chemical assignment."""
+        reference = getattr(self, "_molsys_owner_ref", None)
+        owner = reference() if reference is not None else None
+        if not changed or owner is None:
+            return nullcontext()
+        return owner._invalidating_interaction_frames("all")
+
+    def _has_chemical_state_atom_attribute(
+        self, name, state_index=None, include_none=False
+    ):
+        return self._resolve_chemical_state(state_index).has_atom_attribute(
+            name, include_none=include_none
+        )
+
+    def _get_chemical_state_atom_attribute(
+        self, name, atom_indices=None, state_index=None
+    ):
+        return self._resolve_chemical_state(state_index).get_atom_attribute(
+            name, atom_indices=atom_indices
+        )
+
+    def _set_chemical_state_atom_attribute(
+        self, name, values, atom_indices=None, state_index=None
+    ):
+        """Stage a typed atom assignment without compatibility repair on reads."""
+        state = self._resolve_chemical_state(state_index)
+        state._validate_atom_domain(self.n_atoms, check_component_indices=False)
+        if atom_indices is not None and np.asarray(atom_indices).size == 0:
+            return
+        candidate = state._prepare_atom_attribute(name, values, atom_indices)
+        with self._invalidating_chemical_interactions():
+            state.atom_attributes = candidate
+
+    def _remove_chemical_state_atom_attribute(self, name, state_index=None):
+        from ._chemical_state import _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES
+
+        state = self._resolve_chemical_state(state_index)
+        if name not in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES:
+            raise StructuralInconsistencyError(
+                reason=f"Unknown chemical-state atom attribute {name!r}.",
+                caller="molsysmt.native.ChemicalStates",
+            )
+        if name in state.atom_attributes:
+            candidate = state.atom_attributes.drop(columns=name)
+            with self._invalidating_chemical_interactions():
+                state.atom_attributes = candidate
+
+    def _get_chemical_state_bonds(self, state_index=None):
+        return self._resolve_chemical_state(state_index).bonds
+
+    def _set_chemical_state_bond_attribute(
+        self, name, values, bond_indices="all", state_index=None
+    ):
+        from ._chemical_assignments import bond_attribute
+
+        state = self._resolve_chemical_state(state_index)
+        candidate = bond_attribute(
+            state.bonds, name, values, bond_indices, self.n_atoms
+        )
+        if candidate is not None:
+            self._publish_chemical_state_bonds(candidate, state_index)
+
+    def _set_chemical_state_bond_stereo_atom_indices(
+        self, values, bond_indices="all", state_index=None
+    ):
+        from ._chemical_assignments import stereo_atom_indices
+
+        state = self._resolve_chemical_state(state_index)
+        candidate = stereo_atom_indices(state.bonds, values, bond_indices, self.n_atoms)
+        if candidate is not None:
+            self._publish_chemical_state_bonds(candidate, state_index)
+
+    def _set_chemical_state_bonds(self, value, state_index=None):
+        """Replace normalized storage; graph reconstruction is a separate edit."""
+        from ._chemical_state import _coerce_bond_table
+
+        self._resolve_chemical_state(state_index)
+        candidate = _coerce_bond_table(value, n_atoms=self.n_atoms)
+        self._publish_chemical_state_bonds(candidate, state_index)
+
+    def _publish_chemical_state_bonds(
+        self, candidate, state_index=None, *, declared_edges=True
+    ):
+        """Publish a prepared private table without inventing a chemical state."""
+        state = self._resolve_chemical_state(state_index)
+        changes = {"bonds": candidate}
+        if (
+            declared_edges
+            and len(candidate)
+            and state.connectivity_completeness == "unavailable"
+        ):
+            changes["_connectivity_completeness"] = "partial"
+        self._publish_edit(state, changes)
+
+    def _get_component_indices(self, state_index=None):
+        return self._resolve_chemical_state(state_index).component_indices
+
+    def _set_component_indices(self, values, atom_indices=None, state_index=None):
+        """Assign declared membership; staging may precede component-row creation."""
+        import pandas as pd
+
+        state = self._resolve_chemical_state(state_index)
+        state._validate_atom_domain(self.n_atoms, check_component_indices=False)
+        if atom_indices is not None and np.asarray(atom_indices).size == 0:
+            return
+        indices = (
+            None
+            if atom_indices is None
+            else state._normalize_atom_indices(np.atleast_1d(atom_indices))
+        )
+        normalized = pd.array(
+            state._values_with_length(
+                values,
+                self.n_atoms if indices is None else len(indices),
+                "component_index",
+            ),
+            dtype="Int64",
+        )
+        if (pd.Series(normalized).dropna() < 0).any():
+            raise StructuralInconsistencyError(
+                reason="Chemical-state component indices must be non-negative or missing.",
+                caller="molsysmt.native.ChemicalStates",
+            )
+        if indices is None:
+            candidate = pd.Series(normalized, index=range(self.n_atoms))
+        else:
+            candidate = state.component_indices.copy()
+            candidate.loc[indices] = normalized
+        with self._invalidating_chemical_interactions():
+            state.component_indices = candidate
 
     def _replace_states(self, states, reference_index=None):
         """Replace state records after validating their shared atom domain."""
@@ -295,13 +448,7 @@ class ChemicalStates(NativeQueries):
         from ._chemical_edits import scientific_change
 
         changed = scientific_change(state, changes)
-        reference = getattr(self, "_molsys_owner_ref", None)
-        owner = reference() if reference is not None else None
-        with (
-            owner._invalidating_interaction_frames("all")
-            if changed and owner is not None
-            else nullcontext()
-        ):
+        with self._invalidating_chemical_interactions(changed):
             # All keys already exist. Publication invokes no normalization,
             # inference, user callbacks or allocation of molecular payloads.
             state.__dict__.update(changes)
@@ -639,7 +786,8 @@ class ChemicalStates(NativeQueries):
         remove_bonds, rebuild_components or supported basic.set attributes on
         an owning MolSys for controlled changes. Standalone assignment dispatch
         is still being migrated. Previously held tables remain snapshots after a
-        supported edit replaces the current table.
+        supported edit replaces the current table. Controlled bond_id assignments
+        preserve bond positions, nullable columns and interaction observations.
 
         .. versionadded:: 1.0.0
         """

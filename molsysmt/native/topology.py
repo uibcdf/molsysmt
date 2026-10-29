@@ -1,5 +1,4 @@
 from contextlib import contextmanager, nullcontext
-from contextvars import ContextVar
 
 import numpy as np
 import pandas as pd
@@ -32,10 +31,6 @@ _CHEMICAL_STATE_COMPLETENESS_VALUES = (
 )
 _CHEMICAL_STATE_EVIDENCE_VALUES = _chemical_storage._CHEMICAL_STATE_EVIDENCE_VALUES
 _ChemicalStateStorage = _chemical_storage._ChemicalStateStorage
-
-_ACTIVE_CHEMICAL_STATE_INDICES = ContextVar(
-    "molsysmt_active_chemical_state_indices", default={}
-)
 
 # Canonical schemas — these are fixed by design.
 # To change them a conscious, explicit decision must be made and documented.
@@ -352,26 +347,10 @@ class Topology(NativeQueries):
         return self._chemical_states[self._resolve_reference_chemical_state_index()]
 
     def _resolve_chemical_state(self, state_index=None):
-        """Return an explicitly indexed state or the resolved reference state."""
-
-        if state_index is None:
-            state_index = _ACTIVE_CHEMICAL_STATE_INDICES.get().get(id(self))
-            if state_index is None:
-                return self._resolve_reference_chemical_state()
-        if isinstance(state_index, (bool, np.bool_)) or not isinstance(
-            state_index, (int, np.integer)
-        ):
-            raise StructuralInconsistencyError(
-                reason="Chemical-state index must be an integer or None.",
-                caller="molsysmt.native.Topology",
-            )
-        state_index = int(state_index)
-        if not 0 <= state_index < len(self._chemical_states):
-            raise StructuralInconsistencyError(
-                reason=f"Chemical-state index {state_index} is invalid for {len(self._chemical_states)} states.",
-                caller="molsysmt.native.Topology",
-            )
-        return self._chemical_states[state_index]
+        """Delegate scoped chemical access to the transitional collection owner."""
+        if state_index is None and not self._chemical_states:
+            return self._resolve_reference_chemical_state()
+        return self._chemical_states_domain._resolve_chemical_state(state_index)
 
     def _chemical_state_inventory_equals(self, item):
         """Return whether stable atoms and ordered chemical states match exactly."""
@@ -395,68 +374,43 @@ class Topology(NativeQueries):
 
     @contextmanager
     def _using_chemical_state(self, state_index):
-        """Resolve state-dependent facades against one state within this context."""
-
-        self._resolve_chemical_state(state_index=state_index)
-        active_indices = _ACTIVE_CHEMICAL_STATE_INDICES.get()
-        token = _ACTIVE_CHEMICAL_STATE_INDICES.set(
-            {**active_indices, id(self): int(state_index)}
-        )
-        try:
+        """Keep the legacy scope while the chemical owner supplies its context."""
+        with self._chemical_states_domain._using_chemical_state(state_index):
             yield self
-        finally:
-            _ACTIVE_CHEMICAL_STATE_INDICES.reset(token)
 
     def _has_chemical_state_atom_attribute(
         self, name, state_index=None, include_none=False
     ):
-        """Return private instance availability for an atom-state attribute."""
-
-        state = self._resolve_chemical_state(state_index=state_index)
-        state._ensure_compatibility(self.n_atoms)
-        return state.has_atom_attribute(name, include_none=include_none)
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return self._chemical_states_domain._has_chemical_state_atom_attribute(
+            name, state_index=state_index, include_none=include_none
+        )
 
     def _get_chemical_state_atom_attribute(
         self, name, atom_indices=None, state_index=None
     ):
-        """Return one private atom-state attribute from a resolved state."""
-
-        state = self._resolve_chemical_state(state_index=state_index)
-        state._ensure_compatibility(self.n_atoms)
-        return state.get_atom_attribute(name, atom_indices=atom_indices)
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return self._chemical_states_domain._get_chemical_state_atom_attribute(
+            name, atom_indices=atom_indices, state_index=state_index
+        )
 
     def _set_chemical_state_atom_attribute(
         self, name, values, atom_indices=None, state_index=None
     ):
-        """Set one private atom-state attribute on a resolved state."""
-
-        if atom_indices is not None and np.asarray(atom_indices).size == 0:
-            return
-        state = self._resolve_chemical_state(state_index=state_index)
-        state._ensure_compatibility(self.n_atoms)
-        candidate = state._prepare_atom_attribute(name, values, atom_indices)
-        with self._invalidating_chemical_interactions():
-            state.atom_attributes = candidate
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return self._chemical_states_domain._set_chemical_state_atom_attribute(
+            name, values, atom_indices=atom_indices, state_index=state_index
+        )
 
     def _invalidating_chemical_interactions(self, changed=True):
-        """Stage conservative owner invalidation for a prepared chemical edit."""
-        owner_ref = getattr(self, "_molsys_owner_ref", None)
-        owner = None if owner_ref is None else owner_ref()
-        if not changed or owner is None:
-            return nullcontext()
-        return owner._invalidating_interaction_frames("all")
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return self._chemical_states_domain._invalidating_chemical_interactions(changed)
 
     def _remove_chemical_state_atom_attribute(self, name, state_index=None):
-        """Remove one private optional atom-state attribute."""
-
-        state = self._resolve_chemical_state(state_index=state_index)
-        if name not in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES:
-            state.remove_atom_attribute(name)
-            return
-        if name in state.atom_attributes.columns:
-            candidate = state.atom_attributes.drop(columns=name)
-            with self._invalidating_chemical_interactions():
-                state.atom_attributes = candidate
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return self._chemical_states_domain._remove_chemical_state_atom_attribute(
+            name, state_index=state_index
+        )
 
     _coerce_bond_table = staticmethod(_chemical_storage._coerce_bond_table)
 
@@ -472,97 +426,20 @@ class Topology(NativeQueries):
     def _set_chemical_state_bond_attribute(
         self, name, values, bond_indices="all", state_index=None
     ):
-        """Set one normalized bond field on all or selected bonds atomically."""
-
-        if name not in _BOND_OPTIONAL_DTYPES:
-            raise StructuralInconsistencyError(
-                reason=f"Unsupported canonical bond attribute {name!r}.",
-                caller="molsysmt.native.Topology",
-            )
-        bonds = self._get_chemical_state_bonds(state_index=state_index).copy()
-        if is_all(bond_indices):
-            indices = np.arange(len(bonds), dtype=np.int64)
-        else:
-            indices = np.asarray(bond_indices, dtype=np.int64)
-            if (
-                indices.ndim != 1
-                or np.any(indices < 0)
-                or np.any(indices >= len(bonds))
-            ):
-                raise StructuralInconsistencyError(
-                    reason="Bond indices for chemical-state assignment are out of range.",
-                    caller="molsysmt.native.Topology",
-                )
-
-        if values is None or values is pd.NA or np.isscalar(values):
-            normalized = [values] * len(indices)
-        else:
-            normalized = list(values)
-            if len(normalized) != len(indices):
-                raise StructuralInconsistencyError(
-                    reason=(
-                        f"Bond attribute {name!r} received {len(normalized)} values; "
-                        f"expected {len(indices)}."
-                    ),
-                    caller="molsysmt.native.Topology",
-                )
-
-        if not len(indices):
-            return
-
-        if name not in bonds.columns:
-            bonds[name] = pd.array(
-                [pd.NA] * len(bonds), dtype=_BOND_OPTIONAL_DTYPES[name]
-            )
-        bonds.loc[indices, name] = pd.array(
-            normalized, dtype=_BOND_OPTIONAL_DTYPES[name]
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return self._chemical_states_domain._set_chemical_state_bond_attribute(
+            name, values, bond_indices=bond_indices, state_index=state_index
         )
-        self._set_chemical_state_bonds(bonds, state_index=state_index)
 
     def _set_chemical_state_bond_stereo_atom_indices(
         self, values, bond_indices="all", state_index=None
     ):
-        """Set the two stereo-reference atom indices as one public attribute."""
-
-        bonds = self._get_chemical_state_bonds(state_index=state_index).copy()
-        if is_all(bond_indices):
-            indices = np.arange(len(bonds), dtype=np.int64)
-        else:
-            indices = np.asarray(bond_indices, dtype=np.int64)
-            if (
-                indices.ndim != 1
-                or np.any(indices < 0)
-                or np.any(indices >= len(bonds))
-            ):
-                raise StructuralInconsistencyError(
-                    reason="Bond indices for stereo-reference assignment are out of range.",
-                    caller="molsysmt.native.Topology",
-                )
-
-        if not len(indices):
-            return
-
-        if values is None or values is pd.NA:
-            normalized = [[pd.NA, pd.NA] for _ in indices]
-        else:
-            normalized = np.asarray(values, dtype=object)
-            if normalized.ndim == 1 and len(indices) == 1 and normalized.shape == (2,):
-                normalized = normalized.reshape(1, 2)
-            if normalized.shape != (len(indices), 2):
-                raise StructuralInconsistencyError(
-                    reason=(
-                        f"bond_stereo_atom_indices must have shape ({len(indices)}, 2)."
-                    ),
-                    caller="molsysmt.native.Topology",
-                )
-
-        for column, column_values in zip(
-            ("stereo_atom1_index", "stereo_atom2_index"), np.asarray(normalized).T
-        ):
-            if column not in bonds.columns:
-                bonds[column] = pd.array([pd.NA] * len(bonds), dtype="Int64")
-            bonds.loc[indices, column] = pd.array(column_values, dtype="Int64")
-        self._set_chemical_state_bonds(bonds, state_index=state_index)
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return (
+            self._chemical_states_domain._set_chemical_state_bond_stereo_atom_indices(
+                values, bond_indices=bond_indices, state_index=state_index
+            )
+        )
 
     def _set_chemical_state_bonds(self, value, state_index=None):
         """Replace the authoritative bond table without reinterpreting metadata."""
@@ -574,6 +451,11 @@ class Topology(NativeQueries):
         self, candidate, state_index=None, *, declared_edges=True
     ):
         """Publish prepared bonds after staging owner invalidation, ignoring labels."""
+        if state_index is not None or self._chemical_states:
+            return self._chemical_states_domain._publish_chemical_state_bonds(
+                candidate, state_index, declared_edges=declared_edges
+            )
+        # Historical zero-state construction is retired with Topology in C6.
         state = (
             None
             if state_index is None and not self._chemical_states
@@ -1015,45 +897,16 @@ class Topology(NativeQueries):
         self._coerce_id_columns_to_string()
 
     def _get_component_indices(self, state_index=None):
-        """Return authoritative component membership for a resolved state."""
-
-        state = self._resolve_chemical_state(state_index=state_index)
-        state._ensure_compatibility(self.n_atoms)
-        return state.component_indices
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return self._chemical_states_domain._get_component_indices(
+            state_index=state_index
+        )
 
     def _set_component_indices(self, values, atom_indices=None, state_index=None):
-        """Set authoritative component membership for a resolved state."""
-
-        if atom_indices is not None and np.asarray(atom_indices).size == 0:
-            return
-        state = self._resolve_chemical_state(state_index=state_index)
-        state._ensure_compatibility(self.n_atoms)
-        if atom_indices is None:
-            normalized = _ChemicalStateStorage._values_with_length(
-                values, self.n_atoms, "component_index"
-            )
-            normalized = pd.array(normalized, dtype="Int64")
-            if (pd.Series(normalized).dropna() < 0).any():
-                raise StructuralInconsistencyError(
-                    reason="Chemical-state component indices must be non-negative or missing.",
-                    caller="molsysmt.native.Topology",
-                )
-            candidate = pd.Series(normalized, index=range(self.n_atoms))
-        else:
-            indices = state._normalize_atom_indices(np.atleast_1d(atom_indices))
-            normalized = _ChemicalStateStorage._values_with_length(
-                values, len(indices), "component_index"
-            )
-            normalized = pd.array(normalized, dtype="Int64")
-            if (pd.Series(normalized).dropna() < 0).any():
-                raise StructuralInconsistencyError(
-                    reason="Chemical-state component indices must be non-negative or missing.",
-                    caller="molsysmt.native.Topology",
-                )
-            candidate = state.component_indices.copy()
-            candidate.loc[indices] = normalized
-        with self._invalidating_chemical_interactions():
-            state.component_indices = candidate
+        """Delegate legacy access until the coordinated #255 authority cutover."""
+        return self._chemical_states_domain._set_component_indices(
+            values, atom_indices=atom_indices, state_index=state_index
+        )
 
     def _component_indices_are_missing(self, state_index=None):
         """Return whether any resolved-state component membership is unknown."""

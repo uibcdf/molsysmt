@@ -64,3 +64,9 @@ remain available through supported `msm.set` attributes; general standalone
 assignment/query dispatch is still being migrated. Use these native methods
 for graph editing. No detector,
 chemical perception, cap placement or hydrogen addition runs automatically.
+
+Supported atom/bond metadata assignments also validate the selected state's typed
+values before publishing and invalidate observations for scientific changes.
+Changing only `bond_id` preserves observations, stored bond positions and nullable
+columns. It does not infer new chemical participation flags. IDs are string labels;
+they do not select bond rows.

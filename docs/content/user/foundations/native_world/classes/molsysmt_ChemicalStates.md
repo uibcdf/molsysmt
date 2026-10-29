@@ -63,6 +63,12 @@ reconstruction and owner notification. Use controlled graph methods or existing
 is still being migrated. A live table does not provide a universal
 mutation-observation mechanism.
 
+Supported metadata assignments validate before publishing and retain other
+states. A `bond_id` assignment changes only a string label: it preserves bond
+positions, nullable columns and interaction observations. Scientific assignment
+changes invalidate the owning system's observations. Reading a stored assignment
+does not repair or rewrite its source data.
+
 Copies own their chemical records. `ChemicalStatesDict` retains typed columns
 and null masks, and H5MSM 0.5 stores chemistry independently of topology and
 structures; see {ref}`user-tools-form-h5msm-05`. Restriction and historical index

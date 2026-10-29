@@ -5,10 +5,10 @@ from functools import wraps
 from inspect import signature
 
 
-def _native_topologies(molecular_system):
-    """Yield distinct native topologies contained in a molecular-system input."""
+def _native_chemical_collections(molecular_system):
+    """Yield chemical owners once, without requiring a stable Topology domain."""
 
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.native import ChemicalStates, MolSys, Topology
 
     pending = [molecular_system]
     seen = set()
@@ -16,14 +16,20 @@ def _native_topologies(molecular_system):
         item = pending.pop()
         if isinstance(item, (list, tuple)):
             pending.extend(item)
-        elif isinstance(item, MolSys):
-            topology = item.topology
-            if topology is not None and id(topology) not in seen:
-                seen.add(id(topology))
-                yield topology
-        elif isinstance(item, Topology) and id(item) not in seen:
-            seen.add(id(item))
-            yield item
+            continue
+        if isinstance(item, MolSys):
+            collection = item.chemical_states
+        elif isinstance(item, ChemicalStates):
+            collection = item
+        elif isinstance(item, Topology):
+            # Transitional branch callers retain their existing route until C6
+            # removes Topology's chemical facade and these producers together.
+            collection = item._chemical_states_domain
+        else:
+            continue
+        if collection is not None and id(collection) not in seen:
+            seen.add(id(collection))
+            yield collection
 
 
 def _native_molsystems(molecular_system):
@@ -78,8 +84,8 @@ def resolve_chemical_state(function):
                 arguments.arguments.get("structure_indices", "all")
             )
 
-        topologies = list(_native_topologies(molecular_system))
-        if not topologies:
+        collections = list(_native_chemical_collections(molecular_system))
+        if not collections:
             from molsysmt._private.smonitor import ArgumentError
 
             raise ArgumentError(
@@ -89,8 +95,8 @@ def resolve_chemical_state(function):
             )
 
         with ExitStack() as stack:
-            for topology in topologies:
-                stack.enter_context(topology._using_chemical_state(chemical_state))
+            for collection in collections:
+                stack.enter_context(collection._using_chemical_state(chemical_state))
             return function(*args, **kwargs)
 
     return wrapped

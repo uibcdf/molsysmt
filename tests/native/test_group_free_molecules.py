@@ -100,22 +100,16 @@ def test_explicit_group_based_molecules_are_preserved():
 def test_group_free_molecule_axis_uses_reference_not_active_state_components():
     from rdkit import Chem
 
+    from molsysmt.native._chemical_state import Components_DataFrame
     from molsysmt.native._topology_infer import molecule_indices_from_atoms
-    from molsysmt.native.topology import (
-        _ACTIVE_CHEMICAL_STATE_INDICES,
-        Components_DataFrame,
-    )
 
     topology = msm.convert(Chem.MolFromSmiles("CCO.COC"), to_form="molsysmt.Topology")
     other = topology._append_chemical_state(state_id="joined")
     state = topology._chemical_states[other]
     state.component_indices[:] = 0
     state.components = Components_DataFrame(n_components=1)
-    token = _ACTIVE_CHEMICAL_STATE_INDICES.set({id(topology): other})
-    try:
+    with topology._chemical_states_domain._using_chemical_state(other):
         assert molecule_indices_from_atoms(topology).tolist() == [0, 0, 0, 1, 1, 1]
-    finally:
-        _ACTIVE_CHEMICAL_STATE_INDICES.reset(token)
 
 
 def test_charged_disconnected_components_keep_source_molecule_axis():

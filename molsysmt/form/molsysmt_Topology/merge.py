@@ -137,7 +137,9 @@ def merge(items, atom_indices="all", keep_ids=True, skip_digestion=False):
         source_states.append(source_state)
 
     output.atoms = pd.concat(atoms_dataframes, ignore_index=True)
-    output._chemical_states_domain._n_atoms = len(output.atoms)
+    # Explicit construction must align the chemical owner before assigning
+    # membership/attributes. Reading or setting a field must not repair it.
+    output._chemical_states_domain._extend_atom_domain(len(output.atoms))
     output.groups = pd.concat(groups_dataframes, ignore_index=True)
     output.components = pd.concat(components_dataframes, ignore_index=True)
     output.molecules = pd.concat(molecules_dataframes, ignore_index=True)
