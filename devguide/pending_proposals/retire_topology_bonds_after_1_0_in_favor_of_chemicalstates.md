@@ -222,8 +222,8 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | --- | --- | --- | --- |
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
-| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules and C3 selected-state graph editing implemented on development branch; pure Topology and remaining chemical setters still need cutover | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Atom/molecule projection uses stable ownership; broader dispatch remains | Basic/native/form parity and truthful capabilities |
+| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules, C3 graph edits and private typed assignment authority implemented on development branch; pure Topology and consumer cutover remain | Standalone state operations; pure Topology; no hidden recovery |
+| P3: query/form dispatch | P2 | Atom/molecule projection uses stable ownership and state scopes use chemical collections; broader attribute/provider dispatch remains | Basic/native/form parity and truthful capabilities |
 | P4: builder and lifecycle | P2, P3 | Stable molecule transport, C4 restriction and atomic selected-state graph edits implemented; MolSys/Builder ownership cutover remains | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
@@ -1223,6 +1223,108 @@ four unrelated RST edits and the native extension retain their recorded hashes.
 Next: move the remaining private chemical assignment/edit boundaries and the
 state resolver/query providers to ChemicalStates. Keep that work coordinated
 with MolSys/Builder independence and the nine-function namespace move under C6.
+
+### C3 continuation: typed assignment authority and scoped resolution
+
+Development commit
+[`997684a9356578943a682ca44fc51a5eb49c0c4f`](https://github.com/uibcdf/molsysmt/commit/997684a9356578943a682ca44fc51a5eb49c0c4f)
+moves private atom assignments/removal, bond-field and stereo-reference assignment,
+component membership and prepared bond publication into ChemicalStates.
+Topology's corresponding methods are temporary delegates,
+not a second implementation/store or a newly promised public compatibility API.
+Removing those delegates remains part of C6. No public signature, dependency floor,
+wire schema, scientific detector criterion or unit policy changes in this block.
+Existing formal-charge adapter boundaries still normalize elementary-charge
+quantities before calling the typed storage owner.
+
+Selected-state scopes are keyed by the collection in a ContextVar owned by
+`native/chemical_states.py`. The public orchestration decorator resolves MolSys's
+chemical collection directly, including a chemical-only MolSys, or an explicitly
+supplied standalone ChemicalStates. Repeated complementary references to the same
+collection are deduplicated. It no longer enters Topology's state context for a
+MolSys. The explicit legacy Topology route remains admitted on the development
+branch until producer/query cutover. Scope entry validates first; nested failure
+restores the previous scope and never rewrites the reference. Separate collections
+and concurrent read contexts remain independent. This is not a concurrency
+guarantee for mutations of a shared collection.
+
+Reading stored atom assignments or component membership no longer invokes
+`_ensure_compatibility`, which could replace aligned vectors or normalize columns
+during a read or before a later rejected assignment. Legacy repair remains at
+decoding/construction boundaries. Assignments validate source alignment and prepare
+their affected replacement before owner invalidation/publication; they do not
+normalize the source in place. Absent/ambiguous state access fails before mutation,
+and the collection does not invent a state for private assignment. The historical
+zero-state Topology construction branch remains explicitly temporary under C6.
+
+Typed atom fields retain their nullable dtype/value rules. Bond row selectors are
+validated against the selected state's own table without truncating fractional
+values or interpreting booleans as indices. Stereo references are prepared and
+validated as a pair before publication. Scientific assignments conservatively
+invalidate the owner's observations, including evaluated-empty coverage, without
+materializing coordinates. Failures in value validation or allocation for
+invalidation preserve every stored state field and analysis snapshot. Other
+states, producer history and structure associations remain outside the edit.
+
+The broad regression exposed an existing producer dependency: Topology merge
+updated its collection's atom count but relied on a later field assignment to
+repair zero-length atom-state rows. It now explicitly extends the collection's
+atom domain during unpublished construction before assigning membership or
+attributes. This fixes the producer instead of restoring repair in query/set
+paths. The complete MolSys/Builder/producer ownership migration remains pending.
+
+A new lossless-wire control exposed a second subtlety: normalizing a bond-ID-only
+edit could materialize implied joins_components defaults, sort rows or discard
+all-null optional columns. A label edit now validates without publishing those
+unrequested normalization effects. It preserves stored row positions and nullable
+columns, changes only string labels, and retains evaluated interaction coverage.
+Canonical scientific-field/table replacement still uses the existing normalization
+rules. Low-level membership/table staging is not chemical perception or automatic
+component reconstruction; the public C3 graph operations supply reconstruction.
+General selected-state attribute delivery and supported standalone assignments
+remain P3 work, not capabilities advertised by these private methods.
+
+`tests/native/test_chemical_state_assignments.py` adds 41 controls, including
+independent wire inputs, no hidden Topology construction/legacy repair, selected
+state dtypes, rejected selectors, nested/thread-local scopes, collection-based
+public resolution, scientific/label-only invalidation and injected allocation
+failure preserving every state-field identity. Two existing molecule-identity
+controls now enter the chemical owner's scope instead of writing the removed
+Topology ContextVar directly; their independent molecule expectations remain.
+
+The established broad selection now reports **4,195 passed** (exit 0, 99.89 s,
+769 warnings), using Pytest Receptor, twelve workers and the same Linux/Python
+3.14.7 development environment. As before, the unfinished 36-target module is
+explicitly excluded. Its separate final run reports **10 passed, 26 failed**
+(exit 1, 5.86 s). Their required ownership/attribute/builder/namespace/dictionary
+work remains open; no xfail/skip or relaxed expected value was introduced.
+Focused runs overlap the broad selection and are not additional passing cases.
+The source has not become a coherent main or installed release candidate.
+
+All seven ChemicalStates doctests pass. Common Core Module 4 and the group-free
+Cookbook execute against this implementation (7.8 s and 8.6 s); every preceding
+source cell remains unchanged and execution fingerprints match. The native
+foundation and Toolbox explain controlled metadata publication, label-only
+preservation and source-read behavior. Their rendered HTML is verified; the
+twelve-worker structure/reference build succeeds with the same two `_static`
+README toctree warnings and no new errors. This diagnostic uses the previously
+documented empty repository-static override, not deployed-view qualification.
+
+Ruff, formatting for changed Python files, docstring fidelity, dependency
+validation, course structure, API registry and public signature comparison against
+`b14b799b91f8e2f4d48eaa56b2dc7559a724d088` pass. A read-only probe confirms native
+and universal atom-domain queries with chemical_state=1 on a chemical-only MolSys,
+without a Topology or reference change; it does not certify general chemical
+attribute delivery. No packages/environments were installed, and the existing
+native extension and four unrelated RST edits retain their recorded hashes.
+Successful and resolved-failure test payloads are removed; compact logs remain
+in ignored qualification cache.
+
+Native query, copy and remap performance comparisons in C7 remain pending; no
+speedup or memory improvement is inferred from moving authority or passing
+correctness controls. Next: deliver state-local attribute/count providers and
+their native/basic query contracts, coordinated with the MolSys/Builder authority
+cutover rather than adding another chemical facade.
 
 ## Acceptance matrix
 
