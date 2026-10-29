@@ -223,7 +223,7 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
 | P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules, C3 graph edits and private typed assignment authority implemented on development branch; pure Topology and consumer cutover remain | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Atom/molecule projection uses stable ownership and state scopes use chemical collections; broader attribute/provider dispatch remains | Basic/native/form parity and truthful capabilities |
+| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned state scopes and standalone stored-axis/count queries implemented on development branch; rich attributes, dictionaries and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
 | P4: builder and lifecycle | P2, P3 | Stable molecule transport, C4 restriction and atomic selected-state graph edits implemented; MolSys/Builder ownership cutover remains | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
@@ -1325,6 +1325,131 @@ speedup or memory improvement is inferred from moving authority or passing
 correctness controls. Next: deliver state-local attribute/count providers and
 their native/basic query contracts, coordinated with the MolSys/Builder authority
 cutover rather than adding another chemical facade.
+
+### P3 first slice: stored axes, counts and declarations
+
+Development commit
+[`2c69fcc1208df7c3f46afe2dab5eed7041a85951`](https://github.com/uibcdf/molsysmt/commit/2c69fcc1208df7c3f46afe2dab5eed7041a85951)
+adds the first standalone native/basic get slice for stored atom, bond and
+component positions, selected-state counts, membership and component
+incident counts. Collection inventory (state indices, IDs, count and reference)
+remains collection-wide. Connectivity/component completeness and component
+evidence return the selected state's stored scalar declaration. These are new
+ChemicalStates capabilities; legacy Topology/MolSys metadata providers have not
+yet been changed to this scalar delivery contract.
+
+Numeric selection and masks resolve bond/component cardinalities in the active
+state, not the reference or another state's table. Explicit order/repetitions,
+empty shapes and basic.get's sorted mask intersection are preserved. Common
+index validation also rejects mixed boolean/integer lists, which previously
+could be coerced to integer positions; Boolean masks remain supported. The
+corresponding native/universal controls cover this accepted P3.1/P3.4 boundary.
+
+A zero-state collection still supplies its atom domain and state inventory.
+Its chemical counts fail as unavailable rather than returning a fabricated zero.
+An existing unknown state can have zero stored edges/components and unavailable
+completeness; a complete edge-free graph remains distinct. Inventory reads do not
+require an unambiguous reference, while state-dependent reads do. Explicit state
+selection never changes the reference or source storage. `has_attribute` retains
+the distinction between materialized values and supported include_none routes.
+
+Atom incident counts include edges to unselected atoms. Component counts include
+each internal edge once and each cross-component edge at its known incident
+components, independently of the joins_components partition criterion. Unknown
+membership is not assigned to a component, and empty declared component rows
+remain represented. An explicit atom selection counts distinct known component
+memberships; 'all' retains the existing full declared-inventory convention.
+Membership projections reject invalid stored references rather than silently
+mapping them to another row.
+These reads do not reconstruct a partition or perceive chemistry.
+
+The owning private query module operates on resident typed arrays/tables. Numeric
+native get avoids universal discovery, selection/conversion and compatibility
+repair; controls poison those routes. Existing parent/child grouping from native
+hierarchy is factored into a shared private membership-packing primitive and
+reused for component members and atom/bond incidence. Counts use NumPy's compiled
+bincount, not nested Python scans over every atom/component or an atom-pair matrix.
+These are internal representation helpers, not speculative public utilities.
+No Rust kernel, dependency, unit policy, schema, detector criterion or scientific
+attribution boundary changes. This block reads stored assignments rather than
+executing a new published scientific method.
+
+`tests/native/test_chemical_state_queries.py` adds 94 independent native/universal
+cases with analytical wire inputs. Besides parity, expected literal values cover
+state-local bounds, incident/cross-component counts, masks, invalid boolean and
+fractional indices, unknown membership, empty component rows and complete versus
+unknown chemistry. All stored field identities/evidence stay unchanged, and
+numeric native calls cannot construct a Topology or enter universal discovery.
+The pre-existing common native alias/mask/bounds control now also includes the
+ChemicalStates position. An intermediate focused run reports 150 passed, including
+the first 93 cases and the common native module; overlapping checks are not additive.
+The additional allocation guard checks a cardinality-only query over a
+one-million-atom zero-state domain. Full-axis cardinality reads use the stored
+count without enumerating atom or component positions. After dispatch warm-up,
+the guard permits ordinary API bookkeeping but rejects allocating a million
+positions. A controlled negative run returns the correct count while injecting
+that list: the guard rejects its 39,997,231-byte traced peak against the generous
+1,000,000-byte allowance (expected test exit 1, driver exit 0). This demonstrates
+that numerical correctness alone cannot satisfy the memory guard.
+
+A bounded allocation probe uses one warm-up and seven repetitions of
+`collection.get(element='atom', n_atoms=True)` on
+`ChemicalStates(n_atoms=1_000_000)` with zero states. With tracemalloc active,
+the measured median is 0.657 ms and the maximum new traced peak is 8,448 bytes.
+This fixture contains no atom records, bonds, states, coordinates or structural
+payload. These are warmed Python-allocation observations for this metadata call,
+not whole-process RSS, full-system memory, cold-start throughput or a comparison
+against the C7 baseline. The final benchmark work remains necessary.
+
+This is a bounded P3 slice. Rich atom/bond fields, component labels, general
+standalone set/predicate delivery, ChemicalStatesDict query piping and mixed
+MolSys/Builder/provider cutover remain open. Existing get_bonds still supplies
+the documented live interchange view. Reference-scoped info can summarize
+supported resident counts and component membership; it has no new public
+chemical_state selector in this checkpoint. A group-level query requiring stable
+context rejects instead of inventing hierarchy. The updated foundation gives an
+explicit element/attribute route table instead of advertising complete migration.
+
+The original target module now reports **17 passed, 19 failed** (exit 1, 5.96 s),
+up from 10/26. The seven newly passing targets cover standalone selected-state
+counts, state-local bounds, failed/ambiguous resolution, absent versus zero-state
+domains and complete edge-free versus unknown connectivity. Remaining required
+targets are not waived, skipped or merged into main as a passing gate.
+
+The final broadened regression includes `tests/basic/select` and the public
+structure-index controls in addition to the preceding checkpoint's selection.
+It reports **4,485 passed** (exit 0, 105.51 s, 773 warnings) with Pytest Receptor
+and twelve workers, excluding the still-required target module explicitly.
+An earlier 4,484-case run had one unchanged fresh-interpreter Ackredit-absence
+control time out at 60 s. That control passes alone in 3.76 s, and the unchanged
+complete selection then passes 4,484 cases in 107.68 s before the final allocation
+guard is added. No timeout, test expectation or scientific control was relaxed.
+The original failure is retained here; its root environmental cause is not
+established, and overlapping runs are not summed.
+
+All nine native ChemicalStates/query doctests pass; basic.get's bundled-system
+doctest also passes (one module case, 13.51 s). The final Common Core Module 4
+and Cookbook examples execute in 9.7 s and 8.6 s. Their new stored-state queries
+are rendered in HTML, every preceding code example remains, and code fingerprints
+match executed sources. The foundation route table, Toolbox, API reference,
+course inventory, manifest and scoped content contracts are updated. The
+twelve-worker reference/structure build succeeds with the same two `_static`
+README toctree warnings and no new errors, using the previously documented empty
+repository-static override rather than qualifying deployed views.
+
+All 97 form-adapter structural/delivery-ratchet checks pass, including the newly
+declared ChemicalStates routes. Ruff, changed-file formatting, docstring fidelity,
+dependency checks, course structure, API registry and signature comparison against
+`fdd4ca6a41deb0c8f0354a51df33d714864f0f97` pass. Public signatures, the shared
+Linux/Python 3.14.7 environment, the recorded native binary and four unrelated RST
+edits are unchanged; no package or auxiliary environment was installed. Resolved
+test payloads are removed; compact logs and allocation probe data remain in
+ignored qualification cache.
+
+Integrated C6/C7/client qualification remains pending. No overall timing or memory
+improvement is claimed merely from using resident providers. Next: extend the
+chemical owner's actual field/label providers and selected-state assignment
+dispatch, then coordinate them with MolSys/Builder and codec ownership cutover.
 
 ## Acceptance matrix
 
