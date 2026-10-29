@@ -325,13 +325,327 @@ implementations. R1 determines integration order; R4/R5 determine guards and
 routes; R6 requires baseline evidence before the measured paths change. These
 are refinements of P0-P8, not a second independently maintained task tracker.
 
+### P0 contract decisions — 2026-10-28
+
+The maintainer authorizes proceeding with the review follow-up. The engineering
+choices below resolve R1-R5 for implementation; R6 has selected workloads but
+still requires performance measurements before their implementations change.
+These are target contracts, not descriptions of current runtime behavior.
+No implementation, new API export, writer change or target test is delivered
+by recording them. P0.6 consumer coordination remains outstanding.
+
+#### C1: stable molecule membership without synthetic groups
+
+Keep the existing atom/group table columns. Add optional atom-aligned stable
+membership to Topology, internally `_atom_molecule_membership`: a one-dimensional
+int64 vector of length n_atoms, using -1 for unknown. Allocate it only when an
+ungrouped atom has a declared molecule. With no such declarations, store None.
+This costs eight bytes per atom when materialized, independent of the number of
+structures or chemical states; this is a representation bound, not a benchmark.
+
+Resolve molecule membership by this disjoint rule:
+
+1. An atom with a group uses that group's molecule_index, including an unknown
+   value. The optional vector must contain -1 at that atom's position.
+2. An atom without a group uses the optional vector; an absent vector means
+   unknown. Never consult ChemicalStates while answering this topology query.
+3. A grouped atom cannot override its group's molecule. Reject conflicting
+   assignments before mutation rather than choosing a precedence silently.
+
+Use a native `Topology.set_atom_molecules(molecule_indices, atom_indices='all',
+skip_digestion=False)` boundary for ungrouped assignments and normal basic/native
+get routes for reading resolved membership. None entries declare unknown, while
+nonmissing indices must identify stored molecules. Existing grouped membership
+editing remains at the group level. A grouped position included in a setter
+request must match its resolved group value and is a no-op, never an override.
+Internal codecs/builders use the same
+validator; do not create an alternative public atom-table column.
+
+Mixed grouped/ungrouped systems are supported. Adding a group to a previously
+ungrouped atom must explicitly reconcile its declared molecule and clear the
+optional entry transactionally; it cannot silently discard a conflict. Atom and
+molecule remaps apply to this vector. Pure Topology copies and projected reads
+retain it without accessing chemistry. No group or molecule is invented on read.
+
+When initially building missing hierarchy from chemistry, the builder may
+materialize a selected component partition into this stable representation
+once, with its established inference evidence. Subsequent bond/state edits
+never refresh it. For legacy inputs whose group-free membership was represented
+by reference components, snapshot that documented source partition during
+migration. An ambiguous/missing reference cannot establish membership: preserve
+unknowns and report the limitation, rather than selecting state zero.
+
+#### C2: constructors, domain attachment and builder state
+
+The target Topology signature is:
+
+```python
+Topology(n_atoms=0, n_groups=0, n_molecules=0, n_entities=0,
+         n_chains=0, skip_digestion=False)
+```
+
+Remove n_bonds/n_components from Topology and audit positional calls: their
+removal changes positional binding, so the old positional order is not a
+compatibility promise. Preserve MolSys's existing constructor arguments and
+order, including n_bonds/n_components. MolSys creates its own initial working
+state with unavailable completeness, then allocates requested staging rows in
+that state. Counts/placeholders do not certify bonds or components as complete.
+ChemicalStates(n_atoms=...) still creates zero states and no reference.
+
+Explicit composition/conversion of a Topology does not call the ordinary MolSys
+constructor and thereby add chemistry. A topology-only MolSys remains
+chemical_states=None. A present zero-state ChemicalStates remains present and
+empty. Replacing an attached topology with a compatible atom axis preserves
+chemistry; replacing chemistry preserves stable hierarchy. A replacement operation
+declares positional correspondence; equal counts are a shape check, not proof of
+identity. Atom-axis resizing uses a coordinated edit, not these setters.
+
+MolSysBuilder stores its own ChemicalStates. A fresh builder has one unknown
+working state. From a MolSys, it copies the source's present collection/reference,
+or preserves its explicit absence. An operation requiring chemical editing on an
+absent/zero-state input fails with instructions to supply/create a state; it does
+not create one merely by reading/building. Bond editing gains a keyword-only
+chemical_state argument, defaulting to reference. An ambiguous reference fails.
+Counts lacking a state argument use the same resolvable-reference rule.
+
+Builder must carry a source MolSys's structure/state association vector as staging
+metadata and restore it at build. This is an explicit extension of the current
+builder, whose documented behavior stores no such associations. Structural-axis
+replacement must validate alignment or reject an incompatible existing map before
+publication; no reassignment by position after an unexplained length change.
+Named analyses/mechanics remain outside the builder's supported stored payload;
+this migration does not silently advertise their preservation.
+
+#### C3: editing surface and mutable-table boundary
+
+The target native mapping is as follows. New native methods use arg_digest and
+skip_digestion; chemistry arguments are keyword-only where added to an existing
+positional signature. Native methods operate on native data without universal
+conversion/selection dispatch.
+
+| Current entry | Target contract |
+| --- | --- |
+| Topology.add_bonds(pairs) | ChemicalStates.add_bonds(bonded_atom_pairs, *, chemical_state='reference', skip_digestion=False); returns None. Validate pairs and rebuild the selected state's stored-graph components. |
+| Topology.remove_bonds(indices) | ChemicalStates.remove_bonds(bond_indices='all', *, chemical_state='reference', skip_digestion=False); returns None, compacting selected-state bond indices. Empty input is a no-op. |
+| Topology.rebuild_components(...) | ChemicalStates.rebuild_components(redefine_indices=True, redefine_ids=True, redefine_types=True, redefine_names=True, force=False, *, chemical_state='reference', topology=None, skip_digestion=False); returns None. |
+| Topology.n_bonds/n_components and get_n_* | ChemicalStates.get(n_bonds=True/n_components=True, chemical_state=...); no new ambiguous collection-wide bond/component property. |
+| Topology.reset_bonds/reset_components | No new public reset facade. Construction allocates staging rows privately; removing all bonds uses remove_bonds('all'); explicit component reconstruction uses rebuild_components. |
+| Topology.bonds/components and atom-state fields | State-aware basic get/set and ChemicalStates native get/info/adapters; no replacement Topology property or hidden owner lookup. |
+| MolSys.rebuild_components(ids, types) | Preserve its two positional flags; expose remaining reconstruction flags, chemical_state and skip_digestion as keywords; delegate to its chemical collection with explicit topology context. |
+| Topology.add_missing_bonds | Remove it; use the existing build.add_missing_bonds form-agnostic preparation operation. Do not add geometry-based perception to ChemicalStates. |
+| MolSys.add_missing_bonds | Preserve the convenience operation and its scientific arguments, add keyword-only chemical_state, and delegate to the existing build pipeline; test actual parameter forwarding. |
+| Builder.add_bond/remove_bonds | Preserve existing return conventions, add keyword-only chemical_state and edit the builder's chemical collection. |
+| Atom/bond/state metadata setters | Keep existing public basic.set attribute names/units; route them to selected ChemicalStates records. Private typed setters move with the authority. |
+
+For rebuild_components, an explicit native topology provides stable context. An
+attached collection may obtain that context from its MolSys owner; a standalone
+collection can rebuild graph indices without it. Unavailable type/name evidence
+stays unknown, not an invented label. Preserve exact-atom-set metadata matching,
+joins_components, nullable IDs and completeness policy. Missing inventory needed
+by an actual scientific perception tool is a prerequisite error.
+
+Preserve get_bonds' current live-table return for this migration. It is a read/
+interchange view, not a supported editing gateway: arbitrary pandas/NumPy writes
+cannot promise validation or owner invalidation. Document that limitation beside
+the method and provide the controlled methods/basic.set path. Do not introduce
+coordinate or table polling, a second table store, or an unmeasured mandatory
+copy on every read. Internal callers requiring edits must migrate to the
+controlled boundary rather than relying on a writable getter.
+
+Controlled bond changes stage validated bonds, component updates and affected
+analysis invalidation before publication. Failure in reconstruction/allocation
+leaves all three unchanged. This deliberately strengthens the current documented
+bond-first/component-later behavior and needs a failure-injection guard. Only
+affected chemical records are staged; coordinates and unrelated states are not
+copied. Follow existing label-only versus scientific-change invalidation rules;
+conservatively invalidating all evaluated coverage for chemical changes remains
+admitted, without adding automatic recalculation.
+
+#### C4: restriction, reconstruction and state alignment
+
+Keep state indices/reference/structure associations unchanged by an atom-only
+selection. Remap every bond atom reference, not just its endpoints: stereo,
+donor/acceptor indices and assignment-indexed evidence need the existing supported
+remap/invalidation rules. Never copy invalid pointers into a smaller domain.
+
+For components, distinguish these cases explicitly:
+
+| Source evidence / operation | Target behavior |
+| --- | --- |
+| Pure atom permutation | Preserve component membership/metadata under the shared atom map; it changes neither connectivity nor molecules. |
+| Extraction with complete stored connectivity | Recompute the selected induced graph's component partition using existing participation flags. Preserve metadata only for unchanged full source atom sets; changed components receive generated local string IDs and unknown names/types unless explicitly reconstructed with adequate context. |
+| Extraction with partial/unavailable connectivity | Restrict declared component memberships and compact retained rows without certifying them as the complete induced-graph partition. A cut/changed partition downgrades complete component declarations to partial; unavailable remains unavailable. |
+| Explicit bond edit/rebuild | Rebuild from the admitted stored graph; preserve completeness/evidence limits. Known edges do not imply complete chemistry. |
+
+The complete-connectivity extraction rule is a deliberate correction to current
+restriction-only behavior. A complete path 0-1-2 extracted to [0, 2] must have two
+components while retaining one stable molecule if that was its declared identity.
+No caps, hydrogens, aromaticity, protonation or bond orders are perceived during
+this correction. A graph complete within a selected domain is not a certificate
+of a complete standalone chemical fragment; boundary-sensitive scientific tools
+must retain their existing full-context requirements. Preparation history keeps
+its original operation-index scope.
+
+Topology.add concerns only stable inventory and memberships. MolSys.add keeps
+the admitted one-state plus one-state chemical union; zero/absent/multistate
+chemical combinations lacking an admitted alignment policy fail before mutation.
+Do not introduce broadcasting, pair-by-ID matching, zipping by equal counts or a
+Cartesian product. Topology-only additions do not need a chemical-state policy.
+
+For append_structures, preserve associations when chemical inventories match
+under the existing strict ordered comparison; its implementation moves out of
+Topology. A structures-only source may use the target's existing unambiguous
+single-state convention, or unknown associations for multiple states. Conflicting
+declared source chemistry is rejected rather than silently assigned to target
+state zero. Reordered states require explicit alignment before appending; no
+new public state-alignment/enumeration API is introduced in this migration.
+
+#### C5: wire boundaries and legacy projection
+
+Freeze the TopologyDict/MolSysDict writer version at '0.2'. Preserve 0.1 readers
+and report chemical loss when a legacy chemical payload is projected to pure
+Topology. The latest TopologyDict has its existing format/kind/version/metadata
+and five stable tables, optional chain_groups and optional atom_molecules; no
+bonds/components or chemical-state records. atom_molecules represents only the
+ungrouped map in C1, not resolved grouped membership.
+
+MolSysDict 0.2 has explicit topology, chemical_states, structures,
+structure_chemical_state_indices and interactions entries, in addition to
+format/kind/version/metadata. An absent domain is None, a present zero-state
+collection is an encoded collection with states=[], and an empty named-analysis
+collection is {}. Topology embeds its complete versioned dictionary. Chemistry
+and named analyses reuse their existing versioned typed codecs; association
+indices use nullable int64 storage. Structures retain explicit quantity records
+and the existing optional-series/site/assembly information supported by the
+native/file contracts. Unsupported mechanics or extension payloads must be
+reported/rejected under the existing conversion-fidelity policy, not silently
+omitted. No MolecularMechanics persistence is admitted.
+
+Keep the standalone ChemicalStatesDict/InteractionsDict in-memory contracts.
+For their inclusion in a directly JSON-safe MolSysDict, use one private reusable
+typed transport under the existing serialization owner: primitive mappings/
+sequences plus explicit dtype/shape array records. Numeric/bool arrays use
+validated base64 C-order bytes; string arrays use validated string values with
+dtype/shape. Preserve large integer bits, nonfinite values and null masks without
+pickle, object-array decoding or executable YAML tags. Use PyUnitWizard's existing
+QuantityRecord for dimensionful values instead of building a competing unit codec.
+The transport has its own version and a reserved envelope; malformed lengths,
+unsupported dtype/shape and unknown versions fail before native construction.
+At a schema-declared array position, the envelope fields are
+`__molsysmt_transport__='ndarray'`, `version=1`, `dtype` (NumPy dtype.str),
+`shape` (nonnegative integer dimensions), `order='C'`, `encoding` and `data`.
+For numeric/bool arrays encoding is 'base64' and data is the encoded bytes;
+for fixed-width Unicode arrays encoding is 'strings' and data is a flattened
+C-order list of strings. Object/structured arrays are unsupported. Validate
+decoded byte/value counts against dtype and shape, including zero-sized and
+scalar arrays. Domain schemas identify these positions; arbitrary user metadata
+cannot become a typed array merely by containing the reserved key.
+Do not extend the existing scalar-only to_builtin helper to pretend this is
+lossless. JSON/YAML serialization is a materializing interchange boundary;
+large numeric workloads continue to use H5MSM.
+
+H5MSM root version remains 0.5. Read topology layers 1/2 unchanged. Write a new
+topology layer 3 only when atom_molecules is materialized, retaining the existing
+five tables and optional chain_groups plus the typed membership vector. Readers
+must reject unsupported versions truthfully. Legacy group-free membership that
+requires chemical context is initialized by the complete-file migration/assembly
+route, not by a chemistry-reading pure topology getter. A projected older topology
+layer alone can retain unknown membership and report that limitation. Independent
+chemical/interactions layers need no version bump solely because Python ownership
+moved. Existing canonical artifacts are not rewritten.
+
+#### C6: coherent delivery order and route admission
+
+Use an isolated development branch for runtime work. Capture the baseline first;
+prepare independent chemical storage, stable membership and validated internal
+primitives while the existing facade still serves unmigrated branch callers.
+Then migrate MolSys/Builder binding and the essential native producer/partial
+composition routes with basic/native queries as one usable slice. Move graph
+functions and remaining adapters/codecs, and finally delete the old Topology
+chemical implementation/facades after every required caller has a replacement.
+There is no phase-by-phase permission to publish a broken main.
+
+P2-P6 are linked workstreams with this cutover order; dependencies in the overview
+identify prerequisite functionality, not a claim that all of P2 can close before
+any P4/P6 bootstrap change. A development checkpoint may contain disclosed failing
+target tests, but source closeout requires the coherent required gates. Preserve
+no new permanent old-path aliases. No third-party client is edited without the
+suite's owning contribution route and receiving issue.
+
+The initial route matrix must test these contracts:
+
+| Input/target | Required admitted route |
+| --- | --- |
+| Pure native Topology / latest TopologyDict | Stable queries, copying and extraction; chemical capability absent, even while attached to MolSys. |
+| ChemicalStates / ChemicalStatesDict | State-local graph/count/assignment delivery; labels and structural selections require declared external context. |
+| MolSys / MolSysDict / H5MSM 0.5 | Present domains and explicit associations; mixed native/basic queries without whole-system reconstruction. |
+| Complementary native/partial providers | Compose explicit shared axes; reject conflicting owners/providers before applying selection. |
+| RDKit, PDB/mmCIF, SDF/PDBQT and other supported producers | Preserve available chemistry in MolSys/ChemicalStates; direct Topology output is a reported projection. |
+| Topology to chemistry/graph/engine targets | Remove fictitious chemistry routes; require explicit domain composition where the target needs bonds/assignments. Stable-only targets remain admitted. |
+| Sequence/FASTA forms | Preserve group-only inventory, chain_groups and zero atoms without allocating fake chemical bonds or coordinate atoms. |
+| compare / Iterator / selection engines | Reconcile actual attribute classifications and providers; missing chemistry cannot silently become reference-state zeros or trigger unrequested inference. No new iterator scientific feature is admitted. |
+
+`get_missing_bonds=True` is not permission to restore a chemical store inside a
+pure Topology. Keep admitted derivations at their appropriate provider/build
+boundary, with truthful capability/fidelity reporting.
+
+#### C7: baseline receipt and measurement selection
+
+Runtime baseline source: `451b914cab8b596c01d84432a4f41b4a3e28f3cf`; earlier
+`71fbe4f46d3c70e4e973c8025f01752a8c9b1084` has identical runtime source. The
+development worktree has four unrelated API autosummary edits, preserved without
+staging them. Python 3.14.7 on Linux x86_64 imports this checkout's molsysmt and
+its local `_rust.abi3.so`. Dependency versions: NumPy 2.4.6, pandas 2.3.3, h5py
+3.16.0, RDKit 2025.9.5, pytest 9.1.1, xdist 3.8.0 and Pytest Receptor
+1.2.1+22.g00a31c4. This identifies the source-test environment, not an installed
+canonical package or a new platform qualification.
+
+Executed on 2026-10-28:
+
+```bash
+python -m pytest --receptor=llm -n 12 \
+  tests/native/test_chemical_states.py \
+  tests/native/test_chemical_states_owner.py \
+  tests/native/test_molsys_chemical_state_association.py \
+  tests/native/test_group_free_molecules.py \
+  tests/native/test_molsys_builder.py \
+  tests/basic/get/test_explicit_chemical_state.py \
+  tests/form/file_h5msm/test_chemical_states_v05_probe.py \
+  tests/form/file_h5msm/test_absent_chemical_states_v05_probe.py
+```
+
+Exit 0: 97 passed in 8.65 s, nine warnings (seven unknown atom-name warnings and
+two expected legacy H5MSM warnings). These are unchanged current-behavior tests,
+including assertions that the refactoring must intentionally replace. They do
+not verify C1-C6 or any new API. No new target tests have yet been written.
+
+Select these bounded performance controls before changing the measured paths:
+
+- Small analytical: three atoms/path, two chemical states, cut/permuted selections;
+  plus a zero-atom, three-chain group-only system for inventory queries.
+- Chemical scaling: 10,000 and 100,000 atoms, one and ten stored states,
+  approximately one stored bond per atom, reused versus differing partitions.
+- Structural isolation: 1,000 atoms by 1,000 structures, one/ten states, verifying
+  that chemical-only edits do not allocate/copy the coordinate payload.
+- Projected file access: H5MSM with named analyses and independently optional
+  domains; compare metadata/topology-only reads and a nonconsecutive structure
+  selection without materializing the full file.
+
+Record actual fixture sizes, seeded construction, dependency/hardware origin,
+one warm-up plus seven timed repetitions, median/range and process peak memory
+with independently run baseline/target processes. Retain commands and inputs
+with the eventual benchmark evidence under this issue. Investigate a reproducible
+time/RAM regression, and reject unbounded structural materialization or chemistry
+copying during pure-Topology operations. Do not classify timing noise or infer
+speedups from these unexecuted workloads. Measurements remain pending P1/P8.
+
 ### P0: contract and implementation preflight
 
 - [x] P0.1 Record the maintainer-approved ownership, chain boundary and nine-function map.
 - [x] P0.2 Record source observations, probe limitations, phase dependencies and acceptance matrix.
 - [x] P0.3 Reconcile current roadmap/scope/status references and #447's proposed namespace, without changing runtime contracts.
-- [ ] P0.4 Freeze implementation source/worktree, import/native-extension origins and existing changes; create an isolated development branch/worktree as appropriate. Never reset/stash unrelated work.
-- [ ] P0.5 Finalize constructor signatures, missing-state behavior, the editing API map, stable group-free molecule membership, remap/state-alignment policy, coherent cutover and wire schemas; resolve the design-review findings above and select baseline workloads before changing them.
+- [x] P0.4 Record source/worktree, import/native-extension origins and preserved existing changes in C7. Create the isolated runtime branch required by C6 before the first implementation edit; it is not needed for this documentation-only follow-up. Never reset/stash unrelated work.
+- [x] P0.5 Record target constructor signatures, missing-state behavior, the editing API map, stable group-free molecule membership, remap/state-alignment policy, coherent cutover and wire contracts in C1-C6; select baseline workloads in C7. Runtime implementation and performance measurements remain pending.
 - [ ] P0.6 Select/open the owning suite impact and client-receiving issues before rollout. Record actual pins/versions; do not invent a published minimum version.
 
 Exit: reviewable contract and baseline, including any deliberate exception. Routine
