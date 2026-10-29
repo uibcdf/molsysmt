@@ -223,7 +223,7 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
 | P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules, C3 graph edits and private typed assignment authority implemented on development branch; pure Topology and consumer cutover remain | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned scopes, stored/nullable queries and atom/bond/component assignments implemented on development branch; dictionaries, predicates and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
+| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned scopes, stored/nullable queries, atom/bond/component assignments and direct typed dictionary reads implemented on development branch; dictionary setters, predicates and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
 | P4: builder and lifecycle | P2, P3 | Stable molecule transport, C4 restriction and atomic selected-state graph edits implemented; MolSys/Builder ownership cutover remains | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
@@ -1763,6 +1763,110 @@ and four unrelated RST edits are unchanged; no installation, main merge or relea
 **Next:** ChemicalStatesDict and predicate/catalogue delivery, then mixed-domain
 MolSys/Builder routing and authority, pure Topology and functional/codec cutover.
 The full P3 phase, #255, C6/C7 client receiving and release qualification remain open.
+
+### P3 fifth slice: direct typed dictionary reads
+
+Development commit
+[`a74218508c318588417916dc8c2c8adc0610f143`](https://github.com/uibcdf/molsysmt/commit/a74218508c318588417916dc8c2c8adc0610f143)
+extends ChemicalStatesDict with the shared native get/info experience and direct
+form getters for stored chemical axes and nullable atom/bond/component fields.
+The dictionary schema and public query signatures do not change. This slice is
+**Contract-tested** and **Parity-tested**, not a new chemical-perception method.
+
+Both `payload.get(...)` and `msm.get(payload, ...)` read typed values and null masks
+directly. They do not decode a ChemicalStates collection, construct storage states
+or Topology, infer missing chemistry, or visit unrelated states/preparation history.
+Native and dictionary providers share state-index resolution, context-local scope,
+incidence/membership projection and nullable field assembly. Each storage provider
+owns reading and validating its own requested columns. No second graph algorithm
+or hidden full-state cache is added.
+
+The supported contract includes:
+
+- Explicit/reference state selection, selected-state bounds and ordered/repeated
+  atom, bond and component positions. Collection inventory remains collection-wide;
+  masks retain basic.get's existing intersection semantics. Invalid/ambiguous state
+  selection rejects without changing the reference or payload.
+- None for an absent atom column, preserved nullable edge/stereo-reference shapes,
+  unknown component membership, known zero/False values, string labels, and the
+  distinction between zero states and a declared edge-free graph. Requested table
+  lengths, value types, null masks and endpoint/membership references are checked.
+- Native `.info()` reference-state summaries with existing signatures; no new info
+  state selector. A successful query does not certify the entire payload, its
+  unrelated records or its preparation history. Full conversion remains explicit.
+- Small field selections slice values/masks before result assembly. Cardinality
+  queries do not enumerate atom positions. Incidence queries still use the shared
+  graph projections; no universal constant-time adjacency or performance claim.
+- Raw `.data` edits remain outside controlled mutation. Dictionary setters and
+  general predicate/catalogue delivery are pending. For edits, explicitly convert
+  to ChemicalStates, apply supported native methods/setters and encode again.
+
+#### Executed qualification — 2026-10-29
+
+The shared Linux/Python 3.14.7 development environment is retained, with
+`--receptor=llm -n 12` and task-owned repository-local TMPDIR/basetemp:
+
+- New dictionary cases plus common native query tests: **151 passed**, exit 0,
+  **6.65 s**. Literal expectations cover counts, selected incidence/membership,
+  rich nullable properties, empty/ambiguous states, masks, independent scopes,
+  errors and source/result ownership. Poisoned native constructors/conversion
+  routes and inaccessible unrequested records guard the direct-read boundary.
+- The broad native/basic-get/select/set/extract/remove, topology, H5MSM, component,
+  ChemicalStates/Dict form, digest and chemical-template selection reports
+  **5,246 passed**, exit 0, **109.23 s**, 777 warnings, no skips or xfails. This
+  explicitly excludes the unfinished final-separation target module below.
+- Allocation guards trace warmed reads on a preallocated million-atom payload:
+  selecting two atom charges/component labels and querying zero-state atom
+  cardinality each stay below 1 MB additional traced allocation. A deliberate
+  negative control retains correct values but expands the entire column before
+  slicing: the small-query guard fails at **17,010,616 bytes**, pytest exit 1.
+  Its enclosing experiment verifies that expected rejection. These are bounded
+  allocation guards, not a general RAM/disk benchmark or full-process RSS measure.
+- Changed native query/ChemicalStates/Dict docstrings: **11 passed**, exit 0,
+  **7.58 s**. Common Core 4, the Get tutorial and the group-free Cookbook execute
+  cleanly (7.7 s, 15.4 s and 8.0 s), retaining every prior code cell/order and
+  refreshed outputs/fingerprints. Foundations, Toolbox, API and course inventory
+  describe the same direct-read/explicit-edit boundary.
+- The original final-separation target remains **17 passed / 19 failed**, exit 1,
+  **8.40 s**, without relaxed expectations or skip markers. Failures still require
+  pure Topology, independent MolSys/Builder authority, the new functional module
+  and dictionary domain composition; this slice does not claim those exits.
+
+Reproduction of the new cases:
+
+```bash
+mkdir -p .pytest_cache/chemical-domain-255-qualification/temporary
+TMPDIR="$PWD/.pytest_cache/chemical-domain-255-qualification/temporary" \
+  python -m pytest --receptor=llm -n 12 \
+  tests/form/molsysmt_ChemicalStatesDict/test_queries.py \
+  tests/native/test_native_queries.py \
+  --basetemp="$PWD/.pytest_cache/chemical-domain-255-qualification/dict-focus"
+```
+
+The broad selection additionally covers tests/native (excluding the target above),
+tests/basic/get, tests/basic/select, tests/topology, tests/form/file_h5msm,
+tests/form/molsysmt_Topology, tests/form/molsysmt_ChemicalStates, the complete Dict
+form directory, tests/element/component, tests/_private/argdigest, all
+`test_chemical_template*.py` in tests/physchem, all `test_set*.py` in tests/basic,
+and the explicit extraction/removal/public-structure-boundary controls used in the
+previous slice, including component hydrogen reinsertion.
+
+Sphinx HTML succeeds with the established static-assets diagnostic override and
+the two pre-existing static README toctree warnings. The new Foundation page,
+course section and inherited method links are checked in the rendered output.
+Ruff/changed-file formatting, optional-import validation, 97 adapter structural/
+delivery checks, course structure, docstring fidelity, 277-symbol registry and
+signature comparison against `430e5676caca78f7a77c99ed97b6cc1ff489198a` pass.
+Dependency floors, the native binary and four unrelated RST edits are unchanged.
+No dependency installation, main merge, tag, release or installed-candidate claim.
+Successful task payloads/build outputs are removed after review; compact logs
+remain in ignored qualification cache. The shared /tmp quota remains outside
+this slice; other processes' temporary resources are preserved.
+
+**Next:** complete dictionary/predicate capability dispatch, then mixed-domain
+MolSys/Builder routing and authority, pure Topology, the functional module and
+versioned codec cutover. P3, #255, C6/C7 receiving and release qualification remain
+open; the declared final-separation failures are still work to do.
 
 ## Acceptance matrix
 
