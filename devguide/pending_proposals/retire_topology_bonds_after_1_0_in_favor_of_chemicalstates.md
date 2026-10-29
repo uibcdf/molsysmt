@@ -231,13 +231,107 @@ Documentation work can accompany each implementation phase. Independent executio
 may overlap, but dependent phases cannot claim their exits early. The final
 installed-candidate qualification remains in #334/#254 after source closeout.
 
+### Design review — 2026-10-28
+
+The accepted ownership model remains appropriate. The plan covers the major
+subsystems, but it is not yet an implementation-ready contract. The following
+source-inspected findings make P0.5 concrete; their implementation choices are
+pending, not additional approved APIs. No refactoring or target tests were run
+for this review. The runtime inspected is unchanged from `71fbe4f46d3c70e4e973c8025f01752a8c9b1084`;
+`01221cf999b59e76c1bdf0351267d8c82940c552` adds planning documents only.
+
+**R1 — Phase numbers are not a safe order for deleting existing dependencies.**
+P2's removal affects MolSys construction/attachment, Builder, native queries and
+producer adapters that are migrated in P3/P4/P6. For example,
+`molsysmt/native/molsys.py` still binds chemistry through Topology, and
+`molsysmt/_private/native_composition.py` uses its private chemical collection.
+An isolated native-core test passing would not make that intermediate source
+usable. Before implementation, identify coherent increments and the required
+bootstrap changes across those workstreams. Prepare independent chemical storage
+first; coordinate owner binding, producer assembly and query delivery before
+removing their old route. Existing facades may remain on the isolated migration
+branch while their callers are ported; this does not authorize a new facade,
+second store or final compatibility API. Publish to main only a coherent tested
+cutover. Do not treat phase dependencies as requiring an incompatible sequence
+of public main commits. Record any intentionally broken branch checkpoint as
+such, never as a passing source delivery.
+
+**R2 — Stable atom-to-molecule membership needs an explicit group-free model.**
+`molsysmt/native/_topology_infer.py:molecule_indices_from_atoms` reads reference
+components when there are no groups. The canonical atom table has group/chain
+membership, while molecule membership otherwise lives on groups. Builder's
+`_retain_group_free_molecule_axis` currently aligns component positions with
+inherited molecules and rejects connectivity that splits/merges those boundaries.
+Removing chemical ownership without replacing this dependency loses stable
+membership. Select a representation in Topology that preserves declared
+group-free atom-to-molecule membership independently of later states, without
+inventing groups or equating molecules with components. Decide its precedence,
+unknown entries, remapping and legacy initialization. Carry it through extraction,
+permutation, dictionaries and H5MSM. The H5MSM root stays 0.5; an additional
+versioned topology-layer encoding may be needed, so retaining existing layer
+readers must not be mistaken for freezing every layer's writer version.
+
+**R3 — The editing migration needs a public method/signature map.**
+The nine-function table covers graph analysis, not the complete editing surface.
+Before code changes, inventory each removed constructor argument/native method
+and its replacement owner, required stable context, selected-state argument,
+return value and owner notification. Include add/remove bonds, component rebuild,
+atom assignments and MolSys convenience methods. Distinguish graph edits from
+chemical perception/preparation and stable hierarchy rebuilds; do not mechanically
+move every chemistry-consuming operation. Specify whether returned tables are
+live or detached and which direct edits are supported. Reject unsupported writes
+clearly rather than promising automatic invalidation of arbitrary raw table edits.
+
+**R4 — Remapping must distinguish restriction from rebuilding connectivity.**
+`ChemicalStates._extract_atoms` currently restricts bonds and remaps stored
+component membership; it does not recompute the induced graph's components.
+Removing the middle atom of a three-atom path exposes that distinction. Decide
+whether the supported operation preserves declared membership/evidence, rebuilds
+when the knowledge permits it, or requires an explicit rebuild. Do not introduce
+automatic scientific inference merely by relocating this method. Record component
+metadata transfer for split/merge, incomplete connectivity and removed last atoms.
+Also define the admitted state-alignment rule for system addition and structure
+append: state indices and IDs alone do not establish equivalent chemistry.
+Preserve current explicit associations and ambiguity handling; reject unsupported
+combinations without inventing a Cartesian product of states. Add analytical
+controls for path restriction, split/merge, reordered states and failed edits.
+
+**R5 — Use a route matrix for capabilities, including indirect consumers.**
+For representative native, dictionary, external-object and file forms, record
+which routes deliver inventory, chemical states and their composition, and which
+pure-Topology projections intentionally lose chemistry. In particular,
+Topology-to-ChemicalStates/graph/engine adapters cannot continue advertising a
+delivery path that only returns a fabricated empty chemical domain. Include
+`basic.compare`, `Iterator`, selection syntax engines and count/provider helpers
+as explicit audit targets: current compare normalization calls Topology component
+rebuilds, and iteration classifies attributes before selecting a route. Port
+existing supported behavior; new state-aware iterator features are not implied.
+Use actual route/capability checks and independent values, not successful imports
+or a text search alone, as the exit evidence.
+
+**R6 — Capture performance baselines before changing the implementation.**
+P8's after-change measurements need comparable P0/P1 baseline inputs and results.
+Select representative atom/state/bond counts, a group-free case, a group-only
+case and a large structures axis. Compare native queries, pure-Topology/MolSys
+copies, atom remapping and projected H5MSM reads, recording peak memory and
+allocation/I/O behavior as well as elapsed time. Specify the comparison and
+investigation criteria before interpreting results; do not invent an absolute
+speedup target. Atomic edits must stage affected data without routinely copying
+all coordinates, every unaffected state or a whole file. This is a bounded
+migration regression check, not a new storage-engine benchmark project.
+
+R2 and the constructor/edit/schema decisions in R3 must be resolved before their
+implementations. R1 determines integration order; R4/R5 determine guards and
+routes; R6 requires baseline evidence before the measured paths change. These
+are refinements of P0-P8, not a second independently maintained task tracker.
+
 ### P0: contract and implementation preflight
 
 - [x] P0.1 Record the maintainer-approved ownership, chain boundary and nine-function map.
 - [x] P0.2 Record source observations, probe limitations, phase dependencies and acceptance matrix.
 - [x] P0.3 Reconcile current roadmap/scope/status references and #447's proposed namespace, without changing runtime contracts.
 - [ ] P0.4 Freeze implementation source/worktree, import/native-extension origins and existing changes; create an isolated development branch/worktree as appropriate. Never reset/stash unrelated work.
-- [ ] P0.5 Finalize constructor signatures, missing-state behavior, mutation destinations, compatibility cutover and dictionary wire schemas against the accepted recommendations above.
+- [ ] P0.5 Finalize constructor signatures, missing-state behavior, the editing API map, stable group-free molecule membership, remap/state-alignment policy, coherent cutover and wire schemas; resolve the design-review findings above and select baseline workloads before changing them.
 - [ ] P0.6 Select/open the owning suite impact and client-receiving issues before rollout. Record actual pins/versions; do not invent a published minimum version.
 
 Exit: reviewable contract and baseline, including any deliberate exception. Routine
