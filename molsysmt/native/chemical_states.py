@@ -242,7 +242,9 @@ class ChemicalStates(NativeQueries):
             state.bonds, name, values, bond_indices, self.n_atoms
         )
         if candidate is not None:
-            self._publish_chemical_state_bonds(candidate, state_index)
+            self._publish_chemical_state_bonds(
+                candidate, state_index, declared_edges=name != "bond_id"
+            )
 
     def _set_chemical_state_bond_stereo_atom_indices(
         self, values, bond_indices="all", state_index=None

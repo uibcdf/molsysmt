@@ -9,6 +9,13 @@ def digest_n_implicit_hydrogens(n_implicit_hydrogens, caller=None):
     # for a heavy library that most calls never need.
     import pandas as pd
 
+    if (n_implicit_hydrogens is None or n_implicit_hydrogens is pd.NA) and (
+        caller == "molsysmt.basic.set.set"
+        or caller is not None
+        and caller.endswith("_to_atom")
+    ):
+        return None
+
     if isinstance(n_implicit_hydrogens, bool):
         return n_implicit_hydrogens
     if (

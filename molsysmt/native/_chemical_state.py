@@ -397,6 +397,14 @@ class _ChemicalStateStorage:
                     caller="molsysmt.native.topology._ChemicalStateStorage",
                 )
 
+        if _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES[name] in {"Int16", "UInt8"} and any(
+            isinstance(value, (bool, np.bool_)) for value in non_missing
+        ):
+            raise StructuralInconsistencyError(
+                reason=f"Chemical-state atom attribute {name!r} requires integer counts, not booleans.",
+                caller="molsysmt.native.ChemicalStates",
+            )
+
         try:
             return pd.array(values, dtype=_CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES[name])
         except (TypeError, ValueError, OverflowError) as error:

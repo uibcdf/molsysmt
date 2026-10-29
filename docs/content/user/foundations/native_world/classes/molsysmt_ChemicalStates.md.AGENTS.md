@@ -11,3 +11,6 @@ migration boundary. Keep serialization guidance linked to its owning format.
 Retain the implemented element/attribute query table, state-local index bounds,
 collection-wide inventory, empty/unknown distinctions and the explicit limits of
 standalone field/dictionary queries and reference-scoped info summaries.
+Preserve selected-state atom/bond assignment, scalar/nullable/order semantics,
+explicit elementary-charge conversion and per-attribute staged publication.
+Distinguish scientific invalidation from bond-label edits and component rebuilding.

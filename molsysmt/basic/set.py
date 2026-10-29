@@ -35,7 +35,9 @@ def set(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     element : str, default=None
-        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+        Element receiving values ('atom', 'bond', 'group', 'component',
+        'molecule', 'chain', 'entity' or 'system'). If omitted, use the attribute's
+        declared assignment element.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -79,6 +81,13 @@ def set(
       a native Topology or MolSys writes the state selected by
       ``chemical_state``. Formal charge accepts integer counts or quantities
       compatible with elementary charge.
+    - Standalone ``ChemicalStates`` supports those seven atom assignments and
+      the twelve rich bond fields through the same state selector. Values follow
+      unique selected positions; None assigns unknown values. No state or graph
+      is created implicitly. Component membership/label assignment dispatch on
+      standalone collections is still being migrated.
+    - Each standalone ChemicalStates attribute is validated and staged before publication.
+      Several attributes in one call are separate assignments, not one transaction.
     - ``isotope`` sets the stable nullable isotope mass number. It does not set
       atomic mass and is independent of ``chemical_state``.
     - ``partial_charge`` on a native MolSys writes MolecularMechanics, independently
@@ -93,8 +102,8 @@ def set(
       stereochemistry and reference atoms, direction, component participation,
       and evidence are independent attributes; setting one does not infer the
       others.
-    - Explicit integer state selection currently requires a native Topology or
-      MolSys. Convert external forms before editing a non-reference state.
+    - Explicit integer state selection currently requires a native ChemicalStates,
+      Topology or MolSys. Convert external forms before editing a non-reference state.
     - ``structure_chemical_state_index`` sets the nullable MolSys association
       aligned to `structure_indices`; it does not change the topology reference.
     - Editing coordinates or box through a native MolSys invalidates every
@@ -116,8 +125,9 @@ def set(
       when ``chemical_state`` names one state or ``structure_indices`` selects
       only some structures: the assignment changes that state's chemical data.
       Editing ``structure_chemical_state_index`` invalidates only the selected
-      structures. Direct Topology/ChemicalStates aliases and mechanics edits
-      require explicit owner invalidation.
+      structures. Controlled ChemicalStates assignment routes also notify their
+      owning MolSys. Raw table writes and mechanics edits require explicit owner
+      invalidation.
 
 
     See Also
@@ -149,6 +159,13 @@ def set(
     >>> msm.set(topology, element='atom', isotope=[13, 2])
     >>> msm.get(topology, element='atom', isotope=True)
     [13, 2]
+    >>> from molsysmt.native import ChemicalStates
+    >>> chemical_states = ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> msm.set(chemical_states, selection=[1], chemical_state=0, formal_charge=-1)
+    >>> chemical_states.get(element='atom', formal_charge=True)
+    [None, -1]
     >>> molsys = MolSys(n_atoms=1)
     >>> molsys.structures.append(coordinates=msm.pyunitwizard.quantity(
     ...     [[[0, 0, 0]]], 'nm'))

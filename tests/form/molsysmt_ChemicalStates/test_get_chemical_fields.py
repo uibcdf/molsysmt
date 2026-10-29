@@ -37,3 +37,30 @@ def test_direct_getters_deliver_declared_nullable_fields(
 def test_direct_getters_reject_out_of_domain_positions(fields, getter, indices):
     with pytest.raises(ArgumentError):
         getattr(adapter, getter)(fields, indices=indices)
+
+
+@pytest.mark.parametrize(
+    "setter,getter,value,expected",
+    [
+        ("set_formal_charge_to_atom", "get_formal_charge_from_atom", 2, 2),
+        ("set_atom_is_aromatic_to_atom", "get_atom_is_aromatic_from_atom", None, None),
+        ("set_bond_id_to_bond", "get_bond_id_from_bond", 42, "42"),
+        ("set_bond_order_to_bond", "get_bond_order_from_bond", 2, 2),
+    ],
+)
+def test_direct_setters_use_selected_positions_and_nullable_values(
+    fields, setter, getter, value, expected
+):
+    getattr(adapter, setter)(fields, indices=[0], value=value)
+    assert getattr(adapter, getter)(fields, indices=[0]) == [expected]
+
+
+def test_explicitly_trusted_assignment_still_rejects_unrepresentable_storage(fields):
+    from molsysmt._private.smonitor import StructuralInconsistencyError
+
+    before = fields._states[0].atom_attributes
+    with pytest.raises(StructuralInconsistencyError):
+        adapter.set_formal_charge_to_atom(
+            fields, indices=[0], value=40000, skip_digestion=True
+        )
+    assert fields._states[0].atom_attributes is before

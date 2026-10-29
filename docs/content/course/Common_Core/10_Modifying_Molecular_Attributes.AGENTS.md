@@ -26,6 +26,9 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 4. Section 3: Modifying Attributes
 * Must demonstrate updating topology identifiers (such as `chain_id`).
+* Preserve the standalone ChemicalStates assignment example: explicit state,
+  ordered unique positions, unknown unselected atoms, integer charge units,
+  stored bond order and unchanged reference. Explain per-attribute staging.
 
 ### 5. Section 4: Duplicating Systems Before Modification
 * Must demonstrate deep copying objects with `msm.copy()` before applying in-place modifications.

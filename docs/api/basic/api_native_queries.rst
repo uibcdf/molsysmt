@@ -90,6 +90,15 @@ These native operations stage selected-state graph/component data before
 publication. They preserve other states and stable inventory and do not run
 chemical perception or interaction detectors.
 
+For stored atom/bond assignments, use :func:`molsysmt.basic.set` directly on
+ChemicalStates with a chemical_state selector. Each attribute stages its typed
+replacement and owner invalidation before publication. Scientific assignments
+invalidate all named analyses; bond_id labels preserve observations. Unique
+positions and nullable values follow the selected state. Component setters on a
+standalone collection remain pending. See
+:ref:`user-foundations-native-world-classes-molsysmt-chemicalstates` for field,
+charge-unit and explicit component-reconstruction boundaries.
+
 .. automethod:: molsysmt.native.ChemicalStates.get_bonds
 
 .. automethod:: molsysmt.native.ChemicalStates.add_bonds

@@ -96,8 +96,42 @@ participation are read as declared, never inferred during querying.
 membership gives `None`, even if other component rows have labels. Bond and
 component IDs remain string labels, independent of positional indices. All these
 queries retain ordered repetitions, selected-state bounds and source tables.
-Standalone assignment dispatch and chemical predicates remain separate pending
+Component assignment dispatch and chemical predicates remain separate pending
 work; query support does not make live-table mutation a validated edit.
+
+## Assigning State Fields
+
+Use `msm.set(chemical_states, ..., chemical_state=...)` to assign the seven atom
+properties and twelve bond fields listed above. An omitted `element` follows the
+attribute's atom/bond destination. Explicit integer positions are unique and
+values follow their supplied order. Scalars broadcast; `None` assigns unknown
+values, retaining nullable columns. A first subset atom assignment leaves other
+atoms unknown. No state, edge or atom is created implicitly. Empty selections
+change nothing after state resolution. Invalid or ambiguous states reject.
+
+Integer formal charges accept counts representable as Int16 or one-dimensional
+charge quantities. Quantities are converted explicitly to elementary charge
+before storing integer counts, independently of application standard units.
+Hydrogen and unpaired-electron counts use UInt8. Boolean flags cannot stand in
+for integer counts. Incompatible units, fractions, nonfinite charge quantities
+and overflow reject.
+
+Each attribute is validated and staged before publication. Rejection preserves
+source tables and analyses; other states, coordinates, the reference, structure
+associations and history stay intact. Supported assignments through
+`molsys.chemical_states` notify that owner, conservatively invalidating all named
+analyses, including evaluated-empty coverage. Changing only `bond_id` preserves
+observations and bond-row layout. Returned old tables retain their old values.
+A call with several attributes performs separate assignments; it is not one
+transaction across those attributes.
+
+Bond fields use existing canonical validation. Set stereo references before a
+stereochemical label requiring them, and evidence before a nondefault component
+participation flag. Metadata assignment does not rebuild components; explicitly
+call `rebuild_components` after changing participation if you need the partition
+of the modified graph. This differs from `add_bonds` and `remove_bonds`, which
+coordinate graph editing and reconstruction. Standalone component membership and
+label setters, dictionary assignment and mixed-owner cutover remain pending.
 
 ## Controlled Editing
 
@@ -128,8 +162,8 @@ automatically. See {ref}`Tutorial_Native_Chemical_Editing` and
 `get_bonds(chemical_state=...)` returns the selected state's live table for reading
 and interchange. Direct Pandas/NumPy writes bypass validation, component
 reconstruction and owner notification. Use controlled graph methods or existing
-`basic.set` assignment routes on an owning MolSys. Standalone assignment dispatch
-is still being migrated. A live table does not provide a universal
+`basic.set` atom/bond assignment routes on the collection or its owning MolSys.
+A live table does not provide a universal
 mutation-observation mechanism.
 
 Supported metadata assignments validate before publishing and retain other

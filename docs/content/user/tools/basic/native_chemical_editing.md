@@ -42,6 +42,16 @@ the complete supported field list and the Cookbook for executed examples.
 
 ## Choosing an operation
 
+Stored atom and bond fields can be assigned directly with
+`msm.set(chemical_states, selection=[...], chemical_state=..., formal_charge=...)`
+or `element='bond'` and a supported bond attribute. Selected positions must be
+unique. Scalars broadcast and None records unknown values. Formal-charge
+quantities are converted explicitly to elementary charge; output remains the
+stored integer-count representation. The foundation lists supported fields.
+Each attribute stages validation and owner invalidation before publication;
+several attributes in one call are separate edits. Component assignment dispatch
+is still pending for standalone collections.
+
 | Method | Use |
 | :--- | :--- |
 | `add_bonds(pairs, chemical_state=...)` | Add unique unordered atom pairs and rebuild that state's observed component graph. Edge order/type remain unknown until explicitly assigned. |
@@ -80,9 +90,10 @@ associations are retained. Empty edits preserve table and analysis identity.
 Label-only reconstruction preserves observations.
 
 `get_bonds()` exposes a live table for reading and interchange. Direct table
-writes bypass this contract. Existing atom/bond assignment routes on MolSys
-remain available through supported `msm.set` attributes; general standalone
-assignment and dictionary query dispatch are still being migrated. Use these native methods
+writes bypass this contract. Existing atom/bond assignment routes on MolSys and
+ChemicalStates remain available through supported `msm.set` attributes;
+standalone component assignment and dictionary query dispatch are still being
+migrated. Use these native methods
 for graph editing. No detector,
 chemical perception, cap placement or hydrogen addition runs automatically.
 

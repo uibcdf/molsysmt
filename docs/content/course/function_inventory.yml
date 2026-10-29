@@ -166,7 +166,7 @@ molsysmt.basic.get:
 
 molsysmt.basic.set:
   name: "msm.set"
-  first_introduced_in: "Common_Core/09_System_Modification.ipynb"
+  first_introduced_in: "Common_Core/10_Modifying_Molecular_Attributes.ipynb"
   summary: "Modifies or updates attributes, coordinates, or box vectors of a molecular system."
   doc_ref: "{func}`molsysmt.basic.set`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.set()**: Modifies or updates specific attributes or coordinates in a molecular system. See API doc: {func}`molsysmt.basic.set`.\n:::"

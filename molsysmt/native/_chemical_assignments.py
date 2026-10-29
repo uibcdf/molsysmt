@@ -9,6 +9,54 @@ from molsysmt._private.variables import is_all
 from ._chemical_state import _BOND_OPTIONAL_DTYPES, Bonds_DataFrame, _coerce_bond_table
 
 
+def assign_field(item, attribute, values, selected="all"):
+    """Delegate one public atom/bond assignment to its selected chemical owner."""
+    from molsysmt import pyunitwizard as puw
+    from molsysmt._private.smonitor import ArgumentError
+
+    from ._chemical_fields import ATOM_FIELDS, BOND_FIELDS
+    from ._chemical_queries import indices
+
+    element = "atom" if attribute in ATOM_FIELDS else "bond"
+    # Resolve even an empty selection: no edit may invent a missing state.
+    item._resolve_chemical_state()
+    positions = None if is_all(selected) else indices(item, element, selected)
+    if positions is None and not is_all(selected):
+        raise ArgumentError(
+            "indices", value=selected, caller="molsysmt.ChemicalStates assignment"
+        )
+    if positions is not None and len(np.unique(positions)) != len(positions):
+        raise ArgumentError(
+            "indices",
+            value=selected,
+            caller="molsysmt.ChemicalStates assignment",
+            message="Assignment positions must be unique; repeated writes are ambiguous.",
+        )
+    if element == "atom":
+        if attribute == "formal_charge" and puw.is_quantity(values):
+            values = puw.get_value(values, to_unit="elementary_charge")
+            if not np.all(np.isfinite(values)):
+                raise ArgumentError(
+                    "formal_charge",
+                    value=values,
+                    caller="molsysmt.ChemicalStates assignment",
+                    message="Formal-charge quantities must contain finite integer counts.",
+                )
+        item._set_chemical_state_atom_attribute(
+            ATOM_FIELDS[attribute], values, atom_indices=positions
+        )
+    elif attribute == "bond_stereo_atom_indices":
+        item._set_chemical_state_bond_stereo_atom_indices(
+            values, bond_indices="all" if positions is None else positions
+        )
+    else:
+        item._set_chemical_state_bond_attribute(
+            BOND_FIELDS[attribute][0],
+            values,
+            bond_indices="all" if positions is None else positions,
+        )
+
+
 def bond_selection(bond_indices, count):
     """Resolve positional rows without truncating floats or accepting booleans."""
     if is_all(bond_indices):
