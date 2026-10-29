@@ -222,12 +222,12 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | --- | --- | --- | --- |
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
-| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Chemical storage foundation and C1 stable molecule declarations implemented on development branch; native cutover remains | Standalone state operations; pure Topology; no hidden recovery |
+| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Chemical storage, bond concatenation, ordered inventory comparison, component primitives and C1 stable molecules implemented on development branch; native cutover remains | Standalone state operations; pure Topology; no hidden recovery |
 | P3: query/form dispatch | P2 | Atom/molecule projection uses stable ownership; broader dispatch remains | Basic/native/form parity and truthful capabilities |
-| P4: builder and lifecycle | P2, P3 | Stable molecule transport implemented; chemical authority and lifecycle cutover remain | Coordinated edits/remaps/copies and invalidation |
+| P4: builder and lifecycle | P2, P3 | Stable molecule transport and C4 component restriction implemented; chemical authority and lifecycle cutover remain | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
-| P7: docs and consumer receiving | P5, P6 | C1 lifecycle documentation updated on development branch; final migration and receiving remain | Lifecycle docs and immutable consumer receipts |
+| P7: docs and consumer receiving | P5, P6 | C1/C4 lifecycle documentation updated on development branch; final migration and receiving remain | Lifecycle docs and immutable consumer receipts |
 | P8: integrated source closeout | P1-P7 | Not started | Exact-source checks, published implementation and issue receipt |
 
 Documentation work can accompany each implementation phase. Independent execution
@@ -975,6 +975,130 @@ owner binding, state-aware editing and query dispatch under C6. The nine moved
 functional APIs, pure Topology, dictionary 0.2, final client receiving and C7
 performance measurements remain pending. This checkpoint does not close #255,
 qualify a release or deliver a new minimum package version to clients.
+
+### P2 chemical primitives and C4 induced-graph restriction
+
+[Implementation checkpoint 595a35ad9d7d53470a6e3930cc2fd26e02054dde](https://github.com/uibcdf/molsysmt/commit/595a35ad9d7d53470a6e3930cc2fd26e02054dde)
+on `dev/chemical-states-separation-255` moves bond-table concatenation to
+`native/_chemical_state.py` and graph partition/exact component matching to
+`native/_chemical_components.py`. The temporary Topology and `_topology_infer`
+gateways delegate to those owners; chemical-template validation now calls the
+chemical primitives directly. The graph kernel is the existing Rust component
+routine with the same stored `joins_components` participation convention. This
+does not introduce another connectivity algorithm, a dependency or a new
+scientific credit claim.
+
+The strict ordered chemical-inventory comparison also moves to ChemicalStates.
+It compares atom cardinality, raw reference selection, ordered states, the
+existing scientific metadata and all four stored tables/vectors without resolving
+a reference or changing the collection. Preparation history remains outside this
+chemical-change comparison, as before. Topology still checks its stable tables
+and then delegates during this staged migration. MolSys append still uses that
+temporary gateway; its final domain-aware cutover remains P4.
+
+Native atom restriction no longer invokes legacy normalization on source
+records. Chemical-owned validation checks atom-row alignment, positional
+component rows, nullable integer memberships, component-index bounds and atom
+assignments before staging a result. Misaligned unknown vectors and invalid
+memberships reject without repairing or mutating the source. Legacy decoding
+retains its explicit compatibility path. This is not a claim that every mutation
+and codec validation path has already migrated.
+
+C4 restriction now distinguishes complete and incomplete stored connectivity:
+
+- A complete source graph yields components of the selected induced graph.
+  The analytical path 0-1-2 restricted to [0, 2] yields two components while
+  retaining one declared stable molecule. The reference/state order and structure
+  associations do not change. Component labels transfer only for exact full
+  source atom sets; changed components get local string IDs and unknown names/
+  types. Exact unchanged complete declarations retain their evidence; newly
+  inferred partitions record inferred evidence. Unknown bond participation keeps
+  the existing conservative component-completeness limit.
+- Partial/unavailable connectivity restricts declared memberships and compacts
+  retained rows without inferring a complete partition. If a retained complete
+  component declaration is cut, its completeness becomes partial; unavailable
+  stays unavailable. Removing entire components while retaining other complete
+  declarations does not downgrade the unchanged retained components.
+- All retained bond atom references use the existing canonical remapper.
+  Reversed endpoints also swap their endpoint-local stereo neighbors, while
+  donor/acceptor roles follow their original atoms. A removed stereo neighbor
+  clears both references and the incomplete annotation; wholly unknown optional
+  fields remain unmaterialized. The new reversed-order control exposed and
+  guards the previously unrequested canonical-order option in this path.
+
+No cap/H generation, aromaticity perception, chemical-state selection or
+interaction recalculation runs during extraction. Complete induced connectivity
+does not certify a prepared standalone chemical fragment. Historical preparation
+records retain their original operation-index scope.
+
+`tests/native/test_chemical_state_storage.py` now has 28 passing cases, including
+Topology-gateway poisoning, dtype/null-preserving bond concatenation, strict
+inventory comparison, complete versus incomplete restrictions, exact metadata
+matching, empty/reordered domains, source immutability, malformed membership
+rejection, participation overrides and directional/stereo remapping.
+The stereo control also exercises public extraction of a topology-free MolSys
+and a chemical-only H5MSM round trip, preserving the remapped endpoint roles
+and component label. The final 28-case owner selection passes in 5.28 s.
+Existing native component-metadata, rich-bond, extraction/removal and chemical-template
+controls are retained. No assertion was weakened or future target marked xfail.
+
+Executed in the same Linux/Python 3.14.7 development environment:
+
+```bash
+python -m pytest --receptor=llm -n 12 \
+  tests/native tests/basic/get tests/topology \
+  tests/form/file_h5msm tests/form/molsysmt_Topology tests/element/component \
+  tests/physchem/test_chemical_template*.py \
+  tests/basic/test_extract.py tests/basic/test_extract_extended.py \
+  tests/basic/test_remove.py tests/basic/test_remove_extended.py \
+  tests/basic/test_remove_ownership.py \
+  tests/build/add_terminal_atoms/test_component_hydrogen_reinsertion.py \
+  --ignore=tests/native/test_chemical_domain_separation.py
+```
+
+Exit 0: **4,104 passed**, 88.90 s, 766 warnings. This selection explicitly excludes
+the unfinished contract targets and is not a full branch/release qualification.
+The earlier 132-case extraction/removal selection and 28-case chemical-owner run
+pass separately but overlap this broader run; do not sum their counts. Final
+execution uses a fresh ignored repository-cache temporary directory through
+`TMPDIR`/`--basetemp`, with network access for existing public-PDB controls.
+An earlier, narrower sandbox run passed 4,001 tests and failed only at DNS;
+a later expanded run was interrupted by temporary quota/HDF5 worker errors.
+Those are not passing evidence. Completed owned pytest data were removed;
+the successful final run's temporary payloads were automatically removed too.
+No environment or package was installed or replaced.
+
+The target module now has **7 passed, 29 failed** (exit 1, 6.55 s). The newly
+passing target is complete-path restriction with independent molecule identity.
+Pure Topology, independent MolSys/Builder ownership, state-aware queries/editing,
+the functional namespace and dictionary 0.2 still require implementation before
+runtime merges to main. P2.1 remains open for the remaining normalization/
+assembly paths and their coordinated consumers; these moved primitives alone
+do not complete native chemical authority.
+
+Fifteen doctests pass across basic.extract, MolSys, Topology and ChemicalStates.
+The extraction Toolbox, group-free Cookbook and Common Core Module 18 execute
+successfully; the MolSys foundation and manifest now describe complete versus
+partial restriction and source-index scope. Two schema-4.4 notebooks initially
+received unsupported cell IDs for the inserted cells; removing only those three
+metadata fields preserves source/output payloads. The source notebook-schema
+guard then passes all 496 cases. Public API stability, docstring fidelity, course
+structure, dependency validation and Ruff pass. The four unrelated API-RST edits
+and native binary are preserved. C7 performance comparison, final client
+receiving and P8 exact-source qualification remain pending.
+
+The HTML structure build succeeds with twelve Sphinx workers and repository
+static views omitted, using the same explicit Python-list override as the C1
+checkpoint. All four edited conceptual/tutorial pages and their expected new
+sections are present in HTML. The source-schema repair removes the initial
+notebook JSON diagnostics; no errors remain. The two existing `_static` README
+toctree warnings remain. Diagnostic HTML/doctrees are stored in ignored repository
+cache, avoiding another large `/tmp` asset copy. This does not qualify final
+deployed static views or replace P7/P8 documentation gates.
+
+Next: implement the admitted C3 selected-state editing/rebuild boundary using
+these owned primitives, then move query dispatch and MolSys/Builder ownership
+together under C6. Do not add new scientific profiles during that cutover.
 
 ## Acceptance matrix
 
