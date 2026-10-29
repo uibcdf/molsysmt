@@ -288,6 +288,7 @@ class Topology(NativeQueries):
         self.reset_chains(n_chains=n_chains)
         self.reset_bonds(n_bonds=n_bonds)
         self._chain_group_membership = None
+        self._atom_molecule_membership = None
         self._coerce_id_columns_to_string()
 
         # Dirty bits for hierarchy reconstruction
@@ -376,6 +377,14 @@ class Topology(NativeQueries):
         """Return whether stable atoms and ordered chemical states match exactly."""
 
         if not isinstance(item, Topology):
+            return False
+        first = getattr(self, "_atom_molecule_membership", None)
+        second = getattr(item, "_atom_molecule_membership", None)
+        if (
+            (first is None) != (second is None)
+            or first is not None
+            and not np.array_equal(first, second)
+        ):
             return False
         for table_name in ("atoms", "groups", "molecules", "entities", "chains"):
             if not getattr(self, table_name).equals(getattr(item, table_name)):
@@ -798,12 +807,15 @@ class Topology(NativeQueries):
             state["atoms"] = legacy_atoms
 
         legacy_bonds = state.pop("bonds", None)
+        legacy_molecule_membership = "_atom_molecule_membership" not in state
         legacy_components = state.pop("components", None)
         legacy_reference_state = state.pop("_reference_chemical_state", None)
         legacy_states = state.pop("_chemical_states", None)
         had_legacy_reference_index = "_reference_chemical_state_index" in state
         legacy_reference_index = state.pop("_reference_chemical_state_index", None)
         self.__dict__.update(state)
+        if legacy_molecule_membership:
+            self._atom_molecule_membership = None
         if "_chemical_states_domain" not in self.__dict__:
             self._chemical_states_domain = ChemicalStates(
                 n_atoms=self.n_atoms, skip_digestion=True
@@ -857,6 +869,10 @@ class Topology(NativeQueries):
             self._set_chemical_state_bonds(legacy_bonds)
         if legacy_components is not None:
             self._ensure_state_for_mutation().components = legacy_components
+        if legacy_molecule_membership:
+            from ._legacy_molecule_membership import restore
+
+            restore(self, self._chemical_states_domain)
 
     def _restore_legacy_flat_state(self, state):
         """Restore the pre-normalization flat atom and bond tables."""
@@ -1000,6 +1016,18 @@ class Topology(NativeQueries):
         if component_values and all(pd.notna(value) for value in component_values):
             self._reference_chemical_state.component_completeness = "complete"
         self._reference_chemical_state.component_evidence = "unknown"
+        if "molecule_index" in legacy_atoms:
+            from ._atom_molecules import compact
+
+            direct = np.asarray(
+                [
+                    maps["molecule"].get(value, -1) if pd.notna(value) else -1
+                    for value in legacy_atoms["molecule_index"]
+                ],
+                dtype=np.int64,
+            )
+            direct[self.atoms["group_index"].notna().to_numpy()] = -1
+            self._atom_molecule_membership = compact(direct)
 
         if (
             "formal_charge" in legacy_atoms
@@ -1122,6 +1150,89 @@ class Topology(NativeQueries):
 
         self._chain_group_membership = pack(self, chain_groups)
 
+    @signal(tags=["native"])
+    @arg_digest(native_molecule_membership=True)
+    def set_atom_molecules(
+        self, molecule_indices, atom_indices="all", skip_digestion=False
+    ):
+        """Declaring stable molecule membership for atoms without groups.
+
+        Parameters
+        ----------
+        molecule_indices : int, array-like of int or None
+            One molecule index per selected atom. None entries declare unknown
+            membership. A scalar index assigns one atom; None requests unknown
+            ownership for every selected atom. A grouped atom cannot be cleared
+            independently of its group. All known indices must identify
+            stored molecules. No molecules or groups are created.
+        atom_indices : int, array-like of int or 'all', default='all'
+            Unique source atom indices, in the assignment order. A grouped
+            position must match its group's stored molecule and is a no-op.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for already validated inputs.
+
+        Returns
+        -------
+        None
+            Publish the validated independent stable membership.
+
+        Raises
+        ------
+        ArgumentError
+            If dimensions or indices are invalid, repeated, boolean or unitful.
+        StructuralInconsistencyError
+            If a molecule is unavailable, existing membership is misaligned,
+            or a declaration conflicts with a group's molecule.
+
+        Notes
+        -----
+        Molecules and chemical components are independent. Changing a bond,
+        component partition or selected chemical state does not change these
+        declarations. Grouped atoms continue using their group's molecule.
+        Clearing all ungrouped declarations releases the optional vector.
+
+        A supported change invalidates all named interaction analyses in the
+        owning MolSys, including evaluated-empty coverage. Old snapshots remain
+        intact. Validation and invalidation staging precede publication; failures
+        preserve membership and analyses. Coordinates are not copied and no
+        detector is run automatically. An unchanged declaration is a no-op.
+
+        Examples
+        --------
+        >>> topology = Topology(n_atoms=3, n_molecules=2)
+        >>> topology.set_atom_molecules([1, 0, None])
+        >>> topology.get(element='atom', molecule_index=True)
+        [1, 0, None]
+        >>> topology.set_atom_molecules(None)
+        >>> topology.get(element='atom', molecule_index=True)
+        [None, None, None]
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-native-world-classes-molsysmt-topology`
+           for stable molecule membership and editing.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._atom_molecules import prepare
+
+        candidate = prepare(self, molecule_indices, atom_indices)
+        previous = getattr(self, "_atom_molecule_membership", None)
+        if (candidate is None and previous is None) or (
+            candidate is not None
+            and previous is not None
+            and np.array_equal(candidate, previous)
+        ):
+            return
+        owner_ref = getattr(self, "_molsys_owner_ref", None)
+        owner = owner_ref() if owner_ref is not None else None
+        with (
+            owner._invalidating_interaction_frames("all")
+            if owner is not None
+            else nullcontext()
+        ):
+            self._atom_molecule_membership = candidate
+
     def get_n_atoms(self):
         return self.atoms.shape[0]
 
@@ -1147,6 +1258,13 @@ class Topology(NativeQueries):
         """Reset atoms table to a new size."""
 
         n_atoms = int(n_atoms)
+        if (
+            n_atoms != len(getattr(self, "atoms", ()))
+            and getattr(self, "_atom_molecule_membership", None) is not None
+        ):
+            raise StructuralInconsistencyError(
+                reason="Resetting atom count would discard declared molecule membership; extract or remove atoms instead."
+            )
         if n_atoms != self._chemical_states_domain.n_atoms:
             for state in self._chemical_states:
                 if (
@@ -1164,6 +1282,7 @@ class Topology(NativeQueries):
                     )
             self._chemical_states_domain._resize_atom_domain(n_atoms)
         self.atoms = Atoms_DataFrame(n_atoms=n_atoms)
+        self._atom_molecule_membership = None
 
     def reset_groups(self, n_groups=0):
         """Reset groups table to a new size."""
@@ -1179,6 +1298,11 @@ class Topology(NativeQueries):
     def reset_molecules(self, n_molecules=0):
         """Reset molecules table to a new size."""
 
+        membership = getattr(self, "_atom_molecule_membership", None)
+        if membership is not None and np.any(membership >= n_molecules):
+            raise StructuralInconsistencyError(
+                reason="Resetting molecule count would invalidate declared atom membership."
+            )
         self.molecules = Molecules_DataFrame(n_molecules=n_molecules)
 
     def reset_entities(self, n_entities=0):
@@ -1255,7 +1379,7 @@ class Topology(NativeQueries):
                 return self
 
         else:
-            atom_indices = np.sort(atom_indices)
+            atom_indices = np.sort(np.asarray(atom_indices, dtype=np.int64))
 
             tmp_item = Topology(skip_digestion=True)
             tmp_item.atoms = self.atoms.iloc[atom_indices].copy()
@@ -1265,9 +1389,16 @@ class Topology(NativeQueries):
             tmp_item.groups = self.groups.iloc[old_group_indices].copy()
             tmp_item.groups.index = pd.RangeIndex(len(tmp_item.groups))
 
+            from ._atom_molecules import compact, stored
+
+            direct = stored(self)
             old_molecule_indices = (
                 tmp_item.groups["molecule_index"].dropna().unique().tolist()
             )
+            if direct is not None:
+                for molecule in direct[atom_indices]:
+                    if molecule >= 0 and int(molecule) not in old_molecule_indices:
+                        old_molecule_indices.append(int(molecule))
             tmp_item.molecules = self.molecules.iloc[old_molecule_indices].copy()
             tmp_item.molecules.index = pd.RangeIndex(len(tmp_item.molecules))
 
@@ -1296,6 +1427,14 @@ class Topology(NativeQueries):
                 .map({old: new for new, old in enumerate(old_entity_indices)})
                 .astype("Int64")
             )
+            if direct is not None:
+                mapping = {old: new for new, old in enumerate(old_molecule_indices)}
+                tmp_item._atom_molecule_membership = compact(
+                    np.asarray(
+                        [mapping.get(int(value), -1) for value in direct[atom_indices]],
+                        dtype=np.int64,
+                    )
+                )
             tmp_item.atoms["chain_index"] = (
                 tmp_item.atoms["chain_index"]
                 .map({old: new for new, old in enumerate(old_chain_indices)})
@@ -1403,6 +1542,24 @@ class Topology(NativeQueries):
         n_molecules = self.molecules.shape[0]
         n_chains = self.chains.shape[0]
 
+        from ._atom_molecules import compact, stored
+
+        own_membership, other_membership = stored(self), stored(tmp_item)
+        combined_membership = None
+        if own_membership is not None or other_membership is not None:
+            left = (
+                np.full(n_atoms, -1, dtype=np.int64)
+                if own_membership is None
+                else own_membership
+            )
+            right = (
+                np.full(tmp_item.n_atoms, -1, dtype=np.int64)
+                if other_membership is None
+                else other_membership.copy()
+            )
+            right[right >= 0] += n_molecules
+            combined_membership = compact(np.concatenate([left, right]))
+
         tmp_item.atoms["group_index"] += n_groups
         tmp_item._set_component_indices(
             tmp_item._get_component_indices() + n_components
@@ -1435,6 +1592,7 @@ class Topology(NativeQueries):
         self.molecules = pd.concat(
             [self.molecules, tmp_item.molecules], ignore_index=True
         )
+        self._atom_molecule_membership = combined_membership
         self.components = pd.concat(
             [self.components, tmp_item.components], ignore_index=True
         )
@@ -1919,6 +2077,23 @@ class Topology(NativeQueries):
             infer_molecule_types_from_topology,
         )
 
+        if (
+            self.n_groups == 0
+            and getattr(self, "_atom_molecule_membership", None) is not None
+        ):
+            if redefine_ids:
+                self.molecules["molecule_id"] = fallback_ids(self.n_molecules)
+            if redefine_types:
+                self.molecules["molecule_type"] = infer_molecule_types_from_topology(
+                    self
+                )
+            if redefine_names:
+                self.molecules["molecule_name"] = infer_molecule_names_from_topology(
+                    self
+                )
+            self._molecules_dirty = False
+            return
+
         need_component_types = (redefine_names or redefine_types) and _needs_columns(
             self.components, ["component_type"]
         )
@@ -1957,6 +2132,20 @@ class Topology(NativeQueries):
             else:
                 n_molecules = len(self._resolve_reference_chemical_state().components)
             self.reset_molecules(n_molecules=n_molecules)
+            if self.n_groups == 0:
+                # Initial explicit hierarchy construction snapshots the selected
+                # reference partition; subsequent stable queries never read it.
+                state = self._resolve_reference_chemical_state()
+                self.molecules["molecule_name"] = state.components[
+                    "component_name"
+                ].to_numpy(copy=True)
+                self.molecules["molecule_type"] = state.components[
+                    "component_type"
+                ].to_numpy(copy=True)
+                self.set_atom_molecules(
+                    state.component_indices.to_numpy(dtype=np.int64),
+                    skip_digestion=True,
+                )
 
             del molecule_index_of_groups
 
@@ -2225,10 +2414,11 @@ class Topology(NativeQueries):
                 output["component_type"] = kwargs["component_type"] == tmp_output
 
             if "molecule_index" in kwargs:
-                tmp_output = (
-                    self.groups["molecule_index"].values
-                    == item.groups["molecule_index"].values
-                ).all()
+                from ._atom_molecules import resolve
+
+                tmp_output = self.groups["molecule_index"].equals(
+                    item.groups["molecule_index"]
+                ) and np.array_equal(resolve(self), resolve(item))
                 output["molecule_index"] = kwargs["molecule_index"] == tmp_output
 
             if "molecule_id" in kwargs:

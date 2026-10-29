@@ -27,6 +27,9 @@ def validate_independent_topology(topology):
     """Validate the stable topology tables before creating a file."""
     if not isinstance(topology, Topology):
         raise TypeError("The topology layer requires native Topology.")
+    from molsysmt.native._atom_molecules import stored
+
+    stored(topology)
     if getattr(topology, "_chain_group_membership", None) is not None:
         from molsysmt.native._chain_groups import by_chain, pack
 
@@ -44,7 +47,21 @@ def write_independent_topology(root, topology, *, compression="gzip"):
 
     group = root.create_group("topology")
     membership = getattr(topology, "_chain_group_membership", None)
-    group.attrs["schema_version"] = 1 if membership is None else 2
+    from molsysmt.native._atom_molecules import stored
+
+    atom_molecules = stored(topology)
+    if (
+        atom_molecules is None
+        and topology.n_atoms
+        and topology.n_molecules
+        and not topology.n_groups
+    ):
+        # A new unknown declaration must not look like the legacy implicit
+        # reference-component encoding when both domains are loaded together.
+        atom_molecules = np.full(topology.n_atoms, -1, dtype=np.int64)
+    group.attrs["schema_version"] = (
+        3 if atom_molecules is not None else 1 if membership is None else 2
+    )
     for name, columns in _TABLES.items():
         table = getattr(topology, name)
         table_group = group.create_group(name)
@@ -74,6 +91,11 @@ def write_independent_topology(root, topology, *, compression="gzip"):
         packed = group.create_group("chain_groups")
         packed.create_dataset("offsets", data=membership[0], dtype="i8")
         packed.create_dataset("indices", data=membership[1], dtype="i8")
+    if atom_molecules is not None:
+        options = {"compression": compression} if compression is not None else {}
+        group.create_dataset(
+            "atom_molecules", data=atom_molecules, dtype="i8", **options
+        )
 
 
 def read_independent_topology(root):
@@ -82,9 +104,14 @@ def read_independent_topology(root):
         return None
     group = root["topology"]
     version = group.attrs.get("schema_version")
-    if version not in (1, 2):
+    if version not in (1, 2, 3):
         raise ValueError("Unsupported H5MSM 0.5 topology layer schema.")
-    if set(group) != set(_TABLES) | ({"chain_groups"} if version == 2 else set()):
+    expected = set(_TABLES) | ({"chain_groups"} if version == 2 else set())
+    if version == 3:
+        expected |= {"atom_molecules"}
+        if "chain_groups" in group:
+            expected.add("chain_groups")
+    if set(group) != expected:
         raise ValueError("The topology layer has missing or unknown tables.")
 
     tables = {}
@@ -131,7 +158,7 @@ def read_independent_topology(root):
             target[column] = table[column]
     topology._coerce_id_columns_to_string()
     topology._clear_chemical_states()
-    if version == 2:
+    if version == 2 or version == 3 and "chain_groups" in group:
         packed = group["chain_groups"]
         if set(packed) != {"offsets", "indices"}:
             raise ValueError("Invalid topology chain/group membership datasets.")
@@ -153,4 +180,23 @@ def read_independent_topology(root):
             )
         except Exception as error:
             raise ValueError("Invalid topology chain/group membership.") from error
+    if version == 3:
+        from molsysmt.native._atom_molecules import compact, stored
+
+        dataset = group["atom_molecules"]
+        if (
+            dataset.shape != (topology.n_atoms,)
+            or dataset.dtype.kind != "i"
+            or dataset.dtype.itemsize != 8
+        ):
+            raise ValueError(
+                "Invalid topology atom/molecule membership shape or dtype."
+            )
+        values = np.asarray(dataset[:], dtype=np.int64)
+        topology._atom_molecule_membership = values
+        try:
+            stored(topology)
+        except Exception as error:
+            raise ValueError("Invalid topology atom/molecule membership.") from error
+        topology._atom_molecule_membership = compact(values)
     return topology

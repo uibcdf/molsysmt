@@ -28,6 +28,12 @@ molsysmt.build.merge_nonpolar_hydrogens:
   summary: "Projects typed nonpolar hydrogens with conserved charges and explicit source maps."
   doc_ref: "{func}`molsysmt.build.merge_nonpolar_hydrogens`"
 
+molsysmt.native.Topology.set_atom_molecules:
+  name: "topology.set_atom_molecules"
+  first_introduced_in: "Common_Core/04_Native_Forms.ipynb"
+  summary: "Declares stable molecule ownership for ungrouped atoms independently of chemical components."
+  doc_ref: "{meth}`molsysmt.native.Topology.set_atom_molecules`"
+
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 

@@ -36,11 +36,29 @@ Each slice lists unique valid group indices in chain order. Groups may occur in
 several chains. Empty slices retain empty chains; empty atom tables do not erase
 this declaration. Every observed atom group/chain pair must be included.
 
-Writers use layer 1 without an explicit relation and layer 2 with it. Readers
-accept both and reject unsupported versions, malformed offsets, duplicate or
-out-of-range memberships and declarations conflicting with observed atoms. Layer
-2 requires an updated reader; the H5MSM root remains version 0.5. Guard:
-`tests/native/test_group_inventory_hierarchy.py`.
+Layer 3 adds `atom_molecules`, a signed 64-bit vector of shape `(n_atoms,)`.
+Nonnegative entries identify stored molecules for ungrouped atoms; `-1` means
+unknown. Grouped positions must be `-1`; they inherit group ownership instead.
+The layer may also contain `chain_groups`. It is independent of chemical states.
+New group-free topologies with atoms and stored molecules also use layer 3 when
+all assignments are unknown. An all-`-1` dataset distinguishes that state from
+the historical implicit reference partition; its native vector remains absent.
+
+Writers use layer 1 without an explicit relation, layer 2 for chain/group
+membership alone, and layer 3 when ungrouped atom/molecule ownership is stored.
+Readers accept all three and reject unsupported versions, malformed shapes,
+dtypes, offsets, duplicate or out-of-range memberships and conflicting grouped
+assignments. New layer schemas require an updated reader; the root remains 0.5.
+Guards: `tests/native/test_group_inventory_hierarchy.py` and
+`tests/form/file_h5msm/test_topology_v05_probe.py`.
+
+Joint legacy layer-1/2 topology and chemical-state decoding can snapshot the old
+group-free reference-component representation when an identity atom-axis link
+is declared and its reference and molecule inventory agree. Equal cardinalities
+alone establish no correspondence. Ambiguous or missing evidence stays unknown.
+Topology-only projections never load chemical states to recover it. Layer 3
+does not use that recovery path, and ordinary native queries never infer a
+molecule partition from chemical states.
 
 ## Modular axis-link encoding
 

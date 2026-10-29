@@ -27,6 +27,8 @@ def to_molsysmt_TopologyDict(item, skip_digestion=False):
     Nullable table fields become Python scalars or None, including typed isotope
     and bond-order numbers. The emitted record schema is 0.1; primitive scalar
     transport does not imply preservation of every native chemical assignment.
+    Independent atom/molecule declarations that schema 0.1 cannot represent
+    are rejected. Use H5MSM 0.5 to preserve them.
 
     Examples
     --------
@@ -41,6 +43,10 @@ def to_molsysmt_TopologyDict(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+
+    from molsysmt.native._legacy_molecule_membership import validate_record_export
+
+    validate_record_export(item)
 
     atoms = []
     for atom_index in range(item.n_atoms):

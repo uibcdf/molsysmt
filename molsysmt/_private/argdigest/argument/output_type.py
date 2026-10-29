@@ -43,7 +43,10 @@ def digest_output_type(output_type, caller=None):
             if output_type.lower() in ["values", "dictionary"]:
                 return output_type.lower()
 
-    elif caller == "molsysmt.basic.compare.compare":
+    elif caller in {
+        "molsysmt.basic.compare.compare",
+        "molsysmt.native.topology.compare",
+    }:
         if isinstance(output_type, str):
             if output_type.lower() in ["boolean", "dictionary"]:
                 return output_type.lower()

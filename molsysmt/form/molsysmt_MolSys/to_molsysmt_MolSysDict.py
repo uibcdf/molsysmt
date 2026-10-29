@@ -41,6 +41,8 @@ def to_molsysmt_MolSysDict(
     and bond-order numbers. The emitted record schema is 0.1; primitive scalar
     transport does not imply preservation of every native chemical assignment.
     Coordinates and box values are lists in nm; time values are lists in ps.
+    Independent atom/molecule declarations that schema 0.1 cannot represent
+    are rejected. Use H5MSM 0.5 to preserve them.
 
     Examples
     --------
@@ -77,6 +79,10 @@ def to_molsysmt_MolSysDict(
         copy_if_all=False,
         skip_digestion=True,
     )
+
+    from molsysmt.native._legacy_molecule_membership import validate_record_export
+
+    validate_record_export(item.topology)
 
     atoms = []
     for atom_index in range(item.topology.n_atoms):

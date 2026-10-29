@@ -237,6 +237,29 @@ def read_modular_file(filename, *, layers=None, analysis_names=None):
             result["associations"] = read_associations(
                 file, _axis_sizes_from_file(file)
             )
+        if (
+            result.get("topology") is not None
+            and result.get("chemical_states") is not None
+            and file["topology"].attrs.get("schema_version") in (1, 2)
+        ):
+            links = (
+                result["associations"]
+                if "associations" in result
+                else read_associations(file, _axis_sizes_from_file(file))
+            )
+            shared_atoms = any(
+                link["axis"] == "atom"
+                and {link["source"], link["target"]} == {"topology", "chemical_states"}
+                and link["source_name"] is None
+                and link["target_name"] is None
+                and isinstance(link["indices"], str)
+                and link["indices"] == "identity"
+                for link in links or []
+            )
+            if shared_atoms:
+                from molsysmt.native._legacy_molecule_membership import restore
+
+                restore(result["topology"], result["chemical_states"])
         return result
 
 

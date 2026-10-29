@@ -56,3 +56,13 @@ inventory. Existing atom-level evidence must agree with the declaration.
 .. autoproperty:: molsysmt.native.Topology.chain_groups
 
 .. automethod:: molsysmt.native.Topology.set_chain_groups
+
+.. _API Native Molecule Membership:
+
+Declaring atom molecule membership
+----------------------------------
+
+Ungrouped atom ownership is independent of chemical components. Grouped atoms
+inherit their group's owner; declarations must agree with that hierarchy.
+
+.. automethod:: molsysmt.native.Topology.set_atom_molecules

@@ -67,24 +67,36 @@ def test_group_free_target_preserves_formal_charges_bonds_and_atom_labels():
     )
 
 
-def test_partial_groups_and_chains_keep_declared_rows_and_preserve_missing_source():
+@pytest.mark.parametrize("retain_molecules", [False, True])
+def test_partial_groups_and_chains_keep_declared_rows_and_preserve_missing_source(
+    retain_molecules,
+):
     molsys = source()
     top = molsys.topology
+    if not retain_molecules:
+        top.set_atom_molecules(None)
     top.reset_groups(n_groups=1)
     top.groups["group_name"] = ["LIG"]
     top.groups["group_id"] = pd.Series(["42"], dtype="string")
     top.groups["molecule_index"] = [0]
     top.atoms["group_index"] = [0, 0, None, None, None, None]
+    top.set_atom_molecules([0, 0], atom_indices=[0, 1])
     top.reset_chains(n_chains=2)
     top.chains["chain_id"] = pd.Series(["A", "B"], dtype="string")
     top.atoms["chain_index"] = [None, 1, None, None, None, None]
     before = top.atoms.copy(deep=True)
     target = msm.convert(top, to_form="mdtraj.Topology")
-    assert target.n_atoms == 6 and target.n_chains == 3 and target.n_residues == 5
+    assert target.n_atoms == 6 and target.n_chains == 3
+    assert target.n_residues == (3 if retain_molecules else 5)
     assert target.residue(0).name == "LIG"
     assert target.residue(0).resSeq == "42"
     assert target.residue(0).chain.index == 1
-    assert [a.residue.index for a in target.atoms] == [0, 0, 1, 2, 3, 4]
+    assert [a.residue.index for a in target.atoms] == (
+        [0, 0, 1, 2, 2, 2] if retain_molecules else [0, 0, 1, 2, 3, 4]
+    )
+    assert top.get(element="atom", molecule_index=True) == (
+        [0, 0, 0, 1, 1, 1] if retain_molecules else [0, 0, None, None, None, None]
+    )
     assert [c.chain_id for c in list(target.chains)[:2]] == ["A", "B"]
     pd.testing.assert_frame_equal(before, pd.DataFrame(top.atoms))
 
@@ -96,6 +108,7 @@ def test_conflicting_declared_group_chains_raise_clear_error():
     top.groups["group_name"] = ["LIG"]
     top.groups["molecule_index"] = [0]
     top.atoms["group_index"] = [0, 0, 0]
+    top.set_atom_molecules([0, 0, 0])
     top.reset_chains(n_chains=2)
     top.atoms["chain_index"] = [0, 1, 1]
     with pytest.raises(msm.StructuralInconsistencyError, match="multiple chains"):

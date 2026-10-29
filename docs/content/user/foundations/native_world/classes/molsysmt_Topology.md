@@ -49,6 +49,35 @@ These paths copy tables eagerly. See {ref}`Independent Copies <user-foundations-
 
 A valid native topology can have atoms and bonds but zero groups, for example an RDKit molecule without residue metadata. In that case, atom-level `group_id`, `group_name`, and `group_type` queries return `None`; `n_groups` remains zero. MolSysMT does not invent residue groups or a ligand label. Check `msm.has_attribute(molsys, "group_name")` before requiring that hierarchy.
 
+## Molecule Membership
+
+An atom's molecule is a stable hierarchy assignment, independent of its covalent
+component. Grouped atoms inherit `groups.molecule_index`. For atoms without a
+group, `topology.set_atom_molecules(molecule_indices, atom_indices='all')`
+declares positional molecule indices without creating groups or molecules.
+Use `None` for unknown membership; missing information is never replaced by
+the currently selected chemical state's components during a query.
+
+There is no additional atom-table column. An optional integer vector uses eight
+bytes per atom when any ungrouped assignment is known; clearing every assignment
+releases that vector. Copies own their vectors. Extraction remaps retained
+molecules and atom permutation retains the molecule axis. Bond edits and changes
+of chemical state leave stable assignments unchanged. Initial construction from
+a molecular graph can infer the hierarchy once; it is not repeated by queries.
+
+If you assemble groups by editing tables directly, first clear obsolete ungrouped
+assignments or reconcile each newly grouped position with `set_atom_molecules`.
+An existing declaration cannot be silently discarded if its owner conflicts
+with the new group. The supported builder performs that reconciliation for you.
+
+A changed declaration on an attached Topology invalidates all named interaction
+analyses, including evaluated-empty coverage, after successful validation.
+Existing analysis snapshots remain intact; coordinates are not copied and
+detectors are not run. Repeating an unchanged declaration is a no-op. Dictionary
+schema 0.1 rejects assignments it cannot represent. H5MSM 0.5 preserves these
+assignments in topology layer 3; see {ref}`user-tools-form-h5msm-05` and the
+executed {ref}`Cookbook_Group_Free_Hierarchy` recipe.
+
 ## Container Conversion
 
 A topology can be wrapped in a `molsysmt.MolSys` without inventing structural data:

@@ -306,8 +306,13 @@ class MolSysBuilder(NativeQueries):
         atoms["chain_index"] = atoms["chain_index"].astype("Int64")
         if "isotope" in atoms:
             atoms["isotope"] = atoms["isotope"].astype("UInt16")
+        from ._atom_molecules import compact, stored
+
+        direct = stored(self.topology)
+        membership = None if direct is None else compact(np.r_[direct, np.int64(-1)])
         self.topology._chemical_states_domain._extend_atom_domain(atom_index + 1)
         self.topology.atoms = atoms
+        self.topology._atom_molecule_membership = membership
         self.topology._components_dirty = True
 
         return atom_index
@@ -327,11 +332,9 @@ class MolSysBuilder(NativeQueries):
 
     def _inherited_group_molecule(self, atom_indices):
         """Resolve one inherited owner without merging declared source molecules."""
-        owners = getattr(self, "_inherited_atom_molecules", None)
-        if owners is None:
-            return pd.NA
-        existing = atom_indices[atom_indices < len(owners)]
-        candidates = np.unique(owners[existing])
+        from ._atom_molecules import resolve
+
+        candidates = np.unique(resolve(self.topology)[atom_indices])
         candidates = candidates[candidates >= 0]
         if len(candidates) > 1:
             raise StructuralInconsistencyError(
@@ -415,6 +418,14 @@ class MolSysBuilder(NativeQueries):
 
         self._capture_group_free_molecule_membership()
         molecule_index = self._inherited_group_molecule(atom_indices)
+        from ._atom_molecules import compact, stored
+
+        direct = stored(self.topology)
+        membership = None
+        if direct is not None:
+            membership = direct.copy()
+            membership[atom_indices] = -1
+            membership = compact(membership)
 
         group_index = self.topology.n_groups
         self.topology.groups.loc[group_index, "group_id"] = (
@@ -429,6 +440,7 @@ class MolSysBuilder(NativeQueries):
             self.topology.groups.loc[group_index, "group_type"] = str(group_type)
         self.topology.groups.loc[group_index, "molecule_index"] = molecule_index
         self.topology.atoms.loc[atom_indices, "group_index"] = int(group_index)
+        self.topology._atom_molecule_membership = membership
 
         return group_index
 
@@ -856,6 +868,10 @@ class MolSysBuilder(NativeQueries):
         self.structures.structure_id = structure_id.astype(int)
 
     def _ensure_group_membership(self, topology):
+        from ._atom_molecules import compact, stored
+
+        direct = stored(topology)
+        direct = None if direct is None else direct.copy()
         orphan_atom_indices = topology.atoms.index[
             topology.atoms["group_index"].isna()
         ].to_numpy(dtype=int)
@@ -868,6 +884,9 @@ class MolSysBuilder(NativeQueries):
                 self._inherited_group_molecule(np.asarray([atom_index], dtype=np.int64))
             )
             topology.atoms.loc[atom_index, "group_index"] = int(group_index)
+            if direct is not None:
+                direct[atom_index] = -1
+        topology._atom_molecule_membership = None if direct is None else compact(direct)
 
     def _fill_chain_fallbacks(self, topology):
         from molsysmt.element.chain.chain_names import _alphabetic_chain_id
@@ -1003,44 +1022,69 @@ class MolSysBuilder(NativeQueries):
                 )
 
     def _retain_group_free_molecule_axis(self, topology):
-        """Align rebuilt components with inherited molecule positions without groups."""
+        """Retain declared molecules independently of the rebuilt component partition."""
+        from ._atom_molecules import stored
+
         inherited = getattr(self, "_inherited_atom_molecules", None)
+        direct = stored(topology)
+        if direct is not None and (
+            inherited is None or topology.n_atoms == len(inherited)
+        ):
+            self._fill_molecule_metadata(topology)
+            return
         if inherited is None:
             if topology.n_molecules == 0:
                 topology.rebuild_molecules()
-            return
-        state = topology._resolve_reference_chemical_state()
-        components = state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
-        by_component, by_owner = {}, {}
-        for component, owner in zip(components, inherited):
-            if component < 0 or owner < 0:
-                continue
-            if (component in by_component and by_component[component] != owner) or (
-                owner in by_owner and by_owner[owner] != component
-            ):
-                raise StructuralInconsistencyError(
-                    caller="molsysmt.native.MolSysBuilder.build",
-                    reason="Connectivity splits or merges inherited group-free molecules; declare explicit groups to retain their boundaries.",
-                )
-            by_component[component] = owner
-            by_owner[owner] = component
-        next_owner = topology.n_molecules
-        mapping = np.empty(len(state.components), dtype=np.int64)
-        for component in range(len(mapping)):
-            if component in by_component:
-                mapping[component] = by_component[component]
             else:
-                mapping[component] = next_owner
-                next_owner += 1
-        reordered = state.components.copy(deep=True)
-        reordered.index = mapping
-        state.components = reordered.reindex(range(next_owner)).reset_index(drop=True)
-        state.component_indices = pd.Series(mapping[components], dtype="Int64")
-        for owner in range(topology.n_molecules, next_owner):
-            topology.molecules.loc[owner, "molecule_id"] = str(owner)
-            topology.molecules.loc[owner, "molecule_name"] = pd.NA
-            topology.molecules.loc[owner, "molecule_type"] = pd.NA
-            topology.molecules.loc[owner, "entity_index"] = pd.NA
+                # Legacy declarative records represented their group-free axis
+                # by reference components. Materialize that representation once.
+                partition = (
+                    topology._resolve_reference_chemical_state().component_indices
+                )
+                topology.set_atom_molecules(
+                    partition.to_numpy(dtype=np.int64), skip_digestion=True
+                )
+            return
+        values = (
+            np.full(topology.n_atoms, -1, dtype=np.int64)
+            if direct is None
+            else direct.copy()
+        )
+        if direct is None:
+            values[: len(inherited)] = inherited
+        missing = (values < 0) & (np.arange(topology.n_atoms) >= len(inherited))
+        if missing.any():
+            # Initial assignment of newly staged atoms uses local connectivity
+            # only when it identifies an unambiguous declared owner. It never
+            # changes a known owner or equates molecule and component indices.
+            partition = (
+                topology._resolve_reference_chemical_state().component_indices.to_numpy(
+                    dtype=np.int64, na_value=-1
+                )
+            )
+            for component in np.unique(partition[missing]):
+                if component < 0:
+                    continue
+                members = partition == component
+                owners = np.unique(values[members & ~missing])
+                owners = owners[owners >= 0]
+                if len(owners) == 1:
+                    values[members & missing] = owners[0]
+                elif not len(owners):
+                    owner = topology.n_molecules
+                    topology.molecules.loc[owner, "molecule_id"] = str(owner)
+                    topology.molecules.loc[owner, "molecule_name"] = pd.NA
+                    topology.molecules.loc[owner, "molecule_type"] = pd.NA
+                    topology.molecules.loc[owner, "entity_index"] = pd.NA
+                    values[members & missing] = owner
+                else:
+                    raise StructuralInconsistencyError(
+                        caller="molsysmt.native.MolSysBuilder.build",
+                        reason="New atoms connect multiple declared molecules; declare explicit groups or atom molecule ownership.",
+                    )
+        assignments = values.astype(object)
+        assignments[values < 0] = None
+        topology.set_atom_molecules(assignments, skip_digestion=True)
         self._fill_molecule_metadata(topology)
 
     def _fill_entity_fallbacks(self, topology):

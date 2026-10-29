@@ -7,20 +7,10 @@ def fallback_ids(n_items):
 
 
 def molecule_indices_from_atoms(topology):
-    """Project stable molecule membership without requiring a group hierarchy.
+    """Project stored stable membership without consulting chemical states."""
+    from ._atom_molecules import resolve
 
-    Group-free inventories use the reference state's component partition.
-    Other chemical states cannot silently redefine the stable molecule axis.
-    """
-    if topology.n_groups == 0:
-        state = topology._resolve_reference_chemical_state()
-        return state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
-    groups = topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
-    molecules = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
-    result = np.full(topology.n_atoms, -1, dtype=np.int64)
-    valid = (groups >= 0) & (groups < len(molecules))
-    result[valid] = molecules[groups[valid]]
-    return result
+    return resolve(topology)
 
 
 def _group_atom_names(topology):
@@ -355,8 +345,8 @@ def infer_molecule_types_from_topology(topology):
         return np.array(["unknown"] * topology.n_molecules, dtype=object)
     if topology.n_groups == 0:
         return (
-            topology._resolve_reference_chemical_state()
-            .components["component_type"]
+            topology.molecules["molecule_type"]
+            .fillna("unknown")
             .to_numpy(dtype=object, copy=True)
         )
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(
@@ -391,11 +381,11 @@ def infer_molecule_names_from_topology(topology):
             [f"unknown {i}" for i in range(topology.n_molecules)], dtype=object
         )
     if topology.n_groups == 0:
-        return (
-            topology._resolve_reference_chemical_state()
-            .components["component_name"]
-            .to_numpy(dtype=object, copy=True)
-        )
+        values = topology.molecules["molecule_name"].to_numpy(dtype=object, copy=True)
+        for index, value in enumerate(values):
+            if pd.isna(value):
+                values[index] = f"unknown {index}"
+        return values
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(
         dtype=np.int64, na_value=-1
     )

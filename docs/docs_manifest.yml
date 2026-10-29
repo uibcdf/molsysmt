@@ -51,7 +51,7 @@ sections:
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
-            description: Native hierarchy with ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA occurrence correspondence, inherited construction, slot and table copy boundaries, controlled chemical-state editing, weak owner notification and detached copies.
+            description: Native hierarchy with stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation.
           - name: molsys
             description: Native domains, explicit standalone-provider composition, chemical ownership, copy boundaries, bounded metadata, controlled edits and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
@@ -496,7 +496,7 @@ sections:
             description: Header axis counts, eager structural queries and ordered subset export through StructuresDict.
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
-            description: Modular persistence, ordered topology layer-2 chain/group membership, typed construction, normalization and geometry history, complementary file composition, shared axes, unequal structure/state populations with explicit maps, and legacy migration.
+            description: Modular persistence, topology layer-3 atom/molecule and layer-2 chain/group membership, independent projected reads, typed history, complementary file composition, shared axes, explicit state maps and legacy migration.
           - file: docs/content/user/tools/form/file/file_structures_yaml.ipynb
             agents_file: docs/content/user/tools/form/file/file_structures_yaml.ipynb.AGENTS.md
             description: Structures YAML 0.2 quantity records, sparse alternate geometry, local indices and explicit 0.1 migration.
@@ -566,7 +566,7 @@ sections:
       - name: group_free_hierarchy
         file: docs/content/user/cookbook/group_free_hierarchy.ipynb
         agents_file: docs/content/user/cookbook/group_free_hierarchy.ipynb.AGENTS.md
-        description: Adding groups and using MDTraj selectors without changing source molecules
+        description: Declaring stable ungrouped atom/molecule membership, retaining it through bond edits, adding groups and using MDTraj selectors without changing source molecules
       - name: molecular_descriptors
         file: docs/content/user/cookbook/molecular_descriptors.md
         agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md
