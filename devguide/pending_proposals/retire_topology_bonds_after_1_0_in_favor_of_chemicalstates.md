@@ -223,7 +223,7 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
 | P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules, C3 graph edits and private typed assignment authority implemented on development branch; pure Topology and consumer cutover remain | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned scopes, stored/nullable queries and atom/bond assignments implemented on development branch; component assignment, dictionaries and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
+| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned scopes, stored/nullable queries and atom/bond/component assignments implemented on development branch; dictionaries, predicates and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
 | P4: builder and lifecycle | P2, P3 | Stable molecule transport, C4 restriction and atomic selected-state graph edits implemented; MolSys/Builder ownership cutover remains | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
@@ -1652,10 +1652,117 @@ course validator, Ruff/formatting, docstring fidelity, optional-import checks,
 RST edits are unchanged. Successful regression payloads are removed and compact
 logs remain in ignored qualification cache. No main merge, tag or release.
 
-**Next:** standalone component membership/label assignment and declarations with
+**Next at that checkpoint:** standalone component membership/label assignment and declarations with
 explicit inventory/graph consistency; then dictionary/predicate and mixed-domain
 routing, MolSys/Builder authority, functional module and codec cutover. P3 and
 #255 remain open. C6/C7 receiving and release qualification remain separate.
+
+### P3 fourth slice: declared component membership and labels
+
+Development commit
+[`c70605834d143675f0a536ef1b879d8d3f9dd6a7`](https://github.com/uibcdf/molsysmt/commit/c70605834d143675f0a536ef1b879d8d3f9dd6a7)
+adds seven decorated form setters: atom-to-component membership and component
+ID/name/type labels from component rows or atom projections. `component_index`
+now declares its atom assignment destination in the shared attribute catalogue.
+Native chemical helpers own normalization and staged publication; digesters reuse
+their value contract without reconstructing Topology. These are **Contract-tested**
+and **Parity-tested** declarations, not new chemistry or graph-perception methods.
+
+The bounded public contract is explicit:
+
+- Component indices refer to existing state-local rows. Scalars/one-item vectors
+  broadcast; other vectors follow ordered unique atom positions. None denotes
+  unknown membership. Reject invalid/boolean/fractional/unit-bearing/out-of-range
+  references without creating states, rows, bonds or stable molecule inventory.
+  Row count remains fixed, including empty declared rows. Import declarations or
+  explicit graph reconstruction can supply the inventory; no new component-row
+  allocation/removal API is introduced in this slice.
+- A changed membership declaration records partial completeness (unavailable if
+  every membership is unknown) and user_defined evidence. It does not certify
+  consistency with the bond graph or change connectivity completeness. Explicit
+  rebuild_components retains its existing graph/participation criterion.
+- Transfer metadata only when the new component's entire atom set equals an old
+  full set. Labels follow sets across index permutations; changed/merged/split or
+  ambiguous empty/unknown sets receive missing IDs/names/types. The shared exact
+  matching primitive now handles unknown destination membership without negative
+  indexing, retaining its full-source cardinality proof for extraction/rebuilds.
+- Label setters accept None and string labels (integer IDs normalize to strings).
+  Lexical IDs such as '001' and '1 nm' remain opaque labels, never quantities.
+  Atom projections update whole component rows. Reject unknown membership and
+  conflicting values for selected atoms of one component before publishing.
+- Membership, metadata correspondence and owner invalidation are staged together.
+  Failure preserves original field/table/analysis identities. Changed membership
+  invalidates all named analyses, including evaluated-empty scope; labels preserve
+  observations. Empty and identical membership edits are no-ops. Other states,
+  reference, history, associations, atom properties, bonds and geometry stay intact.
+  Multi-attribute calls remain separate per-attribute edits.
+
+Private assembly's existing low-level _set_component_indices remains distinct:
+its construction staging may precede row creation. The new public declaration
+uses a checked existing-inventory path. Caller migration/removal remains C6 work;
+these helpers do not promise complete pure-Topology/MolSys/Builder cutover.
+Completeness/evidence fields remain readable declarations rather than unrestricted
+public setters that could silently certify a complete graph.
+
+Verification in the existing Linux/Python 3.14.7 environment:
+
+- Extended migration regression, including shared matching, component helpers,
+  conversions/extraction, affected setters/digesters and H5MSM: **5,142 passed**,
+  exit 0, **102.42 s**, 776 warnings, Pytest Receptor with **12 workers**.
+- Final focused component/state assignment, graph-edit, query and direct-form
+  selection: **331 passed**, exit 0, **7.00 s**. This includes 57 new cases
+  (52 native and five direct-form), with literal expected sets, labels, dtype/null
+  shapes, bounds, failures and H5MSM 0.5 round trips. Counts overlap the regression.
+- Assignment/native-query/ChemicalStates docstrings: **36 passed**, exit 0,
+  **7.21 s**, including executable examples for all seven new setters.
+- Original target contract remains **17 passed, 19 failed**, exit 1, **5.53 s**:
+  pure Topology, MolSys replacement/Builder/dictionary association and functional
+  namespace requirements remain unfinished. No target is skipped or weakened.
+
+A one-million-atom typed declaration with one component is allocated before
+tracing. After warm-up, an atom-projected single-label edit must remain below a
+1 MB traced allocation allowance. A controlled negative implementation obtains
+full membership before selecting the same atom: output remains correct but the
+guard rejects **3,011,612 bytes** (expected pytest exit 1; driver exit 0). This is
+an allocation regression guard, not RSS, timing qualification or a benchmark for
+arbitrary component counts. Label projection reads only selected membership;
+staging still scales with the component table being edited. No coordinates or
+trajectory payloads are copied.
+
+An initial final-check startup encountered the host's /tmp user quota: pytest
+exited 3 before tests ran, and the sandbox launcher also reported quota failure.
+Its log is retained separately. Moving only five task-owned scripts and using
+repository-local TMPDIR/basetemp recovered the same selection without changing
+expectations, timeouts or the environment. Other processes' temporaries were not
+deleted. Successful task test payloads were removed; compact evidence is retained
+in ignored qualification cache. The host's general /tmp quota is not claimed fixed.
+
+```bash
+mkdir -p .pytest_cache/chemical-domain-255-qualification/temporary
+TMPDIR="$PWD/.pytest_cache/chemical-domain-255-qualification/temporary" \
+  python -m pytest --receptor=llm -n 12 \
+  tests/native/test_chemical_component_assignments.py \
+  tests/native/test_chemical_state_assignments.py \
+  tests/native/test_chemical_state_public_assignments.py \
+  tests/native/test_chemical_state_field_queries.py \
+  tests/native/test_chemical_state_edits.py tests/form/molsysmt_ChemicalStates
+```
+
+Foundations, Toolbox/API notes, the Set tutorial, Common Core 10 and the group-free
+Cookbook now explain the same declaration/label boundary. Their three new
+examples execute (23.0 s, 13.0 s and 8.2 s), preserving every previous code cell and
+updated output/fingerprints. Sphinx HTML succeeds with the established diagnostic
+static-assets exclusion and two pre-existing static README toctree warnings;
+rendered component sections, lexical labels and partial examples are inspected.
+All 97 adapter structural/delivery-ratchet checks, the maintained 156-module course
+validator, Ruff/formatting, docstring fidelity, optional-import checks, 277-symbol
+registry and signature comparison against
+`fac01d2718b0a1048211bca08b9f1768aaf05cee` pass. The native binary, dependency floors
+and four unrelated RST edits are unchanged; no installation, main merge or release.
+
+**Next:** ChemicalStatesDict and predicate/catalogue delivery, then mixed-domain
+MolSys/Builder routing and authority, pure Topology and functional/codec cutover.
+The full P3 phase, #255, C6/C7 client receiving and release qualification remain open.
 
 ## Acceptance matrix
 
