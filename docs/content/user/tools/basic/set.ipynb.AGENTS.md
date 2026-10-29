@@ -24,4 +24,6 @@ Governance rules and frozen contracts for `docs/content/user/tools/basic/set.ipy
 
 Preserve the executed standalone ChemicalStates example: selected-state ordered
 assignment, unknown unselected atoms, None clearing and unchanged reference.
-Explain per-attribute staging, owner invalidation and pending component setters.
+Explain per-attribute staging and owner invalidation. Preserve the executed
+component declaration example, exact-set labels, existing inventory and explicit
+graph reconstruction; distinguish pending dictionary assignment from native editing.

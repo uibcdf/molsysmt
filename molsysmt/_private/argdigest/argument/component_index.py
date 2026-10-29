@@ -36,6 +36,14 @@ def digest_component_index(component_index, caller=None):
         If the given `component_index` has not of the correct type or value.
     """
 
+    if caller == "molsysmt.basic.set.set" or (
+        isinstance(caller, str)
+        and caller.startswith("molsysmt.form.molsysmt_ChemicalStates.set.")
+    ):
+        from molsysmt.native._chemical_component_values import normalize_assignment
+
+        return normalize_assignment("component_index", component_index, caller)
+
     if caller is not None:
         if caller.endswith(functions_with_boolean):
             if isinstance(component_index, bool):

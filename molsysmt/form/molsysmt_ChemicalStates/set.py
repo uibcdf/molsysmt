@@ -881,4 +881,338 @@ def set_bond_evidence_to_bond(item, indices="all", value=None, skip_digestion=Fa
     _assign(item, "bond_evidence", value, indices)
 
 
+@arg_digest(form=form)
+def set_component_index_to_atom(item, indices="all", value=None, skip_digestion=False):
+    """Declaring atom membership in existing state-local components.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStates
+        Collection with an unambiguous active/reference state and an explicitly
+        stored component inventory. msm.set chooses chemical_state without
+        changing the reference.
+    indices : 'all', int or array-like of int, default='all'
+        Unique atom positions in the selected state. Empty selections are
+        no-ops after resolving the state; invalid or missing positions reject.
+    value : scalar or array-like, default=None
+        Nonnegative component positions or None, aligned with selected atoms. Scalars
+        and one-item vectors broadcast. Unknown values leave membership unassigned.
+        Values cannot create component rows.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Notes
+    -----
+    A changed declaration retains metadata only for exact unchanged full atom sets,
+    marks completeness partial (unavailable if every membership is unknown), and records
+    user_defined evidence. It invalidates named analyses of an owning MolSys. No bonds
+    or stable molecule memberships are changed. Identical declarations and empty
+    selections are no-ops.
+    One attribute is staged before publication; several attributes in one
+    basic.set call are separate edits. No state or component row is inferred.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> chemical_states.rebuild_components(True, True, False, False)
+    >>> msm.set(chemical_states, element='atom', component_index=[0, 0])
+    >>> chemical_states.get(element='atom', component_index=True)
+    [0, 0]
+
+    .. versionadded:: 1.0.0
+    """
+    item._assign_component_indices(value, atom_indices=indices)
+
+
+@arg_digest(form=form)
+def set_component_id_to_component(
+    item, indices="all", value=None, skip_digestion=False
+):
+    """Assigning string component labels on the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStates
+        Collection with an unambiguous active/reference state and an explicitly
+        stored component inventory. msm.set chooses chemical_state without
+        changing the reference.
+    indices : 'all', int or array-like of int, default='all'
+        Unique component positions in the selected state. Empty selections are
+        no-ops after resolving the state; invalid or missing positions reject.
+    value : scalar or array-like, default=None
+        String/integer labels or None; numeric IDs are stored as strings, and lexical
+        labels retain their spelling. Scalars and one-item vectors broadcast; other
+        vectors follow selected positions.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Notes
+    -----
+    Only labels are replaced. Bond tables, membership, completeness, evidence, other
+    states, producer history and coordinates remain unchanged. Existing analysis
+    observations are preserved.
+    One attribute is staged before publication; several attributes in one
+    basic.set call are separate edits. No state or component row is inferred.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> chemical_states.rebuild_components(True, True, False, False)
+    >>> msm.set(chemical_states, element='component', selection=[1], component_id=42)
+    >>> chemical_states.get(element='component', component_id=True)
+    ['0', '42']
+
+    .. versionadded:: 1.0.0
+    """
+    item._set_component_attribute(
+        "component_id", value, indices=indices, element="component"
+    )
+
+
+@arg_digest(form=form)
+def set_component_id_to_atom(item, indices="all", value=None, skip_digestion=False):
+    """Assigning string component labels on the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStates
+        Collection with an unambiguous active/reference state and an explicitly
+        stored component inventory. msm.set chooses chemical_state without
+        changing the reference.
+    indices : 'all', int or array-like of int, default='all'
+        Unique atom positions in the selected state. Empty selections are
+        no-ops after resolving the state; invalid or missing positions reject.
+    value : scalar or array-like, default=None
+        String/integer labels or None; numeric IDs are stored as strings, and lexical
+        labels retain their spelling. Scalars and one-item vectors broadcast; other
+        vectors follow selected positions.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Notes
+    -----
+    Only labels are replaced. Bond tables, membership, completeness, evidence, other
+    states, producer history and coordinates remain unchanged. Existing analysis
+    observations are preserved. Atom selections address their entire component rows:
+    unknown memberships or conflicting values for atoms of one component reject before
+    publication.
+    One attribute is staged before publication; several attributes in one
+    basic.set call are separate edits. No state or component row is inferred.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> chemical_states.rebuild_components(True, True, False, False)
+    >>> msm.set(chemical_states, element='atom', selection=[1], component_id=42)
+    >>> chemical_states.get(element='component', component_id=True)
+    ['0', '42']
+
+    .. versionadded:: 1.0.0
+    """
+    item._set_component_attribute(
+        "component_id", value, indices=indices, element="atom"
+    )
+
+
+@arg_digest(form=form)
+def set_component_name_to_component(
+    item, indices="all", value=None, skip_digestion=False
+):
+    """Assigning component names on the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStates
+        Collection with an unambiguous active/reference state and an explicitly
+        stored component inventory. msm.set chooses chemical_state without
+        changing the reference.
+    indices : 'all', int or array-like of int, default='all'
+        Unique component positions in the selected state. Empty selections are
+        no-ops after resolving the state; invalid or missing positions reject.
+    value : scalar or array-like, default=None
+        String labels or None. This assignment performs no chemical naming or
+        classification. Scalars and one-item vectors broadcast; other vectors follow
+        selected positions.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Notes
+    -----
+    Only labels are replaced. Bond tables, membership, completeness, evidence, other
+    states, producer history and coordinates remain unchanged. Existing analysis
+    observations are preserved.
+    One attribute is staged before publication; several attributes in one
+    basic.set call are separate edits. No state or component row is inferred.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> chemical_states.rebuild_components(True, True, False, False)
+    >>> msm.set(chemical_states, element='component', selection=[1], component_name='fragment')
+    >>> chemical_states.get(element='component', component_name=True)
+    [None, 'fragment']
+
+    .. versionadded:: 1.0.0
+    """
+    item._set_component_attribute(
+        "component_name", value, indices=indices, element="component"
+    )
+
+
+@arg_digest(form=form)
+def set_component_name_to_atom(item, indices="all", value=None, skip_digestion=False):
+    """Assigning component names on the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStates
+        Collection with an unambiguous active/reference state and an explicitly
+        stored component inventory. msm.set chooses chemical_state without
+        changing the reference.
+    indices : 'all', int or array-like of int, default='all'
+        Unique atom positions in the selected state. Empty selections are
+        no-ops after resolving the state; invalid or missing positions reject.
+    value : scalar or array-like, default=None
+        String labels or None. This assignment performs no chemical naming or
+        classification. Scalars and one-item vectors broadcast; other vectors follow
+        selected positions.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Notes
+    -----
+    Only labels are replaced. Bond tables, membership, completeness, evidence, other
+    states, producer history and coordinates remain unchanged. Existing analysis
+    observations are preserved. Atom selections address their entire component rows:
+    unknown memberships or conflicting values for atoms of one component reject before
+    publication.
+    One attribute is staged before publication; several attributes in one
+    basic.set call are separate edits. No state or component row is inferred.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> chemical_states.rebuild_components(True, True, False, False)
+    >>> msm.set(chemical_states, element='atom', selection=[1], component_name='fragment')
+    >>> chemical_states.get(element='component', component_name=True)
+    [None, 'fragment']
+
+    .. versionadded:: 1.0.0
+    """
+    item._set_component_attribute(
+        "component_name", value, indices=indices, element="atom"
+    )
+
+
+@arg_digest(form=form)
+def set_component_type_to_component(
+    item, indices="all", value=None, skip_digestion=False
+):
+    """Assigning component type labels on the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStates
+        Collection with an unambiguous active/reference state and an explicitly
+        stored component inventory. msm.set chooses chemical_state without
+        changing the reference.
+    indices : 'all', int or array-like of int, default='all'
+        Unique component positions in the selected state. Empty selections are
+        no-ops after resolving the state; invalid or missing positions reject.
+    value : scalar or array-like, default=None
+        String labels or None. This assignment performs no chemical naming or
+        classification. Scalars and one-item vectors broadcast; other vectors follow
+        selected positions.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Notes
+    -----
+    Only labels are replaced. Bond tables, membership, completeness, evidence, other
+    states, producer history and coordinates remain unchanged. Existing analysis
+    observations are preserved.
+    One attribute is staged before publication; several attributes in one
+    basic.set call are separate edits. No state or component row is inferred.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> chemical_states.rebuild_components(True, True, False, False)
+    >>> msm.set(chemical_states, element='component', selection=[1], component_type='small molecule')
+    >>> chemical_states.get(element='component', component_type=True)
+    [None, 'small molecule']
+
+    .. versionadded:: 1.0.0
+    """
+    item._set_component_attribute(
+        "component_type", value, indices=indices, element="component"
+    )
+
+
+@arg_digest(form=form)
+def set_component_type_to_atom(item, indices="all", value=None, skip_digestion=False):
+    """Assigning component type labels on the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStates
+        Collection with an unambiguous active/reference state and an explicitly
+        stored component inventory. msm.set chooses chemical_state without
+        changing the reference.
+    indices : 'all', int or array-like of int, default='all'
+        Unique atom positions in the selected state. Empty selections are
+        no-ops after resolving the state; invalid or missing positions reject.
+    value : scalar or array-like, default=None
+        String labels or None. This assignment performs no chemical naming or
+        classification. Scalars and one-item vectors broadcast; other vectors follow
+        selected positions.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Notes
+    -----
+    Only labels are replaced. Bond tables, membership, completeness, evidence, other
+    states, producer history and coordinates remain unchanged. Existing analysis
+    observations are preserved. Atom selections address their entire component rows:
+    unknown memberships or conflicting values for atoms of one component reject before
+    publication.
+    One attribute is staged before publication; several attributes in one
+    basic.set call are separate edits. No state or component row is inferred.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> chemical_states.rebuild_components(True, True, False, False)
+    >>> msm.set(chemical_states, element='atom', selection=[1], component_type='small molecule')
+    >>> chemical_states.get(element='component', component_type=True)
+    [None, 'small molecule']
+
+    .. versionadded:: 1.0.0
+    """
+    item._set_component_attribute(
+        "component_type", value, indices=indices, element="atom"
+    )
+
+
 __all__ = [name for name in globals() if name.startswith("set_")]

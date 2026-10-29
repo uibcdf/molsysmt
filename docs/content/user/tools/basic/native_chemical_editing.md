@@ -49,8 +49,15 @@ unique. Scalars broadcast and None records unknown values. Formal-charge
 quantities are converted explicitly to elementary charge; output remains the
 stored integer-count representation. The foundation lists supported fields.
 Each attribute stages validation and owner invalidation before publication;
-several attributes in one call are separate edits. Component assignment dispatch
-is still pending for standalone collections.
+several attributes in one call are separate edits.
+
+`component_index` declares atom membership in existing state-local component
+rows. Changed declarations become partial/user_defined, retain labels only for
+exact full atom sets and invalidate named analyses. No component row or graph is
+inferred. `component_id`, `component_name` and `component_type` assign row labels
+without invalidation. An atom-level label projection changes its entire component
+row and rejects unknown membership or conflicting labels. See the foundation for
+empty rows, nullable values, broadcasting and metadata correspondence.
 
 | Method | Use |
 | :--- | :--- |
@@ -92,8 +99,8 @@ Label-only reconstruction preserves observations.
 `get_bonds()` exposes a live table for reading and interchange. Direct table
 writes bypass this contract. Existing atom/bond assignment routes on MolSys and
 ChemicalStates remain available through supported `msm.set` attributes;
-standalone component assignment and dictionary query dispatch are still being
-migrated. Use these native methods
+dictionary query dispatch and mixed-owner cutover are still being migrated.
+Use these native methods
 for graph editing. No detector,
 chemical perception, cap placement or hydrogen addition runs automatically.
 

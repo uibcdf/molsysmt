@@ -29,6 +29,9 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Preserve the standalone ChemicalStates assignment example: explicit state,
   ordered unique positions, unknown unselected atoms, integer charge units,
   stored bond order and unchanged reference. Explain per-attribute staging.
+* Retain the executed partial component declaration: clearing an atom's membership
+  clears changed-set labels, retains the unchanged singleton ID and inventory size,
+  and records partial/user_defined evidence without graph inference.
 
 ### 5. Section 4: Duplicating Systems Before Modification
 * Must demonstrate deep copying objects with `msm.copy()` before applying in-place modifications.

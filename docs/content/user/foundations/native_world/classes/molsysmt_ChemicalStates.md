@@ -96,8 +96,8 @@ participation are read as declared, never inferred during querying.
 membership gives `None`, even if other component rows have labels. Bond and
 component IDs remain string labels, independent of positional indices. All these
 queries retain ordered repetitions, selected-state bounds and source tables.
-Component assignment dispatch and chemical predicates remain separate pending
-work; query support does not make live-table mutation a validated edit.
+Chemical predicates and dictionary dispatch remain separate pending work;
+query support does not make live-table mutation a validated edit.
 
 ## Assigning State Fields
 
@@ -130,8 +130,50 @@ stereochemical label requiring them, and evidence before a nondefault component
 participation flag. Metadata assignment does not rebuild components; explicitly
 call `rebuild_components` after changing participation if you need the partition
 of the modified graph. This differs from `add_bonds` and `remove_bonds`, which
-coordinate graph editing and reconstruction. Standalone component membership and
-label setters, dictionary assignment and mixed-owner cutover remain pending.
+coordinate graph editing and reconstruction. Dictionary assignment and mixed-owner
+cutover remain pending.
+
+## Component Declarations
+
+`msm.set(chemical_states, component_index=..., chemical_state=...)` declares
+atom membership in the selected state's **existing component rows**. Scalars
+and one-item vectors broadcast; other vectors follow the unique selected atom
+positions. None means unknown membership. Out-of-range references reject; this
+operation never creates, removes or compacts component rows. A zero-state
+collection requires an explicit state, and an unknown state with no component
+inventory cannot accept index 0. Existing inventory can come from an imported
+declaration or explicit `rebuild_components` over the observed graph.
+
+A changed membership declaration records `component_evidence='user_defined'` and
+`component_completeness='partial'`, or `'unavailable'` when every membership is
+unknown. It does not certify agreement with the bond graph or alter connectivity
+completeness, atom assignments, bonds or stable molecule ownership. Explicit
+reconstruction evaluates the stored graph with its existing participation rules.
+Identical declarations and empty selections preserve tables and analyses.
+
+Labels survive a membership change only when the **entire atom set** of a new
+component equals an old component's full atom set. Labels follow that set even
+when its index changes. Changed, merged or split sets receive missing IDs, names
+and types. Empty/unknown sets cannot establish a unique correspondence, so their
+labels also become unknown after a changed declaration. Stored row count remains
+unchanged, including rows with no assigned atoms; an explicit atom selection can
+still count distinct known memberships separately from the inventory size.
+
+Use `component_id`, `component_name` or `component_type` to assign labels on
+`element='component'` (also the inferred destination). None clears a label;
+scalars and one-item vectors broadcast. IDs normalize integer labels to strings
+and retain lexical spelling such as `'001'`; names/types require strings.
+`element='atom'` updates the whole component row of each selected atom, including
+its unselected members. Selected atoms need known membership. Multiple atoms of
+one component must supply the same label; conflicts reject before publication.
+
+Label-only edits preserve observation objects and completeness/evidence. Changed
+membership conservatively invalidates every named analysis of the owning MolSys,
+including evaluated-empty coverage. Membership, metadata correspondence and
+invalidation are staged together, so failure preserves the original tables,
+other states, history, reference, structure associations and coordinate arrays.
+These are per-attribute guarantees; a call with several attributes performs
+separate edits. A declaration does not run chemical preparation or graph inference.
 
 ## Controlled Editing
 

@@ -17,9 +17,15 @@ def count(item, element):
     return len(state.bonds if element == "bond" else state.components)
 
 
-def indices(item, element, selected):
+def indices(item, element, selected, *, state=None):
     """Validate against the selected state's axis before any positional access."""
-    size = count(item, element)
+    size = (
+        count(item, element)
+        if state is None
+        else item.n_atoms
+        if element == "atom"
+        else len(state.bonds if element == "bond" else state.components)
+    )
     if is_all(selected):
         return list(range(size))
     return validate_element_indices(

@@ -9,18 +9,15 @@ from molsysmt._private.variables import is_all
 from ._chemical_state import _BOND_OPTIONAL_DTYPES, Bonds_DataFrame, _coerce_bond_table
 
 
-def assign_field(item, attribute, values, selected="all"):
-    """Delegate one public atom/bond assignment to its selected chemical owner."""
-    from molsysmt import pyunitwizard as puw
+def assignment_positions(item, element, selected, *, state=None):
+    """Validate ordered unique write positions without enumerating a full axis."""
     from molsysmt._private.smonitor import ArgumentError
 
-    from ._chemical_fields import ATOM_FIELDS, BOND_FIELDS
     from ._chemical_queries import indices
 
-    element = "atom" if attribute in ATOM_FIELDS else "bond"
-    # Resolve even an empty selection: no edit may invent a missing state.
-    item._resolve_chemical_state()
-    positions = None if is_all(selected) else indices(item, element, selected)
+    positions = (
+        None if is_all(selected) else indices(item, element, selected, state=state)
+    )
     if positions is None and not is_all(selected):
         raise ArgumentError(
             "indices", value=selected, caller="molsysmt.ChemicalStates assignment"
@@ -32,6 +29,20 @@ def assign_field(item, attribute, values, selected="all"):
             caller="molsysmt.ChemicalStates assignment",
             message="Assignment positions must be unique; repeated writes are ambiguous.",
         )
+    return positions
+
+
+def assign_field(item, attribute, values, selected="all"):
+    """Delegate one public atom/bond assignment to its selected chemical owner."""
+    from molsysmt import pyunitwizard as puw
+    from molsysmt._private.smonitor import ArgumentError
+
+    from ._chemical_fields import ATOM_FIELDS, BOND_FIELDS
+
+    element = "atom" if attribute in ATOM_FIELDS else "bond"
+    # Resolve even an empty selection: no edit may invent a missing state.
+    item._resolve_chemical_state()
+    positions = assignment_positions(item, element, selected)
     if element == "atom":
         if attribute == "formal_charge" and puw.is_quantity(values):
             values = puw.get_value(values, to_unit="elementary_charge")
@@ -55,6 +66,134 @@ def assign_field(item, attribute, values, selected="all"):
             values,
             bond_indices="all" if positions is None else positions,
         )
+
+
+def _component_values(name, values):
+    """Validate untrusted scalar/vector component data before typed staging."""
+    from ._chemical_component_values import normalize_assignment
+
+    normalized = normalize_assignment(
+        name, values, caller="molsysmt.ChemicalStates assignment"
+    )
+    if name == "component_id" and isinstance(normalized, list):
+        return [None if value is None else str(value) for value in normalized]
+    return normalized
+
+
+def _component_vector(name, values, size):
+    """Broadcast a scalar/singleton or require an aligned component vector."""
+    if values is None or isinstance(values, str):
+        return [values] * size
+    if len(values) == 1:
+        return values * size
+    if len(values) != size:
+        raise StructuralInconsistencyError(
+            reason=f"Component field {name!r} received {len(values)} values; expected {size}.",
+            caller="molsysmt.native.ChemicalStates",
+        )
+    return values
+
+
+def component_membership(item, state, values, positions):
+    """Stage a partial declaration using only the state's existing component rows."""
+    from ._chemical_components import unchanged_rows
+    from ._chemical_state import Components_DataFrame
+
+    size = item.n_atoms if positions is None else len(positions)
+    if not size:
+        return {}
+    state._validate_atom_domain(item.n_atoms)
+    values = _component_values("component_index", values)
+    normalized = pd.array(
+        _component_vector("component_index", values, size), dtype="Int64"
+    )
+    if np.any(
+        normalized.to_numpy(dtype=np.int64, na_value=-1) >= len(state.components)
+    ):
+        raise StructuralInconsistencyError(
+            reason="Declared component indices must refer to existing rows in the selected state.",
+            caller="molsysmt.native.ChemicalStates",
+        )
+    candidate = state.component_indices.copy()
+    if positions is None:
+        candidate[:] = normalized
+    else:
+        candidate.iloc[positions] = normalized
+    if candidate.equals(state.component_indices):
+        return {}
+    old = state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
+    new = candidate.to_numpy(dtype=np.int64, na_value=-1)
+    count = len(state.components)
+    new_rows, old_rows = unchanged_rows(old, new, count, count)
+    components = Components_DataFrame(n_components=count)
+    for column in components:
+        components[column] = pd.array([pd.NA] * count, dtype="string")
+        components.loc[new_rows, column] = (
+            state.components[column].iloc[old_rows].to_numpy()
+        )
+    return {
+        "component_indices": candidate,
+        "components": components,
+        "_component_completeness": "partial"
+        if candidate.notna().any()
+        else "unavailable",
+        "_component_evidence": "user_defined",
+    }
+
+
+def component_labels(item, state, element, name, values, positions):
+    """Stage component labels, rejecting conflicting atom-to-row projections."""
+    from ._chemical_fields import COMPONENT_FIELDS
+    from ._chemical_queries import _membership
+
+    if name not in COMPONENT_FIELDS or element not in {"atom", "component"}:
+        raise StructuralInconsistencyError(
+            reason=f"Unsupported component label {name!r}.",
+            caller="molsysmt.native.ChemicalStates",
+        )
+    size = (
+        (item.n_atoms if element == "atom" else len(state.components))
+        if positions is None
+        else len(positions)
+    )
+    if not size:
+        return None
+    values = _component_values(name, values)
+    if element == "atom":
+        rows = _membership(item, state, positions)
+        if np.any(rows < 0):
+            raise StructuralInconsistencyError(
+                reason="Selected atoms need known component membership before assigning a component label.",
+                caller="molsysmt.native.ChemicalStates",
+            )
+    else:
+        rows = (
+            np.arange(size)
+            if positions is None
+            else np.asarray(positions, dtype=np.int64)
+        )
+    if values is None or isinstance(values, str) or len(values) == 1:
+        rows = np.unique(rows)
+        normalized = _component_vector(name, values, len(rows))
+    else:
+        normalized = _component_vector(name, values, size)
+        by_row = {}
+        for row, value in zip(rows, normalized):
+            if row in by_row and value != by_row[row]:
+                raise StructuralInconsistencyError(
+                    reason="Selected atoms assign conflicting labels to the same component.",
+                    caller="molsysmt.native.ChemicalStates",
+                )
+            by_row[row] = value
+        rows = list(by_row)
+        normalized = list(by_row.values())
+    if name == "component_id":
+        normalized = [None if value is None else str(value) for value in normalized]
+    candidate = state.components.copy(deep=True)
+    column = pd.array(state.components[name], dtype="string")
+    column[rows] = pd.array(normalized, dtype="string")
+    candidate[name] = column
+    return candidate
 
 
 def bond_selection(bond_indices, count):

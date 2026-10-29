@@ -94,8 +94,11 @@ For stored atom/bond assignments, use :func:`molsysmt.basic.set` directly on
 ChemicalStates with a chemical_state selector. Each attribute stages its typed
 replacement and owner invalidation before publication. Scientific assignments
 invalidate all named analyses; bond_id labels preserve observations. Unique
-positions and nullable values follow the selected state. Component setters on a
-standalone collection remain pending. See
+positions and nullable values follow the selected state. Component membership
+declares existing rows, conservatively downgrades completeness and stages exact
+atom-set metadata correspondence with invalidation. Component labels preserve
+observations; atom projections reject unknown membership and conflicting labels.
+See
 :ref:`user-foundations-native-world-classes-molsysmt-chemicalstates` for field,
 charge-unit and explicit component-reconstruction boundaries.
 

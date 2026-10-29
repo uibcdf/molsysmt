@@ -14,3 +14,7 @@ standalone field/dictionary queries and reference-scoped info summaries.
 Preserve selected-state atom/bond assignment, scalar/nullable/order semantics,
 explicit elementary-charge conversion and per-attribute staged publication.
 Distinguish scientific invalidation from bond-label edits and component rebuilding.
+Keep bounded component declarations, partial/unavailable completeness and
+user_defined evidence, exact full atom-set metadata transfer and fixed inventory.
+Explain component labels projected from atoms, conflict/unknown rejection and
+label-only observation preservation; declarations never perceive graph partitions.

@@ -27,6 +27,14 @@ def digest_component_type(component_type, caller=None):
         If the given `component_type` has not of the correct type or value.
     """
 
+    if caller == "molsysmt.basic.set.set" or (
+        isinstance(caller, str)
+        and caller.startswith("molsysmt.form.molsysmt_ChemicalStates.set.")
+    ):
+        from molsysmt.native._chemical_component_values import normalize_assignment
+
+        return normalize_assignment("component_type", component_type, caller)
+
     if caller == "molsysmt.basic.get.get":
         if isinstance(component_type, bool):
             return component_type

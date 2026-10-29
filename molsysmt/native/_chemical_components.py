@@ -35,12 +35,13 @@ def unchanged_rows(old_indices, new_indices, n_old, n_new, *, atom_indices=None)
         known = known[atom_indices]
     minimum = np.full(n_new, n_old, dtype=np.int64)
     maximum = np.full(n_new, -1, dtype=np.int64)
-    np.minimum.at(minimum, new_indices, known)
-    np.maximum.at(maximum, new_indices, known)
+    represented = new_indices >= 0
+    np.minimum.at(minimum, new_indices[represented], known[represented])
+    np.maximum.at(maximum, new_indices[represented], known[represented])
     new_rows = np.flatnonzero((minimum >= 0) & (minimum == maximum))
     old_rows = minimum[new_rows]
     old_counts = np.bincount(old_indices[valid], minlength=n_old)
-    new_counts = np.bincount(new_indices, minlength=n_new)
+    new_counts = np.bincount(new_indices[represented], minlength=n_new)
     unchanged = new_counts[new_rows] == old_counts[old_rows]
     return new_rows[unchanged], old_rows[unchanged]
 

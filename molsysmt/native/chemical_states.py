@@ -315,6 +315,28 @@ class ChemicalStates(NativeQueries):
         with self._invalidating_chemical_interactions():
             state.component_indices = candidate
 
+    def _assign_component_indices(self, values, atom_indices="all", state_index=None):
+        """Publish a bounded partial membership declaration without graph inference."""
+        from ._chemical_assignments import assignment_positions, component_membership
+
+        state = self._resolve_chemical_state(state_index)
+        positions = assignment_positions(self, "atom", atom_indices, state=state)
+        changes = component_membership(self, state, values, positions)
+        if changes:
+            self._publish_edit(state, changes)
+
+    def _set_component_attribute(
+        self, name, values, indices="all", element="component", state_index=None
+    ):
+        """Publish a component label with its selected-state row correspondence."""
+        from ._chemical_assignments import assignment_positions, component_labels
+
+        state = self._resolve_chemical_state(state_index)
+        positions = assignment_positions(self, element, indices, state=state)
+        candidate = component_labels(self, state, element, name, values, positions)
+        if candidate is not None:
+            self._publish_edit(state, {"components": candidate})
+
     def _replace_states(self, states, reference_index=None):
         """Replace state records after validating their shared atom domain."""
 
@@ -790,8 +812,8 @@ class ChemicalStates(NativeQueries):
         This is a live interchange view. Direct Pandas/NumPy writes bypass
         validation, component rebuilding and owner notification. Use add_bonds,
         remove_bonds, rebuild_components or supported basic.set attributes on
-        an owning MolSys for controlled changes. Standalone assignment dispatch
-        is still being migrated. Previously held tables remain snapshots after a
+        this collection or an owning MolSys for controlled changes. Previously
+        held tables remain snapshots after a
         supported edit replaces the current table. Controlled bond_id assignments
         preserve bond positions, nullable columns and interaction observations.
 

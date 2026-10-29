@@ -59,7 +59,7 @@ sections:
           - name: chemical_states
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md.AGENTS.md
-            description: Ordered native chemistry, nullable field queries and staged atom/bond assignments, component labels, state-local bounds, completeness and live-table boundaries.
+            description: Ordered native chemistry, nullable queries, staged field/component assignments, exact metadata correspondence, state-local bounds, completeness and live-table boundaries.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md
@@ -132,7 +132,7 @@ sections:
           - name: set
             file: docs/content/user/tools/basic/set.ipynb
             agents_file: docs/content/user/tools/basic/set.ipynb.AGENTS.md
-            description: Attribute assignment, coordinates and mechanics, with selected-state nullable chemistry and per-attribute staged publication on ChemicalStates.
+            description: Attribute, coordinate and mechanics assignment, with nullable chemistry, partial component declarations, exact labels and per-attribute staged publication.
           - name: copy
             file: docs/content/user/tools/basic/copy.ipynb
             agents_file: docs/content/user/tools/basic/copy.ipynb.AGENTS.md
@@ -149,7 +149,7 @@ sections:
           - name: native_chemical_editing
             file: docs/content/user/tools/basic/native_chemical_editing.md
             agents_file: docs/content/user/tools/basic/native_chemical_editing.md.AGENTS.md
-            description: Selected-state queries, staged atom/bond assignments, nullable values, reconstruction flags and edits preserving coordinates, histories and associations.
+            description: Selected-state queries, staged field/component declarations, nullable values, exact labels, explicit graph reconstruction and preserved coordinates/history.
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
             agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md
@@ -582,7 +582,7 @@ sections:
       - name: group_free_hierarchy
         file: docs/content/user/cookbook/group_free_hierarchy.ipynb
         agents_file: docs/content/user/cookbook/group_free_hierarchy.ipynb.AGENTS.md
-        description: Declaring stable atom/molecule membership, querying and assigning alternative-state chemistry, comparing graph restriction, retaining ownership through edits and using MDTraj selectors
+        description: Declaring stable molecule and partial component membership, exact-set labels, alternative-state chemistry, graph restriction and MDTraj selectors
       - name: molecular_descriptors
         file: docs/content/user/cookbook/molecular_descriptors.md
         agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md

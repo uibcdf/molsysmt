@@ -64,3 +64,48 @@ def test_explicitly_trusted_assignment_still_rejects_unrepresentable_storage(fie
             fields, indices=[0], value=40000, skip_digestion=True
         )
     assert fields._states[0].atom_attributes is before
+
+
+@pytest.mark.parametrize(
+    "setter,getter,indices,value,expected",
+    [
+        (
+            "set_component_id_to_component",
+            "get_component_id_from_component",
+            [1],
+            42,
+            ["42"],
+        ),
+        (
+            "set_component_name_to_component",
+            "get_component_name_from_component",
+            [0],
+            None,
+            [None],
+        ),
+        (
+            "set_component_type_to_atom",
+            "get_component_type_from_atom",
+            [2],
+            "ion",
+            ["ion"],
+        ),
+        ("set_component_index_to_atom", "get_component_index_from_atom", [2], 0, [0]),
+    ],
+)
+def test_direct_component_assignment_obeys_native_table_and_nullable_contracts(
+    fields, setter, getter, indices, value, expected
+):
+    getattr(adapter, setter)(fields, indices=indices, value=value)
+    assert getattr(adapter, getter)(fields, indices=indices) == expected
+
+
+def test_component_indices_are_validated_even_for_trusted_internal_calls(fields):
+    from molsysmt._private.smonitor import StructuralInconsistencyError
+
+    before = fields._states[0].component_indices
+    with pytest.raises(StructuralInconsistencyError, match="existing rows"):
+        adapter.set_component_index_to_atom(
+            fields, indices=[2], value=2, skip_digestion=True
+        )
+    assert fields._states[0].component_indices is before

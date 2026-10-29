@@ -12,3 +12,5 @@ Preserve the executed contrast between known zero/False reference assignments an
 missing alternative-state properties, with declared charge units and no perception.
 Retain controlled assignment to that alternative state without changing reference
 chemistry; component reconstruction remains explicit for participation edits.
+Preserve the atom-projected label and partial declaration example: untouched
+singleton labels survive, changed pair labels clear, and inventory/molecules stay fixed.

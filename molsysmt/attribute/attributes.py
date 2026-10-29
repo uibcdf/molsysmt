@@ -251,6 +251,7 @@ add_attribute(
     topological=True,
     chemical_state=True,
     get_from=["atom", "group", "component", "molecule", "chain", "entity"],
+    set_to="atom",
 )
 
 ## component_name

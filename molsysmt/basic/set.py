@@ -84,8 +84,11 @@ def set(
     - Standalone ``ChemicalStates`` supports those seven atom assignments and
       the twelve rich bond fields through the same state selector. Values follow
       unique selected positions; None assigns unknown values. No state or graph
-      is created implicitly. Component membership/label assignment dispatch on
-      standalone collections is still being migrated.
+      is created implicitly. Component indices declare membership in existing
+      state-local rows; a changed declaration is partial and preserves labels only
+      for exact full atom sets. Component labels accept scalars or aligned vectors;
+      an atom projection rejects unknown memberships and conflicting row labels.
+      Label edits preserve observations; membership changes invalidate them.
     - Each standalone ChemicalStates attribute is validated and staged before publication.
       Several attributes in one call are separate assignments, not one transaction.
     - ``isotope`` sets the stable nullable isotope mass number. It does not set
