@@ -389,29 +389,9 @@ class Topology(NativeQueries):
         for table_name in ("atoms", "groups", "molecules", "entities", "chains"):
             if not getattr(self, table_name).equals(getattr(item, table_name)):
                 return False
-        if self._reference_chemical_state_index != item._reference_chemical_state_index:
-            return False
-        if len(self._chemical_states) != len(item._chemical_states):
-            return False
-        metadata = (
-            "state_id",
-            "connectivity_completeness",
-            "component_completeness",
-            "component_evidence",
-            "provenance_index",
+        return self._chemical_states_domain._inventory_equals(
+            item._chemical_states_domain
         )
-        for left, right in zip(self._chemical_states, item._chemical_states):
-            if any(getattr(left, name) != getattr(right, name) for name in metadata):
-                return False
-            if not left.component_indices.equals(right.component_indices):
-                return False
-            if not left.components.equals(right.components):
-                return False
-            if not left.atom_attributes.equals(right.atom_attributes):
-                return False
-            if not left.bonds.equals(right.bonds):
-                return False
-        return True
 
     @contextmanager
     def _using_chemical_state(self, state_index):
@@ -480,20 +460,7 @@ class Topology(NativeQueries):
 
     _coerce_bond_table = staticmethod(_chemical_storage._coerce_bond_table)
 
-    @classmethod
-    def _concatenate_bond_tables(cls, *tables):
-        """Concatenate bond storage without all-missing optional dtype drift."""
-
-        required_columns = {"atom1_index", "atom2_index"}
-        prepared = []
-        for table in tables:
-            keep_columns = [
-                column
-                for column in table.columns
-                if column in required_columns or table[column].notna().any()
-            ]
-            prepared.append(table.loc[:, keep_columns])
-        return cls._coerce_bond_table(pd.concat(prepared, ignore_index=True))
+    _concatenate_bond_tables = staticmethod(_chemical_storage._concatenate_bond_tables)
 
     _remap_bond_atom_indices = staticmethod(_chemical_storage._remap_bond_atom_indices)
 

@@ -53,7 +53,7 @@ sections:
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
             description: Native hierarchy with stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation.
           - name: molsys
-            description: Native domains, explicit standalone-provider composition, chemical ownership, copy boundaries, bounded metadata, controlled edits and analysis invalidation.
+            description: Native domains, explicit provider composition, chemical ownership, complete versus partial graph restriction, exact component labels, remapped stereo references, copy boundaries, controlled edits and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
       - name: language
@@ -134,6 +134,10 @@ sections:
             file: docs/content/user/tools/basic/convert.ipynb
             description: Form conversion, explicit four-domain native composition, chemical ownership, axis conflicts, preserved mechanics provenance and independent selections.
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
+          - name: extract
+            file: docs/content/user/tools/basic/extract.ipynb
+            agents_file: docs/content/user/tools/basic/extract.ipynb.AGENTS.md
+            description: Aligned subsystem extraction, complete induced chemical graphs, partial component declarations and stable molecule ownership.
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
             agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md
@@ -566,7 +570,7 @@ sections:
       - name: group_free_hierarchy
         file: docs/content/user/cookbook/group_free_hierarchy.ipynb
         agents_file: docs/content/user/cookbook/group_free_hierarchy.ipynb.AGENTS.md
-        description: Declaring stable ungrouped atom/molecule membership, retaining it through bond edits, adding groups and using MDTraj selectors without changing source molecules
+        description: Declaring stable atom/molecule membership, comparing complete and partial graph restriction, retaining ownership through bond edits, adding groups and using MDTraj selectors
       - name: molecular_descriptors
         file: docs/content/user/cookbook/molecular_descriptors.md
         agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md

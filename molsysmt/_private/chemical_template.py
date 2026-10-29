@@ -635,15 +635,15 @@ def evaluate(
             and not unexpected
         )
         if missing and can_complete and len(selected) != ns:
-            from molsysmt.native._topology_infer import (
-                _component_indices_from_bonds,
-                _unchanged_component_rows,
+            from molsysmt.native._chemical_components import (
+                indices_from_bonds,
+                unchanged_rows,
             )
 
             # A global rebuild must not reconcile unrelated stored partitions.
-            inferred = _component_indices_from_bonds(ns, state.bonds)
+            inferred = indices_from_bonds(ns, state.bonds)
             n_components = int(inferred.max()) + 1
-            unchanged, _ = _unchanged_component_rows(
+            unchanged, _ = unchanged_rows(
                 state.component_indices.to_numpy(dtype=np.int64, na_value=-1),
                 inferred,
                 len(state.components),

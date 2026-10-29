@@ -867,6 +867,15 @@ class MolSys(NativeQueries):
         established sorted-index order. Without a Structures domain, explicit structure
         selection requires a structure-index domain declared by interactions.
 
+        Complete stored connectivity yields components of the retained induced
+        graph, independently for each chemical state. Only exact full source atom
+        sets retain component labels. Partial/unavailable connectivity restricts
+        declared memberships without certifying a complete graph partition.
+        Molecule ownership, state ordering and structure-to-state associations
+        remain independent. Stereo references are remapped or cleared when a
+        defining atom is absent. Preparation histories retain their original
+        operation-index scope; no chemistry is recalculated.
+
         Examples
         --------
         >>> from molsysmt.native import MolSys

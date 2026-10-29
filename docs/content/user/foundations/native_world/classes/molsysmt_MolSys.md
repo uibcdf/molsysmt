@@ -81,6 +81,30 @@ an automatic structure association. H5MSM 0.5 still rejects nonempty mechanics.
 
 Direct `MolSys.add` and `Topology.add` calls also validate `keep_ids` as a boolean, including its default `True`. Leave `skip_digestion=False` for ordinary public calls; trusted delegation is not required to use these methods.
 
+## Restricting Chemical Domains
+
+An atom selection restricts every stored chemical state while preserving state
+order, the reference and structure-to-state associations. With complete stored
+connectivity, components describe the retained induced graph. Removing the middle
+atom of a three-atom path therefore leaves two components. Both can still belong
+to the same stable molecule: molecular identity and covalent connectivity are
+separate domains.
+
+For complete graphs, component labels survive only when the full original atom set is unchanged.
+New or cut components receive local string IDs and unknown names/types. With
+partial or unavailable connectivity, extraction instead restricts the declared
+memberships; it does not invent a complete partition from the visible edges.
+Those rows still describe restricted source declarations. Cutting a retained
+component downgrades a complete declaration to partial.
+
+Stereo references follow their corresponding bond endpoints when atom order
+changes. Removing a defining stereo neighbor clears the now-incomplete bond
+stereo annotation. Historical preparation records retain their original index
+scope. A complete induced graph is not a prepared standalone chemical fragment:
+extraction does not add caps or hydrogens, perceive aromaticity, choose a chemical
+state or recalculate interactions. See {ref}`Tutorial_Extract` and
+{ref}`Cookbook_Group_Free_Hierarchy` for executed examples.
+
 ## Native Queries
 
 `get()` and `info()` share the basic-tool query and table contracts, using known

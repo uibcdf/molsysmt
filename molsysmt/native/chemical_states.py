@@ -122,6 +122,40 @@ class ChemicalStates(NativeQueries):
             )
         return state_index
 
+    def _inventory_equals(self, other):
+        """Compare ordered chemical inventory without resolving or selecting a state.
+
+        This is the existing strict structure-append comparison. Producer history
+        is not a chemical change; it remains outside this inventory comparison.
+        Index alignment is declared separately, never inferred from matching IDs.
+        """
+        if (
+            not isinstance(other, ChemicalStates)
+            or self.n_atoms != other.n_atoms
+            or self._reference_index != other._reference_index
+            or self.n_chemical_states != other.n_chemical_states
+        ):
+            return False
+        metadata = (
+            "state_id",
+            "connectivity_completeness",
+            "component_completeness",
+            "component_evidence",
+            "provenance_index",
+        )
+        for left, right in zip(self._states, other._states):
+            if any(getattr(left, name) != getattr(right, name) for name in metadata):
+                return False
+            for field in (
+                "component_indices",
+                "components",
+                "atom_attributes",
+                "bonds",
+            ):
+                if not getattr(left, field).equals(getattr(right, field)):
+                    return False
+        return True
+
     def _replace_states(self, states, reference_index=None):
         """Replace state records after validating their shared atom domain."""
 
@@ -493,6 +527,7 @@ class ChemicalStates(NativeQueries):
     def _extract_atoms(self, atom_indices):
         """Return states remapped to one ordered subset of the atom axis."""
 
+        from ._chemical_components import restrict
         from ._chemical_state import (
             _ChemicalStateStorage,
             _coerce_bond_table,
@@ -514,31 +549,29 @@ class ChemicalStates(NativeQueries):
         atom_map = {int(old): new for new, old in enumerate(atoms)}
         extracted_states = []
         for source_state in self._states:
-            source_state._ensure_compatibility(self._n_atoms)
-            membership = source_state.component_indices.iloc[atoms].copy()
-            old_components = membership.dropna().unique().tolist()
-            component_map = {old: new for new, old in enumerate(old_components)}
-            components = source_state.components.iloc[old_components].copy()
-            components.index = range(len(components))
-            membership = membership.map(component_map).astype("Int64")
-            membership.index = range(len(membership))
-
+            source_state._validate_atom_domain(self._n_atoms)
             bonds = source_state.bonds
             kept = np.isin(bonds["atom1_index"], atoms) & np.isin(
                 bonds["atom2_index"], atoms
             )
             bonds = bonds[kept].copy()
             bonds.index = range(len(bonds))
-            bonds = _remap_bond_atom_indices(bonds, atom_map)
+            bonds = _coerce_bond_table(
+                _remap_bond_atom_indices(bonds, atom_map, canonical_order=True),
+                n_atoms=len(atoms),
+            )
+            components, membership, completeness, evidence = restrict(
+                source_state, atoms, bonds
+            )
             state = _ChemicalStateStorage(
                 n_atoms=len(atoms),
-                bonds=_coerce_bond_table(bonds, n_atoms=len(atoms)),
+                bonds=bonds,
                 components=components,
                 component_indices=membership,
                 state_id=source_state.state_id,
                 connectivity_completeness=source_state.connectivity_completeness,
-                component_completeness=source_state.component_completeness,
-                component_evidence=source_state.component_evidence,
+                component_completeness=completeness,
+                component_evidence=evidence,
                 provenance_index=source_state.provenance_index,
                 preparation_history=source_state._preparation_history,
             )

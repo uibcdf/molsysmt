@@ -295,6 +295,41 @@ class _ChemicalStateStorage:
 
         self._normalize_atom_attribute_columns()
 
+    def _validate_atom_domain(self, n_atoms):
+        """Check current storage alignment without repairing or changing it.
+
+        Legacy normalization belongs to explicit decoding. Native restrictions
+        must not silently resize an unknown vector or mutate a source record.
+        """
+        expected = pd.RangeIndex(n_atoms)
+        if (
+            not isinstance(self.atom_attributes, pd.DataFrame)
+            or not self.atom_attributes.index.equals(expected)
+            or not isinstance(self.component_indices, pd.Series)
+            or not self.component_indices.index.equals(expected)
+            or str(self.component_indices.dtype) != "Int64"
+        ):
+            raise StructuralInconsistencyError(
+                reason="Chemical-state atom rows must align with their stored atom domain.",
+                caller="molsysmt.native.ChemicalStates",
+            )
+        if not isinstance(
+            self.components, pd.DataFrame
+        ) or not self.components.index.equals(pd.RangeIndex(len(self.components))):
+            raise StructuralInconsistencyError(
+                reason="Chemical-state component rows must use contiguous positional indices.",
+                caller="molsysmt.native.ChemicalStates",
+            )
+        membership = self.component_indices.to_numpy(dtype=np.int64, na_value=-1)
+        if self.component_indices.lt(0).any() or np.any(
+            membership >= len(self.components)
+        ):
+            raise StructuralInconsistencyError(
+                reason="Chemical-state component membership is outside its component inventory.",
+                caller="molsysmt.native.ChemicalStates",
+            )
+        self._validated_atom_attributes(self.atom_attributes)
+
     def _normalize_atom_attribute_columns(self):
         """Validate names, order, and nullable dtypes of atom-state columns."""
 
@@ -792,6 +827,20 @@ def _coerce_bond_table(value, n_atoms=None):
     output._remove_empty_columns()
     output._sort_bonds()
     return output
+
+
+def _concatenate_bond_tables(*tables):
+    """Concatenate bond storage without all-missing optional dtype drift."""
+    required_columns = {"atom1_index", "atom2_index"}
+    prepared = []
+    for table in tables:
+        keep_columns = [
+            column
+            for column in table.columns
+            if column in required_columns or table[column].notna().any()
+        ]
+        prepared.append(table.loc[:, keep_columns])
+    return _coerce_bond_table(pd.concat(prepared, ignore_index=True))
 
 
 def _remap_bond_atom_indices(table, index_map, *, canonical_order=False):
