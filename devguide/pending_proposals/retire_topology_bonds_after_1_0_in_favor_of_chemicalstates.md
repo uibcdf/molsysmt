@@ -223,7 +223,7 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
 | P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules, C3 graph edits and private typed assignment authority implemented on development branch; pure Topology and consumer cutover remain | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned state scopes and standalone stored-axis/count queries implemented on development branch; rich attributes, dictionaries and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
+| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned scopes, stored-axis/count and nullable field queries implemented on development branch; assignments, dictionaries and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
 | P4: builder and lifecycle | P2, P3 | Stable molecule transport, C4 restriction and atomic selected-state graph edits implemented; MolSys/Builder ownership cutover remains | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
@@ -1401,9 +1401,10 @@ payload. These are warmed Python-allocation observations for this metadata call,
 not whole-process RSS, full-system memory, cold-start throughput or a comparison
 against the C7 baseline. The final benchmark work remains necessary.
 
-This is a bounded P3 slice. Rich atom/bond fields, component labels, general
+At this stored-axis checkpoint, rich atom/bond fields, component labels, general
 standalone set/predicate delivery, ChemicalStatesDict query piping and mixed
-MolSys/Builder/provider cutover remain open. Existing get_bonds still supplies
+MolSys/Builder/provider cutover remained open. The next receipt records the
+subsequent field/label slice. Existing get_bonds still supplies
 the documented live interchange view. Reference-scoped info can summarize
 supported resident counts and component membership; it has no new public
 chemical_state selector in this checkpoint. A group-level query requiring stable
@@ -1450,6 +1451,103 @@ Integrated C6/C7/client qualification remains pending. No overall timing or memo
 improvement is claimed merely from using resident providers. Next: extend the
 chemical owner's actual field/label providers and selected-state assignment
 dispatch, then coordinate them with MolSys/Builder and codec ownership cutover.
+
+### P3 second slice: nullable stored fields and component labels
+
+Development commit
+[`4332d3bd8efaf54109ec096d17e9c3204589fa64`](https://github.com/uibcdf/molsysmt/commit/4332d3bd8efaf54109ec096d17e9c3204589fa64)
+extends standalone ChemicalStates native/basic get with seven stored atom
+assignments, twelve public bond attributes and state-local component IDs, names
+and types. Component labels project onto atom positions through declared nullable
+membership. The native chemical owner holds field mappings, availability and
+projection; thin decorated form getters expose those existing catalogue names.
+These are **Contract-tested** and **Parity-tested** stored-data routes, not new
+chemical perception or independently validated preparation methods.
+
+An absent atom-property column returns None; a materialized column retains one
+nullable value per selected atom. Missing bond fields retain edge cardinality,
+including two independently nullable atom references for bond stereochemistry.
+Empty selections retain the documented shapes. False/zero remain available
+assignments. IDs remain string labels rather than positions. Masks, repetitions,
+selected-state bounds, unavailable/ambiguous errors and reference restoration
+remain consistent with basic.get. Selected component labels never index unknown
+membership as the last component. Queries do not create states, rebuild graphs,
+normalize assignments, copy full state tables or modify other states/history.
+Formal charge retains the existing discrete Int16 schema and integer multiples
+of the elementary charge; it is neither a partial-charge quantity nor a summed
+system charge. No unit policy, detector, compiled primitive, schema or attribution
+boundary changes. Reading stored evidence does not earn execution credit for the
+scientific method that originally produced it.
+
+Full-axis field reads avoid enumerating row positions, and small component-label
+selections project the requested membership rows before integer conversion and
+reference validation. An allocation guard preallocates a one-million-atom
+unknown-state membership, warms dispatch and traces only the query for two atom
+positions. Its generous 1 MB allowance rejects full-axis materialization. A
+controlled negative variant reads the entire membership before selecting the
+same two rows: values still match, but the guard fails at **11,011,854 bytes**
+(expected pytest exit 1, control driver exit 0). This is an allocation regression
+control, not whole-process RSS or a general speed/memory benchmark.
+
+Verification on Linux/Python 3.14.7 in the existing development environment:
+
+- The established native/basic-get/basic-select/topology/H5MSM/component/template
+  and extraction/removal regression, extended with the new native fields and
+  ChemicalStates form tests, reports **4,599 passed**, exit 0, **107.94 s**,
+  776 warnings. The unfinished target-contract module is selected separately.
+  Runtime sources are unchanged across that run and the final focused run below.
+- Final field/form/previous-axis/rich-bond selection reports **214 passed**,
+  exit 0, **6.70 s**. This includes the revised allocation guard and 114 new
+  native/form cases; counts overlap the broad regression and are not additive.
+  Literal expectations use independently spelled typed wire records, not the
+  production field mappings. Direct adapter bounds, missing/all-null fields,
+  False/zero, independent stereo references, detached results, source table
+  identity/content, no discovery/repair/Topology construction and dictionary/
+  chemical-only H5MSM 0.5 round trips are covered.
+- Native query/ChemicalStates doctests report **9 passed**, exit 0, **0.56 s**.
+- The original target-contract module remains **17 passed, 19 failed**, exit 1,
+  **5.87 s**. Its outstanding pure-Topology, MolSys replacement, Builder,
+  dictionary association and new functional-namespace requirements are unchanged;
+  no test is skipped, xfailed or weakened to claim migration completion.
+
+Reproducible final focused checks:
+
+```bash
+python -m pytest --receptor=llm -n 12 \
+  tests/native/test_chemical_state_field_queries.py \
+  tests/form/molsysmt_ChemicalStates \
+  tests/native/test_chemical_state_queries.py \
+  tests/native/test_rich_bond_public_attributes.py
+python -m pytest --receptor=llm --doctest-modules \
+  molsysmt/native/queries.py molsysmt/native/chemical_states.py \
+  molsysmt/form/molsysmt_ChemicalStates/get_chemical_attributes.py
+python -m pytest --receptor=llm -n 12 tests/native/test_chemical_domain_separation.py
+```
+
+Foundations, Toolbox, API notes, course Common Core 04 and the group-free Cookbook
+now explain the same stored-field contract. Both notebooks execute (7.3 s and
+7.6 s), preserve all previous code cells and retain executed outputs/fingerprints.
+The Cookbook contrasts known zero/False reference assignments with an unknown
+alternative. Sphinx HTML succeeds with the established diagnostic static-assets
+exclusion and two pre-existing static README toctree warnings. Rendered sections,
+anchors and nullable examples are inspected; this is not deployed-view testing.
+
+The maintained `devtools/scripts/validate_course.py` confirms 156 modules. The
+obsolete duplicate under `docs/content/course/devtools/validate_course.py` was
+also invoked and still rejects its old template (0/156), as already recorded
+under #304; it is not a newly failing course/release gate. All 97 adapter
+structural/delivery-ratchet checks, Ruff/formatting, docstring validation,
+optional-import checks, 277-symbol registry and signature comparison against
+`69aaf8b5dbe81f77bd35c1159705b5bfea17960a` pass. The native binary and four unrelated
+RST edits are unchanged. No dependency/environment installation, main merge,
+release or tag is included. Successful test payloads are removed; compact logs
+remain in ignored `chemical-domain-255-qualification` cache.
+
+**Next:** selected-state assignment delivery using the existing chemical owner's
+validated staged setters; then dictionary/predicate and mixed-owner routing,
+MolSys/Builder ownership, functional API/codec cutover and C7 receiving checks.
+P3 as a whole and #255 remain open. Topology's temporary delegations and the
+separate live-table mutation limitation remain explicit until coherent C6.
 
 ## Acceptance matrix
 
