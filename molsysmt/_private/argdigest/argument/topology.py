@@ -5,8 +5,10 @@ from argdigest.core.caller import caller_matches
 from molsysmt._private.smonitor import ArgumentError
 
 
-def digest_topology(topology, caller=None):
-    if not caller_matches(caller, "write_layers") or topology is None:
+def digest_topology(topology, caller=None, native_chemical_rebuild=False):
+    if (
+        not native_chemical_rebuild and not caller_matches(caller, "write_layers")
+    ) or topology is None:
         return topology
     from molsysmt.native import Topology
 

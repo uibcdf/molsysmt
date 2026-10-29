@@ -3,7 +3,7 @@
 This guide governs all content under `docs/content/user/foundations/native_world/classes/`.
 
 ## 🧭 Subdirectory Purpose & Scope
-Cover the 10 native Python classes and declarative dictionaries representing molecular systems, topology, structures, molecular mechanics, and graphics schemas.
+Cover native Python classes and declarative dictionaries representing molecular systems, topology, chemical states, structures, molecular mechanics, and graphics schemas.
 
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files
 - `index.md` ➔ `index.AGENTS.md`: Group landing page with `toctree`.
@@ -12,6 +12,7 @@ Cover the 10 native Python classes and declarative dictionaries representing mol
 - `molsysmt_MolSysDict.md` ➔ `molsysmt_MolSysDict.md.AGENTS.md`: Declarative system dict (`# MolSysDict`).
 - `molsysmt_Topology.md` ➔ `molsysmt_Topology.md.AGENTS.md`: Native topology container (`# Topology`).
 - `molsysmt_TopologyDict.md` ➔ `molsysmt_TopologyDict.md.AGENTS.md`: Declarative topology dict (`# TopologyDict`).
+- `molsysmt_ChemicalStates.md` ➔ `molsysmt_ChemicalStates.md.AGENTS.md`: Ordered chemical-state collection (`# ChemicalStates`).
 - `molsysmt_Structures.md` ➔ `molsysmt_Structures.md.AGENTS.md`: Native structures container (`# Structures`).
 - `molsysmt_StructuresDict.md` ➔ `molsysmt_StructuresDict.md.AGENTS.md`: Declarative structures dict (`# StructuresDict`).
 - `molsysmt_MolecularMechanics.md` ➔ `molsysmt_MolecularMechanics.md.AGENTS.md`: Native mechanics container (`# MolecularMechanics`).

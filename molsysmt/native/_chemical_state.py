@@ -295,7 +295,7 @@ class _ChemicalStateStorage:
 
         self._normalize_atom_attribute_columns()
 
-    def _validate_atom_domain(self, n_atoms):
+    def _validate_atom_domain(self, n_atoms, *, check_component_indices=True):
         """Check current storage alignment without repairing or changing it.
 
         Legacy normalization belongs to explicit decoding. Native restrictions
@@ -321,8 +321,9 @@ class _ChemicalStateStorage:
                 caller="molsysmt.native.ChemicalStates",
             )
         membership = self.component_indices.to_numpy(dtype=np.int64, na_value=-1)
-        if self.component_indices.lt(0).any() or np.any(
-            membership >= len(self.components)
+        if check_component_indices and (
+            self.component_indices.lt(0).any()
+            or np.any(membership >= len(self.components))
         ):
             raise StructuralInconsistencyError(
                 reason="Chemical-state component membership is outside its component inventory.",
@@ -829,7 +830,7 @@ def _coerce_bond_table(value, n_atoms=None):
     return output
 
 
-def _concatenate_bond_tables(*tables):
+def _concatenate_bond_tables(*tables, n_atoms=None):
     """Concatenate bond storage without all-missing optional dtype drift."""
     required_columns = {"atom1_index", "atom2_index"}
     prepared = []
@@ -840,7 +841,7 @@ def _concatenate_bond_tables(*tables):
             if column in required_columns or table[column].notna().any()
         ]
         prepared.append(table.loc[:, keep_columns])
-    return _coerce_bond_table(pd.concat(prepared, ignore_index=True))
+    return _coerce_bond_table(pd.concat(prepared, ignore_index=True), n_atoms=n_atoms)
 
 
 def _remap_bond_atom_indices(table, index_map, *, canonical_order=False):

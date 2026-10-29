@@ -20,7 +20,7 @@ See {ref}`Tutorial_Get` and {ref}`Tutorial_Info` for executed examples.
 ## **Contents**
 
 - **{doc}`molsysmt_MolSys`**  
-  The native unified molecular system class composing topology, structures, and molecular mechanics contracts.
+  The native unified molecular system composing topology, chemical states, structures, named interactions and optional molecular mechanics.
 
 - **{doc}`molsysmt_MolSysBuilder`**  
   The editable native container for incrementally constructing and modifying molecular models.
@@ -29,16 +29,19 @@ See {ref}`Tutorial_Get` and {ref}`Tutorial_Info` for executed examples.
   The declarative, serializable dictionary representation of a complete molecular system.
 
 - **{doc}`molsysmt_Topology`**  
-  The native topology data structure managing atom inventories, residue groups, and chemical state attributes.
+  The stable atom, group, molecule, entity and chain inventory, with transitional chemical compatibility access.
 
 - **{doc}`molsysmt_TopologyDict`**  
   The declarative, serializable dictionary representation of molecular topology.
 
+- **{doc}`molsysmt_ChemicalStates`**
+  The ordered chemical-state collection with selected-state graph editing and state-local components.
+
 - **{doc}`molsysmt_Structures`**  
-  The native structures data container storing 3D atomic coordinates, periodic boxes, and trajectory frames.
+  The native structures container storing 3D coordinates, periodic boxes and structure-aligned series.
 
 - **{doc}`molsysmt_StructuresDict`**  
-  The declarative, serializable dictionary representation of structural and trajectory data.
+  The declarative, serializable dictionary representation of coordinate and other structure-aligned data.
 
 - **{doc}`molsysmt_MolecularMechanics`**  
   The native molecular mechanics object managing force field terms, partial charges, masses, and energy parameters.
@@ -59,6 +62,7 @@ See {ref}`Tutorial_Get` and {ref}`Tutorial_Info` for executed examples.
    molsysmt_MolSysDict
    molsysmt_Topology
    molsysmt_TopologyDict
+   molsysmt_ChemicalStates
    molsysmt_Structures
    molsysmt_StructuresDict
    molsysmt_MolecularMechanics

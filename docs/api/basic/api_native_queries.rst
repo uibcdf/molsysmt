@@ -66,3 +66,20 @@ Ungrouped atom ownership is independent of chemical components. Grouped atoms
 inherit their group's owner; declarations must agree with that hierarchy.
 
 .. automethod:: molsysmt.native.Topology.set_atom_molecules
+
+.. _API Native Chemical Editing:
+
+Editing selected chemical states
+----------------------------------------
+
+These native operations stage selected-state graph/component data before
+publication. They preserve other states and stable inventory and do not run
+chemical perception or interaction detectors.
+
+.. automethod:: molsysmt.native.ChemicalStates.get_bonds
+
+.. automethod:: molsysmt.native.ChemicalStates.add_bonds
+
+.. automethod:: molsysmt.native.ChemicalStates.remove_bonds
+
+.. automethod:: molsysmt.native.ChemicalStates.rebuild_components

@@ -5,7 +5,7 @@ import numpy as np
 from molsysmt._private.smonitor import ArgumentError
 
 
-def digest_chemical_state(chemical_state, caller=None):
+def digest_chemical_state(chemical_state, caller=None, native_chemical_state=False):
     """Return the reference sentinel or a non-negative chemical-state index."""
 
     if chemical_state is None:
@@ -14,7 +14,9 @@ def digest_chemical_state(chemical_state, caller=None):
         "reference",
         "structure",
     }:
-        return chemical_state.lower()
+        value = chemical_state.lower()
+        if value != "structure" or not native_chemical_state:
+            return value
     if isinstance(chemical_state, (int, np.integer)) and not isinstance(
         chemical_state, (bool, np.bool_)
     ):

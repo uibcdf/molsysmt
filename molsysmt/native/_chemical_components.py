@@ -1,6 +1,7 @@
 """Own state-local graph partitions and exact component metadata matching."""
 
 import numpy as np
+import pandas as pd
 
 
 def indices_from_bonds(n_atoms, bonds):
@@ -110,3 +111,75 @@ def restrict(state, atom_indices, bonds):
         if np.any(source_counts[old_rows] != kept_counts[old_rows]):
             completeness = "partial"
     return components, restricted, completeness, state.component_evidence
+
+
+def group_components(topology, component_indices):
+    """Derive per-group component membership from atom-aligned state data."""
+    n_groups = topology.n_groups
+    _adf = pd.DataFrame(
+        {
+            "group_index": topology.atoms["group_index"],
+            "component_index": component_indices,
+        }
+    ).dropna()
+    _gc = _adf.groupby("group_index", sort=False)["component_index"].first()
+    result = np.full(n_groups, -1, dtype=np.int64)
+    result[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy(dtype=np.int64)
+    return result
+
+
+def infer_types(group_names, group_types, component_index_of_groups, n_components):
+    from molsysmt.element.component.get_component_type import (
+        _get_component_type_from_group_names_and_types,
+    )
+
+    output = np.empty(n_components, dtype=object)
+
+    for component_index in range(n_components):
+        mask = component_index_of_groups == component_index
+        if np.any(mask):
+            output[component_index] = _get_component_type_from_group_names_and_types(
+                group_names[mask], group_types[mask]
+            )
+        else:
+            output[component_index] = "unknown"
+
+    return output
+
+
+def infer_names(group_names, component_index_of_groups, component_types):
+
+    output = []
+    counters = {"peptide": 0, "protein": 0, "small molecule": 0, "unknown": 0}
+    peptides = {}
+
+    for component_index, component_type in enumerate(component_types):
+        mask = component_index_of_groups == component_index
+        names_in_component = group_names[mask].tolist()
+
+        if component_type == "peptide":
+            peptide_key = ",".join(names_in_component)
+            if peptide_key in peptides:
+                name = peptides[peptide_key]
+            else:
+                name = f"{component_type} {counters[component_type]}"
+                peptides[peptide_key] = name
+                counters[component_type] += 1
+        elif component_type in ["protein", "small molecule"]:
+            name = f"{component_type} {counters[component_type]}"
+            counters[component_type] += 1
+        elif component_type in ["ion", "lipid"]:
+            name = (
+                names_in_component[0]
+                if names_in_component
+                else f"unknown {counters['unknown']}"
+            )
+        elif component_type == "water":
+            name = "water"
+        else:
+            name = f"unknown {counters['unknown']}"
+            counters["unknown"] += 1
+
+        output.append(name)
+
+    return np.array(output, dtype=object)

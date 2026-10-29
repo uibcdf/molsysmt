@@ -34,6 +34,24 @@ molsysmt.native.Topology.set_atom_molecules:
   summary: "Declares stable molecule ownership for ungrouped atoms independently of chemical components."
   doc_ref: "{meth}`molsysmt.native.Topology.set_atom_molecules`"
 
+molsysmt.native.ChemicalStates.add_bonds:
+  name: "chemical_states.add_bonds"
+  first_introduced_in: "Common_Core/04_Native_Forms.ipynb"
+  summary: "Stages selected-state bond addition and component reconstruction before publication."
+  doc_ref: "{meth}`molsysmt.native.ChemicalStates.add_bonds`"
+
+molsysmt.native.ChemicalStates.remove_bonds:
+  name: "chemical_states.remove_bonds"
+  first_introduced_in: "Common_Core/04_Native_Forms.ipynb"
+  summary: "Removes state-local bond positions with staged reconstruction and invalidation."
+  doc_ref: "{meth}`molsysmt.native.ChemicalStates.remove_bonds`"
+
+molsysmt.native.ChemicalStates.rebuild_components:
+  name: "chemical_states.rebuild_components"
+  first_introduced_in: "Common_Core/04_Native_Forms.ipynb"
+  summary: "Reconstructs selected-state graph components with explicit stable labeling context."
+  doc_ref: "{meth}`molsysmt.native.ChemicalStates.rebuild_components`"
+
 # Central Function Inventory for MolSysMT Master Course
 # Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
 

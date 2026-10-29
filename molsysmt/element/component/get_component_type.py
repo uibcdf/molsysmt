@@ -208,10 +208,12 @@ def _get_component_type_from_group_names_and_types(group_names, group_types):
         else:
             tmp_type = "peptide"
     elif first_group_type == "nucleotide":
-        if first_group_name in rna_names:
-            tmp_type = "rna"
-        elif first_group_name in dna_names:
-            tmp_type = "dna"
+        tmp_type = "unknown"
+        if pd.notna(first_group_name):
+            if first_group_name in rna_names:
+                tmp_type = "rna"
+            elif first_group_name in dna_names:
+                tmp_type = "dna"
     elif first_group_type == "saccharide":
         tmp_type = "polysaccharide"
     else:

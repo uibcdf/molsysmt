@@ -56,6 +56,10 @@ sections:
             description: Native domains, explicit provider composition, chemical ownership, complete versus partial graph restriction, exact component labels, remapped stereo references, copy boundaries, controlled edits and analysis invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
+          - name: chemical_states
+            file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md
+            agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md.AGENTS.md
+            description: Ordered native chemistry, explicit state availability, staged graph editing, stable context, component evidence, analysis invalidation and live-table boundaries.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md
@@ -138,6 +142,10 @@ sections:
             file: docs/content/user/tools/basic/extract.ipynb
             agents_file: docs/content/user/tools/basic/extract.ipynb.AGENTS.md
             description: Aligned subsystem extraction, complete induced chemical graphs, partial component declarations and stable molecule ownership.
+          - name: native_chemical_editing
+            file: docs/content/user/tools/basic/native_chemical_editing.md
+            agents_file: docs/content/user/tools/basic/native_chemical_editing.md.AGENTS.md
+            description: Selected-state native graph edits, reconstruction flags, independent context and staged publication with preserved coordinates, histories and associations.
           - name: get_conversion_report
             file: docs/content/user/tools/basic/get_conversion_report.md
             agents_file: docs/content/user/tools/basic/get_conversion_report.md.AGENTS.md

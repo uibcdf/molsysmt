@@ -29,6 +29,8 @@ def digest_bond_indices(bond_indices, caller=None, native_topology_bonds=False):
     """
 
     if native_topology_bonds:
+        if hasattr(bond_indices, "unit") or hasattr(bond_indices, "units"):
+            raise ArgumentError("bond_indices", value=bond_indices, caller=caller)
         if is_all(bond_indices):
             return "all"
         try:

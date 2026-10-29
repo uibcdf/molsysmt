@@ -105,83 +105,30 @@ def _unchanged_component_rows(old_indices, new_indices, n_old, n_new):
 
 
 def _component_index_per_group(topology):
-    """Derive per-group component membership from atom-aligned state data."""
-    n_groups = topology.n_groups
-    _adf = pd.DataFrame(
-        {
-            "group_index": topology.atoms["group_index"],
-            "component_index": topology._get_component_indices(),
-        }
-    ).dropna()
-    _gc = _adf.groupby("group_index", sort=False)["component_index"].first()
-    result = np.full(n_groups, -1, dtype=np.int64)
-    result[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy(dtype=np.int64)
-    return result
+    from ._chemical_components import group_components
+
+    return group_components(topology, topology._get_component_indices())
 
 
 def infer_component_types_from_topology(topology):
-    from molsysmt.element.component.get_component_type import (
-        _get_component_type_from_group_names_and_types,
+    from ._chemical_components import infer_types
+
+    return infer_types(
+        topology.groups["group_name"].to_numpy(dtype=object),
+        topology.groups["group_type"].to_numpy(dtype=object),
+        _component_index_per_group(topology),
+        topology.n_components,
     )
-
-    component_index_of_groups = _component_index_per_group(topology)
-    group_names = topology.groups["group_name"].to_numpy(dtype=object)
-    group_types = topology.groups["group_type"].to_numpy(dtype=object)
-
-    n_components = topology.n_components
-    output = np.empty(n_components, dtype=object)
-
-    for component_index in range(n_components):
-        mask = component_index_of_groups == component_index
-        if np.any(mask):
-            output[component_index] = _get_component_type_from_group_names_and_types(
-                group_names[mask], group_types[mask]
-            )
-        else:
-            output[component_index] = "unknown"
-
-    return output
 
 
 def infer_component_names_from_topology(topology):
-    component_index_of_groups = _component_index_per_group(topology)
-    component_types = topology.components["component_type"].to_numpy(dtype=object)
-    group_names = topology.groups["group_name"].to_numpy(dtype=object)
+    from ._chemical_components import infer_names
 
-    output = []
-    counters = {"peptide": 0, "protein": 0, "small molecule": 0, "unknown": 0}
-    peptides = {}
-
-    for component_index, component_type in enumerate(component_types):
-        mask = component_index_of_groups == component_index
-        names_in_component = group_names[mask].tolist()
-
-        if component_type == "peptide":
-            peptide_key = ",".join(names_in_component)
-            if peptide_key in peptides:
-                name = peptides[peptide_key]
-            else:
-                name = f"{component_type} {counters[component_type]}"
-                peptides[peptide_key] = name
-                counters[component_type] += 1
-        elif component_type in ["protein", "small molecule"]:
-            name = f"{component_type} {counters[component_type]}"
-            counters[component_type] += 1
-        elif component_type in ["ion", "lipid"]:
-            name = (
-                names_in_component[0]
-                if names_in_component
-                else f"unknown {counters['unknown']}"
-            )
-        elif component_type == "water":
-            name = "water"
-        else:
-            name = f"unknown {counters['unknown']}"
-            counters["unknown"] += 1
-
-        output.append(name)
-
-    return np.array(output, dtype=object)
+    return infer_names(
+        topology.groups["group_name"].to_numpy(dtype=object),
+        _component_index_per_group(topology),
+        topology.components["component_type"].to_numpy(dtype=object),
+    )
 
 
 def infer_molecule_indices_from_topology(topology):

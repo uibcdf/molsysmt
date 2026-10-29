@@ -25,6 +25,7 @@
 | [Is composed of](is_composed_of.ipynb) | Checking if a molecular system is composed of specific elements |
 | [Iterator](iterator.ipynb) | Iterator over attributes of a molecular system |
 | [Merge](merge.ipynb) | Merging the elements of different molecular systems |
+| [Native chemical editing](native_chemical_editing.md) | Editing one resident chemical state's graph and components |
 | [Remove](remove.ipynb) | Removing elements or structures from a molecular system |
 | [Select](select.ipynb) | Selecting elements of a molecular system |
 | [Set](set.ipynb) | Setting attribute values to a molecular system |
@@ -59,6 +60,7 @@
    is_composed_of.ipynb
    iterator.ipynb
    merge.ipynb
+   native_chemical_editing
    remove.ipynb
    select.ipynb
    set.ipynb

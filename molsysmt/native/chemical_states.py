@@ -281,6 +281,308 @@ class ChemicalStates(NativeQueries):
             state.component_completeness = component
         self._n_atoms = int(n_atoms)
 
+    def _edit_context(self, topology=None):
+        from ._chemical_edits import context
+
+        if topology is None:
+            reference = getattr(self, "_molsys_owner_ref", None)
+            owner = reference() if reference is not None else None
+            topology = owner.topology if owner is not None else None
+        return context(topology, self.n_atoms)
+
+    def _publish_edit(self, state, changes):
+        """Publish already prepared fields after staging analysis invalidation."""
+        from ._chemical_edits import scientific_change
+
+        changed = scientific_change(state, changes)
+        reference = getattr(self, "_molsys_owner_ref", None)
+        owner = reference() if reference is not None else None
+        with (
+            owner._invalidating_interaction_frames("all")
+            if changed and owner is not None
+            else nullcontext()
+        ):
+            # All keys already exist. Publication invokes no normalization,
+            # inference, user callbacks or allocation of molecular payloads.
+            state.__dict__.update(changes)
+
+    @arg_digest(native_topology_bonds=True, native_chemical_state=True)
+    def add_bonds(
+        self, bonded_atom_pairs, *, chemical_state="reference", skip_digestion=False
+    ):
+        """Adding stored edges and rebuilding one chemical state's components.
+
+        Parameters
+        ----------
+        bonded_atom_pairs : array-like of int
+            Atom-index pairs with shape (n_bonds, 2), within this collection's
+            atom domain. Self-edges and duplicate unordered pairs are rejected.
+            Edge order and type remain unknown until explicitly assigned.
+        chemical_state : int or {'reference'}, default='reference'
+            State index or the unambiguous reference state. No state is created.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for already validated inputs.
+
+        Returns
+        -------
+        None
+            Publish the prepared bond table and selected-state component data.
+
+        Raises
+        ------
+        ArgumentError
+            If pairs are malformed, boolean, unitful or not integer indices.
+        StructuralInconsistencyError
+            If a state is unavailable/ambiguous, an endpoint is outside its atom
+            domain, or an unordered pair is repeated or self-connected.
+
+        Notes
+        -----
+        Stored edges alone do not establish complete chemistry. Unknown
+        connectivity becomes partial when an edge is declared. Components use
+        the existing joins_components convention; no chemical perception runs.
+        Stable molecules, atom assignments, histories, other states and the
+        reference selection are preserved. An empty input is a no-op after
+        state resolution. Component labels use available stable topology context.
+
+        Bonds, components and analysis invalidation are staged before publication.
+        Failed validation, reconstruction or invalidation leaves all unchanged.
+        A changed graph invalidates all named analyses of an owning MolSys,
+        including evaluated-empty coverage. Old snapshots remain intact;
+        coordinates are not copied and detectors are not run automatically.
+
+        Examples
+        --------
+        >>> import molsysmt as msm
+        >>> states = msm.ChemicalStates(n_atoms=3)
+        >>> states.append_state()
+        0
+        >>> states.add_bonds([[0, 1]])
+        >>> len(states.get_bonds())
+        1
+
+        .. admonition:: User guide
+
+           See :ref:`API Native Chemical Editing` and :ref:`Cookbook_Group_Free_Hierarchy`.
+
+        .. versionadded:: 1.0.0
+        """
+        import pandas as pd
+
+        from ._chemical_edits import rebuild
+        from ._chemical_state import _concatenate_bond_tables
+
+        index = self._resolve_index(
+            None if chemical_state == "reference" else chemical_state
+        )
+        state = self._states[index]
+        pairs = np.asarray(bonded_atom_pairs)
+        if not pairs.size:
+            return
+        new = pd.DataFrame({"atom1_index": pairs[:, 0], "atom2_index": pairs[:, 1]})
+        bonds = _concatenate_bond_tables(state.bonds, new, n_atoms=self.n_atoms)
+        changes = rebuild(
+            state,
+            self.n_atoms,
+            bonds,
+            topology=self._edit_context(),
+            require_valid_membership=True,
+        )
+        changes["bonds"] = bonds
+        if state.connectivity_completeness == "unavailable":
+            changes["_connectivity_completeness"] = "partial"
+        self._publish_edit(state, changes)
+
+    @arg_digest(native_topology_bonds=True, native_chemical_state=True)
+    def remove_bonds(
+        self, bond_indices="all", *, chemical_state="reference", skip_digestion=False
+    ):
+        """Removing stored edges and rebuilding one chemical state's components.
+
+        Parameters
+        ----------
+        bond_indices : int, array-like of int or 'all', default='all'
+            Selected state's positional bond indices. Repetitions remove a row
+            only once; an empty selection changes nothing.
+        chemical_state : int or {'reference'}, default='reference'
+            State index or the unambiguous reference state. No state is created.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for already validated inputs.
+
+        Returns
+        -------
+        None
+            Publish compacted bonds and rebuilt selected-state components.
+
+        Raises
+        ------
+        ArgumentError
+            If bond selectors are malformed, boolean, unitful or not integers.
+        StructuralInconsistencyError
+            If a state is unavailable/ambiguous or a bond index is out of range.
+
+        Notes
+        -----
+        State-local indices are positions, not bond IDs. Removing known edges
+        does not certify completeness of an unknown/partial graph. If no rows
+        are removed, components and attached analyses remain unchanged. Other
+        chemical states, stable inventory and structure associations are retained.
+        The same staged-publication and invalidation guarantees as add_bonds
+        apply, without copying coordinates or running detectors.
+
+        Examples
+        --------
+        >>> import molsysmt as msm
+        >>> states = msm.ChemicalStates(n_atoms=3)
+        >>> states.append_state()
+        0
+        >>> states.add_bonds([[0, 1], [1, 2]])
+        >>> states.remove_bonds(0)
+        >>> states.get_bonds()[['atom1_index', 'atom2_index']].values.tolist()
+        [[1, 2]]
+
+        .. admonition:: User guide
+
+           See :ref:`API Native Chemical Editing` and :ref:`Cookbook_Group_Free_Hierarchy`.
+
+        .. versionadded:: 1.0.0
+        """
+        from molsysmt._private.variables import is_all
+
+        from ._chemical_edits import rebuild
+        from ._chemical_state import _coerce_bond_table
+
+        index = self._resolve_index(
+            None if chemical_state == "reference" else chemical_state
+        )
+        state = self._states[index]
+        count = len(state.bonds)
+        keep = np.ones(count, dtype=bool)
+        if is_all(bond_indices):
+            keep[:] = False
+        else:
+            indices = np.asarray(bond_indices)
+            if np.any(indices < 0) or np.any(indices >= count):
+                raise StructuralInconsistencyError(
+                    reason="Bond removal indices are outside the selected state's bond domain.",
+                    caller="molsysmt.native.ChemicalStates.remove_bonds",
+                )
+            keep[indices.astype(np.int64, copy=False)] = False
+        if keep.all():
+            return
+        bonds = _coerce_bond_table(
+            state.bonds.loc[keep].reset_index(drop=True), n_atoms=self.n_atoms
+        )
+        changes = rebuild(
+            state,
+            self.n_atoms,
+            bonds,
+            topology=self._edit_context(),
+            require_valid_membership=True,
+        )
+        changes["bonds"] = bonds
+        self._publish_edit(state, changes)
+
+    @arg_digest(native_chemical_rebuild=True, native_chemical_state=True)
+    def rebuild_components(
+        self,
+        redefine_indices=True,
+        redefine_ids=True,
+        redefine_types=True,
+        redefine_names=True,
+        force=False,
+        *,
+        chemical_state="reference",
+        topology=None,
+        skip_digestion=False,
+    ):
+        """Rebuilding components of one selected chemical state from stored edges.
+
+        Parameters
+        ----------
+        redefine_indices : bool, default=True
+            Recompute the atom-aligned partition using joins_components.
+        redefine_ids : bool, default=True
+            Generate local string IDs. Otherwise preserve exact-atom-set labels.
+        redefine_types : bool, default=True
+            Infer classifications from available stable group context. Without
+            adequate context, types remain missing rather than invented.
+        redefine_names : bool, default=True
+            Infer names from stable group context and component types. Without
+            adequate context, names remain missing rather than invented.
+        force : bool, default=False
+            Reconstruct indices even if redefine_indices is False.
+        chemical_state : int or {'reference'}, default='reference'
+            State index or the unambiguous reference state.
+        topology : molsysmt.native.Topology or None, default=None
+            Explicit native stable context on the same atom axis. None uses an
+            owning MolSys's topology when present. Context is never mutated.
+            Supplying it declares positional correspondence, not common origin.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for already validated inputs.
+
+        Returns
+        -------
+        None
+            Publish selected-state component membership, labels and evidence.
+
+        Raises
+        ------
+        ArgumentError
+            If flags, state selectors or the explicit context type are invalid.
+        StructuralInconsistencyError
+            If the state is unavailable/ambiguous or the context atom axis differs.
+
+        Notes
+        -----
+        Reconstruction uses the existing compiled graph routine. Incomplete
+        connectivity or unknown participation cannot certify complete components.
+        Unchanged full atom sets retain unrequested labels; merged/split
+        components cannot inherit those labels. Label-only changes retain
+        component evidence and do not invalidate interaction observations.
+        Changed partitions/completeness invalidate named analyses of the owner.
+        All reconstruction and invalidation allocation precede publication;
+        failures leave chemistry and analyses intact. Coordinates, other states,
+        producer histories, reference and structure associations are preserved.
+        No chemical perception or detector is run automatically.
+
+        Examples
+        --------
+        >>> import molsysmt as msm
+        >>> states = msm.ChemicalStates(n_atoms=2)
+        >>> states.append_state()
+        0
+        >>> states.rebuild_components()
+        >>> states.get_bonds().empty
+        True
+
+        .. admonition:: User guide
+
+           See :ref:`API Native Chemical Editing` and :ref:`Cookbook_Group_Free_Hierarchy`.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._chemical_edits import rebuild
+        from ._chemical_state import _coerce_bond_table
+
+        index = self._resolve_index(
+            None if chemical_state == "reference" else chemical_state
+        )
+        state = self._states[index]
+        bonds = _coerce_bond_table(state.bonds, n_atoms=self.n_atoms)
+        changes = rebuild(
+            state,
+            self.n_atoms,
+            bonds,
+            redefine_indices=redefine_indices,
+            redefine_ids=redefine_ids,
+            redefine_types=redefine_types,
+            redefine_names=redefine_names,
+            force=force,
+            topology=self._edit_context(topology),
+        )
+        self._publish_edit(state, changes)
+
     @arg_digest()
     def append_state(self, skip_digestion=False):
         """Appending an empty chemical state to the collection.
@@ -314,7 +616,7 @@ class ChemicalStates(NativeQueries):
 
         return self._append_state(_ChemicalStateStorage(n_atoms=self._n_atoms))
 
-    @arg_digest()
+    @arg_digest(native_chemical_state=True)
     def get_bonds(self, chemical_state="reference", skip_digestion=False):
         """Returning covalent bonds from one chemical state.
 
@@ -329,6 +631,15 @@ class ChemicalStates(NativeQueries):
         -------
         pandas.DataFrame
             Bond table owned by the selected state.
+
+        Notes
+        -----
+        This is a live interchange view. Direct Pandas/NumPy writes bypass
+        validation, component rebuilding and owner notification. Use add_bonds,
+        remove_bonds, rebuild_components or supported basic.set attributes on
+        an owning MolSys for controlled changes. Standalone assignment dispatch
+        is still being migrated. Previously held tables remain snapshots after a
+        supported edit replaces the current table.
 
         .. versionadded:: 1.0.0
         """

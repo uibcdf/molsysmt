@@ -8,6 +8,10 @@ def digest_bonded_atom_pairs(
 ):
 
     if native_topology_bonds:
+        if hasattr(bonded_atom_pairs, "unit") or hasattr(bonded_atom_pairs, "units"):
+            raise ArgumentError(
+                "bonded_atom_pairs", value=bonded_atom_pairs, caller=caller
+            )
         try:
             values = np.asarray(bonded_atom_pairs)
             booleans = any(
