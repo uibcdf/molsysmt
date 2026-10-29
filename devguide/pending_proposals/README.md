@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (30)
+### Open (31)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -53,6 +53,8 @@ Entries carrying front matter under
 - [`generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md`](generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md) — [#219](https://github.com/uibcdf/molsysmt/issues/219) — Generate 3D conformers for a fixed small-molecule chemical state *(inspected)*
 - [`h5msm_0_6_molecular_mechanics_persistence.md`](h5msm_0_6_molecular_mechanics_persistence.md) — [#256](https://github.com/uibcdf/molsysmt/issues/256) — Design H5MSM 0.6 persistence for MolecularMechanics *(inspected)*
 - [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
+- [`molecular_identity_and_scaffold_overlap_annotations.md`](molecular_identity_and_scaffold_overlap_annotations.md) — [#447](https://github.com/uibcdf/molsysmt/issues/447) — Provide reusable molecular identity and scaffold overlap annotations for leakage audits. *(measured)*
+  Blocked by uibcdf/molsysmt#255.
 - [`paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md) — [#191](https://github.com/uibcdf/molsysmt/issues/191) — paper/main.tex is an unfilled template and the manuscript argument is unrecorded. *(inspected)*
 - [`post_1_0_chemically_specific_metal_coordination.md`](post_1_0_chemically_specific_metal_coordination.md) — [#337](https://github.com/uibcdf/molsysmt/issues/337) — Post-1.0 chemically specific metal coordination *(inspected)*
 - [`post_1_0_individual_interaction_editing.md`](post_1_0_individual_interaction_editing.md) — [#335](https://github.com/uibcdf/molsysmt/issues/335) — Post-1.0 individual interaction editing *(inspected)*
@@ -64,8 +66,7 @@ Entries carrying front matter under
 - [`qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md`](qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md) — [#486](https://github.com/uibcdf/molsysmt/issues/486) — Qualify PyParsing 3.3.4 or its published successor for MDTraj selections *(upstream)*
 - [`refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md`](refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md) — [#323](https://github.com/uibcdf/molsysmt/issues/323) — Refine fixed-state hydrogen geometry in an explicit molecular environment *(measured)*
 - [`requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md`](requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md) — [#403](https://github.com/uibcdf/molsysmt/issues/403) — Requalify newer MKL builds and retire the temporary runtime ceiling *(upstream)*
-- [`retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md`](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md) — [#255](https://github.com/uibcdf/molsysmt/issues/255) — Retire Topology.bonds after 1.0 in favor of ChemicalStates *(inspected)*
-  Blocked by uibcdf/molsysmt#254.
+- [`retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md`](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md) — [#255](https://github.com/uibcdf/molsysmt/issues/255) — Complete ChemicalStates separation from Topology before 1.0. *(inspected)*
 - [`review_h5msm05_module_ownership_and_location.md`](review_h5msm05_module_ownership_and_location.md) — [#438](https://github.com/uibcdf/molsysmt/issues/438) — Review ownership and location of form/_h5msm05_* implementation modules *(inspected)*
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 - [`standard_residue_side_chain_reconstruction.md`](standard_residue_side_chain_reconstruction.md) — [#327](https://github.com/uibcdf/molsysmt/issues/327) — Reconstruct ambiguous standard-residue side chains with explicit geometric evidence *(inspected)*
@@ -100,6 +101,7 @@ Entries carrying front matter under
 - [`organize_interaction_detection_by_family_before_1_0.md`](organize_interaction_detection_by_family_before_1_0.md) — [#250](https://github.com/uibcdf/molsysmt/issues/250) — Organize interaction detection by family before 1.0 *(measured)*
 - [`pilot_ackredit_in_interaction_calculations.md`](pilot_ackredit_in_interaction_calculations.md) — [#27](https://github.com/uibcdf/molsysmt/issues/27) — Pilot Ackredit in interaction calculations *(measured)*
 - [`promote_chemical_states_to_a_native_molsys_domain.md`](promote_chemical_states_to_a_native_molsys_domain.md) — [#254](https://github.com/uibcdf/molsysmt/issues/254) — Promote ChemicalStates to an independent native MolSys domain *(measured)*
+  Blocked by uibcdf/molsysmt#255.
 - [`remove_avoidable_biopython_dependencies_from_core_sequence_operations.md`](remove_avoidable_biopython_dependencies_from_core_sequence_operations.md) — [#243](https://github.com/uibcdf/molsysmt/issues/243) — Remove avoidable Biopython dependencies from core sequence operations *(reproduced)*
 
 <!-- /generated -->

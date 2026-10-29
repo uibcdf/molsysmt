@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-27
+**Last updated:** 2026-10-28
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,23 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Chemical-domain separation plan recorded — 2026-10-28
+
+The maintainer accepts the pre-1.0 architectural direction and requests a written
+plan before refactoring. The [#255 phase tracker](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+now records the native, functional, form/lifecycle, persistence and consumer
+migration, its acceptance matrix and the unresolved engineering preflight items.
+The planning document is delivered; runtime implementation, migrated tests,
+consumer receiving and candidate qualification are not started by this work.
+The tracker is the sole detailed checklist; do not duplicate its completion
+state in this release ledger.
+
+Chains stay in Topology. Bonds/components and the nine listed graph tools have
+ChemicalStates/chemical_states as their accepted target. #447 implementation
+follows this migration. Existing #254 delivery evidence remains valid for its
+original sources; final #254/#334 candidate qualification must use the resulting
+new sources and actual artifacts. No new release/package is claimed or authorized.
 
 ## Current source follow-up — 2026-10-27
 

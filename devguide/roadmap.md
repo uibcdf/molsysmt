@@ -4,6 +4,21 @@ This roadmap is a maintained ordering principle, not a mirror of a nonexistent
 root `ROADMAP.md`. Concrete unresolved work lives under `pending_bugs/` and
 `pending_proposals/`.
 
+## Chemical-domain migration planning — 2026-10-28
+
+The maintainer accepts completing ChemicalStates separation before 1.0 and
+requests the written plan before implementation. The
+[single execution tracker for #255](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+owns phase dependencies, decisions, checkboxes and exit evidence. Runtime work
+has not started. Bonds/components and nine graph tools move to their chemical
+owner; chains and sequence/hierarchy tools remain in Topology/topology.
+
+This migration precedes implementation of #447. The earlier #447/#375/#323
+review queue below remains context, not an instruction to implement those
+scientific extensions during the migration. #254's existing native foundation
+is available; its final-candidate recertification follows #255 source closeout
+under #334. New package/tag/Release publication remains separately authorized.
+
 ## Frozen 1.0 work order — 2026-10-05
 
 The maintainer has stopped feature expansion for 1.0 under

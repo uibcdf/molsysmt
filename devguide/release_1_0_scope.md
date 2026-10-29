@@ -42,6 +42,26 @@ accepted workflow may be promoted with evidence; an opportunity to be faster
 alone does not expand the release queue. Public experimental APIs remain
 experimental unless a separately justified stability decision changes the registry.
 
+## Chemical-domain separation planning admission — 2026-10-28
+
+The maintainer explicitly accepts completing the separation of ChemicalStates
+from Topology before 1.0 and requests a detailed written plan before runtime
+work begins. [The #255 execution plan](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+is authoritative for scope, phase dependencies and exit criteria. Implementation
+has not started. This replaces the earlier post-1.0 scheduling for #255.
+
+Scope includes removal of Topology's public/private chemical facades, explicit
+ChemicalStates ownership of bonds/components, domain-aware native/basic/form
+queries and lifecycle, the nine existing graph tools' canonical chemical_states
+namespace, faithful conversion/persistence and coordinated client migration.
+Chains, their labels/memberships and sequence/hierarchy operations remain in
+Topology/topology. Existing scientific criteria and coverage stay bounded;
+#447/#375/#323 expansions and mechanics persistence are not admitted by this plan.
+
+Published source/package evidence remains historical to its exact producer.
+The new candidate requires later #254/#334 recertification; no existing tag,
+artifact, release identity, platform claim or publication authorization changes.
+
 ## Explicit atom-permutation admission — 2026-10-24
 
 The maintainer selects completion of #223 followed by #369. Admit the bounded
@@ -121,8 +141,10 @@ does not change frozen artifacts or authorize publication.
   claim or new optional backend is added.
 - `MolSys` retains independent topology, chemical-state, structure and named
   interaction domains, including supported partial combinations. `ChemicalStates`
-  owns chemical assignments and bonds. Keep `Topology.bonds` as its documented
-  compatibility facade; retirement remains #255.
+  owns chemical assignments and bonds. The maintainer-approved #255 plan now
+  completes the pre-1.0 removal of Topology chemical facades and component
+  ownership. That target is not yet implemented; current source still exposes
+  the documented facades until the coordinated cutover.
 - Public writers emit H5MSM 0.5. Preserve supported domain associations, named
   analyses, original producers, quantity records and preparation history. Read
   legacy 0.3/0.4 with the documented warning and migration route. Structures-only
@@ -204,7 +226,7 @@ and the five new issues. Future reports use the same admission rule.
 | Accepted delivery/documentation debt | #139, #144 | Maintain truthful supported tiers, existing ratchets and documentation integrity. Broader lower-tier remediation and global Sphinx cleanup remain visible; newly broken included workflows are not accepted debt. |
 | Attribution expansion | #27, #292 | Keep the pilot intact; review portable provider compatibility/publication and wider instrumentation separately. |
 | Scientific interaction extensions and comparison | #262, #271, #337, #338 | Extend formal-charge motifs, compare cation-pi definitions, study metal-specific coordination and assess longer water paths. No automatic implementation or improved-accuracy claim. |
-| Native ownership and mechanical persistence evolution | #255, #256 | Retire the compatibility bond facade and design H5MSM 0.6 mechanics after 1.0. |
+| Mechanical persistence evolution | #256 | Design H5MSM 0.6 mechanics after 1.0. #255 native/functional separation has moved to the explicit pre-1.0 planning admission above. |
 | Manuscript/evidence presentation expansion | #190, #191 | Define manuscript claims and extend the experimental claimed-evidence view before the relevant publication. Current software claims must already be truthful under S4. |
 | Individual interaction editing | #335 | Add/remove individual observations and optionally prune unused definitions with explicit occurrence/relation-handle semantics, immutable snapshots and bounded costs. Structure replacement/invalidation/compaction are already implemented. |
 | Streaming and resumable H5MSM | #336 | Direct detector-to-file accumulation, append with topology/named analyses, transactional visibility and crash recovery. Existing numeric-window export and narrowly supported topology-free append remain available. |
