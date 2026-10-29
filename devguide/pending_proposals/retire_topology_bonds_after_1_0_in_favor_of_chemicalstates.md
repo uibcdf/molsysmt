@@ -222,12 +222,12 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | --- | --- | --- | --- |
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
-| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Chemical storage, bond concatenation, ordered inventory comparison, component primitives and C1 stable molecules implemented on development branch; native cutover remains | Standalone state operations; pure Topology; no hidden recovery |
+| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules and C3 selected-state graph editing implemented on development branch; pure Topology and remaining chemical setters still need cutover | Standalone state operations; pure Topology; no hidden recovery |
 | P3: query/form dispatch | P2 | Atom/molecule projection uses stable ownership; broader dispatch remains | Basic/native/form parity and truthful capabilities |
-| P4: builder and lifecycle | P2, P3 | Stable molecule transport and C4 component restriction implemented; chemical authority and lifecycle cutover remain | Coordinated edits/remaps/copies and invalidation |
+| P4: builder and lifecycle | P2, P3 | Stable molecule transport, C4 restriction and atomic selected-state graph edits implemented; MolSys/Builder ownership cutover remains | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
-| P7: docs and consumer receiving | P5, P6 | C1/C4 lifecycle documentation updated on development branch; final migration and receiving remain | Lifecycle docs and immutable consumer receipts |
+| P7: docs and consumer receiving | P5, P6 | C1/C3/C4 lifecycle documentation and ChemicalStates native guide updated on development branch; final migration and receiving remain | Lifecycle docs and immutable consumer receipts |
 | P8: integrated source closeout | P1-P7 | Not started | Exact-source checks, published implementation and issue receipt |
 
 Documentation work can accompany each implementation phase. Independent execution
@@ -1099,6 +1099,130 @@ deployed static views or replace P7/P8 documentation gates.
 Next: implement the admitted C3 selected-state editing/rebuild boundary using
 these owned primitives, then move query dispatch and MolSys/Builder ownership
 together under C6. Do not add new scientific profiles during that cutover.
+
+### C3 selected-state graph editing and component reconstruction
+
+Implemented in development commit
+[`6f632c0e16243bfe5300daf77a0eda68380fde90`](https://github.com/uibcdf/molsysmt/commit/6f632c0e16243bfe5300daf77a0eda68380fde90):
+native `ChemicalStates.add_bonds`,
+`remove_bonds` and `rebuild_components` with the C3 signatures. They use ArgDigest
+and keyword-only state selection/skip_digestion. Reference resolution selects
+one existing state without changing the reference. Absent, zero-state, ambiguous
+and invalid selections reject before editing, including otherwise empty input.
+Indices are positional, state-local for bonds, and reject boolean, fractional
+or unitful inputs. Repeated removal indices delete a row once. No-op graph edits
+retain table/component/analysis identity.
+
+Only the affected state's graph/component data are staged. Bond normalization,
+component reconstruction and required analysis invalidation all precede field
+publication. Kernel, label-inference or invalidation allocation failures do not
+publish bonds/components. Success preserves coordinates, atom assignments,
+producer-history objects, unrelated states, the reference and structure-state
+associations. Held bond tables and analysis snapshots remain their old values
+when supported edits replace current data. No constructor or chemical gateway
+of Topology is invoked by standalone editing.
+
+Scientific graph/completeness changes conservatively invalidate all named
+analyses of the owner, including evaluated-empty coverage. Label-only component
+reconstruction preserves component evidence and observations. The publication
+path uses already prepared fields, not an eager copy of MolSys, coordinates or
+unrelated chemical states. Default reconstruction does not allocate exact-
+component matching work when every label will be regenerated; a poisoned-matcher
+guard enforces that bound. This is not a measured whole-workflow speedup; C7
+timing/RAM comparisons remain pending.
+
+Source inspection also identifies an existing scaling limit retained by the
+shared label criteria: type/name inference forms a full group mask for each
+component, with worst-case work proportional to components times groups. C7
+must include solvent-rich many-component context and compare grouped lookup
+before claiming large-system editing throughput. This checkpoint establishes
+ownership and transactional correctness, not an optimal labeling implementation.
+
+Edges added by pair alone retain unknown order/type. Unavailable connectivity
+becomes partial, not complete, after an edge is declared. Rebuilt components
+use the existing joins_components/Rust partition criterion; unknown participation
+does not certify completeness. Removing known edges preserves the prior
+connectivity-completeness limit. Complete known empty graphs can have isolated
+components; an unavailable empty table is not silently promoted to known absence.
+
+An explicit native Topology, or an owning MolSys's topology when available,
+provides stable group context. Matching atom cardinality is checked; supplying
+context declares positional correspondence rather than proving identity. Context
+is not mutated or queried for bonds/components. Existing group recognition and
+component type/name criteria are reused. Their implementations now accept
+explicit membership/context in the chemical owner; legacy topology inference
+delegates to the same criteria. Missing typing can be inferred from explicitly
+nullable stable metadata without changing it. Inadequate evidence remains
+missing, including unsupported generated-name cases. Unrequested labels retain
+their original dtype and transfer only across exactly unchanged full atom sets.
+
+The shared component-type classifier previously had no result for a declared
+nucleotide group with a missing/unrecognized DNA/RNA name. It now returns
+unknown for that case; controlled rebuilding leaves the resulting type/name
+missing. This is a conservative missing-evidence fallback, not a new recognition
+profile. Both missing and unknown names have regression controls. The separate
+stable-constructor normalization remains part of P2.3: some current default group
+label columns contain literal `"nan"` strings. Explicit nullable metadata is used
+by the missing-context controls; no consumer-specific replacement store or
+silent constructor rewrite is introduced in this checkpoint.
+
+The logical `force` flag has a decorator-scoped boolean contract; existing
+physical-force unit digestion retains its old route. Native context validates
+its type, and native state editing does not admit a structure-scoped selector.
+No dependency floor, quantity policy, native binary, scientific detector profile
+or attribution boundary changes. Existing criteria and compiled kernels are
+reused rather than claimed as a new scientific method.
+
+`tests/native/test_chemical_state_edits.py` adds 50 passing cases. They reuse the
+analytical public wire fixtures rather than constructing chemistry through a
+Topology. Controls cover state selection, index domains, absent/ambiguous states,
+empty/idempotent edits, exact labels and dtypes, complete versus unavailable
+graphs, atomic kernel/invalidation failure, retained assignments/history/maps,
+unmodified coordinate storage, explicit context without chemical traversal,
+incomplete nucleotide context and absence of hidden Topology construction.
+Existing component-metadata and chemical-storage guards are retained.
+
+The same broad command as the preceding checkpoint, with repository-cache
+`TMPDIR`/`--basetemp` and public-PDB network access, now executes **4,154 passed**
+(exit 0, 109.49 s, 767 warnings) with Pytest Receptor and twelve workers. It
+includes the new edit module and explicitly excludes the still-unfinished
+target module. The earlier 4,152-case run and focused owner/context selections
+overlap this result; do not sum them. Successful run temporary payloads were
+removed automatically. The environment remains the shared Linux/Python 3.14.7
+development environment, with no installs or auxiliary environments.
+
+The 36 original targets now report **10 passed, 26 failed** (exit 1, 10.41 s).
+The three newly passing targets cover selected-state removal, failed component
+staging without chemistry/analysis publication, and successful invalidation of
+evaluated-empty coverage. Those remaining failures are required native ownership,
+query/dispatch, builder/association, functional-module and dictionary work; they
+are not waived release tests. P2.2 remains open for the remaining private
+assignment/edit routes and their coordinated consumers. This is not a main merge
+or an installed-candidate qualification.
+
+All seven ChemicalStates doctests pass. Source notebook-schema guards pass
+496 cases; Common Core Module 4 and the group-free Cookbook execute successfully
+against the final implementation. The new ChemicalStates foundation and native
+editing Toolbox expose availability, selector/reconstruction modes, staged
+publication, stable context, completeness and mutable-table limitations. The
+API reference documents all four implemented methods, including get_bonds, and
+course inventory/navigation/manifest are updated. The class remains experimental
+in the stability registry; its documentation/guard pointers now identify the
+chemical owner. Standalone general get/set/query delivery remains explicitly
+pending P3 rather than being advertised by the new editing surface.
+
+The final HTML structure build succeeds with twelve Sphinx workers and the
+explicit empty repository-static-path override used in previous checkpoints.
+The new foundation/Toolbox pages, both executed notebooks and all four method
+anchors are present. There are no parser/API errors or edited-page warnings;
+the same two `_static` README toctree warnings remain. Large deployed static
+views are not duplicated by this diagnostic build. Notebook fingerprints match
+the final code cells, and all preceding executable examples are retained. The
+four unrelated RST edits and the native extension retain their recorded hashes.
+
+Next: move the remaining private chemical assignment/edit boundaries and the
+state resolver/query providers to ChemicalStates. Keep that work coordinated
+with MolSys/Builder independence and the nine-function namespace move under C6.
 
 ## Acceptance matrix
 
