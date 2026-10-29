@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (31)
+### Open (30)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -66,16 +66,16 @@ Entries carrying front matter under
 - [`qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md`](qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md) — [#486](https://github.com/uibcdf/molsysmt/issues/486) — Qualify PyParsing 3.3.4 or its published successor for MDTraj selections *(upstream)*
 - [`refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md`](refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md) — [#323](https://github.com/uibcdf/molsysmt/issues/323) — Refine fixed-state hydrogen geometry in an explicit molecular environment *(measured)*
 - [`requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md`](requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md) — [#403](https://github.com/uibcdf/molsysmt/issues/403) — Requalify newer MKL builds and retire the temporary runtime ceiling *(upstream)*
-- [`retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md`](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md) — [#255](https://github.com/uibcdf/molsysmt/issues/255) — Complete ChemicalStates separation from Topology before 1.0. *(inspected)*
 - [`review_h5msm05_module_ownership_and_location.md`](review_h5msm05_module_ownership_and_location.md) — [#438](https://github.com/uibcdf/molsysmt/issues/438) — Review ownership and location of form/_h5msm05_* implementation modules *(inspected)*
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 - [`standard_residue_side_chain_reconstruction.md`](standard_residue_side_chain_reconstruction.md) — [#327](https://github.com/uibcdf/molsysmt/issues/327) — Reconstruct ambiguous standard-residue side chains with explicit geometric evidence *(inspected)*
 - [`support_paired_rigid_and_flexible_receptor_pdbqt_forms.md`](support_paired_rigid_and_flexible_receptor_pdbqt_forms.md) — [#225](https://github.com/uibcdf/molsysmt/issues/225) — Support paired rigid and flexible receptor PDBQT forms *(inspected)*
 
-### In progress (2)
+### In progress (3)
 
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`freeze_1_0_scope_and_complete_bounded_stabilization.md`](freeze_1_0_scope_and_complete_bounded_stabilization.md) — [#334](https://github.com/uibcdf/molsysmt/issues/334) — Freeze 1.0 scope and complete bounded stabilization *(measured)*
+- [`retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md`](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md) — [#255](https://github.com/uibcdf/molsysmt/issues/255) — Complete ChemicalStates separation from Topology before 1.0. *(measured)*
 
 ### Blocked (2)
 

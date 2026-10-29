@@ -48,7 +48,9 @@ The maintainer explicitly accepts completing the separation of ChemicalStates
 from Topology before 1.0 and requests a detailed written plan before runtime
 work begins. [The #255 execution plan](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
 is authoritative for scope, phase dependencies and exit criteria. Implementation
-has not started. This replaces the earlier post-1.0 scheduling for #255.
+had not started at admission. Its 2026-10-29 receipt now records isolated-branch
+storage work and explicit future-target failures; main has not adopted the
+runtime cutover. This replaces the earlier post-1.0 scheduling for #255.
 
 Scope includes removal of Topology's public/private chemical facades, explicit
 ChemicalStates ownership of bonds/components, domain-aware native/basic/form

@@ -20,8 +20,9 @@ The maintainer now accepts completing native/functional chemical-domain
 separation before 1.0. The [#255 migration plan](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
 owns the new phase tracker: remove Topology bonds/components and hidden chemical
 ownership, complete ChemicalStates queries/lifecycle and introduce the canonical
-chemical_states module while retaining chains in Topology. The plan is recorded;
-implementation has not started. Its scope supersedes the older post-1.0 #255
+chemical_states module while retaining chains in Topology. At that checkpoint
+only the plan was recorded; its later dated receipt tracks isolated-branch
+implementation. Its scope supersedes the older post-1.0 #255
 statements in the dated checkpoints below.
 
 This proposal remains partial: its implemented independent-domain foundation

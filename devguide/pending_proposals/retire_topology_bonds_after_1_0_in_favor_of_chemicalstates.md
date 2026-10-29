@@ -1,10 +1,10 @@
 ---
 summary: Complete ChemicalStates separation from Topology before 1.0.
 issue: uibcdf/molsysmt#255
-status: open
+status: active
 opened: 2026-09-29
 closed:
-verification: inspected
+verification: measured
 area: [native, api, form, topology, chemical-states, docs]
 guard:
 normative:
@@ -16,8 +16,11 @@ supersedes: []
 
 **Role:** accepted migration plan and execution tracker.
 **Maintainer decision:** 2026-10-28.
-**Implementation status:** Not started. This delivery records the plan only;
-no runtime refactoring, public API removal or schema migration has been executed.
+**Implementation status:** In progress on `dev/chemical-states-separation-255`.
+Storage extraction and the target-test battery exist there; public Topology
+chemistry, query dispatch and file schemas have not been cut over. Main receives
+the maintained record only. The dated execution receipt below distinguishes
+passing controls from intentionally failing targets.
 
 The maintainer explicitly replaces the earlier post-1.0 scheduling with a
 coordinated pre-1.0 separation. The historical filename and issue number are
@@ -217,9 +220,9 @@ is not completion. Do not manufacture a completion percentage from phase count.
 
 | Phase | Dependencies | Current state | Exit evidence |
 | --- | --- | --- | --- |
-| P0: contract and baseline | Maintainer decision | Plan recorded; implementation preflight remains | Accepted contracts, frozen source/worktree and impact inventory |
-| P1: target/characterization guards | P0 | Not started | Independent expected behavior and baseline evidence |
-| P2: native authority | P1 | Not started | Standalone state operations; pure Topology; no hidden recovery |
+| P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
+| P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
+| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage foundation implemented on development branch; native cutover remains | Standalone state operations; pure Topology; no hidden recovery |
 | P3: query/form dispatch | P2 | Not started | Basic/native/form parity and truthful capabilities |
 | P4: builder and lifecycle | P2, P3 | Not started | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
@@ -332,7 +335,8 @@ choices below resolve R1-R5 for implementation; R6 has selected workloads but
 still requires performance measurements before their implementations change.
 These are target contracts, not descriptions of current runtime behavior.
 No implementation, new API export, writer change or target test is delivered
-by recording them. P0.6 consumer coordination remains outstanding.
+by recording them. The later execution receipt records P0.6 notices separately
+from still-pending client receiving and installed qualification.
 
 #### C1: stable molecule membership without synthetic groups
 
@@ -617,7 +621,8 @@ python -m pytest --receptor=llm -n 12 \
 Exit 0: 97 passed in 8.65 s, nine warnings (seven unknown atom-name warnings and
 two expected legacy H5MSM warnings). These are unchanged current-behavior tests,
 including assertions that the refactoring must intentionally replace. They do
-not verify C1-C6 or any new API. No new target tests have yet been written.
+not verify C1-C6 or any new API. No new target tests had been written at this
+baseline checkpoint; the later execution receipt records the initial battery.
 
 Select these bounded performance controls before changing the measured paths:
 
@@ -646,7 +651,7 @@ speedups from these unexecuted workloads. Measurements remain pending P1/P8.
 - [x] P0.3 Reconcile current roadmap/scope/status references and #447's proposed namespace, without changing runtime contracts.
 - [x] P0.4 Record source/worktree, import/native-extension origins and preserved existing changes in C7. Create the isolated runtime branch required by C6 before the first implementation edit; it is not needed for this documentation-only follow-up. Never reset/stash unrelated work.
 - [x] P0.5 Record target constructor signatures, missing-state behavior, the editing API map, stable group-free molecule membership, remap/state-alignment policy, coherent cutover and wire contracts in C1-C6; select baseline workloads in C7. Runtime implementation and performance measurements remain pending.
-- [ ] P0.6 Select/open the owning suite impact and client-receiving issues before rollout. Record actual pins/versions; do not invent a published minimum version.
+- [x] P0.6 Open the owning suite impact and four client-receiving issues before rollout; the dated execution receipt identifies them and their source-only status. No published minimum version is invented.
 
 Exit: reviewable contract and baseline, including any deliberate exception. Routine
 engineering decisions within this plan do not create a new permission round;
@@ -655,8 +660,8 @@ changes to scientific scope or compatibility promises need an explicit decision.
 ### P1: meaningful guards before refactoring
 
 - [ ] P1.1 Characterize existing scientific outputs and supported completeness/participation policies with independent expectations; retain original controls.
-- [ ] P1.2 Add target guards for pure Topology, absent/zero/unknown/complete chemistry and standalone state-only operations. Tests must detect hidden chemistry even if private attributes are renamed.
-- [ ] P1.3 Add two-state controls with different bond/component counts, ambiguous reference, structure associations, nonconsecutive indices and failed resolution without source mutation.
+- [x] P1.2 Add initial target guards for pure Topology, absent/zero/unknown/complete chemistry and standalone state-only operations. Copy guards reject chemical traversal regardless of the private attribute name. Targets remain intentionally failing until implemented.
+- [x] P1.3 Add two-state controls with different bond/component counts, ambiguous reference, structure associations, nonconsecutive indices and failed resolution without source mutation. These define expectations, not passing delivery evidence.
 - [ ] P1.4 Freeze lifecycle/codec/consumer examples to port, including group-free molecules, FASTA groups and new managed-prefix composition.
 
 Exit: recorded baseline plus intentionally failing target tests, with causes and
@@ -735,6 +740,132 @@ Exit: a coherent source delivery, explicit consumer impact and all applicable
 executed source gates. Later package/tag/Release/DOI publication needs the separate
 exact-candidate approvals and qualification; this plan authorizes none of them.
 
+## Execution receipt — 2026-10-29
+
+This development checkpoint does not complete the migration or qualify a release
+candidate. Runtime changes and deliberately failing targets remain on
+`dev/chemical-states-separation-255`; main keeps its runtime. Four unrelated API
+autosummary edits and all sibling worktrees were preserved. A full temporary
+worktree checkout failed and Git removed it; the branch uses the existing
+checkout instead. No auxiliary environment or native-extension rebuild was made.
+
+### Coordination and actual receiving state
+
+Advance notices are open:
+
+| Owner | Issue | Boundary |
+| --- | --- | --- |
+| MolSysSuite | uibcdf/molsyssuite#155 | Cross-client impact coordination. |
+| MolSysViewer | uibcdf/molsysviewer#269 | Native-array bonds and maintained caller inventories. |
+| DockingMT | uibcdf/dockingmt#56 | Graph/torsion/fragments/correspondence and prepared-source workflows. |
+| PharmacophoreMT | uibcdf/pharmacophoremt#69 | SMARTS diagnostics and indirect preparation/state/query consumers. |
+| TopoMT | uibcdf/topomt#100 | Indirect Topography audit; no direct dependency proven by the bounded search. |
+
+Refreshed origin/main sources inspected: Viewer
+`8903f0659f2833cc979e4072cf60d17e8bcc6ef9`, DockingMT
+`8d40870724e21cf579ce4d5289d46b5d8a5aaa1c`, PharmacophoreMT
+`87de52f1a13913ed1d941c3a0a6425a979a64b1f` and TopoMT
+`6e88237e7e71dcf569613a4a860eaa1d12bcb79d`. Behind/divergent clients and
+Viewer edits were not changed. Notices establish no receiving commit, installed
+compatibility or new dependency minimum. P7 and final qualification remain open.
+
+### Initial targets and retained baseline
+
+[Test checkpoint 6dcedaa80cc5d3531c67e3483d69fd2e35c15f54](https://github.com/uibcdf/molsysmt/commit/6dcedaa80cc5d3531c67e3483d69fd2e35c15f54)
+adds `tests/native/test_chemical_domain_separation.py`: 36 cases using
+hand-authored public ChemicalStatesDict inputs, without constructing chemistry
+through the Topology implementation being removed. Four passing controls cover
+valid fixture decoding, nonconsecutive selected-state queries, independent copies
+under controlled assignment and current H5MSM state/association recovery.
+
+The remaining 32 targets fail explicitly: chemical namespace absent, native state
+query delivery missing, Topology chemical access/copy coupling, stable molecule
+membership absent, owner replacement/Builder associations not migrated,
+controlled editing absent and future persistence unavailable. These are not 32
+independently diagnosed new regressions. No xfail/skip was added.
+
+Combined with C7's unchanged eight modules, the run returned exit 1: 101 passed,
+32 failed, nine warnings in 8.89 s, using `--receptor=llm -n 12`. After storage
+extraction, the target module alone returned exit 1: four passed, 32 failed in
+13.62 s. These are honest failing development results, not passing source gates.
+Implement P2-P6 before merging this module to main; do not weaken its assertions.
+
+### P2 storage foundation
+
+[Implementation checkpoint e1bcedfa43a7a2094fe5bcf8b34af2ee16db56bf](https://github.com/uibcdf/molsysmt/commit/e1bcedfa43a7a2094fe5bcf8b34af2ee16db56bf)
+moves three storage classes, their schemas and existing bond-normalization/atom-
+remapping helpers to `molsysmt/native/_chemical_state.py`. ChemicalStates creation,
+growth, restriction and its typed codec now import their own owner. The three
+class bodies and two moved helper bodies retain exact AST equivalence to the
+baseline, apart from helpers becoming module functions. Scientific criteria,
+units and diagnostic identities were not redesigned.
+
+Topology retains marked private bindings/thin delegation for staged callers and
+original pickle paths. Its chemical collection, public facades, mutations and
+query plumbing still exist. Bond-table concatenation and remaining native
+ownership still need migration: P2.1 is not complete merely because storage
+moved. No new public API is exported.
+
+Five controls in `tests/native/test_chemical_state_storage.py` pass. They poison
+former Topology gateways while exercising standalone creation/growth/copy, typed
+encoding/decoding, restriction and zero-state transport. They also recover the
+trusted pre-extraction fixture `tests/native/data/chemical_states_before_separation.pkl`:
+4,591 bytes, SHA-256
+`a9675d019bce8eccdabb1548efb4349674e07709af9e5be791c0ff96f37c5cf0`.
+Its sidecar records original sources/protocol. Legacy paths resolve to one
+canonical implementation, not a second store. Current pickles use the new class
+owner; forward reading by an older installed provider is not claimed. H5MSM and
+dictionary schemas are unchanged.
+
+Executed in C7's shared source environment:
+
+```bash
+python -m pytest --receptor=llm -n 12 \
+  tests/native tests/basic/get tests/topology \
+  tests/form/file_h5msm tests/form/molsysmt_Topology \
+  --ignore=tests/native/test_chemical_domain_separation.py
+```
+
+Exit 0: **3,785 passed**, 126.43 s, 701 warnings. The command explicitly excludes
+the disclosed future targets; it is not a full passing branch suite. Warnings
+include legacy H5MSM, existing pandas future warnings and declared attribute/
+unit-cell diagnostics; no filters were relaxed. The five new storage controls
+and original 97-case selection pass separately; counts overlap the broader run
+and must not be summed. Other forms/full-package/final P8 qualification remain.
+
+`ruff check molsysmt` and both new test modules, changed-file Ruff formatting,
+`git diff --check` and `validate_dependencies.py` pass. The unchanged native
+extension has SHA-256
+`f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c`.
+No dependency floor, environment or attribution boundary changed. Relocating
+native storage does not introduce a new scientific method or credit claim.
+
+### Bounded copy baseline and remaining measurements
+
+The existing benchmark ran before runtime edits:
+
+```bash
+python devtools/scripts/benchmark_native_copy.py \
+  --case 10000x10 --case 1000x1000 \
+  --operation deferred_copy --operation eager_copy --operation selected_read \
+  --repeats 7 --output devtools/data/chemical_domain_copy_baseline_20261029.json
+```
+
+Exit 0. The [immutable artifact](https://github.com/uibcdf/molsysmt/blob/e1bcedfa43a7a2094fe5bcf8b34af2ee16db56bf/devtools/data/chemical_domain_copy_baseline_20261029.json)
+identifies test-only producer 6dcedaa80, implementation hashes, environment,
+warm-up, seven repetitions, medians, process RSS and separate traced allocation
+measurements. It marks the worktree dirty because the preserved API-doc edits
+were present; runtime hashes identify the measured code. These two one-state
+copy/read controls do not replace C7's multistate, large-atom, group-only,
+chemical-edit and projected-file measurements. No post-migration speedup or RAM
+reduction is claimed. Preserve original bytes and extend evidence before changing
+remaining measured paths.
+
+Next: finish chemical-owned data primitives and stable molecule membership, then
+stage owner binding/editing and queries together under C6. Remaining P1 fixtures/
+measurements and the 32 open targets stay visible. Storage relocation alone does
+not finish P2 or authorize the final cutover.
+
 ## Acceptance matrix
 
 | Boundary | Required independent observation |
@@ -795,7 +926,8 @@ Observed at the inspected source: `2 0`; both advertised attribute checks are
 False; the explicit-state query raises ArgumentError; bare Topology creates one
 state whose storage class is defined in `molsysmt.native.topology`; copying clones
 the collection. Private access above is a diagnostic reproduction, not proposed
-public usage. No new tests or refactoring have been executed for this plan.
+public usage. No new tests or refactoring had been executed at that original
+planning checkpoint; the dated execution receipt records subsequent work.
 
 Bounded Python searches of fetched `origin/main` identify concrete consumer
 callers, not a complete compatibility audit:
