@@ -6,4 +6,4 @@ Keep direct get/info selection, reference/collection scope and unavailable/empty
 distinctions. Requested-column validation does not certify unrelated states or
 history. No native collection/Topology decoding or read caches are required.
 Distinguish raw mapping edits from controlled native editing, and preserve copy,
-thread-local query scope, persistence and pending setter/predicate boundaries.
+thread-local query scope, persistence and controlled field setters, selected-state predicates and explicit native graph-editing boundaries.

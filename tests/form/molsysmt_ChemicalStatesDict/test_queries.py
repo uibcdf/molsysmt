@@ -366,3 +366,110 @@ def test_zero_state_cardinality_does_not_enumerate_a_million_positions(wire):
         tracemalloc.stop()
     assert value == 1_000_000
     assert peak < 1_000_000, f"Cardinality query allocated {peak:,} bytes"
+
+
+@pytest.mark.parametrize(
+    "attribute,value,expected",
+    [
+        ("formal_charge", [1, -1], [-1, -1, 1]),
+        ("atom_is_aromatic", [True, False], [False, None, True]),
+        ("n_unpaired_electrons", [1, 0], [0, None, 1]),
+        ("n_implicit_hydrogens", [1, 2], [2, None, 1]),
+        ("n_explicit_hydrogens", [1, 0], [0, None, 1]),
+        ("allows_implicit_hydrogens", [False, True], [True, None, False]),
+        ("atom_stereochemistry", ["S", "R"], ["R", None, "S"]),
+    ],
+)
+def test_controlled_dictionary_atom_assignment(wire, attribute, value, expected):
+    original = wire.data["states"][0]
+    msm.set(wire, selection=[2, 0], chemical_state=1, **{attribute: value})
+    assert wire.get(chemical_state=1, **{attribute: True}) == expected
+    assert wire.data["states"][0] is original
+    assert wire.data["reference_chemical_state_index"] == 0
+
+
+@pytest.mark.parametrize(
+    "attribute,value,expected",
+    [
+        ("bond_id", 17, "17"),
+        ("bond_order", 2, 2),
+        ("fractional_bond_order", 1.5, 1.5),
+        ("bond_type", "dative", "dative"),
+        ("bond_is_aromatic", True, True),
+        ("bond_is_conjugated", False, False),
+        ("bond_stereochemistry", "E", "E"),
+        ("bond_stereo_atom_indices", [[2, 0]], [2, 0]),
+        ("bond_donor_atom_index", 0, 0),
+        ("bond_acceptor_atom_index", 1, 1),
+        ("bond_joins_components", False, False),
+        ("bond_evidence", "user_defined", "user_defined"),
+    ],
+)
+def test_controlled_dictionary_bond_assignment(wire, attribute, value, expected):
+    msm.set(wire, element="bond", chemical_state=1, bond_stereo_atom_indices=[2, 0])
+    msm.set(wire, element="bond", chemical_state=1, bond_evidence="explicit")
+    original = wire.data["states"][0]
+    msm.set(wire, element="bond", chemical_state=1, **{attribute: value})
+    assert wire.get(element="bond", chemical_state=1, **{attribute: True}) == [expected]
+    assert wire.data["states"][0] is original
+
+
+@pytest.mark.parametrize("element", ["atom", "component"])
+@pytest.mark.parametrize(
+    "attribute,value,expected",
+    [
+        ("component_id", 42, "42"),
+        ("component_name", "fragment", "fragment"),
+        ("component_type", "small molecule", "small molecule"),
+    ],
+)
+def test_dictionary_component_label_assignment(
+    wire, element, attribute, value, expected
+):
+    msm.set(
+        wire, element=element, selection=[0], chemical_state=1, **{attribute: value}
+    )
+    assert wire.get(element="atom", chemical_state=1, **{attribute: True}) == [
+        expected,
+        expected,
+        {
+            "component_id": "split-1",
+            "component_name": "part-1",
+            "component_type": "small molecule",
+        }[attribute],
+    ]
+
+
+def test_dictionary_membership_assignment_and_rejection_are_atomic(wire, monkeypatch):
+    msm.set(wire, selection=[1], chemical_state=1, component_index=None)
+    assert wire.get(element="atom", chemical_state=1, component_index=True) == [
+        0,
+        None,
+        1,
+    ]
+    assert wire.get(chemical_state=1, component_completeness=True) == "partial"
+    before = wire.data
+    with pytest.raises((ArgumentError, StructuralInconsistencyError)):
+        msm.set(wire, selection=[0], chemical_state=1, component_index=2)
+    assert wire.data is before
+    from molsysmt.native import _chemical_dict_assignments as writer
+
+    def failure(*args):
+        raise MemoryError("injected encoding failure")
+
+    monkeypatch.setattr(writer, "_encode_chemical_states", failure)
+    with pytest.raises(MemoryError, match="injected"):
+        msm.set(wire, chemical_state=1, formal_charge=0)
+    assert wire.data is before
+
+
+@pytest.mark.parametrize(
+    "form", ["molsysmt.ChemicalStates", "molsysmt.ChemicalStatesDict"]
+)
+def test_predicates_follow_selected_chemical_state(wire, form):
+    item = msm.convert(wire, to_form=form)
+    assert msm.contains(item, n_components=2, chemical_state=1)
+    assert not msm.contains(item, n_components=2, chemical_state=0)
+    assert msm.is_composed_of(item, n_components=2, chemical_state=1)
+    assert not msm.is_composed_of(item, n_components=2, chemical_state=0)
+    assert item.get(reference_chemical_state_index=True) == 0

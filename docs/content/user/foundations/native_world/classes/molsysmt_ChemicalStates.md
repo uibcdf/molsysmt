@@ -228,3 +228,9 @@ and {ref}`API Native Queries` for available resident-object queries. Further
 chemical-attribute and assignment routing remains part of the domain migration;
 the stored-axis queries do not imply support for every molecular attribute on a
 standalone collection.
+
+Typed ChemicalStatesDict field assignments use the same controlled native rules
+through `msm.set`, materializing only the selected state before publication.
+Graph-editing methods still require explicit conversion to ChemicalStates.
+`contains` and `is_composed_of` accept `chemical_state` for supported state-local
+counts; they do not supply absent stable hierarchy.

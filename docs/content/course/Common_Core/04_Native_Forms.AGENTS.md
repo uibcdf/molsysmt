@@ -40,4 +40,6 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 Preserve the executed ChemicalStatesDict direct-read example, selected-state bounds,
 ordered/repeated positions and unchanged reference. Queries do not decode unrelated
-states or history; dictionary mutation is not a controlled editing interface.
+states or history; raw dictionary mutation is not a controlled editing interface.
+
+Retain controlled typed field assignment and state-aware count predicate examples.

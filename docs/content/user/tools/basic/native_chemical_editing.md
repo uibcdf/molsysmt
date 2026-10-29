@@ -115,3 +115,9 @@ values before publishing and invalidate observations for scientific changes.
 Changing only `bond_id` preserves observations, stored bond positions and nullable
 columns. It does not infer new chemical participation flags. IDs are string labels;
 they do not select bond rows.
+
+Typed ChemicalStatesDict field assignments use the same controlled native rules
+through `msm.set`, materializing only the selected state before publication.
+Graph-editing methods still require explicit conversion to ChemicalStates.
+`contains` and `is_composed_of` accept `chemical_state` for supported state-local
+counts; they do not supply absent stable hierarchy.

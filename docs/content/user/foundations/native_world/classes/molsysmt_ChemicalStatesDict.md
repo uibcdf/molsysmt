@@ -51,12 +51,19 @@ full-state caches or analysis objects are attached to the payload.
 
 ## Editing and Copying
 
-For controlled editing, explicitly convert to `molsysmt.ChemicalStates`, apply
-the native graph methods or supported `msm.set` attributes, and convert back if
-a transport payload is needed. Controlled dictionary setters and general chemical
-predicates remain pending. Direct `.data` writes bypass validation, graph
-reconstruction and owner notification. Do not interpret mutable dictionary access
-as a supported molecular mutation interface.
+Use `msm.set(payload, chemical_state=..., ...)` for the same stored atom/bond
+assignments and declared component membership/labels as ChemicalStates. One
+attribute materializes only the selected state through the existing typed codec,
+uses the canonical native validation/mutation boundary, and encodes its replacement
+before publication. Failure preserves the original payload; other records and the
+reference remain unchanged. Several attributes are separate assignments. This
+write boundary can cost the selected state's storage, unlike small direct reads.
+For graph editing methods, explicitly convert to ChemicalStates first.
+
+`msm.contains` and `msm.is_composed_of` accept the keyword-only `chemical_state`
+selector for state-dependent supported counts. Stable hierarchy requires a provider
+that actually stores it. Direct `.data` writes bypass validation, graph
+reconstruction and owner notification; raw mutation is not controlled editing.
 
 `payload.copy()` and `to_dict(copy=True)` return detached mutable payloads;
 `to_dict(copy=False)` exposes the current mapping. Copying does not validate or

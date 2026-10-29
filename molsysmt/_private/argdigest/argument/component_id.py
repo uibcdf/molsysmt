@@ -36,7 +36,12 @@ def digest_component_id(component_id, caller=None):
 
     if caller == "molsysmt.basic.set.set" or (
         isinstance(caller, str)
-        and caller.startswith("molsysmt.form.molsysmt_ChemicalStates.set.")
+        and caller.startswith(
+            (
+                "molsysmt.form.molsysmt_ChemicalStates.set.",
+                "molsysmt.form.molsysmt_ChemicalStatesDict.set.",
+            )
+        )
     ):
         from molsysmt.native._chemical_component_values import normalize_assignment
 
