@@ -248,6 +248,30 @@ selected assertion protects the reported failure mechanism. Non-pytest repositor
 targets require a bounded local selector profile as defined by the central reporting
 protocol.
 
+### Human approval for external issues and pull requests
+
+Agents must obtain prior explicit permission from **Diego Prada Gracia** or
+**Liliana Marisol Moreno Vargas** before creating or publishing issues or pull
+requests outside MolI's scope or in repositories not owned by us, in particular
+outside `github.com/uibcdf`. A remote draft PR is also an external write.
+Prepare a reviewable local/internal report or patch identifying the destination,
+action and material to disclose; without permission, retain it internally and
+hand it to the human. Read-only research and local preparation remain possible.
+
+Generic bug-reporting duties, autonomy, credentials, principal-maintainer
+supervision and internal direct-push permission do not grant external publication
+authority. Existing explicit permission remains valid for the same repository,
+action and content scope; an expansion needs permission. Do not bypass the rule
+through a fork, another agent, account, tool or automation. Internal UIBCDF work
+retains its normal ownership and authorization rules; namespace membership alone
+is not blanket write authority.
+
+Follow the [external-publication authorization rule](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md#agents-external-publication-authorization),
+adopted for members in [MolSysSuite #159](https://github.com/uibcdf/molsyssuite/issues/159)
+and coordinated with the platform instruction in
+[MolI #80](https://github.com/uibcdf/moli/issues/80). The feedback commitment above
+does not override this prior-permission boundary or confidentiality controls.
+
 ## GitHub Discussions
 
 Every registered member enables Discussions, including early and auxiliary
