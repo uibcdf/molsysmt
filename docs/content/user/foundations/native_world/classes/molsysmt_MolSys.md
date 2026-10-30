@@ -42,6 +42,8 @@ As a user, `molsysmt.MolSys` is the central object returned when loading, conver
 
 Some native operations edit a `MolSys` in place; `extract` returns an independent subset. A partial `MolSys` retains only the information domains that were available in its source.
 
+PDB export from a native system requires assigned `group_index` and `chain_index` for every selected atom. Unknown membership raises `NotCompatibleConversionError` before opening the destination; the source is unchanged. Select only atoms with the required membership, explicitly assign the correct stable inventory, or use H5MSM 0.5 to retain unknown memberships. An assigned chain with an unknown label is a different case: the PDB writer retains its existing `A` label fallback without changing native membership.
+
 The general `msm.remove` tool returns an independent subset by default, even
 when nothing is removed. Explicit `in_place=True` keeps the MolSys identity,
 replaces its domains together and returns `None`. Previously held domains and

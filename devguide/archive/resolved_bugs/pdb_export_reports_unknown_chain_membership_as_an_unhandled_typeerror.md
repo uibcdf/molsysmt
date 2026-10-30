@@ -1,13 +1,13 @@
 ---
 summary: PDB export reports unknown chain membership as an unhandled TypeError
 issue: uibcdf/molsysmt#525
-status: open
+status: resolved
 opened: 2026-10-30
-closed:
+closed: 2026-10-30
 severity: low
 verification: reproduced
 area: [form, convert]
-guard:
+guard: tests/form/molsysmt_MolSys/test_pdb_text_missing_membership.py
 normative:
 blocked_by: []
 supersedes: []
@@ -36,7 +36,7 @@ msm.convert(molsys, to_form='string:pdb_text')
 
 Observed: TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NAType'. Source coordinates, hierarchy and chemistry must remain unchanged on rejection.
 
-Record — devguide/pending_bugs/pdb_export_reports_unknown_chain_membership_as_an_unhandled_typeerror.md
+Record — devguide/archive/resolved_bugs/pdb_export_reports_unknown_chain_membership_as_an_unhandled_typeerror.md
 
 
 ## Acceptance criteria
@@ -51,10 +51,39 @@ Record — devguide/pending_bugs/pdb_export_reports_unknown_chain_membership_as_
 - Preserve existing PDB field-capacity and multi-structure behavior. No scientific
   interaction or chemical-state policy change is required to improve this diagnostic.
 
-## Current disposition
+## Resolution — 2026-10-30
 
-Open diagnostic/partial-export follow-up, discovered in the Viewer source gate.
-The positive composition fixture was corrected to declare its intended chain;
-that does not resolve this unsupported-input diagnostic. The appropriate PDB
-projection/prerequisite policy remains to be decided. This record introduces no
-new provider runtime change or release-scope decision.
+The native PDB writer now checks selected atoms for unknown `group_index` or
+`chain_index` before formatting records. It rejects missing memberships with
+`NotCompatibleConversionError`, naming the missing prerequisite and suggesting
+an explicit correct assignment or H5MSM 0.5 for lossless missingness. It does not
+infer or repair the hierarchy. Missing membership outside the selection does not
+block export. An assigned chain with an unknown label retains the existing PDB
+label fallback; label projection does not create a native chain assignment.
+
+The regression module first reproduced five failures and three positive controls
+on the original writer (run 124, exit 1). With the fix, all eight cases pass and
+the atom-name alignment controls also pass (run 125: 22 passed, exit 0). The wider
+PDB regression selection passes 440 cases, exit 0 (run 126), covering conversion
+fidelity, selected payloads, capacity rejection, alternate locations, model
+records, units, file/text routes and the new nullable-membership cases. Three
+legacy-H5MSM warnings remain visible; none is suppressed for this qualification.
+
+The new guards exercise the actual reported bundled legacy H5MSM, unknown groups
+and chains in later atoms, unchanged source coordinates/units/inventory/bonds,
+selected-only prerequisites, assigned unnamed chains and rejection before file
+creation or overwrite. This is a diagnostic fix, not a scientific calculation or
+an extension of the PDB data model. Docstrings, the User Guide foundations and
+conversion tutorial, the conversion cookbook and course Module 04 state the policy.
+
+This resolves the separate #525 follow-up. It does not close #255, qualify a
+published artifact, migrate the remaining clients or authorize main integration.
+
+Validation — the fast gate passes 14/14 checks (run 133), whole-package Ruff and
+the form-adapter audit pass (run 129), and strict Sphinx HTML passes (run 132,
+exit 0). Notebook edits are narrative-only: code cells and saved outputs are
+byte-equivalent as parsed JSON. The Sphinx API supplies a typed boolean to
+`autosummary_generate=False` to preserve unrelated generated-file edits; no
+new API page is needed. An earlier CLI invocation (run 127, exit 1) passed
+`False` as a string and produced configuration warnings. That invocation error
+is preserved separately, not attributed to the product or relabeled as a pass.

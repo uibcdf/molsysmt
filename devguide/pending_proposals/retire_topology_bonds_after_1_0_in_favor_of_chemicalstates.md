@@ -2812,3 +2812,40 @@ unchanged.
    explicitly excludes that merge and all release actions.
 5. Qualify exact installed candidates and the declared platform/Python matrix under
    #254/#334 before publication. Source receiving is not a package or 1.0 release.
+
+
+### Nullable PDB closeout and controlled-source qualification — 2026-10-30
+
+The separately tracked #525 diagnostic is implemented and contract-tested. The
+writer rejects unknown selected atom-to-group or atom-to-chain membership with
+`NotCompatibleConversionError`, without assigning hierarchy or touching the
+source/destination. Selected known atoms and assigned unnamed chains remain
+supported. Run 124 reproduced five failures with three positive controls; run 125
+passes 22 focused cases; run 126 passes all 440 PDB regression cases, exit 0,
+142.76 seconds. The three legacy-H5MSM warnings remain visible. The owning
+[resolved report](../archive/resolved_bugs/pdb_export_reports_unknown_chain_membership_as_an_unhandled_typeerror.md)
+names its executable guard. Four unrelated autosummary edits remain excluded.
+
+The follow-up Viewer hosted Linux job 124346847683 (run 41138522008) has
+**3 failed / 3,313 passed / 24 skipped / 14 deselected**, exit 1, 482.61 seconds.
+All nine previous fixture failures are absent; the three strict documentation
+failures are the same old-provider Pandas4Warning mechanism tracked in #524.
+The separate source-pair run 41138522041 also fails. Its inspected Linux job
+124346847482 has **3 failed / 3,313 passed / 24 skipped / 14 deselected**,
+exit 1, 274.26 seconds, on **MolSysMT source 46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9
+and Pandas 3.1.0**. Despite its name, that route does not test the independent-domain
+provider candidate. Neither failed run is claimed as qualification of this branch.
+
+Ruff and the form-adapter structural/delivery audit pass for the new writer and
+regression module. These structural checks do not establish full source, installed
+artifact or scientific qualification. The final controlled-provider source matrix
+must instead select this branch and an exact qualified Viewer source. No dependency
+warning suppression, environment replacement, package publication or main merge
+is introduced by this diagnostic fix.
+
+The complete local fast gate passes **14/14** (run 133, exit 0). Strict Sphinx
+passes after supplying the autosummary option as a typed boolean (run 132,
+exit 0); the earlier string-valued CLI configuration failure is retained in
+the #525 record. Notebook changes affect narrative only, with code cells and
+saved outputs unchanged. Original autosummary edits and Rust binary hashes
+remain unchanged.

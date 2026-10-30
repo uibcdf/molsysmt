@@ -8,7 +8,7 @@ from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
 
-def _raise_capacity_error(attribute, reason):
+def _raise_conversion_error(attribute, reason):
     from molsysmt._private.smonitor import NotCompatibleConversionError
 
     raise NotCompatibleConversionError(
@@ -37,7 +37,7 @@ def _charge_field(value):
         return "  "
     value = int(value)
     if abs(value) > 9:
-        _raise_capacity_error(
+        _raise_conversion_error(
             "formal_charge",
             "PDB formal-charge magnitudes must fit one decimal digit.",
         )
@@ -46,9 +46,9 @@ def _charge_field(value):
 
 def _validate_coordinates(coordinates):
     if not np.isfinite(coordinates).all():
-        _raise_capacity_error("coordinates", "PDB coordinates must be finite.")
+        _raise_conversion_error("coordinates", "PDB coordinates must be finite.")
     if np.any(coordinates < -999.999) or np.any(coordinates > 9999.999):
-        _raise_capacity_error(
+        _raise_conversion_error(
             "coordinates",
             "PDB coordinates exceed the fixed-width 8.3 fields.",
         )
@@ -131,13 +131,13 @@ def to_string_pdb_text(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Native molecular system supplying stable inventory and coordinates.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     pdb_chain_id : object, default='chain_name'
-        Argument pdb_chain_id.
+        Stable chain label to write: ``'chain_name'`` by default, or ``'chain_id'``.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -146,6 +146,20 @@ def to_string_pdb_text(
     string:pdb_text
         Resulting object in string:pdb_text form.
 
+    Raises
+    ------
+    NotCompatibleConversionError
+        If selected atoms have unknown group or chain membership, or values
+        exceed PDB field capacities.
+
+    Notes
+    -----
+    Selected atoms must have assigned ``group_index`` and ``chain_index``.
+    Unknown memberships are rejected without modifying the source. Assign the
+    correct stable inventory explicitly, or use H5MSM 0.5 to preserve missing
+    memberships. Atoms outside the selection do not impose this requirement.
+    An assigned chain with an unknown label retains the writer's ``'A'`` label
+    fallback; this does not assign atoms to a previously unknown chain.
 
     .. versionadded:: 1.0.0
     """
@@ -170,6 +184,14 @@ def to_string_pdb_text(
         selected_structures = np.asarray(structure_indices, dtype=int)
 
     atoms = item.topology.atoms.iloc[source_atom_indices]
+    for membership in ("group_index", "chain_index"):
+        if atoms[membership].isna().any():
+            _raise_conversion_error(
+                membership,
+                f"PDB export requires assigned {membership} for every selected "
+                "atom. Assign the correct membership explicitly, or use H5MSM "
+                "0.5 to preserve unknown memberships; the source is unchanged.",
+            )
     groups = item.topology.groups
     chains = item.topology.chains
     chain_column = "chain_name" if pdb_chain_id == "chain_name" else "chain_id"
@@ -196,7 +218,7 @@ def to_string_pdb_text(
         variants_per_atom.append(max(counts, default=1))
     n_records = sum(variants_per_atom)
     if n_records > 99999:
-        _raise_capacity_error(
+        _raise_conversion_error(
             "atom_id", "PDB atom serials exceed the five-column capacity."
         )
     first_serial = {}
