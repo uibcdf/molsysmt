@@ -49,7 +49,7 @@ def main():
     shifts = np.arange(args.structures) * 0.0001
     coordinates[:, :, 2] += shifts[:, None]
     molsys.structures.append(coordinates=msm.pyunitwizard.quantity(coordinates, "nm"))
-    mappings = msm.topology.get_atom_correspondences(molsys)
+    mappings = msm.chemical_states.get_atom_correspondences(molsys)
     options = dict(selection="all", reference_molecular_system=molsys, num_threads=1)
 
     def cached(source, heavy):
@@ -85,8 +85,8 @@ def main():
         disk_bytes = path.stat().st_size
         disk_hash = hashlib.sha256(path.read_bytes()).hexdigest()
     source_files = [
-        "molsysmt/topology/get_atom_correspondences.py",
-        "molsysmt/topology/_atom_correspondences.py",
+        "molsysmt/chemical_states/get_atom_correspondences.py",
+        "molsysmt/chemical_states/_atom_correspondences.py",
         "molsysmt/structure/get_symmetry_corrected_rmsd.py",
         "molsysmt/structure/_symmetry_rmsd.py",
         __file__,

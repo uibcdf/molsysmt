@@ -44,11 +44,10 @@ def calculate_molecular_descriptor(
     from molsysmt import __version__, _ackredit
     from molsysmt._private.scientific_citations import ARTICLES, SOFTWARE
     from molsysmt.basic import convert, get
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         chemical_graph_digest,
         detached_chemical_graph_view,
-        validate_chemical_frames,
     )
 
     def fail(reason):
@@ -129,9 +128,13 @@ def calculate_molecular_descriptor(
                 )
             indices = np.asarray(indices, dtype=np.int64)
         source, states, state, state_index, _, pairs, frames = chemical_graph_context(
-            molecular_system, chemical_state, structure_indices, False, caller
+            molecular_system,
+            chemical_state,
+            structure_indices,
+            False,
+            caller,
+            with_structures=False,
         )
-        validate_chemical_frames(source, frames, caller)
         from .get_aromaticity import get_aromaticity
 
         # Check all selected boundaries in one pass over the source bonds.
@@ -329,7 +332,7 @@ def calculate_molecular_descriptor(
             else np.empty(0, dtype=np.int64),
             chemical_state_index=state_index,
             chemical_state_id=state.state_id,
-            chemical_graph_digest=chemical_graph_digest(view, state_index),
+            chemical_graph_digest=chemical_graph_digest(view, 0),
             formal_charges=np.asarray(charges, dtype=np.int64),
             formal_charge_unit="elementary_charge",
             method=method,

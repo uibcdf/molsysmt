@@ -52,14 +52,14 @@ def analysis():
     "factory,fields",
     [
         (MolSys, ["n_atoms=0", "n_structures=0", "n_chemical_states=1"]),
-        (Topology, ["n_atoms=0", "n_groups=0", "n_bonds=0"]),
+        (Topology, ["n_atoms=0", "n_groups=0", "n_molecules=0"]),
         (Structures, ["n_atoms=None", "n_structures=0", "coordinates=False"]),
         (ChemicalStates, ["n_atoms=0", "n_chemical_states=0"]),
         (MolSysBuilder, ["n_atoms=0", "n_groups=0", "n_structures=0"]),
         (MolecularMechanics, ["n_atoms=None", "forcefield=False"]),
         (Simulation, ["integrator=None", "platform='CUDA'"]),
         (MolSysDict, ["n_atoms=0", "n_structures=None"]),
-        (TopologyDict, ["n_atoms=0", "n_groups=0", "n_bonds=0"]),
+        (TopologyDict, ["n_atoms=0", "n_groups=0"]),
         (
             lambda: ChemicalStatesDict(
                 dict(n_atoms=5, states=[], reference_chemical_state_index=None)
@@ -110,12 +110,12 @@ def test_unknown_axes_are_distinct_from_empty_declared_axes():
 
 
 def test_ambiguous_reference_does_not_select_a_state_or_raise():
-    topology = Topology(n_atoms=5, n_groups=2)
-    states = topology._chemical_states_domain
+    molsys = MolSys(n_atoms=5, n_groups=2)
+    states = molsys.chemical_states
     states.append_state()
     states._reference_index = None
-    assert "n_bonds=None" in repr(topology)
-    assert "n_chemical_states=2" in repr(topology)
+    assert "n_chemical_states=2" in repr(molsys)
+    assert "n_bonds" not in repr(molsys.topology)
     assert "reference_chemical_state_index=None" in repr(states)
     assert states._reference_index is None
 
@@ -134,7 +134,7 @@ def test_summary_never_dispatches_validates_or_renders_data(monkeypatch):
     for name in ["get", "get_form", "select", "copy", "info"]:
         monkeypatch.setattr(msm, name, forbidden)
     monkeypatch.setattr(Structures, "_validate_alignment", forbidden)
-    monkeypatch.setattr(Topology, "_get_chemical_state_bonds", forbidden)
+    monkeypatch.setattr(Topology, "_get_chemical_state_bonds", forbidden, raising=False)
     monkeypatch.setattr(MolSys, "_validate_interactions", forbidden)
     monkeypatch.setattr(pd.DataFrame, "__repr__", forbidden)
     monkeypatch.setattr(msm.pyunitwizard, "get_value", forbidden)

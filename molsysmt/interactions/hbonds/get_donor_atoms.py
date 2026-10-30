@@ -94,7 +94,7 @@ def get_donor_atoms(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.topology import get_covalent_paths
+    from molsysmt.chemical_states import get_covalent_paths
 
     from ._role_rules import select_role_atoms
 

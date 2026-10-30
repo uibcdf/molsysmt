@@ -257,7 +257,7 @@ def test_detached_report_values_and_metadata_preserve_source_and_scene(view):
         primary.interactions["preserve"],
     )
     snapshots = [
-        primary.topology.atoms.copy(deep=True),
+        primary.topology.copy().atoms,
         primary.chemical_states._states[0].atom_attributes.copy(deep=True),
         primary.chemical_states._states[0].bonds.copy(deep=True),
     ]

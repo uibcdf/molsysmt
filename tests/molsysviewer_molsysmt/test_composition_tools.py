@@ -33,7 +33,10 @@ def same_system(actual, expected):
     assert actual.structures.n_structures == expected.structures.n_structures
     np.testing.assert_allclose(xyz(actual), xyz(expected), atol=1e-7)
     pd.testing.assert_frame_equal(actual.topology.atoms, expected.topology.atoms)
-    pd.testing.assert_frame_equal(actual.topology.bonds, expected.topology.bonds)
+    pd.testing.assert_frame_equal(
+        actual.chemical_states._resolve_chemical_state().bonds,
+        expected.chemical_states._resolve_chemical_state().bonds,
+    )
 
 
 @pytest.mark.parametrize("name", BOUND + COLLECTION)
@@ -403,7 +406,7 @@ def test_native_coordinate_drop_is_completed_science_and_retry_never_repeats_it(
 @pytest.mark.parametrize("name", BOUND)
 def test_complementary_source_items_are_one_system(view, name):
     source = msm.copy(view.molsys)
-    items = [source.topology, source.structures]
+    items = [source.topology, source.chemical_states, source.structures]
     expected = getattr(msm.basic, name)(view.molsys, items, in_place=False)
     getattr(view.addons.molsysmt.basic, name)(items)
     same_system(view.molsys, expected)

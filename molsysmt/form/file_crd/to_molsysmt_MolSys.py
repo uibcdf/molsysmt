@@ -57,11 +57,12 @@ def to_molsysmt_MolSys(
     from .to_molsysmt_Structures import to_molsysmt_Structures
     from .to_molsysmt_Topology import to_molsysmt_Topology
 
-    tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(item, skip_digestion=True)
-    tmp_item.structures = to_molsysmt_Structures(item, skip_digestion=True)
+    topology = to_molsysmt_Topology(item, skip_digestion=True)
+    structures = to_molsysmt_Structures(item, skip_digestion=True)
 
-    return tmp_item.extract(
+    return MolSys._from_partial_domains(
+        topology=topology, structures=structures
+    ).extract(
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         copy_if_all=False,

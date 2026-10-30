@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from devtools.scripts import validate_api_stability as validator
 
 
@@ -116,3 +118,69 @@ def test_transition_rejects_stable_demotion_and_removal(tmp_path):
     assert validator.validate_transition(previous, {"symbols": {}}) == [
         "Stable symbol removed from registry: example.run"
     ]
+
+
+def _relocation_pair(tmp_path):
+    previous = _fixture(tmp_path)
+    previous["symbols"]["example.run"].update(stability="stable", introduced="pre-1.0")
+    current = json.loads(json.dumps(previous))
+    current["symbols"]["other.run"] = current["symbols"].pop("example.run")
+    current["pre_1_0_namespace_moves"] = {
+        "example.run": {
+            "replacement": "other.run",
+            "issue": "uibcdf/molsysmt#255",
+            "reason": "Accepted pre-release namespace separation.",
+            "guard": "tests/guard.py::test_namespace",
+        }
+    }
+    return previous, current
+
+
+def test_transition_allows_an_explicit_pre_release_namespace_move(tmp_path):
+    previous, current = _relocation_pair(tmp_path)
+    assert validator.validate_transition(previous, current) == []
+
+
+@pytest.mark.parametrize(
+    "defect", ["released", "demoted", "renamed", "untracked", "no_reason", "no_issue"]
+)
+def test_namespace_move_cannot_hide_other_stable_contract_changes(tmp_path, defect):
+    previous, current = _relocation_pair(tmp_path)
+    move = current["pre_1_0_namespace_moves"]["example.run"]
+    if defect == "released":
+        previous["symbols"]["example.run"]["introduced"] = "1.0.0"
+    elif defect == "demoted":
+        current["symbols"]["other.run"]["stability"] = "experimental"
+    elif defect == "renamed":
+        current["symbols"]["other.changed"] = current["symbols"].pop("other.run")
+        move["replacement"] = "other.changed"
+    elif defect == "untracked":
+        move["replacement"] = "missing.run"
+    elif defect == "no_reason":
+        move["reason"] = ""
+    else:
+        move["issue"] = ""
+    assert validator.validate_transition(previous, current) == [
+        "Stable symbol removed from registry: example.run"
+    ]
+
+
+def test_namespace_record_requires_an_addressable_assertion_guard(tmp_path):
+    registry = _fixture(tmp_path)
+    registry["symbols"]["example.run"]["introduced"] = "pre-1.0"
+    registry["pre_1_0_namespace_moves"] = {
+        "old.run": {
+            "replacement": "example.run",
+            "issue": "uibcdf/molsysmt#255",
+            "reason": "Accepted relocation.",
+            "guard": "tests/guard.py::test_namespace",
+        }
+    }
+    guard = tmp_path / "tests/guard.py"
+    guard.write_text("def test_namespace():\n    pass\n")
+    assert any(
+        "assertion-bearing" in error
+        for error in validator.validate_registry(registry, tmp_path)
+    )
+    guard.write_text("def test_namespace():\n    assert True\n")
+    assert validator.validate_registry(registry, tmp_path) == []

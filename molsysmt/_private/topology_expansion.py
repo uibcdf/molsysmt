@@ -35,6 +35,7 @@ def _add_gathered_columns(output, table, columns, links, valid, gathered_dtypes)
 def expand_atom_dataframe(
     topology,
     *,
+    chemical_states=None,
     atom_columns=(),
     group_columns=(),
     component_columns=(),
@@ -49,6 +50,15 @@ def expand_atom_dataframe(
     pipeline.
     """
 
+    if (
+        component_columns or "component_index" in atom_columns
+    ) and chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Component selection requires an explicit ChemicalStates domain.",
+            caller="molsysmt.basic.select",
+        )
     requested_atom_columns = list(atom_columns)
     needs_component_index = "component_index" in requested_atom_columns
     stable_atom_columns = [
@@ -56,7 +66,7 @@ def expand_atom_dataframe(
     ]
     output = topology.atoms[stable_atom_columns].copy()
     if needs_component_index:
-        output["component_index"] = topology._get_component_indices().copy()
+        output["component_index"] = chemical_states._get_component_indices().copy()
         output = output[requested_atom_columns]
     n_atoms = len(topology.atoms)
     required = np.ones(n_atoms, dtype=bool)
@@ -126,14 +136,14 @@ def expand_atom_dataframe(
         )
 
     if component_columns:
-        component_links = _integer_links(topology._get_component_indices())
+        component_links = _integer_links(chemical_states._get_component_indices())
         component_valid = (component_links >= 0) & (
-            component_links < len(topology.components)
+            component_links < len(chemical_states._resolve_chemical_state().components)
         )
         required &= component_valid
         _add_gathered_columns(
             output,
-            topology.components,
+            chemical_states._resolve_chemical_state().components,
             component_columns,
             component_links,
             component_valid,

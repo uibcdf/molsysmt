@@ -1,7 +1,4 @@
-from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-from molsysmt.form._serialization import normalize_scalar as _normalize_scalar
-from molsysmt.native import MolSysDict
 
 
 @arg_digest(form="molsysmt.MolSys")
@@ -31,18 +28,17 @@ def to_molsysmt_MolSysDict(
     Raises
     ------
     ValueError
-        If topology, chemical states, or structures are absent, or interaction
-        analyses cannot be represented by MolSysDict 0.1.
-
+        If nonempty MolecularMechanics or untyped extensions cannot be preserved
+        by the declared schema. Independently absent domains are supported.
 
     Notes
     -----
-    Nullable table fields become Python scalars or None, including typed isotope
-    and bond-order numbers. The emitted record schema is 0.1; primitive scalar
-    transport does not imply preservation of every native chemical assignment.
-    Coordinates and box values are lists in nm; time values are lists in ps.
-    Independent atom/molecule declarations that schema 0.1 cannot represent
-    are rejected. Use H5MSM 0.5 to preserve them.
+    The writer emits schema 0.2 with explicitly optional topology, chemical states,
+    structures, state associations and named analyses. Numeric arrays use typed
+    transport; dimensionful fields use PyUnitWizard quantity records. Nullable
+    assignments and producer history retain their stored meaning. JSON/YAML
+    encoding materializes this transport; use H5MSM 0.5 for large numeric data.
+    Legacy 0.1 reading remains available through the separate dictionary reader.
 
     Examples
     --------
@@ -58,186 +54,12 @@ def to_molsysmt_MolSysDict(
     .. versionadded:: 1.0.0
     """
 
-    from .extract import extract
+    from molsysmt.form._native_dict import encode_molsys
 
-    if item.topology is None or item.chemical_states is None or item.structures is None:
-        raise ValueError(
-            "MolSysDict 0.1 requires topology, chemical states, and structures; partial MolSys "
-            "objects need a versioned modular representation."
-        )
-    if item.interactions:
-        raise ValueError("MolSysDict 0.1 cannot store MolSys interaction analyses.")
-    if any(state._preparation_history for state in item.chemical_states._states):
-        raise ValueError(
-            "MolSysDict 0.1 cannot store preparation history; use H5MSM 0.5 or ChemicalStatesDict instead."
-        )
-
-    item = extract(
-        item,
+    source = item.extract(
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         copy_if_all=False,
         skip_digestion=True,
     )
-
-    from molsysmt.native._legacy_molecule_membership import validate_record_export
-
-    validate_record_export(item.topology)
-
-    atoms = []
-    for atom_index in range(item.topology.n_atoms):
-        row = item.topology.atoms.iloc[atom_index]
-        atoms.append(
-            {
-                "atom_id": None
-                if _normalize_scalar(row["atom_id"]) is None
-                else str(_normalize_scalar(row["atom_id"])),
-                "atom_name": _normalize_scalar(row["atom_name"]),
-                "atom_type": _normalize_scalar(row["atom_type"]),
-                "isotope": _normalize_scalar(row["isotope"]),
-            }
-        )
-
-    groups = []
-    atom_group_index = item.topology.atoms["group_index"].to_numpy(dtype=object)
-    for group_index in range(item.topology.n_groups):
-        row = item.topology.groups.iloc[group_index]
-        groups.append(
-            {
-                "group_id": None
-                if _normalize_scalar(row["group_id"]) is None
-                else str(_normalize_scalar(row["group_id"])),
-                "group_name": _normalize_scalar(row["group_name"]),
-                "group_type": _normalize_scalar(row["group_type"]),
-                "atom_indices": [
-                    int(ii)
-                    for ii in range(item.topology.n_atoms)
-                    if atom_group_index[ii] == group_index
-                ],
-            }
-        )
-
-    bonds = []
-    bonds_df = item.topology._get_chemical_state_bonds()
-    if bonds_df.shape[0] > 0:
-        for bond_index in range(bonds_df.shape[0]):
-            row = bonds_df.iloc[bond_index]
-            bond = {
-                "atom_index_1": int(row["atom1_index"]),
-                "atom_index_2": int(row["atom2_index"]),
-            }
-            if (
-                "bond_order" in bonds_df.columns
-                and _normalize_scalar(row.get("bond_order", None)) is not None
-            ):
-                bond["bond_order"] = _normalize_scalar(row["bond_order"])
-            elif (
-                "is_aromatic" in bonds_df.columns
-                and _normalize_scalar(row.get("is_aromatic", None)) is not None
-                and bool(row["is_aromatic"])
-            ):
-                bond["bond_order"] = "aromatic"
-            if (
-                "bond_type" in bonds_df.columns
-                and _normalize_scalar(row.get("bond_type", None)) is not None
-            ):
-                bond["bond_type"] = _normalize_scalar(row["bond_type"])
-            bonds.append(bond)
-
-    chains = []
-    if item.topology.n_chains > 0:
-        from molsysmt.native._chain_groups import by_chain
-
-        chain_group_indices = by_chain(item.topology)
-        for chain_index in range(item.topology.n_chains):
-            row = item.topology.chains.iloc[chain_index]
-            chains.append(
-                {
-                    "chain_id": None
-                    if _normalize_scalar(row["chain_id"]) is None
-                    else str(_normalize_scalar(row["chain_id"])),
-                    "chain_name": _normalize_scalar(row["chain_name"]),
-                    "chain_type": _normalize_scalar(row["chain_type"]),
-                    "group_indices": chain_group_indices[chain_index].tolist(),
-                }
-            )
-
-    molecules = []
-    if item.topology.n_molecules > 0:
-        group_molecule_index = item.topology.groups["molecule_index"].to_numpy(
-            dtype=object
-        )
-        for molecule_index in range(item.topology.n_molecules):
-            row = item.topology.molecules.iloc[molecule_index]
-            molecules.append(
-                {
-                    "molecule_id": None
-                    if _normalize_scalar(row["molecule_id"]) is None
-                    else str(_normalize_scalar(row["molecule_id"])),
-                    "molecule_name": _normalize_scalar(row["molecule_name"]),
-                    "molecule_type": _normalize_scalar(row["molecule_type"]),
-                    "group_indices": [
-                        int(ii)
-                        for ii in range(item.topology.n_groups)
-                        if group_molecule_index[ii] == molecule_index
-                    ],
-                }
-            )
-
-    entities = []
-    if item.topology.n_entities > 0:
-        molecule_entity_index = item.topology.molecules["entity_index"].to_numpy(
-            dtype=object
-        )
-        for entity_index in range(item.topology.n_entities):
-            row = item.topology.entities.iloc[entity_index]
-            entities.append(
-                {
-                    "entity_id": None
-                    if _normalize_scalar(row["entity_id"]) is None
-                    else str(_normalize_scalar(row["entity_id"])),
-                    "entity_name": _normalize_scalar(row["entity_name"]),
-                    "entity_type": _normalize_scalar(row["entity_type"]),
-                    "molecule_indices": [
-                        int(ii)
-                        for ii in range(item.topology.n_molecules)
-                        if molecule_entity_index[ii] == entity_index
-                    ],
-                }
-            )
-
-    structures = {
-        "structure_id": None,
-        "time": None,
-        "box": None,
-        "coordinates": None,
-    }
-
-    if item.structures.structure_id is not None:
-        structures["structure_id"] = item.structures.structure_id.tolist()
-    if item.structures.time is not None:
-        structures["time"] = puw.get_value(item.structures.time, to_unit="ps").tolist()
-    if item.structures.box is not None:
-        structures["box"] = puw.get_value(item.structures.box, to_unit="nm").tolist()
-    if item.structures.coordinates is not None:
-        structures["coordinates"] = puw.get_value(
-            item.structures.coordinates, to_unit="nm"
-        ).tolist()
-
-    data = {
-        "format": "molsysmt",
-        "kind": "molsys",
-        "version": "0.1",
-        "metadata": {},
-        "topology": {
-            "atoms": atoms,
-            "groups": groups,
-            "bonds": bonds,
-            "chains": chains,
-            "molecules": molecules,
-            "entities": entities,
-        },
-        "structures": structures,
-    }
-
-    return MolSysDict(data=data)
+    return encode_molsys(source)

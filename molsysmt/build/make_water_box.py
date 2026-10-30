@@ -116,15 +116,21 @@ def make_water_box(box, form="molsysmt.MolSys", skip_digestion=False):
     output.topology.atoms["atom_name"] = np.tile(["OW", "HW1", "HW2"], n_waters)
     output.topology.atoms["atom_type"] = np.tile(["O", "H", "H"], n_waters)
     output.topology.atoms["group_index"] = np.repeat(np.arange(n_waters), 3)
-    output.topology._set_component_indices(np.repeat(np.arange(n_waters), 3))
+    output.chemical_states._set_component_indices(np.repeat(np.arange(n_waters), 3))
     output.topology.atoms["chain_index"] = 0
     output.topology.groups["group_id"] = np.arange(n_waters)
     output.topology.groups["group_name"] = "WAT"
     output.topology.groups["group_type"] = "water"
     output.topology.groups["molecule_index"] = np.arange(n_waters)
-    output.topology.components["component_id"] = np.arange(n_waters)
-    output.topology.components["component_name"] = "water"
-    output.topology.components["component_type"] = "water"
+    output.chemical_states._resolve_chemical_state().components["component_id"] = (
+        np.arange(n_waters)
+    )
+    output.chemical_states._resolve_chemical_state().components["component_name"] = (
+        "water"
+    )
+    output.chemical_states._resolve_chemical_state().components["component_type"] = (
+        "water"
+    )
     output.topology.molecules["molecule_name"] = "water"
     output.topology.molecules["molecule_id"] = np.arange(n_waters)
     output.topology.molecules["molecule_type"] = "water"
@@ -142,11 +148,17 @@ def make_water_box(box, form="molsysmt.MolSys", skip_digestion=False):
     mask = np.arange(1, n_waters * 2, 2)
     aux[mask] = np.arange(2, n_atoms, 3)
 
-    bonds = output.topology._get_chemical_state_bonds()
+    bonds = output.chemical_states._get_chemical_state_bonds()
     bonds["atom1_index"] = np.repeat(np.arange(n_waters) * 3, 2)
     bonds["atom2_index"] = aux
     bonds._remove_empty_columns()
 
     del (aux, mask)
 
+    output.topology._coerce_id_columns_to_string()
+    output.chemical_states._resolve_chemical_state().components["component_id"] = (
+        output.chemical_states._resolve_chemical_state()
+        .components["component_id"]
+        .astype("string")
+    )
     return output

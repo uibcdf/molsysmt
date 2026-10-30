@@ -432,14 +432,15 @@ before calculating new evidence.
 
 An observed proximity is separate from the chemical state's covalent graph.
 For example, explicitly adding a covalent bond changes the `ChemicalStates`
-domain and the compatible `Topology.bonds` view together:
+domain without changing the stable inventory or molecule membership:
 
 ```python
 from molsysmt.native import MolSys
 
 molsys = MolSys(n_atoms=2)
-molsys.topology.add_bonds([[0, 1]])
-assert molsys.chemical_states.get_bonds() is molsys.topology.bonds
+molsys.chemical_states.add_bonds([[0, 1]])
+assert molsys.chemical_states.get_bonds()[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
+assert not hasattr(molsys.topology, "bonds")
 ```
 
 ## Consuming results in MolSysViewer

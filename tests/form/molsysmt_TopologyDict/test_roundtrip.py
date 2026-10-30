@@ -20,7 +20,8 @@ def test_topology_to_topology_dict_and_back(builder_pdb_molsys):
 
     assert rebuilt.n_atoms == topology.n_atoms
     assert rebuilt.n_groups == topology.n_groups
-    assert rebuilt.n_bonds == topology.n_bonds
+    assert not hasattr(rebuilt, "n_bonds")
+    assert not hasattr(topology, "n_bonds")
     assert rebuilt.n_chains == topology.n_chains
     assert rebuilt.n_molecules == topology.n_molecules
     assert rebuilt.n_entities == topology.n_entities

@@ -8,11 +8,9 @@ def _assert_native_core_equal(observed, expected):
     for table_name in (
         "atoms",
         "groups",
-        "components",
         "molecules",
         "chains",
         "entities",
-        "bonds",
     ):
         observed_table = getattr(observed.topology, table_name)
         expected_table = getattr(expected.topology, table_name)
@@ -20,6 +18,8 @@ def _assert_native_core_equal(observed, expected):
         assert observed_table.astype("string").fillna("<missing>").to_dict(
             "records"
         ) == (expected_table.astype("string").fillna("<missing>").to_dict("records"))
+
+    assert observed.chemical_states._inventory_equals(expected.chemical_states)
 
     np.testing.assert_allclose(
         puw.get_value(observed.structures.coordinates, to_unit="nm"),
@@ -71,5 +71,9 @@ def test_molsys_yaml_applies_selection_and_roundtrips_declared_schema(
         "100",
         "102",
     ]
-    assert output.data["structures"]["structure_id"] == [50, 10]
-    assert np.asarray(output.data["structures"]["coordinates"]).shape == (2, 2, 3)
+    assert msm.get(output, structure_id=True) == ["50", "10"]
+    assert puw.get_value(msm.get(output, coordinates=True), to_unit="nm").shape == (
+        2,
+        2,
+        3,
+    )

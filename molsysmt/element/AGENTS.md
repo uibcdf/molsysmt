@@ -14,7 +14,9 @@ This guide refines the repository root `AGENTS.md` for public element helpers un
 - In the public query layer, using `molsysmt.get`, `molsysmt.select`, form detection, and piping is acceptable when needed to support arbitrary input forms.
 - Internal reconstruction and inference paths are owned by the native layer, not by `molsysmt.element`.
 - In particular, logic used by native rebuild workflows must operate on native topology/structure data directly and must not call `molsysmt.get` or `molsysmt.select`.
-- Do not add public `molsysmt.element.rebuild_*` helpers. Native rebuild entry points belong to `molsysmt.Topology` and `molsysmt.MolSys`.
+- Do not add public `molsysmt.element.rebuild_*` helpers. Stable rebuild entry
+  points belong to `Topology`; state-local component reconstruction belongs to
+  `ChemicalStates`. `MolSys` delegates with explicit stable context.
 
 ## Rebuild semantics
 
@@ -36,11 +38,10 @@ This guide refines the repository root `AGENTS.md` for public element helpers un
 
 ## Canonical fallback rules
 
-- If no better molecule definition is available, treat each molecule as a component.
-- Under that fallback:
-  - `molecule_index = component_index`,
-  - `molecule_name = component_name`,
-  - `molecule_type = component_type`.
+- When constructing missing hierarchy, a producer/builder may explicitly snapshot
+  one admitted component partition as stable molecule membership. Preserve its
+  origin and unknowns. This is a construction fallback, never a query-time rule:
+  later bonds/state changes cannot redefine stable molecules or chains.
 - If no better entity definition is available:
   - infer `entity_index` from molecules,
   - group waters under the same entity key,
@@ -61,7 +62,8 @@ This guide refines the repository root `AGENTS.md` for public element helpers un
   - may be inferred from local group types and local component composition.
 - `component_name`
   - may be inferred from local component composition and canonical naming rules,
-  - otherwise use deterministic fallback names.
+  - remains unknown when the selected state and supplied stable context cannot
+    support a name; component row positions do not provide chemical evidence.
 - `molecule_index`
   - may be inferred from explicit molecule metadata when present,
   - otherwise may fall back to component membership.

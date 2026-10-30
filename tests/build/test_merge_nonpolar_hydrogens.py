@@ -12,20 +12,22 @@ from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyErr
 
 
 def declared_methanol():
-    from molsysmt.native import MolSys, Structures, Topology
+    from molsysmt.native import MolSys, Structures
 
-    top = Topology(n_atoms=6)
-    top.atoms["atom_id"] = ["17", "3", "45", "90", "7", "11"]
+    top = MolSys(n_atoms=6)
+    top.topology.atoms["atom_id"] = ["17", "3", "45", "90", "7", "11"]
     # Deliberately misleading names: chemistry/labels, never names, own policy.
-    top.atoms["atom_name"] = ["C", "O", "HD", "N", "O", "C"]
-    top.atoms["atom_type"] = ["C", "O", "H", "H", "H", "H"]
-    top.bonds = pd.DataFrame(
-        {
-            "atom1_index": [0, 0, 0, 0, 1],
-            "atom2_index": [1, 2, 3, 4, 5],
-            "bond_type": ["covalent"] * 5,
-            "bond_order": [1] * 5,
-        }
+    top.topology.atoms["atom_name"] = ["C", "O", "HD", "N", "O", "C"]
+    top.topology.atoms["atom_type"] = ["C", "O", "H", "H", "H", "H"]
+    top.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": [0, 0, 0, 0, 1],
+                "atom2_index": [1, 2, 3, 4, 5],
+                "bond_type": ["covalent"] * 5,
+                "bond_order": [1] * 5,
+            }
+        )
     )
     for name, values in {
         "formal_charge": [0] * 6,
@@ -34,14 +36,14 @@ def declared_methanol():
         "n_implicit_hydrogens": [0] * 6,
         "allows_implicit_hydrogens": [True] * 6,
     }.items():
-        top._set_chemical_state_atom_attribute(name, values)
-    top._chemical_states[0].connectivity_completeness = "complete"
+        top.chemical_states._set_chemical_state_atom_attribute(name, values)
+    top.chemical_states._states[0].connectivity_completeness = "complete"
     structures = Structures()
     structures.append(
         coordinates=msm.pyunitwizard.quantity(np.arange(54).reshape(3, 6, 3) / 10, "nm")
     )
-    source = MolSys()
-    source.topology, source.structures = top, structures
+    source = top
+    source.structures = structures
     source.molecular_mechanics.atom_ff_type = ["C", "OA", "H", "H", "H", "HD"]
     source.molecular_mechanics.partial_charge = [-0.4, -0.5, 0.1, 0.2, 0.3, 0.3]
     return source
@@ -233,6 +235,7 @@ def test_public_form_agnostic_route_and_nondefault_units():
     source = declared_methanol()
     domains = [
         source.topology,
+        source.chemical_states,
         source.structures,
         source.molecular_mechanics,
     ]

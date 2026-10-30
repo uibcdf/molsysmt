@@ -46,9 +46,9 @@ payload and its supported profile. See {ref}`Tutorial_Get_form`.
 ## Reading explicit data
 
 For a complete chemically declared ligand, classify torsion candidates with
-{func}`molsysmt.topology.get_rotatable_bonds`, inspect its versioned criteria
+{func}`molsysmt.chemical_states.get_rotatable_bonds`, inspect its versioned criteria
 and exclusions, then choose active source bond indices and call
-{func}`molsysmt.topology.get_rigid_fragments`. The resulting fragment graph is
+{func}`molsysmt.chemical_states.get_rigid_fragments`. The resulting fragment graph is
 unrooted; the docking workflow must still choose ROOT, branch orientation,
 retained atom mappings and TORSDOF. See {ref}`Tutorial_Rotatable_Bonds`.
 This calculation cannot run on a PDBQT read's partial graph: prepared PDBQT
@@ -126,7 +126,7 @@ ligand tree when you intend to preserve its flexibility.
 The tree must partition the selected atom inventory, connect every fragment
 to ROOT without cycles, and match the **exact atom ID order**. If complete
 native chemistry is present, branches and rigid fragments are checked against
-that graph using {func}`molsysmt.topology.get_rigid_fragments`. The writer
+that graph using {func}`molsysmt.chemical_states.get_rigid_fragments`. The writer
 neither infers nor chemically classifies rotatable bonds.
 
 Serialization converts lengths explicitly to angstroms, including under a
@@ -219,7 +219,7 @@ For an explicitly prepared chemical graph, use
 These experimental operations require their documented chemical prerequisites
 and optional providers; they do not make a partial PDBQT graph complete.
 Choose graph-based torsion candidates separately with
-{func}`molsysmt.topology.get_rotatable_bonds`. No assignment runs during conversion.
+{func}`molsysmt.chemical_states.get_rotatable_bonds`. No assignment runs during conversion.
 Hydrogen merging with explicit projection and charge-conservation maps remains
 tracked in [MolSysMT #223](https://github.com/uibcdf/molsysmt/issues/223).
 

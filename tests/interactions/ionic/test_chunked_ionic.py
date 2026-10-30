@@ -120,7 +120,7 @@ def test_file_state_resolution_and_no_structural_materialization(tmp_path, monke
     molsys = _ions()
     state = molsys.chemical_states.append_state()
     msm.set(molsys, element="atom", formal_charge=[2, -1, 1], chemical_state=state)
-    molsys.topology._chemical_states[state].connectivity_completeness = "complete"
+    molsys.chemical_states._states[state].connectivity_completeness = "complete"
     molsys._set_structure_chemical_state_indices([state, 0, state])
     source = str(tmp_path / "states.h5msm")
     msm.convert(molsys, to_form=source)

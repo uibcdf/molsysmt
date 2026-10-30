@@ -12,7 +12,7 @@ from molsysmt.form._h5msm05_modular import (
     write_modular_file,
     write_topology_free_molsys_file,
 )
-from molsysmt.native import MolSys, Structures, Topology
+from molsysmt.native import MolSys, Structures
 
 
 def _link(indices):
@@ -27,9 +27,9 @@ def _link(indices):
 
 
 def _system():
-    topology = Topology(n_atoms=3)
-    topology.add_bonds([[0, 1]])
-    states = msm.convert(topology, to_form="molsysmt.ChemicalStates")
+    states = msm.ChemicalStates(n_atoms=3)
+    states.append_state()
+    states.add_bonds([[0, 1]])
     states.append_state()
     structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")

@@ -20,7 +20,7 @@ class _SlottedStates(msm.ChemicalStates):
     __slots__ = ("extra",)
 
 
-class _ExternalTopology(msm.native.Topology):
+class _ExternalTopology(msm.ChemicalStates):
     pass
 
 
@@ -34,19 +34,19 @@ def test_controlled_topology_edits_invalidate_owner_even_empty_coverage(
     previous = system.interactions["ionic"]
     previous_view = previous.query(structure_indices=[0])
     if operation == "charge":
-        msm.set(system.topology, selection=[0], formal_charge=[0])
+        msm.set(system.chemical_states, selection=[0], formal_charge=[0])
     elif operation == "aromatic":
-        msm.set(system.topology, selection=[3], atom_is_aromatic=[True])
+        msm.set(system.chemical_states, selection=[3], atom_is_aromatic=[True])
     elif operation == "order":
-        msm.set(system.topology, element="bond", bond_order=[2])
+        msm.set(system.chemical_states, element="bond", bond_order=[2])
     elif operation == "add":
-        system.topology.add_bonds([[0, 1]])
+        system.chemical_states.add_bonds([[0, 1]])
     elif operation == "remove":
-        system.topology.remove_bonds([0])
+        system.chemical_states.remove_bonds([0])
     else:
-        candidate = system.topology.bonds.copy()
+        candidate = system.chemical_states._resolve_chemical_state().bonds.copy()
         candidate["bond_order"] = pd.array([2], dtype="Int8")
-        system.topology.bonds = candidate
+        system.chemical_states._set_chemical_state_bonds(candidate)
     for analysis in system.interactions.values():
         assert analysis.evaluated_structure_indices.size == 0
         assert analysis.n_interactions == 0
@@ -61,37 +61,41 @@ def test_controlled_topology_edits_invalidate_owner_even_empty_coverage(
 def test_bond_labels_and_empty_selections_preserve_analyses(ionic_system):
     system = ionic_system
     previous = system.interactions["ionic"]
-    msm.set(system.topology, element="bond", bond_id=["007"])
-    msm.set(system.topology, selection=[], atom_is_aromatic=[])
-    msm.set(system.topology, element="bond", selection=[], bond_order=[])
-    system.topology.add_bonds([])
-    system.topology.remove_bonds([])
+    msm.set(system.chemical_states, element="bond", bond_id=["007"])
+    msm.set(system.chemical_states, selection=[], atom_is_aromatic=[])
+    msm.set(system.chemical_states, element="bond", selection=[], bond_order=[])
+    system.chemical_states.add_bonds([])
+    system.chemical_states.remove_bonds([])
     assert system.interactions["ionic"] is previous
-    assert system.topology.bonds["bond_id"].tolist() == ["007"]
+    assert system.chemical_states._resolve_chemical_state().bonds[
+        "bond_id"
+    ].tolist() == ["007"]
 
 
 @pytest.mark.parametrize("operation", ["atom", "bond", "add", "remove", "replace"])
 def test_rejected_native_chemistry_keeps_tables_and_analyses(ionic_system, operation):
     system = ionic_system
-    before_bonds = system.topology.bonds.copy()
+    before_bonds = system.chemical_states._resolve_chemical_state().bonds.copy()
     before_atoms = system.chemical_states._states[0].atom_attributes.copy()
     previous = system.interactions["ionic"]
     with pytest.raises(
         (ArgumentError, StructuralInconsistencyError, ValueError, IndexError, KeyError)
     ):
         if operation == "atom":
-            msm.set(system.topology, selection=[3], n_implicit_hydrogens=[-1])
+            msm.set(system.chemical_states, selection=[3], n_implicit_hydrogens=[-1])
         elif operation == "bond":
-            msm.set(system.topology, element="bond", bond_order=[-1])
+            msm.set(system.chemical_states, element="bond", bond_order=[-1])
         elif operation == "add":
-            system.topology.add_bonds([[0, 0]])
+            system.chemical_states.add_bonds([[0, 0]])
         elif operation == "remove":
-            system.topology.remove_bonds([99])
+            system.chemical_states.remove_bonds([99])
         else:
-            system.topology.bonds = pd.DataFrame(
-                {"atom1_index": [0], "atom2_index": [99]}
+            system.chemical_states._set_chemical_state_bonds(
+                pd.DataFrame({"atom1_index": [0], "atom2_index": [99]})
             )
-    pd.testing.assert_frame_equal(system.topology.bonds, before_bonds)
+    pd.testing.assert_frame_equal(
+        system.chemical_states._resolve_chemical_state().bonds, before_bonds
+    )
     pd.testing.assert_frame_equal(
         system.chemical_states._states[0].atom_attributes, before_atoms
     )
@@ -103,7 +107,7 @@ def test_invalidation_allocation_failure_does_not_publish_chemistry(
     ionic_system, operation, monkeypatch
 ):
     system = ionic_system
-    before = system.topology.bonds.copy()
+    before = system.chemical_states._resolve_chemical_state().bonds.copy()
     atoms = system.chemical_states._states[0].atom_attributes.copy()
     previous = system.interactions["ionic"]
 
@@ -113,12 +117,14 @@ def test_invalidation_allocation_failure_does_not_publish_chemistry(
     monkeypatch.setattr(msm.Interactions, "invalidate_structures", fail)
     with pytest.raises(MemoryError, match="chemical invalidation"):
         if operation == "atom":
-            msm.set(system.topology, selection=[0], formal_charge=[0])
+            msm.set(system.chemical_states, selection=[0], formal_charge=[0])
         elif operation == "bond":
-            msm.set(system.topology, element="bond", bond_order=[2])
+            msm.set(system.chemical_states, element="bond", bond_order=[2])
         else:
-            system.topology.remove_bonds([0])
-    pd.testing.assert_frame_equal(system.topology.bonds, before)
+            system.chemical_states.remove_bonds([0])
+    pd.testing.assert_frame_equal(
+        system.chemical_states._resolve_chemical_state().bonds, before
+    )
     pd.testing.assert_frame_equal(
         system.chemical_states._states[0].atom_attributes, atoms
     )
@@ -133,13 +139,13 @@ def test_standalone_topology_detaches_and_system_copy_notifies_only_its_owner(
 ):
     system = ionic_system
     isolated = (
-        copier(system.topology)
+        copier(system.chemical_states)
         if copier in (copy.copy, copy.deepcopy)
-        else system.topology.copy()
+        else system.chemical_states.copy()
     )
     msm.set(isolated, selection=[0], formal_charge=[0])
     duplicate = copier(system)
-    msm.set(duplicate.topology, selection=[0], formal_charge=[0])
+    msm.set(duplicate.chemical_states, selection=[0], formal_charge=[0])
     assert duplicate.interactions["ionic"].evaluated_structure_indices.size == 0
     np.testing.assert_array_equal(
         system.interactions["ionic"].evaluated_structure_indices, [0, 1, 2]
@@ -155,7 +161,7 @@ def test_restored_topology_notifies_restored_owner(ionic_system, route, tmp_path
         path = str(tmp_path / "chemistry.h5msm")
         msm.convert(ionic_system, to_form=path)
         system = msm.convert(path, to_form="molsysmt.MolSys")
-    msm.set(system.topology, selection=[0], formal_charge=[0])
+    msm.set(system.chemical_states, selection=[0], formal_charge=[0])
     assert system.interactions["ionic"].evaluated_structure_indices.size == 0
     assert ionic_system.interactions["ionic"].n_interactions == 2
 
@@ -185,7 +191,7 @@ def test_chemical_edit_does_not_copy_or_materialize_geometry(ionic_system, monke
 
     monkeypatch.setattr(_StructureArray, "_dense", forbidden)
     monkeypatch.setattr(_StructureArray, "_fork", forbidden)
-    msm.set(ionic_system.topology, selection=[0], formal_charge=[0])
+    msm.set(ionic_system.chemical_states, selection=[0], formal_charge=[0])
     assert ionic_system.structures._coordinates is coordinates
     assert ionic_system.interactions["ionic"].evaluated_structure_indices.size == 0
 
@@ -198,8 +204,8 @@ def test_native_bond_addition_rejects_noninteger_or_malformed_pairs(
 ):
     previous = ionic_system.interactions["ionic"]
     with pytest.raises(ArgumentError):
-        ionic_system.topology.add_bonds(value)
-    assert ionic_system.topology.n_bonds == 1
+        ionic_system.chemical_states.add_bonds(value)
+    assert ionic_system.chemical_states.get(n_bonds=True) == 1
     assert ionic_system.interactions["ionic"] is previous
 
 
@@ -207,13 +213,18 @@ def test_native_bond_addition_rejects_noninteger_or_malformed_pairs(
 def test_native_bond_removal_rejects_noninteger_or_nested_indices(ionic_system, value):
     previous = ionic_system.interactions["ionic"]
     with pytest.raises(ArgumentError):
-        ionic_system.topology.remove_bonds(value)
-    assert ionic_system.topology.n_bonds == 1
+        ionic_system.chemical_states.remove_bonds(value)
+    assert ionic_system.chemical_states.get(n_bonds=True) == 1
     assert ionic_system.interactions["ionic"] is previous
 
 
 def test_component_membership_edit_notifies_owner(ionic_system):
-    msm.set(ionic_system.topology, element="atom", selection=[3], component_index=[0])
+    analyses = dict(ionic_system.interactions)
+    ionic_system.rebuild_components()
+    ionic_system.interactions = analyses
+    msm.set(
+        ionic_system.chemical_states, element="atom", selection=[3], component_index=[0]
+    )
     assert ionic_system.interactions["ionic"].evaluated_structure_indices.size == 0
 
 
@@ -226,8 +237,8 @@ def test_nonreference_state_edit_still_invalidates_all_owner_coverage(ionic_syst
     np.testing.assert_array_equal(
         ionic_system.interactions["ionic"].evaluated_structure_indices, [0, 1, 2]
     )
-    with ionic_system.topology._using_chemical_state(1):
-        msm.set(ionic_system.topology, selection=[0], formal_charge=[0])
+    with ionic_system.chemical_states._using_chemical_state(1):
+        msm.set(ionic_system.chemical_states, selection=[0], formal_charge=[0])
     assert states._states[0].atom_attributes.loc[0, "formal_charge"] == 1
     assert states._states[1].atom_attributes.loc[0, "formal_charge"] == 0
     assert ionic_system.interactions["ionic"].evaluated_structure_indices.size == 0
@@ -237,7 +248,7 @@ def test_failed_private_atom_assignment_does_not_materialize_a_new_column(ionic_
     before = ionic_system.chemical_states._states[0].atom_attributes.copy()
     previous = ionic_system.interactions["ionic"]
     with pytest.raises(StructuralInconsistencyError):
-        ionic_system.topology._set_chemical_state_atom_attribute(
+        ionic_system.chemical_states._set_chemical_state_atom_attribute(
             "n_implicit_hydrogens", [-1], atom_indices=[3]
         )
     pd.testing.assert_frame_equal(
@@ -253,14 +264,17 @@ def test_component_rebuilding_failure_keeps_published_bonds_and_invalidated_anal
     def fail(*args, **kwargs):
         raise RuntimeError("Component rebuilding failed after bond publication")
 
-    monkeypatch.setattr(ionic_system.topology, "rebuild_components", fail)
+    from molsysmt.native import _chemical_edits
+
+    monkeypatch.setattr(_chemical_edits, "rebuild", fail)
+    original = ionic_system.interactions["ionic"]
     with pytest.raises(RuntimeError, match="after bond publication"):
         if operation == "add":
-            ionic_system.topology.add_bonds([[0, 1]])
+            ionic_system.chemical_states.add_bonds([[0, 1]])
         else:
-            ionic_system.topology.remove_bonds([0])
-    assert ionic_system.topology.n_bonds == (2 if operation == "add" else 0)
-    assert ionic_system.interactions["ionic"].evaluated_structure_indices.size == 0
+            ionic_system.chemical_states.remove_bonds([0])
+    assert ionic_system.chemical_states.get(n_bonds=True) == 1
+    assert ionic_system.interactions["ionic"] is original
 
 
 def test_assigning_another_owners_chemistry_creates_an_independent_authority(
@@ -271,11 +285,11 @@ def test_assigning_another_owners_chemistry_creates_an_independent_authority(
     previous_states = other.chemical_states
     other.chemical_states = source_states
     assert other.chemical_states is not source_states
-    assert other.topology._chemical_states_domain is other.chemical_states
+    assert other.chemical_states._molsys_owner_ref() is other
     assert source_states._molsys_owner_ref() is ionic_system
     assert other.chemical_states._molsys_owner_ref() is other
     assert previous_states._molsys_owner_ref is None
-    msm.set(other.topology, selection=[0], formal_charge=[0])
+    msm.set(other.chemical_states, selection=[0], formal_charge=[0])
     assert msm.get(ionic_system, selection=[0], formal_charge=True)[0] == 1
     assert ionic_system.interactions["ionic"].evaluated_structure_indices.size == 3
 
@@ -320,28 +334,31 @@ def test_chemical_state_pickle_preserves_subclass_slots_without_an_owner():
 
 def test_inherited_native_bond_methods_preserve_their_validation_contract():
     topology = _ExternalTopology(n_atoms=3)
+    topology.append_state()
     topology.add_bonds(((0, 1),))
-    assert topology.n_bonds == 1
+    assert topology.get(n_bonds=True) == 1
     with pytest.raises(ArgumentError):
         topology.add_bonds([[True, 2]])
     with pytest.raises(ArgumentError):
         topology.remove_bonds([0.5])
     topology.remove_bonds(np.int32(0))
-    assert topology.n_bonds == 0
+    assert topology.get(n_bonds=True) == 0
 
 
 def test_reserving_empty_bond_rows_does_not_claim_known_connectivity():
-    topology = msm.native.Topology(n_atoms=3, n_bonds=2)
-    assert topology._reference_chemical_state.connectivity_completeness == "unavailable"
-    topology.reset_bonds(n_bonds=1)
-    assert topology._reference_chemical_state.connectivity_completeness == "unavailable"
-    topology.bonds = pd.DataFrame({"atom1_index": [0], "atom2_index": [1]})
-    assert topology._reference_chemical_state.connectivity_completeness == "partial"
+    system = msm.native.MolSys(n_atoms=3, n_bonds=2)
+    state = system.chemical_states._states[0]
+    assert state.connectivity_completeness == "unavailable"
+    system.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame({"atom1_index": [0], "atom2_index": [1]})
+    )
+    assert state.connectivity_completeness == "partial"
 
 
 def test_removing_bonds_preserves_the_declared_connectivity_completeness():
-    topology = msm.native.Topology(n_atoms=3)
+    topology = msm.ChemicalStates(n_atoms=3)
+    topology.append_state()
     topology.add_bonds([[0, 1], [1, 2]])
-    topology._reference_chemical_state.connectivity_completeness = "unavailable"
+    topology._states[0].connectivity_completeness = "unavailable"
     topology.remove_bonds([0])
-    assert topology._reference_chemical_state.connectivity_completeness == "unavailable"
+    assert topology._states[0].connectivity_completeness == "unavailable"

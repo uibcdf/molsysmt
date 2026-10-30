@@ -13,7 +13,7 @@ def test_add_missing_bonds_molsysmt_MolSys_1():
 
     molsys = msm.convert(systems["T4 lysozyme L99A"]["t4_lysozyme_L99A.h5msm"])
     n_bonds_before = msm.get(molsys, n_bonds=True)
-    molsys.topology.remove_bonds("all", skip_digestion=True)
+    molsys.chemical_states.remove_bonds("all", skip_digestion=True)
     msm.build.add_missing_bonds(molsys)
     n_bonds_after = msm.get(molsys, n_bonds=True)
 
@@ -25,7 +25,7 @@ def test_add_missing_bonds_molsysmt_MolSys_2():
     molsys = msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"]
     molsys = msm.convert(molsys)
     bonded_atom_pairs = msm.get(molsys, bonded_atom_pairs=True)
-    molsys.topology.remove_bonds("all", skip_digestion=True)
+    molsys.chemical_states.remove_bonds("all", skip_digestion=True)
     msm.build.add_missing_bonds(molsys)
     new_bonded_atom_pairs = msm.get(molsys, bonded_atom_pairs=True)
 
@@ -36,7 +36,7 @@ def test_add_missing_bonds_molsysmt_MolSys_with_selection():
 
     molsys = msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"]
     molsys = msm.convert(molsys)
-    molsys.topology.remove_bonds("all", skip_digestion=True)
+    molsys.chemical_states.remove_bonds("all", skip_digestion=True)
 
     new_molsys = msm.build.add_missing_bonds(
         molsys, selection="group_index==1", in_place=False

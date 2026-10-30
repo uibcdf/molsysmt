@@ -83,7 +83,7 @@ def test_actual_current_structure_is_explicit_and_source_scene_remain_unchanged(
     view, name, skip
 ):
     primary = view.molsys
-    atoms = primary.topology.atoms.copy(deep=True)
+    atoms = primary.topology.copy().atoms
     bonds = primary.chemical_states._states[0].bonds.copy(deep=True)
     xyz = puw.get_value(primary.structures.coordinates).copy()
     coverage = deepcopy(primary.interactions["preserve"].to_dict())

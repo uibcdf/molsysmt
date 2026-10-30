@@ -20,6 +20,7 @@ TOOLS_FILES = frozenset(
         "molsysviewer_molsysmt/_composition.py",
         "molsysviewer_molsysmt/_basic.py",
         "molsysviewer_molsysmt/_topology.py",
+        "molsysviewer_molsysmt/_chemical_states.py",
         "molsysviewer_molsysmt/_structure.py",
         "molsysviewer_molsysmt/_geometry.py",
         "molsysviewer_molsysmt/tools.py",

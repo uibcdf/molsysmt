@@ -14,7 +14,7 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
     UnsupportedHeavyOperationError,
 )
-from molsysmt.native import MolSys, Structures, Topology
+from molsysmt.native import MolSys, Structures
 
 
 def _coordinates():
@@ -329,8 +329,7 @@ def test_h5msm05_projection_without_materializing_other_domains(
 
     source = _system()
     if other_domains:
-        molsys = MolSys()
-        molsys.topology = Topology(n_atoms=4)
+        molsys = MolSys(n_atoms=4)
         molsys.structures = source
         molsys.interactions = {
             "saved": msm.Interactions.from_records(
@@ -380,8 +379,7 @@ def test_plane_fit_scale_invariance_without_covariance_overflow(scale):
 
 
 def test_rich_selection_syntax_and_triclinic_box():
-    molsys = MolSys()
-    molsys.topology = Topology(n_atoms=4)
+    molsys = MolSys(n_atoms=4)
     molsys.topology.atoms["atom_name"] = ["A", "B", "C", "D"]
     box = np.repeat(
         np.array([[2.0, 0.0, 0.0], [0.3, 2.0, 0.0], [0.2, -0.1, 2.0]])[None], 3, axis=0

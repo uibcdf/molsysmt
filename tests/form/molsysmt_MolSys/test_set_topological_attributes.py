@@ -58,7 +58,7 @@ class TestAtomLevelSetters:
         new_ids = [str(i) for i in range(1000, 1000 + N_ATOMS)]
         aux.set_atom_id_to_atom(hp35_pdb_molsys, value=new_ids, skip_digestion=True)
         result = get_aux.get_atom_id_from_atom(hp35_pdb_molsys)
-        assert list(result) == new_ids
+        assert list(result) == [str(value) for value in new_ids]
 
     def test_set_atom_id_to_atom_indices(self, hp35_pdb_molsys):
         aux.set_atom_id_to_atom(
@@ -89,7 +89,7 @@ class TestAtomLevelSetters:
         new_ids = [99] * N_ATOMS
         aux.set_group_id_to_atom(hp35_pdb_molsys, value=new_ids, skip_digestion=True)
         result = get_aux.get_group_id_from_atom(hp35_pdb_molsys)
-        assert list(result) == new_ids
+        assert list(result) == [str(value) for value in new_ids]
 
     def test_set_group_type_to_atom_all(self, hp35_pdb_molsys):
         new_types = ["amino acid"] * N_ATOMS
@@ -174,7 +174,7 @@ class TestGroupLevelSetters:
         new_ids = list(range(100, 100 + N_GROUPS))
         aux.set_group_id_to_group(hp35_pdb_molsys, value=new_ids, skip_digestion=True)
         result = get_aux.get_group_id_from_group(hp35_pdb_molsys)
-        assert list(result) == new_ids
+        assert list(result) == [str(value) for value in new_ids]
 
     def test_set_group_type_to_group_all(self, hp35_pdb_molsys):
         new_types = ["amino acid"] * N_GROUPS
@@ -245,7 +245,7 @@ class TestComponentLevelSetters:
             hp35_pdb_molsys, value=new_ids, skip_digestion=True
         )
         result = get_aux.get_component_id_from_component(hp35_pdb_molsys)
-        assert list(result) == new_ids
+        assert list(result) == [str(value) for value in new_ids]
 
     def test_set_component_type_to_component_all(self, hp35_pdb_molsys):
         new_types = ["peptide"] * N_COMPONENTS
@@ -278,7 +278,7 @@ class TestMoleculeLevelSetters:
             hp35_pdb_molsys, value=new_ids, skip_digestion=True
         )
         result = get_aux.get_molecule_id_from_molecule(hp35_pdb_molsys)
-        assert list(result) == new_ids
+        assert list(result) == [str(value) for value in new_ids]
 
     def test_set_molecule_type_to_molecule_all(self, hp35_pdb_molsys):
         get_aux.get_molecule_type_from_molecule(hp35_pdb_molsys)
@@ -311,7 +311,7 @@ class TestChainLevelSetters:
         new_ids = ["B"] * N_CHAINS
         aux.set_chain_id_to_chain(hp35_pdb_molsys, value=new_ids, skip_digestion=True)
         result = get_aux.get_chain_id_from_chain(hp35_pdb_molsys)
-        assert list(result) == new_ids
+        assert list(result) == [str(value) for value in new_ids]
         assert list(result) != list(original)
 
     def test_set_chain_id_to_chain_indices(self, hp35_pdb_molsys):
@@ -350,7 +350,7 @@ class TestEntityLevelSetters:
         new_ids = [55] * N_ENTITIES
         aux.set_entity_id_to_entity(hp35_pdb_molsys, value=new_ids, skip_digestion=True)
         result = get_aux.get_entity_id_from_entity(hp35_pdb_molsys)
-        assert list(result) == new_ids
+        assert list(result) == [str(value) for value in new_ids]
 
     def test_set_entity_type_to_entity_all(self, hp35_pdb_molsys):
         new_types = ["protein"] * N_ENTITIES

@@ -3,20 +3,8 @@ from molsysmt.native import MolSysBuilder
 
 
 def _materialize_derived_components(builder):
-    from molsysmt.native._topology_infer import (
-        infer_component_indices_from_topology,
-    )
-
-    topology = builder.topology
-    component_indices = infer_component_indices_from_topology(topology)
-    topology._set_component_indices(component_indices)
-    n_components = int(max(component_indices)) + 1 if len(component_indices) > 0 else 0
-    topology.reset_components(n_components=n_components)
-    topology.rebuild_components(
-        redefine_indices=False,
-        redefine_ids=True,
-        redefine_types=True,
-        redefine_names=True,
+    builder.chemical_states.rebuild_components(
+        topology=builder.topology, skip_digestion=True
     )
 
 
@@ -51,6 +39,11 @@ def build_molsys_builder_from_molsys_dict(item):
 
     .. versionadded:: 1.0.0
     """
+
+    if item.data.get("version", "0.1") == "0.2":
+        from molsysmt.form._native_dict import decode_molsys
+
+        return MolSysBuilder(decode_molsys(item.data), skip_digestion=True)
 
     data = item.to_dict(copy=True)
     topology = data.get("topology", {}) or {}
@@ -137,7 +130,11 @@ def build_molsys_builder_from_molsys_dict(item):
 
     _materialize_derived_components(builder)
 
-    if group_free and molecules and len(molecules) != builder.topology.n_components:
+    if (
+        group_free
+        and molecules
+        and len(molecules) != builder.chemical_states.get(n_components=True)
+    ):
         from molsysmt._private.smonitor import StructuralInconsistencyError
 
         raise StructuralInconsistencyError(

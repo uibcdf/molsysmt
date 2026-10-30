@@ -18,15 +18,15 @@ from molsysmt._private.smonitor import (
 
 def test_anchors_prune_compiled_enumeration_before_the_candidate_limit():
     with pytest.raises(UnsupportedHeavyOperationError):
-        msm.topology.get_atom_correspondences("smiles:c1ccccc1", max_matches=2)
-    result = msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences("smiles:c1ccccc1", max_matches=2)
+    result = msm.chemical_states.get_atom_correspondences(
         "smiles:c1ccccc1", fixed_atom_correspondence=[[0, 0]], max_matches=2
     )
     assert result["n_candidate_matches"] == 2
     assert result["atom_correspondences"].shape == (2, 6, 2)
     assert np.all(result["atom_correspondences"][:, 0] == [0, 0])
     assert result["search_scope"] == "anchored_chemical_correspondences"
-    only = msm.topology.get_atom_correspondences(
+    only = msm.chemical_states.get_atom_correspondences(
         "smiles:c1ccccc1", fixed_atom_correspondence=[[1, 1], [0, 0]], max_matches=1
     )
     np.testing.assert_array_equal(only["atom_correspondences"][0, :, 1], np.arange(6))
@@ -35,7 +35,7 @@ def test_anchors_prune_compiled_enumeration_before_the_candidate_limit():
 
 def test_context_anchors_can_fix_omitted_hydrogens_and_canonical_witnesses():
     source = Chem.AddHs(Chem.MolFromSmiles("CC"))
-    result = msm.topology.get_atom_correspondences(
+    result = msm.chemical_states.get_atom_correspondences(
         source,
         selection=[0, 1],
         fixed_atom_correspondence=[[2, 2]],
@@ -48,7 +48,7 @@ def test_context_anchors_can_fix_omitted_hydrogens_and_canonical_witnesses():
     ]
     # A subset map still has to extend through the unselected context.
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             source,
             selection=[0, 1],
             fixed_atom_correspondence=[[2, 2]],
@@ -62,7 +62,7 @@ def test_candidates_are_deduplicated_sorted_detached_and_use_source_indices():
     first = np.column_stack((np.arange(1, 7), np.arange(5, -1, -1)))
     second = np.column_stack((np.arange(1, 7), np.arange(6) % 6))
     candidates = np.stack([first[::-1], second, first])
-    result = msm.topology.get_atom_correspondences(
+    result = msm.chemical_states.get_atom_correspondences(
         source,
         selection=[6, 1, 2, 5, 4, 3, 1],
         reference_molecular_system=reference,
@@ -94,7 +94,7 @@ def test_candidates_are_deduplicated_sorted_detached_and_use_source_indices():
 )
 def test_invalid_anchor_indices_raise_argument_error(pairs):
     with pytest.raises(ArgumentError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:c1ccccc1", fixed_atom_correspondence=pairs
         )
 
@@ -112,25 +112,25 @@ def test_invalid_anchor_indices_raise_argument_error(pairs):
 )
 def test_invalid_or_incomplete_candidates_raise_argument_error(candidates):
     with pytest.raises(ArgumentError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:CC", candidate_atom_correspondences=candidates
         )
 
 
 def test_candidates_cannot_override_bonds_labels_stereo_or_anchors():
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:c1ccccc1",
             selection=[0, 1, 2],
             candidate_atom_correspondences=[[0, 0], [1, 2], [2, 1]],
         )
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:CCO",
             candidate_atom_correspondences=[[0, 2], [1, 1], [2, 0]],
         )
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:C[C@H](O)F",
             reference_molecular_system="smiles:C[C@@H](O)F",
             candidate_atom_correspondences=np.column_stack(
@@ -138,12 +138,12 @@ def test_candidates_cannot_override_bonds_labels_stereo_or_anchors():
             ),
         )
     with pytest.raises(ArgumentError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:CC",
             fixed_atom_correspondence=[[0, 1]],
             candidate_atom_correspondences=[[0, 0], [1, 1]],
         )
-    empty = msm.topology.get_atom_correspondences(
+    empty = msm.chemical_states.get_atom_correspondences(
         "smiles:CCO",
         fixed_atom_correspondence=[[0, 2]],
     )
@@ -152,16 +152,16 @@ def test_candidates_cannot_override_bonds_labels_stereo_or_anchors():
 
 
 def test_candidates_have_a_bound_and_empty_anchors_are_unrestricted():
-    maps = msm.topology.get_atom_correspondences("smiles:c1ccccc1")[
+    maps = msm.chemical_states.get_atom_correspondences("smiles:c1ccccc1")[
         "atom_correspondences"
     ]
     with pytest.raises(UnsupportedHeavyOperationError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:c1ccccc1",
             candidate_atom_correspondences=maps,
             max_matches=2,
         )
-    result = msm.topology.get_atom_correspondences(
+    result = msm.chemical_states.get_atom_correspondences(
         "smiles:c1ccccc1", fixed_atom_correspondence=[]
     )
     assert result["search_scope"] == "all_chemical_correspondences"
@@ -172,11 +172,11 @@ def test_one_bad_candidate_fails_the_whole_proposal_and_outside_component_anchor
     valid = np.column_stack((np.arange(3), np.arange(3)))
     invalid = np.column_stack((np.arange(3), [2, 1, 0]))
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:CCO", candidate_atom_correspondences=[valid, invalid]
         )
     with pytest.raises(ArgumentError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:CC.[Na+]", selection=[0, 1], fixed_atom_correspondence=[[2, 2]]
         )
 
@@ -193,8 +193,8 @@ def test_proposed_context_witness_is_independent_of_bond_insertion_order():
     rebuilt = rebuilt.GetMol()
     Chem.SanitizeMol(rebuilt)
     options = dict(selection=[0, 1], candidate_atom_correspondences=[[0, 1], [1, 0]])
-    original = msm.topology.get_atom_correspondences(source, **options)
-    reordered = msm.topology.get_atom_correspondences(rebuilt, **options)
+    original = msm.chemical_states.get_atom_correspondences(source, **options)
+    reordered = msm.chemical_states.get_atom_correspondences(rebuilt, **options)
     np.testing.assert_array_equal(
         original["context_atom_correspondences"],
         reordered["context_atom_correspondences"],
@@ -203,7 +203,7 @@ def test_proposed_context_witness_is_independent_of_bond_insertion_order():
 
 @pytest.mark.parametrize("source", ["smiles:c1ccccc1", Chem.MolFromSmiles("c1ccccc1")])
 def test_benzene_has_twelve_chemically_admitted_permutations(source):
-    result = msm.topology.get_atom_correspondences(source)
+    result = msm.chemical_states.get_atom_correspondences(source)
     maps = result["atom_correspondences"]
     assert maps.shape == (12, 6, 2) and maps.dtype == np.int64
     assert np.all(maps[:, :, 0] == np.arange(6))
@@ -217,7 +217,7 @@ def test_benzene_has_twelve_chemically_admitted_permutations(source):
 
 
 def test_benzamidinium_permits_phenyl_symmetry_but_never_swaps_nitrogens():
-    result = msm.topology.get_atom_correspondences("smiles:NC(=[NH2+])c1ccccc1")
+    result = msm.chemical_states.get_atom_correspondences("smiles:NC(=[NH2+])c1ccccc1")
     maps = result["atom_correspondences"]
     assert maps.shape == (2, 9, 2)
     assert np.all(maps[:, 0, 1] == 0) and np.all(maps[:, 2, 1] == 2)
@@ -236,7 +236,7 @@ def test_benzamidinium_permits_phenyl_symmetry_but_never_swaps_nitrogens():
     ],
 )
 def test_nonequivalent_states_have_typed_empty_matches(query, reference):
-    result = msm.topology.get_atom_correspondences(
+    result = msm.chemical_states.get_atom_correspondences(
         "smiles:" + query, reference_molecular_system="smiles:" + reference
     )
     assert result["atom_correspondences"].shape == (
@@ -250,22 +250,22 @@ def test_nonequivalent_states_have_typed_empty_matches(query, reference):
 @pytest.mark.parametrize("smiles", ["CC(O)F", "FC=CF"])
 def test_unassigned_potential_stereochemistry_is_not_certified(smiles):
     with pytest.raises(StructuralInconsistencyError, match="stereochemistry"):
-        msm.topology.get_atom_correspondences("smiles:" + smiles)
+        msm.chemical_states.get_atom_correspondences("smiles:" + smiles)
 
 
 def test_selection_preserves_full_component_context_and_source_positions():
     molsys = msm.convert(Chem.MolFromSmiles("O.CCO"), to_form="molsysmt.MolSys")
-    result = msm.topology.get_atom_correspondences(molsys, selection=[3, 1])
+    result = msm.chemical_states.get_atom_correspondences(molsys, selection=[3, 1])
     assert result["selection_atom_indices"].tolist() == [1, 3]
     assert result["atom_correspondences"].tolist() == [[[1, 1], [3, 3]]]
     assert result["context_atom_correspondences"].tolist() == [[[1, 1], [2, 2], [3, 3]]]
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(molsys, selection="all")
+        msm.chemical_states.get_atom_correspondences(molsys, selection="all")
 
 
 def test_explicit_hydrogens_remain_context_when_metric_excludes_them():
     molsys = Chem.AddHs(Chem.MolFromSmiles("CC"))
-    result = msm.topology.get_atom_correspondences(molsys, selection=[0, 1])
+    result = msm.chemical_states.get_atom_correspondences(molsys, selection=[0, 1])
     assert result["atom_correspondences"].shape == (2, 2, 2)
     assert result["context_atom_correspondences"].shape == (2, 8, 2)
     assert result["n_candidate_matches"] == 72
@@ -274,7 +274,7 @@ def test_explicit_hydrogens_remain_context_when_metric_excludes_them():
 def test_reordered_reference_preserves_original_reference_indices():
     query = Chem.MolFromSmiles("CCO")
     reference = Chem.RenumberAtoms(query, [2, 0, 1])
-    result = msm.topology.get_atom_correspondences(
+    result = msm.chemical_states.get_atom_correspondences(
         query, reference_molecular_system=reference
     )
     assert result["atom_correspondences"].tolist() == [[[0, 1], [1, 2], [2, 0]]]
@@ -288,7 +288,7 @@ def test_missing_chemical_evidence_is_not_inferred(attribute):
     molsys = msm.convert(Chem.MolFromSmiles("CCO"), to_form="molsysmt.MolSys")
     molsys.chemical_states._states[0].atom_attributes.loc[0, attribute] = pd.NA
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(molsys)
+        msm.chemical_states.get_atom_correspondences(molsys)
 
 
 def test_missing_and_malformed_connectivity_are_refused():
@@ -296,20 +296,20 @@ def test_missing_and_malformed_connectivity_are_refused():
     state = molsys.chemical_states._states[0]
     state.connectivity_completeness = "partial"
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(molsys)
+        msm.chemical_states.get_atom_correspondences(molsys)
     state.connectivity_completeness = "complete"
     state.bonds.loc[0, "atom2_index"] = 0
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(molsys)
+        msm.chemical_states.get_atom_correspondences(molsys)
 
 
 def test_search_bound_precedes_projection_and_never_truncates():
     with pytest.raises(UnsupportedHeavyOperationError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             "smiles:c1ccccc1", selection=[0], max_matches=5
         )
     with pytest.raises(UnsupportedHeavyOperationError):
-        msm.topology.get_atom_correspondences(
+        msm.chemical_states.get_atom_correspondences(
             Chem.AddHs(Chem.MolFromSmiles("CC")), selection=[0, 1], max_matches=10
         )
 
@@ -317,7 +317,7 @@ def test_search_bound_precedes_projection_and_never_truncates():
 def test_candidate_budget_fails_without_returning_partial_results(monkeypatch):
     monkeypatch.setattr(msm.configure, "max_ram_usage", 512)
     with pytest.raises(MemoryBudgetExceededError):
-        msm.topology.get_atom_correspondences("smiles:c1ccccc1")
+        msm.chemical_states.get_atom_correspondences("smiles:c1ccccc1")
 
 
 def test_native_chemistry_is_read_only_and_topology_form_has_parity():
@@ -329,8 +329,10 @@ def test_native_chemistry_is_read_only_and_topology_form_has_parity():
     original_bonds = molsys.chemical_states._states[0].bonds
     atoms = molsys.chemical_states._states[0].atom_attributes.copy(deep=True)
     bonds = molsys.chemical_states._states[0].bonds.copy(deep=True)
-    native = msm.topology.get_atom_correspondences(molsys)
-    other = msm.topology.get_atom_correspondences(molsys.topology)
+    native = msm.chemical_states.get_atom_correspondences(molsys)
+    other = msm.chemical_states.get_atom_correspondences(
+        [molsys.topology, molsys.chemical_states]
+    )
     np.testing.assert_array_equal(
         native["atom_correspondences"], other["atom_correspondences"]
     )
@@ -344,11 +346,18 @@ def test_native_chemistry_is_read_only_and_topology_form_has_parity():
     assert saved["references"][0]["authors"] == ["Bell, Eric W.", "Zhang, Yang"]
 
 
-def test_legacy_dictionary_missing_fixed_chemistry_cannot_certify_equivalence():
+def test_current_dictionary_preserves_fixed_chemistry_and_inventory_does_not():
     molsys = msm.convert(Chem.MolFromSmiles("CCO"), to_form="molsysmt.MolSys")
     columns = msm.convert(molsys, to_form="molsysmt.MolSysDict")
+    expected = msm.chemical_states.get_atom_correspondences(molsys)
+    actual = msm.chemical_states.get_atom_correspondences(columns)
+    np.testing.assert_array_equal(
+        actual["atom_correspondences"], expected["atom_correspondences"]
+    )
+    # A stable inventory projection still cannot certify fixed chemistry.
+    inventory = msm.convert(molsys.topology, to_form="molsysmt.TopologyDict")
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(columns)
+        msm.chemical_states.get_atom_correspondences(inventory)
 
 
 @pytest.mark.parametrize(
@@ -367,13 +376,13 @@ def test_legacy_dictionary_missing_fixed_chemistry_cannot_certify_equivalence():
 )
 def test_invalid_public_arguments_fail(options):
     with pytest.raises(ArgumentError):
-        msm.topology.get_atom_correspondences("smiles:CCO", **options)
+        msm.chemical_states.get_atom_correspondences("smiles:CCO", **options)
 
 
 def test_different_h_encodings_are_explicitly_outside_exact_declared_profile():
     reference = Chem.MolFromSmiles("CC")
     explicit = Chem.AddHs(reference)
-    result = msm.topology.get_atom_correspondences(
+    result = msm.chemical_states.get_atom_correspondences(
         explicit,
         selection=[0, 1],
         reference_molecular_system=reference,
@@ -386,10 +395,10 @@ def test_projected_h_witnesses_are_lexical_independent_of_bond_insertion():
     molsys = msm.convert(
         Chem.AddHs(Chem.MolFromSmiles("CC")), to_form="molsysmt.MolSys"
     )
-    first = msm.topology.get_atom_correspondences(molsys, selection=[0, 1])
+    first = msm.chemical_states.get_atom_correspondences(molsys, selection=[0, 1])
     state = molsys.chemical_states._states[0]
     state.bonds = state.bonds.iloc[::-1].reset_index(drop=True)
-    second = msm.topology.get_atom_correspondences(molsys, selection=[0, 1])
+    second = msm.chemical_states.get_atom_correspondences(molsys, selection=[0, 1])
     np.testing.assert_array_equal(
         first["context_atom_correspondences"], second["context_atom_correspondences"]
     )
@@ -407,4 +416,4 @@ def test_malformed_declared_chemistry_is_not_coerced_to_an_equivalence(
     attributes[attribute] = attributes[attribute].astype(object)
     attributes.loc[0, attribute] = value
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_atom_correspondences(molsys)
+        msm.chemical_states.get_atom_correspondences(molsys)

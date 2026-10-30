@@ -16,7 +16,7 @@ from molsysmt.native import MolSys, Structures
 
 def _system():
     system = MolSys(n_atoms=3)
-    system.topology.add_bonds([[0, 1]])
+    system.chemical_states.add_bonds([[0, 1]])
     system.chemical_states.append_state()
     system.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
@@ -49,7 +49,7 @@ def test_complete_molsys_roundtrip_preserves_one_chemical_authority(tmp_path):
     write_complete_molsys_file(filename, _system())
     restored = read_complete_molsys_file(filename)
 
-    assert restored.chemical_states is restored.topology._chemical_states_domain
+    assert restored.chemical_states._molsys_owner_ref() is restored
     assert restored.chemical_states.n_chemical_states == 2
     assert len(restored.chemical_states.get_bonds(0)) == 1
     assert restored.structures.coordinates.shape == (2, 3, 3)

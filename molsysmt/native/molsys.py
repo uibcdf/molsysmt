@@ -293,20 +293,62 @@ class MolSys(NativeQueries):
 
     @structures.setter
     def structures(self, value):
+        """Validate shared axes and stage invalidation before attaching geometry."""
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
         from .structures import Structures
 
         if value is not None and not isinstance(value, Structures):
             raise TypeError("MolSys structures must be native Structures or None.")
+        previous = getattr(self, "_structures", None)
+        if "_structures" in vars(self) and previous is value:
+            return
+        if value is not None:
+            value._validate_alignment()
+            size = value._atom_axis_size()
+            for domain in (
+                getattr(self, "_topology", None),
+                getattr(self, "_chemical_states_domain", None),
+            ):
+                if domain is not None and size is not None and domain.n_atoms != size:
+                    raise StructuralInconsistencyError(
+                        reason="Replacement structures must preserve the shared atom axis.",
+                        caller="molsysmt.native.MolSys.structures",
+                    )
+        association = getattr(self, "_structure_chemical_state_indices", None)
+        if association is not None and (
+            value is None or len(association) != value.n_structures
+        ):
+            raise StructuralInconsistencyError(
+                reason="Replacement structures must preserve explicit structure-to-state associations.",
+                caller="molsysmt.native.MolSys.structures",
+            )
+        analyses = getattr(self, "_interactions", {})
+        if value is not None and any(
+            result.n_structures != value.n_structures
+            or value._atom_axis_size() is not None
+            and result.n_atoms != value.n_atoms
+            for result in analyses.values()
+        ):
+            raise StructuralInconsistencyError(
+                reason="Replacement structures must preserve the declared interaction axes.",
+                caller="molsysmt.native.MolSys.structures",
+            )
         owner_ref = getattr(value, "_molsys_owner_ref", None)
         owner = None if owner_ref is None else owner_ref()
         if owner is not None and owner is not self:
             value = value.copy(deep=False)
-        previous = getattr(self, "_structures", None)
-        if previous is not None and previous is not value:
-            previous._molsys_owner_ref = None
-        self._structures = value
+        invalidated = {
+            name: result.invalidate_structures(result.evaluated_structure_indices)
+            for name, result in analyses.items()
+        }
+        prepared = vars(self).copy()
+        prepared.update(_structures=value, _interactions=invalidated)
         if value is not None:
             value._molsys_owner_ref = weakref.ref(self)
+        object.__setattr__(self, "__dict__", prepared)
+        if previous is not None:
+            previous._molsys_owner_ref = None
 
     @property
     def topology(self):
@@ -316,11 +358,11 @@ class MolSys(NativeQueries):
 
     @topology.setter
     def topology(self, value):
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
         from .topology import Topology
 
         if not isinstance(value, Topology):
-            from molsysmt._private.smonitor import StructuralInconsistencyError
-
             raise StructuralInconsistencyError(
                 reason="MolSys topology must be a native Topology.",
                 caller="molsysmt.native.MolSys",
@@ -328,49 +370,40 @@ class MolSys(NativeQueries):
         owner_ref = getattr(value, "_molsys_owner_ref", None)
         owner = None if owner_ref is None else owner_ref()
         if owner is not None and owner is not self:
-            from molsysmt._private.smonitor import StructuralInconsistencyError
-
             raise StructuralInconsistencyError(
                 reason="A topology already attached to another MolSys must be copied.",
                 caller="molsysmt.native.MolSys",
             )
-        absent_chemistry = (
-            "_chemical_states_domain" in self.__dict__
-            and self._chemical_states_domain is None
-        )
-        if absent_chemistry and value._chemical_states_domain.n_chemical_states:
-            from molsysmt._private.smonitor import StructuralInconsistencyError
-
+        chemistry = getattr(self, "_chemical_states_domain", None)
+        if chemistry is not None and chemistry.n_atoms != value.n_atoms:
             raise StructuralInconsistencyError(
-                reason="A topology carrying chemical states cannot replace one with absent chemistry.",
+                reason="Replacement topology must preserve the shared atom axis; use a coordinated molecular edit to resize it.",
                 caller="molsysmt.native.MolSys",
             )
-        association = getattr(self, "_structure_chemical_state_indices", None)
-        if association is not None:
-            known = pd.Series(association).dropna()
-            if not known.empty and (
-                absent_chemistry
-                or (known >= value._chemical_states_domain.n_chemical_states).any()
-            ):
-                from molsysmt._private.smonitor import StructuralInconsistencyError
-
-                raise StructuralInconsistencyError(
-                    reason=(
-                        "The structure-to-state association refers to a state "
-                        "outside the replacement topology's ChemicalStates collection."
-                    ),
-                    caller="molsysmt.native.MolSys",
-                )
-        domain = None if absent_chemistry else value._chemical_states_domain
-        domain = self._owned_chemical_states(domain)
+        structures = getattr(self, "_structures", None)
+        if (
+            structures is not None
+            and structures._atom_axis_size() is not None
+            and structures.n_atoms != value.n_atoms
+        ):
+            raise StructuralInconsistencyError(
+                reason="Replacement topology and structures must share an atom axis.",
+                caller="molsysmt.native.MolSys",
+            )
+        if any(
+            result.n_atoms != value.n_atoms
+            for result in getattr(self, "_interactions", {}).values()
+        ):
+            raise StructuralInconsistencyError(
+                reason="Replacement topology and interactions must share an atom axis.",
+                caller="molsysmt.native.MolSys",
+            )
         previous = getattr(self, "_topology", None)
-        if previous is not None and previous is not value:
-            previous._molsys_owner_ref = None
-        self._topology = value
-        self._bind_chemical_states(domain)
-        if domain is not None:
-            value._chemical_states_domain = domain
-        value._molsys_owner_ref = weakref.ref(self)
+        with self._invalidating_interaction_frames("all"):
+            if previous is not None and previous is not value:
+                previous._molsys_owner_ref = None
+            self._topology = value
+            value._molsys_owner_ref = weakref.ref(self)
 
     def _owned_chemical_states(self, value):
         """Prepare independent chemistry when a collection has another owner."""
@@ -420,7 +453,7 @@ class MolSys(NativeQueries):
         self._replace_chemical_states(value)
 
     def _replace_chemical_states(self, value):
-        """Keep one state authority visible through both native domains."""
+        """Replace the independent chemical collection after shared-axis validation."""
 
         value = self._owned_chemical_states(value)
         if self.topology is not None and value.n_atoms != self.topology.n_atoms:
@@ -471,8 +504,6 @@ class MolSys(NativeQueries):
                 )
         with self._invalidating_interaction_frames("all"):
             self._bind_chemical_states(value)
-            if self.topology is not None:
-                self.topology._chemical_states_domain = value
 
     @signal(tags=["native"])
     @arg_digest(native_constructor="molsysmt.native.molsys.__init__")
@@ -488,18 +519,33 @@ class MolSys(NativeQueries):
         skip_digestion=False,
     ):
 
+        from ._chemical_state import (
+            Bonds_DataFrame,
+            Components_DataFrame,
+            _ChemicalStateStorage,
+        )
+        from .chemical_states import ChemicalStates
         from .molecular_mechanics import MolecularMechanics
         from .structures import Structures
         from .topology import Topology
 
+        self._interactions = {}
+        self._structure_chemical_state_indices = None
+        self._bind_chemical_states(ChemicalStates(n_atoms=n_atoms, skip_digestion=True))
+        self.chemical_states._append_state(
+            _ChemicalStateStorage(
+                n_atoms=n_atoms,
+                bonds=Bonds_DataFrame(n_bonds=n_bonds),
+                components=Components_DataFrame(n_components=n_components),
+            ),
+            set_as_reference=True,
+        )
         self.topology = Topology(
             n_atoms=n_atoms,
             n_groups=n_groups,
-            n_components=n_components,
             n_molecules=n_molecules,
             n_entities=n_entities,
             n_chains=n_chains,
-            n_bonds=n_bonds,
             skip_digestion=True,
         )
         self.structures = Structures(skip_digestion=True)
@@ -532,11 +578,6 @@ class MolSys(NativeQueries):
             and not interactions
         ):
             raise ValueError("A partial MolSys needs at least one information domain.")
-        if chemical_states is None and topology is not None:
-            if topology._chemical_states_domain.n_chemical_states:
-                raise ValueError(
-                    "A topology without a chemical-state layer must have no states."
-                )
         if (
             topology is not None
             and chemical_states is not None
@@ -584,25 +625,17 @@ class MolSys(NativeQueries):
         had_chemical_states = "_chemical_states_domain" in state
         chemical_states = state.pop("_chemical_states_domain", None)
         self.__dict__.update(state)
-        self.structures = structures
+        self._structures = structures
+        if structures is not None:
+            structures._molsys_owner_ref = weakref.ref(self)
         if legacy_topology is not None:
-            self.topology = legacy_topology
-            if had_chemical_states and chemical_states is None:
-                self._chemical_states_domain = None
-        elif self._topology is None:
-            self._chemical_states_domain = chemical_states
-        else:
-            self._chemical_states_domain = (
-                None
-                if had_chemical_states and chemical_states is None
-                else self._topology._chemical_states_domain
-            )
+            self._topology = legacy_topology
+        self._chemical_states_domain = chemical_states if had_chemical_states else None
+        if self._topology is not None:
             self._topology._molsys_owner_ref = weakref.ref(self)
         self._bind_chemical_states(
             self._owned_chemical_states(self._chemical_states_domain)
         )
-        if self.topology is not None and self.chemical_states is not None:
-            self.topology._chemical_states_domain = self.chemical_states
         if "_structure_chemical_state_indices" not in self.__dict__:
             legacy_indices = getattr(self.structures, "_chemical_state_indices", None)
             self._structure_chemical_state_indices = (
@@ -649,12 +682,10 @@ class MolSys(NativeQueries):
             formal_charge = mechanics_formal_charge
             formal_charge_origin = "legacy_molecular_mechanics"
         if formal_charge is not None:
-            self.topology._set_chemical_state_atom_attribute(
+            self.chemical_states._set_chemical_state_atom_attribute(
                 "formal_charge", formal_charge
             )
-            self.topology._reference_chemical_state._formal_charge_migration_origin = (
-                formal_charge_origin
-            )
+            self.chemical_states._resolve_chemical_state()._formal_charge_migration_origin = formal_charge_origin
 
         topology_partial_charge = getattr(self.topology, "_legacy_partial_charge", None)
         mechanics_partial_charge = getattr(
@@ -960,9 +991,7 @@ class MolSys(NativeQueries):
                         copy_if_all=True,
                         skip_digestion=True,
                     )
-                    if self.chemical_states is not None:
-                        states = topology._chemical_states_domain
-                elif self.chemical_states is not None:
+                if self.chemical_states is not None:
                     states = (
                         self.chemical_states.copy()
                         if is_all(atom_indices)
@@ -1021,15 +1050,23 @@ class MolSys(NativeQueries):
             if not is_all(atom_indices):
                 atom_indices = np.sort(np.asarray(atom_indices, dtype=int))
 
-            tmp_item = MolSys()
-            tmp_item.topology = self.topology.extract(
-                atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
-            )
-            tmp_item.structures = self.structures.extract(
-                atom_indices=atom_indices,
-                structure_indices=structure_indices,
-                copy_if_all=True,
-                skip_digestion=True,
+            tmp_item = MolSys._from_partial_domains(
+                topology=self.topology.extract(
+                    atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
+                ),
+                chemical_states=(
+                    None
+                    if self.chemical_states is None
+                    else self.chemical_states.copy()
+                    if is_all(atom_indices)
+                    else self.chemical_states._extract_atoms(atom_indices)
+                ),
+                structures=self.structures.extract(
+                    atom_indices=atom_indices,
+                    structure_indices=structure_indices,
+                    copy_if_all=True,
+                    skip_digestion=True,
+                ),
             )
             if not is_all(atom_indices) and tmp_item.structures.bioassembly is not None:
                 selected_chain_indices = (
@@ -1089,7 +1126,11 @@ class MolSys(NativeQueries):
                             ],
                         }
                 tmp_item.structures.bioassembly = retained_assemblies or None
-            tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
+            tmp_item.molecular_mechanics = (
+                None
+                if self.molecular_mechanics is None
+                else self.molecular_mechanics.copy()
+            )
             if (
                 not is_all(atom_indices)
                 and tmp_item.molecular_mechanics is not None
@@ -1197,27 +1238,46 @@ class MolSys(NativeQueries):
         n_chains_before = self.topology.n_chains
 
         candidate_topology = self.topology.copy()
-        candidate_structures = self.structures.copy()
+        if self.structures is None or item.structures is None:
+            if self.structures is not None or item.structures is not None:
+                raise ValueError(
+                    "Adding molecular systems requires compatible Structures domains or both absent."
+                )
+            if not is_all(structure_indices):
+                raise ValueError("Structure selection requires a Structures domain.")
+            candidate_structures = None
+        else:
+            candidate_structures = self.structures.copy(deep=False)
         candidate_topology.add(
             item.topology,
             atom_indices=atom_indices,
             keep_ids=keep_ids,
             skip_digestion=True,
         )
+        from ._chemical_merge import union
+
+        candidate_states = union(
+            self.chemical_states,
+            item.chemical_states,
+            atom_indices,
+            candidate_topology,
+            keep_ids,
+        )
         n_atoms_added = candidate_topology.n_atoms - n_atoms_before
-        candidate_structures.add(
-            item.structures,
-            atom_indices=atom_indices,
-            structure_indices=structure_indices,
-            attribute_policy=attribute_policy,
-            n_atoms_added=n_atoms_added,
-            skip_digestion=True,
-        )
-        candidate_structures.bioassembly = _merged_bioassembly(
-            self.structures.bioassembly,
-            item.structures.bioassembly,
-            chain_offset=n_chains_before,
-        )
+        if candidate_structures is not None:
+            candidate_structures.add(
+                item.structures,
+                atom_indices=atom_indices,
+                structure_indices=structure_indices,
+                attribute_policy=attribute_policy,
+                n_atoms_added=n_atoms_added,
+                skip_digestion=True,
+            )
+            candidate_structures.bioassembly = _merged_bioassembly(
+                self.structures.bioassembly,
+                item.structures.bioassembly,
+                chain_offset=n_chains_before,
+            )
         candidate_mechanics = _merged_molecular_mechanics(
             self.molecular_mechanics,
             item.molecular_mechanics,
@@ -1228,10 +1288,20 @@ class MolSys(NativeQueries):
             for name, result in self.interactions.items()
         }
 
-        self.topology = candidate_topology
-        self.structures = candidate_structures
-        self.molecular_mechanics = candidate_mechanics
-        self.interactions = candidate_interactions
+        from ._subset import publish_subset
+
+        candidate = MolSys._from_partial_domains(
+            topology=candidate_topology,
+            chemical_states=candidate_states,
+            structures=candidate_structures,
+        )
+        candidate.molecular_mechanics = candidate_mechanics
+        if self._structure_chemical_state_indices is not None:
+            candidate._structure_chemical_state_indices = (
+                self._structure_chemical_state_indices.copy()
+            )
+        candidate.interactions = candidate_interactions
+        publish_subset(self, candidate)
 
     @arg_digest(form="molsysmt.MolSys")
     def append_structures(
@@ -1250,73 +1320,124 @@ class MolSys(NativeQueries):
                 "requires an explicit analysis merge."
             )
 
-        source_topology = item.topology.extract(
-            atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
-        )
-        if self.topology.n_atoms != source_topology.n_atoms:
-            from molsysmt._private.smonitor import StructuralInconsistencyError
-
-            raise StructuralInconsistencyError(
-                reason=(
-                    f"Source structures contain {source_topology.n_atoms} selected atoms, "
-                    f"but the target contains {self.topology.n_atoms} atoms."
-                ),
-                caller="molsysmt.native.MolSys.append_structures",
+        if self.structures is None or item.structures is None:
+            raise ValueError("Appending structures requires both Structures domains.")
+        source_topology = (
+            None
+            if item.topology is None
+            else item.topology.extract(
+                atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
             )
-
-        inventories_match = self.topology._chemical_state_inventory_equals(
-            source_topology
         )
-        target_state_indices = self._get_structure_chemical_state_indices(resolved=True)
+        from ._chemical_merge import stable_inventory_equals
+
+        source_states = item.chemical_states
+        if source_states is not None and not is_all(atom_indices):
+            source_states = source_states._extract_atoms(atom_indices)
+        if source_states is not None:
+            if (
+                self.chemical_states is None
+                or not self.chemical_states._inventory_equals(source_states)
+                or source_topology is not None
+                and not stable_inventory_equals(self.topology, source_topology)
+            ):
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason="Appending declared source chemistry requires exact ordered inventory alignment.",
+                    caller="molsysmt.native.MolSys.append_structures",
+                )
+            incoming = item._get_structure_chemical_state_indices(
+                structure_indices=structure_indices, resolved=True
+            )
+        else:
+            incoming = None
         other = item.structures.extract(
             atom_indices=atom_indices,
             structure_indices=structure_indices,
             copy_if_all=True,
             skip_digestion=True,
         )
-        if inventories_match:
-            source_state_indices = item._get_structure_chemical_state_indices(
-                structure_indices=structure_indices, resolved=True
+        declared_atoms = self._get_n_atoms()
+        if other._atom_axis_size() is not None and other.n_atoms != declared_atoms:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="Source and target structures must share the ordered atom axis.",
+                caller="molsysmt.native.MolSys.append_structures",
             )
-        elif len(self.topology._chemical_states) == 1:
-            source_state_indices = pd.array(
-                np.zeros(other.n_structures, dtype=np.int64), dtype="Int64"
-            )
-        else:
-            source_state_indices = pd.array([pd.NA] * other.n_structures, dtype="Int64")
-        self.structures.append(
-            structure_id=other.structure_id,
-            time=other.time,
-            coordinates=other.coordinates,
-            velocities=other.velocities,
-            box=other.box,
-            temperature=other.temperature,
-            potential_energy=other.potential_energy,
-            kinetic_energy=other.kinetic_energy,
-            b_factor=other.b_factor,
-            alternate_location=other.alternate_location,
-            occupancy=other.occupancy,
-            atom_indices="all",
-            structure_indices="all",
+        self._append_structure_payload(
+            structure_chemical_state_index=incoming,
+            preserve_association=item._structure_chemical_state_indices is not None,
             attribute_policy=attribute_policy,
-            skip_digestion=True,
+            **other._frame_payload(),
         )
+
+    def _append_structure_payload(
+        self,
+        *,
+        structure_chemical_state_index=None,
+        preserve_association=False,
+        **payload,
+    ):
+        """Prepare aligned structure payload and analyses before publication."""
+        if self.structures is None:
+            raise ValueError("Appending structures requires a Structures domain.")
+        if hasattr(self, "_pending_interaction_edits"):
+            raise ValueError(
+                "Appending structures cannot run inside an active molecular edit."
+            )
+        candidate = self.structures.copy(deep=False, skip_digestion=True)
+        old_count = self.structures.n_structures
+        candidate.append(**payload, skip_digestion=True)
+        added = candidate.n_structures - old_count
+        n_states = (
+            0
+            if self.chemical_states is None
+            else self.chemical_states.n_chemical_states
+        )
+        incoming = structure_chemical_state_index
+        association = None
         if (
-            len(self.topology._chemical_states) > 1
-            or self._structure_chemical_state_indices is not None
-            or (
-                inventories_match and item._structure_chemical_state_indices is not None
-            )
+            self._structure_chemical_state_indices is not None
+            or n_states > 1
+            or preserve_association
+            or incoming is not None
         ):
-            combined = pd.array(
-                list(target_state_indices) + list(source_state_indices), dtype="Int64"
+            if incoming is None:
+                incoming = [0 if n_states == 1 else pd.NA] * added
+            elif incoming is pd.NA or np.isscalar(incoming):
+                incoming = [incoming] * added
+            else:
+                incoming = list(incoming)
+            if len(incoming) != added:
+                raise ValueError(
+                    "Incoming structure-to-state indices must align with appended structures."
+                )
+            association = pd.array(
+                list(self._get_structure_chemical_state_indices(resolved=True))
+                + incoming,
+                dtype="Int64",
             )
-            self._structure_chemical_state_indices = None
-            self._set_structure_chemical_state_indices(combined)
-        self.interactions = {
-            name: _extend_interaction_structures(result, self.structures.n_structures)
-            for name, result in self._interactions.items()
+            known = pd.Series(association).dropna()
+            if not known.empty and ((known < 0).any() or (known >= n_states).any()):
+                raise ValueError(
+                    "Incoming structure-to-state indices reference unavailable chemical states."
+                )
+        analyses = {
+            name: _extend_interaction_structures(result, candidate.n_structures)
+            for name, result in self.interactions.items()
         }
+        prepared = vars(self).copy()
+        prepared.update(
+            _structures=candidate,
+            _structure_chemical_state_indices=association,
+            _interactions=analyses,
+        )
+        previous = self.structures
+        candidate._molsys_owner_ref = weakref.ref(self)
+        object.__setattr__(self, "__dict__", prepared)
+        previous._molsys_owner_ref = None
 
     @signal(tags=["native"])
     @arg_digest()
@@ -1344,8 +1465,8 @@ class MolSys(NativeQueries):
         Python copy.copy uses deferred geometry allocation; copy.deepcopy uses
         eager geometry allocation with the containing graph's memo. Copying
         invokes no native constructor, legacy migration, remapping or inference.
-        Each copied topology belongs to its copied system and refers to that
-        system's single ChemicalStates authority. Absent domains remain absent.
+        Each copied domain belongs to its copied system. Its independent
+        ChemicalStates collection owns chemistry; absent domains remain absent.
         Canonical tables are copied eagerly; this is not table copy-on-write.
         Repeated references to those tables follow the containing graph's memo.
         Arbitrary mutable objects in table cells and pandas metadata follow
@@ -1407,6 +1528,7 @@ class MolSys(NativeQueries):
             result.chemical_states._molsys_owner_ref = weakref.ref(result)
         return result
 
+    @arg_digest()
     def add_missing_bonds(
         self,
         threshold="2 angstroms",
@@ -1417,24 +1539,81 @@ class MolSys(NativeQueries):
         with_templates=True,
         with_distances=True,
         skip_digestion=False,
+        *,
+        chemical_state="reference",
     ):
-        """Fill missing bonds inferred from the current coordinates."""
+        """Adding missing pairs through the existing candidate tools.
 
-        from molsysmt.build import get_missing_bonds as _get_missing_bonds
+        Parameters
+        ----------
+        threshold : quantity or str, default='2 angstroms'
+            Length cutoff for geometric candidates.
+        selection : str or array-like of int, default='all'
+            Source atom selection; both endpoints must be selected.
+        structure_indices : int or array-like of int, default=0
+            Exactly one source structure used for geometric evidence.
+        syntax : str, default='MolSysMT'
+            Syntax used to resolve selection.
+        engine : str, default='MolSysMT'
+            Existing candidate engine, forwarded without substitution.
+        with_templates : bool, default=True
+            Include candidates from available intra-group templates.
+        with_distances : bool, default=True
+            Include the existing distance-based candidate families.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for validated inputs.
+        chemical_state : str or int, default='reference'
+            Existing state to edit; 'structure' resolves the selected structure.
 
-        bonds = _get_missing_bonds(
-            self,
-            threshold=threshold,
-            selection=selection,
-            structure_indices=structure_indices,
-            syntax=syntax,
-            engine="MolSysMT",
-            with_templates=True,
-            with_distances=False,
-            skip_digestion=True,
+        Returns
+        -------
+        None
+            Add validated candidates and rebuild selected-state components.
+            Other states and the stable molecular inventory remain unchanged.
+
+        Notes
+        -----
+        Candidate heuristics do not certify complete connectivity. This method
+        delegates to build.get_missing_bonds and ChemicalStates.add_bonds; it
+        does not add a second chemical store or infer a missing chemical state.
+
+        .. versionadded:: 1.0.0
+        """
+        from molsysmt._private.smonitor import (
+            ArgumentError,
+            StructuralInconsistencyError,
         )
+        from molsysmt.build import get_missing_bonds
 
-        self.topology.add_bonds(bonds, skip_digestion=True)
+        frames = np.asarray(structure_indices).reshape(-1)
+        if len(frames) != 1 or not np.issubdtype(frames.dtype, np.integer):
+            raise ArgumentError(
+                "structure_indices",
+                value=structure_indices,
+                caller="molsysmt.MolSys.add_missing_bonds",
+            )
+        if self.chemical_states is None:
+            raise StructuralInconsistencyError(
+                reason="Missing-bond preparation requires an existing ChemicalStates domain.",
+                caller="molsysmt.MolSys.add_missing_bonds",
+            )
+        state = (
+            self._resolve_structure_chemical_state_index([int(frames[0])])
+            if chemical_state == "structure"
+            else chemical_state
+        )
+        bonds = get_missing_bonds(
+            self,
+            selection=selection,
+            structure_index=int(frames[0]),
+            max_bond_length=threshold,
+            syntax=syntax,
+            engine=engine,
+            with_templates=with_templates,
+            with_distances=with_distances,
+            chemical_state=state,
+        )
+        self.chemical_states.add_bonds(bonds, chemical_state=state)
 
     def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
         """Recompute atom ids/types from the present topology."""
@@ -1450,17 +1629,87 @@ class MolSys(NativeQueries):
             redefine_ids=redefine_ids, redefine_types=redefine_types
         )
 
-    def rebuild_components(self, redefine_ids=True, redefine_types=True):
-        """Rebuilding component metadata on the native topology."""
+    @arg_digest(native_chemical_rebuild=True, native_chemical_state=True)
+    def rebuild_components(
+        self,
+        redefine_ids=True,
+        redefine_types=True,
+        *,
+        redefine_indices=True,
+        redefine_names=True,
+        force=False,
+        chemical_state="reference",
+        skip_digestion=False,
+    ):
+        """Rebuilding selected-state components with explicit stable context.
 
-        self.topology.rebuild_components(
-            redefine_ids=redefine_ids, redefine_types=redefine_types
+        Parameters
+        ----------
+        redefine_ids : bool, default=True
+            Generate local component IDs instead of retaining exact-set labels.
+        redefine_types : bool, default=True
+            Infer types from represented stable groups where evidence is available.
+        redefine_indices : bool, default=True
+            Recompute the partition from stored bonds and participation declarations.
+        redefine_names : bool, default=True
+            Infer names from represented stable groups.
+        force : bool, default=False
+            Recompute membership even when redefine_indices is False.
+        chemical_state : str, int or None, default='reference'
+            Existing state to rebuild without changing its reference.
+        skip_digestion : bool, default=False
+            Skip digestion only for already validated arguments.
+
+        Returns
+        -------
+        None
+            Publish the validated chemical edit, preserving stable inventory.
+
+        .. versionadded:: 1.0.0
+        """
+        if self.chemical_states is None:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="Component reconstruction requires ChemicalStates.",
+                caller="molsysmt.MolSys.rebuild_components",
+            )
+        self.chemical_states.rebuild_components(
+            redefine_indices,
+            redefine_ids,
+            redefine_types,
+            redefine_names,
+            force,
+            chemical_state=chemical_state,
+            topology=self.topology,
+            skip_digestion=True,
         )
 
     def rebuild_molecules(self, redefine_ids=True, redefine_types=True):
         """Rebuilding molecule metadata on the native topology."""
 
-        self.topology.rebuild_molecules(
+        from ._atom_molecules import stored
+
+        topology = self.topology
+        if (
+            topology.n_atoms
+            and topology.n_groups == 0
+            and stored(topology) is None
+            and self.chemical_states is not None
+        ):
+            state = self.chemical_states._resolve_chemical_state()
+            topology.reset_molecules(n_molecules=len(state.components))
+            topology.molecules["molecule_name"] = state.components[
+                "component_name"
+            ].to_numpy(copy=True)
+            topology.molecules["molecule_type"] = state.components[
+                "component_type"
+            ].to_numpy(copy=True)
+            topology.set_atom_molecules(
+                state.component_indices.to_numpy(dtype=np.int64, na_value=-1),
+                skip_digestion=True,
+            )
+        topology.rebuild_molecules(
             redefine_ids=redefine_ids, redefine_types=redefine_types
         )
 

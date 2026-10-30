@@ -70,13 +70,28 @@ def topology(source):
 
 def snapshot(source):
     t = topology(source)
-    return t.atoms.copy(deep=True), t.groups.copy(deep=True), t.bonds.copy(deep=True)
+    states = (
+        source.chemical_states if msm.get_form(source) == "molsysmt.MolSys" else None
+    )
+    return (
+        t.atoms.copy(deep=True),
+        t.groups.copy(deep=True),
+        None if states is None else states.get_bonds().copy(deep=True),
+    )
 
 
 def unchanged(source, before):
     t = topology(source)
-    for current, previous in zip([t.atoms, t.groups, t.bonds], before):
-        pd.testing.assert_frame_equal(current, previous)
+    states = (
+        source.chemical_states if msm.get_form(source) == "molsysmt.MolSys" else None
+    )
+    for current, previous in zip(
+        [t.atoms, t.groups, None if states is None else states.get_bonds()], before
+    ):
+        if previous is None:
+            assert current is None
+        else:
+            pd.testing.assert_frame_equal(current, previous)
 
 
 def population(element, mode):

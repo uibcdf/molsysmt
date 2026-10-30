@@ -27,9 +27,12 @@ def _element_symbol(atom_type, atom_name, periodic_table):
     return None
 
 
-def _optional_atom_values(topology, name):
-    if topology._has_chemical_state_atom_attribute(name, include_none=True):
-        return topology._get_chemical_state_atom_attribute(name)
+def _optional_atom_values(chemical_states, name):
+    if (
+        chemical_states is not None
+        and chemical_states._has_chemical_state_atom_attribute(name, include_none=True)
+    ):
+        return chemical_states._get_chemical_state_atom_attribute(name)
     return None
 
 
@@ -98,14 +101,25 @@ def to_rdkit_Mol(
         skip_digestion=True,
     )
     topology = source.topology
+    chemical_states = source.chemical_states
+    if chemical_states is None:
+        raise NotCompatibleConversionError(
+            "molsysmt.MolSys",
+            "rdkit.Mol",
+            {"chemical_state"},
+            caller="molsysmt.form.molsysmt_MolSys.to_rdkit_Mol",
+            message="RDKit chemical export requires an explicit ChemicalStates domain.",
+        )
     periodic_table = Chem.GetPeriodicTable()
 
-    formal_charge = _optional_atom_values(topology, "formal_charge")
-    aromatic = _optional_atom_values(topology, "is_aromatic")
-    radicals = _optional_atom_values(topology, "n_unpaired_electrons")
-    allows_implicit = _optional_atom_values(topology, "allows_implicit_hydrogens")
-    explicit_hydrogens = _optional_atom_values(topology, "n_explicit_hydrogens")
-    stereochemistry = _optional_atom_values(topology, "stereochemistry")
+    formal_charge = _optional_atom_values(chemical_states, "formal_charge")
+    aromatic = _optional_atom_values(chemical_states, "is_aromatic")
+    radicals = _optional_atom_values(chemical_states, "n_unpaired_electrons")
+    allows_implicit = _optional_atom_values(
+        chemical_states, "allows_implicit_hydrogens"
+    )
+    explicit_hydrogens = _optional_atom_values(chemical_states, "n_explicit_hydrogens")
+    stereochemistry = _optional_atom_values(chemical_states, "stereochemistry")
 
     editable = Chem.RWMol()
     for atom_index, row in topology.atoms.iterrows():
@@ -161,7 +175,7 @@ def to_rdkit_Mol(
         5.5: Chem.BondType.FIVEANDAHALF,
     }
     bond_rows = []
-    for _, row in topology._get_chemical_state_bonds().iterrows():
+    for _, row in chemical_states._resolve_chemical_state().bonds.iterrows():
         atom1 = int(row["atom1_index"])
         atom2 = int(row["atom2_index"])
         relationship = row.get("bond_type", pd.NA)

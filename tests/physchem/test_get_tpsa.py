@@ -28,7 +28,7 @@ def source_from_smiles(smiles):
 
 @pytest.mark.parametrize("smiles,expected", CASES)
 @pytest.mark.parametrize(
-    "form", ["rdkit.Mol", "molsysmt.MolSys", "molsysmt.Topology", "h5msm", "sdf"]
+    "form", ["rdkit.Mol", "molsysmt.MolSys", "declared_domains", "h5msm", "sdf"]
 )
 def test_tpsa_primary_fragment_sums_across_forms(smiles, expected, form, tmp_path):
     source = source_from_smiles(smiles)
@@ -54,6 +54,9 @@ def test_tpsa_primary_fragment_sums_across_forms(smiles, expected, form, tmp_pat
         source = str(path)
     elif form == "h5msm":
         source = msm.convert(source, to_form=str(tmp_path / "molecule.h5msm"))
+    elif form == "declared_domains":
+        native = msm.convert(source, to_form="molsysmt.MolSys")
+        source = [native.topology, native.chemical_states]
     elif form != "rdkit.Mol":
         source = msm.convert(source, to_form=form)
     result = msm.physchem.get_tpsa(source)
@@ -278,17 +281,21 @@ def test_unselected_unsupported_molecules_are_not_calculated():
 
 @pytest.mark.parametrize("bonded", [False, True])
 def test_disconnected_or_covalently_crossed_molecule_definitions_fail(bonded):
-    source = msm.convert(source_from_smiles("CCO.COC"), to_form="molsysmt.MolSys")
-    from molsysmt.native.topology import Groups_DataFrame
-
-    source.topology.groups = Groups_DataFrame(n_groups=2)
-    source.topology.groups["group_name"] = ["LIG", "LIG"]
-    source.topology.groups["molecule_index"] = [0, 1] if bonded else [0, 0]
-    source.topology.atoms["group_index"] = [0, 0, 0, 1, 1, 1]
-    source.topology.reset_molecules(n_molecules=2 if bonded else 1)
-    source.topology._molecules_dirty = False
+    original = msm.convert(source_from_smiles("CCO.COC"), to_form="molsysmt.MolSys")
+    builder = msm.MolSysBuilder()
+    for kind in ["C", "C", "O", "C", "O", "C"]:
+        builder.add_atom(atom_type=kind)
+    builder.add_group([0, 1, 2], group_name="LIG")
+    builder.add_group([3, 4, 5], group_name="LIG")
     if bonded:
-        source.topology._append_chemical_state_bonds(
+        builder.add_molecule([0])
+        builder.add_molecule([1])
+    else:
+        builder.add_molecule([0, 1])
+    source = builder.build()
+    source.chemical_states = original.chemical_states.copy()
+    if bonded:
+        source.chemical_states._append_chemical_state_bonds(
             [[1, 3]], bond_order=[1], bond_type=["covalent"]
         )
     with pytest.raises(msm.StructuralInconsistencyError):

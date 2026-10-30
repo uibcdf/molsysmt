@@ -4,30 +4,7 @@ import numpy as np
 
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
-from ._atom_molecules import compact, stored
-
-
-def validate_record_export(topology):
-    """Reject new declarations that the legacy 0.1 dictionary cannot represent."""
-    membership = stored(topology)
-    if membership is None and not (
-        topology.n_atoms and topology.n_molecules and not topology.n_groups
-    ):
-        return
-    state = topology._resolve_reference_chemical_state()
-    partition = state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
-    if (
-        topology.n_groups
-        or membership is None
-        or np.any(membership < 0)
-        or len(state.components) != topology.n_molecules
-        or not np.array_equal(membership, partition)
-    ):
-        raise ValueError(
-            "Dictionary schema 0.1 cannot preserve independent atom/molecule "
-            "membership. Use H5MSM 0.5 until the independent dictionary "
-            "schema is available."
-        )
+from ._atom_molecules import compact
 
 
 def restore(topology, states):

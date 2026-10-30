@@ -23,8 +23,6 @@ def _rdkit_atom_stereochemistry(atom):
 def _rdkit_bond_metadata(bond):
     """Return independent canonical values supplied by one RDKit bond."""
 
-    import pandas as pd
-
     bond_type_name = str(bond.GetBondType()).upper()
     numeric_order = float(bond.GetBondTypeAsDouble())
     is_aromatic = bool(bond.GetIsAromatic())
@@ -85,77 +83,6 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from rdkit import Chem
+    from ._read_native import read_native
 
-    from molsysmt._private.stereochemistry import assign_cip
-    from molsysmt._private.variables import is_all
-    from molsysmt.native import Topology
-
-    item = Chem.Mol(item)
-    Chem.AssignStereochemistry(item, cleanIt=False, force=True)
-    declared_bond_stereo = [
-        (bond.GetStereo(), list(bond.GetStereoAtoms())) for bond in item.GetBonds()
-    ]
-    assign_cip(item)
-    # Accurate CIP labeling can normalize E/Z tags into reference-relative
-    # cis/trans. Preserve the input adapter's declared bond representation;
-    # atom labels above still come from the accurate labeler.
-    for bond, (stereo, references) in zip(item.GetBonds(), declared_bond_stereo):
-        if len(references) == 2:
-            bond.SetStereoAtoms(*references)
-        bond.SetStereo(stereo)
-    tmp_item = Topology(n_atoms=item.GetNumAtoms())
-
-    atoms = list(item.GetAtoms())
-    tmp_item.atoms["atom_id"] = [
-        atom.GetProp("_MolSysMTAtomID")
-        if atom.HasProp("_MolSysMTAtomID")
-        else str(atom.GetIdx())
-        for atom in atoms
-    ]
-    tmp_item.atoms["atom_name"] = [
-        atom.GetProp("_MolSysMTAtomName")
-        if atom.HasProp("_MolSysMTAtomName")
-        else (
-            atom.GetPDBResidueInfo().GetName().strip()
-            if atom.GetPDBResidueInfo() is not None
-            else f"{atom.GetSymbol()}{atom.GetIdx()}"
-        )
-        for atom in atoms
-    ]
-    tmp_item.atoms["atom_type"] = [atom.GetSymbol() for atom in atoms]
-    tmp_item.atoms["isotope"] = pd.array(
-        [atom.GetIsotope() or pd.NA for atom in atoms], dtype="UInt16"
-    )
-
-    atom_attributes = {
-        "formal_charge": [atom.GetFormalCharge() for atom in atoms],
-        "is_aromatic": [atom.GetIsAromatic() for atom in atoms],
-        "n_unpaired_electrons": [atom.GetNumRadicalElectrons() for atom in atoms],
-        "n_implicit_hydrogens": [atom.GetNumImplicitHs() for atom in atoms],
-        "n_explicit_hydrogens": [atom.GetNumExplicitHs() for atom in atoms],
-        "allows_implicit_hydrogens": [not atom.GetNoImplicit() for atom in atoms],
-        "stereochemistry": [_rdkit_atom_stereochemistry(atom) for atom in atoms],
-    }
-    for attribute, values in atom_attributes.items():
-        tmp_item._set_chemical_state_atom_attribute(attribute, values)
-
-    bonds = list(item.GetBonds())
-    if bonds:
-        metadata = [_rdkit_bond_metadata(bond) for bond in bonds]
-        tmp_item._append_chemical_state_bonds(
-            [[bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()] for bond in bonds],
-            **{field: [row[field] for row in metadata] for field in metadata[0]},
-        )
-    tmp_item._chemical_states[0].connectivity_completeness = "complete"
-
-    tmp_item.rebuild_components()
-    tmp_item.rebuild_molecules()
-    tmp_item.rebuild_entities()
-
-    if not is_all(atom_indices):
-        from molsysmt.form.molsysmt_Topology.extract import extract
-
-        tmp_item = extract(tmp_item, atom_indices=atom_indices, skip_digestion=True)
-
-    return tmp_item
+    return read_native(item, atom_indices=atom_indices, skip_digestion=True).topology

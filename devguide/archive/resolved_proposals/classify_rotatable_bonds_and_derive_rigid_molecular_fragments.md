@@ -7,7 +7,7 @@ closed: 2026-10-04
 verification: measured
 area: [structure, build]
 guard: tests/topology/test_get_rotatable_bonds.py::test_independently_specified_chemical_pairs_and_exclusions
-normative: docs/content/user/tools/topology/get_rotatable_bonds.md
+normative: docs/content/user/tools/chemical_states/get_rotatable_bonds.md
 blocked_by: []
 supersedes: []
 ---
@@ -211,3 +211,9 @@ matrix, clean wheel, large-system performance or biological qualification.
 Guards: the front-matter analytical selector; native optional-provider isolation
 in `tests/topology/test_get_rotatable_bonds.py`; and original reference pairs/
 partitions in `tests/form/file_pdbqt/test_real_vina_examples.py::test_rotatable_source_pairs_preserve_original_vina_policy_differences`.
+
+## Navigation correction — 2026-10-29
+
+The normative tutorial moved from `tools/topology` to `tools/chemical_states`
+under #255. Only the front-matter navigation target was corrected; the dated
+scientific scope, guards and closure evidence above remain unchanged.

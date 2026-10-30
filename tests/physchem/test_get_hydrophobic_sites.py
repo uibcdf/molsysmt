@@ -8,13 +8,13 @@ import molsysmt as msm
 from molsysmt._private.smonitor import UnsupportedHeavyOperationError
 
 
-@pytest.mark.parametrize("form", ["rdkit", "native", "topology", "h5msm"])
+@pytest.mark.parametrize("form", ["rdkit", "native", "declared_domains", "h5msm"])
 def test_sites_are_form_agnostic_and_not_all_carbon(form, tmp_path):
     source = Chem.MolFromSmiles("CCC.CSC.CF.CC.C[NH3+]")
     if form != "rdkit":
         source = msm.convert(source, to_form="molsysmt.MolSys")
-        if form == "topology":
-            source = source.topology
+        if form == "declared_domains":
+            source = [source.topology, source.chemical_states]
         elif form == "h5msm":
             path = str(tmp_path / "chemistry.h5msm")
             msm.convert(source, to_form=path)

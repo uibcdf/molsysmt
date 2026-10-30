@@ -25,16 +25,9 @@ def to_parmed_Structure(item, atom_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.molsysmt_Topology.to_parmed_Structure import (
-        to_parmed_Structure as molsysmt_Topology_to_parmed_Structure,
-    )
+    from molsysmt.form.openmm_Topology.to_parmed_Structure import to_parmed_Structure
 
-    from .to_molsysmt_Topology import (
-        to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology,
-    )
+    from .to_openmm_Topology import to_openmm_Topology
 
-    tmp_item = molsysmt_MolSys_to_molsysmt_Topology(
-        item, atom_indices=atom_indices, skip_digestion=True
-    )
-    tmp_item = molsysmt_Topology_to_parmed_Structure(tmp_item, skip_digestion=True)
-    return tmp_item
+    topology = to_openmm_Topology(item, atom_indices=atom_indices, skip_digestion=True)
+    return to_parmed_Structure(topology, skip_digestion=True)

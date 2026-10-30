@@ -184,7 +184,7 @@ def test_state_resolution_preserves_reference_and_structure_associations(molsys)
     second.set_atom_attribute("formal_charge", [1, -1, 0, 0])
     molsys.chemical_states._states.append(second)
     molsys._set_structure_chemical_state_indices([1, 0, 1])
-    for obj in [molsys, molsys.topology]:
+    for obj in [molsys, molsys.chemical_states]:
         assert obj.get(element="atom", chemical_state=1, formal_charge=True) == [
             1,
             -1,

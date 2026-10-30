@@ -60,16 +60,23 @@ def test_psf_to_native_preserves_identity_connectivity_and_mechanics(psf_file):
         molecular_system.molecular_mechanics.partial_charge.astype(float),
         [0.25, -0.5, 0.25],
     )
-    assert molecular_system.topology.n_bonds == 2
-    assert molecular_system.topology.bonds["bond_type"].tolist() == [
+    assert molecular_system.chemical_states.get(n_bonds=True) == 2
+    assert molecular_system.chemical_states._resolve_chemical_state().bonds[
+        "bond_type"
+    ].tolist() == [
         "covalent",
         "covalent",
     ]
-    assert molecular_system.topology.bonds["evidence"].tolist() == [
+    assert molecular_system.chemical_states._resolve_chemical_state().bonds[
+        "evidence"
+    ].tolist() == [
         "explicit",
         "explicit",
     ]
-    assert "bond_order" not in molecular_system.topology.bonds
+    assert (
+        "bond_order"
+        not in molecular_system.chemical_states._resolve_chemical_state().bonds
+    )
     assert molecular_system.structures.n_structures == 0
 
 
@@ -102,7 +109,7 @@ def test_psf_native_subset_keeps_topology_and_mechanics_aligned(psf_file):
         molecular_system.molecular_mechanics.partial_charge.astype(float),
         [0.25, 0.25],
     )
-    assert molecular_system.topology.n_bonds == 0
+    assert molecular_system.chemical_states.get(n_bonds=True) == 0
 
 
 def test_psf_openmm_topology_materializes_the_requested_subset(psf_file):

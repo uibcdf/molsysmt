@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from depdigest import dep_digest
 
@@ -75,65 +74,6 @@ def to_pytraj_Topology(item, atom_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from pytraj import Atom as PyTrajAtom
-    from pytraj import Residue as PyTrajResidue
-    from pytraj import Topology as PyTrajTopology
+    from molsysmt.form.pytraj_Topology._from_native import export_native
 
-    from molsysmt import pyunitwizard as puw
-    from molsysmt.form.molsysmt_Topology.extract import extract
-    from molsysmt.physchem import get_mass
-
-    item = extract(
-        item,
-        atom_indices=atom_indices,
-        copy_if_all=False,
-        skip_digestion=True,
-    )
-
-    masses = puw.get_value(
-        get_mass(item, element="atom", skip_digestion=True),
-        to_unit="Da",
-    )
-    output = PyTrajTopology()
-    uses_text_chain_id = _pytraj_uses_text_chain_id(PyTrajResidue)
-
-    residues = {}
-    for group_index, group in enumerate(item.groups.itertuples(index=False)):
-        residue_number = _pytraj_residue_number(group.group_id, group_index)
-        atom_indices_in_group = item.atoms.index[
-            item.atoms["group_index"] == group_index
-        ]
-        if len(atom_indices_in_group):
-            chain_index = item.atoms.loc[atom_indices_in_group[0], "chain_index"]
-        else:
-            chain_index = None
-        residues[group_index] = PyTrajResidue(
-            str(group.group_name),
-            resid=residue_number,
-            icode=0,
-            chainID=(
-                _pytraj_chain_id(item, chain_index)
-                if uses_text_chain_id
-                else _pytraj_chain_index(chain_index)
-            ),
-        )
-
-    for atom_index, atom in enumerate(item.atoms.itertuples(index=False)):
-        group_index = int(atom.group_index)
-        pytraj_atom = PyTrajAtom(
-            name=str(atom.atom_name),
-            type="" if atom.atom_type is None else str(atom.atom_type),
-            resid=group_index,
-            mass=float(masses[atom_index]),
-            charge=0.0,
-        )
-        output.add_atom(pytraj_atom, residues[group_index])
-
-    bonds = item._get_chemical_state_bonds()
-    if bonds.shape[0]:
-        bonded_atom_pairs = np.ascontiguousarray(
-            bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=np.int64)
-        )
-        output.add_bonds(bonded_atom_pairs)
-
-    return output
+    return export_native(item, atom_indices=atom_indices, skip_digestion=True)

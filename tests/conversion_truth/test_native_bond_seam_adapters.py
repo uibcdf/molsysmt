@@ -3,7 +3,7 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import StructuralInconsistencyError
-from molsysmt.native import Topology
+from molsysmt.native import MolSys
 
 
 def _build_legacy_metadata_molsys():
@@ -36,13 +36,9 @@ def test_first_party_serializers_normalize_legacy_bond_metadata(tmp_path):
     msm.convert(molsys, to_form="file:h5msm", output_filename=str(h5msm_filename))
     molsys_from_h5msm = msm.convert(str(h5msm_filename), to_form="molsysmt.MolSys")
 
-    for topology in (
-        topology_from_dict,
-        molsys_from_dict.topology,
-        molsys_from_viewer.topology,
-        molsys_from_h5msm.topology,
-    ):
-        bonds = topology._get_chemical_state_bonds()
+    assert not hasattr(topology_from_dict, "bonds")
+    for topology in (molsys_from_dict, molsys_from_viewer, molsys_from_h5msm):
+        bonds = topology.chemical_states._get_chemical_state_bonds()
         assert bonds["is_aromatic"].tolist() == [True]
         assert bonds["bond_type"].tolist() == ["dative"]
 
@@ -50,22 +46,29 @@ def test_first_party_serializers_normalize_legacy_bond_metadata(tmp_path):
 def test_first_party_single_state_consumers_fail_closed_but_h5msm_preserves_inventory(
     tmp_path,
 ):
-    topology = Topology(n_atoms=2)
-    topology._append_chemical_state_bonds([[0, 1]], orders="1")
-    topology._append_chemical_state(state_id="product")
-    topology._set_reference_chemical_state_index(None)
+    topology = MolSys(n_atoms=2)
+    topology.chemical_states._append_chemical_state_bonds([[0, 1]], orders="1")
+    topology.chemical_states.append_state()
+    topology.chemical_states._set_reference_index(None)
 
     with pytest.raises(StructuralInconsistencyError, match="ambiguous"):
         msm.get(topology, element="bond", bond_order=True)
-    with pytest.raises(StructuralInconsistencyError, match="ambiguous"):
-        msm.convert(topology, to_form="molsysmt.TopologyDict")
+    inventory = msm.convert(topology, to_form="molsysmt.TopologyDict")
+    assert "bonds" not in inventory.data
+    complete = msm.convert(topology, to_form="molsysmt.MolSysDict")
+    assert (
+        msm.convert(
+            complete, to_form="molsysmt.MolSys"
+        ).chemical_states.n_chemical_states
+        == 2
+    )
     with pytest.raises(StructuralInconsistencyError, match="ambiguous"):
         msm.convert(topology, to_form="molsysmt.ViewerJSON")
     filename = tmp_path / "ambiguous.h5msm"
     msm.convert(topology, to_form="file:h5msm", output_filename=str(filename))
-    restored = msm.convert(str(filename), to_form="molsysmt.Topology")
-    assert len(restored._chemical_states) == 2
-    assert restored._reference_chemical_state_index is None
+    restored = msm.convert(str(filename), to_form="molsysmt.MolSys")
+    assert len(restored.chemical_states._states) == 2
+    assert restored.chemical_states.reference_chemical_state_index is None
     with pytest.raises(StructuralInconsistencyError, match="ambiguous"):
         msm.get(restored, element="bond", bond_order=True)
 
@@ -84,11 +87,16 @@ def test_first_party_single_state_consumers_fail_closed_but_h5msm_preserves_inve
 def test_endpoint_adapters_fail_closed_without_reference_state(
     rich_molsys, target_form, use_molsys
 ):
-    topology = rich_molsys.topology
-    topology._append_chemical_state(state_id="product")
-    topology._set_reference_chemical_state_index(None)
-
-    source = rich_molsys if use_molsys else topology
+    rich_molsys.chemical_states.append_state()
+    rich_molsys.chemical_states._set_reference_index(None)
+    source = (
+        rich_molsys
+        if use_molsys
+        else MolSys._from_partial_domains(
+            topology=rich_molsys.topology.copy(),
+            chemical_states=rich_molsys.chemical_states.copy(),
+        )
+    )
     with pytest.raises(StructuralInconsistencyError, match="ambiguous"):
         msm.convert(source, to_form=target_form)
 
@@ -107,20 +115,28 @@ def test_endpoint_adapters_fail_closed_without_reference_state(
 def test_endpoint_adapters_fail_closed_without_chemical_state(
     rich_molsys, target_form, use_molsys
 ):
-    rich_molsys.topology._clear_chemical_states()
-
-    source = rich_molsys if use_molsys else rich_molsys.topology
+    rich_molsys.chemical_states._replace_states([])
+    source = (
+        rich_molsys
+        if use_molsys
+        else MolSys._from_partial_domains(
+            topology=rich_molsys.topology.copy(),
+            chemical_states=rich_molsys.chemical_states.copy(),
+        )
+    )
     with pytest.raises(StructuralInconsistencyError, match="no chemical state"):
         msm.convert(source, to_form=target_form)
 
 
 def test_endpoint_adapters_preserve_known_empty_connectivity(rich_molsys):
-    rich_molsys.topology._reset_chemical_state_bonds(n_bonds=0)
+    rich_molsys.chemical_states.remove_bonds("all")
 
-    graph = msm.convert(rich_molsys.topology, to_form="networkx.Graph")
-    mdtraj_topology = msm.convert(rich_molsys.topology, to_form="mdtraj.Topology")
-    openmm_topology = msm.convert(rich_molsys.topology, to_form="openmm.Topology")
-    pytraj_topology = msm.convert(rich_molsys.topology, to_form="pytraj.Topology")
+    graph = msm.convert(rich_molsys, to_form="networkx.Graph")
+    mdtraj_topology = msm.convert(rich_molsys, to_form="mdtraj.Topology")
+    openmm_topology = msm.convert(
+        rich_molsys, to_form="openmm.Topology", structure_indices=[0]
+    )
+    pytraj_topology = msm.convert(rich_molsys, to_form="pytraj.Topology")
     pdb_text = msm.convert(rich_molsys, to_form="string:pdb_text")
 
     assert graph.number_of_edges() == 0
@@ -187,7 +203,7 @@ def test_conversion_report_exposes_its_audit_boundary(rich_molsys):
 
 
 def test_pdbfixer_reports_known_empty_connectivity_inference(rich_molsys):
-    rich_molsys.topology._reset_chemical_state_bonds(n_bonds=0)
+    rich_molsys.chemical_states.remove_bonds("all")
 
     with pytest.raises(msm.NotCompatibleConversionError, match="Strict conversion"):
         msm.convert(rich_molsys, to_form="pdbfixer.PDBFixer", strict=True)
@@ -205,7 +221,7 @@ def test_pdbfixer_reports_known_empty_connectivity_inference(rich_molsys):
 
 def test_first_party_serializers_omit_unavailable_bond_metadata():
     molsys = _build_legacy_metadata_molsys()
-    bonds = molsys.topology._get_chemical_state_bonds()
+    bonds = molsys.chemical_states._get_chemical_state_bonds()
     bonds.drop(
         columns=["is_aromatic", "bond_type", "joins_components"],
         inplace=True,
@@ -215,10 +231,11 @@ def test_first_party_serializers_omit_unavailable_bond_metadata():
     molsys_dict = msm.convert(molsys, to_form="molsysmt.MolSysDict")
     viewer_json = msm.convert(molsys, to_form="molsysmt.ViewerJSON")
 
-    assert topology_dict.data["bonds"] == [{"atom_index_1": 0, "atom_index_2": 1}]
-    assert molsys_dict.data["topology"]["bonds"] == [
-        {"atom_index_1": 0, "atom_index_2": 1}
-    ]
+    assert "bonds" not in topology_dict.data
+    restored = msm.convert(molsys_dict, to_form="molsysmt.MolSys")
+    assert msm.get(restored, element="bond", bonded_atom_pairs=True) == [[0, 1]]
+    assert msm.get(restored, element="bond", bond_order=True) == [None]
+    assert msm.get(restored, element="bond", bond_type=True) == [None]
     assert viewer_json.data["bonds"]["order"] == []
     assert viewer_json.data["bonds"]["type"] == []
 
@@ -227,15 +244,17 @@ def test_h5msm_reader_restores_normalized_chemical_state_bonds(rich_molsys, tmp_
     filename = tmp_path / "bond-seam-read.h5msm"
     msm.convert(rich_molsys, to_form="file:h5msm", output_filename=str(filename))
 
-    restored = msm.convert(str(filename), to_form="molsysmt.Topology")
+    restored = msm.convert(str(filename), to_form="molsysmt.MolSys")
 
-    assert restored._get_chemical_state_bonds()[
+    assert restored.chemical_states._get_chemical_state_bonds()[
         ["atom1_index", "atom2_index"]
     ].values.tolist() == (
-        rich_molsys.topology._get_chemical_state_bonds()[
+        rich_molsys.chemical_states._get_chemical_state_bonds()[
             ["atom1_index", "atom2_index"]
         ].values.tolist()
     )
-    restored_orders = restored._get_chemical_state_bonds()["bond_order"].tolist()
+    restored_orders = restored.chemical_states._get_chemical_state_bonds()[
+        "bond_order"
+    ].tolist()
     assert restored_orders[0] == 1
     assert pd.isna(restored_orders[1])

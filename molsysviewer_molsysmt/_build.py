@@ -143,6 +143,10 @@ class _BuildTools:
         engine="MolSysMT",
         sorted=True,
         skip_digestion=False,
+        *,
+        chemical_state="reference",
+        with_templates=True,
+        with_distances=True,
     ):
         return self._call(
             "get_missing_bonds",
@@ -157,6 +161,9 @@ class _BuildTools:
                 "engine": engine,
                 "sorted": sorted,
                 "skip_digestion": skip_digestion,
+                "chemical_state": chemical_state,
+                "with_templates": with_templates,
+                "with_distances": with_distances,
             },
         )
 

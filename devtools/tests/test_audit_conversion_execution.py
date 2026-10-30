@@ -71,3 +71,19 @@ def test_declared_inventory_ignores_visibility_filter_and_restores_policy():
     with configure.context(show_all_capabilities=False):
         assert declared_edges() == expected
         assert configure.show_all_capabilities is False
+
+
+def test_explicit_routes_are_selected_and_cannot_conceal_stale_debt():
+    plan = _plan()
+    graph = {("native", "native"), ("external", "native")}
+    plan["explicit_edges"] = [["external", "native"]]
+    assert ("external", "native") in planned_edges(graph, plan)
+    assert (
+        "Stale unexecuted debt: external -> native" in audit_plan(graph, plan)["errors"]
+    )
+    plan["accepted_unexecuted_edges"] = {}
+    assert audit_plan(graph, plan)["errors"] == []
+    plan["explicit_edges"].append(["unknown", "native"])
+    assert any(
+        "Invalid explicit edge" in error for error in audit_plan(graph, plan)["errors"]
+    )

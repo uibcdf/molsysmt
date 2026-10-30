@@ -6,18 +6,20 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
-from molsysmt.native import Structures, Topology
+from molsysmt.native import MolSys, Structures
 
 
 def source():
-    topology = Topology(n_atoms=6)
-    topology.atoms["atom_type"] = "C"
-    topology.bonds = pd.DataFrame(
-        {
-            "atom1_index": [0, 1, 2, 3, 4],
-            "atom2_index": [1, 2, 3, 4, 5],
-            "bond_type": ["covalent"] * 5,
-        }
+    topology = MolSys(n_atoms=6)
+    topology.topology.atoms["atom_type"] = "C"
+    topology.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": [0, 1, 2, 3, 4],
+                "atom2_index": [1, 2, 3, 4, 5],
+                "bond_type": ["covalent"] * 5,
+            }
+        )
     )
     molsys = msm.convert(topology, to_form="molsysmt.MolSys")
     state = molsys.chemical_states._states[0]
@@ -34,7 +36,7 @@ def source():
 
 
 def blocks(molecular_system, **kwargs):
-    return msm.topology.get_covalent_blocks(molecular_system, **kwargs).tolist()
+    return msm.chemical_states.get_covalent_blocks(molecular_system, **kwargs).tolist()
 
 
 def test_assigned_state_differs_from_reference_without_changing_either():
@@ -45,7 +47,7 @@ def test_assigned_state_differs_from_reference_without_changing_either():
         {0, 1, 2},
         {3, 4, 5},
     ]
-    graph = msm.topology.get_bondgraph(
+    graph = msm.chemical_states.get_bondgraph(
         molsys, chemical_state="structure", structure_indices=0
     )
     assert set(graph.edges) == {(0, 1), (1, 2), (3, 4), (4, 5)}
@@ -71,7 +73,7 @@ def test_selected_graph_is_induced_not_full_graph_projection():
     selection = [5, 1, 0, 3, 1]
     assert blocks(molsys, selection=selection) == [{0, 1}, {3}, {5}]
     np.testing.assert_array_equal(
-        msm.topology.get_covalent_blocks(
+        msm.chemical_states.get_covalent_blocks(
             molsys, selection=selection, output_type="numpy.ndarray"
         ),
         [0, 0, -1, 1, -1, 2],
@@ -79,12 +81,14 @@ def test_selected_graph_is_induced_not_full_graph_projection():
     assert blocks(
         molsys, selection=[5, 4, 3, 1, 0], chemical_state=1, remove_bonds=[[4, 5]]
     ) == [{0, 1}, {3, 4}, {5}]
-    graph = msm.topology.get_bondgraph(molsys, selection=selection, chemical_state=1)
+    graph = msm.chemical_states.get_bondgraph(
+        molsys, selection=selection, chemical_state=1
+    )
     assert list(graph.nodes) == [0, 1, 3, 5]
     assert list(graph.edges) == [(0, 1)]
     assert blocks(molsys, selection=[]) == []
     np.testing.assert_array_equal(
-        msm.topology.get_covalent_blocks(
+        msm.chemical_states.get_covalent_blocks(
             molsys, selection=[], output_type="numpy.ndarray"
         ),
         [-1] * 6,
@@ -94,7 +98,7 @@ def test_selected_graph_is_induced_not_full_graph_projection():
 @pytest.mark.parametrize("function", ["get_bondgraph", "get_covalent_blocks"])
 def test_ambiguous_missing_invalid_or_unavailable_state_never_falls_back(function):
     molsys = source()
-    operation = getattr(msm.topology, function)
+    operation = getattr(msm.chemical_states, function)
     for options in (
         {"chemical_state": "structure", "structure_indices": [0, 1]},
         {"chemical_state": "structure", "structure_indices": []},
@@ -108,7 +112,9 @@ def test_ambiguous_missing_invalid_or_unavailable_state_never_falls_back(functio
         operation(molsys, chemical_state="structure", structure_indices=0)
 
 
-@pytest.mark.parametrize("form", ["molsysmt.MolSys", "molsysmt.Topology", "file:h5msm"])
+@pytest.mark.parametrize(
+    "form", ["molsysmt.MolSys", "molsysmt.ChemicalStates", "file:h5msm"]
+)
 def test_forms_and_partial_reference_do_not_override_explicit_state(form, tmp_path):
     molsys = source()
     molsys.chemical_states._states[0].connectivity_completeness = "partial"
@@ -147,11 +153,16 @@ def test_dictionary_reference_graph_can_be_requested_explicitly(form):
     system = msm.convert(
         molsys.topology if form == "molsysmt.TopologyDict" else molsys, to_form=form
     )
+    if form == "molsysmt.TopologyDict":
+        with pytest.raises(ArgumentError):
+            blocks(system, chemical_state=0)
+        with pytest.raises(StructuralInconsistencyError):
+            blocks(system)
+        return
     assert blocks(system, selection=[5, 1, 0, 3], chemical_state=0) == [
         {0, 1},
         {3},
         {5},
     ]
-    # These 0.1 dictionaries store one reference graph, not the other native states.
-    with pytest.raises(StructuralInconsistencyError):
-        blocks(system, chemical_state=1)
+    # MolSysDict 0.2 preserves the independent collection, not only its reference.
+    assert blocks(system, chemical_state=1) == [{0, 1, 2}, {3, 4, 5}]

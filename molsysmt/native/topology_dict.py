@@ -11,11 +11,10 @@ def _empty_topology_dict() -> Dict[str, Any]:
     return {
         "format": "molsysmt",
         "kind": "topology",
-        "version": "0.1",
+        "version": "0.2",
         "metadata": {},
         "atoms": [],
         "groups": [],
-        "bonds": [],
         "chains": [],
         "molecules": [],
         "entities": [],
@@ -35,7 +34,7 @@ class TopologyDict:
             self,
             n_atoms=size(data.get("atoms")),
             n_groups=size(data.get("groups")),
-            n_bonds=size(data.get("bonds")),
+            n_molecules=size(data.get("molecules")),
         )
 
     data: Dict[str, Any] = field(default_factory=_empty_topology_dict)

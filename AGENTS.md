@@ -91,7 +91,8 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
   implement or extend it as a documented general-purpose tool in that owner,
   with its own contract and tests. Have the new feature call that tool.
   Keep feature-specific scientific criteria and orchestration in the consumer.
-- Chemical-property interpretation belongs in `physchem`, connectivity tools
+- Chemical-property interpretation belongs in `physchem`, state-dependent
+  connectivity tools in `chemical_states`, stable inventory and sequence tools
   in `topology`, geometric operations in `structure`, and periodic reconstruction
   and image conventions in `pbc`. Stored chemical assignments remain owned by
   `ChemicalStates`; reusable tools must not create competing chemical stores.
@@ -100,6 +101,11 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
   remain independent public tools: neither requires previously calculated hydrogen
   bonds. They reuse general chemistry, connectivity, geometry and periodic tools
   from their owning modules. Reusability alone does not determine module ownership.
+- `Topology` owns stable atoms, groups, molecules, entities and chains; it has no
+  bond/component/state facade, including while attached to `MolSys`. `ChemicalStates`
+  owns stored bonds, assignments and state-local components. Supply stable context
+  explicitly when chemical reconstruction needs it. Stable molecule membership is
+  declared once during construction and does not follow later connectivity edits.
 - Report missing sibling capabilities to the provider and link the consumer
   requirement. Preserve dependency direction and lazy optional dependencies.
   Temporary duplication requires a tracked reason and removal condition.

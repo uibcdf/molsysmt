@@ -83,7 +83,9 @@ def test_public_selected_state_resolution_uses_the_collection_context(
     def forbidden(*args, **kwargs):
         pytest.fail("Public resolution entered the Topology state context")
 
-    monkeypatch.setattr(system.topology, "_using_chemical_state", forbidden)
+    monkeypatch.setattr(
+        system.topology, "_using_chemical_state", forbidden, raising=False
+    )
     assert system.get(
         element="atom", selection=[2, 0], chemical_state=1, formal_charge=True
     ) == [0, 1]

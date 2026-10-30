@@ -223,7 +223,7 @@ def get_cation_pi_interactions(
 
     See Also
     --------
-    molsysmt.topology.get_substructure_matches
+    molsysmt.chemical_states.get_substructure_matches
         Matching original chemical SMARTS without silent truncation.
     molsysmt.physchem.get_charge_centers
         Identifying the custom method's formal-charge centers.
@@ -267,12 +267,12 @@ def get_cation_pi_interactions(
     from molsysmt._private.execution.sparse_accumulator import SparseColumnAccumulator
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt.basic import convert, get, select
+    from molsysmt.chemical_states._rings import ring_context
     from molsysmt.interactions.cation_pi._reducer import _CationPiReducer
     from molsysmt.interactions.result import Interactions
     from molsysmt.native import MolSys, Topology
     from molsysmt.physchem.get_aromatic_rings import get_aromatic_rings
     from molsysmt.physchem.get_charge_centers import get_charge_centers
-    from molsysmt.topology._rings import ring_context
 
     if method == "prolif":
         if offset_threshold is not None or planarity_threshold is not None:
@@ -423,11 +423,11 @@ def get_cation_pi_interactions(
         _CALLER,
     )
     if method == "prolif":
+        from molsysmt.chemical_states import get_substructure_matches
         from molsysmt.physchem._prolif import (
             PROLIF_PATTERNS,
             PROLIF_REFERENCE,
         )
-        from molsysmt.topology import get_substructure_matches
 
         features = get_substructure_matches(
             source,
@@ -485,9 +485,11 @@ def get_cation_pi_interactions(
                 reason="Formal-charge center recognition requires an element inventory.",
                 caller=_CALLER,
             )
-        charge_view, state_view = copy(charge_topology), copy(states)
+        state_view = copy(states)
         state_view._reference_index = state_index
-        charge_view._chemical_states_domain = state_view
+        charge_view = MolSys._from_partial_domains(
+            topology=copy(charge_topology), chemical_states=state_view
+        )
         charge_centers = get_charge_centers(
             charge_view, assume_complete_connectivity=assume_complete_connectivity
         )

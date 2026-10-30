@@ -100,6 +100,14 @@ def test_distance_threshold_can_reject_an_adjacent_candidate():
     )
 
 
+def test_trusted_delegation_keeps_unit_bearing_default_for_peptide_candidates():
+    source = _alanines(["A", "A"])
+    expected = sorted([*_intragroup_edges([0, 1]), [2, 5]])
+    assert (
+        msm.build.get_missing_bonds(source, pbc=False, skip_digestion=True) == expected
+    )
+
+
 def test_group_ids_do_not_define_index_adjacency():
     source = _alanines(["A", "A"])
     msm.set(source, element="group", group_id=["10", "99"])
@@ -187,6 +195,6 @@ def test_add_missing_bonds_preserves_the_chain_boundary_and_source_copy():
 
 def test_existing_declared_bonds_are_not_removed_or_returned_as_missing():
     source = _alanines(["A", "B"])
-    source.topology.add_bonds([[2, 5]])
+    source.chemical_states.add_bonds([[2, 5]])
     assert msm.build.get_missing_bonds(source, pbc=False) == _intragroup_edges([0, 1])
     assert msm.get(source, bonded_atom_pairs=True) == [[2, 5]]

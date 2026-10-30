@@ -240,12 +240,14 @@ def _selected_atoms(molecular_system, source, selection, syntax, caller):
     if isinstance(selection, str) and source["topology"] is not None:
         # A canonical topology gives every supported form the same state-aware
         # topological selection semantics, without reading structural ensembles.
-        selection_system = source["topology"].copy()
-        if (
-            source["states"] is not None
-            and source["topology"]._chemical_states_domain is not source["states"]
-        ):
-            selection_system._chemical_states_domain = source["states"].copy()
+        from molsysmt.native import MolSys
+
+        selection_system = MolSys._from_partial_domains(
+            topology=source["topology"].copy(),
+            chemical_states=None
+            if source["states"] is None
+            else source["states"].copy(),
+        )
         if source["chemical_state_index"] is not None:
             options["chemical_state"] = source["chemical_state_index"]
     indices = select(selection_system, selection=selection, syntax=syntax, **options)
@@ -797,9 +799,7 @@ def apply(molecular_system, report, source, caller):
         result = molecular_system.copy()
     elif isinstance(molecular_system, Topology):
         topology = molecular_system.copy()
-        result = MolSys._from_partial_domains(
-            topology=topology, chemical_states=topology._chemical_states_domain
-        )
+        result = MolSys._from_partial_domains(topology=topology)
     else:
         result = convert(molecular_system, to_form="molsysmt.MolSys").copy()
     index = source["chemical_state_index"]
@@ -823,7 +823,9 @@ def apply(molecular_system, report, source, caller):
                 for bond in added_bonds
             ]
         )
-        state.bonds = Topology._concatenate_bond_tables(state.bonds, added_table)
+        from molsysmt.native._chemical_state import _concatenate_bond_tables
+
+        state.bonds = _concatenate_bond_tables(state.bonds, added_table)
     completeness = (
         "complete"
         if report["coverage"]["scope"] == "whole_system"
@@ -839,8 +841,8 @@ def apply(molecular_system, report, source, caller):
     if changed:
         result.chemical_states = states
     if added_bonds:
-        with result.topology._using_chemical_state(index):
-            result.topology.rebuild_components(
+        with result.chemical_states._using_chemical_state(index):
+            result.rebuild_components(
                 redefine_ids=report["coverage"]["scope"] == "whole_system",
                 redefine_types=False,
                 redefine_names=False,

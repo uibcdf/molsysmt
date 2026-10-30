@@ -11,6 +11,13 @@ on the bundled capped pentalanine system.
 :::{versionadded} 1.0.0
 :::
 
+The query must retain its `ChemicalStates` domain with component membership:
+those components determine which atoms move together. Pure `Topology` contains
+no covalent graph. When combining inventory with a separate trajectory, supply
+`[topology, chemical_states, coordinate_file]` to `msm.convert`, or keep the
+complete molecular system. The coordinate-only route reads the requested
+structures and retains explicit chemistry instead of reconstructing it.
+
 ## Preparing independent atomic anchors
 
 Move a copy by 1 nm. Resolve query and reference anchors on their own atom axes.

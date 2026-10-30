@@ -1,4 +1,3 @@
-import pandas as pd
 import pytest
 
 import molsysmt as msm
@@ -30,7 +29,7 @@ def test_registry_classifies_the_complete_first_atom_state_vertical():
 
 
 def test_public_atom_state_get_set_and_nullable_values():
-    topology = Topology(n_atoms=3)
+    topology = MolSys(n_atoms=3)
 
     msm.set(
         topology,
@@ -56,13 +55,13 @@ def test_public_atom_state_get_set_and_nullable_values():
     )
 
     assert observed["formal_charge"] == [0, -1, 1]
-    assert observed["atom_is_aromatic"] == [False, True, pd.NA]
-    assert observed["n_unpaired_electrons"] == [0, 1, pd.NA]
-    assert observed["n_implicit_hydrogens"] == [3, 0, pd.NA]
-    assert observed["allows_implicit_hydrogens"] == [True, False, pd.NA]
-    assert observed["atom_stereochemistry"] == ["unspecified", "R", pd.NA]
+    assert observed["atom_is_aromatic"] == [False, True, None]
+    assert observed["n_unpaired_electrons"] == [0, 1, None]
+    assert observed["n_implicit_hydrogens"] == [3, 0, None]
+    assert observed["allows_implicit_hydrogens"] == [True, False, None]
+    assert observed["atom_stereochemistry"] == ["unspecified", "R", None]
 
-    copy = Topology(n_atoms=3)
+    copy = MolSys(n_atoms=3)
     msm.set(copy, element="atom", **observed)
     copied = msm.get(
         copy,
@@ -79,7 +78,7 @@ def test_public_atom_state_get_set_and_nullable_values():
 
 
 def test_formal_charge_accepts_elementary_charge_quantity_and_partial_selection():
-    topology = Topology(n_atoms=3)
+    topology = MolSys(n_atoms=3)
     charges = puw.quantity([0, -1, 1], "elementary_charge")
 
     msm.set(topology, element="atom", formal_charge=charges)
@@ -90,7 +89,7 @@ def test_formal_charge_accepts_elementary_charge_quantity_and_partial_selection(
 
 
 def test_instance_availability_distinguishes_capability_from_stored_values():
-    topology = Topology(n_atoms=2)
+    topology = MolSys(n_atoms=2)
 
     assert msm.has_attribute(topology, "formal_charge", include_none=True)
     assert not msm.has_attribute(topology, "formal_charge")
@@ -102,8 +101,8 @@ def test_instance_availability_distinguishes_capability_from_stored_values():
 
 
 def test_mixed_get_combines_stable_and_chemical_state_attributes():
-    topology = Topology(n_atoms=2)
-    topology.atoms["atom_name"] = ["N", "O"]
+    topology = MolSys(n_atoms=2)
+    topology.topology.atoms["atom_name"] = ["N", "O"]
     msm.set(topology, element="atom", formal_charge=[1, -1])
 
     assert msm.get(topology, element="atom", atom_name=True, formal_charge=True) == [
@@ -113,7 +112,7 @@ def test_mixed_get_combines_stable_and_chemical_state_attributes():
 
 
 def test_chemical_state_selection_resolves_values_and_rejects_unavailable_data():
-    topology = Topology(n_atoms=4)
+    topology = MolSys(n_atoms=4)
     msm.set(
         topology,
         element="atom",
@@ -125,15 +124,15 @@ def test_chemical_state_selection_resolves_values_and_rejects_unavailable_data()
         topology, selection="formal_charge!=0 and atom_is_aromatic==True"
     ) == [1, 2]
 
-    empty = Topology(n_atoms=2)
+    empty = MolSys(n_atoms=2)
     with pytest.raises(StructuralInconsistencyError, match="unavailable"):
         msm.select(empty, selection="formal_charge==0")
 
 
 def test_chemical_state_access_fails_when_multiple_states_have_no_reference():
-    topology = Topology(n_atoms=2)
-    topology._append_chemical_state(state_id="product")
-    topology._set_reference_chemical_state_index(None)
+    topology = MolSys(n_atoms=2)
+    topology.chemical_states.append_state()
+    topology.chemical_states._set_reference_index(None)
 
     with pytest.raises(StructuralInconsistencyError, match="ambiguous"):
         msm.get(topology, element="atom", formal_charge=True)

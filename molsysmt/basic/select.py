@@ -109,8 +109,8 @@ def select(
       empty selection.
     - With ``element='bond'``, MolSysMT predicates over canonical bond
       attributes are evaluated directly and return bond indices.
-    - Explicit integer state selection currently requires a native Topology or
-      MolSys and the MolSysMT selection syntax.
+    - Explicit integer state selection requires native ChemicalStates, MolSys or
+      an explicit native domain composition and the MolSysMT selection syntax.
     - A structure selection spanning multiple associated states cannot return
       one ordinary atom-index selection and is rejected.
 
@@ -134,13 +134,14 @@ def select(
     Chemical-state attributes, such as ``formal_charge``, are also selectable
     when available in the resolved native state.
 
-    >>> from molsysmt.native import Topology
-    >>> topology = Topology(n_atoms=3)
-    >>> msm.set(topology, element='atom', formal_charge=[0, 1, -1])
-    >>> msm.select(topology, 'formal_charge!=0', chemical_state=0)
+    >>> states = msm.ChemicalStates(n_atoms=3)
+    >>> _ = states.append_state()
+    >>> msm.set(states, element='atom', formal_charge=[0, 1, -1])
+    >>> msm.select(states, 'formal_charge!=0', chemical_state=0)
     [1, 2]
-    >>> topology._append_chemical_state_bonds([[0, 1]], is_aromatic=[True])
-    >>> msm.select(topology, 'bond_is_aromatic==True', element='bond')
+    >>> states.add_bonds([[0, 1]])
+    >>> msm.set(states, element='bond', bond_is_aromatic=[True])
+    >>> msm.select(states, 'bond_is_aromatic==True', element='bond')
     [0]
 
 

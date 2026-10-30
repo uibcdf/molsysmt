@@ -29,8 +29,8 @@ CALLER = "molsysmt.interactions.hbonds.get_hbond_site_directions"
 def build_site_plan(source, sites, assume_complete, max_matches):
     """Classify recognized anchors without truncating their supporting graph."""
     from molsysmt.basic import get
-    from molsysmt.topology import get_substructure_matches
-    from molsysmt.topology._chemical_graph import chemical_graph_context
+    from molsysmt.chemical_states import get_substructure_matches
+    from molsysmt.chemical_states._chemical_graph import chemical_graph_context
 
     source, _, state, _, _, bonds, _ = chemical_graph_context(
         source, sites["chemical_state_index"], "all", assume_complete, CALLER

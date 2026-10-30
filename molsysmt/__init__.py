@@ -42,6 +42,7 @@ _LAZY_ATTRIBUTES = {
     "element": ".element",
     "attribute": ".attribute",
     "topology": ".topology",
+    "chemical_states": ".chemical_states",
     "structure": ".structure",
     "build": ".build",
     "supported": ".supported",

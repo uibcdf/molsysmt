@@ -42,10 +42,12 @@ def get_hbond_sites(
         selected, and acceptors when selected. Match the full source first.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) for state resolution and spatial selections.
+        Explicit indices require a known source structure axis and valid bounds,
+        even for nonspatial selections. 'all' and None allow coordinate-free input.
         Site recognition itself does not require coordinates.
     chemical_state : {'reference', 'structure'}, int, or None, default='reference'
         State supplying connectivity and chemistry. Structure-assigned states
-        must resolve to one state across the requested frames.
+        must resolve to one state across the requested structures.
     method : str, default='elemental_nitrogen_oxygen'
         elemental_nitrogen_oxygen recognizes N/O donors bonded to indexed H
         and all N/O acceptors; elemental_fluorine_oxygen_nitrogen uses F/O/N
@@ -100,7 +102,7 @@ def get_hbond_sites(
     --------
     molsysmt.interactions.hbonds.get_hbonds
         Applying geometric criteria to candidate sites.
-    molsysmt.topology.get_substructure_matches
+    molsysmt.chemical_states.get_substructure_matches
         Matching general chemical SMARTS on declared source graphs.
 
     Examples
@@ -122,8 +124,9 @@ def get_hbond_sites(
         CPPTRAJ_REFERENCE,
         MDTRAJ_REFERENCE,
     )
+    from molsysmt._private.variables import is_all
     from molsysmt.basic import get
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         select_chemical_atoms,
     )
@@ -138,6 +141,7 @@ def get_hbond_sites(
         structure_indices,
         assume_complete_connectivity,
         caller,
+        with_structures=isinstance(selection, str) and not is_all(selection),
     )
     selected = select_chemical_atoms(
         source,
@@ -149,8 +153,8 @@ def get_hbond_sites(
         reference_request=chemical_state in (None, "reference"),
     )
     if method == "prolif":
+        from molsysmt.chemical_states import get_substructure_matches
         from molsysmt.physchem._prolif import PROLIF_HBOND_PATTERNS, PROLIF_REFERENCE
-        from molsysmt.topology import get_substructure_matches
 
         matches = get_substructure_matches(
             source,

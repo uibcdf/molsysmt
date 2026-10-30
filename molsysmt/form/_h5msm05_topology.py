@@ -157,7 +157,6 @@ def read_independent_topology(root):
         for column in table:
             target[column] = table[column]
     topology._coerce_id_columns_to_string()
-    topology._clear_chemical_states()
     if version == 2 or version == 3 and "chain_groups" in group:
         packed = group["chain_groups"]
         if set(packed) != {"offsets", "indices"}:

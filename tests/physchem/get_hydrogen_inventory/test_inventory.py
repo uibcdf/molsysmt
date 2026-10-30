@@ -19,7 +19,7 @@ def test_native_stored_inventory_separates_virtual_and_indexed_hydrogens():
         "n_implicit_hydrogens": [2, 0],
         "n_explicit_hydrogens": [1, 0],
     }.items():
-        source.topology._set_chemical_state_atom_attribute(name, values)
+        source.chemical_states._set_chemical_state_atom_attribute(name, values)
     result = msm.physchem.get_hydrogen_inventory(source)
     assert result["status"] == "available"
     assert result["missing_hydrogen_counts"].tolist() == [3, 0]

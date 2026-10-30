@@ -22,6 +22,12 @@ copies, controlled edits/invalidation, coordinate consumers and complete-system
 H5MSM 0.5 conversion. It distinguishes production paths from layout prototypes
 and immutable backing bytes from allocator tracing and process RSS.
 
+The [ChemicalStates separation comparison](../chemical_domain_separation_benchmarks.md)
+records the dated #255 baseline/target measurements, including all-state copies,
+large stable inventories, coordinate isolation and projected H5MSM reads. Its
+machine-readable artifact retains ranges, source/backend hashes and the limits
+of process high-water RSS.
+
 ## What to measure
 
 Measure separately:

@@ -271,6 +271,8 @@ def test_sequence_alignment_moves_selected_component_beyond_anchors(fitted_scene
     second = msm.extract(reference, structure_indices=[1])
     second_before = xyz(second).copy() + [8, 0, 0]
     msm.set(second, coordinates=puw.quantity(second_before, "nm"))
+    first.interactions = {}
+    second.interactions = {}
     merged = msm.merge([first, second])
     n_atoms = len(base)
     with msv.new_view(merged) as combined:

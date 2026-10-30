@@ -230,7 +230,7 @@ def test_current_primary_native_parity_without_source_scene_or_named_mutation(
     family, value = view
     source = value.molsys
     before = value.export_state()
-    atoms = source.topology.atoms.copy(deep=True)
+    atoms = source.topology.copy().atoms
     bonds = source.chemical_states._states[0].bonds.copy(deep=True)
     xyz = puw.get_value(source.structures.coordinates).copy()
     sentinel = source.interactions["sentinel"]

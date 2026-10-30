@@ -2,7 +2,7 @@ from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 
 _methods_1 = [
-    "molsysmt.topology.get_dihedral_quartets.get_dihedral_quartets",
+    "molsysmt.chemical_states.get_dihedral_quartets.get_dihedral_quartets",
     "molsysmt.structure.get_dihedral_angles.get_dihedral_angles",
 ]
 _dihedral_angles_1 = [

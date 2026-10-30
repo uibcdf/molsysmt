@@ -15,9 +15,8 @@ class ChemicalStates(NativeQueries):
     """Holding chemical states over one stable atom-index domain.
 
     The collection owns the state records. A state contains covalent bonds,
-    atom-level chemical assignments, and state-local components. Topology
-    compatibility access may refer to this collection, but it must not store
-    a second copy of those records.
+    atom-level chemical assignments, and state-local components. Topology owns
+    stable inventory independently and exposes no chemical storage facade.
 
     Parameters
     ----------
@@ -28,8 +27,8 @@ class ChemicalStates(NativeQueries):
 
     Notes
     -----
-    A new standalone collection has no states. An ordinary native Topology
-    creates one reference state for its historical compatibility behavior.
+    A new standalone collection has no states. An ordinary MolSys or MolSysBuilder
+    creates one unknown staging state; a pure Topology contains no chemistry.
     Subclasses inheriting this constructor retain its atom-count validation,
     including when the subclass is defined in another module.
 
@@ -97,7 +96,7 @@ class ChemicalStates(NativeQueries):
         return resolve_index(
             len(self._states),
             self.reference_chemical_state_index,
-            state_index,
+            active_index(self, state_index),
             "molsysmt.native.ChemicalStates",
         )
 
@@ -1034,3 +1033,94 @@ class ChemicalStates(NativeQueries):
         result = ChemicalStates(n_atoms=len(atoms), skip_digestion=True)
         result._replace_states(extracted_states, self._reference_index)
         return result
+
+    def _append_chemical_state_bonds(
+        self,
+        bonded_atom_pairs,
+        orders=None,
+        types=None,
+        state_index=None,
+        sort=True,
+        **metadata,
+    ):
+        """Append normalized or explicitly translated legacy bond rows."""
+        import pandas as pd
+
+        from ._chemical_state import (
+            _BOND_OPTIONAL_DTYPES,
+            _coerce_bond_table,
+            _concatenate_bond_tables,
+        )
+
+        bonded_atom_pairs = np.asarray(bonded_atom_pairs)
+        if bonded_atom_pairs.size == 0:
+            bonded_atom_pairs = np.empty((0, 2), dtype=int)
+        if bonded_atom_pairs.ndim != 2 or bonded_atom_pairs.shape[1] != 2:
+            raise StructuralInconsistencyError(
+                reason="Bonded atom pairs must have shape (n_bonds, 2).",
+                caller="molsysmt.native.ChemicalStates",
+            )
+        try:
+            bonded_atom_pairs = bonded_atom_pairs.astype(int, copy=False)
+        except (TypeError, ValueError, OverflowError) as error:
+            raise StructuralInconsistencyError(
+                reason=f"Bonded atom indices must be integers: {error}",
+                caller="molsysmt.native.ChemicalStates",
+            )
+        if bonded_atom_pairs.size:
+            if np.any(bonded_atom_pairs < 0) or np.any(
+                bonded_atom_pairs >= self.n_atoms
+            ):
+                raise StructuralInconsistencyError(
+                    reason=f"Bonded atom indices must be between 0 and {self.n_atoms - 1}.",
+                    caller="molsysmt.native.ChemicalStates",
+                )
+        n_new_bonds = bonded_atom_pairs.shape[0]
+        if not n_new_bonds:
+            return
+
+        def _metadata_values(values, field):
+            if values is None:
+                return [pd.NA] * n_new_bonds
+            if np.isscalar(values) or values is pd.NA:
+                return [values] * n_new_bonds
+            values = list(values)
+            if len(values) != n_new_bonds:
+                raise StructuralInconsistencyError(
+                    reason=f"Bond {field} received {len(values)} values; expected {n_new_bonds}.",
+                    caller="molsysmt.native.ChemicalStates",
+                )
+            return values
+
+        unexpected_metadata = set(metadata) - set(_BOND_OPTIONAL_DTYPES)
+        if unexpected_metadata:
+            raise StructuralInconsistencyError(
+                reason=f"Unsupported bond metadata fields: {sorted(unexpected_metadata)}.",
+                caller="molsysmt.native.ChemicalStates",
+            )
+        new_bonds = pd.DataFrame(
+            {
+                "atom1_index": bonded_atom_pairs[:, 0],
+                "atom2_index": bonded_atom_pairs[:, 1],
+            }
+        )
+        if orders is not None:
+            new_bonds["order"] = _metadata_values(orders, "order")
+        if types is not None:
+            new_bonds["type"] = _metadata_values(types, "type")
+        for field, values in metadata.items():
+            new_bonds[field] = _metadata_values(values, field)
+        new_bonds = _coerce_bond_table(new_bonds, n_atoms=self.n_atoms)
+        if state_index is None:
+            state = self._resolve_chemical_state()
+            current_bonds = state.bonds
+        else:
+            state = self._resolve_chemical_state(state_index=state_index)
+            current_bonds = state.bonds
+        combined = _concatenate_bond_tables(current_bonds, new_bonds)
+        combined = _coerce_bond_table(combined, n_atoms=self.n_atoms)
+        if not sort:
+            combined.index = pd.RangeIndex(len(combined))
+        self._set_chemical_state_bonds(combined, state_index=state_index)
+        if n_new_bonds and state.connectivity_completeness == "unavailable":
+            state.connectivity_completeness = "partial"

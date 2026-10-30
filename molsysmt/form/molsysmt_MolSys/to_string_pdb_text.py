@@ -205,7 +205,11 @@ def to_string_pdb_text(
         first_serial[int(atom_index)] = next_serial
         next_serial += count
 
-    formal_charge = item.topology._get_chemical_state_atom_attribute("formal_charge")
+    formal_charge = (
+        None
+        if item.chemical_states is None
+        else item.chemical_states._get_chemical_state_atom_attribute("formal_charge")
+    )
     lines = []
     now = datetime.now()
     lines.append(
@@ -303,7 +307,11 @@ def to_string_pdb_text(
         if multiple_models:
             lines.append("ENDMDL\n")
 
-    bonds = item.topology._get_chemical_state_bonds()
+    bonds = (
+        pd.DataFrame(columns=["atom1_index", "atom2_index"])
+        if item.chemical_states is None
+        else item.chemical_states._get_chemical_state_bonds()
+    )
     selected_set = set(int(index) for index in source_atom_indices)
     written = set()
     for bond in bonds.itertuples():

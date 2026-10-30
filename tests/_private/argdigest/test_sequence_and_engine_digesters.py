@@ -19,7 +19,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 def test_chi_digesters_accept_bool_for_supported_callers():
     callers = [
-        "molsysmt.topology.get_dihedral_quartets.get_dihedral_quartets",
+        "molsysmt.chemical_states.get_dihedral_quartets.get_dihedral_quartets",
         "molsysmt.structure.get_dihedral_angles.get_dihedral_angles",
     ]
     for caller in callers:

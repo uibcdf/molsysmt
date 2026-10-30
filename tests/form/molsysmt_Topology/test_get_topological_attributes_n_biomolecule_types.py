@@ -21,7 +21,16 @@ Return-type notes
 import pytest
 
 import molsysmt as msm
-from molsysmt.form.molsysmt_Topology import get_topological_attributes as aux
+from molsysmt.form.molsysmt_MolSys import get_topological_attributes as aux
+from molsysmt.form.molsysmt_Topology import get_topological_attributes as stable
+
+
+def _getter(name):
+    if hasattr(stable, name):
+        target = getattr(stable, name)
+        return lambda system, **kwargs: target(system.topology, **kwargs)
+    return getattr(aux, name)
+
 
 N_CHAINS = 1
 N_MOLECULES = 1
@@ -35,7 +44,7 @@ def topo():
     molsys = msm.convert(
         msm.systems["chicken villin HP35"]["1vii.pdb"], to_form="molsysmt.MolSys"
     )
-    return msm.convert(molsys, to_form="molsysmt.Topology")
+    return molsys
 
 
 # ---------------------------------------------------------------------------
@@ -44,12 +53,12 @@ def topo():
 
 
 def test_inner_bond_index_from_system_is_list(topo):
-    result = aux.get_inner_bond_index_from_system(topo)
+    result = _getter("get_inner_bond_index_from_system")(topo)
     assert isinstance(result, list)
 
 
 def test_inner_bond_index_from_system_length(topo):
-    result = aux.get_inner_bond_index_from_system(topo)
+    result = _getter("get_inner_bond_index_from_system")(topo)
     assert len(result) == N_BONDS
 
 
@@ -69,7 +78,7 @@ def test_inner_bond_index_from_system_length(topo):
     ],
 )
 def test_n_biomolecule_type_from_component_scalar(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, int)
     assert result == expected
 
@@ -90,7 +99,7 @@ def test_n_biomolecule_type_from_component_scalar(topo, func_name, expected):
     ],
 )
 def test_total_n_biomolecule_type_from_component_scalar(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, int)
     assert result == expected
 
@@ -110,7 +119,7 @@ def test_total_n_biomolecule_type_from_component_scalar(topo, func_name, expecte
     ],
 )
 def test_n_small_molecules_returns_list(topo, func_name, n_elements):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == n_elements
     assert result[0] == 0
@@ -131,7 +140,7 @@ def test_n_small_molecules_returns_list(topo, func_name, n_elements):
     ],
 )
 def test_total_n_small_molecules_scalar(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, int)
     assert result == 0
 
@@ -150,6 +159,6 @@ def test_total_n_small_molecules_scalar(topo, func_name):
     ],
 )
 def test_total_n_biomolecule_type_from_chain_scalar(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, int)
     assert result == expected

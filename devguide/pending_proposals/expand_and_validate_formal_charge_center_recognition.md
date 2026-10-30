@@ -31,7 +31,7 @@ Track this expansion separately from the first ionic detector in
 ## How
 
 Preserve the modular boundary: connectivity and reusable motif candidates
-belong in `topology`; interpreting formal charges and selecting charged
+belong in `chemical_states`; interpreting formal charges and selecting charged
 participants belong in `physchem`. Element-specific conveniences can delegate
 to these tools when they have a concrete standalone use. The ionic detector
 must consume the general result rather than maintain a competing recognizer.
@@ -76,7 +76,7 @@ or considering stabilization of its recognition contract.
 limits are in [get_charge_centers.py](../../molsysmt/physchem/get_charge_centers.py).
 The rule implementations are
 [_charge_centers.py](../../molsysmt/physchem/_charge_centers.py) and
-[_functional_group_candidates.py](../../molsysmt/topology/_functional_group_candidates.py).
+[_functional_group_candidates.py](../../molsysmt/chemical_states/_functional_group_candidates.py).
 Experimental status is owned by
 [public_api_stability.json](../../devtools/data/public_api_stability.json).
 

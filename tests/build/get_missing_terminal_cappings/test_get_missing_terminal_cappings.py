@@ -67,3 +67,18 @@ def test_get_missing_terminal_cappings_engines_agree(barnase_barstar):
         barnase_barstar, engine="PDBFixer"
     )
     assert set(native.keys()) == set(pdbfixer.keys())
+
+
+def test_unknown_legacy_chain_cannot_establish_a_peptide_terminus():
+    molsys = msm.convert(msm.systems["pentalanine"]["traj_pentalanine.h5msm"])
+    assert molsys.topology.atoms["chain_index"].isna().all()
+    with pytest.raises(msm.StructuralInconsistencyError, match="known chain_index"):
+        msm.build.get_missing_terminal_cappings(molsys)
+    assert molsys.topology.atoms["chain_index"].isna().all()
+
+
+def test_chain_free_non_amino_acid_groups_have_no_peptide_terminal_audit():
+    builder = msm.MolSysBuilder()
+    atom = builder.add_atom(atom_name="O", atom_type="O")
+    builder.add_group([atom], group_name="HOH")
+    assert msm.build.get_missing_terminal_cappings(builder.build()) == {}

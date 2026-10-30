@@ -151,7 +151,7 @@ def get_symmetry_corrected_rmsd(
 
     See Also
     --------
-    molsysmt.topology.get_atom_correspondences
+    molsysmt.chemical_states.get_atom_correspondences
         Build reusable correspondences without coordinates.
     get_rmsd
         Compute positional RMSD for the given atom ordering.
@@ -183,8 +183,8 @@ def get_symmetry_corrected_rmsd(
     from molsysmt._private.scientific_attribution import attach_graph_attribution
     from molsysmt._private.variables import is_all
     from molsysmt.basic import get
-    from molsysmt.topology import get_atom_correspondences
-    from molsysmt.topology._atom_correspondences import (
+    from molsysmt.chemical_states import get_atom_correspondences
+    from molsysmt.chemical_states._atom_correspondences import (
         ChemicalGraph,
         validate_correspondence_result,
     )

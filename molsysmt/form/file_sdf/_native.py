@@ -26,7 +26,7 @@ def _stored_valence_hydrogens(row):
 
 
 def to_native(record, *, discard_properties=False):
-    from molsysmt.native import MolSys, Structures, Topology
+    from molsysmt.native import MolSys, Structures
 
     if not isinstance(discard_properties, bool):
         _fail("discard_properties must be a boolean.")
@@ -35,7 +35,8 @@ def to_native(record, *, discard_properties=False):
             "SD property blocks have no native storage yet; explicitly set "
             "discard_properties=True to discard them, or keep the source SDF."
         )
-    topology = Topology(n_atoms=len(record.atoms))
+    native = MolSys(n_atoms=len(record.atoms))
+    topology = native.topology
     topology.atoms["atom_id"] = [str(atom.serial) for atom in record.atoms]
     topology.atoms["atom_name"] = [
         f"{atom.element}{atom.serial}" for atom in record.atoms
@@ -45,7 +46,7 @@ def to_native(record, *, discard_properties=False):
         [atom.isotope for atom in record.atoms], dtype="UInt16"
     )
     for name in ("formal_charge", "n_unpaired_electrons"):
-        topology._set_chemical_state_atom_attribute(
+        native.chemical_states._set_chemical_state_atom_attribute(
             name, [getattr(atom, name) for atom in record.atoms]
         )
     virtual_hydrogens = _valence_hydrogens(record)
@@ -55,7 +56,7 @@ def to_native(record, *, discard_properties=False):
             ("n_implicit_hydrogens", dict.fromkeys(virtual_hydrogens, 0)),
             ("allows_implicit_hydrogens", dict.fromkeys(virtual_hydrogens, False)),
         ):
-            topology._set_chemical_state_atom_attribute(
+            native.chemical_states._set_chemical_state_atom_attribute(
                 name, [values.get(atom.serial, pd.NA) for atom in record.atoms]
             )
     mapping = {atom.serial: i for i, atom in enumerate(record.atoms)}
@@ -65,7 +66,7 @@ def to_native(record, *, discard_properties=False):
             aromatic_atoms.update((mapping[bond.atom1], mapping[bond.atom2]))
     # A Kekule graph does not declare that its atoms are nonaromatic. Perception
     # belongs to physchem; the reader only records affirmative aromatic evidence.
-    topology._set_chemical_state_atom_attribute(
+    native.chemical_states._set_chemical_state_atom_attribute(
         "is_aromatic",
         [True if i in aromatic_atoms else pd.NA for i in range(len(record.atoms))],
     )
@@ -85,10 +86,10 @@ def to_native(record, *, discard_properties=False):
         for bond in record.bonds
     ]
     if rows:
-        topology._set_chemical_state_bonds(pd.DataFrame(rows))
-    topology._chemical_states[0].connectivity_completeness = "complete"
-    topology.rebuild_components()
-    topology.rebuild_molecules()
+        native.chemical_states._set_chemical_state_bonds(pd.DataFrame(rows))
+    native.chemical_states._states[0].connectivity_completeness = "complete"
+    native.rebuild_components()
+    native.rebuild_molecules()
     topology.rebuild_entities()
     if topology.n_molecules == 1 and record.title:
         topology.molecules.loc[0, "molecule_name"] = record.title
@@ -101,15 +102,14 @@ def to_native(record, *, discard_properties=False):
         structure_id=np.asarray([0], dtype=np.int64),
         skip_digestion=True,
     )
-    result = MolSys()
-    result.topology = topology
+    result = native
     result.structures = structures
     return result
 
 
 def store_stereochemistry(item, report):
     """Store aligned chemical assignments, without retaining toolkit objects."""
-    item.topology._set_chemical_state_atom_attribute(
+    item.chemical_states._set_chemical_state_atom_attribute(
         "stereochemistry",
         [
             label if label is not None else "unspecified"
@@ -125,7 +125,7 @@ def store_stereochemistry(item, report):
         if label is not None:
             bonds.loc[index, "stereochemistry"] = label
             bonds.loc[index, ["stereo_atom1_index", "stereo_atom2_index"]] = refs
-    item.topology._set_chemical_state_bonds(bonds)
+    item.chemical_states._set_chemical_state_bonds(bonds)
 
 
 def from_native(item, version, *, allow_stereo=False):
@@ -141,14 +141,14 @@ def from_native(item, version, *, allow_stereo=False):
     if item.chemical_states is None or item.chemical_states.n_chemical_states != 1:
         _fail("SDF output requires exactly one explicitly selected chemical state.")
     topology = item.topology
-    if topology._chemical_states[0].connectivity_completeness != "complete":
+    if item.chemical_states._states[0].connectivity_completeness != "complete":
         _fail("SDF output requires a complete, explicitly known graph.")
     if item.structures.coordinates is None:
         _fail("SDF output requires coordinates.")
     coordinates = puw.get_value(item.structures.coordinates, to_unit="angstrom")
     if coordinates.shape != (1, topology.n_atoms, 3):
         _fail("SDF coordinates must align with the topology atom axis.")
-    state = topology._chemical_states[0]
+    state = item.chemical_states._states[0]
     atoms_state = state.atom_attributes
     # Inspect explicit CIP labels before serializing: wedge/parity output cannot
     # be approximated by copying a label into a CTAB integer field.
@@ -184,7 +184,7 @@ def from_native(item, version, *, allow_stereo=False):
             )
         )
     encoded_aromatic_atoms = set()
-    for i, bond in topology._get_chemical_state_bonds().iterrows():
+    for i, bond in item.chemical_states._get_chemical_state_bonds().iterrows():
         atom1, atom2 = int(bond["atom1_index"]), int(bond["atom2_index"])
         bond_type = bond.get("bond_type", None)
         if pd.notna(bond.get("stereochemistry", pd.NA)) and not (

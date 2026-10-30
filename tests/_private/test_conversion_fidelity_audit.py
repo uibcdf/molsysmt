@@ -71,3 +71,25 @@ def test_evidence_backed_native_declarative_routes_are_exhaustive():
         assert edges[route]["coverage"] == "exhaustive_preflight"
         assert edges[route]["audited_scopes"] == ["all"]
         assert edges[route]["is_exhaustive"] is True
+
+
+def test_domain_cutover_routes_retain_honestly_scoped_preflight():
+    import json
+
+    module = _load_audit_module()
+    baseline = json.loads(module.BASELINE_PATH.read_text())
+    reviewed = baseline["reviewed_route_groups"]["chemical_states_separation_255"]
+    assert reviewed["issue"] == "uibcdf/molsysmt#255"
+    assert reviewed["scope"] == ["chemical_state"]
+    assert len(reviewed["routes"]) == 13
+    assert reviewed["guards"]
+    edges = {
+        (edge["source"], edge["target"]): edge for edge in module.build_audit()["edges"]
+    }
+    for pair in reviewed["routes"]:
+        edge = edges[tuple(pair)]
+        assert edge["is_exhaustive"] is False
+        assert edge["coverage"] == "scoped_preflight"
+        assert edge["audited_scopes"] == ["chemical_state"]
+    for selector in reviewed["guards"]:
+        assert (module.REPOSITORY_ROOT / selector).is_file()

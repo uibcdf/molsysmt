@@ -143,13 +143,14 @@ class _Branch:
         values = puw.get_value(source.structures.coordinates, to_unit="nm")
         self._coordinates = _Coordinates(values, block_size, shared_base)
         self._topology = source.topology.copy()
+        self._chemistry = source.chemical_states.copy()
         self._mechanics = source.molecular_mechanics.copy()
         self._association = deepcopy(source._structure_chemical_state_indices)
         self._structure_state = deepcopy(
             {
                 key: value
                 for key, value in vars(source.structures).items()
-                if key != "_coordinates"
+                if key not in {"_coordinates", "_molsys_owner_ref"}
             }
         )
         # Existing invalidation snapshots already detach scientific metadata.
@@ -163,6 +164,7 @@ class _Branch:
         clone = object.__new__(type(self))
         clone._coordinates = self._coordinates._fork()
         clone._topology = self._topology.copy()
+        clone._chemistry = self._chemistry.copy()
         clone._mechanics = self._mechanics.copy()
         clone._association = deepcopy(self._association)
         clone._structure_state = deepcopy(self._structure_state)
@@ -201,7 +203,7 @@ class _Branch:
         atoms = _axis(atom_indices, self._coordinates.shape[1])
         if not atoms.size:
             return
-        candidate = self._topology.copy()
+        candidate = self._chemistry.copy()
         candidate._set_chemical_state_atom_attribute(
             "formal_charge", values, atom_indices=atoms
         )
@@ -210,20 +212,20 @@ class _Branch:
             name: result.invalidate_structures(structures)
             for name, result in self._analyses.items()
         }
-        self._topology, self._analyses = candidate, analyses
+        self._chemistry, self._analyses = candidate, analyses
 
     def _to_native(self):
         # This path explicitly materializes coordinates before public H5MSM I/O.
         topology = self._topology.copy()
-        structures = object.__new__(Structures)
-        structures.__dict__ = deepcopy(self._structure_state)
+        structures = Structures()
+        structures.__dict__.update(deepcopy(self._structure_state))
         values = self._coordinates._owned_read()
         # Existing native setters enable writes; they cannot edit bytes-backed
         # immutable views. This bridge pays for owned mutable native storage.
         structures.coordinates = puw.quantity(values, "nm")
         result = MolSys._from_partial_domains(
             topology=topology,
-            chemical_states=topology._chemical_states_domain,
+            chemical_states=self._chemistry.copy(),
             structures=structures,
         )
         result.molecular_mechanics = self._mechanics.copy()
@@ -245,7 +247,9 @@ def _fixture(n_atoms, n_structures):
     )
     source.structures.coordinates = puw.quantity(values, "nm")
     source.structures.time = puw.quantity(np.arange(n_structures), "ps")
-    source.topology._set_chemical_state_atom_attribute("formal_charge", [0] * n_atoms)
+    source.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [0] * n_atoms
+    )
     source.interactions = {
         "pairs": msm.Interactions.from_records(
             [

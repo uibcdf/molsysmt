@@ -13,7 +13,7 @@ import molsysmt as msm
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_1(met_enkephalin_pdb_molsys):
     molsys = met_enkephalin_pdb_molsys
-    covalent_paths = msm.topology.get_covalent_paths(
+    covalent_paths = msm.chemical_states.get_covalent_paths(
         molsys,
         path=['atom_name=="C"', 'atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"'],
     )
@@ -33,7 +33,7 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_1(met_enkephalin_pdb_molsys):
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_2(met_enkephalin_pdb_molsys):
     molsys = met_enkephalin_pdb_molsys
-    covalent_paths = msm.topology.get_dihedral_quartets(molsys, phi=True)
+    covalent_paths = msm.chemical_states.get_dihedral_quartets(molsys, phi=True)
     dihedral_angles = msm.structure.get_dihedral_angles(
         molsys, dihedral_quartets=covalent_paths
     )

@@ -109,7 +109,9 @@ def test_multi_record_file_converts_to_one_disconnected_rdkit_graph(smi_two_mols
 
     assert msm.get_form(molecule) == "rdkit.Mol"
     assert molecule.GetNumAtoms() == 17
-    assert topology.n_components == 2
+    assert not hasattr(topology, "components")
+    native = msm.convert(smi_two_mols, to_form="molsysmt.MolSys")
+    assert native.chemical_states.get(n_components=True) == 2
 
 
 @needs_rdkit

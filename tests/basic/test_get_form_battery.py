@@ -84,6 +84,7 @@ ROUTES = {
     "molsysmt.MolSysDict": ("convert", "molsys"),
     "molsysmt.MolecularMechanics": ("convert", "molsys"),
     "molsysmt.PDBFileHandler": ("convert", "pdb_file"),
+    "molsysmt.PDBQTFileHandler": ("convert", "pdbqt_file"),
     "molsysmt.Structures": ("convert", "molsys"),
     "molsysmt.StructuresDict": ("convert", "structures"),
     "molsysmt.Topology": ("convert", "molsys"),
@@ -165,6 +166,9 @@ def origins():
     molsys = msm.convert(h5msm_file, to_form="molsysmt.MolSys")
     return {
         "pdb_file": pdb_file,
+        "pdbqt_file": str(
+            Path(__file__).parents[1] / "form/data/vina_examples/1iep_ligand.pdbqt"
+        ),
         "h5msm_file": h5msm_file,
         "molsys": molsys,
         "chemical_states": msm.convert(molsys, to_form="molsysmt.ChemicalStates"),

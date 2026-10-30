@@ -1,46 +1,46 @@
 (user-foundations-native-world-classes-molsysmt-molsysdict)=
 # MolSysDict
 
-`molsysmt.MolSysDict` wraps the declarative molecular-system schema **0.1**.
-It combines a topology projection and four structural fields. Its content is
-narrower than the domains available in a native `MolSys`.
+`molsysmt.MolSysDict` wraps the declarative molecular-system schema **0.2**.
+It preserves independently optional stable inventory, chemical states, structures,
+explicit state associations and named interaction analyses. Readers also accept
+legacy 0.1 payloads through their separate interpretation.
 
 ## Declarative Schema
 
-`payload.copy()`, Python `copy.copy(payload)` and `copy.deepcopy(payload)` detach
-mutable payload data and metadata while preserving supported wrapper extensions.
-They do not reconstruct a system or validate schema 0.1. The public
-`msm.copy(payload)` uses the same independent payload contract. See
-{ref}`Native Copying <user-foundations-resident-copying>`.
-
 | Key | Stored value | Meaning |
 | :--- | :--- | :--- |
-| `format` | string | Format identifier, `molsysmt`. |
-| `kind` | string | Object kind, `molsys`. |
-| `version` | string | Schema version, `0.1`. |
-| `metadata` | dictionary | User metadata in the wrapper; native conversion does not restore it as molecular attributes. |
-| `topology` | dictionary | Collections `atoms`, `groups`, `bonds`, `chains`, `molecules`, `entities`. |
-| `structures` | dictionary | Fields `structure_id`, `time`, `box`, `coordinates`. |
+| `format` | string | `molsysmt`. |
+| `kind` | string | `molsys`. |
+| `version` | string | `0.2`. |
+| `metadata` | empty dictionary | Reserved; unrepresented metadata is rejected on reconstruction. |
+| `topology` | dictionary or `None` | Complete versioned TopologyDict 0.2 envelope. |
+| `chemical_states` | typed transport or `None` | ChemicalStatesDict inventory, assignments, components, bonds and preparation history. |
+| `structures` | typed transport or `None` | Structural series, quantities, sparse alternate sites, assemblies and supported metadata. |
+| `structure_chemical_state_indices` | typed transport or `None` | Nullable int64 associations; `None` retains the native implicit/unknown convention. |
+| `interactions` | dictionary | Named InteractionsDict transports, including coverage, occurrence indices, measurements and producer provenance. |
 
-The nested topology uses the record fields described in
-{ref}`TopologyDict <user-foundations-native-world-classes-molsysmt-topologydict>`,
-without that wrapper's envelope keys. There is no nested `TopologyDict` object.
-The structural payload is specific to schema 0.1; it is not a general
-`StructuresDict` or a nested native `Structures` object.
+An absent chemical domain is `None`; a present zero-state collection encodes
+`states=[]`. Empty named analyses are `{}`. Counts do not establish correspondence:
+assembly declares that represented domains share their positional atom axis.
+Stable topology owns no chemical fields. See
+{ref}`TopologyDict <user-foundations-native-world-classes-molsysmt-topologydict>`.
 
-## Structural Payload
+## Typed Transport
 
-| Key | Stored value | Shape and units |
-| :--- | :--- | :--- |
-| `structure_id` | list or `None` | Structure labels, one per structure. The native builder reads these as integers. |
-| `time` | list or `None` | `(n_structures,)`, values in ps. |
-| `box` | nested list or `None` | `(n_structures, 3, 3)`, box vectors in rows, values in nm. |
-| `coordinates` | nested list or `None` | `(n_structures, n_atoms, 3)`, values in nm. |
+The private, versioned transport contains JSON primitives and explicit array
+records. Numeric/bool arrays retain dtype, shape and C-order bytes through base64;
+Unicode arrays retain typed string values. Large integers, nonfinite numeric
+values and nullable masks survive without pickle or object-array decoding.
+Dimensionful fields use PyUnitWizard quantity records. Length/time/energy values
+have explicit units, independent of the user's active output-unit policy.
 
-Lengths/time are serialized as numbers in fixed nm/ps units, even when the
-source quantities use other units. Reconstruction attaches those units again.
-Neither velocities, B-factors, occupancies, alternate sites nor thermodynamic
-series are fields of this nested payload.
+Structures preserve coordinates, box, velocities, time, labels, B-factors,
+occupancies, temperatures, potential/kinetic energies, alternate sites and
+bioassemblies when present. Arrays retain the native structure/atom axis shapes.
+Schema-declared array positions distinguish transport records from arbitrary
+mappings. Unknown versions, invalid dtype/shape/byte lengths and unsupported
+fields fail on reconstruction.
 
 ## Usage and Workflow
 
@@ -53,80 +53,58 @@ builder.add_atom(atom_id='10', atom_name='C', atom_type='C')
 builder.add_atom(atom_id='20', atom_name='O', atom_type='O')
 builder.add_group([0, 1], group_name='LIG')
 builder.add_bond(0, 1, bond_order=1, bond_type='covalent')
+builder.add_chain([0], chain_id='A')
+molecule_index = builder.add_molecule([0], molecule_name='ligand', molecule_type='small molecule')
+builder.add_entity([molecule_index], entity_name='ligand', entity_type='small molecule')
 builder.set_coordinates(msm.pyunitwizard.quantity(
     [[[0.0, 0.0, 0.0], [1.2, 0.0, 0.0]]], 'angstrom'))
 builder.set_time(msm.pyunitwizard.quantity([2.0], 'ps'))
 molsys = builder.build()
 
-molsys_dict, report = msm.convert(
-    molsys, to_form='molsysmt.MolSysDict', return_report=True)
-data = json.loads(json.dumps(molsys_dict.to_dict(), allow_nan=False))
-assert set(data['structures']) == {'structure_id', 'time', 'box', 'coordinates'}
-assert abs(data['structures']['coordinates'][0][1][0] - 0.12) < 1e-12
+payload = msm.convert(molsys, to_form='molsysmt.MolSysDict')
+data = json.loads(json.dumps(payload.to_dict(), allow_nan=False))
+assert data['version'] == '0.2'
+assert 'bonds' not in data['topology']
 rebuilt = msm.convert(msm.MolSysDict(data=data), to_form='molsysmt.MolSys')
-assert msm.get(rebuilt, n_atoms=True, n_structures=True) == [2, 1]
+assert rebuilt.get(n_atoms=True, n_structures=True, n_bonds=True) == [2, 1, 1]
 
-molsys_A = msm.convert(molsys_dict, selection=[1], structure_indices=[0, 0],
+molsys_A = msm.convert(payload, selection=[1], structure_indices=[0, 0],
                       to_form='molsysmt.MolSys')
-assert msm.get(molsys_A, n_atoms=True, n_structures=True) == [1, 2]
-assert msm.get(molsys_A, element='atom', atom_id=True) == ['20']
+assert molsys_A.get(n_atoms=True, n_structures=True) == [1, 2]
+assert molsys_A.get(element='atom', atom_id=True) == ['20']
 ```
 
-Selected reconstruction reuses dictionary extraction: retained atoms follow
-sorted source indices, while structure indices keep their order and repetitions.
-The input payload stays unchanged. The same correspondence applies when
-`msm.extract` or `msm.remove` requests MolSys output from this dictionary.
+Selected reconstruction retains atoms in sorted source order; structures preserve
+requested order and repetitions. All represented dependent domains follow the
+same maps. The source payload remains unchanged.
 
 ## Fidelity Limits
 
-Inspect `report.issues`/`report.outcome`; use `strict=True` to refuse reported
-losses. JSON transport of this dictionary does not imply a lossless round trip
-of the original native system.
+Nonempty MolecularMechanics, unsupported native extension attributes/slots,
+unknown topology fields and unrepresented root metadata are refused rather
+than silently omitted. No arbitrary Python class identity is serialized. Inspect
+conversion reports and use `strict=True` for reported projections; successful
+JSON encoding alone does not certify the source's scientific completeness.
 
-The native MolSys writer requires topology, chemical states and structures.
-It refuses attached interaction analyses and preparation history. Other
-unsupported chemical assignments, observables and mechanics can be omitted
-and reported. Schema 0.1 does not store MolecularMechanics, a complete
-ChemicalStates inventory or named Interactions analyses. Reference-state
-resolution/refusal rules apply to the topology projection.
-
-Use {ref}`H5MSM 0.5 <user-foundations-native-world-files-file-h5msm>` for supported
-modular system, chemical-state, structure and named-interaction persistence.
-MolecularMechanics persistence is not part of H5MSM 0.5. Standalone
-`ChemicalStatesDict` and `InteractionsDict` retain their typed NumPy payloads;
-they are not JSON record dictionaries.
+Legacy 0.1 reads retain their four structural fields and reference bond projection;
+they cannot recover chemical data never written. Writers always emit 0.2.
+For large numeric workloads use
+{ref}`H5MSM 0.5 <user-foundations-native-world-files-file-h5msm>`: JSON/YAML
+transport materializes the encoded arrays. Standalone ChemicalStatesDict and
+InteractionsDict retain their existing typed NumPy contracts.
 
 ## Invariants and Performance
 
-- Generated topology fields are Python primitives; the four structural arrays
-  become lists in fixed units. Nonfinite values or custom metadata need an
-  explicit transport policy; `allow_nan=False` rejects nonfinite JSON numbers.
-- `to_dict(copy=True)` and `copy()` isolate wrapper data by deep copying.
-  `data` and `to_dict(copy=False)` expose mutable data.
-- Reconstruction can supply missing hierarchy/defaults through the native builder.
-  Raw list lengths need not equal inferred hierarchy counts.
+`copy()`, Python `copy.copy`/`copy.deepcopy` and `to_dict(copy=True)` detach mutable
+wrapper payloads without validating the schema or decoding a molecular system.
+`data` and `to_dict(copy=False)` expose mutable data. Such edits do not notify an
+owning system. See {ref}`Native Copying <user-foundations-resident-copying>`.
 
 ## Querying Attributes
 
-`msm.get()` reads the atom count, atom indices and already stored string
-ID/name/type fields directly. Missing fields retain their default/inference
-route. Hierarchy counts and complete `msm.info()` summaries can still require
-native conversion. For repeated queries across many attributes, convert once
-to a resident native object. An inventory query does not validate unrelated
-serialized domains.
-
-## API Documentation
-
-See {func}`molsysmt.basic.convert`, {func}`molsysmt.basic.get` and
-{ref}`the conversion tutorial <Tutorial_Convert>`. The resident owner is
-{ref}`MolSys <user-foundations-native-world-classes-molsysmt-molsys>`.
-
-## Group Declarations
-
-Omitting the nested `topology.groups` field retains builder fallback inference
-for an atomic inventory with missing hierarchy. Explicit `groups: []` instead
-declares that the atom inventory has no groups; reconstruction preserves that
-absence and uses the reference component partition for molecules. Native
-MolSysDict projection includes this explicit empty list for group-free systems.
-A declared group inventory with no atoms retains its known groups and ordered
-chain memberships without inventing chemical connectivity or coordinates.
+Use `msm.get(payload, ...)` and `msm.info(payload, ...)`; this dictionary wrapper
+has no resident `get()` method. Stored atom-index/label queries have a bounded
+direct route when their required fields are already normalized. Other queries
+use supported native decoding. Explicit chemical state/structure-associated
+queries resolve the decoded independent collection without changing the payload's
+reference. This is not an on-disk or bounded chemical-column query guarantee.

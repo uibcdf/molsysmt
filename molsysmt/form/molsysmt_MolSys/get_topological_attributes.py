@@ -1,6 +1,16 @@
 import types
+from collections import defaultdict
+from itertools import chain, compress
+
+import numpy as np
+import pandas as pd
+from networkx import Graph
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+from molsysmt.native._topology_infer import (
+    molecule_indices_from_atoms as _molecule_indices_from_atoms,
+)
 
 form = "molsysmt.MolSys"
 
@@ -13,10 +23,12 @@ form = "molsysmt.MolSys"
 
 
 def _get_atom_state_attribute(item, attribute, indices="all"):
-    from molsysmt.form import molsysmt_Topology
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    getter = getattr(molsysmt_Topology, f"get_{attribute}_from_atom")
-    return getter(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    getter = getattr(molsysmt_ChemicalStates, f"get_{attribute}_from_atom")
+    return getter(item.chemical_states, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
@@ -42,7 +54,13 @@ def get_formal_charge_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_atom_state_attribute(item, "formal_charge", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_formal_charge_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -66,7 +84,13 @@ def get_formal_charge_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return get_formal_charge_from_atom(item, skip_digestion=True)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_formal_charge_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -92,7 +116,13 @@ def get_atom_is_aromatic_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_atom_state_attribute(item, "atom_is_aromatic", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_atom_is_aromatic_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -118,7 +148,13 @@ def get_n_unpaired_electrons_from_atom(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return _get_atom_state_attribute(item, "n_unpaired_electrons", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_unpaired_electrons_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -144,7 +180,13 @@ def get_n_implicit_hydrogens_from_atom(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return _get_atom_state_attribute(item, "n_implicit_hydrogens", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_implicit_hydrogens_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -170,7 +212,13 @@ def get_n_explicit_hydrogens_from_atom(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return _get_atom_state_attribute(item, "n_explicit_hydrogens", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_explicit_hydrogens_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -196,7 +244,13 @@ def get_allows_implicit_hydrogens_from_atom(item, indices="all", skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    return _get_atom_state_attribute(item, "allows_implicit_hydrogens", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_allows_implicit_hydrogens_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -222,14 +276,13 @@ def get_atom_stereochemistry_from_atom(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return _get_atom_state_attribute(item, "atom_stereochemistry", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
 
-
-def _get_chemical_state_system_attribute(item, attribute):
-    from molsysmt.form import molsysmt_Topology
-
-    getter = getattr(molsysmt_Topology, f"get_{attribute}_from_system")
-    return getter(item.topology, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_atom_stereochemistry_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -253,7 +306,13 @@ def get_chemical_state_index_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return list(range(item.chemical_states.n_chemical_states))
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_chemical_state_index_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -277,7 +336,13 @@ def get_chemical_state_id_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return [state.state_id for state in item.chemical_states._states]
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_chemical_state_id_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -301,7 +366,13 @@ def get_n_chemical_states_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return item.chemical_states.n_chemical_states
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_chemical_states_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -325,7 +396,13 @@ def get_reference_chemical_state_index_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return item.chemical_states.reference_chemical_state_index
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_reference_chemical_state_index_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -349,7 +426,11 @@ def get_connectivity_completeness_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_chemical_state_system_attribute(item, "connectivity_completeness")
+    return (
+        None
+        if item.chemical_states is None
+        else item.chemical_states._resolve_chemical_state().connectivity_completeness
+    )
 
 
 @arg_digest(form=form)
@@ -373,7 +454,11 @@ def get_component_completeness_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_chemical_state_system_attribute(item, "component_completeness")
+    return (
+        None
+        if item.chemical_states is None
+        else item.chemical_states._resolve_chemical_state().component_completeness
+    )
 
 
 @arg_digest(form=form)
@@ -397,7 +482,11 @@ def get_component_evidence_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_chemical_state_system_attribute(item, "component_evidence")
+    return (
+        None
+        if item.chemical_states is None
+        else item.chemical_states._resolve_chemical_state().component_evidence
+    )
 
 
 @arg_digest(form=form)
@@ -425,6 +514,11 @@ def get_atom_index_from_atom(item, indices="all", skip_digestion=False):
     """
     from molsysmt.form.molsysmt_Topology import get_atom_index_from_atom as aux_get
 
+    if item.topology is None:
+        n_atoms = item._get_n_atoms()
+        if n_atoms is None:
+            return None
+        return list(range(n_atoms)) if is_all(indices) else list(indices)
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -675,9 +769,13 @@ def get_component_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_index_from_atom as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_component_index_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -703,9 +801,13 @@ def get_component_id_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_id_from_atom as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_component_id_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -731,9 +833,13 @@ def get_component_name_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_name_from_atom as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_component_name_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -759,9 +865,13 @@ def get_component_type_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_type_from_atom as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_component_type_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1123,9 +1233,13 @@ def get_bond_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_atom as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_index_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1151,9 +1265,12 @@ def get_bond_type_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_atom as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in aux_indices:
+        aux_vals = get_bond_type_from_bond(item, indices=ii, skip_digestion=True)
+        output.append(aux_vals)
+    return output
 
 
 @arg_digest(form=form)
@@ -1179,9 +1296,12 @@ def get_bond_order_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_atom as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in aux_indices:
+        aux_vals = get_bond_order_from_bond(item, indices=ii, skip_digestion=True)
+        output.append(aux_vals)
+    return output
 
 
 @arg_digest(form=form)
@@ -1207,9 +1327,20 @@ def get_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_atom as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = None
+    G = Graph()
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    G.add_edges_from(edges)
+    if indices == "all":
+        indices = get_atom_index_from_atom(item, skip_digestion=True)
+    output = []
+    for ii in indices:
+        if ii in G:
+            output.append(list(G.neighbors(ii)))
+        else:
+            output.append([])
+    del G, edges
+    return output
 
 
 @arg_digest(form=form)
@@ -1235,11 +1366,13 @@ def get_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_bonded_atom_pairs_from_atom as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bonded_atom_pairs_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1265,11 +1398,28 @@ def get_inner_bond_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_inner_bond_index_from_atom as aux_get,
+    output = None
+    G = Graph()
+    edges = np.asarray(
+        get_bonded_atom_pairs_from_bond(item, skip_digestion=True), dtype=np.int64
+    ).reshape(-1, 2)
+    n_bonds = len(edges)
+    edge_indices = np.array([{"index": ii} for ii in range(n_bonds)]).reshape(
+        [n_bonds, 1]
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    G.add_edges_from(np.hstack([edges, edge_indices]))
+    if indices == "all":
+        indices = get_atom_index_from_atom(item)
+    else:
+        G = G.subgraph(indices)
+    output = []
+    for ii in indices:
+        if ii in G:
+            output.append([n["index"] for n in G[ii].values()])
+        else:
+            output.append([])
+    del G, edges, edge_indices
+    return output
 
 
 @arg_digest(form=form)
@@ -1295,11 +1445,17 @@ def get_inner_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_inner_bonded_atoms_from_atom as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = None
+    G = Graph()
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    G.add_edges_from(edges)
+    if not indices == "all":
+        G = G.subgraph(indices)
+    output = []
+    for nodo in G.nodes():
+        output.append(list(G.neighbors(nodo)))
+    del G, edges
+    return output
 
 
 @arg_digest(form=form)
@@ -1325,11 +1481,13 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_inner_bonded_atom_pairs_from_atom as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_inner_bonded_atom_pairs_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1411,9 +1569,13 @@ def get_n_components_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_atom as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_components_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1523,9 +1685,13 @@ def get_n_bonds_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_atom as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_bonds_from_atom(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1551,9 +1717,12 @@ def get_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_inner_bonds_from_atom as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    inner_bond_indices = get_inner_bond_index_from_atom(
+        item, indices, skip_digestion=True
+    )
+    output = [len(ii) for ii in inner_bond_indices]
+    del inner_bond_indices
+    return output
 
 
 @arg_digest(form=form)
@@ -2146,11 +2315,28 @@ def get_component_index_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_index_from_group as aux_get,
-    )
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    if indices == "all":
+        from molsysmt.form.molsysmt_MolSys.get_topological_attributes import (
+            get_n_groups_from_system,
+        )
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+        n_groups = get_n_groups_from_system(item)
+        indices = range(n_groups)
+    aux_dict = {ii: set() for ii in indices}
+    for atom_index, group_index in enumerate(group_index_from_atom):
+        if group_index in aux_dict:
+            aux_dict[group_index].add(component_index_from_atom[atom_index])
+    output = []
+    for ii in indices:
+        val = aux_dict[ii]
+        clean_val = [int(jj) for jj in val if jj is not None and (not pd.isna(jj))]
+        if clean_val:
+            output.append(clean_val[0])
+        else:
+            output.append(None)
+    return output
 
 
 @arg_digest(form=form)
@@ -2176,9 +2362,37 @@ def get_component_id_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_id_from_group as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_id_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_id"]
+        .to_numpy()
+    )
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, group_index in enumerate(group_index_from_atom):
+            aux_dict[group_index].add(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, group_index in enumerate(group_index_from_atom):
+            if group_index in aux_dict:
+                aux_dict[group_index].add(component_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        component_id_from_component[next(iter(ii))]
+        if len(ii) == 1
+        else component_id_from_component[list(ii)].tolist()
+        for ii in output
+    ]
+    del (
+        group_index_from_atom,
+        component_index_from_atom,
+        component_id_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -2204,9 +2418,37 @@ def get_component_name_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_name_from_group as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_name_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_name"]
+        .to_numpy()
+    )
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, group_index in enumerate(group_index_from_atom):
+            aux_dict[group_index].add(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, group_index in enumerate(group_index_from_atom):
+            if group_index in aux_dict:
+                aux_dict[group_index].add(component_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        component_name_from_component[next(iter(ii))]
+        if len(ii) == 1
+        else component_name_from_component[list(ii)].tolist()
+        for ii in output
+    ]
+    del (
+        group_index_from_atom,
+        component_index_from_atom,
+        component_name_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -2232,9 +2474,37 @@ def get_component_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_type_from_group as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_type_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_type"]
+        .to_numpy()
+    )
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, group_index in enumerate(group_index_from_atom):
+            aux_dict[group_index].add(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, group_index in enumerate(group_index_from_atom):
+            if group_index in aux_dict:
+                aux_dict[group_index].add(component_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        component_type_from_component[next(iter(ii))]
+        if len(ii) == 1
+        else component_type_from_component[list(ii)].tolist()
+        for ii in output
+    ]
+    del (
+        group_index_from_atom,
+        component_index_from_atom,
+        component_type_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -2652,9 +2922,9 @@ def get_n_components_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_group as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_component_index_from_group(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -2778,9 +3048,10 @@ def get_n_bonds_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_group as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
+    output = [len(ii) for ii in bond_indices]
+    del bond_indices
+    return output
 
 
 # From component
@@ -2809,9 +3080,13 @@ def get_atom_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_atom_index_from_component as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_atom_index_from_component(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -2837,9 +3112,21 @@ def get_atom_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_atom_id_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    atom_id_from_atom = item.topology.atoms["atom_id"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].append(atom_id_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].append(atom_id_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    del component_index_from_atom, atom_id_from_atom, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -2865,9 +3152,21 @@ def get_atom_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_atom_name_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    atom_name_from_atom = item.topology.atoms["atom_name"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].append(atom_name_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].append(atom_name_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    del component_index_from_atom, atom_name_from_atom, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -2893,9 +3192,21 @@ def get_atom_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_atom_type_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    atom_type_from_atom = item.topology.atoms["atom_type"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].append(atom_type_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].append(atom_type_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    del component_index_from_atom, atom_type_from_atom, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -2921,11 +3232,23 @@ def get_group_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_group_index_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(group_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            component_index = component_index_from_atom[atom_index]
+            if component_index in aux_dict:
+                aux_dict[component_index].add(group_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    del group_index_from_atom, component_index_from_atom, aux_dict
+    output = [list(ii) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -2951,9 +3274,24 @@ def get_group_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_group_id_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    group_id_from_group = item.topology.groups["group_id"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(group_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(group_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [group_id_from_group[sorted(ii)].tolist() for ii in output]
+    del group_index_from_atom, component_index_from_atom, group_id_from_group
+    del aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -2979,9 +3317,24 @@ def get_group_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_group_name_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    group_name_from_group = item.topology.groups["group_name"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(group_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(group_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [group_name_from_group[sorted(ii)].tolist() for ii in output]
+    del group_index_from_atom, component_index_from_atom, group_name_from_group
+    del aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3007,9 +3360,24 @@ def get_group_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_group_type_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    group_type_from_group = item.topology.groups["group_type"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(group_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(group_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [group_type_from_group[sorted(ii)].tolist() for ii in output]
+    del group_index_from_atom, component_index_from_atom, group_type_from_group
+    del aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3035,11 +3403,13 @@ def get_component_index_from_component(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_index_from_component as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_component_index_from_component(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -3065,11 +3435,13 @@ def get_component_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_id_from_component as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_component_id_from_component(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -3095,11 +3467,13 @@ def get_component_name_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_name_from_component as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_component_name_from_component(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -3125,11 +3499,13 @@ def get_component_type_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_type_from_component as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_component_type_from_component(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -3155,11 +3531,25 @@ def get_molecule_index_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_molecule_index_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(molecule_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(molecule_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
+    del component_index_from_atom, group_index_from_atom, molecule_index_from_group
+    del molecule_index_from_atom, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3185,11 +3575,31 @@ def get_molecule_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_molecule_id_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    molecule_id_from_molecule = item.topology.molecules["molecule_id"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(molecule_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(molecule_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        molecule_id_from_molecule[next(iter(ii))]
+        if len(ii) == 1
+        else molecule_id_from_molecule[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del component_index_from_atom, group_index_from_atom, molecule_index_from_group
+    del molecule_index_from_atom, molecule_id_from_molecule, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3215,11 +3625,31 @@ def get_molecule_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_molecule_name_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    molecule_name_from_molecule = item.topology.molecules["molecule_name"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(molecule_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(molecule_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        molecule_name_from_molecule[next(iter(ii))]
+        if len(ii) == 1
+        else molecule_name_from_molecule[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del component_index_from_atom, group_index_from_atom, molecule_index_from_group
+    del molecule_index_from_atom, molecule_name_from_molecule, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3245,11 +3675,33 @@ def get_molecule_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_molecule_type_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[
+        group_index_from_atom.astype(int)
+    ]
+    molecule_type_from_molecule = item.topology.molecules["molecule_type"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(molecule_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(molecule_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        molecule_type_from_molecule[next(iter(ii))]
+        if len(ii) == 1
+        else molecule_type_from_molecule[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del component_index_from_atom, group_index_from_atom, molecule_index_from_group
+    del molecule_index_from_atom, molecule_type_from_molecule, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3275,11 +3727,27 @@ def get_entity_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_entity_index_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.topology.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(entity_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(entity_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
+    del component_index_from_atom, entity_index_from_atom, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3305,9 +3773,38 @@ def get_entity_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_entity_id_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.topology.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_id_from_entity = item.topology.entities["entity_id"].to_numpy()
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(entity_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(entity_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        entity_id_from_entity[next(iter(ii))]
+        if len(ii) == 1
+        else entity_id_from_entity[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del (
+        component_index_from_atom,
+        entity_index_from_atom,
+        entity_id_from_entity,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -3333,11 +3830,38 @@ def get_entity_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_entity_name_from_component as aux_get,
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.topology.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_name_from_entity = item.topology.entities["entity_name"].to_numpy()
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(entity_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(entity_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        entity_name_from_entity[next(iter(ii))]
+        if len(ii) == 1
+        else entity_name_from_entity[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del (
+        component_index_from_atom,
+        entity_index_from_atom,
+        entity_name_from_entity,
+        aux_dict,
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    return output
 
 
 @arg_digest(form=form)
@@ -3363,11 +3887,38 @@ def get_entity_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_entity_type_from_component as aux_get,
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.topology.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_type_from_entity = item.topology.entities["entity_type"].to_numpy()
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(entity_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(entity_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        entity_type_from_entity[next(iter(ii))]
+        if len(ii) == 1
+        else entity_type_from_entity[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del (
+        component_index_from_atom,
+        entity_index_from_atom,
+        entity_type_from_entity,
+        aux_dict,
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    return output
 
 
 @arg_digest(form=form)
@@ -3393,11 +3944,22 @@ def get_chain_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_chain_index_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    chain_index_from_atom = item.topology.atoms["chain_index"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(chain_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(chain_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
+    del component_index_from_atom, chain_index_from_atom, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3423,9 +3985,28 @@ def get_chain_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_chain_id_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    chain_index_from_atom = item.topology.atoms["chain_index"].to_numpy()
+    chain_id_from_chain = item.topology.chains["chain_id"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(chain_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(chain_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        chain_id_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_id_from_chain[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del component_index_from_atom, chain_index_from_atom, chain_id_from_chain, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -3451,9 +4032,33 @@ def get_chain_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_chain_name_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    chain_index_from_atom = item.topology.atoms["chain_index"].to_numpy()
+    chain_name_from_chain = item.topology.chains["chain_name"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(chain_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(chain_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        chain_name_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_name_from_chain[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del (
+        component_index_from_atom,
+        chain_index_from_atom,
+        chain_name_from_chain,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -3479,9 +4084,33 @@ def get_chain_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_chain_type_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    chain_index_from_atom = item.topology.atoms["chain_index"].to_numpy()
+    chain_type_from_chain = item.topology.chains["chain_type"].to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            aux_dict[component_index].add(chain_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, component_index in enumerate(component_index_from_atom):
+            if component_index in aux_dict:
+                aux_dict[component_index].add(chain_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [
+        chain_type_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_type_from_chain[sorted(ii)].tolist()
+        for ii in output
+    ]
+    del (
+        component_index_from_atom,
+        chain_index_from_atom,
+        chain_type_from_chain,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -3507,9 +4136,13 @@ def get_n_atoms_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_atoms_from_component as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_atoms_from_component(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -3535,9 +4168,9 @@ def get_n_groups_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_groups_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_group_index_from_component(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -3563,11 +4196,13 @@ def get_n_components_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_components_from_component as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_components_from_component(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -3593,11 +4228,14 @@ def get_n_molecules_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_molecules_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        output = get_n_molecules_from_system(item, skip_digestion=True)
+    else:
+        output = get_molecule_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
+        output = np.unique(output).size
+    return output
 
 
 @arg_digest(form=form)
@@ -3623,9 +4261,9 @@ def get_n_chains_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_chains_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_chain_index_from_component(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -3651,9 +4289,14 @@ def get_n_entities_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_entities_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        output = get_n_entities_from_system(item, skip_digestion=True)
+    else:
+        output = get_entity_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
+        output = np.unique(output).size
+    return output
 
 
 @arg_digest(form=form)
@@ -3679,9 +4322,13 @@ def get_n_bonds_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_component as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_n_bonds_from_component(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -3707,11 +4354,9 @@ def get_n_inner_bonds_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_inner_bonds_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_bond_index_from_component(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -3737,11 +4382,11 @@ def get_n_amino_acids_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_amino_acids_from_component as aux_get,
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = [ii.count("amino acid") for ii in group_types]
+    return output
 
 
 @arg_digest(form=form)
@@ -3767,11 +4412,11 @@ def get_n_nucleotides_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_nucleotides_from_component as aux_get,
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = [ii.count("nucleotide") for ii in group_types]
+    return output
 
 
 @arg_digest(form=form)
@@ -3797,9 +4442,11 @@ def get_n_ions_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_ions_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("ion") for ii in group_types]
+    return output
 
 
 @arg_digest(form=form)
@@ -3825,9 +4472,11 @@ def get_n_waters_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_waters_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("water") for ii in group_types]
+    return output
 
 
 @arg_digest(form=form)
@@ -3853,11 +4502,11 @@ def get_n_small_molecules_from_component(item, indices="all", skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_small_molecules_from_component as aux_get,
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = [ii.count("small molecule") for ii in group_types]
+    return output
 
 
 @arg_digest(form=form)
@@ -3883,9 +4532,18 @@ def get_n_peptides_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_peptides_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        output = get_n_peptides_from_system(item, skip_digestion=True)
+    else:
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("peptide")
+    return output
 
 
 @arg_digest(form=form)
@@ -3911,9 +4569,18 @@ def get_n_proteins_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_proteins_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        output = get_n_proteins_from_system(item, skip_digestion=True)
+    else:
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("protein")
+    return output
 
 
 @arg_digest(form=form)
@@ -3939,9 +4606,18 @@ def get_n_dnas_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_dnas_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        output = get_n_dnas_from_system(item, skip_digestion=True)
+    else:
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("dna")
+    return output
 
 
 @arg_digest(form=form)
@@ -3967,9 +4643,18 @@ def get_n_rnas_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_rnas_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        output = get_n_rnas_from_system(item, skip_digestion=True)
+    else:
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("rna")
+    return output
 
 
 @arg_digest(form=form)
@@ -3995,9 +4680,11 @@ def get_n_lipids_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_lipids_from_component as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("lipid") for ii in group_types]
+    return output
 
 
 @arg_digest(form=form)
@@ -4023,11 +4710,18 @@ def get_n_polysaccharides_from_component(item, indices="all", skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_polysaccharides_from_component as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        output = get_n_polysaccharides_from_system(item, skip_digestion=True)
+    else:
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("polysaccharide")
+    return output
 
 
 @arg_digest(form=form)
@@ -4053,11 +4747,11 @@ def get_n_saccharides_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_saccharides_from_component as aux_get,
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = [ii.count("saccharide") for ii in group_types]
+    return output
 
 
 # From molecule
@@ -4310,11 +5004,29 @@ def get_component_index_from_molecule(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_index_from_molecule as aux_get,
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    item.topology.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
+            aux_dict[molecule_index].append(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
+            if molecule_index in aux_dict:
+                aux_dict[molecule_index].append(component_index_from_atom[atom_index])
+        output = [aux_dict[ii] for ii in indices]
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = [list(np.unique(ii)) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -4340,11 +5052,35 @@ def get_component_id_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_id_from_molecule as aux_get,
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    item.topology.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_id_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_id"]
+        .to_numpy()
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
+            aux_dict[molecule_index].append(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
+            if molecule_index in aux_dict:
+                aux_dict[molecule_index].append(component_index_from_atom[atom_index])
+        output = [aux_dict[ii] for ii in indices]
+    output = [component_id_from_component[np.unique(ii)].tolist() for ii in output]
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        component_index_from_atom,
+        component_id_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -4370,11 +5106,35 @@ def get_component_name_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_name_from_molecule as aux_get,
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    item.topology.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_name_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_name"]
+        .to_numpy()
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
+            aux_dict[molecule_index].append(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
+            if molecule_index in aux_dict:
+                aux_dict[molecule_index].append(component_index_from_atom[atom_index])
+        output = [aux_dict[ii] for ii in indices]
+    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output]
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        component_index_from_atom,
+        component_name_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -4400,11 +5160,35 @@ def get_component_type_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_type_from_molecule as aux_get,
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    item.topology.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_name_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_type"]
+        .to_numpy()
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
+            aux_dict[molecule_index].append(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, molecule_index in enumerate(molecule_index_from_atom):
+            if molecule_index in aux_dict:
+                aux_dict[molecule_index].append(component_index_from_atom[atom_index])
+        output = [aux_dict[ii] for ii in indices]
+    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output]
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        component_index_from_atom,
+        component_name_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -4830,11 +5614,9 @@ def get_n_components_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_components_from_molecule as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_component_index_from_molecule(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -4944,9 +5726,9 @@ def get_n_bonds_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_molecule as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_bond_index_from_molecule(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -4972,11 +5754,9 @@ def get_n_inner_bonds_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_n_inner_bonds_from_molecule as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_inner_bond_index_from_molecule(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -5575,11 +6355,32 @@ def get_component_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_index_from_entity as aux_get,
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.topology.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, entity_index in enumerate(entity_index_from_atom):
+            aux_dict[entity_index].append(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, entity_index in enumerate(entity_index_from_atom):
+            if entity_index in aux_dict:
+                aux_dict[entity_index].append(component_index_from_atom[atom_index])
+        output = [aux_dict[ii] for ii in indices]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = [list(np.unique(ii)) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -5605,9 +6406,38 @@ def get_component_id_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_id_from_entity as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.topology.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_id_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_id"]
+        .to_numpy()
+    )
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, entity_index in enumerate(entity_index_from_atom):
+            aux_dict[entity_index].append(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, entity_index in enumerate(entity_index_from_atom):
+            if entity_index in aux_dict:
+                aux_dict[entity_index].append(component_index_from_atom[atom_index])
+        output = [aux_dict[ii] for ii in indices]
+    output = [component_id_from_component[np.unique(ii)].tolist() for ii in output]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
+    )
+    del component_id_from_component
+    return output
 
 
 @arg_digest(form=form)
@@ -5633,11 +6463,38 @@ def get_component_name_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_name_from_entity as aux_get,
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.topology.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_name_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_name"]
+        .to_numpy()
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, entity_index in enumerate(entity_index_from_atom):
+            aux_dict[entity_index].append(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, entity_index in enumerate(entity_index_from_atom):
+            if entity_index in aux_dict:
+                aux_dict[entity_index].append(component_index_from_atom[atom_index])
+        output = [aux_dict[ii] for ii in indices]
+    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
+    )
+    del component_name_from_component
+    return output
 
 
 @arg_digest(form=form)
@@ -5663,11 +6520,38 @@ def get_component_type_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_type_from_entity as aux_get,
+    group_index_from_atom = item.topology.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.topology.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.topology.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = _molecule_indices_from_atoms(item.topology)
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_type_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_type"]
+        .to_numpy()
     )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        aux_dict = defaultdict(list)
+        for atom_index, entity_index in enumerate(entity_index_from_atom):
+            aux_dict[entity_index].append(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: [] for ii in indices}
+        for atom_index, entity_index in enumerate(entity_index_from_atom):
+            if entity_index in aux_dict:
+                aux_dict[entity_index].append(component_index_from_atom[atom_index])
+        output = [aux_dict[ii] for ii in indices]
+    output = [component_type_from_component[np.unique(ii)].tolist() for ii in output]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
+    )
+    del component_type_from_component
+    return output
 
 
 @arg_digest(form=form)
@@ -6087,9 +6971,9 @@ def get_n_components_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_entity as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_component_index_from_entity(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -6199,9 +7083,9 @@ def get_n_bonds_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_entity as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_bond_index_from_entity(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -6227,9 +7111,9 @@ def get_n_inner_bonds_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_inner_bonds_from_entity as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_inner_bond_index_from_entity(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -6822,11 +7706,22 @@ def get_component_index_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_component_index_from_chain as aux_get,
-    )
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    chain_index_from_atom = item.topology.atoms["chain_index"].to_numpy()
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, chain_index in enumerate(chain_index_from_atom):
+            aux_dict[chain_index].add(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, chain_index in enumerate(chain_index_from_atom):
+            if chain_index in aux_dict:
+                aux_dict[chain_index].add(component_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [sorted(ii) for ii in output]
+    del chain_index_from_atom, component_index_from_atom, aux_dict
+    return output
 
 
 @arg_digest(form=form)
@@ -6852,9 +7747,32 @@ def get_component_id_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_id_from_chain as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    chain_index_from_atom = item.topology.atoms["chain_index"].to_numpy()
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_id_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_id"]
+        .to_numpy()
+    )
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, chain_index in enumerate(chain_index_from_atom):
+            aux_dict[chain_index].add(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, chain_index in enumerate(chain_index_from_atom):
+            if chain_index in aux_dict:
+                aux_dict[chain_index].add(component_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [component_id_from_component[sorted(ii)].tolist() for ii in output]
+    del (
+        chain_index_from_atom,
+        component_index_from_atom,
+        component_id_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -6880,9 +7798,33 @@ def get_component_name_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_name_from_chain as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    chain_index_from_atom = item.topology.atoms["chain_index"].to_numpy()
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_name_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_name"]
+        .to_numpy()
+    )
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, chain_index in enumerate(chain_index_from_atom):
+            aux_dict[chain_index].add(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, chain_index in enumerate(chain_index_from_atom):
+            chain_index = chain_index_from_atom[atom_index]
+            if chain_index in aux_dict:
+                aux_dict[chain_index].add(component_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [component_name_from_component[sorted(ii)].tolist() for ii in output]
+    del (
+        chain_index_from_atom,
+        component_index_from_atom,
+        component_name_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -6908,9 +7850,33 @@ def get_component_type_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_component_type_from_chain as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    chain_index_from_atom = item.topology.atoms["chain_index"].to_numpy()
+    component_index_from_atom = item.chemical_states._get_component_indices().to_numpy()
+    component_type_from_component = (
+        item.chemical_states._resolve_chemical_state()
+        .components["component_type"]
+        .to_numpy()
+    )
+    item.topology.atoms.shape[0]
+    if indices == "all":
+        aux_dict = defaultdict(set)
+        for atom_index, chain_index in enumerate(chain_index_from_atom):
+            aux_dict[chain_index].add(component_index_from_atom[atom_index])
+        output = list(aux_dict.values())
+    else:
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index, chain_index in enumerate(chain_index_from_atom):
+            if chain_index in aux_dict:
+                aux_dict[chain_index].add(component_index_from_atom[atom_index])
+        output = [aux_dict[m] for m in indices]
+    output = [component_type_from_component[sorted(ii)].tolist() for ii in output]
+    del (
+        chain_index_from_atom,
+        component_index_from_atom,
+        component_type_from_component,
+        aux_dict,
+    )
+    return output
 
 
 @arg_digest(form=form)
@@ -7328,9 +8294,14 @@ def get_n_components_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_chain as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    aux = get_component_index_from_chain(item, indices, skip_digestion=True)
+    output = []
+    for ii in aux:
+        try:
+            output.append(len(ii))
+        except Exception:
+            output.append(1)
+    return output
 
 
 @arg_digest(form=form)
@@ -7440,9 +8411,9 @@ def get_n_bonds_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_chain as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_bond_index_from_chain(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -7468,9 +8439,9 @@ def get_n_inner_bonds_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_inner_bonds_from_chain as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    output = get_bond_index_from_chain(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+    return output
 
 
 @arg_digest(form=form)
@@ -7851,9 +8822,13 @@ def get_bond_index_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_bond as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_index_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -7879,7 +8854,13 @@ def get_bond_id_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_id", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_id_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -7905,9 +8886,13 @@ def get_bond_order_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_bond as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_order_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -7933,9 +8918,13 @@ def get_bond_type_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_bond as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_type_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -7961,7 +8950,13 @@ def get_fractional_bond_order_from_bond(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "fractional_bond_order", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_fractional_bond_order_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -7987,7 +8982,13 @@ def get_bond_is_aromatic_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_is_aromatic", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_is_aromatic_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8013,7 +9014,13 @@ def get_bond_is_conjugated_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_is_conjugated", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_is_conjugated_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8039,7 +9046,13 @@ def get_bond_stereochemistry_from_bond(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_stereochemistry", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_stereochemistry_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8065,7 +9078,13 @@ def get_bond_stereo_atom_indices_from_bond(item, indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_stereo_atom_indices", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_stereo_atom_indices_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8091,7 +9110,13 @@ def get_bond_donor_atom_index_from_bond(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_donor_atom_index", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_donor_atom_index_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8117,7 +9142,13 @@ def get_bond_acceptor_atom_index_from_bond(item, indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_acceptor_atom_index", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_acceptor_atom_index_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8143,7 +9174,13 @@ def get_bond_joins_components_from_bond(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_joins_components", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_joins_components_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8169,7 +9206,13 @@ def get_bond_evidence_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_bond_state_attribute(item, "bond_evidence", indices)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_evidence_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8195,9 +9238,13 @@ def get_bonded_atoms_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_bond as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bonded_atoms_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8223,11 +9270,13 @@ def get_bonded_atom_pairs_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_bonded_atom_pairs_from_bond as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bonded_atom_pairs_from_bond(
+        item.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8253,9 +9302,11 @@ def get_n_bonds_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_bond as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        output = len(indices)
+    return output
 
 
 # From system
@@ -8332,9 +9383,13 @@ def get_n_components_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_system as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, skip_digestion=True)
+    if item.chemical_states is None or not item.chemical_states.n_chemical_states:
+        return None
+    return molsysmt_ChemicalStates.get_n_components_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8436,9 +9491,13 @@ def get_n_bonds_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_system as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, skip_digestion=True)
+    if item.chemical_states is None or not item.chemical_states.n_chemical_states:
+        return None
+    return molsysmt_ChemicalStates.get_n_bonds_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8778,9 +9837,13 @@ def get_bond_index_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_system as aux_get
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bond_index_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8804,11 +9867,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_inner_bonded_atoms_from_system as aux_get,
-    )
-
-    return aux_get(item.topology, skip_digestion=True)
+    return get_bonded_atoms_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
@@ -8832,11 +9891,13 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_inner_bonded_atom_pairs_from_system as aux_get,
-    )
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_get(item.topology, skip_digestion=True)
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_inner_bonded_atom_pairs_from_system(
+        item.chemical_states, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -8860,9 +9921,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_system as aux_get
-
-    return aux_get(item.topology, skip_digestion=True)
+    return get_bonded_atoms_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
@@ -8886,11 +9945,2713 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.molsysmt_Topology import (
-        get_bonded_atom_pairs_from_system as aux_get,
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        return None
+    return molsysmt_ChemicalStates.get_bonded_atom_pairs_from_system(
+        item.chemical_states, skip_digestion=True
     )
 
-    return aux_get(item.topology, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_atom(item, indices="all", skip_digestion=False):
+    """
+    Getting total n components from atom in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_components_from_atom(item, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_total_n_bonds_from_atom(item, indices="all", skip_digestion=False):
+    """
+    Getting total n bonds from atom in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        bond_indices = get_bond_index_from_atom(item, indices, skip_digestion=True)
+        output = np.unique(np.concatenate(bond_indices)).shape[0]
+        del bond_indices
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False):
+    """
+    Getting total n inner bonds from atom in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        bond_indices = get_inner_bond_index_from_atom(
+            item, indices, skip_digestion=True
+        )
+        output = np.unique(np.concatenate(bond_indices)).size
+        del bond_indices
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_index_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting bond index from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_group = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_group:
+        if len(jj):
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
+        else:
+            output.append([])
+    del atom_indices_from_group, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_type_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting bond type from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_type = get_bond_type_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_type[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_type, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_order_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting bond order from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_order = get_bond_order_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_order[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_order, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atoms_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atoms from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals))))
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atom_pairs_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atom pairs from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(aux_vals)
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bond_index_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bond index from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_group = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_group:
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
+        if len(aux):
+            pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
+            aux = list(compress(aux, mask))
+        else:
+            aux = []
+        output.append(aux)
+    del atom_indices_from_group, bonded_atom_pairs, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atoms_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bonded atoms from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
+    atom_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii, jj in zip(bond_indices, atom_indices):
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
+    del bonded_atom_pairs, bond_indices, atom_indices, aux_vals, ii, jj
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atom_pairs_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bonded atom pairs from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_group(
+        item, indices=indices, skip_digestion=True
+    )
+    if indices == "all":
+        output = bonded_atom_pairs
+    else:
+        atom_indices = get_atom_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
+        output = []
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
+            if len(jj) == 0:
+                output.append([])
+            else:
+                jj = np.array(jj)
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_components_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting total n components from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_components_from_system(item, skip_digestion=True)
+    else:
+        aux = get_component_index_from_group(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_bonds_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting total n bonds from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
+        atom_indices = list(chain.from_iterable(atom_indices))
+        output = get_total_n_bonds_from_atom(
+            item, indices=atom_indices, skip_digestion=True
+        )
+        del atom_indices
+    return output
+
+
+@arg_digest(form=form)
+def get_n_inner_bonds_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting n inner bonds from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    inner_bond_indices = get_inner_bond_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [len(ii) for ii in inner_bond_indices]
+    del inner_bond_indices
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_inner_bonds_from_group(item, indices="all", skip_digestion=False):
+    """
+    Getting total n inner bonds from group in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
+        atom_indices = list(chain.from_iterable(atom_indices))
+        output = get_total_n_inner_bonds_from_atom(
+            item, indices=atom_indices, skip_digestion=True
+        )
+        del atom_indices
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_index_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting bond index from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_molecule = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_molecule:
+        if len(jj):
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
+        else:
+            output.append([])
+    del atom_indices_from_molecule, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_type_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting bond type from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_type = get_bond_type_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_type[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_type, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_order_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting bond order from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_order = get_bond_order_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_order[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_order, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atoms_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atoms from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals))))
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atom_pairs_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atom pairs from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(aux_vals)
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bond_index_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bond index from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_molecule = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_molecule:
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
+        if len(aux):
+            pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
+            aux = list(compress(aux, mask))
+        else:
+            aux = []
+        output.append(aux)
+    del atom_indices_from_molecule, bonded_atom_pairs, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atoms_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bonded atoms from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    atom_indices = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii, jj in zip(bond_indices, atom_indices):
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
+    del bonded_atom_pairs, bond_indices, atom_indices, aux_vals, ii, jj
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atom_pairs_from_molecule(
+    item, indices="all", skip_digestion=False
+):
+    """
+    Getting inner bonded atom pairs from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    if indices == "all":
+        output = bonded_atom_pairs
+    else:
+        atom_indices = get_atom_index_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
+        output = []
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
+            if len(jj) == 0:
+                output.append([])
+            else:
+                jj = np.array(jj)
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_components_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting total n components from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_components_from_system(item, skip_digestion=True)
+    else:
+        aux = get_component_index_from_molecule(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_bonds_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting total n bonds from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_bonds_from_atom(item, indices, skip_digestion=True)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_inner_bonds_from_molecule(item, indices="all", skip_digestion=False):
+    """
+    Getting total n inner bonds from molecule in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_index_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting bond index from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_entity = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_entity:
+        if len(jj):
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
+        else:
+            output.append([])
+    del atom_indices_from_entity, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_type_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting bond type from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_type = get_bond_type_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_type[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_type, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_order_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting bond order from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_order = get_bond_order_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_order[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_order, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atoms_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atoms from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals))))
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atom_pairs_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atom pairs from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(aux_vals)
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bond_index_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bond index from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_entity = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_entity:
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
+        if len(aux):
+            pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
+            aux = list(compress(aux, mask))
+        else:
+            aux = []
+        output.append(aux)
+    del atom_indices_from_entity, bonded_atom_pairs, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atoms_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bonded atoms from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    atom_indices = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii, jj in zip(bond_indices, atom_indices):
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
+    del bonded_atom_pairs, bond_indices, atom_indices, aux_vals, ii, jj
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atom_pairs_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bonded atom pairs from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    if indices == "all":
+        output = bonded_atom_pairs
+    else:
+        atom_indices = get_atom_index_from_entity(
+            item, indices=indices, skip_digestion=True
+        )
+        output = []
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
+            if len(jj) == 0:
+                output.append([])
+            else:
+                jj = np.array(jj)
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_components_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting total n components from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_components_from_system(item, skip_digestion=True)
+    else:
+        aux = get_component_index_from_entity(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_bonds_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting total n bonds from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_entity(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_bonds_from_atom(item, indices, skip_digestion=True)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_inner_bonds_from_entity(item, indices="all", skip_digestion=False):
+    """
+    Getting total n inner bonds from entity in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_entity(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_index_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting bond index from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_component = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_component:
+        if len(jj):
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
+        else:
+            output.append([])
+    del atom_indices_from_component, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_type_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting bond type from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_type = get_bond_type_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_type[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_type, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_order_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting bond order from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_order = get_bond_order_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_order[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_order, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atoms_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atoms from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals))))
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atom_pairs_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atom pairs from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(aux_vals)
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bond_index_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bond index from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_component = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_component:
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
+        if len(aux):
+            pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
+            aux = list(compress(aux, mask))
+        else:
+            aux = []
+        output.append(aux)
+    del atom_indices_from_component, bonded_atom_pairs, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atoms_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bonded atoms from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    atom_indices = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = []
+    for ii, jj in zip(bond_indices, atom_indices):
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
+    del bonded_atom_pairs, bond_indices, atom_indices, aux_vals, ii, jj
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atom_pairs_from_component(
+    item, indices="all", skip_digestion=False
+):
+    """
+    Getting inner bonded atom pairs from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    if indices == "all":
+        output = bonded_atom_pairs
+    else:
+        atom_indices = get_atom_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
+        output = []
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
+            if len(jj) == 0:
+                output.append([])
+            else:
+                jj = np.array(jj)
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n atoms from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_atoms_from_system(item, skip_digestion=True)
+    else:
+        aux = get_n_atoms_from_component(item, indices=indices, skip_digestion=True)
+        output = sum(aux)
+        del aux
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_groups_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n groups from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_groups_from_system(item, skip_digestion=True)
+    else:
+        aux = get_group_index_from_component(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n molecules from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_molecules_from_component(item, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_total_n_entities_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n entities from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_entities_from_component(item, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_total_n_components_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n components from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_components_from_component(item, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_total_n_chains_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n chains from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_chains_from_system(item, skip_digestion=True)
+    else:
+        aux = get_chain_index_from_component(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_bonds_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n bonds from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_bonds_from_atom(item, indices, skip_digestion=True)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_inner_bonds_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n inner bonds from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n amino acids from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_amino_acids_from_system(item, skip_digestion=True)
+    else:
+        output = get_n_amino_acids_from_component(
+            item, indices=indices, skip_digestion=True
+        )
+        output = sum(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n nucleotides from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_nucleotides_from_system(item, skip_digestion=True)
+    else:
+        output = get_n_nucleotides_from_component(
+            item, indices=indices, skip_digestion=True
+        )
+        output = sum(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_ions_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n ions from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_ions_from_system(item, skip_digestion=True)
+    else:
+        output = get_n_ions_from_component(item, indices=indices, skip_digestion=True)
+        output = sum(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_waters_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n waters from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_waters_from_system(item, skip_digestion=True)
+    else:
+        output = get_n_waters_from_component(item, indices=indices, skip_digestion=True)
+        output = sum(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_small_molecules_from_component(
+    item, indices="all", skip_digestion=False
+):
+    """
+    Getting total n small molecules from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_small_molecules_from_system(item, skip_digestion=True)
+    else:
+        output = get_n_small_molecules_from_component(
+            item, indices=indices, skip_digestion=True
+        )
+        output = sum(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n lipids from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_lipids_from_system(item, skip_digestion=True)
+    else:
+        output = get_n_lipids_from_component(item, indices=indices, skip_digestion=True)
+        output = sum(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n saccharides from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_saccharides_from_system(item, skip_digestion=True)
+    else:
+        output = get_n_saccharides_from_component(
+            item, indices=indices, skip_digestion=True
+        )
+        output = sum(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_component(
+    item, indices="all", skip_digestion=False
+):
+    """
+    Getting total n polysaccharides from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_polysaccharides_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n peptides from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_peptides_from_component(item, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n proteins from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_proteins_from_component(item, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n dnas from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_dnas_from_component(item, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_component(item, indices="all", skip_digestion=False):
+    """
+    Getting total n rnas from component in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_n_rnas_from_component(item, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_bond_index_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting bond index from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_chain = get_atom_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_chain:
+        if len(jj):
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
+        else:
+            output.append([])
+    del atom_indices_from_chain, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_type_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting bond type from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_type = get_bond_type_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_type[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_type, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bond_order_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting bond order from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bond_order = get_bond_order_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_order[jj] for jj in ii]
+        output.append(aux_vals)
+    del bond_order, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atoms_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atoms from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals))))
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_bonded_atom_pairs_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting bonded atom pairs from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(aux_vals)
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bond_index_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bond index from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    atom_indices_from_chain = get_atom_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
+    output = []
+    for jj in atom_indices_from_chain:
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
+        if len(aux):
+            pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
+            aux = list(compress(aux, mask))
+        else:
+            aux = []
+        output.append(aux)
+    del atom_indices_from_chain, bonded_atom_pairs, bond_indices_from_atom
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atoms_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bonded atoms from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+    atom_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii, jj in zip(bond_indices, atom_indices):
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
+    del bonded_atom_pairs, bond_indices, atom_indices, aux_vals, ii, jj
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atom_pairs_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting inner bonded atom pairs from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    bonded_atom_pairs = get_bonded_atom_pairs_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    if indices == "all":
+        output = bonded_atom_pairs
+    else:
+        atom_indices = get_atom_index_from_chain(
+            item, indices=indices, skip_digestion=True
+        )
+        output = []
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
+            if len(jj) == 0:
+                output.append([])
+            else:
+                jj = np.array(jj)
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_components_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting total n components from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_components_from_system(item, skip_digestion=True)
+    else:
+        aux = get_component_index_from_chain(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_bonds_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting total n bonds from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_bonds_from_atom(item, indices, skip_digestion=True)
+    return output
+
+
+@arg_digest(form=form)
+def get_total_n_inner_bonds_from_chain(item, indices="all", skip_digestion=False):
+    """
+    Getting total n inner bonds from chain in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    if indices == "all":
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
+    return output
+
+
+@arg_digest(form=form)
+def get_inner_bond_index_from_system(item, skip_digestion=False):
+    """
+    Getting inner bond index from system in form molsysmt.MolSys.
+
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+
+    .. versionadded:: 1.0.0
+    """
+    return get_bond_index_from_bond(item, skip_digestion=True)
 
 
 # List of functions to be imported
@@ -8901,3 +12662,23 @@ __all__ = [
     for name, obj in globals().items()
     if isinstance(obj, types.FunctionType) and name.startswith("get_")
 ]
+
+
+def _get_optional_bond_attribute(item, column, indices):
+    """Return one nullable canonical bond column without inferring values."""
+    bonds = item.chemical_states._get_chemical_state_bonds()
+    n_values = len(bonds) if is_all(indices) else len(indices)
+    if column not in bonds:
+        return [None] * n_values
+    values = bonds[column] if is_all(indices) else bonds.iloc[indices][column]
+    return values.to_list()
+
+
+def _get_optional_bond_attribute(item, column, indices):
+    """Return one nullable canonical bond column without inferring values."""
+    bonds = item.chemical_states._get_chemical_state_bonds()
+    n_values = len(bonds) if is_all(indices) else len(indices)
+    if column not in bonds:
+        return [None] * n_values
+    values = bonds[column] if is_all(indices) else bonds.iloc[indices][column]
+    return values.to_list()

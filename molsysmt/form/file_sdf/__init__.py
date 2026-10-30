@@ -14,7 +14,7 @@ form_info = [
     "Single-record native SDF (V2000/V3000)",
     "https://discover.3ds.com/ctfile-documentation-request-form",
 ]
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = "molsysmt.Structures"
 piped_any_attribute = "molsysmt.MolSys"
 bonds_are_explicit = True

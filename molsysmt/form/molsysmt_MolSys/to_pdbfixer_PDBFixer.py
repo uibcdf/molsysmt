@@ -1,3 +1,4 @@
+import pandas as pd
 from depdigest import dep_digest
 
 from molsysmt._private.argdigest import arg_digest
@@ -55,7 +56,11 @@ def to_pdbfixer_PDBFixer(
     tmp_item = StringIO(tmp_item)
     tmp_item = PDBFixer(pdbfile=tmp_item)
 
-    bonds = item.topology._get_chemical_state_bonds()
+    bonds = (
+        pd.DataFrame(columns=["atom1_index", "atom2_index"])
+        if item.chemical_states is None
+        else item.chemical_states._get_chemical_state_bonds()
+    )
     if bonds.shape[0] > 0:
         if is_all(atom_indices):
             selected_atom_indices = list(range(item.topology.n_atoms))

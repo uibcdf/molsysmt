@@ -118,7 +118,8 @@ def test_atom_add_preserves_bounded_coverage_and_structure_append_keeps_old_obse
     np.testing.assert_array_equal(after_add.atom_source_indices, [0, 1, 2, -1])
     assert after_add.query(atom_indices=[3]).n_interactions == 0
 
-    extra_frame = _system(n_atoms=4, n_structures=1)
+    extra_frame = molsys.extract(structure_indices=[0])
+    extra_frame.interactions = {}
     molsys.append_structures(extra_frame, skip_digestion=True)
     after_append = molsys.interactions["pairs"]
     assert after_append.n_structures == 4
@@ -157,5 +158,10 @@ def test_legacy_exports_reject_attached_analyses_before_writing(tmp_path):
     with pytest.raises(ValueError, match="H5MSM 0.4 cannot store"):
         to_file_h5msm(molsys, output_filename=path, skip_digestion=True)
     assert not path.exists()
-    with pytest.raises(ValueError, match="MolSysDict 0.1 cannot store"):
-        msm.convert(molsys, to_form="molsysmt.MolSysDict")
+    payload = msm.convert(molsys, to_form="molsysmt.MolSysDict")
+    restored = msm.convert(payload, to_form="molsysmt.MolSys")
+    assert payload.data["version"] == "0.2"
+    assert (
+        restored.interactions["pairs"].n_interactions
+        == molsys.interactions["pairs"].n_interactions
+    )

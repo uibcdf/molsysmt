@@ -18,7 +18,9 @@ def test_typed_scalars_are_serializable_and_restore_values(
     if field == "isotope":
         molsys.topology.atoms.loc[0, "isotope"] = 13
     else:
-        molsys.topology.bonds["bond_order"] = pd.array([1, 1], dtype="UInt8")
+        molsys.chemical_states._resolve_chemical_state().bonds["bond_order"] = pd.array(
+            [1, 1], dtype="UInt8"
+        )
     source = {
         "Topology": molsys.topology,
         "MolSys": molsys,
@@ -28,8 +30,12 @@ def test_typed_scalars_are_serializable_and_restore_values(
     declared = msm.convert(source, to_form="molsysmt." + target_form)
     data = declared.to_dict()
     topology = data if target_form == "TopologyDict" else data["topology"]
-    record = topology["atoms" if field == "isotope" else "bonds"][0]
-    assert type(record[field]) is int
+    if field == "isotope":
+        assert type(topology["atoms"][0][field]) is int
+    elif target_form == "TopologyDict":
+        assert "bonds" not in topology
+    else:
+        assert data["chemical_states"] is not None
     if encoding == "json":
         restored = json.loads(json.dumps(data, allow_nan=False))
     else:
@@ -45,6 +51,9 @@ def test_typed_scalars_are_serializable_and_restore_values(
     )
     if field == "isotope":
         assert msm.get(rebuilt, element="atom", selection=[0], isotope=True) == [13]
+    elif target_form == "TopologyDict":
+        assert msm.get(rebuilt, element="bond", bond_order=True) is None
+        assert not hasattr(rebuilt, "bonds")
     else:
         assert [
             int(value) for value in msm.get(rebuilt, element="bond", bond_order=True)

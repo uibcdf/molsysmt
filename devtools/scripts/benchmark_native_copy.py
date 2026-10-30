@@ -115,7 +115,9 @@ def _fixture(n_atoms, n_structures, workload="baseline"):
         np.repeat((np.eye(3) * 10)[None], n_structures, axis=0), "nm"
     )
     result.structures.time = puw.quantity(np.arange(n_structures), "ps")
-    result.topology._set_chemical_state_atom_attribute("formal_charge", [0] * n_atoms)
+    result.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [0] * n_atoms
+    )
     records = [
         {
             "structure_index": structure,
@@ -251,7 +253,12 @@ def _check_workload(system, n_atoms, n_structures, workload, edited=()):
 
 def _check_system(system, n_atoms, n_structures, edited=(), *, persisted=False):
     assert system.topology._molsys_owner_ref() is system
-    assert system.chemical_states is system.topology._chemical_states_domain
+    assert not hasattr(system.topology, "_chemical_states_domain")
+    assert system.chemical_states.n_atoms == n_atoms
+    assert system.chemical_states.get(n_chemical_states=True) == 1
+    assert (
+        system.chemical_states.get(element="atom", formal_charge=True) == [0] * n_atoms
+    )
     assert system.structures.n_atoms == n_atoms
     assert system.structures.n_structures == n_structures
     structures = list(dict.fromkeys([n_structures - 1, 0, n_structures // 2, *edited]))

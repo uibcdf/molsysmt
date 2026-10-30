@@ -141,7 +141,9 @@ def test_dcd_native_routes_are_exhaustive_and_preserve_handler_cursor(tmp_path):
         assert report.is_exhaustive is True
         assert report.outcome == "equivalent"
     assert structures.structure_id.tolist() == structure_indices
-    assert molsys.topology.n_atoms == 2
+    assert molsys.topology is None
+    assert molsys.chemical_states is None
+    assert molsys.structures.n_atoms == 2
     assert molsys.structures.structure_id.tolist() == structure_indices
 
     with mdtraj.formats.DCDTrajectoryFile(str(DCD_PATH), mode="r") as reader:

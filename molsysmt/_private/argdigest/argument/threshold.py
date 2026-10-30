@@ -4,6 +4,7 @@ from molsysmt._private.smonitor import ArgumentError
 from ._quantity_parsing import parse_quantity_string
 
 common_functions_with_threshold = [
+    "molsysmt.native.molsys.add_missing_bonds",
     "molsysmt.structure.get_contacts.get_contacts",
     "molsysmt.build.remove_overlapping_molecules.remove_overlapping_molecules",
 ]

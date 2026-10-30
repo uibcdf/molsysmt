@@ -19,8 +19,14 @@ def test_mol2_preserves_tripos_types_ids_charges_coordinates_and_amide_orders():
         "N.pl3",
         "C.2",
     ]
-    assert native.topology.bonds["bond_id"].iloc[:3].tolist() == ["1", "2", "3"]
-    amide_orders = native.topology.bonds["fractional_bond_order"].dropna()
+    assert native.chemical_states._resolve_chemical_state().bonds["bond_id"].iloc[
+        :3
+    ].tolist() == ["1", "2", "3"]
+    amide_orders = (
+        native.chemical_states._resolve_chemical_state()
+        .bonds["fractional_bond_order"]
+        .dropna()
+    )
     assert amide_orders.tolist() == pytest.approx([1.25, 1.25, 1.25])
     assert native.structures.coordinates.shape == (1, 24, 3)
     np.testing.assert_allclose(
@@ -63,11 +69,12 @@ def test_mol2_aromatic_token_is_not_collapsed_to_an_integral_order(tmp_path):
         encoding="utf-8",
     )
 
-    topology = msm.convert(str(path), to_form="molsysmt.Topology")
-
-    assert all(topology.bonds["is_aromatic"])
-    assert all(topology.bonds["fractional_bond_order"] == 1.5)
-    assert "bond_order" not in topology.bonds.columns
+    native = msm.convert(str(path), to_form="molsysmt.MolSys")
+    bonds = native.chemical_states.get_bonds()
+    assert all(bonds["is_aromatic"])
+    assert all(bonds["fractional_bond_order"] == 1.5)
+    assert "bond_order" not in bonds.columns
+    assert not hasattr(msm.convert(str(path), to_form="molsysmt.Topology"), "bonds")
     assert not msm.has_attribute(str(path), "partial_charge")
 
 

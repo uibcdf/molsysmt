@@ -13,7 +13,7 @@ import molsysmt as msm
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_1(tctim_h5msm_molsys):
     molsys = tctim_h5msm_molsys
-    chains = msm.topology.get_dihedral_quartets(molsys, phi=True)
+    chains = msm.chemical_states.get_dihedral_quartets(molsys, phi=True)
     chains = np.array(chains)
     true_value_1 = np.array(
         [
@@ -51,7 +51,7 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_1(tctim_h5msm_molsys):
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_2(tctim_h5msm_molsys):
     molsys = tctim_h5msm_molsys
-    chains = msm.topology.get_dihedral_quartets(
+    chains = msm.chemical_states.get_dihedral_quartets(
         molsys, selection="10<=group_index<=15", psi=True
     )
     chains = np.array(chains)
@@ -70,7 +70,7 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_2(tctim_h5msm_molsys):
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_3(tctim_h5msm_molsys):
     molsys = tctim_h5msm_molsys
-    chains = msm.topology.get_dihedral_quartets(molsys, chi5=True)
+    chains = msm.chemical_states.get_dihedral_quartets(molsys, chi5=True)
     chains = np.array(chains)
     true_value_1 = np.array(
         [
@@ -91,7 +91,7 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_3(tctim_h5msm_molsys):
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_4(tctim_h5msm_molsys):
     molsys = tctim_h5msm_molsys
-    chains = msm.topology.get_dihedral_quartets(molsys, phi=True, psi=True)
+    chains = msm.chemical_states.get_dihedral_quartets(molsys, phi=True, psi=True)
     chains = np.vstack(chains)
     true_value_1 = np.array(
         [
@@ -129,7 +129,7 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_4(tctim_h5msm_molsys):
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_6(met_enkephalin_pdb_molsys):
     molsys = met_enkephalin_pdb_molsys
-    phi_chains, phi_blocks = msm.topology.get_dihedral_quartets(
+    phi_chains, phi_blocks = msm.chemical_states.get_dihedral_quartets(
         molsys, with_blocks=True, phi=True
     )
     true_value_1 = np.array([33, 35, 37, 53])

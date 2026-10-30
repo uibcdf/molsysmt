@@ -50,7 +50,7 @@ def digest_bond_indices(bond_indices, caller=None, native_topology_bonds=False):
         raise ArgumentError("bond_indices", value=bond_indices, caller=caller)
 
     if (
-        caller == "molsysmt.topology.get_rigid_fragments.get_rigid_fragments"
+        caller == "molsysmt.chemical_states.get_rigid_fragments.get_rigid_fragments"
         and bond_indices is not None
     ):
         values = np.asarray(bond_indices, dtype=object)

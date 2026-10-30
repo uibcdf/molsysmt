@@ -6,9 +6,9 @@ form_name = "file:topology_yaml"
 form_type = "file"
 form_info = ["Human-authored declarative YAML topology file.", ""]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
-piped_any_attribute = "molsysmt.Topology"
+piped_any_attribute = "molsysmt.MolSys"
 bonds_are_explicit = True
 bonds_can_be_computed = True
 
@@ -22,6 +22,7 @@ from .get_structural_attributes import *  # noqa: E402, F403
 _convert_to = {}
 if is_installed("yaml"):
     _convert_to = {
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
         "file:topology_yaml": "to_file_topology_yaml",
         "molsysmt.TopologyDict": "to_molsysmt_TopologyDict",
         "molsysmt.Topology": "to_molsysmt_Topology",

@@ -20,7 +20,7 @@ def source(smiles):
     "smiles", ["CCO", "CC[NH3+]", "C[N+](=O)[O-]", "[NH3+]CC(=O)[O-]"]
 )
 @pytest.mark.parametrize(
-    "form", ["rdkit.Mol", "molsysmt.MolSys", "molsysmt.Topology", "h5msm", "sdf"]
+    "form", ["rdkit.Mol", "molsysmt.MolSys", "declared_domains", "h5msm", "sdf"]
 )
 def test_equivalent_forms_preserve_supplied_state_and_provider_score(
     smiles, form, tmp_path
@@ -51,6 +51,9 @@ def test_equivalent_forms_preserve_supplied_state_and_provider_score(
         molsys = str(path)
     elif form == "h5msm":
         molsys = msm.convert(molsys, to_form=str(tmp_path / "source.h5msm"))
+    elif form == "declared_domains":
+        native = msm.convert(molsys, to_form="molsysmt.MolSys")
+        molsys = [native.topology, native.chemical_states]
     elif form != "rdkit.Mol":
         molsys = msm.convert(molsys, to_form=form)
     result = msm.physchem.get_lipophilicity(molsys, return_report=True)
@@ -192,17 +195,21 @@ def test_public_validation(name, value):
 
 @pytest.mark.parametrize("bonded", [False, True])
 def test_disconnected_salt_label_and_crossed_boundary_fail(bonded):
-    from molsysmt.native.topology import Groups_DataFrame
-
-    molsys = msm.convert(source("CC[NH3+].[Cl-]"), to_form="molsysmt.MolSys")
-    molsys.topology.groups = Groups_DataFrame(n_groups=2)
-    molsys.topology.groups["group_name"] = ["LIG", "ION"]
-    molsys.topology.groups["molecule_index"] = [0, 1] if bonded else [0, 0]
-    molsys.topology.atoms["group_index"] = [0, 0, 0, 1]
-    molsys.topology.reset_molecules(n_molecules=2 if bonded else 1)
-    molsys.topology._molecules_dirty = False
+    original = msm.convert(source("CC[NH3+].[Cl-]"), to_form="molsysmt.MolSys")
+    builder = msm.MolSysBuilder()
+    for kind in ["C", "C", "N", "Cl"]:
+        builder.add_atom(atom_type=kind)
+    builder.add_group([0, 1, 2], group_name="LIG")
+    builder.add_group([3], group_name="ION")
     if bonded:
-        molsys.topology._append_chemical_state_bonds(
+        builder.add_molecule([0])
+        builder.add_molecule([1])
+    else:
+        builder.add_molecule([0, 1])
+    molsys = builder.build()
+    molsys.chemical_states = original.chemical_states.copy()
+    if bonded:
+        molsys.chemical_states._append_chemical_state_bonds(
             [[0, 3]], bond_order=[1], bond_type=["covalent"]
         )
     with pytest.raises(msm.StructuralInconsistencyError):

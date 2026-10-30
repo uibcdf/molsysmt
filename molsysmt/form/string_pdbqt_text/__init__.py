@@ -18,7 +18,7 @@ form_name = "string:pdbqt_text"
 _heavy_support = {"coordinates": True}
 form_type = "string"
 form_info = ["Bounded AutoDock4 PDBQT profile", "https://autodock.scripps.edu/"]
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.PDBQTFileHandler"
 piped_structural_attribute = "molsysmt.Structures"
 # A full MolSys projection requires explicit authorization to omit a ligand tree.
 # Queries use reduced domain projections and direct mechanical getters instead.

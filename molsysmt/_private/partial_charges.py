@@ -68,20 +68,21 @@ def _total(state, n_atoms, expected):
 
 
 def _state_view(source, states, state_index):
-    from molsysmt.topology._chemical_graph import detached_chemical_graph_view
+    from molsysmt.chemical_states._chemical_graph import detached_chemical_graph_view
 
     return detached_chemical_graph_view(source, states, state_index, _CALLER)
 
 
 @dep_digest("rdkit")
-def _gasteiger(view, state_index):
+def _gasteiger(view):
     from rdkit import rdBase
     from rdkit.Chem import rdPartialCharges
 
     from molsysmt.basic import convert
     from molsysmt.physchem import get_chemical_readiness
 
-    readiness = get_chemical_readiness(view, chemical_state=state_index)
+    # The detached graph contains the selected source state at local index zero.
+    readiness = get_chemical_readiness(view, chemical_state=0)
     for name in (
         "atom_type",
         "formal_charge",
@@ -95,7 +96,7 @@ def _gasteiger(view, state_index):
         _fail(
             "Gasteiger-Marsili supports closed-shell organic elements H/C/N/O/F/P/S/Cl/Br/I; no metals or element substitutions."
         )
-    state = view.chemical_states._states[state_index]
+    state = view.chemical_states._states[0]
     if state.atom_attributes["n_unpaired_electrons"].ne(0).any():
         _fail(
             "Gasteiger-Marsili does not support radical states in this bounded route."
@@ -185,7 +186,7 @@ def _forcefield(view, forcefield, water_model):
         files = get_engine_forcefield(
             forcefield, water_model=water_model, engine="OpenMM"
         )
-        topology = convert(view.topology, to_form="openmm.Topology")
+        topology = convert(view, to_form="openmm.Topology")
         if any(atom.element is None for atom in topology.atoms()):
             _fail(
                 "Force-field assignment requires explicit elements on every source atom."
@@ -296,7 +297,7 @@ def calculate(
     from molsysmt import __version__, _ackredit
     from molsysmt._private.scientific_citations import SOFTWARE
     from molsysmt.basic import get_form
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         select_chemical_atoms,
     )
@@ -324,14 +325,11 @@ def calculate(
             structure_indices,
             method == "forcefield",
             _CALLER,
+            with_structures=False,
         )
     )
     from molsysmt._private.variables import is_all
-    from molsysmt.topology._chemical_graph import validate_chemical_frames
 
-    selection_structures = validate_chemical_frames(
-        source, selection_structures, _CALLER
-    )
     if not states.n_atoms:
         _fail("Charge assignment requires at least one source atom.")
     total, total_source = _total(state, states.n_atoms, expected_total_charge)
@@ -344,7 +342,7 @@ def calculate(
             "Charge assignment requires explicit chemical element symbols, not guessed atom names or force-field types."
         )
     values, software, parameters, references = (
-        _gasteiger(view, state_index)
+        _gasteiger(view)
         if method == "gasteiger_marsili"
         else _forcefield(view, forcefield, water_model)
     )
@@ -413,7 +411,7 @@ def calculate(
 
 
 def _digest(source, state_index, method):
-    from molsysmt.topology._chemical_graph import chemical_graph_digest
+    from molsysmt.chemical_states._chemical_graph import chemical_graph_digest
 
     return chemical_graph_digest(
         source, state_index, include_template_names=method == "forcefield"

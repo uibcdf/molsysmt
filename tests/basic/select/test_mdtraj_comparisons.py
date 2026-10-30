@@ -41,7 +41,9 @@ def comparison_system(request):
     assert msm.get(system, n_atoms=True) == 4
     assert msm.get(system, n_groups=True) == 2
     assert msm.get(system, n_chains=True) == 1
-    assert msm.get(system, n_components=True) == 1
+    assert msm.get(system, n_components=True) == (
+        None if request.param == "molsysmt.Topology" else 1
+    )
     assert msm.get(system, n_molecules=True) == 1
     assert msm.get(system, n_entities=True) == 1
     return system

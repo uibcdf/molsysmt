@@ -1,8 +1,7 @@
 """Own typed chemical-state storage independently of stable topology.
 
-This staged extraction preserves existing scientific validation and diagnostic
-identities. Topology temporarily imports the records and helpers while callers
-migrate under #255; it is not their canonical implementation owner.
+ChemicalStates owns these records, scientific validation and diagnostic
+identities. Stable Topology does not own or reconstruct chemical records.
 """
 
 import numpy as np

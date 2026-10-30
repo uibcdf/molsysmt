@@ -1,0 +1,2228 @@
+{
+  "schema": "molsysmt.chemical-domain-comparison@1",
+  "date": "2026-10-30",
+  "issue": "uibcdf/molsysmt#255",
+  "baseline_commit": "451b914cab8b596c01d84432a4f41b4a3e28f3cf",
+  "target_base_commit": "63012f9a60abceb5cab15c6d8e9e44d362f7b89a",
+  "target_is_uncommitted": true,
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+    "logical_cpus": 20,
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "RAYON_NUM_THREADS": "1"
+    }
+  },
+  "methodology": {
+    "warmups": 1,
+    "timed_repetitions": 7,
+    "processes": "one independent process per source/scenario, executed sequentially",
+    "rss": "Linux process peak RSS includes imports, fixture setup and all operations in that scenario; it is not isolated allocation per operation",
+    "selections": "half of atoms for native extraction; two nonconsecutive structures for structural extraction; two atoms and two structures for private H5 codec read",
+    "baseline_first": true,
+    "repeated_copy_cases_target_first": true,
+    "claims": [
+      "Topology output now intentionally excludes chemical payloads; reduced copy/extract work follows the accepted new domain contract.",
+      "Full MolSys retains every state and is not claimed faster. Repeated full-copy medians vary, with overlapping ranges; profiles show no duplicate chemistry clone.",
+      "Chemical-only edits preserve the existing coordinate storage identity in both sources.",
+      "The H5 block measurement invokes a private codec; it is not a new public file-backed query API."
+    ]
+  },
+  "runs": [
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "group_only",
+      "atoms": 0,
+      "states": 1,
+      "structures": 0,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 166572032,
+      "final_peak_rss_bytes": 207052800,
+      "results": [
+        {
+          "operation": "group_only_counts",
+          "samples_seconds": [
+            0.0004316039849072695,
+            0.0003994380822405219,
+            0.00034162693191319704,
+            0.00035767199005931616,
+            0.00035019207280129194,
+            0.0003469910006970167,
+            0.00040838192217051983
+          ],
+          "median_seconds": 0.00035767199005931616,
+          "minimum_seconds": 0.00034162693191319704,
+          "maximum_seconds": 0.0004316039849072695,
+          "peak_rss_before_bytes": 200171520,
+          "peak_rss_after_bytes": 200171520
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "group_only",
+      "atoms": 0,
+      "states": 1,
+      "structures": 0,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 166653952,
+      "final_peak_rss_bytes": 188923904,
+      "results": [
+        {
+          "operation": "group_only_counts",
+          "samples_seconds": [
+            0.0004661559360101819,
+            0.0004038760671392083,
+            0.0004979119403287768,
+            0.00033563398756086826,
+            0.000336096971295774,
+            0.0003378919791430235,
+            0.00042571197263896465
+          ],
+          "median_seconds": 0.0004038760671392083,
+          "minimum_seconds": 0.00033563398756086826,
+          "maximum_seconds": 0.0004979119403287768,
+          "peak_rss_before_bytes": 183517184,
+          "peak_rss_after_bytes": 183517184
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "h5msm",
+      "atoms": 1000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 217018368,
+      "final_peak_rss_bytes": 275308544,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.0003530799876898527,
+            0.00035848503466695547,
+            0.0003202150110155344,
+            0.0003222450613975525,
+            0.0003274489426985383,
+            0.0004175209905952215,
+            0.0003758129896596074
+          ],
+          "median_seconds": 0.0003530799876898527,
+          "minimum_seconds": 0.0003202150110155344,
+          "maximum_seconds": 0.0004175209905952215,
+          "peak_rss_before_bytes": 225439744,
+          "peak_rss_after_bytes": 225439744
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0036261120112612844,
+            0.0034959290642291307,
+            0.0033806769642978907,
+            0.003470758907496929,
+            0.00366951001342386,
+            0.003776518045924604,
+            0.0033117900602519512
+          ],
+          "median_seconds": 0.0034959290642291307,
+          "minimum_seconds": 0.0033117900602519512,
+          "maximum_seconds": 0.003776518045924604,
+          "peak_rss_before_bytes": 226349056,
+          "peak_rss_after_bytes": 226349056
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.17360409209504724,
+            0.18192923499736935,
+            0.17770378198474646,
+            0.18123895104508847,
+            0.17830180400051177,
+            0.1839124639518559,
+            0.19607768498826772
+          ],
+          "median_seconds": 0.18123895104508847,
+          "minimum_seconds": 0.17360409209504724,
+          "maximum_seconds": 0.19607768498826772,
+          "peak_rss_before_bytes": 227835904,
+          "peak_rss_after_bytes": 227835904
+        },
+        {
+          "operation": "h5_topology_layer",
+          "samples_seconds": [
+            0.05499365308787674,
+            0.054083424038253725,
+            0.0504850409924984,
+            0.04881135595496744,
+            0.05002580292057246,
+            0.04663918598089367,
+            0.04853884596377611
+          ],
+          "median_seconds": 0.05002580292057246,
+          "minimum_seconds": 0.04663918598089367,
+          "maximum_seconds": 0.05499365308787674,
+          "peak_rss_before_bytes": 245178368,
+          "peak_rss_after_bytes": 245342208
+        },
+        {
+          "operation": "h5_nonconsecutive_block_private_codec",
+          "samples_seconds": [
+            0.0036067069740965962,
+            0.0034406488994136453,
+            0.00368035607971251,
+            0.003513667033985257,
+            0.0036430690670385957,
+            0.0035191370407119393,
+            0.004004322923719883
+          ],
+          "median_seconds": 0.0036067069740965962,
+          "minimum_seconds": 0.0034406488994136453,
+          "maximum_seconds": 0.004004322923719883,
+          "peak_rss_before_bytes": 269082624,
+          "peak_rss_after_bytes": 269082624,
+          "file_size_bytes": 16896818
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "h5msm",
+      "atoms": 1000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 216911872,
+      "final_peak_rss_bytes": 269115392,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.0003810409689322114,
+            0.00031325093004852533,
+            0.0003634400200098753,
+            0.0003158439649268985,
+            0.0003176459576934576,
+            0.0003755290526896715,
+            0.0003099010791629553
+          ],
+          "median_seconds": 0.0003176459576934576,
+          "minimum_seconds": 0.0003099010791629553,
+          "maximum_seconds": 0.0003810409689322114,
+          "peak_rss_before_bytes": 216911872,
+          "peak_rss_after_bytes": 216911872
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.001023513963446021,
+            0.0009920570300891995,
+            0.0009560000617057085,
+            0.0009520830353721976,
+            0.0009537528967484832,
+            0.0009461810113862157,
+            0.0010779460426419973
+          ],
+          "median_seconds": 0.0009560000617057085,
+          "minimum_seconds": 0.0009461810113862157,
+          "maximum_seconds": 0.0010779460426419973,
+          "peak_rss_before_bytes": 216911872,
+          "peak_rss_after_bytes": 216911872
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.01572096603922546,
+            0.015928577980957925,
+            0.0163070970447734,
+            0.01588662702124566,
+            0.016044335905462503,
+            0.01628721901215613,
+            0.015746489050798118
+          ],
+          "median_seconds": 0.015928577980957925,
+          "minimum_seconds": 0.01572096603922546,
+          "maximum_seconds": 0.0163070970447734,
+          "peak_rss_before_bytes": 216911872,
+          "peak_rss_after_bytes": 216911872
+        },
+        {
+          "operation": "h5_topology_layer",
+          "samples_seconds": [
+            0.046182291000150144,
+            0.04558579600416124,
+            0.04376335104461759,
+            0.042650843039155006,
+            0.04533382004592568,
+            0.043697459041140974,
+            0.04348958295304328
+          ],
+          "median_seconds": 0.04376335104461759,
+          "minimum_seconds": 0.042650843039155006,
+          "maximum_seconds": 0.046182291000150144,
+          "peak_rss_before_bytes": 240668672,
+          "peak_rss_after_bytes": 240668672
+        },
+        {
+          "operation": "h5_nonconsecutive_block_private_codec",
+          "samples_seconds": [
+            0.005585802020505071,
+            0.003930096980184317,
+            0.004570106044411659,
+            0.0044231010833755136,
+            0.0035220319405198097,
+            0.0037584910169243813,
+            0.0035065810661762953
+          ],
+          "median_seconds": 0.003930096980184317,
+          "minimum_seconds": 0.0035065810661762953,
+          "maximum_seconds": 0.005585802020505071,
+          "peak_rss_before_bytes": 264200192,
+          "peak_rss_after_bytes": 264364032,
+          "file_size_bytes": 16896818
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 10000,
+      "states": 1,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 171388928,
+      "final_peak_rss_bytes": 212135936,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.0003850549692288041,
+            0.0003679579822346568,
+            0.00040754908695816994,
+            0.00037847296334803104,
+            0.0004346009809523821,
+            0.0004130039596930146,
+            0.00037601497024297714
+          ],
+          "median_seconds": 0.0003850549692288041,
+          "minimum_seconds": 0.0003679579822346568,
+          "maximum_seconds": 0.0004346009809523821,
+          "peak_rss_before_bytes": 202702848,
+          "peak_rss_after_bytes": 202702848
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0018502409802749753,
+            0.0019391370005905628,
+            0.00212526204995811,
+            0.0023512260522693396,
+            0.0020491050090640783,
+            0.002043297979980707,
+            0.001763337990269065
+          ],
+          "median_seconds": 0.002043297979980707,
+          "minimum_seconds": 0.001763337990269065,
+          "maximum_seconds": 0.0023512260522693396,
+          "peak_rss_before_bytes": 204226560,
+          "peak_rss_after_bytes": 204226560
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.05925028305500746,
+            0.06186770100612193,
+            0.048887668061070144,
+            0.05322586407419294,
+            0.05288185097742826,
+            0.0509176409104839,
+            0.05333296593744308
+          ],
+          "median_seconds": 0.05322586407419294,
+          "minimum_seconds": 0.048887668061070144,
+          "maximum_seconds": 0.06186770100612193,
+          "peak_rss_before_bytes": 206073856,
+          "peak_rss_after_bytes": 206073856
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.0022396830609068274,
+            0.0021619750186800957,
+            0.0023444489343091846,
+            0.0021975539857521653,
+            0.0023412189912050962,
+            0.0020901900716125965,
+            0.0023169349879026413
+          ],
+          "median_seconds": 0.0022396830609068274,
+          "minimum_seconds": 0.0020901900716125965,
+          "maximum_seconds": 0.0023444489343091846,
+          "peak_rss_before_bytes": 206073856,
+          "peak_rss_after_bytes": 206073856
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 10000,
+      "states": 1,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 171249664,
+      "final_peak_rss_bytes": 193220608,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.0004763859324157238,
+            0.0003257390344515443,
+            0.00038532691542059183,
+            0.0004095989279448986,
+            0.00041424494702368975,
+            0.00033965904731303453,
+            0.0004042719956487417
+          ],
+          "median_seconds": 0.0004042719956487417,
+          "minimum_seconds": 0.0003257390344515443,
+          "maximum_seconds": 0.0004763859324157238,
+          "peak_rss_before_bytes": 186011648,
+          "peak_rss_after_bytes": 186011648
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0013962679076939821,
+            0.0013210189063102007,
+            0.0013108659768477082,
+            0.0016329869395121932,
+            0.0014589059865102172,
+            0.0016093750018626451,
+            0.0014271229738369584
+          ],
+          "median_seconds": 0.0014271229738369584,
+          "minimum_seconds": 0.0013108659768477082,
+          "maximum_seconds": 0.0016329869395121932,
+          "peak_rss_before_bytes": 187027456,
+          "peak_rss_after_bytes": 187027456
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.023010213975794613,
+            0.021355191012844443,
+            0.01917454495560378,
+            0.018440131098031998,
+            0.019697867915965617,
+            0.019056483986787498,
+            0.021461272961460054
+          ],
+          "median_seconds": 0.019697867915965617,
+          "minimum_seconds": 0.018440131098031998,
+          "maximum_seconds": 0.023010213975794613,
+          "peak_rss_before_bytes": 188469248,
+          "peak_rss_after_bytes": 188469248
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.0019325970206409693,
+            0.0023297900334000587,
+            0.002282820059917867,
+            0.0019282510038465261,
+            0.0024217439349740744,
+            0.0022712189238518476,
+            0.0019140068907290697
+          ],
+          "median_seconds": 0.0022712189238518476,
+          "minimum_seconds": 0.0019140068907290697,
+          "maximum_seconds": 0.0024217439349740744,
+          "peak_rss_before_bytes": 188633088,
+          "peak_rss_after_bytes": 188633088
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 10000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 179113984,
+      "final_peak_rss_bytes": 220454912,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.0003706709248945117,
+            0.0003921600291505456,
+            0.0003276530187577009,
+            0.0003605359233915806,
+            0.00046077510342001915,
+            0.00048463698476552963,
+            0.0006299220258370042
+          ],
+          "median_seconds": 0.0003921600291505456,
+          "minimum_seconds": 0.0003276530187577009,
+          "maximum_seconds": 0.0006299220258370042,
+          "peak_rss_before_bytes": 210579456,
+          "peak_rss_after_bytes": 210579456
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.009207297931425273,
+            0.007907163933850825,
+            0.008734908071346581,
+            0.009722813963890076,
+            0.00815691496245563,
+            0.008618867956101894,
+            0.007285621948540211
+          ],
+          "median_seconds": 0.008618867956101894,
+          "minimum_seconds": 0.007285621948540211,
+          "maximum_seconds": 0.009722813963890076,
+          "peak_rss_before_bytes": 216076288,
+          "peak_rss_after_bytes": 216076288
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.24741495004855096,
+            0.24967166502028704,
+            0.25536542595364153,
+            0.24404401797801256,
+            0.23759360203985125,
+            0.24983291991520673,
+            0.2489238299895078
+          ],
+          "median_seconds": 0.2489238299895078,
+          "minimum_seconds": 0.23759360203985125,
+          "maximum_seconds": 0.25536542595364153,
+          "peak_rss_before_bytes": 216076288,
+          "peak_rss_after_bytes": 216076288
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.0074924229411408305,
+            0.007500715903006494,
+            0.007729506934992969,
+            0.008192523964680731,
+            0.008891040924936533,
+            0.008886529016308486,
+            0.007087924052029848
+          ],
+          "median_seconds": 0.007729506934992969,
+          "minimum_seconds": 0.007087924052029848,
+          "maximum_seconds": 0.008891040924936533,
+          "peak_rss_before_bytes": 218144768,
+          "peak_rss_after_bytes": 218161152
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 10000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 179716096,
+      "final_peak_rss_bytes": 201203712,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.0004230010090395808,
+            0.00035954697523266077,
+            0.00034168700221925974,
+            0.00034330005291849375,
+            0.0006646700203418732,
+            0.000392377027310431,
+            0.0003180609783157706
+          ],
+          "median_seconds": 0.00035954697523266077,
+          "minimum_seconds": 0.0003180609783157706,
+          "maximum_seconds": 0.0006646700203418732,
+          "peak_rss_before_bytes": 194625536,
+          "peak_rss_after_bytes": 194625536
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0014408240094780922,
+            0.0013157699722796679,
+            0.0013416889123618603,
+            0.001354370964691043,
+            0.0013041469501331449,
+            0.0014944259310141206,
+            0.0016748930793255568
+          ],
+          "median_seconds": 0.001354370964691043,
+          "minimum_seconds": 0.0013041469501331449,
+          "maximum_seconds": 0.0016748930793255568,
+          "peak_rss_before_bytes": 195813376,
+          "peak_rss_after_bytes": 195813376
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.01995673100464046,
+            0.021693221991881728,
+            0.0210216180421412,
+            0.021982450038194656,
+            0.022110394085757434,
+            0.019459038972854614,
+            0.022449054988101125
+          ],
+          "median_seconds": 0.021693221991881728,
+          "minimum_seconds": 0.019459038972854614,
+          "maximum_seconds": 0.022449054988101125,
+          "peak_rss_before_bytes": 197058560,
+          "peak_rss_after_bytes": 197058560
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.008897689054720104,
+            0.009055247996002436,
+            0.009375964058563113,
+            0.00746903894469142,
+            0.009458228945732117,
+            0.007773241028189659,
+            0.008824195014312863
+          ],
+          "median_seconds": 0.008897689054720104,
+          "minimum_seconds": 0.00746903894469142,
+          "maximum_seconds": 0.009458228945732117,
+          "peak_rss_before_bytes": 200826880,
+          "peak_rss_after_bytes": 200876032
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 10000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 179032064,
+      "final_peak_rss_bytes": 220581888,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00039947300683707,
+            0.00036849500611424446,
+            0.0004758529830724001,
+            0.00047343794722110033,
+            0.0004679980920627713,
+            0.00036878790706396103,
+            0.00032895500771701336
+          ],
+          "median_seconds": 0.00039947300683707,
+          "minimum_seconds": 0.00032895500771701336,
+          "maximum_seconds": 0.0004758529830724001,
+          "peak_rss_before_bytes": 210497536,
+          "peak_rss_after_bytes": 210497536
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.008707335102371871,
+            0.008142102975398302,
+            0.0077546280808746815,
+            0.00739452603738755,
+            0.007414269959554076,
+            0.007356715039350092,
+            0.008658206090331078
+          ],
+          "median_seconds": 0.0077546280808746815,
+          "minimum_seconds": 0.007356715039350092,
+          "maximum_seconds": 0.008707335102371871,
+          "peak_rss_before_bytes": 215994368,
+          "peak_rss_after_bytes": 216064000
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.23313041299115866,
+            0.23818240803666413,
+            0.22997860598843545,
+            0.24291239900048822,
+            0.24019451206550002,
+            0.2359338109381497,
+            0.23930800601374358
+          ],
+          "median_seconds": 0.23818240803666413,
+          "minimum_seconds": 0.22997860598843545,
+          "maximum_seconds": 0.24291239900048822,
+          "peak_rss_before_bytes": 216064000,
+          "peak_rss_after_bytes": 216064000
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.007852912065573037,
+            0.00884840206708759,
+            0.007749603013508022,
+            0.008124622981995344,
+            0.008536085020750761,
+            0.007634993991814554,
+            0.007596125942654908
+          ],
+          "median_seconds": 0.007852912065573037,
+          "minimum_seconds": 0.007596125942654908,
+          "maximum_seconds": 0.00884840206708759,
+          "peak_rss_before_bytes": 218247168,
+          "peak_rss_after_bytes": 218288128
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 10000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 178958336,
+      "final_peak_rss_bytes": 200581120,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00035631097853183746,
+            0.00031373801175504923,
+            0.000351073918864131,
+            0.0003148600226268172,
+            0.0003141160123050213,
+            0.00043162505608052015,
+            0.00036682107020169497
+          ],
+          "median_seconds": 0.000351073918864131,
+          "minimum_seconds": 0.00031373801175504923,
+          "maximum_seconds": 0.00043162505608052015,
+          "peak_rss_before_bytes": 193867776,
+          "peak_rss_after_bytes": 193867776
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0013797039864584804,
+            0.0012863860465586185,
+            0.0015119049930945039,
+            0.0017797169275581837,
+            0.0014497749507427216,
+            0.0017928649904206395,
+            0.001782956998795271
+          ],
+          "median_seconds": 0.0015119049930945039,
+          "minimum_seconds": 0.0012863860465586185,
+          "maximum_seconds": 0.0017928649904206395,
+          "peak_rss_before_bytes": 195072000,
+          "peak_rss_after_bytes": 195072000
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.01868428406305611,
+            0.019286028924398124,
+            0.019389210967347026,
+            0.01976613502483815,
+            0.02216589101590216,
+            0.018794212955981493,
+            0.019131873035803437
+          ],
+          "median_seconds": 0.019286028924398124,
+          "minimum_seconds": 0.01868428406305611,
+          "maximum_seconds": 0.02216589101590216,
+          "peak_rss_before_bytes": 196513792,
+          "peak_rss_after_bytes": 196513792
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.008835154003463686,
+            0.008761350996792316,
+            0.007850262918509543,
+            0.007705027004703879,
+            0.008652769029140472,
+            0.008473771973513067,
+            0.007884857943281531
+          ],
+          "median_seconds": 0.008473771973513067,
+          "minimum_seconds": 0.007705027004703879,
+          "maximum_seconds": 0.008835154003463686,
+          "peak_rss_before_bytes": 200282112,
+          "peak_rss_after_bytes": 200282112
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 100000,
+      "states": 1,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 198225920,
+      "final_peak_rss_bytes": 244985856,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00037835503462702036,
+            0.0003176049795001745,
+            0.0003540989710018039,
+            0.00034463300835341215,
+            0.0003183529479429126,
+            0.0003545649815350771,
+            0.00046106905210763216
+          ],
+          "median_seconds": 0.0003540989710018039,
+          "minimum_seconds": 0.0003176049795001745,
+          "maximum_seconds": 0.00046106905210763216,
+          "peak_rss_before_bytes": 223313920,
+          "peak_rss_after_bytes": 223313920
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.008276452077552676,
+            0.007560146972537041,
+            0.006914936937391758,
+            0.006367919966578484,
+            0.006931678974069655,
+            0.006865572999231517,
+            0.006362665095366538
+          ],
+          "median_seconds": 0.006914936937391758,
+          "minimum_seconds": 0.006362665095366538,
+          "maximum_seconds": 0.008276452077552676,
+          "peak_rss_before_bytes": 235499520,
+          "peak_rss_after_bytes": 235499520
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.16075900697614998,
+            0.1590575339505449,
+            0.15565558290109038,
+            0.15642618690617383,
+            0.16650394699536264,
+            0.1547009180067107,
+            0.17046376003418118
+          ],
+          "median_seconds": 0.1590575339505449,
+          "minimum_seconds": 0.1547009180067107,
+          "maximum_seconds": 0.17046376003418118,
+          "peak_rss_before_bytes": 240295936,
+          "peak_rss_after_bytes": 242036736
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.007284819963388145,
+            0.006712069036439061,
+            0.006555375060997903,
+            0.006771989050321281,
+            0.006626143003813922,
+            0.0071913470746949315,
+            0.007061012089252472
+          ],
+          "median_seconds": 0.006771989050321281,
+          "minimum_seconds": 0.006555375060997903,
+          "maximum_seconds": 0.007284819963388145,
+          "peak_rss_before_bytes": 242036736,
+          "peak_rss_after_bytes": 242036736
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 100000,
+      "states": 1,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 197832704,
+      "final_peak_rss_bytes": 224485376,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.000377609976567328,
+            0.00031567609403282404,
+            0.0003123240312561393,
+            0.0003188670380041003,
+            0.00031143100932240486,
+            0.0003220160724595189,
+            0.0003967350348830223
+          ],
+          "median_seconds": 0.0003188670380041003,
+          "minimum_seconds": 0.00031143100932240486,
+          "maximum_seconds": 0.0003967350348830223,
+          "peak_rss_before_bytes": 206516224,
+          "peak_rss_after_bytes": 206516224
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0051097109680995345,
+            0.004996563075110316,
+            0.005523303989320993,
+            0.0057434020563960075,
+            0.005169275915250182,
+            0.00587700807955116,
+            0.004640202037990093
+          ],
+          "median_seconds": 0.005169275915250182,
+          "minimum_seconds": 0.004640202037990093,
+          "maximum_seconds": 0.00587700807955116,
+          "peak_rss_before_bytes": 214413312,
+          "peak_rss_after_bytes": 214413312
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.0485747599741444,
+            0.04991835099644959,
+            0.04871236998587847,
+            0.047354841022752225,
+            0.050622957991436124,
+            0.049392877030186355,
+            0.04833858204074204
+          ],
+          "median_seconds": 0.04871236998587847,
+          "minimum_seconds": 0.047354841022752225,
+          "maximum_seconds": 0.050622957991436124,
+          "peak_rss_before_bytes": 221753344,
+          "peak_rss_after_bytes": 221863936
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.006793963024392724,
+            0.007211004965938628,
+            0.007125208037905395,
+            0.008412982919253409,
+            0.007221695967018604,
+            0.006988340988755226,
+            0.006737508927471936
+          ],
+          "median_seconds": 0.007125208037905395,
+          "minimum_seconds": 0.006737508927471936,
+          "maximum_seconds": 0.008412982919253409,
+          "peak_rss_before_bytes": 221863936,
+          "peak_rss_after_bytes": 221863936
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 100000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 280629248,
+      "final_peak_rss_bytes": 361701376,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00037015893030911684,
+            0.0003214719472452998,
+            0.00032995198853313923,
+            0.00032275402918457985,
+            0.0003577879397198558,
+            0.0003293489571660757,
+            0.00032943999394774437
+          ],
+          "median_seconds": 0.00032943999394774437,
+          "minimum_seconds": 0.0003214719472452998,
+          "maximum_seconds": 0.00037015893030911684,
+          "peak_rss_before_bytes": 303763456,
+          "peak_rss_after_bytes": 303763456
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.04801917297299951,
+            0.04513412294909358,
+            0.046457440010271966,
+            0.04690953402314335,
+            0.046150704962201416,
+            0.046459040022455156,
+            0.04606675205286592
+          ],
+          "median_seconds": 0.046457440010271966,
+          "minimum_seconds": 0.04513412294909358,
+          "maximum_seconds": 0.04801917297299951,
+          "peak_rss_before_bytes": 352948224,
+          "peak_rss_after_bytes": 353030144
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.8745769200613722,
+            0.8768564300844446,
+            0.9322846040595323,
+            0.9117333689937368,
+            0.8779769809916615,
+            0.8664274420589209,
+            0.9719629549654201
+          ],
+          "median_seconds": 0.8779769809916615,
+          "minimum_seconds": 0.8664274420589209,
+          "maximum_seconds": 0.9719629549654201,
+          "peak_rss_before_bytes": 353030144,
+          "peak_rss_after_bytes": 353030144
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.04188896308187395,
+            0.04155529604759067,
+            0.044553460902534425,
+            0.043380910996347666,
+            0.04212982102762908,
+            0.04153075802605599,
+            0.04244971903972328
+          ],
+          "median_seconds": 0.04212982102762908,
+          "minimum_seconds": 0.04153075802605599,
+          "maximum_seconds": 0.044553460902534425,
+          "peak_rss_before_bytes": 361684992,
+          "peak_rss_after_bytes": 361701376
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 100000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 280985600,
+      "final_peak_rss_bytes": 338718720,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00043751997873187065,
+            0.000352534931153059,
+            0.00032935000490397215,
+            0.00030848593451082706,
+            0.00031439505983144045,
+            0.0003701999085023999,
+            0.0003770170733332634
+          ],
+          "median_seconds": 0.000352534931153059,
+          "minimum_seconds": 0.00030848593451082706,
+          "maximum_seconds": 0.00043751997873187065,
+          "peak_rss_before_bytes": 288849920,
+          "peak_rss_after_bytes": 288849920
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.005537062999792397,
+            0.005638000904582441,
+            0.005328712984919548,
+            0.005101652932353318,
+            0.005589370965026319,
+            0.00593947502784431,
+            0.006042395019903779
+          ],
+          "median_seconds": 0.005589370965026319,
+          "minimum_seconds": 0.005101652932353318,
+          "maximum_seconds": 0.006042395019903779,
+          "peak_rss_before_bytes": 295272448,
+          "peak_rss_after_bytes": 295272448
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.04840579198207706,
+            0.050773844006471336,
+            0.05040982598438859,
+            0.0495601580478251,
+            0.05059683311264962,
+            0.05152135307434946,
+            0.048876803019084036
+          ],
+          "median_seconds": 0.05040982598438859,
+          "minimum_seconds": 0.04840579198207706,
+          "maximum_seconds": 0.05152135307434946,
+          "peak_rss_before_bytes": 302391296,
+          "peak_rss_after_bytes": 302510080
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.04453370301052928,
+            0.06546475400682539,
+            0.045635333051905036,
+            0.045023717917501926,
+            0.04403875209391117,
+            0.04470528301317245,
+            0.043806831003166735
+          ],
+          "median_seconds": 0.04470528301317245,
+          "minimum_seconds": 0.043806831003166735,
+          "maximum_seconds": 0.06546475400682539,
+          "peak_rss_before_bytes": 338718720,
+          "peak_rss_after_bytes": 338718720
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 100000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 279732224,
+      "final_peak_rss_bytes": 361570304,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00048444210551679134,
+            0.0003174060257151723,
+            0.00032863591331988573,
+            0.00035738793667405844,
+            0.0003472620155662298,
+            0.00032267800997942686,
+            0.0003203609958291054
+          ],
+          "median_seconds": 0.00032863591331988573,
+          "minimum_seconds": 0.0003174060257151723,
+          "maximum_seconds": 0.00048444210551679134,
+          "peak_rss_before_bytes": 303685632,
+          "peak_rss_after_bytes": 303685632
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.04475107800681144,
+            0.04480078199412674,
+            0.04473883705213666,
+            0.04411310004070401,
+            0.04350731801241636,
+            0.04696884797886014,
+            0.04521973291411996
+          ],
+          "median_seconds": 0.04475107800681144,
+          "minimum_seconds": 0.04350731801241636,
+          "maximum_seconds": 0.04696884797886014,
+          "peak_rss_before_bytes": 352927744,
+          "peak_rss_after_bytes": 352968704
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.876445667934604,
+            0.8650770579697564,
+            0.8849966530688107,
+            0.9088455869350582,
+            0.8631997470511124,
+            0.8854060251032934,
+            0.9348800340667367
+          ],
+          "median_seconds": 0.8849966530688107,
+          "minimum_seconds": 0.8631997470511124,
+          "maximum_seconds": 0.9348800340667367,
+          "peak_rss_before_bytes": 352968704,
+          "peak_rss_after_bytes": 352968704
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.03953950200229883,
+            0.03874494007322937,
+            0.039325168007053435,
+            0.04088975302875042,
+            0.04522538010496646,
+            0.044639460975304246,
+            0.042330740951001644
+          ],
+          "median_seconds": 0.04088975302875042,
+          "minimum_seconds": 0.03874494007322937,
+          "maximum_seconds": 0.04522538010496646,
+          "peak_rss_before_bytes": 361529344,
+          "peak_rss_after_bytes": 361570304
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 100000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 280100864,
+      "final_peak_rss_bytes": 338980864,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.0003393399529159069,
+            0.00039068202022463083,
+            0.00043672695755958557,
+            0.00037222704850137234,
+            0.0003848210908472538,
+            0.0003822779981419444,
+            0.0003118820022791624
+          ],
+          "median_seconds": 0.0003822779981419444,
+          "minimum_seconds": 0.0003118820022791624,
+          "maximum_seconds": 0.00043672695755958557,
+          "peak_rss_before_bytes": 288153600,
+          "peak_rss_after_bytes": 288153600
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.005220880964770913,
+            0.005546695902012289,
+            0.005242438986897469,
+            0.004798928974196315,
+            0.005075966008007526,
+            0.005476249963976443,
+            0.004938087076880038
+          ],
+          "median_seconds": 0.005220880964770913,
+          "minimum_seconds": 0.004798928974196315,
+          "maximum_seconds": 0.005546695902012289,
+          "peak_rss_before_bytes": 295231488,
+          "peak_rss_after_bytes": 295231488
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.047776845982298255,
+            0.0493446730542928,
+            0.04925471206661314,
+            0.06671122706029564,
+            0.0566216449951753,
+            0.05573552497662604,
+            0.0504630790092051
+          ],
+          "median_seconds": 0.0504630790092051,
+          "minimum_seconds": 0.047776845982298255,
+          "maximum_seconds": 0.06671122706029564,
+          "peak_rss_before_bytes": 302698496,
+          "peak_rss_after_bytes": 302772224
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.043587474967353046,
+            0.04608008195646107,
+            0.04502170404884964,
+            0.04544788901694119,
+            0.044756557093933225,
+            0.047511824988760054,
+            0.04721325007267296
+          ],
+          "median_seconds": 0.04544788901694119,
+          "minimum_seconds": 0.043587474967353046,
+          "maximum_seconds": 0.047511824988760054,
+          "peak_rss_before_bytes": 338980864,
+          "peak_rss_after_bytes": 338980864
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "structural",
+      "atoms": 1000,
+      "states": 1,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 215515136,
+      "final_peak_rss_bytes": 268972032,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00034466804936528206,
+            0.0003244930412620306,
+            0.00032340793404728174,
+            0.00034698599483817816,
+            0.00043914804700762033,
+            0.0003630010178312659,
+            0.00032031210139393806
+          ],
+          "median_seconds": 0.00034466804936528206,
+          "minimum_seconds": 0.00032031210139393806,
+          "maximum_seconds": 0.00043914804700762033,
+          "peak_rss_before_bytes": 223973376,
+          "peak_rss_after_bytes": 223973376
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0015194910811260343,
+            0.0018546079518273473,
+            0.0014399820938706398,
+            0.0016771350055932999,
+            0.0015232700388878584,
+            0.0013752710074186325,
+            0.0013816570863127708
+          ],
+          "median_seconds": 0.0015194910811260343,
+          "minimum_seconds": 0.0013752710074186325,
+          "maximum_seconds": 0.0018546079518273473,
+          "peak_rss_before_bytes": 224542720,
+          "peak_rss_after_bytes": 224542720
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.038521362002938986,
+            0.038623271975666285,
+            0.03892115503549576,
+            0.037232209113426507,
+            0.037650075973942876,
+            0.03711698797997087,
+            0.03698739595711231
+          ],
+          "median_seconds": 0.037650075973942876,
+          "minimum_seconds": 0.03698739595711231,
+          "maximum_seconds": 0.03892115503549576,
+          "peak_rss_before_bytes": 225865728,
+          "peak_rss_after_bytes": 225865728
+        },
+        {
+          "operation": "chemical_edit_with_coordinates",
+          "samples_seconds": [
+            0.004850610974244773,
+            0.004693334107287228,
+            0.005081682000309229,
+            0.005027758073993027,
+            0.005087426048703492,
+            0.004914348013699055,
+            0.005229411064647138
+          ],
+          "median_seconds": 0.005027758073993027,
+          "minimum_seconds": 0.004693334107287228,
+          "maximum_seconds": 0.005229411064647138,
+          "peak_rss_before_bytes": 237334528,
+          "peak_rss_after_bytes": 237498368,
+          "unaffected_state_records_shared": true
+        },
+        {
+          "operation": "molsys_extract_two_structures",
+          "samples_seconds": [
+            0.056838721968233585,
+            0.055741829914040864,
+            0.055814335006289184,
+            0.054797191987745464,
+            0.06025361793581396,
+            0.05524701997637749,
+            0.05918823403771967
+          ],
+          "median_seconds": 0.055814335006289184,
+          "minimum_seconds": 0.054797191987745464,
+          "maximum_seconds": 0.06025361793581396,
+          "peak_rss_before_bytes": 262582272,
+          "peak_rss_after_bytes": 262746112
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "structural",
+      "atoms": 1000,
+      "states": 1,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 215965696,
+      "final_peak_rss_bytes": 272433152,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.0003541500773280859,
+            0.00031860009767115116,
+            0.0003151079872623086,
+            0.00031075801234692335,
+            0.000308605027385056,
+            0.0003082950133830309,
+            0.0003094020066782832
+          ],
+          "median_seconds": 0.00031075801234692335,
+          "minimum_seconds": 0.0003082950133830309,
+          "maximum_seconds": 0.0003541500773280859,
+          "peak_rss_before_bytes": 215965696,
+          "peak_rss_after_bytes": 215965696
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0010076180333271623,
+            0.0010367329232394695,
+            0.0010841500479727983,
+            0.001127188908867538,
+            0.001039654016494751,
+            0.0012355929939076304,
+            0.0011467880103737116
+          ],
+          "median_seconds": 0.0010841500479727983,
+          "minimum_seconds": 0.0010076180333271623,
+          "maximum_seconds": 0.0012355929939076304,
+          "peak_rss_before_bytes": 215965696,
+          "peak_rss_after_bytes": 215965696
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.015743448049761355,
+            0.015588607988320291,
+            0.016168751986697316,
+            0.015548900933936238,
+            0.019942119950428605,
+            0.018477050005458295,
+            0.01697524602059275
+          ],
+          "median_seconds": 0.016168751986697316,
+          "minimum_seconds": 0.015548900933936238,
+          "maximum_seconds": 0.019942119950428605,
+          "peak_rss_before_bytes": 215965696,
+          "peak_rss_after_bytes": 215965696
+        },
+        {
+          "operation": "chemical_edit_with_coordinates",
+          "samples_seconds": [
+            0.003933541942387819,
+            0.003850399050861597,
+            0.0037167129339650273,
+            0.003714069025591016,
+            0.003596464986912906,
+            0.0040502570336684585,
+            0.004176378017291427
+          ],
+          "median_seconds": 0.003850399050861597,
+          "minimum_seconds": 0.003596464986912906,
+          "maximum_seconds": 0.004176378017291427,
+          "peak_rss_before_bytes": 235614208,
+          "peak_rss_after_bytes": 235614208,
+          "unaffected_state_records_shared": true
+        },
+        {
+          "operation": "molsys_extract_two_structures",
+          "samples_seconds": [
+            0.039053583052009344,
+            0.047166783013381064,
+            0.03839980193879455,
+            0.0393742099404335,
+            0.03763408400118351,
+            0.037682874011807144,
+            0.03885709308087826
+          ],
+          "median_seconds": 0.03885709308087826,
+          "minimum_seconds": 0.03763408400118351,
+          "maximum_seconds": 0.047166783013381064,
+          "peak_rss_before_bytes": 267517952,
+          "peak_rss_after_bytes": 267681792
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "structural",
+      "atoms": 1000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 217341952,
+      "final_peak_rss_bytes": 270782464,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00036460207775235176,
+            0.0003637339686974883,
+            0.0003258360084146261,
+            0.00032036297488957644,
+            0.00035072199534624815,
+            0.00048045406583696604,
+            0.00033668498508632183
+          ],
+          "median_seconds": 0.00035072199534624815,
+          "minimum_seconds": 0.00032036297488957644,
+          "maximum_seconds": 0.00048045406583696604,
+          "peak_rss_before_bytes": 225644544,
+          "peak_rss_after_bytes": 225644544
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0034701619297266006,
+            0.004696942982263863,
+            0.0035488810390233994,
+            0.003272903966717422,
+            0.0032834160374477506,
+            0.003666191012598574,
+            0.0033264399971812963
+          ],
+          "median_seconds": 0.0034701619297266006,
+          "minimum_seconds": 0.003272903966717422,
+          "maximum_seconds": 0.004696942982263863,
+          "peak_rss_before_bytes": 226705408,
+          "peak_rss_after_bytes": 226705408
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.18613441195338964,
+            0.1853787830332294,
+            0.18114610703196377,
+            0.17821881896816194,
+            0.1769256740808487,
+            0.1765756089007482,
+            0.19954201101791114
+          ],
+          "median_seconds": 0.18114610703196377,
+          "minimum_seconds": 0.1765756089007482,
+          "maximum_seconds": 0.19954201101791114,
+          "peak_rss_before_bytes": 228028416,
+          "peak_rss_after_bytes": 228028416
+        },
+        {
+          "operation": "chemical_edit_with_coordinates",
+          "samples_seconds": [
+            0.005197114893235266,
+            0.005404475959949195,
+            0.005200305953621864,
+            0.004902962013147771,
+            0.004808519035577774,
+            0.005273649003356695,
+            0.004949271911755204
+          ],
+          "median_seconds": 0.005197114893235266,
+          "minimum_seconds": 0.004808519035577774,
+          "maximum_seconds": 0.005404475959949195,
+          "peak_rss_before_bytes": 239005696,
+          "peak_rss_after_bytes": 239005696,
+          "unaffected_state_records_shared": true
+        },
+        {
+          "operation": "molsys_extract_two_structures",
+          "samples_seconds": [
+            0.20606637198943645,
+            0.1956410720013082,
+            0.19502194202505052,
+            0.19723777601029724,
+            0.208865387015976,
+            0.1987252839608118,
+            0.1970703899860382
+          ],
+          "median_seconds": 0.19723777601029724,
+          "minimum_seconds": 0.19502194202505052,
+          "maximum_seconds": 0.208865387015976,
+          "peak_rss_before_bytes": 264228864,
+          "peak_rss_after_bytes": 264556544
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "structural",
+      "atoms": 1000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 217178112,
+      "final_peak_rss_bytes": 273793024,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00038266205228865147,
+            0.0003798899706453085,
+            0.00036339997313916683,
+            0.0003208230482414365,
+            0.00041688093915581703,
+            0.00034120201598852873,
+            0.0003661690279841423
+          ],
+          "median_seconds": 0.0003661690279841423,
+          "minimum_seconds": 0.0003208230482414365,
+          "maximum_seconds": 0.00041688093915581703,
+          "peak_rss_before_bytes": 217178112,
+          "peak_rss_after_bytes": 217178112
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0010883540380746126,
+            0.0011491739423945546,
+            0.0009660859359428287,
+            0.0014820190845057368,
+            0.0014230500673875213,
+            0.0009722230024635792,
+            0.0009642610093578696
+          ],
+          "median_seconds": 0.0010883540380746126,
+          "minimum_seconds": 0.0009642610093578696,
+          "maximum_seconds": 0.0014820190845057368,
+          "peak_rss_before_bytes": 217178112,
+          "peak_rss_after_bytes": 217178112
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.015342890052124858,
+            0.015741245937533677,
+            0.015480107977055013,
+            0.015595037024468184,
+            0.015376948053017259,
+            0.015587604022584856,
+            0.01553013501688838
+          ],
+          "median_seconds": 0.01553013501688838,
+          "minimum_seconds": 0.015342890052124858,
+          "maximum_seconds": 0.015741245937533677,
+          "peak_rss_before_bytes": 217178112,
+          "peak_rss_after_bytes": 217178112
+        },
+        {
+          "operation": "chemical_edit_with_coordinates",
+          "samples_seconds": [
+            0.0037085639778524637,
+            0.004210310056805611,
+            0.0037394800456240773,
+            0.0037985979579389095,
+            0.007581815007142723,
+            0.0035286530619487166,
+            0.004091289942152798
+          ],
+          "median_seconds": 0.0037985979579389095,
+          "minimum_seconds": 0.0035286530619487166,
+          "maximum_seconds": 0.007581815007142723,
+          "peak_rss_before_bytes": 236699648,
+          "peak_rss_after_bytes": 236699648,
+          "unaffected_state_records_shared": true
+        },
+        {
+          "operation": "molsys_extract_two_structures",
+          "samples_seconds": [
+            0.20508310291916132,
+            0.2049191299593076,
+            0.2209180990466848,
+            0.20396863005589694,
+            0.20286594796925783,
+            0.2084210340399295,
+            0.22013780800625682
+          ],
+          "median_seconds": 0.20508310291916132,
+          "minimum_seconds": 0.20286594796925783,
+          "maximum_seconds": 0.2209180990466848,
+          "peak_rss_before_bytes": 269369344,
+          "peak_rss_after_bytes": 269533184
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    }
+  ],
+  "copy_rechecks": [
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 10000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 178917376,
+      "final_peak_rss_bytes": 220499968,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00039720593485981226,
+            0.00047513796016573906,
+            0.0003877379931509495,
+            0.0003973559942096472,
+            0.00047686195466667414,
+            0.0004016510210931301,
+            0.0004885928938165307
+          ],
+          "median_seconds": 0.0004016510210931301,
+          "minimum_seconds": 0.0003877379931509495,
+          "maximum_seconds": 0.0004885928938165307,
+          "peak_rss_before_bytes": 210571264,
+          "peak_rss_after_bytes": 210571264
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.008924750960431993,
+            0.008874941966496408,
+            0.008043676032684743,
+            0.007822491927072406,
+            0.007635040092281997,
+            0.007339123985730112,
+            0.007120031048543751
+          ],
+          "median_seconds": 0.007822491927072406,
+          "minimum_seconds": 0.007120031048543751,
+          "maximum_seconds": 0.008924750960431993,
+          "peak_rss_before_bytes": 215871488,
+          "peak_rss_after_bytes": 215871488
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.26969022303819656,
+            0.24403027608059347,
+            0.23673973907716572,
+            0.2374705800320953,
+            0.24800000502727926,
+            0.2341202209936455,
+            0.23205237509682775
+          ],
+          "median_seconds": 0.2374705800320953,
+          "minimum_seconds": 0.23205237509682775,
+          "maximum_seconds": 0.26969022303819656,
+          "peak_rss_before_bytes": 215871488,
+          "peak_rss_after_bytes": 215871488
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.0084978659870103,
+            0.008356411941349506,
+            0.008562511997297406,
+            0.00957707897759974,
+            0.008627808070741594,
+            0.008144302992150187,
+            0.009441429050639272
+          ],
+          "median_seconds": 0.008562511997297406,
+          "minimum_seconds": 0.008144302992150187,
+          "maximum_seconds": 0.00957707897759974,
+          "peak_rss_before_bytes": 218005504,
+          "peak_rss_after_bytes": 218042368
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 10000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "differing",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 179286016,
+      "final_peak_rss_bytes": 200708096,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00034958997275680304,
+            0.00037670310121029615,
+            0.0004631360061466694,
+            0.0003580759512260556,
+            0.00035394798032939434,
+            0.00036790489684790373,
+            0.00045003904961049557
+          ],
+          "median_seconds": 0.00036790489684790373,
+          "minimum_seconds": 0.00034958997275680304,
+          "maximum_seconds": 0.0004631360061466694,
+          "peak_rss_before_bytes": 194195456,
+          "peak_rss_after_bytes": 194195456
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.0014266910729929805,
+            0.0013213290367275476,
+            0.001420930027961731,
+            0.001520708086900413,
+            0.001297281007282436,
+            0.0015260110376402736,
+            0.0016007950762286782
+          ],
+          "median_seconds": 0.0014266910729929805,
+          "minimum_seconds": 0.001297281007282436,
+          "maximum_seconds": 0.0016007950762286782,
+          "peak_rss_before_bytes": 195387392,
+          "peak_rss_after_bytes": 195387392
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.023133742972277105,
+            0.022490938077680767,
+            0.02296150999609381,
+            0.019983205944299698,
+            0.018618108006194234,
+            0.02058635698631406,
+            0.021767511032521725
+          ],
+          "median_seconds": 0.021767511032521725,
+          "minimum_seconds": 0.018618108006194234,
+          "maximum_seconds": 0.023133742972277105,
+          "peak_rss_before_bytes": 196632576,
+          "peak_rss_after_bytes": 196632576
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.009595172014087439,
+            0.007737990003079176,
+            0.00812987401150167,
+            0.007443562033586204,
+            0.007817286998033524,
+            0.00765049597248435,
+            0.008038499974645674
+          ],
+          "median_seconds": 0.007817286998033524,
+          "minimum_seconds": 0.007443562033586204,
+          "maximum_seconds": 0.009595172014087439,
+          "peak_rss_before_bytes": 200400896,
+          "peak_rss_after_bytes": 200400896
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 100000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 279797760,
+      "final_peak_rss_bytes": 360128512,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.000482984003610909,
+            0.00047737802378833294,
+            0.0004165000282227993,
+            0.00046722206752747297,
+            0.0004142749821767211,
+            0.00032363005448132753,
+            0.000332997995428741
+          ],
+          "median_seconds": 0.0004165000282227993,
+          "minimum_seconds": 0.00032363005448132753,
+          "maximum_seconds": 0.000482984003610909,
+          "peak_rss_before_bytes": 303751168,
+          "peak_rss_after_bytes": 303751168
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.046011963044293225,
+            0.05056572402827442,
+            0.048371803015470505,
+            0.04587939998600632,
+            0.04730834800284356,
+            0.04599426197819412,
+            0.0493772350018844
+          ],
+          "median_seconds": 0.04730834800284356,
+          "minimum_seconds": 0.04587939998600632,
+          "maximum_seconds": 0.05056572402827442,
+          "peak_rss_before_bytes": 352772096,
+          "peak_rss_after_bytes": 352886784
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.9798638740321621,
+            1.1676253320183605,
+            0.9252176119480282,
+            1.0057128180051222,
+            1.0309881150024012,
+            0.9989540090318769,
+            0.910776678007096
+          ],
+          "median_seconds": 0.9989540090318769,
+          "minimum_seconds": 0.910776678007096,
+          "maximum_seconds": 1.1676253320183605,
+          "peak_rss_before_bytes": 352886784,
+          "peak_rss_after_bytes": 352886784
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.043227894930168986,
+            0.047442400944419205,
+            0.041781157022342086,
+            0.04241663997527212,
+            0.04739909607451409,
+            0.042012682068161666,
+            0.03996955894399434
+          ],
+          "median_seconds": 0.04241663997527212,
+          "minimum_seconds": 0.03996955894399434,
+          "maximum_seconds": 0.047442400944419205,
+          "peak_rss_before_bytes": 360112128,
+          "peak_rss_after_bytes": 360128512
+        }
+      ],
+      "source_python_sha256": "dff011a502e74d0e0236d3f489f310893e866e6ef9af035c1430a90e8526583a",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "baseline"
+    },
+    {
+      "schema": "molsysmt.chemical-domain-benchmark@1",
+      "scenario": "inventory",
+      "atoms": 100000,
+      "states": 10,
+      "structures": 1000,
+      "partition": "reused",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "warmups": 1,
+      "repetitions": 7,
+      "setup_peak_rss_bytes": 279982080,
+      "final_peak_rss_bytes": 338968576,
+      "results": [
+        {
+          "operation": "stable_counts",
+          "samples_seconds": [
+            0.00042466900777071714,
+            0.00031399400904774666,
+            0.0004777059657499194,
+            0.0003281629178673029,
+            0.00039769907016307116,
+            0.0005978350527584553,
+            0.0003286729333922267
+          ],
+          "median_seconds": 0.00039769907016307116,
+          "minimum_seconds": 0.00031399400904774666,
+          "maximum_seconds": 0.0005978350527584553,
+          "peak_rss_before_bytes": 287846400,
+          "peak_rss_after_bytes": 287846400
+        },
+        {
+          "operation": "topology_copy",
+          "samples_seconds": [
+            0.005232143914327025,
+            0.005404643947258592,
+            0.0049407449550926685,
+            0.005273283924907446,
+            0.005201119929552078,
+            0.005930601968429983,
+            0.0049874590476974845
+          ],
+          "median_seconds": 0.005232143914327025,
+          "minimum_seconds": 0.0049407449550926685,
+          "maximum_seconds": 0.005930601968429983,
+          "peak_rss_before_bytes": 295256064,
+          "peak_rss_after_bytes": 295256064
+        },
+        {
+          "operation": "topology_extract",
+          "samples_seconds": [
+            0.058067552046850324,
+            0.04971184197347611,
+            0.051911427988670766,
+            0.05021781998220831,
+            0.051919732009992,
+            0.060151913086883724,
+            0.05286216805689037
+          ],
+          "median_seconds": 0.051919732009992,
+          "minimum_seconds": 0.04971184197347611,
+          "maximum_seconds": 0.060151913086883724,
+          "peak_rss_before_bytes": 302784512,
+          "peak_rss_after_bytes": 302784512
+        },
+        {
+          "operation": "molsys_copy",
+          "samples_seconds": [
+            0.052021544077433646,
+            0.05063752003479749,
+            0.055359196034260094,
+            0.0514774740440771,
+            0.04954735503997654,
+            0.052677614032290876,
+            0.03800714900717139
+          ],
+          "median_seconds": 0.0514774740440771,
+          "minimum_seconds": 0.03800714900717139,
+          "maximum_seconds": 0.055359196034260094,
+          "peak_rss_before_bytes": 338956288,
+          "peak_rss_after_bytes": 338968576
+        }
+      ],
+      "source_python_sha256": "7178c7949a0c9e76c39a4b011377a1a80e7efd7ec3db3416d4baeae16dc4bb8c",
+      "native_extension_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "harness_sha256": "24a634113d4ec98b9300183aaec99b0a3fbd51693e0e97120d1d51313504ef7e",
+      "source": "target"
+    }
+  ]
+}

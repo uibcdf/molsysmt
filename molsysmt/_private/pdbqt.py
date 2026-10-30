@@ -205,7 +205,7 @@ def to_native(record, *, discard_torsion_tree=False):
     import pandas as pd
 
     from molsysmt import pyunitwizard as puw
-    from molsysmt.native import MolecularMechanics, MolSys, Structures, Topology
+    from molsysmt.native import MolecularMechanics, MolSys, Structures
 
     if record["torsion_tree"] is not None and not discard_torsion_tree:
         fail(
@@ -218,7 +218,8 @@ def to_native(record, *, discard_torsion_tree=False):
     chain_keys = list(dict.fromkeys(a["chain_id"] for a in atoms))
     groups = {key: i for i, key in enumerate(group_keys)}
     chains = {key: i for i, key in enumerate(chain_keys)}
-    topology = Topology(n_atoms=len(atoms), n_groups=len(groups), n_chains=len(chains))
+    native = MolSys(n_atoms=len(atoms), n_groups=len(groups), n_chains=len(chains))
+    topology = native.topology
     for column, key in (
         ("atom_id", "serial"),
         ("atom_name", "atom_name"),
@@ -238,7 +239,7 @@ def to_native(record, *, discard_torsion_tree=False):
     tree = record["torsion_tree"]
     if tree is not None and len(tree["branch_atom_pairs"]):
         pairs = tree["branch_atom_pairs"]
-        topology._set_chemical_state_bonds(
+        native.chemical_states._set_chemical_state_bonds(
             pd.DataFrame(
                 {
                     "atom1_index": pairs[:, 0],
@@ -249,9 +250,9 @@ def to_native(record, *, discard_torsion_tree=False):
                 }
             )
         )
-    topology._chemical_states[0].connectivity_completeness = "partial"
-    topology.rebuild_components()
-    topology.rebuild_molecules()
+    native.chemical_states._states[0].connectivity_completeness = "partial"
+    native.rebuild_components()
+    native.rebuild_molecules()
     topology.rebuild_entities()
     structures = Structures()
     structures.append(
@@ -275,8 +276,8 @@ def to_native(record, *, discard_torsion_tree=False):
                 if attribute == "b_factor"
                 else values,
             )
-    output = MolSys()
-    output.topology, output.structures = topology, structures
+    output = native
+    output.structures = structures
     output.molecular_mechanics = MolecularMechanics(
         partial_charge=[a["partial_charge"] for a in atoms],
         atom_ff_type=[a["atom_ff_type"] for a in atoms],

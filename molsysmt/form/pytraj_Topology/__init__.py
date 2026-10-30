@@ -22,13 +22,14 @@ from .iterators import StructuresIterator, TopologyIterator  # noqa: E402
 
 
 _convert_to = {
+    "molsysmt.MolSys": "to_molsysmt_MolSys",
     "pytraj.Topology": "to_pytraj_Topology",
     "molsysmt.Topology": "to_molsysmt_Topology",
     "pytraj.Trajectory": "to_pytraj_Trajectory",
 }
 
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
 piped_any_attribute = None
 bonds_are_explicit = False

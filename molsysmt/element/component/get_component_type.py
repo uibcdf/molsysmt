@@ -1,8 +1,6 @@
-import numpy as np
 import pandas as pd
 
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 
 
 @arg_digest()
@@ -45,144 +43,16 @@ def get_component_type(
     .. versionadded:: 1.0.0
     """
 
-    if isinstance(selection, str) and selection == "all":
-        from molsysmt.native import MolSys, Topology
-        from molsysmt.native._topology_infer import project_component_type_from_topology
+    from molsysmt.native._component_projection import prepare
 
-        if isinstance(molecular_system, Topology):
-            return project_component_type_from_topology(
-                molecular_system,
-                element=element,
-                redefine_indices=redefine_indices,
-                redefine_types=redefine_types,
-            )
-        if isinstance(molecular_system, MolSys):
-            return project_component_type_from_topology(
-                molecular_system.topology,
-                element=element,
-                redefine_indices=redefine_indices,
-                redefine_types=redefine_types,
-            )
-
-    from molsysmt.basic import get
-
-    if redefine_indices or redefine_types:
-        from molsysmt.basic import select
-
-        from .get_component_index import get_component_index
-
-        if redefine_indices:
-            redefine_types = True
-
-        component_indices = get_component_index(
-            molecular_system,
-            element="atom",
-            selection="all",
-            redefine_indices=redefine_indices,
-            skip_digestion=True,
-        )
-
-        group_index_per_atom = get(
-            molecular_system,
-            element="atom",
-            selection="all",
-            group_index=True,
-            skip_digestion=True,
-        )
-
-        group_names, group_types = get(
-            molecular_system,
-            element="group",
-            selection="all",
-            group_name=True,
-            group_type=True,
-            skip_digestion=True,
-        )
-
-        group_names = np.array(group_names)
-        group_types = np.array(group_types)
-
-        aux_df = pd.DataFrame(
-            {
-                "component_indices": component_indices,
-                "group_indices": group_index_per_atom,
-            }
-        )
-        aux_dict = (
-            aux_df.groupby("component_indices")["group_indices"].unique().to_dict()
-        )
-
-        component_types = {}
-
-        for component_index, group_indices in aux_dict.items():
-            component_type = _get_component_type_from_group_names_and_types(
-                group_names[group_indices], group_types[group_indices]
-            )
-
-            component_types[component_index] = component_type
-
-        if element == "atom":
-            atom_indices = select(
-                molecular_system,
-                element="atom",
-                selection=selection,
-                syntax=syntax,
-                skip_digestion=True,
-            )
-            output = [component_types[component_indices[ii]] for ii in atom_indices]
-
-        elif element == "group":
-            output = []
-            group_indices = get(
-                molecular_system,
-                element="atom",
-                selection=selection,
-                group_indices=True,
-                skip_digestion=True,
-            )
-            former_index = -1
-            for ii, jj, kk in zip(group_indices, atom_indices, component_indices):
-                if ii != former_index:
-                    output.append(component_types[kk])
-
-            del group_indices
-
-        elif element == "component":
-            if is_all(selection):
-                output = list(component_types.values())
-            else:
-                component_indices = select(
-                    molecular_system,
-                    element="component",
-                    selection=selection,
-                    syntax=syntax,
-                    skip_digestion=True,
-                )
-                output = [component_types[ii] for ii in component_indices]
-        else:
-            raise NotImplementedError
-
-        del (
-            component_types,
-            component_indices,
-            group_index_per_atom,
-            group_names,
-            group_types,
-        )
-
-    else:
-        from molsysmt.basic import get
-
-        output = get(
-            molecular_system,
-            element=element,
-            selection=selection,
-            syntax=syntax,
-            component_type=True,
-            skip_digestion=True,
-        )
-
-    return output
+    source = prepare(molecular_system, indices=redefine_indices, types=redefine_types)
+    return source.get(
+        element=element,
+        selection=selection,
+        syntax=syntax,
+        component_type=True,
+        skip_digestion=True,
+    )
 
 
 def _get_component_type_from_group_names_and_types(group_names, group_types):

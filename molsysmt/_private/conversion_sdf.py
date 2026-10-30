@@ -31,7 +31,7 @@ def audit_sdf_write(item, selection, structure_indices, syntax):
             "n_implicit_hydrogens",
             "allows_implicit_hydrogens",
         )
-        atom_attributes = topology._chemical_states[0].atom_attributes
+        atom_attributes = selected.chemical_states._states[0].atom_attributes
         for name in fields:
             if name not in atom_attributes:
                 continue
@@ -67,7 +67,7 @@ def audit_sdf_write(item, selection, structure_indices, syntax):
                 "SDF does not encode native residue or chain hierarchy.",
                 "topology",
             )
-        bonds = topology._get_chemical_state_bonds()
+        bonds = selected.chemical_states._get_chemical_state_bonds()
         if {"joins_components", "bond_type"} <= set(bonds.columns):
             defaults = bonds["bond_type"].map({"covalent": True, "dative": False})
             overrides = bonds["joins_components"].notna() & bonds[

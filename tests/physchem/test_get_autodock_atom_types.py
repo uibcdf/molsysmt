@@ -77,7 +77,7 @@ def test_forms_unknown_aromatic_flags_and_atom_names_do_not_change_types(tmp_pat
     source.topology.atoms["atom_name"] = "misleading_nitrogen"
     h5 = tmp_path / "chemistry.h5msm"
     msm.convert(source, to_form=h5)
-    for item in (source, source.topology, h5):
+    for item in (source, [source.topology, source.chemical_states], h5):
         np.testing.assert_array_equal(classify(item), expected)
     pd.testing.assert_frame_equal(
         source.chemical_states._states[0].atom_attributes, before

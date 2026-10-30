@@ -301,6 +301,23 @@ def _convert_multiple_to_one(
             conversion_arguments["output_filename"] = to_form
             to_form = get_form(to_form)
 
+    from molsysmt._private.native_composition import compose_with_coordinate_source
+
+    composed = compose_with_coordinate_source(
+        molecular_system, from_forms, structure_indices
+    )
+    if composed is not None:
+        return _convert_one_to_one(
+            composed,
+            "molsysmt.MolSys",
+            to_form=to_form,
+            selection=selection,
+            structure_indices="all",
+            syntax=syntax,
+            **conversion_arguments,
+            **kwargs,
+        )
+
     #### Checking attributes sets for straight and indirect conversion
 
     to_attributes = set(
@@ -642,7 +659,7 @@ def _reconcile_composed_structure_state_association(item):
     if len(explicit) == n_structures:
         return
 
-    if len(item.topology._chemical_states) == 1:
+    if item.chemical_states is not None and item.chemical_states.n_chemical_states == 1:
         item._structure_chemical_state_indices = None
     else:
         import pandas as pd
@@ -846,8 +863,8 @@ def convert(
       ``copy_if_all=False`` shares native domains only for full-axis conversion.
     - Standalone native Topology, ChemicalStates, Structures and
       MolecularMechanics providers can compose one system. Explicit
-      ChemicalStates owns the chemistry; Topology's compatibility collection
-      is used only without that provider. Complete atom axes must agree before
+      ChemicalStates owns the chemistry; pure Topology supplies stable inventory
+      only. Complete atom axes must agree before
       selection, and repeated explicit domains are rejected. Mechanical values,
       settings and assignment provenance are transported without recalculation
       or certification. Existing stale assignments stay stale on projection.
@@ -856,6 +873,11 @@ def convert(
       the final full-axis snapshot, but existing single-owner rules still detach
       attached Topology, ChemicalStates and Structures domains; unowned structures
       and the supplied mechanics can be shared. Selections produce a new subset.
+    - An explicit ChemicalStates (or ChemicalStatesDict) provider can also join
+      standalone native domains and one coordinate-only source, such as a DCD.
+      Only requested structures are loaded before assembling the common atom
+      axis and applying atom selection. Sources that also declare inventory or
+      chemistry are not silently projected to coordinates by this route.
     - Complementary partial MolSys objects or H5MSM 0.5 files are composed
       before selections. Supplying their list declares positional atom and
       structure correspondence; matching counts do not establish origin.

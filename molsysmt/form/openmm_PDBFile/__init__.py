@@ -2,7 +2,7 @@ form_name = "openmm.PDBFile"
 form_type = "class"
 form_info = ["", ""]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
 piped_any_attribute = None
 
@@ -38,7 +38,7 @@ _convert_to = {
 }
 
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
 piped_any_attribute = None
 bonds_are_explicit = False

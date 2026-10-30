@@ -29,18 +29,14 @@ def to_molsysmt_MolSys(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native import MolSys
-
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-
-    tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(
-        item, atom_indices=atom_indices, skip_digestion=True
-    )
-    # Note: prmtop only has topology, so we return a MolSys without structures unless they are added later
-    # but we can initialize an empty structures object.
+    from molsysmt.form.openmm_Topology._read_native import read_native
     from molsysmt.native import Structures
 
-    tmp_item.structures = Structures()
+    from .to_openmm_AmberPrmtopFile import to_openmm_AmberPrmtopFile
 
-    return tmp_item
+    source = to_openmm_AmberPrmtopFile(item, skip_digestion=True)
+    output = read_native(
+        source.topology, atom_indices=atom_indices, skip_digestion=True
+    )
+    output.structures = Structures()
+    return output

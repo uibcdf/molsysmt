@@ -67,18 +67,48 @@ def merge(
             caller="molsysmt.form.molsysmt_MolSys.merge.py",
         )
 
-    output = MolSys()
-    output.topology = merge_molsysmt_Topology(
-        [ii.topology for ii in items],
-        atom_indices=atom_indices,
-        keep_ids=keep_ids,
-        skip_digestion=True,
+    topologies = [item.topology for item in items]
+    topology = merge_molsysmt_Topology(
+        topologies, atom_indices=atom_indices, keep_ids=keep_ids, skip_digestion=True
     )
-    output.structures = merge_molsysmt_Structures(
+    from molsysmt.native._chemical_merge import union
+
+    states = None
+    offset_topology = None
+    for item, selected in zip(items, atom_indices):
+        if item.interactions:
+            raise ValueError(
+                "Merging source analyses requires an explicit analysis-merge policy."
+            )
+        current = item.chemical_states
+        if current is None or current.n_chemical_states != 1:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="Molecular merge requires one state per source and explicit alignment otherwise.",
+                caller="molsysmt.form.molsysmt_MolSys.merge",
+            )
+        projected = item.topology.extract(
+            atom_indices=selected, copy_if_all=True, skip_digestion=True
+        )
+        if states is None:
+            states = (
+                current.copy() if is_all(selected) else current._extract_atoms(selected)
+            )
+            offset_topology = projected
+        else:
+            offset_topology.add(projected, keep_ids=keep_ids, skip_digestion=True)
+            states = union(states, current, selected, offset_topology, keep_ids)
+    structures = merge_molsysmt_Structures(
         [ii.structures for ii in items],
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         skip_digestion=True,
+    )
+    output = MolSys._from_partial_domains(
+        topology=topology,
+        chemical_states=states,
+        structures=structures,
     )
     output.molecular_mechanics = merge_molsysmt_MolecularMechanics(
         [ii.molecular_mechanics for ii in items],

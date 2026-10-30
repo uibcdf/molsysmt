@@ -37,7 +37,9 @@ def test_public_exports_and_exhaustive_structures_audit():
 def test_preflight_never_creates_or_overwrites_destination(tmp_path, existing):
     molsys = msm.convert(msm.systems["caffeine"]["caffeine.sdf"])
     before_atoms = molsys.topology.atoms.copy(deep=True)
-    before_bonds = molsys.topology.bonds.copy(deep=True)
+    before_bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy(
+        deep=True
+    )
     before_coordinates = molsys.structures.coordinates.copy()
     target = tmp_path / "audit.sdf"
     if existing:
@@ -48,7 +50,7 @@ def test_preflight_never_creates_or_overwrites_destination(tmp_path, existing):
     if existing:
         assert target.read_bytes() == b"preserve this destination"
     assert molsys.topology.atoms.equals(before_atoms)
-    assert molsys.topology.bonds.equals(before_bonds)
+    assert molsys.chemical_states._resolve_chemical_state().bonds.equals(before_bonds)
     np.testing.assert_array_equal(
         msm.pyunitwizard.get_value(molsys.structures.coordinates),
         msm.pyunitwizard.get_value(before_coordinates),

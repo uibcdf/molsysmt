@@ -25,4 +25,4 @@ def add_bonds(item, bonded_atom_pairs, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    item.topology.add_bonds(bonded_atom_pairs, skip_digestion=True)
+    item.chemical_states.add_bonds(bonded_atom_pairs, skip_digestion=True)

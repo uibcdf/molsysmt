@@ -5,7 +5,8 @@ import pandas as pd
 import pytest
 
 import molsysmt as msm
-from molsysmt.native import MolSys, Topology
+from molsysmt.native import MolSys
+from molsysmt.native._chemical_state import _ChemicalStateStorage
 
 
 def test_empty_collection_roundtrip_preserves_absence():
@@ -24,9 +25,11 @@ def test_empty_collection_roundtrip_preserves_absence():
 
 
 def test_object_backed_bond_fields_preserve_boolean_numeric_values_and_nulls():
-    topology = Topology(n_atoms=3)
-    topology.bonds = pd.DataFrame(dict(atom1_index=[0, 1], atom2_index=[1, 2]))
-    state = topology._chemical_states[0]
+    topology = MolSys(n_atoms=3)
+    topology.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(dict(atom1_index=[0, 1], atom2_index=[1, 2]))
+    )
+    state = topology.chemical_states._states[0]
     state.bonds["bond_order"] = pd.Series([1, pd.NA], dtype=object)
     state.bonds["is_aromatic"] = pd.Series([False, pd.NA], dtype=object)
     state.bonds["joins_components"] = pd.Series([True, False], dtype=object)
@@ -48,16 +51,21 @@ def test_object_backed_bond_fields_preserve_boolean_numeric_values_and_nulls():
 
 
 def test_multistate_roundtrip_preserves_nullable_chemistry_and_reference():
-    topology = Topology(n_atoms=3)
-    topology._append_chemical_state_bonds(
+    topology = MolSys(n_atoms=3)
+    topology.chemical_states._append_chemical_state_bonds(
         [[0, 1]], bond_order=[2], bond_type=["covalent"]
     )
-    topology._set_chemical_state_atom_attribute("formal_charge", [0, pd.NA, -1])
-    second = topology._append_chemical_state(state_id="product")
-    topology._append_chemical_state_bonds(
+    topology.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [0, pd.NA, -1]
+    )
+    second = topology.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=topology.get_n_atoms(), state_id="product"),
+        set_as_reference=False,
+    )
+    topology.chemical_states._append_chemical_state_bonds(
         [[1, 2]], bond_order=[1], bond_type=["covalent"], state_index=second
     )
-    topology._set_reference_chemical_state_index(None)
+    topology.chemical_states._set_reference_index(None)
 
     encoded = msm.convert(topology, to_form="molsysmt.ChemicalStatesDict")
     decoded = msm.convert(encoded, to_form="molsysmt.ChemicalStates")
@@ -68,14 +76,14 @@ def test_multistate_roundtrip_preserves_nullable_chemistry_and_reference():
     assert decoded.reference_chemical_state_index is None
     assert decoded._states[1].state_id == "product"
     pd.testing.assert_frame_equal(
-        decoded.get_bonds(0), topology._chemical_states[0].bonds
+        decoded.get_bonds(0), topology.chemical_states._states[0].bonds
     )
     pd.testing.assert_frame_equal(
-        decoded.get_bonds(1), topology._chemical_states[1].bonds
+        decoded.get_bonds(1), topology.chemical_states._states[1].bonds
     )
     pd.testing.assert_frame_equal(
         decoded._states[0].atom_attributes,
-        topology._chemical_states[0].atom_attributes,
+        topology.chemical_states._states[0].atom_attributes,
     )
     assert encoded.data["states"][0]["atom_attributes"]["columns"]["formal_charge"][
         "null_mask"
@@ -103,28 +111,31 @@ def test_dictionary_copy_is_independent_and_schema_is_versioned():
 
 
 def test_chemical_states_are_complementary_to_matching_topology():
-    topology = Topology(n_atoms=2)
+    topology = MolSys(n_atoms=2)
     states = msm.ChemicalStates(n_atoms=2)
     states.append_state()
     encoded = msm.convert(states, to_form="molsysmt.ChemicalStatesDict")
 
-    assert msm.is_a_molecular_system([topology, states])
-    assert msm.is_a_molecular_system([topology, encoded])
-    assert not msm.is_a_molecular_system([Topology(n_atoms=3), encoded])
+    assert msm.is_a_molecular_system([topology.topology, states])
+    assert msm.is_a_molecular_system([topology.topology, encoded])
+    assert not msm.is_a_molecular_system([MolSys(n_atoms=3), encoded])
 
 
-@pytest.mark.parametrize("source_kind", ["topology", "molsys"])
+@pytest.mark.parametrize("source_kind", ["states", "molsys"])
 @pytest.mark.parametrize(
     "target_form", ["molsysmt.ChemicalStates", "molsysmt.ChemicalStatesDict"]
 )
 def test_direct_conversion_from_native_system_preserves_and_detaches_states(
     source_kind, target_form
 ):
-    source = Topology(n_atoms=3) if source_kind == "topology" else MolSys(n_atoms=3)
-    topology = source if source_kind == "topology" else source.topology
-    topology.add_bonds([[0, 1]])
-    topology._append_chemical_state(state_id="second")
-    topology._append_chemical_state_bonds([[1, 2]], state_index=1)
+    topology = MolSys(n_atoms=3)
+    source = topology.chemical_states if source_kind == "states" else topology
+    topology.chemical_states.add_bonds([[0, 1]])
+    topology.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=topology.get_n_atoms(), state_id="second"),
+        set_as_reference=False,
+    )
+    topology.chemical_states._append_chemical_state_bonds([[1, 2]], state_index=1)
 
     result = msm.convert(source, to_form=target_form)
     states = (
@@ -150,7 +161,7 @@ def test_direct_conversion_from_native_system_preserves_and_detaches_states(
 
 def test_direct_dictionary_conversion_rejects_a_selection_it_cannot_remap():
     source = MolSys(n_atoms=3)
-    source.topology.add_bonds([[0, 1], [1, 2]])
+    source.chemical_states.add_bonds([[0, 1], [1, 2]])
 
     with pytest.raises(ValueError, match="requires all atom and structure indices"):
         msm.convert(

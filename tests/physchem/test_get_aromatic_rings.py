@@ -9,21 +9,28 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
-from molsysmt.native import MolSys, Structures, Topology
+from molsysmt.native import MolSys, Structures
+from molsysmt.native._chemical_state import _ChemicalStateStorage
 
 
 def _ring(aromatic=True):
-    molsys = Topology(n_atoms=6)
-    molsys.bonds = pd.DataFrame(
-        {
-            "atom1_index": np.arange(6),
-            "atom2_index": np.roll(np.arange(6), -1),
-            "bond_type": ["covalent"] * 6,
-            "is_aromatic": [aromatic] * 6,
-        }
+    molsys = MolSys(n_atoms=6)
+    molsys.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": np.arange(6),
+                "atom2_index": np.roll(np.arange(6), -1),
+                "bond_type": ["covalent"] * 6,
+                "is_aromatic": [aromatic] * 6,
+            }
+        )
     )
-    molsys._set_chemical_state_atom_attribute("is_aromatic", [aromatic] * 6)
-    molsys._reference_chemical_state.connectivity_completeness = "complete"
+    molsys.chemical_states._set_chemical_state_atom_attribute(
+        "is_aromatic", [aromatic] * 6
+    )
+    molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+        "complete"
+    )
     return molsys
 
 
@@ -40,15 +47,17 @@ def _memberships(result):
 @pytest.mark.parametrize("aromatic", [True, False])
 def test_declared_aromaticity_is_distinct_from_connectivity(aromatic):
     molsys = _ring(aromatic)
-    before = molsys.bonds.copy(deep=True)
+    before = molsys.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
     result = msm.physchem.get_aromatic_rings(molsys)
     assert len(_memberships(result)) == int(aromatic)
-    assert len(msm.topology.get_rings(molsys)["atom_offsets"]) == 2
+    assert len(msm.chemical_states.get_rings(molsys)["atom_offsets"]) == 2
     assert result["definition"] == "stored_aromatic_bonds"
     assert result["rule_version"] == "stored_aromatic_bond_cycles@1"
     assert result["evidence"]["kind"] == "chemical_states.is_aromatic"
     assert result["software"]["molsysmt"] == msm.__version__
-    pd.testing.assert_frame_equal(molsys.bonds, before)
+    pd.testing.assert_frame_equal(
+        molsys.chemical_states._resolve_chemical_state().bonds, before
+    )
 
 
 @pytest.mark.parametrize(
@@ -65,19 +74,23 @@ def test_declared_aromaticity_is_distinct_from_connectivity(aromatic):
 def test_missing_or_contradictory_aromatic_metadata_fails_before_selection(defect):
     molsys = _ring()
     if defect.startswith("atom"):
-        molsys._reference_chemical_state.atom_attributes.loc[0, "is_aromatic"] = (
-            pd.NA if defect.endswith("unknown") else False
-        )
+        molsys.chemical_states._resolve_chemical_state().atom_attributes.loc[
+            0, "is_aromatic"
+        ] = pd.NA if defect.endswith("unknown") else False
     elif defect.startswith("bond"):
-        molsys.bonds.loc[0, "is_aromatic"] = (
+        molsys.chemical_states._resolve_chemical_state().bonds.loc[0, "is_aromatic"] = (
             pd.NA if defect.endswith("unknown") else False
         )
     elif defect == "aromatic_dative":
-        molsys.bonds.loc[0, "bond_type"] = "dative"
+        molsys.chemical_states._resolve_chemical_state().bonds.loc[0, "bond_type"] = (
+            "dative"
+        )
     else:
-        molsys = Topology(n_atoms=1)
-        molsys._set_chemical_state_atom_attribute("is_aromatic", [True])
-        molsys._reference_chemical_state.connectivity_completeness = "complete"
+        molsys = MolSys(n_atoms=1)
+        molsys.chemical_states._set_chemical_state_atom_attribute("is_aromatic", [True])
+        molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+            "complete"
+        )
     with pytest.raises(StructuralInconsistencyError):
         msm.physchem.get_aromatic_rings(molsys, selection=[])
 
@@ -96,38 +109,48 @@ def test_whole_ring_selections_and_empty_scope():
 
 def test_aromatic_bond_subgraph_keeps_a_fused_perimeter_with_nonaromatic_fusion_bond():
     molsys = _ring()
-    molsys.bonds = pd.concat(
-        [
-            molsys.bonds,
-            pd.DataFrame(
-                {
-                    "atom1_index": [0],
-                    "atom2_index": [3],
-                    "bond_type": ["covalent"],
-                    "is_aromatic": [False],
-                }
-            ),
-        ],
-        ignore_index=True,
+    molsys.chemical_states._set_chemical_state_bonds(
+        pd.concat(
+            [
+                molsys.chemical_states.get_bonds(),
+                pd.DataFrame(
+                    {
+                        "atom1_index": [0],
+                        "atom2_index": [3],
+                        "bond_type": ["covalent"],
+                        "is_aromatic": [False],
+                    }
+                ),
+            ],
+            ignore_index=True,
+        )
     )
-    assert _memberships(msm.topology.get_rings(molsys)) == {(0, 1, 2, 3), (0, 3, 4, 5)}
+    assert _memberships(msm.chemical_states.get_rings(molsys)) == {
+        (0, 1, 2, 3),
+        (0, 3, 4, 5),
+    }
     assert _memberships(msm.physchem.get_aromatic_rings(molsys)) == {tuple(range(6))}
 
 
 def test_nonreference_aromatic_state_and_reference_are_independent():
     molsys = _ring()
-    second = molsys._append_chemical_state(state_id="nonaromatic")
-    molsys._chemical_states[second].bonds = molsys.bonds.copy(deep=True)
-    molsys._chemical_states[second].bonds["is_aromatic"] = False
-    molsys._set_chemical_state_atom_attribute(
+    second = molsys.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=molsys.get_n_atoms(), state_id="nonaromatic"),
+        set_as_reference=False,
+    )
+    molsys.chemical_states._states[
+        second
+    ].bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
+    molsys.chemical_states._states[second].bonds["is_aromatic"] = False
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "is_aromatic", [False] * 6, state_index=second
     )
-    molsys._chemical_states[second].connectivity_completeness = "complete"
+    molsys.chemical_states._states[second].connectivity_completeness = "complete"
     assert not _memberships(
         msm.physchem.get_aromatic_rings(molsys, chemical_state=second)
     )
     assert len(_memberships(msm.physchem.get_aromatic_rings(molsys))) == 1
-    assert molsys._reference_chemical_state_index == 0
+    assert molsys.chemical_states.reference_chemical_state_index == 0
 
 
 def test_h5msm05_reads_chemistry_without_coordinates_or_interactions(
@@ -135,8 +158,7 @@ def test_h5msm05_reads_chemistry_without_coordinates_or_interactions(
 ):
     import molsysmt.form._h5msm05_modular as modular
 
-    molsys = MolSys()
-    molsys.topology = _ring()
+    molsys = _ring()
     molsys.structures.append(coordinates=puw.quantity(np.zeros((3, 6, 3)), "nm"))
     molsys.interactions = {
         "saved": msm.Interactions.from_records(
@@ -159,7 +181,7 @@ def test_h5msm05_reads_chemistry_without_coordinates_or_interactions(
     monkeypatch.setattr(modular, "read_independent_structures", unexpected_full_load)
     monkeypatch.setattr(modular, "read_named_analyses", unexpected_full_load)
     assert _memberships(msm.physchem.get_aromatic_rings(filename)) == {tuple(range(6))}
-    assert _memberships(msm.topology.get_rings(filename)) == {tuple(range(6))}
+    assert _memberships(msm.chemical_states.get_rings(filename)) == {tuple(range(6))}
 
 
 @pytest.mark.parametrize(
@@ -172,8 +194,15 @@ def test_h5msm05_reads_chemistry_without_coordinates_or_interactions(
     ],
 )
 def test_public_ring_tools_accept_native_and_dictionary_forms(form):
-    source = msm.convert(_ring(), to_form=form)
-    for tool in (msm.topology.get_rings, msm.physchem.get_aromatic_rings):
+    native = _ring()
+    source = msm.convert(native, to_form=form)
+    if form == "molsysmt.Topology":
+        with pytest.raises(
+            StructuralInconsistencyError, match="chemical-states domain"
+        ):
+            msm.chemical_states.get_rings(source)
+        source = [source, native.chemical_states]
+    for tool in (msm.chemical_states.get_rings, msm.physchem.get_aromatic_rings):
         result = tool(source, selection=[5, 4, 3, 2, 1, 0, 0])
         assert _memberships(result) == {tuple(range(6))}
         assert result["source_atom_indices"].tolist() == list(range(6))
@@ -183,9 +212,24 @@ def test_public_ring_tools_accept_native_and_dictionary_forms(form):
 def test_legacy_dictionary_forms_allow_declared_connectivity_but_do_not_supply_aromatic_flags(
     form,
 ):
-    source = msm.convert(_ring(), to_form=form)
+    legacy = {
+        "version": "0.1",
+        "atoms": [
+            {"atom_id": str(i), "atom_name": f"C{i}", "atom_type": "C"}
+            for i in range(6)
+        ],
+        "bonds": [
+            {"atom_index_1": i, "atom_index_2": (i + 1) % 6, "bond_type": "covalent"}
+            for i in range(6)
+        ],
+    }
+    source = (
+        msm.TopologyDict(data=legacy)
+        if form == "molsysmt.TopologyDict"
+        else msm.MolSysDict(data={"topology": legacy, "structures": {}})
+    )
     assert _memberships(
-        msm.topology.get_rings(source, assume_complete_connectivity=True)
+        msm.chemical_states.get_rings(source, assume_complete_connectivity=True)
     ) == {tuple(range(6))}
     with pytest.raises(StructuralInconsistencyError, match="explicit is_aromatic flag"):
         msm.physchem.get_aromatic_rings(source, assume_complete_connectivity=True)
@@ -205,7 +249,7 @@ def test_topology_free_chemistry_contains_the_information_needed_for_ring_member
     if file_source:
         source = str(tmp_path / "chemistry_only.h5msm")
         msm.convert(molsys, to_form=source)
-    for tool in (msm.topology.get_rings, msm.physchem.get_aromatic_rings):
+    for tool in (msm.chemical_states.get_rings, msm.physchem.get_aromatic_rings):
         assert _memberships(tool(source)) == {tuple(range(6))}
 
 
@@ -213,18 +257,17 @@ def test_topology_free_chemistry_contains_the_information_needed_for_ring_member
 def test_structure_assigned_chemistry_uses_nonconsecutive_indices_not_structure_ids(
     file_source, tmp_path
 ):
-    molsys = MolSys()
-    molsys.topology = _ring()
+    molsys = _ring()
     molsys.structures.append(
         coordinates=puw.quantity(np.zeros((4, 6, 3)), "nm"),
         structure_id=[11, 70, 200, 201],
     )
     second = molsys.chemical_states.append_state()
-    molsys.topology._chemical_states[second].bonds = molsys.topology.bonds.copy(
-        deep=True
-    )
-    molsys.topology._chemical_states[second].bonds["is_aromatic"] = False
-    molsys.topology._chemical_states[second].connectivity_completeness = "complete"
+    molsys.chemical_states._states[
+        second
+    ].bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
+    molsys.chemical_states._states[second].bonds["is_aromatic"] = False
+    molsys.chemical_states._states[second].connectivity_completeness = "complete"
     msm.set(molsys, element="atom", atom_is_aromatic=[False] * 6, chemical_state=second)
     molsys._set_structure_chemical_state_indices([0, second, second, 0])
     source = molsys
@@ -239,7 +282,7 @@ def test_structure_assigned_chemistry_uses_nonconsecutive_indices_not_structure_
     assert (
         len(
             _memberships(
-                msm.topology.get_rings(
+                msm.chemical_states.get_rings(
                     source, chemical_state="structure", structure_indices=[2, 1]
                 )
             )
@@ -272,7 +315,7 @@ def test_connectivity_only_external_form_supports_rings_without_inventing_aromat
     atoms = [molsys.add_atom(f"C{i}", md.element.carbon, group) for i in range(6)]
     for a, b in zip(atoms, atoms[1:] + atoms[:1]):
         molsys.add_bond(a, b)
-    assert _memberships(msm.topology.get_rings(molsys)) == {tuple(range(6))}
+    assert _memberships(msm.chemical_states.get_rings(molsys)) == {tuple(range(6))}
     with pytest.raises(StructuralInconsistencyError, match="explicit is_aromatic flag"):
         msm.physchem.get_aromatic_rings(molsys)
 

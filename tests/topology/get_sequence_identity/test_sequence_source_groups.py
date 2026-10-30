@@ -21,9 +21,7 @@ def molecular_groups(names, types):
     topology.groups["group_type"] = types
     topology.groups["molecule_index"] = [0] * len(names)
     topology.molecules["entity_index"] = [0]
-    return MolSys._from_partial_domains(
-        topology=topology, chemical_states=topology._chemical_states_domain
-    )
+    return MolSys._from_partial_domains(topology=topology)
 
 
 @pytest.mark.parametrize("form", ["molsysmt.MolSys", "molsysmt.Topology", "file:h5msm"])

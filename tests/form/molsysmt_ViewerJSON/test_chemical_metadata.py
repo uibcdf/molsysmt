@@ -29,9 +29,11 @@ def test_viewerjson_to_molsys_preserves_bond_type_and_charges():
 
     molsys = to_molsysmt_MolSys(viewer_json)
 
-    assert molsys.topology.bonds["bond_order"].tolist() == [2]
-    assert "bond_type" not in molsys.topology.bonds
-    assert molsys.molecular_mechanics.formal_charge.tolist() == [1, -1]
+    assert molsys.chemical_states._resolve_chemical_state().bonds[
+        "bond_order"
+    ].tolist() == [2]
+    assert "bond_type" not in molsys.chemical_states._resolve_chemical_state().bonds
+    assert msm.get(molsys, element="atom", formal_charge=True) == [1, -1]
     assert molsys.molecular_mechanics.partial_charge.tolist() == [0.25, -0.25]
     assert msm.get(viewer_json, element="bond", bond_order=True) == ["2"]
     assert msm.get(viewer_json, element="bond", bond_type=True) == ["double"]

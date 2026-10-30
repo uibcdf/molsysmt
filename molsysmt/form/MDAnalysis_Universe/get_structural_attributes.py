@@ -61,7 +61,8 @@ def get_coordinates_from_atom(
             output.append(coords)
     finally:
         item.trajectory[source_frame]
-    coordinates = np.asarray(output, dtype=np.float64)
+    n_atoms = item.atoms.n_atoms if is_all(indices) else len(indices)
+    coordinates = np.asarray(output, dtype=np.float64).reshape(len(frames), n_atoms, 3)
     return puw.quantity(coordinates, "angstroms", standardized=True)
 
 
@@ -106,7 +107,9 @@ def get_velocities_from_atom(
             output.append(velocities)
     finally:
         item.trajectory[source_frame]
-    return puw.quantity(np.asarray(output), "angstroms/picosecond", standardized=True)
+    n_atoms = item.atoms.n_atoms if is_all(indices) else len(indices)
+    values = np.asarray(output, dtype=np.float64).reshape(len(frames), n_atoms, 3)
+    return puw.quantity(values, "angstroms/picosecond", standardized=True)
 
 
 @arg_digest(form=form)
@@ -191,6 +194,8 @@ def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     if not hasattr(item, "trajectory") or item.trajectory is None:
         return None
     frames = _get_frame_indices(item, structure_indices)
+    if len(frames) == 0:
+        return puw.quantity(np.empty((0, 3, 3)), "angstroms")
     lengths = []
     angles = []
     source_frame = _source_frame(item)

@@ -37,6 +37,7 @@ from molsysmt._private.smonitor import ArgumentError  # noqa: E402
 # isort: on
 
 _convert_to = {
+    "molsysmt.TopologyDict": "to_molsysmt_TopologyDict",
     "molsysmt.MolSys": "to_molsysmt_MolSys",
     "mdtraj.Topology": "to_mdtraj_Topology",
     "mdtraj.Trajectory": "to_mdtraj_Trajectory",

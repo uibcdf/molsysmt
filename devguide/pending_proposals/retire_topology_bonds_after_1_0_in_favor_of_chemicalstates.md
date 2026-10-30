@@ -17,10 +17,12 @@ supersedes: []
 **Role:** accepted migration plan and execution tracker.
 **Maintainer decision:** 2026-10-28.
 **Implementation status:** In progress on `dev/chemical-states-separation-255`.
-Storage extraction and the target-test battery exist there; public Topology
-chemistry, query dispatch and file schemas have not been cut over. Main receives
-the maintained record only. The dated execution receipt below distinguishes
-passing controls from intentionally failing targets.
+The source cutover now separates native storage, queries, builders, graph tools
+and persistence. Qualification is still in progress: remaining consumers,
+scientific/documentation regressions, representative benchmarks and exact-source
+integration gates must pass before closeout. The dated receipts below distinguish
+executed controls from pending work. No main merge or release is authorized by
+this execution.
 
 The maintainer explicitly replaces the earlier post-1.0 scheduling with a
 coordinated pre-1.0 separation. The historical filename and issue number are
@@ -221,14 +223,14 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | Phase | Dependencies | Current state | Exit evidence |
 | --- | --- | --- | --- |
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
-| P1: target/characterization guards | P0 | Initial 36 target cases recorded; broader controls/measurements remain | Independent expected behavior and baseline evidence |
-| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Storage/graph primitives, C1 stable molecules, C3 graph edits and private typed assignment authority implemented on development branch; pure Topology and consumer cutover remain | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Stable molecule projection, collection-owned scopes, stored/nullable queries, atom/bond/component assignments and direct typed dictionary reads implemented on development branch; dictionary setters, predicates and mixed-owner cutover remain | Basic/native/form parity and truthful capabilities |
-| P4: builder and lifecycle | P2, P3 | Stable molecule transport, C4 restriction and atomic selected-state graph edits implemented; MolSys/Builder ownership cutover remains | Coordinated edits/remaps/copies and invalidation |
-| P5: functional module | P3; P4 for integration | Not started | Nine moved APIs, state selection and unchanged scientific controls |
-| P6: conversions/persistence | P3, P4 | Topology layer 3 and bounded legacy molecule recovery implemented; dictionary 0.2 and final domain cutover remain | Versioned payloads, legacy readers, partial and full round trips |
-| P7: docs and consumer receiving | P5, P6 | C1/C3/C4 lifecycle documentation and ChemicalStates native guide updated on development branch; final migration and receiving remain | Lifecycle docs and immutable consumer receipts |
-| P8: integrated source closeout | P1-P7 | Not started | Exact-source checks, published implementation and issue receipt |
+| P1: target/characterization guards | P0 | Native, graph, lifecycle, producer and wire controls implemented; independent C7 baseline/target measurements completed | Independent expected behavior and baseline evidence |
+| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Independent ChemicalStates storage/editing and pure Topology implemented; native authority gate passes; final integrated qualification pending | Standalone state operations; pure Topology; no hidden recovery |
+| P3: query/form dispatch | P2 | Basic/native/typed dictionary queries and assignments migrated; nullable chain and state-only selection corrections pass focused controls; final integrated qualification pending | Basic/native/form parity and truthful capabilities |
+| P4: builder and lifecycle | P2, P3 | MolSys/Builder authority, stable membership, shared-axis remapping, copies, partial composition and analysis invalidation implemented and contract-tested | Coordinated edits/remaps/copies and invalidation |
+| P5: functional module | P3; P4 for integration | Nine graph APIs, helpers, addon namespace, argument and scientific-attribution metadata migrated; graph controls pass; final integrated qualification pending | Nine moved APIs, state selection and unchanged scientific controls |
+| P6: conversions/persistence | P3, P4 | Producers, Topology projections, dictionary 0.2, typed transports and H5MSM/legacy readers migrated; scoped fidelity debt explicitly retained; final integrated qualification pending | Versioned payloads, legacy readers, partial and full round trips |
+| P7: docs and consumer receiving | P5, P6 | Core/native/user/course/migration documentation updated and changed examples executed; strict Sphinx and real consumer receiving in progress | Lifecycle docs and immutable consumer receipts |
+| P8: integrated source closeout | P1-P7 | Complete diagnostic run executed; corrective focused gates pass; final broad tests, remaining bounded-read checks, coherent source publication and receiving still open | Exact-source checks, published implementation and issue receipt |
 
 Documentation work can accompany each implementation phase. Independent execution
 may overlap, but dependent phases cannot claim their exits early. The final
@@ -650,7 +652,7 @@ speedups from these unexecuted workloads. Measurements remain pending P1/P8.
 - [x] P0.2 Record source observations, probe limitations, phase dependencies and acceptance matrix.
 - [x] P0.3 Reconcile current roadmap/scope/status references and #447's proposed namespace, without changing runtime contracts.
 - [x] P0.4 Record source/worktree, import/native-extension origins and preserved existing changes in C7. Create the isolated runtime branch required by C6 before the first implementation edit; it is not needed for this documentation-only follow-up. Never reset/stash unrelated work.
-- [x] P0.5 Record target constructor signatures, missing-state behavior, the editing API map, stable group-free molecule membership, remap/state-alignment policy, coherent cutover and wire contracts in C1-C6; select baseline workloads in C7. Runtime implementation and performance measurements remain pending.
+- [x] P0.5 Record target constructor signatures, missing-state behavior, the editing API map, stable group-free molecule membership, remap/state-alignment policy, coherent cutover and wire contracts in C1-C6; select baseline workloads in C7. Implementation and measurements are tracked in their phases and dated receipts below.
 - [x] P0.6 Open the owning suite impact and four client-receiving issues before rollout; the dated execution receipt identifies them and their source-only status. No published minimum version is invented.
 
 Exit: reviewable contract and baseline, including any deliberate exception. Routine
@@ -730,7 +732,7 @@ keeps this phase open. Source receiving is not installed/public qualification.
 
 ### P8: integration, merge and source closeout
 
-- [ ] P8.1 Run the relevant and full required source tests using the shared Python 3.14 environment, 12 workers and Pytest Receptor; complete Ruff and API/form/dependency/devguide/documentation gates.
+- [ ] P8.1 Run the relevant and full required source tests using the shared Python 3.14 environment and Pytest Receptor, with concurrency bounded by available memory (two workers after the maintainer-authorized memory pause on 2026-10-30); complete Ruff and API/form/dependency/devguide/documentation gates.
 - [ ] P8.2 Compare representative scientific values and source/index/units/provenance independently; execute strict documentation and changed notebook/doctest examples.
 - [ ] P8.3 Measure representative native query/copy and file/streaming workloads after correctness. Record inputs/environment; reject accidental full trajectory loads, repeated chemistry copies or unbounded scans.
 - [ ] P8.4 Merge the coherent result using the authorized local route, publish an unskipped head, inspect exact-source CI with GH Run Receptor and record any missing evidence. No force/reset or PR requirement is introduced here.
@@ -1868,6 +1870,139 @@ MolSys/Builder routing and authority, pure Topology, the functional module and
 versioned codec cutover. P3, #255, C6/C7 receiving and release qualification remain
 open; the declared final-separation failures are still work to do.
 
+### P3 sixth slice: controlled dictionary assignments and predicates
+
+Development commit
+[`63012f9a60abceb5cab15c6d8e9e44d362f7b89a`](https://github.com/uibcdf/molsysmt/commit/63012f9a60abceb5cab15c6d8e9e44d362f7b89a)
+adds decorated typed field setters using the canonical native assignment boundary.
+Only the selected state is decoded, mutated privately and encoded before replacing
+its record. Other records retain identity and the reference remains fixed. A
+codec/publication failure leaves the original payload unchanged. This selected-state
+write can materialize that state's full storage; direct small reads remain bounded.
+Raw data mutation is still uncontrolled; graph methods require native conversion.
+
+Contains/is_composed_of gain a keyword-only chemical_state selector with explicit
+#255 signature waivers. The existing positional experience and count semantics are
+retained. Nullable component digest rules now admit both chemical storage forms.
+
+**Executed on Linux/Python 3.14.7:** dictionary read/write, predicate and native
+component-assignment tests report **197 passed**, exit 0, **6.67 s**. Literal
+expectations cover all seven atom fields, twelve bond fields, six label routes,
+membership and injected encoding failure. The first tests exposed a missing Dict
+nullable digester route, which was corrected; fixture evidence/labels were retained.
+Predicate doctests report **2 passed**, exit 0, **4.73 s**. The changed Common Core 4
+assignment/predicate example executes in **7.2 s**; Cookbook/Get prose is updated
+with unchanged executed code fingerprints. Ruff, docstring fidelity and signature
+validation pass. Final HTML and integrated source gates remain part of the ongoing
+P5-P8 migration; no full refactor closeout is claimed.
+
+### Ongoing P5 / P3 mixed-query cutover
+
+The nine public functions and five private graph helpers now have their canonical
+chemical_states source owner in the working branch. Runtime callers and caller-
+specific digest rules are being migrated without old public aliases. Paths and
+quartets now expose explicit state/structure selection, and stored endpoint queries
+work on ChemicalStates/Dict without stable topology. Direct MolSys chemical getter
+routing is being qualified before native authority removal.
+
+The first graph/target run reports **546 passed / 10 failed** (exit 1, 29.78 s):
+eight final native/codec targets remain and two tests still used a dynamic old-
+namespace lookup. Those lookups have been corrected. A separate mixed query pass
+reports **995 passed / 2 failed** (exit 1, 39.44 s), with the same two old lookups.
+These are intermediate observations, not a completed P5 or integration gate.
+
+### Ongoing C2-C6 authority, lifecycle and producer cutover
+
+The development working tree now removes the native Topology chemical authority
+and public chemical capabilities. MolSys and Builder hold independent collections;
+the nine graph tools have their chemical_states source owner. The complete-data
+producers are being migrated separately from stable Topology projections. The
+TopologyDict/MolSysDict 0.2 codecs now exist, including explicit optional domains,
+typed JSON-safe arrays/quantities, state associations and named analyses. This
+supersedes earlier receipts' statements that these codecs were still unimplemented;
+those receipts describe their cited checkpoints.
+
+One-state molecular union prepares chemistry, stable inventory, geometry and
+analysis extensions before publication. Unsupported state alignment is rejected.
+Structure append preserves strictly matching ordered chemical inventories and
+rejects conflicting declarations. A coordinate-only source retains the admitted
+single-state/unknown-association convention. Replacement geometry validates the
+shared atom axis, explicit associations and analysis axes before publication.
+Current pickle restoration rebinds serialized domains without treating restoration
+as a new geometry edit. Terminal atom growth transports stable parent molecule
+membership explicitly; no chemical read reconstructs stable inventory.
+
+**Pickle boundary decision:** current pure-Topology and complete MolSys pickles
+remain supported, including historical private storage-class decoding aliases.
+A historical mixed Topology pickle is explicitly refused rather than restoring a
+chemical facade or dropping its chemistry. Recovery uses the MolSysMT version
+that wrote it to export the complete system to H5MSM, then the maintained H5MSM
+reader/migration route. There is no new public arbitrary-pickle migration reader.
+This adopts the explicit migration/refusal alternative in P6 and does not change
+the retained H5MSM 0.3/0.4 or dictionary 0.1 readers.
+
+**Intermediate Linux/Python 3.14.7 observations**, all using the shared development
+environment, Pytest Receptor and twelve workers (not final exact-candidate gates):
+
+- Isolated analytical union and atomicity: 10 passed, exit 0, 4.99 s.
+- Replacement/optional-domain/typed transport/current pickle and H5MSM controls:
+  79 passed, exit 0, 5.87 s, including two new rejection/failure-injection guards.
+- Element queries, real PDBQT metadata and native union/separation: 322 passed,
+  exit 0, 10.35 s.
+- Native copies/inherited constructors, real SDF/PDBQT files and missing-bond
+  candidates: 802 passed, exit 0, 27.85 s. The convenience method now forwards
+  threshold, source selection, structure index, engine and candidate switches to
+  the general build tool; its selected-state forwarding has a literal guard.
+- Broader preparation/sequence check: 891 passed and 47 failed, exit 1, 90.29 s.
+  Remaining causes included incomplete prmtop composition, ownership transport
+  for new hydrogens, legacy H5MSM chemistry writing, an engine export through pure
+  Topology, and obsolete chemical fixtures. Corrections are being qualified;
+  this failing run is not a passing integration receipt.
+
+The command selections and retained task-local reports identify the actual suites:
+`tests/native/test_independent_chemical_union.py`,
+`tests/native/test_chemical_domain_separation.py`,
+`tests/native/test_molsys_copy.py`, `tests/native/test_copy_boundaries.py`,
+`tests/native/test_inherited_constructors.py`, `tests/element`,
+`tests/form/file_sdf`, `tests/form/file_pdbqt`, `tests/build/get_missing_bonds`,
+`tests/build`, `tests/form/file_fasta`, and both amino-acid string form suites.
+Canonical source closeout still requires the remaining native/foreign adapters,
+full regressions, documentation/course execution, C7 measurements and receiving
+checks. No phase is closed by these intermediate counts.
+
+### Independent-domain query and codec qualification — 2026-10-29
+
+The complete native test selection now passes: **1,541 passed**, exit 0,
+26.73 s (`python -m pytest --receptor=llm -n12 tests/native`, shared development
+environment and task-owned basetemp). This covers supported current pickles,
+independent owner binding, component evidence, selected-state edits, atom growth,
+stable memberships and failure atomicity. It supersedes the failing native
+observations for that selection, not unexecuted foreign adapter or documentation
+gates. Warnings include retained legacy-format notices and pandas compatibility
+notices; none is silently counted as an omitted test.
+
+Read-only native Topology/ChemicalStates composition now borrows explicit domain
+references without copying payloads or changing their owners. Component-to-stable
+projections can therefore use both domains. Missing storage in basic.set raises
+a supported prerequisite diagnostic instead of indexing the form registry with
+None. Active collection state scopes apply to native reconstruction as well as
+reads; no reference selection is mutated. PDBQT readiness inspects declared native
+chemistry while retaining the original document for coordinate access and without
+discarding its torsion tree.
+
+Dictionary 0.2 preflight guards first produced **14 failures / 7 passes** (exit 1,
+8.32 s), exposing silent unknown-field/extension loss and missing explicit state
+selection. The corrected codec/query block, including existing typed transport
+and preparation-history tests, gives **60 passed**, exit 0, 6.35 s. Native extension
+attributes/slots unsupported by this wire schema are refused explicitly. Version
+0.2 rejects unknown topology/row fields and nonempty unrepresented metadata;
+legacy 0.1 reading retains its separate interpretation. MolSysDict explicit state
+queries decode into the independent native owner rather than guessing a reference.
+
+These are working-tree source observations. The broader basic/interaction/
+structure/form/conversion-truth selection is being executed separately. P7/P8,
+performance measurements and receiving-source qualification remain open.
+
 ## Acceptance matrix
 
 | Boundary | Required independent observation |
@@ -1884,7 +2019,7 @@ open; the declared final-separation failures are still work to do.
 | Interactions | Sparse relations, occurrence indices, evaluated-empty coverage, producer history and established invalidation stay correct. |
 | Copies | Source/clone ownership and aliases are correct; pure Topology copying does not traverse chemistry, MolSys retains one chemical authority. |
 | Chemistry/geometry | Original independent scientific controls, coordinates and active PyUnitWizard policies retain their meaning. |
-| I/O | New dictionaries are versioned; legacy inputs migrate faithfully; H5MSM 0.5 layers/maps remain valid and projected reads stay bounded. |
+| I/O | New dictionaries are versioned; legacy dictionary/H5MSM readers preserve chemistry; current pickles restore and historical mixed Topology pickles fail explicitly; H5MSM 0.5 layers/maps remain valid and projected reads stay bounded. |
 | Clients | Real receiving calls run against identified compatible sources; unavailable public packages are not advertised as delivered. |
 
 Use tests mirrored under `tests/native`, `tests/basic`, `tests/form` and the new
@@ -1947,6 +2082,65 @@ Implementation must refresh this receipt before coordinated changes. Expected
 clarity and workload benefits remain hypotheses until measured; this is neither
 an installed-candidate nor a new platform qualification.
 
+## Conversion and scientific regression checkpoint — 2026-10-29
+
+This is an uncommitted development checkpoint on the isolated #255 branch,
+not phase completion or release evidence. Counts below are separate runs and
+must not be summed.
+
+- The native authority gate passed 1,541 tests before the following conversion
+  follow-ups. Typed dictionary/history transport passed 60 focused controls.
+- A broader native/basic/interaction/structure/element/graph selection ran
+  7,257 tests: 7,154 passed and 103 failed. It exposed remaining legacy fixture
+  assumptions plus actual metadata-pipe and stable-union defects.
+- Metadata-only MDAnalysis bulk queries now request zero structures. A spy on
+  the actual Universe-to-Structures route failed before that change because it
+  received `structure_indices='all'`. Empty coordinates/velocities retain their
+  `(0, n_atoms, 3)` axes; an empty box avoids a geometry kernel call.
+- Stable inventory concatenation preserves molecule/entity labels and distinct
+  declared entity indices. Re-inference during `Topology.add` had overwritten
+  a group-free ligand's declared name; the public partial-hierarchy guard now
+  compares the incoming labels and remapped indices explicitly.
+- The subsequent native/graph/legacy/setter selection ran 2,301 tests: 2,298
+  passed and three failed. Corrections for the legacy atom-state delivery route,
+  state-scoped completeness queries and preserved entity declarations are under
+  the next adapter qualification; this receipt does not declare them passing.
+
+Addressable controls include
+`tests/basic/get/test_piped_attributes.py::test_metadata_pipe_requests_no_coordinate_structures`,
+`tests/basic/add/test_partial_hierarchy.py`,
+`tests/basic/merge/test_merge_extended.py`,
+`tests/topology/test_selected_state_connectivity.py` and
+`tests/form/file_h5msm/test_chemical_states_v04.py`. The latter retains literal
+legacy hard-link, chemistry, nullable-state and remapped-bond expectations using
+complete MolSys writers/readers, rather than recovering chemistry from Topology.
+Scientific graph expectations remain unchanged; positive fixtures explicitly
+supply ChemicalStates and stable-only projections have separate absence guards.
+
+Current documentation is being migrated with the nine graph tools to
+`chemical_states`, preserving existing tutorial/course anchors. The User Guide,
+course and interaction lifecycle text remove the retired facade and explain
+atomic bond/component edits. Current dictionary writers are 0.2; legacy 0.1
+reading remains explicit. H5MSM 0.5 general conversion/get is a resident path;
+no new file-backed query guarantee is claimed. C7 timings, full source gates,
+executed documentation and client receiving remain pending.
+
+A later focused adapter/chemistry gate passed **1,098 tests** (37.57 s, exit 0)
+covering the full H5MSM form suite, Builder capability delivery, MDAnalysis,
+mmCIF, PyTraj, ParmEd bridge geometry, docking conversion literals, native
+Topology operations and explicit-state basic queries. This includes the new
+no-copy/no-rebinding composite-query guard. It is not the full source suite.
+
+The dependency validator passed. The form-adapter audit passed all **97 forms**
+with **zero unreachable attribute declarations**, after adding actual Builder
+inner-edge getter routes and removing a false mechanical declaration from
+TopologyDict/topology YAML. The guard checks real delivery, not flags alone.
+General 0.5 readers remain resident; no new on-disk backend was added.
+
+The four unrelated autosummary files and the existing Rust binary still match
+this plan's original recorded SHA-256 values. No native rebuild, environment
+creation, main merge, tag or release occurred in this checkpoint.
+
 ## Alternatives rejected and risks to keep visible
 
 - Removing only public properties leaves chemical implementation, private
@@ -1964,10 +2158,13 @@ an installed-candidate nor a new platform qualification.
   cycle. Its implemented independent-domain foundation is available; #255 source
   closeout precedes the new #254/#334 final-candidate qualification.
 
-The remaining engineering uncertainties are the exact constructor/cutover and
-wire-format details in P0/P6 and executed client compatibility. Resolve these in
-their phase receipts rather than expanding the scientific scope or inventing
-completion claims. No deadlines or performance ratios have been measured.
+Constructor/cutover and wire-format contracts are now implemented on the
+development branch. Remaining risks are final integrated qualification,
+unnecessary coordinate materialization in chemical-only consumers and actual
+client compatibility. C7's dated measurements are reported separately in the
+[benchmark record](../chemical_domain_separation_benchmarks.md); they establish
+neither a completion deadline nor a universal speedup. Resolve remaining findings
+in their phase receipts without expanding the scientific scope.
 
 ## Related decisions and final release boundary
 
@@ -1984,3 +2181,389 @@ Do not close #254/#334 merely because the namespace moved. Preserve original
 published/staging files, tags, commits, hashes and old receipts; qualify a new
 candidate after the final source changes and communicate actual compatible
 package availability through the owning release/consumer issues.
+
+
+### Conversion closeout checkpoint — 2026-10-29
+
+The full `tests/form tests/conversion_truth` selection (run 55) returned exit 1:
+9,133 passed, 26 failed, two skipped in 201.77 seconds. Fourteen grouped causes
+included obsolete Topology chemical-facade and dictionary 0.1 layout assertions,
+selected-state completeness now being scalar, and two genuine caller defects.
+PSF-to-OpenMM projected through pure Topology and dropped a declared bond;
+mmCIF multi-model comparison still requested components from pure Topology.
+Both now compose the independent chemical domain instead. The original PSF
+bond-count assertion is retained; the focused producer run passed it. The
+mmCIF/offline PDB-ID and selected dictionary block returned exit 0: 33 passed in
+10.66 seconds, including recovery of all 38 structures of the bundled NMR input.
+
+All 201 retired Topology getters and 43 retired setters were inspected against
+callable replacement routes in the full MolSys adapter. The signature registry
+records exact callable-level #255 decisions rather than file-wide waivers.
+The nine graph tools retain their scientific stability classifications. Eight
+historical pre-1.0 introductions use bounded namespace records; experimental
+`get_rotatable_bonds` retains its existing planned 1.0.0 introduction and needs
+no exception to the ordinary experimental transition policy. The unchanged API
+registry validator passes against the actual 451b914 registry. This is a source
+compatibility decision, not certification of scientific methods or client builds.
+
+Twelve newly declared producer edges are being exercised with explicit resource
+fixtures (FASTA, SMILES, YAML, three OpenMM input objects, PyTraj and sequence
+strings); they are not accepted as unexecuted debt. The execution-plan audit
+supports explicit edge pairs alongside its resident Cartesian profile. Its
+structural audit does not claim execution; the route tests remain the evidence.
+Full source/doc/performance qualification and client receiving are still open.
+
+
+### Memory interruption and bounded receiving — 2026-10-30
+
+The all-source run 61 collected 24,708 cases but was stopped at the maintainer's
+request during machine memory pressure. It has no complete passing verdict.
+The retained provisional stream contains 1,823 failed node records across 54
+cause groups; 1,707 originate from failed Viewer addon registration and another
+16 directly identify its old graph namespace. These are downstream symptoms,
+not 1,823 independent scientific defects. Worker crashes and subprocess timeouts
+under pressure are not attributed to code or OOM without separate evidence.
+
+The verified test process tree consumed 13.315 GiB of summed RSS (shared pages
+can be counted repeatedly). Stopping that tree increased available memory from
+6.9 to approximately 18 GiB. A separate authorized cleanup removed 18 inactive
+MolSysMT temporary directories, retaining all ten worktree commits as ancestors
+of the current branch and preserving staged/unstaged patches and untracked files
+in a 562,741-byte local disk backup. `/tmp` is tmpfs: its usage fell from about
+13 GiB to 2.1 GiB; available RAM reached 23 GiB and swap use fell from 8 to 2.8 GiB.
+The current refactoring evidence and scratch inputs on disk were retained.
+Subsequent heavy receiving runs use two workers, with notebook execution serial.
+This is an observed local resource adjustment, not a relaxation of source gates.
+
+The owned addon now exposes the nine graph wrappers under `chemical_states` and
+the two sequence wrappers under `topology`; it imports the canonical native
+providers and retains no old graph facade. Addon graph signatures, real bound
+queries and structural inventory controls pass: run 62, exit 0, 33 cases in
+14.00 seconds. Complete addon receiving remains in progress.
+
+Solvent/ion constructors previously left stable molecule labels to implicit
+component recovery. They now invoke existing stable hierarchy rebuild tools
+once during construction. This restores overlap screening and ion placement
+without making stable membership depend on later chemical edits. Run 63 passes
+54 preparation, solvation, template-evidence and explicit query-context controls
+in 30.62 seconds (exit 0), including the complete Trp-Cage preparation pipeline.
+The original geometry/neutralization assertions remain intact. Current RAM
+availability stayed near 23 GiB after this bounded run.
+
+
+### State-local calculation and stable edit guards — 2026-10-30
+
+After the addon registration repair, the complete 2,453-case run 64 completed
+with exit 1: 2,268 passed, 185 failed in 333.19 seconds using two workers.
+Many remaining failures came from raw grouped-membership fixtures and table
+snapshots that lost their canonical subclass, not altered scientific values.
+Fixtures now use the controlled Builder, and atom snapshots use native Topology
+copy so strict pandas value/dtype/class checks remain meaningful. The focused
+415-case receiving run 67 had 414 passes and one missing-bond-wrapper signature
+failure; the latter now exposes the native state/template/distance controls.
+
+A genuine detached-view defect used a source state index greater than zero in a
+single-state working graph. Gasteiger-Marsili readiness and AutoDock hydrogen/
+aromatic checks now use local index zero while their reports retain the selected
+source index and state ID. Run 69 passes 204 native and bound assignment controls
+in 25.88 seconds, including original numerical and nonreference provenance guards.
+Pure Topology is explicitly insufficient for these chemical calculations;
+complementary topology/chemical-state inputs retain their admitted route.
+
+Explicit bond inference also retained an old reference-component-triggered
+molecule/entity rebuild. That behavior contradicts C1 and has been removed:
+existing stable declarations survive connectivity changes. A new label guard and
+the original bond/history, wrapping and course controls pass in run 70: 291 cases,
+exit 0, 14.28 seconds. Explicit inference still requires a resolved supplied
+chemical state; this change adds no hidden state creation on Topology reads.
+
+The new dated addon declaration inventory reports nine of nine canonical
+chemical_states paths and two of two topology sequence paths. It does not call
+science or qualify the scene loader. The loader failure and real retry guards
+are delivered in uibcdf/molsysviewer#269 (comment 6527897544). Its remaining
+`Topology.bonds` access is not repaired by a provider compatibility facade.
+
+### Memory-safe documentation continuation — 2026-10-30
+
+The maintainer resumed #255 after the completed temporary-resource cleanup.
+Validation now uses two pytest workers, serial notebook execution and disk-backed
+scratch under the ignored qualification directory. A resumed documentation/tool
+run was interrupted at 356/1,631 cases (355 passed, one failed); it is incomplete
+evidence, not a passing gate. Both workers had entered interactive Matplotlib Qt
+windows through course `plt.show()` calls. The replacement run uses `MPLBACKEND=Agg`
+with the same selections/assertions and retains its native exit status.
+
+The remaining alignment failure was traced to the HP35 course example projecting
+its molecular source to pure Topology before composing the coordinate trajectory.
+The corrected example explicitly supplies both stable inventory and ChemicalStates,
+without loading the source structural series. The alignment function now rejects
+missing chemical component membership clearly before publishing coordinates; its
+new guard checks unchanged coordinates after rejection. No hidden chemical facade
+or guessed component reconstruction is introduced.
+
+Dictionary documentation guards now check the 0.2 five-table stable schema, optional
+ordered-chain/ungrouped-molecule maps, absent chemistry on pure Topology, and the
+complete independent MolSys domains. They retain literal atom labels, one stored
+bond in MolSys and coordinate/time unit conversion checks. Final run results remain
+pending until the replacement command completes.
+
+### Mixed-coordinate composition and bounded readers — 2026-10-30
+
+The memory-safe expanded run 73 completed with 4,267 passed, 85 failed and no
+skips (4,352 cases; exit 1; 636.40 seconds). Its complete receptor artifact and
+full report were retained. Many failures were shared old benchmark ownership
+assertions, plus scientific fixtures still projecting away chemistry. The next
+focal run 76 completed 159 passed and seven failed in 35.54 seconds; the remaining
+causes were six study assertions and one mixed-domain composition route. These
+are separate runs, not additive suite totals.
+
+The codec now restores negative legacy hierarchy sentinels as nullable parent
+indices and preserves trailing dimensions when selecting zero structure rows.
+The four added legacy controls cover full/subset atom axes, Structures/MolSys
+outputs, coordinates/velocities/box/B-factor/time shapes and physical units.
+They passed in the subsequent reader/composition selection.
+
+An explicit native ChemicalStates (or its dictionary) can now accompany standalone
+native providers and one coordinate-only external source. Original structure
+indices are validated and consumed by that reader before atom extraction;
+all states and their nullable structure associations retain their declared
+semantics. Foreign inventory/chemistry is never silently stripped by this route.
+The public documentation and HP35 course composition now supply the chemistry
+explicitly. The complete HP35 comparison course guard passes with Agg.
+
+Selected XTC conversion reuses its existing seek-based StructuresIterator rather
+than reading the complete trajectory and slicing afterwards; complete XTC reads
+retain the vectorized provider path. DCD and XTC empty selections retain the
+source atom axis without inventing coordinates. The 60-case run 80 passes in
+9.41 seconds, including real provider-written trajectories and explicit read
+observers that require calls `(2, 1)`, `(0, 1)`, `(2, 1)`, restore the original
+reader position and compare physical coordinates independently. Its guards are
+`tests/conversion_truth/test_declared_trajectory_edges.py` and
+`tests/basic/convert/mult_to_one/test_convert_chemical_and_structural_domains.py`.
+This does not claim that every other coordinate format is an out-of-core store;
+its own reader contract continues to determine I/O scope.
+
+The source copies/studies now use independent ChemicalStates and initialized,
+unowned Structures when materializing experimental branches. Original chemical
+value, coordinate, units, coverage and ownership assertions remain. The local
+smoke tier is aligned with the existing 74 CI selectors, including directory
+selections; its guard compares the complete ordered selections and verifies
+that their files/directories exist, instead of the stale four-file count.
+
+C7's maintained harness is `devtools/scripts/benchmark_chemical_domain_separation.py`.
+It records source-content/backend hashes, actual import origins, warm-up and
+seven timings per operation, range/median and process high-water RSS. Unaffected
+state-record identity is reported as a performance characteristic, while unchanged
+chemical values are required on both sources. The actual sequential baseline/target
+campaign has started; its completed results will be reported separately.
+
+### C7 measured comparison and preflight classification — 2026-10-30
+
+Twenty sequential baseline/target processes completed C7's chemical-scaling,
+structural-isolation, group-only and projected-file fixtures, with four additional
+target-first full-copy rechecks and separate diagnostic profiles. The maintained
+[benchmark report](../chemical_domain_separation_benchmarks.md) links the full
+machine-readable artifact and reproducing command. Pure Topology's reduced work
+is demonstrated; full MolSys copy and every file route are not claimed faster.
+The evidence predates final source qualification and is not release evidence.
+
+The newly explicit producer directions are executed with stronger oracles: fixed
+ethanol atom/edge/H counts, sequence group/chain inventories, stable dictionary
+labels, and original OpenMM atom identities/elements/bonds rather than comparing
+two consumers of the same converter. The producer selection passes 113 cases in
+21.70 seconds.
+
+Thirteen direct Tier-1 directions introduced by the domain cutover retain the
+existing **chemical-state-only** preflight scope. Their execution and molecular
+field evidence do not certify complete source metadata. They are explicitly
+classified in `tier1_conversion_fidelity_baseline.json` under #255, adding only
+the enumerated directions while retaining all earlier accepted debt. The auditor
+and strict-loss rules are unchanged; no empty exhaustive profile was registered.
+A regression requires these routes to remain honestly scoped until a separate
+review implements and executes their broader preflight. The 180-case run 84
+passes in 21.86 seconds, including this classification and the provider/typed
+dictionary oracles. This is documented debt, not full-fidelity certification.
+
+### Read-only graph-context regression reproduced — 2026-10-30
+
+A six-carbon covalent cycle with five synthetic MDAnalysis structures gives the
+same ring membership on baseline and target. An observed native converter shows
+that the baseline graph read requests no MolSys coordinate conversion, while
+the target requests `structure_indices='all'`. The fixture explicitly supplies
+the complete-connectivity assumption; no molecular coordinates are needed for
+cycle membership. This is an introduced materialization regression, not a claim
+about a foreign reader inferred only from inspection.
+
+The target context also dropped the old composite `copy_if_all=False` delegation,
+and the ring result's purported shallow `copy(states)` now invokes the new
+independent-copy protocol. The existing private borrowed native query view and
+selected-state read helper should be reused for these read-only contexts, without
+rebinding source owners or changing geometry-dependent consumers. A coordinate-free
+foreign conversion must retain original structure-scope validation and explicit
+state association semantics. Native/foreign numeric selections, invalid source
+structure indices, nonreference states and spatial selections need guards.
+
+Correction and validation are pending. Sources remain frozen while the complete
+run 86 executes; this finding will be addressed after its diagnostic result.
+Two public graph docstrings still construct chemical Topology examples and also
+need correction before the final doctest gate.
+
+The maintained [client migration guide](../chemical_states_migration.md) now
+collects the receiving routes, prerequisites, state scope, coordinated remapping
+and wire-version differences. It links the existing receiving issues and makes no
+new package-floor claim. The editable Viewer source observed during run 86 is
+`7900263691cd96fcf74840357cc2e7ca8ef62914`; its loader still has the reported
+Topology bond access. Its unrelated dirty documentation/sandbox work is preserved.
+
+### Complete diagnostic run and corrective qualification — 2026-10-30
+
+The memory-bounded expanded run 86 completed all 24,780 collected cases in
+3,061.92 seconds using two workers and Agg: **23,249 passed, 31 failed, 1,498
+errors and two skipped**, exit 1. This is diagnostic evidence, not a passing
+full-suite gate. Its complete receptor report and JUnit were retained before
+another pytest session. The failures fall into eleven reported groups; the
+number of affected cases must not be represented as that many independent bugs.
+
+The dominant scene-loading error was traced into **MolSysMT's own** Topology
+adapter, not inferred to be a Viewer defect: nullable chain membership produced
+an object-typed NumPy index array. Chain labels now reuse the nullable hierarchy
+projection instead. New controls require exact chain indices and string labels,
+missing memberships and nonconsecutive selection order, for Topology and MolSys.
+Run 89 confirms that scene initialization proceeds after this correction. It
+still exposes the separately reported Viewer Topology bond access and a
+Viewer-side active-selection assumption; those routes are not qualified yet.
+
+Read-only chemistry now reuses the borrowed native query view, including a
+ChemicalStates/Structures pair without Topology. Ring filtering reuses the
+selected-state helper rather than invoking ChemicalStates' independent-copy
+protocol. Numeric/all foreign ring queries request no structures, while source
+structure bounds are validated first and rich string selections retain their
+geometry-capable route. Guards reject native deep copies, require unchanged
+owners, verify literal cycle membership and the requested foreign conversion
+scope, and reject an invalid original structure index before conversion.
+Chemistry-only predicates use supplied public attributes without fabricating
+stable inventory or changing the reference state.
+
+Additional corrective work covers stale public get/select/set and graph
+docstrings, the generated converter-keyword table, Simulation-to-Structures
+delegation through the correct Context converter, legacy reporter chemistry
+serialization, and NGL coordinate/structure-string axis mismatches. Reporter
+tests now compare stored bond pairs with original OpenMM bonds after explicit
+selection; pure Topology remains chemically empty. NGL uses its actual
+`get_structure_string` method and does not attach metadata from a different
+atom/structure axis to trajectory coordinates.
+
+Run 91 completes **1,375 passed**, exit 0, in **45.94 seconds**, including all
+chemical_states tests, Topology and NGL adapters, OpenMM/NGL third-party suites,
+basic/chemical_states doctests, aromatic-ring tests and converter-argument
+contracts. Intermediate runs 87–90 were diagnostic and are not additive totals.
+The broader full-suite gate, strict documentation, remaining example execution
+and actual client receiving remain pending. This checkpoint is not a merge,
+release or installed-package qualification.
+
+The modified Alzheimer 34 comparison notebook was subsequently executed and
+saved through the maintained notebook runner, serially with the inline plotting
+backend: one executed, exit 0, 10.1 seconds. The foreign graph probe now records
+an explicit empty coordinate scope while retaining the same six cycle atoms.
+Whole-tree Ruff checks and formatting pass (4,292 Python files); developer-guide
+validation, generated queue indexes and the 156-notebook course structure also
+pass. The Rust binary and four unrelated original autosummary files retain
+their recorded SHA-256 digests. Strict Sphinx and the broader final suite/client
+qualification remain outstanding.
+
+### Strict documentation and complete addon receiving — 2026-10-30
+
+Strict serial Sphinx HTML compilation completes with exit 0 (run 94), with
+`warningiserror=True`, `keep_going=True` and a real boolean
+`autosummary_generate=False` to preserve unrelated autosummary edits. The first
+CLI attempt interpreted `False` as text and produced configuration warnings;
+that attempt is not a passing documentation gate. Later source/docstring changes
+still require a final strict rebuild.
+
+Complete owned-addon run 93 executes 2,453 cases: **2,423 passed, 30 failed**,
+exit 1, 330.92 seconds. Eleven failures reach Viewer active-selection handling
+of unknown hierarchy values, and thirteen reach its remaining Topology bond
+access before the deliberately injected renderer errors. Five failures expose
+our terminal-capping audit's conversion of unknown chain memberships to integers;
+one retains the obsolete expectation that the demo's legacy `-1` chain sentinel
+must be rejected as corruption. The latter six are corrected locally and remain
+under focused qualification; the 24 consumer cases are kept active.
+
+Raw inspection of the bundled pentalanine H5MSM 0.4 confirms all 62 stored atom
+chain positions are `-1`, with one legacy chain label `None`. The reader's
+unknown-membership restoration is intentional. Capping audits now require known,
+unambiguous chains when selected amino acids are present, skip non-amino-acid
+populations, and leave the source unchanged. Positive audit fixtures explicitly
+declare their chain. Permutation controls now require preserved unknown
+memberships and still reject an explicitly out-of-range parent position; no
+chain is inferred merely to make either consumer succeed.
+
+The refreshed receiving inventory preserves dirty/divergent sibling worktrees.
+Viewer source observed for this run is
+`b787edf7190795587bf671bf8cb98ae53289f8db`; its loader bytes still match the earlier
+reported hash. DockingMT/PharmacophoreMT checkouts are behind their refreshed
+upstreams and TopoMT is divergent. None was reset, pulled, rebased or edited;
+their local heads cannot certify their newer remote sources. The owning receiving
+issues remain the coordination route.
+
+### Source checkpoint for continuation — 2026-10-30
+
+Read-only graph contexts now omit structural conversion for chemical-only
+aromaticity, torsions, molecular descriptors, AutoDock typing, partial charges,
+CIP ranking and numeric/all hydrogen-bond site recognition. Explicit scope
+validation retains the original source axis. Geometry and rich selections keep
+their original coordinate requirements; CIP inference separately requests its
+selected source structure. RDKit counts conformers through a direct getter,
+and zero selected conformers preserve the atom axis. Typed ChemicalStatesDict
+compositions decode chemistry once and borrow compatible native domains without
+copying coordinates or rebinding owners. CIP reuses the existing one-state
+detached graph rather than copying every chemical state.
+
+The introduced capping prerequisite failure and obsolete legacy-permutation
+expectation are corrected. A unit-bearing public default is also parsed before
+peptide-distance comparisons during trusted delegation; the peptide guard still
+requires the independently specified C–N candidate and unchanged source.
+
+Executed corrective checkpoints, separately rather than as additive totals:
+
+- Run 96: 158 passed, exit 0, 21.77 seconds (read boundaries, peptide candidates,
+  capping prerequisites, addon audits and map/file operations).
+- Run 97: 188 passed, exit 0, 27.04 seconds (chemical contexts, CIP/aromaticity,
+  typing/charges, site recognition and RDKit adapters).
+- Run 101: 651 passed, exit 0, 54.89 seconds (CIP, read-only contexts,
+  documentation, fidelity and course/API documentation contracts).
+- Scientific executor 99: 79/79 cases from 59 registered nodes passed without
+  omissions. Its certificate identifies dirty development source and is expressly
+  not release-eligible; structural registry validation alone was not substituted
+  for execution. Existing partial/gap classifications remain unchanged.
+- Whole-tree Ruff lint/format, optional-dependency validation, all 97 form
+  structural adapters, API registry (278 symbols), exact signature guard (zero
+  unauthorized drifts; 268 reviewed waivers), devguide/index and course checks pass.
+  Fidelity remains 42 exhaustive directions and 454 explicitly scoped directions,
+  with zero new debt and 29 resolved directions; no broader certification is claimed.
+
+The maintained runner found three pre-existing scientific course defects while
+qualifying the changed module 39 notebooks. With explicit maintainer approval,
+the Alzheimer, antiviral and enzyme lessons were corrected and executed serially
+(11.4, 9.5 and 10.2 seconds). They preserve their biological contexts while
+distinguishing tabulated Rose/Janin descriptors, group charge descriptors,
+represented-atom mass and geometric SASA. The antiviral lesson labels total
+two-partner SASA loss, the half-loss convention and inhibitor exposure fraction;
+the enzyme lesson uses coordinate-free BHET TPSA/lipophilicity without inventing
+a binding pose. No affinity/catalytic-efficiency conclusion follows from these
+descriptors alone. The local lesson contracts and function inventory were updated.
+The hydrogen-bond-site tutorial also executes successfully (6.8 seconds).
+
+The final code-cell fingerprint audit finds **47 changed/new existing notebooks,
+zero pending executions**. Strict Sphinx 104 passes after the corrected examples
+and a real MyST admonition repair; no warning category was suppressed. The earlier
+103 warning is retained as diagnostic evidence, not reported as success.
+
+**Still open:** the final expanded source run after these corrections, identified
+Viewer receiving (including its bond loader and unknown-membership handling),
+publication/CI inspection of the coherent development checkpoint and the final
+issue lifecycle. The earlier diagnostic full run and complete addon run remain
+failed evidence; focused passes do not turn them into a full-suite pass. No main
+merge, tag, package build/promotion or release is authorized by this checkpoint.
+The original four unrelated autosummary edits and existing Rust binary retain
+their recorded hashes and are excluded from the implementation staging set.

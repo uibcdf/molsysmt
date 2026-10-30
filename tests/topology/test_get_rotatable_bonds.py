@@ -10,7 +10,7 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
-from molsysmt.native import Structures, Topology
+from molsysmt.native import MolSys, Structures
 
 Chem = pytest.importorskip("rdkit.Chem")
 
@@ -43,7 +43,7 @@ def test_independently_specified_chemical_pairs_and_exclusions(
         ("acyclic_single", base),
         ("conjugation_restricted", restricted),
     ]:
-        result = msm.topology.get_rotatable_bonds(source, method=method)
+        result = msm.chemical_states.get_rotatable_bonds(source, method=method)
         assert result["rotatable_bonded_atom_pairs"].tolist() == expected
         assert result["is_rotatable"].dtype == np.bool_
         assert result["exclusion_mask"].dtype == np.uint8
@@ -52,7 +52,7 @@ def test_independently_specified_chemical_pairs_and_exclusions(
         )
         assert result["rule_version"] == method + "@1"
         assert result["software"]["networkx"]
-        fragments = msm.topology.get_rigid_fragments(
+        fragments = msm.chemical_states.get_rigid_fragments(
             source, bond_indices=result["rotatable_bond_indices"]
         )
         np.testing.assert_array_equal(
@@ -64,15 +64,15 @@ def test_independently_specified_chemical_pairs_and_exclusions(
 
 def test_aromatic_links_nitrile_and_all_overlapping_exclusions():
     biphenyl = Chem.MolFromSmiles("c1ccccc1-c1ccccc1")
-    result = msm.topology.get_rotatable_bonds(biphenyl)
+    result = msm.chemical_states.get_rotatable_bonds(biphenyl)
     assert result["rotatable_bonded_atom_pairs"].tolist() == [[5, 6]]
-    nitrile = msm.topology.get_rotatable_bonds(Chem.MolFromSmiles("c1ccccc1C#N"))
+    nitrile = msm.chemical_states.get_rotatable_bonds(Chem.MolFromSmiles("c1ccccc1C#N"))
     bits = nitrile["exclusion_bits"]
     assert not nitrile["is_rotatable"].any()
     assert nitrile["exclusion_mask"][6] & bits["adjacent_triple_bond"]
     assert nitrile["exclusion_mask"][7] & bits["not_single"]
     assert nitrile["exclusion_mask"][7] & bits["terminal_heavy_atom"]
-    ester = msm.topology.get_rotatable_bonds(Chem.MolFromSmiles("CC(=O)OCC"))
+    ester = msm.chemical_states.get_rotatable_bonds(Chem.MolFromSmiles("CC(=O)OCC"))
     assert ester["exclusion_mask"][2] == bits["restricted_conjugation"]
 
 
@@ -99,8 +99,8 @@ def test_native_graph_does_not_require_aromaticity_charge_or_a_provider(
 
     monkeypatch.setattr(msm.physchem, "get_aromaticity", forbidden)
     monkeypatch.setattr(Chem, "SetAromaticity", forbidden)
-    for item in [source, source.topology, str(path)]:
-        result = msm.topology.get_rotatable_bonds(item)
+    for item in [source, [source.topology, source.chemical_states], str(path)]:
+        result = msm.chemical_states.get_rotatable_bonds(item)
         assert result["rotatable_bond_indices"].tolist() == [1]
         assert result["rotatable_bonded_atom_pairs"].tolist() == [[1, 2]]
         assert result["evaluated_atom_indices"].tolist() == [0, 1, 2, 3]
@@ -110,19 +110,19 @@ def test_native_graph_does_not_require_aromaticity_charge_or_a_provider(
 
 def test_full_graph_classification_precedes_selection_and_h_materialization():
     source = Chem.MolFromSmiles("CC(=O)OCC")
-    full = msm.topology.get_rotatable_bonds(source)
-    selected = msm.topology.get_rotatable_bonds(source, selection=[4, 3, 4])
+    full = msm.chemical_states.get_rotatable_bonds(source)
+    selected = msm.chemical_states.get_rotatable_bonds(source, selection=[4, 3, 4])
     assert selected["rotatable_bonded_atom_pairs"].tolist() == [[3, 4]]
     assert selected["atom_indices"].tolist() == [3, 4]
     assert len(selected["evaluated_atom_indices"]) == 6
-    explicit = msm.topology.get_rotatable_bonds(Chem.AddHs(source))
+    explicit = msm.chemical_states.get_rotatable_bonds(Chem.AddHs(source))
     np.testing.assert_array_equal(
         explicit["rotatable_bonded_atom_pairs"], full["rotatable_bonded_atom_pairs"]
     )
-    assert not msm.topology.get_rotatable_bonds(source, selection=[1, 3])[
+    assert not msm.chemical_states.get_rotatable_bonds(source, selection=[1, 3])[
         "is_rotatable"
     ].any()
-    assert not msm.topology.get_rotatable_bonds(source, selection=[3])[
+    assert not msm.chemical_states.get_rotatable_bonds(source, selection=[3])[
         "is_rotatable"
     ].any()
 
@@ -131,10 +131,10 @@ def test_reordered_bond_axis_disconnected_inventory_and_isolates():
     source = msm.convert(Chem.MolFromSmiles("CCCC.[Cl-]"), to_form="molsysmt.MolSys")
     state = source.chemical_states._states[0]
     state.bonds = state.bonds.iloc[[1, 2, 0]].reset_index(drop=True)
-    result = msm.topology.get_rotatable_bonds(source)
+    result = msm.chemical_states.get_rotatable_bonds(source)
     assert result["rotatable_bond_indices"].tolist() == [0]
     assert result["rotatable_bonded_atom_pairs"].tolist() == [[1, 2]]
-    fragments = msm.topology.get_rigid_fragments(source, bond_indices=[0])
+    fragments = msm.chemical_states.get_rigid_fragments(source, bond_indices=[0])
     assert fragments["fragment_offsets"].tolist() == [0, 2, 4, 5]
 
 
@@ -156,11 +156,11 @@ def test_missing_or_unsupported_evidence_fails_before_selection(defect):
     else:
         state.bonds.loc[1, "is_aromatic"] = True
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_rotatable_bonds(source, selection=[])
+        msm.chemical_states.get_rotatable_bonds(source, selection=[])
 
 
 def test_typed_empty_results_invalid_inputs_and_query_rejection():
-    result = msm.topology.get_rotatable_bonds(Topology(n_atoms=0))
+    result = msm.chemical_states.get_rotatable_bonds(MolSys(n_atoms=0))
     for key in ["bond_indices", "rotatable_bond_indices", "evaluated_atom_indices"]:
         assert result[key].shape == (0,) and result[key].dtype == np.int64
     assert (
@@ -168,7 +168,9 @@ def test_typed_empty_results_invalid_inputs_and_query_rejection():
         == result["rotatable_bonded_atom_pairs"].shape
         == (0, 2)
     )
-    empty = msm.topology.get_rotatable_bonds(Chem.MolFromSmiles("CCCC"), selection=[])
+    empty = msm.chemical_states.get_rotatable_bonds(
+        Chem.MolFromSmiles("CCCC"), selection=[]
+    )
     assert empty["is_rotatable"].shape == (0,)
     assert len(empty["evaluated_atom_indices"]) == 4
     for kwargs in [
@@ -179,9 +181,11 @@ def test_typed_empty_results_invalid_inputs_and_query_rejection():
         dict(chemical_state=1),
     ]:
         with pytest.raises((ArgumentError, StructuralInconsistencyError)):
-            msm.topology.get_rotatable_bonds(Chem.MolFromSmiles("CCCC"), **kwargs)
+            msm.chemical_states.get_rotatable_bonds(
+                Chem.MolFromSmiles("CCCC"), **kwargs
+            )
     with pytest.raises(StructuralInconsistencyError, match="quer"):
-        msm.topology.get_rotatable_bonds(Chem.MolFromSmarts("C-C"))
+        msm.chemical_states.get_rotatable_bonds(Chem.MolFromSmarts("C-C"))
 
 
 def test_assigned_state_and_spatial_selection_resolve_before_detaching():
@@ -194,11 +198,11 @@ def test_assigned_state_and_spatial_selection_resolve_before_detaching():
     second.bonds.loc[1, "bond_order"] = 2
     source.chemical_states._states.append(second)
     source._set_structure_chemical_state_indices([0, 1])
-    first = msm.topology.get_rotatable_bonds(
+    first = msm.chemical_states.get_rotatable_bonds(
         source, chemical_state="structure", structure_indices=[0]
     )
     assert first["rotatable_bond_indices"].tolist() == [1]
-    second_result = msm.topology.get_rotatable_bonds(
+    second_result = msm.chemical_states.get_rotatable_bonds(
         source,
         chemical_state="structure",
         structure_indices=[1],
@@ -208,7 +212,7 @@ def test_assigned_state_and_spatial_selection_resolve_before_detaching():
     assert not second_result["is_rotatable"].any()
     assert source.chemical_states._reference_index == 0
     with pytest.raises(StructuralInconsistencyError):
-        msm.topology.get_rotatable_bonds(
+        msm.chemical_states.get_rotatable_bonds(
             source, chemical_state="structure", structure_indices=[0, 1]
         )
 
@@ -217,9 +221,9 @@ def test_optional_attribution_failure_preserves_classification(monkeypatch):
     source = Chem.MolFromSmiles("CCCC")
     from molsysmt import _ackredit
 
-    baseline = msm.topology.get_rotatable_bonds(source)
+    baseline = msm.chemical_states.get_rotatable_bonds(source)
     monkeypatch.setattr(_ackredit, "backend", lambda: None)
-    disabled = msm.topology.get_rotatable_bonds(source)
+    disabled = msm.chemical_states.get_rotatable_bonds(source)
     np.testing.assert_array_equal(disabled["is_rotatable"], baseline["is_rotatable"])
     assert copy.deepcopy(disabled["attribution"]) == baseline["attribution"]
 
@@ -228,7 +232,7 @@ def test_optional_attribution_failure_preserves_classification(monkeypatch):
 
     monkeypatch.setattr(_ackredit, "backend", unavailable)
     with pytest.warns(Warning, match="attribution"):
-        failed_tracking = msm.topology.get_rotatable_bonds(source)
+        failed_tracking = msm.chemical_states.get_rotatable_bonds(source)
     np.testing.assert_array_equal(
         failed_tracking["is_rotatable"], baseline["is_rotatable"]
     )
@@ -237,7 +241,7 @@ def test_optional_attribution_failure_preserves_classification(monkeypatch):
 def test_known_strict_descriptor_differences_are_not_hidden():
     descriptors = pytest.importorskip("rdkit.Chem.rdMolDescriptors")
     source = Chem.MolFromSmiles("CC(C)(C)CC")
-    result = msm.topology.get_rotatable_bonds(source)
+    result = msm.chemical_states.get_rotatable_bonds(source)
     assert result["rotatable_bonded_atom_pairs"].tolist() == [[1, 4]]
     assert (
         descriptors.CalcNumRotatableBonds(
@@ -259,13 +263,13 @@ def guarded_import(name, *args, **kwargs):
 builtins.__import__ = guarded_import
 import pandas as pd
 import molsysmt as msm
-from molsysmt.native import Topology
-source = Topology(n_atoms=4)
-source.atoms['atom_type'] = pd.array(['C'] * 4, dtype='string')
-source.bonds = pd.DataFrame({'atom1_index': [0, 1, 2], 'atom2_index': [1, 2, 3],
-    'bond_type': ['covalent'] * 3, 'bond_order': [1, 1, 1]})
-source._chemical_states[0].connectivity_completeness = 'complete'
-result = msm.topology.get_rotatable_bonds(source)
+from molsysmt.native import MolSys
+source = MolSys(n_atoms=4)
+source.topology.atoms['atom_type'] = pd.array(['C'] * 4, dtype='string')
+source.chemical_states._set_chemical_state_bonds(pd.DataFrame({'atom1_index': [0, 1, 2], 'atom2_index': [1, 2, 3],
+    'bond_type': ['covalent'] * 3, 'bond_order': [1, 1, 1]}))
+source.chemical_states._states[0].connectivity_completeness = 'complete'
+result = msm.chemical_states.get_rotatable_bonds(source)
 assert result['rotatable_bonded_atom_pairs'].tolist() == [[1, 2]]
 assert 'rdkit' not in sys.modules
 """

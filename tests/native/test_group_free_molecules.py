@@ -65,12 +65,13 @@ def test_group_free_molecule_selection(group_free_system, selection, indices, at
 
 
 def test_native_rebuild_keeps_no_groups_and_string_ids():
-    from molsysmt.native import Topology
+    from molsysmt.native import MolSys
 
-    topology = Topology(n_atoms=3)
-    topology._append_chemical_state_bonds([[0, 1]])
-    topology.rebuild_components()
-    topology.rebuild_molecules()
+    molsys = MolSys(n_atoms=3)
+    topology = molsys.topology
+    molsys.chemical_states._append_chemical_state_bonds([[0, 1]])
+    molsys.rebuild_components()
+    molsys.rebuild_molecules()
     assert topology.n_groups == 0
     assert topology.n_molecules == 2
     assert topology.molecules.molecule_id.tolist() == ["0", "1"]
@@ -103,12 +104,14 @@ def test_group_free_molecule_axis_uses_reference_not_active_state_components():
     from molsysmt.native._chemical_state import Components_DataFrame
     from molsysmt.native._topology_infer import molecule_indices_from_atoms
 
-    topology = msm.convert(Chem.MolFromSmiles("CCO.COC"), to_form="molsysmt.Topology")
-    other = topology._append_chemical_state(state_id="joined")
-    state = topology._chemical_states[other]
+    molsys = msm.convert(Chem.MolFromSmiles("CCO.COC"), to_form="molsysmt.MolSys")
+    topology = molsys.topology
+    other = molsys.chemical_states.append_state()
+    state = molsys.chemical_states._states[other]
+    state.state_id = "joined"
     state.component_indices[:] = 0
     state.components = Components_DataFrame(n_components=1)
-    with topology._chemical_states_domain._using_chemical_state(other):
+    with molsys.chemical_states._using_chemical_state(other):
         assert molecule_indices_from_atoms(topology).tolist() == [0, 0, 0, 1, 1, 1]
 
 

@@ -51,14 +51,11 @@ def to_molsysmt_MolSys(
     from openmm.app import CharmmPsfFile
 
     from molsysmt._private.variables import is_all
-    from molsysmt.form.openmm_Topology.to_molsysmt_Topology import (
-        to_molsysmt_Topology,
-    )
-    from molsysmt.native import MolecularMechanics, MolSys, Structures
+    from molsysmt.form.openmm_Topology._read_native import read_native
+    from molsysmt.native import MolecularMechanics, Structures
 
     source = CharmmPsfFile(str(item))
-    output = MolSys()
-    output.topology = to_molsysmt_Topology(
+    output = read_native(
         source.topology,
         get_missing_bonds=False,
         skip_digestion=True,

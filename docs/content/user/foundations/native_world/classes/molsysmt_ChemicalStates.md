@@ -10,10 +10,9 @@ that state's graph; it is independent of stable molecule ownership in Topology.
 Atom charges use elementary-charge units. Coordinates and periodic boxes belong
 to Structures and are not copied by chemical graph editing.
 
-The class remains experimental during the coordinated domain migration. Topology
-still has transitional compatibility access to its collection. New selected-state
-editing operates directly on ChemicalStates and never creates a Topology to hold
-chemistry. See {ref}`user-foundations-native-world-classes-molsysmt-molsys` for
+The class remains experimental. Selected-state editing operates directly on
+ChemicalStates. Topology owns stable inventory and has no chemical facade,
+including while attached to MolSys. See {ref}`user-foundations-native-world-classes-molsysmt-molsys` for
 composition and domain correspondence.
 
 ## State Availability
@@ -64,7 +63,7 @@ error. A missing reference with multiple states requires an explicit index.
 `info()` summaries currently follow reference-state rules. The typed dictionary
 offers direct stored queries; see
 {ref}`ChemicalStatesDict <user-foundations-native-world-classes-molsysmt-chemicalstatesdict>`.
-Stable group/chain/molecule context and mixed-owner routing are still being migrated.
+Mixed queries on MolSys combine its independent stable and chemical domains.
 A query needing absent context cannot reconstruct it from component membership.
 
 ## Stored Assignments

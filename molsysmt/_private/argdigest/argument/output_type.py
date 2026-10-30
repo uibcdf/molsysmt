@@ -83,7 +83,7 @@ def digest_output_type(output_type, caller=None):
             if output_type.lower() in ["tuple", "molsysmt.interactions"]:
                 return output_type.lower()
 
-    elif caller == "molsysmt.topology.get_covalent_blocks.get_covalent_blocks":
+    elif caller == "molsysmt.chemical_states.get_covalent_blocks.get_covalent_blocks":
         if isinstance(output_type, str):
             if output_type.lower() in ["numpy.ndarray", "sets"]:
                 return output_type.lower()

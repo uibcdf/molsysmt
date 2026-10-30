@@ -2,7 +2,7 @@ form_name = "molsysmt.GROFileHandler"
 form_type = "class"
 form_info = ["", ""]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = "molsysmt.Structures"
 piped_any_attribute = "molsysmt.MolSys"
 bonds_are_explicit = False

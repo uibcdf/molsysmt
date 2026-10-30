@@ -41,7 +41,7 @@ def probe(path, engine):
         start = perf_counter()
         molsys = msm.convert(path, to_form="molsysmt.MolSys", **options)
         timings.append(perf_counter() - start)
-    pairs = molsys.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(
+    pairs = molsys.chemical_states.get_bonds()[["atom1_index", "atom2_index"]].to_numpy(
         dtype=np.int64
     )
     axis = {
@@ -81,9 +81,9 @@ def probe(path, engine):
             loaded = msm.convert(str(target), to_form="molsysmt.MolSys")
             row["h5msm_read_seconds"] = perf_counter() - start
             np.testing.assert_array_equal(
-                loaded.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(
-                    dtype=np.int64
-                ),
+                loaded.chemical_states.get_bonds()[
+                    ["atom1_index", "atom2_index"]
+                ].to_numpy(dtype=np.int64),
                 pairs,
             )
             assert (

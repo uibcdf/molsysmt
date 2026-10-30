@@ -30,7 +30,9 @@ def test_compnd_names_preserve_topology_with_copy_on_write(
     ]
     assert output.topology.n_atoms == t4_pdb_molsys.topology.n_atoms
     assert output.topology.n_groups == t4_pdb_molsys.topology.n_groups
-    assert output.topology.n_bonds == t4_pdb_molsys.topology.n_bonds
+    assert output.chemical_states.get(
+        n_bonds=True
+    ) == t4_pdb_molsys.chemical_states.get(n_bonds=True)
     assert output.topology.n_entities == t4_pdb_molsys.topology.n_entities
     assert output.topology.atoms["atom_id"].tolist() == (
         t4_pdb_molsys.topology.atoms["atom_id"].tolist()
@@ -86,7 +88,9 @@ def test_pdb_file_handler_from_builder_fixture_preserves_declared_truth(
 
     assert molsys.topology.n_atoms == builder_pdb_molsys.topology.n_atoms
     assert molsys.topology.n_groups == builder_pdb_molsys.topology.n_groups
-    assert molsys.topology.n_bonds == builder_pdb_molsys.topology.n_bonds
+    assert molsys.chemical_states.get(
+        n_bonds=True
+    ) == builder_pdb_molsys.chemical_states.get(n_bonds=True)
     assert (
         molsys.topology.atoms["atom_name"].tolist()
         == builder_pdb_molsys.topology.atoms["atom_name"].tolist()

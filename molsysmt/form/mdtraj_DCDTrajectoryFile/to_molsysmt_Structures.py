@@ -63,6 +63,18 @@ def to_molsysmt_Structures(
     finally:
         item.seek(position)
 
+    if not coordinates:
+        from molsysmt._private.variables import is_all
+
+        from .get_topological_attributes import get_n_atoms_from_system
+
+        n_atoms = (
+            get_n_atoms_from_system(item, skip_digestion=True)
+            if is_all(atom_indices)
+            else len(atom_indices)
+        )
+        return Structures(coordinates=puw.quantity(np.empty((0, n_atoms, 3)), "nm"))
+
     coordinates = puw.utils.sequences.concatenate(
         coordinates, value_type="numpy.ndarray"
     )

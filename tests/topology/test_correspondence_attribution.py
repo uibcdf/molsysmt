@@ -19,7 +19,7 @@ def test_real_capture_records_roles_reused_results_and_enclosing_workflow():
     with ackredit.session("symmetry-workflow"):
         with ackredit.scope("dockingmt.evaluate"):
             with ackredit.capture("first") as first:
-                graph = msm.topology.get_atom_correspondences("smiles:c1ccccc1")
+                graph = msm.chemical_states.get_atom_correspondences("smiles:c1ccccc1")
             with ackredit.capture("second") as second:
                 result = msm.structure.get_symmetry_corrected_rmsd(
                     system(), structure_indices=[]
@@ -44,14 +44,14 @@ def test_real_capture_records_roles_reused_results_and_enclosing_workflow():
         assert graph["attribution"]["items"] and result["attribution"]["items"]
         assert PAPER in ackredit.get_used_items()
         assert (
-            "molsysmt.topology.get_atom_correspondences"
+            "molsysmt.chemical_states.get_atom_correspondences"
             in ackredit.current_session().usage_tree["dockingmt.evaluate"]["children"]
         )
 
 
 def test_faithful_stereo_backend_is_credited_only_when_labels_are_used():
-    plain = msm.topology.get_atom_correspondences("smiles:c1ccccc1")
-    chiral = msm.topology.get_atom_correspondences("smiles:C[C@H](O)F")
+    plain = msm.chemical_states.get_atom_correspondences("smiles:c1ccccc1")
+    chiral = msm.chemical_states.get_atom_correspondences("smiles:C[C@H](O)F")
     paper = "doi:10.1021/acs.jcim.8b00324"
     assert paper not in {item["id"] for item in plain["attribution"]["items"]}
     reference = next(
@@ -85,7 +85,7 @@ def test_provider_failure_preserves_completed_science_and_emits_diagnostic(monke
 
     monkeypatch.setattr(_ackredit, "backend", fail)
     with pytest.warns(AckreditTrackingWarning):
-        result = msm.topology.get_atom_correspondences("smiles:c1ccccc1")
+        result = msm.chemical_states.get_atom_correspondences("smiles:c1ccccc1")
     assert result["atom_correspondences"].shape == (12, 6, 2)
 
 
@@ -104,7 +104,7 @@ def test_failed_science_earns_no_completed_correspondence_credit():
     ackredit = pytest.importorskip("ackredit")
     with ackredit.session("failed-correspondence"):
         with pytest.raises(msm.StructuralInconsistencyError):
-            msm.topology.get_atom_correspondences("smiles:CC(O)F")
+            msm.chemical_states.get_atom_correspondences("smiles:CC(O)F")
         assert not ackredit.get_used_items()
 
 
@@ -127,7 +127,7 @@ class RefuseAckredit(MetaPathFinder):
 sys.meta_path.insert(0, RefuseAckredit())
 with patch.object(checker, 'find_spec', absent):
     is_installed.cache_clear()
-    result = msm.topology.get_atom_correspondences('smiles:c1ccccc1')
+    result = msm.chemical_states.get_atom_correspondences('smiles:c1ccccc1')
     assert result['atom_correspondences'].shape == (12, 6, 2)
     assert result['attribution']['items']
 assert 'ackredit' not in sys.modules

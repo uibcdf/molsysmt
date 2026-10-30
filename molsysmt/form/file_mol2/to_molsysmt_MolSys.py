@@ -37,15 +37,14 @@ def to_molsysmt_MolSys(
 
     from molsysmt import pyunitwizard as puw
     from molsysmt._private.variables import is_all
-    from molsysmt.form.parmed_Structure.to_molsysmt_Topology import (
-        to_molsysmt_Topology,
-    )
-    from molsysmt.native import MolecularMechanics, MolSys, Structures
+    from molsysmt.form.parmed_Structure._read_native import read_native
+    from molsysmt.native import MolecularMechanics, Structures
 
     from ._reader import _format_error, read_mol2
 
     structure, metadata = read_mol2(item)
-    topology = to_molsysmt_Topology(structure, skip_digestion=True)
+    output = read_native(structure, skip_digestion=True)
+    topology = output.topology
     topology.atoms["atom_type"] = [str(atom.type) for atom in structure.atoms]
 
     atom_id_to_index = {str(atom.number): atom.idx for atom in structure.atoms}
@@ -90,10 +89,10 @@ def to_molsysmt_MolSys(
             )
         bond_rows.append(row)
 
-    topology._set_chemical_state_bonds(pd.DataFrame(bond_rows))
-    topology._chemical_states[0].connectivity_completeness = "complete"
-    topology.rebuild_components()
-    topology.rebuild_molecules()
+    output.chemical_states._set_chemical_state_bonds(pd.DataFrame(bond_rows))
+    output.chemical_states._states[0].connectivity_completeness = "complete"
+    output.rebuild_components()
+    output.rebuild_molecules()
     topology.rebuild_entities()
     if topology.n_molecules == 1:
         topology.molecules.loc[0, "molecule_id"] = metadata["molecule_name"]
@@ -128,8 +127,6 @@ def to_molsysmt_MolSys(
     if metadata["charge_type"] != "NO_CHARGES":
         partial_charge = [float(atom.charge) for atom in structure.atoms]
 
-    output = MolSys()
-    output.topology = topology
     output.structures = structures
     output.molecular_mechanics = MolecularMechanics(partial_charge=partial_charge)
     if not is_all(atom_indices) or not is_all(structure_indices):

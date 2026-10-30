@@ -2,32 +2,33 @@ from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="file:molsys_yaml")
-def to_molsysmt_MolSys(item, skip_digestion=False):
-    """
-    Converting from file:molsys_yaml to molsysmt.MolSys.
-
+def to_molsysmt_MolSys(item, skip_digestion=False, *, atom_indices="all"):
+    """Converting declared inventory and chemistry to independent native domains.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source form supplying its declared atom inventory and connectivity.
+    atom_indices : str or array-like of int, default='all'
+        Source atom indices to retain together with their induced chemistry.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Skip digestion only for already validated arguments.
 
     Returns
     -------
     molsysmt.MolSys
-        Resulting object in molsysmt.MolSys form.
-
+        Native domains preserving available source chemistry without coordinates.
 
     .. versionadded:: 1.0.0
     """
-
     from molsysmt.form.molsysmt_MolSysDict.to_molsysmt_MolSys import (
-        to_molsysmt_MolSys as dict_to_molsys,
+        to_molsysmt_MolSys as decode,
     )
 
     from .to_molsysmt_MolSysDict import to_molsysmt_MolSysDict
 
-    tmp_item = to_molsysmt_MolSysDict(item, skip_digestion=True)
-    return dict_to_molsys(tmp_item, skip_digestion=True)
+    return decode(
+        to_molsysmt_MolSysDict(item, skip_digestion=True),
+        atom_indices=atom_indices,
+        skip_digestion=True,
+    )

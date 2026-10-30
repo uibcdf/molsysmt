@@ -1,12 +1,14 @@
 # Physicochemical properties module contract
 
 - Preserve the course-enzyme-physicochemical-properties anchor, module title,
-  existing scientific scenarios, code cells and executed outputs.
+  biological scenarios and specialized-domain guidance. Repair invalid calls and
+  scientifically misleading interpretations, and regenerate executed outputs.
 - Keep the distinction between stored formal charges, force-field partial
   charges, residue descriptors and recognized local charge centers.
 - Preserve charge-center limits and links to the executed tutorial and recipe.
-- This update adds conceptual guidance; it does not validate the legacy
-  network-dependent examples.
+- Keep tabulated Rose/Janin values distinct from coordinate-based SASA loss.
+  Never invent a bound pose or claim that these descriptors establish affinity
+  or catalytic efficiency. Execute corrected code with the maintained runner.
 - Keep the bounded eager/chunked ionic route, explicit cutoff, named attachment and
   links to its executed tutorial and persistence recipe.
 

@@ -24,7 +24,9 @@ from molsysmt.native import Topology
 def test_unmaterialized_topology_attributes_are_not_present(attribute):
     topology = Topology(n_atoms=2, skip_digestion=True)
 
-    assert msm.has_attribute(topology, attribute, include_none=True)
+    assert msm.has_attribute(topology, attribute, include_none=True) == (
+        attribute == "isotope"
+    )
     assert not msm.has_attribute(topology, attribute)
 
 
@@ -46,15 +48,22 @@ def test_unmaterialized_topology_attributes_are_not_present(attribute):
 def test_derived_and_explicit_state_metadata_are_available(attribute):
     topology = Topology(n_atoms=2, skip_digestion=True)
 
-    assert msm.has_attribute(topology, attribute)
+    assert msm.has_attribute(topology, attribute) == (
+        attribute in {"n_atoms", "n_groups"}
+    )
 
 
 def test_materialized_state_id_and_component_are_present():
-    topology = Topology(n_atoms=2, skip_digestion=True)
-    topology._reference_chemical_state.state_id = "reactant"
-    topology._set_component_indices([0, 0])
-    topology.reset_components(n_components=1)
+    from molsysmt.native import MolSys
 
+    system = MolSys(n_atoms=2, n_components=1)
+    system.chemical_states._states[0].state_id = "reactant"
+    system.chemical_states._set_component_indices([0, 0])
+    system.chemical_states._states[0].components.loc[0] = [
+        "part",
+        "Part",
+        "small molecule",
+    ]
     for attribute in (
         "chemical_state_id",
         "component_index",
@@ -62,4 +71,5 @@ def test_materialized_state_id_and_component_are_present():
         "component_name",
         "component_type",
     ):
-        assert msm.has_attribute(topology, attribute)
+        assert msm.has_attribute(system, attribute)
+        assert not msm.has_attribute(system.topology, attribute, include_none=True)

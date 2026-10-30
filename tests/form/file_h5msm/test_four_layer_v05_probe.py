@@ -25,7 +25,9 @@ from molsysmt.native import Structures, Topology
 
 def test_four_layer_file_keeps_chemistry_and_observations_separate(tmp_path):
     topology = Topology(n_atoms=3)
-    topology.add_bonds([[0, 1]])
+    states = msm.ChemicalStates(n_atoms=3)
+    states.append_state()
+    states.add_bonds([[0, 1]])
     structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
     )
@@ -52,9 +54,7 @@ def test_four_layer_file_keeps_chemistry_and_observations_separate(tmp_path):
         file.attrs["type"] = "h5msm"
         file.attrs["version"] = "0.5"
         write_independent_topology(file, topology)
-        write_independent_chemical_states(
-            file, msm.convert(topology, to_form="molsysmt.ChemicalStates")
-        )
+        write_independent_chemical_states(file, states)
         write_independent_structures(file, structures)
         write_named_analyses(file.create_group("interactions"), {"hbonds": hbonds})
         assert set(file) == {
@@ -71,7 +71,7 @@ def test_four_layer_file_keeps_chemistry_and_observations_separate(tmp_path):
         frames = read_independent_structures(file, structure_indices=[1, 0])
         interactions = read_named_analyses(file["interactions"])["hbonds"]
 
-    assert stable._chemical_states == []
+    assert not hasattr(stable, "bonds")
     assert len(states.get_bonds()) == 1
     assert frames.coordinates.shape == (2, 3, 3)
     assert interactions.query(structure_indices=[0]).n_interactions == 0

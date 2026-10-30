@@ -704,7 +704,7 @@ def test_excess_existing_hydrogens_are_rejected_without_removal():
         n_explicit_hydrogens=0,
         allows_implicit_hydrogens=False,
     ).items():
-        source.topology._set_chemical_state_atom_attribute(name, [value] * 6)
+        source.chemical_states._set_chemical_state_atom_attribute(name, [value] * 6)
     before = source.topology.atoms.copy(deep=True)
     with pytest.raises(StructuralInconsistencyError):
         hydrogenate(source)

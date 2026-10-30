@@ -58,15 +58,20 @@ def test_inherited_constructor_accepts_default_and_explicit_atom_counts(cls, sty
     states = (
         result.chemical_states
         if isinstance(result, MolSys)
-        else (
-            result._chemical_states_domain if isinstance(result, Topology) else result
-        )
+        else result
+        if isinstance(result, ChemicalStates)
+        else None
     )
-    assert states.n_atoms == expected
-    assert states.n_chemical_states == (0 if isinstance(result, ChemicalStates) else 1)
+    if states is None:
+        assert not hasattr(result, "_chemical_states_domain")
+    else:
+        assert states.n_atoms == expected
+        assert states.n_chemical_states == (
+            0 if isinstance(result, ChemicalStates) else 1
+        )
     if isinstance(result, MolSys):
         assert result.topology._molsys_owner_ref() is result
-        assert result.chemical_states is result.topology._chemical_states_domain
+        assert result.chemical_states._molsys_owner_ref() is result
         assert result.chemical_states._molsys_owner_ref() is result
         assert result.structures.n_structures == 0
 
@@ -74,9 +79,17 @@ def test_inherited_constructor_accepts_default_and_explicit_atom_counts(cls, sty
 @pytest.mark.parametrize("cls", [ExtendedTopology, ExtendedMolSys])
 @pytest.mark.parametrize("count", COUNTS)
 def test_every_inherited_hierarchy_count_uses_the_native_contract(cls, count):
+    if issubclass(cls, Topology) and count in {"n_components", "n_bonds"}:
+        with pytest.raises(UnknownArgumentError):
+            cls(**{count: 2})
+        return
     result = cls(**{count: 2})
     domain = result.topology if isinstance(result, MolSys) else result
-    assert getattr(domain, count) == 2
+    assert (
+        result.get(**{count: True})
+        if count in {"n_components", "n_bonds"}
+        else getattr(domain, count)
+    ) == 2
 
 
 @pytest.mark.parametrize("cls", CLASSES)
@@ -90,6 +103,10 @@ def test_inherited_constructor_still_rejects_invalid_atom_counts(cls, value):
 @pytest.mark.parametrize("cls", [ExtendedTopology, ExtendedMolSys])
 @pytest.mark.parametrize("count", COUNTS)
 def test_every_inherited_hierarchy_count_rejects_noninteger_values(cls, count):
+    if issubclass(cls, Topology) and count in {"n_components", "n_bonds"}:
+        with pytest.raises(UnknownArgumentError):
+            cls(**{count: 2.5})
+        return
     with pytest.raises(ArgumentError) as refusal:
         cls(**{count: 2.5})
     assert refusal.value.extra["argument"] == count
@@ -130,9 +147,17 @@ def test_count_queries_keep_boolean_semantics():
 @pytest.mark.parametrize("cls", [ExtendedTopology, ExtendedMolSys])
 @pytest.mark.parametrize("count", COUNTS)
 def test_existing_hierarchy_boolean_count_acceptance_is_unchanged(cls, count):
+    if issubclass(cls, Topology) and count in {"n_components", "n_bonds"}:
+        with pytest.raises(UnknownArgumentError):
+            cls(**{count: True})
+        return
     result = cls(**{count: True})
     domain = result.topology if isinstance(result, MolSys) else result
-    assert getattr(domain, count) == 1
+    assert (
+        result.get(**{count: True})
+        if count in {"n_components", "n_bonds"}
+        else getattr(domain, count)
+    ) == 1
 
 
 class _ExternalQueryMixin:

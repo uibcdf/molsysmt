@@ -105,7 +105,8 @@ def test_molsys_to_builder_distinguishes_implicit_and_explicit_associations(
     assert implicit_report.outcome == "equivalent"
 
     explicit = rich_molsys.copy()
-    explicit.topology._append_chemical_state(state_id="alternate")
+    explicit.chemical_states.append_state()
+    explicit.chemical_states._states[1].state_id = "alternate"
     explicit._set_structure_chemical_state_indices([0, 1, 1])
 
     builder, explicit_report = msm.convert(
@@ -114,22 +115,15 @@ def test_molsys_to_builder_distinguishes_implicit_and_explicit_associations(
         return_report=True,
     )
     assert explicit_report.is_exhaustive
-    assert explicit_report.outcome == "lossy"
-    assert (
-        "structure_chemical_state_index",
-        "state_association_loss",
-    ) in {(issue.attribute, issue.kind) for issue in explicit_report.issues}
+    assert explicit_report.outcome == "equivalent"
+    assert explicit_report.issues == ()
+    assert msm.get(builder, structure_chemical_state_index=True) == [0, 1, 1]
     assert msm.get(builder, n_chemical_states=True) == 2
 
-    with pytest.raises(
-        msm.NotCompatibleConversionError,
-        match="structure_chemical_state_index",
-    ):
-        msm.convert(
-            explicit,
-            to_form="molsysmt.MolSysBuilder",
-            strict=True,
-        )
+    strict = msm.convert(explicit, to_form="molsysmt.MolSysBuilder", strict=True)
+    rebuilt = strict.build()
+    assert rebuilt.chemical_states.n_chemical_states == 2
+    assert msm.get(rebuilt, structure_chemical_state_index=True) == [0, 1, 1]
 
 
 def test_builder_to_molsysdict_audits_the_reduced_schema(rich_molsys):
@@ -145,19 +139,18 @@ def test_builder_to_molsysdict_audits_the_reduced_schema(rich_molsys):
 
     assert report.audited_scopes == ("all",)
     assert report.is_exhaustive
-    assert report.outcome == "lossy"
-    issues = {issue.attribute: issue for issue in report.issues}
-    assert issues["formal_charge"].scope == "chemical_state"
-    assert issues["fractional_bond_order"].scope == "chemical_state"
-    assert issues["velocities"].scope == "structures"
+    assert report.outcome == "equivalent"
+    assert report.issues == ()
+    assert msm.get(payload, formal_charge=True)[0] == 1
+    assert msm.get(payload, element="bond", fractional_bond_order=True)[0] == 1.5
+    np.testing.assert_array_equal(
+        puw.get_value(msm.get(payload, velocities=True), to_unit="nm/ps"),
+        np.ones((3, 4, 3)),
+    )
     assert payload.to_dict(copy=False)["topology"]["atoms"][0]["isotope"] == 13
 
-    with pytest.raises(msm.NotCompatibleConversionError, match="velocities"):
-        msm.convert(
-            builder,
-            to_form="molsysmt.MolSysDict",
-            strict=True,
-        )
+    strict = msm.convert(builder, to_form="molsysmt.MolSysDict", strict=True)
+    assert strict.data == payload.data
 
 
 def test_molsysdict_to_builder_is_exhaustive_and_materializes_components(
@@ -176,10 +169,10 @@ def test_molsysdict_to_builder_is_exhaustive_and_materializes_components(
     )
 
     assert report.is_exhaustive
-    assert report.outcome == "lossy"
+    assert report.outcome == "equivalent"
     payload = selected_dict.to_dict(copy=False)
     assert [atom["atom_id"] for atom in payload["topology"]["atoms"]] == ["100", "102"]
-    assert payload["structures"]["structure_id"] == [50, 10]
+    assert msm.get(selected_dict, structure_id=True) == ["50", "10"]
 
     rebuilt, rebuilt_report = msm.convert(
         selected_dict,

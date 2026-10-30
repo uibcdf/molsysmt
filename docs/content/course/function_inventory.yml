@@ -1,3 +1,15 @@
+molsysmt.physchem.get_area_buried:
+  name: "msm.physchem.get_area_buried"
+  first_introduced_in: "Path_Alzheimer/39_Physicochemical_Properties.ipynb"
+  summary: "Reads Rose reference areas for selected amino-acid groups; does not calculate geometric interface burial."
+  doc_ref: "{func}`molsysmt.physchem.get_area_buried`"
+
+molsysmt.physchem.get_buried_fraction:
+  name: "msm.physchem.get_buried_fraction"
+  first_introduced_in: "Path_Alzheimer/39_Physicochemical_Properties.ipynb"
+  summary: "Reads Janin reference percentages for selected amino-acid groups; does not measure their conformation-dependent burial."
+  doc_ref: "{func}`molsysmt.physchem.get_buried_fraction`"
+
 molsysmt.basic.permute_atoms:
   name: "msm.basic.permute_atoms"
   first_introduced_in: "Common_Core/18_Extracting_and_Removing_Elements.ipynb"
@@ -218,12 +230,12 @@ molsysmt.interactions.ionic.get_ionic_interactions:
   doc_ref: "{func}`molsysmt.interactions.ionic.get_ionic_interactions`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.interactions.ionic.get_ionic_interactions()**: Calculates geometric observations between formal-charge centers. See {func}`molsysmt.interactions.ionic.get_ionic_interactions`.\n:::"
 
-molsysmt.topology.get_rings:
-  name: "msm.topology.get_rings"
+molsysmt.chemical_states.get_rings:
+  name: "msm.chemical_states.get_rings"
   first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
   summary: "Perceives a sparse minimum cycle basis of declared covalent connectivity."
-  doc_ref: "{func}`molsysmt.topology.get_rings`"
-  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_rings()**: Perceives a sparse covalent cycle basis. See {func}`molsysmt.topology.get_rings`.\n:::"
+  doc_ref: "{func}`molsysmt.chemical_states.get_rings`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.chemical_states.get_rings()**: Perceives a sparse covalent cycle basis. See {func}`molsysmt.chemical_states.get_rings`.\n:::"
 
 molsysmt.physchem.get_aromatic_rings:
   name: "msm.physchem.get_aromatic_rings"
@@ -253,12 +265,12 @@ molsysmt.interactions.cation_pi.get_cation_pi_interactions:
   doc_ref: "{func}`molsysmt.interactions.cation_pi.get_cation_pi_interactions`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.interactions.cation_pi.get_cation_pi_interactions()**: Calculates attributed ProLIF geometries or the explicitly named proposal. See {func}`molsysmt.interactions.cation_pi.get_cation_pi_interactions`.\n:::"
 
-molsysmt.topology.get_substructure_matches:
-  name: "msm.topology.get_substructure_matches"
+molsysmt.chemical_states.get_substructure_matches:
+  name: "msm.chemical_states.get_substructure_matches"
   first_introduced_in: "Path_Biophysics/39_Physicochemical_Properties.ipynb"
   summary: "Matches complete chemical SMARTS without silent truncation."
-  doc_ref: "{func}`molsysmt.topology.get_substructure_matches`"
-  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_substructure_matches()**: Matches declared chemical graphs with explicit query limits. See {func}`molsysmt.topology.get_substructure_matches`.\n:::"
+  doc_ref: "{func}`molsysmt.chemical_states.get_substructure_matches`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.chemical_states.get_substructure_matches()**: Matches declared chemical graphs with explicit query limits. See {func}`molsysmt.chemical_states.get_substructure_matches`.\n:::"
 
 molsysmt.interactions.hbonds.get_hbond_sites:
   name: "msm.interactions.hbonds.get_hbond_sites"
@@ -316,12 +328,12 @@ molsysmt.element.atom.get_atom_type_from_atom_ff_type:
   doc_ref: "{func}`molsysmt.element.atom.get_atom_type_from_atom_ff_type`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.element.atom.get_atom_type_from_atom_ff_type()**: Decodes labels without assigning chemistry.\n:::"
 
-molsysmt.topology.get_rigid_fragments:
-  name: "msm.topology.get_rigid_fragments"
+molsysmt.chemical_states.get_rigid_fragments:
+  name: "msm.chemical_states.get_rigid_fragments"
   first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
   summary: "Partitions complete covalent connectivity at explicit source bond indices."
-  doc_ref: "{func}`molsysmt.topology.get_rigid_fragments`"
-  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_rigid_fragments()**: Derives packed rigid fragments from explicit cuts.\n:::"
+  doc_ref: "{func}`molsysmt.chemical_states.get_rigid_fragments`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.chemical_states.get_rigid_fragments()**: Derives packed rigid fragments from explicit cuts.\n:::"
 
 molsysmt.physchem.get_hydrogen_inventory:
   name: "msm.physchem.get_hydrogen_inventory"
@@ -337,12 +349,12 @@ molsysmt.build.add_terminal_atoms:
   doc_ref: "{func}`molsysmt.build.add_terminal_atoms`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.add_terminal_atoms()**: Appends explicitly declared atoms and full-frame coordinates to an independent native system.\n:::"
 
-molsysmt.topology.get_rotatable_bonds:
-  name: "msm.topology.get_rotatable_bonds"
+molsysmt.chemical_states.get_rotatable_bonds:
+  name: "msm.chemical_states.get_rotatable_bonds"
   first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
   summary: "Classifies full-graph torsion candidates with named criteria and exclusion evidence."
-  doc_ref: "{func}`molsysmt.topology.get_rotatable_bonds`"
-  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_rotatable_bonds()**: Classifies source torsion candidates with explicit criteria.\n:::"
+  doc_ref: "{func}`molsysmt.chemical_states.get_rotatable_bonds`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.chemical_states.get_rotatable_bonds()**: Classifies source torsion candidates with explicit criteria.\n:::"
 
 molsysmt.build.add_missing_heavy_atoms:
   name: "msm.build.add_missing_heavy_atoms"
@@ -372,11 +384,11 @@ molsysmt.build.get_peptide_bond_candidates:
   doc_ref: "{func}`molsysmt.build.get_peptide_bond_candidates`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.get_peptide_bond_candidates()**: Reviews adjacent backbone C-N evidence.\n:::"
 
-molsysmt.topology.get_atom_correspondences:
-  name: "msm.topology.get_atom_correspondences"
+molsysmt.chemical_states.get_atom_correspondences:
+  name: "msm.chemical_states.get_atom_correspondences"
   first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
   summary: "Finds source-index bijections constrained by complete declared chemical states."
-  doc_ref: "{func}`molsysmt.topology.get_atom_correspondences`"
+  doc_ref: "{func}`molsysmt.chemical_states.get_atom_correspondences`"
 
 molsysmt.structure.get_symmetry_corrected_rmsd:
   name: "msm.structure.get_symmetry_corrected_rmsd"
@@ -420,23 +432,23 @@ molsysmt.structure.principal_component_analysis:
   summary: "Computes weighted population covariance modes with squared-length eigenvalues."
   doc_ref: "{func}`molsysmt.structure.principal_component_analysis`"
 
-molsysmt.topology.get_dihedral_quartets:
-  name: "msm.topology.get_dihedral_quartets"
+molsysmt.chemical_states.get_dihedral_quartets:
+  name: "msm.chemical_states.get_dihedral_quartets"
   first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
   summary: "Finds atom-index quartets for named standard torsions."
-  doc_ref: "{func}`molsysmt.topology.get_dihedral_quartets`"
+  doc_ref: "{func}`molsysmt.chemical_states.get_dihedral_quartets`"
 
-molsysmt.topology.get_covalent_blocks:
-  name: "msm.topology.get_covalent_blocks"
+molsysmt.chemical_states.get_covalent_blocks:
+  name: "msm.chemical_states.get_covalent_blocks"
   first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
   summary: "Finds connected atom sets after declared covalent bond cuts."
-  doc_ref: "{func}`molsysmt.topology.get_covalent_blocks`"
+  doc_ref: "{func}`molsysmt.chemical_states.get_covalent_blocks`"
 
-molsysmt.topology.get_covalent_paths:
-  name: "msm.topology.get_covalent_paths"
+molsysmt.chemical_states.get_covalent_paths:
+  name: "msm.chemical_states.get_covalent_paths"
   first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
   summary: "Finds covalent walks matching ordered atom selections."
-  doc_ref: "{func}`molsysmt.topology.get_covalent_paths`"
+  doc_ref: "{func}`molsysmt.chemical_states.get_covalent_paths`"
 
 molsysmt.structure.get_dihedral_angles:
   name: "msm.structure.get_dihedral_angles"

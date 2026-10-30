@@ -4,7 +4,8 @@
     "molsysmt.pbc",
     "molsysmt.structure",
     "molsysmt.physchem",
-    "molsysmt.topology"
+    "molsysmt.topology",
+    "molsysmt.chemical_states"
   ],
   "status_definitions": {
     "validated": "At least one assertion-bearing analytic, external, or versioned-reference oracle is registered; execution is certified separately.",
@@ -26,6 +27,7 @@
     "molsysmt.physchem",
     "molsysmt.structure",
     "molsysmt.topology",
+    "molsysmt.chemical_states",
     "molsysmt.interactions.hbonds",
     "molsysmt.interactions.disulfides",
     "molsysmt.interactions.ionic",

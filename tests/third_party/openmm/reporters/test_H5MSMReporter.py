@@ -64,6 +64,33 @@ def test_H5MSMReporter_1(tmp_path, selection, expected_n_atoms):
     n_atoms, n_structures = msm.get(molsys, n_atoms=True, n_structures=True)
     assert n_atoms == expected_n_atoms
     assert n_structures == 11
+    source_atoms = (
+        list(range(modeller.topology.getNumAtoms()))
+        if selection == "all"
+        else selection
+    )
+    source_to_output = {atom: index for index, atom in enumerate(source_atoms)}
+    expected_pairs = sorted(
+        tuple(
+            sorted((source_to_output[bond[0].index], source_to_output[bond[1].index]))
+        )
+        for bond in modeller.topology.bonds()
+        if bond[0].index in source_to_output and bond[1].index in source_to_output
+    )
+    assert molsys.chemical_states.n_chemical_states == 1
+    assert molsys.chemical_states.n_atoms == expected_n_atoms
+    assert (
+        sorted(
+            map(
+                tuple,
+                molsys.chemical_states.get_bonds()[
+                    ["atom1_index", "atom2_index"]
+                ].to_numpy(),
+            )
+        )
+        == expected_pairs
+    )
+    assert not hasattr(molsys.topology, "bonds")
     assert np.array_equal(
         molsys.structures.structure_id,
         np.arange(0, 1001, 100),

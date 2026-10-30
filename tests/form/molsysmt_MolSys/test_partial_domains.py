@@ -58,11 +58,11 @@ def test_missing_domain_conversions_fail_before_creating_output(tmp_path):
         msm.convert(system, to_form="molsysmt.Topology")
     with pytest.raises(ValueError, match="no structures domain"):
         msm.convert(system, to_form="molsysmt.Structures")
-    with pytest.raises(
-        ValueError,
-        match="MolSysDict 0.1 requires topology, chemical states, and structures",
-    ):
-        msm.convert(system, to_form="molsysmt.MolSysDict")
+    payload = msm.convert(system, to_form="molsysmt.MolSysDict")
+    restored_dict = msm.convert(payload, to_form="molsysmt.MolSys")
+    assert payload.data["version"] == "0.2"
+    assert restored_dict.topology is None and restored_dict.structures is None
+    assert restored_dict.chemical_states.n_atoms == 2
 
     filename = tmp_path / "state_only.h5msm"
     msm.convert(system, to_form="file:h5msm", output_filename=filename)
@@ -76,5 +76,5 @@ def test_explicit_state_selection_fails_clearly_without_a_topology():
     states = msm.ChemicalStates(n_atoms=2)
     states.append_state()
     system = MolSys._from_partial_domains(chemical_states=states)
-    with pytest.raises(msm.ArgumentError, match="chemical_state"):
-        msm.get(system, chemical_state=0, n_atoms=True)
+    assert msm.get(system, chemical_state=0, n_atoms=True) == 2
+    assert system.chemical_states.reference_chemical_state_index == 0

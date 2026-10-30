@@ -119,6 +119,7 @@ Read these documents in order when first working on MolSysMT:
 - [course_structure.md](course_structure.md)
 - [viewers_and_visualization.md](viewers_and_visualization.md)
 - [Native MolSysViewer integration](molsysviewer_addon.md)
+- [Receiving the independent chemical domains](chemical_states_migration.md) — unreleased source-cutover guidance for clients; installed qualification remains separate.
 
 ### Strategy and measurements
 

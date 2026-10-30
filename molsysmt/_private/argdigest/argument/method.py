@@ -37,7 +37,7 @@ def digest_method(method, caller=None):
         raise ArgumentError("method", value=method, caller=caller)
 
     if caller in {
-        "molsysmt.topology.get_atom_correspondences.get_atom_correspondences",
+        "molsysmt.chemical_states.get_atom_correspondences.get_atom_correspondences",
         "molsysmt.structure.get_symmetry_corrected_rmsd.get_symmetry_corrected_rmsd",
     }:
         if isinstance(method, str) and method == "declared_graph_isomorphism":
@@ -71,7 +71,7 @@ def digest_method(method, caller=None):
             return method
         raise ArgumentError("method", value=method, caller=caller)
 
-    if caller == "molsysmt.topology.get_rotatable_bonds.get_rotatable_bonds":
+    if caller == "molsysmt.chemical_states.get_rotatable_bonds.get_rotatable_bonds":
         if isinstance(method, str) and method in {
             "acyclic_single",
             "conjugation_restricted",
@@ -101,7 +101,7 @@ def digest_method(method, caller=None):
         raise ArgumentError("method", value=method, caller=caller)
 
     if caller in {
-        "molsysmt.topology.get_rings.get_rings",
+        "molsysmt.chemical_states.get_rings.get_rings",
         "molsysmt.physchem.get_aromatic_rings.get_aromatic_rings",
     }:
         if isinstance(method, str) and method == "minimum_cycle_basis":

@@ -90,11 +90,6 @@ def has_attribute(
     if attribute in _COUNT_ATTRIBUTES:
         return True
 
-    if attribute in _ATOM_STATE_COLUMNS:
-        return molecular_system._has_chemical_state_atom_attribute(
-            _ATOM_STATE_COLUMNS[attribute]
-        )
-
     if attribute == "atom_index":
         return molecular_system.n_atoms > 0
     if attribute in {"atom_id", "atom_name", "atom_type"}:
@@ -122,47 +117,5 @@ def has_attribute(
     }
     if attribute in hierarchy:
         return bool(hierarchy[attribute])
-
-    if attribute == "chemical_state_index":
-        return len(molecular_system._chemical_states) > 0
-    if attribute == "chemical_state_id":
-        return any(
-            chemical_state.state_id is not None
-            for chemical_state in molecular_system._chemical_states
-        )
-    if attribute == "reference_chemical_state_index":
-        return (
-            len(molecular_system._chemical_states) == 1
-            or molecular_system._reference_chemical_state_index is not None
-        )
-    if attribute in {
-        "connectivity_completeness",
-        "component_completeness",
-        "component_evidence",
-    }:
-        return len(molecular_system._chemical_states) > 0
-
-    state = molecular_system._resolve_chemical_state()
-    state._ensure_compatibility(molecular_system.n_atoms)
-    if attribute == "component_index":
-        return state.component_indices.notna().any()
-    if attribute in {"component_id", "component_name", "component_type"}:
-        return state.components.shape[0] > 0
-
-    bonds = state.bonds
-    if attribute in {
-        "bond_index",
-        "bonded_atoms",
-        "bonded_atom_pairs",
-        "inner_bond_index",
-        "inner_bonded_atoms",
-        "inner_bonded_atom_pairs",
-    }:
-        return bonds.shape[0] > 0
-    if attribute in _BOND_COLUMNS:
-        return any(
-            column in bonds and bonds[column].notna().any()
-            for column in _BOND_COLUMNS[attribute]
-        )
 
     return False

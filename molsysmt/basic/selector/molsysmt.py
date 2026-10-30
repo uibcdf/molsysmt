@@ -54,17 +54,23 @@ def select_standard(item, selection):
 
     form_in = get_form(item)
 
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.native import ChemicalStates, MolSys, Topology
 
+    chemical_states = None
     native_topologies = []
     for candidate in item if isinstance(item, (list, tuple)) else [item]:
         if isinstance(candidate, Topology):
             native_topologies.append(candidate)
         elif isinstance(candidate, MolSys):
             native_topologies.append(candidate.topology)
+            chemical_states = candidate.chemical_states
+        elif isinstance(candidate, ChemicalStates):
+            chemical_states = candidate
 
     if len(native_topologies) == 1:
         tmp_item = native_topologies[0]
+    elif not native_topologies and chemical_states is not None:
+        tmp_item = None
     else:
         conversion_needs_missing_bonds = False
 
@@ -94,14 +100,17 @@ def select_standard(item, selection):
 
             tmp_item = convert(
                 item,
-                to_form="molsysmt.Topology",
+                to_form="molsysmt.MolSys",
                 get_missing_bonds=bonds_required_by_selection,
                 skip_digestion=True,
             )
 
         else:
-            tmp_item = convert(item, to_form="molsysmt.Topology", skip_digestion=True)
+            tmp_item = convert(item, to_form="molsysmt.MolSys", skip_digestion=True)
 
+    if isinstance(tmp_item, MolSys):
+        chemical_states = tmp_item.chemical_states
+        tmp_item = tmp_item.topology
     query_local_dict = {}
 
     if "@" in selection:
@@ -141,6 +150,34 @@ def select_standard(item, selection):
                 var_value = list(var_value)
             query_local_dict["auxiliar_variable_" + var_name] = var_value
 
+    if tmp_item is None:
+        # Query only supplied attributes; do not invent a stable inventory for
+        # chemistry-only or coordinate-only domains.
+        from molsysmt.attribute import attributes
+        from molsysmt.basic import get
+
+        count = get(item, n_atoms=True)
+        if count is None:
+            raise ValueError("Atom selection requires a declared atom-index axis.")
+        positions = np.arange(count, dtype=np.int64)
+        if is_all(tmp_selection):
+            return positions
+        table = pd.DataFrame({"atom_index": positions})
+        requested = set(re.findall(r"\b[A-Za-z_]\w*\b", tmp_selection))
+        for name in sorted(requested.intersection(attributes) - {"atom_index"}):
+            values = get(item, element="atom", **{name: True})
+            if values is None:
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason=f"Selection requires unavailable attribute {name!r}.",
+                    caller="molsysmt.basic.selector.molsysmt.select",
+                )
+            table[name] = values
+        return table.query(
+            tmp_selection, engine="python", local_dict=query_local_dict
+        ).index.to_list()
+
     if is_all(tmp_selection):
         output = np.array(np.arange(tmp_item.atoms.shape[0]))
 
@@ -177,7 +214,7 @@ def select_standard(item, selection):
             if column in tmp_selection:
                 group_columns.append(column)
 
-        for column in tmp_item.components.keys():
+        for column in ("component_id", "component_name", "component_type"):
             if column in tmp_selection:
                 component_columns.append(column)
 
@@ -217,6 +254,7 @@ def select_standard(item, selection):
 
         aux_df = expand_atom_dataframe(
             tmp_item,
+            chemical_states=chemical_states,
             atom_columns=atom_columns,
             group_columns=group_columns,
             component_columns=component_columns,
@@ -226,8 +264,12 @@ def select_standard(item, selection):
         )
 
         for public_name in requested_atom_state_columns:
-            values = tmp_item._get_chemical_state_atom_attribute(
-                atom_state_columns[public_name]
+            values = (
+                None
+                if chemical_states is None
+                else chemical_states._get_chemical_state_atom_attribute(
+                    atom_state_columns[public_name]
+                )
             )
             if values is None:
                 from molsysmt._private.smonitor import StructuralInconsistencyError
@@ -317,20 +359,25 @@ def select_bonds_standard(item, selection):
 
     from molsysmt._private.smonitor import StructuralInconsistencyError
     from molsysmt.basic import convert
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.native import ChemicalStates, MolSys
 
     candidates = item if isinstance(item, (list, tuple)) else [item]
-    native_topologies = [
-        candidate.topology if isinstance(candidate, MolSys) else candidate
+    owners = [
+        candidate.chemical_states if isinstance(candidate, MolSys) else candidate
         for candidate in candidates
-        if isinstance(candidate, (MolSys, Topology))
+        if isinstance(candidate, (MolSys, ChemicalStates))
     ]
-    topology = (
-        native_topologies[0]
-        if len(native_topologies) == 1
-        else convert(item, to_form="molsysmt.Topology", skip_digestion=True)
+    states = (
+        owners[0]
+        if len(owners) == 1
+        else convert(item, to_form="molsysmt.MolSys").chemical_states
     )
-    bonds = topology._get_chemical_state_bonds()
+    if states is None:
+        raise StructuralInconsistencyError(
+            reason="Bond selection requires a ChemicalStates domain.",
+            caller="molsysmt.basic.select",
+        )
+    bonds = states._get_chemical_state_bonds()
     query = selection
     query_frame = pd.DataFrame(index=range(len(bonds)))
     query_frame["bond_index"] = np.arange(len(bonds), dtype=np.int64)

@@ -51,7 +51,7 @@ def test_digest_item_accepts_items_and_form_checks():
     # `MolSys.__init__` builds an empty container from element counts; a topology is
     # assigned afterwards. Passing `topology=` used to be accepted and discarded, so this
     # read as if it carried the topology when it never did.
-    molsys = MolSys()
+    molsys = MolSys(n_atoms=topology.n_atoms)
     molsys.topology = topology
 
     assert digest_item(topology, form="molsysmt.Topology", caller="test") is topology
@@ -71,7 +71,7 @@ def test_digest_items_accepts_matching_form_sequences():
     # `MolSys.__init__` builds an empty container from element counts; a topology is
     # assigned afterwards. Passing `topology=` used to be accepted and discarded, so this
     # read as if it carried the topology when it never did.
-    molsys = MolSys()
+    molsys = MolSys(n_atoms=topology.n_atoms)
     molsys.topology = topology
 
     assert digest_items(molsys, caller="test") == [molsys]

@@ -100,7 +100,7 @@ def get_aromatic_rings(
 
     See Also
     --------
-    molsysmt.topology.get_rings
+    molsysmt.chemical_states.get_rings
         Perceiving a basis from all covalent bonds irrespective of aromaticity.
     molsysmt.physchem.get_charge_centers
         Recognizing other reusable chemical participants.
@@ -108,9 +108,9 @@ def get_aromatic_rings(
     Examples
     --------
     >>> import molsysmt as msm
-    >>> from molsysmt.native import Topology
     >>> from molsysmt.physchem.get_aromatic_rings import get_aromatic_rings
-    >>> molsys = Topology(n_atoms=1)
+    >>> molsys = msm.ChemicalStates(n_atoms=1)
+    >>> _ = molsys.append_state()
     >>> msm.set(molsys, element='atom', atom_is_aromatic=[False])
     >>> rings = get_aromatic_rings(molsys, assume_complete_connectivity=True)
     >>> rings['atom_indices'].shape, rings['atom_offsets'].tolist()
@@ -124,7 +124,8 @@ def get_aromatic_rings(
     """
     import networkx as nx
 
-    from molsysmt.topology._rings import (
+    from molsysmt._private.variables import is_all
+    from molsysmt.chemical_states._rings import (
         minimum_cycle_memberships,
         ring_context,
         ring_result,
@@ -141,6 +142,7 @@ def get_aromatic_rings(
         structure_indices,
         assume_complete_connectivity,
         caller,
+        with_structures=isinstance(selection, str) and not is_all(selection),
     )
     attributes = state.atom_attributes
     if states.n_atoms and (

@@ -77,7 +77,9 @@ def test_structuresdict_to_molsys_reports_equivalent_exhaustive_projection(
     assert report.audited_scopes == ("all",)
     assert report.is_exhaustive
     assert report.outcome == "equivalent"
-    assert target.topology.n_atoms == target.structures.n_atoms == 2
+    assert target.topology is None
+    assert target.chemical_states is None
+    assert target.structures.n_atoms == 2
     assert target.structures.n_structures == 2
 
 

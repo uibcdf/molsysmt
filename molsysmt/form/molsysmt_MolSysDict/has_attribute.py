@@ -29,6 +29,44 @@ def has_attribute(
     .. versionadded:: 1.0.0
     """
 
+    if molecular_system.data.get("version", "0.1") == "0.2":
+        from .attributes import attributes
+
+        if not attributes.get(attribute, False):
+            return False
+        data = molecular_system.data
+        from molsysmt.form import molsysmt_Topology
+
+        if attribute == "n_atoms":
+            return any(
+                data.get(name) is not None
+                for name in ("topology", "chemical_states", "structures")
+            ) or bool(data.get("interactions"))
+        if molsysmt_Topology.attributes.get(attribute, False):
+            topology = data.get("topology")
+            if topology is None:
+                return False
+            if include_none or attribute.startswith("n_"):
+                return True
+            prefix = attribute.split("_", 1)[0]
+            table = {
+                "atom": "atoms",
+                "group": "groups",
+                "chain": "chains",
+                "molecule": "molecules",
+                "entity": "entities",
+            }.get(prefix)
+            if table is not None:
+                return bool(topology.get(table))
+        from molsysmt.form._native_dict import decode_molsys
+        from molsysmt.form.molsysmt_MolSys import has_attribute as native_has
+
+        return native_has(
+            decode_molsys(data),
+            attribute,
+            include_none=include_none,
+            skip_digestion=True,
+        )
     from .attributes import attributes
 
     output = attributes[attribute]

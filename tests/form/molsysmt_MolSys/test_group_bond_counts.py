@@ -20,8 +20,8 @@ def grouped_system():
         builder.add_bond(*pair)
     source = builder.build()
     source.chemical_states.append_state()
-    with source.topology._using_chemical_state(1):
-        source.topology.add_bonds([[0, 4]])
+    with source.chemical_states._using_chemical_state(1):
+        source.chemical_states.add_bonds([[0, 4]])
     return source
 
 
@@ -51,14 +51,14 @@ def test_bonded_group_counts_state_and_topology_parity(
     )
     assert result == wanted
     assert result == msm.get(
-        source.topology,
+        [source.topology, source.chemical_states],
         element="group",
         selection=selection,
         chemical_state=state,
         n_bonds=True,
     )
     assert source.chemical_states.reference_chemical_state_index == before
-    assert source.chemical_states is source.topology._chemical_states_domain
+    assert source.chemical_states._molsys_owner_ref() is source
     assert len(source.chemical_states.get_bonds(chemical_state=0)) == 3
     assert len(source.chemical_states.get_bonds(chemical_state=1)) == 1
 
@@ -113,7 +113,7 @@ def test_structure_associations_select_counts_and_reject_mixed_states(grouped_sy
 
 def test_ambiguous_reference_and_absent_topology_are_not_silently_zero(grouped_system):
     source = grouped_system
-    source.topology._set_reference_chemical_state_index(None)
+    source.chemical_states._set_reference_index(None)
     with pytest.raises(msm.StructuralInconsistencyError):
         msm.get(source, element="group", n_bonds=True)
     assert msm.get(source, element="group", chemical_state=1, n_bonds=True) == [1, 0, 1]

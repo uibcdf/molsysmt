@@ -6,11 +6,11 @@ import molsysmt as msm
 
 
 def _representable_topology(alanine_molsys):
-    topology = alanine_molsys.topology.copy()
+    topology = alanine_molsys.copy()
     msm.set(
         topology,
         element="atom",
-        formal_charge=[1] + [0] * (topology.n_atoms - 1),
+        formal_charge=[1] + [0] * (topology.topology.n_atoms - 1),
     )
     msm.set(topology, element="bond", selection=[0], bond_evidence="explicit")
     msm.set(topology, element="bond", selection=[0], bond_order=2)
@@ -26,7 +26,7 @@ def test_compact_topology_roundtrip_preserves_formal_charge_order_and_aromaticit
     source = _representable_topology(alanine_molsys)
 
     reduced = msm.convert(source, to_form=target)
-    observed = msm.convert(reduced, to_form="molsysmt.Topology")
+    observed = msm.convert(reduced, to_form="molsysmt.MolSys")
 
     assert msm.get(observed, element="atom", formal_charge=True)[0] == 1
     assert msm.get(observed, element="bond", selection=[0], bond_order=True) == [2]

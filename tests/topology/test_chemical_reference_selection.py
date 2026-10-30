@@ -9,10 +9,10 @@ import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError
 
 READERS = [
-    (msm.topology.get_rings, "selection_atom_indices"),
+    (msm.chemical_states.get_rings, "selection_atom_indices"),
     (msm.physchem.get_aromatic_rings, "selection_atom_indices"),
     (msm.physchem.get_aromaticity, "atom_indices"),
-    (msm.topology.get_rotatable_bonds, "atom_indices"),
+    (msm.chemical_states.get_rotatable_bonds, "atom_indices"),
     (msm.interactions.hbonds.get_hbond_sites, "selected_atom_indices"),
     (msm.physchem.get_cip_stereochemistry, "atom_indices"),
 ]
@@ -30,7 +30,7 @@ def test_default_reference_external_selector_matches_intended_population(
     pytest.importorskip("mdtraj")
     source = aromatic_system
     if form == "complementary":
-        source = [source.topology, source.structures]
+        source = [source.topology, source.chemical_states, source.structures]
     elif form == "h5msm":
         source = tmp_path / "source.h5msm"
         msm.convert(aromatic_system, to_form=source)
@@ -98,7 +98,7 @@ def test_default_reference_is_not_replaced_by_structure_association(
 
 
 @pytest.mark.parametrize(
-    "reader", [msm.topology.get_rings, msm.physchem.get_aromatic_rings]
+    "reader", [msm.chemical_states.get_rings, msm.physchem.get_aromatic_rings]
 )
 def test_external_selection_still_requires_complete_ring_participants(
     aromatic_system, reader

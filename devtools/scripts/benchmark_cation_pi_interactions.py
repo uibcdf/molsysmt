@@ -22,10 +22,9 @@ sys.path.insert(0, str(ROOT))
 
 def fixture(atoms, structures, rings):
     import molsysmt as msm
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.native import MolSys
 
-    molsys = MolSys()
-    molsys.topology = Topology(n_atoms=atoms)
+    molsys = MolSys(n_atoms=atoms)
     molsys.topology.atoms["atom_type"] = "C"
     pairs = np.column_stack(
         (
@@ -33,15 +32,17 @@ def fixture(atoms, structures, rings):
             np.arange(6 * rings).reshape(-1, 6)[:, [1, 2, 3, 4, 5, 0]].ravel(),
         )
     )
-    molsys.topology.bonds = pd.DataFrame(
-        {
-            "atom1_index": pairs[:, 0],
-            "atom2_index": pairs[:, 1],
-            "bond_type": "covalent",
-            "is_aromatic": True,
-        }
+    molsys.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": pairs[:, 0],
+                "atom2_index": pairs[:, 1],
+                "bond_type": "covalent",
+                "is_aromatic": True,
+            }
+        )
     )
-    molsys.topology._set_chemical_state_atom_attribute(
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "is_aromatic", [True] * (6 * rings) + [False] * (atoms - 6 * rings)
     )
     molsys.chemical_states._states[0].connectivity_completeness = "complete"
@@ -56,8 +57,8 @@ def fixture(atoms, structures, rings):
     charges[6 * rings : 7 * rings] = 1
     explicit_hydrogens = np.zeros(atoms, dtype=int)
     explicit_hydrogens[6 * rings : 7 * rings] = 4
-    molsys.topology._set_chemical_state_atom_attribute("formal_charge", charges)
-    molsys.topology._set_chemical_state_atom_attribute(
+    molsys.chemical_states._set_chemical_state_atom_attribute("formal_charge", charges)
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "n_explicit_hydrogens", explicit_hydrogens
     )
     for frame in range(structures):
@@ -253,7 +254,7 @@ def main():
         ROOT / "molsysmt/structure/_plane.py",
         ROOT / "molsysmt/structure/_group_minimum_contacts.py",
         ROOT / "molsysmt/_private/sparse_membership.py",
-        ROOT / "molsysmt/topology/get_substructure_matches.py",
+        ROOT / "molsysmt/chemical_states/get_substructure_matches.py",
         ROOT / "molsysmt/interactions/cation_pi/_prolif.py",
         ROOT / "molsysmt/_private/execution/projected_geometry.py",
         ROOT / "molsysmt/form/molsysmt_MolSys/to_rdkit_Mol.py",

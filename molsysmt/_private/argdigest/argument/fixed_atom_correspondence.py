@@ -2,7 +2,7 @@
 
 
 def digest_fixed_atom_correspondence(fixed_atom_correspondence, caller=None):
-    from molsysmt.topology._correspondence_constraints import normalize_pairs
+    from molsysmt.chemical_states._correspondence_constraints import normalize_pairs
 
     if fixed_atom_correspondence is None:
         return None

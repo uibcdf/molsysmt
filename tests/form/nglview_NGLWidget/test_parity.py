@@ -98,13 +98,21 @@ def test_roundtrip_topology_group_count(roundtrip_topology):
 def test_molsysmt_widget_preserves_exact_topology_sidecar(builder_pdb_molsys):
     source = builder_pdb_molsys.copy()
     source.topology.atoms["atom_id"] = ["7", "7", "A", "42"]
-    source.topology.bonds["bond_type"] = ["covalent", "dative"]
+    source.chemical_states._resolve_chemical_state().bonds["bond_type"] = [
+        "covalent",
+        "dative",
+    ]
 
     widget = msm.convert(source, to_form="nglview.NGLWidget")
     observed = msm.convert(widget, to_form="molsysmt.Topology")
 
     assert observed.atoms["atom_id"].tolist() == ["7", "7", "A", "42"]
-    assert observed.bonds["bond_type"].tolist() == ["covalent", "dative"]
+    assert not hasattr(observed, "bonds")
+    complete = msm.convert(widget, to_form="molsysmt.MolSys")
+    assert complete.chemical_states.get_bonds()["bond_type"].tolist() == [
+        "covalent",
+        "dative",
+    ]
 
 
 def test_molsysmt_widget_topology_is_an_isolated_snapshot(builder_pdb_molsys):
@@ -116,6 +124,28 @@ def test_molsysmt_widget_topology_is_an_isolated_snapshot(builder_pdb_molsys):
     observed = msm.convert(widget, to_form="molsysmt.Topology")
 
     assert observed.atoms["atom_id"].tolist() == expected
+
+
+def test_coordinate_axis_does_not_inherit_metadata_from_a_shorter_structure_string(
+    builder_pdb_molsys,
+):
+    import numpy as np
+
+    from molsysmt import pyunitwizard as puw
+
+    source = builder_pdb_molsys
+    widget = msm.convert(source, to_form="nglview.NGLWidget")
+    widget._trajlist[0].pdb = msm.convert(
+        source, to_form="string:pdb_text", selection=[0, 1, 2]
+    )
+    restored = msm.convert(widget, to_form="molsysmt.MolSys")
+    assert restored.topology.atoms["atom_name"].tolist() == ["N", "CA", "C", "O"]
+    assert restored.structures.coordinates.shape == (1, 4, 3)
+    np.testing.assert_allclose(
+        puw.get_value(restored.structures.coordinates, to_unit="nm"),
+        puw.get_value(source.structures.coordinates, to_unit="nm"),
+    )
+    assert restored.structures.b_factor is None
 
 
 def test_empty_external_widget_does_not_claim_topology():
@@ -134,7 +164,14 @@ def test_external_pdb_widget_uses_limited_fallback(builder_pdb_molsys):
     widget = nglview.show_text(pdb_text)
 
     assert msm.has_attribute(widget, "atom_id")
-    assert not msm.has_attribute(widget, "bond_type")
+    assert msm.has_attribute(widget, "bond_type")
+    assert msm.get(widget, bond_type=True, get_missing_bonds=False) == [
+        "covalent",
+        "covalent",
+    ]
+    assert not msm.has_attribute(widget, "bond_evidence")
+    complete = msm.convert(widget, to_form="molsysmt.MolSys", get_missing_bonds=False)
+    assert msm.get(complete, bond_evidence=True) == ["explicit", "explicit"]
     assert msm.get(widget, n_atoms=True) == N_ATOMS
 
 

@@ -34,7 +34,7 @@ never replaces it with a different label. Unsupported labels are rejected.
 
 For correspondence workflows, apply the prepared template with its explicit
 map, optionally materialize H with the fixed-state operation, then call
-`msm.topology.get_atom_correspondences()`. It independently checks the complete
+`msm.chemical_states.get_atom_correspondences()`. It independently checks the complete
 chemical context and rejects potential stereochemistry that is still unassigned.
 Do not fill every atom with `unspecified` as a generic preparation shortcut.
 Template application neither infers stereo from coordinates nor certifies
@@ -351,7 +351,7 @@ For example, remove the oxygen–hydrogen bond from the independent source above
 
 ```python
 molsys_fragmented = molsys.copy()
-molsys_fragmented.topology.remove_bonds([4])
+molsys_fragmented.chemical_states.remove_bonds([4])
 completion = msm.physchem.assess_chemical_template(
     molsys_fragmented, template=template, atom_correspondence=correspondence,
     template_provenance=provenance, connectivity_policy='complete_from_template')

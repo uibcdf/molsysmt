@@ -11,7 +11,7 @@ backend used by MolSysViewer. The source now ships a redesigned
 `molsysmt-tools = molsysviewer_molsysmt.tools` entry point on a compatible host.
 Its experimental facade provides native `basic` queries/independent outputs,
 retained-axis removal and geometry setting, root basic aliases, synchronization
-controls, eleven current `topology` analysis readers, eighteen `structure`
+controls, nine `chemical_states` graph readers and two `topology` sequence readers, eighteen `structure`
 calculations and retained-axis translation, proper rotation, plane reflection, least-RMSD fitting/alignment, explicit centering and single-structure displacement and principal-axis alignment and both dihedral editors under `view.addons.molsysmt`. Ten `pbc` box queries/factories are also explicit: only has_pbc binds the primary;
 other inputs remain caller-owned. Repaired native orthogonal defaults are received.
 Three `pbc` coordinate editors also have source receiving, with repaired native
@@ -72,7 +72,7 @@ MolSysMT owns the scientific operation and molecular data fidelity.
 
 Migrate calls to retired addon editing/rendering APIs to native Viewer
 operations where provided, or to public `msm.basic`, `msm.build`,
-`msm.structure`, `msm.topology`, `msm.pbc`, `msm.physchem` and
+`msm.structure`, `msm.chemical_states`, `msm.topology`, `msm.pbc`, `msm.physchem` and
 `msm.interactions` tools. The redesigned facade deliberately reuses the `view.addons.molsysmt` name
 without restoring those retired methods. Do not silently rewrite legacy
 serialized UI/session state. Viewer owns scene/session migration.
@@ -2073,3 +2073,16 @@ All 22 read-tool cases pass, including exact signature/digestion/help and two
 real group/chain output-parity cases preserving primary coordinates and scene.
 This consumer adjustment is part of the existing #421 receiving; it does not
 repair native science. The updated extraction guide block is checked separately.
+
+
+## Chemical-domain receiving checkpoint — 2026-10-30
+
+The nine graph wrappers now belong to `view.addons.molsysmt.chemical_states`;
+`topology` contains sequence alignment and identity. Historical dated inventories
+above describe their original source baseline and do not qualify this new
+namespace. Native paths/quartets now have explicit state/structure/skip controls.
+The initial real-query/signature block passes 33 cases. The broader 2,453-case
+addon run returned 2,268 passes and 185 failures; fixture/ownership corrections
+remain under #255. The Viewer scene loader still accesses Topology.bonds and is
+reported with executable retry guards in uibcdf/molsysviewer#269. No installed
+pair or new minimum package version is qualified by this checkpoint.

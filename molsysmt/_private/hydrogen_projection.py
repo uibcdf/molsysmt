@@ -48,12 +48,12 @@ def project(
     from molsysmt._private.variables import is_all
     from molsysmt.basic import convert, extract, get_form
     from molsysmt.basic._index_validation import validate_structure_indices
-    from molsysmt.native import MolSys
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         chemical_graph_digest,
         select_chemical_atoms,
     )
+    from molsysmt.native import MolSys
 
     if scheme != "autodock4":
         raise ArgumentError("typing_scheme", value=scheme, caller=CALLER)
@@ -191,7 +191,7 @@ def project(
         increments = np.bincount(forward[pairs[:, 1]], minlength=len(retained))
         for atom in np.flatnonzero(increments):
             explicit.loc[atom] = int(explicit.loc[atom]) + int(increments[atom])
-        output.topology._set_chemical_state_atom_attribute(
+        output.chemical_states._set_chemical_state_atom_attribute(
             "n_explicit_hydrogens", explicit
         )
         permission = attributes.get(
@@ -199,7 +199,7 @@ def project(
             pd.Series(pd.NA, index=attributes.index, dtype="boolean"),
         ).copy()
         permission.loc[np.flatnonzero(increments)] = False
-        output.topology._set_chemical_state_atom_attribute(
+        output.chemical_states._set_chemical_state_atom_attribute(
             "allows_implicit_hydrogens", permission
         )
         output.interactions = {}

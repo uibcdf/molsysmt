@@ -53,7 +53,11 @@ def test_native_sdf_missing_flags_are_perceived_on_a_copy(tmp_path):
     )
     path = tmp_path / "chemical.h5msm"
     msm.convert(source, to_form=path)
-    for item in [source.topology, str(path), msm.systems["caffeine"]["caffeine.sdf"]]:
+    for item in [
+        [source.topology, source.chemical_states],
+        str(path),
+        msm.systems["caffeine"]["caffeine.sdf"],
+    ]:
         actual = msm.physchem.get_aromaticity(item, selection=[5, 0, 5])
         assert actual["atom_indices"].tolist() == [0, 5]
         np.testing.assert_array_equal(

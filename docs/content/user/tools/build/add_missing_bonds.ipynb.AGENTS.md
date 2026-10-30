@@ -20,7 +20,7 @@ Governance rules and frozen contracts for `docs/content/user/tools/build/add_mis
 6. **Collapsible Demo Systems Note**: Right after code cell loading `msm.systems`.
 7. **Cells 7-16**:
    - `bonded_atom_pairs = msm.get(molsys, bonded_atom_pairs=True)`
-   - `molsys.topology.remove_bonds()`
+   - `molsys.chemical_states.remove_bonds()`
    - `msm.get(molsys, n_bonds=True)`
    - `msm.build.add_missing_bonds(molsys)`
    - `msm.get(molsys, n_bonds=True)`

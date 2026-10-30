@@ -42,7 +42,7 @@ def to_molsysmt_Structures(
         n_structures = item.max_frame + 1
         structure_indices = np.arange(n_structures)
 
-    if hasattr(item[0], "get_structure_string()"):
+    if hasattr(item[0], "get_structure_string"):
         string_pdb_text = item[0].get_structure_string()  # string pdb text
     else:
         string_pdb_text = item.get_state()["_ngl_msg_archive"][0]["args"][0]["data"]
@@ -65,12 +65,14 @@ def to_molsysmt_Structures(
         coordinates = puw.quantity(coordinates, unit="angstroms")
         coordinates = puw.standardize(coordinates)
 
-        if tmp_item.n_structures == coordinates.shape[0]:
+        if (
+            tmp_item.n_structures == coordinates.shape[0]
+            and tmp_item.n_atoms == coordinates.shape[1]
+        ):
             tmp_item.coordinates = coordinates
         else:
-            # NGL trajectories expose coordinates for every structure but the
-            # structure string describes only the first one. Do not repeat or
-            # partially retain frame-aligned PDB metadata.
+            # Structure strings can cover only one structure or an atom subset.
+            # Their metadata cannot describe a different trajectory axis.
             tmp_item = Structures(
                 coordinates=coordinates,
                 skip_digestion=True,

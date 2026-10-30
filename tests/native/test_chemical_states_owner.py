@@ -26,7 +26,7 @@ def system():
 def test_append_invalidates_all_coverage_and_retains_old_snapshots(initial):
     system = _system()
     if initial == 0:
-        system.topology._clear_chemical_states()
+        system.chemical_states = msm.ChemicalStates(n_atoms=system.get_n_atoms())
     elif initial == 2:
         system.chemical_states.append_state()
     previous = _analysis()
@@ -42,7 +42,7 @@ def test_append_invalidates_all_coverage_and_retains_old_snapshots(initial):
         0 if initial == 0 else old_reference
     )
     assert all(current is old for current, old in zip(states._states, old_records))
-    assert system.topology._chemical_states_domain is states
+    assert system.chemical_states is states
     for result in system.interactions.values():
         assert result.evaluated_structure_indices.size == 0
         assert result.n_interactions == 0

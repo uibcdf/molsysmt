@@ -83,11 +83,12 @@ def test_molsys_add_is_atomic_when_structure_counts_do_not_match(
 ):
     source = valine_molsys.copy()
     source_coordinates = puw.get_value(source.structures.coordinates, to_unit="nm")
-    source.structures = Structures(
-        coordinates=puw.quantity(
-            np.repeat(source_coordinates, 2, axis=0),
-            "nm",
-        )
+    source = type(source)._from_partial_domains(
+        topology=source.topology.copy(),
+        chemical_states=source.chemical_states.copy(),
+        structures=Structures(
+            coordinates=puw.quantity(np.repeat(source_coordinates, 2, axis=0), "nm")
+        ),
     )
     original_n_atoms = proline_molsys.topology.n_atoms
     original_coordinates = proline_molsys.structures.coordinates.copy()

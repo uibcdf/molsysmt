@@ -7,9 +7,8 @@ import pandas as pd
 import pytest
 
 import molsysmt as msm
-from molsysmt.native import MolSys
-from molsysmt.native.topology import Bonds_DataFrame
-from tests.native.test_topology_operations import build_minimal_topology
+from molsysmt.native._chemical_state import Bonds_DataFrame
+from tests.native.test_topology_operations import build_minimal_chemical_molsys
 
 
 @pytest.fixture(autouse=True)
@@ -54,37 +53,36 @@ def test_sort_preserves_bond_table_identity_metadata_and_nullable_dtypes(n_bonds
 def test_public_extract_copy_and_pickle_preserve_source_domains(form):
     import pickle
 
-    topology = build_minimal_topology()
-    topology.bonds = pd.DataFrame(
-        {
-            "atom1_index": [3, 2, 1],
-            "atom2_index": [1, 0, 0],
-            "bond_id": ["30", "20", "10"],
-            "bond_order": [1, 2, 1],
-            "bond_type": ["covalent"] * 3,
-        }
-    )
-    source = (
-        topology
-        if form == "topology"
-        else MolSys._from_partial_domains(
-            topology=topology, chemical_states=topology._chemical_states_domain
+    molsys = build_minimal_chemical_molsys()
+    molsys.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": [3, 2, 1],
+                "atom2_index": [1, 0, 0],
+                "bond_id": ["30", "20", "10"],
+                "bond_order": [1, 2, 1],
+                "bond_type": ["covalent"] * 3,
+            }
         )
     )
+    topology = molsys.topology
+    source = topology if form == "topology" else molsys
     original = source.copy()
-    states = topology._chemical_states_domain
+    states = molsys.chemical_states
     assert list(msm.select(source, selection="group_index==1")) == [2, 3]
     output = msm.extract(source, selection=[3, 1])
     selected = output if form == "topology" else output.topology
     assert selected.atoms.atom_id.tolist() == ["1", "3"]
-    assert selected.bonds[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
-    assert selected.bonds.bond_id.tolist() == ["30"]
     assert selected.groups.group_id.tolist() == ["10", "11"]
     assert selected.chains.chain_id.tolist() == ["A", "B"]
-    assert selected.bonds is selected._chemical_states_domain._states[0].bonds
-    assert topology._chemical_states_domain is states
-    assert selected._chemical_states_domain is not states
-    for table in ("atoms", "groups", "molecules", "entities", "chains", "bonds"):
+    assert not hasattr(selected, "bonds")
+    assert molsys.chemical_states is states
+    if form == "molsys":
+        bonds = output.chemical_states.get_bonds()
+        assert bonds[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
+        assert bonds.bond_id.tolist() == ["30"]
+        assert output.chemical_states is not states
+    for table in ("atoms", "groups", "molecules", "entities", "chains"):
         previous = getattr(original if form == "topology" else original.topology, table)
         pd.testing.assert_frame_equal(
             getattr(topology, table), previous, check_frame_type=False
@@ -93,18 +91,22 @@ def test_public_extract_copy_and_pickle_preserve_source_domains(form):
             range(len(getattr(selected, table)))
         )
     restored = pickle.loads(pickle.dumps(output))
-    restored_topology = restored if form == "topology" else restored.topology
-    pd.testing.assert_frame_equal(
-        restored_topology.bonds, selected.bonds, check_frame_type=False
-    )
+    if form == "molsys":
+        pd.testing.assert_frame_equal(
+            restored.chemical_states.get_bonds(),
+            output.chemical_states.get_bonds(),
+            check_frame_type=False,
+        )
     selected.atoms.loc[0, "atom_name"] = "edited"
     assert topology.atoms.atom_name.tolist() == ["N", "CA", "O", "H"]
 
 
 def test_chemical_state_extraction_resets_membership_and_preserves_assignments():
-    topology = build_minimal_topology()
-    topology._set_chemical_state_atom_attribute("formal_charge", [0, 1, -1, 0])
-    states = topology._chemical_states_domain
+    molsys = build_minimal_chemical_molsys()
+    molsys.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [0, 1, -1, 0]
+    )
+    states = molsys.chemical_states
     before = states.copy()
     selected = states._extract_atoms([3, 1])
     record = selected._states[0]
@@ -121,9 +123,11 @@ def test_chemical_state_extraction_resets_membership_and_preserves_assignments()
 
 
 def test_atom_assignment_removal_preserves_table_identity_and_copy():
-    topology = build_minimal_topology()
-    topology._set_chemical_state_atom_attribute("formal_charge", [0, 1, -1, 0])
-    record = topology._chemical_states_domain._states[0]
+    molsys = build_minimal_chemical_molsys()
+    molsys.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [0, 1, -1, 0]
+    )
+    record = molsys.chemical_states._states[0]
     table = record.atom_attributes
     duplicate = record.copy()
     record.remove_atom_attribute("formal_charge")

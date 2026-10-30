@@ -345,7 +345,12 @@ def add_missing_heavy_atoms(
             ):
                 continue
             _, reason = assess_residue(
-                topo, group_idx, [], load_residue_template(group_name), None
+                topo,
+                group_idx,
+                [],
+                load_residue_template(group_name),
+                None,
+                chemical_states=native_ms.chemical_states,
             )
             if reason:
                 warn(
@@ -392,14 +397,19 @@ def add_missing_heavy_atoms(
                 continue
 
             curated = group_name in CURATED_MODIFIED_RESIDUES
-            if curated and len(topo._chemical_states) != 1:
+            if curated and native_ms.chemical_states.n_chemical_states != 1:
                 anchors, reason = (
                     None,
                     "multiple chemical states cannot be preserved by this repair",
                 )
             else:
                 anchors, reason = assess_residue(
-                    topo, group_idx, missing_names, template, all_coords
+                    topo,
+                    group_idx,
+                    missing_names,
+                    template,
+                    all_coords,
+                    chemical_states=native_ms.chemical_states,
                 )
             if reason:
                 warn(
@@ -496,7 +506,7 @@ def add_missing_heavy_atoms(
             curated = group_name in CURATED_MODIFIED_RESIDUES
             existing_pairs = {
                 frozenset((int(row.atom1_index), int(row.atom2_index)))
-                for row in topo._get_chemical_state_bonds().itertuples()
+                for row in native_ms.chemical_states._get_chemical_state_bonds().itertuples()
             }
             for bond_number, (b1, b2) in enumerate(template["bonds"]):
                 if (

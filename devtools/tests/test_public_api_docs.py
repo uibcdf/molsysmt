@@ -169,7 +169,7 @@ def test_molsys_manual_type_setter_docstring_renders_and_example_runs(tmp_path):
 @pytest.mark.parametrize(
     "name,tutorial_label,statement_count",
     [
-        ("get", "Tutorial_Get", 4),
+        ("get", "Tutorial_Get", 11),
         ("info", "Tutorial_Info", 3),
         ("to_form", "Tutorial_Convert", 5),
     ],

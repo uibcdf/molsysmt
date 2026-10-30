@@ -270,11 +270,11 @@ def get_pi_pi_interactions(
     from molsysmt._private.execution.sparse_accumulator import SparseColumnAccumulator
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt.basic import convert, get, select
+    from molsysmt.chemical_states._rings import ring_context
     from molsysmt.interactions.pi_pi._reducer import _PiPiReducer
     from molsysmt.interactions.result import Interactions
     from molsysmt.native import MolSys
     from molsysmt.physchem.get_aromatic_rings import get_aromatic_rings
-    from molsysmt.topology._rings import ring_context
 
     thresholds = {}
     reference_thresholds = {"face_distance": 0.55, "edge_distance": 0.65}
@@ -415,8 +415,8 @@ def get_pi_pi_interactions(
         _CALLER,
     )
     if method == "prolif":
+        from molsysmt.chemical_states import get_substructure_matches
         from molsysmt.physchem._prolif import PROLIF_PATTERNS, PROLIF_REFERENCE
-        from molsysmt.topology import get_substructure_matches
 
         matches = get_substructure_matches(
             source,

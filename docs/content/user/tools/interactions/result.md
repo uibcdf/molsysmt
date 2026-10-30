@@ -354,7 +354,7 @@ the affected frame, considering the detector's complete declared atom scope.
 | --- | --- |
 | Coordinates or box through `msm.set` | Selected frames become unevaluated. |
 | Empty atom/frame selection, time or identifier edit | Results remain valid. |
-| Scientific chemical-state changes through `msm.set` on the system or attached topology, native topology bond edits, or replacing `chemical_states` | All covered structures become unevaluated. |
+| Scientific chemical-state changes through `msm.set` on the system or attached `ChemicalStates`, state-aware chemical bond edits, or replacing `chemical_states` | All covered structures become unevaluated. |
 | `molsys.chemical_states.append_state()` | All covered structures become unevaluated; explicit state associations are preserved. |
 | `molsys.chemical_states.append_preparation_history(...)` | Results remain valid: only historical evidence is archived. |
 | Changing `structure_chemical_state_index` | Selected frames become unevaluated. |
@@ -399,13 +399,14 @@ Invalid direct native writes leave geometry and analyses unchanged. The public
 system setter conservatively invalidates after delegation starts if a delegated
 operation fails, since an extension may already have written part of the data.
 
-Controlled chemical-state setters on an attached topology also notify its
-owner, including `msm.set(molsys.topology, ...)`, native `add_bonds()` /
-`remove_bonds()` and replacing `topology.bonds`. Scientific changes invalidate
-all covered structures; bond-label-only changes and empty selections preserve
-analyses. Invalid assignments and invalidation allocation failure preserve
-chemical values. Bond tools rebuild components after publication; if rebuilding
-fails, bonds can already have changed and analyses remain invalidated.
+Controlled setters on an attached `ChemicalStates` also notify its owner,
+including `msm.set(molsys.chemical_states, ...)` and state-aware `add_bonds()` /
+`remove_bonds()`. `Topology` has no chemical editing facade. Scientific changes
+invalidate all covered structures; bond-label-only changes, equal-value
+assignments and empty selections preserve analyses. Bond/component changes and
+invalidation are staged before publication: invalid assignments, reconstruction
+failure or invalidation allocation failure preserve chemical values and analyses.
+Stable molecule membership is unchanged by chemical graph edits.
 Previous table handles do not follow replacement. A chemical collection already
 owned by another MolSys is copied on attachment, preserving separate owners.
 This owner separation also applies when a native subclass stores its weak link

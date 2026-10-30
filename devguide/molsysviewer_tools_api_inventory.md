@@ -2,7 +2,9 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-10-28, source receiving extends ac30d5ba4 with four native
+**Snapshot:** 2026-10-30, the #255 working tree splits the graph and sequence domains;
+complete scene-loader receiving remains pending under uibcdf/molsysviewer#269.
+The prior 2026-10-28 source receiving extended ac30d5ba4 with four native
 composition mirrors and the separately qualified Viewer prefix-addition host. All fifteen canonical
 interaction paths remain exposed explicitly. Prior source and installed qualification retain
 their own identities; this count is not universal scientific accuracy or stability.
@@ -12,7 +14,7 @@ source environment:
 
 ```bash
 python devtools/scripts/audit_molsysviewer_tools_api.py \
-  --output devtools/data/molsysviewer_tools_composition_inventory_20261028.json
+  --output devtools/data/molsysviewer_tools_chemical_domains_inventory_20261030.json
 ```
 
 The command uses real native declarations and an actual empty view's addon,
@@ -26,7 +28,8 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | Namespace | Exposed source paths | Declared native paths | Remaining |
 | --- | ---: | ---: | ---: |
 | basic | 25 | 26 | 1 |
-| topology | 11 | 11 | 0 |
+| topology | 2 | 2 | 0 |
+| chemical_states | 9 | 9 | 0 |
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
 | physchem | 34 | 34 | 0 |

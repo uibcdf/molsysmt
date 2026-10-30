@@ -108,7 +108,9 @@ def test_topology_self_conversion_applies_atom_subset(mda_topology):
 
 
 @pytest.mark.parametrize("route", ["direct", "public"])
-@pytest.mark.parametrize("target", ["MDAnalysis.Topology", "molsysmt.Topology"])
+@pytest.mark.parametrize(
+    "target", ["MDAnalysis.Topology", "molsysmt.Topology", "molsysmt.MolSys"]
+)
 def test_topology_reordering_preserves_labels_and_connectivity(
     rich_universe, route, target
 ):
@@ -130,13 +132,20 @@ def test_topology_reordering_preserves_labels_and_connectivity(
         np.testing.assert_array_equal(output.bonds.values, [[0, 1]])
     else:
         # Native extraction retains ascending source order; permutation is explicit.
-        assert output.atoms["atom_id"].tolist() == ["12", "13"]
-        assert output.atoms["atom_name"].tolist() == ["A2", "A3"]
-        assert output.groups["group_id"].tolist() == ["7"]
-        np.testing.assert_array_equal(
-            output.bonds[["atom1_index", "atom2_index"]].to_numpy(), [[0, 1]]
-        )
-    assert output.n_atoms == 2
+        inventory = output.topology if target == "molsysmt.MolSys" else output
+        assert inventory.atoms["atom_id"].tolist() == ["12", "13"]
+        assert inventory.atoms["atom_name"].tolist() == ["A2", "A3"]
+        assert inventory.groups["group_id"].tolist() == ["7"]
+        if target == "molsysmt.MolSys":
+            np.testing.assert_array_equal(
+                output.chemical_states.get_bonds()[
+                    ["atom1_index", "atom2_index"]
+                ].to_numpy(),
+                [[0, 1]],
+            )
+        else:
+            assert not hasattr(output, "bonds")
+    assert msm.get(output, n_atoms=True) == 2
     assert source.n_atoms == 4
     assert source.ids.values.tolist() == [10, 11, 12, 13]
     np.testing.assert_array_equal(source.bonds.values, [(0, 1), (1, 2), (2, 3)])

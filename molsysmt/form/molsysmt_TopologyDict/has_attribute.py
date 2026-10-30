@@ -29,44 +29,41 @@ def has_attribute(
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt.form import molsysmt_MolSys, molsysmt_Topology
+
     from .attributes import attributes
 
-    output = attributes[attribute]
-    if not output:
+    if not attributes.get(attribute, False):
         return False
+    # Availability for bounded stored-atom reads must not decode unrelated
+    # hierarchy/chemistry, including legacy dictionaries with sparse records.
+    from molsysmt.form._dict_atom_queries import supports
 
-    topology = molecular_system.data
+    records = molecular_system.data.get("atoms")
+    if isinstance(records, list) and supports(attribute, "atom"):
+        if attribute == "n_atoms":
+            return True
+        if attribute == "atom_index":
+            return include_none or bool(records)
+        return include_none or any(
+            isinstance(row, dict) and row.get(attribute) is not None for row in records
+        )
+    if molecular_system.data.get("version", "0.1") == "0.2":
+        if not molsysmt_Topology.attributes.get(attribute, False):
+            return False
+        from .to_molsysmt_Topology import to_molsysmt_Topology
 
-    if attribute in [
-        "bond_index",
-        "bond_type",
-        "bond_order",
-        "bonded_atoms",
-        "bonded_atom_pairs",
-        "inner_bond_index",
-        "inner_bonded_atoms",
-        "inner_bonded_atom_pairs",
-        "n_bonds",
-        "n_inner_bonds",
-    ]:
-        return include_none or len(topology.get("bonds", []) or []) > 0
+        return molsysmt_Topology.has_attribute(
+            to_molsysmt_Topology(molecular_system, skip_digestion=True),
+            attribute,
+            include_none=include_none,
+            skip_digestion=True,
+        )
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
-    if attribute.startswith("entity_") or attribute == "n_entities":
-        return include_none or len(topology.get("entities", []) or []) > 0
-
-    if attribute.startswith("molecule_") or attribute == "n_molecules":
-        return include_none or len(topology.get("molecules", []) or []) > 0
-
-    if attribute.startswith("chain_") or attribute == "n_chains":
-        return include_none or len(topology.get("chains", []) or []) > 0
-
-    if attribute.startswith("group_") or attribute == "n_groups":
-        return include_none or len(topology.get("groups", []) or []) > 0
-
-    if attribute.startswith("atom_") or attribute == "n_atoms":
-        return include_none or len(topology.get("atoms", []) or []) > 0
-
-    if attribute.startswith("component_") or attribute == "n_components":
-        return include_none or len(topology.get("groups", []) or []) > 0
-
-    return output
+    return molsysmt_MolSys.has_attribute(
+        to_molsysmt_MolSys(molecular_system, skip_digestion=True),
+        attribute,
+        include_none=include_none,
+        skip_digestion=True,
+    )

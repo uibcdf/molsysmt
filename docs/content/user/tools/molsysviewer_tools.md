@@ -18,13 +18,15 @@ helpers `get_form`, `is_a_molecular_system`, `where_is_attribute` and the explic
 collection utility `are_multiple_molecular_systems` are also available in source.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
 
-The current `view.addons.molsysmt.topology` namespace wraps all eleven native
-exports at the reviewed baseline: bond graphs, covalent blocks/paths, dihedral
-quartets, rings, rigid fragments, rotatable bonds, SMARTS matches, atom
-correspondences, sequence alignment and sequence identity. Native scientific
-prerequisites and engine limitations remain applicable. The contributing
-source-group mapping repair is received below. This receiving is not a certification of every possible input or engine.
-Topology functions keep their module path; they do not gain invented root aliases.
+The `view.addons.molsysmt.chemical_states` namespace provides the nine native
+graph tools: bond graphs, covalent blocks/paths, dihedral quartets, rings, rigid
+fragments, rotatable bonds, SMARTS matches and atom correspondences. Sequence
+alignment and identity remain under `view.addons.molsysmt.topology`. Both follow
+the independent native domains introduced by MolSysMT #255. There are no old-path
+graph aliases or invented root aliases. Native scientific prerequisites and
+optional-engine limits remain applicable. Source receiving is experimental;
+scene-loader migration is tracked in MolSysViewer #269 and does not follow from
+an addon registration or namespace check alone.
 The current `view.addons.molsysmt.structure` slice adds `get_distances`,
 `get_vectors`, `get_center`, `get_radius_of_gyration`, `get_angles`,
 `get_dihedral_angles`, `get_rmsd`, `get_least_rmsd`, `get_principal_axes` and
@@ -538,46 +540,40 @@ promise of incremental or bounded trajectory transfer to the browser.
 
 ```python
 with msv.demo["pentalanine"] as view:
-    topology = view.addons.molsysmt.topology
-    graph = topology.get_bondgraph(structure_indices=[2, 0])
-    blocks = topology.get_covalent_blocks()
-    paths = topology.get_covalent_paths(path=[
+    chemical_states = view.addons.molsysmt.chemical_states
+    graph = chemical_states.get_bondgraph(structure_indices=[2, 0])
+    blocks = chemical_states.get_covalent_blocks()
+    paths = chemical_states.get_covalent_paths(path=[
         'atom_name=="C"', 'atom_name=="N"',
         'atom_name=="CA"', 'atom_name=="C"',
     ])
-    phi_quartets, phi_blocks = topology.get_dihedral_quartets(
+    phi_quartets, phi_blocks = chemical_states.get_dihedral_quartets(
         phi=True, with_blocks=True,
     )
-    hypothetical_blocks = topology.get_covalent_blocks(
+    hypothetical_blocks = chemical_states.get_covalent_blocks(
         remove_bonds=phi_quartets[0][1:3],
     )
 ```
 
-{doc}`topology/get_bondgraph` returns the native NetworkX graph with source atom
+{doc}`chemical_states/get_bondgraph` returns the native NetworkX graph with source atom
 indices as nodes. The graph is an independent result; changing it does not change
-the system's bonds. {doc}`topology/get_covalent_blocks` returns native sets or
+the system's bonds. {doc}`chemical_states/get_covalent_blocks` returns native sets or
 source-index label arrays. `remove_bonds` cuts the analysis graph only: it neither
 removes molecular bonds nor defines scene regions.
 
-{doc}`topology/get_covalent_paths` takes an explicit ordered selection pattern.
-{doc}`topology/get_dihedral_quartets` takes native dihedral flags such as `phi`
+{doc}`chemical_states/get_covalent_paths` takes an explicit ordered selection pattern.
+{doc}`chemical_states/get_dihedral_quartets` takes native dihedral flags such as `phi`
 and `psi`. Request the intended type explicitly. Its `with_blocks=True` result
 keeps the native lists of sets with different sizes; the addon does not coerce
 that ragged data into a rectangular array.
 
-Selection, output, chemical-state and structure options remain those declared by
-each native function. A reference-state graph is one connectivity graph, not an
-automatically calculated graph per displayed structure. Paths/quartets do not
-acquire new state or structure parameters absent from their native interfaces.
-No topology is prepared, connectivity certified complete, analysis attached or
-scene updated by these wrappers. Native derived/cache behavior remains native.
-The additional received graph and sequence tools are described below.
-
-`get_bondgraph`, `get_covalent_blocks` and `get_covalent_paths` forward native
-`skip_digestion`. The native quartet signature does not declare it, so its
-addon-only keyword controls the wrapper boundary and is never inserted into
-scientific **kwargs. Its native public validation remains active. The same view-lifetime and
-pending-read rules apply to these calls as to the received `basic` readers.
+Selection, output, chemical-state and structure options match each native
+function. A reference-state graph is one connectivity graph, not an automatically
+calculated graph per displayed structure. Paths and quartets now expose the
+native keyword-only chemical-state, structure-index and `skip_digestion` controls.
+Graph cuts do not prepare chemistry, certify connectivity, attach analyses or
+update the scene. The same view-lifetime and pending-read rules apply as for the
+received `basic` readers. Sequence tools keep their stable-inventory namespace.
 
 ## Reading chemical graphs and sequences
 
@@ -594,31 +590,31 @@ import molsysmt as msm
 
 molsys = msm.convert(msm.systems['caffeine']['caffeine.sdf'], to_form='rdkit.Mol')
 with msv.new_view(molsys) as view:
-    topology = view.addons.molsysmt.topology
-    rings = topology.get_rings()
-    torsions = topology.get_rotatable_bonds(method='conjugation_restricted')
-    fragments = topology.get_rigid_fragments(
+    chemical_states = view.addons.molsysmt.chemical_states
+    rings = chemical_states.get_rings()
+    torsions = chemical_states.get_rotatable_bonds(method='conjugation_restricted')
+    fragments = chemical_states.get_rigid_fragments(
         bond_indices=torsions['rotatable_bond_indices'],
     )
-    matches = topology.get_substructure_matches(['[#8]', '[#9]'])
+    matches = chemical_states.get_substructure_matches(['[#8]', '[#9]'])
     n_atoms = view.addons.molsysmt.basic.get(n_atoms=True)
     identity_map = [[index, index] for index in range(n_atoms)]
-    correspondence = topology.get_atom_correspondences(
+    correspondence = chemical_states.get_atom_correspondences(
         fixed_atom_correspondence=identity_map, max_matches=1,
     )
 ```
 
-{doc}`topology/get_rings` returns sparse sorted memberships of a minimum cycle
+{doc}`chemical_states/get_rings` returns sparse sorted memberships of a minimum cycle
 basis, not every cycle or an aromaticity assignment. A partial-ring selection
 can be rejected. Its block-size limit is not a universal RAM/runtime bound.
-{doc}`topology/get_rotatable_bonds` retains explicit experimental graph criteria
-and exclusions. {doc}`topology/get_rigid_fragments` cuts chosen source bond
+{doc}`chemical_states/get_rotatable_bonds` retains explicit experimental graph criteria
+and exclusions. {doc}`chemical_states/get_rigid_fragments` cuts chosen source bond
 indices analytically: it does not remove bonds or rotate coordinates. Packed
 memberships and source-index arrays remain native, without becoming regions.
 
-{doc}`topology/get_substructure_matches` keeps pattern order, query-column
+{doc}`chemical_states/get_substructure_matches` keeps pattern order, query-column
 order, empty matrix shapes and its pre-selection match bound.
-{doc}`topology/get_atom_correspondences` preserves full chemical context,
+{doc}`chemical_states/get_atom_correspondences` preserves full chemical context,
 independent reference selectors/states, source-index pairs, anchors, supplied
 candidates, evidence and search limits. Its default None reference uses the
 current system, as native MolSysMT does. It does not infer a visual alignment or
@@ -629,7 +625,7 @@ when a scientific search bound is exceeded.
 ```python
 with msv.demo['pentalanine'] as view:
     reference = view.addons.molsysmt.basic.copy()
-    topology = view.addons.molsysmt.topology
+    chemical_states = view.addons.molsysmt.chemical_states
     amino_acids = "group_type=='amino acid'"
     aligned = topology.get_sequence_alignment(
         selection=amino_acids, reference_molecular_system=reference,
@@ -954,7 +950,7 @@ import molsysmt as msm
 # You explicitly provide chemistry suitable for the declared matching method.
 molsys = msm.convert(msm.systems['caffeine']['caffeine.sdf'], to_form='rdkit.Mol')
 with msv.new_view(molsys) as view:
-    matches = view.addons.molsysmt.topology.get_atom_correspondences()
+    matches = view.addons.molsysmt.chemical_states.get_atom_correspondences()
     pose = view.addons.molsysmt.structure.get_symmetry_corrected_rmsd(
         selection='all', correspondences=matches, structure_indices=[0], heavy_mode='off',
     )
@@ -1344,7 +1340,7 @@ write and a failed display projection retain their separate recovery contracts.
 ```python
 with msv.demo['pentalanine'] as view:
     tools = view.addons.molsysmt
-    quartets = tools.topology.get_dihedral_quartets(phi=True)
+    quartets = tools.chemical_states.get_dihedral_quartets(phi=True)
     # Keep this one quartet explicit; input angles carry physical angular units.
     edited = tools.structure.set_dihedral_angles(
         dihedral_quartets=quartets[0], angles='60 degrees',

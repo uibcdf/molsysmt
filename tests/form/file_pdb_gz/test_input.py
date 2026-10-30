@@ -48,13 +48,19 @@ def test_plain_compressed_parity_preserves_selection_and_units(
             "atoms",
             "groups",
             "chains",
-            "components",
             "molecules",
             "entities",
-            "bonds",
         ]:
             pd.testing.assert_frame_equal(getattr(a, table), getattr(b, table))
         assert all(isinstance(value, str) for value in a.atoms.atom_id)
+        if to_form == "molsysmt.MolSys":
+            for table in ("bonds", "components"):
+                pd.testing.assert_frame_equal(
+                    getattr(observed.chemical_states._resolve_chemical_state(), table),
+                    getattr(expected.chemical_states._resolve_chemical_state(), table),
+                )
+        else:
+            assert not hasattr(observed, "bonds")
     if to_form != "molsysmt.Topology":
         a = observed.structures if to_form == "molsysmt.MolSys" else observed
         b = expected.structures if to_form == "molsysmt.MolSys" else expected
@@ -87,9 +93,9 @@ def test_real_3ptb_declared_connectivity_has_independent_literal_truth():
     assert (
         sum(
             names[a] == names[b] == "SG"
-            for a, b in protein.topology.bonds[
-                ["atom1_index", "atom2_index"]
-            ].itertuples(index=False, name=None)
+            for a, b in protein.chemical_states._resolve_chemical_state()
+            .bonds[["atom1_index", "atom2_index"]]
+            .itertuples(index=False, name=None)
         )
         == 6
     )
@@ -120,7 +126,10 @@ def test_connectivity_engine_policy_matches_plain_pdb(
     )
     expected = msm.convert(plain, **options)
     observed = msm.convert(path, **options)
-    pd.testing.assert_frame_equal(observed.topology.bonds, expected.topology.bonds)
+    pd.testing.assert_frame_equal(
+        observed.chemical_states._resolve_chemical_state().bonds,
+        expected.chemical_states._resolve_chemical_state().bonds,
+    )
     from molsysmt._private.smonitor import ArgumentConflictError
 
     with pytest.raises(ArgumentConflictError):

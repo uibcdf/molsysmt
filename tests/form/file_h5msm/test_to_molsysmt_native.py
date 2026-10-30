@@ -8,7 +8,9 @@ def test_file_h5msm_to_molsysmt_topology_preserves_builder_counts(builder_h5msm_
 
     assert topology.n_atoms == 4
     assert topology.n_groups == 2
-    assert topology.n_bonds == 2
+    assert not hasattr(topology, "n_bonds")
+    complete = msm.convert(builder_h5msm_file, to_form="molsysmt.MolSys")
+    assert complete.chemical_states.get(n_bonds=True) == 2
     assert topology.n_chains == 1
     assert topology.n_molecules == 2
     assert topology.n_entities == 2

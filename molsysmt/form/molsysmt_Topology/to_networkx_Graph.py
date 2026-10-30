@@ -1,8 +1,6 @@
-import networkx as nx
 import pandas as pd
 
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 
 _ATOM_STATE_NAMES = {
     "formal_charge": "formal_charge",
@@ -59,56 +57,6 @@ def to_networkx_Graph(item, atom_indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if not is_all(atom_indices):
-        from molsysmt.form.molsysmt_Topology.extract import extract
+    from molsysmt.form.networkx_Graph._from_native import export_native
 
-        item = extract(
-            item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True
-        )
-
-    state = item._resolve_chemical_state()
-    g = nx.Graph(
-        molsysmt_contract="canonical_attribute_graph_v1",
-        connectivity_completeness=state.connectivity_completeness,
-        component_completeness=state.component_completeness,
-        component_evidence=state.component_evidence,
-    )
-
-    for atom_index, atom in item.atoms.iterrows():
-        node_attributes = {
-            name: _plain_value(value)
-            for name, value in atom.items()
-            if not pd.isna(value)
-        }
-        component_index = state.component_indices.iloc[atom_index]
-        if not pd.isna(component_index):
-            node_attributes["component_index"] = _plain_value(component_index)
-        for storage_name, public_name in _ATOM_STATE_NAMES.items():
-            if storage_name in state.atom_attributes:
-                value = state.atom_attributes.iloc[atom_index][storage_name]
-                if not pd.isna(value):
-                    node_attributes[public_name] = _plain_value(value)
-        g.add_node(int(atom_index), **node_attributes)
-
-    for _, bond in state.bonds.iterrows():
-        edge_attributes = {}
-        for storage_name, public_name in _BOND_NAMES.items():
-            if storage_name in bond.index and not pd.isna(bond[storage_name]):
-                edge_attributes[public_name] = _plain_value(bond[storage_name])
-        if (
-            "stereo_atom1_index" in bond.index
-            and "stereo_atom2_index" in bond.index
-            and not pd.isna(bond["stereo_atom1_index"])
-            and not pd.isna(bond["stereo_atom2_index"])
-        ):
-            edge_attributes["bond_stereo_atom_indices"] = (
-                _plain_value(bond["stereo_atom1_index"]),
-                _plain_value(bond["stereo_atom2_index"]),
-            )
-        g.add_edge(
-            int(bond["atom1_index"]),
-            int(bond["atom2_index"]),
-            **edge_attributes,
-        )
-
-    return g
+    return export_native(item, atom_indices=atom_indices, skip_digestion=True)

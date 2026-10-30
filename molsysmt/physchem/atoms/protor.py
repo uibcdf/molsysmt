@@ -347,7 +347,6 @@ def _infer_protor_type_for_atom(residue_name, atom_name, atom_type, n_bonds):
     residue_name = str(residue_name).strip().upper()
     atom_name = str(atom_name).strip().upper()
     atom_type = str(atom_type).strip().upper()
-    n_bonds = int(n_bonds)
 
     normalized_residue_name = _PROTOR_RESIDUE_NAME_ALIASES.get(
         residue_name, residue_name
@@ -364,6 +363,9 @@ def _infer_protor_type_for_atom(residue_name, atom_name, atom_type, n_bonds):
             return "C4H2" if normalized_residue_name == "GLY" else "C4H1"
         return _PROTOR_PROTEIN_BACKBONE_TYPES[atom_name]
 
+    if n_bonds is None:
+        return None
+    n_bonds = int(n_bonds)
     if atom_type == "S":
         return "S2H1" if n_bonds <= 1 else "S2H0"
 
@@ -455,9 +457,13 @@ def get_protor_atom_type(
             continue
 
         # Count only bonds with heavy atoms (not 'H')
-        neighbors = bonded_atoms[ii]
-        n_heavy_bonds = sum(
-            1 for neighbor_idx in neighbors if all_atom_types[neighbor_idx] != "H"
+        neighbors = None if bonded_atoms is None else bonded_atoms[ii]
+        n_heavy_bonds = (
+            None
+            if neighbors is None
+            else sum(
+                1 for neighbor_idx in neighbors if all_atom_types[neighbor_idx] != "H"
+            )
         )
 
         res_name = str(group_names[ii]).strip().upper()

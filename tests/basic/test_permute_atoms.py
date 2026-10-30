@@ -17,9 +17,10 @@ INVERSE = [2, 0, 4, 3, 5, 1]
 
 
 def rich_system():
-    top = Topology(
+    source = MolSys(
         n_atoms=6, n_groups=2, n_chains=2, n_molecules=2, n_entities=2, n_components=3
     )
+    top = source.topology
     top.atoms["atom_id"] = ["9", "17", "4", "99", "2", "45"]
     top.atoms["atom_name"] = ["C0", "N1", "C2", "S3", "F4", "Cl5"]
     top.atoms["atom_type"] = ["C", "N", "C", "S", "F", "Cl"]
@@ -27,23 +28,23 @@ def rich_system():
     top.atoms["chain_index"] = pd.array([0, 1, 0, 1, 0, 0], dtype="Int64")
     top.groups["molecule_index"] = pd.array([0, 1], dtype="Int64")
     top.molecules["entity_index"] = pd.array([0, 1], dtype="Int64")
-    top.bonds = pd.DataFrame(
-        dict(
-            atom1_index=[0, 0, 2, 1],
-            atom2_index=[2, 4, 5, 3],
-            bond_order=[2, 1, 1, 1],
-            stereochemistry=["E", None, None, None],
-            stereo_atom1_index=[4, None, None, None],
-            stereo_atom2_index=[5, None, None, None],
-            donor_atom_index=[None, None, None, 1],
-            acceptor_atom_index=[None, None, None, 3],
+    source.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            dict(
+                atom1_index=[0, 0, 2, 1],
+                atom2_index=[2, 4, 5, 3],
+                bond_order=[2, 1, 1, 1],
+                stereochemistry=["E", None, None, None],
+                stereo_atom1_index=[4, None, None, None],
+                stereo_atom2_index=[5, None, None, None],
+                donor_atom_index=[None, None, None, 1],
+                acceptor_atom_index=[None, None, None, 3],
+            )
         )
     )
-    state = top._chemical_states[0]
+    state = source.chemical_states._states[0]
     state.component_indices = pd.Series(pd.array([0, 1, 0, 1, 0, 0], dtype="Int64"))
     state.set_atom_attribute("formal_charge", [0, 1, 0, -1, 0, 0])
-    source = MolSys()
-    source.topology = top
     state.connectivity_completeness = "complete"
     second = state.copy()
     second.state_id = "second"
@@ -294,7 +295,7 @@ def test_empty_and_identity_are_independent_without_geometry_duplication():
         result.structures._coordinates._blocks[0],
         source.structures._coordinates._blocks[0],
     )
-    assert result.chemical_states is result.topology._chemical_states_domain
+    assert result.chemical_states._molsys_owner_ref() is result
     assert result.chemical_states is not source.chemical_states
     assert result.structures._molsys_owner_ref() is result
 
@@ -590,7 +591,9 @@ def test_known_pdbqt_writer_axis_can_be_restored_without_reconstruction():
         "HD",
     ]
     # PDBQT's partial graph remains partial; applying an axis adds no bonds.
-    assert len(restored.topology.bonds) == len(parsed.topology.bonds)
+    assert len(restored.chemical_states._resolve_chemical_state().bonds) == len(
+        parsed.chemical_states._resolve_chemical_state().bonds
+    )
 
 
 def test_structures_only_h5msm_preserves_new_atom_axis(tmp_path):

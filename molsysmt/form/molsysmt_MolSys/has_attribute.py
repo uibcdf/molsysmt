@@ -43,7 +43,7 @@ def has_attribute(
 
     if not attributes[attribute]:
         return False
-    if attribute == "n_atoms":
+    if attribute in {"n_atoms", "atom_index"}:
         return molecular_system._get_n_atoms() is not None
     if attribute == "n_structures":
         return molecular_system._get_n_structures() is not None
@@ -81,6 +81,17 @@ def has_attribute(
         or attribute in {"n_components", "n_bonds", "n_inner_bonds"}
     ):
         return False
+    if catalogue[attribute]["chemical_state"]:
+        states = molecular_system.chemical_states
+        if states is None:
+            return False
+        from molsysmt.form import molsysmt_ChemicalStates
+
+        if molsysmt_ChemicalStates.attributes.get(attribute, False):
+            return molsysmt_ChemicalStates.has_attribute(
+                states, attribute, include_none=include_none, skip_digestion=True
+            )
+        return include_none or states.n_chemical_states > 0
     if molsysmt_Topology.attributes[attribute]:
         if molecular_system.topology is None:
             return False
@@ -100,6 +111,8 @@ def has_attribute(
             skip_digestion=True,
         )
     if molsysmt_MolecularMechanics.attributes[attribute]:
+        if molecular_system.molecular_mechanics is None:
+            return False
         return molsysmt_MolecularMechanics.has_attribute(
             molecular_system.molecular_mechanics,
             attribute,

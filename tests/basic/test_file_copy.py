@@ -20,7 +20,7 @@ def digest(path):
 @pytest.fixture
 def h5msm(tmp_path):
     molsys = MolSys(n_atoms=3)
-    molsys.topology.add_bonds([[0, 1]])
+    molsys.chemical_states.add_bonds([[0, 1]])
     molsys.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.arange(18.0).reshape(2, 3, 3), "nm")
     )

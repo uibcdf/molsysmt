@@ -22,24 +22,38 @@ def test_h5msm_preserves_missing_bond_metadata_as_missing(rich_molsys, tmp_path)
     filename = tmp_path / "missing.h5msm"
     output = _roundtrip_h5msm(rich_molsys, filename, "single")
 
-    assert output.topology.bonds["bond_order"].tolist()[0] == 1
-    assert pd.isna(output.topology.bonds["bond_order"].tolist()[1])
-    assert pd.isna(output.topology.bonds["bond_type"].tolist()[0])
-    assert output.topology.bonds["bond_type"].tolist()[2] == "covalent"
+    assert (
+        output.chemical_states._resolve_chemical_state().bonds["bond_order"].tolist()[0]
+        == 1
+    )
+    assert pd.isna(
+        output.chemical_states._resolve_chemical_state().bonds["bond_order"].tolist()[1]
+    )
+    assert pd.isna(
+        output.chemical_states._resolve_chemical_state().bonds["bond_type"].tolist()[0]
+    )
+    assert (
+        output.chemical_states._resolve_chemical_state().bonds["bond_type"].tolist()[2]
+        == "covalent"
+    )
     assert msm.get(str(filename), element="system", n_polysaccharides=True) == 0
 
 
 def test_h5msm_04_preserves_normalized_bond_fields(rich_molsys, tmp_path):
     molsys = rich_molsys.copy()
-    bonds = molsys.topology._get_chemical_state_bonds().copy()
+    bonds = molsys.chemical_states._get_chemical_state_bonds().copy()
     bonds["is_conjugated"] = pd.array([True, pd.NA, pd.NA], dtype="boolean")
-    molsys.topology._set_chemical_state_bonds(bonds)
+    molsys.chemical_states._set_chemical_state_bonds(bonds)
 
     filename = tmp_path / "rich-bond.h5msm"
     msm.convert(molsys, to_form="file:h5msm", output_filename=str(filename))
-    restored = msm.convert(filename, to_form="molsysmt.Topology")
+    restored = msm.convert(filename, to_form="molsysmt.MolSys")
 
-    assert restored.bonds["is_conjugated"].tolist() == [True, pd.NA, pd.NA]
+    assert restored.chemical_states.get_bonds()["is_conjugated"].tolist() == [
+        True,
+        pd.NA,
+        pd.NA,
+    ]
 
 
 def test_legacy_h5msm_single_and_double_precision_have_explicit_numeric_contracts(
@@ -81,19 +95,17 @@ def test_legacy_h5msm_single_and_double_precision_have_explicit_numeric_contract
 def test_legacy_h5msm_writer_reads_component_membership_through_native_seam(
     rich_molsys, tmp_path, monkeypatch
 ):
-    topology = rich_molsys.topology.copy()
-    expected = pd.Series(
-        np.arange(topology.n_atoms, dtype=np.int64) % topology.n_components,
-        dtype="Int64",
+    from molsysmt.native._chemical_state import Components_DataFrame
+
+    topology = rich_molsys.copy()
+    expected = pd.Series([0, 1, 0, 1], dtype="Int64")
+    topology.chemical_states._states[0].components = Components_DataFrame(
+        n_components=2
     )
-    monkeypatch.setattr(
-        type(topology),
-        "_get_component_indices",
-        lambda self: expected,
-    )
+    topology.chemical_states._set_component_indices(expected)
     filename = tmp_path / "component-seam-write.h5msm"
 
-    from molsysmt.form.molsysmt_Topology.to_file_h5msm import to_file_h5msm
+    from molsysmt.form.molsysmt_MolSys.to_file_h5msm import to_file_h5msm
 
     to_file_h5msm(topology, output_filename=str(filename))
 
@@ -111,11 +123,17 @@ def test_h5msm_reader_restores_component_membership(rich_molsys, tmp_path):
         to_form="file:h5msm",
         output_filename=str(filename),
     )
-    restored = msm.convert(str(filename), to_form="molsysmt.Topology")
+    restored = msm.convert(str(filename), to_form="molsysmt.MolSys")
 
     np.testing.assert_array_equal(
-        restored._get_component_indices().to_numpy(dtype=np.int64),
-        rich_molsys.topology._get_component_indices().to_numpy(dtype=np.int64),
+        restored.chemical_states._get_component_indices().to_numpy(dtype=np.int64),
+        rich_molsys.chemical_states._get_component_indices().to_numpy(dtype=np.int64),
     )
-    assert restored.bonds is restored._reference_chemical_state.bonds
-    assert restored.components is restored._reference_chemical_state.components
+    assert (
+        restored.chemical_states.get_bonds()
+        is restored.chemical_states._resolve_chemical_state().bonds
+    )
+    assert (
+        restored.chemical_states._resolve_chemical_state().components
+        is restored.chemical_states._resolve_chemical_state().components
+    )

@@ -41,13 +41,10 @@ def to_molsysmt_MolSys(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native.molsys import MolSys
-
+    from ._read_native import read_native
     from .to_molsysmt_Structures import to_molsysmt_Structures
-    from .to_molsysmt_Topology import to_molsysmt_Topology
 
-    tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = read_native(item, skip_digestion=True)
     tmp_item.structures = to_molsysmt_Structures(
         item,
         structure_indices=structure_indices,

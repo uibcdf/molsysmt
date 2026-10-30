@@ -7,7 +7,7 @@
 
 ## Overview and Format Purpose
 
-The `h5msm` file format provides an efficient, portable, and versioned binary persistence format built on top of HDF5 (`h5py`). It is designed to store complex molecular topologies, chemical states, multi-frame 3D coordinate trajectories, and forcefield parameters in a single file without losing precision or unit definitions.
+The `h5msm` file format provides an efficient, portable, and versioned binary persistence format built on top of HDF5 (`h5py`). It is designed to store complex molecular topologies, chemical states, 3D coordinate structure series, and sparse interaction analyses in a single file with explicit precision and unit definitions. Nonempty molecular mechanics is outside schema 0.5.
 
 Public conversion writes **Schema 0.5**. Legacy **Schema 0.3/0.4** files remain
 readable with a deprecation warning. The layout below describes the legacy
@@ -49,9 +49,8 @@ with TemporaryDirectory() as tmpdir:
     # 2. Read topology or structures back from disk
     restored_sys = msm.convert(h5_file, to_form="molsysmt.MolSys")
 
-    # 3. Stream trajectory frames in chunks without loading full file into RAM
-    for chunk in msm.Iterator(h5_file, chunk_size=100, structure_indices="all"):
-        coords = msm.get(chunk, element="system", coordinates=True)
+    # 3. Load only the requested domain; this is still a resident layer load.
+    structures = msm.h5msm.read_layers(h5_file, layers=["structures"])
 ```
 
 ---
@@ -68,5 +67,5 @@ Reference-state choice and unknown associations remain separate. See
 ## Performance and Storage Invariants
 
 - **Gzip & LZF Chunk Compression**: Trajectory coordinate datasets are chunked along the structure axis and compressed using Gzip (level 4) or LZF.
-- **Selective I/O**: `msm.get()` reads specific frame ranges or atom selections directly from disk without reading the whole trajectory.
+- **Selective I/O**: Legacy 0.3/0.4 handlers support dataset slicing. General 0.5 conversion and `get()` currently load resident domains before subset extraction. Explicit `read_layers()` avoids unrelated layers; it does not promise file-backed arbitrary queries.
 - **Schema 0.4 Invariants**: Stable atom inventories and isotopes are isolated from chemical state definitions.

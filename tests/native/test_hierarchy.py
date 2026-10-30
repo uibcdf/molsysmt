@@ -1,22 +1,20 @@
 import numpy as np
 import pytest
 
+import molsysmt as msm
 from molsysmt._private.smonitor import StructuralInconsistencyError
-from molsysmt.native import Topology
+from molsysmt.native import MolSys
+from molsysmt.native._chemical_components import group_components, indices_from_bonds
+from molsysmt.native._component_projection import prepare as prepare_components
 from molsysmt.native._topology_infer import (
     fallback_ids,
-    infer_component_indices_from_topology,
     infer_group_types_from_topology,
     prepare_topology_for_chain_queries,
-    prepare_topology_for_component_queries,
     prepare_topology_for_entity_queries,
     prepare_topology_for_molecule_queries,
     project_chain_index_from_topology,
     project_chain_name_from_topology,
     project_chain_type_from_topology,
-    project_component_index_from_topology,
-    project_component_name_from_topology,
-    project_component_type_from_topology,
     project_entity_index_from_topology,
     project_entity_name_from_topology,
     project_entity_type_from_topology,
@@ -42,88 +40,53 @@ def test_infer_group_types_matches_rebuild_groups(t4_h5msm_molsys):
 
 
 def test_infer_component_indices_matches_rebuild_components(t4_h5msm_molsys):
-    topology = t4_h5msm_molsys.topology.copy()
-    # component_index is atom-level only — infer returns per-atom array
-    atom_component_index = infer_component_indices_from_topology(topology)
-
-    rebuilt = topology.copy()
-    rebuilt.rebuild_groups(redefine_ids=False, redefine_types=True)
-    rebuilt.rebuild_components(
-        redefine_indices=True,
-        redefine_ids=False,
-        redefine_types=True,
-        redefine_names=True,
-        force=True,
-    )
-
-    assert atom_component_index.tolist() == rebuilt._get_component_indices().to_list()
-    assert "component_index" not in rebuilt.groups.columns
+    source = t4_h5msm_molsys.copy(deep=False)
+    chemistry = source.chemical_states
+    inferred = indices_from_bonds(chemistry.n_atoms, chemistry.get_bonds())
+    source.rebuild_components(redefine_ids=False, force=True)
+    assert inferred.tolist() == chemistry._get_component_indices().tolist()
+    assert "component_index" not in source.topology.groups
+    assert "component_index" not in source.topology.atoms
 
 
 def test_component_inference_fails_closed_without_reference_chemical_state():
-    topology = Topology(n_atoms=3)
-    topology._append_chemical_state_bonds([[0, 1]])
-    topology._append_chemical_state(state_id="product")
-    topology._set_reference_chemical_state_index(None)
-
+    source = MolSys(n_atoms=3)
+    source.chemical_states._append_chemical_state_bonds([[0, 1]])
+    source.chemical_states.append_state()
+    source.chemical_states._set_reference_index(None)
     with pytest.raises(StructuralInconsistencyError, match="ambiguous"):
-        infer_component_indices_from_topology(topology)
+        msm.element.component.get_component_index(source, redefine_indices=True)
 
 
-def test_prepare_topology_for_component_queries_populates_missing_columns(
-    t4_h5msm_molsys,
-):
-    topology = t4_h5msm_molsys.topology.copy()
-    # component_index lives on atoms, not groups
-    assert "component_index" not in topology.groups.columns
-
-    prepared = prepare_topology_for_component_queries(
-        topology,
-        redefine_indices=False,
-        redefine_names=False,
-        redefine_types=False,
-    )
-
-    assert "component_index" not in prepared.groups.columns
-    assert "component_index" not in prepared.atoms.columns
-    assert "component_name" in prepared.components.columns
-    assert "component_type" in prepared.components.columns
-    assert prepared._get_component_indices().isnull().sum() == 0
+def test_prepare_component_queries_preserves_independent_domains(t4_h5msm_molsys):
+    prepared = prepare_components(t4_h5msm_molsys, indices=True, names=True, types=True)
+    assert "component_index" not in prepared.topology.groups
+    assert "component_index" not in prepared.topology.atoms
+    assert prepared.chemical_states._get_component_indices().isna().sum() == 0
+    assert "component_name" in prepared.chemical_states._states[0].components
+    assert "component_type" in prepared.chemical_states._states[0].components
+    assert prepared.chemical_states is not t4_h5msm_molsys.chemical_states
 
 
-def test_project_component_queries_follow_prepared_topology(t4_h5msm_molsys):
-    topology = prepare_topology_for_component_queries(t4_h5msm_molsys.topology.copy())
-
-    # component_index is atom-level; derive per-group from atoms
-    from molsysmt.native._topology_infer import _component_index_per_group
-
-    group_component_index = _component_index_per_group(topology)
-    component_names = topology.components["component_name"].to_numpy(dtype=object)
-    component_types = topology.components["component_type"].to_numpy(dtype=object)
-    group_index_from_atom = topology.atoms["group_index"].to_numpy(
-        dtype=np.int64, na_value=-1
-    )
-
-    assert (
-        project_component_index_from_topology(topology, element="group")
-        == group_component_index.tolist()
-    )
-    assert (
-        project_component_name_from_topology(topology, element="component")
-        == component_names.tolist()
-    )
-    assert (
-        project_component_type_from_topology(topology, element="component")
-        == component_types.tolist()
-    )
-    assert (
-        project_component_name_from_topology(topology, element="atom")
-        == component_names[group_component_index[group_index_from_atom]].tolist()
-    )
-    assert (
-        project_component_type_from_topology(topology, element="atom")
-        == component_types[group_component_index[group_index_from_atom]].tolist()
-    )
+def test_project_component_queries_follow_explicit_state(t4_h5msm_molsys):
+    source = prepare_components(t4_h5msm_molsys, indices=True, names=True, types=True)
+    topology, chemistry = source.topology, source.chemical_states
+    state = chemistry._states[0]
+    group_membership = group_components(topology, state.component_indices)
+    names = state.components["component_name"].tolist()
+    types = state.components["component_type"].tolist()
+    membership = state.component_indices.to_numpy(dtype=np.int64)
+    assert msm.element.component.get_component_index(source, element="group") == [
+        int(value) if value >= 0 else None for value in group_membership
+    ]
+    assert msm.element.component.get_component_name(source) == names
+    assert msm.element.component.get_component_type(source) == types
+    assert msm.element.component.get_component_name(source, element="atom") == [
+        names[i] for i in membership
+    ]
+    assert msm.element.component.get_component_type(source, element="atom") == [
+        types[i] for i in membership
+    ]
 
 
 def test_prepare_topology_for_molecule_queries_populates_missing_columns(
@@ -153,9 +116,8 @@ def test_project_molecule_queries_follow_prepared_topology(t4_h5msm_molsys):
         dtype=np.int64, na_value=-1
     )
     # component_index is atom-level; derive per-group from atoms
-    from molsysmt.native._topology_infer import _component_index_per_group
-
-    component_index_from_group = _component_index_per_group(topology)
+    state = t4_h5msm_molsys.chemical_states._states[0]
+    component_index_from_group = group_components(topology, state.component_indices)
     entity_index_from_molecule = topology.molecules["entity_index"].to_numpy(
         dtype=np.int64, na_value=-1
     )
@@ -181,14 +143,16 @@ def test_project_molecule_queries_follow_prepared_topology(t4_h5msm_molsys):
         == molecule_types[molecule_index_from_group[group_index_from_atom]].tolist()
     )
 
-    expected_component_indices = np.full(topology.n_components, -1, dtype=np.int64)
+    expected_component_indices = np.full(len(state.components), -1, dtype=np.int64)
     for group_index, component_index in enumerate(component_index_from_group):
         if component_index >= 0 and expected_component_indices[component_index] < 0:
             expected_component_indices[component_index] = molecule_index_from_group[
                 group_index
             ]
     assert (
-        project_molecule_index_from_topology(topology, element="component")
+        msm.element.molecule.get_molecule_index(
+            [topology, t4_h5msm_molsys.chemical_states], element="component"
+        )
         == expected_component_indices.tolist()
     )
 
@@ -304,11 +268,13 @@ def test_project_entity_queries_follow_prepared_topology(t4_h5msm_molsys):
     )
 
 
-def test_topology_rebuilds_generate_string_ids_and_non_null_metadata(t4_h5msm_molsys):
-    topology = t4_h5msm_molsys.topology.copy()
+def test_independent_rebuilds_generate_string_ids_and_metadata(t4_h5msm_molsys):
+    source = t4_h5msm_molsys.copy()
+    topology = source.topology
+    state = source.chemical_states._states[0]
 
     topology.rebuild_groups(redefine_ids=True, redefine_types=True)
-    topology.rebuild_components(
+    source.rebuild_components(
         redefine_indices=True,
         redefine_ids=True,
         redefine_types=True,
@@ -337,14 +303,14 @@ def test_topology_rebuilds_generate_string_ids_and_non_null_metadata(t4_h5msm_mo
     )
 
     assert topology.groups["group_id"].map(type).eq(str).all()
-    assert topology.components["component_id"].map(type).eq(str).all()
+    assert state.components["component_id"].map(type).eq(str).all()
     assert topology.molecules["molecule_id"].map(type).eq(str).all()
     assert topology.chains["chain_id"].map(type).eq(str).all()
     assert topology.entities["entity_id"].map(type).eq(str).all()
 
     assert topology.groups["group_type"].isnull().sum() == 0
-    assert topology.components["component_type"].isnull().sum() == 0
-    assert topology.components["component_name"].isnull().sum() == 0
+    assert state.components["component_type"].isnull().sum() == 0
+    assert state.components["component_name"].isnull().sum() == 0
     assert topology.molecules["molecule_type"].isnull().sum() == 0
     assert topology.molecules["molecule_name"].isnull().sum() == 0
     assert topology.chains["chain_type"].isnull().sum() == 0

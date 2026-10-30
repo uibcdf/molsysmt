@@ -210,7 +210,7 @@ def test_two_water_form_parity_named_persistence_extraction_and_removal(form, tm
     inputs = {
         "native": source,
         "rdkit": msm.convert(source, to_form="rdkit.Mol"),
-        "composite": [source.topology, source.structures],
+        "composite": [source.topology, source.chemical_states, source.structures],
         "h5msm": path,
     }
     typed = msm.interactions.water_bridges.get_water_bridges(

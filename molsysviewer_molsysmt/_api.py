@@ -7,6 +7,7 @@ from smonitor import signal
 
 from ._basic import _BasicTools
 from ._build import _BuildTools
+from ._chemical_states import _ChemicalStatesTools
 from ._files import _FormTools, _H5MSMTools
 from ._interactions import _InteractionsTools
 from ._pbc import _PbcTools
@@ -24,6 +25,7 @@ class _MolSysMTTools:
         self.build = _BuildTools(self)
         self.interactions = _InteractionsTools(self)
         self.topology = _TopologyTools(self)
+        self.chemical_states = _ChemicalStatesTools(self)
         self.structure = _StructureTools(self)
         self.pbc = _PbcTools(self)
         self.physchem = _PhyschemTools(self)
@@ -93,6 +95,7 @@ class _MolSysMTTools:
             "build",
             "interactions",
             "topology",
+            "chemical_states",
             "structure",
             "pbc",
             "physchem",

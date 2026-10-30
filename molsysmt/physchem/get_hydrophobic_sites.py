@@ -97,7 +97,7 @@ def get_hydrophobic_sites(
     --------
     molsysmt.physchem.get_hydrophobicity
         Looking up independent residue hydrophobicity scales.
-    molsysmt.topology.get_substructure_matches
+    molsysmt.chemical_states.get_substructure_matches
         Matching arbitrary SMARTS on declared chemical graphs.
     molsysmt.interactions.hydrophobic.get_hydrophobic_interactions
         Evaluating typed atom-pair proximity observations.
@@ -118,8 +118,8 @@ def get_hydrophobic_sites(
     """
     import numpy as np
 
+    from molsysmt.chemical_states import get_substructure_matches
     from molsysmt.physchem._prolif import PROLIF_HYDROPHOBIC_PATTERN, PROLIF_REFERENCE
-    from molsysmt.topology import get_substructure_matches
 
     matches = get_substructure_matches(
         molecular_system,

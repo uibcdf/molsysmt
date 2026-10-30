@@ -20,7 +20,7 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 2. Section 2: Domain Component Objects (`Topology`, `ChemicalStates`, `Structures`, `MolecularMechanics`)
 * Must present component objects: `molsysmt.Topology`, `molsysmt.ChemicalStates`, `molsysmt.Structures`, and `molsysmt.MolecularMechanics`.
 * Must explain the responsibilities of each component (`topology` for the stable atom inventory and hierarchy, `chemical_states` for covalent bonds and state-dependent assignments, `structures` for coordinate arrays `(n_structures, n_atoms, 3)` and periodic boxes, `molecular_mechanics` for force field parameters and energies).
-* Must explain that `Topology.bonds` is a compatibility view of the reference chemical state, not a second bond authority.
+* Must explain that Topology has no bonds/components/state facade; ChemicalStates is independently owned by MolSys.
 * Preserve declared ChemicalStates/Structures composition without topology,
   ordered index selection and unknown multi-state structure association.
 * Preserve the executed stored-axis query example: selected-state counts and

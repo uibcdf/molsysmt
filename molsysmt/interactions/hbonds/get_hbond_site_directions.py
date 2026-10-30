@@ -151,12 +151,12 @@ def get_hbond_site_directions(
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt._private.variables import is_all
     from molsysmt.basic import get
+    from molsysmt.chemical_states._chemical_graph import validate_chemical_frames
     from molsysmt.interactions.hbonds import get_hbond_sites
     from molsysmt.interactions.hbonds._hbond_directions import (
         DirectionReducer,
         build_site_plan,
     )
-    from molsysmt.topology._chemical_graph import validate_chemical_frames
 
     caller = "molsysmt.interactions.hbonds.get_hbond_site_directions"
     structure_indices = validate_chemical_frames(

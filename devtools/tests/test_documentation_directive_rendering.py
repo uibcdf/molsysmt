@@ -441,7 +441,12 @@ def test_topology_dropdowns_keep_tutorial_bodies_and_reference_lists(build, lega
 
     blocks = []
     for name in TOPOLOGY_PAGES:
-        text = _markdown(ROOT / f"docs/content/user/tools/topology/{name}.ipynb")
+        domain = (
+            "topology"
+            if name in {"get_sequence_alignment", "get_sequence_identity"}
+            else "chemical_states"
+        )
+        text = _markdown(ROOT / f"docs/content/user/tools/{domain}/{name}.ipynb")
         blocks.extend(
             match.group()
             for match in re.finditer(

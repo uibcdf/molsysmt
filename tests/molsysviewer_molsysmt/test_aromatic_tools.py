@@ -33,7 +33,11 @@ def caffeine_system(declared=True):
             element="atom",
             atom_is_aromatic=[a.GetIsAromatic() for a in molecule.GetAtoms()],
         )
-        pairs = result.topology.bonds[["atom1_index", "atom2_index"]].to_numpy()
+        pairs = (
+            result.chemical_states._resolve_chemical_state()
+            .bonds[["atom1_index", "atom2_index"]]
+            .to_numpy()
+        )
         msm.set(
             result,
             element="bond",
@@ -436,7 +440,7 @@ def test_perceived_nonaromatic_bridge_between_aromatic_atoms_is_preserved(select
 ROUTES = [
     "physchem.get_aromatic_rings",
     "physchem.get_aromaticity",
-    "topology.get_rings",
+    "chemical_states.get_rings",
 ]
 
 

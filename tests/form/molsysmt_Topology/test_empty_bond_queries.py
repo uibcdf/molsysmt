@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 import molsysmt as msm
-from molsysmt.native import Topology
+from molsysmt.native import MolSys
 
 FIXTURE = Path(__file__).parent / "data" / "topomt_geometric_tetrahedron.pdb"
 
@@ -25,6 +25,10 @@ def test_empty_bond_indices_and_zero_atom_counts(
         if form == "file:pdb"
         else msm.convert(geometric_system, to_form=form)
     )
+    if form == "molsysmt.Topology":
+        assert msm.get(source, n_bonds=True) is None
+        assert not msm.has_attribute(source, "bond_index", include_none=True)
+        return
     assert (
         msm.get(source, element="atom", selection=selection, n_bonds=True)
         == [0] * n_selected
@@ -56,7 +60,7 @@ def test_empty_bonds_remain_empty_at_aggregate_levels(element):
     builder.add_chain([group], chain_id="A", chain_name="A", chain_type="unknown")
     molecule = builder.add_molecule([group], molecule_type="unknown")
     builder.add_entity([molecule], entity_type="unknown")
-    topology = builder.build().topology
+    topology = builder.build()
     indices = msm.get(topology, element=element, **{f"{element}_index": True})
     result = msm.get(
         topology,
@@ -72,7 +76,7 @@ def test_empty_bonds_remain_empty_at_aggregate_levels(element):
 
 
 def test_zero_atom_topology_has_empty_outputs():
-    topology = Topology(n_atoms=0)
+    topology = MolSys(n_atoms=0)
     result = msm.get(
         topology,
         element="atom",

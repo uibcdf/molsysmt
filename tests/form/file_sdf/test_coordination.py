@@ -45,13 +45,13 @@ def source(tmp_path):
 def test_coordination_roles_and_components(source, tmp_path, display):
     source.write_text(COORDINATION.replace("12 9 30 10", "12 9 30 10" + display))
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    bonds = molsys.topology.bonds
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds
     dative = bonds[bonds.bond_type == "dative"].iloc[0]
     assert (dative.atom1_index, dative.atom2_index) == (0, 1)
     assert (dative.donor_atom_index, dative.acceptor_atom_index) == (1, 0)
     assert pd.isna(dative.bond_order)
     assert not dative.joins_components
-    assert molsys.topology.n_components == 2
+    assert molsys.chemical_states.get(n_components=True) == 2
     np.testing.assert_array_equal(
         msm.get(molsys, element="atom", component_index=True), [0, 1, 1, 1, 1]
     )
@@ -65,9 +65,15 @@ def test_coordination_roles_and_components(source, tmp_path, display):
     msm.convert(molsys, to_form=target, ctfile_version="V3000")
     assert "M  V30 1 9 2 1" in target.read_text()
     again = msm.convert(target, to_form="molsysmt.MolSys")
-    after = again.topology.bonds[again.topology.bonds.bond_type == "dative"].iloc[0]
+    after = (
+        again.chemical_states._resolve_chemical_state()
+        .bonds[
+            again.chemical_states._resolve_chemical_state().bonds.bond_type == "dative"
+        ]
+        .iloc[0]
+    )
     assert (after.donor_atom_index, after.acceptor_atom_index) == (1, 0)
-    assert again.topology.n_components == 2
+    assert again.chemical_states.get(n_components=True) == 2
 
 
 def test_display_style_loss_is_reported_but_identity_copies_are_exact(source, tmp_path):
@@ -87,12 +93,12 @@ def test_selection_remaps_direction_and_removes_incident_bonds(source, tmp_path)
     target = tmp_path / "subset.sdf"
     msm.convert(subset, to_form=target, ctfile_version="V3000")
     again = msm.convert(target, to_form="molsysmt.MolSys")
-    assert again.topology.n_atoms == 2 and again.topology.n_bonds == 1
+    assert again.topology.n_atoms == 2 and again.chemical_states.get(n_bonds=True) == 1
     assert msm.get(again, element="bond", bond_donor_atom_index=True) == [1]
     assert msm.get(again, element="bond", bond_acceptor_atom_index=True) == [0]
     ligand = msm.convert(source, selection=[1, 2, 3, 4], to_form="molsysmt.MolSys")
     msm.convert(ligand, to_form=tmp_path / "ligand.sdf", ctfile_version="V2000")
-    assert ligand.topology.n_bonds == 3
+    assert ligand.chemical_states.get(n_bonds=True) == 3
     assert not msm.has_attribute(ligand, "bond_donor_atom_index")
 
 
@@ -108,18 +114,18 @@ def test_coordination_requires_v3000_before_opening_destination(source, tmp_path
 @pytest.mark.parametrize("missing", ["donor_atom_index", "acceptor_atom_index"])
 def test_coordination_output_does_not_guess_roles(source, tmp_path, missing):
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    bonds = molsys.topology.bonds.copy()
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy()
     bonds.loc[bonds.bond_type == "dative", missing] = pd.NA
-    molsys.topology._set_chemical_state_bonds(bonds)
+    molsys.chemical_states._set_chemical_state_bonds(bonds)
     with pytest.raises(FormatError, match="explicit donor and acceptor"):
         msm.convert(molsys, to_form=tmp_path / "bad.sdf", ctfile_version="V3000")
 
 
 def test_numeric_dative_order_is_reported_as_lost(source, tmp_path):
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    bonds = molsys.topology.bonds.copy()
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy()
     bonds.loc[bonds.bond_type == "dative", "bond_order"] = 1
-    molsys.topology._set_chemical_state_bonds(bonds)
+    molsys.chemical_states._set_chemical_state_bonds(bonds)
     target = tmp_path / "numeric-order.sdf"
     with pytest.raises(NotCompatibleConversionError):
         msm.convert(molsys, to_form=target, ctfile_version="V3000", strict=True)
@@ -128,13 +134,17 @@ def test_numeric_dative_order_is_reported_as_lost(source, tmp_path):
     )
     assert "bond_order" in {issue.attribute for issue in report.issues}
     restored = msm.convert(target, to_form="molsysmt.MolSys")
-    assert pd.isna(restored.topology.bonds.iloc[0].bond_order)
+    assert pd.isna(
+        restored.chemical_states._resolve_chemical_state().bonds.iloc[0].bond_order
+    )
 
 
 def test_missing_native_bond_type_fails_clearly_without_guessing(source, tmp_path):
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    bonds = molsys.topology.bonds.drop(columns="bond_type")
-    molsys.topology._set_chemical_state_bonds(bonds)
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds.drop(
+        columns="bond_type"
+    )
+    molsys.chemical_states._set_chemical_state_bonds(bonds)
     target = tmp_path / "untyped.sdf"
     target.write_text("original")
     with pytest.raises(FormatError, match="Only covalent and directed dative"):
@@ -147,10 +157,10 @@ def test_covalent_output_does_not_silently_drop_directional_roles(
     source, tmp_path, field
 ):
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    bonds = molsys.topology.bonds.copy()
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy()
     row = bonds.index[bonds.bond_type == "covalent"][0]
     bonds.loc[row, field] = bonds.loc[row, "atom1_index"]
-    molsys.topology._set_chemical_state_bonds(bonds)
+    molsys.chemical_states._set_chemical_state_bonds(bonds)
     target = tmp_path / "roles.sdf"
     target.write_text("original")
     with pytest.raises(FormatError, match="covalent bond types cannot retain"):
@@ -169,9 +179,9 @@ def test_coordination_does_not_swallow_other_bond_properties(source, extra):
 
 def test_component_overrides_are_reported_and_strictly_rejected(source, tmp_path):
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    bonds = molsys.topology.bonds.copy()
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy()
     bonds.loc[bonds.bond_type == "dative", "joins_components"] = True
-    molsys.topology._set_chemical_state_bonds(bonds)
+    molsys.chemical_states._set_chemical_state_bonds(bonds)
     target = tmp_path / "strict.sdf"
     with pytest.raises(NotCompatibleConversionError):
         msm.convert(molsys, to_form=target, ctfile_version="V3000", strict=True)

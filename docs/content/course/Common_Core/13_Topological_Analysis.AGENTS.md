@@ -9,19 +9,19 @@ Contributors modifying this notebook must strictly preserve all sections and cor
 
 ## 🎯 Module Core Domain & Inviolable Content Rules
 
-This module presents **Topological Analysis** using MolSysMT's `msm.topology` module.
+This module presents **Topological Analysis** using `msm.chemical_states` for state-local graphs and `msm.topology` for stable sequence queries.
 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
 ### 1. Introductory Block
-* Must introduce the **`msm.topology`** function module for non-spatial topological properties, explicitly defining its utility and listing key functions (`get_covalent_blocks()`, `get_covalent_paths()`, `get_sequence_alignment()`, `get_sequence_identity()`).
+* Must distinguish `msm.chemical_states.get_covalent_blocks()` and `get_covalent_paths()` from the stable sequence tools `msm.topology.get_sequence_alignment()` and `get_sequence_identity()`.
 * Must NOT include a glossary box.
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
 ### 2. Section 1: Covalent Blocks and Paths
-* Must demonstrate partitioning connected covalent components using `msm.topology.get_covalent_blocks()` and cutting bonds with `remove_bonds`.
-* Must demonstrate measuring topological covalent paths using `msm.topology.get_covalent_paths()`.
-* Must include a `:::{hint}` dropdown box for `{func}`molsysmt.topology.get_covalent_blocks`.
+* Must demonstrate partitioning connected covalent components using `msm.chemical_states.get_covalent_blocks()` and cutting bonds with `remove_bonds`.
+* Must demonstrate measuring topological covalent paths using `msm.chemical_states.get_covalent_paths()`.
+* Must include a `:::{hint}` dropdown box for `{func}`molsysmt.chemical_states.get_covalent_blocks`.
 
 ### 3. Section 2: Sequence Alignment and Identity
 * Must demonstrate sequence alignment and sequence identity calculations using `msm.topology.get_sequence_alignment()` and `msm.topology.get_sequence_identity()` comparing T4 Lysozyme (`181L`) with T4 Lysozyme variant (`5X33`).

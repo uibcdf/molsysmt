@@ -366,12 +366,12 @@ def get_ionic_interactions(
     metadata["execution"]["execution"] = "chunked" if mode == "heavy" else "eager"
     searches = _search_sets(positive, negative, in_first, in_second, selection_mode)
     if len(frames) and searches:
-        topology = (
-            molecular_system.topology
+        native = (
+            molecular_system
             if isinstance(molecular_system, MolSys)
-            else convert(molecular_system, to_form="molsysmt.Topology")
+            else convert(molecular_system, to_form="molsysmt.MolSys")
         )
-        state = topology._chemical_states[centers["chemical_state_index"]]
+        state = native.chemical_states._states[centers["chemical_state_index"]]
         covalent = (
             state.bonds.loc[state.bonds["bond_type"] == "covalent"]
             if len(state.bonds)

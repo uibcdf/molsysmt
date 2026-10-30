@@ -1,5 +1,5 @@
 """
-Tests for molsysmt_Topology/get_topological_attributes.py — explicit indices branch.
+Tests for molsysmt_MolSys/get_topological_attributes.py — explicit indices branch.
 
 Every function in get_topological_attributes.py has an
     if indices == 'all': ...
@@ -15,7 +15,16 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from molsysmt.form.molsysmt_Topology import get_topological_attributes as aux
+from molsysmt.form.molsysmt_MolSys import get_topological_attributes as aux
+from molsysmt.form.molsysmt_Topology import get_topological_attributes as stable
+
+
+def _getter(name):
+    # Keep stable controls on pure Topology; mixed/chemical controls need MolSys.
+    if hasattr(stable, name):
+        target = getattr(stable, name)
+        return lambda system, **kwargs: target(system.topology, **kwargs)
+    return getattr(aux, name)
 
 
 def _is_scalar_number(val):
@@ -102,7 +111,7 @@ def topo():
     b.add_entity([mol_ion], entity_id="2", entity_name="NA", entity_type="ion")
 
     molsys = b.build()
-    return msm.convert(molsys, to_form="molsysmt.Topology")
+    return molsys
 
 
 # ---------------------------------------------------------------------------
@@ -160,7 +169,7 @@ SOME_BOND_INDICES = [0, 4]  # first bond (N-CA), fifth bond (peptide bond)
     ],
 )
 def test_atom_list_func_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_ATOM_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_ATOM_INDICES)
     assert isinstance(result, list)
     assert len(result) == len(SOME_ATOM_INDICES)
 
@@ -173,7 +182,7 @@ def test_atom_list_func_with_indices(topo, func_name):
     ],
 )
 def test_atom_bond_pairs_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_ATOM_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_ATOM_INDICES)
     assert isinstance(result, list)
 
 
@@ -226,7 +235,7 @@ def test_inner_bonded_atoms_from_atom_with_indices(topo):
     ],
 )
 def test_atom_scalar_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_ATOM_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_ATOM_INDICES)
     assert _is_scalar_number(result)
 
 
@@ -278,7 +287,7 @@ def test_atom_scalar_with_indices(topo, func_name):
     ],
 )
 def test_group_list_func_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_GROUP_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_GROUP_INDICES)
     assert isinstance(result, list)
     assert len(result) == len(SOME_GROUP_INDICES)
 
@@ -324,7 +333,7 @@ def test_group_list_func_with_indices(topo, func_name):
     ],
 )
 def test_group_scalar_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_GROUP_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_GROUP_INDICES)
     assert _is_scalar_number(result)
 
 
@@ -383,7 +392,7 @@ def test_group_scalar_with_indices(topo, func_name):
     ],
 )
 def test_molecule_list_func_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_MOLECULE_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_MOLECULE_INDICES)
     assert isinstance(result, list)
     assert len(result) == len(SOME_MOLECULE_INDICES)
 
@@ -420,7 +429,7 @@ def test_molecule_list_func_with_indices(topo, func_name):
     ],
 )
 def test_molecule_scalar_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_MOLECULE_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_MOLECULE_INDICES)
     assert _is_scalar_number(result)
 
 
@@ -485,7 +494,7 @@ def test_molecule_scalar_with_indices(topo, func_name):
     ],
 )
 def test_entity_list_func_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_ENTITY_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_ENTITY_INDICES)
     assert isinstance(result, list)
     assert len(result) == len(SOME_ENTITY_INDICES)
 
@@ -516,7 +525,7 @@ def test_entity_list_func_with_indices(topo, func_name):
     ],
 )
 def test_entity_scalar_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_ENTITY_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_ENTITY_INDICES)
     assert _is_scalar_number(result)
 
 
@@ -574,7 +583,7 @@ def test_entity_scalar_with_indices(topo, func_name):
     ],
 )
 def test_component_list_func_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_COMPONENT_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_COMPONENT_INDICES)
     assert isinstance(result, list)
     assert len(result) == len(SOME_COMPONENT_INDICES)
 
@@ -602,7 +611,7 @@ def test_component_list_func_with_indices(topo, func_name):
     ],
 )
 def test_component_scalar_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_COMPONENT_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_COMPONENT_INDICES)
     assert _is_scalar_number(result)
 
 
@@ -669,7 +678,7 @@ SINGLE_CHAIN_INDEX = [0]
     ],
 )
 def test_chain_list_func_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SINGLE_CHAIN_INDEX)
+    result = _getter(func_name)(topo, indices=SINGLE_CHAIN_INDEX)
     assert isinstance(result, list)
     assert len(result) == len(SINGLE_CHAIN_INDEX)
 
@@ -700,7 +709,7 @@ def test_chain_list_func_with_indices(topo, func_name):
     ],
 )
 def test_chain_scalar_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SINGLE_CHAIN_INDEX)
+    result = _getter(func_name)(topo, indices=SINGLE_CHAIN_INDEX)
     assert _is_scalar_number(result)
 
 
@@ -719,7 +728,7 @@ def test_chain_scalar_with_indices(topo, func_name):
     ],
 )
 def test_bond_list_func_with_indices(topo, func_name):
-    result = getattr(aux, func_name)(topo, indices=SOME_BOND_INDICES)
+    result = _getter(func_name)(topo, indices=SOME_BOND_INDICES)
     assert isinstance(result, list)
     assert len(result) == len(SOME_BOND_INDICES)
 

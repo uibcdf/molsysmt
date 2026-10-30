@@ -15,7 +15,7 @@ from openff.toolkit.topology import Molecule  # noqa: E402
 def test_openff_preserves_atom_charge_aromaticity_and_stereochemistry():
     molecule = Molecule.from_smiles("[NH3+][C@H](F)Cl")
 
-    topology = msm.convert(molecule, to_form="molsysmt.Topology")
+    topology = msm.convert(molecule, to_form="molsysmt.MolSys")
 
     assert msm.get(topology, element="atom", formal_charge=True)[0] == 1
     assert any(
@@ -32,7 +32,7 @@ def test_openff_keeps_formal_fractional_order_and_aromaticity_independent():
     molecule = Molecule.from_smiles("c1ccccc1")
     molecule.bonds[0].fractional_bond_order = 1.25
 
-    topology = msm.convert(molecule, to_form="molsysmt.Topology")
+    topology = msm.convert(molecule, to_form="molsysmt.MolSys")
 
     assert msm.get(topology, element="bond", fractional_bond_order=True)[
         0
@@ -47,7 +47,7 @@ def test_openff_ez_stereo_and_reference_atoms_are_preserved():
     molecule = Molecule.from_smiles("F/C=C/F")
 
     topology, report = msm.convert(
-        molecule, to_form="molsysmt.Topology", return_report=True
+        molecule, to_form="molsysmt.MolSys", return_report=True
     )
 
     stereo = msm.get(topology, element="bond", bond_stereochemistry=True)

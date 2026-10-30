@@ -17,7 +17,7 @@ from molsysmt._private.smonitor import (
 CALLER = "molsysmt.basic.permute_atoms"
 _FIELDS = {
     "MolSys": "_chemical_states_domain _interactions _structure_chemical_state_indices _structures _topology molecular_mechanics",
-    "Topology": "_atom_molecule_membership _chain_group_membership _atoms_dirty _chains_dirty _chemical_states_domain _components_dirty _entities_dirty _groups_dirty _molecules_dirty _molsys_owner_ref atoms chains entities groups molecules",
+    "Topology": "_atom_molecule_membership _chain_group_membership _atoms_dirty _chains_dirty _entities_dirty _groups_dirty _molecules_dirty _molsys_owner_ref atoms chains entities groups molecules",
     "Structures": "_b_factor _box _coordinates _kinetic_energy _molsys_owner_ref _occupancy _potential_energy _temperature _time _time_step _velocities alternate_location bioassembly constant_box constant_id_step constant_time_step id_step structure_id",
     "ChemicalStates": "_molsys_owner_ref _n_atoms _reference_index _states",
     "_ChemicalStateStorage": "_component_completeness _component_evidence _connectivity_completeness _preparation_history _provenance_index atom_attributes bonds component_indices components state_id",
@@ -70,19 +70,17 @@ def _references(value, size, label):
 
 
 def _validate(source, n_atoms):
+    from ._chemical_state import (
+        _BOND_ALLOWED_COLUMNS,
+        _BOND_ATOM_REFERENCE_COLUMNS,
+        _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES,
+        _ChemicalStateStorage,
+    )
     from .chemical_states import ChemicalStates
     from .molecular_mechanics import MolecularMechanics
     from .molsys import MolSys
     from .structures import Structures
-    from .topology import (
-        _ATOMS_COLUMNS,
-        _BOND_ALLOWED_COLUMNS,
-        _BOND_ATOM_REFERENCE_COLUMNS,
-        _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES,
-        _GROUPS_COLUMNS,
-        Topology,
-        _ChemicalStateStorage,
-    )
+    from .topology import _ATOMS_COLUMNS, _GROUPS_COLUMNS, Topology
 
     _profile(source, MolSys)
     top, states, structures, mechanics = (
@@ -140,8 +138,6 @@ def _validate(source, n_atoms):
     if states is not None:
         if states.n_atoms != n_atoms:
             _fail("ChemicalStates has a different atom axis.")
-        if top is not None and top._chemical_states_domain is not states:
-            _fail("Topology must share the owning chemical-state domain.")
         for state in states._states:
             _profile(state, _ChemicalStateStorage)
             _table(
@@ -314,9 +310,9 @@ def _coordinates(structures, order):
 
 def permute(source, atom_indices, *, return_report=False):
     """Validate before allocation and preserve native graph ownership when cloning."""
+    from ._chemical_state import _remap_bond_atom_indices
     from ._copy import _deferred_geometry_memo
     from .structures import _remap_alternate_atom_indices
-    from .topology import Topology
 
     order = flat_axis(atom_indices, "atom_indices", CALLER)
     n_atoms = source._get_n_atoms()
@@ -351,15 +347,15 @@ def permute(source, atom_indices, *, return_report=False):
         rows(source.topology.atoms)
         membership = getattr(source.topology, "_atom_molecule_membership", None)
         if membership is not None:
-            from ._atom_molecules import compact
+            from ._atom_molecules import transport
 
-            memo[id(membership)] = compact(membership[order])
+            memo[id(membership)] = transport(source.topology, order)
     if source.chemical_states is not None:
         mapping = dict(enumerate(inverse.tolist()))
         for state in source.chemical_states._states:
             rows(state.atom_attributes)
             rows(state.component_indices)
-            memo[id(state.bonds)] = Topology._remap_bond_atom_indices(
+            memo[id(state.bonds)] = _remap_bond_atom_indices(
                 state.bonds, mapping, canonical_order=True
             )
     structures = source.structures

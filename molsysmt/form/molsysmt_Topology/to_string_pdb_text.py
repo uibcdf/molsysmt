@@ -45,11 +45,12 @@ def to_string_pdb_text(
     from molsysmt.form.molsysmt_MolSys.to_string_pdb_text import (
         to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text,
     )
-    from molsysmt.native import MolSys
+    from molsysmt.native import MolSys, Structures
 
-    tmp_item = MolSys()
-    tmp_item.topology = item.copy()
-    tmp_item.structures.append(coordinates=coordinates, box=box, skip_digestion=True)
+    tmp_item = MolSys._from_partial_domains(
+        topology=item.copy(),
+        structures=Structures(coordinates=coordinates, box=box, skip_digestion=True),
+    )
     tmp_item = molsysmt_MolSys_to_string_pdb_text(
         tmp_item, atom_indices=atom_indices, skip_digestion=True
     )

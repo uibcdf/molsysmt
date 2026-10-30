@@ -128,8 +128,8 @@ def get(
       assignment dispatch are still being migrated; see
       :ref:`user-foundations-native-world-classes-molsysmt-chemicalstates`.
     - Explicit integer state selection accepts native ChemicalStates, MolSys and
-      the transitional Topology route. Convert an external form before querying
-      a non-reference state.
+      explicit native domain compositions. Topology alone carries no chemistry.
+      Convert an external form before querying a non-reference state.
     - ``chemical_state='structure'`` requires a native MolSys and rejects
       missing associations or structure selections spanning multiple states.
     - ``structure_indices`` also scopes internal spatial selections and masks;
@@ -174,15 +174,15 @@ def get(
     136
     >>> msm.get(molsys, element='bond', selection=[0,1,2,3,4], bonded_atoms=True)
     [0, 1, 2, 3, 4, 8]
-    >>> from molsysmt.native import Topology
-    >>> topology = Topology(n_atoms=3)
-    >>> msm.set(topology, element='atom', formal_charge=[0, -1, 1])
-    >>> msm.get(topology, element='atom', chemical_state=0, formal_charge=True)
+    >>> from molsysmt.native import MolSys, Topology
+    >>> molsys = MolSys(n_atoms=3)
+    >>> msm.set(molsys, element='atom', formal_charge=[0, -1, 1])
+    >>> msm.get(molsys, element='atom', chemical_state=0, formal_charge=True)
     [0, -1, 1]
-    >>> msm.set(topology, element='atom', isotope=[13, None, 2])
-    >>> msm.get(topology, element='atom', isotope=True)[0]
+    >>> msm.set(molsys, element='atom', isotope=[13, None, 2])
+    >>> msm.get(molsys, element='atom', isotope=True)[0]
     13
-    >>> msm.get(topology, element='system', n_chemical_states=True,
+    >>> msm.get(molsys, element='system', n_chemical_states=True,
     ...         reference_chemical_state_index=True)
     [1, 0]
     >>> import numpy as np
@@ -197,7 +197,7 @@ def get(
     [[2], [1], [2]]
 
 
-    >>> molsys = Topology(n_atoms=2)
+    >>> molsys = MolSys(n_atoms=2)
     >>> msm.get(molsys, element='atom', n_bonds=True)
     [0, 0]
     >>> msm.get(molsys, element='atom', bond_index=True)
@@ -205,6 +205,8 @@ def get(
     >>> msm.get(molsys, n_groups=True)
     0
     >>> msm.get(molsys, element='atom', group_name=True) is None
+    True
+    >>> msm.get(Topology(n_atoms=2), n_bonds=True) is None
     True
 
     >>> from molsysmt.native import Structures
@@ -281,6 +283,9 @@ def _get(
     else:
         query = get
         molecular_system = maybe_read_modular_h5msm(molecular_system)
+        from molsysmt.native._query_domains import compose_query_domains
+
+        molecular_system = compose_query_domains(molecular_system)
     form = get_form(molecular_system)
 
     if isinstance(form, (list, tuple)):
@@ -381,7 +386,11 @@ def _get(
 
     if _native is None:
         piped_molecular_systems, piped_attributes = _piped_molecular_system(
-            molecular_system, element, in_attributes, indices=indices
+            molecular_system,
+            element,
+            in_attributes,
+            indices=indices,
+            chemical_state=chemical_state,
         )
     else:
         piped_molecular_systems, piped_attributes = None, None
@@ -654,7 +663,14 @@ def _group_attributes_by_element(element, selection, in_attributes):
     return output
 
 
-def _piped_molecular_system(molecular_system, element, in_attributes, *, indices="all"):
+def _piped_molecular_system(
+    molecular_system,
+    element,
+    in_attributes,
+    *,
+    indices="all",
+    chemical_state="reference",
+):
     """Resolve piped attributes across items for get(); returns tuple (item, attribute list) or (None, None)."""
 
     from molsysmt.attribute import (
@@ -776,11 +792,21 @@ def _piped_molecular_system(molecular_system, element, in_attributes, *, indices
 
         elif n_top_atts > 0 and n_str_atts == 0:
             if n_top_pipes == 1:
+                # A chemical metadata provider may be a MolSys while its query
+                # needs no coordinate structures. Preserve the complete route
+                # when explicit structure/state associations must be resolved.
+                metadata_options = (
+                    {"structure_indices": []}
+                    if aux_topological_pipes[0] == "molsysmt.MolSys"
+                    and chemical_state != "structure"
+                    else {}
+                )
                 aux_molecular_system = convert(
                     molecular_system,
                     to_form=aux_topological_pipes[0],
                     get_missing_bonds=bonds_required_by_attributes,
                     skip_digestion=True,
+                    **metadata_options,
                 )
 
             else:

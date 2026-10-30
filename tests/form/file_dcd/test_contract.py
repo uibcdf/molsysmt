@@ -76,7 +76,7 @@ def test_file_dcd_preserves_nonmonotonic_frame_and_atom_subsets():
     )
 
 
-def test_file_dcd_builds_an_index_only_topology_for_standalone_use():
+def test_file_dcd_keeps_structures_only_for_standalone_use():
     output = msm.convert(
         DCD_PATH,
         to_form="molsysmt.MolSys",
@@ -84,9 +84,9 @@ def test_file_dcd_builds_an_index_only_topology_for_standalone_use():
         structure_indices=[3, 0],
     )
 
-    assert output.topology.n_atoms == 2
-    assert output.topology.atoms.index.tolist() == [0, 1]
-    assert output.topology.atoms["atom_id"].isna().all()
+    assert output.topology is None
+    assert output.chemical_states is None
+    assert msm.get(output, element="atom", atom_index=True) == [0, 1]
     assert output.structures.coordinates.shape == (2, 2, 3)
     assert output.structures.structure_id.tolist() == [3, 0]
 

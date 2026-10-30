@@ -5,7 +5,7 @@ form_info = [
     "https://ambermd.org/FileFormats.php#topology",
 ]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = "openmm.AmberPrmtopFile"
 piped_any_attribute = None
 bonds_are_explicit = True

@@ -881,7 +881,7 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "uibcdf/molsysmt#473. Original units/normalization still need "
                 "paper verification; the addon adds no scaling or geometry.\n"
             )
-        if module in {"topology", "structure"} and name not in {
+        if module in {"topology", "chemical_states", "structure"} and name not in {
             "translate",
             "rotate",
             "flip",
@@ -1337,13 +1337,20 @@ class _BasicTools:
     @signal(tags=["addon", "get"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def contains(
-        self, selection="all", syntax="MolSysMT", skip_digestion=False, **kwargs
+        self,
+        selection="all",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        chemical_state="reference",
+        **kwargs,
     ):
         return self._call(
             "contains",
             {
                 "selection": selection,
                 "syntax": syntax,
+                "chemical_state": chemical_state,
                 "skip_digestion": skip_digestion,
             },
             kwargs,
@@ -1353,13 +1360,20 @@ class _BasicTools:
     @signal(tags=["addon", "get"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def is_composed_of(
-        self, selection="all", syntax="MolSysMT", skip_digestion=False, **kwargs
+        self,
+        selection="all",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        chemical_state="reference",
+        **kwargs,
     ):
         return self._call(
             "is_composed_of",
             {
                 "selection": selection,
                 "syntax": syntax,
+                "chemical_state": chemical_state,
                 "skip_digestion": skip_digestion,
             },
             kwargs,

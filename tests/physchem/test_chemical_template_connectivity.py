@@ -8,7 +8,7 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
-from molsysmt.native import Topology
+from molsysmt.native import MolSys
 
 PROVENANCE = dict(
     identity="Explicit zwitterionic glycylglycine control",
@@ -22,26 +22,38 @@ PROVENANCE = dict(
 
 def peptide_template():
     """Declare C4H8N2O3, including a peptide bond and terminal charge choices."""
-    topology = Topology(n_atoms=9, n_groups=2)
-    topology.atoms["atom_type"] = ["N", "C", "C", "O", "N", "C", "C", "O", "O"]
-    topology.atoms["atom_name"] = ["N", "CA", "C", "O", "N", "CA", "C", "O", "OXT"]
-    topology.atoms["atom_id"] = [str(i + 1) for i in range(9)]
-    topology.atoms["group_index"] = [0] * 4 + [1] * 5
-    topology.groups["group_name"] = ["GLY", "GLY"]
-    topology.groups["group_id"] = ["10", "11"]
-    topology.groups["group_type"] = ["amino acid"] * 2
-    topology.bonds = pd.DataFrame(
-        dict(
-            atom1_index=[0, 1, 2, 2, 4, 5, 6, 6],
-            atom2_index=[1, 2, 3, 4, 5, 6, 7, 8],
-            bond_type=["covalent"] * 8,
-            bond_order=[1, 1, 2, 1, 1, 1, 2, 1],
-            is_aromatic=[False] * 8,
-            is_conjugated=[False, False, True, True, False, False, True, True],
-            evidence=["user_defined"] * 8,
+    topology = MolSys(n_atoms=9, n_groups=2)
+    topology.topology.atoms["atom_type"] = ["N", "C", "C", "O", "N", "C", "C", "O", "O"]
+    topology.topology.atoms["atom_name"] = [
+        "N",
+        "CA",
+        "C",
+        "O",
+        "N",
+        "CA",
+        "C",
+        "O",
+        "OXT",
+    ]
+    topology.topology.atoms["atom_id"] = [str(i + 1) for i in range(9)]
+    topology.topology.atoms["group_index"] = [0] * 4 + [1] * 5
+    topology.topology.groups["group_name"] = ["GLY", "GLY"]
+    topology.topology.groups["group_id"] = ["10", "11"]
+    topology.topology.groups["group_type"] = ["amino acid"] * 2
+    topology.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            dict(
+                atom1_index=[0, 1, 2, 2, 4, 5, 6, 6],
+                atom2_index=[1, 2, 3, 4, 5, 6, 7, 8],
+                bond_type=["covalent"] * 8,
+                bond_order=[1, 1, 2, 1, 1, 1, 2, 1],
+                is_aromatic=[False] * 8,
+                is_conjugated=[False, False, True, True, False, False, True, True],
+                evidence=["user_defined"] * 8,
+            )
         )
     )
-    state = topology._chemical_states_domain._states[0]
+    state = topology.chemical_states._states[0]
     state.connectivity_completeness = "complete"
     for field, values in {
         "formal_charge": [1, 0, 0, 0, 0, 0, 0, 0, -1],
@@ -64,7 +76,7 @@ def peptide_source(*, missing=((2, 4),), frames=2):
     state.bonds.reset_index(drop=True, inplace=True)
     state.atom_attributes = pd.DataFrame(index=range(9))
     state.connectivity_completeness = "partial"
-    source.topology.rebuild_components(redefine_types=False, redefine_names=False)
+    source.rebuild_components(redefine_types=False, redefine_names=False)
     source.structures.append(
         # These values test preservation; they do not describe an optimized pose.
         coordinates=msm.pyunitwizard.quantity(
@@ -195,18 +207,14 @@ def test_completion_does_not_override_conflicts_or_incomplete_templates(defect):
     source, template = peptide_source()
     state = source.chemical_states._states[0]
     if defect == "unexpected_edge":
-        source.topology.add_bonds([[0, 8]])
+        source.chemical_states.add_bonds([[0, 8]])
     elif defect == "complete_source":
         state.connectivity_completeness = "complete"
     elif defect == "partial_template":
-        template._chemical_states_domain._states[
-            0
-        ].connectivity_completeness = "partial"
+        template.chemical_states._states[0].connectivity_completeness = "partial"
     elif defect == "disconnected_template":
-        template.remove_bonds([3])
-        template._chemical_states_domain._states[
-            0
-        ].connectivity_completeness = "complete"
+        template.chemical_states.remove_bonds([3])
+        template.chemical_states._states[0].connectivity_completeness = "complete"
     elif defect == "formal_charge_conflict":
         state.set_atom_attribute("formal_charge", [0] * 9)
     elif defect == "missing_atom":
@@ -228,14 +236,8 @@ def test_permuted_map_and_coordinate_free_native_forms(tmp_path):
     source, template = peptide_source()
     order = [8, 2, 6, 0, 7, 1, 5, 3, 4]
     # Reorder the fixture independently; a public selection may normalize its order.
-    permuted = source.topology.copy()
-    permuted.atoms = permuted.atoms.iloc[order].reset_index(drop=True)
+    permuted = msm.permute_atoms(source, atom_indices=order)
     inverse = np.argsort(order)
-    bonds = permuted.bonds.copy()
-    for column in ("atom1_index", "atom2_index"):
-        bonds[column] = inverse[bonds[column].to_numpy(dtype=np.int64)]
-    permuted.bonds = Topology._coerce_bond_table(bonds)
-    permuted.rebuild_components(redefine_types=False, redefine_names=False)
     mapping = np.column_stack((np.arange(9), inverse))
     kwargs = options(template, connectivity_policy="complete_from_template")
     kwargs["atom_correspondence"] = mapping
@@ -321,21 +323,23 @@ def test_completion_targets_nonreference_state_even_without_source_edges():
 
 def test_added_double_bond_remaps_stereo_references_with_endpoint_orientation():
     # A declared trans-2-butene heavy graph; H counts do not create H coordinates.
-    template = Topology(n_atoms=4)
-    template.atoms["atom_type"] = ["C"] * 4
-    template.bonds = pd.DataFrame(
-        dict(
-            atom1_index=[0, 1, 2],
-            atom2_index=[1, 2, 3],
-            bond_type=["covalent"] * 3,
-            bond_order=[1, 2, 1],
-            is_aromatic=[False] * 3,
-            stereochemistry=[None, "E", None],
-            stereo_atom1_index=[None, 0, None],
-            stereo_atom2_index=[None, 3, None],
+    template = MolSys(n_atoms=4)
+    template.topology.atoms["atom_type"] = ["C"] * 4
+    template.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            dict(
+                atom1_index=[0, 1, 2],
+                atom2_index=[1, 2, 3],
+                bond_type=["covalent"] * 3,
+                bond_order=[1, 2, 1],
+                is_aromatic=[False] * 3,
+                stereochemistry=[None, "E", None],
+                stereo_atom1_index=[None, 0, None],
+                stereo_atom2_index=[None, 3, None],
+            )
         )
     )
-    state = template._chemical_states_domain._states[0]
+    state = template.chemical_states._states[0]
     state.connectivity_completeness = "complete"
     for field, values in {
         "formal_charge": [0] * 4,
@@ -347,9 +351,11 @@ def test_added_double_bond_remaps_stereo_references_with_endpoint_orientation():
     }.items():
         state.set_atom_attribute(field, values)
     # Independently reverse the order: methyl, alkene carbon, alkene carbon, methyl.
-    source = Topology(n_atoms=4)
-    source.atoms["atom_type"] = ["C"] * 4
-    source.bonds = pd.DataFrame(dict(atom1_index=[0, 2], atom2_index=[1, 3]))
+    source = MolSys(n_atoms=4)
+    source.topology.atoms["atom_type"] = ["C"] * 4
+    source.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(dict(atom1_index=[0, 2], atom2_index=[1, 3]))
+    )
     result = msm.physchem.apply_chemical_template(
         source,
         template=template,

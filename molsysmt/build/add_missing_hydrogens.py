@@ -504,7 +504,7 @@ def add_missing_hydrogens(
 
         # For each group determine terminal status
         # Rebuild components to ensure component_type is derived from bonds
-        topo.rebuild_components(
+        native_ms.rebuild_components(
             redefine_indices=True,
             redefine_ids=False,
             redefine_types=True,
@@ -521,14 +521,16 @@ def add_missing_hydrogens(
             g_atoms = topo.atoms[topo.atoms["group_index"] == g]
             if g_atoms.empty:
                 continue
-            c_idx = int(topo._get_component_indices().loc[g_atoms.index[0]])
+            c_idx = int(
+                native_ms.chemical_states._get_component_indices().loc[g_atoms.index[0]]
+            )
             if c_idx not in comp_first:
                 comp_first[c_idx] = g
             comp_last[c_idx] = g
 
         # Detect disulfide bonds: CYS–CYS SG–SG bonds
         disulfide_groups = {}  # used as a set (keys only)
-        bonds = topo._get_chemical_state_bonds()
+        bonds = native_ms.chemical_states._get_chemical_state_bonds()
         if bonds is not None and len(bonds) > 0:
             for _, brow in bonds.iterrows():
                 a1 = int(brow["atom1_index"])
@@ -686,7 +688,9 @@ def add_missing_hydrogens(
                 continue  # skip non-amino-acid groups
 
             # Terminal status
-            c_idx = int(topo._get_component_indices().loc[g_atoms.index[0]])
+            c_idx = int(
+                native_ms.chemical_states._get_component_indices().loc[g_atoms.index[0]]
+            )
             is_n_term = comp_first.get(c_idx) == g
             is_c_term = comp_last.get(c_idx) == g
             is_disulfide = g in disulfide_groups

@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from molsysmt.native import MolSys, Topology
+from molsysmt.native import MolSys
 from tests.interactions.test_public_molsys_h5msm_workflow import (
     _analysis,
     _assert_queries,
@@ -14,10 +14,12 @@ from tests.interactions.test_public_molsys_h5msm_workflow import (
 
 
 def _system():
-    topology = Topology(n_atoms=11)
-    topology.atoms["atom_id"] = ["same", "same"] + [str(i) for i in range(2, 11)]
-    topology.add_bonds([[0, 1], [9, 10]])
-    states = topology._chemical_states_domain
+    topology = MolSys(n_atoms=11)
+    topology.topology.atoms["atom_id"] = ["same", "same"] + [
+        str(i) for i in range(2, 11)
+    ]
+    topology.chemical_states.add_bonds([[0, 1], [9, 10]])
+    states = topology.chemical_states
     states._states[0].state_id = "prepared"
     states._states[0].provenance_index = 3
     states.append_state()
@@ -27,7 +29,7 @@ def _system():
     analysis.software.update({"molsysmt": "original-producer-version"})
     analysis.parameters.update({"criterion": "synthetic", "chemical_state": 0})
     return MolSys._from_partial_domains(
-        topology=topology,
+        topology=topology.topology.copy(),
         chemical_states=states,
         interactions={"review": analysis},
     )
@@ -149,7 +151,7 @@ def test_public_no_structures_roundtrip_preserves_named_analyses(
         else msm.convert(filename, to_form="molsysmt.MolSys")
     )
     assert restored.structures is None
-    assert restored.chemical_states is restored.topology._chemical_states_domain
+    assert restored.chemical_states._molsys_owner_ref() is restored
     assert restored.chemical_states.n_chemical_states == 2
     assert restored.chemical_states.reference_chemical_state_index == 0
     assert [state.state_id for state in restored.chemical_states._states] == [

@@ -44,10 +44,14 @@ def declared_181l():
 
 
 def _bonds(output):
-    return output.topology.bonds if isinstance(output, MolSys) else output.bonds
+    return (
+        output.chemical_states._resolve_chemical_state().bonds
+        if isinstance(output, MolSys)
+        else output.bonds
+    )
 
 
-@pytest.mark.parametrize("to_form", ["molsysmt.MolSys", "molsysmt.Topology"])
+@pytest.mark.parametrize("to_form", ["molsysmt.MolSys"])
 @pytest.mark.parametrize("route", ["file", "handler", "text"])
 def test_disabled_inference_preserves_literal_edges_and_does_not_call_engine(
     declared_181l, monkeypatch, to_form, route
@@ -94,7 +98,7 @@ def test_disabled_inference_preserves_literal_edges_and_does_not_call_engine(
             handler.close()
 
 
-@pytest.mark.parametrize("to_form", ["molsysmt.MolSys", "molsysmt.Topology"])
+@pytest.mark.parametrize("to_form", ["molsysmt.MolSys"])
 @pytest.mark.parametrize("explicit_option", [False, True])
 def test_default_and_enabled_policy_preserve_engine_edges_and_declared_evidence(
     declared_181l, monkeypatch, to_form, explicit_option
@@ -120,7 +124,7 @@ def test_default_and_enabled_policy_preserve_engine_edges_and_declared_evidence(
     assert bonds["evidence"].tolist() == ["inferred", *(["explicit"] * 13)]
 
 
-@pytest.mark.parametrize("to_form", ["molsysmt.MolSys", "molsysmt.Topology"])
+@pytest.mark.parametrize("to_form", ["molsysmt.MolSys"])
 def test_disabled_policy_survives_atom_selection(declared_181l, to_form):
     path, _, serials, pairs, coordinates = declared_181l
     selected = sorted({atom for pair in pairs for atom in pair})
@@ -143,7 +147,7 @@ def test_disabled_policy_survives_atom_selection(declared_181l, to_form):
         np.testing.assert_allclose(values[0], coordinates[selected], rtol=0, atol=1e-10)
 
 
-@pytest.mark.parametrize("to_form", ["molsysmt.MolSys", "molsysmt.Topology"])
+@pytest.mark.parametrize("to_form", ["molsysmt.MolSys"])
 def test_disabled_policy_does_not_attempt_optional_imports(
     declared_181l, monkeypatch, to_form
 ):
@@ -166,7 +170,7 @@ def test_disabled_policy_does_not_attempt_optional_imports(
     )
 
 
-@pytest.mark.parametrize("to_form", ["molsysmt.MolSys", "molsysmt.Topology"])
+@pytest.mark.parametrize("to_form", ["molsysmt.MolSys"])
 @pytest.mark.parametrize("value", [None, 0, "False"])
 def test_policy_is_validated_at_public_boundary(declared_181l, to_form, value):
     with pytest.raises(ArgumentError):
@@ -182,10 +186,14 @@ def test_adapter_preserves_positional_skip_argument(declared_181l, name):
         arguments.append("all")
     arguments.append(True)
     output = converter(*arguments, get_missing_bonds=False)
-    assert len(_bonds(output)) == 13
+    if name == "to_molsysmt_Topology":
+        assert not hasattr(output, "bonds")
+        assert msm.get(output, n_atoms=True) == len(declared_181l[2])
+    else:
+        assert len(_bonds(output)) == 13
 
 
-@pytest.mark.parametrize("to_form", ["molsysmt.MolSys", "molsysmt.Topology"])
+@pytest.mark.parametrize("to_form", ["molsysmt.MolSys"])
 def test_reader_owned_handler_closes_after_delegated_failure(
     declared_181l, monkeypatch, to_form
 ):
@@ -207,7 +215,7 @@ def test_reader_owned_handler_closes_after_delegated_failure(
         raise RuntimeError("Injected conversion failure")
 
     monkeypatch.setattr(factory, "to_molsysmt_PDBFileHandler", capture)
-    monkeypatch.setattr(builder, "_build_topology_from_content", fail)
+    monkeypatch.setattr(builder, "_build_domains_from_content", fail)
     with pytest.raises(RuntimeError, match="Injected conversion failure"):
         msm.convert(declared_181l[0], to_form=to_form, get_missing_bonds=False)
     assert len(handlers) == 1
@@ -215,7 +223,7 @@ def test_reader_owned_handler_closes_after_delegated_failure(
     assert declared_181l[0].read_text() == declared_181l[1]
 
 
-@pytest.mark.parametrize("to_form", ["molsysmt.MolSys", "molsysmt.Topology"])
+@pytest.mark.parametrize("to_form", ["molsysmt.MolSys"])
 @pytest.mark.parametrize("route", ["file", "handler", "text"])
 def test_explicit_native_reader_preserves_declared_edges_without_openmm(
     declared_181l,
@@ -321,7 +329,7 @@ def test_legacy_failure_warns_and_archives_cause_but_explicit_engine_raises(
     monkeypatch.setattr(backend, "_get_bonded_atom_pairs_from_openmm_pdb", fail)
     with pytest.warns(PDBBondInferenceWarning, match=status):
         output = msm.convert(declared_181l[0], to_form="molsysmt.MolSys")
-    assert len(output.topology.bonds) == 13
+    assert len(output.chemical_states._resolve_chemical_state().bonds) == 13
     report = output.chemical_states.get_preparation_history()[0]["report"]
     assert report["status"] == status
     assert report["attempted_engine"] == "OpenMM"
@@ -369,6 +377,36 @@ def test_native_selected_atoms_keep_historical_indices_and_remap_current_bonds(
     history = output.chemical_states.get_preparation_history()
     assert history[-1]["output"]["n_atoms"] == len(serials)
     assert history[-1]["index_scope"] == "operation"
-    assert output.topology.bonds[["atom1_index", "atom2_index"]].to_numpy().max(
-        initial=0
-    ) < len(selected)
+    assert output.chemical_states._resolve_chemical_state().bonds[
+        ["atom1_index", "atom2_index"]
+    ].to_numpy().max(initial=0) < len(selected)
+
+
+@pytest.mark.parametrize("route", ["file", "handler", "text"])
+@pytest.mark.parametrize("infer", [False, True])
+def test_pure_topology_projection_has_inventory_without_chemical_facade(
+    declared_181l, route, infer
+):
+    path, text, serials, _, _ = declared_181l
+    handler = (
+        msm.convert(path, to_form="molsysmt.PDBFileHandler")
+        if route == "handler"
+        else None
+    )
+    try:
+        source = handler if handler is not None else text if route == "text" else path
+        projected = msm.convert(
+            source,
+            to_form="molsysmt.Topology",
+            get_missing_bonds=infer,
+            **({"bond_inference_engine": "molsysmt"} if infer else {}),
+        )
+        assert msm.get(projected, element="atom", atom_id=True) == serials
+        assert projected.n_atoms == len(serials)
+        assert not hasattr(projected, "bonds")
+        assert not hasattr(projected, "components")
+        assert not msm.has_attribute(projected, "bond_type", include_none=True)
+    finally:
+        if handler is not None:
+            assert not handler.file.closed
+            handler.close()

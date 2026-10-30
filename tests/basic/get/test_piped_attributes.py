@@ -90,7 +90,7 @@ def test_single_attribute_uses_pipe_when_direct_getter_is_missing(t4_pdb_file):
     )
 
     assert len(piped_systems) == 1
-    assert msm.get_form(piped_systems[0]) == "molsysmt.Topology"
+    assert msm.get_form(piped_systems[0]) == "molsysmt.MolSys"
     assert piped_attributes == [["atom_type"]]
 
 
@@ -108,7 +108,7 @@ def test_declared_attribute_without_getter_or_pipe_raises_molsysmt_exception(
 def test_piped_form_metadata_for_known_bulk_extraction_forms():
     expected_pipes = {
         "nglview.NGLWidget": (
-            "molsysmt.Topology",
+            None,
             "molsysmt.Structures",
             "molsysmt.MolSys",
         ),
@@ -121,22 +121,22 @@ def test_piped_form_metadata_for_known_bulk_extraction_forms():
         ),
         "molsysmt.H5MSMFileHandler": (None, "molsysmt.Structures", None),
         "mmcif.PdbxContainers.DataContainer": (
-            "molsysmt.Topology",
+            "molsysmt.MolSys",
             "molsysmt.Structures",
             "molsysmt.MolSys",
         ),
         "string:pdb_text": (
-            "molsysmt.Topology",
+            "molsysmt.MolSys",
             "molsysmt.Structures",
             "molsysmt.MolSys",
         ),
         "string:pdb_id": (
-            "molsysmt.Topology",
+            "molsysmt.MolSys",
             "molsysmt.Structures",
             "molsysmt.MolSys",
         ),
         "string:alphafold_id": (
-            "molsysmt.Topology",
+            "molsysmt.MolSys",
             "molsysmt.Structures",
             "molsysmt.MolSys",
         ),
@@ -150,3 +150,40 @@ def test_piped_form_metadata_for_known_bulk_extraction_forms():
             module.piped_any_attribute,
         )
         assert observed == expected
+
+
+def test_metadata_pipe_requests_no_coordinate_structures(monkeypatch):
+    """Chemical metadata conversion must not copy a trajectory payload."""
+    from importlib import import_module
+
+    mda = pytest.importorskip("MDAnalysis")
+    source = mda.Universe.empty(2, n_residues=1, atom_resindex=[0, 0], trajectory=True)
+    source.add_TopologyAttr("names", ["C1", "O1"])
+    source.add_TopologyAttr("types", ["C", "O"])
+    source.add_TopologyAttr("elements", ["C", "O"])
+    source.add_TopologyAttr("ids", [1, 2])
+    source.add_TopologyAttr("resnames", ["LIG"])
+    source.add_TopologyAttr("resids", [1])
+    source.load_new(np.zeros((5, 2, 3)), order="fac")
+    geometry = import_module("molsysmt.form.MDAnalysis_Universe.to_molsysmt_Structures")
+    original = geometry.to_molsysmt_Structures
+    seen = []
+
+    def bounded(
+        item, atom_indices="all", structure_indices="all", skip_digestion=False
+    ):
+        assert not isinstance(structure_indices, str)
+        assert len(structure_indices) == 0
+        seen.append(len(structure_indices))
+        return original(
+            item,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            skip_digestion=skip_digestion,
+        )
+
+    monkeypatch.setattr(geometry, "to_molsysmt_Structures", bounded)
+    result = msm.get(source, element="atom", atom_name=True, atom_type=True)
+    assert result == [["C1", "O1"], ["C", "O"]]
+    assert seen
+    assert source.trajectory.n_frames == 5

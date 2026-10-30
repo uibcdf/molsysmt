@@ -21,7 +21,7 @@ def test_molsys_builder_builds_from_declared_atoms_groups_and_bonds():
 
     assert molsys.topology.n_atoms == 2
     assert molsys.topology.n_groups == 2
-    assert molsys.topology.n_components == 1
+    assert molsys.chemical_states.get(n_components=True) == 1
     assert molsys.topology.n_molecules == 1
     assert molsys.topology.n_entities == 1
     assert molsys.topology.n_chains == 1
@@ -200,8 +200,12 @@ def test_molsys_builder_converts_from_and_to_molsys():
         == original.topology.entities["entity_type"].tolist()
     )
     assert (
-        rebuilt.topology.bonds[["atom1_index", "atom2_index"]].values.tolist()
-        == original.topology.bonds[["atom1_index", "atom2_index"]].values.tolist()
+        rebuilt.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .values.tolist()
+        == original.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .values.tolist()
     )
     assert np.allclose(
         puw.get_value(rebuilt.structures.coordinates, to_unit="nm"),
@@ -272,9 +276,9 @@ def test_molsys_builder_remove_bonds_updates_declared_bond_count():
     builder.remove_bonds([0])
 
     assert builder.n_bonds == 1
-    assert builder.topology.bonds[["atom1_index", "atom2_index"]].values.tolist() == [
-        [1, 2]
-    ]
+    assert builder.chemical_states._resolve_chemical_state().bonds[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [[1, 2]]
 
 
 def test_molsys_builder_assign_groups_to_new_chain_reassigns_declared_membership():

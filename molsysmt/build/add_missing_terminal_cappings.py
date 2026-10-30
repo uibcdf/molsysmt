@@ -493,7 +493,7 @@ def add_missing_terminal_cappings(
         # Rebuild component indices from bonds so component_type is guaranteed correct
         # regardless of the origin of the input system.
         # native_ms is always a fresh object at this point (returned by add_missing_heavy_atoms).
-        native_ms.topology.rebuild_components(
+        native_ms.rebuild_components(
             redefine_indices=True,
             redefine_ids=False,
             redefine_types=True,

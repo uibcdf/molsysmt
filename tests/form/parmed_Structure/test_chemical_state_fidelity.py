@@ -60,7 +60,7 @@ def _chemical_structure():
 
 
 def test_parmed_preserves_chemistry_without_promoting_force_parameters():
-    topology = msm.convert(_chemical_structure(), to_form="molsysmt.Topology")
+    topology = msm.convert(_chemical_structure(), to_form="molsysmt.MolSys")
 
     assert msm.get(topology, element="atom", formal_charge=True) == [0, 0, 1, -1]
     assert msm.get(topology, element="atom", atom_is_aromatic=True)[:2] == [True, True]
@@ -88,6 +88,13 @@ def test_parmed_reports_mechanics_and_nonbonded_relationship_loss():
     assert {issue.attribute for issue in report.issues} == {
         "bond_type",
         "bond_mechanical_parameters",
+        "atom_is_aromatic",
+        "bond_evidence",
+        "bond_is_aromatic",
+        "bond_order",
+        "connectivity_completeness",
+        "formal_charge",
+        "fractional_bond_order",
     }
     with pytest.raises(msm.NotCompatibleConversionError, match="Strict conversion"):
         msm.convert(source, to_form="molsysmt.Topology", strict=True)

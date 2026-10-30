@@ -35,13 +35,16 @@ def to_molsysmt_MolSys(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native.molsys import MolSys
+    from molsysmt._private.variables import is_all
 
+    # Match the canonical native topology order across every source domain.
+    if not is_all(atom_indices):
+        atom_indices = sorted(atom_indices)
+
+    from ._read_native import read_native
     from .to_molsysmt_Structures import to_molsysmt_Structures
-    from .to_molsysmt_Topology import to_molsysmt_Topology
 
-    tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(
+    tmp_item = read_native(
         item,
         atom_indices=atom_indices,
         get_missing_bonds=get_missing_bonds,

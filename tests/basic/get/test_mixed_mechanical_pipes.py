@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from molsysmt.native import MolecularMechanics, MolSys, Structures, Topology
+from molsysmt.native import MolecularMechanics, MolSys, Structures
 
 
 @pytest.mark.parametrize("selection", ["all", [2, 0]])
@@ -14,8 +14,7 @@ def test_mixed_pipes_preserve_mechanics_and_requested_keys(monkeypatch, selectio
     monkeypatch.setattr(adapter, "piped_topological_attribute", "molsysmt.Topology")
     monkeypatch.setattr(adapter, "piped_structural_attribute", "molsysmt.Structures")
     monkeypatch.setattr(adapter, "piped_any_attribute", None)
-    molsys = MolSys()
-    molsys.topology = Topology(n_atoms=3)
+    molsys = MolSys(n_atoms=3)
     molsys.topology.atoms["atom_type"] = ["C", "N", "O"]
     molsys.structures = Structures()
     coordinates = np.arange(9, dtype=float).reshape(1, 3, 3)

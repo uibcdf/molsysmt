@@ -107,7 +107,7 @@ def test_parity_neutral_peptide_h_bonded_native(avp_heavy):
     r = msm.build.add_missing_hydrogens(avp_heavy, engine="MolSysMT")
     topo = r.topology
     bonded = set()
-    for _, row in topo.bonds.iterrows():
+    for _, row in r.chemical_states.get_bonds().iterrows():
         bonded.add(int(row["atom1_index"]))
         bonded.add(int(row["atom2_index"]))
     h_indices = topo.atoms[topo.atoms["atom_type"] == "H"].index.tolist()
@@ -119,7 +119,7 @@ def test_parity_neutral_peptide_h_bonded_pdbfixer(avp_heavy):
     r = msm.build.add_missing_hydrogens(avp_heavy, engine="PDBFixer")
     topo = r.topology
     bonded = set()
-    for _, row in topo.bonds.iterrows():
+    for _, row in r.chemical_states.get_bonds().iterrows():
         bonded.add(int(row["atom1_index"]))
         bonded.add(int(row["atom2_index"]))
     h_indices = topo.atoms[topo.atoms["atom_type"] == "H"].index.tolist()

@@ -34,8 +34,8 @@ def test_get_component_index_3():
         n_bonds=2,
     )
 
-    molsys.topology.bonds["atom1_index"] = [0, 2]
-    molsys.topology.bonds["atom2_index"] = [1, 3]
+    molsys.chemical_states._resolve_chemical_state().bonds["atom1_index"] = [0, 2]
+    molsys.chemical_states._resolve_chemical_state().bonds["atom2_index"] = [1, 3]
 
     output = msm.element.component.get_component_index(
         molsys, element="atom", selection="all", redefine_indices=True
@@ -54,8 +54,8 @@ def test_get_component_index_4():
         n_bonds=2,
     )
 
-    molsys.topology.bonds["atom1_index"] = [0, 2]
-    molsys.topology.bonds["atom2_index"] = [1, 3]
+    molsys.chemical_states._resolve_chemical_state().bonds["atom1_index"] = [0, 2]
+    molsys.chemical_states._resolve_chemical_state().bonds["atom2_index"] = [1, 3]
 
     output = msm.element.component.get_component_index(
         molsys, element="component", selection="all", redefine_indices=True

@@ -54,7 +54,7 @@ def _source(**kwargs):
 def test_adjacent_pair_roles_units_provenance_and_source_immutability():
     source = _source()
     atoms = source.topology.atoms.copy(deep=True)
-    bonds = source.topology.bonds.copy(deep=True)
+    bonds = source.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
     coordinates = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
     report = msm.build.get_peptide_bond_candidates(source)
     assert report["schema"] == "molsysmt.peptide_bond_candidates@1"
@@ -75,7 +75,9 @@ def test_adjacent_pair_roles_units_provenance_and_source_immutability():
     report["bonded_atom_pairs"][:] = -1
     report["group_coverage"]["groups"][0]["template"]["provenance"].clear()
     pd.testing.assert_frame_equal(source.topology.atoms, atoms)
-    pd.testing.assert_frame_equal(source.topology.bonds, bonds)
+    pd.testing.assert_frame_equal(
+        source.chemical_states._resolve_chemical_state().bonds, bonds
+    )
     np.testing.assert_array_equal(
         puw.get_value(source.structures.coordinates, to_unit="nm"), coordinates
     )
@@ -116,7 +118,7 @@ def test_unique_method_recovers_reordered_source_groups_without_sorting_labels(
     np.testing.assert_array_equal(
         puw.get_value(source.structures.coordinates, to_unit="nm"), before
     )
-    assert source.topology.n_bonds == 0
+    assert source.chemical_states.get(n_bonds=True) == 0
 
 
 @pytest.mark.parametrize("competition", ["outgoing", "incoming", "unsupported_group"])
@@ -344,21 +346,23 @@ def test_existing_peptide_edge_is_preserved_and_contradictions_block_candidates(
     kind, order, candidate, method
 ):
     source = _source()
-    source.topology.add_bonds([[2, 5]])
+    source.chemical_states.add_bonds([[2, 5]])
     msm.set(source, element="bond", bond_type=kind, bond_order=order)
-    before = source.topology.bonds.copy(deep=True)
+    before = source.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
     report = msm.build.get_peptide_bond_candidates(source, method=method)
     assert report["bonded_atom_pairs"].tolist() == ([[2, 5]] if candidate else [])
     if candidate:
         assert report["missing_mask"].tolist() == [False]
     else:
         assert "conflicting_stored_peptide_edge" in report["links"][0]["reason_codes"]
-    pd.testing.assert_frame_equal(source.topology.bonds, before)
+    pd.testing.assert_frame_equal(
+        source.chemical_states._resolve_chemical_state().bonds, before
+    )
 
 
 def test_backbone_endpoint_with_another_declared_external_partner_is_blocked():
     source = _source(chains=("A", "A", "A"))
-    source.topology.add_bonds([[2, 10]])
+    source.chemical_states.add_bonds([[2, 10]])
     msm.set(source, element="bond", bond_type="covalent")
     report = msm.build.get_peptide_bond_candidates(source)
     assert [2, 5] not in report["bonded_atom_pairs"].tolist()
@@ -442,7 +446,10 @@ def test_distance_ceiling_rejects_without_applying_bonds(ceiling):
 
 
 def test_topology_without_coordinates_does_not_fabricate_a_geometry():
-    report = msm.build.get_peptide_bond_candidates(_source().topology)
+    source = _source()
+    report = msm.build.get_peptide_bond_candidates(
+        [source.topology, source.chemical_states]
+    )
     assert report["structure_index"] is None
     assert report["bonded_atom_pairs"].shape == (0, 2)
     assert "coordinates_unavailable" in report["links"][0]["reason_codes"]

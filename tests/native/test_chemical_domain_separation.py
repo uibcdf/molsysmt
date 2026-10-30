@@ -421,3 +421,66 @@ def test_covalent_paths_accept_explicit_state_without_reference_mutation(system)
     assert empty.shape == (0, 3)
     assert empty.dtype == np.int64
     assert system.chemical_states.reference_chemical_state_index == 0
+
+
+def test_structure_replacement_rejects_axis_and_association_conflicts(system):
+    before = system.structures
+    with pytest.raises(StructuralInconsistencyError):
+        system.structures = Structures(
+            coordinates=msm.pyunitwizard.quantity(np.zeros((4, 2, 3)), "nm")
+        )
+    assert system.structures is before
+    with pytest.raises(StructuralInconsistencyError):
+        system.structures = Structures(
+            coordinates=msm.pyunitwizard.quantity(np.zeros((3, 3, 3)), "nm")
+        )
+    assert system.structures is before
+    assert before._molsys_owner_ref() is system
+
+
+def test_structure_replacement_failure_preserves_chemical_collection(
+    system, monkeypatch
+):
+    before = system.structures
+    chemistry = system.chemical_states
+    replacement = before.copy(deep=False)
+
+    def fail(*args, **kwargs):
+        raise MemoryError("injected replacement alignment failure")
+
+    monkeypatch.setattr(replacement, "_validate_alignment", fail)
+    with pytest.raises(MemoryError, match="injected"):
+        system.structures = replacement
+    assert system.structures is before
+    assert system.chemical_states is chemistry
+
+
+def test_missing_bond_convenience_forwards_scientific_options(system, monkeypatch):
+    observed = {}
+
+    def candidates(source, **kwargs):
+        assert source is system
+        observed.update(kwargs)
+        return []
+
+    monkeypatch.setattr(msm.build, "get_missing_bonds", candidates)
+    original = system.chemical_states._states[0]
+    system.add_missing_bonds(
+        threshold="3 angstroms",
+        selection=[2, 0],
+        structure_indices=[1],
+        engine="MolSysMT",
+        with_templates=False,
+        with_distances=True,
+        chemical_state=1,
+    )
+    assert observed["structure_index"] == 1
+    assert list(observed["selection"]) == [2, 0]
+    assert observed["engine"] == "MolSysMT"
+    assert observed["with_templates"] is False
+    assert observed["with_distances"] is True
+    assert observed["chemical_state"] == 1
+    assert msm.pyunitwizard.get_value(
+        observed["max_bond_length"], to_unit="nm"
+    ) == pytest.approx(0.3)
+    assert system.chemical_states._states[0] is original

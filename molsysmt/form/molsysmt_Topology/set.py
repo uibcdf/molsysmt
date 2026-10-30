@@ -1,11 +1,18 @@
 import numpy as np
 import pandas as pd
 
-from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
 form = "molsysmt.Topology"
+
+
+def _string_labels(value):
+    """Normalize public ID labels without turning missing values into text."""
+    if pd.api.types.is_scalar(value):
+        return pd.NA if pd.isna(value) else str(value)
+    return pd.array(value, dtype="string")
+
 
 _PUBLIC_TO_NATIVE_ATOM_STATE = {
     "formal_charge": "formal_charge",
@@ -30,472 +37,6 @@ _PUBLIC_TO_NATIVE_BOND_STATE = {
     "bond_joins_components": "joins_components",
     "bond_evidence": "evidence",
 }
-
-
-def _set_atom_state_attribute(item, attribute, indices, value):
-    if attribute == "formal_charge" and puw.is_quantity(value):
-        value = puw.get_value(value, to_unit="elementary_charge")
-    atom_indices = None if is_all(indices) else indices
-    item._set_chemical_state_atom_attribute(
-        _PUBLIC_TO_NATIVE_ATOM_STATE[attribute], value, atom_indices=atom_indices
-    )
-
-
-@arg_digest(form=form)
-def set_formal_charge_to_atom(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting formal charge to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    _set_atom_state_attribute(item, "formal_charge", indices, value)
-
-
-@arg_digest(form=form)
-def set_atom_is_aromatic_to_atom(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting atom is aromatic to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    _set_atom_state_attribute(item, "atom_is_aromatic", indices, value)
-
-
-@arg_digest(form=form)
-def set_n_unpaired_electrons_to_atom(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting n unpaired electrons to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    _set_atom_state_attribute(item, "n_unpaired_electrons", indices, value)
-
-
-@arg_digest(form=form)
-def set_n_implicit_hydrogens_to_atom(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting n implicit hydrogens to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    _set_atom_state_attribute(item, "n_implicit_hydrogens", indices, value)
-
-
-@arg_digest(form=form)
-def set_n_explicit_hydrogens_to_atom(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting bracket-declared hydrogen counts to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Molecular system supplying the declared chemical state.
-    indices : object, default='all'
-        Atom indices whose coordinate-free explicit hydrogen counts are requested.
-    value : object, default=None
-        Nonnegative declared hydrogen counts; these are not bonded hydrogen atoms.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    _set_atom_state_attribute(item, "n_explicit_hydrogens", indices, value)
-
-
-@arg_digest(form=form)
-def set_allows_implicit_hydrogens_to_atom(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting allows implicit hydrogens to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    _set_atom_state_attribute(item, "allows_implicit_hydrogens", indices, value)
-
-
-@arg_digest(form=form)
-def set_atom_stereochemistry_to_atom(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting atom stereochemistry to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    _set_atom_state_attribute(item, "atom_stereochemistry", indices, value)
-
-
-def _set_bond_state_attribute(item, attribute, indices, value):
-    """Set one public bond-state attribute through canonical native storage."""
-
-    item._set_chemical_state_bond_attribute(
-        _PUBLIC_TO_NATIVE_BOND_STATE[attribute], value, bond_indices=indices
-    )
-
-
-@arg_digest(form=form)
-def set_bond_id_to_bond(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting bond id to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_id", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_order_to_bond(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting bond order to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_order", indices, value)
-
-
-@arg_digest(form=form)
-def set_fractional_bond_order_to_bond(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting fractional bond order to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "fractional_bond_order", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_type_to_bond(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting bond type to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_type", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_is_aromatic_to_bond(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting bond is aromatic to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_is_aromatic", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_is_conjugated_to_bond(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting bond is conjugated to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_is_conjugated", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_stereochemistry_to_bond(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting bond stereochemistry to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_stereochemistry", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_stereo_atom_indices_to_bond(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting bond stereo atom indices to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    item._set_chemical_state_bond_stereo_atom_indices(value, bond_indices=indices)
-
-
-@arg_digest(form=form)
-def set_bond_donor_atom_index_to_bond(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting bond donor atom index to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_donor_atom_index", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_acceptor_atom_index_to_bond(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting bond acceptor atom index to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_acceptor_atom_index", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_joins_components_to_bond(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting bond joins components to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_joins_components", indices, value)
-
-
-@arg_digest(form=form)
-def set_bond_evidence_to_bond(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting bond evidence to bond on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    _set_bond_state_attribute(item, "bond_evidence", indices, value)
 
 
 ###### Set
@@ -647,46 +188,6 @@ def set_group_index_to_atom(item, indices="all", value=None, skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def set_component_index_to_atom(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting component index to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        if len(value) == 1:
-            item._set_component_indices([value[0]] * item.n_atoms)
-            n_components = 1
-        else:
-            item._set_component_indices(value)
-            n_components = np.unique(value).shape[0]
-        if n_components != item.components.shape[0]:
-            item.reset_components(n_components=n_components)
-            item.rebuild_components(
-                redefine_indices=True,
-                redefine_ids=True,
-                redefine_types=True,
-                redefine_names=True,
-            )
-    else:
-        item._set_component_indices(value, atom_indices=indices)
-
-    pass
-
-
-@arg_digest(form=form)
 def set_chain_index_to_atom(item, indices="all", value=None, skip_digestion=False):
     """
     Setting chain index to atom on form molsysmt.Topology.
@@ -783,6 +284,7 @@ def set_group_id_to_atom(item, indices="all", value=None, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         bridge = item.atoms["group_index"].to_numpy()
         _set_by_bridge(item.groups, "group_id", bridge, value)
@@ -855,99 +357,6 @@ def set_group_type_to_atom(item, indices="all", value=None, skip_digestion=False
 
 
 @arg_digest(form=form)
-def set_component_id_to_atom(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting component id to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = item._get_component_indices().to_numpy()
-        _set_by_bridge(item.components, "component_id", bridge, value)
-    else:
-        component_indices = item._get_component_indices()
-        for i, ai in enumerate(list(indices)):
-            ci = component_indices.loc[ai]
-            item.components.at[int(ci), "component_id"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_component_name_to_atom(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting component name to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = item._get_component_indices().to_numpy()
-        _set_by_bridge(item.components, "component_name", bridge, value)
-    else:
-        component_indices = item._get_component_indices()
-        for i, ai in enumerate(list(indices)):
-            ci = component_indices.loc[ai]
-            item.components.at[int(ci), "component_name"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_component_type_to_atom(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting component type to atom on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = item._get_component_indices().to_numpy()
-        _set_by_bridge(item.components, "component_type", bridge, value)
-    else:
-        component_indices = item._get_component_indices()
-        for i, ai in enumerate(list(indices)):
-            ci = component_indices.loc[ai]
-            item.components.at[int(ci), "component_type"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
 def set_molecule_index_to_atom(item, indices="all", value=None, skip_digestion=False):
     """
     Setting molecule index to atom on form molsysmt.Topology.
@@ -996,6 +405,7 @@ def set_molecule_id_to_atom(item, indices="all", value=None, skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         group_idx = item.atoms["group_index"].to_numpy()
         mol_idx = item.groups["molecule_index"].to_numpy()
@@ -1095,6 +505,7 @@ def set_chain_id_to_atom(item, indices="all", value=None, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         bridge = item.atoms["chain_index"].to_numpy()
         _set_by_bridge(item.chains, "chain_id", bridge, value)
@@ -1218,6 +629,7 @@ def set_entity_id_to_atom(item, indices="all", value=None, skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         group_idx = item.atoms["group_index"].to_numpy()
         mol_idx = item.groups["molecule_index"].to_numpy()
@@ -1326,6 +738,7 @@ def set_group_id_to_group(item, indices="all", value=None, skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         item.groups.group_id = value
     else:
@@ -1410,6 +823,7 @@ def set_molecule_id_to_group(item, indices="all", value=None, skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         bridge = item.groups["molecule_index"].to_numpy()
         _set_by_bridge(item.molecules, "molecule_id", bridge, value)
@@ -1511,6 +925,7 @@ def set_chain_id_to_group(item, indices="all", value=None, skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         bridge = _chain_index_per_group(item)
         _set_by_bridge(item.chains, "chain_id", bridge, value)
@@ -1604,6 +1019,7 @@ def set_entity_id_to_group(item, indices="all", value=None, skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         mol_idx = item.groups["molecule_index"].to_numpy()
         ent_idx = item.molecules["entity_index"].to_numpy()
@@ -1687,93 +1103,6 @@ def set_entity_type_to_group(item, indices="all", value=None, skip_digestion=Fal
 ## Component
 
 
-@arg_digest(form=form)
-def set_component_id_to_component(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting component id to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        item.components.component_id = value
-    else:
-        item.components.iloc[indices, 0] = value
-
-    pass
-
-
-@arg_digest(form=form)
-def set_component_name_to_component(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting component name to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        item.components.component_name = value
-    else:
-        item.components.iloc[indices, 1] = value
-
-    pass
-
-
-@arg_digest(form=form)
-def set_component_type_to_component(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting component type to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        item.components.component_type = value
-    else:
-        item.components.iloc[indices, 2] = value
-
-    pass
-
-
 ## Molecule
 
 
@@ -1796,6 +1125,7 @@ def set_molecule_id_to_molecule(item, indices="all", value=None, skip_digestion=
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         item.molecules.molecule_id = value
     else:
@@ -1884,6 +1214,7 @@ def set_chain_id_to_chain(item, indices="all", value=None, skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     value_is_string = False
 
     if isinstance(value, str):
@@ -1984,6 +1315,7 @@ def set_entity_id_to_entity(item, indices="all", value=None, skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         item.entities.entity_id = value
     else:
@@ -2067,21 +1399,6 @@ def _get_chain_index_for_molecule(item):
     return bridge
 
 
-def _get_chain_index_for_component(item):
-    """Array of chain_index, one per component (first atom found)."""
-    n_components = len(item.components)
-    bridge = np.zeros(n_components, dtype=int)
-    seen = np.zeros(n_components, dtype=bool)
-    comp_idx = item._get_component_indices().to_numpy()
-    chain_idx = item.atoms["chain_index"].to_numpy()
-    for ai in range(len(comp_idx)):
-        ci = int(comp_idx[ai])
-        if not seen[ci]:
-            bridge[ci] = int(chain_idx[ai])
-            seen[ci] = True
-    return bridge
-
-
 def _get_molecule_index_for_chain(item):
     """Array of molecule_index, one per chain (first group found)."""
     n_chains = len(item.chains)
@@ -2095,37 +1412,6 @@ def _get_molecule_index_for_chain(item):
         if not seen[ci]:
             bridge[ci] = int(mol_idx_arr[int(group_idx[ai])])
             seen[ci] = True
-    return bridge
-
-
-def _get_molecule_index_for_component(item):
-    """Array of molecule_index, one per component (first atom found)."""
-    n_components = len(item.components)
-    bridge = np.zeros(n_components, dtype=int)
-    seen = np.zeros(n_components, dtype=bool)
-    comp_idx = item._get_component_indices().to_numpy()
-    group_idx = item.atoms["group_index"].to_numpy()
-    mol_idx_arr = item.groups["molecule_index"].to_numpy()
-    for ai in range(len(comp_idx)):
-        ci = int(comp_idx[ai])
-        if not seen[ci]:
-            bridge[ci] = int(mol_idx_arr[int(group_idx[ai])])
-            seen[ci] = True
-    return bridge
-
-
-def _get_component_index_for_group(item):
-    """Array of component_index, one per group (first atom found)."""
-    n_groups = len(item.groups)
-    bridge = np.zeros(n_groups, dtype=int)
-    seen = np.zeros(n_groups, dtype=bool)
-    group_idx = item.atoms["group_index"].to_numpy()
-    comp_idx = item._get_component_indices().to_numpy()
-    for ai in range(len(group_idx)):
-        gi = int(group_idx[ai])
-        if not seen[gi]:
-            bridge[gi] = int(comp_idx[ai])
-            seen[gi] = True
     return bridge
 
 
@@ -2160,30 +1446,6 @@ def set_atom_index_to_atom(item, indices="all", value=None, skip_digestion=False
 def set_group_index_to_group(item, indices="all", value=None, skip_digestion=False):
     """
     Setting group index to group on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    pass
-
-
-@arg_digest(form=form)
-def set_component_index_to_component(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting component index to component on form molsysmt.Topology.
 
 
     Parameters
@@ -2328,30 +1590,6 @@ def set_chain_index_to_group(item, indices="all", value=None, skip_digestion=Fal
 
 
 @arg_digest(form=form)
-def set_component_index_to_group(item, indices="all", value=None, skip_digestion=False):
-    # component_index is an atom-level attribute only; groups do not have this column.
-    # Setting component_index via groups is architecturally invalid — no-op.
-    """
-    Setting component index to group on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    pass
-
-
-@arg_digest(form=form)
 def set_entity_index_to_group(item, indices="all", value=None, skip_digestion=False):
     """
     Setting entity index to group on form molsysmt.Topology.
@@ -2384,99 +1622,6 @@ def set_entity_index_to_group(item, indices="all", value=None, skip_digestion=Fa
 ## ---------------------------------------------------------------------------
 ## Component attribute setters from group (group→atom→component bridge)
 ## ---------------------------------------------------------------------------
-
-
-@arg_digest(form=form)
-def set_component_id_to_group(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting component id to group on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_component_index_for_group(item)
-        _set_by_bridge(item.components, "component_id", bridge, value)
-    else:
-        component_indices = item._get_component_indices()
-        for i, gi in enumerate(list(indices)):
-            ci = component_indices.loc[item.atoms["group_index"] == gi].iloc[0]
-            item.components.at[int(ci), "component_id"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_component_name_to_group(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting component name to group on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_component_index_for_group(item)
-        _set_by_bridge(item.components, "component_name", bridge, value)
-    else:
-        component_indices = item._get_component_indices()
-        for i, gi in enumerate(list(indices)):
-            ci = component_indices.loc[item.atoms["group_index"] == gi].iloc[0]
-            item.components.at[int(ci), "component_name"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_component_type_to_group(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting component type to group on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_component_index_for_group(item)
-        _set_by_bridge(item.components, "component_type", bridge, value)
-    else:
-        component_indices = item._get_component_indices()
-        for i, gi in enumerate(list(indices)):
-            ci = component_indices.loc[item.atoms["group_index"] == gi].iloc[0]
-            item.components.at[int(ci), "component_type"] = value[i]
-
-    pass
 
 
 ## ---------------------------------------------------------------------------
@@ -2531,6 +1676,7 @@ def set_entity_id_to_molecule(item, indices="all", value=None, skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         bridge = item.molecules["entity_index"].to_numpy()
         _set_by_bridge(item.entities, "entity_id", bridge, value)
@@ -2626,6 +1772,7 @@ def set_chain_id_to_molecule(item, indices="all", value=None, skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         bridge = _get_chain_index_for_molecule(item)
         _set_by_bridge(item.chains, "chain_id", bridge, value)
@@ -2754,144 +1901,6 @@ def set_chain_index_to_molecule(item, indices="all", value=None, skip_digestion=
 ## ---------------------------------------------------------------------------
 
 
-@arg_digest(form=form)
-def set_chain_id_to_component(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting chain id to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_chain_index_for_component(item)
-        _set_by_bridge(item.chains, "chain_id", bridge, value)
-    else:
-        bridge = _get_chain_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            item.chains.at[int(bridge[ci]), "chain_id"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_chain_name_to_component(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting chain name to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_chain_index_for_component(item)
-        _set_by_bridge(item.chains, "chain_name", bridge, value)
-    else:
-        bridge = _get_chain_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            item.chains.at[int(bridge[ci]), "chain_name"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_chain_type_to_component(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting chain type to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_chain_index_for_component(item)
-        _set_by_bridge(item.chains, "chain_type", bridge, value)
-    else:
-        bridge = _get_chain_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            item.chains.at[int(bridge[ci]), "chain_type"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_chain_index_to_component(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting chain index to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    comp_idx = item._get_component_indices().to_numpy()
-    new_chain = item.atoms["chain_index"].to_numpy(copy=True)
-
-    if is_all(indices):
-        for ai in range(len(comp_idx)):
-            ci = int(comp_idx[ai])
-            new_chain[ai] = value[ci]
-    else:
-        idx_set = {int(i): pos for pos, i in enumerate(indices)}
-        for ai in range(len(comp_idx)):
-            ci = int(comp_idx[ai])
-            if ci in idx_set:
-                new_chain[ai] = value[idx_set[ci]]
-
-    item.atoms["chain_index"] = new_chain
-    n_chains = len(np.unique(new_chain))
-    if n_chains != item.chains.shape[0]:
-        item.reset_chains(n_chains=n_chains)
-        item.rebuild_chains(
-            redefine_indices=True,
-            redefine_ids=True,
-            redefine_types=True,
-            redefine_names=True,
-        )
-
-    pass
-
-
 ## ---------------------------------------------------------------------------
 ## Molecule attribute setters from chain (chain→atom→group→molecule bridge)
 ## ---------------------------------------------------------------------------
@@ -2916,6 +1925,7 @@ def set_molecule_id_to_chain(item, indices="all", value=None, skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         bridge = _get_molecule_index_for_chain(item)
         _set_by_bridge(item.molecules, "molecule_id", bridge, value)
@@ -3033,143 +2043,6 @@ def set_molecule_index_to_chain(item, indices="all", value=None, skip_digestion=
 ## ---------------------------------------------------------------------------
 
 
-@arg_digest(form=form)
-def set_molecule_id_to_component(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting molecule id to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_molecule_index_for_component(item)
-        _set_by_bridge(item.molecules, "molecule_id", bridge, value)
-    else:
-        bridge = _get_molecule_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            item.molecules.at[int(bridge[ci]), "molecule_id"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_molecule_name_to_component(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting molecule name to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_molecule_index_for_component(item)
-        _set_by_bridge(item.molecules, "molecule_name", bridge, value)
-    else:
-        bridge = _get_molecule_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            item.molecules.at[int(bridge[ci]), "molecule_name"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_molecule_type_to_component(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting molecule type to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        bridge = _get_molecule_index_for_component(item)
-        _set_by_bridge(item.molecules, "molecule_type", bridge, value)
-    else:
-        bridge = _get_molecule_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            item.molecules.at[int(bridge[ci]), "molecule_type"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_molecule_index_to_component(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting molecule index to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    comp_idx = item._get_component_indices().to_numpy()
-    group_idx = item.atoms["group_index"].to_numpy()
-    mol_idx_arr = item.groups["molecule_index"].to_numpy(copy=True)
-
-    if is_all(indices):
-        for ai in range(len(comp_idx)):
-            ci = int(comp_idx[ai])
-            gi = int(group_idx[ai])
-            mol_idx_arr[gi] = value[ci]
-    else:
-        idx_set = {int(i): pos for pos, i in enumerate(indices)}
-        for ai in range(len(comp_idx)):
-            ci = int(comp_idx[ai])
-            if ci in idx_set:
-                mol_idx_arr[int(group_idx[ai])] = value[idx_set[ci]]
-
-    item.groups["molecule_index"] = mol_idx_arr
-
-    pass
-
-
 ## ---------------------------------------------------------------------------
 ## Entity attribute setters from chain (chain→mol→entity bridge)
 ## ---------------------------------------------------------------------------
@@ -3226,6 +2099,7 @@ def set_entity_id_to_chain(item, indices="all", value=None, skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
+    value = _string_labels(value)
     if is_all(indices):
         mol_for_chain = _get_molecule_index_for_chain(item)
         ent_idx = item.molecules["entity_index"].to_numpy()
@@ -3312,139 +2186,3 @@ def set_entity_type_to_chain(item, indices="all", value=None, skip_digestion=Fal
 ## ---------------------------------------------------------------------------
 ## Entity attribute setters from component (comp→mol→entity bridge)
 ## ---------------------------------------------------------------------------
-
-
-@arg_digest(form=form)
-def set_entity_index_to_component(
-    item, indices="all", value=None, skip_digestion=False
-):
-    """
-    Setting entity index to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-
-    mol_for_comp = _get_molecule_index_for_component(item)
-
-    if is_all(indices):
-        for ci, mi in enumerate(mol_for_comp):
-            item.molecules.at[int(mi), "entity_index"] = value[ci]
-    else:
-        for i, ci in enumerate(list(indices)):
-            item.molecules.at[int(mol_for_comp[ci]), "entity_index"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_entity_id_to_component(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting entity id to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        mol_for_comp = _get_molecule_index_for_component(item)
-        ent_idx = item.molecules["entity_index"].to_numpy()
-        bridge = ent_idx[mol_for_comp]
-        _set_by_bridge(item.entities, "entity_id", bridge, value)
-    else:
-        mol_for_comp = _get_molecule_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            mi = int(mol_for_comp[ci])
-            ei = item.molecules.at[mi, "entity_index"]
-            item.entities.at[int(ei), "entity_id"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_entity_name_to_component(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting entity name to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        mol_for_comp = _get_molecule_index_for_component(item)
-        ent_idx = item.molecules["entity_index"].to_numpy()
-        bridge = ent_idx[mol_for_comp]
-        _set_by_bridge(item.entities, "entity_name", bridge, value)
-    else:
-        mol_for_comp = _get_molecule_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            mi = int(mol_for_comp[ci])
-            ei = item.molecules.at[mi, "entity_index"]
-            item.entities.at[int(ei), "entity_name"] = value[i]
-
-    pass
-
-
-@arg_digest(form=form)
-def set_entity_type_to_component(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting entity type to component on form molsysmt.Topology.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    .. versionadded:: 1.0.0
-    """
-    if is_all(indices):
-        mol_for_comp = _get_molecule_index_for_component(item)
-        ent_idx = item.molecules["entity_index"].to_numpy()
-        bridge = ent_idx[mol_for_comp]
-        _set_by_bridge(item.entities, "entity_type", bridge, value)
-    else:
-        mol_for_comp = _get_molecule_index_for_component(item)
-        for i, ci in enumerate(list(indices)):
-            mi = int(mol_for_comp[ci])
-            ei = item.molecules.at[mi, "entity_index"]
-            item.entities.at[int(ei), "entity_type"] = value[i]
-
-    pass

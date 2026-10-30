@@ -59,13 +59,12 @@ def to_molsysmt_MolSys(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.native import MolSys
+    from molsysmt.native import MolSys, Structures
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
 
     topology = to_molsysmt_Topology(
         item, atom_indices=atom_indices, structure_indices=structure_indices
     )
-    output = MolSys()
-    output.topology = topology
+    output = MolSys._from_partial_domains(topology=topology, structures=Structures())
     return output

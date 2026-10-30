@@ -166,8 +166,10 @@ def test_declared_zero_virtual_inventory_and_external_hydrogen_parent_pairs(liga
     primary = ligand.molsys
     msm.set(primary, element="atom", n_implicit_hydrogens=0, n_explicit_hydrogens=0)
     symbols = np.asarray(msm.get(primary, element="atom", atom_type=True))
-    bonds = primary.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(
-        dtype=np.int64
+    bonds = (
+        primary.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .to_numpy(dtype=np.int64)
     )
     pairs = []
     for a, b in bonds:
@@ -206,8 +208,10 @@ def test_declared_zero_virtual_inventory_and_external_hydrogen_parent_pairs(liga
 
 
 def test_readiness_incident_crossing_bonds_preserve_source_indices(ligand):
-    pairs = ligand.molsys.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(
-        dtype=np.int64
+    pairs = (
+        ligand.molsys.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .to_numpy(dtype=np.int64)
     )
     selected = np.array([0, 2], dtype=np.int64)
     incident = np.isin(pairs, selected).any(axis=1)

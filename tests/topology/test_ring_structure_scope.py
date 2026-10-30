@@ -7,12 +7,12 @@ import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 from molsysmt.native import MolSys
 
-READERS = [msm.topology.get_rings, msm.physchem.get_aromatic_rings]
+READERS = [msm.chemical_states.get_rings, msm.physchem.get_aromatic_rings]
 
 
 def _source(molsys, form, tmp_path):
     if form == "complementary":
-        return [molsys.topology, molsys.structures]
+        return [molsys.topology, molsys.chemical_states, molsys.structures]
     if form == "h5msm":
         path = tmp_path / "ring.h5msm"
         msm.convert(molsys, to_form=path)
@@ -65,13 +65,13 @@ def test_chemistry_without_structure_axis_accepts_default_and_rejects_explicit(
     aromatic_system, reader, kind
 ):
     if kind == "topology":
-        source = aromatic_system.topology
+        source = [aromatic_system.topology, aromatic_system.chemical_states]
     elif kind == "states":
         source = aromatic_system.chemical_states
     else:
         topology = msm.copy(aromatic_system.topology)
         source = MolSys._from_partial_domains(
-            topology=topology, chemical_states=topology._chemical_states_domain
+            topology=topology, chemical_states=aromatic_system.chemical_states.copy()
         )
     result = reader(source)
     np.testing.assert_array_equal(result["atom_offsets"], [0, 6])

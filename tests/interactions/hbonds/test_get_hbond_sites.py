@@ -9,15 +9,15 @@ from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyErr
 
 
 @pytest.mark.parametrize("method", ["mdtraj", "cpptraj", "prolif"])
-@pytest.mark.parametrize("form", ["rdkit", "native", "topology", "h5msm"])
+@pytest.mark.parametrize("form", ["rdkit", "native", "composed", "h5msm"])
 def test_site_recognition_survives_chemical_forms(method, form, tmp_path):
     molecule = Chem.AddHs(Chem.MolFromSmiles("NC(=O)N.O.S.F"))
     expected = msm.interactions.hbonds.get_hbond_sites(molecule, method=method)
     source = molecule
     if form != "rdkit":
         source = msm.convert(molecule, to_form="molsysmt.MolSys")
-        if form == "topology":
-            source = source.topology
+        if form == "composed":
+            source = [source.topology, source.chemical_states]
         elif form == "h5msm":
             path = str(tmp_path / "chemistry.h5msm")
             msm.convert(source, to_form=path)

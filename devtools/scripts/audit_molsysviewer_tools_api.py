@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SCOPES = (
     "basic",
     "topology",
+    "chemical_states",
     "structure",
     "pbc",
     "physchem",

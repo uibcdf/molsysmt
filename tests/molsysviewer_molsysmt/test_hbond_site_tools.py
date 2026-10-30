@@ -149,7 +149,7 @@ def test_nested_explicit_signatures_help_and_no_unreceived_detectors(view, name)
 def test_native_result_and_primary_chemistry_source_scene_preserved(view, name, skip):
     primary = view.molsys
     before = view.export_state()
-    atoms = primary.topology.atoms.copy(deep=True)
+    atoms = primary.topology.copy().atoms
     state = primary.chemical_states._states[0]
     bonds = state.bonds.copy(deep=True)
     attrs = state.atom_attributes.copy(deep=True)

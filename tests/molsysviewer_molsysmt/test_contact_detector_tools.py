@@ -143,7 +143,7 @@ def test_explicit_signature_help_defaults_and_independent_navigation(view):
 def test_native_parity_readonly_source_scene_named_analysis_and_quantities(view, skip):
     family, value = view
     source = value.molsys
-    atoms = source.topology.atoms.copy(deep=True)
+    atoms = source.topology.copy().atoms
     chemistry = source.chemical_states._states[0].bonds.copy(deep=True)
     xyz = puw.get_value(source.structures.coordinates).copy()
     state = value.export_state()

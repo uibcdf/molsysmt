@@ -10,7 +10,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 
 | Classification | Symbols |
 | --- | ---: |
-| stable | 123 |
+| stable | 124 |
 | experimental | 145 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
@@ -58,6 +58,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.attribute` | experimental | active | pre-1.0 |
 | `molsysmt.basic` | stable | active | pre-1.0 |
 | `molsysmt.build` | stable | active | pre-1.0 |
+| `molsysmt.chemical_states` | stable | active | 1.0.0 |
 | `molsysmt.compare` | stable | active | pre-1.0 |
 | `molsysmt.compose_atom_maps` | experimental | active | 1.0.0 |
 | `molsysmt.concatenate_structures` | stable | active | pre-1.0 |
@@ -264,17 +265,8 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
-| `molsysmt.topology.get_atom_correspondences` | experimental | active | pre-1.0 |
-| `molsysmt.topology.get_bondgraph` | stable | active | pre-1.0 |
-| `molsysmt.topology.get_covalent_blocks` | stable | active | pre-1.0 |
-| `molsysmt.topology.get_covalent_paths` | stable | active | pre-1.0 |
-| `molsysmt.topology.get_dihedral_quartets` | stable | active | pre-1.0 |
-| `molsysmt.topology.get_rigid_fragments` | experimental | active | pre-1.0 |
-| `molsysmt.topology.get_rings` | experimental | active | pre-1.0 |
-| `molsysmt.topology.get_rotatable_bonds` | experimental | active | 1.0.0 |
 | `molsysmt.topology.get_sequence_alignment` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_sequence_identity` | experimental | active | pre-1.0 |
-| `molsysmt.topology.get_substructure_matches` | experimental | active | pre-1.0 |
 
 ### `molsysmt.hbonds`
 
@@ -398,3 +390,32 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.element.atom.get_atom_type_from_atom_name` | experimental | active | pre-1.0 |
 | `molsysmt.element.atom.is_atom_type` | experimental | active | pre-1.0 |
 | `molsysmt.element.atom.normalize_atom_types` | experimental | active | pre-1.0 |
+
+### `molsysmt.chemical_states`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.chemical_states.get_atom_correspondences` | experimental | active | pre-1.0 |
+| `molsysmt.chemical_states.get_bondgraph` | stable | active | pre-1.0 |
+| `molsysmt.chemical_states.get_covalent_blocks` | stable | active | pre-1.0 |
+| `molsysmt.chemical_states.get_covalent_paths` | stable | active | pre-1.0 |
+| `molsysmt.chemical_states.get_dihedral_quartets` | stable | active | pre-1.0 |
+| `molsysmt.chemical_states.get_rigid_fragments` | experimental | active | pre-1.0 |
+| `molsysmt.chemical_states.get_rings` | experimental | active | pre-1.0 |
+| `molsysmt.chemical_states.get_rotatable_bonds` | experimental | active | 1.0.0 |
+| `molsysmt.chemical_states.get_substructure_matches` | experimental | active | pre-1.0 |
+
+## Approved pre-1.0 namespace moves
+
+These recorded relocations preserve stability; they are not runtime aliases.
+
+| Retired path | Canonical path | Owning decision |
+| --- | --- | --- |
+| `molsysmt.topology.get_atom_correspondences` | `molsysmt.chemical_states.get_atom_correspondences` | uibcdf/molsysmt#255 |
+| `molsysmt.topology.get_bondgraph` | `molsysmt.chemical_states.get_bondgraph` | uibcdf/molsysmt#255 |
+| `molsysmt.topology.get_covalent_blocks` | `molsysmt.chemical_states.get_covalent_blocks` | uibcdf/molsysmt#255 |
+| `molsysmt.topology.get_covalent_paths` | `molsysmt.chemical_states.get_covalent_paths` | uibcdf/molsysmt#255 |
+| `molsysmt.topology.get_dihedral_quartets` | `molsysmt.chemical_states.get_dihedral_quartets` | uibcdf/molsysmt#255 |
+| `molsysmt.topology.get_rigid_fragments` | `molsysmt.chemical_states.get_rigid_fragments` | uibcdf/molsysmt#255 |
+| `molsysmt.topology.get_rings` | `molsysmt.chemical_states.get_rings` | uibcdf/molsysmt#255 |
+| `molsysmt.topology.get_substructure_matches` | `molsysmt.chemical_states.get_substructure_matches` | uibcdf/molsysmt#255 |

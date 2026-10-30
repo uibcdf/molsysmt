@@ -55,6 +55,12 @@ change stored chemical assignments. It does not reconstruct periodic molecules;
 provide compatible compact coordinates first. Degenerate geometry may leave
 centers unassigned. Multiple selected structures are an error.
 
+CIP ranking uses one detached chemical state. Numeric/all graph queries omit
+structural conversion at the chemical boundary; explicit structure indices are
+still validated against the original source axis. Coordinate inference reads
+the requested structure separately from the original source. Spatial selections
+retain their coordinate requirements and each source reader's I/O limits.
+
 ## Provenance and supported scope
 
 The detached dictionary retains method, provider, evidence, original software

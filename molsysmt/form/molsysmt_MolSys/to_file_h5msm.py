@@ -81,6 +81,19 @@ def to_file_h5msm(
     )
 
     dump_topology_to_h5msm(item.topology, handler, atom_indices=atom_indices)
+
+    from molsysmt._private.variables import is_all
+    from molsysmt.form._h5msm_chemical_states import write_chemical_states
+
+    states = (
+        item.chemical_states
+        if is_all(atom_indices)
+        else item.chemical_states._extract_atoms(atom_indices)
+    )
+    options = {"compression": compression}
+    if compression == "gzip":
+        options["compression_opts"] = compression_opts
+    write_chemical_states(states, handler.file["topology"], options)
     dump_structures_to_h5msm(
         item.structures,
         handler,

@@ -1,3 +1,5 @@
+import numpy as np
+
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
@@ -33,39 +35,73 @@ def to_molsysmt_Structures(
 
     from molsysmt.native import Structures
 
-    tmp_item = Structures()
+    from .get_topological_attributes import get_n_atoms_from_system
+    from .iterators import StructuresIterator
 
+    if is_all(structure_indices):
+        # A complete output can use the provider's vectorized bulk reader.
+        position = item.tell()
+        try:
+            item.seek(0)
+            coordinates, time, labels, box = item.read(
+                atom_indices=None if is_all(atom_indices) else atom_indices
+            )
+        finally:
+            item.seek(position)
+        return Structures(
+            coordinates=puw.quantity(coordinates, "nm"),
+            time=None if time is None else puw.quantity(time, "ps"),
+            structure_id=labels,
+            box=None if box is None or len(box) == 0 else puw.quantity(box, "nm"),
+        )
+
+    # Read selected structures through the existing seek-based iterator rather
+    # than materializing the complete source and slicing afterwards.
+    iterator = StructuresIterator(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        coordinates=True,
+        box=True,
+        time=True,
+        structure_id=True,
+        output_type="dictionary",
+        skip_digestion=True,
+    )
+    rows = {name: [] for name in ("coordinates", "box", "time", "structure_id")}
+    available = {name: True for name in rows}
+    units = {"coordinates": "nm", "box": "nm", "time": "ps"}
     position = item.tell()
     try:
-        item.seek(0)
-        payload = item.read(
-            atom_indices=atom_indices if not is_all(atom_indices) else None
-        )
+        for block in iterator:
+            for name in rows:
+                value = block[name]
+                if value is None:
+                    available[name] = False
+                elif available[name]:
+                    values = (
+                        puw.get_value(value, to_unit=units[name])
+                        if name in units
+                        else value
+                    )
+                    rows[name].append(np.asarray(values)[0])
     finally:
         item.seek(position)
 
-    coordinates = payload[0]
-    time = payload[1]
-    structure_id = payload[2]
-    box = payload[3]
-    if not is_all(structure_indices):
-        coordinates = coordinates[structure_indices]
-        if time is not None:
-            time = time[structure_indices]
-        if structure_id is not None:
-            structure_id = structure_id[structure_indices]
-        if box is not None:
-            box = box[structure_indices]
+    if not rows["coordinates"]:
+        n_atoms = (
+            get_n_atoms_from_system(item, skip_digestion=True)
+            if is_all(atom_indices)
+            else len(atom_indices)
+        )
+        return Structures(coordinates=puw.quantity(np.empty((0, n_atoms, 3)), "nm"))
 
-    coordinates = coordinates * puw.unit("nanometer")
-    time = None if time is None else time * puw.unit("picosecond")
-    box = None if box is None or len(box) == 0 else box * puw.unit("nanometer")
-
-    tmp_item.append(
-        structure_id=structure_id,
-        time=time,
-        box=box,
-        coordinates=coordinates,
-    )
-
-    return tmp_item
+    payload = {}
+    for name, values in rows.items():
+        if not available[name]:
+            payload[name] = None
+        elif name in units:
+            payload[name] = puw.quantity(np.asarray(values), units[name])
+        else:
+            payload[name] = np.asarray(values)
+    return Structures(**payload)

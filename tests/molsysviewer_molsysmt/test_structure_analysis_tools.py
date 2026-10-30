@@ -238,7 +238,7 @@ def test_symmetry_pose_rmsd_matches_explicit_map_geometry_without_alignment(
     )
     saved = None
     if cached:
-        saved = view.addons.molsysmt.topology.get_atom_correspondences(
+        saved = view.addons.molsysmt.chemical_states.get_atom_correspondences(
             selection="all",
             structure_indices=CHEM_SCOPE,
             candidate_atom_correspondences=candidates,

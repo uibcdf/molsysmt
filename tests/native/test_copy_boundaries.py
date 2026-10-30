@@ -44,7 +44,7 @@ def slotted_system(request):
     if name == "structures":
         domain = cls(coordinates=puw.quantity(np.zeros((3, 3, 3)), "nm"))
     else:
-        domain = cls(n_atoms=3)
+        domain = cls(n_atoms=3, **({"n_molecules": 1} if name == "topology" else {}))
         if name == "chemical_states":
             domain.append_state()
     setattr(system, name, domain)
@@ -73,8 +73,8 @@ def test_standalone_domain_copies_detach_owners_stored_in_slots(
         duplicate.append_state()
         assert domain.n_chemical_states == 1
     else:
-        duplicate.add_bonds([[0, 1]])
-        assert domain.n_bonds == 0
+        duplicate.atoms.at[0, "atom_name"] = "changed"
+        assert domain.atoms.at[0, "atom_name"] != "changed"
     assert system.interactions["pairs"] is original_analysis
     np.testing.assert_array_equal(
         original_analysis.evaluated_structure_indices, [0, 1, 2]
@@ -102,7 +102,7 @@ def test_whole_system_copy_rebinds_owners_stored_in_domain_slots(
         duplicate.chemical_states.append_state()
         assert duplicate.interactions["pairs"].evaluated_structure_indices.size == 0
     else:
-        duplicate.topology.add_bonds([[0, 1]])
+        duplicate.topology.set_atom_molecules([0, 0, 0])
         assert duplicate.interactions["pairs"].evaluated_structure_indices.size == 0
     np.testing.assert_array_equal(
         system.interactions["pairs"].evaluated_structure_indices, [0, 1, 2]

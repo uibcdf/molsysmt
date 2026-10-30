@@ -58,7 +58,7 @@ def test_component_application_preserves_outside_state_pose_and_completeness(
     if form == "native":
         molecular_system = source
     elif form == "topology":
-        molecular_system = source.topology
+        molecular_system = [source.topology, source.chemical_states]
     else:
         molecular_system = tmp_path / "source.h5msm"
         msm.convert(source, to_form=molecular_system)
@@ -166,13 +166,24 @@ def test_selected_missing_bond_completion_preserves_outside_metadata(tmp_path, f
     state = source.chemical_states._states[0]
     state.bonds = state.bonds.drop(index=5).reset_index(drop=True)
     # Labels refer to the original atom sets, even while stored connectivity is partial.
-    source.topology._set_component_indices([1] * 6 + [0] * 6)
-    source.topology.components["component_id"] = ["target", "outside"]
-    source.topology.components["component_name"] = ["Target", "Outside"]
-    source.topology.components["component_type"] = ["small molecule", "small molecule"]
+    source.chemical_states._set_component_indices([1] * 6 + [0] * 6)
+    source.chemical_states._resolve_chemical_state().components["component_id"] = [
+        "target",
+        "outside",
+    ]
+    source.chemical_states._resolve_chemical_state().components["component_name"] = [
+        "Target",
+        "Outside",
+    ]
+    source.chemical_states._resolve_chemical_state().components["component_type"] = [
+        "small molecule",
+        "small molecule",
+    ]
     args = options(template, connectivity_policy="complete_from_template")
     before = source.copy()
-    molecular_system = source if form == "native" else source.topology
+    molecular_system = (
+        source if form == "native" else [source.topology, source.chemical_states]
+    )
     if form == "h5msm":
         molecular_system = tmp_path / "incomplete.h5msm"
         msm.convert(source, to_form=molecular_system)
@@ -185,11 +196,20 @@ def test_selected_missing_bond_completion_preserves_outside_metadata(tmp_path, f
     result, report = output["molecular_system"], output["report"]
     assert report["coverage"]["result_connectivity_completeness"] == "partial"
     assert report["coverage"]["graph"] == "completion_from_declared_template"
-    assert result.topology.components.component_id.tolist() == ["outside", "target"]
-    assert result.topology.components.component_name.tolist() == ["Outside", "Target"]
-    assert result.topology.components.component_type.tolist() == ["small molecule"] * 2
+    assert (
+        result.chemical_states._resolve_chemical_state().components.component_id.tolist()
+        == ["outside", "target"]
+    )
+    assert (
+        result.chemical_states._resolve_chemical_state().components.component_name.tolist()
+        == ["Outside", "Target"]
+    )
+    assert (
+        result.chemical_states._resolve_chemical_state().components.component_type.tolist()
+        == ["small molecule"] * 2
+    )
     np.testing.assert_array_equal(
-        result.topology._get_component_indices(), [0] * 6 + [1] * 6
+        result.chemical_states._get_component_indices(), [0] * 6 + [1] * 6
     )
     old_pairs = before.chemical_states.get_bonds()[
         ["atom1_index", "atom2_index"]
@@ -216,7 +236,8 @@ def test_selected_missing_bond_completion_preserves_outside_metadata(tmp_path, f
     assert final_bonds.iloc[:5][new_columns].isna().all().all()
     pd.testing.assert_frame_equal(state.bonds, before.chemical_states.get_bonds())
     pd.testing.assert_frame_equal(
-        source.topology.components, before.topology.components
+        source.chemical_states._resolve_chemical_state().components,
+        before.chemical_states._resolve_chemical_state().components,
     )
     for field in ("atom_attributes", "bonds", "components", "component_indices"):
         original, retained = (
@@ -240,8 +261,8 @@ def test_selected_missing_bond_completion_preserves_outside_metadata(tmp_path, f
     msm.convert(result, to_form=path)
     loaded = msm.convert(path, to_form="molsysmt.MolSys")
     pd.testing.assert_frame_equal(
-        loaded.topology.components,
-        result.topology.components,
+        loaded.chemical_states._resolve_chemical_state().components,
+        result.chemical_states._resolve_chemical_state().components,
         check_dtype=False,
         check_frame_type=False,
     )
@@ -254,8 +275,8 @@ def test_selected_completion_rejects_reconciliation_and_requires_opt_in(complete
     state = source.chemical_states._states[0]
     state.bonds = state.bonds.drop(index=5).reset_index(drop=True)
     state.connectivity_completeness = completeness
-    source.topology.reset_components(n_components=2)
-    source.topology._set_component_indices([0] * 6 + [1] * 6)
+    state.components = type(state.components)(n_components=2)
+    source.chemical_states._set_component_indices([0] * 6 + [1] * 6)
     default = msm.physchem.assess_chemical_template(source, **options(template))
     assert default["status"] == "conflict"
     args = options(template, connectivity_policy="complete_from_template")
@@ -277,7 +298,7 @@ def test_selected_completion_does_not_reconcile_unrelated_component_partition():
     source, template = component_case()
     state = source.chemical_states._states[0]
     state.bonds = state.bonds.drop(index=5).reset_index(drop=True)
-    source.topology._set_component_indices([0, 0, 0, 0, 1, 1] + [2] * 6)
+    source.chemical_states._set_component_indices([0, 0, 0, 0, 1, 1] + [2] * 6)
     args = options(template, connectivity_policy="complete_from_template")
     before = source.copy()
     report = msm.physchem.assess_chemical_template(source, **args)
@@ -297,28 +318,34 @@ def test_selected_completion_merges_fragments_without_inheriting_their_labels():
     source, template = component_case()
     state = source.chemical_states._states[0]
     state.bonds = state.bonds.drop(index=5).reset_index(drop=True)
-    source.topology.reset_components(n_components=3)
-    source.topology._set_component_indices([0] * 6 + [1, 2, 1, 1, 1, 2])
-    source.topology.components["component_id"] = [
+    state.components = type(state.components)(n_components=3)
+    source.chemical_states._set_component_indices([0] * 6 + [1, 2, 1, 1, 1, 2])
+    source.chemical_states._resolve_chemical_state().components["component_id"] = [
         "outside",
         "carbon fragment",
         "oxygen fragment",
     ]
-    source.topology.components["component_name"] = [
+    source.chemical_states._resolve_chemical_state().components["component_name"] = [
         "Outside",
         "Carbon fragment",
         "Oxygen fragment",
     ]
-    source.topology.components["component_type"] = ["small molecule"] * 3
+    source.chemical_states._resolve_chemical_state().components["component_type"] = [
+        "small molecule"
+    ] * 3
     result = msm.physchem.apply_chemical_template(
         source, **options(template, connectivity_policy="complete_from_template")
     )["molecular_system"]
-    assert result.topology.components.loc[0].tolist() == [
+    assert result.chemical_states._resolve_chemical_state().components.loc[
+        0
+    ].tolist() == [
         "outside",
         "Outside",
         "small molecule",
     ]
-    assert result.topology.components.loc[1].isna().all()
+    assert (
+        result.chemical_states._resolve_chemical_state().components.loc[1].isna().all()
+    )
     assert state.component_indices.tolist() == [0] * 6 + [1, 2, 1, 1, 1, 2]
 
 

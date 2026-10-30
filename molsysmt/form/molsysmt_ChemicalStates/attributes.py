@@ -20,3 +20,6 @@ for name in (
     attributes[name] = True
 for name in (*ATOM_FIELDS, *BOND_FIELDS, *COMPONENT_FIELDS):
     attributes[name] = True
+
+for _attribute in ("bonded_atom_pairs", "inner_bonded_atom_pairs", "bonded_atoms"):
+    attributes[_attribute] = True

@@ -60,7 +60,7 @@ class TestAddMissingHydrogensEngMolSysMT:
         """Every H atom in the restored system must have at least one bond to a heavy atom."""
         restored = msm.build.add_missing_hydrogens(avp_heavy, engine="MolSysMT")
         topo = restored.topology
-        bonds = topo.bonds
+        bonds = restored.chemical_states.get_bonds()
 
         bonded_atoms = set()
         for _, brow in bonds.iterrows():
@@ -152,7 +152,7 @@ class TestAddMissingHydrogensCapGroups:
         """ACE H atoms must be bonded to CH3, not to any other atom."""
         restored = msm.build.add_missing_hydrogens(capped_ala_heavy, engine="MolSysMT")
         topo = restored.topology
-        bonds = topo.bonds
+        bonds = restored.chemical_states.get_bonds()
         atoms = topo.atoms
         ch3_idx = atoms[atoms["atom_name"] == "CH3"].index[0]
         bonded_to_ch3 = set()

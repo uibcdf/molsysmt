@@ -154,7 +154,7 @@ def test_unknown_aromaticity_is_not_perceived_and_empty_arrays_are_typed():
     "form",
     [
         "molsysmt.MolSys",
-        "molsysmt.Topology",
+        "declared_domains",
         "molsysmt.ChemicalStates",
         "molsysmt.ChemicalStatesDict",
     ],
@@ -166,7 +166,9 @@ def test_supported_forms_and_nonreference_state(form):
     history0 = source.chemical_states.get_preparation_history(0)
     history1 = source.chemical_states.get_preparation_history(1)
     item = (
-        source.chemical_states
+        [source.topology, source.chemical_states]
+        if form == "declared_domains"
+        else source.chemical_states
         if form == "molsysmt.ChemicalStates"
         else msm.convert(source, to_form=form)
     )

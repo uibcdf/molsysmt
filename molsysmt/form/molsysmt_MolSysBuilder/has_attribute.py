@@ -46,6 +46,17 @@ def has_attribute(
 
     if not attributes[attribute]:
         return False
+    from molsysmt.attribute import attributes as catalogue
+
+    if catalogue[attribute]["chemical_state"]:
+        from molsysmt.form import molsysmt_MolSys
+
+        return molsysmt_MolSys.has_attribute(
+            molecular_system._query_view(),
+            attribute,
+            include_none=include_none,
+            skip_digestion=True,
+        )
     if topological_attributes[attribute]:
         return topology_has_attribute(
             molecular_system.topology,

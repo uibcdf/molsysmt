@@ -29,23 +29,21 @@ def to_molsysmt_MolSys(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.molsysmt_StructuresOld.to_molsysmt_Structures import (
-        to_molsysmt_Structures,
-    )
-    from molsysmt.form.molsysmt_TopologyOld.to_molsysmt_Topology import (
-        to_molsysmt_Topology,
-    )
-    from molsysmt.native.molsys_old import MolSys
+    from molsysmt._private.variables import is_all
 
-    tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(
-        item, atom_indices=atom_indices, skip_digestion=True
-    )
-    tmp_item.structures = to_molsysmt_Structures(
+    # Match the canonical native topology order across every source domain.
+    if not is_all(atom_indices):
+        atom_indices = sorted(atom_indices)
+
+    from molsysmt.form.openmm_Topology._read_native import read_native
+
+    from .to_molsysmt_Structures import to_molsysmt_Structures
+
+    output = read_native(item.topology, atom_indices=atom_indices, skip_digestion=True)
+    output.structures = to_molsysmt_Structures(
         item,
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         skip_digestion=True,
     )
-
-    return tmp_item
+    return output

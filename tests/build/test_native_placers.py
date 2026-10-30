@@ -242,13 +242,18 @@ class TestAppendAtomsToMolsys:
         assert int(xx_rows.iloc[0]["group_index"]) == 1
 
     def test_bond_is_added(self, aaa_molsys):
-        n_bonds_orig = aaa_molsys.topology.bonds.shape[0]
+        n_bonds_orig = aaa_molsys.chemical_states._resolve_chemical_state().bonds.shape[
+            0
+        ]
         n_orig = aaa_molsys.topology.n_atoms
         coords_dummy = np.zeros((1, 3), dtype=np.float64)
         new_atom_info = [(0, "XX", coords_dummy)]
         new_bonds_info = [(0, n_orig)]  # bond from atom 0 to new atom
         result = append_atoms_to_molsys(aaa_molsys, new_atom_info, new_bonds_info)
-        assert result.topology.bonds.shape[0] == n_bonds_orig + 1
+        assert (
+            result.chemical_states._resolve_chemical_state().bonds.shape[0]
+            == n_bonds_orig + 1
+        )
 
     def test_coordinates_shape_is_correct(self, aaa_molsys):
         from molsysmt import pyunitwizard as puw
@@ -404,7 +409,9 @@ class TestRebuildMolsysWithNewGroups:
 
         coords = puw.get_value(aaa_molsys.structures.coordinates, to_unit="nm")
         n_structures = coords.shape[0]
-        n_bonds_orig = aaa_molsys.topology.bonds.shape[0]
+        n_bonds_orig = aaa_molsys.chemical_states._resolve_chemical_state().bonds.shape[
+            0
+        ]
 
         ace_atoms = {a: np.zeros((n_structures, 3)) for a in ace_template["atoms"]}
         mol_group_ranges = {0: (0, 2)}
@@ -413,7 +420,7 @@ class TestRebuildMolsysWithNewGroups:
             aaa_molsys, mol_group_ranges, {0: ("ACE", ace_atoms)}, {}
         )
         # Original bonds must be preserved (remapped) + ACE intra-group + ACE–ALA peptide bond
-        n_bonds_result = result.topology.bonds.shape[0]
+        n_bonds_result = result.chemical_states._resolve_chemical_state().bonds.shape[0]
         assert n_bonds_result > n_bonds_orig
 
 

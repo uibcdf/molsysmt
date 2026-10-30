@@ -13,20 +13,24 @@ from molsysmt.interactions._hdf5_collection import (
     read_named_analyses,
     write_named_analyses,
 )
-from molsysmt.native import ChemicalStates, Topology
+from molsysmt.native import ChemicalStates, MolSys
+from molsysmt.native._chemical_state import _ChemicalStateStorage
 
 
 def test_chemical_state_only_layer_roundtrips_without_topology(tmp_path):
-    topology = Topology(n_atoms=3)
-    topology._reference_chemical_state.state_id = "reactant"
-    topology._reference_chemical_state.atom_attributes["formal_charge"] = pd.Series(
-        pd.array([0, pd.NA, -1], dtype="Int16")
-    )
-    topology._append_chemical_state_bonds(
+    topology = MolSys(n_atoms=3)
+    topology.chemical_states._resolve_chemical_state().state_id = "reactant"
+    topology.chemical_states._resolve_chemical_state().atom_attributes[
+        "formal_charge"
+    ] = pd.Series(pd.array([0, pd.NA, -1], dtype="Int16"))
+    topology.chemical_states._append_chemical_state_bonds(
         [[0, 1]], bond_order=[1], evidence=["explicit"]
     )
-    second = topology._append_chemical_state(state_id="product")
-    topology._set_chemical_state_atom_attribute(
+    second = topology.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=topology.get_n_atoms(), state_id="product"),
+        set_as_reference=False,
+    )
+    topology.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge", [1, 0, -1], state_index=second
     )
     states = msm.convert(topology, to_form="molsysmt.ChemicalStates")

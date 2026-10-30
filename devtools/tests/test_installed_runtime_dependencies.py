@@ -28,7 +28,7 @@ def test_installed_public_runtime_rejects_missing_or_old_mmcif(monkeypatch, vers
 def test_controlled_gate_rejects_transitive_conflict_above_direct_floor(monkeypatch):
     versions = {
         "smonitor": "0.18.0",
-        "depdigest": "0.13.0",
+        "depdigest": "0.15.1",
         "argdigest": "0.13.0",
         "pyunitwizard": "0.28.1",
     }

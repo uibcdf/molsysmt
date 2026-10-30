@@ -191,7 +191,7 @@ def test_sparse_native_result_and_source_scene_ownership(view, request, skip):
     source = view.molsys
     before = view.export_state()
     core = view.interactions
-    atoms = source.topology.atoms.copy(deep=True)
+    atoms = source.topology.copy().atoms
     bonds = source.chemical_states._states[0].bonds.copy(deep=True)
     xyz = puw.get_value(source.structures.coordinates).copy()
     preserved = source.interactions["preserve"]

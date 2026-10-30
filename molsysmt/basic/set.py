@@ -156,8 +156,10 @@ def set(
     >>> msm.set(topology, selection=[1], atom_id='00101')
     >>> msm.get(topology, element='atom', atom_id=True)
     ['101', '00101']
-    >>> msm.set(topology, element='atom', chemical_state=0, formal_charge=[1, -1])
-    >>> msm.get(topology, element='atom', chemical_state=0, formal_charge=True)
+    >>> chemistry = msm.ChemicalStates(n_atoms=2)
+    >>> _ = chemistry.append_state()
+    >>> msm.set(chemistry, element='atom', chemical_state=0, formal_charge=[1, -1])
+    >>> msm.get(chemistry, element='atom', chemical_state=0, formal_charge=True)
     [1, -1]
     >>> msm.set(topology, element='atom', isotope=[13, 2])
     >>> msm.get(topology, element='atom', isotope=True)
@@ -247,6 +249,14 @@ def set(
             item, form = where_is_attribute(
                 molecular_system, in_attribute, include_none=False
             )
+            if form is None:
+                from molsysmt._private.smonitor import NotWithThisFormError
+
+                raise NotWithThisFormError(
+                    caller="molsysmt.set",
+                    requested_attribute=in_attribute,
+                    message=f"No supplied domain can store {in_attribute!r}.",
+                )
             in_value = value_of_in_attribute[in_attribute]
             set_function = getattr(
                 _dict_modules[form], f"set_{in_attribute}_to_{element}"
@@ -280,6 +290,14 @@ def set(
             item, form = where_is_attribute(
                 molecular_system, in_attribute, include_none=False
             )
+            if form is None:
+                from molsysmt._private.smonitor import NotWithThisFormError
+
+                raise NotWithThisFormError(
+                    caller="molsysmt.set",
+                    requested_attribute=in_attribute,
+                    message=f"No supplied domain can store {in_attribute!r}.",
+                )
             in_value = value_of_in_attribute[in_attribute]
             set_function = getattr(
                 _dict_modules[form], f"set_{in_attribute}_to_{element}"

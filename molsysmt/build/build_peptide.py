@@ -1947,7 +1947,7 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
         temp_item.topology.atoms["atom_name"] = atom_names
         temp_item.topology.atoms["atom_type"] = atom_types
         temp_item.topology.atoms["group_index"] = atom_group_indices
-        temp_item.topology._set_component_indices(atom_component_indices)
+        temp_item.chemical_states._set_component_indices(atom_component_indices)
         temp_item.topology.atoms["chain_index"] = atom_chain_indices
 
         temp_item.topology.groups["group_id"] = np.arange(n_groups)
@@ -1959,13 +1959,15 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
         ]
         temp_item.topology.groups["molecule_index"] = 0
 
-        temp_item.topology.components["component_id"] = np.arange(n_groups)
-        temp_item.topology.components["component_name"] = [
-            group_data["group_name"] for group_data in groups_data
-        ]
-        temp_item.topology.components["component_type"] = [
-            group_data["group_type"] for group_data in groups_data
-        ]
+        temp_item.chemical_states._resolve_chemical_state().components[
+            "component_id"
+        ] = np.arange(n_groups)
+        temp_item.chemical_states._resolve_chemical_state().components[
+            "component_name"
+        ] = [group_data["group_name"] for group_data in groups_data]
+        temp_item.chemical_states._resolve_chemical_state().components[
+            "component_type"
+        ] = [group_data["group_type"] for group_data in groups_data]
 
         temp_item.topology.molecules["molecule_id"] = [0]
         temp_item.topology.molecules["molecule_name"] = ["peptide"]
@@ -1981,14 +1983,14 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
         temp_item.topology.chains["chain_type"] = ["protein"]
 
         if n_bonds > 0:
-            bonds = temp_item.topology._get_chemical_state_bonds()
+            bonds = temp_item.chemical_states._get_chemical_state_bonds()
             bonds["atom1_index"] = np.array([bond[0] for bond in all_bonds], dtype=int)
             bonds["atom2_index"] = np.array([bond[1] for bond in all_bonds], dtype=int)
-        temp_item.topology._get_chemical_state_bonds()._remove_empty_columns()
+        temp_item.chemical_states._get_chemical_state_bonds()._remove_empty_columns()
 
         temp_item.molecular_mechanics.atom_ff_type = atom_ff_types
 
-        temp_item.topology.rebuild_components(
+        temp_item.rebuild_components(
             redefine_indices=True,
             redefine_ids=True,
             redefine_types=True,
@@ -2018,6 +2020,7 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
             puw.quantity(coordinates[np.newaxis, :, :], "nm")
         )
 
+        temp_item.topology._coerce_id_columns_to_string()
         if to_form != "molsysmt.MolSys":
             temp_item = convert(temp_item, to_form=to_form)
 

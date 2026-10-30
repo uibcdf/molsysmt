@@ -1129,4 +1129,160 @@ def get_component_type_from_atom(item, indices="all", skip_digestion=False):
     return _field(item, "atom", "component_type", indices)
 
 
+@arg_digest(form=form)
+def get_bonded_atom_pairs_from_bond(item, indices="all", skip_digestion=False):
+    """Reading stored bond participants from the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStatesDict
+        Declared chemical-state provider; no stable hierarchy is required.
+    indices : str or list of int, default='all'
+        Ordered source positions. Atom selections restrict incident edges or,
+        for inner relationships, edges with both endpoints selected.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    list
+        Source atom-index pairs, or sorted unique atoms for bonded_atoms.
+        Empty stored connectivity returns an empty list without inference.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.native._chemical_relations import relation
+
+    return relation(item, "bond", "bonded_atom_pairs", indices)
+
+
+@arg_digest(form=form)
+def get_bonded_atoms_from_bond(item, indices="all", skip_digestion=False):
+    """Reading stored bond participants from the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStatesDict
+        Declared chemical-state provider; no stable hierarchy is required.
+    indices : str or list of int, default='all'
+        Ordered source positions. Atom selections restrict incident edges or,
+        for inner relationships, edges with both endpoints selected.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    list
+        Source atom-index pairs, or sorted unique atoms for bonded_atoms.
+        Empty stored connectivity returns an empty list without inference.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.native._chemical_relations import relation
+
+    return relation(item, "bond", "bonded_atoms", indices)
+
+
+@arg_digest(form=form)
+def get_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
+    """Reading stored bond participants from the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStatesDict
+        Declared chemical-state provider; no stable hierarchy is required.
+    indices : str or list of int, default='all'
+        Ordered source positions. Atom selections restrict incident edges or,
+        for inner relationships, edges with both endpoints selected.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    list
+        Source atom-index pairs, or sorted unique atoms for bonded_atoms.
+        Empty stored connectivity returns an empty list without inference.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.native._chemical_relations import relation
+
+    return relation(item, "atom", "bonded_atom_pairs", indices)
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
+    """Reading stored bond participants from the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStatesDict
+        Declared chemical-state provider; no stable hierarchy is required.
+    indices : str or list of int, default='all'
+        Ordered source positions. Atom selections restrict incident edges or,
+        for inner relationships, edges with both endpoints selected.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    list
+        Source atom-index pairs, or sorted unique atoms for bonded_atoms.
+        Empty stored connectivity returns an empty list without inference.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.native._chemical_relations import relation
+
+    return relation(item, "atom", "inner_bonded_atom_pairs", indices)
+
+
+@arg_digest(form=form)
+def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
+    """Reading stored bond participants from the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStatesDict
+        Declared chemical-state provider; no stable hierarchy is required.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    list
+        Source atom-index pairs, or sorted unique atoms for bonded_atoms.
+        Empty stored connectivity returns an empty list without inference.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.native._chemical_relations import relation
+
+    return relation(item, "system", "bonded_atom_pairs", "all")
+
+
+@arg_digest(form=form)
+def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
+    """Reading stored bond participants from the selected chemical state.
+
+    Parameters
+    ----------
+    item : molsysmt.ChemicalStatesDict
+        Declared chemical-state provider; no stable hierarchy is required.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    list
+        Source atom-index pairs, or sorted unique atoms for bonded_atoms.
+        Empty stored connectivity returns an empty list without inference.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.native._chemical_relations import relation
+
+    return relation(item, "system", "inner_bonded_atom_pairs", "all")
+
+
 __all__ = [name for name in globals() if name.startswith("get_")]

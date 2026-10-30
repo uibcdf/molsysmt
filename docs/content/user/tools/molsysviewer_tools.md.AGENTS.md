@@ -18,13 +18,13 @@ helpers deliberately lack digestion. Never insert the current MolSys into an
 explicit collection, promise automatic locking for caller-owned utility inputs,
 or present a returned native owner as a copied result.
 
-Preserve the received topology namespace and exact native output/state/selection
+Preserve the received chemical_states graph namespace, topology sequence namespace and exact native output/state/selection
 contracts. Graph cuts are analytical and never delete molecular bonds. Keep
 ragged quartet blocks as native lists/sets, no implicit visualization or chemistry
 preparation, and distinguish declared native skip flags from addon-only controls.
-Do not advertise unreceived topology functions or invent root aliases.
+Do not advertise unreceived tools or invent root aliases.
 
-Preserve the eleven explicitly received topology exports at the reviewed baseline,
+Preserve the eleven tools across nine chemical_states graph and two topology sequence exports,
 with optional RDKit/Biopython routes, chemistry prerequisites, search limits and
 native independent reference ownership. The native sequence/group fix is now
 received: preserve contributing source-group mapping and the declared native

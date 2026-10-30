@@ -19,13 +19,21 @@ def test_builder_declares_exactly_its_two_stored_native_components():
     expected = _declared_attributes("molsysmt.Topology") | _declared_attributes(
         "molsysmt.Structures"
     )
+    expected |= _declared_attributes("molsysmt.ChemicalStates")
+    expected.update(
+        {
+            "structure_chemical_state_index",
+            "inner_bond_index",
+            "inner_bonded_atoms",
+            "n_inner_bonds",
+        }
+    )
     observed = _declared_attributes("molsysmt.MolSysBuilder")
 
-    assert len(expected) == 97
     assert "n_explicit_hydrogens" in observed
     assert observed == expected
     assert "partial_charge" not in observed
-    assert "structure_chemical_state_index" not in observed
+    assert "structure_chemical_state_index" in observed
 
 
 def test_every_declared_builder_attribute_has_a_direct_getter():
@@ -48,7 +56,7 @@ def test_builder_composes_native_instance_presence(molsys_builder_complete):
     assert msm.has_attribute(builder, "formal_charge", include_none=True)
     assert msm.has_attribute(builder, "velocities", include_none=True)
 
-    builder.topology._set_chemical_state_atom_attribute(
+    builder.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge",
         [0, 1, 0],
     )
@@ -72,12 +80,14 @@ def test_get_reads_rich_builder_state_without_materializing_molsys(
         raise AssertionError("Direct builder getters must not call build().")
 
     builder.build = fail_if_materialized
-    builder.topology._set_chemical_state_atom_attribute(
+    builder.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge",
         [0, 1, 0],
     )
-    builder.topology._set_component_indices([0, 0, 1])
-    builder.topology.reset_components(n_components=2)
+    builder.chemical_states._set_component_indices([0, 0, 1])
+    from molsysmt.native._chemical_state import Components_DataFrame
+
+    builder.chemical_states._states[0].components = Components_DataFrame(n_components=2)
     builder.structures.velocities = puw.quantity(
         np.ones((1, 3, 3)),
         "nm/ps",

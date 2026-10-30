@@ -208,5 +208,8 @@ def test_stereo_writer_survives_optional_attribution_absence(tmp_path, monkeypat
     target = tmp_path / "without-ackredit.sdf"
     msm.convert(native, to_form=target, stereo_engine="rdkit")
     restored = msm.convert(target, stereo_engine="rdkit")
-    assert restored.topology.n_atoms == 69 and restored.topology.n_bonds == 73
+    assert (
+        restored.topology.n_atoms == 69
+        and restored.chemical_states.get(n_bonds=True) == 73
+    )
     assert sum(msm.get(restored, formal_charge=True)) == 1

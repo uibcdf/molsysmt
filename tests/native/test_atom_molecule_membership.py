@@ -21,7 +21,9 @@ def test_unknown_membership_does_not_consult_chemistry(monkeypatch):
     def forbidden(*args, **kwargs):
         pytest.fail("A stable molecule query consulted a chemical state")
 
-    monkeypatch.setattr(topology, "_resolve_reference_chemical_state", forbidden)
+    monkeypatch.setattr(
+        topology, "_resolve_reference_chemical_state", forbidden, raising=False
+    )
     assert _membership(topology) == [None, None, None]
     assert topology._atom_molecule_membership is None
 
@@ -130,9 +132,9 @@ def test_copies_own_independent_membership(copying):
 def test_state_and_component_changes_cannot_redefine_molecule_ownership():
     system = MolSys(n_atoms=3, n_molecules=1)
     system.topology.set_atom_molecules([0, 0, 0])
-    system.topology.add_bonds([[0, 1], [1, 2]])
-    system.topology.remove_bonds([0])
-    assert system.topology.n_components == 2
+    system.chemical_states.add_bonds([[0, 1], [1, 2]])
+    system.chemical_states.remove_bonds([0])
+    assert system.chemical_states.get(n_components=True) == 2
     assert _membership(system.topology) == [0, 0, 0]
     system.chemical_states.append_state()
     assert _membership(system.topology) == [0, 0, 0]
@@ -185,12 +187,22 @@ def test_declared_membership_participates_in_native_comparison():
 
 
 @pytest.mark.parametrize("conversion", ["molsysmt.TopologyDict", "molsysmt.MolSysDict"])
-def test_old_dictionary_schema_rejects_unrepresentable_membership(conversion):
+def test_dictionary_schema_02_preserves_independent_membership(conversion):
     system = MolSys(n_atoms=3, n_molecules=2)
     system.topology.set_atom_molecules([1, None, 0])
     source = system.topology if conversion == "molsysmt.TopologyDict" else system
-    with pytest.raises(ValueError, match="0.1 cannot preserve independent"):
-        msm.convert(source, to_form=conversion)
+    payload = msm.convert(source, to_form=conversion)
+    assert payload.data["version"] == "0.2"
+    restored = msm.convert(
+        payload,
+        to_form="molsysmt.Topology"
+        if conversion == "molsysmt.TopologyDict"
+        else "molsysmt.MolSys",
+    )
+    restored_topology = (
+        restored if conversion == "molsysmt.TopologyDict" else restored.topology
+    )
+    assert _membership(restored_topology) == [1, None, 0]
     assert _membership(system.topology) == [1, None, 0]
 
 
@@ -201,7 +213,7 @@ def test_builder_retains_two_declared_molecules_when_their_components_merge():
     builder = msm.MolSysBuilder(source)
     builder.add_bond(1, 2, bond_order=1, bond_type="covalent")
     result = builder.build()
-    assert result.topology.n_components == 1
+    assert result.chemical_states.get(n_components=True) == 1
     assert result.topology.n_molecules == 2
     assert _membership(result.topology) == [0, 0, 1, 1]
     assert _membership(source.topology) == [0, 0, 1, 1]

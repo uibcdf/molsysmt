@@ -894,7 +894,7 @@ def to_molsysmt_MolSys(
     tmp_item.topology.atoms["group_index"] = group_index_from_atom
     tmp_item.topology.atoms["chain_index"] = chain_index_from_atom
     if any(value is not pd.NA for value in formal_charge):
-        tmp_item.topology._set_chemical_state_atom_attribute(
+        tmp_item.chemical_states._set_chemical_state_atom_attribute(
             "formal_charge",
             pd.array(formal_charge, dtype="Int16"),
         )
@@ -943,8 +943,8 @@ def to_molsysmt_MolSys(
                 evidence="inferred",
             )
 
-    tmp_item.topology._set_chemical_state_bonds(bond_accumulator.to_dataframe())
-    reference_state = tmp_item.topology._reference_chemical_state
+    tmp_item.chemical_states._set_chemical_state_bonds(bond_accumulator.to_dataframe())
+    reference_state = tmp_item.chemical_states._resolve_chemical_state()
     reference_state.connectivity_completeness = (
         "partial"
         if bond_accumulator.has_inference or bond_accumulator.has_conflict
@@ -953,7 +953,7 @@ def to_molsysmt_MolSys(
 
     # Rebuild components
 
-    tmp_item.topology.rebuild_components(
+    tmp_item.rebuild_components(
         redefine_indices=True,
         redefine_ids=True,
         redefine_names=True,
@@ -982,10 +982,13 @@ def to_molsysmt_MolSys(
                 tmp_item.extract(atom_indices=aux_atom_indices, skip_digestion=True)
             )
 
+        from molsysmt.basic import compare
+
         comparison = []
         for ii in range(1, n_models):
-            aux = item_per_model[0].topology.compare(
-                item_per_model[ii].topology,
+            aux = compare(
+                item_per_model[0],
+                item_per_model[ii],
                 atom_id=False,
                 atom_name=True,
                 atom_type=True,

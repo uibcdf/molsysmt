@@ -164,5 +164,7 @@ def test_smiles_selection_preserves_an_intact_aromatic_component():
     )
 
     assert topology.n_atoms == 6
-    assert all(msm.get(topology, element="bond", bond_is_aromatic=True))
+    assert not hasattr(topology, "bonds")
+    complete = msm.convert(source, to_form="molsysmt.MolSys", selection=list(range(6)))
+    assert all(complete.get(element="bond", bond_is_aromatic=True))
     assert Chem.MolToSmiles(molecule) == "c1ccccc1"

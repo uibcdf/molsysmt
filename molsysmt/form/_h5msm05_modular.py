@@ -431,10 +431,9 @@ def read_complete_molsys_file(filename):
         ):
             raise ValueError("MolSys requires declared identity links for shared axes.")
 
-    result = MolSys()
-    result.topology = topology
-    result.chemical_states = states
-    result.structures = structures
+    result = MolSys._from_partial_domains(
+        topology=topology, chemical_states=states, structures=structures
+    )
     if state_key in by_key:
         indices = by_key[state_key]["indices"]
         if isinstance(indices, str):
@@ -586,8 +585,6 @@ def write_no_chemical_states_molsys_file(filename, molsys):
     structures = molsys.structures
     if topology is None and structures is None:
         raise ValueError("A molecular payload needs topology or structures.")
-    if topology is not None and topology._chemical_states_domain.n_chemical_states:
-        raise ValueError("The topology contains chemistry absent from MolSys.")
     if molsys._structure_chemical_state_indices is not None:
         raise ValueError("Structure-to-state assignments require chemical states.")
     if any(
@@ -683,10 +680,6 @@ def write_topology_chemistry_molsys_file(filename, molsys):
     ):
         raise TypeError(
             "This H5MSM route requires topology and chemistry without Structures."
-        )
-    if molsys.topology._chemical_states_domain is not molsys.chemical_states:
-        raise ValueError(
-            "Topology and MolSys disagree on the chemical-state authority."
         )
     if any(
         value is not None for value in molsys.molecular_mechanics.to_dict().values()

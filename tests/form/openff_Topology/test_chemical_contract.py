@@ -35,7 +35,9 @@ def test_openff_topology_keeps_local_duplicate_ids_and_global_indices():
     assert native.atoms["atom_id"].iloc[0] == "0"
     assert native.atoms["atom_id"].iloc[first_size] == "0"
     assert native.atoms.index.tolist() == list(range(topology.n_atoms))
-    assert msm.get(native, element="system", n_components=True) == 2
+    assert msm.get(native, element="system", n_components=True) is None
+    complete = msm.convert(topology, to_form="molsysmt.MolSys")
+    assert complete.get(n_components=True) == 2
 
 
 def test_openff_topology_delivers_complete_partial_charges():

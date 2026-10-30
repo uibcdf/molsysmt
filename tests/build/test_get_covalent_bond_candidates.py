@@ -87,7 +87,7 @@ def test_observed_hydrogen_consensus_has_literal_pairs_roles_and_detached_eviden
     np.testing.assert_array_equal(
         puw.get_value(source.structures.coordinates, to_unit="nm"), coordinates
     )
-    assert source.topology.n_bonds == 0
+    assert source.chemical_states.get(n_bonds=True) == 0
 
 
 @pytest.mark.parametrize(
@@ -154,16 +154,18 @@ def test_stored_hydrogen_edges_have_missing_masks_and_reject_type_order_conflict
     kind, order, expected
 ):
     source = _hydrogen_source(("H",))
-    source.topology.add_bonds([[0, 5]])
+    source.chemical_states.add_bonds([[0, 5]])
     msm.set(source, element="bond", bond_type=kind, bond_order=order)
-    before = source.topology.bonds.copy(deep=True)
+    before = source.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
     report = msm.build.get_covalent_bond_candidates(source, method=HYDROGEN_METHOD)
     assert report["bonded_atom_pairs"].tolist() == ([[0, 5]] if expected else [])
     if expected:
         assert report["missing_mask"].tolist() == [False]
     else:
         assert report["groups"][0]["hydrogen_coverage"]["issues"]
-    pd.testing.assert_frame_equal(source.topology.bonds, before)
+    pd.testing.assert_frame_equal(
+        source.chemical_states._resolve_chemical_state().bonds, before
+    )
 
 
 @pytest.mark.parametrize(
@@ -198,7 +200,7 @@ def test_declared_other_hydrogen_partner_blocks_candidates_including_across_grou
             ("ALA", ["N", "CA", "C", "O", "CB"], ["N", "C", "C", "O", "C"]),
         ]
     )
-    source.topology.add_bonds([[5, extra_partner]])
+    source.chemical_states.add_bonds([[5, extra_partner]])
     report = msm.build.get_covalent_bond_candidates(
         source, selection=[0, 5], method=HYDROGEN_METHOD
     )
@@ -217,7 +219,7 @@ def test_candidate_method_is_validated(method):
 
 def test_hydrogen_candidates_do_not_require_geometry_and_empty_arrays_are_typed():
     report = msm.build.get_covalent_bond_candidates(
-        _hydrogen_source(n_structures=0).topology, method=HYDROGEN_METHOD
+        _hydrogen_source(n_structures=0), method=HYDROGEN_METHOD
     )
     assert report["structure_index"] is None
     assert report["bonded_atom_pairs"].tolist() == [
@@ -276,7 +278,7 @@ def test_unknown_hydrogen_element_is_not_inferred_from_its_name():
 
 def test_aromatic_hydrogen_bond_is_not_silently_replaced_with_a_single_bond():
     source = _hydrogen_source(("H",))
-    source.topology.add_bonds([[0, 5]])
+    source.chemical_states.add_bonds([[0, 5]])
     msm.set(
         source,
         element="bond",
@@ -325,7 +327,7 @@ def test_local_parent_consensus_does_not_claim_a_joint_inventory_template():
 def test_exact_pairs_provenance_and_detached_nonmutation():
     source = _source()
     atoms = source.topology.atoms.copy(deep=True)
-    bonds = source.topology.bonds.copy(deep=True)
+    bonds = source.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
     coordinates = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
     report = msm.build.get_covalent_bond_candidates(source)
     assert report["bonded_atom_pairs"].tolist() == ALA_PAIRS
@@ -344,7 +346,9 @@ def test_exact_pairs_provenance_and_detached_nonmutation():
     report["bonded_atom_pairs"][:] = -1
     report["groups"][0]["template"]["provenance"].clear()
     pd.testing.assert_frame_equal(source.topology.atoms, atoms)
-    pd.testing.assert_frame_equal(source.topology.bonds, bonds)
+    pd.testing.assert_frame_equal(
+        source.chemical_states._resolve_chemical_state().bonds, bonds
+    )
     np.testing.assert_array_equal(
         puw.get_value(source.structures.coordinates, to_unit="nm"), coordinates
     )
@@ -352,7 +356,7 @@ def test_exact_pairs_provenance_and_detached_nonmutation():
 
 def test_existing_edges_have_an_aligned_missing_mask():
     source = _source()
-    source.topology.add_bonds([[1, 4]])
+    source.chemical_states.add_bonds([[1, 4]])
     msm.set(source, element="bond", bond_type="covalent")
     report = msm.build.get_covalent_bond_candidates(source)
     assert report["bonded_atom_pairs"].tolist() == ALA_PAIRS
@@ -416,7 +420,7 @@ def test_unsupported_or_conflicting_groups_are_explicit(name, names, elements, r
 
 def test_contradictory_stored_intragroup_edge_blocks_candidates():
     source = _source()
-    source.topology.add_bonds([[0, 4]])
+    source.chemical_states.add_bonds([[0, 4]])
     msm.set(source, element="bond", bond_type="covalent")
     report = msm.build.get_covalent_bond_candidates(source)
     assert report["bonded_atom_pairs"].shape == (0, 2)
@@ -457,7 +461,7 @@ def test_multiple_structures_require_an_explicit_index():
 
 
 def test_topology_without_structures_is_assessed_without_fabricated_geometry():
-    report = msm.build.get_covalent_bond_candidates(_source(n_structures=0).topology)
+    report = msm.build.get_covalent_bond_candidates(_source(n_structures=0))
     assert report["structure_index"] is None
     assert report["bonded_atom_pairs"].tolist() == ALA_PAIRS
 

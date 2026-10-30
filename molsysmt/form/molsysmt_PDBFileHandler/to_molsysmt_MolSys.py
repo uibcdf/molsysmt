@@ -214,10 +214,10 @@ def _get_bonded_atom_pairs_from_openmm_pdb(item):
     return output
 
 
-def _build_topology_from_content(
+def _build_domains_from_content(
     item, get_missing_bonds=True, bond_inference_engine=None
 ):
-    from molsysmt.native import Topology
+    from molsysmt.native import MolSys
 
     content = item.content
     (
@@ -228,10 +228,10 @@ def _build_topology_from_content(
         variants,
     ) = _topology_rows(content)
 
-    topology = Topology()
-    topology.reset_atoms(n_atoms=len(atom_rows))
-    topology.reset_groups(n_groups=len(group_rows))
-    topology.reset_chains(n_chains=len(chain_rows))
+    native = MolSys(
+        n_atoms=len(atom_rows), n_groups=len(group_rows), n_chains=len(chain_rows)
+    )
+    topology = native.topology
 
     if atom_rows:
         topology.atoms["atom_id"] = np.array(
@@ -272,7 +272,7 @@ def _build_topology_from_content(
 
     formal_charges = [atom.formal_charge for atom in canonical_atoms]
     if any(value is not None for value in formal_charges):
-        topology._set_chemical_state_atom_attribute(
+        native.chemical_states._set_chemical_state_atom_attribute(
             "formal_charge", pd.array(formal_charges, dtype="Int16")
         )
 
@@ -325,12 +325,13 @@ def _build_topology_from_content(
 
     if bond_evidence:
         pairs = sorted(bond_evidence)
-        topology._append_chemical_state_bonds(
+        native.chemical_states._append_chemical_state_bonds(
             pairs,
             types=["covalent"] * len(pairs),
             evidence=[bond_evidence[pair] for pair in pairs],
         )
-        topology.rebuild_molecules(force=True)
+        native.rebuild_components()
+        native.rebuild_molecules()
         topology.rebuild_chains(
             redefine_indices=False,
             redefine_ids=False,
@@ -340,14 +341,23 @@ def _build_topology_from_content(
         topology.rebuild_entities(force=True)
 
     record(
-        topology,
+        native.chemical_states,
         inference_status,
         bond_inference_engine,
         error=inference_error,
         declaration_issues=dict(unresolved=unresolved, repeated_pairs=repeated),
     )
 
-    return topology
+    return native
+
+
+def _build_topology_from_content(
+    item, get_missing_bonds=True, bond_inference_engine=None
+):
+    """Project stable inventory from the declared PDB domain reader."""
+    return _build_domains_from_content(
+        item, get_missing_bonds, bond_inference_engine
+    ).topology
 
 
 def _build_bioassemblies(content, chain_rows):
@@ -543,13 +553,11 @@ def _build_molsys_from_pdb_handler(
     item, get_missing_bonds=True, bond_inference_engine=None
 ):
     from molsysmt._private.pdb_connectivity import validate_policy
-    from molsysmt.native import MolSys
 
     validate_policy(get_missing_bonds, bond_inference_engine)
     native_inference = get_missing_bonds and bond_inference_engine == "MolSysMT"
 
-    output = MolSys()
-    output.topology = _build_topology_from_content(
+    output = _build_domains_from_content(
         item,
         get_missing_bonds=False if native_inference else get_missing_bonds,
         bond_inference_engine=None if native_inference else bond_inference_engine,

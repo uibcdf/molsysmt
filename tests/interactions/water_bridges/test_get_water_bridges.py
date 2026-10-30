@@ -159,7 +159,7 @@ def test_form_parity_named_h5_roundtrip_reorder_and_removal(form, tmp_path):
     if form == "rdkit":
         source = msm.convert(source, to_form="rdkit.Mol")
     elif form == "composite":
-        source = [source.topology, source.structures]
+        source = [source.topology, source.chemical_states, source.structures]
     elif form == "h5msm":
         source = path
     result = msm.interactions.water_bridges.get_water_bridges(source, pbc=False)

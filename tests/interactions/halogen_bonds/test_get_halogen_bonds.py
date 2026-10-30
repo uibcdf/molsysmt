@@ -167,7 +167,7 @@ def test_geometry_is_form_agnostic(form, tmp_path):
     if form == "rdkit":
         source = msm.convert(source, to_form="rdkit.Mol")
     elif form == "composite":
-        source = [source.topology, source.structures]
+        source = [source.topology, source.chemical_states, source.structures]
     elif form == "h5msm":
         path = str(tmp_path / "input.h5msm")
         msm.convert(source, to_form=path)

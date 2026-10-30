@@ -144,3 +144,20 @@ def prepare(topology, molecule_indices, atom_indices):
             "Reconcile grouped molecule declarations explicitly before changing other atoms."
         )
     return compact(candidate)
+
+
+def transport(topology, output_to_input_atom_indices):
+    """Transport stored stable ownership through an already validated atom map.
+
+    A negative source position denotes a new atom without declared ownership.
+    Repeated source positions let a caller explicitly inherit a parent's stable
+    molecule, for example when adding a terminal hydrogen. This reads no chemistry.
+    """
+    membership = stored(topology)
+    if membership is None:
+        return None
+    indices = np.asarray(output_to_input_atom_indices, dtype=np.int64)
+    known = indices >= 0
+    result = np.full(len(indices), -1, dtype=np.int64)
+    result[known] = membership[indices[known]]
+    return compact(result)

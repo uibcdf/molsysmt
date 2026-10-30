@@ -100,7 +100,7 @@ def test_bad_syntax_or_rule_is_not_silently_translated(role_system, role, argume
 
 
 @pytest.mark.parametrize("role", ["donor", "acceptor"])
-@pytest.mark.parametrize("form", ["molsysmt.Topology", "file:h5msm"])
+@pytest.mark.parametrize("form", ["molsysmt.MolSys", "file:h5msm"])
 def test_external_rules_work_with_other_supported_chemical_sources(
     role_system, role, form, tmp_path
 ):

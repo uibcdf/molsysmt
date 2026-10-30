@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 from molsysmt._private.argdigest import arg_digest
 
@@ -40,9 +41,10 @@ def to_molsysmt_MolSys(
     from molsysmt.build import get_missing_bonds as _get_missing_bonds
     from molsysmt.native import MolSys
 
-    tmp_item = MolSys()
+    tmp_item = MolSys(
+        n_atoms=item.entry.n_atoms, n_groups=item.entry.n_groups, n_chains=1
+    )
 
-    tmp_item.topology.reset_atoms(n_atoms=item.entry.n_atoms)
     tmp_item.topology.reset_groups(n_groups=item.entry.n_groups)
     tmp_item.topology.reset_chains(n_chains=1)
 
@@ -72,12 +74,14 @@ def to_molsysmt_MolSys(
     if get_missing_bonds:
         bonds = _get_missing_bonds(tmp_item)
         bonds = np.array(bonds)
-        tmp_item.topology._reset_chemical_state_bonds(n_bonds=0)
-        tmp_item.topology._append_chemical_state_bonds(bonds, sort=False)
+        tmp_item.chemical_states._set_chemical_state_bonds(
+            pd.DataFrame(columns=["atom1_index", "atom2_index"])
+        )
+        tmp_item.chemical_states._append_chemical_state_bonds(bonds, sort=False)
 
         del bonds
 
-        tmp_item.topology.rebuild_components()
+        tmp_item.rebuild_components()
         tmp_item.topology.rebuild_molecules()
         tmp_item.topology.rebuild_chains(
             redefine_indices=False,

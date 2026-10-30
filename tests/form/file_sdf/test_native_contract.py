@@ -129,9 +129,9 @@ def test_public_native_domains_and_direct_getters(source):
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
     assert isinstance(molsys, MolSys)
     assert molsys.topology.n_atoms == 5
-    assert molsys.topology.n_bonds == 3
+    assert molsys.chemical_states.get(n_bonds=True) == 3
     assert molsys.topology.n_groups == 0
-    assert molsys.topology.n_components == 2
+    assert molsys.chemical_states.get(n_components=True) == 2
     assert molsys.topology.atoms.atom_type.tolist() == ["C", "O", "O", "Na", "H"]
     assert all(isinstance(i, str) for i in molsys.topology.atoms.atom_id)
     assert msm.get(source, formal_charge=True) == [0, 0, -1, 1, 0]
@@ -302,7 +302,7 @@ def test_v3000_accepts_explicit_inactive_defaults_without_guessing_chemistry(tmp
         )
     )
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    assert molsys.topology.n_bonds == 3
+    assert molsys.chemical_states.get(n_bonds=True) == 3
     assert msm.get(molsys, formal_charge=True) == [0, 0, -1, 1, 0]
     assert not msm.has_attribute(molsys, "n_implicit_hydrogens")
     assert not msm.has_attribute(molsys, "atom_stereochemistry")
@@ -354,7 +354,7 @@ import molsysmt as msm
 molsys = msm.convert(msm.systems['caffeine']['caffeine.sdf'], to_form='molsysmt.MolSys')
 assert molsys.topology.n_atoms == 24
 msm.convert(molsys, to_form=sys.argv[1], ctfile_version='V3000')
-assert msm.convert(sys.argv[1], to_form='molsysmt.MolSys').topology.n_bonds == 25
+assert msm.convert(sys.argv[1], to_form='molsysmt.MolSys').chemical_states.get(n_bonds=True) == 25
 assert not any(name == 'rdkit' or name.startswith('rdkit.') for name in sys.modules)
 """
     result = subprocess.run(
@@ -400,7 +400,9 @@ def test_against_independent_rdkit_reader(source, tmp_path):
 def test_caffeine_keeps_source_hydrogens_and_connectivity():
     source = msm.systems["caffeine"]["caffeine.sdf"]
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    assert molsys.topology.n_atoms == 24 and molsys.topology.n_bonds == 25
+    assert (
+        molsys.topology.n_atoms == 24 and molsys.chemical_states.get(n_bonds=True) == 25
+    )
     assert sum(molsys.topology.atoms.atom_type == "H") == 10
     assert msm.get_form(Path(str(source).upper())) == "file:sdf"
 
@@ -497,17 +499,19 @@ def test_writer_rejects_stereo_and_missing_chemistry_before_opening_file(
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
     target = tmp_path / "preserved.sdf"
     target.write_text("keep existing contents")
-    molsys.topology._set_chemical_state_atom_attribute(
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "stereochemistry",
         ["R", "unspecified", "unspecified", "unspecified", "unspecified"],
     )
     with pytest.raises(FormatError, match="stereochemistry"):
         msm.convert(molsys, to_form=target)
     assert target.read_text() == "keep existing contents"
-    molsys.topology._set_chemical_state_atom_attribute(
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "stereochemistry", ["unspecified"] * 5
     )
-    molsys.topology._set_chemical_state_atom_attribute("formal_charge", [None] * 5)
+    molsys.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [None] * 5
+    )
     with pytest.raises(FormatError, match="formal charges"):
         msm.convert(molsys, to_form=target)
     assert target.read_text() == "keep existing contents"
@@ -539,7 +543,9 @@ def test_empty_record_has_defined_native_shapes_and_can_be_written(tmp_path):
         "empty\n\n\n  0  0  0  0  0  0  0  0  0  0999 V2000\nM  END\n$$$$\n"
     )
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    assert molsys.topology.n_atoms == 0 and molsys.topology.n_bonds == 0
+    assert (
+        molsys.topology.n_atoms == 0 and molsys.chemical_states.get(n_bonds=True) == 0
+    )
     assert molsys.structures.coordinates.shape == (1, 0, 3)
     assert molsys.chemical_states.n_chemical_states == 1
     target = tmp_path / "empty-v3000.sdf"
@@ -590,7 +596,7 @@ def test_copy_and_native_extract_are_available_without_source_mutation(
     selected = msm.extract(source, selection=[2, 0], to_form="molsysmt.MolSys")
     assert selected.topology.n_atoms == 2
     assert selected.topology.atoms.atom_type.tolist() == ["C", "O"]
-    assert selected.topology.n_bonds == 1
+    assert selected.chemical_states.get(n_bonds=True) == 1
     assert source.read_bytes() == original
 
 
@@ -666,7 +672,7 @@ def test_file_subset_reports_serial_reassignment_and_strictly_rejects_it(
 
 def test_writer_does_not_drop_unencodable_positive_atom_aromaticity(source, tmp_path):
     molsys = msm.convert(source, to_form="molsysmt.MolSys")
-    molsys.topology._set_chemical_state_atom_attribute(
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "is_aromatic", [True, False, False, False, False]
     )
     target = tmp_path / "unencodable.sdf"

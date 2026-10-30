@@ -2,7 +2,7 @@ form_name = "file:mol2"
 form_type = "file"
 form_info = ["", ""]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = "molsysmt.Structures"
 piped_any_attribute = "molsysmt.MolSys"
 
@@ -41,7 +41,7 @@ _convert_to = {
 }
 
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = "molsysmt.Structures"
 piped_any_attribute = "molsysmt.MolSys"
 bonds_are_explicit = True

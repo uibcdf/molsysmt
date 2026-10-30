@@ -20,7 +20,7 @@ def _case_id(record):
 
 def _native_bonds(molsys):
     bonds = []
-    for _, row in molsys.topology.bonds.iterrows():
+    for _, row in molsys.chemical_states._resolve_chemical_state().bonds.iterrows():
         aromatic = row.get("is_aromatic", pd.NA)
         order = 4 if pd.notna(aromatic) and aromatic else int(row.bond_order)
         bonds.append([int(row.atom1_index), int(row.atom2_index), order])
@@ -29,7 +29,7 @@ def _native_bonds(molsys):
 
 def _assert_assignments(molsys, record):
     assert molsys.topology.n_atoms == record["n_atoms"]
-    assert molsys.topology.n_bonds == record["n_bonds"]
+    assert molsys.chemical_states.get(n_bonds=True) == record["n_bonds"]
     assert molsys.topology.atoms.atom_type.tolist() == record["symbols"]
     assert molsys.topology.atoms.isotope.fillna(0).tolist() == record["isotopes"]
     assert msm.get(molsys, formal_charge=True) == record["formal_charges"]

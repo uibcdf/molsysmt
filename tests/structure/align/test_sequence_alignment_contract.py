@@ -425,3 +425,18 @@ def test_requested_external_syntax_is_resolved_before_sequence_projection(poses)
     np.testing.assert_allclose(
         xyz(result)[:, :n], np.tile(base[None], (3, 1, 1)), rtol=0, atol=1e-11
     )
+
+
+def test_missing_chemical_domain_rejects_before_coordinate_publication(poses):
+    query, reference, _, _ = poses
+    query = msm.convert([query.topology, query.structures], to_form="molsysmt.MolSys")
+    before = xyz(query).copy()
+    with pytest.raises(StructuralInconsistencyError, match="component membership"):
+        msm.structure.least_rmsd_align(
+            query,
+            reference_molecular_system=reference,
+            reference_structure_index=1,
+            use_gpu=False,
+            in_place=True,
+        )
+    np.testing.assert_array_equal(xyz(query), before)

@@ -228,28 +228,50 @@ sections:
         index_agents_file: docs/content/user/tools/topology/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_sequence_alignment
+            file: docs/content/user/tools/topology/get_sequence_alignment.ipynb
+            agents_file: docs/content/user/tools/topology/get_sequence_alignment.ipynb.AGENTS.md
+          - name: get_sequence_identity
+            file: docs/content/user/tools/topology/get_sequence_identity.ipynb
+            agents_file: docs/content/user/tools/topology/get_sequence_identity.ipynb.AGENTS.md
+      - name: chemical_states
+        path: docs/content/user/tools/chemical_states
+        agents_file: docs/content/user/tools/chemical_states/AGENTS.md
+        index_file: docs/content/user/tools/chemical_states/index.md
+        index_agents_file: docs/content/user/tools/chemical_states/index.AGENTS.md
+        status: in_progress
+        pages:
           - name: get_bondgraph
-            file: docs/content/user/tools/topology/get_bondgraph.ipynb
-            agents_file: docs/content/user/tools/topology/get_bondgraph.ipynb.AGENTS.md
+            file: docs/content/user/tools/chemical_states/get_bondgraph.ipynb
+            agents_file: docs/content/user/tools/chemical_states/get_bondgraph.ipynb.AGENTS.md
             description: Stored induced graphs with explicit chemical-state and structure scope and original atom indices.
           - name: get_covalent_blocks
-            file: docs/content/user/tools/topology/get_covalent_blocks.ipynb
-            agents_file: docs/content/user/tools/topology/get_covalent_blocks.ipynb.AGENTS.md
+            file: docs/content/user/tools/chemical_states/get_covalent_blocks.ipynb
+            agents_file: docs/content/user/tools/chemical_states/get_covalent_blocks.ipynb.AGENTS.md
             description: State-aware induced connectivity, explicit cuts, deterministic source-index blocks and empty selections.
           - name: get_atom_correspondences
-            file: docs/content/user/tools/topology/get_atom_correspondences.ipynb
-            agents_file: docs/content/user/tools/topology/get_atom_correspondences.ipynb.AGENTS.md
+            file: docs/content/user/tools/chemical_states/get_atom_correspondences.ipynb
+            agents_file: docs/content/user/tools/chemical_states/get_atom_correspondences.ipynb.AGENTS.md
             description: Declared-state correspondence, anchors and validated proposed maps, source axes, bounded pose geometry and attribution.
           - name: get_rotatable_bonds
-            file: docs/content/user/tools/topology/get_rotatable_bonds.md
-            agents_file: docs/content/user/tools/topology/get_rotatable_bonds.md.AGENTS.md
+            file: docs/content/user/tools/chemical_states/get_rotatable_bonds.md
+            agents_file: docs/content/user/tools/chemical_states/get_rotatable_bonds.md.AGENTS.md
             status: reviewed
           - name: get_rings
-            file: docs/content/user/tools/topology/get_rings.ipynb
-            agents_file: docs/content/user/tools/topology/get_rings.ipynb.AGENTS.md
+            file: docs/content/user/tools/chemical_states/get_rings.ipynb
+            agents_file: docs/content/user/tools/chemical_states/get_rings.ipynb.AGENTS.md
           - name: get_substructure_matches
-            file: docs/content/user/tools/topology/get_substructure_matches.ipynb
-            agents_file: docs/content/user/tools/topology/get_substructure_matches.ipynb.AGENTS.md
+            file: docs/content/user/tools/chemical_states/get_substructure_matches.ipynb
+            agents_file: docs/content/user/tools/chemical_states/get_substructure_matches.ipynb.AGENTS.md
+          - name: get_covalent_paths
+            file: docs/content/user/tools/chemical_states/get_covalent_paths.ipynb
+            agents_file: docs/content/user/tools/chemical_states/get_covalent_paths.ipynb.AGENTS.md
+          - name: get_dihedral_quartets
+            file: docs/content/user/tools/chemical_states/get_dihedral_quartets.ipynb
+            agents_file: docs/content/user/tools/chemical_states/get_dihedral_quartets.ipynb.AGENTS.md
+          - name: get_rigid_fragments
+            file: docs/content/user/tools/chemical_states/get_rigid_fragments.md
+            agents_file: docs/content/user/tools/chemical_states/get_rigid_fragments.md.AGENTS.md
       - name: structure
         path: docs/content/user/tools/structure
         agents_file: docs/content/user/tools/structure/AGENTS.md

@@ -25,14 +25,16 @@ def command(method, value):
 
 def quartets(molsys):
     return np.asarray(
-        msm.topology.get_dihedral_quartets(molsys, phi=True), dtype=np.int64
+        msm.chemical_states.get_dihedral_quartets(molsys, phi=True), dtype=np.int64
     )[:2]
 
 
 def blocks_for(molsys, q):
     return next(
         block
-        for block in msm.topology.get_covalent_blocks(molsys, remove_bonds=q[1:3])
+        for block in msm.chemical_states.get_covalent_blocks(
+            molsys, remove_bonds=q[1:3]
+        )
         if q[3] in block
     )
 

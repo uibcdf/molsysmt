@@ -1,7 +1,9 @@
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.chemical_state import resolve_chemical_state
 from molsysmt._private.lists import sorted_list_of_pairs
 from molsysmt._private.smonitor import (
     ArgumentChoiceError,
+    ArgumentError,
     NotImplementedMethodError,
 )
 from molsysmt._private.variables import is_all
@@ -9,6 +11,7 @@ from molsysmt.element.bond import bond_length_tolerance, max_expected_bond_lengt
 
 
 @arg_digest()
+@resolve_chemical_state(convert_if_missing=True)
 def get_missing_bonds(
     molecular_system,
     selection="all",
@@ -21,6 +24,10 @@ def get_missing_bonds(
     engine="MolSysMT",
     sorted=True,
     skip_digestion=False,
+    *,
+    chemical_state="reference",
+    with_templates=True,
+    with_distances=True,
 ):
     """
     Identifying candidate missing covalent bonds.
@@ -61,6 +68,16 @@ def get_missing_bonds(
         Whether to sort the returned bonded atom pairs.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    chemical_state : str or int, default='reference'
+        Existing chemical state used to exclude recorded pairs. 'structure'
+        resolves the state associated with structure_index. No state is created.
+    with_templates : bool, default=True
+        Include available intra-group template candidates. False permits only
+        enabled geometric candidates. The PyTraj engine requires both flags True.
+    with_distances : bool, default=True
+        Include geometric candidates for groups without an enabled template,
+        peptide links and optionally disulfides. False requires no coordinates.
 
     Returns
     -------
@@ -121,6 +138,12 @@ def get_missing_bonds(
     bonds = []
 
     if engine == "MolSysMT":
+        from molsysmt import pyunitwizard as puw
+
+        # The public default remains a unit-bearing string even when a trusted
+        # caller bypasses digestion. Numerical comparisons need its quantity.
+        if with_distances and isinstance(max_bond_length, str):
+            max_bond_length = puw.quantity(max_bond_length)
         from molsysmt import get, select
         from molsysmt.element.group.amino_acid import (
             get_bonded_atom_pairs as _bonds_in_amino_acid,
@@ -198,7 +221,7 @@ def get_missing_bonds(
 
             aux_bonds = None
 
-            match group_type:
+            match group_type if with_templates else None:
                 case "water":
                     aux_bonds = _bonds_in_water(atom_names, atom_indices, sorted=False)
                 case "ion":
@@ -209,14 +232,6 @@ def get_missing_bonds(
                     aux_bonds = _bonds_in_amino_acid(
                         group_name, atom_names, atom_indices, sorted=False
                     )
-                    if "C" in atom_names:
-                        aux_peptidic_bonds_C[group_index] = atom_indices[
-                            atom_names.index("C")
-                        ]
-                    if "N" in atom_names:
-                        aux_peptidic_bonds_N[group_index] = atom_indices[
-                            atom_names.index("N")
-                        ]
                 case "terminal capping":
                     aux_bonds = _bonds_in_terminal_capping(
                         group_name, atom_names, atom_indices, sorted=False
@@ -253,7 +268,16 @@ def get_missing_bonds(
                 case _:
                     aux_bonds = None
 
-            if aux_bonds is None:
+            if group_type == "amino acid":
+                if "C" in atom_names:
+                    aux_peptidic_bonds_C[group_index] = atom_indices[
+                        atom_names.index("C")
+                    ]
+                if "N" in atom_names:
+                    aux_peptidic_bonds_N[group_index] = atom_indices[
+                        atom_names.index("N")
+                    ]
+            if aux_bonds is None and with_distances:
                 aux_bonds = _bonds_in_group_without_template(
                     molecular_system,
                     atom_indices,
@@ -263,29 +287,34 @@ def get_missing_bonds(
                     group_type,
                     structure_index=structure_index,
                     max_bond_length=max_bond_length,
+                    pbc=pbc,
                     sorted=False,
                 )
 
-            bonds += aux_bonds
+            bonds += [] if aux_bonds is None else aux_bonds
 
         # peptidic bonds
 
-        aux_bonds = _get_peptidic_bonds(
-            molecular_system,
-            aux_peptidic_bonds_C,
-            aux_peptidic_bonds_N,
-            group_chains,
-            structure_index=structure_index,
-            max_bond_length=max_bond_length,
-            pbc=pbc,
-            sorted=False,
+        aux_bonds = (
+            []
+            if not with_distances
+            else _get_peptidic_bonds(
+                molecular_system,
+                aux_peptidic_bonds_C,
+                aux_peptidic_bonds_N,
+                group_chains,
+                structure_index=structure_index,
+                max_bond_length=max_bond_length,
+                pbc=pbc,
+                sorted=False,
+            )
         )
 
         bonds += aux_bonds
 
         # disulfide bonds
 
-        if disulfide_bonds:
+        if disulfide_bonds and with_distances:
             from .get_disulfide_bonds import get_disulfide_bonds
 
             aux_bonds = get_disulfide_bonds(
@@ -321,6 +350,13 @@ def get_missing_bonds(
             bonds = tmp_bonds
 
     elif engine == "pytraj":
+        if not with_templates or not with_distances:
+            raise ArgumentError(
+                "engine",
+                value=engine,
+                caller="molsysmt.build.get_missing_bonds",
+                message="PyTraj does not expose separate template and distance candidate switches.",
+            )
         from pathlib import Path
         from tempfile import TemporaryDirectory
 

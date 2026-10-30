@@ -17,8 +17,9 @@ from molsysmt.native import MolSys, Topology
 
 def _domains():
     topology = Topology(n_atoms=3)
-    topology.add_bonds([[0, 1]])
-    states = msm.convert(topology, to_form="molsysmt.ChemicalStates")
+    states = msm.ChemicalStates(n_atoms=3)
+    states.append_state()
+    states.add_bonds([[0, 1]])
     return topology, states
 
 
@@ -34,14 +35,14 @@ def test_topology_and_chemistry_roundtrip_without_structures(tmp_path):
     restored = read_topology_chemistry_molsys_file(filename)
     assert restored.structures is None
     assert restored.topology.n_atoms == 3
-    assert restored.chemical_states is restored.topology._chemical_states_domain
+    assert restored.chemical_states._molsys_owner_ref() is restored
     assert len(restored.chemical_states.get_bonds()) == 1
     assert msm.get(restored, n_atoms=True) == 3
     assert msm.get(restored, n_structures=True) is None
 
     for clone in (restored.copy(), pickle.loads(pickle.dumps(restored))):
         assert clone.structures is None
-        assert clone.chemical_states is clone.topology._chemical_states_domain
+        assert clone.chemical_states._molsys_owner_ref() is clone
         assert len(clone.chemical_states.get_bonds()) == 1
 
 
@@ -94,7 +95,7 @@ def test_real_topology_chemistry_atom_selection_without_coordinates(tmp_path, ro
     assert extracted.topology.atoms["atom_id"].tolist() == (
         source.topology.atoms.iloc[[0, 1, 4]]["atom_id"].tolist()
     )
-    assert extracted.chemical_states is extracted.topology._chemical_states_domain
+    assert extracted.chemical_states._molsys_owner_ref() is extracted
     assert extracted.chemical_states.n_atoms == 3
     source_bonds = source.chemical_states.get_bonds()
     old_to_new = {0: 0, 1: 1, 4: 2}
@@ -120,7 +121,7 @@ def test_real_topology_chemistry_atom_selection_without_coordinates(tmp_path, ro
     msm.convert(extracted, to_form="file:h5msm", output_filename=output)
     restored = msm.h5msm.read(output)
     assert restored.structures is None
-    assert restored.chemical_states is restored.topology._chemical_states_domain
+    assert restored.chemical_states._molsys_owner_ref() is restored
     assert (
         restored.topology.atoms["atom_id"].tolist()
         == extracted.topology.atoms["atom_id"].tolist()
@@ -140,7 +141,6 @@ def test_topology_chemistry_rejects_an_undeclared_structure_axis(selection):
 def test_topology_only_selection_does_not_invent_chemistry_or_structures():
     topology = Topology(n_atoms=3)
     topology.atoms["atom_id"] = ["0", "1", "2"]
-    topology._clear_chemical_states()
     system = MolSys._from_partial_domains(topology=topology)
     selected = system.extract(atom_indices=[2, 0])
     assert selected.get_n_atoms() == 2
@@ -161,7 +161,7 @@ def test_topology_chemistry_selection_preserves_multiple_states_and_metadata():
     system = MolSys._from_partial_domains(topology=topology, chemical_states=states)
     selected = system.extract(atom_indices=[2, 1])
     assert selected.structures is None
-    assert selected.chemical_states is selected.topology._chemical_states_domain
+    assert selected.chemical_states._molsys_owner_ref() is selected
     assert selected.chemical_states.n_chemical_states == 2
     assert selected.chemical_states.reference_chemical_state_index == 1
     assert [state.state_id for state in selected.chemical_states._states] == [

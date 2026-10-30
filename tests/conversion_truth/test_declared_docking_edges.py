@@ -92,27 +92,36 @@ def _assert_literal_values(result, target, variant):
         assert topology.atoms.atom_type.tolist() == (
             ["C", "O", "O", "Na", "H"] if is_sdf else ["C", "C", "O", "H"]
         )
+        if target == "molsysmt.Topology":
+            assert not hasattr(topology, "bonds")
+            assert msm.get(topology, formal_charge=True) is None
+            if is_sdf:
+                assert topology.atoms.isotope.iloc[0] == 13
+                assert topology.atoms.isotope.iloc[4] == 2
+            else:
+                assert topology.atoms.atom_id.tolist() == ["17", "3", "45", "90"]
+            return
         if is_sdf:
-            assert msm.get(topology, formal_charge=True) == [0, 0, -1, 1, 0]
+            assert msm.get(result, formal_charge=True) == [0, 0, -1, 1, 0]
             assert topology.atoms.isotope.iloc[0] == 13
             assert topology.atoms.isotope.iloc[4] == 2
             np.testing.assert_array_equal(
-                msm.get(topology, element="bond", bonded_atom_pairs=True),
+                msm.get(result, element="bond", bonded_atom_pairs=True),
                 [[0, 1], [0, 2], [0, 4]],
             )
             np.testing.assert_array_equal(
-                msm.get(topology, element="bond", bond_order=True), [2, 1, 1]
+                msm.get(result, element="bond", bond_order=True), [2, 1, 1]
             )
             if variant == "valence":
-                assert msm.get(topology, selection=[3], n_explicit_hydrogens=True) == [
-                    0
-                ]
+                assert msm.get(result, selection=[3], n_explicit_hydrogens=True) == [0]
                 assert msm.get(
-                    topology, selection=[3], allows_implicit_hydrogens=True
+                    result, selection=[3], allows_implicit_hydrogens=True
                 ) == [False]
         else:
             assert topology.atoms.atom_id.tolist() == ["17", "3", "45", "90"]
-            assert topology.n_bonds == (1 if variant == "ligand" else 0)
+            assert result.chemical_states.get(n_bonds=True) == (
+                1 if variant == "ligand" else 0
+            )
             assert msm.get(topology, formal_charge=True) is None
             assert not msm.has_attribute(topology, "formal_charge")
     if target in {"molsysmt.Structures", "molsysmt.MolSys"}:

@@ -528,7 +528,8 @@ def test_append_to_zero_frame_and_unknown_atom_axis(tmp_path):
 
 
 def test_topology_free_append_keeps_atom_link_and_extends_state_map(tmp_path):
-    states = msm.convert(Topology(n_atoms=2), to_form="molsysmt.ChemicalStates")
+    states = msm.ChemicalStates(n_atoms=2)
+    states.append_state()
     atom_link = {
         "axis": "atom",
         "source": "structures",

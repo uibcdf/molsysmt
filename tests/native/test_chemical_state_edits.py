@@ -257,7 +257,7 @@ def test_explicit_stable_context_does_not_read_or_modify_topology_chemistry(
         "_resolve_chemical_state",
         "_get_chemical_state_bonds",
     ):
-        monkeypatch.setattr(topology, name, forbidden)
+        monkeypatch.setattr(topology, name, forbidden, raising=False)
     states.rebuild_components(chemical_state=1, topology=topology)
     assert states._states[1].components.component_type.tolist() == ["peptide", "water"]
     assert states._states[1].components.component_name.tolist() == [

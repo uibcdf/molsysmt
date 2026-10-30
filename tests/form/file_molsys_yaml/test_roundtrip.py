@@ -55,8 +55,10 @@ def test_molsys_yaml_preserves_declared_builder_truth(builder_pdb_molsys, tmp_pa
         "protein 0",
         "water",
     ]
-    assert rebuilt.topology.bonds[["atom1_index", "atom2_index"]].values.tolist() == (
-        builder_pdb_molsys.topology.bonds[
-            ["atom1_index", "atom2_index"]
-        ].values.tolist()
+    assert rebuilt.chemical_states._resolve_chemical_state().bonds[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == (
+        builder_pdb_molsys.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .values.tolist()
     )

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "profile": "resident-files-v11",
+  "profile": "resident-files-v12",
   "source_forms": [
     "molsysmt.MolSys",
     "molsysmt.Topology",
@@ -890,5 +890,55 @@
         "string:uniprot_id"
       ]
     }
-  }
+  },
+  "explicit_edges": [
+    [
+      "file:fasta",
+      "molsysmt.MolSys"
+    ],
+    [
+      "file:smi",
+      "molsysmt.MolSys"
+    ],
+    [
+      "file:topology_yaml",
+      "molsysmt.MolSys"
+    ],
+    [
+      "openmm.AmberPrmtopFile",
+      "molsysmt.MolSys"
+    ],
+    [
+      "openmm.CharmmPsfFile",
+      "molsysmt.MolSys"
+    ],
+    [
+      "openmm.GromacsTopFile",
+      "molsysmt.MolSys"
+    ],
+    [
+      "pytraj.Topology",
+      "molsysmt.MolSys"
+    ],
+    [
+      "string:amino_acids_1",
+      "molsysmt.Topology"
+    ],
+    [
+      "string:amino_acids_1",
+      "molsysmt.MolSys"
+    ],
+    [
+      "string:amino_acids_3",
+      "molsysmt.Topology"
+    ],
+    [
+      "string:amino_acids_3",
+      "molsysmt.MolSys"
+    ],
+    [
+      "string:smiles",
+      "molsysmt.MolSys"
+    ]
+  ]
 }
