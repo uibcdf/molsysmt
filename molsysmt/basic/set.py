@@ -144,7 +144,7 @@ def set(
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys = msm.convert('181L')
+    >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.pdb'])
     >>> msm.basic.get(molsys, element='group', selection='group_index==30', group_name=True)
     ['HIS']
     >>> msm.basic.set(molsys, selection='group_index==30', group_name='HSD')

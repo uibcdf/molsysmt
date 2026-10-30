@@ -661,70 +661,70 @@ changes to scientific scope or compatibility promises need an explicit decision.
 
 ### P1: meaningful guards before refactoring
 
-- [ ] P1.1 Characterize existing scientific outputs and supported completeness/participation policies with independent expectations; retain original controls.
+- [x] P1.1 Characterize existing scientific outputs and supported completeness/participation policies with independent expectations; retain original controls.
 - [x] P1.2 Add initial target guards for pure Topology, absent/zero/unknown/complete chemistry and standalone state-only operations. Copy guards reject chemical traversal regardless of the private attribute name. Targets remain intentionally failing until implemented.
 - [x] P1.3 Add two-state controls with different bond/component counts, ambiguous reference, structure associations, nonconsecutive indices and failed resolution without source mutation. These define expectations, not passing delivery evidence.
-- [ ] P1.4 Freeze lifecycle/codec/consumer examples to port, including group-free molecules, FASTA groups and new managed-prefix composition.
+- [x] P1.4 Freeze lifecycle/codec/consumer examples to port, including group-free molecules, FASTA groups and new managed-prefix composition.
 
 Exit: recorded baseline plus intentionally failing target tests, with causes and
 scope explained. Intentional pre-implementation failures are not a passing gate.
 
 ### P2: complete native chemical authority
 
-- [ ] P2.1 Move state storage, bond/component table schemas, coercion, validation, concatenation and remapping to native chemical ownership; remove circular imports from ChemicalStates into Topology's chemical implementation.
-- [ ] P2.2 Provide supported state-aware bond/component editing, reference handling and rebuild operations; preserve completeness, evidence, dtypes, string IDs and histories.
-- [ ] P2.3 Make Topology constructor/copy/compare/reset/extract operate on stable inventory; remove state proxies, chemical counters and mutation methods.
-- [ ] P2.4 Preserve component inference policy and explicit stable-context labeling; separate initial molecule inference from later state changes.
+- [x] P2.1 Move state storage, bond/component table schemas, coercion, validation, concatenation and remapping to native chemical ownership; remove circular imports from ChemicalStates into Topology's chemical implementation.
+- [x] P2.2 Provide supported state-aware bond/component editing, reference handling and rebuild operations; preserve completeness, evidence, dtypes, string IDs and histories.
+- [x] P2.3 Make Topology constructor/copy/compare/reset/extract operate on stable inventory; remove state proxies, chemical counters and mutation methods.
+- [x] P2.4 Preserve component inference policy and explicit stable-context labeling; separate initial molecule inference from later state changes.
 
 Exit: native guards demonstrate independent authorities, no chemistry recovery
 through an attached Topology, and proper handling of unavailable/ambiguous states.
 
 ### P3: basic/native queries and form contracts
 
-- [ ] P3.1 Replace Topology-scoped chemical-state resolution with chemical-domain resolution and correct state-local index validation.
-- [ ] P3.2 Complete ChemicalStates/ChemicalStatesDict get/set/select/has_attribute routes actually supported by their data, and native get/info delivery without universal reconstruction.
-- [ ] P3.3 Route MolSys mixed queries through the right domains; remove chemical capabilities from pure native Topology/its latest dictionary schema and review legacy adapters separately.
-- [ ] P3.4 Audit the attribute catalogue, element/component helpers, piping, selection engines, count helpers and native provider; preserve missing-field and empty-selection semantics.
+- [x] P3.1 Replace Topology-scoped chemical-state resolution with chemical-domain resolution and correct state-local index validation.
+- [x] P3.2 Complete ChemicalStates/ChemicalStatesDict get/set/select/has_attribute routes actually supported by their data, and native get/info delivery without universal reconstruction.
+- [x] P3.3 Route MolSys mixed queries through the right domains; remove chemical capabilities from pure native Topology/its latest dictionary schema and review legacy adapters separately.
+- [x] P3.4 Audit the attribute catalogue, element/component helpers, piping, selection engines, count helpers and native provider; preserve missing-field and empty-selection semantics.
 
 Exit: equivalent supported basic/native/form queries return independent expected
 values; no declared attribute passes only because a placeholder route exists.
 
 ### P4: coordinated builders and lifecycle
 
-- [ ] P4.1 Give MolSysBuilder its own chemical collection, retain multi-state inputs and explicit working-state edits, and publish all atom-axis growth transactionally.
-- [ ] P4.2 Decouple MolSys topology/chemistry setters; preserve explicit associations and safe owner binding/replacement.
-- [ ] P4.3 Port copy, extraction, remove, permutation, addition/merge, managed-prefix growth and structure append to shared maps and explicit state-alignment policies.
-- [ ] P4.4 Preserve current named-analysis invalidation and stale-reference handling through native/public edits; rejection must leave every domain coherent.
+- [x] P4.1 Give MolSysBuilder its own chemical collection, retain multi-state inputs and explicit working-state edits, and publish all atom-axis growth transactionally.
+- [x] P4.2 Decouple MolSys topology/chemistry setters; preserve explicit associations and safe owner binding/replacement.
+- [x] P4.3 Port copy, extraction, remove, permutation, addition/merge, managed-prefix growth and structure append to shared maps and explicit state-alignment policies.
+- [x] P4.4 Preserve current named-analysis invalidation and stale-reference handling through native/public edits; rejection must leave every domain coherent.
 
 Exit: original source remains unchanged for copy-producing operations; supported
 edits preserve all relevant domains and unsupported edits fail before publication.
 
 ### P5: chemical_states functional module
 
-- [ ] P5.1 Register lazy lowercase module, move all nine public tools and their owning graph helpers, and update internal callers.
-- [ ] P5.2 Normalize state selection once; add explicit state/structure arguments to paths/quartets with validated skip_digestion and compatible positional conventions.
-- [ ] P5.3 Update scientific attribution/diagnostic callers, dependency metadata, API stability registry/waivers and addon inventory without changing scientific profiles.
-- [ ] P5.4 Qualify form parity, state-only prerequisites, finite/empty results, selected source indices and reuse of compiled kernels. Keep sequence tools and chains in topology.
+- [x] P5.1 Register lazy lowercase module, move all nine public tools and their owning graph helpers, and update internal callers.
+- [x] P5.2 Normalize state selection once; add explicit state/structure arguments to paths/quartets with validated skip_digestion and compatible positional conventions.
+- [x] P5.3 Update scientific attribution/diagnostic callers, dependency metadata, API stability registry/waivers and addon inventory without changing scientific profiles.
+- [x] P5.4 Qualify form parity, state-only prerequisites, finite/empty results, selected source indices and reuse of compiled kernels. Keep sequence tools and chains in topology.
 
 Exit: canonical new APIs reproduce admitted science and resolve the selected
 state, with no accidental reference fallback or source mutation.
 
 ### P6: producers, conversions and persistence
 
-- [ ] P6.1 Port native/form producers including PDB/mmCIF, SDF/PDBQT, RDKit, MDTraj, OpenMM and supported other engines; retain declared versus inferred/unknown chemistry.
-- [ ] P6.2 Implement explicit Topology projections, complete MolSys assembly and partial-domain composition, including honest conversion reports and strict-loss behavior.
-- [ ] P6.3 Version dictionary writers/readers and typed JSON transport; preserve old payload reading without chemical Topology intermediates or silent losses.
-- [ ] P6.4 Qualify H5MSM 0.5 optional layers, associations and analyses; 0.3/0.4 warnings/migration; preparation history, units and agreed pickle restoration/migration.
+- [x] P6.1 Port native/form producers including PDB/mmCIF, SDF/PDBQT, RDKit, MDTraj, OpenMM and supported other engines; retain declared versus inferred/unknown chemistry.
+- [x] P6.2 Implement explicit Topology projections, complete MolSys assembly and partial-domain composition, including honest conversion reports and strict-loss behavior.
+- [x] P6.3 Version dictionary writers/readers and typed JSON transport; preserve old payload reading without chemical Topology intermediates or silent losses.
+- [x] P6.4 Qualify H5MSM 0.5 optional layers, associations and analyses; 0.3/0.4 warnings/migration; preparation history, units and agreed pickle restoration/migration.
 
 Exit: supported full/partial native and file round trips preserve expected data,
 absence and source maps; malformed/unsupported payloads fail clearly and safely.
 
 ### P7: documentation, instructions and client receiving
 
-- [ ] P7.1 Update CORE_SPECIFICATION, native/query/conversion/invalidation guidance, API references, User Guide Foundations/Toolbox/Cookbook and affected Four Paths modules; execute changed examples.
-- [ ] P7.2 Update owned AGENTS instructions for the new domain boundary and native dependencies. Shared synchronized guides stay read-only; request changes in their provider if needed.
+- [x] P7.1 Update CORE_SPECIFICATION, native/query/conversion/invalidation guidance, API references, User Guide Foundations/Toolbox/Cookbook and affected Four Paths modules; execute changed examples.
+- [x] P7.2 Update owned AGENTS instructions for the new domain boundary and native dependencies. Shared synchronized guides stay read-only; request changes in their provider if needed.
 - [ ] P7.3 Publish a migration map and deliver consumer handoffs; receive MolSysViewer loaders/addon, DockingMT torsion/correspondence and PharmacophoreMT graph callers, and check TopoMT beyond a simple text search.
-- [ ] P7.4 Record exact old/new consumer/provider sources, required routes and pending package availability; preserve unrelated dirty/divergent sibling worktrees and historical evidence.
+- [x] P7.4 Record exact old/new consumer/provider sources, required routes and pending package availability; preserve unrelated dirty/divergent sibling worktrees and historical evidence.
 
 Exit: no current documentation describes the old facade as the target model;
 client source receiving is identified and tested, or a specific unresolved impact
@@ -733,8 +733,8 @@ keeps this phase open. Source receiving is not installed/public qualification.
 ### P8: integration, merge and source closeout
 
 - [ ] P8.1 Run the relevant and full required source tests using the shared Python 3.14 environment and Pytest Receptor, with concurrency bounded by available memory (two workers after the maintainer-authorized memory pause on 2026-10-30); complete Ruff and API/form/dependency/devguide/documentation gates.
-- [ ] P8.2 Compare representative scientific values and source/index/units/provenance independently; execute strict documentation and changed notebook/doctest examples.
-- [ ] P8.3 Measure representative native query/copy and file/streaming workloads after correctness. Record inputs/environment; reject accidental full trajectory loads, repeated chemistry copies or unbounded scans.
+- [x] P8.2 Compare representative scientific values and source/index/units/provenance independently; execute strict documentation and changed notebook/doctest examples. The dated receipts qualify the actual scientific and documentation scopes; they do not clear the separate full-suite/client gate.
+- [x] P8.3 Measure representative native query/copy and file/streaming workloads after correctness. Record inputs/environment; reject accidental full trajectory loads, repeated chemistry copies or unbounded scans. C7's recorded target is a content-hashed development tree, not an exact-commit release benchmark; its slower cases and private-codec scope remain explicit.
 - [ ] P8.4 Merge the coherent result using the authorized local route, publish an unskipped head, inspect exact-source CI with GH Run Receptor and record any missing evidence. No force/reset or PR requirement is introduced here.
 - [ ] P8.5 Place final rules in maintained normative guidance, select an actual mechanically addressable regression guard, archive this plan and close #255 with the implementation commit and settled limitations.
 
@@ -2567,3 +2567,91 @@ failed evidence; focused passes do not turn them into a full-suite pass. No main
 merge, tag, package build/promotion or release is authorized by this checkpoint.
 The original four unrelated autosummary edits and existing Rust binary retain
 their recorded hashes and are excluded from the implementation staging set.
+
+### Published implementation and active final gate — 2026-10-30
+
+The coherent implementation is committed and published as
+`7b983af32ac4efcc3adb7c4c0617a38957ecc41e` on
+`dev/chemical-states-separation-255`. Its staging set excluded the four original
+unrelated autosummary edits; only those remained dirty after the commit. The
+implementation work items P1–P6 and the executed documentation/instruction
+items are now checked against the layered receipts above. This does not complete
+the separate integrated/runtime/client gates in P7.3/P8 or close #255.
+
+The expanded run 105 is executing 24,817 cases on the frozen implementation,
+including `tests`, `devtools/tests`, basic/chemical_states and changed public
+native/CIP/site/RDKit docstrings. It uses two workers, Agg and repository-disk
+scratch. Its final result is not available at this checkpoint. No source/test
+file or Git head is changed while that run is active.
+
+Exact-commit CI evidence:
+
+- Developer-guide integrity run 41119833552: success.
+- Ruff run 41120916409: success; GH Run Receptor identifies one executed lint job.
+- MolSysSuite policy run 41120917282: success. The generic receptor renders no
+  job detail; native GitHub job/step inspection confirms the executed conformance,
+  lint/import and formatting checks. Optional admission-data steps are skipped,
+  not represented as executed checks.
+
+Runtime CI defaults target main/pull requests; these administrative/lint results
+are not a hosted Python full-suite pass. The controlled full matrix also needs
+an identified compatible Viewer source. No incompatible installed-pair matrix,
+main integration or publication is inferred from the development push.
+
+The immutable source/migration handoff is delivered to the existing suite and
+consumer receiving issues. The demonstrated Viewer handoff is
+[uibcdf/molsysviewer#269](https://github.com/uibcdf/molsysviewer/issues/269#issuecomment-6532347944).
+Receiving must preserve unknown hierarchy membership, explicit chemical-state
+choice and retry-after-scene-failure behavior. No sibling runtime source was
+edited, no new package floor was advertised, and the receiving gate stays open.
+
+
+### Completed expanded source gate and remaining receiving — 2026-10-30
+
+Run 105 completed on implementation commit
+`7b983af32ac4efcc3adb7c4c0617a38957ecc41e`: **24,789 passed, 26 failed,
+zero errors and two skipped**, exit 1, 3,127.44 seconds. Its selection includes
+`tests`, `devtools/tests` and the selected changed public doctest modules named
+in the preceding receipt. Pytest Receptor's complete report and native JUnit were
+retained before the next run. This is failed global evidence, not an all-tests-pass
+claim.
+
+The complete failure inventory has only these observed categories:
+
+- Eleven cases reach `molsysviewer/active_selection.py:253`, where unknown
+  hierarchy membership is passed to `int(None)`.
+- Thirteen cases reach `molsysviewer/loaders/array_native_molsys.py:122`, directly
+  or through the expected scene-retry wrapper, where the removed
+  `molsys.topology.bonds` facade is still accessed.
+- One explicitly network-marked sequence-alignment test and the `set()` doctest
+  fail because DNS cannot resolve their PDB download hosts. These are separate
+  from the independent-domain failures.
+
+All 24 Viewer failures are the same failed nodes already observed in complete
+addon run 93. Its six provider/test-fixture failures no longer appear. No other
+provider failure was demonstrated by this completed selection. This observation
+neither certifies unexecuted routes nor waives the active receiving guards.
+
+The `set()` example now reads the bundled `181l.pdb` rather than downloading it;
+its exact HIS-to-HSD expectations are unchanged. The explicitly network-marked
+alignment test was kept intact and repeated with network access. Run 106 passes
+**four cases**, exit 0, 8.22 seconds: all three sequence-alignment tests plus the
+updated `set()` doctest. This scoped pass resolves the two observed download
+failures without relabeling run 105 or adding the two runs' counts together.
+Ruff lint/format and whitespace checks pass for the example change.
+
+The Viewer checkout advanced from the previously observed
+`b787edf7190795587bf671bf8cb98ae53289f8db` to
+`2d68383734391751df0ad89905f50567370dd2c0` during this source run. The two reported
+receiving files retain their observed bytes; the Python runtime delta is in
+experimental standalone Qt chrome, with frontend Help changes also present.
+Consequently run 105 is not advertised as qualification of one immutable complete
+consumer/provider pair. Receiving requires an identified compatible consumer and
+its actual checks; unrelated local work was preserved throughout.
+
+P1–P6 implementation, the executed P7 documentation/instructions and the recorded
+P8 scientific/documentation/benchmark scopes are complete. **P7.3 and the global
+P8.1 gate remain open** for the receiving failures. Main integration and release
+work are outside the current no-merge/no-release development objective. The final
+archive/closure must wait for the remaining accepted source gates and an explicit
+receiving disposition; no Topology chemical compatibility facade is restored.
