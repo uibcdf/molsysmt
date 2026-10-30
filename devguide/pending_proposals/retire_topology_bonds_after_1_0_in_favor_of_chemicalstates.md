@@ -229,8 +229,8 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P4: builder and lifecycle | P2, P3 | MolSys/Builder authority, stable membership, shared-axis remapping, copies, partial composition and analysis invalidation implemented and contract-tested | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Nine graph APIs, helpers, addon namespace, argument and scientific-attribution metadata migrated; graph controls pass; final integrated qualification pending | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Producers, Topology projections, dictionary 0.2, typed transports and H5MSM/legacy readers migrated; scoped fidelity debt explicitly retained; final integrated qualification pending | Versioned payloads, legacy readers, partial and full round trips |
-| P7: docs and consumer receiving | P5, P6 | Core/native/user/course/migration documentation updated and changed examples executed; strict Sphinx and real consumer receiving in progress | Lifecycle docs and immutable consumer receipts |
-| P8: integrated source closeout | P1-P7 | Complete diagnostic run executed; corrective focused gates pass; final broad tests, remaining bounded-read checks, coherent source publication and receiving still open | Exact-source checks, published implementation and issue receipt |
+| P7: docs and consumer receiving | P5, P6 | Provider documentation, changed examples and strict Sphinx pass; Viewer core/addon source receiving passes with identified commits; hosted/installed qualification and the other three client receipts remain pending | Lifecycle docs and immutable consumer receipts |
+| P8: integrated source closeout | P1-P7 | Implementation and qualification receipts published; expanded source run executed with isolated consumer/download failures; Viewer corrective scopes pass; hosted/runtime and other client dispositions, main integration and lifecycle closeout remain open | Exact-source checks, published implementation and issue receipt |
 
 Documentation work can accompany each implementation phase. Independent execution
 may overlap, but dependent phases cannot claim their exits early. The final
@@ -2655,3 +2655,160 @@ P8.1 gate remain open** for the receiving failures. Main integration and release
 work are outside the current no-merge/no-release development objective. The final
 archive/closure must wait for the remaining accepted source gates and an explicit
 receiving disposition; no Topology chemical compatibility facade is restored.
+
+
+### Authorized Viewer receiving and remaining-work review — 2026-10-30
+
+The maintainer explicitly authorized correcting the two demonstrated Viewer
+receiving areas directly. The initial Viewer source is
+`2d68383734391751df0ad89905f50567370dd2c0`; the reviewed receiving commit is
+`8aff97e98d4e37f2ff2331080a0919d4de4d19ae`. Provider source remains
+`97f6b58ff6096750a955459c58bdff67c325aae7` with no runtime changes. The four
+unrelated provider autosummary edits, nine prior Viewer working files and the
+existing compiled backend are preserved.
+
+JSON and array-native serializers now read independent ChemicalStates with
+`chemical_state='reference'`. They honor a nonzero reference, reject ambiguity
+and preserve absent/zero/unknown/complete-empty chemistry without inference.
+This remains a static reference-state projection, not per-structure chemical
+state switching. Active selection retains ordered, deduplicated atom indices;
+unavailable hierarchy levels and missing memberships contribute no false
+metadata indices. An empty state collection supplies no component metadata.
+
+New guards were first demonstrated failing for the actual causes: run 108 has
+16 failed and one passed case, with only the old Topology bond access and
+nullable metadata conversion as causes. Initial invalid fixture constructions
+in run 107 were corrected, not treated as provider defects. Run 110 passes
+46 loader/selection cases. The broader run 111 completed with 3,318 passed,
+14 ordinary failures, one worker-crash error and 23 skipped in native JUnit
+(the receptor reports 15 failed), exit 1. It exposed seven obsolete consumer
+fixture assumptions, seven Chrome socket-path failures and one experimental
+Qt-window crash. It is diagnostic evidence, not a passing core Python source gate.
+
+The consumer fixtures now use coordinated molecular removal for structure/state/
+analysis remapping, with the older provider-signature route retained only in a
+test helper. Coordinate-only append is declared explicitly after intentional
+stable-label changes. Positive chain-composition fixtures explicitly assign their
+one chain; unknown-membership tests remain separate. Complete complementary
+composition includes ChemicalStates, rather than recovering it from Topology.
+Scientific/scene/index assertions were retained. No provider invariant was relaxed.
+
+Run 112 passes 153 of 154 cases, including all seven actual Chrome export checks
+using a managed short temporary directory; the final obsolete complementary-input
+fixture was then corrected. Run 113 passes all 76 composition/loader/selection
+cases. These scopes overlap and are not summed. A bounded legacy-source control
+(run 115) passes 17 cases against archived provider `451b914`; its nullable
+selection unit guards suspend scene history explicitly to avoid that historical
+provider's separately observed chain-label projection defect. It does not certify
+legacy history, the current scientific add-on, installed artifacts or a package
+floor. The corrected provider's normal-history integration guards remain active.
+
+Whole-tree Viewer Ruff lint/format passes (940 files), queue indexes and whitespace
+checks pass, and strict Viewer Sphinx 116 passes with warning-as-error and no
+suppressed warning class. Core Python source run 116 uses the official
+`not qt_runtime` selection (3,342 cases), two workers, actual Chrome export checks
+and a managed short browser temporary directory. Its final result is pending at
+this receipt; the provider-owned complete add-on rerun also remains to execute.
+Large test outputs remain on repository disk.
+
+The remaining-client review uses refreshed remote sources without checking out,
+rebasing or modifying the unrelated clients:
+
+| Client / inspected remote source | Verified remaining work |
+| --- | --- |
+| DockingMT `51b2232b95f141f3ffe36a0057812ecdb6b10b1e` | Runtime preparation still calls `msm.topology.get_rotatable_bonds` and `get_rigid_fragments`; its maintained qualification tools and chemical-state fixtures also retain old graph/facade references. Receiving remains `uibcdf/dockingmt#56`. |
+| PharmacophoreMT `a9abeb9347e75c3f2e3f13877f9ad69f06cbbee2` | The maintained ERalpha diagnostic still calls `msm.topology.get_substructure_matches`. Its published 22-case baseline predates the cutover; indirect state/axis/copy/persistence receiving remains `uibcdf/pharmacophoremt#69`. |
+| TopoMT `0f82d5adfae73ae24846f713ab5bf62782a4f1ad` | No literal chemical-Topology references were found in the bounded Python scan. Actual native/domain/geometry receiving is still unqualified under `uibcdf/topomt#100`; text absence is not a pass. |
+
+The three issues remain open without a compatible cutover receiving result. Viewer
+also retains its explicitly dated historical Studio snapshot and quarantined code;
+these must not be confused with current runtime calls. Its new operational receiving
+guide and namespace note distinguish the nine current chemical graph tools from
+the older snapshot. No future published dependency version is invented.
+
+No additional ownership/dispatch implementation gap was demonstrated by this
+review. A separate diagnostic improvement is recorded in
+[uibcdf/molsysmt#525](https://github.com/uibcdf/molsysmt/issues/525): PDB export
+of unknown atom-to-chain membership leaks a raw nullable-index TypeError. Its
+supported projection or prerequisite diagnostic needs an explicit decision;
+correcting the positive Viewer fixture does not resolve that observation. No
+chain assignment or new format policy was invented during receiving.
+Remaining closure work is the executed consumer gates, required source qualification,
+explicit receiving dispositions for the three clients, eventual separately authorized
+main integration and the plan/issue archive. Installed-package/platform release
+qualification remains separately owned by #254/#334; this receiving work authorizes
+no package build/promotion, tag or Release.
+
+
+### Completed Viewer source receiving and final review — 2026-10-30
+
+Viewer core run 116 completes with **3,321 passed, 21 skipped, zero failures/errors**,
+exit 0, 294.46 seconds. Fourteen experimental `qt_runtime` cases are deselected
+by the same principal lane used in Viewer CI; they are not represented as passes.
+Actual Chrome export tests execute. Strict Viewer Sphinx also completes exit 0.
+The provider-owned complete addon run 117 passes **2,453/2,453**, zero failures,
+errors or skips, exit 0, 322.68 seconds. Every one of the 24 failed Viewer node
+identities in expanded source run 105 is present and passed in that rerun.
+The independent scopes are not summed, and run 105 remains failed historical
+evidence rather than being relabeled as a clean global run.
+
+The authorized Viewer runtime/guard/documentation commit
+`8aff97e98d4e37f2ff2331080a0919d4de4d19ae` is published on Viewer main. The
+follow-up `ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352` changes only test fixtures
+and their helper, with production Python/frontend bytes unchanged from that
+commit. It passes **106 current-provider cases** (run 121, exit 0, 13.21 seconds)
+and **23 cases against source 46ef28e** (run 120, exit 0, 14.32 seconds). The latter
+uses the shared development backend and Pandas 2.3.3, not an installed 0.23.0
+artifact or a full legacy-provider certificate.
+
+A correction to the initial receiving helper is important: public source
+`46ef28eb60a258aa77d82ff1bc39ee0d1591e3c9` accepts `in_place=True` in remove but
+returns an independent result and leaves the original structure count unchanged.
+The signature alone therefore did not demonstrate in-place capability. The
+helper now consumes that actual return contract, without swallowing a provider
+failure. Native partial fixtures are constructed directly rather than requiring
+new converters from the old provider. Full complementary-input fixtures query
+whether Topology actually delivers chemistry before choosing the old two-domain
+or new three-domain input. Their independent atom, structure, owner, coordinate,
+state and scene-map expectations remain unchanged.
+
+The exact-source receiving notice and its limits are delivered to
+[uibcdf/molsysviewer#269](https://github.com/uibcdf/molsysviewer/issues/269#issuecomment-6534914969).
+Viewer whole-tree Ruff and published policy controls pass. The follow-up's hosted
+runtime matrix (41138522008) is still pending; no hosted full pass or installed
+qualification is claimed. The previous 8aff CI has nine fixture failures corrected
+by the follow-up and three strict documentation failures from public MolSysMT
+0.23.0 with Pandas 3.1.0. That observed dependency context is recorded in
+[uibcdf/molsysmt#524](https://github.com/uibcdf/molsysmt/issues/524#issuecomment-6534915261).
+Local qualification uses Pandas 2.3.3. No warning filter, speculative dependency
+bound, environment upgrade or replacement public artifact was introduced.
+
+GH Run Receptor 1.1.1 is used for initial run inspection. Its unsupported job
+selector is not treated as a CI verdict; the exact completed job is inspected
+through native GitHub metadata/log fallback, with local raw ANSI output sanitized
+before bounded failure inspection. The newer guide's job capability is not
+claimed for the installed tool version.
+
+Original unrelated provider edits and Viewer work remain excluded from these
+commits. Additional frontend work appeared independently after the main receiving
+run and was neither staged nor reverted; this receipt does not certify that
+uncommitted frontend. MolSysMT main, package coordinates, tags and Releases are
+unchanged.
+
+**What remains:**
+
+1. Receive the concrete DockingMT and PharmacophoreMT callers and qualify TopoMT's
+   actual native/domain usage under their existing owning issues. Their open
+   state is not erased by the now-passing Viewer path.
+2. Complete the required final provider source/controlled-CI disposition with
+   identified receiving sources. A conclusive fresh all-source gate, when required
+   for final integration, must execute; the failed global run is not silently
+   converted into that result by the passing corrective selections.
+3. Resolve or explicitly disposition the separate partial-PDB diagnostic #525 and
+   the public-package/Pandas qualification observation in #524. These do not
+   require redesigning chemical ownership or adding a scientific algorithm.
+4. Perform eventual separately authorized MolSysMT-main integration, archive this
+   plan and close #255 with its real guard/receiving evidence. The current objective
+   explicitly excludes that merge and all release actions.
+5. Qualify exact installed candidates and the declared platform/Python matrix under
+   #254/#334 before publication. Source receiving is not a package or 1.0 release.
