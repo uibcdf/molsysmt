@@ -18,9 +18,10 @@ supersedes: []
 **Maintainer decision:** 2026-10-28.
 **Implementation status:** In progress on `dev/chemical-states-separation-255`.
 The source cutover now separates native storage, queries, builders, graph tools
-and persistence. Qualification is still in progress: remaining consumers,
-scientific/documentation regressions, representative benchmarks and exact-source
-integration gates must pass before closeout. The dated receipts below distinguish
+and persistence. Consumer receiving is delivered through owner-reviewed drafts;
+complete source qualification remains open, including the concrete Pandas 3.1
+failures in #526. The dated scientific, documentation and benchmark scopes below
+remain separate from final exact-source/client acceptance. The dated receipts below distinguish
 executed controls from pending work. No main merge or release is authorized by
 this execution.
 
@@ -2716,7 +2717,7 @@ rebasing or modifying the unrelated clients:
 
 | Client / inspected remote source | Verified remaining work |
 | --- | --- |
-| DockingMT `51b2232b95f141f3ffe36a0057812ecdb6b10b1e` | Runtime preparation still calls `msm.topology.get_rotatable_bonds` and `get_rigid_fragments`; its maintained qualification tools and chemical-state fixtures also retain old graph/facade references. Receiving remains `uibcdf/dockingmt#56`. |
+| DockingMT `51b2232b95f141f3ffe36a0057812ecdb6b10b1e` | Four production graph calls remain in the inspected base: torsion classification, retained connectivity, rigid fragments and symmetry correspondences; its qualification helpers and state fixtures also require receiving. The earlier two-name scan was incomplete. Receiving remains `uibcdf/dockingmt#56`. |
 | PharmacophoreMT `a9abeb9347e75c3f2e3f13877f9ad69f06cbbee2` | The maintained ERalpha diagnostic still calls `msm.topology.get_substructure_matches`. Its published 22-case baseline predates the cutover; indirect state/axis/copy/persistence receiving remains `uibcdf/pharmacophoremt#69`. |
 | TopoMT `0f82d5adfae73ae24846f713ab5bf62782a4f1ad` | No literal chemical-Topology references were found in the bounded Python scan. Actual native/domain/geometry receiving is still unqualified under `uibcdf/topomt#100`; text absence is not a pass. |
 
@@ -2849,3 +2850,68 @@ exit 0); the earlier string-valued CLI configuration failure is retained in
 the #525 record. Notebook changes affect narrative only, with code cells and
 saved outputs unchanged. Original autosummary edits and Rust binary hashes
 remain unchanged.
+
+
+### Owner-reviewed client PR delivery and exact-source CI — 2026-10-30
+
+The first inspected completed source-matrix job on **9fb77c358** fails with
+**23,624 passed / 6 failed / 102 skipped / 40 deselected**, exit 1, 2081.10 seconds
+(Linux/Python 3.13/Pandas 3.1.0, run 41141703873, job 124357390441). Four failure
+mechanisms concern column-index dtype, deprecated copy arguments and read-only
+fixture views. The dedicated [#526 report](../pending_bugs/pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md)
+names all cases and guards against weakening their semantic intent. #524 remains
+the runtime-floor review, not the owner of this concrete source bug. No complete
+matrix pass is claimed.
+
+The eight scientific-execution artifacts from that exact run are independently
+verified: **79/79 cases, 59 registered nodes, zero failures/errors/skips**, clean
+9fb77c358 in every Linux/macOS × Python 3.11–3.14 cell. Artifact digests and
+identities are retained locally. Their scientific-scope eligibility does not
+constitute release authorization or a successful complete source suite.
+
+Client receiving now has executed evidence beyond the initial static inventory:
+
+- TopoMT 0f82d5a passes **81 source cases**, exit 0, 10.60 seconds, covering native
+  Topography/query/input binding, atom labels and pocket index/label associations.
+  It does not qualify all surface engines or installed/platform routes.
+  [Owner receipt](https://github.com/uibcdf/topomt/issues/100#issuecomment-6535420573).
+- DockingMT 51b2232 initially gives 27 failures/7 passes in a 34-case probe. The
+  expanded migration passes 116 focused cases. A full 1,368-case development
+  selection gives 1,339 passes/25 failures/4 errors; the failed run is preserved.
+  Follow-up corrects reused helper namespaces and scalar connectivity consumption,
+  which had incorrectly selected the legacy pose reader. **73/73 corrective cases
+  pass**, explicitly including all **29** failed/error identities. This is not
+  relabeled as a fresh all-suite pass. Current scientific/map/refusal expectations
+  and historical result files remain intact.
+- PharmacophoreMT a9abeb9 gives 16 passes/6 setup errors on its exact 22 baseline
+  selections; all six errors share the old SMARTS namespace. The one-line proposal
+  passes **22/22**, exit 0, 315.23 seconds. Geometry, state, preparation identity,
+  history/persistence/maps and unit controls retain their original expectations.
+  The actual PR's compared Python source/helper/test bytes match that proposal.
+
+Diego first chose owner-applied migration, then explicitly requested PRs. The
+requested handoffs are **drafts**, with no main merge or publication:
+
+- [DockingMT PR #59](https://github.com/uibcdf/dockingmt/pull/59), head
+  `07f3651dcfb24da7df3622b5333742b2f666675b`; [issue #56 delivery](https://github.com/uibcdf/dockingmt/issues/56#issuecomment-6535961691).
+- [PharmacophoreMT PR #70](https://github.com/uibcdf/pharmacophoremt/pull/70), head
+  `300d8f43050f4f9db3669c991a6d8965e9f0ecaf`;
+  [issue #69 delivery](https://github.com/uibcdf/pharmacophoremt/issues/69#issuecomment-6535963660).
+
+Their isolated review worktrees preserve the original sibling checkouts. The
+source routes select exact MolSysMT/Viewer receiving commits. PHMT's obsolete
+DepDigest 0.13.0 input is advanced to satisfy the provider's >=0.15.1 floor;
+other support inputs stay fixed. Declared-route SDK audits, Ruff and local
+reporting checks pass. Workflow/input hashes follow reviewed exact-pin deltas;
+PHMT's installed-support helper digest follows its actual one-line code change.
+A DockingMT policy formatting failure is corrected in the follow-up with an
+identical Python AST; all 180 files pass formatting (PHMT: 312 formatted files).
+Exact-head PR CI remains separate owner acceptance; no installed/public minimum
+is fabricated from a Git pin. Both receiving issues remain open.
+
+**Current closeout:** resolve #526 and finish the exact source gate; let owner
+teams review/adopt the PRs and record their receiving dispositions; then perform
+separately authorized MolSysMT-main integration and lifecycle closeout. The
+source implementation, measured documentation/benchmark scopes and #525 remain
+delivered. #255, the complete source/client gates and release/installed #254/#334
+are not marked complete by these PRs.
