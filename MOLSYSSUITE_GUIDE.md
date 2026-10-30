@@ -520,6 +520,24 @@ Every root integration guide synchronized from another repository is generated, 
 
 ### Dependencies and CI acquisition
 
+The general runtime requirement is **`provider>=X`**, with `X` justified by the
+consumed API. This applies to required and optional runtime features; keep
+optionality. Components are expected to preserve compatibility with newer
+published siblings. Do not automatically cap the next minor, including before
+1.0. Add a component-specific ceiling/exclusion only for a justified
+incompatibility, recording its provider/version, affected API/ABI or scientific
+contract, owning evidence/issue and reassessment/removal condition. Keep real
+native or optional-engine restrictions while needed. Exact CI/build/release
+pins and the separately governed Python range keep their purposes.
+
+Follow the [runtime version-bound rule](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_distribution_policy.md#runtime-dependency-version-bounds)
+under [MolSysSuite #137](https://github.com/uibcdf/molsyssuite/issues/137).
+Verify the actual floor and newer public-provider compatibility within applicable
+existing test cadence; permissive metadata does not certify unexecuted versions.
+Review existing declarations with their owners, without inventing floors or
+mechanically removing caps. No full suite per internal push or automatic
+scientific/consumer migration follows.
+
 When changing a dependency, Python bound or runtime-bearing route, align the
 required names and constraints in `pyproject.toml`, maintained environments and
 Conda recipe. Keep optional features optional and record intentional Python/Conda
