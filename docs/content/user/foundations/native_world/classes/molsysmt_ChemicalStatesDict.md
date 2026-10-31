@@ -65,6 +65,11 @@ selector for state-dependent supported counts. Stable hierarchy requires a provi
 that actually stores it. Direct `.data` writes bypass validation, graph
 reconstruction and owner notification; raw mutation is not controlled editing.
 
+Converting native chemical states to this form creates independent writable
+column values and null masks, including with Pandas Copy-on-Write. Editing that
+transport does not edit the source state. Convert the edited payload back to
+ChemicalStates when you need native validation.
+
 `payload.copy()` and `to_dict(copy=True)` return detached mutable payloads;
 `to_dict(copy=False)` exposes the current mapping. Copying does not validate or
 decode chemical states. Independent payload wrappers have independent query

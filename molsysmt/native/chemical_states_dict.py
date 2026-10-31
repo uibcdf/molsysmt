@@ -25,6 +25,8 @@ class ChemicalStatesDict(NativeQueries):
     metadata/columns, not the entire payload or preparation history. Native
     editing requires conversion to ChemicalStates; data remains a mutable
     transport payload, whose raw edits bypass validation and owner notification.
+    Converting native chemical states produces independent writable values and
+    null-mask buffers, including when Pandas uses Copy-on-Write.
 
     Examples
     --------
@@ -127,13 +129,15 @@ class ChemicalStatesDict(NativeQueries):
 
 def _encode_series(series):
     dtype = str(series.dtype)
-    null_mask = series.isna().to_numpy(dtype=np.bool_)
+    null_mask = np.asarray(series.array.isna(), dtype=np.bool_)
+    if not null_mask.flags.writeable:
+        null_mask = null_mask.copy()
     if dtype in {"string", "object", "str"}:
-        values = series.fillna("").astype(str).to_numpy(dtype=np.str_)
+        values = series.to_numpy(dtype=np.str_, na_value="", copy=True)
     elif dtype in {"boolean", "bool"}:
-        values = series.fillna(False).to_numpy(dtype=np.bool_)
+        values = series.to_numpy(dtype=np.bool_, na_value=False, copy=True)
     elif dtype.startswith(("Int", "UInt", "Float")):
-        values = series.fillna(0).to_numpy(dtype=np.dtype(dtype.lower()))
+        values = series.to_numpy(dtype=np.dtype(dtype.lower()), na_value=0, copy=True)
     else:
         values = series.to_numpy(copy=True)
         if values.dtype.kind not in "iufbUS":

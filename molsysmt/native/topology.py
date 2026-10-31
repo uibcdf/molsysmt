@@ -9,6 +9,7 @@ from molsysmt._private.smonitor import StructuralInconsistencyError
 from molsysmt._private.variables import is_all
 
 from . import _chemical_state as _chemical_storage
+from ._table_columns import concatenate as _concatenate_columns
 from .queries import NativeQueries
 
 # Transitional private bindings keep existing callers and legacy pickle paths
@@ -714,9 +715,7 @@ class Topology(NativeQueries):
             setattr(
                 self,
                 name,
-                pd.concat(
-                    [getattr(self, name), getattr(other, name)], ignore_index=True
-                ),
+                _concatenate_columns(getattr(self, name), getattr(other, name)),
             )
         self._atom_molecule_membership = membership
         if declared:

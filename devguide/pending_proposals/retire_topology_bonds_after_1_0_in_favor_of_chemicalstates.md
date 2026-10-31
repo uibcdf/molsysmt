@@ -2915,3 +2915,48 @@ separately authorized MolSysMT-main integration and lifecycle closeout. The
 source implementation, measured documentation/benchmark scopes and #525 remain
 delivered. #255, the complete source/client gates and release/installed #254/#334
 are not marked complete by these PRs.
+
+
+### Local #526 compatibility correction — 2026-10-30
+
+The Pandas follow-up now has an implemented correction, while actual-Pandas-3.1
+qualification remains open. Mutable native ChemicalStatesDict transport encoding
+owns writable values/masks; partial component restriction preserves the source
+column-axis metadata. Stable and chemical row union share a private per-column
+routine with nullable promotion and explicit empty-column copies. Intermediate
+partial-hierarchy failures from a too-strict cast are retained and corrected;
+unknown memberships remain unknown rather than becoming parent zero.
+
+The final local native/form/composition/H5MSM selection passes **4,262 cases and
+doctests**, exit 0, 130.93 seconds (run 178). Copy-on-Write/future-string controls
+pass **19 cases** (177), strict Sphinx passes (179), fast gates pass **14/14** (181),
+and the development scientific execution passes **79/79**, zero skips. None of
+these local scopes is relabeled as an actual Pandas 3.1 full-matrix pass. The
+[#526 record](../pending_bugs/pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md)
+retains the red and corrective selections, the malformed test-path invocation,
+remaining visible warnings and exact pending acceptance. User-facing transport
+ownership guidance and course narrative are updated with unchanged code cells.
+
+The already-delivered client PRs remain owner-reviewed drafts; definitive provider
+pins can be updated only after the corrected candidate is identified and qualified.
+No MolSysMT-main integration, package publication, tag or release follows from
+these local corrections.
+
+
+### Separate source-suite native abort and diagnostic retention — 2026-10-30
+
+The old exact-source run's Linux/Python 3.11 cell aborts with a segmentation
+fault, exit 139, without a final pytest count or JUnit artifact. Its last
+progress line is not a final result. The truncated waiting-thread dump does
+not identify a responsible native library. This is tracked separately in
+[#527](../pending_bugs/python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md),
+not treated as fixed by the #526 Pandas correction.
+
+Full-source CI now retains the supported, bounded per-phase receptor stream
+beside JUnit, including after an abrupt exit. A semantic guard runs the actual
+workflow command against a deliberately exiting temporary test project and
+verifies retained incomplete evidence without disguising the exit status.
+It fails before the change; the control selection passes **37 cases** (184),
+and its final receptor-contract subset passes **6 cases** (185). This tests
+diagnostic retention only. The native failure's cause, its eventual regression
+guard and the complete exact-source matrix remain pending.

@@ -8,6 +8,8 @@ import pandas as pd
 from molsysmt._private.smonitor import StructuralInconsistencyError
 from molsysmt._private.variables import is_all
 
+from ._table_columns import concatenate as _concat_columns
+
 
 def union(left, right, atom_indices, topology, keep_ids):
     """Merge one declared state per source; never guess a multistate alignment."""
@@ -64,28 +66,6 @@ def union(left, right, atom_indices, topology, keep_ids):
     result.rebuild_components(
         redefine_ids=not keep_ids, topology=topology, skip_digestion=True
     )
-    return result
-
-
-def _concat_columns(left, right):
-    """Concatenate declared nullable columns without pandas all-NA inference."""
-    result = pd.DataFrame(index=range(len(left) + len(right)))
-    for name in dict.fromkeys([*left.columns, *right.columns]):
-        dtype = left[name].dtype if name in left else right[name].dtype
-        first = (
-            left[name]
-            if name in left
-            else pd.Series(pd.NA, index=left.index, dtype=dtype)
-        )
-        second = (
-            right[name]
-            if name in right
-            else pd.Series(pd.NA, index=right.index, dtype=dtype)
-        )
-        result[name] = pd.concat(
-            [first.astype(dtype, copy=False), second.astype(dtype, copy=False)],
-            ignore_index=True,
-        )
     return result
 
 

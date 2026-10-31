@@ -98,6 +98,10 @@ def restrict(state, atom_indices, bonds):
         components[column] = (
             state.components[column].iloc[old_rows].reset_index(drop=True)
         )
+    # Restricting declarations retains legacy column-axis metadata as well.
+    components.columns = pd.Index(
+        components.columns, dtype=state.components.columns.dtype
+    )
     mapping = {old: new for new, old in enumerate(old_rows)}
     restricted = membership.map(mapping).astype("Int64").reset_index(drop=True)
     completeness = state.component_completeness

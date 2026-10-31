@@ -165,16 +165,25 @@ jobs:
         shell: bash -l {0}
         run: ruff check molsysmt
 
+      - name: Validate partial pytest evidence
+        shell: bash -l {0}
+        run: python -m pytest --receptor=ci devtools/tests/test_pytest_receptor_ci_contract.py
+
       - name: Run full test suite
         shell: bash -l {0}
-        run: python -m pytest --receptor=ci --junitxml=junit.xml
+        run: |
+          mkdir -p .pytest-receptor
+          python -m pytest --receptor=ci --junitxml=junit.xml --receptor-events=.pytest-receptor/events.jsonl
 
       - name: Upload full-suite test results
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: full-suite-results-${{ matrix.cfg.os }}-py${{ matrix.cfg.python-version }}
-          path: junit.xml
+          path: |
+            junit.xml
+            .pytest-receptor/events.jsonl
+          include-hidden-files: true
           if-no-files-found: warn
           retention-days: 14
 

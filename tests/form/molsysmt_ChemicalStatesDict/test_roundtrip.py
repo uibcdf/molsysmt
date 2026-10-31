@@ -110,6 +110,35 @@ def test_dictionary_copy_is_independent_and_schema_is_versioned():
         msm.convert(copied, to_form="molsysmt.ChemicalStates")
 
 
+def test_encoded_columns_are_mutable_and_detached_with_copy_on_write():
+    from contextlib import nullcontext
+
+    context = (
+        pd.option_context("mode.copy_on_write", True)
+        if int(pd.__version__.split(".")[0]) < 3
+        else nullcontext()
+    )
+    with context:
+        states = msm.ChemicalStates(n_atoms=3)
+        states.append_state()
+        states._set_chemical_state_atom_attribute("formal_charge", [0, None, -1])
+        states._set_chemical_state_atom_attribute("is_aromatic", [False, None, True])
+        encoded = msm.convert(states, to_form="molsysmt.ChemicalStatesDict")
+        record = encoded.data["states"][0]
+        columns = [record["component_indices"]]
+        for table in ("components", "atom_attributes", "bonds"):
+            columns.extend(record[table]["columns"].values())
+        for column in columns:
+            assert column["values"].flags.writeable
+            assert column["null_mask"].flags.writeable
+        charges = record["atom_attributes"]["columns"]["formal_charge"]
+        charges["values"][0] = 2
+        charges["null_mask"][1] = False
+        assert states.get(element="atom", formal_charge=True) == [0, None, -1]
+        restored = msm.convert(encoded, to_form="molsysmt.ChemicalStates")
+        assert restored.get(element="atom", formal_charge=True) == [2, 0, -1]
+
+
 def test_chemical_states_are_complementary_to_matching_topology():
     topology = MolSys(n_atoms=2)
     states = msm.ChemicalStates(n_atoms=2)
