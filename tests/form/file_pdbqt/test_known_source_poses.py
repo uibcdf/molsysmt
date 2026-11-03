@@ -462,3 +462,34 @@ def test_real_vina_output_matches_engine_coordinate_axis(
             atol=0.00051,
             rtol=0,
         )
+
+
+def test_pose_reconstruction_does_not_read_source_trajectory(
+    pose_case, tmp_path, monkeypatch
+):
+    from molsysmt.form import _h5msm05_modular
+    from molsysmt.native import MolecularMechanics
+
+    source, text, mapping = pose_case
+    source.molecular_mechanics = MolecularMechanics()
+    path = str(tmp_path / "source.h5msm")
+    msm.convert(source, to_form=path)
+
+    def reject(*args, **kwargs):
+        pytest.fail("Pose reconstruction must not read the source structural series.")
+
+    for name in (
+        "read_independent_structures",
+        "read_molsys_file",
+        "read_named_analyses",
+    ):
+        monkeypatch.setattr(_h5msm05_modular, name, reject)
+    restored = read_poses(ensemble(text), path, mapping)
+    coordinates = msm.pyunitwizard.get_value(
+        restored.structures.coordinates, to_unit="nm"
+    )
+    expected = np.arange(18).reshape(6, 3) / 10
+    np.testing.assert_allclose(
+        coordinates, expected[None] + np.array([0, 1, -0.5])[:, None, None]
+    )
+    assert restored.structures.structure_id.tolist() == ["9", "2", "51"]

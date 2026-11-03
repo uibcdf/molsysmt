@@ -247,7 +247,9 @@ def test_invalid_parameters_fail(options):
         )
 
 
-def test_streaming_legs_from_h5_without_full_coordinate_loading(monkeypatch, tmp_path):
+def test_streaming_legs_from_h5_without_full_coordinate_loading(
+    forbid_eager_h5msm_reads, monkeypatch, tmp_path
+):
     source, _, _ = _system(n_frames=50)
     path = str(tmp_path / "water.h5msm")
     msm.convert(source, to_form=path)

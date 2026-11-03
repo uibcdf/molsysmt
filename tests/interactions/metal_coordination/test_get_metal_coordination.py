@@ -178,7 +178,9 @@ def test_inclusive_cutoff_empty_evaluation_and_geometry_errors():
         msm.interactions.metal_coordination.get_metal_coordination(source)
 
 
-def test_streamed_h5_projection_and_budget(monkeypatch, tmp_path):
+def test_streamed_h5_projection_and_budget(
+    forbid_eager_h5msm_reads, monkeypatch, tmp_path
+):
     source = _system(n_frames=50)
     path = str(tmp_path / "source.h5msm")
     msm.convert(source, to_form=path)

@@ -238,7 +238,9 @@ def test_two_water_form_parity_named_persistence_extraction_and_removal(form, tm
         )
 
 
-def test_simultaneity_empty_shapes_and_streaming_budget(monkeypatch, tmp_path):
+def test_simultaneity_empty_shapes_and_streaming_budget(
+    forbid_eager_h5msm_reads, monkeypatch, tmp_path
+):
     source, atoms = _chain(n_frames=2)
     xyz = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
     xyz[0, atoms[1]] += 2

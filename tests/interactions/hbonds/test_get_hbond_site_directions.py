@@ -395,7 +395,7 @@ def test_structure_assigned_chemistry_is_coherent_and_source_is_unchanged(tmp_pa
 
 
 def test_h5msm_delivery_does_not_materialize_full_structural_series(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, forbid_eager_h5msm_reads
 ):
     from molsysmt.form import _h5msm05_modular
 

@@ -260,7 +260,12 @@ def get_water_bridges(
         molecular_system = maybe_read_modular_h5msm(molecular_system)
         coordinate_source = molecular_system
     source, states, _, state_index, _, _, selection_frames = chemical_graph_context(
-        molecular_system, chemical_state, frames, assume_complete_connectivity, caller
+        molecular_system,
+        chemical_state,
+        frames,
+        assume_complete_connectivity,
+        caller,
+        with_structures=not index_selections,
     )
     waters = get_water_sites(
         source,

@@ -100,7 +100,13 @@ counts are a dated snapshot, not a live generated inventory.
 
 Next admitted defect/contribution reviews, in priority order:
 
-1. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
+1. **[#542](pending_bugs/pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md):**
+   newly confirmed shared-context regression from #509. Both main 402bdc6e4 and
+   combined candidate dd2c958c6 fail the same four existing pi-pi bounded-read
+   guards (4,797 native passes / 16 optional skips / four failures each). The
+   addon tier is not executed after that native failure. Restore graph-only
+   preparation without losing genuine spatial site context; preserve the guards.
+2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
    and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to
    fail the source-file inventory. PR #538 proposes its correction plus four
    bound supported reports; #540 proposes seven attribute metadata tools. Both
@@ -108,12 +114,16 @@ Next admitted defect/contribution reviews, in priority order:
    the combined integration. The #539 preparation/audit blocker is now resolved
    on source 3920346fb; this does not make old PR checks or refreshed source pass.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
-2. **#511 and #516:** precomputed donor-shape and reference-selection defects.
+3. **#511 and #516:** precomputed donor-shape and reference-selection defects.
    Retain each original scientific acceptance contract and provider-owned correction.
    #509 is now resolved with source-form/state/selection and bound-addon receiving.
-3. **#504:** choose and document multi-structure solvation output/aggregation;
+4. **[#541](pending_bugs/setuptools_minimum_for_pep639_license_metadata.md):**
+   incoming DockingMT build-contract finding. Verify and qualify the Setuptools
+   minimum for the existing license metadata before publication; no old-backend
+   failure or broken public archive is asserted by the intake.
+5. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
-4. **#523 and #524:** the declared legacy H5MSM structure-index route is still
+6. **#523 and #524:** the declared legacy H5MSM structure-index route is still
    missing on the current source; runtime dependency floors/restrictions need
    API-grounded review before the next publication. Exact route, provider and
    installed-artifact evidence remain distinct.

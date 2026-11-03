@@ -160,7 +160,7 @@ def test_observed_periodic_triplet_reconstructs_every_stored_measure(method):
 
 
 def test_chunked_native_and_h5msm_never_materialize_full_trajectory(
-    monkeypatch, tmp_path
+    forbid_eager_h5msm_reads, monkeypatch, tmp_path
 ):
     source = _system(n_frames=1000)
     path = str(tmp_path / "trajectory.h5msm")

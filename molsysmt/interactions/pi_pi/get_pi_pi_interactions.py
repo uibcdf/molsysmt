@@ -243,10 +243,9 @@ def get_pi_pi_interactions(
     --------
     >>> import molsysmt as msm
     >>> from molsysmt.interactions.pi_pi.get_pi_pi_interactions import get_pi_pi_interactions
-    >>> from molsysmt.native import Topology
-    >>> topology = Topology(n_atoms=1)
-    >>> msm.set(topology, element='atom', atom_is_aromatic=[False])
-    >>> molsys = msm.convert(topology, to_form='molsysmt.MolSys')
+    >>> from molsysmt.native import MolSys
+    >>> molsys = MolSys(n_atoms=1)
+    >>> msm.set(molsys, element='atom', atom_is_aromatic=[False])
     >>> result = get_pi_pi_interactions(molsys, '0.6 nm', '30 degrees',
     ...     '0.2 nm', '0.02 nm', assume_complete_connectivity=True)
     >>> result.n_interactions, result.measure_units['plane_angle']
@@ -413,6 +412,7 @@ def get_pi_pi_interactions(
         frames,
         assume_complete_connectivity,
         _CALLER,
+        with_structures=not index_selections,
     )
     if method == "prolif":
         from molsysmt.chemical_states import get_substructure_matches

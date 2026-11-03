@@ -222,6 +222,8 @@ jobs:
             devtools/tests/test_devguide_workflow.py \
             tests/form/molsysmt_ChemicalStatesDict/test_roundtrip.py::test_decoding_keeps_declared_object_columns_with_string_inference \
             tests/topology/get_substructure_matches/test_reference_selections.py \
+            tests/chemical_states/test_graph_only_h5msm_preparation.py \
+            tests/form/file_pdbqt/test_known_source_poses.py::test_pose_reconstruction_does_not_read_source_trajectory \
             tests/structure/test_dihedral_edit_contract.py
 
 

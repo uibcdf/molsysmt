@@ -13,6 +13,7 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
     UnsupportedHeavyOperationError,
 )
+from molsysmt.native import MolSys
 
 
 def _hexagon():
@@ -334,11 +335,20 @@ def test_invalid_coordinates_boxes_and_empty_results(method):
 
 
 @pytest.mark.parametrize("method", ["prolif", "centroid_angle_offset"])
+@pytest.mark.parametrize("topology", [True, False])
+@pytest.mark.parametrize("heavy_mode", ["off", "force"])
 def test_coordinate_file_route_does_not_load_saved_analyses(
-    method, tmp_path, monkeypatch
+    forbid_eager_h5msm_reads, method, topology, heavy_mode, tmp_path, monkeypatch
 ):
     source = _system([(0, 0, 0.35), (0, 0, 2), (0.1, 0, 0.35)])
     source.interactions = {"already": _calculate(source, method=method)}
+    expected = _calculate(source, method=method, structure_indices=[2, 0, 2])
+    if not topology:
+        source = MolSys._from_partial_domains(
+            chemical_states=source.chemical_states,
+            structures=source.structures,
+            interactions=source.interactions,
+        )
     path = str(tmp_path / "source.h5msm")
     msm.convert(source, to_form=path)
     from molsysmt.interactions.result import Interactions
@@ -349,12 +359,22 @@ def test_coordinate_file_route_does_not_load_saved_analyses(
         )
 
     monkeypatch.setattr(Interactions, "_read_group", reject)
+    if not topology:
+        # Both profiles require elements; no coordinates should be read before
+        # reporting this missing chemical prerequisite.
+        with pytest.raises(StructuralInconsistencyError, match="element inventory"):
+            _calculate(
+                path, method=method, structure_indices=[2, 0, 2], heavy_mode=heavy_mode
+            )
+        return
     with msm.configure.context(chunk_size=1):
         result = _calculate(
-            path, method=method, structure_indices=[2, 0, 2], heavy_mode="force"
+            path, method=method, structure_indices=[2, 0, 2], heavy_mode=heavy_mode
         )
+    _assert_same(result, expected)
     assert result.occurrence_structures.tolist() == [0, 2]
-    assert result.execution_records[0]["details"]["execution_chunks"] == 2
+    if heavy_mode == "force":
+        assert result.execution_records[0]["details"]["execution_chunks"] == 2
 
 
 @pytest.mark.parametrize("method", ["prolif", "centroid_angle_offset"])
