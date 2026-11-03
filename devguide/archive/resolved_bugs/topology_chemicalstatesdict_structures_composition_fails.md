@@ -1,13 +1,13 @@
 ---
 summary: Topology with ChemicalStatesDict and Structures bypasses native domain composition.
 issue: uibcdf/molsysmt#532
-status: active
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-03
 severity: medium
 verification: reproduced
 area: [native, convert, form]
-guard:
+guard: tests/basic/convert/mult_to_one/test_convert_chemical_and_structural_domains.py::test_inventory_chemistry_structures_composition_preserves_explicit_domains
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,8 @@ supersedes: []
 # Explicit inventory plus dictionary chemistry cannot compose a MolSys
 
 **Reported:** while building independent #531 regression inputs.
-**Status:** correction locally qualified; hosted qualification pending.
+**Status:** resolved in 2e5c8b64b7a2e4aa270c09b6311691cd88800ac2;
+local and hosted source qualification completed.
 
 ## What
 
@@ -145,6 +146,38 @@ controls and 507 dependency-route/notebook-schema controls. The three notebook
 edits change prose only: code cells, outputs and execution metadata are unchanged.
 The focused module is included in both aligned native smoke command lists so
 hosted Pandas compatibility exercises the same public regression.
+
+## Hosted source qualification (2026-11-03)
+
+All six push workflows for exact fix commit
+**2e5c8b64b7a2e4aa270c09b6311691cd88800ac2** completed successfully:
+
+- CI smoke [41677348318](https://github.com/uibcdf/molsysmt/actions/runs/41677348318).
+- Ruff, Developer guide integrity, Dependency contract, MolSysSuite policy and
+  Conda publication governance also passed for that same source.
+
+Completed job **126061428329**, Linux/Python 3.14, installed Pandas **3.1.0**.
+The bound test-command controls passed **9/9**. Native smoke passed
+**4,117 tests / 16 optional omissions**, 323.74 s, 590 visible warnings.
+The 59-case domain-composition module was included and its tests were not omitted.
+The addon receiving block then passed **2,449 / 4 optional omissions**,
+270.01 s, 1,539 visible warnings. Native omissions are 14 unavailable Ackredit
+cases plus one unyt and one astropy case; addon omissions are four Ackredit cases.
+No assertion or required regression was weakened to obtain these results.
+
+GH Run Receptor **1.1.1** watched metadata through terminal success, exit 0.
+The completed native GitHub job log supplies the detailed package, command,
+test-count, warning and skip evidence; this does not claim newer receptor features.
+Its raw bytes remain in the task evidence directory alongside the accepted local
+red/green streams and final local receipt.
+
+The addressable guard exercises all six input orders for native and dictionary
+chemistry and checks literal inventory, state/bond values, unknown associations,
+geometry and independent outputs. Its dictionary variants failed on the original
+dispatch and pass through the corrected public route. Companion cases protect
+selection, rejection, empty domains and persistence. This resolves the reported
+source defect, not the separate pre-1.0 installed-pair/platform qualification or
+any consumer's full suite. No tag, release or package was published for this fix.
 
 ## Provenance
 

@@ -17,8 +17,9 @@ supersedes: []
 
 **Reported:** 2026-10-28, expert addon composition receiving under
 uibcdf/molsysviewer#264 / uibcdf/molsysmt#421.
-**Status:** open; reproduced independently of Viewer. No scientific fix belongs
-in the addon.
+**Status:** acceptance coverage remains open. The original failure was reproduced
+independently of Viewer; current-source success probes are recorded below.
+No scientific fix belongs in the addon.
 
 ## What
 
@@ -84,3 +85,40 @@ Receive the native append/state/analysis publication contract and rejection
 atomicity. Do not add an analysis-merge policy, invent observations, recalculate
 interactions or repair the scientific operation in a Viewer adapter. The host
 must keep a potentially partial write uncertain until explicit recovery.
+
+## Current-source reassessment (2026-11-03)
+
+Source **2e5c8b64b7a2e4aa270c09b6311691cd88800ac2** uses
+`MolSys._append_structure_payload`, which prepares a candidate structural domain,
+state association and extended named analyses before publishing them together.
+The helper first appeared in 7b983af32ac4efcc3adb7c4c0617a38957ecc41e during
+the chemical-domain separation; this identifies its introduction, not complete
+qualification of this issue.
+
+Eight preliminary public `msm.append_structures` probes pass in the existing
+Python 3.14.7 development environment. They combine explicit single-state or
+two-state associations, native MolSys or coordinate-only Structures sources,
+and both `in_place` values. Each target has a populated named pair analysis on
+three structures, with evaluated coverage `[0, 2]`. All outputs have six
+structures, preserve the original observation/coverage, and leave the three new
+structures unevaluated. Native sources retain their state associations;
+coordinate-only sources use the single state implicitly or retain unknown
+associations for multiple states. Independent mode leaves the target unchanged.
+
+These are local receiving probes, not a durable pytest guard or a consumer/full
+matrix certificate. Their bounded receipt remains in the ignored
+`.pytest_cache/domain-composition-532/next-520-preliminary-probes.json` while
+the acceptance audit continues. A query's projected coverage is read through
+`to_dict()`; lightweight views share the base stored arrays. Unknown native
+associations use nullable integer values, not an assumed Python sentinel.
+
+Existing tests cover native state-association append, named-analysis append and
+Structures rejection separately. Before closing, combine those contracts in
+public regressions: implicit/explicit single state, compatible/unknown multiple
+states, empty/populated analyses, both source kinds, both copy modes, and rejection
+atomicity. In particular, check conflicting chemistry, structural/atom alignment,
+strict one-sided attributes and unsupported incoming named analyses without
+partially changing target structures, associations, observations or source maps.
+Change the runtime only if those controls expose a remaining defect; do not
+rewrite the current transactional helper merely because the original report
+describes an older implementation.
