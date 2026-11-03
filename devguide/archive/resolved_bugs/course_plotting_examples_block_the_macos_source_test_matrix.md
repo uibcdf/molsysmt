@@ -1,9 +1,9 @@
 ---
 summary: Course plotting examples block the macOS source test matrix
 issue: uibcdf/molsysmt#528
-status: active
+status: resolved
 opened: 2026-11-02
-closed:
+closed: 2026-11-02
 severity: medium
 verification: reproduced
 area: [tests, docs, ci]
@@ -161,3 +161,10 @@ and their primary evidence is finalized/integrity-valid/untruncated and agrees
 with JUnit. These checks preserve real show/render and scientific assertions;
 they do not establish that all four pending macOS suites finish. Hosted macOS
 acceptance remains open rather than being inferred from Linux.
+
+
+## Resolution — 2026-11-02
+
+The shared scoped Agg/noninteractive fixture covers both geometric and all four comparison lessons, executes real display/PNG rendering and restores plotting state. Every one of those six actual lesson calls passes in all eight final-source cells, including complete macOS Python 3.11–3.14 suites; the old time-limit cancellations remain preserved. No notebook plot/scientific assertion, runtime backend policy, timeout or test selection is weakened. Final runtime de7ffad2a has complete intact primary evidence and matching JUnit; this resolves the source-harness defect without claiming installed/browser/Qt release qualification.
+
+The complete source matrix is [41572981893](https://github.com/uibcdf/molsysmt/actions/runs/41572981893), officially successful on de7ffad2a. The #255 source closeout records full counts, omissions, science scopes and evidence limits. No main merge, package promotion or release is performed.

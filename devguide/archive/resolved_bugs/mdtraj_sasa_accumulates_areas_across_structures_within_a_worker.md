@@ -1,9 +1,9 @@
 ---
 summary: MDTraj SASA accumulates areas across structures within a worker
 issue: uibcdf/molsysmt#529
-status: active
+status: resolved
 opened: 2026-11-02
-closed:
+closed: 2026-11-02
 severity: high
 verification: reproduced
 area: [tests, units, deps]
@@ -157,6 +157,13 @@ original failing platform, remain pending. Keep the documented performance
 tradeoff and upstream-fix qualification/removal condition explicit.
 
 Future restoration of batched provider evaluation is explicitly owned by #530
-and its [acceptance plan](../pending_proposals/qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md).
+and its [acceptance plan](../../pending_proposals/qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md).
 That post-1.0 performance work retains the real worker-reuse guard and does not
 turn the protected adapter into an unresolved scientific correctness defect.
+
+
+## Resolution — 2026-11-02
+
+The MDTraj adapter preallocates atomic output and evaluates each requested structure independently using no-copy slices, preventing retained provider worker areas while preserving method, radii, occlusion, order/repetitions, grouping, units and source identity. Final runtime de7ffad2a completes all eight full source cells, including the original macOS Python 3.14 failure context, and the constrained one/two-thread worker-reuse guard passes all four cases in every cell. The complete local default selection passes 23,774 cases with two disclosed skips. No numerical tolerance or provider identity is changed. The call-overhead/parallelism tradeoff is documented; future published-fix qualification, measured batching recovery and older-Python compatibility remain separately tracked in #530. This is a protected-adapter correctness fix, not a claim that upstream #2195 is fixed.
+
+The complete source matrix is [41572981893](https://github.com/uibcdf/molsysmt/actions/runs/41572981893), officially successful on de7ffad2a. The #255 source closeout records full counts, omissions, science scopes and evidence limits. No main merge, package promotion or release is performed.

@@ -8,16 +8,25 @@ verification: measured
 area: [api, form, native]
 guard:
 normative:
-blocked_by: [uibcdf/molsysmt#255]
+blocked_by: [uibcdf/molsysmt#334]
 supersedes: []
 ---
 
 # Promote ChemicalStates to an independent native MolSys domain
 
+## Source dependency satisfied — 2026-11-02
+
+The #255 independent-domain refactor and local/eight-cell source qualification
+are complete on the development branch; its archived execution record retains
+the detailed evidence. This proposal stays partial for new final-candidate and
+installed-client recertification under #334. Its source blocker is satisfied;
+main integration and actual artifacts remain subsequent work. Historical
+published/installed receipts keep their original source identity.
+
 ## Maintainer scheduling revision — 2026-10-28
 
 The maintainer now accepts completing native/functional chemical-domain
-separation before 1.0. The [#255 migration plan](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+separation before 1.0. The [#255 migration plan](../archive/resolved_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
 owns the new phase tracker: remove Topology bonds/components and hidden chemical
 ownership, complete ChemicalStates queries/lifecycle and introduce the canonical
 chemical_states module while retaining chains in Topology. At that checkpoint

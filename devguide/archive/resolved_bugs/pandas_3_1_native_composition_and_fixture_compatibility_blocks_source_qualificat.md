@@ -1,9 +1,9 @@
 ---
 summary: Pandas 3.1 native composition and fixture compatibility blocks source qualification
 issue: uibcdf/molsysmt#526
-status: active
+status: resolved
 opened: 2026-10-30
-closed:
+closed: 2026-11-02
 severity: medium
 verification: reproduced
 area: [form, tests, deps]
@@ -146,3 +146,10 @@ and JUnit agree. The writable/detached codec regression is explicitly matched
 to a passing call in every cell, not inferred from a job summary. Visible
 Pandas deprecations remain retained. Linux 3.14 and macOS final-suite acceptance
 remain pending, so this report stays active.
+
+
+## Resolution — 2026-11-02
+
+The owned codec copies writable values/masks and preserves its canonical column schema; native concatenation retains nullable semantics without deprecated copy arguments. Final runtime de7ffad2a passes all eight full Linux/macOS source cells and the complete local selection. Actual final jobs use Pandas 2.3.3 on Python 3.11 and 3.1.0 on Python 3.12–3.14. The writable/detached codec guard is matched to an executed pass in every cell; no dtype assertion, warning or version range is weakened. Complete canonical primary artifacts and JUnit agree. Original failures and limited old receipts remain historical. Installed-candidate qualification stays separate.
+
+The complete source matrix is [41572981893](https://github.com/uibcdf/molsysmt/actions/runs/41572981893), officially successful on de7ffad2a. The #255 source closeout records full counts, omissions, science scopes and evidence limits. No main merge, package promotion or release is performed.

@@ -1,9 +1,9 @@
 ---
 summary: Python 3.11 full source CI aborts natively without final test evidence
 issue: uibcdf/molsysmt#527
-status: active
+status: resolved
 opened: 2026-10-30
-closed:
+closed: 2026-11-02
 severity: high
 verification: reproduced
 area: [ci, tests]
@@ -324,3 +324,10 @@ calls. The earlier isolated probe is no longer the only Linux 3.11 evidence.
 No responsible provider memory-corruption claim is introduced. The final macOS
 3.11 and other remaining full cells still need their actual outcomes before
 this report's complete-matrix condition is satisfied.
+
+
+## Resolution — 2026-11-02
+
+The consumer's recursive OpenMM conversion is corrected by inferring on the constructed native domains and honoring the existing explicit opt-out. The bounded real-reader regression protects one conversion entry and preserved source/error semantics. Final runtime de7ffad2a completes every full source cell, including both formerly aborting Linux/macOS Python 3.11 cells, and all ten cause-specific controls pass in every cell. Complete canonical primary evidence and JUnit agree; earlier aborted/interrupted runs stay retained. The scoped current-thread fault fixture is deliberately retained as useful test-only diagnostic infrastructure, with its real captured-SIGSEGV regression passing on the supported POSIX source lanes. This supersedes the initial transient-removal suggestion: it is not the crash fix and introduces no runtime store/hook. Its private pytest descriptor integration remains explicit and regression-protected. SMonitor #56 is withdrawn after the consumer cause and corrected probe are established; no provider fix or corruption attribution is claimed.
+
+The complete source matrix is [41572981893](https://github.com/uibcdf/molsysmt/actions/runs/41572981893), officially successful on de7ffad2a. The #255 source closeout records full counts, omissions, science scopes and evidence limits. No main merge, package promotion or release is performed.

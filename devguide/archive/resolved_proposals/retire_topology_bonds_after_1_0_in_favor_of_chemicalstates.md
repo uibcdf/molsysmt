@@ -1,13 +1,13 @@
 ---
 summary: Complete ChemicalStates separation from Topology before 1.0.
 issue: uibcdf/molsysmt#255
-status: active
+status: resolved
 opened: 2026-09-29
-closed:
+closed: 2026-11-02
 verification: measured
 area: [native, api, form, topology, chemical-states, docs]
-guard:
-normative:
+guard: tests/native/test_chemical_domain_separation.py
+normative: CORE_SPECIFICATION.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,26 +16,21 @@ supersedes: []
 
 **Role:** accepted migration plan and execution tracker.
 **Maintainer decision:** 2026-10-28.
-**Implementation status:** In progress on `dev/chemical-states-separation-255`.
-The source cutover now separates native storage, queries, builders, graph tools
-and persistence. Consumer receiving is delivered through owner-reviewed drafts;
-complete source qualification remains open. Pandas compatibility (#526), the cause-specific OpenMM conversion cycle (#527)
-and headless course execution (#528) have scoped corrections and retained
-regressions. Final qualification additionally exposed an existing MDTraj SASA
-buffer defect (#529), now protected in the adapter with focused passing evidence.
-Complete corrected-head local qualification passes; remaining macOS full-suite
-qualification and documented source closeout remain pending. The dated
-scientific, documentation and benchmark scopes below stay separate from final
-exact-source/client acceptance; their receipts distinguish executed controls from
-pending work. No main merge or release is authorized by
-this execution.
+**Implementation status:** Source refactor complete and qualified on
+`dev/chemical-states-separation-255`. Exact runtime/test candidate
+`de7ffad2aef18ff3bccd184133dc69e081cb506e` passes the complete local selection
+and all eight Linux/macOS Python 3.11–3.14 source cells. Registered science passes
+79/79 cases without skips in each cell. Subsequent checkpoints are documentation
+only and preserve executable/test/configuration bytes. Provider-side client
+handoffs are delivered; their owners finish adoption and installed qualification.
+No main merge, package promotion, tag or release is performed by this closeout.
 
 The maintainer explicitly replaces the earlier post-1.0 scheduling with a
 coordinated pre-1.0 separation. The historical filename and issue number are
 retained so existing issue/record links continue to work. The issue's original
 post-1.0 title describes its opening decision; this dated record holds the
 accepted expanded scope. Analysis and progress stay here under the
-[reporting protocol](../reporting_protocol.md), rather than repeated issue posts.
+[reporting protocol](../../reporting_protocol.md), rather than repeated issue posts.
 
 ## What
 
@@ -230,13 +225,13 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | --- | --- | --- | --- |
 | P0: contract and baseline | Maintainer decision | Contracts, baseline and receiving notices recorded | Accepted contracts, frozen source/worktree and impact inventory |
 | P1: target/characterization guards | P0 | Native, graph, lifecycle, producer and wire controls implemented; independent C7 baseline/target measurements completed | Independent expected behavior and baseline evidence |
-| P2: native authority | Initial P1 controls; full cutover still needs P3/P4/P6 | Independent ChemicalStates storage/editing and pure Topology implemented; native authority gate passes; final integrated qualification pending | Standalone state operations; pure Topology; no hidden recovery |
-| P3: query/form dispatch | P2 | Basic/native/typed dictionary queries and assignments migrated; nullable chain and state-only selection corrections pass focused controls; final integrated qualification pending | Basic/native/form parity and truthful capabilities |
-| P4: builder and lifecycle | P2, P3 | MolSys/Builder authority, stable membership, shared-axis remapping, copies, partial composition and analysis invalidation implemented and contract-tested | Coordinated edits/remaps/copies and invalidation |
-| P5: functional module | P3; P4 for integration | Nine graph APIs, helpers, addon namespace, argument and scientific-attribution metadata migrated; graph controls pass; final integrated qualification pending | Nine moved APIs, state selection and unchanged scientific controls |
-| P6: conversions/persistence | P3, P4 | Producers, Topology projections, dictionary 0.2, typed transports and H5MSM/legacy readers migrated; scoped fidelity debt explicitly retained; final integrated qualification pending | Versioned payloads, legacy readers, partial and full round trips |
-| P7: docs and consumer receiving | P5, P6 | Provider delivery completed under maintainer delegation: lifecycle docs and Viewer/targeted TopoMT scopes pass; client draft PRs and corrective followups delivered. Owner adoption/final qualification remains explicitly external | Lifecycle docs and immutable consumer receipts |
-| P8: integrated source closeout | P1-P7 | Implementation and qualification receipts published; the complete corrected-conversion local source checkpoint passes 23,770 cases; the later SASA followup passes its focused/scientific controls and its final local/hosted runs remain in progress. Client-owner adoption and lifecycle closeout remain explicit; main integration is deferred by maintainer instruction | Exact-source checks, published implementation and issue receipt |
+| P2: native authority | P1, P3/P4/P6 cutover | Independent ChemicalStates and pure Topology delivered; native authority controls and final local/eight-cell source qualification pass | Stored graph authority and no attached-owner facade |
+| P3: query/form dispatch | P2 | Native/basic/dictionary queries, assignments and truthful capabilities delivered; final source qualification passes | State, missingness, axes, syntax and ownership controls |
+| P4: builder and lifecycle | P2, P3 | Independent builder domains, coordinated edits/remaps, partial composition and invalidation delivered and qualified | Atomic publication, source maps, independent states and analyses |
+| P5: functional module | P3, P4 | All nine graph APIs and owning metadata migrated and qualified; sequence tools remain in topology | Canonical namespace, state selection and independent scientific controls |
+| P6: conversions/persistence | P3, P4 | Admitted producers/projections, typed dictionaries and H5MSM/legacy routes delivered and qualified; existing fidelity debt remains explicit | Complete/partial round trips, absence and loss reporting |
+| P7: docs and consumer receiving | P5, P6 | Provider delivery complete under maintainer delegation; lifecycle docs, source receiving and five owner review requests published | Exact client dispositions; owner adoption/installed qualification separate |
+| P8: development-branch source closeout | P1-P7 | Complete local/eight-cell qualification, current guidance, archival and board closure completed | No main merge or release under the active objective |
 
 Documentation work can accompany each implementation phase. Independent execution
 may overlap, but dependent phases cannot claim their exits early. The final
@@ -747,8 +742,8 @@ release gates.
 - [x] P8.1 Run the relevant and full required source tests using the shared Python 3.14 environment and Pytest Receptor, with concurrency bounded by available memory (two workers after the maintainer-authorized memory pause on 2026-10-30); complete Ruff and API/form/dependency/devguide/documentation gates.
 - [x] P8.2 Compare representative scientific values and source/index/units/provenance independently; execute strict documentation and changed notebook/doctest examples. The dated receipts qualify the actual scientific and documentation scopes; they do not clear the separate full-suite/client gate.
 - [x] P8.3 Measure representative native query/copy and file/streaming workloads after correctness. Record inputs/environment; reject accidental full trajectory loads, repeated chemistry copies or unbounded scans. C7's recorded target is a content-hashed development tree, not an exact-commit release benchmark; its slower cases and private-codec scope remain explicit.
-- [ ] P8.4 Publish the coherent development-branch checkpoint without skipping CI, inspect its exact-source CI with GH Run Receptor and retain actual missing/failed evidence. The current maintainer objective explicitly forbids merging or releasing; the earlier main-merge step is deferred, not reported as executed. No force/reset or PR requirement is introduced here.
-- [ ] P8.5 Place final rules in maintained normative guidance, select an actual mechanically addressable regression guard, archive this plan and close #255 with the implementation commit and settled limitations.
+- [x] P8.4 Publish the coherent development-branch checkpoint without skipping CI, inspect its exact-source CI with GH Run Receptor and retain actual missing/failed evidence. The current maintainer objective explicitly forbids merging or releasing; the earlier main-merge step is deferred, not reported as executed. No force/reset or PR requirement is introduced here.
+- [x] P8.5 Place final rules in maintained normative guidance, select an actual mechanically addressable regression guard, archive this plan and close #255 with the implementation commit and settled limitations.
 
 Exit: a coherent source delivery, explicit consumer impact and all applicable
 executed source gates. Later package/tag/Release/DOI publication needs the separate
@@ -2174,18 +2169,18 @@ Constructor/cutover and wire-format contracts are now implemented on the
 development branch. Remaining risks are final integrated qualification,
 unnecessary coordinate materialization in chemical-only consumers and actual
 client compatibility. C7's dated measurements are reported separately in the
-[benchmark record](../chemical_domain_separation_benchmarks.md); they establish
+[benchmark record](../../chemical_domain_separation_benchmarks.md); they establish
 neither a completion deadline nor a universal speedup. Resolve remaining findings
 in their phase receipts without expanding the scientific scope.
 
 ## Related decisions and final release boundary
 
-[Independent-domain record](promote_chemical_states_to_a_native_molsys_domain.md)
+[Independent-domain record](../../pending_proposals/promote_chemical_states_to_a_native_molsys_domain.md)
 (#254) supplies the implemented foundation. Its final-candidate obligations
-remain open. [Identity/scaffold proposal](molecular_identity_and_scaffold_overlap_annotations.md)
+remain open. [Identity/scaffold proposal](../../pending_proposals/molecular_identity_and_scaffold_overlap_annotations.md)
 (#447) uses the new namespace after this migration; it is not implemented here.
-The [scope decision](../release_1_0_scope.md),
-[roadmap](../roadmap.md) and [release ledger](../release_1_0_status.md) point here
+The [scope decision](../../release_1_0_scope.md),
+[roadmap](../../roadmap.md) and [release ledger](../../release_1_0_status.md) point here
 for the work breakdown, rather than keeping separate detailed task lists.
 
 At closeout, report changed user contracts, actual guards and consumer evidence.
@@ -2374,7 +2369,7 @@ campaign has started; its completed results will be reported separately.
 Twenty sequential baseline/target processes completed C7's chemical-scaling,
 structural-isolation, group-only and projected-file fixtures, with four additional
 target-first full-copy rechecks and separate diagnostic profiles. The maintained
-[benchmark report](../chemical_domain_separation_benchmarks.md) links the full
+[benchmark report](../../chemical_domain_separation_benchmarks.md) links the full
 machine-readable artifact and reproducing command. Pure Topology's reduced work
 is demonstrated; full MolSys copy and every file route are not claimed faster.
 The evidence predates final source qualification and is not release evidence.
@@ -2420,7 +2415,7 @@ run 86 executes; this finding will be addressed after its diagnostic result.
 Two public graph docstrings still construct chemical Topology examples and also
 need correction before the final doctest gate.
 
-The maintained [client migration guide](../chemical_states_migration.md) now
+The maintained [client migration guide](../../chemical_states_migration.md) now
 collects the receiving routes, prerequisites, state scope, coordinated remapping
 and wire-version differences. It links the existing receiving issues and makes no
 new package-floor claim. The editable Viewer source observed during run 86 is
@@ -2835,7 +2830,7 @@ source/destination. Selected known atoms and assigned unnamed chains remain
 supported. Run 124 reproduced five failures with three positive controls; run 125
 passes 22 focused cases; run 126 passes all 440 PDB regression cases, exit 0,
 142.76 seconds. The three legacy-H5MSM warnings remain visible. The owning
-[resolved report](../archive/resolved_bugs/pdb_export_reports_unknown_chain_membership_as_an_unhandled_typeerror.md)
+[resolved report](../resolved_bugs/pdb_export_reports_unknown_chain_membership_as_an_unhandled_typeerror.md)
 names its executable guard. Four unrelated autosummary edits remain excluded.
 
 The follow-up Viewer hosted Linux job 124346847683 (run 41138522008) has
@@ -2869,7 +2864,7 @@ The first inspected completed source-matrix job on **9fb77c358** fails with
 **23,624 passed / 6 failed / 102 skipped / 40 deselected**, exit 1, 2081.10 seconds
 (Linux/Python 3.13/Pandas 3.1.0, run 41141703873, job 124357390441). Four failure
 mechanisms concern column-index dtype, deprecated copy arguments and read-only
-fixture views. The dedicated [#526 report](../pending_bugs/pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md)
+fixture views. The dedicated [#526 report](../resolved_bugs/pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md)
 names all cases and guards against weakening their semantic intent. #524 remains
 the runtime-floor review, not the owner of this concrete source bug. No complete
 matrix pass is claimed.
@@ -2943,7 +2938,7 @@ doctests**, exit 0, 130.93 seconds (run 178). Copy-on-Write/future-string contro
 pass **19 cases** (177), strict Sphinx passes (179), fast gates pass **14/14** (181),
 and the development scientific execution passes **79/79**, zero skips. None of
 these local scopes is relabeled as an actual Pandas 3.1 full-matrix pass. The
-[#526 record](../pending_bugs/pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md)
+[#526 record](../resolved_bugs/pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md)
 retains the red and corrective selections, the malformed test-path invocation,
 remaining visible warnings and exact pending acceptance. User-facing transport
 ownership guidance and course narrative are updated with unchanged code cells.
@@ -2960,7 +2955,7 @@ The old exact-source run's Linux/Python 3.11 cell aborts with a segmentation
 fault, exit 139, without a final pytest count or JUnit artifact. Its last
 progress line is not a final result. The truncated waiting-thread dump does
 not identify a responsible native library. This is tracked separately in
-[#527](../pending_bugs/python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md),
+[#527](../resolved_bugs/python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md),
 not treated as fixed by the #526 Pandas correction.
 
 Full-source CI now retains the supported, bounded per-phase receptor stream
@@ -3145,7 +3140,7 @@ succeeds. Linux 3.11 still aborts, and four macOS cells remain live at this
 observation. The first current-thread fixture loses its fatal dump in pytest FD
 capture. A real SIGSEGV subprocess regression fails before, then passes after
 borrowing pytest's original duplicated stderr descriptor (205/206). This fixes
-retention, not the unknown native cause; see [#527's current evidence](../pending_bugs/python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md).
+retention, not the unknown native cause; see [#527's current evidence](../resolved_bugs/python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md).
 A further exact-source execution must include that correction, all six headless
 course controls and the builder followup. P8.1 remains open for the final source
 head and unresolved hosted gates. The explicit no-merge/no-release goal remains
@@ -3543,3 +3538,108 @@ a separate acceptance plan. It requires a published verified upstream fix,
 constrained-thread analytic/independent parity, measured performance/memory and
 continued Python 3.11–3.14 compatibility. No new numerical method or floor is
 promised. That future optimization is not a missing correctness step in #255.
+
+
+## Resolution — 2026-11-02
+
+The accepted source refactor is implemented: Topology has stable inventory only;
+ChemicalStates owns stored chemical graphs/assignments/components; MolSys
+coordinates independent domains and axes. Native/basic/form queries, builders,
+controlled edits, copies/remapping, graph tools, producers, typed dictionaries
+and H5MSM follow that model. The nine graph APIs have their canonical
+chemical_states namespace; no old-path facade is retained. Chains/sequence,
+physicochemical interpretation, geometry, PBC and interactions keep their owners.
+Current rules are owned by CORE_SPECIFICATION.md and chemical_states_migration.md,
+with native_queries.md, native_copy.md, forms_and_conversions.md, BUILDER_API.md,
+SCALABILITY.md, interactions_api.md and h5msm_format.md supplying their maintained
+contracts. This execution history is archived rather than retained as a second
+current specification.
+
+### Final source evidence
+
+Runtime/test source: de7ffad2aef18ff3bccd184133dc69e081cb506e. Controlled Viewer:
+ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. Full source matrix:
+[41572981893](https://github.com/uibcdf/molsysmt/actions/runs/41572981893),
+officially completed/successful. All eight full test jobs and the controlled
+Viewer wheel succeed; the PR-only aggregate is skipped on manual dispatch.
+It is not a missing test cell.
+
+| Full source cell | Passed | Skipped | Deselected | Console time |
+| --- | ---: | ---: | ---: | ---: |
+| Linux / Python 3.11 | 23,672 | 102 | 40 | 2,189.90 s |
+| Linux / Python 3.12 | 23,672 | 102 | 40 | 2,305.50 s |
+| Linux / Python 3.13 | 23,672 | 102 | 40 | 2,121.25 s |
+| Linux / Python 3.14 | 23,672 | 102 | 40 | 2,880.63 s |
+| macOS / Python 3.11 | 23,671 | 103 | 40 | 2,140.10 s |
+| macOS / Python 3.12 | 23,671 | 103 | 40 | 2,249.42 s |
+| macOS / Python 3.13 | 23,671 | 103 | 40 | 2,110.82 s |
+| macOS / Python 3.14 | 23,671 | 103 | 40 | 2,535.18 s |
+
+Every cell has zero failures/errors/not-executed cases. Its actual canonical
+primary stream is finalized, session-complete, integrity-valid and untruncated,
+with no dropped primary records, and independently agrees with JUnit. Each
+cell's separate science certificate passes 79/79 cases for 59 registered nodes
+without skips. These are repeated executions of that registered scope, not
+632 different scientific cases or certification of every experimental profile.
+CI omits optional Ackredit/docs/Vina/quantity-backend cases and an optional
+newer-ArgDigest ownership study; macOS adds one Linux-only omission. The actual
+reasons are retained. Extended 40-case LEaP parity remains outside the unchanged
+default selection. None is silently counted as passing.
+
+The shared Python 3.14.7 local default selection and configured Basic doctests
+complete with 23,774 passes/two disclosed skips, exit 0, 2,377.96 s. All 4,164
+warnings remain visible. JUnit and complete intact primary evidence agree;
+optional extension events remain separately incomplete (5,624 retained/1,663
+dropped). The frozen tree stays tracked-clean, the existing Rust/version hashes
+and four source-backed support commits/package diffs stay unchanged, and no
+extra environment or backend rebuild is used. The 14 fast gates, whole-tree
+Ruff/formatting, affected doctests/examples and strict Sphinx receipts pass in
+their documented scopes. Original unrelated API stubs retain their hashes.
+
+### Requirement audit and guards
+
+| Required boundary | Executed evidence and settled outcome |
+| --- | --- |
+| Native authority and missing versus empty | Independent hand-authored two-state fixtures and 39 native-domain controls pass in every final cell; no Topology chemistry or automatic read-time state creation. |
+| Query/form/state selection | Complete native/basic/form scopes pass; state-local bounds, nullable fields, source indices, string IDs and explicit association refusals retain their contracts. |
+| Builder/lifecycle/copies | Full native/builder/edit/invalidation scopes and earlier failure-injection controls pass; absent/zero-state inputs, stable molecules and coordinated maps remain explicit. |
+| Functional namespace/science | Canonical nine-tool namespace control and independent graph/geometry/property oracles pass; no compatibility alias or new scientific profile is added. |
+| Conversion and persistence | Admitted converter, projection/fidelity, dictionary/JSON, H5MSM 0.3/0.4/0.5 and pickle scopes pass; partial domains and explicit legacy refusal remain truthful. |
+| Documentation and modular ownership | Maintained guides, API/User Guide/course examples, strict rendering and owning-module/source audits pass; no duplicate chemical store or new compiled primitive is introduced. |
+| Client delivery | Viewer/targeted TopoMT receiving and DockingMT/PharmacophoreMT proposals/patches have exact receipts; five review issues are delivered. Owners complete adoption; no public dependency minimum is invented. |
+| Performance/memory | C7 retains its measured content-hashed development scope and slower/private-codec limits. Read-only contexts, small queries, copies and projected I/O have explicit allocation guards; no universal final-head speedup is claimed. |
+| Source qualification | Complete local default selection, all eight full source cells and eight zero-skip science certificates pass. Original failed/interrupted runs remain retained. |
+
+The closing behavior guard is tests/native/test_chemical_domain_separation.py;
+its independent fixture and real assertions protect authority, state selection,
+stable inventory, partial systems and coordinated maps. It is not an import-only
+or string-pattern gate. Per-cell traces additionally confirm the actual execution
+of the #526 codec guard, all ten #527 bounded conversion controls, all six #528
+plotting lessons and all four #529 worker-reuse cases. Their original red controls
+and causes stay in their own archived reports.
+
+### Remaining work outside this source closeout
+
+No main merge, tag, Release, package build/promotion or DOI operation is performed.
+The active maintainer objective expressly limits delivery to this development
+branch. New installed-candidate qualification remains under #254/#334, with
+immutable package identities and actual compatible client packages still needed.
+Existing source/staging/public artifacts keep their original provenance.
+
+Client teams complete review/adoption through MolSysViewer #269, TopoMT #100,
+DockingMT #56/PR #59, PharmacophoreMT #69/PR #70 and ElastNetMT #31, coordinated
+under MolSysSuite #155. The delivered unapplied PharmacophoreMT followup remains
+explicit rather than being called integrated. Molecular identity/scaffold work
+#447, hydrogen/protocol work #323 and other scientific expansions are not
+implemented by this refactor. #530 owns future verified MDTraj batching recovery;
+current independent-structure correctness is retained. Scoped native-fault test
+diagnostics are deliberately retained with their real capture regression and
+private-pytest integration documented in #527; they are not mistaken for the
+cause-specific fix or promoted into runtime behavior.
+
+The documented close route completes successfully for #526, #527, #528, #529
+and #255 (251), with their implementation commits, actual guards and archival
+paths. P8.5 is completed during this initial archive transition; this is not a
+rewrite of a previously published archived record. The final documentation
+checkpoint is published on the development branch with unchanged executable,
+test, workflow and runtime-configuration bytes relative to qualified de7ffad2a.
