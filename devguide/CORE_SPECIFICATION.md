@@ -17,7 +17,8 @@ molsysmt/
   lib/             # Compatibility facade for native Rust kernels
   build/           # System Construction, Repair, and Mutagenesis
   structure/       # Geometric and conformational analysis
-  topology/        # Connectivity, sequence, and graph analysis
+  topology/        # Stable inventory and sequence analysis
+  chemical_states/ # State-dependent connectivity, components and graph analysis
   physchem/        # Physicochemical property calculators
   pbc/             # Periodic Boundary Condition management
   interactions/    # Chemically classified interaction analyses by family
@@ -74,6 +75,15 @@ uses stored edges and participation declarations; optional stable context labels
 components without redefining molecules. Controlled edits stage changes and
 interaction invalidation before publication. Live pandas tables are not a
 validated editing boundary. See [native queries](native_queries.md).
+
+### 2.5 `molsysmt.MolSysBuilder`
+Editable staging requires a stable Topology domain. Creating a builder from
+a system without structures creates an empty Structures staging container,
+without coordinates or observations. Absent chemical information stays absent;
+a zero-state collection stays empty. Chemical queries and bond edits require a
+declared, resolvable state rather than synthesizing chemistry. Existing state
+labels, reference selection and preparation history survive staging/building.
+The builder stores no named interactions or molecular-mechanics domain.
 
 ---
 

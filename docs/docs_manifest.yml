@@ -44,6 +44,10 @@ sections:
             file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md.AGENTS.md
             description: Aligned structural series, protected geometry, independent copies, selected periodic edit ownership and chemistry-free embedding in MolSys.
+          - name: molsysbuilder
+            file: docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuilder.md
+            agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuilder.md.AGENTS.md
+            description: Independent inventory, chemical and structural staging, required stable topology and preserved absent or zero-state chemistry.
           - name: structuresdict
             file: docs/content/user/foundations/native_world/classes/molsysmt_StructuresDict.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_StructuresDict.md.AGENTS.md
@@ -164,6 +168,10 @@ sections:
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
         pages:
+          - name: editable
+            file: docs/content/user/tools/build/editable.ipynb
+            agents_file: docs/content/user/tools/build/editable.ipynb.AGENTS.md
+            description: Staging and validating native edits with explicit chemical authority and missing-domain prerequisites.
           - name: project_atom_names
             file: docs/content/user/tools/build/project_atom_names.md
             agents_file: docs/content/user/tools/build/project_atom_names.md.AGENTS.md
@@ -608,7 +616,7 @@ sections:
       - name: group_free_hierarchy
         file: docs/content/user/cookbook/group_free_hierarchy.ipynb
         agents_file: docs/content/user/cookbook/group_free_hierarchy.ipynb.AGENTS.md
-        description: Declaring stable molecule and partial component membership, exact-set labels, alternative-state chemistry, graph restriction and MDTraj selectors
+        description: Declaring stable molecules and partial components, absent-domain staging, exact-set labels, alternative-state chemistry, graph restriction and MDTraj selectors.
       - name: molecular_descriptors
         file: docs/content/user/cookbook/molecular_descriptors.md
         agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md

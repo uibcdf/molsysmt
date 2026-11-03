@@ -1,11 +1,16 @@
 import warnings
 
 import numpy as np
+import pandas as pd
 import pytest
 
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
+from molsysmt.native import MolSys, Structures, Topology
+from tests.native import test_chemical_domain_separation as contract_fixtures
+
+states = contract_fixtures.states
 
 
 def test_molsys_builder_builds_from_declared_atoms_groups_and_bonds():
@@ -327,3 +332,154 @@ def test_molsys_builder_add_chain_digests_allow_reassign():
 
     with pytest.raises(ArgumentError):
         builder.add_chain([group_index], allow_reassign="yes")
+
+
+@pytest.fixture(
+    params=[
+        msm.MolSysBuilder,
+        msm.build.editable,
+        lambda molsys: msm.convert(molsys, to_form="molsysmt.MolSysBuilder"),
+    ],
+    ids=["native", "editable", "convert"],
+)
+def make_builder(request):
+    return request.param
+
+
+@pytest.mark.parametrize("chemistry", ["absent", "zero-state", "multistate"])
+def test_builder_accepts_partial_inventory_without_inventing_chemical_states(
+    states, chemistry, make_builder
+):
+    if chemistry == "absent":
+        domain = None
+    elif chemistry == "zero-state":
+        domain = msm.ChemicalStates(n_atoms=3)
+    else:
+        domain = states
+        domain._set_reference_index(1)
+        for index, state in enumerate(domain._states):
+            state.provenance_index = 0
+            state._preparation_history = [
+                {
+                    "schema": "molsysmt.preparation_record@1",
+                    "index_scope": "operation",
+                    "output": {"n_atoms": 3, "chemical_state_index": index},
+                    "report": {
+                        "schema": "tests.builder_seed@1",
+                        "producer_version": "original-255",
+                    },
+                }
+            ]
+    topology = Topology(n_atoms=3)
+    topology.atoms["atom_id"] = ["a", "b", "c"]
+    molsys = MolSys._from_partial_domains(topology=topology, chemical_states=domain)
+    original_type = type(topology.atoms)
+    original = pd.DataFrame(topology.atoms).copy(deep=True)
+    reference = None if domain is None else domain.reference_chemical_state_index
+    labels = [] if domain is None else [state.state_id for state in domain._states]
+    tables = (
+        []
+        if domain is None
+        else [
+            {
+                name: pd.DataFrame(getattr(state, name)).copy(deep=True)
+                for name in ("atom_attributes", "bonds", "components")
+            }
+            for state in domain._states
+        ]
+    )
+    history = (
+        []
+        if domain is None
+        else [
+            domain.get_preparation_history(chemical_state=i)
+            for i in range(domain.n_chemical_states)
+        ]
+    )
+
+    builder = make_builder(molsys)
+    assert builder.topology is not topology
+    assert isinstance(builder.structures, Structures)
+    assert builder.n_structures == 0
+    assert builder.structures.coordinates is None
+    assert builder.structures.box is None
+    assert builder.structures.time is None
+    output = builder.build()
+    assert output.structures.coordinates is None
+    assert output.structures.n_structures == 0
+    assert output.topology.atoms.atom_id.tolist() == ["a", "b", "c"]
+    if domain is None:
+        assert builder.chemical_states is None
+        assert output.chemical_states is None
+    else:
+        assert builder.chemical_states is not domain
+        assert output.chemical_states is not domain
+        assert output.chemical_states.n_chemical_states == len(labels)
+        assert domain.n_chemical_states == len(labels)
+        assert output.chemical_states.reference_chemical_state_index == reference
+        assert domain.reference_chemical_state_index == reference
+        assert [state.state_id for state in output.chemical_states._states] == labels
+        assert [state.state_id for state in domain._states] == labels
+        if labels:
+            assert builder.n_bonds == 1
+        for index in range(len(labels)):
+            for name, expected in tables[index].items():
+                pd.testing.assert_frame_equal(
+                    expected,
+                    pd.DataFrame(getattr(output.chemical_states._states[index], name)),
+                )
+                pd.testing.assert_frame_equal(
+                    expected, pd.DataFrame(getattr(domain._states[index], name))
+                )
+            assert (
+                output.chemical_states.get_preparation_history(chemical_state=index)
+                == history[index]
+            )
+            assert (
+                domain.get_preparation_history(chemical_state=index) == history[index]
+            )
+    assert molsys.structures is None
+    assert molsys.chemical_states is domain
+    assert type(topology.atoms) is original_type
+    pd.testing.assert_frame_equal(original, pd.DataFrame(topology.atoms))
+
+
+@pytest.mark.parametrize("chemistry", ["absent", "zero-state"])
+def test_builder_count_requires_available_chemistry_without_implicit_creation(
+    chemistry, make_builder
+):
+    domain = None if chemistry == "absent" else msm.ChemicalStates(n_atoms=2)
+    molsys = MolSys._from_partial_domains(
+        topology=Topology(n_atoms=2), chemical_states=domain, structures=Structures()
+    )
+    builder = make_builder(molsys)
+    with pytest.raises(
+        StructuralInconsistencyError, match="ChemicalStates|chemical state"
+    ):
+        _ = builder.n_bonds
+    with pytest.raises(
+        StructuralInconsistencyError, match="ChemicalStates|chemical state"
+    ):
+        builder.add_bond(0, 1)
+    if domain is None:
+        assert builder.chemical_states is None
+    else:
+        assert builder.chemical_states.n_chemical_states == 0
+        assert domain.n_chemical_states == 0
+    assert molsys.chemical_states is domain
+
+
+@pytest.mark.parametrize("payload", ["structures", "chemical-states"])
+def test_builder_requires_explicit_stable_inventory(payload, states, make_builder):
+    if payload == "structures":
+        molsys = MolSys._from_partial_domains(
+            structures=Structures(coordinates=puw.quantity(np.zeros((1, 3, 3)), "nm"))
+        )
+    else:
+        molsys = MolSys._from_partial_domains(chemical_states=states)
+    structures, chemistry = molsys.structures, molsys.chemical_states
+    with pytest.raises(StructuralInconsistencyError, match="Topology"):
+        make_builder(molsys)
+    assert molsys.topology is None
+    assert molsys.structures is structures
+    assert molsys.chemical_states is chemistry

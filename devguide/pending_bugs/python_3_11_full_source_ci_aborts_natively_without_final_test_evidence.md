@@ -162,3 +162,40 @@ This motivates investigating accumulated state or an intermittent failure;
 an isolated successful step does not distinguish those possibilities or prove
 a root cause. Keep the current-thread crash diagnostic and full-suite evidence.
 No new full execution is launched merely because observation was delayed.
+
+
+## Capture-descriptor regression and correction — 2026-11-02
+
+The same exact-source run's Linux/Python 3.11 job
+[125642612697](https://github.com/uibcdf/molsysmt/actions/runs/41552267703/job/125642612697)
+ends with exit 139 again. Its raw log contains no fatal Python traceback. The
+isolated pinning step passed three cases in 1.92 seconds; that success does not
+clear the full-suite failure. Linux 3.12/3.13/3.14 complete with 23,631 passes,
+102 skips and 40 deselections each, exit 0; macOS cells remain active at this
+observation.
+
+The initial per-test current-thread fixture redirected faulthandler into pytest's
+temporary FD capture. Abrupt process exit loses that captured output. This is a
+separate diagnostic defect, not the native crash's established cause. A real
+subprocess regression now imports the actual fixture, enables native pytest FD
+capture, starts 110 background waiting threads and raises SIGSEGV. Core dumping
+is disabled in that child only. Before correction the subprocess exits by signal
+with empty stderr and the regression fails (205, one failure). After correction
+its retained stderr contains the fatal error and active Python call site, without
+the background-thread dump.
+
+The fixture now borrows pytest's pre-capture duplicated stderr descriptor and
+restores the plugin's all-thread mode afterward. Pytest owns the descriptor's
+lifetime; no new file descriptor or retained engine object is introduced. There
+is no public pytest descriptor accessor, so this temporary test-only integration
+uses `_pytest.faulthandler.fault_handler_stderr_fd_key`. The behavioral subprocess
+regression protects that private integration against dependency drift. A disabled
+faulthandler plugin remains disabled. The local pytest version is 9.1.1.
+
+`devtools/tests/test_pytest_receptor_ci_contract.py::test_native_fault_trace_survives_pytest_capture_and_background_threads`
+is the new capture regression. All seven CI-contract tests plus three actual
+OpenMM pinning cases pass (206, 10 passed, exit 0, 4.40 seconds). The integrated
+builder/documentation/diagnostic selection also passes (209, 237 passed, exit 0,
+20.48 seconds). These are diagnostic and targeted source results. The crash's
+cause-specific correction and a complete hosted source matrix remain pending;
+this report stays active and its original incomplete/failed runs remain retained.

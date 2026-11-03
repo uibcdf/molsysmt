@@ -20,6 +20,11 @@ class MolSysBuilder(NativeQueries):
     :func:`molsysmt.get` without first calling :meth:`build`. Molecular
     mechanics and named interaction analyses are not stored by
     this object.
+
+    Existing inputs require a stable Topology domain. Missing structures become
+    an empty Structures staging container without coordinates or observations.
+    An absent chemical collection remains absent, and a zero-state collection
+    remains empty; creating a builder does not create a chemical state for them.
     """
 
     def __repr__(self):
@@ -50,8 +55,17 @@ class MolSysBuilder(NativeQueries):
             self._structure_chemical_state_indices = None
             self._dirty_chemical_states = {0}
         elif isinstance(molecular_system, MolSys):
+            if molecular_system.topology is None:
+                raise StructuralInconsistencyError(
+                    caller="molsysmt.native.MolSysBuilder.__init__",
+                    reason="MolSysBuilder requires a Topology domain; supply an explicit stable inventory before editing.",
+                )
             self.topology = molecular_system.topology.copy()
-            self.structures = molecular_system.structures.copy()
+            self.structures = (
+                Structures(skip_digestion=True)
+                if molecular_system.structures is None
+                else molecular_system.structures.copy()
+            )
             self.chemical_states = (
                 None
                 if molecular_system.chemical_states is None
@@ -493,6 +507,9 @@ class MolSysBuilder(NativeQueries):
             normalized as bond order rather than retained as bond type.
         skip_digestion : bool, default False
             Whether to skip argument digestion.
+        chemical_state : str or int, default='reference'
+            State whose bond table is edited. Use its positional index or the
+            resolvable reference. This argument is keyword-only.
 
         Returns
         -------
@@ -504,7 +521,8 @@ class MolSysBuilder(NativeQueries):
         ArgumentError
             If a bond label has an unsupported type.
         StructuralInconsistencyError
-            If either atom index is outside the declared topology.
+            If either atom index is outside the declared topology, or the
+            chemical collection/state is missing or ambiguous.
 
         Examples
         --------
@@ -544,6 +562,57 @@ class MolSysBuilder(NativeQueries):
     def remove_bonds(
         self, bond_indices="all", skip_digestion=False, *, chemical_state="reference"
     ):
+        """Removing stored bond positions from one staging chemical state.
+
+        Parameters
+        ----------
+        bond_indices : str, int, list, tuple or numpy.ndarray, default='all'
+            Selected state's bond positions to remove. Repetitions are removed
+            once. An empty selection leaves the staging data unchanged.
+        skip_digestion : bool, default=False
+            Whether to skip digestion of arguments already satisfying the contract.
+        chemical_state : str or int, default='reference'
+            State whose bond table is edited. Use its positional index or the
+            resolvable reference. This argument is keyword-only.
+
+        Returns
+        -------
+        None
+            The selected state is edited in place.
+
+        Raises
+        ------
+        ArgumentError
+            If selected positions do not belong to the resolved state's bonds.
+        StructuralInconsistencyError
+            If the chemical collection/state is missing or ambiguous.
+
+        Notes
+        -----
+        Other states and stable molecule membership retain their declarations.
+        Component reconstruction follows ChemicalStates' stored-edge and
+        participation policy; build() finalizes metadata with stable context.
+        No chemical state or missing bond is created implicitly.
+
+        See Also
+        --------
+        add_bond : Stage a bond in an explicitly selected chemical state.
+
+        Examples
+        --------
+        >>> builder = MolSysBuilder()
+        >>> _ = [builder.add_atom(atom_name='Ar', atom_type='Ar') for _ in range(2)]
+        >>> _ = builder.add_bond(0, 1, bond_order=1, bond_type='covalent')
+        >>> builder.remove_bonds([0])
+        >>> builder.n_bonds
+        0
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Editable` for staging native molecular systems.
+
+        .. versionadded:: 1.0.0
+        """
         state_index = self._chemical_index(chemical_state)
         self.chemical_states.remove_bonds(
             bond_indices, chemical_state=state_index, skip_digestion=True
@@ -1314,7 +1383,8 @@ class MolSysBuilder(NativeQueries):
         )
 
     def _chemical_state(self, chemical_state="reference"):
-        return self.chemical_states._states[self._chemical_index(chemical_state)]
+        index = self._chemical_index(chemical_state)
+        return self.chemical_states._states[index]
 
     @staticmethod
     def _available_reference(chemical_states):

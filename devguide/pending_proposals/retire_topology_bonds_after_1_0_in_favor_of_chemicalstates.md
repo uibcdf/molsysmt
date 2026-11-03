@@ -3063,3 +3063,97 @@ policy, without changing its algorithm. The local full-run record will identify
 the committed provider, frozen Viewer archive digest, actual shared dependency
 versions/import origins, command, workers and eventual exit. The four unrelated
 preexisting autosummary edits and the native binary are preserved.
+
+
+### Complete local source result and builder lifecycle audit — 2026-11-02
+
+The full shared-environment source run on provider
+`f5dbc9252dc0fea66c735ef43370034686aca82d` and frozen Viewer
+`ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352` completes with **23,733 passed,
+2 skipped, zero failures/errors**, exit 0, 2,462.65 seconds (198). It uses Python
+3.14.7, two workers, disk-backed temporary data and the default test selection
+plus configured basic-module doctests. The two skips concern CCO form recognition
+and unavailable CuPy. Forty expanded LEaP peptide-parity cases remain outside the
+configured default selection; the xdist master's retained summary reports zero
+deselections, so its numeric summary must not be relabeled as an explicit
+40-case deselection report. There are 4,163 visible warnings.
+
+The JUnit and supported Pytest Receptor JSONL reader agree on all 23,735 executed
+cases. No primary JSONL record is dropped or truncated; optional extension
+evidence reports 1,663 dropped extensions separately. This does not change the
+pytest outcome or justify calling the extension stream complete. The frozen
+provider, four preexisting autosummary edits and native binary retain their
+input hashes. This is a complete local source result, not an installed/release
+certificate or evidence for later source changes.
+
+The earlier local run 196 was deliberately interrupted after proving a harness
+namespace collision: exposing the entire Viewer source snapshot on PYTHONPATH
+made its regular `tests` package hide provider subprocess helpers. It ends exit 2
+with 2,132 passes, two failures and 21,601 not executed. It remains incomplete.
+Exposing only the unchanged frozen Viewer runtime package restores the intended
+helper origins; both original failed cases pass unchanged (197, two passes,
+18.90 seconds). The source archive digest remains
+`38dcc102ef2f2a106c85db3cf40a421bd14aea23b3aca76e1086f6218edf4dc1`.
+
+A subsequent P4/C2 lifecycle audit finds a topology-only partial MolSys reaching
+`None.copy()` for missing structures, and absent chemistry reaching an attribute
+error before state validation in `builder.n_bonds`. Topology-free inputs also
+need a typed stable-inventory prerequisite. New native/public editable/conversion
+controls reproduce these failures (201, 18 failures, three passes). An isolated
+same-source worktree permits investigation without mutating the running full
+suite or introducing another environment. Builder staging now creates only an
+empty structural container, preserves absent/zero/multiple chemical states and
+reports missing stable inventory before copying it. State labels, original
+preparation records, nullable tables/dtypes and source independence are checked.
+
+An intermediate new test oracle incorrectly compared the private pandas
+subclass identity with its own plain-DataFrame snapshot (202, nine failures).
+The corrected oracle checks actual public table values/dtypes against deep
+preoperation snapshots, and separately checks the original source table type.
+No existing scientific assertion is removed. Builder/doctests pass 38 cases
+(203); the broader native/adapter scope passes 225 (204). The followup is applied
+to the main development worktree after full run 198 finishes; no merge occurs.
+
+Foundations now documents the independent staging domains and required stable
+inventory. Toolbox, Cookbook and Common Core 04 explain absent chemistry and
+empty structural staging; their code cells and saved outputs are unchanged.
+The new executable Foundations controls check all three actual examples,
+including bond pairs, geometry in nm and source independence. Initial documentation
+trials 207/208 expose invalid constructor-alias/domain-setter assumptions in the
+new example; it is corrected to use the existing public pure-Topology conversion,
+without adding an alias or weakening the chemical replacement contract. The
+integrated root selection passes **237 cases**, exit 0, 20.48 seconds (209),
+including native lifecycle, builder adapters/doctests, documentation examples,
+CI evidence contracts and OpenMM pinning. Strict serial Sphinx HTML with
+warning-as-error and boolean `autosummary_generate=False` passes (210). Whole-tree
+Ruff and formatting pass (4,220 checked Python files). The four unrelated
+original autosummary edits and Rust binary remain outside the change.
+
+In hosted run 41552267703 on older provider 2f046721b, Linux 3.12/3.13/3.14 each
+pass 23,631 cases with 102 skips and 40 deselections; every isolated pinning probe
+succeeds. Linux 3.11 still aborts, and four macOS cells remain live at this
+observation. The first current-thread fixture loses its fatal dump in pytest FD
+capture. A real SIGSEGV subprocess regression fails before, then passes after
+borrowing pytest's original duplicated stderr descriptor (205/206). This fixes
+retention, not the unknown native cause; see [#527's current evidence](../pending_bugs/python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md).
+A further exact-source execution must include that correction, all six headless
+course controls and the builder followup. P8.1 remains open for the final source
+head and unresolved hosted gates. The explicit no-merge/no-release goal remains
+in force; this checkpoint does not complete #255.
+
+
+The followup's fast gate passes **14/14** (211, exit 0), including form delivery,
+API stability, dependency boundaries and developer-guide/course checks. The
+separate docstring validator passes all 246 functions in its actual discovery
+scope; native builder method examples are additionally executed in 209. Queue
+indexes are current. Inspection of the strict rendered Builder HTML confirms the
+new domain table, missing-domain example and working tutorial link. All code,
+outputs and execution metadata in the three narrative-only notebook updates
+match their original cells exactly. Hash checks again confirm the four
+preexisting autosummary files and native binary are unchanged.
+
+The next full source dispatch is justified by newly corrected diagnostic
+retention, four additional macOS display controls and the partial-domain builder
+fixes. It is not a restart caused by an observation timeout, and it does not
+cancel or relabel the still-running older macOS cells. The final-head required
+matrix and #527's cause-specific resolution remain open.

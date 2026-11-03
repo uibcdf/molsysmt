@@ -71,6 +71,15 @@ ChemicalStates starts with no states. Ordinary MolSys/Builder construction retai
 its documented unknown staging state. A consumer must check its prerequisite and
 must not create a state merely to make a read succeed.
 
+`msm.build.editable(molsys)` requires stable Topology. A topology-free system
+must receive an explicit inventory before staging. Missing structures produce
+an empty staging container without coordinates; missing or zero-state chemistry
+remains unchanged through `build()`. Bond counters and edits then report the
+missing prerequisite. Existing state labels, reference selection and original
+preparation records remain independent of the input system. This builder route
+does not retain named analyses or molecular mechanics; use coordinated MolSys
+editing when those domains must accompany the edit.
+
 ## Resolving state and scope
 
 Use `chemical_state='reference'` only when the source has an unambiguous reference.

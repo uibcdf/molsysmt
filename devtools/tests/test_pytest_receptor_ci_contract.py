@@ -2,11 +2,13 @@
 
 import os
 import re
+import signal
 import subprocess
 import sys
 import tomllib
 from pathlib import Path
 
+import pytest
 import yaml
 
 REPO = Path(__file__).resolve().parents[2]
@@ -173,3 +175,38 @@ def test_full_ci_preserves_partial_phase_evidence_after_abrupt_exit(tmp_path):
     assert upload["if"] == "always()"
     assert relative in upload["with"]["path"].splitlines()
     assert upload["with"]["include-hidden-files"] is True
+
+
+@pytest.mark.skipif(os.name != "posix", reason="Native POSIX signal diagnostic")
+def test_native_fault_trace_survives_pytest_capture_and_background_threads(tmp_path):
+    fixture = REPO / "tests" / "_native_faults.py"
+    (tmp_path / "pytest.ini").write_text("[pytest]\ntestpaths = .\n")
+    (tmp_path / "test_native_fault.py").write_text(
+        "import importlib.util\nimport resource\nimport signal\nimport threading\n\n"
+        f"spec = importlib.util.spec_from_file_location('native_fault_fixture', {str(fixture)!r})\n"
+        "module = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(module)\n"
+        "current_thread_native_fault = module.current_thread_native_fault\n\n"
+        "def test_native_call_site():\n"
+        "    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))\n"
+        "    event = threading.Event()\n"
+        "    for _ in range(110):\n"
+        "        threading.Thread(target=event.wait, daemon=True).start()\n"
+        "    signal.raise_signal(signal.SIGSEGV)\n"
+    )
+    environment = dict(os.environ)
+    environment.pop("PYTEST_ADDOPTS", None)
+    environment.pop("PYTEST_CURRENT_TEST", None)
+    environment["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] = "1"
+    # Native pytest is the capture oracle for this controlled process abort.
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", "--capture=fd", "-q"],
+        cwd=tmp_path,
+        env=environment,
+        capture_output=True,
+        text=True,
+        timeout=45,
+    )
+    assert result.returncode == -signal.SIGSEGV, result.stdout + result.stderr
+    assert "Fatal Python error: Segmentation fault" in result.stderr
+    assert "test_native_call_site" in result.stderr
+    assert "threading.py" not in result.stderr
