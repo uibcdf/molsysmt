@@ -14,6 +14,25 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Supported metadata source increment — 2026-11-03
+
+Four explicit `supported` wrappers now provide forms, conversions, dependencies
+and syntax-direction reports without a primary system. They preserve native
+signatures/defaults, digestion and output types, open-empty-view access and
+closed-owner refusal. No synchronization, scene/history update or registry copy
+is added. Source exposure becomes 148/244; attribute helpers and scientific edit
+families remain separate. The installed Rust-manifest prerequisite remains #533;
+native metadata/alias findings #534/#535 receive no consumer workaround.
+
+The complete source addon selection passes 2,527 cases without failures, errors
+or skips, including all 74 new metadata cases, on this isolated source. Five
+help-doctest/inventory checks and 519 native-report/notebook-schema checks also
+pass in separate scopes. Original JUnit and scope limits are retained in the
+[receiving receipt](../../devtools/data/molsysviewer_tools_supported_receiving_20261103.json). The
+[maintained inventory](../molsysviewer_tools_api_inventory.md) and
+[usage guide](../../docs/content/user/tools/molsysviewer_tools.md#discovering-capabilities-before-loading-a-system)
+record the implementation scope. No package floor, tag or release is changed.
+
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound

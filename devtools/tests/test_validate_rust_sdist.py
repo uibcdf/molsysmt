@@ -4,6 +4,8 @@ import tarfile
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
+import pytest
+
 from devtools.scripts.viewer_tools_contract import TOOLS_FILES
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "validate_rust_sdist.py"
@@ -13,10 +15,14 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
 
-def _write_sdist(path, *, omit=(), extras=()):
+def _write_sdist(path, *, omit=(), extras=(), directories=()):
     root = "molsysmt-1.0.0"
     required = (MODULE.REQUIRED_SUFFIXES | TOOLS_FILES) - set(omit)
     with tarfile.open(path, mode="w:gz") as archive:
+        for name in directories:
+            directory = tarfile.TarInfo(f"{root}/{name}")
+            directory.type = tarfile.DIRTYPE
+            archive.addfile(directory)
         for name in sorted(required | {"rust/src/geometry.rs"} | set(extras)):
             source = path.parent / name.replace("/", "_")
             source.write_bytes(b"test")
@@ -63,3 +69,29 @@ def test_retired_addon_source_fails(tmp_path):
     assert any(
         "retired or unreviewed" in problem for problem in MODULE.validate_sdist(archive)
     )
+
+
+@pytest.mark.parametrize("suffix", ["", "/"])
+def test_real_addon_directories_are_not_unreviewed_files(tmp_path, suffix):
+    archive = tmp_path / "molsysmt-1.0.0.tar.gz"
+    directories = [
+        "molsysviewer_molsysmt" + suffix,
+        "molsysviewer_molsysmt/_private" + suffix,
+        "molsysviewer_molsysmt/_private/argument" + suffix,
+        "molsysviewer_molsysmt/_private/function" + suffix,
+    ]
+    _write_sdist(archive, directories=directories)
+    assert MODULE.validate_sdist(archive) == []
+    _write_sdist(
+        archive, directories=directories, extras={"molsysviewer_molsysmt/runtime.py"}
+    )
+    assert any("retired or unreviewed" in p for p in MODULE.validate_sdist(archive))
+
+
+@pytest.mark.parametrize(
+    "name", ["rust/Cargo.toml", "molsysviewer_molsysmt/_supported.py"]
+)
+def test_directory_cannot_satisfy_a_required_file(tmp_path, name):
+    archive = tmp_path / "molsysmt-1.0.0.tar.gz"
+    _write_sdist(archive, omit={name}, directories=[name])
+    assert any(name in p and "missing" in p for p in MODULE.validate_sdist(archive))

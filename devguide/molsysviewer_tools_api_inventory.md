@@ -2,8 +2,9 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-10-30, the #255 working tree splits the graph and sequence domains;
-complete scene-loader receiving remains pending under uibcdf/molsysviewer#269.
+**Snapshot:** 2026-11-03, based on `2e5c8b64b`, adds four explicit supported
+reports to the independently split graph/sequence domains. Installed receiving
+remains pending under uibcdf/molsysviewer#269 and uibcdf/molsysmt#533.
 The prior 2026-10-28 source receiving extended ac30d5ba4 with four native
 composition mirrors and the separately qualified Viewer prefix-addition host. All fifteen canonical
 interaction paths remain exposed explicitly. Prior source and installed qualification retain
@@ -13,8 +14,9 @@ Regenerate the full path/signature/missing-route inventory in the participating
 source environment:
 
 ```bash
+python -c "from pathlib import Path; Path('.pytest_cache').mkdir(exist_ok=True)"
 python devtools/scripts/audit_molsysviewer_tools_api.py \
-  --output devtools/data/molsysviewer_tools_chemical_domains_inventory_20261030.json
+  --output .pytest_cache/molsysviewer_tools_inventory.json
 ```
 
 The command uses real native declarations and an actual empty view's addon,
@@ -22,6 +24,9 @@ without calling scientific functions. A missing provider/host cannot silently
 be counted as zero. HEAD identifies the checkout basis; the inventory observes
 working-tree source too. Local receiving records identify tested code hashes.
 Keep historical receipts immutable; a new baseline needs a new dated snapshot.
+The [metadata receiving receipt](../devtools/data/molsysviewer_tools_supported_receiving_20261103.json)
+records the current four-tool increment and its raw inventory digest without
+publishing temporary checkout paths as operational instructions.
 
 ## Actual function-path exposure
 
@@ -40,10 +45,10 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | h5msm file utilities | 7 | 7 | 0 |
 | historical hbonds aliases | 0 | 4 | 4 |
 | attribute metadata helpers | 0 | 7 | 7 |
-| supported-capability reports | 0 | 4 | 4 |
+| supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 144 exposed out of 244 inspected public callable paths. This is not
+These are 148 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -70,10 +75,16 @@ The new source-preserving `form.file_fasta.read_records` and `parse_records`
 utilities (ae24866ba) are outside this 244-path functional inventory, which
 excludes form adapters. They are explicit file/text operations without a primary
 system slot. Both are now explicitly exposed at those same addon paths and independently
-received as file/text utilities. They are not included in 144/244 and do not
+received as file/text utilities. They are not included in 148/244 and do not
 justify exposing arbitrary adapters or binding filenames/text to view.molsys.
 
 ## Ordered expansion
+
+The four `supported` reports retain explicit inputs and work before loading a
+system. No primary reader, pending-edit synchronization, scene action or new
+root scientific alias is introduced. Their programmatic outputs remain native;
+the default is still visual. Attribute-helper receiving stays pending, including
+the distinct native dependency-metadata and cold alias findings #534/#535.
 
 1. **Retain the received baseline.** Complete exact-source CI for all 34 physchem
    wrappers and three build diagnostics. Keep the native CIP reference-ownership

@@ -13,6 +13,7 @@ from ._interactions import _InteractionsTools
 from ._pbc import _PbcTools
 from ._physchem import _PhyschemTools
 from ._structure import _StructureTools
+from ._supported import _SupportedTools
 from ._topology import _TopologyTools
 
 
@@ -29,6 +30,7 @@ class _MolSysMTTools:
         self.structure = _StructureTools(self)
         self.pbc = _PbcTools(self)
         self.physchem = _PhyschemTools(self)
+        self.supported = _SupportedTools(self)
 
     def _view(self):
         view = self._view_ref()
@@ -99,6 +101,7 @@ class _MolSysMTTools:
             "structure",
             "pbc",
             "physchem",
+            "supported",
             "get_sync_status",
             "sync_view",
             *_BasicTools._NAMES,
