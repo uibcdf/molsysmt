@@ -1,13 +1,13 @@
 ---
 summary: Classic hydrogen-bond detectors mishandle precomputed donor shapes.
 issue: uibcdf/molsysmt#511
-status: open
+status: resolved
 opened: 2026-10-27
-closed:
+closed: 2026-11-03
 severity: medium
 verification: reproduced
 area: [interactions, molsysviewer]
-guard:
+guard: tests/interactions/hbonds/test_precomputed_donors.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Classic precomputed-donor shape contract
 
 **Reported:** 2026-10-27 during expert-addon detector receiving.
-**Status:** open; native correction pending.
+**Status:** resolved with native, bound-addon and documentation receiving.
 
 ## What
 
@@ -56,7 +56,7 @@ The expert addon mirrors these explicit scientific inputs and must not flatten p
 
 Native pytest should cover both detectors and both donor sides, automatic/precomputed roles, valid and invalid 1D/2D input under the chosen contract, empty/noncontiguous/read-only arrays, selection and nonconsecutive structures, unchanged caller arrays/source, equivalent observed triples and measurements. Unsupported forms should reject explicitly rather than leak internal indexing/container errors. Keep the existing optional sparse-output restrictions distinct; this issue does not require widening that output contract.
 
-This differs from #506 (rule-list mutation), #507 (internal rule syntax), #508 (empty graph paths) and #509 (resident frame bounds). Consumer: uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. Record: `devguide/pending_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md`, to land with receiving. Closure requires an addressable native pytest guard. No native scientific correction or shape workaround was added to the addon.
+This differs from #506 (rule-list mutation), #507 (internal rule syntax), #508 (empty graph paths) and #509 (resident frame bounds). Consumer: uibcdf/molsysmt#421 / uibcdf/molsysviewer#264. Record: `devguide/archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md`, to land with receiving. Closure requires an addressable native pytest guard. No native scientific correction or shape workaround was added to the addon.
 
 ## What is measured and what is assumed
 
@@ -91,3 +91,60 @@ internal container/indexing errors. Receive the owner correction separately.
 
 The native owner chooses any representation/migration semantics. Changing the
 facade alone would fork the chemical/index contract and hide the actual defect.
+
+## Accepted correction — 2026-11-03
+
+The tuple route accepts either integer donor anchors (one dimension, including
+one scalar) or explicit `(n, 2)` donor-H pairs. Anchors expand only through
+stored covalent paths to indexed H atoms; supplied pairs remain a subset. No
+automatic donor rule is rerun for a declaration, no hydrogen is reconstructed,
+and no source bond/state is changed. Selection filters the donor anchor, as in
+`get_donor_atoms`; the attached H can lie outside it. Validate every pair before
+filtering, then deduplicate/sort rows without independently sorting columns.
+
+ArgDigest now rejects malformed shapes, ragged lists, boolean/string/fractional
+indices and overflow before coercion. Native resolution checks bounds, heavy/H
+roles and stored covalent membership through the existing public
+`chemical_states.get_covalent_paths` tool. Both classic detectors share only
+private orchestration; no competing bond store or new scientific criterion is
+introduced. `donors_2` follows the same contract and reports its own argument
+name. Unsupported optional sparse-output combinations remain unsupported.
+
+The initial 86-case regression selection produced 32 failures, reproducing the
+list/pair/ragged errors independently of Viewer. A first expanded checkpoint
+passes 171 cases, including the classic regressions, external role syntax and
+new native/H5MSM/composite/RDKit, two-sided, readonly and unit controls. The
+source-immutability assertion compares table values independently of Pandas
+subclass identity: native table `.copy()` already returns a plain DataFrame
+before any calculation. This correction does not weaken value comparisons.
+
+Docstrings, both classic tutorials, the sparse-query recipe and the four
+advanced-hydrogen-bond course modules describe the input contract. Notebook
+code, outputs, cell IDs and metadata are preserved; only prose is changed.
+Existing Ackredit attribution remains attached to the same executed scientific
+methods; validation and covalent-path reuse add no external scientific method.
+
+## Final receiving — 2026-11-03
+
+The final combined selection passes **2,021 tests**, zero failures or skips,
+254.79 seconds, two workers: all interaction tests, both bound detector receiving
+modules, bound hydrogen-site tools, covalent-path and reference-SMARTS controls,
+structure-index types and the hosted-command guard. It includes 114 final
+supplied-donor cases and 238 aromatic-reference cases. Numerical 2 MB budget
+controls retain seventeen memory-pressure warnings; legacy H5MSM reads retain
+fifteen warnings. These are not process-RSS benchmarks or installed qualification.
+
+Final documentation receiving passes **569 tests/doctests**, zero failures or
+skips, 77.24 seconds. Its 531 warnings are 514 Sphinx/MyST deprecations, ten
+legacy-H5MSM reads, six headless-display notices and one deliberate structural
+attribute-drop control. Full-tree Ruff lint/format, public docstrings and all
+fourteen fast readiness gates pass. The new native guard is explicitly selected
+by hosted smoke. Earlier checkpoint counts overlap; they must not be added as
+unique coverage.
+
+Linux source receiving uses the shared Python 3.14.7, NumPy 2.4.6 and Pandas 2.3.3
+environment, the unchanged compiled backend, and Viewer source
+ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. No environment, dependency floor,
+scientific threshold, attribution branch, H5MSM schema or publication route
+changes. The frozen metadata candidate a24b14f3d is separate and does not contain
+these later corrections. Its queued full/Rust gates remain its own evidence.

@@ -1,13 +1,13 @@
 ---
 summary: Aromatic detectors reject MDTraj string selections for reference chemistry.
 issue: uibcdf/molsysmt#516
-status: open
+status: resolved
 opened: 2026-10-28
-closed:
+closed: 2026-11-03
 severity: medium
 verification: reproduced
 area: [interactions, selection, molsysviewer]
-guard:
+guard: tests/interactions/test_aromatic_reference_selections.py
 normative:
 blocked_by: []
 supersedes: []
@@ -107,3 +107,59 @@ separately; preserve explicit errors for genuinely unsupported requests.
 The scientific owner resolves supported state/syntax combinations. A consumer
 workaround would conceal the native defect and create inconsistent selector
 semantics across the suite.
+
+## Correction and receiving — 2026-11-03
+
+Both detectors now reuse `chemical_states._chemical_graph.select_chemical_atoms`,
+which distinguishes the public reference request (`None`/`reference`) from an
+explicit state index or structure-assigned state. Numeric/all selections keep
+the detached chemistry view; rich selections retain the original context and
+validated structure scope. No selector translation, forced state, new chemistry
+or geometry threshold is introduced. H5MSM rich selections still reject forced
+streaming and numeric/all routes retain #542's graph-only preparation.
+
+Fourteen focused native cases failed before the change: both reference spellings
+across all seven attributed/custom profiles, using both external selection slots.
+The expanded native matrix covers all seven profiles, nonzero declared reference
+index 1, native/H5MSM/composite forms, internal/incident/between scopes, each/both
+selection slots, repeated nonconsecutive structures and evaluated-empty coverage.
+It also verifies explicit state 0/1 and structure-assigned rejection for external
+syntax while the equivalent numeric queries work. Source tables, state reference,
+structure assignments and file bytes remain unchanged.
+
+The 482-case checkpoint passes: the complete expanded selector matrix, both
+aromatic detector regression modules and final supplied-donor controls. This
+includes #542's unchanged four pi-pi and expanded cation-pi eager-read sentinels.
+The bound remaining-interaction tests now require positive reference-selection
+parity instead of enshrining the reported native error, retaining explicit-state
+rejection. Final addon/documentation receiving remains in progress.
+
+Docstrings, both detector tutorials, the sparse-query recipe and the four
+physicochemical course modules explain reference versus explicit-state requests.
+Notebook code, outputs and metadata are preserved. Other course interaction
+modules were reviewed: their existing default/numeric calls need no change.
+
+## Final receiving — 2026-11-03
+
+The final combined selection passes **2,021 tests**, zero failures or skips,
+254.79 seconds, two workers: all interaction tests, both bound detector receiving
+modules, bound hydrogen-site tools, covalent-path and reference-SMARTS controls,
+structure-index types and the hosted-command guard. It includes 114 final
+supplied-donor cases and 238 aromatic-reference cases. Numerical 2 MB budget
+controls retain seventeen memory-pressure warnings; legacy H5MSM reads retain
+fifteen warnings. These are not process-RSS benchmarks or installed qualification.
+
+Final documentation receiving passes **569 tests/doctests**, zero failures or
+skips, 77.24 seconds. Its 531 warnings are 514 Sphinx/MyST deprecations, ten
+legacy-H5MSM reads, six headless-display notices and one deliberate structural
+attribute-drop control. Full-tree Ruff lint/format, public docstrings and all
+fourteen fast readiness gates pass. The new native guard is explicitly selected
+by hosted smoke. Earlier checkpoint counts overlap; they must not be added as
+unique coverage.
+
+Linux source receiving uses the shared Python 3.14.7, NumPy 2.4.6 and Pandas 2.3.3
+environment, the unchanged compiled backend, and Viewer source
+ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. No environment, dependency floor,
+scientific threshold, attribution branch, H5MSM schema or publication route
+changes. The frozen metadata candidate a24b14f3d is separate and does not contain
+these later corrections. Its queued full/Rust gates remain its own evidence.

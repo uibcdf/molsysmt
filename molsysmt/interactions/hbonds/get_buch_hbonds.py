@@ -37,8 +37,11 @@ def get_buch_hbonds(
         Selection string or boolean/integer array specifying elements.
     acceptors : numpy.ndarray, list, or tuple, default=None
         Precomputed atom indices of hydrogen bond acceptors.
-    donors : numpy.ndarray, list, or tuple, default=None
-        Precomputed atom indices of hydrogen bond donors.
+    donors : int, numpy.ndarray, list, tuple, or range, default=None
+        Supplied donor roles: a one-dimensional collection of heavy-atom indices,
+        or an integer array of shape (n, 2) containing donor-H pairs. Anchors
+        expand to their existing covalent hydrogens; explicit pairs remain a
+        subset. None uses automatic donor recognition.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     molecular_system_2 : object, default=None
@@ -47,8 +50,9 @@ def get_buch_hbonds(
         Second selection string or boolean/integer array.
     acceptors_2 : numpy.ndarray, list, or tuple, default=None
         Precomputed acceptor atom indices for selection_2.
-    donors_2 : numpy.ndarray, list, or tuple, default=None
-        Precomputed donor atom indices for selection_2.
+    donors_2 : int, numpy.ndarray, list, tuple, or range, default=None
+        Supplied donor anchors or donor-H pairs for selection_2, with the same
+        validation and covalent expansion as donors.
     structure_indices_2 : int, list, tuple, or numpy.ndarray, default=None
         Structure indices (0-based) for the second selection.
     distance_threshold : quantity, default='2.3 angstroms'
@@ -81,6 +85,9 @@ def get_buch_hbonds(
 
     Raises
     ------
+    ArgumentError
+        If supplied donors are malformed, out of range, contain invalid atom
+        roles, or declare a pair without a covalent bond.
     NotImplementedMethodError
         If a second molecular system is supplied, or the optional analysis
         uses supplied role arrays, a second structure axis, or partially
@@ -95,6 +102,12 @@ def get_buch_hbonds(
     input yields the documented empty result and evaluated coverage without
     reconstructing missing hydrogens. This result records the supplied model's
     available evidence; interpretation requires its hydrogen inventory.
+    Supplied roles bypass automatic donor rules but must agree with the element
+    inventory and covalent graph. Selection filters donor anchors; their H atoms
+    may lie outside the selection. Explicit pairs are validated before filtering,
+    deduplicated and sorted by donor then hydrogen; caller arrays are unchanged.
+    Empty inputs give no pairs. Boolean masks, strings and fractional indices
+    are not donor declarations. No hydrogens or bonds are invented.
     The detector returns an independent analysis. Attach it to
     ``molsys.interactions`` under an explicit name to retain it with the system.
     This method uses eager execution and does not stream large trajectories.
@@ -130,6 +143,7 @@ def get_buch_hbonds(
     from molsysmt.structure import get_neighbors
 
     from ._empty_result import empty_result, pack_result
+    from ._supplied_donors import supplied_donor_pairs
     from ._to_interactions import to_buch_interactions
     from .get_acceptor_atoms import get_acceptor_atoms
     from .get_donor_atoms import get_donor_atoms
@@ -210,8 +224,13 @@ def get_buch_hbonds(
                 molecular_system, selection=selection, syntax=syntax
             )
         else:
-            donors = select(
-                molecular_system, selection=selection, mask=donors, syntax=syntax
+            donors = supplied_donor_pairs(
+                molecular_system,
+                donors,
+                selection,
+                syntax,
+                "donors",
+                "molsysmt.interactions.hbonds.get_buch_hbonds",
             )
 
         n_donors = donors.shape[0]
@@ -275,11 +294,13 @@ def get_buch_hbonds(
                     molecular_system, selection=selection_2, syntax=syntax
                 )
             else:
-                donors_2 = select(
+                donors_2 = supplied_donor_pairs(
                     molecular_system,
-                    selection=selection_2,
-                    mask=donors_2,
-                    syntax=syntax,
+                    donors_2,
+                    selection_2,
+                    syntax,
+                    "donors_2",
+                    "molsysmt.interactions.hbonds.get_buch_hbonds",
                 )
 
             n_donors_2 = donors_2.shape[0]

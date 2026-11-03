@@ -20,10 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (5)
+### Open (3)
 
-- [`aromatic_detectors_reject_reference_mdtraj_selection.md`](aromatic_detectors_reject_reference_mdtraj_selection.md) — [#516](https://github.com/uibcdf/molsysmt/issues/516) — Aromatic detectors reject MDTraj string selections for reference chemistry. *(medium, reproduced)*
-- [`classic_hbond_precomputed_donors_have_inconsistent_shapes.md`](classic_hbond_precomputed_donors_have_inconsistent_shapes.md) — [#511](https://github.com/uibcdf/molsysmt/issues/511) — Classic hydrogen-bond detectors mishandle precomputed donor shapes. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 - [`setuptools_minimum_for_pep639_license_metadata.md`](setuptools_minimum_for_pep639_license_metadata.md) — [#541](https://github.com/uibcdf/molsysmt/issues/541) — Setuptools build minimum does not establish support for declared license metadata. *(medium, inspected)*
@@ -32,9 +30,8 @@ that front matter -- edit the entries, not this list.
 
 - [`sdist_directory_entries_mistaken_for_addon_files.md`](sdist_directory_entries_mistaken_for_addon_files.md) — [#537](https://github.com/uibcdf/molsysmt/issues/537) — Source archive validation mistakes addon directories for unreviewed files. *(medium, reproduced)*
 
-### Partially resolved (2)
+### Partially resolved (1)
 
-- [`pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md`](pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md) — [#542](https://github.com/uibcdf/molsysmt/issues/542) — Pi-pi H5MSM calculations materialize structures during graph-only preparation. *(high, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
 
 <!-- /generated -->
