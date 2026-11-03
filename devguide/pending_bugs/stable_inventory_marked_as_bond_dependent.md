@@ -90,6 +90,11 @@ Ruff lint/format and signature stability against the preceding source pass.
 The new attribute and four real planning controls are included in both aligned
 routine smoke commands. This does not claim a complete matrix or installed pair.
 
+Published source **13f72af2c9630bf768e03b59e2c973d5c6def4f4** retains these
+corrections and controls. [Routine CI 41694657220](https://github.com/uibcdf/molsysmt/actions/runs/41694657220)
+is still pending at this checkpoint; queued/incomplete execution is not counted
+as successful hosted qualification. Formal closure waits for receiving.
+
 ## Provenance
 
 2026-11-03, Linux, existing Python 3.14.7 development environment. Public native

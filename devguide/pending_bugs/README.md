@@ -20,7 +20,7 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (7)
+### Open (6)
 
 - [`aromatic_detectors_reject_reference_mdtraj_selection.md`](aromatic_detectors_reject_reference_mdtraj_selection.md) — [#516](https://github.com/uibcdf/molsysmt/issues/516) — Aromatic detectors reject MDTraj string selections for reference chemistry. *(medium, reproduced)*
 - [`cip_result_reference_authors_are_shared_with_later_calculations.md`](cip_result_reference_authors_are_shared_with_later_calculations.md) — [#503](https://github.com/uibcdf/molsysmt/issues/503) — CIP result reference authors are shared with later calculations. *(medium, reproduced)*
@@ -28,7 +28,6 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`hbond_site_structure_bounds_differ_between_resident_and_h5msm.md`](hbond_site_structure_bounds_differ_between_resident_and_h5msm.md) — [#509](https://github.com/uibcdf/molsysmt/issues/509) — Hydrogen-bond site structure bounds differ between resident and H5MSM. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
-- [`weekly_full_suite_has_seven_repeated_failures.md`](weekly_full_suite_has_seven_repeated_failures.md) — [#515](https://github.com/uibcdf/molsysmt/issues/515) — Scheduled full Linux CI repeats seven unresolved failures across supported Python minors. *(medium, upstream)*
 
 ### In progress (2)
 

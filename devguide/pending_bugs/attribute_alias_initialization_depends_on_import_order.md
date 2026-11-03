@@ -110,6 +110,11 @@ signature restores the original public source entry point without a gate waiver.
 Its registration reaches the same catalog and fresh public alias contract.
 The new fresh-process controls are included in both aligned routine smoke commands.
 
+Published source **13f72af2c9630bf768e03b59e2c973d5c6def4f4** contains the repair
+and final controls. [Routine CI 41694657220](https://github.com/uibcdf/molsysmt/actions/runs/41694657220)
+is pending at this checkpoint; no queued or incomplete execution is called
+successful. Formal closure waits for source receiving.
+
 ## Provenance
 
 2026-11-03, Linux, existing Python 3.14.7 development environment. Both subprocess

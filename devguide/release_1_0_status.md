@@ -42,6 +42,7 @@ Completed bounded work (owner records retain detailed evidence):
 | [#533](archive/resolved_bugs/rust_vector_export_missing_from_reviewed_manifest.md) | Fix source 2797c5425f5735568422325928520ae591c3676a admits the existing vector kernel and adds real-module drift guards. Fifty-five focused tests and real noneditable Linux/Python 3.14 installed-extension validation pass with exactly 102 exports. Hosted native-source guards pass on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. The diagnostic wheel is unpublished; it does not establish the Viewer installed matrix or a new public floor. |
 | [#520](archive/resolved_bugs/append_structures_named_analyses_partial_state.md) | The transactional runtime introduced by #255 already repairs the original append publication order. Forty-five combined public regressions cover successes, source selection, rejections, late preparation failure and H5MSM persistence. The combined append/state/analysis selection passes 68 cases; hosted native-source qualification passes on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. No runtime rewrite was needed. |
 | [#536](archive/resolved_bugs/devguide_ci_times_out_during_full_history_checkout.md) | The full-history devguide job has a bounded 15-minute budget while retaining ancestry, archive restoration, integrity validators and API baseline checks. Run 41687790369 passes on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. The successful 209-second checkout is below the former budget; this is recovery evidence, not a measured speed improvement. |
+| [#515](archive/resolved_bugs/weekly_full_suite_has_seven_repeated_failures.md) | The #255 corrections already repair the historical seven-case weekly backlog. A fresh audit verifies every original node executed and passed in each of the eight official full-matrix artifacts for de7ffad2aef18ff3bccd184133dc69e081cb506e; 310 affected-module cases also pass locally on 13f72af2c9630bf768e03b59e2c973d5c6def4f4. Original failures/cancellations and optional omissions remain recorded. No new runtime patch or later-source full-matrix claim is made. |
 
 The combined local selection for this work passes **2,818 tests**, zero failures
 or omissions, exit 0, with 719 disclosed warnings; all 14 fast gates pass.
@@ -67,16 +68,17 @@ Next admitted defect/contract reviews, in priority order:
    doctests, Ruff and signature checks. Graph requirements remain intact; a
    plain shared declaration provider removes the consumer bootstrap cycle
    without changing ArgDigest or duplicating the catalog. Hosted source receiving
-   and formal closeout remain pending. Their owner records retain detailed proof.
+   and formal closeout remain pending on published source
+   **13f72af2c9630bf768e03b59e2c973d5c6def4f4**. Its
+   [routine source CI 41694657220](https://github.com/uibcdf/molsysmt/actions/runs/41694657220)
+   remains pending; queued workflows are not passing evidence. Their owner
+   records retain detailed proof.
 2. **#503, #509, #511 and #516:** isolated bibliography, hydrogen-site bounds,
    precomputed donor-shape and reference-selection defects. Retain each original
    scientific acceptance contract and provider-owned correction.
 3. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
-4. **#515:** audit the seven historical failing nodes against the already
-   qualified #255 full-suite source and current regressions before deciding
-   whether any defect remains. Narrow smoke results alone do not close it.
-5. **#523 and #524:** the declared legacy H5MSM structure-index route is still
+4. **#523 and #524:** the declared legacy H5MSM structure-index route is still
    missing on the current source; runtime dependency floors/restrictions need
    API-grounded review before the next publication. Exact route, provider and
    installed-artifact evidence remain distinct.
