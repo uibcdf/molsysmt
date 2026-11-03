@@ -70,10 +70,12 @@ Next admitted defect/contract reviews, in priority order:
    plain shared declaration provider removes the consumer bootstrap cycle
    without changing ArgDigest or duplicating the catalog. Hosted source receiving
    and formal closeout remain pending on published source
-   **13f72af2c9630bf768e03b59e2c973d5c6def4f4**. Its
-   [routine source CI 41694657220](https://github.com/uibcdf/molsysmt/actions/runs/41694657220)
-   remains pending; queued workflows are not passing evidence. Their owner
-   records retain detailed proof.
+   **839709e4adeb754adbb5a9eea0a5eb2fa21d795c**, which retains the metadata
+   corrections and adds #503. Its
+   [routine source CI 41698204284](https://github.com/uibcdf/molsysmt/actions/runs/41698204284)
+   remains pending. The preceding 13f72af2c scientific job was cancelled while
+   queued, without executing a step; its five administrative successes do not
+   clear that missing scope. Their owner records retain detailed proof.
 2. **#509, #511 and #516:** hydrogen-site bounds, precomputed donor-shape and
    reference-selection defects. Retain each original
    scientific acceptance contract and provider-owned correction.

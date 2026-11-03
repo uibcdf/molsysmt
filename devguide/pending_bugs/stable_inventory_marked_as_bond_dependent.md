@@ -92,8 +92,15 @@ routine smoke commands. This does not claim a complete matrix or installed pair.
 
 Published source **13f72af2c9630bf768e03b59e2c973d5c6def4f4** retains these
 corrections and controls. [Routine CI 41694657220](https://github.com/uibcdf/molsysmt/actions/runs/41694657220)
-is still pending at this checkpoint; queued/incomplete execution is not counted
-as successful hosted qualification. Formal closure waits for receiving.
+is cancelled while its scientific job still has no executed steps, after the
+later #503 checkpoint supersedes it. Five administrative workflows pass on that
+source; they do not supply the missing scientific execution. No cancelled or
+queued result is counted as successful receiving.
+
+Current source **839709e4adeb754adbb5a9eea0a5eb2fa21d795c** retains this exact
+metadata repair and guards and adds only #503's detached CIP bibliography.
+[Routine CI 41698204284](https://github.com/uibcdf/molsysmt/actions/runs/41698204284)
+is its pending receiving route. Formal closure waits for the result.
 
 ## Provenance
 

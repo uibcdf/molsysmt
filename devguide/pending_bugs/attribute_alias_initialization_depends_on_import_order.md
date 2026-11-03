@@ -112,8 +112,15 @@ The new fresh-process controls are included in both aligned routine smoke comman
 
 Published source **13f72af2c9630bf768e03b59e2c973d5c6def4f4** contains the repair
 and final controls. [Routine CI 41694657220](https://github.com/uibcdf/molsysmt/actions/runs/41694657220)
-is pending at this checkpoint; no queued or incomplete execution is called
-successful. Formal closure waits for source receiving.
+is cancelled with no executed scientific-job steps when the #503 checkpoint
+supersedes it. Its five administrative workflow successes are retained without
+claiming the absent scientific execution.
+
+Current source **839709e4adeb754adbb5a9eea0a5eb2fa21d795c** retains this exact
+bootstrap correction and guards and adds the independent CIP metadata repair.
+[Routine CI 41698204284](https://github.com/uibcdf/molsysmt/actions/runs/41698204284)
+is the pending receiving route. Formal closure waits for its result; neither
+the cancelled predecessor nor an incomplete run is called passing evidence.
 
 ## Provenance
 
