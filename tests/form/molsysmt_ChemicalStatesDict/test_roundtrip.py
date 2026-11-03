@@ -24,6 +24,29 @@ def test_empty_collection_roundtrip_preserves_absence():
         decoded.get_bonds()
 
 
+@pytest.mark.parametrize("column", ["component_name", "component_type"])
+def test_decoding_keeps_declared_object_columns_with_string_inference(column):
+    source = MolSys(n_atoms=2)
+    source.chemical_states.add_bonds([[0, 1]])
+    source.chemical_states._states[0].components[column] = pd.Series(
+        ["declared label"], dtype=object
+    )
+    payload = msm.convert(source.chemical_states, to_form="molsysmt.ChemicalStatesDict")
+    assert (
+        payload.data["states"][0]["components"]["columns"][column]["dtype"] == "object"
+    )
+
+    # Exercise Pandas 3 string inference also on supported Pandas 2 installations.
+    with pd.option_context("future.infer_string", True):
+        decoded = msm.convert(payload, to_form="molsysmt.ChemicalStates")
+        restored = msm.convert(decoded, to_form="molsysmt.ChemicalStatesDict")
+    encoded = restored.data["states"][0]["components"]["columns"][column]
+    assert encoded["dtype"] == "object"
+    assert encoded["values"].tolist() == ["declared label"]
+    assert encoded["null_mask"].tolist() == [False]
+    assert str(source.chemical_states._states[0].components[column].dtype) == "object"
+
+
 def test_object_backed_bond_fields_preserve_boolean_numeric_values_and_nulls():
     topology = MolSys(n_atoms=3)
     topology.chemical_states._set_chemical_state_bonds(

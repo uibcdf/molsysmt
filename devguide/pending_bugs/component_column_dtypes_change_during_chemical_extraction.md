@@ -126,3 +126,29 @@ case was reproduced: Topology + ChemicalStatesDict + Structures fails, whereas
 the native triple and dictionary/Structures pair succeed. The historical #269
 pair remains repaired; the separate triple finding is not fixed or concealed
 inside this dtype correction.
+
+## Hosted string-inference finding and decoder correction — 2026-11-03
+
+The first hosted run on bd28d57f2, [41668264549](https://github.com/uibcdf/molsysmt/actions/runs/41668264549),
+uses Pandas 3.1.0 and fails: **4,046 passed / ten failed / 16 skipped**, exit 1.
+All ten failures are legacy-object descriptor assertions; the original nullable
+string extraction regression now passes. The addon step is not executed after
+that failed native tier. This is retained failed evidence, not qualification.
+
+The decoder previously constructed a typed array and then a Series without an
+explicit dtype. With Pandas string inference enabled, that final constructor
+changes the declared object column to str. The correction passes the payload's
+dtype to the Series boundary as well. No encoder rewriting or client comparison
+relaxation is used. Two independent round-trip controls reproduce the failure
+locally under future.infer_string=True before that decoder edit.
+
+After both corrections, the same 25 focused cases pass with string inference
+enabled, including the 23 extraction controls and two decoder controls. The
+broader native/form/extract/merge/permutation selection passes **2,635 cases**,
+without skips or failures, in 94.02 seconds with 688 visible warnings. These
+executed source scopes do not replace the corrected hosted run, which remains
+pending at this checkpoint. The failed original artifacts remain retained.
+
+H5MSM keeps its existing canonical textual field schema. The dictionary/native
+storage preservation demonstrated here does not add an arbitrary-Pandas-dtype
+promise to the H5MSM schema or change its version.

@@ -78,6 +78,7 @@ run_smoke() {
     tests/physchem/test_reference_metadata_ownership.py \
     tests/native/test_group_free_molecules.py \
     tests/native/test_chemical_component_extraction.py \
+    tests/form/molsysmt_ChemicalStatesDict/test_roundtrip.py::test_decoding_keeps_declared_object_columns_with_string_inference \
     tests/topology/get_substructure_matches/test_reference_selections.py \
     tests/structure/test_dihedral_edit_contract.py
 }

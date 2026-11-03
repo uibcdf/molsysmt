@@ -27,6 +27,8 @@ class ChemicalStatesDict(NativeQueries):
     transport payload, whose raw edits bypass validation and owner notification.
     Converting native chemical states produces independent writable values and
     null-mask buffers, including when Pandas uses Copy-on-Write.
+    Decoding retains declared column dtypes even when Pandas infers string
+    storage from otherwise object-backed values.
 
     Examples
     --------
@@ -150,7 +152,9 @@ def _decode_series(payload):
     null_mask = np.asarray(payload["null_mask"], dtype=np.bool_)
     if values.ndim != 1 or null_mask.shape != values.shape:
         raise ValueError("ChemicalStatesDict column values and null mask differ.")
-    result = pd.Series(pd.array(values.copy(), dtype=payload["dtype"]))
+    result = pd.Series(
+        pd.array(values.copy(), dtype=payload["dtype"]), dtype=payload["dtype"]
+    )
     if null_mask.any():
         result.loc[null_mask] = pd.NA
     return result
