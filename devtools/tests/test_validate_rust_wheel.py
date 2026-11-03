@@ -3,6 +3,7 @@
 import tomllib
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
+from types import SimpleNamespace
 from zipfile import ZipFile
 
 import pytest
@@ -159,13 +160,40 @@ def test_installed_validator_requires_exactly_one_wheel(tmp_path):
 
 def test_rust_export_manifest_is_exact_and_includes_parallel_controls():
     exports = INSTALLED_MODULE.expected_rust_exports()
-    assert len(exports) == 101
+    assert len(exports) == 102
     assert {
         "get_available_num_threads",
         "probe_num_threads",
         "get_least_squares_planes",
         "get_mic_pair_observations",
+        "get_vectors",
     } <= exports
+
+
+def test_actual_rust_extension_matches_reviewed_exports():
+    from molsysmt import _rust
+
+    actual = {name for name in dir(_rust) if not name.startswith("_")}
+    assert actual == INSTALLED_MODULE.expected_rust_exports()
+    assert INSTALLED_MODULE._validate_rust_exports(_rust) == len(actual)
+
+
+@pytest.mark.parametrize("change", ["missing", "unexpected"])
+def test_installed_export_gate_rejects_unreviewed_surface_changes(change):
+    from molsysmt import _rust
+
+    exports = {
+        name: getattr(_rust, name) for name in dir(_rust) if not name.startswith("_")
+    }
+    # Keep the real runtime surface and introduce one independent inventory defect.
+    if change == "missing":
+        del exports["wrap_to_mic_vector_single_structure"]
+        match = "missing=.*wrap_to_mic_vector_single_structure"
+    else:
+        exports["unreviewed_kernel"] = object()
+        match = "unexpected=.*unreviewed_kernel"
+    with pytest.raises(RuntimeError, match=match):
+        INSTALLED_MODULE._validate_rust_exports(SimpleNamespace(**exports))
 
 
 def test_data_package_excludes_generated_cache_but_keeps_scientific_resources(tmp_path):

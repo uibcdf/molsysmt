@@ -69,6 +69,7 @@
     "get_rmsf",
     "get_sasa",
     "get_sasa_cell_list",
+    "get_vectors",
     "inverse_matrix_3x3",
     "jit_serialize",
     "matmul",

@@ -91,6 +91,20 @@ def _load_private_extension(extension_path: Path):
     return module
 
 
+def _validate_rust_exports(rust) -> int:
+    """Require the actual extension surface to match its reviewed inventory."""
+    public_exports = {name for name in dir(rust) if not name.startswith("_")}
+    expected_exports = expected_rust_exports()
+    missing = sorted(expected_exports - public_exports)
+    unexpected = sorted(public_exports - expected_exports)
+    if missing or unexpected:
+        raise RuntimeError(
+            "installed Rust export contract differs from the reviewed manifest: "
+            f"missing={missing}, unexpected={unexpected}"
+        )
+    return len(public_exports)
+
+
 def validate_installed_extension() -> dict[str, object]:
     """Validating the installed private extension without importing MolSysMT."""
 
@@ -108,15 +122,7 @@ def validate_installed_extension() -> dict[str, object]:
         )
 
     rust = _load_private_extension(extension_path)
-    public_exports = {name for name in dir(rust) if not name.startswith("_")}
-    expected_exports = expected_rust_exports()
-    missing = sorted(expected_exports - public_exports)
-    unexpected = sorted(public_exports - expected_exports)
-    if missing or unexpected:
-        raise RuntimeError(
-            "installed Rust export contract differs from the reviewed manifest: "
-            f"missing={missing}, unexpected={unexpected}"
-        )
+    export_count = _validate_rust_exports(rust)
 
     box = np.diag([10.0, 10.0, 10.0])
     wrapped = rust.wrap_to_mic_vector_single_structure(
@@ -131,7 +137,7 @@ def validate_installed_extension() -> dict[str, object]:
 
     return {
         "extension": str(extension_path),
-        "exports": len(public_exports),
+        "exports": export_count,
         "minimum_image": minimum_image,
     }
 
