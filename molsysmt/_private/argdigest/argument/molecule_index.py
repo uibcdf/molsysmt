@@ -7,6 +7,7 @@ from ...variables import is_all
 functions_with_boolean = (
     "molsysmt.basic.get.get",
     "molsysmt.basic.compare.compare",
+    "molsysmt.native.topology.compare",
     "molsysmt.basic.iterator.__init__",
     "iterators.__init__",
 )

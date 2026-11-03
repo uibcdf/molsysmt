@@ -9,7 +9,16 @@ Expected values were verified by running the functions against the parsed struct
 import pytest
 
 import molsysmt as msm
-from molsysmt.form.molsysmt_Topology import get_topological_attributes as aux
+from molsysmt.form.molsysmt_MolSys import get_topological_attributes as aux
+from molsysmt.form.molsysmt_Topology import get_topological_attributes as stable
+
+
+def _getter(name):
+    if hasattr(stable, name):
+        target = getattr(stable, name)
+        return lambda system, **kwargs: target(system.topology, **kwargs)
+    return getattr(aux, name)
+
 
 N_ATOMS = 596
 N_GROUPS = 36
@@ -25,7 +34,7 @@ def topo():
     molsys = msm.convert(
         msm.systems["chicken villin HP35"]["1vii.pdb"], to_form="molsysmt.MolSys"
     )
-    return msm.convert(molsys, to_form="molsysmt.Topology")
+    return molsys
 
 
 # ---------------------------------------------------------------------------
@@ -54,7 +63,7 @@ def topo():
     ],
 )
 def test_system_count(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert result == expected
 
 
@@ -67,7 +76,7 @@ def test_system_count(topo, func_name, expected):
     ],
 )
 def test_system_bond_pairs_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_BONDS
 
@@ -107,7 +116,7 @@ def test_system_bond_pairs_length(topo, func_name):
     ],
 )
 def test_atom_array_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_ATOMS
 
@@ -133,7 +142,7 @@ def test_atom_array_length(topo, func_name):
     ],
 )
 def test_group_array_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_GROUPS
 
@@ -144,36 +153,38 @@ def test_group_array_length(topo, func_name):
 
 
 def test_first_atom_name(topo):
-    names = aux.get_atom_name_from_atom(topo)
+    names = _getter("get_atom_name_from_atom")(topo)
     assert names[0] == "N"
 
 
 def test_first_group_name(topo):
-    names = aux.get_group_name_from_group(topo)
+    names = _getter("get_group_name_from_group")(topo)
     assert names[0] == "MET"
 
 
 def test_chain_id(topo):
-    ids = aux.get_chain_id_from_chain(topo)
+    ids = _getter("get_chain_id_from_chain")(topo)
     assert ids == ["A"]
 
 
 def test_molecule_type(topo):
-    types = aux.get_molecule_type_from_molecule(topo)
+    types = _getter("get_molecule_type_from_molecule")(topo)
     assert types == ["peptide"]
 
 
 def test_n_amino_acids_equals_n_groups(topo):
-    assert aux.get_n_amino_acids_from_system(topo) == aux.get_n_groups_from_system(topo)
+    assert _getter("get_n_amino_acids_from_system")(topo) == _getter(
+        "get_n_groups_from_system"
+    )(topo)
 
 
 def test_total_bond_count_from_atom(topo):
-    assert aux.get_total_n_bonds_from_atom(topo) == N_BONDS
+    assert _getter("get_total_n_bonds_from_atom")(topo) == N_BONDS
 
 
 def test_n_atoms_from_atom(topo):
-    assert aux.get_n_atoms_from_atom(topo) == N_ATOMS
+    assert _getter("get_n_atoms_from_atom")(topo) == N_ATOMS
 
 
 def test_n_groups_from_atom(topo):
-    assert aux.get_n_groups_from_atom(topo) == N_GROUPS
+    assert _getter("get_n_groups_from_atom")(topo) == N_GROUPS

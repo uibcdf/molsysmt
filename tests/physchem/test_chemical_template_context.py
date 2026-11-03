@@ -95,12 +95,15 @@ def test_internal_residue_uses_polymer_context_without_creating_cut_termini(
         options["context_atom_correspondence"][:, 1]
     ]
     options["selection"] = "group_index == 1"
-    molecular_system = source if form == "native" else source.topology
+    molecular_system = (
+        source if form == "native" else [source.topology, source.chemical_states]
+    )
     expected_bonds = before.chemical_states._states[0].bonds
     if form == "h5msm":
         molecular_system = tmp_path / "source.h5msm"
         msm.convert(source, to_form=molecular_system)
         # Compare against the public input interpretation, including its null dtypes.
+        before = msm.convert(molecular_system, to_form="molsysmt.MolSys")
         expected_bonds = msm.h5msm.read_layers(
             molecular_system, layers=["chemical_states"]
         )["chemical_states"].get_bonds()

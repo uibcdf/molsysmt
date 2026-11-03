@@ -51,13 +51,12 @@ def calculate(
     from molsysmt import __version__, _ackredit
     from molsysmt._private.variables import is_all
     from molsysmt.basic import convert, get_form
-    from molsysmt.physchem import get_aromaticity, get_hydrogen_inventory
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         detached_chemical_graph_view,
         select_chemical_atoms,
-        validate_chemical_frames,
     )
+    from molsysmt.physchem import get_aromaticity, get_hydrogen_inventory
 
     if scheme != "autodock4":
         raise ArgumentError("typing_scheme", value=scheme, caller=CALLER)
@@ -72,18 +71,23 @@ def calculate(
         molecular_system = Chem.Mol(molecular_system)
         original = molecular_system
     source, states, state, index, _, _, frames = chemical_graph_context(
-        molecular_system, chemical_state, frames, False, CALLER
+        molecular_system,
+        chemical_state,
+        frames,
+        False,
+        CALLER,
+        with_structures=False,
     )
-    frames = validate_chemical_frames(source, frames, CALLER)
     view = detached_chemical_graph_view(source, states, index, CALLER)
-    inventory = get_hydrogen_inventory(view, chemical_state=index)
+    # Preserve the source index in the report; the detached view has one local state.
+    inventory = get_hydrogen_inventory(view, chemical_state=0)
     if inventory["status"] == "conflict" or np.any(
         inventory["missing_hydrogen_counts"] > 0
     ):
         fail(
             "AutoDock typing requires all hydrogens as indexed atoms; materialize the fixed inventory first."
         )
-    aromaticity = get_aromaticity(view, chemical_state=index)
+    aromaticity = get_aromaticity(view, chemical_state=0)
     molecule = convert(view, to_form="rdkit.Mol")
     if molecule.GetNumAtoms() != states.n_atoms:
         fail("AutoDock typing provider changed the atom inventory.")
@@ -212,7 +216,7 @@ def calculate(
 
 
 def _graph_digest(source, report):
-    from molsysmt.topology._chemical_graph import chemical_graph_digest
+    from molsysmt.chemical_states._chemical_graph import chemical_graph_digest
 
     return chemical_graph_digest(source, report["chemical_state_index"])
 

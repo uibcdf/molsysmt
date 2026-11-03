@@ -2,7 +2,7 @@ form_name = "MDAnalysis.Topology"
 form_type = "class"
 form_info = ["", ""]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
 piped_any_attribute = None
 
@@ -26,12 +26,13 @@ from .iterators import TopologyIterator  # noqa: E402
 
 
 _convert_to = {
+    "molsysmt.MolSys": "to_molsysmt_MolSys",
     "MDAnalysis.Topology": "to_MDAnalysis_Topology",
     "molsysmt.Topology": "to_molsysmt_Topology",
 }
 
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
 piped_any_attribute = None
 bonds_are_explicit = False

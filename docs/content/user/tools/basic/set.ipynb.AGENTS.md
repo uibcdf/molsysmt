@@ -21,3 +21,9 @@ Governance rules and frozen contracts for `docs/content/user/tools/basic/set.ipy
 5. **Cells 5+**: Practical examples demonstrating topological group name updates and structural coordinate modifications.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance.
+
+Preserve the executed standalone ChemicalStates example: selected-state ordered
+assignment, unknown unselected atoms, None clearing and unchanged reference.
+Explain per-attribute staging and owner invalidation. Preserve the executed
+component declaration example, exact-set labels, existing inventory and explicit
+graph reconstruction; distinguish pending dictionary assignment from native editing.

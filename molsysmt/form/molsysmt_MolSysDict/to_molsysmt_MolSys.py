@@ -39,6 +39,19 @@ def to_molsysmt_MolSys(
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt._private.variables import is_all
+    from molsysmt.form._native_dict import decode_molsys
+
+    if item.data.get("version", "0.1") == "0.2":
+        native = decode_molsys(item.data)
+        if not is_all(atom_indices) or not is_all(structure_indices):
+            native = native.extract(
+                atom_indices=atom_indices,
+                structure_indices=structure_indices,
+                copy_if_all=False,
+                skip_digestion=True,
+            )
+        return native
     from .extract import extract
 
     item = extract(

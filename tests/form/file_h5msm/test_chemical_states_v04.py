@@ -12,20 +12,24 @@ from molsysmt._private.smonitor import FormatError, StructuralInconsistencyError
 from molsysmt.form.molsysmt_MolSys.to_file_h5msm import (
     to_file_h5msm as write_legacy_molsys,
 )
-from molsysmt.form.molsysmt_Topology.to_file_h5msm import (
-    to_file_h5msm as write_legacy_topology,
-)
-from molsysmt.native import MolSys, Structures, Topology
+from molsysmt.native import MolSys, Structures
+from molsysmt.native._chemical_state import _ChemicalStateStorage
 
 
-def _rich_topology():
-    topology = Topology(n_atoms=4)
-    topology.atoms["atom_id"] = ["7", "7", "9", "10"]
-    topology.atoms["atom_name"] = ["C1", "N1", "O1", "H1"]
-    topology.atoms["isotope"] = pd.array([13, pd.NA, 18, pd.NA], dtype="UInt16")
-    topology._set_component_indices([0, 0, 0, 0])
-    topology.components.loc[0] = ["cmp", "ligand", "small molecule"]
-    state = topology._reference_chemical_state
+def _rich_molsys():
+    topology = MolSys(n_atoms=4)
+    topology.topology.atoms["atom_id"] = ["7", "7", "9", "10"]
+    topology.topology.atoms["atom_name"] = ["C1", "N1", "O1", "H1"]
+    topology.topology.atoms["isotope"] = pd.array(
+        [13, pd.NA, 18, pd.NA], dtype="UInt16"
+    )
+    topology.chemical_states._set_component_indices([0, 0, 0, 0])
+    topology.chemical_states._resolve_chemical_state().components.loc[0] = [
+        "cmp",
+        "ligand",
+        "small molecule",
+    ]
+    state = topology.chemical_states._resolve_chemical_state()
     state.state_id = "neutral"
     state.connectivity_completeness = "complete"
     state.component_completeness = "complete"
@@ -41,7 +45,7 @@ def _rich_topology():
         allows_implicit_hydrogens=[False, False, True, None],
         atom_stereochemistry=["R", "unspecified", None, None],
     )
-    topology._append_chemical_state_bonds(
+    topology.chemical_states._append_chemical_state_bonds(
         [[0, 1], [1, 2]],
         bond_id=["b", None],
         bond_order=[1, None],
@@ -62,11 +66,11 @@ def _rich_topology():
 
 
 def test_v04_roundtrip_preserves_full_reference_state(tmp_path):
-    topology = _rich_topology()
+    topology = _rich_molsys()
     filename = tmp_path / "rich.h5msm"
 
-    write_legacy_topology(topology, output_filename=filename)
-    observed = msm.convert(filename, to_form="molsysmt.Topology")
+    write_legacy_molsys(topology, output_filename=filename)
+    observed = msm.convert(filename, to_form="molsysmt.MolSys")
 
     with h5py.File(filename, "r") as file:
         assert file.attrs["version"] == "0.4"
@@ -87,22 +91,24 @@ def test_v04_roundtrip_preserves_full_reference_state(tmp_path):
             == file["topology/chemical_states/0/component_indices"].id
         )
 
-    state = observed._reference_chemical_state
+    state = observed.chemical_states._resolve_chemical_state()
     assert state.state_id == "neutral"
     assert state.connectivity_completeness == "complete"
     assert state.component_completeness == "complete"
     assert state.component_evidence == "explicit"
     assert state.provenance_index == 3
     assert state.atom_attributes.equals(
-        topology._reference_chemical_state.atom_attributes
+        topology.chemical_states._resolve_chemical_state().atom_attributes
     )
-    assert state.component_indices.equals(topology._get_component_indices())
+    assert state.component_indices.equals(
+        topology.chemical_states._get_component_indices()
+    )
     assert state.components.astype("string").equals(
-        topology.components.astype("string")
+        topology.chemical_states._resolve_chemical_state().components.astype("string")
     )
-    assert state.bonds.equals(topology.bonds)
-    assert observed.atoms["atom_id"].tolist() == ["7", "7", "9", "10"]
-    assert observed.atoms["isotope"].equals(topology.atoms["isotope"])
+    assert state.bonds.equals(topology.chemical_states._resolve_chemical_state().bonds)
+    assert observed.topology.atoms["atom_id"].tolist() == ["7", "7", "9", "10"]
+    assert observed.topology.atoms["isotope"].equals(topology.topology.atoms["isotope"])
     assert msm.get(filename, element="atom", isotope=True)[0] == 13
     assert msm.get(filename, element="atom", formal_charge=True)[:3] == [0, 1, -1]
     assert msm.get(filename, element="atom", atom_is_aromatic=True)[:3] == [
@@ -114,39 +120,50 @@ def test_v04_roundtrip_preserves_full_reference_state(tmp_path):
 
 
 def test_v04_roundtrip_preserves_multiple_states_without_reference(tmp_path):
-    topology = _rich_topology()
-    second_index = topology._append_chemical_state(state_id="radical")
-    topology._set_chemical_state_atom_attribute(
+    topology = _rich_molsys()
+    second_index = topology.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=topology.topology.n_atoms, state_id="radical")
+    )
+    topology.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge", [1, 0, -1, 0], state_index=second_index
     )
-    topology._set_component_indices([0, 0, 1, 1], state_index=second_index)
-    second = topology._resolve_chemical_state(second_index)
-    second.components = topology.components.copy()
+    topology.chemical_states._set_component_indices(
+        [0, 0, 1, 1], state_index=second_index
+    )
+    second = topology.chemical_states._resolve_chemical_state(second_index)
+    second.components = (
+        topology.chemical_states._resolve_chemical_state().components.copy()
+    )
     second.components.loc[1] = ["solvent", "water", "water"]
-    topology._append_chemical_state_bonds(
+    topology.chemical_states._append_chemical_state_bonds(
         [[0, 2]],
         bond_order=[2],
         bond_type=["covalent"],
         joins_components=[True],
         state_index=second_index,
     )
-    topology._set_reference_chemical_state_index(None)
+    topology.chemical_states._set_reference_index(None)
     filename = tmp_path / "multi.h5msm"
 
-    write_legacy_topology(topology, output_filename=filename)
-    observed = msm.convert(filename, to_form="molsysmt.Topology")
+    write_legacy_molsys(topology, output_filename=filename)
+    observed = msm.convert(filename, to_form="molsysmt.MolSys")
 
     assert msm.get(filename, element="system", n_chemical_states=True) == 2
     assert msm.get(filename, element="system", chemical_state_id=True) == [
         "neutral",
         "radical",
     ]
-    assert len(observed._chemical_states) == 2
-    assert observed._reference_chemical_state_index is None
-    assert observed._chemical_states[0].state_id == "neutral"
-    assert observed._chemical_states[1].state_id == "radical"
-    assert observed._chemical_states[1].component_indices.tolist() == [0, 0, 1, 1]
-    assert observed._chemical_states[1].bonds["bond_order"].tolist() == [2]
+    assert len(observed.chemical_states._states) == 2
+    assert observed.chemical_states.reference_chemical_state_index is None
+    assert observed.chemical_states._states[0].state_id == "neutral"
+    assert observed.chemical_states._states[1].state_id == "radical"
+    assert observed.chemical_states._states[1].component_indices.tolist() == [
+        0,
+        0,
+        1,
+        1,
+    ]
+    assert observed.chemical_states._states[1].bonds["bond_order"].tolist() == [2]
     metadata = msm.get(
         observed,
         element="system",
@@ -155,42 +172,49 @@ def test_v04_roundtrip_preserves_multiple_states_without_reference(tmp_path):
         chemical_state_id=True,
         n_chemical_states=True,
         reference_chemical_state_index=True,
-        connectivity_completeness=True,
-        component_completeness=True,
-        component_evidence=True,
     )
     assert metadata == {
         "chemical_state_index": [0, 1],
         "chemical_state_id": ["neutral", "radical"],
         "n_chemical_states": 2,
         "reference_chemical_state_index": None,
+    }
+    # Completeness/evidence belong to the selected state, not collection inventory.
+    for attribute, expected in {
         "connectivity_completeness": ["complete", "partial"],
         "component_completeness": ["complete", "unavailable"],
         "component_evidence": ["explicit", "unknown"],
-    }
+    }.items():
+        assert [
+            msm.get(observed, chemical_state=i, **{attribute: True}) for i in (0, 1)
+        ] == expected
     with pytest.raises(StructuralInconsistencyError, match="ambiguous"):
         msm.get(observed, element="atom", formal_charge=True)
 
 
 def test_v04_selected_write_remaps_every_state(tmp_path):
-    topology = _rich_topology()
-    second_index = topology._append_chemical_state(state_id="second")
-    topology._set_component_indices([0, 0, 0, 0], state_index=second_index)
-    topology._resolve_chemical_state(
+    topology = _rich_molsys()
+    second_index = topology.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=topology.topology.n_atoms, state_id="second")
+    )
+    topology.chemical_states._set_component_indices(
+        [0, 0, 0, 0], state_index=second_index
+    )
+    topology.chemical_states._resolve_chemical_state(
         second_index
-    ).components = topology.components.copy()
-    topology._append_chemical_state_bonds(
+    ).components = topology.chemical_states._resolve_chemical_state().components.copy()
+    topology.chemical_states._append_chemical_state_bonds(
         [[1, 2], [2, 3]], bond_order=[1, 1], state_index=second_index
     )
     filename = tmp_path / "selected.h5msm"
 
-    write_legacy_topology(topology, atom_indices=[1, 2, 3], output_filename=filename)
-    observed = msm.convert(filename, to_form="molsysmt.Topology")
+    write_legacy_molsys(topology, atom_indices=[1, 2, 3], output_filename=filename)
+    observed = msm.convert(filename, to_form="molsysmt.MolSys")
 
-    assert observed.n_atoms == 3
-    assert observed._chemical_states[0].bonds["atom1_index"].tolist() == [0]
-    assert observed._chemical_states[0].bonds["atom2_index"].tolist() == [1]
-    assert observed._chemical_states[1].bonds[
+    assert observed.topology.n_atoms == 3
+    assert observed.chemical_states._states[0].bonds["atom1_index"].tolist() == [0]
+    assert observed.chemical_states._states[0].bonds["atom2_index"].tolist() == [1]
+    assert observed.chemical_states._states[1].bonds[
         ["atom1_index", "atom2_index"]
     ].values.tolist() == [[0, 1], [1, 2]]
 
@@ -198,14 +222,20 @@ def test_v04_selected_write_remaps_every_state(tmp_path):
 def test_v03_bundled_file_migrates_to_one_reference_state():
     filename = Path(__file__).parent / "data" / "alanine_dipeptide_v03.h5msm"
 
-    observed = msm.convert(filename, to_form="molsysmt.Topology")
+    observed = msm.convert(filename, to_form="molsysmt.MolSys")
 
     assert msm.get(filename, element="system", n_chemical_states=True) == 1
     assert msm.get(filename, element="system", component_evidence=True) == ["unknown"]
-    assert len(observed._chemical_states) == 1
-    assert observed._reference_chemical_state_index == 0
-    assert observed._reference_chemical_state.connectivity_completeness == "complete"
-    assert observed._reference_chemical_state.component_evidence == "unknown"
+    assert len(observed.chemical_states._states) == 1
+    assert observed.chemical_states.reference_chemical_state_index == 0
+    assert (
+        observed.chemical_states._resolve_chemical_state().connectivity_completeness
+        == "complete"
+    )
+    assert (
+        observed.chemical_states._resolve_chemical_state().component_evidence
+        == "unknown"
+    )
 
 
 def test_v03_numeric_ids_are_normalized_to_strings(tmp_path):
@@ -216,9 +246,11 @@ def test_v03_numeric_ids_are_normalized_to_strings(tmp_path):
         del file["topology/atoms/atom_id"]
         file["topology/atoms"].create_dataset("atom_id", data=np.arange(22))
 
-    observed = msm.convert(filename, to_form="molsysmt.Topology")
+    observed = msm.convert(filename, to_form="molsysmt.MolSys")
 
-    assert observed.atoms["atom_id"].tolist() == [str(index) for index in range(22)]
+    assert observed.topology.atoms["atom_id"].tolist() == [
+        str(index) for index in range(22)
+    ]
 
 
 def test_unknown_h5msm_version_is_rejected(tmp_path):
@@ -228,43 +260,48 @@ def test_unknown_h5msm_version_is_rejected(tmp_path):
         file.attrs["version"] = "99.0"
 
     with pytest.raises(FormatError, match="Unsupported H5MSM version"):
-        msm.convert(filename, to_form="molsysmt.Topology")
+        msm.convert(filename, to_form="molsysmt.MolSys")
 
 
 def test_v04_preserves_materialized_all_null_column(tmp_path):
-    topology = Topology(n_atoms=2)
-    topology._reference_chemical_state.atom_attributes["formal_charge"] = pd.Series(
-        pd.array([pd.NA, pd.NA], dtype="Int16")
-    )
+    topology = MolSys(n_atoms=2)
+    topology.chemical_states._resolve_chemical_state().atom_attributes[
+        "formal_charge"
+    ] = pd.Series(pd.array([pd.NA, pd.NA], dtype="Int16"))
     filename = tmp_path / "nullable.h5msm"
 
-    write_legacy_topology(topology, output_filename=filename)
-    observed = msm.convert(filename, to_form="molsysmt.Topology")
+    write_legacy_molsys(topology, output_filename=filename)
+    observed = msm.convert(filename, to_form="molsysmt.MolSys")
 
-    assert "formal_charge" in observed._reference_chemical_state.atom_attributes
     assert (
-        observed._reference_chemical_state.atom_attributes["formal_charge"].isna().all()
+        "formal_charge"
+        in observed.chemical_states._resolve_chemical_state().atom_attributes
+    )
+    assert (
+        observed.chemical_states._resolve_chemical_state()
+        .atom_attributes["formal_charge"]
+        .isna()
+        .all()
     )
 
 
 def test_v04_roundtrip_preserves_zero_state_as_unavailable(tmp_path):
-    topology = Topology(n_atoms=2)
-    topology._clear_chemical_states()
+    topology = MolSys(n_atoms=2)
+    topology.chemical_states._replace_states([])
     filename = tmp_path / "zero-state.h5msm"
 
-    write_legacy_topology(topology, output_filename=filename)
-    observed = msm.convert(filename, to_form="molsysmt.Topology")
+    write_legacy_molsys(topology, output_filename=filename)
+    observed = msm.convert(filename, to_form="molsysmt.MolSys")
 
     assert msm.get(filename, element="system", n_chemical_states=True) == 0
-    assert observed._chemical_states == []
-    assert observed._reference_chemical_state_index is None
+    assert observed.chemical_states._states == []
+    assert observed.chemical_states.reference_chemical_state_index is None
     with pytest.raises(StructuralInconsistencyError, match="no chemical state"):
         msm.get(observed, element="atom", formal_charge=True)
 
 
 def test_v04_molsys_persists_implicit_single_state_association(tmp_path):
-    molsys = MolSys()
-    molsys.topology = _rich_topology()
+    molsys = _rich_molsys()
     molsys.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 4, 3)), "nm")
     )
@@ -280,10 +317,11 @@ def test_v04_molsys_persists_implicit_single_state_association(tmp_path):
 
 
 def test_v04_molsys_roundtrip_preserves_nullable_structure_state_mapping(tmp_path):
-    molsys = MolSys()
-    molsys.topology = _rich_topology()
-    molsys.topology._append_chemical_state(state_id="product")
-    molsys.topology._set_reference_chemical_state_index(None)
+    molsys = _rich_molsys()
+    molsys.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=4, state_id="product")
+    )
+    molsys.chemical_states._set_reference_index(None)
     molsys.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((3, 4, 3)), "nm")
     )

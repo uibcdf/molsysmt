@@ -41,7 +41,7 @@ def restore_export_axis(mapping, source, atoms, structures):
     """Restore a completed writer map onto the full caller atom/structure axes."""
     import numpy as np
 
-    from molsysmt.topology._chemical_graph import chemical_graph_digest
+    from molsysmt.chemical_states._chemical_graph import chemical_graph_digest
 
     n_atoms = source.topology.n_atoms
     retained = (

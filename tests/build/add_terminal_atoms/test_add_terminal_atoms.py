@@ -133,7 +133,7 @@ def test_appending_to_an_earlier_group_does_not_sort_old_atoms_or_reset_state_me
     state.state_id = "selected-state"
     state.provenance_index = 3
     state.connectivity_completeness = "complete"
-    source.topology._set_chemical_state_atom_attribute("formal_charge", [0, -1])
+    source.chemical_states._set_chemical_state_atom_attribute("formal_charge", [0, -1])
     result = msm.build.add_terminal_atoms(
         source,
         [

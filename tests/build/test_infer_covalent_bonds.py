@@ -40,7 +40,7 @@ def _pairs(molsys, state=0):
 
 def test_applied_pairs_and_provenance_are_literal_without_source_mutation(tmp_path):
     source = _source()
-    source.topology.add_bonds([[2, 3]])
+    source.chemical_states.add_bonds([[2, 3]])
     msm.set(
         source,
         element="bond",
@@ -48,7 +48,7 @@ def test_applied_pairs_and_provenance_are_literal_without_source_mutation(tmp_pa
         bond_order=2,
         bond_evidence="explicit",
     )
-    before = source.topology.bonds.copy(deep=True)
+    before = source.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
     coordinates = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
     with puw.context(standard_units=["pm", "ps"]):
         result = msm.build.infer_covalent_bonds(source, return_report=True)
@@ -58,9 +58,15 @@ def test_applied_pairs_and_provenance_are_literal_without_source_mutation(tmp_pa
     assert report["candidate_method_indices"].tolist() == [0, 1, 0, 0, 0]
     assert report["candidate_method_indices"].dtype == np.int8
     assert report["source_bond_correspondence"].tolist() == [[0, 4]]
-    assert output.topology.bonds["evidence"].tolist() == ["inferred"] * 4 + ["explicit"]
-    assert pd.isna(output.topology.bonds.loc[0, "bond_order"])
-    assert output.topology.bonds.loc[4, "bond_order"] == 2
+    assert output.chemical_states._resolve_chemical_state().bonds[
+        "evidence"
+    ].tolist() == ["inferred"] * 4 + ["explicit"]
+    assert pd.isna(
+        output.chemical_states._resolve_chemical_state().bonds.loc[0, "bond_order"]
+    )
+    assert (
+        output.chemical_states._resolve_chemical_state().bonds.loc[4, "bond_order"] == 2
+    )
     assert report["connectivity_completeness"] == "partial"
     assert (
         report["hydrogen_groups"][0]["hydrogen_coverage"]["issues"][0]["atom_name"]
@@ -73,7 +79,9 @@ def test_applied_pairs_and_provenance_are_literal_without_source_mutation(tmp_pa
     np.testing.assert_array_equal(
         puw.get_value(output.structures.coordinates, to_unit="nm"), coordinates
     )
-    pd.testing.assert_frame_equal(source.topology.bonds, before)
+    pd.testing.assert_frame_equal(
+        source.chemical_states._resolve_chemical_state().bonds, before
+    )
     assert source.chemical_states.get_preparation_history() == ()
     report["added_bond_indices"][:] = -1
     history = output.chemical_states.get_preparation_history()
@@ -86,7 +94,13 @@ def test_applied_pairs_and_provenance_are_literal_without_source_mutation(tmp_pa
         loaded.chemical_states.get_preparation_history()[0]["report"]["software"]
         == history[0]["report"]["software"]
     )
-    assert loaded.topology.bonds["provenance_index"].iloc[:4].tolist() == [0] * 4
+    assert (
+        loaded.chemical_states._resolve_chemical_state()
+        .bonds["provenance_index"]
+        .iloc[:4]
+        .tolist()
+        == [0] * 4
+    )
 
 
 @pytest.mark.parametrize(
@@ -104,17 +118,26 @@ def test_selected_candidates_keep_the_full_source_system(selection, expected):
 def test_merging_inferred_graphs_offsets_current_history_references_without_rewriting_records():
     first = msm.build.infer_covalent_bonds(_source())
     second = msm.build.infer_covalent_bonds(msm.build.infer_covalent_bonds(_source()))
-    merged = msm.merge([first.topology, second.topology])
-    assert merged.bonds["provenance_index"].tolist() == [0] * 5 + [1] * 5
-    history = merged._chemical_states_domain.get_preparation_history()
+    merged = msm.merge([first, second])
+    assert (
+        merged.chemical_states.get_bonds()["provenance_index"].tolist()
+        == [0] * 5 + [1] * 5
+    )
+    history = merged.chemical_states.get_preparation_history()
     assert len(history) == 3
     assert all(record["output"]["n_atoms"] == 7 for record in history)
     assert history[1]["report"]["added_bond_indices"].tolist() == list(range(5))
-    assert second.topology.bonds["provenance_index"].tolist() == [0] * 5
+    assert (
+        second.chemical_states._resolve_chemical_state()
+        .bonds["provenance_index"]
+        .tolist()
+        == [0] * 5
+    )
 
 
 def test_topology_input_needs_no_fabricated_structure():
-    output = msm.build.infer_covalent_bonds(_source(n_structures=0).topology)
+    source = _source(n_structures=0)
+    output = msm.build.infer_covalent_bonds([source.topology, source.chemical_states])
     assert _pairs(output) == EXPECTED
     report = output.chemical_states.get_preparation_history()[0]["report"]
     assert report["structure_index"] is None
@@ -204,3 +227,19 @@ def test_pdb_form_agnostic_application_blocks_openmm_imports(tmp_path, monkeypat
 
     monkeypatch.setattr(builtins, "__import__", reject)
     assert _pairs(msm.build.infer_covalent_bonds(filename)) == EXPECTED
+
+
+def test_inference_preserves_declared_stable_molecule_and_entity_labels():
+    source = _source()
+    source.topology.molecules["molecule_id"] = ["declared-ligand"]
+    source.topology.molecules["molecule_name"] = ["scientific source label"]
+    source.topology.entities["entity_name"] = ["declared entity"]
+    before = source.topology.copy()
+    output = msm.build.infer_covalent_bonds(source)
+    assert _pairs(output) == EXPECTED
+    for name in ("atoms", "groups", "molecules", "entities", "chains"):
+        pd.testing.assert_frame_equal(
+            getattr(output.topology, name), getattr(before, name)
+        )
+    with pytest.raises(StructuralInconsistencyError, match="resolved chemical state"):
+        msm.build.infer_covalent_bonds(source.topology)

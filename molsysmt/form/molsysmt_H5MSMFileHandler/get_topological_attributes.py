@@ -12,13 +12,15 @@ form = "molsysmt.H5MSMFileHandler"
 
 
 def _get_atom_state_attribute(item, attribute, indices="all"):
-    from molsysmt.form.molsysmt_Topology import get_topological_attributes
+    from molsysmt.form.molsysmt_ChemicalStates import get_chemical_attributes
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ._read_native import read_native
 
-    topology = to_molsysmt_Topology(item, skip_digestion=True)
-    function = getattr(get_topological_attributes, f"get_{attribute}_from_atom")
-    return function(topology, indices=indices, skip_digestion=True)
+    molecular_system = read_native(item, skip_digestion=True)
+    function = getattr(get_chemical_attributes, f"get_{attribute}_from_atom")
+    return function(
+        molecular_system.chemical_states, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)

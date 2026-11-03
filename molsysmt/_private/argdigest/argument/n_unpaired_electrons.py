@@ -9,6 +9,13 @@ def digest_n_unpaired_electrons(n_unpaired_electrons, caller=None):
     # for a heavy library that most calls never need.
     import pandas as pd
 
+    if (n_unpaired_electrons is None or n_unpaired_electrons is pd.NA) and (
+        caller == "molsysmt.basic.set.set"
+        or caller is not None
+        and caller.endswith("_to_atom")
+    ):
+        return None
+
     if isinstance(n_unpaired_electrons, bool):
         return n_unpaired_electrons
     if (

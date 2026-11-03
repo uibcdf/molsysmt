@@ -2,7 +2,11 @@ import numpy as np
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentError, NotImplementedMethodError
+from molsysmt._private.smonitor import (
+    ArgumentError,
+    NotImplementedMethodError,
+    StructuralInconsistencyError,
+)
 from molsysmt.configure import with_configure_overrides
 
 _CALLER = "molsysmt.structure.least_rmsd_align"
@@ -163,7 +167,8 @@ def least_rmsd_align(
         coordinate publication.
     StructuralInconsistencyError
         If fit anchors cannot define a unique three-dimensional rotation,
-        including collinear points.
+        including collinear points, or the query has no stored chemical-state
+        component membership defining the atoms that move together.
     NotImplementedMethodError
         If an unsupported sequence alignment or fit engine is requested.
 
@@ -254,7 +259,13 @@ def least_rmsd_align(
         engine="Biopython",
     )
     fitted, reference_fitted = _paired_anchors(query, target, groups, reference_groups)
-    components = np.asarray(get(molecular_system, element="atom", component_index=True))
+    components = get(molecular_system, element="atom", component_index=True)
+    if components is None:
+        raise StructuralInconsistencyError(
+            reason="Sequence-guided component alignment requires stored chemical-state component membership.",
+            caller=_CALLER,
+        )
+    components = np.asarray(components)
     selected_components = np.unique(components[query[0]])
     moving = np.flatnonzero(np.isin(components, selected_components)).tolist()
 

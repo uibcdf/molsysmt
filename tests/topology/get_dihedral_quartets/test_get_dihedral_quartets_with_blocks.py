@@ -12,7 +12,7 @@ import molsysmt as msm
 
 
 def test_with_blocks_returns_the_two_groups_of_every_quartet(t4_h5msm_molsys):
-    quartets, blocks = msm.topology.get_dihedral_quartets(
+    quartets, blocks = msm.chemical_states.get_dihedral_quartets(
         t4_h5msm_molsys, phi=True, with_blocks=True
     )
 
@@ -51,7 +51,7 @@ def test_with_blocks_returns_the_two_groups_of_every_quartet(t4_h5msm_molsys):
 
 
 def test_with_blocks_supports_several_dihedral_types(t4_h5msm_molsys):
-    quartets, blocks = msm.topology.get_dihedral_quartets(
+    quartets, blocks = msm.chemical_states.get_dihedral_quartets(
         t4_h5msm_molsys, phi=True, psi=True, with_blocks=True
     )
 
@@ -64,7 +64,7 @@ def test_with_blocks_supports_several_dihedral_types(t4_h5msm_molsys):
 def test_with_blocks_indexing_used_by_the_documentation(t4_h5msm_molsys):
     # The tutorial does `phi_blocks[2][0]` and `phi_blocks[2][1]`, then converts each
     # to a list for a selection. That access pattern has to keep working.
-    _, phi_blocks = msm.topology.get_dihedral_quartets(
+    _, phi_blocks = msm.chemical_states.get_dihedral_quartets(
         t4_h5msm_molsys, phi=True, with_blocks=True
     )
 

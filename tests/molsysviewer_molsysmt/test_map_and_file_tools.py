@@ -225,8 +225,20 @@ def test_cached_permutation_follows_replacement_and_rich_domain_maps(chemical_vi
     assert view.molsys is source and view.export_state() == state
 
 
-def test_legacy_demo_consistency_rejection_is_not_hidden(view):
+def test_legacy_unknown_memberships_survive_permutation_and_invalid_indices_reject(
+    view,
+):
     order = list(range(61, -1, -1))
+    assert view.molsys.topology.atoms["chain_index"].isna().all()
+    native = msm.basic.permute_atoms(view.molsys, order)
+    received = view.addons.molsysmt.basic.permute_atoms(order)
+    assert native.topology.atoms["chain_index"].isna().all()
+    assert received.topology.atoms["chain_index"].isna().all()
+    expected = view.molsys.topology.atoms["atom_id"].iloc[order].tolist()
+    assert native.topology.atoms["atom_id"].tolist() == expected
+    assert received.topology.atoms["atom_id"].tolist() == expected
+    # A truly invalid parent position remains an error; -1 on disk means unknown.
+    view.molsys.topology.atoms.loc[0, "chain_index"] = view.molsys.topology.n_chains
     with pytest.raises(StructuralInconsistencyError, match="chain_index"):
         msm.basic.permute_atoms(view.molsys, order)
     with pytest.raises(StructuralInconsistencyError, match="chain_index"):

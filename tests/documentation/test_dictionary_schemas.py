@@ -57,8 +57,11 @@ def test_schema_examples_reconstruct_documented_values(name):
         )
     else:
         assert msm.get(rebuilt, element="atom", atom_id=True) == ["10", "20"]
-        assert msm.get(rebuilt, n_bonds=True) == 1
+        if name == "TopologyDict":
+            assert not hasattr(rebuilt, "bonds")
+            assert msm.get(rebuilt, n_bonds=True) is None
         if name == "MolSysDict":
+            assert msm.get(rebuilt, n_bonds=True) == 1
             np.testing.assert_allclose(
                 msm.pyunitwizard.get_value(
                     rebuilt.structures.coordinates, to_unit="nm"
@@ -74,15 +77,31 @@ def test_schema_examples_reconstruct_documented_values(name):
 def test_documented_record_keys_match_emitted_schema(name):
     data = _example(name)["data"]
     rows = _rows(_text(name), "Declarative Schema")
-    assert set(rows) == set(data)
+    optional = {
+        key for key, columns in rows.items() if columns[0].startswith("optional ")
+    }
+    assert set(rows) - optional <= set(data) <= set(rows)
+    assert data["format"] == "molsysmt"
+    assert data["version"] == "0.2"
+    assert data["metadata"] == {}
     if name == "MolSysDict":
-        assert set(_rows(_text(name), "Structural Payload")) == set(data["structures"])
+        assert data["kind"] == "molsys"
+        assert "## Typed Transport\n" in _text(name)
+        assert data["chemical_states"] is not None
+        assert data["structures"] is not None
+        assert data["interactions"] == {}
         topology = data["topology"]
         rows = _rows(_text("TopologyDict"), "Declarative Schema")
     else:
         topology = data
-    collections = {"atoms", "groups", "bonds", "chains", "molecules", "entities"}
-    assert set(topology) - {"format", "kind", "version", "metadata"} == collections
+    collections = {"atoms", "groups", "chains", "molecules", "entities"}
+    envelope = {"format", "kind", "version", "metadata"}
+    optional = {"chain_groups", "atom_molecules"}
+    assert collections <= set(topology) - envelope <= collections | optional
+    assert topology["kind"] == "topology"
+    assert topology["version"] == "0.2"
+    assert "bonds" not in topology
+    assert "chemical_states" not in topology
     for collection in collections:
         assert topology[collection], f"The example must exercise {collection} records."
         documented_keys = set(re.findall(r"`(\w+)`", rows[collection][1]))

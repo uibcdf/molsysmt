@@ -112,7 +112,8 @@ def attach(source, records, coordinates, attribute_policy, caller):
             + ", ".join(dropped)
         )
     topology = source.topology.copy()
-    state = topology._chemical_states_domain._states[0]
+    chemical_states = source.chemical_states.copy()
+    state = chemical_states._states[0]
     used_ids = set(topology.atoms["atom_id"].dropna().astype(str))
     next_id = n_atoms
     component_indices = list(state.component_indices)
@@ -173,8 +174,8 @@ def attach(source, records, coordinates, attribute_policy, caller):
         pd.array(component_indices + added_components, dtype="Int64")
     )
     state._ensure_compatibility(n_atoms + n_new)
-    topology._chemical_states_domain._resize_atom_domain(n_atoms + n_new)
-    topology._append_chemical_state_bonds(
+    chemical_states._resize_atom_domain(n_atoms + n_new)
+    chemical_states._append_chemical_state_bonds(
         parent_pairs,
         bond_order=[record.get("bond_order", 1) for record in records],
         bond_type=["covalent"] * n_new,
@@ -195,9 +196,15 @@ def attach(source, records, coordinates, attribute_policy, caller):
             np.arange(result.n_structures, dtype=np.int64)
         )
         analyses[name] = _extend_interaction_atoms(invalidated, n_atoms + n_new)
+    from molsysmt.native._atom_molecules import transport
+
+    topology._atom_molecule_membership = transport(
+        source.topology,
+        list(range(n_atoms)) + [record["parent_atom_index"] for record in records],
+    )
     output = MolSys._from_partial_domains(
         topology=topology,
-        chemical_states=topology._chemical_states_domain,
+        chemical_states=chemical_states,
         structures=structures,
         interactions=analyses,
     )

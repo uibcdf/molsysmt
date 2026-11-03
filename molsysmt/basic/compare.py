@@ -144,21 +144,19 @@ def compare(
     if redefine_indices:
         form_1 = get_form(molecular_system)
         if form_1 == "molsysmt.MolSys":
-            molecular_system.topology.rebuild_components(force=True)
+            molecular_system.rebuild_components(force=True)
             molecular_system.topology.rebuild_molecules(force=True)
             molecular_system.topology.rebuild_entities(force=True)
         elif form_1 == "molsysmt.Topology":
-            molecular_system.rebuild_components(force=True)
             molecular_system.rebuild_molecules(force=True)
             molecular_system.rebuild_entities(force=True)
 
         form_2 = get_form(molecular_system_2)
         if form_2 == "molsysmt.MolSys":
-            molecular_system_2.topology.rebuild_components(force=True)
+            molecular_system_2.rebuild_components(force=True)
             molecular_system_2.topology.rebuild_molecules(force=True)
             molecular_system_2.topology.rebuild_entities(force=True)
         elif form_2 == "molsysmt.Topology":
-            molecular_system_2.rebuild_components(force=True)
             molecular_system_2.rebuild_molecules(force=True)
             molecular_system_2.rebuild_entities(force=True)
 

@@ -98,7 +98,7 @@ def add_missing_bonds(
     >>> import molsysmt as msm
     >>> molsys = msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
     >>> system = msm.convert(molsys)
-    >>> system.topology.remove_bonds('all')
+    >>> system.chemical_states.remove_bonds('all')
     >>> msm.build.add_missing_bonds(system)
     >>> msm.get(system, bonded_atom_pairs=True)[:3]
     [[0, 1], [1, 2], [1, 3]]

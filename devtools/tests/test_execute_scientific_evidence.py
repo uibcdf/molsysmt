@@ -57,7 +57,8 @@ def test_execution_certificate_rejects_an_uncollectable_node(tmp_path):
     assert certificate["collected_cases"] == 0
 
 
-def test_release_certificate_requires_a_clean_git_commit(tmp_path):
+def test_release_certificate_requires_a_clean_git_commit(tmp_path, monkeypatch):
+    monkeypatch.setenv("GIT_CEILING_DIRECTORIES", str(tmp_path.parent))
     Path(tmp_path / "test_evidence.py").write_text(
         "def test_evidence():\n    assert 2 + 2 == 4\n", encoding="utf-8"
     )

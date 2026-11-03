@@ -107,13 +107,13 @@ def test_valid_baseline_excluded_by_constraints_can_be_smaller_than_corrected():
 
 def test_constrained_cache_reuses_search_and_rejects_mutated_constraints(monkeypatch):
     molsys = system()
-    cached = msm.topology.get_atom_correspondences(
+    cached = msm.chemical_states.get_atom_correspondences(
         molsys,
         candidate_atom_correspondences=identity(6),
         fixed_atom_correspondence=[[0, 0]],
     )
     monkeypatch.setattr(
-        msm.topology,
+        msm.chemical_states,
         "get_atom_correspondences",
         lambda *a, **k: pytest.fail("enumeration repeated"),
     )
@@ -157,10 +157,10 @@ def test_constrained_empty_structures_and_no_compatible_anchor():
 
 
 def test_prior_unconstrained_schema_one_cache_retains_unrestricted_meaning():
-    from molsysmt.topology._atom_correspondences import correspondence_digest
+    from molsysmt.chemical_states._atom_correspondences import correspondence_digest
 
     molsys = system()
-    cached = msm.topology.get_atom_correspondences(molsys)
+    cached = msm.chemical_states.get_atom_correspondences(molsys)
     for name in (
         "search_scope",
         "fixed_atom_correspondence",
@@ -348,10 +348,10 @@ def test_reference_reordering_uses_paired_indices_without_selection_sorting():
 
 def test_cached_maps_reuse_graph_search_and_reject_changed_chemistry(monkeypatch):
     molsys = system()
-    cached = msm.topology.get_atom_correspondences(molsys)
+    cached = msm.chemical_states.get_atom_correspondences(molsys)
     original = deepcopy(cached)
     monkeypatch.setattr(
-        msm.topology,
+        msm.chemical_states,
         "get_atom_correspondences",
         lambda *a, **k: pytest.fail("graph search repeated"),
     )
@@ -371,7 +371,7 @@ def test_cached_maps_reuse_graph_search_and_reject_changed_chemistry(monkeypatch
 
 def test_modified_cache_and_wrong_baseline_are_refused():
     molsys = system()
-    cached = msm.topology.get_atom_correspondences(molsys)
+    cached = msm.chemical_states.get_atom_correspondences(molsys)
     cached["atom_correspondences"][0, 0, 1] = 1
     with pytest.raises(ArgumentError):
         msm.structure.get_symmetry_corrected_rmsd(
@@ -482,7 +482,7 @@ def test_invalid_public_geometry_arguments_fail(options):
 
 def test_unknown_cached_rule_version_is_refused():
     molsys = system()
-    cached = msm.topology.get_atom_correspondences(molsys)
+    cached = msm.chemical_states.get_atom_correspondences(molsys)
     cached["rule_version"] = "declared_graph_isomorphism@999"
     with pytest.raises(ArgumentError):
         msm.structure.get_symmetry_corrected_rmsd(molsys, correspondences=cached)

@@ -35,11 +35,11 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     """
     import pandas as pd
 
-    from molsysmt.native import MolSys, Structures, Topology
-    from molsysmt.native.topology import Bonds_DataFrame
+    from molsysmt.native import MolSys, Structures
+    from molsysmt.native._chemical_state import Bonds_DataFrame
 
     topo = water_tile.topology
-    topo_bonds = topo._get_chemical_state_bonds()
+    topo_bonds = water_tile.chemical_states._get_chemical_state_bonds()
     n_atoms_tile = topo.n_atoms
     n_groups_tile = topo.n_groups
     n_bonds_tile = len(topo_bonds)
@@ -108,7 +108,7 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     b2 = np.tile(b2_base, n_tiles) + bond_offsets
 
     # ── assemble Topology ────────────────────────────────────────────────────
-    new_topo = Topology(
+    result = MolSys(
         n_atoms=n_total_atoms,
         n_groups=n_total_groups,
         n_components=n_total_groups,  # one component per water
@@ -118,11 +118,12 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
         n_bonds=n_total_bonds,
     )
 
+    new_topo = result.topology
     new_topo.atoms["atom_id"] = pd.array(atom_ids, dtype="string")
     new_topo.atoms["atom_name"] = atom_names
     new_topo.atoms["atom_type"] = atom_types
     new_topo.atoms["group_index"] = pd.array(group_indices, dtype="Int64")
-    new_topo._set_component_indices(component_indices)
+    result.chemical_states._set_component_indices(component_indices)
     new_topo.atoms["chain_index"] = pd.array(chain_indices, dtype="Int64")
 
     new_topo.groups["group_id"] = pd.array(group_ids, dtype="string")
@@ -138,7 +139,7 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     bonds_df = Bonds_DataFrame(n_total_bonds)
     bonds_df["atom1_index"] = pd.array(b1, dtype="Int64")
     bonds_df["atom2_index"] = pd.array(b2, dtype="Int64")
-    new_topo._set_chemical_state_bonds(bonds_df)
+    result.chemical_states._set_chemical_state_bonds(bonds_df)
 
     # ── assemble Structures ──────────────────────────────────────────────────
     new_struc = Structures(
@@ -146,8 +147,10 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
         structure_id=np.array(["1"], dtype=object),
     )
 
-    result = MolSys()
-    result.topology = new_topo
+    # Declare stable hierarchy once during construction; later chemistry edits
+    # must not be needed to recover solvent/ion molecule labels.
+    new_topo.rebuild_molecules(redefine_indices=False)
+    new_topo.rebuild_entities()
     result.structures = new_struc
     return result
 
@@ -172,11 +175,11 @@ def _build_ions(ion_name, atom_name, atom_type, positions):
     """
     import pandas as pd
 
-    from molsysmt.native import MolSys, Structures, Topology
+    from molsysmt.native import MolSys, Structures
 
     n_ions = positions.shape[0]
 
-    new_topo = Topology(
+    result = MolSys(
         n_atoms=n_ions,
         n_groups=n_ions,
         n_components=n_ions,
@@ -185,6 +188,7 @@ def _build_ions(ion_name, atom_name, atom_type, positions):
         n_chains=1,
         n_bonds=0,
     )
+    new_topo = result.topology
     new_topo.atoms["atom_id"] = pd.array(
         [str(i + 1) for i in range(n_ions)], dtype="string"
     )
@@ -193,7 +197,7 @@ def _build_ions(ion_name, atom_name, atom_type, positions):
     new_topo.atoms["group_index"] = pd.array(
         np.arange(n_ions, dtype=np.int64), dtype="Int64"
     )
-    new_topo._set_component_indices(np.arange(n_ions, dtype=np.int64))
+    result.chemical_states._set_component_indices(np.arange(n_ions, dtype=np.int64))
     new_topo.atoms["chain_index"] = pd.array(
         np.zeros(n_ions, dtype=np.int64), dtype="Int64"
     )
@@ -217,8 +221,10 @@ def _build_ions(ion_name, atom_name, atom_type, positions):
         structure_id=np.array(["1"], dtype=object),
     )
 
-    result = MolSys()
-    result.topology = new_topo
+    # Declare stable hierarchy once during construction; later chemistry edits
+    # must not be needed to recover solvent/ion molecule labels.
+    new_topo.rebuild_molecules(redefine_indices=False)
+    new_topo.rebuild_entities()
     result.structures = new_struc
     return result
 
@@ -1025,7 +1031,7 @@ def solvate(
             if len(accepted_positions) < n_ions_total:
                 raise InternalAlgorithmError(
                     caller="molsysmt.build.solvate",
-                    message=(
+                    reason=(
                         f"Could not place all {n_ions_total} ions: only "
                         f"{len(accepted_positions)} valid water positions found. "
                         "Try reducing ionic_strength or increasing clearance."

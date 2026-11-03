@@ -60,13 +60,19 @@ def test_explicit_fragments_match_real_trees_with_declared_atom_projection(case_
     tree = get_torsion_tree(pdbqt_path)
     selected_pairs = projected[tree["branch_atom_pairs"]]
     assert (selected_pairs >= 0).all()
-    source_pairs = native.topology.bonds[["atom1_index", "atom2_index"]].to_numpy()
+    source_pairs = (
+        native.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .to_numpy()
+    )
     pair_to_index = {tuple(sorted(pair)): i for i, pair in enumerate(source_pairs)}
     bond_indices = [pair_to_index[tuple(sorted(pair))] for pair in selected_pairs]
     before = msm.convert(
         native.chemical_states, to_form="molsysmt.ChemicalStatesDict"
     ).to_dict()
-    partition = msm.topology.get_rigid_fragments(native, bond_indices=bond_indices)
+    partition = msm.chemical_states.get_rigid_fragments(
+        native, bond_indices=bond_indices
+    )
     np.testing.assert_array_equal(
         partition["bonded_atom_pairs"], source_pairs[sorted(bond_indices)]
     )

@@ -21,6 +21,8 @@ def supports(attribute, element):
 def _atoms(item, *, nested):
     data = item.data
     if nested:
+        if data.get("version") == "0.2" and data.get("topology") is None:
+            return None
         data = data.get("topology", {}) or {}
     records = data.get("atoms", [])
     if records is None:

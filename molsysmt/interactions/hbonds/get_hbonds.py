@@ -213,13 +213,13 @@ def get_hbonds(
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt._private.scientific_references import MDANALYSIS_REFERENCE
     from molsysmt.basic import convert, get
-    from molsysmt.interactions.hbonds import get_hbond_sites
-    from molsysmt.interactions.hbonds._reducer import _HBondReducer
-    from molsysmt.interactions.result import Interactions
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         select_chemical_atoms,
     )
+    from molsysmt.interactions.hbonds import get_hbond_sites
+    from molsysmt.interactions.hbonds._reducer import _HBondReducer
+    from molsysmt.interactions.result import Interactions
 
     caller = "molsysmt.interactions.hbonds.get_hbonds"
     from molsysmt._private.interaction_methods import resolve_method

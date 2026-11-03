@@ -95,11 +95,11 @@ def get_atom_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_atom_id_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_atom_id_from_component as aux_get
 
     bonds_are_required_to_get_attribute("atom_id", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -293,11 +293,11 @@ def get_atom_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_atom_index_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_atom_index_from_component as aux_get
 
     bonds_are_required_to_get_attribute("atom_index", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -491,11 +491,11 @@ def get_atom_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_atom_name_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_atom_name_from_component as aux_get
 
     bonds_are_required_to_get_attribute("atom_name", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -689,11 +689,11 @@ def get_atom_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_atom_type_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_atom_type_from_component as aux_get
 
     bonds_are_required_to_get_attribute("atom_type", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -821,11 +821,11 @@ def get_bond_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_index_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("bond_index", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -854,11 +854,11 @@ def get_bond_index_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_bond as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_index_from_bond as aux_get
 
     bonds_are_required_to_get_attribute("bond_index", "bond")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -887,11 +887,11 @@ def get_bond_index_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_index_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("bond_index", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -920,11 +920,11 @@ def get_bond_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_index_from_component as aux_get
 
     bonds_are_required_to_get_attribute("bond_index", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -953,11 +953,11 @@ def get_bond_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_index_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("bond_index", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -986,11 +986,11 @@ def get_bond_index_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_index_from_group as aux_get
 
     bonds_are_required_to_get_attribute("bond_index", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1019,11 +1019,11 @@ def get_bond_index_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_molecule as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_index_from_molecule as aux_get
 
     bonds_are_required_to_get_attribute("bond_index", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1050,11 +1050,11 @@ def get_bond_index_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_index_from_system as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_index_from_system as aux_get
 
     bonds_are_required_to_get_attribute("bond_index", "system")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -1083,11 +1083,11 @@ def get_bond_order_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_order_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("bond_order", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1116,11 +1116,11 @@ def get_bond_order_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_bond as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_order_from_bond as aux_get
 
     bonds_are_required_to_get_attribute("bond_order", "bond")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1149,11 +1149,11 @@ def get_bond_order_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_order_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("bond_order", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1182,11 +1182,11 @@ def get_bond_order_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_order_from_component as aux_get
 
     bonds_are_required_to_get_attribute("bond_order", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1215,11 +1215,11 @@ def get_bond_order_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_order_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("bond_order", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1248,11 +1248,11 @@ def get_bond_order_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_order_from_group as aux_get
 
     bonds_are_required_to_get_attribute("bond_order", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1281,11 +1281,11 @@ def get_bond_order_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_order_from_molecule as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_order_from_molecule as aux_get
 
     bonds_are_required_to_get_attribute("bond_order", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1314,11 +1314,11 @@ def get_bond_type_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_type_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("bond_type", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1347,11 +1347,11 @@ def get_bond_type_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_bond as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_type_from_bond as aux_get
 
     bonds_are_required_to_get_attribute("bond_type", "bond")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1380,11 +1380,11 @@ def get_bond_type_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_type_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("bond_type", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1413,11 +1413,11 @@ def get_bond_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_type_from_component as aux_get
 
     bonds_are_required_to_get_attribute("bond_type", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1446,11 +1446,11 @@ def get_bond_type_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_type_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("bond_type", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1479,11 +1479,11 @@ def get_bond_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_type_from_group as aux_get
 
     bonds_are_required_to_get_attribute("bond_type", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1512,11 +1512,11 @@ def get_bond_type_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bond_type_from_molecule as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bond_type_from_molecule as aux_get
 
     bonds_are_required_to_get_attribute("bond_type", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1545,13 +1545,13 @@ def get_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atom_pairs_from_atom as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atom_pairs", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1580,13 +1580,13 @@ def get_bonded_atom_pairs_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atom_pairs_from_bond as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atom_pairs", "bond")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1615,13 +1615,13 @@ def get_bonded_atom_pairs_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atom_pairs_from_chain as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atom_pairs", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1650,13 +1650,13 @@ def get_bonded_atom_pairs_from_component(item, indices="all", skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atom_pairs_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atom_pairs", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1685,13 +1685,13 @@ def get_bonded_atom_pairs_from_entity(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atom_pairs_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atom_pairs", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1720,13 +1720,13 @@ def get_bonded_atom_pairs_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atom_pairs_from_group as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atom_pairs", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1755,13 +1755,13 @@ def get_bonded_atom_pairs_from_molecule(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atom_pairs_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atom_pairs", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1788,13 +1788,13 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atom_pairs_from_system as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atom_pairs", "system")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -1823,11 +1823,11 @@ def get_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bonded_atoms_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("bonded_atoms", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1856,11 +1856,11 @@ def get_bonded_atoms_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_bond as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bonded_atoms_from_bond as aux_get
 
     bonds_are_required_to_get_attribute("bonded_atoms", "bond")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1889,11 +1889,11 @@ def get_bonded_atoms_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bonded_atoms_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("bonded_atoms", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1922,13 +1922,13 @@ def get_bonded_atoms_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atoms_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atoms", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1957,11 +1957,11 @@ def get_bonded_atoms_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bonded_atoms_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("bonded_atoms", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -1990,11 +1990,11 @@ def get_bonded_atoms_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bonded_atoms_from_group as aux_get
 
     bonds_are_required_to_get_attribute("bonded_atoms", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2023,13 +2023,13 @@ def get_bonded_atoms_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_bonded_atoms_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("bonded_atoms", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2056,11 +2056,11 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_bonded_atoms_from_system as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_bonded_atoms_from_system as aux_get
 
     bonds_are_required_to_get_attribute("bonded_atoms", "system")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -2155,11 +2155,11 @@ def get_chain_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_chain_id_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_chain_id_from_component as aux_get
 
     bonds_are_required_to_get_attribute("chain_id", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2353,13 +2353,13 @@ def get_chain_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_chain_index_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("chain_index", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2553,11 +2553,11 @@ def get_chain_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_chain_name_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_chain_name_from_component as aux_get
 
     bonds_are_required_to_get_attribute("chain_name", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2751,11 +2751,11 @@ def get_chain_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_chain_type_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_chain_type_from_component as aux_get
 
     bonds_are_required_to_get_attribute("chain_type", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2883,11 +2883,11 @@ def get_component_id_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_id_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_id_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("component_id", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2916,11 +2916,11 @@ def get_component_id_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_id_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_id_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("component_id", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2949,13 +2949,13 @@ def get_component_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_id_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_id", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -2984,11 +2984,11 @@ def get_component_id_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_id_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_id_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("component_id", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3017,11 +3017,11 @@ def get_component_id_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_id_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_id_from_group as aux_get
 
     bonds_are_required_to_get_attribute("component_id", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3050,13 +3050,13 @@ def get_component_id_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_id_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_id", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3085,11 +3085,11 @@ def get_component_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_index_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_index_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("component_index", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3118,13 +3118,13 @@ def get_component_index_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_index_from_chain as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_index", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3153,13 +3153,13 @@ def get_component_index_from_component(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_index_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_index", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3188,13 +3188,13 @@ def get_component_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_index_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_index", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3223,13 +3223,13 @@ def get_component_index_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_index_from_group as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_index", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3258,13 +3258,13 @@ def get_component_index_from_molecule(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_index_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_index", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3293,11 +3293,11 @@ def get_component_name_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_name_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_name_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("component_name", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3326,11 +3326,11 @@ def get_component_name_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_name_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_name_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("component_name", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3359,13 +3359,13 @@ def get_component_name_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_name_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_name", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3394,13 +3394,13 @@ def get_component_name_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_name_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_name", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3429,11 +3429,11 @@ def get_component_name_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_name_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_name_from_group as aux_get
 
     bonds_are_required_to_get_attribute("component_name", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3462,13 +3462,13 @@ def get_component_name_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_name_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_name", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3497,11 +3497,11 @@ def get_component_type_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_type_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_type_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("component_type", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3530,11 +3530,11 @@ def get_component_type_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_type_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_type_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("component_type", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3563,13 +3563,13 @@ def get_component_type_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_type_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_type", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3598,13 +3598,13 @@ def get_component_type_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_type_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_type", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3633,11 +3633,11 @@ def get_component_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_component_type_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_component_type_from_group as aux_get
 
     bonds_are_required_to_get_attribute("component_type", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3666,13 +3666,13 @@ def get_component_type_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_component_type_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("component_type", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3767,11 +3767,11 @@ def get_entity_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_entity_id_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_entity_id_from_component as aux_get
 
     bonds_are_required_to_get_attribute("entity_id", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -3965,13 +3965,13 @@ def get_entity_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_entity_index_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("entity_index", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -4167,13 +4167,13 @@ def get_entity_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_entity_name_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("entity_name", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -4367,13 +4367,13 @@ def get_entity_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_entity_type_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("entity_type", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -4567,11 +4567,11 @@ def get_group_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_group_id_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_group_id_from_component as aux_get
 
     bonds_are_required_to_get_attribute("group_id", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -4765,13 +4765,13 @@ def get_group_index_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_group_index_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("group_index", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -4965,11 +4965,11 @@ def get_group_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_group_name_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_group_name_from_component as aux_get
 
     bonds_are_required_to_get_attribute("group_name", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5163,11 +5163,11 @@ def get_group_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_group_type_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_group_type_from_component as aux_get
 
     bonds_are_required_to_get_attribute("group_type", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5295,13 +5295,13 @@ def get_inner_bond_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bond_index_from_atom as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bond_index", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5330,13 +5330,13 @@ def get_inner_bond_index_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bond_index_from_chain as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bond_index", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5365,13 +5365,13 @@ def get_inner_bond_index_from_component(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bond_index_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bond_index", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5400,13 +5400,13 @@ def get_inner_bond_index_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bond_index_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bond_index", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5435,13 +5435,13 @@ def get_inner_bond_index_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bond_index_from_group as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bond_index", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5470,13 +5470,13 @@ def get_inner_bond_index_from_molecule(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bond_index_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bond_index", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5503,13 +5503,13 @@ def get_inner_bond_index_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bond_index_from_system as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bond_index", "system")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -5538,13 +5538,13 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atom_pairs_from_atom as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atom_pairs", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5573,13 +5573,13 @@ def get_inner_bonded_atom_pairs_from_chain(item, indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atom_pairs_from_chain as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atom_pairs", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5610,13 +5610,13 @@ def get_inner_bonded_atom_pairs_from_component(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atom_pairs_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atom_pairs", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5645,13 +5645,13 @@ def get_inner_bonded_atom_pairs_from_entity(item, indices="all", skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atom_pairs_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atom_pairs", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5680,13 +5680,13 @@ def get_inner_bonded_atom_pairs_from_group(item, indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atom_pairs_from_group as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atom_pairs", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5717,13 +5717,13 @@ def get_inner_bonded_atom_pairs_from_molecule(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atom_pairs_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atom_pairs", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5750,13 +5750,13 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atom_pairs_from_system as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atom_pairs", "system")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -5785,13 +5785,13 @@ def get_inner_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atoms_from_atom as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atoms", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5820,13 +5820,13 @@ def get_inner_bonded_atoms_from_chain(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atoms_from_chain as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atoms", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5855,13 +5855,13 @@ def get_inner_bonded_atoms_from_component(item, indices="all", skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atoms_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atoms", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5890,13 +5890,13 @@ def get_inner_bonded_atoms_from_entity(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atoms_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atoms", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5925,13 +5925,13 @@ def get_inner_bonded_atoms_from_group(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atoms_from_group as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atoms", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5960,13 +5960,13 @@ def get_inner_bonded_atoms_from_molecule(item, indices="all", skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atoms_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atoms", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -5993,13 +5993,13 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_inner_bonded_atoms_from_system as aux_get,
     )
 
     bonds_are_required_to_get_attribute("inner_bonded_atoms", "system")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -6094,13 +6094,13 @@ def get_molecule_id_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_molecule_id_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("molecule_id", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -6294,13 +6294,13 @@ def get_molecule_index_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_molecule_index_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("molecule_index", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -6498,13 +6498,13 @@ def get_molecule_name_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_molecule_name_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("molecule_name", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -6700,13 +6700,13 @@ def get_molecule_type_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_molecule_type_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("molecule_type", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -6902,13 +6902,13 @@ def get_n_amino_acids_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_amino_acids_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_amino_acids", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7135,11 +7135,11 @@ def get_n_atoms_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_atoms_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_atoms_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_atoms", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7298,11 +7298,11 @@ def get_n_bonds_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_bonds_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("n_bonds", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7331,11 +7331,11 @@ def get_n_bonds_from_bond(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_bond as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_bonds_from_bond as aux_get
 
     bonds_are_required_to_get_attribute("n_bonds", "bond")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7364,11 +7364,11 @@ def get_n_bonds_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_bonds_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("n_bonds", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7397,11 +7397,11 @@ def get_n_bonds_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_bonds_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_bonds", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7430,11 +7430,11 @@ def get_n_bonds_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_bonds_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("n_bonds", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7463,11 +7463,11 @@ def get_n_bonds_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_bonds_from_group as aux_get
 
     bonds_are_required_to_get_attribute("n_bonds", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7496,11 +7496,11 @@ def get_n_bonds_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_molecule as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_bonds_from_molecule as aux_get
 
     bonds_are_required_to_get_attribute("n_bonds", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7527,11 +7527,11 @@ def get_n_bonds_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_bonds_from_system as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_bonds_from_system as aux_get
 
     bonds_are_required_to_get_attribute("n_bonds", "system")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -7626,11 +7626,11 @@ def get_n_chains_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_chains_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_chains_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_chains", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7789,11 +7789,11 @@ def get_n_components_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_components_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("n_components", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7822,11 +7822,11 @@ def get_n_components_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_components_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("n_components", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7855,13 +7855,13 @@ def get_n_components_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_components_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_components", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7890,11 +7890,11 @@ def get_n_components_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_components_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("n_components", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7923,11 +7923,11 @@ def get_n_components_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_components_from_group as aux_get
 
     bonds_are_required_to_get_attribute("n_components", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7956,13 +7956,13 @@ def get_n_components_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_components_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_components", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -7989,11 +7989,11 @@ def get_n_components_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_components_from_system as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_components_from_system as aux_get
 
     bonds_are_required_to_get_attribute("n_components", "system")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -8088,11 +8088,11 @@ def get_n_dnas_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_dnas_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_dnas_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_dnas", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8317,11 +8317,11 @@ def get_n_entities_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_entities_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_entities_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_entities", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8546,11 +8546,11 @@ def get_n_groups_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_groups_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_groups_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_groups", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8709,11 +8709,11 @@ def get_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_inner_bonds_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_inner_bonds_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("n_inner_bonds", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8742,11 +8742,11 @@ def get_n_inner_bonds_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_inner_bonds_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_inner_bonds_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("n_inner_bonds", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8775,13 +8775,13 @@ def get_n_inner_bonds_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_inner_bonds_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_inner_bonds", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8810,11 +8810,11 @@ def get_n_inner_bonds_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_inner_bonds_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_inner_bonds_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("n_inner_bonds", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8843,11 +8843,11 @@ def get_n_inner_bonds_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_inner_bonds_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_inner_bonds_from_group as aux_get
 
     bonds_are_required_to_get_attribute("n_inner_bonds", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8876,13 +8876,13 @@ def get_n_inner_bonds_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_inner_bonds_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_inner_bonds", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -8977,11 +8977,11 @@ def get_n_ions_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_ions_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_ions_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_ions", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -9206,11 +9206,11 @@ def get_n_lipids_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_lipids_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_lipids_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_lipids", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -9435,13 +9435,13 @@ def get_n_molecules_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_molecules_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_molecules", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -9666,13 +9666,13 @@ def get_n_nucleotides_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_nucleotides_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_nucleotides", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -9899,11 +9899,11 @@ def get_n_peptides_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_peptides_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_peptides_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_peptides", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -10132,13 +10132,13 @@ def get_n_polysaccharides_from_component(item, indices="all", skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_polysaccharides_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_polysaccharides", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -10371,11 +10371,11 @@ def get_n_proteins_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_proteins_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_proteins_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_proteins", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -10600,11 +10600,11 @@ def get_n_rnas_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_rnas_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_rnas_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_rnas", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -10829,13 +10829,13 @@ def get_n_saccharides_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_saccharides_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_saccharides", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -11066,13 +11066,13 @@ def get_n_small_molecules_from_component(item, indices="all", skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_n_small_molecules_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("n_small_molecules", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -11305,11 +11305,11 @@ def get_n_waters_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_waters_from_component as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_n_waters_from_component as aux_get
 
     bonds_are_required_to_get_attribute("n_waters", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -11538,13 +11538,13 @@ def get_total_n_amino_acids_from_component(item, indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_amino_acids_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_amino_acids", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -11744,13 +11744,13 @@ def get_total_n_atoms_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_atoms_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_atoms", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -11880,11 +11880,11 @@ def get_total_n_bonds_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_total_n_bonds_from_atom as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_total_n_bonds_from_atom as aux_get
 
     bonds_are_required_to_get_attribute("total_n_bonds", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -11913,11 +11913,11 @@ def get_total_n_bonds_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_total_n_bonds_from_chain as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_total_n_bonds_from_chain as aux_get
 
     bonds_are_required_to_get_attribute("total_n_bonds", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -11946,13 +11946,13 @@ def get_total_n_bonds_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_bonds_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_bonds", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -11981,11 +11981,11 @@ def get_total_n_bonds_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_total_n_bonds_from_entity as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_total_n_bonds_from_entity as aux_get
 
     bonds_are_required_to_get_attribute("total_n_bonds", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12014,11 +12014,11 @@ def get_total_n_bonds_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_total_n_bonds_from_group as aux_get
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import get_total_n_bonds_from_group as aux_get
 
     bonds_are_required_to_get_attribute("total_n_bonds", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12047,13 +12047,13 @@ def get_total_n_bonds_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_bonds_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_bonds", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12148,13 +12148,13 @@ def get_total_n_chains_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_chains_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_chains", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12286,13 +12286,13 @@ def get_total_n_components_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_components_from_atom as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_components", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12321,13 +12321,13 @@ def get_total_n_components_from_chain(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_components_from_chain as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_components", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12356,13 +12356,13 @@ def get_total_n_components_from_component(item, indices="all", skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_components_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_components", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12391,13 +12391,13 @@ def get_total_n_components_from_entity(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_components_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_components", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12426,13 +12426,13 @@ def get_total_n_components_from_group(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_components_from_group as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_components", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12461,13 +12461,13 @@ def get_total_n_components_from_molecule(item, indices="all", skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_components_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_components", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12562,13 +12562,13 @@ def get_total_n_dnas_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_dnas_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_dnas", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12768,13 +12768,13 @@ def get_total_n_entities_from_component(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_entities_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_entities", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -12974,13 +12974,13 @@ def get_total_n_groups_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_groups_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_groups", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13112,13 +13112,13 @@ def get_total_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_inner_bonds_from_atom as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_inner_bonds", "atom")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13147,13 +13147,13 @@ def get_total_n_inner_bonds_from_chain(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_inner_bonds_from_chain as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_inner_bonds", "chain")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13182,13 +13182,13 @@ def get_total_n_inner_bonds_from_component(item, indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_inner_bonds_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_inner_bonds", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13217,13 +13217,13 @@ def get_total_n_inner_bonds_from_entity(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_inner_bonds_from_entity as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_inner_bonds", "entity")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13252,13 +13252,13 @@ def get_total_n_inner_bonds_from_group(item, indices="all", skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_inner_bonds_from_group as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_inner_bonds", "group")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13287,13 +13287,13 @@ def get_total_n_inner_bonds_from_molecule(item, indices="all", skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_inner_bonds_from_molecule as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_inner_bonds", "molecule")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13388,13 +13388,13 @@ def get_total_n_ions_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_ions_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_ions", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13590,13 +13590,13 @@ def get_total_n_lipids_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_lipids_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_lipids", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -13798,13 +13798,13 @@ def get_total_n_molecules_from_component(item, indices="all", skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_molecules_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_molecules", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -14008,13 +14008,13 @@ def get_total_n_nucleotides_from_component(item, indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_nucleotides_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_nucleotides", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -14218,13 +14218,13 @@ def get_total_n_peptides_from_component(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_peptides_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_peptides", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -14430,13 +14430,13 @@ def get_total_n_polysaccharides_from_component(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_polysaccharides_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_polysaccharides", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -14642,13 +14642,13 @@ def get_total_n_proteins_from_component(item, indices="all", skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_proteins_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_proteins", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -14848,13 +14848,13 @@ def get_total_n_rnas_from_component(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_rnas_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_rnas", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -15054,13 +15054,13 @@ def get_total_n_saccharides_from_component(item, indices="all", skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_saccharides_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_saccharides", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -15266,13 +15266,13 @@ def get_total_n_small_molecules_from_component(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_small_molecules_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_small_molecules", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -15474,13 +15474,13 @@ def get_total_n_waters_from_component(item, indices="all", skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.file_smi.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import (
+    from molsysmt.form.file_smi.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import (
         get_total_n_waters_from_component as aux_get,
     )
 
     bonds_are_required_to_get_attribute("total_n_waters", "component")
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output

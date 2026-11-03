@@ -3,20 +3,22 @@
 
 As a Multi-Toolkit, MolSysMT organizes its functional API into specialized tool compartments (namespaces). Each compartment is dedicated to a specific domain of molecular operations — from system preparation and coordinate geometry to topological connectivity, periodic boundary conditions, physical-chemical properties, and third-party interoperability.
 
-This modular architecture provides clean, purpose-built function names without cluttering your global scope, maintaining a uniform vocabulary across all **89 supported forms**.
+This modular architecture provides purpose-built function names and a uniform
+vocabulary across the supported forms. Each calculation requires the information
+appropriate to its domain.
 
 ---
 
 ## Basic
 The **{doc}`Basic <../../tools/basic/index>`** module (`molsysmt.basic`) provides core, form-agnostic operations used across almost every workflow.
-- **Key Operations**: `get`, `set`, `select`, `convert`, `build`, `view`, `compare`, `add`, `contains`, `copy`, `remove`, `append_structures`.
+- **Key Operations**: `get`, `set`, `select`, `convert`, `extract`, `view`, `compare`, `add`, `contains`, `copy`, `remove`, `append_structures`.
 - **Philosophy**: Universal interaction layer operating identically on any molecular representation — whether a disk file (PDB, mmCIF, GRO), an in-memory object (OpenMM `Topology`, MDAnalysis `Universe`), or a native `MolSys`.
 
 ---
 
 ## Form
-The **{doc}`Form <../../tools/form/index>`** module (`molsysmt.form`) manages form discovery, support tier inspection, form-specific conversions, and attribute capability reporting.
-- **Key Operations**: `get_form`, `is_form`, `show_forms`, `get_attributes`.
+The **{doc}`Form <../../tools/form/index>`** module (`molsysmt.form`) hosts the format adapters used by discovery, conversion and attribute delivery.
+- **Key Operations**: Public queries use `msm.get_form()`, `msm.get_attributes()` and `msm.has_attribute()` through the Basic API; individual adapters supply their delivery routes.
 - **Philosophy**: Dynamic introspection layer that determines how attributes and structural features are extracted or converted across supported data forms.
 
 ---
@@ -30,49 +32,63 @@ The **{doc}`Element <../../tools/element/index>`** module (`molsysmt.element`) p
 
 ## Build
 The **{doc}`Build <../../tools/build/index>`** module (`molsysmt.build`) provides native structure preparation, capping, hydrogen placement, solvation, and molecular repair capabilities.
-- **Key Operations**: `get_missing_heavy_atoms`, `add_missing_heavy_atoms`, `get_missing_terminal_cappings`, `add_missing_terminal_cappings`, `add_missing_hydrogens`, `solvate`, `add_counterions`, `mutate`.
-- **Philosophy**: Complete, simulation-ready system preparation executed natively in Python without requiring external software installations like PDBFixer or OpenMM.
+- **Key Operations**: `editable`, `get_missing_heavy_atoms`, `add_missing_heavy_atoms`, `get_missing_terminal_cappings`, `add_missing_terminal_cappings`, `add_missing_hydrogens`, `solvate`, `mutate`.
+- **Philosophy**: Modular construction and repair with explicit prerequisites. Operations combine native tools and lazily loaded optional engines according to their supported method; successful local repair does not certify complete chemical preparation.
 
 ---
 
 ## Structure
 The **{doc}`Structure <../../tools/structure/index>`** module (`molsysmt.structure`) handles coordinate geometry, spatial measurements, structural analysis, and 3D transformations.
-- **Key Operations**: `get_distances`, `get_contacts`, `get_sasa`, `get_rmsd`, `get_rmsf`, `fit`, `align`, `get_radius_of_gyration`, `get_principal_axes`, `get_dihedral_angles`, `center`, `translate`, `rotate`.
+- **Key Operations**: `get_distances`, `get_vectors`, `get_contacts`, `get_rmsd`, `get_rmsf`, `least_rmsd_fit`, `least_rmsd_align`, `get_radius_of_gyration`, `get_principal_axes`, `get_dihedral_angles`, `center`, `translate`, `rotate`.
 - **Philosophy**: High-performance analytical operations executed on precompiled Rust kernels. Coordinates follow strict geometric contracts: nanometer units, NumPy array shape `(n_structures, n_atoms, 3)`, right-handed 3×3 rotation matrices, and deterministic fitting requiring at least three non-collinear atoms.
 
 ---
 
 ## Topology
-The **{doc}`Topology <../../tools/topology/index>`** module (`molsysmt.topology`) governs chemical connectivity, bond matrices, sequence extraction, and secondary structure assignment.
-- **Key Operations**: `get_bond_graph`, `get_covalent_blocks`, `get_covalent_chains`, `get_covalent_paths`, `get_sequence`, `get_secondary_structure`.
-- **Philosophy**: Fast topological inventory management preserving stable element identifiers rather than renumbering them, maintaining chemical integrity across form conversions.
+The **{doc}`Topology <../../tools/topology/index>`** module (`molsysmt.topology`) compares sequences over represented groups. Native Topology owns stable atoms, groups, molecules, entities and chains, without bonds or chemical-state components.
+- **Key Operations**: `get_sequence_alignment`, `get_sequence_identity`.
+- **Philosophy**: Stable inventory and explicit source-index correspondence, independently of chemical connectivity and coordinates.
+
+---
+
+## Chemical States
+The **{doc}`Chemical States <../../tools/chemical_states/index>`** module (`molsysmt.chemical_states`) analyzes a selected stored chemical graph. ChemicalStates owns bonds, assignments and state-local components.
+- **Key Operations**: `get_bondgraph`, `get_covalent_blocks`, `get_covalent_paths`, `get_rings`, `get_rotatable_bonds`, `get_rigid_fragments`, `get_substructure_matches`, `get_atom_correspondences`, `get_dihedral_quartets`.
+- **Philosophy**: Explicit state selection and honest chemical prerequisites. Graph editing does not redefine stable molecules; geometric dihedral measurements remain in `structure`.
 
 ---
 
 ## PBC
 The **{doc}`PBC <../../tools/pbc/index>`** module (`molsysmt.pbc`) manages periodic boundary conditions, unit cell box vectors, and boundary unwrapping.
-- **Key Operations**: `get_box`, `set_box`, `unwrap`, `wrap`, `get_box_volume`, `get_box_angles`.
+- **Key Operations**: `get_box_from_lengths_and_angles`, `get_lengths_from_box`, `get_angles_from_box`, `get_volume_from_box`, `unwrap`, `wrap_to_mic`, `wrap_to_pbc`.
 - **Philosophy**: Automatic handling of periodic boundary conditions across simulations, ensuring correct distance and contact calculations under minimum image conventions.
 
 ---
 
 ## Physchem
 The **{doc}`Physchem <../../tools/physchem/index>`** module (`molsysmt.physchem`) computes physical and chemical properties of molecular systems.
-- **Key Operations**: `get_charge`, `get_mass`, `get_degrees_of_freedom`, `get_molecular_weight`.
+- **Key Operations**: `get_charge`, `get_mass`, `get_sasa`, `get_tpsa`, `get_lipophilicity`, `get_aromatic_rings`, `get_chemical_readiness`.
 - **Philosophy**: Automated calculation of physical-chemical descriptors carrying explicit physical units (`pyunitwizard`).
 
 ---
 
 ## Molecular Mechanics
 The **{doc}`Molecular Mechanics <../../tools/molecular_mechanics/index>`** module (`molsysmt.molecular_mechanics`) handles forcefield definitions, atom types, and mechanics parameters.
-- **Key Operations**: `get_forcefield`, `get_atom_type`, `get_partial_charge`.
-- **Philosophy**: Inspection and management of molecular mechanics forcefield assignments and parameter sets.
+- **Key Operations**: `get_engine_forcefield`, `get_degrees_of_freedom`, `get_forces`, `get_potential_energy`, `potential_energy_minimization`.
+- **Philosophy**: Engine-backed mechanical calculations with explicit optional dependencies. The native MolecularMechanics container remains experimental and is outside H5MSM 0.5 persistence.
+
+---
+
+## Interactions
+The **{doc}`Interactions <../../tools/interactions/index>`** module (`molsysmt.interactions`) detects and characterizes chemically interpreted interactions, including hydrogen bonds, disulfide candidates, ionic, hydrophobic, aromatic, halogen and metal-mediated observations.
+- **Results**: Sparse `Interactions` analyses with participant roles, evaluated scope, units and scientific provenance; callers explicitly attach named analyses to MolSys.
+- **Philosophy**: Coordinate-dependent observations remain separate from the stored chemical graph. Controlled edits invalidate affected evidence; detectors do not rerun automatically.
 
 ---
 
 ## Hbonds
 The **{doc}`Hbonds <../../tools/hbonds/index>`** module (`molsysmt.interactions.hbonds`) detects and analyzes hydrogen-bonding networks across structures and trajectories.
-- **Key Operations**: `get_hbonds`, `get_hbond_acceptors`, `get_hbond_donors`.
+- **Key Operations**: `get_hbonds`, `get_hbond_sites`, `get_hbond_site_directions`, `get_acceptor_atoms`, `get_donor_atoms`.
 - **Philosophy**: Geometric and distance-angle based detection of hydrogen bonds for structural stability analysis.
 
 ---

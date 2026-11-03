@@ -1,6 +1,3 @@
-import numpy as np
-import pandas as pd
-
 from molsysmt._private.argdigest import arg_digest
 
 
@@ -86,10 +83,7 @@ def append_structures(
             skip_digestion=True,
         )
     else:
-        existing_analyses = dict(to_item.interactions)
-        old_n_structures = to_item.structures.n_structures
-        old_state_indices = to_item._get_structure_chemical_state_indices(resolved=True)
-        to_item.structures.append(
+        to_item._append_structure_payload(
             structure_id=structure_id,
             time=time,
             coordinates=coordinates,
@@ -101,40 +95,10 @@ def append_structures(
             b_factor=b_factor,
             alternate_location=alternate_location,
             occupancy=occupancy,
+            structure_chemical_state_index=structure_chemical_state_index,
             atom_indices=atom_indices,
             structure_indices=structure_indices,
             attribute_policy=attribute_policy,
-            skip_digestion=True,
         )
-        n_new_structures = to_item.structures.n_structures - old_n_structures
-        if n_new_structures and (
-            len(to_item.topology._chemical_states) > 1
-            or to_item._structure_chemical_state_indices is not None
-            or structure_chemical_state_index is not None
-        ):
-            if structure_chemical_state_index is None:
-                if len(to_item.topology._chemical_states) == 1:
-                    incoming = [0] * n_new_structures
-                else:
-                    incoming = [pd.NA] * n_new_structures
-            elif structure_chemical_state_index is pd.NA or np.isscalar(
-                structure_chemical_state_index
-            ):
-                incoming = [structure_chemical_state_index] * n_new_structures
-            else:
-                incoming = list(structure_chemical_state_index)
-            combined = pd.array(list(old_state_indices) + incoming, dtype="Int64")
-            to_item._structure_chemical_state_indices = None
-            to_item._set_structure_chemical_state_indices(combined)
-
-        if existing_analyses and n_new_structures:
-            from molsysmt.native.molsys import _extend_interaction_structures
-
-            to_item.interactions = {
-                name: _extend_interaction_structures(
-                    result, to_item.structures.n_structures
-                )
-                for name, result in existing_analyses.items()
-            }
 
     pass

@@ -80,15 +80,12 @@ def reference_index(states):
 
 
 def topology_fields(topology):
-    """Count stable inventory and an unambiguous reference bond table."""
-    states = getattr(topology, "_chemical_states_domain", None)
-    index = reference_index(states)
+    """Count only stable inventory, without resolving a chemical owner."""
     return dict(
         n_atoms=size(vars(topology).get("atoms")),
         n_groups=size(vars(topology).get("groups")),
-        n_bonds=None if index is None else len(states._states[index].bonds),
-        n_chemical_states=None if states is None else len(states._states),
-        reference_chemical_state_index=index,
+        n_molecules=size(vars(topology).get("molecules")),
+        n_chains=size(vars(topology).get("chains")),
     )
 
 

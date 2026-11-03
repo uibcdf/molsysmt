@@ -10,7 +10,9 @@ def test_openmm_topology_to_molsysmt_topology_preserves_builder_counts(
 
     assert topology.n_atoms == 4
     assert topology.n_groups == 2
-    assert topology.n_bonds == 2
+    assert not hasattr(topology, "bonds")
+    complete = msm.convert(builder_openmm_topology, to_form="molsysmt.MolSys")
+    assert complete.get(n_bonds=True) == 2
     assert topology.n_chains == 1
     assert topology.n_molecules == 2
     assert topology.n_entities == 2

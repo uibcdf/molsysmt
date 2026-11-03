@@ -47,8 +47,9 @@ explicit topology editing. The older public helpers
 - `molsysmt.build.define_new_chain`
 
 have been removed from the public API during the pre-`1.0` phase. Internal
-code paths that still need equivalent behavior use native topology methods or
-private helpers instead.
+code paths use the corresponding native owner: ChemicalStates for covalent
+bonds/components and Topology for stable inventory. Controlled native chemical
+edits remain supported independently of builder staging.
 
 `MolSysBuilder` now covers the explicit editing primitives that motivated those
 helpers:
@@ -56,13 +57,24 @@ helpers:
 - `MolSysBuilder.remove_bonds(...)`
 - `MolSysBuilder.assign_groups_to_new_chain(...)`
 
-`add_bond()` accepts optional `bond_order` and `bond_type` labels. Bond order
-may be a string or a numeric scalar and is stored canonically as a string;
-bond type is a string label:
+`add_bond()` accepts optional `bond_order` and `bond_type` labels. Supported
+integer bond orders are stored as nullable UInt8 values; legacy labels such as
+`double` are normalized into the corresponding order rather than retained as a
+relationship type:
 
 ```python
 builder.add_bond(atom_0, atom_1, bond_order=2, bond_type="double")
 ```
+
+That example declares order 2 and leaves the relationship type unspecified.
+Use `bond_type="covalent"` when that relationship is explicitly known.
+
+Bond edits take keyword-only `chemical_state=` and preserve the other states,
+reference selection and stable molecule membership. A source requires Topology.
+Absent structures become empty staging without coordinates; absent or zero-state
+chemistry stays unchanged and cannot satisfy a bond edit. See
+{ref}`MolSysBuilder <user-foundations-native-world-classes-molsysmt-molsysbuilder>`
+for the independently stored domains and executable partial-system example.
 
 ## Preferred testing pattern
 

@@ -97,7 +97,7 @@ def set_dihedral_angles(
     --------
     >>> import molsysmt as msm
     >>> molsys = msm.convert(msm.systems['Met-enkephalin']['met_enkephalin.h5msm'])
-    >>> quartet = msm.topology.get_dihedral_quartets(molsys, phi=True)[2]
+    >>> quartet = msm.chemical_states.get_dihedral_quartets(molsys, phi=True)[2]
     >>> changed = set_dihedral_angles(molsys, dihedral_quartets=quartet,
     ...                              angles='0 degrees', pbc=False)
     >>> angle = msm.structure.get_dihedral_angles(changed, dihedral_quartets=quartet)

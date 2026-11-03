@@ -50,12 +50,8 @@ def test_molsysdict_report_audits_native_scopes_and_detects_schema_losses(
 
     assert report.audited_scopes == ("all",)
     assert report.is_exhaustive is True
-    assert report.outcome == "lossy"
-    issues = {issue.attribute: issue for issue in report.issues}
-    assert issues["formal_charge"].scope == "chemical_state"
-    assert issues["formal_charge"].kind == "schema_limitation"
-    assert issues["fractional_bond_order"].scope == "chemical_state"
-    assert issues["velocities"].scope == "structures"
+    assert report.outcome == "equivalent"
+    assert report.issues == ()
 
 
 def test_strict_molsysdict_conversion_rejects_detected_nonchemical_loss(
@@ -63,7 +59,8 @@ def test_strict_molsysdict_conversion_rejects_detected_nonchemical_loss(
 ):
     source = _add_reduced_schema_losses(rich_molsys)
 
-    with pytest.raises(msm.NotCompatibleConversionError, match="velocities"):
+    source.molecular_mechanics.partial_charge = np.zeros(4)
+    with pytest.raises(msm.NotCompatibleConversionError, match="partial_charge"):
         msm.convert(
             source,
             to_form="molsysmt.MolSysDict",
@@ -117,7 +114,7 @@ def test_structuresdict_report_exhaustively_detects_bioassembly_loss(rich_molsys
 
 
 def test_topologydict_report_exhaustively_detects_rich_state_loss(rich_molsys):
-    source = rich_molsys.topology.copy()
+    source = rich_molsys.copy()
     msm.set(source, element="atom", selection=[0], formal_charge=[1])
     msm.set(
         source,
@@ -293,7 +290,8 @@ def test_builder_preserves_native_topology_and_structures_but_not_mechanics(
 
 def test_builder_reports_explicit_multistate_structure_association_loss(rich_molsys):
     source = rich_molsys.copy()
-    source.topology._append_chemical_state(state_id="alternate")
+    source.chemical_states.append_state()
+    source.chemical_states._states[1].state_id = "alternate"
     source._set_structure_chemical_state_indices([0, 1, 1])
 
     builder, report = msm.convert(
@@ -303,16 +301,12 @@ def test_builder_reports_explicit_multistate_structure_association_loss(rich_mol
     )
 
     assert report.is_exhaustive is True
-    assert report.outcome == "lossy"
-    issues = {(issue.attribute, issue.kind) for issue in report.issues}
-    assert ("structure_chemical_state_index", "state_association_loss") in issues
+    assert report.outcome == "equivalent"
+    assert report.issues == ()
     assert msm.get(builder, n_chemical_states=True) == 2
-
-    with pytest.raises(
-        msm.NotCompatibleConversionError,
-        match="structure_chemical_state_index",
-    ):
-        msm.convert(source, to_form="molsysmt.MolSysBuilder", strict=True)
+    assert msm.get(builder, structure_chemical_state_index=True) == [0, 1, 1]
+    strict = msm.convert(source, to_form="molsysmt.MolSysBuilder", strict=True)
+    assert msm.get(strict.build(), structure_chemical_state_index=True) == [0, 1, 1]
 
 
 def test_builder_and_molsysdict_selection_canonicalizes_atoms_and_orders_structures(
@@ -328,13 +322,13 @@ def test_builder_and_molsysdict_selection_canonicalizes_atoms_and_orders_structu
     )
 
     assert report.is_exhaustive is True
-    assert report.outcome == "lossy"
+    assert report.outcome == "equivalent"
     payload = selected_dict.to_dict(copy=False)
     assert [atom["atom_id"] for atom in payload["topology"]["atoms"]] == [
         "100",
         "102",
     ]
-    assert payload["structures"]["structure_id"] == [50, 10]
+    assert msm.get(selected_dict, structure_id=True) == ["50", "10"]
 
     rebuilt, rebuilt_report = msm.convert(
         selected_dict,

@@ -2,27 +2,17 @@ from molsysmt._private.argdigest import arg_digest
 from molsysmt.form.molsysmt_Structures.to_molsysmt_ViewerJSON import (
     to_molsysmt_ViewerJSON as structures_to_viewer,
 )
-from molsysmt.form.molsysmt_Topology.to_molsysmt_ViewerJSON import (
-    to_molsysmt_ViewerJSON as topology_to_viewer,
+from molsysmt.form.molsysmt_ViewerJSON._from_native import (
+    export_native as topology_to_viewer,
 )
 from molsysmt.native import ViewerJSON
 
 
 def _json_list(values):
-    if values is None:
-        return []
-    output = []
-    for value in list(values):
-        try:
-            if value is None:
-                output.append(None)
-            elif float(value).is_integer():
-                output.append(int(value))
-            else:
-                output.append(float(value))
-        except Exception:
-            output.append(value)
-    return output
+    """Normalize nullable numerical fields with the topology export's JSON rules."""
+    from molsysmt.form.molsysmt_ViewerJSON._from_native import _series_to_list
+
+    return [] if values is None else _series_to_list(values)
 
 
 @arg_digest(form="molsysmt.MolSys")
@@ -47,7 +37,9 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    topo_vjson = topology_to_viewer(item.topology, skip_digestion=True)
+    topo_vjson = topology_to_viewer(
+        item.topology, chemical_states=item.chemical_states, skip_digestion=True
+    )
     struct_vjson = structures_to_viewer(item.structures, skip_digestion=True)
 
     viewer = ViewerJSON()
@@ -63,10 +55,11 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
         "structures", struct_data.get("estructures", struct_data.get("frames", []))
     )
 
-    formal_charge = _json_list(item.molecular_mechanics.formal_charge)
-    if formal_charge:
-        viewer.data["atoms"]["formal_charge"] = formal_charge
-    partial_charge = _json_list(item.molecular_mechanics.partial_charge)
+    partial_charge = (
+        []
+        if item.molecular_mechanics is None
+        else _json_list(item.molecular_mechanics.partial_charge)
+    )
     if partial_charge:
         viewer.data["atoms"]["partial_charge"] = partial_charge
 

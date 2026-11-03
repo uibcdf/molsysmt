@@ -15,4 +15,4 @@ This micro-governance contract governs [`docs/content/user/foundations/native_wo
    - MUST NOT use cards (`::::{grid}`) or badges (`{bdg-*}`).
 
 3. **Toctree**:
-   - MUST maintain hidden `toctree` with `maxdepth: 1` listing all 10 class units without `.md` extensions.
+   - MUST maintain hidden `toctree` with `maxdepth: 1` listing all documented class units, including ChemicalStates, without `.md` extensions.

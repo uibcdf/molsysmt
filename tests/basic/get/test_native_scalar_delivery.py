@@ -98,7 +98,7 @@ def test_covalent_blocks_sets_hold_native_ints(molecular_system):
     NetworkX using the delivered pair objects as adjacency keys. It has no
     normalisation of its own and must not need one.
     """
-    blocks = msm.topology.get_covalent_blocks(molecular_system)
+    blocks = msm.chemical_states.get_covalent_blocks(molecular_system)
     kinds = {type(index).__name__ for block in blocks for index in block}
     assert kinds == {"int"}, f"covalent blocks hold {sorted(kinds)}"
 

@@ -8,25 +8,18 @@ from molsysmt._private.argdigest import arg_digest
 
 
 def _empty_molsys_dict() -> Dict[str, Any]:
+    from .topology_dict import _empty_topology_dict
+
     return {
         "format": "molsysmt",
         "kind": "molsys",
-        "version": "0.1",
+        "version": "0.2",
         "metadata": {},
-        "topology": {
-            "atoms": [],
-            "groups": [],
-            "bonds": [],
-            "chains": [],
-            "molecules": [],
-            "entities": [],
-        },
-        "structures": {
-            "structure_id": None,
-            "time": None,
-            "box": None,
-            "coordinates": None,
-        },
+        "topology": _empty_topology_dict(),
+        "chemical_states": None,
+        "structures": None,
+        "structure_chemical_state_indices": None,
+        "interactions": {},
     }
 
 

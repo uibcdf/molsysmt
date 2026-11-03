@@ -7,20 +7,10 @@ def fallback_ids(n_items):
 
 
 def molecule_indices_from_atoms(topology):
-    """Project stable molecule membership without requiring a group hierarchy.
+    """Project stored stable membership without consulting chemical states."""
+    from ._atom_molecules import resolve
 
-    Group-free inventories use the reference state's component partition.
-    Other chemical states cannot silently redefine the stable molecule axis.
-    """
-    if topology.n_groups == 0:
-        state = topology._resolve_reference_chemical_state()
-        return state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
-    groups = topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
-    molecules = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
-    result = np.full(topology.n_atoms, -1, dtype=np.int64)
-    valid = (groups >= 0) & (groups < len(molecules))
-    result[valid] = molecules[groups[valid]]
-    return result
+    return resolve(topology)
 
 
 def _group_atom_names(topology):
@@ -83,148 +73,6 @@ def project_group_type_from_topology(
     raise NotImplementedError
 
 
-def infer_component_indices_from_topology(topology):
-    """
-    Return per-atom component_index array.
-
-    Architecture invariant: component_index is atom-aligned state data.
-    Groups do NOT have a component_index column.
-
-    Parameters
-    ----------
-    topology : object
-        Argument topology.
-    """
-    return _component_indices_from_bonds(
-        topology.n_atoms, topology._get_chemical_state_bonds()
-    )
-
-
-def _component_indices_from_bonds(n_atoms, bonds):
-    """Infer the partition from one resolved state's stored participation flags."""
-    from molsysmt._private.rust_backend import (
-        get_component_index_from_bonded_atom_pairs,
-    )
-
-    if "joins_components" in bonds.columns:
-        participates = ~bonds["joins_components"].eq(False).fillna(False)
-        bonds = bonds.loc[participates]
-    bonded_atom_pairs = bonds[["atom1_index", "atom2_index"]].to_numpy()
-    bonded_atom_pairs = np.asarray(bonded_atom_pairs, dtype=np.int64)
-
-    if bonded_atom_pairs.size == 0:
-        bonded_atom_pairs = np.empty((0, 2), dtype=np.int64)
-    else:
-        bonded_atom_pairs = bonded_atom_pairs.reshape((-1, 2))
-
-    return get_component_index_from_bonded_atom_pairs(
-        bonded_atom_pairs, np.int64(n_atoms)
-    ).astype(np.int64)
-
-
-def _unchanged_component_rows(old_indices, new_indices, n_old, n_new):
-    """Match component rows with identical atom sets in linear memory and time.
-
-    Unknown or out-of-table old memberships cannot justify metadata transfer.
-    A unique old row per new component excludes merges; equal atom counts exclude
-    splits. Component row numbers themselves are not component identity.
-    """
-    if not n_old or not n_new:
-        return np.empty(0, dtype=np.int64), np.empty(0, dtype=np.int64)
-    valid = (old_indices >= 0) & (old_indices < n_old)
-    known_indices = np.where(valid, old_indices, -1)
-    minimum = np.full(n_new, n_old, dtype=np.int64)
-    maximum = np.full(n_new, -1, dtype=np.int64)
-    np.minimum.at(minimum, new_indices, known_indices)
-    np.maximum.at(maximum, new_indices, known_indices)
-    new_rows = np.flatnonzero((minimum >= 0) & (minimum == maximum))
-    old_rows = minimum[new_rows]
-    old_counts = np.bincount(old_indices[valid], minlength=n_old)
-    new_counts = np.bincount(new_indices, minlength=n_new)
-    unchanged = new_counts[new_rows] == old_counts[old_rows]
-    return new_rows[unchanged], old_rows[unchanged]
-
-
-def _component_index_per_group(topology):
-    """Derive per-group component membership from atom-aligned state data."""
-    n_groups = topology.n_groups
-    _adf = pd.DataFrame(
-        {
-            "group_index": topology.atoms["group_index"],
-            "component_index": topology._get_component_indices(),
-        }
-    ).dropna()
-    _gc = _adf.groupby("group_index", sort=False)["component_index"].first()
-    result = np.full(n_groups, -1, dtype=np.int64)
-    result[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy(dtype=np.int64)
-    return result
-
-
-def infer_component_types_from_topology(topology):
-    from molsysmt.element.component.get_component_type import (
-        _get_component_type_from_group_names_and_types,
-    )
-
-    component_index_of_groups = _component_index_per_group(topology)
-    group_names = topology.groups["group_name"].to_numpy(dtype=object)
-    group_types = topology.groups["group_type"].to_numpy(dtype=object)
-
-    n_components = topology.n_components
-    output = np.empty(n_components, dtype=object)
-
-    for component_index in range(n_components):
-        mask = component_index_of_groups == component_index
-        if np.any(mask):
-            output[component_index] = _get_component_type_from_group_names_and_types(
-                group_names[mask], group_types[mask]
-            )
-        else:
-            output[component_index] = "unknown"
-
-    return output
-
-
-def infer_component_names_from_topology(topology):
-    component_index_of_groups = _component_index_per_group(topology)
-    component_types = topology.components["component_type"].to_numpy(dtype=object)
-    group_names = topology.groups["group_name"].to_numpy(dtype=object)
-
-    output = []
-    counters = {"peptide": 0, "protein": 0, "small molecule": 0, "unknown": 0}
-    peptides = {}
-
-    for component_index, component_type in enumerate(component_types):
-        mask = component_index_of_groups == component_index
-        names_in_component = group_names[mask].tolist()
-
-        if component_type == "peptide":
-            peptide_key = ",".join(names_in_component)
-            if peptide_key in peptides:
-                name = peptides[peptide_key]
-            else:
-                name = f"{component_type} {counters[component_type]}"
-                peptides[peptide_key] = name
-                counters[component_type] += 1
-        elif component_type in ["protein", "small molecule"]:
-            name = f"{component_type} {counters[component_type]}"
-            counters[component_type] += 1
-        elif component_type in ["ion", "lipid"]:
-            name = (
-                names_in_component[0]
-                if names_in_component
-                else f"unknown {counters['unknown']}"
-            )
-        elif component_type == "water":
-            name = "water"
-        else:
-            name = f"unknown {counters['unknown']}"
-            counters["unknown"] += 1
-
-        output.append(name)
-
-    return np.array(output, dtype=object)
-
-
 def infer_molecule_indices_from_topology(topology):
     """
     Partition groups into molecules, decoupled from connected components.
@@ -237,10 +85,10 @@ def infer_molecule_indices_from_topology(topology):
     - the group_type is standalone {'ion', 'water', 'small molecule'}
       (each group = its own molecule).
 
-    This decouples molecule identity from bond connectivity, so that a
-    covalently or coordinatively bonded complex (e.g. MnATP bound to a
-    protein, or a covalent drug) becomes one component but several
-    molecules of different types.
+    Stable molecule membership is independent of the selected chemical state's
+    component partition. Participating stored bonds can place several stable
+    molecules in one component; a coordination edge does so only under its
+    declared participation policy. Later graph edits do not redefine molecules.
 
     Parameters
     ----------
@@ -355,8 +203,8 @@ def infer_molecule_types_from_topology(topology):
         return np.array(["unknown"] * topology.n_molecules, dtype=object)
     if topology.n_groups == 0:
         return (
-            topology._resolve_reference_chemical_state()
-            .components["component_type"]
+            topology.molecules["molecule_type"]
+            .fillna("unknown")
             .to_numpy(dtype=object, copy=True)
         )
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(
@@ -391,11 +239,11 @@ def infer_molecule_names_from_topology(topology):
             [f"unknown {i}" for i in range(topology.n_molecules)], dtype=object
         )
     if topology.n_groups == 0:
-        return (
-            topology._resolve_reference_chemical_state()
-            .components["component_name"]
-            .to_numpy(dtype=object, copy=True)
-        )
+        values = topology.molecules["molecule_name"].to_numpy(dtype=object, copy=True)
+        for index, value in enumerate(values):
+            if pd.isna(value):
+                values[index] = f"unknown {index}"
+        return values
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(
         dtype=np.int64, na_value=-1
     )
@@ -621,13 +469,6 @@ def prepare_topology_for_molecule_queries(
         or redefine_types
         or _needs_columns(topology.groups, ["molecule_index"])
     )
-    need_components = (
-        redefine_indices
-        or redefine_names
-        or redefine_types
-        or topology._component_indices_are_missing()
-        or _needs_columns(topology.components, ["component_type", "component_name"])
-    )
     need_molecules = (
         redefine_indices
         or redefine_names
@@ -648,23 +489,13 @@ def prepare_topology_for_molecule_queries(
         or _needs_columns(topology.entities, ["entity_name", "entity_type"])
     )
 
-    if not any(
-        [need_groups, need_components, need_molecules, need_chains, need_entities]
-    ):
+    if not any([need_groups, need_molecules, need_chains, need_entities]):
         return topology
 
     tmp_topology = topology.copy()
 
     if need_groups:
         tmp_topology.rebuild_groups(redefine_ids=False, redefine_types=True)
-    if need_components:
-        tmp_topology.rebuild_components(
-            redefine_indices=True,
-            redefine_ids=False,
-            redefine_types=True,
-            redefine_names=True,
-            force=True,
-        )
     if need_molecules:
         tmp_topology.rebuild_molecules(
             redefine_indices=True,
@@ -710,14 +541,9 @@ def project_molecule_index_from_topology(
     if element == "atom":
         return molecule_indices_from_atoms(tmp_topology).tolist()
     if element == "component":
-        if tmp_topology.n_groups == 0:
-            return list(range(tmp_topology.n_molecules))
-        component_index_from_group = _component_index_per_group(tmp_topology)
-        output = np.full(tmp_topology.n_components, -1, dtype=np.int64)
-        for group_index, component_index in enumerate(component_index_from_group):
-            if component_index >= 0 and output[component_index] < 0:
-                output[component_index] = molecule_index_from_group[group_index]
-        return output.tolist()
+        raise ValueError(
+            "Component projection requires ChemicalStates with explicit stable context."
+        )
     if element == "chain":
         # chain_index is atom-level; derive per-group from atoms
         _adf = tmp_topology.atoms[["group_index", "chain_index"]].dropna()
@@ -864,112 +690,6 @@ def project_entity_type_from_topology(
     return entity_types[np.asarray(entity_index, dtype=np.int64)].tolist()
 
 
-def prepare_topology_for_component_queries(
-    topology, *, redefine_indices=False, redefine_names=False, redefine_types=False
-):
-    need_groups = (
-        redefine_indices
-        or redefine_names
-        or redefine_types
-        or _needs_columns(topology.groups, ["group_type"])
-    )
-    # Component membership is atom-aligned state data, never group storage.
-    need_components = (
-        redefine_indices
-        or redefine_names
-        or redefine_types
-        or topology._component_indices_are_missing()
-        or _needs_columns(topology.components, ["component_type", "component_name"])
-    )
-
-    if not any([need_groups, need_components]):
-        return topology
-
-    tmp_topology = topology.copy()
-
-    if need_groups:
-        tmp_topology.rebuild_groups(redefine_ids=False, redefine_types=True)
-    if need_components:
-        tmp_topology.rebuild_components(
-            redefine_indices=True,
-            redefine_ids=False,
-            redefine_types=True,
-            redefine_names=True,
-            force=True,
-        )
-
-    return tmp_topology
-
-
-def project_component_index_from_topology(
-    topology, *, element="component", redefine_indices=False
-):
-    if element == "atom" and redefine_indices:
-        atom_component_index = infer_component_indices_from_topology(topology)
-        return atom_component_index.tolist()
-
-    tmp_topology = prepare_topology_for_component_queries(
-        topology, redefine_indices=redefine_indices
-    )
-
-    # Derive group membership from atom-aligned state data.
-    component_index_from_group = _component_index_per_group(tmp_topology)
-
-    if element == "component":
-        return list(range(tmp_topology.n_components))
-    if element == "group":
-        return component_index_from_group.tolist()
-    if element == "atom":
-        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(
-            dtype=np.int64, na_value=-1
-        )
-        return component_index_from_group[group_index_from_atom].tolist()
-
-    raise NotImplementedError
-
-
-def project_component_name_from_topology(
-    topology, *, element="component", redefine_indices=False, redefine_names=False
-):
-    tmp_topology = prepare_topology_for_component_queries(
-        topology,
-        redefine_indices=redefine_indices,
-        redefine_names=redefine_names,
-        redefine_types=redefine_indices,
-    )
-
-    component_names = tmp_topology.components["component_name"].to_numpy(dtype=object)
-
-    if element == "component":
-        return component_names.tolist()
-
-    component_index = project_component_index_from_topology(
-        tmp_topology, element=element, redefine_indices=False
-    )
-    return component_names[np.asarray(component_index, dtype=np.int64)].tolist()
-
-
-def project_component_type_from_topology(
-    topology, *, element="component", redefine_indices=False, redefine_types=False
-):
-    tmp_topology = prepare_topology_for_component_queries(
-        topology,
-        redefine_indices=redefine_indices,
-        redefine_names=False,
-        redefine_types=redefine_types,
-    )
-
-    component_types = tmp_topology.components["component_type"].to_numpy(dtype=object)
-
-    if element == "component":
-        return component_types.tolist()
-
-    component_index = project_component_index_from_topology(
-        tmp_topology, element=element, redefine_indices=False
-    )
-    return component_types[np.asarray(component_index, dtype=np.int64)].tolist()
-
-
 def prepare_topology_for_chain_queries(
     topology, *, redefine_indices=False, redefine_names=False, redefine_types=False
 ):
@@ -979,11 +699,6 @@ def prepare_topology_for_chain_queries(
         or redefine_names
         or redefine_types
         or _needs_columns(topology.groups, ["molecule_index"])
-    )
-    need_components = (
-        redefine_types
-        or topology._component_indices_are_missing()
-        or _needs_columns(topology.components, ["component_type", "component_name"])
     )
     need_molecules = redefine_types or _needs_columns(
         topology.molecules, ["molecule_name", "molecule_type"]
@@ -996,21 +711,13 @@ def prepare_topology_for_chain_queries(
         or _needs_columns(topology.atoms, ["chain_index"])
     )
 
-    if not any([need_groups, need_components, need_molecules, need_chains]):
+    if not any([need_groups, need_molecules, need_chains]):
         return topology
 
     tmp_topology = topology.copy()
 
     if need_groups:
         tmp_topology.rebuild_groups(redefine_ids=False, redefine_types=True)
-    if need_components:
-        tmp_topology.rebuild_components(
-            redefine_indices=True,
-            redefine_ids=False,
-            redefine_types=True,
-            redefine_names=True,
-            force=True,
-        )
     if need_molecules:
         tmp_topology.rebuild_molecules(
             redefine_indices=True,
@@ -1053,12 +760,9 @@ def project_chain_index_from_topology(
     if element == "chain":
         return list(range(tmp_topology.n_chains))
     if element == "component":
-        component_index_from_group = _component_index_per_group(tmp_topology)
-        output = np.full(tmp_topology.n_components, -1, dtype=np.int64)
-        for group_index, component_index in enumerate(component_index_from_group):
-            if component_index >= 0 and output[component_index] < 0:
-                output[component_index] = group_chain_index[group_index]
-        return output.tolist()
+        raise ValueError(
+            "Component projection requires ChemicalStates with explicit stable context."
+        )
     if element == "molecule":
         molecule_index_from_group = tmp_topology.groups["molecule_index"].to_numpy(
             dtype=np.int64, na_value=-1

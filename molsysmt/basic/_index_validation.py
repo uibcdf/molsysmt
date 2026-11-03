@@ -36,7 +36,10 @@ def validate_element_indices(
         array = array.reshape(1)
     if array.ndim == 1 and array.size == 0:
         return []
-    if array.ndim != 1 or not np.issubdtype(array.dtype, np.integer):
+    mixed_boolean = isinstance(indices, (list, tuple)) and any(
+        isinstance(value, (bool, np.bool_)) for value in indices
+    )
+    if array.ndim != 1 or not np.issubdtype(array.dtype, np.integer) or mixed_boolean:
         raise ArgumentError(
             argument=argument,
             value=indices,

@@ -26,6 +26,13 @@ Set of functions to build and complete molecular systems.
 Set of functions to explore the topology of molecular systems.
 :::
 
+:::{grid-item-card} **Chemical States**
+:link: chemical_states/index
+:link-type: doc
+
+Set of functions to explore state-dependent covalent graphs and chemical correspondence.
+:::
+
 :::{grid-item-card} **Structure**
 :link: structure/index
 :link-type: doc
@@ -106,6 +113,7 @@ Set of functions to query the molecular system loaded in a view.
    basic/index.md
    build/index.md
    topology/index.md
+   chemical_states/index.md
    structure/index.md
    pbc/index.md
    physchem/index.md

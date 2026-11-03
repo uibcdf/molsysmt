@@ -103,7 +103,7 @@ def get_water_sites(
     """
     import numpy as np
 
-    from molsysmt.topology import get_substructure_matches
+    from molsysmt.chemical_states import get_substructure_matches
 
     pattern = "[O;+0;D2;H2](-[#1;+0;D1])-[#1;+0;D1]"
     matches = get_substructure_matches(

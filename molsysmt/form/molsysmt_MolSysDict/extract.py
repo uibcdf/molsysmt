@@ -51,6 +51,20 @@ def extract(
     .. versionadded:: 1.0.0
     """
 
+    if item.data.get("version", "0.1") == "0.2":
+        if is_all(atom_indices) and is_all(structure_indices):
+            return item.copy() if copy_if_all else item
+        from molsysmt.form._native_dict import decode_molsys, encode_molsys
+
+        return encode_molsys(
+            decode_molsys(item.data).extract(
+                atom_indices=atom_indices,
+                structure_indices=structure_indices,
+                copy_if_all=True,
+                skip_digestion=True,
+            )
+        )
+
     if is_all(atom_indices) and is_all(structure_indices):
         return item.copy() if copy_if_all else item
 
@@ -79,6 +93,7 @@ def extract(
     data["topology"] = {
         key: extracted_topology.get(key, [])
         for key in ("atoms", "groups", "bonds", "chains", "molecules", "entities")
+        if key in source_topology
     }
 
     structures = data.get("structures", {}) or {}

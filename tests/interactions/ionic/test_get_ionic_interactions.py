@@ -11,20 +11,21 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
     UnsupportedHeavyOperationError,
 )
-from molsysmt.native import MolSys, Topology
+from molsysmt.native import MolSys
 
 
 def _system(elements, charges, xyz, bonds=(), orders=(), box=None):
-    molsys = MolSys()
-    molsys.topology = Topology(n_atoms=len(elements))
+    molsys = MolSys(n_atoms=len(elements))
     molsys.topology.atoms["atom_type"] = elements
     molsys.topology.atoms["atom_id"] = [f"atom-{100 + i}" for i in range(len(elements))]
     msm.set(molsys, element="atom", formal_charge=charges)
     if bonds:
-        molsys.topology._append_chemical_state_bonds(
+        molsys.chemical_states._append_chemical_state_bonds(
             bonds, orders=orders, types="covalent"
         )
-    molsys.topology._reference_chemical_state.connectivity_completeness = "complete"
+    molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+        "complete"
+    )
     molsys.structures.append(
         coordinates=puw.quantity(np.asarray(xyz, dtype=float), "nm"),
         box=None if box is None else puw.quantity(np.asarray(box, dtype=float), "nm"),
@@ -229,11 +230,13 @@ def test_invalid_thresholds_do_not_return_plausible_observations(threshold):
 def test_selected_chemical_state_and_missing_complete_connectivity():
     molsys = _ions()
     second = molsys.chemical_states.append_state()
-    molsys.topology._chemical_states[second].connectivity_completeness = "complete"
+    molsys.chemical_states._states[second].connectivity_completeness = "complete"
     msm.set(molsys, element="atom", formal_charge=[0, 0, 0], chemical_state=second)
     assert _calculate(molsys, chemical_state=second).n_interactions == 0
     assert _calculate(molsys, chemical_state=0).n_interactions == 3
-    molsys.topology._reference_chemical_state.connectivity_completeness = "partial"
+    molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+        "partial"
+    )
     with pytest.raises(StructuralInconsistencyError):
         _calculate(molsys)
     result = _calculate(molsys, assume_complete_connectivity=True)
@@ -319,10 +322,10 @@ def test_alternate_state_connectivity_is_used_for_covalent_exclusion():
     )
     second = molsys.chemical_states.append_state()
     msm.set(molsys, element="atom", formal_charge=[0, -1, 0, 1], chemical_state=second)
-    molsys.topology._append_chemical_state_bonds(
+    molsys.chemical_states._append_chemical_state_bonds(
         [(0, 1), (0, 2), (0, 3)], orders=[1, 2, 1], types="covalent", state_index=second
     )
-    molsys.topology._chemical_states[second].connectivity_completeness = "complete"
+    molsys.chemical_states._states[second].connectivity_completeness = "complete"
     assert _calculate(molsys, chemical_state=0).n_interactions == 1
     assert _calculate(molsys, chemical_state=second).n_interactions == 0
     molsys._set_structure_chemical_state_indices([second])
@@ -428,7 +431,7 @@ def test_modular_file_prepares_chemistry_once_without_materializing_structures(
     molsys = _ions()
     second = molsys.chemical_states.append_state()
     msm.set(molsys, element="atom", formal_charge=[2, -1, 1], chemical_state=second)
-    molsys.topology._chemical_states[second].connectivity_completeness = "complete"
+    molsys.chemical_states._states[second].connectivity_completeness = "complete"
     path = str(tmp_path / "states.h5msm")
     msm.convert(molsys, to_form=path)
     original = _h5msm05_modular._read_calculation_chemistry

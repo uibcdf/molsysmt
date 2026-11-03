@@ -91,6 +91,15 @@ does not contain deselected cases. The source workflow uploads per-cell test
 results whenever that file exists; an environment failure before pytest does
 not produce a fictitious report.
 
+The full-source workflow also retains pytest-receptor's per-phase stream at
+`.pytest-receptor/events.jsonl`, including after an abrupt process exit that
+prevents JUnit finalization. Read it with `pytest_receptor.read_artifact` as
+described in [`PYTEST_RECEPTOR_GUIDE.md`](../PYTEST_RECEPTOR_GUIDE.md).
+The stream is bounded to 50 MiB by default; its last retained phase is not
+necessarily the last started test. Incomplete or truncated evidence helps
+diagnosis but cannot establish a passing suite or clear skipped-commit debt.
+Keep the native pytest/process exit status alongside either artifact.
+
 The four-minor Linux `ci-weekly.yaml` matrix recovers skipped-commit debt and
 also tests macOS arm64 on the routine Python 3.14 minor at least weekly. It
 does not replace the eight-cell release matrix.

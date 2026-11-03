@@ -98,17 +98,18 @@ order/repetitions; mask intersections retain existing sorted-unique semantics.
 | Object | Current molecular query scope |
 | --- | --- |
 | MolSys | Its supported topology, chemical-state, structure and mechanics attributes; available partial domains and declared axes. |
-| Topology | Supported inventory/hierarchy/connectivity and state-dependent attributes through its existing chemical-state facade. |
+| Topology | Stable atom inventory and represented group/molecule/entity/chain memberships; no bond/component/state facade. |
 | Structures | Supported structural attributes and axis counts. Specialized `get_coordinates`, `get_box`, `get_time` and other existing getters remain available. |
-| ChemicalStates | Current adapter metadata: atom count, state count and reference-state index. Specialized bonds/history access remains available; a new atom-assignment query schema is not implied. |
+| ChemicalStates | Selected-state atom/bond/component indices, counts, nullable assignments and declarations; collection-wide state inventory and reference. Specialized bonds/history access remains available. |
 | Interactions | Current adapter metadata: declared atom and structure domains. `query`, `between_selections` and `to_page` remain the occurrence/coverage/measurement API. |
 | MolSysBuilder | Its declared editable domains; no `build()` or finalization is required. |
 
-Chemical-state resolution retains existing supported cases and refusal rules.
-In particular, explicit non-reference state resolution currently requires the
-existing native Topology/MolSys path, and structure-associated state selection
-requires a MolSys with unambiguous associations. Giving ChemicalStates a
-metadata `get` does not silently extend that resolver.
+Chemical-state resolution belongs to ChemicalStates, including standalone typed
+dictionary collections. MolSys adds explicit structure/state associations. Pure
+Topology cannot resolve chemistry through an owner. Invalid/ambiguous state
+selection fails without reference mutation. Basic queries can join explicitly
+composed native Topology/ChemicalStates domains without copying their payloads or
+rebinding owners; shared axis cardinality is validated before querying.
 
 ## Selection boundaries
 
@@ -160,9 +161,13 @@ route for the actual selected indices. Unsupported/mixed queries keep ordinary
 piping, including complementary forms. Do not set the general pipe metadata to
 `None` merely because a subset of getters becomes direct.
 
-These are reads of the existing 0.1 schema, not a new dictionary format or a
-multi-state chemical serialization contract. Existing structure/unit delivery
-and non-reference chemical-state restrictions remain unchanged.
+Writers use schema 0.2 and readers retain 0.1. The bounded stored-atom route
+applies to both interpretations; other queries use their supported native
+conversion route. MolSysDict 0.2 retains independently optional chemistry,
+structures, named analyses and explicit associations. Explicit state requests
+decode the independent owner before resolving it; this path is not advertised
+as a bounded chemical-column query. Full decoding validates schema/typed fields
+and refuses unrepresented metadata and extensions.
 
 ## Evidence and remaining scope
 

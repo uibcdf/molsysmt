@@ -121,7 +121,7 @@ def test_native_pdb_roundtrip_uses_canonical_serials_and_preserves_scalar_fields
         puw.get_value(source.structures.b_factor, to_unit="nm**2")[[2, 0]][:, [0, 2]],
         atol=5.1e-5,
     )
-    assert restored.topology._get_chemical_state_bonds()[
+    assert restored.chemical_states._get_chemical_state_bonds()[
         ["atom1_index", "atom2_index"]
     ].values.tolist() == [[0, 1]]
 
@@ -358,7 +358,7 @@ def test_pdb_conect_serials_for_variants_map_to_the_canonical_atom_site():
     )
 
     assert restored.topology.n_atoms == 2
-    assert restored.topology._get_chemical_state_bonds()[
+    assert restored.chemical_states._get_chemical_state_bonds()[
         ["atom1_index", "atom2_index"]
     ].values.tolist() == [[0, 1]]
 
@@ -423,17 +423,17 @@ def test_pdb_formal_charge_and_link_are_imported_as_explicit_chemical_state_data
 
     restored = msm.convert(pdb_text, to_form="molsysmt.MolSys", get_missing_bonds=False)
 
-    formal_charge = restored.topology._get_chemical_state_atom_attribute(
+    formal_charge = restored.chemical_states._get_chemical_state_atom_attribute(
         "formal_charge"
     )
     assert formal_charge.iloc[0] == 2
     assert pd.isna(formal_charge.iloc[1])
-    bonds = restored.topology._get_chemical_state_bonds()
+    bonds = restored.chemical_states._get_chemical_state_bonds()
     assert bonds[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
     assert bonds["bond_type"].tolist() == ["covalent"]
     assert bonds["evidence"].tolist() == ["explicit"]
     assert (
-        restored.topology._reference_chemical_state.connectivity_completeness
+        restored.chemical_states._resolve_chemical_state().connectivity_completeness
         == "partial"
     )
 
@@ -443,7 +443,9 @@ def test_pdb_formal_charge_and_link_are_imported_as_explicit_chemical_state_data
         get_missing_bonds=False,
     )
     assert (
-        roundtrip.topology._get_chemical_state_atom_attribute("formal_charge").iloc[0]
+        roundtrip.chemical_states._get_chemical_state_atom_attribute(
+            "formal_charge"
+        ).iloc[0]
         == 2
     )
 
@@ -458,7 +460,7 @@ def test_pdb_ssbond_is_imported_as_an_explicit_covalent_bond():
     )
 
     restored = msm.convert(pdb_text, to_form="molsysmt.MolSys", get_missing_bonds=False)
-    bonds = restored.topology._get_chemical_state_bonds()
+    bonds = restored.chemical_states._get_chemical_state_bonds()
 
     assert bonds[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
     assert bonds["evidence"].tolist() == ["explicit"]
@@ -614,7 +616,7 @@ def test_pdb_openmm_discovered_bonds_are_marked_as_inferred(monkeypatch):
     )
 
     restored = msm.convert(pdb_text, to_form="molsysmt.MolSys", get_missing_bonds=True)
-    bonds = restored.topology._get_chemical_state_bonds()
+    bonds = restored.chemical_states._get_chemical_state_bonds()
 
     assert bonds[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
     assert bonds["evidence"].tolist() == ["inferred"]
@@ -636,7 +638,7 @@ def test_pdb_report_exposes_ambiguous_explicit_bond_endpoints():
         return_report=True,
     )
 
-    assert restored.topology.n_bonds == 0
+    assert restored.chemical_states.get(n_bonds=True) == 0
     assert any(
         issue.attribute == "bonded_atoms" and issue.kind == "adapter_limitation"
         for issue in report.issues
@@ -645,7 +647,7 @@ def test_pdb_report_exposes_ambiguous_explicit_bond_endpoints():
 
 def test_pdb_formal_charge_capacity_is_reported_and_rejected(rich_molsys):
     source = rich_molsys.copy()
-    source.topology._set_chemical_state_atom_attribute(
+    source.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge", pd.array([10, 0, 0, 0], dtype="Int16")
     )
 
@@ -681,7 +683,7 @@ def test_pdb_report_exposes_malformed_charge_conect_and_bioassembly_records():
         return_report=True,
     )
 
-    assert restored.topology.n_bonds == 0
+    assert restored.chemical_states.get(n_bonds=True) == 0
     assert restored.structures.bioassembly is None
     issues = {(issue.attribute, issue.kind) for issue in report.issues}
     assert ("formal_charge", "adapter_limitation") in issues
@@ -704,7 +706,7 @@ def test_pdb_report_does_not_silently_interpret_repeated_conect_as_bond_order():
         return_report=True,
     )
 
-    assert restored.topology.n_bonds == 1
+    assert restored.chemical_states.get(n_bonds=True) == 1
     assert any(
         issue.attribute == "bond_order" and issue.kind == "adapter_limitation"
         for issue in report.issues

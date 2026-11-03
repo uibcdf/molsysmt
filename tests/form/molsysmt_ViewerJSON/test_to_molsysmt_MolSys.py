@@ -42,7 +42,7 @@ def test_viewerjson_to_molsys():
 
     assert isinstance(molsys, MolSys)
     assert molsys.topology.atoms.shape[0] == 2
-    assert molsys.topology.bonds.shape[0] == 1
+    assert molsys.chemical_states._resolve_chemical_state().bonds.shape[0] == 1
     coords = molsys.structures.coordinates
     assert coords is not None
     arr = np.asarray(coords.magnitude)

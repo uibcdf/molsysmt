@@ -42,7 +42,7 @@ def test_original_legacy_and_valence_sources_convert_without_rewriting(
             **options,
         )
         assert native.topology.n_atoms == record["sdf_n_atoms"]
-        assert native.topology.n_bonds == record["sdf_n_bonds"]
+        assert native.chemical_states.get(n_bonds=True) == record["sdf_n_bonds"]
         assert (
             sum(msm.get(native, formal_charge=True)) == record["sdf_net_formal_charge"]
         )
@@ -57,7 +57,9 @@ def test_original_legacy_and_valence_sources_convert_without_rewriting(
             msm.convert(native, to_form=output, ctfile_version=version, **options)
             restored = msm.convert(output, to_form="molsysmt.MolSys", **options)
             assert restored.topology.n_atoms == native.topology.n_atoms
-            assert restored.topology.n_bonds == native.topology.n_bonds
+            assert restored.chemical_states.get(
+                n_bonds=True
+            ) == native.chemical_states.get(n_bonds=True)
             assert msm.get(restored, formal_charge=True) == msm.get(
                 native, formal_charge=True
             )
@@ -119,7 +121,7 @@ def test_real_stereoisomers_preserve_chemistry_coordinates_and_source(
             stereo_engine="rdkit",
         )
         assert native.topology.n_atoms == record["sdf_n_atoms"]
-        assert native.topology.n_bonds == record["sdf_n_bonds"]
+        assert native.chemical_states.get(n_bonds=True) == record["sdf_n_bonds"]
         assert native.topology.atoms.atom_type.tolist() == [
             atom.GetSymbol() for atom in reference.GetAtoms()
         ]
@@ -129,7 +131,7 @@ def test_real_stereoisomers_preserve_chemistry_coordinates_and_source(
         assert (
             sum(msm.get(native, formal_charge=True)) == record["sdf_net_formal_charge"]
         )
-        assert msm.get(native, connectivity_completeness=True) == ["complete"]
+        assert msm.get(native, connectivity_completeness=True) == "complete"
         assert not msm.has_attribute(native, "partial_charge")
         assert not msm.has_attribute(native, "atom_ff_type")
         expected_coordinates = np.asarray(reference.GetConformer().GetPositions())
@@ -146,7 +148,9 @@ def test_real_stereoisomers_preserve_chemistry_coordinates_and_source(
                 "atom_stereochemistry"
             ].tolist() == [label]
         before_atoms = native.topology.atoms.copy(deep=True)
-        before_bonds = native.topology.bonds.copy(deep=True)
+        before_bonds = native.chemical_states._resolve_chemical_state().bonds.copy(
+            deep=True
+        )
         before_coordinates = msm.pyunitwizard.get_value(
             native.structures.coordinates
         ).copy()
@@ -164,7 +168,7 @@ def test_real_stereoisomers_preserve_chemistry_coordinates_and_source(
             rtol=0,
         )
         assert restored.topology.n_atoms == record["sdf_n_atoms"]
-        assert restored.topology.n_bonds == record["sdf_n_bonds"]
+        assert restored.chemical_states.get(n_bonds=True) == record["sdf_n_bonds"]
         output_reference = Chem.SDMolSupplier(
             str(output), removeHs=False, strictParsing=True
         )[0]
@@ -177,7 +181,9 @@ def test_real_stereoisomers_preserve_chemistry_coordinates_and_source(
             i: value for i, value in enumerate(labels) if value is not None
         } == expected_labels
         pd.testing.assert_frame_equal(native.topology.atoms, before_atoms)
-        pd.testing.assert_frame_equal(native.topology.bonds, before_bonds)
+        pd.testing.assert_frame_equal(
+            native.chemical_states._resolve_chemical_state().bonds, before_bonds
+        )
         np.testing.assert_array_equal(
             msm.pyunitwizard.get_value(native.structures.coordinates),
             before_coordinates,
@@ -202,7 +208,10 @@ def test_real_pair_has_same_graph_and_distinct_cip_labels(vina_reference_corpus)
     # Source bond IDs and aromatic Kekule encodings differ. Independently
     # normalize for this equivalence check; native source assignments stay intact.
     pairs = [
-        system.topology.bonds[["atom1_index", "atom2_index"]] for system in systems
+        system.chemical_states._resolve_chemical_state().bonds[
+            ["atom1_index", "atom2_index"]
+        ]
+        for system in systems
     ]
     pd.testing.assert_frame_equal(*pairs)
     molecules = [msm.convert(system, to_form="rdkit.Mol") for system in systems]

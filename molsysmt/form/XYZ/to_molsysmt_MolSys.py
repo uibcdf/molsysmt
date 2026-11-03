@@ -35,16 +35,16 @@ def to_molsysmt_MolSys(
     from .to_molsysmt_Structures import to_molsysmt_Structures
     from .to_molsysmt_Topology import to_molsysmt_Topology
 
-    tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(
+    topology = to_molsysmt_Topology(
         item, atom_indices=atom_indices, skip_digestion=True
     )
-    tmp_item.structures = to_molsysmt_Structures(
+    structures = to_molsysmt_Structures(
         item,
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         skip_digestion=True,
     )
+    tmp_item = MolSys._from_partial_domains(topology=topology, structures=structures)
     tmp_item.molecular_mechanics = to_molsysmt_MolecularMechanics(
         item, atom_indices=atom_indices, skip_digestion=True
     )

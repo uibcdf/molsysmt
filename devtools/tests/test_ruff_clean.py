@@ -28,7 +28,7 @@ def test_ruff_selects_all_tracked_python_files():
     expected = {
         REPO_ROOT / filename
         for filename in tracked.stdout.splitlines()
-        if filename.endswith((".py", ".pyi"))
+        if filename.endswith((".py", ".pyi")) and (REPO_ROOT / filename).is_file()
     }
     assert expected <= checked_files, sorted(
         str(path) for path in expected - checked_files

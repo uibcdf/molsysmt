@@ -83,7 +83,7 @@ def test_real_complementary_files_compose_before_nonconsecutive_selection(
         structure_indices=[2, 0],
     )
     assert msm.get(result, n_atoms=True, n_structures=True) == [3, 2]
-    assert result.chemical_states is result.topology._chemical_states_domain
+    assert result.chemical_states._molsys_owner_ref() is result
     np.testing.assert_allclose(
         puw.get_value(result.structures.coordinates, to_unit="nm"),
         puw.get_value(source.structures.coordinates, to_unit="nm")[[2, 0]][
@@ -199,7 +199,6 @@ def test_explicit_state_association_survives_without_invalidating_analyses(
     chemistry_and_structures._set_structure_chemical_state_indices([0, 1, None])
     chemistry_and_structures.interactions = dict(source.interactions)
     topology = source.topology.copy()
-    topology._clear_chemical_states()
     identity = MolSys._from_partial_domains(topology=topology)
     result = msm.convert([identity, chemistry_and_structures], structure_indices=[2, 0])
     state_map = result._get_structure_chemical_state_indices()
@@ -209,7 +208,7 @@ def test_explicit_state_association_survives_without_invalidating_analyses(
         result.interactions["synthetic"].evaluated_structure_indices, [0, 1]
     )
     assert identity.chemical_states is None
-    assert identity.topology._chemical_states_domain.n_chemical_states == 0
+    assert identity.chemical_states is None
 
 
 @pytest.mark.parametrize(

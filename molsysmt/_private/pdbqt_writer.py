@@ -298,7 +298,7 @@ def serialize(
             else None
         )
         if state is not None and state.connectivity_completeness == "complete":
-            from molsysmt.topology import get_rigid_fragments
+            from molsysmt.chemical_states import get_rigid_fragments
 
             lookup = {
                 tuple(sorted((int(row.atom1_index), int(row.atom2_index)))): index

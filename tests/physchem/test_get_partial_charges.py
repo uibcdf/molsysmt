@@ -130,11 +130,13 @@ def test_supported_forms_and_nonreference_state_are_equivalent(tmp_path):
     assert source.chemical_states._reference_index == 0
     path = tmp_path / "chemistry.h5msm"
     msm.convert(source, to_form=path)
-    for item in [source, source.topology, str(path)]:
+    for item in [source, [source.topology, source.chemical_states], str(path)]:
         np.testing.assert_allclose(
             puw.get_value(calculate(item, chemical_state=1)["partial_charge"]),
             puw.get_value(calculate(source)["partial_charge"]),
         )
+    with pytest.raises(StructuralInconsistencyError, match="chemical-states domain"):
+        calculate(source.topology)
     caffeine = calculate(msm.systems["caffeine"]["caffeine.sdf"])
     assert caffeine["partial_charge"].shape == (24,)
 

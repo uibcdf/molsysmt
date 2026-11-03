@@ -37,7 +37,7 @@ def test_carbonyl_independent_angles_support_and_forms(form, tmp_path):
             msm.convert(source, to_form=path)
             source = path
         elif form == "composed":
-            source = [source.topology, source.structures]
+            source = [source.topology, source.chemical_states, source.structures]
     result = msm.interactions.hbonds.get_hbond_site_directions(source, pbc=False)
     expected = [[0.5, np.sqrt(3) / 2, 0], [0.5, -np.sqrt(3) / 2, 0]]
     np.testing.assert_allclose(result["directions"], expected, atol=1e-14)

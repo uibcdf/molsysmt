@@ -5,7 +5,7 @@ form_info = [
     "https://www.ks.uiuc.edu/Training/Tutorials/namd/namd-tutorial-unix-html/node23.html",
 ]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
 piped_any_attribute = "molsysmt.MolSys"
 bonds_are_explicit = True

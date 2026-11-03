@@ -37,12 +37,14 @@ def test_direct_import_preserves_literal_endpoints_and_orders(encoding, wrapped)
     assert has_attribute(payload, attribute="bonded_atoms") is True
     assert msm.get(payload, element="bond", bond_order=True) == [2, 1]
     assert msm.get(payload, element="bond", bond_type=True) == ["double", "single"]
-    topo = msm.convert(payload, to_form="molsysmt.Topology")
-    assert topo.bonds[["atom1_index", "atom2_index"]].values.tolist() == [
+    topo = msm.convert(payload, to_form="molsysmt.MolSys")
+    assert topo.chemical_states.get_bonds()[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [
         [0, 2],
         [1, 2],
     ]
-    assert topo.bonds["bond_order"].tolist() == [2, 1]
+    assert topo.chemical_states.get_bonds()["bond_order"].tolist() == [2, 1]
     assert payload.data == before
 
 
@@ -69,7 +71,7 @@ def test_direct_import_preserves_literal_endpoints_and_orders(encoding, wrapped)
 def test_empty_and_placeholder_wrappers_have_explicit_bond_counts(bonds, expected):
     payload = _payload(bonds)
     assert msm.get(payload, n_bonds=True) == expected
-    assert msm.convert(payload, to_form="molsysmt.Topology").n_bonds == expected
+    assert msm.convert(payload, to_form="molsysmt.MolSys").get(n_bonds=True) == expected
 
 
 @pytest.mark.parametrize(
@@ -110,9 +112,11 @@ def test_explicit_set_selection_imports_only_the_declared_connectivity():
     )
     chosen = payload.copy()
     chosen.data["bonds"] = chosen.data["bonds"]["sets"][1]
-    topo = msm.convert(chosen, to_form="molsysmt.Topology")
-    assert topo.bonds[["atom1_index", "atom2_index"]].values.tolist() == [[1, 2]]
-    assert topo.bonds["bond_order"].tolist() == [2]
+    topo = msm.convert(chosen, to_form="molsysmt.MolSys")
+    assert topo.chemical_states.get_bonds()[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [[1, 2]]
+    assert topo.chemical_states.get_bonds()["bond_order"].tolist() == [2]
     graphics = msm.extract(payload, selection=[2, 1])
     assert graphics.data["bonds"]["sets"][0]["atom_pairs"] == []
     assert graphics.data["bonds"]["sets"][1]["atom_pairs"] == [[1, 0]]
@@ -141,7 +145,7 @@ def test_invalid_bond_encodings_fail_consistently(bonds, operation):
     payload = _payload(bonds)
     with pytest.raises(FormatError, match="[Bb]ond"):
         if operation == "convert":
-            msm.convert(payload, to_form="molsysmt.Topology")
+            msm.convert(payload, to_form="molsysmt.MolSys")
         else:
             msm.get(payload, n_bonds=True)
 
@@ -164,10 +168,15 @@ def test_nullable_orders_and_unique_nested_wrappers_are_preserved():
         }
     )
     assert msm.get(payload, element="bond", bond_order=True) == [None, 2]
-    topo = msm.convert(payload, to_form="molsysmt.Topology")
-    assert topo.bonds[["atom1_index", "atom2_index"]].values.tolist() == [
+    topo = msm.convert(payload, to_form="molsysmt.MolSys")
+    assert topo.chemical_states.get_bonds()[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [
         [0, 1],
         [1, 2],
     ]
-    assert topo.bonds["bond_order"].isna().tolist() == [True, False]
-    assert topo.bonds.loc[1, "bond_order"] == 2
+    assert topo.chemical_states.get_bonds()["bond_order"].isna().tolist() == [
+        True,
+        False,
+    ]
+    assert topo.chemical_states.get_bonds().loc[1, "bond_order"] == 2

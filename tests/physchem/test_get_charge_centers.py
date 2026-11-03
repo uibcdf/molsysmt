@@ -9,19 +9,26 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
-from molsysmt.native import MolSys, Structures, Topology
+from molsysmt.native import MolSys, Structures
+from molsysmt.native._chemical_state import _ChemicalStateStorage
 
 
 def _topology(elements, charges, bonds=(), orders=()):
-    topology = Topology(n_atoms=len(elements))
-    topology.atoms["atom_id"] = [
+    topology = MolSys(n_atoms=len(elements))
+    topology.topology.atoms["atom_id"] = [
         f"atom-{index + 100}" for index in range(len(elements))
     ]
-    topology.atoms["atom_type"] = elements
-    topology._set_chemical_state_atom_attribute("formal_charge", charges)
+    topology.topology.atoms["atom_type"] = elements
+    topology.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", charges
+    )
     if bonds:
-        topology._append_chemical_state_bonds(bonds, orders=orders, types="covalent")
-    topology._reference_chemical_state.connectivity_completeness = "complete"
+        topology.chemical_states._append_chemical_state_bonds(
+            bonds, orders=orders, types="covalent"
+        )
+    topology.chemical_states._resolve_chemical_state().connectivity_completeness = (
+        "complete"
+    )
     return topology
 
 
@@ -31,7 +38,7 @@ def _values(result):
 
 def test_read_only_bond_orders_preserve_charge_center_chemistry(monkeypatch):
     molsys = _topology(["C", "O", "O"], [0, -1, 0], [(0, 1), (0, 2)], [1, 2])
-    state = molsys._reference_chemical_state
+    state = molsys.chemical_states._resolve_chemical_state()
     state.bonds["fractional_bond_order"] = state.bonds["bond_order"].astype(float)
     state.bonds["bond_order"] = np.nan
     before = state.bonds.copy(deep=True)
@@ -88,20 +95,23 @@ def test_chemical_protonation_changes_center_count_without_residue_name_rules():
     molsys = _topology(
         ["C", "O", "O", "C"], [0, -1, 0, 0], [(0, 1), (0, 2), (0, 3)], [1, 2, 1]
     )
-    second = molsys._append_chemical_state(state_id="neutral-acid")
-    molsys._set_chemical_state_atom_attribute(
+    second = molsys.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=molsys.get_n_atoms(), state_id="neutral-acid"),
+        set_as_reference=False,
+    )
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge", [0, 0, 0, 0], state_index=second
     )
-    molsys._append_chemical_state_bonds(
+    molsys.chemical_states._append_chemical_state_bonds(
         [(0, 1), (0, 2), (0, 3)], orders=[1, 2, 1], types="covalent", state_index=second
     )
-    molsys._chemical_states[second].connectivity_completeness = "complete"
+    molsys.chemical_states._states[second].connectivity_completeness = "complete"
     before = msm.physchem.get_charge_centers(molsys, chemical_state=0)
     after = msm.physchem.get_charge_centers(molsys, chemical_state=second)
     assert len(before["charges"]) == 1
     assert len(after["charges"]) == 0
     assert after["chemical_state_index"] == second
-    assert molsys._reference_chemical_state_index == 0
+    assert molsys.chemical_states.reference_chemical_state_index == 0
 
 
 @pytest.mark.parametrize(
@@ -161,8 +171,10 @@ def test_cutting_a_compound_center_fails_and_whole_selection_succeeds():
 
 def test_dative_bond_does_not_cancel_distinct_ionic_centers():
     molsys = _topology(["Zn", "O"], [2, -1])
-    molsys._append_chemical_state_bonds([(0, 1)], types="dative")
-    molsys._reference_chemical_state.connectivity_completeness = "complete"
+    molsys.chemical_states._append_chemical_state_bonds([(0, 1)], types="dative")
+    molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+        "complete"
+    )
     result = msm.physchem.get_charge_centers(molsys)
     assert result["atom_offsets"].tolist() == [0, 1, 2]
     np.testing.assert_array_equal(_values(result), [2, -1])
@@ -174,13 +186,17 @@ def test_dative_bond_does_not_cancel_distinct_ionic_centers():
 def test_missing_chemistry_fails_instead_of_falling_back(missing, monkeypatch):
     molsys = _topology(["C", "O"], [0, -1], [(0, 1)], [1])
     if missing == "formal_charge":
-        molsys._set_chemical_state_atom_attribute("formal_charge", [0, pd.NA])
+        molsys.chemical_states._set_chemical_state_atom_attribute(
+            "formal_charge", [0, pd.NA]
+        )
     elif missing == "element":
-        molsys.atoms.loc[0, "atom_type"] = pd.NA
+        molsys.topology.atoms.loc[0, "atom_type"] = pd.NA
     elif missing in {"bond_order", "bond_type"}:
-        molsys.bonds.loc[0, missing] = pd.NA
+        molsys.chemical_states._resolve_chemical_state().bonds.loc[0, missing] = pd.NA
     else:
-        molsys._reference_chemical_state.connectivity_completeness = "partial"
+        molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+            "partial"
+        )
 
     def forbidden(*args, **kwargs):
         raise AssertionError(
@@ -193,13 +209,12 @@ def test_missing_chemistry_fails_instead_of_falling_back(missing, monkeypatch):
 
 
 def test_nonconsecutive_structure_indices_resolve_one_state_and_reject_mixed_states():
-    molsys = MolSys()
-    molsys.topology = _topology(["Na", "Cl"], [1, -1])
-    second = molsys.topology._append_chemical_state(state_id="neutral")
-    molsys.topology._set_chemical_state_atom_attribute(
+    molsys = _topology(["Na", "Cl"], [1, -1])
+    second = molsys.chemical_states.append_state()
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge", [0, 0], state_index=second
     )
-    molsys.topology._chemical_states[second].connectivity_completeness = "complete"
+    molsys.chemical_states._states[second].connectivity_completeness = "complete"
     molsys.structures = Structures()
     molsys.structures.append(coordinates=puw.quantity(np.zeros((3, 2, 3)), "nm"))
     molsys._set_structure_chemical_state_indices([0, second, 0])
@@ -216,8 +231,11 @@ def test_nonconsecutive_structure_indices_resolve_one_state_and_reject_mixed_sta
 
 def test_ambiguous_reference_and_unsupported_definition_fail():
     molsys = _topology(["Na"], [1])
-    molsys._append_chemical_state(state_id="alternative")
-    molsys._set_reference_chemical_state_index(None)
+    molsys.chemical_states._append_state(
+        _ChemicalStateStorage(n_atoms=molsys.get_n_atoms(), state_id="alternative"),
+        set_as_reference=False,
+    )
+    molsys.chemical_states._set_reference_index(None)
     with pytest.raises(StructuralInconsistencyError, match="no reference state"):
         msm.physchem.get_charge_centers(molsys)
     with pytest.raises(ArgumentError):
@@ -225,7 +243,7 @@ def test_ambiguous_reference_and_unsupported_definition_fail():
 
 
 def test_empty_topology_and_empty_selection_keep_typed_empty_results():
-    for molsys, selection in [(Topology(), "all"), (_topology(["Na"], [1]), [])]:
+    for molsys, selection in [(MolSys(), "all"), (_topology(["Na"], [1]), [])]:
         result = msm.physchem.get_charge_centers(molsys, selection=selection)
         assert result["atom_indices"].dtype == np.int64
         assert result["atom_indices"].shape == (0,)
@@ -236,31 +254,40 @@ def test_empty_topology_and_empty_selection_keep_typed_empty_results():
 
 def test_input_formal_charges_and_bonds_are_not_modified():
     molsys = _topology(["C", "O", "O"], [0, -1, 0], [(0, 1), (0, 2)], [1, 2])
-    bonds = molsys.bonds.copy(deep=True)
-    charges = molsys._get_chemical_state_atom_attribute("formal_charge").copy()
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy(deep=True)
+    charges = molsys.chemical_states._get_chemical_state_atom_attribute(
+        "formal_charge"
+    ).copy()
     msm.physchem.get_charge_centers(molsys)
-    pd.testing.assert_frame_equal(molsys.bonds, bonds)
+    pd.testing.assert_frame_equal(
+        molsys.chemical_states._resolve_chemical_state().bonds, bonds
+    )
     pd.testing.assert_series_equal(
-        molsys._get_chemical_state_atom_attribute("formal_charge"), charges
+        molsys.chemical_states._get_chemical_state_atom_attribute("formal_charge"),
+        charges,
     )
 
 
 def test_connectivity_declaration_is_explicit_and_preserves_stored_metadata():
     molsys = _topology(["Na", "Cl"], [1, -1])
-    molsys._reference_chemical_state.connectivity_completeness = "unavailable"
+    molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+        "unavailable"
+    )
     with pytest.raises(StructuralInconsistencyError):
         msm.physchem.get_charge_centers(molsys)
     result = msm.physchem.get_charge_centers(molsys, assume_complete_connectivity=True)
     assert result["evidence"]["assume_complete_connectivity"] is True
     assert result["evidence"]["connectivity_completeness"] == "unavailable"
-    assert molsys._reference_chemical_state.connectivity_completeness == "unavailable"
+    assert (
+        molsys.chemical_states._resolve_chemical_state().connectivity_completeness
+        == "unavailable"
+    )
     with pytest.raises(ArgumentError):
         msm.physchem.get_charge_centers(molsys, assume_complete_connectivity="yes")
 
 
 def test_h5msm_round_trip_preserves_chemistry_and_atom_axes(tmp_path):
-    molsys = MolSys()
-    molsys.topology = _topology(["Na", "Cl"], [1, -1])
+    molsys = _topology(["Na", "Cl"], [1, -1])
     molsys.structures.append(coordinates=puw.quantity(np.zeros((1, 2, 3)), "nm"))
     path = str(tmp_path / "ions.h5msm")
     msm.convert(molsys, to_form=path)
@@ -291,6 +318,6 @@ def test_inventory_dictionary_without_chemical_state_is_not_sufficient():
     ],
 )
 def test_explicit_small_molecule_chemistry_including_aromatic_bonds(smiles, expected):
-    molsys = msm.convert("smiles:" + smiles, to_form="molsysmt.Topology")
+    molsys = msm.convert("smiles:" + smiles, to_form="molsysmt.MolSys")
     result = msm.physchem.get_charge_centers(molsys)
     np.testing.assert_array_equal(_values(result), expected)

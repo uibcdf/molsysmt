@@ -68,9 +68,7 @@ def normalize(molecular_system, chemical_state, caller):
         result = molecular_system.copy()
     elif isinstance(molecular_system, Topology):
         topology = molecular_system.copy()
-        result = MolSys._from_partial_domains(
-            topology=topology, chemical_states=topology._chemical_states_domain
-        )
+        result = MolSys._from_partial_domains(topology=topology)
     elif isinstance(context["source"], ChemicalStates):
         result = MolSys._from_partial_domains(chemical_states=context["source"].copy())
     else:

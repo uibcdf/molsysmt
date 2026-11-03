@@ -8,7 +8,6 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import (
-    MultipleMolecularSystemsError,
     StructuralInconsistencyError,
 )
 from molsysmt.native import MolecularMechanics, Structures
@@ -29,7 +28,12 @@ def test_native_topology_structures_mechanics_compose_with_nondefault_charge_pol
     source = declared_methanol()
     with msm.pyunitwizard.context(standard_units=["pm", "coulomb"]):
         result = msm.convert(
-            [source.topology, source.structures, source.molecular_mechanics],
+            [
+                source.topology,
+                source.chemical_states,
+                source.structures,
+                source.molecular_mechanics,
+            ],
             to_form="molsysmt.MolSys",
         )
     np.testing.assert_allclose(
@@ -58,8 +62,8 @@ def test_four_native_domains_have_order_independent_owners_and_values(order):
     assert result.chemical_states is not source.chemical_states
     assert result.structures is not source.structures
     assert result.molecular_mechanics is not source.molecular_mechanics
-    assert result.topology._chemical_states_domain is result.chemical_states
-    assert source.topology._chemical_states_domain is original_states
+    assert result.chemical_states._molsys_owner_ref() is result
+    assert source.chemical_states is original_states
     pd.testing.assert_frame_equal(
         result.topology.atoms, source.topology.atoms, check_frame_type=False
     )
@@ -130,7 +134,9 @@ def test_selected_four_domain_composition_uses_existing_native_remapping():
         msm.pyunitwizard.get_value(result.structures.coordinates, to_unit="nm"),
         (np.arange(54).reshape(3, 6, 3) / 10)[[2, 0, 2]][:, [0, 1, 5]],
     )
-    assert result.topology.bonds[["atom1_index", "atom2_index"]].values.tolist() == [
+    assert result.chemical_states._resolve_chemical_state().bonds[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [
         [0, 1],
         [1, 2],
     ]
@@ -165,9 +171,7 @@ def test_duplicate_explicit_providers_are_rejected(repeated):
         source.structures,
         source.molecular_mechanics,
     ]
-    error = (
-        MultipleMolecularSystemsError if repeated == 0 else StructuralInconsistencyError
-    )
+    error = StructuralInconsistencyError
     with pytest.raises(error):
         msm.convert([*domains, domains[repeated]])
 

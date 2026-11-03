@@ -37,14 +37,12 @@ def to_molsysmt_MolSys(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native import MolSys
-
+    from ._read_native import read_native
     from .get_structural_attributes import (
         get_structure_chemical_state_index_from_system,
     )
     from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
     from .to_molsysmt_Structures import to_molsysmt_Structures
-    from .to_molsysmt_Topology import to_molsysmt_Topology
 
     if isinstance(item, (str, os.PathLike)):
         item = to_molsysmt_H5MSMFileHandler(str(str(item)), skip_digestion=True)
@@ -52,10 +50,7 @@ def to_molsysmt_MolSys(
     else:
         opened_here = False
 
-    tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(
-        item, atom_indices=atom_indices, skip_digestion=True
-    )
+    tmp_item = read_native(item, atom_indices=atom_indices, skip_digestion=True)
     tmp_item.structures = to_molsysmt_Structures(
         item,
         atom_indices=atom_indices,

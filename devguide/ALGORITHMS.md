@@ -44,15 +44,17 @@ chemical perception.
 
 ## Component inference
 
-Components are covalently connected atom sets. Native component indices are
-computed from the bond pairs and stored at atom level. Groups do not store a
-canonical `component_index` column.
+Components are a selected chemical state's connected atom sets under its
+stored-edge participation policy. ChemicalStates stores their atom-aligned
+indices and state-local metadata; Topology and its groups do not store a
+canonical `component_index` column. Coordination/dative edges contribute only
+when the stored participation declaration admits them.
 
-With no bonds, the connectivity routine determines the fallback component
-partition. Callers must not infer semantic molecules from components without the
-separate molecule-rebuild rules.
+With no participating edges, graph reconstruction gives singleton components.
+That does not promote unavailable/partial connectivity to complete chemistry.
+Callers must not reinterpret stable molecule membership from these components.
 
-`Topology.rebuild_components()` treats its redefinition flags independently.
+`ChemicalStates.rebuild_components()` treats its redefinition flags independently.
 When reconstructing indices, false metadata flags preserve component IDs, names
 or types only for exactly unchanged atom memberships. Matching ignores row
 numbers: per-new-component minimum/maximum old row reductions exclude merges,
@@ -66,14 +68,21 @@ preserve declared metadata, not chemical identity or completeness evidence.
 
 ## Molecule inference
 
-Molecule inference operates over ordered groups and their atom-level chain
-membership. Polymer-like group types may continue the current molecule within a
+When explicitly requested, group-based molecule inference operates over ordered
+groups and their atom-level chain membership. Polymer-like group types may continue the current molecule within a
 chain. Standalone types (`ion`, `water`, and `small molecule`) start distinct
 molecules. Chain changes and transitions between polymer and standalone classes
 split molecules.
 
 Component and molecule partitions are orthogonal: a covalent component may span
 more than one semantic molecule.
+
+Ordinary membership queries read the stable inventory instead of reconstructing
+it. Grouped atoms inherit their group's molecule, and ungrouped atoms may have
+an explicitly declared atom-aligned molecule index. A builder can initialize
+missing molecule membership from a selected chemical partition during
+construction. Later connectivity edits do not repeat that initialization or
+change declared stable molecules.
 
 ## Entity inference
 
@@ -96,8 +105,10 @@ dtype.
 
 ## Rebuild discipline
 
-Native rebuild functions use only evidence already present in the native
-topology and canonical local tables. They must not call public dispatchers or
-silently enrich the system from network services. Rebuild order matters because
-later molecule and entity inference consumes earlier group, component, and chain
-results.
+Native rebuild functions use only evidence already present in their owning
+native domain and explicitly supplied context. They must not call public
+dispatchers or enrich the system from network services. Chemical graph
+reconstruction belongs to ChemicalStates; inventory reconstruction belongs to
+Topology. Component labels may use explicit stable context without redefining
+molecules. Group-based molecule inference consumes represented group/chain
+membership, and entity inference consumes the resulting stable molecules.

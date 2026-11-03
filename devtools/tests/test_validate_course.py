@@ -29,7 +29,8 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
     pages = sorted(validate_course.notebooks(validate_course.COURSE / "Common_Core"))
     assert len(pages) == 20
     (source / "conf.py").write_text(
-        "extensions = ['myst_nb']\nmaster_doc = 'index'\nnb_execution_mode = 'off'\n",
+        "extensions = ['myst_nb']\nmaster_doc = 'index'\nnb_execution_mode = 'off'\n"
+        "source_suffix = {'.rst': 'restructuredtext', '.md': 'myst-nb', '.ipynb': 'myst-nb'}\n",
         encoding="utf-8",
     )
     (foundations / "index.md").write_text(

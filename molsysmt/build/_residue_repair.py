@@ -8,7 +8,9 @@ import pandas as pd
 from molsysmt._private.residue_templates import VALIDATED_MISSING_ATOMS
 
 
-def assess_residue(topo, group_idx, missing_names, template, coordinates):
+def assess_residue(
+    topo, group_idx, missing_names, template, coordinates, *, chemical_states
+):
     """Return local anchors and a reason when repair cannot be assessed."""
 
     permitted = VALIDATED_MISSING_ATOMS.get(template["name"])
@@ -49,7 +51,7 @@ def assess_residue(topo, group_idx, missing_names, template, coordinates):
         adjacency[atom1].add(atom2)
         adjacency[atom2].add(atom1)
 
-    current_bonds = topo._get_chemical_state_bonds()
+    current_bonds = chemical_states._get_chemical_state_bonds()
     group_indices = set(rows.index)
     template_pairs = {frozenset(pair) for pair in template["bonds"]}
     template_orders = {

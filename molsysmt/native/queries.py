@@ -82,6 +82,14 @@ class NativeQueries:
         form discovery. Selection expressions and nested selections retain the
         existing general selector. This operation does not build or convert a
         molecular system. The specialized Structures getters remain available.
+        ChemicalStates supplies stored atom/bond/component axes, counts,
+        nullable atom assignments, bond fields, component labels and selected-state
+        completeness directly. Formal charges are integers in elementary-charge
+        units. Missing atom columns return None; missing bond fields retain one
+        nullable entry per edge (two for stereo references). Its state inventory remains
+        collection-wide. Unknown connectivity is not inferred by these queries.
+        ChemicalStatesDict reads the corresponding typed columns directly;
+        it does not decode a native collection or certify unrelated payload/history.
 
         See Also
         --------
@@ -95,6 +103,17 @@ class NativeQueries:
         [2, 0]
         >>> topology.get(n_atoms=True, output_type='dictionary')
         {'n_atoms': 3}
+        >>> from molsysmt.native import ChemicalStates
+        >>> states = ChemicalStates(n_atoms=2)
+        >>> states.append_state()
+        0
+        >>> states.get(n_bonds=True, connectivity_completeness=True)
+        [0, 'unavailable']
+        >>> states.add_bonds([[0, 1]])
+        >>> states.get(element='bond', bond_order=True)
+        [None]
+        >>> states.get(formal_charge=True) is None
+        True
 
         .. admonition:: User guide
 
@@ -208,6 +227,7 @@ class _NativeProvider:
         from molsysmt.interactions.result import Interactions
         from molsysmt.native import (
             ChemicalStates,
+            ChemicalStatesDict,
             MolSys,
             MolSysBuilder,
             Structures,
@@ -219,6 +239,7 @@ class _NativeProvider:
             Topology,
             Structures,
             ChemicalStates,
+            ChemicalStatesDict,
             MolSysBuilder,
             Interactions,
         ):

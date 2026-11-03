@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from molsysmt.topology._functional_group_candidates import (
+from molsysmt.chemical_states._functional_group_candidates import (
     terminal_oxygen_and_guanidine_candidates,
 )
 

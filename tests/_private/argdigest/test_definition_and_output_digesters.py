@@ -113,7 +113,8 @@ def test_digest_output_type_accepts_caller_specific_choices():
     )
     assert (
         digest_output_type(
-            "sets", caller="molsysmt.topology.get_covalent_blocks.get_covalent_blocks"
+            "sets",
+            caller="molsysmt.chemical_states.get_covalent_blocks.get_covalent_blocks",
         )
         == "sets"
     )
@@ -134,7 +135,7 @@ def test_digest_items_accepts_matching_form_sequences():
     # `MolSys.__init__` builds an empty container from element counts; a topology is
     # assigned afterwards. Passing `topology=` used to be accepted and discarded, so this
     # read as if it carried the topology when it never did.
-    molsys = MolSys()
+    molsys = MolSys(n_atoms=topology.n_atoms)
     molsys.topology = topology
 
     assert digest_items(molsys, caller="test") == [molsys]

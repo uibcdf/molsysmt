@@ -13,7 +13,7 @@ from molsysmt import systems
 
 def test_get_bondgraph_molsysmt_MolSys_1():
     molsys = msm.convert(systems["TcTIM"]["1tcd.h5msm"], to_form="molsysmt.MolSys")
-    graph = msm.topology.get_bondgraph(
+    graph = msm.chemical_states.get_bondgraph(
         molsys, selection="molecule_index==0", to_form="networkx.Graph"
     )
     n_nodes = graph.number_of_nodes()

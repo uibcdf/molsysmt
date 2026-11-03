@@ -9,6 +9,13 @@ def digest_atom_is_aromatic(atom_is_aromatic, caller=None):
     # for a heavy library that most calls never need.
     import pandas as pd
 
+    if (atom_is_aromatic is None or atom_is_aromatic is pd.NA) and (
+        caller == "molsysmt.basic.set.set"
+        or caller is not None
+        and caller.endswith("_to_atom")
+    ):
+        return None
+
     if isinstance(atom_is_aromatic, (bool, np.bool_)):
         return bool(atom_is_aromatic)
     values = np.asarray(atom_is_aromatic, dtype=object)

@@ -4,7 +4,7 @@ import pandas as pd
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import FormatError
-from molsysmt.native import MolSys, Structures, Topology
+from molsysmt.native import MolSys, Structures
 from molsysmt.pbc import get_box_from_lengths_and_angles
 
 from ._bonds import _read_bonds
@@ -278,7 +278,7 @@ def to_molsysmt_MolSys(
     )
     n_groups = len(group_ids)
 
-    topo = Topology(
+    molsys = MolSys(
         n_atoms=n_atoms,
         n_groups=n_groups,
         n_components=0,
@@ -289,6 +289,7 @@ def to_molsysmt_MolSys(
         skip_digestion=True,
     )
 
+    topo = molsys.topology
     topo.atoms["atom_id"] = pd.Series(atom_id, dtype="string")
     topo.atoms["atom_name"] = pd.Series(atom_name, dtype=str)
     topo.atoms["atom_type"] = pd.Series(
@@ -325,14 +326,14 @@ def to_molsysmt_MolSys(
             bond_orders = None
         if bond_types is not None and len(bond_types) == 0:
             bond_types = None
-        topo._append_chemical_state_bonds(
+        molsys.chemical_states._append_chemical_state_bonds(
             atom_pairs,
             orders=bond_orders,
             types=bond_types,
             sort=False,
         )
 
-    topo.rebuild_components(redefine_types=False, redefine_names=False)
+    molsys.rebuild_components(redefine_types=False, redefine_names=False)
 
     coordinates, times, boxes = _collect_coordinates(
         frames, n_atoms if n_atoms > 0 else None
@@ -344,15 +345,15 @@ def to_molsysmt_MolSys(
         skip_digestion=True,
     )
 
-    molsys = MolSys(skip_digestion=True)
-    molsys.topology = topo
     molsys.structures = structures
     if formal_charge is not None or partial_charge is not None:
         from molsysmt.native import MolecularMechanics
 
         kwargs = {}
         if formal_charge is not None:
-            kwargs["formal_charge"] = formal_charge.tolist()
+            molsys.chemical_states._set_chemical_state_atom_attribute(
+                "formal_charge", formal_charge.tolist()
+            )
         if partial_charge is not None:
             kwargs["partial_charge"] = partial_charge.tolist()
         molsys.molecular_mechanics = MolecularMechanics(**kwargs)

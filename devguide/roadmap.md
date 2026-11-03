@@ -4,11 +4,26 @@ This roadmap is a maintained ordering principle, not a mirror of a nonexistent
 root `ROADMAP.md`. Concrete unresolved work lives under `pending_bugs/` and
 `pending_proposals/`.
 
+## Chemical-domain source integration — 2026-11-02
+
+The completed #255 development branch is integrated into main at the maintainer's
+request. Complete local tests, all eight Linux/macOS Python 3.11–3.14 suites and
+the separate registered scientific execution pass. The
+[archived source record](archive/resolved_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+retains its evidence; CORE_SPECIFICATION.md and chemical_states_migration.md own
+the current boundary. Provider handoffs are complete, while client owners finish
+review/adoption. The integration retains the qualified runtime, combines the
+newer shared guides and selects its compatible Viewer source in maintained CI
+routes. Installed-candidate qualification under #254/#334 and publication remain
+explicit subsequent actions, not performed here.
+This completion does not automatically authorize #447/#375/#323 scientific
+expansions. Future MDTraj batching recovery is separately tracked in #530.
+
 ## Chemical-domain migration planning — 2026-10-28
 
 The maintainer accepts completing ChemicalStates separation before 1.0 and
 requests the written plan before implementation. The
-[single execution tracker for #255](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+[single execution tracker for #255](archive/resolved_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
 owns phase dependencies, decisions, checkboxes and exit evidence. Runtime work
 had not started at the planning checkpoint. Bonds/components and nine graph tools move to their chemical
 owner; chains and sequence/hierarchy tools remain in Topology/topology.

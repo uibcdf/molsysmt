@@ -7,14 +7,6 @@ API Topology
 
 .. autosummary::
    :toctree: autosummary
-   
-   get_bondgraph
-   get_covalent_blocks
-   get_covalent_paths
-   get_rigid_fragments
-   get_rotatable_bonds
-   get_dihedral_quartets
+
    get_sequence_alignment
    get_sequence_identity
-   get_substructure_matches
-   get_atom_correspondences

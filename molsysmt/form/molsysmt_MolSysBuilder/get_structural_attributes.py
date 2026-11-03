@@ -205,3 +205,37 @@ __all__ = [
 ]
 
 del _name, _target_module
+
+
+@arg_digest(form=form)
+def get_structure_chemical_state_index_from_system(
+    item, structure_indices="all", skip_digestion=False
+):
+    """Reading the builder's declared structure-to-state association.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSysBuilder
+        Builder retaining explicit associations copied from its source system.
+    structure_indices : str or array-like of int, default='all'
+        Structure positions in requested order, including repetitions.
+    skip_digestion : bool, default=False
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    list
+        Nullable state positions under the existing single-state convention.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.form.molsysmt_MolSys import (
+        get_structure_chemical_state_index_from_system as read,
+    )
+
+    return read(
+        item._query_view(), structure_indices=structure_indices, skip_digestion=True
+    )
+
+
+__all__ = [name for name in globals() if name.startswith("get_")]

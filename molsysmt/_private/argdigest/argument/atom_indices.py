@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 
 
-def digest_atom_indices(atom_indices, caller=None):
+def digest_atom_indices(atom_indices, caller=None, native_molecule_membership=False):
     """Checks if atom_indices has the expected type and value.
 
     Parameters
@@ -27,6 +27,11 @@ def digest_atom_indices(atom_indices, caller=None):
     ArgumentError
         If the given indices are not of the correct type.
     """
+
+    if native_molecule_membership:
+        from ._correspondence_axes import flat_axis
+
+        return flat_axis(atom_indices, "atom_indices", caller)
 
     if caller == "molsysmt.basic.permute_atoms.permute_atoms":
         from ._correspondence_axes import flat_axis

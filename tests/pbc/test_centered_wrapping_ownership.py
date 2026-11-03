@@ -18,7 +18,7 @@ MODES = ["pbc", "pbc_origin", "pbc_center", "mic"]
 def system(form):
     source = MolSys(n_atoms=6)
     source.topology.atoms["atom_type"] = ["C"] * 6
-    source.topology.add_bonds([[0, 1], [2, 3]])
+    source.chemical_states.add_bonds([[0, 1], [2, 3]])
     xyz = np.array(
         [
             [6.10, -4.30, 9.20],
@@ -141,8 +141,8 @@ def test_original_target_receives_the_analytic_wrapped_coordinates(
         topology = source.topology if form == "molsys" else None
         if topology is not None:
             atoms, bonds = (
-                topology.atoms.copy(deep=True),
-                topology.bonds.copy(deep=True),
+                topology.copy().atoms,
+                source.chemical_states.get_bonds().copy(deep=True),
             )
             previous = source.interactions["guard"]
         expected = expected_values(
@@ -167,9 +167,13 @@ def test_original_target_receives_the_analytic_wrapped_coordinates(
         if topology is not None:
             assert source.topology is topology
             pd.testing.assert_frame_equal(source.topology.atoms, atoms)
-            pd.testing.assert_frame_equal(source.topology.bonds, bonds)
+            pd.testing.assert_frame_equal(
+                source.chemical_states._resolve_chemical_state().bonds, bonds
+            )
             pd.testing.assert_frame_equal(output.topology.atoms, atoms)
-            pd.testing.assert_frame_equal(output.topology.bonds, bonds)
+            pd.testing.assert_frame_equal(
+                output.chemical_states._resolve_chemical_state().bonds, bonds
+            )
             retained = sorted(set(range(4)) - set(indices))
             np.testing.assert_array_equal(
                 output.interactions["guard"].evaluated_structure_indices, retained

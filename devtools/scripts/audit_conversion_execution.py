@@ -37,10 +37,12 @@ def read_plan(path=BASELINE_PATH):
 
 def planned_edges(graph, plan):
     """Select currently profiled edges from the actual declared graph."""
+    explicit = {tuple(edge) for edge in plan.get("explicit_edges", [])}
     return {
         (source, target)
         for source, target in graph
-        if source in plan["source_forms"] and target in plan["target_forms"]
+        if (source in plan["source_forms"] and target in plan["target_forms"])
+        or (source, target) in explicit
     }
 
 
@@ -60,6 +62,12 @@ def audit_plan(graph, plan):
         names = plan[axis]
         if not names or len(set(names)) != len(names):
             errors.append(f"{axis} must be a nonempty unique form list.")
+    explicit = [tuple(edge) for edge in plan.get("explicit_edges", [])]
+    if len(explicit) != len(set(explicit)):
+        errors.append("explicit_edges must be unique.")
+    for edge in explicit:
+        if len(edge) != 2 or edge not in graph:
+            errors.append(f"Invalid explicit edge: {edge!r}")
     for source, entry in plan["accepted_unexecuted_edges"].items():
         if not entry.get("reason", "").strip():
             errors.append(f"{source}: unexecuted edges require a reason.")

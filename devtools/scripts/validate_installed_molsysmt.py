@@ -166,7 +166,7 @@ def validate_public_runtime() -> dict[str, object]:
         n_sphere_points=20,
         use_cell_list=True,
     )
-    covalent_blocks = msm.topology.get_covalent_blocks(trp_cage)
+    covalent_blocks = msm.chemical_states.get_covalent_blocks(trp_cage)
 
     pentalanine = msm.convert(
         msm.systems["pentalanine"]["traj_pentalanine.h5msm"],

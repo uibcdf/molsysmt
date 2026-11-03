@@ -60,10 +60,13 @@ def assert_rotation(source, result, quartet, moving, increment):
     np.testing.assert_allclose(after[fixed], before[fixed], rtol=0, atol=2e-13)
     assert np.max(np.abs(after[moving] - before[moving])) > 1e-4
     assert_angles(torsions(result, quartet), torsions(source, quartet) + increment)
-    for table in ("atoms", "groups", "chains", "bonds"):
+    for table in ("atoms", "groups", "chains"):
         pd.testing.assert_frame_equal(
             getattr(source.topology, table), getattr(result.topology, table)
         )
+    pd.testing.assert_frame_equal(
+        source.chemical_states.get_bonds(), result.chemical_states.get_bonds()
+    )
     if source.structures.box is not None:
         np.testing.assert_array_equal(
             puw.get_value(source.structures.box, to_unit="nm"),

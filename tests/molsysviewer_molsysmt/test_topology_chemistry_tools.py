@@ -29,6 +29,14 @@ OLD_NAMES = (
 )
 
 
+def _namespace(parent, name):
+    return (
+        parent.topology
+        if name in {"get_sequence_alignment", "get_sequence_identity"}
+        else parent.chemical_states
+    )
+
+
 def assert_native(actual, expected):
     """Compare nested native values without coercing their container contracts."""
     assert type(actual) is type(expected)
@@ -74,16 +82,22 @@ def chemistry():
 
 @pytest.mark.parametrize("name", NEW_NAMES)
 def test_native_signatures_digestion_help_and_explicit_namespace(peptide, name):
-    signature = inspect.signature(getattr(msm.topology, name))
+    signature = inspect.signature(getattr(_namespace(msm, name), name))
     parameters = list(signature.parameters.values())[1:]
     assert signature.parameters["skip_digestion"].default is False
-    bound = getattr(peptide.addons.molsysmt.topology, name)
+    bound = getattr(_namespace(peptide.addons.molsysmt, name), name)
     assert list(inspect.signature(bound).parameters.values()) == parameters
     assert bound.digestion_plan is not None
     assert "not a scene object" in inspect.getdoc(bound)
     assert "\nmolecular_system :" not in inspect.getdoc(bound)
     assert not hasattr(peptide.addons.molsysmt, name)
-    assert set(dir(peptide.addons.molsysmt.topology)) == set(OLD_NAMES + NEW_NAMES)
+    assert set(dir(peptide.addons.molsysmt.topology)) == {
+        "get_sequence_alignment",
+        "get_sequence_identity",
+    }
+    assert set(dir(peptide.addons.molsysmt.chemical_states)) == set(
+        OLD_NAMES + NEW_NAMES
+    ) - {"get_sequence_alignment", "get_sequence_identity"}
     if name in {
         "get_atom_correspondences",
         "get_sequence_alignment",
@@ -111,8 +125,8 @@ def test_native_results_source_indices_and_chemistry_are_preserved(
     state = view.export_state()
     native = view.molsys.chemical_states._states[0]
     atoms, bonds = native.atom_attributes.copy(deep=True), native.bonds.copy(deep=True)
-    expected = getattr(msm.topology, name)(view.molsys, **arguments)
-    actual = getattr(view.addons.molsysmt.topology, name)(**arguments)
+    expected = getattr(_namespace(msm, name), name)(view.molsys, **arguments)
+    actual = getattr(_namespace(view.addons.molsysmt, name), name)(**arguments)
     assert_native(actual, expected)
     assert view.export_state() == state
     assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
@@ -130,7 +144,7 @@ def test_explicit_fragment_cuts_return_detached_labels_without_removing_bonds(
     chemistry,
 ):
     view = chemistry
-    graph = msm.topology.get_bondgraph(view.molsys)
+    graph = msm.chemical_states.get_bondgraph(view.molsys)
     endpoints = next(nx.bridges(graph))
     native = view.molsys.chemical_states._states[0]
     bonds = native.bonds.copy(deep=True)
@@ -140,14 +154,14 @@ def test_explicit_fragment_cuts_return_detached_labels_without_removing_bonds(
         if {int(row.atom1_index), int(row.atom2_index)} == set(endpoints)
     )
     arguments = dict(bond_indices=[cut, cut])
-    expected = msm.topology.get_rigid_fragments(view.molsys, **arguments)
-    result = view.addons.molsysmt.topology.get_rigid_fragments(**arguments)
+    expected = msm.chemical_states.get_rigid_fragments(view.molsys, **arguments)
+    result = view.addons.molsysmt.chemical_states.get_rigid_fragments(**arguments)
     assert_native(result, expected)
     assert result["fragment_offsets"].shape == (3,)
     result["fragment_atom_indices"][:] = -1
     pd.testing.assert_frame_equal(native.bonds, bonds)
     assert not (
-        msm.topology.get_rigid_fragments(view.molsys, **arguments)[
+        msm.chemical_states.get_rigid_fragments(view.molsys, **arguments)[
             "fragment_atom_indices"
         ]
         < 0
@@ -171,8 +185,8 @@ def test_correspondence_reference_anchors_candidates_and_independent_outputs(che
     )
     before = view.export_state()
     reference_bonds = reference.chemical_states._states[0].bonds.copy(deep=True)
-    expected = msm.topology.get_atom_correspondences(view.molsys, **arguments)
-    actual = view.addons.molsysmt.topology.get_atom_correspondences(**arguments)
+    expected = msm.chemical_states.get_atom_correspondences(view.molsys, **arguments)
+    actual = view.addons.molsysmt.chemical_states.get_atom_correspondences(**arguments)
     assert_native(actual, expected)
     np.testing.assert_array_equal(actual["atom_correspondences"], [[[0, 0], [2, 2]]])
     pairs[:] = -1
@@ -197,8 +211,8 @@ def test_sequences_keep_explicit_reference_scopes_and_native_group_mapping(
         reference_selection=selection,
     )
     state = peptide.export_state()
-    expected = getattr(msm.topology, name)(peptide.molsys, **arguments)
-    actual = getattr(peptide.addons.molsysmt.topology, name)(**arguments)
+    expected = getattr(_namespace(msm, name), name)(peptide.molsys, **arguments)
+    actual = getattr(_namespace(peptide.addons.molsysmt, name), name)(**arguments)
     assert_native(actual, expected)
     assert peptide.export_state() == state
     if name == "get_sequence_identity" and selection != "all":
@@ -241,11 +255,11 @@ def test_prettyprint_and_native_identity_digestion(peptide, capsys):
 )
 def test_native_failures_and_bounds_do_not_change_the_view(chemistry, name, arguments):
     with pytest.raises(Exception) as error:
-        getattr(msm.topology, name)(chemistry.molsys, **arguments)
+        getattr(_namespace(msm, name), name)(chemistry.molsys, **arguments)
     state = chemistry.export_state()
     status = chemistry.addons.molsysmt.get_sync_status()
     with pytest.raises(type(error.value)):
-        getattr(chemistry.addons.molsysmt.topology, name)(**arguments)
+        getattr(_namespace(chemistry.addons.molsysmt, name), name)(**arguments)
     assert chemistry.export_state() == state
     assert chemistry.addons.molsysmt.get_sync_status() == status
 
@@ -257,15 +271,15 @@ def test_insufficient_native_chemistry_is_never_prepared_implicitly(peptide):
         ("get_substructure_matches", {"patterns": "[#8]"}),
     ]:
         with pytest.raises(Exception) as error:
-            getattr(msm.topology, name)(peptide.molsys, **arguments)
+            getattr(_namespace(msm, name), name)(peptide.molsys, **arguments)
         with pytest.raises(type(error.value)):
-            getattr(peptide.addons.molsysmt.topology, name)(**arguments)
+            getattr(_namespace(peptide.addons.molsysmt, name), name)(**arguments)
 
 
 @pytest.mark.parametrize("name", NEW_NAMES)
 def test_boundary_controls_empty_closed_and_primary_override_are_enforced(name):
     with msv.MolSysView() as empty:
-        bound = getattr(empty.addons.molsysmt.topology, name)
+        bound = getattr(_namespace(empty.addons.molsysmt, name), name)
         args = {"patterns": "[#8]"} if name == "get_substructure_matches" else {}
         with pytest.raises(ValueError, match="Load a molecular system"):
             bound(**args)

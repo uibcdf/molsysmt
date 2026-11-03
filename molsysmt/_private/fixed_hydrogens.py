@@ -102,9 +102,9 @@ def add(source_input, chemical_state, structure_indices, attribute_policy):
     from molsysmt._private.stereochemistry import REFERENCE
     from molsysmt.basic import convert
     from molsysmt.build import add_terminal_atoms
+    from molsysmt.chemical_states import get_covalent_blocks
     from molsysmt.native import MolSys
     from molsysmt.physchem import get_chemical_readiness, get_hydrogen_inventory
-    from molsysmt.topology import get_covalent_blocks
 
     source = (
         source_input

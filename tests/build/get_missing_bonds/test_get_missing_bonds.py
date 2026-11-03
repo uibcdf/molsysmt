@@ -20,7 +20,7 @@ def test_get_missing_bonds_molsysmt_MolSys_1():
     molsys = msm.convert(
         msm.systems["nglview"]["md_1u19.pdb"], to_form="molsysmt.MolSys"
     )
-    molsys.topology.remove_bonds("all", skip_digestion=True)
+    molsys.chemical_states.remove_bonds("all", skip_digestion=True)
     bonds1 = msm.build.get_missing_bonds(molsys)
     bonds2 = msm.build.get_missing_bonds(molsys, engine="pytraj")
 
@@ -37,7 +37,7 @@ def test_get_missing_bonds_with_selection_preserves_pairs():
 
     molsys = msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"]
     molsys = msm.convert(molsys)
-    molsys.topology.remove_bonds("all", skip_digestion=True)
+    molsys.chemical_states.remove_bonds("all", skip_digestion=True)
 
     bonds = msm.build.get_missing_bonds(molsys, selection="group_index==1")
 

@@ -8,6 +8,9 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
+from tests._native_faults import (
+    current_thread_native_fault as current_thread_native_fault,
+)
 
 if find_spec("openmm") is None:
     pytest.skip("OpenMM is an optional backend", allow_module_level=True)

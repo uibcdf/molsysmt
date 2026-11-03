@@ -30,7 +30,7 @@ def get_dihedral_angles(
     * **Named backbone/side-chain dihedrals** — omit ``dihedral_quartets`` and pass
       keyword arguments such as ``phi=True``, ``psi=True``, ``omega=True``,
       ``chi1=True``, etc.  The required quartets are then obtained from
-      ``molsysmt.topology.get_dihedral_quartets`` for the atoms in ``selection``.
+      ``molsysmt.chemical_states.get_dihedral_quartets`` for the atoms in ``selection``.
       When more than one named type is requested the function returns a list of
       arrays, one per type.
 
@@ -102,7 +102,7 @@ def get_dihedral_angles(
     angles_split = None
 
     if dihedral_quartets is None:
-        from molsysmt.topology import get_dihedral_quartets
+        from molsysmt.chemical_states import get_dihedral_quartets
 
         dihedral_quartets = []
         angles_split = []

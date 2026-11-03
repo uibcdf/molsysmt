@@ -50,11 +50,27 @@ layer schema 2 adds signed 64-bit `chain_groups/offsets` and
 select each chain's ordered groups. A group can participate in several chains.
 This does not change the H5MSM root version, which remains 0.5.
 
-Current readers accept topology layer schemas 1 and 2. Writers retain schema 1
-when no explicit relation is present, and emit schema 2 when it is present.
-Builds that only understand topology layer 1 must be updated before reading
-files containing the new relation; they cannot recover it from empty atom tables.
-No changes are made to atomic coordinates, chemical-state or interaction codecs.
+Topology layer schema 3 additionally stores `atom_molecules`, a signed 64-bit
+vector of length `n_atoms`. Its nonnegative entries declare molecule indices for
+ungrouped atoms; `-1` means unknown. Grouped positions must contain `-1` because
+their owner is already declared by the group. The layer can also contain the
+ordered `chain_groups` relation. Reading only this topology layer recovers
+molecule membership without loading chemical states.
+
+Current readers accept topology layer schemas 1, 2 and 3. Writers retain schema 1
+without either explicit relation, use schema 2 for the chain/group relation alone,
+and use schema 3 whenever ungrouped atom/molecule declarations are present.
+A group-free atom inventory with stored molecules also uses schema 3 when
+every assignment is unknown. Its all-`-1` dataset prevents a joint read from
+mistaking newly unknown ownership for the old implicit representation.
+Older readers must be updated before reading a newer layer schema. For legacy
+group-free layers 1/2, jointly loading the associated topology and chemical states
+can recover the original reference-component representation once, provided an
+identity atom-axis association is declared and it unambiguously matches the
+molecule inventory. Equal axis lengths alone are insufficient. Loading only the old topology
+leaves that unavailable membership unknown. No chemistry is loaded implicitly
+for a projection. The H5MSM root version remains 0.5; atomic coordinate,
+chemical-state and interaction codecs are unchanged.
 
 ## Reading legacy units
 

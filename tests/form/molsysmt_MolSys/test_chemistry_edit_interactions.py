@@ -13,10 +13,12 @@ def ionic_system():
     molsys = MolSys(n_atoms=4)
     molsys.topology.atoms["atom_type"] = ["Na", "Cl", "C", "C"]
     msm.set(molsys, element="atom", formal_charge=[1, -1, 0, 0])
-    molsys.topology._append_chemical_state_bonds(
+    molsys.chemical_states._append_chemical_state_bonds(
         [[2, 3]], orders=1, types="covalent", evidence="explicit"
     )
-    molsys.topology._reference_chemical_state.connectivity_completeness = "complete"
+    molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+        "complete"
+    )
     xyz = np.tile([[0, 0, 0], [0.3, 0, 0], [2, 0, 0], [2.1, 0, 0]], (4, 1, 1))
     xyz[1, 1, 0] = 1
     molsys.structures.append(coordinates=msm.pyunitwizard.quantity(xyz, "nm"))
@@ -106,8 +108,17 @@ def test_atom_state_edits_invalidate_all_named_analyses(ionic_system, attribute,
     ],
 )
 def test_bond_state_edits_invalidate_all_named_analyses(ionic_system, attribute, value):
+    originals = dict(ionic_system.interactions)
     msm.set(ionic_system, element="bond", selection=[0], **{attribute: value})
-    _assert_unevaluated(ionic_system)
+    # The fixture already declares covalent type and unknown directional/stereo
+    # fields. Reassigning those same values changes no scientific evidence.
+    if value is None or attribute == "bond_type":
+        assert all(
+            ionic_system.interactions[name] is result
+            for name, result in originals.items()
+        )
+    else:
+        _assert_unevaluated(ionic_system)
 
 
 def test_empty_selections_and_identifiers_preserve_analyses(ionic_system):
@@ -128,7 +139,7 @@ def test_domain_replacement_invalidates_without_mutating_old_snapshot(ionic_syst
     replacement._states[0].set_atom_attribute("formal_charge", [0, -1, 0, 0])
     molsys.chemical_states = replacement
     assert molsys.chemical_states is replacement
-    assert molsys.topology._chemical_states_domain is replacement
+    assert molsys.chemical_states is replacement
     _assert_unevaluated(molsys)
     assert previous.n_interactions == 2
 
@@ -224,14 +235,16 @@ def test_failed_delegate_conservatively_invalidates_chemical_evidence(
     ionic_system, monkeypatch
 ):
     molsys = ionic_system
-    original_setter = molsys.topology._set_chemical_state_atom_attribute
+    original_setter = molsys.chemical_states._set_chemical_state_atom_attribute
 
     def partially_failing_setter(*args, **kwargs):
         original_setter(*args, **kwargs)
         raise RuntimeError("Failure after chemistry write")
 
     monkeypatch.setattr(
-        molsys.topology, "_set_chemical_state_atom_attribute", partially_failing_setter
+        molsys.chemical_states,
+        "_set_chemical_state_atom_attribute",
+        partially_failing_setter,
     )
     with pytest.raises(RuntimeError, match="after chemistry write"):
         msm.set(molsys, element="atom", selection=[0], formal_charge=0)

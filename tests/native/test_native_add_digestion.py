@@ -14,7 +14,7 @@ def test_native_add_accepts_boolean_keep_ids(
     alanine_molsys, form, keep_ids, atom_indices
 ):
     msm.set(alanine_molsys, element="chain", chain_id=["A"])
-    target = alanine_molsys if form == "molsys" else alanine_molsys.topology
+    target = alanine_molsys if form == "molsys" else alanine_molsys.topology.copy()
     source = target.copy()
     original = source.topology if form == "molsys" else source
     source_chains = original.chains.copy(deep=True)
@@ -42,7 +42,7 @@ def test_native_add_accepts_boolean_keep_ids(
 def test_native_add_rejects_invalid_keep_ids_before_mutation(
     alanine_molsys, form, keep_ids
 ):
-    target = alanine_molsys if form == "molsys" else alanine_molsys.topology
+    target = alanine_molsys if form == "molsys" else alanine_molsys.topology.copy()
     source = target.copy()
     topology = target.topology if form == "molsys" else target
     original_atoms = topology.atoms.copy(deep=True)

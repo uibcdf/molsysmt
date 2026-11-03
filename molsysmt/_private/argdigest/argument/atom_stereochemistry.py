@@ -9,6 +9,13 @@ def digest_atom_stereochemistry(atom_stereochemistry, caller=None):
     # for a heavy library that most calls never need.
     import pandas as pd
 
+    if (atom_stereochemistry is None or atom_stereochemistry is pd.NA) and (
+        caller == "molsysmt.basic.set.set"
+        or caller is not None
+        and caller.endswith("_to_atom")
+    ):
+        return None
+
     if isinstance(atom_stereochemistry, bool):
         return atom_stereochemistry
     if isinstance(atom_stereochemistry, str) and atom_stereochemistry in _VALUES:

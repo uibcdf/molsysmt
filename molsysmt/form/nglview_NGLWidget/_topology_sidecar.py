@@ -27,3 +27,10 @@ def get_topology_sidecar(widget):
     if len(trajectories) != 1 or len(component_ids) != 1:
         return None
     return getattr(trajectories[0], SIDECAR_ATTRIBUTE, None)
+
+
+def get_chemical_sidecar(widget):
+    """Read independent chemistry from the same single declared trajectory."""
+    if get_topology_sidecar(widget) is None:
+        return None
+    return getattr(widget._trajlist[0], "_molsysmt_chemical_states", None)

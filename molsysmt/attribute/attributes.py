@@ -251,6 +251,7 @@ add_attribute(
     topological=True,
     chemical_state=True,
     get_from=["atom", "group", "component", "molecule", "chain", "entity"],
+    set_to="atom",
 )
 
 ## component_name
@@ -578,6 +579,7 @@ add_attribute(
     dependants=["inner_bonded_atoms"],
     runs_on_elements=True,
     topological=True,
+    chemical_state=True,
     get_from=["atom", "bond", "system"],
     set_to="bond",
 )
@@ -589,6 +591,7 @@ add_attribute(
     dependants=["inner_bonded_atom_pairs"],
     runs_on_elements=True,
     topological=True,
+    chemical_state=True,
     get_from=["atom", "bond", "system"],
     set_to="bond",
 )
@@ -600,6 +603,7 @@ add_attribute(
     depends_on=["bonded_atoms"],
     runs_on_elements=True,
     topological=True,
+    chemical_state=True,
     get_from=["atom", "system"],
 )
 
@@ -610,6 +614,7 @@ add_attribute(
     depends_on=["bonded_atom_pairs"],
     runs_on_elements=True,
     topological=True,
+    chemical_state=True,
     get_from=["atom", "system"],
 )
 
@@ -620,6 +625,7 @@ add_attribute(
     depends_on=["bonded_atoms"],
     runs_on_elements=True,
     topological=True,
+    chemical_state=True,
     get_from=["atom", "system"],
 )
 
@@ -651,6 +657,7 @@ add_attribute(
     depends_on=["component_index"],
     runs_on_elements=True,
     topological=True,
+    chemical_state=True,
     get_from=["atom", "group", "component", "molecule", "chain", "entity", "system"],
 )
 
@@ -691,6 +698,7 @@ add_attribute(
     depends_on=["bond_index"],
     runs_on_elements=True,
     topological=True,
+    chemical_state=True,
     get_from=["atom", "group", "component", "molecule", "chain", "entity", "system"],
 )
 
@@ -701,6 +709,7 @@ add_attribute(
     depends_on=["bonded_atoms"],
     runs_on_elements=True,
     topological=True,
+    chemical_state=True,
     get_from=["atom", "group", "component", "molecule", "chain", "entity", "system"],
 )
 

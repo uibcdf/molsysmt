@@ -71,7 +71,9 @@ def _compute_metrics(molsys):
         molsys.structures.coordinates[0], to_unit="nm"
     )
     bonds = np.array(
-        molsys.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int)
+        molsys.chemical_states.get_bonds()[["atom1_index", "atom2_index"]].to_numpy(
+            dtype=int
+        )
     )
     atom_types = np.array(molsys.topology.atoms["atom_type"].to_numpy(), dtype=object)
 

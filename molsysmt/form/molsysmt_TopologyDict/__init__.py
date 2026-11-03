@@ -2,9 +2,9 @@ form_name = "molsysmt.TopologyDict"
 form_type = "class"
 form_info = ["Declared, serializable topology representation.", ""]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
-piped_any_attribute = "molsysmt.Topology"
+piped_any_attribute = "molsysmt.MolSys"
 bonds_are_explicit = True
 bonds_can_be_computed = True
 
@@ -20,6 +20,7 @@ from .get_structural_attributes import *  # noqa: E402, F403
 # isort: on
 
 _convert_to = {
+    "molsysmt.MolSys": "to_molsysmt_MolSys",
     "molsysmt.TopologyDict": "to_molsysmt_TopologyDict",
     "molsysmt.Topology": "to_molsysmt_Topology",
     "file:topology_yaml": "to_file_topology_yaml",

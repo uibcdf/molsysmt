@@ -38,7 +38,7 @@ def view():
 
 @pytest.mark.parametrize("name", NAMES)
 def test_topology_signatures_help_and_digestion_are_native(view, name):
-    native = inspect.signature(getattr(msm.topology, name))
+    native = inspect.signature(getattr(msm.chemical_states, name))
     expected = list(native.parameters.values())[1:]
     if "skip_digestion" not in native.parameters:
         index = next(
@@ -55,7 +55,7 @@ def test_topology_signatures_help_and_digestion_are_native(view, name):
                 "skip_digestion", inspect.Parameter.KEYWORD_ONLY, default=False
             ),
         )
-    bound = getattr(view.addons.molsysmt.topology, name)
+    bound = getattr(view.addons.molsysmt.chemical_states, name)
     assert list(inspect.signature(bound).parameters.values()) == expected
     assert bound.digestion_plan is not None
     assert "current view.molsys" in inspect.getdoc(bound)
@@ -67,9 +67,14 @@ def test_topology_signatures_help_and_digestion_are_native(view, name):
 
 def test_namespace_is_explicit_without_invented_root_aliases(view):
     tools = view.addons.molsysmt
-    assert "topology" in dir(tools)
-    assert set(NAMES) <= set(dir(tools.topology))
-    assert not hasattr(tools.topology, "unreviewed_tool")
+    assert "chemical_states" in dir(tools)
+    assert set(NAMES) <= set(dir(tools.chemical_states))
+    assert set(dir(tools.topology)) == {
+        "get_sequence_alignment",
+        "get_sequence_identity",
+    }
+    assert not hasattr(tools.topology, "get_bondgraph")
+    assert not hasattr(tools.chemical_states, "unreviewed_tool")
     assert not hasattr(tools, "get_bondgraph")
     assert tools.get == tools.basic.get
 
@@ -79,30 +84,30 @@ def test_bondgraph_preserves_source_indices_scopes_and_native_result(view, selec
     arguments = dict(
         selection=selection, chemical_state="reference", structure_indices=[2, 0]
     )
-    expected = msm.topology.get_bondgraph(view.molsys, **arguments)
+    expected = msm.chemical_states.get_bondgraph(view.molsys, **arguments)
     state = view.export_state()
     analysis = view.molsys.interactions["preserve"]
-    graph = view.addons.molsysmt.topology.get_bondgraph(**arguments)
+    graph = view.addons.molsysmt.chemical_states.get_bondgraph(**arguments)
     assert type(graph) is type(expected)
     assert list(graph.nodes) == list(expected.nodes)
     assert list(graph.edges) == list(expected.edges)
     assert view.export_state() == state
     assert view.molsys.interactions["preserve"] is analysis
     graph.add_node(1000000)
-    assert 1000000 not in msm.topology.get_bondgraph(view.molsys)
+    assert 1000000 not in msm.chemical_states.get_bondgraph(view.molsys)
 
 
 @pytest.mark.parametrize("output_type", ["sets", "numpy.ndarray"])
 def test_hypothetical_bond_cut_does_not_remove_native_bonds(view, output_type):
-    graph = msm.topology.get_bondgraph(view.molsys)
+    graph = msm.chemical_states.get_bondgraph(view.molsys)
     cut = next(nx.bridges(graph))
     bonds = msm.get(view.molsys, element="atom", bonded_atom_pairs=True).copy()
     state = view.export_state()
     args = dict(
         remove_bonds=list(cut), output_type=output_type, structure_indices=[2, 0]
     )
-    expected = msm.topology.get_covalent_blocks(view.molsys, **args)
-    actual = view.addons.molsysmt.topology.get_covalent_blocks(**args)
+    expected = msm.chemical_states.get_covalent_blocks(view.molsys, **args)
+    actual = view.addons.molsysmt.chemical_states.get_covalent_blocks(**args)
     assert type(actual) is type(expected)
     assert actual.dtype == expected.dtype
     np.testing.assert_equal(actual, expected)
@@ -121,8 +126,8 @@ def test_hypothetical_bond_cut_does_not_remove_native_bonds(view, output_type):
 @pytest.mark.parametrize("selection", ["all", 'atom_type!="H"'])
 def test_covalent_path_patterns_and_addon_only_trusted_flag(view, selection):
     args = dict(path=PATH, selection=selection)
-    expected = msm.topology.get_covalent_paths(view.molsys, **args)
-    actual = view.addons.molsysmt.topology.get_covalent_paths(
+    expected = msm.chemical_states.get_covalent_paths(view.molsys, **args)
+    actual = view.addons.molsysmt.chemical_states.get_covalent_paths(
         **args, skip_digestion=True
     )
     assert type(actual) is type(expected)
@@ -134,10 +139,10 @@ def test_covalent_path_patterns_and_addon_only_trusted_flag(view, selection):
 @pytest.mark.parametrize("with_blocks", [False, True])
 def test_dihedral_flags_and_ragged_blocks_remain_native(view, flags, with_blocks):
     state = view.export_state()
-    expected = msm.topology.get_dihedral_quartets(
+    expected = msm.chemical_states.get_dihedral_quartets(
         view.molsys, with_blocks=with_blocks, **flags
     )
-    actual = view.addons.molsysmt.topology.get_dihedral_quartets(
+    actual = view.addons.molsysmt.chemical_states.get_dihedral_quartets(
         with_blocks=with_blocks, skip_digestion=True, **flags
     )
     assert type(actual) is type(expected)
@@ -164,10 +169,10 @@ def test_dihedral_flags_and_ragged_blocks_remain_native(view, flags, with_blocks
 )
 def test_native_scientific_errors_are_not_hidden(view, name, arguments):
     with pytest.raises(Exception) as native:
-        getattr(msm.topology, name)(view.molsys, **arguments)
+        getattr(msm.chemical_states, name)(view.molsys, **arguments)
     before = view.addons.molsysmt.get_sync_status()
     with pytest.raises(type(native.value)):
-        getattr(view.addons.molsysmt.topology, name)(**arguments)
+        getattr(view.addons.molsysmt.chemical_states, name)(**arguments)
     assert view.addons.molsysmt.get_sync_status() == before
 
 
@@ -176,24 +181,24 @@ def test_unspecified_pattern_keeps_native_outcome_without_requiring_a_provider_b
     view, name
 ):
     try:
-        expected = getattr(msm.topology, name)(view.molsys)
+        expected = getattr(msm.chemical_states, name)(view.molsys)
     except Exception as error:
         with pytest.raises(type(error)):
-            getattr(view.addons.molsysmt.topology, name)()
+            getattr(view.addons.molsysmt.chemical_states, name)()
     else:
         np.testing.assert_equal(
-            getattr(view.addons.molsysmt.topology, name)(), expected
+            getattr(view.addons.molsysmt.chemical_states, name)(), expected
         )
 
 
 @pytest.mark.parametrize("name", NAMES)
 def test_invalid_addon_digest_control(view, name):
     with pytest.raises(msm.ArgumentError):
-        getattr(view.addons.molsysmt.topology, name)(skip_digestion="yes")
+        getattr(view.addons.molsysmt.chemical_states, name)(skip_digestion="yes")
 
 
 def test_closed_signature_and_keyword_path_cannot_override_primary(view):
-    topology = view.addons.molsysmt.topology
+    topology = view.addons.molsysmt.chemical_states
     target = view.molsys
     for name, arguments in [
         ("get_bondgraph", {}),
@@ -213,18 +218,18 @@ def test_pending_topology_queries_do_not_project_the_scene_or_invalidate_analyse
     )
     before = tools.get_sync_status()
     analysis = view.molsys.interactions["preserve"]
-    graph = tools.topology.get_bondgraph()
+    graph = tools.chemical_states.get_bondgraph()
     assert graph.number_of_nodes() == view.molsys.get_n_atoms()
-    assert tools.topology.get_dihedral_quartets(
+    assert tools.chemical_states.get_dihedral_quartets(
         phi=True
-    ) == msm.topology.get_dihedral_quartets(view.molsys, phi=True)
+    ) == msm.chemical_states.get_dihedral_quartets(view.molsys, phi=True)
     assert tools.get_sync_status() == before
     assert before["state"] == "pending"
     assert view.molsys.interactions["preserve"] is analysis
 
 
 def test_cached_topology_follows_current_view_and_rejects_empty_or_closed_owners(view):
-    topology = view.addons.molsysmt.topology
+    topology = view.addons.molsysmt.chemical_states
     graph = topology.get_bondgraph
     original_count = graph().number_of_nodes()
     with msv.demo["dialanine"] as other:
@@ -243,4 +248,4 @@ def test_cached_topology_follows_current_view_and_rejects_empty_or_closed_owners
             getattr(topology, name)(**args, skip_digestion=True)
     with msv.MolSysView() as empty:
         with pytest.raises(ValueError, match="Load a molecular system"):
-            empty.addons.molsysmt.topology.get_bondgraph()
+            empty.addons.molsysmt.chemical_states.get_bondgraph()

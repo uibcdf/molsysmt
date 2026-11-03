@@ -6,7 +6,7 @@ def get_missing_terminal_cappings(
     molecular_system, selection="all", syntax="MolSysMT", engine="MolSysMT"
 ):
     """
-    Identify terminal capping atoms that are missing from chain termini in a molecular system.
+    Identifying terminal capping atoms missing from chain termini.
 
     This function detects atoms expected at the C-terminus of protein chains that are
     absent from the current structure. Currently the only terminal heavy atom checked is
@@ -37,6 +37,8 @@ def get_missing_terminal_cappings(
     ------
     NotImplementedError
         Raised if the requested ``engine`` is not supported.
+    StructuralInconsistencyError
+        If selected amino-acid groups lack unambiguous chain membership.
 
 
     Notes
@@ -48,6 +50,9 @@ def get_missing_terminal_cappings(
     assemblies).
 
     Non-amino-acid chains (water, ions, small molecules) are silently skipped.
+    Unknown chain membership cannot establish a terminus. The native engine
+    requires one known chain index per selected group when amino acids are
+    present; it does not infer a chain from an unknown legacy sentinel.
 
 
     .. versionadded:: 1.0.0
@@ -86,6 +91,21 @@ def get_missing_terminal_cappings(
             group_name=True,
             skip_digestion=True,
         )
+        if not any(name in aa_names for name in group_name_per_group):
+            return output
+        import numbers
+
+        n_chains = get(molecular_system, n_chains=True)
+        if n_chains is None or any(
+            not isinstance(index, numbers.Integral) or not 0 <= index < n_chains
+            for index in chain_index_per_group
+        ):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="Terminal capping detection requires one known chain_index per selected group.",
+                caller="molsysmt.build.get_missing_terminal_cappings",
+            )
 
         # Collect amino-acid groups per chain: {chain_idx: [(group_id_int, group_idx), ...]}
         chain_aa_groups: dict = {}

@@ -77,7 +77,7 @@ def test_copy_owns_domains_chemistry_and_canonical_tables(source, copier):
     assert duplicate.topology is not source.topology
     assert source.topology._molsys_owner_ref() is source
     assert duplicate.topology._molsys_owner_ref() is duplicate
-    assert duplicate.chemical_states is duplicate.topology._chemical_states_domain
+    assert duplicate.chemical_states._molsys_owner_ref() is duplicate
     assert duplicate.chemical_states is not source.chemical_states
     assert duplicate.structures is not source.structures
     assert duplicate.molecular_mechanics is not source.molecular_mechanics
@@ -212,7 +212,7 @@ def test_replacing_copied_chemistry_invalidates_only_the_copied_analyses(source)
     duplicate = source.copy(deep=False)
     replacement = duplicate.chemical_states.copy()
     duplicate.chemical_states = replacement
-    assert duplicate.topology._chemical_states_domain is replacement
+    assert duplicate.chemical_states is replacement
     assert duplicate.chemical_states is not source.chemical_states
     assert duplicate.interactions["full"].evaluated_structure_indices.size == 0
     np.testing.assert_array_equal(
@@ -230,11 +230,9 @@ def test_copy_preserves_absent_domains(source, copier, domains):
         if domains not in ("topology", "topology_chemistry")
         else Topology(n_atoms=4)
     )
-    if domains == "topology":
-        topology._chemical_states_domain = msm.ChemicalStates(n_atoms=4)
     chemistry = source.chemical_states if domains == "chemistry" else None
     if domains == "topology_chemistry":
-        chemistry = topology._chemical_states_domain
+        chemistry = source.chemical_states.copy()
     partial = MolSys._from_partial_domains(
         topology=topology,
         chemical_states=chemistry,
@@ -279,7 +277,7 @@ def test_deepcopy_propagates_memo_and_explicit_owner_cycles(source, root):
     assert duplicate.structures is graph[4]
     assert duplicate.interactions["masked"] is graph[5]
     assert duplicate.notes is graph[6]
-    assert duplicate.chemical_states is duplicate.topology._chemical_states_domain
+    assert duplicate.chemical_states._molsys_owner_ref() is duplicate
     assert duplicate.topology.extension_owner is duplicate
     assert duplicate.chemical_states.extension_owner is duplicate
     assert duplicate.molecular_mechanics.extension_owner is duplicate
@@ -350,7 +348,7 @@ def test_copied_system_h5msm_and_pickle_keep_one_chemical_authority(source, tmp_
         msm.convert(path, to_form="molsysmt.MolSys"),
         pickle.loads(pickle.dumps(duplicate)),
     ):
-        assert restored.chemical_states is restored.topology._chemical_states_domain
+        assert restored.chemical_states._molsys_owner_ref() is restored
         assert restored.topology._molsys_owner_ref() is restored
         assert restored.chemical_states.n_chemical_states == 2
         assert pd.isna(restored._structure_chemical_state_indices[2])

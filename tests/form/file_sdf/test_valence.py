@@ -97,10 +97,10 @@ def test_unencodable_hydrogen_metadata_remains_a_reported_loss(tmp_path):
     source = tmp_path / "source.sdf"
     source.write_text(V2000)
     native = msm.convert(source, to_form="molsysmt.MolSys")
-    native.topology._set_chemical_state_atom_attribute(
+    native.chemical_states._set_chemical_state_atom_attribute(
         "n_implicit_hydrogens", [2, None, None, None, None]
     )
-    native.topology._set_chemical_state_atom_attribute(
+    native.chemical_states._set_chemical_state_atom_attribute(
         "allows_implicit_hydrogens", [True, None, None, None, None]
     )
     output = tmp_path / "preserved.sdf"

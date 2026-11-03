@@ -76,7 +76,7 @@ def quartet_indices(value, n_atoms, caller):
 def block_mask(molecular_system, quartets, blocks, n_atoms, structure_indices, caller):
     mask = np.zeros((len(quartets), n_atoms), dtype=np.bool_)
     if blocks is None:
-        from molsysmt.topology import get_covalent_blocks
+        from molsysmt.chemical_states import get_covalent_blocks
 
         for index, quartet in enumerate(quartets):
             covalent_blocks = get_covalent_blocks(

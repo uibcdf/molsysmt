@@ -18,7 +18,7 @@ def _extract_pdb_id(item):
     return lowered
 
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = "molsysmt.Structures"
 piped_any_attribute = "molsysmt.MolSys"
 bonds_are_explicit = True

@@ -86,8 +86,6 @@ _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE = {
             "entity_id",
             "entity_name",
             "entity_type",
-            "bond_type",
-            "bond_order",
         }
     ),
     "derived_without_loss": frozenset(
@@ -97,19 +95,11 @@ _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE = {
             "chain_index",
             "molecule_index",
             "entity_index",
-            "bond_index",
-            "bonded_atoms",
-            "bonded_atom_pairs",
-            "inner_bonded_atoms",
-            "inner_bonded_atom_pairs",
-            "inner_bond_index",
             "n_atoms",
             "n_groups",
             "n_chains",
             "n_molecules",
             "n_entities",
-            "n_bonds",
-            "n_inner_bonds",
             "n_amino_acids",
             "n_nucleotides",
             "n_ions",
@@ -124,39 +114,8 @@ _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE = {
             "n_saccharides",
         }
     ),
-    "covered_by_dependencies": {
-        "chemical_state_index": "chemical_state_inventory",
-        "n_chemical_states": "chemical_state_inventory",
-        "reference_chemical_state_index": "chemical_state_inventory",
-        "n_components": "component_index",
-    },
-    "loss_candidates": (
-        "chemical_state_id",
-        "connectivity_completeness",
-        "component_completeness",
-        "component_evidence",
-        "component_index",
-        "component_id",
-        "component_name",
-        "component_type",
-        "bond_id",
-        "fractional_bond_order",
-        "bond_is_aromatic",
-        "bond_is_conjugated",
-        "bond_stereochemistry",
-        "bond_stereo_atom_indices",
-        "bond_donor_atom_index",
-        "bond_acceptor_atom_index",
-        "bond_joins_components",
-        "bond_evidence",
-        "formal_charge",
-        "atom_is_aromatic",
-        "n_unpaired_electrons",
-        "n_implicit_hydrogens",
-        "n_explicit_hydrogens",
-        "allows_implicit_hydrogens",
-        "atom_stereochemistry",
-    ),
+    "covered_by_dependencies": {},
+    "loss_candidates": (),
 }
 
 _MOLSYS_TO_MOLSYS_DICT_PROFILE = {
@@ -168,6 +127,54 @@ _MOLSYS_TO_MOLSYS_DICT_PROFILE = {
                 "time",
                 "box",
                 "coordinates",
+                "allows_implicit_hydrogens",
+                "alternate_location",
+                "atom_is_aromatic",
+                "atom_stereochemistry",
+                "b_factor",
+                "bioassembly",
+                "bond_acceptor_atom_index",
+                "bond_donor_atom_index",
+                "bond_evidence",
+                "bond_id",
+                "bond_index",
+                "bond_is_aromatic",
+                "bond_is_conjugated",
+                "bond_joins_components",
+                "bond_order",
+                "bond_stereo_atom_indices",
+                "bond_stereochemistry",
+                "bond_type",
+                "bonded_atom_pairs",
+                "bonded_atoms",
+                "chemical_state_id",
+                "chemical_state_index",
+                "component_completeness",
+                "component_evidence",
+                "component_id",
+                "component_index",
+                "component_name",
+                "component_type",
+                "connectivity_completeness",
+                "formal_charge",
+                "fractional_bond_order",
+                "inner_bond_index",
+                "inner_bonded_atom_pairs",
+                "inner_bonded_atoms",
+                "kinetic_energy",
+                "n_bonds",
+                "n_chemical_states",
+                "n_components",
+                "n_explicit_hydrogens",
+                "n_implicit_hydrogens",
+                "n_inner_bonds",
+                "n_unpaired_electrons",
+                "occupancy",
+                "potential_energy",
+                "reference_chemical_state_index",
+                "structure_chemical_state_index",
+                "temperature",
+                "velocities",
             }
         )
     ),
@@ -190,16 +197,6 @@ _MOLSYS_TO_MOLSYS_DICT_PROFILE = {
         "total_energy": ("potential_energy", "kinetic_energy"),
     },
     "loss_candidates": (
-        *_TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE["loss_candidates"],
-        "velocities",
-        "occupancy",
-        "b_factor",
-        "alternate_location",
-        "bioassembly",
-        "temperature",
-        "potential_energy",
-        "kinetic_energy",
-        "structure_chemical_state_index",
         "partial_charge",
         "atom_ff_type",
         "forcefield",
@@ -262,6 +259,14 @@ _CONVERSION_AUDIT_PROFILES = {
         "molsysmt.MolSys",
         "molsysmt.MolSysDict",
     ): _MOLSYS_TO_MOLSYS_DICT_PROFILE,
+    (
+        "molsysmt.MolSys",
+        "molsysmt.TopologyDict",
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
+    (
+        "molsysmt.MolSysBuilder",
+        "molsysmt.TopologyDict",
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
     (
         "molsysmt.MolSys",
         "molsysmt.Topology",
@@ -441,155 +446,15 @@ def _aromatic_flag_is_not_preserved(bonds):
     return explicit_false or formal_order_takes_precedence
 
 
-def _audit_native_topology_to_dict(
-    item,
-    target_form="molsysmt.TopologyDict",
-):
-    """Return native topology semantics omitted by TopologyDict 0.1."""
-
-    states = item._chemical_states
-    issues = []
-    if any(state._preparation_history for state in states):
-        issues.append(_schema_limitation("preparation_history", target_form))
-
-    if len(states) != 1:
-        issues.append(
-            ConversionIssue(
-                attribute="chemical_state_index",
-                reason=(
-                    f"{target_form} 0.1 stores one resolved chemical "
-                    "state and cannot preserve the ordered state inventory."
-                ),
-                kind="state_collapse",
-                scope="chemical_state",
-            )
-        )
-
-    if any(state.state_id is not None for state in states):
-        issues.append(_schema_limitation("chemical_state_id", target_form))
-
-    if any(state.connectivity_completeness != "unavailable" for state in states):
-        issues.append(
-            _schema_limitation(
-                "connectivity_completeness",
-                target_form,
-            )
-        )
-
-    if any(state.component_completeness != "unavailable" for state in states):
-        issues.append(_schema_limitation("component_completeness", target_form))
-    if any(state.component_evidence != "unknown" for state in states):
-        issues.append(_schema_limitation("component_evidence", target_form))
-    if any(state.component_indices.notna().any() for state in states):
-        issues.append(_schema_limitation("component_index", target_form))
-
-    for attribute, column in (
-        ("component_id", "component_id"),
-        ("component_name", "component_name"),
-        ("component_type", "component_type"),
-    ):
-        if any(
-            column in state.components and state.components[column].notna().any()
-            for state in states
-        ):
-            issues.append(_schema_limitation(attribute, target_form))
-
-    bond_columns = (
-        ("bond_id", "bond_id"),
-        ("fractional_bond_order", "fractional_bond_order"),
-        ("bond_is_conjugated", "is_conjugated"),
-        ("bond_stereochemistry", "stereochemistry"),
-        ("bond_donor_atom_index", "donor_atom_index"),
-        ("bond_acceptor_atom_index", "acceptor_atom_index"),
-        ("bond_evidence", "evidence"),
-    )
-    for attribute, column in bond_columns:
-        if _states_have_bond_column(states, column):
-            issues.append(_schema_limitation(attribute, target_form))
-
-    if _states_have_bond_column(
-        states, "stereo_atom1_index"
-    ) or _states_have_bond_column(states, "stereo_atom2_index"):
-        issues.append(_schema_limitation("bond_stereo_atom_indices", target_form))
-
-    if _states_have_bond_column(
-        states,
-        "is_aromatic",
-        predicate=_aromatic_flag_is_not_preserved,
-    ):
-        issues.append(_schema_limitation("bond_is_aromatic", target_form))
-
-    if _states_have_bond_column(
-        states,
-        "joins_components",
-    ):
-        issues.append(_schema_limitation("bond_joins_components", target_form))
-
-    atom_columns = (
-        ("formal_charge", "formal_charge"),
-        ("atom_is_aromatic", "is_aromatic"),
-        ("n_unpaired_electrons", "n_unpaired_electrons"),
-        ("n_implicit_hydrogens", "n_implicit_hydrogens"),
-        ("n_explicit_hydrogens", "n_explicit_hydrogens"),
-        ("allows_implicit_hydrogens", "allows_implicit_hydrogens"),
-        ("atom_stereochemistry", "stereochemistry"),
-    )
-    for attribute, column in atom_columns:
-        if _states_have_atom_column(states, column):
-            issues.append(_schema_limitation(attribute, target_form))
-
-    return issues
+def _audit_native_topology_to_dict(item, target_form="molsysmt.TopologyDict"):
+    """Stable schema 0.2 preserves the canonical inventory and memberships."""
+    return []
 
 
 def _audit_native_molsys_to_dict(item):
-    """Return native MolSys semantics omitted by MolSysDict 0.1."""
-
+    """Report mechanical data outside the independent schema 0.2 domains."""
     target_form = "molsysmt.MolSysDict"
-    issues = _audit_native_topology_to_dict(
-        item.topology,
-        target_form=target_form,
-    )
-
-    for attribute in (
-        "velocities",
-        "occupancy",
-        "b_factor",
-        "alternate_location",
-        "bioassembly",
-        "temperature",
-        "potential_energy",
-        "kinetic_energy",
-    ):
-        if getattr(item.structures, attribute) is not None:
-            issues.append(
-                _schema_limitation(
-                    attribute,
-                    target_form,
-                    scope="structures",
-                )
-            )
-
-    explicit_associations = item._structure_chemical_state_indices
-    if explicit_associations is not None:
-        known = explicit_associations.dropna()
-        association_is_implicit_single_state = (
-            len(item.topology._chemical_states) == 1
-            and len(known) == len(explicit_associations)
-            and (known == 0).all()
-        )
-        if not association_is_implicit_single_state:
-            issues.append(
-                ConversionIssue(
-                    attribute="structure_chemical_state_index",
-                    reason=(
-                        "molsysmt.MolSysDict 0.1 cannot preserve the explicit "
-                        "structure-to-chemical-state association."
-                    ),
-                    kind="state_association_loss",
-                    scope="chemical_state",
-                )
-            )
-
+    issues = []
     for attribute in (
         "partial_charge",
         "atom_ff_type",
@@ -623,34 +488,8 @@ def _audit_native_molsys_to_dict(item):
 
 
 def _audit_native_builder_to_dict(item):
-    """Return builder semantics omitted by MolSysDict 0.1."""
-
-    target_form = "molsysmt.MolSysDict"
-    issues = _audit_native_topology_to_dict(
-        item.topology,
-        target_form=target_form,
-    )
-
-    for attribute in (
-        "velocities",
-        "occupancy",
-        "b_factor",
-        "alternate_location",
-        "bioassembly",
-        "temperature",
-        "potential_energy",
-        "kinetic_energy",
-    ):
-        if getattr(item.structures, attribute) is not None:
-            issues.append(
-                _schema_limitation(
-                    attribute,
-                    target_form,
-                    scope="structures",
-                )
-            )
-
-    return issues
+    """Schema 0.2 retains the builder's admitted independent stored domains."""
+    return []
 
 
 def _attribute_scope(attribute):
@@ -675,7 +514,9 @@ def _audit_declared_capability_projection(item, source_form, target_form):
     from molsysmt.form import _dict_modules
 
     source_module = _dict_modules[source_form]
-    target_attributes = _dict_modules[target_form].attributes
+    target_attributes = _dict_modules[
+        "molsysmt.Topology" if target_form == "molsysmt.TopologyDict" else target_form
+    ].attributes
     issues = []
 
     for attribute, declared in source_module.attributes.items():
@@ -710,27 +551,7 @@ def _audit_native_molsys_to_builder(item):
         issue for issue in issues if issue.attribute != "structure_chemical_state_index"
     ]
 
-    explicit_associations = item._structure_chemical_state_indices
-    if explicit_associations is not None:
-        known = explicit_associations.dropna()
-        association_is_implicit_single_state = (
-            len(item.topology._chemical_states) == 1
-            and len(known) == len(explicit_associations)
-            and (known == 0).all()
-        )
-        if not association_is_implicit_single_state:
-            issues.append(
-                ConversionIssue(
-                    attribute="structure_chemical_state_index",
-                    reason=(
-                        "molsysmt.MolSysBuilder cannot preserve the explicit "
-                        "structure-to-chemical-state association."
-                    ),
-                    kind="state_association_loss",
-                    scope="chemical_state",
-                )
-            )
-
+    # Builder retains the independent collection and explicit state/structure map.
     return issues
 
 
@@ -852,7 +673,9 @@ def _audit_native_pdb_write(
                 )
             )
 
-    formal_charge = payload.topology._get_chemical_state_atom_attribute("formal_charge")
+    formal_charge = payload.chemical_states._get_chemical_state_atom_attribute(
+        "formal_charge"
+    )
     if (
         formal_charge is not None
         and formal_charge.notna().any()
@@ -867,7 +690,7 @@ def _audit_native_pdb_write(
             )
         )
 
-    bonds = payload.topology._get_chemical_state_bonds()
+    bonds = payload.chemical_states._resolve_chemical_state().bonds
     if "bond_type" in bonds and bonds["bond_type"].notna().any():
         issues.append(
             ConversionIssue(
@@ -1150,7 +973,13 @@ def _audit_registered_profile(
 
 
 def _native_multistate_has(item, source_form, attribute):
-    topology = item.topology if source_form == "molsysmt.MolSys" else item
+    states = (
+        item.chemical_states
+        if source_form in {"molsysmt.MolSys", "molsysmt.MolSysBuilder"}
+        else None
+    )
+    if states is None:
+        return None
     atom_columns = {
         "formal_charge": "formal_charge",
         "atom_is_aromatic": "is_aromatic",
@@ -1179,13 +1008,40 @@ def _native_multistate_has(item, source_form, attribute):
         return any(
             column in state.atom_attributes
             and state.atom_attributes[column].notna().any()
-            for state in topology._chemical_states
+            for state in states._states
         )
     if attribute in bond_columns:
         column = bond_columns[attribute]
         return any(
             column in state.bonds and state.bonds[column].notna().any()
-            for state in topology._chemical_states
+            for state in states._states
+        )
+    if attribute in {
+        "connectivity_completeness",
+        "component_completeness",
+        "component_evidence",
+        "n_bonds",
+        "n_inner_bonds",
+        "n_components",
+    }:
+        return states.n_chemical_states > 0
+    if attribute in {
+        "bond_index",
+        "bonded_atoms",
+        "bonded_atom_pairs",
+        "inner_bond_index",
+        "inner_bonded_atoms",
+        "inner_bonded_atom_pairs",
+    }:
+        return any(len(state.bonds) for state in states._states)
+    if attribute == "component_index":
+        return any(
+            len(state.components) or state.component_indices.notna().any()
+            for state in states._states
+        )
+    if attribute in {"component_id", "component_name", "component_type"}:
+        return any(
+            state.components[attribute].notna().any() for state in states._states
         )
     return None
 
@@ -1193,11 +1049,11 @@ def _native_multistate_has(item, source_form, attribute):
 def _instance_has(module, item, attribute, source_form):
     if not module.attributes.get(attribute, False):
         return False
-    if source_form in {"molsysmt.Topology", "molsysmt.MolSys"}:
-        topology = item.topology if source_form == "molsysmt.MolSys" else item
-        if topology is not None and (
-            len(topology._chemical_states) != 1
-            and topology._reference_chemical_state_index is None
+    if source_form in {"molsysmt.MolSys", "molsysmt.MolSysBuilder"}:
+        states = item.chemical_states
+        if states is not None and (
+            states.n_chemical_states != 1
+            and states.reference_chemical_state_index is None
         ):
             output = _native_multistate_has(item, source_form, attribute)
             if output is not None:
@@ -1339,17 +1195,30 @@ def build_conversion_report(
             "file:h5msm",
             "molsysmt.H5MSMFileHandler",
         }:
-            if source_form == "file:h5msm":
-                from molsysmt.form.file_h5msm.to_molsysmt_Topology import (
-                    to_molsysmt_Topology,
+            from molsysmt._private.h5msm import modular_h5msm_axes
+
+            if (
+                source_form == "file:h5msm"
+                and modular_h5msm_axes(source_item) is not None
+            ):
+                from molsysmt.form._h5msm05_modular import read_modular_file
+                from molsysmt.native import MolSys
+
+                payload = read_modular_file(
+                    source_item, layers={"topology", "chemical_states"}
+                )
+                # Presence inspection does not project values across either axis.
+                inspection_item = MolSys._from_partial_domains(
+                    topology=payload["topology"],
+                    chemical_states=payload["chemical_states"],
                 )
             else:
-                from molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_Topology import (
-                    to_molsysmt_Topology,
+                from molsysmt.form.molsysmt_H5MSMFileHandler._read_native import (
+                    read_native,
                 )
 
-            inspection_item = to_molsysmt_Topology(source_item, skip_digestion=True)
-            inspection_form = "molsysmt.Topology"
+                inspection_item = read_native(source_item, skip_digestion=True)
+            inspection_form = "molsysmt.MolSys"
             inspection_module = _dict_modules[inspection_form]
         if not registered_profile:
             target_attributes = _dict_modules[target_form].attributes
@@ -1383,15 +1252,11 @@ def build_conversion_report(
                         )
                     )
 
-        if source_form in {"molsysmt.Topology", "molsysmt.MolSys"}:
-            topology = (
-                source_item.topology
-                if source_form == "molsysmt.MolSys"
-                else source_item
-            )
+        if source_form == "molsysmt.MolSys" and source_item.chemical_states is not None:
+            states = source_item.chemical_states
             if (
                 not registered_profile
-                and len(topology._chemical_states) > 1
+                and states.n_chemical_states > 1
                 and target_form
                 not in {
                     "molsysmt.Topology",
@@ -1411,10 +1276,10 @@ def build_conversion_report(
                 )
 
             if target_form == "pdbfixer.PDBFixer" and (
-                len(topology._chemical_states) == 1
-                or topology._reference_chemical_state_index is not None
+                states.n_chemical_states == 1
+                or states.reference_chemical_state_index is not None
             ):
-                source_bonds = topology._get_chemical_state_bonds()
+                source_bonds = states._get_chemical_state_bonds()
                 if source_bonds.empty:
                     issues.append(
                         ConversionIssue(

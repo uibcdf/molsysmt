@@ -60,12 +60,27 @@ def test_real_container_preserves_orders_aromaticity_and_evidence(hp35_bcif_gz_f
         str(hp35_bcif_gz_file),
         to_form="mmcif.PdbxContainers.DataContainer",
     )
-    topology = msm.convert(container, to_form="molsysmt.Topology")
+    topology = msm.convert(container, to_form="molsysmt.MolSys")
 
-    assert set(topology.bonds["bond_order"].dropna().astype(int)) == {1, 2}
-    assert topology.bonds["is_aromatic"].fillna(False).any()
-    assert set(topology.bonds["evidence"].dropna()) == {"explicit", "inferred"}
-    assert topology._reference_chemical_state.connectivity_completeness == "partial"
+    assert set(
+        topology.chemical_states._resolve_chemical_state()
+        .bonds["bond_order"]
+        .dropna()
+        .astype(int)
+    ) == {1, 2}
+    assert (
+        topology.chemical_states._resolve_chemical_state()
+        .bonds["is_aromatic"]
+        .fillna(False)
+        .any()
+    )
+    assert set(
+        topology.chemical_states._resolve_chemical_state().bonds["evidence"].dropna()
+    ) == {"explicit", "inferred"}
+    assert (
+        topology.chemical_states._resolve_chemical_state().connectivity_completeness
+        == "partial"
+    )
 
 
 def test_unknown_order_code_is_reported_and_strictly_rejected():
@@ -85,7 +100,7 @@ def test_unknown_order_code_is_reported_and_strictly_rejected():
     report = build_conversion_report(
         container,
         "mmcif.PdbxContainers.DataContainer",
-        "molsysmt.Topology",
+        "molsysmt.MolSys",
     )
 
     assert report.outcome == "lossy"

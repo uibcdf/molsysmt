@@ -81,6 +81,15 @@ def extract(
       endpoints and keeps bond columns aligned. Atom indices must be unique;
       structure indices preserve their requested order and repetitions. Only
       selected graphics data are copied, leaving the source unchanged.
+    - Native chemical states retain their order, reference and structure
+      associations under atom selection. With complete stored connectivity,
+      components are recomputed on the retained induced graph, respecting
+      ``joins_components``. Labels survive only for unchanged full source atom
+      sets; changed components receive local string IDs and unknown names/types.
+      With partial/unavailable connectivity, declared memberships are restricted
+      without asserting a complete graph partition. Cutting a retained component
+      downgrades a complete declaration to partial. Stable molecule ownership is
+      independent of these state-local components. No chemical preparation is run.
 
 
     See Also

@@ -397,7 +397,9 @@ def test_an_entry_awaiting_migration_is_exempt_from_the_header(tmp_path, monkeyp
     monkeypatch.setattr(
         devguide_reports,
         "awaiting_migration",
-        lambda: {str(tmp_path / "pending_proposals" / "old.md")},
+        lambda: {
+            str(devguide_reports._relative(tmp_path / "pending_proposals" / "old.md"))
+        },
     )
     _, errors = devguide_reports.load_queue("pending_proposals")
     assert errors == []

@@ -26,11 +26,12 @@ class _FakeGroFile:
 
 class _FakeGroTrajectory:
     def __init__(self, n_atoms):
+        self.n_atoms = n_atoms
         self._file = _FakeGroFile()
         self._coordinates = np.zeros((2, n_atoms, 3))
 
     def read(self):
-        return self._coordinates, None, None
+        raise AssertionError("A count query must not consume coordinate data")
 
 
 def test_amber_restart_atom_indices_follow_coordinate_width():

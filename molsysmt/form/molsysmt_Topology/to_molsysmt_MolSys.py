@@ -40,20 +40,15 @@ def to_molsysmt_MolSys(
 
     from .extract import extract
 
-    output = MolSys(skip_digestion=True)
-    output.topology = extract(
-        item,
-        atom_indices=atom_indices,
-        copy_if_all=True,
-        skip_digestion=True,
+    topology = extract(
+        item, atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
     )
-
     if coordinates is not None and not is_all(atom_indices):
         coordinates = coordinates[:, atom_indices, :]
-    output.structures = Structures(
+    structures = Structures(
         coordinates=coordinates,
         box=box,
         skip_digestion=True,
     )
 
-    return output
+    return MolSys._from_partial_domains(topology=topology, structures=structures)

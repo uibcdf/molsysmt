@@ -1,22 +1,6 @@
-# Sub-Portal Governance: tools/topology/index.md
+# Topology Portal Contract
 
-## Purpose
-Governance rules for `docs/content/user/tools/topology/index.md` (the Topology Tools sub-portal entrance page).
-
-## Structural Invariants
-1. **Title**: `# Topology`
-2. **Catalog Table**: 2-column catalog table listing all topology tools, including get_rings with Markdown link titles and brief gerund descriptions.
-3. **Hidden toctree**:
-   ```rst
-   .. toctree::
-      :maxdepth: 2
-      :hidden:
-
-      get_rings.ipynb
-      get_bondgraph.ipynb
-      get_covalent_blocks.ipynb
-      get_covalent_paths.ipynb
-      get_dihedral_quartets.ipynb
-      get_sequence_alignment.ipynb
-      get_sequence_identity.ipynb
-   ```
+Keep the Topology title, two-column sequence-tool catalogue and hidden toctree.
+Link explicitly to the chemical_states tools portal and independent native domain
+pages. The portal must not advertise bonds/components or chemical-state access
+through pure Topology.

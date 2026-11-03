@@ -50,8 +50,11 @@ def test_parity_chain_count(modeller_topology, source_topology):
     assert modeller_topology.n_chains == source_topology.n_chains
 
 
-def test_parity_bond_count(modeller_topology, source_topology):
-    assert modeller_topology.n_bonds == source_topology.n_bonds
+def test_parity_bond_count(modeller, modeller_topology, source_topology):
+    assert not hasattr(modeller_topology, "bonds")
+    assert not hasattr(source_topology, "bonds")
+    complete = msm.convert(modeller, to_form="molsysmt.MolSys")
+    assert complete.chemical_states.get(n_bonds=True) == 2
 
 
 def test_parity_atom_names(modeller_topology, source_topology):

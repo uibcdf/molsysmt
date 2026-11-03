@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 
 
-def digest_molecule_indices(molecule_indices, caller):
+def digest_molecule_indices(molecule_indices, caller, native_molecule_membership=False):
     """Checks if molecule_indices has the expected type and value.
 
     Parameters
@@ -28,6 +28,10 @@ def digest_molecule_indices(molecule_indices, caller):
         If the given indices are not of the correct type.
     """
 
+    if native_molecule_membership:
+        # Nullable assignments are validated once against native inventory;
+        # the ordinary index digester would erase fractional values or nulls.
+        return molecule_indices
     if molecule_indices is None:
         return None
     elif is_all(molecule_indices):

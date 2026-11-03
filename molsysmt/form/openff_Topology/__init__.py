@@ -5,7 +5,7 @@ form_info = [
     "https://docs.openforcefield.org/projects/toolkit/",
 ]
 
-piped_topological_attribute = "molsysmt.Topology"
+piped_topological_attribute = "molsysmt.MolSys"
 piped_structural_attribute = None
 piped_any_attribute = None
 bonds_are_explicit = True

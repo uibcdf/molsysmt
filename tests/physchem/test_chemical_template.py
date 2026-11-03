@@ -10,7 +10,7 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
-from molsysmt.native import Topology
+from molsysmt.native import MolSys
 
 PROVENANCE = dict(
     identity="methanol independent control",
@@ -22,21 +22,23 @@ PROVENANCE = dict(
 
 
 def _template():
-    topology = Topology(n_atoms=6)
-    topology.atoms["atom_type"] = ["C", "O", "H", "H", "H", "H"]
-    topology.atoms["atom_id"] = ["carbon", "oxygen", "h1", "h2", "h3", "h4"]
-    topology.atoms["atom_name"] = ["C", "O", "HC1", "HC2", "HC3", "HO"]
-    topology.bonds = pd.DataFrame(
-        dict(
-            atom1_index=[0, 0, 0, 0, 1],
-            atom2_index=[1, 2, 3, 4, 5],
-            bond_order=[1] * 5,
-            bond_type=["covalent"] * 5,
-            is_aromatic=[False] * 5,
-            evidence=["explicit"] * 5,
+    topology = MolSys(n_atoms=6)
+    topology.topology.atoms["atom_type"] = ["C", "O", "H", "H", "H", "H"]
+    topology.topology.atoms["atom_id"] = ["carbon", "oxygen", "h1", "h2", "h3", "h4"]
+    topology.topology.atoms["atom_name"] = ["C", "O", "HC1", "HC2", "HC3", "HO"]
+    topology.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            dict(
+                atom1_index=[0, 0, 0, 0, 1],
+                atom2_index=[1, 2, 3, 4, 5],
+                bond_order=[1] * 5,
+                bond_type=["covalent"] * 5,
+                is_aromatic=[False] * 5,
+                evidence=["explicit"] * 5,
+            )
         )
     )
-    state = topology._chemical_states_domain._states[0]
+    state = topology.chemical_states._states[0]
     state.connectivity_completeness = "complete"
     for field, value in (
         ("formal_charge", 0),
@@ -106,7 +108,7 @@ def test_permuted_transfer_preserves_every_pose_and_source_identity():
     source.topology.atoms.reset_index(drop=True, inplace=True)
     # Independent source ordering: H, O, H, C, H, H. Do not let an extraction
     # implementation define the oracle for the explicit map being tested.
-    source.topology.bonds = pd.DataFrame(
+    source.chemical_states._resolve_chemical_state().bonds = pd.DataFrame(
         dict(
             atom1_index=[0, 1, 1, 2, 3],
             atom2_index=[3, 3, 5, 3, 4],
@@ -154,7 +156,7 @@ def test_permuted_transfer_preserves_every_pose_and_source_identity():
     output["report"]["template_provenance"]["identity"] = "edited"
     assert PROVENANCE["identity"] == "methanol independent control"
     assert (
-        template._chemical_states_domain._states[0].bonds["evidence"].tolist()
+        template.chemical_states._states[0].bonds["evidence"].tolist()
         == ["explicit"] * 5
     )
 
@@ -169,7 +171,7 @@ def test_conflicts_fail_before_mutation_and_return_a_detached_report(change):
         source.topology.atoms.loc[0, "atom_type"] = "N"
     elif change == "isotope":
         source.topology.atoms.loc[0, "isotope"] = 13
-        template.atoms.loc[0, "isotope"] = 14
+        template.topology.atoms.loc[0, "isotope"] = 14
     elif change == "charge":
         state.set_atom_attribute("formal_charge", [1, None, None, None, None, None])
     elif change == "radical":
@@ -178,7 +180,7 @@ def test_conflicts_fail_before_mutation_and_return_a_detached_report(change):
         )
     elif change == "stereo":
         state.set_atom_attribute("stereochemistry", ["R", None, None, None, None, None])
-        template._chemical_states_domain._states[0].set_atom_attribute(
+        template.chemical_states._states[0].set_atom_attribute(
             "stereochemistry", ["S", None, None, None, None, None]
         )
     elif change == "graph":
@@ -242,7 +244,7 @@ def test_unresolved_scope_or_chemistry_is_not_compatible(change):
     source, template = _source(), _template()
     state, ref = (
         source.chemical_states._states[0],
-        template._chemical_states_domain._states[0],
+        template.chemical_states._states[0],
     )
     if change == "reference":
         source.chemical_states.append_state()
@@ -261,7 +263,7 @@ def test_unresolved_scope_or_chemistry_is_not_compatible(change):
     elif change == "aromatic":
         state.set_atom_attribute("is_aromatic", [True, None, None, None, None, None])
     elif change == "isotope":
-        template.atoms.loc[0, "isotope"] = 13
+        template.topology.atoms.loc[0, "isotope"] = 13
     report = msm.physchem.assess_chemical_template(source, **_options(source, template))
     assert report["status"] in {"unassessed", "conflict"}
     assert report["issues"]
@@ -276,9 +278,7 @@ def test_selected_nonreference_state_and_frame_associations_are_preserved():
     source.chemical_states._append_state(original.copy())
     msm.set(source, element="system", structure_chemical_state_index=[0, 1, None])
     template = _template()
-    template._chemical_states_domain._append_state(
-        template._chemical_states_domain._states[0].copy()
-    )
+    template.chemical_states._append_state(template.chemical_states._states[0].copy())
     before = source.chemical_states._states[0].bonds.copy(deep=True)
     output = msm.physchem.apply_chemical_template(
         source,
@@ -335,9 +335,7 @@ def test_real_ackredit_reuses_records_in_enclosing_workflow_and_failure_never_cr
         )
     with ackredit.session("failed preparation"):
         template = _template()
-        template._chemical_states_domain._states[
-            0
-        ].connectivity_completeness = "partial"
+        template.chemical_states._states[0].connectivity_completeness = "partial"
         with pytest.raises(StructuralInconsistencyError):
             msm.physchem.apply_chemical_template(_source(), **_options(None, template))
         assert not ackredit.get_used_items()
@@ -389,20 +387,22 @@ def test_invalid_public_arguments_are_rejected(argument, value):
 
 def _stereo_template():
     template = _template().extract(atom_indices=[0, 1, 2, 3])
-    template.atoms["atom_type"] = ["F", "C", "C", "Cl"]
-    template.bonds = pd.DataFrame(
-        dict(
-            atom1_index=[0, 1, 2],
-            atom2_index=[1, 2, 3],
-            bond_order=[1, 2, 1],
-            bond_type=["covalent"] * 3,
-            is_aromatic=[False] * 3,
-            stereochemistry=[None, "E", None],
-            stereo_atom1_index=[None, 0, None],
-            stereo_atom2_index=[None, 3, None],
+    template.topology.atoms["atom_type"] = ["F", "C", "C", "Cl"]
+    template.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            dict(
+                atom1_index=[0, 1, 2],
+                atom2_index=[1, 2, 3],
+                bond_order=[1, 2, 1],
+                bond_type=["covalent"] * 3,
+                is_aromatic=[False] * 3,
+                stereochemistry=[None, "E", None],
+                stereo_atom1_index=[None, 0, None],
+                stereo_atom2_index=[None, 3, None],
+            )
         )
     )
-    state = template._chemical_states_domain._states[0]
+    state = template.chemical_states._states[0]
     state.connectivity_completeness = "complete"
     state.set_atom_attribute("n_implicit_hydrogens", [0, 1, 1, 0])
     state.set_atom_attribute("allows_implicit_hydrogens", [False, True, True, False])
@@ -438,7 +438,7 @@ def test_invalid_stereo_references_fail_before_any_assignment(references):
     source = _source(template, frames=0)
     before = _chemistry(source)
     for field, value in zip(("stereo_atom1_index", "stereo_atom2_index"), references):
-        template._chemical_states_domain._states[0].bonds.loc[1, field] = value
+        template.chemical_states._states[0].bonds.loc[1, field] = value
     options = _options(source, template, np.column_stack((np.arange(4), np.arange(4))))
     options["template_provenance"] = dict(PROVENANCE, hydrogen_policy="stored_counts")
     report = msm.physchem.assess_chemical_template(source, **options)
@@ -499,7 +499,7 @@ def test_chemical_changes_invalidate_only_returned_copy_and_idempotence_preserve
 
 def test_declared_heavy_only_template_transfers_counts_without_adding_hydrogen_atoms():
     template = _template().extract(atom_indices=[0, 1])
-    ref = template._chemical_states_domain._states[0]
+    ref = template.chemical_states._states[0]
     ref.connectivity_completeness = "complete"
     ref.set_atom_attribute("n_implicit_hydrogens", [3, 1])
     ref.set_atom_attribute("allows_implicit_hydrogens", [True, True])
@@ -544,7 +544,7 @@ source = fixture['_source']()
 output = msm.physchem.apply_chemical_template(source, **fixture['_options'](source))
 assert output['report']['status'] == 'applied'
 assert output['report']['attribution']['items']
-source.topology.remove_bonds([4])
+source.chemical_states.remove_bonds([4])
 output = msm.physchem.apply_chemical_template(
     source, **fixture['_options'](source), connectivity_policy='complete_from_template')
 assert output['report']['status'] == 'applied'
@@ -581,16 +581,18 @@ def test_invalid_stored_endpoints_are_rejected_before_connectivity_kernel(change
 
 def test_declared_benzene_transfer_and_kekule_normalization_remains_unassessed():
     template = _template()
-    template.atoms["atom_type"] = ["C"] * 6
-    template.bonds = pd.DataFrame(
-        dict(
-            atom1_index=[0, 0, 1, 2, 3, 4],
-            atom2_index=[1, 5, 2, 3, 4, 5],
-            bond_type=["covalent"] * 6,
-            is_aromatic=[True] * 6,
+    template.topology.atoms["atom_type"] = ["C"] * 6
+    template.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            dict(
+                atom1_index=[0, 0, 1, 2, 3, 4],
+                atom2_index=[1, 5, 2, 3, 4, 5],
+                bond_type=["covalent"] * 6,
+                is_aromatic=[True] * 6,
+            )
         )
     )
-    ref = template._chemical_states_domain._states[0]
+    ref = template.chemical_states._states[0]
     ref.connectivity_completeness = "complete"
     ref.set_atom_attribute("is_aromatic", [True] * 6)
     ref.set_atom_attribute("n_implicit_hydrogens", [1] * 6)

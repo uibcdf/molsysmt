@@ -84,7 +84,7 @@ def get_metal_coordination_sites(
 
     See Also
     --------
-    molsysmt.topology.get_substructure_matches
+    molsysmt.chemical_states.get_substructure_matches
         Matching general SMARTS on complete declared chemical graphs.
     molsysmt.interactions.metal_coordination.get_metal_coordination
         Observing sparse metal-ligand proximity candidates.
@@ -105,8 +105,8 @@ def get_metal_coordination_sites(
     """
     import numpy as np
 
+    from molsysmt.chemical_states import get_substructure_matches
     from molsysmt.physchem._prolif import PROLIF_METAL_PATTERNS, PROLIF_REFERENCE
-    from molsysmt.topology import get_substructure_matches
 
     matches = get_substructure_matches(
         molecular_system,

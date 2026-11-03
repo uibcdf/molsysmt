@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 from molsysmt._private.smonitor import StructuralInconsistencyError
-from molsysmt.native.topology import (
+from molsysmt.native._chemical_state import (
     Bonds_DataFrame,
     Components_DataFrame,
     _ChemicalStateStorage,
@@ -102,7 +102,7 @@ def _read_nullable_table(group, dtypes, index):
     return output
 
 
-def write_chemical_states(topology, topology_group, dataset_options):
+def write_chemical_states(chemical_states, topology_group, dataset_options):
     """
     Performing write chemical states on form molsysmt.Topology.
 
@@ -128,11 +128,11 @@ def write_chemical_states(topology, topology_group, dataset_options):
     if "chemical_states" in topology_group:
         del topology_group["chemical_states"]
     states_group = topology_group.create_group("chemical_states")
-    reference_index = topology._reference_chemical_state_index
+    reference_index = chemical_states.reference_chemical_state_index
     _write_states_group(
         states_group,
-        topology._chemical_states,
-        topology.n_atoms,
+        chemical_states._states,
+        chemical_states.n_atoms,
         reference_index,
         dataset_options,
     )

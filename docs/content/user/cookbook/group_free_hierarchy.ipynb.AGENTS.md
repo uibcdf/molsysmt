@@ -6,3 +6,15 @@ immutability, target-only UNL/fallback-chain semantics, actual external selector
 success and explicit descriptor units. Keep the executed examples, coordinated atom growth across populated chemical
 states, unknown new assignments, partial completeness, validation-before-publication
 and structural-array refusal. Do not present atom growth as chemical preparation.
+Retain selected-state stored count/membership inspection alongside stable molecule
+identity; repeated atom positions retain their order and no reference change occurs.
+Preserve the executed contrast between known zero/False reference assignments and
+missing alternative-state properties, with declared charge units and no perception.
+Retain controlled assignment to that alternative state without changing reference
+chemistry; component reconstruction remains explicit for participation edits.
+Preserve the atom-projected label and partial declaration example: untouched
+singleton labels survive, changed pair labels clear, and inventory/molecules stay fixed.
+
+Preserve the executed ChemicalStatesDict direct-read example, selected-state bounds,
+ordered/repeated positions and unchanged reference. Queries do not decode unrelated
+states or history; dictionary mutation is not a controlled editing interface.

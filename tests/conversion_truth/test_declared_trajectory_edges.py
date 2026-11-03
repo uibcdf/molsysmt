@@ -274,3 +274,59 @@ def test_legacy_destination_alias_and_conflict_keep_source_intact(
         )
     assert filename.read_bytes() == original
     assert destination.read_bytes() == original
+
+
+@pytest.mark.parametrize("extension", ["dcd", "xtc"])
+def test_selected_codec_reads_one_structure_at_a_time_and_restores_position(
+    extension, tmp_path
+):
+    from importlib import import_module
+
+    md = pytest.importorskip("mdtraj")
+    path = tmp_path / f"selected.{extension}"
+    write_source(path)
+    reader_type = getattr(md.formats, extension.upper() + "TrajectoryFile")
+    module = import_module(
+        f"molsysmt.form.mdtraj_{extension.upper()}TrajectoryFile.to_molsysmt_Structures"
+    )
+    convert = module.to_molsysmt_Structures
+
+    class ObservedReader:
+        def __init__(self, handle):
+            self.handle = handle
+            self.reads = []
+
+        def read(self, *args, **kwargs):
+            count = args[0] if args else kwargs.get("n_frames")
+            self.reads.append((self.tell(), count))
+            assert count == 1, (
+                "A selected conversion must not bulk-read the trajectory."
+            )
+            return self.handle.read(*args, **kwargs)
+
+        def seek(self, *args):
+            return self.handle.seek(*args)
+
+        def tell(self):
+            return self.handle.tell()
+
+        def __len__(self):
+            return len(self.handle)
+
+    with reader_type(str(path), "r") as handle:
+        handle.seek(1)
+        observed = ObservedReader(handle)
+        result = convert(
+            observed,
+            atom_indices=[3, 1],
+            structure_indices=[2, 0, 2],
+            skip_digestion=True,
+        )
+        assert observed.reads == [(2, 1), (0, 1), (2, 1)]
+        assert handle.tell() == 1
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(result.coordinates, to_unit="nm"),
+        payload()[0][[2, 0, 2]][:, [3, 1]],
+        atol=2e-6,
+        rtol=0,
+    )

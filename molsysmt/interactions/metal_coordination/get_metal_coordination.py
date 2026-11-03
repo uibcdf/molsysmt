@@ -151,12 +151,12 @@ def get_metal_coordination(
     from molsysmt._private.execution.sparse_accumulator import SparseColumnAccumulator
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt.basic import convert, get
-    from molsysmt.interactions.result import Interactions
-    from molsysmt.physchem import get_metal_coordination_sites
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         select_chemical_atoms,
     )
+    from molsysmt.interactions.result import Interactions
+    from molsysmt.physchem import get_metal_coordination_sites
 
     from ._reducer import _MetalCoordinationReducer
 

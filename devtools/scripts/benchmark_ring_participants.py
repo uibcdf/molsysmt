@@ -14,29 +14,33 @@ import numpy as np
 import pandas as pd
 
 import molsysmt as msm
-from molsysmt.native import Topology
+from molsysmt.native import MolSys
 
 
 def _system(n_atoms, n_rings):
-    molsys = Topology(n_atoms=n_atoms)
+    molsys = MolSys(n_atoms=n_atoms)
     aromatic_atoms = 6 * n_rings
     first = np.arange(aromatic_atoms, dtype=np.int64)
     second = 6 * (first // 6) + (first + 1) % 6
     tail = np.arange(aromatic_atoms, n_atoms - 1, dtype=np.int64)
-    molsys.bonds = pd.DataFrame(
-        {
-            "atom1_index": np.concatenate((first, tail)),
-            "atom2_index": np.concatenate((second, tail + 1)),
-            "bond_type": ["covalent"] * (len(first) + len(tail)),
-            "is_aromatic": np.concatenate(
-                (np.ones(len(first), dtype=bool), np.zeros(len(tail), dtype=bool))
-            ),
-        }
+    molsys.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": np.concatenate((first, tail)),
+                "atom2_index": np.concatenate((second, tail + 1)),
+                "bond_type": ["covalent"] * (len(first) + len(tail)),
+                "is_aromatic": np.concatenate(
+                    (np.ones(len(first), dtype=bool), np.zeros(len(tail), dtype=bool))
+                ),
+            }
+        )
     )
     msm.set(
         molsys, element="atom", atom_is_aromatic=np.arange(n_atoms) < aromatic_atoms
     )
-    molsys._reference_chemical_state.connectivity_completeness = "complete"
+    molsys.chemical_states._resolve_chemical_state().connectivity_completeness = (
+        "complete"
+    )
     return molsys
 
 
@@ -61,7 +65,7 @@ def main():
     molsys = _system(args.atoms, args.rings)
     source_peak = _peak_rss()
     records = []
-    for tool in (msm.topology.get_rings, msm.physchem.get_aromatic_rings):
+    for tool in (msm.chemical_states.get_rings, msm.physchem.get_aromatic_rings):
         tool(molsys)
         elapsed = []
         for _ in range(args.repetitions):
@@ -100,8 +104,8 @@ def main():
         "source_hashes": {
             name: hashlib.sha256(Path(name).read_bytes()).hexdigest()
             for name in (
-                "molsysmt/topology/_rings.py",
-                "molsysmt/topology/get_rings.py",
+                "molsysmt/chemical_states/_rings.py",
+                "molsysmt/chemical_states/get_rings.py",
                 "molsysmt/physchem/get_aromatic_rings.py",
             )
         },

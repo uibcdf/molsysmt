@@ -192,7 +192,12 @@ def test_projected_known_source_and_json_map(pose_case):
         return_atom_map=True,
     )
     mapping = json.loads(json.dumps(mapping, default=lambda value: value.tolist()))
-    result = read_poses(ensemble(text), source.topology, mapping, return_report=True)
+    result = read_poses(
+        ensemble(text),
+        [source.topology, source.chemical_states],
+        mapping,
+        return_report=True,
+    )
     assert result["molecular_system"].get_n_atoms() == 3
     assert result["report"]["omitted_source_atom_indices"].size == 0
     assert result["molecular_system"].chemical_states._states[
@@ -277,7 +282,7 @@ def test_branched_pose_tree_preserves_covalent_graph(pose_case):
         msm.pyunitwizard.get_value(result.structures.coordinates, to_unit="nm")[2],
         np.arange(18).reshape(6, 3) / 10 - 0.5,
     )
-    assert result.topology.n_bonds == 5
+    assert result.chemical_states.get(n_bonds=True) == 5
     with pytest.raises(FormatError, match="torsion tree"):
         read_poses(ensemble(text).replace("TORSDOF 1", "TORSDOF 0", 1), source, mapping)
 
@@ -427,7 +432,9 @@ def test_real_vina_output_matches_engine_coordinate_axis(
         rtol=0,
     )
     assert result["report"]["n_input_structures"] == len(engine_xyz)
-    assert output.topology.n_bonds == source.topology.n_bonds
+    assert output.chemical_states.get(n_bonds=True) == source.chemical_states.get(
+        n_bonds=True
+    )
     assert output.get_n_atoms() == 40
 
     # The same engine ensemble is also consumed through the indexed raw form.

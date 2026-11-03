@@ -41,7 +41,7 @@ def test_mdanalysis_preserves_independent_chemistry(source_kind):
     universe = _chemical_universe()
     source = universe._topology if source_kind == "topology" else universe
 
-    topology = msm.convert(source, to_form="molsysmt.Topology")
+    topology = msm.convert(source, to_form="molsysmt.MolSys")
 
     assert msm.get(topology, element="atom", formal_charge=True) == [0, 0, 1, -1]
     assert msm.get(topology, element="bond", fractional_bond_order=True)[0] == 1.5
@@ -61,14 +61,14 @@ def test_mdanalysis_opaque_type_is_reported_and_strictly_rejected():
 
     _, report = msm.convert(
         source,
-        to_form="molsysmt.Topology",
+        to_form="molsysmt.MolSys",
         return_report=True,
     )
 
     assert report.outcome == "lossy"
     assert {issue.attribute for issue in report.issues} == {"bond_source_type"}
     with pytest.raises(msm.NotCompatibleConversionError, match="Strict conversion"):
-        msm.convert(source, to_form="molsysmt.Topology", strict=True)
+        msm.convert(source, to_form="molsysmt.MolSys", strict=True)
 
 
 def test_mdanalysis_universe_writes_selected_atoms_to_pdb(tmp_path):

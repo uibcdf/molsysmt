@@ -30,17 +30,11 @@ def test_generic_molsys_route_preserves_each_domain_combination(
 ):
     topology = Topology(n_atoms=2) if has_topology else None
     if has_chemistry:
-        states = (
-            topology._chemical_states_domain
-            if topology is not None
-            else ChemicalStates(n_atoms=2)
-        )
+        states = ChemicalStates(n_atoms=2)
         if states.n_chemical_states == 0:
             states.append_state()
     else:
         states = None
-        if topology is not None:
-            topology._clear_chemical_states()
     structures = (
         Structures(coordinates=msm.pyunitwizard.quantity(np.zeros((2, 2, 3)), "nm"))
         if has_structures
@@ -66,7 +60,7 @@ def test_generic_molsys_route_preserves_each_domain_combination(
     assert (observed.structures is not None) == has_structures
     assert observed.get_n_atoms() == 2
     if has_chemistry and has_topology:
-        assert observed.chemical_states is observed.topology._chemical_states_domain
+        assert observed.chemical_states._molsys_owner_ref() is observed
     if has_chemistry and has_structures:
         assert observed._get_structure_chemical_state_indices().tolist() == [0, 0]
 
@@ -82,7 +76,7 @@ def test_generic_reader_rejects_old_schema_instead_of_misreading_it(tmp_path):
 
 def test_04_migration_keeps_chemical_states_and_frame_values(tmp_path):
     source = MolSys(n_atoms=2)
-    source.topology.add_bonds([[0, 1]])
+    source.chemical_states.add_bonds([[0, 1]])
     source.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(
             np.arange(12).reshape(2, 2, 3) / 10, "nm"

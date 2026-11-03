@@ -18,8 +18,9 @@ HP35 quick reference (1vii.pdb):
 
 import pytest
 
-from molsysmt.form.molsysmt_Topology import get_topological_attributes as tget
-from molsysmt.form.molsysmt_Topology import set as tset
+from molsysmt.form.molsysmt_MolSys import set as mixed_set
+from molsysmt.form.molsysmt_Topology import get_topological_attributes as stable_get
+from molsysmt.form.molsysmt_Topology import set as stable_set
 
 N_ATOMS = 596
 N_GROUPS = 36
@@ -32,7 +33,7 @@ N_CHAINS = 1
 @pytest.fixture
 def hp35_topology(hp35_pdb_molsys):
     """Fresh Topology copy for each test."""
-    return hp35_pdb_molsys.topology.copy()
+    return hp35_pdb_molsys.copy()
 
 
 # ---------------------------------------------------------------------------
@@ -43,82 +44,89 @@ def hp35_topology(hp35_pdb_molsys):
 class TestGroupLevelSetters:
     def test_set_group_index_to_group_all(self, hp35_topology):
         new_indices = list(range(N_GROUPS))
-        tset.set_group_index_to_group(
-            hp35_topology, value=new_indices, skip_digestion=True
+        stable_set.set_group_index_to_group(
+            hp35_topology.topology, value=new_indices, skip_digestion=True
         )
-        result = tget.get_group_index_from_group(hp35_topology, skip_digestion=True)
+        result = stable_get.get_group_index_from_group(
+            hp35_topology.topology, skip_digestion=True
+        )
         assert list(result) == new_indices
 
     def test_set_group_index_to_group_indices(self, hp35_topology):
-        tset.set_group_index_to_group(
-            hp35_topology, indices=[0, 1], value=[0, 1], skip_digestion=True
+        stable_set.set_group_index_to_group(
+            hp35_topology.topology, indices=[0, 1], value=[0, 1], skip_digestion=True
         )
 
     def test_set_component_index_to_group_all(self, hp35_topology):
-        tset.set_component_index_to_group(
+        mixed_set.set_component_index_to_group(
             hp35_topology, value=[0] * N_GROUPS, skip_digestion=True
         )
 
     def test_set_component_name_to_group_all(self, hp35_topology):
-        tset.set_component_name_to_group(
+        mixed_set.set_component_name_to_group(
             hp35_topology, value=["CompA"] * N_GROUPS, skip_digestion=True
         )
 
     def test_set_component_id_to_group_all(self, hp35_topology):
-        tset.set_component_id_to_group(
+        mixed_set.set_component_id_to_group(
             hp35_topology, value=["0"] * N_GROUPS, skip_digestion=True
         )
 
     def test_set_component_type_to_group_all(self, hp35_topology):
-        tset.set_component_type_to_group(
+        mixed_set.set_component_type_to_group(
             hp35_topology, value=["peptide"] * N_GROUPS, skip_digestion=True
         )
 
     def test_set_molecule_index_to_group_all(self, hp35_topology):
-        tset.set_molecule_index_to_group(
-            hp35_topology, value=[0] * N_GROUPS, skip_digestion=True
+        stable_set.set_molecule_index_to_group(
+            hp35_topology.topology, value=[0] * N_GROUPS, skip_digestion=True
         )
 
     def test_set_chain_index_to_group_all(self, hp35_topology):
-        tset.set_chain_index_to_group(
-            hp35_topology, value=[0] * N_GROUPS, skip_digestion=True
+        stable_set.set_chain_index_to_group(
+            hp35_topology.topology, value=[0] * N_GROUPS, skip_digestion=True
         )
 
     def test_set_entity_index_to_group_all(self, hp35_topology):
-        tset.set_entity_index_to_group(
-            hp35_topology, value=[0] * N_GROUPS, skip_digestion=True
+        stable_set.set_entity_index_to_group(
+            hp35_topology.topology, value=[0] * N_GROUPS, skip_digestion=True
         )
 
     def test_set_entity_name_to_group_all(self, hp35_topology):
-        tset.set_entity_name_to_group(
-            hp35_topology, value=["villin HP35"] * N_GROUPS, skip_digestion=True
+        stable_set.set_entity_name_to_group(
+            hp35_topology.topology,
+            value=["villin HP35"] * N_GROUPS,
+            skip_digestion=True,
         )
 
     def test_set_entity_id_to_group_all(self, hp35_topology):
-        tset.set_entity_id_to_group(
-            hp35_topology, value=["0"] * N_GROUPS, skip_digestion=True
+        stable_set.set_entity_id_to_group(
+            hp35_topology.topology, value=["0"] * N_GROUPS, skip_digestion=True
         )
 
     def test_set_entity_type_to_group_all(self, hp35_topology):
-        tset.set_entity_type_to_group(
-            hp35_topology, value=["protein"] * N_GROUPS, skip_digestion=True
+        stable_set.set_entity_type_to_group(
+            hp35_topology.topology, value=["protein"] * N_GROUPS, skip_digestion=True
         )
 
     # --- indices != 'all' ---
 
     def test_set_molecule_name_to_group_indices(self, hp35_topology):
-        tset.set_molecule_name_to_group(
-            hp35_topology, indices=[0, 1], value=["mol0", "mol0"], skip_digestion=True
+        stable_set.set_molecule_name_to_group(
+            hp35_topology.topology,
+            indices=[0, 1],
+            value=["mol0", "mol0"],
+            skip_digestion=True,
         )
 
     def test_set_chain_name_to_group_indices(self, hp35_topology):
-        tset.set_chain_name_to_group(
-            hp35_topology, indices=[0], value=["A"], skip_digestion=True
+        stable_set.set_chain_name_to_group(
+            hp35_topology.topology, indices=[0], value=["A"], skip_digestion=True
         )
 
     def test_set_chain_id_to_group_indices(self, hp35_topology):
-        tset.set_chain_id_to_group(
-            hp35_topology, indices=[0], value=["A"], skip_digestion=True
+        stable_set.set_chain_id_to_group(
+            hp35_topology.topology, indices=[0], value=["A"], skip_digestion=True
         )
 
 
@@ -129,78 +137,84 @@ class TestGroupLevelSetters:
 
 class TestComponentLevelSetters:
     def test_set_component_index_to_component_all(self, hp35_topology):
-        tset.set_component_index_to_component(
+        mixed_set.set_component_index_to_component(
             hp35_topology, value=[0], skip_digestion=True
         )
 
     def test_set_component_index_to_component_indices(self, hp35_topology):
-        tset.set_component_index_to_component(
+        mixed_set.set_component_index_to_component(
             hp35_topology, indices=[0], value=[0], skip_digestion=True
         )
 
     def test_set_molecule_index_to_component_all(self, hp35_topology):
-        tset.set_molecule_index_to_component(
+        mixed_set.set_molecule_index_to_component(
             hp35_topology, value=[0], skip_digestion=True
         )
 
     def test_set_molecule_name_to_component_all(self, hp35_topology):
-        tset.set_molecule_name_to_component(
+        mixed_set.set_molecule_name_to_component(
             hp35_topology, value=["HP35"], skip_digestion=True
         )
 
     def test_set_molecule_id_to_component_all(self, hp35_topology):
-        tset.set_molecule_id_to_component(
+        mixed_set.set_molecule_id_to_component(
             hp35_topology, value=["0"], skip_digestion=True
         )
 
     def test_set_molecule_type_to_component_all(self, hp35_topology):
-        tset.set_molecule_type_to_component(
+        mixed_set.set_molecule_type_to_component(
             hp35_topology, value=["peptide"], skip_digestion=True
         )
 
     def test_set_chain_index_to_component_all(self, hp35_topology):
-        tset.set_chain_index_to_component(hp35_topology, value=[0], skip_digestion=True)
+        mixed_set.set_chain_index_to_component(
+            hp35_topology, value=[0], skip_digestion=True
+        )
 
     def test_set_chain_name_to_component_all(self, hp35_topology):
-        tset.set_chain_name_to_component(
+        mixed_set.set_chain_name_to_component(
             hp35_topology, value=["A"], skip_digestion=True
         )
 
     def test_set_chain_id_to_component_all(self, hp35_topology):
-        tset.set_chain_id_to_component(hp35_topology, value=["A"], skip_digestion=True)
+        mixed_set.set_chain_id_to_component(
+            hp35_topology, value=["A"], skip_digestion=True
+        )
 
     def test_set_chain_type_to_component_all(self, hp35_topology):
-        tset.set_chain_type_to_component(
+        mixed_set.set_chain_type_to_component(
             hp35_topology, value=["protein"], skip_digestion=True
         )
 
     def test_set_entity_index_to_component_all(self, hp35_topology):
-        tset.set_entity_index_to_component(
+        mixed_set.set_entity_index_to_component(
             hp35_topology, value=[0], skip_digestion=True
         )
 
     def test_set_entity_name_to_component_all(self, hp35_topology):
-        tset.set_entity_name_to_component(
+        mixed_set.set_entity_name_to_component(
             hp35_topology, value=["villin HP35"], skip_digestion=True
         )
 
     def test_set_entity_id_to_component_all(self, hp35_topology):
-        tset.set_entity_id_to_component(hp35_topology, value=["0"], skip_digestion=True)
+        mixed_set.set_entity_id_to_component(
+            hp35_topology, value=["0"], skip_digestion=True
+        )
 
     def test_set_entity_type_to_component_all(self, hp35_topology):
-        tset.set_entity_type_to_component(
+        mixed_set.set_entity_type_to_component(
             hp35_topology, value=["protein"], skip_digestion=True
         )
 
     # --- indices != 'all' ---
 
     def test_set_chain_name_to_component_indices(self, hp35_topology):
-        tset.set_chain_name_to_component(
+        mixed_set.set_chain_name_to_component(
             hp35_topology, indices=[0], value=["A"], skip_digestion=True
         )
 
     def test_set_entity_name_to_component_indices(self, hp35_topology):
-        tset.set_entity_name_to_component(
+        mixed_set.set_entity_name_to_component(
             hp35_topology, indices=[0], value=["villin HP35"], skip_digestion=True
         )
 
@@ -212,50 +226,60 @@ class TestComponentLevelSetters:
 
 class TestMoleculeLevelSetters:
     def test_set_molecule_index_to_molecule_all(self, hp35_topology):
-        tset.set_molecule_index_to_molecule(
-            hp35_topology, value=[0], skip_digestion=True
+        stable_set.set_molecule_index_to_molecule(
+            hp35_topology.topology, value=[0], skip_digestion=True
         )
 
     def test_set_chain_index_to_molecule_all(self, hp35_topology):
-        tset.set_chain_index_to_molecule(hp35_topology, value=[0], skip_digestion=True)
+        stable_set.set_chain_index_to_molecule(
+            hp35_topology.topology, value=[0], skip_digestion=True
+        )
 
     def test_set_chain_name_to_molecule_all(self, hp35_topology):
-        tset.set_chain_name_to_molecule(hp35_topology, value=["A"], skip_digestion=True)
+        stable_set.set_chain_name_to_molecule(
+            hp35_topology.topology, value=["A"], skip_digestion=True
+        )
 
     def test_set_chain_id_to_molecule_all(self, hp35_topology):
-        tset.set_chain_id_to_molecule(hp35_topology, value=["A"], skip_digestion=True)
+        stable_set.set_chain_id_to_molecule(
+            hp35_topology.topology, value=["A"], skip_digestion=True
+        )
 
     def test_set_chain_type_to_molecule_all(self, hp35_topology):
-        tset.set_chain_type_to_molecule(
-            hp35_topology, value=["protein"], skip_digestion=True
+        stable_set.set_chain_type_to_molecule(
+            hp35_topology.topology, value=["protein"], skip_digestion=True
         )
 
     def test_set_entity_index_to_molecule_all(self, hp35_topology):
-        tset.set_entity_index_to_molecule(hp35_topology, value=[0], skip_digestion=True)
+        stable_set.set_entity_index_to_molecule(
+            hp35_topology.topology, value=[0], skip_digestion=True
+        )
 
     def test_set_entity_name_to_molecule_all(self, hp35_topology):
-        tset.set_entity_name_to_molecule(
-            hp35_topology, value=["villin HP35"], skip_digestion=True
+        stable_set.set_entity_name_to_molecule(
+            hp35_topology.topology, value=["villin HP35"], skip_digestion=True
         )
 
     def test_set_entity_id_to_molecule_all(self, hp35_topology):
-        tset.set_entity_id_to_molecule(hp35_topology, value=["0"], skip_digestion=True)
+        stable_set.set_entity_id_to_molecule(
+            hp35_topology.topology, value=["0"], skip_digestion=True
+        )
 
     def test_set_entity_type_to_molecule_all(self, hp35_topology):
-        tset.set_entity_type_to_molecule(
-            hp35_topology, value=["protein"], skip_digestion=True
+        stable_set.set_entity_type_to_molecule(
+            hp35_topology.topology, value=["protein"], skip_digestion=True
         )
 
     # --- indices != 'all' ---
 
     def test_set_molecule_index_to_molecule_indices(self, hp35_topology):
-        tset.set_molecule_index_to_molecule(
-            hp35_topology, indices=[0], value=[0], skip_digestion=True
+        stable_set.set_molecule_index_to_molecule(
+            hp35_topology.topology, indices=[0], value=[0], skip_digestion=True
         )
 
     def test_set_chain_name_to_molecule_indices(self, hp35_topology):
-        tset.set_chain_name_to_molecule(
-            hp35_topology, indices=[0], value=["A"], skip_digestion=True
+        stable_set.set_chain_name_to_molecule(
+            hp35_topology.topology, indices=[0], value=["A"], skip_digestion=True
         )
 
 
@@ -266,55 +290,68 @@ class TestMoleculeLevelSetters:
 
 class TestChainLevelSetters:
     def test_set_molecule_index_to_chain_all(self, hp35_topology):
-        tset.set_molecule_index_to_chain(hp35_topology, value=[0], skip_digestion=True)
+        stable_set.set_molecule_index_to_chain(
+            hp35_topology.topology, value=[0], skip_digestion=True
+        )
 
     def test_set_molecule_name_to_chain_all(self, hp35_topology):
-        tset.set_molecule_name_to_chain(
-            hp35_topology, value=["HP35"], skip_digestion=True
+        stable_set.set_molecule_name_to_chain(
+            hp35_topology.topology, value=["HP35"], skip_digestion=True
         )
 
     def test_set_molecule_id_to_chain_all(self, hp35_topology):
-        tset.set_molecule_id_to_chain(hp35_topology, value=["0"], skip_digestion=True)
+        stable_set.set_molecule_id_to_chain(
+            hp35_topology.topology, value=["0"], skip_digestion=True
+        )
 
     def test_set_molecule_type_to_chain_all(self, hp35_topology):
-        tset.set_molecule_type_to_chain(
-            hp35_topology, value=["peptide"], skip_digestion=True
+        stable_set.set_molecule_type_to_chain(
+            hp35_topology.topology, value=["peptide"], skip_digestion=True
         )
 
     def test_set_molecule_index_to_chain_indices(self, hp35_topology):
-        tset.set_molecule_index_to_chain(
-            hp35_topology, indices=[0], value=[0], skip_digestion=True
+        stable_set.set_molecule_index_to_chain(
+            hp35_topology.topology, indices=[0], value=[0], skip_digestion=True
         )
 
     def test_set_chain_index_to_chain_all(self, hp35_topology):
-        tset.set_chain_index_to_chain(hp35_topology, value=[0], skip_digestion=True)
+        stable_set.set_chain_index_to_chain(
+            hp35_topology.topology, value=[0], skip_digestion=True
+        )
 
     def test_set_chain_index_to_chain_indices(self, hp35_topology):
-        tset.set_chain_index_to_chain(
-            hp35_topology, indices=[0], value=[0], skip_digestion=True
+        stable_set.set_chain_index_to_chain(
+            hp35_topology.topology, indices=[0], value=[0], skip_digestion=True
         )
 
     def test_set_entity_index_to_chain_all(self, hp35_topology):
-        tset.set_entity_index_to_chain(hp35_topology, value=[0], skip_digestion=True)
+        stable_set.set_entity_index_to_chain(
+            hp35_topology.topology, value=[0], skip_digestion=True
+        )
 
     def test_set_entity_name_to_chain_all(self, hp35_topology):
-        tset.set_entity_name_to_chain(
-            hp35_topology, value=["villin HP35"], skip_digestion=True
+        stable_set.set_entity_name_to_chain(
+            hp35_topology.topology, value=["villin HP35"], skip_digestion=True
         )
 
     def test_set_entity_id_to_chain_all(self, hp35_topology):
-        tset.set_entity_id_to_chain(hp35_topology, value=["0"], skip_digestion=True)
+        stable_set.set_entity_id_to_chain(
+            hp35_topology.topology, value=["0"], skip_digestion=True
+        )
 
     def test_set_entity_type_to_chain_all(self, hp35_topology):
-        tset.set_entity_type_to_chain(
-            hp35_topology, value=["protein"], skip_digestion=True
+        stable_set.set_entity_type_to_chain(
+            hp35_topology.topology, value=["protein"], skip_digestion=True
         )
 
     # --- indices != 'all' ---
 
     def test_set_entity_name_to_chain_indices(self, hp35_topology):
-        tset.set_entity_name_to_chain(
-            hp35_topology, indices=[0], value=["villin HP35"], skip_digestion=True
+        stable_set.set_entity_name_to_chain(
+            hp35_topology.topology,
+            indices=[0],
+            value=["villin HP35"],
+            skip_digestion=True,
         )
 
 
@@ -325,26 +362,31 @@ class TestChainLevelSetters:
 
 class TestEntityLevelSetters:
     def test_set_entity_index_to_entity_all(self, hp35_topology):
-        tset.set_entity_index_to_entity(hp35_topology, value=[0], skip_digestion=True)
+        stable_set.set_entity_index_to_entity(
+            hp35_topology.topology, value=[0], skip_digestion=True
+        )
 
     def test_set_entity_index_to_entity_indices(self, hp35_topology):
-        tset.set_entity_index_to_entity(
-            hp35_topology, indices=[0], value=[0], skip_digestion=True
+        stable_set.set_entity_index_to_entity(
+            hp35_topology.topology, indices=[0], value=[0], skip_digestion=True
         )
 
     def test_set_entity_name_to_entity_indices(self, hp35_topology):
-        tset.set_entity_name_to_entity(
-            hp35_topology, indices=[0], value=["villin HP35"], skip_digestion=True
+        stable_set.set_entity_name_to_entity(
+            hp35_topology.topology,
+            indices=[0],
+            value=["villin HP35"],
+            skip_digestion=True,
         )
 
     def test_set_entity_id_to_entity_indices(self, hp35_topology):
-        tset.set_entity_id_to_entity(
-            hp35_topology, indices=[0], value=["0"], skip_digestion=True
+        stable_set.set_entity_id_to_entity(
+            hp35_topology.topology, indices=[0], value=["0"], skip_digestion=True
         )
 
     def test_set_entity_type_to_entity_indices(self, hp35_topology):
-        tset.set_entity_type_to_entity(
-            hp35_topology, indices=[0], value=["protein"], skip_digestion=True
+        stable_set.set_entity_type_to_entity(
+            hp35_topology.topology, indices=[0], value=["protein"], skip_digestion=True
         )
 
 
@@ -355,19 +397,25 @@ class TestEntityLevelSetters:
 
 class TestRoundTrip:
     def test_group_name_roundtrip(self, hp35_topology):
-        original = tget.get_group_name_from_group(hp35_topology, skip_digestion=True)
-        new_names = ["GLY"] * N_GROUPS
-        tset.set_group_name_to_group(
-            hp35_topology, value=new_names, skip_digestion=True
+        original = stable_get.get_group_name_from_group(
+            hp35_topology.topology, skip_digestion=True
         )
-        result = tget.get_group_name_from_group(hp35_topology, skip_digestion=True)
+        new_names = ["GLY"] * N_GROUPS
+        stable_set.set_group_name_to_group(
+            hp35_topology.topology, value=new_names, skip_digestion=True
+        )
+        result = stable_get.get_group_name_from_group(
+            hp35_topology.topology, skip_digestion=True
+        )
         assert result == new_names
         assert result != original
 
     def test_entity_name_to_entity_roundtrip(self, hp35_topology):
         new_name = ["test_protein"]
-        tset.set_entity_name_to_entity(
-            hp35_topology, value=new_name, skip_digestion=True
+        stable_set.set_entity_name_to_entity(
+            hp35_topology.topology, value=new_name, skip_digestion=True
         )
-        result = tget.get_entity_name_from_entity(hp35_topology, skip_digestion=True)
+        result = stable_get.get_entity_name_from_entity(
+            hp35_topology.topology, skip_digestion=True
+        )
         assert result == new_name

@@ -19,7 +19,8 @@ def test_topology_yaml_roundtrip(builder_pdb_molsys, tmp_path):
         "O",
     ]
     assert rebuilt.n_atoms == topology.n_atoms
-    assert rebuilt.n_bonds == topology.n_bonds
+    assert not hasattr(rebuilt, "bonds")
+    assert not hasattr(topology, "bonds")
     assert (
         rebuilt.groups["group_name"].tolist() == topology.groups["group_name"].tolist()
     )

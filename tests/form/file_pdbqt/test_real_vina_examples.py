@@ -81,8 +81,8 @@ def test_real_getters_preserve_declared_fields_and_partial_chemistry(pdbqt_case)
     )
     native = msm.convert(path, to_form="molsysmt.MolSys", discard_torsion_tree=True)
     assert native.topology.n_atoms == record["pdbqt_n_atoms"]
-    assert native.topology.n_bonds == record["n_branches"]
-    assert msm.get(native, connectivity_completeness=True) == ["partial"]
+    assert native.chemical_states.get(n_bonds=True) == record["n_branches"]
+    assert msm.get(native, connectivity_completeness=True) == "partial"
     for attribute in ("bond_order", "formal_charge", "atom_is_aromatic"):
         assert not msm.has_attribute(native, attribute)
     tree = get_torsion_tree(path)
@@ -282,8 +282,8 @@ def test_rotatable_source_pairs_preserve_original_vina_policy_differences(
     )[0]
     original = Chem.MolToMolBlock(molecule)
     native = msm.convert(Chem.Mol(molecule), to_form="molsysmt.MolSys")
-    result = msm.topology.get_rotatable_bonds(native)
-    broad = msm.topology.get_rotatable_bonds(native, method="acyclic_single")
+    result = msm.chemical_states.get_rotatable_bonds(native)
+    broad = msm.chemical_states.get_rotatable_bonds(native, method="acyclic_single")
     candidates = set(map(tuple, np.sort(result["rotatable_bonded_atom_pairs"], axis=1)))
     broad_candidates = set(
         map(tuple, np.sort(broad["rotatable_bonded_atom_pairs"], axis=1))
@@ -325,7 +325,7 @@ def test_rotatable_source_pairs_preserve_original_vina_policy_differences(
         )
     else:
         # Compare memberships, independently of root and atom serialization order.
-        fragments = msm.topology.get_rigid_fragments(
+        fragments = msm.chemical_states.get_rigid_fragments(
             native, bond_indices=result["rotatable_bond_indices"]
         )
         observed_blocks = {

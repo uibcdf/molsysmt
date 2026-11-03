@@ -122,7 +122,7 @@ def get_tpsa(
     --------
     molsysmt.physchem.get_sasa : Calculating geometric solvent-accessible areas.
     molsysmt.physchem.get_aromaticity : Checking state-specific aromaticity.
-    molsysmt.topology.get_covalent_blocks : Finding covalently connected blocks.
+    molsysmt.chemical_states.get_covalent_blocks : Finding covalently connected blocks.
 
     References
     ----------

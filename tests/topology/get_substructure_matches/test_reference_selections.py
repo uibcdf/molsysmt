@@ -46,7 +46,7 @@ def chemical_system():
 
 def read(reader, source, **kwargs):
     if reader == "smarts":
-        return msm.topology.get_substructure_matches(source, PATTERNS, **kwargs)
+        return msm.chemical_states.get_substructure_matches(source, PATTERNS, **kwargs)
     if reader == "hydrophobic":
         return msm.physchem.get_hydrophobic_sites(source, **kwargs)
     return msm.physchem.get_halogen_bond_sites(source, **kwargs)
@@ -102,7 +102,7 @@ def test_default_reference_external_smarts_population(
     pytest.importorskip("mdtraj")
     source = chemical_system
     if form == "complementary":
-        source = [source.topology, source.structures]
+        source = [source.topology, source.chemical_states, source.structures]
     elif form == "h5msm":
         source = tmp_path / "chemical.h5msm"
         msm.convert(chemical_system, to_form=source)
@@ -136,13 +136,13 @@ def test_default_reference_external_smarts_population(
 
 @pytest.mark.parametrize("reader", READERS)
 @pytest.mark.parametrize("chemical_state", [None, "reference"])
-def test_standalone_topology_reference_selections(
+def test_explicit_inventory_and_chemistry_reference_selections(
     chemical_system, reader, chemical_state
 ):
     pytest.importorskip("mdtraj")
     result = read(
         reader,
-        chemical_system.topology,
+        [chemical_system.topology, chemical_system.chemical_states],
         selection="all and all",
         chemical_state=chemical_state,
         syntax="MDTraj",
@@ -162,7 +162,7 @@ def test_nonzero_reference_does_not_follow_structure_association(
     msm.set(chemical_system, structure_chemical_state_index=[0, 0, 0])
     source = chemical_system
     if form == "complementary":
-        source = [source.topology, source.structures]
+        source = [source.topology, source.chemical_states, source.structures]
     elif form == "h5msm":
         source = tmp_path / "nonzero-reference.h5msm"
         msm.convert(chemical_system, to_form=source)

@@ -12,8 +12,7 @@ or a stable parsing interface. Use native properties or `msm.info()` for data.
 
 The same convention covers the native containers, dictionary wrappers and file
 handlers. A `Structures` summary uses stored array shapes; an absent atom-aligned
-series leaves its atom count unknown. A topology reports bond count only from
-its resolvable reference state. An interaction view counts selected occurrences
+series leaves its atom count unknown. A topology reports only stable inventory; its summary never resolves chemistry. An interaction view counts selected occurrences
 and evaluated structures, while its stored-relation count describes the shared
 backing table. Neither summary resolves ambiguity or certifies scientific readiness.
 
@@ -43,6 +42,8 @@ As a user, `molsysmt.MolSys` is the central object returned when loading, conver
 
 Some native operations edit a `MolSys` in place; `extract` returns an independent subset. A partial `MolSys` retains only the information domains that were available in its source.
 
+PDB export from a native system requires assigned `group_index` and `chain_index` for every selected atom. Unknown membership raises `NotCompatibleConversionError` before opening the destination; the source is unchanged. Select only atoms with the required membership, explicitly assign the correct stable inventory, or use H5MSM 0.5 to retain unknown memberships. An assigned chain with an unknown label is a different case: the PDB writer retains its existing `A` label fallback without changing native membership.
+
 The general `msm.remove` tool returns an independent subset by default, even
 when nothing is removed. Explicit `in_place=True` keeps the MolSys identity,
 replaces its domains together and returns `None`. Previously held domains and
@@ -60,12 +61,19 @@ states are not automatically assigned to structures. See {ref}`Tutorial_Convert`
 
 You can also compose standalone native `Topology`, `ChemicalStates`, `Structures`
 and `MolecularMechanics` providers. A supplied `ChemicalStates` owns chemistry;
-the Topology compatibility collection is a fallback when it is absent. Listing
+no Topology fallback creates chemistry when that domain is absent. Listing
 these domains declares positional correspondence, not common origin. Full atom
 axes must agree before selection; repeated explicit providers fail. Mechanical
 values, settings and original producer reports are retained without recalculating
 charges or legitimizing stale assignments. A list of partial `MolSys` inputs
 retains its separate, bounded contract; it does not transfer mechanics.
+
+An explicit `ChemicalStates` or `ChemicalStatesDict` can also accompany native
+inventory and one coordinate-only source, such as a DCD file. Only the requested
+structures are read before composing the shared atom axis; atom extraction then
+remaps inventory, every state and coordinates together. A foreign source with
+its own inventory or chemistry is not silently treated as coordinates by this
+route. Missing structure-to-state assignments remain unknown.
 
 The default native composition result is independent. `copy_if_all=False` avoids
 the final snapshot for a full-axis request, but domains with a live molecular
@@ -80,6 +88,30 @@ an automatic structure association. H5MSM 0.5 still rejects nonempty mechanics.
 
 
 Direct `MolSys.add` and `Topology.add` calls also validate `keep_ids` as a boolean, including its default `True`. Leave `skip_digestion=False` for ordinary public calls; trusted delegation is not required to use these methods.
+
+## Restricting Chemical Domains
+
+An atom selection restricts every stored chemical state while preserving state
+order, the reference and structure-to-state associations. With complete stored
+connectivity, components describe the retained induced graph. Removing the middle
+atom of a three-atom path therefore leaves two components. Both can still belong
+to the same stable molecule: molecular identity and covalent connectivity are
+separate domains.
+
+For complete graphs, component labels survive only when the full original atom set is unchanged.
+New or cut components receive local string IDs and unknown names/types. With
+partial or unavailable connectivity, extraction instead restricts the declared
+memberships; it does not invent a complete partition from the visible edges.
+Those rows still describe restricted source declarations. Cutting a retained
+component downgrades a complete declaration to partial.
+
+Stereo references follow their corresponding bond endpoints when atom order
+changes. Removing a defining stereo neighbor clears the now-incomplete bond
+stereo annotation. Historical preparation records retain their original index
+scope. A complete induced graph is not a prepared standalone chemical fragment:
+extraction does not add caps or hydrogens, perceive aromaticity, choose a chemical
+state or recalculate interactions. See {ref}`Tutorial_Extract` and
+{ref}`Cookbook_Group_Free_Hierarchy` for executed examples.
 
 ## Native Queries
 
@@ -149,8 +181,8 @@ native domains, canonical tables, other mutable series and named-analysis handle
 The universal `msm.copy(molsys)` keeps the eager default. Assigning
 `molsys_A = molsys` still refers to the same live system.
 
-Each copied topology belongs to its copied system. Its compatibility chemistry
-and `molsys_A.chemical_states` refer to one copied collection. Structure-to-state
+Each copied topology belongs to its copied system and remains independent of
+the copied chemical collection at `molsys_A.chemical_states`. Structure-to-state
 assignments, missing domains, local/source index maps, producer versions and
 occurrence indices survive unchanged. Copying does not reconstruct the system,
 remap interactions, infer chemistry or pack a lazy analysis. Immutable sparse
@@ -207,7 +239,7 @@ The native container exposes these domains:
 
 | Attribute | Internal Object Class | Description |
 | :--- | :--- | :--- |
-| **`topology`** | `molsysmt.Topology` | Stable atom, group, molecule, entity and chain inventories, with compatibility access to chemical connectivity. |
+| **`topology`** | `molsysmt.Topology` | Stable atom, group, molecule, entity and chain inventories; no chemical connectivity facade. |
 | **`structures`** | `molsysmt.Structures` | Structural container holding 3D coordinates `(n_structures, n_atoms, 3)`, periodic box matrices `(n_structures, 3, 3)`, and structure timestamps. |
 | **`chemical_states`** | `molsysmt.ChemicalStates` | State-dependent covalent bonds and atom-level chemical assignments. |
 | **`interactions`** | Named `molsysmt.Interactions` results | Sparse observations with declared atom and structure index domains. |
@@ -485,10 +517,12 @@ This preserves other structures and checks calculation compatibility; attaching
 `fresh` directly would replace the whole named analysis. Geometry delegation failures conservatively retain
 unevaluated coverage because a partial write may have occurred.
 
-This automatic boundary is the native MolSys form. If you edit a separately
-accessed `molsys.structures` directly, explicitly replace each affected named
-result with `analysis.invalidate_structures(structure_indices)`. Geometry
-setters do not infer changes made through independent objects or aliased data.
+Attached `molsys.structures.set_coordinates()` / `set_box()` and complete
+coordinate/box property assignments notify the same owner automatically, as do
+form setters on that attached domain. Standalone domain copies have no owner.
+Raw array edits or changes through independent aliases require explicit
+`analysis.invalidate_structures(structure_indices)` and reattachment under the
+analysis name; they are outside the controlled setter boundary.
 
 Invalidation applies even when the moved atom did not participate in a previous
 interaction: moving it can create a new one. No detector runs automatically.
@@ -498,7 +532,7 @@ calculation from a calculated absence. See
 copyable example and the complete edit policy.
 
 Changing chemical-state atom or scientific bond assignments through
-`msm.set(molsys, ...)` or `msm.set(molsys.topology, ...)`, or replacing
+`msm.set(molsys, ...)` or `msm.set(molsys.chemical_states, ...)`, or replacing
 `molsys.chemical_states`, marks every
 named analysis unevaluated. Charge centers, aromatic participants and
 hydrogen-bond roles can change at fixed coordinates. MolSysMT conservatively
@@ -507,14 +541,17 @@ chemical dependencies. Empty atom/bond selections and bond ID changes preserve
 analyses. Assigning or clearing `structure_chemical_state_index` invalidates
 only the selected structures. Earlier result/query snapshots remain available.
 
-Native topology bond addition/removal and replacing its bond table also notify
-the owner. Standalone topology copies are detached.
+Controlled `ChemicalStates.add_bonds()` / `remove_bonds()` also notify the owner.
+Their bonds, rebuilt components and analysis invalidation are staged together;
+reconstruction failure leaves all three unchanged. Topology has no bond table
+or chemical editing facade. Standalone chemical copies are detached.
 `molsys.chemical_states.append_state()` also makes all analyses unevaluated,
 without copying existing states or coordinates. Explicit structure-to-state
 assignments remain unchanged. With multiple states, structures without an
 explicit assignment resolve to unknown. Appending preparation history only
-archives evidence and preserves analyses. Other private chemical collection
-edits, whole-topology replacement, mechanics changes and raw table/array edits require explicit
+archives evidence and preserves analyses. Validated whole-topology replacement
+preserves chemistry and invalidates named analyses. Other private chemical collection
+edits, mechanics changes and raw table/array edits require explicit
 owner invalidation. Recalculate and attach new results before claiming that
 these changed data have been evaluated.
 
@@ -582,7 +619,7 @@ as dropped. The heavy-atom tool offers strict rejection of that loss. See
 ## Chemical Correspondence
 
 `chemical_states` supplies declared assignments for
-{func}`molsysmt.topology.get_atom_correspondences`. Its reusable dictionary maps
+{func}`molsysmt.chemical_states.get_atom_correspondences`. Its reusable dictionary maps
 positions in both source atom axes, independently of coordinates or string IDs.
 A metric selection retains its full covalent component as chemical context.
 Coordinate changes permit map reuse; chemical changes, atom-axis reordering or

@@ -13,7 +13,9 @@ def test_rdkit_mol_to_molsys_preserves_bond_order_and_formal_charge():
 
     molsys = msm.convert(mol, to_form="molsysmt.MolSys")
 
-    orders = molsys.topology.bonds["bond_order"].tolist()
+    orders = (
+        molsys.chemical_states._resolve_chemical_state().bonds["bond_order"].tolist()
+    )
     formal_charge = msm.get(molsys, element="atom", formal_charge=True)
 
     assert 2 in orders
@@ -35,7 +37,7 @@ def test_rdkit_mol_to_molsys_preserves_aromatic_bonds_in_viewerjson():
 def test_rdkit_rich_atom_and_bond_fields_remain_independent():
     mol = Chem.MolFromSmiles("[NH3+][C@H](C)C(=O)/N=C/C1=CC=CC=C1")
 
-    topology = msm.convert(mol, to_form="molsysmt.Topology")
+    topology = msm.convert(mol, to_form="molsysmt.MolSys")
 
     assert msm.get(topology, element="atom", formal_charge=True)[0] == 1
     assert "R" in msm.get(topology, element="atom", atom_stereochemistry=True)
@@ -67,7 +69,7 @@ def test_rdkit_rich_atom_and_bond_fields_remain_independent():
 def test_rdkit_dative_direction_is_preserved_without_joining_components():
     mol = Chem.MolFromSmiles("[NH3]->[Cu+2]")
 
-    topology = msm.convert(mol, to_form="molsysmt.Topology")
+    topology = msm.convert(mol, to_form="molsysmt.MolSys")
 
     assert msm.get(topology, element="bond", bond_type=True) == ["dative"]
     assert msm.get(topology, element="bond", bond_donor_atom_index=True) == [0]
@@ -79,7 +81,7 @@ def test_rdkit_dative_direction_is_preserved_without_joining_components():
 def test_rdkit_native_conversion_report_is_equivalent_for_supported_subset():
     mol = Chem.MolFromSmiles("c1ccccc1")
 
-    _, report = msm.convert(mol, to_form="molsysmt.Topology", return_report=True)
+    _, report = msm.convert(mol, to_form="molsysmt.MolSys", return_report=True)
 
     assert report.outcome == "equivalent"
     assert report.issues == ()
@@ -88,7 +90,7 @@ def test_rdkit_native_conversion_report_is_equivalent_for_supported_subset():
 def test_rdkit_isotope_is_preserved_and_no_longer_reported_as_loss():
     mol = Chem.MolFromSmiles("[13CH4]")
 
-    topology, report = msm.convert(mol, to_form="molsysmt.Topology", return_report=True)
+    topology, report = msm.convert(mol, to_form="molsysmt.MolSys", return_report=True)
 
     assert msm.get(topology, element="atom", isotope=True) == [13]
     assert report.outcome == "equivalent"

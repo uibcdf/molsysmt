@@ -10,24 +10,26 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
-from molsysmt.native import MolSys, Structures, Topology
+from molsysmt.native import MolSys, Structures
 
 
 @pytest.fixture
 def chain():
-    topology = Topology(n_atoms=4)
-    topology.atoms["atom_type"] = ["C", "C", "O", "H"]
-    topology.atoms["atom_id"] = ["a", "b", "c", "d"]
-    topology.bonds = pd.DataFrame(
-        {
-            "atom1_index": [0, 1, 2],
-            "atom2_index": [1, 2, 3],
-            "bond_type": ["covalent"] * 3,
-            "bond_order": [1, 1, 1],
-            "evidence": ["explicit", "inferred", "unknown"],
-        }
+    topology = MolSys(n_atoms=4)
+    topology.topology.atoms["atom_type"] = ["C", "C", "O", "H"]
+    topology.topology.atoms["atom_id"] = ["a", "b", "c", "d"]
+    topology.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": [0, 1, 2],
+                "atom2_index": [1, 2, 3],
+                "bond_type": ["covalent"] * 3,
+                "bond_order": [1, 1, 1],
+                "evidence": ["explicit", "inferred", "unknown"],
+            }
+        )
     )
-    state = topology._chemical_states_domain._states[0]
+    state = topology.chemical_states._states[0]
     state.connectivity_completeness = "complete"
     state.set_atom_attribute("formal_charge", [0, 0, 0, 0])
     state.set_atom_attribute("n_explicit_hydrogens", [3, 2, 0, 0])
@@ -70,9 +72,9 @@ def test_caffeine_reports_presence_without_claiming_chemical_validation():
 
 
 def test_partial_unsupported_and_inferred_chemistry_are_distinct(chain):
-    state = chain._chemical_states_domain._states[0]
+    state = chain.chemical_states._states[0]
     state.connectivity_completeness = "partial"
-    chain.atoms.loc[0, "atom_type"] = "OA"
+    chain.topology.atoms.loc[0, "atom_type"] = "OA"
     state.set_atom_attribute("formal_charge", [0, None, -1, 0])
     state.bonds.loc[1, "bond_order"] = 0
     report = msm.physchem.get_chemical_readiness(chain)
@@ -110,7 +112,7 @@ def test_selection_reports_incident_bonds_and_unobserved_hydrogen_inventory(chai
 
 
 def test_ambiguous_state_does_not_silently_use_the_first_state(chain):
-    states = chain._chemical_states_domain
+    states = chain.chemical_states
     states.append_state()
     states._set_reference_index(None)
     report = msm.physchem.get_chemical_readiness(chain)
@@ -156,7 +158,7 @@ def test_state_and_frame_association_and_nonfinite_coordinates(chain):
 
 
 def test_standalone_states_and_coordinate_only_forms_are_assessable(chain):
-    states = chain._chemical_states_domain
+    states = chain.chemical_states
     for source in (states, msm.convert(states, to_form="molsysmt.ChemicalStatesDict")):
         report = msm.physchem.get_chemical_readiness(source)
         assert report["fields"]["atom_type"]["status"] == "missing"
@@ -180,8 +182,8 @@ def test_standalone_states_and_coordinate_only_forms_are_assessable(chain):
 
 
 def test_detached_report_and_bounded_connectivity_conflicts(chain):
-    chain.atoms.loc[1, "atom_id"] = "a"
-    state = chain._chemical_states_domain._states[0]
+    chain.topology.atoms.loc[1, "atom_id"] = "a"
+    state = chain.chemical_states._states[0]
     state.bonds.loc[0, "atom2_index"] = 0
     report = msm.physchem.get_chemical_readiness(chain)
     assert report["fields"]["atom_id"]["conflict_indices"].tolist() == [0, 1]
@@ -358,7 +360,7 @@ def test_external_reference_syntax_preserves_intended_population(
     frame = "all" if single_structure else [2]
     source = molsys
     if form == "complementary":
-        source = [molsys.topology, molsys.structures]
+        source = [molsys.topology, molsys.chemical_states, molsys.structures]
     elif form == "h5msm":
         source = tmp_path / "source.h5msm"
         msm.convert(molsys, to_form=source)

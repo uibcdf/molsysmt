@@ -22,10 +22,14 @@ from molsysmt import pyunitwizard as puw
 def test_empty_bonded_operands_follow_set_semantics(
     alanine_molsys, topology_only, query, expected
 ):
-    system = alanine_molsys.topology if topology_only else alanine_molsys
+    system = (
+        [alanine_molsys.topology, alanine_molsys.chemical_states]
+        if topology_only
+        else alanine_molsys
+    )
     result = msm.select(system, query)
     wanted = (
-        np.arange(system.n_atoms if topology_only else system.topology.n_atoms)
+        np.arange(alanine_molsys.topology.n_atoms)
         if expected == "all"
         else ([0] if expected == "first" else [])
     )

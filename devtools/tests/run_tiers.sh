@@ -4,7 +4,7 @@ set -euo pipefail
 TIER="${1:-smoke}"
 
 run_smoke() {
-  pytest -q \
+  MPLBACKEND=Agg python -m pytest --receptor=llm -q \
     tests/element/component/test_get_component_index.py \
     tests/topology/get_covalent_blocks/test_get_covalent_blocks_from_molsysmt_MolSys.py \
     tests/pbc/get_lengths_and_angles_from_box/test_get_lengths_and_angles_from_box.py \
@@ -50,6 +50,26 @@ run_smoke() {
     tests/build/test_get_residue_chemical_coverage.py \
     tests/build/test_get_covalent_bond_candidates.py \
     tests/build/test_get_peptide_bond_candidates.py \
+    tests/build/get_missing_heavy_atoms/ \
+    tests/build/get_missing_terminal_cappings/ \
+    tests/build/get_non_standard_residues/ \
+    tests/build/get_missing_bonds/ \
+    tests/interactions/disulfides/ \
+    tests/interactions/ionic/ \
+    tests/interactions/hydrophobic/ \
+    tests/interactions/halogen_bonds/ \
+    tests/interactions/metal_coordination/ \
+    tests/interactions/pi_pi/ \
+    tests/interactions/cation_pi/ \
+    tests/interactions/water_bridges/ \
+    tests/interactions/hbonds/test_get_hbond_sites.py \
+    tests/interactions/hbonds/test_get_hbond_site_directions.py \
+    tests/interactions/hbonds/test_donor_pair_integrity.py \
+    tests/interactions/hbonds/test_role_rule_ownership.py \
+    tests/interactions/hbonds/test_role_rule_syntax.py \
+    tests/interactions/hbonds/test_attributed_hbonds.py \
+    tests/interactions/hbonds/test_buch_results.py \
+    tests/interactions/hbonds/test_luzard_chandler_results.py \
     tests/form/molsysmt_Topology/test_atom_membership_order.py \
     tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py \
     tests/native/test_builder_inherited_molecules.py \
@@ -62,14 +82,14 @@ run_smoke() {
 }
 
 run_build_topology() {
-  pytest -q \
+  MPLBACKEND=Agg python -m pytest --receptor=llm -q \
     tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py \
     tests/topology/get_bondgraph/test_get_bondgraph_from_molsysmt_MolSys.py \
     tests/topology/get_covalent_chains/test_get_covalent_chains_from_molsysmt_MolSys.py
 }
 
 run_peptide_extended() {
-  pytest -q -m peptide_parity tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py
+  MPLBACKEND=Agg python -m pytest --receptor=llm -q -m peptide_parity tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py
 }
 
 case "${TIER}" in

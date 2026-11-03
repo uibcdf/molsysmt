@@ -44,6 +44,15 @@ This split is intentional:
 - native code owns declared-state editing and `build()`;
 - the form adapter owns MolSysMT integration.
 
+The staging domains are independent: Topology owns stable inventory,
+ChemicalStates owns state-local bonds, assignments and components, and Structures
+owns coordinates/box/time. Inputs require stable Topology. Missing structures
+become empty staging without observations. Absent chemistry or a collection with
+zero states remains unchanged; bond queries/edits report the missing prerequisite.
+Existing state labels, reference selection, associations and preparation history
+are retained. Named analyses and molecular mechanics are outside the builder's
+stored domains.
+
 The current form-level integration now covers:
 - direct topological attribute getters on declared state;
 - direct structural attribute getters on declared state;
@@ -71,24 +80,34 @@ Consequences:
 `molsysmt.MolSys`.
 
 During `build()`:
-- singleton groups are created for atoms that still lack groups;
-- components are derived from bonds;
+- ordinary fallback grouping creates singleton groups for unassigned atoms;
+  inherited group-free molecules retain their missing group axis;
+- components are reconstructed for edited chemical states using stored-edge
+  participation/completeness, without promoting unknown chemistry to complete;
 - missing chains, molecules, and entities are completed using the same native
   fallback rules already defined for `MolSys` and `Topology`;
-- structure arrays are validated against the declared topology.
+- structure arrays and explicit structure/state associations are validated;
+- inherited stable molecules and group-free membership survive later bond edits;
+- existing group-free molecules need no synthetic groups merely to retain identity.
 
 `build()` is not a general converter. Conversion to other forms should happen
 after a builder has been materialized as `MolSys`.
 
 ## Supported builder operations in v1
 
-Topology declaration:
+Stable inventory declaration:
 - `add_atom(...)`
 - `add_group(atom_indices=[...], ...)`
-- `add_bond(atom_index_1, atom_index_2, ...)`
 - `add_chain(group_indices=[...], ...)`
 - `add_molecule(group_indices=[...], ...)`
 - `add_entity(molecule_indices=[...], ...)`
+
+Chemical declaration:
+- `add_bond(atom_index_1, atom_index_2, ..., chemical_state='reference')`
+- `remove_bonds(bond_indices='all', ..., chemical_state='reference')`
+
+The chemical-state argument is keyword-only. Counts without a state argument
+use the same unambiguous-reference rule. Editing one state retains all others.
 
 Structural declaration:
 - `set_coordinates(...)`
@@ -103,9 +122,11 @@ The builder API is intentionally strict:
 - `add_atom()` does not accept `group_index`;
 - `add_group()` accepts existing `atom_indices`, not unresolved references;
 - higher-level `add_*()` methods accept existing lower-level indices only;
-- `component` is never added manually and is always derived in `build()`.
-- `add_bond(..., bond_order=...)` accepts string or numeric scalar labels and
-  normalizes them to strings; `bond_type` accepts a string label.
+- the builder has no `add_component` operation; ChemicalStates owns declared
+  component membership and explicit graph reconstruction.
+- `add_bond(..., bond_order=...)` normalizes supported integer orders into nullable
+  UInt8 and fractional/aromatic information into the corresponding chemical
+  fields; legacy order labels supplied as `bond_type` are normalized too.
 
 These rules keep the builder deterministic and avoid silent ambiguity during
 construction.
@@ -130,9 +151,6 @@ through the discoverable build helper:
 ```python
 builder = msm.build.editable()
 ```
-
-An alias such as `msm.build.new_molecular_system()` may still be added later
-for discoverability, but it is not part of the current first slice.
 
 ## Editing-policy implications for `molsysmt.build`
 
@@ -179,15 +197,17 @@ namespace.
 The line is between **explicit editing** and **chemically-informed inference**, not
 between one namespace and another.
 
-Explicit editing states what the answer is — *bond these two atoms*, *these groups
-are now a chain* — and belongs to the builder alone. It is why `add_bonds`,
-`remove_bonds` and `define_new_chain` have no place in `molsysmt.build`,
-`molsysmt.topology` or `molsysmt.basic`, and this is settled policy rather than an
-open question: it is the answer to
+Explicit staging states what the answer is — *bond these two atoms*, *these groups
+are now a chain*. This is why the old free functions `build.add_bonds`,
+`build.remove_bonds` and `build.define_new_chain` remain absent, following
 [`uibcdf/molsysmt#166`](https://github.com/uibcdf/molsysmt/issues/166).
+Controlled native ChemicalStates editing is also public and supported: its
+`add_bonds`, `remove_bonds` and `rebuild_components` operate on the selected
+state and notify an attached owner. This does not restore a Topology facade or
+introduce a competing chemical store. See [the migration map](chemical_states_migration.md).
 
 Inference works out what the answer should be, and stays. `molsysmt.build` keeps
-`add_missing_bonds`, `get_missing_bonds` and `get_disulfide_bonds`; `molsysmt.topology`
+`add_missing_bonds`, `get_missing_bonds` and `get_disulfide_bonds`; `molsysmt.chemical_states`
 keeps `get_bondgraph`. None of them asks the caller which bonds to create.
 
 `molsysmt.interactions.disulfides.get_disulfide_candidates` owns the
@@ -195,17 +215,15 @@ structure-specific S–S observation. It reports atom pairs and distances for
 each requested structure, including pairs already recorded as bonds. The build
 entry point delegates to that detector and retains its single-structure
 list-of-pairs return. `get_missing_bonds` consumes the build entry point;
-topology remains authoritative for recorded covalent connectivity.
+ChemicalStates remains authoritative for recorded covalent connectivity.
 
-Two things this does **not** say:
+Native editing boundaries:
 
-- `molsysmt.Topology.add_bonds` is unaffected. It is the native class method the
-  form adapters and `molsysmt.native` build on — `native/molsys.py`,
-  `native/topology.py`, `form/molsysmt_Topology/add_bonds.py` and the PyTraj and
-  NGLView adapters all call it. It is machinery, not a competing public path, and it
-  stays.
-- The tools namespaces are not forbidden from touching bonds. They are forbidden
-  from being the place where a caller dictates one.
+- ChemicalStates provides the state-aware controlled boundary, while Topology
+  owns inventory only. Producers supply the
+  domains explicitly rather than recovering chemistry through a Topology owner.
+- Functional tools may consume and interpret bonds within their scientific
+  contracts; direct bond declarations use native chemical editing or builder staging.
 
 The builder now covers the explicit editing primitives that motivated those
 public helpers:

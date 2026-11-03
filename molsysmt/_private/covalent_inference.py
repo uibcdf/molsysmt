@@ -48,7 +48,6 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
         topology = source.copy()
         output = MolSys._from_partial_domains(
             topology=topology,
-            chemical_states=topology._chemical_states_domain,
         )
     else:
         output = convert(source, to_form="molsysmt.MolSys", get_missing_bonds=False)
@@ -98,7 +97,7 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
     invalidated = sorted(output.interactions) if added else []
     if added:
         with output._invalidating_interaction_frames("all"):
-            output.topology._append_chemical_state_bonds(
+            output.chemical_states._append_chemical_state_bonds(
                 added,
                 types="covalent",
                 evidence="inferred",
@@ -106,16 +105,14 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
                 provenance_index=history_index,
             )
             state.connectivity_completeness = "partial"
-            with output.topology._using_chemical_state(state_index):
-                output.topology.rebuild_components(
+            with output.chemical_states._using_chemical_state(state_index):
+                output.rebuild_components(
                     redefine_ids=False,
                     redefine_types=False,
                     redefine_names=False,
                 )
-            # Rebuild semantic hierarchy only for the unchanged reference state.
-            if output.chemical_states._reference_index == state_index:
-                output.topology.rebuild_molecules(force=True)
-                output.topology.rebuild_entities(force=True)
+            # Existing stable molecule/entity declarations survive graph edits.
+            # Producers establish missing hierarchy once during construction.
     final = {
         tuple(sorted(pair)): index
         for index, pair in enumerate(

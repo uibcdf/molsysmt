@@ -25,7 +25,7 @@ def payload():
     topo.groups["group_name"] = ["LIG"]
     topo.groups["molecule_index"] = [0]
     topo.chains["chain_id"] = ["A"]
-    topo.add_bonds([[0, 1], [1, 2]])
+    molsys.chemical_states.add_bonds([[0, 1], [1, 2]])
     molsys.structures.coordinates = msm.pyunitwizard.quantity(
         np.arange(27, dtype=float).reshape(3, 3, 3), "nm"
     )
@@ -69,7 +69,7 @@ def test_atom_subset_remaps_bonds_and_aligned_columns(
     assert json.loads(subset.dumps()) == subset.to_dict()
     restored = msm.convert(subset, to_form="molsysmt.MolSys")
     assert restored.topology.n_atoms == len(indices)
-    assert restored.topology.n_bonds == len(pairs)
+    assert restored.chemical_states.get(n_bonds=True) == len(pairs)
     coordinates = msm.pyunitwizard.get_value(
         restored.structures.coordinates, to_unit="nm"
     )
@@ -123,7 +123,7 @@ def test_endpoint_encodings_are_remapped_together(payload, encoding):
     if encoding != "pairs":
         assert subset.data["bonds"]["indexA"] == [1]
         assert subset.data["bonds"]["indexB"] == [0]
-    assert msm.convert(subset, to_form="molsysmt.Topology").n_bonds == 1
+    assert msm.get(subset, n_bonds=True) == 1
 
 
 def test_parallel_bond_sets_are_filtered_independently(payload):
@@ -197,7 +197,9 @@ def test_target_form_routes_honor_the_same_selection(payload, target):
     else:
         topo = result.topology if target == "molsysmt.MolSys" else result
         assert topo.atoms["atom_id"].tolist() == ["C", "010"]
-        assert topo.n_bonds == 1
+        assert msm.get(result, n_bonds=True) == (
+            1 if target == "molsysmt.MolSys" else None
+        )
         if target == "molsysmt.MolSys":
             np.testing.assert_allclose(
                 msm.pyunitwizard.get_value(result.structures.coordinates, to_unit="nm"),

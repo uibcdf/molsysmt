@@ -18,7 +18,8 @@ def test_public_sequences_preserve_groups_without_atomic_or_coordinate_rows(
 ):
     converted = msm.convert(source, to_form=target)
     topology = converted.topology if target.endswith("MolSys") else converted
-    assert topology.n_atoms == topology.n_bonds == 0
+    assert topology.n_atoms == 0
+    assert not hasattr(topology, "bonds")
     assert topology.n_groups == 3
     assert topology.groups.group_name.tolist() == ["ALA", "GLY", "TRP"]
     assert topology.groups.group_type.tolist() == ["amino acid"] * 3
@@ -26,9 +27,10 @@ def test_public_sequences_preserve_groups_without_atomic_or_coordinate_rows(
     assert topology.n_molecules == topology.n_chains == topology.n_entities == 1
     assert topology.molecules.molecule_type.tolist() == ["peptide"]
     assert not msm.has_attribute(topology, "atom_name")
-    assert msm.get(topology, connectivity_completeness=True) == ["unavailable"]
-    assert msm.get(topology, component_completeness=True) == ["unavailable"]
+    assert msm.get(topology, connectivity_completeness=True) is None
+    assert msm.get(topology, component_completeness=True) is None
     if target.endswith("MolSys"):
+        assert converted.chemical_states is None
         assert converted.structures.n_structures == 0
         assert converted.structures.coordinates is None
 
@@ -42,7 +44,8 @@ def test_three_letter_caps_and_declared_group_order_are_not_lost():
         "amino acid",
         "terminal capping",
     ]
-    assert topology.n_atoms == topology.n_bonds == 0
+    assert topology.n_atoms == 0
+    assert not hasattr(topology, "bonds")
 
 
 @pytest.mark.parametrize("width", [1, 3])
@@ -94,13 +97,15 @@ def test_extended_native_code_table_retains_ambiguity_and_rare_amino_acids():
         "PYL",
     ]
     assert topology.groups.group_type.tolist() == ["amino acid"] * 6
-    assert topology.n_atoms == topology.n_bonds == 0
+    assert topology.n_atoms == 0
+    assert not hasattr(topology, "bonds")
 
 
 @pytest.mark.parametrize("source", ["amino_acids_1:", "amino_acids_3:"])
 def test_empty_declared_sequence_has_no_synthetic_members(source):
     topology = msm.convert(source, to_form="molsysmt.Topology")
-    assert topology.n_atoms == topology.n_groups == topology.n_bonds == 0
+    assert topology.n_atoms == topology.n_groups == 0
+    assert not hasattr(topology, "bonds")
 
 
 def test_fasta_records_are_distinct_occurrences_without_fake_ca(tmp_path):
@@ -111,7 +116,8 @@ def test_fasta_records_are_distinct_occurrences_without_fake_ca(tmp_path):
     )
     path.write_bytes(original)
     topology = msm.convert(str(path), to_form="molsysmt.Topology")
-    assert topology.n_atoms == topology.n_bonds == 0
+    assert topology.n_atoms == 0
+    assert not hasattr(topology, "bonds")
     assert topology.n_groups == 5
     assert topology.n_molecules == topology.n_chains == topology.n_entities == 4
     assert topology.groups.group_name.tolist() == ["ALA", "GLY", "TRP", "ALA", "GLY"]

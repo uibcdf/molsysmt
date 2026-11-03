@@ -56,7 +56,7 @@ def make_delegated_getter(name, target, component):
     source = (
         f"@arg_digest(form=form)\n"
         f"def {name}({parameters}):\n"
-        f"    component_item = getattr(item, component)\n"
+        f"    component_item = item._query_view() if component == '_query_view' else getattr(item, component)\n"
         f"    return target({', '.join(call_arguments)})\n"
     )
     exec(source, namespace)

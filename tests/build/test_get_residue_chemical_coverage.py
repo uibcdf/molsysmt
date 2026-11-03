@@ -91,7 +91,9 @@ def _system(specifications, *, n_frames=1):
 def test_complete_inventory_does_not_establish_protonation_or_repair_coverage():
     source = _system([("ALA", ALA)])
     before_atoms = source.topology.atoms.copy(deep=True)
-    before_bonds = source.topology.bonds.copy(deep=True)
+    before_bonds = source.chemical_states._resolve_chemical_state().bonds.copy(
+        deep=True
+    )
     before_coordinates = msm.pyunitwizard.get_value(
         source.structures.coordinates, to_unit="nm"
     ).copy()
@@ -113,7 +115,9 @@ def test_complete_inventory_does_not_establish_protonation_or_repair_coverage():
     assert len(group["template"]["provenance"]["packaged_sha256"]) == 64
     assert "ready" not in report
     pd.testing.assert_frame_equal(source.topology.atoms, before_atoms)
-    pd.testing.assert_frame_equal(source.topology.bonds, before_bonds)
+    pd.testing.assert_frame_equal(
+        source.chemical_states._resolve_chemical_state().bonds, before_bonds
+    )
     np.testing.assert_equal(
         msm.pyunitwizard.get_value(source.structures.coordinates, to_unit="nm"),
         before_coordinates,
@@ -200,7 +204,7 @@ def test_bond_absence_unknown_types_and_order_conflicts_are_not_guessed():
     state.bonds.loc[0, "bond_type"] = "dative"
     wrong = msm.build.get_residue_chemical_coverage(source)["groups"][0]
     assert wrong["connectivity"]["conflict_bond_type_indices"].tolist() == [0]
-    source.topology._set_chemical_state_bonds(
+    source.chemical_states._set_chemical_state_bonds(
         state.bonds.iloc[1:].reset_index(drop=True)
     )
     missing = msm.build.get_residue_chemical_coverage(source)["groups"][0]
@@ -244,7 +248,7 @@ def test_hydrogen_bonds_do_not_become_unexpected_heavy_atom_bonds():
 
 def test_group_indices_string_selection_boundary_and_empty_results():
     source = _system([("ALA", ALA), ("ALA", ALA), ("PTR", (["N"], ["N"], []))])
-    source.topology._append_chemical_state_bonds(
+    source.chemical_states._append_chemical_state_bonds(
         [[2, 5]], types=["covalent"], orders=[1]
     )
     report = msm.build.get_residue_chemical_coverage(source, selection=[2, 0, 0])

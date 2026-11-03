@@ -48,7 +48,9 @@ def test_file_pdb_from_builder_fixture_preserves_declared_truth(
 
     assert molsys.topology.n_atoms == builder_pdb_molsys.topology.n_atoms
     assert molsys.topology.n_groups == builder_pdb_molsys.topology.n_groups
-    assert molsys.topology.n_bonds == builder_pdb_molsys.topology.n_bonds
+    assert molsys.chemical_states.get(
+        n_bonds=True
+    ) == builder_pdb_molsys.chemical_states.get(n_bonds=True)
     assert (
         molsys.topology.atoms["atom_name"].tolist()
         == builder_pdb_molsys.topology.atoms["atom_name"].tolist()

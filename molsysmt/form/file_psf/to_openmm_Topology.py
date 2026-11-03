@@ -28,13 +28,11 @@ def to_openmm_Topology(item, atom_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.molsysmt_Topology.to_openmm_Topology import (
+    from molsysmt.form.molsysmt_MolSys.to_openmm_Topology import (
         to_openmm_Topology as native_to_openmm_Topology,
     )
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
-    topology = to_molsysmt_Topology(
-        item, atom_indices=atom_indices, skip_digestion=True
-    )
-    return native_to_openmm_Topology(topology, skip_digestion=True)
+    molsys = to_molsysmt_MolSys(item, atom_indices=atom_indices, skip_digestion=True)
+    return native_to_openmm_Topology(molsys, skip_digestion=True)

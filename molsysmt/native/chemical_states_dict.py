@@ -8,13 +8,39 @@ import pandas as pd
 
 from molsysmt._private.argdigest import arg_digest
 
+from .queries import NativeQueries
+
 
 @dataclass
-class ChemicalStatesDict:
+class ChemicalStatesDict(NativeQueries):
     """Holding a lossless, versioned chemical-state payload.
 
     State tables are stored as typed columns with explicit null masks. The
     representation uses NumPy arrays and is not directly JSON serializable.
+
+    Notes
+    -----
+    get/info read stored typed columns directly. Explicit state selection does
+    not decode other states or change the reference. Queries validate requested
+    metadata/columns, not the entire payload or preparation history. Native
+    editing requires conversion to ChemicalStates; data remains a mutable
+    transport payload, whose raw edits bypass validation and owner notification.
+    Converting native chemical states produces independent writable values and
+    null-mask buffers, including when Pandas uses Copy-on-Write.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> chemical_states = msm.ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> payload = msm.convert(chemical_states, to_form='molsysmt.ChemicalStatesDict')
+    >>> payload.get(n_atoms=True, n_bonds=True, connectivity_completeness=True)
+    [2, 0, 'unavailable']
+    >>> payload.get(element='atom', selection=[1, 0, 1], atom_index=True)
+    [1, 0, 1]
+
+    .. versionadded:: 1.0.0
     """
 
     def __repr__(self):
@@ -30,6 +56,20 @@ class ChemicalStatesDict:
         )
 
     data: dict
+
+    def _resolve_index(self, state_index=None):
+        from ._chemical_dict_queries import header
+        from ._chemical_scope import resolve_index
+
+        _, _, count, reference = header(self)
+        return resolve_index(
+            count, reference, state_index, "molsysmt.native.ChemicalStatesDict"
+        )
+
+    def _using_chemical_state(self, state_index):
+        from ._chemical_scope import using_state
+
+        return using_state(self, state_index)
 
     def to_dict(self, copy=True):
         """Returning the underlying typed payload."""
@@ -89,13 +129,15 @@ class ChemicalStatesDict:
 
 def _encode_series(series):
     dtype = str(series.dtype)
-    null_mask = series.isna().to_numpy(dtype=np.bool_)
+    null_mask = np.asarray(series.array.isna(), dtype=np.bool_)
+    if not null_mask.flags.writeable:
+        null_mask = null_mask.copy()
     if dtype in {"string", "object", "str"}:
-        values = series.fillna("").astype(str).to_numpy(dtype=np.str_)
+        values = series.to_numpy(dtype=np.str_, na_value="", copy=True)
     elif dtype in {"boolean", "bool"}:
-        values = series.fillna(False).to_numpy(dtype=np.bool_)
+        values = series.to_numpy(dtype=np.bool_, na_value=False, copy=True)
     elif dtype.startswith(("Int", "UInt", "Float")):
-        values = series.fillna(0).to_numpy(dtype=np.dtype(dtype.lower()))
+        values = series.to_numpy(dtype=np.dtype(dtype.lower()), na_value=0, copy=True)
     else:
         values = series.to_numpy(copy=True)
         if values.dtype.kind not in "iufbUS":
@@ -143,7 +185,7 @@ def _decode_table(payload):
 def _encode_chemical_states(states):
     from molsysmt._private.preparation_history import encode_history
 
-    from .topology import _BOND_OPTIONAL_DTYPES, _BOND_REQUIRED_COLUMNS
+    from ._chemical_state import _BOND_OPTIONAL_DTYPES, _BOND_REQUIRED_COLUMNS
 
     bond_dtypes = {
         **_BOND_OPTIONAL_DTYPES,
@@ -186,8 +228,12 @@ def _encode_chemical_states(states):
 def _decode_chemical_states(payload):
     from molsysmt._private.preparation_history import decode_history
 
+    from ._chemical_state import (
+        Bonds_DataFrame,
+        Components_DataFrame,
+        _ChemicalStateStorage,
+    )
     from .chemical_states import ChemicalStates
-    from .topology import Bonds_DataFrame, Components_DataFrame, _ChemicalStateStorage
 
     data = payload.data
     if data.get("schema") != "molsysmt.chemical_states_dict" or data.get(

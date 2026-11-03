@@ -17,6 +17,7 @@ from devtools.scripts.audit_conversion_execution import (
 from tests.native.test_molsys import build_minimal_molsys
 
 PLAN = read_plan()
+EXPLICIT_EDGES = {tuple(edge) for edge in PLAN.get("explicit_edges", [])}
 # Disk/handler routes have explicit resource and schema fixtures in their own module.
 H5MSM_FORMS = {"file:h5msm", "molsysmt.H5MSMFileHandler"}
 PDB_FORMS = {"file:pdb", "string:pdb_text", "molsysmt.PDBFileHandler"}
@@ -41,7 +42,8 @@ DOCKING_FORMS = {
 EDGES = sorted(
     (source, target)
     for source, target in planned_edges(declared_edges(), PLAN)
-    if not (
+    if (source, target) not in EXPLICIT_EDGES
+    and not (
         {source, target}
         & (H5MSM_FORMS | PDB_FORMS | DOCKING_FORMS | GRO_FORMS | TRAJECTORY_FORMS)
     )
@@ -226,11 +228,23 @@ def test_declared_resident_edge_executes_directly_and_publicly(source, target):
         pytest.importorskip("openmm")
     arguments = _edge_arguments(source, target)
     assert msm.get_form(_source(source)) == source
-    _execute_direct(source, target, _source(source), **arguments)
+    direct = _execute_direct(source, target, _source(source), **arguments)
     result = msm.convert(
         _source(source), to_form=target, **_edge_arguments(source, target)
     )
     assert msm.get_form(result) == target
+    if target == "molsysmt.MolSys":
+        for output in (direct, result):
+            if source in {"MDAnalysis.Topology", "mdtraj.Topology"}:
+                assert output.topology.atoms.atom_name.tolist() == ["O", "H1", "H2"]
+                assert output.topology.atoms.atom_type.tolist() == ["O", "H", "H"]
+                assert output.chemical_states.get_bonds()[
+                    ["atom1_index", "atom2_index"]
+                ].values.tolist() == [[0, 1], [0, 2]]
+            elif source == "molsysmt.TopologyDict":
+                assert output.topology.atoms.atom_id.tolist() == ["0", "1", "2", "3"]
+                assert output.topology.atoms.atom_name.tolist() == ["N", "CA", "O", "H"]
+                assert output.chemical_states is None
 
 
 def test_execution_guard_rejects_callable_runtime_failure(monkeypatch):
@@ -279,6 +293,7 @@ def test_execution_modules_cover_the_selected_graph_once():
 
     partitions = [
         set(EDGES),
+        EXPLICIT_EDGES,
         set(disk_edges),
         set(pdb_edges),
         set(docking_edges),
@@ -287,3 +302,112 @@ def test_execution_modules_cover_the_selected_graph_once():
     ]
     assert set.union(*partitions) == planned_edges(declared_edges(), PLAN)
     assert sum(map(len, partitions)) == len(set.union(*partitions))
+
+
+@pytest.mark.parametrize("source,target", sorted(EXPLICIT_EDGES))
+def test_explicit_producer_edge_executes_with_declared_domains(
+    source, target, tmp_path
+):
+    """Execute resource-dependent additions rather than marking them as debt."""
+    if source == "file:fasta":
+        item = tmp_path / "source.fasta"
+        item.write_text(">first\nAG\n>second\nV\n")
+        item = str(item)
+    elif source == "file:smi":
+        pytest.importorskip("rdkit")
+        item = tmp_path / "source.smi"
+        item.write_text("CCO ethanol\n")
+        item = str(item)
+    elif source == "file:topology_yaml":
+        pytest.importorskip("yaml")
+        item = str(tmp_path / "source.topology.yaml")
+        msm.convert(
+            build_minimal_molsys().topology,
+            to_form="file:topology_yaml",
+            output_filename=item,
+        )
+    elif source == "openmm.AmberPrmtopFile":
+        app = pytest.importorskip("openmm.app")
+        item = app.AmberPrmtopFile(msm.systems["pentalanine"]["pentalanine.prmtop"])
+    elif source == "openmm.CharmmPsfFile":
+        app = pytest.importorskip("openmm.app")
+        from tests.form.file_psf.test_contract import PSF_TEXT
+
+        path = tmp_path / "source.psf"
+        path.write_text(PSF_TEXT)
+        item = app.CharmmPsfFile(str(path))
+    elif source == "openmm.GromacsTopFile":
+        app = pytest.importorskip("openmm.app")
+        path = tmp_path / "source.top"
+        path.write_text(
+            "[ defaults ]\n1 2 yes 0.5 0.8333\n[ atomtypes ]\nC 6 12.011 0 A 0.3 0.1\n[ moleculetype ]\nLIG 3\n[ atoms ]\n1 C 1 LIG C1 1 0 12.011\n2 C 1 LIG C2 1 0 12.011\n[ bonds ]\n1 2 1 0.15 1000\n[ system ]\npair\n[ molecules ]\nLIG 1\n"
+        )
+        item = app.GromacsTopFile(str(path))
+    elif source == "pytraj.Topology":
+        pytest.importorskip("pytraj")
+        item = msm.convert(build_minimal_molsys(), to_form=source)
+    else:
+        item = {
+            "string:amino_acids_1": "amino_acids_1:AG",
+            "string:amino_acids_3": "amino_acids_3:ALAGLY",
+            "string:smiles": "smiles:CCO",
+        }[source]
+        if source == "string:smiles":
+            pytest.importorskip("rdkit")
+    assert msm.get_form(item) == source
+    direct = _execute_direct(source, target, item)
+    public = msm.convert(item, to_form=target)
+    assert msm.get_form(public) == target
+    assert msm.get(direct, n_atoms=True) == msm.get(public, n_atoms=True)
+    sequence = source in {"file:fasta", "string:amino_acids_1", "string:amino_acids_3"}
+    if sequence:
+        assert msm.get(public, n_atoms=True) == 0
+        assert msm.get(public, n_groups=True) == (3 if source == "file:fasta" else 2)
+    if target == "molsysmt.MolSys":
+        assert (public.chemical_states is None) == (
+            sequence or source == "file:topology_yaml"
+        )
+        if public.chemical_states is not None:
+            assert public.chemical_states.get(n_bonds=True) > 0
+            assert public.chemical_states._inventory_equals(direct.chemical_states)
+    else:
+        assert not hasattr(public, "bonds")
+    # Literal or provider-owned oracles are separate from direct/public parity.
+    for output in (direct, public):
+        topology = output.topology if target == "molsysmt.MolSys" else output
+        if sequence:
+            assert topology.groups.group_name.tolist() == (
+                ["ALA", "GLY", "VAL"] if source == "file:fasta" else ["ALA", "GLY"]
+            )
+            assert topology.n_chains == (2 if source == "file:fasta" else 1)
+            assert topology.atoms.empty
+        elif source in {"file:smi", "string:smiles"}:
+            assert topology.atoms.atom_type.tolist() == ["C", "C", "O"]
+            assert output.chemical_states.get_bonds()[
+                ["atom1_index", "atom2_index"]
+            ].values.tolist() == [[0, 1], [1, 2]]
+            assert output.chemical_states.get(element="atom", formal_charge=True) == [
+                0,
+                0,
+                0,
+            ]
+            assert output.chemical_states.get(
+                element="atom", n_implicit_hydrogens=True
+            ) == [3, 2, 1]
+        elif source.startswith("openmm."):
+            atoms = list(item.topology.atoms())
+            assert topology.atoms.atom_id.tolist() == [str(atom.id) for atom in atoms]
+            assert topology.atoms.atom_name.tolist() == [atom.name for atom in atoms]
+            assert topology.atoms.atom_type.tolist() == [
+                atom.element.symbol for atom in atoms
+            ]
+            expected_pairs = sorted(
+                sorted((a.index, b.index)) for a, b in item.topology.bonds()
+            )
+            actual_pairs = output.chemical_states.get_bonds()[
+                ["atom1_index", "atom2_index"]
+            ].values.tolist()
+            assert sorted(sorted(pair) for pair in actual_pairs) == expected_pairs
+        elif source in {"file:topology_yaml", "pytraj.Topology"}:
+            assert topology.atoms.atom_name.tolist() == ["N", "CA", "O", "H"]
+            assert topology.groups.group_name.tolist() == ["ALA", "HOH"]

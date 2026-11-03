@@ -18,8 +18,13 @@ class MolSysBuilder(NativeQueries):
     A builder stores editable chemical/topological and structural native
     components. Their complete declared attribute union is available through
     :func:`molsysmt.get` without first calling :meth:`build`. Molecular
-    mechanics and per-structure chemical-state associations are not stored by
+    mechanics and named interaction analyses are not stored by
     this object.
+
+    Existing inputs require a stable Topology domain. Missing structures become
+    an empty Structures staging container without coordinates or observations.
+    An absent chemical collection remains absent, and a zero-state collection
+    remains empty; creating a builder does not create a chemical state for them.
     """
 
     def __repr__(self):
@@ -41,14 +46,36 @@ class MolSysBuilder(NativeQueries):
 
         from .molsys import MolSys
         from .structures import Structures
-        from .topology import Topology
 
         if molecular_system is None:
-            self.topology = Topology(skip_digestion=True)
+            initial = MolSys(skip_digestion=True)
+            self.topology = initial.topology.copy()
+            self.chemical_states = initial.chemical_states.copy()
             self.structures = Structures(skip_digestion=True)
+            self._structure_chemical_state_indices = None
+            self._dirty_chemical_states = {0}
         elif isinstance(molecular_system, MolSys):
+            if molecular_system.topology is None:
+                raise StructuralInconsistencyError(
+                    caller="molsysmt.native.MolSysBuilder.__init__",
+                    reason="MolSysBuilder requires a Topology domain; supply an explicit stable inventory before editing.",
+                )
             self.topology = molecular_system.topology.copy()
-            self.structures = molecular_system.structures.copy()
+            self.structures = (
+                Structures(skip_digestion=True)
+                if molecular_system.structures is None
+                else molecular_system.structures.copy()
+            )
+            self.chemical_states = (
+                None
+                if molecular_system.chemical_states is None
+                else molecular_system.chemical_states.copy()
+            )
+            association = molecular_system._structure_chemical_state_indices
+            self._structure_chemical_state_indices = (
+                None if association is None else association.copy()
+            )
+            self._dirty_chemical_states = set()
             self._preserve_absent_groups = (
                 self.topology.n_groups == 0 and self.topology.n_molecules > 0
             )
@@ -72,7 +99,7 @@ class MolSysBuilder(NativeQueries):
 
     @property
     def n_bonds(self):
-        return self.topology.n_bonds
+        return len(self._chemical_state().bonds)
 
     @property
     def n_chains(self):
@@ -114,7 +141,7 @@ class MolSysBuilder(NativeQueries):
         eager geometry allocation and the enclosing graph's memo. Copying does
         not call build(), synthesize parents, normalize tables or invent domains.
         A partially assembled builder remains partially assembled. The builder
-        stores no named analyses, mechanics or structure/state associations.
+        stores no named analyses or mechanics; explicit structure/state associations are retained.
 
         Examples
         --------
@@ -276,7 +303,10 @@ class MolSysBuilder(NativeQueries):
         self._ensure_atom_editable()
 
         atom_index = self.topology.n_atoms
-        if self.topology._chemical_states_domain.n_atoms != atom_index:
+        if (
+            self.chemical_states is not None
+            and self.chemical_states.n_atoms != atom_index
+        ):
             raise StructuralInconsistencyError(
                 caller="molsysmt.native.MolSysBuilder.add_atom",
                 reason="Existing topology and chemical-state atom domains must align.",
@@ -306,9 +336,17 @@ class MolSysBuilder(NativeQueries):
         atoms["chain_index"] = atoms["chain_index"].astype("Int64")
         if "isotope" in atoms:
             atoms["isotope"] = atoms["isotope"].astype("UInt16")
-        self.topology._chemical_states_domain._extend_atom_domain(atom_index + 1)
+        from ._atom_molecules import compact, stored
+
+        direct = stored(self.topology)
+        membership = None if direct is None else compact(np.r_[direct, np.int64(-1)])
+        if self.chemical_states is not None:
+            self.chemical_states._extend_atom_domain(atom_index + 1)
+            self._dirty_chemical_states.update(
+                range(self.chemical_states.n_chemical_states)
+            )
         self.topology.atoms = atoms
-        self.topology._components_dirty = True
+        self.topology._atom_molecule_membership = membership
 
         return atom_index
 
@@ -327,11 +365,9 @@ class MolSysBuilder(NativeQueries):
 
     def _inherited_group_molecule(self, atom_indices):
         """Resolve one inherited owner without merging declared source molecules."""
-        owners = getattr(self, "_inherited_atom_molecules", None)
-        if owners is None:
-            return pd.NA
-        existing = atom_indices[atom_indices < len(owners)]
-        candidates = np.unique(owners[existing])
+        from ._atom_molecules import resolve
+
+        candidates = np.unique(resolve(self.topology)[atom_indices])
         candidates = candidates[candidates >= 0]
         if len(candidates) > 1:
             raise StructuralInconsistencyError(
@@ -415,6 +451,14 @@ class MolSysBuilder(NativeQueries):
 
         self._capture_group_free_molecule_membership()
         molecule_index = self._inherited_group_molecule(atom_indices)
+        from ._atom_molecules import compact, stored
+
+        direct = stored(self.topology)
+        membership = None
+        if direct is not None:
+            membership = direct.copy()
+            membership[atom_indices] = -1
+            membership = compact(membership)
 
         group_index = self.topology.n_groups
         self.topology.groups.loc[group_index, "group_id"] = (
@@ -429,6 +473,7 @@ class MolSysBuilder(NativeQueries):
             self.topology.groups.loc[group_index, "group_type"] = str(group_type)
         self.topology.groups.loc[group_index, "molecule_index"] = molecule_index
         self.topology.atoms.loc[atom_indices, "group_index"] = int(group_index)
+        self.topology._atom_molecule_membership = membership
 
         return group_index
 
@@ -441,6 +486,8 @@ class MolSysBuilder(NativeQueries):
         bond_order=None,
         bond_type=None,
         skip_digestion=False,
+        *,
+        chemical_state="reference",
     ):
         """Adding a bond between two declared atoms.
 
@@ -460,6 +507,9 @@ class MolSysBuilder(NativeQueries):
             normalized as bond order rather than retained as bond type.
         skip_digestion : bool, default False
             Whether to skip argument digestion.
+        chemical_state : str or int, default='reference'
+            State whose bond table is edited. Use its positional index or the
+            resolvable reference. This argument is keyword-only.
 
         Returns
         -------
@@ -471,7 +521,8 @@ class MolSysBuilder(NativeQueries):
         ArgumentError
             If a bond label has an unsupported type.
         StructuralInconsistencyError
-            If either atom index is outside the declared topology.
+            If either atom index is outside the declared topology, or the
+            chemical collection/state is missing or ambiguous.
 
         Examples
         --------
@@ -490,14 +541,17 @@ class MolSysBuilder(NativeQueries):
             atom_indices, upper_bound=self.topology.n_atoms, element_name="Bond"
         )
 
-        self.topology._append_chemical_state_bonds(
+        state_index = self._chemical_index(chemical_state)
+        self.chemical_states._append_chemical_state_bonds(
             [[int(atom_index_1), int(atom_index_2)]],
             orders=self._normalize_optional_string(bond_order, default=pd.NA),
             types=self._normalize_optional_string(bond_type, default=pd.NA),
+            state_index=state_index,
         )
+        self._dirty_chemical_states.add(state_index)
 
         endpoint_pair = sorted((int(atom_index_1), int(atom_index_2)))
-        bonds = self.topology._get_chemical_state_bonds()
+        bonds = self.chemical_states._resolve_chemical_state(state_index).bonds
         matches = bonds["atom1_index"].eq(endpoint_pair[0]) & bonds["atom2_index"].eq(
             endpoint_pair[1]
         )
@@ -505,20 +559,65 @@ class MolSysBuilder(NativeQueries):
 
     @signal(tags=["native", "builder"])
     @arg_digest()
-    def remove_bonds(self, bond_indices="all", skip_digestion=False):
+    def remove_bonds(
+        self, bond_indices="all", skip_digestion=False, *, chemical_state="reference"
+    ):
+        """Removing stored bond positions from one staging chemical state.
 
-        if isinstance(bond_indices, str) and bond_indices == "all":
-            self.topology._remove_chemical_state_bonds(bond_indices="all")
-            return
+        Parameters
+        ----------
+        bond_indices : str, int, list, tuple or numpy.ndarray, default='all'
+            Selected state's bond positions to remove. Repetitions are removed
+            once. An empty selection leaves the staging data unchanged.
+        skip_digestion : bool, default=False
+            Whether to skip digestion of arguments already satisfying the contract.
+        chemical_state : str or int, default='reference'
+            State whose bond table is edited. Use its positional index or the
+            resolvable reference. This argument is keyword-only.
 
-        bond_indices = self._indices_array(bond_indices)
-        self._validate_existing_indices(
-            bond_indices,
-            upper_bound=self.topology.n_bonds,
-            element_name="Bond",
+        Returns
+        -------
+        None
+            The selected state is edited in place.
+
+        Raises
+        ------
+        ArgumentError
+            If selected positions do not belong to the resolved state's bonds.
+        StructuralInconsistencyError
+            If the chemical collection/state is missing or ambiguous.
+
+        Notes
+        -----
+        Other states and stable molecule membership retain their declarations.
+        Component reconstruction follows ChemicalStates' stored-edge and
+        participation policy; build() finalizes metadata with stable context.
+        No chemical state or missing bond is created implicitly.
+
+        See Also
+        --------
+        add_bond : Stage a bond in an explicitly selected chemical state.
+
+        Examples
+        --------
+        >>> builder = MolSysBuilder()
+        >>> _ = [builder.add_atom(atom_name='Ar', atom_type='Ar') for _ in range(2)]
+        >>> _ = builder.add_bond(0, 1, bond_order=1, bond_type='covalent')
+        >>> builder.remove_bonds([0])
+        >>> builder.n_bonds
+        0
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Editable` for staging native molecular systems.
+
+        .. versionadded:: 1.0.0
+        """
+        state_index = self._chemical_index(chemical_state)
+        self.chemical_states.remove_bonds(
+            bond_indices, chemical_state=state_index, skip_digestion=True
         )
-
-        self.topology._remove_chemical_state_bonds(bond_indices=bond_indices)
+        self._dirty_chemical_states.add(state_index)
 
     @signal(tags=["native", "builder"])
     @arg_digest()
@@ -804,6 +903,14 @@ class MolSysBuilder(NativeQueries):
             raise StructuralInconsistencyError(
                 "Coordinates must match the current number of atoms."
             )
+        if (
+            self._structure_chemical_state_indices is not None
+            and len(self._structure_chemical_state_indices) != value.shape[0]
+        ):
+            raise StructuralInconsistencyError(
+                reason="Coordinate replacement must preserve the existing structure-to-state axis.",
+                caller="molsysmt.MolSysBuilder.set_coordinates",
+            )
         self.structures.coordinates = coordinates
 
     @signal(tags=["native", "builder"])
@@ -856,6 +963,10 @@ class MolSysBuilder(NativeQueries):
         self.structures.structure_id = structure_id.astype(int)
 
     def _ensure_group_membership(self, topology):
+        from ._atom_molecules import compact, stored
+
+        direct = stored(topology)
+        direct = None if direct is None else direct.copy()
         orphan_atom_indices = topology.atoms.index[
             topology.atoms["group_index"].isna()
         ].to_numpy(dtype=int)
@@ -868,6 +979,9 @@ class MolSysBuilder(NativeQueries):
                 self._inherited_group_molecule(np.asarray([atom_index], dtype=np.int64))
             )
             topology.atoms.loc[atom_index, "group_index"] = int(group_index)
+            if direct is not None:
+                direct[atom_index] = -1
+        topology._atom_molecule_membership = None if direct is None else compact(direct)
 
     def _fill_chain_fallbacks(self, topology):
         from molsysmt.element.chain.chain_names import _alphabetic_chain_id
@@ -923,34 +1037,24 @@ class MolSysBuilder(NativeQueries):
                     seen[int(chain)].add(int(group))
             topology.set_chain_groups(membership)
 
-    def _fill_molecule_fallbacks(self, topology):
-        from ._topology_infer import (
-            infer_component_indices_from_topology,
-        )
-
+    def _fill_molecule_fallbacks(self, topology, chemical_states):
         if topology.n_groups == 0:
             return
-        atom_component_index = infer_component_indices_from_topology(topology)
-        topology._set_component_indices(atom_component_index)
-        n_components = (
-            int(np.max(atom_component_index)) + 1
-            if len(atom_component_index) > 0
-            else 0
-        )
-        topology.reset_components(n_components=n_components)
-        topology.rebuild_components(
-            redefine_indices=False,
-            redefine_ids=True,
-            redefine_types=True,
-            redefine_names=True,
-        )
+        state = self._available_reference(chemical_states)
+        if state is None:
+            from ._topology_infer import complete_missing_molecule_membership
 
+            complete_missing_molecule_membership(topology)
+            self._fill_molecule_metadata(topology)
+            return
         unassigned = topology.groups["molecule_index"].isna()
         if unassigned.any():
             # component_index is atom-level; derive per-group from atoms
-            from ._topology_infer import _component_index_per_group
+            from ._chemical_components import group_components
 
-            group_component_index = _component_index_per_group(topology)
+            group_component_index = group_components(
+                topology, state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
+            )
             unassigned_components = sorted(
                 set(
                     int(group_component_index[gi])
@@ -1002,45 +1106,71 @@ class MolSysBuilder(NativeQueries):
                     inferred_types[molecule_index]
                 )
 
-    def _retain_group_free_molecule_axis(self, topology):
-        """Align rebuilt components with inherited molecule positions without groups."""
+    def _retain_group_free_molecule_axis(self, topology, chemical_states):
+        """Retain declared molecules independently of the rebuilt component partition."""
+        from ._atom_molecules import stored
+
         inherited = getattr(self, "_inherited_atom_molecules", None)
+        direct = stored(topology)
+        if direct is not None and (
+            inherited is None or topology.n_atoms == len(inherited)
+        ):
+            self._fill_molecule_metadata(topology)
+            return
         if inherited is None:
             if topology.n_molecules == 0:
-                topology.rebuild_molecules()
-            return
-        state = topology._resolve_reference_chemical_state()
-        components = state.component_indices.to_numpy(dtype=np.int64, na_value=-1)
-        by_component, by_owner = {}, {}
-        for component, owner in zip(components, inherited):
-            if component < 0 or owner < 0:
-                continue
-            if (component in by_component and by_component[component] != owner) or (
-                owner in by_owner and by_owner[owner] != component
-            ):
-                raise StructuralInconsistencyError(
-                    caller="molsysmt.native.MolSysBuilder.build",
-                    reason="Connectivity splits or merges inherited group-free molecules; declare explicit groups to retain their boundaries.",
+                view = self._query_view(
+                    topology=topology, chemical_states=chemical_states
                 )
-            by_component[component] = owner
-            by_owner[owner] = component
-        next_owner = topology.n_molecules
-        mapping = np.empty(len(state.components), dtype=np.int64)
-        for component in range(len(mapping)):
-            if component in by_component:
-                mapping[component] = by_component[component]
+                view.rebuild_molecules()
             else:
-                mapping[component] = next_owner
-                next_owner += 1
-        reordered = state.components.copy(deep=True)
-        reordered.index = mapping
-        state.components = reordered.reindex(range(next_owner)).reset_index(drop=True)
-        state.component_indices = pd.Series(mapping[components], dtype="Int64")
-        for owner in range(topology.n_molecules, next_owner):
-            topology.molecules.loc[owner, "molecule_id"] = str(owner)
-            topology.molecules.loc[owner, "molecule_name"] = pd.NA
-            topology.molecules.loc[owner, "molecule_type"] = pd.NA
-            topology.molecules.loc[owner, "entity_index"] = pd.NA
+                # Legacy declarative records represented their group-free axis
+                # by reference components. Materialize that representation once.
+                partition = chemical_states._resolve_chemical_state().component_indices
+                topology.set_atom_molecules(
+                    partition.to_numpy(dtype=np.int64), skip_digestion=True
+                )
+            return
+        values = (
+            np.full(topology.n_atoms, -1, dtype=np.int64)
+            if direct is None
+            else direct.copy()
+        )
+        if direct is None:
+            values[: len(inherited)] = inherited
+        missing = (values < 0) & (np.arange(topology.n_atoms) >= len(inherited))
+        if missing.any():
+            # Initial assignment of newly staged atoms uses local connectivity
+            # only when it identifies an unambiguous declared owner. It never
+            # changes a known owner or equates molecule and component indices.
+            partition = (
+                chemical_states._resolve_chemical_state().component_indices.to_numpy(
+                    dtype=np.int64, na_value=-1
+                )
+            )
+            for component in np.unique(partition[missing]):
+                if component < 0:
+                    continue
+                members = partition == component
+                owners = np.unique(values[members & ~missing])
+                owners = owners[owners >= 0]
+                if len(owners) == 1:
+                    values[members & missing] = owners[0]
+                elif not len(owners):
+                    owner = topology.n_molecules
+                    topology.molecules.loc[owner, "molecule_id"] = str(owner)
+                    topology.molecules.loc[owner, "molecule_name"] = pd.NA
+                    topology.molecules.loc[owner, "molecule_type"] = pd.NA
+                    topology.molecules.loc[owner, "entity_index"] = pd.NA
+                    values[members & missing] = owner
+                else:
+                    raise StructuralInconsistencyError(
+                        caller="molsysmt.native.MolSysBuilder.build",
+                        reason="New atoms connect multiple declared molecules; declare explicit groups or atom molecule ownership.",
+                    )
+        assignments = values.astype(object)
+        assignments[values < 0] = None
+        topology.set_atom_molecules(assignments, skip_digestion=True)
         self._fill_molecule_metadata(topology)
 
     def _fill_entity_fallbacks(self, topology):
@@ -1138,19 +1268,18 @@ class MolSysBuilder(NativeQueries):
         topology._coerce_id_columns_to_string()
         return topology
 
-    def _finalize_topology(self, *, preserve_absent_groups=False):
+    def _finalize_topology(self, chemical_states, *, preserve_absent_groups=False):
         topology = self.topology.copy()
         topology._coerce_id_columns_to_string()
         if topology.n_atoms == 0:
             return self._finalize_group_inventory(topology)
-        bonds = topology._get_chemical_state_bonds()
-        if not hasattr(bonds, "_sort_bonds"):
-            topology._set_chemical_state_bonds(bonds)
-            bonds = topology._get_chemical_state_bonds()
-        bonds._sort_bonds()
+        if chemical_states is not None:
+            for state_index in sorted(self._dirty_chemical_states):
+                chemical_states.rebuild_components(
+                    topology=topology, chemical_state=state_index, skip_digestion=True
+                )
         if preserve_absent_groups and topology.n_groups == 0:
-            topology.rebuild_components()
-            self._retain_group_free_molecule_axis(topology)
+            self._retain_group_free_molecule_axis(topology, chemical_states)
             self._fill_entity_fallbacks(topology)
             topology._coerce_id_columns_to_string()
             return topology
@@ -1168,7 +1297,7 @@ class MolSysBuilder(NativeQueries):
                 topology.groups.loc[missing, "group_type"] = (
                     infer_group_types_from_topology(topology)[missing]
                 )
-        self._fill_molecule_fallbacks(topology)
+        self._fill_molecule_fallbacks(topology, chemical_states)
         self._fill_chain_fallbacks(topology)
         from molsysmt.element.chain.chain_names import _alphabetic_chain_id
 
@@ -1226,10 +1355,57 @@ class MolSysBuilder(NativeQueries):
 
         self._validate_structures()
 
-        output = MolSys(skip_digestion=True)
-        output.topology = self._finalize_topology(
-            preserve_absent_groups=preserve_absent_groups
+        chemical_states = (
+            None if self.chemical_states is None else self.chemical_states.copy()
         )
-        output.structures = self.structures.copy()
-
+        topology = self._finalize_topology(
+            chemical_states, preserve_absent_groups=preserve_absent_groups
+        )
+        output = MolSys._from_partial_domains(
+            topology=topology,
+            chemical_states=chemical_states,
+            structures=self.structures.copy(),
+        )
+        if self._structure_chemical_state_indices is not None:
+            output._set_structure_chemical_state_indices(
+                self._structure_chemical_state_indices.copy()
+            )
         return output
+
+    def _chemical_index(self, chemical_state="reference"):
+        if self.chemical_states is None:
+            raise StructuralInconsistencyError(
+                reason="Chemical editing needs an existing ChemicalStates collection; supply a state explicitly.",
+                caller="molsysmt.MolSysBuilder",
+            )
+        return self.chemical_states._resolve_index(
+            None if chemical_state in (None, "reference") else chemical_state
+        )
+
+    def _chemical_state(self, chemical_state="reference"):
+        index = self._chemical_index(chemical_state)
+        return self.chemical_states._states[index]
+
+    @staticmethod
+    def _available_reference(chemical_states):
+        if (
+            chemical_states is None
+            or chemical_states.reference_chemical_state_index is None
+        ):
+            return None
+        return chemical_states._resolve_chemical_state()
+
+    def _query_view(self, *, topology=None, chemical_states=None):
+        """Borrow domain references for internal queries without copies or owner binding."""
+        from .molsys import MolSys
+
+        view = object.__new__(MolSys)
+        view._topology = self.topology if topology is None else topology
+        view._chemical_states_domain = (
+            self.chemical_states if chemical_states is None else chemical_states
+        )
+        view._structures = self.structures
+        view._structure_chemical_state_indices = self._structure_chemical_state_indices
+        view._interactions = {}
+        view.molecular_mechanics = None
+        return view

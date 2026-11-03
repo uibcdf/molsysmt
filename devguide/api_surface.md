@@ -32,12 +32,12 @@ or optional dependencies. CI fails when an export is added without a decision,
 when a registered export disappears, or when the generated table is stale.
 
 The exact member inventories currently tracked are `molsysmt`, `basic`,
-`structure`, `build`, `pbc`, `physchem`, `topology`, `hbonds`, `element.atom`,
+`structure`, `build`, `pbc`, `physchem`, `topology`, `chemical_states`, `hbonds`, `element.atom`,
 `interactions`, `interactions.hbonds`, `interactions.disulfides`, `interactions.ionic`, and
 `molecular_mechanics`. The canonical hydrogen-bond functions live under
 `interactions.hbonds`; `hbonds` retains the same function objects as an
 experimental compatibility path. Disulfide candidate observations live under
-`interactions.disulfides`, while recorded covalent bonds remain in topology and
+`interactions.disulfides`, while recorded covalent bonds belong to ChemicalStates and
 `build.get_disulfide_bonds` retains its single-structure entry point. Other root namespaces have an explicit subtree policy:
 their members inherit the namespace's Experimental or Outside-contract status
 until that namespace is promoted into exact member tracking.
@@ -89,6 +89,21 @@ converter availability or successful writing.
 See [chemical atom-type tools](../docs/content/user/tools/element/atom/atom_types.md)
 and [conversion report queries](../docs/content/user/tools/basic/get_conversion_report.md)
 in the User Guide for scalar/collection results and inspection semantics.
+
+### Approved pre-release namespace moves
+
+The accepted #255 separation moves the nine covalent graph tools from
+`molsysmt.topology` to `molsysmt.chemical_states` without old-path aliases.
+`pre_1_0_namespace_moves` records the eight historical pre-1.0 pairs, their owning
+decision, reason and assertion-bearing namespace guard. The ninth tool, experimental
+`get_rotatable_bonds`, retains its planned `1.0.0` introduction and follows the
+ordinary experimental transition policy. Previous and replacement entries
+must both be pre-1.0 introductions, retain the exact callable name and stability,
+and have active lifecycles. The baseline validator continues rejecting removal
+of versioned introductions, demotion, untracked replacements and arbitrary
+renaming. This bounded pre-release decision does not relax the published 1.x
+deprecation policy or certify scientific parity; numerical evidence remains in
+the scientific registry and executable graph tests.
 
 ### Public additions
 

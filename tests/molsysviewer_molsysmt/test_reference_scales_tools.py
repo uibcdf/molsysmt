@@ -236,7 +236,7 @@ def test_detached_values_preserve_primary_domains_named_coverage_and_scene(view,
         primary.interactions["preserve"],
     )
     atoms, groups = (
-        primary.topology.atoms.copy(deep=True),
+        primary.topology.copy().atoms,
         primary.topology.groups.copy(deep=True),
     )
     coordinates = puw.get_value(primary.structures.coordinates).copy()

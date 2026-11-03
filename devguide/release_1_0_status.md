@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-10-29
+**Last updated:** 2026-11-02
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -20,9 +20,60 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Authorized ChemicalStates main integration — 2026-11-02
+
+The maintainer authorizes integrating the completed #255 development branch
+into main after its source closeout. This supersedes the earlier no-merge
+boundary for this integration only. The integration combines main
+183ff252b4b3005438e4d7a5335c5564ab558661 with source-delivery checkpoint
+cc7c6e36c6e5d57515b7fa3e2d1bb33f026528f3, retaining the archived report and
+the newer shared guides. Runtime and test bytes remain those qualified at
+de7ffad2aef18ff3bccd184133dc69e081cb506e.
+
+Routine smoke, full-suite fallback, weekly, benchmark and documentation source
+routes now select the compatible Viewer ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352
+used by that qualification. Manual candidate input remains explicit. The
+integration checks cover the combined documents, API transition, source-route
+contracts and real native/addon smoke workflows; post-push CI is checked
+separately. The routine Viewer manifest is updated with its workflow consumers,
+and the already implemented keyword-only OpenMM get_missing_bonds control from
+#527 receives its specific signature-transition record. Runtime code is unchanged.
+
+The combined tree passes the native smoke selection (4,049 cases), the complete
+bound-Viewer addon selection (2,453 cases) and 73 route/API/OpenMM controls,
+each with zero failures and skips. Canonical Pytest Receptor evidence is
+finalized, session-complete and integrity-valid and agrees with JUnit. Native
+and addon selections retain 492 and 1,533 visible warnings respectively. All
+14 fast gates, Ruff and the signature-transition check against pre-integration
+main pass. These are integration-source checks, not a fresh full matrix or
+installed-package qualification; the unchanged runtime retains its separately
+identified complete local/eight-cell evidence below.
+
+No package version, public dependency minimum, tag or Release is created by this
+integration. Final installed-candidate work remains #254/#334.
+
+## Chemical-domain source closeout — 2026-11-02
+
+The #255 source refactor is complete on `dev/chemical-states-separation-255`.
+Exact runtime/test source `de7ffad2aef18ff3bccd184133dc69e081cb506e` passes the
+complete local selection (23,774 passed/two disclosed skips), all eight complete
+Linux/macOS Python 3.11–3.14 cells and 79/79 registered scientific cases without
+skips in each cell. The [archived execution record](archive/resolved_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+owns detailed counts, omissions, guards, measured limits and original failures.
+The [core specification](CORE_SPECIFICATION.md) and
+[migration guide](chemical_states_migration.md) own current behavior.
+
+Source handoffs/review requests exist in all five client repositories. Their
+teams finish adoption and qualification; draft/unapplied work is not called
+integrated. No main merge or release is performed. Next-stage main integration,
+new candidate construction, exact installed-pair/platform qualification and
+public availability remain separate under #254/#334 and client owners. Historical
+0.23.0/0.24.0 artifact receipts do not qualify this refactored source. Future
+MDTraj batch-performance recovery is tracked post-1.0 in #530.
+
 ## Chemical-domain migration started on an isolated branch — 2026-10-29
 
-The [#255 execution receipt](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+The [#255 execution receipt](archive/resolved_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
 records advance notices, initial target tests, the private storage extraction,
 scoped passing regressions and the still-failing future targets. Runtime work
 stays on `dev/chemical-states-separation-255`; main receives documentation only.
@@ -33,7 +84,7 @@ the tracker owns detailed completion state and exact evidence.
 ## Chemical-domain separation plan recorded — 2026-10-28
 
 The maintainer accepts the pre-1.0 architectural direction and requests a written
-plan before refactoring. The [#255 phase tracker](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+plan before refactoring. The [#255 phase tracker](archive/resolved_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
 now records the native, functional, form/lifecycle, persistence and consumer
 migration, its acceptance matrix and the unresolved engineering preflight items.
 The planning document is delivered; runtime implementation, migrated tests,

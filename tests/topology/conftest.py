@@ -5,25 +5,27 @@ import pandas as pd
 import pytest
 
 import molsysmt as msm
-from molsysmt.native import Structures, Topology
+from molsysmt.native import MolSys, Structures
 
 
 @pytest.fixture
 def aromatic_system():
-    topology = Topology(n_atoms=6)
-    topology.atoms["atom_type"] = ["C"] * 6
-    topology.atoms["atom_name"] = [f"C{i}" for i in range(6)]
-    topology.atoms["atom_id"] = [str(100 + i) for i in range(6)]
-    topology.bonds = pd.DataFrame(
-        dict(
-            atom1_index=np.arange(6),
-            atom2_index=np.roll(np.arange(6), -1),
-            bond_type=["covalent"] * 6,
-            bond_order=[1, 2, 1, 2, 1, 2],
-            is_aromatic=[True] * 6,
+    topology = MolSys(n_atoms=6)
+    topology.topology.atoms["atom_type"] = ["C"] * 6
+    topology.topology.atoms["atom_name"] = [f"C{i}" for i in range(6)]
+    topology.topology.atoms["atom_id"] = [str(100 + i) for i in range(6)]
+    topology.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            dict(
+                atom1_index=np.arange(6),
+                atom2_index=np.roll(np.arange(6), -1),
+                bond_type=["covalent"] * 6,
+                bond_order=[1, 2, 1, 2, 1, 2],
+                is_aromatic=[True] * 6,
+            )
         )
     )
-    state = topology._chemical_states_domain._states[0]
+    state = topology.chemical_states._states[0]
     state.connectivity_completeness = "complete"
     for name, values in dict(
         formal_charge=[0] * 6,

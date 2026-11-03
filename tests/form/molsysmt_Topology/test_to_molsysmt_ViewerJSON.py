@@ -5,10 +5,10 @@ import pandas as pd
 import pytest
 
 import molsysmt as msm
-from molsysmt.form.molsysmt_Topology.to_molsysmt_ViewerJSON import (
+from molsysmt.form.molsysmt_MolSys.to_molsysmt_ViewerJSON import (
     to_molsysmt_ViewerJSON,
 )
-from molsysmt.native import MolSys, Topology, ViewerJSON
+from molsysmt.native import MolSys, ViewerJSON
 
 
 def _minimal_topology():
@@ -25,7 +25,7 @@ def _minimal_topology():
     topo.atoms.loc[:, "atom_id"] = ["0", "1"]
     topo.atoms.loc[:, "atom_name"] = ["A", "B"]
     topo.atoms.loc[:, "group_index"] = [0, 0]
-    topo._set_component_indices([0, 0])
+    molsys.chemical_states._set_component_indices([0, 0])
     topo.atoms.loc[:, "chain_index"] = [0, 0]
 
     topo.groups.loc[:, "group_id"] = ["10"]
@@ -46,11 +46,11 @@ def _minimal_topology():
     topo.entities.loc[:, "entity_name"] = ["Ent"]
     topo.entities.loc[:, "entity_type"] = ["polymer"]
 
-    topo.bonds.loc[0, "atom1_index"] = 0
-    topo.bonds.loc[0, "atom2_index"] = 1
-    topo.bonds.loc[0, "bond_order"] = 1
+    molsys.chemical_states.get_bonds().loc[0, "atom1_index"] = 0
+    molsys.chemical_states.get_bonds().loc[0, "atom2_index"] = 1
+    molsys.chemical_states.get_bonds().loc[0, "bond_order"] = 1
 
-    return topo
+    return molsys
 
 
 def test_topology_to_ViewerJSON():
@@ -63,17 +63,21 @@ def test_topology_to_ViewerJSON():
     assert data["atoms"]["chain_id"] == ["1", "1"]
     assert data["bonds"]["indexA"] == [0]
     assert data["bonds"]["indexB"] == [1]
-    assert data["frames"] == []
+    assert data["structures"] == []
 
 
 @pytest.mark.parametrize("with_bonds", [False, True])
 def test_topology_export_has_json_scalars(with_bonds, tmp_path):
     """The producer supplies ordinary JSON data before any encoder runs."""
-    topo = Topology(n_atoms=3)
+    topo = MolSys(n_atoms=3)
     if with_bonds:
-        topo.add_bonds([[0, 1], [1, 2]])
-        topo.bonds["bond_order"] = pd.Series([1, None], dtype="Int8")
-        topo.bonds["bond_type"] = pd.Series(["single", None], dtype="string")
+        topo.chemical_states.add_bonds([[0, 1], [1, 2]])
+        topo.chemical_states.get_bonds()["bond_order"] = pd.Series(
+            [1, None], dtype="Int8"
+        )
+        topo.chemical_states.get_bonds()["bond_type"] = pd.Series(
+            ["single", None], dtype="string"
+        )
     viewer = msm.convert(topo, to_form="molsysmt.ViewerJSON")
     data = viewer.to_dict(copy=False)
 
@@ -104,6 +108,16 @@ def test_topology_export_has_json_scalars(with_bonds, tmp_path):
 
 def test_topology_export_normalizes_nullable_numpy_atom_fields():
     topo = _minimal_topology()
-    topo._set_chemical_state_atom_attribute("formal_charge", [np.int64(1), None])
+    topo.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [np.int64(1), None]
+    )
     viewer = msm.convert(topo, to_form="molsysmt.ViewerJSON")
     assert json.loads(viewer.dumps())["atoms"]["formal_charge"] == [1, None]
+
+
+def test_stable_topology_projection_omits_chemical_edges():
+    complete = _minimal_topology()
+    projected = msm.convert(complete.topology, to_form="molsysmt.ViewerJSON")
+    assert projected.data["bonds"]["indexA"] == []
+    assert projected.data["bonds"]["indexB"] == []
+    assert projected.data["atoms"]["group_id"] == ["10", "10"]

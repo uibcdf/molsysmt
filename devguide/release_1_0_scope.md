@@ -46,11 +46,15 @@ experimental unless a separately justified stability decision changes the regist
 
 The maintainer explicitly accepts completing the separation of ChemicalStates
 from Topology before 1.0 and requests a detailed written plan before runtime
-work begins. [The #255 execution plan](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
-is authoritative for scope, phase dependencies and exit criteria. Implementation
-had not started at admission. Its 2026-10-29 receipt now records isolated-branch
-storage work and explicit future-target failures; main has not adopted the
-runtime cutover. This replaces the earlier post-1.0 scheduling for #255.
+work begins. [The #255 execution plan](archive/resolved_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+records the accepted scope, phase dependencies and exit criteria. Implementation
+had not started at admission. Its final 2026-11-02 source closeout now records
+the complete isolated-branch cutover, local/eight-cell qualification and client
+handoffs. Current contracts live in CORE_SPECIFICATION.md and
+chemical_states_migration.md. The maintainer subsequently authorizes main
+integration; installed-candidate/release qualification remains separate and no
+existing artifact is relabeled. This replaces
+the earlier post-1.0 scheduling for #255.
 
 Scope includes removal of Topology's public/private chemical facades, explicit
 ChemicalStates ownership of bonds/components, domain-aware native/basic/form

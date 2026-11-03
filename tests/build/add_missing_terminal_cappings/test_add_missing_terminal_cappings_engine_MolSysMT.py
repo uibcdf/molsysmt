@@ -73,7 +73,7 @@ class TestAddMissingTerminalCappingsEngMolSysMT:
             avp_molsys, N_terminal="ACE", C_terminal="NME", engine="MolSysMT"
         )
         topo = result.topology
-        bonds = topo.bonds
+        bonds = result.chemical_states.get_bonds()
 
         ace_C_idx = topo.atoms[
             (topo.atoms["group_index"] == 0) & (topo.atoms["atom_name"] == "C")

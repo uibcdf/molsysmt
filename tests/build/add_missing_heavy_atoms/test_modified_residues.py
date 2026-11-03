@@ -123,7 +123,7 @@ def test_repair_matches_observed_modified_residue_chemistry_and_geometry(case):
     )
 
     indices = dict(zip(atoms["atom_name"], atoms.index))
-    bonds = repaired.topology.bonds
+    bonds = repaired.chemical_states._resolve_chemical_state().bonds
     bonded_names = {
         frozenset((atoms.loc[i1, "atom_name"], atoms.loc[i2, "atom_name"]))
         for i1, i2 in zip(bonds["atom1_index"], bonds["atom2_index"])
@@ -299,14 +299,14 @@ def test_mly_methyl_template_error_exceeds_bound_in_all_bundled_residues():
 
 def test_conflicting_observed_bond_order_leaves_mse_unassessed():
     molsys, _ = _incomplete_residue(CASES[0], {"O"}, ideal=True)
-    bonds = molsys.topology.bonds
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds
     names = molsys.topology.atoms["atom_name"]
     ca_c = next(
         index
         for index, row in bonds.iterrows()
         if {names[row.atom1_index], names[row.atom2_index]} == {"CA", "C"}
     )
-    molsys.topology._set_chemical_state_bond_attribute(
+    molsys.chemical_states._set_chemical_state_bond_attribute(
         "bond_order", 2, bond_indices=[ca_c]
     )
     with pytest.warns(UnassessedResidueWarning, match="bond order"):
@@ -316,14 +316,14 @@ def test_conflicting_observed_bond_order_leaves_mse_unassessed():
 
 def test_missing_observed_bond_is_restored_from_exact_template():
     molsys, _ = _incomplete_residue(CASES[0], {"O"}, ideal=True)
-    bonds = molsys.topology.bonds.copy()
+    bonds = molsys.chemical_states._resolve_chemical_state().bonds.copy()
     names = molsys.topology.atoms["atom_name"]
     remove_index = next(
         index
         for index, row in bonds.iterrows()
         if {names[row.atom1_index], names[row.atom2_index]} == {"CB", "CG"}
     )
-    molsys.topology._set_chemical_state_bonds(
+    molsys.chemical_states._set_chemical_state_bonds(
         bonds.drop(index=remove_index).reset_index(drop=True)
     )
     repaired = msm.build.add_missing_heavy_atoms(molsys, engine="MolSysMT")
@@ -335,6 +335,6 @@ def test_missing_observed_bond_is_restored_from_exact_template():
                 atoms.at[row.atom2_index, "atom_name"],
             )
         )
-        for row in repaired.topology.bonds.itertuples()
+        for row in repaired.chemical_states._resolve_chemical_state().bonds.itertuples()
     }
     assert frozenset(("CB", "CG")) in bond_names

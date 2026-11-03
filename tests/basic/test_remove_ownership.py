@@ -16,8 +16,10 @@ def observed_system():
     molsys.topology.atoms["atom_id"] = ["10", "20", "30", "40"]
     molsys.topology.atoms["atom_name"] = ["N", "O", "C", "S"]
     molsys.topology.atoms["atom_type"] = ["N", "O", "C", "S"]
-    molsys.topology._set_chemical_state_atom_attribute("formal_charge", [0, -1, 0, 1])
-    molsys.topology._append_chemical_state_bonds([[0, 1], [2, 3]], orders=1)
+    molsys.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [0, -1, 0, 1]
+    )
+    molsys.chemical_states._append_chemical_state_bonds([[0, 1], [2, 3]], orders=1)
     molsys.structures.coordinates = msm.pyunitwizard.quantity(
         np.arange(48, dtype=float).reshape(4, 4, 3), "angstrom"
     )
@@ -29,8 +31,9 @@ def observed_system():
     molsys.molecular_mechanics.atoms_ff = pd.DataFrame(
         {"partial_charge": [0.1, -0.1, 0.2, -0.2]}
     )
-    molsys.topology._append_chemical_state(state_id="second")
-    molsys.topology._set_reference_chemical_state_index(0)
+    molsys.chemical_states.append_state()
+    molsys.chemical_states._states[1].state_id = "second"
+    molsys.chemical_states._set_reference_index(0)
     molsys._set_structure_chemical_state_indices([0, 1, 0, 1])
     records = [
         {
@@ -111,7 +114,7 @@ def test_modes_preserve_axes_values_and_original_snapshots(
         result.molecular_mechanics.atoms_ff["partial_charge"],
         np.array([0.1, -0.1, 0.2, -0.2])[atoms_kept],
     )
-    assert result.topology._chemical_states_domain is result.chemical_states
+    assert result.chemical_states._molsys_owner_ref() is result
     assert result.topology._molsys_owner_ref() is result
     assert result.structures._molsys_owner_ref() is result
     assert result.chemical_states._molsys_owner_ref() is result
@@ -260,7 +263,11 @@ def test_in_place_rejects_conversion_and_complementary_input(observed_system):
         )
     with pytest.raises(ArgumentError, match="in_place"):
         msm.remove(
-            [observed_system.topology, observed_system.structures],
+            [
+                observed_system.topology,
+                observed_system.chemical_states,
+                observed_system.structures,
+            ],
             selection=[2],
             in_place=True,
         )
@@ -300,7 +307,7 @@ def test_projected_analyses_survive_h5msm_round_trip(
     path = tmp_path / "trimmed.h5msm"
     msm.convert(result, to_form="file:h5msm", output_filename=path)
     restored = msm.convert(path, to_form="molsysmt.MolSys")
-    assert restored.topology._chemical_states_domain is restored.chemical_states
+    assert restored.chemical_states._molsys_owner_ref() is restored
     assert restored._structure_chemical_state_indices.tolist() == [0, 1, 0]
     for analysis in restored.interactions.values():
         np.testing.assert_array_equal(analysis.atom_source_indices, [0, 1, 3])
@@ -318,7 +325,7 @@ def test_partial_molsys_remaps_declared_axes(observed_system, domains, in_place)
     topology = observed_system.topology.copy() if domains == "topology" else None
     source = MolSys._from_partial_domains(
         topology=topology,
-        chemical_states=None if topology is None else topology._chemical_states_domain,
+        chemical_states=None,
         structures=observed_system.structures.copy()
         if domains == "structures"
         else None,
@@ -343,7 +350,11 @@ def test_other_forms_keep_independent_out_of_place_route(observed_system, form):
         # The documented 0.1 builder route reads structure labels as integers.
         observed_system.structures.structure_id = np.array([10, 20, 30, 40])
     source = (
-        [observed_system.topology, observed_system.structures]
+        [
+            observed_system.topology,
+            observed_system.chemical_states,
+            observed_system.structures,
+        ]
         if form == "complementary"
         else msm.convert(observed_system, to_form=form)
     )

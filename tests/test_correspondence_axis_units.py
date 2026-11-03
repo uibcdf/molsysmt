@@ -30,7 +30,7 @@ def test_public_positional_axes_reject_quantity_before_unit_stripping(
     source = declared_methanol()
     value = msm.pyunitwizard.quantity(np.array([0], dtype=int), unit)
     from molsysmt._private import atom_name_projection, pdbqt_poses
-    from molsysmt.topology import _atom_correspondences
+    from molsysmt.chemical_states import _atom_correspondences
 
     def forbidden(*args, **kwargs):
         raise AssertionError("A quantity-valued index reached scientific/label work")
@@ -42,7 +42,9 @@ def test_public_positional_axes_reject_quantity_before_unit_stripping(
         warnings.simplefilter("always")
         with pytest.raises(ArgumentError):
             if family == "correspondences":
-                msm.topology.get_atom_correspondences(source, **{argument: value})
+                msm.chemical_states.get_atom_correspondences(
+                    source, **{argument: value}
+                )
             elif family == "rmsd":
                 msm.structure.get_symmetry_corrected_rmsd(source, **{argument: value})
             elif family == "names":

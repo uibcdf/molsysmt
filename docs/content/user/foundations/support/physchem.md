@@ -114,6 +114,14 @@ arbitrarily small cells. MDTraj supports Cartesian SASA only and rejects
 controls. Engine agreement under different boundary conditions does not
 establish surface accuracy.
 
+
+The optional MDTraj engine evaluates each requested structure independently to
+avoid the multi-structure area accumulation reported in
+[MDTraj #2195](https://github.com/mdtraj/mdtraj/issues/2195). Requested order
+and repeated indices are preserved. This adds provider-call overhead and
+does not parallelize across structures; prefer the native engine for large
+ensembles until a corrected MDTraj release is qualified.
+
 Stored-chemistry readiness keeps the semantic reference-state request when
 resolving rich atom selections. External syntax can therefore select atoms in
 the default reference without an implicit integer-state override. Explicit and

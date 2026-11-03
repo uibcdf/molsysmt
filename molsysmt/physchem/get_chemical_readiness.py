@@ -78,7 +78,7 @@ def get_chemical_readiness(
     See Also
     --------
     get_cip_stereochemistry : Analyze stereochemistry with an explicit provider.
-    molsysmt.topology.get_rigid_fragments : Partition explicit chemical connectivity.
+    molsysmt.chemical_states.get_rigid_fragments : Partition explicit chemical connectivity.
 
     Examples
     --------

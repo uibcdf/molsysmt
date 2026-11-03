@@ -35,7 +35,9 @@ def set(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     element : str, default=None
-        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+        Element receiving values ('atom', 'bond', 'group', 'component',
+        'molecule', 'chain', 'entity' or 'system'). If omitted, use the attribute's
+        declared assignment element.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -79,6 +81,16 @@ def set(
       a native Topology or MolSys writes the state selected by
       ``chemical_state``. Formal charge accepts integer counts or quantities
       compatible with elementary charge.
+    - Standalone ``ChemicalStates`` supports those seven atom assignments and
+      the twelve rich bond fields through the same state selector. Values follow
+      unique selected positions; None assigns unknown values. No state or graph
+      is created implicitly. Component indices declare membership in existing
+      state-local rows; a changed declaration is partial and preserves labels only
+      for exact full atom sets. Component labels accept scalars or aligned vectors;
+      an atom projection rejects unknown memberships and conflicting row labels.
+      Label edits preserve observations; membership changes invalidate them.
+    - Each standalone ChemicalStates attribute is validated and staged before publication.
+      Several attributes in one call are separate assignments, not one transaction.
     - ``isotope`` sets the stable nullable isotope mass number. It does not set
       atomic mass and is independent of ``chemical_state``.
     - ``partial_charge`` on a native MolSys writes MolecularMechanics, independently
@@ -93,8 +105,8 @@ def set(
       stereochemistry and reference atoms, direction, component participation,
       and evidence are independent attributes; setting one does not infer the
       others.
-    - Explicit integer state selection currently requires a native Topology or
-      MolSys. Convert external forms before editing a non-reference state.
+    - Explicit integer state selection currently requires a native ChemicalStates,
+      Topology or MolSys. Convert external forms before editing a non-reference state.
     - ``structure_chemical_state_index`` sets the nullable MolSys association
       aligned to `structure_indices`; it does not change the topology reference.
     - Editing coordinates or box through a native MolSys invalidates every
@@ -116,8 +128,9 @@ def set(
       when ``chemical_state`` names one state or ``structure_indices`` selects
       only some structures: the assignment changes that state's chemical data.
       Editing ``structure_chemical_state_index`` invalidates only the selected
-      structures. Direct Topology/ChemicalStates aliases and mechanics edits
-      require explicit owner invalidation.
+      structures. Controlled ChemicalStates assignment routes also notify their
+      owning MolSys. Raw table writes and mechanics edits require explicit owner
+      invalidation.
 
 
     See Also
@@ -131,7 +144,7 @@ def set(
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys = msm.convert('181L')
+    >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.pdb'])
     >>> msm.basic.get(molsys, element='group', selection='group_index==30', group_name=True)
     ['HIS']
     >>> msm.basic.set(molsys, selection='group_index==30', group_name='HSD')
@@ -143,12 +156,21 @@ def set(
     >>> msm.set(topology, selection=[1], atom_id='00101')
     >>> msm.get(topology, element='atom', atom_id=True)
     ['101', '00101']
-    >>> msm.set(topology, element='atom', chemical_state=0, formal_charge=[1, -1])
-    >>> msm.get(topology, element='atom', chemical_state=0, formal_charge=True)
+    >>> chemistry = msm.ChemicalStates(n_atoms=2)
+    >>> _ = chemistry.append_state()
+    >>> msm.set(chemistry, element='atom', chemical_state=0, formal_charge=[1, -1])
+    >>> msm.get(chemistry, element='atom', chemical_state=0, formal_charge=True)
     [1, -1]
     >>> msm.set(topology, element='atom', isotope=[13, 2])
     >>> msm.get(topology, element='atom', isotope=True)
     [13, 2]
+    >>> from molsysmt.native import ChemicalStates
+    >>> chemical_states = ChemicalStates(n_atoms=2)
+    >>> chemical_states.append_state()
+    0
+    >>> msm.set(chemical_states, selection=[1], chemical_state=0, formal_charge=-1)
+    >>> chemical_states.get(element='atom', formal_charge=True)
+    [None, -1]
     >>> molsys = MolSys(n_atoms=1)
     >>> molsys.structures.append(coordinates=msm.pyunitwizard.quantity(
     ...     [[[0, 0, 0]]], 'nm'))
@@ -227,6 +249,14 @@ def set(
             item, form = where_is_attribute(
                 molecular_system, in_attribute, include_none=False
             )
+            if form is None:
+                from molsysmt._private.smonitor import NotWithThisFormError
+
+                raise NotWithThisFormError(
+                    caller="molsysmt.set",
+                    requested_attribute=in_attribute,
+                    message=f"No supplied domain can store {in_attribute!r}.",
+                )
             in_value = value_of_in_attribute[in_attribute]
             set_function = getattr(
                 _dict_modules[form], f"set_{in_attribute}_to_{element}"
@@ -260,6 +290,14 @@ def set(
             item, form = where_is_attribute(
                 molecular_system, in_attribute, include_none=False
             )
+            if form is None:
+                from molsysmt._private.smonitor import NotWithThisFormError
+
+                raise NotWithThisFormError(
+                    caller="molsysmt.set",
+                    requested_attribute=in_attribute,
+                    message=f"No supplied domain can store {in_attribute!r}.",
+                )
             in_value = value_of_in_attribute[in_attribute]
             set_function = getattr(
                 _dict_modules[form], f"set_{in_attribute}_to_{element}"

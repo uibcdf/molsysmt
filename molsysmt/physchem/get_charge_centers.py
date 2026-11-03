@@ -126,25 +126,25 @@ def get_charge_centers(
     """
     from molsysmt import __version__
     from molsysmt.basic import convert, select
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.native import MolSys
     from molsysmt.physchem.atoms.mass import physical as elements
 
     if definition != "formal_charge":
         raise ArgumentError(argument="definition", value=definition, caller=_CALLER)
-    if isinstance(molecular_system, MolSys):
-        topology = molecular_system.topology
-        if topology is None:
-            raise StructuralInconsistencyError(
-                reason="A topology domain is required.", caller=_CALLER
-            )
-    elif isinstance(molecular_system, Topology):
-        topology = molecular_system
-    else:
-        topology = convert(molecular_system, to_form="molsysmt.Topology")
-
-    state = topology._resolve_chemical_state()
+    native = (
+        molecular_system
+        if isinstance(molecular_system, MolSys)
+        else convert(molecular_system, to_form="molsysmt.MolSys")
+    )
+    topology, states = native.topology, native.chemical_states
+    if topology is None or states is None:
+        raise StructuralInconsistencyError(
+            reason="Charge-center recognition requires Topology and ChemicalStates domains.",
+            caller=_CALLER,
+        )
+    state = states._resolve_chemical_state()
     state_index = next(
-        index for index, item in enumerate(topology._chemical_states) if item is state
+        index for index, item in enumerate(states._states) if item is state
     )
     n_atoms = len(topology.atoms)
     if (
@@ -161,12 +161,12 @@ def get_charge_centers(
         raise StructuralInconsistencyError(
             reason="Every atom requires an explicit element symbol.", caller=_CALLER
         )
-    if n_atoms and not topology._has_chemical_state_atom_attribute("formal_charge"):
+    if n_atoms and not states._has_chemical_state_atom_attribute("formal_charge"):
         raise StructuralInconsistencyError(
             reason="Every atom requires an explicit formal charge.", caller=_CALLER
         )
     values = (
-        topology._get_chemical_state_atom_attribute("formal_charge") if n_atoms else []
+        states._get_chemical_state_atom_attribute("formal_charge") if n_atoms else []
     )
     if any(pd.isna(value) for value in values):
         raise StructuralInconsistencyError(

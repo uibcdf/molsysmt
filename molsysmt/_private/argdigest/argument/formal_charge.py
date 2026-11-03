@@ -27,11 +27,16 @@ def digest_formal_charge(formal_charge, caller=None):
                     "formal_charge", value=formal_charge, caller=caller, message=None
                 )
 
-    if formal_charge is None:
+    if formal_charge is None or formal_charge is pd.NA:
         return None
 
     if isinstance(formal_charge, (int, np.integer)):
-        return int(formal_charge)
+        if (
+            not isinstance(formal_charge, (bool, np.bool_))
+            and -32768 <= int(formal_charge) <= 32767
+        ):
+            return int(formal_charge)
+        raise ArgumentError("formal_charge", value=formal_charge, caller=caller)
 
     if isinstance(formal_charge, (list, tuple, np.ndarray)):
         value = np.asarray(formal_charge, dtype=object)
@@ -42,6 +47,13 @@ def digest_formal_charge(formal_charge, caller=None):
             and not isinstance(entry, bool)
             for entry in value
         ):
+            if any(
+                entry is not None
+                and entry is not pd.NA
+                and not -32768 <= int(entry) <= 32767
+                for entry in value
+            ):
+                raise ArgumentError("formal_charge", value=formal_charge, caller=caller)
             if any(entry is None or entry is pd.NA for entry in value):
                 return value.tolist()
             return value.astype(np.int16)

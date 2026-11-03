@@ -16,7 +16,7 @@ def test_get_covalent_blocks_molsysmt_MolSys_1():
     molsys = msm.convert(
         systems["Met-enkephalin"]["met_enkephalin.h5msm"], to_form="molsysmt.MolSys"
     )
-    blocks = msm.topology.get_covalent_blocks(molsys)
+    blocks = msm.chemical_states.get_covalent_blocks(molsys)
     true_blocks = np.array(
         [
             {
@@ -104,7 +104,9 @@ def test_get_covalent_blocks_molsysmt_MolSys_2():
     molsys = msm.convert(
         systems["Met-enkephalin"]["met_enkephalin.h5msm"], to_form="molsysmt.MolSys"
     )
-    blocks = msm.topology.get_covalent_blocks(molsys, remove_bonds=[[19, 21], [33, 35]])
+    blocks = msm.chemical_states.get_covalent_blocks(
+        molsys, remove_bonds=[[19, 21], [33, 35]]
+    )
     true_blocks = np.array(
         [
             {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
@@ -159,8 +161,8 @@ def test_get_covalent_blocks_molsysmt_MolSys_3():
     molsys = msm.convert(
         systems["Met-enkephalin"]["met_enkephalin.h5msm"], to_form="molsysmt.MolSys"
     )
-    msm.topology.get_covalent_blocks(molsys, remove_bonds=[[19, 21], [33, 35]])
-    blocks_np = msm.topology.get_covalent_blocks(
+    msm.chemical_states.get_covalent_blocks(molsys, remove_bonds=[[19, 21], [33, 35]])
+    blocks_np = msm.chemical_states.get_covalent_blocks(
         molsys, remove_bonds=[[19, 21], [33, 35]], output_type="numpy.ndarray"
     )
     true_blocks = np.array(

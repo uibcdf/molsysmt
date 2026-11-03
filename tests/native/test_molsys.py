@@ -3,12 +3,14 @@ import numpy as np
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 from molsysmt.native.molsys import MolSys
-from tests.native.test_topology_operations import build_minimal_topology
+from tests.native.test_topology_operations import build_minimal_chemical_molsys
 
 
 def build_minimal_molsys(n_structures=2):
-    molsys = MolSys(skip_digestion=True)
-    molsys.topology = build_minimal_topology()
+    molsys = build_minimal_chemical_molsys()
+    from molsysmt.native import Structures
+
+    molsys.structures = Structures()
     molsys.structures.coordinates = puw.quantity(
         np.arange(n_structures * 4 * 3, dtype=np.float64).reshape((n_structures, 4, 3)),
         "nm",
@@ -58,7 +60,7 @@ def test_extract_topology_chemistry_without_structures_preserves_domains():
     source = build_minimal_molsys()
     topology = source.topology.copy()
     partial = MolSys._from_partial_domains(
-        topology=topology, chemical_states=topology._chemical_states_domain
+        topology=topology, chemical_states=source.chemical_states.copy()
     )
     partial.molecular_mechanics.partial_charge = [0.1, 0.2, 0.3, 0.4]
     partial.molecular_mechanics.atom_ff_type = ["A", "B", "C", "D"]
@@ -68,7 +70,7 @@ def test_extract_topology_chemistry_without_structures_preserves_domains():
     assert extracted.structures is None
     assert msm.get(extracted, n_structures=True) is None
     assert extracted.topology.atoms["atom_id"].tolist() == ["1", "3"]
-    assert extracted.chemical_states is extracted.topology._chemical_states_domain
+    assert extracted.chemical_states._molsys_owner_ref() is extracted
     assert extracted.chemical_states.n_atoms == 2
     assert extracted.chemical_states.n_chemical_states == 1
     assert extracted.molecular_mechanics.partial_charge.tolist() == [0.2, 0.4]
@@ -144,11 +146,13 @@ def test_copy_is_independent():
 def test_rebuild_wrappers_delegate_to_topology():
     molsys = build_minimal_molsys(n_structures=1)
     molsys.topology.groups["group_type"] = np.nan
-    molsys.topology.components = molsys.topology.components.iloc[0:0].copy()
+    molsys.chemical_states._resolve_chemical_state().components = (
+        molsys.chemical_states._resolve_chemical_state().components.iloc[0:0].copy()
+    )
     molsys.topology.molecules = molsys.topology.molecules.iloc[0:0].copy()
     molsys.topology.entities = molsys.topology.entities.iloc[0:0].copy()
     molsys.topology.chains = molsys.topology.chains.iloc[0:0].copy()
-    molsys.topology._set_component_indices(np.nan)
+    molsys.chemical_states._set_component_indices(np.nan)
     molsys.topology.atoms["chain_index"] = np.nan
     molsys.topology.groups["molecule_index"] = np.nan
 
@@ -159,7 +163,7 @@ def test_rebuild_wrappers_delegate_to_topology():
     molsys.rebuild_entities(redefine_ids=True, redefine_types=True)
 
     assert molsys.topology.groups["group_type"].isnull().sum() == 0
-    assert molsys.topology.components.shape[0] > 0
+    assert molsys.chemical_states._resolve_chemical_state().components.shape[0] > 0
     assert molsys.topology.molecules.shape[0] > 0
     assert molsys.topology.chains.shape[0] > 0
     assert molsys.topology.entities.shape[0] > 0
@@ -179,7 +183,7 @@ def test_add_missing_bonds_appends_inferred_pairs_without_replacing_existing(
     monkeypatch,
 ):
     molsys = build_minimal_molsys(n_structures=1)
-    original_pairs = molsys.topology._get_chemical_state_bonds()[
+    original_pairs = molsys.chemical_states._get_chemical_state_bonds()[
         ["atom1_index", "atom2_index"]
     ].values.tolist()
 
@@ -191,7 +195,7 @@ def test_add_missing_bonds_appends_inferred_pairs_without_replacing_existing(
 
     molsys.add_missing_bonds(skip_digestion=True)
 
-    pairs = molsys.topology._get_chemical_state_bonds()[
+    pairs = molsys.chemical_states._get_chemical_state_bonds()[
         ["atom1_index", "atom2_index"]
     ].values.tolist()
     assert pairs == sorted(original_pairs + [[2, 3]])

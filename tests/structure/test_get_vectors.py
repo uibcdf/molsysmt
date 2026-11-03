@@ -377,16 +377,21 @@ def test_forced_blocks_for_independent_structure_axes_are_bounded(monkeypatch):
 def test_declared_donor_pairs_compose_without_chemical_reinterpretation():
     import pandas as pd
 
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.native import MolSys
 
-    topology = Topology(n_atoms=3)
+    source = MolSys(n_atoms=3)
+    topology = source.topology
     topology.atoms["atom_type"] = ["O", "H", "H"]
-    topology.bonds = pd.DataFrame(
-        dict(atom1_index=[0, 0], atom2_index=[1, 2], bond_type=["covalent", "covalent"])
+    source.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            dict(
+                atom1_index=[0, 0],
+                atom2_index=[1, 2],
+                bond_type=["covalent", "covalent"],
+            )
+        )
     )
-    topology._chemical_states_domain._states[0].connectivity_completeness = "complete"
-    source = MolSys()
-    source.topology = topology
+    source.chemical_states._states[0].connectivity_completeness = "complete"
     source.structures = Structures(
         coordinates=puw.quantity(
             [[[0.0, 0.0, 0.0], [0.1, 0.0, 0.0], [0.0, 0.1, 0.0]]], "nm"

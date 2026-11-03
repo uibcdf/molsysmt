@@ -57,4 +57,4 @@ def test_editable_supports_declared_topology_edits_before_build():
 
     assert builder.n_bonds == original_n_bonds - 1
     assert "W" in rebuilt.topology.chains["chain_id"].tolist()
-    assert rebuilt.topology.n_bonds == original_n_bonds - 1
+    assert rebuilt.chemical_states.get(n_bonds=True) == original_n_bonds - 1

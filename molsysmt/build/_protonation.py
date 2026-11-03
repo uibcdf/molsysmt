@@ -51,7 +51,7 @@ def unexpected_hydrogens(native_molsys, pH):
 
     topology = native_molsys.topology
 
-    topology.rebuild_components(
+    native_molsys.rebuild_components(
         redefine_indices=True,
         redefine_ids=False,
         redefine_types=True,
@@ -59,7 +59,7 @@ def unexpected_hydrogens(native_molsys, pH):
     )
 
     n_groups = topology.n_groups
-    component_indices = topology._get_component_indices()
+    component_indices = native_molsys.chemical_states._get_component_indices()
 
     first_group_of_component = {}
     last_group_of_component = {}
@@ -73,7 +73,7 @@ def unexpected_hydrogens(native_molsys, pH):
         last_group_of_component[component_index] = group_index
 
     disulfide_groups = set()
-    bonds = topology._get_chemical_state_bonds()
+    bonds = native_molsys.chemical_states._get_chemical_state_bonds()
     if bonds is not None and len(bonds) > 0:
         for _, bond in bonds.iterrows():
             first = topology.atoms.loc[int(bond["atom1_index"])]

@@ -193,7 +193,72 @@ def validate_registry(registry: dict, repo_root: Path = REPO_ROOT) -> list[str]:
                     errors.append(
                         f"Untracked public namespace requires subtree_stability: {qualified_name}"
                     )
+    moves = registry.get("pre_1_0_namespace_moves", {})
+    if not isinstance(moves, dict):
+        errors.append("pre_1_0_namespace_moves must be an explicit mapping.")
+    else:
+        for name, move in moves.items():
+            target = move.get("replacement") if isinstance(move, dict) else None
+            replacement = symbols.get(target, {}) if isinstance(target, str) else {}
+            if name in symbols or not _valid_pre_1_0_namespace_move(
+                name, replacement, registry
+            ):
+                errors.append(f"Invalid pre-1.0 namespace move: {name}")
+                continue
+            guard = move["guard"].split("::")
+            path = repo_root / guard[0]
+            if (
+                len(guard) != 2
+                or not guard[0].startswith("tests/")
+                or ".." in Path(guard[0]).parts
+                or not path.is_file()
+            ):
+                errors.append(
+                    f"{name}: namespace move requires an addressable test guard."
+                )
+                continue
+            tree = ast.parse(path.read_text(encoding="utf-8"))
+            if not any(
+                isinstance(node, ast.FunctionDef)
+                and node.name == guard[1]
+                and any(isinstance(child, ast.Assert) for child in ast.walk(node))
+                for node in tree.body
+            ):
+                errors.append(
+                    f"{name}: namespace move guard must name an assertion-bearing test."
+                )
     return errors
+
+
+def _valid_pre_1_0_namespace_move(name, previous_entry, current):
+    """Allow only an explicit, tracked pre-release relocation with stable semantics."""
+    moves = current.get("pre_1_0_namespace_moves", {})
+    if not isinstance(name, str) or not isinstance(moves, dict):
+        return False
+    move = moves.get(name)
+    if not isinstance(move, dict):
+        return False
+    target = move.get("replacement", "")
+    if not isinstance(target, str):
+        return False
+    replacement = current.get("symbols", {}).get(target, {})
+    return (
+        isinstance(target, str)
+        and target != name
+        and target.rsplit(".", 1)[-1] == name.rsplit(".", 1)[-1]
+        and previous_entry.get("introduced") == "pre-1.0"
+        and replacement.get("introduced") == "pre-1.0"
+        and replacement.get("stability") == previous_entry.get("stability")
+        and previous_entry.get("lifecycle", "active") == "active"
+        and replacement.get("lifecycle", "active") == "active"
+        and bool(
+            re.fullmatch(r"uibcdf/molsysmt#[1-9][0-9]*", str(move.get("issue", "")))
+        )
+        and isinstance(move.get("reason"), str)
+        and bool(move["reason"].strip())
+        and isinstance(move.get("guard"), str)
+        and bool(move["guard"].strip())
+    )
 
 
 def validate_transition(previous: dict, current: dict) -> list[str]:
@@ -204,7 +269,11 @@ def validate_transition(previous: dict, current: dict) -> list[str]:
     for name, previous_entry in sorted(previous_symbols.items()):
         current_entry = current_symbols.get(name)
         if current_entry is None:
-            if previous_entry.get("stability") == "stable":
+            if previous_entry.get(
+                "stability"
+            ) == "stable" and not _valid_pre_1_0_namespace_move(
+                name, previous_entry, current
+            ):
                 errors.append(f"Stable symbol removed from registry: {name}")
             continue
         if (
@@ -273,6 +342,20 @@ def render_document(registry: dict) -> str:
                 f"| `{name}` | {entry['stability']} | {lifecycle} | {entry['introduced']} |"
             )
         lines.append("")
+    moves = registry.get("pre_1_0_namespace_moves", {})
+    if moves:
+        lines.extend(
+            [
+                "## Approved pre-1.0 namespace moves",
+                "",
+                "These recorded relocations preserve stability; they are not runtime aliases.",
+                "",
+                "| Retired path | Canonical path | Owning decision |",
+                "| --- | --- | --- |",
+            ]
+        )
+        for name, move in sorted(moves.items()):
+            lines.append(f"| `{name}` | `{move['replacement']}` | {move['issue']} |")
     return "\n".join(lines).rstrip() + "\n"
 
 

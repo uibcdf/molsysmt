@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_path(path, caller=None):
 
-    if caller == "molsysmt.topology.get_covalent_paths.get_covalent_paths":
+    if caller == "molsysmt.chemical_states.get_covalent_paths.get_covalent_paths":
         if not isinstance(path, (list, tuple, np.ndarray)):
             raise ArgumentError("path", value=path, caller=caller)
         if isinstance(path, np.ndarray) and path.ndim not in (1, 2):

@@ -47,7 +47,8 @@ def test_parity_n_chains(yaml_file, source_topology):
 
 
 def test_parity_n_bonds(yaml_file, source_topology):
-    assert msm.get(yaml_file, element="system", n_bonds=True) == source_topology.n_bonds
+    assert msm.get(yaml_file, element="system", n_bonds=True) is None
+    assert not hasattr(source_topology, "n_bonds")
 
 
 def test_parity_atom_names(yaml_file, source_topology):

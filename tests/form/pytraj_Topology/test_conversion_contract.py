@@ -33,30 +33,39 @@ def test_pytraj_chain_identifier_abi_is_detected():
 
 
 def test_native_pytraj_roundtrip_preserves_representable_subset(builder_pdb_molsys):
-    source = builder_pdb_molsys.topology
+    source = builder_pdb_molsys
 
     pytraj_topology = msm.convert(source, to_form="pytraj.Topology")
-    output = msm.convert(pytraj_topology, to_form="molsysmt.Topology")
+    output = msm.convert(pytraj_topology, to_form="molsysmt.MolSys")
 
-    source_bonds = source._get_chemical_state_bonds()[
+    source_bonds = source.chemical_states._get_chemical_state_bonds()[
         ["atom1_index", "atom2_index"]
     ].to_numpy()
-    output_bonds = output._get_chemical_state_bonds()[
+    output_bonds = output.chemical_states._get_chemical_state_bonds()[
         ["atom1_index", "atom2_index"]
     ].to_numpy()
 
-    assert output.n_atoms == source.n_atoms
-    assert output.n_groups == source.n_groups
-    assert output.atoms["atom_name"].tolist() == source.atoms["atom_name"].tolist()
-    assert output.atoms["atom_type"].tolist() == source.atoms["atom_type"].tolist()
-    assert output.groups["group_name"].tolist() == source.groups["group_name"].tolist()
+    assert output.topology.n_atoms == source.topology.n_atoms
+    assert output.topology.n_groups == source.topology.n_groups
+    assert (
+        output.topology.atoms["atom_name"].tolist()
+        == source.topology.atoms["atom_name"].tolist()
+    )
+    assert (
+        output.topology.atoms["atom_type"].tolist()
+        == source.topology.atoms["atom_type"].tolist()
+    )
+    assert (
+        output.topology.groups["group_name"].tolist()
+        == source.topology.groups["group_name"].tolist()
+    )
     assert _edge_set(output_bonds) == _edge_set(source_bonds)
-    assert output.n_chains == 0
+    assert output.topology.n_chains == 0
 
 
 def test_native_to_pytraj_subset_remaps_bonds(builder_pdb_molsys):
     pytraj_topology = msm.convert(
-        builder_pdb_molsys.topology,
+        builder_pdb_molsys,
         to_form="pytraj.Topology",
         selection=[0, 1],
     )
@@ -67,24 +76,26 @@ def test_native_to_pytraj_subset_remaps_bonds(builder_pdb_molsys):
 
 def test_pytraj_to_native_subset_remaps_bonds(builder_pdb_molsys):
     pytraj_topology = msm.convert(
-        builder_pdb_molsys.topology,
+        builder_pdb_molsys,
         to_form="pytraj.Topology",
     )
     output = msm.convert(
         pytraj_topology,
-        to_form="molsysmt.Topology",
+        to_form="molsysmt.MolSys",
         selection=[0, 1],
     )
 
-    assert output.n_atoms == 2
+    assert output.topology.n_atoms == 2
     assert _edge_set(
-        output._get_chemical_state_bonds()[["atom1_index", "atom2_index"]].to_numpy()
+        output.chemical_states._get_chemical_state_bonds()[
+            ["atom1_index", "atom2_index"]
+        ].to_numpy()
     ) == {(0, 1)}
 
 
 def test_pytraj_get_uses_native_topology_pipe(builder_pdb_molsys):
     pytraj_topology = msm.convert(
-        builder_pdb_molsys.topology,
+        builder_pdb_molsys,
         to_form="pytraj.Topology",
     )
 

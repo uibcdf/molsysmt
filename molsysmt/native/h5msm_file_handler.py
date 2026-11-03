@@ -105,43 +105,66 @@ class H5MSMFileHandler:
             self.file.close()
 
     def write_topology(self, topology, selection="all", syntax="MolSysMT"):
-        """Write a topology object into the file, converting if needed."""
+        """Writing stable inventory and explicitly supplied chemistry to H5MSM 0.4.
+
+        A pure Topology supplies only stable inventory. Molecular-system forms
+        supplying bonds retain an independent ChemicalStates collection; no
+        chemical assignments are inferred from a pure native inventory.
+
+        Parameters
+        ----------
+        topology : molecular system
+            Source supplying stable inventory and, optionally, chemical states.
+            Conversion of a richer form requests no structural series.
+        selection : str, list, tuple or numpy.ndarray, default='all'
+            Atom selection applied consistently to inventory and stored chemistry.
+        syntax : str, default='MolSysMT'
+            Selection syntax used to evaluate selection.
+
+        Returns
+        -------
+        None
+            The supplied domains are written into this open legacy file.
+
+        Notes
+        -----
+        Pure Topology writes only its inventory. It cannot supply the chemical
+        collection required by the complete H5MSM 0.4 MolSys reader. The public
+        conversion route writes optional domains using H5MSM 0.5 instead.
+        """
 
         from molsysmt._private.variables import is_all
-        from molsysmt.basic import convert, get_form, select
-        from molsysmt.form import _dict_modules
+        from molsysmt.basic import convert, select
+        from molsysmt.form.molsysmt_Topology.to_file_h5msm import dump_topology_to_h5msm
+        from molsysmt.native import Topology
 
         if is_all(selection):
             atom_indices = "all"
         else:
             atom_indices = select(topology, selection=selection, syntax=syntax)
 
-        try:
-            topology_form = get_form(topology)
-            if topology_form == "molsysmt.Topology":
-                from molsysmt.form.molsysmt_Topology.to_file_h5msm import (
-                    dump_topology_to_h5msm,
-                )
+        if isinstance(topology, Topology):
+            dump_topology_to_h5msm(topology, file=self.file, atom_indices=atom_indices)
+            return
+        source = convert(
+            topology,
+            to_form="molsysmt.MolSys",
+            selection=atom_indices,
+            structure_indices=[],
+        )
+        if source.topology is None:
+            raise ValueError("Writing topology requires an explicit stable inventory.")
+        dump_topology_to_h5msm(source.topology, file=self.file)
+        if source.chemical_states is not None:
+            from molsysmt.form._h5msm_chemical_states import write_chemical_states
 
-                dump_topology_to_h5msm(
-                    topology, file=self.file, atom_indices=atom_indices
-                )
-            else:
-                _dict_modules[topology_form].dump_topology_to_h5msm(
-                    topology, file=self.file, atom_indices=atom_indices
-                )
-        except Exception:
-            aux_topology = convert(
-                topology, to_form="molsysmt.Topology", selection=atom_indices
+            dataset = self.file["topology"]["atoms"]["atom_id"]
+            options = {"compression": dataset.compression}
+            if dataset.compression == "gzip":
+                options["compression_opts"] = dataset.compression_opts
+            write_chemical_states(
+                source.chemical_states, self.file["topology"], options
             )
-            from molsysmt.form.molsysmt_Topology.to_file_h5msm import (
-                dump_topology_to_h5msm,
-            )
-
-            dump_topology_to_h5msm(
-                aux_topology, file=self.file, atom_indices=atom_indices
-            )
-            del aux_topology
 
     def close(self):
         """Close the underlying HDF5 handle."""

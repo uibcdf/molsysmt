@@ -23,11 +23,12 @@ def test_center_cookbook_places_rigid_atoms():
 
 
 @pytest.mark.parametrize("domain", ["Alzheimer", "Enzyme"])
-def test_geometric_course_executes_with_local_source_substitutions(domain, monkeypatch):
+def test_geometric_course_executes_with_local_source_substitutions(
+    domain, monkeypatch, headless_plotting
+):
     """Replace only remote input identifiers; run actual public scientific tools."""
     if domain == "Enzyme":
         pytest.importorskip("rdkit")
-    pytest.importorskip("matplotlib")
     original_convert = msm.convert
 
     def local_convert(molecular_system, *args, **kwargs):
@@ -57,6 +58,4 @@ def test_geometric_course_executes_with_local_source_substitutions(domain, monke
         assert set(namespace["fibril_atom_indices"]).isdisjoint(
             namespace["peptide_atom_indices"]
         )
-    import matplotlib.pyplot as plt
-
-    plt.close("all")
+    assert headless_plotting

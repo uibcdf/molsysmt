@@ -25,15 +25,11 @@ def to_mdtraj_Topology(item, atom_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.molsysmt_Topology.to_mdtraj_Topology import (
-        to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology,
+    from molsysmt.form.mdtraj_Topology._from_native import export_native
+
+    return export_native(
+        item.topology,
+        atom_indices=atom_indices,
+        chemical_states=item.chemical_states,
+        skip_digestion=True,
     )
-
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-
-    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
-    tmp_item = molsysmt_Topology_to_mdtraj_Topology(
-        tmp_item, atom_indices=atom_indices, skip_digestion=True
-    )
-
-    return tmp_item

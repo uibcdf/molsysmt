@@ -180,7 +180,7 @@ local directional models and occurrence detection. These are independent public
 tools: recognizing sites does not require coordinates, and characterizing local
 directions does not require an interacting partner or a previous hydrogen-bond
 calculation. General chemical properties, connectivity/SMARTS, vectors and periodic
-images remain in `physchem`, `topology`, `structure` and `pbc`, respectively.
+images remain in `physchem`, `chemical_states`, `structure` and `pbc`, respectively.
 Downstream workflows can reuse the site tools without invoking a detector.
 
 Site recognition is provided by `interactions.hbonds.get_hbond_sites`; its public
@@ -227,8 +227,8 @@ structure indices do not duplicate observations in this result. The default
 tuple output remains unchanged. The caller attaches the analysis to `MolSys`
 under a chosen name when persistence with the system is wanted.
 
-`ChemicalStates` owns recorded covalent bonds; `Topology.bonds` remains a
-compatibility facade for the selected state.
+`ChemicalStates` independently owns recorded covalent bonds; Topology has no
+bond/component/state facade.
 `build.get_disulfide_bonds` delegates to this detector and retains its
 single-structure list-of-pairs result for build workflows;
 `build.get_missing_bonds` continues to consume that entry point. The detector
@@ -239,7 +239,7 @@ identity. The disulfide API is Experimental in the public stability registry.
 
 ## Reusable ring participants
 
-`topology.get_rings` and `physchem.get_aromatic_rings` are experimental chemical
+`chemical_states.get_rings` and `physchem.get_aromatic_rings` are experimental chemical
 preparation tools. They are form-agnostic: external inputs use the registered
 native chemistry conversion routes, not detector-specific package branches.
 ChemicalStates, ChemicalStatesDict and topology-free MolSys can supply the
@@ -252,7 +252,7 @@ Both tools use `@arg_digest()` and expose `skip_digestion=False`. Private graph,
 state and packing helpers are undecorated. Trusted delegation skips digestion
 only when the complete target argument contract is already satisfied.
 
-The topology operation computes an unweighted minimum cycle basis of the complete
+The chemical-graph operation computes an unweighted minimum cycle basis of the complete
 covalent graph, excluding dative edges. It does not classify aromaticity. The
 physchem operation computes a basis of the covalent subgraph explicitly marked
 aromatic in the chosen ChemicalStates state. Unknown atom or bond aromatic flags
@@ -260,9 +260,10 @@ fail rather than becoming False. Aromatic bond endpoints must be declared
 aromatic, and aromatic atoms/bonds must belong to cycles in that subgraph.
 A nonaromatic fusion bond can leave an aromatic perimeter, so filtering the full
 covalent basis would not be equivalent. No planarity, residue-name, or bond-order
-fallback is used. Legacy TopologyDict/MolSysDict do not preserve these aromatic
-fields; their covalent graphs can still be used with an explicit completeness
-assumption when needed. Typed ChemicalStatesDict preserves the relevant chemistry.
+fallback is used. Legacy schema-0.1 dictionaries do not preserve all aromatic
+fields; their covalent graphs require an explicit completeness assumption when
+needed. Current MolSysDict 0.2 and ChemicalStatesDict retain typed chemistry;
+current TopologyDict is a stable-inventory projection without chemical data.
 
 Results contain int64 `atom_indices`/`atom_offsets`, source, selected and examined
 atom axes, state index, method, connectivity evidence and producer versions.
@@ -1050,7 +1051,7 @@ Guards are `tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py` and
 `tests/native/test_structure_owner.py`.
 
 Public `msm.set` atom-state and scientific bond-state changes on native
-MolSys or its attached Topology invalidate all evaluated structures in every named analysis. Owner-level
+MolSys or its attached ChemicalStates invalidate all evaluated structures in every named analysis. Owner-level
 `MolSys.chemical_states` replacement does the same. This includes atom charges,
 aromaticity, radical and hydrogen assignments, stereochemistry, bond order and
 type, aromaticity/conjugation, direction and reference atoms, component
@@ -1068,20 +1069,22 @@ allocation failures and uncertain delegate writes; no detector is invoked.
 Earlier views, metadata, source maps and original producer versions survive.
 The guard is `tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py`.
 
-Native topology bond addition/removal and full bond-table replacement use the
+Native ChemicalStates bond addition/removal and controlled bond-table replacement use the
 same staged owner invalidation, while bond-label-only changes preserve analyses.
 Atom-column, bond-table and component-membership candidates are prepared before
 publication; invalid native assignments and invalidation allocation failure
-preserve chemical values and analyses. Bond tools rebuild components after
-publication, so a rebuilding error can leave new bonds with invalidated analyses.
+preserve chemical values and analyses. Controlled bond tools stage the selected
+state's component reconstruction before publishing bonds and invalidation; a
+rebuilding error leaves all three unchanged.
 Empty selections are no-ops. Comparison of scientific bond fields reads columns
 without copying complete tables merely to ignore bond IDs. No geometry is copied
-or materialized. Nested system/topology delegation invalidates once per analysis.
-Copies and pickle/H5MSM restoration preserve the topology's single weak owner.
-ChemicalStates also carries a weak MolSys owner: standalone copying/serialization
+or materialized. Nested system/chemical-domain delegation invalidates once per analysis.
+ChemicalStates carries a weak MolSys owner: standalone copying/serialization
 omits it, system copying/restoration rebinds it, and attaching another system's
 collection copies chemical tables instead of sharing a mutable authority.
-The guard is `tests/native/test_topology_owner.py`.
+The guards are `tests/native/test_topology_owner.py` (a retained historical
+filename exercising ChemicalStates) and the transactional controls in
+`tests/native/test_chemical_domain_separation.py`.
 
 Appending a state through `molsys.chemical_states.append_state()` also marks
 all named analyses unevaluated. The new record and list of state references are
@@ -1094,8 +1097,9 @@ collections have no owner to notify. Appending preparation history archives
 independent evidence without applying chemistry and preserves analyses.
 The guard is `tests/native/test_chemical_states_owner.py`.
 
-Raw arrays/DataFrames, other private ChemicalStates collection/record edits, direct
-Topology replacement and MolecularMechanics changes require explicit owner
+Validated whole-Topology replacement preserves chemical authority and invalidates
+all named analyses. Stable membership edits notify the same owner. Raw
+arrays/DataFrames, other private ChemicalStates collection/record edits and MolecularMechanics changes require explicit owner
 invalidation. They do not acquire an observer protocol through the controlled
 setters. Editors of individual observations and finer chemical dependencies remain
 separate work; invalidation itself shares the read-only columns.

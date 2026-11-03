@@ -16,7 +16,7 @@ def source():
 
 
 def snapshot(builder):
-    domain = builder.topology._chemical_states_domain
+    domain = builder.chemical_states
     return (
         builder.topology.atoms.copy(deep=True),
         domain.n_atoms,
@@ -35,10 +35,10 @@ def snapshot(builder):
 
 def assert_unchanged(builder, before):
     atoms, n_atoms, states = before
-    pd.testing.assert_frame_equal(atoms, builder.topology.atoms)
-    assert builder.topology._chemical_states_domain.n_atoms == n_atoms
+    pd.testing.assert_frame_equal(atoms, builder.topology.atoms, check_frame_type=False)
+    assert builder.chemical_states.n_atoms == n_atoms
     for state, (attrs, components, bonds, covalent, component) in zip(
-        builder.topology._chemical_states_domain._states, states
+        builder.chemical_states._states, states
     ):
         pd.testing.assert_frame_equal(attrs, state.atom_attributes)
         pd.testing.assert_series_equal(components, state.component_indices)
@@ -72,7 +72,7 @@ def test_atom_extension_aligns_every_state_and_preserves_existing_evidence(n_sta
         ]
     original = deepcopy(molsys.chemical_states)
     builder = msm.MolSysBuilder(molsys)
-    states = builder.topology._chemical_states_domain._states
+    states = builder.chemical_states._states
     before = [
         (
             s.atom_attributes.copy(deep=True),
@@ -86,7 +86,7 @@ def test_atom_extension_aligns_every_state_and_preserves_existing_evidence(n_sta
         for s in states
     ]
     assert builder.add_atom(atom_id=97, atom_name="Ar", atom_type="Ar") == 3
-    domain = builder.topology._chemical_states_domain
+    domain = builder.chemical_states
     assert domain.n_atoms == 4
     assert domain.reference_chemical_state_index == n_states - 1
     assert builder.topology.atoms.atom_id.tolist() == ["0", "1", "2", "97"]
@@ -126,7 +126,7 @@ def test_atom_extension_aligns_every_state_and_preserves_existing_evidence(n_sta
 )
 def test_malformed_later_state_rejects_before_any_inventory_changes(corruption):
     builder = msm.MolSysBuilder(source())
-    domain = builder.topology._chemical_states_domain
+    domain = builder.chemical_states
     domain._append_state(deepcopy(domain._states[0]), False)
     state = domain._states[1]
     if corruption == "attribute_rows":
@@ -193,7 +193,7 @@ def test_fresh_builder_addition_does_not_invent_chemical_columns():
     builder = msm.MolSysBuilder()
     for i in range(3):
         builder.add_atom(atom_id=i, atom_name="C", atom_type="C")
-    state = builder.topology._chemical_states_domain._states[0]
+    state = builder.chemical_states._states[0]
     assert state.atom_attributes.shape == (3, 0)
     assert state.component_indices.isna().all()
     assert state.connectivity_completeness == "unavailable"
@@ -205,7 +205,7 @@ def test_preparation_allocation_failure_in_later_state_leaves_owned_tables_untou
     from molsysmt.native.topology import _ChemicalStateStorage
 
     builder = msm.MolSysBuilder(source())
-    domain = builder.topology._chemical_states_domain
+    domain = builder.chemical_states
     domain._append_state(deepcopy(domain._states[0]), False)
     before = snapshot(builder)
     originals = [(s.atom_attributes, s.component_indices) for s in domain._states]
@@ -230,7 +230,7 @@ def test_preparation_allocation_failure_in_later_state_leaves_owned_tables_untou
 
 def test_atom_growth_does_not_choose_an_ambiguous_reference():
     builder = msm.MolSysBuilder(source())
-    domain = builder.topology._chemical_states_domain
+    domain = builder.chemical_states
     domain._append_state(deepcopy(domain._states[0]), False)
     domain._set_reference_index(None)
     assert builder.add_atom(atom_name="Ar", atom_type="Ar") == 3

@@ -26,8 +26,8 @@ semantics; they do not become molecular owners.
 ## Ownership and edits
 
 A complete MolSys copy binds copied topology, structures and chemistry to the
-new system. Topology's compatibility access and MolSys's chemical domain refer
-to the same copied collection. Missing domains remain absent. Standalone domain
+new system. Topology remains pure inventory and never traverses a chemical
+collection. MolSys binds its independently copied ChemicalStates once. Missing domains remain absent. Standalone domain
 copies omit their old weak owner whether it was stored in the instance mapping
 or an extension slot. The internal weak ownership link does not retain its former system.
 

@@ -86,13 +86,18 @@ def has_attribute(
             "bond_joins_components",
             "bond_evidence",
         }:
-            from molsysmt.form.molsysmt_Topology import has_attribute as topology_has
+            from molsysmt.form.molsysmt_ChemicalStates import (
+                has_attribute as chemistry_has,
+            )
 
-            from .to_molsysmt_Topology import to_molsysmt_Topology
+            from ._read_native import read_native
 
-            topology = to_molsysmt_Topology(molecular_system, skip_digestion=True)
-            output = topology_has(
-                topology, attribute, include_none=False, skip_digestion=True
+            source = read_native(molecular_system, skip_digestion=True)
+            output = chemistry_has(
+                source.chemical_states,
+                attribute,
+                include_none=False,
+                skip_digestion=True,
             )
 
     return output

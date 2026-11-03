@@ -1,4 +1,5 @@
-from molsysmt import pyunitwizard as puw
+import numpy as np
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
 from molsysmt._private.variables import is_all
@@ -8,29 +9,6 @@ form = "molsysmt.MolSys"
 ###### Set
 
 ## to atom
-
-
-def _set_atom_state_attribute(item, attribute, indices, value):
-    if not is_all(indices) and len(indices) == 0:
-        return
-    if attribute == "formal_charge" and puw.is_quantity(value):
-        value = puw.get_value(value, to_unit="elementary_charge")
-    native_attribute = {
-        "formal_charge": "formal_charge",
-        "atom_is_aromatic": "is_aromatic",
-        "n_unpaired_electrons": "n_unpaired_electrons",
-        "n_implicit_hydrogens": "n_implicit_hydrogens",
-        "n_explicit_hydrogens": "n_explicit_hydrogens",
-        "allows_implicit_hydrogens": "allows_implicit_hydrogens",
-        "atom_stereochemistry": "stereochemistry",
-    }[attribute]
-    atom_indices = None if is_all(indices) else indices
-    with item._invalidating_interaction_frames("all", atom_indices=indices):
-        item.topology._set_chemical_state_atom_attribute(
-            native_attribute, value, atom_indices=atom_indices
-        )
-        if attribute == "formal_charge":
-            item.molecular_mechanics.formal_charge = None
 
 
 @arg_digest(form=form)
@@ -189,7 +167,23 @@ def set_formal_charge_to_atom(item, indices="all", value=None, skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    return _set_atom_state_attribute(item, "formal_charge", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    result = molsysmt_ChemicalStates.set_formal_charge_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
+    if (is_all(indices) or len(indices)) and item.molecular_mechanics is not None:
+        # A successful chemical assignment supersedes the historical mechanical
+        # formal-charge column; partial charges remain an independent field.
+        item.molecular_mechanics.formal_charge = None
+    return result
 
 
 @arg_digest(form=form)
@@ -216,7 +210,18 @@ def set_atom_is_aromatic_to_atom(item, indices="all", value=None, skip_digestion
 
     .. versionadded:: 1.0.0
     """
-    return _set_atom_state_attribute(item, "atom_is_aromatic", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_atom_is_aromatic_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -245,7 +250,18 @@ def set_n_unpaired_electrons_to_atom(
 
     .. versionadded:: 1.0.0
     """
-    return _set_atom_state_attribute(item, "n_unpaired_electrons", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_n_unpaired_electrons_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -274,7 +290,18 @@ def set_n_implicit_hydrogens_to_atom(
 
     .. versionadded:: 1.0.0
     """
-    return _set_atom_state_attribute(item, "n_implicit_hydrogens", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_n_implicit_hydrogens_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -303,7 +330,18 @@ def set_n_explicit_hydrogens_to_atom(
 
     .. versionadded:: 1.0.0
     """
-    return _set_atom_state_attribute(item, "n_explicit_hydrogens", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_n_explicit_hydrogens_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -332,7 +370,18 @@ def set_allows_implicit_hydrogens_to_atom(
 
     .. versionadded:: 1.0.0
     """
-    return _set_atom_state_attribute(item, "allows_implicit_hydrogens", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_allows_implicit_hydrogens_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -361,28 +410,18 @@ def set_atom_stereochemistry_to_atom(
 
     .. versionadded:: 1.0.0
     """
-    return _set_atom_state_attribute(item, "atom_stereochemistry", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
 
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
 
-def _set_bond_state_attribute(item, attribute, indices, value):
-    """Delegate a canonical bond-state assignment to the native topology."""
-
-    from importlib import import_module
-
-    topology_set = import_module("molsysmt.form.molsysmt_Topology.set")
-    function = getattr(topology_set, f"set_{attribute}_to_bond")
-    if (
-        attribute == "bond_id"
-        or (not is_all(indices) and len(indices) == 0)
-        or (is_all(indices) and item.topology.n_bonds == 0)
-    ):
-        return function(
-            item.topology, indices=indices, value=value, skip_digestion=True
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
         )
-    with item._invalidating_interaction_frames("all"):
-        return function(
-            item.topology, indices=indices, value=value, skip_digestion=True
-        )
+    return molsysmt_ChemicalStates.set_atom_stereochemistry_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -408,7 +447,18 @@ def set_bond_id_to_bond(item, indices="all", value=None, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_id", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_id_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -435,7 +485,18 @@ def set_bond_order_to_bond(item, indices="all", value=None, skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_order", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_order_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -464,7 +525,18 @@ def set_fractional_bond_order_to_bond(
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "fractional_bond_order", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_fractional_bond_order_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -491,7 +563,18 @@ def set_bond_type_to_bond(item, indices="all", value=None, skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_type", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_type_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -518,7 +601,18 @@ def set_bond_is_aromatic_to_bond(item, indices="all", value=None, skip_digestion
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_is_aromatic", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_is_aromatic_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -547,7 +641,18 @@ def set_bond_is_conjugated_to_bond(
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_is_conjugated", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_is_conjugated_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -576,7 +681,18 @@ def set_bond_stereochemistry_to_bond(
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_stereochemistry", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_stereochemistry_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -605,7 +721,18 @@ def set_bond_stereo_atom_indices_to_bond(
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_stereo_atom_indices", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_stereo_atom_indices_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -634,7 +761,18 @@ def set_bond_donor_atom_index_to_bond(
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_donor_atom_index", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_donor_atom_index_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -663,7 +801,18 @@ def set_bond_acceptor_atom_index_to_bond(
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_acceptor_atom_index", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_acceptor_atom_index_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -692,7 +841,18 @@ def set_bond_joins_components_to_bond(
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_joins_components", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_joins_components_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -719,7 +879,18 @@ def set_bond_evidence_to_bond(item, indices="all", value=None, skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    return _set_bond_state_attribute(item, "bond_evidence", indices, value)
+    from molsysmt.form import molsysmt_ChemicalStates
+
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_bond_evidence_to_bond(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -957,9 +1128,18 @@ def set_component_index_to_atom(item, indices="all", value=None, skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_index_to_atom as aux_set
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_component_index_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -981,9 +1161,18 @@ def set_component_name_to_atom(item, indices="all", value=None, skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_name_to_atom as aux_set
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_component_name_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1005,9 +1194,18 @@ def set_component_id_to_atom(item, indices="all", value=None, skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_id_to_atom as aux_set
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_component_id_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1029,9 +1227,18 @@ def set_component_type_to_atom(item, indices="all", value=None, skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_type_to_atom as aux_set
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_component_type_to_atom(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -1357,7 +1564,7 @@ def set_coordinates_to_atom(
     )
 
     if is_all(indices):
-        n_atoms = get_n_atoms_from_system(item.topology, skip_digestion=True)
+        n_atoms = item._get_n_atoms()
         if n_atoms != value.shape[1]:
             raise StructuralInconsistencyError(
                 "Coordinates mismatch with number of atoms",
@@ -1413,7 +1620,7 @@ def set_velocities_to_atom(
     )
 
     if is_all(indices):
-        n_atoms = get_n_atoms_from_system(item.topology, skip_digestion=True)
+        n_atoms = item._get_n_atoms()
         if n_atoms != value.shape[1]:
             raise StructuralInconsistencyError(
                 "Coordinates mismatch with number of atoms",
@@ -1615,9 +1822,7 @@ def set_component_index_to_group(item, indices="all", value=None, skip_digestion
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_index_to_group as aux_set
-
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -1639,9 +1844,23 @@ def set_component_name_to_group(item, indices="all", value=None, skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_name_to_group as aux_set
+    if is_all(indices):
+        bridge = _get_component_index_for_group(item)
+        _set_by_bridge(
+            item.chemical_states._resolve_chemical_state().components,
+            "component_name",
+            bridge,
+            value,
+        )
+    else:
+        component_indices = item.chemical_states._get_component_indices()
+        for i, gi in enumerate(list(indices)):
+            ci = component_indices.loc[item.topology.atoms["group_index"] == gi].iloc[0]
+            item.chemical_states._resolve_chemical_state().components.at[
+                int(ci), "component_name"
+            ] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -1663,9 +1882,23 @@ def set_component_id_to_group(item, indices="all", value=None, skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_id_to_group as aux_set
+    if is_all(indices):
+        bridge = _get_component_index_for_group(item)
+        _set_by_bridge(
+            item.chemical_states._resolve_chemical_state().components,
+            "component_id",
+            bridge,
+            value,
+        )
+    else:
+        component_indices = item.chemical_states._get_component_indices()
+        for i, gi in enumerate(list(indices)):
+            ci = component_indices.loc[item.topology.atoms["group_index"] == gi].iloc[0]
+            item.chemical_states._resolve_chemical_state().components.at[
+                int(ci), "component_id"
+            ] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -1687,9 +1920,23 @@ def set_component_type_to_group(item, indices="all", value=None, skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_type_to_group as aux_set
+    if is_all(indices):
+        bridge = _get_component_index_for_group(item)
+        _set_by_bridge(
+            item.chemical_states._resolve_chemical_state().components,
+            "component_type",
+            bridge,
+            value,
+        )
+    else:
+        component_indices = item.chemical_states._get_component_indices()
+        for i, gi in enumerate(list(indices)):
+            ci = component_indices.loc[item.topology.atoms["group_index"] == gi].iloc[0]
+            item.chemical_states._resolve_chemical_state().components.at[
+                int(ci), "component_type"
+            ] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2004,9 +2251,7 @@ def set_component_index_to_component(
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_index_to_component as aux_set
-
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2030,9 +2275,18 @@ def set_component_name_to_component(
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_name_to_component as aux_set
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_component_name_to_component(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -2056,9 +2310,18 @@ def set_component_id_to_component(
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_id_to_component as aux_set
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_component_id_to_component(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -2082,9 +2345,18 @@ def set_component_type_to_component(
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_component_type_to_component as aux_set
+    from molsysmt.form import molsysmt_ChemicalStates
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if item.chemical_states is None:
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+
+        raise StructuralInconsistencyError(
+            reason="Chemical assignment requires an existing ChemicalStates domain.",
+            caller="molsysmt.MolSys",
+        )
+    return molsysmt_ChemicalStates.set_component_type_to_component(
+        item.chemical_states, indices=indices, value=value, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
@@ -2108,9 +2380,25 @@ def set_molecule_index_to_component(
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_molecule_index_to_component as aux_set
+    comp_idx = item.chemical_states._get_component_indices().to_numpy()
+    group_idx = item.topology.atoms["group_index"].to_numpy()
+    mol_idx_arr = item.topology.groups["molecule_index"].to_numpy(copy=True)
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if is_all(indices):
+        for ai in range(len(comp_idx)):
+            ci = int(comp_idx[ai])
+            gi = int(group_idx[ai])
+            mol_idx_arr[gi] = value[ci]
+    else:
+        idx_set = {int(i): pos for pos, i in enumerate(indices)}
+        for ai in range(len(comp_idx)):
+            ci = int(comp_idx[ai])
+            if ci in idx_set:
+                mol_idx_arr[int(group_idx[ai])] = value[idx_set[ci]]
+
+    item.topology.groups["molecule_index"] = mol_idx_arr
+
+    pass
 
 
 @arg_digest(form=form)
@@ -2134,9 +2422,15 @@ def set_molecule_name_to_component(
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_molecule_name_to_component as aux_set
+    if is_all(indices):
+        bridge = _get_molecule_index_for_component(item)
+        _set_by_bridge(item.topology.molecules, "molecule_name", bridge, value)
+    else:
+        bridge = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.topology.molecules.at[int(bridge[ci]), "molecule_name"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2158,9 +2452,15 @@ def set_molecule_id_to_component(item, indices="all", value=None, skip_digestion
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_molecule_id_to_component as aux_set
+    if is_all(indices):
+        bridge = _get_molecule_index_for_component(item)
+        _set_by_bridge(item.topology.molecules, "molecule_id", bridge, value)
+    else:
+        bridge = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.topology.molecules.at[int(bridge[ci]), "molecule_id"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2184,9 +2484,15 @@ def set_molecule_type_to_component(
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_molecule_type_to_component as aux_set
+    if is_all(indices):
+        bridge = _get_molecule_index_for_component(item)
+        _set_by_bridge(item.topology.molecules, "molecule_type", bridge, value)
+    else:
+        bridge = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.topology.molecules.at[int(bridge[ci]), "molecule_type"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2208,9 +2514,32 @@ def set_chain_index_to_component(item, indices="all", value=None, skip_digestion
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_chain_index_to_component as aux_set
+    comp_idx = item.chemical_states._get_component_indices().to_numpy()
+    new_chain = item.topology.atoms["chain_index"].to_numpy(copy=True)
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if is_all(indices):
+        for ai in range(len(comp_idx)):
+            ci = int(comp_idx[ai])
+            new_chain[ai] = value[ci]
+    else:
+        idx_set = {int(i): pos for pos, i in enumerate(indices)}
+        for ai in range(len(comp_idx)):
+            ci = int(comp_idx[ai])
+            if ci in idx_set:
+                new_chain[ai] = value[idx_set[ci]]
+
+    item.topology.atoms["chain_index"] = new_chain
+    n_chains = len(np.unique(new_chain))
+    if n_chains != item.topology.chains.shape[0]:
+        item.reset_chains(n_chains=n_chains)
+        item.rebuild_chains(
+            redefine_indices=True,
+            redefine_ids=True,
+            redefine_types=True,
+            redefine_names=True,
+        )
+
+    pass
 
 
 @arg_digest(form=form)
@@ -2232,9 +2561,15 @@ def set_chain_name_to_component(item, indices="all", value=None, skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_chain_name_to_component as aux_set
+    if is_all(indices):
+        bridge = _get_chain_index_for_component(item)
+        _set_by_bridge(item.topology.chains, "chain_name", bridge, value)
+    else:
+        bridge = _get_chain_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.topology.chains.at[int(bridge[ci]), "chain_name"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2256,9 +2591,15 @@ def set_chain_id_to_component(item, indices="all", value=None, skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_chain_id_to_component as aux_set
+    if is_all(indices):
+        bridge = _get_chain_index_for_component(item)
+        _set_by_bridge(item.topology.chains, "chain_id", bridge, value)
+    else:
+        bridge = _get_chain_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.topology.chains.at[int(bridge[ci]), "chain_id"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2280,9 +2621,15 @@ def set_chain_type_to_component(item, indices="all", value=None, skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_chain_type_to_component as aux_set
+    if is_all(indices):
+        bridge = _get_chain_index_for_component(item)
+        _set_by_bridge(item.topology.chains, "chain_type", bridge, value)
+    else:
+        bridge = _get_chain_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.topology.chains.at[int(bridge[ci]), "chain_type"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2306,9 +2653,16 @@ def set_entity_index_to_component(
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_entity_index_to_component as aux_set
+    mol_for_comp = _get_molecule_index_for_component(item)
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    if is_all(indices):
+        for ci, mi in enumerate(mol_for_comp):
+            item.topology.molecules.at[int(mi), "entity_index"] = value[ci]
+    else:
+        for i, ci in enumerate(list(indices)):
+            item.topology.molecules.at[int(mol_for_comp[ci]), "entity_index"] = value[i]
+
+    pass
 
 
 @arg_digest(form=form)
@@ -2330,9 +2684,19 @@ def set_entity_name_to_component(item, indices="all", value=None, skip_digestion
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_entity_name_to_component as aux_set
+    if is_all(indices):
+        mol_for_comp = _get_molecule_index_for_component(item)
+        ent_idx = item.topology.molecules["entity_index"].to_numpy()
+        bridge = ent_idx[mol_for_comp]
+        _set_by_bridge(item.topology.entities, "entity_name", bridge, value)
+    else:
+        mol_for_comp = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_comp[ci])
+            ei = item.topology.molecules.at[mi, "entity_index"]
+            item.topology.entities.at[int(ei), "entity_name"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2354,9 +2718,19 @@ def set_entity_id_to_component(item, indices="all", value=None, skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_entity_id_to_component as aux_set
+    if is_all(indices):
+        mol_for_comp = _get_molecule_index_for_component(item)
+        ent_idx = item.topology.molecules["entity_index"].to_numpy()
+        bridge = ent_idx[mol_for_comp]
+        _set_by_bridge(item.topology.entities, "entity_id", bridge, value)
+    else:
+        mol_for_comp = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_comp[ci])
+            ei = item.topology.molecules.at[mi, "entity_index"]
+            item.topology.entities.at[int(ei), "entity_id"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 @arg_digest(form=form)
@@ -2378,9 +2752,19 @@ def set_entity_type_to_component(item, indices="all", value=None, skip_digestion
 
     .. versionadded:: 1.0.0
     """
-    from ..molsysmt_Topology.set import set_entity_type_to_component as aux_set
+    if is_all(indices):
+        mol_for_comp = _get_molecule_index_for_component(item)
+        ent_idx = item.topology.molecules["entity_index"].to_numpy()
+        bridge = ent_idx[mol_for_comp]
+        _set_by_bridge(item.topology.entities, "entity_type", bridge, value)
+    else:
+        mol_for_comp = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_comp[ci])
+            ei = item.topology.molecules.at[mi, "entity_index"]
+            item.topology.entities.at[int(ei), "entity_type"] = value[i]
 
-    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+    pass
 
 
 ## Molecule
@@ -3616,3 +4000,68 @@ def set_kappa_to_system(item, value=None, skip_digestion=False):
     from ..molsysmt_MolecularMechanics.set import set_kappa_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
+
+
+def _get_component_index_for_group(item):
+    """Array of component_index, one per group (first atom found)."""
+    n_groups = len(item.topology.groups)
+    bridge = np.zeros(n_groups, dtype=int)
+    seen = np.zeros(n_groups, dtype=bool)
+    group_idx = item.topology.atoms["group_index"].to_numpy()
+    comp_idx = item.chemical_states._get_component_indices().to_numpy()
+    for ai in range(len(group_idx)):
+        gi = int(group_idx[ai])
+        if not seen[gi]:
+            bridge[gi] = int(comp_idx[ai])
+            seen[gi] = True
+    return bridge
+
+
+def _set_by_bridge(target_df, target_col, bridge_indices, value):
+    """Set target_df[target_col] using first value per unique bridge index.
+
+    Uses full column reassignment to avoid dtype enforcement of .at[].
+    """
+    n_target = len(target_df)
+    new_values = [None] * n_target
+    for src_i, bi in enumerate(bridge_indices):
+        bi_int = int(bi)
+        if new_values[bi_int] is None:
+            new_values[bi_int] = value[src_i]
+    # Only update positions that were touched (keep original for untouched)
+    current = target_df[target_col].tolist()
+    for i, v in enumerate(new_values):
+        if v is not None:
+            current[i] = v
+    target_df[target_col] = current
+
+
+def _get_chain_index_for_component(item):
+    """Array of chain_index, one per component (first atom found)."""
+    n_components = len(item.chemical_states._resolve_chemical_state().components)
+    bridge = np.zeros(n_components, dtype=int)
+    seen = np.zeros(n_components, dtype=bool)
+    comp_idx = item.chemical_states._get_component_indices().to_numpy()
+    chain_idx = item.topology.atoms["chain_index"].to_numpy()
+    for ai in range(len(comp_idx)):
+        ci = int(comp_idx[ai])
+        if not seen[ci]:
+            bridge[ci] = int(chain_idx[ai])
+            seen[ci] = True
+    return bridge
+
+
+def _get_molecule_index_for_component(item):
+    """Array of molecule_index, one per component (first atom found)."""
+    n_components = len(item.chemical_states._resolve_chemical_state().components)
+    bridge = np.zeros(n_components, dtype=int)
+    seen = np.zeros(n_components, dtype=bool)
+    comp_idx = item.chemical_states._get_component_indices().to_numpy()
+    group_idx = item.topology.atoms["group_index"].to_numpy()
+    mol_idx_arr = item.topology.groups["molecule_index"].to_numpy()
+    for ai in range(len(comp_idx)):
+        ci = int(comp_idx[ai])
+        if not seen[ci]:
+            bridge[ci] = int(mol_idx_arr[int(group_idx[ai])])
+            seen[ci] = True
+    return bridge

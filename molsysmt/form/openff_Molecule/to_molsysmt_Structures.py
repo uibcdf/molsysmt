@@ -45,7 +45,7 @@ def to_molsysmt_Structures(
     selected = [conformers[index] for index in structure_indices]
     coordinates = np.asarray(
         [conformer.m_as("angstrom") for conformer in selected], dtype=np.float64
-    )
+    ).reshape((len(selected), item.n_atoms, 3))
     if not is_all(atom_indices):
         coordinates = coordinates[:, atom_indices, :]
     coordinates = puw.standardize(puw.quantity(coordinates, "angstrom"))

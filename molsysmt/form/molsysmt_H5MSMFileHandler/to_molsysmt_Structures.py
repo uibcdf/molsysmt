@@ -13,6 +13,8 @@ def _read_structure_rows(dataset, structure_indices):
 
     if is_all(structure_indices):
         return dataset[:]
+    if len(structure_indices) == 0:
+        return dataset[:0]
     return np.asarray([dataset[int(index)] for index in structure_indices])
 
 
@@ -87,6 +89,12 @@ def to_molsysmt_Structures(
     coordinates_ds = structures_ds["coordinates"]
     coordinates_unit = legacy_dataset_unit(coordinates_ds)
     coordinates = _read_structure_rows(coordinates_ds, structure_indices)
+    if coordinates.shape == (0, 0, 3):
+        # Historical empty geometry used an unspecified atom axis. Recover
+        # only its shape from the declared inventory; invent no coordinates.
+        atoms = item.file.get("topology/atoms/atom_id")
+        if atoms is not None:
+            coordinates = np.empty((0, len(atoms), 3), dtype=np.float64)
     if not is_all(atom_indices):
         coordinates = coordinates[:, atom_indices, :]
     tmp_item.coordinates = puw.quantity(
@@ -153,8 +161,6 @@ def to_molsysmt_Structures(
     # Step
     if "step" in structures_ds and structures_ds["step"].shape[0] > 0:
         tmp_item.step = _read_structure_rows(structures_ds["step"], structure_indices)
-    else:
-        tmp_item.step = None
 
     # Structure ID
     if "id" in structures_ds and structures_ds["id"].shape[0] > 0:

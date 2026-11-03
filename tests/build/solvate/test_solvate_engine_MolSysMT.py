@@ -38,7 +38,7 @@ def test_tiled_water_uses_authoritative_bond_table():
     tile.topology.atoms["atom_name"] = ["O", "H1", "H2"]
     tile.topology.atoms["atom_type"] = ["O", "H", "H"]
     tile.topology.atoms["group_index"] = [0, 0, 0]
-    tile.topology._set_component_indices([0, 0, 0])
+    tile.chemical_states._set_component_indices([0, 0, 0])
     tile.topology.atoms["chain_index"] = [0, 0, 0]
     tile.topology.groups["group_name"] = ["HOH"]
     tile.topology.groups["group_type"] = ["water"]
@@ -46,8 +46,8 @@ def test_tiled_water_uses_authoritative_bond_table():
     tile.topology.chains["chain_id"] = ["A"]
     tile.topology.chains["chain_name"] = ["A"]
     tile.topology.chains["chain_type"] = ["water"]
-    tile.topology.bonds["atom1_index"] = [0, 0]
-    tile.topology.bonds["atom2_index"] = [1, 2]
+    tile.chemical_states._resolve_chemical_state().bonds["atom1_index"] = [0, 0]
+    tile.chemical_states._resolve_chemical_state().bonds["atom2_index"] = [1, 2]
     tile.structures.coordinates = puw.quantity(
         np.array([[[0.0, 0.0, 0.0], [0.1, 0.0, 0.0], [0.0, 0.1, 0.0]]]),
         "nm",
@@ -55,7 +55,9 @@ def test_tiled_water_uses_authoritative_bond_table():
 
     tiled = _build_tiled_water(tile, 2, 1, 1, 1.0)
 
-    assert tiled.topology.bonds[["atom1_index", "atom2_index"]].values.tolist() == [
+    assert tiled.chemical_states._resolve_chemical_state().bonds[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [
         [0, 1],
         [0, 2],
         [3, 4],

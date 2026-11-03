@@ -21,6 +21,11 @@ def _build_nglview_adapter():
                 skip_digestion=True,
             )
             setattr(self, SIDECAR_ATTRIBUTE, snapshot.topology.copy())
+            self._molsysmt_chemical_states = (
+                None
+                if snapshot.chemical_states is None
+                else snapshot.chemical_states.copy()
+            )
             self.pdb = msm.convert(
                 snapshot,
                 to_form="string:pdb_text",

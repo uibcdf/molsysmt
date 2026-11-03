@@ -52,7 +52,9 @@ def to_molsysmt_Structures(
             structure_id.append(conf.GetId())
 
         # RDKit uses Angstroms
-        output = np.array(coords)
+        output = np.asarray(coords, dtype=float).reshape(
+            len(coords), item.GetNumAtoms(), 3
+        )
         output = puw.quantity(output, "angstroms")
         output = puw.standardize(output)
 

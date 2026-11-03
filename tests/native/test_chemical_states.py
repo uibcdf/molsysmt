@@ -28,41 +28,47 @@ def test_standalone_collection_has_explicit_empty_state():
 
 def test_molsys_and_topology_share_one_bond_authority():
     system = MolSys(n_atoms=3)
-    system.topology.add_bonds([[0, 1]])
+    system.chemical_states.add_bonds([[0, 1]])
 
-    assert system.chemical_states is system.topology._chemical_states_domain
+    assert system.chemical_states._molsys_owner_ref() is system
     assert not hasattr(system.topology, "chemical_states")
-    assert system.chemical_states.get_bonds() is system.topology.bonds
-    system.topology.add_bonds([[1, 2]])
+    assert (
+        system.chemical_states.get_bonds()
+        is system.chemical_states._resolve_chemical_state().bonds
+    )
+    system.chemical_states.add_bonds([[1, 2]])
     assert len(system.chemical_states.get_bonds()) == 2
     assert msm.ChemicalStates is ChemicalStates
 
 
 def test_topology_rejects_a_shadow_chemical_states_attribute():
     topology = Topology(n_atoms=2)
-    bonds = topology.bonds
+    atoms = topology.atoms
 
     assert not hasattr(topology, "chemical_states")
     with pytest.raises(AttributeError, match="MolSys.chemical_states"):
         topology.chemical_states = ChemicalStates(n_atoms=2)
-    assert topology.bonds is bonds
+    assert topology.atoms is atoms
+    assert not hasattr(topology, "bonds")
     assert "chemical_states" not in vars(topology)
 
 
 def test_copy_and_atom_extraction_do_not_share_state_storage():
     system = MolSys(n_atoms=3)
-    system.topology.add_bonds([[0, 1], [1, 2]])
+    system.chemical_states.add_bonds([[0, 1], [1, 2]])
 
     copied = system.copy()
-    assert copied.chemical_states is copied.topology._chemical_states_domain
+    assert copied.chemical_states._molsys_owner_ref() is copied
     assert copied.chemical_states is not system.chemical_states
-    copied.topology.add_bonds([[0, 2]])
-    assert len(system.topology.bonds) == 2
+    copied.chemical_states.add_bonds([[0, 2]])
+    assert len(system.chemical_states._resolve_chemical_state().bonds) == 2
 
     subset = system.extract(atom_indices=[1, 2], skip_digestion=True)
-    assert subset.chemical_states is subset.topology._chemical_states_domain
+    assert subset.chemical_states._molsys_owner_ref() is subset
     assert subset.chemical_states.n_atoms == 2
-    assert subset.topology.bonds[["atom1_index", "atom2_index"]].iloc[0].tolist() == [
+    assert subset.chemical_states._resolve_chemical_state().bonds[
+        ["atom1_index", "atom2_index"]
+    ].iloc[0].tolist() == [
         0,
         1,
     ]
@@ -76,7 +82,7 @@ def test_replacement_rejects_a_different_atom_domain_without_mutation():
         system.chemical_states = ChemicalStates(n_atoms=3)
 
     assert system.chemical_states is original
-    assert system.topology._chemical_states_domain is original
+    assert system.chemical_states is original
 
 
 def test_partial_replacement_rejects_an_attached_interaction_axis():
@@ -108,23 +114,26 @@ def test_chemical_state_replacement_keeps_topology_bond_facade_current():
 
     assert system.chemical_states is replacement
     assert system._chemical_states_domain is replacement
-    assert system.topology.bonds is replacement.get_bonds()
-
-
-def test_molsys_replacement_detaches_old_topology_and_owns_new_states():
-    system = MolSys(n_atoms=2)
-    previous_topology = system.topology
-    replacement_topology = Topology(n_atoms=2)
-    replacement_topology.add_bonds([[0, 1]])
-
-    system.topology = replacement_topology
-
-    assert system.chemical_states is replacement_topology._chemical_states_domain
     assert (
-        system._chemical_states_domain is replacement_topology._chemical_states_domain
+        system.chemical_states._resolve_chemical_state().bonds
+        is replacement.get_bonds()
     )
-    previous_topology.add_bonds([[0, 1]])
-    assert len(system.chemical_states.get_bonds()) == 1
+
+
+def test_molsys_topology_replacement_preserves_independent_chemistry():
+    system = MolSys(n_atoms=2)
+    system.chemical_states.add_bonds([[0, 1]])
+    previous_topology = system.topology
+    previous_chemistry = system.chemical_states
+    replacement_topology = Topology(n_atoms=2)
+    system.topology = replacement_topology
+    assert system.chemical_states is previous_chemistry
+    assert previous_topology._molsys_owner_ref is None
+    assert replacement_topology._molsys_owner_ref() is system
+    assert system.chemical_states.get_bonds()[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [[0, 1]]
+    assert not hasattr(replacement_topology, "bonds")
 
 
 def test_one_topology_cannot_own_two_molsys_state_domains():
@@ -134,25 +143,25 @@ def test_one_topology_cannot_own_two_molsys_state_domains():
     with pytest.raises(msm.StructuralInconsistencyError, match="already attached"):
         second.topology = first.topology
 
-    assert second.chemical_states is second.topology._chemical_states_domain
+    assert second.chemical_states._molsys_owner_ref() is second
     second.topology = first.topology.copy()
     assert second.chemical_states is not first.chemical_states
 
 
-def test_reset_atoms_keeps_domain_aligned_and_rejects_data_loss():
-    topology = Topology()
-    states = topology._chemical_states_domain
-
-    topology.reset_atoms(2)
-    assert topology._chemical_states_domain is states
-    assert states.n_atoms == 2
-    assert len(states._states[0].atom_attributes) == 2
-
-    topology.add_bonds([[0, 1]])
-    with pytest.raises(msm.StructuralInconsistencyError, match="invalidate"):
-        topology.reset_atoms(3)
-    assert topology.n_atoms == states.n_atoms == 2
-    assert len(topology.bonds) == 1
+def test_attached_atom_resize_rejects_before_changing_independent_domains():
+    system = MolSys(n_atoms=2)
+    system.chemical_states.add_bonds([[0, 1]])
+    states = system.chemical_states
+    with pytest.raises(msm.StructuralInconsistencyError, match="owning MolSys"):
+        system.topology.reset_atoms(3)
+    assert system.topology.n_atoms == states.n_atoms == 2
+    assert states.get_bonds()[["atom1_index", "atom2_index"]].values.tolist() == [
+        [0, 1]
+    ]
+    standalone = Topology()
+    standalone.reset_atoms(3)
+    assert standalone.n_atoms == 3
+    assert not hasattr(standalone, "_chemical_states_domain")
 
 
 def test_topology_replacement_rejects_dangling_structure_state_indices():
@@ -161,31 +170,28 @@ def test_topology_replacement_rejects_dangling_structure_state_indices():
     system._structure_chemical_state_indices = pd.array([1], dtype="Int64")
     previous = system.topology
 
-    with pytest.raises(msm.StructuralInconsistencyError, match="outside"):
-        system.topology = Topology(n_atoms=2)
+    system.topology = Topology(n_atoms=2)
 
-    assert system.topology is previous
+    assert system.topology is not previous
+    assert system._structure_chemical_state_indices.tolist() == [1]
     assert system.chemical_states.n_chemical_states == 2
 
 
 def test_pickle_and_legacy_state_restore_one_collection():
     system = MolSys(n_atoms=2)
-    system.topology.add_bonds([[0, 1]])
+    system.chemical_states.add_bonds([[0, 1]])
     loaded = pickle.loads(pickle.dumps(system))
-    assert loaded.chemical_states is loaded.topology._chemical_states_domain
-    assert len(loaded.topology.bonds) == 1
+    assert loaded.chemical_states._molsys_owner_ref() is loaded
+    assert len(loaded.chemical_states._resolve_chemical_state().bonds) == 1
     replacement = ChemicalStates(n_atoms=2)
     replacement.append_state()
     loaded.chemical_states = replacement
     assert loaded.chemical_states is replacement
 
     topology = Topology(n_atoms=2)
-    topology.add_bonds([[0, 1]])
     legacy_state = topology.__dict__.copy()
-    domain = legacy_state.pop("_chemical_states_domain")
-    legacy_state["_chemical_states"] = domain._states
-    legacy_state["_reference_chemical_state_index"] = domain._reference_index
+    legacy_state["_chemical_states"] = system.chemical_states._states
+    legacy_state["_reference_chemical_state_index"] = 0
     restored = object.__new__(Topology)
-    restored.__setstate__(legacy_state)
-    assert restored._chemical_states_domain.n_atoms == 2
-    assert restored._chemical_states_domain.get_bonds() is restored.bonds
+    with pytest.raises(ValueError, match="H5MSM"):
+        restored.__setstate__(legacy_state)

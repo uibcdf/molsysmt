@@ -1,5 +1,5 @@
 """
-Tests for molsysmt_Topology/get_topological_attributes.py using a synthetic
+Tests for molsysmt_MolSys/get_topological_attributes.py using a synthetic
 system built with MolSysBuilder. Ground-truth values are known by construction.
 
 System layout
@@ -24,7 +24,17 @@ Note on `get_n_X_from_Y` return semantics:
 import pytest
 
 import molsysmt as msm
-from molsysmt.form.molsysmt_Topology import get_topological_attributes as aux
+from molsysmt.form.molsysmt_MolSys import get_topological_attributes as aux
+from molsysmt.form.molsysmt_Topology import get_topological_attributes as stable
+
+
+def _getter(name):
+    # Keep stable controls on pure Topology; mixed/chemical controls need MolSys.
+    if hasattr(stable, name):
+        target = getattr(stable, name)
+        return lambda system, **kwargs: target(system.topology, **kwargs)
+    return getattr(aux, name)
+
 
 N_ATOMS = 13
 N_GROUPS = 5
@@ -102,7 +112,7 @@ def topo():
     b.add_entity([mol_ion], entity_id="2", entity_name="NA", entity_type="ion")
 
     molsys = b.build()
-    return msm.convert(molsys, to_form="molsysmt.Topology")
+    return molsys
 
 
 # ---------------------------------------------------------------------------
@@ -135,7 +145,7 @@ def topo():
     ],
 )
 def test_system_count(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert result == expected
 
 
@@ -148,7 +158,7 @@ def test_system_count(topo, func_name, expected):
     ],
 )
 def test_system_bond_pairs_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_BONDS
 
@@ -161,7 +171,7 @@ def test_system_bond_pairs_length(topo, func_name):
     ],
 )
 def test_system_bonded_atoms_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_BONDED_ATOMS
 
@@ -208,7 +218,7 @@ def test_system_bonded_atoms_length(topo, func_name):
     ],
 )
 def test_atom_array_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_ATOMS
 
@@ -222,7 +232,7 @@ def test_atom_array_length(topo, func_name):
     ],
 )
 def test_atom_bond_pairs_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_BONDS
 
@@ -278,7 +288,7 @@ def test_inner_bonded_atoms_from_atom_length(topo):
     ],
 )
 def test_atom_total_count(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert result == expected
 
 
@@ -331,7 +341,7 @@ def test_atom_total_count(topo, func_name, expected):
     ],
 )
 def test_group_array_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_GROUPS
 
@@ -377,7 +387,7 @@ def test_group_array_length(topo, func_name):
     ],
 )
 def test_group_total_count(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert result == expected
 
 
@@ -437,7 +447,7 @@ def test_group_total_count(topo, func_name, expected):
     ],
 )
 def test_molecule_array_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_MOLECULES
 
@@ -474,7 +484,7 @@ def test_molecule_array_length(topo, func_name):
     ],
 )
 def test_molecule_total_count(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert result == expected
 
 
@@ -540,7 +550,7 @@ def test_molecule_total_count(topo, func_name, expected):
     ],
 )
 def test_entity_array_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_ENTITIES
 
@@ -571,7 +581,7 @@ def test_entity_array_length(topo, func_name):
     ],
 )
 def test_entity_total_count(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert result == expected
 
 
@@ -630,7 +640,7 @@ def test_entity_total_count(topo, func_name, expected):
     ],
 )
 def test_component_array_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_COMPONENTS
 
@@ -658,7 +668,7 @@ def test_component_array_length(topo, func_name):
     ],
 )
 def test_component_total_count(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert result == expected
 
 
@@ -724,7 +734,7 @@ def test_component_total_count(topo, func_name, expected):
     ],
 )
 def test_chain_array_length(topo, func_name):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_CHAINS
 
@@ -753,7 +763,7 @@ def test_chain_array_length(topo, func_name):
     ],
 )
 def test_chain_total_count(topo, func_name, expected):
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     assert result == expected
 
 
@@ -774,7 +784,7 @@ def test_chain_total_count(topo, func_name, expected):
 )
 def test_bond_scalar_or_list(topo, func_name):
     # n_bonds_from_bond returns scalar; bond lists return N_BONDS entries
-    result = getattr(aux, func_name)(topo)
+    result = _getter(func_name)(topo)
     if isinstance(result, list):
         assert len(result) == N_BONDS
     else:

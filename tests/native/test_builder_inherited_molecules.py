@@ -90,13 +90,8 @@ def test_reference_identity_is_not_taken_from_a_different_chemical_state():
     state.component_indices[:] = 0
     state.components = state.components.iloc[:1].copy()
     molsys.chemical_states._append_state(state, False)
-    from molsysmt.native.topology import _ACTIVE_CHEMICAL_STATE_INDICES
-
-    token = _ACTIVE_CHEMICAL_STATE_INDICES.set({id(molsys.topology): 1})
-    try:
+    with molsys.chemical_states._using_chemical_state(1):
         builder = msm.MolSysBuilder(molsys)
-    finally:
-        _ACTIVE_CHEMICAL_STATE_INDICES.reset(token)
     builder.add_group([0, 1, 2], group_name="LIG")
     builder.add_group([3, 4, 5], group_name="LIG")
     assert builder.build().topology.n_molecules == 2

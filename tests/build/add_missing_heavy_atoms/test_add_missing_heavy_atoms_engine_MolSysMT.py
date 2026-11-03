@@ -49,8 +49,12 @@ class TestAddMissingHeavyAtomsEngMolSysMT:
     def test_cb_bonded_to_ca_after_restore(self, aaa_molsys):
         """Restored CB atoms must be bonded to CA (bond count increases accordingly)."""
         molsys_no_cb = msm.remove(aaa_molsys, selection='atom_name=="CB"')
-        n_bonds_before = molsys_no_cb.topology.bonds.shape[0]
+        n_bonds_before = (
+            molsys_no_cb.chemical_states._resolve_chemical_state().bonds.shape[0]
+        )
         restored = msm.build.add_missing_heavy_atoms(molsys_no_cb, engine="MolSysMT")
-        n_bonds_after = restored.topology.bonds.shape[0]
+        n_bonds_after = restored.chemical_states._resolve_chemical_state().bonds.shape[
+            0
+        ]
         # Each CB adds 1 bond (CB-CA) — CB hydrogens are not heavy atoms
         assert n_bonds_after == n_bonds_before + 3

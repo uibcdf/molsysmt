@@ -198,12 +198,15 @@ def test_corrupt_history_is_rejected_instead_of_silently_lost(tmp_path, damage):
         msm.convert(path, to_form="molsysmt.MolSys")
 
 
-def test_legacy_molsys_dict_rejects_report_loss():
+def test_molsys_dict_02_preserves_preparation_history():
     result = prepared()["molecular_system"]
-    report = msm.get_conversion_report(result, to_form="molsysmt.MolSysDict")
-    assert any(issue.attribute == "preparation_history" for issue in report.issues)
-    with pytest.raises(ValueError, match="preparation history"):
-        msm.convert(result, to_form="molsysmt.MolSysDict")
+    payload = msm.convert(result, to_form="molsysmt.MolSysDict")
+    restored = msm.convert(payload, to_form="molsysmt.MolSys")
+    assert payload.data["version"] == "0.2"
+    np.testing.assert_equal(
+        restored.chemical_states.get_preparation_history(),
+        result.chemical_states.get_preparation_history(),
+    )
 
 
 def test_only_selected_state_receives_history_and_atom_expansion_retains_evidence():

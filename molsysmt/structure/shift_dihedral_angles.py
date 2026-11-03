@@ -91,7 +91,7 @@ def shift_dihedral_angles(
     >>> import numpy as np
     >>> import molsysmt as msm
     >>> molsys = msm.convert(msm.systems['Met-enkephalin']['met_enkephalin.h5msm'])
-    >>> quartet = msm.topology.get_dihedral_quartets(molsys, phi=True)[2]
+    >>> quartet = msm.chemical_states.get_dihedral_quartets(molsys, phi=True)[2]
     >>> before = msm.structure.get_dihedral_angles(molsys, dihedral_quartets=quartet)
     >>> changed = shift_dihedral_angles(molsys, dihedral_quartets=quartet,
     ...                                shifts='.2 radians', pbc=False)

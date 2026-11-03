@@ -10,7 +10,8 @@ This guide refines the repository root `AGENTS.md` for native MolSysMT classes a
 
 ## Native-first rebuild contract
 
-- `Topology.rebuild_*` and `MolSys.rebuild_*` are native reconstruction operations.
+- `Topology.rebuild_*`, `ChemicalStates.rebuild_components` and `MolSys.rebuild_*`
+  are native reconstruction operations with independent domain ownership.
 - They are public native APIs, but they are not form-agnostic APIs.
 - Their implementation must operate directly on native tables, arrays, and connectivity data.
 - Do not route native rebuild logic through:
@@ -24,7 +25,9 @@ This guide refines the repository root `AGENTS.md` for native MolSysMT classes a
 
 - Public element helpers remain form-agnostic and may use dispatch machinery when required.
 - Native rebuild paths must instead use topology-native inference helpers.
-- The topology-native inference helpers currently live in `molsysmt/native/_hierarchy.py`.
+- Stable inventory helpers live in `molsysmt/native/_topology_infer.py`; state-local
+  component inference and edit staging live in `_chemical_components.py` and
+  `_chemical_edits.py`. Neither recovers chemistry through a Topology owner.
 - If a rule is needed both by public element helpers and native rebuild logic, factor the rule into a lower-level internal helper and let both layers depend on it.
 - Do not duplicate hierarchy rules inside converters or rebuild methods.
 
@@ -41,12 +44,13 @@ This guide refines the repository root `AGENTS.md` for native MolSysMT classes a
 
 ## Canonical order of dependency
 
-- The intended native dependency order is:
-  - groups,
-  - components,
-  - molecules,
-  - entities.
-- Lower levels may feed higher levels.
+- Stable inventory follows atoms/groups, molecules and entities, with chains as
+  represented stable memberships. Components belong to a selected chemical state.
+- Initial construction may explicitly materialize a component partition as stable
+  molecule membership when no better declaration exists. Later chemistry edits
+  never change stable molecules implicitly.
+- Component labeling may read explicitly supplied stable context without changing
+  it. Pure Topology queries/copies never resolve or copy a chemical collection.
 - Higher levels must not recursively depend on form-agnostic public queries over the same object being rebuilt.
 
 ## Converters targeting native objects

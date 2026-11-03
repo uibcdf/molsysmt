@@ -31,8 +31,26 @@ def has_attribute(
 
     from molsysmt.attribute import attributes as all_attributes
 
+    from .attributes import attributes
+
+    if not attributes.get(attribute, False):
+        return False
     attribute_info = all_attributes[attribute]
 
+    if attribute_info["chemical_state"]:
+        from molsysmt.form.molsysmt_MolSys.has_attribute import (
+            has_attribute as native_has,
+        )
+
+        from ._read_native import read_native
+
+        try:
+            native = read_native(molecular_system, get_missing_bonds=False)
+        except (AttributeError, IndexError, KeyError, ValueError):
+            return False
+        return native_has(
+            native, attribute, include_none=include_none, skip_digestion=True
+        )
     if attribute_info["topological"]:
         from ._topology_sidecar import get_topology_sidecar
 

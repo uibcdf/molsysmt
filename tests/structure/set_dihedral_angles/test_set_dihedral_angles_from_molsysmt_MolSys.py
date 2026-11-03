@@ -14,7 +14,7 @@ import molsysmt as msm
 def test_set_dihedral_angles_from_molsysmt_MolSys_1(met_enkephalin_h5msm_molsys):
 
     molecular_system = met_enkephalin_h5msm_molsys
-    phi_chains = msm.topology.get_dihedral_quartets(molecular_system, phi=True)
+    phi_chains = msm.chemical_states.get_dihedral_quartets(molecular_system, phi=True)
     ang1 = msm.structure.get_dihedral_angles(
         molecular_system, dihedral_quartets=phi_chains[2]
     )

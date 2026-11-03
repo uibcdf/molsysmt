@@ -57,13 +57,15 @@ def to_mdtraj_Trajectory(
     from mdtraj import load
 
     from ..mdtraj_Trajectory.extract import extract
-    from ..molsysmt_Topology.to_mdtraj_Topology import (
+    from ..molsysmt_MolSys.to_mdtraj_Topology import (
         to_mdtraj_Topology as native_to_mdtraj,
     )
-    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
     tmp_item = load(item)
-    native_topology = to_molsysmt_Topology(item, skip_digestion=True)
+    native_topology = to_molsysmt_MolSys(
+        item, structure_indices=[0], skip_digestion=True
+    )
     tmp_item.topology = native_to_mdtraj(native_topology, skip_digestion=True)
     tmp_item = extract(
         tmp_item,

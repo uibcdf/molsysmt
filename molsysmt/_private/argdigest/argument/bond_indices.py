@@ -29,6 +29,8 @@ def digest_bond_indices(bond_indices, caller=None, native_topology_bonds=False):
     """
 
     if native_topology_bonds:
+        if hasattr(bond_indices, "unit") or hasattr(bond_indices, "units"):
+            raise ArgumentError("bond_indices", value=bond_indices, caller=caller)
         if is_all(bond_indices):
             return "all"
         try:
@@ -48,7 +50,7 @@ def digest_bond_indices(bond_indices, caller=None, native_topology_bonds=False):
         raise ArgumentError("bond_indices", value=bond_indices, caller=caller)
 
     if (
-        caller == "molsysmt.topology.get_rigid_fragments.get_rigid_fragments"
+        caller == "molsysmt.chemical_states.get_rigid_fragments.get_rigid_fragments"
         and bond_indices is not None
     ):
         values = np.asarray(bond_indices, dtype=object)

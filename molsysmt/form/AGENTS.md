@@ -6,7 +6,7 @@ It refines the global rules in the repository root `AGENTS.md` for this subtree.
 ## Language and style
 
 - Keep all comments and docstrings in English.
-- Follow NumPy-style docstrings and the conventions in `coding/coding_guide.md`.
+- Follow NumPy-style docstrings and the conventions in `docs/content/developer/documentation/api/docstrings.md`.
 - The first line of a docstring should be a short gerund summary (for example, “Converting MolSys to ViewerJSON.”).
 - Document units explicitly for physical quantities.
 
@@ -34,9 +34,10 @@ It refines the global rules in the repository root `AGENTS.md` for this subtree.
 - Do not overwrite piping metadata later in the same `__init__.py`. Legacy duplicate assignments silently disable the optimization path.
 - When a form rebuilds topology or structures internally for individual `get_*` helpers, it is a strong signal that piping should be configured.
 - When choosing between a specific pipe and `piped_any_attribute`, prefer the most reduced stable target:
-  - use a topology form for topological-only bulk extraction,
+  - use a Topology form for stable-inventory-only bulk extraction,
+  - use ChemicalStates for chemical-only queries when it supplies every prerequisite,
   - use a structures form for structural-only bulk extraction,
-  - use a full `molsysmt.MolSys` pipe only when mixed extraction really benefits from it.
+  - use a `molsysmt.MolSys` pipe when inventory and chemistry, or geometry-dependent context, must be supplied together.
 - If a form exposes both individual getters and an efficient conversion path, keep both:
   - the getters remain part of the public adapter surface,
   - high-level bulk consumers such as `molsysmt.get`, `molsysmt.compare`, and `molsysmt.info` rely on the piping metadata to avoid repeated expensive reconstructions.
@@ -56,11 +57,11 @@ It refines the global rules in the repository root `AGENTS.md` for this subtree.
 ## Attributes, shapes, and units
 
 - Use standard attribute names and shapes:
-  - Coordinates: arrays with shape `(n_structures, n_atoms, 3)` (or `(n_frames, n_atoms, 3)` in iterators); units: nanometers.
+  - Coordinates: arrays with shape `(n_structures, n_atoms, 3)`, including iterator chunks; units: nanometers.
   - Box: arrays with shape `(n_structures, 3, 3)`; lengths in nanometers, angles handled in radians when derived.
   - Time: arrays in picoseconds.
   - Charges: expressed in units of the elementary charge.
-- Respect default behaviors for `selection` and `structure_indices` as described in `dev_guide.md` and `coding/coding_guide.md`.
+- Respect the maintained query, conversion and iteration contracts in `devguide/native_queries.md`, `devguide/forms_and_conversions.md` and `devguide/SCALABILITY.md`.
 - When introducing or modifying JSON-like forms (for example, `molsysmt.ViewerJSON`), keep their schema consistent with the corresponding native classes and clearly document units in their docstrings.
 
 ## Tests

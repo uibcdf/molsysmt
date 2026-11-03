@@ -25,4 +25,6 @@ def remove_bonds(item, bond_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    return item.topology.remove_bonds(bond_indices=bond_indices, skip_digestion=True)
+    return item.chemical_states.remove_bonds(
+        bond_indices=bond_indices, skip_digestion=True
+    )

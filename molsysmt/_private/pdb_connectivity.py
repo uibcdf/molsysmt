@@ -16,12 +16,12 @@ def validate_policy(get_missing_bonds, engine):
         )
 
 
-def record(topology, status, engine, *, error=None, declaration_issues=None):
+def record(chemical_states, status, engine, *, error=None, declaration_issues=None):
     """Archive an outcome with original bond indices and producer identity."""
     from molsysmt import __version__
     from molsysmt._private.preparation_history import append_report
 
-    state = topology._reference_chemical_state
+    state = chemical_states._resolve_chemical_state()
     history_index = len(state._preparation_history)
     inferred = (
         state.bonds["evidence"].eq("inferred")
@@ -30,7 +30,7 @@ def record(topology, status, engine, *, error=None, declaration_issues=None):
     )
     bond_indices = np.flatnonzero(inferred).astype(np.int64)
     if len(bond_indices):
-        topology._set_chemical_state_bond_attribute(
+        chemical_states._set_chemical_state_bond_attribute(
             "provenance_index",
             history_index,
             bond_indices=bond_indices,

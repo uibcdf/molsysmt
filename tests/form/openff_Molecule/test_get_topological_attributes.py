@@ -73,14 +73,14 @@ def test_n_components(caffeine_mol):
 def test_n_molecules(caffeine_mol):
     import molsysmt as msm
 
-    assert msm.get(caffeine_mol, element="system", n_molecules=True) == 0
+    assert msm.get(caffeine_mol, element="system", n_molecules=True) == 1
 
 
 @pytest.mark.redundant
 def test_n_entities(caffeine_mol):
     import molsysmt as msm
 
-    assert msm.get(caffeine_mol, element="system", n_entities=True) == 0
+    assert msm.get(caffeine_mol, element="system", n_entities=True) == 1
 
 
 # ---------------------------------------------------------------------------

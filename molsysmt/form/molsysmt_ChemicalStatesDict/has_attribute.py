@@ -11,11 +11,6 @@ def has_attribute(
 
     if not attributes[attribute]:
         return False
-    if attribute == "reference_chemical_state_index":
-        data = molecular_system.data
-        return (
-            include_none
-            or data["reference_chemical_state_index"] is not None
-            or len(data["states"]) == 1
-        )
-    return True
+    from molsysmt.native._chemical_dict_queries import has_attribute as available
+
+    return bool(available(molecular_system, attribute, include_none))

@@ -2,6 +2,7 @@ import numpy as np
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.chemical_state import resolve_chemical_state
 
 
 def _evaluation(condition, value):
@@ -36,8 +37,15 @@ def _evaluation(condition, value):
 
 @signal(tags=["api", "get"])
 @arg_digest()
+@resolve_chemical_state
 def contains(
-    molecular_system, selection="all", syntax="MolSysMT", skip_digestion=False, **kwargs
+    molecular_system,
+    selection="all",
+    syntax="MolSysMT",
+    skip_digestion=False,
+    *,
+    chemical_state="reference",
+    **kwargs,
 ):
     """
     Checking whether a molecular system contains specific elements or satisfies conditions.
@@ -57,6 +65,10 @@ def contains(
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    chemical_state : str, int or None, default='reference'
+        Chemical state used for state-dependent counts and conditions. An explicit
+        position selects a declared native chemical owner without changing its reference.
 
     Returns
     -------

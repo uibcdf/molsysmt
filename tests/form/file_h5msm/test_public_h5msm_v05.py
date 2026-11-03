@@ -15,14 +15,14 @@ from molsysmt.native import ChemicalStates, MolSys, Structures
 
 def test_public_05_read_write_and_layer_selection(tmp_path):
     source = MolSys(n_atoms=2)
-    source.topology.add_bonds([[0, 1]])
+    source.chemical_states.add_bonds([[0, 1]])
     source.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 2, 3)), "nm")
     )
     filename = str(tmp_path / "public05.h5msm")
     assert msm.h5msm.write(source, filename) == filename
     restored = msm.h5msm.read(filename)
-    assert restored.chemical_states is restored.topology._chemical_states_domain
+    assert restored.chemical_states._molsys_owner_ref() is restored
     assert len(restored.chemical_states.get_bonds()) == 1
     assert restored.structures.coordinates.shape == (2, 2, 3)
     layers = msm.h5msm.read_layers(filename, layers=["chemical_states", "interactions"])
@@ -106,7 +106,7 @@ def test_public_05_writers_reject_mechanics_without_creating_a_file(
 
 def test_public_convert_writes_05_and_roundtrips_native_queries(tmp_path):
     source = MolSys(n_atoms=2)
-    source.topology.add_bonds([[0, 1]])
+    source.chemical_states.add_bonds([[0, 1]])
     source.structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 2, 3)), "nm")
     )
@@ -175,8 +175,9 @@ def test_public_convert_preserves_pdb_alternate_locations_in_05(tmp_path):
 
 def test_public_queries_resolve_a_nonreference_state_in_05(tmp_path):
     source = MolSys(n_atoms=2)
-    source.topology._append_chemical_state(state_id="second")
-    source.topology._set_chemical_state_atom_attribute(
+    source.chemical_states.append_state()
+    source.chemical_states._states[1].state_id = "second"
+    source.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge", [1, -1], state_index=1
     )
     filename = tmp_path / "states.h5msm"

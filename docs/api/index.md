@@ -23,6 +23,12 @@ API of the set of functions to build and complete molecular systems.
 API of the module of functions to explore the topology of a molecular system.
 :::
 
+:::{grid-item-card} API Chemical States
+:columns: 3
+:link: chemical_states/api_chemical_states.html
+API for state-dependent covalent graphs, chemical correspondence and torsion definitions.
+:::
+
 :::{grid-item-card} API Structure
 :columns: 3
 :link: structure/api_structure.html
@@ -94,6 +100,7 @@ Functions that integrate MolSysMT with third-party libraries.
    basic/api_basic
    build/api_build
    topology/api_topology
+   chemical_states/api_chemical_states
    structure/api_structure
    pbc/api_pbc
    physchem/api_physchem

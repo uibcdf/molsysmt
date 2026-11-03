@@ -17,6 +17,7 @@ def molsys():
     result = msm.convert(Chem.MolFromSmiles("CCO"), to_form="molsysmt.MolSys")
     topology = result.topology
     topology.groups = Groups_DataFrame(n_groups=2)
+    topology.set_atom_molecules(None)
     topology.groups["group_name"] = ["POLAR", "ALKYL"]
     topology.groups["group_type"] = ["small molecule", "small molecule"]
     topology.groups["molecule_index"] = [0, 0]
@@ -116,7 +117,7 @@ def test_report_separates_output_membership_from_complete_calculation_context(
 
 @pytest.mark.parametrize("descriptor", ["tpsa", "lipophilicity"])
 @pytest.mark.parametrize(
-    "form", ["rdkit.Mol", "molsysmt.MolSys", "molsysmt.Topology", "h5msm"]
+    "form", ["rdkit.Mol", "molsysmt.MolSys", "native_domains", "h5msm"]
 )
 def test_form_agnostic_atom_contributions_preserve_source(
     molsys, descriptor, form, tmp_path
@@ -128,8 +129,8 @@ def test_form_agnostic_atom_contributions_preserve_source(
         before = molsys.ToBinary()
     elif form == "h5msm":
         molsys = msm.convert(molsys, to_form=str(tmp_path / "source.h5msm"))
-    elif form == "molsysmt.Topology":
-        molsys = molsys.topology
+    elif form == "native_domains":
+        molsys = [molsys.topology, molsys.chemical_states]
     atomic = calculate(molsys, descriptor, element="atom")
     molecular = calculate(molsys, descriptor)
     np.testing.assert_allclose(sum(atomic), molecular[0], atol=1e-12, rtol=0)

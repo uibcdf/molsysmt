@@ -33,13 +33,13 @@ def test_state_only_molsys_preserves_absent_topology(tmp_path, n_states):
     assert summary["n_atoms"] == 3
     for attribute in (
         "n_groups",
-        "n_components",
         "n_chains",
         "n_molecules",
         "n_entities",
         "n_structures",
     ):
         assert summary[attribute] is None
+    assert summary["n_components"] == (0 if n_states else None)
     assert result.topology is None
     subset = result.extract(atom_indices=[2, 0])
     assert subset.topology is None
@@ -69,9 +69,9 @@ def test_state_only_reader_rejects_a_present_topology(tmp_path):
 
 
 def test_state_only_reader_preserves_covalent_records(tmp_path):
-    topology = Topology(n_atoms=3)
-    topology.add_bonds([[0, 1]])
-    states = msm.convert(topology, to_form="molsysmt.ChemicalStates")
+    states = msm.ChemicalStates(n_atoms=3)
+    states.append_state()
+    states.add_bonds([[0, 1]])
     filename = tmp_path / "state_bonds.h5msm"
     write_modular_file(filename, chemical_states=states)
 

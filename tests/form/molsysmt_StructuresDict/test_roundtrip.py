@@ -181,7 +181,9 @@ def test_structures_dict_to_molsys_keeps_selected_atom_and_structure_axes(
         structure_indices=[2, 0, 2],
     )
 
-    assert molsys.topology.n_atoms == 2
+    assert molsys.topology is None
+    assert molsys.chemical_states is None
+    assert msm.get(molsys, n_atoms=True) == 2
     assert molsys.structures.n_atoms == 2
     assert molsys.structures.n_structures == 3
     assert np.allclose(

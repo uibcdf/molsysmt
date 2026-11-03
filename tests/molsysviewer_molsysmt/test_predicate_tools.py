@@ -144,13 +144,17 @@ def test_shape_difference_is_ordinary_inequality_and_reference_is_not_bound(view
 def test_forced_topology_rebuild_rejects_before_mutating_either_input(view, trusted):
     reference = msm.copy(view.molsys)
     original = view.molsys
-    original.topology.components.loc[:, "component_name"] = "PRIMARY MARKER"
-    reference.topology.components.loc[:, "component_name"] = "REFERENCE MARKER"
+    original.chemical_states._resolve_chemical_state().components.loc[
+        :, "component_name"
+    ] = "PRIMARY MARKER"
+    reference.chemical_states._resolve_chemical_state().components.loc[
+        :, "component_name"
+    ] = "REFERENCE MARKER"
     before = [
         (
             item,
-            item.topology.components,
-            item.topology.components.copy(deep=True),
+            item.chemical_states._resolve_chemical_state().components,
+            item.chemical_states._resolve_chemical_state().components.copy(deep=True),
             item.interactions["received"],
         )
         for item in (original, reference)
@@ -162,7 +166,7 @@ def test_forced_topology_rebuild_rejects_before_mutating_either_input(view, trus
         )
     assert view.molsys is original
     for item, components, snapshot, analysis in before:
-        assert item.topology.components is components
+        assert item.chemical_states._resolve_chemical_state().components is components
         assert components.equals(snapshot)
         assert item.interactions["received"] is analysis
     assert view.addons.molsysmt.get_sync_status() == status

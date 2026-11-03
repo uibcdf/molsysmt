@@ -14,34 +14,6 @@ form = "molsysmt.MolSys"
 
 
 @arg_digest(form=form)
-def get_formal_charge_from_atom(item, indices="all", skip_digestion=False):
-    """
-    Getting formal charge from atom in form molsysmt.MolSys.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    Returns
-    -------
-    object
-        Resulting object in object form.
-
-
-    .. versionadded:: 1.0.0
-    """
-    from molsysmt.form.molsysmt_Topology import get_formal_charge_from_atom as aux_get
-
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@arg_digest(form=form)
 def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting partial charge from atom in form molsysmt.MolSys.
@@ -102,30 +74,6 @@ def get_atom_ff_type_from_atom(item, indices="all", skip_digestion=False):
 
 
 # From system
-
-
-@arg_digest(form=form)
-def get_formal_charge_from_system(item, skip_digestion=False):
-    """
-    Getting formal charge from system in form molsysmt.MolSys.
-
-
-    Parameters
-    ----------
-    item : molecular system
-        Argument item.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
-
-    Returns
-    -------
-    object
-        Resulting object in object form.
-
-
-    .. versionadded:: 1.0.0
-    """
-    return get_formal_charge_from_atom(item, skip_digestion=True)
 
 
 @arg_digest(form=form)

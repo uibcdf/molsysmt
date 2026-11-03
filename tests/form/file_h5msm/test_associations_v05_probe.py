@@ -22,7 +22,9 @@ def _link(axis, source, target, indices, *, source_name=None, target_name=None):
 
 def _domains():
     topology = Topology(n_atoms=3)
-    topology.add_bonds([[0, 1]])
+    states = msm.ChemicalStates(n_atoms=3)
+    states.append_state()
+    states.add_bonds([[0, 1]])
     structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
     )
@@ -33,11 +35,11 @@ def _domains():
         evaluated_structure_indices=[0, 1],
         method="candidate",
     )
-    return topology, structures, interactions
+    return topology, states, structures, interactions
 
 
 def test_identity_and_reordered_links_are_explicit_and_compact(tmp_path):
-    topology, structures, interactions = _domains()
+    topology, states, structures, interactions = _domains()
     filename = tmp_path / "linked.h5msm"
     links = [
         _link("atom", "chemical_states", "topology", "identity"),
@@ -51,7 +53,7 @@ def test_identity_and_reordered_links_are_explicit_and_compact(tmp_path):
     write_modular_file(
         filename,
         topology=topology,
-        chemical_states=msm.convert(topology, to_form="molsysmt.ChemicalStates"),
+        chemical_states=states,
         structures=structures,
         interactions={"hbonds": interactions},
         associations=links,
@@ -78,7 +80,7 @@ def test_identity_and_reordered_links_are_explicit_and_compact(tmp_path):
 
 
 def test_equal_cardinality_does_not_imply_an_association(tmp_path):
-    topology, structures, _ = _domains()
+    topology, states, structures, _ = _domains()
     filename = tmp_path / "unlinked.h5msm"
     write_modular_file(filename, topology=topology, structures=structures)
     assert read_modular_file(filename)["associations"] is None
@@ -91,7 +93,7 @@ def test_equal_cardinality_does_not_imply_an_association(tmp_path):
 
 
 def test_invalid_link_fails_before_file_creation_and_tampering_is_rejected(tmp_path):
-    topology, structures, _ = _domains()
+    topology, states, structures, _ = _domains()
     filename = tmp_path / "invalid.h5msm"
     with pytest.raises(ValueError, match="outside the target axis"):
         write_modular_file(
@@ -123,13 +125,13 @@ def test_invalid_link_fails_before_file_creation_and_tampering_is_rejected(tmp_p
 
 
 def test_contradictory_direct_and_indirect_atom_maps_are_rejected(tmp_path):
-    topology, structures, _ = _domains()
+    topology, states, structures, _ = _domains()
     filename = tmp_path / "contradictory.h5msm"
     with pytest.raises(ValueError, match="Direct and composed axis links disagree"):
         write_modular_file(
             filename,
             topology=topology,
-            chemical_states=msm.convert(topology, to_form="molsysmt.ChemicalStates"),
+            chemical_states=states,
             structures=structures,
             associations=[
                 _link("atom", "structures", "chemical_states", "identity"),
@@ -155,16 +157,12 @@ def test_contradictory_direct_and_indirect_atom_maps_are_rejected(tmp_path):
 def test_every_nonempty_primary_domain_combination_roundtrips(
     tmp_path, has_topology, has_states, has_structures
 ):
-    topology, structures, _ = _domains()
+    topology, states, structures, _ = _domains()
     filename = tmp_path / "combination.h5msm"
     write_modular_file(
         filename,
         topology=topology if has_topology else None,
-        chemical_states=(
-            msm.convert(topology, to_form="molsysmt.ChemicalStates")
-            if has_states
-            else None
-        ),
+        chemical_states=(states if has_states else None),
         structures=structures if has_structures else None,
     )
     restored = read_modular_file(filename)

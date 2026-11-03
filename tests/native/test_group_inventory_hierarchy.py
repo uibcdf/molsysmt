@@ -121,7 +121,8 @@ def test_dictionary_and_h5msm_preserve_native_membership(group_system, tmp_path)
     topology = group_system.topology
     payload = msm.convert(topology, to_form="molsysmt.TopologyDict")
     data = json.loads(json.dumps(payload.to_dict()))
-    assert [c["group_indices"] for c in data["chains"]] == [[0, 1], [2], [3, 4], []]
+    assert data["version"] == "0.2"
+    assert data["chain_groups"] == [[0, 1], [2], [3, 4], []]
     restored = msm.convert(msm.TopologyDict(data=data), to_form="molsysmt.Topology")
     assert restored.chain_groups == topology.chain_groups
     assert restored.chains.chain_id.tolist() == ["A", "B", "C", "D"]
@@ -299,7 +300,7 @@ def test_inventory_molecule_rebuild_preserves_empty_declared_slots(group_system)
     assert topology.groups.molecule_index.tolist() == [0, 0, 1, 2, 2]
     assert topology.n_molecules == 4
     assert topology.n_groups == 5 and topology.n_atoms == 0
-    assert topology._reference_chemical_state.connectivity_completeness == "unavailable"
+    assert not hasattr(topology, "_chemical_states_domain")
 
 
 def test_atomic_builder_can_keep_a_group_without_stored_atoms():
@@ -422,14 +423,8 @@ def test_molsys_dict_round_trip_preserves_empty_occurrences_and_unknown_chemistr
         "empty",
     ]
     assert restored.topology.n_molecules == restored.topology.n_entities == 4
-    assert (
-        restored.topology._reference_chemical_state.connectivity_completeness
-        == "unavailable"
-    )
-    assert (
-        restored.topology._reference_chemical_state.component_completeness
-        == "unavailable"
-    )
+    assert group_system.chemical_states is None
+    assert restored.chemical_states is None
 
 
 def test_fasta_extraction_uses_groups_when_the_form_has_no_atomic_axis(

@@ -14,7 +14,7 @@ from .test_chemical_template import PROVENANCE, _options, _source, _template
 
 def test_explicit_unspecified_is_transferred_and_retained_in_history(tmp_path):
     template = _template()
-    template._chemical_states_domain._states[0].set_atom_attribute(
+    template.chemical_states._states[0].set_atom_attribute(
         "stereochemistry", ["unspecified"] * 6
     )
     source = _source(template)
@@ -42,7 +42,9 @@ def test_explicit_unspecified_is_transferred_and_retained_in_history(tmp_path):
         msm.pyunitwizard.get_value(source.structures.coordinates),
     )
     # The complete achiral context is admitted; H permutations remain bounded.
-    correspondence = msm.topology.get_atom_correspondences(result, selection=[0, 1])
+    correspondence = msm.chemical_states.get_atom_correspondences(
+        result, selection=[0, 1]
+    )
     assert correspondence["atom_correspondences"].tolist() == [[[0, 0], [1, 1]]]
     repeated = msm.physchem.assess_chemical_template(
         result, **_options(result, template)
@@ -72,7 +74,7 @@ def test_explicit_stereo_conflicts_cannot_be_overwritten(source_label, template_
     source.chemical_states._states[0].set_atom_attribute(
         "stereochemistry", [source_label] + [None] * 5
     )
-    template._chemical_states_domain._states[0].set_atom_attribute(
+    template.chemical_states._states[0].set_atom_attribute(
         "stereochemistry", [template_label] + [None] * 5
     )
     before = deepcopy(source.chemical_states._states[0].atom_attributes)
@@ -89,17 +91,17 @@ def test_missing_unknown_and_unsupported_do_not_certify_correspondence(label):
     source, template = _source(), _template()
     if label == "unsupported":
         with pytest.raises(StructuralInconsistencyError, match="stereochemistry"):
-            template._chemical_states_domain._states[0].set_atom_attribute(
+            template.chemical_states._states[0].set_atom_attribute(
                 "stereochemistry", [label] * 6
             )
         return
-    template._chemical_states_domain._states[0].set_atom_attribute(
+    template.chemical_states._states[0].set_atom_attribute(
         "stereochemistry", [label] * 6
     )
     options = _options(source, template)
     result = msm.physchem.apply_chemical_template(source, **options)["molecular_system"]
     with pytest.raises(StructuralInconsistencyError, match="stereochemistry"):
-        msm.topology.get_atom_correspondences(result)
+        msm.chemical_states.get_atom_correspondences(result)
 
 
 @pytest.mark.parametrize("smiles", ["CC(O)F", "FC=CF"])
@@ -119,7 +121,7 @@ def test_explicit_unspecified_does_not_assign_potential_stereo(smiles):
         template_provenance={**PROVENANCE, "hydrogen_policy": "stored_counts"},
     )["molecular_system"]
     with pytest.raises(StructuralInconsistencyError, match="stereochemistry"):
-        msm.topology.get_atom_correspondences(result)
+        msm.chemical_states.get_atom_correspondences(result)
 
 
 def test_benzamidinium_template_hydrogens_and_heavy_correspondences():
@@ -151,7 +153,7 @@ def test_benzamidinium_template_hydrogens_and_heavy_correspondences():
         prepared, pH=None, engine="RDKit", mode="fixed_chemical_state"
     )
     assert hydrogenated.get_n_atoms() == 18
-    result = msm.topology.get_atom_correspondences(
+    result = msm.chemical_states.get_atom_correspondences(
         hydrogenated, selection=list(range(9))
     )
     assert result["atom_correspondences"].shape == (2, 9, 2)

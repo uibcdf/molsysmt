@@ -28,7 +28,7 @@ def system(box_kind="none", form="molsys", degenerate=False):
         coordinates[:, 2] = coordinates[:, 1]
     source = MolSys(n_atoms=10)
     source.topology.atoms["atom_type"] = ["C"] * 10
-    source.topology.add_bonds([[i, i + 1] for i in [0, 1, 2, 3, 5, 6, 7, 8]])
+    source.chemical_states.add_bonds([[i, i + 1] for i in [0, 1, 2, 3, 5, 6, 7, 8]])
     source.structures.coordinates = puw.quantity(coordinates, "nm")
     if box_kind != "none":
         box = (
@@ -72,7 +72,7 @@ def snapshot(source):
         "coordinates": values(source).copy(),
         "box": None if values(source, "box") is None else values(source, "box").copy(),
         "atoms": source.topology.atoms.copy(deep=True),
-        "bonds": source.topology.bonds.copy(deep=True),
+        "bonds": source.chemical_states._resolve_chemical_state().bonds.copy(deep=True),
         "analysis": source.interactions["analysis"],
     }
 
@@ -84,7 +84,9 @@ def unchanged(source, before):
     else:
         np.testing.assert_array_equal(values(source, "box"), before["box"])
     pd.testing.assert_frame_equal(source.topology.atoms, before["atoms"])
-    pd.testing.assert_frame_equal(source.topology.bonds, before["bonds"])
+    pd.testing.assert_frame_equal(
+        source.chemical_states._resolve_chemical_state().bonds, before["bonds"]
+    )
     assert source.interactions["analysis"] is before["analysis"]
     np.testing.assert_array_equal(
         before["analysis"].evaluated_structure_indices, [0, 1, 2]
@@ -219,7 +221,9 @@ def test_valid_edits_match_rotation_and_preserve_motion_scope(
             atol=1e-11,
         )
     pd.testing.assert_frame_equal(output.topology.atoms, before["atoms"])
-    pd.testing.assert_frame_equal(output.topology.bonds, before["bonds"])
+    pd.testing.assert_frame_equal(
+        output.chemical_states._resolve_chemical_state().bonds, before["bonds"]
+    )
     if before["box"] is not None:
         np.testing.assert_array_equal(values(output, "box"), before["box"])
     np.testing.assert_array_equal(

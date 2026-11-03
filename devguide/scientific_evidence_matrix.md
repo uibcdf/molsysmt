@@ -35,6 +35,10 @@ belong to both. APIs outside these scopes are not certified by this matrix.
 
 | API | Stability | Status | Declared claim and scope | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
+| `molsysmt.chemical_states.get_bondgraph` | stable | validated | Constructing the covalent graph represented by chemical-state bonds. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges` (exact) | — |
+| `molsysmt.chemical_states.get_covalent_blocks` | stable | validated | Identifying connected components of the covalent graph. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components` (exact) | — |
+| `molsysmt.chemical_states.get_covalent_paths` | stable | validated | Identifying ordered covalent paths under the documented chain convention. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths` (exact) | — |
+| `molsysmt.chemical_states.get_dihedral_quartets` | stable | validated | Enumerating bonded atom quartets that define covalent dihedrals. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths` (exact) | — |
 | `molsysmt.pbc.get_angles_from_box` | stable | validated | Recovering cell angles from row-vector box matrices. | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products` (public_six_decimal_atol) | — |
 | `molsysmt.pbc.get_box_from_lengths_and_angles` | stable | validated | Constructing a canonical row-vector periodic box from lengths and angles. | analytic: `tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix` (public_six_decimal_atol) | — |
 | `molsysmt.pbc.get_box_with_shape` | stable | validated | Constructing canonical periodic-box vectors for a requested cell shape and characteristic length. | analytic: `tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors` (float64_kernel_atol) | — |
@@ -74,10 +78,6 @@ belong to both. APIs outside these scopes are not certified by this matrix.
 | `molsysmt.structure.set_dihedral_angles` | stable | validated | Setting signed dihedral angles through coordinate rotation. | analytic: `tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block` (float64_kernel_atol) | — |
 | `molsysmt.structure.shift_dihedral_angles` | stable | validated | Shifting signed dihedral angles through coordinate rotation. | analytic: `tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut` (float64_kernel_atol) | — |
 | `molsysmt.structure.translate` | stable | validated | Applying Cartesian translation vectors to coordinates. | analytic: `tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements` (float64_kernel_atol) | — |
-| `molsysmt.topology.get_bondgraph` | stable | validated | Constructing the covalent graph represented by chemical-state bonds. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges` (exact) | — |
-| `molsysmt.topology.get_covalent_blocks` | stable | validated | Identifying connected components of the covalent graph. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components` (exact) | — |
-| `molsysmt.topology.get_covalent_paths` | stable | validated | Identifying ordered covalent paths under the documented chain convention. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths` (exact) | — |
-| `molsysmt.topology.get_dihedral_quartets` | stable | validated | Enumerating bonded atom quartets that define covalent dihedrals. | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths` (exact) | — |
 
 ## Claimed scientific APIs
 
@@ -127,6 +127,11 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.build.remove_overlapping_molecules`
 - `molsysmt.build.solvate`
 - `molsysmt.build.solve_atoms_with_alternate_location`
+- `molsysmt.chemical_states.get_atom_correspondences`
+- `molsysmt.chemical_states.get_rigid_fragments`
+- `molsysmt.chemical_states.get_rings`
+- `molsysmt.chemical_states.get_rotatable_bonds`
+- `molsysmt.chemical_states.get_substructure_matches`
 - `molsysmt.interactions.cation_pi.get_cation_pi_interactions`
 - `molsysmt.interactions.disulfides.get_disulfide_candidates`
 - `molsysmt.interactions.halogen_bonds.get_halogen_bonds`
@@ -175,10 +180,5 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.structure.get_least_squares_plane`
 - `molsysmt.structure.get_symmetry_corrected_rmsd`
 - `molsysmt.structure.get_vectors`
-- `molsysmt.topology.get_atom_correspondences`
-- `molsysmt.topology.get_rigid_fragments`
-- `molsysmt.topology.get_rings`
-- `molsysmt.topology.get_rotatable_bonds`
 - `molsysmt.topology.get_sequence_alignment`
 - `molsysmt.topology.get_sequence_identity`
-- `molsysmt.topology.get_substructure_matches`

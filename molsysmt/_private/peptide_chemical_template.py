@@ -36,7 +36,8 @@ def assemble(
     """Close every declared port before claiming complete peptide connectivity."""
     from molsysmt import __version__, _ackredit
     from molsysmt._private.scientific_citations import SOFTWARE
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.native import MolSys
+    from molsysmt.native._chemical_state import _coerce_bond_table
 
     library, library_sha256 = _fragments()
     unsupported = [name for name in residue_names if name not in library["residues"]]
@@ -145,13 +146,15 @@ def assemble(
     checksum = sha256(
         json.dumps(definition, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
-    topology = Topology(
+    template = MolSys(
         n_atoms=len(atoms),
         n_groups=len(residue_names),
         n_molecules=1,
         n_chains=1,
         n_entities=1,
     )
+    template.structures = None
+    topology = template.topology
     topology.atoms["atom_id"] = [str(i) for i in range(len(atoms))]
     topology.atoms["atom_name"] = [atom["name"] for atom in atoms]
     topology.atoms["atom_type"] = [atom["element"] for atom in atoms]
@@ -169,8 +172,8 @@ def assemble(
     table["bond_type"] = "covalent"
     table["joins_components"] = True
     table["evidence"] = "user_defined"
-    topology.bonds = Topology._coerce_bond_table(table)
-    state = topology._chemical_states_domain._states[0]
+    template.chemical_states._set_chemical_state_bonds(_coerce_bond_table(table))
+    state = template.chemical_states._states[0]
     for field, values in {
         "formal_charge": [atom["formal_charge"] for atom in atoms],
         "is_aromatic": [atom["is_aromatic"] for atom in atoms],
@@ -181,10 +184,7 @@ def assemble(
     }.items():
         state.set_atom_attribute(field, values)
     state.connectivity_completeness = "complete"
-    topology.rebuild_components(redefine_types=False, redefine_names=False)
-    template = MolSys._from_partial_domains(
-        topology=topology, chemical_states=topology._chemical_states_domain
-    )
+    template.rebuild_components(redefine_types=False, redefine_names=False)
     provenance = dict(
         identity="Explicit peptide chemical template",
         version="1",

@@ -13,7 +13,6 @@ from rdkit import Chem
 from rdkit.Chem import rdDepictor
 
 import molsysmt as msm
-from molsysmt.native.topology import Chains_DataFrame, Groups_DataFrame
 
 puw = msm.pyunitwizard
 DESCRIPTORS = ("tpsa", "lipophilicity")
@@ -34,20 +33,18 @@ def molecular_system(smiles="CCO", *, hierarchy=None, indexed_h=False):
     source = msm.convert(molecule)
     if hierarchy is not None:
         assert smiles == "CCO" and not indexed_h
-        top = source.topology
-        top.groups = Groups_DataFrame(n_groups=2)
-        top.groups["group_id"] = ["1", "2"]
-        top.groups["group_name"] = (
-            ["POLAR", "ALKYL"] if hierarchy == "reversed" else ["ALKYL", "POLAR"]
-        )
-        top.groups["group_type"] = ["small molecule", "small molecule"]
-        top.groups["molecule_index"] = [0, 0]
         mapping = [1, 0, 0] if hierarchy == "reversed" else [0, 0, 1]
-        top.atoms["group_index"] = mapping
-        top.chains = Chains_DataFrame(n_chains=2)
-        top.chains["chain_id"] = ["A", "B"]
-        top.atoms["chain_index"] = mapping
-        top._molecules_dirty = False
+        names = ["POLAR", "ALKYL"] if hierarchy == "reversed" else ["ALKYL", "POLAR"]
+        builder = msm.build.editable(source)
+        for index, name in enumerate(names):
+            builder.add_group(
+                np.flatnonzero(np.asarray(mapping) == index).tolist(),
+                group_id=str(index + 1),
+                group_name=name,
+                group_type="small molecule",
+            )
+            builder.add_chain([index], chain_id=["A", "B"][index])
+        source = builder.build()
     xyz = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
     source.structures.append(
         coordinates=puw.quantity(

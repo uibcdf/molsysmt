@@ -127,6 +127,31 @@ def _domains(molecular_system, caller):
     form = get_form(source)
     dimensions = modular_h5msm_dimensions(source)
     links = None
+    if isinstance(form, str) and form in {
+        "file:pdbqt",
+        "string:pdbqt_text",
+        "molsysmt.PDBQTFileHandler",
+    }:
+        from contextlib import nullcontext
+
+        from molsysmt.native import PDBQTFileHandler
+
+        context = (
+            nullcontext(source)
+            if isinstance(source, PDBQTFileHandler)
+            else PDBQTFileHandler(source)
+        )
+        with context as handler:
+            native = handler._native()
+            # Inspect declared chemistry without exporting or discarding the
+            # document's torsion tree. Coordinates remain on the original input.
+            return (
+                source,
+                native.topology,
+                native.chemical_states,
+                handler.n_atoms,
+                links,
+            )
     if dimensions is not None:
         from molsysmt.h5msm import read_layers
 
@@ -182,12 +207,10 @@ def _domains(molecular_system, caller):
         return source, None, source, source.n_atoms, links
     if isinstance(source, Structures):
         return source, None, None, source.n_atoms, links
-    topology = (
-        source
-        if isinstance(source, Topology)
-        else convert(source, to_form="molsysmt.Topology")
-    )
-    return topology, topology, topology._chemical_states_domain, topology.n_atoms, links
+    if isinstance(source, Topology):
+        return source, source, None, source.n_atoms, links
+    source = convert(source, to_form="molsysmt.MolSys")
+    return source, source.topology, source.chemical_states, source.get_n_atoms(), links
 
 
 def _state(source, states, requested, frame, links, caller):

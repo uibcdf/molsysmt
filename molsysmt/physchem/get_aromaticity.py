@@ -81,7 +81,7 @@ def get_aromaticity(
     See Also
     --------
     molsysmt.physchem.get_aromatic_rings : Get rings from stored aromatic flags.
-    molsysmt.topology.get_substructure_matches : Match declared chemical graphs.
+    molsysmt.chemical_states.get_substructure_matches : Match declared chemical graphs.
 
     Examples
     --------
@@ -108,11 +108,10 @@ def get_aromaticity(
     from molsysmt._private.scientific_citations import SOFTWARE
     from molsysmt._private.variables import is_all
     from molsysmt.basic import convert, get_form
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         detached_chemical_graph_view,
         select_chemical_atoms,
-        validate_chemical_frames,
     )
 
     caller = "molsysmt.physchem.get_aromaticity"
@@ -140,9 +139,13 @@ def get_aromaticity(
         molecular_system = Chem.Mol(molecular_system)
         original = molecular_system
     source, states, state, state_index, _, pairs, frames = chemical_graph_context(
-        molecular_system, chemical_state, structure_indices, False, caller
+        molecular_system,
+        chemical_state,
+        structure_indices,
+        False,
+        caller,
+        with_structures=False,
     )
-    frames = validate_chemical_frames(source, frames, caller)
     view = detached_chemical_graph_view(source, states, state_index, caller)
     symbols = view.topology.atoms["atom_type"]
     allowed = {

@@ -32,6 +32,8 @@ def test_all_memberships_match_explicit_source_element_order(
 
     source = msm.convert(Chem.MolFromSmiles("CCO.N"), to_form="molsysmt.MolSys")
     top = source.topology
+    # This fixture intentionally replaces the converter's stable molecule map.
+    top.set_atom_molecules(None)
     top.groups = Groups_DataFrame(n_groups=2)
     top.groups["group_name"] = ["AMN", "ETH"]
     top.groups["group_type"] = ["small molecule", "small molecule"]
@@ -55,6 +57,7 @@ def test_empty_and_unassigned_groups_remain_distinct():
     from molsysmt.native.topology import Groups_DataFrame
 
     top = msm.convert(Chem.MolFromSmiles("CCO"), to_form="molsysmt.Topology")
+    top.set_atom_molecules(None)
     top.groups = Groups_DataFrame(n_groups=3)
     top.atoms["group_index"] = [1, None, 1]
     assert msm.get(top, element="group", atom_index=True) == [[], [0, 2], []]
@@ -67,6 +70,7 @@ def test_unassigned_atoms_are_not_attached_to_the_last_parent(level):
     from molsysmt.native.topology import Groups_DataFrame
 
     top = msm.convert(Chem.MolFromSmiles("CCO"), to_form="molsysmt.Topology")
+    top.set_atom_molecules(None)
     top.groups = Groups_DataFrame(n_groups=1)
     top.groups["group_name"] = ["LIG"]
     top.groups["molecule_index"] = [0]

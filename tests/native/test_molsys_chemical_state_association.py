@@ -14,16 +14,17 @@ def _multistate_molsys(state_indices=(0, 1, 1)):
     molsys.topology.atoms["atom_id"] = ["0", "1"]
     molsys.topology.atoms["atom_name"] = ["C", "O"]
     molsys.topology.atoms["atom_type"] = ["C", "O"]
-    molsys.topology._set_chemical_state_atom_attribute("formal_charge", [0, -1])
-    molsys.topology._append_chemical_state_bonds([[0, 1]], orders=1)
-    product = molsys.topology._append_chemical_state(state_id="product")
-    molsys.topology._set_chemical_state_atom_attribute(
+    molsys.chemical_states._set_chemical_state_atom_attribute("formal_charge", [0, -1])
+    molsys.chemical_states._append_chemical_state_bonds([[0, 1]], orders=1)
+    product = molsys.chemical_states.append_state()
+    molsys.chemical_states._states[product].state_id = "product"
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge", [1, 0], state_index=product
     )
-    molsys.topology._append_chemical_state_bonds(
+    molsys.chemical_states._append_chemical_state_bonds(
         [[0, 1]], orders=2, state_index=product
     )
-    molsys.topology._set_reference_chemical_state_index(None)
+    molsys.chemical_states._set_reference_index(None)
     molsys.structures.coordinates = msm.pyunitwizard.quantity(
         np.zeros((len(state_indices), 2, 3)), "nm"
     )
@@ -158,7 +159,7 @@ def test_copy_extract_and_remove_preserve_aligned_association_independently():
     assert msm.get(removed, structure_chemical_state_index=True) == [0, 1]
 
 
-def test_native_append_preserves_exact_inventory_and_marks_mismatch_unknown():
+def test_native_append_preserves_exact_inventory_and_rejects_conflicting_chemistry():
     target = _multistate_molsys((0,))
     source = _multistate_molsys((1, 1))
 
@@ -166,12 +167,11 @@ def test_native_append_preserves_exact_inventory_and_marks_mismatch_unknown():
     assert msm.get(target, structure_chemical_state_index=True) == [0, 1, 1]
 
     incompatible = _multistate_molsys((1,))
-    incompatible.topology._chemical_states[1].bonds.at[0, "bond_order"] = 3
-    target.append_structures(incompatible, skip_digestion=True)
-
-    association = msm.get(target, structure_chemical_state_index=True)
-    assert association[:3] == [0, 1, 1]
-    assert pd.isna(association[3])
+    incompatible.chemical_states._states[1].bonds.at[0, "bond_order"] = 3
+    with pytest.raises(StructuralInconsistencyError, match="alignment"):
+        target.append_structures(incompatible, skip_digestion=True)
+    assert target.structures.n_structures == 3
+    assert msm.get(target, structure_chemical_state_index=True) == [0, 1, 1]
 
 
 def test_public_concatenation_preserves_association_for_native_molsys():

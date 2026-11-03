@@ -117,12 +117,18 @@ def test_units_and_chemical_authority_survive_independent_edits(branch):
             atol=1e-14,
         )
     clone._set_formal_charge([1], [1])
-    assert source._topology._chemical_states_domain._states[0].atom_attributes[
-        "formal_charge"
-    ].tolist() == [0, 0, 0, 0]
-    assert clone._topology._chemical_states_domain._states[0].atom_attributes[
-        "formal_charge"
-    ].tolist() == [0, 1, 0, 0]
+    assert source._chemistry._states[0].atom_attributes["formal_charge"].tolist() == [
+        0,
+        0,
+        0,
+        0,
+    ]
+    assert clone._chemistry._states[0].atom_attributes["formal_charge"].tolist() == [
+        0,
+        1,
+        0,
+        0,
+    ]
     assert source._analyses["pairs"].evaluated_structure_indices.tolist() == [
         0,
         1,
@@ -133,7 +139,14 @@ def test_units_and_chemical_authority_survive_independent_edits(branch):
     ]
     assert clone._analyses["pairs"].evaluated_structure_indices.tolist() == []
     native = clone._to_native()
-    assert native.chemical_states is native.topology._chemical_states_domain
+    assert not hasattr(native.topology, "_chemical_states_domain")
+    assert native.chemical_states._molsys_owner_ref() is native
+    assert native.chemical_states.get(element="atom", formal_charge=True) == [
+        0,
+        1,
+        0,
+        0,
+    ]
     assert native.topology._molsys_owner_ref() is native
     np.testing.assert_array_equal(
         puw.get_value(source._get_coordinates(), to_unit="nm"), truth

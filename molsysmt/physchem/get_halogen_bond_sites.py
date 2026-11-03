@@ -99,7 +99,7 @@ def get_halogen_bond_sites(
 
     See Also
     --------
-    molsysmt.topology.get_substructure_matches
+    molsysmt.chemical_states.get_substructure_matches
         Matching arbitrary SMARTS on declared chemical graphs.
     molsysmt.interactions.halogen_bonds.get_halogen_bonds
         Evaluating sparse distance and directional-angle observations.
@@ -120,8 +120,8 @@ def get_halogen_bond_sites(
     """
     import numpy as np
 
+    from molsysmt.chemical_states import get_substructure_matches
     from molsysmt.physchem._prolif import PROLIF_HALOGEN_PATTERNS, PROLIF_REFERENCE
-    from molsysmt.topology import get_substructure_matches
 
     matches = get_substructure_matches(
         molecular_system,

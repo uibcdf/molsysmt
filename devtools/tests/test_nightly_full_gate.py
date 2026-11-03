@@ -220,11 +220,27 @@ def test_push_smoke_runs_only_the_bounded_local_tier():
         for step in smoke["jobs"]["smoke"]["steps"]
         if step.get("name") == "Run test suite"
     )
-    paths = re.findall(r"tests/[A-Za-z0-9_./]+\.py", run)
+
+    def selectors(body):
+        return [
+            line.strip().rstrip("\\").strip()
+            for line in body.splitlines()
+            if line.strip().startswith("tests/")
+        ]
+
+    paths = selectors(run)
     assert "python -m pytest --receptor=ci" in run
-    assert len(paths) == 4
     local_tier = (REPO / "devtools/tests/run_tiers.sh").read_text(encoding="utf-8")
-    assert all(path in local_tier for path in paths)
+    smoke_body = local_tier.split("run_smoke() {", 1)[1].split("\n}", 1)[0]
+    assert paths == selectors(smoke_body)
+    assert {
+        "tests/element/component/test_get_component_index.py",
+        "tests/topology/get_covalent_blocks/test_get_covalent_blocks_from_molsysmt_MolSys.py",
+        "tests/pbc/get_lengths_and_angles_from_box/test_get_lengths_and_angles_from_box.py",
+        "tests/structure/get_rmsd/test_get_rmsd_from_molsysmt_MolSys.py",
+    } <= set(paths)
+    assert len(paths) == len(set(paths))
+    assert all((REPO / path.split("::", 1)[0]).exists() for path in paths)
 
 
 def test_single_python_coverage_cannot_clear_the_full_matrix_backlog(monkeypatch):

@@ -14,17 +14,19 @@ RICH_BOND_ATTRIBUTES = {
     "bond_is_conjugated": [False, True],
     "bond_stereo_atom_indices": [[0, 1], [2, 3]],
     "bond_stereochemistry": ["unspecified", "E"],
-    "bond_donor_atom_index": [pd.NA, 2],
-    "bond_acceptor_atom_index": [pd.NA, 3],
+    "bond_donor_atom_index": [None, 2],
+    "bond_acceptor_atom_index": [None, 3],
     "bond_joins_components": [True, False],
     "bond_evidence": ["explicit", "explicit"],
 }
 
 
-def _rich_topology(container=Topology):
+def _rich_topology(container=msm.ChemicalStates):
     item = container(n_atoms=4)
-    topology = item.topology if isinstance(item, MolSys) else item
-    topology._append_chemical_state_bonds([[0, 1], [2, 3]])
+    states = item.chemical_states if isinstance(item, MolSys) else item
+    if not states.n_chemical_states:
+        states.append_state()
+    states._append_chemical_state_bonds([[0, 1], [2, 3]])
     for attribute in (
         "bond_evidence",
         "bond_stereo_atom_indices",
@@ -68,8 +70,9 @@ def test_topology_get_set_and_capability_deliver_every_rich_bond_attribute():
 
 def test_molsys_delegates_rich_bond_delivery_and_explicit_state_selection():
     molsys = _rich_topology(MolSys)
-    product = molsys.topology._append_chemical_state(state_id="product")
-    molsys.topology._append_chemical_state_bonds(
+    product = molsys.chemical_states.append_state()
+    molsys.chemical_states._states[product].state_id = "product"
+    molsys.chemical_states._append_chemical_state_bonds(
         [[0, 1]], orders=[2], state_index=product
     )
 
@@ -87,7 +90,8 @@ def test_molsys_delegates_rich_bond_delivery_and_explicit_state_selection():
 
 
 def test_optional_bond_capability_distinguishes_support_from_instance_values():
-    topology = Topology(n_atoms=2)
+    topology = msm.ChemicalStates(n_atoms=2)
+    topology.append_state()
     topology._append_chemical_state_bonds([[0, 1]])
 
     assert not msm.has_attribute(topology, "fractional_bond_order")

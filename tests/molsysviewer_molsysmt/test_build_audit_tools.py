@@ -48,6 +48,11 @@ def _same(actual, expected):
 @pytest.fixture(scope="module")
 def source():
     with msv.demo["pentalanine"] as view:
+        # The legacy demo stores unknown (-1) chain membership. This fixture
+        # explicitly declares the chain required for terminal-capping audits.
+        msm.set(
+            view.molsys, element="atom", chain_index=[0] * view.molsys.get_n_atoms()
+        )
         yield view.molsys
 
 
@@ -109,7 +114,7 @@ def test_explicit_native_signature_and_local_only_skip_control(view, name):
 @pytest.mark.parametrize("skip", [False, True])
 def test_native_values_and_source_scene_ownership_are_preserved(view, name, skip):
     primary = view.molsys
-    atoms = primary.topology.atoms.copy(deep=True)
+    atoms = primary.topology.copy().atoms
     bonds = primary.chemical_states._states[0].bonds.copy(deep=True)
     xyz = puw.get_value(primary.structures.coordinates).copy()
     analysis = deepcopy(primary.interactions["preserve"].to_dict())
@@ -249,7 +254,7 @@ def test_missing_bonds_keep_source_atom_pairs_without_assignment(source):
     # Delete one declared bond on this independent source, without altering coordinates.
     pairs = msm.get(molsys, inner_bonded_atom_pairs=True)
     pair = list(pairs[0])
-    molsys.topology.remove_bonds([0])
+    molsys.chemical_states.remove_bonds([0])
     with msv.new_view(molsys, structure_indices=[0]) as view:
         tools = view.addons.molsysmt.build
         result = tools.get_missing_bonds(selection=pair, pbc=False)

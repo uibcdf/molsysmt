@@ -40,7 +40,7 @@ def integer_axis(value, name, size):
 
 def validate_map(source, state_index, mapping):
     """Check both map directions and their chemical/label bindings before use."""
-    from molsysmt.topology._chemical_graph import chemical_graph_digest
+    from molsysmt.chemical_states._chemical_graph import chemical_graph_digest
 
     if not isinstance(mapping, dict) or (
         mapping.get("schema") != "molsysmt.atom_export@1"
@@ -191,11 +191,11 @@ def read_poses(item, molecular_system, atom_map, structures, missing_atoms, repo
     from molsysmt import pyunitwizard as puw
     from molsysmt._private.argdigest.argument._correspondence_axes import flat_axis
     from molsysmt.basic import get_form
-    from molsysmt.native import Structures
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         detached_chemical_graph_view,
     )
+    from molsysmt.native import Structures
 
     if missing_atoms not in ("error", "omit"):
         raise ArgumentError("missing_atoms", value=missing_atoms, caller=CALLER)

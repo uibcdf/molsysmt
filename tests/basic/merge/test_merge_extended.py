@@ -124,9 +124,9 @@ def test_merge_file_pdb_reports_unsupported_direct_merge_without_leaking_keep_id
 def test_merge_uses_named_current_schema_and_preserves_state_membership(ala_molsys):
     """The atom schema must not be treated as the retired flat positional layout."""
 
-    left = ala_molsys.topology.copy()
-    right = ala_molsys.topology.copy()
-    assert left.atoms.columns.tolist() == [
+    left = ala_molsys.copy()
+    right = ala_molsys.copy()
+    assert left.topology.atoms.columns.tolist() == [
         "atom_id",
         "atom_name",
         "atom_type",
@@ -134,21 +134,33 @@ def test_merge_uses_named_current_schema_and_preserves_state_membership(ala_mols
         "group_index",
         "chain_index",
     ]
-    left._set_chemical_state_atom_attribute("formal_charge", [0] * left.n_atoms)
-    right._set_chemical_state_atom_attribute("formal_charge", [1] * right.n_atoms)
+    left.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [0] * left.topology.n_atoms
+    )
+    right.chemical_states._set_chemical_state_atom_attribute(
+        "formal_charge", [1] * right.topology.n_atoms
+    )
 
-    merged = msm.merge([left, right], to_form="molsysmt.Topology")
+    merged = msm.merge([left, right], to_form="molsysmt.MolSys")
 
-    charges = merged._get_chemical_state_atom_attribute("formal_charge").tolist()
-    assert charges == [0] * left.n_atoms + [1] * right.n_atoms
-    assert merged._get_component_indices().iloc[right.n_atoms] >= left.n_components
-    assert merged.atoms["chain_index"].iloc[right.n_atoms] >= left.n_chains
+    charges = merged.chemical_states._get_chemical_state_atom_attribute(
+        "formal_charge"
+    ).tolist()
+    assert charges == [0] * left.topology.n_atoms + [1] * right.topology.n_atoms
+    assert (
+        merged.chemical_states._get_component_indices().iloc[right.topology.n_atoms]
+        >= left.chemical_states._resolve_chemical_state().components.shape[0]
+    )
+    assert (
+        merged.topology.atoms["chain_index"].iloc[right.topology.n_atoms]
+        >= left.topology.n_chains
+    )
 
 
 def test_merge_offsets_normalized_bond_atom_references(ala_molsys):
-    left = ala_molsys.topology.copy()
-    right = ala_molsys.topology.copy()
-    bonds = right._get_chemical_state_bonds().copy()
+    left = ala_molsys.copy()
+    right = ala_molsys.copy()
+    bonds = right.chemical_states._get_chemical_state_bonds().copy()
     atom1 = int(bonds.at[0, "atom1_index"])
     atom2 = int(bonds.at[0, "atom2_index"])
     n_bonds = len(bonds.index)
@@ -165,11 +177,19 @@ def test_merge_offsets_normalized_bond_atom_references(ala_molsys):
     bonds.at[0, "stereochemistry"] = "E"
     bonds.at[0, "stereo_atom1_index"] = atom1
     bonds.at[0, "stereo_atom2_index"] = atom2
-    right._set_chemical_state_bonds(bonds)
+    right.chemical_states._set_chemical_state_bonds(bonds)
 
-    merged = msm.merge([left, right], to_form="molsysmt.Topology")
-    directional = merged.bonds.loc[merged.bonds["donor_atom_index"].notna()].iloc[0]
-    offset = left.n_atoms
+    merged = msm.merge([left, right], to_form="molsysmt.MolSys")
+    directional = (
+        merged.chemical_states._get_chemical_state_bonds()
+        .loc[
+            merged.chemical_states._get_chemical_state_bonds()[
+                "donor_atom_index"
+            ].notna()
+        ]
+        .iloc[0]
+    )
+    offset = left.topology.n_atoms
 
     assert directional["atom1_index"] == atom1 + offset
     assert directional["atom2_index"] == atom2 + offset

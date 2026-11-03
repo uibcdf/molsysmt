@@ -32,7 +32,8 @@ def to_molsysmt_Structures(
     from molsysmt.form.openmm_Context.to_molsysmt_Structures import (
         to_molsysmt_Structures as openmm_Context_to_molsysmt_Structures,
     )
-    from molsysmt.form.openmm_Context.to_openmm_Context import (
+
+    from .to_openmm_Context import (
         to_openmm_Context as openmm_Simulation_to_openmm_Context,
     )
 

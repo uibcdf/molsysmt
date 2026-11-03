@@ -1,7 +1,7 @@
 {
   "accepted_non_exhaustive_masks": {
     "MDAnalysis.AtomGroup": "0x82000000005",
-    "MDAnalysis.Topology": "0x80000000002",
+    "MDAnalysis.Topology": "0x82000000002",
     "MDAnalysis.Universe": "0x10a2100020004",
     "MDAnalysis.topology.PDBParser": "0x8200000000a",
     "XYZ": "0xa2002000030",
@@ -19,10 +19,10 @@
     "file:molsys_yaml": "0xa000010000",
     "file:pdb": "0x106dc010b21c002800e",
     "file:psf": "0x8040082000040000",
-    "file:smi": "0x2080000080000080000",
+    "file:smi": "0x2080000082000080000",
     "file:structures_yaml": "0x60000100000",
     "file:top": "0x10000082000200000",
-    "file:topology_yaml": "0x180000400000",
+    "file:topology_yaml": "0x182000400000",
     "file:xtc": "0x20300802000",
     "file:xyz": "0x1000010",
     "file:xyznpy": "0x2000010",
@@ -31,7 +31,7 @@
     "mdtraj.GroTrajectoryFile": "0x22010000000",
     "mdtraj.HDF5TrajectoryFile": "0x80000a20a0000000",
     "mdtraj.PDBTrajectoryFile": "0x220c0000000",
-    "mdtraj.Topology": "0x638000080180200000",
+    "mdtraj.Topology": "0x638000082180200000",
     "mdtraj.Trajectory": "0x6684010a2180820000",
     "mdtraj.XTCTrajectoryFile": "0x20200000000",
     "mmcif.PdbxContainers.DataContainer": "0x1e080000a2500020000",
@@ -44,7 +44,7 @@
     "molsysmt.Structures": "0x220000102010",
     "molsysmt.StructuresDict": "0x60000100000",
     "molsysmt.Topology": "0x1628001a80080462000",
-    "molsysmt.TopologyDict": "0x180000400000",
+    "molsysmt.TopologyDict": "0x182000400000",
     "molsysmt.ViewerJSON": "0x202000000000",
     "molsysviewer.MolSysView": "0x402000000000",
     "networkx.Graph": "0x800000000000",
@@ -52,12 +52,12 @@
     "openff.Molecule": "0x20800060a2000000000",
     "openff.Topology": "0x80020a2000000000",
     "openmm.AmberInpcrdFile": "0x8020000000000",
-    "openmm.AmberPrmtopFile": "0xc010080000000000",
+    "openmm.AmberPrmtopFile": "0xc010082000000000",
     "openmm.CharmmCrdFile": "0x20000000000000",
-    "openmm.CharmmPsfFile": "0x8040080000000000",
+    "openmm.CharmmPsfFile": "0x8040082000000000",
     "openmm.Context": "0x4080020000000000",
     "openmm.GromacsGroFile": "0x1000a2000000000",
-    "openmm.GromacsTopFile": "0x8200080000000000",
+    "openmm.GromacsTopFile": "0x8200082000000000",
     "openmm.Modeller": "0x4d4010a2180020000",
     "openmm.PDBFile": "0x8c010a2180000000",
     "openmm.Simulation": "0x494800a2000020000",
@@ -69,11 +69,11 @@
     "pdbfixer.PDBFixer": "0x6484010a2180020000",
     "rdkit.Mol": "0x20800020a2000080000",
     "string:alphafold_id": "0x1308c010a2580022040",
-    "string:amino_acids_1": "0x600000000000000000",
-    "string:amino_acids_3": "0x600000000000000000",
+    "string:amino_acids_1": "0x600000082000000000",
+    "string:amino_acids_3": "0x600000082000000000",
     "string:pdb_id": "0x1848c010a25800223c0",
     "string:pdb_text": "0x104dc010b2180020000",
-    "string:smiles": "0x2080002080000080000",
+    "string:smiles": "0x2080002082000080000",
     "string:uniprot_id": "0x4000000080000000000"
   },
   "description": "Accepted direct Tier 1 conversion edges whose fidelity report is not exhaustive. Presence records debt, not verified fidelity.",
@@ -154,5 +154,74 @@
     "string:smiles",
     "string:uniprot_id"
   ],
+  "reviewed_route_groups": {
+    "chemical_states_separation_255": {
+      "guards": [
+        "tests/conversion_truth/test_declared_native_edges.py",
+        "tests/form/MDAnalysis_Topology/test_chemical_state_fidelity.py",
+        "tests/form/MDAnalysis_Topology/test_contract.py",
+        "tests/form/molsysmt_TopologyDict/test_roundtrip.py"
+      ],
+      "issue": "uibcdf/molsysmt#255",
+      "reason": "Explicit independent native-domain producer directions required by the ownership cutover. Execution and literal/provider-owned field oracles pass; complete source-metadata preflight remains accepted, visible debt. No exhaustive profile is inferred from successful execution.",
+      "routes": [
+        [
+          "MDAnalysis.Topology",
+          "molsysmt.MolSys"
+        ],
+        [
+          "file:smi",
+          "molsysmt.MolSys"
+        ],
+        [
+          "file:topology_yaml",
+          "molsysmt.MolSys"
+        ],
+        [
+          "mdtraj.Topology",
+          "molsysmt.MolSys"
+        ],
+        [
+          "molsysmt.TopologyDict",
+          "molsysmt.MolSys"
+        ],
+        [
+          "openmm.AmberPrmtopFile",
+          "molsysmt.MolSys"
+        ],
+        [
+          "openmm.CharmmPsfFile",
+          "molsysmt.MolSys"
+        ],
+        [
+          "openmm.GromacsTopFile",
+          "molsysmt.MolSys"
+        ],
+        [
+          "string:amino_acids_1",
+          "molsysmt.MolSys"
+        ],
+        [
+          "string:amino_acids_1",
+          "molsysmt.Topology"
+        ],
+        [
+          "string:amino_acids_3",
+          "molsysmt.MolSys"
+        ],
+        [
+          "string:amino_acids_3",
+          "molsysmt.Topology"
+        ],
+        [
+          "string:smiles",
+          "molsysmt.MolSys"
+        ]
+      ],
+      "scope": [
+        "chemical_state"
+      ]
+    }
+  },
   "schema_version": 1
 }

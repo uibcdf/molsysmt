@@ -22,10 +22,9 @@ sys.path.insert(0, str(ROOT))
 
 def fixture(atoms, structures, rings):
     import molsysmt as msm
-    from molsysmt.native import MolSys, Topology
+    from molsysmt.native import MolSys
 
-    molsys = MolSys()
-    molsys.topology = Topology(n_atoms=atoms)
+    molsys = MolSys(n_atoms=atoms)
     molsys.topology.atoms["atom_type"] = "C"
     pairs = np.column_stack(
         (
@@ -33,15 +32,17 @@ def fixture(atoms, structures, rings):
             np.arange(6 * rings).reshape(-1, 6)[:, [1, 2, 3, 4, 5, 0]].ravel(),
         )
     )
-    molsys.topology.bonds = pd.DataFrame(
-        {
-            "atom1_index": pairs[:, 0],
-            "atom2_index": pairs[:, 1],
-            "bond_type": "covalent",
-            "is_aromatic": True,
-        }
+    molsys.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": pairs[:, 0],
+                "atom2_index": pairs[:, 1],
+                "bond_type": "covalent",
+                "is_aromatic": True,
+            }
+        )
     )
-    molsys.topology._set_chemical_state_atom_attribute(
+    molsys.chemical_states._set_chemical_state_atom_attribute(
         "is_aromatic", [True] * (6 * rings) + [False] * (atoms - 6 * rings)
     )
     molsys.chemical_states._states[0].connectivity_completeness = "complete"

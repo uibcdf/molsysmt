@@ -17,7 +17,6 @@ from molsysmt.native import MolSys, Structures, Topology
 
 def _topology():
     topology = Topology(n_atoms=3)
-    topology._clear_chemical_states()
     return topology
 
 
@@ -102,10 +101,8 @@ def test_absent_chemistry_roundtrip_preserves_domain_presence(
         modern_filename = tmp_path / "modern.h5msm"
         msm.convert(restored, to_form="file:h5msm", output_filename=modern_filename)
         assert msm.h5msm.read(modern_filename).chemical_states is None
-        with pytest.raises(
-            ValueError, match="requires topology, chemical states, and structures"
-        ):
-            msm.convert(restored, to_form="molsysmt.MolSysDict")
+        payload = msm.convert(restored, to_form="molsysmt.MolSysDict")
+        assert msm.convert(payload, to_form="molsysmt.MolSys").chemical_states is None
 
 
 def test_frame_only_structures_keep_an_unknown_atom_count(tmp_path):
@@ -214,5 +211,9 @@ def test_reader_rejects_undeclared_or_reordered_shared_atom_axis(tmp_path, indic
 
 
 def test_absent_chemistry_does_not_accept_a_topology_with_hidden_states():
-    with pytest.raises(ValueError, match="must have no states"):
-        MolSys._from_partial_domains(topology=Topology(n_atoms=3))
+    topology = Topology(n_atoms=3)
+    with pytest.raises(AttributeError, match="MolSys.chemical_states"):
+        topology.chemical_states = msm.ChemicalStates(n_atoms=3)
+    system = MolSys._from_partial_domains(topology=topology)
+    assert system.chemical_states is None
+    assert not hasattr(topology, "bonds")

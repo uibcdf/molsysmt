@@ -1,6 +1,10 @@
 """Check physical SASA area against analytic spheres under independent unit policies."""
 
 import json
+import os
+import subprocess
+import sys
+import textwrap
 from pathlib import Path
 
 import numpy as np
@@ -19,6 +23,72 @@ EXACT = TOLERANCES["external_float32_atol"]["atol"]
 SAMPLED = TOLERANCES["shrake_rupley_sampling_area_atol"]["atol"]
 RADIUS = 0.17
 PROBE = 0.14
+
+
+@pytest.mark.parametrize("threads", [1, 2])
+@pytest.mark.parametrize("element", ["atom", "group"])
+def test_mdtraj_structure_results_do_not_depend_on_previous_structures(
+    threads, element, tmp_path
+):
+    """Exercise real worker-buffer reuse with more structures than OpenMP threads."""
+    pytest.importorskip("mdtraj")
+    script = textwrap.dedent(
+        f"""
+        import numpy as np
+        import mdtraj as md
+        import molsysmt as msm
+        from molsysmt import pyunitwizard as puw
+
+        top = md.Topology()
+        group = top.add_residue('LIG', top.add_chain())
+        for name in ('C1', 'C2'):
+            top.add_atom(name, md.element.carbon, group)
+        xyz = np.zeros((5, 2, 3), dtype=np.float32)
+        xyz[:, 1, 0] = [0.31, 2.0, 0.4, 0.5, 3.0]
+        source = md.Trajectory(xyz, top)
+        original = source.xyz.copy()
+        indices = [4, 1, 4, 0, 2, 3, 0]
+        expected = np.concatenate([
+            md.shrake_rupley(source[i], n_sphere_points=960, mode='atom')
+            for i in indices
+        ])
+        if {element!r} == 'group':
+            expected = expected.sum(axis=1, keepdims=True)
+        with puw.context(standard_units=['pm', 'ps', 'radians']):
+            result = msm.physchem.get_sasa(
+                source, engine='MDTraj', element={element!r},
+                structure_indices=indices, n_sphere_points=960,
+                pbc=False, use_gpu=False,
+            )
+            np.testing.assert_allclose(
+                puw.get_value(result, to_unit='nm**2'), expected,
+                rtol=0, atol={EXACT!r},
+            )
+        np.testing.assert_array_equal(source.xyz, original)
+        sphere = 4 * np.pi * 0.31**2
+        np.testing.assert_allclose(
+            expected[:3], sphere * (2 if {element!r} == 'group' else 1),
+            rtol=0, atol={EXACT!r},
+        )
+        """
+    )
+    environment = os.environ.copy()
+    environment["OMP_NUM_THREADS"] = str(threads)
+    environment["PYTHONPATH"] = os.pathsep.join(
+        filter(
+            None,
+            [str(Path(msm.__file__).parents[1]), environment.get("PYTHONPATH")],
+        )
+    )
+    result = subprocess.run(
+        [sys.executable, "-c", script],
+        cwd=tmp_path,
+        env=environment,
+        text=True,
+        capture_output=True,
+        timeout=90,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
 
 
 def carbon_system(coordinates, coordinate_unit="nm", groups=None, box=None):

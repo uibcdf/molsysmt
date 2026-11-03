@@ -187,13 +187,13 @@ def get_water_bridges(
     from molsysmt._private.execution.sparse_accumulator import SparseColumnAccumulator
     from molsysmt._private.h5msm import modular_h5msm_dimensions
     from molsysmt.basic import convert, get
-    from molsysmt.interactions.hbonds import get_hbonds
-    from molsysmt.physchem import get_water_sites
-    from molsysmt.physchem._prolif import PROLIF_REFERENCE
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
         select_chemical_atoms,
     )
+    from molsysmt.interactions.hbonds import get_hbonds
+    from molsysmt.physchem import get_water_sites
+    from molsysmt.physchem._prolif import PROLIF_REFERENCE
 
     from ._join import join_water_legs
 

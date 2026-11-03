@@ -19,14 +19,17 @@ from molsysmt.native import (
     ViewerJSON,
 )
 from tests.native.test_molsys import build_minimal_molsys
-from tests.native.test_topology_operations import build_minimal_topology
+from tests.native.test_topology_operations import (
+    build_minimal_chemical_molsys,
+    build_minimal_topology,
+)
 
 
 def _resident(kind):
     if kind == "topology":
         return build_minimal_topology()
     if kind == "chemistry":
-        return build_minimal_topology()._chemical_states_domain
+        return build_minimal_chemical_molsys().chemical_states
     if kind == "mechanics":
         return MolecularMechanics(forcefield="example", partial_charge=[0.1, 0.2])
     if kind == "builder":

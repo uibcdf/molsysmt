@@ -14,7 +14,7 @@ from molsysmt import systems
 
 def test_get_covalent_paths_molsysmt_MolSys_1():
     molsys = msm.convert(systems["TcTIM"]["1tcd.h5msm"], to_form="molsysmt.MolSys")
-    covalent_paths = msm.topology.get_covalent_paths(
+    covalent_paths = msm.chemical_states.get_covalent_paths(
         molsys,
         path=['atom_name=="C"', 'atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"'],
         selection="component_index==0",
@@ -55,7 +55,7 @@ def test_get_covalent_paths_molsysmt_MolSys_1():
 
 def test_get_covalent_paths_molsysmt_MolSys_2():
     molsys = msm.convert(systems["TcTIM"]["1tcd.h5msm"], to_form="molsysmt.MolSys")
-    covalent_paths = msm.topology.get_covalent_paths(
+    covalent_paths = msm.chemical_states.get_covalent_paths(
         molsys,
         path=[
             'atom_name=="C"',

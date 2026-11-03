@@ -22,7 +22,7 @@ The canonical variable representing the molecular system MUST be `molsys`.
 5. **Cells 5-10**:
    - `molsys = msm.build.build_peptide('AceAlaNme')`
    - `msm.get(molsys, element='bond', selection=[0, 1, 2], bonded_atoms=True)`
-   - `molsys.topology.remove_bonds([0])`
+   - `molsys.chemical_states.remove_bonds([0])`
    - `msm.build.get_missing_bonds(molsys)`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.

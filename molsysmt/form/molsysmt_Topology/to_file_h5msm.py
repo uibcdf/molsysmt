@@ -258,9 +258,6 @@ def dump_topology_to_h5msm(item, file, atom_indices="all"):
         dataset_options["compression_opts"] = file["topology"]["atoms"][
             "atom_id"
         ].compression_opts
-    from molsysmt.form._h5msm_chemical_states import write_chemical_states
-
-    write_chemical_states(item, file["topology"], dataset_options)
 
     # Modification time
 

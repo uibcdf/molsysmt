@@ -41,7 +41,7 @@ def get_molecule_name(
     .. versionadded:: 1.0.0
     """
 
-    if isinstance(selection, str) and selection == "all":
+    if isinstance(selection, str) and selection == "all" and element != "component":
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._topology_infer import project_molecule_name_from_topology
 

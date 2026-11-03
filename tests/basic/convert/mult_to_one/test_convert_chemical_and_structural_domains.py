@@ -13,8 +13,8 @@ from molsysmt.native import MolSys
 @pytest.fixture
 def domains():
     system = MolSys(n_atoms=4)
-    system.topology.add_bonds([[0, 1], [2, 3]])
-    msm.set(system.topology, element="atom", formal_charge=[0, 1, -1, 0])
+    system.chemical_states.add_bonds([[0, 1], [2, 3]])
+    msm.set(system.chemical_states, element="atom", formal_charge=[0, 1, -1, 0])
     first = system.chemical_states._states[0]
     first.state_id = "neutral-reference"
     first.connectivity_completeness = "complete"
@@ -169,3 +169,63 @@ def test_composed_domains_persist_through_public_h5msm_conversion(domains, tmp_p
         puw.get_value(restored.structures.time, to_unit="ps"), [2, 0]
     )
     assert pd.isna(restored._get_structure_chemical_state_indices()).all()
+
+
+@pytest.mark.parametrize("dictionary", [False, True])
+@pytest.mark.parametrize("reverse", [False, True])
+@pytest.mark.parametrize("indices", [[2, 0, 2], [1], []])
+def test_explicit_chemistry_and_dcd_read_only_requested_structures(
+    domains, tmp_path, monkeypatch, dictionary, reverse, indices
+):
+    states, structures = domains
+    from functools import wraps
+
+    from molsysmt.form import _dict_modules, load_converter
+    from molsysmt.native import Topology
+
+    path = str(tmp_path / "coordinates.dcd")
+    formats = pytest.importorskip("mdtraj.formats")
+    # The DCD writer's low-level numerical boundary uses angstroms.
+    with formats.DCDTrajectoryFile(path, mode="w") as file:
+        file.write(
+            puw.get_value(structures.coordinates, to_unit="angstrom").astype(np.float32)
+        )
+    module = _dict_modules["file:dcd"]
+    original = load_converter(module, module._convert_to["molsysmt.Structures"])
+    requested = []
+
+    @wraps(original)
+    def read(item, **kwargs):
+        requested.append(list(kwargs["structure_indices"]))
+        return original(item, **kwargs)
+
+    monkeypatch.setitem(module._convert_to, "molsysmt.Structures", read)
+    chemistry = (
+        msm.convert(states, to_form="molsysmt.ChemicalStatesDict")
+        if dictionary
+        else states
+    )
+    topology = Topology(n_atoms=4)
+    topology.atoms["atom_id"] = ["A", "B", "C", "D"]
+    providers = [topology, chemistry, path]
+    if reverse:
+        providers.reverse()
+    result = msm.convert(providers, selection=[0, 2, 3], structure_indices=indices)
+    assert requested == [indices]
+    assert result.topology.atoms.atom_id.tolist() == ["A", "C", "D"]
+    assert result.chemical_states.n_chemical_states == 2
+    assert result.chemical_states.reference_chemical_state_index == 1
+    assert result.chemical_states.get(element="atom", formal_charge=True) == [1, 0, -1]
+    assert result.chemical_states.get_bonds()[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [[1, 2]]
+    assert result._structure_chemical_state_indices is None
+    assert result.structures.coordinates.shape == (len(indices), 3, 3)
+    np.testing.assert_allclose(
+        puw.get_value(result.structures.coordinates, to_unit="nm"),
+        puw.get_value(structures.coordinates, to_unit="nm")[indices][:, [0, 2, 3]],
+        atol=1e-6,
+        rtol=0,
+    )
+    assert states.n_atoms == 4
+    assert states.get(element="atom", formal_charge=True) == [1, 0, 0, -1]

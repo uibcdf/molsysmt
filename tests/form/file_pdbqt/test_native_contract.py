@@ -107,9 +107,9 @@ def test_tree_is_separate_explicit_evidence_with_correct_index_axis(tmp_path):
     with pytest.raises(FormatError, match="discard_torsion_tree"):
         msm.convert(path, to_form="molsysmt.MolSys")
     molsys = native(path)
-    assert molsys.topology.bonds[["atom1_index", "atom2_index"]].values.tolist() == [
-        [0, 2]
-    ]
+    assert molsys.chemical_states._resolve_chemical_state().bonds[
+        ["atom1_index", "atom2_index"]
+    ].values.tolist() == [[0, 2]]
     assert msm.get(molsys, element="bond", bond_order=True) == [None]
     tree["branch_atom_pairs"][0, 0] = 1
     assert get_torsion_tree(path)["branch_atom_pairs"].tolist() == [[0, 2]]
@@ -434,7 +434,7 @@ def test_complete_native_graph_must_agree_with_supplied_tree(tmp_path):
     path = tmp_path / "source.pdbqt"
     path.write_text(LIGAND)
     molsys = native(path)
-    molsys.topology.bonds = pd.DataFrame(
+    molsys.chemical_states._resolve_chemical_state().bonds = pd.DataFrame(
         {
             "atom1_index": [0, 0, 2],
             "atom2_index": [1, 2, 3],

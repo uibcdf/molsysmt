@@ -98,9 +98,14 @@ def test_partial_reordered_group_maps_local_selection_without_changing_source(
         assert topology.groups["group_id"].tolist() == ["7"]
         assert topology.n_groups == 1
         assert topology.n_chains == 1
-        np.testing.assert_array_equal(
-            topology.bonds[["atom1_index", "atom2_index"]].to_numpy(), [[0, 1]]
-        )
+        assert not hasattr(topology, "bonds")
+        if target == "molsysmt.MolSys":
+            np.testing.assert_array_equal(
+                output.chemical_states.get_bonds()[
+                    ["atom1_index", "atom2_index"]
+                ].to_numpy(),
+                [[0, 1]],
+            )
         if target == "molsysmt.MolSys":
             coordinates = puw.get_value(output.structures.coordinates, to_unit="nm")
     if target != "molsysmt.Topology":

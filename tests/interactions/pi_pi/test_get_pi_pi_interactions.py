@@ -13,7 +13,7 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
     UnsupportedHeavyOperationError,
 )
-from molsysmt.native import MolSys, Topology
+from molsysmt.native import MolSys
 
 
 def _hexagon():
@@ -35,21 +35,24 @@ def _system(coordinates, *, box=None, groups=None, extra_bonds=()):
         for a, b in zip(group, group[1:] + group[:1])
     }
     edges = sorted(aromatic | {tuple(sorted(pair)) for pair in extra_bonds})
-    topology = Topology(n_atoms=n_atoms)
+    molsys = MolSys(n_atoms=n_atoms)
+    topology = molsys.topology
     topology.atoms["atom_type"] = "C"
     topology.atoms["atom_id"] = [str(1000 + i) for i in range(n_atoms)]
-    topology.bonds = pd.DataFrame(
-        {
-            "atom1_index": [a for a, _ in edges],
-            "atom2_index": [b for _, b in edges],
-            "bond_type": "covalent",
-            "is_aromatic": [pair in aromatic for pair in edges],
-        }
+    molsys.chemical_states._set_chemical_state_bonds(
+        pd.DataFrame(
+            {
+                "atom1_index": [a for a, _ in edges],
+                "atom2_index": [b for _, b in edges],
+                "bond_type": "covalent",
+                "is_aromatic": [pair in aromatic for pair in edges],
+            }
+        )
     )
-    topology._set_chemical_state_atom_attribute("is_aromatic", [True] * n_atoms)
-    topology._reference_chemical_state.connectivity_completeness = "complete"
-    molsys = MolSys()
-    molsys.topology = topology
+    molsys.chemical_states._set_chemical_state_atom_attribute(
+        "is_aromatic", [True] * n_atoms
+    )
+    molsys.chemical_states._states[0].connectivity_completeness = "complete"
     molsys.structures.append(
         coordinates=puw.quantity(xyz, "nm"),
         box=None if box is None else puw.quantity(np.asarray(box), "nm"),
@@ -160,7 +163,7 @@ def test_composite_chemical_and_structural_domains_share_public_conversion(
     rings = msm.physchem.get_aromatic_rings(source)
     assert rings["atom_offsets"].tolist() == [0, 6, 12]
     assert rings["atom_indices"].tolist() == list(range(12))
-    covalent_rings = msm.topology.get_rings(source)
+    covalent_rings = msm.chemical_states.get_rings(source)
     np.testing.assert_array_equal(covalent_rings["atom_indices"], rings["atom_indices"])
     assert molsys.chemical_states.reference_chemical_state_index == 0
     assert not molsys.interactions
@@ -285,8 +288,8 @@ def test_fused_and_directly_bonded_rings_are_excluded_without_residue_inference(
     )
     assert _calculate(linked).n_interactions == 0
     linked.chemical_states._states[0].bonds.loc[
-        (linked.topology.bonds.atom1_index == 0)
-        & (linked.topology.bonds.atom2_index == 6),
+        (linked.chemical_states._resolve_chemical_state().bonds.atom1_index == 0)
+        & (linked.chemical_states._resolve_chemical_state().bonds.atom2_index == 6),
         "bond_type",
     ] = "dative"
     assert _calculate(linked).n_interactions == 1

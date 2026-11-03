@@ -7,28 +7,10 @@ attributes["atom_id"] = True
 attributes["atom_name"] = True
 attributes["atom_type"] = True
 attributes["isotope"] = True
-attributes["formal_charge"] = True
-attributes["atom_is_aromatic"] = True
-attributes["n_unpaired_electrons"] = True
-attributes["n_implicit_hydrogens"] = True
-attributes["n_explicit_hydrogens"] = True
-attributes["allows_implicit_hydrogens"] = True
-attributes["atom_stereochemistry"] = True
-attributes["chemical_state_index"] = True
-attributes["chemical_state_id"] = True
-attributes["n_chemical_states"] = True
-attributes["reference_chemical_state_index"] = True
-attributes["connectivity_completeness"] = True
-attributes["component_completeness"] = True
-attributes["component_evidence"] = True
 attributes["group_index"] = True
 attributes["group_id"] = True
 attributes["group_name"] = True
 attributes["group_type"] = True
-attributes["component_index"] = True
-attributes["component_id"] = True
-attributes["component_name"] = True
-attributes["component_type"] = True
 attributes["molecule_index"] = True
 attributes["molecule_id"] = True
 attributes["molecule_name"] = True
@@ -43,7 +25,6 @@ attributes["entity_name"] = True
 attributes["entity_type"] = True
 attributes["n_atoms"] = True
 attributes["n_groups"] = True
-attributes["n_components"] = True
 attributes["n_molecules"] = True
 attributes["n_chains"] = True
 attributes["n_entities"] = True
@@ -61,25 +42,8 @@ attributes["n_polysaccharides"] = True
 attributes["n_saccharides"] = True
 
 
-attributes["bond_index"] = True
-attributes["bond_id"] = True
-attributes["bond_type"] = True
-attributes["bond_order"] = True
-attributes["fractional_bond_order"] = True
-attributes["bond_is_aromatic"] = True
-attributes["bond_is_conjugated"] = True
-attributes["bond_stereochemistry"] = True
-attributes["bond_stereo_atom_indices"] = True
-attributes["bond_donor_atom_index"] = True
-attributes["bond_acceptor_atom_index"] = True
-attributes["bond_joins_components"] = True
-attributes["bond_evidence"] = True
-attributes["bonded_atoms"] = True
-attributes["bonded_atom_pairs"] = True
-attributes["inner_bond_index"] = True
-attributes["inner_bonded_atoms"] = True
-attributes["inner_bonded_atom_pairs"] = True
-attributes["n_bonds"] = True
-attributes["n_inner_bonds"] = True
+for _name, _definition in _all_attributes.items():
+    if _definition["chemical_state"] or "bond" in _name or "component" in _name:
+        attributes[_name] = False
 
 del _all_attributes

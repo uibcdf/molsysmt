@@ -18,7 +18,7 @@ def _labeled_system():
     topo.atoms["atom_type"] = ["C", "O", "O", "H", "N", "H"]
     topo.atoms["group_index"] = [0, 0, 1, 1, 2, 2]
     topo.atoms["chain_index"] = [0, 0, 1, 1, 1, 1]
-    topo._set_component_indices([0, 0, 1, 1, 2, 2])
+    molsys.chemical_states._set_component_indices([0, 0, 1, 1, 2, 2])
     topo.groups["group_id"] = ["010", "010", "X"]
     topo.groups["group_name"] = ["LIG", "WAT", "ION"]
     topo.groups["molecule_index"] = [0, 1, 2]
@@ -51,7 +51,7 @@ def test_generated_payload_preserves_string_ids_and_positional_membership():
     for table, column in [
         (topo.atoms, "atom_id"),
         (topo.groups, "group_id"),
-        (topo.components, "component_id"),
+        (restored.chemical_states._states[0].components, "component_id"),
         (topo.molecules, "molecule_id"),
         (topo.entities, "entity_id"),
         (topo.chains, "chain_id"),
@@ -153,8 +153,10 @@ def test_components_follow_stored_connectivity_across_group_boundaries():
     payload = msm.convert(_labeled_system(), to_form="molsysmt.ViewerJSON")
     payload.data["bonds"] = {"atom_pairs": [[0, 1], [1, 2]], "order": [1, 1]}
     topo = msm.convert(payload, to_form="molsysmt.Topology")
-    assert topo._get_component_indices().tolist() == [0, 0, 0, 1, 2, 3]
-    assert topo.components["component_id"].tolist() == ["0", "1", "2", "3"]
+    assert topo.n_atoms == 6 and not hasattr(topo, "components")
+    complete = msm.convert(payload, to_form="molsysmt.MolSys")
+    assert complete.get(element="atom", component_index=True) == [0, 0, 0, 1, 2, 3]
+    assert complete.get(element="component", component_id=True) == ["0", "1", "2", "3"]
 
 
 def test_legacy_numeric_labels_normalize_to_strings_and_null_stays_unknown():

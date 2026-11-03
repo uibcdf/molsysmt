@@ -58,17 +58,7 @@ def test_default_fresh_load_needs_no_second_native_graph_copy(
 ):
     filename = tmp_path / "fresh.h5msm"
     topology = source.topology.copy() if "topology" in domains else None
-    if topology is not None and "chemical_states" not in domains:
-        topology._clear_chemical_states()
-    states = (
-        (
-            topology._chemical_states_domain
-            if topology is not None
-            else source.chemical_states.copy()
-        )
-        if "chemical_states" in domains
-        else None
-    )
+    states = source.chemical_states.copy() if "chemical_states" in domains else None
     partial = MolSys._from_partial_domains(
         topology=topology,
         chemical_states=states,
@@ -88,7 +78,7 @@ def test_default_fresh_load_needs_no_second_native_graph_copy(
         assert restored.topology._molsys_owner_ref() is restored
         assert restored.topology.atoms.atom_id.tolist() == ["0", "1", "2", "3"]
         if restored.chemical_states is not None:
-            assert restored.chemical_states is restored.topology._chemical_states_domain
+            assert restored.chemical_states._molsys_owner_ref() is restored
     if restored.structures is not None:
         np.testing.assert_array_equal(
             puw.get_value(restored.structures.get_coordinates(), to_unit="nm"),

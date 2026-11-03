@@ -45,10 +45,10 @@ def _make_wrapper(name, target):
         "_read_stored_atoms": _read_stored_atoms,
     }
     # The generated wrapper receives this converter through locals().
-    from .to_molsysmt_Topology import to_molsysmt_Topology  # noqa: F401
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys  # noqa: F401
 
     namespace.update(locals())
-    source = f"@arg_digest(form=form)\ndef {name}({parameter_list}):\n    stored = _read_stored_atoms(item, {attribute!r}, {element!r}, {direct_arguments}nested=False)\n    if stored is not NotImplemented:\n        return stored\n    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)\n    return target({call_arguments})\n"
+    source = f"@arg_digest(form=form)\ndef {name}({parameter_list}):\n    stored = _read_stored_atoms(item, {attribute!r}, {element!r}, {direct_arguments}nested=False)\n    if stored is not NotImplemented:\n        return stored\n    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)\n    return target({call_arguments})\n"
     exec(source, namespace)
     wrapper = namespace[name]
     wrapper.__doc__ = (
@@ -59,9 +59,9 @@ def _make_wrapper(name, target):
     return wrapper
 
 
-import molsysmt.form.molsysmt_Topology.get_topological_attributes as _target_module  # noqa: E402
-from molsysmt.form.molsysmt_Topology.get_topological_attributes import *  # noqa: E402, F401, F403
-from molsysmt.form.molsysmt_Topology.get_topological_attributes import (  # noqa: E402
+import molsysmt.form.molsysmt_MolSys.get_topological_attributes as _target_module  # noqa: E402
+from molsysmt.form.molsysmt_MolSys.get_topological_attributes import *  # noqa: E402, F401, F403
+from molsysmt.form.molsysmt_MolSys.get_topological_attributes import (  # noqa: E402
     __all__ as _target_all,
 )
 

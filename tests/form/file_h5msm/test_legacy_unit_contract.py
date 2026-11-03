@@ -175,3 +175,31 @@ def test_missing_b_factor_unit_is_not_inferred_from_coordinate_unit(legacy_file)
         assert "length_unit" in file.attrs
     with pytest.raises(FormatError, match="no explicit unit declaration"):
         msm.get(legacy_file, b_factor=True)
+
+
+@pytest.mark.parametrize("selection", ["all", [1]])
+@pytest.mark.parametrize("target", ["molsysmt.Structures", "molsysmt.MolSys"])
+def test_empty_structure_selection_preserves_atom_axis_units_and_series(
+    legacy_file, selection, target
+):
+    result = msm.convert(
+        legacy_file, selection=selection, structure_indices=[], to_form=target
+    )
+    structures = result.structures if target == "molsysmt.MolSys" else result
+    n_atoms = 2 if selection == "all" else 1
+    assert structures.n_atoms == n_atoms
+    assert structures.n_structures == 0
+    for field, shape, unit in (
+        ("coordinates", (0, n_atoms, 3), "nm"),
+        ("velocities", (0, n_atoms, 3), "nm/ps"),
+        ("box", (0, 3, 3), "nm"),
+        ("b_factor", (0, n_atoms), "nm**2"),
+        ("time", (0,), "ps"),
+    ):
+        value = getattr(structures, field)
+        assert value.shape == shape
+        assert msm.pyunitwizard.check(value, unit=unit)
+    if target == "molsysmt.MolSys":
+        assert result.topology.n_atoms == n_atoms
+        assert result.chemical_states.n_atoms == n_atoms
+        assert result.chemical_states.n_chemical_states == 1

@@ -1,8 +1,67 @@
 """Compose complementary native domains behind the public conversion boundary."""
 
 
+def compose_with_coordinate_source(items, forms, structure_indices):
+    """Join explicit native chemistry with one coordinate-only foreign provider.
+
+    The caller validates the original structure axis before this step. Consume
+    its structure selection here, then apply atom selection to the assembled
+    native result. Never discard a foreign inventory or chemical domain merely
+    to make it fit this complementary-input route.
+    """
+    from molsysmt.attribute import (
+        is_chemical_state_attribute,
+        is_structural_attribute,
+        is_topological_attribute,
+    )
+    from molsysmt.basic import convert
+    from molsysmt.form import _dict_modules
+    from molsysmt.native import (
+        ChemicalStates,
+        MolecularMechanics,
+        Structures,
+        Topology,
+    )
+
+    if "molsysmt.ChemicalStatesDict" in forms:
+        items = [
+            convert(item, to_form="molsysmt.ChemicalStates")
+            if form == "molsysmt.ChemicalStatesDict"
+            else item
+            for item, form in zip(items, forms, strict=True)
+        ]
+    standalone = (Topology, ChemicalStates, Structures, MolecularMechanics)
+    if not any(isinstance(item, ChemicalStates) for item in items):
+        return None
+    foreign = [
+        index for index, item in enumerate(items) if not isinstance(item, standalone)
+    ]
+    if len(foreign) != 1:
+        return None
+    index = foreign[0]
+    capabilities = _dict_modules[forms[index]].attributes
+    if not capabilities.get("coordinates", False):
+        return None
+    for attribute, supplied in capabilities.items():
+        if supplied and (
+            is_chemical_state_attribute(attribute, skip_digestion=True)
+            or (
+                is_topological_attribute(attribute, skip_digestion=True)
+                and not is_structural_attribute(attribute, skip_digestion=True)
+            )
+        ):
+            return None
+    providers = list(items)
+    providers[index] = convert(
+        items[index],
+        to_form="molsysmt.Structures",
+        structure_indices=structure_indices,
+    )
+    return _compose_standalone_domains(providers)
+
+
 def _compose_standalone_domains(items):
-    """Assemble explicit native providers; topology chemistry is a fallback only."""
+    """Assemble explicit native providers; no chemical domain is inferred from topology."""
     from molsysmt._private.smonitor import StructuralInconsistencyError
     from molsysmt.native import (
         ChemicalStates,
@@ -26,17 +85,9 @@ def _compose_standalone_domains(items):
                 raise ValueError(f"Complementary inputs repeat the {name} domain.")
             domains[name] = item
         mechanics = domains.pop("molecular_mechanics", None)
-        topology = domains.get("topology")
-        if topology is not None:
-            # A topology has one owner. An explicit ChemicalStates provider owns
-            # chemistry, independent of the topology's compatibility facade.
-            domains["topology"] = topology.copy()
-            explicit = domains.get("chemical_states")
-            domains["chemical_states"] = (
-                domains["topology"]._chemical_states_domain
-                if explicit is None or explicit is topology._chemical_states_domain
-                else explicit.copy()
-            )
+        for name in ("topology", "chemical_states"):
+            if name in domains:
+                domains[name] = domains[name].copy()
         result = MolSys._from_partial_domains(**domains)
         if mechanics is not None:
             if mechanics.atoms_ff is not None:
@@ -124,17 +175,9 @@ def compose_partial_molsys(items):
                 )
             if item._structure_chemical_state_indices is not None:
                 state_indices = item._structure_chemical_state_indices.copy()
-        topology = domains.get("topology")
-        # A topology has one MolSys owner; copying preserves both input bindings.
-        if topology is not None:
-            domains["topology"] = topology.copy()
-            chemistry = domains.get("chemical_states")
-            if chemistry is not None:
-                domains["chemical_states"] = (
-                    domains["topology"]._chemical_states_domain
-                    if topology._chemical_states_domain is chemistry
-                    else chemistry.copy()
-                )
+        for name in ("topology", "chemical_states"):
+            if name in domains:
+                domains[name] = domains[name].copy()
         result = MolSys._from_partial_domains(
             **domains, interactions=analyses if state_indices is None else None
         )

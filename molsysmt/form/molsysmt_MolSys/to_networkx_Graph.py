@@ -25,10 +25,11 @@ def to_networkx_Graph(item, atom_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.molsysmt_Topology.to_networkx_Graph import (
-        to_networkx_Graph as molsysmt_Topology_to_networkx_Graph,
-    )
+    from molsysmt.form.networkx_Graph._from_native import export_native
 
-    return molsysmt_Topology_to_networkx_Graph(
-        item.topology, atom_indices=atom_indices, skip_digestion=True
+    return export_native(
+        item.topology,
+        atom_indices=atom_indices,
+        chemical_states=item.chemical_states,
+        skip_digestion=True,
     )

@@ -38,7 +38,9 @@ def _get_min_nonbonded_heavy_distance(molsys):
         molsys.structures.coordinates[0], to_unit="nm"
     )
     bonds = np.array(
-        molsys.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int)
+        molsys.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .to_numpy(dtype=int)
     )
     atom_types = np.array(molsys.topology.atoms["atom_type"].to_numpy(), dtype=object)
     heavy_indices = np.where(atom_types != "H")[0]
@@ -64,7 +66,9 @@ def _get_build_metrics(molsys):
         molsys.structures.coordinates[0], to_unit="nm"
     )
     bonds = np.array(
-        molsys.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int)
+        molsys.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .to_numpy(dtype=int)
     )
     np.array(molsys.topology.atoms["atom_type"].to_numpy(), dtype=object)
 
@@ -79,7 +83,7 @@ def _get_build_metrics(molsys):
 
     return {
         "n_atoms": int(molsys.topology.atoms.shape[0]),
-        "n_bonds": int(molsys.topology.bonds.shape[0]),
+        "n_bonds": int(molsys.chemical_states._resolve_chemical_state().bonds.shape[0]),
         "max_bond_nm": max_bond_nm,
         "min_bond_nm": min_bond_nm,
         "min_nonbonded_heavy_nm": float(_get_min_nonbonded_heavy_distance(molsys)),
@@ -123,7 +127,9 @@ def test_build_peptide_molsysmt_MolSys_3():
         molsys.structures.coordinates[0], to_unit="nm"
     )
     bonds = np.array(
-        molsys.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int)
+        molsys.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .to_numpy(dtype=int)
     )
     atom_types = np.array(molsys.topology.atoms["atom_type"].to_numpy(), dtype=object)
 
@@ -242,10 +248,14 @@ def test_build_peptide_molsysmt_MolSys_8(sequence):
         molsys_b.structures.coordinates[0], to_unit="nm"
     )
     bonds_a = np.array(
-        molsys_a.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int)
+        molsys_a.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .to_numpy(dtype=int)
     )
     bonds_b = np.array(
-        molsys_b.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int)
+        molsys_b.chemical_states._resolve_chemical_state()
+        .bonds[["atom1_index", "atom2_index"]]
+        .to_numpy(dtype=int)
     )
 
     assert np.array_equal(bonds_a, bonds_b)

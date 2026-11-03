@@ -51,7 +51,7 @@ controlled = [
 [routine_viewer_source]
 # Main-branch smoke/docs use a known source revision while release candidates
 # supply their exact Viewer SHA as a workflow input.
-sha = "4e1bf7642fbeaa14b7894deaf0ea1d2c6a406308"
+sha = "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352"
 workflows = [
   ".github/workflows/benchmarks.yml",
   ".github/workflows/ci-smoke.yaml",

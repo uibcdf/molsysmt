@@ -86,7 +86,7 @@ def get_cip_stereochemistry(
 
     See Also
     --------
-    molsysmt.topology.get_substructure_matches : Query a complete chemical graph.
+    molsysmt.chemical_states.get_substructure_matches : Query a complete chemical graph.
 
     Examples
     --------
@@ -111,12 +111,14 @@ def get_cip_stereochemistry(
         molecule_from_sdf,
         native_labels,
     )
+    from molsysmt._private.variables import is_all
     from molsysmt.basic import convert, get_form
-    from molsysmt.native import MolSys, Topology
-    from molsysmt.topology._chemical_graph import (
+    from molsysmt.chemical_states._chemical_graph import (
         chemical_graph_context,
+        detached_chemical_graph_view,
         select_chemical_atoms,
     )
+    from molsysmt.native import MolSys, Topology
 
     caller = "molsysmt.physchem.get_cip_stereochemistry"
     original_source, original_frames = molecular_system, structure_indices
@@ -140,7 +142,12 @@ def get_cip_stereochemistry(
             Chem.Mol(molecular_system) if form == "rdkit.Mol" else molecular_system
         )
         source, states, state, state_index, _, _, frames = chemical_graph_context(
-            source_input, chemical_state, structure_indices, False, caller
+            source_input,
+            chemical_state,
+            structure_indices,
+            False,
+            caller,
+            with_structures=False,
         )
         if form == "rdkit.Mol":
             molecule = Chem.Mol(source_input)
@@ -182,13 +189,8 @@ def get_cip_stereochemistry(
                     reason="CIP analysis needs explicit supported covalent bond orders.",
                     caller=caller,
                 )
-            view = object.__new__(type(topology))
-            view.__dict__ = topology.__getstate__()
-            state_view = states.copy()
-            state_view._reference_index = state_index
-            view._chemical_states_domain = state_view
-            chemical_source = MolSys._from_partial_domains(
-                topology=view, chemical_states=state_view
+            chemical_source = detached_chemical_graph_view(
+                source, states, state_index, caller
             )
             molecule = convert(chemical_source, to_form="rdkit.Mol")
     if any(
@@ -213,7 +215,8 @@ def get_cip_stereochemistry(
         )
     from molsysmt.basic._index_validation import validate_structure_indices
 
-    frames = validate_structure_indices(source, frames, caller)
+    if form == "file:sdf":
+        frames = validate_structure_indices(source, frames, caller)
     structure_index = None
     if from_coordinates:
         coordinate_source = convert(
@@ -251,11 +254,15 @@ def get_cip_stereochemistry(
     assign_cip(molecule)
     atom_labels, _ = native_labels(molecule)
     indices = select_chemical_atoms(
-        source,
+        original_source
+        if isinstance(selection, str) and not is_all(selection)
+        else source,
         states,
         state_index,
         selection,
-        frames,
+        original_frames
+        if isinstance(selection, str) and not is_all(selection)
+        else frames,
         syntax,
         reference_request=chemical_state in (None, "reference"),
     )

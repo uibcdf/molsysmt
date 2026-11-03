@@ -24,7 +24,8 @@ def test_viewerjson_to_topology():
     topo = convert(vjson, to_form="molsysmt.Topology")
 
     assert topo.atoms.shape[0] == 2
-    assert topo.bonds.shape[0] == 1
+    assert not hasattr(topo, "bonds")
+    assert convert(vjson, to_form="molsysmt.MolSys").get(n_bonds=True) == 1
     assert list(topo.atoms["group_index"]) == [0, 0]
 
 

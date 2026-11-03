@@ -18,6 +18,7 @@ import pandas as pd
 import pytest
 
 import molsysmt as msm
+from molsysmt.native import MolSys
 
 N_ATOMS = 4
 N_BONDS = 2
@@ -31,7 +32,10 @@ def builder_graph(builder_pdb_molsys):
 
 @pytest.fixture()
 def builder_topology(builder_pdb_molsys):
-    return builder_pdb_molsys.topology
+    return MolSys._from_partial_domains(
+        topology=builder_pdb_molsys.topology.copy(),
+        chemical_states=builder_pdb_molsys.chemical_states.copy(),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -110,15 +114,19 @@ def test_get_connectivity_from_system(builder_graph):
 
 
 def test_parity_node_count_matches_topology(builder_graph, builder_topology):
-    assert builder_graph.number_of_nodes() == builder_topology.n_atoms
+    assert builder_graph.number_of_nodes() == builder_topology.topology.n_atoms
 
 
 def test_parity_edge_count_matches_topology(builder_graph, builder_topology):
-    assert builder_graph.number_of_edges() == builder_topology.n_bonds
+    assert builder_graph.number_of_edges() == builder_topology.chemical_states.get(
+        n_bonds=True
+    )
 
 
 def test_parity_all_bonds_present_as_edges(builder_graph, builder_topology):
-    bonds = builder_topology.bonds[["atom1_index", "atom2_index"]].to_numpy()
+    bonds = builder_topology.chemical_states.get_bonds()[
+        ["atom1_index", "atom2_index"]
+    ].to_numpy()
     for a1, a2 in bonds:
         assert builder_graph.has_edge(int(a1), int(a2))
 
@@ -126,22 +134,24 @@ def test_parity_all_bonds_present_as_edges(builder_graph, builder_topology):
 def test_parity_no_extra_edges(builder_graph, builder_topology):
     topology_edges = {
         (int(min(a1, a2)), int(max(a1, a2)))
-        for a1, a2 in builder_topology.bonds[["atom1_index", "atom2_index"]].to_numpy()
+        for a1, a2 in builder_topology.chemical_states.get_bonds()[
+            ["atom1_index", "atom2_index"]
+        ].to_numpy()
     }
     graph_edges = {(min(u, v), max(u, v)) for u, v in builder_graph.edges()}
     assert graph_edges == topology_edges
 
 
 def test_canonical_graph_preserves_node_edge_and_state_metadata(builder_topology):
-    builder_topology._set_chemical_state_atom_attribute(
+    builder_topology.chemical_states._set_chemical_state_atom_attribute(
         "formal_charge", pd.array([0, 1, -1, pd.NA], dtype="Int16")
     )
-    bonds = builder_topology._get_chemical_state_bonds().copy()
+    bonds = builder_topology.chemical_states._get_chemical_state_bonds().copy()
     bonds["bond_order"] = pd.array([1, 2], dtype="UInt8")
     bonds["is_aromatic"] = pd.array([False, True], dtype="boolean")
     bonds["evidence"] = pd.array(["explicit", "inferred"], dtype="string")
-    builder_topology._set_chemical_state_bonds(bonds)
-    builder_topology._reference_chemical_state.connectivity_completeness = "partial"
+    builder_topology.chemical_states._set_chemical_state_bonds(bonds)
+    builder_topology.chemical_states._resolve_chemical_state().connectivity_completeness = "partial"
 
     graph, report = msm.convert(
         builder_topology,

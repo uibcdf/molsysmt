@@ -8,11 +8,15 @@ verification: measured
 area: [topology, chemistry, api]
 guard:
 normative:
-blocked_by: [uibcdf/molsysmt#255]
+blocked_by: []
 supersedes: []
 ---
 
 # Molecular identity and scaffold overlap annotations
+
+The #255 source prerequisite is satisfied on its development branch as of
+2026-11-02. This records namespace/domain readiness only; no identity/scaffold
+implementation or feature-freeze expansion is authorized by the source closeout.
 
 **Reported:** uibcdf/pharmacophoremt#64/#66; provider uibcdf/molsysmt#447.
 **Status:** Proposed contract for maintainer review. No public functions are added,
@@ -72,7 +76,7 @@ Names and arguments below are proposals, not existing or approved API.
 
 The maintainer selects `chemical_states` as the target namespace on 2026-10-28:
 identity and frameworks describe a selected chemical graph. The
-[accepted #255 migration](retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
+[accepted #255 migration](../archive/resolved_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md)
 first establishes the native/functional owner and relocates existing graph tools.
 The current-source paths in the reusable-pieces table above are inspected
 pre-migration paths, not the target public layout. Physical-property perception
