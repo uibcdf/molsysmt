@@ -32,12 +32,6 @@ that front matter -- edit the entries, not this list.
 - [`stable_inventory_marked_as_bond_dependent.md`](stable_inventory_marked_as_bond_dependent.md) — [#534](https://github.com/uibcdf/molsysmt/issues/534) — Bond-requirement metadata marks stable inventory as connectivity-dependent. *(medium, reproduced)*
 - [`weekly_full_suite_has_seven_repeated_failures.md`](weekly_full_suite_has_seven_repeated_failures.md) — [#515](https://github.com/uibcdf/molsysmt/issues/515) — Scheduled full Linux CI repeats seven unresolved failures across supported Python minors. *(medium, upstream)*
 
-### In progress (3)
-
-- [`append_structures_named_analyses_partial_state.md`](append_structures_named_analyses_partial_state.md) — [#520](https://github.com/uibcdf/molsysmt/issues/520) — append_structures partially publishes structures before validating named analyses and state links. *(high, reproduced)*
-- [`rust_vector_export_missing_from_reviewed_manifest.md`](rust_vector_export_missing_from_reviewed_manifest.md) — [#533](https://github.com/uibcdf/molsysmt/issues/533) — Installed Rust validation rejects get_vectors missing from the reviewed export manifest. *(high, reproduced)*
-- [`devguide_ci_times_out_during_full_history_checkout.md`](devguide_ci_times_out_during_full_history_checkout.md) — [#536](https://github.com/uibcdf/molsysmt/issues/536) — Developer-guide CI times out fetching full history before running validators. *(medium, reproduced)*
-
 ### Partially resolved (1)
 
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*

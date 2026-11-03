@@ -1,13 +1,13 @@
 ---
 summary: append_structures partially publishes structures before validating named analyses and state links.
 issue: uibcdf/molsysmt#520
-status: active
+status: resolved
 opened: 2026-10-28
-closed:
+closed: 2026-11-03
 severity: high
 verification: reproduced
 area: [api, structure]
-guard:
+guard: tests/basic/append_structures/test_domain_atomicity.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-10-28, expert addon composition receiving under
 uibcdf/molsysviewer#264 / uibcdf/molsysmt#421.
-**Status:** existing transactional correction now has combined public regressions;
-broader qualification is in progress. The original failure was reproduced
+**Status:** existing transactional correction has qualified combined public regressions.
+The original failure was reproduced
 independently of Viewer. No scientific fix belongs in the addon.
 
 ## What
@@ -51,7 +51,7 @@ Why — Named analyses are normal input to the expert addon under uibcdf/molsysv
 
 Acceptance — Add pytest regression coverage for implicit and explicit single-state associations, compatible/unknown multi-state associations, empty and populated named observations, native versus coordinate-only sources, in_place True/False and rejection paths. A successful append must extend analysis axes/maps, preserve old observations/evaluated coverage and leave new structures unevaluated. Rejected operations must not leave a partially published structure/state/analysis combination. Do not silently drop analyses or weaken scientific assertions.
 
-Record — devguide/pending_bugs/append_structures_named_analyses_partial_state.md
+Record — devguide/archive/resolved_bugs/append_structures_named_analyses_partial_state.md
 
 
 ## What is measured and what is assumed
@@ -148,4 +148,21 @@ No runtime change was needed: the transactional implementation introduced during
 #255 already repairs the original publication order. The broader native,
 composition, append, H5MSM and tooling selection passes **2,818 cases**, with zero
 omissions/failures, exit 0, 169.68 s and 719 disclosed warnings. All 14 fast gates
-pass. Exact hosted source qualification and durable closure remain pending.
+pass.
+
+## Hosted native-source qualification — 2026-11-03
+
+Source **d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42** passes the native test step in
+[CI smoke run 41687790382](https://github.com/uibcdf/molsysmt/actions/runs/41687790382),
+job 126098035944. Its bounded tier includes all 45 combined acceptance cases.
+The native tier completes with **4,184 passes / 16 optional skips**, exit 0,
+and the bound-Viewer tier with **2,449 passes / four optional skips**, exit 0.
+The source run uses Linux/Python 3.14, Pandas 3.1.0 and Viewer
+ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. Ackredit accounts for 14 native and
+four addon omissions; unyt and astropy account for one native omission each.
+The tiers retain 590 and 1,539 warnings, respectively. None of the 45 new
+combined append cases is skipped. GitHub concludes success and GH Run Receptor's
+final watch exits 0; all six applicable workflows succeed on that source.
+This receives the existing transactional runtime together with the new durable
+regressions; it is not a new runtime implementation, fresh full platform matrix
+or installed Viewer-pair qualification. Consumer adoption remains separately owned.

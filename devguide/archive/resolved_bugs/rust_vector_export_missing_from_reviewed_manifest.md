@@ -1,13 +1,13 @@
 ---
 summary: Installed Rust validation rejects get_vectors missing from the reviewed export manifest.
 issue: uibcdf/molsysmt#533
-status: active
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-03
 severity: high
 verification: reproduced
 area: [packaging, tests]
-guard:
+guard: devtools/tests/test_validate_rust_wheel.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,8 +16,8 @@ supersedes: []
 # The installed extension and reviewed export inventory disagree
 
 **Reported:** MolSysViewer installed-source receiving under uibcdf/molsysviewer#269.
-**Status:** source correction, focused guards and local noneditable installed
-validation completed; broader hosted source qualification remains pending.
+**Status:** source correction, focused guards, local noneditable installed
+validation and hosted native-source qualification completed.
 
 ## What
 
@@ -56,10 +56,11 @@ existing warnings. An earlier command targeted a nonexistent vector-test folder;
 its usage error is retained and does not qualify any tests. The corrected node
 is `tests/structure/test_get_vectors.py`.
 
-Before closure, retain real noneditable installed-wheel validation, its file/hash,
-actual prefix and extension identity. An editable runtime comparison is a unit
-regression, not an installed qualification. Do not change the shared development
-installation or claim a release/platform matrix from one local prefix.
+The real noneditable installed-wheel validation, its file/hash, actual prefix
+and extension identity are retained below. An editable runtime comparison is a
+unit regression, not an installed qualification. The shared development
+installation is unchanged; one local prefix does not establish a release or
+platform matrix.
 
 ## Scope and exclusions
 
@@ -104,3 +105,21 @@ changes the validator contract or indicates a packaging defect. Receipts retain
 the actual installed distribution, direct URL, prefix, hashes and successful
 command. This qualifies the local Linux installed-extension boundary only,
 not a clean dependency closure, the Viewer installed matrix or another platform.
+
+## Hosted native-source qualification — 2026-11-03
+
+Source **d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42** retains correction
+2797c5425f5735568422325928520ae591c3676a and passes the native test step in
+[CI smoke run 41687790382](https://github.com/uibcdf/molsysmt/actions/runs/41687790382),
+job 126098035944. The bounded tier includes the actual-extension equality guard
+and both missing/unexpected export controls: **4,184 passed / 16 skipped**, exit 0,
+419.08 s, 590 warnings. The skips are 14 unavailable Ackredit checks and one
+each for unavailable unyt and astropy. The bound-Viewer tier separately passes
+**2,449 cases / four Ackredit skips**, exit 0, 353.23 s, 1,539 warnings. Both
+tiers use Linux/Python 3.14 with Pandas 3.1.0 and the exact Viewer source
+ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. All six applicable workflows succeed;
+GH Run Receptor's final watch agrees with native GitHub state and exits 0.
+These optional omissions are not counted as executed scientific evidence.
+Its editable source environment is
+distinct from the real installed-prefix validation above. No consumer installed
+matrix is dispatched or claimed by this provider repair.

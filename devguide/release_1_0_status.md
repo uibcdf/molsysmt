@@ -35,19 +35,28 @@ retains their qualified runtime/test bytes. Its devguide job exhausted five minu
 in full-history checkout on two attempts before running a validator; #536 owns
 that separate recovery rather than relabelling either attempt successful.
 
-Current bounded work:
+Completed bounded work (owner records retain detailed evidence):
 
 | Issue | Verified state and next boundary |
 | --- | --- |
-| #533 | The vector kernel is a legitimate runtime export missing from the reviewed inventory. Fix source 2797c5425f5735568422325928520ae591c3676a adds it and real-module drift guards. Fifty-five focused tests and a real noneditable Linux/Python 3.14 installed-extension check pass with exactly 102 exports. The diagnostic wheel is unpublished; it does not establish the Viewer installed matrix or a new public floor. |
-| #520 | The transactional runtime introduced by #255 already repairs the original append publication order. Forty-five combined public regressions cover successes, source selection, rejections, late preparation failure and H5MSM persistence. The combined append/state/analysis selection passes 68 cases; hosted checkpoint and formal closeout remain pending. |
-| #536 | The full-history devguide job receives a bounded 15-minute budget while retaining ancestry, archive restoration, integrity validators and API baseline checks. Original insufficient-budget failure is guarded; hosted recovery is pending. |
+| [#533](archive/resolved_bugs/rust_vector_export_missing_from_reviewed_manifest.md) | Fix source 2797c5425f5735568422325928520ae591c3676a admits the existing vector kernel and adds real-module drift guards. Fifty-five focused tests and real noneditable Linux/Python 3.14 installed-extension validation pass with exactly 102 exports. Hosted native-source guards pass on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. The diagnostic wheel is unpublished; it does not establish the Viewer installed matrix or a new public floor. |
+| [#520](archive/resolved_bugs/append_structures_named_analyses_partial_state.md) | The transactional runtime introduced by #255 already repairs the original append publication order. Forty-five combined public regressions cover successes, source selection, rejections, late preparation failure and H5MSM persistence. The combined append/state/analysis selection passes 68 cases; hosted native-source qualification passes on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. No runtime rewrite was needed. |
+| [#536](archive/resolved_bugs/devguide_ci_times_out_during_full_history_checkout.md) | The full-history devguide job has a bounded 15-minute budget while retaining ancestry, archive restoration, integrity validators and API baseline checks. Run 41687790369 passes on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. The successful 209-second checkout is below the former budget; this is recovery evidence, not a measured speed improvement. |
 
 The combined local selection for this work passes **2,818 tests**, zero failures
 or omissions, exit 0, with 719 disclosed warnings; all 14 fast gates pass.
 This is Linux source evidence in the existing Python 3.14.7 environment. It is
 not a fresh full matrix, clean dependency closure, public package or release.
 Owner records hold commands, raw evidence references and final lifecycle state.
+
+The exact-source hosted checkpoint **d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42**
+passes all six applicable workflows. [CI smoke 41687790382](https://github.com/uibcdf/molsysmt/actions/runs/41687790382)
+records **4,184 native passes / 16 optional skips** and **2,449 bound-Viewer
+passes / four optional skips**, each exit 0. Linux/Python 3.14 uses Pandas 3.1.0
+and Viewer ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. The native omissions are
+14 unavailable Ackredit checks plus unyt and astropy; addon omissions are four
+Ackredit checks. The tiers retain 590 and 1,539 warnings. These source smoke
+results do not replace the zero-skip scientific gate or installed-pair matrix.
 
 Next admitted defect/contract reviews, in priority order:
 
