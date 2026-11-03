@@ -62,9 +62,12 @@ Next admitted defect/contract reviews, in priority order:
 
 1. **#534 and #535:** independently reproduced incoming Viewer findings.
    Stable inventory is incorrectly marked bond-dependent, and a cold private
-   declaration import loses an alias table. Preserve Topology's independent
-   ownership and validation; diagnose shared-provider ownership before patching
-   another repository. Neither has a runtime repair in this checkpoint.
+   declaration import loses an alias table. Their follow-up corrections now pass
+   **3,866 local cases**, zero skips/failures, plus all 14 fast gates, public
+   doctests, Ruff and signature checks. Graph requirements remain intact; a
+   plain shared declaration provider removes the consumer bootstrap cycle
+   without changing ArgDigest or duplicating the catalog. Hosted source receiving
+   and formal closeout remain pending. Their owner records retain detailed proof.
 2. **#503, #509, #511 and #516:** isolated bibliography, hydrogen-site bounds,
    precomputed donor-shape and reference-selection defects. Retain each original
    scientific acceptance contract and provider-owned correction.

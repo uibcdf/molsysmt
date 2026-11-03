@@ -12,12 +12,13 @@ from inspect import signature
 
 from argdigest import AliasTable, FunctionContract
 
-from molsysmt.attribute import attributes, get_argument_aliases
+from molsysmt._private.attribute_aliases import get_alias_contract
+from molsysmt._private.attribute_catalog import attributes
 
 # These wildcard rules belong only to the native methods' decorator plan.
 # Universal functions and unrelated APIs keep their own scoped registrations.
 CONTRACTS = [FunctionContract(caller_pattern="*.get", admits="attribute")]
-_ALIASES = get_argument_aliases()
+_ALIASES = get_alias_contract()
 TABLES = [AliasTable(applies_to="*.get", aliases=_ALIASES["attribute_synonyms"])]
 TABLES.extend(
     AliasTable(applies_to="*.get", when={"element": element}, aliases=aliases)

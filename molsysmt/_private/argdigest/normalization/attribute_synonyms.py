@@ -1,7 +1,8 @@
 """The attribute synonyms, scoped to the functions that take attribute names.
 
-`molsysmt.attribute.get_argument_aliases()` is the source of truth. These tables scope
-its semantic data to the public functions that accept attribute names.
+These tables share the plain declaration provider behind
+`molsysmt.attribute.get_argument_aliases()`. Importing declarations must not
+initialize that package's decorated public query helpers.
 
 **The scope is not incidental.** These synonyms rename attribute *names*, and only three
 public functions take attribute names as keywords. Everywhere else the same words are
@@ -12,7 +13,7 @@ globally breaks 76 tests, which is how the scope was rediscovered.
 
 from argdigest import AliasTable
 
-from molsysmt.attribute import get_argument_aliases
+from molsysmt._private.attribute_aliases import get_alias_contract
 
 #: The public functions whose keywords are attribute names.
 _ATTRIBUTE_TAKING_CALLERS = (
@@ -21,7 +22,7 @@ _ATTRIBUTE_TAKING_CALLERS = (
     "molsysmt.basic.is_composed_of.is_composed_of",
 )
 
-_ALIASES = get_argument_aliases()["attribute_synonyms"]
+_ALIASES = get_alias_contract()["attribute_synonyms"]
 
 TABLES = [
     AliasTable(

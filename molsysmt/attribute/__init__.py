@@ -12,5 +12,5 @@ from .is_mechanical_attribute import is_mechanical_attribute
 from .is_structural_attribute import is_structural_attribute
 from .is_topological_attribute import is_topological_attribute
 
-# Its decorator loads argument aliases, so get_argument_aliases must already be exported.
+# Declaration discovery uses plain shared data, independently of these public exports.
 from .bonds_are_required_to_get_attribute import bonds_are_required_to_get_attribute  # isort: skip

@@ -50,7 +50,11 @@ A valid native topology can have atoms but zero groups, for example an RDKit mol
 ## Molecule Membership
 
 An atom's molecule is a stable hierarchy assignment, independent of its covalent
-component. Grouped atoms inherit `groups.molecule_index`. For atoms without a
+component. Reading molecule/entity labels, memberships or counts from a stable
+inventory does not require bonds or a resolved chemical state. Queries sourced
+from bonds or components still need their state-local graph. A converter's
+explicit reconstruction of missing source inventory is a separate operation.
+Grouped atoms inherit `groups.molecule_index`. For atoms without a
 group, `topology.set_atom_molecules(molecule_indices, atom_indices='all')`
 declares positional molecule indices without creating groups or molecules.
 Use `None` for unknown membership; missing information is never replaced by

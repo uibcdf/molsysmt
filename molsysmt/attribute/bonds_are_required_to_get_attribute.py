@@ -6,17 +6,6 @@ bond_dependent_attributes = [
     "component_type",
     "component_name",
     "n_components",
-    "molecule_index",
-    "molecule_id",
-    "molecule_type",
-    "molecule_name",
-    "n_molecules",
-    "entity_index",
-    "entity_id",
-    "entity_type",
-    "entity_name",
-    "chain_type",
-    "n_entities",
     "bond_index",
     "bond_id",
     "bond_type",
@@ -37,19 +26,52 @@ bond_dependent_attributes = [
     "inner_bonded_atom_pairs",
     "n_bonds",
     "n_inner_bonds",
-    "n_peptides",
-    "n_proteins",
-    "n_adns",
-    "n_arns",
 ]
 
-bond_dependent_elements = ["component", "molecule", "entity", "bond"]
+bond_dependent_elements = ["component", "bond"]
 
 
 @arg_digest()
 def bonds_are_required_to_get_attribute(
     attribute, from_element=None, skip_digestion=False
 ):
+    """Checking whether an attribute query requires state-local connectivity.
+
+    Parameters
+    ----------
+    attribute : str
+        Canonical attribute name to query.
+    from_element : str or None, default=None
+        Source element of the query. A bond or component source requires its
+        chemical graph even when the requested attribute is stable inventory.
+        None checks only the requested attribute.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    bool
+        True for graph attributes or a bond/component source axis. Stored atom,
+        group, chain, molecule and entity inventory does not require bonds.
+
+    Notes
+    -----
+    This describes reading declared attributes. It does not prescribe how a
+    foreign-form converter may reconstruct inventory missing from its source.
+    Stable molecule membership is independent of chemical components; reading
+    it must not trigger graph inference solely because it names molecules.
+
+    Examples
+    --------
+    >>> from molsysmt.attribute import bonds_are_required_to_get_attribute
+    >>> bonds_are_required_to_get_attribute('molecule_index', 'atom')
+    False
+    >>> bonds_are_required_to_get_attribute('atom_index', 'component')
+    True
+
+    .. versionchanged:: 1.0.0
+       Stable molecule, entity and chain inventory is independent of bonds.
+    """
 
     output = attribute in bond_dependent_attributes
 

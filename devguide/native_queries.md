@@ -39,8 +39,13 @@ does not require topology for a system summary.
 Each native public method has an ArgDigest boundary and SMonitor signal. The
 native decorator's local registry reuses existing value digesters with their
 basic query semantic context. It does not copy their rules or weaken their
-attribute-flag validation. Alias tables reuse `get_argument_aliases()` and
-keyword admission reuses the canonical attribute domain.
+attribute-flag validation. Alias tables share the plain declaration provider
+behind `get_argument_aliases()` and keyword admission reuses the canonical
+attribute domain. Declaration bootstrap reads the shared internal catalog
+without importing decorated public helpers: loading a normalization module
+first must not cache a partially initialized alias registry. Public catalog
+paths retain the same mutable collections and builder entry point; no second
+attribute store, consumer preload or registry-clear workaround is introduced.
 
 Native wildcard registrations belong only to those methods' decorator plans;
 they do not broaden other APIs' aliases or keyword domains. Inherited native
@@ -110,6 +115,14 @@ Topology cannot resolve chemistry through an owner. Invalid/ambiguous state
 selection fails without reference mutation. Basic queries can join explicitly
 composed native Topology/ChemicalStates domains without copying their payloads or
 rebinding owners; shared axis cardinality is validated before querying.
+
+`attribute.bonds_are_required_to_get_attribute` describes graph prerequisites,
+not missing-inventory reconstruction in a foreign form. Stable atom/group/chain/
+molecule/entity fields and counts do not require bonds when queried from stable
+axes. Bond/component attributes and queries sourced from either state-local axis
+still require its graph. General get/selection planning must not request bond
+inference solely for stable molecule or entity membership. Stored molecule
+membership must not be recomputed from later chemical components.
 
 ## Selection boundaries
 

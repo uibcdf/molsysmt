@@ -187,3 +187,48 @@ def test_metadata_pipe_requests_no_coordinate_structures(monkeypatch):
     assert result == [["C1", "O1"], ["C", "O"]]
     assert seen
     assert source.trajectory.n_frames == 5
+
+
+@pytest.mark.parametrize("graph_query", [False, True])
+def test_piped_get_requests_bonds_only_for_graph_attributes(
+    t4_pdb_text, monkeypatch, graph_query
+):
+    original = msm.convert
+    requested = []
+
+    def observed_convert(*args, **kwargs):
+        if "get_missing_bonds" in kwargs:
+            requested.append(bool(kwargs["get_missing_bonds"]))
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(msm, "convert", observed_convert)
+    attribute = "n_bonds" if graph_query else "molecule_index"
+    indices, values = msm.get(
+        t4_pdb_text,
+        element="atom",
+        selection=[0, 1],
+        atom_index=True,
+        **{attribute: True},
+    )
+    assert indices == [0, 1]
+    assert len(values) == 2
+    assert requested and all(value is graph_query for value in requested)
+
+
+@pytest.mark.parametrize("graph_query", [False, True])
+def test_foreign_selection_requests_bonds_only_for_graph_membership(
+    t4_pdb_text, monkeypatch, graph_query
+):
+    original = msm.basic.convert
+    requested = []
+
+    def observed_convert(*args, **kwargs):
+        if "get_missing_bonds" in kwargs:
+            requested.append(bool(kwargs["get_missing_bonds"]))
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(msm.basic, "convert", observed_convert)
+    attribute = "component_index" if graph_query else "molecule_index"
+    indices = msm.select(t4_pdb_text, selection=f"{attribute} == 0")
+    assert indices and indices[0] == 0
+    assert requested and all(value is graph_query for value in requested)

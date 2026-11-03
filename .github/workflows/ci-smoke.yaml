@@ -213,6 +213,9 @@ jobs:
             tests/native/test_chemical_component_extraction.py \
             tests/basic/convert/mult_to_one/test_convert_chemical_and_structural_domains.py \
             tests/basic/append_structures/test_domain_atomicity.py \
+            tests/attribute \
+            tests/basic/get/test_piped_attributes.py::test_piped_get_requests_bonds_only_for_graph_attributes \
+            tests/basic/get/test_piped_attributes.py::test_foreign_selection_requests_bonds_only_for_graph_membership \
             devtools/tests/test_validate_rust_wheel.py \
             devtools/tests/test_devguide_workflow.py \
             tests/form/molsysmt_ChemicalStatesDict/test_roundtrip.py::test_decoding_keeps_declared_object_columns_with_string_inference \

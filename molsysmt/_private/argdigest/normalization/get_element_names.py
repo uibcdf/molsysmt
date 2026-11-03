@@ -4,16 +4,16 @@
 asks for `group_name` when the element is a group. One table per element states exactly
 which bare names that element accepts.
 
-The public provider enumerates every real combination rather than generating a
-Cartesian product. This module only scopes that semantic data to the concrete MolSysMT
-caller.
+The shared declaration provider enumerates every real combination rather than
+generating a Cartesian product. This module scopes the same public semantic data
+to the concrete caller without bootstrapping decorated public query helpers.
 """
 
 from argdigest import AliasTable
 
-from molsysmt.attribute import get_argument_aliases
+from molsysmt._private.attribute_aliases import get_alias_contract
 
-_ELEMENT_ALIASES = get_argument_aliases()["element_attribute_aliases"]
+_ELEMENT_ALIASES = get_alias_contract()["element_attribute_aliases"]
 
 TABLES = [
     AliasTable(
