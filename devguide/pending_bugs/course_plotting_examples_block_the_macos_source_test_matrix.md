@@ -110,3 +110,25 @@ Its 528 visible warnings include Sphinx deprecations, legacy/projection notices
 and noninteractive plotting messages. No warning filter is added. Ruff,
 formatting and all 14 fast gates (191) pass. These results qualify the harness
 locally; the complete macOS source acceptance remains open.
+
+
+## Completing the plotting scope — 2026-11-02
+
+A follow-up audit finds the four Module 34 comparison lessons executing their
+own `plt.show()` outside the first module-local fixture. Correcting only Module
+46 would leave these subsequent display calls uncontrolled; no complete macOS
+success was claimed for that initial patch. The backend/display/rendering
+fixture now belongs to `tests/documentation/conftest.py` and is requested
+explicitly by both notebook guards, covering all six actual lessons. It does
+not affect tests that do not request plotting or globally change library users.
+
+The comparison rendering guard first fails four cases under incoming SVG
+(run 193, exit 1, 4.98 seconds), with the nonplotting cookbook case passing.
+After shared headless execution, those cases, both geometric lessons, native
+authority/component-assignment controls and documentation source controls pass
+**104 tests** (194, exit 0, 18.01 seconds). PNG bytes are checked inside the real
+display spy, and every notebook test requires an actual display call. Original
+RMSD and geometric assertions, input substitutions, notebook cells and saved
+outputs are unchanged. All six noninteractive-show warnings remain visible.
+Hosted acceptance must use the complete six-lesson correction rather than
+assuming the earlier exact commit contains it.

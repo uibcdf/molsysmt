@@ -1,7 +1,7 @@
-"""Exercise #255's target contract, not yet implemented on the migration branch.
+"""Exercise #255's independent chemical-domain authority and query contract.
 
-These tests intentionally fail against the pre-migration provider. They have no
-xfail/skip gate and must not be merged to main before the coherent cutover.
+These tests were introduced as failing controls on the pre-migration provider.
+They retain independent expectations without an xfail/skip gate.
 Hand-authored public ChemicalStatesDict inputs avoid depending on the Topology
 chemical implementation that the migration removes.
 """

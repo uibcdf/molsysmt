@@ -24,7 +24,7 @@ def test_sequence_component_cookbook_executes_its_rigid_pose_checks():
 
 @pytest.mark.parametrize("domain", ["Alzheimer", "Enzyme", "Antiviral", "Biophysics"])
 def test_comparison_course_keeps_aligned_system_and_measures_actual_rmsd(
-    domain, monkeypatch
+    domain, monkeypatch, headless_plotting
 ):
     pytest.importorskip("matplotlib")
     original = msm.convert
@@ -57,6 +57,4 @@ def test_comparison_course_keeps_aligned_system_and_measures_actual_rmsd(
     assert np.all(after <= before + 1e-10)
     if domain in {"Antiviral", "Biophysics"}:
         np.testing.assert_allclose(after, 0.0, atol=1e-10)
-    import matplotlib.pyplot as plt
-
-    plt.close("all")
+    assert headless_plotting

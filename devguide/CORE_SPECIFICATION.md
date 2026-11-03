@@ -107,12 +107,19 @@ MolSysMT distinguishes between two layers:
 In MolSysMT, `component` and `molecule` are distinct and orthogonal concepts.
 - **Component:** A selected state's stored graph partition under its declared
   bond participation and completeness; owned by ChemicalStates.
-- **Molecule:** A semantic chemical unit defined by **group types** within a chain.
+- **Molecule:** A stable declared unit in Topology, represented through group
+  ownership and/or explicit atom-aligned membership for group-free atoms.
+  Group/chain inference is a construction or explicit rebuild policy, not a
+  continuously recomputed consequence of chemical-state connectivity.
 
-**Rule:** One component may contain multiple molecules (e.g., a metal-ion chelated to a protein residue is ONE component but TWO molecules).
+**Rule:** Participating stored bonds may place several stable molecules in one
+component. A stored coordination bond contributes to that partition only when
+the selected state's participation policy includes that edge. Later graph edits do not implicitly
+change declared molecule membership.
 
 ### 4.2 Molecule Inference Algorithm
-Inference in `native/_topology_infer.py` uses group types to partition atoms into molecules within each chain:
+When group-based inference is requested, `native/_topology_infer.py` partitions
+represented groups using their types and chain membership:
 - **Polymer types** (`amino acid`, `nucleotide`, etc.) extend the current molecule.
 - **Standalone types** (`ion`, `water`, `small molecule`) each start their own molecule.
 

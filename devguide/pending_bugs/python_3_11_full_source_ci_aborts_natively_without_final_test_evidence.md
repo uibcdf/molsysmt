@@ -146,3 +146,19 @@ threads; it restores pytest's all-thread setting afterward. This is diagnostic
 instrumentation, with removal after the cause-specific regression is settled,
 not a fix or a dependency attribution. Combined local controls pass 12 cases
 (189); hosted reproduction and the crash correction remain pending.
+
+
+## Isolated controlled-environment probe — 2026-11-02
+
+The exact `2f046721bbe7b399377d8f6f73f17c605d6741b8` source execution
+[41552267703](https://github.com/uibcdf/molsysmt/actions/runs/41552267703)
+reports the isolated OpenMM pinning step as successful in every one of its eight
+cells, including the previously aborting Linux/Python 3.11 environment. Counts
+remain subject to the eventual raw job log; this observation is the official
+step conclusion, not an invented full-suite summary. All eight complete suites
+are still running at this observation.
+
+This motivates investigating accumulated state or an intermittent failure;
+an isolated successful step does not distinguish those possibilities or prove
+a root cause. Keep the current-thread crash diagnostic and full-suite evidence.
+No new full execution is launched merely because observation was delayed.

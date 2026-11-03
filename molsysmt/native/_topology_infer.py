@@ -85,10 +85,10 @@ def infer_molecule_indices_from_topology(topology):
     - the group_type is standalone {'ion', 'water', 'small molecule'}
       (each group = its own molecule).
 
-    This decouples molecule identity from bond connectivity, so that a
-    covalently or coordinatively bonded complex (e.g. MnATP bound to a
-    protein, or a covalent drug) becomes one component but several
-    molecules of different types.
+    Stable molecule membership is independent of the selected chemical state's
+    component partition. Participating stored bonds can place several stable
+    molecules in one component; a coordination edge does so only under its
+    declared participation policy. Later graph edits do not redefine molecules.
 
     Parameters
     ----------

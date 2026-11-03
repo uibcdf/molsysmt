@@ -3017,3 +3017,49 @@ current-thread fault diagnostics for that module and headless course validation.
 The root cause of #527 and successful macOS reexecution are still required.
 The goal's explicit no-merge/no-release instruction remains in force; P8.4's
 historical main-integration step requires separate later authorization.
+
+
+### Requirement audit and remaining complete local run — 2026-11-02
+
+An independent contract review confirms that the principal authority guard
+asserts pure/attached Topology absence, no chemical copy traversal, explicit
+state selection and missing-versus-empty semantics, stable group-free molecule
+membership, transactional edits, independent copies and public two-state H5MSM
+round trips. The existing component-assignment controls check unsupported and
+nullable inputs, state-local positions, metadata retention and invalidation.
+These are behavioral assertions, not only API-shape checks. Together with
+published source/navigation controls, the current audit passes **96 cases**
+(192, exit 0, 11.62 seconds).
+
+CORE_SPECIFICATION sections 4.1/4.2 now describe stable declared molecules and
+optional group-based inference explicitly, rather than implying that every
+molecule must be defined through groups/chains. Stored coordination edges
+contribute to components only according to their participation policy; graph
+edits do not redefine stable membership. The target-guard module's historical
+introduction no longer claims that the now-implemented contract is missing.
+
+A further rendering audit finds four comparison-course display calls outside
+the first two-lesson fixture. The test-only plotting control is shared within
+the documentation suite and explicitly consumed by all six lessons. The four
+comparison renderer controls fail before correction (193), then the full
+focused rendering/authority/source selection passes **104 cases** (194). The
+notebooks and all original independent geometric/RMSD expectations remain intact.
+
+The hosted 2f046721b execution remains live. Every isolated OpenMM probe step
+reports success, including Python 3.11; that narrows the investigation without
+eliminating intermittent failure or qualifying the complete suites. The next
+complete local provider run uses the shared development environment, two
+workers and source-frozen Viewer ca7, rather than the independently advancing
+sibling checkout. Its source archive is made from existing Git objects; no
+auxiliary environment or package installation is introduced. That full run
+requires its own actual exit/counts before P8.1 can close, and is not an
+installed-package or release certificate.
+
+
+The shared six-lesson rendering correction and authority/source review pass
+Ruff and formatting; fast gate 195 passes **14/14**. The private group-based
+inference helper's explanatory docstring is aligned with the same participation
+policy, without changing its algorithm. The local full-run record will identify
+the committed provider, frozen Viewer archive digest, actual shared dependency
+versions/import origins, command, workers and eventual exit. The four unrelated
+preexisting autosummary edits and the native binary are preserved.
