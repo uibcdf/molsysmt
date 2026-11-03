@@ -100,7 +100,8 @@
     "molsysviewer_molsysmt/_element.py": "0cc5a2007bc076cdbc49bcbdbc38b3872dfa991444c931872bf5b3a57fe5d424",
     "molsysviewer_molsysmt/_api.py": "2a59fc0f9b645241a79d57779879c40222a4a10f76cfdfb765b39e7f36c25a7d",
     "tests/molsysviewer_molsysmt/test_element_utilities.py": "b8350067c1a1cf4b90e826c32ad0b849770487c91d3fd1560f6195cedf3b7bbe",
-    "devtools/scripts/viewer_tools_contract.py": "9ce28983c6b16b0287c0218621b0b8aa8031135b8a3c57c1b4fe080e818d7614"
+    "devtools/scripts/viewer_tools_contract.py": "9ce28983c6b16b0287c0218621b0b8aa8031135b8a3c57c1b4fe080e818d7614",
+    ".github/workflows/ci-smoke.yaml": "865213a875f19403a27068cab3e1d8de5f946444184b5a698e59dd21d2a2f0d3"
   },
   "initial_test_correction": "An initial consumer assertion incorrectly disallowed the existing basic.is_composed_of root alias. The corrected guard preserves that alias and verifies its distinction from element.is_composed_of; no native repair was needed.",
   "limits": [
@@ -110,5 +111,27 @@
     "Owner main and unrelated documentation work are preserved; delivery is by owner-reviewed PR.",
     "No GUI panel, dependency floor, frozen candidate, tag or publication change."
   ],
-  "temporary_resources": "Isolated contribution checkout and copied backend retained for owner review; remove after integration or withdrawal. No new environment, Rust build or package installation."
+  "temporary_resources": "Isolated contribution checkout and copied backend retained for owner review; remove after integration or withdrawal. No new environment, Rust build or package installation.",
+  "hosted_smoke_followup": {
+    "failed_run": 41731053122,
+    "original_head": "6ca857e81d5a28a95e37ed40c59450719f8f9e00",
+    "failed_step": "Validate bound addon test command",
+    "cause": "The new test_element_utilities.py was omitted from the workflow explicit addon command. The local complete addon invocation did execute all 132 new cases.",
+    "guard": "devtools/tests/test_smoke_addon_test_command.py::test_all_addon_test_modules_are_arguments_of_one_pytest_invocation",
+    "red": {
+      "failed": 1,
+      "junit_sha256": "e6c0bd9b2bdbacaf19398cfc800747b3aca137acab325be6aac3765e08480811"
+    },
+    "green": {
+      "passed": 9,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "9e2d83705f4a9550c639d59be4ea2e7280544375caf93dbca2a0cfb3bf2fbf84"
+    },
+    "change": "Add the missing file as an argument in the existing single pytest invocation, preserving every other addon module and the fail-closed guard.",
+    "runtime_change": false,
+    "complete_addon_reuse": "The existing 2594-case source result remains applicable to unchanged addon and test sources; no full-suite repeat is claimed.",
+    "replacement_hosted_scope": "New exact-head CI required; original failed run preserved."
+  }
 }

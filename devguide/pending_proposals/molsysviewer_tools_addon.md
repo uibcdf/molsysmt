@@ -53,6 +53,19 @@ metadata/dependency work remain owner gates; no fix or scientific workaround is
 introduced in these utilities. This contribution follows the owner-reviewed
 PR route and does not modify main or merge the independent metadata PRs.
 
+## Element contribution smoke-command correction — 2026-11-03
+
+PR #543 smoke 41731053122 fails the early command-completeness guard because
+its new element test module was absent from the hosted explicit addon list.
+The 2,594-case local regression did execute all 132 new cases. The correction
+adds that file to the same pytest invocation without removing any module or
+weakening the guard: the focused guard fails before, and all nine command,
+inventory and host-integration controls pass afterward. Addon/test sources
+remain unchanged, so their completed regression remains applicable. The
+[element receipt](../../devtools/data/molsysviewer_tools_element_utilities_receiving_20261103.json)
+retains the original failed run and red/green hashes. Receive the replacement
+exact-head hosted checks separately; the original run does not qualify delivery.
+
 ## Combined-candidate gate follow-up — 2026-11-03
 
 The published review branch `dev/review-tools-537-540`, exact head
