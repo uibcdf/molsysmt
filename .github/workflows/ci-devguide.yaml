@@ -30,7 +30,9 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # Full ancestry is required by incremental archive restoration and API baselines.
+    # The budget includes checkout: two five-minute fetches timed out under #536.
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
         with:

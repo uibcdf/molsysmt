@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-11-02
+**Last updated:** 2026-11-03
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,70 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Post-integration stabilization review — 2026-11-03
+
+The live-board review found 89 open issues, including 12 labelled bugs, before
+the new checkout-budget report #536. This is a dated inventory observation, not
+a live count or a requirement to implement every extension before 1.0.
+The release-scope admission rule remains unchanged.
+
+The completed #531 typed-component preservation fix and #532 explicit dictionary
+domain-composition fix are published on main. Their archived owner reports
+identify exact source CI, tests and remaining installed/consumer boundaries.
+The later documentation-only checkpoint 27c6bd3c0b4adfc1b7c3b635b9f30bcf6ffa0cab
+retains their qualified runtime/test bytes. Its devguide job exhausted five minutes
+in full-history checkout on two attempts before running a validator; #536 owns
+that separate recovery rather than relabelling either attempt successful.
+
+Current bounded work:
+
+| Issue | Verified state and next boundary |
+| --- | --- |
+| #533 | The vector kernel is a legitimate runtime export missing from the reviewed inventory. Fix source 2797c5425f5735568422325928520ae591c3676a adds it and real-module drift guards. Fifty-five focused tests and a real noneditable Linux/Python 3.14 installed-extension check pass with exactly 102 exports. The diagnostic wheel is unpublished; it does not establish the Viewer installed matrix or a new public floor. |
+| #520 | The transactional runtime introduced by #255 already repairs the original append publication order. Forty-five combined public regressions cover successes, source selection, rejections, late preparation failure and H5MSM persistence. The combined append/state/analysis selection passes 68 cases; hosted checkpoint and formal closeout remain pending. |
+| #536 | The full-history devguide job receives a bounded 15-minute budget while retaining ancestry, archive restoration, integrity validators and API baseline checks. Original insufficient-budget failure is guarded; hosted recovery is pending. |
+
+The combined local selection for this work passes **2,818 tests**, zero failures
+or omissions, exit 0, with 719 disclosed warnings; all 14 fast gates pass.
+This is Linux source evidence in the existing Python 3.14.7 environment. It is
+not a fresh full matrix, clean dependency closure, public package or release.
+Owner records hold commands, raw evidence references and final lifecycle state.
+
+Next admitted defect/contract reviews, in priority order:
+
+1. **#534 and #535:** independently reproduced incoming Viewer findings.
+   Stable inventory is incorrectly marked bond-dependent, and a cold private
+   declaration import loses an alias table. Preserve Topology's independent
+   ownership and validation; diagnose shared-provider ownership before patching
+   another repository. Neither has a runtime repair in this checkpoint.
+2. **#503, #509, #511 and #516:** isolated bibliography, hydrogen-site bounds,
+   precomputed donor-shape and reference-selection defects. Retain each original
+   scientific acceptance contract and provider-owned correction.
+3. **#504:** choose and document multi-structure solvation output/aggregation;
+   choosing first/any/all silently is not an acceptable numerical repair.
+4. **#515:** audit the seven historical failing nodes against the already
+   qualified #255 full-suite source and current regressions before deciding
+   whether any defect remains. Narrow smoke results alone do not close it.
+5. **#523 and #524:** the declared legacy H5MSM structure-index route is still
+   missing on the current source; runtime dependency floors/restrictions need
+   API-grounded review before the next publication. Exact route, provider and
+   installed-artifact evidence remain distinct.
+
+The Collantes ISA/ECI primary-reference questions **#473/#475** remain open;
+quantity wrappers and source parity do not settle scientific dimensions or
+aggregation. ArgDigest public-artifact receiving (#428), attribution adoption
+(#292) and final native-domain/Viewer delivery (#254/#421/#334) retain their
+existing owner boundaries. Old umbrella issues are not closed merely because
+their titles describe partly implemented work.
+
+Additional profiles and expansions such as #519/#521 and the #447/#375/#323
+remainders are not selected by this defect-repair batch. Existing protected
+upstream compatibility/performance follow-ups (#403/#486/#530) and course
+content-contract debt (#512) remain separately scheduled. No new method,
+dependency floor, tag, Release, package upload or promotion is authorized or
+performed by this review. The proposed next pre-1.0 checkpoint remains a future
+exact-candidate decision; historical 0.23.0/0.24.0 artifacts are not relabelled.
 
 ## Authorized ChemicalStates main integration — 2026-11-02
 

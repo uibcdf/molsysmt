@@ -149,8 +149,9 @@ does not change frozen artifacts or authorize publication.
   interaction domains, including supported partial combinations. `ChemicalStates`
   owns chemical assignments and bonds. The maintainer-approved #255 plan now
   completes the pre-1.0 removal of Topology chemical facades and component
-  ownership. That target is not yet implemented; current source still exposes
-  the documented facades until the coordinated cutover.
+  ownership. The #255 source cutover is complete and integrated into main:
+  Topology has no chemical facade. New installed candidates still require their
+  own qualification; historical artifact receipts do not certify this source.
 - Public writers emit H5MSM 0.5. Preserve supported domain associations, named
   analyses, original producers, quantity records and preparation history. Read
   legacy 0.3/0.4 with the documented warning and migration route. Structures-only

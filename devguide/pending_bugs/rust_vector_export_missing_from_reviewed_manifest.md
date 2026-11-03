@@ -16,8 +16,8 @@ supersedes: []
 # The installed extension and reviewed export inventory disagree
 
 **Reported:** MolSysViewer installed-source receiving under uibcdf/molsysviewer#269.
-**Status:** source correction and focused guards implemented; noneditable
-installed validation remains pending.
+**Status:** source correction, focused guards and local noneditable installed
+validation completed; broader hosted source qualification remains pending.
 
 ## What
 
@@ -75,3 +75,32 @@ compiled module is reused for focused guards. Local raw/receptor evidence stays
 in the ignored `.pytest_cache/stabilization-520-533/` directory. Original
 consumer installed failures remain identified by #533; they are not relabeled
 as passing source results.
+
+## Noneditable installed validation (2026-11-03)
+
+Source correction **2797c5425f5735568422325928520ae591c3676a** produced diagnostic
+wheel `molsysmt-0.23.0+374.g2797c5425.dirty-cp311-abi3-linux_x86_64.whl`
+(61,908,543 bytes), SHA-256
+`2a28b2ac39b633431c709cd8be9c52512f050696b8aa41164c400da335b4b5ac`.
+All **3,053 tracked Python files** in that wheel match their committed Git blobs;
+the only generated Python file is versioningit's `_version.py`. The dirty suffix
+is retained honestly; this is an unpublished diagnostic artifact, not a candidate
+release identity.
+
+The wheel passes the unchanged static wheel validator and is installed with
+`--no-deps --no-index --ignore-installed` into a temporary actual Python prefix
+with inherited development dependencies. The main editable development install
+is not replaced. From outside the checkout, the ordinary
+`validate_installed_rust_extension.py` command succeeds: **102 exact exports**,
+minimum-image check **2.5**, no editable direct URL, and the extension physically
+inside that prefix. Its binary SHA-256 is
+`27c807631306c0c4b97e4beb3f97aacae1071d67df0616116a40cb74dc8aa951`.
+The parent environment supplies NumPy 2.4.6; Python is 3.14.7.
+
+The literal installed CLI was used after correcting two local harness commands:
+an initial relative script path was invalid from the external working directory,
+and Python `-I` removed the script's sibling-module import directory. Neither
+changes the validator contract or indicates a packaging defect. Receipts retain
+the actual installed distribution, direct URL, prefix, hashes and successful
+command. This qualifies the local Linux installed-extension boundary only,
+not a clean dependency closure, the Viewer installed matrix or another platform.

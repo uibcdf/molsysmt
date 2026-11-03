@@ -1,7 +1,7 @@
 ---
 summary: append_structures partially publishes structures before validating named analyses and state links.
 issue: uibcdf/molsysmt#520
-status: open
+status: active
 opened: 2026-10-28
 closed:
 severity: high
@@ -17,9 +17,9 @@ supersedes: []
 
 **Reported:** 2026-10-28, expert addon composition receiving under
 uibcdf/molsysviewer#264 / uibcdf/molsysmt#421.
-**Status:** acceptance coverage remains open. The original failure was reproduced
-independently of Viewer; current-source success probes are recorded below.
-No scientific fix belongs in the addon.
+**Status:** existing transactional correction now has combined public regressions;
+broader qualification is in progress. The original failure was reproduced
+independently of Viewer. No scientific fix belongs in the addon.
 
 ## What
 
@@ -122,3 +122,30 @@ partially changing target structures, associations, observations or source maps.
 Change the runtime only if those controls expose a remaining defect; do not
 rewrite the current transactional helper merely because the original report
 describes an older implementation.
+
+## Combined acceptance regression (2026-11-03)
+
+`tests/basic/append_structures/test_domain_atomicity.py` adds 45 focused cases:
+32 successful combinations of implicit/explicit single-state and known/unknown
+multi-state links, coordinate-only/native sources, empty/populated analyses and
+both copy modes; two nonconsecutive source selections; eight rejection cases;
+two simulated late allocation failures; and a public H5MSM round trip.
+
+Successful appends preserve prior occurrences, handles, source identity/maps and
+coverage, extend the structure domain, and leave incoming structures unevaluated.
+Rejected operations preserve the original structural owner, coordinates, boxes,
+times, velocities, chemical assignments, links and named analysis handles/payloads.
+The late-failure control raises during preparation of the second analysis, after
+the structural candidate and first analysis are prepared. Both in-place modes
+leave the published target and source unchanged.
+
+The combined new and existing append/state/analysis selection passes **68 tests**,
+zero failures/omissions, exit 0, 10.01 s, with one existing legacy-format warning.
+The initial harness compared a query's full structure-domain size with the old
+three-structure size; that assertion was corrected to the explicitly extended
+six-structure domain. The initial harness failure is not a new product defect.
+No runtime change was needed: the transactional implementation introduced during
+#255 already repairs the original publication order. The broader native,
+composition, append, H5MSM and tooling selection passes **2,818 cases**, with zero
+omissions/failures, exit 0, 169.68 s and 719 disclosed warnings. All 14 fast gates
+pass. Exact hosted source qualification and durable closure remain pending.
