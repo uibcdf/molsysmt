@@ -7,7 +7,7 @@ closed:
 severity: medium
 verification: inspected
 area: [ci, performance, form]
-guard:
+guard: devtools/tests/test_benchmark_reference.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,8 +17,9 @@ supersedes: []
 
 **Reported:** performance gate of PR #538, without a local original-environment
 reproduction from the reporter.
-**Status:** original failure inspected; a compatible source/backend-shadow
-mechanism independently reproduced. Exact hosted cause and correction remain pending.
+**Status:** source/backend-shadow mechanism reproduced; a coherent source-route
+correction and fresh-process guards are implemented. Hosted receiving remains pending;
+the original job's exact backend origin cannot be recovered from its log.
 
 ## What and how
 
@@ -99,3 +100,42 @@ of #537's archive correction and Viewer #269's installed-source campaign.
 Runtime/source identity and benchmark reference preparation are in scope.
 No alternative dataset, relaxed performance threshold, scientific method,
 dependency floor or package publication is introduced by this investigation.
+
+## Correction and local receiving — 2026-11-03
+
+The performance workflow now installs the compiled checkout editably, matching
+its scripts' explicit source imports and the ordinary source CI route. It uses
+the same pinned minimal Rust 1.97.1 toolchain as source smoke. No shared local
+environment is rebuilt or replaced by this work.
+
+Reference preparation remains the same full H5-to-PDB public conversion. The
+runner now records the effective executable/Python version, Python-package and
+Rust origins, package/provider versions, input existence/size and molecular
+classification reason before conversion. A missing backend or invalid reference
+fails before timed phases. Diagnostics belong to the benchmark tooling; no
+library API or scientific classifier fallback is added.
+
+`devtools/tests/test_benchmark_reference.py` covers a fresh process under the
+same QA profile, converting all 20 structures / 4,369 atoms and comparing every
+output coordinate with MDTraj's H5 reader within PDB's 0.00005 nm rounding plus
+0.000001 nm numerical margin. A backend-unavailable control rejects preparation
+without writing the PDB. The workflow contract rejects the old noneditable
+installation and requires installation, guards and timing in that order. It
+also retains the 0.15 comparison threshold. The guard executes in hosted CI
+before the ordinary complete benchmark command.
+
+The workflow guard fails against the preceding installation route; the initial
+three-case local receiving passes in 57.11 seconds, zero skips/failures. Final
+combined receiving with the nightly/full-route, controlled-dependency,
+dependency-audit and smoke-command guards passes **40 tests**, zero skips/failures,
+exit 0, 68.75 seconds, using two workers. Receptor and JUnit counts agree. This
+uses the existing Linux Python 3.14.7 development environment and reused compiled
+backend. Full-tree Ruff lint/format, dependency contract/import checks and devguide
+integrity/index checks pass. The hosted audit remains pending at this checkpoint. The original generic CI exception is preserved as historical failure;
+this repair addresses a demonstrated incoherent route without inventing its
+missing retrospective runtime evidence.
+
+No baseline, input, timed workload, repetition count, threshold, public dependency
+floor or scientific method is changed. Source reference preparation does not
+qualify an installed package, complete benchmark run or release. Keep #539 open
+until the actual hosted route produces its preparation evidence and timings.

@@ -58,15 +58,27 @@ jobs:
           create-args: >-
             python=${{ matrix.cfg.python-version }}
 
-      - name: Install package
+      - name: Select the pinned minimal Rust toolchain
         shell: bash -l {0}
+        run: |
+          rustup toolchain install 1.97.1 --profile minimal
+          rustc +1.97.1 --version
+
+      - name: Install compiled source checkout
+        shell: bash -l {0}
+        env:
+          RUSTUP_TOOLCHAIN: 1.97.1
         run: |
           set -euo pipefail
           python -m pip install --no-deps \
             -r devtools/controlled_sources.txt \
             git+https://github.com/uibcdf/molsysviewer@ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352
-          python -m pip install . --no-deps
+          python -m pip install --editable . --no-deps
           python devtools/scripts/validate_controlled_dependencies.py
+
+      - name: Guard fresh-process reference preparation
+        shell: bash -l {0}
+        run: python -m pytest --receptor=ci devtools/tests/test_benchmark_reference.py
 
       - name: Extract Reference Baseline
         shell: bash -l {0}

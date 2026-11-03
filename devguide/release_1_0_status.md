@@ -90,7 +90,11 @@ Next admitted defect/contribution reviews, in priority order:
    shadow experiment reproduces the rejection when the source Rust binary is
    unavailable; the same H5 becomes valid with that binary visible. Capture the
    original hosted runtime identity and choose one coherent source/installed
-   route before claiming the cause or successful audit. No dataset or threshold
+   route before claiming the cause or successful audit. The correction now uses
+   an editable compiled source checkout and records runtime/reference identities.
+   Fresh-process full-reference/absent-backend guards are implemented and pass
+   locally; combined workflow/dependency receiving passes 40 cases without
+   skips/failures. Hosted receiving remains pending. No dataset or threshold
    substitution is admitted.
 2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
    and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to

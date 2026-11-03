@@ -326,8 +326,14 @@ the slowest native runner completes.
 
 - `ruff.yaml` runs the configured Ruff correctness checks on Python changes.
 - `benchmarks.yml` compares a benchmark run with the stored baseline on pull
-  requests. Because hosted runners are noisy, investigate a failure before
-  treating a 15% delta as a deterministic regression.
+  requests. It installs the compiled source checkout editably with the source-CI
+  Rust toolchain, since benchmark modules explicitly import checkout sources.
+  Fresh-process reference guards execute before timings. The runner prints
+  interpreter/package/backend origins and H5 existence/classification before
+  converting the complete reference; a missing backend fails explicitly. This
+  is source evidence, not installed-package qualification. Because hosted runners
+  are noisy, investigate a failure before treating a 15% delta as a deterministic
+  regression. See [the #539 record](pending_bugs/benchmark_reference_h5_conversion_fails_in_ci.md).
 - `test_import.yaml` provides a manually dispatched import check.
 - `sphinx_docs_to_gh_pages.yaml` builds and publishes documentation.
 - `build_and_upload_conda_packages.yaml` builds Conda packages when dispatched. Its

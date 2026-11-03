@@ -6,6 +6,9 @@ into an interactive summary, and exports the baselines session JSON.
 
 from __future__ import annotations
 
+import importlib.metadata
+import importlib.util
+import json
 import os
 import sys
 from pathlib import Path
@@ -24,6 +27,56 @@ from benchmarks.competitors.test_selections import (  # noqa: E402
 from benchmarks.harness import save_session_results  # noqa: E402
 
 
+def _prepare_reference(pdb_path):
+    """Diagnose the active source runtime and prepare the unchanged H5 reference."""
+    from molsysmt._private.molecular_system_validation import assess_molecular_system
+
+    h5 = msm.systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.h5"]
+    source = Path(h5)
+    rust = importlib.util.find_spec("molsysmt._rust")
+    providers = {}
+    for name in ("numpy", "pandas", "mdtraj", "h5py"):
+        try:
+            providers[name] = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            providers[name] = None
+    evidence = {
+        "python": sys.executable,
+        "python_version": sys.version,
+        "molsysmt": msm.__file__,
+        "molsysmt_version": msm.__version__,
+        "rust": None if rust is None else rust.origin,
+        "providers": providers,
+        "input": str(source),
+        "input_exists": source.is_file(),
+        "input_bytes": source.stat().st_size if source.is_file() else None,
+    }
+    print("BENCHMARK_RUNTIME " + json.dumps(evidence, sort_keys=True), flush=True)
+    if rust is None:
+        raise RuntimeError(
+            "The benchmark source runtime cannot find molsysmt._rust. "
+            "Install the compiled checkout with python -m pip install --editable . --no-deps."
+        )
+    assessment = assess_molecular_system(h5)
+    print(
+        "BENCHMARK_REFERENCE "
+        + json.dumps(
+            {
+                "forms": assessment.forms,
+                "valid": assessment.is_valid_single_system,
+                "reason": assessment.reason,
+            },
+            sort_keys=True,
+        ),
+        flush=True,
+    )
+    if not assessment.is_valid_single_system:
+        raise RuntimeError(f"Benchmark H5 reference is invalid: {assessment.reason}")
+    if not os.path.exists(pdb_path):
+        print(f"Generating temporary reference PDB: {pdb_path}", flush=True)
+        msm.convert(h5, to_form="file:pdb", output_filename=pdb_path)
+
+
 def main():
     print("======================================================================")
     print(" STARTING MOLSYSMT COMPETITIVE PERFORMANCE BENCHMARK MATRIX")
@@ -31,10 +84,7 @@ def main():
 
     # 1. Setup temporary PDB file for the topology reference
     pdb_path = os.path.join(repo_root, "solvated_villin.pdb")
-    if not os.path.exists(pdb_path):
-        print(f"Generating temporary reference PDB: {pdb_path}")
-        h5 = msm.systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.h5"]
-        msm.convert(h5, to_form="file:pdb", output_filename=pdb_path)
+    _prepare_reference(pdb_path)
 
     # 2. Run all benchmark suites
     results = []
