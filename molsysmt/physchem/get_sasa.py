@@ -115,6 +115,12 @@ def get_sasa(
     SASA may require reconstructing whole molecules before calculation.
     MDTraj's public Shrake–Rupley interface has no periodic control [2]_.
 
+    MDTraj calculations use independent single-structure calls to prevent
+    worker-buffer accumulation reported in MDTraj issue #2195 [3]_. This preserves
+    structure order and repetitions, at the cost of provider-call overhead
+    and no MDTraj parallelism across structures. Prefer the native engine
+    for large structure ensembles until a corrected provider is qualified.
+
     See Also
     --------
     get_atomic_radius : Querying atomic radii.
@@ -127,6 +133,8 @@ def get_sasa(
        351–371. https://doi.org/10.1016/0022-2836(73)90011-9
     .. [2] MDTraj Shrake–Rupley documentation:
        https://mdtraj.readthedocs.io/en/latest/api/generated/mdtraj.shrake_rupley.html
+    .. [3] MDTraj multi-structure SASA buffer defect:
+       https://github.com/mdtraj/mdtraj/issues/2195
 
     Examples
     --------
@@ -188,12 +196,17 @@ def get_sasa(
         if isinstance(probe_radius, str):
             probe_radius = puw.parse.parse(probe_radius)
         mdtraj_probe_radius = puw.get_value(probe_radius, to_unit="nm")
-        sasa_array = shrake_rupley(
-            tmp_item,
-            probe_radius=mdtraj_probe_radius,
-            n_sphere_points=n_sphere_points,
-            mode="atom",
-        )
+        # MDTraj #2195: each worker retains its previous structure's areas.
+        # One structure per call avoids that state without changing the method
+        # or mutating the input. Remove only after a fixed provider is qualified.
+        sasa_array = np.empty((tmp_item.n_frames, tmp_item.n_atoms), dtype=np.float32)
+        for structure_index in range(tmp_item.n_frames):
+            sasa_array[structure_index] = shrake_rupley(
+                tmp_item.slice(structure_index, copy=False),
+                probe_radius=mdtraj_probe_radius,
+                n_sphere_points=n_sphere_points,
+                mode="atom",
+            )[0]
 
         if element == "atom":
             if not is_all(selection):

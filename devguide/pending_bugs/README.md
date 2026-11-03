@@ -31,8 +31,9 @@ that front matter -- edit the entries, not this list.
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 - [`weekly_full_suite_has_seven_repeated_failures.md`](weekly_full_suite_has_seven_repeated_failures.md) — [#515](https://github.com/uibcdf/molsysmt/issues/515) — Scheduled full Linux CI repeats seven unresolved failures across supported Python minors. *(medium, upstream)*
 
-### In progress (3)
+### In progress (4)
 
+- [`mdtraj_sasa_accumulates_areas_across_structures_within_a_worker.md`](mdtraj_sasa_accumulates_areas_across_structures_within_a_worker.md) — [#529](https://github.com/uibcdf/molsysmt/issues/529) — MDTraj SASA accumulates areas across structures within a worker *(high, reproduced)*
 - [`python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md`](python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md) — [#527](https://github.com/uibcdf/molsysmt/issues/527) — Python 3.11 full source CI aborts natively without final test evidence *(high, reproduced)*
 - [`course_plotting_examples_block_the_macos_source_test_matrix.md`](course_plotting_examples_block_the_macos_source_test_matrix.md) — [#528](https://github.com/uibcdf/molsysmt/issues/528) — Course plotting examples block the macOS source test matrix *(medium, reproduced)*
 - [`pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md`](pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md) — [#526](https://github.com/uibcdf/molsysmt/issues/526) — Pandas 3.1 native composition and fixture compatibility blocks source qualification *(medium, reproduced)*

@@ -19,11 +19,14 @@ supersedes: []
 **Implementation status:** In progress on `dev/chemical-states-separation-255`.
 The source cutover now separates native storage, queries, builders, graph tools
 and persistence. Consumer receiving is delivered through owner-reviewed drafts;
-complete source qualification remains open. The Pandas correction passes three
-complete Linux cells (#526); the separate native abort #527 and macOS example
-cancellation #528 remain under investigation. The dated scientific, documentation and benchmark scopes below
-remain separate from final exact-source/client acceptance. The dated receipts below distinguish
-executed controls from pending work. No main merge or release is authorized by
+complete source qualification remains open. Pandas compatibility (#526), the cause-specific OpenMM conversion cycle (#527)
+and headless course execution (#528) have scoped corrections and retained
+regressions. Final qualification additionally exposed an existing MDTraj SASA
+buffer defect (#529), now protected in the adapter with focused passing evidence.
+Complete corrected-head local/platform qualification remains pending. The dated
+scientific, documentation and benchmark scopes below stay separate from final
+exact-source/client acceptance; their receipts distinguish executed controls from
+pending work. No main merge or release is authorized by
 this execution.
 
 The maintainer explicitly replaces the earlier post-1.0 scheduling with a
@@ -232,7 +235,7 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P5: functional module | P3; P4 for integration | Nine graph APIs, helpers, addon namespace, argument and scientific-attribution metadata migrated; graph controls pass; final integrated qualification pending | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Producers, Topology projections, dictionary 0.2, typed transports and H5MSM/legacy readers migrated; scoped fidelity debt explicitly retained; final integrated qualification pending | Versioned payloads, legacy readers, partial and full round trips |
 | P7: docs and consumer receiving | P5, P6 | Provider documentation, changed examples and strict Sphinx pass; Viewer core/addon and targeted TopoMT source receiving pass; DockingMT draft source CI passes; PharmacophoreMT and owner adoption/final qualification remain pending | Lifecycle docs and immutable consumer receipts |
-| P8: integrated source closeout | P1-P7 | Implementation and qualification receipts published; expanded source run executed with isolated consumer/download failures; Viewer corrective scopes pass; hosted/runtime and other client dispositions, main integration and lifecycle closeout remain open | Exact-source checks, published implementation and issue receipt |
+| P8: integrated source closeout | P1-P7 | Implementation and qualification receipts published; one complete local source checkpoint passes 23,733 cases; later source corrections have focused guards and final local/hosted runs remain in progress. Client-owner adoption and lifecycle closeout remain explicit; main integration is deferred by maintainer instruction | Exact-source checks, published implementation and issue receipt |
 
 Documentation work can accompany each implementation phase. Independent execution
 may overlap, but dependent phases cannot claim their exits early. The final
@@ -3282,3 +3285,56 @@ pending. #527 now owns this cause-specific guard and also records the matching
 macOS abort. SMonitor #56 remains separate observed diagnostic feedback until
 the corrected controlled process establishes its disposition. No source package,
 merge, release or tag is claimed by these local controls.
+
+
+### Independent MDTraj SASA defect exposed by final qualification — 2026-11-02
+
+The retained dbcb4582c macOS/Python 3.14 full run completes with 23,599 passes,
+54 failures, 103 skips and 40 deselections, exit 1 (231). Its scientific
+certificate separately passes 79/79 cases/59 nodes. Every full-suite failure
+concerns the optional MDTraj SASA isolated-carbon oracle; it is not an OpenMM
+abort or a claim that chemistry separation changes surface geometry.
+
+A direct provider-only probe reproduces the exact increasing areas on local
+MDTraj 1.11.1 with one OpenMP thread, while independent structure calls recover
+the analytic isolated sphere. The C++ provider reuses a per-thread area buffer
+without clearing it. The existing upstream report mdtraj/mdtraj#2195 describes
+the same mechanism and remains open. MolSysMT #529 owns the adapter protection,
+evidence and its removal condition; no duplicate upstream issue is opened.
+
+Four new real-provider subprocess controls fail before correction (232), testing
+one/two threads, changing overlap, atomic/group output, repeated/nonconsecutive
+structure indices, pm policy and source immutability. Independent raw-provider
+results also check analytic isolated areas. The adapter now preallocates atomic
+output and evaluates each requested structure independently through a no-copy
+slice. It preserves provider identity and method; scientific tolerances, radii,
+PBC rules, native kernels and dependency floors do not change. It trades away
+MDTraj parallelism across structures and adds call overhead, explicitly documented
+in the docstring, Foundations, Toolbox, Cookbook and four physicochemical course
+modules. Existing notebook code, outputs and execution metadata are unchanged.
+
+The complete SASA scope plus public doctest passes 263 cases, exit 0, 56.50 s
+(233), retaining all 23 warnings. A docstring-only issue-reference edit overlapped
+that focused run; final frozen-source verification follows formatting and docs.
+Whole-tree Ruff/format checks pass. This runtime followup is newer than the
+active exact 64b8694e9 local/hosted full runs, which retain their own scope and
+outcomes. No stopped/failed/partial run is relabeled as final-head success.
+Restoring batched MDTraj calls requires a published upstream fix independently
+qualified by the retained worker-reuse guard, not just an announced milestone.
+
+
+The frozen-source post-formatting SASA selection passes the same 263 cases,
+exit 0, 57.53 s (234). Fast gates pass 14/14; the docstring validator passes
+246 public functions; Ruff and formatting pass for 4,221 files. A first strict
+Sphinx invocation incorrectly passes a literal string through its CLI
+`autosummary_generate` override and fails with configuration warnings (234).
+That is harness evidence, not a documentation regression. The corrected build
+uses the typed Python Sphinx configuration API (235), disables regeneration of
+existing API stubs and preserves the four unrelated dirty RST files. Its actual
+terminal result is recorded separately.
+
+The corrected strict serial Sphinx HTML build passes (235). Rendered API,
+Foundations, Toolbox, Cookbook and four course pages all retain the upstream
+reference. Notebook code/outputs/metadata and protected original API stubs remain
+unchanged. The issue owner now explicitly records the accepted pre-1.0 decision
+while preserving its original opening text and historical record path.
