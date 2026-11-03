@@ -98,25 +98,32 @@ The refreshed board contains 87 open issues and two open PRs before the two
 metadata closeouts above. New incoming work is #537, PR #538, #539 and PR #540. These
 counts are a dated snapshot, not a live generated inventory.
 
-Next admitted defect/contribution reviews, in priority order:
+Current receiving and next admitted defect/contribution reviews:
 
-1. **[#542](pending_bugs/pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md):**
-   newly confirmed shared-context regression from #509. Both main 402bdc6e4 and
-   combined candidate dd2c958c6 fail the same four existing pi-pi bounded-read
-   guards (4,797 native passes / 16 optional skips / four failures each). The
-   addon tier is not executed after that native failure. Restore graph-only
-   preparation without losing genuine spatial site context; preserve the guards.
+1. **[#542](archive/resolved_bugs/pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md):**
+   resolved on main dbdbc9bfe. Frozen combined candidate a24b14f3d passes source
+   smoke 41730351587 (4,810 native passes / 16 optional skips and 2,658 addon
+   passes / four optional skips) and performance audit 41730356380. The original
+   bounded-read guards execute successfully; the old failures remain historical.
+   This defect no longer blocks the metadata contributions' remaining gates.
 2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
    and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to
    fail the source-file inventory. PR #538 proposes its correction plus four
    bound supported reports; #540 proposes seven attribute metadata tools. Both
    remain unmerged. Reconcile their inventories, retain newer guards and qualify
-   the combined integration. The #539 preparation/audit blocker is now resolved
-   on source 3920346fb; this does not make old PR checks or refreshed source pass.
+   the combined integration. Candidate a24b14f3d retains both PR ancestries,
+   passes 2,687 local tests without omissions and the corrected hosted smoke.
+   Full and Rust matrices remain queued; no integration or installed qualification
+   is inferred from the administrative/source-smoke gates.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
-3. **#511 and #516:** precomputed donor-shape and reference-selection defects.
-   Retain each original scientific acceptance contract and provider-owned correction.
-   #509 is now resolved with source-form/state/selection and bound-addon receiving.
+3. **[#511](archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md)
+   and [#516](archive/resolved_bugs/aromatic_detectors_reject_reference_mdtraj_selection.md):**
+   resolved with supplied donor-anchor/pair validation and reference-aware aromatic
+   selection. Final local receiving passes 2,021 source/bound-addon tests and 569
+   documentation/doctest cases without skips. Scientific criteria, sparse-output
+   restrictions and explicit-state external-selector limits are preserved. These
+   later corrections are separate from the frozen metadata candidate a24b14f3d.
+   #509's site/state/structure controls and #542's eager-read guards remain green.
 4. **[#541](pending_bugs/setuptools_minimum_for_pep639_license_metadata.md):**
    incoming DockingMT build-contract finding. Verify and qualify the Setuptools
    minimum for the existing license metadata before publication; no old-backend

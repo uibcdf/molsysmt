@@ -33,7 +33,12 @@ def build_site_plan(source, sites, assume_complete, max_matches):
     from molsysmt.chemical_states._chemical_graph import chemical_graph_context
 
     source, _, state, _, _, bonds, _ = chemical_graph_context(
-        source, sites["chemical_state_index"], "all", assume_complete, CALLER
+        source,
+        sites["chemical_state_index"],
+        "all",
+        assume_complete,
+        CALLER,
+        with_structures=False,
     )
     matches = get_substructure_matches(
         source,

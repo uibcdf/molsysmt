@@ -2386,3 +2386,21 @@ All 22 read-tool cases pass, including exact signature/digestion/help and two
 real group/chain output-parity cases preserving primary coordinates and scene.
 This consumer adjustment is part of the existing #421 receiving; it does not
 repair native science. The updated extraction guide block is checked separately.
+
+## Native input repairs and frozen metadata receiving — 2026-11-03
+
+The metadata candidate a24b14f3d retains PRs #538/#540 and passes the corrected
+source smoke 41730351587 (4,810 native passes / sixteen optional skips and
+2,658 addon passes / four optional skips) plus performance audit 41730356380.
+Its full and Rust matrices remain queued at this checkpoint; integration and
+#537 closure wait for their required executed evidence. This does not move the
+frozen candidate or certify an installed pair.
+
+Later native fixes for #511/#516 are received independently on the main working
+tree: supplied classic donor anchors/pairs, and public-reference external string
+selections for pi-pi/cation-pi. The addon delegates the same native contracts;
+its regressions now exercise the supported inputs and preserve sparse-output
+and explicit-state rejections. Final combined receiving passes 2,021 cases
+without omissions; documentation/doctests pass 569. Owning archived bug records
+retain exact scope, commands, environment and warnings. No rendering, automatic
+attachment, session or package-publication behavior is introduced.

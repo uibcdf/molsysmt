@@ -212,7 +212,7 @@ def read_poses(item, molecular_system, atom_map, structures, missing_atoms, repo
         else Path(item).read_bytes().decode("utf-8")
     )
     source, states, _, state_index, _, _, _ = chemical_graph_context(
-        molecular_system, "reference", "all", False, CALLER
+        molecular_system, "reference", "all", False, CALLER, with_structures=False
     )
     if states.n_chemical_states != 1:
         fail("Pose reading requires one known source chemical state.")

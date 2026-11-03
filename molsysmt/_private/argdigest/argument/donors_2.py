@@ -10,5 +10,5 @@ def digest_donors_2(donors_2, syntax="MolSysMT", caller=None):
 
     try:
         return digest_donors(donors_2, syntax=syntax, caller=caller)
-    except Exception:
-        raise ArgumentError("donors_2", value=donors_2, caller=caller, message=None)
+    except ArgumentError:
+        raise ArgumentError("donors_2", value=donors_2, caller=caller) from None

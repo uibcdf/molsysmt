@@ -111,6 +111,8 @@ def get_cation_pi_interactions(
         Sparse analysis object or its typed, versioned serialization dictionary.
     syntax : str, default='MolSysMT'
         Syntax used to evaluate selection and selection_2.
+        External string selections require chemical_state='reference' or None; explicit
+        state indices and 'structure' retain the selector's current restriction.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
     max_cyclic_block_size : int, default=256
@@ -266,7 +268,8 @@ def get_cation_pi_interactions(
     )
     from molsysmt._private.execution.sparse_accumulator import SparseColumnAccumulator
     from molsysmt._private.h5msm import modular_h5msm_dimensions
-    from molsysmt.basic import convert, get, select
+    from molsysmt.basic import convert, get
+    from molsysmt.chemical_states._chemical_graph import select_chemical_atoms
     from molsysmt.chemical_states._rings import ring_context
     from molsysmt.interactions.cation_pi._reducer import _CationPiReducer
     from molsysmt.interactions.result import Interactions
@@ -421,6 +424,7 @@ def get_cation_pi_interactions(
         frames,
         assume_complete_connectivity,
         _CALLER,
+        with_structures=not index_selections,
     )
     if method == "prolif":
         from molsysmt.chemical_states import get_substructure_matches
@@ -543,38 +547,27 @@ def get_cation_pi_interactions(
             )
     n_cations = len(center_members)
     members = center_members + ring_members
-    if index_selections:
-        selection_source = copy(states)
-        selection_source._reference_index = state_index
-        selection_state = "reference"
-    else:
-        selection_source = (
-            source
-            if isinstance(source, MolSys)
-            else convert(source, to_form="molsysmt.MolSys")
-        )
-        selection_state = state_index
-    first = np.unique(
-        select(
-            selection_source,
-            selection=selection,
-            structure_indices=selection_frames,
-            chemical_state=selection_state,
-            syntax=syntax,
-        )
-    ).astype(np.int64)
+    first = select_chemical_atoms(
+        source,
+        states,
+        state_index,
+        selection,
+        selection_frames,
+        syntax,
+        reference_request=chemical_state in (None, "reference"),
+    )
     second = (
         None
         if selection_2 is None
-        else np.unique(
-            select(
-                selection_source,
-                selection=selection_2,
-                structure_indices=selection_frames,
-                chemical_state=selection_state,
-                syntax=syntax,
-            )
-        ).astype(np.int64)
+        else select_chemical_atoms(
+            source,
+            states,
+            state_index,
+            selection_2,
+            selection_frames,
+            syntax,
+            reference_request=chemical_state in (None, "reference"),
+        )
     )
     if second is not None and np.intersect1d(first, second).size:
         raise ArgumentError(

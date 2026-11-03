@@ -386,10 +386,11 @@ def test_legacy_supplied_acceptors_and_native_unsupported_secondary_contracts(na
             donors=np.array([[0, 2]], dtype=np.int64),
             acceptors=np.array([1], dtype=np.int64),
         )
-        # The native supplied-donor route is independently reported; supported
-        # precomputed acceptors still work with automatically recognized donors.
         result = method(acceptors=roles["acceptors"], pbc=False)
         same(result, native(name)(view.molsys, acceptors=roles["acceptors"], pbc=False))
+        for donors in ([0], roles["donors"]):
+            supplied = dict(donors=donors, acceptors=roles["acceptors"], pbc=False)
+            same(method(**supplied), native(name)(view.molsys, **supplied))
         for kwargs in [
             dict(molecular_system_2=view.molsys),
             dict(**roles, output_type="molsysmt.Interactions"),
