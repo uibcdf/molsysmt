@@ -141,11 +141,30 @@ warnings include six MDAnalysis mass notices and one NumPy binary-size notice.
 These warnings are retained, not reclassified as failures or proof of measured
 memory savings. Local source tests do not qualify installed packages or platforms.
 
-The obsolete candidate's Rust matrix was cancelled; its full matrix cancellation
-was requested. Its failed smoke remains failed. New exact-source smoke/full/native
+The obsolete candidate's Rust and full matrices were cancelled. Its failed smoke
+remains failed. New exact-source smoke/full/native
 receiving is required on the refreshed integration branch before merging the
 metadata contributions. No tag, release or registry publication follows from this
 local result.
+
+## Frozen combined candidate receiving — 2026-11-03
+
+Main correction dbdbc9bfeb8a3963e533250f3a566861bcb2c34a is included in the
+published combined candidate a24b14f3d241893e51703588f9db07a3a70cf11d on
+`dev/review-tools-537-540`, retaining both reviewed PR ancestries. On this frozen
+commit, **2,687 passed**, no failures or skips, 379.60 seconds, two workers. The
+selection includes the complete 2,662-case bound addon, the original four pi-pi
+sentinels, the expanded cation-pi controls, new graph-only/PDBQT controls, archive
+validation and the hosted-command guard. All fourteen fast gates, full-tree Ruff
+and public docstring validation also pass. The original receipt remains unchanged;
+the new [corrected receiving receipt](../../devtools/data/molsysviewer_tools_corrected_receiving_20261103.json)
+records this distinct checkpoint, scope, warnings and hosted run identities.
+
+All nine new hosted workflows were queued at the last observation. They target
+the exact candidate above and the controlled Viewer source used locally. The
+metadata PRs and #537 remain unmerged/open pending their required executed gates;
+#542 remains partial pending corrected hosted receiving. No current local result
+is substituted for those remote checks or an installed-package qualification.
 
 ## Provenance
 
