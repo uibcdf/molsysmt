@@ -266,6 +266,8 @@ def check_native():
         raise AssertionError('unknown native keyword was accepted')
 check_native()
 import molsysviewer as msv
+from pathlib import Path
+assert Path(msv.__file__).resolve() == Path({str(Path(msv.__file__))!r}).resolve()
 with msv.new_view() as view:
     tools = view.addons.molsysmt.attribute
     assert tools.get_argument_aliases() == msm.attribute.get_argument_aliases()
@@ -279,7 +281,10 @@ with msv.new_view() as view:
     check_native()
 check_native()
 """
-    env = dict(os.environ, PYTHONPATH=str(ROOT))
+    env = dict(
+        os.environ,
+        PYTHONPATH=os.pathsep.join([str(ROOT), str(Path(msv.__file__).parents[1])]),
+    )
     result = subprocess.run(
         [sys.executable, "-c", program],
         cwd=ROOT,

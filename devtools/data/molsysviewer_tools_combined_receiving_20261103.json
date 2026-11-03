@@ -1,0 +1,105 @@
+{
+  "scope": "isolated source integration; not a wheel install or installed-pair qualification",
+  "source_commit": "0bdb4f55ec031597ea44ac07bceb20800ad35863",
+  "parent_main": "402bdc6e4b852453da4e3a95dcae867ddd5fa686",
+  "contributions": {
+    "538": "3c13ba1a5c248de11622ff015b24551f72c59846",
+    "540": "c31e7658db3f8308fbd084f4279c00e65e6f8207"
+  },
+  "python": "3.14.7",
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pytest-receptor": "1.2.1+22.g00a31c4",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "smonitor": "0.21.0+1.gd6b2394"
+  },
+  "viewer_source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+  "backend": {
+    "reused": true,
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "live_inventory": {
+    "exposed_paths": 155,
+    "native_paths": 244
+  },
+  "source_hashes": {
+    "molsysviewer_molsysmt/_api.py": "466a41371d002e0667597027c0ac53696dc84c9738fa12b8b23418077fd1ffc9",
+    "molsysviewer_molsysmt/_basic.py": "a1580138e363986b6461b65eb124a58ad2fa15b5ff50313c7a867edaddb613a7",
+    "molsysviewer_molsysmt/_attribute.py": "253778e27fa8fecad7878568452ba5c6d8f536f31a2439b51b210b8401454b50",
+    "molsysviewer_molsysmt/_supported.py": "01698c198f5eca4deaf4220c33ed8ed769609db5b732c6dec06b56ae9bd566a5",
+    "devtools/scripts/validate_rust_sdist.py": "0ab1305e15b4d58100fecc3c92c6aefa72e0acd57043d80ece3a14e846c99c64",
+    "devtools/scripts/viewer_tools_contract.py": "f6a9e61abfc066811cc4cfdb121cd9813d82c0c1135432cd27b332923f406b47",
+    "tests/molsysviewer_molsysmt/test_supported_tools.py": "c6b9c83f841689228be610c625be6e54bd352bf149cdb778007c6dbe269f8b8f",
+    "tests/molsysviewer_molsysmt/test_attribute_tools.py": "97dac79c1c0612d4742b7d46ba5c66014de1c1d3a155d7fb6c78e959f585facb"
+  },
+  "sdist": {
+    "source_commit": "0bdb4f55ec031597ea44ac07bceb20800ad35863",
+    "archive": "molsysmt-0.23.0+389.g0bdb4f55e.tar.gz",
+    "bytes": 59029845,
+    "sha256": "70522f0d1203c4a7bc5b649e4d30c1fcaedeace3e63f524d00e0ca7308b892bb",
+    "addon_directory_entries": [
+      "molsysmt-0.23.0+389.g0bdb4f55e/molsysviewer_molsysmt",
+      "molsysmt-0.23.0+389.g0bdb4f55e/molsysviewer_molsysmt/_private",
+      "molsysmt-0.23.0+389.g0bdb4f55e/molsysviewer_molsysmt/_private/argument",
+      "molsysmt-0.23.0+389.g0bdb4f55e/molsysviewer_molsysmt/_private/function"
+    ],
+    "old_classifier": "402bdc6e4:devtools/scripts/validate_rust_sdist.py",
+    "inventory": "candidate inventory shared unchanged by both classifiers",
+    "old_problems": [
+      "retired or unreviewed Viewer addon files remain: ['molsysviewer_molsysmt', 'molsysviewer_molsysmt/_private', 'molsysviewer_molsysmt/_private/argument', 'molsysviewer_molsysmt/_private/function']"
+    ],
+    "new_problems": [],
+    "scope": "real source archive validation; no wheel or installed-pair qualification"
+  },
+  "schema": "molsysmt.tools_combined_receiving@1",
+  "date": "2026-11-03",
+  "qualification": "local source receiving; hosted integration gates pending",
+  "combined_tests": {
+    "passed": 3362,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "seconds": 428.83,
+    "workers": 2,
+    "warnings": 1615,
+    "addon_cases_included": 2662,
+    "new_supported_cases_included": 74,
+    "new_attribute_cases_included": 126,
+    "source_commit": "0bdb4f55ec031597ea44ac07bceb20800ad35863",
+    "junit_sha256": "1f16e6c60299eefd9e29cc94fd218892dbf675dfa80a0029419e66d2e344cd79"
+  },
+  "documentation_tests": {
+    "passed": 538,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "seconds": 12.96,
+    "warnings": 142,
+    "junit_sha256": "36ee4de694bec94e3fc3cebc094a197b2c5dd1719ba145501ab5a10cee468a42"
+  },
+  "cold_host_followup": {
+    "passed": 6,
+    "exit_code": 0,
+    "seconds": 12.4,
+    "scope": "After the complete source run, enforce the same parent/child Viewer file origin and retain its import path in attribute cold-process tests. Only test-host isolation changes; runtime payload is unchanged.",
+    "junit_sha256": "e2b8d35fd8e2c7ae9b2df1655aacb701cfafdee6c97ba3dbebb502511a5b661a",
+    "source_file": "tests/molsysviewer_molsysmt/test_attribute_tools.py",
+    "test_sha256": "55a9f10308002c43fd72c4afd8db49d8f2855eb43b01eedd0903285f3fcf6641",
+    "verified_viewer_source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352"
+  },
+  "fast_gates": {
+    "passed": 14,
+    "ruff_lint": "passed",
+    "ruff_format": "passed",
+    "notebook_code_outputs_ids_metadata": "preserved against main 402bdc6e4"
+  },
+  "limits": [
+    "The original independent PR receipts retain their own source and host identities.",
+    "The shared development environment and reused backend do not qualify an installed wheel or dependency closure.",
+    "The real source archive belongs to the recorded 0bdb4f55e source; later evidence/test-only commits have different version identities.",
+    "No package floor, tag, Release, staging upload, main integration or artifact promotion is performed by this checkpoint."
+  ],
+  "viewer_scope": "The complete invocation binds its parent to the frozen ca7 source. Initial attribute cold-process tests did not forward that host path; the six-case follow-up enforces identical parent/child file origins. The original complete run is not relabelled as uniformly host-pinned."
+}

@@ -20,22 +20,30 @@ The isolated `dev/review-tools-537-540` candidate combines main 402bdc6e4,
 PR #538 head 3c13ba1a5c248de11622ff015b24551f72c59846 and PR #540 head
 c31e7658db3f8308fbd084f4279c00e65e6f8207. Both namespaces and all newer
 native/CI guards are retained. The reconciled inventory declares 155/244 paths;
-its actual live audit and combined source/distribution receiving are pending.
+the live audit confirms that count. Combined local receiving passes 3,362
+cases, including the full 2,662-case addon, without skips/failures. Documentation
+controls pass 538 cases and all 14 fast gates pass. Hosted qualification remains
+pending; the combined candidate is not on main.
 The old supported-report cold-process guard is tightened to the repaired native
 ArgumentConsistencyError contract; UnknownArgumentError is not accepted for an
-alias collision. Original contribution receipts below remain revision-specific.
+alias collision. A six-case follow-up enforces the actual parent Viewer file
+origin in every attribute subprocess; it passes with the frozen ca7ebea6 host.
+The [combined receipt](../../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
+keeps this follow-up separate from the preceding complete invocation. Original
+contribution receipts below remain revision-specific.
 This candidate is not integrated into main or qualified as an installed pair.
 
 
-## Supported metadata source increment — 2026-11-03
+## Original supported contribution receipt — 2026-11-03
 
-Four explicit `supported` wrappers now provide forms, conversions, dependencies
+On PR #538's original source, four explicit `supported` wrappers provide forms, conversions, dependencies
 and syntax-direction reports without a primary system. They preserve native
 signatures/defaults, digestion and output types, open-empty-view access and
 closed-owner refusal. No synchronization, scene/history update or registry copy
-is added. Source exposure becomes 148/244; attribute helpers and scientific edit
-families remain separate. The installed Rust-manifest prerequisite remains #533;
-native metadata/alias findings #534/#535 receive no consumer workaround.
+is added. That contribution exposes 148/244 paths; its attribute helpers and scientific edit
+families remain separate. Its original Rust-manifest/metadata prerequisites
+(#533/#534/#535) are now repaired on main; the original receipt does not qualify
+new main or combined installed payloads. No consumer workaround is introduced.
 
 The complete source addon selection passes 2,527 cases without failures, errors
 or skips, including all 74 new metadata cases, on this isolated source. Five

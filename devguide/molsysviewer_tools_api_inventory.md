@@ -4,7 +4,8 @@
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-03, isolated integration based on main `402bdc6e4`,
 combining PR #538's four supported reports and PR #540's seven attribute helpers.
-The candidate contains both namespaces; its combined receiving is pending.
+The candidate contains both namespaces; combined local receiving passes 3,362
+cases without skips/failures. Hosted integration gates remain pending.
 Original contribution evidence keeps its own source/host identity. Installed
 scene-loader receiving remains separate under uibcdf/molsysviewer#269.
 The prior 2026-10-28 source receiving extended ac30d5ba4 with four native
@@ -26,9 +27,10 @@ without calling scientific functions. A missing provider/host cannot silently
 be counted as zero. HEAD identifies the checkout basis; the inventory observes
 working-tree source too. Local receiving records identify tested code hashes.
 Keep historical receipts immutable; a new baseline needs a new dated snapshot.
-The [metadata receiving receipt](../devtools/data/molsysviewer_tools_supported_receiving_20261103.json)
-records the current four-tool increment and its raw inventory digest without
-publishing temporary checkout paths as operational instructions.
+The [combined receiving receipt](../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
+records the live 155/244 audit, source/archive hashes and separate test scopes.
+The original supported/attribute contribution receipts retain their own revisions;
+none certifies a published installed pair.
 
 ## Actual function-path exposure
 
