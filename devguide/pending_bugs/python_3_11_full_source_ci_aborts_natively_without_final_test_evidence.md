@@ -199,3 +199,24 @@ builder/documentation/diagnostic selection also passes (209, 237 passed, exit 0,
 20.48 seconds). These are diagnostic and targeted source results. The crash's
 cause-specific correction and a complete hosted source matrix remain pending;
 this report stays active and its original incomplete/failed runs remain retained.
+
+
+## Separate diagnostic-provider handoff — 2026-11-02
+
+The passing isolated Python 3.11 probe also reports two SMonitor argument-summary
+recursion warnings, for the ArgDigest wrapper and native MolSys constructor.
+Their observed provider is SMonitor 0.21.0 at
+`066b69cad8896cdc126d5586fd53268af4ea6490`, with ArgDigest 0.15.0 at
+`57447cc4ec1f7ce85078f8a939892efd075bc919`. The actionable diagnostic limitation
+is handed to [SMonitor #56](https://github.com/uibcdf/smonitor/issues/56), with
+sanitized messages and the exact passing-probe evidence. No minimal recursive
+input or causal connection to the later native crash has been established.
+No warning is suppressed and no dependency pin is changed.
+
+The corrected capture fixture is now published in provider
+`dbcb4582cbd93bef7b8b8ed4f3dfad1483fd05c7` and is being exercised by
+[exact-source run 41562051654](https://github.com/uibcdf/molsysmt/actions/runs/41562051654)
+against the same frozen Viewer ca7 source. The new diagnostic guard and isolated
+pinning steps report success before the complete suites in all five matrix cells
+that have started; three macOS cells remain queued at this observation. Those
+step conclusions are not a completed full-suite verdict. Older runs are retained.
