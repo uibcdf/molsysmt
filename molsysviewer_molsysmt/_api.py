@@ -5,6 +5,7 @@ from weakref import ref
 from argdigest import arg_digest
 from smonitor import signal
 
+from ._attribute import _AttributeTools
 from ._basic import _BasicTools
 from ._build import _BuildTools
 from ._chemical_states import _ChemicalStatesTools
@@ -21,6 +22,7 @@ class _MolSysMTTools:
     def __init__(self, view):
         self._view_ref = ref(view)
         self.basic = _BasicTools(self)
+        self.attribute = _AttributeTools(self)
         self.h5msm = _H5MSMTools(self)
         self.form = _FormTools(self)
         self.build = _BuildTools(self)
@@ -92,6 +94,7 @@ class _MolSysMTTools:
     def __dir__(self):
         return [
             "basic",
+            "attribute",
             "h5msm",
             "form",
             "build",

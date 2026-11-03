@@ -2,9 +2,11 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-11-03, based on `2e5c8b64b`, adds four explicit supported
-reports to the independently split graph/sequence domains. Installed receiving
-remains pending under uibcdf/molsysviewer#269 and uibcdf/molsysmt#533.
+**Snapshot:** 2026-11-03, isolated integration based on main `402bdc6e4`,
+combining PR #538's four supported reports and PR #540's seven attribute helpers.
+The candidate contains both namespaces; its combined receiving is pending.
+Original contribution evidence keeps its own source/host identity. Installed
+scene-loader receiving remains separate under uibcdf/molsysviewer#269.
 The prior 2026-10-28 source receiving extended ac30d5ba4 with four native
 composition mirrors and the separately qualified Viewer prefix-addition host. All fifteen canonical
 interaction paths remain exposed explicitly. Prior source and installed qualification retain
@@ -44,11 +46,11 @@ publishing temporary checkout paths as operational instructions.
 | element and declared children | 0 | 57 | 57 |
 | h5msm file utilities | 7 | 7 | 0 |
 | historical hbonds aliases | 0 | 4 | 4 |
-| attribute metadata helpers | 0 | 7 | 7 |
+| attribute metadata helpers | 7 | 7 | 0 |
 | supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 148 exposed out of 244 inspected public callable paths. This is not
+These are 155 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -75,7 +77,7 @@ The new source-preserving `form.file_fasta.read_records` and `parse_records`
 utilities (ae24866ba) are outside this 244-path functional inventory, which
 excludes form adapters. They are explicit file/text operations without a primary
 system slot. Both are now explicitly exposed at those same addon paths and independently
-received as file/text utilities. They are not included in 148/244 and do not
+received as file/text utilities. They are not included in 155/244 and do not
 justify exposing arbitrary adapters or binding filenames/text to view.molsys.
 
 ## Ordered expansion

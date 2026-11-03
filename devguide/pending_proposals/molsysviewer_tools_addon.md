@@ -14,6 +14,19 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Combined integration candidate — 2026-11-03
+
+The isolated `dev/review-tools-537-540` candidate combines main 402bdc6e4,
+PR #538 head 3c13ba1a5c248de11622ff015b24551f72c59846 and PR #540 head
+c31e7658db3f8308fbd084f4279c00e65e6f8207. Both namespaces and all newer
+native/CI guards are retained. The reconciled inventory declares 155/244 paths;
+its actual live audit and combined source/distribution receiving are pending.
+The old supported-report cold-process guard is tightened to the repaired native
+ArgumentConsistencyError contract; UnknownArgumentError is not accepted for an
+alias collision. Original contribution receipts below remain revision-specific.
+This candidate is not integrated into main or qualified as an installed pair.
+
+
 ## Supported metadata source increment — 2026-11-03
 
 Four explicit `supported` wrappers now provide forms, conversions, dependencies
@@ -32,6 +45,19 @@ pass in separate scopes. Original JUnit and scope limits are retained in the
 [maintained inventory](../molsysviewer_tools_api_inventory.md) and
 [usage guide](../../docs/content/user/tools/molsysviewer_tools.md#discovering-capabilities-before-loading-a-system)
 record the implementation scope. No package floor, tag or release is changed.
+
+**Attribute source increment — 2026-11-03:** an isolated contribution based on
+`639ec85d8` implements all seven explicit metadata helpers, following native
+repair `13f72af2` for #534/#535. Native attribute tests pass 340 cases, including
+cold imports; the new addon boundary passes 126 cases and distribution/CI
+controls pass 36. The complete source addon regression passes 2,579 cases with
+zero failures/errors/skips; owner PR integration remains pending.
+Source exposure is 151/244 on this branch; independent PR #538's four
+supported reports are not included. Combined integration will need 155/244,
+without dropping either namespace. This remains experimental source receiving,
+not installed qualification or a new package floor. #421 remains partial.
+The [receiving record](../../devtools/data/molsysviewer_tools_attribute_receiving_20261103.json)
+retains source hashes and the distinct archive/benchmark CI limits (#537/#539).
 
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.

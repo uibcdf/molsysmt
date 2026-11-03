@@ -6,6 +6,13 @@ syntax flags, independent metadata, closed-owner rejection and unchanged pending
 edits/scene/history. Declarations and dependency reports are not execution or
 installed-pair certificates. Do not bind a molecular system or add update_view.
 
+Preserve the explicit attribute-metadata namespace and open-empty-view contract.
+Keep raw canonical membership distinct from alias reporting and native validated
+classification, overlapping categories distinct from domain availability, and
+stored stable inventory distinct from state-local connectivity or conversion
+inference. Utilities must not read/synchronize the primary or alter scene/history;
+addon-only keyword digestion controls are not forwarded to flag-free native tools.
+
 Preserve the distinction between the initial experimental source API and
 published package compatibility. Keep the explicit qualified-tool inventory: six queries, native extraction and managed native removal and geometry-only setting with synchronization controls, plus native copy, conversion/preflight, composition predicates and non-mutating comparison.
 Update it only when more tools are implemented and qualified. Explain the bound primary system,

@@ -276,7 +276,4 @@ print(json.dumps({{'native_alias_error': before, 'metadata': 'passed'}}))
     assert result.returncode == 0, result.stdout + result.stderr
     record = json.loads(result.stdout.splitlines()[-1])
     assert record["metadata"] == "passed"
-    assert record["native_alias_error"] in {
-        "ArgumentConsistencyError",
-        "UnknownArgumentError",
-    }
+    assert record["native_alias_error"] == "ArgumentConsistencyError"

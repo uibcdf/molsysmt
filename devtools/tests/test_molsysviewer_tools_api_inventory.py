@@ -80,6 +80,8 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         assert rows[f"supported.{name}"]["exposed"]
         assert rows[f"supported.{name}"]["input_kind"] == "explicit_inputs"
     assert inventory["modules"]["supported"]["missing"] == []
+    assert inventory["modules"]["attribute"]["exposed_paths"] == 7
+    assert inventory["modules"]["attribute"]["missing"] == []
     assert "supported.syntaxes" in rows
     assert rows["supported.syntaxes"]["declaration_status"] in {
         "callable_compatibility_module",
