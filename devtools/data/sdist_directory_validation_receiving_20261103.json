@@ -1,0 +1,47 @@
+{
+  "schema": "molsysmt.sdist-directory-validation-receiving@1",
+  "date": "2026-11-03",
+  "issue": "uibcdf/molsysmt#537",
+  "source_before_fix": "4e1a06ee1ba698937696fd9b1e9dbb5f072a17b4",
+  "delivery": "Prepared on addon/supported-reports-20261103; owner-main integration pending.",
+  "mechanism": "TarInfo directory types were lost by converting entries directly to PurePosixPath. Addon directory entries were then mistaken for unreviewed files.",
+  "change": "Retain all entries for archive structure and forbidden-content checks; use non-directory entries for required source files and exact addon-file inventory.",
+  "guards": [
+    "devtools/tests/test_validate_rust_sdist.py::test_real_addon_directories_are_not_unreviewed_files",
+    "devtools/tests/test_validate_rust_sdist.py::test_directory_cannot_satisfy_a_required_file"
+  ],
+  "regression": {
+    "before": {
+      "failed": 4,
+      "passed": 0,
+      "junit_sha256": "8e9daa38d40cf5e8339f2f7dfe2006b5ade825ad03856f233a377e9d3d50a93a"
+    },
+    "after": {
+      "failed": 0,
+      "passed": 4,
+      "junit_sha256": "2e82aac6871c38a70d6a155e02e008e7d3923ee752bd3a0c5576843b2a23155f"
+    },
+    "package_and_ci_controls": {
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "junit_sha256": "bd4162be40ea5bc4ee8749b47499edd419ae2fa7a365a322be4a834d5eef71b5"
+    },
+    "ruff_lint_and_format": "passed"
+  },
+  "real_source_archive": {
+    "file": "molsysmt-0.23.0+373.g4e1a06ee1.tar.gz",
+    "bytes": 59026468,
+    "sha256": "58e05d28c440f48dde845993b5744f9d4f5182b426f4f5e08df5c83af68a6a5a",
+    "supported_module_matches_source": true,
+    "original_validator": "Rejects four addon directory entries as retired or unreviewed files.",
+    "corrected_validator": "Accepts the same unchanged archive bytes.",
+    "scope": "Local development source archive only; no wheel, native build, installation, upload or release qualification."
+  },
+  "limits": [
+    "Directory entries cannot satisfy required file paths.",
+    "Retired and unknown addon files still fail; no inventory wildcard or ignored error was added.",
+    "The 2527-case addon runtime result belongs to the unchanged feature source, separately from this distribution-validator fix.",
+    "No package version, tag, release, dependency floor or publication changes."
+  ]
+}
