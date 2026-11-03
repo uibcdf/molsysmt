@@ -19,8 +19,13 @@ fallback through its owner.
 | Topology bond/component counters | Native `molsys.get(...)` or `molsys.chemical_states.get(...)`, with an explicit state when needed. |
 | Topology component tables | ChemicalStates component queries through `get(element='component', ...)`. |
 | Topology chemical mutation/reconstruction | ChemicalStates `add_bonds`, `remove_bonds`, `rebuild_components` and supported `set` attributes. |
-| Nine `msm.topology` chemical-graph tools | The corresponding names under `msm.chemical_states`; see the [accepted migration inventory](pending_proposals/retire_topology_bonds_after_1_0_in_favor_of_chemicalstates.md). |
+| Nine `msm.topology` chemical-graph tools | The same function names under `msm.chemical_states`, listed below. |
 | Addon graph tools under `view.addons.molsysmt.topology` | `view.addons.molsysmt.chemical_states`; sequence alignment/identity remain under `.topology`. |
+
+The moved function names are `get_atom_correspondences`, `get_bondgraph`,
+`get_covalent_blocks`, `get_covalent_paths`, `get_dihedral_quartets`,
+`get_rigid_fragments`, `get_rings`, `get_rotatable_bonds` and
+`get_substructure_matches`. There are no old-path compatibility aliases.
 
 Sequence functions and chains remain in topology. Geometric dihedral calculations
 remain in structure; chemical dihedral-quartet enumeration belongs to
@@ -126,7 +131,7 @@ maps, physical units, provenance and analysis invalidation assertions.
 
 Coordinate with the receiving issues: `uibcdf/molsyssuite#155`,
 `uibcdf/molsysviewer#269`, `uibcdf/dockingmt#56`,
-`uibcdf/pharmacophoremt#69` and `uibcdf/topomt#100`.
+`uibcdf/pharmacophoremt#69`, `uibcdf/topomt#100` and `uibcdf/elastnetmt#31`.
 Record exact provider/consumer source identities and dirty state, then qualify
 installed artifacts separately when immutable package coordinates exist. Visual
 scene reconstruction and sessions remain owned by MolSysViewer.

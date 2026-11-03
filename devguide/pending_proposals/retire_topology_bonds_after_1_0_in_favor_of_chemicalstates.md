@@ -23,7 +23,8 @@ complete source qualification remains open. Pandas compatibility (#526), the cau
 and headless course execution (#528) have scoped corrections and retained
 regressions. Final qualification additionally exposed an existing MDTraj SASA
 buffer defect (#529), now protected in the adapter with focused passing evidence.
-Complete corrected-head local/platform qualification remains pending. The dated
+Complete corrected-head local qualification passes; remaining macOS full-suite
+qualification and documented source closeout remain pending. The dated
 scientific, documentation and benchmark scopes below stay separate from final
 exact-source/client acceptance; their receipts distinguish executed controls from
 pending work. No main merge or release is authorized by
@@ -234,8 +235,8 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P4: builder and lifecycle | P2, P3 | MolSys/Builder authority, stable membership, shared-axis remapping, copies, partial composition and analysis invalidation implemented and contract-tested | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Nine graph APIs, helpers, addon namespace, argument and scientific-attribution metadata migrated; graph controls pass; final integrated qualification pending | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Producers, Topology projections, dictionary 0.2, typed transports and H5MSM/legacy readers migrated; scoped fidelity debt explicitly retained; final integrated qualification pending | Versioned payloads, legacy readers, partial and full round trips |
-| P7: docs and consumer receiving | P5, P6 | Provider documentation, changed examples and strict Sphinx pass; Viewer core/addon and targeted TopoMT source receiving pass; DockingMT draft source CI passes; PharmacophoreMT and owner adoption/final qualification remain pending | Lifecycle docs and immutable consumer receipts |
-| P8: integrated source closeout | P1-P7 | Implementation and qualification receipts published; one complete local source checkpoint passes 23,733 cases; later source corrections have focused guards and final local/hosted runs remain in progress. Client-owner adoption and lifecycle closeout remain explicit; main integration is deferred by maintainer instruction | Exact-source checks, published implementation and issue receipt |
+| P7: docs and consumer receiving | P5, P6 | Provider delivery completed under maintainer delegation: lifecycle docs and Viewer/targeted TopoMT scopes pass; client draft PRs and corrective followups delivered. Owner adoption/final qualification remains explicitly external | Lifecycle docs and immutable consumer receipts |
+| P8: integrated source closeout | P1-P7 | Implementation and qualification receipts published; the complete corrected-conversion local source checkpoint passes 23,770 cases; the later SASA followup passes its focused/scientific controls and its final local/hosted runs remain in progress. Client-owner adoption and lifecycle closeout remain explicit; main integration is deferred by maintainer instruction | Exact-source checks, published implementation and issue receipt |
 
 Documentation work can accompany each implementation phase. Independent execution
 may overlap, but dependent phases cannot claim their exits early. The final
@@ -728,19 +729,25 @@ absence and source maps; malformed/unsupported payloads fail clearly and safely.
 
 - [x] P7.1 Update CORE_SPECIFICATION, native/query/conversion/invalidation guidance, API references, User Guide Foundations/Toolbox/Cookbook and affected Four Paths modules; execute changed examples.
 - [x] P7.2 Update owned AGENTS instructions for the new domain boundary and native dependencies. Shared synchronized guides stay read-only; request changes in their provider if needed.
-- [ ] P7.3 Publish a migration map and deliver consumer handoffs; receive MolSysViewer loaders/addon, DockingMT torsion/correspondence and PharmacophoreMT graph callers, and check TopoMT beyond a simple text search.
+- [x] P7.3 Publish the migration map and deliver the provider-side consumer handoffs: qualify Viewer loaders/addon and targeted TopoMT source calls, and provide owner-reviewed DockingMT/PharmacophoreMT draft PRs, issues and corrective followups. Their teams complete adoption and final client qualification under the maintainer delegation recorded below; those external outcomes are not claimed here.
 - [x] P7.4 Record exact old/new consumer/provider sources, required routes and pending package availability; preserve unrelated dirty/divergent sibling worktrees and historical evidence.
 
-Exit: no current documentation describes the old facade as the target model;
-client source receiving is identified and tested, or a specific unresolved impact
-keeps this phase open. Source receiving is not installed/public qualification.
+Exit: no current documentation describes the old facade as the target model.
+Provider receiving is identified and tested; unresolved client-owner work is
+explicitly handed off with exact sources, patches and failure evidence. The
+maintainer directs those teams to complete adoption using our patches. Thus P7
+records provider delivery, not a claim that every client branch is integrated.
+Client completion remains in Viewer #269, DockingMT #56/PR #59, PharmacophoreMT
+#69/PR #70, TopoMT #100 and ElastNetMT #31, coordinated by MolSysSuite #155. Source receiving is
+not installed/public qualification, and this handoff does not waive client or
+release gates.
 
-### P8: integration, merge and source closeout
+### P8: development-branch integration and source closeout
 
-- [ ] P8.1 Run the relevant and full required source tests using the shared Python 3.14 environment and Pytest Receptor, with concurrency bounded by available memory (two workers after the maintainer-authorized memory pause on 2026-10-30); complete Ruff and API/form/dependency/devguide/documentation gates.
+- [x] P8.1 Run the relevant and full required source tests using the shared Python 3.14 environment and Pytest Receptor, with concurrency bounded by available memory (two workers after the maintainer-authorized memory pause on 2026-10-30); complete Ruff and API/form/dependency/devguide/documentation gates.
 - [x] P8.2 Compare representative scientific values and source/index/units/provenance independently; execute strict documentation and changed notebook/doctest examples. The dated receipts qualify the actual scientific and documentation scopes; they do not clear the separate full-suite/client gate.
 - [x] P8.3 Measure representative native query/copy and file/streaming workloads after correctness. Record inputs/environment; reject accidental full trajectory loads, repeated chemistry copies or unbounded scans. C7's recorded target is a content-hashed development tree, not an exact-commit release benchmark; its slower cases and private-codec scope remain explicit.
-- [ ] P8.4 Merge the coherent result using the authorized local route, publish an unskipped head, inspect exact-source CI with GH Run Receptor and record any missing evidence. No force/reset or PR requirement is introduced here.
+- [ ] P8.4 Publish the coherent development-branch checkpoint without skipping CI, inspect its exact-source CI with GH Run Receptor and retain actual missing/failed evidence. The current maintainer objective explicitly forbids merging or releasing; the earlier main-merge step is deferred, not reported as executed. No force/reset or PR requirement is introduced here.
 - [ ] P8.5 Place final rules in maintained normative guidance, select an actual mechanically addressable regression guard, archive this plan and close #255 with the implementation commit and settled limitations.
 
 Exit: a coherent source delivery, explicit consumer impact and all applicable
@@ -3338,3 +3345,201 @@ Foundations, Toolbox, Cookbook and four course pages all retain the upstream
 reference. Notebook code/outputs/metadata and protected original API stubs remain
 unchanged. The issue owner now explicitly records the accepted pre-1.0 decision
 while preserving its original opening text and historical record path.
+
+
+### Complete corrected-conversion local source result — 2026-11-02
+
+The isolated 64b8694e9 local run completes with **23,770 passed, two skipped,
+zero failures/errors**, exit 0, 2,364.98 seconds (230). The finalized canonical
+receptor artifact is session-complete and integrity-valid, without dropped
+primary records; JUnit independently agrees on 23,772 executed cases and both
+skips. Optional extension evidence separately records 5,625 retained and 1,663
+dropped events and is incomplete. No complete extension-payload claim is made.
+The 4,164 warnings remain visible. The skips are the RDKit-dependent CCO form
+interpretation case and absent CuPy. Forty extended LEaP peptide-parity cases
+remain outside the unchanged default collection policy; xdist's master final
+record reports zero deselections, which does not change that policy scope.
+
+The exact source worktree remains tracked-clean, the original four unrelated
+API stubs and linked Rust/version files retain their frozen hashes, and the
+four source-backed support-library commits/package diffs remain unchanged.
+This result establishes the full local corrected-conversion checkpoint; it
+is not relabeled as testing the later MDTraj adapter correction.
+
+Final source de7ffad2a separately passes all 79 registered scientific cases for
+59 nodes with no skips (236). Its complete default local selection is now
+running in another frozen clean worktree with two workers after 230 terminates,
+using the shared development Python, existing native extension, runtime-only
+Viewer ca7 path and approved public-network access for the unchanged download
+tests. OMP_NUM_THREADS=1 explicitly exercises provider worker reuse; the new
+regression also independently requests one/two threads. Hosted run 41572981893
+uses the same source and Viewer identities. Final local and hosted outcomes
+remain pending; no merge, release or installed-package qualification is claimed.
+
+
+### Reconciling closeout ownership with maintainer instructions — 2026-11-02
+
+The maintainer assigns completion of the delivered client patches to their own
+teams. P7.3 therefore records completed provider delivery, with explicit external
+adoption dispositions, rather than silently claiming an integrated client. At the
+latest board inspection, DockingMT draft PR #59 at 07f3651dcfb24da7df3622b5333742b2f666675b
+is open/unmerged and its Linux Python 3.11–3.14 source/quality/governance checks
+pass. PharmacophoreMT draft PR #70 at 300d8f43050f4f9db3669c991a6d8965e9f0ecaf
+is open/unmerged with the same eight failed source cells; the separately delivered
+corrective patch remains unapplied/unqualified. Neither result is exaggerated.
+The actual Viewer/TopoMT scopes and package-availability limits stay in their
+receipts above. The client owners and MolSysSuite #155 retain coordination.
+
+P8.4 is also reconciled with the active explicit objective: complete the work
+on dev/chemical-states-separation-255 without merging or releasing. Its historical
+main-integration action is deferred under that instruction, not checked off or
+performed. The required full source and scientific gates remain unchanged;
+final local/platform evidence and documented #255 closeout are still pending.
+
+
+### Retiring known-obsolete source matrices — 2026-11-02
+
+Both preceding matrices still omit the demonstrated MDTraj SASA correction:
+dbcb run 41562051654 additionally predates the OpenMM recursion fix; 64b run
+41569717011 has the conversion fix but not SASA protection. The final de7 source
+and Viewer ca7 identities are already published and actively tested by run
+41572981893 and complete local run 236. Preserving the obsolete active matrices
+would consume the macOS slots needed by that final candidate.
+
+Before retirement, exact source identities, official job states and artifact
+manifests are captured (239). The dbcb run already has three complete successful
+Linux 3.12–3.14 cells and independently failed Linux/macOS 3.11 and macOS 3.14
+cells. Its remaining two macOS jobs are active. The 64b run has a complete
+successful Linux 3.13 cell; other outcomes remain active/queued at that snapshot.
+Raw counts are not inferred from official job success. Cancellation is requested
+for those two superseded runs only, because of the established source defect
+and existing corrected candidate, not because observation expired. Their actual
+terminal statuses and retained complete/partial evidence must still be inspected.
+The final de7 matrix and two-worker local suite are not cancelled or restarted.
+No incomplete old cell is treated as a passing or final-head qualification.
+
+
+Both obsolete runs subsequently reach official completed/cancelled status (240).
+The actual 64b Linux 3.13 log reports 23,668 passed, 102 skipped, 40 deselected,
+exit 0, 2,859.04 seconds. The actual Linux 3.11 preflight reports 13 passes,
+exit 0, 1.25 seconds without the former summary-recursion warnings; its full
+suite was interrupted and is not qualified by that probe. SMonitor #56 is
+withdrawn, retaining evidence and the consumer-side diagnosis without claiming
+a provider fix. Retiring the obsolete matrices frees macOS capacity, and the
+final de7 cells start. Final local and eight-cell source results remain pending.
+
+
+### Maintainer-requested five-client review delivery — 2026-11-02
+
+Diego explicitly requests review issues in TopoMT, DockingMT, PharmacophoreMT,
+ElastNetMT and MolSysViewer. The four existing same-theme receiving issues
+are reused rather than duplicated: TopoMT #100, DockingMT #56,
+PharmacophoreMT #69 and MolSysViewer #269. ElastNetMT receives new issue #31,
+separate from its earlier copy/cache issue #28. Each request identifies source
+de7ffad2a, the immutable migration/core/plan references, nine moved graph tools,
+state/domain and dictionary/H5MSM contracts, source-versus-package limits and a
+component-specific review scope. Each asks its owner for exact consumer/provider
+sources, actual commands/outcomes and remaining gaps, without weakening science
+or inventing a compatibility facade. Existing draft PRs and the unapplied
+PharmacophoreMT corrective followup retain their explicit qualification limits.
+
+The request URLs are TopoMT #100 comment 6595194620, DockingMT #56 comment
+6595194944, PharmacophoreMT #69 comment 6595195103, ElastNetMT #31 and
+MolSysViewer #269 comment 6595195406. Public bodies are read back and compared
+with the reviewed English source text (241). All carry the registered
+component:molsysmt relationship. Suite status is refreshed for those five
+components; their behind/divergent and unrelated dirty states remain untouched.
+No client code, source pin, main branch, tag or package is changed by this delivery.
+Review requests are not claimed as owner acceptance or final qualification.
+
+
+### Final-source registered science on all eight cells — 2026-11-02
+
+The actual scientific certificates are downloaded from final-source run
+41572981893 and verified individually (242), rather than inferred from upload
+steps. Each identifies exact provider de7ffad2a and tracked-clean source and
+reports **79/79 cases for 59 registered nodes, zero failures/errors/skips,
+pytest exit 0**. All eight cells agree: Linux and macOS with Python 3.11.18,
+3.12.16, 3.13.18 and 3.14.10. Each downloaded certificate's content SHA-256 is
+retained in the private qualification summary.
+
+This is eight executions of the same registered scientific scope, not 632
+distinct scientific cases or certification of every public method/profile.
+Complete suites, whose selections are broader, still run. Installed packages,
+main integration and publication remain outside this source receipt. The local
+final-source full selection remains active, with its latest published milestone
+at 40%; no partial milestone is treated as a terminal verdict.
+
+
+### Three completed final-source Linux suites — 2026-11-02
+
+Exact final source de7ffad2a now completes Linux/Python 3.11, 3.12 and 3.13
+successfully in run 41572981893. Actual raw logs, complete canonical receptor
+artifacts and JUnit are retained and agree (243/244). Each executes 23,774
+cases: **23,672 passed, 102 skipped, zero failures/errors/not-executed**, exit 0,
+with 40 extended LEaP cases deselected by the existing default policy.
+
+| Linux cell | Full-suite time | Visible warnings | Installed Pandas in actual job |
+| --- | ---: | ---: | --- |
+| Python 3.11.18 | 2,189.90 s | 3,634 | 2.3.3 |
+| Python 3.12.16 | 2,305.50 s | 4,766 | 3.1.0 |
+| Python 3.13.18 | 2,121.25 s | 4,766 | 3.1.0 |
+
+All three primary artifacts are finalized, session-complete, integrity-valid
+and untruncated, with no dropped primary records. The pinned CI receptor 1.1.0
+omits the later optional extension summary field; no supplementary extension
+coverage is inferred from that absence. Initial private analysis assumed that
+optional field existed; the reader-side summary is corrected without changing
+or rerunning tests or altering the original artifacts.
+
+Representative real call records are independently matched in every cell:
+39 native authority cases, the graph-namespace guard, 50 atomic chemical-edit
+cases, the writable/detached codec guard, all ten bounded OpenMM conversion
+controls, all four real-provider MDTraj worker-reuse cases and all six actual
+plotting lessons (two geometric/four comparison). Each matched call passes;
+none of these core/cause-specific guards is hidden in the reported omissions.
+This matching proves their execution, while the reviewed assertions and earlier
+red controls establish their meaning. It does not promote every public method
+or scientific profile to validated status.
+
+In particular, the formerly aborting Linux/Python 3.11 complete suite now finishes
+rather than merely passing the isolated probe. Local final source has reached
+its published 80% milestone and is still active. Linux 3.14 and all four macOS
+complete suites remain pending; the eight narrow science certificates do not
+substitute for those broader outcomes. No merge/release/installed claim is made.
+
+
+### Complete final-source local and four-Linux results — 2026-11-02
+
+The final isolated de7ffad2a local suite completes: **23,774 passed, two skipped,
+zero failures/errors/not-executed**, exit 0, 2,377.96 seconds (236/245). Its
+finalized canonical primary artifact is session-complete, integrity-valid and
+untruncated with no dropped primary records; JUnit agrees on all 23,776 executed
+cases. The two skips remain the RDKit CCO form interpretation case and absent
+CuPy; 40 extended LEaP cases stay outside the unchanged default collection
+policy despite the xdist-master final counter of zero deselections. All 4,164
+warnings remain visible. Optional extension evidence separately retains 5,624
+records and drops 1,663; its completeness is not claimed.
+
+Postflight confirms tracked-clean frozen source, unchanged linked Rust/version
+hashes and the same four source-backed support-library commits with zero package
+diffs. No package install, rebuild or extra test environment was used. The
+14 fast gates pass again; whole-tree Ruff/formatting passes 4,221 files. Earlier
+strict Sphinx, affected docstrings/examples and science receipts remain scoped
+to their actual unchanged runtime/inputs. P8.1's local source obligation is now
+satisfied; it does not waive P8.4's remaining complete macOS observations.
+
+Linux/Python 3.14 also completes in final run 41572981893/job 125710060171:
+**23,672 passed, 102 skipped, 40 deselected**, zero failures/errors/not-executed,
+exit 0, 2,880.63 seconds and 4,766 visible warnings. Its actual job installs
+Pandas 3.1.0. Canonical primary evidence is finalized, session-complete,
+integrity-valid and untruncated; JUnit independently agrees (245). Thus all four
+final-source Linux suites pass. All four complete macOS suites remain active;
+registered science on those cells has already passed its distinct 79-case scope.
+
+Future recovery of provider batch throughput and removal of the protected SASA
+single-structure path is now owned explicitly by #530, milestone Post-1.0, with
+a separate acceptance plan. It requires a published verified upstream fix,
+constrained-thread analytic/independent parity, measured performance/memory and
+continued Python 3.11–3.14 compatibility. No new numerical method or floor is
+promised. That future optimization is not a missing correctness step in #255.

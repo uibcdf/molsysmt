@@ -37,8 +37,10 @@ blocking point. The retained phases identify the test, not the precise Python
 statement; there is no direct faulting-frame evidence for `show()` in the old
 run. Do not treat that hypothesis as an independently observed stack trace.
 
-The guard now runs these two geometric notebooks in a scoped Agg/noninteractive
-fixture, restoring the preceding backend and interactive setting afterward.
+The shared guard fixture now runs both geometric notebooks and all four
+comparison lessons with scoped Agg/noninteractive rendering, restoring the
+preceding backend and interactive setting afterward. The expanded-scope section
+below records why the initial two-notebook correction was insufficient.
 It still executes the real display call, scientific transformations and
 assertions. A display spy requires an Agg canvas and writes the actual figure
 to PNG bytes, so the test proves rendering instead of replacing display with a
@@ -132,3 +134,30 @@ RMSD and geometric assertions, input substitutions, notebook cells and saved
 outputs are unchanged. All six noninteractive-show warnings remain visible.
 Hosted acceptance must use the complete six-lesson correction rather than
 assuming the earlier exact commit contains it.
+
+
+## Partial hosted evidence — 2026-11-02
+
+The old two-notebook-only source run 41552267703 is now terminal: all four
+macOS jobs are cancelled, three Linux cells succeed and Linux/Python 3.11 aborts
+natively. Its result is preserved and does not qualify the later shared fixture.
+
+The complete six-lesson fixture is present in dbcb4582c. Its macOS/Python 3.14
+full suite reaches a terminal summary in 2,305.58 seconds: 23,599 passed,
+54 failed, 103 skipped, 40 deselected, exit 1 (231). All failures are the
+independent MDTraj SASA issue #529; the six plotting lessons execute and the
+six real noninteractive-show warnings are retained. The separate scientific
+certificate passes 79/79 cases for 59 nodes. This demonstrates progress past
+the prior plotting boundary in that one cell, not a successful complete macOS
+matrix. Other active cells and final candidate de7ffad2a retain their actual
+independent outcomes. Complete hosted acceptance remains pending.
+
+
+## Final-candidate Linux rendering execution — 2026-11-02
+
+All six actual plotting-lesson calls are matched to passing phase records in
+each final-source Linux 3.11/3.12/3.13 artifact (243/244). Complete suites pass,
+and their primary evidence is finalized/integrity-valid/untruncated and agrees
+with JUnit. These checks preserve real show/render and scientific assertions;
+they do not establish that all four pending macOS suites finish. Hosted macOS
+acceptance remains open rather than being inferred from Linux.

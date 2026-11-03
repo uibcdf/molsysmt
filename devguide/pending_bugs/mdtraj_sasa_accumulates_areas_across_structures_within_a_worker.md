@@ -16,8 +16,9 @@ supersedes: []
 # MDTraj SASA accumulates areas across structures within a worker
 
 **Reported:** 2026-11-02, while completing the ChemicalStates source qualification.
-**Status:** A local adapter correction passes focused tests; final source qualification
-and preservation of the workaround-removal condition remain pending.
+**Status:** The adapter protection passes focused/local science and three complete
+final-source Linux suites. Remaining source/platform qualification is pending.
+Future upstream batching qualification and removal are tracked separately in #530.
 
 ## What
 
@@ -143,3 +144,19 @@ Sphinx command used an incorrectly typed CLI override and failed with
 configuration warnings; its unsuccessful log is preserved separately. These
 results qualify the adapter correction locally, without relabeling older
 full-suite or in-progress platform evidence.
+
+
+## Final-candidate Linux worker-reuse execution — 2026-11-02
+
+All four real-provider worker-reuse cases are matched to passing call records
+in each final-source Linux/Python 3.11, 3.12 and 3.13 complete artifact (243/244),
+not hidden in optional-dependency omissions. Each full suite passes 23,672 cases,
+with 102 skips and 40 default-policy deselections, exit 0; complete canonical
+primary evidence and JUnit agree. The actual macOS suites, including the
+original failing platform, remain pending. Keep the documented performance
+tradeoff and upstream-fix qualification/removal condition explicit.
+
+Future restoration of batched provider evaluation is explicitly owned by #530
+and its [acceptance plan](../pending_proposals/qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md).
+That post-1.0 performance work retains the real worker-reuse guard and does not
+turn the protected adapter into an unresolved scientific correctness defect.

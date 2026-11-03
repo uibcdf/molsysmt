@@ -134,3 +134,15 @@ abort #527, and macOS stops in a documentation example before these regression
 cases (#528). The Pandas correction is now executed successfully against the
 actual current version on three complete source cells; final all-platform
 acceptance remains separate and open. Old failed runs remain retained.
+
+
+## Final-candidate Linux execution — 2026-11-02
+
+Final source de7ffad2a completes Linux/Python 3.11–3.13 in run 41572981893:
+each passes 23,672 cases, with 102 skips and 40 default-policy deselections,
+exit 0 (243/244). Actual 3.12/3.13 logs identify Pandas 3.1.0; Python 3.11
+uses 2.3.3. Canonical finalized/integrity-valid/untruncated primary artifacts
+and JUnit agree. The writable/detached codec regression is explicitly matched
+to a passing call in every cell, not inferred from a job summary. Visible
+Pandas deprecations remain retained. Linux 3.14 and macOS final-suite acceptance
+remain pending, so this report stays active.

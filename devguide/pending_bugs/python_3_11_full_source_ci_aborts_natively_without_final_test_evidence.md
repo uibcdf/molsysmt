@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-10-30, inspecting the exact-source matrix for #255.
 **Status:** Active; retained Linux/macOS traces and a bounded regression identify
-a recursive edge-free OpenMM conversion. The candidate correction passes local
-controls; exact-source cross-platform qualification remains pending.
+a recursive edge-free OpenMM conversion. The correction passes local controls and the final-candidate complete
+Linux/Python 3.11 suite; remaining cross-platform qualification is pending.
 
 ## What
 
@@ -37,12 +37,17 @@ on MolSysMT `9fb77c3583b44dda31c0466348369de137301df9` with controlled Viewer
 
 ## How
 
-The cause is unknown. The last compact progress record is approximately 80%,
+At opening, the cause was unknown. The last compact progress record was approximately 80%,
 18,986/23,732 cases, around 2,715 seconds. These are progress observations,
 not final passed/failed counts. The faulthandler output contains numerous
 waiting threads in `nglview/remote_thread.py:47` and ends in an ellipsis; it
 does not identify the faulting Python frame. No responsible native extension
 has been established from this dump.
+
+The later retained current-thread traces and bounded conversion regression establish
+consumer-side OpenMM conversion recursion; see the cause-specific section below.
+The initial uncertainty and failed diagnostic attempts are preserved as history,
+not as the current diagnosis. The corrected full source matrix remains pending.
 
 The workflow now requests pytest-receptor's bounded, flushed per-phase JSONL
 stream alongside JUnit, and uploads either existing file even after failure.
@@ -83,10 +88,12 @@ no dependency bump or speculative provider fix is required for retention.
 
 ## What was refuted
 
-No native root-cause hypothesis has been eliminated by a narrow reproduction
-yet. The presence of waiting NGLView threads does not prove that NGLView is
-responsible. Neither Rust, PyTraj, BLAS nor the reporter is identified as the
-cause. The Pandas fix is not described as fixing this independent abort.
+At opening, no native root-cause hypothesis had been eliminated by a narrow
+reproduction. Waiting NGLView threads did not identify NGLView as responsible.
+The later bounded regression establishes recursive consumer conversion without
+requiring an OpenMM Context or modifying a native provider. No Rust, PyTraj, BLAS,
+Pandas or reporter memory-corruption defect is established. The separate Pandas
+compatibility correction is not the cause-specific fix for this recursion.
 
 ## Scope and exclusions
 
@@ -272,3 +279,48 @@ standalone guard suite, actual pinning and CI-contract scope are rechecked after
 optional-backend fixture and workflow receiving. The full CI preflight now runs
 these bounded conversion guards before the unchanged complete suite. Controlled
 Python 3.11 and full-matrix acceptance remain required before this report closes.
+
+
+## Correcting the diagnostic handoff — 2026-11-02
+
+SMonitor #56 receives a cause clarification after the consumer cycle is established.
+Its original warnings do not show that SMonitor creates recursion or fails on an
+ordinary nonrecursive input. The fallback retained the successful probe outcome;
+no independent summary reproducer or necessary provider fix is established.
+Original evidence remains intact, and final controlled-probe disposition awaits
+its actual log. The broad 826-case correction scope remains local evidence,
+not a prematurely asserted complete Python 3.11/platform result.
+
+
+## Controlled probe disposition and superseded-run retirement — 2026-11-02
+
+The actual 64b8694e9 Linux/Python 3.11 raw job log confirms the combined
+conversion/pinning probe passes **13 cases**, exit 0, 1.25 s (240). It contains
+no argument-summary recursion warning; the separate scientific certificate
+passes 79/79 cases/59 nodes. This supports the cause-specific correction but
+is not a completed full Python 3.11 suite. SMonitor #56 is withdrawn as not
+planned: no independent ordinary-input provider defect is established and no
+provider change is claimed. Its original warnings and consumer diagnosis stay
+publicly preserved. Residual diagnostic bugs would need an independent input.
+
+The 64b Linux/Python 3.13 complete suite independently passes 23,668 cases,
+with 102 skips and 40 deselections, exit 0, 2,859.04 s. Both preceding matrices
+are then retired for their established obsolete source defects, after recording
+exact heads, job states and artifact manifests. Runs 41562051654 and
+41569717011 are now officially completed/cancelled; completed successful and
+failed cells retain those actual individual conclusions. The active de7 source
+matrix 41572981893 and final local run 236 are preserved. This retirement is
+not an observation-timeout retry or a waiver of final full-matrix acceptance.
+
+
+## Complete final-candidate Linux 3.11 success — 2026-11-02
+
+Final de7ffad2a source run 41572981893/job 125710060189 completes with
+**23,672 passed, 102 skipped, 40 deselected**, zero failures/errors/not-executed,
+exit 0, 2,189.90 seconds. The actual canonical artifact is finalized, complete,
+integrity-valid and untruncated; JUnit independently agrees (243). All ten
+cause-specific bounded conversion controls are matched to executed passing
+calls. The earlier isolated probe is no longer the only Linux 3.11 evidence.
+No responsible provider memory-corruption claim is introduced. The final macOS
+3.11 and other remaining full cells still need their actual outcomes before
+this report's complete-matrix condition is satisfied.
