@@ -76,6 +76,8 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     )
     assert rows["basic.add"]["input_kind"] == "primary"
     assert rows["attribute.get_argument_aliases"]["input_kind"] == "explicit_inputs"
+    assert inventory["modules"]["attribute"]["exposed_paths"] == 7
+    assert inventory["modules"]["attribute"]["missing"] == []
     assert not rows["supported.forms"]["exposed"]
     assert "supported.syntaxes" in rows
     assert rows["supported.syntaxes"]["declaration_status"] in {

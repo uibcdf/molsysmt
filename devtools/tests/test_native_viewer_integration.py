@@ -64,6 +64,13 @@ def test_installed_backend_requires_a_file_inventory():
         installed.validate_native_viewer_metadata(distribution)
 
 
+def test_installed_metadata_requires_attribute_tools_source():
+    with pytest.raises(RuntimeError, match="files are missing"):
+        installed.validate_native_viewer_metadata(
+            _distribution(files=TOOLS_FILES - {"molsysviewer_molsysmt/_attribute.py"})
+        )
+
+
 @pytest.mark.parametrize("name", ["molsysmt", "renamed-provider"])
 def test_installed_backend_rejects_retired_addon_entry_point(name):
     distribution = _distribution(

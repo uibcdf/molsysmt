@@ -14,6 +14,19 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+**Attribute source increment — 2026-11-03:** an isolated contribution based on
+`639ec85d8` implements all seven explicit metadata helpers, following native
+repair `13f72af2` for #534/#535. Native attribute tests pass 340 cases, including
+cold imports; the new addon boundary passes 126 cases and distribution/CI
+controls pass 36. The complete source addon regression passes 2,579 cases with
+zero failures/errors/skips; owner PR integration remains pending.
+Source exposure is 151/244 on this branch; independent PR #538's four
+supported reports are not included. Combined integration will need 155/244,
+without dropping either namespace. This remains experimental source receiving,
+not installed qualification or a new package floor. #421 remains partial.
+The [receiving record](../../devtools/data/molsysviewer_tools_attribute_receiving_20261103.json)
+retains source hashes and the distinct archive/benchmark CI limits (#537/#539).
+
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound

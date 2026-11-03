@@ -1,0 +1,100 @@
+{
+  "schema": "molsysmt.viewer-attribute-source-receiving@1",
+  "date": "2026-11-03",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "source_base": "639ec85d831482c06ed871509b8dc0a6a6f7f01c",
+  "native_repair": "13f72af2c9630bf768e03b59e2c973d5c6def4f4",
+  "viewer_source": "e41610b74ec9525b50c93a14d1d4d1fda5b952a5",
+  "source_scope": "Seven explicit attribute utilities, open-empty-view lifetime binding only; no molecular reader, synchronization, scene/history or scientific changes.",
+  "backend": {
+    "provider": "639ec85d831482c06ed871509b8dc0a6a6f7f01c",
+    "native_repair": "13f72af2c9630bf768e03b59e2c973d5c6def4f4",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "scope": "Unchanged reused backend for isolated source checks; no build or installation."
+  },
+  "inventory": {
+    "native": 244,
+    "branch_exposed": 151,
+    "attribute_exposed": 7,
+    "supported_exposed": 0,
+    "independent_supported_pr": "uibcdf/molsysmt#538",
+    "combined_exposure_after_owner_integration": 155,
+    "combined_integration_qualified": false,
+    "collector": "devtools/scripts/audit_molsysviewer_tools_api.py",
+    "raw_sha256": "fe2e6def759766d8e836c6cc2acafe5001d8467f51494017e05c58b997075bda"
+  },
+  "validation": {
+    "native_attribute": {
+      "tests": 340,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "0e349c50c86ff24a9d8534c75af602281ffdaa841d55c71f713203abc1a04853"
+    },
+    "new_addon_metadata": {
+      "tests": 126,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "d3de0f3902d8fd49f221cd8375b038c82fdcf3bcb456908667759c2eccf71166"
+    },
+    "distribution_and_ci_structure": {
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "e30aa87b125b516bbc17740152dd0656e5880adce2044f23687afda03309b279"
+    },
+    "notebook_schema": {
+      "tests": 496,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "94665c62fc12c77aaee228d73cc711a2803db4513ddc93c8603794d6698be9ce"
+    },
+    "complete_addon": {
+      "tests": 2579,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 630.87,
+      "new_attribute_cases": 126,
+      "junit_sha256": "1d0e55421cd804aabc0e97c459e09c3912f6fd9601a52fb298c8defc57f426a2",
+      "native_log_sha256": "e552f13d3787c78647f37e5895ded5eac8f60e828f65ccbbf95ff6e09e4b4024",
+      "warnings": 1581,
+      "scope": "One complete source-addon invocation after implementation, using the unchanged reused backend; no installed-artifact claim."
+    },
+    "guide_block": "executed successfully",
+    "course": "156 notebooks valid; only Markdown cell 5 extended, all code/output cells and schema preserved.",
+    "native_docstrings": "246 pass fidelity/nonvacuity checks",
+    "ruff": "Full-tree check/format pass: 4307 files formatted",
+    "devguide": "validation and generated indexes pass"
+  },
+  "catalog_review": {
+    "attributes": true,
+    "attribute_synonyms": true,
+    "independent_attributes": true,
+    "topological_attributes": true,
+    "structural_attributes": true,
+    "mechanical_attributes": true,
+    "chemical_state_attributes": true
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_attribute.py": "253778e27fa8fecad7878568452ba5c6d8f536f31a2439b51b210b8401454b50",
+    "molsysviewer_molsysmt/_api.py": "0c0032b220c9d1e1389f445efebc3be0238c635aa14b252fd043ff9ec6ad765b",
+    "tests/molsysviewer_molsysmt/test_attribute_tools.py": "97dac79c1c0612d4742b7d46ba5c66014de1c1d3a155d7fb6c78e959f585facb",
+    "devtools/scripts/viewer_tools_contract.py": "08d5a8a3254ea375ca02bf6cbb658791e244504fbecddc251d9aeb8e8fed325b"
+  },
+  "limits": [
+    "Source checks reuse the unchanged compiled backend and do not qualify a new installed wheel or resolver closure.",
+    "Owner main is not modified; contribution is delivered by PR for MolSysMT team integration.",
+    "Native repairs are received from committed 13f72af2, not emulated or primed in the facade; issue closure is owned separately.",
+    "Real sdist directory-validation defect #537 is delivered independently in PR #538; structural distribution tests do not override that unmerged archive-validation blocker.",
+    "PR #538 benchmark failure #539 is a separate unresolved CI finding.",
+    "No dependency floor, optional-provider qualification, GUI panel, candidate, tag or publication change."
+  ]
+}
