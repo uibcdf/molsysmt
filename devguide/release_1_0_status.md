@@ -94,7 +94,8 @@ Next admitted defect/contribution reviews, in priority order:
    an editable compiled source checkout and records runtime/reference identities.
    Fresh-process full-reference/absent-backend guards are implemented and pass
    locally; combined workflow/dependency receiving passes 40 cases without
-   skips/failures. Hosted receiving remains pending. No dataset or threshold
+   skips/failures. Published source 3920346fb is dispatched in audit 41706735371,
+   currently queued without executed steps. No dataset or threshold
    substitution is admitted.
 2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
    and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to
@@ -107,8 +108,11 @@ Next admitted defect/contribution reviews, in priority order:
 3. **#509, #511 and #516:** hydrogen-site bounds, precomputed donor-shape and
    reference-selection defects. Retain each original
    scientific acceptance contract and provider-owned correction. Reassess #509
-   against the general chemical-context validation already changed by #255
-   before assuming its original failure still needs another runtime patch.
+   against the general chemical-context validation already changed by #255.
+   A fresh current-source probe confirms the original numeric range bypass is
+   fixed, while H5MSM None/spatial-context differences remain. The
+   [#509 owner record](pending_bugs/hbond_site_structure_bounds_differ_between_resident_and_h5msm.md)
+   retains those reproductions and the full pending acceptance matrix.
 4. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
 5. **#523 and #524:** the declared legacy H5MSM structure-index route is still

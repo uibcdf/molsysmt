@@ -139,3 +139,13 @@ No baseline, input, timed workload, repetition count, threshold, public dependen
 floor or scientific method is changed. Source reference preparation does not
 qualify an installed package, complete benchmark run or release. Keep #539 open
 until the actual hosted route produces its preparation evidence and timings.
+
+## Published source and hosted request — 2026-11-03
+
+Correction and guards are published in
+`3920346fb4126ec28f15f5ea6edc7e944f7b2589`.
+[Performance audit 41706735371](https://github.com/uibcdf/molsysmt/actions/runs/41706735371)
+is manually dispatched on that exact commit. GitHub and GH Run Receptor report
+it queued with no executed job steps at this snapshot. No timings, hosted
+preparation success or final audit outcome are claimed. This workflow does not
+upload packages or publish releases. #539 remains open pending that execution.

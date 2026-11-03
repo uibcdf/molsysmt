@@ -1,7 +1,7 @@
 ---
 summary: Hydrogen-bond site structure bounds differ between resident and H5MSM.
 issue: uibcdf/molsysmt#509
-status: open
+status: active
 opened: 2026-10-27
 closed:
 severity: medium
@@ -16,7 +16,9 @@ supersedes: []
 # Hydrogen-bond site structure bounds differ between resident and H5MSM.
 
 **Reported:** 2026-10-27 during expert-addon receiving.
-**Status:** open; native correction pending.
+**Status:** original numeric bounds mismatch no longer reproduces on current
+main; the requested sentinel/spatial-selection matrix still has form differences.
+Shared-owner correction and complete native regression receiving remain pending.
 
 ## What
 
@@ -84,3 +86,44 @@ documented limitation; a source wrapper is not blanket scientific qualification.
 
 The native scientific owner chooses and implements the contract. Consumer
 compensation would hide disagreement across ordinary source forms and calls.
+
+## Current-source reassessment — 2026-11-03
+
+A direct public-API probe on
+`3920346fb4126ec28f15f5ea6edc7e944f7b2589` builds a three-structure explicit-water
+system and its complete H5MSM 0.5 copy. Reference-state site recognition now
+rejects both negative `[-1]` and out-of-range `[3]` requests on both forms,
+including all, numeric, ordinary-string and spatial-string atom selections.
+The shared source-axis validation introduced during the native-domain work
+therefore already addresses the original nonspatial range bypass. No additional
+consumer-side validation is needed for that case.
+
+This is not yet sufficient for closure:
+
+- A nonconsecutive/repeated `[2, 0, 2]` request returns the same full-source sites
+  for numeric and ordinary-string selections on both forms.
+- Nonspatial `structure_indices=None` succeeds on resident MolSys but raises
+  TypeError on H5MSM when the graph context compares None against dimensions.
+- A valid spatial selection succeeds on the resident source but raises
+  NotImplementedFormError on the H5MSM source. The inspected modular chemistry
+  helper deliberately omits the structural domain; this loses the coordinates
+  needed by a subsequent spatial selector.
+- Spatial empty/None requests also need explicit, consistent semantics. The
+  probe records errors rather than assuming these must mean all structures or
+  an evaluated empty result. Structure-assigned state resolution must preserve
+  its requirement for one known state across the requested structures.
+
+The 40-case probe receipt and command are retained in ignored
+`.pytest_cache/stabilization-539/probe_509.json` and `probe_509.py`; it is
+exploratory receiving, not the final addressable pytest guard. Its full source
+connectivity yields oxygen acceptor `[0]` and donor-H pairs `[[0, 1], [0, 2]]`
+before atom filtering; a numeric `[0, 1]` selection retains only `[[0, 1]]`.
+The current probe does not certify every chemical-state, malformed-index or
+coordinate-free case from the acceptance matrix.
+
+Next, add the complete source-form/state/selection regression matrix and repair
+normalization and spatial-domain retention in the shared chemical context.
+Keep graph-only reads free of coordinate materialization and read only requested
+structures when spatial context is needed. Do not patch the Viewer wrapper or
+change scientific recognition rules. No runtime change is made by this
+reassessment, and #509 stays open.
