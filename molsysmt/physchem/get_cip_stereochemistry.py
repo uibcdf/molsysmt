@@ -1,5 +1,7 @@
 """Analyzing tetrahedral and double-bond stereochemistry through explicit CIP rules."""
 
+from copy import deepcopy
+
 import numpy as np
 from depdigest import dep_digest
 from smonitor import signal
@@ -83,6 +85,8 @@ def get_cip_stereochemistry(
     Optional Ackredit failures preserve completed labels and detached references,
     including under warnings-as-errors. Diagnostic failures use a fallback log;
     scientific exceptions and unrelated scientific warnings remain unchanged.
+    Nested bibliographic metadata, including author lists, belongs to each
+    returned result and cannot modify canonical or subsequent references.
 
     See Also
     --------
@@ -318,7 +322,7 @@ def get_cip_stereochemistry(
         "engine": engine,
         "evidence": "coordinates" if from_coordinates else "declared_stereochemistry",
         "software": {"molsysmt": __version__, "rdkit": rdBase.rdkitVersion},
-        "references": [dict(REFERENCE)],
+        "references": [deepcopy(REFERENCE)],
     }
     from molsysmt import _ackredit
     from molsysmt._private.stereochemistry import cip_attribution_items

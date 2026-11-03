@@ -68,6 +68,9 @@ versions and bibliographic records. When Ackredit is available, successful
 analysis contributes to the application's current session, including evaluated
 empty selections. Reading the dictionary does not register another calculation.
 The result and its bibliography remain available without Ackredit.
+Nested bibliographic fields, including author lists, are independent for each
+result: editing one report does not change canonical references, earlier reports
+or later analyses and their attribution.
 Failed optional tracking preserves completed labels under strict warning filters.
 If its catalog diagnostic cannot be imported, created or emitted, a fallback log
 retains the signal code, operation and both failures. Inspect the diagnostic before

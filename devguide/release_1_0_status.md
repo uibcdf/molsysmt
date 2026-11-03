@@ -43,6 +43,7 @@ Completed bounded work (owner records retain detailed evidence):
 | [#520](archive/resolved_bugs/append_structures_named_analyses_partial_state.md) | The transactional runtime introduced by #255 already repairs the original append publication order. Forty-five combined public regressions cover successes, source selection, rejections, late preparation failure and H5MSM persistence. The combined append/state/analysis selection passes 68 cases; hosted native-source qualification passes on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. No runtime rewrite was needed. |
 | [#536](archive/resolved_bugs/devguide_ci_times_out_during_full_history_checkout.md) | The full-history devguide job has a bounded 15-minute budget while retaining ancestry, archive restoration, integrity validators and API baseline checks. Run 41687790369 passes on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. The successful 209-second checkout is below the former budget; this is recovery evidence, not a measured speed improvement. |
 | [#515](archive/resolved_bugs/weekly_full_suite_has_seven_repeated_failures.md) | The #255 corrections already repair the historical seven-case weekly backlog. A fresh audit verifies every original node executed and passed in each of the eight official full-matrix artifacts for de7ffad2aef18ff3bccd184133dc69e081cb506e; 310 affected-module cases also pass locally on 13f72af2c9630bf768e03b59e2c973d5c6def4f4. Original failures/cancellations and optional omissions remain recorded. No new runtime patch or later-source full-matrix claim is made. |
+| [#503](archive/resolved_bugs/cip_result_reference_authors_are_shared_with_later_calculations.md) | CIP result references now own their nested author lists. Two positive/empty mutation controls fail before the correction and pass afterwards; 119 CIP/SDF/fixed-hydrogen/history/Ackredit cases pass without skips. Scientific labels and source data are unchanged. This scoped local closure does not claim routine hosted or installed-candidate qualification. |
 
 The combined local selection for this work passes **2,818 tests**, zero failures
 or omissions, exit 0, with 719 disclosed warnings; all 14 fast gates pass.
@@ -73,8 +74,8 @@ Next admitted defect/contract reviews, in priority order:
    [routine source CI 41694657220](https://github.com/uibcdf/molsysmt/actions/runs/41694657220)
    remains pending; queued workflows are not passing evidence. Their owner
    records retain detailed proof.
-2. **#503, #509, #511 and #516:** isolated bibliography, hydrogen-site bounds,
-   precomputed donor-shape and reference-selection defects. Retain each original
+2. **#509, #511 and #516:** hydrogen-site bounds, precomputed donor-shape and
+   reference-selection defects. Retain each original
    scientific acceptance contract and provider-owned correction.
 3. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.

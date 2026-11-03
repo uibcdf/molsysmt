@@ -301,3 +301,48 @@ def test_attribution_is_detached_and_failure_does_not_destroy_result(monkeypatch
     first["attribution"]["items"][0]["title"] = "changed by caller"
     second = msm.physchem.get_cip_stereochemistry(Chem.MolFromSmiles("CC"))
     assert second["attribution"]["items"][0]["title"] != "changed by caller"
+
+
+@pytest.mark.parametrize("empty", [False, True])
+def test_nested_reference_edits_cannot_change_canonical_or_other_results(
+    monkeypatch, empty
+):
+    from copy import deepcopy
+
+    from molsysmt import _ackredit
+    from molsysmt._private.scientific_citations import ARTICLES
+    from molsysmt._private.stereochemistry import REFERENCE
+
+    monkeypatch.setattr(_ackredit, "backend", lambda: None)
+    source = Chem.MolFromSmiles("N[C@@H](C)C(=O)O")
+    source_bytes = source.ToBinary()
+    selection = [] if empty else "all"
+    previous = msm.physchem.get_cip_stereochemistry(source, selection=selection)
+    first = msm.physchem.get_cip_stereochemistry(source, selection=selection)
+    expected_references = deepcopy(previous["references"])
+    expected_reference = deepcopy(REFERENCE)
+    expected_article = deepcopy(ARTICLES["hanson_2018"])
+    try:
+        first["references"][0]["authors"].append("caller-only author edit")
+        later = msm.physchem.get_cip_stereochemistry(source, selection=selection)
+        assert previous["references"] == expected_references
+        assert later["references"] == expected_references
+        assert REFERENCE == expected_reference
+        assert ARTICLES["hanson_2018"] == expected_article
+        for result in (previous, first, later):
+            article = next(
+                item
+                for item in result["attribution"]["items"]
+                if item["id"] == expected_reference["id"]
+            )
+            assert article["authors"] == expected_reference["authors"]
+            if empty:
+                assert result["atom_stereochemistry"].shape == (0,)
+                assert result["bond_stereochemistry"].shape == (0,)
+            else:
+                assert result["atom_stereochemistry"][1] == "S"
+        assert source.ToBinary() == source_bytes
+    finally:
+        # A red run must not contaminate bibliography for subsequent tests.
+        REFERENCE["authors"][:] = expected_reference["authors"]
+        ARTICLES["hanson_2018"]["authors"][:] = expected_article["authors"]
