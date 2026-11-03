@@ -225,6 +225,14 @@ surface is defined and tested.
 
 ## Pi-pi detector working estimates
 
+For the H5MSM numeric-index/`all` routes, graph preparation must request chemical
+domains without structural arrays or saved analyses. This applies also to
+cation-pi, attributed hydrogen bonds, halogen bonds, hydrophobic contacts, metal
+coordination and water bridges. Geometry is delivered separately by the projected
+executor. A block-count assertion alone does not protect this boundary: regression
+tests must reject eager structural reads during preparation. Rich spatial
+selections retain their explicitly supported structural context and budget checks.
+
 The experimental pi-pi detector prepares ring chemistry once and uses projected
 coordinate/plane blocks with the form's declared heavy route. The complete
 accepted Interactions analysis remains resident; source streaming cannot make

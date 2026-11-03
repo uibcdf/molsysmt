@@ -28,13 +28,13 @@ that front matter -- edit the entries, not this list.
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 - [`setuptools_minimum_for_pep639_license_metadata.md`](setuptools_minimum_for_pep639_license_metadata.md) — [#541](https://github.com/uibcdf/molsysmt/issues/541) — Setuptools build minimum does not establish support for declared license metadata. *(medium, inspected)*
 
-### In progress (2)
+### In progress (1)
 
-- [`pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md`](pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md) — [#542](https://github.com/uibcdf/molsysmt/issues/542) — Pi-pi H5MSM calculations materialize structures during graph-only preparation. *(high, reproduced)*
 - [`sdist_directory_entries_mistaken_for_addon_files.md`](sdist_directory_entries_mistaken_for_addon_files.md) — [#537](https://github.com/uibcdf/molsysmt/issues/537) — Source archive validation mistakes addon directories for unreviewed files. *(medium, reproduced)*
 
-### Partially resolved (1)
+### Partially resolved (2)
 
+- [`pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md`](pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md) — [#542](https://github.com/uibcdf/molsysmt/issues/542) — Pi-pi H5MSM calculations materialize structures during graph-only preparation. *(high, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
 
 <!-- /generated -->

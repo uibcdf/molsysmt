@@ -231,7 +231,7 @@ def test_undefined_angles_and_invalid_boxes_are_distinguished():
 
 
 def test_chunked_h5msm_projects_selected_frames_without_loading_saved_analyses(
-    monkeypatch, tmp_path
+    forbid_eager_h5msm_reads, monkeypatch, tmp_path
 ):
     source = _system(n_frames=100)
     path = str(tmp_path / "trajectory.h5msm")

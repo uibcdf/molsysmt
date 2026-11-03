@@ -330,6 +330,7 @@ def get_hbonds(
             frames,
             assume_complete_connectivity,
             caller,
+            with_structures=not index_selections,
         )
     )
     if explicit:

@@ -256,7 +256,7 @@ def test_invalid_coordinates_and_box_fail():
 
 
 def test_chunked_file_projection_does_not_load_analyses_or_full_coordinates(
-    monkeypatch, tmp_path
+    forbid_eager_h5msm_reads, monkeypatch, tmp_path
 ):
     source = _system(n_frames=100)
     path = str(tmp_path / "ensemble.h5msm")

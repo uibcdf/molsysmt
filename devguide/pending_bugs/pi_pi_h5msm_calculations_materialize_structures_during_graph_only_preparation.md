@@ -1,7 +1,7 @@
 ---
 summary: Pi-pi H5MSM calculations materialize structures during graph-only preparation.
 issue: uibcdf/molsysmt#542
-status: active
+status: partial
 opened: 2026-11-03
 closed:
 severity: high
@@ -16,8 +16,8 @@ supersedes: []
 # Pi-pi preparation bypasses bounded H5MSM geometry delivery
 
 **Reported:** 2026-11-03, inspecting hosted receiving after the #509 correction.
-**Status:** reproduced by the same four existing guards on main and the combined
-metadata candidate; correction pending before integration.
+**Status:** corrected and locally received; hosted receiving of the corrected
+combined candidate remains pending before integration and issue closure.
 
 ## What
 
@@ -76,6 +76,76 @@ No new detector, threshold, dependency floor or H5MSM version is required.
 - All #509 site/scope guards and relevant pi-pi/cation-pi/native/addon controls pass.
 - Qualify a corrected main and refreshed combined candidate; failed/superseded
   runs remain failures and missing hosted tiers remain unexecuted.
+
+## Caller audit — 2026-11-03
+
+The seven occurrence detectors using a separate `coordinate_source` are pi-pi,
+cation-pi, attributed hydrogen bonds, halogen bonds, hydrophobic contacts, metal
+coordination and water bridges (including two-water paths). Their numeric/all
+routes need chemistry only during candidate preparation; their existing geometry
+executors own coordinate delivery. Rich-selection routes retain structural context.
+The correction makes that choice explicit at each detector boundary rather than
+changing the shared default and breaking spatial chemical queries.
+
+Three other graph-only preparations need the same explicit boundary: SMARTS
+matching with numeric/all selections, the local directional-site support plan,
+and known-source PDBQT pose reconstruction. The latter uses coordinates from the
+pose input, not the source trajectory. Hydrogen projection already converts its
+source to a native MolSys before requesting the context and uses its own source
+geometry; its existing route is retained. Ring/aromatic recognition, atom
+correspondence and hydrogen-site recognition already declare their structural
+needs. Other graph-only descriptor, charge, typing and connectivity tools already
+pass `with_structures=False`.
+
+Existing streaming tests are strengthened to reject independent structural reads
+as well as whole-system and named-analysis loads. A chunk-count assertion alone
+would not detect an eager read occurring before the iterator. The original pi-pi
+sentinel remains unchanged.
+
+## Local receiving — 2026-11-03
+
+- The unchanged four pi-pi sentinels failed before the correction. New numeric
+  SMARTS and directional-plan sentinels also failed at the independent structural
+  reader. The valid H5MSM known-source PDBQT sentinel reproduced that same read;
+  earlier attempts with unsupported mechanical payloads or invalid fixture setup
+  are not counted as reproductions.
+- Detector-stage receiving: **3,045 passed**, no failures or skips, 387.07 seconds,
+  two workers. Selection: `tests/interactions`, `tests/chemical_states`,
+  `tests/physchem`, the structure-index type guards and bound Viewer hydrogen-site
+  tools. This includes all 256 site-scope controls from #509. This checkpoint began
+  before the three additional graph-only corrections and expanded cation-pi cases;
+  it is not represented as one uniformly frozen final-source execution.
+- Final-context receiving: **457 passed**, no failures or skips, 65.11 seconds,
+  two workers. Selection: complete SMARTS/reference-selection, cation-pi,
+  directional-site, PDBQT and hydrogen-projection modules, plus the new graph-only
+  H5MSM module. This reruns consumers of the final three context corrections.
+- The twelve focused cases (including both cation-pi profiles, both heavy modes,
+  and explicit missing-inventory rejection) pass. They overlap the runs above;
+  counts must not be added as unique coverage.
+- Eight public function doctests pass. This check also exposed a stale pi-pi
+  example assigning aromaticity to bare Topology after chemical-domain separation;
+  the example now assigns it to MolSys, whose ChemicalStates owns that metadata.
+- Full-tree Ruff lint/format and public docstring validation pass; the hosted
+  smoke command guard passes. The new graph-only and PDBQT sentinels are explicit
+  native smoke arguments.
+- All fourteen fast readiness gates pass after the report/index update; these
+  do not replace the required full source and installed-package matrices.
+
+The shared development environment uses Linux/Python 3.14.7, NumPy 2.4.6 and
+Pandas 2.3.3; the bound receiving path uses Viewer source
+ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352 and the existing compiled backend.
+No environment, backend or scientific profile was replaced. Broad-run warnings
+include legacy H5MSM reads, Pandas future behavior, deliberately small numerical
+RAM budgets, unavailable GPU controls and off-axis structural drops. Final-context
+warnings include six MDAnalysis mass notices and one NumPy binary-size notice.
+These warnings are retained, not reclassified as failures or proof of measured
+memory savings. Local source tests do not qualify installed packages or platforms.
+
+The obsolete candidate's Rust matrix was cancelled; its full matrix cancellation
+was requested. Its failed smoke remains failed. New exact-source smoke/full/native
+receiving is required on the refreshed integration branch before merging the
+metadata contributions. No tag, release or registry publication follows from this
+local result.
 
 ## Provenance
 

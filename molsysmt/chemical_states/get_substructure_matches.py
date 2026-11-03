@@ -119,6 +119,7 @@ def get_substructure_matches(
 
     from molsysmt import __version__, configure
     from molsysmt._private.smonitor import UnsupportedHeavyOperationError
+    from molsysmt._private.variables import is_all
     from molsysmt.basic import convert, get_form
     from molsysmt.chemical_states._chemical_graph import select_chemical_atoms
     from molsysmt.chemical_states._rings import ring_context
@@ -132,6 +133,7 @@ def get_substructure_matches(
         structure_indices,
         assume_complete_connectivity,
         caller,
+        with_structures=isinstance(selection, str) and not is_all(selection),
     )
     attributes, bonds = state.atom_attributes, state.bonds
     for name in ("formal_charge", "is_aromatic"):

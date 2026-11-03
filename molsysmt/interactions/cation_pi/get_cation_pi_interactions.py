@@ -421,6 +421,7 @@ def get_cation_pi_interactions(
         frames,
         assume_complete_connectivity,
         _CALLER,
+        with_structures=not index_selections,
     )
     if method == "prolif":
         from molsysmt.chemical_states import get_substructure_matches
