@@ -20,7 +20,7 @@ requirements:
   - python 3.12.14 *_1_cpython  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') != 'true' and win and py == 312]
   - python  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') != 'true' and not (win and py == 312)]
   - pip
-  - setuptools >=68.0
+  - setuptools >=77.0.3
   - setuptools-rust >=1.10
   - versioningit >=3.0
   run:

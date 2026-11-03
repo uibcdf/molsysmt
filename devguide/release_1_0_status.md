@@ -124,10 +124,13 @@ Current receiving and next admitted defect/contribution reviews:
    restrictions and explicit-state external-selector limits are preserved. These
    later corrections are separate from the frozen metadata candidate a24b14f3d.
    #509's site/state/structure controls and #542's eager-read guards remain green.
-4. **[#541](pending_bugs/setuptools_minimum_for_pep639_license_metadata.md):**
-   incoming DockingMT build-contract finding. Verify and qualify the Setuptools
-   minimum for the existing license metadata before publication; no old-backend
-   failure or broken public archive is asserted by the intake.
+4. **[#541](archive/resolved_bugs/setuptools_minimum_for_pep639_license_metadata.md):**
+   resolved with Setuptools >=77.0.3 across source, both Conda hosts and five
+   explicit tool environments. Exact 76.1.0 rejects the existing metadata; exact
+   77.0.3 and current 84.0.0 build native artifacts with matching license metadata
+   and original notices. Five local artifact identities and 62 packaging tests
+   are recorded. The #537 general sdist inventory failure and clean installed/
+   platform release qualification remain separate; public files are unchanged.
 5. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
 6. **#523 and #524:** the declared legacy H5MSM structure-index route is still

@@ -20,11 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (2)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
-- [`setuptools_minimum_for_pep639_license_metadata.md`](setuptools_minimum_for_pep639_license_metadata.md) — [#541](https://github.com/uibcdf/molsysmt/issues/541) — Setuptools build minimum does not establish support for declared license metadata. *(medium, inspected)*
 
 ### In progress (1)
 
