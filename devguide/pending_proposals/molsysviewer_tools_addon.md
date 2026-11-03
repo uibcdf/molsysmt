@@ -24,6 +24,22 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Combined-candidate gate follow-up — 2026-11-03
+
+The published review branch `dev/review-tools-537-540`, exact head
+`dd2c958c6bf5c8d6d83d88e95d623eb613be3cfa`, combines both metadata PRs and
+#537's source-directory correction. Its local source receiving, actual archive
+and live 155/244 inventory are recorded on that branch, not implemented main.
+
+Hosted smoke 41714614542 and main smoke 41711081692 now fail the same four
+native pi-pi eager-read sentinels, each with 4,797 passes and 16 optional skips.
+Their later addon tiers are unexecuted. The regression is owned by #542 and
+comes from shared context introduced with #509, not the metadata wrappers.
+Candidate performance, Ruff, dependency and governance checks pass, while full
+source/native-wheel matrices remain queued at this observation. Repair the
+bounded native route and refresh the candidate before accepting integration;
+none of the old failed/queued checks is replaced by a local success claim.
+
 ## Native-provider receiving follow-up — 2026-11-03
 
 #539's performance preparation/audit now passes on source 3920346fb in hosted
