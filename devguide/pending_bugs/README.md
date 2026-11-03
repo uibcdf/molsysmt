@@ -30,8 +30,8 @@ that front matter -- edit the entries, not this list.
 
 ### In progress (2)
 
-- [`attribute_alias_initialization_depends_on_import_order.md`](attribute_alias_initialization_depends_on_import_order.md) — [#535](https://github.com/uibcdf/molsysmt/issues/535) — Attribute-alias initialization depends on cold native import order. *(medium, reproduced)*
-- [`stable_inventory_marked_as_bond_dependent.md`](stable_inventory_marked_as_bond_dependent.md) — [#534](https://github.com/uibcdf/molsysmt/issues/534) — Bond-requirement metadata marks stable inventory as connectivity-dependent. *(medium, reproduced)*
+- [`benchmark_reference_h5_conversion_fails_in_ci.md`](benchmark_reference_h5_conversion_fails_in_ci.md) — [#539](https://github.com/uibcdf/molsysmt/issues/539) — Performance audit rejects its H5 reference before producing measurements. *(medium, inspected)*
+- [`sdist_directory_entries_mistaken_for_addon_files.md`](sdist_directory_entries_mistaken_for_addon_files.md) — [#537](https://github.com/uibcdf/molsysmt/issues/537) — Source archive validation mistakes addon directories for unreviewed files. *(medium, reproduced)*
 
 ### Partially resolved (1)
 

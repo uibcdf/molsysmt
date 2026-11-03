@@ -1,9 +1,9 @@
 ---
 summary: Bond-requirement metadata marks stable inventory as connectivity-dependent.
 issue: uibcdf/molsysmt#534
-status: active
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-03
 severity: medium
 verification: reproduced
 area: [attribute, basic]
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** MolSysViewer's provider-owned metadata facade under
 uibcdf/molsysviewer#264 and uibcdf/molsysmt#421.
-**Status:** correction and local combined qualification completed; hosted source
-qualification and formal closeout remain pending.
+**Status:** correction, local combined qualification and hosted native/addon
+receiving completed; overall candidate qualification remains separate.
 
 ## What
 
@@ -100,7 +100,19 @@ queued result is counted as successful receiving.
 Current source **839709e4adeb754adbb5a9eea0a5eb2fa21d795c** retains this exact
 metadata repair and guards and adds only #503's detached CIP bibliography.
 [Routine CI 41698204284](https://github.com/uibcdf/molsysmt/actions/runs/41698204284)
-is its pending receiving route. Formal closure waits for the result.
+completes successfully: **4,530 native passes / 16 optional skips** and
+**2,449 addon passes / four optional skips**, both exit 0. All new attribute
+and public planning guards execute. The skips are unavailable Ackredit (14
+native/four addon), unyt (one native) and astropy (one native). The tiers retain
+590 and 1,539 warnings. Conda's inventory records Python 3.14.10, NumPy 2.5.4
+and Pandas 3.1.0; the bound Viewer is ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352.
+GH Run Receptor's final watch exits 0 and agrees with native job 126134233921.
+
+All five applicable source workflows pass: routine smoke 41698204284, devguide
+41698204237, Ruff 41698204479, suite policy 41698205147 and publication governance
+41698205100. This closes the scoped native ownership defect; it does not qualify
+a full matrix, release or installed pair. PR #538 and its new reports remain
+separate, unintegrated work.
 
 ## Provenance
 

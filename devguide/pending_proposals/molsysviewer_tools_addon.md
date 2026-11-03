@@ -24,6 +24,57 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Supported-report contribution review — 2026-11-03
+
+PR #538, head 3c13ba1a5c248de11622ff015b24551f72c59846, proposes four native
+capability reports under `view.addons.molsysmt.supported`: forms, conversions,
+dependencies and syntaxes. They do not bind/read the primary system or
+synchronize edits. The reviewed patch retains native signatures/defaults,
+argument digestion, view lifetime, lazy delegation and independent returned
+metadata. Its tests cover empty/loaded views, output formats, pending edits,
+closed handles and source imports. It includes a separate #537 sdist directory
+correction. These are reviewed proposals, not current implemented-main coverage.
+
+The contribution is behind current main. Receive it without dropping the newer
+#520/#533/#534/#535 guards or aligned smoke selections. Its reported 74 new cases
+and earlier source smoke retain their original revisions; they do not qualify
+the combined current tree. Its performance audit fails before measurements
+under #539. Seven full Linux/macOS Python 3.11–3.14 cells pass; the macOS 3.14
+cell is still running at this snapshot. Source-distribution round trip and four
+Linux installed-native Python cells pass at their PR revision. Resolve the failed
+performance route and verify the applicable exact integration gates before merging.
+The native alias contract is now independently strict under #535; refreshing
+the contribution must preserve that contract rather than treating the older
+UnknownArgumentError outcome as newly accepted behavior. No PR merge, API count
+increase, package upload or publication is performed by this review.
+
+## Attribute-metadata contribution review — 2026-11-03
+
+New PR #540, head c31e7658db3f8308fbd084f4279c00e65e6f8207, starts from
+main 639ec85d831482c06ed871509b8dc0a6a6f7f01c and proposes the seven native
+attribute metadata functions under `view.addons.molsysmt.attribute`. The source
+review finds explicit signatures, native validation controls, lazy delegation
+and view-lifetime checks without reading/synchronizing the primary system.
+Classifications remain overlapping metadata rather than domain availability;
+stored inventory and graph prerequisites retain the #534 distinction.
+
+The proposed 126 cases cover native parity and literal classifications, nested
+alias ownership, invalid controls, pending edits, closed handles, two views and
+six fresh-process import orders. Unlike the older supported-report contribution,
+these cold controls require the native alias-collision and unknown-keyword
+exceptions separately. The reported 2,579-case complete addon invocation and
+340 native attribute cases are contribution evidence, not executions repeated
+by this review. Hosted smoke/full/distribution checks are still pending at this
+snapshot; no installed artifact is qualified here.
+
+Review and receive #540 together with #538 without losing either namespace or
+the newer main guards. Their API inventories need explicit reconciliation:
+#538 proposes 148/244 paths, #540 proposes 151/244, and the combined proposal
+would be 155/244; these are callable paths, not source-file counts. Preserve the
+exact distribution inventory and receive #537's directory fix separately from
+claims made by structural fixtures. #539's failed performance route remains
+open. Neither PR is merged or silently treated as implemented by this record.
+
 ## What
 
 Provide a broad expert facade mirroring scientific module/function paths under

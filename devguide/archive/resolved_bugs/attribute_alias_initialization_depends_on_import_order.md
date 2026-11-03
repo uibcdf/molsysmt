@@ -1,9 +1,9 @@
 ---
 summary: Attribute-alias initialization depends on cold native import order.
 issue: uibcdf/molsysmt#535
-status: active
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-03
 severity: medium
 verification: reproduced
 area: [argdigest, attribute, tests]
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** MolSysViewer metadata-facade receiving under
 uibcdf/molsysviewer#264 and uibcdf/molsysmt#421.
-**Status:** consumer declaration-bootstrap cycle repaired locally; focused and
-combined qualification pass. Hosted source qualification and closeout remain pending.
+**Status:** consumer declaration-bootstrap cycle repaired; focused, combined and
+hosted native/addon receiving pass. Overall candidate qualification remains separate.
 
 ## What
 
@@ -119,8 +119,23 @@ claiming the absent scientific execution.
 Current source **839709e4adeb754adbb5a9eea0a5eb2fa21d795c** retains this exact
 bootstrap correction and guards and adds the independent CIP metadata repair.
 [Routine CI 41698204284](https://github.com/uibcdf/molsysmt/actions/runs/41698204284)
-is the pending receiving route. Formal closure waits for its result; neither
-the cancelled predecessor nor an incomplete run is called passing evidence.
+completes successfully: **4,530 native passes / 16 optional skips** and
+**2,449 addon passes / four optional skips**, each exit 0. All nine cold-process
+orders execute, including domain-first loading, accepted global/element aliases,
+collision/unknown-keyword rejection and the preserved builder entry point.
+Ackredit accounts for 14 native and four addon skips, while unyt and astropy
+account for one native skip each; none of the new bootstrap controls is omitted.
+The tiers retain 590 and 1,539 warnings. The Conda inventory identifies Python
+3.14.10, NumPy 2.5.4 and Pandas 3.1.0; Viewer is fixed to
+ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. GH Run Receptor's final watch exits 0
+and agrees with native job 126134233921.
+
+All five applicable source workflows pass: routine smoke 41698204284, devguide
+41698204237, Ruff 41698204479, suite policy 41698205147 and publication governance
+41698205100. The scoped defect closes on its executed native/addon receiving;
+this does not certify a new package, full matrix or installed pair. The cancelled
+predecessor remains cancelled. No provider patch, public preload or registry
+reset is needed.
 
 ## Provenance
 

@@ -44,6 +44,8 @@ Completed bounded work (owner records retain detailed evidence):
 | [#536](archive/resolved_bugs/devguide_ci_times_out_during_full_history_checkout.md) | The full-history devguide job has a bounded 15-minute budget while retaining ancestry, archive restoration, integrity validators and API baseline checks. Run 41687790369 passes on d8ea626a0ab6dbd976d0e04ad9299019e4ae0a42. The successful 209-second checkout is below the former budget; this is recovery evidence, not a measured speed improvement. |
 | [#515](archive/resolved_bugs/weekly_full_suite_has_seven_repeated_failures.md) | The #255 corrections already repair the historical seven-case weekly backlog. A fresh audit verifies every original node executed and passed in each of the eight official full-matrix artifacts for de7ffad2aef18ff3bccd184133dc69e081cb506e; 310 affected-module cases also pass locally on 13f72af2c9630bf768e03b59e2c973d5c6def4f4. Original failures/cancellations and optional omissions remain recorded. No new runtime patch or later-source full-matrix claim is made. |
 | [#503](archive/resolved_bugs/cip_result_reference_authors_are_shared_with_later_calculations.md) | CIP result references now own their nested author lists. Two positive/empty mutation controls fail before the correction and pass afterwards; 119 CIP/SDF/fixed-hydrogen/history/Ackredit cases pass without skips. Scientific labels and source data are unchanged. This scoped local closure does not claim routine hosted or installed-candidate qualification. |
+| [#534](archive/resolved_bugs/stable_inventory_marked_as_bond_dependent.md) | Stable molecule/entity inventory no longer requests bond inference. The independent 320-case requirement matrix and four real PDB planning controls pass locally and in exact-source hosted native receiving. Graph and state-local source prerequisites remain intact. |
+| [#535](archive/resolved_bugs/attribute_alias_initialization_depends_on_import_order.md) | Shared plain declarations remove the consumer bootstrap cycle. Nine unprimed subprocess orders preserve aliases, collision/unknown-keyword errors, native reads and the original registry-builder entry point. Hosted source receiving passes without omitting those controls; no ArgDigest patch or consumer preload is needed. |
 
 The combined local selection for this work passes **2,818 tests**, zero failures
 or omissions, exit 0, with 719 disclosed warnings; all 14 fast gates pass.
@@ -60,28 +62,52 @@ and Viewer ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. The native omissions are
 Ackredit checks. The tiers retain 590 and 1,539 warnings. These source smoke
 results do not replace the zero-skip scientific gate or installed-pair matrix.
 
-Next admitted defect/contract reviews, in priority order:
+The #534/#535 follow-up passes **3,866 local cases** without skips, the 14 fast
+gates, public doctests, Ruff and signatures. Exact source
+**839709e4adeb754adbb5a9eea0a5eb2fa21d795c**, which also contains #503, passes
+[routine CI 41698204284](https://github.com/uibcdf/molsysmt/actions/runs/41698204284):
+**4,530 native passes / 16 optional skips** and **2,449 addon passes / four
+optional skips**, each exit 0. No new attribute/bootstrap guard is skipped.
+The tiers retain 590 and 1,539 warnings. The Conda manifest records Python
+3.14.10, NumPy 2.5.4 and Pandas 3.1.0; Viewer stays ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352.
+Ackredit accounts for 14 native and four addon omissions, with one native unyt
+and astropy omission each. All five applicable source workflows pass: smoke
+41698204284, devguide 41698204237, Ruff 41698204479, suite policy 41698205147 and
+publication governance 41698205100. This is not a full-matrix, installed-pair or
+release claim. The older 13f72af2c scientific job remains cancelled without
+executed steps.
 
-1. **#534 and #535:** independently reproduced incoming Viewer findings.
-   Stable inventory is incorrectly marked bond-dependent, and a cold private
-   declaration import loses an alias table. Their follow-up corrections now pass
-   **3,866 local cases**, zero skips/failures, plus all 14 fast gates, public
-   doctests, Ruff and signature checks. Graph requirements remain intact; a
-   plain shared declaration provider removes the consumer bootstrap cycle
-   without changing ArgDigest or duplicating the catalog. Hosted source receiving
-   and formal closeout remain pending on published source
-   **839709e4adeb754adbb5a9eea0a5eb2fa21d795c**, which retains the metadata
-   corrections and adds #503. Its
-   [routine source CI 41698204284](https://github.com/uibcdf/molsysmt/actions/runs/41698204284)
-   remains pending. The preceding 13f72af2c scientific job was cancelled while
-   queued, without executing a step; its five administrative successes do not
-   clear that missing scope. Their owner records retain detailed proof.
-2. **#509, #511 and #516:** hydrogen-site bounds, precomputed donor-shape and
+### New board and PR review — 2026-11-03
+
+The refreshed board contains 87 open issues and two open PRs before the two
+metadata closeouts above. New incoming work is #537, PR #538, #539 and PR #540. These
+counts are a dated snapshot, not a live generated inventory.
+
+Next admitted defect/contribution reviews, in priority order:
+
+1. **[#539](pending_bugs/benchmark_reference_h5_conversion_fails_in_ci.md):**
+   the PR performance gate fails before timings. A real installed-prefix/source
+   shadow experiment reproduces the rejection when the source Rust binary is
+   unavailable; the same H5 becomes valid with that binary visible. Capture the
+   original hosted runtime identity and choose one coherent source/installed
+   route before claiming the cause or successful audit. No dataset or threshold
+   substitution is admitted.
+2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
+   and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to
+   fail the source-file inventory. The PR proposes its correction plus four
+   bound `supported` reports under the existing #421 scope. New PR #540 proposes
+   seven native attribute metadata tools from main 639ec85d. Both remain unmerged;
+   reconcile their inventories and preserve newer guards while qualifying the combined
+   integration, including the performance route and complete PR checks. The
+   [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
+3. **#509, #511 and #516:** hydrogen-site bounds, precomputed donor-shape and
    reference-selection defects. Retain each original
-   scientific acceptance contract and provider-owned correction.
-3. **#504:** choose and document multi-structure solvation output/aggregation;
+   scientific acceptance contract and provider-owned correction. Reassess #509
+   against the general chemical-context validation already changed by #255
+   before assuming its original failure still needs another runtime patch.
+4. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
-4. **#523 and #524:** the declared legacy H5MSM structure-index route is still
+5. **#523 and #524:** the declared legacy H5MSM structure-index route is still
    missing on the current source; runtime dependency floors/restrictions need
    API-grounded review before the next publication. Exact route, provider and
    installed-artifact evidence remain distinct.
