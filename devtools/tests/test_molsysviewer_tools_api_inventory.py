@@ -98,17 +98,34 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "element.entity.get_entity_type",
         "element.entity.get_n_entities",
     }
+    domain_elements = {
+        "element.component.get_component_id",
+        "element.component.get_component_index",
+        "element.component.get_component_name",
+        "element.component.get_component_type",
+        "element.component.get_n_components",
+        "element.molecule.get_molecule_id",
+        "element.molecule.get_molecule_index",
+        "element.molecule.get_molecule_name",
+        "element.molecule.get_molecule_type",
+        "element.molecule.get_n_molecules",
+        "element.group.get_group_type",
+        "element.group.small_molecule.small_molecule_is_amino_acid",
+    }
     actual_elements = {
         path
         for path, row in rows.items()
         if path.startswith("element.") and row["exposed"]
     }
-    assert actual_elements == received_elements | hierarchy_elements
-    assert all(rows[path]["input_kind"] == "primary" for path in hierarchy_elements)
+    assert actual_elements == received_elements | hierarchy_elements | domain_elements
+    assert all(
+        rows[path]["input_kind"] == "primary"
+        for path in hierarchy_elements | domain_elements
+    )
     assert all(
         rows[path]["input_kind"] == "explicit_inputs" for path in received_elements
     )
-    assert not rows["element.group.get_group_type"]["exposed"]
+    assert rows["element.group.get_group_type"]["exposed"]
     assert "supported.syntaxes" in rows
     assert rows["supported.syntaxes"]["declaration_status"] in {
         "callable_compatibility_module",

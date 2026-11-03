@@ -75,6 +75,8 @@ def test_exact_names_signatures_help_and_validation(path):
             "group",
             "chain",
             "entity",
+            "component",
+            "molecule",
         }
         assert set(dir(tools.atom)) == {
             p.split(".")[1] for p in PATHS if p.startswith("atom.")
@@ -82,6 +84,8 @@ def test_exact_names_signatures_help_and_validation(path):
         assert set(dir(tools.group)) == {
             "is_group_type",
             "get_group_type_from_group_name",
+            "get_group_type",
+            "small_molecule",
         }
         method, native = _path(tools, path), _path(msm.element, path)
         expected = inspect.signature(native)

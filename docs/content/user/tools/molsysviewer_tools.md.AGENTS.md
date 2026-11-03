@@ -290,4 +290,15 @@ native output-level defaults, IDs/unknowns, containers, selection and redefine_*
 projection semantics without molecular assignment, an update_view parameter or
 new root aliases. entity.get_n_entities consumes only its keyword-only local
 skip control; other native skip flags are forwarded. Require a loaded open
-owner and keep unreceived component/molecule and other element routes pending.
+owner.
+
+Preserve the twelve additional primary-bound paths: five molecule, five
+component, group type and the legacy small-molecule/amino-acid name heuristic.
+Keep stable molecules distinct from reference-state ChemicalStates components,
+native selectors/defaults/unknowns, returned projections without assignment, and
+missing-domain/error behavior without implicit chemistry or frame-state choice.
+The count helper consumes its local skip flag; other declared native flags pass
+unchanged. The legacy helper is a catalogued name plus five atom-name checks,
+not chemical or stereochemical validation or stored preparation; its group_name
+stays explicit and its keyword-only skip control is local. Remaining explicit
+element utilities are pending.

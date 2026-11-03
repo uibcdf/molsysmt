@@ -4,7 +4,8 @@ from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _native_documentation
-from ._element_hierarchy import _ChainTools, _EntityTools
+from ._element_domains import _ComponentTools, _MoleculeTools, _SmallMoleculeTools
+from ._element_hierarchy import _ChainTools, _EntityTools, _reader_documentation
 
 
 def _utility_documentation(name, module="element", *, local_skip=False):
@@ -119,7 +120,40 @@ class _AtomTools(_ElementUtilities):
 
 
 class _GroupTools(_ElementUtilities):
-    _NAMES = ("is_group_type", "get_group_type_from_group_name")
+    _NAMES = (
+        "is_group_type",
+        "get_group_type_from_group_name",
+        "get_group_type",
+        "small_molecule",
+    )
+
+    def __init__(self, owner):
+        super().__init__(owner)
+        self.small_molecule = _SmallMoleculeTools(owner)
+
+    @_reader_documentation("get_group_type", "group")
+    @signal(tags=["addon", "element", "read"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_group_type(
+        self,
+        element="group",
+        selection="all",
+        redefine_types=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        from molsysmt.element.group import get_group_type
+
+        return self._owner._read(
+            get_group_type,
+            {
+                "element": element,
+                "selection": selection,
+                "redefine_types": redefine_types,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
 
     @_utility_documentation("is_group_type", "element.group", local_skip=True)
     @signal(tags=["addon", "element"])
@@ -141,7 +175,16 @@ class _GroupTools(_ElementUtilities):
 
 
 class _ElementTools(_ElementUtilities):
-    _NAMES = ("atom", "group", "chain", "entity", "is_element", "is_composed_of")
+    _NAMES = (
+        "atom",
+        "group",
+        "chain",
+        "entity",
+        "component",
+        "molecule",
+        "is_element",
+        "is_composed_of",
+    )
 
     def __init__(self, owner):
         super().__init__(owner)
@@ -149,6 +192,8 @@ class _ElementTools(_ElementUtilities):
         self.group = _GroupTools(owner)
         self.chain = _ChainTools(owner)
         self.entity = _EntityTools(owner)
+        self.component = _ComponentTools(owner)
+        self.molecule = _MoleculeTools(owner)
 
     @_utility_documentation("is_element", local_skip=True)
     @signal(tags=["addon", "element"])

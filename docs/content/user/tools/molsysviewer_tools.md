@@ -87,7 +87,9 @@ utilities: `is_element`, `is_composed_of`, four `atom` type/name/isotope tools,
 and `group.is_group_type` / `group.get_group_type_from_group_name`. They work
 with an open empty view and keep caller inputs explicit; see the element
 utilities section below. Nine current-system chain/entity readers are received
-separately below; other element queries remain pending.
+separately below. Twelve more primary-bound paths cover molecules, components,
+group types and a legacy name heuristic; remaining explicit-input utilities
+are pending.
 
 Install compatible versions of both components. MolSysMT supplies the
 integration; MolSysViewer discovers its declared entry point automatically.
@@ -194,8 +196,8 @@ there is no `update_view` parameter or automatic representation.
 All nine expose `skip_digestion=False`. For `entity.get_n_entities` alone,
 this is a keyword-only addon control because the native reader has no skip
 parameter. It is consumed locally; native validation stays active. The other
-eight preserve and forward their native flags. Component/molecule readers and
-other unreceived element paths remain pending.
+eight preserve and forward their native flags. Component/molecule and group readers are covered next. Other unreceived
+explicit-input element utilities remain pending.
 
 Native references: {func}`molsysmt.element.chain.get_chain_index`,
 {func}`molsysmt.element.chain.get_chain_id`,
@@ -206,6 +208,83 @@ Native references: {func}`molsysmt.element.chain.get_chain_index`,
 {func}`molsysmt.element.entity.get_entity_name`,
 {func}`molsysmt.element.entity.get_entity_type` and
 {func}`molsysmt.element.entity.get_n_entities`.
+
+## Querying molecules, components and group types
+
+The `element.molecule` and `element.component` namespaces each expose their
+native index, ID, name, type and count readers. `element.group.get_group_type`
+queries types from the current system; it remains distinct from the explicit
+name lookup `element.group.get_group_type_from_group_name`.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    element = view.addons.molsysmt.element
+    assert element.molecule.get_molecule_index() == [0]
+    assert element.molecule.get_n_molecules() == 1
+    molecule_ids = element.molecule.get_molecule_id()
+    molecule_names = element.molecule.get_molecule_name()
+    molecule_types = element.molecule.get_molecule_type()
+    assert element.component.get_component_index() == [0]
+    assert element.component.get_n_components() == 1
+    component_ids = element.component.get_component_id()
+    component_names = element.component.get_component_name()
+    component_types = element.component.get_component_type()
+    group_types = element.group.get_group_type()
+    assert group_types[1] == "amino acid"
+```
+
+Molecules belong to stable topology. Components describe connectivity within
+`ChemicalStates`; they are not interchangeable. Removing bonds can split one
+stable molecule into several components without changing molecule membership.
+Component queries preserve native reference-state and explicit reconstruction
+semantics. The addon does not select chemistry from the canvas frame, infer
+missing chemistry or turn a projection into a molecular edit.
+
+The index/ID/name/type getters default to their named output level; group type
+queries default to groups. Count readers interpret a subset as an atom
+selection. Selections, syntax, returned containers, missing values and native
+unsupported combinations are retained. `redefine_*` controls returned native
+projections; these tools never assign them or reconcile pending scene changes.
+They require a loaded, open view and use the managed molecular reader.
+`molecule.get_n_molecules` adds a keyword-only local `skip_digestion` control;
+all other readers here forward their declared native flag unchanged.
+
+Native references: {func}`molsysmt.element.molecule.get_molecule_index`,
+{func}`molsysmt.element.molecule.get_molecule_id`,
+{func}`molsysmt.element.molecule.get_molecule_name`,
+{func}`molsysmt.element.molecule.get_molecule_type`,
+{func}`molsysmt.element.molecule.get_n_molecules`,
+{func}`molsysmt.element.component.get_component_index`,
+{func}`molsysmt.element.component.get_component_id`,
+{func}`molsysmt.element.component.get_component_name`,
+{func}`molsysmt.element.component.get_component_type`,
+{func}`molsysmt.element.component.get_n_components` and
+{func}`molsysmt.element.group.get_group_type`.
+
+## Using the legacy amino-acid name heuristic
+
+`element.group.small_molecule.small_molecule_is_amino_acid(group_name)` mirrors
+the native legacy helper on the current system. It checks a catalogued
+small-molecule group name and the presence of the atom names `CA`, `CB`, `C`,
+`O` and `N`. It does not validate chemical connectivity or stereochemistry,
+prepare the system or assign a stored classification.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    heuristic = view.addons.molsysmt.element.group.small_molecule.small_molecule_is_amino_acid
+    assert heuristic("ATP") is False  # No group named ATP is present.
+```
+
+This Boolean name-pattern result is not chemical validation. Native errors and
+results stay unchanged. The explicit `group_name` is retained; its keyword-only
+`skip_digestion` is local because the native helper has no such flag. It still
+requires the current loaded open owner and uses the managed molecular reader
+without scene/history effects. See
+{func}`molsysmt.element.group.small_molecule.small_molecule_is_amino_acid`.
 
 ## Querying the current system
 

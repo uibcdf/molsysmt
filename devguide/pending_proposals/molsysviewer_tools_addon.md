@@ -24,6 +24,37 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Remaining primary-element paths received — 2026-11-03
+
+PR #543 now adds five molecule readers, five component readers, group type and
+the legacy small-molecule/amino-acid name heuristic. All twelve use the current
+primary through the managed reader. Stable molecule/group membership remains
+distinct from ChemicalStates-local components, with native reference/selector,
+unknown-value, reconstruction and error semantics. Returned projections are
+not assigned or reconciled. The legacy helper checks a catalogue and five atom
+names; it is not chemical/stereochemical validation or stored preparation.
+Both native helpers without skip parameters consume local keyword-only controls.
+
+The contribution receives published owner `55f18aef` in merge `8e2f2c1f1`,
+without editing native science or Rust sources. Native graph-only, supplied-donor
+and reference-selection regressions pass 354 cases; molecule/component/group
+baseline passes 117. Complete addon regression passes 2,805 with no failures,
+errors or skips, including 118 new cases. Final element/integration receiving
+passes 352 after import-order-only lint polish; broad input hashes and the
+unchanged function/class bodies remain recorded separately. Structural package/
+inventory/notebook checks pass 530; both new guide blocks execute, all 156
+course notebooks validate with code/output/IDs retained, and whole-tree Ruff
+passes. The [source receipt](../../devtools/data/molsysviewer_tools_element_domains_receiving_20261103.json)
+retains exact native/contribution inputs, test corrections, hashes and scopes.
+
+Branch exposure is 173/244 and element 29/57: all 21 primary-input paths now
+have explicit wrappers, while 28 explicit-input utilities remain unreceived.
+PR #538/#540 are absent from this branch; 184/244 is their hypothetical union,
+not qualified integration. Owner review, final-head hosted CI, actual archives,
+optional-engine/platform/installed qualification and task panels remain separate.
+No host runtime, dependency floor, frozen candidate, tag or publication changes.
+Earlier 03050a16 receipts below retain their original frozen-source scope.
+
 ## Current-primary chain/entity source increment — 2026-11-03
 
 PR #543 now also carries four explicit chain readers and five entity readers,
