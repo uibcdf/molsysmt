@@ -33,9 +33,9 @@ that front matter -- edit the entries, not this list.
 
 ### In progress (3)
 
+- [`python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md`](python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md) — [#527](https://github.com/uibcdf/molsysmt/issues/527) — Python 3.11 full source CI aborts natively without final test evidence *(high, reproduced)*
 - [`course_plotting_examples_block_the_macos_source_test_matrix.md`](course_plotting_examples_block_the_macos_source_test_matrix.md) — [#528](https://github.com/uibcdf/molsysmt/issues/528) — Course plotting examples block the macOS source test matrix *(medium, reproduced)*
 - [`pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md`](pandas_3_1_native_composition_and_fixture_compatibility_blocks_source_qualificat.md) — [#526](https://github.com/uibcdf/molsysmt/issues/526) — Pandas 3.1 native composition and fixture compatibility blocks source qualification *(medium, reproduced)*
-- [`python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md`](python_3_11_full_source_ci_aborts_natively_without_final_test_evidence.md) — [#527](https://github.com/uibcdf/molsysmt/issues/527) — Python 3.11 full source CI aborts natively without final test evidence *(medium, reproduced)*
 
 ### Partially resolved (1)
 

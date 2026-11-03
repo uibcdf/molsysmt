@@ -33,7 +33,7 @@ def get_missing_bonds(
     Identifying candidate missing covalent bonds.
 
     This function compares the bonds inferred from group templates and/or distance-based
-    neighbor searches against the bonds already recorded in the topology of the molecular
+    neighbor searches against the bonds already recorded in the selected chemical state of the molecular
     system and returns candidate missing pairs. Peptidic bonds are considered only
     between consecutive source groups in the same declared chain. Selecting separated
     groups does not make them consecutive. These criteria are heuristics and do not
@@ -84,7 +84,7 @@ def get_missing_bonds(
     list of [int, int]
         List of ``[atom_index_1, atom_index_2]`` pairs representing bonds that are
         inferred from templates or distance criteria but not yet recorded in the
-        molecular system topology. Indices refer to the source atom axis. An empty
+        molecular system's selected chemical state. Indices refer to the source atom axis. An empty
         result is an empty list; this function does not modify the source.
 
 

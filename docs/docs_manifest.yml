@@ -153,7 +153,7 @@ sections:
             status: reviewed
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
-            description: Form conversion, explicit four-domain native composition, chemical ownership, axis conflicts, preserved mechanics provenance and independent selections.
+            description: Form conversion, independent native domains, coordinate-free OpenMM template inference and opt-out, axis conflicts and preserved provenance.
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
           - name: extract
             file: docs/content/user/tools/basic/extract.ipynb
@@ -691,7 +691,7 @@ sections:
         agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
       - name: form_teleportation
         file: docs/content/user/cookbook/form_teleportation.ipynb
-        description: Conversion workflows, MDTraj/ParmEd/OpenMM geometry and cell correspondence, managed MDTraj inputs, GRO reader ownership and selected-axis correspondence, and public capability inspection.
+        description: Conversion workflows, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership, axis correspondence and public capability inspection.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
         description: Sparse queries, independent copies, geometry and chemical owner notification, finite torsion rejection and scoped invalidation, state inventory publication, structure replacement and H5MSM persistence.

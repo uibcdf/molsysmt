@@ -3220,3 +3220,65 @@ No new blanket text-matching gate is substituted for these semantic/source and
 runtime checks. Final developer-guide validation and queue-index checks pass.
 The active hosted run is retained on dbcb4582c; later diagnostic-owner metadata
 and guide fixes remain identified as a separately qualified development followup.
+
+
+### Cause-specific OpenMM conversion correction — 2026-11-02
+
+The retained current-thread diagnostic succeeds in the controlled dbcb4582c
+source run. Linux/Python 3.11 and macOS/Python 3.11 both end with exit 139 and
+show the same repeated converter cycle: OpenMM Topology reader -> missing-bond
+inference on the foreign source -> bulk get -> native conversion -> that reader.
+The deepest Pandas allocation is inside this unbounded call path; no provider
+memory-corruption attribution is established. Linux/Python 3.12 completes with
+23,654 passes, 102 skips and 40 deselections (222); its separate scientific
+certificate passes 79/79 cases/59 nodes without skips. Other cells retain their
+actual independent outcomes.
+
+A bounded counter allows one actual native read and stops the second before an
+uncontrolled overflow; the assertion requires one entry. Alongside opt-out,
+constructed-native inference and failure-propagation checks it yields seven
+failures/one pass before correction (224). The candidate uses the existing general
+build tool on the already populated native domains, with distances disabled for
+coordinate-free OpenMM Topology. No native reconstruction reenters foreign
+conversion. The MolSys converter gains keyword-only receiving for the existing
+shared inference option; both native targets forward False correctly. The broad
+exception suppression is removed. Existing edges keep explicit evidence,
+available template candidates remain inferred/partial, and unsupported groups
+retain unavailable connectivity. Source graphs are not mutated.
+
+The first corrected scope passes 12 cases (225); broad OpenMM/conversion-truth
+coverage passes **826 cases**, exit 0, 258.47 seconds (227). The final ten
+conversion controls, three actual pinning cases, seven CI evidence guards and
+new converter doctest pass **21 cases**, exit 0, 2.49 seconds (228). The general
+missing-bond doctest passes separately (229). These scopes overlap and must not
+be summed. Full CI now executes the bounded conversion controls alongside the
+isolated pinning probe before its unchanged complete suite.
+
+Foundations, conversion Toolbox/Cookbook and Common Core 04 explain the native
+chemical owner, coordinate-free template scope and explicit opt-out. All existing
+notebook code, outputs and execution metadata remain unchanged. The form guide
+uses the maintained query/conversion/scalability owners and distinguishes stable
+inventory piping from chemistry. The fast gate passes 14/14, whole-tree Ruff and
+formatting pass, and strict serial Sphinx HTML passes (229). No Rust binary,
+scientific threshold, extra dependency or public file schema is changed.
+
+A complete isolated local run was started on b06d5cf96 using the shared Python
+3.14 environment, frozen Viewer ca7, the same existing Rust binary and two workers
+(221). It is **retired as obsolete after the cycle is identified and corrected**,
+not restarted because an observation expired. One SIGINT is sent only after
+verifying its exact pytest command, source worktree, PID and process start time.
+Its actual terminal exit is 2: **10,995 passed, 14 failed, 17 errors, 12,736 not
+executed**, 1,936.67 seconds. All reported failure groups concern unavailable
+DNS/downloads, including wrapped selection errors; the command mistakenly ran
+under restricted networking. This is incomplete, unsuccessful evidence, not a
+passing local gate and not a scientific regression attribution. The canonical
+artifact is finalized and intact, while its session completeness remains false;
+those are different axes. All logs/JUnit/JSONL remain retained, and its tracked
+source stayed unchanged. A new exact corrected-source execution must use the
+public-network capability required by the unchanged PDB/AlphaFold tests.
+
+The final controlled cross-platform and complete local source results remain
+pending. #527 now owns this cause-specific guard and also records the matching
+macOS abort. SMonitor #56 remains separate observed diagnostic feedback until
+the corrected controlled process establishes its disposition. No source package,
+merge, release or tag is claimed by these local controls.

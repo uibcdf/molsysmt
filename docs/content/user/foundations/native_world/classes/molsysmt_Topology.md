@@ -91,6 +91,13 @@ A three-dimensional viewer has a stricter contract: converting a topology to
 `nglview.NGLWidget` requires explicit `coordinates=` because MolSysMT does not fabricate a
 geometry for a topology-only system.
 
+For an external `openmm.Topology` without recorded edges, conversion to MolSys
+can infer available intra-group template bonds. These are marked inferred and
+partial. No distance-based, peptide-geometry or disulfide candidates are computed
+from that coordinate-free source. Pass `get_missing_bonds=False` to retain the
+source's empty graph without inference. Existing recorded edges keep explicit
+evidence; a projection to native Topology retains only stable inventory.
+
 ---
 
 ## Chemical Components

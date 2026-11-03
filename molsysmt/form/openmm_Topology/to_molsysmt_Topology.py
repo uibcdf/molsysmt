@@ -15,8 +15,10 @@ def to_molsysmt_Topology(
         Argument item.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    get_missing_bonds : object, default=True
-        Argument get_missing_bonds.
+    get_missing_bonds : bool, default=True
+        Infer available template bonds on an edge-free source before projecting
+        stable inventory. False disables inference. Chemistry is not stored in
+        the resulting Topology.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -31,4 +33,9 @@ def to_molsysmt_Topology(
 
     from ._read_native import read_native
 
-    return read_native(item, atom_indices=atom_indices, skip_digestion=True).topology
+    return read_native(
+        item,
+        atom_indices=atom_indices,
+        get_missing_bonds=get_missing_bonds,
+        skip_digestion=True,
+    ).topology

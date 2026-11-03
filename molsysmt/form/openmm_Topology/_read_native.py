@@ -5,7 +5,7 @@ from molsysmt.element.group import get_group_type_from_group_name
 
 def read_native(item, atom_indices="all", get_missing_bonds=True, skip_digestion=False):
     """
-    Converting from openmm.Topology to molsysmt.Topology.
+    Reading OpenMM inventory and declared or template-inferred chemistry.
 
 
     Parameters
@@ -21,8 +21,8 @@ def read_native(item, atom_indices="all", get_missing_bonds=True, skip_digestion
 
     Returns
     -------
-    molsysmt.Topology
-        Resulting object in molsysmt.Topology form.
+    molsysmt.MolSys
+        Native inventory and independent chemical-state domain, without coordinates.
 
 
     .. versionadded:: 1.0.0
@@ -111,17 +111,16 @@ def read_native(item, atom_indices="all", get_missing_bonds=True, skip_digestion
     elif get_missing_bonds:
         from molsysmt.build import get_missing_bonds as _get_missing_bonds
 
-        try:
-            # We try to get bonds using MolSysMT's internal heuristics
-            # This works well for water/ions even without coordinates if names are standard
-            bonded_atoms = _get_missing_bonds(item, skip_digestion=True)
-            if bonded_atoms is not None and len(bonded_atoms) > 0:
-                native.chemical_states._append_chemical_state_bonds(
-                    bonded_atoms, evidence=["inferred"] * len(bonded_atoms)
-                )
-                native.chemical_states._states[0].connectivity_completeness = "partial"
-        except Exception:
-            pass
+        # Query the already constructed domains: querying the foreign source
+        # would pipe back into this reader. OpenMM Topology has no coordinates.
+        bonded_atoms = _get_missing_bonds(
+            native, with_distances=False, skip_digestion=True
+        )
+        if bonded_atoms is not None and len(bonded_atoms) > 0:
+            native.chemical_states._append_chemical_state_bonds(
+                bonded_atoms, evidence=["inferred"] * len(bonded_atoms)
+            )
+            native.chemical_states._states[0].connectivity_completeness = "partial"
     else:
         native.chemical_states._states[0].connectivity_completeness = "complete"
 

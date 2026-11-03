@@ -4,10 +4,10 @@ issue: uibcdf/molsysmt#527
 status: active
 opened: 2026-10-30
 closed:
-severity: medium
+severity: high
 verification: reproduced
 area: [ci, tests]
-guard: devtools/tests/test_pytest_receptor_ci_contract.py::test_full_ci_preserves_partial_phase_evidence_after_abrupt_exit
+guard: tests/form/openmm_Topology/test_native_inference_boundary.py::test_edge_free_conversion_enters_the_native_reader_once
 normative:
 blocked_by: []
 supersedes: []
@@ -16,8 +16,9 @@ supersedes: []
 # Python 3.11 source qualification aborts without final test evidence
 
 **Reported:** 2026-10-30, inspecting the exact-source matrix for #255.
-**Status:** Active; diagnostic retention is implemented, but the native abort's
-cause and correction remain unestablished.
+**Status:** Active; retained Linux/macOS traces and a bounded regression identify
+a recursive edge-free OpenMM conversion. The candidate correction passes local
+controls; exact-source cross-platform qualification remains pending.
 
 ## What
 
@@ -220,3 +221,54 @@ against the same frozen Viewer ca7 source. The new diagnostic guard and isolated
 pinning steps report success before the complete suites in all five matrix cells
 that have started; three macOS cells remain queued at this observation. Those
 step conclusions are not a completed full-suite verdict. Older runs are retained.
+
+
+## Retained call stacks establish converter recursion — 2026-11-02
+
+The corrected descriptor captures the current Python call stack in both
+[Linux/Python 3.11 job 125674802433](https://github.com/uibcdf/molsysmt/actions/runs/41562051654/job/125674802433)
+and [macOS/Python 3.11 job 125674802426](https://github.com/uibcdf/molsysmt/actions/runs/41562051654/job/125674802426).
+Both terminate with exit 139 on provider dbcb4582c. The repeated call path is:
+
+```text
+openmm_Topology._read_native.read_native
+  -> build.get_missing_bonds(original_openmm_topology)
+  -> basic.get(group attributes)
+  -> basic.convert(to molsysmt.MolSys)
+  -> openmm_Topology._read_native.read_native
+```
+
+The reader constructs native inventory, then asks the original foreign object
+for inference. Bulk metadata queries pipe that foreign object back through the
+same converter. Its broad exception handler masks recursion/inference failures.
+The MolSys converter does not forward the shared get_missing_bonds option, and
+the Topology converter exposes it but also fails to forward it. This permits
+unbounded nested construction. The deepest observed allocation in Pandas is a
+call site inside that cycle, not evidence of a Pandas memory-corruption defect.
+No OpenMM Context instruction is required for the bounded reproduction.
+
+A counted reader guard permits the first actual conversion, stops a second
+entry before an uncontrolled stack overflow, and asserts one entry. Additional
+controls require explicit inference opt-out, inference on the constructed native
+domains, retained original source and propagation of injected allocation/runtime
+failures. Before correction seven of eight cases fail (224); the declared-edge
+control already passes. No recursion limit is raised and no native crash is
+silently retried.
+
+The correction calls the existing general build.get_missing_bonds tool on the
+constructed MolSys with with_distances=False: OpenMM Topology has no coordinates.
+Available intra-group template pairs retain inferred evidence and partial
+connectivity; unsupported groups stay unavailable. Recorded edges remain
+explicit. Both converters forward the existing opt-out; MolSys receives the
+option keyword-only, preserving its existing positional arguments. Unexpected
+inference exceptions now propagate instead of being discarded. All this uses
+existing native/build tools, without another chemistry store or provider pin.
+
+The first corrected scope passes 12 cases (225, exit 0, 1.27 seconds), including
+the three actual pinning tests and the new converter doctest. The broader native
+OpenMM/conversion-truth scope passes **826 cases**, exit 0, 258.47 seconds (227).
+Additional inventory-piping and unknown-group controls are included there. The
+standalone guard suite, actual pinning and CI-contract scope are rechecked after
+optional-backend fixture and workflow receiving. The full CI preflight now runs
+these bounded conversion guards before the unchanged complete suite. Controlled
+Python 3.11 and full-matrix acceptance remain required before this report closes.
