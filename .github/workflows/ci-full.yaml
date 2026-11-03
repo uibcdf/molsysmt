@@ -169,6 +169,10 @@ jobs:
         shell: bash -l {0}
         run: python -m pytest --receptor=ci devtools/tests/test_pytest_receptor_ci_contract.py
 
+      - name: Probe isolated OpenMM pinning before the full suite
+        shell: bash -l {0}
+        run: python -m pytest --receptor=ci tests/third_party/openmm/forces/test_pin_atoms.py
+
       - name: Run full test suite
         shell: bash -l {0}
         run: |

@@ -1,5 +1,6 @@
 """Execute documented placement workflows with local molecular inputs."""
 
+import io
 import json
 import re
 from pathlib import Path
@@ -10,6 +11,22 @@ import pytest
 import molsysmt as msm
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+@pytest.fixture
+def headless_plotting():
+    """Run rendered examples without entering a platform GUI event loop."""
+    pytest.importorskip("matplotlib")
+    import matplotlib.pyplot as plt
+
+    previous_backend = plt.get_backend()
+    plt.switch_backend("Agg")
+    with plt.ioff():
+        try:
+            yield plt
+        finally:
+            plt.close("all")
+            plt.switch_backend(previous_backend)
 
 
 def test_center_cookbook_places_rigid_atoms():
@@ -23,11 +40,27 @@ def test_center_cookbook_places_rigid_atoms():
 
 
 @pytest.mark.parametrize("domain", ["Alzheimer", "Enzyme"])
-def test_geometric_course_executes_with_local_source_substitutions(domain, monkeypatch):
+def test_geometric_course_executes_with_local_source_substitutions(
+    domain, monkeypatch, headless_plotting
+):
     """Replace only remote input identifiers; run actual public scientific tools."""
     if domain == "Enzyme":
         pytest.importorskip("rdkit")
-    pytest.importorskip("matplotlib")
+    from matplotlib.backends.backend_agg import FigureCanvasAgg
+
+    plt = headless_plotting
+    original_show = plt.show
+    rendered = []
+
+    def render_show(*args, **kwargs):
+        # Execute the example's real display call without requiring a GUI loop.
+        assert isinstance(plt.gcf().canvas, FigureCanvasAgg)
+        image = io.BytesIO()
+        plt.gcf().savefig(image, format="png")
+        rendered.append(image.getvalue())
+        return original_show(*args, **kwargs)
+
+    monkeypatch.setattr(plt, "show", render_show)
     original_convert = msm.convert
 
     def local_convert(molecular_system, *args, **kwargs):
@@ -57,6 +90,6 @@ def test_geometric_course_executes_with_local_source_substitutions(domain, monke
         assert set(namespace["fibril_atom_indices"]).isdisjoint(
             namespace["peptide_atom_indices"]
         )
-    import matplotlib.pyplot as plt
-
-    plt.close("all")
+    assert rendered and all(
+        image.startswith(b"\x89PNG\r\n\x1a\n") for image in rendered
+    )

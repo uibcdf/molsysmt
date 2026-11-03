@@ -1,0 +1,112 @@
+---
+summary: Course plotting examples block the macOS source test matrix
+issue: uibcdf/molsysmt#528
+status: active
+opened: 2026-11-02
+closed:
+severity: medium
+verification: reproduced
+area: [tests, docs, ci]
+guard: tests/documentation/test_center_examples.py::test_geometric_course_executes_with_local_source_substitutions
+normative:
+blocked_by: []
+supersedes: []
+---
+
+# Course plotting examples block the macOS source matrix
+
+## What
+
+All four macOS cells of [source run 41152714070](https://github.com/uibcdf/molsysmt/actions/runs/41152714070)
+are cancelled at the three-hour job limit. Their retained per-phase streams
+all end after setup of
+`tests/documentation/test_center_examples.py::test_geometric_course_executes_with_local_source_substitutions[Alzheimer]`,
+without its call outcome or a final session result. Python versions are
+3.11–3.14; provider `8feefc96842d56dd03010e81289864eb8b78c0f1`, controlled Viewer
+`ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352`. This blocks #255 source acceptance.
+
+```bash
+python -m pytest --receptor=ci --junitxml=junit.xml --receptor-events=.pytest-receptor/events.jsonl
+```
+
+## How
+
+The course guard executes real notebook code including `plt.show()`, but had
+not selected a noninteractive backend. A macOS GUI event loop is a plausible
+blocking point. The retained phases identify the test, not the precise Python
+statement; there is no direct faulting-frame evidence for `show()` in the old
+run. Do not treat that hypothesis as an independently observed stack trace.
+
+The guard now runs these two geometric notebooks in a scoped Agg/noninteractive
+fixture, restoring the preceding backend and interactive setting afterward.
+It still executes the real display call, scientific transformations and
+assertions. A display spy requires an Agg canvas and writes the actual figure
+to PNG bytes, so the test proves rendering instead of replacing display with a
+no-op. The course files, code cells and scientific criteria remain unchanged.
+
+## Why
+
+CI must finish these examples without waiting for a window to close. Selecting
+a headless backend in the test harness preserves interactive notebook behavior
+for users. No global runtime Matplotlib setting or scientific API is changed.
+
+## What is measured and what is assumed
+
+Observed: all four incomplete artifacts end at the same Alzheimer setup phase;
+all four jobs terminate at the configured execution limit. Native Linux
+3.12–3.14 completes the same suite, with 23,631 passes and 102 skips per cell.
+The Linux/Python 3.11 native abort is a different #527 failure.
+
+Local regression command, before the fixture correction:
+
+```bash
+MPLBACKEND=svg python -m pytest --receptor=llm tests/documentation/test_center_examples.py
+```
+
+The renderer guard fails for both notebook cases and passes the cookbook case
+(run 188, exit 1, 7.77 seconds): both figures have SVG rather than Agg canvases.
+This is a controlled nondefault-backend regression, not a local reproduction of
+a Cocoa GUI hang. After the correction, the same nondefault backend plus OpenMM
+pinning and CI-receptor controls passes 12 cases (189, exit 0, 7.05 seconds).
+Existing legacy/projection warnings and two noninteractive-show warnings remain
+visible; no warning filter is added.
+
+Still required: execute the corrected complete macOS source cells. A passing
+local Linux test does not establish that their cancellation is resolved.
+
+## What was refuted
+
+Increasing the job timeout or skipping the course examples would not establish
+that the notebooks run correctly in CI. Replacing `show()` with a no-op would
+lose actual rendering coverage. Selecting Agg only through an environment
+variable would not control a backend already imported by earlier tests.
+
+## Scope and exclusions
+
+Only the automated example harness changes. Do not remove notebook plots or
+weaken geometric checks. The #527 OpenMM abort and release/installed-artifact
+qualification are separate work.
+
+## Acceptance criteria
+
+- Both real notebooks execute, render their figures and preserve their existing
+  geometric/source-selection assertions under a nondefault incoming backend.
+- The fixture restores plotting state and closes its figures even on failure.
+- The exact corrected macOS source matrix finishes rather than being cancelled
+  in this test; retain the failed run and its incomplete artifacts.
+
+## Provenance
+
+Inspection date: 2026-11-02. Hosted `macos-15`, Python 3.11–3.14, source IDs above;
+Pytest Receptor 1.1.0. Local Linux development Python 3.14.7 with Matplotlib
+3.11.2; logs/XML are retained under the #255 qualification scratch directory.
+
+
+## Expanded local control — 2026-11-02
+
+The documentation, OpenMM-force and CI-receptor selection passes **594 tests**
+with two workers and incoming `MPLBACKEND=svg`, exit 0, 212.25 seconds (190).
+Its 528 visible warnings include Sphinx deprecations, legacy/projection notices
+and noninteractive plotting messages. No warning filter is added. Ruff,
+formatting and all 14 fast gates (191) pass. These results qualify the harness
+locally; the complete macOS source acceptance remains open.

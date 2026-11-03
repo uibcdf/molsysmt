@@ -117,3 +117,32 @@ commits and job identified above. Local guard measurements use the shared Linux
 development environment, Python 3.14.7 and pytest-receptor
 1.2.1+22.g00a31c4; the CI tool pin remains 1.1.0. Local logs and JSONL outputs
 are retained under the #255 qualification scratch directory.
+
+
+## Retained evidence narrows the abort — 2026-11-02
+
+The corrected-provider run [41152714070, Linux/Python 3.11 job 124392743149](https://github.com/uibcdf/molsysmt/actions/runs/41152714070/job/124392743149)
+also aborts with exit 139. The new JSONL artifact is retained, incomplete and
+below its size bound (33,976,517 bytes). Its final phase is the successful setup
+of `tests/third_party/openmm/forces/test_pin_atoms.py::test_pin_atoms_3`; the
+preceding test has passed call/teardown records. This identifies the active
+call scope, not its precise native instruction or root cause. The raw fault
+dump still omits the current Python call site among many background threads.
+
+All seven original/new #526 regression calls pass even in this incomplete
+Python 3.11 run. Linux 3.12, 3.13 and 3.14 independently finish the complete
+suite with 23,631 passes, 102 skips and 40 deselections, exit 0. The independent
+macOS cancellations are now tracked in #528. None of those outcomes clears
+this abort.
+
+The isolated three-test pinning module passes in local Python 3.14.7/OpenMM
+8.6.1 (187, exit 0, 4.43 seconds). This does not reproduce the hosted Python
+3.11.18/OpenMM `8.6.1-py311h1aadaef_0` environment. The next source workflow
+runs the pinning module before the full suite, without changing the full-suite
+selection, to distinguish isolated failure from accumulated process state.
+A temporary fixture scopes faulthandler to the current thread within that
+module so a repeated native fault's Python call site is not lost behind widget
+threads; it restores pytest's all-thread setting afterward. This is diagnostic
+instrumentation, with removal after the cause-specific regression is settled,
+not a fix or a dependency attribution. Combined local controls pass 12 cases
+(189); hosted reproduction and the crash correction remain pending.

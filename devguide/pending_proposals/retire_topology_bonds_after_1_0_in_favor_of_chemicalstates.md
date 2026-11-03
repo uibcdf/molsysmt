@@ -19,8 +19,9 @@ supersedes: []
 **Implementation status:** In progress on `dev/chemical-states-separation-255`.
 The source cutover now separates native storage, queries, builders, graph tools
 and persistence. Consumer receiving is delivered through owner-reviewed drafts;
-complete source qualification remains open, including the concrete Pandas 3.1
-failures in #526. The dated scientific, documentation and benchmark scopes below
+complete source qualification remains open. The Pandas correction passes three
+complete Linux cells (#526); the separate native abort #527 and macOS example
+cancellation #528 remain under investigation. The dated scientific, documentation and benchmark scopes below
 remain separate from final exact-source/client acceptance. The dated receipts below distinguish
 executed controls from pending work. No main merge or release is authorized by
 this execution.
@@ -230,7 +231,7 @@ is not completion. Do not manufacture a completion percentage from phase count.
 | P4: builder and lifecycle | P2, P3 | MolSys/Builder authority, stable membership, shared-axis remapping, copies, partial composition and analysis invalidation implemented and contract-tested | Coordinated edits/remaps/copies and invalidation |
 | P5: functional module | P3; P4 for integration | Nine graph APIs, helpers, addon namespace, argument and scientific-attribution metadata migrated; graph controls pass; final integrated qualification pending | Nine moved APIs, state selection and unchanged scientific controls |
 | P6: conversions/persistence | P3, P4 | Producers, Topology projections, dictionary 0.2, typed transports and H5MSM/legacy readers migrated; scoped fidelity debt explicitly retained; final integrated qualification pending | Versioned payloads, legacy readers, partial and full round trips |
-| P7: docs and consumer receiving | P5, P6 | Provider documentation, changed examples and strict Sphinx pass; Viewer core/addon source receiving passes with identified commits; hosted/installed qualification and the other three client receipts remain pending | Lifecycle docs and immutable consumer receipts |
+| P7: docs and consumer receiving | P5, P6 | Provider documentation, changed examples and strict Sphinx pass; Viewer core/addon and targeted TopoMT source receiving pass; DockingMT draft source CI passes; PharmacophoreMT and owner adoption/final qualification remain pending | Lifecycle docs and immutable consumer receipts |
 | P8: integrated source closeout | P1-P7 | Implementation and qualification receipts published; expanded source run executed with isolated consumer/download failures; Viewer corrective scopes pass; hosted/runtime and other client dispositions, main integration and lifecycle closeout remain open | Exact-source checks, published implementation and issue receipt |
 
 Documentation work can accompany each implementation phase. Independent execution
@@ -2960,3 +2961,59 @@ It fails before the change; the control selection passes **37 cases** (184),
 and its final receptor-contract subset passes **6 cases** (185). This tests
 diagnostic retention only. The native failure's cause, its eventual regression
 guard and the complete exact-source matrix remain pending.
+
+
+### Current-Pandas success and remaining source failures — 2026-11-02
+
+The exact corrected source `8feefc96842d56dd03010e81289864eb8b78c0f1` with Viewer
+`ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352` has three complete successful Linux
+source cells, Python 3.12–3.14, in [run 41152714070](https://github.com/uibcdf/molsysmt/actions/runs/41152714070).
+Each records **23,631 passes, 102 skips, 40 deselections**, no failures/errors,
+exit 0; JUnit agrees with complete untruncated receptor streams. Actual Pandas
+3.1.0 and all seven original/new regression calls are verified. This advances
+#526 beyond local emulation; it does not turn the eight-cell matrix green.
+
+Linux/Python 3.11 still aborts natively (#527). Its retained phases now identify
+`test_pin_atoms_3` as the active call scope. An isolated local 3.14/OpenMM pinning
+selection passes three tests; that is not a reproduction of hosted 3.11. The
+next workflow probes the isolated module before the complete suite and retains
+current-thread fault diagnostics in that scope. The native cause remains open.
+
+All four macOS streams stop in the Alzheimer geometric-course example and their
+jobs reach the execution limit (#528). Its unconfigured GUI display is a
+hypothesis, not a captured faulting line. The automated harness now uses scoped
+headless rendering and verifies actual PNG output while retaining the original
+notebook transformations/display calls. A nondefault-backend red run fails the
+two notebook controls; the correction with OpenMM/CI controls passes **12 cases**
+(189, exit 0). Corrected macOS execution and the complete source gate remain
+required; no main merge, client adoption or publication is implied.
+
+
+### Bounded correction gate and owner follow-up — 2026-11-02
+
+The complete local documentation/third-party OpenMM forces/CI-receptor control
+selection passes **594 tests**, exit 0, 212.25 seconds (190), with two workers
+and incoming `MPLBACKEND=svg`. Real notebook PNG rendering and the scientific
+assertions run; visible Sphinx, legacy, projection and noninteractive-show
+warnings are retained. Ruff and formatting pass; fast gate 191 passes **14/14**.
+All eight downloaded scientific certificates for exact 8feefc968 independently
+verify 79 cases/59 nodes with zero failures/errors/skips and clean tracked source.
+That certificate scope does not clear the aborted/cancelled full-suite cells.
+
+DockingMT PR #59 at 07f3651 has passing source/quality/policy/governance checks;
+it is still an owner-reviewed draft, not a merge or installed qualification.
+PharmacophoreMT PR #70 at 300d8f4 has eight source failures in a negative spy
+still targeting the removed physchem hydrogen-bond site path, plus a reporting
+counterexample that replaces a no-longer-present literal pin. A complete
+syntax-checked **unapplied** patch and the actual failed CI identity were
+[delivered to its team](https://github.com/uibcdf/pharmacophoremt/pull/70#issuecomment-6591922365).
+It preserves the negative scientific assertion, targets the actual callable
+and requires an actual exact-pin mutation before testing refusal. No receiving
+pass or owner application is inferred from that proposal.
+
+The next provider execution retains the full eight-cell scope and exact Viewer
+source. It adds isolated OpenMM pinning before the complete suite, scoped
+current-thread fault diagnostics for that module and headless course validation.
+The root cause of #527 and successful macOS reexecution are still required.
+The goal's explicit no-merge/no-release instruction remains in force; P8.4's
+historical main-integration step requires separate later authorization.

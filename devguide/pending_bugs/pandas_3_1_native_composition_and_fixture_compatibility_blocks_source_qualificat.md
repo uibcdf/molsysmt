@@ -115,3 +115,22 @@ removed, dtype check disabled, warning filtered or speculative Pandas cap added.
 controlled matrix. The local future options reproduce relevant contracts but
 are not a substitute for running that version. Keep #526 and #255 open until
 that source gate and their separate acceptance conditions are satisfied.
+
+
+## Actual Pandas 3.1 source evidence — inspected 2026-11-02
+
+Provider `8feefc96842d56dd03010e81289864eb8b78c0f1` with the same controlled
+Viewer completes the full Linux/Python 3.12, 3.13 and 3.14 cells of
+[run 41152714070](https://github.com/uibcdf/molsysmt/actions/runs/41152714070):
+**23,631 passed / 102 skipped / 40 deselected**, zero failures/errors, exit 0
+per cell. JUnit and the complete, untruncated JSONL streams agree. The inspected
+3.13 job installs `pandas-3.1.0-np2py313h4900a6c_0`; the version is not inferred
+from local future-option emulation. All six original regression calls and the
+new mutable-transport call pass in each Linux cell, including the partial
+Python 3.11 stream.
+
+The matrix as a whole still fails: Python 3.11 has the independent native
+abort #527, and macOS stops in a documentation example before these regression
+cases (#528). The Pandas correction is now executed successfully against the
+actual current version on three complete source cells; final all-platform
+acceptance remains separate and open. Old failed runs remain retained.

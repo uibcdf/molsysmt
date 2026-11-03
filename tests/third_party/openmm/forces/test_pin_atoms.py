@@ -2,6 +2,7 @@
 Unit and regression test for the copy module of the molsysmt package.
 """
 
+import faulthandler
 from importlib.util import find_spec
 
 import numpy as np
@@ -22,6 +23,19 @@ atom = topology.addAtom(name="Ar", element=app.element.argon, residue=residue)
 chain = topology.addChain("B")
 residue = topology.addResidue("Ar", chain)
 atom = topology.addAtom(name="Ar", element=app.element.argon, residue=residue)
+
+
+@pytest.fixture(autouse=True)
+def current_thread_native_fault():
+    """Keep the #527 call site visible despite many background widget threads."""
+    enabled = faulthandler.is_enabled()
+    if enabled:
+        faulthandler.enable(all_threads=False)
+    try:
+        yield
+    finally:
+        if enabled:
+            faulthandler.enable(all_threads=True)
 
 
 def test_pin_atoms_1():
