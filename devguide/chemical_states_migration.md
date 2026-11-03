@@ -98,6 +98,14 @@ cross-state identity. Do not align states or components solely by their row numb
 Current independent union supports one-state inputs; unsupported multi-state merge
 policies reject rather than guessing a Cartesian product or correspondence.
 
+Extraction preserves component label-column storage dtypes and their typed
+dictionary descriptors, including empty outputs and missing labels for cut
+components. Full original atom sets retain their eligible labels; splitting a
+component does not justify transferring its name or type to the fragments.
+Legacy object-backed label columns retain that representation rather than being
+silently normalized during extraction. Permuting atoms preserves the other index
+axes, including component-row order.
+
 Controlled edits preserve other domains and invalidate affected named analyses
 according to the [query](native_queries.md), [copy](native_copy.md) and
 [interaction](interactions_api.md) contracts. Raw pandas/array writes do not gain

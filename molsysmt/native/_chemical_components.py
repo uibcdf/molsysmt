@@ -52,6 +52,7 @@ def restrict(state, atom_indices, bonds):
     Complete graphs yield induced partitions with exact-atom-set metadata
     matching. Otherwise rows retain their meaning as restricted declarations,
     with downgraded completeness when their original memberships were cut.
+    Label-column dtypes survive even when new partitions have missing labels.
     """
     import pandas as pd
 
@@ -65,8 +66,10 @@ def restrict(state, atom_indices, bonds):
         components["component_id"] = pd.array(
             np.arange(n_components).astype(str), dtype="string"
         )
-        components["component_name"] = pd.NA
-        components["component_type"] = pd.NA
+        for column in ("component_name", "component_type"):
+            components[column] = pd.Series(
+                pd.NA, index=components.index, dtype=state.components[column].dtype
+            )
         new_rows, old_rows = unchanged_rows(
             old_indices,
             indices,

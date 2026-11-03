@@ -31,6 +31,10 @@ that front matter -- edit the entries, not this list.
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 - [`weekly_full_suite_has_seven_repeated_failures.md`](weekly_full_suite_has_seven_repeated_failures.md) — [#515](https://github.com/uibcdf/molsysmt/issues/515) — Scheduled full Linux CI repeats seven unresolved failures across supported Python minors. *(medium, upstream)*
 
+### In progress (1)
+
+- [`component_column_dtypes_change_during_chemical_extraction.md`](component_column_dtypes_change_during_chemical_extraction.md) — [#531](https://github.com/uibcdf/molsysmt/issues/531) — ChemicalStates extraction changes component column dtypes from string to object. *(medium, reproduced)*
+
 ### Partially resolved (1)
 
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
