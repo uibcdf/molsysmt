@@ -1,9 +1,9 @@
 ---
 summary: Performance audit rejects its H5 reference before producing measurements.
 issue: uibcdf/molsysmt#539
-status: active
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-03
 severity: medium
 verification: inspected
 area: [ci, performance, form]
@@ -17,9 +17,9 @@ supersedes: []
 
 **Reported:** performance gate of PR #538, without a local original-environment
 reproduction from the reporter.
-**Status:** source/backend-shadow mechanism reproduced; a coherent source-route
-correction and fresh-process guards are implemented. Hosted receiving remains pending;
-the original job's exact backend origin cannot be recovered from its log.
+**Status:** resolved by the compiled editable source route and successful
+exact-source hosted preparation, complete measurements and threshold audit.
+The original failed job's unrecorded backend origin remains unknown.
 
 ## What and how
 
@@ -149,3 +149,32 @@ is manually dispatched on that exact commit. GitHub and GH Run Receptor report
 it queued with no executed job steps at this snapshot. No timings, hosted
 preparation success or final audit outcome are claimed. This workflow does not
 upload packages or publish releases. #539 remains open pending that execution.
+
+## Resolution and terminal hosted receiving — 2026-11-03
+
+[Run 41706735371](https://github.com/uibcdf/molsysmt/actions/runs/41706735371),
+job 126163924551, completes successfully on exact source
+`3920346fb4126ec28f15f5ea6edc7e944f7b2589`. The three fresh-process/reference
+controls pass in 112.53 seconds without skips. The ordinary complete benchmark
+command then executes, and all **21 compared paths** conform to the unchanged
+15% threshold. The original input, workloads, iteration/repetition settings and
+baseline remain unchanged. GH Run Receptor reports terminal PASS, agreeing with
+GitHub's job and all executed preparation/measurement/comparison steps. There
+are no downloadable run artifacts; the native log carries the runtime, complete
+measurement summary and comparison evidence.
+
+The actual failing-command boundary is now observable: the runtime reports
+Python 3.14.10 from the Conda executable, package and Rust origins in the same
+checkout, MolSysMT `0.23.0+382.g3920346fb`, NumPy 2.5.4, Pandas 3.1.0, MDTraj
+1.11.2 and h5py 3.16.0. The H5 exists, is 1,268,562 bytes, and is assessed as
+valid file:h5 with no failure reason. These are runtime observations rather
+than inferred setup-python versions.
+
+The original failure remains failed, not retroactively diagnosed from absent
+metadata. Controlled reproduction established the shadowing mechanism; the
+corrected source route removes that incoherence and now executes the entire
+unchanged gate. Hosted medians do not establish universal speed improvements,
+a noise-calibrated regression protocol or later-source performance. This is
+source benchmark receiving, not installed-package or release qualification.
+Native raw/compact evidence is retained in ignored
+`.pytest_cache/stabilization-539/corrected-hosted.raw.log` and the receptor cache.

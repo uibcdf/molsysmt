@@ -77,6 +77,21 @@ publication governance 41698205100. This is not a full-matrix, installed-pair or
 release claim. The older 13f72af2c scientific job remains cancelled without
 executed steps.
 
+### Benchmark and site-scope closeout — 2026-11-03
+
+[#539](archive/resolved_bugs/benchmark_reference_h5_conversion_fails_in_ci.md)
+passes the complete exact-source audit 41706735371 on 3920346fb: three reference
+controls and 21 compared paths meet the unchanged 15% threshold. Runtime origins
+and the actual Conda interpreter are recorded; no installed-package claim follows.
+
+[#509](archive/resolved_bugs/hbond_site_structure_bounds_differ_between_resident_and_h5msm.md)
+is repaired in the shared source-axis/chemical-context and H5MSM reader boundaries.
+Combined native/addon receiving passes 1,279 tests without skips/failures; the
+518 documentation/doctest controls and 14 fast gates also pass. The owner record
+retains warning counts, original failing guards, requested-row memory controls,
+nondefault units and source/scene preservation. This is local source receiving,
+not a full hosted matrix or installed-pair qualification.
+
 ### New board and PR review — 2026-11-03
 
 The refreshed board contains 87 open issues and two open PRs before the two
@@ -85,37 +100,20 @@ counts are a dated snapshot, not a live generated inventory.
 
 Next admitted defect/contribution reviews, in priority order:
 
-1. **[#539](pending_bugs/benchmark_reference_h5_conversion_fails_in_ci.md):**
-   the PR performance gate fails before timings. A real installed-prefix/source
-   shadow experiment reproduces the rejection when the source Rust binary is
-   unavailable; the same H5 becomes valid with that binary visible. Capture the
-   original hosted runtime identity and choose one coherent source/installed
-   route before claiming the cause or successful audit. The correction now uses
-   an editable compiled source checkout and records runtime/reference identities.
-   Fresh-process full-reference/absent-backend guards are implemented and pass
-   locally; combined workflow/dependency receiving passes 40 cases without
-   skips/failures. Published source 3920346fb is dispatched in audit 41706735371,
-   currently queued without executed steps. No dataset or threshold
-   substitution is admitted.
-2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
+1. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
    and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to
-   fail the source-file inventory. The PR proposes its correction plus four
-   bound `supported` reports under the existing #421 scope. New PR #540 proposes
-   seven native attribute metadata tools from main 639ec85d. Both remain unmerged;
-   reconcile their inventories and preserve newer guards while qualifying the combined
-   integration, including the performance route and complete PR checks. The
-   [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
-3. **#509, #511 and #516:** hydrogen-site bounds, precomputed donor-shape and
-   reference-selection defects. Retain each original
-   scientific acceptance contract and provider-owned correction. Reassess #509
-   against the general chemical-context validation already changed by #255.
-   A fresh current-source probe confirms the original numeric range bypass is
-   fixed, while H5MSM None/spatial-context differences remain. The
-   [#509 owner record](pending_bugs/hbond_site_structure_bounds_differ_between_resident_and_h5msm.md)
-   retains those reproductions and the full pending acceptance matrix.
-4. **#504:** choose and document multi-structure solvation output/aggregation;
+   fail the source-file inventory. PR #538 proposes its correction plus four
+   bound supported reports; #540 proposes seven attribute metadata tools. Both
+   remain unmerged. Reconcile their inventories, retain newer guards and qualify
+   the combined integration. The #539 preparation/audit blocker is now resolved
+   on source 3920346fb; this does not make old PR checks or refreshed source pass.
+   The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
+2. **#511 and #516:** precomputed donor-shape and reference-selection defects.
+   Retain each original scientific acceptance contract and provider-owned correction.
+   #509 is now resolved with source-form/state/selection and bound-addon receiving.
+3. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
-5. **#523 and #524:** the declared legacy H5MSM structure-index route is still
+4. **#523 and #524:** the declared legacy H5MSM structure-index route is still
    missing on the current source; runtime dependency floors/restrictions need
    API-grounded review before the next publication. Exact route, provider and
    installed-artifact evidence remain distinct.

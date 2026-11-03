@@ -7,7 +7,7 @@ from ...variables import is_all
 
 
 def digest_structure_indices(structure_indices, molecular_systems=None, caller=None):
-    """Checks if atom_indices has the expected type and value.
+    """Checking structure-index types without treating booleans as positions.
 
     Parameters
     ----------
@@ -61,10 +61,16 @@ def digest_structure_indices(structure_indices, molecular_systems=None, caller=N
         return None
     elif is_all(structure_indices):
         return "all"
-    elif isinstance(structure_indices, (int, np.int64, np.int32)):
+    elif isinstance(structure_indices, (int, np.int64, np.int32)) and not isinstance(
+        structure_indices, (bool, np.bool_)
+    ):
         return np.array([structure_indices], dtype="int64")
     elif isinstance(structure_indices, (np.ndarray, list, tuple, range)):
-        if all(isinstance(ii, (int, np.int64, np.int32)) for ii in structure_indices):
+        if all(
+            isinstance(ii, (int, np.int64, np.int32))
+            and not isinstance(ii, (bool, np.bool_))
+            for ii in structure_indices
+        ):
             return np.array(structure_indices, dtype="int64")
         else:
             return [

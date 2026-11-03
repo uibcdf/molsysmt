@@ -21,10 +21,11 @@ def chemical_graph_context(
     from molsysmt.native import ChemicalStates, MolSys, Topology
     from molsysmt.native._query_domains import compose_query_domains
 
-    if not with_structures:
-        structure_indices = validate_chemical_frames(
-            molecular_system, structure_indices, caller
-        )
+    if structure_indices is None:
+        structure_indices = "all"
+    structure_indices = validate_chemical_frames(
+        molecular_system, structure_indices, caller
+    )
     selection_frames = structure_indices
     forms = get_form(molecular_system)
     if isinstance(forms, (list, tuple)) and "molsysmt.ChemicalStatesDict" in forms:
@@ -54,7 +55,7 @@ def chemical_graph_context(
         frames = (
             np.arange(dimensions[1], dtype=np.int64)
             if is_all(structure_indices)
-            else structure_indices
+            else np.asarray(structure_indices, dtype=np.int64)
         )
         if np.any(np.asarray(frames) < 0) or np.any(
             np.asarray(frames) >= dimensions[1]
@@ -67,11 +68,17 @@ def chemical_graph_context(
             chemical_state=chemical_state,
             structure_indices=frames,
             require_topology=False,
+            include_structures=with_structures,
         )
         selection_frames = "all"
     if chemical_state == "structure":
         if not isinstance(molecular_system, MolSys):
             raise ArgumentError("chemical_state", value=chemical_state, caller=caller)
+        if molecular_system.structures is None:
+            raise StructuralInconsistencyError(
+                reason="Structure-assigned chemistry requires source structures.",
+                caller=caller,
+            )
         chemical_state = molecular_system._resolve_structure_chemical_state_index(
             structure_indices
         )

@@ -336,9 +336,14 @@ def write_complete_molsys_file(filename, molsys):
 
 
 def _read_calculation_chemistry(
-    filename, *, chemical_state, structure_indices, require_topology=True
+    filename,
+    *,
+    chemical_state,
+    structure_indices,
+    require_topology=True,
+    include_structures=False,
 ):
-    """Prepare native chemistry on declared shared axes without reading structures."""
+    """Prepare native chemistry, optionally retaining requested structural context."""
     import numpy as np
 
     from molsysmt._private.smonitor import StructuralInconsistencyError
@@ -373,22 +378,31 @@ def _read_calculation_chemistry(
             or observed["target_name"] != link["target_name"]
         ):
             raise ValueError("Calculation requires declared identity atom-axis links.")
-    prepared = MolSys._from_partial_domains(topology=topology, chemical_states=states)
-    if chemical_state != "structure":
-        return prepared, chemical_state
-    frames = np.asarray(structure_indices, dtype=np.int64)
-    key = ("structure_state", "structures", None, "chemical_states", None)
-    if key in by_key:
-        indices = by_key[key]["indices"]
-        chosen = frames if isinstance(indices, str) else indices[frames]
-    else:
-        chosen = np.full(len(frames), 0 if states.n_chemical_states == 1 else -1)
-    if not len(chosen) or np.any(chosen < 0) or len(np.unique(chosen)) != 1:
-        raise StructuralInconsistencyError(
-            reason="Requested structures must resolve to one known chemical state.",
-            caller="molsysmt.form._h5msm05_modular._read_calculation_chemistry",
-        )
-    return prepared, int(chosen[0])
+    if chemical_state == "structure":
+        frames = np.asarray(structure_indices, dtype=np.int64)
+        key = ("structure_state", "structures", None, "chemical_states", None)
+        if key in by_key:
+            indices = by_key[key]["indices"]
+            chosen = frames if isinstance(indices, str) else indices[frames]
+        else:
+            chosen = np.full(len(frames), 0 if states.n_chemical_states == 1 else -1)
+        if not len(chosen) or np.any(chosen < 0) or len(np.unique(chosen)) != 1:
+            raise StructuralInconsistencyError(
+                reason="Requested structures must resolve to one known chemical state.",
+                caller="molsysmt.form._h5msm05_modular._read_calculation_chemistry",
+            )
+        chemical_state = int(chosen[0])
+    states._resolve_index(None if chemical_state == "reference" else chemical_state)
+    structures = None
+    if include_structures:
+        with h5py.File(filename, "r") as file:
+            structures = read_independent_structures(
+                file, structure_indices=structure_indices
+            )
+    prepared = MolSys._from_partial_domains(
+        topology=topology, chemical_states=states, structures=structures
+    )
+    return prepared, chemical_state
 
 
 def read_complete_molsys_file(filename):

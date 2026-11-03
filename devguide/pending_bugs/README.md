@@ -27,10 +27,8 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 
-### In progress (3)
+### In progress (1)
 
-- [`benchmark_reference_h5_conversion_fails_in_ci.md`](benchmark_reference_h5_conversion_fails_in_ci.md) — [#539](https://github.com/uibcdf/molsysmt/issues/539) — Performance audit rejects its H5 reference before producing measurements. *(medium, inspected)*
-- [`hbond_site_structure_bounds_differ_between_resident_and_h5msm.md`](hbond_site_structure_bounds_differ_between_resident_and_h5msm.md) — [#509](https://github.com/uibcdf/molsysmt/issues/509) — Hydrogen-bond site structure bounds differ between resident and H5MSM. *(medium, reproduced)*
 - [`sdist_directory_entries_mistaken_for_addon_files.md`](sdist_directory_entries_mistaken_for_addon_files.md) — [#537](https://github.com/uibcdf/molsysmt/issues/537) — Source archive validation mistakes addon directories for unreviewed files. *(medium, reproduced)*
 
 ### Partially resolved (1)

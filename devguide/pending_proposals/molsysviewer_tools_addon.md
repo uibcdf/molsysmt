@@ -24,6 +24,20 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Native-provider receiving follow-up — 2026-11-03
+
+#539's performance preparation/audit now passes on source 3920346fb in hosted
+run 41706735371, including three reference guards and all 21 compared paths at
+the unchanged threshold. The previously failed PR audit remains historical;
+refreshing either contribution still requires its actual applicable checks.
+
+#509's remaining sentinel/spatial-context differences are repaired in the shared
+native owners. The site/form/state matrix and nine bound-addon cases pass in
+1,279-case combined source receiving, preserving source chemistry, scene and
+named-analysis identity. Native scope rules and source-versus-package limits
+are updated in the user guidance. No addon-side scientific workaround is added.
+#511/#516 remain open; no full installed pair, PR merge or release is claimed.
+
 ## Supported-report contribution review — 2026-11-03
 
 PR #538, head 3c13ba1a5c248de11622ff015b24551f72c59846, proposes four native

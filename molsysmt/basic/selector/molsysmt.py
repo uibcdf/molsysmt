@@ -406,7 +406,17 @@ def select_bonds_standard(item, selection):
 
 def select_within(molecular_system, selection, structure_indices):
 
+    from molsysmt._private.smonitor import ArgumentError
+    from molsysmt.basic import has_attribute
     from molsysmt.structure.get_contacts import get_contacts
+
+    if not has_attribute(molecular_system, attribute="coordinates"):
+        raise ArgumentError(
+            "selection",
+            value=selection,
+            caller="molsysmt.select",
+            message="Spatial selection requires source coordinates.",
+        )
 
     not_within = False
 

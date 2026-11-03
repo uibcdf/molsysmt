@@ -29,6 +29,18 @@ complete knowledge. Rebuilding an observed graph does not certify complete
 chemistry. Complete connectivity with known participation can yield a complete
 component partition, including isolated atoms and an empty edge set.
 
+## Chemical and structural scope
+
+Chemical-site recognition can use stored chemistry without coordinates. Its
+`structure_indices` still refer to the original source axis when supplied
+explicitly; boolean values are not positional indices. For
+`msm.interactions.hbonds.get_hbond_sites`, `None` means `all`. An empty structure
+scope does not erase reference/explicit-state chemical sites, but cannot resolve
+an assigned state or evaluate a spatial selection. A spatial selection needs
+coordinates and uses the first requested structure, including after an H5MSM
+read. This scope is distinct from an interaction analysis's evaluated coverage.
+See {ref}`Tutorial_Get_hbond_sites`.
+
 ## Stored Queries
 
 Use `chemical_states.get(..., chemical_state=...)` or

@@ -40,11 +40,16 @@ def get_hbond_sites(
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Atom selection. Retain donor-hydrogen pairs only when both atoms are
         selected, and acceptors when selected. Match the full source first.
-    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+    structure_indices : int, list, tuple, numpy.ndarray, or None, default='all'
         Structure indices (0-based) for state resolution and spatial selections.
         Explicit indices require a known source structure axis and valid bounds,
         even for nonspatial selections. 'all' and None allow coordinate-free input.
         Site recognition itself does not require coordinates.
+        None uses the same scope as 'all'. An empty list retains the chemical
+        inventory for reference/explicit states, but cannot resolve a state
+        assigned by structure or evaluate a spatial selection. Repeated indices
+        do not duplicate sites. Spatial selections follow the ordinary selector's
+        first-requested-structure convention.
     chemical_state : {'reference', 'structure'}, int, or None, default='reference'
         State supplying connectivity and chemistry. Structure-assigned states
         must resolve to one state across the requested structures.
@@ -75,7 +80,8 @@ def get_hbond_sites(
     Raises
     ------
     ArgumentError
-        If the method, selection, state or match limit is invalid.
+        If the method, selection, structure indices, state or match limit is
+        invalid, or a spatial selection has no source coordinates.
     StructuralInconsistencyError
         If elements/connectivity or the required declared chemistry are absent.
     UnsupportedHeavyOperationError

@@ -333,7 +333,7 @@ the slowest native runner completes.
   converting the complete reference; a missing backend fails explicitly. This
   is source evidence, not installed-package qualification. Because hosted runners
   are noisy, investigate a failure before treating a 15% delta as a deterministic
-  regression. See [the #539 record](pending_bugs/benchmark_reference_h5_conversion_fails_in_ci.md).
+  regression. See [the #539 record](archive/resolved_bugs/benchmark_reference_h5_conversion_fails_in_ci.md).
 - `test_import.yaml` provides a manually dispatched import check.
 - `sphinx_docs_to_gh_pages.yaml` builds and publishes documentation.
 - `build_and_upload_conda_packages.yaml` builds Conda packages when dispatched. Its

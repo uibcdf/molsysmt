@@ -1,13 +1,13 @@
 ---
 summary: Hydrogen-bond site structure bounds differ between resident and H5MSM.
 issue: uibcdf/molsysmt#509
-status: active
+status: resolved
 opened: 2026-10-27
-closed:
+closed: 2026-11-03
 severity: medium
 verification: reproduced
 area: [interactions, selection, molsysviewer]
-guard:
+guard: tests/interactions/hbonds/test_site_structure_scope.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,9 +16,8 @@ supersedes: []
 # Hydrogen-bond site structure bounds differ between resident and H5MSM.
 
 **Reported:** 2026-10-27 during expert-addon receiving.
-**Status:** original numeric bounds mismatch no longer reproduces on current
-main; the requested sentinel/spatial-selection matrix still has form differences.
-Shared-owner correction and complete native regression receiving remain pending.
+**Status:** resolved with native source-form/state/selection guards and bound-addon
+receiving. Full-matrix, installed-package and release qualification remain separate.
 
 ## What
 
@@ -127,3 +126,55 @@ Keep graph-only reads free of coordinate materialization and read only requested
 structures when spatial context is needed. Do not patch the Viewer wrapper or
 change scientific recognition rules. No runtime change is made by this
 reassessment, and #509 stays open.
+
+## Resolution — 2026-11-03
+
+The shared chemical graph context now normalizes None to all and validates the
+original source structure axis before resolving any chemical state, including
+rich string selections. Its H5MSM chemistry reader retains only the requested
+structural rows when rich selection context is requested; numeric/all atom
+queries still omit structural reads. Associations and chemical state validity
+are checked before loading coordinates. Empty row requests retain int64 shape.
+No selected-atom conversion truncates the full source covalent graph.
+
+The common structure-index digester rejects booleans before integer coercion;
+this also protects basic get/select/convert. The ordinary spatial selector
+reports missing coordinates through MolSysMT's ArgumentError instead of passing
+None into a quantity backend. Missing structures for assigned-state chemistry
+raise StructuralInconsistencyError. Empty structure scopes remain valid for
+reference/explicit chemical inventories, but cannot evaluate a spatial selection
+or resolve an assigned state. Existing spatial semantics use the first requested
+structure, without a new union or temporal rule.
+
+The corrected baseline matrix has **53 failing / 196 passing cases** before the
+repair. Final combined receiving passes **1,279 tests**, zero skips/failures,
+exit 0, 111.30 seconds, using two workers. It includes the expanded 256-case site
+scope matrix, 15 general boolean-index controls, other hydrogen-site/direction
+and chemistry readers, native selection/digestion, H5MSM association/structure
+readers and real bound-addon receiving. Nine new addon cases preserve scene and
+named-analysis identity while checking native results and error classes.
+The scope guards include nonconsecutive/repeated indices, scalar/all/None/empty,
+malformed/bool/negative/out-of-range requests, distinct reference/explicit/
+structure-assigned chemistry, unknown associations, coordinate-free sources,
+nondefault angstrom policy and source-table/coordinate/reference preservation.
+A negative structural-reader sentinel protects graph-only reads; an observed
+reader verifies the exact requested row list. Ambiguous states reject before
+any structural read.
+
+The 16 disclosed warnings are 12 deliberate legacy-H5MSM warnings and four
+memory-pressure controls from the existing bounded-execution tests; the latter
+exercise a deliberately tiny configured budget, not a new memory measurement.
+Documentation/doctest receiving passes **518 cases**, zero skips/failures,
+exit 0, 11.92 seconds, with 142 existing Sphinx deprecation warnings. All 246
+public docstrings and 14 fast gates pass. Full-tree Ruff, dependency/import,
+API/signature and devguide checks pass. The new native guards are added to both
+aligned routine smoke commands; the existing addon module is already selected.
+
+Linux source receiving uses the existing Python 3.14.7 development environment
+and Viewer ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352. Raw logs and JUnit receipts
+are retained in ignored `.pytest_cache/stabilization-509/`. Foundations, Toolbox,
+Cookbook, addon guidance and all four advanced-HBonds course modules reflect the
+contract. Six notebook edits preserve code cells, stored outputs, cell identity
+and notebook metadata. No new detector, scientific profile, chemical inference,
+public signature, dependency floor, schema or format version is introduced.
+These local receiving counts do not certify a hosted full matrix or installed pair.

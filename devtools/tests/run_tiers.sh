@@ -63,6 +63,8 @@ run_smoke() {
     tests/interactions/cation_pi/ \
     tests/interactions/water_bridges/ \
     tests/interactions/hbonds/test_get_hbond_sites.py \
+    tests/interactions/hbonds/test_site_structure_scope.py \
+    tests/basic/test_structure_index_types.py \
     tests/interactions/hbonds/test_get_hbond_site_directions.py \
     tests/interactions/hbonds/test_donor_pair_integrity.py \
     tests/interactions/hbonds/test_role_rule_ownership.py \

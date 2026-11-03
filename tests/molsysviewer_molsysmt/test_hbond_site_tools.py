@@ -479,3 +479,27 @@ def test_legacy_interleaved_pair_membership_is_not_column_sorted():
     builder.set_coordinates(puw.quantity(np.arange(12).reshape(4, 3), "angstrom"))
     with msv.new_view(builder.build()) as view:
         assert call(view, "get_donor_atoms").tolist() == [[0, 3], [2, 1]]
+
+
+@pytest.mark.parametrize("indices", [None, "all", [], [2, 0, 2]])
+def test_site_structure_scope_receives_native_fix_without_scene_or_analysis_changes(
+    view, indices
+):
+    before = view.export_state()
+    analysis = view.molsys.interactions["preserve"]
+    result = call(view, "get_hbond_sites", structure_indices=indices)
+    same(result, call(view, "get_hbond_sites", native=True, structure_indices=indices))
+    assert result["acceptor_atom_indices"].tolist() == [2]
+    assert result["donor_hydrogen_pairs"].shape == (0, 2)
+    assert view.export_state() == before
+    assert view.molsys.interactions["preserve"] is analysis
+
+
+@pytest.mark.parametrize("indices", [[-1], [3], [True], [[0]], [0.5]])
+def test_site_structure_bounds_and_types_are_native_errors(view, indices):
+    from molsysmt._private.smonitor import ArgumentError
+
+    before = view.export_state()
+    with pytest.raises(ArgumentError, match="structure_indices"):
+        call(view, "get_hbond_sites", structure_indices=indices)
+    assert view.export_state() == before

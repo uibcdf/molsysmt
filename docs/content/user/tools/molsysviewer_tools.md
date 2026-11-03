@@ -2465,11 +2465,15 @@ directional records are packed sparsely. Full source graphs and maps also scale
 with the system. Execution/output budgets remain native estimates, excluding some source/Python
 overhead. They do not establish a universal RSS bound or file-backed query API.
 
-Native reference-state site recognition currently accepts some invalid resident
-structure indices that modular H5MSM rejects
-([#509](https://github.com/uibcdf/molsysmt/issues/509)). Use valid explicit resident indices;
-the addon does not introduce a second validation policy. Coordinate-free native
-recognition and a resident view's loading requirements are separate contracts.
+Site recognition validates structure indices on the original source axis;
+negative, out-of-range, malformed and boolean positions raise native errors.
+For this chemical tool, `None` means `all`. An empty structure list can still
+return reference/explicit-state chemical sites, but cannot resolve an assigned
+state or evaluate a spatial selection. Spatial selection needs coordinates and
+uses the first requested structure. Source receiving for
+[#509](https://github.com/uibcdf/molsysmt/issues/509) is separate from published
+package qualification; the addon retains the native policy. Coordinate-free
+native recognition and a resident view's loading requirements are separate contracts.
 
 ### Keeping the classic role rules explicit
 
