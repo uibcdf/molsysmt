@@ -25,7 +25,7 @@ requirements:
     - python 3.11.*
     - python-abi3 3.11.*
     - pip
-    - setuptools >=68.0
+    - setuptools >=77.0.3
     - setuptools-rust >=1.10
     - versioningit >=3.0
   run:

@@ -1,6 +1,6 @@
 [build-system]
 # `wheel` is not required here; setuptools will build wheels without adding it.
-requires = ["setuptools>=68.0", "versioningit>=3.0", "setuptools-rust>=1.10"]
+requires = ["setuptools>=77.0.3", "versioningit>=3.0", "setuptools-rust>=1.10"]
 build-backend = "setuptools.build_meta"
 
 # Self-descriptive entries which should always be present

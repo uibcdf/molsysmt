@@ -63,6 +63,40 @@ now lives at `devtools/controlled_sources.txt`, and all active workflow
 consumers use the new path. Historical archive references preserve the old
 path as dated evidence, not as a current instruction.
 
+## Build-backend license contract
+
+The Setuptools requirement in `pyproject.toml` owns the source build minimum.
+The current SPDX license expression and `project.license-files` use PEP 639;
+MolSysMT selects `setuptools>=77.0.3`, including early license-handling fixes.
+Keep the same constraint in both Conda host recipes and the five environments
+that explicitly provision Setuptools. The focused
+`devtools/tests/test_license_build_contract.py` guard checks these routes and
+rejects a backend floor predating PEP 639 support. This is separate from the
+runtime dependency audit above.
+
+For a changed license/build boundary, inspect actual source, direct-wheel and
+sdist-rebuilt-wheel payloads in the intended backend context:
+
+```bash
+python devtools/scripts/validate_license_metadata.py \
+    --source path/to/reviewed/source \
+    path/to/source.tar.gz path/to/direct.whl path/to/rebuilt.whl
+```
+
+The checker verifies MolSysMT's PEP 639 license fields in core metadata 2.4 or
+later 2.x minors, the SPDX expression,
+declared license files and their original bytes, including the bundled ProLIF
+notice. It reads archive members without installing or importing package code.
+Its synthetic negative controls reject substituted metadata or notices and
+missing files; a file named `LICENSE` alone is insufficient.
+
+Backend import/metadata generation is not a native build. Deliberately exercise
+the selected minimum with the real Rust/versioning plugins and distinguish it
+from a modern-backend build. Record artifact names/hashes and the interpreter,
+backend origins and reused dependencies. An unpacked-artifact smoke is not a
+clean installed-package or platform-matrix qualification. This work changes no
+license choice and does not authorize rebuilding or replacing public files.
+
 ## Documentation dependencies
 
 The optional `docs` extra supplies the theme and external extensions configured
