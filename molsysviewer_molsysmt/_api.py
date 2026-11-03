@@ -8,6 +8,7 @@ from smonitor import signal
 from ._basic import _BasicTools
 from ._build import _BuildTools
 from ._chemical_states import _ChemicalStatesTools
+from ._element import _ElementTools
 from ._files import _FormTools, _H5MSMTools
 from ._interactions import _InteractionsTools
 from ._pbc import _PbcTools
@@ -29,6 +30,7 @@ class _MolSysMTTools:
         self.structure = _StructureTools(self)
         self.pbc = _PbcTools(self)
         self.physchem = _PhyschemTools(self)
+        self.element = _ElementTools(self)
 
     def _view(self):
         view = self._view_ref()
@@ -99,6 +101,7 @@ class _MolSysMTTools:
             "structure",
             "pbc",
             "physchem",
+            "element",
             "get_sync_status",
             "sync_view",
             *_BasicTools._NAMES,

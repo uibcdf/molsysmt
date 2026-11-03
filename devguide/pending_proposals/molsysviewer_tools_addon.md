@@ -24,6 +24,35 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Explicit element utilities source increment — 2026-11-03
+
+The independent contribution `addon/element-utilities-20261103`, based on
+`03050a16ba2354848313a6781e94078ab036da89`, adds eight explicit-input paths:
+two element-level predicates, four atom symbol/name/force-field/isotope helpers
+and two group-label classifiers. They retain native signatures/results/errors
+and open-empty-view lifetime; no primary reader, pending-edit flush, molecular
+assignment, scene/history effect or root alias is introduced. The existing
+basic composition predicate/root alias remains distinct. Four locally consumed
+skip controls are keyword-only; all declared native skip flags are forwarded.
+
+The owning collector reports 152/244 exposed on this independent branch,
+including 8/57 element paths. PR #538/#540 are not integrated here; the union
+would be 163/244 and is not a received combined result. The 21 primary-input
+and 28 remaining explicit-input element paths still require per-tool review.
+The source uses the unchanged existing Rust backend and tree; it does not
+build or qualify an installed package. Guide examples execute, inherited native
+examples pass, raw course code/output/IDs remain unchanged, and 530 package/
+inventory/notebook controls pass. Complete addon receiving passes 2,594 cases
+without failures, errors or skips, including 132 new element cases; focused
+receiving plus inventory passes 133 and the native baseline passes 69. The
+[source receipt](../../devtools/data/molsysviewer_tools_element_utilities_receiving_20261103.json)
+retains hashes, initial test corrections, contract details and validation scopes.
+
+The native baseline's #542 bounded pi-pi H5MSM regression and separate package
+metadata/dependency work remain owner gates; no fix or scientific workaround is
+introduced in these utilities. This contribution follows the owner-reviewed
+PR route and does not modify main or merge the independent metadata PRs.
+
 ## Combined-candidate gate follow-up — 2026-11-03
 
 The published review branch `dev/review-tools-537-540`, exact head

@@ -273,3 +273,13 @@ Do not invent new per-structure visual values or repeat completed science.
 Keep native #520 partial-publication receiving separate from successful implicit
 state/no-analysis cases, and distinguish missing-coordinate synchronization
 failure from uncertain scientific writes. Installed compatibility is separate.
+
+
+Preserve the eight explicit element utilities: two element-level predicates,
+four atom symbol/name/force-field/isotope helpers and two group-label helpers.
+They work on an open empty view without a primary reader or scene/edit effects.
+Keep the element-name composition relation distinct from basic's actual-system
+predicate and root alias. Preserve canonical case, native D/T/isotope and
+AutoDock4 contracts, public group-name lookup/unknown markers and native errors/
+warnings. Four addon-only skip controls remain keyword-only and are not sent
+to native functions lacking that parameter. Broader element queries are pending.

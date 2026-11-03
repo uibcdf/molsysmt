@@ -1,0 +1,114 @@
+{
+  "schema": "molsysmt.viewer-element-source-receiving@1",
+  "date": "2026-11-03",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "source_base": "03050a16ba2354848313a6781e94078ab036da89",
+  "contribution_branch": "addon/element-utilities-20261103",
+  "viewer_source": "e7f7d55c6c1821fbaa9887785469335a1367ed03",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "python": "3.14.7",
+  "source_scope": "Eight explicit-input element utilities on open empty or loaded views; lifetime binding only. No primary reader, synchronization, assignment or scene/history effects.",
+  "backend": {
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "scope": "Unchanged compiled backend copied into the isolated source checkout; no build or installation."
+  },
+  "inventory": {
+    "native": 244,
+    "branch_exposed": 152,
+    "element_exposed": 8,
+    "element_native": 57,
+    "remaining_primary_element": 21,
+    "remaining_explicit_element": 28,
+    "independent_prs": [
+      "uibcdf/molsysmt#538",
+      "uibcdf/molsysmt#540"
+    ],
+    "combined_exposure_after_owner_integration": 163,
+    "combined_integration_qualified": false,
+    "collector": "devtools/scripts/audit_molsysviewer_tools_api.py",
+    "raw_sha256": "4c23810d9c1f74fa9cd4ed97f638a8d06ca193f4d1c54ef22af145fd03a7b6bd"
+  },
+  "validation": {
+    "native_element": {
+      "tests": 69,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "0e8c20d86c6e3f5787a865ede4f3b757a12c2a6b603d0aab5e7d03a6da52ae9b"
+    },
+    "focused_element_and_inventory": {
+      "tests": 133,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "ce7530a058fc5ad09adf85127037906820d1a00a44eabb82fce54e476d977683"
+    },
+    "distribution_inventory_notebook_structure": {
+      "tests": 530,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "d6b1bc5d3a1c92f2ff5221b556c8c96f21b249dd5b87b1ed54db8e74ad523999"
+    },
+    "complete_addon": {
+      "tests": 2594,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "b12ddf8c0d748e2d94253a45031df2046d9bc0e77f64c78287142571042cad44",
+      "seconds": 644.83,
+      "new_element_cases": 132,
+      "warnings": 1592,
+      "native_log_sha256": "8482e922fc3842848c78ed974a7d78bdf5a883e9e5579e914098098afa5d44ce"
+    },
+    "structural_control_split": {
+      "distribution_and_inventory": 34,
+      "notebook_schema": 496
+    },
+    "guide_example": "All eight methods executed successfully on an open empty view.",
+    "course": "156 notebooks validate; only Module 06 Markdown cell 5 extended. Code, outputs, execution counts, cell IDs and notebook schema preserved.",
+    "native_docstrings": "246 pass structural fidelity and minimum-content checks; all eight addon signatures/help and inherited examples separately pass.",
+    "ruff": "Whole-tree check and format pass; 4310 files already formatted.",
+    "devguide": "Validation and generated indexes pass."
+  },
+  "contract": {
+    "paths": [
+      "element.is_element",
+      "element.is_composed_of",
+      "element.atom.is_atom_type",
+      "element.atom.normalize_atom_types",
+      "element.atom.get_atom_type_from_atom_name",
+      "element.atom.get_atom_type_from_atom_ff_type",
+      "element.group.is_group_type",
+      "element.group.get_group_type_from_group_name"
+    ],
+    "local_keyword_only_skip": [
+      "element.is_element",
+      "element.is_composed_of",
+      "element.atom.get_atom_type_from_atom_name",
+      "element.group.is_group_type"
+    ],
+    "local_skip_semantics": "Consumed locally where the native utility lacks a skip flag; native validation still runs. Other declared native flags are forwarded unchanged.",
+    "composition": "Element-level composition is a declared label relation; the actual-system basic method and its existing root alias are preserved.",
+    "group_lookup": "Uses the public native export, not a parallel unexported source function."
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_element.py": "0cc5a2007bc076cdbc49bcbdbc38b3872dfa991444c931872bf5b3a57fe5d424",
+    "molsysviewer_molsysmt/_api.py": "2a59fc0f9b645241a79d57779879c40222a4a10f76cfdfb765b39e7f36c25a7d",
+    "tests/molsysviewer_molsysmt/test_element_utilities.py": "b8350067c1a1cf4b90e826c32ad0b849770487c91d3fd1560f6195cedf3b7bbe",
+    "devtools/scripts/viewer_tools_contract.py": "9ce28983c6b16b0287c0218621b0b8aa8031135b8a3c57c1b4fe080e818d7614"
+  },
+  "initial_test_correction": "An initial consumer assertion incorrectly disallowed the existing basic.is_composed_of root alias. The corrected guard preserves that alias and verifies its distinction from element.is_composed_of; no native repair was needed.",
+  "limits": [
+    "Source-addon receiving is not installed artifact, resolver, full native science, optional engine or multi-platform qualification.",
+    "PR #538 and #540 are not integrated in this branch; 163/244 is a hypothetical union, not a received result.",
+    "Native pi-pi H5MSM eager-read regression #542 and separate source-archive/dependency metadata gates remain owner work. No scientific workaround or native code change is introduced.",
+    "Owner main and unrelated documentation work are preserved; delivery is by owner-reviewed PR.",
+    "No GUI panel, dependency floor, frozen candidate, tag or publication change."
+  ],
+  "temporary_resources": "Isolated contribution checkout and copied backend retained for owner review; remove after integration or withdrawal. No new environment, Rust build or package installation."
+}

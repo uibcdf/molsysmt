@@ -23,6 +23,7 @@ TOOLS_FILES = frozenset(
         "molsysviewer_molsysmt/_chemical_states.py",
         "molsysviewer_molsysmt/_structure.py",
         "molsysviewer_molsysmt/_geometry.py",
+        "molsysviewer_molsysmt/_element.py",
         "molsysviewer_molsysmt/tools.py",
         "molsysviewer_molsysmt/_private/__init__.py",
         "molsysviewer_molsysmt/_private/normalization.py",

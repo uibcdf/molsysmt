@@ -82,12 +82,73 @@ Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
 
+The received `view.addons.molsysmt.element` slice contains eight explicit-input
+utilities: `is_element`, `is_composed_of`, four `atom` type/name/isotope tools,
+and `group.is_group_type` / `group.get_group_type_from_group_name`. They work
+with an open empty view and keep caller inputs explicit; see the element
+utilities section below. Other element queries remain pending.
+
 Install compatible versions of both components. MolSysMT supplies the
 integration; MolSysViewer discovers its declared entry point automatically.
 Source checkouts need current generated distribution metadata as well as an
 editable installation after an entry-point change. No manual registration is needed in a correctly installed compatible
 environment. Ordinary MolSysMT import and the core visualization backend work
 independently of this optional interface.
+
+## Using explicit element utilities
+
+You can check a supplied label or normalize explicit isotope aliases before
+loading a system. These helpers keep their scientific inputs; they do not read
+`view.molsys`, assign atom/group types or change the scene.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    element = view.addons.molsysmt.element
+    assert element.is_element("groups") is True
+    assert element.is_composed_of("group", "atom") is True
+    assert element.atom.is_atom_type("Ca") is True
+    assert element.atom.is_atom_type("CA") is False
+    assert element.atom.get_atom_type_from_atom_name("CA") == "C"
+    assert element.atom.normalize_atom_types(
+        ["C", "D", "T"], isotope=[13, None, 3]
+    ) == (["C", "H", "H"], [13, 2, 3])
+    assert element.atom.get_atom_type_from_atom_ff_type(
+        ["A", "NA", "HD", "Cl"], typing_scheme="autodock4"
+    ) == ["C", "N", "H", "Cl"]
+    assert element.group.is_group_type("amino acid") is True
+    assert element.group.get_group_type_from_group_name("ALA") == "amino acid"
+```
+
+`Ca` is a chemical element symbol; `CA` is an atom name in the name lookup.
+Force-field labels use their explicitly named typing scheme. `D` and `T`
+normalize to hydrogen with isotope mass numbers 2 and 3, respectively. No
+reference isotope, force-field type, chemical preparation or charge is assigned.
+Array/list shapes, errors, unknown-name warnings and result ownership follow
+MolSysMT; these eight tools do not acquire the primary molecular reader or
+flush pending managed edits.
+
+`element.is_composed_of` reports the native declared relation between two
+**element-level names**. It does not examine the contents of your system. The
+existing `basic.is_composed_of` and its root alias keep their molecular-system
+query role. Group-name lookup uses the public native export, including its
+`"unknown"` marker and spelling; no additional classification is invented.
+
+All eight methods expose `skip_digestion=False`. For `is_element`,
+`is_composed_of`, `atom.get_atom_type_from_atom_name` and `group.is_group_type`,
+this is a keyword-only addon control because the native function has no skip
+parameter. It is consumed locally, and native validation remains in force.
+The other four forward their declared native skip flag unchanged.
+
+Native references: {func}`molsysmt.element.is_element`,
+{func}`molsysmt.element.is_composed_of`,
+{func}`molsysmt.element.atom.is_atom_type`,
+{func}`molsysmt.element.atom.normalize_atom_types`,
+{func}`molsysmt.element.atom.get_atom_type_from_atom_name`,
+{func}`molsysmt.element.atom.get_atom_type_from_atom_ff_type`,
+{func}`molsysmt.element.group.is_group_type` and
+{func}`molsysmt.element.group.get_group_type_from_group_name`.
 
 ## Querying the current system
 

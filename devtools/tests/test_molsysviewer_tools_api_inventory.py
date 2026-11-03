@@ -77,6 +77,26 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     assert rows["basic.add"]["input_kind"] == "primary"
     assert rows["attribute.get_argument_aliases"]["input_kind"] == "explicit_inputs"
     assert not rows["supported.forms"]["exposed"]
+    received_elements = {
+        "element.is_element",
+        "element.is_composed_of",
+        "element.atom.is_atom_type",
+        "element.atom.normalize_atom_types",
+        "element.atom.get_atom_type_from_atom_name",
+        "element.atom.get_atom_type_from_atom_ff_type",
+        "element.group.is_group_type",
+        "element.group.get_group_type_from_group_name",
+    }
+    actual_elements = {
+        path
+        for path, row in rows.items()
+        if path.startswith("element.") and row["exposed"]
+    }
+    assert actual_elements == received_elements
+    assert all(
+        rows[path]["input_kind"] == "explicit_inputs" for path in received_elements
+    )
+    assert not rows["element.group.get_group_type"]["exposed"]
     assert "supported.syntaxes" in rows
     assert rows["supported.syntaxes"]["declaration_status"] in {
         "callable_compatibility_module",
