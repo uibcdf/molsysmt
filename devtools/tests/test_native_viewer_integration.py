@@ -55,6 +55,10 @@ def test_installed_metadata_requires_the_new_tools_package():
         installed.validate_native_viewer_metadata(
             _distribution(files=["molsysmt/__init__.py"])
         )
+    with pytest.raises(RuntimeError, match="_supported.py"):
+        installed.validate_native_viewer_metadata(
+            _distribution(files=TOOLS_FILES - {"molsysviewer_molsysmt/_supported.py"})
+        )
 
 
 def test_installed_backend_requires_a_file_inventory():

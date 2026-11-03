@@ -89,6 +89,44 @@ editable installation after an entry-point change. No manual registration is nee
 environment. Ordinary MolSysMT import and the core visualization backend work
 independently of this optional interface.
 
+## Discovering capabilities before loading a system
+
+The experimental `view.addons.molsysmt.supported` namespace mirrors
+`msm.supported.forms`, `conversions`, `dependencies` and `syntaxes`. These reports
+work with an open empty view; they do not read the current molecular system,
+synchronize pending edits or change the scene or history.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    tools = view.addons.molsysmt.supported
+    file_forms = tools.forms("file", output_type="list")
+    routes = tools.conversions(
+        from_form=["molsysmt.MolSys"],
+        to_form=["molsysmt.Topology"],
+        output_type="dictionary",
+    )
+    syntaxes = tools.syntaxes(output_type="dataframe")
+    dependencies = tools.dependencies(output_type="dictionary")
+    assert "molsysmt.MolSys" in tools.forms(output_type="list")
+    assert routes["data"] == [[True]]
+    assert view.molsys is None
+```
+
+The native default remains a pandas Styler. Request `dataframe` or `dictionary`
+for programmatic use; only `forms` also supports `list`. Filters, conversion
+orientation and empty axes retain native behavior. Selection-input support and
+translation-output support are separate syntax columns. A listed conversion
+route or installed dependency does not guarantee that every molecular input or
+optional scientific engine can execute it.
+
+Results are fresh native metadata, not a view-owned scientific registry. They
+remain usable after closing the view; new calls through a retained tools object
+reject a closed owner. These utilities have no `molecular_system`, selection or
+`update_view` argument. Source availability does not establish that a published
+package pair contains them.
+
 ## Querying the current system
 
 ```python

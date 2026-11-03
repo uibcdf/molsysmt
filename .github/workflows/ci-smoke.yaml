@@ -262,4 +262,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_contact_detector_tools.py \
             tests/molsysviewer_molsysmt/test_remaining_interaction_tools.py \
             tests/molsysviewer_molsysmt/test_map_and_file_tools.py \
-            tests/molsysviewer_molsysmt/test_composition_tools.py
+            tests/molsysviewer_molsysmt/test_composition_tools.py \
+            tests/molsysviewer_molsysmt/test_supported_tools.py

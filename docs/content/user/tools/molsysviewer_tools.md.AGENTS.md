@@ -1,5 +1,11 @@
 # MolSysViewer tools guide content contract
 
+Preserve the four explicit supported-capability reports and their open-empty-view
+contract. Keep native filters/default Styler and explicit plain outputs, directional
+syntax flags, independent metadata, closed-owner rejection and unchanged pending
+edits/scene/history. Declarations and dependency reports are not execution or
+installed-pair certificates. Do not bind a molecular system or add update_view.
+
 Preserve the distinction between the initial experimental source API and
 published package compatibility. Keep the explicit qualified-tool inventory: six queries, native extraction and managed native removal and geometry-only setting with synchronization controls, plus native copy, conversion/preflight, composition predicates and non-mutating comparison.
 Update it only when more tools are implemented and qualified. Explain the bound primary system,
