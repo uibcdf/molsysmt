@@ -2324,7 +2324,7 @@ repair native science. The updated extraction guide block is checked separately.
 The metadata candidate a24b14f3d retains PRs #538/#540 and passes the corrected
 source smoke 41730351587 (4,810 native passes / sixteen optional skips and
 2,658 addon passes / four optional skips) plus performance audit 41730356380.
-Its full and Rust matrices remain queued at this checkpoint; integration and
+The full matrix is now running; Rust remains queued. Integration and
 #537 closure wait for their required executed evidence. This does not move the
 frozen candidate or certify an installed pair.
 

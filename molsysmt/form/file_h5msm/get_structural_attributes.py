@@ -776,6 +776,54 @@ def get_n_structures_from_system(item, structure_indices="all", skip_digestion=F
 
 
 @arg_digest(form=form)
+def get_structure_index_from_system(
+    item, structure_indices="all", skip_digestion=False
+):
+    """Getting structure positions from a legacy H5MSM file.
+
+    Parameters
+    ----------
+    item : str or pathlib.Path
+        Path to a legacy H5MSM 0.3 or 0.4 file, opened read-only for this query.
+    structure_indices : int, list, tuple, range, numpy.ndarray, str or None, default='all'
+        Zero-based positions to return, preserving order and repetitions.
+        'all' returns every written position; None returns None.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    list of int or None
+        Requested dimensionless positions, independent of stored structure IDs.
+        An empty selection returns an empty list.
+
+    Raises
+    ------
+    ArgumentError
+        If explicit positions are not a flat integer axis or are out of bounds.
+
+    Notes
+    -----
+    Reads only metadata; coordinates and other dataset payloads stay on disk.
+    The owned handler closes even when validation fails. Existing unit checks
+    and the legacy deprecation warning remain active. No migration is performed.
+    H5MSM 0.5 queries use the separate public modular reader.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.form.molsysmt_H5MSMFileHandler import (
+        get_structure_index_from_system as aux_get,
+    )
+
+    from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+
+    with to_molsysmt_H5MSMFileHandler(item, skip_digestion=True) as handler:
+        return aux_get(
+            handler, structure_indices=structure_indices, skip_digestion=True
+        )
+
+
+@arg_digest(form=form)
 def get_occupancy_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting occupancy from system in form file:h5msm.

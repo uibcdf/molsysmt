@@ -113,7 +113,7 @@ Current receiving and next admitted defect/contribution reviews:
    remain unmerged. Reconcile their inventories, retain newer guards and qualify
    the combined integration. Candidate a24b14f3d retains both PR ancestries,
    passes 2,687 local tests without omissions and the corrected hosted smoke.
-   Full and Rust matrices remain queued; no integration or installed qualification
+   The full matrix is now running; Rust remains queued. No integration or installed qualification
    is inferred from the administrative/source-smoke gates.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
 3. **[#511](archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md)
@@ -133,10 +133,20 @@ Current receiving and next admitted defect/contribution reviews:
    platform release qualification remain separate; public files are unchanged.
 5. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
-6. **#523 and #524:** the declared legacy H5MSM structure-index route is still
-   missing on the current source; runtime dependency floors/restrictions need
-   API-grounded review before the next publication. Exact route, provider and
-   installed-artifact evidence remain distinct.
+6. **[#523](archive/resolved_bugs/legacy_h5msm_structure_index_route.md):**
+   resolved with metadata-only legacy 0.3/0.4 file/handler index getters.
+   Requested order/repetitions, bounds, empty/None semantics, source units and
+   handle ownership are guarded. All 1,390 H5MSM/index and 566 documentation/
+   doctest cases pass without omissions. H5MSM 0.5 retains its separate reader
+   boundary; no installed qualification is inferred.
+   **#524** still needs API-grounded runtime floor/restriction review before
+   publication, including the separately reported Pandas compatibility context.
+7. **PR #543:** incoming element-utility and current-system addon contribution,
+   head 506805c890d409085f3d954c8d6f14e751af1fc7. Its reported local tests are
+   contributor evidence, not owner receiving. It excludes #538/#540; reconcile
+   shared inventories, API exports, documentation and guarded smoke arguments
+   only in a separately identified integration after review. Its hosted checks
+   are queued; it does not extend frozen candidate a24b14f3d's qualification.
 
 The Collantes ISA/ECI primary-reference questions **#473/#475** remain open;
 quantity wrappers and source parity do not settle scientific dimensions or
