@@ -861,11 +861,11 @@ def convert(
       The reference chemical state is preserved, but multiple states acquire
       no inferred per-structure assignment. The default result is independent;
       ``copy_if_all=False`` shares native domains only for full-axis conversion.
-    - Standalone native Topology, ChemicalStates, Structures and
-      MolecularMechanics providers can compose one system. Explicit
-      ChemicalStates owns the chemistry; pure Topology supplies stable inventory
-      only. Complete atom axes must agree before
-      selection, and repeated explicit domains are rejected. Mechanical values,
+    - Standalone native Topology, ChemicalStates (or ChemicalStatesDict),
+      Structures and MolecularMechanics providers can compose one system.
+      The chemical provider owns all states; pure Topology supplies stable
+      inventory only. Complete atom axes must agree before selection, and
+      repeated explicit domains are rejected. Mechanical values,
       settings and assignment provenance are transported without recalculation
       or certification. Existing stale assignments stay stale on projection.
       Structures receive no inferred assignment when several chemical states

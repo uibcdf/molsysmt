@@ -20,7 +20,7 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (9)
+### Open (8)
 
 - [`append_structures_named_analyses_partial_state.md`](append_structures_named_analyses_partial_state.md) — [#520](https://github.com/uibcdf/molsysmt/issues/520) — append_structures partially publishes structures before validating named analyses and state links. *(high, reproduced)*
 - [`aromatic_detectors_reject_reference_mdtraj_selection.md`](aromatic_detectors_reject_reference_mdtraj_selection.md) — [#516](https://github.com/uibcdf/molsysmt/issues/516) — Aromatic detectors reject MDTraj string selections for reference chemistry. *(medium, reproduced)*
@@ -29,8 +29,11 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`hbond_site_structure_bounds_differ_between_resident_and_h5msm.md`](hbond_site_structure_bounds_differ_between_resident_and_h5msm.md) — [#509](https://github.com/uibcdf/molsysmt/issues/509) — Hydrogen-bond site structure bounds differ between resident and H5MSM. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
-- [`topology_chemicalstatesdict_structures_composition_fails.md`](topology_chemicalstatesdict_structures_composition_fails.md) — [#532](https://github.com/uibcdf/molsysmt/issues/532) — Topology with ChemicalStatesDict and Structures bypasses native domain composition. *(medium, reproduced)*
 - [`weekly_full_suite_has_seven_repeated_failures.md`](weekly_full_suite_has_seven_repeated_failures.md) — [#515](https://github.com/uibcdf/molsysmt/issues/515) — Scheduled full Linux CI repeats seven unresolved failures across supported Python minors. *(medium, upstream)*
+
+### In progress (1)
+
+- [`topology_chemicalstatesdict_structures_composition_fails.md`](topology_chemicalstatesdict_structures_composition_fails.md) — [#532](https://github.com/uibcdf/molsysmt/issues/532) — Topology with ChemicalStatesDict and Structures bypasses native domain composition. *(medium, reproduced)*
 
 ### Partially resolved (1)
 

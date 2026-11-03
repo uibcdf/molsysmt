@@ -63,8 +63,10 @@ def compose_with_coordinate_source(items, forms, structure_indices):
 def _compose_standalone_domains(items):
     """Assemble explicit native providers; no chemical domain is inferred from topology."""
     from molsysmt._private.smonitor import StructuralInconsistencyError
+    from molsysmt.basic import convert
     from molsysmt.native import (
         ChemicalStates,
+        ChemicalStatesDict,
         MolecularMechanics,
         MolSys,
         Structures,
@@ -73,7 +75,7 @@ def _compose_standalone_domains(items):
 
     providers = (
         (Topology, "topology"),
-        (ChemicalStates, "chemical_states"),
+        ((ChemicalStates, ChemicalStatesDict), "chemical_states"),
         (Structures, "structures"),
         (MolecularMechanics, "molecular_mechanics"),
     )
@@ -87,7 +89,12 @@ def _compose_standalone_domains(items):
         mechanics = domains.pop("molecular_mechanics", None)
         for name in ("topology", "chemical_states"):
             if name in domains:
-                domains[name] = domains[name].copy()
+                domain = domains[name]
+                domains[name] = (
+                    convert(domain, to_form="molsysmt.ChemicalStates")
+                    if isinstance(domain, ChemicalStatesDict)
+                    else domain.copy()
+                )
         result = MolSys._from_partial_domains(**domains)
         if mechanics is not None:
             if mechanics.atoms_ff is not None:
@@ -111,12 +118,14 @@ def compose_partial_molsys(items):
 
     This bounded route handles complementary partial MolSys objects, including
     materialized H5MSM 0.5 files, and standalone native provider lists carrying
-    MolecularMechanics or explicit Topology plus ChemicalStates. The input list
-    declares positional correspondence. Other combinations retain their routes.
+    MolecularMechanics or explicit Topology plus ChemicalStates (including a
+    ChemicalStatesDict provider). The input list declares positional
+    correspondence. Other combinations retain their routes.
     """
     from molsysmt._private.smonitor import StructuralInconsistencyError
     from molsysmt.native import (
         ChemicalStates,
+        ChemicalStatesDict,
         MolecularMechanics,
         MolSys,
         Structures,
@@ -124,12 +133,13 @@ def compose_partial_molsys(items):
     )
 
     if isinstance(items, (list, tuple)) and len(items) >= 2:
-        standalone = (Topology, ChemicalStates, Structures, MolecularMechanics)
+        chemistry = (ChemicalStates, ChemicalStatesDict)
+        standalone = (Topology, *chemistry, Structures, MolecularMechanics)
         if all(isinstance(item, standalone) for item in items) and (
             any(isinstance(item, MolecularMechanics) for item in items)
             or (
                 any(isinstance(item, Topology) for item in items)
-                and any(isinstance(item, ChemicalStates) for item in items)
+                and any(isinstance(item, chemistry) for item in items)
             )
         ):
             return _compose_standalone_domains(items)

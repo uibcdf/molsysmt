@@ -78,8 +78,14 @@ Concurrent mutation is outside this contract.
 
 ## Persistence Boundaries
 
-The NumPy-backed payload is not directly JSON serializable. Convert explicitly to
-the native owner before using the public molecular persistence routes. H5MSM 0.5
+The NumPy-backed payload is not directly JSON serializable. You can supply it
+directly as the chemical domain in
+`msm.convert([topology, payload, structures])`, in any provider order, including
+when writing H5MSM. The existing decoder reconstructs native chemistry before
+assembly. Full atom domains must agree before selection; repeated domains are
+rejected. Supplying the list declares index correspondence and does not infer
+structure-to-state associations. A pair of payload and Structures can also
+compose a topology-free system. H5MSM 0.5
 stores the chemical domain independently of topology, structures and interactions;
 see {ref}`user-tools-form-h5msm-05`. Reading these in-memory columns is distinct
 from a public on-disk query API and does not change any file or dictionary schema.

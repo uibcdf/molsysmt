@@ -44,7 +44,12 @@ chemical labels requires inventory context.
 Pass a complete MolSys when the calculation needs inventory, chemistry and
 coordinates. For independently held domains, an explicit list declares positional
 atom correspondence, for example `[topology, chemical_states, structures]`.
-ChemicalStatesDict can supply the chemical domain. One coordinate-only source,
+ChemicalStatesDict can supply the chemical domain, including alongside explicit
+Topology and Structures in any provider order. Composition uses the existing
+typed decoder before native assembly; it never flattens chemical fields into
+Topology. Full atom domains must agree before selection, and repeated domains
+are rejected. Decoding does not infer structure-to-state associations.
+One coordinate-only source,
 such as a DCD file, can replace Structures in an explicit chemical composition;
 reader-specific I/O limits still apply. Counts are validated but do not prove
 common origin.
