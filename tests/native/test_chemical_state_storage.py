@@ -10,8 +10,36 @@ import pandas as pd
 import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import StructuralInconsistencyError
 
 _DATA = Path(__file__).with_name("data")
+
+
+@pytest.mark.parametrize("pairs", [[[0, 0]], [[0, 3]], [[0, 1], [1, 0]]])
+def test_invalid_stored_edges_report_the_chemical_owner_without_mutation(pairs):
+    states = msm.ChemicalStates(n_atoms=3)
+    states.append_state()
+    original = states.get_bonds()
+    with pytest.raises(StructuralInconsistencyError) as captured:
+        states.add_bonds(pairs)
+    assert captured.value.code == "MSM-ERR-STRUCT-003"
+    assert captured.value.extra["caller"] == "molsysmt.native.ChemicalStates"
+    assert states.get_bonds() is original
+    assert states.n_chemical_states == 1
+
+
+def test_invalid_atom_storage_reports_its_current_owner_without_mutation():
+    states = msm.ChemicalStates(n_atoms=3)
+    states.append_state()
+    state = states._states[0]
+    original = state.atom_attributes
+    with pytest.raises(StructuralInconsistencyError) as captured:
+        state.set_atom_attribute("unsupported_field", [0, 0, 0])
+    assert captured.value.code == "MSM-ERR-STRUCT-003"
+    assert captured.value.extra["caller"] == (
+        "molsysmt.native._chemical_state._ChemicalStateStorage"
+    )
+    assert state.atom_attributes is original
 
 
 def _legacy_states():

@@ -517,10 +517,12 @@ This preserves other structures and checks calculation compatibility; attaching
 `fresh` directly would replace the whole named analysis. Geometry delegation failures conservatively retain
 unevaluated coverage because a partial write may have occurred.
 
-This automatic boundary is the native MolSys form. If you edit a separately
-accessed `molsys.structures` directly, explicitly replace each affected named
-result with `analysis.invalidate_structures(structure_indices)`. Geometry
-setters do not infer changes made through independent objects or aliased data.
+Attached `molsys.structures.set_coordinates()` / `set_box()` and complete
+coordinate/box property assignments notify the same owner automatically, as do
+form setters on that attached domain. Standalone domain copies have no owner.
+Raw array edits or changes through independent aliases require explicit
+`analysis.invalidate_structures(structure_indices)` and reattachment under the
+analysis name; they are outside the controlled setter boundary.
 
 Invalidation applies even when the moved atom did not participate in a previous
 interaction: moving it can create a new one. No detector runs automatically.
@@ -530,7 +532,7 @@ calculation from a calculated absence. See
 copyable example and the complete edit policy.
 
 Changing chemical-state atom or scientific bond assignments through
-`msm.set(molsys, ...)` or `msm.set(molsys.topology, ...)`, or replacing
+`msm.set(molsys, ...)` or `msm.set(molsys.chemical_states, ...)`, or replacing
 `molsys.chemical_states`, marks every
 named analysis unevaluated. Charge centers, aromatic participants and
 hydrogen-bond roles can change at fixed coordinates. MolSysMT conservatively
@@ -539,14 +541,17 @@ chemical dependencies. Empty atom/bond selections and bond ID changes preserve
 analyses. Assigning or clearing `structure_chemical_state_index` invalidates
 only the selected structures. Earlier result/query snapshots remain available.
 
-Native topology bond addition/removal and replacing its bond table also notify
-the owner. Standalone topology copies are detached.
+Controlled `ChemicalStates.add_bonds()` / `remove_bonds()` also notify the owner.
+Their bonds, rebuilt components and analysis invalidation are staged together;
+reconstruction failure leaves all three unchanged. Topology has no bond table
+or chemical editing facade. Standalone chemical copies are detached.
 `molsys.chemical_states.append_state()` also makes all analyses unevaluated,
 without copying existing states or coordinates. Explicit structure-to-state
 assignments remain unchanged. With multiple states, structures without an
 explicit assignment resolve to unknown. Appending preparation history only
-archives evidence and preserves analyses. Other private chemical collection
-edits, whole-topology replacement, mechanics changes and raw table/array edits require explicit
+archives evidence and preserves analyses. Validated whole-topology replacement
+preserves chemistry and invalidates named analyses. Other private chemical collection
+edits, mechanics changes and raw table/array edits require explicit
 owner invalidation. Recalculate and attach new results before claiming that
 these changed data have been evaluated.
 

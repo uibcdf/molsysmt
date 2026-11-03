@@ -17,6 +17,11 @@ sections:
         agents_file: docs/content/user/foundations/entrance/AGENTS.md
         index_file: docs/content/user/foundations/entrance/index.md
         index_agents_file: docs/content/user/foundations/entrance/index.AGENTS.md
+        pages:
+          - name: toolbox_overview
+            file: docs/content/user/foundations/entrance/toolbox_overview.md
+            agents_file: docs/content/user/foundations/entrance/toolbox_overview.md.AGENTS.md
+            description: Actual public namespaces and tools, separating stable topology, state-dependent chemistry, geometry and sparse interactions.
       - name: molecular_system
         agents_file: docs/content/user/foundations/molecular_system/AGENTS.md
         index_file: docs/content/user/foundations/molecular_system/index.md
@@ -57,7 +62,7 @@ sections:
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
             description: Native hierarchy with stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation.
           - name: molsys
-            description: Native domains, explicit provider composition, chemical ownership, complete versus partial graph restriction, exact component labels, remapped stereo references, copy boundaries, controlled edits and analysis invalidation.
+            description: Independent native domains, explicit composition, chemical graph restriction, exact component labels, remapped references and staged ChemicalStates/Structures owner invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md.AGENTS.md
           - name: chemical_states
@@ -732,6 +737,14 @@ sections:
     path: docs/content/developer
     status: in_progress
     pages:
+      - name: element_and_native_rebuild
+        file: docs/content/developer/core_architecture/element_and_native_rebuild.md
+        agents_file: docs/content/developer/core_architecture/AGENTS.md
+        description: Independent inventory/chemical reconstruction, explicit stable context and exact-atom-set component labels.
+      - name: molsys_builder
+        file: docs/content/developer/core_architecture/molsys_builder.md
+        agents_file: docs/content/developer/core_architecture/AGENTS.md
+        description: Declared fixtures, state-aware bond editing, canonical chemistry fields and partial-domain staging.
       - name: testing
         file: docs/content/developer/testing/index.md
         agents_file: docs/content/developer/testing/AGENTS.md

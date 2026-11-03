@@ -8,8 +8,8 @@ native rebuild logic. The canonical source of truth remains `devguide/`.
 MolSysMT separates two layers:
 
 - `molsysmt.element`: public, form-agnostic query helpers.
-- `molsysmt.native`: native reconstruction and inference over `molsysmt.Topology`
-  and `molsysmt.MolSys`.
+- `molsysmt.native`: reconstruction within Topology's stable inventory and
+  ChemicalStates' state-local graph, coordinated by MolSys when both are present.
 
 Public element helpers are allowed to use:
 
@@ -25,7 +25,7 @@ Native rebuild workflows are not.
 The rebuild entry points belong to the native layer:
 
 - `molsysmt.Topology.rebuild_groups()`
-- `molsysmt.Topology.rebuild_components()`
+- `molsysmt.ChemicalStates.rebuild_components()`
 - `molsysmt.Topology.rebuild_molecules()`
 - `molsysmt.Topology.rebuild_chains()`
 - `molsysmt.Topology.rebuild_entities()`
@@ -47,9 +47,10 @@ semantic vocabulary:
 
 Current canonical local fallbacks are:
 
-- molecules fall back to components when no better molecule definition exists,
-- `molecule_name` falls back to `component_name`,
-- `molecule_type` falls back to `component_type`,
+- initial construction may use a selected component partition to declare
+  missing stable molecules; later connectivity edits do not repeat that step,
+- component names/types can inform that explicit construction with adequate
+  context, but stable molecule queries do not consult a chemical state,
 - `entity_index` is inferred from molecules,
 - water molecules collapse into a single entity key,
 - generated ids are deterministic strings.
@@ -61,7 +62,7 @@ identity. Merges, splits, missing memberships and out-of-table memberships
 cannot justify label transfer. The matching uses linear NumPy reductions and
 counts alongside the existing Rust connectivity primitive. See the current
 component contract in `devguide/ALGORITHMS.md` and
-{ref}`Topology <user-foundations-native-world-classes-molsysmt-topology>`.
+{ref}`ChemicalStates <user-foundations-native-world-classes-molsysmt-chemicalstates>`.
 
 ## Current Consolidation Status
 

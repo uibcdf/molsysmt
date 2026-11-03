@@ -84,7 +84,8 @@ A topology can be wrapped in a `molsysmt.MolSys` without inventing structural da
 topology_only = msm.convert(topology, to_form="molsysmt.MolSys")
 ```
 
-The resulting container preserves the topology with absent chemistry and structures domains. This is
+The resulting container preserves the topology with absent chemistry and an
+empty Structures container without coordinates or observations. This is
 useful when a workflow needs the central native container before coordinates are available.
 A three-dimensional viewer has a stricter contract: converting a topology to
 `nglview.NGLWidget` requires explicit `coordinates=` because MolSysMT does not fabricate a

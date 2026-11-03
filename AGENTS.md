@@ -29,7 +29,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 
 - All repository-facing text must be written in English: code comments, docstrings, error/warning messages, READMEs, guides, developer notes, notebooks, and all `AGENTS.md` files.
 - User-facing conversations (issues, PR reviews, interactive assistant replies) may follow the user’s preferred language, but anything committed to the repo stays in English.
-- Follow the documentation conventions in `devguide/`, `coding/coding_guide.md`, and the documentation-specific AGENTS under `docs/`.
+- Follow the maintained contracts in `devguide/` and the documentation-specific AGENTS and API writing guides under `docs/content/developer/documentation/`.
 - For web documentation (User Guide, Showcase, Cookbook, developer docs), use MyST and cross-linking patterns described in `docs/content/developer/documentation/web/` (notably `references.md`).
 - **Lifecycle Integrity:** Any change or addition to the public API is considered incomplete until: (1) Docstrings are updated and pass doctests, (2) the **User Guide** (Foundations, Toolbox, and Cookbook) reflects the new behavior, and (3) the corresponding modules of **'The Four Paths of the MolSysMT's Master'** course are verified and updated. Documentation is treated as code; it must be accurate and functional.
 
@@ -42,7 +42,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 
 ## Docstrings and style
 
-- Use NumPy-style docstrings (see `coding/coding_guide.md` and `docs/content/developer/documentation/api/docstrings.md`) with a gerund one-line summary.
+- Use NumPy-style docstrings (see `docs/content/developer/documentation/api/docstrings.md`) with a gerund one-line summary.
 - Standard order: summary; optional extended description; Parameters; Returns (single section); Raises; Notes; See Also; Examples (doctest `>>>`); tutorial admonition; `.. versionadded::`.
 - Types in lowercase; defaults in the description; reuse standard wording for `molecular_system`, `selection`, `structure_indices`, `syntax`, `skip_digestion`, `to_form`; document units (nm, ps, radians, elementary charge) where applicable.
 - Examples must be minimal and deterministic, using bundled systems; avoid duplicating heavy test logic.
@@ -67,7 +67,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Box: NumPy arrays with shape `(n_structures, 3, 3)`; lengths in nanometers, angles handled in radians when derived.
 - Time: arrays in picoseconds.
 - Charges: expressed in units of the elementary charge.
-- Respect the invariants described in `dev_guide.md` for `Get`, `Iterator`, `Form`, and `Native` behavior.
+- Respect the maintained query, form, native-domain and iteration invariants in `devguide/native_queries.md`, `devguide/forms_and_conversions.md`, `devguide/CORE_SPECIFICATION.md` and `devguide/SCALABILITY.md`.
 
 ## Dependency Management
 - **Hard vs Soft Dependencies:** MolSysMT distinguishes between essential libraries (Hard) and optional feature-enabling ones (Soft). This status is centrally managed in `molsysmt/_depdigest.py`.
@@ -194,7 +194,7 @@ The release gate retains the offline validator; board synchronization is separat
   or pushing executable/code changes (for example, `ruff check molsysmt`).
   For prose-only changes, select the relevant documentation/governance checks.
 
-For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `devguide/`, `docs/`, `coding/`, `molsysmt/form/`, and `tests/`.
+For more specialized guidance, consult the AGENTS files in `devguide/`, `docs/`, `molsysmt/native/`, `molsysmt/form/`, and `tests/`.
 
 ## External Tooling Guides (Required for Development)
 

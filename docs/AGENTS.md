@@ -108,6 +108,6 @@ The reader-facing version of this process is `docs/content/developer/reporting.m
 
 ## Safety and maintenance
 
-- Do not introduce documentation that contradicts `dev_guide.md` or `coding/coding_guide.md`; if behavior changes, update those guides as well.
+- Keep documentation consistent with `devguide/CORE_SPECIFICATION.md` and the maintained domain contracts under `devguide/`; update those owners when behavior changes. API writing conventions live in `docs/content/developer/documentation/api/docstrings.md`.
 - Keep examples minimal but complete enough to be copied and run by users.
 - When reorganizing sections or navigation (for example, `index.ipynb` or `content/*/index.md`), update toctrees and verify that Sphinx builds successfully with `make html` from the `docs/` directory.

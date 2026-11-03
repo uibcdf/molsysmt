@@ -140,7 +140,8 @@ Guards are `tests/interactions/test_scientific_attribution.py` and
 
 Recorded covalent bonds are owned by the sibling `chemical_states` layer.
 Disulfide and metal-coordination observations must not replace that authority.
-`Topology.bonds` is a native compatibility facade, not a second file-layer store.
+Native Topology contains stable inventory only; its removed bond facade is not
+reconstructed by reading a file. ChemicalStates remains an independent domain.
 H5MSM 0.5 excludes `MolecularMechanics`; nonempty mechanics data are rejected
 rather than silently lost. Mechanics persistence belongs to 0.6 after 1.0.
 

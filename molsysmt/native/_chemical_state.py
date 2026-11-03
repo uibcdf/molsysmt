@@ -193,7 +193,7 @@ class _ChemicalStateStorage:
         if value not in choices:
             raise StructuralInconsistencyError(
                 reason=f"Invalid chemical-state {field} {value!r}; expected one of {sorted(choices)}.",
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         return value
 
@@ -237,7 +237,7 @@ class _ChemicalStateStorage:
             if not isinstance(value, (int, np.integer)) or value < 0:
                 raise StructuralInconsistencyError(
                     reason="Chemical-state provenance_index must be a non-negative integer or None.",
-                    caller="molsysmt.native.topology._ChemicalStateStorage",
+                    caller="molsysmt.native._chemical_state._ChemicalStateStorage",
                 )
             value = int(value)
         self._provenance_index = value
@@ -258,7 +258,7 @@ class _ChemicalStateStorage:
                         "Chemical-state atom attributes are not aligned with the stable atom inventory: "
                         f"{len(self.atom_attributes.index)} rows for {n_atoms} atoms."
                     ),
-                    caller="molsysmt.native.topology._ChemicalStateStorage",
+                    caller="molsysmt.native._chemical_state._ChemicalStateStorage",
                 )
         if not hasattr(self, "component_indices"):
             self.component_indices = pd.Series(
@@ -275,7 +275,7 @@ class _ChemicalStateStorage:
                         "Chemical-state component membership is not aligned with the stable atom inventory: "
                         f"{len(self.component_indices.index)} rows for {n_atoms} atoms."
                     ),
-                    caller="molsysmt.native.topology._ChemicalStateStorage",
+                    caller="molsysmt.native._chemical_state._ChemicalStateStorage",
                 )
         else:
             self.component_indices = pd.Series(
@@ -345,7 +345,7 @@ class _ChemicalStateStorage:
         if unknown_columns:
             raise StructuralInconsistencyError(
                 reason=f"Unknown chemical-state atom attributes: {sorted(unknown_columns)}.",
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         ordered_columns = [
             name
@@ -364,7 +364,7 @@ class _ChemicalStateStorage:
         if name not in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES:
             raise StructuralInconsistencyError(
                 reason=f"Unknown chemical-state atom attribute {name!r}.",
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
 
         values = list(values)
@@ -381,7 +381,7 @@ class _ChemicalStateStorage:
                         f"Invalid atom stereochemistry values {invalid}; expected values from "
                         f"{sorted(_CHEMICAL_STATE_ATOM_STEREOCHEMISTRY_VALUES)}."
                     ),
-                    caller="molsysmt.native.topology._ChemicalStateStorage",
+                    caller="molsysmt.native._chemical_state._ChemicalStateStorage",
                 )
 
         if _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES[name] == "boolean":
@@ -393,7 +393,7 @@ class _ChemicalStateStorage:
             if invalid:
                 raise StructuralInconsistencyError(
                     reason=f"Chemical-state atom attribute {name!r} accepts only boolean or missing values.",
-                    caller="molsysmt.native.topology._ChemicalStateStorage",
+                    caller="molsysmt.native._chemical_state._ChemicalStateStorage",
                 )
 
         if _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES[name] in {"Int16", "UInt8"} and any(
@@ -412,7 +412,7 @@ class _ChemicalStateStorage:
                     f"Values for chemical-state atom attribute {name!r} cannot be represented as "
                     f"{_CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES[name]}: {error}"
                 ),
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             ) from error
 
     def _normalize_atom_indices(self, atom_indices):
@@ -422,13 +422,13 @@ class _ChemicalStateStorage:
         if indices.ndim != 1 or not np.issubdtype(indices.dtype, np.integer):
             raise StructuralInconsistencyError(
                 reason="Chemical-state atom indices must be a one-dimensional integer sequence.",
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         indices = indices.astype(np.int64, copy=False)
         if len(np.unique(indices)) != len(indices):
             raise StructuralInconsistencyError(
                 reason="Chemical-state atom indices must not contain duplicates.",
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         if np.any(indices < 0) or np.any(indices >= len(self.atom_attributes.index)):
             raise StructuralInconsistencyError(
@@ -436,7 +436,7 @@ class _ChemicalStateStorage:
                     f"Chemical-state atom indices are outside the valid range "
                     f"[0, {len(self.atom_attributes.index)})."
                 ),
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         return indices
 
@@ -453,7 +453,7 @@ class _ChemicalStateStorage:
                     f"Chemical-state atom attribute {name!r} received {len(values)} values; "
                     f"expected {expected_length}."
                 ),
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         return values
 
@@ -472,7 +472,7 @@ class _ChemicalStateStorage:
         if name not in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES:
             raise StructuralInconsistencyError(
                 reason=f"Unknown chemical-state atom attribute {name!r}.",
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         if name not in self.atom_attributes.columns:
             return None
@@ -492,7 +492,7 @@ class _ChemicalStateStorage:
         if name not in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES:
             raise StructuralInconsistencyError(
                 reason=f"Unknown chemical-state atom attribute {name!r}.",
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         if atom_indices is None:
             normalized_values = self._values_with_length(
@@ -521,7 +521,7 @@ class _ChemicalStateStorage:
         if name not in _CHEMICAL_STATE_ATOM_ATTRIBUTE_DTYPES:
             raise StructuralInconsistencyError(
                 reason=f"Unknown chemical-state atom attribute {name!r}.",
-                caller="molsysmt.native.topology._ChemicalStateStorage",
+                caller="molsysmt.native._chemical_state._ChemicalStateStorage",
             )
         if name in self.atom_attributes.columns:
             del self.atom_attributes[name]
@@ -539,7 +539,7 @@ def _coerce_bond_table(value, n_atoms=None):
     if not isinstance(value, pd.DataFrame):
         raise StructuralInconsistencyError(
             reason="Chemical-state bonds must be provided as a Pandas DataFrame.",
-            caller="molsysmt.native.Topology",
+            caller="molsysmt.native.ChemicalStates",
         )
 
     required_columns = {"atom1_index", "atom2_index"}
@@ -547,14 +547,14 @@ def _coerce_bond_table(value, n_atoms=None):
     if missing_columns:
         raise StructuralInconsistencyError(
             reason=f"Chemical-state bond table is missing required columns: {sorted(missing_columns)}.",
-            caller="molsysmt.native.Topology",
+            caller="molsysmt.native.ChemicalStates",
         )
 
     unexpected_columns = set(value.columns) - _BOND_ALLOWED_COLUMNS - {"order", "type"}
     if unexpected_columns:
         raise StructuralInconsistencyError(
             reason=f"Chemical-state bond table has unsupported columns: {sorted(unexpected_columns)}.",
-            caller="molsysmt.native.Topology",
+            caller="molsysmt.native.ChemicalStates",
         )
 
     output = Bonds_DataFrame(n_bonds=value.shape[0])
@@ -564,13 +564,13 @@ def _coerce_bond_table(value, n_atoms=None):
     except (TypeError, ValueError, OverflowError) as error:
         raise StructuralInconsistencyError(
             reason=f"Bond endpoint indices must be integers: {error}",
-            caller="molsysmt.native.Topology",
+            caller="molsysmt.native.ChemicalStates",
         ) from error
 
     if output[list(_BOND_REQUIRED_COLUMNS)].isna().any(axis=None):
         raise StructuralInconsistencyError(
             reason="Bond endpoint indices must not be missing.",
-            caller="molsysmt.native.Topology",
+            caller="molsysmt.native.ChemicalStates",
         )
 
     atom1 = output["atom1_index"].to_numpy(dtype=np.int64)
@@ -578,7 +578,7 @@ def _coerce_bond_table(value, n_atoms=None):
     if np.any(atom1 == atom2):
         raise StructuralInconsistencyError(
             reason="Self-bonds are not valid chemical-state edges.",
-            caller="molsysmt.native.Topology",
+            caller="molsysmt.native.ChemicalStates",
         )
     if n_atoms is not None and (
         np.any(atom1 < 0)
@@ -588,7 +588,7 @@ def _coerce_bond_table(value, n_atoms=None):
     ):
         raise StructuralInconsistencyError(
             reason=f"Bond endpoint indices must be between 0 and {n_atoms - 1}.",
-            caller="molsysmt.native.Topology",
+            caller="molsysmt.native.ChemicalStates",
         )
 
     swap = atom1 > atom2
@@ -599,7 +599,7 @@ def _coerce_bond_table(value, n_atoms=None):
     if len(set(zip(atom1.tolist(), atom2.tolist()))) != len(atom1):
         raise StructuralInconsistencyError(
             reason="Only one bond is allowed per unordered atom pair.",
-            caller="molsysmt.native.Topology",
+            caller="molsysmt.native.ChemicalStates",
         )
 
     for column, dtype in _BOND_OPTIONAL_DTYPES.items():
@@ -609,7 +609,7 @@ def _coerce_bond_table(value, n_atoms=None):
             except (TypeError, ValueError, OverflowError) as error:
                 raise StructuralInconsistencyError(
                     reason=f"Invalid values for bond field {column!r}: {error}",
-                    caller="molsysmt.native.Topology",
+                    caller="molsysmt.native.ChemicalStates",
                 ) from error
 
     def _missing(raw_value):
@@ -634,7 +634,7 @@ def _coerce_bond_table(value, n_atoms=None):
                     f"Conflicting legacy and canonical bond values for {column!r} "
                     f"at row {row_index}."
                 ),
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
         try:
             output.at[row_index, column] = normalized_value
@@ -644,7 +644,7 @@ def _coerce_bond_table(value, n_atoms=None):
                     f"Legacy bond value {normalized_value!r} cannot be represented "
                     f"in canonical field {column!r}: {error}"
                 ),
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             ) from error
 
     order_aliases = {"single": 1, "double": 2, "triple": 3, "quadruple": 4}
@@ -655,14 +655,14 @@ def _coerce_bond_table(value, n_atoms=None):
         if isinstance(raw_value, (bool, np.bool_)):
             raise StructuralInconsistencyError(
                 reason=f"Boolean values are not valid legacy bond {field}.",
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
         if isinstance(raw_value, (int, float, np.integer, np.floating)):
             numeric_value = float(raw_value)
             if not np.isfinite(numeric_value) or numeric_value < 0:
                 raise StructuralInconsistencyError(
                     reason=f"Invalid legacy bond {field} value {raw_value!r}.",
-                    caller="molsysmt.native.Topology",
+                    caller="molsysmt.native.ChemicalStates",
                 )
             if numeric_value.is_integer():
                 _set_value(row_index, "bond_order", int(numeric_value))
@@ -690,7 +690,7 @@ def _coerce_bond_table(value, n_atoms=None):
                     f"Legacy bond {field} value {raw_value!r} has no unambiguous "
                     "mapping to the normalized chemical schema."
                 ),
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             ) from error
         _normalize_legacy_label(numeric_value, field, row_index)
 
@@ -705,7 +705,7 @@ def _coerce_bond_table(value, n_atoms=None):
         if invalid:
             raise StructuralInconsistencyError(
                 reason=f"Invalid canonical bond_type values: {sorted(invalid)}.",
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
         if "joins_components" not in output.columns:
             output["joins_components"] = pd.array(
@@ -726,7 +726,7 @@ def _coerce_bond_table(value, n_atoms=None):
                         "A non-default joins_components value requires explicit "
                         "bond evidence."
                     ),
-                    caller="molsysmt.native.Topology",
+                    caller="molsysmt.native.ChemicalStates",
                 )
         output.loc[covalent & output["joins_components"].isna(), "joins_components"] = (
             True
@@ -748,7 +748,7 @@ def _coerce_bond_table(value, n_atoms=None):
                     "joins_components without a covalent or dative default "
                     "requires explicit bond evidence."
                 ),
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
 
     if "evidence" in output.columns:
@@ -758,7 +758,7 @@ def _coerce_bond_table(value, n_atoms=None):
         if invalid:
             raise StructuralInconsistencyError(
                 reason=f"Invalid bond evidence values: {sorted(invalid)}.",
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
 
     if "fractional_bond_order" in output.columns:
@@ -768,7 +768,7 @@ def _coerce_bond_table(value, n_atoms=None):
         if np.any(~np.isfinite(fractional_orders)) or np.any(fractional_orders < 0):
             raise StructuralInconsistencyError(
                 reason="Fractional bond order must be finite and non-negative.",
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
     if "provenance_index" in output.columns:
         provenance_indices = (
@@ -777,7 +777,7 @@ def _coerce_bond_table(value, n_atoms=None):
         if np.any(provenance_indices < 0):
             raise StructuralInconsistencyError(
                 reason="Bond provenance indices must be non-negative.",
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
 
     for column in (
@@ -790,8 +790,8 @@ def _coerce_bond_table(value, n_atoms=None):
             indices = output[column].dropna().to_numpy(dtype=np.int64)
             if np.any(indices < 0) or np.any(indices >= n_atoms):
                 raise StructuralInconsistencyError(
-                    reason=f"Bond field {column!r} contains atom indices outside the topology.",
-                    caller="molsysmt.native.Topology",
+                    reason=f"Bond field {column!r} contains atom indices outside the chemical atom domain.",
+                    caller="molsysmt.native.ChemicalStates",
                 )
 
     for column in ("donor_atom_index", "acceptor_atom_index"):
@@ -803,7 +803,7 @@ def _coerce_bond_table(value, n_atoms=None):
             if invalid_reference.any():
                 raise StructuralInconsistencyError(
                     reason=f"Bond field {column!r} must reference one of the bond endpoints.",
-                    caller="molsysmt.native.Topology",
+                    caller="molsysmt.native.ChemicalStates",
                 )
     if {"donor_atom_index", "acceptor_atom_index"} <= set(output.columns):
         same_directional_endpoint = (
@@ -814,7 +814,7 @@ def _coerce_bond_table(value, n_atoms=None):
         if same_directional_endpoint.any():
             raise StructuralInconsistencyError(
                 reason="Bond donor and acceptor atom indices must be distinct.",
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
 
     if "stereochemistry" in output.columns:
@@ -828,7 +828,7 @@ def _coerce_bond_table(value, n_atoms=None):
         if missing_references.any():
             raise StructuralInconsistencyError(
                 reason="Bond stereochemistry requires two stereo reference atom indices.",
-                caller="molsysmt.native.Topology",
+                caller="molsysmt.native.ChemicalStates",
             )
 
     output._fix_null_values()
@@ -862,7 +862,7 @@ def _remap_bond_atom_indices(table, index_map, *, canonical_order=False):
             if column in {"atom1_index", "atom2_index"} and remapped.isna().any():
                 raise StructuralInconsistencyError(
                     reason="Bond endpoints cannot be retained when their atoms are absent.",
-                    caller="molsysmt.native.Topology",
+                    caller="molsysmt.native.ChemicalStates",
                 )
             output[column] = pd.array(remapped, dtype="Int64")
 

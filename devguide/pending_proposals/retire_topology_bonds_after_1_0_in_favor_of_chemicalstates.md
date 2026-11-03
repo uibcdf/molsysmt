@@ -3157,3 +3157,66 @@ retention, four additional macOS display controls and the partial-domain builder
 fixes. It is not a restart caused by an observation timeout, and it does not
 cancel or relabel the still-running older macOS cells. The final-head required
 matrix and #527's cause-specific resolution remain open.
+
+
+### Active-guide ownership and diagnostic audit — 2026-11-02
+
+A further P7 semantic review finds positive legacy-ownership claims that the
+successful Sphinx build cannot detect. The maintained Builder/Algorithms/
+Interactions/H5MSM guides still mention a Topology bond facade, native chemical
+editing or graph reconstruction under Topology. The developer rebuild page and
+user Toolbox overview repeat that ownership. MolSys Foundations also describes
+an older direct-Structures/manual-invalidation boundary and topology-scoped
+chemical writes. These are current-documentation defects under #255, not evidence
+that the removed runtime facade still exists.
+
+Those sections now distinguish stable inventory from selected-state chemistry,
+explicit construction from later molecule edits, and attached-domain controlled
+notification from raw/independent aliases. Bond/component/invalidation staging is
+transactional; reconstruction failure precedes publication. Legacy H5MSM layout
+pages, historical execution receipts and explicit old-to-new migration tables
+remain qualified historical descriptions. The current Topology conversion page
+now describes its actual empty Structures container rather than claiming that
+the domain is absent. Root/docs contributor instructions point to maintained
+query/form/core/scalability/docstring contracts instead of deleted coding guides;
+no common synchronized policy is edited.
+
+The overview keeps its protected sections/navigation and adds the chemical and
+interaction domains. Its actual tool names resolve in their documented public
+namespaces. The developer Builder example preserves legacy label normalization:
+`double` declares order 2, not a guessed covalent relationship type. An initial
+manual oracle expected that unsupported type inference (214); the existing
+independent bond-metadata test explicitly establishes its absence. The corrected
+example and audit retain that scientific behavior. No code/output cell in a
+course or tutorial notebook is changed by this narrative audit.
+
+The same review reproduces chemical-storage errors attributing their caller to
+Topology. Four new behavioral controls fail before correction (216, four failures,
+exit 1), while preserving expected rejection codes and checking no publication.
+The canonical chemical helper now identifies ChemicalStates and its actual
+private storage module in its 25 collection and 16 storage diagnostic callers.
+The outside-axis error describes the chemical atom domain. No chemical rule,
+exception class/code, stored assignment or historical pickle alias changes.
+
+The combined storage/edit/owner/namespace/example/source-boundary and original
+bond-metadata scope passes **257 cases**, exit 0, 16.92 seconds (217), including
+those four regressions. The earlier documentation-owner scope passes 174 cases
+(214), not an additive independent total. Ruff and formatting pass for the whole
+checked tree. Strict complete Sphinx HTML passes (218); fast gates pass 14/14
+and the separate docstring validator passes its 246 discovered public functions
+(219). The final overview-only incremental strict build is recorded separately
+(220). The four unrelated original RST files and native binary retain their
+frozen hashes. This additional source metadata correction still requires its
+honest final-head qualification; active full run 41562051654 remains pinned to
+older runtime dbcb4582c and is not relabeled as testing these later bytes.
+
+
+The final incremental strict HTML build completes exit 0 (220). Rendered pages
+contain the new chemical/interaction sections with working links and the corrected
+MolSys/rebuild owner text. A runtime audit resolves all 71 public operations named
+in the overview, using Basic's public discovery queries rather than promoting
+form-adapter implementation helpers. Maintained contributor-guide paths exist.
+No new blanket text-matching gate is substituted for these semantic/source and
+runtime checks. Final developer-guide validation and queue-index checks pass.
+The active hosted run is retained on dbcb4582c; later diagnostic-owner metadata
+and guide fixes remain identified as a separately qualified development followup.
