@@ -1,9 +1,10 @@
-"""Explicit element/name utilities; these never infer an input from view.molsys."""
+"""Element namespace with explicit utilities and current-system hierarchy readers."""
 
 from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _native_documentation
+from ._element_hierarchy import _ChainTools, _EntityTools
 
 
 def _utility_documentation(name, module="element", *, local_skip=False):
@@ -140,12 +141,14 @@ class _GroupTools(_ElementUtilities):
 
 
 class _ElementTools(_ElementUtilities):
-    _NAMES = ("atom", "group", "is_element", "is_composed_of")
+    _NAMES = ("atom", "group", "chain", "entity", "is_element", "is_composed_of")
 
     def __init__(self, owner):
         super().__init__(owner)
         self.atom = _AtomTools(owner)
         self.group = _GroupTools(owner)
+        self.chain = _ChainTools(owner)
+        self.entity = _EntityTools(owner)
 
     @_utility_documentation("is_element", local_skip=True)
     @signal(tags=["addon", "element"])

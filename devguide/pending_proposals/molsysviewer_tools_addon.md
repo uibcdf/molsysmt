@@ -24,10 +24,36 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Current-primary chain/entity source increment — 2026-11-03
+
+PR #543 now also carries four explicit chain readers and five entity readers,
+using the current loaded primary through the serialized molecular reader.
+Native selection/syntax, output levels, IDs/unknowns, containers and redefine_*
+projections remain unchanged. Results are not assigned, pending scene work is
+not reconciled and no root alias, representation, preparation or update_view
+control is introduced. get_n_entities consumes a keyword-only local skip flag;
+the other eight forward their native controls. Empty and closed owners reject.
+
+The frozen native base remains `03050a16`; no scientific or Rust source changes.
+Focused receiving passes 234 cases, including all 93 new hierarchy cases and
+132 earlier explicit-utility cases. Native chain/entity checks pass 54 and
+package/inventory/notebook structure controls pass 530. Guide examples execute,
+156 course notebooks validate with code/output/IDs preserved, and whole-tree
+Ruff passes. Complete addon receiving passes 2,687 cases with zero failures,
+errors or skips, including all 93 new hierarchy cases and the 132 earlier
+utility cases. The [hierarchy receipt](../../devtools/data/molsysviewer_tools_element_hierarchy_receiving_20261103.json)
+retains exact source/result hashes, the initial fixture correction and scopes.
+
+Branch exposure is 161/244, with 17/57 element paths. PR #538/#540 remain
+independent: 172/244 is a hypothetical union, not a received integration.
+The remaining 12 primary-input and 28 explicit-input element paths still need
+individual review. Native #542 repair and package qualification retain their
+separate owner gates. The host runtime and dependency floors are unchanged.
+
 ## Explicit element utilities source increment — 2026-11-03
 
-The independent contribution `addon/element-utilities-20261103`, based on
-`03050a16ba2354848313a6781e94078ab036da89`, adds eight explicit-input paths:
+The initial source increment `6ca857e81` on `addon/element-utilities-20261103`,
+based on `03050a16ba2354848313a6781e94078ab036da89`, adds eight explicit-input paths:
 two element-level predicates, four atom symbol/name/force-field/isotope helpers
 and two group-label classifiers. They retain native signatures/results/errors
 and open-empty-view lifetime; no primary reader, pending-edit flush, molecular
@@ -35,7 +61,7 @@ assignment, scene/history effect or root alias is introduced. The existing
 basic composition predicate/root alias remains distinct. Four locally consumed
 skip controls are keyword-only; all declared native skip flags are forwarded.
 
-The owning collector reports 152/244 exposed on this independent branch,
+The owning collector reports 152/244 exposed at that initial source,
 including 8/57 element paths. PR #538/#540 are not integrated here; the union
 would be 163/244 and is not a received combined result. The 21 primary-input
 and 28 remaining explicit-input element paths still require per-tool review.

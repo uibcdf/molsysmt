@@ -87,12 +87,24 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "element.group.is_group_type",
         "element.group.get_group_type_from_group_name",
     }
+    hierarchy_elements = {
+        "element.chain.get_chain_id",
+        "element.chain.get_chain_index",
+        "element.chain.get_chain_name",
+        "element.chain.get_chain_type",
+        "element.entity.get_entity_id",
+        "element.entity.get_entity_index",
+        "element.entity.get_entity_name",
+        "element.entity.get_entity_type",
+        "element.entity.get_n_entities",
+    }
     actual_elements = {
         path
         for path, row in rows.items()
         if path.startswith("element.") and row["exposed"]
     }
-    assert actual_elements == received_elements
+    assert actual_elements == received_elements | hierarchy_elements
+    assert all(rows[path]["input_kind"] == "primary" for path in hierarchy_elements)
     assert all(
         rows[path]["input_kind"] == "explicit_inputs" for path in received_elements
     )

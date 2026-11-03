@@ -282,4 +282,12 @@ Keep the element-name composition relation distinct from basic's actual-system
 predicate and root alias. Preserve canonical case, native D/T/isotope and
 AutoDock4 contracts, public group-name lookup/unknown markers and native errors/
 warnings. Four addon-only skip controls remain keyword-only and are not sent
-to native functions lacking that parameter. Broader element queries are pending.
+to native functions lacking that parameter.
+
+Preserve the nine current-primary chain/entity readers and their managed-reader
+binding, including completed pending edits without scene synchronization. Keep
+native output-level defaults, IDs/unknowns, containers, selection and redefine_*
+projection semantics without molecular assignment, an update_view parameter or
+new root aliases. entity.get_n_entities consumes only its keyword-only local
+skip control; other native skip flags are forwarded. Require a loaded open
+owner and keep unreceived component/molecule and other element routes pending.

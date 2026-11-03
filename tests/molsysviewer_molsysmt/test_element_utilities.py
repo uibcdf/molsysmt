@@ -68,7 +68,14 @@ def test_exact_names_signatures_help_and_validation(path):
     with msv.new_view() as view:
         assert "element" in dir(view.addons.molsysmt)
         tools = view.addons.molsysmt.element
-        assert set(dir(tools)) == {"is_element", "is_composed_of", "atom", "group"}
+        assert set(dir(tools)) == {
+            "is_element",
+            "is_composed_of",
+            "atom",
+            "group",
+            "chain",
+            "entity",
+        }
         assert set(dir(tools.atom)) == {
             p.split(".")[1] for p in PATHS if p.startswith("atom.")
         }

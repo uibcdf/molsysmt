@@ -86,7 +86,8 @@ The received `view.addons.molsysmt.element` slice contains eight explicit-input
 utilities: `is_element`, `is_composed_of`, four `atom` type/name/isotope tools,
 and `group.is_group_type` / `group.get_group_type_from_group_name`. They work
 with an open empty view and keep caller inputs explicit; see the element
-utilities section below. Other element queries remain pending.
+utilities section below. Nine current-system chain/entity readers are received
+separately below; other element queries remain pending.
 
 Install compatible versions of both components. MolSysMT supplies the
 integration; MolSysViewer discovers its declared entry point automatically.
@@ -149,6 +150,62 @@ Native references: {func}`molsysmt.element.is_element`,
 {func}`molsysmt.element.atom.get_atom_type_from_atom_ff_type`,
 {func}`molsysmt.element.group.is_group_type` and
 {func}`molsysmt.element.group.get_group_type_from_group_name`.
+
+## Querying chains and entities
+
+`element.chain` exposes `get_chain_index`, `get_chain_id`, `get_chain_name`
+and `get_chain_type`. `element.entity` exposes `get_entity_index`,
+`get_entity_id`, `get_entity_name`, `get_entity_type` and `get_n_entities`.
+These nine readers use the current loaded system. Their selections, output
+levels, missing values, IDs and native result containers are preserved.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    element = view.addons.molsysmt.element
+    assert element.chain.get_chain_index(element="chain") == [0]
+    assert element.entity.get_entity_index() == [0]
+    assert element.entity.get_n_entities() == 1
+    atom_chain_names = element.chain.get_chain_name()
+    atom_chain_types = element.chain.get_chain_type()
+    atom_chain_ids = element.chain.get_chain_id()
+    entity_names = element.entity.get_entity_name()
+    entity_types = element.entity.get_entity_type()
+    entity_ids = element.entity.get_entity_id()
+    projected_names = element.chain.get_chain_name(
+        element="chain", redefine_names=True
+    )
+```
+
+Defaults match the native readers: chain getters default to output at the atom
+level, and entity getters default to the entity level. `get_n_entities`
+selects atoms when a subset is supplied. Indices are positions; returned IDs
+and names follow MolSysMT and may reflect missing source labels. No label is
+invented by the addon.
+
+`redefine_*` controls the native returned projection. It does not assign that
+projection to your system or change the scene. Native unsupported combinations
+retain their errors. Readers include completed molecular edits that are pending
+scene synchronization, while leaving that pending state unchanged. They acquire
+the managed molecular reader and require an open view with a loaded system;
+there is no `update_view` parameter or automatic representation.
+
+All nine expose `skip_digestion=False`. For `entity.get_n_entities` alone,
+this is a keyword-only addon control because the native reader has no skip
+parameter. It is consumed locally; native validation stays active. The other
+eight preserve and forward their native flags. Component/molecule readers and
+other unreceived element paths remain pending.
+
+Native references: {func}`molsysmt.element.chain.get_chain_index`,
+{func}`molsysmt.element.chain.get_chain_id`,
+{func}`molsysmt.element.chain.get_chain_name`,
+{func}`molsysmt.element.chain.get_chain_type`,
+{func}`molsysmt.element.entity.get_entity_index`,
+{func}`molsysmt.element.entity.get_entity_id`,
+{func}`molsysmt.element.entity.get_entity_name`,
+{func}`molsysmt.element.entity.get_entity_type` and
+{func}`molsysmt.element.entity.get_n_entities`.
 
 ## Querying the current system
 
