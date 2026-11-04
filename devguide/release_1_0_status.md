@@ -20,6 +20,33 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Audit recorded and reference-help correction received — 2026-11-04
+
+The maintainer-requested audit and resumption route are recorded in
+e62557952, with the original scientific certificate retained unchanged. This
+documentation checkpoint does not select a release candidate or qualify new
+runtime behavior.
+
+[#548](archive/resolved_bugs/reference_bond_pairs_documented_as_atom_names.md)
+corrects the four remaining group reference-bond docstrings and aligns the User
+Guide, recipe and Module 03 with the seven-helper index contract. All 342
+contract/container cases, 572 documentation/doctest cases and 99 additional
+existing group cases pass with zero omissions. The separate 246-function
+docstring validator, all fourteen fast gates and whole-tree Ruff pass. The
+owning record retains warnings, original failing controls and receiving scope.
+AST and notebook comparisons establish unchanged executable bodies/signatures
+and unchanged notebook code/output/metadata. No runtime or chemical-table fix is
+claimed by this documentation correction. Routine hosted CI on the integrated
+head remains a separate checkpoint.
+
+[#554](pending_bugs/reference_bond_index_maps_are_not_consistently_validated.md)
+retains the independently reproduced malformed-map defect and is the next native
+correction. Its report is now recorded; no validation fix is included with #548.
+Then continue #549's naming-context study and #504's multi-structure contract
+before receiving #543 against the corrected native source. All subsequent
+dependency, scientific-provenance and installed-client decisions retain their
+owners in the route below. The four unrelated API-stub edits remain excluded.
+
 ## Resumption route after the library audit — 2026-11-04
 
 **Role:** current work ordering following the maintainer-requested

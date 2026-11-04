@@ -27,6 +27,10 @@ source axes. Without it, pairs use positions in the supplied name sequence.
 Repeated names in these helpers retain their first occurrence, and input arrays
 are not modified. This lookup does not transfer chemistry or change a stored
 graph; keep template application and its explicit correspondence separate.
+For amino-acid, ion and water lookups, keep their distinct repeated-name and
+endpoint conventions: water preserves oxygen as the first endpoint. Row sorting
+does not give the same endpoint orientation in every family. Supply exactly
+one integer per atom name and keep the source index map with the result.
 See {ref}`Tutorial_Get_bonded_atom_pairs` for the exact family contracts.
 
 Explicit atom stereochemistry is transferred when declared as `R`, `S`, `r`,
