@@ -27,6 +27,7 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "infer_covalent_bonds",
         "assign_autodock_atom_types",
         "assign_partial_charges",
+        "project_atom_names",
     ):
         assert rows[f"build.{name}"]["exposed"]
         assert rows[f"build.{name}"]["input_kind"] == "primary"

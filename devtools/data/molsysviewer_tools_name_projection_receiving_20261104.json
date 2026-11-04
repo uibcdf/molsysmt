@@ -1,0 +1,533 @@
+{
+  "schema": "molsysmt.viewer-name-projection-source-receiving@1",
+  "date": "2026-11-04",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#548",
+    "uibcdf/molsysmt#549",
+    "uibcdf/molsysmt#550",
+    "uibcdf/molsysmt#552",
+    "uibcdf/molsysmt#554"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "published_previous_head": "3889ad75ab8def7ad20ac5dcee1fe7bd28bc9466",
+  "owner_base": "93d29bf23e2c54f238f7ada984a4b23420b4b3b0",
+  "contribution_parent": "341e23f3c632325005bc619bc242de273538245a",
+  "viewer_source": "139fa422c9bd5f0c07006d7ac99b7d1333ab845f",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "source_identity": "Qualified uncommitted runtime/test bytes are recorded below; the contribution commit is delivered through PR #543. No self-referential final-commit claim.",
+  "environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "executable": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+    "packages": {
+      "molsysmt": "0.23.0+201.g3502232d8.dirty",
+      "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "rdkit": "2025.9.5",
+      "openmm": "8.6.1"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "runtime_and_test_inputs_sha256": {
+    "molsysviewer_molsysmt/_supported.py": "01698c198f5eca4deaf4220c33ed8ed769609db5b732c6dec06b56ae9bd566a5",
+    "molsysviewer_molsysmt/_basic.py": "ef72c3239da6639eb36d6cc50e7e066a9dce01395a8b076c916a8e55735e3a3b",
+    "molsysviewer_molsysmt/_attribute.py": "253778e27fa8fecad7878568452ba5c6d8f536f31a2439b51b210b8401454b50",
+    "molsysviewer_molsysmt/_api.py": "e546720e54cd1f022f4a897e124cbd52b0ce49bda3023468295056bebd222ce5",
+    "molsysviewer_molsysmt/_element_templates.py": "3a7ce0144b9a17e9e3c45315ba01a687dfee32c99b2c493954ee651d9170b775",
+    "molsysviewer_molsysmt/_element_labels.py": "06f5b847eaaf5188794aed75ba930b7c9a3dbfd9c4e1f9ed36803ecd2e2cdc22",
+    "molsysviewer_molsysmt/_element_common.py": "e132788a349eb3d2004356812ad19f4aee21a186ff0965721d05478171c68d1e",
+    "molsysviewer_molsysmt/_element_domains.py": "7723bf325646abaa97a2c09368b71e0b42ed30807b893a9df3796e4512f07c12",
+    "molsysviewer_molsysmt/_element_hierarchy.py": "cb7e10e0e417286d6dd11ec4bab3c776f0e303119830c9c2bfaec104446eebe6",
+    "molsysviewer_molsysmt/_element.py": "cb627f03e7ca4bf4d0315124de82da9c8fbf91b44e8d38a20c50bc2a2cb70d61",
+    "molsysviewer_molsysmt/tools.py": "bbcb52cf342cf583110cbf8147ab20734cab1727704f292db7e1e78036a12258",
+    "molsysviewer_molsysmt/_topology.py": "d1524cf733672ef3cc7eb12887396186f814f261cfbb83b95a0ee70d10bd6f8f",
+    "molsysviewer_molsysmt/_structure.py": "0c313e4679928cf2461dad72575a82537426c965708a7f54178d0a3904ce70ce",
+    "molsysviewer_molsysmt/_physchem.py": "99f76ea9d68f1768c2626702d14d3a0aafe7adbc88dfc5b41c58839f0913ce92",
+    "molsysviewer_molsysmt/_pbc.py": "c1ad7049c751745dfde304d74e516423b6a54ebbf6eae9e245b6e6fd2b3305ee",
+    "molsysviewer_molsysmt/_interactions.py": "50dc2d25f734bd8719ddccc0bee8164435c7b9b127029f2920d86bb1fba6a36f",
+    "molsysviewer_molsysmt/_geometry.py": "715f8dc38b51b9ca091668b9b8a8a0f72516843d7e8fa41088fd9a98caaa5d12",
+    "molsysviewer_molsysmt/_files.py": "4f5dafc12b9e92453847996b93fb2c85c4b06e2931b73ae3cecfe71cd3e3f434",
+    "molsysviewer_molsysmt/_composition.py": "0db08f265e88c76e499488b8504706a4dd3cb9722ddb387db9458e689c556089",
+    "molsysviewer_molsysmt/_chemical_states.py": "54eb604f0d2f7e8e85699782890e259917457589cc6edf60301b0e89581e34d3",
+    "molsysviewer_molsysmt/_build.py": "b508f4dd255e756424788513eb3920f8ba4581543b967ba19ce8dc44f9907092",
+    "molsysviewer_molsysmt/_argdigest.py": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+    "molsysviewer_molsysmt/__init__.py": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+    "tests/molsysviewer_molsysmt/test_build_name_projection_tools.py": "a2a59e7321b4f4f7fd2a6eb561f9b5dd5b6c199a41d0b6e0ebc5904bcc2f22d6",
+    "tests/molsysviewer_molsysmt/test_supported_tools.py": "c6b9c83f841689228be610c625be6e54bd352bf149cdb778007c6dbe269f8b8f",
+    "tests/molsysviewer_molsysmt/test_attribute_tools.py": "55a9f10308002c43fd72c4afd8db49d8f2855eb43b01eedd0903285f3fcf6641",
+    "tests/molsysviewer_molsysmt/test_build_assignment_tools.py": "564921d2c1351273c3039316654f5dc292d2ecd6f1809dd104f483de20d244a6",
+    "tests/molsysviewer_molsysmt/test_element_template_tools.py": "936efb18cac03efe402c862c92d28229517c71ef9a5ab13b4de90ac146af085c",
+    "tests/molsysviewer_molsysmt/test_element_label_tools.py": "286d84dcb2114be3b0148952967e681816d2f1d3354d1c46b5eacb555dd258ca",
+    "tests/molsysviewer_molsysmt/test_element_domain_tools.py": "3a3fff85fb7fbd747efe0d932eaf62debf0eaeff50dc950ccdfc795d55528bb5",
+    "tests/molsysviewer_molsysmt/test_remaining_interaction_tools.py": "9467e7a84a6f1bb75c764071d2276f9cd1977d1e0d08a3016aab01658d6a7a58",
+    "tests/molsysviewer_molsysmt/test_interaction_detector_tools.py": "db235ed0b91df02a1bb4bd31693113c77ec1ef16677144c842b8b510bab05cbe",
+    "tests/molsysviewer_molsysmt/test_element_hierarchy_tools.py": "5ac4a951be0f5f5f757493ba655cd2db4f82e7fcf7dbd4bdb3b3b86af7eb8c2c",
+    "tests/molsysviewer_molsysmt/test_element_utilities.py": "91d16a9b44fbc41a38a22c78b2fd87439c4e73ee59458d624408e3c9a021d41f",
+    "tests/molsysviewer_molsysmt/test_tpsa_tools.py": "6e63c6ce3381093b50488b7d370c484910521f57730867ca8ccdb682b573f33f",
+    "tests/molsysviewer_molsysmt/test_topology_tools.py": "66b43be3a81a32fc4afcc1babf94f28b927cd7c14fc3ac6dcf5c695b8e049be8",
+    "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py": "945fcbd8df811d4a023ba5d25736e08246c09c7bcaebef4216250e3158c4901c",
+    "tests/molsysviewer_molsysmt/test_structure_transform_tools.py": "f8e6aecb54118a35d70d6ae7f149496273b64601028cec1ec62b824a21222060",
+    "tests/molsysviewer_molsysmt/test_structure_tools.py": "a52c830fbba71a58c4acb63add81aa73ab4bf03b2f56c95d176c304f6fc1af41",
+    "tests/molsysviewer_molsysmt/test_structure_relations_tools.py": "05c56c4c26a81327cec3cb6a4a02d883a8a9c63df8527c76c1529be6b9dd42c1",
+    "tests/molsysviewer_molsysmt/test_structure_move_away_tools.py": "ebe816852a504df6a7651976ef16ba62a70f1bc8018641da947ff61a593298bc",
+    "tests/molsysviewer_molsysmt/test_structure_fitting_tools.py": "52d960a5e106a6f5ef3b8970abdb02521e7587930520375fc597be8b4d84d4ff",
+    "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py": "d895ceffe3254c87d3bed5ba8953f5d9c1d14b69cf671b55bb31206ec86b1473",
+    "tests/molsysviewer_molsysmt/test_structure_comparison_tools.py": "93600c2f4671458725edde83bde27d118b535dcee6ba844ececa9f8d7b79c2fd",
+    "tests/molsysviewer_molsysmt/test_structure_center_tools.py": "d54c3b20f5cf12c772a3aff971fa3f516b12459474192c22250840a94ab037d5",
+    "tests/molsysviewer_molsysmt/test_structure_axes_tools.py": "fae9b88c09a0fb170d8f8d5b705dec635be59861d7a43b2582f1c2d997cb2136",
+    "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py": "ad19bf76705ed24c3662a59f83cdf6b88da85129aec39ce2af26af5e2144f513",
+    "tests/molsysviewer_molsysmt/test_set_tools.py": "3fb841baf394b70a528f38d0d2c07f8af610833a617d116cc34c93453e886e59",
+    "tests/molsysviewer_molsysmt/test_sasa_tools.py": "d5432db013a340f8a00818950abb1819538fe5b35faefd472e2947ea0970d4dc",
+    "tests/molsysviewer_molsysmt/test_remove_tools.py": "38f199b8d6f8add7bfa2a7e3a636f3b14a5dabf9873fe72477e6f74bd3cfb1e8",
+    "tests/molsysviewer_molsysmt/test_reference_scales_tools.py": "cbee023611a8db51ddea79c400d49ec12573cd7da77a9e4bc04e21de6ab3eadd",
+    "tests/molsysviewer_molsysmt/test_read_tools.py": "8cf152c689712fa9f63bf4c3e49e91eafd8fe49c8316174aefa30de2f0d3674f",
+    "tests/molsysviewer_molsysmt/test_predicate_tools.py": "0e1f2a001464143ef3e72ab0f120186a8bb630b6b1317573f345af520cd7a983",
+    "tests/molsysviewer_molsysmt/test_physchem_tools.py": "39ba7f27d274e60a1b3f817c64bea45a86f8ffbe93142e6632e12872a9f333a8",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "2663f0eeba805e8232e35b6da3a2056ec583c3243c3f4e1cf89fde4f11bdeec9",
+    "tests/molsysviewer_molsysmt/test_physchem_remainder_tools.py": "868a219794b1cb28be9b5be7c6e7c3d217ce778cc972428333eac51e3b713231",
+    "tests/molsysviewer_molsysmt/test_pbc_tools.py": "88f1ab44f4c35e5821f6888d0bf7c91585d6adfcad4ecc6bc3b26c2ccf2d583c",
+    "tests/molsysviewer_molsysmt/test_pbc_edit_tools.py": "8ce50631d7578025e85f99aaa9557d0836f8f9e2d7a3f8b6dcf72840d5784cf7",
+    "tests/molsysviewer_molsysmt/test_molecular_descriptors_tools.py": "7a63c0d723c48fe3b2eb116c8bc44f09d0543e66e2da90bb2725153ad7624d54",
+    "tests/molsysviewer_molsysmt/test_map_and_file_tools.py": "9784fb7b6a48ae716ef4461073c1b5a38b7fec1414e4916870b5bcf48dfd5923",
+    "tests/molsysviewer_molsysmt/test_identity_tools.py": "02c5e25358c730217e2c918722be00812014b4c34e89444907fb5077509d7543",
+    "tests/molsysviewer_molsysmt/test_hbond_site_tools.py": "50f8b033696f4d888bcb2dc96b9a13a4a46973bc4cc4ad25f6ba2f300654f2bf",
+    "tests/molsysviewer_molsysmt/test_feature_sites_tools.py": "5988546f941536be5f9d60e3893718d7ac13033d94ddde634142b98cbf335107",
+    "tests/molsysviewer_molsysmt/test_conversion_tools.py": "73d8125d61fecbc27ed6857a757eb1e1838bb34ca5cc77189f9a6b8610185cd5",
+    "tests/molsysviewer_molsysmt/test_contact_detector_tools.py": "6b77829ed3e4a49c6f0ef9787713accaa26f46d1d1beea9f5db5b7b20ebb42e5",
+    "tests/molsysviewer_molsysmt/test_composition_tools.py": "040a8b4baa77311a2c4f0ffa5200350c65e20eea664b1a714d4d79899465208d",
+    "tests/molsysviewer_molsysmt/test_chemical_audit_tools.py": "9387446d431653fdbe72d157d37cb562c59ca2cbf34f0e44ca49722c7fc8351e",
+    "tests/molsysviewer_molsysmt/test_chemical_assignment_readers_tools.py": "f1e6e489fe4879ef6b0170d1eeb79e3b506fe6528d010c34d956d04ee6237781",
+    "tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py": "bd3c83b54547d9bfa07d87a4f4231e4e2043278d088b95e9b66aae193f23d1f9",
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": "aa07f71f28bda5b7f5176d1ab19f6d96dc28cd438e688ccf04df3dbfcf961675",
+    "tests/molsysviewer_molsysmt/test_aromatic_tools.py": "633843ed1fc7365383521354d88c364c84d3ac9b1f8044ed03040c66debfaf4d"
+  },
+  "backend": {
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "reused_unchanged": true,
+    "native_source_equals_owner": true,
+    "scope": "No environment install, backend build, solver, archive or release qualification."
+  },
+  "received_changes": {
+    "metadata": "Retain both merged PRs #538/#540: four supported reports and seven attribute utilities, alongside all 57 element paths.",
+    "native_550": "Receive ee3f303c2cca86163120151bac92200890b8f8de and published doc-default correction through owner 93d29bf2. Flat NumPy names in three families/dispatcher return actual pairs; invalid dimensions retain native ArgumentError.",
+    "native_552": "Receive published d9255c85c0d0ee9dc98f1f824f8075a5d0d77fd0. Two obsolete generic donor expectations are aligned with accepted int64 contracts and eight public rejection cases are retained. No scientific algorithm change.",
+    "merge_resolution": "Retain element plus supported plus attribute in facade/export inventory, one complete addon smoke invocation, combined guide examples and prose-only course cell 5. Preserve incoming packaging/license guards and native repairs."
+  },
+  "contract": {
+    "new_path": "build.project_atom_names",
+    "binding": "Current primary through serialized reader, including completed pending edits; loaded/open view required. Cached methods follow replacement.",
+    "parameters": "Fixed expert signature, required target_form, native validation and skip_digestion, ArgDigest/SMonitor. No molecular_system override or added adoption controls.",
+    "ownership": "Native independent MolSys or system/report; no scene/history/pending synchronization or implicit adoption. All atom/structure axes and IDs retained; selected label policy changes names only.",
+    "mapping": "Original/projected labels and native identity maps, composable through existing basic.compose_atom_maps; no name-based atom matching.",
+    "limits": "Export naming constraint is not a write or output-form conversion. Lexical collision scope is not element/type inference. Protected geometry may remain shared until a public native edit detaches it. Existing assignments are not recertified after renaming."
+  },
+  "inventory": {
+    "native": 244,
+    "exposed": 216,
+    "modules": {
+      "basic": {
+        "native_paths": 26,
+        "exposed_paths": 25,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "basic.view"
+        ]
+      },
+      "topology": {
+        "native_paths": 2,
+        "exposed_paths": 2,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "chemical_states": {
+        "native_paths": 9,
+        "exposed_paths": 9,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "structure": {
+        "native_paths": 28,
+        "exposed_paths": 28,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "pbc": {
+        "native_paths": 13,
+        "exposed_paths": 13,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "physchem": {
+        "native_paths": 34,
+        "exposed_paths": 34,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "build": {
+        "native_paths": 30,
+        "exposed_paths": 15,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "build.add_missing_bonds",
+          "build.add_missing_heavy_atoms",
+          "build.add_missing_hydrogens",
+          "build.add_missing_terminal_cappings",
+          "build.add_terminal_atoms",
+          "build.build_peptide",
+          "build.editable",
+          "build.make_bioassembly",
+          "build.make_water_box",
+          "build.merge_nonpolar_hydrogens",
+          "build.mutate",
+          "build.reconcile_protonation",
+          "build.remove_overlapping_molecules",
+          "build.solvate",
+          "build.solve_atoms_with_alternate_location"
+        ]
+      },
+      "molecular_mechanics": {
+        "native_paths": 6,
+        "exposed_paths": 0,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "molecular_mechanics.get_degrees_of_freedom",
+          "molecular_mechanics.get_engine_forcefield",
+          "molecular_mechanics.get_forces",
+          "molecular_mechanics.get_non_bonded_potential_energy",
+          "molecular_mechanics.get_potential_energy",
+          "molecular_mechanics.potential_energy_minimization"
+        ]
+      },
+      "interactions": {
+        "native_paths": 15,
+        "exposed_paths": 15,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "element": {
+        "native_paths": 57,
+        "exposed_paths": 57,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "h5msm": {
+        "native_paths": 7,
+        "exposed_paths": 7,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "hbonds": {
+        "native_paths": 4,
+        "exposed_paths": 0,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "hbonds.get_acceptor_atoms",
+          "hbonds.get_buch_hbonds",
+          "hbonds.get_donor_atoms",
+          "hbonds.get_luzard_chandler_hbonds"
+        ]
+      },
+      "attribute": {
+        "native_paths": 7,
+        "exposed_paths": 7,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "supported": {
+        "native_paths": 4,
+        "exposed_paths": 4,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "molecular_dynamics": {
+        "native_paths": 2,
+        "exposed_paths": 0,
+        "explicit_native_stubs": 2,
+        "missing": [
+          "molecular_dynamics.run_NPT_equilibration",
+          "molecular_dynamics.run_NVT_equilibration"
+        ]
+      }
+    },
+    "raw_sha256": "8e69c9b01660e36f98395bda0dbe010024d8a2c27984aa4d6b86a01a23356e0f",
+    "scope": "Source exposure, including aliases/utilities and two native always-raise stubs in the denominator; not 244 independent scientific algorithms."
+  },
+  "validation": {
+    "received_native_metadata_arrays": {
+      "tests": 875,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 169.76,
+      "junit_sha256": "5fe6f5bc820871ca23d45642816d108477930b343ceabe9c3b109e9d2dca8e38",
+      "log_sha256": "1ac1c1307cafeeffd5bca368218b65819c9487b4da7c08c709d548a2db3be7aa"
+    },
+    "projection_focused_native_build_element_inventory": {
+      "tests": 531,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 70.53,
+      "junit_sha256": "2c2383a469fd4a725b858bba7de4c9ea3fc5b61c749e596a4b917ac8a0e51b3a",
+      "log_sha256": "845593e1f4bb394c2994d0562d2b00675b70a6946d68caf6f06d4518f83d4eb4"
+    },
+    "complete_addon": {
+      "tests": 3618,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 806.41,
+      "junit_sha256": "e415a885b48d56a01effd6594d317f714a53ad80822aa9a8c4418639979062a1",
+      "log_sha256": "aa6cde7a69bc25700646f7ede8c3bd82fbe79b1ba7e5bef11234d7c198eeda86"
+    },
+    "distribution_inventory_smoke_notebook_structure": {
+      "tests": 565,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 14.62,
+      "junit_sha256": "a0879e9bbd5268cab780d4c6e4fff07cedbbc6f1800c6e6472460cfc6fd111ec",
+      "log_sha256": "7c5a2dbb0f0215b202c1921d362fbe915fd6c259918dd5389c28fc179b421477"
+    },
+    "guide": {
+      "blocks": [
+        {
+          "section": "Discovering capabilities before loading a system",
+          "block": 1,
+          "sha256": "cdfb47af488e39d5afb21a1cb3a4b392f5e8e711e1617b8af4aac92d476cc86c"
+        },
+        {
+          "section": "Inspecting attribute metadata before loading a system",
+          "block": 1,
+          "sha256": "0596525a9ffd7c6dffe65a656226500404e147cd64f8adc9d67edf4de04c57d4"
+        },
+        {
+          "section": "Querying explicit group reference templates",
+          "block": 1,
+          "sha256": "c25fcb174803badcb94537c27c27c8628d8412e920e251ba3dd81c1cc953fe5a"
+        },
+        {
+          "section": "Preparing independent molecular systems",
+          "block": 1,
+          "sha256": "d50c9d23fa0fa74b2f03e0acdeb118c45d059877d016a77b1908fd3f81c84611"
+        },
+        {
+          "section": "Preparing independent molecular systems",
+          "block": 2,
+          "sha256": "c780fa2b88a9bc7b81adbcad457aa0b9f13a267ddad8bd2c34ac679c497ae9ba"
+        },
+        {
+          "section": "Projecting atom names for export",
+          "block": 1,
+          "sha256": "c087ad37cb92ad64810999e94bd4f8f03c753967a937deba5782d13c513227b1"
+        }
+      ],
+      "all_passed": true,
+      "course_only_markdown_cell_5_changed": true,
+      "course_code_outputs_counts_ids_metadata_schema_preserved": true
+    },
+    "course": "156 canonical notebooks validate; Module 06 differs only in Markdown cell 5 from contribution merge parent, preserving all code, outputs, execution counts, IDs, metadata and schemas.",
+    "docstrings": "246 native public docstrings validate.",
+    "ruff": "Whole-tree check and format pass: 4,340 files already formatted.",
+    "dependencies": "Optional-import and dependency-route audits pass.",
+    "devguide": "Offline validator and generated indexes pass; final record additions require the same checks before commit."
+  },
+  "original_hosted_failure": {
+    "run": 41753549618,
+    "head": "3889ad75ab8def7ad20ac5dcee1fe7bd28bc9466",
+    "artifacts": [
+      {
+        "name": "full-suite-results-macos-15-py3.11",
+        "id": 13301109180,
+        "sha256": "e18f93bc1f8a5019cc6ea88f27fc06c613a608a29285efc263641eef77a5e007",
+        "github_digest": "sha256:e18f93bc1f8a5019cc6ea88f27fc06c613a608a29285efc263641eef77a5e007",
+        "digest_matches": true,
+        "junit": [
+          {
+            "path": "junit.xml",
+            "tests": 25914,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 103,
+            "failed_cases": [
+              "tests._private.argdigest.test_hbond_ion_digesters::test_hbond_acceptor_and_donor_digesters",
+              "tests._private.argdigest.test_layout_selection_digesters::test_acceptors_and_donors_accept_selection_like_inputs"
+            ],
+            "sha256": "230fb1b43b30a2f0f705965eae1a1c76540deeee73ffa1d3f5a6d589e2bac4b0"
+          }
+        ]
+      },
+      {
+        "name": "full-suite-results-macos-15-py3.12",
+        "id": 13301399697,
+        "sha256": "aec0b2514054ec759f864bdc9cb8914b5b411cb77ad28eb0678a8187416efb1c",
+        "github_digest": "sha256:aec0b2514054ec759f864bdc9cb8914b5b411cb77ad28eb0678a8187416efb1c",
+        "digest_matches": true,
+        "junit": [
+          {
+            "path": "junit.xml",
+            "tests": 25914,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 103,
+            "failed_cases": [
+              "tests._private.argdigest.test_hbond_ion_digesters::test_hbond_acceptor_and_donor_digesters",
+              "tests._private.argdigest.test_layout_selection_digesters::test_acceptors_and_donors_accept_selection_like_inputs"
+            ],
+            "sha256": "77fadb7ffaecf0c0dca13df29715721d8918a55750d00acce663573100a32110"
+          }
+        ]
+      },
+      {
+        "name": "full-suite-results-macos-15-py3.13",
+        "id": 13300858585,
+        "sha256": "adb047f4fa4c41bdd75e18ae6f1e1eab52da3c7c73988ba646be10dd2272daec",
+        "github_digest": "sha256:adb047f4fa4c41bdd75e18ae6f1e1eab52da3c7c73988ba646be10dd2272daec",
+        "digest_matches": true,
+        "junit": [
+          {
+            "path": "junit.xml",
+            "tests": 25914,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 103,
+            "failed_cases": [
+              "tests._private.argdigest.test_hbond_ion_digesters::test_hbond_acceptor_and_donor_digesters",
+              "tests._private.argdigest.test_layout_selection_digesters::test_acceptors_and_donors_accept_selection_like_inputs"
+            ],
+            "sha256": "1e64ee7162ac9599646ef77c6f884ff7c00fe67996b2a9d6ac3a469f16ef40a4"
+          }
+        ]
+      },
+      {
+        "name": "full-suite-results-macos-15-py3.14",
+        "id": 13302338174,
+        "sha256": "16afcfeb956bac9e70194da2952cd27192678f674692e13e62dd21b86edb62b1",
+        "github_digest": "sha256:16afcfeb956bac9e70194da2952cd27192678f674692e13e62dd21b86edb62b1",
+        "digest_matches": true,
+        "junit": [
+          {
+            "path": "junit.xml",
+            "tests": 25914,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 103,
+            "failed_cases": [
+              "tests._private.argdigest.test_hbond_ion_digesters::test_hbond_acceptor_and_donor_digesters",
+              "tests._private.argdigest.test_layout_selection_digesters::test_acceptors_and_donors_accept_selection_like_inputs"
+            ],
+            "sha256": "fad0873c9b5185041c90cd7d7db868083500b7802cb4f08b0573262731c24183"
+          }
+        ]
+      },
+      {
+        "name": "full-suite-results-ubuntu-latest-py3.11",
+        "id": 13294165738,
+        "sha256": "3a6abe913d5b823a43701cebce58a479e0e69e9eb039d45e2dfc161b7cfd38aa",
+        "github_digest": "sha256:3a6abe913d5b823a43701cebce58a479e0e69e9eb039d45e2dfc161b7cfd38aa",
+        "digest_matches": true,
+        "junit": [
+          {
+            "path": "junit.xml",
+            "tests": 25914,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 102,
+            "failed_cases": [
+              "tests._private.argdigest.test_hbond_ion_digesters::test_hbond_acceptor_and_donor_digesters",
+              "tests._private.argdigest.test_layout_selection_digesters::test_acceptors_and_donors_accept_selection_like_inputs"
+            ],
+            "sha256": "d5da12eead76fd66a8fa449a8ac9a04ed993bd77f3f642c0d4a179d32f7a1b16"
+          }
+        ]
+      },
+      {
+        "name": "full-suite-results-ubuntu-latest-py3.12",
+        "id": 13294379966,
+        "sha256": "213ee398d147a7094415354364f76e17742ba798fb834528f78f5c4bc4bede1b",
+        "github_digest": "sha256:213ee398d147a7094415354364f76e17742ba798fb834528f78f5c4bc4bede1b",
+        "digest_matches": true,
+        "junit": [
+          {
+            "path": "junit.xml",
+            "tests": 25914,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 102,
+            "failed_cases": [
+              "tests._private.argdigest.test_hbond_ion_digesters::test_hbond_acceptor_and_donor_digesters",
+              "tests._private.argdigest.test_layout_selection_digesters::test_acceptors_and_donors_accept_selection_like_inputs"
+            ],
+            "sha256": "17c047e8a5df89c6dbed50c7c3c3e77042a144bfa729f486c8c78861d7b8201a"
+          }
+        ]
+      },
+      {
+        "name": "full-suite-results-ubuntu-latest-py3.13",
+        "id": 13293800150,
+        "sha256": "1e6e821df5f9ad1916a9271c2248cf703269224316cac472d9192cfb79ccc5ea",
+        "github_digest": "sha256:1e6e821df5f9ad1916a9271c2248cf703269224316cac472d9192cfb79ccc5ea",
+        "digest_matches": true,
+        "junit": [
+          {
+            "path": "junit.xml",
+            "tests": 25914,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 102,
+            "failed_cases": [
+              "tests._private.argdigest.test_hbond_ion_digesters::test_hbond_acceptor_and_donor_digesters",
+              "tests._private.argdigest.test_layout_selection_digesters::test_acceptors_and_donors_accept_selection_like_inputs"
+            ],
+            "sha256": "d6f09a4468e846b715b642ebe37789a3d4f4bb0f12610cf04d3784d858f07551"
+          }
+        ]
+      },
+      {
+        "name": "full-suite-results-ubuntu-latest-py3.14",
+        "id": 13295470147,
+        "sha256": "8cf9a8dfe46748ddc7d3642ca53303f463e46c5361072edbb6dac90a7a016c4e",
+        "github_digest": "sha256:8cf9a8dfe46748ddc7d3642ca53303f463e46c5361072edbb6dac90a7a016c4e",
+        "digest_matches": true,
+        "junit": [
+          {
+            "path": "junit.xml",
+            "tests": 25914,
+            "failures": 2,
+            "errors": 0,
+            "skipped": 102,
+            "failed_cases": [
+              "tests._private.argdigest.test_hbond_ion_digesters::test_hbond_acceptor_and_donor_digesters",
+              "tests._private.argdigest.test_layout_selection_digesters::test_acceptors_and_donors_accept_selection_like_inputs"
+            ],
+            "sha256": "1fe0291dd55cd0d965b2b2b9a745cef01d9d990af85b57b4de036f0d066c71a0"
+          }
+        ]
+      }
+    ],
+    "workflow": ".github/workflows/ci-full.yaml",
+    "conclusion": "failure",
+    "controlled_viewer_sha": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+    "interpretation": "All eight original JUnit files retain the same two donor-digester failures. ZIP hashes independently match GitHub. Linux has 102 skips, macOS 103. #552 resolves the expectations in received source; it does not make this old run pass.",
+    "certificate_scope": "Scientific certificate artifacts were not downloaded or independently received for this original run in this increment."
+  },
+  "remaining": {
+    "native": [
+      "#548 remaining return documentation",
+      "#549 legacy protonation-name vocabulary",
+      "#554 malformed atom-index maps"
+    ],
+    "expert": "Fifteen build paths, six molecular-mechanics paths, four historical hbonds aliases, basic.view bridge and two native MD declarations require disposition; GUI and installed qualification remain separate.",
+    "hosted": "New contribution-head CI, owner review and integration remain pending. Retain old run failure; no manual rerun or duplicate dispatch.",
+    "publication": "No host runtime, new dependency floor, candidate, tag, package or publication change. Both 1.0 publications remain paused."
+  }
+}

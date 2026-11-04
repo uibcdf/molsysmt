@@ -273,6 +273,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_physchem_remainder_tools.py \
             tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py \
             tests/molsysviewer_molsysmt/test_build_assignment_tools.py \
+            tests/molsysviewer_molsysmt/test_build_name_projection_tools.py \
             tests/molsysviewer_molsysmt/test_build_audit_tools.py \
             tests/molsysviewer_molsysmt/test_hbond_site_tools.py \
             tests/molsysviewer_molsysmt/test_interaction_detector_tools.py \

@@ -59,6 +59,7 @@ and disulfide candidates; see the preparation-audit section below. Their native 
 source metadata requirements remain explicit. Three additional build methods return
 independent prepared systems: infer_covalent_bonds, assign_autodock_atom_types
 and assign_partial_charges. They do not adopt the result or update the scene;
+The label-only project_atom_names route also returns an independent output;
 other build editing remains pending.
 
 The explicit `view.addons.molsysmt.interactions.hbonds` namespace now provides
@@ -391,14 +392,26 @@ Explicit cap lookup returns the reference data for the supplied name. Protected
 peptide-end classification follows ACE at N and NME/NHE/NH2 at C; lookup does
 not choose an end, attach atoms or prepare chemistry.
 
+The received native flat-name normalization supports one-dimensional NumPy
+arrays, lists and tuples in the saccharide, small-molecule and capping bond
+helpers, including through the general dispatcher. Invalid name dimensions
+raise the native ArgumentError. The addon forwards inputs without a conversion
+or validation bypass; even its local skip control does not disable this native
+check. Reference connectivity and valid list results remain unchanged.
+
 :::{warning}
-[MolSysMT#550](https://github.com/uibcdf/molsysmt/issues/550) tracks a runtime
-limitation: saccharide, small-molecule and capping bond helpers reject NumPy
-`atom_names` arrays at this source despite documenting them as supported.
-Equivalent lists work. Native errors are preserved; these forwarding checks do
-not qualify the failing array routes, and no implicit addon coercion is added.
-Legacy protonation-name semantics remain separate under
-[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549).
+Legacy protonation-name semantics remain under
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549). The remaining
+return-documentation work is tracked by
+[MolSysMT#548](https://github.com/uibcdf/molsysmt/issues/548); the three corrected
+family helpers now describe index pairs. Validation of malformed `atom_indices`
+maps is tracked separately in
+[MolSysMT#554](https://github.com/uibcdf/molsysmt/issues/554): valid examples here
+use one integer label per supplied atom name; current native helpers do not
+consistently reject invalid maps with a structured diagnostic. Flat-name array
+support does not resolve this separate index-map boundary. The addon preserves
+the native result/error rather than supplying its own repair. No template query
+prepares a molecule.
 :::
 
 Native references: {func}`molsysmt.element.group.get_bonded_atom_pairs`,
@@ -2970,6 +2983,60 @@ force-field parameterization.
 Native references: {func}`molsysmt.build.infer_covalent_bonds`,
 {func}`molsysmt.build.assign_autodock_atom_types` and
 {func}`molsysmt.build.assign_partial_charges`.
+
+## Projecting atom names for export
+
+`view.addons.molsysmt.build.project_atom_names` applies the native naming
+constraints for `file:pdbqt` or `string:pdbqt_text`. It returns a separate
+MolSys, optionally with a `molsysmt.atom_map@1` report. The required `target_form`
+selects the label policy; it does not write a file or choose the returned form.
+The current primary and scene remain unchanged.
+
+```python
+import molsysviewer as msv
+import numpy as np
+
+with msv.demo["pentalanine"] as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.project_atom_names(
+        target_form="file:pdbqt", selection="all", return_report=True,
+    )
+    output, report = result["molecular_system"], result["report"]
+    assert output is not source and view.molsys is source
+    assert output.get_n_atoms() == source.get_n_atoms()
+    assert output.structures.n_structures == source.structures.n_structures
+    np.testing.assert_array_equal(
+        report["source_to_output_atom_indices"], np.arange(source.get_n_atoms()),
+    )
+    composed = view.addons.molsysmt.basic.compose_atom_maps([report])
+    assert composed["source_to_output_atom_indices"].shape == (source.get_n_atoms(),)
+```
+
+The experimental native preserve-or-base36 policy retains valid printable ASCII
+names of at most four characters, including existing duplicates. Invalid
+selected names get a lexical prefix and collision-free counter within the
+native group or conservative system-wide scope. A lexical prefix is not an
+atom-type or element assignment. Unselected invalid names remain invalid; a
+later writer can still reject the system. Namespace exhaustion raises rather
+than returning a partial rename. See the [native projection guide](build/project_atom_names.md)
+for explicit invalid-name examples and mapping details.
+
+Selections are sorted/deduplicated, but output atoms and structures keep their
+full source axes and IDs. Original/projected names and identity index maps are
+returned explicitly; the addon does not match atoms back by their names.
+Mutable native domains are independent. Geometry uses protected shared blocks
+until a public native edit detaches them, so this label-only projection does
+not require a trajectory-sized coordinate copy.
+
+The method requires a loaded open view and reads completed pending edits
+without synchronizing or adopting the result. There is no `in_place` or
+`update_view` control. This projection does not infer chemistry, choose a torsion
+tree, recalculate charges or recertify template-sensitive assignments. Existing
+provenance is retained and can fail its native export checks after names change;
+project before such assignment when its naming contract requires that order.
+Actual export and result adoption remain separate explicit operations.
+
+Native reference: {func}`molsysmt.build.project_atom_names`.
 
 ## Recognizing hydrogen-bond sites and local directions
 

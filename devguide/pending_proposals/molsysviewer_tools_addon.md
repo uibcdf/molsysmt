@@ -14,6 +14,44 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Export-name projection and combined metadata receiving — 2026-11-04
+
+PR #543 receives published owner `93d29bf23` through merge `341e23f3c`, retaining
+both integrated metadata contributions #538/#540 beside all 57 element paths.
+The facade, inventory, guide and single addon smoke invocation preserve all
+three namespaces. Module 06 changes only Markdown cell 5; code, results,
+execution counts, IDs, metadata and raw notebook schemas are preserved.
+
+The new explicit `build.project_atom_names` mirror binds the current primary
+through the serialized reader and returns the native independent system/report.
+The required target selects an export naming constraint, not a file write or
+output conversion. Full axes and IDs, original/projected labels, composable
+identity maps and source/scene/history ownership remain intact. Protected
+geometry can stay shared until a public edit detaches it. No chemical inference,
+assignment recertification, implicit adoption or pending-edit flush is added.
+
+The received native #550 fix admits flat NumPy atom-name arrays for the three
+reference families and dispatcher, with positive pair assertions and native
+invalid-dimension diagnostics. Native #552 corrects two obsolete private donor
+expectations and retains eight public rejection cases. No native algorithm,
+reference table, dependency floor or Rust input is authored in this increment.
+The existing backend and native source match the received owner.
+
+The [receiving receipt](../../devtools/data/molsysviewer_tools_name_projection_receiving_20261104.json)
+retains final local validation and the eight original failed JUnit ZIPs from
+41753549618, each independently checked against GitHub's digest. That source
+remains failed; received #552 does not turn an earlier run green. Scientific
+certificate artifacts from that original run are not independently received in
+this increment. New contribution-head CI and owner review remain separate.
+
+The live inventory is 216/244, including build 15/30, element 57/57, supported
+4/4 and attribute 7/7. Continue fifteen build and six molecular-mechanics paths,
+then decide the historical hbonds aliases, basic.view bridge and native MD
+declarations deliberately. Native #548/#549 and the new #554 map-validation
+boundary remain visible without downstream scientific repairs. GUI, exact
+archives and installed/public qualification remain separate. #421 stays partial;
+no Viewer runtime, package, candidate, tag or publication change is introduced.
+
 ## Metadata candidate accepted — 2026-11-04
 
 Exact candidate fbb09782c3f66735762bd4a507314db692927f97 completes all ten

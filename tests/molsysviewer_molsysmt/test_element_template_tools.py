@@ -298,3 +298,40 @@ def test_inherited_expected_heavy_atom_examples_are_executable():
         result = doctest.DocTestRunner().run(example)
         assert result.attempted == 5
         assert result.failed == 0
+
+
+@pytest.mark.parametrize(
+    "family,name,names,expected",
+    [
+        ("saccharide", "NAG", ["C1", "C2", "C3"], [[0, 1], [1, 2]]),
+        ("small_molecule", "ATP", ["PG", "O1G", "O2G"], [[0, 1], [0, 2]]),
+        ("terminal_capping", "ACE", ["CH3", "C", "O"], [[0, 1], [1, 2]]),
+    ],
+)
+@pytest.mark.parametrize("dispatcher", [False, True])
+def test_received_native_numpy_fix_returns_actual_pairs(
+    view, family, name, names, expected, dispatcher
+):
+    # Owner #550 supplies normalization; the addon forwards the original array.
+    atom_names = np.asarray(names)
+    original = atom_names.copy()
+    namespace = view.addons.molsysmt.element.group
+    if not dispatcher:
+        namespace = getattr(namespace, family)
+    for skip in (False, True):
+        assert (
+            namespace.get_bonded_atom_pairs(name, atom_names, skip_digestion=skip)
+            == expected
+        )
+        np.testing.assert_array_equal(atom_names, original)
+
+
+@pytest.mark.parametrize(
+    "family,name",
+    [("saccharide", "NAG"), ("small_molecule", "ATP"), ("terminal_capping", "ACE")],
+)
+def test_received_native_array_dimensions_reject_before_preparation(view, family, name):
+    method = getattr(view.addons.molsysmt.element.group, family).get_bonded_atom_pairs
+    for skip in (False, True):
+        with pytest.raises(ArgumentError):
+            method(name, np.asarray([["C", "O"]]), skip_digestion=skip)

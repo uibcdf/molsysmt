@@ -19,9 +19,27 @@ def _independent_build_documentation(name):
             "chemical-state, structure, method, prerequisite, provenance, unit "
             "and validation contracts remain unchanged. No chemistry, model "
             "or optional engine is selected or prepared by the addon. An open "
-            "loaded owner is required; full native copying may materialize "
-            "coordinates and is not an out-of-core trajectory promise.\n"
+            "loaded owner is required.\n"
         )
+        if name == "project_atom_names":
+            function.__doc__ += (
+                "Export naming projection\n------------------------\n"
+                "target_form selects the native naming constraint, not a file "
+                "write or output-format conversion. All source atoms and "
+                "structures remain; report index maps are identity maps with "
+                "original/projected labels, not a name-based atom match. "
+                "No atom types, elements, chemistry or template-sensitive "
+                "assignments are inferred or recertified. Native geometry "
+                "blocks stay protected and shared until a later native edit; "
+                "this projection does not require a trajectory-sized geometry "
+                "copy. Existing assignments retain their provenance and may "
+                "fail their native export validation after renaming.\n"
+            )
+        else:
+            function.__doc__ += (
+                "Full native copying may materialize coordinates and is not "
+                "an out-of-core trajectory promise.\n"
+            )
         return function
 
     return decorate
@@ -32,6 +50,7 @@ class _BuildTools:
         "infer_covalent_bonds",
         "assign_autodock_atom_types",
         "assign_partial_charges",
+        "project_atom_names",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -389,6 +408,28 @@ class _BuildTools:
                 "water_model": water_model,
                 "expected_total_charge": expected_total_charge,
                 "return_report": return_report,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("project_atom_names")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def project_atom_names(
+        self,
+        target_form,
+        selection="all",
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "project_atom_names",
+            {
+                "target_form": target_form,
+                "selection": selection,
+                "return_report": return_report,
+                "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },
         )

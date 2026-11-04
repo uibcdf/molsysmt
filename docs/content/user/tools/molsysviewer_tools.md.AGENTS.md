@@ -337,9 +337,11 @@ caller chemical context and fixed pH-rule limits. Native skip controls pass for
 amino-acid/ion bonds; the other twelve controls are local and keyword-only.
 Keep protected peptide-end classification separate from explicit template data
 access and from attaching atoms to a system.
-Keep the native NumPy atom-name array failure in three template families
-(MolSysMT#550) visible until its repair is received; do not normalize containers
-in the addon or equate error parity with successful scientific support.
+Preserve received native flat-name array/list/tuple support for the three
+reference families and their dispatcher, with actual positive pair controls and
+native ArgumentError for invalid dimensions. The addon introduces no coercion
+or native-validation bypass. Remaining return docs and legacy name semantics
+retain their separate owning issues.
 
 
 Preserve the three independent build routes: infer_covalent_bonds,
@@ -351,3 +353,12 @@ assignment snapshots. Keep the single-state restriction, required scheme/model,
 optional providers, provenance and elementary-charge storage, H5MSM 0.5 mechanics
 exclusion and materialization limits explicit. Pending reads do not synchronize;
 independent outputs require deliberate chaining or replacement.
+
+
+Preserve project_atom_names as primary-bound independent label projection:
+required export constraint, no file write/output-format conversion or adoption,
+full axes/IDs, original/projected names and identity maps with native composition.
+Keep lexical collision scope distinct from chemistry and never recertify stale
+assignments. Native mutable domains detach while protected geometry can stay
+shared until a public edit. Keep pending reads and replacement/close behavior
+consistent with the other independent build routes.
