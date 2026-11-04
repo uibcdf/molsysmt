@@ -3,7 +3,10 @@
 Preserve the explicit distinction between reviewed runtime and accepted future
 behavior until #549 delivers its phases. Distinguish implemented native metadata
 and transport, the scheme-aware group helper/native projection and pending other
-consumer/override migration. Explain sequence/amber/ccd/legacy scope,
+consumer migration. Preserve the implemented source keyword, selected-group
+conflict scope, unchanged query inputs and independent molecular outputs when
+adding context. Distinguish group-position sequence queries from molecular atom
+selections. Explain sequence/amber/ccd/legacy scope,
 reference versions, concrete collisions, unknown declarations and default
 ambiguity refusal. Legacy is not a certified CCD snapshot. Missing records do
 not prove universal absence; shared parent letters do not equate chemistry.

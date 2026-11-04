@@ -149,7 +149,8 @@ unused `to_naming_scheme` parameter is added merely to reserve a spelling.
 The conceptual User Guide page
 [Group naming schemes](../../docs/content/user/foundations/molecular_system/naming_schemes.md)
 compares sequence/amber/ccd/legacy and distinguishes the delivered group helper
-and native projection from pending other consumer/override migration. It links
+and native projection, including explicit conversion context, from pending other
+consumer migration. It links
 primary references and distinguishes independently verified
 records from legacy compatibility values and unverified record lookups.
 
@@ -461,11 +462,10 @@ execution marks. This is bounded source receiving, not hosted CI, installed
 artifact, complete platform or overall #549 qualification. Batch publication
 continues to wait for the coordinated remaining work.
 
-### Next D4/D6 block
+### D4/D6 receiving priorities
 
-1. Add the general source override with explicit conflict diagnostics and exact
-   selection/group maps, preserving inputs and avoiding a coordinate copy for a
-   naming-only query. Validate original group-position values before lossy casts.
+1. Receive the general source override below, including selected-group conflict
+   diagnostics, source maps, immutable inputs and no-copy native sequence queries.
 2. Propagate context to recognition, parent reporting and preparation/alignment
    consumers. Preserve exact state/modified templates; a parent label is not
    permission to change chemistry. Include missing context and CCD non-peptide
@@ -477,3 +477,135 @@ continues to wait for the coordinated remaining work.
    API/tutorial/stability inventories and the addon mirror. Coordinate #543
    receiving against the final corrected native source. Keep overall #549 open
    until those paths and final qualification agree.
+
+## D4 source interpretation and selected-axis receiving — 2026-11-04
+
+**Implemented and contract-tested locally.** Public `convert` now accepts the
+keyword-only `from_naming_scheme=None`; all prior positional arguments and
+defaults remain unchanged. Native Topology/MolSys one-letter adapters expose
+the same keyword. The converter-keyword domain is regenerated from actual
+signatures, and the three intentional public changes have addressable signature
+waivers linked to this issue. This is another D4 delivery, not completion of its
+remaining consumer audit or overall #549 closure.
+
+### Interpretation and ownership
+
+An explicit convention must agree with every known declaration in the selected
+groups. Matching parent letters do not waive a vocabulary conflict. Unknown
+selected groups use the caller's convention; unknown or conflicting unselected
+groups do not change that projection. No convention is inferred from a file
+extension, class, numerical count or chemical-preparation history.
+
+Native one-letter queries read existing topology directly, retaining group order
+and repetitions without copying Topology, ChemicalStates or Structures. The
+original labels, declarations and analyses are unchanged. The MolSys adapter no
+longer extracts a separate topology snapshot merely to read its names. Group
+positions are validated before lossy casts, including booleans, fractional,
+masked, unit-bearing, oversized and out-of-range values.
+
+Molecular conversion retains its atom-selection contract and maps those atoms
+to source groups before checking declarations. Sequence text constructs new
+slots from ordered/repeated source positions before native/dictionary/H5MSM
+transport. Existing group-only inventories instead reuse the public hierarchy
+extractor's unique-position contract and preserve their source IDs. They acquire
+no atomic axis. Explicit group positions are supported for one-letter queries
+and group-only conversion routes admitting that keyword; they cannot compete
+with a non-all selection. The
+existing dispatcher now forwards caller-supplied element indices once rather
+than also supplying an automatic value for the same keyword.
+
+When adding context to a molecular output, an independent native topology is
+required even if `copy_if_all=False` was requested. The intermediate MolSys copy
+defers geometry blocks rather than making an extra coordinate snapshot. The
+ordinary final target still owns its normal conversion/copy policy. Adding a
+declaration invalidates the output's named interaction coverage, including an
+evaluated-empty analysis; the original analysis snapshot remains evaluated.
+No detector, state selection, protonation or chemical substitution is performed.
+
+Topology/MolSys, their dictionaries and H5MSM retain selected declarations and
+index remapping. Native-backed input routes include both dictionaries, H5MSM,
+sequence text and a native PDB-text read with optional inference explicitly off.
+Foreign sources use their registered native conversion and retain its optional
+dependency requirements; this is not selective file-backed coordinate reading.
+FASTA one-letter results keep their record occurrences and empty records. An
+existing one-letter text envelope and case are retained. This bounded receiving
+does not certify every foreign adapter or claim unsupported targets retain the
+registry; that fidelity audit remains D5 work.
+
+An explicit source declaration for sequence construction precedes its default
+alphabet metadata. This does not overwrite native or persisted declarations.
+The generic conversion report continues to inspect the original source before
+the naming route; a native intermediate is not presented as an exhaustive audit
+of the foreign source.
+
+### Documentation and remaining work
+
+The conceptual foundation, conversion tutorial, executed group-code tutorial,
+Cookbook and Module 04 distinguish query-time interpretation from a retained
+output declaration. Prior course, recipe and conversion-tutorial executable
+payloads stay unchanged. The new source-override guards join the existing single
+native smoke command, without a new CI test invocation or remote dispatch.
+
+D4 still requires recognition, parent reporting, preparation and alignment
+consumers to use stored naming context, preserving exact state/modified templates.
+D5 must audit metadata losses and additional foreign routes; D6 must coordinate
+the old public path, documentation/stability/addon inventories and #543 receiving.
+In particular, the old scalar parent helper and the default direct three-letter
+legacy helper are not fixed by adding this source keyword. Keep #549 open.
+
+### D4 source-keyword validation
+
+- Final published-provider receiving passes **344 cases**, zero failures or
+  omissions, with public ArgDigest 0.13.0 py_1, Ackredit 0.9.0 py_0 and Pytest
+  Receptor 1.2.1 in the existing Python 3.14.7 development environment. It includes
+  **87 source-keyword cases**, the resolver/native/persistence guards, the
+  generated keyword-domain contract and CI-command controls. Four warnings are
+  three legacy H5MSM notices and the existing capping attribute-drop diagnostic.
+- Existing conversion/preflight/native ownership, native dictionary, sequence,
+  FASTA, Topology, H5MSM and group-inventory receiving passes **2,396 cases**,
+  zero failures or omissions, with 684 warnings: 682 legacy H5MSM notices and
+  two existing unknown-Ar-name diagnostics. The later explicit-query envelope
+  branches are exercised by the final focal run; those branches do not alter
+  the default routes covered by this extended run.
+- Documentation source-boundary, heading and notebook-schema controls pass
+  **513 cases**, with 512 Sphinx deprecation warnings. The isolated navigation
+  fixture reads the real conversion tutorial label. A first invocation named a
+  nonexistent heading-test file and ran no tests; only the corrected selection
+  is counted. Broken-navigation controls remain unchanged.
+- All **four conversion, scalar and native-adapter doctest items pass**. The
+  updated group-code notebook executes its seven code cells, including retained
+  H5MSM examples, using the existing environment and an authorized local Jupyter
+  socket. No remote/network notebook service or new environment is used.
+- Whole-tree Ruff lint/formatting (4,343 files), all 247 public docstrings,
+  the 278-symbol stability registry, the intentional-signature guard, generated
+  converter-domain equality, dependency checks and developer-guide/index checks
+  pass. The generated naming asset remains unchanged. Four unrelated API-stub
+  edits and the native backend remain outside this work.
+
+The initial new-module run has six failures: five expose incorrect group-versus-
+atom selection in the implementation, corrected by mapping molecular selections
+through the original atom table; one test mistakenly assigns into the read-only
+interaction mapping instead of its supported property setter. Existing guards
+then expose a real ArgDigest-floor regression caused by adding a context-like
+parameter to the shared value validator. Its original signature is restored,
+and the source-specific wrapper supplies its own diagnostic argument. All seven
+original scalar controls pass unchanged. A later text-envelope fixture used
+unprefixed nonstandard codes that the existing form detector refuses before
+conversion. The unprefixed control now uses admitted canonical text, while the
+prefixed case still checks the extended alphabet and source case. Detection
+policy and production expectations are not broadened to make that test pass.
+Additional group-only controls separate repeated text construction from unique
+native inventory extraction. The initial implementation incorrectly sent both
+through the latter; sequence construction now consumes its original positions
+before creating native slots. Existing inventory extraction validates uniqueness
+through its owning tool before assigning missing context, retaining source IDs.
+The target-keyed keyword domain remains intact: portable selection is used for
+typed dictionary targets rather than advertising an undeclared group_indices
+keyword. No general extractor contract is relaxed.
+
+Commands retain JUnit under `.pytest_cache/group-name-resolution-549/`:
+`override-published-floors-final.xml`, `override-extended.xml`,
+`override-docs.xml` and `override-doctests-final.xml`. This is local source and
+public-provider receiving, not a clean installed MolSysMT artifact, complete
+platform matrix, final #549 qualification or release authorization. No hosted
+workflow, push, tag or package publication accompanies this block.

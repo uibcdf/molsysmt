@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-def from_group_records(records):
+def from_group_records(records, *, naming_scheme=None):
     """Build independent canonical tables from already interpreted record groups."""
     from molsysmt.element.chain.chain_names import _alphabetic_chain_id
     from molsysmt.element.group import get_group_type_from_group_name
@@ -30,7 +30,9 @@ def from_group_records(records):
         dtype="string",
     )
     topology.set_group_naming_schemes(
-        ["sequence" if name in aa3_to_aa1 else None for name in names]
+        naming_scheme
+        if naming_scheme is not None
+        else ["sequence" if name in aa3_to_aa1 else None for name in names]
     )
     topology.groups["molecule_index"] = pd.array(
         np.repeat(np.arange(count), [len(record["groups"]) for record in records]),

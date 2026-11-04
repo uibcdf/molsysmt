@@ -1123,6 +1123,7 @@ CONVERTER_ARGUMENTS = {
         "compression_opts",
         "copy_if_all",
         "float_precision",
+        "from_naming_scheme",
         "get_missing_bonds",
         "group_indices",
         "int_precision",

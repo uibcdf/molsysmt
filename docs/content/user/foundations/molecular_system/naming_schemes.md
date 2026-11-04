@@ -8,7 +8,7 @@ are implemented. The helper at `msm.element.group.get_1_letter_code_from_name`
 and native sequence conversion use the declared convention. The older
 `amino_acid` helpers and other classification/preparation/alignment consumers
 still await coordinated migration. The general `from_naming_scheme` conversion
-argument remains pending.
+argument is available for explicit source interpretation and native transport.
 :::
 
 A group name is a label interpreted in a naming scheme. Identical labels can
@@ -98,12 +98,27 @@ than silently choosing Amber, CCD or the legacy table. Canonical amino-acid
 names remain usable without repeating a scheme where their interpretation is
 unambiguous for the requested operation.
 
-The planned conversion argument is `from_naming_scheme`; the direct name helper
+The conversion argument is `from_naming_scheme`; the direct name helper
 uses `naming_scheme`. There is no global session preference. Ordinary conversion
 preserves existing labels. Translating labels into another scheme is a distinct
 explicit operation, not an implicit side effect of sequence projection.
-The pending source override must diagnose contradictions with stored declarations
-rather than silently replacing them.
+An explicit source convention must agree with every known declaration in the
+selected groups, even when the resulting letters would coincide. A sequence
+query leaves the source declarations unchanged. A native molecular output
+retains the explicit declaration for its selected groups; when this adds missing
+context, the result owns a separate topology even if sharing was requested.
+The old input and its interaction analyses remain unchanged.
+
+For a one-letter projection, explicit group positions preserve ordering and
+repetitions. Molecular conversion retains the ordinary atom-selection contract
+and maps selected atoms to their source groups. Sequence text can construct new
+group slots from repeated source positions. Extracting an existing group-only
+native inventory uses unique group positions, preserving its source labels and
+order through the general hierarchy tool. Neither creates an atomic axis.
+Conflicting unselected groups
+do not prevent either operation. A native sequence query needs neither a
+coordinate copy nor a chemical-state copy. Non-native inputs use their
+registered native conversion route; this does not promise selective file I/O.
 
 ## Mixed systems
 

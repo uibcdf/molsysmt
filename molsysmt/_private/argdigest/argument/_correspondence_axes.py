@@ -35,6 +35,13 @@ SEQUENCE_CALLERS = {
         "to_molsysmt_MolSys",
     )
 }
+SEQUENCE_CALLERS.update(
+    {
+        "molsysmt.basic.convert.convert",
+        "molsysmt.form.molsysmt_Topology.to_string_amino_acids_1.to_string_amino_acids_1",
+        "molsysmt.form.molsysmt_MolSys.to_string_amino_acids_1.to_string_amino_acids_1",
+    }
+)
 
 
 def _has_units(value):

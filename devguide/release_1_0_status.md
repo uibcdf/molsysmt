@@ -22,6 +22,23 @@ contracts.
 
 ## Group-name scheme design accepted — 2026-11-04
 
+**Local D4 source-keyword receiving:** `convert` and native one-letter adapters
+now accept keyword-only `from_naming_scheme`. Known selected declarations must
+agree; native queries leave the source untouched and copy no molecular domain.
+Native molecular outputs retain added context independently, with coordinated
+interaction invalidation. Selection maps, dictionary/H5MSM transport, FASTA
+record boundaries and one-letter text envelopes are covered. The owning record
+separates this delivery from remaining recognition/preparation/alignment work,
+the D5 fidelity audit and D6 old-path/addon cutover. No push or hosted gate is
+claimed for this local block.
+
+Final receiving passes 344 focal cases with public ArgDigest 0.13.0 and Ackredit
+0.9.0, including 87 new source-keyword cases. Supporting default-route receiving
+passes 2,396 cases; documentation controls pass 513 and all four doctest items
+pass. The updated small tutorial executes successfully. The owning record
+retains original failures, their corrections, warning counts and exact scope;
+these results do not qualify an installed package or complete platform matrix.
+
 **Local D3 and initial D4 receiving:** The scheme-aware group-level letter
 helper and private resolver are implemented. The maintainer admits `sequence`
 after primary CCD inspection confirms additional XAA/XLE collisions. Its appended
@@ -36,8 +53,9 @@ an installed MolSysMT artifact or its complete dependency closure.
 The owning record retains the extended run's one obsolete schema assertion and
 the successful targeted correction, plus documentation/attribution evidence.
 
-D0–D3 are complete locally. D4's general source override, remaining consumer
-audit and D6's coordinated old-path/addon retirement are next. The old standalone
+D0–D3 are complete locally. D4's source keyword is received in the next local
+block below; its remaining consumer audit and D6's coordinated old-path/addon
+retirement are next. The old standalone
 amino-acid parent helper is not fixed by the new entry point. No push, remote CI,
 installed package, tag or complete issue qualification is claimed here.
 
@@ -60,7 +78,7 @@ comparison of supported schemes and their differences. The
 records group-aligned Topology ownership, default ambiguity refusal, source
 argument spelling, helper relocation and native/H5MSM/dictionary preservation.
 The conceptual User Guide page distinguishes the delivered scheme-aware helper
-and native sequence routes from the remaining legacy consumers and override work.
+and native sequence routes from the remaining legacy consumers.
 
 The source study confirms real CCD/Amber collisions and native template sequence
 failures. The earlier documentation-only checkpoint changed no runtime table,

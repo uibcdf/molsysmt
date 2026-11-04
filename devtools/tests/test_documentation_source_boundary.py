@@ -179,6 +179,7 @@ def test_public_bond_and_historical_hbond_api_pages_are_connected(tmp_path, lega
             "content/user/tools/element/atom/atom_types.md",
             "content/user/tools/element/group/get_bonded_atom_pairs.ipynb",
             "content/user/tools/element/group/get_1_letter_code_from_name.ipynb",
+            "content/user/tools/basic/convert.ipynb",
             "content/user/foundations/molecular_system/naming_schemes.md",
             "content/user/tools/interactions/result.md",
         ]

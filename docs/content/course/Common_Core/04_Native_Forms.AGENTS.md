@@ -46,3 +46,5 @@ Retain controlled typed field assignment and state-aware count predicate example
 Preserve compact group-name declarations, the sequence alphabet, native sequence
 projection and pending other consumer migration, including unknown new groups,
 persistence and interaction invalidation.
+Retain explicit conversion source context, selected-group contradiction refusal
+and unchanged input declarations during one-letter queries.

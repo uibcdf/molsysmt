@@ -55,6 +55,16 @@ def _convert_one_to_one(
 
         for element, element_index in _element_index.items():
             if _element_indices[element] in input_arguments:
+                if _element_indices[element] in kwargs:
+                    if not is_all(selection):
+                        from molsysmt._private.smonitor import ArgumentError
+
+                        raise ArgumentError(
+                            _element_indices[element],
+                            caller="molsysmt.convert",
+                            message="Use either selection or explicit element indices, not both.",
+                        )
+                    break
                 if not is_all(selection):
                     conversion_arguments[_element_indices[element]] = select(
                         molecular_system,
@@ -98,6 +108,7 @@ def _convert_one_to_one(
             missing_arguments.discard("int_precision")
             missing_arguments.discard("float_precision")
             missing_arguments.discard("get_missing_bonds")
+            missing_arguments.discard("from_naming_scheme")
 
             if len(missing_arguments) > 0:
                 raise NotCompatibleConversionError(
@@ -780,6 +791,8 @@ def convert(
     strict=False,
     return_report=False,
     skip_digestion=False,
+    *,
+    from_naming_scheme=None,
     **kwargs,
 ):
     """
@@ -808,6 +821,12 @@ def convert(
         Whether to return the conversion report together with the converted system.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    from_naming_scheme : str or none, default=None
+        Explicit source group vocabulary: 'sequence', 'amber', 'ccd' or 'legacy'.
+        None uses stored declarations and assessed unambiguous names. An explicit
+        convention must agree with known declarations in the selected groups.
+        Topology, MolSys, their typed dictionaries and H5MSM outputs retain the
+        declaration; the input is unchanged.
 
     Returns
     -------
@@ -837,6 +856,13 @@ def convert(
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
     - Explicit structure indices are validated before a conversion adapter is called.
+    - Source naming interpretation never renames groups or changes their chemical
+      state. Explicit declarations are checked on selected groups before writing
+      a target. Native one-letter projection reads topology directly without
+      copying coordinates. Explicit group_indices preserve order/repetitions for
+      that projection and new group construction from sequence text. Existing
+      group-only inventories retain the unique-index extraction contract. These
+      indices cannot compete with a non-all selection; no atomic axis is invented.
     - Reports classify semantics only within their ``audited_scopes``. Inspect
       ``is_exhaustive`` before treating an ``equivalent`` outcome as a claim
       about the complete represented source state. Strict lossy conversions
@@ -912,6 +938,12 @@ def convert(
     >>> report.outcome in {'exact', 'equivalent', 'lossy'}
     True
 
+    Interpreting source group names without changing their chemical state:
+
+    >>> msm.convert('amino_acids_3:GlhHid', to_form='string:amino_acids_1',
+    ...             from_naming_scheme='amber')
+    'EH'
+
     Composing separately held chemical and structural domains:
 
     >>> import numpy as np
@@ -984,6 +1016,7 @@ def convert(
                 strict=strict,
                 return_report=return_report,
                 skip_digestion=True,
+                from_naming_scheme=from_naming_scheme,
                 **kwargs,
             )
             if return_report:
@@ -1018,6 +1051,23 @@ def convert(
                     f"cannot preserve: {[issue.attribute for issue in report.issues]}"
                 ),
             )
+
+    if from_naming_scheme is not None:
+        from molsysmt._private.naming_conversion import convert_with_source_scheme
+
+        output = convert_with_source_scheme(
+            molecular_system,
+            from_form,
+            to_form,
+            selection,
+            structure_indices,
+            syntax,
+            from_naming_scheme,
+            kwargs,
+        )
+        if isinstance(output, (list, tuple)) and len(output) == 1:
+            output = output[0]
+        return (output, report) if return_report else output
 
     if to_form == "file:h5msm" or str(to_form).endswith(".h5msm"):
         options = dict(kwargs)

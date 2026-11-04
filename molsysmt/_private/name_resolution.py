@@ -145,15 +145,15 @@ def references(profile):
     return records
 
 
-def native_sequence(topology, group_indices, *, caller):
-    """Project native group positions and credit reached profiles once per query."""
+def group_positions(topology, group_indices, *, caller):
+    """Check original group positions before indexing or interpreting a label."""
     import numpy as np
 
-    from molsysmt import _ackredit
     from molsysmt._private.argdigest.argument._correspondence_axes import flat_axis
     from molsysmt._private.variables import is_all
-    from molsysmt.native._group_naming import NAMES, stored
 
+    if np.ma.isMaskedArray(group_indices):
+        raise ArgumentError("group_indices", value=group_indices, caller=caller)
     positions = (
         np.arange(topology.n_groups, dtype=np.int64)
         if is_all(group_indices)
@@ -165,7 +165,36 @@ def native_sequence(topology, group_indices, *, caller):
         or np.any(positions >= topology.n_groups)
     ):
         raise ArgumentError("group_indices", value=group_indices, caller=caller)
+    return positions
+
+
+def check_source_scheme(topology, positions, from_naming_scheme, *, caller):
+    """Refuse contradictions on selected groups without changing declarations."""
+    import numpy as np
+
+    from molsysmt.native._group_naming import NAMES, stored
+
     codes = stored(topology)
+    if from_naming_scheme is not None and codes is not None:
+        requested = NAMES.index(from_naming_scheme)
+        conflicts = positions[(codes[positions] != 0) & (codes[positions] != requested)]
+        if len(conflicts):
+            raise ArgumentError(
+                "from_naming_scheme",
+                value=from_naming_scheme,
+                caller=caller,
+                message=f"Source naming scheme contradicts stored declarations for selected group indices {np.unique(conflicts).tolist()}. Select compatible groups or explicitly edit their declarations first.",
+            )
+    return codes
+
+
+def native_sequence(topology, group_indices, *, caller, from_naming_scheme=None):
+    """Project native group positions and credit reached profiles once per query."""
+    from molsysmt import _ackredit
+    from molsysmt.native._group_naming import NAMES
+
+    positions = group_positions(topology, group_indices, caller=caller)
+    codes = check_source_scheme(topology, positions, from_naming_scheme, caller=caller)
     names = topology.groups["group_name"].to_numpy(dtype=object)[positions]
     kinds = topology.groups["group_type"].to_numpy(dtype=object)[positions]
     letters, used_profiles = [], {}
@@ -179,7 +208,13 @@ def native_sequence(topology, group_indices, *, caller):
                 caller=caller,
                 message=f"Selected group {int(index)} has no amino-acid name.",
             )
-        scheme = None if codes is None else NAMES[codes[index]]
+        scheme = (
+            from_naming_scheme
+            if from_naming_scheme is not None
+            else None
+            if codes is None
+            else NAMES[codes[index]]
+        )
         letter, profile = one_letter(name.upper(), scheme, caller=caller)
         letters.append(letter)
         used_profiles[profile] = None

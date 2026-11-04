@@ -31,6 +31,8 @@ def digest_group_indices(group_indices, caller):
     from ._correspondence_axes import SEQUENCE_CALLERS, flat_axis
 
     if caller in SEQUENCE_CALLERS:
+        if np.ma.isMaskedArray(group_indices):
+            raise ArgumentError("group_indices", value=group_indices, caller=caller)
         return flat_axis(group_indices, "group_indices", caller)
 
     if group_indices is None:
