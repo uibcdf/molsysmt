@@ -10,7 +10,7 @@ import pytest
 from argdigest import UnknownArgumentError
 
 import molsysmt as msm
-from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.smonitor import ArgumentError, ArgumentLengthError
 
 BONDS = {
     "group.get_bonded_atom_pairs": {
@@ -335,3 +335,108 @@ def test_received_native_array_dimensions_reject_before_preparation(view, family
     for skip in (False, True):
         with pytest.raises(ArgumentError):
             method(name, np.asarray([["C", "O"]]), skip_digestion=skip)
+
+
+@pytest.mark.parametrize("path", BONDS)
+@pytest.mark.parametrize(
+    "kind", ["strings", "floats", "boolean", "negative", "quantity", "masked"]
+)
+def test_received_native_index_map_types_keep_native_diagnostics(view, path, kind):
+    parameters = copy.deepcopy(BONDS[path])
+    n_atoms = len(parameters["atom_names"])
+    indices = list(range(n_atoms))
+    if kind == "strings":
+        indices = [str(index) for index in indices]
+    elif kind == "floats":
+        indices = [float(index) for index in indices]
+    elif kind == "boolean":
+        indices[0] = True
+    elif kind == "negative":
+        indices[0] = -1
+    elif kind == "quantity":
+        indices = msm.pyunitwizard.quantity(indices, "nm")
+    elif kind == "masked":
+        indices = np.ma.array(indices, mask=[True] + [False] * (n_atoms - 1))
+    parameters["atom_indices"] = indices
+    native = _path(msm.element, path)
+    target = view.molsys
+    status = view.addons.molsysmt.get_sync_status()
+    with pytest.raises(ArgumentError) as refusal:
+        _path(view.addons.molsysmt.element, path)(**parameters)
+    assert refusal.value.extra["argument"] == "atom_indices"
+    assert refusal.value.extra["caller"] == f"{native.__module__}.get_bonded_atom_pairs"
+    assert view.molsys is target
+    assert view.addons.molsysmt.get_sync_status() == status
+
+
+@pytest.mark.parametrize("path", BONDS)
+@pytest.mark.parametrize("length", ["empty", "short", "long"])
+def test_received_native_index_map_lengths_keep_expected_actual(view, path, length):
+    parameters = copy.deepcopy(BONDS[path])
+    expected = len(parameters["atom_names"])
+    actual = {"empty": 0, "short": expected - 1, "long": expected + 1}[length]
+    parameters["atom_indices"] = list(range(actual))
+    with pytest.raises(ArgumentLengthError) as refusal:
+        _path(view.addons.molsysmt.element, path)(**parameters)
+    assert refusal.value.extra["argument"] == "atom_indices"
+    assert refusal.value.extra["expected"] == expected
+    assert refusal.value.extra["actual"] == actual
+
+
+@pytest.mark.parametrize("path", BONDS)
+@pytest.mark.parametrize("kind", ["repeated", "readonly-strided"])
+def test_received_native_index_maps_preserve_valid_labels_and_storage(view, path, kind):
+    parameters = copy.deepcopy(BONDS[path])
+    parameters["atom_names"] = parameters["atom_names"][:3]
+    if kind == "repeated":
+        indices = [10, 10, 20]
+        expected = [[10, 10], [10, 20]]
+        before = indices.copy()
+    else:
+        storage = np.asarray([40, 999, 10, 999, 30, 999], dtype=np.uint16)
+        indices = storage[::2]
+        indices.setflags(write=False)
+        before = storage.copy()
+        if path == "group.water.get_bonded_atom_pairs":
+            expected = [[40, 10], [40, 30]]
+        elif path in {
+            "group.ion.get_bonded_atom_pairs",
+            "group.small_molecule.get_bonded_atom_pairs",
+        }:
+            expected = [[10, 40], [30, 40]]
+        else:
+            expected = [[10, 30], [10, 40]]
+    parameters["atom_indices"] = indices
+    assert _path(view.addons.molsysmt.element, path)(**parameters) == expected
+    if kind == "repeated":
+        assert indices == before
+    else:
+        np.testing.assert_array_equal(storage, before)
+        assert not indices.flags.writeable
+
+
+@pytest.mark.parametrize("path", BONDS)
+def test_received_native_empty_parallel_maps_stay_empty(view, path):
+    parameters = copy.deepcopy(BONDS[path])
+    parameters.update(atom_names=[], atom_indices=[])
+    assert _path(view.addons.molsysmt.element, path)(**parameters) == []
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        path
+        for path in BONDS
+        if path
+        not in {
+            "group.amino_acid.get_bonded_atom_pairs",
+            "group.ion.get_bonded_atom_pairs",
+        }
+    ],
+)
+def test_local_skip_keeps_native_index_map_validation(view, path):
+    parameters = copy.deepcopy(BONDS[path])
+    parameters["atom_indices"] = ["label"] * len(parameters["atom_names"])
+    with pytest.raises(ArgumentError) as refusal:
+        _path(view.addons.molsysmt.element, path)(**parameters, skip_digestion=True)
+    assert refusal.value.extra["argument"] == "atom_indices"

@@ -1,11 +1,12 @@
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.reference_bonds import DIGEST_OPTIONS
 
 _sorted = sorted
 
 
-@arg_digest()
+@arg_digest(**DIGEST_OPTIONS)
 def get_bonded_atom_pairs(
     group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False
 ):
@@ -22,7 +23,7 @@ def get_bonded_atom_pairs(
         names retain all supplied occurrences; they are not alternate-location
         filtering instructions.
     atom_indices : int, list of int, tuple of int, or numpy.ndarray, default=None
-        One integer index per supplied name, in the same order. None uses local
+        One nonnegative integer per supplied name, in the same order. None uses local
         positions 0 through len(atom_names)-1. Explicit indices are mapping
         labels, not positions to select from atom_names or a molecular system.
         A scalar integer is also accepted for a single supplied name.
@@ -45,8 +46,17 @@ def get_bonded_atom_pairs(
     ArgumentError
         If the argument digester rejects an input value.
 
+    ArgumentLengthError
+        If the explicit map does not contain exactly one index per atom name.
+
     Notes
     -----
+    Maps may contain repeated indices and are not permutations. Values must
+    fit int64 and be unit-free and unmasked. Strings, floats, booleans,
+    negative indices and nested maps are
+    rejected before reference access. An empty name sequence requires an empty
+    map or None. Existing skip_digestion=True routes require already valid inputs.
+
     Matching includes the available terminal reference variants. If names repeat,
     each reference edge expands over the corresponding supplied occurrences.
     This preserves the existing lookup behavior and does not establish which

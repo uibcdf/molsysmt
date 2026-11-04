@@ -340,8 +340,13 @@ access and from attaching atoms to a system.
 Preserve received native flat-name array/list/tuple support for the three
 reference families and their dispatcher, with actual positive pair controls and
 native ArgumentError for invalid dimensions. The addon introduces no coercion
-or native-validation bypass. Remaining return docs and legacy name semantics
-retain their separate owning issues.
+or native-validation bypass. Preserve the received #554 index-map validation:
+one nonnegative unit-free int64-range integer per name, repeated labels allowed,
+structured argument/length diagnostics, valid readonly/strided and empty maps,
+and native scalar compatibility. Explicit map labels are not primary-system
+selections. Native skip flags retain trusted-caller semantics; local addon
+flags do not disable native validation. Keep legacy name semantics under #549
+and source receiving separate from installed compatibility.
 
 
 Preserve the three independent build routes: infer_covalent_bonds,

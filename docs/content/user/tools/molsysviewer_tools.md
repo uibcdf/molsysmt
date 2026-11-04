@@ -400,16 +400,24 @@ raise the native ArgumentError. The addon forwards inputs without a conversion
 or validation bypass; even its local skip control does not disable this native
 check. Reference connectivity and valid list results remain unchanged.
 
+Source receiving of
+[MolSysMT#554](https://github.com/uibcdf/molsysmt/issues/554) also preserves the
+native index-map contract: one nonnegative, unit-free integer per atom name,
+within the int64 range. Repeated labels are allowed; booleans, masked arrays,
+quantities and noninteger values are rejected with an `ArgumentError`.
+Length mismatches raise `ArgumentLengthError` with expected and actual counts.
+Valid read-only and strided arrays remain unchanged. These explicit labels
+are not checked against the current system's atom count. Native scalar
+single-atom compatibility remains available for amino-acid and ion helpers.
+The local addon skip controls do not disable native validation; the two native
+skip flags retain their trusted-caller meaning. This is source receiving,
+separate from published package compatibility.
+
 :::{warning}
 Legacy protonation-name semantics remain under
-[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549). Validation of malformed `atom_indices`
-maps is tracked separately in
-[MolSysMT#554](https://github.com/uibcdf/molsysmt/issues/554): valid examples here
-use one integer label per supplied atom name; current native helpers do not
-consistently reject invalid maps with a structured diagnostic. Flat-name array
-support does not resolve this separate index-map boundary. The addon preserves
-the native result/error rather than supplying its own repair. No template query
-prepares a molecule.
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549). The addon preserves
+the native result/error rather than supplying its own chemical-name repair.
+No template query prepares a molecule.
 :::
 
 Native references: {func}`molsysmt.element.group.get_bonded_atom_pairs`,

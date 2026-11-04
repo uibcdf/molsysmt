@@ -1,6 +1,10 @@
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.reference_bonds import DIGEST_OPTIONS
 
+
+@arg_digest(**DIGEST_OPTIONS)
 def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True):
     """Getting reference bond index pairs for a named small molecule.
 
@@ -13,7 +17,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
         are equivalent, including empty inputs. Repeated names refer to their
         first occurrence; this helper does not resolve alternate locations.
     atom_indices : list of int, tuple of int, or numpy.ndarray, default=None
-        One integer atom index per name, in the same order. If None, use local
+        One nonnegative integer per name, in the same order. If None, use local
         positions 0 through len(atom_names)-1. These are mapping labels, not a
         selection to apply to a molecular system.
     sorted : bool, default=True
@@ -30,14 +34,21 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     Raises
     ------
     ArgumentError
-        For a recognized group, if atom_names is not a flat sequence of strings.
+        If atom_names is not a flat sequence of strings or a map entry is not
+        a nonnegative int64-range integer. Booleans are rejected.
+    ArgumentLengthError
+        If the explicit map does not contain exactly one index per atom name.
 
     Notes
     -----
     Unknown names and unmatched template layouts return an empty list.
     This is a bundled-reference lookup. It neither reads coordinates nor infers
     the graph of a molecular system, assigns chemical state, or adds bonds.
-    Caller-owned names and indices are not modified.
+    Caller-owned names and indices are not modified. Maps may contain repeated
+    indices and are not permutations. Values must fit int64 and be unit-free
+    and unmasked. Strings, floats,
+    booleans, negative indices and nested maps are rejected before reference
+    access. An empty name sequence requires an empty map or None.
 
     See Also
     --------
@@ -66,11 +77,6 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     if group_name not in group_names:
         return []
 
-    from molsysmt._private.argdigest.argument.atom_names import _flat_atom_name_list
-
-    atom_names = _flat_atom_name_list(
-        atom_names, caller=f"{__name__}.get_bonded_atom_pairs"
-    )
     if atom_indices is None:
         atom_indices = np.arange(len(atom_names), dtype=int).tolist()
 
