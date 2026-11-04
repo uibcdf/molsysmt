@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "issues": [
+    "uibcdf/molsysmt#545",
+    "uibcdf/molsysmt#546",
+    "uibcdf/molsysmt#547"
+  ],
+  "review_basis": "be2f3fb7cb6ac0e52170669edea165166899ad3c",
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "test_workers": 2,
+  "viewer_source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+  "original_doc_patch_and_guard": "PR #543 at b41810c26c36984a68781e7706f3e933e8589c66",
+  "final_source_inputs_sha256": {
+    "molsysmt/build/get_missing_bonds.py": "5f0103601bf0f2211a1dfdccb93bfdeb10b91440f98fb92d12ba6452343463fe",
+    "molsysmt/data/databases/terminal_cappings/n_terminal.json": "151ad17a9779d079d5d3fb49dd1f944a48740657654afa30190c47444719a23c",
+    "molsysmt/data/databases/terminal_cappings/c_terminal.json": "c8347c759a3dad77b5b07f538a3daab186e6e125862ee213d77ea76ddcecd114",
+    "molsysmt/data/databases/residue_templates/make_residue_templates_db.py": "5e09a6c3029329fd7eebc47746cf8510f6a20e5c660406640089a5c768f15589",
+    "molsysmt/element/group/amino_acid/get_1_letter_code_from_name.py": "7f9b0f694c3c7c7782c47cf45e2d21519c1c83a58e8c0193184f5956d22b1194",
+    "molsysmt/element/group/amino_acid/get_standard_name.py": "7d426ba0a2bbb8aa1ba9caeae1ee79cdc425655aa7b6937caf152c6e73c061e2",
+    "molsysmt/element/group/terminal_capping/is_n_terminal_capping.py": "7c1c46265ccf6519b247b5f0e568e3d21c245803c8d778ed7e3dc9278b71b0c4",
+    "molsysmt/element/group/terminal_capping/is_c_terminal_capping.py": "7bd0ad01982226c61e9f8a0e877cf3e68e99ecaa652324307b79efdce6789583",
+    "tests/element/group/amino_acid/test_codes.py": "7bdaf5af4988463d1a7e4ab6c79ba3f25ab3da621d0f52e910248977da6445a5",
+    "tests/element/group/amino_acid/test_name_examples.py": "be307e892321bdc553fe87f1eb61bafe021fb90d741f51fb8498a939420a09e5",
+    "tests/element/group/terminal_capping/test_terminal_end_semantics.py": "16345c43daaef230d80aba606f0866fe967b106256919ad8ef719aeacbf15233",
+    "tests/build/get_missing_bonds/test_terminal_caps.py": "542a3166a9e80155f70cbd33481dfad74a6518eb3d4a40efc5de1302454599ad",
+    "tests/data/databases/test_terminal_capping_templates.py": "a3e4c5bc03cb25566fe80deabb7443d8e45bf84c6cc46ba9e91aaf395772e705"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "cap_resources": {
+    "n_terminal.json": {
+      "before_sha256": "c8347c759a3dad77b5b07f538a3daab186e6e125862ee213d77ea76ddcecd114",
+      "after_sha256": "151ad17a9779d079d5d3fb49dd1f944a48740657654afa30190c47444719a23c"
+    },
+    "c_terminal.json": {
+      "before_sha256": "151ad17a9779d079d5d3fb49dd1f944a48740657654afa30190c47444719a23c",
+      "after_sha256": "c8347c759a3dad77b5b07f538a3daab186e6e125862ee213d77ea76ddcecd114"
+    }
+  },
+  "coordinate_templates_unchanged_sha256": {
+    "ACE": "f6902fda4cd88405448e3778a5c0e8b7d764fc43d53bde368d7450c2148d9d8e",
+    "NME": "7c948853470f3e7e6b1ed637a5785a4ffafdcb4d3a52467062828b4386e4f10f"
+  },
+  "legacy_variant_result_count": 817,
+  "legacy_variant_results_sha256": "63946b4153adc66e00d9c4ec3778d9ae63b0a7ff2de93384ffadd0f682792050",
+  "variant_table_sha256": "75dbc35c45bbf234d85b736004fc9ecb6aa82f3ab6e35b504d99bb97c4d5079f",
+  "preservation_checks": [
+    "Cap resource bytes exchange paths without changing any per-cap payload.",
+    "All 817 original variant lookup outputs agree before/after; this is compatibility evidence, not chemical validation.",
+    "Original cap consumer executed in an isolated namespace fails against corrected tables, proving coordinated consumer repair is needed.",
+    "All four modified notebooks retain code, outputs, execution counts and code-cell metadata unchanged."
+  ],
+  "runs": [
+    {
+      "selection": "initial shared red guards",
+      "exit": 1,
+      "failed": 8,
+      "passed": 861,
+      "seconds": 4.19,
+      "causes": {
+        "cap_end_or_partition": 5,
+        "canonical_XAA_XLE": 2,
+        "bare_None_doctest": 1
+      }
+    },
+    {
+      "selection": "first representative variant controls",
+      "exit": 1,
+      "failed": 2,
+      "passed": 61,
+      "seconds": 2.71,
+      "cause": "New tests assumed force-field HID/GLH semantics not supplied by legacy lookup; moved to separate owner issue #549 without changing legacy mappings."
+    },
+    {
+      "selection": "initial broad documentation",
+      "exit": 1,
+      "failed": 1,
+      "passed": 569,
+      "seconds": 56.75,
+      "cause": "New DDBJ footnote lacked an in-text reference; fixed with [1]_."
+    },
+    {
+      "selection": "element, cap, peptide builder, sequence and FASTA receiving",
+      "exit": 0,
+      "passed": 430,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 103.77,
+      "warnings": 82,
+      "warning_groups": {
+        "unassessed_side_chains": 63,
+        "structural_attribute_drop": 14,
+        "legacy_h5msm": 5
+      }
+    },
+    {
+      "selection": "final 77 focus guards after adding explicit J/X/U/O assertions",
+      "exit": 0,
+      "passed": 77,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 4.09,
+      "warnings": 0
+    },
+    {
+      "selection": "final documentation and five changed-module doctests",
+      "exit": 0,
+      "passed": 570,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 50.24,
+      "warnings": 530,
+      "warning_groups": {
+        "sphinx_myst_deprecations": 514,
+        "legacy_h5msm": 9,
+        "headless_plotting": 6,
+        "intentional_structural_attribute_drop": 1
+      }
+    }
+  ],
+  "scope_notes": [
+    "The 430-case run precedes four additional literal assertions in an existing code test; the final 77-case run includes them. Runtime code is unchanged between those runs.",
+    "A first negative consumer probe observed the intended ValueError but its message assertion was too specific; the corrected probe exits zero and retains the actual list.index error.",
+    "No source/public/installed pair qualification, release, package upload or new chemistry model is claimed.",
+    "The separate GLH/HID/HIE naming-context defect remains open under #549."
+  ]
+}

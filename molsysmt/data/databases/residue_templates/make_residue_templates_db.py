@@ -12,8 +12,8 @@ convention): coords_nm = coords_angstrom / 10.0
 
 Bond connectivity is sourced from:
   - Standard amino acids (ALA–VAL): molsysmt.data.databases.amino_acids
-  - ACE: data/databases/terminal_cappings/c_terminal.json
-  - NME: data/databases/terminal_cappings/n_terminal.json
+  - ACE: data/databases/terminal_cappings/n_terminal.json
+  - NME: data/databases/terminal_cappings/c_terminal.json
   - RNA/DNA nucleotides (A, C, G, U, DA, DC, DG, DT): bonds left empty (no
     MolSysMT database for these yet; they can be added later from CCD data).
 
@@ -181,7 +181,7 @@ def main() -> None:
             bonds = get_aa_bonds_heavy(resname, atoms)
         elif resname == "ACE":
             bonds = get_terminal_bonds_heavy(
-                "ACE", TERMINAL_DB_DIR / "c_terminal.json", atoms
+                "ACE", TERMINAL_DB_DIR / "n_terminal.json", atoms
             )
         elif resname == "NME":
             # PDBFixer uses 'C' for the methyl carbon; database uses 'CH3'.
@@ -191,7 +191,7 @@ def main() -> None:
                 bonds = [["N", "C"]]
             else:
                 bonds = get_terminal_bonds_heavy(
-                    "NME", TERMINAL_DB_DIR / "n_terminal.json", atoms
+                    "NME", TERMINAL_DB_DIR / "c_terminal.json", atoms
                 )
         elif resname in NUCLEOTIDES:
             # No bond source yet; leave empty.

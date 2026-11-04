@@ -39,9 +39,9 @@ def get_standard_name(group_name):
     'MET'
     >>> get_standard_name('SEP')   # phosphoserine
     'SER'
-    >>> get_standard_name('ALA')   # already standard
+    >>> print(get_standard_name('ALA'))   # already standard
     None
-    >>> get_standard_name('HOH')   # water — not an amino acid
+    >>> print(get_standard_name('HOH'))   # water — not an amino acid
     None
 
 
