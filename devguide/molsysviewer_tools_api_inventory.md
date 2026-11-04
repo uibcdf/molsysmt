@@ -3,13 +3,17 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-04, contribution PR #543, extending published source
-`8fc115e2e` with two initial mechanical tools on the same native owner basis
-`5f3af9374`. The table describes this contribution's 218/244 paths, including
-all 57 element paths, fifteen build paths and two mechanical paths; it does not
+`2cb996ad9` with a primary-bound potential-energy reader on the same native owner
+basis `5f3af9374`. The table describes this contribution's 219/244 paths, including
+all 57 element paths, fifteen build paths and three mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
 works before molecular loading; degree counting binds the serialized current
-primary and retains native parameterization prerequisites. Their receiving is in
-the [mechanics receipt](../devtools/data/molsysviewer_tools_mechanics_receiving_20261104.json).
+primary and retains native parameterization prerequisites. The
+[initial mechanics receipt](../devtools/data/molsysviewer_tools_mechanics_receiving_20261104.json)
+preserves its two-tool input. The
+[energy receipt](../devtools/data/molsysviewer_tools_energy_receiving_20261104.json)
+records total/decomposed energy against a separately constructed OpenMM model,
+unit-policy receiving, lifecycle and native limitations.
 The [reference-map receipt](../devtools/data/molsysviewer_tools_reference_map_receiving_20261104.json)
 retains its own unchanged-addon input, red/green controls and hosted scope.
 The earlier metadata integration's 155/244 snapshot and its frozen results retain
@@ -52,7 +56,7 @@ none certifies a published installed pair.
 | pbc | 13 | 13 | 0 |
 | physchem | 34 | 34 | 0 |
 | build | 15 | 30 | 15 |
-| molecular_mechanics | 2 | 6 | 4 |
+| molecular_mechanics | 3 | 6 | 3 |
 | interactions (canonical families) | 15 | 15 | 0 |
 | element and declared children | 57 | 57 | 0 |
 | h5msm file utilities | 7 | 7 | 0 |
@@ -61,7 +65,7 @@ none certifies a published installed pair.
 | supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 218 exposed out of 244 inspected public callable paths. This is not
+These are 219 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -124,14 +128,22 @@ and installed/platform qualification remain separate.
    to/from targets and molecular_systems collections are not automatically the
    current primary. File utilities and element helpers preserve their explicit
    inputs and ownership; some are useful before any system is loaded.
-5. **Molecular mechanics calculations.** Engine-resource lookup and the native
-   particle/constraint degree count are now exposed. The former is explicit
-   metadata, not engine construction or an availability certificate; the latter
-   uses the current primary through native OpenMM parameterization. Preserve
+5. **Molecular mechanics calculations.** Engine-resource lookup, the native
+   particle/constraint degree count and potential energy are now exposed.
+   Resource lookup supplies explicit metadata; it does not construct an engine
+   or certify availability. The two calculations use the current primary
+   through native OpenMM parameterization. Preserve
    native resource ownership under #560 until repair and receive #559's platform
-   contract before claiming Reference/OpenCL execution. Four native mechanical
+   contract before claiming Reference/OpenCL execution. Energy retains native
+   stored/default settings, physical units and force-name decomposition. Its
+   selection constructs a subsystem for parameterization, not an embedded
+   contribution; no implicit visible-structure selection or trajectory loop is
+   introduced. Single-structure CPU receiving does not qualify periodic
+   decompositions, GPUs or arbitrary models. Three native mechanical
    routes remain unexposed; `get_forces` currently accepts OpenMM Context/Simulation
    rather than the View's MolSys, which needs an owner input-contract decision.
+   Native #561 owns the mixed-partition nonbonded-energy failure; keep that
+   route unexposed until its selection contract and correction are received.
    Keep force field, engine, atom correspondence,
    units, provider availability and preparation prerequisites explicit. Receive
    minimization separately as a potentially mutating operation; no hidden

@@ -1,0 +1,236 @@
+{
+  "schema": "molsysmt.viewer-energy-source-receiving@1",
+  "date": "2026-11-04",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#559",
+    "uibcdf/molsysmt#560",
+    "uibcdf/molsysmt#561"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "2cb996ad92b388c14d385fe9f2e2ee9bdf7d7444",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "published_owner_documentation": "5ccad1d8a2537b24e52474bd95103cc94700cba1",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "source_identity": "Working-tree hashes below identify the received input; final contribution commit is delivered through the existing PR, without a self-referential producer claim.",
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "linux",
+    "support_metadata": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "openmm": "8.6.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "scope": "Existing explicit source environment; no package installation, fresh solve or installed-artifact qualification."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_molecular_mechanics.py": {
+      "file": "_molecular_mechanics.py",
+      "sha256": "65b48fe12956bd0ebfb30320a8dc0b51068129a8530576b364bd98be39855bd5",
+      "size_bytes": 6035
+    },
+    "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py": {
+      "file": "test_molecular_mechanics_tools.py",
+      "sha256": "d10abf2de5fbb203907481d83c575aebe40eec660c8f05a3b144783b5025bebc",
+      "size_bytes": 17330
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "file": "test_molsysviewer_tools_api_inventory.py",
+      "sha256": "e328e9a17d7672ba67aeb56e8709a8b43ccee86611f8f3463791cfac4225b310",
+      "size_bytes": 8711
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "file": "molsysviewer_tools.md",
+      "sha256": "969724f54eefffbbeec873fce3231ec7885044e71b0a0e783b593a65ffe3f83e",
+      "size_bytes": 210757
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "file": "molsysviewer_tools.md.AGENTS.md",
+      "sha256": "ab7993a3b32e276afae6b564b602730f6e835a72bad9ddf78744332c35602bca",
+      "size_bytes": 25176
+    },
+    "docs/docs_manifest.yml": {
+      "file": "docs_manifest.yml",
+      "sha256": "19cd0ef9299d4c08466c29f4d36c10cf1e2857a5cc2ae6af92d5c3e7b7959ded",
+      "size_bytes": 55953
+    }
+  },
+  "frozen_sources": {
+    "manifest": {
+      "file": "mechanics-energy-sources-before-20261104.json",
+      "sha256": "0ce458670dbe9c54722599f5e5ee5ba755776f5f6f96a85afda8ffd1a962b9eb",
+      "size_bytes": 385373
+    },
+    "source_file_count": 3138,
+    "source_sha256": "79f3c7be720996ecc0b0956b4d9789dea2b5f67c6c7ef1710d929d69fe3ae819",
+    "native_rust_and_project_metadata_unchanged_from_parent": true,
+    "scope": "Source manifest covers the prior native/Rust/build/addon inputs and all addon test modules. Only the admitted mechanical facade and its test module change; no owner-main working files are imported.",
+    "unchanged_during_complete_run": true,
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67"
+  },
+  "implemented": {
+    "path": "molecular_mechanics.get_potential_energy",
+    "binding": "Serialized current primary, including completed pending edits. No update_view control, implicit visible-structure selection, trajectory iteration, preparation, scene/history update or engine-object adoption.",
+    "native_contract": "Native selection, decomposition, platform, engine, syntax and skip_digestion are forwarded unchanged. Stored/default mechanical settings remain native; no extra force-field parameter is invented. Selection parameterizes a subsystem rather than an embedded contribution.",
+    "outputs": "Native energy quantity or dictionary keyed by force name, under the active application unit policy."
+  },
+  "scientific_receiving": {
+    "reference": "Separate OpenMM ForceField(amber14-all.xml, amber14/tip3p.xml).createSystem(NoCutoff, HBonds), with explicit positions in nm and direct Context state energies/force groups. The oracle does not call a MolSysMT mechanics function.",
+    "datasets": [
+      "Bundled pentalanine, explicit structure 0",
+      "Bundled Trp-Cage 1l2y.h5msm, explicit structure 0 for replacement receiving"
+    ],
+    "platform": "Real CPU; one test-process CPU thread, without changing product/model defaults.",
+    "tolerances": {
+      "rtol": 1e-07,
+      "atol_kJ_per_mol": 1e-05
+    },
+    "unit_policies": "Complete policies use angstrom lengths, kJ/mol or kcal/mol energies and the base standards needed by native integrator conversion; explicit reader conversion to kJ/mol verifies physical parity.",
+    "qualified_cases": "Scalar total and five-force-name decomposition, decomposition sum, native digestion on/off, full-system selectors as MolSysMT/MDTraj text and list/int64 array, invalid/partial/empty selection failures, pending geometry, source replacement, open-empty/closed lifetime and unchanged scientific/scene/history ownership.",
+    "unqualified": "No GPU/Reference/OpenCL execution, arbitrary force-field suite, periodic decomposition, trajectory energy array, nonbonded partition calculation or minimization."
+  },
+  "local_receiving": {
+    "initial_focused": "6 failures, 55 passes; all six trace to the test application policy omitting a Kelvin standard during native temperature digestion. The test policy is corrected; no runtime/provider workaround. Raw original JUnit is retained.",
+    "focused_status": "61 passed; zero failures/errors/skips",
+    "structure_docs": "562 passed; zero failures/errors/skips",
+    "guide": "All three mechanical blocks execute unmodified in one shared namespace.",
+    "course": "156 canonical notebook structures validate; no course notebook changed.",
+    "native_docstrings": "247 public native docstrings pass structural/default/minimum-content validation.",
+    "ruff": "Whole-tree check and format pass, 4345 files.",
+    "dependency_contract": "Pass; no runtime floor or dependency-route changes.",
+    "complete_addon": {
+      "tests": 3857,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 871.443,
+      "file": "mechanics-energy-addon-complete-20261104.xml",
+      "sha256": "38c2ff9d4e20013491c53609c6bae5f94887020bb8b336a77900e3d869deed43",
+      "size_bytes": 718939
+    },
+    "warnings": {
+      "total": 2307,
+      "LegacyH5MSMWarning": 2300,
+      "StructuralAttributeDropWarning": 4,
+      "DigestNotDigestedWarning": 2,
+      "RuntimeWarning": 1,
+      "scope": "Native legacy data, intentional invalid dihedral keywords and degenerate-geometry controls; no warning suppression introduced."
+    },
+    "complete_addon_command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "focused_junit": {
+      "tests": 61,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 19.342,
+      "file": "mechanics-energy-focused-repaired-policy-20261104.xml",
+      "sha256": "11e0e82643b0de888819f772e5c2235ac94c358c60ebac3b8ccbde0911bfca28",
+      "size_bytes": 11457
+    },
+    "final_structure_docs_junit": {
+      "tests": 562,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 21.83,
+      "file": "mechanics-energy-final-structure-docs-20261104.xml",
+      "sha256": "aa62a1bb796ff9a9ec2485b043d9a48e181d20e29d21e715e5e1719aee8c264d",
+      "size_bytes": 104662
+    },
+    "devguide": "Offline validator and queue indexes pass."
+  },
+  "local_evidence": {
+    "mechanics-energy-focused-20261104.xml": {
+      "file": "mechanics-energy-focused-20261104.xml",
+      "sha256": "880947c26e89d1e659d2cb3a1908a38ac7bb05044ab9880cf9e86394bf0c3b67",
+      "size_bytes": 72463
+    },
+    "mechanics-energy-focused-repaired-policy-20261104.xml": {
+      "file": "mechanics-energy-focused-repaired-policy-20261104.xml",
+      "sha256": "11e0e82643b0de888819f772e5c2235ac94c358c60ebac3b8ccbde0911bfca28",
+      "size_bytes": 11457
+    },
+    "mechanics-energy-structure-docs-20261104.xml": {
+      "file": "mechanics-energy-structure-docs-20261104.xml",
+      "sha256": "3f151d7346bdccd9872dae948cb802dc53527dcfec70de0f626e1c3affe33729",
+      "size_bytes": 104662
+    },
+    "mechanics-energy-guide-20261104.json": {
+      "file": "mechanics-energy-guide-20261104.json",
+      "sha256": "34af8b151d83e2bee9d7db9d4ebb04887290d7ff8b72b42acf60c6a5950607a9",
+      "size_bytes": 664
+    },
+    "nonbonded-mixed-selection-reproduction-20261104.json": {
+      "file": "nonbonded-mixed-selection-reproduction-20261104.json",
+      "sha256": "aeb37ab114183e3d6105f8fc4fe1c00051c5bdb78fd5e405bbb021c1d7028543",
+      "size_bytes": 2890
+    },
+    "mechanics-energy-inventory-20261104.json": {
+      "file": "mechanics-energy-inventory-20261104.json",
+      "sha256": "ed8216c00da1e094080979cd7c720d8c92e4d95fb2ec034ab29bdcea5d9d7c82",
+      "size_bytes": 122956
+    },
+    "mechanics-energy-addon-complete-20261104.xml": {
+      "file": "mechanics-energy-addon-complete-20261104.xml",
+      "sha256": "38c2ff9d4e20013491c53609c6bae5f94887020bb8b336a77900e3d869deed43",
+      "size_bytes": 718939
+    },
+    "mechanics-energy-final-structure-docs-20261104.xml": {
+      "file": "mechanics-energy-final-structure-docs-20261104.xml",
+      "sha256": "aa62a1bb796ff9a9ec2485b043d9a48e181d20e29d21e715e5e1719aee8c264d",
+      "size_bytes": 104662
+    }
+  },
+  "provider_feedback": {
+    "561": "Maintainer authorized and issue filed. Nested first/flat second selection fails directly without Viewer; scalar and other orientations retained as diagnostic controls. Addon does not expose or reshape this route.",
+    "559": "Platform-name rejection remains native; no validation bypass or engine fallback.",
+    "560": "Resource-list ownership limit from the prior receiving remains visible; no hidden deepcopy."
+  },
+  "inventory": {
+    "exposed": 219,
+    "declared": 244,
+    "molecular_mechanics": "3/6",
+    "element": "57/57",
+    "build": "15/30",
+    "raw_fasta_readers": "Two, outside the 244-path functional inventory.",
+    "meaning": "Exposure is not universal scientific validity, owner acceptance or installed compatibility."
+  },
+  "scope_limits": {
+    "host_runtime_changed": false,
+    "native_algorithm_changed": false,
+    "rust_rebuilt": false,
+    "environment_created": false,
+    "package_installed": false,
+    "owner_acceptance": "Pending PR review.",
+    "hosted_ci": "New exact-head CI remains pending after publication; earlier 2cb996ad campaigns keep their own inputs.",
+    "installed_pair": "Not qualified by this source receiving.",
+    "publication": "No candidate freeze, tag, package, Release or promotion; both 1.0 publications remain paused."
+  },
+  "retention": {
+    "raw_evidence": "Task-owned files in the Viewer .pytest_cache; retain through CI/PR receiving, review by 2026-11-11.",
+    "worktree": "Existing /tmp contribution worktree retained for owner review; no new environment or native rebuild."
+  },
+  "datasets": [
+    {
+      "system": "pentalanine",
+      "filename": "traj_pentalanine.h5msm",
+      "sha256": "d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6",
+      "size_bytes": 3494262
+    },
+    {
+      "system": "Trp-Cage",
+      "filename": "1l2y.h5msm",
+      "sha256": "fb1fcfdf51f323d3fcaf3157660d1b4f4ed7a16e3232c1f29d08e5bacf6d649b",
+      "size_bytes": 236395
+    }
+  ]
+}

@@ -20,22 +20,26 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Initial mechanical addon tools — 2026-11-04
+## Mechanical addon energy reader — 2026-11-04
 
-The PR #543 contribution adds explicit engine-resource lookup and primary-bound
-mechanical degree counting, with native models, validation and return ownership.
-The complete addon regression passes 3,838 cases without omissions; all 42 new
-mechanical cases and 562 structural/documentation controls pass. Direct OpenMM
-particle/constraint counting supplies the 154-degree pentalanine reference;
-replacement by Trp-Cage supplies the separate 762-count lifecycle control.
-The [receiving receipt](../devtools/data/molsysviewer_tools_mechanics_receiving_20261104.json)
-keeps exact sources, initial test-helper failures, warnings and source hashes.
+The PR #543 contribution adds primary-bound total/decomposed potential energy
+after explicit resource lookup and mechanical degree counting. All 61 mechanical
+controls and 562 structural/documentation controls pass. A separately constructed
+OpenMM CPU model verifies the energy and every force-name contribution under
+kJ/mol and kcal/mol policies; all three guide blocks execute unmodified.
+The complete addon regression passes 3,857 cases without failures, errors or
+skips, with all recorded runtime/native/Rust/build/test hashes unchanged. The
+[energy receipt](../devtools/data/molsysviewer_tools_energy_receiving_20261104.json)
+keeps exact sources, native limitations and initial test-policy failure. The
+[initial mechanics receipt](../devtools/data/molsysviewer_tools_mechanics_receiving_20261104.json)
+retains the prior 3,838-case input and independent particle/constraint count.
 
 Native #559 owns documented platform-name rejection; #560 owns borrowed resource
 lists affecting later lookups/parameterization. Both are independently reproduced
-and remain owner work without consumer repairs. Four mechanical paths remain
+and remain owner work without consumer repairs. #561 owns mixed-partition
+nonbonded-energy failure. Three mechanical paths remain
 unexposed, including the Context/Simulation-only force reader pending an input
-contract suitable for the bound MolSys. Source exposure is 218/244; this is not
+contract suitable for the bound MolSys. Source exposure is 219/244; this is not
 owner acceptance, exact-head hosted completion or installed qualification.
 
 ## Group-name scheme design accepted — 2026-11-04

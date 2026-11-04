@@ -84,6 +84,8 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     )
     assert rows["molecular_mechanics.get_degrees_of_freedom"]["exposed"]
     assert rows["molecular_mechanics.get_degrees_of_freedom"]["input_kind"] == "primary"
+    assert rows["molecular_mechanics.get_potential_energy"]["exposed"]
+    assert rows["molecular_mechanics.get_potential_energy"]["input_kind"] == "primary"
     assert (
         rows["basic.are_multiple_molecular_systems"]["input_kind"]
         == "explicit_collection"

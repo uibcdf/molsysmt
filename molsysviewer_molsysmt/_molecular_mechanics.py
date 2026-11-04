@@ -1,4 +1,4 @@
-"""Explicit force-field metadata and primary-bound mechanical degree counting."""
+"""Explicit force-field metadata and primary-bound mechanical calculations."""
 
 from argdigest import arg_digest
 from smonitor import signal
@@ -12,7 +12,25 @@ def _mechanical_documentation(name, *, bind_primary):
             name, module="molecular_mechanics", bind_primary=bind_primary
         )(function)
         function.__doc__ += "\nView integration\n----------------\n"
-        if bind_primary:
+        if name == "get_potential_energy":
+            function.__doc__ += (
+                "Reads the current view.molsys through the serialized molecular "
+                "reader, including completed pending edits. Requires an open "
+                "loaded owner and native OpenMM parameterization prerequisites. "
+                "The native stored/default mechanical settings determine the "
+                "force field and nonbonded method; this facade does not prepare "
+                "chemistry or assign mechanics. Selection constructs the native "
+                "selected subsystem, not an energy contribution inside an "
+                "otherwise unchanged environment. Results are native energy "
+                "quantities, or a force-name dictionary when decomposition=True, "
+                "under the application's unit policy. No visible-structure "
+                "selection, scene/history update or update_view control is "
+                "introduced. Explicit single-structure CPU calculations are "
+                "qualified; native multiple-structure box, partial-subsystem "
+                "parameterization and platform limitations remain. Native "
+                "errors and optional-engine requirements propagate unchanged.\n"
+            )
+        elif bind_primary:
             function.__doc__ += (
                 "Reads the current view.molsys through the serialized molecular "
                 "reader, including completed pending edits. An open loaded "
@@ -44,7 +62,11 @@ def _mechanical_documentation(name, *, bind_primary):
 
 
 class _MolecularMechanicsTools:
-    _NAMES = ("get_engine_forcefield", "get_degrees_of_freedom")
+    _NAMES = (
+        "get_engine_forcefield",
+        "get_degrees_of_freedom",
+        "get_potential_energy",
+    )
 
     def __init__(self, owner):
         self._owner = owner
@@ -92,6 +114,32 @@ class _MolecularMechanicsTools:
                 "forcefield": forcefield,
                 "water_model": water_model,
                 "implicit_solvent": implicit_solvent,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_mechanical_documentation("get_potential_energy", bind_primary=True)
+    @signal(tags=["addon", "molecular_mechanics", "read"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_potential_energy(
+        self,
+        selection="all",
+        decomposition=False,
+        platform="CPU",
+        engine="OpenMM",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        from molsysmt.molecular_mechanics import get_potential_energy
+
+        return self._owner._read(
+            get_potential_energy,
+            {
+                "selection": selection,
+                "decomposition": decomposition,
+                "platform": platform,
+                "engine": engine,
+                "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },
         )

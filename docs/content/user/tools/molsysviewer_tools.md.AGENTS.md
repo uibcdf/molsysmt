@@ -2,14 +2,20 @@
 
 Preserve explicit molecular_mechanics.get_engine_forcefield resource lookup
 without a primary or engine execution, and serialized primary-bound
-get_degrees_of_freedom with native OpenMM parameterization and prerequisites.
+get_degrees_of_freedom and get_potential_energy with native OpenMM parameterization and prerequisites.
 Keep the 3*N_particles-N_constraints integer definition, absence of COM/thermal
 corrections, explicit one-structure receiving and no implicit visible-frame use.
 Neither operation adopts engine objects, prepares chemistry or changes the
 scene/history. Keep the native shared-resource-list limit (#560) and unsupported
 platform contract (#559) explicit until their owner repairs are received.
 Native result ownership and errors are delegated; do not silently copy a
-registry list or add the other four mechanical functions without qualification.
+registry list or add the other three mechanical functions without qualification.
+Energy selection constructs a parameterized subsystem, not an embedded energy
+contribution. Preserve native quantity/unit-policy and force-name decomposition
+contracts, explicit single-structure CPU receiving, the independent OpenMM
+reference and native defaults, chemistry, periodic and optional-engine limits.
+Do not introduce implicit frame iteration, preparation, engine adoption or a
+scientific platform fallback. Keep pending reads independent of scene sync.
 
 Preserve the four explicit supported-capability reports and their open-empty-view
 contract. Keep native filters/default Styler and explicit plain outputs, directional

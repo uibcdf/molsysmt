@@ -84,7 +84,7 @@ exposure, not unconditional scientific accuracy, stability or installed compatib
 
 The initial `view.addons.molsysmt.molecular_mechanics` slice provides explicit
 `get_engine_forcefield` resource lookup and primary-bound
-`get_degrees_of_freedom`. Other mechanical calculations retain their separate
+`get_degrees_of_freedom` and `get_potential_energy`. Other mechanical calculations retain their separate
 receiving; see the mechanical section for model, engine and ownership limits.
 
 Other scientific modules, editing families and graphical task panels
@@ -1156,10 +1156,10 @@ addon catalogue and how to create an addon in its
 [addon guide](https://www.uibcdf.org/molsysviewer/content/user/introduction/addons.html).
 This MolSysMT guide owns the capabilities and use of the MolSysMT tools addon.
 
-## Inspecting mechanical resources and degrees of freedom
+## Inspecting mechanical resources and calculating energy
 
-Two tools are available under `tools.molecular_mechanics`. Resource lookup keeps
-its explicit inputs and works before loading a system. Degree counting reads
+Three tools are available under `tools.molecular_mechanics`. Resource lookup keeps
+its explicit inputs and works before loading a system. Degree counting and energy read
 the current primary through the same serialized reader as the other scientific
 queries. Neither tool changes the scene, adopts an OpenMM object or adds an
 `update_view` control.
@@ -1211,14 +1211,53 @@ can reject multiple-structure boxes; this API does not silently select the
 visible structure. Completed pending edits are read without synchronizing the
 scene. Cached tools resolve a replaced primary and reject a closed owner.
 
-The other four native mechanical functions remain unexposed pending their own
-input, engine, unit and mutation review. In particular the platform-name
-validation mismatch is tracked in
-[MolSysMT#559](https://github.com/uibcdf/molsysmt/issues/559); no Reference/GPU
-execution is qualified by the two tools above.
+Potential energy uses native OpenMM conversion with the system's stored or
+default mechanical settings. These determine the force field, nonbonded method
+and other parameterization choices. No preparation, minimization, charge
+assignment or engine object is adopted by the view. Request the total energy
+or the native dictionary keyed by force name:
+
+```python
+import molsysmt as msm
+import numpy as np
+
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        mechanics = view.addons.molsysmt.molecular_mechanics
+        energy = mechanics.get_potential_energy(platform="CPU")
+        terms = mechanics.get_potential_energy(decomposition=True, platform="CPU")
+        energy_kj = msm.pyunitwizard.get_value(energy, to_unit="kJ/mol")
+        terms_kj = [
+            msm.pyunitwizard.get_value(term, to_unit="kJ/mol")
+            for term in terms.values()
+        ]
+        assert np.isfinite(energy_kj)
+        np.testing.assert_allclose(sum(terms_kj), energy_kj, rtol=1e-7, atol=1e-5)
+```
+
+The result retains physical units under the application's active unit policy;
+convert explicitly to the desired unit, as above. `selection` constructs the
+native selected subsystem for parameterization: it is not a contribution from
+selected atoms interacting with an unchanged surrounding system. Partial groups
+can fail parameterization. CPU total and decomposed energies have bounded
+single-structure receiving against a separately constructed OpenMM model; this
+does not qualify periodic decompositions, GPU execution or arbitrary force
+fields. There is no automatic selection of the visible structure or trajectory
+loop. Native conversion errors, missing chemistry and optional-engine failures
+remain visible. Completed pending edits are read without synchronizing the scene.
+
+The other three native mechanical functions remain unexposed pending their own
+input, engine, unit and mutation review. The platform-name validation mismatch
+is tracked in [MolSysMT#559](https://github.com/uibcdf/molsysmt/issues/559);
+Reference/OpenCL requests are currently rejected by native validation. This
+integration does not bypass that validation or choose another platform.
+Nonbonded-energy partitioned-selection receiving is tracked separately in
+[MolSysMT#561](https://github.com/uibcdf/molsysmt/issues/561); that function is
+not exposed by this addon yet.
 
 Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
-{func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`.
+{func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`,
+{func}`molsysmt.molecular_mechanics.get_potential_energy`.
 
 ## Computing geometry on the current system
 
