@@ -89,6 +89,11 @@ The minimizer retains independent output by default and supports managed
 in-place coordinate updates. Other mechanical calculations retain their separate
 receiving; see the mechanical section for model, engine and ownership limits.
 
+Independent `build` results also include biological assemblies and an explicit
+AutoDock4 nonpolar-hydrogen projection. They preserve native preparation and
+mapping requirements and never replace the view automatically; see the
+construction examples below.
+
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -3218,6 +3223,109 @@ project before such assignment when its naming contract requires that order.
 Actual export and result adoption remain separate explicit operations.
 
 Native reference: {func}`molsysmt.build.project_atom_names`.
+
+## Constructing independent molecular representations
+
+### Expanding a biological assembly
+
+`view.addons.molsysmt.build.make_bioassembly` expands declared chains using
+stored or explicit assembly operators. It returns an independent molecular
+system. For example, use the stored assembly in bundled Barnase–Barstar data:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.convert(msm.systems["Barnase-Barstar"]["1brs.bcif.gz"])
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    assembly = view.addons.molsysmt.build.make_bioassembly(bioassembly="1")
+    assert assembly is not source and view.molsys is source
+    assert assembly.structures.n_structures == 1
+    chain_ids = msm.get(assembly, element="chain", chain_id=True)
+    assert len(chain_ids) == len(set(chain_ids))
+```
+
+The default `structure_indices=0` selects the first stored structure, independent
+of the visible canvas frame. Explicit lists retain order and repetitions, such
+as `[2, 0, 2]` for an ensemble with at least three structures. Times and structure
+IDs follow that order. `bioassembly=None` selects the first stored assembly;
+a missing assembly rejects rather than inferring one. Explicit operators require
+proper rotations and compatible declared chain memberships. Different chain
+sets across operators currently reject. Native collision handling generates
+unique chain IDs while retaining author chain names; `to_form` controls final
+conversion.
+
+This operation requires valid source chain membership. It does not infer chains,
+repair periodic images or certify that a constructed assembly is a physically
+correct biological model. It returns no atom-map report or Viewer source-region
+mapping. The output is resident; this is not an out-of-core ensemble operation.
+See {ref}`Make bioassembly <Tutorial_Make_bioassembly>` and
+{func}`molsysmt.build.make_bioassembly` for native operator and form contracts.
+
+### Merging explicitly typed nonpolar hydrogens
+
+`view.addons.molsysmt.build.merge_nonpolar_hydrogens` requires an explicit
+`typing_scheme="autodock4"`. After preparation, it merges atoms labelled `H`
+into their retained covalent parents and adds their partial charges. Polar
+hydrogens labelled `HD` remain indexed. Atom names do not determine this choice.
+Prepare the complete graph, hydrogen inventory, atom types and finite partial
+charges explicitly before loading the view:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.convert(msm.systems["caffeine"]["caffeine.sdf"], to_form="rdkit.Mol")
+molsys = msm.build.assign_autodock_atom_types(molsys, typing_scheme="autodock4")
+molsys = msm.build.assign_partial_charges(molsys, method="gasteiger_marsili")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.merge_nonpolar_hydrogens(
+        typing_scheme="autodock4", return_report=True,
+    )
+    projected, report = result["molecular_system"], result["report"]
+    assert projected.get_n_atoms() == 14 and source.get_n_atoms() == 24
+    assert report["schema"] == "molsysmt.atom_projection@1"
+    assert report["charge_unit"] == "elementary_charge"
+    assert abs(report["selected_total_charge"] - report["output_total_charge"]) <= (
+        report["charge_conservation_tolerance"]
+    )
+    lineage = view.addons.molsysmt.basic.compose_atom_maps([report])
+    assert len(lineage["source_to_representative_atom_indices"]) == 24
+    assert view.molsys is source
+```
+
+This example uses optional RDKit for explicit typing/charge preparation. The
+addon adds no hidden preparation, protonation or charge calculation. Native
+single-state chemistry and complete hydrogen-inventory requirements still apply.
+The default structures are `"all"`; explicit structure lists retain order and
+repetitions. Atom selections are normalized by the native projection; a merged
+hydrogen needs its retained parent in the selection.
+
+With `return_report=False`, the result is the independent MolSys itself. The
+optional report keeps direct output/source identity, omitted atoms, merged
+hydrogen–parent pairs and charge transfers separate. Its charge fields declare
+canonical elementary-charge units even under another presentation policy.
+`basic.compose_atom_maps` can compose this lineage; a representative parent
+index is not the removed hydrogen's identity or coordinate. Retained coordinates
+belong to retained atoms. Native typing/charge assignment records become derived
+and preserve their source provenance. Native scientific attribution remains
+available through the report.
+
+After a merge, named interaction analyses on the returned system are cleared;
+the source analyses, source chemistry and scene remain unchanged. This is a
+representation projection, not a general united-atom force field or a new
+protonation state. Experimental MolecularMechanics types/charges are not stored
+by H5MSM 0.5; that writer rejects unsupported mechanical data explicitly. See the
+[native projection guide](build/merge_nonpolar_hydrogens.md) and
+{func}`molsysmt.build.merge_nonpolar_hydrogens` for prerequisites and export maps.
+
+Both construction methods require an open loaded view, use its current primary
+at call time and read completed pending edits without scene synchronization.
+They preserve native `skip_digestion` and validation semantics. Neither offers
+`in_place` or `update_view`; deliberately chain the independent result or load it
+with the ordinary Viewer replacement API when that is your intention.
 
 ## Recognizing hydrogen-bond sites and local directions
 

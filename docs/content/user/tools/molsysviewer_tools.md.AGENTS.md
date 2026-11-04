@@ -392,3 +392,15 @@ Keep lexical collision scope distinct from chemistry and never recertify stale
 assignments. Native mutable domains detach while protected geometry can stay
 shared until a public edit. Keep pending reads and replacement/close behavior
 consistent with the other independent build routes.
+
+
+Preserve the two primary-bound independent construction routes: make_bioassembly
+and merge_nonpolar_hydrogens. Assembly uses declared chain membership, proper
+operators and explicit native structure scope, retaining order/repeats and unique
+chain IDs without biological certification or Viewer identity maps. Nonpolar-H
+projection requires explicit AutoDock4 typing, known inventory and partial
+charges; keep H/HD distinct, omitted/direct/merged mappings and canonical charge
+units explicit, preserve derived assignment provenance and clear only output
+analyses. Representative lineage is not removed-atom identity or coordinates.
+Neither tool prepares chemistry, adopts results or offers update_view/in_place.
+Keep pending reads, lifetime, resident-output and H5MSM 0.5 mechanics limits.

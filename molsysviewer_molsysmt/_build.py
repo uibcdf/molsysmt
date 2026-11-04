@@ -13,8 +13,9 @@ def _independent_build_documentation(name):
             "\nView integration\n----------------\n"
             "Reads the current view.molsys through the serialized molecular "
             "reader, including completed pending edits. The native function "
-            "returns a separate molecular system, optionally with its report; "
-            "it does not replace view.molsys or publish scene/history changes. "
+            "returns a separate molecular system"
+            + ("; " if name == "make_bioassembly" else ", optionally with its report; ")
+            + "it does not replace view.molsys or publish scene/history changes. "
             "There is no update_view control or implicit adoption. Native "
             "chemical-state, structure, method, prerequisite, provenance, unit "
             "and validation contracts remain unchanged. No chemistry, model "
@@ -40,6 +41,37 @@ def _independent_build_documentation(name):
                 "Full native copying may materialize coordinates and is not "
                 "an out-of-core trajectory promise.\n"
             )
+        if name == "make_bioassembly":
+            function.__doc__ += (
+                "The explicit operation dictionary or stored assembly name "
+                "is interpreted by native MolSysMT. None selects its first "
+                "stored assembly; chains must have declared source indices. "
+                "Structure indices retain native order/repetitions and default "
+                "to structure 0, not the visible structure. Common chain sets "
+                "and proper rotations are supported; heterogeneous per-operation "
+                "chain sets retain native rejection. Source chain IDs are "
+                "preserved once; generated collisions use native unique IDs, "
+                "while author names may repeat. No assembly inference, atom-map "
+                "report, scene source block, periodic repair or physical-validity "
+                "certificate is added. Native form/domain/composition limits "
+                "remain unchanged.\n"
+            )
+        elif name == "merge_nonpolar_hydrogens":
+            function.__doc__ += (
+                "typing_scheme='autodock4' is explicit. Stored H labels merge "
+                "into their retained single-bonded heavy parents; HD labels "
+                "remain. Names do not choose the reduction. Complete single-state "
+                "chemistry, known hydrogen inventory, finite stored charges and "
+                "typing are prerequisites; the addon calculates none of them. "
+                "The native atom_projection@1 report distinguishes direct "
+                "correspondence, omitted atoms and merged H/parent pairs, with "
+                "charge transfers/totals declared in elementary_charge. The "
+                "result retains derived assignment provenance and clears reduced "
+                "interaction analyses; the source is preserved. This does not "
+                "derive a general united-atom force field or persist mechanics "
+                "in H5MSM 0.5. Optional attribution and native validation remain "
+                "with MolSysMT.\n"
+            )
         return function
 
     return decorate
@@ -51,6 +83,8 @@ class _BuildTools:
         "assign_autodock_atom_types",
         "assign_partial_charges",
         "project_atom_names",
+        "make_bioassembly",
+        "merge_nonpolar_hydrogens",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -428,6 +462,52 @@ class _BuildTools:
             {
                 "target_form": target_form,
                 "selection": selection,
+                "return_report": return_report,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("make_bioassembly")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def make_bioassembly(
+        self,
+        bioassembly=None,
+        structure_indices=0,
+        to_form=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "make_bioassembly",
+            {
+                "bioassembly": bioassembly,
+                "structure_indices": structure_indices,
+                "to_form": to_form,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("merge_nonpolar_hydrogens")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def merge_nonpolar_hydrogens(
+        self,
+        typing_scheme,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "merge_nonpolar_hydrogens",
+            {
+                "typing_scheme": typing_scheme,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
                 "return_report": return_report,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,

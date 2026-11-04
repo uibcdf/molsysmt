@@ -35,3 +35,11 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 6. Challenge & See Also
 * Must include **Challenge 12: The Quality Auditor** using T4 Lysozyme (`181L`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-system-auditing-and-curing-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 11 and Module 13.
+
+
+Preserve the additive expert-addon construction guidance: assemblies and explicit
+AutoDock4 nonpolar-H projection return independent current-primary results,
+without automatic chemistry preparation or view adoption. Retain declared
+chain/operator/structure scope, typed charge/inventory prerequisites and distinct
+direct/merged identity. Keep all original biological scenarios, code, saved
+outputs, cell IDs and notebook metadata unchanged in prose-only receiving.

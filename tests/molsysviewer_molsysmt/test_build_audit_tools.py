@@ -103,6 +103,8 @@ def test_explicit_native_signature_and_local_only_skip_control(view, name):
         "assign_autodock_atom_types",
         "assign_partial_charges",
         "project_atom_names",
+        "make_bioassembly",
+        "merge_nonpolar_hydrogens",
     }
     assert not hasattr(view.addons.molsysmt, name)
     assert "not a scene object" in inspect.getdoc(method)
