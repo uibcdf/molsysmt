@@ -5,6 +5,20 @@ from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 
 
+def _flat_atom_name_list(atom_names, caller=None):
+    """Return detached flat string names without nested or scalar interpretation."""
+    if isinstance(atom_names, (list, tuple, np.ndarray)):
+        names = np.asarray(atom_names, dtype=object)
+        if names.ndim == 1 and all(isinstance(name, str) for name in names):
+            return names.tolist()
+    raise ArgumentError(
+        "atom_names",
+        value=atom_names,
+        caller=caller,
+        message="Supply a one-dimensional list, tuple or NumPy array of atom-name strings.",
+    )
+
+
 def digest_atom_names(atom_names, caller=None):
     """Checks if atom_names has the expected type and value.
 
