@@ -27,6 +27,13 @@ e62557952, with the original scientific certificate retained unchanged. This
 documentation checkpoint does not select a release candidate or qualify new
 runtime behavior.
 
+Source correction 1f462976d is integrated and published on main; #548 is closed
+with its guard and archive record. The new
+[#555 assessment request](pending_proposals/read_only_geometry_and_steric_plausibility_assessment.md)
+has an inspected owner disposition: post-freeze contract/method study, retaining
+read-only per-check results and no implied molecular repair. No scientific
+assessment implementation or additional release gate is introduced by triage.
+
 [#548](archive/resolved_bugs/reference_bond_pairs_documented_as_atom_names.md)
 corrects the four remaining group reference-bond docstrings and aligns the User
 Guide, recipe and Module 03 with the seven-helper index contract. All 342

@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (31)
+### Open (32)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -64,6 +64,7 @@ Entries carrying front matter under
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*
 - [`qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md`](qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md) — [#530](https://github.com/uibcdf/molsysmt/issues/530) — Qualify corrected MDTraj batch SASA and retire independent-structure evaluation *(inspected)*
 - [`qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md`](qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md) — [#486](https://github.com/uibcdf/molsysmt/issues/486) — Qualify PyParsing 3.3.4 or its published successor for MDTraj selections *(upstream)*
+- [`read_only_geometry_and_steric_plausibility_assessment.md`](read_only_geometry_and_steric_plausibility_assessment.md) — [#555](https://github.com/uibcdf/molsysmt/issues/555) — Provide explicit read-only molecular geometry and steric plausibility assessment. *(inspected)*
 - [`refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md`](refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md) — [#323](https://github.com/uibcdf/molsysmt/issues/323) — Refine fixed-state hydrogen geometry in an explicit molecular environment *(measured)*
 - [`requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md`](requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md) — [#403](https://github.com/uibcdf/molsysmt/issues/403) — Requalify newer MKL builds and retire the temporary runtime ceiling *(upstream)*
 - [`review_h5msm05_module_ownership_and_location.md`](review_h5msm05_module_ownership_and_location.md) — [#438](https://github.com/uibcdf/molsysmt/issues/438) — Review ownership and location of form/_h5msm05_* implementation modules *(inspected)*
