@@ -202,6 +202,8 @@ jobs:
             tests/interactions/hbonds/test_get_hbond_site_directions.py \
             tests/interactions/hbonds/test_donor_pair_integrity.py \
             tests/interactions/hbonds/test_precomputed_donors.py \
+            tests/_private/argdigest/test_hbond_ion_digesters.py \
+            tests/_private/argdigest/test_layout_selection_digesters.py \
             tests/interactions/hbonds/test_role_rule_ownership.py \
             tests/interactions/hbonds/test_role_rule_syntax.py \
             tests/interactions/hbonds/test_attributed_hbonds.py \
