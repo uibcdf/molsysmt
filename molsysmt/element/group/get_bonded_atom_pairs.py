@@ -1,3 +1,8 @@
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.reference_bonds import DIGEST_OPTIONS
+
+
+@arg_digest(**DIGEST_OPTIONS)
 def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True):
     """Getting reference bond index pairs for a named group.
 
@@ -9,7 +14,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
         One-dimensional atom names in caller order. Supply the names for the
         reference layout to query; this is not a molecular-system selection.
     atom_indices : int, list of int, tuple of int, or numpy.ndarray, default=None
-        One integer index per supplied name, in the same order. None uses local
+        One nonnegative integer per supplied name, in the same order. None uses local
         positions 0 through len(atom_names)-1. Explicit indices are mapping
         labels, not positions to select from atom_names or a molecular system.
         Amino-acid and ion routes also accept a scalar for one supplied name.
@@ -28,11 +33,19 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     ------
     ArgumentError
         If a delegated family rejects an argument during validation.
+    ArgumentLengthError
+        If the explicit map does not contain exactly one index per atom name.
     InternalAlgorithmError
         If a delegated family reports an unknown group or unmatched layout.
 
     Notes
     -----
+    Maps may contain repeated indices and are not permutations. Values must
+    fit int64 and be unit-free and unmasked. Strings, floats, booleans,
+    negative indices and nested maps are
+    rejected before reference access. An empty name sequence requires an empty
+    map or None.
+
     Amino-acid, ion, saccharide, small-molecule, terminal-capping and water
     lookups are supported. Lipid, nucleotide and polysaccharide routes return
     None. Unknown group names also return None with the legacy warning.

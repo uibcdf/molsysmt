@@ -6,6 +6,7 @@ TIER="${1:-smoke}"
 run_smoke() {
   MPLBACKEND=Agg python -m pytest --receptor=llm -q \
     tests/element/component/test_get_component_index.py \
+    tests/element/group/test_reference_bond_map_validation.py \
     tests/topology/get_covalent_blocks/test_get_covalent_blocks_from_molsysmt_MolSys.py \
     tests/pbc/get_lengths_and_angles_from_box/test_get_lengths_and_angles_from_box.py \
     tests/structure/get_rmsd/test_get_rmsd_from_molsysmt_MolSys.py \

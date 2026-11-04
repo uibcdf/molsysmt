@@ -11,4 +11,7 @@ Reference lookup neither reads coordinates nor assigns or edits system chemistry
 Keep the seven-entry-point index contract explicit: parallel name/index maps,
 lexicographic row sorting, oxygen-first water endpoints, all-occurrence amino-
 acid expansion, first-occurrence ion lookup and None/empty/error distinctions.
-Do not present an unsupported or malformed map as guaranteed validation.
+Keep scoped map validation explicit: nonnegative int64-range integers, exact
+parallel length, repeated-index admission, scalar compatibility only for amino-
+acid/ion routes, and catalogued errors before reference access. Existing trusted
+skip routes require valid inputs; they do not validate malformed maps.

@@ -1,6 +1,7 @@
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.reference_bonds import DIGEST_OPTIONS
 from molsysmt._private.smonitor import (
     InternalAlgorithmError,
 )
@@ -8,7 +9,7 @@ from molsysmt._private.smonitor import (
 _sorted = sorted
 
 
-@arg_digest()
+@arg_digest(**DIGEST_OPTIONS)
 def get_bonded_atom_pairs(
     group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False
 ):
@@ -24,7 +25,7 @@ def get_bonded_atom_pairs(
         A single atom-name string is accepted as a one-atom query. Repeated
         names use their first occurrence in the supplied sequence.
     atom_indices : int, list of int, tuple of int, or numpy.ndarray, default=None
-        One integer index per supplied name, in the same order. None uses local
+        One nonnegative integer per supplied name, in the same order. None uses local
         positions 0 through len(atom_names)-1. Explicit indices are mapping
         labels, not positions to select from atom_names or a molecular system.
         A scalar integer is also accepted for a single supplied name.
@@ -47,11 +48,19 @@ def get_bonded_atom_pairs(
     ------
     ArgumentError
         If the argument digester rejects an input value.
+    ArgumentLengthError
+        If the explicit map does not contain exactly one index per atom name.
     InternalAlgorithmError
         If a query other than the one-atom shortcut uses an unknown group name.
 
     Notes
     -----
+    Maps may contain repeated indices and are not permutations. Values must
+    fit int64 and be unit-free and unmasked. Strings, floats, booleans,
+    negative indices and nested maps are
+    rejected before reference access. An empty name sequence requires an empty
+    map or None. Existing skip_digestion=True routes require already valid inputs.
+
     The one-atom shortcut describes an isolated ion and does not test whether
     group_name is in the reference catalogue. For multi-atom groups, names are
     checked against the available reference layouts before mapping their edges.

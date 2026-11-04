@@ -1,6 +1,10 @@
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.reference_bonds import DIGEST_OPTIONS
+
 _sorted = sorted
 
 
+@arg_digest(**DIGEST_OPTIONS)
 def get_bonded_atom_pairs(atom_names, atom_indices=None, sorted=True):
     """Getting oxygen-hydrogen reference index pairs for a water group.
 
@@ -12,7 +16,7 @@ def get_bonded_atom_pairs(atom_names, atom_indices=None, sorted=True):
         For a complete water query, include one oxygen and at least two
         hydrogens recognizable by their atom names. Extra sites are ignored.
     atom_indices : list of int, tuple of int, or numpy.ndarray, default=None
-        One integer index per supplied name, in the same order. None uses local
+        One nonnegative integer per supplied name, in the same order. None uses local
         positions 0 through len(atom_names)-1. Explicit indices are mapping
         labels, not positions to select from atom_names or a molecular system.
     sorted : bool, default=True
@@ -26,8 +30,21 @@ def get_bonded_atom_pairs(atom_names, atom_indices=None, sorted=True):
         Explicit NumPy indices can remain NumPy integer scalars. Fewer than
         three supplied names return an empty list.
 
+    Raises
+    ------
+    ArgumentError
+        If names or mapped index values violate the flat input contract.
+    ArgumentLengthError
+        If the explicit map does not contain exactly one index per atom name.
+
     Notes
     -----
+    Maps may contain repeated indices and are not permutations. Values must
+    fit int64 and be unit-free and unmasked. Strings, floats, booleans,
+    negative indices and nested maps are
+    rejected before reference access. An empty name sequence requires an empty
+    map or None.
+
     Oxygen is the first endpoint even if its mapped index is larger than the
     hydrogen index. This differs from the endpoint ordering in stored-template
     helpers. The first two recognized hydrogens in caller order are used.

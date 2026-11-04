@@ -15,7 +15,9 @@ Reference-template helpers likewise use explicit names rather than the system's
 stored chemical graph. A returned bond-pair endpoint is a local name position
 unless you supply a parallel integer atom-index map. Indices are positions,
 whereas atom IDs are system labels. Endpoint orientation depends on the reference
-family; row sorting does not make all family conventions identical. Neither
+family; row sorting does not make all family conventions identical. Maps are
+validated before reference lookup: names and nonnegative integer indices must
+have matching lengths. Repeated indices remain allowed. Neither
 lookup nor mapping assigns chemical state or modifies the system. See
 {ref}`Tutorial_Get_bonded_atom_pairs` for flat list/tuple/NumPy inputs and their
 family-specific lookup limits.

@@ -30,7 +30,10 @@ graph; keep template application and its explicit correspondence separate.
 For amino-acid, ion and water lookups, keep their distinct repeated-name and
 endpoint conventions: water preserves oxygen as the first endpoint. Row sorting
 does not give the same endpoint orientation in every family. Supply exactly
-one integer per atom name and keep the source index map with the result.
+one nonnegative integer per atom name and keep the source index map with the
+result. Invalid map values raise `ArgumentError`; missing or extra entries
+raise `ArgumentLengthError` before reference access. Repeated indices remain
+allowed; the mapping need not be a permutation.
 See {ref}`Tutorial_Get_bonded_atom_pairs` for the exact family contracts.
 
 Explicit atom stereochemistry is transferred when declared as `R`, `S`, `r`,

@@ -20,6 +20,31 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Native reference-map validation — 2026-11-04
+
+[#554](archive/resolved_bugs/reference_bond_index_maps_are_not_consistently_validated.md)
+adds a scoped ArgDigest registry at all seven reference-bond entry points.
+Malformed values/lengths fail before reference reads with SMonitor argument,
+caller and expected/actual fields. Maps are flat unit-free/unmasked nonnegative
+int64-range integers; repeated indices remain allowed. Scalar compatibility,
+all seven public signatures and three executed notebook payloads are preserved.
+Generic molecular selection digesters, chemical reference data and optional
+dependency declarations are unchanged.
+
+The final group suite passes 627 cases, including 186 new guards, with the exact
+verified public ArgDigest 0.13.0 py_1 payload and no omissions. Supporting runs
+pass 659 argument/build/native-query cases, 197 CIF/guard cases and 572
+documentation/doctest cases. The owner record distinguishes their finality,
+warnings, original 28-case failing control and corrected ATP test expectation.
+All 246 docstrings, notebook/signature checks, fast gates and Ruff are included
+in final local receiving. This is source receiving, not an installed-package or
+full platform qualification. Hosted routine CI follows publication separately.
+
+Next: #549's legacy name/protonation-context study, then #504's multi-structure
+contract and PR #543 receiving. The new validation does not select a chemical
+state or add an addon coercion; unchanged signatures permit current wrappers to
+delegate the new native diagnostics without a calling-convention change.
+
 ## Audit recorded and reference-help correction received — 2026-11-04
 
 The maintainer-requested audit and resumption route are recorded in
@@ -46,7 +71,7 @@ and unchanged notebook code/output/metadata. No runtime or chemical-table fix is
 claimed by this documentation correction. Routine hosted CI on the integrated
 head remains a separate checkpoint.
 
-[#554](pending_bugs/reference_bond_index_maps_are_not_consistently_validated.md)
+[#554](archive/resolved_bugs/reference_bond_index_maps_are_not_consistently_validated.md)
 retains the independently reproduced malformed-map defect and is the next native
 correction. Its report is now recorded; no validation fix is included with #548.
 Then continue #549's naming-context study and #504's multi-structure contract

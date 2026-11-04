@@ -513,11 +513,11 @@ sections:
           - name: reference_bond_pairs
             file: docs/content/user/tools/element/group/get_bonded_atom_pairs.ipynb
             agents_file: docs/content/user/tools/element/group/get_bonded_atom_pairs.ipynb.AGENTS.md
-            description: Seven reference bond-pair contracts with local/explicit integer maps, family-specific duplicate/None/empty/error behavior and oxygen-first water ordering without graph assignment.
+            description: Seven reference bond-pair contracts with local/explicit integer maps, family-specific duplicate/None/empty/error behavior and oxygen-first water ordering, validated parallel nonnegative maps and structured errors without graph assignment.
           - name: amino_acid_reference_bond_pairs
             file: docs/content/user/tools/element/group/amino_acid/get_bonded_atom_pairs.ipynb
             agents_file: docs/content/user/tools/element/group/amino_acid/get_bonded_atom_pairs.ipynb.AGENTS.md
-            description: Reference integer bond pairs, explicit map ordering, repeated-name expansion and empty/None outcomes for amino-acid groups.
+            description: Reference integer bond pairs, explicit map ordering, repeated-name expansion and empty/None outcomes and validated parallel maps for amino-acid groups.
       - name: form
         path: docs/content/user/tools/form
         agents_file: docs/content/user/tools/form/AGENTS.md
