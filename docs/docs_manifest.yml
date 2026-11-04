@@ -35,6 +35,10 @@ sections:
             description: Attribute presence, sparse source versus local atom indices, unit-bearing YAML records, empty data and chemical-completeness limits.
             file: docs/content/user/foundations/molecular_system/attributes.ipynb
             agents_file: docs/content/user/foundations/molecular_system/attributes.AGENTS.md
+          - name: naming_schemes
+            file: docs/content/user/foundations/molecular_system/naming_schemes.md
+            agents_file: docs/content/user/foundations/molecular_system/naming_schemes.md.AGENTS.md
+            description: Amber/CCD/legacy group-label meanings, verified collisions, unknown defaults and accepted per-group scheme design, explicitly distinguished from current runtime support.
       - name: native_world
         description: Native representations and analysis-specific logical independence over shared immutable storage.
         agents_file: docs/content/user/foundations/native_world/AGENTS.md

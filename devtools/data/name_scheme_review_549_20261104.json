@@ -1,0 +1,472 @@
+{
+  "schema": "molsysmt.name_scheme_review@1",
+  "date": "2026-11-04",
+  "issue": "uibcdf/molsysmt#549",
+  "source_commit": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "python": "3.14.7",
+  "classification": "bounded source/metadata inspection and native sequence reproduction; no new method qualification",
+  "amber_source": {
+    "commit": "656e5c6fcb05149e6aa936e1d69d1426b37ea3c7",
+    "path": "dat/leap/lib/amino12.lib",
+    "sha256": "dcd92afbb7ee4c8a737f1ad47eb714618b6c186759c902cd5c06c22a5378df77",
+    "matches_git": true,
+    "url": "https://github.com/Amber-MD/AmberClassic/blob/656e5c6fcb05149e6aa936e1d69d1426b37ea3c7/dat/leap/lib/amino12.lib"
+  },
+  "mdtraj_source": {
+    "commit": "80f7cf2ddb43dd0d32905e490464f2d8765329df",
+    "url": "https://github.com/mdtraj/mdtraj/blob/80f7cf2ddb43dd0d32905e490464f2d8765329df/mdtraj/core/residue_names.py",
+    "observed_glh_letter": "Q",
+    "sha256": "54016090f42c1212a05bc6606b9680d4b6a75121c32c4171d9c1560ebbfe2bd5",
+    "matches_git": true
+  },
+  "native_fragment_source": {
+    "path": "molsysmt/data/databases/peptide_templates/residue_fragments.json",
+    "sha256": "1a542c3bd49f8361daf8d219d8f06dcb08140bac595a80abc9e5b2c212e2f4b4",
+    "upstream": {
+      "title": "Meeko residue chemical template data",
+      "commit": "1eac18bd6d1111f35f9f1abaa8af502c2668d054",
+      "url": "https://github.com/forlilab/Meeko/blob/1eac18bd6d1111f35f9f1abaa8af502c2668d054/meeko/data/residue_chem_templates.json",
+      "sha256": "535dc75a2cc5db579a3114090c9ab1273892c556cb7cc1a850ce2c4cd57c7cde",
+      "license": "LGPL-2.1"
+    }
+  },
+  "ccd_inspection": [
+    {
+      "code": "GLH",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLH",
+      "error": "HTTPError",
+      "status": 404
+    },
+    {
+      "code": "HID",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/HID",
+      "sha256": "9887b2b6253b299a0bbe4d0a78d8669b4fb129fc027adfb256b512802d547afa",
+      "chem_comp": {
+        "id": "HID",
+        "name": "(5-hydroxy-1H-indol-3-yl)acetic acid",
+        "type": "non-polymer",
+        "formula": "C10 H9 N O3",
+        "mon_nstd_parent_comp_id": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null
+      }
+    },
+    {
+      "code": "HIE",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/HIE",
+      "error": "HTTPError",
+      "status": 404
+    },
+    {
+      "code": "HIP",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/HIP",
+      "sha256": "d8c62d13638049ac899a06b87b19b605321835a5b9335f956b38943b554fe35e",
+      "chem_comp": {
+        "id": "HIP",
+        "name": "ND1-PHOSPHONOHISTIDINE",
+        "type": "L-peptide linking",
+        "formula": "C6 H11 N3 O5 P",
+        "mon_nstd_parent_comp_id": [
+          "HIS"
+        ],
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null
+      }
+    },
+    {
+      "code": "CYM",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/CYM",
+      "error": "HTTPError",
+      "status": 404
+    },
+    {
+      "code": "CYX",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/CYX",
+      "sha256": "a16a8ad415dd1252ae7ec452b472604e962bd2d7f50623fe29e69ee9445a8adf",
+      "chem_comp": {
+        "id": "CYX",
+        "name": "(3-FORMYL-BUT-3-ENYL)-PHOSPHONIC ACID",
+        "type": "non-polymer",
+        "formula": "C5 H9 O4 P",
+        "mon_nstd_parent_comp_id": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null
+      }
+    },
+    {
+      "code": "LYN",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/LYN",
+      "sha256": "b368b5aef57e82ac53a345021b75f6bc5bb2641cfe259b1589f39301059f656d",
+      "chem_comp": {
+        "id": "LYN",
+        "name": "2,6-DIAMINO-HEXANOIC ACID AMIDE",
+        "type": "L-peptide linking",
+        "formula": "C6 H16 N3 O",
+        "mon_nstd_parent_comp_id": [
+          "LYS"
+        ],
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null
+      }
+    },
+    {
+      "code": "ASH",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASH",
+      "sha256": "1b84563282ff82591d2b32649a931fd8b10570e8e78f66aeb499770a8d39c3c0",
+      "chem_comp": {
+        "id": "ASH",
+        "name": "3-chloro-N-(4-morpholin-4-ylphenyl)-6-pyridin-3-ylimidazo[1,2-a]pyrazin-8-amine",
+        "type": "non-polymer",
+        "formula": "C21 H19 Cl N6 O",
+        "mon_nstd_parent_comp_id": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null
+      }
+    }
+  ],
+  "local_vocabulary": [
+    {
+      "label": "GLH",
+      "legacy_parent": "GLN",
+      "native_fragment": true,
+      "recognized_amino_acid": true,
+      "current_group_type": "amino acid",
+      "amber_heavy_atoms": [
+        "N",
+        "CA",
+        "CB",
+        "CG",
+        "CD",
+        "OE1",
+        "OE2",
+        "C",
+        "O"
+      ],
+      "amber_hydrogen_atoms": [
+        "H",
+        "HA",
+        "HB2",
+        "HB3",
+        "HG2",
+        "HG3",
+        "HE2"
+      ],
+      "native_heavy_atoms": [
+        "C",
+        "O",
+        "CA",
+        "N",
+        "CB",
+        "CG",
+        "CD",
+        "OE1",
+        "OE2"
+      ]
+    },
+    {
+      "label": "HID",
+      "legacy_parent": null,
+      "native_fragment": true,
+      "recognized_amino_acid": true,
+      "current_group_type": "amino acid",
+      "amber_heavy_atoms": [
+        "N",
+        "CA",
+        "CB",
+        "CG",
+        "ND1",
+        "CE1",
+        "NE2",
+        "CD2",
+        "C",
+        "O"
+      ],
+      "amber_hydrogen_atoms": [
+        "H",
+        "HA",
+        "HB2",
+        "HB3",
+        "HD1",
+        "HE1",
+        "HD2"
+      ],
+      "native_heavy_atoms": [
+        "C",
+        "O",
+        "CA",
+        "N",
+        "CB",
+        "CG",
+        "ND1",
+        "CE1",
+        "NE2",
+        "CD2"
+      ]
+    },
+    {
+      "label": "HIE",
+      "legacy_parent": null,
+      "native_fragment": true,
+      "recognized_amino_acid": true,
+      "current_group_type": "amino acid",
+      "amber_heavy_atoms": [
+        "N",
+        "CA",
+        "CB",
+        "CG",
+        "ND1",
+        "CE1",
+        "NE2",
+        "CD2",
+        "C",
+        "O"
+      ],
+      "amber_hydrogen_atoms": [
+        "H",
+        "HA",
+        "HB2",
+        "HB3",
+        "HE1",
+        "HE2",
+        "HD2"
+      ],
+      "native_heavy_atoms": [
+        "C",
+        "O",
+        "CA",
+        "N",
+        "CB",
+        "CG",
+        "ND1",
+        "CE1",
+        "NE2",
+        "CD2"
+      ]
+    },
+    {
+      "label": "HIP",
+      "legacy_parent": "HIS",
+      "native_fragment": true,
+      "recognized_amino_acid": true,
+      "current_group_type": "amino acid",
+      "amber_heavy_atoms": [
+        "N",
+        "CA",
+        "CB",
+        "CG",
+        "ND1",
+        "CE1",
+        "NE2",
+        "CD2",
+        "C",
+        "O"
+      ],
+      "amber_hydrogen_atoms": [
+        "H",
+        "HA",
+        "HB2",
+        "HB3",
+        "HD1",
+        "HE1",
+        "HE2",
+        "HD2"
+      ],
+      "native_heavy_atoms": [
+        "C",
+        "O",
+        "CA",
+        "N",
+        "CB",
+        "CG",
+        "ND1",
+        "CE1",
+        "NE2",
+        "CD2"
+      ]
+    },
+    {
+      "label": "ASH",
+      "legacy_parent": "ASP",
+      "native_fragment": true,
+      "recognized_amino_acid": true,
+      "current_group_type": "amino acid",
+      "amber_heavy_atoms": [
+        "N",
+        "CA",
+        "CB",
+        "CG",
+        "OD1",
+        "OD2",
+        "C",
+        "O"
+      ],
+      "amber_hydrogen_atoms": [
+        "H",
+        "HA",
+        "HB2",
+        "HB3",
+        "HD2"
+      ],
+      "native_heavy_atoms": [
+        "C",
+        "O",
+        "CA",
+        "N",
+        "CB",
+        "CG",
+        "OD1",
+        "OD2"
+      ]
+    },
+    {
+      "label": "CYM",
+      "legacy_parent": "CYS",
+      "native_fragment": true,
+      "recognized_amino_acid": true,
+      "current_group_type": "amino acid",
+      "amber_heavy_atoms": [
+        "N",
+        "CA",
+        "CB",
+        "SG",
+        "C",
+        "O"
+      ],
+      "amber_hydrogen_atoms": [
+        "H",
+        "HA",
+        "HB3",
+        "HB2"
+      ],
+      "native_heavy_atoms": [
+        "C",
+        "O",
+        "CA",
+        "N",
+        "CB",
+        "SG"
+      ]
+    },
+    {
+      "label": "CYX",
+      "legacy_parent": null,
+      "native_fragment": true,
+      "recognized_amino_acid": true,
+      "current_group_type": "amino acid",
+      "amber_heavy_atoms": [
+        "N",
+        "CA",
+        "CB",
+        "SG",
+        "C",
+        "O"
+      ],
+      "amber_hydrogen_atoms": [
+        "H",
+        "HA",
+        "HB2",
+        "HB3"
+      ],
+      "native_heavy_atoms": [
+        "C",
+        "O",
+        "CA",
+        "N",
+        "CB",
+        "SG"
+      ]
+    },
+    {
+      "label": "LYN",
+      "legacy_parent": "LYS",
+      "native_fragment": true,
+      "recognized_amino_acid": true,
+      "current_group_type": "amino acid",
+      "amber_heavy_atoms": [
+        "N",
+        "CA",
+        "CB",
+        "CG",
+        "CD",
+        "CE",
+        "NZ",
+        "C",
+        "O"
+      ],
+      "amber_hydrogen_atoms": [
+        "H",
+        "HA",
+        "HB2",
+        "HB3",
+        "HG2",
+        "HG3",
+        "HD2",
+        "HD3",
+        "HE2",
+        "HE3",
+        "HZ2",
+        "HZ3"
+      ],
+      "native_heavy_atoms": [
+        "C",
+        "O",
+        "CA",
+        "N",
+        "CB",
+        "CG",
+        "CD",
+        "CE",
+        "NZ"
+      ]
+    }
+  ],
+  "native_sequence_probes": [
+    {
+      "names": [
+        "GLH"
+      ],
+      "stored_group_names": [
+        "GLH"
+      ],
+      "sequence": "Q"
+    },
+    {
+      "names": [
+        "HID"
+      ],
+      "stored_group_names": [
+        "HID"
+      ],
+      "error": "KeyError",
+      "message": "'HID'"
+    },
+    {
+      "names": [
+        "HIE"
+      ],
+      "stored_group_names": [
+        "HIE"
+      ],
+      "error": "KeyError",
+      "message": "'HIE'"
+    },
+    {
+      "names": [
+        "CYX",
+        "CYX"
+      ],
+      "stored_group_names": [
+        "CYX",
+        "CYX"
+      ],
+      "error": "KeyError",
+      "message": "'CYX'"
+    }
+  ],
+  "limits": [
+    "HTTP 404 observations do not prove historical or universal CCD absence.",
+    "Reference naming does not assign a chemical state or validate geometry.",
+    "Legacy mappings are compatibility data, not an audited contemporary CCD snapshot.",
+    "Scheme arguments and group-aligned persistence remain unimplemented on the inspected source."
+  ]
+}

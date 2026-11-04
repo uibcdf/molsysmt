@@ -38,6 +38,9 @@ family-specific lookup limits.
 - **{doc}`attributes`**  
   Detailed guide to structural, topological, mechanical, and physicochemical molecular attributes.
 
+- **{doc}`naming_schemes`**:
+  Group-label conventions, their differences, and the accepted scheme-aware contract under development.
+
 ```{eval-rst}
 .. toctree::
    :maxdepth: 1
@@ -47,4 +50,5 @@ family-specific lookup limits.
    Items and Forms <forms.ipynb>
    Elements <elements.ipynb>
    Attributes <attributes.ipynb>
+   Group naming schemes <naming_schemes>
 ```
