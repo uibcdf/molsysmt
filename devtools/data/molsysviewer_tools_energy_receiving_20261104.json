@@ -232,5 +232,11 @@
       "sha256": "fb1fcfdf51f323d3fcaf3157660d1b4f4ed7a16e3232c1f29d08e5bacf6d649b",
       "size_bytes": 236395
     }
-  ]
+  ],
+  "correction_20261104_cpu_thread_scope": {
+    "original_claim": "Real CPU; one test-process CPU thread, without changing product/model defaults.",
+    "finding": "The energy test fixture changed OPENMM_CPU_THREADS after importing OpenMM. That does not change the already initialized CPU platform default. A fresh diagnostic observes Threads=20 both before and after the environment change.",
+    "corrected_scope": "The prior native energy tests did not establish a one-thread limit; their actual native Context thread properties were not recorded. The explicit independent reference Context still requested Threads=1, and guide execution set the environment before process import. Retain the passed numerical/unit/lifecycle outcomes, without claiming a one-thread native test route.",
+    "new_receiving": "The minimization fixture explicitly sets the CPU platform Threads default to 1 for each real-engine test and restores the previous value in finally. Product defaults are unchanged. Initial minimization-test failures and the corrected source receiving are recorded separately."
+  }
 }

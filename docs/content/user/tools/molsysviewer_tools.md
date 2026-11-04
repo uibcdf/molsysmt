@@ -84,7 +84,9 @@ exposure, not unconditional scientific accuracy, stability or installed compatib
 
 The initial `view.addons.molsysmt.molecular_mechanics` slice provides explicit
 `get_engine_forcefield` resource lookup and primary-bound
-`get_degrees_of_freedom` and `get_potential_energy`. Other mechanical calculations retain their separate
+`get_degrees_of_freedom`, `get_potential_energy` and `potential_energy_minimization`.
+The minimizer retains independent output by default and supports managed
+in-place coordinate updates. Other mechanical calculations retain their separate
 receiving; see the mechanical section for model, engine and ownership limits.
 
 Other scientific modules, editing families and graphical task panels
@@ -1158,10 +1160,10 @@ This MolSysMT guide owns the capabilities and use of the MolSysMT tools addon.
 
 ## Inspecting mechanical resources and calculating energy
 
-Three tools are available under `tools.molecular_mechanics`. Resource lookup keeps
+Three queries and a minimizer are available under `tools.molecular_mechanics`. Resource lookup keeps
 its explicit inputs and works before loading a system. Degree counting and energy read
 the current primary through the same serialized reader as the other scientific
-queries. Neither tool changes the scene, adopts an OpenMM object or adds an
+queries. These queries do not change the scene, adopt an OpenMM object or add an
 `update_view` control.
 
 ```python
@@ -1246,7 +1248,71 @@ fields. There is no automatic selection of the visible structure or trajectory
 loop. Native conversion errors, missing chemistry and optional-engine failures
 remain visible. Completed pending edits are read without synchronizing the scene.
 
-The other three native mechanical functions remain unexposed pending their own
+### Relaxing coordinates
+
+`potential_energy_minimization` delegates the native OpenMM L-BFGS operation.
+Its default `in_place=False` returns an independent molecular system. Keep that
+result deliberately; the current view is preserved:
+
+```python
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        tools = view.addons.molsysmt
+        original = msm.pyunitwizard.get_value(
+            view.molsys.structures.coordinates, to_unit="nm"
+        ).copy()
+        energy_before = tools.molecular_mechanics.get_potential_energy()
+        relaxed = tools.molecular_mechanics.potential_energy_minimization()
+        energy_after = msm.molecular_mechanics.get_potential_energy(relaxed)
+        assert relaxed is not view.molsys
+        np.testing.assert_array_equal(
+            msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit="nm"),
+            original,
+        )
+        assert msm.pyunitwizard.get_value(energy_after, to_unit="kJ/mol") < (
+            msm.pyunitwizard.get_value(energy_before, to_unit="kJ/mol")
+        )
+```
+
+With `in_place=True`, native coordinates change and the call returns `None`.
+The addon retains atom/structure identities and reconciles the scene by default.
+For a batch of edits, `update_view=False` defers only projection:
+
+```python
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        tools = view.addons.molsysmt
+        assert tools.molecular_mechanics.potential_energy_minimization(
+            in_place=True, update_view=False
+        ) is None
+        assert tools.get_sync_status()["state"] == "pending"
+        tools.sync_view()
+        assert tools.get_sync_status()["state"] == "synchronized"
+```
+
+The native write invalidates evaluated coverage in saved interaction analyses;
+it does not recalculate them. A scene-projection failure exposes
+`science_completed=True`; call `sync_view()` to retry projection without
+repeating minimization. An uncertain scientific write requires explicit recovery.
+Scene history is not molecular Undo. Cached tools resolve replacement and reject
+closed or empty owners, as for the other bound operations.
+
+The native method, platform, force-field defaults, `to_form`, verbose output
+and physical units remain explicit native contracts. The addon-only
+`skip_digestion` flag is keyword-only; the native function has no such escape
+hatch and always receives ordinary validation. It has no public `tolerance`,
+atom selection or structure-selection argument at this source. Select an
+appropriate single-structure system before this operation; no visible-structure
+inference or trajectory loop is added. No missing atoms, protonation states,
+force-field parameters or periodic images are prepared automatically.
+
+The received CPU route uses an explicit single-structure NoCutoff/HBonds model.
+Local optimization and an energy decrease do not certify a global minimum,
+equilibrium or physical stability. Converged coordinates can depend on model,
+platform and numerical execution settings. GPU and arbitrary-system preparation
+remain outside this bounded receiving.
+
+The other two native mechanical functions remain unexposed pending their own
 input, engine, unit and mutation review. The platform-name validation mismatch
 is tracked in [MolSysMT#559](https://github.com/uibcdf/molsysmt/issues/559);
 Reference/OpenCL requests are currently rejected by native validation. This
@@ -1257,7 +1323,8 @@ not exposed by this addon yet.
 
 Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
 {func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`,
-{func}`molsysmt.molecular_mechanics.get_potential_energy`.
+{func}`molsysmt.molecular_mechanics.get_potential_energy`,
+{func}`molsysmt.molecular_mechanics.potential_energy_minimization`.
 
 ## Computing geometry on the current system
 

@@ -4,6 +4,7 @@ from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _native_documentation
+from ._geometry import _run_geometry_transform
 
 
 def _mechanical_documentation(name, *, bind_primary):
@@ -12,7 +13,33 @@ def _mechanical_documentation(name, *, bind_primary):
             name, module="molecular_mechanics", bind_primary=bind_primary
         )(function)
         function.__doc__ += "\nView integration\n----------------\n"
-        if name == "get_potential_energy":
+        if name == "potential_energy_minimization":
+            function.__doc__ += (
+                "update_view : bool, keyword-only, default=True\n"
+                "    Reconcile an admitted in-place coordinate edit. False "
+                "defers scene projection only; sync_view() completes pending "
+                "work without repeating minimization. Native in_place=False "
+                "returns an independent system without adoption, regardless "
+                "of this flag.\n"
+                "skip_digestion : bool, keyword-only, default=False\n"
+                "    Control addon digestion only. The native minimizer has "
+                "no declared escape hatch and always receives ordinary "
+                "validation.\n"
+                "Requires an open loaded owner and native OpenMM/model/chemical "
+                "prerequisites. Native method, platform, defaults, units, "
+                "to_form, verbose and return ownership remain unchanged. "
+                "Only a single-structure CPU NoCutoff/HBonds route is qualified; "
+                "there is no implicit visible-structure selection, trajectory "
+                "loop, molecular preparation or engine fallback. Source atom "
+                "and structure identities are retained. Named analyses follow "
+                "native coordinate-write invalidation and are not recalculated. "
+                "A scene synchronization failure exposes science_completed=True "
+                "and the native scientific_result; retry synchronization, not "
+                "scientific work. Uncertain scientific writes require explicit "
+                "recovery. Minimization seeks a local minimum, without a global "
+                "minimum or equilibrium-ensemble guarantee.\n"
+            )
+        elif name == "get_potential_energy":
             function.__doc__ += (
                 "Reads the current view.molsys through the serialized molecular "
                 "reader, including completed pending edits. Requires an open "
@@ -66,6 +93,7 @@ class _MolecularMechanicsTools:
         "get_engine_forcefield",
         "get_degrees_of_freedom",
         "get_potential_energy",
+        "potential_energy_minimization",
     )
 
     def __init__(self, owner):
@@ -142,4 +170,34 @@ class _MolecularMechanicsTools:
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
             },
+        )
+
+    @_mechanical_documentation("potential_energy_minimization", bind_primary=True)
+    @signal(tags=["addon", "molecular_mechanics", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def potential_energy_minimization(
+        self,
+        method="L-BFGS",
+        platform="CPU",
+        engine="OpenMM",
+        to_form=None,
+        in_place=False,
+        verbose=False,
+        *,
+        update_view=True,
+        skip_digestion=False,
+    ):
+        return _run_geometry_transform(
+            self._owner,
+            "potential_energy_minimization",
+            {
+                "method": method,
+                "platform": platform,
+                "engine": engine,
+                "to_form": to_form,
+                "in_place": in_place,
+                "verbose": verbose,
+            },
+            update_view,
+            module="molecular_mechanics",
         )

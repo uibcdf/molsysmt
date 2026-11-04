@@ -149,6 +149,7 @@ def _coordinate_operation(module, name):
             "shift_dihedral_angles",
         },
         "pbc": {"wrap_to_pbc", "wrap_to_mic", "unwrap"},
+        "molecular_mechanics": {"potential_energy_minimization"},
     }
     if name not in allowed.get(module, ()):
         raise NotImplementedError(
@@ -171,6 +172,15 @@ def _prepare_geometry_transform(target, name, parameters, *, module="structure")
         raise ValueError(
             "Managed transforms cannot run inside an active molecular edit."
         )
+    if module == "molecular_mechanics":
+        # This native operation publishes the full retained coordinate axes.
+        # It has no selection/frame arguments; conversion owns prerequisites
+        # and rejects unsupported molecular inputs before coordinate adoption.
+        return {
+            "run": lambda: operation(target, **parameters),
+            "changed": bool(target.structures.n_structures and target.get_n_atoms()),
+            "interactions_policy": "preserve",
+        }
     frames = validate_structure_indices(
         target, parameters["structure_indices"], f"molsysmt.{module}.{name}"
     )
