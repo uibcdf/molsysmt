@@ -105,6 +105,13 @@ and unchanged production code. Both generic guards now join native smoke.
 Preserve the frozen r2 identity and qualify a new exact candidate before merging
 the metadata extensions. Passing native jobs do not replace the failed full suite.
 
+Corrected source merge f2d59d5b3 on `dev/review-tools-537-540-r3` retains main
+d9255c85c and both PR heads. Runtime/addon/Rust/build inputs match frozen r2;
+136 focal guards, the live 155/244 inventory and all 14 fast gates pass. The
+[new receipt](../devtools/data/molsysviewer_tools_corrected_guard_candidate_20261104.json)
+keeps prior results separate. Its applicable hosted gates remain due before
+integration; source equivalence is not a substitute for their execution.
+
 The refreshed board contains 87 open issues and two open PRs before the two
 metadata closeouts above. New incoming work is #537, PR #538, #539 and PR #540. These
 counts are a dated snapshot, not a live generated inventory.

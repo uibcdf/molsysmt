@@ -2,12 +2,13 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-11-03, refreshed isolated integration based on main `73dedbbae`,
+**Snapshot:** 2026-11-04, corrected isolated integration based on main `d9255c85c`,
 combining PR #538's four supported reports and PR #540's seven attribute helpers.
-The candidate contains both namespaces and current native/package repairs.
-Local receiving passes 664 metadata/native/package controls and 572
-documentation/doctest cases without omissions. Hosted gates for this refreshed
-candidate remain pending. Earlier combined receipts retain their own basis.
+The runtime/addon/Rust and build inputs are identical to frozen r2; only #552's
+test expectations, eight public rejection cases, native smoke selection and
+records change. The corrected candidate passes 136 focal controls without
+omissions. Earlier 664-case metadata and 572-case documentation receipts keep
+their r2 identity. New exact-candidate hosted gates remain pending.
 Original contribution evidence keeps its own source/host identity. Installed
 scene-loader receiving remains separate under uibcdf/molsysviewer#269.
 The prior 2026-10-28 source receiving extended ac30d5ba4 with four native
@@ -29,8 +30,10 @@ without calling scientific functions. A missing provider/host cannot silently
 be counted as zero. HEAD identifies the checkout basis; the inventory observes
 working-tree source too. Local receiving records identify tested code hashes.
 Keep historical receipts immutable; a new baseline needs a new dated snapshot.
-The [refreshed receiving receipt](../devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json)
-records the live 155/244 audit, source/archive hashes and separate test scopes.
+The [corrected-candidate receipt](../devtools/data/molsysviewer_tools_corrected_guard_candidate_20261104.json)
+records the live 155/244 audit, exact production equivalence and new guard scope.
+The [r2 receiving receipt](../devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json)
+retains its own source/archive hashes and separate test scopes.
 The [original combined receipt](../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
 remains historical evidence for its earlier source and host.
 The original supported/attribute contribution receipts retain their own revisions;

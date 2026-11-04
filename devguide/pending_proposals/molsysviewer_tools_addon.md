@@ -14,6 +14,23 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Corrected guard candidate — 2026-11-04
+
+Source merge f2d59d5b3b4bb07ea0c5a00631a220a854555dea on
+`dev/review-tools-537-540-r3` retains frozen r2, both contribution heads and
+main d9255c85c. #552's retained private assertions and eight new public
+selector-rejection cases are present, and native smoke selects both formerly
+omitted generic modules. Exact Git object IDs verify unchanged runtime/addon,
+Rust, developer scripts and build inputs relative to r2. No scientific code
+or criterion is changed to obtain green tests.
+
+All 136 focal guards pass without omissions/warnings; the live inventory is
+still 155/244 and all 14 fast gates pass. The
+[candidate receipt](../../devtools/data/molsysviewer_tools_corrected_guard_candidate_20261104.json)
+records source equivalence and new tests without rewriting earlier metadata,
+documentation or artifact receiving. Qualify this exact candidate before main
+integration; r2's source failure and native-wheel success remain historical.
+
 ## Refreshed candidate gate receiving — 2026-11-04
 
 Frozen source 4ea80278f7dc1cd2009a9440fcc5786627430950 passes native-wheel
