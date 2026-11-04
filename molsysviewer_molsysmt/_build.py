@@ -1,4 +1,4 @@
-"""Explicit native build diagnostics; no preparation or scene adoption."""
+"""Native build diagnostics and detached preparation without scene adoption."""
 
 from argdigest import arg_digest
 from smonitor import signal
@@ -6,8 +6,32 @@ from smonitor import signal
 from ._basic import _native_documentation
 
 
+def _independent_build_documentation(name):
+    def decorate(function):
+        function = _native_documentation(name, module="build")(function)
+        function.__doc__ += (
+            "\nView integration\n----------------\n"
+            "Reads the current view.molsys through the serialized molecular "
+            "reader, including completed pending edits. The native function "
+            "returns a separate molecular system, optionally with its report; "
+            "it does not replace view.molsys or publish scene/history changes. "
+            "There is no update_view control or implicit adoption. Native "
+            "chemical-state, structure, method, prerequisite, provenance, unit "
+            "and validation contracts remain unchanged. No chemistry, model "
+            "or optional engine is selected or prepared by the addon. An open "
+            "loaded owner is required; full native copying may materialize "
+            "coordinates and is not an out-of-core trajectory promise.\n"
+        )
+        return function
+
+    return decorate
+
+
 class _BuildTools:
     _NAMES = (
+        "infer_covalent_bonds",
+        "assign_autodock_atom_types",
+        "assign_partial_charges",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -287,6 +311,84 @@ class _BuildTools:
         return self._call(
             "is_solvated",
             {
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("infer_covalent_bonds")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def infer_covalent_bonds(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="supported_group_templates",
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "infer_covalent_bonds",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "return_report": return_report,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("assign_autodock_atom_types")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def assign_autodock_atom_types(
+        self,
+        typing_scheme,
+        structure_indices="all",
+        chemical_state="reference",
+        method="chemical_environment",
+        return_report=False,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "assign_autodock_atom_types",
+            {
+                "typing_scheme": typing_scheme,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "return_report": return_report,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("assign_partial_charges")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def assign_partial_charges(
+        self,
+        method,
+        structure_indices="all",
+        chemical_state="reference",
+        forcefield=None,
+        water_model=None,
+        expected_total_charge=None,
+        return_report=False,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "assign_partial_charges",
+            {
+                "method": method,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "forcefield": forcefield,
+                "water_model": water_model,
+                "expected_total_charge": expected_total_charge,
+                "return_report": return_report,
                 "skip_digestion": skip_digestion,
             },
         )

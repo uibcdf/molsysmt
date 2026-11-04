@@ -56,7 +56,10 @@ The first three are:
 systems or assigned bonds. Eight further readers audit missing heavy atoms, bonds,
 residues and terminal cappings, nonstandard groups, indexed hydrogens, solvation
 and disulfide candidates; see the preparation-audit section below. Their native single-structure, exact-template and
-source metadata requirements remain explicit. Broader build editing is pending.
+source metadata requirements remain explicit. Three additional build methods return
+independent prepared systems: infer_covalent_bonds, assign_autodock_atom_types
+and assign_partial_charges. They do not adopt the result or update the scene;
+other build editing remains pending.
 
 The explicit `view.addons.molsysmt.interactions.hbonds` namespace now provides
 four recognition/characterization tools: `get_donor_atoms`, `get_acceptor_atoms`,
@@ -89,7 +92,8 @@ with an open empty view and keep caller inputs explicit; see the element
 utilities section below. Nine current-system chain/entity readers are received
 separately below. Twelve more primary-bound paths cover molecules, components,
 group types and a legacy name heuristic. Fourteen more explicit name/type/code
-utilities are received below; fourteen group-data/template utilities remain pending.
+utilities and fourteen reference-template queries are received below. The reviewed
+element source surface has all 57 paths; native qualification limits remain explicit.
 
 Install compatible versions of both components. MolSysMT supplies the
 integration; MolSysViewer discovers its declared entry point automatically.
@@ -176,7 +180,7 @@ with msv.new_view() as view:
     assert element.group.small_molecule.is_small_molecule("ATP") is True
     assert element.group.water.is_water("HOH") is True
     assert element.group.terminal_capping.is_terminal_capping("ACE") is True
-    # Preserve native membership; read the qualification note below.
+    # Classify the protected peptide end without attaching a cap.
     n_membership = element.group.terminal_capping.is_n_terminal_capping("ACE")
     c_membership = element.group.terminal_capping.is_c_terminal_capping("NME")
     assert isinstance(n_membership, bool) and isinstance(c_membership, bool)
@@ -204,16 +208,17 @@ not passed to the helper or used to replace scientific validation. Calls still
 require an open owner, including when retaining a method after view closure.
 No molecular reader, pending-edit synchronization or history effect is involved.
 
+Canonical code lookup includes XLE -> J and XAA -> X. Cap predicates use the
+protected peptide end: ACE is N-terminal; NME/NHE/NH2 are C-terminal. These
+received native corrections do not supply atomic templates for ambiguity
+symbols or attach caps to a system.
+
 :::{warning}
-The inspected native input has two qualification limits.
-[MolSysMT#545](https://github.com/uibcdf/molsysmt/issues/545) tracks the declared
-XLE -> J mapping that the public lookup cannot currently reach. The addon keeps
-the native error rather than implementing another conversion.
-[MolSysMT#547](https://github.com/uibcdf/molsysmt/issues/547) tracks the mismatch
-between N/C cap membership tables and their documented peptide-end meaning.
-The current forwarding checks do not qualify these two predicates for
-end-specific preparation. Their native semantics must be resolved and received;
-there is no Viewer-specific swap or silent molecular preparation.
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549) tracks the remaining
+legacy name/code vocabulary mismatch with native protonation labels (including
+GLH, HID and HIE). Preserve the native context and results; sequence/name lookup
+is not evidence of chemical equivalence or a protonation assignment. The addon
+does not reinterpret these labels or repair a molecular graph.
 :::
 
 Native references: {func}`molsysmt.element.component.is_component_type`,
@@ -296,17 +301,18 @@ The other twelve helpers add a keyword-only local control, consumed without
 forwarding a flag that the native function does not support. All require an
 open owner, work with an empty view and leave pending edits/history untouched.
 
+Explicit cap lookup returns the reference data for the supplied name. Protected
+peptide-end classification follows ACE at N and NME/NHE/NH2 at C; lookup does
+not choose an end, attach atoms or prepare chemistry.
+
 :::{warning}
-[MolSysMT#547](https://github.com/uibcdf/molsysmt/issues/547) owns the unresolved
-N/C cap-name contradiction. Looking up the explicit ACE or NME template does
-not select a peptide end or qualify end-specific preparation. The separate
-XLE/J code-lookup limitation remains tracked by
-[MolSysMT#545](https://github.com/uibcdf/molsysmt/issues/545).
-[MolSysMT#550](https://github.com/uibcdf/molsysmt/issues/550) tracks a separate
-runtime limitation: saccharide, small-molecule and capping bond helpers reject
-NumPy `atom_names` arrays at this source despite documenting them as supported.
+[MolSysMT#550](https://github.com/uibcdf/molsysmt/issues/550) tracks a runtime
+limitation: saccharide, small-molecule and capping bond helpers reject NumPy
+`atom_names` arrays at this source despite documenting them as supported.
 Equivalent lists work. Native errors are preserved; these forwarding checks do
 not qualify the failing array routes, and no implicit addon coercion is added.
+Legacy protonation-name semantics remain separate under
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549).
 :::
 
 Native references: {func}`molsysmt.element.group.get_bonded_atom_pairs`,
@@ -2769,6 +2775,115 @@ Use an explicitly selected independent molecular system with native MolSysMT
 when a per-structure diagnostic is required. The receiving records preserve this
 limitation without treating an exception as a successful solvation result.
 
+
+## Preparing independent molecular systems
+
+Three `build` methods return a new molecular system from the current primary:
+`infer_covalent_bonds`, `assign_autodock_atom_types` and
+`assign_partial_charges`. Their native methods, chemical-state choices,
+structure scope and optional reports remain explicit. The source system and
+scene stay unchanged, including regions, saved analyses and pending edits.
+These are separate prepared outputs, distinct from the diagnostic/candidate
+readers above and from `physchem` calculations that return unattached values.
+
+For typing and charges, prepare the input chemistry explicitly before loading
+it. This example constructs a small complete graph with indexed hydrogens;
+the addon never performs this preparation for you:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+import numpy as np
+from rdkit import Chem
+
+molecule = Chem.AddHs(Chem.MolFromSmiles("CO"))
+conformer = Chem.Conformer(molecule.GetNumAtoms())
+conformer.SetPositions(np.asarray([
+    (0.0, 0.0, 0.0), (1.4, 0.0, 0.0),
+    (-0.5, 0.8, 0.0), (-0.5, -0.8, 0.0),
+    (0.0, 0.0, 1.0), (1.8, 0.6, 0.0),
+], dtype=float))
+molecule.AddConformer(conformer)
+with msv.new_view(msm.convert(molecule)) as view:
+    source = view.molsys
+    typed = view.addons.molsysmt.build.assign_autodock_atom_types(
+        typing_scheme="autodock4", return_report=True,
+    )
+    charged = view.addons.molsysmt.build.assign_partial_charges(
+        method="gasteiger_marsili", expected_total_charge=0,
+        return_report=True,
+    )
+    assert typed["molecular_system"] is not source
+    assert charged["molecular_system"] is not source
+    assert view.molsys is source
+    assert source.molecular_mechanics.partial_charge is None
+    assert source.molecular_mechanics.atom_ff_type is None
+```
+
+Each call above starts from the current primary. The charge result does not
+inherit the independently returned typing result. To chain preparation, pass
+the returned system to public MolSysMT, or explicitly load it before the next
+addon call. `view.load(result, mode="replace")` uses the ordinary Viewer
+replacement contract; the addon does not adopt results automatically. There
+is no `in_place` or `update_view` argument on these three native-independent
+routes. Methods require an open loaded owner, resolve replacement at call time,
+and read completed pending molecular edits without synchronizing the scene.
+
+Covalent inference is also an explicit native preparation policy. It returns a
+new system with eligible bonds and preparation evidence, retaining source atoms,
+structures and declared edges. Select a source structure explicitly when
+geometry is ambiguous; the visible canvas structure is never substituted:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+import numpy as np
+
+builder = msm.MolSysBuilder()
+names = ["N", "CA", "C", "O", "CB", "H", "HN1"]
+elements = ["N", "C", "C", "O", "C", "H", "H"]
+atoms = [builder.add_atom(atom_name=n, atom_type=t)
+         for n, t in zip(names, elements)]
+builder.add_group(atoms, group_name="ALA", group_id="100")
+builder.set_coordinates(msm.pyunitwizard.quantity(np.zeros((1, 7, 3)), "nm"))
+with msv.new_view(builder.build()) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.infer_covalent_bonds(
+        structure_indices=0, method="supported_group_templates", return_report=True,
+    )
+    assert result["report"]["n_added_bonds"] == 5
+    assert view.molsys is source
+    assert len(source.chemical_states.get_bonds()) == 0
+```
+
+This reference-name example does not model a physical pose. Native inference
+combines supported exact heavy-group templates, observed-H parent evidence and
+bounded same-chain peptide candidates. It is not universal graph perception,
+protonation, bond-order assignment or a chemical-validity certificate. Added
+bonds invalidate named interactions on the returned system; the view's saved
+analyses remain unchanged. No graph change retains native analysis snapshots.
+
+AutoDock typing requires the named scheme and a complete nonempty single
+chemical state. Charge assignment requires an explicit model; the force-field
+route also requires a named force field and a usable template match. RDKit or
+OpenMM availability follows that native choice. Atom types, charges and their
+provenance are attached to the output's experimental MolecularMechanics; they
+do not establish complete force-field parameterization. Stored charges retain
+native elementary-charge units even under another presentation policy. Named
+analyses preserve their snapshots; recalculation of mechanics-dependent
+analyses remains explicit. Full native copies can materialize source coordinates;
+these calls offer no out-of-core trajectory guarantee.
+
+:::{warning}
+MolecularMechanics remains experimental and is excluded from H5MSM 0.5. Saving
+these assigned types/charges to that format rejects rather than silently
+losing the mechanical data. A type/charge assignment alone is not complete
+force-field parameterization.
+:::
+
+Native references: {func}`molsysmt.build.infer_covalent_bonds`,
+{func}`molsysmt.build.assign_autodock_atom_types` and
+{func}`molsysmt.build.assign_partial_charges`.
 
 ## Recognizing hydrogen-bond sites and local directions
 

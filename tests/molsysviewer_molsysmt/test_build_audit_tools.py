@@ -98,7 +98,11 @@ def test_explicit_native_signature_and_local_only_skip_control(view, name):
         assert "native callable receives no such parameter" in inspect.getdoc(method)
     assert inspect.signature(method) == signature.replace(parameters=parameters)
     assert method.digestion_plan is not None
-    assert set(dir(view.addons.molsysmt.build)) == set(NAMES + ORIGINAL)
+    assert set(dir(view.addons.molsysmt.build)) == set(NAMES + ORIGINAL) | {
+        "infer_covalent_bonds",
+        "assign_autodock_atom_types",
+        "assign_partial_charges",
+    }
     assert not hasattr(view.addons.molsysmt, name)
     assert "not a scene object" in inspect.getdoc(method)
     for kwargs in [

@@ -648,7 +648,19 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                     "Native block/output budgets exclude some Python/source "
                     "overhead and are not an RSS guarantee.\n"
                 )
-        if module == "build":
+        if module == "build" and name in {
+            "get_residue_chemical_coverage",
+            "get_covalent_bond_candidates",
+            "get_peptide_bond_candidates",
+            "get_missing_heavy_atoms",
+            "get_missing_bonds",
+            "get_missing_residues",
+            "get_missing_terminal_cappings",
+            "get_non_standard_residues",
+            "get_disulfide_bonds",
+            "has_hydrogens",
+            "is_solvated",
+        }:
             function.__doc__ += (
                 "The result is an independent native diagnostic or candidate report, "
                 "not a scene object, preparation edit or inserted bond. Explicit "

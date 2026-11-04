@@ -32,9 +32,9 @@ def _template_documentation(name, module, *, local_skip=False):
             )
         if module.endswith("terminal_capping"):
             function.__doc__ += (
-                "MolSysMT#547 tracks the native N/C naming contradiction. "
-                "Explicit template lookup does not choose a peptide end "
-                "or qualify end-specific preparation.\n"
+                "Cap classification uses the protected peptide end: ACE is "
+                "N-terminal and NME/NHE/NH2 are C-terminal. Explicit reference "
+                "lookup does not choose or attach a cap to the view.\n"
             )
         return function
 

@@ -24,6 +24,46 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Detached preparation and native label-repair receiving — 2026-11-03
+
+PR #543 receives owner `333d0808c` through merge `e05cc9185`. Canonical XLE/J
+and XAA/X and protected peptide-end cap names are corrected natively, with
+resource/consumer agreement; the identical #546 print examples/guard are now
+integrated and closed by the owner. Ancestor Pandas, H5MSM structure-index and
+runtime-API-floor repairs are received separately from facade authorship.
+Obsolete live addon warnings are replaced with the corrected conventions;
+legacy protonation-name semantics remain #549 and template contracts #548/#550
+retain their bounded limitations. Historical receipts below keep frozen inputs.
+
+Three build methods now bind the current primary through the serialized reader:
+infer_covalent_bonds, assign_autodock_atom_types and assign_partial_charges.
+They retain native detached outputs and optional reports without adopting a
+system or publishing scene/history/pending synchronization. Required method/
+scheme, state/structure scope, optional providers, raw returns, unit/storage
+and provenance remain native. Inference invalidates output analyses when bonds
+are added; mechanical assignments retain snapshots and experimental storage.
+No hidden preparation, complete-parameterization claim, H5MSM mechanics storage
+or out-of-core copying promise is added. Diagnostic-only help is limited to its
+actual eleven tools rather than appended to preparation outputs.
+
+Complete addon receiving passes 3,368 without failures/errors/skips, including
+44 new cases. Native repairs/preparation/runtime-API guards pass 446, corrected
+changed-area receiving 63 and structural package/inventory/license/notebook
+controls 534. A final 44-case build-module follow-up passes after strengthening
+three cached-handle guards with different replacement coordinates; runtime and
+other tests stay unchanged. The four affected guide blocks execute; canonical course validation
+passes 156 notebooks with Module 06 code/output/counts/IDs/schema preserved.
+Ruff, native docstrings, dependency and devguide/index checks pass. The
+[receipt](../../devtools/data/molsysviewer_tools_build_assignments_receiving_20261103.json)
+retains exact source/backend/result hashes, producer-input equality, initial
+fixture/example corrections and qualification scopes.
+
+Branch exposure is 204/244, with build 14/30 and element 57/57. Independent
+#538/#540 are absent; 215/244 is hypothetical until owner integration. Remaining
+build/mechanics, bridge/alias decisions, GUI and artifact/installed qualification
+stay separate. #421 is partial. No new native algorithm/data/docstring patch,
+authored runtime floor, host runtime/GUI, candidate, tag or publication.
+
 ## Explicit reference-template queries complete element exposure — 2026-11-03
 
 PR #543 adds fourteen explicit reference queries: seven bond-pair helpers,

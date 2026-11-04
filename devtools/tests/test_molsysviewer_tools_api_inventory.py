@@ -23,7 +23,13 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "is_solvated",
     ):
         assert rows[f"build.{name}"]["exposed"]
-    assert not rows["build.infer_covalent_bonds"]["exposed"]
+    for name in (
+        "infer_covalent_bonds",
+        "assign_autodock_atom_types",
+        "assign_partial_charges",
+    ):
+        assert rows[f"build.{name}"]["exposed"]
+        assert rows[f"build.{name}"]["input_kind"] == "primary"
     for path in [
         "basic.compose_atom_maps",
         "basic.add",

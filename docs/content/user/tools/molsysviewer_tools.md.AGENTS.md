@@ -300,8 +300,8 @@ missing-domain/error behavior without implicit chemistry or frame-state choice.
 The count helper consumes its local skip flag; other declared native flags pass
 unchanged. The legacy helper is a catalogued name plus five atom-name checks,
 not chemical or stereochemical validation or stored preparation; its group_name
-stays explicit and its keyword-only skip control is local. Remaining explicit
-element utilities are pending.
+stays explicit and its keyword-only skip control is local. All reviewed element
+source paths are now exposed, with qualification separate from exposure.
 
 
 Preserve fourteen additional explicit name/type/code helpers with open-empty-view
@@ -309,9 +309,10 @@ lifetime, native scalar/case/error behavior, and locally consumed keyword-only
 skip controls. They do not read the primary system, normalize science, prepare
 chemistry or synchronize scene/history. Name recognition is distinct from
 system classification; standard-name lookup preserves None for canonical or
-unmapped labels. The XLE/J gap (MolSysMT#545) and N/C cap table/help contradiction
-(MolSysMT#547) remain qualification limits until native resolution is received;
-never fix or disguise them in the addon. Keep inherited native examples executable.
+unmapped labels. Preserve received canonical XLE/J and XAA/X and the protected
+peptide-end convention (ACE at N; NME/NHE/NH2 at C). Keep legacy protonation-name
+semantics (MolSysMT#549) explicit without addon substitution. Keep inherited
+native examples executable.
 
 
 Preserve all fourteen explicit group-template queries: seven bond helpers, five
@@ -321,7 +322,19 @@ protonation, cache, normalized database schema or scene publication is added.
 Retain native template fallback, family support, container/order/error behavior,
 caller chemical context and fixed pH-rule limits. Native skip controls pass for
 amino-acid/ion bonds; the other twelve controls are local and keyword-only.
-Keep unresolved cap semantics separate from explicit template data access.
+Keep protected peptide-end classification separate from explicit template data
+access and from attaching atoms to a system.
 Keep the native NumPy atom-name array failure in three template families
 (MolSysMT#550) visible until its repair is received; do not normalize containers
 in the addon or equate error parity with successful scientific support.
+
+
+Preserve the three independent build routes: infer_covalent_bonds,
+assign_autodock_atom_types and assign_partial_charges. Bind the current primary
+through the serialized reader, retain explicit methods/states/structures/native
+validation, and never adopt results or publish scene/history automatically.
+Distinguish inference evidence and output-only invalidation from mechanical
+assignment snapshots. Keep the single-state restriction, required scheme/model,
+optional providers, provenance and elementary-charge storage, H5MSM 0.5 mechanics
+exclusion and materialization limits explicit. Pending reads do not synchronize;
+independent outputs require deliberate chaining or replacement.

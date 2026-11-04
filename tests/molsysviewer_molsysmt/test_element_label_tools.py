@@ -91,9 +91,9 @@ def test_exact_signatures_discovery_help_and_keyword_only_control(path):
         assert "Works with an open empty view" in inspect.getdoc(method)
         assert "not forwarded" in inspect.getdoc(method)
         if path.endswith("get_1_letter_code_from_name"):
-            assert "MolSysMT#545" in inspect.getdoc(method)
+            assert "MolSysMT#549" in inspect.getdoc(method)
         if path.endswith(("is_n_terminal_capping", "is_c_terminal_capping")):
-            assert "MolSysMT#547" in inspect.getdoc(method)
+            assert "protected peptide end" in inspect.getdoc(method)
         assert "\nmolecular_system :" not in inspect.getdoc(method)
         for parameter in expected:
             assert f"{parameter.name} :" in inspect.getdoc(method)
@@ -173,6 +173,8 @@ def test_sampled_native_catalogues_and_canonical_aliases(view, path):
         ("ASX", "B"),
         ("GLX", "Z"),
         ("UNK", "X"),
+        ("XLE", "J"),
+        ("XAA", "X"),
     ],
 )
 def test_literal_supported_one_letter_codes(view, name, expected):
@@ -254,11 +256,20 @@ def test_cached_utility_handles_ignore_replacement_but_reject_closed_owner(path)
         assert other.molsys is None
 
 
-def test_xle_gap_is_preserved_from_native_instead_of_repaired_in_the_facade(view):
-    # MolSysMT#545 owns this source's missing XLE route. Accept its future fix.
-    assert _outcome(
-        view.addons.molsysmt.element.group.amino_acid.get_1_letter_code_from_name, "XLE"
-    ) == _outcome(msm.element.group.amino_acid.get_1_letter_code_from_name, "XLE")
+@pytest.mark.parametrize(
+    "name,is_n,is_c",
+    [
+        ("ACE", True, False),
+        ("NME", False, True),
+        ("NHE", False, True),
+        ("NH2", False, True),
+    ],
+)
+def test_received_native_caps_name_the_protected_peptide_end(view, name, is_n, is_c):
+    tools = view.addons.molsysmt.element.group.terminal_capping
+    assert tools.is_n_terminal_capping(name) is is_n
+    assert tools.is_c_terminal_capping(name) is is_c
+    assert tools.is_terminal_capping(name) is True
 
 
 @pytest.mark.parametrize(

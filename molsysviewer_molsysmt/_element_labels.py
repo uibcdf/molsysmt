@@ -16,22 +16,20 @@ from ._element_templates import (
 def _label_documentation(name, module, *, local_skip=True):
     def decorate(function):
         function = _utility_documentation(name, module, local_skip=local_skip)(function)
-        if name == "get_1_letter_code_from_name":
+        if name in {"get_1_letter_code_from_name", "get_standard_name"}:
             function.__doc__ += (
                 "\nScientific qualification\n------------------------\n"
-                "The inspected native source has an unreachable XLE/J mapping "
-                "tracked in MolSysMT#545. The native result/error is preserved "
-                "without an addon conversion or fallback; native qualification "
-                "and receipt of its correction remain separate.\n"
+                "Canonical sequence-code recognition does not supply an atomic "
+                "template or validate protonation. MolSysMT#549 tracks legacy "
+                "variant-name mappings versus native protonation labels; no "
+                "addon reinterpretation or chemical substitution is introduced.\n"
             )
         if name in {"is_n_terminal_capping", "is_c_terminal_capping"}:
             function.__doc__ += (
-                "\nScientific qualification\n------------------------\n"
-                "MolSysMT#547 tracks a contradiction between the inspected native "
-                "tables and documented N/C peptide-end meaning. This wrapper "
-                "retains native Boolean membership without swapping it. These "
-                "source checks do not qualify end-specific preparation; resolve "
-                "the native contract before relying on that interpretation.\n"
+                "\nPeptide-end convention\n---------------------\n"
+                "The predicate names the protected peptide end: ACE protects "
+                "the N terminus; NME/NHE/NH2 protect the C terminus. Recognizing "
+                "a cap name does not attach it or prepare the molecular system.\n"
             )
         return function
 
