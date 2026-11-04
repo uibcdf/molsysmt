@@ -19,3 +19,8 @@ distinct from complete scientific profile support. Preserve original three-profi
 wire reading and the explicit XAA/XLE sequence/CCD distinction. Keep this page conceptual, without function signatures
 or tutorial artifacts. Link versioned reference evidence through the owning
 issue and primary sources.
+
+Retain shared native, direct-text and identity projection, original source maps,
+and topology-only dictionary/H5MSM all/index identity queries. Other-domain
+predicates retain ordinary form-agnostic selection. Keep recognition/preparation
+and the old public helper cutover distinct from these delivered consumers.

@@ -7,7 +7,7 @@ from molsysmt._private.smonitor import NotImplementedMethodError
 
 @signal(tags=["api", "topology"])
 @arg_digest()
-@dep_digest("Bio")
+@dep_digest("Bio", when={"engine": "Biopython"})
 def get_sequence_identity(
     molecular_system,
     selection="all",
@@ -67,12 +67,20 @@ def get_sequence_identity(
     native one-letter sequence conversion. Caps, waters, ions and other group
     types contribute neither a letter nor a denominator term. Sequence-only
     inputs retain their supplied characters and source positions.
+    Native and persisted naming declarations are read per selected source group.
+    Missing context for an ambiguous label raises ArgumentError; no historical
+    parent table is chosen implicitly. Projection never replaces modified groups.
+    Native index queries copy no molecular domain. Typed dictionaries decode
+    their topology only; H5MSM 0.5 all/index queries request only that layer.
+    Predicates needing other domains retain ordinary form-agnostic selection.
 
     Counting is adapted from Ensembler's calculate_seq_identity [1]_. MolSysMT
     preserves its query-length normalization; Ensembler instead uses the shorter
     sequence length. Alignment uses Biopython through get_sequence_alignment.
     Optional Ackredit records the adapted reference and executed provider version
     after a successful calculation, without changing the returned tuple.
+    Biopython is required only when its engine is selected. Missing dependencies
+    are reported through DepDigest and the MolSysMT diagnostic catalog.
 
     See Also
     --------

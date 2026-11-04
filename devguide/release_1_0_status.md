@@ -22,6 +22,31 @@ contracts.
 
 ## Group-name scheme design accepted — 2026-11-04
 
+**Local D4 sequence-consumer receiving:** Identity and direct three-to-one-letter
+conversion share the native naming authority, retaining stored conventions and
+original group positions. Native queries copy no domains; all/index dictionary
+and H5MSM identity reads use topology only. Alignment/identity have selected-engine
+Biopython guards and completed-work attribution. The new support-library probes
+find ArgDigest's already resolved #17 in the old minimum: `argdigest>=0.14.0` is
+now the justified public floor, verified as a public main-label archive and aligned
+across maintained routes under #524. No host bypass fork is introduced.
+
+The four published-provider probe passes 363 cases and normal development
+receiving passes 384, with current pytest diagnostics kept enabled. The owning
+record retains the old-minimum failure, the separate harness limitation and
+the remaining recognition/preparation, fidelity and cutover work.
+
+Extended receiving passes 5,221 cases; 521 documentation/command controls and
+four doctest items pass. The small naming tutorial executes eight code cells.
+Warnings, intentional offline selection and retained failing controls are recorded
+under #549. No installed-package or release qualification follows from these
+local checks.
+
+The unchanged shared environment separately fails `pip check` on optional
+AmberTools-related extras (pdb2pqr absence and older NumPy/Biopython constraints).
+#524 records this remaining environment-closure limitation; the naming work
+neither repairs those packages nor qualifies the whole installed workspace.
+
 **Local D4 source-keyword receiving:** `convert` and native one-letter adapters
 now accept keyword-only `from_naming_scheme`. Known selected declarations must
 agree; native queries leave the source untouched and copy no molecular domain.
@@ -3486,7 +3511,9 @@ python -m pytest tests/_private/argdigest tests/_private/smonitor \
 The dependency audit and **14/14 fast gates** also pass. The
 [bounded receipt](../devtools/data/support_provider_releases_20261006.json)
 retains the pins, actual development versions, scope and JUnit hash under #334.
-Public floors remain `argdigest>=0.13.0` and `smonitor>=0.16.0`; source qualification
+At that checkpoint, public floors were `argdigest>=0.13.0` and `smonitor>=0.16.0`;
+the later #524/#549 bypass receiving above raises the ArgDigest minimum to 0.14.0.
+Source qualification
 and minimum supported versions are separate contracts. No new restricted-capture
 or explicit-digestion feature is adopted by this pin update. That provider
 coordination remains uibcdf/molsyssuite#106. These checks do not qualify exact

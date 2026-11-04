@@ -9,3 +9,5 @@ Ackredit references distinct from executed engines, and mark remaining legacy
 consumer/cutover work as pending. Preserve executed from_naming_scheme examples:
 ordered/repeated projection without input mutation, declaration on a native
 output, and explicit conflict refusal.
+Retain the executed identity example consuming the stored declaration and
+returning original group positions.

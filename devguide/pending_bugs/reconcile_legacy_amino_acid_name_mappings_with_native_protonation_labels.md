@@ -550,8 +550,10 @@ D4 still requires recognition, parent reporting, preparation and alignment
 consumers to use stored naming context, preserving exact state/modified templates.
 D5 must audit metadata losses and additional foreign routes; D6 must coordinate
 the old public path, documentation/stability/addon inventories and #543 receiving.
-In particular, the old scalar parent helper and the default direct three-letter
-legacy helper are not fixed by adding this source keyword. Keep #549 open.
+At that checkpoint, the old scalar parent helper and the default direct
+three-letter legacy helper were not fixed by adding the source keyword. The
+later sequence-consumer block below supersedes the latter limitation. Keep
+#549 open.
 
 ### D4 source-keyword validation
 
@@ -609,3 +611,116 @@ Commands retain JUnit under `.pytest_cache/group-name-resolution-549/`:
 public-provider receiving, not a clean installed MolSysMT artifact, complete
 platform matrix, final #549 qualification or release authorization. No hosted
 workflow, push, tag or package publication accompanies this block.
+
+## D4 sequence consumers and support-library receiving — 2026-11-04
+
+**Implemented and contract-tested locally.** Native one-letter conversion,
+direct three-letter projection and sequence identity now reuse one private
+projection authority. It resolves selected profiles before contributing one
+reference-data credit batch and optionally returns original group positions.
+No additional per-group object store or duplicate name table is introduced.
+
+Identity reads stored per-group schemes from native Topology/MolSys, their typed
+dictionaries and H5MSM 0.5. Same labels under Amber and legacy retain different
+letters. Query and reference keep independent positional maps, with order and
+repetitions preserved; group IDs are unchanged. Native queries copy no molecular
+domain. All/index dictionary queries decode topology only, and equivalent H5MSM
+queries request only that layer through public read_layers. Predicates needing
+other information retain ordinary form-agnostic selection. Missing topology,
+unknown context for a state label, or a non-peptide CCD interpretation cannot
+silently become an amino-acid match.
+
+Direct three-letter conversion has a keyword-only source convention and uses
+the sequence alphabet for canonical symbols, including XAA/XLE. The full input
+is validated before selection. Caps are omitted afterwards. Noncanonical names
+use assessed unambiguous meanings or explicit context, with no historical
+fallback. Legacy remains an explicit choice. This does not relocate or retire
+the old scalar public path, which remains D6 work.
+
+Both alignment and identity now declare a conditional Biopython dependency with
+DepDigest. Real missing-provider checks raise the host SMonitor catalog error;
+an unsupported different engine does not load Biopython. Alignment also credits
+the actual executed Biopython version through optional Ackredit. Identity reuses
+the same software record alongside its existing adapted counting reference.
+Scoring, pretty-print output, query-length normalization and return types are
+unchanged. Real captures retain reused data/software references, provider absence
+or failure preserves numerical results, and a refused projection claims no
+completed naming batch. No chemical state, bond, atom or coordinate is replaced.
+
+The support-library audit finds the already fixed ArgDigest #17 bypass in the
+previous minimum 0.13.0. The existing invalid-flag test fails unchanged with that
+version. The first fixed tag, 0.14.0, is verified against its public main-label
+archive and tested together with minimum DepDigest/SMonitor and optional Ackredit.
+The public minimum is raised to `argdigest>=0.14.0` across maintained acquisition
+routes instead of forking the provider's bypass rules. Seven public boundaries
+are covered by non-boolean bypass rejection tests. Biopython's host installation metadata now names
+the Conda package correctly. The
+[#524 receiving record](../pending_proposals/runtime_dependency_api_floors.md#argdigest-bypass-contract-and-biopython-route--2026-11-04)
+owns that dependency decision, archive digest and the older-SMonitor pytest
+entry-point limitation; it does not establish a clean installed closure.
+
+The foundation, Toolbox, Cookbook and Module 13 describe the delivered sequence
+consumers and retain the preparation/recognition distinction. The small group-code
+tutorial executes an identity comparison against stored context. Existing large
+notebook executable payloads and outputs are retained. The new guards join the
+same single local/hosted native smoke command, without dispatching remote CI.
+
+Remaining D4 work is recognition, parent reporting and preparation, including
+the legacy scalar parent fallback and exact state/modified-template handling.
+D5's additional metadata-loss/foreign-route audit, D6's coordinated old-path and
+addon cutover, and final D7 receiving stay open. This is not #549 closure, new
+scientific-profile certification, an installed-client qualification or a release.
+
+### Sequence-consumer validation
+
+- **363 cases pass** with public ArgDigest 0.14.0 py_0, DepDigest 0.15.1 py_0,
+  SMonitor 0.16.0 py_1 and Ackredit 0.9.0 py_0 in Python 3.14.7. All 50 new
+  consumer guards are included: mixed profiles/maps, missing context, non-peptide
+  refusal, native no-copy, dictionary/selected-layer reads, missing-provider
+  conditions, real attribution and 21 invalid bypass-flag combinations. Six
+  warnings are legacy H5MSM notices. The selected offline suite explicitly
+  excludes network-marked cases; those cases are not claimed as executed.
+- **384 cases pass** with the current development providers and ordinary pytest
+  plugin loading, including dependency architecture, installed-closure and
+  wheel-contract guards. There are the same six legacy notices. Source/editable
+  receiving does not qualify a different published provider artifact.
+- **5,221 cases pass** in extended native, topology, both sequence alphabets,
+  native Topology/dictionary/H5MSM, group-helper and conversion-preflight receiving.
+  Its 729 warnings are 703 legacy-file notices, 14 pandas downcast FutureWarnings,
+  nine existing unknown-atom diagnostics, one box mismatch and two attribute-drop
+  diagnostics. No assertion or warning filter is weakened for this run.
+- **521 documentation/command controls pass**, with 512 Sphinx deprecations.
+  All four selected doctest items pass, with one legacy-file notice. The small
+  naming tutorial executes all eight code cells in the existing environment;
+  the new comparison returns original group positions. Existing large notebook
+  executable payloads, outputs and metadata are preserved.
+- Whole-tree Ruff lint/formatting (4,344 files), all 247 public docstrings,
+  signature/278-symbol stability checks, generated naming/keyword-domain equality,
+  dependency/dependency-contract and devguide/index validation pass. The native
+  binary and four unrelated API stubs remain unchanged and outside this work.
+
+The first 25-case new-module run has three failures: two incorrectly expect
+the import name Bio rather than the provider's canonical package name biopython
+in structured diagnostics; the third omits the explicit sequence prefix on a
+modified-code string not admitted by the existing form detector. The corrected
+controls still verify the same dependency error and MSTY projection. Detection
+rules and scientific expectations are not broadened to satisfy them. That real
+absence test also exposes the incorrect Conda hint in host metadata, corrected
+above. The later ArgDigest 0.13 run executes 341 cases and fails the pre-existing
+invalid-flag assertion; that expectation remains unchanged under the raised floor.
+
+The minimum-provider harness's earlier pre-collection failure and its bounded
+entry-point exclusion are retained in #524. The successful floor probe is not
+the failed process relabelled. Archive hashes and all imported provider payload
+bytes are verified; actual versions/import origins are retained in
+`consumer-floor-environment.json`. JUnit under the same working-evidence directory
+includes `consumer-fixed-provider-floors.xml`, `consumer-current-providers.xml`,
+`consumer-extended.xml`, `consumer-documentation.xml` and `consumer-doctests.xml`.
+No new environment, provider checkout modification, remote CI run, push, tag or
+package publication accompanies these local results.
+
+The separate shared-environment `pip check` exits one on unchanged AmberTools-
+related extras: missing pdb2pqr and older NumPy/Biopython constraints. #524 owns
+the detailed observation. No installation/downgrade is performed, and neither
+the 363-case provider probe nor development receiving is labelled complete
+workspace or installed-package qualification.

@@ -5,9 +5,11 @@
 Development under [MolSysMT #549](https://github.com/uibcdf/molsysmt/issues/549)
 is staged. Native group-aligned declarations and their dictionary/H5MSM transport
 are implemented. The helper at `msm.element.group.get_1_letter_code_from_name`
-and native sequence conversion use the declared convention. The older
-`amino_acid` helpers and other classification/preparation/alignment consumers
-still await coordinated migration. The general `from_naming_scheme` conversion
+and native sequence conversion use the declared convention. Sequence identity
+and direct three-to-one-letter projection share that interpretation; alignment
+uses native sequence conversion. The older `amino_acid` helpers and other
+classification/preparation consumers still await coordinated migration.
+The general `from_naming_scheme` conversion
 argument is available for explicit source interpretation and native transport.
 :::
 
@@ -119,6 +121,14 @@ Conflicting unselected groups
 do not prevent either operation. A native sequence query needs neither a
 coordinate copy nor a chemical-state copy. Non-native inputs use their
 registered native conversion route; this does not promise selective file I/O.
+
+Sequence identity retains naming context and the original positions supplying
+letters, including reordered or repeated groups. With all-group or index
+selections, typed dictionaries decode only topology and H5MSM 0.5 requests only
+that layer. A predicate that needs other domains keeps the ordinary selection
+route. Sequence-only three-letter inputs use the sequence alphabet for canonical
+symbols; other meanings need assessed unambiguous or explicit context. Unsupported
+or context-dependent names never acquire the historical mapping implicitly.
 
 ## Mixed systems
 

@@ -21,6 +21,62 @@ and optional-provider review remains open; no public artifact is qualified.
 
 ## What
 
+### ArgDigest bypass contract and Biopython route — 2026-11-04
+
+Consumer receiving under [#549](../pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md)
+exposes a limitation missed by the earlier focal API probes: public ArgDigest
+0.13.0 allows a truthy non-boolean `skip_digestion` to bypass its own validator.
+The existing sequence-identity invalid-flag guard fails unchanged. This is the
+already resolved upstream [ArgDigest #17](https://github.com/uibcdf/argdigest/issues/17),
+fixed in acbead8. The first local release tag containing that fix is 0.14.0.
+No new provider defect or duplicated host bypass implementation is introduced.
+
+The public Anaconda release endpoint independently confirms
+`noarch/argdigest-0.14.0-py_0.tar.bz2` under `main`, SHA-256
+`983dca0f6bd0944d81fb1efc01e1dfa5c951e95abac6e7a0a08a13b7370d3b9e`.
+The cached archive digest and all 37 imported Python payload files match.
+ArgDigest 0.14.0, DepDigest 0.15.1, SMonitor 0.16.0 and optional Ackredit 0.9.0
+together pass 363 consumer cases in the existing Python 3.14.7 environment,
+including invalid bypass flags at seven public boundaries. No environment is
+created and no shared package is replaced.
+
+The minimum is therefore `argdigest>=0.14.0`, aligned across pyproject.toml,
+both Conda recipes and the three explicitly declaring runtime environments.
+Other runtime minima and optionality are unchanged. The installed-closure
+negative fixture now deliberately places a synthetic transitive floor above
+the new direct minimum; it still tests the stricter transitive rejection.
+The dependency-contract audit passes. Central graph/source adoption follows the
+batched publication checkpoint; this local change does not qualify a package.
+
+The same review corrects host metadata for Biopython: its import key remains
+`Bio`, while both installer names are explicitly `biopython`. The old absent-
+provider diagnostic incorrectly proposed `conda install ... Bio`. Real DepDigest
+absence checks now retain the host catalog error and the correct command.
+Alignment and identity guard only the selected Biopython engine. The receiving
+guard is `tests/topology/get_sequence_identity/test_naming_schemes.py`.
+
+One attempted minimum-provider run exits before pytest collection: the current
+editable SMonitor distribution registers a new pytest bridge absent from the
+0.16.0 package, mixing its plugin source with the old core. The explicit floor
+probe disables only that incompatible newer entry point with `-p no:smonitor`;
+Pytest Receptor, xdist and all scientific/assertion selections stay enabled.
+Normal development receiving keeps the current bridge enabled. This is a
+bounded mixed-environment harness limitation, not a SMonitor 0.16 runtime bug or
+an exemption for hosted/installed qualification. Actual versions/import origins,
+JUnit and verified archive evidence remain in the #549 working evidence.
+
+An additional health check of the unchanged shared development environment
+exits one. `pip check` reports missing pdb2pqr for packmol-memgen/proprep,
+NumPy <2 constraints from ndfes/fetkutils/edgembar and proprep, and proprep's
+Biopython <1.86 constraint against installed NumPy 2.4.6 and Biopython 1.88.
+Those distributions and constraints are not changed by this work. The passed
+source/provider tests do not qualify the whole workspace's installed closure.
+Keep this observation in the remaining optional-provider/environment review;
+do not downgrade shared scientific dependencies or remove user-installed extras
+as an incidental naming fix. No environment repair is performed here.
+
+### Initial review basis
+
 At review basis 77fb24c0d779984ed65bc95176a9581cf8d07c42, six required runtime
 providers have no lower bound; NumPy has an existing bounded range. Optional
 runtime providers also need an API-grounded review. Installed versions and

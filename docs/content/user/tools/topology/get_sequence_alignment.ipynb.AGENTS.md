@@ -28,3 +28,8 @@ The canonical variables representing the molecular systems MUST be `molsys_1` an
    - `seq, seq_ref = msm.topology.get_sequence_alignment(molsys_1, selection='molecule_type=="protein"', reference_molecular_system=molsys_2, reference_selection='molecule_type=="protein"')`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.
+
+Retain native group naming context, explicit ambiguity diagnostics and the
+selected-engine Biopython dependency guard. Do not change scoring or rendering
+while maintaining these boundaries.
+Retain optional attribution of the actual Biopython version after completion.

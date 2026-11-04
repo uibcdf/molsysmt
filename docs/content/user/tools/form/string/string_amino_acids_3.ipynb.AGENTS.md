@@ -10,3 +10,7 @@ Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/doc
 4. **Cell 4 (Markdown - Implemented Operations)**: Table with columns `Function / Module` and `Description` for all public functions/modules in `{mod}`molsysmt.form.string_amino_acids_3`` plus collapsible `{note}` dropdown.
 5. **Cell 5 (Markdown - Supported Conversions)**: Table with columns `Target Form`, `Form Type`, and `API Documentation` covering the four existing sequence/Biopython routes and the two native group-only Topology/MolSys routes. Preserve numeric group selections, caps, empty atomic/coordinate inventory and the distinction between native hierarchy support and absent atomic realization.
 6. **Cell 6 (Markdown - Related Tools & References)**: Collapsible `{seealso}` dropdown linking to Foundations and Form tools.
+
+Preserve the scheme-aware one-letter projection: canonical sequence symbols,
+assessed modified parents, explicit state context, selected cap omission and
+no implicit historical fallback or chemical replacement.

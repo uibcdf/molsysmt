@@ -15,7 +15,7 @@ LIBRARIES = {
     "nglview": {"type": "soft", "pypi": "nglview"},
     "molsysviewer": {"type": "hard", "pypi": "molsysviewer"},
     "pdbfixer": {"type": "soft", "pypi": "pdbfixer"},
-    "Bio": {"type": "soft", "pypi": "biopython"},
+    "Bio": {"type": "soft", "pypi": "biopython", "conda": "biopython"},
     "rdkit": {"type": "soft", "pypi": "rdkit"},
     "openff.toolkit": {"type": "soft", "pypi": "openff-toolkit"},
     "plotly": {"type": "soft", "pypi": "plotly"},

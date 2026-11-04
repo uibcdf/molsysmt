@@ -190,15 +190,30 @@ def check_source_scheme(topology, positions, from_naming_scheme, *, caller):
 
 def native_sequence(topology, group_indices, *, caller, from_naming_scheme=None):
     """Project native group positions and credit reached profiles once per query."""
-    from molsysmt import _ackredit
     from molsysmt.native._group_naming import NAMES
 
     positions = group_positions(topology, group_indices, caller=caller)
     codes = check_source_scheme(topology, positions, from_naming_scheme, caller=caller)
     names = topology.groups["group_name"].to_numpy(dtype=object)[positions]
     kinds = topology.groups["group_type"].to_numpy(dtype=object)[positions]
+    schemes = (
+        from_naming_scheme
+        if from_naming_scheme is not None
+        else None
+        if codes is None
+        else NAMES[codes[index]]
+        for index in positions
+    )
+    return project_sequence(names, kinds, positions, schemes, caller=caller)[0]
+
+
+def project_sequence(names, kinds, positions, schemes, *, caller, with_indices=False):
+    """Resolve letters and optional source positions under one attribution batch."""
+    from molsysmt import _ackredit
+
     letters, used_profiles = [], {}
-    for name, kind, index in zip(names, kinds, positions, strict=True):
+    source_indices = [] if with_indices else None
+    for name, kind, index, scheme in zip(names, kinds, positions, schemes, strict=True):
         if not isinstance(kind, str) or kind != "amino acid":
             continue
         if not isinstance(name, str) or not name:
@@ -208,15 +223,10 @@ def native_sequence(topology, group_indices, *, caller, from_naming_scheme=None)
                 caller=caller,
                 message=f"Selected group {int(index)} has no amino-acid name.",
             )
-        scheme = (
-            from_naming_scheme
-            if from_naming_scheme is not None
-            else None
-            if codes is None
-            else NAMES[codes[index]]
-        )
         letter, profile = one_letter(name.upper(), scheme, caller=caller)
         letters.append(letter)
+        if source_indices is not None:
+            source_indices.append(int(index))
         used_profiles[profile] = None
     if used_profiles:
         items = {
@@ -226,4 +236,45 @@ def native_sequence(topology, group_indices, *, caller, from_naming_scheme=None)
         }
         with _ackredit.scope(caller) as provider:
             _ackredit.credit(provider, list(items.values()), caller, contextual=True)
-    return "".join(letters)
+    return "".join(letters), source_indices
+
+
+def stored_topology(source, *, caller):
+    """Read a known naming container without decoding unrelated molecular domains."""
+    from molsysmt.native import MolSys, MolSysDict, Topology, TopologyDict
+
+    known = True
+    if isinstance(source, Topology):
+        topology = source
+    elif isinstance(source, MolSys):
+        topology = source.topology
+    elif isinstance(source, (TopologyDict, MolSysDict)):
+        from molsysmt.form._native_dict import decode_topology
+
+        data = (
+            source.data
+            if isinstance(source, TopologyDict)
+            else source.data.get("topology")
+        )
+        topology = None if data is None else decode_topology(data)
+    elif isinstance(source, (list, tuple)):
+        from molsysmt.basic import where_is_attribute
+
+        owner, _ = where_is_attribute(source, "group_name")
+        return stored_topology(owner, caller=caller)
+    else:
+        from molsysmt._private.h5msm import modular_h5msm_axes
+
+        if modular_h5msm_axes(source) is not None:
+            from molsysmt.h5msm import read_layers
+
+            topology = read_layers(source, layers=["topology"])["topology"]
+        else:
+            known, topology = False, None
+    if known and topology is None:
+        raise ArgumentError(
+            "molecular_system",
+            caller=caller,
+            message="Sequence projection requires a topology with group names.",
+        )
+    return topology

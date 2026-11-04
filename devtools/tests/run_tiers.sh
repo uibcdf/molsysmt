@@ -9,6 +9,7 @@ run_smoke() {
     tests/element/group/test_reference_bond_map_validation.py \
     tests/element/group/test_name_resolution.py \
     tests/basic/convert/test_source_naming_scheme.py \
+    tests/topology/get_sequence_identity/test_naming_schemes.py \
     tests/form/molsysmt_Topology/test_sequence_name_schemes.py \
     tests/topology/get_covalent_blocks/test_get_covalent_blocks_from_molsysmt_MolSys.py \
     tests/pbc/get_lengths_and_angles_from_box/test_get_lengths_and_angles_from_box.py \

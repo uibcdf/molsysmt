@@ -470,7 +470,8 @@
     "molsysmt/form/molsysmt_MolSys/to_string_amino_acids_1.py:to_string_amino_acids_1": "Accepted pre-1.0 naming correction under uibcdf/molsysmt#549. Keyword-only source convention on selected groups; delegate to stored topology without a copy. Guard: tests/basic/convert/test_source_naming_scheme.py.",
     "molsysmt/native/_sequence_topology.py:from_group_records": "Accepted pre-1.0 naming correction under uibcdf/molsysmt#549. Private constructor accepts an already validated source declaration before its sequence default. Guard: tests/basic/convert/test_source_naming_scheme.py.",
     "molsysmt/form/_sequence_topology.py:from_string": "Accepted pre-1.0 naming correction under uibcdf/molsysmt#549. Private source constructor forwards an explicit vocabulary before supplying default metadata. Guard: tests/basic/convert/test_source_naming_scheme.py.",
-    "molsysmt/_private/name_resolution.py:native_sequence": "Accepted pre-1.0 naming correction under uibcdf/molsysmt#549. Private projector forwards a validated source declaration without modifying topology. Guard: tests/basic/convert/test_source_naming_scheme.py."
+    "molsysmt/_private/name_resolution.py:native_sequence": "Accepted pre-1.0 naming correction under uibcdf/molsysmt#549. Private projector forwards a validated source declaration without modifying topology. Guard: tests/basic/convert/test_source_naming_scheme.py.",
+    "molsysmt/form/string_amino_acids_3/to_string_amino_acids_1.py:to_string_amino_acids_1": "Accepted pre-1.0 consumer migration under uibcdf/molsysmt#549: add keyword-only from_naming_scheme without changing existing positional arguments/defaults; use the shared bounded resolver, omit selected caps and refuse implicit legacy state meanings. Guard: tests/topology/get_sequence_identity/test_naming_schemes.py."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {

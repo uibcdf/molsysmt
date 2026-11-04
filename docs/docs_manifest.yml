@@ -248,9 +248,11 @@ sections:
           - name: get_sequence_alignment
             file: docs/content/user/tools/topology/get_sequence_alignment.ipynb
             agents_file: docs/content/user/tools/topology/get_sequence_alignment.ipynb.AGENTS.md
+            description: Pairwise alignment retaining native group naming context, with explicit ambiguity diagnostics and a selected-engine Biopython guard.
           - name: get_sequence_identity
             file: docs/content/user/tools/topology/get_sequence_identity.ipynb
             agents_file: docs/content/user/tools/topology/get_sequence_identity.ipynb.AGENTS.md
+            description: Query-normalized identity with original group maps, mixed stored naming schemes, topology-only all/index reads and optional attribution.
       - name: chemical_states
         path: docs/content/user/tools/chemical_states
         agents_file: docs/content/user/tools/chemical_states/AGENTS.md

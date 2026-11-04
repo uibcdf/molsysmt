@@ -28,3 +28,8 @@ The canonical variables representing the molecular systems MUST be `molsys_1` an
    - `print(ref_intersection)`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.
+
+Preserve per-group source naming context, ambiguous-label refusal, unchanged
+chemistry, exact source maps and topology-only dictionary/H5MSM all/index reads.
+Biopython is optional and checked only for its selected engine. Keep the link
+to the executed naming tutorial; a projected parent is not a repair template.
