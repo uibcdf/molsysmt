@@ -1,0 +1,167 @@
+{
+  "schema": "molsysmt.viewer-element-labels-source-receiving@1",
+  "date": "2026-11-03",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#545",
+    "uibcdf/molsysmt#546",
+    "uibcdf/molsysmt#547"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "owner_base": "c0e8742dc71e312eee98c62c7f5d1133a97a7480",
+  "contribution_parent": "787a4d656112e20c95128a92f426421c07deb62d",
+  "previous_feature": "506805c890d409085f3d954c8d6f14e751af1fc7",
+  "viewer_source": "f9e6894a6cb06ef1cdf0c964698b8ec6f0b796fe",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "environment": {
+    "packages": {
+      "molsysmt": "0.23.0+201.g3502232d8.dirty",
+      "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "setuptools": "84.0.0",
+      "mdtraj": "1.11.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "native_standard_name_body_unchanged": true
+  },
+  "backend": {
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "scope": "Unchanged copied backend and native algorithms/data. Owner build-floor correction received from c0e8742d; no new build, install or solver/archive qualification."
+  },
+  "contract": {
+    "new_paths": [
+      "element.group.amino_acid.get_1_letter_code_from_name",
+      "element.group.amino_acid.get_standard_name",
+      "element.group.amino_acid.is_amino_acid",
+      "element.group.ion.is_ion",
+      "element.group.lipid.is_lipid",
+      "element.group.nucleotide.is_nucleotide",
+      "element.group.saccharide.is_saccharide",
+      "element.group.terminal_capping.is_c_terminal_capping",
+      "element.group.terminal_capping.is_n_terminal_capping",
+      "element.group.terminal_capping.is_terminal_capping",
+      "element.group.water.is_water",
+      "element.component.is_component_type",
+      "element.molecule.is_molecule_type",
+      "element.group.small_molecule.is_small_molecule"
+    ],
+    "binding": "All fourteen scientific inputs stay explicit on an open empty or loaded view. No primary target, molecular reader, assignment, normalization, preparation, scene/history change or pending-edit flush.",
+    "skip": "Each adds a keyword-only locally consumed skip_digestion flag because the native helper has no such argument; no native flag or forced bypass is injected.",
+    "ownership": "Native scalar case/aliases/None conventions, values and errors are preserved. Type/name recognition is catalogue membership, not a molecular-system or chemical-validation query.",
+    "shared_helper": "Move the existing explicit lifetime/documentation helper into a private reusable module, preserving eight prior utilities while enabling mixed bound/explicit namespaces without circular imports or a catch-all public proxy."
+  },
+  "inventory": {
+    "native": 244,
+    "branch_exposed": 187,
+    "element_exposed": 43,
+    "element_native": 57,
+    "primary_exposed": 21,
+    "explicit_exposed": 22,
+    "remaining_explicit_element": 14,
+    "independent_metadata_prs": [
+      "uibcdf/molsysmt#538",
+      "uibcdf/molsysmt#540"
+    ],
+    "hypothetical_union_exposed": 198,
+    "union_integrated_or_qualified": false,
+    "collector": "devtools/scripts/audit_molsysviewer_tools_api.py",
+    "raw_sha256": "2dcd849cc50eca8c497018accdc438d8617aa78e3058dcf3a2e1bac8ea5f97b8"
+  },
+  "validation": {
+    "native_and_received_build_guards": {
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "f478b8b2817013942c543e2d6447fe6daf23f93834656d7dc610bbd1c6359a8b"
+    },
+    "corrected_label_and_doc_examples": {
+      "tests": 173,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "0b39e656ddba7241493594d7ed3fe42b8713747172ea71d6b55e624b86eb5d98"
+    },
+    "final_all_element_and_integration": {
+      "tests": 524,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "45162c67b351415e06b32151d79fa51e2eff7abf842621ab61f308e7d6784872"
+    },
+    "distribution_inventory_build_notebook_structure": {
+      "tests": 552,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "40ce2635ff5c4122eae9663dcad36e4869f05976bfb6962bdb93d74b5c9f89aa"
+    },
+    "complete_addon": {
+      "tests": 2976,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "603a7774fd36c96e0a020fbf78a8bc1f64ea518a7a3d88277d35fa53e53f3553",
+      "seconds": 706.97,
+      "warnings": 1909,
+      "new_label_cases": 171,
+      "native_log_sha256": "9c37e61fb957be088f18861bfef0a021e70403421e484f8fc30712d73a0cb240"
+    },
+    "structural_split": {
+      "existing_distribution_and_inventory": 34,
+      "received_license_build_guards": 22,
+      "notebook_schema": 496
+    },
+    "guide_example": "All fourteen helpers execute on an empty view, with explicit native qualification notes for XLE and cap orientation.",
+    "course": "156 notebooks valid; only Module 06 Markdown cell 5 extended against the merged parent. Code/output/counts/IDs/schema preserved.",
+    "native_docstrings": "246 pass fidelity/minimum-content validation; real four-example native and inherited standard-name doctests also pass.",
+    "ruff": "Whole-tree check and format pass; 4325 files already formatted.",
+    "dependencies": "Optional-import and declared dependency-route audits pass.",
+    "devguide": "Validation and generated indexes pass."
+  },
+  "native_findings": {
+    "545": {
+      "scope": "XLE -> J exists in aa3_to_aa1 but cannot be reached by the public lookup at the inspected input.",
+      "resolution": "Native science left to the owning team; facade retains the native result/error and help/guide disclose the limit. No hard-coded workaround or frozen wrong result."
+    },
+    "546": {
+      "scope": "Two of four native standard-name examples expected output for bare None.",
+      "candidate_fix": "Only two print expressions in the docstring; scientific function body/defaults are unchanged. Guard requires all four real examples to execute and pass.",
+      "red_failed": 1,
+      "red_junit_sha256": "cc6575efafb7c833c9237c71f3d0a50409e43aa0f735c4ecec4ca991bb719d1e",
+      "guard": "tests/element/group/amino_acid/test_name_examples.py::test_standard_name_examples_execute_exactly_as_documented",
+      "status": "Candidate fix in owner-reviewed PR; owner main integration and closure remain separate."
+    },
+    "547": {
+      "scope": "N/C cap membership tables contradict the documented peptide-end interpretation.",
+      "resolution": "No data/Boolean swap in the addon. Native contract and preparation/template consumers require owner review before end-specific scientific qualification."
+    }
+  },
+  "test_correction": "Initial new guard referenced nonexistent view.n_atoms; it now captures view.molsys identity to verify no loading/replacement. Fifty-six initial assertion failures were consumer-fixture errors; no host attribute or native workaround was added.",
+  "source_sha256": {
+    "molsysviewer_molsysmt/_element.py": "6e784a472102d180c445908a1679a3e0e06ba1a9d6ca3d8dc2cb7a35e08d869c",
+    "molsysviewer_molsysmt/_element_common.py": "e132788a349eb3d2004356812ad19f4aee21a186ff0965721d05478171c68d1e",
+    "molsysviewer_molsysmt/_element_labels.py": "ee61e15a642896d60081a3a6ffe32c3e5a9293aec8d940541a95e47d340f3773",
+    "molsysviewer_molsysmt/_element_domains.py": "80d7615defa3052628fcf6404dae32e217f572fa571d325f13d2a2bce03fffb3",
+    "tests/molsysviewer_molsysmt/test_element_label_tools.py": "6b69f78ec91fa7d8b183fd0d0423a365c43c21d3373b9eb855b882696d0e2a79",
+    "tests/element/group/amino_acid/test_name_examples.py": "be307e892321bdc553fe87f1eb61bafe021fb90d741f51fb8498a939420a09e5",
+    "molsysmt/element/group/amino_acid/get_standard_name.py": "7d426ba0a2bbb8aa1ba9caeae1ee79cdc425655aa7b6937caf152c6e73c061e2",
+    "devtools/scripts/viewer_tools_contract.py": "c9d1bc804fe76c3b34f0bfabd8d05b239ec7b8390ed4c71c227d8f33b398565a",
+    ".github/workflows/ci-smoke.yaml": "9a0c680559e72015ae9cb79a42b33212182363e992eae731da40315a8314a2e2"
+  },
+  "limits": [
+    "Source exposure/parity is not scientific resolution of #545/#547 or stable 1.0 readiness.",
+    "Independent metadata PRs are absent from this branch. 198/244 is hypothetical until received owner integration.",
+    "Local source results are not final-head hosted, complete optional-engine/form/platform, installed or actual archive qualification.",
+    "No authored runtime floor, scientific algorithm/data, host runtime/GUI, candidate, tag or publication changes. The received owner Setuptools build floor is recorded separately.",
+    "Owner main is not modified or merged by this contribution."
+  ],
+  "temporary_resources": "Reuse the existing isolated PR checkout and copied backend for owner review; remove after integration or withdrawal. No new checkout, environment or installation."
+}

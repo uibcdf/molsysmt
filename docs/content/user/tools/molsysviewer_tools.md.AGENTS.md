@@ -302,3 +302,13 @@ unchanged. The legacy helper is a catalogued name plus five atom-name checks,
 not chemical or stereochemical validation or stored preparation; its group_name
 stays explicit and its keyword-only skip control is local. Remaining explicit
 element utilities are pending.
+
+
+Preserve fourteen additional explicit name/type/code helpers with open-empty-view
+lifetime, native scalar/case/error behavior, and locally consumed keyword-only
+skip controls. They do not read the primary system, normalize science, prepare
+chemistry or synchronize scene/history. Name recognition is distinct from
+system classification; standard-name lookup preserves None for canonical or
+unmapped labels. The XLE/J gap (MolSysMT#545) and N/C cap table/help contradiction
+(MolSysMT#547) remain qualification limits until native resolution is received;
+never fix or disguise them in the addon. Keep inherited native examples executable.

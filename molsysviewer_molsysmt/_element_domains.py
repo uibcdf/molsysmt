@@ -4,6 +4,7 @@ from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _native_documentation
+from ._element_common import _call_explicit, _utility_documentation
 from ._element_hierarchy import _HierarchyTools, _reader_documentation
 
 
@@ -61,6 +62,7 @@ class _ComponentTools(_HierarchyTools):
         "get_component_name",
         "get_component_type",
         "get_n_components",
+        "is_component_type",
     )
 
     @_domain_documentation("get_component_id", "component")
@@ -177,6 +179,17 @@ class _ComponentTools(_HierarchyTools):
             },
         )
 
+    @_utility_documentation("is_component_type", "element.component", local_skip=True)
+    @signal(tags=["addon", "element"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def is_component_type(self, component_type, *, skip_digestion=False):
+        return _call_explicit(
+            self._owner,
+            ("component",),
+            "is_component_type",
+            {"component_type": component_type},
+        )
+
 
 class _MoleculeTools(_HierarchyTools):
     _MODULE = "molecule"
@@ -186,6 +199,7 @@ class _MoleculeTools(_HierarchyTools):
         "get_molecule_name",
         "get_molecule_type",
         "get_n_molecules",
+        "is_molecule_type",
     )
 
     @_domain_documentation("get_molecule_id", "molecule")
@@ -302,9 +316,20 @@ class _MoleculeTools(_HierarchyTools):
             },
         )
 
+    @_utility_documentation("is_molecule_type", "element.molecule", local_skip=True)
+    @signal(tags=["addon", "element"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def is_molecule_type(self, molecule_type, *, skip_digestion=False):
+        return _call_explicit(
+            self._owner,
+            ("molecule",),
+            "is_molecule_type",
+            {"molecule_type": molecule_type},
+        )
+
 
 class _SmallMoleculeTools(_HierarchyTools):
-    _NAMES = ("small_molecule_is_amino_acid",)
+    _NAMES = ("small_molecule_is_amino_acid", "is_small_molecule")
 
     @_legacy_documentation
     @signal(tags=["addon", "element", "read"])
@@ -314,4 +339,17 @@ class _SmallMoleculeTools(_HierarchyTools):
 
         return self._owner._read(
             small_molecule_is_amino_acid, {"group_name": group_name}
+        )
+
+    @_utility_documentation(
+        "is_small_molecule", "element.group.small_molecule", local_skip=True
+    )
+    @signal(tags=["addon", "element"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def is_small_molecule(self, name, *, skip_digestion=False):
+        return _call_explicit(
+            self._owner,
+            ("group", "small_molecule"),
+            "is_small_molecule",
+            {"name": name},
         )

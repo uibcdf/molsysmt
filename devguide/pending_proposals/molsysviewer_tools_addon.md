@@ -24,6 +24,42 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Explicit label/type/code utilities — 2026-11-03
+
+PR #543 adds fourteen explicit-input utilities: two component/molecule type
+predicates, ten group-family name predicates and two amino-acid label/code
+lookups. Every input stays explicit on an open empty or loaded view; no primary
+reader, mutation, preparation, normalization or pending scene reconciliation is
+introduced. Native scalar case, aliases, None convention and errors remain.
+All fourteen consume keyword-only local skip controls. The existing explicit
+lifetime/documentation behavior is reused from a private common module; public
+wrappers stay explicit and no catch-all mirror is added.
+
+Owner build-floor correction `c0e8742d` is received in merge `787a4d656`, without
+rebuilding or installing. Focused receiving passes 524 cases; package/inventory/
+license/notebook controls pass 552. Native/build baseline passes 40. The guide
+executes all fourteen helpers on an empty view, 156 course notebooks validate
+with code/output/IDs preserved, native docstring validation covers 246 functions,
+and Ruff/dependency checks pass. Complete addon receiving passes 2,976 cases
+without failures, errors or skips, including 171 new label cases. The
+[label receipt](../../devtools/data/molsysviewer_tools_element_labels_receiving_20261103.json)
+retains exact sources, result hashes, the fixture correction and qualification limits.
+
+Native findings are separately owned: #545 tracks the unreachable XLE/J mapping;
+#547 tracks the N/C cap-table/help contradiction. The addon forwards native
+results/errors, discloses these limits and does not swap or normalize science.
+#546's two failing bare-None examples have a candidate docstring-only print fix
+and a four-example pytest guard that fails before and passes after. The native
+function body/defaults and scientific tables remain unchanged; owner review and
+main integration/closure remain separate.
+
+Branch exposure is 187/244, including element 43/57 (21 primary, 22 explicit).
+Fourteen explicit group-data/template functions remain for review. Independent
+#538/#540 are absent here; 198/244 is hypothetical until received integration.
+No new host runtime/GUI, authored scientific algorithm/data or runtime floor,
+frozen candidate, tag or publication. Source/parity receiving does not resolve
+#545/#547 or establish 1.0 scientific readiness.
+
 ## Remaining primary-element paths received — 2026-11-03
 
 PR #543 now adds five molecule readers, five component readers, group type and

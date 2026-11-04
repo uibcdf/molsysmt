@@ -112,18 +112,38 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "element.group.get_group_type",
         "element.group.small_molecule.small_molecule_is_amino_acid",
     }
+    label_elements = {
+        "element.group.terminal_capping.is_c_terminal_capping",
+        "element.group.amino_acid.get_1_letter_code_from_name",
+        "element.group.terminal_capping.is_n_terminal_capping",
+        "element.group.amino_acid.get_standard_name",
+        "element.group.small_molecule.is_small_molecule",
+        "element.group.saccharide.is_saccharide",
+        "element.molecule.is_molecule_type",
+        "element.group.amino_acid.is_amino_acid",
+        "element.group.ion.is_ion",
+        "element.group.terminal_capping.is_terminal_capping",
+        "element.group.nucleotide.is_nucleotide",
+        "element.group.lipid.is_lipid",
+        "element.group.water.is_water",
+        "element.component.is_component_type",
+    }
     actual_elements = {
         path
         for path, row in rows.items()
         if path.startswith("element.") and row["exposed"]
     }
-    assert actual_elements == received_elements | hierarchy_elements | domain_elements
+    assert (
+        actual_elements
+        == received_elements | hierarchy_elements | domain_elements | label_elements
+    )
     assert all(
         rows[path]["input_kind"] == "primary"
         for path in hierarchy_elements | domain_elements
     )
     assert all(
-        rows[path]["input_kind"] == "explicit_inputs" for path in received_elements
+        rows[path]["input_kind"] == "explicit_inputs"
+        for path in received_elements | label_elements
     )
     assert rows["element.group.get_group_type"]["exposed"]
     assert "supported.syntaxes" in rows

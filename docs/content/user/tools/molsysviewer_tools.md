@@ -88,8 +88,8 @@ and `group.is_group_type` / `group.get_group_type_from_group_name`. They work
 with an open empty view and keep caller inputs explicit; see the element
 utilities section below. Nine current-system chain/entity readers are received
 separately below. Twelve more primary-bound paths cover molecules, components,
-group types and a legacy name heuristic; remaining explicit-input utilities
-are pending.
+group types and a legacy name heuristic. Fourteen more explicit name/type/code
+utilities are received below; fourteen group-data/template utilities remain pending.
 
 Install compatible versions of both components. MolSysMT supplies the
 integration; MolSysViewer discovers its declared entry point automatically.
@@ -152,6 +152,84 @@ Native references: {func}`molsysmt.element.is_element`,
 {func}`molsysmt.element.atom.get_atom_type_from_atom_ff_type`,
 {func}`molsysmt.element.group.is_group_type` and
 {func}`molsysmt.element.group.get_group_type_from_group_name`.
+
+## Recognizing explicit labels and looking up amino-acid codes
+
+Fourteen additional utilities accept explicit names without reading your system:
+`component.is_component_type`, `molecule.is_molecule_type`, ten group-family
+predicates, and the two amino-acid name/code lookups. They work before a system
+is loaded and do not inspect coordinates, select atoms, assign chemistry or
+change the scene.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    element = view.addons.molsysmt.element
+    assert element.component.is_component_type("peptide") is True
+    assert element.molecule.is_molecule_type("waters") is True
+    assert element.group.amino_acid.is_amino_acid("ALA") is True
+    assert element.group.ion.is_ion("NA") is True
+    assert element.group.lipid.is_lipid("POPC") is True
+    assert element.group.nucleotide.is_nucleotide("DA") is True
+    assert element.group.saccharide.is_saccharide("NAG") is True
+    assert element.group.small_molecule.is_small_molecule("ATP") is True
+    assert element.group.water.is_water("HOH") is True
+    assert element.group.terminal_capping.is_terminal_capping("ACE") is True
+    # Preserve native membership; read the qualification note below.
+    n_membership = element.group.terminal_capping.is_n_terminal_capping("ACE")
+    c_membership = element.group.terminal_capping.is_c_terminal_capping("NME")
+    assert isinstance(n_membership, bool) and isinstance(c_membership, bool)
+    assert element.group.amino_acid.get_standard_name("MSE") == "MET"
+    assert element.group.amino_acid.get_standard_name("ALA") is None
+    assert element.group.amino_acid.get_1_letter_code_from_name("SEC") == "U"
+    assert view.molsys is None
+```
+
+These predicates recognize native catalogued labels. For example,
+`small_molecule.is_small_molecule("ATP")` can be True even when the view has no
+ATP atoms. It is distinct from the primary-bound legacy amino-acid name
+heuristic below. Native case, supported scalar inputs, returns and errors stay
+unchanged; no array-vectorization or unknown-name fallback is added.
+
+`get_standard_name` returns a replacement label for a known non-standard name,
+such as MSE -> MET. It returns None for an already-standard name or one without
+a known replacement. This is a name lookup, not a validation or a transformation
+of atoms, elements, connectivity, stereochemistry or protonation. The one-letter
+lookup retains native codes and KeyError behavior rather than guessing a code.
+
+All fourteen add a keyword-only local `skip_digestion=False`. It is consumed by
+the addon because none of these native helpers declares a skip argument; it is
+not passed to the helper or used to replace scientific validation. Calls still
+require an open owner, including when retaining a method after view closure.
+No molecular reader, pending-edit synchronization or history effect is involved.
+
+:::{warning}
+The inspected native input has two qualification limits.
+[MolSysMT#545](https://github.com/uibcdf/molsysmt/issues/545) tracks the declared
+XLE -> J mapping that the public lookup cannot currently reach. The addon keeps
+the native error rather than implementing another conversion.
+[MolSysMT#547](https://github.com/uibcdf/molsysmt/issues/547) tracks the mismatch
+between N/C cap membership tables and their documented peptide-end meaning.
+The current forwarding checks do not qualify these two predicates for
+end-specific preparation. Their native semantics must be resolved and received;
+there is no Viewer-specific swap or silent molecular preparation.
+:::
+
+Native references: {func}`molsysmt.element.component.is_component_type`,
+{func}`molsysmt.element.molecule.is_molecule_type`,
+{func}`molsysmt.element.group.amino_acid.is_amino_acid`,
+{func}`molsysmt.element.group.amino_acid.get_standard_name`,
+{func}`molsysmt.element.group.amino_acid.get_1_letter_code_from_name`,
+{func}`molsysmt.element.group.ion.is_ion`,
+{func}`molsysmt.element.group.lipid.is_lipid`,
+{func}`molsysmt.element.group.nucleotide.is_nucleotide`,
+{func}`molsysmt.element.group.saccharide.is_saccharide`,
+{func}`molsysmt.element.group.small_molecule.is_small_molecule`,
+{func}`molsysmt.element.group.terminal_capping.is_terminal_capping`,
+{func}`molsysmt.element.group.terminal_capping.is_n_terminal_capping`,
+{func}`molsysmt.element.group.terminal_capping.is_c_terminal_capping` and
+{func}`molsysmt.element.group.water.is_water`.
 
 ## Querying chains and entities
 

@@ -139,6 +139,7 @@ jobs:
           # Keep this bounded tier aligned with devtools/tests/run_tiers.sh smoke.
           python -m pytest --receptor=ci -q \
             tests/element/component/test_get_component_index.py \
+            tests/element/group/amino_acid/test_name_examples.py \
             tests/topology/get_covalent_blocks/test_get_covalent_blocks_from_molsysmt_MolSys.py \
             tests/pbc/get_lengths_and_angles_from_box/test_get_lengths_and_angles_from_box.py \
             tests/structure/get_rmsd/test_get_rmsd_from_molsysmt_MolSys.py \
@@ -278,4 +279,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_element_utilities.py \
             tests/molsysviewer_molsysmt/test_element_hierarchy_tools.py \
             tests/molsysviewer_molsysmt/test_element_domain_tools.py \
+            tests/molsysviewer_molsysmt/test_element_label_tools.py \
             tests/molsysviewer_molsysmt/test_composition_tools.py

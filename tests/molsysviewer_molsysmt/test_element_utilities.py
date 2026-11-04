@@ -86,6 +86,13 @@ def test_exact_names_signatures_help_and_validation(path):
             "get_group_type_from_group_name",
             "get_group_type",
             "small_molecule",
+            "amino_acid",
+            "ion",
+            "lipid",
+            "nucleotide",
+            "saccharide",
+            "terminal_capping",
+            "water",
         }
         method, native = _path(tools, path), _path(msm.element, path)
         expected = inspect.signature(native)
