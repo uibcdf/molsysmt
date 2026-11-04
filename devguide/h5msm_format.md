@@ -46,7 +46,7 @@ the historical implicit reference partition; its native vector remains absent.
 
 Writers use layer 1 without an explicit relation, layer 2 for chain/group
 membership alone, and layer 3 when ungrouped atom/molecule ownership is stored.
-Readers accept all three and reject unsupported versions, malformed shapes,
+Readers accept all four and reject unsupported versions, malformed shapes,
 dtypes, offsets, duplicate or out-of-range memberships and conflicting grouped
 assignments. New layer schemas require an updated reader; the root remains 0.5.
 Guards: `tests/native/test_group_inventory_hierarchy.py` and
@@ -56,9 +56,33 @@ Joint legacy layer-1/2 topology and chemical-state decoding can snapshot the old
 group-free reference-component representation when an identity atom-axis link
 is declared and its reference and molecule inventory agree. Equal cardinalities
 alone establish no correspondence. Ambiguous or missing evidence stays unknown.
-Topology-only projections never load chemical states to recover it. Layer 3
+Topology-only projections never load chemical states to recover it. Layers 3/4
 does not use that recovery path, and ordinary native queries never infer a
 molecule partition from chemical states.
+
+## Version 0.5 naming declarations
+
+Topology layer 4 preserves the same five stable tables and requires
+`group_naming_schemes`. The optional `chain_groups` and `atom_molecules` fields
+retain their existing contracts. The naming subgroup has exactly `schema_version`
+and `profiles` attributes and a `codes` dataset. Declaration schema 1 uses the
+JSON profile list `[{"name":"amber","version":1},{"name":"ccd","version":1},
+{"name":"legacy","version":1}]`. Profile versions identify this bounded
+declaration vocabulary, not an entire force-field or CCD database snapshot.
+
+`codes` is an unsigned one-byte vector of shape `(n_groups,)`: zero is unknown;
+1/2/3 identify the three profiles in order. Unsupported registry/schema versions,
+extra fields, invalid codes, dtypes and lengths reject. Writers choose layer 4
+when a naming declaration is present and otherwise retain layers 1/2/3. Older
+files without a declaration stay unknown; older readers reject layer 4 rather
+than dropping metadata. Root 0.5 and all other layer schemas are unchanged.
+
+The native vector is absent when all groups are unknown. Copies, extraction,
+atom-free group reordering, addition and builder growth preserve existing group
+codes; new groups start unknown. The declaration remains independent of chemistry
+and does not yet activate the pending #549 scheme-aware name resolver.
+Guards: `tests/native/test_group_naming_schemes.py` and
+`tests/form/file_h5msm/test_group_naming_schemes.py`.
 
 ## Modular axis-link encoding
 

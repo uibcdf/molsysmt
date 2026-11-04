@@ -164,7 +164,7 @@ report that authority but cannot substitute for scientific review of its entries
   collisions, native sequence failures and provider/data provenance.
 - [x] **D1 — maintainer decision and documentation plan.** Record defaults,
   domain ownership, mixed groups, relocation and the required user comparison.
-- [ ] **D2 — typed naming declarations and schemas.** Choose group-aligned
+- [x] **D2 — typed naming declarations and schemas.** Choose group-aligned
   storage and the scheme/version registry; specify null/unknown and conflict
   rules, copy/extract/remove/merge/builder behavior, partial and atom-free native
   domains, dictionary and H5MSM readers/writers. Reject declared unsupported
@@ -208,3 +208,117 @@ warnings. The new conceptual page also renders independently with strict Sphinx
 table markup. This is a bounded page render, not a complete site/release build.
 Developer-guide, generated-index and diff checks pass. No runtime or schema is
 implemented, and the four pre-existing generated API edits remain untouched.
+
+## D2 storage and schema implementation — 2026-11-04
+
+**Implemented and contract-tested locally.** This block implements declarations
+and their native/persistence lifecycle, not the D3 name resolver or D4 conversion
+argument. The legacy GLH/HID/HIE semantic defect is not yet fixed and #549 stays
+active. No package, tag or external CI matrix is produced by this block.
+
+### Native declaration boundary
+
+`Topology.set_group_naming_schemes(naming_schemes=None, group_indices='all')`
+assigns an explicit scalar vocabulary or an aligned sequence. Identifiers are
+`amber`, `ccd` and `legacy`; None means unknown. The immutable
+`group_naming_schemes` tuple reports group-index order. A scoped ArgDigest
+registry validates types, alignment, supported identifiers and unique bounded
+positions before mutation, using SMonitor argument/length diagnostics. Private
+storage helpers do not use decorators or form dispatch.
+
+An optional uint8 vector stores codes 1/2/3, with zero for unknown, at one resident
+byte per group; all-unknown context stores no vector. This is the numeric payload
+size, not a measured total-memory or performance benchmark. Group table columns
+remain unchanged. Copies own their declarations; atom subsets and atom-free
+group selections project the actual source group map. Addition concatenates
+known and unknown context, atom permutation leaves the group axis intact, and
+builder-added/fallback/inserted-cap groups start unknown. Table reset explicitly
+clears context; stale direct changes to group counts reject instead of guessing
+alignment. Name-preserving rebuilds retain declarations.
+
+Changing a declaration explicitly replaces metadata at this setter boundary.
+Interpretation/conversion overrides must still reject conflicts in D3/D4; those
+are different operations. A changed attached declaration conservatively invalidates
+all named analyses, including evaluated-empty coverage, using the existing staged
+invalidation context. Prior analysis snapshots and coordinates remain intact;
+unchanged assignment is a no-op and an invalidation failure preserves the prior
+declaration and analyses. The operation changes no chemical assignment or label.
+
+### Versioned transport
+
+- TopologyDict 0.3 retains existing stable rows and adds required
+  `group_naming_schemes`, containing declaration `schema_version=1`, the ordered
+  profile registry and group-aligned primitive integer codes. Without known
+  declarations the writer retains 0.2. A MolSysDict 0.2 can contain this separately
+  versioned topology domain; no enclosing-root field changes.
+- H5MSM keeps root 0.5. Topology layer 4 retains the five tables and optional
+  chain/group and atom/molecule memberships, with a required naming subgroup.
+  Its registry is explicit JSON metadata and its code dataset has dtype uint8
+  and shape `(n_groups,)`. Other layer/association codecs are unchanged.
+- Declaration profile version 1 versions the bounded identifier vocabulary; it
+  does not claim complete Amber or CCD coverage or fix a scientific data snapshot.
+  D3 must separately record the actual resolver's definitions and source evidence.
+- Readers reject unsupported registries/versions, unknown fields and malformed
+  codes, shapes or dtypes. Older native records/files without the field retain
+  unknown context. Older readers reject the new schema rather than silently
+  discarding its declaration. No online enrichment or form/history inference runs.
+
+The maintained format contract, User Guide, dictionary explanation, H5MSM page,
+Module 04 and group-free hierarchy recipe distinguish this implemented storage
+from pending interpretation. Notebook changes are explanatory Markdown only;
+executable cells and saved outputs are retained.
+
+### Receiving scope and initial test corrections
+
+The first new-test run had 46 passes and eleven failures: tests used unsupported
+`to_form='h5msm'` instead of `file:h5msm`, supplied a layer mapping to the MolSys
+writer, and compared pandas' base-class copy against the native table subclass
+with class checking enabled. These test mistakes were corrected without changing
+the public writer or table semantics. A second run had 55 passes and two failures
+from assuming the existing Topology-to-file projection omits its empty Structures
+container. Controls now distinguish that projection from a partial MolSys whose
+absent Structures domain is preserved. No coordinates are synthesized in either.
+
+The first broader receiving selection passes 213 cases without failures or
+omissions. Final extended/native, schema, documentation and floor qualification
+results are recorded below when completed; these initial counts alone do not
+qualify the full issue or a release.
+
+### Completed local receiving
+
+- The extended native/H5MSM/dictionary/capping selection passes **2,602 cases**,
+  with zero failures or omissions and 721 warnings (mostly legacy H5MSM warnings,
+  plus existing pandas/unknown-name/attribute-drop/box diagnostics). This run
+  precedes the final scalar-broadcast optimization, typed-read tightening,
+  ordered-inventory naming comparison and additional boundary controls.
+- The final focused selection passes **138 cases**, including **70 naming
+  guards**, dictionary documentation execution and append atomicity. It uses the
+  verified public **ArgDigest 0.13.0 py_1** payload from the existing package
+  cache, with the published Pytest Receptor 1.2.1 in the shared Python 3.14.7
+  environment. There are no failures or omissions and one expected capping
+  attribute-drop warning. The original package identity is the same qualified
+  floor recorded under #554; actual import origins are retained locally.
+- The four native Topology doctest items pass on the final source. The selected
+  documentation corpus initially passes 538 cases and fails one conditional-key
+  assertion: the new 0.3-only field was presented as required for the existing
+  0.2 example. The table now marks its conditional presence explicitly, and the
+  full six-case dictionary documentation module passes in the final selection.
+  The remaining 533 structural/rendering/notebook checks are reused from that
+  corpus; their tested structure is unchanged by the corrected table wording.
+- An additional merge control initially used partial MolSys inputs on a route
+  explicitly requiring one chemical state per input. It now exercises supported
+  public Topology merging, without broadening molecular merge semantics. A
+  separate append control verifies that declared source chemistry refuses
+  mismatching name conventions before changing the destination.
+- Whole-package Ruff, the public signature guard, the 278-symbol stability
+  registry, the 246-function docstring validator and lazy-dependency validation
+  pass. Notebook code/output/document metadata and all four protected API-stub
+  hashes are unchanged. No new dependency or compiled-backend change is needed.
+
+Raw JUnit/environment evidence is local under `.pytest_cache/group-naming-549/`:
+`receiving.xml`, `native-persistence.xml`, `final-floor.xml`,
+`documentation.xml`, `final-doctests.xml` and `floor-environment.json`. Those
+working files are not a published release certificate. Scope remains D2; D3/D4
+must supply independent scientific resolution controls and actual conversion
+propagation before the original bug can close. The work is kept local for a
+batched publication; no hosted checkpoint is claimed for these changes.

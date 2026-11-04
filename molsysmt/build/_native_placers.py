@@ -1007,6 +1007,17 @@ def rebuild_molsys_with_new_groups(
     state.component_indices = new_component_indices.reset_index(drop=True)
     new_states._resize_atom_domain(len(atoms_df))
     new_topo.groups = groups_df
+    from molsysmt.native._group_naming import project as project_naming
+
+    new_topo._group_naming_codes = project_naming(
+        topo,
+        [
+            -1
+            if new_group_to_old_group.get(index) is None
+            else new_group_to_old_group[index]
+            for index in range(n_new_groups)
+        ],
+    )
     new_topo.molecules = topo.molecules.copy()
     new_topo.entities = topo.entities.copy()
     new_topo.chains = topo.chains.copy()

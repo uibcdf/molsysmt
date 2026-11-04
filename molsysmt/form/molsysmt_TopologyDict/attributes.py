@@ -3,7 +3,7 @@ from molsysmt.form.molsysmt_MolSys.attributes import attributes as _molsys
 from molsysmt.form.molsysmt_Topology.attributes import attributes as _topology
 
 # Version 0.1 can carry chemical declarations. Instance availability separates
-# that legacy reader from the pure stable-inventory 0.2 schema.
+# that legacy reader from the pure stable-inventory 0.2/0.3 schemas.
 attributes = {
     name: flag
     or bool(_molsys.get(name))

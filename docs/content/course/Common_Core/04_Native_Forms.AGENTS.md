@@ -43,3 +43,5 @@ ordered/repeated positions and unchanged reference. Queries do not decode unrela
 states or history; raw dictionary mutation is not a controlled editing interface.
 
 Retain controlled typed field assignment and state-aware count predicate examples.
+Preserve the distinction between compact group-name declarations and pending
+scheme-aware resolution, including unknown new groups, persistence and interaction invalidation.

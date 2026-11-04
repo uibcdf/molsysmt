@@ -43,6 +43,9 @@ def extract(topology, indices, element, *, copy_if_all=True):
             table,
             getattr(topology, table).iloc[chosen[kind]].reset_index(drop=True).copy(),
         )
+    from ._group_naming import project as project_naming
+
+    output._group_naming_codes = project_naming(topology, chosen["group"])
     for table, field, parent in (
         (output.groups, "molecule_index", "molecule"),
         (output.molecules, "entity_index", "entity"),

@@ -18,3 +18,5 @@ singleton labels survive, changed pair labels clear, and inventory/molecules sta
 Preserve the executed ChemicalStatesDict direct-read example, selected-state bounds,
 ordered/repeated positions and unchanged reference. Queries do not decode unrelated
 states or history; dictionary mutation is not a controlled editing interface.
+Retain explicit per-group naming declarations, unknown defaults, versioned
+transport and pending name-resolution limits. Declaration is not preparation.

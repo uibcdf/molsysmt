@@ -22,6 +22,19 @@ contracts.
 
 ## Group-name scheme design accepted — 2026-11-04
 
+**Local D2 receiving:** Native group-aligned naming declarations and versioned
+transport are now implemented and contract-tested. TopologyDict 0.3 carries the
+registry/codes; H5MSM root 0.5 uses topology layer 4. Known/unknown mixed groups,
+copies, selection, addition, builder growth and staged interaction invalidation
+are covered. The extended receiving run passes 2,602 cases; final boundary/floor
+receiving passes 138 cases with public ArgDigest 0.13.0, including seventy new
+naming guards. The owning record distinguishes finality and warnings. Changes
+remain local pending a meaningful combined publication checkpoint.
+
+D0–D2 are complete locally; D3's shared name resolver and public helper are next.
+The original GLH/HID/HIE interpretation/conversion bug remains open. This storage
+block is not scientific profile validation, hosted CI or package qualification.
+
 The maintainer accepts #549's explicit source-scheme design and requests a public
 comparison of supported schemes and their differences. The
 [owning plan](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#accepted-design--2026-11-04)
@@ -32,8 +45,8 @@ from the accepted amber/ccd/legacy profiles still to implement.
 
 The source study confirms real CCD/Amber collisions and native template sequence
 failures. No runtime table, public signature or file schema is changed by this
-documentation checkpoint. D0/D1 are complete; D2's typed storage/schema contract
-is the next step. This accepted correction precedes #504 and #543 receiving.
+documentation checkpoint. D0/D1 were complete; D2's typed storage/schema contract
+is received locally above. This accepted correction precedes #504 and #543 receiving.
 
 The six applicable routine workflows for source 5f3af9374 all pass, including
 [CI smoke 41878036717](https://github.com/uibcdf/molsysmt/actions/runs/41878036717).

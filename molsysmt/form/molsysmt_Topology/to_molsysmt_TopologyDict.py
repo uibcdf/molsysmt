@@ -29,6 +29,9 @@ def to_molsysmt_TopologyDict(item, skip_digestion=False, *, atom_indices="all"):
     scalars or None, including typed isotope numbers. Bonds, components and
     chemical states are outside TopologyDict; use MolSysDict 0.2 or H5MSM 0.5
     for the independent chemical collection. Unsupported extension payloads reject.
+    Known group-name declarations select TopologyDict 0.3, retaining the same
+    rows plus a versioned compact naming-code payload. All-unknown input keeps
+    schema 0.2. Older readers must be updated before reading 0.3.
 
     Examples
     --------

@@ -1,5 +1,7 @@
 """Private stable-topology layer probe for H5MSM 0.5."""
 
+import json
+
 import h5py
 import numpy as np
 import pandas as pd
@@ -30,6 +32,9 @@ def validate_independent_topology(topology):
     from molsysmt.native._atom_molecules import stored
 
     stored(topology)
+    from molsysmt.native._group_naming import stored as stored_naming
+
+    stored_naming(topology)
     if getattr(topology, "_chain_group_membership", None) is not None:
         from molsysmt.native._chain_groups import by_chain, pack
 
@@ -50,6 +55,9 @@ def write_independent_topology(root, topology, *, compression="gzip"):
     from molsysmt.native._atom_molecules import stored
 
     atom_molecules = stored(topology)
+    from molsysmt.native._group_naming import encode as encode_naming
+
+    naming = encode_naming(topology)
     if (
         atom_molecules is None
         and topology.n_atoms
@@ -60,7 +68,13 @@ def write_independent_topology(root, topology, *, compression="gzip"):
         # reference-component encoding when both domains are loaded together.
         atom_molecules = np.full(topology.n_atoms, -1, dtype=np.int64)
     group.attrs["schema_version"] = (
-        3 if atom_molecules is not None else 1 if membership is None else 2
+        4
+        if naming is not None
+        else 3
+        if atom_molecules is not None
+        else 1
+        if membership is None
+        else 2
     )
     for name, columns in _TABLES.items():
         table = getattr(topology, name)
@@ -96,6 +110,12 @@ def write_independent_topology(root, topology, *, compression="gzip"):
         group.create_dataset(
             "atom_molecules", data=atom_molecules, dtype="i8", **options
         )
+    if naming is not None:
+        declared = group.create_group("group_naming_schemes")
+        declared.attrs["schema_version"] = naming["schema_version"]
+        declared.attrs["profiles"] = json.dumps(naming["profiles"])
+        options = {"compression": compression} if compression is not None else {}
+        declared.create_dataset("codes", data=naming["codes"], dtype="u1", **options)
 
 
 def read_independent_topology(root):
@@ -104,13 +124,22 @@ def read_independent_topology(root):
         return None
     group = root["topology"]
     version = group.attrs.get("schema_version")
-    if version not in (1, 2, 3):
+    if (
+        not isinstance(version, (int, np.integer))
+        or isinstance(version, (bool, np.bool_))
+        or version not in (1, 2, 3, 4)
+    ):
         raise ValueError("Unsupported H5MSM 0.5 topology layer schema.")
     expected = set(_TABLES) | ({"chain_groups"} if version == 2 else set())
     if version == 3:
         expected |= {"atom_molecules"}
         if "chain_groups" in group:
             expected.add("chain_groups")
+    if version == 4:
+        expected.add("group_naming_schemes")
+        expected |= {
+            name for name in ("chain_groups", "atom_molecules") if name in group
+        }
     if set(group) != expected:
         raise ValueError("The topology layer has missing or unknown tables.")
 
@@ -157,7 +186,7 @@ def read_independent_topology(root):
         for column in table:
             target[column] = table[column]
     topology._coerce_id_columns_to_string()
-    if version == 2 or version == 3 and "chain_groups" in group:
+    if version == 2 or version in (3, 4) and "chain_groups" in group:
         packed = group["chain_groups"]
         if set(packed) != {"offsets", "indices"}:
             raise ValueError("Invalid topology chain/group membership datasets.")
@@ -179,7 +208,7 @@ def read_independent_topology(root):
             )
         except Exception as error:
             raise ValueError("Invalid topology chain/group membership.") from error
-    if version == 3:
+    if version in (3, 4) and "atom_molecules" in group:
         from molsysmt.native._atom_molecules import compact, stored
 
         dataset = group["atom_molecules"]
@@ -198,4 +227,42 @@ def read_independent_topology(root):
         except Exception as error:
             raise ValueError("Invalid topology atom/molecule membership.") from error
         topology._atom_molecule_membership = compact(values)
+    if version == 4:
+        from molsysmt.native._group_naming import decode as decode_naming
+
+        declared = group["group_naming_schemes"]
+        if (
+            not isinstance(declared, h5py.Group)
+            or set(declared) != {"codes"}
+            or set(declared.attrs)
+            != {
+                "schema_version",
+                "profiles",
+            }
+        ):
+            raise ValueError("Invalid group naming declaration datasets or metadata.")
+        try:
+            profiles = json.loads(declared.attrs["profiles"])
+        except (TypeError, ValueError) as error:
+            raise ValueError("Invalid group naming declaration registry.") from error
+        schema = declared.attrs["schema_version"]
+        if not isinstance(schema, (int, np.integer)) or isinstance(
+            schema, (bool, np.bool_)
+        ):
+            raise ValueError("Invalid group naming declaration schema version.")
+        codes = declared["codes"]
+        if (
+            not isinstance(codes, h5py.Dataset)
+            or codes.dtype != np.dtype("uint8")
+            or codes.shape != (topology.n_groups,)
+        ):
+            raise ValueError("Invalid group naming declaration dataset shape or dtype.")
+        topology._group_naming_codes = decode_naming(
+            {
+                "schema_version": int(schema),
+                "profiles": profiles,
+                "codes": codes[:],
+            },
+            topology.n_groups,
+        )
     return topology

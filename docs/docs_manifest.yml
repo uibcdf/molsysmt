@@ -38,7 +38,7 @@ sections:
           - name: naming_schemes
             file: docs/content/user/foundations/molecular_system/naming_schemes.md
             agents_file: docs/content/user/foundations/molecular_system/naming_schemes.md.AGENTS.md
-            description: Amber/CCD/legacy group-label meanings, verified collisions, unknown defaults and accepted per-group scheme design, explicitly distinguished from current runtime support.
+            description: Amber/CCD/legacy meanings, verified collisions, compact native declarations and versioned transport, distinguished from pending scheme-aware resolution.
       - name: native_world
         description: Native representations and analysis-specific logical independence over shared immutable storage.
         agents_file: docs/content/user/foundations/native_world/AGENTS.md
@@ -64,7 +64,7 @@ sections:
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
-            description: Native hierarchy with stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation.
+            description: Native hierarchy with compact group-name schemes, stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation.
           - name: molsys
             description: Independent native domains, explicit composition, chemical graph restriction, exact component labels, remapped references and staged ChemicalStates/Structures owner invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
@@ -563,7 +563,7 @@ sections:
             description: Header axis counts, eager structural queries and ordered subset export through StructuresDict.
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
-            description: Modular persistence, topology layer-3 atom/molecule and layer-2 chain/group membership, independent projected reads, typed history, complementary file composition, shared axes, explicit state maps and legacy migration.
+            description: Modular persistence, topology layer-4 naming declarations, layer-3 atom/molecule and layer-2 chain/group membership, independent projected reads, typed history, complementary file composition, shared axes, explicit state maps and legacy migration.
           - file: docs/content/user/tools/form/file/file_structures_yaml.ipynb
             agents_file: docs/content/user/tools/form/file/file_structures_yaml.ipynb.AGENTS.md
             description: Structures YAML 0.2 quantity records, sparse alternate geometry, local indices and explicit 0.1 migration.

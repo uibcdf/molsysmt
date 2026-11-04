@@ -2,11 +2,11 @@
 # Group naming schemes
 
 :::{warning}
-The contract below is accepted for development under
-[MolSysMT #549](https://github.com/uibcdf/molsysmt/issues/549).
-Explicit scheme arguments and scheme persistence are not implemented on the
-reviewed source `5f3af9374`. The existing name/code helpers still use the legacy
-table. This page distinguishes that behavior from the planned scheme-aware API.
+Development under [MolSysMT #549](https://github.com/uibcdf/molsysmt/issues/549)
+is staged. Native group-aligned declarations and their dictionary/H5MSM transport
+are implemented. Scheme-aware name resolution and conversion arguments remain
+pending; the existing name/code helpers still use the legacy table. Declaring
+metadata does not yet change their interpretation.
 :::
 
 A group name is a label interpreted in a naming scheme. Identical labels can
@@ -16,8 +16,9 @@ stored independently in `ChemicalStates`.
 
 ## Schemes and scope
 
-The initial development scope defines three explicit identifiers. None is an
-additional runtime-selectable option on the reviewed source.
+The native declaration vocabulary defines three explicit identifiers. Storing
+one records the source vocabulary; it does not establish that every name in
+that vocabulary is supported by a name resolver or a preparation method.
 
 | Identifier | Intended meaning | Coverage and limits |
 | --- | --- | --- |
@@ -93,12 +94,25 @@ groups. A system may combine an Amber-labelled protein and a CCD-labelled
 ligand. File format, Python class, group IDs and matching atom counts do not
 establish a common naming scheme.
 
-The planned native and persistence contract preserves declarations through
-copying, selection, reordering, combination and H5MSM round trips. It also covers
-native dictionaries. The physical encoding and schema revisions remain part of
-implementation design. Existing H5MSM files do not acquire an invented scheme
-when loaded. Preparation history records past operations and cannot substitute
-for a current declaration after later edits.
+Native declarations use one byte per group when any convention is known. If all
+groups are unknown, no code vector is stored. An immutable group-index-ordered
+view exposes the declared identifiers or `None`. New groups begin unknown;
+copying, selection and merging retain each existing group's declaration.
+Rebuilding a name-preserving hierarchy does not choose another convention.
+
+Changing a declaration on an attached topology invalidates its named interaction
+analyses, including evaluated-empty coverage. Previously held analyses remain
+snapshots, coordinates are not copied and detectors are not run. Repeating the
+same declaration is a no-op. Raw table mutation is not a coordinated editing
+interface; a mismatched group axis is rejected rather than silently realigned.
+
+The native and persistence contract preserves declarations through copying,
+selection, reordering, combination and H5MSM round trips. Known declarations
+select TopologyDict schema 0.3 and topology layer 4 inside H5MSM 0.5. Their
+versioned registry prevents a reader from silently changing code meanings.
+Existing H5MSM files do not acquire an invented scheme when loaded. Preparation
+history records past operations and cannot substitute for a current declaration
+after later edits.
 
 Chemical-state selection does not rename stable groups. Changing the label's
 interpretation does not itself change bonds, charge, coordinates or protonation.
