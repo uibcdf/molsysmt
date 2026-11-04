@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-11-03
+**Last updated:** 2026-11-04
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,38 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Metadata integration and native array repair — 2026-11-04
+
+PR #538/#540 are admitted on exact candidate
+fbb09782c3f66735762bd4a507314db692927f97 after all ten applicable workflows pass.
+The eight-cell full source matrix passes 25,114 cases per Linux cell and 25,113
+per macOS cell, with respectively 102 and 103 recorded omissions. All eight
+registered scientific evidence executions pass 79 cases without omissions.
+Native wheels pass four-target/Python 3.11--3.14 compatibility, NumPy floors,
+source-distribution round trip and the four Linux installed-public checks.
+The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) and
+[terminal receipt](../devtools/data/molsysviewer_tools_metadata_gate_receiving_20261104.json)
+retain exact source, jobs, hashes and scope. The 155/244 source-path inventory
+is not a count of independently validated scientific algorithms or installed
+Conda release-pair qualification. Earlier failed producers remain failed.
+
+[#550](archive/resolved_bugs/template_bond_helpers_reject_numpy_atom_names.md)
+repairs the documented NumPy name-array routes for three reference bond helper
+families without changing their data or valid list outputs. Its separate
+receiving merge aa1527bc2 combines that native repair with the frozen metadata
+candidate and passes 2,938 group/addon/inventory cases and 568 documentation/
+doctest cases without omissions, plus all 14 fast gates and Ruff. Its warning
+counts and bounded parity remain explicit in the owning record. The metadata
+hosted gates do not qualify this later repair as a new full source matrix.
+
+Next: complete #548's seven-helper return/mapping documentation and #549's
+legacy name/protonation-context review, then receive updated PR #543 separately,
+retaining both metadata namespaces and current native repairs. Provider/runtime
+floors (#524/#428), #504's solvation policy and final installed delivery retain
+their separate owner boundaries. Future reference-database caching is tracked
+in #553 without entering this stabilization patch. #421 and #334 remain open;
+no release, tag, package upload or promotion is performed by this integration.
 
 ## Post-integration stabilization review — 2026-11-03
 

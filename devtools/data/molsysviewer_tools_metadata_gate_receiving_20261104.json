@@ -1,0 +1,960 @@
+{
+  "schema": 1,
+  "date": "2026-11-04",
+  "issue": "uibcdf/molsysmt#421",
+  "status": "exact-source candidate gates passed; source integration authorized",
+  "candidate": "fbb09782c3f66735762bd4a507314db692927f97",
+  "main_before_integration": "d9255c85c0d0ee9dc98f1f824f8075a5d0d77fd0",
+  "pr_heads": {
+    "538": "3c13ba1a5c248de11622ff015b24551f72c59846",
+    "540": "c31e7658db3f8308fbd084f4279c00e65e6f8207"
+  },
+  "viewer_source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+  "workflows": [
+    {
+      "conclusion": "success",
+      "databaseId": 41839715696,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839715696",
+      "workflowName": "Bundled data integrity"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839370164,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839370164",
+      "workflowName": "MolSysSuite policy"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839364278,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839364278",
+      "workflowName": "Ruff"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839359361,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839359361",
+      "workflowName": "Conda publication governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839353741,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839353741",
+      "workflowName": "Dependency contract"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839348730,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839348730",
+      "workflowName": "CI smoke"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839343609,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839343609",
+      "workflowName": "Performance Regression Audit"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839338780,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839338780",
+      "workflowName": "Rust abi3 wheels"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839333623,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839333623",
+      "workflowName": "CI full"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41839251893,
+      "headSha": "fbb09782c3f66735762bd4a507314db692927f97",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41839251893",
+      "workflowName": "Developer guide integrity"
+    }
+  ],
+  "source_cells": [
+    {
+      "artifact": "full-suite-results-macos-15-py3.11",
+      "github_artifact_id": 13331373482,
+      "artifact_zip_sha256": "d59a3bb70be3f85a414ca0d621565900221465b83b3a933c357a9118905ba499",
+      "junit_sha256": "85ebffd60d9ac1928927a73694b8603dcf4cd54bb80afd7c04b0b2f9ae47a12f",
+      "counts": {
+        "tests": 25216,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 103,
+        "passed": 25113
+      },
+      "skip_reasons": {
+        "The optional ownership study requires ArgDigest >=0.17.0.": 14,
+        "could not import 'ackredit': No module named 'ackredit'": 32,
+        "This test can only be run in linux": 1,
+        "could not import 'myst_parser': No module named 'myst_parser'": 31,
+        "could not import 'sphinx': No module named 'sphinx'": 6,
+        "could not import 'vina': No module named 'vina'": 11,
+        "with rdkit CCO is recognized as valid SMILES": 1,
+        "CuPy is not available.": 1,
+        "could not import 'unyt': No module named 'unyt'": 1,
+        "could not import 'astropy': No module named 'astropy'": 1,
+        "Optional unyt quantity backend": 1,
+        "Optional astropy quantity backend": 1,
+        "Optional quantity backend: unyt": 1,
+        "Optional quantity backend: astropy": 1
+      }
+    },
+    {
+      "artifact": "full-suite-results-macos-15-py3.12",
+      "github_artifact_id": 13336212265,
+      "artifact_zip_sha256": "f00946686c5a0955d8690bf1fca26336b76da676c4610bc1d211e706bb9b0f0a",
+      "junit_sha256": "ff54001959ab771d1945b03d044ea06847e3be05754db7a0ff4367469c241146",
+      "counts": {
+        "tests": 25216,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 103,
+        "passed": 25113
+      },
+      "skip_reasons": {
+        "The optional ownership study requires ArgDigest >=0.17.0.": 14,
+        "could not import 'ackredit': No module named 'ackredit'": 32,
+        "This test can only be run in linux": 1,
+        "could not import 'myst_parser': No module named 'myst_parser'": 31,
+        "could not import 'sphinx': No module named 'sphinx'": 6,
+        "could not import 'vina': No module named 'vina'": 11,
+        "with rdkit CCO is recognized as valid SMILES": 1,
+        "CuPy is not available.": 1,
+        "could not import 'unyt': No module named 'unyt'": 1,
+        "could not import 'astropy': No module named 'astropy'": 1,
+        "Optional unyt quantity backend": 1,
+        "Optional astropy quantity backend": 1,
+        "Optional quantity backend: unyt": 1,
+        "Optional quantity backend: astropy": 1
+      }
+    },
+    {
+      "artifact": "full-suite-results-macos-15-py3.13",
+      "github_artifact_id": 13331013609,
+      "artifact_zip_sha256": "57ada5221db36132f919a66c71b8480343a2cfcfbd027882dd099d0bcc454d2a",
+      "junit_sha256": "7ea12d23c22fd0518a1a3535c88d3b3ecc6f28c4fe685d7782466b6a831bb4d9",
+      "counts": {
+        "tests": 25216,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 103,
+        "passed": 25113
+      },
+      "skip_reasons": {
+        "The optional ownership study requires ArgDigest >=0.17.0.": 14,
+        "could not import 'ackredit': No module named 'ackredit'": 32,
+        "This test can only be run in linux": 1,
+        "could not import 'myst_parser': No module named 'myst_parser'": 31,
+        "could not import 'sphinx': No module named 'sphinx'": 6,
+        "could not import 'vina': No module named 'vina'": 11,
+        "with rdkit CCO is recognized as valid SMILES": 1,
+        "CuPy is not available.": 1,
+        "could not import 'unyt': No module named 'unyt'": 1,
+        "could not import 'astropy': No module named 'astropy'": 1,
+        "Optional unyt quantity backend": 1,
+        "Optional astropy quantity backend": 1,
+        "Optional quantity backend: unyt": 1,
+        "Optional quantity backend: astropy": 1
+      }
+    },
+    {
+      "artifact": "full-suite-results-macos-15-py3.14",
+      "github_artifact_id": 13330508486,
+      "artifact_zip_sha256": "4692d562c279fff58e70f86160faf971d2b29bd0beea7316076ebb358ac34a96",
+      "junit_sha256": "f3f1618374b4af2883b48b702890aa68bb22767957cca9f3b150200cccfb5798",
+      "counts": {
+        "tests": 25216,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 103,
+        "passed": 25113
+      },
+      "skip_reasons": {
+        "The optional ownership study requires ArgDigest >=0.17.0.": 14,
+        "could not import 'ackredit': No module named 'ackredit'": 32,
+        "This test can only be run in linux": 1,
+        "could not import 'myst_parser': No module named 'myst_parser'": 31,
+        "could not import 'sphinx': No module named 'sphinx'": 6,
+        "could not import 'vina': No module named 'vina'": 11,
+        "with rdkit CCO is recognized as valid SMILES": 1,
+        "CuPy is not available.": 1,
+        "could not import 'unyt': No module named 'unyt'": 1,
+        "could not import 'astropy': No module named 'astropy'": 1,
+        "Optional unyt quantity backend": 1,
+        "Optional astropy quantity backend": 1,
+        "Optional quantity backend: unyt": 1,
+        "Optional quantity backend: astropy": 1
+      }
+    },
+    {
+      "artifact": "full-suite-results-ubuntu-latest-py3.11",
+      "github_artifact_id": 13331155962,
+      "artifact_zip_sha256": "605133ca010d13eb98e6e125b8c98ddf592cb2d87f208dfbc46d00223e0197a1",
+      "junit_sha256": "6c5899f0c6d1bca0b7adbb2321e29509d34e96bb25116c65948ed278ee713d24",
+      "counts": {
+        "tests": 25216,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 102,
+        "passed": 25114
+      },
+      "skip_reasons": {
+        "The optional ownership study requires ArgDigest >=0.17.0.": 14,
+        "could not import 'ackredit': No module named 'ackredit'": 32,
+        "could not import 'myst_parser': No module named 'myst_parser'": 31,
+        "could not import 'sphinx': No module named 'sphinx'": 6,
+        "could not import 'vina': No module named 'vina'": 11,
+        "with rdkit CCO is recognized as valid SMILES": 1,
+        "CuPy is not available.": 1,
+        "could not import 'unyt': No module named 'unyt'": 1,
+        "could not import 'astropy': No module named 'astropy'": 1,
+        "Optional unyt quantity backend": 1,
+        "Optional astropy quantity backend": 1,
+        "Optional quantity backend: unyt": 1,
+        "Optional quantity backend: astropy": 1
+      }
+    },
+    {
+      "artifact": "full-suite-results-ubuntu-latest-py3.12",
+      "github_artifact_id": 13330717882,
+      "artifact_zip_sha256": "16043f7b77b5b7299c58166fb0b021b85bd650d42afa827716426c29d1d5d0e1",
+      "junit_sha256": "18f081dade2e099f10c55d898ea0360a94e7dd5626540b906e17eed0713bb4f3",
+      "counts": {
+        "tests": 25216,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 102,
+        "passed": 25114
+      },
+      "skip_reasons": {
+        "The optional ownership study requires ArgDigest >=0.17.0.": 14,
+        "could not import 'ackredit': No module named 'ackredit'": 32,
+        "could not import 'myst_parser': No module named 'myst_parser'": 31,
+        "could not import 'sphinx': No module named 'sphinx'": 6,
+        "could not import 'vina': No module named 'vina'": 11,
+        "with rdkit CCO is recognized as valid SMILES": 1,
+        "CuPy is not available.": 1,
+        "could not import 'unyt': No module named 'unyt'": 1,
+        "could not import 'astropy': No module named 'astropy'": 1,
+        "Optional unyt quantity backend": 1,
+        "Optional astropy quantity backend": 1,
+        "Optional quantity backend: unyt": 1,
+        "Optional quantity backend: astropy": 1
+      }
+    },
+    {
+      "artifact": "full-suite-results-ubuntu-latest-py3.13",
+      "github_artifact_id": 13331413450,
+      "artifact_zip_sha256": "ac97f522999b9f425df0060e386052b335230ab1740f2dfebe9230fd5603875e",
+      "junit_sha256": "738631e7799f88d986e035fc6f418ee3e83cc135baa96f5e957139df60737c42",
+      "counts": {
+        "tests": 25216,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 102,
+        "passed": 25114
+      },
+      "skip_reasons": {
+        "The optional ownership study requires ArgDigest >=0.17.0.": 14,
+        "could not import 'ackredit': No module named 'ackredit'": 32,
+        "could not import 'myst_parser': No module named 'myst_parser'": 31,
+        "could not import 'sphinx': No module named 'sphinx'": 6,
+        "could not import 'vina': No module named 'vina'": 11,
+        "with rdkit CCO is recognized as valid SMILES": 1,
+        "CuPy is not available.": 1,
+        "could not import 'unyt': No module named 'unyt'": 1,
+        "could not import 'astropy': No module named 'astropy'": 1,
+        "Optional unyt quantity backend": 1,
+        "Optional astropy quantity backend": 1,
+        "Optional quantity backend: unyt": 1,
+        "Optional quantity backend: astropy": 1
+      }
+    },
+    {
+      "artifact": "full-suite-results-ubuntu-latest-py3.14",
+      "github_artifact_id": 13332730256,
+      "artifact_zip_sha256": "e7587d08e75a7051b7da52b8ed46409dff6a45e388e85e703556720107c65ac1",
+      "junit_sha256": "6471b731df98b910e1b1d3335d32803c8a7ed2970750e845d4ac018b7b7cfca7",
+      "counts": {
+        "tests": 25216,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 102,
+        "passed": 25114
+      },
+      "skip_reasons": {
+        "The optional ownership study requires ArgDigest >=0.17.0.": 14,
+        "could not import 'ackredit': No module named 'ackredit'": 32,
+        "could not import 'myst_parser': No module named 'myst_parser'": 31,
+        "could not import 'sphinx': No module named 'sphinx'": 6,
+        "could not import 'vina': No module named 'vina'": 11,
+        "with rdkit CCO is recognized as valid SMILES": 1,
+        "CuPy is not available.": 1,
+        "could not import 'unyt': No module named 'unyt'": 1,
+        "could not import 'astropy': No module named 'astropy'": 1,
+        "Optional unyt quantity backend": 1,
+        "Optional astropy quantity backend": 1,
+        "Optional quantity backend: unyt": 1,
+        "Optional quantity backend: astropy": 1
+      }
+    }
+  ],
+  "scientific_certificates": [
+    {
+      "artifact": "scientific-evidence-macos-15-py3.11",
+      "github_artifact_id": 13328332017,
+      "artifact_zip_sha256": "75bc30c8727d927a97dd51769f6279de3620d8dfab36879358fe65f762366018",
+      "certificate_sha256": "c6ab2f691e39a2ec51f75d395f2905a1d539882f41609a89d105e11dcddfb682",
+      "commit": "fbb09782c3f66735762bd4a507314db692927f97",
+      "verdict": "pass",
+      "python": "3.11.18",
+      "platform": "macOS-15.8.2-arm64-arm-64bit",
+      "registered_nodes": 59,
+      "collected_cases": 79,
+      "passed": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "release_eligible": true
+    },
+    {
+      "artifact": "scientific-evidence-macos-15-py3.12",
+      "github_artifact_id": 13330389906,
+      "artifact_zip_sha256": "1728bbfbc47b037c6ab8688edbef3cfec7786204cae4f8479efb92f6858235e8",
+      "certificate_sha256": "eade03118b6fb3f3f5cef6363333bea0a2f203ca36c6571e9220ca4fb1ba6b1a",
+      "commit": "fbb09782c3f66735762bd4a507314db692927f97",
+      "verdict": "pass",
+      "python": "3.12.16",
+      "platform": "macOS-15.8.2-arm64-arm-64bit",
+      "registered_nodes": 59,
+      "collected_cases": 79,
+      "passed": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "release_eligible": true
+    },
+    {
+      "artifact": "scientific-evidence-macos-15-py3.13",
+      "github_artifact_id": 13329380142,
+      "artifact_zip_sha256": "fab1e04754fd87201167da8f472f03528dfdda7272baa863f30cd8f75b9a139c",
+      "certificate_sha256": "5827b4ff815e44633856734fa9621d17c1823aed097ccf7759746d5f9fcabb90",
+      "commit": "fbb09782c3f66735762bd4a507314db692927f97",
+      "verdict": "pass",
+      "python": "3.13.18",
+      "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+      "registered_nodes": 59,
+      "collected_cases": 79,
+      "passed": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "release_eligible": true
+    },
+    {
+      "artifact": "scientific-evidence-macos-15-py3.14",
+      "github_artifact_id": 13329310337,
+      "artifact_zip_sha256": "ccd2f8a13a902f439a306c4c271895b1e2e2b963a3d4e94c0d500add19b65a18",
+      "certificate_sha256": "192b07ec730760f3004a4954791b52494821071ad879d608b9bc500214d10cd7",
+      "commit": "fbb09782c3f66735762bd4a507314db692927f97",
+      "verdict": "pass",
+      "python": "3.14.10",
+      "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+      "registered_nodes": 59,
+      "collected_cases": 79,
+      "passed": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "release_eligible": true
+    },
+    {
+      "artifact": "scientific-evidence-ubuntu-latest-py3.11",
+      "github_artifact_id": 13327988776,
+      "artifact_zip_sha256": "a5ac91c55500ca0c7233eaa4f87e1e6e28b341101c3b48e62a4387943c3da24b",
+      "certificate_sha256": "aabd60aff39918ab64c8fe054a233b4b885a297d372b838b3b6a0de7bb09d969",
+      "commit": "fbb09782c3f66735762bd4a507314db692927f97",
+      "verdict": "pass",
+      "python": "3.11.18",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.43",
+      "registered_nodes": 59,
+      "collected_cases": 79,
+      "passed": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "release_eligible": true
+    },
+    {
+      "artifact": "scientific-evidence-ubuntu-latest-py3.12",
+      "github_artifact_id": 13328995177,
+      "artifact_zip_sha256": "dcbae46d0aa8a1ca715be0a857ac4fb35d4a09751b0c329d80f866d57045ff88",
+      "certificate_sha256": "72cf467c09a030649cb5a3a6d8a2fce7c0dbc61ed4d50b49f7142f2191ba42df",
+      "commit": "fbb09782c3f66735762bd4a507314db692927f97",
+      "verdict": "pass",
+      "python": "3.12.16",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.43",
+      "registered_nodes": 59,
+      "collected_cases": 79,
+      "passed": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "release_eligible": true
+    },
+    {
+      "artifact": "scientific-evidence-ubuntu-latest-py3.13",
+      "github_artifact_id": 13327188958,
+      "artifact_zip_sha256": "cb4d45c7c572831ed6b7582085ec94254d485aedadaa88b6e0b7861547dbff24",
+      "certificate_sha256": "3367d2ec6fec78ee875045b60b7db59ad3b47dde8e42cf932da6c5ef0452401f",
+      "commit": "fbb09782c3f66735762bd4a507314db692927f97",
+      "verdict": "pass",
+      "python": "3.13.18",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.43",
+      "registered_nodes": 59,
+      "collected_cases": 79,
+      "passed": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "release_eligible": true
+    },
+    {
+      "artifact": "scientific-evidence-ubuntu-latest-py3.14",
+      "github_artifact_id": 13328750848,
+      "artifact_zip_sha256": "70fddac66d581bfea0a61981ae175e4e5286f8172bcddcb88169c27152efea18",
+      "certificate_sha256": "53d6d43926f4d720f9af1c6934072e885f682f6282409808ff3ccc6db2f7a259",
+      "commit": "fbb09782c3f66735762bd4a507314db692927f97",
+      "verdict": "pass",
+      "python": "3.14.10",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.43",
+      "registered_nodes": 59,
+      "collected_cases": 79,
+      "passed": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "release_eligible": true
+    }
+  ],
+  "native_workflow": {
+    "run": 41839338780,
+    "conclusion": "success",
+    "successful_jobs": 30,
+    "skipped_jobs": [
+      {
+        "conclusion": "skipped",
+        "id": 126608091223,
+        "name": "linux-x86_64 \u2014 Python ${{ matrix.python }}",
+        "status": "completed"
+      }
+    ],
+    "all_jobs": [
+      {
+        "conclusion": "success",
+        "id": 126606443201,
+        "name": "Source distribution round trip",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126606443640,
+        "name": "linux-aarch64",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126606443684,
+        "name": "linux-x86_64",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126606443885,
+        "name": "windows-x86_64",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126606443943,
+        "name": "Format, lint, test, dependencies",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126606444000,
+        "name": "macos-arm64",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088519,
+        "name": "linux-x86_64 \u2014 Python 3.13",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088523,
+        "name": "linux-x86_64 \u2014 Python 3.12",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088598,
+        "name": "Installed public smoke \u2014 Python 3.13",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088623,
+        "name": "NumPy floor \u2014 Python 3.13",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088633,
+        "name": "Installed public smoke \u2014 Python 3.12",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088646,
+        "name": "NumPy floor \u2014 Python 3.11",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088657,
+        "name": "Installed public smoke \u2014 Python 3.11",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088677,
+        "name": "Installed public smoke \u2014 Python 3.14",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088747,
+        "name": "linux-x86_64 \u2014 Python 3.11",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088756,
+        "name": "linux-x86_64 \u2014 Python 3.14",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088786,
+        "name": "NumPy floor \u2014 Python 3.12",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608088840,
+        "name": "NumPy floor \u2014 Python 3.14",
+        "status": "completed"
+      },
+      {
+        "conclusion": "skipped",
+        "id": 126608091223,
+        "name": "linux-x86_64 \u2014 Python ${{ matrix.python }}",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487526,
+        "name": "macos-arm64 \u2014 Python 3.11",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487572,
+        "name": "windows-x86_64 \u2014 Python 3.12",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487575,
+        "name": "macos-arm64 \u2014 Python 3.14",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487576,
+        "name": "linux-aarch64 \u2014 Python 3.14",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487652,
+        "name": "macos-arm64 \u2014 Python 3.12",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487657,
+        "name": "linux-aarch64 \u2014 Python 3.11",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487659,
+        "name": "linux-aarch64 \u2014 Python 3.12",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487680,
+        "name": "windows-x86_64 \u2014 Python 3.13",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487730,
+        "name": "linux-aarch64 \u2014 Python 3.13",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487740,
+        "name": "macos-arm64 \u2014 Python 3.13",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487781,
+        "name": "windows-x86_64 \u2014 Python 3.11",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "id": 126608487901,
+        "name": "windows-x86_64 \u2014 Python 3.14",
+        "status": "completed"
+      }
+    ],
+    "artifact_containers": [
+      {
+        "digest": "sha256:6c4d3aa4295f112907b08ccc90f7209e326804d7b262fd639304f8bb1a01c6d7",
+        "expired": false,
+        "id": 13328685706,
+        "name": "molsysmt-source-distribution",
+        "size_in_bytes": 57987119
+      },
+      {
+        "digest": "sha256:96883653c58c8da64626b2d1e4bce4d29972a5cb5459c272b2d4a828e2c21b6d",
+        "expired": false,
+        "id": 13328586042,
+        "name": "molsysmt-windows-x86_64-abi3",
+        "size_in_bytes": 60217553
+      },
+      {
+        "digest": "sha256:a35a3dfc7118db3a6d41437e20e11bf0452394f03a46a040fcd6d4eab98dcccd",
+        "expired": false,
+        "id": 13328281150,
+        "name": "molsysmt-linux-x86_64-abi3",
+        "size_in_bytes": 60391461
+      },
+      {
+        "digest": "sha256:fcb837e896e440ded08b7e1c726aab7282db8664c24951017a094df8134bd65e",
+        "expired": false,
+        "id": 13327638685,
+        "name": "molsysmt-macos-arm64-abi3",
+        "size_in_bytes": 59899432
+      },
+      {
+        "digest": "sha256:58a313de135b93e12b2ad518c7ac62c52cc11079aca56421ce2d9d223f894d2a",
+        "expired": false,
+        "id": 13326864459,
+        "name": "molsysmt-linux-aarch64-abi3",
+        "size_in_bytes": 59968752
+      }
+    ],
+    "installed_public_runtime": [
+      {
+        "id": 126608088598,
+        "name": "Installed public smoke \u2014 Python 3.13",
+        "bytes": 77349,
+        "log_sha256": "5b1a9a56bd04bb4c78bb4c15a53698575624040d711b884315648782923025bd",
+        "evidence": [
+          "2026-11-04T13:40:01.1396492Z No broken requirements found.",
+          "2026-11-04T13:40:03.9356531Z MolSysMT installed public runtime validation passed: version=0.23.0+406.gfbb09782c | n_atoms=304 | n_alpha_carbons=20 | n_covalent_blocks=1 | package=/opt/hostedtoolcache/Python/3.13.18/x64/lib/python3.13/site-packages/molsysmt/__init__.py | extension=/opt/hostedtoolcache/Python/3.13.18/x64/lib/python3.13/site-packages/molsysmt/_rust.abi3.so"
+        ]
+      },
+      {
+        "id": 126608088633,
+        "name": "Installed public smoke \u2014 Python 3.12",
+        "bytes": 77278,
+        "log_sha256": "c800b404418b074e802b9b4c24bb1a27ab59837b6eb96f027ffcdf004ce6d1d8",
+        "evidence": [
+          "2026-11-04T13:38:51.4746620Z No broken requirements found.",
+          "2026-11-04T13:38:53.8346296Z MolSysMT installed public runtime validation passed: version=0.23.0+406.gfbb09782c | n_atoms=304 | n_alpha_carbons=20 | n_covalent_blocks=1 | package=/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/molsysmt/__init__.py | extension=/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/molsysmt/_rust.abi3.so"
+        ]
+      },
+      {
+        "id": 126608088657,
+        "name": "Installed public smoke \u2014 Python 3.11",
+        "bytes": 74306,
+        "log_sha256": "e2a89f4340c4d8235878405efe6a346ba3e1574b06200a65d0914b9a7b105269",
+        "evidence": [
+          "2026-11-04T13:42:44.9690261Z No broken requirements found.",
+          "2026-11-04T13:42:46.6560924Z MolSysMT installed public runtime validation passed: version=0.23.0+406.gfbb09782c | n_atoms=304 | n_alpha_carbons=20 | n_covalent_blocks=1 | package=/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/molsysmt/__init__.py | extension=/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/molsysmt/_rust.abi3.so"
+        ]
+      },
+      {
+        "id": 126608088677,
+        "name": "Installed public smoke \u2014 Python 3.14",
+        "bytes": 77284,
+        "log_sha256": "da7ce5ed04888395bb41b3017250281c61da90451b1d2aadf26ba8558a63ca3c",
+        "evidence": [
+          "2026-11-04T13:40:33.4009707Z No broken requirements found.",
+          "2026-11-04T13:40:36.3948523Z MolSysMT installed public runtime validation passed: version=0.23.0+406.gfbb09782c | n_atoms=304 | n_alpha_carbons=20 | n_covalent_blocks=1 | package=/opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/molsysmt/__init__.py | extension=/opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/molsysmt/_rust.abi3.so"
+        ]
+      }
+    ]
+  },
+  "retained_guard_audit": [
+    {
+      "artifact": "full-suite-results-macos-15-py3.11",
+      "retained_legacy_guards_passed": 2,
+      "public_rejection_cases_passed": 8,
+      "guard_nodes": [
+        "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+        "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_accept_selectors_and_donors_require_index_arrays",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_luzard_chandler_hbonds]"
+      ]
+    },
+    {
+      "artifact": "full-suite-results-macos-15-py3.12",
+      "retained_legacy_guards_passed": 2,
+      "public_rejection_cases_passed": 8,
+      "guard_nodes": [
+        "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+        "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_accept_selectors_and_donors_require_index_arrays",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_luzard_chandler_hbonds]"
+      ]
+    },
+    {
+      "artifact": "full-suite-results-macos-15-py3.13",
+      "retained_legacy_guards_passed": 2,
+      "public_rejection_cases_passed": 8,
+      "guard_nodes": [
+        "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+        "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_accept_selectors_and_donors_require_index_arrays",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_luzard_chandler_hbonds]"
+      ]
+    },
+    {
+      "artifact": "full-suite-results-macos-15-py3.14",
+      "retained_legacy_guards_passed": 2,
+      "public_rejection_cases_passed": 8,
+      "guard_nodes": [
+        "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+        "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_accept_selectors_and_donors_require_index_arrays",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_luzard_chandler_hbonds]"
+      ]
+    },
+    {
+      "artifact": "full-suite-results-ubuntu-latest-py3.11",
+      "retained_legacy_guards_passed": 2,
+      "public_rejection_cases_passed": 8,
+      "guard_nodes": [
+        "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+        "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_accept_selectors_and_donors_require_index_arrays",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_luzard_chandler_hbonds]"
+      ]
+    },
+    {
+      "artifact": "full-suite-results-ubuntu-latest-py3.12",
+      "retained_legacy_guards_passed": 2,
+      "public_rejection_cases_passed": 8,
+      "guard_nodes": [
+        "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+        "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_accept_selectors_and_donors_require_index_arrays",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_luzard_chandler_hbonds]"
+      ]
+    },
+    {
+      "artifact": "full-suite-results-ubuntu-latest-py3.13",
+      "retained_legacy_guards_passed": 2,
+      "public_rejection_cases_passed": 8,
+      "guard_nodes": [
+        "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+        "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_accept_selectors_and_donors_require_index_arrays",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_luzard_chandler_hbonds]"
+      ]
+    },
+    {
+      "artifact": "full-suite-results-ubuntu-latest-py3.14",
+      "retained_legacy_guards_passed": 2,
+      "public_rejection_cases_passed": 8,
+      "guard_nodes": [
+        "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+        "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_accept_selectors_and_donors_require_index_arrays",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[all-donors_2-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors-get_luzard_chandler_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_buch_hbonds]",
+        "tests.interactions.hbonds.test_precomputed_donors.test_invalid_donor_indices_or_pairs_raise_argument_error[atom_type==\"O\"-donors_2-get_luzard_chandler_hbonds]"
+      ]
+    }
+  ],
+  "limits": [
+    "Native wheel compatibility spans four platform targets x Python 3.11-3.14; installed public runtime smoke is Linux only, four Python versions.",
+    "Controlled-source Viewer/dependencies are not a public Conda package-pair qualification.",
+    "Artifact-container digests are not contained-wheel file hashes. No package publication, promotion, release or tag.",
+    "Original r2 source failure and original candidate wheel failure retain their original outcomes.",
+    "Separate #550 repair and PR #543 are not part of the frozen candidate.",
+    "Full-source skips are retained per cell; zero-skip qualification applies to the registered scientific evidence execution only. Original full-suite warning/event evidence remains in the producer artifacts; no zero-warning claim is made."
+  ],
+  "source_jobs": [
+    {
+      "id": 126606421570,
+      "name": "Build controlled MolSysViewer wheel",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126606559336,
+      "name": "Full matrix \u2014 macos-15, Python 3.11",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126606559357,
+      "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126606559375,
+      "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126606559407,
+      "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126606559412,
+      "name": "Full matrix \u2014 macos-15, Python 3.13",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126606559536,
+      "name": "Full matrix \u2014 macos-15, Python 3.12",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126606559561,
+      "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126606559600,
+      "name": "Full matrix \u2014 macos-15, Python 3.14",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126653021043,
+      "name": "PR full suite",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "scope": "Four supported metadata reports and seven attribute tools, 155/244 exposed source paths. PR #543 and the separate #550 native repair are excluded from this exact candidate."
+}

@@ -1,12 +1,12 @@
 ---
 summary: Reference bond helpers reject documented NumPy atom-name arrays.
 issue: uibcdf/molsysmt#550
-status: active
+status: resolved
 opened: 2026-11-04
-closed:
+closed: 2026-11-04
 severity: medium
 verification: reproduced
-area: [element, build, validation]
+area: [build, argdigest, tests]
 guard: tests/element/group/test_template_atom_name_containers.py
 normative:
 blocked_by: []
@@ -16,9 +16,10 @@ supersedes: []
 # Reference template atom-name containers
 
 **Reported:** MolSysViewer's PR #543 native intake, independently reproduced
-on main d9255c85c. **Status:** implementation and focal receiving are prepared
-on `dev/template-bond-inputs-550`; not integrated into main. The running
-metadata candidate fbb09782c is left unchanged.
+on main d9255c85c. **Correction:** source ee3f303c2cca86163120151bac92200890b8f8de
+normalizes the three documented flat name containers. Receiving merge
+aa1527bc26b5c065c4c97f65de99fbe168f7f826 retains that fix and the independently
+qualified metadata candidate fbb09782c3f66735762bd4a507314db692927f97.
 
 ## What and how
 
@@ -84,9 +85,8 @@ reads, six headless-plot notices and one intentional attribute-drop control.
 The first documentation run had one real-target fixture failure (567 passes):
 the miniature API build needed the existing group tutorial in its real-source
 anchor list. The warning assertion remains strict; no fake target is added.
-Ruff, developer-guide/index checks and all 14 fast gates pass. Main
-integration/closure remain due.
-The [receiving receipt](../../devtools/data/template_bond_array_receiving_550_20261104.json)
+Ruff, developer-guide/index checks and all 14 fast gates pass.
+The [receiving receipt](../../../devtools/data/template_bond_array_receiving_550_20261104.json)
 retains inputs, warnings, successful scopes and unsuccessful probes.
 
 ## Provenance and scope
@@ -97,3 +97,26 @@ Raw evidence is in `.pytest_cache/template-bond-contracts-548-550/`.
 No new algorithm, coordinate calculation, physical-unit policy, scientific
 attribution boundary, dependency floor, topology inference or publication is
 introduced. Compiled acceleration is not needed for this flat-input boundary.
+
+## Resolution and combined receiving — 2026-11-04
+
+The isolated correction and frozen metadata extensions merge without conflicts.
+On receiving source aa1527bc2, all 2,938 group/addon/inventory/integration cases
+pass without omissions (344.10 seconds). The 1,615 warnings comprise 1,608 legacy
+H5MSM reads, four intentional attribute-drop controls, two unregistered-invalid-
+keyword diagnostics and one invalid-determinant control. The separate combined
+documentation and three module-doctest selection passes 568 cases without
+omissions (42.93 seconds), retaining the same 529 disclosed warnings as the
+initial isolated receiving. All 14 fast gates and whole-tree Ruff checks pass.
+
+The guard exercises literal expected mapped bonds through both public routes,
+including readonly/strided NumPy inputs. Reintroducing a direct ndarray.index
+lookup fails the positive array cases; accepting malformed name dimensions
+fails the explicit ArgumentError cases. It protects the reported mechanism
+rather than merely recognizing a return type or matching help text.
+
+The [combined receiving receipt](../../../devtools/data/template_bond_array_main_receiving_550_20261104.json)
+retains exact source, JUnit hashes and warning counts. The registered metadata
+matrix qualifies fbb09782c, not this subsequent native repair; final release
+and installed-pair qualification retain their separate exact-source gates.
+#548's remaining four helper contracts and #549's naming review stay open.

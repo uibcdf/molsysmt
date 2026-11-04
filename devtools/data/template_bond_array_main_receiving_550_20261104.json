@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "date": "2026-11-04",
+  "issue": "uibcdf/molsysmt#550",
+  "correction_source": "ee3f303c2cca86163120151bac92200890b8f8de",
+  "receiving_merge": "aa1527bc26b5c065c4c97f65de99fbe168f7f826",
+  "metadata_candidate": "fbb09782c3f66735762bd4a507314db692927f97",
+  "viewer_source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+  "python": "3.14.7",
+  "pytest_receptor": "published 1.2.1",
+  "workers": 2,
+  "original_receipt": "devtools/data/template_bond_array_receiving_550_20261104.json",
+  "all_original_input_hashes_match": true,
+  "receiving": [
+    {
+      "selection": "tests/element/group, complete tests/molsysviewer_molsysmt, addon inventory and native integration controls",
+      "passed": 2938,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "warnings": 1615,
+      "seconds": 344.1,
+      "warning_groups": {
+        "legacy_h5msm": 1608,
+        "intentional_attribute_drop": 4,
+        "invalid_keyword_digester_diagnostics": 2,
+        "invalid_determinant_control": 1
+      },
+      "junit_sha256": "ed52cfe17a806816ddd37423dbe54e842d84ec34e0c949154c5488a83cd6a812"
+    },
+    {
+      "selection": "tests/documentation and the three changed public modules doctests",
+      "passed": 568,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "warnings": 529,
+      "seconds": 42.93,
+      "warning_groups": {
+        "sphinx_myst_deprecations": 514,
+        "legacy_h5msm": 8,
+        "headless_plot": 6,
+        "intentional_attribute_drop": 1
+      },
+      "junit_sha256": "344002f454b10aa9bad709a82c271f42a0e46be1f1b6d6df25c192ae1cceb432"
+    }
+  ],
+  "checks": [
+    "14/14 fast gates",
+    "whole-tree Ruff check and format: 4327 files",
+    "developer-guide generated index check"
+  ],
+  "limits": [
+    "Prior 147-case focal, 846-case wider and 96-case bounded list-parity evidence retains its original source and scope.",
+    "Metadata candidate hosted evidence qualifies fbb09782c; it does not qualify the later #550 source as a new full matrix or installed release pair.",
+    "PR #543 remains unmerged; #548 and #549 remain open.",
+    "No reference data, scientific algorithm, compiled backend, units, dependency floor, release, tag or publication change."
+  ]
+}

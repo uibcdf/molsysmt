@@ -14,6 +14,40 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Metadata candidate accepted — 2026-11-04
+
+Exact candidate fbb09782c3f66735762bd4a507314db692927f97 completes all ten
+applicable workflows and retains both original heads of PR #538/#540. Full
+source run 41839333623 passes all eight Linux/macOS-arm64 Python 3.11--3.14
+cells: each Linux cell has 25,114 passes and 102 omissions; each macOS cell has
+25,113 passes and 103 omissions. Original JUnit artifacts and their skip reasons
+are retained. Every cell executes both corrected legacy donor guards and all
+eight new public selector-rejection cases. All eight registered scientific
+evidence certificates pass 79 cases from 59 nodes with zero omissions, failures
+or errors and the exact clean candidate commit.
+
+Native workflow 41839338780 passes thirty jobs, with one PR-only job skipped:
+Rust quality, source-distribution round trip, four native wheel targets,
+sixteen private-extension compatibility cells, four NumPy-floor checks and four
+Linux installed-public runtime checks. The latter verify pip check and actual
+site-packages origins outside the checkout on Python 3.11--3.14. Native-wheel
+compatibility across four platforms is distinct from these Linux-only public
+runtime checks and the still-pending installed Conda release-pair matrix.
+
+Smoke, performance, dependency, Ruff, bundled-data, devguide, suite policy and
+publication-governance workflows also pass on the same source. The
+[terminal receipt](../../devtools/data/molsysviewer_tools_metadata_gate_receiving_20261104.json)
+retains original artifact IDs, container/JUnit/certificate hashes, job outcomes,
+omissions and installed-runtime provenance. It supersedes the pending state in
+the immutable local candidate receipts without changing their historical facts.
+
+The two metadata contributions are admitted to main with their original
+ancestries: four supported reports and seven attribute helpers, source exposure
+155/244. PR #543, broader scientific/GUI coverage and installed release-pair
+qualification remain separate. The later native #550 repair has its own source
+and receiving evidence; this candidate's hosted results do not qualify it.
+#421 remains partial. No package, release, tag or dependency floor is changed.
+
 ## Corrected guard candidate — 2026-11-04
 
 Source merge f2d59d5b3b4bb07ea0c5a00631a220a854555dea on

@@ -26,10 +26,6 @@ that front matter -- edit the entries, not this list.
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
-### In progress (1)
-
-- [`template_bond_helpers_reject_numpy_atom_names.md`](template_bond_helpers_reject_numpy_atom_names.md) — [#550](https://github.com/uibcdf/molsysmt/issues/550) — Reference bond helpers reject documented NumPy atom-name arrays. *(medium, reproduced)*
-
 ### Partially resolved (1)
 
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
