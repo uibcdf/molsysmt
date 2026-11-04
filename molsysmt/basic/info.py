@@ -763,45 +763,24 @@ def _info(
             index=[0],
         )
 
-        if n_ions == 0 or n_ions is None:
-            if "n_ions" in tmp_df.columns:
-                tmp_df.drop(columns=["n_ions"], inplace=True)
-
-        if n_waters == 0 or n_waters is None:
-            if "n_waters" in tmp_df.columns:
-                tmp_df.drop(columns=["n_waters"], inplace=True)
-
-        if n_small_molecules == 0 or n_small_molecules is None:
-            if "n_small_molecules" in tmp_df.columns:
-                tmp_df.drop(columns=["n_small_molecules"], inplace=True)
-
-        if n_peptides == 0 or n_peptides is None:
-            if "n_peptides" in tmp_df.columns:
-                tmp_df.drop(columns=["n_peptides"], inplace=True)
-
-        if n_proteins == 0 or n_proteins is None:
-            if "n_proteins" in tmp_df.columns:
-                tmp_df.drop(columns=["n_proteins"], inplace=True)
-
-        if n_dnas == 0 or n_dnas is None:
-            if "n_dnas" in tmp_df.columns:
-                tmp_df.drop(columns=["n_dnas"], inplace=True)
-
-        if n_rnas == 0 or n_rnas is None:
-            if "n_rnas" in tmp_df.columns:
-                tmp_df.drop(columns=["n_rnas"], inplace=True)
-
-        if n_lipids == 0 or n_lipids is None:
-            if "n_lipids" in tmp_df.columns:
-                tmp_df.drop(columns=["n_lipids"], inplace=True)
-
-        if n_polysaccharides == 0 or n_polysaccharides is None:
-            if "n_polysaccharides" in tmp_df.columns:
-                tmp_df.drop(columns=["n_polysaccharides"], inplace=True)
-
-        if n_saccharides == 0 or n_saccharides is None:
-            if "n_saccharides" in tmp_df.columns:
-                tmp_df.drop(columns=["n_saccharides"], inplace=True)
+        population_counts = {
+            "n_ions": n_ions,
+            "n_waters": n_waters,
+            "n_small_molecules": n_small_molecules,
+            "n_peptides": n_peptides,
+            "n_proteins": n_proteins,
+            "n_dnas": n_dnas,
+            "n_rnas": n_rnas,
+            "n_lipids": n_lipids,
+            "n_polysaccharides": n_polysaccharides,
+            "n_saccharides": n_saccharides,
+        }
+        empty_columns = [
+            name
+            for name, count in population_counts.items()
+            if (count is None or count == 0) and name in tmp_df.columns
+        ]
+        tmp_df = tmp_df.drop(columns=empty_columns)
 
     else:
         from molsysmt._private.smonitor import ArgumentChoiceError

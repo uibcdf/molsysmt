@@ -28,6 +28,17 @@ After migration, use these 0.5 readers rather than `H5MSMFileHandler`.
 That handler supports only 0.3 and 0.4; requesting it for the migrated file
 raises `FormatError` with resident-load and selected-layer alternatives.
 
+## Inspecting legacy structure indices
+
+You can inspect a legacy source's structure positions before migrating it:
+`msm.get(molsys, structure_index=True, structure_indices=[3, 0, 3])` returns
+`[3, 0, 3]` if those positions exist. Here `molsys` can be the legacy path or an
+open `H5MSMFileHandler`. The query reads only metadata, retains order/repetitions,
+validates bounds and does not rewrite the file. Stored structure IDs are separate
+labels. Use `[]` for an empty result or `None` to leave the structure axis unset.
+The legacy warning and unit checks remain active; this does not change the
+resident-load boundary of general 0.5 queries.
+
 ## Resolving unit errors
 
 Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.

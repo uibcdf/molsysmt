@@ -256,6 +256,55 @@ def get_n_structures_from_system(item, structure_indices="all", skip_digestion=F
 
 
 @arg_digest(form=form)
+def get_structure_index_from_system(
+    item, structure_indices="all", skip_digestion=False
+):
+    """Getting structure positions from legacy H5MSM metadata.
+
+    Parameters
+    ----------
+    item : molsysmt.H5MSMFileHandler
+        Open legacy H5MSM 0.3 or 0.4 handler. Ownership remains with the caller.
+    structure_indices : int, list, tuple, range, numpy.ndarray, str or None, default='all'
+        Zero-based positions to return, preserving order and repetitions.
+        'all' returns every written position; None returns None.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    list of int or None
+        Requested dimensionless positions, independent of stored structure IDs.
+        An empty selection returns an empty list.
+
+    Raises
+    ------
+    ArgumentError
+        If explicit positions are not a flat integer axis or are out of bounds.
+
+    Notes
+    -----
+    Reads the written structure count without materializing dataset payloads.
+    Existing unit validation and the legacy deprecation warning remain in effect
+    when the handler is opened. The file is not changed or migrated.
+
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.basic._index_validation import validate_structure_indices
+
+    count = int(get_n_structures_from_system(item, skip_digestion=True))
+    selected = validate_structure_indices(
+        item,
+        structure_indices,
+        "molsysmt.form.molsysmt_H5MSMFileHandler.get_structure_index_from_system",
+        count_getter=lambda element: count,
+    )
+    if selected is None:
+        return None
+    return list(range(count)) if is_all(selected) else list(selected)
+
+
+@arg_digest(form=form)
 def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form molsysmt.H5MSMFileHandler.

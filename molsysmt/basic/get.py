@@ -147,6 +147,12 @@ def get(
     - Form-independent attributes such as box lengths, angles, shape, and volume
       are derived from the box matrix when the source form exposes that matrix
       but does not implement a dedicated getter.
+    - Legacy H5MSM 0.3/0.4 files and handlers expose ``structure_index`` from
+      metadata without reading dataset payloads. Positions preserve requested
+      order and repetitions, independently of stored structure IDs. Empty
+      selections return ``[]`` and ``structure_indices=None`` returns ``None``.
+      Bounds checks, explicit unit validation and deprecation warnings remain
+      active. Public H5MSM 0.5 queries retain their resident-load boundary.
     - Sparse ``alternate_location`` mappings are keyed by integer atom indices
       in the source system. Atom selections filter these keys without renumbering
       them. The outer list follows ``structure_indices``, including repeated
@@ -167,6 +173,8 @@ def get(
     --------
     >>> import molsysmt as msm
     >>> from molsysmt import systems
+    >>> msm.get(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], structure_indices=0, structure_index=True)
+    [0]
     >>> molsys = systems['T4 lysozyme L99A']['181l.h5msm']
     >>> msm.get(molsys, element='group', selection=[10,11,12], n_atoms=True)
     [9, 4, 8]

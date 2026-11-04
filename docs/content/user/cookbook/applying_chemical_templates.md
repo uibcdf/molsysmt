@@ -89,6 +89,14 @@ candidates before using `msm.build.add_missing_bonds(molsys, in_place=False)`.
 These build tools do not establish complete chemistry or replace the explicit
 choice of a PDB reader inference policy.
 
+For capped peptides, N/C cap names describe the protected peptide end, rather
+than the cap's connecting atom. ACE is an N-terminal cap whose C bonds to the
+first amino-acid N; C-terminal NME/NHE/NH2 supply N for the last amino-acid C.
+The cap templates retain their existing atom names and bonds. The candidate
+operation applies its existing same-chain, consecutive-group and distance
+criteria to these connections; template-only mode does not infer peptide links.
+Classifying a cap label does not itself add or prepare that cap.
+
 For exact heavy-group templates with an inspectable report, use
 `msm.build.get_covalent_bond_candidates(molsys, structure_indices=0)`.
 Its typed pairs, aligned `missing_mask`, template hashes and coverage let you

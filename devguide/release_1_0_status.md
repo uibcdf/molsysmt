@@ -113,8 +113,12 @@ Current receiving and next admitted defect/contribution reviews:
    remain unmerged. Reconcile their inventories, retain newer guards and qualify
    the combined integration. Candidate a24b14f3d retains both PR ancestries,
    passes 2,687 local tests without omissions and the corrected hosted smoke.
-   Full and Rust matrices remain queued; no integration or installed qualification
-   is inferred from the administrative/source-smoke gates.
+   All eight full-matrix lanes now pass. Rust workflow 41730347088 is terminal
+   failure: its four installed-public smoke jobs fail. The inspected Python 3.14
+   log rejects addon bytecode in the installed inventory; original payload versus
+   installer-generated files still needs receiving under
+   [#551](pending_bugs/installed_addon_inventory_rejects_installer_generated_bytecode.md).
+   Source-matrix success does not establish integration or installed qualification.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
 3. **[#511](archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md)
    and [#516](archive/resolved_bugs/aromatic_detectors_reject_reference_mdtraj_selection.md):**
@@ -133,10 +137,42 @@ Current receiving and next admitted defect/contribution reviews:
    platform release qualification remain separate; public files are unchanged.
 5. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
-6. **#523 and #524:** the declared legacy H5MSM structure-index route is still
-   missing on the current source; runtime dependency floors/restrictions need
-   API-grounded review before the next publication. Exact route, provider and
-   installed-artifact evidence remain distinct.
+6. **[#523](archive/resolved_bugs/legacy_h5msm_structure_index_route.md):**
+   resolved with metadata-only legacy 0.3/0.4 file/handler index getters.
+   Requested order/repetitions, bounds, empty/None semantics, source units and
+   handle ownership are guarded. All 1,390 H5MSM/index and 566 documentation/
+   doctest cases pass without omissions. H5MSM 0.5 retains its separate reader
+   boundary; no installed qualification is inferred.
+   **[#524](pending_proposals/runtime_dependency_api_floors.md)** is partial:
+   five core floors are aligned after exact provider API/ABI probes on Python
+   3.11 with NumPy 1.26.0 and 2.4.6. Pandas 3.1 source receiving passes 1,886
+   tests after removing deprecated summary-table inplace drops; nine final
+   strict summary guards and 31 default-provider checks pass. Viewer public
+   acquisition/floor, sibling/optional-provider review and the NumPy ABI-bound
+   disposition remain due before publication. No installed qualification is implied.
+7. **PR #543:** incoming element-utility and current-system addon contribution,
+   latest reviewed intake head b41810c26c36984a68781e7706f3e933e8589c66. Its reported local tests are
+   contributor evidence, not owner receiving. It excludes #538/#540; reconcile
+   shared inventories, API exports, documentation and guarded smoke arguments
+   only in a separately identified integration after review. Its hosted checks
+   are queued; it does not extend frozen candidate a24b14f3d's qualification.
+8. **[#547](archive/resolved_bugs/terminal_cap_end_labels_are_inverted.md),
+   [#545](archive/resolved_bugs/canonical_amino_acid_codes_are_unreachable.md),
+   [#546](archive/resolved_bugs/standard_name_examples_expect_bare_none_output.md):**
+   resolved in the owner source. Cap resources now name the protected peptide
+   end, with a coordinated bond-candidate consumer and generator-path correction.
+   Canonical XLE/J and XAA/X are reachable; existing variant outputs are preserved.
+   Exactly the standard-name print/example guard is received from PR #543;
+   remaining addon changes are unmerged. Broader receiving passes 430 cases,
+   final focal guards 77 and documentation/doctests 570, all without omissions.
+9. **[#549](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md):**
+   newly observed mismatch between legacy label lookup and explicit native
+   protonation names. GLH resolves to Q/GLN; HID/HIE are absent from the one-letter
+   route, while the native template inventory supplies those state labels.
+   Keep this as an open stabilization review; #545 does not settle naming dialects.
+   Incoming **#548/#550** separately report template-helper index-return
+   documentation and documented NumPy atom-name arrays failing at list.index.
+   They need bounded native triage; #547 does not resolve those contracts.
 
 The Collantes ISA/ECI primary-reference questions **#473/#475** remain open;
 quantity wrappers and source parity do not settle scientific dimensions or

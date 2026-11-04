@@ -12,10 +12,10 @@ dependencies:
   # channel only builds py313 from 0.18.1 onwards, and `pip install . --no-deps` does
   # not check. An unsolvable environment is the correct failure here.
   - numpy >=1.26,<3
-  - pandas
-  - h5py
-  - networkx
-  - tqdm
+  - pandas >=2.2.2
+  - h5py >=3.11.0
+  - networkx >=3.3
+  - tqdm >=4.65.0
   # Autodoc imports the installed package. The controlled portable Viewer source
   # is supplied by the workflow; declare its additional runtime requirements here.
   - anywidget >=0.9.15
@@ -25,7 +25,7 @@ dependencies:
   # PyUnitWizard's pint form imports pint, and pint imports scipy. Both MolSysMT and
   # MolSysViewer do that configuration at import time.
   - scipy
-  - matplotlib
+  - matplotlib >=3.8.4
   - argdigest >=0.13.0
   - depdigest >=0.15.1
   - smonitor >=0.16.0

@@ -32,8 +32,8 @@ One JSON file per residue:
   Converted from PDBFixer templates (Angstroms) by dividing by 10.
 - **bonds**: bonds between heavy atoms only.  Sourced from
   `data/databases/amino_acids/*.pkl.gz` (amino acids),
-  `data/databases/terminal_cappings/c_terminal.json` (ACE),
-  `data/databases/terminal_cappings/n_terminal.json` (NME).
+  `data/databases/terminal_cappings/n_terminal.json` (ACE),
+  `data/databases/terminal_cappings/c_terminal.json` (NME).
   RNA/DNA nucleotides have empty bond lists (no MolSysMT database yet).
 - **elements** and **bond_orders**: explicit chemistry for curated modified residues.
 - **source**: CCD URL, SHA-256 checksum of the whitespace-normalized bundled
