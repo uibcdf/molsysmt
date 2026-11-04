@@ -113,12 +113,15 @@ Current receiving and next admitted defect/contribution reviews:
    remain unmerged. Reconcile their inventories, retain newer guards and qualify
    the combined integration. Candidate a24b14f3d retains both PR ancestries,
    passes 2,687 local tests without omissions and the corrected hosted smoke.
-   All eight full-matrix lanes now pass. Rust workflow 41730347088 is terminal
-   failure: its four installed-public smoke jobs fail. The inspected Python 3.14
-   log rejects addon bytecode in the installed inventory; original payload versus
-   installer-generated files still needs receiving under
-   [#551](pending_bugs/installed_addon_inventory_rejects_installer_generated_bytecode.md).
-   Source-matrix success does not establish integration or installed qualification.
+   All eight full-matrix lanes now pass. Rust workflow 41730347088 remains a
+   terminal failure: its four installed-public smoke jobs rejected generated
+   addon bytecode. The original wheel contains no caches; the installed-only
+   inventory correction and real pip-install/adversarial guards are resolved under
+   [#551](archive/resolved_bugs/installed_addon_inventory_rejects_installer_generated_bytecode.md).
+   All 94 packaging controls and a Linux/Python 3.14 public runtime reproduction
+   pass with the original wheel and patched validator. That local prefix inherits
+   development dependencies. It does not reclassify the original workflow or
+   qualify the next integrated candidate's complete installed/platform matrix.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
 3. **[#511](archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md)
    and [#516](archive/resolved_bugs/aromatic_detectors_reject_reference_mdtraj_selection.md):**

@@ -2324,10 +2324,16 @@ repair native science. The updated extraction guide block is checked separately.
 The metadata candidate a24b14f3d retains PRs #538/#540 and passes the corrected
 source smoke 41730351587 (4,810 native passes / sixteen optional skips and
 2,658 addon passes / four optional skips) plus performance audit 41730356380.
-The full matrix now passes all eight lanes. Rust workflow 41730347088 ends in
-failure with four installed-public smoke failures; Python 3.14 rejects installed
-addon bytecode. Original archive versus installed-inventory receiving remains
-under #551. Integration and #537 closure wait for their required executed evidence.
+The full matrix now passes all eight lanes. Rust workflow 41730347088 remains
+failed with four installed-public smoke failures from generated addon bytecode.
+#551 now has a source correction: exact archive inventories stay strict, while
+the installed check recognizes source-backed, unhashed/unsized current-interpreter
+caches. The original wheel has no cache payload. All 94 packaging guards and
+the public runtime outside the checkout pass locally with the original wheel,
+the unchanged frozen 25-source inventory and controlled Viewer wheel. The small
+prefix inherits development dependencies; this does not turn the historical
+workflow green or replace the next candidate's installed/platform qualification.
+Integration and #537 closure still wait for their required executed evidence.
 This does not move the
 frozen candidate or certify an installed pair.
 
