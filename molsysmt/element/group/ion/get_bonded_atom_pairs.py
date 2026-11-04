@@ -12,28 +12,73 @@ _sorted = sorted
 def get_bonded_atom_pairs(
     group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False
 ):
-    """
-    Getting standard intra-group covalent bonded atom pairs for ion residues.
-
+    """Getting reference bond index pairs for an ion group.
 
     Parameters
     ----------
     group_name : str
-        Name of the chemical group (residue).
-    atom_names : numpy.ndarray, list, or tuple
-        Names of atoms in the group.
-    atom_indices : int, list, tuple, or numpy.ndarray, default=None
-        Atom indices (0-based) to include.
+        Case-sensitive ion name in the bundled reference catalogue.
+    atom_names : str, list of str, tuple of str, or numpy.ndarray
+        One-dimensional atom names in caller order. Supply the names for the
+        reference layout to query; this is not a molecular-system selection.
+        A single atom-name string is accepted as a one-atom query. Repeated
+        names use their first occurrence in the supplied sequence.
+    atom_indices : int, list of int, tuple of int, or numpy.ndarray, default=None
+        One integer index per supplied name, in the same order. None uses local
+        positions 0 through len(atom_names)-1. Explicit indices are mapping
+        labels, not positions to select from atom_names or a molecular system.
+        A scalar integer is also accepted for a single supplied name.
     sorted : bool, default=True
-        Whether to sort the returned bonded atom pairs.
+        Whether to sort pair rows lexicographically. False retains reference
+        bond order. Each pair has its smaller mapped endpoint first.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    list of tuple of str
-        List of bonded atom name pairs.
+    list of list of int or None
+        Reference bonds mapped to integer atom indices. Explicit maps are
+        normalized to NumPy integer scalars. A one-atom query returns an empty
+        list without consulting the group catalogue. Empty names return an
+        empty list for a recognized group. Unmatched multi-atom layouts return
+        None.
 
+    Raises
+    ------
+    ArgumentError
+        If the argument digester rejects an input value.
+    InternalAlgorithmError
+        If a query other than the one-atom shortcut uses an unknown group name.
+
+    Notes
+    -----
+    The one-atom shortcut describes an isolated ion and does not test whether
+    group_name is in the reference catalogue. For multi-atom groups, names are
+    checked against the available reference layouts before mapping their edges.
+
+    This queries bundled reference connectivity. It does not inspect coordinates,
+    infer the graph of a molecular system, assign a chemical state or add bonds.
+    Caller-owned names and index maps are not modified. Supply a flat integer
+    map with exactly one entry per name when atom_indices is given.
+
+    See Also
+    --------
+    molsysmt.chemical_states.get_bondgraph
+    molsysmt.build.get_missing_bonds
+
+    Examples
+    --------
+    >>> from molsysmt.element.group.ion import get_bonded_atom_pairs
+    >>> pairs = get_bonded_atom_pairs('SO4', ['S', 'O1', 'O2'],
+    ...                              atom_indices=[20, 10, 30])
+    >>> [[int(index) for index in pair] for pair in pairs]
+    [[10, 20], [20, 30]]
+    >>> get_bonded_atom_pairs('K', 'K')
+    []
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_bonded_atom_pairs` for local and explicit mapping.
 
     .. versionadded:: 1.0.0
     """

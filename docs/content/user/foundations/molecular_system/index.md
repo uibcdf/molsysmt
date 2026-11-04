@@ -13,8 +13,10 @@ label does not select a chemical state or provide an atomic template.
 
 Reference-template helpers likewise use explicit names rather than the system's
 stored chemical graph. A returned bond-pair endpoint is a local name position
-unless you supply a parallel atom-index map. Neither lookup nor mapping assigns
-chemical state or modifies the system. See
+unless you supply a parallel integer atom-index map. Indices are positions,
+whereas atom IDs are system labels. Endpoint orientation depends on the reference
+family; row sorting does not make all family conventions identical. Neither
+lookup nor mapping assigns chemical state or modifies the system. See
 {ref}`Tutorial_Get_bonded_atom_pairs` for flat list/tuple/NumPy inputs and their
 family-specific lookup limits.
 

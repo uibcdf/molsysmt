@@ -9,28 +9,73 @@ _sorted = sorted
 def get_bonded_atom_pairs(
     group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False
 ):
-    """
-    Getting standard intra-group covalent bonded atom pairs for amino acid residues.
-
+    """Getting reference bond index pairs for an amino-acid group.
 
     Parameters
     ----------
     group_name : str
-        Name of the chemical group (residue).
-    atom_names : numpy.ndarray, list, or tuple
-        Names of atoms in the group.
-    atom_indices : int, list, tuple, or numpy.ndarray, default=None
-        Atom indices (0-based) to include.
+        Case-sensitive amino-acid name in the bundled reference catalogue.
+    atom_names : str, list of str, tuple of str, or numpy.ndarray
+        One-dimensional atom names in caller order. Supply the names for the
+        reference layout to query; this is not a molecular-system selection.
+        A single atom-name string is accepted as a one-atom query. Repeated
+        names retain all supplied occurrences; they are not alternate-location
+        filtering instructions.
+    atom_indices : int, list of int, tuple of int, or numpy.ndarray, default=None
+        One integer index per supplied name, in the same order. None uses local
+        positions 0 through len(atom_names)-1. Explicit indices are mapping
+        labels, not positions to select from atom_names or a molecular system.
+        A scalar integer is also accepted for a single supplied name.
     sorted : bool, default=True
-        Whether to sort the returned bonded atom pairs.
+        Whether to sort pair rows lexicographically. False retains template
+        bond order. Each pair has its smaller mapped endpoint first.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    list of tuple of str
-        List of bonded atom name pairs.
+    list of list of int or None
+        Reference bonds with both names present, mapped to the supplied indices
+        or local positions. Explicit maps are normalized to NumPy integer
+        scalars. Empty names return an empty list for a recognized group.
+        Unknown names and unmatched reference layouts return None.
 
+    Raises
+    ------
+    ArgumentError
+        If the argument digester rejects an input value.
+
+    Notes
+    -----
+    Matching includes the available terminal reference variants. If names repeat,
+    each reference edge expands over the corresponding supplied occurrences.
+    This preserves the existing lookup behavior and does not establish which
+    alternate locations should coexist. Unmatched layouts retain their legacy
+    warning and None result.
+
+    This queries bundled reference connectivity. It does not inspect coordinates,
+    infer the graph of a molecular system, assign a chemical state or add bonds.
+    Caller-owned names and index maps are not modified. Supply a flat integer
+    map with exactly one entry per name when atom_indices is given.
+
+    See Also
+    --------
+    molsysmt.chemical_states.get_bondgraph
+    molsysmt.build.get_missing_bonds
+
+    Examples
+    --------
+    >>> from molsysmt.element.group.amino_acid import get_bonded_atom_pairs
+    >>> pairs = get_bonded_atom_pairs('ALA', ['N', 'CA', 'C', 'O', 'CB'],
+    ...                              atom_indices=[1040, 1009, 1030, 1007, 1012])
+    >>> [[int(index) for index in pair] for pair in pairs]
+    [[1007, 1030], [1009, 1012], [1009, 1030], [1009, 1040]]
+    >>> get_bonded_atom_pairs('ALA', [])
+    []
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_bonded_atom_pairs` for local and explicit mapping.
 
     .. versionadded:: 1.0.0
     """
