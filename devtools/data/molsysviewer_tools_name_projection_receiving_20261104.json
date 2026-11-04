@@ -529,5 +529,77 @@
     "expert": "Fifteen build paths, six molecular-mechanics paths, four historical hbonds aliases, basic.view bridge and two native MD declarations require disposition; GUI and installed qualification remain separate.",
     "hosted": "New contribution-head CI, owner review and integration remain pending. Retain old run failure; no manual rerun or duplicate dispatch.",
     "publication": "No host runtime, new dependency floor, candidate, tag, package or publication change. Both 1.0 publications remain paused."
+  },
+  "follow_up": {
+    "date": "2026-11-04",
+    "frozen_contribution": "953ef46332f973ba41ea88d88f8a18b801641699",
+    "frozen_contribution_full_sha": "953ef46332f973ba41ea88d88f8a18b801641699",
+    "received_owner": "8b6e6d10ef0eb1ed9b738081e24fbadbca2a6e03",
+    "merge": "ca2efe08252695c569cbfadcaa9cebcfe6908952",
+    "native_548": "Published 1f462976d updates the four remaining helper docstrings, native reference tutorials and independent index-contract guards. All seven returns now describe index pairs; #549/#554 remain separate.",
+    "native_docstring_proof": {
+      "molsysmt/element/group/amino_acid/get_bonded_atom_pairs.py": {
+        "previous_sha256": "5eb07b8e4acbac1d1d9abbf38a01e082ed73bf0e93e175467821315510b554a1",
+        "received_sha256": "c80e222cbc61281d17aef2eb728c81cdfb215a9981bdc29c2ebbb0c41c1d1fa2",
+        "executable_ast_equal": true,
+        "stripped_ast_sha256": "dc7e82609ba35aec624bdafce2cf7641dcefd3f962753d5114e0c9a5bbf5e3e9"
+      },
+      "molsysmt/element/group/get_bonded_atom_pairs.py": {
+        "previous_sha256": "7d8efa1557dc024c8226beb88a65f4910ded88fa86632e9028a0fa34ae4c4caa",
+        "received_sha256": "f0918c22dca8ad2d2534a80d1a90112e021e5d712271a9472ea2c26146a88362",
+        "executable_ast_equal": true,
+        "stripped_ast_sha256": "7f9326f78d4dbe04ba4192547c1021e6048cb5b4a4720533359e0f5084d74e04"
+      },
+      "molsysmt/element/group/ion/get_bonded_atom_pairs.py": {
+        "previous_sha256": "bf33eb3ae40bd946be0d48b76c9d5814ed8b5288871b9d036414402ebeb9f234",
+        "received_sha256": "fce11661b8422aafa73e9e2cd1965a49860c5ceea987487f5a666a8d5ec81617",
+        "executable_ast_equal": true,
+        "stripped_ast_sha256": "d64a25e5c5e6d5beab45f8e8f74a2b132e6c47c5596fbf6be1dbec369f98c224"
+      },
+      "molsysmt/element/group/water/get_bonded_atom_pairs.py": {
+        "previous_sha256": "6e0286577dfe70d614f567da78e184f40d0b3ff7d591e43c5ad5f5a7639ec3ab",
+        "received_sha256": "2b22a2ef552217ecb32b39bae1299595dff53d07aec7f316f12928c64eec65ea",
+        "executable_ast_equal": true,
+        "stripped_ast_sha256": "e3e54752a69f00bad774105fa394610d7998e0d3a142bea6ff3149ef773b0ae9"
+      }
+    },
+    "validation": {
+      "tests": 1081,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "afefb7e8857671f6a9c99749e2a6ac753d50224f628fc95c939b25db6c57eb20",
+      "log_sha256": "5c4fef7a94653f926e5669fedac6267898bacc7fc20029b9d40ee069f00be675",
+      "scope": "New native index-contract guards, addon template/projection modules, inventory/smoke selection and all stored notebook schemas; not a repeated full regression.",
+      "native_doctest_examples": [
+        {
+          "family": "group",
+          "attempted": 5,
+          "failed": 0
+        },
+        {
+          "family": "amino_acid",
+          "attempted": 4,
+          "failed": 0
+        },
+        {
+          "family": "ion",
+          "attempted": 4,
+          "failed": 0
+        },
+        {
+          "family": "water",
+          "attempted": 3,
+          "failed": 0
+        }
+      ],
+      "course": "156 notebooks validate; Module 06 is unchanged by the incoming native documentation merge.",
+      "docstrings": "246 validate; whole-tree Ruff/format pass on 4,341 files."
+    },
+    "retained_full_scope": "The 3,618-case result remains qualified at its original frozen input. All addon runtime/tests and native executable ASTs are unchanged; new documentation/guards have the scoped result above.",
+    "remaining_native": [
+      "#549 legacy protonation-name vocabulary",
+      "#554 malformed atom-index maps"
+    ]
   }
 }

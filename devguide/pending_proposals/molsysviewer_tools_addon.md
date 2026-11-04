@@ -14,6 +14,26 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Published reference-index documentation received — 2026-11-04
+
+After frozen contribution `953ef4633` completes all 3,618 addon cases without
+failures/errors/skips, merge `ca2efe082` receives owner `8b6e6d10e`. Native
+`1f462976d` resolves #548's remaining return documentation and adds independent
+index-contract guards. All four changed native functions have identical ASTs
+after removing docstrings relative to the full-regression base `93d29bf23`;
+no scientific runtime or addon executable input changes. The full result retains
+its original source rather than being presented as a new-head execution.
+
+Scoped follow-up passes 1,081 cases without failures/errors/skips, receiving the
+new native guards, element/projection contracts and stored notebooks. All 16
+new native docstring examples execute; 246 docstrings, 156 course notebooks and
+whole-tree Ruff/format pass. Its exact counts, hashes and source
+equivalence are appended to the
+[receiving receipt](../../devtools/data/molsysviewer_tools_name_projection_receiving_20261104.json).
+The guide now treats #548 as received; #549 and #554 remain native limits.
+Current source exposure remains 216/244. Owner review and contribution-head CI,
+GUI and installed/public qualification remain separate; #421 stays partial.
+
 ## Export-name projection and combined metadata receiving — 2026-11-04
 
 PR #543 receives published owner `93d29bf23` through merge `341e23f3c`, retaining

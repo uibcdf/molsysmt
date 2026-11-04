@@ -371,9 +371,10 @@ against `view.molsys`. Native ordering, accepted containers, missing-template
 None/empty/error distinctions and family support remain unchanged. The general
 dispatcher is not a universal bond-perception engine: unsupported families can
 return None. No atom-name normalization or automatic template repair is added.
-[MolSysMT#548](https://github.com/uibcdf/molsysmt/issues/548) tracks the native
-return-documentation mismatch: these helpers return index pairs, despite older
-help describing pairs of names. The addon preserves the actual native result.
+The native return-documentation correction under
+[MolSysMT#548](https://github.com/uibcdf/molsysmt/issues/548) is received: all
+seven helpers describe index pairs. The addon preserves those native results;
+the documentation change does not alter reference connectivity.
 
 The five `get_group_db` helpers return the provider's reference dictionaries,
 whose family-specific layouts remain native. The addon introduces no cache or
@@ -401,10 +402,7 @@ check. Reference connectivity and valid list results remain unchanged.
 
 :::{warning}
 Legacy protonation-name semantics remain under
-[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549). The remaining
-return-documentation work is tracked by
-[MolSysMT#548](https://github.com/uibcdf/molsysmt/issues/548); the three corrected
-family helpers now describe index pairs. Validation of malformed `atom_indices`
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549). Validation of malformed `atom_indices`
 maps is tracked separately in
 [MolSysMT#554](https://github.com/uibcdf/molsysmt/issues/554): valid examples here
 use one integer label per supplied atom name; current native helpers do not
