@@ -14,6 +14,25 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Refreshed metadata receiving — 2026-11-03
+
+Source merge 33c4171dae23a780b4aa2f5490764738deaa0229 on
+`dev/review-tools-537-540-r2` retains both PR heads and main 73dedbbae as
+ancestors. The first candidate a24b14f3d remains frozen. Current native repairs,
+including independently closed #537/#551, are present; both original metadata
+namespaces and newer smoke/negative guards are retained. The published #537
+archive is kept byte-identical, with older branch evidence retained separately.
+
+All 664 selected native/metadata/package cases and 572 documentation/doctest
+cases pass without omissions, with published Pytest Receptor 1.2.1 and two
+workers. The live inventory remains 155/244; the actual source archive and all
+14 fast gates also pass. Module 06 code, outputs, IDs and metadata are unchanged.
+The [refreshed receipt](../../devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json)
+records warning counts, inputs, origins, artifact hashes and scope. Exact-candidate
+hosted source/native-wheel gates still need to execute before integration.
+This candidate does not admit PR #543, qualify an installed release pair or
+authorize a package/tag/publication. Original failed workflows remain failed.
+
 ## Combined integration candidate — 2026-11-03
 
 The isolated `dev/review-tools-537-540` candidate combines main 402bdc6e4,

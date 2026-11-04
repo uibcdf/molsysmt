@@ -2,10 +2,12 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-11-03, isolated integration based on main `402bdc6e4`,
+**Snapshot:** 2026-11-03, refreshed isolated integration based on main `73dedbbae`,
 combining PR #538's four supported reports and PR #540's seven attribute helpers.
-The candidate contains both namespaces; combined local receiving passes 3,362
-cases without skips/failures. Hosted integration gates remain pending.
+The candidate contains both namespaces and current native/package repairs.
+Local receiving passes 664 metadata/native/package controls and 572
+documentation/doctest cases without omissions. Hosted gates for this refreshed
+candidate remain pending. Earlier combined receipts retain their own basis.
 Original contribution evidence keeps its own source/host identity. Installed
 scene-loader receiving remains separate under uibcdf/molsysviewer#269.
 The prior 2026-10-28 source receiving extended ac30d5ba4 with four native
@@ -27,8 +29,10 @@ without calling scientific functions. A missing provider/host cannot silently
 be counted as zero. HEAD identifies the checkout basis; the inventory observes
 working-tree source too. Local receiving records identify tested code hashes.
 Keep historical receipts immutable; a new baseline needs a new dated snapshot.
-The [combined receiving receipt](../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
+The [refreshed receiving receipt](../devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json)
 records the live 155/244 audit, source/archive hashes and separate test scopes.
+The [original combined receipt](../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
+remains historical evidence for its earlier source and host.
 The original supported/attribute contribution receipts retain their own revisions;
 none certifies a published installed pair.
 
@@ -87,8 +91,9 @@ justify exposing arbitrary adapters or binding filenames/text to view.molsys.
 The four `supported` reports retain explicit inputs and work before loading a
 system. No primary reader, pending-edit synchronization, scene action or new
 root scientific alias is introduced. Their programmatic outputs remain native;
-the default is still visual. Attribute-helper receiving stays pending, including
-the distinct native dependency-metadata and cold alias findings #534/#535.
+the default is still visual. The seven attribute helpers retain the independently
+repaired #534/#535 classification, connectivity and cold-import alias contracts.
+Combined main integration and installed/platform qualification remain pending.
 
 1. **Retain the received baseline.** Complete exact-source CI for all 34 physchem
    wrappers and three build diagnostics. Keep the native CIP reference-ownership

@@ -124,6 +124,12 @@ Current receiving and next admitted defect/contribution reviews:
    development dependencies. It does not reclassify the original workflow or
    qualify the next integrated candidate's complete installed/platform matrix.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
+   Refreshed source merge 33c4171da on `dev/review-tools-537-540-r2` retains both
+   PR heads and main 73dedbbae, including #537/#551. Its 664 selected
+   native/metadata/package cases, 572 documentation/doctest cases, actual source
+   archive and all 14 fast gates pass locally. The live inventory is 155/244.
+   This newer candidate still needs its own exact-source hosted gates before
+   integration; the first candidate and its receipts remain unchanged.
 3. **[#511](archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md)
    and [#516](archive/resolved_bugs/aromatic_detectors_reject_reference_mdtraj_selection.md):**
    resolved with supplied donor-anchor/pair validation and reference-aware aromatic
