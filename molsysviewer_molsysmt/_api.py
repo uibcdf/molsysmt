@@ -12,6 +12,7 @@ from ._chemical_states import _ChemicalStatesTools
 from ._element import _ElementTools
 from ._files import _FormTools, _H5MSMTools
 from ._interactions import _InteractionsTools
+from ._molecular_mechanics import _MolecularMechanicsTools
 from ._pbc import _PbcTools
 from ._physchem import _PhyschemTools
 from ._structure import _StructureTools
@@ -35,6 +36,7 @@ class _MolSysMTTools:
         self.physchem = _PhyschemTools(self)
         self.element = _ElementTools(self)
         self.supported = _SupportedTools(self)
+        self.molecular_mechanics = _MolecularMechanicsTools(self)
 
     def _view(self):
         view = self._view_ref()
@@ -108,6 +110,7 @@ class _MolSysMTTools:
             "physchem",
             "element",
             "supported",
+            "molecular_mechanics",
             "get_sync_status",
             "sync_view",
             *_BasicTools._NAMES,

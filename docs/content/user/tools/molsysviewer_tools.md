@@ -82,6 +82,11 @@ The source now also exposes `interactions.metal_coordination.get_metal_coordinat
 interaction function paths have explicit expert wrappers. This counts source
 exposure, not unconditional scientific accuracy, stability or installed compatibility.
 
+The initial `view.addons.molsysmt.molecular_mechanics` slice provides explicit
+`get_engine_forcefield` resource lookup and primary-bound
+`get_degrees_of_freedom`. Other mechanical calculations retain their separate
+receiving; see the mechanical section for model, engine and ownership limits.
+
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
@@ -1150,6 +1155,70 @@ MolSysViewer documents discovery, activation, configuration, lifecycle, its
 addon catalogue and how to create an addon in its
 [addon guide](https://www.uibcdf.org/molsysviewer/content/user/introduction/addons.html).
 This MolSysMT guide owns the capabilities and use of the MolSysMT tools addon.
+
+## Inspecting mechanical resources and degrees of freedom
+
+Two tools are available under `tools.molecular_mechanics`. Resource lookup keeps
+its explicit inputs and works before loading a system. Degree counting reads
+the current primary through the same serialized reader as the other scientific
+queries. Neither tool changes the scene, adopts an OpenMM object or adds an
+`update_view` control.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    mechanics = view.addons.molsysmt.molecular_mechanics
+    resources = mechanics.get_engine_forcefield("AMBER14")
+    assert resources == ["amber14-all.xml"]
+    assert mechanics.get_engine_forcefield("AMBER14", engine="LEaP") == [
+        "leaprc.protein.ff14SB"
+    ]
+    custom_resources = list(resources)
+    custom_resources.append("project-specific.xml")
+```
+
+These are resource-name lists: this call does not construct a force-field
+object, run an engine, verify an installed executable or prepare a system.
+The native lookup keeps its model precedence and errors for unknown names.
+
+:::{warning}
+[MolSysMT#560](https://github.com/uibcdf/molsysmt/issues/560) tracks the native
+shared-list ownership defect. Until its repair is received, copy a returned
+resource list explicitly before customizing it. Editing the native list can
+alter later lookups and parameterizations of that same model. The addon does
+not hide this with its own registry or automatic copying.
+:::
+
+Degree counting performs native OpenMM parameterization, with the selected
+force field and the original molecular prerequisites. It does not add missing
+hydrogens, choose protonation states or assign stored mechanics. Start with an
+explicit single-structure view:
+
+```python
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        mechanics = view.addons.molsysmt.molecular_mechanics
+        dof = mechanics.get_degrees_of_freedom(forcefield="AMBER14")
+        assert type(dof) is int
+        assert dof == 154
+```
+
+The native mechanical definition is `3 * n_particles - n_constraints`. This
+example has 62 particles and 32 constraints. It adds no center-of-mass or
+thermostat correction and returns a dimensionless integer. Native conversion
+can reject multiple-structure boxes; this API does not silently select the
+visible structure. Completed pending edits are read without synchronizing the
+scene. Cached tools resolve a replaced primary and reject a closed owner.
+
+The other four native mechanical functions remain unexposed pending their own
+input, engine, unit and mutation review. In particular the platform-name
+validation mismatch is tracked in
+[MolSysMT#559](https://github.com/uibcdf/molsysmt/issues/559); no Reference/GPU
+execution is qualified by the two tools above.
+
+Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
+{func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`.
 
 ## Computing geometry on the current system
 

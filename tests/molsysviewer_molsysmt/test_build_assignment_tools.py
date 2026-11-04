@@ -121,7 +121,7 @@ def same(actual, expected):
 def snapshot(view):
     return (
         view.molsys,
-        view.molsys.copy(),
+        None if view.molsys is None else view.molsys.copy(),
         deepcopy(view.export_state())
         if view.addons.molsysmt.get_sync_status()["state"] != "pending"
         else None,

@@ -1,5 +1,16 @@
 # MolSysViewer tools guide content contract
 
+Preserve explicit molecular_mechanics.get_engine_forcefield resource lookup
+without a primary or engine execution, and serialized primary-bound
+get_degrees_of_freedom with native OpenMM parameterization and prerequisites.
+Keep the 3*N_particles-N_constraints integer definition, absence of COM/thermal
+corrections, explicit one-structure receiving and no implicit visible-frame use.
+Neither operation adopts engine objects, prepares chemistry or changes the
+scene/history. Keep the native shared-resource-list limit (#560) and unsupported
+platform contract (#559) explicit until their owner repairs are received.
+Native result ownership and errors are delegated; do not silently copy a
+registry list or add the other four mechanical functions without qualification.
+
 Preserve the four explicit supported-capability reports and their open-empty-view
 contract. Keep native filters/default Styler and explicit plain outputs, directional
 syntax flags, independent metadata, closed-owner rejection and unchanged pending

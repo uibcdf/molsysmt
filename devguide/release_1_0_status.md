@@ -20,6 +20,24 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Initial mechanical addon tools — 2026-11-04
+
+The PR #543 contribution adds explicit engine-resource lookup and primary-bound
+mechanical degree counting, with native models, validation and return ownership.
+The complete addon regression passes 3,838 cases without omissions; all 42 new
+mechanical cases and 562 structural/documentation controls pass. Direct OpenMM
+particle/constraint counting supplies the 154-degree pentalanine reference;
+replacement by Trp-Cage supplies the separate 762-count lifecycle control.
+The [receiving receipt](../devtools/data/molsysviewer_tools_mechanics_receiving_20261104.json)
+keeps exact sources, initial test-helper failures, warnings and source hashes.
+
+Native #559 owns documented platform-name rejection; #560 owns borrowed resource
+lists affecting later lookups/parameterization. Both are independently reproduced
+and remain owner work without consumer repairs. Four mechanical paths remain
+unexposed, including the Context/Simulation-only force reader pending an input
+contract suitable for the bound MolSys. Source exposure is 218/244; this is not
+owner acceptance, exact-head hosted completion or installed qualification.
+
 ## Native reference-map validation — 2026-11-04
 
 [#554](archive/resolved_bugs/reference_bond_index_maps_are_not_consistently_validated.md)

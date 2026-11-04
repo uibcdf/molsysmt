@@ -77,6 +77,13 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         assert rows[path]["exposed"]
     assert inventory["modules"]["interactions"]["missing"] == []
     assert not rows["molecular_mechanics.get_forces"]["exposed"]
+    assert rows["molecular_mechanics.get_engine_forcefield"]["exposed"]
+    assert (
+        rows["molecular_mechanics.get_engine_forcefield"]["input_kind"]
+        == "explicit_inputs"
+    )
+    assert rows["molecular_mechanics.get_degrees_of_freedom"]["exposed"]
+    assert rows["molecular_mechanics.get_degrees_of_freedom"]["input_kind"] == "primary"
     assert (
         rows["basic.are_multiple_molecular_systems"]["input_kind"]
         == "explicit_collection"
