@@ -242,5 +242,24 @@
     "Remaining fifteen build tools, bridge/alias/stub dispositions, GUI and exact installed-package qualification remain separate."
   ],
   "temporary_resources": "No new Conda environment or native build. JUnit/input/guide evidence retained in Viewer task-local .pytest_cache for hosted closeout; review by 2026-11-11. Existing contribution worktree retained.",
-  "publication": "No candidate freeze, tag, package, Release or promotion; both 1.0 publications remain paused."
+  "publication": "No candidate freeze, tag, package, Release or promotion; both 1.0 publications remain paused.",
+  "documentation_merge_followup": {
+    "original_feature_head": "60450a7f01d2e91fa1c7d659a272fd164702fb0f",
+    "received_published_owner_docs": "5ccad1d8a2537b24e52474bd95103cc94700cba1",
+    "reason": "GitHub reports mergeable=false/dirty on the feature head; only the push Developer guide workflow registered. Published main adds #549 design documentation, with no runtime/native/Rust/test/dependency changes.",
+    "workflow_rule_reference": "https://docs.github.com/en/actions/how-tos/troubleshoot-workflows",
+    "resolution": "Keep both mechanical receiving and group-name design sections in release_1_0_status.md; preserve incoming conceptual guide, accepted scope, inventory and manifest additions.",
+    "equivalence": "All recorded frozen runtime/native/Rust/build hashes and the new mechanical test hash match. No differences in molsysmt, molsysviewer_molsysmt, rust, tests, devtools/tests or pyproject.toml against original feature head.",
+    "retained_complete_regression": 3838,
+    "repeated_affected_docs_routes": {
+      "tests": 562,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_file": "mechanics-tools-documentation-merge-20261104.xml",
+      "sha256": "42941c815fa1313b6e9b988cf2546ccd46c4744bf5d864a5e65ddd5d00747e2c"
+    },
+    "devguide": "offline validator passes; regenerated owner indexes retained",
+    "scope": "Documentation integration restores the PR route; no scientific result or installed qualification is inferred from it."
+  }
 }

@@ -4,5 +4,7 @@ This micro-governance contract governs [`docs/content/user/foundations/molecular
 
 ## Directives
 
-- Must maintain `toctree` with 4 topics: `the_molecular_system.md`, `forms.ipynb`, `elements.ipynb`, `attributes.ipynb`.
+- Must maintain the four core toctree topics (`the_molecular_system.md`,
+  `forms.ipynb`, `elements.ipynb`, `attributes.ipynb`) and the added conceptual
+  `naming_schemes.md` page, with matching overview titles and descriptions.
 - All listed documents must match their titles and descriptions in the main overview cards/bullets.

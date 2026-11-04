@@ -11,6 +11,9 @@ Define the core data model of MolSysMT across 4 foundational units: formal defin
 - `forms.ipynb` ➔ `forms.AGENTS.md`: Distinguishing items from representation forms, and catalog of supported forms.
 - `elements.ipynb` ➔ `elements.AGENTS.md`: Orthogonal element hierarchy.
 - `attributes.ipynb` ➔ `attributes.AGENTS.md`: Attribute getters, query mechanisms, and property types.
+- `naming_schemes.md` ➔ `naming_schemes.md.AGENTS.md`: Group-label conventions,
+  concrete naming collisions and the explicit distinction between delivered
+  behavior and the accepted scheme-aware contract under #549.
 
 ## 📐 Foundations Editorial & Style Standards
 - **Conceptual Scope**: Pages in `foundations/` explain conceptual architecture, concepts, and data models for readers. They do NOT document specific function API signatures, nor do they include `tools/` artifacts such as `:::{versionadded}`, top italic gerund summaries (`*Doing...*`), or API function `{seealso}` boxes.

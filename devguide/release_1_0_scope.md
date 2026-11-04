@@ -42,6 +42,24 @@ accepted workflow may be promoted with evidence; an opportunity to be faster
 alone does not expand the release queue. Public experimental APIs remain
 experimental unless a separately justified stability decision changes the registry.
 
+## Group-name scheme admission — 2026-11-04
+
+After the source study and explicit pros/cons discussion for #549, the maintainer
+accepts scheme-aware interpretation with original-label preservation, explicit
+source context, group-aligned Topology declarations and H5MSM/native-dictionary
+persistence. The group-level public one-letter helper becomes the canonical
+entry point. Supported scheme identifiers, differences, defaults and coverage
+must be documented. The
+[owning phase plan](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#implementation-sequence-and-exit-evidence)
+records the accepted scope and unexecuted exits.
+
+This admits the bounded naming-contract correction before 1.0. It does not admit
+general atom/group renaming, new chemical-state selection, new protonation or
+geometry methods, online dictionary enrichment, or an unreviewed complete CCD
+implementation. Physical encoding/schema revisions and all ordinary scientific,
+documentation and release gates still need review and execution. The design
+acceptance is not implemented runtime behavior or publication authorization.
+
 ## Chemical-domain separation planning admission — 2026-10-28
 
 The maintainer explicitly accepts completing the separation of ChemicalStates

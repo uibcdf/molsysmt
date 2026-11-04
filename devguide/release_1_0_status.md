@@ -38,6 +38,27 @@ unexposed, including the Context/Simulation-only force reader pending an input
 contract suitable for the bound MolSys. Source exposure is 218/244; this is not
 owner acceptance, exact-head hosted completion or installed qualification.
 
+## Group-name scheme design accepted — 2026-11-04
+
+The maintainer accepts #549's explicit source-scheme design and requests a public
+comparison of supported schemes and their differences. The
+[owning plan](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#accepted-design--2026-11-04)
+records group-aligned Topology ownership, default ambiguity refusal, source
+argument spelling, helper relocation and native/H5MSM/dictionary preservation.
+The new conceptual User Guide page distinguishes the current legacy behavior
+from the accepted amber/ccd/legacy profiles still to implement.
+
+The source study confirms real CCD/Amber collisions and native template sequence
+failures. No runtime table, public signature or file schema is changed by this
+documentation checkpoint. D0/D1 are complete; D2's typed storage/schema contract
+is the next step. This accepted correction precedes #504 and #543 receiving.
+
+The six applicable routine workflows for source 5f3af9374 all pass, including
+[CI smoke 41878036717](https://github.com/uibcdf/molsysmt/actions/runs/41878036717).
+This completes #554's pending hosted checkpoint, not full-matrix or installed
+qualification. The earlier #548 smoke 41874330460 also passes; no failed producer
+is relabelled or new package published.
+
 ## Native reference-map validation — 2026-11-04
 
 [#554](archive/resolved_bugs/reference_bond_index_maps_are_not_consistently_validated.md)
