@@ -116,6 +116,8 @@ def get_pi_pi_interactions(
         Sparse analysis object or its typed, versioned serialization dictionary.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate selection and selection_2.
+        External string selections require chemical_state='reference' or None; explicit
+        state indices and 'structure' retain the selector's current restriction.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
     geometry : {'parallel', 'edge_to_face', 'both'}, default='both'
@@ -257,8 +259,6 @@ def get_pi_pi_interactions(
 
     .. versionadded:: 1.0.0
     """
-    from copy import copy
-
     from molsysmt import configure
     from molsysmt._private.interaction_methods import resolve_method
 
@@ -268,11 +268,11 @@ def get_pi_pi_interactions(
     )
     from molsysmt._private.execution.sparse_accumulator import SparseColumnAccumulator
     from molsysmt._private.h5msm import modular_h5msm_dimensions
-    from molsysmt.basic import convert, get, select
+    from molsysmt.basic import convert, get
+    from molsysmt.chemical_states._chemical_graph import select_chemical_atoms
     from molsysmt.chemical_states._rings import ring_context
     from molsysmt.interactions.pi_pi._reducer import _PiPiReducer
     from molsysmt.interactions.result import Interactions
-    from molsysmt.native import MolSys
     from molsysmt.physchem.get_aromatic_rings import get_aromatic_rings
 
     thresholds = {}
@@ -475,38 +475,27 @@ def get_pi_pi_interactions(
                 plane_method="cross_of_centroid_to_first_two_basis_member_atoms",
                 adaptation="supplied_declared_molsysmt_ring_basis_no_first_frame_pruning",
             )
-    if index_selections:
-        selection_source = copy(states)
-        selection_source._reference_index = state_index
-        selection_state = "reference"
-    else:
-        selection_source = (
-            source
-            if isinstance(source, MolSys)
-            else convert(source, to_form="molsysmt.MolSys")
-        )
-        selection_state = state_index
-    first = np.unique(
-        select(
-            selection_source,
-            selection=selection,
-            structure_indices=selection_frames,
-            chemical_state=selection_state,
-            syntax=syntax,
-        )
-    ).astype(np.int64)
+    first = select_chemical_atoms(
+        source,
+        states,
+        state_index,
+        selection,
+        selection_frames,
+        syntax,
+        reference_request=chemical_state in (None, "reference"),
+    )
     second = (
         None
         if selection_2 is None
-        else np.unique(
-            select(
-                selection_source,
-                selection=selection_2,
-                structure_indices=selection_frames,
-                chemical_state=selection_state,
-                syntax=syntax,
-            )
-        ).astype(np.int64)
+        else select_chemical_atoms(
+            source,
+            states,
+            state_index,
+            selection_2,
+            selection_frames,
+            syntax,
+            reference_request=chemical_state in (None, "reference"),
+        )
     )
     if second is not None and np.intersect1d(first, second).size:
         raise ArgumentError(

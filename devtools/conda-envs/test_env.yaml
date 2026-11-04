@@ -5,14 +5,14 @@ channels:
 dependencies:
 - python
 - pip
-- setuptools >=68.0
+- setuptools >=77.0.3
 - versioningit>=3.0
-- h5py
+- h5py >=3.11.0
 - numpy >=1.26,<3
-- pandas
-- networkx
-- tqdm
-- matplotlib
+- pandas >=2.2.2
+- networkx >=3.3
+- tqdm >=4.65.0
+- matplotlib >=3.8.4
 - openmm
 - pdbfixer
 - ambertools

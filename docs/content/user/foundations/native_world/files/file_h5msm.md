@@ -57,6 +57,16 @@ with TemporaryDirectory() as tmpdir:
 
 Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.
 
+For legacy 0.3/0.4 files, `msm.get(molsys, structure_index=True,
+structure_indices=[3, 0, 3])` returns `[3, 0, 3]` when those positions exist.
+This index-only query reads metadata, with no coordinate or other dataset payload
+load. It also works on an open `H5MSMFileHandler` and leaves that handler open.
+Indices are dimensionless positions, independent of stored structure IDs. Empty
+selections return `[]`; `structure_indices=None` returns `None`; invalid positions
+raise `ArgumentError`. Existing unit checks and legacy warnings still apply.
+This guarantee does not extend the separate resident-load contract for general
+0.5 queries.
+
 The modular 0.5 format preserves structure and chemical-state populations
 independently. Structure-to-state indices are stored explicitly when the two
 populations differ, including a prefix map into a larger state inventory.

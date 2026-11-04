@@ -63,6 +63,72 @@ now lives at `devtools/controlled_sources.txt`, and all active workflow
 consumers use the new path. Historical archive references preserve the old
 path as dated evidence, not as a current instruction.
 
+## Receiving runtime provider floors
+
+The first API-grounded review under uibcdf/molsysmt#524 aligns h5py >=3.11.0,
+pandas >=2.2.2, NetworkX >=3.3, Matplotlib >=3.8.4 and tqdm >=4.65.0. The public
+requirements remain authoritative in pyproject.toml; this paragraph records the
+receiving basis, not an independent version registry. Their rationale and exact
+wheel identities are retained in the
+[active review](pending_proposals/runtime_dependency_api_floors.md).
+
+Use the executable provider module to exercise HDF5 string/resizing operations,
+nullable inventory mapping/Styler, graph components/rings, colormaps, progress
+iterator lifecycle and a real NumPy-to-Rust distance calculation:
+
+```bash
+python -m pytest --receptor=llm devtools/tests/test_runtime_provider_apis.py
+```
+
+Running this with the normal development providers does not qualify minima.
+For an intentionally isolated provider-only probe, `--confcutdir=devtools/tests`
+avoids the full-package bootstrap; it does not qualify MolSysMT's complete
+runtime or replace ordinary source, optional-engine or installed-pair tests.
+Use exact wheel payloads, verify import origins and retain their hashes. Never
+downgrade the shared prefix to simulate a minimum.
+
+The first probes pass with Python 3.11 and exact selected providers against both
+NumPy 1.26.0 and 2.4.6. Separate source receiving with pandas 3.1.0 uncovered
+deprecated inplace summary-table drops; the public `info()` guard rejects all
+warnings and preserves counts, columns and result representations. Public Viewer
+floor/acquisition, existing sibling/optional-provider minima and the NumPy ABI
+restriction review remain pending under #524. This partial adoption does not
+authorize a release or certify unexecuted provider combinations.
+
+## Build-backend license contract
+
+The Setuptools requirement in `pyproject.toml` owns the source build minimum.
+The current SPDX license expression and `project.license-files` use PEP 639;
+MolSysMT selects `setuptools>=77.0.3`, including early license-handling fixes.
+Keep the same constraint in both Conda host recipes and the five environments
+that explicitly provision Setuptools. The focused
+`devtools/tests/test_license_build_contract.py` guard checks these routes and
+rejects a backend floor predating PEP 639 support. This is separate from the
+runtime dependency audit above.
+
+For a changed license/build boundary, inspect actual source, direct-wheel and
+sdist-rebuilt-wheel payloads in the intended backend context:
+
+```bash
+python devtools/scripts/validate_license_metadata.py \
+    --source path/to/reviewed/source \
+    path/to/source.tar.gz path/to/direct.whl path/to/rebuilt.whl
+```
+
+The checker verifies MolSysMT's PEP 639 license fields in core metadata 2.4 or
+later 2.x minors, the SPDX expression,
+declared license files and their original bytes, including the bundled ProLIF
+notice. It reads archive members without installing or importing package code.
+Its synthetic negative controls reject substituted metadata or notices and
+missing files; a file named `LICENSE` alone is insufficient.
+
+Backend import/metadata generation is not a native build. Deliberately exercise
+the selected minimum with the real Rust/versioning plugins and distinguish it
+from a modern-backend build. Record artifact names/hashes and the interpreter,
+backend origins and reused dependencies. An unpacked-artifact smoke is not a
+clean installed-package or platform-matrix qualification. This work changes no
+license choice and does not authorize rebuilding or replacing public files.
+
 ## Documentation dependencies
 
 The optional `docs` extra supplies the theme and external extensions configured

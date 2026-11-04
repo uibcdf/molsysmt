@@ -1,38 +1,38 @@
 import numpy as np
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.variables import is_iterable
 
 
 def digest_donors(donors, syntax="MolSysMT", caller=None):
-    """ """
+    """Normalize explicit donor anchors or intact donor-H rows without coercion."""
+    if donors is None:
+        return None
+    try:
+        if hasattr(donors, "unit") or hasattr(donors, "units"):
+            raise ValueError
+        array = np.asarray(donors)
+        if array.ndim == 0:
+            array = array.reshape(1)
+        mixed_boolean = isinstance(donors, (list, tuple)) and any(
+            isinstance(value, (bool, np.bool_))
+            for value in np.asarray(donors, dtype=object).flat
+        )
+        valid_shape = array.ndim == 1 or (array.ndim == 2 and array.shape[1] == 2)
+        if valid_shape and not mixed_boolean:
+            if not array.size:
+                return np.empty(array.shape, dtype=np.int64)
+            if (
+                array.dtype.kind in "iu"
+                and np.all(array >= 0)
+                and np.all(array < 2**63)
+            ):
+                return array.astype(np.int64)
+    except (TypeError, ValueError, OverflowError):
+        pass
 
-    if syntax == "MolSysMT":
-        if isinstance(donors, str):
-            return donors
-        elif isinstance(donors, (int, np.int64, np.int32)):
-            return [donors]
-        elif is_iterable(donors):
-            if all([isinstance(ii, (int, np.int64, np.int32)) for ii in donors]):
-                return list(donors)
-            else:
-                return list(
-                    [digest_donors(ii, syntax=syntax, caller=caller) for ii in donors]
-                )
-        elif isinstance(donors, range):
-            return list(donors)
-        elif donors is None:
-            return None
-    else:
-        if isinstance(donors, str):
-            return donors
-        elif isinstance(donors, (int, np.int64, np.int32)):
-            return np.array([donors], dtype="int64")
-        elif isinstance(donors, (np.ndarray, list, tuple, range)):
-            return np.array(donors, dtype="int64")
-        elif isinstance(donors, range):
-            return list(donors)
-        elif donors is None:
-            return None
-
-    raise ArgumentError("donors", value=donors, caller=caller, message=None)
+    raise ArgumentError(
+        "donors",
+        value=donors,
+        caller=caller,
+        message="Supply integer donor atom indices or an (n, 2) array of donor-H pairs.",
+    )

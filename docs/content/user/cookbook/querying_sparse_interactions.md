@@ -445,6 +445,20 @@ assert not hasattr(molsys.topology, "bonds")
 
 ## Consuming results in MolSysViewer
 
+Classic Buch and Luzar–Chandler detectors accept supplied donor anchors or
+covalent donor-H rows for their default tuple outputs. Their optional sparse
+output still requires automatic role recognition. Do not flatten pair arrays
+or pass a tuple as an analysis: choose the detector's documented output before
+attaching it under a name. See {ref}`Tutorial_Get_buch_hbonds` and
+{ref}`Tutorial_Get_luzard_chandler_hbonds` for the supplied-role contracts.
+
+For pi-pi and cation-pi detection, external atom-selection syntax such as MDTraj
+supports `chemical_state="reference"` or `None`. Use numeric atom selections or
+native syntax with explicit chemical-state indices or structure-assigned states.
+Calculation selections retain whole participants; queries on the resulting
+analysis continue to use atom and structure indices. See
+{ref}`Tutorial_Get_pi_pi_interactions` and {ref}`Tutorial_Get_cation_pi_interactions`.
+
 MolSysViewer consumes named `Interactions` analyses through its native backend
 and `view.interactions` API; no MolSysMT addon needs to be enabled. Keep an
 analysis associated with the correct molecular system and its declared index

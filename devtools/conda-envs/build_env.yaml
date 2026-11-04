@@ -5,7 +5,7 @@ channels:
 dependencies:
 - python
 - pip
-- setuptools >=68.0
+- setuptools >=77.0.3
 - versioningit>=3.0
 - anaconda-client
 - conda-build

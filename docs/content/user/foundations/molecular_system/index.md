@@ -5,6 +5,12 @@ Welcome to **The Molecular System**, the conceptual heart of MolSysMT. This sect
 
 Understanding these foundational concepts ensures seamless interoperability when handling structures across different file formats, computational engines, and external libraries.
 
+Group labels and chemical assignments have different roles. An N-terminal cap
+protects the peptide N end: ACE connects through its carbonyl C. C-terminal
+NME/NHE/NH2 caps connect through N to the peptide C end. Likewise, sequence
+symbols XLE/J and XAA/X retain ambiguous or unknown identity; recognizing a
+label does not select a chemical state or provide an atomic template.
+
 ---
 
 ## **Contents**

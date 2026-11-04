@@ -1,0 +1,131 @@
+{
+  "scope": "Linux source/build license qualification; not publication or clean installed-pair qualification",
+  "date": "2026-11-03",
+  "source_base": "55f18aefd284c422fbf93634c2076fc4de322f92",
+  "source_changes": "Only the eight recorded Setuptools floors differ in the artifact-producing worktree.",
+  "build_inputs_sha256": {
+    "pyproject.toml": "545626f2a114da478aad8931020130e4cfb09e77eb26218fa3f12f06313e1716",
+    "devtools/conda-build/meta.yaml": "124545613d7081f20479eff7176164ebb0e8be0e678b99cca34d0085f807f6de",
+    "devtools/rattler-build/recipe.yaml": "56caaef3fbbc161988fdb0c7f6be67866b50d7abb9e298c2083ebe3683ad332d",
+    "devtools/conda-envs/build_env.yaml": "59748fa06a1768a8a603d553d1d67d832e1867e25b73bf2af4f0cba1c3f70ed3",
+    "devtools/conda-envs/setup_env.yaml": "36cbbef2901873bee89504cf8fb2e2064bf99fdfaa5f0d030d86efad8190f83b",
+    "devtools/conda-envs/development_env.yaml": "4cbb48c403445991e0aa08083a7007e270c20ddc0e081c2a6e6f58d50c0e1420",
+    "devtools/conda-envs/test_env.yaml": "3506c16e871ced62055b7917fe1f8f1dcd5601f0d823960ad39970560e771324",
+    "devtools/conda-envs/docs_env.yaml": "894ebc6c76d1b73fdffb0015fb34818e8d96dcdc7fcc36bed693c57e006baadf"
+  },
+  "notice_sha256": {
+    "LICENSE": "dc754ac66ae38d0c5a172093f5a1c8fb2a032a8417494fe6bf818a0b5fb89a12",
+    "molsysmt/interactions/cation_pi/PROLIF_LICENSE.txt": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+  },
+  "python": "3.14.7",
+  "setuptools_profiles": {
+    "minimum": "77.0.3",
+    "modern": "84.0.0",
+    "negative_control": "76.1.0"
+  },
+  "build_dependencies": {
+    "setuptools-rust": "1.13.0",
+    "versioningit": "3.3.0",
+    "packaging": "26.3",
+    "wheel": "0.48.0",
+    "build": "1.6.1"
+  },
+  "rust": "1.97.1",
+  "cargo_jobs": 2,
+  "cargo_offline": true,
+  "artifact_provenance": {
+    "minimum-dist": "sdist then native wheel rebuilt from it, exact Setuptools 77.0.3 unpacked overlay",
+    "minimum-direct": "native wheel built directly from reviewed worktree with exact Setuptools 77.0.3",
+    "modern-dist": "sdist then rebuilt native wheel, shared Setuptools 84.0.0"
+  },
+  "artifacts": [
+    {
+      "context": "minimum-dist",
+      "name": "molsysmt-0.23.0+388.g55f18aefd.dirty-cp311-abi3-linux_x86_64.whl",
+      "bytes": 61912977,
+      "sha256": "ba5a94d6efc60a0aa10f66036d4930b08e869ca8594857296cfc7a13cb6f17bb",
+      "metadata_version": "2.4",
+      "license_expression": "MIT",
+      "license_files": [
+        "LICENSE"
+      ],
+      "version": "0.23.0+388.g55f18aefd.dirty",
+      "wheel_generator": "setuptools (77.0.3)"
+    },
+    {
+      "context": "minimum-dist",
+      "name": "molsysmt-0.23.0+388.g55f18aefd.dirty.tar.gz",
+      "bytes": 59029396,
+      "sha256": "55df96a3f25bbf3ac94db04b0b07038e78a6ef879d4bc4fa2ae8a0963a27f5fa",
+      "metadata_version": "2.4",
+      "license_expression": "MIT",
+      "license_files": [
+        "LICENSE"
+      ],
+      "version": "0.23.0+388.g55f18aefd.dirty"
+    },
+    {
+      "context": "minimum-direct",
+      "name": "molsysmt-0.23.0+388.g55f18aefd.dirty-cp311-abi3-linux_x86_64.whl",
+      "bytes": 61912977,
+      "sha256": "15a7e192b2f7f000898b422618d25861e1e8bf2f003d959eabdbe80b95c5c5df",
+      "metadata_version": "2.4",
+      "license_expression": "MIT",
+      "license_files": [
+        "LICENSE"
+      ],
+      "version": "0.23.0+388.g55f18aefd.dirty",
+      "wheel_generator": "setuptools (77.0.3)"
+    },
+    {
+      "context": "modern-dist",
+      "name": "molsysmt-0.23.0+388.g55f18aefd.dirty-cp311-abi3-linux_x86_64.whl",
+      "bytes": 61912976,
+      "sha256": "9404e9b0a58899449db566f2c0c6dfe8a98beaef4ed1ce51a7a494fe7eb34c44",
+      "metadata_version": "2.4",
+      "license_expression": "MIT",
+      "license_files": [
+        "LICENSE"
+      ],
+      "version": "0.23.0+388.g55f18aefd.dirty",
+      "wheel_generator": "setuptools (84.0.0)"
+    },
+    {
+      "context": "modern-dist",
+      "name": "molsysmt-0.23.0+388.g55f18aefd.dirty.tar.gz",
+      "bytes": 59030910,
+      "sha256": "69154c094bf1eae08906cd0188355090626fdbb692f9413bad4935f2481006a6",
+      "metadata_version": "2.4",
+      "license_expression": "MIT",
+      "license_files": [
+        "LICENSE"
+      ],
+      "version": "0.23.0+388.g55f18aefd.dirty"
+    }
+  ],
+  "checks": {
+    "license_metadata_and_notice_bytes": "all five artifacts passed",
+    "minimum_native_wheel_layout": "passed",
+    "minimum_extracted_wheel_import_and_distance_smoke": "passed; package and extension origins asserted",
+    "generic_sdist_validation": "known #537 directory-entry rejection; not claimed passed",
+    "negative_backend": "76.1.0 rejected project.license string before native build",
+    "original_floor_guard": "rejected unmodified 55f18aefd build declarations",
+    "shared_prefix_after_probes": "Setuptools 84.0.0 unchanged; native backend SHA-256 f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c unchanged",
+    "fast_gates": "14/14 passed"
+  },
+  "limitations": [
+    "No global/prefix package was replaced or downgraded.",
+    "Other build-plugin minimum versions were not qualified.",
+    "Shared runtime dependencies were reused for the extracted-wheel smoke.",
+    "No clean install, Conda build, non-Linux platform, scientific suite or public artifact was qualified.",
+    "The local development .dirty artifact identities are not release candidates."
+  ],
+  "regression_receiving": {
+    "tests": 62,
+    "failures": 0,
+    "skips": 0,
+    "seconds": 4.06,
+    "workers": 2,
+    "warnings": "one existing setuptools-rust py_limited_api deprecation"
+  }
+}

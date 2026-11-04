@@ -2371,3 +2371,35 @@ All 22 read-tool cases pass, including exact signature/digestion/help and two
 real group/chain output-parity cases preserving primary coordinates and scene.
 This consumer adjustment is part of the existing #421 receiving; it does not
 repair native science. The updated extraction guide block is checked separately.
+
+## Native input repairs and frozen metadata receiving — 2026-11-03
+
+The metadata candidate a24b14f3d retains PRs #538/#540 and passes the corrected
+source smoke 41730351587 (4,810 native passes / sixteen optional skips and
+2,658 addon passes / four optional skips) plus performance audit 41730356380.
+The full matrix now passes all eight lanes. Rust workflow 41730347088 remains
+failed with four installed-public smoke failures from generated addon bytecode.
+#551 now has a source correction: exact archive inventories stay strict, while
+the installed check recognizes source-backed, unhashed/unsized current-interpreter
+caches. The original wheel has no cache payload. All 94 packaging guards and
+the public runtime outside the checkout pass locally with the original wheel,
+the unchanged frozen 25-source inventory and controlled Viewer wheel. The small
+prefix inherits development dependencies; this does not turn the historical
+workflow green or replace the next candidate's installed/platform qualification.
+The #537 native validator correction is now received independently from PR #538:
+its exact production patch and four adapted red/green controls pass alongside
+#551, with 98 packaging controls and an unchanged real 59,061,773-byte archive.
+This closes the native defect without admitting the metadata namespaces.
+Combined integration still needs a refreshed, separately identified candidate
+containing the later main repairs and its applicable executed gates.
+This does not move the
+frozen candidate or certify an installed pair.
+
+Later native fixes for #511/#516 are received independently on the main working
+tree: supplied classic donor anchors/pairs, and public-reference external string
+selections for pi-pi/cation-pi. The addon delegates the same native contracts;
+its regressions now exercise the supported inputs and preserve sparse-output
+and explicit-state rejections. Final combined receiving passes 2,021 cases
+without omissions; documentation/doctests pass 569. Owning archived bug records
+retain exact scope, commands, environment and warnings. No rendering, automatic
+attachment, session or package-publication behavior is introduced.

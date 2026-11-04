@@ -395,17 +395,17 @@ def test_external_syntax_preserves_native_support_and_reference_state_limit(view
         structure_indices=[2, 0],
         pbc=False,
     )
-    if family in {"pi_pi", "cation_pi"}:
-        # Native code substitutes an integer state for the requested reference,
-        # so basic.select rejects external syntax. No selector translation here.
-        with pytest.raises(msm.ArgumentError, match="syntax"):
-            native(family)(value.molsys, **args)
-        with pytest.raises(msm.ArgumentError, match="syntax"):
-            bound(value, family)(**args)
-        assert bound(value, family)(**options(family), pbc=False).n_interactions == 2
-        return
     result = bound(value, family)(**args)
     same(result, native(family)(value.molsys, **args))
+    numeric = {**args, "selection": list(range(value.molsys.get_n_atoms()))}
+    same(result, native(family)(value.molsys, **numeric))
+    if family in {"pi_pi", "cation_pi"}:
+        for state in (0, "structure"):
+            with pytest.raises(msm.ArgumentError, match="syntax"):
+                native(family)(value.molsys, **args, chemical_state=state)
+            with pytest.raises(msm.ArgumentError, match="syntax"):
+                bound(value, family)(**args, chemical_state=state)
+        assert value.molsys.chemical_states.reference_chemical_state_index == 0
     assert result.n_interactions == 2
 
 

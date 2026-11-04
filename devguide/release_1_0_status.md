@@ -98,35 +98,85 @@ The refreshed board contains 87 open issues and two open PRs before the two
 metadata closeouts above. New incoming work is #537, PR #538, #539 and PR #540. These
 counts are a dated snapshot, not a live generated inventory.
 
-Next admitted defect/contribution reviews, in priority order:
+Current receiving and next admitted defect/contribution reviews:
 
-1. **[#542](pending_bugs/pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md):**
-   newly confirmed shared-context regression from #509. Both main 402bdc6e4 and
-   combined candidate dd2c958c6 fail the same four existing pi-pi bounded-read
-   guards (4,797 native passes / 16 optional skips / four failures each). The
-   addon tier is not executed after that native failure. Restore graph-only
-   preparation without losing genuine spatial site context; preserve the guards.
-2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
-   and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to
-   fail the source-file inventory. PR #538 proposes its correction plus four
-   bound supported reports; #540 proposes seven attribute metadata tools. Both
-   remain unmerged. Reconcile their inventories, retain newer guards and qualify
-   the combined integration. The #539 preparation/audit blocker is now resolved
-   on source 3920346fb; this does not make old PR checks or refreshed source pass.
+1. **[#542](archive/resolved_bugs/pi_pi_h5msm_calculations_materialize_structures_during_graph_only_preparation.md):**
+   resolved on main dbdbc9bfe. Frozen combined candidate a24b14f3d passes source
+   smoke 41730351587 (4,810 native passes / 16 optional skips and 2,658 addon
+   passes / four optional skips) and performance audit 41730356380. The original
+   bounded-read guards execute successfully; the old failures remain historical.
+   This defect no longer blocks the metadata contributions' remaining gates.
+2. **[#537](archive/resolved_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
+   and PRs #538/#540:** the native TarInfo directory correction is received
+   separately from PR #538, with four red/green guards and an unchanged real
+   59,061,773-byte archive. All 98 packaging controls pass. The four supported
+   reports and seven attribute metadata tools remain unmerged. Reconcile their
+   inventories, retain newer guards and qualify
+   the combined integration. Candidate a24b14f3d retains both PR ancestries,
+   passes 2,687 local tests without omissions and the corrected hosted smoke.
+   All eight full-matrix lanes now pass. Rust workflow 41730347088 remains a
+   terminal failure: its four installed-public smoke jobs rejected generated
+   addon bytecode. The original wheel contains no caches; the installed-only
+   inventory correction and real pip-install/adversarial guards are resolved under
+   [#551](archive/resolved_bugs/installed_addon_inventory_rejects_installer_generated_bytecode.md).
+   All 94 packaging controls and a Linux/Python 3.14 public runtime reproduction
+   pass with the original wheel and patched validator. That local prefix inherits
+   development dependencies. It does not reclassify the original workflow or
+   qualify the next integrated candidate's complete installed/platform matrix.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
-3. **#511 and #516:** precomputed donor-shape and reference-selection defects.
-   Retain each original scientific acceptance contract and provider-owned correction.
-   #509 is now resolved with source-form/state/selection and bound-addon receiving.
-4. **[#541](pending_bugs/setuptools_minimum_for_pep639_license_metadata.md):**
-   incoming DockingMT build-contract finding. Verify and qualify the Setuptools
-   minimum for the existing license metadata before publication; no old-backend
-   failure or broken public archive is asserted by the intake.
+3. **[#511](archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md)
+   and [#516](archive/resolved_bugs/aromatic_detectors_reject_reference_mdtraj_selection.md):**
+   resolved with supplied donor-anchor/pair validation and reference-aware aromatic
+   selection. Final local receiving passes 2,021 source/bound-addon tests and 569
+   documentation/doctest cases without skips. Scientific criteria, sparse-output
+   restrictions and explicit-state external-selector limits are preserved. These
+   later corrections are separate from the frozen metadata candidate a24b14f3d.
+   #509's site/state/structure controls and #542's eager-read guards remain green.
+4. **[#541](archive/resolved_bugs/setuptools_minimum_for_pep639_license_metadata.md):**
+   resolved with Setuptools >=77.0.3 across source, both Conda hosts and five
+   explicit tool environments. Exact 76.1.0 rejects the existing metadata; exact
+   77.0.3 and current 84.0.0 build native artifacts with matching license metadata
+   and original notices. Five local artifact identities and 62 packaging tests
+   are recorded. The #537 general sdist inventory failure and clean installed/
+   platform release qualification remain separate; public files are unchanged.
 5. **#504:** choose and document multi-structure solvation output/aggregation;
    choosing first/any/all silently is not an acceptable numerical repair.
-6. **#523 and #524:** the declared legacy H5MSM structure-index route is still
-   missing on the current source; runtime dependency floors/restrictions need
-   API-grounded review before the next publication. Exact route, provider and
-   installed-artifact evidence remain distinct.
+6. **[#523](archive/resolved_bugs/legacy_h5msm_structure_index_route.md):**
+   resolved with metadata-only legacy 0.3/0.4 file/handler index getters.
+   Requested order/repetitions, bounds, empty/None semantics, source units and
+   handle ownership are guarded. All 1,390 H5MSM/index and 566 documentation/
+   doctest cases pass without omissions. H5MSM 0.5 retains its separate reader
+   boundary; no installed qualification is inferred.
+   **[#524](pending_proposals/runtime_dependency_api_floors.md)** is partial:
+   five core floors are aligned after exact provider API/ABI probes on Python
+   3.11 with NumPy 1.26.0 and 2.4.6. Pandas 3.1 source receiving passes 1,886
+   tests after removing deprecated summary-table inplace drops; nine final
+   strict summary guards and 31 default-provider checks pass. Viewer public
+   acquisition/floor, sibling/optional-provider review and the NumPy ABI-bound
+   disposition remain due before publication. No installed qualification is implied.
+7. **PR #543:** incoming element-utility and current-system addon contribution,
+   latest reviewed intake head b41810c26c36984a68781e7706f3e933e8589c66. Its reported local tests are
+   contributor evidence, not owner receiving. It excludes #538/#540; reconcile
+   shared inventories, API exports, documentation and guarded smoke arguments
+   only in a separately identified integration after review. Its hosted checks
+   are queued; it does not extend frozen candidate a24b14f3d's qualification.
+8. **[#547](archive/resolved_bugs/terminal_cap_end_labels_are_inverted.md),
+   [#545](archive/resolved_bugs/canonical_amino_acid_codes_are_unreachable.md),
+   [#546](archive/resolved_bugs/standard_name_examples_expect_bare_none_output.md):**
+   resolved in the owner source. Cap resources now name the protected peptide
+   end, with a coordinated bond-candidate consumer and generator-path correction.
+   Canonical XLE/J and XAA/X are reachable; existing variant outputs are preserved.
+   Exactly the standard-name print/example guard is received from PR #543;
+   remaining addon changes are unmerged. Broader receiving passes 430 cases,
+   final focal guards 77 and documentation/doctests 570, all without omissions.
+9. **[#549](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md):**
+   newly observed mismatch between legacy label lookup and explicit native
+   protonation names. GLH resolves to Q/GLN; HID/HIE are absent from the one-letter
+   route, while the native template inventory supplies those state labels.
+   Keep this as an open stabilization review; #545 does not settle naming dialects.
+   Incoming **#548/#550** separately report template-helper index-return
+   documentation and documented NumPy atom-name arrays failing at list.index.
+   They need bounded native triage; #547 does not resolve those contracts.
 
 The Collantes ISA/ECI primary-reference questions **#473/#475** remain open;
 quantity wrappers and source parity do not settle scientific dimensions or

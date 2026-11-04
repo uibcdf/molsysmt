@@ -38,6 +38,8 @@ def get_missing_bonds(
     between consecutive source groups in the same declared chain. Selecting separated
     groups does not make them consecutive. These criteria are heuristics and do not
     establish a complete or chemically validated molecular graph.
+    Cap labels refer to the protected peptide end: ACE supplies C to the first
+    amino-acid N, while C-terminal NME/NHE/NH2 supply N to the last amino-acid C.
 
 
     Parameters
@@ -236,11 +238,13 @@ def get_missing_bonds(
                     aux_bonds = _bonds_in_terminal_capping(
                         group_name, atom_names, atom_indices, sorted=False
                     )
-                    if is_c_terminal_capping(group_name):
+                    # Cap labels name the peptide end they protect, whereas the
+                    # candidate dictionaries name the atom forming the bond.
+                    if is_n_terminal_capping(group_name):
                         aux_peptidic_bonds_C[group_index] = atom_indices[
                             atom_names.index("C")
                         ]
-                    elif is_n_terminal_capping(group_name):
+                    elif is_c_terminal_capping(group_name):
                         aux_peptidic_bonds_N[group_index] = atom_indices[
                             atom_names.index("N")
                         ]

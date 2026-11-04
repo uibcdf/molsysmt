@@ -1,9 +1,9 @@
 ---
 summary: Pi-pi H5MSM calculations materialize structures during graph-only preparation.
 issue: uibcdf/molsysmt#542
-status: partial
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-03
 severity: high
 verification: reproduced
 area: [interactions, performance]
@@ -16,8 +16,9 @@ supersedes: []
 # Pi-pi preparation bypasses bounded H5MSM geometry delivery
 
 **Reported:** 2026-11-03, inspecting hosted receiving after the #509 correction.
-**Status:** corrected and locally received; hosted receiving of the corrected
-combined candidate remains pending before integration and issue closure.
+**Status:** resolved in source dbdbc9bfeb8a3963e533250f3a566861bcb2c34a; corrected
+combined source smoke and performance audit pass. Metadata PR integration remains
+separate and awaits the required full/native matrices.
 
 ## What
 
@@ -141,11 +142,30 @@ warnings include six MDAnalysis mass notices and one NumPy binary-size notice.
 These warnings are retained, not reclassified as failures or proof of measured
 memory savings. Local source tests do not qualify installed packages or platforms.
 
-The obsolete candidate's Rust matrix was cancelled; its full matrix cancellation
-was requested. Its failed smoke remains failed. New exact-source smoke/full/native
+The obsolete candidate's Rust and full matrices were cancelled. Its failed smoke
+remains failed. New exact-source smoke/full/native
 receiving is required on the refreshed integration branch before merging the
 metadata contributions. No tag, release or registry publication follows from this
 local result.
+
+## Frozen combined candidate receiving — 2026-11-03
+
+Main correction dbdbc9bfeb8a3963e533250f3a566861bcb2c34a is included in the
+published combined candidate a24b14f3d241893e51703588f9db07a3a70cf11d on
+`dev/review-tools-537-540`, retaining both reviewed PR ancestries. On this frozen
+commit, **2,687 passed**, no failures or skips, 379.60 seconds, two workers. The
+selection includes the complete 2,662-case bound addon, the original four pi-pi
+sentinels, the expanded cation-pi controls, new graph-only/PDBQT controls, archive
+validation and the hosted-command guard. All fourteen fast gates, full-tree Ruff
+and public docstring validation also pass. The original receipt remains unchanged;
+the new [corrected receiving receipt](../../devtools/data/molsysviewer_tools_corrected_receiving_20261103.json)
+records this distinct checkpoint, scope, warnings and hosted run identities.
+
+All nine new hosted workflows were queued at the last observation. They target
+the exact candidate above and the controlled Viewer source used locally. The
+metadata PRs and #537 remain unmerged/open pending their required executed gates;
+#542 remains partial pending corrected hosted receiving. No current local result
+is substituted for those remote checks or an installed-package qualification.
 
 ## Provenance
 
@@ -154,3 +174,22 @@ Viewer source ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352 selected by the workflows
 The regression assertion is native and does not depend on displaying a scene.
 Raw failed-step logs are retained in ignored stabilization caches for #509 and
 #537/#540. The report does not infer a dependency cause from version differences.
+
+## Resolution — 2026-11-03
+
+The frozen combined source a24b14f3d241893e51703588f9db07a3a70cf11d passes
+[smoke 41730351587](https://github.com/uibcdf/molsysmt/actions/runs/41730351587):
+**4,810 native passes / 16 optional skips**, exit 0, and **2,658 bound-addon
+passes / four optional skips**, exit 0. No bounded-read guard is skipped. Native
+omissions are fourteen unavailable Ackredit checks plus unyt and astropy; addon
+omissions are four unavailable Ackredit checks. The phases retain 590 and 1,657
+warnings. GH Run Receptor confirms the completed successful test job; native
+logs supply the actual per-phase counts and skip reasons. The performance audit
+41730356380 also passes.
+
+The unchanged pi-pi guard now protects the original failure mechanism on both
+local and hosted sources, with related detector/site/PDBQT/SMARTS guards. The
+full and Rust matrices for PRs #538/#540 remain queued at this checkpoint; this
+closure certifies the corrected defect and its executed source receiving, not
+those contributions' integration, an installed pair or a release. Previously
+failed/cancelled runs retain their original conclusions.

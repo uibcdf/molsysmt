@@ -71,6 +71,16 @@ def test_retired_addon_source_fails(tmp_path):
     )
 
 
+def test_addon_cache_is_rejected_even_when_its_source_is_reviewed(tmp_path):
+    from importlib.util import cache_from_source
+
+    archive = tmp_path / "molsysmt-1.0.0.tar.gz"
+    _write_sdist(archive, extras={cache_from_source("molsysviewer_molsysmt/tools.py")})
+    problems = MODULE.validate_sdist(archive)
+    assert any("artifacts are present" in problem for problem in problems)
+    assert any("retired or unreviewed" in problem for problem in problems)
+
+
 @pytest.mark.parametrize("suffix", ["", "/"])
 def test_real_addon_directories_are_not_unreviewed_files(tmp_path, suffix):
     archive = tmp_path / "molsysmt-1.0.0.tar.gz"
@@ -89,7 +99,12 @@ def test_real_addon_directories_are_not_unreviewed_files(tmp_path, suffix):
 
 
 @pytest.mark.parametrize(
-    "name", ["rust/Cargo.toml", "molsysviewer_molsysmt/_supported.py"]
+    "name",
+    [
+        "rust/Cargo.toml",
+        "molsysviewer_molsysmt/tools.py",
+        "molsysviewer_molsysmt/_supported.py",
+    ],
 )
 def test_directory_cannot_satisfy_a_required_file(tmp_path, name):
     archive = tmp_path / "molsysmt-1.0.0.tar.gz"

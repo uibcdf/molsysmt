@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-03",
+  "evidence_scope": "local source receiving; not installed-package qualification",
+  "candidate_commit": "a24b14f3d241893e51703588f9db07a3a70cf11d",
+  "main_fix_commit": "dbdbc9bfeb8a3963e533250f3a566861bcb2c34a",
+  "pr_heads": {
+    "538": "3c13ba1a5c248de11622ff015b24551f72c59846",
+    "540": "c31e7658db3f8308fbd084f4279c00e65e6f8207"
+  },
+  "viewer_source_commit": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+  "backend": {
+    "mode": "reused compiled backend; no Rust changes",
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "python": "3.14.7",
+  "numpy": "2.4.6",
+  "pandas": "2.3.3",
+  "platform": "Linux",
+  "workers": 2,
+  "result": {
+    "exit_code": 0,
+    "tests": 2687,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 379.6,
+    "warnings": 1614,
+    "complete_addon_cases": 2662
+  },
+  "selection": [
+    "tests/molsysviewer_molsysmt",
+    "tests/interactions/pi_pi/test_get_pi_pi_interactions.py::test_projected_file_and_native_parity_without_saved_analysis_loading",
+    "tests/interactions/cation_pi/test_get_cation_pi_interactions.py::test_coordinate_file_route_does_not_load_saved_analyses",
+    "tests/chemical_states/test_graph_only_h5msm_preparation.py",
+    "tests/form/file_pdbqt/test_known_source_poses.py::test_pose_reconstruction_does_not_read_source_trajectory",
+    "devtools/tests/test_smoke_addon_test_command.py",
+    "devtools/tests/test_validate_rust_sdist.py"
+  ],
+  "additional_checks": {
+    "fast_gates": "14/14 passed",
+    "ruff_check": "passed",
+    "ruff_format": "4314 files already formatted",
+    "public_docstrings": "246 passed"
+  },
+  "hosted_run_ids": {
+    "ci_full": 41730342111,
+    "rust_abi3": 41730347088,
+    "ci_smoke": 41730351587,
+    "performance": 41730356380,
+    "ruff": 41730361413,
+    "dependency_contract": 41730365762,
+    "suite_policy": 41730370622,
+    "conda_governance": 41730375618,
+    "devguide": 41730299577
+  },
+  "hosted_state_at_last_observation": "all queued; none certified by this receipt",
+  "publication": false,
+  "limitations": [
+    "No installed, wheel, Conda, browser or platform-matrix qualification is claimed.",
+    "Prior failed smoke remains failed; prior full and Rust matrices were cancelled.",
+    "Warnings include legacy H5MSM reads, structural-drop controls, deliberate unknown-argument controls and a NaN determinant control."
+  ],
+  "kind": "local source receiving checkpoint"
+}

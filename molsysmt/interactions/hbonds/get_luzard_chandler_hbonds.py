@@ -39,8 +39,11 @@ def get_luzard_chandler_hbonds(
         Selection string or boolean/integer array specifying elements.
     acceptors : numpy.ndarray, list, or tuple, default=None
         Precomputed atom indices of hydrogen bond acceptors.
-    donors : numpy.ndarray, list, or tuple, default=None
-        Precomputed atom indices of hydrogen bond donors.
+    donors : int, numpy.ndarray, list, tuple, or range, default=None
+        Supplied donor roles: a one-dimensional collection of heavy-atom indices,
+        or an integer array of shape (n, 2) containing donor-H pairs. Anchors
+        expand to their existing covalent hydrogens; explicit pairs remain a
+        subset. None uses automatic donor recognition.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     molecular_system_2 : object, default=None
@@ -49,8 +52,9 @@ def get_luzard_chandler_hbonds(
         Second selection string or boolean/integer array.
     acceptors_2 : numpy.ndarray, list, or tuple, default=None
         Precomputed acceptor atom indices for selection_2.
-    donors_2 : numpy.ndarray, list, or tuple, default=None
-        Precomputed donor atom indices for selection_2.
+    donors_2 : int, numpy.ndarray, list, tuple, or range, default=None
+        Supplied donor anchors or donor-H pairs for selection_2, with the same
+        validation and covalent expansion as donors.
     structure_indices_2 : int, list, tuple, or numpy.ndarray, default=None
         Structure indices (0-based) for the second selection.
     distance_threshold : quantity, default='3.5 angstroms'
@@ -85,6 +89,9 @@ def get_luzard_chandler_hbonds(
 
     Raises
     ------
+    ArgumentError
+        If supplied donors are malformed, out of range, contain invalid atom
+        roles, or declare a pair without a covalent bond.
     NotImplementedMethodError
         If a second molecular system is supplied, or the optional analysis
         uses supplied role arrays, a second structure axis, or partially
@@ -95,6 +102,12 @@ def get_luzard_chandler_hbonds(
 
     Notes
     -----
+    Supplied roles bypass automatic donor rules but must agree with the element
+    inventory and covalent graph. Selection filters donor anchors; their H atoms
+    may lie outside the selection. Explicit pairs are validated before filtering,
+    deduplicated and sorted by donor then hydrogen; caller arrays are unchanged.
+    Empty inputs give no pairs. Boolean masks, strings and fractional indices
+    are not donor declarations. No hydrogens or bonds are invented.
     The result is independent and is not automatically attached to the system.
     With PBC, donor-anchored D-H and D-A images reproduce the two minimum-image
     vectors used for the angle. The optional analysis records the
@@ -130,6 +143,7 @@ def get_luzard_chandler_hbonds(
     from molsysmt.structure import get_angles, get_neighbors
 
     from ._empty_result import pack_result
+    from ._supplied_donors import supplied_donor_pairs
     from ._to_interactions import to_luzard_chandler_interactions
     from .get_acceptor_atoms import get_acceptor_atoms
     from .get_donor_atoms import get_donor_atoms
@@ -161,7 +175,7 @@ def get_luzard_chandler_hbonds(
     else:
         structure_indices = np.atleast_1d(structure_indices)
 
-    def roles(selected, donor_pairs, acceptor_indices):
+    def roles(selected, donor_pairs, acceptor_indices, donor_argument):
         if acceptor_indices is None:
             acceptor_indices = get_acceptor_atoms(
                 molecular_system, selection=selected, syntax=syntax
@@ -178,12 +192,17 @@ def get_luzard_chandler_hbonds(
                 molecular_system, selection=selected, syntax=syntax
             )
         else:
-            donor_pairs = select(
-                molecular_system, selection=selected, mask=donor_pairs, syntax=syntax
+            donor_pairs = supplied_donor_pairs(
+                molecular_system,
+                donor_pairs,
+                selected,
+                syntax,
+                donor_argument,
+                "molsysmt.interactions.hbonds.get_luzard_chandler_hbonds",
             )
         return donor_pairs, acceptor_indices
 
-    donors, acceptors = roles(selection, donors, acceptors)
+    donors, acceptors = roles(selection, donors, acceptors, "donors")
     two_selections = any(
         value is not None for value in (selection_2, acceptors_2, donors_2)
     )
@@ -191,7 +210,7 @@ def get_luzard_chandler_hbonds(
     if two_selections:
         if selection_2 is None:
             selection_2 = selection
-        donors_2, acceptors_2 = roles(selection_2, donors_2, acceptors_2)
+        donors_2, acceptors_2 = roles(selection_2, donors_2, acceptors_2, "donors_2")
         directions = [(donors, acceptors_2), (donors_2, acceptors)]
 
     searches = []

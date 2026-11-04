@@ -1,6 +1,6 @@
 [build-system]
 # `wheel` is not required here; setuptools will build wheels without adding it.
-requires = ["setuptools>=68.0", "versioningit>=3.0", "setuptools-rust>=1.10"]
+requires = ["setuptools>=77.0.3", "versioningit>=3.0", "setuptools-rust>=1.10"]
 build-backend = "setuptools.build_meta"
 
 # Self-descriptive entries which should always be present
@@ -30,14 +30,14 @@ classifiers = [
 requires-python = ">=3.11.0,<3.15.0"
 # Declare any run-time dependencies that should be installed with the package.
 dependencies = [
-    "h5py",
+    "h5py>=3.11.0",
     "numpy>=1.26,<3",
     "pyunitwizard>=0.28.1",
-    "pandas",
+    "pandas>=2.2.2",
     "molsysviewer",
-    "networkx",
-    "tqdm",
-    "matplotlib",
+    "networkx>=3.3",
+    "tqdm>=4.65.0",
+    "matplotlib>=3.8.4",
     "mmcif>=1.1.1",
     "argdigest>=0.13.0",
     "depdigest>=0.15.1",
