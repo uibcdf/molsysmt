@@ -20,6 +20,79 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Resumption route after the library audit — 2026-11-04
+
+**Role:** current work ordering following the maintainer-requested
+[dated audit](archive/assessments/library_engineering_and_scientific_audit_20261104.md).
+The audit's broader evaluation ideas are planning inputs, not newly admitted
+1.0 features. The [scope admission rule](release_1_0_scope.md#admission-rule)
+and exact-candidate gates remain authoritative. This section orders subsequent
+work; it does not report that any step has been completed.
+
+### Observed starting point
+
+- Main is `93d29bf23e2c54f238f7ada984a4b23420b4b3b0`. Its five routine
+  workflows pass, including smoke 41854905816: 5,210 native passes/16 optional
+  omissions and 2,658 addon passes/four optional omissions. This later routine
+  evidence completes the follow-up requested in the metadata checkpoint below;
+  it is not a new full-matrix qualification.
+- The audit, its addendum and original scientific execution certificate are
+  prepared locally and linked from this guide. Their documentation/index checks
+  pass. They are not yet committed or published. Four pre-existing generated API
+  stub edits remain outside the audit and stabilization changes.
+- #548 is prepared on isolated branch `dev/template-bond-contracts-548`, based
+  on main above. Its 342 contract cases, 572 documentation/doctest cases and
+  246-function docstring validation pass. Its local report predates the last
+  documentation result and needs reconciliation before closure. The final diff,
+  notebook preservation and applicable receiving checks are still due.
+- GitHub inspection on this date finds one open PR, #543, published head
+  `3889ad75ab8def7ad20ac5dcee1fe7bd28bc9466`. It conflicts with main and its
+  recorded full matrix fails. Contributor results and earlier review do not
+  qualify a new combined candidate. A later local integration commit is visible
+  in the contributor worktree; it is not the published PR head or accepted owner
+  evidence.
+- New [#555](https://github.com/uibcdf/molsysmt/issues/555), requested by
+  DockingMT, proposes read-only geometry/steric plausibility assessment. It
+  explicitly describes a capability request, not a reproduced numerical defect
+  or an initial-1.0 gate. No assessment method is selected or implemented here.
+
+### Ordered work and exit conditions
+
+| Order | Work | Exit condition before proceeding |
+| --- | --- | --- |
+| 0 | Preserve and publish the audit as its own documentation checkpoint; triage #555 against existing tools and the scope rule. | The dated assessment is durably recorded without staging unrelated API stubs. #555 has an explicit owner/scope disposition; any later feature work remains separately scheduled. |
+| 1 | Finish [#548](https://github.com/uibcdf/molsysmt/issues/548), resuming the prepared patch. | Review the four docstrings, all seven helper contracts, User Guide/course changes and literal output guards; verify executable bodies/signatures/reference data are unchanged and notebook code/outputs/metadata are preserved. Reconcile completed evidence, run applicable remaining checks, integrate and close with its addressable guard. |
+| 2 | Repair [#554](https://github.com/uibcdf/molsysmt/issues/554) at the native argument boundary. | Decide aligned-map length, scalar compatibility, boolean/negative/duplicate/empty cases first. ArgDigest enforces the chosen contract with existing SMonitor diagnostics. Invalid maps fail deliberately; valid family semantics and caller inputs are preserved. Coordinate signature/skip changes with #543 rather than adding addon coercion. |
+| 3 | Resolve [#549](https://github.com/uibcdf/molsysmt/issues/549) through a bounded naming-context study and correction. | Establish the meaning of legacy names versus explicit native protonation labels; audit GLH/HID/HIE and relevant collisions from pinned primary sources. Name/sequence/template controls agree under the declared context, without implicitly changing chemical states. Escalate a required public context decision before broadening APIs. |
+| 4 | Repair [#504](https://github.com/uibcdf/molsysmt/issues/504), then reconcile remaining scientific and presentation defects. | Define the multi-structure solvation-predicate result/selection contract before implementation; do not guess first/any/all reduction. Guard thresholds, mixed structures, absent prerequisites and units. Correct the README's moved graph-tool example. For #473/#475, either establish reference semantics or record an explicit release disposition with visible uncertainty; no guessed units or false scientific closure. |
+| 5 | Receive [PR #543](https://github.com/uibcdf/molsysmt/pull/543) against the resulting native main under #421. | Review the actual published revision, reconcile conflicts, retain supported/attribute/element/build namespaces and the single guarded smoke command, and verify detached preparation plus source/scene preservation. Qualify the exact combined candidate with all applicable PR gates before integration. Failed old matrices remain historical; source exposure counts are regenerated, not assumed. |
+| 6 | Complete dependency/publisher decisions under [#524](https://github.com/uibcdf/molsysmt/issues/524), [#428](https://github.com/uibcdf/molsysmt/issues/428) and [#544](https://github.com/uibcdf/molsysmt/issues/544). | Ground remaining optional/sibling floors in consumed APIs; coordinate a genuinely published compatible Viewer floor. Retain ArgDigest ownership deferral unless a concrete need justifies adoption. Review the Conda action's immutable pin without changing the native publication profile or publishing files. Run the dependency-route and publisher-contract checks. |
+| 7 | Return to exact-candidate source and installed-client qualification under #334, #250 and #254. | Select compatible source/artifact identities with Viewer, execute required source/native/scientific/documentation and installed-pair gates, verify client workflows, and close owning items only with their required evidence. Tags, package publication, promotion and archival retain their separate authorization. |
+
+This is the default order, not a claim that every step is a hard dependency on
+its predecessor. Provider-floor research and #555 contract triage can proceed
+while a hosted gate runs. A scientific source-access limitation must receive an
+explicit disposition rather than causing indefinite table changes or blocking
+unrelated work. Fresh demonstrated regressions can change priority under the
+existing admission rule.
+
+### Validation and scope discipline
+
+Use the audit immediately to strengthen review: independent expected outcomes,
+nondefault units, index remapping, immutable caller data and failure publication
+where relevant. Reuse completed tests only while their source and scope remain
+applicable. Run targeted receiving for each correction, then the mandatory exact
+candidate gates; neither repeated full suites after every prose change nor
+passing a small selection qualifies the eventual package.
+
+Broader corpus expansion, readiness presentation, detector sensitivity,
+universal mutation tracking, streaming append, caching (#553), conformer/state
+enumeration and hydrogen/environment refinement remain separately owned future
+work unless explicitly admitted. Do not restart the completed ChemicalStates
+source refactor or the merged #538/#540 receiving merely because the audit lists
+opportunities. No implementation, issue closure, consumer notice or publication
+was performed by writing this route.
+
 ## Metadata integration and native array repair — 2026-11-04
 
 PR #538/#540 are admitted on exact candidate
@@ -51,9 +124,11 @@ adds those declarations without changing executable ASTs, signatures or guards;
 the separate validator is now included in local receiving. The failed run is
 not relabelled as passing; the new head needs its own routine CI.
 
-Next: complete #548's seven-helper return/mapping documentation and #549's
-legacy name/protonation-context review, then receive updated PR #543 separately,
-retaining both metadata namespaces and current native repairs. Provider/runtime
+Next: follow the updated
+[post-audit resumption route](#resumption-route-after-the-library-audit--2026-11-04),
+starting with the prepared #548 documentation patch. It incorporates the new
+#554 validation defect and the remaining #504 contract decision before updated
+PR #543 receiving, retaining both metadata namespaces and current native repairs. Provider/runtime
 floors (#524/#428), #504's solvation policy and final installed delivery retain
 their separate owner boundaries. Future reference-database caching is tracked
 in #553 without entering this stabilization patch. #421 and #334 remain open;

@@ -164,6 +164,9 @@ front matter that the validator checks and the queue indexes are generated from.
   than code.
 - [Archived material](archive/README.md) contains dated audits, assessments, and
   release checkpoints.
+- [Library engineering and scientific audit — 4 November 2026](archive/assessments/library_engineering_and_scientific_audit_20261104.md)
+  preserves a dated review of architecture, scientific evidence and improvement
+  priorities; it is not the live implementation or release-status ledger.
 
 Moving a document into a pending or archived directory changes its documentary
 status; it does not close a bug, accept a proposal, or certify an implementation.
