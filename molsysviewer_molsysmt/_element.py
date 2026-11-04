@@ -15,6 +15,7 @@ from ._element_labels import (
     _TerminalCappingTools,
     _WaterTools,
 )
+from ._element_templates import _GroupTemplates
 
 
 class _AtomTools(_ElementUtilities):
@@ -76,8 +77,9 @@ class _AtomTools(_ElementUtilities):
         )
 
 
-class _GroupTools(_ElementUtilities):
+class _GroupTools(_GroupTemplates):
     _NAMES = (
+        "get_bonded_atom_pairs",
         "is_group_type",
         "get_group_type_from_group_name",
         "get_group_type",

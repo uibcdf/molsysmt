@@ -4,6 +4,13 @@ from argdigest import arg_digest
 from smonitor import signal
 
 from ._element_common import _ElementUtilities, _utility_documentation
+from ._element_templates import (
+    _AminoAcidTemplates,
+    _IonTemplates,
+    _SaccharideTemplates,
+    _TerminalCappingTemplates,
+    _WaterTemplates,
+)
 
 
 def _label_documentation(name, module, *, local_skip=True):
@@ -31,8 +38,16 @@ def _label_documentation(name, module, *, local_skip=True):
     return decorate
 
 
-class _AminoAcidTools(_ElementUtilities):
-    _NAMES = ("get_1_letter_code_from_name", "get_standard_name", "is_amino_acid")
+class _AminoAcidTools(_AminoAcidTemplates):
+    _NAMES = (
+        "get_bonded_atom_pairs",
+        "get_expected_heavy_atoms",
+        "get_expected_hydrogens",
+        "get_group_db",
+        "get_1_letter_code_from_name",
+        "get_standard_name",
+        "is_amino_acid",
+    )
 
     @_label_documentation(
         "get_1_letter_code_from_name", "element.group.amino_acid", local_skip=True
@@ -63,8 +78,12 @@ class _AminoAcidTools(_ElementUtilities):
         )
 
 
-class _IonTools(_ElementUtilities):
-    _NAMES = ("is_ion",)
+class _IonTools(_IonTemplates):
+    _NAMES = (
+        "get_bonded_atom_pairs",
+        "get_group_db",
+        "is_ion",
+    )
 
     @_label_documentation("is_ion", "element.group.ion", local_skip=True)
     @signal(tags=["addon", "element"])
@@ -95,8 +114,12 @@ class _NucleotideTools(_ElementUtilities):
         )
 
 
-class _SaccharideTools(_ElementUtilities):
-    _NAMES = ("is_saccharide",)
+class _SaccharideTools(_SaccharideTemplates):
+    _NAMES = (
+        "get_bonded_atom_pairs",
+        "get_group_db",
+        "is_saccharide",
+    )
 
     @_label_documentation("is_saccharide", "element.group.saccharide", local_skip=True)
     @signal(tags=["addon", "element"])
@@ -107,8 +130,14 @@ class _SaccharideTools(_ElementUtilities):
         )
 
 
-class _TerminalCappingTools(_ElementUtilities):
-    _NAMES = ("is_c_terminal_capping", "is_n_terminal_capping", "is_terminal_capping")
+class _TerminalCappingTools(_TerminalCappingTemplates):
+    _NAMES = (
+        "get_bonded_atom_pairs",
+        "get_group_db",
+        "is_c_terminal_capping",
+        "is_n_terminal_capping",
+        "is_terminal_capping",
+    )
 
     @_label_documentation(
         "is_c_terminal_capping", "element.group.terminal_capping", local_skip=True
@@ -141,8 +170,11 @@ class _TerminalCappingTools(_ElementUtilities):
         )
 
 
-class _WaterTools(_ElementUtilities):
-    _NAMES = ("is_water",)
+class _WaterTools(_WaterTemplates):
+    _NAMES = (
+        "get_bonded_atom_pairs",
+        "is_water",
+    )
 
     @_label_documentation("is_water", "element.group.water", local_skip=True)
     @signal(tags=["addon", "element"])

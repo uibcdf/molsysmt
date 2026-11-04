@@ -231,6 +231,99 @@ Native references: {func}`molsysmt.element.component.is_component_type`,
 {func}`molsysmt.element.group.terminal_capping.is_c_terminal_capping` and
 {func}`molsysmt.element.group.water.is_water`.
 
+## Querying explicit group reference templates
+
+Fourteen further utilities expose native group reference data, independently of
+any loaded molecular system. They query reference bond pairs, five family
+databases and expected amino-acid heavy/hydrogen names. They do not inspect the
+view's connectivity, add atoms or bonds, choose a chemical state or update the
+scene. All atom names, index labels and chemical context remain explicit.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    group = view.addons.molsysmt.element.group
+    names = ["N", "CA", "C", "O", "CB"]
+    indices = [1040, 1009, 1030, 1007, 1012]
+    common = group.get_bonded_atom_pairs("ALA", names, atom_indices=indices)
+    specific = group.amino_acid.get_bonded_atom_pairs(
+        "ALA", names, atom_indices=indices
+    )
+    assert common == specific
+    assert group.ion.get_bonded_atom_pairs("SO4", ["S", "O1"]) == [[0, 1]]
+    assert group.saccharide.get_bonded_atom_pairs("NAG", ["C1", "C2"]) == [[0, 1]]
+    assert group.small_molecule.get_bonded_atom_pairs("ATP", ["PG", "O1G"]) == [[0, 1]]
+    assert group.terminal_capping.get_bonded_atom_pairs("ACE", ["C", "O"]) == [[0, 1]]
+    assert group.water.get_bonded_atom_pairs(["O", "H1", "H2"]) == [[0, 1], [0, 2]]
+    for family, name in [
+        (group.amino_acid, "ALA"), (group.ion, "SO4"),
+        (group.saccharide, "NAG"), (group.small_molecule, "ATP"),
+        (group.terminal_capping, "ACE"),
+    ]:
+        assert isinstance(family.get_group_db(name), dict)
+    assert group.amino_acid.get_expected_heavy_atoms(
+        "ALA", present_atom_names=names
+    ) == set(names)
+    hydrogens = group.amino_acid.get_expected_hydrogens(
+        "CYS", present_atom_names=["N", "CA", "C", "O", "CB", "SG"],
+        pH=7.4, is_n_terminal=False, is_c_terminal=False, is_disulfide=True,
+    )
+    assert isinstance(hydrogens, list)
+    assert view.molsys is None
+```
+
+Bond queries return native index pairs, using your explicit `atom_indices` or
+local positions in `atom_names` when omitted. These labels are not resolved
+against `view.molsys`. Native ordering, accepted containers, missing-template
+None/empty/error distinctions and family support remain unchanged. The general
+dispatcher is not a universal bond-perception engine: unsupported families can
+return None. No atom-name normalization or automatic template repair is added.
+[MolSysMT#548](https://github.com/uibcdf/molsysmt/issues/548) tracks the native
+return-documentation mismatch: these helpers return index pairs, despite older
+help describing pairs of names. The addon preserves the actual native result.
+
+The five `get_group_db` helpers return the provider's reference dictionaries,
+whose family-specific layouts remain native. The addon introduces no cache or
+new normalized database schema. Expected heavy-atom queries keep native exact
+modified-group templates, variant selection and unknown-template behavior.
+Expected hydrogen queries keep explicit pH, terminal and disulfide context;
+their fixed reference thresholds are not predictions of environment-dependent
+pKa values. None of these queries protonates or repairs a system.
+
+Amino-acid and ion bond helpers retain their native `skip_digestion` arguments.
+The other twelve helpers add a keyword-only local control, consumed without
+forwarding a flag that the native function does not support. All require an
+open owner, work with an empty view and leave pending edits/history untouched.
+
+:::{warning}
+[MolSysMT#547](https://github.com/uibcdf/molsysmt/issues/547) owns the unresolved
+N/C cap-name contradiction. Looking up the explicit ACE or NME template does
+not select a peptide end or qualify end-specific preparation. The separate
+XLE/J code-lookup limitation remains tracked by
+[MolSysMT#545](https://github.com/uibcdf/molsysmt/issues/545).
+[MolSysMT#550](https://github.com/uibcdf/molsysmt/issues/550) tracks a separate
+runtime limitation: saccharide, small-molecule and capping bond helpers reject
+NumPy `atom_names` arrays at this source despite documenting them as supported.
+Equivalent lists work. Native errors are preserved; these forwarding checks do
+not qualify the failing array routes, and no implicit addon coercion is added.
+:::
+
+Native references: {func}`molsysmt.element.group.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.amino_acid.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.amino_acid.get_expected_heavy_atoms`,
+{func}`molsysmt.element.group.amino_acid.get_expected_hydrogens`,
+{func}`molsysmt.element.group.amino_acid.get_group_db`,
+{func}`molsysmt.element.group.ion.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.ion.get_group_db`,
+{func}`molsysmt.element.group.saccharide.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.saccharide.get_group_db`,
+{func}`molsysmt.element.group.small_molecule.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.small_molecule.get_group_db`,
+{func}`molsysmt.element.group.terminal_capping.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.terminal_capping.get_group_db` and
+{func}`molsysmt.element.group.water.get_bonded_atom_pairs`.
+
 ## Querying chains and entities
 
 `element.chain` exposes `get_chain_index`, `get_chain_id`, `get_chain_name`

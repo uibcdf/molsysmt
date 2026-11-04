@@ -280,4 +280,5 @@ jobs:
             tests/molsysviewer_molsysmt/test_element_hierarchy_tools.py \
             tests/molsysviewer_molsysmt/test_element_domain_tools.py \
             tests/molsysviewer_molsysmt/test_element_label_tools.py \
+            tests/molsysviewer_molsysmt/test_element_template_tools.py \
             tests/molsysviewer_molsysmt/test_composition_tools.py

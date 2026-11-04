@@ -1,0 +1,159 @@
+{
+  "schema": "molsysmt.viewer-element-templates-source-receiving@1",
+  "date": "2026-11-03",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#548",
+    "uibcdf/molsysmt#550"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "owner_base": "c0e8742dc71e312eee98c62c7f5d1133a97a7480",
+  "contribution_parent": "b41810c26c36984a68781e7706f3e933e8589c66",
+  "viewer_source": "7b8e95576920f88ab244eae8b6163309fee2a730",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "environment": {
+    "python": "Python 3.14.7",
+    "packages": {
+      "molsysmt": "0.23.0+201.g3502232d8.dirty",
+      "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "backend": {
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "scope": "Existing copied backend reused unchanged. No new environment, install, build, solver or artifact qualification."
+  },
+  "contract": {
+    "new_paths": [
+      "element.group.amino_acid.get_bonded_atom_pairs",
+      "element.group.amino_acid.get_expected_heavy_atoms",
+      "element.group.amino_acid.get_expected_hydrogens",
+      "element.group.amino_acid.get_group_db",
+      "element.group.get_bonded_atom_pairs",
+      "element.group.ion.get_bonded_atom_pairs",
+      "element.group.ion.get_group_db",
+      "element.group.saccharide.get_bonded_atom_pairs",
+      "element.group.saccharide.get_group_db",
+      "element.group.small_molecule.get_bonded_atom_pairs",
+      "element.group.small_molecule.get_group_db",
+      "element.group.terminal_capping.get_bonded_atom_pairs",
+      "element.group.terminal_capping.get_group_db",
+      "element.group.water.get_bonded_atom_pairs"
+    ],
+    "binding": "All labels, atom names, indices and chemical context stay explicit on an open empty or loaded view. No primary molecular reader, graph inference, assignment, preparation, scene/history effect or pending-edit flush.",
+    "skip": "Amino-acid and ion bond helpers forward their native flags. Twelve other helpers consume keyword-only addon controls locally without forcing native bypass.",
+    "ownership": "Native results/errors, template fallback and family support, list/set/dict containers, index mapping/order and database layouts are preserved. No addon cache, canonical schema, unknown-name repair or automatic perception is added.",
+    "chemical_context": "Expected hydrogens retain explicit pH and terminal/disulfide choices and native fixed-threshold limitations; this is not environment-dependent pKa prediction or molecular protonation."
+  },
+  "inventory": {
+    "native": 244,
+    "branch_exposed": 201,
+    "element_exposed": 57,
+    "element_native": 57,
+    "primary_exposed": 21,
+    "explicit_exposed": 36,
+    "remaining_element": 0,
+    "independent_metadata_prs": [
+      "uibcdf/molsysmt#538",
+      "uibcdf/molsysmt#540"
+    ],
+    "hypothetical_union_exposed": 212,
+    "union_integrated_or_qualified": false,
+    "collector": "devtools/scripts/audit_molsysviewer_tools_api.py",
+    "raw_sha256": "6787a8cffb3a03a0ceb0caac8c1a04898581de1265303f607b2a2ac93eee5159"
+  },
+  "validation": {
+    "native_element": {
+      "tests": 239,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "d14e633b011e1e8625a4200b01c1c13978569397607ed2907cb4fa7c6572fe10"
+    },
+    "new_template_and_inventory": {
+      "tests": 339,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "49d5e72bfc928b1870892a4383849256dc801b54d5de28217ec03f201e758e9c"
+    },
+    "all_element_integration_and_native_example": {
+      "tests": 861,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "82c2e2baf1e7653342320048473a225fe0afd0728c296c7ce766ee36e497bd5f"
+    },
+    "distribution_inventory_license_notebook_structure": {
+      "tests": 534,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "732908a0605c7d6deba0e85f5afec6abb81b24d4dd1d5db57799d9afdcc12894"
+    },
+    "complete_addon": {
+      "tests": 3314,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "d448dd041da558fcfa2d229427b5ef03019fb7c90b6f67e2805f040ab462dd2d",
+      "seconds": 749.17,
+      "warnings": 2078,
+      "new_template_cases": 338,
+      "log_sha256": "08c62b0d9df9e1e54fc467fd2c42ad02fc4af9cc3f0452dc2b68ec374f4b49a1"
+    },
+    "guide_example": "Fourteen methods execute on an empty view; explicit nonconsecutive labels, family data and chemical context retain actual native behavior.",
+    "course": "Canonical devtools/scripts/validate_course.py validates 156 notebooks. Only Module 06 Markdown cell 5 changes; code/output/counts/IDs/schema are preserved against the contribution parent.",
+    "docstrings": "246 native public docstrings validate; the inherited five heavy-atom examples execute. Native source is unchanged by this increment, including the prior separately owned #546 candidate fix.",
+    "ruff": "Whole-tree check/format pass; 4327 files already formatted.",
+    "dependencies": "Optional-import and dependency-route audits pass."
+  },
+  "native_findings": {
+    "548": {
+      "scope": "Seven bond helpers document string/name pairs while the successful native outputs are integer index pairs, including NumPy scalars and explicit index labels.",
+      "reproduction_sha256": "79af7b6495db66f1eb17189f0936cd462769e12b7a4634c01933fd34283470ea",
+      "status": "Authorized issue opened; native docs/tests resolution left to the owner. The addon preserves native results and explains actual indexing. No scientific defect is inferred from these sampled outputs."
+    },
+    "550": {
+      "scope": "Saccharide, small-molecule and cap template bond functions reject valid NumPy atom_names arrays with AttributeError while equivalent lists work.",
+      "reproduction_sha256": "cfe323c79c9b0876906220629db4924cc029b5edeeaa5a5b9c4e96dd9c20be8a",
+      "status": "Authorized separate native issue opened. No implicit facade coercion; parity tests accept the future native correction and do not freeze wrong results. The array routes are not qualified as successful support; the guide explains the working lists."
+    },
+    "545": "Existing XLE/J limitation remains owner work; no addon conversion fallback.",
+    "547": "Existing N/C cap-name contradiction remains owner work; explicit template lookup does not qualify end-specific preparation.",
+    "546": "Prior docstring-only candidate repair remains in the PR; native integration and closure separate."
+  },
+  "invocation_diagnostics": [
+    "An initial focused invocation named nonexistent tests/test_molsysviewer_integration.py and exited with usage error before collection; the corrected devtools/tests/test_native_viewer_integration.py invocation passes 861. No test/product failure was hidden.",
+    "An initial course command selected docs/content/course/devtools/validate_course.py, whose old section-name checks reject the unchanged course layout. Its failing output is retained; it is not substituted for the canonical devtools/scripts/validate_course.py gate, which passes 156 notebooks. No course code or stored outputs were rewritten.",
+    "The scratch issue reproduction initially restricted integers to built-in int and stopped on native NumPy scalars. The corrected numbers.Integral check reproduces all seven native outputs; no product/test code was changed for that script assertion."
+  ],
+  "source_sha256": {
+    "molsysviewer_molsysmt/_element_templates.py": "e61c27c96f72fb35df46af7560774041b2e022cda96e1181b32972a0fad49cbf",
+    "molsysviewer_molsysmt/_element_labels.py": "748cc4a4c2ad4b4603a1a1cd24b463de750da321b792fda563add235eedfbf09",
+    "molsysviewer_molsysmt/_element_common.py": "e132788a349eb3d2004356812ad19f4aee21a186ff0965721d05478171c68d1e",
+    "molsysviewer_molsysmt/_element_domains.py": "7723bf325646abaa97a2c09368b71e0b42ed30807b893a9df3796e4512f07c12",
+    "molsysviewer_molsysmt/_element_hierarchy.py": "cb7e10e0e417286d6dd11ec4bab3c776f0e303119830c9c2bfaec104446eebe6",
+    "molsysviewer_molsysmt/_element.py": "cb627f03e7ca4bf4d0315124de82da9c8fbf91b44e8d38a20c50bc2a2cb70d61",
+    "tests/molsysviewer_molsysmt/test_element_template_tools.py": "b259da85295625586dfec95bc222e5b54d47d86c9c3f565dd5f23124bdf8e4bb",
+    "tests/molsysviewer_molsysmt/test_element_label_tools.py": "6b69f78ec91fa7d8b183fd0d0423a365c43c21d3373b9eb855b882696d0e2a79",
+    "tests/molsysviewer_molsysmt/test_element_domain_tools.py": "3a3fff85fb7fbd747efe0d932eaf62debf0eaeff50dc950ccdfc795d55528bb5",
+    "tests/molsysviewer_molsysmt/test_element_hierarchy_tools.py": "5ac4a951be0f5f5f757493ba655cd2db4f82e7fcf7dbd4bdb3b3b86af7eb8c2c",
+    "tests/molsysviewer_molsysmt/test_element_utilities.py": "91d16a9b44fbc41a38a22c78b2fd87439c4e73ee59458d624408e3c9a021d41f"
+  },
+  "limits": [
+    "Complete source exposure and contract/parity tests do not establish complete scientific, optional-engine/form/platform or installed/archive qualification.",
+    "Independent metadata PRs remain absent here; 212/244 is hypothetical until owner integration.",
+    "No new native algorithm/data/docstring patch, runtime floor, host runtime/GUI, frozen candidate, tag or publication change.",
+    "Owner main is not modified or merged; all contributions stay on the existing owner-reviewed PR."
+  ],
+  "temporary_resources": "Retain the existing isolated PR checkout and copied backend for owner review until integration/withdrawal. No new checkout, environment, build or installation. Unrelated dirty/behind/ahead suite checkouts are preserved."
+}

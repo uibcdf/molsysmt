@@ -82,6 +82,7 @@ def test_exact_names_signatures_help_and_validation(path):
             p.split(".")[1] for p in PATHS if p.startswith("atom.")
         }
         assert set(dir(tools.group)) == {
+            "get_bonded_atom_pairs",
             "is_group_type",
             "get_group_type_from_group_name",
             "get_group_type",

@@ -312,3 +312,16 @@ system classification; standard-name lookup preserves None for canonical or
 unmapped labels. The XLE/J gap (MolSysMT#545) and N/C cap table/help contradiction
 (MolSysMT#547) remain qualification limits until native resolution is received;
 never fix or disguise them in the addon. Keep inherited native examples executable.
+
+
+Preserve all fourteen explicit group-template queries: seven bond helpers, five
+family database readers and expected amino-acid heavy/hydrogen names. Explicit
+index labels do not refer to the primary; no graph inference, chemistry repair,
+protonation, cache, normalized database schema or scene publication is added.
+Retain native template fallback, family support, container/order/error behavior,
+caller chemical context and fixed pH-rule limits. Native skip controls pass for
+amino-acid/ion bonds; the other twelve controls are local and keyword-only.
+Keep unresolved cap semantics separate from explicit template data access.
+Keep the native NumPy atom-name array failure in three template families
+(MolSysMT#550) visible until its repair is received; do not normalize containers
+in the addon or equate error parity with successful scientific support.

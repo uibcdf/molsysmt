@@ -24,6 +24,45 @@ now have source receiving, while other editing families, panels and broad covera
 remain pending. The maintainer authorizes the Viewer development effort to
 implement the owning integration here.
 
+## Explicit reference-template queries complete element exposure — 2026-11-03
+
+PR #543 adds fourteen explicit reference queries: seven bond-pair helpers,
+five family database readers and expected amino-acid heavy/hydrogen names.
+Inputs, index mapping and chemical context stay explicit on an open empty or
+loaded view. Native results/layouts, ordering, template fallback and family
+support remain unchanged. No primary reading, assignment, graph inference,
+preparation, protonation, addon caching or scene/history synchronization is
+introduced. Amino-acid/ion bond skip flags pass through; the other twelve
+controls are local and keyword-only. Native fixed pH rules remain distinct
+from environment-dependent pKa prediction.
+
+Complete addon receiving passes 3,314 without failures/errors/skips, including
+338 new cases. Final element/integration/examples pass 861, native element
+baseline 239 and structural package/inventory/license/notebook controls 534.
+The fourteen-method guide example executes on an empty view; canonical course
+validation passes 156 notebooks with Module 06 code/output/counts/IDs/schema
+preserved. Ruff, dependency routes, native docstrings and devguide checks pass.
+The [template receipt](../../devtools/data/molsysviewer_tools_element_templates_receiving_20261103.json)
+retains exact source/backend/result hashes and invocation diagnostics.
+
+Authorized native report #548 records that all seven bond helpers describe
+string/name pairs but actually return integer index pairs. Native docs/tests
+resolution stays with the owner; the addon explains actual index mapping and
+preserves results without a scientific workaround. Separate #550 records valid
+NumPy atom-name arrays failing in saccharide/small-molecule/cap bond helpers;
+lists work and the guide discloses the unqualified array routes. No facade
+coercion is introduced. Existing #545/#547 limits
+and the separately guarded #546 docstring-only candidate fix remain distinct.
+No new native algorithm/data/docstring correction is authored in this increment.
+
+This branch exposes 201/244, including all 57 element paths (21 primary,
+36 explicit). #538/#540 are independent: 212/244 is a hypothetical union until
+owner integration. Final-head hosted, optional-engine/form/platform, actual
+archive and installed qualification remain separate from local source receiving.
+#421 remains partial; build/mechanics, the separate view bridge/legacy aliases,
+GUI tasks and receiving of owner integration remain. No new host runtime/GUI,
+floor, frozen candidate, tag or publication change.
+
 ## Explicit label/type/code utilities — 2026-11-03
 
 PR #543 adds fourteen explicit-input utilities: two component/molecule type

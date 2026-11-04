@@ -6,6 +6,7 @@ from smonitor import signal
 from ._basic import _native_documentation
 from ._element_common import _call_explicit, _utility_documentation
 from ._element_hierarchy import _HierarchyTools, _reader_documentation
+from ._element_templates import _SmallMoleculeTemplates
 
 
 def _domain_documentation(name, scope, *, local_skip=False):
@@ -328,8 +329,13 @@ class _MoleculeTools(_HierarchyTools):
         )
 
 
-class _SmallMoleculeTools(_HierarchyTools):
-    _NAMES = ("small_molecule_is_amino_acid", "is_small_molecule")
+class _SmallMoleculeTools(_SmallMoleculeTemplates, _HierarchyTools):
+    _NAMES = (
+        "get_bonded_atom_pairs",
+        "get_group_db",
+        "small_molecule_is_amino_acid",
+        "is_small_molecule",
+    )
 
     @_legacy_documentation
     @signal(tags=["addon", "element", "read"])

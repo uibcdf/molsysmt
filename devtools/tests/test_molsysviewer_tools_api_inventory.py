@@ -128,6 +128,22 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "element.group.water.is_water",
         "element.component.is_component_type",
     }
+    template_elements = {
+        "element.group.get_bonded_atom_pairs",
+        "element.group.amino_acid.get_bonded_atom_pairs",
+        "element.group.amino_acid.get_expected_heavy_atoms",
+        "element.group.amino_acid.get_expected_hydrogens",
+        "element.group.amino_acid.get_group_db",
+        "element.group.ion.get_bonded_atom_pairs",
+        "element.group.ion.get_group_db",
+        "element.group.saccharide.get_bonded_atom_pairs",
+        "element.group.saccharide.get_group_db",
+        "element.group.small_molecule.get_bonded_atom_pairs",
+        "element.group.small_molecule.get_group_db",
+        "element.group.terminal_capping.get_bonded_atom_pairs",
+        "element.group.terminal_capping.get_group_db",
+        "element.group.water.get_bonded_atom_pairs",
+    }
     actual_elements = {
         path
         for path, row in rows.items()
@@ -135,7 +151,11 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     }
     assert (
         actual_elements
-        == received_elements | hierarchy_elements | domain_elements | label_elements
+        == received_elements
+        | hierarchy_elements
+        | domain_elements
+        | label_elements
+        | template_elements
     )
     assert all(
         rows[path]["input_kind"] == "primary"
@@ -143,8 +163,9 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     )
     assert all(
         rows[path]["input_kind"] == "explicit_inputs"
-        for path in received_elements | label_elements
+        for path in received_elements | label_elements | template_elements
     )
+    assert inventory["modules"]["element"]["missing"] == []
     assert rows["element.group.get_group_type"]["exposed"]
     assert "supported.syntaxes" in rows
     assert rows["supported.syntaxes"]["declaration_status"] in {
