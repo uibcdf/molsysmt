@@ -67,6 +67,10 @@ def test_installed_metadata_requires_the_new_tools_package():
         installed.validate_native_viewer_metadata(
             _distribution(files=["molsysmt/__init__.py"])
         )
+    with pytest.raises(RuntimeError, match="_supported.py"):
+        installed.validate_native_viewer_metadata(
+            _distribution(files=TOOLS_FILES - {"molsysviewer_molsysmt/_supported.py"})
+        )
 
 
 def test_installed_backend_requires_a_file_inventory():
@@ -74,6 +78,13 @@ def test_installed_backend_requires_a_file_inventory():
     distribution.files = None
     with pytest.raises(RuntimeError, match="file inventory"):
         installed.validate_native_viewer_metadata(distribution)
+
+
+def test_installed_metadata_requires_attribute_tools_source():
+    with pytest.raises(RuntimeError, match="files are missing"):
+        installed.validate_native_viewer_metadata(
+            _distribution(files=TOOLS_FILES - {"molsysviewer_molsysmt/_attribute.py"})
+        )
 
 
 @pytest.mark.parametrize("name", ["molsysmt", "renamed-provider"])

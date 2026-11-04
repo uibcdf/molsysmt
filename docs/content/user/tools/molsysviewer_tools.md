@@ -89,6 +89,92 @@ editable installation after an entry-point change. No manual registration is nee
 environment. Ordinary MolSysMT import and the core visualization backend work
 independently of this optional interface.
 
+## Discovering capabilities before loading a system
+
+The experimental `view.addons.molsysmt.supported` namespace mirrors
+`msm.supported.forms`, `conversions`, `dependencies` and `syntaxes`. These reports
+work with an open empty view; they do not read the current molecular system,
+synchronize pending edits or change the scene or history.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    tools = view.addons.molsysmt.supported
+    file_forms = tools.forms("file", output_type="list")
+    routes = tools.conversions(
+        from_form=["molsysmt.MolSys"],
+        to_form=["molsysmt.Topology"],
+        output_type="dictionary",
+    )
+    syntaxes = tools.syntaxes(output_type="dataframe")
+    dependencies = tools.dependencies(output_type="dictionary")
+    assert "molsysmt.MolSys" in tools.forms(output_type="list")
+    assert routes["data"] == [[True]]
+    assert view.molsys is None
+```
+
+The native default remains a pandas Styler. Request `dataframe` or `dictionary`
+for programmatic use; only `forms` also supports `list`. Filters, conversion
+orientation and empty axes retain native behavior. Selection-input support and
+translation-output support are separate syntax columns. A listed conversion
+route or installed dependency does not guarantee that every molecular input or
+optional scientific engine can execute it.
+
+Results are fresh native metadata, not a view-owned scientific registry. They
+remain usable after closing the view; new calls through a retained tools object
+reject a closed owner. These utilities have no `molecular_system`, selection or
+`update_view` argument. Source availability does not establish that a published
+package pair contains them.
+
+## Inspecting attribute metadata before loading a system
+
+The `view.addons.molsysmt.attribute` namespace mirrors the seven native metadata
+utilities. They work on an open empty view: they inspect explicit names and
+query requirements without reading or changing the primary molecular system.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    metadata = view.addons.molsysmt.attribute
+    aliases = metadata.get_argument_aliases()
+    assert aliases["element_attribute_aliases"]["group"]["name"] == "group_name"
+    assert metadata.is_attribute("atom_name") is True
+    assert metadata.is_attribute("atom_names") is False
+    assert metadata.is_chemical_state_attribute("bond_order") is True
+    assert metadata.is_topological_attribute("bond_order") is True
+    assert metadata.is_structural_attribute("atom_index") is True
+    assert metadata.is_mechanical_attribute("forcefield") is True
+    assert metadata.bonds_are_required_to_get_attribute("molecule_index", "atom") is False
+    assert metadata.bonds_are_required_to_get_attribute("atom_index", "component") is True
+```
+
+`is_attribute()` tests canonical-name membership; it does not resolve synonyms.
+`get_argument_aliases()` returns an independent versioned dictionary, including
+element-dependent names. Editing that dictionary does not change MolSysMT or
+install alias rules on other addon methods. The four classification predicates
+preserve native validation and overlap: atom inventory can be both topological
+and structural, and the compatibility topology predicate includes nonstructural
+chemical-state attributes. A classification does not prove that a particular
+system supplies that domain or that a mechanics engine is available.
+
+The connectivity helper distinguishes stored stable inventory from state-local
+graph queries. A bond or component source axis requires its chemical graph even
+when the requested value describes atoms. Its `from_element=None` default
+checks the requested attribute alone; no selection or source element is inferred
+from the view. Conversion-specific reconstruction of missing inventory remains a
+separate native responsibility.
+
+All seven utilities preserve pending edits without synchronization or scene,
+history, storage or scientific-calculation effects. Keep the view open while
+calling them; detached results remain usable after close. Native predicates
+with `skip_digestion` receive its value unchanged. The native `is_attribute` and
+`get_argument_aliases` utilities have no such parameter, so their keyword-only
+addon control validates the integration call and is not forwarded. This source
+increment receives the native metadata/bootstrap repair from #534/#535; it does
+not establish a new compatible published package floor.
+
 ## Querying the current system
 
 ```python

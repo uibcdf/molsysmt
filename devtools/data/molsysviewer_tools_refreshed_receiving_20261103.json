@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "issue": "uibcdf/molsysmt#421",
+  "scope": "Refreshed isolated source candidate, not main integration or installed/release qualification.",
+  "source_merge": "33c4171dae23a780b4aa2f5490764738deaa0229",
+  "main_basis": "73dedbbaedac5bcd9b20801353cb73e2f513fe40",
+  "pr_heads": {
+    "538": "3c13ba1a5c248de11622ff015b24551f72c59846",
+    "540": "c31e7658db3f8308fbd084f4279c00e65e6f8207"
+  },
+  "old_frozen_candidate_unchanged": "a24b14f3d241893e51703588f9db07a3a70cf11d",
+  "viewer_source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "workers": 2,
+  "pytest_receptor": "Published 1.2.1, path override from exact wheel; no shared-environment replacement.",
+  "live_inventory": {
+    "exposed": 155,
+    "native_paths": 244,
+    "native_origin": "integration-r2/molsysmt/__init__.py",
+    "viewer_origin": "frozen ca7 archive; runtime loader points to viewer-source-ca7-195/molsysviewer/__init__.py"
+  },
+  "runs": [
+    {
+      "selection": "metadata addon and native supported/attribute, package/inventory/workflow guards",
+      "passed": 664,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0,
+      "seconds": 60.72,
+      "warnings": 82,
+      "warning_groups": {
+        "legacy_h5msm": 81,
+        "setuptools_rust": 1
+      },
+      "junit_sha256": "c0cf710d3405c83c6a5c04c526e5119a46215684e4a5cdeee53d9c7b6b3925b8"
+    },
+    {
+      "selection": "tests/documentation plus supported/attribute addon module doctests",
+      "passed": 572,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0,
+      "seconds": 49.47,
+      "warnings": 529,
+      "warning_groups": {
+        "sphinx_myst_deprecations": 514,
+        "legacy_h5msm": 8,
+        "headless_plot": 6,
+        "intentional_attribute_drop": 1
+      },
+      "junit_sha256": "2a1d5cd4473dcd1260d42598e20c9fcb389621e0dbeced66b65182d8bd7c7a07"
+    }
+  ],
+  "sdist": {
+    "filename": "molsysmt-0.23.0+402.g33c4171da.tar.gz",
+    "bytes": 59032546,
+    "sha256": "38d095d6b5ba84226e56aecaaf8c9cd26011de3e011e566f0fa99ea8bff8704e",
+    "validator_exit": 0,
+    "artifact_scope": "Local source distribution only; no source-round-trip or installed dependency qualification."
+  },
+  "fast_gates": 14,
+  "ruff": "Full lint/format pass: 4326 Python files.",
+  "merge_resolution": [
+    "Keep the published main #537 archive byte-identical; older receiving is preserved in the frozen branch and original receipt.",
+    "Retain #551 cache-rejection guard and both tools.py/_supported.py required-file cases.",
+    "Retain all newer native/smoke guards while keeping both metadata namespaces."
+  ],
+  "source_sha256": {
+    "molsysviewer_molsysmt/_supported.py": "01698c198f5eca4deaf4220c33ed8ed769609db5b732c6dec06b56ae9bd566a5",
+    "molsysviewer_molsysmt/_attribute.py": "253778e27fa8fecad7878568452ba5c6d8f536f31a2439b51b210b8401454b50",
+    "molsysviewer_molsysmt/_api.py": "466a41371d002e0667597027c0ac53696dc84c9738fa12b8b23418077fd1ffc9",
+    "molsysviewer_molsysmt/_basic.py": "a1580138e363986b6461b65eb124a58ad2fa15b5ff50313c7a867edaddb613a7",
+    "devtools/scripts/validate_rust_sdist.py": "0ab1305e15b4d58100fecc3c92c6aefa72e0acd57043d80ece3a14e846c99c64",
+    "devtools/scripts/validate_installed_molsysmt.py": "a1a0148645f9cbb68766910f0ff3981aeb0074e366bc01f390fb11244540b555",
+    "devtools/scripts/viewer_tools_contract.py": "f6a9e61abfc066811cc4cfdb121cd9813d82c0c1135432cd27b332923f406b47",
+    "devtools/tests/test_native_viewer_integration.py": "168f4a57a7d7336d9afca325ff67e598f8303bead794ffd16aca2aad22c2f268",
+    "devtools/tests/test_validate_rust_sdist.py": "027e264de45d85455525b044825865c17abdd6f9a9c2471779cff3c4b40b1242",
+    "tests/molsysviewer_molsysmt/test_supported_tools.py": "c6b9c83f841689228be610c625be6e54bd352bf149cdb778007c6dbe269f8b8f",
+    "tests/molsysviewer_molsysmt/test_attribute_tools.py": "55a9f10308002c43fd72c4afd8db49d8f2855eb43b01eedd0903285f3fcf6641"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "preservation": [
+    "Both PR heads and main basis are ancestors of the source merge.",
+    "Module 06 code/outputs, cell IDs/count, notebook and cell metadata equal main.",
+    "The four pre-existing dirty main autosummary files are outside this isolated worktree and unchanged."
+  ],
+  "next_gates": [
+    "Exact candidate CI full Linux/macOS arm64 x Python 3.11-3.14",
+    "Exact candidate Rust wheels and installed public-runtime qualification",
+    "Smoke, performance, dependency, Ruff and governance workflows"
+  ],
+  "limits": [
+    "The previous a24 source-matrix success and Rust failure keep their original identities.",
+    "The shared development environment, cached source host and reused backend are source receiving only.",
+    "No PR/main integration, package floor, tag, Release, upload or publication is authorized by this checkpoint."
+  ]
+}

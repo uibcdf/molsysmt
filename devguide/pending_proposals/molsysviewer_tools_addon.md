@@ -14,6 +14,23 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Corrected guard candidate — 2026-11-04
+
+Source merge f2d59d5b3b4bb07ea0c5a00631a220a854555dea on
+`dev/review-tools-537-540-r3` retains frozen r2, both contribution heads and
+main d9255c85c. #552's retained private assertions and eight new public
+selector-rejection cases are present, and native smoke selects both formerly
+omitted generic modules. Exact Git object IDs verify unchanged runtime/addon,
+Rust, developer scripts and build inputs relative to r2. No scientific code
+or criterion is changed to obtain green tests.
+
+All 136 focal guards pass without omissions/warnings; the live inventory is
+still 155/244 and all 14 fast gates pass. The
+[candidate receipt](../../devtools/data/molsysviewer_tools_corrected_guard_candidate_20261104.json)
+records source equivalence and new tests without rewriting earlier metadata,
+documentation or artifact receiving. Qualify this exact candidate before main
+integration; r2's source failure and native-wheel success remain historical.
+
 ## Refreshed candidate gate receiving — 2026-11-04
 
 Frozen source 4ea80278f7dc1cd2009a9440fcc5786627430950 passes native-wheel
@@ -33,6 +50,78 @@ and [receipt](../../devtools/data/legacy_donor_guard_receiving_552_20261104.json
 retain every original cell and successful native artifact-container identity.
 The frozen r2 candidate is not moved. Prepare and qualify its corrected successor
 before main integration; these repairs do not authorize package publication.
+
+## Refreshed metadata receiving — 2026-11-03
+
+Source merge 33c4171dae23a780b4aa2f5490764738deaa0229 on
+`dev/review-tools-537-540-r2` retains both PR heads and main 73dedbbae as
+ancestors. The first candidate a24b14f3d remains frozen. Current native repairs,
+including independently closed #537/#551, are present; both original metadata
+namespaces and newer smoke/negative guards are retained. The published #537
+archive is kept byte-identical, with older branch evidence retained separately.
+
+All 664 selected native/metadata/package cases and 572 documentation/doctest
+cases pass without omissions, with published Pytest Receptor 1.2.1 and two
+workers. The live inventory remains 155/244; the actual source archive and all
+14 fast gates also pass. Module 06 code, outputs, IDs and metadata are unchanged.
+The [refreshed receipt](../../devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json)
+records warning counts, inputs, origins, artifact hashes and scope. Exact-candidate
+hosted source/native-wheel gates still need to execute before integration.
+This candidate does not admit PR #543, qualify an installed release pair or
+authorize a package/tag/publication. Original failed workflows remain failed.
+
+## Combined integration candidate — 2026-11-03
+
+The isolated `dev/review-tools-537-540` candidate combines main 402bdc6e4,
+PR #538 head 3c13ba1a5c248de11622ff015b24551f72c59846 and PR #540 head
+c31e7658db3f8308fbd084f4279c00e65e6f8207. Both namespaces and all newer
+native/CI guards are retained. The reconciled inventory declares 155/244 paths;
+the live audit confirms that count. Combined local receiving passes 3,362
+cases, including the full 2,662-case addon, without skips/failures. Documentation
+controls pass 538 cases and all 14 fast gates pass. Hosted qualification remains
+pending; the combined candidate is not on main.
+The old supported-report cold-process guard is tightened to the repaired native
+ArgumentConsistencyError contract; UnknownArgumentError is not accepted for an
+alias collision. A six-case follow-up enforces the actual parent Viewer file
+origin in every attribute subprocess; it passes with the frozen ca7ebea6 host.
+The [combined receipt](../../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
+keeps this follow-up separate from the preceding complete invocation. Original
+contribution receipts below remain revision-specific.
+This candidate is not integrated into main or qualified as an installed pair.
+
+
+## Original supported contribution receipt — 2026-11-03
+
+On PR #538's original source, four explicit `supported` wrappers provide forms, conversions, dependencies
+and syntax-direction reports without a primary system. They preserve native
+signatures/defaults, digestion and output types, open-empty-view access and
+closed-owner refusal. No synchronization, scene/history update or registry copy
+is added. That contribution exposes 148/244 paths; its attribute helpers and scientific edit
+families remain separate. Its original Rust-manifest/metadata prerequisites
+(#533/#534/#535) are now repaired on main; the original receipt does not qualify
+new main or combined installed payloads. No consumer workaround is introduced.
+
+The complete source addon selection passes 2,527 cases without failures, errors
+or skips, including all 74 new metadata cases, on this isolated source. Five
+help-doctest/inventory checks and 519 native-report/notebook-schema checks also
+pass in separate scopes. Original JUnit and scope limits are retained in the
+[receiving receipt](../../devtools/data/molsysviewer_tools_supported_receiving_20261103.json). The
+[maintained inventory](../molsysviewer_tools_api_inventory.md) and
+[usage guide](../../docs/content/user/tools/molsysviewer_tools.md#discovering-capabilities-before-loading-a-system)
+record the implementation scope. No package floor, tag or release is changed.
+
+**Attribute source increment — 2026-11-03:** an isolated contribution based on
+`639ec85d8` implements all seven explicit metadata helpers, following native
+repair `13f72af2` for #534/#535. Native attribute tests pass 340 cases, including
+cold imports; the new addon boundary passes 126 cases and distribution/CI
+controls pass 36. The complete source addon regression passes 2,579 cases with
+zero failures/errors/skips; owner PR integration remains pending.
+Source exposure is 151/244 on this branch; independent PR #538's four
+supported reports are not included. Combined integration will need 155/244,
+without dropping either namespace. This remains experimental source receiving,
+not installed qualification or a new package floor. #421 remains partial.
+The [receiving record](../../devtools/data/molsysviewer_tools_attribute_receiving_20261103.json)
+retains source hashes and the distinct archive/benchmark CI limits (#537/#539).
 
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.

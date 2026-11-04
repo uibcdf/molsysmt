@@ -2,8 +2,15 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-10-30, the #255 working tree splits the graph and sequence domains;
-complete scene-loader receiving remains pending under uibcdf/molsysviewer#269.
+**Snapshot:** 2026-11-04, corrected isolated integration based on main `d9255c85c`,
+combining PR #538's four supported reports and PR #540's seven attribute helpers.
+The runtime/addon/Rust and build inputs are identical to frozen r2; only #552's
+test expectations, eight public rejection cases, native smoke selection and
+records change. The corrected candidate passes 136 focal controls without
+omissions. Earlier 664-case metadata and 572-case documentation receipts keep
+their r2 identity. New exact-candidate hosted gates remain pending.
+Original contribution evidence keeps its own source/host identity. Installed
+scene-loader receiving remains separate under uibcdf/molsysviewer#269.
 The prior 2026-10-28 source receiving extended ac30d5ba4 with four native
 composition mirrors and the separately qualified Viewer prefix-addition host. All fifteen canonical
 interaction paths remain exposed explicitly. Prior source and installed qualification retain
@@ -13,8 +20,9 @@ Regenerate the full path/signature/missing-route inventory in the participating
 source environment:
 
 ```bash
+python -c "from pathlib import Path; Path('.pytest_cache').mkdir(exist_ok=True)"
 python devtools/scripts/audit_molsysviewer_tools_api.py \
-  --output devtools/data/molsysviewer_tools_chemical_domains_inventory_20261030.json
+  --output .pytest_cache/molsysviewer_tools_inventory.json
 ```
 
 The command uses real native declarations and an actual empty view's addon,
@@ -22,6 +30,14 @@ without calling scientific functions. A missing provider/host cannot silently
 be counted as zero. HEAD identifies the checkout basis; the inventory observes
 working-tree source too. Local receiving records identify tested code hashes.
 Keep historical receipts immutable; a new baseline needs a new dated snapshot.
+The [corrected-candidate receipt](../devtools/data/molsysviewer_tools_corrected_guard_candidate_20261104.json)
+records the live 155/244 audit, exact production equivalence and new guard scope.
+The [r2 receiving receipt](../devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json)
+retains its own source/archive hashes and separate test scopes.
+The [original combined receipt](../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
+remains historical evidence for its earlier source and host.
+The original supported/attribute contribution receipts retain their own revisions;
+none certifies a published installed pair.
 
 ## Actual function-path exposure
 
@@ -39,11 +55,11 @@ Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 | element and declared children | 0 | 57 | 57 |
 | h5msm file utilities | 7 | 7 | 0 |
 | historical hbonds aliases | 0 | 4 | 4 |
-| attribute metadata helpers | 0 | 7 | 7 |
-| supported-capability reports | 0 | 4 | 4 |
+| attribute metadata helpers | 7 | 7 | 0 |
+| supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 144 exposed out of 244 inspected public callable paths. This is not
+These are 155 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -70,10 +86,17 @@ The new source-preserving `form.file_fasta.read_records` and `parse_records`
 utilities (ae24866ba) are outside this 244-path functional inventory, which
 excludes form adapters. They are explicit file/text operations without a primary
 system slot. Both are now explicitly exposed at those same addon paths and independently
-received as file/text utilities. They are not included in 144/244 and do not
+received as file/text utilities. They are not included in 155/244 and do not
 justify exposing arbitrary adapters or binding filenames/text to view.molsys.
 
 ## Ordered expansion
+
+The four `supported` reports retain explicit inputs and work before loading a
+system. No primary reader, pending-edit synchronization, scene action or new
+root scientific alias is introduced. Their programmatic outputs remain native;
+the default is still visual. The seven attribute helpers retain the independently
+repaired #534/#535 classification, connectivity and cold-import alias contracts.
+Combined main integration and installed/platform qualification remain pending.
 
 1. **Retain the received baseline.** Complete exact-source CI for all 34 physchem
    wrappers and three build diagnostics. Keep the native CIP reference-ownership

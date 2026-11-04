@@ -98,7 +98,14 @@ def test_real_addon_directories_are_not_unreviewed_files(tmp_path, suffix):
     assert any("retired or unreviewed" in p for p in MODULE.validate_sdist(archive))
 
 
-@pytest.mark.parametrize("name", ["rust/Cargo.toml", "molsysviewer_molsysmt/tools.py"])
+@pytest.mark.parametrize(
+    "name",
+    [
+        "rust/Cargo.toml",
+        "molsysviewer_molsysmt/tools.py",
+        "molsysviewer_molsysmt/_supported.py",
+    ],
+)
 def test_directory_cannot_satisfy_a_required_file(tmp_path, name):
     archive = tmp_path / "molsysmt-1.0.0.tar.gz"
     _write_sdist(archive, omit={name}, directories=[name])

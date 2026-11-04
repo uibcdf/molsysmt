@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "date": "2026-11-04",
+  "issue": "uibcdf/molsysmt#421",
+  "source_merge": "f2d59d5b3b4bb07ea0c5a00631a220a854555dea",
+  "main_basis": "d9255c85c0d0ee9dc98f1f824f8075a5d0d77fd0",
+  "pr_heads": {
+    "538": "3c13ba1a5c248de11622ff015b24551f72c59846",
+    "540": "c31e7658db3f8308fbd084f4279c00e65e6f8207"
+  },
+  "frozen_previous_candidate": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+  "viewer_source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+  "python": "3.14.7",
+  "workers": 2,
+  "pytest_receptor": "published 1.2.1; unchanged shared development environment",
+  "live_inventory": {
+    "exposed": 155,
+    "native_paths": 244,
+    "native_origin": "integration-r3/molsysmt/__init__.py",
+    "viewer_origin": "frozen ca7 archive"
+  },
+  "production_equivalence_with_r2": {
+    "trees_and_inputs": {
+      "molsysmt": "dfcb24c80ce0e77951aedeb4d5d99ec8cff40dc4",
+      "molsysviewer_molsysmt": "03c00426074e6247c31ac24ba0eff51e5fb7b968",
+      "rust": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+      "devtools/scripts": "824446676a2b7988033d69318d886d601cc01301",
+      "pyproject.toml": "6a58972566d391c5726b69124c0cc2b4dc742df6",
+      "MANIFEST.in": "78824f75267ecaf84111cdb2ae104e3ab357aa38",
+      "rust-toolchain.toml": "3caff2a7c8054117b0c69401d38fbb47ba2241a2"
+    },
+    "changed_paths": [
+      ".github/workflows/ci-smoke.yaml",
+      "devguide/archive/resolved_bugs/legacy_donor_digester_tests_retain_obsolete_selector_and_list_expectations.md",
+      "devguide/pending_proposals/molsysviewer_tools_addon.md",
+      "devguide/pending_proposals/runtime_dependency_api_floors.md",
+      "devguide/release_1_0_status.md",
+      "devtools/data/legacy_donor_guard_receiving_552_20261104.json",
+      "tests/_private/argdigest/test_hbond_ion_digesters.py",
+      "tests/_private/argdigest/test_layout_selection_digesters.py",
+      "tests/interactions/hbonds/test_precomputed_donors.py"
+    ]
+  },
+  "new_guard_receiving": {
+    "passed": 136,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 0,
+    "seconds": 31.38,
+    "exit": 0,
+    "selection": "retained digester modules, public supplied-donor matrix, hosted-command/receptor and addon inventory controls",
+    "junit_sha256": "c4e05186ee9a17980643b09f04ce6e50416eb1c7e10a267161af01c478983f30"
+  },
+  "source_guard_receipt": "devtools/data/legacy_donor_guard_receiving_552_20261104.json",
+  "original_metadata_receipt": "devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json",
+  "reused_scope": "r2 local 664 metadata/native/package and 572 documentation/doctest results keep their original source identity. Unchanged runtime/addon payload is verified through exact Git object IDs, not relabelled as new whole-suite or installed receiving.",
+  "fast_gates": 14,
+  "ruff": "full lint/format pass: 4326 files",
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "changed_tests_sha256": {
+    "tests/_private/argdigest/test_hbond_ion_digesters.py": "43a46edb9e5dbf55c3147d7e9e8dbcb0ed1c6dc4382bffb9651c530f19f693a5",
+    "tests/_private/argdigest/test_layout_selection_digesters.py": "6c23cd3dc756683df4da2ea198297616fb7dc48a22a38784716061c2aaa27bd9",
+    "tests/interactions/hbonds/test_precomputed_donors.py": "4703906f4d19d13bb43c510f038a90ee7348dde8565d39f083bbfad34e815def",
+    ".github/workflows/ci-smoke.yaml": "4d9a57260741beaba856b3318d42e734f379e3005d66a54b28cc09395ba8668c"
+  },
+  "original_candidate_outcomes": {
+    "full_source_run": 41755216514,
+    "full_source_conclusion": "failure in all eight cells; two obsolete generic donor assertions each",
+    "native_wheel_run": 41755220512,
+    "native_wheel_conclusion": "success: 30 successful jobs, one PR-only skip, all four installed-public jobs successful"
+  },
+  "merge_resolution": "Preserve both dated addon-owner records, latest gate follow-up first; no runtime conflict. All original PR and current main ancestries retained.",
+  "next_gates": [
+    "Exact-candidate eight-cell full source matrix",
+    "Exact-candidate native-wheel/installed-runtime workflow",
+    "Smoke, performance, dependency, Ruff and governance checks"
+  ],
+  "limits": [
+    "The new candidate is not yet integrated on main.",
+    "No new algorithm, dependency floor, public format, package upload, tag or Release.",
+    "Original r2 failures remain failed; successful r2 wheels are not relabelled as new-candidate artifacts."
+  ]
+}
