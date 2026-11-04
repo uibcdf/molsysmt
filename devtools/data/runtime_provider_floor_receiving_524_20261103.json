@@ -1,0 +1,279 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "issue": "uibcdf/molsysmt#524",
+  "status": "partial",
+  "review_basis": "77fb24c0d779984ed65bc95176a9581cf8d07c42",
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "platform": "Linux x86_64",
+  "profiles": {
+    "minimum_numpy1": {
+      "python": "3.11.16",
+      "providers": {
+        "numpy": {
+          "version": "1.26.0",
+          "origin": ".pytest_cache/stabilization-524/numpy126/numpy/__init__.py"
+        },
+        "pandas": {
+          "version": "2.2.2",
+          "origin": ".pytest_cache/stabilization-524/minimum311/pandas/__init__.py"
+        },
+        "h5py": {
+          "version": "3.11.0",
+          "origin": ".pytest_cache/stabilization-524/minimum311/h5py/__init__.py"
+        },
+        "matplotlib": {
+          "version": "3.8.4",
+          "origin": ".pytest_cache/stabilization-524/minimum311/matplotlib/__init__.py"
+        },
+        "networkx": {
+          "version": "3.3",
+          "origin": ".pytest_cache/stabilization-524/unpacked/networkx/networkx/__init__.py"
+        },
+        "tqdm": {
+          "version": "4.65.0",
+          "origin": ".pytest_cache/stabilization-524/unpacked/tqdm/tqdm/__init__.py"
+        }
+      }
+    },
+    "minimum_providers_numpy2": {
+      "python": "3.11.16",
+      "providers": {
+        "numpy": {
+          "version": "2.4.6",
+          "origin": "existing CPython 3.11 prefix: numpy/__init__.py"
+        },
+        "pandas": {
+          "version": "2.2.2",
+          "origin": ".pytest_cache/stabilization-524/minimum311/pandas/__init__.py"
+        },
+        "h5py": {
+          "version": "3.11.0",
+          "origin": ".pytest_cache/stabilization-524/minimum311/h5py/__init__.py"
+        },
+        "matplotlib": {
+          "version": "3.8.4",
+          "origin": ".pytest_cache/stabilization-524/minimum311/matplotlib/__init__.py"
+        },
+        "networkx": {
+          "version": "3.3",
+          "origin": ".pytest_cache/stabilization-524/unpacked/networkx/networkx/__init__.py"
+        },
+        "tqdm": {
+          "version": "4.65.0",
+          "origin": ".pytest_cache/stabilization-524/unpacked/tqdm/tqdm/__init__.py"
+        }
+      }
+    },
+    "newer_pandas_source": {
+      "python": "3.14.7",
+      "numpy": "2.4.6",
+      "pandas": "3.1.0",
+      "networkx": "3.3",
+      "tqdm": "4.65.0",
+      "viewer_source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352"
+    },
+    "default_development": {
+      "python": "3.14.7",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3"
+    }
+  },
+  "wheel_payloads": [
+    {
+      "filename": "networkx-3.3-py3-none-any.whl",
+      "size_bytes": 1702396,
+      "sha256": "28575580c6ebdaf4505b22c6256a2b9de86b316dc63ba9e93abde3d78dfdbcf2"
+    },
+    {
+      "filename": "pandas-3.1.0-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "size_bytes": 12029136,
+      "sha256": "e4455cdcc03e42c17233184e8e4ea65c3ed2925d8b1d9d7dd8e6fced3f6e43c1"
+    },
+    {
+      "filename": "tqdm-4.65.0-py3-none-any.whl",
+      "size_bytes": 77094,
+      "sha256": "c4f53a17fe37e132815abceec022631be8ffe1b9381c2e6e30aa70edc99e9671"
+    },
+    {
+      "filename": "contourpy-1.2.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 306008,
+      "sha256": "d4492d82b3bc7fbb7e3610747b159869468079fe149ec5c4d771fa1f614a14df"
+    },
+    {
+      "filename": "cycler-0.12.1-py3-none-any.whl",
+      "size_bytes": 8321,
+      "sha256": "85cef7cff222d8644161529808465972e51340599459b8ac3ccbac5a854e0d30"
+    },
+    {
+      "filename": "fonttools-4.51.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 4901556,
+      "sha256": "b2b92381f37b39ba2fc98c3a45a9d6383bfc9916a87d66ccb6553f7bdd129097"
+    },
+    {
+      "filename": "h5py-3.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 5420165,
+      "sha256": "52c416f8eb0daae39dabe71415cb531f95dce2d81e1f61a74537a50c63b28ab3"
+    },
+    {
+      "filename": "kiwisolver-1.4.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 1426259,
+      "sha256": "040c1aebeda72197ef477a906782b5ab0d387642e93bda547336b8957c61022e"
+    },
+    {
+      "filename": "matplotlib-3.8.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 11613309,
+      "sha256": "cc4ccdc64e3039fc303defd119658148f2349239871db72cd74e2eeaa9b80b71"
+    },
+    {
+      "filename": "numpy-1.26.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 18178118,
+      "sha256": "e062aa24638bb5018b7841977c360d2f5917268d125c833a686b7cbabbec496c"
+    },
+    {
+      "filename": "pandas-2.2.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 13031332,
+      "sha256": "6d2123dc9ad6a814bcdea0f099885276b31b24f7edf40f6cdbc0912672e22eee"
+    },
+    {
+      "filename": "pillow-10.3.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 4429430,
+      "sha256": "9797a6c8fe16f25749b371c02e2ade0efb51155e767a971c61734b1bf6293994"
+    },
+    {
+      "filename": "pyparsing-3.1.2-py3-none-any.whl",
+      "size_bytes": 103245,
+      "sha256": "f9db75911801ed778fe61bb643079ff86601aca99fcae6345aa67292038fb742"
+    },
+    {
+      "filename": "python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+      "size_bytes": 229892,
+      "sha256": "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+    },
+    {
+      "filename": "pytz-2024.1-py2.py3-none-any.whl",
+      "size_bytes": 505474,
+      "sha256": "328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319"
+    },
+    {
+      "filename": "six-1.16.0-py2.py3-none-any.whl",
+      "size_bytes": 11053,
+      "sha256": "8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
+    }
+  ],
+  "provider_probe_selector": "devtools/tests/test_runtime_provider_apis.py",
+  "provider_probe_command": "python -m pytest --receptor=llm --confcutdir=devtools/tests devtools/tests/test_runtime_provider_apis.py",
+  "runs": [
+    {
+      "profile": "minimum_numpy1",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "seconds": 24.71
+    },
+    {
+      "profile": "minimum_providers_numpy2",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "seconds": 48.32
+    },
+    {
+      "profile": "newer_pandas_source_before_info_fix",
+      "passed": 1874,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 615,
+      "production_info_pandas_warnings": 597,
+      "seconds": 112.53
+    },
+    {
+      "profile": "newer_pandas_source_after_info_fix",
+      "passed": 1886,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 37,
+      "seconds": 118.25,
+      "warning_groups": {
+        "test_fixture_pandas_drop": 17,
+        "legacy_h5msm": 9,
+        "unknown_Ar": 6,
+        "tqdm_datetime_deprecation": 2,
+        "incompatible_box": 1,
+        "structural_attribute_drop": 1,
+        "unknown_Na": 1
+      }
+    },
+    {
+      "profile": "newer_pandas_final_strict_summary_guard",
+      "selector": "tests/basic/test_info_pandas_compatibility.py",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "seconds": 4.15
+    },
+    {
+      "profile": "default_development",
+      "selectors": [
+        "tests/basic/test_info_pandas_compatibility.py",
+        "devtools/tests/test_runtime_provider_apis.py",
+        "devtools/tests/test_audit_dependency_contract.py",
+        "devtools/tests/test_installed_runtime_dependencies.py"
+      ],
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "seconds": 8.7
+    }
+  ],
+  "controls": [
+    {
+      "outcome": "internal_error",
+      "exit": 3,
+      "context": "Provider-only pytest with repository bootstrap; existing Python 3.11 prefix lacks PyUnitWizard. No minimum-runtime qualification inferred."
+    },
+    {
+      "outcome": "inadequate_guard",
+      "passed": 6,
+      "warnings": 120,
+      "context": "FutureWarning-only filter did not catch Pandas4Warning; replaced with an all-warning error boundary."
+    },
+    {
+      "outcome": "expected_failure",
+      "exit": 1,
+      "failed": 6,
+      "seconds": 4.98,
+      "context": "Strict summary guard before info repair; all fail on Pandas4Warning."
+    }
+  ],
+  "limits": [
+    "Exact unpacked wheel payloads and shared remaining dependencies; not a solver closure or installed pair.",
+    "Existing Python 3.11 interpreter reused read-only; no environment created or installed over.",
+    "Provider-only probes intentionally avoid full-package pytest bootstrap; source receiving keeps normal configuration.",
+    "No optional-engine minima or every-version/platform compatibility certified.",
+    "Viewer public floor, suite-provider/optional-provider review and NumPy ABI-bound disposition remain open.",
+    "No public artifact, tag, release or registry upload."
+  ],
+  "final_source_snapshot_sha256": {
+    "pyproject.toml": "52ccce337ca5a2e0de95b7b062588d3319aae0a040b897733871705b72368acb",
+    "molsysmt/basic/info.py": "a5004736fdbc4f8a5da7b6441b728576d05b0053e3fbe77f9c33353597a0ff5c",
+    "tests/basic/test_info_pandas_compatibility.py": "910ccd7c101019ed46ac2363689ff8da5ad922d51595b85c35fe26e99446324a",
+    "devtools/tests/test_runtime_provider_apis.py": "231ba0ee5a1b8a0750db134a374511a00ce6502db0f44e7824a2a68d6c239abf",
+    "devtools/conda-build/meta.yaml": "c870a9ab231642d3a89c93c04e1fffa72ee49e94935b92f634fa7a69a6645965",
+    "devtools/rattler-build/recipe.yaml": "b4ad05411991acd273a7f620ff2c8e95d96f94dc6637b7f6fa85eb478c6c183b",
+    "devtools/conda-envs/production_env.yaml": "889e85b3fff4cada8c031ee6cbddecb6cd0a0a078107975cf04a4bfce591bab1",
+    "devtools/conda-envs/development_env.yaml": "714ffd793b66e27ecbbf8502bb744c5fef1644049191cba69f262e257320fd28",
+    "devtools/conda-envs/test_env.yaml": "cca2427c50664fdbab852134d8d90ab64a5f2f2be09036e7f1e36cd9a1462545",
+    "devtools/conda-envs/docs_env.yaml": "6db83b19a5af8a408a71eb850bb73f157aed47eb0cd6d3acad2fc4707b26e97a"
+  },
+  "run_scope_notes": "The summary guard was extended from six to nine cases after the 1886-case run. Final nine-case and 31-case runs include the added nonzero-water cases. The production info correction and provider probe bodies are unchanged; the 1886-case run is not an exact-final-test-tree invocation. Final source hashes identify the published snapshot, not each earlier run.",
+  "source_receiving_base_command": "python -m pytest --receptor=llm -n 2 tests/native tests/chemical_states tests/interactions/test_aromatic_reference_selections.py tests/form/file_h5msm/test_public_h5msm_v05.py",
+  "source_receiving_after_fix_added_selectors": [
+    "tests/basic/test_info_pandas_compatibility.py",
+    "devtools/tests/test_runtime_provider_apis.py"
+  ]
+}

@@ -113,7 +113,8 @@ Current receiving and next admitted defect/contribution reviews:
    remain unmerged. Reconcile their inventories, retain newer guards and qualify
    the combined integration. Candidate a24b14f3d retains both PR ancestries,
    passes 2,687 local tests without omissions and the corrected hosted smoke.
-   The full matrix is now running; Rust remains queued. No integration or installed qualification
+   Seven of eight full-matrix lanes now pass; macOS/Python 3.14 is still running,
+   and Rust remains queued. No integration or installed qualification
    is inferred from the administrative/source-smoke gates.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
 3. **[#511](archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md)
@@ -139,8 +140,13 @@ Current receiving and next admitted defect/contribution reviews:
    handle ownership are guarded. All 1,390 H5MSM/index and 566 documentation/
    doctest cases pass without omissions. H5MSM 0.5 retains its separate reader
    boundary; no installed qualification is inferred.
-   **#524** still needs API-grounded runtime floor/restriction review before
-   publication, including the separately reported Pandas compatibility context.
+   **[#524](pending_proposals/runtime_dependency_api_floors.md)** is partial:
+   five core floors are aligned after exact provider API/ABI probes on Python
+   3.11 with NumPy 1.26.0 and 2.4.6. Pandas 3.1 source receiving passes 1,886
+   tests after removing deprecated summary-table inplace drops; nine final
+   strict summary guards and 31 default-provider checks pass. Viewer public
+   acquisition/floor, sibling/optional-provider review and the NumPy ABI-bound
+   disposition remain due before publication. No installed qualification is implied.
 7. **PR #543:** incoming element-utility and current-system addon contribution,
    head 506805c890d409085f3d954c8d6f14e751af1fc7. Its reported local tests are
    contributor evidence, not owner receiving. It excludes #538/#540; reconcile
