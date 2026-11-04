@@ -83,6 +83,18 @@ def test_retired_addon_package_is_rejected(tmp_path):
     assert any("retired or unreviewed" in item for item in MODULE.validate_wheel(wheel))
 
 
+def test_addon_cache_is_rejected_even_when_its_source_is_reviewed(tmp_path):
+    from importlib.util import cache_from_source
+
+    wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
+    _write_wheel(wheel)
+    with ZipFile(wheel, mode="a") as archive:
+        archive.writestr(cache_from_source("molsysviewer_molsysmt/tools.py"), b"cache")
+    problems = MODULE.validate_wheel(wheel)
+    assert any("bytecode/cache" in item for item in problems)
+    assert any("retired or unreviewed" in item for item in problems)
+
+
 @pytest.mark.parametrize("name", ["molsysmt", "renamed-provider"])
 def test_retired_addon_entry_point_is_rejected(tmp_path, name):
     wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"

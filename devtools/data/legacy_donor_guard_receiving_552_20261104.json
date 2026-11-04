@@ -1,0 +1,369 @@
+{
+  "schema": 1,
+  "date": "2026-11-04",
+  "issue": "uibcdf/molsysmt#552",
+  "main_basis": "73dedbbaedac5bcd9b20801353cb73e2f513fe40",
+  "original_candidate": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+  "scope": "Test expectations aligned with the accepted #511 numerical donor-role contract; runtime implementation unchanged.",
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "workers": 2,
+  "pytest_receptor": "published 1.2.1 path override, unchanged shared environment",
+  "original_full_matrix": {
+    "run": 41755216514,
+    "conclusion": "failure",
+    "cells": [
+      {
+        "cell": "macos-py311",
+        "tests": 25208,
+        "passed": 25103,
+        "failed": 2,
+        "skipped": 103,
+        "errors": 0,
+        "deselected": 40,
+        "zip_sha256": "1b330eb1bedfa96f0ff52146ed2a00061cd8bf554eee791deda1cd87b97c421c",
+        "junit_sha256": "8e76d5cab073cce8de32fa0dfd2936079f9d1984458adec470b11a0dabb2f03f",
+        "failed_nodes": [
+          "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+          "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_and_donors_accept_selection_like_inputs"
+        ]
+      },
+      {
+        "cell": "macos-py312",
+        "tests": 25208,
+        "passed": 25103,
+        "failed": 2,
+        "skipped": 103,
+        "errors": 0,
+        "deselected": 40,
+        "zip_sha256": "6069a84bd8a7245a29532f5b11d2abfaa0a8b59a09e5b291d60eb949bd9ea6f4",
+        "junit_sha256": "b211d059fb8be5503677c12561c00c8dc099a548d749740b77676ec165015caf",
+        "failed_nodes": [
+          "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+          "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_and_donors_accept_selection_like_inputs"
+        ]
+      },
+      {
+        "cell": "macos-py313",
+        "tests": 25208,
+        "passed": 25103,
+        "failed": 2,
+        "skipped": 103,
+        "errors": 0,
+        "deselected": 40,
+        "zip_sha256": "871673d9a9742d3d3b21f4095749a796f0b64255c34941b212a9b2ad02fbb54c",
+        "junit_sha256": "ff29d5356f7eb4d1c44aef6e934f8f59716e5642de05b435f6a807994a34cc59",
+        "failed_nodes": [
+          "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+          "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_and_donors_accept_selection_like_inputs"
+        ]
+      },
+      {
+        "cell": "macos-py314",
+        "tests": 25208,
+        "passed": 25103,
+        "failed": 2,
+        "skipped": 103,
+        "errors": 0,
+        "deselected": 40,
+        "zip_sha256": "da94f3cf8d30e2aaf263a54e271cee80164f62ec4d66fe5229dfe13f52842bad",
+        "junit_sha256": "d62e200fc107fe7cab6e84bd31dbe46fec3c6d7fd4bfd700528b9eaeedb9ba0c",
+        "failed_nodes": [
+          "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+          "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_and_donors_accept_selection_like_inputs"
+        ]
+      },
+      {
+        "cell": "ubuntu-py311",
+        "tests": 25208,
+        "passed": 25104,
+        "failed": 2,
+        "skipped": 102,
+        "errors": 0,
+        "deselected": 40,
+        "zip_sha256": "0b1da1d405b3b730fb897852462d873f54a2a4018b6ba5d0d7fd11a2c1527680",
+        "junit_sha256": "208ad0b8ea3a493bc6e1b179bb6d8499425522bc8ace23344fd15ec1ba1f690d",
+        "failed_nodes": [
+          "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+          "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_and_donors_accept_selection_like_inputs"
+        ]
+      },
+      {
+        "cell": "ubuntu-py312",
+        "tests": 25208,
+        "passed": 25104,
+        "failed": 2,
+        "skipped": 102,
+        "errors": 0,
+        "deselected": 40,
+        "zip_sha256": "71a21a029019f0c3b86302c2551c4af739980644046e18731564d494e9c69620",
+        "junit_sha256": "dc93a6f861dd7f00d49e0d0db276d9290e9686bb17f08f1c3fba40cc6f11bb1e",
+        "failed_nodes": [
+          "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+          "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_and_donors_accept_selection_like_inputs"
+        ]
+      },
+      {
+        "cell": "ubuntu-py313",
+        "tests": 25208,
+        "passed": 25104,
+        "failed": 2,
+        "skipped": 102,
+        "errors": 0,
+        "deselected": 40,
+        "zip_sha256": "328bc3e2738bff0dda89b9e724e91d0a0ae476c047904d725c8d0046288176da",
+        "junit_sha256": "c947642c66ab8bed7e339d4ff020ee77ed12e2a5cb93c2b6db5a220b72cdebd7",
+        "failed_nodes": [
+          "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+          "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_and_donors_accept_selection_like_inputs"
+        ]
+      },
+      {
+        "cell": "ubuntu-py314",
+        "tests": 25208,
+        "passed": 25104,
+        "failed": 2,
+        "skipped": 102,
+        "errors": 0,
+        "deselected": 40,
+        "zip_sha256": "c0f4b32f11055841f924fde48f2c2cb40c0f85a4df71f9b52006dc2d066f7f23",
+        "junit_sha256": "546fe31d1004c7e0b8ee42fead5e10ecb83aa611d481dd76a3e87098338f3607",
+        "failed_nodes": [
+          "tests._private.argdigest.test_hbond_ion_digesters.test_hbond_acceptor_and_donor_digesters",
+          "tests._private.argdigest.test_layout_selection_digesters.test_acceptors_and_donors_accept_selection_like_inputs"
+        ]
+      }
+    ]
+  },
+  "original_candidate_workflows": [
+    {
+      "conclusion": "success",
+      "databaseId": 41755243183,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755243183",
+      "workflowName": "MolSysSuite policy"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41755239243,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755239243",
+      "workflowName": "Ruff"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41755235362,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755235362",
+      "workflowName": "Conda publication governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41755231217,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755231217",
+      "workflowName": "Dependency contract"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41755227441,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755227441",
+      "workflowName": "CI smoke"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41755223880,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755223880",
+      "workflowName": "Performance Regression Audit"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41755220512,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755220512",
+      "workflowName": "Rust abi3 wheels"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41755216514,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755216514",
+      "workflowName": "CI full"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41755134050,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755134050",
+      "workflowName": "Bundled data integrity"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 41755134020,
+      "headSha": "4ea80278f7dc1cd2009a9440fcc5786627430950",
+      "status": "completed",
+      "url": "https://github.com/uibcdf/molsysmt/actions/runs/41755134020",
+      "workflowName": "Developer guide integrity"
+    }
+  ],
+  "original_successful_native_workflow": {
+    "run": 41755220512,
+    "conclusion": "success",
+    "successful_jobs": 30,
+    "skipped_jobs": [
+      {
+        "conclusion": "skipped",
+        "id": 126348223185,
+        "name": "linux-x86_64 \u2014 Python ${{ matrix.python }}"
+      }
+    ],
+    "installed_public_jobs": [
+      {
+        "conclusion": "success",
+        "id": 126348221419,
+        "name": "Installed public smoke \u2014 Python 3.13"
+      },
+      {
+        "conclusion": "success",
+        "id": 126348221425,
+        "name": "Installed public smoke \u2014 Python 3.11"
+      },
+      {
+        "conclusion": "success",
+        "id": 126348221465,
+        "name": "Installed public smoke \u2014 Python 3.14"
+      },
+      {
+        "conclusion": "success",
+        "id": 126348221612,
+        "name": "Installed public smoke \u2014 Python 3.12"
+      }
+    ],
+    "artifact_containers": [
+      {
+        "digest": "sha256:b421ec42c0bb5c319d881e33c351fde0738478d297732010d2f61df6baf7047d",
+        "expired": false,
+        "id": 13291880986,
+        "name": "molsysmt-macos-arm64-abi3",
+        "size_in_bytes": 59899295
+      },
+      {
+        "digest": "sha256:9f83651ac25c462bcd9d10414f12e4446d2756e2d9bccd35c5c3df608aedfe29",
+        "expired": false,
+        "id": 13290043822,
+        "name": "molsysmt-linux-x86_64-abi3",
+        "size_in_bytes": 60391490
+      },
+      {
+        "digest": "sha256:189db3c203668400dd0c9d8d30dc8d870ff42c79d024884d27c141d6207f16ff",
+        "expired": false,
+        "id": 13289774839,
+        "name": "molsysmt-windows-x86_64-abi3",
+        "size_in_bytes": 60218026
+      },
+      {
+        "digest": "sha256:00474777c0a05b5b0c91c57783909a57b9c99df712839ec9c9619d4a491cc6ef",
+        "expired": false,
+        "id": 13289444519,
+        "name": "molsysmt-source-distribution",
+        "size_in_bytes": 57993296
+      },
+      {
+        "digest": "sha256:ce195b25414ad5088e695c298104c088adbcc8210e7e6f8fca5f3bed780857a0",
+        "expired": false,
+        "id": 13288950181,
+        "name": "molsysmt-linux-aarch64-abi3",
+        "size_in_bytes": 59968756
+      }
+    ],
+    "digest_scope": "These are GitHub artifact-container digests, not the SHA-256 of each wheel or registry publication coordinates."
+  },
+  "local_runs": [
+    {
+      "selection": "two old digester modules and public supplied-donor matrix before repair",
+      "exit": 1,
+      "passed": 117,
+      "failed": 2,
+      "skipped": 0,
+      "seconds": 26.11
+    },
+    {
+      "selection": "same selection, with retained strict private expectations and eight additional public selector rejection cases",
+      "exit": 0,
+      "passed": 127,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 27.38,
+      "warnings": 0
+    },
+    {
+      "selection": "all private digesters, all hbonds, bound classic detectors and bound site tools",
+      "exit": 0,
+      "passed": 1141,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 118.09,
+      "warnings": 15,
+      "warning_groups": {
+        "legacy_h5msm": 11,
+        "intentional_memory_budget_controls": 4
+      }
+    },
+    {
+      "selection": "hosted-command and receptor/workflow controls",
+      "exit": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 2.88,
+      "warnings": 0
+    }
+  ],
+  "invalid_initial_broad_selection": {
+    "exit": 5,
+    "reason": "Nonexistent test_hydrogen_bond_site_tools.py; corrected to test_hbond_site_tools.py before the passing 1141-case invocation. No tests executed in the invalid invocation."
+  },
+  "negative_control": "Pre-511 normalizer executed only in an isolated namespace accepts selectors and list outputs, violating the strict retained expectations. No worktree rollback or production patch.",
+  "test_source_sha256": {
+    "tests/_private/argdigest/test_hbond_ion_digesters.py": "43a46edb9e5dbf55c3147d7e9e8dbcb0ed1c6dc4382bffb9651c530f19f693a5",
+    "tests/_private/argdigest/test_layout_selection_digesters.py": "6c23cd3dc756683df4da2ea198297616fb7dc48a22a38784716061c2aaa27bd9",
+    "tests/interactions/hbonds/test_precomputed_donors.py": "4703906f4d19d13bb43c510f038a90ee7348dde8565d39f083bbfad34e815def",
+    ".github/workflows/ci-smoke.yaml": "fec0dfc2eda7e4752b9a39e04221a3de1b308e1c440c33ca0ad1674d9229ddb7"
+  },
+  "unchanged_runtime_sha256": {
+    "molsysmt/_private/argdigest/argument/donors.py": "2cca91658ef16fef393b521f8842fe018691568214834ce29681b2bae87b2cd9",
+    "molsysmt/_private/argdigest/argument/donors_2.py": "b05590f7bd2281a42c645516ba11e43bbf95cf20f121aa7c55caacd27de4da72",
+    "molsysmt/interactions/hbonds/_supplied_donors.py": "bf3a9b636157f5d57da3e19bf626add00cbb81fdbab806fbb32e41ee558933d4",
+    "molsysmt/interactions/hbonds/get_buch_hbonds.py": "6c1ecc47c68fe15c5e0fe26eaef07113c040a8d9810f814d5ef72bf76d9549d0",
+    "molsysmt/interactions/hbonds/get_luzard_chandler_hbonds.py": "e9a835cb076924e6ae1becac60119874d225ce5112da20d7fbe590a9d0666be1"
+  },
+  "production_tree_ids": {
+    "molsysmt": "dfcb24c80ce0e77951aedeb4d5d99ec8cff40dc4",
+    "molsysviewer_molsysmt": "0532f5ecbf90b5139ddb664f960ae6cbb02770be"
+  },
+  "command": "PYTHONPATH=<published-receptor>:$PWD:<frozen-ca7-host> MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest --receptor=llm -n 2 tests/_private/argdigest tests/interactions/hbonds tests/molsysviewer_molsysmt/test_interaction_detector_tools.py tests/molsysviewer_molsysmt/test_hbond_site_tools.py",
+  "guard_intent": "Assert int64 shapes/values, intact pair rows and selector rejection while keeping legacy acceptor controls. Generic modules join the real native smoke invocation; public selector rejection covers both detectors and both donor sides. No tests removed, xfailed or skipped.",
+  "limits": [
+    "Original r2 source matrix remains failed even though all its native-wheel and other workflows pass.",
+    "A new exact candidate must execute applicable gates before metadata PR integration.",
+    "No public API, scientific algorithm, threshold, units, dependency floor, tag, release, upload or registry publication changes."
+  ],
+  "checks": [
+    "Ruff check .",
+    "Ruff format --check .: 4322 files",
+    "devguide validator/index check",
+    "14/14 fast release gates",
+    "Three role/digester modules are arguments of the same native smoke pytest command"
+  ]
+}

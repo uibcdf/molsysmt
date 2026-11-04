@@ -82,7 +82,6 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     )
     assert rows["basic.add"]["input_kind"] == "primary"
     assert rows["attribute.get_argument_aliases"]["input_kind"] == "explicit_inputs"
-    assert not rows["supported.forms"]["exposed"]
     received_elements = {
         "element.is_element",
         "element.is_composed_of",
@@ -173,6 +172,12 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     )
     assert inventory["modules"]["element"]["missing"] == []
     assert rows["element.group.get_group_type"]["exposed"]
+    for name in ("forms", "conversions", "dependencies", "syntaxes"):
+        assert rows[f"supported.{name}"]["exposed"]
+        assert rows[f"supported.{name}"]["input_kind"] == "explicit_inputs"
+    assert inventory["modules"]["supported"]["missing"] == []
+    assert inventory["modules"]["attribute"]["exposed_paths"] == 7
+    assert inventory["modules"]["attribute"]["missing"] == []
     assert "supported.syntaxes" in rows
     assert rows["supported.syntaxes"]["declaration_status"] in {
         "callable_compatibility_module",

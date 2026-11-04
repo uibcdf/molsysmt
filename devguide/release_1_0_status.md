@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-11-03
+**Last updated:** 2026-11-04
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,45 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Metadata integration and native array repair — 2026-11-04
+
+PR #538/#540 are admitted on exact candidate
+fbb09782c3f66735762bd4a507314db692927f97 after all ten applicable workflows pass.
+The eight-cell full source matrix passes 25,114 cases per Linux cell and 25,113
+per macOS cell, with respectively 102 and 103 recorded omissions. All eight
+registered scientific evidence executions pass 79 cases without omissions.
+Native wheels pass four-target/Python 3.11--3.14 compatibility, NumPy floors,
+source-distribution round trip and the four Linux installed-public checks.
+The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) and
+[terminal receipt](../devtools/data/molsysviewer_tools_metadata_gate_receiving_20261104.json)
+retain exact source, jobs, hashes and scope. The 155/244 source-path inventory
+is not a count of independently validated scientific algorithms or installed
+Conda release-pair qualification. Earlier failed producers remain failed.
+
+[#550](archive/resolved_bugs/template_bond_helpers_reject_numpy_atom_names.md)
+repairs the documented NumPy name-array routes for three reference bond helper
+families without changing their data or valid list outputs. Its separate
+receiving merge aa1527bc2 combines that native repair with the frozen metadata
+candidate and passes 2,938 group/addon/inventory cases and 568 documentation/
+doctest cases without omissions, plus all 14 fast gates and Ruff. Its warning
+counts and bounded parity remain explicit in the owning record. The metadata
+hosted gates do not qualify this later repair as a new full source matrix.
+
+The first routine smoke on 776ed2fc2 (41853652640) fails before pytest at
+the separate default-fidelity validator: three updated reference-helper
+docstrings omit an explicit default=None declaration. A docstring-only follow-up
+adds those declarations without changing executable ASTs, signatures or guards;
+the separate validator is now included in local receiving. The failed run is
+not relabelled as passing; the new head needs its own routine CI.
+
+Next: complete #548's seven-helper return/mapping documentation and #549's
+legacy name/protonation-context review, then receive updated PR #543 separately,
+retaining both metadata namespaces and current native repairs. Provider/runtime
+floors (#524/#428), #504's solvation policy and final installed delivery retain
+their separate owner boundaries. Future reference-database caching is tracked
+in #553 without entering this stabilization patch. #421 and #334 remain open;
+no release, tag, package upload or promotion is performed by this integration.
 
 ## Post-integration stabilization review — 2026-11-03
 
@@ -94,6 +133,24 @@ not a full hosted matrix or installed-pair qualification.
 
 ### New board and PR review — 2026-11-03
 
+**Gate follow-up, 2026-11-04:** refreshed metadata source 4ea80278f passes all
+native-wheel/installed-public smoke jobs in 41755220512, plus smoke, performance
+and administrative checks. Full matrix 41755216514 still fails in all eight
+cells on the same two legacy private donor-digester assertions. Their test-only
+alignment is owned by
+[#552](archive/resolved_bugs/legacy_donor_digester_tests_retain_obsolete_selector_and_list_expectations.md):
+127 focal and 1,141 broader cases pass, with eight new public rejection cases
+and unchanged production code. Both generic guards now join native smoke.
+Preserve the frozen r2 identity and qualify a new exact candidate before merging
+the metadata extensions. Passing native jobs do not replace the failed full suite.
+
+Corrected source merge f2d59d5b3 on `dev/review-tools-537-540-r3` retains main
+d9255c85c and both PR heads. Runtime/addon/Rust/build inputs match frozen r2;
+136 focal guards, the live 155/244 inventory and all 14 fast gates pass. The
+[new receipt](../devtools/data/molsysviewer_tools_corrected_guard_candidate_20261104.json)
+keeps prior results separate. Its applicable hosted gates remain due before
+integration; source equivalence is not a substitute for their execution.
+
 The refreshed board contains 87 open issues and two open PRs before the two
 metadata closeouts above. New incoming work is #537, PR #538, #539 and PR #540. These
 counts are a dated snapshot, not a live generated inventory.
@@ -106,20 +163,30 @@ Current receiving and next admitted defect/contribution reviews:
    passes / four optional skips) and performance audit 41730356380. The original
    bounded-read guards execute successfully; the old failures remain historical.
    This defect no longer blocks the metadata contributions' remaining gates.
-2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
-   and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to
-   fail the source-file inventory. PR #538 proposes its correction plus four
-   bound supported reports; #540 proposes seven attribute metadata tools. Both
-   remain unmerged. Reconcile their inventories, retain newer guards and qualify
+2. **[#537](archive/resolved_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
+   and PRs #538/#540:** the native TarInfo directory correction is received
+   separately from PR #538, with four red/green guards and an unchanged real
+   59,061,773-byte archive. All 98 packaging controls pass. The four supported
+   reports and seven attribute metadata tools remain unmerged. Reconcile their
+   inventories, retain newer guards and qualify
    the combined integration. Candidate a24b14f3d retains both PR ancestries,
    passes 2,687 local tests without omissions and the corrected hosted smoke.
-   All eight full-matrix lanes now pass. Rust workflow 41730347088 is terminal
-   failure: its four installed-public smoke jobs fail. The inspected Python 3.14
-   log rejects addon bytecode in the installed inventory; original payload versus
-   installer-generated files still needs receiving under
-   [#551](pending_bugs/installed_addon_inventory_rejects_installer_generated_bytecode.md).
-   Source-matrix success does not establish integration or installed qualification.
+   All eight full-matrix lanes now pass. Rust workflow 41730347088 remains a
+   terminal failure: its four installed-public smoke jobs rejected generated
+   addon bytecode. The original wheel contains no caches; the installed-only
+   inventory correction and real pip-install/adversarial guards are resolved under
+   [#551](archive/resolved_bugs/installed_addon_inventory_rejects_installer_generated_bytecode.md).
+   All 94 packaging controls and a Linux/Python 3.14 public runtime reproduction
+   pass with the original wheel and patched validator. That local prefix inherits
+   development dependencies. It does not reclassify the original workflow or
+   qualify the next integrated candidate's complete installed/platform matrix.
    The [addon owner record](pending_proposals/molsysviewer_tools_addon.md) holds scope.
+   Refreshed source merge 33c4171da on `dev/review-tools-537-540-r2` retains both
+   PR heads and main 73dedbbae, including #537/#551. Its 664 selected
+   native/metadata/package cases, 572 documentation/doctest cases, actual source
+   archive and all 14 fast gates pass locally. The live inventory is 155/244.
+   This newer candidate still needs its own exact-source hosted gates before
+   integration; the first candidate and its receipts remain unchanged.
 3. **[#511](archive/resolved_bugs/classic_hbond_precomputed_donors_have_inconsistent_shapes.md)
    and [#516](archive/resolved_bugs/aromatic_detectors_reject_reference_mdtraj_selection.md):**
    resolved with supplied donor-anchor/pair validation and reference-aware aromatic

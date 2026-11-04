@@ -2,26 +2,61 @@ import numpy as np
 
 
 def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True):
-    """
-    Getting standard intra-group covalent bonded atom pairs for small molecule residues.
-
+    """Getting reference bond index pairs for a named small molecule.
 
     Parameters
     ----------
     group_name : str
-        Name of the chemical group (residue).
-    atom_names : numpy.ndarray, list, or tuple
-        Names of atoms in the group.
-    atom_indices : int, list, tuple, or numpy.ndarray, default=None
-        Atom indices (0-based) to include.
+        Exact case-sensitive name in the bundled family catalogue.
+    atom_names : list of str, tuple of str, or numpy.ndarray
+        One-dimensional names in caller order. Lists, tuples and NumPy arrays
+        are equivalent, including empty inputs. Repeated names refer to their
+        first occurrence; this helper does not resolve alternate locations.
+    atom_indices : list of int, tuple of int, or numpy.ndarray, default=None
+        One integer atom index per name, in the same order. If None, use local
+        positions 0 through len(atom_names)-1. These are mapping labels, not a
+        selection to apply to a molecular system.
     sorted : bool, default=True
-        Whether to sort the returned bonded atom pairs.
+        Whether to sort pair rows lexicographically. False retains template
+        bond order. Each pair has its smaller mapped endpoint first.
 
     Returns
     -------
-    list of tuple of str
-        List of bonded atom name pairs.
+    list of list of int
+        Reference bonds whose two names occur in atom_names, mapped to local
+        positions or the supplied indices. Explicit NumPy indices may remain
+        NumPy integer scalars. An empty name sequence returns an empty list.
 
+    Raises
+    ------
+    ArgumentError
+        For a recognized group, if atom_names is not a flat sequence of strings.
+
+    Notes
+    -----
+    Unknown names and unmatched template layouts return an empty list.
+    This is a bundled-reference lookup. It neither reads coordinates nor infers
+    the graph of a molecular system, assigns chemical state, or adds bonds.
+    Caller-owned names and indices are not modified.
+
+    See Also
+    --------
+    molsysmt.element.group.get_bonded_atom_pairs
+    molsysmt.chemical_states.get_bondgraph
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from molsysmt.element.group.small_molecule import get_bonded_atom_pairs
+    >>> get_bonded_atom_pairs('ATP', np.asarray(['PG', 'O1G', 'O2G']),
+    ...                      atom_indices=[20, 10, 30])
+    [[10, 20], [20, 30]]
+    >>> get_bonded_atom_pairs('ATP', [])
+    []
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Get_bonded_atom_pairs` for mapping and container examples.
 
     .. versionadded:: 1.0.0
     """
@@ -31,6 +66,11 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     if group_name not in group_names:
         return []
 
+    from molsysmt._private.argdigest.argument.atom_names import _flat_atom_name_list
+
+    atom_names = _flat_atom_name_list(
+        atom_names, caller=f"{__name__}.get_bonded_atom_pairs"
+    )
     if atom_indices is None:
         atom_indices = np.arange(len(atom_names), dtype=int).tolist()
 

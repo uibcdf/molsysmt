@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "date": "2026-11-04",
+  "issue": "uibcdf/molsysmt#550",
+  "basis_main": "d9255c85c0d0ee9dc98f1f824f8075a5d0d77fd0",
+  "status": "prepared isolated native repair; main integration pending",
+  "python": "3.14.7",
+  "numpy": "2.4.6",
+  "workers": 2,
+  "pytest_receptor": "published 1.2.1 via existing wheel; no environment replacement",
+  "initial_reproduction": "Both direct family helpers and dispatcher raise AttributeError for valid arrays while corresponding lists/tuples succeed.",
+  "runs": [
+    {
+      "selection": "new container/shape matrix before correction",
+      "exit": 1,
+      "failed": 66,
+      "passed": 81,
+      "numpy_attribute_errors": 36,
+      "seconds": 4.82
+    },
+    {
+      "selection": "corrected container/shape matrix",
+      "exit": 0,
+      "passed": 147,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "seconds": 3.95
+    },
+    {
+      "selection": "group/build/template/private-digester receiving and three changed-module doctests",
+      "exit": 0,
+      "passed": 846,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 5,
+      "warning_cause": "legacy H5MSM",
+      "seconds": 54.7
+    },
+    {
+      "selection": "initial documentation and three module doctests",
+      "exit": 1,
+      "passed": 567,
+      "failed": 1,
+      "seconds": 43.71,
+      "cause": "The miniature real-API documentation fixture did not yet include the existing group tutorial target. Add that actual tutorial to its real-source anchor list; do not suppress reference warnings."
+    },
+    {
+      "selection": "final documentation and three module doctests",
+      "exit": 0,
+      "passed": 568,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 529,
+      "seconds": 44.91,
+      "warning_groups": {
+        "sphinx_myst_deprecations": 514,
+        "legacy_h5msm": 8,
+        "headless_plot": 6,
+        "intentional_attribute_drop": 1
+      }
+    }
+  ],
+  "bounded_compatibility": {
+    "cases": 96,
+    "groups": [
+      "NAG",
+      "ATP",
+      "ACE",
+      "NME",
+      "NHE",
+      "NH2"
+    ],
+    "source_receipt_sha256": "78930792b02c70363100b5de63fee2374261d645d5d0438bc9c4a270431a3199",
+    "scope": "All variants for these six groups, both name orders, explicit/default labels and both row-order modes. The same preloaded reference dictionaries are supplied to old/new functions only in a private harness; production loading unchanged. Not complete-catalogue or chemical validation."
+  },
+  "interrupted_initial_catalogue_sweep": {
+    "exit": 143,
+    "outcome": "Stopped own process after identifying repeated shard decoding; no complete receipt, no passing claim, no performance benchmark. Future study is #553."
+  },
+  "source_sha256": {
+    "molsysmt/_private/argdigest/argument/atom_names.py": "75715922bd102dd103b5a6629bf7e476397bebe3851d0362ce18d5dd0f3868dd",
+    "molsysmt/element/group/saccharide/get_bonded_atom_pairs.py": "a9ef5487d41ee52f02ed959b5e9e148ad7b055381cdd333d78a69f2cf811fff5",
+    "molsysmt/element/group/small_molecule/get_bonded_atom_pairs.py": "073f77a871db48812e0ed0483f04428272f62b991c18af194510e2c410ef81ff",
+    "molsysmt/element/group/terminal_capping/get_bonded_atom_pairs.py": "45a08196509a913ba5f80edd50ae7333e76285213ce37338e02820e17af9d888",
+    "tests/element/group/test_template_atom_name_containers.py": "311b0699a4c571bb6b825823c0db11e897dd6dc3896d57af0d45c4e58147ab83",
+    "devtools/tests/test_documentation_source_boundary.py": "bc824b51fd76db10fc8792a6bc8fa98bbb03d57cec29c4ebfe055c37c8b23b46"
+  },
+  "backend_sha256_unchanged": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "notebooks": "Existing code, stored outputs, cell IDs/count and notebook/cell metadata preserved in group tutorial and Module 03.",
+  "docs": "Docstrings, group tutorial and its paired/manifest contract, Foundations, narrative recipe and Module 03 updated.",
+  "limits": [
+    "Native repair is isolated from the running metadata qualification candidate fbb09782c.",
+    "This does not close #548 full seven-helper return/mapping review; three corrected docstrings provide partial documentation progress.",
+    "Legacy signatures and per-family unknown/layout behavior retained; no global nested-name digester change.",
+    "No data, chemistry algorithm, physical-unit policy, dependencies, compiled kernels, package, tag or release change."
+  ],
+  "checks": [
+    "Ruff check .",
+    "Ruff format --check .: 4323 files",
+    "devguide validator and generated-index check",
+    "14/14 fast release gates",
+    "Notebook code/output/IDs/count/metadata preserved"
+  ]
+}

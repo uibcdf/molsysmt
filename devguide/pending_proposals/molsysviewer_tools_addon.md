@@ -14,6 +14,149 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Metadata candidate accepted — 2026-11-04
+
+Exact candidate fbb09782c3f66735762bd4a507314db692927f97 completes all ten
+applicable workflows and retains both original heads of PR #538/#540. Full
+source run 41839333623 passes all eight Linux/macOS-arm64 Python 3.11--3.14
+cells: each Linux cell has 25,114 passes and 102 omissions; each macOS cell has
+25,113 passes and 103 omissions. Original JUnit artifacts and their skip reasons
+are retained. Every cell executes both corrected legacy donor guards and all
+eight new public selector-rejection cases. All eight registered scientific
+evidence certificates pass 79 cases from 59 nodes with zero omissions, failures
+or errors and the exact clean candidate commit.
+
+Native workflow 41839338780 passes thirty jobs, with one PR-only job skipped:
+Rust quality, source-distribution round trip, four native wheel targets,
+sixteen private-extension compatibility cells, four NumPy-floor checks and four
+Linux installed-public runtime checks. The latter verify pip check and actual
+site-packages origins outside the checkout on Python 3.11--3.14. Native-wheel
+compatibility across four platforms is distinct from these Linux-only public
+runtime checks and the still-pending installed Conda release-pair matrix.
+
+Smoke, performance, dependency, Ruff, bundled-data, devguide, suite policy and
+publication-governance workflows also pass on the same source. The
+[terminal receipt](../../devtools/data/molsysviewer_tools_metadata_gate_receiving_20261104.json)
+retains original artifact IDs, container/JUnit/certificate hashes, job outcomes,
+omissions and installed-runtime provenance. It supersedes the pending state in
+the immutable local candidate receipts without changing their historical facts.
+
+The two metadata contributions are admitted to main with their original
+ancestries: four supported reports and seven attribute helpers, source exposure
+155/244. PR #543, broader scientific/GUI coverage and installed release-pair
+qualification remain separate. The later native #550 repair has its own source
+and receiving evidence; this candidate's hosted results do not qualify it.
+#421 remains partial. No package, release, tag or dependency floor is changed.
+
+## Corrected guard candidate — 2026-11-04
+
+Source merge f2d59d5b3b4bb07ea0c5a00631a220a854555dea on
+`dev/review-tools-537-540-r3` retains frozen r2, both contribution heads and
+main d9255c85c. #552's retained private assertions and eight new public
+selector-rejection cases are present, and native smoke selects both formerly
+omitted generic modules. Exact Git object IDs verify unchanged runtime/addon,
+Rust, developer scripts and build inputs relative to r2. No scientific code
+or criterion is changed to obtain green tests.
+
+All 136 focal guards pass without omissions/warnings; the live inventory is
+still 155/244 and all 14 fast gates pass. The
+[candidate receipt](../../devtools/data/molsysviewer_tools_corrected_guard_candidate_20261104.json)
+records source equivalence and new tests without rewriting earlier metadata,
+documentation or artifact receiving. Qualify this exact candidate before main
+integration; r2's source failure and native-wheel success remain historical.
+
+## Refreshed candidate gate receiving — 2026-11-04
+
+Frozen source 4ea80278f7dc1cd2009a9440fcc5786627430950 passes native-wheel
+workflow 41755220512: thirty successful jobs, one pull-request-only skip and
+all four Python 3.11--3.14 installed public-runtime jobs. Smoke, performance,
+dependency, Ruff, data and governance checks also pass on that exact source.
+The full source matrix 41755216514 remains failed: every original JUnit report
+contains the same two obsolete generic donor-digester expectations, now owned
+by #552. The source and native results retain their distinct outcomes.
+
+The native test-only repair aligns those retained assertions with #511's
+accepted int64 anchor/pair contract, adds eight public selector-rejection cases,
+and selects the two generic modules in native smoke. Wider receiving passes
+1,141 cases without omissions; the original production source is unchanged.
+The [owner record](../archive/resolved_bugs/legacy_donor_digester_tests_retain_obsolete_selector_and_list_expectations.md)
+and [receipt](../../devtools/data/legacy_donor_guard_receiving_552_20261104.json)
+retain every original cell and successful native artifact-container identity.
+The frozen r2 candidate is not moved. Prepare and qualify its corrected successor
+before main integration; these repairs do not authorize package publication.
+
+## Refreshed metadata receiving — 2026-11-03
+
+Source merge 33c4171dae23a780b4aa2f5490764738deaa0229 on
+`dev/review-tools-537-540-r2` retains both PR heads and main 73dedbbae as
+ancestors. The first candidate a24b14f3d remains frozen. Current native repairs,
+including independently closed #537/#551, are present; both original metadata
+namespaces and newer smoke/negative guards are retained. The published #537
+archive is kept byte-identical, with older branch evidence retained separately.
+
+All 664 selected native/metadata/package cases and 572 documentation/doctest
+cases pass without omissions, with published Pytest Receptor 1.2.1 and two
+workers. The live inventory remains 155/244; the actual source archive and all
+14 fast gates also pass. Module 06 code, outputs, IDs and metadata are unchanged.
+The [refreshed receipt](../../devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json)
+records warning counts, inputs, origins, artifact hashes and scope. Exact-candidate
+hosted source/native-wheel gates still need to execute before integration.
+This candidate does not admit PR #543, qualify an installed release pair or
+authorize a package/tag/publication. Original failed workflows remain failed.
+
+## Combined integration candidate — 2026-11-03
+
+The isolated `dev/review-tools-537-540` candidate combines main 402bdc6e4,
+PR #538 head 3c13ba1a5c248de11622ff015b24551f72c59846 and PR #540 head
+c31e7658db3f8308fbd084f4279c00e65e6f8207. Both namespaces and all newer
+native/CI guards are retained. The reconciled inventory declares 155/244 paths;
+the live audit confirms that count. Combined local receiving passes 3,362
+cases, including the full 2,662-case addon, without skips/failures. Documentation
+controls pass 538 cases and all 14 fast gates pass. Hosted qualification remains
+pending; the combined candidate is not on main.
+The old supported-report cold-process guard is tightened to the repaired native
+ArgumentConsistencyError contract; UnknownArgumentError is not accepted for an
+alias collision. A six-case follow-up enforces the actual parent Viewer file
+origin in every attribute subprocess; it passes with the frozen ca7ebea6 host.
+The [combined receipt](../../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
+keeps this follow-up separate from the preceding complete invocation. Original
+contribution receipts below remain revision-specific.
+This candidate is not integrated into main or qualified as an installed pair.
+
+
+## Original supported contribution receipt — 2026-11-03
+
+On PR #538's original source, four explicit `supported` wrappers provide forms, conversions, dependencies
+and syntax-direction reports without a primary system. They preserve native
+signatures/defaults, digestion and output types, open-empty-view access and
+closed-owner refusal. No synchronization, scene/history update or registry copy
+is added. That contribution exposes 148/244 paths; its attribute helpers and scientific edit
+families remain separate. Its original Rust-manifest/metadata prerequisites
+(#533/#534/#535) are now repaired on main; the original receipt does not qualify
+new main or combined installed payloads. No consumer workaround is introduced.
+
+The complete source addon selection passes 2,527 cases without failures, errors
+or skips, including all 74 new metadata cases, on this isolated source. Five
+help-doctest/inventory checks and 519 native-report/notebook-schema checks also
+pass in separate scopes. Original JUnit and scope limits are retained in the
+[receiving receipt](../../devtools/data/molsysviewer_tools_supported_receiving_20261103.json). The
+[maintained inventory](../molsysviewer_tools_api_inventory.md) and
+[usage guide](../../docs/content/user/tools/molsysviewer_tools.md#discovering-capabilities-before-loading-a-system)
+record the implementation scope. No package floor, tag or release is changed.
+
+**Attribute source increment — 2026-11-03:** an isolated contribution based on
+`639ec85d8` implements all seven explicit metadata helpers, following native
+repair `13f72af2` for #534/#535. Native attribute tests pass 340 cases, including
+cold imports; the new addon boundary passes 126 cases and distribution/CI
+controls pass 36. The complete source addon regression passes 2,579 cases with
+zero failures/errors/skips; owner PR integration remains pending.
+Source exposure is 151/244 on this branch; independent PR #538's four
+supported reports are not included. Combined integration will need 155/244,
+without dropping either namespace. This remains experimental source receiving,
+not installed qualification or a new package floor. #421 remains partial.
+The [receiving record](../../devtools/data/molsysviewer_tools_attribute_receiving_20261103.json)
+retains source hashes and the distinct archive/benchmark CI limits (#537/#539).
+
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound
@@ -2538,10 +2681,21 @@ repair native science. The updated extraction guide block is checked separately.
 The metadata candidate a24b14f3d retains PRs #538/#540 and passes the corrected
 source smoke 41730351587 (4,810 native passes / sixteen optional skips and
 2,658 addon passes / four optional skips) plus performance audit 41730356380.
-The full matrix now passes all eight lanes. Rust workflow 41730347088 ends in
-failure with four installed-public smoke failures; Python 3.14 rejects installed
-addon bytecode. Original archive versus installed-inventory receiving remains
-under #551. Integration and #537 closure wait for their required executed evidence.
+The full matrix now passes all eight lanes. Rust workflow 41730347088 remains
+failed with four installed-public smoke failures from generated addon bytecode.
+#551 now has a source correction: exact archive inventories stay strict, while
+the installed check recognizes source-backed, unhashed/unsized current-interpreter
+caches. The original wheel has no cache payload. All 94 packaging guards and
+the public runtime outside the checkout pass locally with the original wheel,
+the unchanged frozen 25-source inventory and controlled Viewer wheel. The small
+prefix inherits development dependencies; this does not turn the historical
+workflow green or replace the next candidate's installed/platform qualification.
+The #537 native validator correction is now received independently from PR #538:
+its exact production patch and four adapted red/green controls pass alongside
+#551, with 98 packaging controls and an unchanged real 59,061,773-byte archive.
+This closes the native defect without admitting the metadata namespaces.
+Combined integration still needs a refreshed, separately identified candidate
+containing the later main repairs and its applicable executed gates.
 This does not move the
 frozen candidate or certify an installed pair.
 

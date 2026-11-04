@@ -13,14 +13,17 @@ from molsysmt._private.argdigest.argument.top import digest_top
 from molsysmt._private.smonitor import ArgumentError
 
 
-def test_acceptors_and_donors_accept_selection_like_inputs():
+def test_acceptors_accept_selectors_and_donors_require_index_arrays():
     assert digest_acceptors('name == "O"') == 'name == "O"'
     assert digest_acceptors([0, 2]) == [0, 2]
     np.testing.assert_array_equal(
         digest_acceptors([0, 2], syntax="NGLView"), np.array([0, 2], dtype="int64")
     )
-    assert digest_donors('name == "N"') == 'name == "N"'
-    assert digest_donors(range(2)) == [0, 1]
+    with pytest.raises(ArgumentError):
+        digest_donors('name == "N"')
+    donors = digest_donors(range(2))
+    np.testing.assert_array_equal(donors, [0, 1])
+    assert donors.shape == (2,) and donors.dtype == np.int64
     with pytest.raises(ArgumentError):
         digest_acceptors(object())
 

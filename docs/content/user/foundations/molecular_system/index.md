@@ -11,6 +11,13 @@ NME/NHE/NH2 caps connect through N to the peptide C end. Likewise, sequence
 symbols XLE/J and XAA/X retain ambiguous or unknown identity; recognizing a
 label does not select a chemical state or provide an atomic template.
 
+Reference-template helpers likewise use explicit names rather than the system's
+stored chemical graph. A returned bond-pair endpoint is a local name position
+unless you supply a parallel atom-index map. Neither lookup nor mapping assigns
+chemical state or modifies the system. See
+{ref}`Tutorial_Get_bonded_atom_pairs` for flat list/tuple/NumPy inputs and their
+family-specific lookup limits.
+
 ---
 
 ## **Contents**

@@ -177,6 +177,7 @@ def test_public_bond_and_historical_hbond_api_pages_are_connected(tmp_path, lega
     tutorial_sources = (
         [
             "content/user/tools/element/atom/atom_types.md",
+            "content/user/tools/element/group/get_bonded_atom_pairs.ipynb",
             "content/user/tools/interactions/result.md",
         ]
         + [

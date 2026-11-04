@@ -20,6 +20,15 @@ Temporary storage must be available, and parsing remains eager.
 
 ## Preparing correspondence context
 
+When consulting a saccharide, small-molecule or cap bond-name template, pass a
+flat list, tuple or NumPy array of atom names. Reference helpers return index
+pairs: use a parallel integer `atom_indices` array to express them on your
+source axes. Without it, pairs use positions in the supplied name sequence.
+Repeated names in these helpers retain their first occurrence, and input arrays
+are not modified. This lookup does not transfer chemistry or change a stored
+graph; keep template application and its explicit correspondence separate.
+See {ref}`Tutorial_Get_bonded_atom_pairs` for the exact family contracts.
+
 Explicit atom stereochemistry is transferred when declared as `R`, `S`, `r`,
 `s` or `unspecified`. Here `unspecified` is an explicit absence of an assigned
 configuration, not a missing value and not proof that the atom is achiral.

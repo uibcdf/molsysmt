@@ -510,6 +510,10 @@ sections:
           - name: atom_types
             file: docs/content/user/tools/element/atom/atom_types.md
             agents_file: docs/content/user/tools/element/atom/atom_types.md.AGENTS.md
+          - name: reference_bond_pairs
+            file: docs/content/user/tools/element/group/get_bonded_atom_pairs.ipynb
+            agents_file: docs/content/user/tools/element/group/get_bonded_atom_pairs.ipynb.AGENTS.md
+            description: Explicit reference-name/index mapping, flat list/tuple/NumPy inputs, first-name occurrence and family-specific errors without graph assignment.
       - name: form
         path: docs/content/user/tools/form
         agents_file: docs/content/user/tools/form/AGENTS.md

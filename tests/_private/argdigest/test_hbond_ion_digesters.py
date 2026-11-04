@@ -24,12 +24,21 @@ def test_hbond_acceptor_and_donor_digesters():
     assert digest_acceptors(None) is None
     assert digest_acceptors_2([4, 5]) == [4, 5]
 
-    assert digest_donors('atom_type=="N"') == 'atom_type=="N"'
-    assert digest_donors((6, 7)) == [6, 7]
+    # Supplied donor roles use the numerical contract established by #511;
+    # selectors belong in selection, unlike the legacy acceptor normalizer.
+    with pytest.raises(ArgumentError):
+        digest_donors('atom_type=="N"')
+    donors = digest_donors((6, 7))
+    np.testing.assert_array_equal(donors, [6, 7])
+    assert donors.shape == (2,) and donors.dtype == np.int64
     assert np.array_equal(
         digest_donors([6, 7], syntax="OpenMM"), np.array([6, 7], dtype="int64")
     )
     assert digest_donors(None) is None
+
+    pairs = digest_donors([[7, 9], [6, 8]])
+    np.testing.assert_array_equal(pairs, [[7, 9], [6, 8]])
+    assert pairs.shape == (2, 2) and pairs.dtype == np.int64
 
     with pytest.raises(ArgumentError):
         digest_acceptors(object())

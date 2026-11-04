@@ -16,6 +16,14 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             namespace = getattr(namespace, part)
         native = getattr(namespace, name)
         doc = inspect.getdoc(native) or ""
+        if module in {"supported", "supported.supported"}:
+            # These copied examples are native calls, with a standalone import
+            # so the documented native examples also execute as doctests.
+            doc = doc.replace(
+                "Examples\n--------\n",
+                f"Examples\n--------\n>>> from {native.__module__} import {name}\n",
+                1,
+            )
         doc = re.sub(
             r"(?m)^(?:molecular_system|to_molecular_system) :[^\n]*\n(?:[ \t]+[^\n]*\n|\n)*",
             "",
@@ -47,6 +55,18 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if module in {"supported", "supported.supported"}:
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "An open empty view is sufficient. No molecular-system reader, "
+                "edit synchronization, scene update or history action is used. "
+                "Native output types and capability visibility are preserved. "
+                "Plain outputs do not construct a Styler; the native default "
+                "remains visual. Reports describe declarations and environment "
+                "metadata, not guaranteed execution or installed-pair qualification. "
+                "Returned metadata remains independent of subsequent view closure; "
+                "new calls through a closed owner are rejected.\n"
+            )
         if module == "basic" and name in {
             "add",
             "append_structures",

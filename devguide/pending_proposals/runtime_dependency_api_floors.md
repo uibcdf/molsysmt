@@ -118,6 +118,17 @@ runtime ABI. That is a concrete native boundary, but no NumPy 3 artifact has
 been tested and a version-major bound is not identical to an ABI bound. Finish
 its disposition under #524 rather than treating future incompatibility as proven.
 
+## Additional newer-provider observations — 2026-11-04
+
+The failed full-source run 41755216514 on exact metadata candidate 4ea80278f
+retains separate future-Pandas work: the Linux/Python 3.14 log reports 162
+Pandas4Warning instances from `_native_placers.py` inplace `sort_values` and
+138 from its inplace `reset_index`. Another 137 are from an existing conversion
+test fixture's inplace `drop`. They are deprecations, not the two failing donor
+guard assertions owned by #552. Keep their removal in this provider review;
+do not suppress them or infer a new version ceiling. These counts belong to
+this one full-suite log, not every platform or the earlier summary-only repair.
+
 ## What was refuted
 
 Unbounded requirements do not guarantee the required APIs. Repeating the

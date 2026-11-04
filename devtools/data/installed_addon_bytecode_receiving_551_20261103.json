@@ -1,0 +1,116 @@
+{
+  "source_commit": "a24b14f3d241893e51703588f9db07a3a70cf11d",
+  "run": 41730347088,
+  "artifact_id": 13277681656,
+  "wheel": "molsysmt-0.23.0+393.ga24b14f3d-cp311-abi3-manylinux_2_28_x86_64.whl",
+  "wheel_sha256": "74869a8a9e733a26e2847b3882d44d0c9962dfc1dd813a562218288dc7ec0d09",
+  "installed_entries": 6486,
+  "installed_addon_caches": 25,
+  "cache_hashes_and_sizes_absent": true,
+  "original_validator": "fails on generated addon bytecode",
+  "patched_validator": "passes original installed distribution metadata",
+  "scope": "Developer validator repair. Public scientific APIs, source/archive payload allowlists, dependency floors, frozen candidates and original workflow conclusions are unchanged. No tag, package upload or public release.",
+  "schema": 1,
+  "date": "2026-11-03",
+  "issue": "uibcdf/molsysmt#551",
+  "fix_basis": "333d0808ce73423fcfab336831f88f9c6380e351",
+  "original_wheel_members": 3652,
+  "original_record_entries": 3425,
+  "original_cache_members": 0,
+  "original_cache_record_entries": 0,
+  "installed_environment": {
+    "python": "3.14.7",
+    "inherits_system_site_packages": true,
+    "versions": {
+      "molsysmt": "0.23.0+393.ga24b14f3d",
+      "molsysviewer": "0.24.0+238.gca7ebea6",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "pip": "26.2.1"
+    },
+    "origins": {
+      "molsysmt": "runtime-env/lib/python3.14/site-packages",
+      "molsysviewer": "runtime-env/lib/python3.14/site-packages"
+    }
+  },
+  "controlled_viewer": {
+    "source": "ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352",
+    "run": 41730342111,
+    "artifact_id": 13277770334,
+    "wheel": "molsysviewer-0.24.0+238.gca7ebea6-py3-none-any.whl",
+    "sha256": "99c74921f47168412ae182fa59140e7924f478f18db000e69332c4caf202d7ed"
+  },
+  "original_job_logs": {
+    "3.11": 126252211539,
+    "3.12": 126252211517,
+    "3.13": 126252211620,
+    "3.14": 126252211540
+  },
+  "original_workflow_outcome": "failure; unchanged historical outcome",
+  "original_installed_runtime_exit": 1,
+  "patched_installed_runtime_exit": 0,
+  "installed_runtime_warning_count": 3,
+  "installed_runtime_warning_cause": "Legacy H5MSM 0.4 deprecation",
+  "installed_runtime_origin_checks": "MolSysMT, Rust and Viewer tools import inside the temporary installation prefix; execution cwd is /tmp and Python -I removes source PYTHONPATH.",
+  "installed_runtime_limits": "Linux x86_64/Python 3.14.7 regression only; inherits development dependencies. Not clean closure, other Python/platform lanes, current-main wheel qualification, or release permission.",
+  "patched_validator_inventory": "Unchanged frozen-candidate 25-source allowlist; current main 23-source inventory is independently guarded. No mutation of frozen integration worktree.",
+  "runs": [
+    {
+      "selection": "three focused packaging modules before repair",
+      "exit": 1,
+      "passed": 46,
+      "failed": 10,
+      "seconds": 47.78,
+      "warnings": 1,
+      "receptor": "editable 1.2.1+22.g00a31c4; diagnostic baseline only"
+    },
+    {
+      "selection": "three focused packaging modules after repair",
+      "exit": 0,
+      "passed": 56,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.22,
+      "warnings": 1,
+      "receptor": "published 1.2.1"
+    },
+    {
+      "selection": "seven packaging/runtime/workflow/license modules",
+      "exit": 0,
+      "passed": 94,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.85,
+      "warnings": 1,
+      "receptor": "published 1.2.1"
+    }
+  ],
+  "pytest_receptor_wheel_sha256": "683200648785f3894357891b238cdc0780c1e874dcf067882dbba2aaa2c527c3",
+  "checks": [
+    "Ruff check .",
+    "Ruff format --check .: 4322 files",
+    "14/14 fast release gates",
+    "Original frozen wheel archive validator: exit 0"
+  ],
+  "final_source_sha256": {
+    "devtools/scripts/validate_installed_molsysmt.py": "a1a0148645f9cbb68766910f0ff3981aeb0074e366bc01f390fb11244540b555",
+    "devtools/tests/test_native_viewer_integration.py": "95c85f45228769cc3021659ed376ae15613ac745491c7cf98f5b9823b924efc7",
+    "devtools/tests/test_validate_rust_wheel.py": "e51077276e7e655d1974572ceee2925ea59974fb06999540f209f29a3c617c7a",
+    "devtools/tests/test_validate_rust_sdist.py": "9361dfd6bd71ee2c5b083278dcb4f595c686cb7224ac35d029441c59040421af"
+  },
+  "backend_sha256_unchanged": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "source_archive_contract_sha256_unchanged": "3bb2fe0f4d7db7fbc82b7715354e6e129e349add1f80e7e9bcc01d896fcaae5c",
+  "commands": {
+    "focal": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest --receptor=llm -n 2 devtools/tests/test_native_viewer_integration.py devtools/tests/test_validate_rust_wheel.py devtools/tests/test_validate_rust_sdist.py",
+    "broader": "Add devtools/tests/test_installed_runtime_dependencies.py devtools/tests/test_rust_wheel_workflow.py devtools/tests/test_smoke_addon_test_command.py devtools/tests/test_license_build_contract.py to focal command.",
+    "artifact_install": "python -m pip install --no-index --no-deps --target <target> <original-wheel>",
+    "installed_runtime": "From /tmp, MPLBACKEND=Agg OMP_NUM_THREADS=1 <temporary-prefix>/bin/python -I <patched-validator-with-frozen-contract>/validate_installed_molsysmt.py"
+  },
+  "installed_runtime_log_sha256": "b8d40aef1915850be7d858dc1427ad9c3e7d5ea9f44e84c4ba291f8c0775f202",
+  "original_installed_runtime_log_sha256": "db63ea80d38ce3603c232ce0fc703751baa3e3afd5306e29d708e8b6d00b49ed"
+}
