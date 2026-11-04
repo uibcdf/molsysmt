@@ -120,3 +120,25 @@ retains exact source, JUnit hashes and warning counts. The registered metadata
 matrix qualifies fbb09782c, not this subsequent native repair; final release
 and installed-pair qualification retain their separate exact-source gates.
 #548's remaining four helper contracts and #549's naming review stay open.
+
+## Correction — 2026-11-04: explicit documented defaults
+
+The first routine main smoke, 41853652640 on 776ed2fc2, fails before pytest
+at the bidirectional docstring validator. The three updated atom_indices
+entries explain the None behavior but use only the optional qualifier; the
+repository validator requires an explicit default=None declaration. Earlier
+local unit, doctest, documentation and fast-gate results remain as recorded;
+they do not establish this separate default-fidelity check.
+
+The follow-up changes only those three docstring type rows to include the
+existing signature default. Executable ASTs, public signatures, reference data
+and all test assertions are unchanged. The explicit 246-function docstring
+validator and the changed module examples are checked before the next push.
+The original failed smoke remains failed and the replacement run retains its
+own source identity.
+
+Follow-up local receiving: the validator passes all 246 public functions; all
+five changed-module doctest and real API-page build cases pass, zero omissions
+(6.15 seconds). The 504 warnings are Sphinx Napoleon deprecations. Developer-
+guide/index checks and whole-tree Ruff lint/format also pass. No assertions,
+validator rules or runtime behavior were weakened to satisfy the check.

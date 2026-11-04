@@ -12,7 +12,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
         One-dimensional names in caller order. Lists, tuples and NumPy arrays
         are equivalent, including empty inputs. Repeated names refer to their
         first occurrence; this helper does not resolve alternate locations.
-    atom_indices : list of int, tuple of int, or numpy.ndarray, optional
+    atom_indices : list of int, tuple of int, or numpy.ndarray, default=None
         One integer atom index per name, in the same order. If None, use local
         positions 0 through len(atom_names)-1. These are mapping labels, not a
         selection to apply to a molecular system.

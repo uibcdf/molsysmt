@@ -44,6 +44,13 @@ doctest cases without omissions, plus all 14 fast gates and Ruff. Its warning
 counts and bounded parity remain explicit in the owning record. The metadata
 hosted gates do not qualify this later repair as a new full source matrix.
 
+The first routine smoke on 776ed2fc2 (41853652640) fails before pytest at
+the separate default-fidelity validator: three updated reference-helper
+docstrings omit an explicit default=None declaration. A docstring-only follow-up
+adds those declarations without changing executable ASTs, signatures or guards;
+the separate validator is now included in local receiving. The failed run is
+not relabelled as passing; the new head needs its own routine CI.
+
 Next: complete #548's seven-helper return/mapping documentation and #549's
 legacy name/protonation-context review, then receive updated PR #543 separately,
 retaining both metadata namespaces and current native repairs. Provider/runtime
