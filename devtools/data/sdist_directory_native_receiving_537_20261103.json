@@ -1,0 +1,64 @@
+{
+  "archive": "molsysmt-0.23.0+393.ge1facf624.dirty.tar.gz",
+  "sha256": "c0a0ab9c3975f3249963f5598cc52e7a91ff7f527b9b68a0556a86ded5e9e557",
+  "bytes": 59061773,
+  "addon_directories": [
+    "molsysmt-0.23.0+393.ge1facf624.dirty/molsysviewer_molsysmt",
+    "molsysmt-0.23.0+393.ge1facf624.dirty/molsysviewer_molsysmt/_private",
+    "molsysmt-0.23.0+393.ge1facf624.dirty/molsysviewer_molsysmt/_private/argument",
+    "molsysmt-0.23.0+393.ge1facf624.dirty/molsysviewer_molsysmt/_private/function"
+  ],
+  "original_errors": [
+    "retired or unreviewed Viewer addon files remain: ['molsysviewer_molsysmt', 'molsysviewer_molsysmt/_private', 'molsysviewer_molsysmt/_private/argument', 'molsysviewer_molsysmt/_private/function']"
+  ],
+  "schema": 1,
+  "date": "2026-11-03",
+  "issue": "uibcdf/molsysmt#537",
+  "basis_main": "e1facf624c54043cbe811e83abff0d2beed8796e",
+  "patch_source": "PR #538 at 3c13ba1a5c248de11622ff015b24551f72c59846",
+  "production_bytes_equal_contribution": true,
+  "test_adaptation": "Required addon-file control uses existing tools.py instead of not-yet-admitted _supported.py; all existing guards including #551 are retained.",
+  "python": "3.14.7",
+  "platform": "Linux x86_64",
+  "versions": {
+    "setuptools": "84.0.0",
+    "build": "1.6.1",
+    "setuptools-rust": "1.13.0",
+    "versioningit": "3.3.0"
+  },
+  "receptor": "published pytest-receptor 1.2.1 from its exact wheel, without replacing the editable development tool",
+  "runs": [
+    {
+      "selection": "sdist controls before repair",
+      "exit": 1,
+      "passed": 6,
+      "failed": 4,
+      "seconds": 2.31
+    },
+    {
+      "selection": "seven packaging/runtime/workflow/license modules",
+      "exit": 0,
+      "passed": 98,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.35,
+      "warnings": 1,
+      "warning_cause": "Existing Setuptools-Rust py_limited_api deprecation"
+    }
+  ],
+  "corrected_errors": [],
+  "archive_bytes_unchanged": true,
+  "archive_build_command": "python -m build --sdist --no-isolation --outdir .pytest_cache/stabilization-537-r2/dist",
+  "test_command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest --receptor=llm -n 2 devtools/tests/test_native_viewer_integration.py devtools/tests/test_validate_rust_wheel.py devtools/tests/test_validate_rust_sdist.py devtools/tests/test_installed_runtime_dependencies.py devtools/tests/test_rust_wheel_workflow.py devtools/tests/test_smoke_addon_test_command.py devtools/tests/test_license_build_contract.py",
+  "final_source_sha256": {
+    "devtools/scripts/validate_rust_sdist.py": "0ab1305e15b4d58100fecc3c92c6aefa72e0acd57043d80ece3a14e846c99c64",
+    "devtools/tests/test_validate_rust_sdist.py": "222829bf4cebcb5736c62a42b99a321ea13aaeb46067295da54f5ca2368de997"
+  },
+  "scope": "Native validator only. PR #538 supported reports and PR #540 attribute metadata remain unmerged. Old workflow outcomes and frozen candidate are unchanged. No wheel/source-round-trip, installed dependency-closure, platform, release or publication claim.",
+  "checks": [
+    "Ruff check .",
+    "Ruff format --check .: 4322 files",
+    "devguide validator and index check",
+    "14/14 fast release gates"
+  ]
+}

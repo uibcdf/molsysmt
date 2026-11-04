@@ -26,10 +26,6 @@ that front matter -- edit the entries, not this list.
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
-### In progress (1)
-
-- [`sdist_directory_entries_mistaken_for_addon_files.md`](sdist_directory_entries_mistaken_for_addon_files.md) — [#537](https://github.com/uibcdf/molsysmt/issues/537) — Source archive validation mistakes addon directories for unreviewed files. *(medium, reproduced)*
-
 ### Partially resolved (1)
 
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*

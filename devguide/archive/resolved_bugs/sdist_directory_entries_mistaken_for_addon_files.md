@@ -1,13 +1,13 @@
 ---
 summary: Source archive validation mistakes addon directories for unreviewed files.
 issue: uibcdf/molsysmt#537
-status: active
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-03
 severity: medium
 verification: reproduced
 area: [packaging, tests]
-guard:
+guard: devtools/tests/test_validate_rust_sdist.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,8 +16,9 @@ supersedes: []
 # Source archive directory entries lose their type
 
 **Reported:** MolSysViewer's supported-report contribution under #421 and PR #538.
-**Status:** independently reproduced on main; proposed correction reviewed in
-PR #538, with integration and final receiving pending.
+**Status:** resolved in the native validator, independently received from
+PR #538. The supported/attribute addon contributions retain their separate
+integration and exact-candidate qualification requirements.
 
 ## What and how
 
@@ -46,7 +47,7 @@ The source-distribution gate rejects a normal producer artifact. Relaxing the
 exact addon inventory or accepting only selected suffixes would hide real
 unreviewed payloads rather than repair file/directory classification.
 
-## Proposed correction and receiving
+## Correction and receiving
 
 PR #538 commit 3c13ba1a5c248de11622ff015b24551f72c59846 preserves TarInfo
 objects, retains all entries for structural/cache checks and uses the
@@ -56,16 +57,35 @@ continued rejection of unreviewed files and directories that cannot substitute
 for required files. The core correction is separate from that PR's supported
 report wrappers, although one test names its new required `_supported.py` file.
 
-Receive the patch against current main, preserving every existing guard and the
-exact tools inventory. Re-run its positive/negative archive controls and the
-unchanged real archive. PR #538's remaining full checks and failed performance
-audit (#539) remain visible; neither an inspected patch nor an earlier source
-smoke certifies the integrated current tree. No merge or main runtime change is
-made by this review.
+The production validator is byte-identical to that PR revision. Its four
+regression cases are received alongside #551's cache rejection guard; the
+required-addon-file case names existing `tools.py` rather than the not-yet-
+admitted `_supported.py`. No supported-report namespace is required to exercise
+the file/directory contract, and no package allowlist is widened.
+
+An actual source distribution built locally from main e1facf624 plus the new
+guards has 59,061,773 bytes and SHA-256
+`c0a0ab9c3975f3249963f5598cc52e7a91ff7f527b9b68a0556a86ded5e9e557`.
+The original validator rejects only its four ordinary addon directory entries;
+the corrected validator accepts those exact unchanged bytes. This does not
+qualify a wheel build, source round trip or installed release closure.
+
+The four new guards fail before the repair (four failures, six passes). Final
+packaging/runtime/workflow receiving passes 98 cases without failures or skips,
+using published Pytest Receptor 1.2.1 and two workers on Linux/Python 3.14.7.
+One existing Setuptools-Rust `py_limited_api` deprecation remains. Ruff lint and
+format checks, developer-guide lifecycle checks and all 14 fast gates pass.
+The [receiving receipt](../../../devtools/data/sdist_directory_native_receiving_537_20261103.json)
+records versions, input hashes, negative controls and exact scope.
+
+The original PR performance failures and old combined installed-workflow failure
+remain historical. #539 and #551 have independent native repairs. Neither this
+source-validator fix nor the old passing full matrix qualifies the refreshed
+combined addon candidate: its applicable gates still need to execute.
 
 ## Scope and exclusions
 
 This is the source archive validator, not #533's installed extension/export
-boundary. No native algorithm, format version, package floor, tag or artifact
-publication is introduced. Closure requires the integrated correction, a live
-pytest guard and its source-distribution receiving evidence.
+boundary. No native algorithm, public API, format version, package floor, tag
+or artifact publication changes. Argument, units, engine and attribution
+providers are not applicable to this developer-only file inventory correction.

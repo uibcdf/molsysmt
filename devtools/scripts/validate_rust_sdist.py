@@ -72,7 +72,9 @@ def validate_sdist(path: Path) -> list[str]:
 
     problems = []
     with tarfile.open(path, mode="r:gz") as archive:
-        members = [PurePosixPath(member.name) for member in archive.getmembers()]
+        entries = archive.getmembers()
+        members = [PurePosixPath(member.name) for member in entries]
+        files = [PurePosixPath(member.name) for member in entries if not member.isdir()]
 
     if not members:
         return ["source distribution is empty"]
@@ -89,7 +91,12 @@ def validate_sdist(path: Path) -> list[str]:
         for member in members
         if root and member.parts and member.parts[0] == root and len(member.parts) > 1
     }
-    missing = sorted(REQUIRED_SUFFIXES - relative)
+    relative_files = {
+        member.relative_to(root).as_posix()
+        for member in files
+        if root and member.parts and member.parts[0] == root and len(member.parts) > 1
+    }
+    missing = sorted(REQUIRED_SUFFIXES - relative_files)
     if missing:
         problems.append(f"required source files are missing: {missing}")
 
@@ -107,7 +114,7 @@ def validate_sdist(path: Path) -> list[str]:
             f"{unexpected_roots}"
         )
 
-    problems.extend(_TOOLS_CONTRACT["validate_tools_files"](relative))
+    problems.extend(_TOOLS_CONTRACT["validate_tools_files"](relative_files))
 
     forbidden = sorted(
         member.as_posix()
@@ -128,7 +135,7 @@ def validate_sdist(path: Path) -> list[str]:
 
     rust_sources = {
         name
-        for name in relative
+        for name in relative_files
         if name.startswith("rust/src/") and name.endswith(".rs")
     }
     if not rust_sources:

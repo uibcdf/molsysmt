@@ -2333,7 +2333,12 @@ the public runtime outside the checkout pass locally with the original wheel,
 the unchanged frozen 25-source inventory and controlled Viewer wheel. The small
 prefix inherits development dependencies; this does not turn the historical
 workflow green or replace the next candidate's installed/platform qualification.
-Integration and #537 closure still wait for their required executed evidence.
+The #537 native validator correction is now received independently from PR #538:
+its exact production patch and four adapted red/green controls pass alongside
+#551, with 98 packaging controls and an unchanged real 59,061,773-byte archive.
+This closes the native defect without admitting the metadata namespaces.
+Combined integration still needs a refreshed, separately identified candidate
+containing the later main repairs and its applicable executed gates.
 This does not move the
 frozen candidate or certify an installed pair.
 

@@ -106,11 +106,12 @@ Current receiving and next admitted defect/contribution reviews:
    passes / four optional skips) and performance audit 41730356380. The original
    bounded-read guards execute successfully; the old failures remain historical.
    This defect no longer blocks the metadata contributions' remaining gates.
-2. **[#537](pending_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
-   and PRs #538/#540:** ordinary TarInfo directories are independently confirmed to
-   fail the source-file inventory. PR #538 proposes its correction plus four
-   bound supported reports; #540 proposes seven attribute metadata tools. Both
-   remain unmerged. Reconcile their inventories, retain newer guards and qualify
+2. **[#537](archive/resolved_bugs/sdist_directory_entries_mistaken_for_addon_files.md)
+   and PRs #538/#540:** the native TarInfo directory correction is received
+   separately from PR #538, with four red/green guards and an unchanged real
+   59,061,773-byte archive. All 98 packaging controls pass. The four supported
+   reports and seven attribute metadata tools remain unmerged. Reconcile their
+   inventories, retain newer guards and qualify
    the combined integration. Candidate a24b14f3d retains both PR ancestries,
    passes 2,687 local tests without omissions and the corrected hosted smoke.
    All eight full-matrix lanes now pass. Rust workflow 41730347088 remains a
