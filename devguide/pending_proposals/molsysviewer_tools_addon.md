@@ -14,6 +14,26 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Refreshed candidate gate receiving — 2026-11-04
+
+Frozen source 4ea80278f7dc1cd2009a9440fcc5786627430950 passes native-wheel
+workflow 41755220512: thirty successful jobs, one pull-request-only skip and
+all four Python 3.11--3.14 installed public-runtime jobs. Smoke, performance,
+dependency, Ruff, data and governance checks also pass on that exact source.
+The full source matrix 41755216514 remains failed: every original JUnit report
+contains the same two obsolete generic donor-digester expectations, now owned
+by #552. The source and native results retain their distinct outcomes.
+
+The native test-only repair aligns those retained assertions with #511's
+accepted int64 anchor/pair contract, adds eight public selector-rejection cases,
+and selects the two generic modules in native smoke. Wider receiving passes
+1,141 cases without omissions; the original production source is unchanged.
+The [owner record](../archive/resolved_bugs/legacy_donor_digester_tests_retain_obsolete_selector_and_list_expectations.md)
+and [receipt](../../devtools/data/legacy_donor_guard_receiving_552_20261104.json)
+retain every original cell and successful native artifact-container identity.
+The frozen r2 candidate is not moved. Prepare and qualify its corrected successor
+before main integration; these repairs do not authorize package publication.
+
 **Reported:** 2026-10-22, explicit maintainer direction after reconsidering the
 visual-core/scientific-tools boundary with MolSysViewer.
 **Status:** partial implementation: six source-qualified `basic` queries, bound

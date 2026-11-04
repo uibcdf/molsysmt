@@ -139,6 +139,8 @@ def test_empty_precomputed_donors_keep_shaped_results(water_system, method, dono
 @pytest.mark.parametrize(
     "bad",
     [
+        "all",
+        'atom_type=="O"',
         [True],
         [0, True],
         [0.0],

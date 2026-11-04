@@ -94,6 +94,17 @@ not a full hosted matrix or installed-pair qualification.
 
 ### New board and PR review — 2026-11-03
 
+**Gate follow-up, 2026-11-04:** refreshed metadata source 4ea80278f passes all
+native-wheel/installed-public smoke jobs in 41755220512, plus smoke, performance
+and administrative checks. Full matrix 41755216514 still fails in all eight
+cells on the same two legacy private donor-digester assertions. Their test-only
+alignment is owned by
+[#552](archive/resolved_bugs/legacy_donor_digester_tests_retain_obsolete_selector_and_list_expectations.md):
+127 focal and 1,141 broader cases pass, with eight new public rejection cases
+and unchanged production code. Both generic guards now join native smoke.
+Preserve the frozen r2 identity and qualify a new exact candidate before merging
+the metadata extensions. Passing native jobs do not replace the failed full suite.
+
 The refreshed board contains 87 open issues and two open PRs before the two
 metadata closeouts above. New incoming work is #537, PR #538, #539 and PR #540. These
 counts are a dated snapshot, not a live generated inventory.
