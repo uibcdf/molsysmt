@@ -511,6 +511,10 @@ sections:
         index_agents_file: docs/content/user/tools/element/index.AGENTS.md
         status: pending_review
         pages:
+          - name: group_name_code
+            file: docs/content/user/tools/element/group/get_1_letter_code_from_name.ipynb
+            agents_file: docs/content/user/tools/element/group/get_1_letter_code_from_name.ipynb.AGENTS.md
+            description: Bounded scheme-aware amino-acid projection, ambiguity refusal, mixed native declarations, optional data attribution and H5MSM preservation.
           - name: atom_types
             file: docs/content/user/tools/element/atom/atom_types.md
             agents_file: docs/content/user/tools/element/atom/atom_types.md.AGENTS.md

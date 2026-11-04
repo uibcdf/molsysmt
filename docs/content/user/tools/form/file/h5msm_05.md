@@ -59,7 +59,9 @@ molecule membership without loading chemical states.
 
 Topology layer schema 4 additionally stores explicit group-name conventions in
 `group_naming_schemes`. Its `codes` dataset is a one-byte unsigned integer vector
-of length `n_groups`, with zero for unknown and codes 1/2/3 for `amber`/`ccd`/`legacy`.
+of length `n_groups`, with zero for unknown and codes 1/2/3/4 for
+`amber`/`ccd`/`legacy`/`sequence`. Original three-profile registries remain
+readable; a code is valid only for a profile declared in its file.
 The subgroup's `schema_version=1` and JSON `profiles` attributes identify that
 versioned declaration vocabulary. Unsupported registries, versions, shapes,
 dtypes and codes reject. This records source labels without choosing chemical

@@ -34,9 +34,10 @@ Unknown fields and row fields are rejected, including chemical data
 incorrectly inserted into this stable schema.
 
 Schema 0.3 retains the same table rows. Its naming declaration has
-`schema_version=1`, a `profiles` list identifying `amber`, `ccd` and `legacy`
+`schema_version=1`, a `profiles` list identifying `amber`, `ccd`, `legacy` and `sequence`
 at declaration version 1, and a `codes` list with one integer per group.
-Codes 1, 2 and 3 refer to those profiles; zero means unknown. Unsupported
+Codes 1, 2, 3 and 4 refer to those profiles; zero means unknown. The original
+three-profile registry remains readable without reinterpreting its codes. Unsupported
 versions, registries, codes or group counts reject. This versions the declaration
 vocabulary, not a claim of complete database coverage. Old records without a
 declaration stay unknown. A MolSysDict 0.2 can contain this independently

@@ -12,7 +12,7 @@ def to_string_amino_acids_1(item, group_indices="all", skip_digestion=False):
     item : molecular system
         Argument item.
     group_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Argument group_indices.
+        Positional source groups to project, preserving order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -21,15 +21,18 @@ def to_string_amino_acids_1(item, group_indices="all", skip_digestion=False):
     string:amino_acids_1
         Resulting object in string:amino_acids_1 form.
 
+    Notes
+    -----
+    Stored group-name conventions are read per selected group. Context-dependent
+    or unassessed names without a declaration are rejected; no global Amber,
+    CCD or legacy fallback is selected. Non-amino-acid groups are omitted.
+    Projection preserves names and chemical assignments. Optional Ackredit
+    credit is collected once for the complete query, not per group.
+
 
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.topology._sequence import amino_acid_groups
+    from molsysmt._private.name_resolution import native_sequence
 
-    from . import get_group_name_from_group, get_group_type_from_group
-
-    names = get_group_name_from_group(item, indices=group_indices)
-    types = get_group_type_from_group(item, indices=group_indices)
-    sequence, _ = amino_acid_groups(names, types, range(len(names)))
-    return sequence
+    return native_sequence(item, group_indices, caller=__name__)

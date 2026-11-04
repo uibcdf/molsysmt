@@ -178,6 +178,8 @@ def test_public_bond_and_historical_hbond_api_pages_are_connected(tmp_path, lega
         [
             "content/user/tools/element/atom/atom_types.md",
             "content/user/tools/element/group/get_bonded_atom_pairs.ipynb",
+            "content/user/tools/element/group/get_1_letter_code_from_name.ipynb",
+            "content/user/foundations/molecular_system/naming_schemes.md",
             "content/user/tools/interactions/result.md",
         ]
         + [
@@ -234,6 +236,10 @@ def test_public_bond_and_historical_hbond_api_pages_are_connected(tmp_path, lega
             assert warnings.getvalue().count("[toc.not_included]") == 5
             return
         assert targets <= connected
+        assert (
+            "api/element/group/autosummary/molsysmt.element.group.get_1_letter_code_from_name"
+            in connected
+        )
         assert warnings.getvalue() == ""
         bond_html = (Path(app.outdir) / "api/element/bond/api_bond.html").read_text()
         assert (

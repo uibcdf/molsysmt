@@ -83,7 +83,7 @@ executed {ref}`Cookbook_Group_Free_Hierarchy` recipe.
 ## Naming Declarations
 
 `topology.group_naming_schemes` is an immutable tuple aligned with group indices.
-Each position is `amber`, `ccd`, `legacy` or `None` for unknown. Declare a common
+Each position is `amber`, `ccd`, `legacy`, `sequence` or `None` for unknown. Declare a common
 source vocabulary with `topology.set_group_naming_schemes('amber')`, or pass one
 value per selected group using `group_indices`. Passing `None` explicitly clears
 the selected declarations; it does not inspect names to infer a convention.
@@ -94,7 +94,8 @@ extraction and addition retain declarations; new builder groups start unknown.
 Resetting the group table clears its declarations. A changed declaration
 invalidates attached interactions atomically; an unchanged assignment is a
 no-op. See {ref}`user-foundations-group-naming-schemes` for supported identifiers
-and the distinction between delivered metadata and pending name resolution.
+and the distinction between native sequence projection and consumers still
+pending migration.
 
 ## Container Conversion
 

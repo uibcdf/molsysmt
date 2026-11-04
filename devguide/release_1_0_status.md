@@ -22,6 +22,25 @@ contracts.
 
 ## Group-name scheme design accepted — 2026-11-04
 
+**Local D3 and initial D4 receiving:** The scheme-aware group-level letter
+helper and private resolver are implemented. The maintainer admits `sequence`
+after primary CCD inspection confirms additional XAA/XLE collisions. Its appended
+code preserves old three-profile wire meaning. Explicit peptide templates now
+declare Amber, canonical sequence construction declares its alphabet, and native
+sequence projection uses group context across native/dictionary/H5MSM routes.
+Names, bonds and absent coordinates are retained. The final floor selection
+passes 229 cases; a separate sequence/FASTA/template selection passes 341.
+Independent 229-case receiving also passes with public Ackredit 0.9.0 and
+ArgDigest 0.13.0 in the existing development environment; it does not qualify
+an installed MolSysMT artifact or its complete dependency closure.
+The owning record retains the extended run's one obsolete schema assertion and
+the successful targeted correction, plus documentation/attribution evidence.
+
+D0–D3 are complete locally. D4's general source override, remaining consumer
+audit and D6's coordinated old-path/addon retirement are next. The old standalone
+amino-acid parent helper is not fixed by the new entry point. No push, remote CI,
+installed package, tag or complete issue qualification is claimed here.
+
 **Local D2 receiving:** Native group-aligned naming declarations and versioned
 transport are now implemented and contract-tested. TopologyDict 0.3 carries the
 registry/codes; H5MSM root 0.5 uses topology layer 4. Known/unknown mixed groups,
@@ -31,7 +50,7 @@ receiving passes 138 cases with public ArgDigest 0.13.0, including seventy new
 naming guards. The owning record distinguishes finality and warnings. Changes
 remain local pending a meaningful combined publication checkpoint.
 
-D0–D2 are complete locally; D3's shared name resolver and public helper are next.
+D0–D2 were complete at that checkpoint; D3 is received locally above.
 The original GLH/HID/HIE interpretation/conversion bug remains open. This storage
 block is not scientific profile validation, hosted CI or package qualification.
 
@@ -40,12 +59,12 @@ comparison of supported schemes and their differences. The
 [owning plan](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#accepted-design--2026-11-04)
 records group-aligned Topology ownership, default ambiguity refusal, source
 argument spelling, helper relocation and native/H5MSM/dictionary preservation.
-The new conceptual User Guide page distinguishes the current legacy behavior
-from the accepted amber/ccd/legacy profiles still to implement.
+The conceptual User Guide page distinguishes the delivered scheme-aware helper
+and native sequence routes from the remaining legacy consumers and override work.
 
 The source study confirms real CCD/Amber collisions and native template sequence
-failures. No runtime table, public signature or file schema is changed by this
-documentation checkpoint. D0/D1 were complete; D2's typed storage/schema contract
+failures. The earlier documentation-only checkpoint changed no runtime table,
+public signature or file schema. D0/D1 were complete; D2's typed storage/schema contract
 is received locally above. This accepted correction precedes #504 and #543 receiving.
 
 The six applicable routine workflows for source 5f3af9374 all pass, including

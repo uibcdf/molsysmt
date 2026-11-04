@@ -5,7 +5,7 @@ import numpy as np
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
 # These identifiers version the declaration vocabulary, not complete databases.
-PROFILES = (("amber", 1), ("ccd", 1), ("legacy", 1))
+PROFILES = (("amber", 1), ("ccd", 1), ("legacy", 1), ("sequence", 1))
 NAMES = (None,) + tuple(name for name, _ in PROFILES)
 
 
@@ -92,15 +92,14 @@ def decode(payload, n_groups):
         or set(payload) != {"schema_version", "profiles", "codes"}
         or type(payload["schema_version"]) is not int
         or payload["schema_version"] != 1
-        or payload["profiles"] != expected
+        or payload["profiles"] not in (expected[:3], expected)
         or any(type(item.get("version")) is not int for item in payload["profiles"])
     ):
         raise ValueError("Unsupported group naming declaration registry.")
     values = payload["codes"]
+    limit = len(payload["profiles"]) + 1
     if isinstance(values, list):
-        if any(
-            type(value) is not int or not 0 <= value < len(NAMES) for value in values
-        ):
+        if any(type(value) is not int or not 0 <= value < limit for value in values):
             raise ValueError("Invalid group naming declaration codes.")
         values = np.asarray(values, dtype=np.uint8)
     if (
@@ -108,7 +107,7 @@ def decode(payload, n_groups):
         or np.ma.isMaskedArray(values)
         or values.dtype != np.dtype("uint8")
         or values.shape != (n_groups,)
-        or np.any(values >= len(NAMES))
+        or np.any(values >= limit)
     ):
         raise ValueError("Invalid group naming declaration codes or group alignment.")
     return compact(values)

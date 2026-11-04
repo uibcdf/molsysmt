@@ -29,6 +29,9 @@ def from_group_records(records):
         ],
         dtype="string",
     )
+    topology.set_group_naming_schemes(
+        ["sequence" if name in aa3_to_aa1 else None for name in names]
+    )
     topology.groups["molecule_index"] = pd.array(
         np.repeat(np.arange(count), [len(record["groups"]) for record in records]),
         dtype="Int64",

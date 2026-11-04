@@ -307,7 +307,7 @@ class Topology(NativeQueries):
     def group_naming_schemes(self):
         """Getting immutable source-name declarations in group-index order.
 
-        Each entry is ``amber``, ``ccd``, ``legacy`` or None (unknown).
+        Each entry is ``amber``, ``ccd``, ``legacy``, ``sequence`` or None (unknown).
         A declaration describes the vocabulary of the stored group name; it
         does not certify a complete database, infer chemistry or rename a group.
         """
@@ -332,7 +332,7 @@ class Topology(NativeQueries):
         Parameters
         ----------
         naming_schemes : str, sequence of str or none, optional
-            Source vocabulary: 'amber', 'ccd' or 'legacy'. A scalar applies to
+            Source vocabulary: 'amber', 'ccd', 'legacy' or 'sequence'. A scalar applies to
             every selected group; a sequence aligns with group_indices. None
             clears the selected declarations to unknown. Names are preserved.
         group_indices : int or array_like of int or str, default='all'

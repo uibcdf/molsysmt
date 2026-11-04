@@ -121,17 +121,24 @@ def test_dictionary_and_h5msm_preserve_native_membership(group_system, tmp_path)
     topology = group_system.topology
     payload = msm.convert(topology, to_form="molsysmt.TopologyDict")
     data = json.loads(json.dumps(payload.to_dict()))
-    assert data["version"] == "0.2"
+    assert data["version"] == "0.3"
+    assert data["group_naming_schemes"]["codes"] == [4, 4, 4, 4, 4]
     assert data["chain_groups"] == [[0, 1], [2], [3, 4], []]
     restored = msm.convert(msm.TopologyDict(data=data), to_form="molsysmt.Topology")
     assert restored.chain_groups == topology.chain_groups
+    assert (
+        restored.group_naming_schemes
+        == topology.group_naming_schemes
+        == ("sequence",) * 5
+    )
     assert restored.chains.chain_id.tolist() == ["A", "B", "C", "D"]
     path = str(tmp_path / "membership.h5msm")
     msm.convert(group_system, to_form=path)
     with h5py.File(path) as file:
-        assert file["topology"].attrs["schema_version"] == 2
+        assert file["topology"].attrs["schema_version"] == 4
     loaded = msm.convert(path, to_form="molsysmt.MolSys")
     assert loaded.topology.chain_groups == topology.chain_groups
+    assert loaded.topology.group_naming_schemes == ("sequence",) * 5
     assert loaded.get(element="group", chain_id=True) == ["A", "A", "B", "C", "C"]
 
 

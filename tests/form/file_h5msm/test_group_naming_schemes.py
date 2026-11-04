@@ -27,6 +27,7 @@ def test_dictionary_json_round_trip_preserves_mixed_declarations(atoms, enclosin
         {"name": "amber", "version": 1},
         {"name": "ccd", "version": 1},
         {"name": "legacy", "version": 1},
+        {"name": "sequence", "version": 1},
     ]
     result = msm.convert(
         type(wire)(data),
@@ -90,7 +91,7 @@ def test_dictionary_invalid_metadata_fails_instead_of_becoming_unknown(damage):
     elif damage == "boolean_version":
         naming["profiles"][0]["version"] = True
     elif damage == "code":
-        naming["codes"][0] = 4
+        naming["codes"][0] = 5
     elif damage == "boolean_code":
         naming["codes"][0] = True
     elif damage == "count":
@@ -124,7 +125,7 @@ def test_h5msm_rejects_invalid_naming_payload(tmp_path, damage):
             values = (
                 [1, 0]
                 if damage == "length"
-                else [1, 0, 4]
+                else [1, 0, 5]
                 if damage == "codes"
                 else [1, 0, 2]
             )
@@ -157,6 +158,35 @@ def test_layer_four_preserves_independent_membership_relations(
     assert restored.get(element="atom", molecule_index=True) == [0, 0, 0, 0]
     if chain_groups:
         assert restored.chain_groups == ((2, 0, 1),)
+
+
+@pytest.mark.parametrize("invalid_new_code", [False, True])
+def test_original_three_profile_registry_retains_its_meaning(invalid_new_code):
+    source = topology_with_schemes()
+    wire = msm.convert(source, to_form="molsysmt.TopologyDict")
+    wire.data["group_naming_schemes"]["profiles"].pop()
+    if invalid_new_code:
+        wire.data["group_naming_schemes"]["codes"][0] = 4
+        with pytest.raises(ValueError, match="naming"):
+            msm.convert(wire, to_form="molsysmt.Topology")
+    else:
+        restored = msm.convert(wire, to_form="molsysmt.Topology")
+        assert restored.group_naming_schemes == ("amber", None, "ccd")
+
+
+def test_sequence_registry_extension_round_trips_and_old_h5msm_registry_reads(tmp_path):
+    source = topology_with_schemes(atoms=False)
+    source.set_group_naming_schemes("sequence", group_indices=1)
+    filename = str(tmp_path / "sequence.h5msm")
+    msm.h5msm.write_layers(filename, topology=source)
+    restored = msm.h5msm.read_layers(filename, layers=["topology"])["topology"]
+    assert restored.group_naming_schemes == ("amber", "sequence", "ccd")
+    with h5py.File(filename, "r+") as file:
+        naming = file["topology/group_naming_schemes"]
+        naming.attrs["profiles"] = json.dumps(json.loads(naming.attrs["profiles"])[:3])
+        naming["codes"][1] = 0
+    restored = msm.h5msm.read_layers(filename, layers=["topology"])["topology"]
+    assert restored.group_naming_schemes == ("amber", None, "ccd")
 
 
 def test_old_schema_retains_unknown_and_new_dictionary_can_be_extracted(tmp_path):

@@ -1,0 +1,624 @@
+{
+  "schema": "molsysmt.naming_reference_review@1",
+  "date": "2026-11-04",
+  "records": [
+    {
+      "code": "ALA",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/ALA",
+      "sha256": "f796415e0d4e03898a12494f13a143b3a4fbd0522937d574fc85a5da74a8dd8a",
+      "chem_comp": {
+        "id": "ALA",
+        "name": "ALANINE",
+        "type": "L-peptide linking",
+        "formula": "C3 H7 N O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "A",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "ARG",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/ARG",
+      "sha256": "73e6564a4e663e67723e02efa44256d91152b8826020158cb8ef58b5c3516b8f",
+      "chem_comp": {
+        "id": "ARG",
+        "name": "ARGININE",
+        "type": "L-peptide linking",
+        "formula": "C6 H15 N4 O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "R",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "ASN",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASN",
+      "sha256": "b7034d27b781a401a78e2612bffb9f7210a614b2e969c8893f82bcbd652be30c",
+      "chem_comp": {
+        "id": "ASN",
+        "name": "ASPARAGINE",
+        "type": "L-peptide linking",
+        "formula": "C4 H8 N2 O3",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "N",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "ASP",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASP",
+      "sha256": "c554b9db5a600d128aad67e156def277877d88ac98b49dda02a01a260cbc1a95",
+      "chem_comp": {
+        "id": "ASP",
+        "name": "ASPARTIC ACID",
+        "type": "L-peptide linking",
+        "formula": "C4 H7 N O4",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "D",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "CYS",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/CYS",
+      "sha256": "87f3131eaa1ed481cf6a5825a7be6dfc3491c6bbe9c4ce61ae35ab9fea7ef2ca",
+      "chem_comp": {
+        "id": "CYS",
+        "name": "CYSTEINE",
+        "type": "L-peptide linking",
+        "formula": "C3 H7 N O2 S",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "C",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "GLU",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLU",
+      "sha256": "59c1da91927e731de4573b91a800a422c8e0ef31013a1e7585d4a11d24f91501",
+      "chem_comp": {
+        "id": "GLU",
+        "name": "GLUTAMIC ACID",
+        "type": "L-peptide linking",
+        "formula": "C5 H9 N O4",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "E",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "GLN",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLN",
+      "sha256": "54f90dc2d2cb59fc7f9e916fc5ef2ca1f159d69c30b5e5096ad8a4b7147e2d03",
+      "chem_comp": {
+        "id": "GLN",
+        "name": "GLUTAMINE",
+        "type": "L-peptide linking",
+        "formula": "C5 H10 N2 O3",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "Q",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "GLY",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLY",
+      "sha256": "b07b8ec35fb16d23d3570f1ece1e71ebfc0e1bd0d8c3d400ddddc5d94cabc347",
+      "chem_comp": {
+        "id": "GLY",
+        "name": "GLYCINE",
+        "type": "peptide linking",
+        "formula": "C2 H5 N O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "G",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "HIS",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/HIS",
+      "sha256": "6c15388653bd8e6cdf00c34dbd027e39651baf1cd9dd13242b0a881ea314ac9b",
+      "chem_comp": {
+        "id": "HIS",
+        "name": "HISTIDINE",
+        "type": "L-peptide linking",
+        "formula": "C6 H10 N3 O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "H",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2023-11-03T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "ILE",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/ILE",
+      "sha256": "542b86c1c53494e903d927c361e8b0867c1dc7843b0733c8c312a1ae8d2c8fb9",
+      "chem_comp": {
+        "id": "ILE",
+        "name": "ISOLEUCINE",
+        "type": "L-peptide linking",
+        "formula": "C6 H13 N O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "I",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2023-11-03T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "LEU",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/LEU",
+      "sha256": "717c9eef6e21b11facbc31cd26580a42118fb391b4406b97059bfe91668480b7",
+      "chem_comp": {
+        "id": "LEU",
+        "name": "LEUCINE",
+        "type": "L-peptide linking",
+        "formula": "C6 H13 N O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "L",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "LYS",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/LYS",
+      "sha256": "81916a04136c959179255e153ded26747e90c431d87ead17ad80f8301c5c3b5d",
+      "chem_comp": {
+        "id": "LYS",
+        "name": "LYSINE",
+        "type": "L-peptide linking",
+        "formula": "C6 H15 N2 O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "K",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "MET",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/MET",
+      "sha256": "055e7badc743802cb6d2f70e76f0053d60ad6094a85b48ff9071038cc6a6e14b",
+      "chem_comp": {
+        "id": "MET",
+        "name": "METHIONINE",
+        "type": "L-peptide linking",
+        "formula": "C5 H11 N O2 S",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "M",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "PHE",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/PHE",
+      "sha256": "6adc9d3fdf3289402679eea5e76a511f25b2b202efb156a5d83f80d71c37ad63",
+      "chem_comp": {
+        "id": "PHE",
+        "name": "PHENYLALANINE",
+        "type": "L-peptide linking",
+        "formula": "C9 H11 N O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "F",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "PRO",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/PRO",
+      "sha256": "aeebef1fb46f747bbff37fbd9f0c1a7289af223082fa3ef740681ea4274c6fc6",
+      "chem_comp": {
+        "id": "PRO",
+        "name": "PROLINE",
+        "type": "L-peptide linking",
+        "formula": "C5 H9 N O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "P",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "PYL",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/PYL",
+      "sha256": "2fd594dd22740cbaff4f2242e313939f50baf1a19d54c627a339198e0bd90bdb",
+      "chem_comp": {
+        "id": "PYL",
+        "name": "PYRROLYSINE",
+        "type": "L-peptide linking",
+        "formula": "C12 H21 N3 O3",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "O",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-02-07T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "SER",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/SER",
+      "sha256": "d5e7f2ac11e8448ff57a6af5f15599389257e19dfe97a9647a10c7f0dd6c268a",
+      "chem_comp": {
+        "id": "SER",
+        "name": "SERINE",
+        "type": "L-peptide linking",
+        "formula": "C3 H7 N O3",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "S",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "SEC",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/SEC",
+      "sha256": "c0b5e433a351ff524ad5a9db88f9d0f955728bf26dedb19770d950819c4c6104",
+      "chem_comp": {
+        "id": "SEC",
+        "name": "SELENOCYSTEINE",
+        "type": "L-peptide linking",
+        "formula": "C3 H7 N O2 Se",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "U",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "THR",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/THR",
+      "sha256": "2606b0c45954e07980c5e05aac6f42857b50d909e6b7e4a8215476a20cb39970",
+      "chem_comp": {
+        "id": "THR",
+        "name": "THREONINE",
+        "type": "L-peptide linking",
+        "formula": "C4 H9 N O3",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "T",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2023-11-03T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "TRP",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/TRP",
+      "sha256": "53d7dba4c69a2272f23ba1b25b6e67c155120ab934f1063dd86a373efc23d4a5",
+      "chem_comp": {
+        "id": "TRP",
+        "name": "TRYPTOPHAN",
+        "type": "L-peptide linking",
+        "formula": "C11 H12 N2 O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "W",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2023-11-03T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "TYR",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/TYR",
+      "sha256": "d639996903a7de667b7b530b78c0dab244c954783f908f7d0b55637892b68a2f",
+      "chem_comp": {
+        "id": "TYR",
+        "name": "TYROSINE",
+        "type": "L-peptide linking",
+        "formula": "C9 H11 N O3",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "Y",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "VAL",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/VAL",
+      "sha256": "d838f9d7bfaa768c68b7123b2baa4b87e061359ac48af3dfedb220268714072b",
+      "chem_comp": {
+        "id": "VAL",
+        "name": "VALINE",
+        "type": "L-peptide linking",
+        "formula": "C5 H11 N O2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "V",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2023-11-03T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "ASX",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASX",
+      "sha256": "b78f2fd0f55a59a02361f751e14b972dd50575e39a9c046b207cdda9d7a049fe",
+      "chem_comp": {
+        "id": "ASX",
+        "name": "ASP/ASN AMBIGUOUS",
+        "type": "L-peptide linking",
+        "formula": "C4 H6 N O2 X2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "B",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2023-11-03T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "GLX",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLX",
+      "sha256": "3811b71a53d31993ea92703a0bbeb275f719c53e4385bc797059d139a8602b26",
+      "chem_comp": {
+        "id": "GLX",
+        "name": "GLU/GLN AMBIGUOUS",
+        "type": "L-peptide linking",
+        "formula": "C5 H8 N O2 X2",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": "Z",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2023-11-03T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "XAA",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/XAA",
+      "sha256": "4e6f96bb98a44827745db2b528ce5070f64a7bb1fc41a5fb8532636ce10f37f7",
+      "chem_comp": {
+        "id": "XAA",
+        "name": "(1S,2S)-1-AMINO-1-(1,3-THIAZOL-2-YL)PROPAN-2-OL",
+        "type": "non-polymer",
+        "formula": "C6 H10 N2 O S",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2011-06-04T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "XLE",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/XLE",
+      "sha256": "ad1c986eb0f2225ee03d9846d92a913411320f94a1a89a2891a87a7606ae618b",
+      "chem_comp": {
+        "id": "XLE",
+        "name": "4-{[1-(3-{2-[(5-methyl-2H-tetrazol-2-yl)methyl]-4-(trifluoromethyl)phenyl}propanoyl)piperidin-4-yl]methyl}benzene-1-sulfonamide",
+        "type": "non-polymer",
+        "formula": "C25 H29 F3 N6 O3 S",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-12-13T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "MSE",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/MSE",
+      "sha256": "fffe530fadbd29cf89c942b11c206db0b5e48e5220f5384227dc67ad28f565bf",
+      "chem_comp": {
+        "id": "MSE",
+        "name": "SELENOMETHIONINE",
+        "type": "L-peptide linking",
+        "formula": "C5 H11 N O2 Se",
+        "mon_nstd_parent_comp_id": [
+          "MET"
+        ],
+        "one_letter_code": "M",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "SEP",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/SEP",
+      "sha256": "5b9bc12c038e93b84d70b7b3313d2dc4736d1f95961cd98d53d65eea766dbaa0",
+      "chem_comp": {
+        "id": "SEP",
+        "name": "PHOSPHOSERINE",
+        "type": "L-peptide linking",
+        "formula": "C3 H8 N O6 P",
+        "mon_nstd_parent_comp_id": [
+          "SER"
+        ],
+        "one_letter_code": "S",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2025-08-24T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "TPO",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/TPO",
+      "sha256": "a1119f535bee150dc848ffde3afd57651f76a682e8cbe48f0d0c834c633e1ef2",
+      "chem_comp": {
+        "id": "TPO",
+        "name": "PHOSPHOTHREONINE",
+        "type": "L-peptide linking",
+        "formula": "C4 H10 N O6 P",
+        "mon_nstd_parent_comp_id": [
+          "THR"
+        ],
+        "one_letter_code": "T",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "PTR",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/PTR",
+      "sha256": "6b5d693febc9db118867a9f73ac527cd8d52909604e6dca6d2dda085cd6b85a8",
+      "chem_comp": {
+        "id": "PTR",
+        "name": "O-PHOSPHOTYROSINE",
+        "type": "L-peptide linking",
+        "formula": "C9 H12 N O6 P",
+        "mon_nstd_parent_comp_id": [
+          "TYR"
+        ],
+        "one_letter_code": "Y",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2026-01-30T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "GLH",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLH",
+      "status": 404
+    },
+    {
+      "code": "HID",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/HID",
+      "sha256": "9887b2b6253b299a0bbe4d0a78d8669b4fb129fc027adfb256b512802d547afa",
+      "chem_comp": {
+        "id": "HID",
+        "name": "(5-hydroxy-1H-indol-3-yl)acetic acid",
+        "type": "non-polymer",
+        "formula": "C10 H9 N O3",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2021-03-01T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "HIE",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/HIE",
+      "status": 404
+    },
+    {
+      "code": "HIP",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/HIP",
+      "sha256": "d8c62d13638049ac899a06b87b19b605321835a5b9335f956b38943b554fe35e",
+      "chem_comp": {
+        "id": "HIP",
+        "name": "ND1-PHOSPHONOHISTIDINE",
+        "type": "L-peptide linking",
+        "formula": "C6 H11 N3 O5 P",
+        "mon_nstd_parent_comp_id": [
+          "HIS"
+        ],
+        "one_letter_code": "H",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "ASH",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASH",
+      "sha256": "1b84563282ff82591d2b32649a931fd8b10570e8e78f66aeb499770a8d39c3c0",
+      "chem_comp": {
+        "id": "ASH",
+        "name": "3-chloro-N-(4-morpholin-4-ylphenyl)-6-pyridin-3-ylimidazo[1,2-a]pyrazin-8-amine",
+        "type": "non-polymer",
+        "formula": "C21 H19 Cl N6 O",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2011-06-04T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "CYM",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/CYM",
+      "status": 404
+    },
+    {
+      "code": "CYX",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/CYX",
+      "sha256": "a16a8ad415dd1252ae7ec452b472604e962bd2d7f50623fe29e69ee9445a8adf",
+      "chem_comp": {
+        "id": "CYX",
+        "name": "(3-FORMYL-BUT-3-ENYL)-PHOSPHONIC ACID",
+        "type": "non-polymer",
+        "formula": "C5 H9 O4 P",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2024-09-27T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "LYN",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/LYN",
+      "sha256": "b368b5aef57e82ac53a345021b75f6bc5bb2641cfe259b1589f39301059f656d",
+      "chem_comp": {
+        "id": "LYN",
+        "name": "2,6-DIAMINO-HEXANOIC ACID AMIDE",
+        "type": "L-peptide linking",
+        "formula": "C6 H16 N3 O",
+        "mon_nstd_parent_comp_id": [
+          "LYS"
+        ],
+        "one_letter_code": "K",
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2025-12-04T00:00:00.000+00:00"
+      }
+    },
+    {
+      "code": "HOH",
+      "url": "https://data.rcsb.org/rest/v1/core/chemcomp/HOH",
+      "sha256": "f968fa5130c22f83b6d7983b102a2c004e54c20eb6c635722d71fde4f6f72174",
+      "chem_comp": {
+        "id": "HOH",
+        "name": "WATER",
+        "type": "non-polymer",
+        "formula": "H2 O",
+        "mon_nstd_parent_comp_id": null,
+        "one_letter_code": null,
+        "pdbx_release_status": "REL",
+        "pdbx_replaced_by": null,
+        "pdbx_modified_date": "2011-06-04T00:00:00.000+00:00"
+      }
+    }
+  ],
+  "amber_source": {
+    "commit": "656e5c6fcb05149e6aa936e1d69d1426b37ea3c7",
+    "path": "dat/leap/lib/amino12.lib",
+    "sha256": "dcd92afbb7ee4c8a737f1ad47eb714618b6c186759c902cd5c06c22a5378df77",
+    "matches_git": true,
+    "url": "https://github.com/Amber-MD/AmberClassic/blob/656e5c6fcb05149e6aa936e1d69d1426b37ea3c7/dat/leap/lib/amino12.lib"
+  },
+  "mdtraj_source": {
+    "commit": "80f7cf2ddb43dd0d32905e490464f2d8765329df",
+    "url": "https://github.com/mdtraj/mdtraj/blob/80f7cf2ddb43dd0d32905e490464f2d8765329df/mdtraj/core/residue_names.py",
+    "observed_glh_letter": "Q",
+    "sha256": "54016090f42c1212a05bc6606b9680d4b6a75121c32c4171d9c1560ebbfe2bd5",
+    "matches_git": true
+  },
+  "scope": "Bounded CCD records and reviewed Amber names; HTTP 404 is not universal absence."
+}

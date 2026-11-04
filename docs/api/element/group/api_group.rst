@@ -9,6 +9,7 @@ API Group
    :toctree: autosummary
 
    get_bonded_atom_pairs
+   get_1_letter_code_from_name
    get_group_type
    get_group_type_from_group_name
    is_group_type

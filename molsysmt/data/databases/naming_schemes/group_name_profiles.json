@@ -1,0 +1,355 @@
+{
+  "schema": "molsysmt.group_name_profiles@1",
+  "version": 1,
+  "review_sha256": "2610c115eddf315400be2b5589407a6aac0247bb69d9e9e65ef659739402c491",
+  "sequence": {
+    "version": 1,
+    "source_url": "https://www.ddbj.nig.ac.jp/ddbj/code-e.html",
+    "alphabet": "aa3_to_aa1"
+  },
+  "amber": {
+    "version": 1,
+    "source": {
+      "commit": "656e5c6fcb05149e6aa936e1d69d1426b37ea3c7",
+      "path": "dat/leap/lib/amino12.lib",
+      "sha256": "dcd92afbb7ee4c8a737f1ad47eb714618b6c186759c902cd5c06c22a5378df77",
+      "matches_git": true,
+      "url": "https://github.com/Amber-MD/AmberClassic/blob/656e5c6fcb05149e6aa936e1d69d1426b37ea3c7/dat/leap/lib/amino12.lib"
+    },
+    "parents": {
+      "ALA": "ALA",
+      "ARG": "ARG",
+      "ASN": "ASN",
+      "ASP": "ASP",
+      "CYS": "CYS",
+      "GLU": "GLU",
+      "GLN": "GLN",
+      "GLY": "GLY",
+      "HIS": "HIS",
+      "ILE": "ILE",
+      "LEU": "LEU",
+      "LYS": "LYS",
+      "MET": "MET",
+      "PHE": "PHE",
+      "PRO": "PRO",
+      "SER": "SER",
+      "THR": "THR",
+      "TRP": "TRP",
+      "TYR": "TYR",
+      "VAL": "VAL",
+      "GLH": "GLU",
+      "HID": "HIS",
+      "HIE": "HIS",
+      "HIP": "HIS",
+      "ASH": "ASP",
+      "CYM": "CYS",
+      "CYX": "CYS",
+      "LYN": "LYS"
+    }
+  },
+  "ccd": {
+    "version": 1,
+    "snapshot_date": "2026-11-04",
+    "entries": {
+      "ALA": {
+        "parent": "ALA",
+        "group_type": "amino acid",
+        "source_name": "ALANINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/ALA",
+        "source_sha256": "f796415e0d4e03898a12494f13a143b3a4fbd0522937d574fc85a5da74a8dd8a"
+      },
+      "ARG": {
+        "parent": "ARG",
+        "group_type": "amino acid",
+        "source_name": "ARGININE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/ARG",
+        "source_sha256": "73e6564a4e663e67723e02efa44256d91152b8826020158cb8ef58b5c3516b8f"
+      },
+      "ASN": {
+        "parent": "ASN",
+        "group_type": "amino acid",
+        "source_name": "ASPARAGINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASN",
+        "source_sha256": "b7034d27b781a401a78e2612bffb9f7210a614b2e969c8893f82bcbd652be30c"
+      },
+      "ASP": {
+        "parent": "ASP",
+        "group_type": "amino acid",
+        "source_name": "ASPARTIC ACID",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASP",
+        "source_sha256": "c554b9db5a600d128aad67e156def277877d88ac98b49dda02a01a260cbc1a95"
+      },
+      "CYS": {
+        "parent": "CYS",
+        "group_type": "amino acid",
+        "source_name": "CYSTEINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/CYS",
+        "source_sha256": "87f3131eaa1ed481cf6a5825a7be6dfc3491c6bbe9c4ce61ae35ab9fea7ef2ca"
+      },
+      "GLU": {
+        "parent": "GLU",
+        "group_type": "amino acid",
+        "source_name": "GLUTAMIC ACID",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLU",
+        "source_sha256": "59c1da91927e731de4573b91a800a422c8e0ef31013a1e7585d4a11d24f91501"
+      },
+      "GLN": {
+        "parent": "GLN",
+        "group_type": "amino acid",
+        "source_name": "GLUTAMINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLN",
+        "source_sha256": "54f90dc2d2cb59fc7f9e916fc5ef2ca1f159d69c30b5e5096ad8a4b7147e2d03"
+      },
+      "GLY": {
+        "parent": "GLY",
+        "group_type": "amino acid",
+        "source_name": "GLYCINE",
+        "source_type": "peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLY",
+        "source_sha256": "b07b8ec35fb16d23d3570f1ece1e71ebfc0e1bd0d8c3d400ddddc5d94cabc347"
+      },
+      "HIS": {
+        "parent": "HIS",
+        "group_type": "amino acid",
+        "source_name": "HISTIDINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/HIS",
+        "source_sha256": "6c15388653bd8e6cdf00c34dbd027e39651baf1cd9dd13242b0a881ea314ac9b"
+      },
+      "ILE": {
+        "parent": "ILE",
+        "group_type": "amino acid",
+        "source_name": "ISOLEUCINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/ILE",
+        "source_sha256": "542b86c1c53494e903d927c361e8b0867c1dc7843b0733c8c312a1ae8d2c8fb9"
+      },
+      "LEU": {
+        "parent": "LEU",
+        "group_type": "amino acid",
+        "source_name": "LEUCINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/LEU",
+        "source_sha256": "717c9eef6e21b11facbc31cd26580a42118fb391b4406b97059bfe91668480b7"
+      },
+      "LYS": {
+        "parent": "LYS",
+        "group_type": "amino acid",
+        "source_name": "LYSINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/LYS",
+        "source_sha256": "81916a04136c959179255e153ded26747e90c431d87ead17ad80f8301c5c3b5d"
+      },
+      "MET": {
+        "parent": "MET",
+        "group_type": "amino acid",
+        "source_name": "METHIONINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/MET",
+        "source_sha256": "055e7badc743802cb6d2f70e76f0053d60ad6094a85b48ff9071038cc6a6e14b"
+      },
+      "PHE": {
+        "parent": "PHE",
+        "group_type": "amino acid",
+        "source_name": "PHENYLALANINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/PHE",
+        "source_sha256": "6adc9d3fdf3289402679eea5e76a511f25b2b202efb156a5d83f80d71c37ad63"
+      },
+      "PRO": {
+        "parent": "PRO",
+        "group_type": "amino acid",
+        "source_name": "PROLINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/PRO",
+        "source_sha256": "aeebef1fb46f747bbff37fbd9f0c1a7289af223082fa3ef740681ea4274c6fc6"
+      },
+      "PYL": {
+        "parent": "PYL",
+        "group_type": "amino acid",
+        "source_name": "PYRROLYSINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/PYL",
+        "source_sha256": "2fd594dd22740cbaff4f2242e313939f50baf1a19d54c627a339198e0bd90bdb"
+      },
+      "SER": {
+        "parent": "SER",
+        "group_type": "amino acid",
+        "source_name": "SERINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/SER",
+        "source_sha256": "d5e7f2ac11e8448ff57a6af5f15599389257e19dfe97a9647a10c7f0dd6c268a"
+      },
+      "SEC": {
+        "parent": "SEC",
+        "group_type": "amino acid",
+        "source_name": "SELENOCYSTEINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/SEC",
+        "source_sha256": "c0b5e433a351ff524ad5a9db88f9d0f955728bf26dedb19770d950819c4c6104"
+      },
+      "THR": {
+        "parent": "THR",
+        "group_type": "amino acid",
+        "source_name": "THREONINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/THR",
+        "source_sha256": "2606b0c45954e07980c5e05aac6f42857b50d909e6b7e4a8215476a20cb39970"
+      },
+      "TRP": {
+        "parent": "TRP",
+        "group_type": "amino acid",
+        "source_name": "TRYPTOPHAN",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/TRP",
+        "source_sha256": "53d7dba4c69a2272f23ba1b25b6e67c155120ab934f1063dd86a373efc23d4a5"
+      },
+      "TYR": {
+        "parent": "TYR",
+        "group_type": "amino acid",
+        "source_name": "TYROSINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/TYR",
+        "source_sha256": "d639996903a7de667b7b530b78c0dab244c954783f908f7d0b55637892b68a2f"
+      },
+      "VAL": {
+        "parent": "VAL",
+        "group_type": "amino acid",
+        "source_name": "VALINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/VAL",
+        "source_sha256": "d838f9d7bfaa768c68b7123b2baa4b87e061359ac48af3dfedb220268714072b"
+      },
+      "ASX": {
+        "parent": "ASX",
+        "group_type": "amino acid",
+        "source_name": "ASP/ASN AMBIGUOUS",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASX",
+        "source_sha256": "b78f2fd0f55a59a02361f751e14b972dd50575e39a9c046b207cdda9d7a049fe"
+      },
+      "GLX": {
+        "parent": "GLX",
+        "group_type": "amino acid",
+        "source_name": "GLU/GLN AMBIGUOUS",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/GLX",
+        "source_sha256": "3811b71a53d31993ea92703a0bbeb275f719c53e4385bc797059d139a8602b26"
+      },
+      "XAA": {
+        "parent": null,
+        "group_type": "small molecule",
+        "source_name": "(1S,2S)-1-AMINO-1-(1,3-THIAZOL-2-YL)PROPAN-2-OL",
+        "source_type": "non-polymer",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/XAA",
+        "source_sha256": "4e6f96bb98a44827745db2b528ce5070f64a7bb1fc41a5fb8532636ce10f37f7"
+      },
+      "XLE": {
+        "parent": null,
+        "group_type": "small molecule",
+        "source_name": "4-{[1-(3-{2-[(5-methyl-2H-tetrazol-2-yl)methyl]-4-(trifluoromethyl)phenyl}propanoyl)piperidin-4-yl]methyl}benzene-1-sulfonamide",
+        "source_type": "non-polymer",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/XLE",
+        "source_sha256": "ad1c986eb0f2225ee03d9846d92a913411320f94a1a89a2891a87a7606ae618b"
+      },
+      "MSE": {
+        "parent": "MET",
+        "group_type": "amino acid",
+        "source_name": "SELENOMETHIONINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/MSE",
+        "source_sha256": "fffe530fadbd29cf89c942b11c206db0b5e48e5220f5384227dc67ad28f565bf"
+      },
+      "SEP": {
+        "parent": "SER",
+        "group_type": "amino acid",
+        "source_name": "PHOSPHOSERINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/SEP",
+        "source_sha256": "5b9bc12c038e93b84d70b7b3313d2dc4736d1f95961cd98d53d65eea766dbaa0"
+      },
+      "TPO": {
+        "parent": "THR",
+        "group_type": "amino acid",
+        "source_name": "PHOSPHOTHREONINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/TPO",
+        "source_sha256": "a1119f535bee150dc848ffde3afd57651f76a682e8cbe48f0d0c834c633e1ef2"
+      },
+      "PTR": {
+        "parent": "TYR",
+        "group_type": "amino acid",
+        "source_name": "O-PHOSPHOTYROSINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/PTR",
+        "source_sha256": "6b5d693febc9db118867a9f73ac527cd8d52909604e6dca6d2dda085cd6b85a8"
+      },
+      "HID": {
+        "parent": null,
+        "group_type": "small molecule",
+        "source_name": "(5-hydroxy-1H-indol-3-yl)acetic acid",
+        "source_type": "non-polymer",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/HID",
+        "source_sha256": "9887b2b6253b299a0bbe4d0a78d8669b4fb129fc027adfb256b512802d547afa"
+      },
+      "HIP": {
+        "parent": "HIS",
+        "group_type": "amino acid",
+        "source_name": "ND1-PHOSPHONOHISTIDINE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/HIP",
+        "source_sha256": "d8c62d13638049ac899a06b87b19b605321835a5b9335f956b38943b554fe35e"
+      },
+      "ASH": {
+        "parent": null,
+        "group_type": "small molecule",
+        "source_name": "3-chloro-N-(4-morpholin-4-ylphenyl)-6-pyridin-3-ylimidazo[1,2-a]pyrazin-8-amine",
+        "source_type": "non-polymer",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/ASH",
+        "source_sha256": "1b84563282ff82591d2b32649a931fd8b10570e8e78f66aeb499770a8d39c3c0"
+      },
+      "CYX": {
+        "parent": null,
+        "group_type": "small molecule",
+        "source_name": "(3-FORMYL-BUT-3-ENYL)-PHOSPHONIC ACID",
+        "source_type": "non-polymer",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/CYX",
+        "source_sha256": "a16a8ad415dd1252ae7ec452b472604e962bd2d7f50623fe29e69ee9445a8adf"
+      },
+      "LYN": {
+        "parent": "LYS",
+        "group_type": "amino acid",
+        "source_name": "2,6-DIAMINO-HEXANOIC ACID AMIDE",
+        "source_type": "L-peptide linking",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/LYN",
+        "source_sha256": "b368b5aef57e82ac53a345021b75f6bc5bb2641cfe259b1589f39301059f656d"
+      },
+      "HOH": {
+        "parent": null,
+        "group_type": "water",
+        "source_name": "WATER",
+        "source_type": "non-polymer",
+        "source_url": "https://data.rcsb.org/rest/v1/core/chemcomp/HOH",
+        "source_sha256": "f968fa5130c22f83b6d7983b102a2c004e54c20eb6c635722d71fde4f6f72174"
+      }
+    }
+  },
+  "legacy": {
+    "version": 1,
+    "source": {
+      "commit": "80f7cf2ddb43dd0d32905e490464f2d8765329df",
+      "url": "https://github.com/mdtraj/mdtraj/blob/80f7cf2ddb43dd0d32905e490464f2d8765329df/mdtraj/core/residue_names.py",
+      "observed_glh_letter": "Q",
+      "sha256": "54016090f42c1212a05bc6606b9680d4b6a75121c32c4171d9c1560ebbfe2bd5",
+      "matches_git": true
+    },
+    "parent_mapping": "molsysmt.element.group.amino_acid.group_types.name_to_type"
+  }
+}

@@ -163,6 +163,7 @@ def assemble(
     topology.groups["group_id"] = [str(i) for i in range(len(residue_names))]
     topology.groups["group_name"] = residue_names
     topology.groups["group_type"] = ["amino acid"] * len(residue_names)
+    topology.set_group_naming_schemes("amber")
     topology.groups["molecule_index"] = [0] * len(residue_names)
     topology.molecules["molecule_id"] = ["0"]
     topology.molecules["entity_index"] = [0]

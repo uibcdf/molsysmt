@@ -57,7 +57,7 @@ group-free reference-component representation when an identity atom-axis link
 is declared and its reference and molecule inventory agree. Equal cardinalities
 alone establish no correspondence. Ambiguous or missing evidence stays unknown.
 Topology-only projections never load chemical states to recover it. Layers 3/4
-does not use that recovery path, and ordinary native queries never infer a
+do not use that recovery path, and ordinary native queries never infer a
 molecule partition from chemical states.
 
 ## Version 0.5 naming declarations
@@ -67,11 +67,13 @@ Topology layer 4 preserves the same five stable tables and requires
 retain their existing contracts. The naming subgroup has exactly `schema_version`
 and `profiles` attributes and a `codes` dataset. Declaration schema 1 uses the
 JSON profile list `[{"name":"amber","version":1},{"name":"ccd","version":1},
-{"name":"legacy","version":1}]`. Profile versions identify this bounded
+{"name":"legacy","version":1},{"name":"sequence","version":1}]`. The original
+three-profile registry remains accepted; a code is bounded by its actual encoded
+registry, not by every profile known to the reader. Profile versions identify this bounded
 declaration vocabulary, not an entire force-field or CCD database snapshot.
 
 `codes` is an unsigned one-byte vector of shape `(n_groups,)`: zero is unknown;
-1/2/3 identify the three profiles in order. Unsupported registry/schema versions,
+1/2/3/4 identify the four profiles in order. Unsupported registry/schema versions,
 extra fields, invalid codes, dtypes and lengths reject. Writers choose layer 4
 when a naming declaration is present and otherwise retain layers 1/2/3. Older
 files without a declaration stay unknown; older readers reject layer 4 rather
@@ -80,7 +82,9 @@ than dropping metadata. Root 0.5 and all other layer schemas are unchanged.
 The native vector is absent when all groups are unknown. Copies, extraction,
 atom-free group reordering, addition and builder growth preserve existing group
 codes; new groups start unknown. The declaration remains independent of chemistry
-and does not yet activate the pending #549 scheme-aware name resolver.
+and is read by the bounded #549 group-name helper and native sequence projection.
+Other name/classification/preparation consumers and general conversion overrides
+remain separately pending; metadata storage alone does not migrate them.
 Guards: `tests/native/test_group_naming_schemes.py` and
 `tests/form/file_h5msm/test_group_naming_schemes.py`.
 
