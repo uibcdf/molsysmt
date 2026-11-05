@@ -32,3 +32,9 @@ The canonical variable representing the input molecular system MUST be `molsys`,
    - Non-collapsible `{warning}` on alternate location metadata preservation.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
+
+Preserve the maximum-versus-half-tie distinction, unit-free occupancy, explicit
+unknown policy and selected observation coherence. Keep selection-order label
+vectors, bounded structures, pre-write request validation, stable cross-structure
+atom labels, source-record retention and named-analysis invalidation explicit.
+Document the mutable-backend failure limit and optional dense-field allocation.

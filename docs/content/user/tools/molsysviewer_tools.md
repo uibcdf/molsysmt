@@ -3773,16 +3773,23 @@ with msv.new_view(molsys) as view:
 
 `structure_indices` retains native order, including nonconsecutive selections;
 its default is all structures, independently of the visible structure. A list
-of `location_id` values maps to sorted selected atom indices in the native tool,
-not the input selection's order. Atom-ID labels are topology-wide: the first
-processed selected structure supplies each label. Labels do not establish or
-change the retained scene/source correspondence.
+of `location_id` values follows the atom order returned by the native selection,
+including an explicit non-sorted list. Repeated atoms must request the same site.
+Atom-ID labels are topology-wide: selected structures must agree on each updated
+label. Conflicting labels are rejected before any publication. These labels do
+not establish or change retained scene/source correspondence.
 
-The native tool writes coordinates and writes a structure's selected B factors
-only when all its selected alternate records provide them. B factors retain
-native square-length quantities, normally nm²; existing values may remain when
-that per-structure set is incomplete. Alternate-site records remain available.
-Named analysis coverage follows native coordinate publication for the affected
+Primary coordinates, occupancy and B factors follow the chosen site. Missing
+optional observations become unknown instead of retaining measurements from a
+previous site; occupancy is unit-free and B factors carry squared-length units.
+The occupancy criterion chooses the largest known value; its documented half
+occupancy tie rule favors A only when A shares that maximum. Unknown occupancies
+are ignored by this criterion; choosing an explicit label can retain unknown
+occupancy. Alternate-site records remain available without renormalization.
+
+All selected sites and admitted writers are validated before the first native
+write. A rejected request preserves source observations and analysis identities.
+Named analysis coverage follows successful coordinate publication for affected
 structures, including evaluated-empty analyses; no detector is rerun. A call
 without selected sites preserves managed revision and scene history. Repeating
 a real native write can invalidate coverage even when coordinates compare equal.
@@ -3792,25 +3799,19 @@ No conformer generation, occupancy fitting or molecular preparation is added.
 through the existing maps. A subsequent no-op with `update_view=True` can finish
 earlier pending projection. After successful science, a scene error carries
 `science_completed=True` and `scientific_result=None`; retry `sync_view()`.
-A native exception after partial publication instead enters `uncertain` and
-requires explicit replacement, preserving its diagnostic without scientific
-replay. The keyword-only `skip_digestion` controls addon digestion only and is
-never forwarded; ordinary native validation always applies.
+Unexpected failures within mutable adapters retain their partial-write limit;
+if native geometry was published, status becomes `uncertain` and requires
+explicit replacement without scientific replay. This is not a transaction across
+arbitrary backends or files. `skip_digestion` mirrors and forwards the native
+flag; scientific site validation remains active even when digestion is skipped.
 
-The current native limitations are tracked separately:
-
-- [#569](https://github.com/uibcdf/molsysmt/issues/569): maximum-occupancy selection
-  can choose A below the maximum when the maximum is 0.5. True 0.5 ties and the
-  received 0.4/0.6 case have separate positive controls.
-- [#570](https://github.com/uibcdf/molsysmt/issues/570): primary occupancy remains
-  at its previous value after a different site is chosen. The owner must clarify
-  or correct that metadata contract.
-- [#571](https://github.com/uibcdf/molsysmt/issues/571): a missing later location
-  can raise a malformed choice error after earlier structures were modified.
-
-The facade preserves these native results/errors and does not repair them.
-Bounded source receiving is not general crystallographic or installed-package
-qualification. See {func}`molsysmt.build.solve_atoms_with_alternate_location` and
+The owner corrections for [#569](https://github.com/uibcdf/molsysmt/issues/569),
+[#570](https://github.com/uibcdf/molsysmt/issues/570) and
+[#571](https://github.com/uibcdf/molsysmt/issues/571) are received from published
+source `532d03622`. Earlier receipts retain the previous provider's outcomes;
+this source receiving is not a published dependency floor or installed-package
+qualification. No scientific repair is implemented in the facade. See
+{func}`molsysmt.build.solve_atoms_with_alternate_location` and
 {ref}`Tutorial_Solve_atoms_with_alternate_locations` for native usage.
 
 ## Constructing and mutating independent peptides

@@ -1,13 +1,13 @@
 ---
 summary: Resolving an alternate location retains the previous primary occupancy
 issue: uibcdf/molsysmt#570
-status: open
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: medium
 verification: reproduced
 area: [build, alternate_locations]
-guard:
+guard: tests/build/solve_atoms_with_alternate_location/test_alternate_location_contract.py::test_selected_primary_observation_includes_its_occupancy
 normative:
 blocked_by: []
 supersedes: []
@@ -79,3 +79,13 @@ This is independent of CIF acquisition (#556): the fixture declares native occup
 ## Scope and exclusions
 
 Native solve_atoms_with_alternate_location only. No consumer scientific repair, implicit conformer generation or automatic recovery from arbitrary raw edits. Existing identity, units and data-preservation contracts remain applicable.
+
+## Consumer receiving — 2026-11-05
+
+Published owner correction `532d03622` resolves this report. The
+[canonical owner resolution](alternate_location_resolution_retains_the_previous_primary_occupancy.md)
+records the scientific contract and specific regression named above. This
+original contribution report is retained as historical reproduction evidence;
+its earlier outcomes apply to the old producer, not to the corrected source.
+The expert addon delegates the repaired native operation and verifies primary
+measurements, stable-label conflicts and clean late rejection separately.

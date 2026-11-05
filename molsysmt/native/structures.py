@@ -25,6 +25,23 @@ def _raw_value(quantity, canonical_unit):
     return quantity
 
 
+def _assign_atom_observation(current, value, indices, structure_indices, shape):
+    """Prepare absent/integer observation storage without materializing geometry."""
+    if current is None:
+        candidate = np.full(shape, np.nan)
+    elif np.asarray(current).dtype.kind in "biu":
+        candidate = np.asarray(current, dtype=float)
+    else:
+        candidate = current
+    if is_all(indices):
+        candidate[structure_indices, :] = value[:, :]
+    elif is_all(structure_indices):
+        candidate[:, indices] = value[:, :]
+    else:
+        candidate[np.ix_(structure_indices, indices)] = value[:, :]
+    return candidate
+
+
 _FRAME_ATTRIBUTES = (
     "structure_id",
     "time",
@@ -1508,19 +1525,38 @@ class Structures(NativeQueries):
     def set_b_factor(
         self, indices="all", structure_indices="all", value=None, skip_digestion=False
     ):
+        """Setting selected primary B factors in squared length units.
 
-        if is_all(indices):
-            if is_all(structure_indices):
-                self.b_factor = value
-            else:
-                self.b_factor[structure_indices, :] = value[:, :]
-        else:
-            if is_all(structure_indices):
-                self.b_factor[:, indices] = value[:, :]
-            else:
-                self.b_factor[np.ix_(structure_indices, indices)] = value[:, :]
+        Parameters
+        ----------
+        indices : sequence of int or str, default='all'
+            Atom positions receiving the values.
+        structure_indices : sequence of int or str, default='all'
+            Structure positions receiving the values.
+        value : quantity or none, default=None
+            Aligned B factors with shape (n_structures, n_atoms).
+        skip_digestion : bool, default=False
+            Skip validation only for already validated inputs.
 
-        pass
+        Returns
+        -------
+        None
+            The primary series is updated in place.
+
+        Notes
+        -----
+        Missing storage is initialized with NaN for unassigned positions.
+        Integer storage is promoted before assigning fractional values. Physical
+        values are converted to nm**2 without reading/copying coordinates.
+        """
+        raw = _raw_value(value, "nm**2")
+        if is_all(indices) and is_all(structure_indices):
+            self._b_factor = raw
+            return
+        shape = (self.n_structures, self.n_atoms) if self._b_factor is None else None
+        self._b_factor = _assign_atom_observation(
+            self._b_factor, raw, indices, structure_indices, shape
+        )
 
     @arg_digest()
     def get_occupancy(
@@ -1543,22 +1579,37 @@ class Structures(NativeQueries):
     def set_occupancy(
         self, indices="all", structure_indices="all", value=None, skip_digestion=False
     ):
-        if self._occupancy is None:
-            n_structures = (
-                self.coordinates.shape[0] if self.coordinates is not None else 1
-            )
-            n_atoms = self.coordinates.shape[1] if self.coordinates is not None else 0
-            self._occupancy = np.empty((n_structures, n_atoms), dtype=object)
-        if is_all(indices):
-            if is_all(structure_indices):
-                self._occupancy = value
-            else:
-                self._occupancy[structure_indices, :] = value[:, :]
-        else:
-            if is_all(structure_indices):
-                self._occupancy[:, indices] = value[:, :]
-            else:
-                self._occupancy[np.ix_(structure_indices, indices)] = value[:, :]
+        """Setting selected unit-free primary occupancies.
+
+        Parameters
+        ----------
+        indices : sequence of int or str, default='all'
+            Atom positions receiving the values.
+        structure_indices : sequence of int or str, default='all'
+            Structure positions receiving the values.
+        value : numpy.ndarray or none, default=None
+            Aligned occupancies with shape (n_structures, n_atoms).
+        skip_digestion : bool, default=False
+            Skip validation only for already validated inputs.
+
+        Returns
+        -------
+        None
+            The primary series is updated in place.
+
+        Notes
+        -----
+        Missing storage is initialized with NaN for unassigned positions.
+        Integer storage is promoted before assigning fractional values. Existing
+        object-valued unknowns survive. Coordinates are not read or copied.
+        """
+        if is_all(indices) and is_all(structure_indices):
+            self._occupancy = value
+            return
+        shape = (self.n_structures, self.n_atoms) if self._occupancy is None else None
+        self._occupancy = _assign_atom_observation(
+            self._occupancy, value, indices, structure_indices, shape
+        )
 
     @arg_digest()
     def get_structure_id(self, structure_indices="all", skip_digestion=False):

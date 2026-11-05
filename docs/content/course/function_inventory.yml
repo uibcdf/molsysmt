@@ -498,3 +498,9 @@ molsysmt.form.file_fasta.read_records:
   first_introduced_in: "Common_Core/13_Topological_Analysis.ipynb"
   summary: "Reads UTF-8 FASTA retaining raw records and source character spans."
   doc_ref: "{func}`molsysmt.form.file_fasta.read_records`"
+
+molsysmt.build.solve_atoms_with_alternate_location:
+  name: "msm.build.solve_atoms_with_alternate_location"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Resolves recorded alternate sites after full selected-request preflight, preserving original records and coherent primary observations."
+  doc_ref: "{func}`molsysmt.build.solve_atoms_with_alternate_location`"

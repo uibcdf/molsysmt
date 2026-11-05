@@ -8,7 +8,7 @@ import molsysviewer as msv
 import numpy as np
 import pytest
 from argdigest import UnknownArgumentError
-from molsysviewer.system_edits import SystemEditPendingError, SystemEditSyncError
+from molsysviewer.system_edits import SystemEditSyncError
 from molsysviewer.widget import MolSysViewerWidget
 
 import molsysmt as msm
@@ -33,7 +33,7 @@ def source():
                 sites[atom] = {
                     "location_id": np.array(["A", "B"]),
                     "occupancy": np.array([0.5, 0.5]),
-                    "atom_id": np.array([f"{frame}{atom}0", f"{frame}{atom}1"]),
+                    "atom_id": np.array([f"0{atom}0", f"0{atom}1"]),
                     "coordinates": puw.quantity(
                         [xyz[frame, atom] + 0.01, xyz[frame, atom] + 0.04], "nm"
                     ),
@@ -68,7 +68,7 @@ def structural(actual, expected):
         )
 
 
-def test_signature_help_local_skip_and_expert_namespace(view):
+def test_signature_help_native_skip_and_expert_namespace(view):
     method = getattr(view.addons.molsysmt.build, NAME)
     native = inspect.signature(getattr(msm.build, NAME))
     assert inspect.signature(method) == native.replace(
@@ -76,9 +76,6 @@ def test_signature_help_local_skip_and_expert_namespace(view):
         + [
             inspect.Parameter(
                 "update_view", inspect.Parameter.KEYWORD_ONLY, default=True
-            ),
-            inspect.Parameter(
-                "skip_digestion", inspect.Parameter.KEYWORD_ONLY, default=False
             ),
         ]
     )
@@ -118,9 +115,9 @@ def test_selected_nonconsecutive_sites_keep_native_axes_metadata_and_validity(
     assert view.shapes["anchor"] is sphere
     assert view.shapes.records()[0]["options"]["atom_indices"] == [2]
     assert view.load_blocks[0]["source_id"] == source_id
-    # IDs are topology-wide labels: native sorted-atom mapping and first
-    # processed structure choose them, never the atom's scene correspondence.
-    expected_location = ["B", "A"] if not isinstance(location, str) else [location] * 2
+    # IDs are topology-wide labels: selected structures must agree. Their
+    # labels never replace atom-index scene/source correspondence.
+    expected_location = ["A", "B"] if not isinstance(location, str) else [location] * 2
     for atom, chosen in zip((0, 2), expected_location):
         position = 1 if chosen == "B" else 0
         np.testing.assert_allclose(
@@ -131,7 +128,7 @@ def test_selected_nonconsecutive_sites_keep_native_axes_metadata_and_validity(
             )[position],
         )
         assert msm.get(view.molsys, selection=[atom], atom_id=True) == [
-            f"2{atom}{position}"
+            f"0{atom}{position}"
         ]
 
 
@@ -186,26 +183,43 @@ def test_clean_native_rejection_preserves_pending_science_and_its_diagnostic(
     tools.sync_view()
 
 
-def test_late_native_rejection_is_uncertain_not_clean_or_retryable(view):
+@pytest.mark.parametrize("pending", [False, True])
+@pytest.mark.parametrize("skip", [False, True])
+def test_late_native_rejection_is_clean_and_preserves_prior_pending_edits(
+    view, pending, skip
+):
+    tools = view.addons.molsysmt
+    if pending:
+        tools.structure.translate(
+            translation="[0,0,1] nm", in_place=True, update_view=False
+        )
     view.molsys.structures.alternate_location[2][2]["location_id"] = np.array(
         ["A", "C"]
     )
-    before = view.molsys.copy()
+    before, status = snapshot(view), tools.get_sync_status()
+    analysis = view.molsys.interactions["saved"]
     with pytest.raises(Exception) as native:
-        getattr(msm.build, NAME)(before, structure_indices=[0, 2], location_id="B")
+        getattr(msm.build, NAME)(
+            view.molsys.copy(),
+            structure_indices=[0, 2],
+            location_id="B",
+            skip_digestion=skip,
+        )
     with pytest.raises(type(native.value)) as actual:
-        getattr(view.addons.molsysmt.build, NAME)(
-            structure_indices=[0, 2], location_id="B"
+        getattr(tools.build, NAME)(
+            structure_indices=[0, 2], location_id="B", skip_digestion=skip
         )
     assert str(actual.value) == str(native.value)
-    structural(view.molsys, before)
-    assert view.addons.molsysmt.get_sync_status()["state"] == "uncertain"
-    with pytest.raises(SystemEditPendingError):
-        view.addons.molsysmt.sync_view()
-    with pytest.raises(SystemEditPendingError):
-        view.regions["kept"].hide(skip_digestion=True)
-    view.addons.manager.system_edits.replace(source())
-    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
+    structural(view.molsys, before[1])
+    after_status = tools.get_sync_status()
+    assert {k: v for k, v in after_status.items() if k != "operation_id"} == {
+        k: v for k, v in status.items() if k != "operation_id"
+    }
+    assert view.molsys.interactions["saved"] is analysis
+    if pending:
+        tools.sync_view()
+    else:
+        view.regions["kept"].hide()
 
 
 def test_deferred_location_edit_composes_with_removal_and_noop_flushes(view):
@@ -331,16 +345,16 @@ def test_alternate_quantities_preserve_physical_lengths_and_b_factors(length, ar
                 ] == pytest.approx(0.24)
 
 
-def test_missing_site_b_factor_retains_native_per_structure_metadata_policy(view):
+def test_missing_site_b_factor_becomes_unknown_without_retaining_old_measurement(view):
     view.molsys.structures.alternate_location[0][0]["b_factor"] = None
     expected = view.molsys.copy()
     getattr(msm.build, NAME)(expected, location_id="B")
     getattr(view.addons.molsysmt.build, NAME)(location_id="B")
     structural(view.molsys, expected)
-    np.testing.assert_allclose(
-        puw.get_value(view.molsys.structures.b_factor, to_unit="nm**2")[0, [0, 2]],
-        [0.1, 0.1],
-    )
+    values = puw.get_value(view.molsys.structures.b_factor, to_unit="nm**2")
+    assert np.isnan(values[0, 0])
+    assert values[0, 2] == pytest.approx(0.24)
+    assert values[1, 0] == pytest.approx(0.1)
 
 
 @pytest.mark.parametrize(
@@ -369,13 +383,64 @@ def test_higher_occupancy_choice_and_storage_follow_native_contract(view):
     assert msm.get(view.molsys, selection=[0], atom_id=True) == ["001"]
 
 
-def test_addon_skip_does_not_disable_native_location_validation(view):
+def test_forwarded_skip_does_not_disable_native_site_validation(view):
     before = view.molsys.copy()
     with pytest.raises(Exception) as native:
-        getattr(msm.build, NAME)(before, location_id="not-a-location")
+        getattr(msm.build, NAME)(
+            before, location_id="not-a-location", skip_digestion=True
+        )
     with pytest.raises(type(native.value)) as actual:
         getattr(view.addons.molsysmt.build, NAME)(
             location_id="not-a-location", skip_digestion=True
         )
     assert str(actual.value) == str(native.value)
     structural(view.molsys, before)
+
+
+@pytest.mark.parametrize(
+    "occupancies,position", [([0.2, 0.5], 1), ([0.4, 0.6], 1), ([0.5, 0.5], 0)]
+)
+@pytest.mark.parametrize("skip", [False, True])
+def test_chosen_primary_measurements_match_literal_alternate_observations(
+    view, occupancies, position, skip
+):
+    for frame in (0, 2):
+        view.molsys.structures.alternate_location[frame][0]["occupancy"] = np.array(
+            occupancies
+        )
+    selected = view.molsys.structures.alternate_location[2][0]
+    xyz = puw.get_value(selected["coordinates"], to_unit="nm")[position].copy()
+    getattr(view.addons.molsysmt.build, NAME)(
+        selection=[0], structure_indices=[2, 0], skip_digestion=skip
+    )
+    for frame in (0, 2):
+        assert view.molsys.structures.occupancy[frame, 0] == pytest.approx(
+            occupancies[position]
+        )
+        assert puw.get_value(view.molsys.structures.b_factor, to_unit="nm**2")[
+            frame, 0
+        ] == pytest.approx([0.12, 0.24][position])
+    np.testing.assert_allclose(
+        puw.get_value(view.molsys.structures.coordinates, to_unit="nm")[2, 0], xyz
+    )
+    assert msm.get(view.molsys, selection=[0], element="atom", atom_id=True) == [
+        f"00{position}"
+    ]
+    assert view.molsys.structures.occupancy[1, 0] == pytest.approx(0.5)
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == 1
+
+
+def test_conflicting_stable_labels_are_rejected_without_source_or_scene_edits(view):
+    view.molsys.structures.alternate_location[2][0]["atom_id"][1] = "conflict"
+    before = snapshot(view)
+    analysis = view.molsys.interactions["saved"]
+    with pytest.raises(Exception) as native:
+        getattr(msm.build, NAME)(view.molsys.copy(), location_id="B")
+    with pytest.raises(type(native.value)) as actual:
+        getattr(view.addons.molsysmt.build, NAME)(location_id="B")
+    assert str(actual.value) == str(native.value)
+    structural(view.molsys, before[1])
+    assert view.molsys.interactions["saved"] is analysis
+    assert view.export_state() == before[2]
+    assert view.history._undo == before[4][0] and view.history._redo == before[4][1]
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"

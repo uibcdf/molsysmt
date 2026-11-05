@@ -3,8 +3,8 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-05, contribution PR #543, extending published source
-`738f752cc` with explicit naming-context receiving on published native
-owner basis `d3650cc09`.
+`393757795` with alternate-site repair receiving on published native
+owner basis `532d03622`.
 The table describes this contribution's 232/244 paths, including
 all 57 element paths, twenty-seven build paths and four mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
@@ -47,8 +47,12 @@ The [source-inventory recovery](../devtools/data/molsysviewer_tools_bond_source_
 retains the first smoke failure and registers the new helper in the exact
 source/distribution contract; scientific inputs and outcomes remain unchanged.
 The [alternate-site receipt](../devtools/data/molsysviewer_tools_alternate_site_receiving_20261105.json)
-records native coordinate/B-factor/label publication, retained axes, clean versus
-partial rejection, projection-only retry and #569/#570/#571 native limitations.
+records the original native coordinate/B-factor/label publication and its
+old-provider limits. The subsequent owner repair of #569/#570/#571 is received
+with coherent primary observations and whole-request preflight; historical
+receipts retain their original inputs.
+The [repair receiving](../devtools/data/molsysviewer_tools_alternate_site_repaired_receiving_20261105.json)
+records the corrected source, native skip flag and preserved owner documents.
 Earlier benchmark failures under #567 retain their own inputs.
 The [reference-map receipt](../devtools/data/molsysviewer_tools_reference_map_receiving_20261104.json)
 retains its own unchanged-addon input, red/green controls and hosted scope.

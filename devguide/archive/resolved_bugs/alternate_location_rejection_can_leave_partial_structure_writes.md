@@ -1,13 +1,13 @@
 ---
 summary: Invalid alternate-location requests can leave earlier structures modified
 issue: uibcdf/molsysmt#571
-status: open
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: high
 verification: reproduced
 area: [build, alternate_locations]
-guard:
+guard: tests/build/solve_atoms_with_alternate_location/test_alternate_location_contract.py::test_invalid_later_structure_is_rejected_before_any_publication
 normative:
 blocked_by: []
 supersedes: []
@@ -89,3 +89,13 @@ Separate per-structure alternate dictionaries eliminate the initial shared-dicti
 ## Scope and exclusions
 
 Native solve_atoms_with_alternate_location only. No consumer scientific repair, implicit conformer generation or automatic recovery from arbitrary raw edits. Existing identity, units and data-preservation contracts remain applicable.
+
+## Consumer receiving — 2026-11-05
+
+Published owner correction `532d03622` resolves this report. The
+[canonical owner resolution](invalid_alternate_location_requests_partially_modify_earlier_structures.md)
+records the scientific contract and specific regression named above. This
+original contribution report is retained as historical reproduction evidence;
+its earlier outcomes apply to the old producer, not to the corrected source.
+The expert addon delegates the repaired native operation and verifies primary
+measurements, stable-label conflicts and clean late rejection separately.

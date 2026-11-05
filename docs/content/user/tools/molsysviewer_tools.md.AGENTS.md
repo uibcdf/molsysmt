@@ -461,11 +461,14 @@ history preservation from deferred projection and synchronization-only retry;
 never duplicate candidate calculation or infer complete chemical validity.
 
 
-Preserve alternate-site resolution as native in-place coordinate/B-factor/ID
-publication with retained index identity. Keep sorted atom-list location binding,
-first-processed-structure global labels and per-structure B-factor admission
-explicit. Native occupancy/partial-write limits remain #569/#570/#571; no
-consumer scientific repair, validation bypass or replay on projection retry.
+Preserve alternate-site resolution as native in-place coordinate/occupancy/
+B-factor/ID publication with retained index identity. Location lists follow the
+native selection order; selected structures must agree on global atom IDs.
+Native preflight rejects invalid selected requests before publication; unknown
+optional observations must not retain previous-site values. Forward the native
+skip flag without bypassing scientific site validation. Preserve the received
+#569/#570/#571 fixes and separate unexpected mutable-adapter failure limits;
+no consumer scientific repair or replay on projection retry.
 
 
 The naming cutover retires the old amino_acid scalar code path. Keep only

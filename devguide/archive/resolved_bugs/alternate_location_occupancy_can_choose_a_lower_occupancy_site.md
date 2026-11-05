@@ -1,13 +1,13 @@
 ---
 summary: Alternate-location occupancy selection can choose a lower-occupancy site
 issue: uibcdf/molsysmt#569
-status: open
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: high
 verification: reproduced
 area: [build, alternate_locations]
-guard:
+guard: tests/build/solve_atoms_with_alternate_location/test_alternate_location_contract.py::test_maximum_occupancy_only_prefers_a_when_it_shares_the_half_tie
 normative:
 blocked_by: []
 supersedes: []
@@ -77,3 +77,13 @@ The standalone native call reproduces the mismatch without Viewer. No normalizat
 ## Scope and exclusions
 
 Native solve_atoms_with_alternate_location only. No consumer scientific repair, implicit conformer generation or automatic recovery from arbitrary raw edits. Existing identity, units and data-preservation contracts remain applicable.
+
+## Consumer receiving — 2026-11-05
+
+Published owner correction `532d03622` resolves this report. The
+[canonical owner resolution](alternate_location_selection_can_choose_a_lower_occupancy_site.md)
+records the scientific contract and specific regression named above. This
+original contribution report is retained as historical reproduction evidence;
+its earlier outcomes apply to the old producer, not to the corrected source.
+The expert addon delegates the repaired native operation and verifies primary
+measurements, stable-label conflicts and clean late rejection separately.

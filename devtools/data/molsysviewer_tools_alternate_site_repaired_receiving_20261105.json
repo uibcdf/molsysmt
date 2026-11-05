@@ -1,0 +1,199 @@
+{
+  "schema": "molsysmt.viewer-alternate-site-repair-source-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#549",
+    "uibcdf/molsysmt#569",
+    "uibcdf/molsysmt#570",
+    "uibcdf/molsysmt#571",
+    "uibcdf/molsysviewer#264"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "39375779514772e75faa67820bf17e7f5b27712f",
+  "published_native_basis": "532d036228c9673c5ddd63beaa8093220b06b6b2",
+  "delivery": "Existing owner-reviewed PR only; no direct owner-main commit or merge.",
+  "native_fixes": "Owner selects true maximum occupancy, publishes coherent occupancy/B-factor/coordinate observations and preflights all selected requests and writers before mutation. Selected structures must agree on stable labels; location vectors follow actual selection order.",
+  "wrapper_changes": "Mirror and forward the newly native keyword-only skip_digestion; retain scientific site validation and add keyword-only update_view. No native algorithm, host runtime, data table, dependency floor or Rust build is authored.",
+  "source_freeze": {
+    "files": 4229,
+    "sha256": "07e9b66b5766a01d48f6733ff86f6198e7429a815d653229ff289fe1e255e101",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "postcheck": {
+      "primary_files": 4229,
+      "primary_changed": [],
+      "provider_files": 91,
+      "provider_changed": [],
+      "other_support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "native_authored_diff": []
+    }
+  },
+  "provider_snapshot": {
+    "provider": "pyunitwizard",
+    "public_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "archive_sha256": "15837de15b443f3f0853d484da9990da74cc444b9c562e4aafe9fbf86642cdbd",
+    "files": 91,
+    "scope": "Immutable public git-archive source overlay; no environment installation or owner-checkout edits. Distribution metadata does not identify this source snapshot.",
+    "other_checked_support_sources": {
+      "argdigest": {
+        "file_count": 39,
+        "sha256": "615dda2c31aa8b94feb25fc03421418215d20bc220fb0245918863fa47d40e87",
+        "changed": []
+      },
+      "smonitor": {
+        "file_count": 41,
+        "sha256": "c944f2bccca3990284ada1899ddf0a52ba0ecdb1fa4ad9b62aba3b2c1a8939e8",
+        "changed": []
+      },
+      "depdigest": {
+        "file_count": 17,
+        "sha256": "754a91aeefd5593b8af0474bc002dd1d6b635aad39abca11dae267012cacab95",
+        "changed": []
+      }
+    }
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_build.py": "1ae64d88eef7985155f9f1b01e6527aa95486b23e1cd3abea2a005022d276618",
+    "molsysviewer_molsysmt/_geometry.py": "872462cca0b87bb28dda17d9d8d336dd1ecef8e5ae1617fc990f3b6a05a7e413",
+    "tests/molsysviewer_molsysmt/test_build_alternate_tools.py": "e4a2cb567f6b043b3596a6910ee05fceb27a00e31cc83ad4f8db79aed0c2bfd9",
+    "devtools/tests/test_validate_course.py": "f6843c8efa93fc15b4643a423f65e1b018d73c1f406b002a37d33f7a119a5629",
+    "docs/docs_manifest.yml": "2be9106bba93ba11baf7a3d9a1a1f0c05bce140400b49da192bb49d68663d424",
+    "docs/content/user/tools/molsysviewer_tools.md": "13bd395dab368f19edd8a0f0d0c7b15499100cdf76d29862940e91bc3cd25cd1",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "98cecb362935a5a1ea93924ff20391860518b2da99791549b7440d0f549d9257"
+  },
+  "validation": [
+    {
+      "file": "alternate-corrected-native-all-addon-20261105.xml",
+      "sha256": "7feceb941d71f16e83ce237c5297de5769beec1aeb33d4f54b71c06c5b76d614",
+      "scope": "Final complete addon plus 32 native-host/distribution/inventory/command guards; four workers, immutable public PyUnitWizard source overlay.",
+      "tests": 4273,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 295.7
+    },
+    {
+      "file": "alternate-corrected-native-focused-received-20261105.xml",
+      "sha256": "8ce1e833d538c0469facc7679f4b576ef64e6fca130914ae2cc15e7cea0978ed",
+      "scope": "Forty alternate-site facade cases, including literal occupancy/coordinate/B-factor controls, consistent labels, clean late rejection with both digestion modes and prior pending work, units, no-ops and synchronization-only retry.",
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 20.595
+    },
+    {
+      "file": "alternate-corrected-native-directed-20261105.xml",
+      "sha256": "797e5aad0e5ca85dc1fb60e6ee5b8221fdedc1a4f3f1701f61aac7a347b1842f",
+      "scope": "348 owner-native alternate-site/observation-setter and naming/sequence controls.",
+      "tests": 348,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 17.959
+    },
+    {
+      "file": "alternate-corrected-native-docs-20261105.xml",
+      "sha256": "c2ec546145e14fa3e377f16d182b6c943d6ad7ad7f945012e4b3a3996fc553b0",
+      "scope": "88 documentation, package/discovery, course navigation and smoke-command guards.",
+      "tests": 88,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 24.122
+    }
+  ],
+  "preserved_failures": [
+    {
+      "file": "alternate-corrected-native-initial-20261105.xml",
+      "sha256": "0071dc16c6d24f6636046578a3c96ed624c3c015ec15bac1890f1f7ccfe1791f",
+      "scope": "Old addon fixture used inconsistent cross-structure IDs, duplicate local/native skip signature and obsolete uncertain-state expectation.",
+      "tests": 30,
+      "failures": 20,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 16.937
+    },
+    {
+      "file": "alternate-corrected-native-focused-20261105.xml",
+      "sha256": "dcdc661a0c4c0b8ed03a74caf125ae69853f5a8a9b54f2c065765a73bafb8ab9",
+      "scope": "Remaining old selection-vector order, diagnostic skip-control mismatch and overly strict operation-ID equality.",
+      "tests": 33,
+      "failures": 7,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 18.339
+    },
+    {
+      "file": "alternate-corrected-native-focused-final-20261105.xml",
+      "sha256": "2a5dd37df90c307d33e9b4e93f5dff819d828a3157fe9d74494c34de3625f696",
+      "scope": "Four test-only identity expectations compared immutable analysis references against copies; actual pre-call analysis identity is now retained explicitly.",
+      "tests": 40,
+      "failures": 4,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 21.743
+    }
+  ],
+  "integration_review": {
+    "intermediate_unpublished_merge": "393757795",
+    "finding": "Final merge review found that intermediate conflict resolution had omitted native-owner documentation sections.",
+    "correction": "Restore every section from owner current addon proposal/status and the complete owner manifest. Keep contribution-only receiving sections additively; only the addon manifest description differs. Reuse owner Sphinx fixture exactly.",
+    "owner_module_12_cells": 35,
+    "changed_markdown_ids": [
+      "96ebdbc9",
+      "4fb55a86",
+      "f158b27f"
+    ],
+    "all_owner_code_outputs_ids_and_metadata_preserved": true,
+    "older_receipts": "Preserved immutable; their tests retain their original input sources. The corrected final tree is separately verified."
+  },
+  "documentation": {
+    "guide_blocks_executed": 3,
+    "docstrings": 246,
+    "course_notebooks": 156,
+    "soft_dependency_scan": "passed",
+    "ruff_addon_and_test_files": 91,
+    "dependency_contract_audit": "passed",
+    "devguide_indexes": "passed"
+  },
+  "issue_receiving": {
+    "remote_state": "All three issues observed closed by their native owner on 2026-11-05. No consumer reopening or duplicate issue.",
+    "original_reports": "Original contribution reproduction documents are archived with owner guards and links to canonical native resolutions; queue indexes regenerated.",
+    "scientific_scope": "Bounded computational contract receiving, not independent general crystallographic validation."
+  },
+  "exposure": {
+    "exposed": 232,
+    "declared": 244,
+    "element": [
+      57,
+      57
+    ],
+    "build": [
+      27,
+      30
+    ],
+    "molecular_mechanics": [
+      4,
+      6
+    ]
+  },
+  "limits": [
+    "Unexpected failures within mutable adapters retain their existing partial-write and invalidation boundary; no arbitrary-backend transaction promised.",
+    "The geometry publication token requires loaded native coordinates; no automatic observation of raw edits is introduced.",
+    "Existing Linux/Python 3.14.7 source environment only; no clean solve, installed/public artifact, platform admission, candidate, tag or release.",
+    "Owner review and new-head hosted CI remain separate and pending at local preparation."
+  ],
+  "warnings": {
+    "full_addon": 2414,
+    "legacy_h5msm": 2367,
+    "other": "Retained attribute-drop, pandas/unit-stripping, deliberate unknown-digester and determinant warnings; none suppressed for this receiving.",
+    "directed_native": 4
+  }
+}

@@ -153,6 +153,11 @@ Run `python devtools/scripts/validate_devguide.py` and
 `python devtools/scripts/devguide_index.py --check` after lifecycle changes.
 The release gate retains the offline validator; board synchronization is separate.
 
+During sustained stabilization work, revisit incoming issues and pull requests
+at meaningful phase checkpoints. Reflect newly reported correctness or data-integrity
+problems in `devguide/release_1_0_status.md` and adjust the work order when their
+impact warrants it, while preserving the active task and its outstanding handoffs.
+
 ## Git commits
 
 - Never add a `Co-Authored-By` trailer to commit messages. Commit messages must contain only the subject line and, when necessary, a body — no attribution footers of any kind.

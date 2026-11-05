@@ -12,6 +12,18 @@ def digest_value(value, caller=None):
     if caller is None:
         raise ArgumentError("value", value=value, caller=caller, message=None)
 
+    if caller == "molsysmt.native.structures.set_occupancy":
+        from .occupancy import digest_occupancy
+
+        return digest_occupancy(value, caller=caller)
+
+    if caller == "molsysmt.native.structures.set_b_factor":
+        from .b_factor import digest_b_factor
+
+        if isinstance(value, str):
+            value = parse_quantity_string("value", value, caller=caller)
+        return digest_b_factor(value, caller=caller)
+
     quantity_callers = {
         "set_coordinates_to_atom",
         "set_occupancy_to_atom",

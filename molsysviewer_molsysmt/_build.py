@@ -17,13 +17,10 @@ def _alternate_edit_documentation(function):
         "update_view : bool, keyword-only, default=True\n"
         "    Reconcile the completed native in-place edit. False defers only "
         "scene projection; sync_view() retries projection without science.\n"
-        "skip_digestion : bool, keyword-only, default=False\n"
-        "    Control addon digestion only. The native function has no such "
-        "parameter and always receives ordinary native validation.\n"
         "Requires an open loaded native owner with coordinates. Returns native "
         "None; no in_place switch or independent output is invented. Atom and "
         "structure indices, chemistry and source identity remain. The native "
-        "tool writes selected coordinates, its admitted B-factor sets and atom-ID "
+        "tool writes selected coordinates, occupancy, B factors and consistent atom-ID "
         "labels; IDs are not correspondence indices. Alternate-site records "
         "remain available. Native order, location policy, units and analysis "
         "invalidation remain unchanged; there is no visible-frame substitution, "
@@ -33,9 +30,9 @@ def _alternate_edit_documentation(function):
         "rejections retain prior pending work, while partial native writes "
         "enter uncertain state and require explicit replacement. A scene "
         "failure after successful science exposes science_completed and "
-        "scientific_result=None; retry synchronization only. Native occupancy "
-        "choice/storage and invalid-location limitations are tracked under "
-        "molsysmt#569, #570 and #571; the addon does not repair them.\n"
+        "scientific_result=None; retry synchronization only. Native preflight "
+        "rejects invalid selected sites before publication. Native digestion "
+        "flags are forwarded; scientific site validation remains active.\n"
     )
     return function
 
@@ -939,8 +936,8 @@ class _BuildTools:
         location_id="occupancy",
         syntax="MolSysMT",
         *,
-        update_view=True,
         skip_digestion=False,
+        update_view=True,
     ):
         return _run_alternate_locations(
             self._owner,
@@ -949,6 +946,7 @@ class _BuildTools:
                 "structure_indices": structure_indices,
                 "location_id": location_id,
                 "syntax": syntax,
+                "skip_digestion": skip_digestion,
             },
             update_view,
         )
