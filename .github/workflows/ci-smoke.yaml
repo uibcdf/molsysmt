@@ -145,6 +145,7 @@ jobs:
             tests/element/group/amino_acid/test_naming_atom_expectations.py \
             tests/build/test_naming_preparation.py \
             tests/build/build_peptide/test_naming_schemes.py \
+            tests/conversion_truth/test_group_naming_fidelity.py \
             tests/build/get_non_standard_residues/test_naming_schemes.py \
             tests/native/test_missing_group_type_inference.py \
             tests/basic/convert/test_source_naming_scheme.py \

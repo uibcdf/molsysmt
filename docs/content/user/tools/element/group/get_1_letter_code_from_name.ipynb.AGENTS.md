@@ -11,3 +11,7 @@ ordered/repeated projection without input mutation, declaration on a native
 output, and explicit conflict refusal.
 Retain the executed identity example consuming the stored declaration and
 returning original group positions.
+
+Retain the executed naming-loss preflight and unchanged source declarations.
+Link its strict pre-write refusal and unknown-context rereading semantics to
+Tutorial_Get_Conversion_Report.

@@ -38,3 +38,8 @@ peptide construction. Group naming does not impose an atom naming scheme. Keep
 both checked H layouts, their source identity and the historical construction
 asset's unpinned-upstream limitation explicit. No geometry/state certification
 follows from construction or compatible H names.
+
+Preserve selected/prospective naming-fidelity reporting, native/dictionary/H5MSM
+transport and label-only loss. Strict mode rejects before target writes; normal
+conversion retains its existing loss policy. Unknown source context remains
+unknown on rereading a representation that cannot carry it.

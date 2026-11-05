@@ -338,14 +338,20 @@ def project_sequence(names, kinds, positions, schemes, *, caller, with_indices=F
     return "".join(letters), source_indices
 
 
-def stored_topology(source, *, caller):
+def stored_topology(source, *, caller, required=True):
     """Read a known naming container without decoding unrelated molecular domains."""
-    from molsysmt.native import MolSys, MolSysDict, Topology, TopologyDict
+    from molsysmt.native import (
+        MolSys,
+        MolSysBuilder,
+        MolSysDict,
+        Topology,
+        TopologyDict,
+    )
 
     known = True
     if isinstance(source, Topology):
         topology = source
-    elif isinstance(source, MolSys):
+    elif isinstance(source, (MolSys, MolSysBuilder)):
         topology = source.topology
     elif isinstance(source, (TopologyDict, MolSysDict)):
         from molsysmt.form._native_dict import decode_topology
@@ -360,7 +366,7 @@ def stored_topology(source, *, caller):
         from molsysmt.basic import where_is_attribute
 
         owner, _ = where_is_attribute(source, "group_name")
-        return stored_topology(owner, caller=caller)
+        return stored_topology(owner, caller=caller, required=required)
     else:
         from molsysmt._private.h5msm import modular_h5msm_axes
 
@@ -370,7 +376,7 @@ def stored_topology(source, *, caller):
             topology = read_layers(source, layers=["topology"])["topology"]
         else:
             known, topology = False, None
-    if known and topology is None:
+    if known and topology is None and required:
         raise ArgumentError(
             "molecular_system",
             caller=caller,

@@ -23,3 +23,7 @@ This document defines micro-governance rules for the `convert.ipynb` tutorial un
 - Preserve the source naming explanation and link to the executed group-code
   tutorial: explicit context, selected-group conflicts and unchanged input.
 - **See Also**: Collapsible dropdown listing referenced tools and Foundations guides in exact order of appearance (`Introduction_Forms`, `user-foundations-entrance-demo-systems`, `info`, `get_form`, `compare`, `concatenate_structures`, `view`).
+
+Preserve naming-fidelity reporting, prospective source context and strict
+pre-write rejection alongside the unchanged default loss policy. Label equality
+is not preservation of a source vocabulary.

@@ -187,7 +187,7 @@ report that authority but cannot substitute for scientific review of its entries
   selected group, preserve ordering/repetitions and refuse ambiguous mixed
   overrides. Audit sequence, recognition, missing-atom/H and preparation callers
   so a name-only lookup cannot select chemistry implicitly.
-- [ ] **D5 — persistence and lifecycle receiving.** Exercise mixed schemes,
+- [x] **D5 — persistence and lifecycle receiving.** Exercise mixed schemes,
   unknown declarations and conflicting overrides across source maps, copies,
   extraction/reordering, merging, atom-free sequences and H5MSM/dictionary round
   trips. Old files retain unknown context; no implicit online enrichment.
@@ -1290,3 +1290,196 @@ remain outside this work. The construction asset remains unchanged at SHA-256
 `afb6989a938d118ac6360dbb86548d45e9d6a30b8f02d009e42e1320febe5e79`.
 Local checkouts and archives are not an installed-candidate qualification; D7 and
 #334 retain their actual exact-source/artifact gates.
+
+
+## D5 persistence and lifecycle receiving — 2026-11-05
+
+**Implemented, contract-tested and parity-tested locally.** D5 is complete within
+this naming contract. D6 old scalar/addon cutover and D7 final acceptance remain
+open; #549 is not closed. Scientific profile validation and exact installed-package
+qualification remain separate from metadata/representation fidelity.
+
+### A demonstrated preflight omission
+
+A named Topology at f201693ba reports `equivalent` to PDB, OpenMM Topology,
+Structures and one-letter text without mentioning that those representations
+cannot retain its group-name declaration. Equal labels cannot substitute for the
+vocabulary. The new shared private naming-fidelity audit reports an `unsupported`
+`group_naming_schemes` issue in the topology scope for the relevant selected
+groups. Partial coverage gains that scope without being promoted to exhaustive.
+Native targets already admitted as exhaustive retain their actual preservation
+obligation, protected by real output/round-trip assertions.
+
+`get_conversion_report` now accepts keyword-only `from_naming_scheme`, preserving
+all previous positional arguments. It uses the same prospective interpretation,
+selected-group conflict checks and naming preflight as `convert(strict=True)` /
+`convert(return_report=True)`. A supplied convention is not assigned to the source
+by preflight. Empty selections and unknown selected declarations do not acquire
+a loss merely because another group has context. Raw one-letter and three-letter
+text interpretation continues through the existing source-conversion authority.
+
+Normal conversion retains its existing policy of permitting detected losses;
+strict conversion refuses before creating/replacing the target. Native inventory,
+the supported typed dictionaries, editable native inventory and H5MSM preserve
+naming context. PDB/OpenMM receive real round-trip controls: labels survive,
+missing source convention stays unknown. No reader infers it from file format.
+The same-format foreign source-interpretation route is not the ordinary byte-copy
+identity path: its report cannot claim exhaustive byte preservation. A group-free
+SDF inventory does not gain invented naming rows under that interpretation.
+
+### Coupled interaction evidence
+
+The lifecycle policy already invalidates attached evaluated interactions when a
+result gains a missing group declaration. Preflight previously omitted that
+effect, including a meaningful evaluated-empty analysis. It now reports selected
+coverage invalidation as an `interactions` issue of kind `invalidation`. Strict
+mode refuses before publishing a native result or H5MSM file; ordinary conversion
+retains the accepted invalidation behavior. Original sources and snapshots stay
+unchanged. Matching declarations, already unevaluated analyses and coverage
+outside the selected structures do not invent an invalidation loss.
+
+The audit also exposes named analyses omitted by targets without their storage,
+including an empty named result whose method/definition is still information.
+Retaining only stable topology, coordinates or an editable builder is not a
+lossless conversion of that named-analysis domain. These omissions are reported
+as `unsupported` in the interactions scope. This closes a related false exhaustive
+claim for admitted native projections without changing their runtime copy policy.
+
+The new metadata helper reads names and, when needed, evaluated-structure indices.
+For typed dictionaries it decodes only the declared coverage array through the
+existing typed-array decoder, not relation/occurrence columns. A negative control
+observes that boundary. Other report scopes can still read source payloads; this
+is not an out-of-core or total-preflight performance claim. The report neither
+runs an interaction detector nor changes scientific provenance.
+
+### Actual lifecycle receiving
+
+`tests/conversion_truth/test_group_naming_fidelity.py` has **63 controls**, including:
+
+- the same GLH label under Amber, legacy, unknown and sequence context;
+- actual native/typed/H5MSM output transport, unknown legacy declarations and
+  selected prospective context without input mutation;
+- empty selections, source group maps, nonconsecutive atom/structure selections,
+  explicit atom permutation and atom-free group reorder/merge;
+- independent shallow/deep/native snapshots and JSON-backed topology transport;
+- full transport/extraction with two chemical states, a nontrivial state/structure
+  map, named occurrences and evaluated-empty versus unevaluated structures;
+- strict destination refusal with an absent or existing PDB target;
+- real OpenMM label round trip without invented naming context;
+- prospective naming invalidation on native and dictionary inputs, including
+  selected H5MSM publication, stable original snapshots and coverage-only reads;
+- named-analysis omissions from Topology/TopologyDict/Structures/MolSysBuilder;
+- malformed source-context arguments and clear missing-inventory diagnostics.
+
+The new module joins the maintained smoke invocation. Existing native naming and
+H5MSM schema guards remain intact: dictionary 0.3, H5MSM root 0.5/topology layer 4,
+unknown older context and rejection of unsupported/malformed registries are not
+weakened. No new wire version or data asset is required by this phase.
+
+### Partial systems and corrected test assumptions
+
+The first 587-case run passes 586 and fails the old audit-scope expectation on an
+all-unknown topology. The implementation now leaves that historical partial scope
+unchanged when there is no known declaration to assess; the expectation remains.
+The first 37-case new-module run passes 32 and exposes incorrect fixture premises:
+atomic extraction retains canonical source order rather than acting as explicit
+permutation; PDB groups follow serialized atom order; a strict MolSys-to-TopologyDict
+projection also loses structures/chemistry; and merging pure Topology inputs
+returns Topology. The controls now assert actual source maps/IDs, use explicit
+atom permutation for that operation, and use a pure Topology input when requiring
+a lossless strict inventory conversion. None of those existing semantics changes.
+Later fixtures use the native class imports and atomic replacement of the readonly
+interaction mapping, rather than trying to assign through its MappingProxyType.
+
+Additional receiving exposes real missing-domain crashes: the MolSysDict audit
+reads mechanics attributes through None; the PDB audit reads absent structures
+and chemical states. These audits now inspect only supplied domains, including
+zero-state chemistry. They do not create assignments, coordinates or mechanics
+values to complete a preflight. A restored empty mechanics container is not
+misreported as persisted mechanics data. The source-interpretation audit reduces
+to available inventory rather than refusing a valid group-free SDF merely because
+its static form lacks group labels. Pure structures still cannot supply naming
+context. The SDF negative control explicitly expects no invented declaration.
+
+The first tutorial execution catches the missing-chemical-domain PDB crash;
+that error is recorded here. The runner's current log describes the later
+successful execution, not the earlier failed attempt. One initial
+notebook-schema check rejects a cell ID added to the older-format convert
+notebook. That cell follows its existing schema without changing the notebook
+version or executable payload; course cells retain their required modern IDs.
+The final no-warning/broken-link and notebook-schema assertions are unchanged.
+
+### Support-library and units boundaries
+
+ArgDigest validates the new public keyword and existing selection/skip contracts.
+Private audit/source helpers are undecorated and reuse the shared naming authority.
+SMonitor supplies the existing argument/conversion diagnostics; no new provider
+API or dependency floor is needed. DepDigest guards remain on reached optional
+conversions with lazy imports. This phase introduces no scientific method that
+earns a new citation: metadata inspection does not claim an executed engine or
+chemical reference calculation. Existing optional Ackredit attribution and stored
+provenance remain untouched. Naming metadata/indices are dimensionless; coordinate
+and PDB-capacity inspection retains explicit PyUnitWizard units. The transport
+controls compare coordinates in nm rather than stripping their application unit.
+
+### Final local receiving
+
+- **4,651 affected tests pass**, no failures or omissions, on Linux/Python 3.14.7
+  with four workers in 182 seconds. This is the final runtime revision, including
+  named-analysis projection/invalidation and the partial-domain guards. Its 1,029
+  warnings retain 977 legacy H5MSM notices, fourteen pandas notices and existing
+  structural/parser/unit/import diagnostics. An import-time binary-size warning
+  remains a shared-environment observation, not a demonstrated MolSysMT native
+  backend defect or installed-package qualification; #524 retains environment
+  closure work. No warnings are suppressed to obtain this result.
+- **236 tests pass** with public ArgDigest 0.14.0, DepDigest 0.15.1, SMonitor 0.16.0
+  and Ackredit 0.9.0 using the previously verified archive/import-path harness.
+  Two workers take 17 seconds with one existing attribute-drop diagnostic. The
+  same entry-point-only SMonitor plugin exclusion remains under #524; no runtime
+  or scientific assertion is excluded. Current-provider receiving retains its
+  normal diagnostics plugin.
+- **514 documentation/command controls** and **three doctest items pass**.
+  The revised naming tutorial executes all **nine code cells**. The larger
+  conversion tutorial and course retain identical code cells, saved results and
+  notebook metadata; their new material is explanatory Markdown only.
+- Whole-tree Ruff lint/formatting, public docstring/API/signature validation,
+  dependency/import-contract and final devguide/index/diff checks are run before
+  the local commit. The native binary and four unrelated human API-stub edits
+  retain the hashes recorded above and remain outside this work. No provider
+  checkout, runtime floor, scientific asset, source format or artifact changes.
+
+The final command in the existing environment is:
+
+```bash
+python -m pytest --receptor=llm -n 4 \
+  tests/basic tests/native tests/conversion_truth tests/form/file_h5msm \
+  tests/_private/test_conversion_report_scopes.py \
+  tests/_private/test_conversion_fidelity_audit.py \
+  tests/interactions/test_public_molsys_h5msm_workflow.py -m 'not network'
+```
+
+Its existing unmarked PDB downloads use the authorized network-enabled runner;
+the marker alone does not make it offline. Local JUnit under
+`.pytest_cache/group-name-resolution-549/` retains
+`fidelity-received-final.xml`, `fidelity-floors-final.xml`,
+`fidelity-documentation-final.xml` and `fidelity-doctests-final.xml`.
+Earlier failed and intermediate processes keep separate XML, including the
+missing-domain and corrected-fixture evidence. The 4,637-case earlier broad pass
+precedes the final analysis audit and is not substituted for the 4,651-case run.
+No hosted CI, push, tag or installed/release qualification is claimed.
+
+**Next:** D6 removes the competing old scalar code helper and reconciles its
+consumers/docs/addon mirror, then D7 verifies the combined exact source before
+issue closeout. D5 neither stabilizes unassessed chemical methods nor closes #334.
+
+
+### Final governance checks for D5
+
+Whole-tree Ruff lint and formatting (**4,355 files**), the **247-function**
+docstring fidelity/content gate, the **278-symbol** API registry and the one
+approved preflight signature extension pass. Dependency import/contract and
+offline naming-asset equality checks pass. Devguide/index and staged diff checks
+pass before the local commit. The scientific assets, native binary, dependency
+floors and four pre-existing human API-stub edits are unchanged. The larger
+conversion tutorial and course retain their exact executable payloads/metadata.
+These local results do not qualify a public artifact or waive D7's combined gates.

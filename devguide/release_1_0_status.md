@@ -20,6 +20,26 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Group-name fidelity receiving — 2026-11-05
+
+**D5 complete locally under #549.** Conversion/preflight now reports selected
+stored or prospective naming declarations that a target cannot retain. The
+public preflight accepts `from_naming_scheme`; strict mode refuses detected loss
+before target writes. Unknown context remains unknown on foreign rereading.
+
+Named-analysis omission and selected evaluated-coverage invalidation from a newly
+added declaration are explicit losses, including evaluated-empty structures.
+Matching declarations and irrelevant coverage remain unchanged. Partial-system
+preflight inspects only available domains. Native/dictionary/H5MSM round trips,
+reordering, independent snapshots, state maps and named observations are covered.
+
+Final local receiving passes **4,651 tests**, **236 provider-floor cases**,
+**514 documentation controls** and **three doctest items**. The small tutorial
+executes nine cells; larger tutorial/course executable payloads stay unchanged.
+The owning record distinguishes failed fixtures, real missing-domain bugs and
+final runtime evidence. D6 old scalar/addon cutover and D7 final acceptance remain
+open; no installed artifact or release is qualified by these local checks.
+
 ## Group-name producer receiving — 2026-11-05
 
 **D4 complete locally within #549's bounded scope.** Peptide construction now

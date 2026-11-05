@@ -164,6 +164,17 @@ after later edits.
 Chemical-state selection does not rename stable groups. Changing the label's
 interpretation does not itself change bonds, charge, coordinates or protonation.
 
+Not every representation can carry that declaration. Keeping the same spelling
+in a PDB or a third-party object does not preserve the original naming vocabulary.
+Conversion preflight reports this metadata loss for the selected groups, including
+a prospective explicit source declaration. Strict conversion refuses before
+writing the destination. A later read without metadata retains unknown context;
+it does not reconstruct a convention from the labels. Adding a missing
+convention to an independent molecular output invalidates its existing evaluated
+interaction coverage under the normal lifecycle policy. Preflight exposes that
+loss too; an unchanged declaration does not cause it. See
+{ref}`Tutorial_Get_Conversion_Report` for the preservation scope and limits.
+
 ## Recognition and parents
 
 Reference-parent reporting and name recognition share the bounded naming

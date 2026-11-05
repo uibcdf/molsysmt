@@ -856,6 +856,12 @@ def convert(
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
     - Explicit structure indices are validated before a conversion adapter is called.
+    - Conversion reports audit stored and explicitly supplied group-name
+      declarations as topology metadata. Targets that retain labels alone report
+      this loss; strict=True rejects it before creating or replacing a target.
+      Default conversion retains its existing policy of permitting detected loss.
+      Reports also expose omitted named analyses and invalidated evaluated
+      interaction coverage when a source declaration is added to the result.
     - Source naming interpretation never renames groups or changes their chemical
       state. Explicit declarations are checked on selected groups before writing
       a target. Native one-letter projection reads topology directly without
@@ -1039,6 +1045,7 @@ def convert(
             structure_indices=structure_indices,
             syntax=syntax,
             converter_options=kwargs,
+            from_naming_scheme=from_naming_scheme,
         )
         if strict and report.is_lossy:
             raise NotCompatibleConversionError(

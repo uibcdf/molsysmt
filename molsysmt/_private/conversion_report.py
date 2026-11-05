@@ -447,7 +447,7 @@ def _aromatic_flag_is_not_preserved(bonds):
 
 
 def _audit_native_topology_to_dict(item, target_form="molsysmt.TopologyDict"):
-    """Stable schema 0.2 preserves the canonical inventory and memberships."""
+    """Schemas 0.2/0.3 retain inventory, memberships and optional naming context."""
     return []
 
 
@@ -455,6 +455,8 @@ def _audit_native_molsys_to_dict(item):
     """Report mechanical data outside the independent schema 0.2 domains."""
     target_form = "molsysmt.MolSysDict"
     issues = []
+    if item.molecular_mechanics is None:
+        return issues
     for attribute in (
         "partial_charge",
         "atom_ff_type",
@@ -610,99 +612,109 @@ def _audit_native_pdb_write(
         payload, "molsysmt.MolSys", target_form
     )
 
-    expected_atom_ids = [str(index) for index in range(1, payload.topology.n_atoms + 1)]
-    actual_atom_ids = payload.topology.atoms["atom_id"].astype(str).tolist()
-    if actual_atom_ids != expected_atom_ids:
-        issues.append(
-            ConversionIssue(
-                attribute="atom_id",
-                reason=(
-                    "PDB writing uses canonical serials because native atom IDs are "
-                    "not one unique contiguous decimal sequence."
-                ),
-                kind="canonicalization",
-                scope="topology",
-            )
-        )
-
-    structure_ids = payload.structures.structure_id
-    if structure_ids is not None and payload.structures.n_structures > 1:
-        values = [str(value) for value in structure_ids]
-        if len(set(values)) != len(values) or any(
-            not value.isdigit() or not 1 <= int(value) <= 9999 for value in values
-        ):
+    if payload.topology is not None:
+        expected_atom_ids = [
+            str(index) for index in range(1, payload.topology.n_atoms + 1)
+        ]
+        actual_atom_ids = payload.topology.atoms["atom_id"].astype(str).tolist()
+        if actual_atom_ids != expected_atom_ids:
             issues.append(
                 ConversionIssue(
-                    attribute="structure_id",
+                    attribute="atom_id",
                     reason=(
-                        "PDB MODEL identifiers must be unique decimal values between "
-                        "1 and 9999 and will therefore be canonicalized."
+                        "PDB writing uses canonical serials because native atom IDs are "
+                        "not one unique contiguous decimal sequence."
                     ),
                     kind="canonicalization",
-                    scope="structures",
+                    scope="topology",
                 )
             )
 
-    if payload.structures.box is not None and payload.structures.n_structures > 1:
-        boxes = puw.get_value(payload.structures.box, to_unit="nm")
-        if not np.allclose(boxes, boxes[0], equal_nan=True):
-            issues.append(
-                ConversionIssue(
-                    attribute="box",
-                    reason=(
-                        "PDB CRYST1 stores one unit cell for the complete model set."
-                    ),
-                    kind="schema_limitation",
-                    scope="structures",
+    if payload.structures is not None:
+        structure_ids = payload.structures.structure_id
+        if structure_ids is not None and payload.structures.n_structures > 1:
+            values = [str(value) for value in structure_ids]
+            if len(set(values)) != len(values) or any(
+                not value.isdigit() or not 1 <= int(value) <= 9999 for value in values
+            ):
+                issues.append(
+                    ConversionIssue(
+                        attribute="structure_id",
+                        reason=(
+                            "PDB MODEL identifiers must be unique decimal values between "
+                            "1 and 9999 and will therefore be canonicalized."
+                        ),
+                        kind="canonicalization",
+                        scope="structures",
+                    )
                 )
-            )
 
-    if payload.structures.coordinates is not None:
-        coordinates = puw.get_value(payload.structures.coordinates, to_unit="angstrom")
+        if payload.structures.box is not None and payload.structures.n_structures > 1:
+            boxes = puw.get_value(payload.structures.box, to_unit="nm")
+            if not np.allclose(boxes, boxes[0], equal_nan=True):
+                issues.append(
+                    ConversionIssue(
+                        attribute="box",
+                        reason=(
+                            "PDB CRYST1 stores one unit cell for the complete model set."
+                        ),
+                        kind="schema_limitation",
+                        scope="structures",
+                    )
+                )
+
+        if payload.structures.coordinates is not None:
+            coordinates = puw.get_value(
+                payload.structures.coordinates, to_unit="angstrom"
+            )
+            if (
+                not np.isfinite(coordinates).all()
+                or np.any(coordinates < -999.999)
+                or np.any(coordinates > 9999.999)
+            ):
+                issues.append(
+                    ConversionIssue(
+                        attribute="coordinates",
+                        reason="PDB coordinates exceed their fixed-width 8.3 fields.",
+                        kind="numeric_capacity",
+                        scope="structures",
+                    )
+                )
+
+    if (
+        payload.chemical_states is not None
+        and payload.chemical_states.n_chemical_states
+    ):
+        formal_charge = payload.chemical_states._get_chemical_state_atom_attribute(
+            "formal_charge"
+        )
         if (
-            not np.isfinite(coordinates).all()
-            or np.any(coordinates < -999.999)
-            or np.any(coordinates > 9999.999)
+            formal_charge is not None
+            and formal_charge.notna().any()
+            and np.any(np.abs(formal_charge.dropna().to_numpy(dtype=int)) > 9)
         ):
             issues.append(
                 ConversionIssue(
-                    attribute="coordinates",
-                    reason="PDB coordinates exceed their fixed-width 8.3 fields.",
+                    attribute="formal_charge",
+                    reason="PDB formal-charge magnitudes occupy one decimal digit.",
                     kind="numeric_capacity",
-                    scope="structures",
+                    scope="chemical_state",
                 )
             )
 
-    formal_charge = payload.chemical_states._get_chemical_state_atom_attribute(
-        "formal_charge"
-    )
-    if (
-        formal_charge is not None
-        and formal_charge.notna().any()
-        and np.any(np.abs(formal_charge.dropna().to_numpy(dtype=int)) > 9)
-    ):
-        issues.append(
-            ConversionIssue(
-                attribute="formal_charge",
-                reason="PDB formal-charge magnitudes occupy one decimal digit.",
-                kind="numeric_capacity",
-                scope="chemical_state",
+        bonds = payload.chemical_states._resolve_chemical_state().bonds
+        if "bond_type" in bonds and bonds["bond_type"].notna().any():
+            issues.append(
+                ConversionIssue(
+                    attribute="bond_type",
+                    reason=(
+                        "PDB connectivity does not encode the source bond-type field; "
+                        "a covalent interpretation is reconstructed on reading."
+                    ),
+                    kind="schema_limitation",
+                    scope="chemical_state",
+                )
             )
-        )
-
-    bonds = payload.chemical_states._resolve_chemical_state().bonds
-    if "bond_type" in bonds and bonds["bond_type"].notna().any():
-        issues.append(
-            ConversionIssue(
-                attribute="bond_type",
-                reason=(
-                    "PDB connectivity does not encode the source bond-type field; "
-                    "a covalent interpretation is reconstructed on reading."
-                ),
-                kind="schema_limitation",
-                scope="chemical_state",
-            )
-        )
 
     deduplicated = {}
     for issue in issues:
@@ -1071,6 +1083,7 @@ def build_conversion_report(
     structure_indices="all",
     syntax="MolSysMT",
     converter_options=None,
+    from_naming_scheme=None,
 ):
     """Build a conservative preflight report without mutating either system."""
 
@@ -1079,13 +1092,31 @@ def build_conversion_report(
 
     target_form = _canonical_target_form(to_form)
     source_item, source_form = _single_source(molecular_system, from_form)
-    issues = []
+    from molsysmt._private.naming_fidelity import audit as audit_naming
+    from molsysmt._private.naming_fidelity import audit_analysis_projection
+
+    naming_issues, naming_audited = audit_naming(
+        molecular_system,
+        from_form,
+        target_form,
+        selection,
+        structure_indices,
+        syntax,
+        converter_options or {},
+        from_naming_scheme,
+    )
+    analysis_issues = audit_analysis_projection(molecular_system, target_form)
+    issues = [*naming_issues, *analysis_issues]
     pdbqt_identity = False
 
     if source_item is not None and source_form == target_form == "file:sdf":
         from molsysmt._private.variables import is_all
 
-        if is_all(selection) and is_all(structure_indices):
+        if (
+            is_all(selection)
+            and is_all(structure_indices)
+            and from_naming_scheme is None
+        ):
             from molsysmt._private.ctfile import validate_sdf_envelope
 
             # The converter preserves bytes, including unknown chemistry. An
@@ -1118,7 +1149,7 @@ def build_conversion_report(
             if source_form in PDBQT_FORMS and target_form in PDBQT_FORMS:
                 from molsysmt._private.pdbqt_adapter import identity_selection
 
-                pdbqt_identity = identity_selection(
+                pdbqt_identity = from_naming_scheme is None and identity_selection(
                     source_item, source_form, selection, structure_indices, syntax
                 )
 
@@ -1379,6 +1410,11 @@ def build_conversion_report(
         audited_scopes = tuple(
             dict.fromkeys((*audited_scopes, *(issue.scope for issue in issues)))
         )
+    if (naming_audited or analysis_issues) and audited_scopes != ("all",):
+        extra_scopes = (("topology",) if naming_audited else ()) + tuple(
+            issue.scope for issue in (*naming_issues, *analysis_issues)
+        )
+        audited_scopes = tuple(dict.fromkeys((*audited_scopes, *extra_scopes)))
     is_exhaustive = is_conversion_audit_exhaustive(source_form, target_form)
     if pdbqt_identity:
         audited_scopes = ("all",)
@@ -1410,7 +1446,30 @@ def build_conversion_report(
             )
             is_exhaustive = False
 
-    outcome = "lossy" if issues else ("exact" if same_form else "equivalent")
+    interpreted_identity = (
+        from_naming_scheme is not None
+        and same_form
+        and source_form
+        not in {
+            "molsysmt.MolSys",
+            "molsysmt.Topology",
+            "molsysmt.MolSysBuilder",
+            "molsysmt.TopologyDict",
+            "molsysmt.MolSysDict",
+        }
+    )
+    if interpreted_identity:
+        is_exhaustive = False
+        audited_scopes = tuple(
+            dict.fromkeys(
+                ("chemical_state", "topology", *(issue.scope for issue in issues))
+            )
+        )
+    outcome = (
+        "lossy"
+        if issues
+        else ("exact" if same_form and not interpreted_identity else "equivalent")
+    )
     return ConversionReport(
         from_form=source_form,
         to_form=target_form,
