@@ -56,10 +56,25 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
         + "\n",
         encoding="utf-8",
     )
+    naming = foundations / "molecular_system/naming_schemes.md"
+    naming.parent.mkdir()
+    naming.write_text(
+        "\n".join(
+            (
+                validate_course.REPO
+                / "docs/content/user/foundations/molecular_system/naming_schemes.md"
+            )
+            .read_text(encoding="utf-8")
+            .splitlines()[:2]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     (core / "index.md").write_text(
         (validate_course.COURSE / "Common_Core/index.md").read_text(encoding="utf-8"),
         encoding="utf-8",
     )
+    naming_pages = set()
     for page in pages:
         notebook = json.loads(page.read_text(encoding="utf-8"))
         markdown = [
@@ -75,6 +90,8 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
             or "[Module " in line
             or "{ref}`Module " in line
         ]
+        if any("user-foundations-group-naming-schemes" in line for line in navigation):
+            naming_pages.add(page.name)
         heading = re.search(r"^# .+$", markdown[0], re.MULTILINE)
         assert heading is not None
         excerpt = markdown[0][: heading.end()] + "\n\n" + "\n\n".join(navigation)
@@ -99,9 +116,14 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
     (source / "index.rst").write_text(
         "Course navigation\n=================\n\n.. toctree::\n\n"
         + "   course/Common_Core/index\n"
-        + "   user/foundations/index\n   user/foundations/support/selection_syntaxes\n",
+        + "   user/foundations/index\n   user/foundations/support/selection_syntaxes\n"
+        + "   user/foundations/molecular_system/naming_schemes\n",
         encoding="utf-8",
     )
+    assert {
+        "04_Native_Forms.ipynb",
+        "12_Building_Repairing_and_Auditing_Systems.ipynb",
+    } <= naming_pages
     warnings = StringIO()
     app = SphinxTestApp(
         srcdir=source,
@@ -119,6 +141,11 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
                 tmp_path / f"html/course/Common_Core/{page.stem}.html"
             ).read_text(encoding="utf-8")
             assert 'href="../../user/foundations/index.html#' in rendered
+            if page.name in naming_pages:
+                assert (
+                    'href="../../user/foundations/molecular_system/naming_schemes.html#user-foundations-group-naming-schemes"'
+                    in rendered
+                )
             if index < len(pages) - 1:
                 following = pages[index + 1]
                 next_link = re.search(

@@ -186,3 +186,19 @@ system; independent mode preserves it. Only selected atoms and structures are
 published, and boxes remain unchanged. On a MolSys, the public coordinate setter
 invalidates interaction coverage for those structures. See
 {ref}`Tutorial_Wrap_to_pbc` and {ref}`Tutorial_Wrap_to_mic`.
+
+
+## Primary observations
+
+`coordinates`, `occupancy` and `b_factor` describe the current primary atom
+observation in each structure. The separate `alternate_location` records retain
+all known source sites. Resolving an alternative updates the chosen observations,
+including occupancy; missing optional measurements stay unknown. Atom IDs remain
+stable labels in Topology. See
+{ref}`alternate-location resolution <Tutorial_Solve_atoms_with_alternate_locations>`
+for maximum selection, explicit labels and pre-write validation.
+
+Native selected B-factor/occupancy setters can initialize missing series without
+reading or copying coordinates. Unassigned positions are NaN and integer storage
+is promoted when fractional observations are assigned. The optional series uses
+its ordinary dense `(n_structures, n_atoms)` storage.

@@ -20,6 +20,52 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Incoming alternate-site corrections — 2026-11-05
+
+The checkpoint review of recent open issues identifies three new related
+correctness reports, #569/#570/#571. Their native repair now selects the actual
+maximum, preserves chosen primary occupancy/B-factor coherence and preflights
+the whole selected request before writing. Invalid later sites preserve source
+geometry, IDs, optional observations and analysis identities. Sparse planning
+keeps the normal mutable-backend failure limit explicit. Native optional-field
+setters also reuse proper ArgDigest value validation and avoid materializing
+coordinates when creating observation storage.
+
+Local receiving passes **4,639 affected tests**, **50 published-floor cases**,
+**533 documentation controls** and the resolver doctest without omissions. The
+tutorial executes eight cells; course/Cookbook executable content is preserved.
+The [#571 owning record](archive/resolved_bugs/invalid_alternate_location_requests_partially_modify_earlier_structures.md)
+retains the shared receiving and links the specific #569/#570 guards. These are
+source corrections; hosted and installed/release evidence retain separate scope.
+
+The previous naming source d3650cc09735ccfc7bf02d35ca4e0a746f83f96f now passes
+all seven applicable routine push workflows: smoke 42074491673, dependency
+42074491697, data 42074491651, Ruff 42074491781, devguide 42074491689,
+suite policy 42074492404 and publication governance 42074492306. GH Run
+Receptor's public 1.3.0 payload reports terminal smoke success. This is not the
+full source/platform matrix or admission of PR #543. The #549 handoff is
+published in that PR; its inspected head remains a1dbe0fb, pending adaptation.
+
+### Revised bounded work order
+
+Revisit incoming issues/PRs at meaningful phase checkpoints, as requested by
+the maintainer; keep the active work and its handoffs visible. The review of the
+latest fifty updated open reports preserves this route after #569–#571:
+
+1. Receive #543's naming mirrors and complete #549 D6/D7 when its owner is ready;
+   independent native bug fixes continue meanwhile.
+2. Review #556 (CIF primary occupancy acquisition) and #563 (repeated assembly
+   generators), keeping both distinct from the alternate-site repair above.
+3. Continue the already planned #504 multi-structure solvation contract, #568
+   mutation selection/syntax and #564 triclinic water-box correctness.
+4. Receive #559–#562 engine/platform/registry/partition/doc failures and #565/#567
+   network-test/performance evidence before using affected routes as qualification.
+5. Keep #557's public CCD template proposal, #558 generation evidence and older
+   explicit scientific studies in their owned queues; they are not silently
+   promoted to initial-1.0 gates by the incoming review.
+
+No new detector, release tag or installed artifact is admitted by this triage.
+
 ## Group-name public cutover — 2026-11-05
 
 **Native D6 delivered locally under #549; expansion receiving remains open.**

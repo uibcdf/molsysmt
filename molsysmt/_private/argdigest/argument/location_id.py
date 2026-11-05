@@ -19,14 +19,9 @@ def digest_location_id(location_id, caller=None):
         location_id = np.array(location_id)
 
     if isinstance(location_id, np.ndarray):
-        for ii in location_id:
-            ok = False
-            if isinstance(ii, str):
-                if len(ii) == 1:
-                    ok = True
-            if not ok:
-                break
-        if ok:
+        if location_id.ndim == 1 and all(
+            isinstance(value, str) and len(value) == 1 for value in location_id
+        ):
             return location_id
 
     raise ArgumentError("location_id", caller=caller, message=None)

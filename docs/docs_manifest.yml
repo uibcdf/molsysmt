@@ -177,6 +177,10 @@ sections:
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
         pages:
+          - name: solve_alternate_locations
+            file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb
+            agents_file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb.AGENTS.md
+            description: Sparse preflight of all selected alternative observations, maximum/tie semantics, coherent primary occupancy and B factors, stable labels, unknown values and selective interaction invalidation.
           - name: editable
             file: docs/content/user/tools/build/editable.ipynb
             agents_file: docs/content/user/tools/build/editable.ipynb.AGENTS.md

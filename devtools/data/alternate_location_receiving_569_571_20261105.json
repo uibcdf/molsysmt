@@ -1,0 +1,99 @@
+{
+  "schema": "molsysmt.alternate-location-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#569",
+    "uibcdf/molsysmt#570",
+    "uibcdf/molsysmt#571"
+  ],
+  "producer_basis": "d3650cc09735ccfc7bf02d35ca4e0a746f83f96f",
+  "working_tree_patch": true,
+  "files_sha256": {
+    "molsysmt/build/solve_atoms_with_alternate_location.py": "aefa1084871e2176452399552c181ebd9a26b519d60acf99c0118c720c95deac",
+    "molsysmt/native/structures.py": "a2bd7a72d06c4bcb0ac322c20cfebf060cc2fd008f8727bc154ac7c5209680f8",
+    "molsysmt/_private/argdigest/argument/location_id.py": "4543599958472460d5d8b3bc4591a5d7cd28439f6f8e2f6673fc739a29e55342",
+    "molsysmt/_private/argdigest/argument/value.py": "5e0b8ef164bcc480122af8f8597148d29a8a29bfb2eb09a2987d765a8e216c1f",
+    "tests/build/solve_atoms_with_alternate_location/test_alternate_location_contract.py": "030928de257227251e566cbd5ecf54e20667d03f2644ba6a191dc25d3cb3eb9f",
+    "tests/native/test_atom_observation_setters.py": "e6a70f007bf4be0264f61384b948ac7ceee91853226c5011dcccac09727dcae6"
+  },
+  "environment": {
+    "platform": "Linux",
+    "python": "3.14.7",
+    "environment": "Existing molsyssuite@uibcdf_3.14",
+    "workers": 4,
+    "pytest_receptor": "Published 1.2.1 overlay"
+  },
+  "artifacts": [
+    {
+      "path": ".pytest_cache/alternate-locations-569-571/reproduced-before.xml",
+      "sha256": "d9ea1fde64005808f3e500ea3b2a229ea8d8a841438832cd53bc8b9ea0ff0f48",
+      "tests": 30,
+      "errors": 0,
+      "failures": 24,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/alternate-locations-569-571/native-received-final.xml",
+      "sha256": "77ae551b60174aa387b857af3ce12539b3259c500d82c2ff8ede3adc0ae663b7",
+      "tests": 4639,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/alternate-locations-569-571/provider-floors-final.xml",
+      "sha256": "70400c6de8c642914726ed54a66fcf18d650b1c68daf37c1de8138362a40def5",
+      "tests": 50,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/alternate-locations-569-571/documentation-received.xml",
+      "sha256": "db3960943e10337c4027880fe47313b246dcae89a60382209226e0d6507bbd42",
+      "tests": 533,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/alternate-locations-569-571/doctests.xml",
+      "sha256": "9a88d98d5ac32ee942d55ff0fa1ec25d6f4500ab36ac5eb8a499ff0a85e81e1f",
+      "tests": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/alternate-locations-569-571/course-received-v3.xml",
+      "sha256": "8bb3c0742019a7c0a845edfda6b5139025b8d5eb5d654a4c0444c246d8c6ccca",
+      "tests": 498,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "tutorial": {
+    "path": "docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb",
+    "code_cells": 8,
+    "execution": "Existing environment, local Jupyter sockets enabled; completed successfully."
+  },
+  "floor_receiving": {
+    "argdigest": "0.14.0",
+    "depdigest": "0.15.1",
+    "smonitor": "0.16.0",
+    "ackredit": "0.9.0",
+    "harness": "Previously verified public Conda payload/import paths; only pytest SMonitor entry-point plugin excluded under #524. Runtime/scientific checks retained."
+  },
+  "native_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "limits": [
+    "Preflight protects invalid selected requests; arbitrary backend/file failures retain existing mutation/invalidation semantics.",
+    "Missing optional primary fields allocate dense structure-by-atom metadata, without materializing coordinates.",
+    "No independent experimental geometry validation or installed/release qualification."
+  ],
+  "prior_naming_checkpoint": {
+    "commit": "d3650cc09735ccfc7bf02d35ca4e0a746f83f96f",
+    "smoke": 42074491673,
+    "routine_push_gate_conclusions": "All seven applicable push workflows succeeded; native full-platform and installed qualification remain separate."
+  }
+}

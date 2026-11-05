@@ -1616,3 +1616,26 @@ retains final code/test hashes and JUnit identities in
 source attribution are distinct from hosted exact-source, expansion and
 installed-candidate qualification. D6's expansion receiving and D7 stay open;
 #549 is not closed by this checkpoint.
+
+
+### Source checkpoint and miniature course-site receiving — 2026-11-05
+
+Published source d3650cc09735ccfc7bf02d35ca4e0a746f83f96f passes all seven
+routine push workflows, including smoke 42074491673. The #543 adaptation
+handoff is published as PR comment 6664622011; no receiving acknowledgement or
+new expansion source is inferred from that delivery. Full matrix, combined
+expansion and installed-candidate acceptance remain separate D7/#334 work.
+
+While receiving the subsequent alternate-site corrections (#569–#571), the
+course navigation test exposes a miniature-site fixture omission from the
+naming-guide addition: real course links use its existing anchor, but the fixture
+never copies that target. The fixture now copies the actual guide heading/label
+and asserts the rendered destination. No production label is invented and no
+undefined-reference warning is ignored. This is bounded #549 documentation
+receiving, not a new naming-runtime change or admission of #543.
+
+The final course/navigation/schema selection passes 498 cases. Its intermediate
+link assertion incorrectly treated saved notebook outputs as navigation;
+the final guard uses only the Markdown navigation excerpt, requires the two
+actual source modules to retain the naming reference, and checks their exact
+rendered page/anchor destinations. Missing real targets still fail Sphinx.
