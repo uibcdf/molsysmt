@@ -61,7 +61,10 @@ independent prepared systems: infer_covalent_bonds, assign_autodock_atom_types
 and assign_partial_charges. They do not adopt the result or update the scene;
 The label-only project_atom_names route also returns an independent output;
 `add_missing_bonds` also receives native independent results or managed in-place
-graph publication; its default is in-place. Other build editing remains pending.
+graph publication; its default is in-place. The native
+`solve_atoms_with_alternate_location` route receives selected coordinate,
+B-factor and atom-label publication with managed synchronization and explicit
+native limitations. Other build editing remains pending.
 
 The explicit `view.addons.molsysmt.interactions.hbonds` namespace now provides
 four recognition/characterization tools: `get_donor_atoms`, `get_acceptor_atoms`,
@@ -3725,6 +3728,71 @@ bond reconstruction. Potentially partial writes require explicit recovery.
 Cached methods use the current loaded owner; empty and closed views reject.
 Native `skip_digestion` is forwarded; it never disables integration safeguards.
 This is bounded source receiving, not a new published-package guarantee.
+
+## Resolving alternate crystallographic sites
+
+`view.addons.molsysmt.build.solve_atoms_with_alternate_location(...)` runs the
+native in-place operation on the current loaded system and returns `None`.
+It preserves source atom/structure indices and chemistry while applying the
+selected stored sites. It has no `in_place` switch or independent result.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.convert(
+    msm.systems["Barnase-Barstar"]["1brs.bcif.gz"], to_form="molsysmt.MolSys"
+)
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt
+    tools.build.solve_atoms_with_alternate_location(
+        selection=[2686, 2687], location_id="B", update_view=False
+    )
+    assert msm.get(view.molsys, selection=[2686, 2687], atom_id=True) == ["2688", "2690"]
+    tools.sync_view()
+```
+
+`structure_indices` retains native order, including nonconsecutive selections;
+its default is all structures, independently of the visible structure. A list
+of `location_id` values maps to sorted selected atom indices in the native tool,
+not the input selection's order. Atom-ID labels are topology-wide: the first
+processed selected structure supplies each label. Labels do not establish or
+change the retained scene/source correspondence.
+
+The native tool writes coordinates and writes a structure's selected B factors
+only when all its selected alternate records provide them. B factors retain
+native square-length quantities, normally nm²; existing values may remain when
+that per-structure set is incomplete. Alternate-site records remain available.
+Named analysis coverage follows native coordinate publication for the affected
+structures, including evaluated-empty analyses; no detector is rerun. A call
+without selected sites preserves managed revision and scene history. Repeating
+a real native write can invalidate coverage even when coordinates compare equal.
+No conformer generation, occupancy fitting or molecular preparation is added.
+
+`update_view=False` defers projection only. Compatible pending edits compose
+through the existing maps. A subsequent no-op with `update_view=True` can finish
+earlier pending projection. After successful science, a scene error carries
+`science_completed=True` and `scientific_result=None`; retry `sync_view()`.
+A native exception after partial publication instead enters `uncertain` and
+requires explicit replacement, preserving its diagnostic without scientific
+replay. The keyword-only `skip_digestion` controls addon digestion only and is
+never forwarded; ordinary native validation always applies.
+
+The current native limitations are tracked separately:
+
+- [#569](https://github.com/uibcdf/molsysmt/issues/569): maximum-occupancy selection
+  can choose A below the maximum when the maximum is 0.5. True 0.5 ties and the
+  received 0.4/0.6 case have separate positive controls.
+- [#570](https://github.com/uibcdf/molsysmt/issues/570): primary occupancy remains
+  at its previous value after a different site is chosen. The owner must clarify
+  or correct that metadata contract.
+- [#571](https://github.com/uibcdf/molsysmt/issues/571): a missing later location
+  can raise a malformed choice error after earlier structures were modified.
+
+The facade preserves these native results/errors and does not repair them.
+Bounded source receiving is not general crystallographic or installed-package
+qualification. See {func}`molsysmt.build.solve_atoms_with_alternate_location` and
+{ref}`Tutorial_Solve_atoms_with_alternate_locations` for native usage.
 
 ## Constructing and mutating independent peptides
 

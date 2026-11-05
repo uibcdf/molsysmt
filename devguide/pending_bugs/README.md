@@ -20,12 +20,15 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (4)
+### Open (7)
 
+- [`alternate_location_occupancy_can_choose_a_lower_occupancy_site.md`](alternate_location_occupancy_can_choose_a_lower_occupancy_site.md) — [#569](https://github.com/uibcdf/molsysmt/issues/569) — Alternate-location occupancy selection can choose a lower-occupancy site *(high, reproduced)*
+- [`alternate_location_rejection_can_leave_partial_structure_writes.md`](alternate_location_rejection_can_leave_partial_structure_writes.md) — [#571](https://github.com/uibcdf/molsysmt/issues/571) — Invalid alternate-location requests can leave earlier structures modified *(high, reproduced)*
 - [`water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md`](water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md) — [#564](https://github.com/uibcdf/molsysmt/issues/564) — make_water_box places oxygen sites outside the requested triclinic cell. *(high, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 - [`mutate_selection_masks_mix_syntax_and_atom_group_axes.md`](mutate_selection_masks_mix_syntax_and_atom_group_axes.md) — [#568](https://github.com/uibcdf/molsysmt/issues/568) — mutate misroutes selection syntax and interprets atom masks as group indices. *(medium, reproduced)*
+- [`resolved_alternate_location_retains_previous_primary_occupancy.md`](resolved_alternate_location_retains_previous_primary_occupancy.md) — [#570](https://github.com/uibcdf/molsysmt/issues/570) — Resolving an alternate location retains the previous primary occupancy *(medium, reproduced)*
 
 ### In progress (1)
 

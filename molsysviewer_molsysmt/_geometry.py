@@ -16,6 +16,49 @@ def _geometry_token(target):
     )
 
 
+def _prepare_alternate_locations(target, parameters):
+    """Receive retained axes, including native metadata and partial failures."""
+    from molsysmt import build
+    from molsysmt.native import MolSys
+
+    if not isinstance(target, MolSys):
+        raise TypeError("Managed alternate locations require the bound native MolSys.")
+    if hasattr(target, "_pending_interaction_edits"):
+        raise ValueError(
+            "Managed alternate locations cannot run inside an active molecular edit."
+        )
+    if target.structures is None or target.structures._coordinates is None:
+        raise ValueError("Managed alternate locations require loaded coordinates.")
+    # In this reviewed native route every metadata write follows coordinate
+    # publication on a nonempty selected site. Protected-coordinate identity
+    # therefore also detects partial work before later frame/metadata rejection.
+    # This proof requires present coordinates and does not observe raw edits.
+    before = _geometry_token(target)
+
+    def run():
+        result = build.solve_atoms_with_alternate_location(target, **parameters)
+        plan["changed"] = _geometry_token(target) != before
+        return result
+
+    plan = {"run": run, "changed": False, "interactions_policy": "preserve"}
+    return plan
+
+
+def _run_alternate_locations(owner, parameters, update_view):
+    if not isinstance(update_view, bool):
+        raise TypeError("update_view must be a boolean.")
+    owner._target()
+    coordinator = getattr(owner._view_ref().addons.manager, "system_edits", None)
+    if coordinator is None:
+        raise RuntimeError("This Viewer host lacks managed molecular-edit receiving.")
+    return coordinator.execute(
+        lambda target: _prepare_alternate_locations(target, parameters),
+        name="molsysmt.build.solve_atoms_with_alternate_location",
+        update_view=update_view,
+        rejection_check=_geometry_token,
+    )
+
+
 def _prepare_geometry_set(target, parameters, attributes):
     from molsysmt import basic
     from molsysmt import pyunitwizard as puw

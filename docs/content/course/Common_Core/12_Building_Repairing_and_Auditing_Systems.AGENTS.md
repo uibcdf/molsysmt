@@ -77,3 +77,9 @@ Preserve the managed add_missing_bonds guidance: native in-place default,
 retained identities, reference-state components/coverage effects and true
 no-op behavior. Deferred projection and its retry never repeat science;
 independent results remain caller-owned. Preserve original code and outputs.
+
+
+Preserve the addon alternate-site guidance and native #569/#570/#571 limits.
+Distinguish retained indices from changed labels, deferred scene projection
+from partial native writes, and projection retry from scientific replay.
+All original course code, outputs, IDs and metadata remain unchanged.

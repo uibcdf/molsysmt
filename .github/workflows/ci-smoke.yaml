@@ -283,6 +283,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_build_staging_tools.py \
             tests/molsysviewer_molsysmt/test_build_sequence_tools.py \
             tests/molsysviewer_molsysmt/test_build_bond_edit_tools.py \
+            tests/molsysviewer_molsysmt/test_build_alternate_tools.py \
             tests/molsysviewer_molsysmt/test_build_audit_tools.py \
             tests/molsysviewer_molsysmt/test_hbond_site_tools.py \
             tests/molsysviewer_molsysmt/test_interaction_detector_tools.py \

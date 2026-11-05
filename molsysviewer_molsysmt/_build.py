@@ -5,6 +5,39 @@ from smonitor import signal
 
 from ._basic import _native_documentation
 from ._chemical_edits import _run_add_missing_bonds
+from ._geometry import _run_alternate_locations
+
+
+def _alternate_edit_documentation(function):
+    function = _native_documentation(
+        "solve_atoms_with_alternate_location", module="build"
+    )(function)
+    function.__doc__ += (
+        "\nView integration\n----------------\n"
+        "update_view : bool, keyword-only, default=True\n"
+        "    Reconcile the completed native in-place edit. False defers only "
+        "scene projection; sync_view() retries projection without science.\n"
+        "skip_digestion : bool, keyword-only, default=False\n"
+        "    Control addon digestion only. The native function has no such "
+        "parameter and always receives ordinary native validation.\n"
+        "Requires an open loaded native owner with coordinates. Returns native "
+        "None; no in_place switch or independent output is invented. Atom and "
+        "structure indices, chemistry and source identity remain. The native "
+        "tool writes selected coordinates, its admitted B-factor sets and atom-ID "
+        "labels; IDs are not correspondence indices. Alternate-site records "
+        "remain available. Native order, location policy, units and analysis "
+        "invalidation remain unchanged; there is no visible-frame substitution, "
+        "conformer search or molecular preparation. Calls that publish no "
+        "selected site preserve managed revision/history; repeating a native write "
+        "can invalidate coverage even with equal coordinate values. Clean "
+        "rejections retain prior pending work, while partial native writes "
+        "enter uncertain state and require explicit replacement. A scene "
+        "failure after successful science exposes science_completed and "
+        "scientific_result=None; retry synchronization only. Native occupancy "
+        "choice/storage and invalid-location limitations are tracked under "
+        "molsysmt#569, #570 and #571; the addon does not repair them.\n"
+    )
+    return function
 
 
 def _bond_edit_documentation(function):
@@ -254,6 +287,7 @@ class _BuildTools:
         "add_terminal_atoms",
         "add_missing_heavy_atoms",
         "add_missing_bonds",
+        "solve_atoms_with_alternate_location",
         "add_missing_hydrogens",
         "add_missing_terminal_cappings",
         "editable",
@@ -878,6 +912,30 @@ class _BuildTools:
                 "engine": engine,
                 "in_place": in_place,
                 "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )
+
+    @_alternate_edit_documentation
+    @signal(tags=["addon", "build", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def solve_atoms_with_alternate_location(
+        self,
+        selection="all",
+        structure_indices="all",
+        location_id="occupancy",
+        syntax="MolSysMT",
+        *,
+        update_view=True,
+        skip_digestion=False,
+    ):
+        return _run_alternate_locations(
+            self._owner,
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "location_id": location_id,
+                "syntax": syntax,
             },
             update_view,
         )

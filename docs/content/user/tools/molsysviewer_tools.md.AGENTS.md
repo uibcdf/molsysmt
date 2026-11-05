@@ -452,3 +452,10 @@ Preserve native add_missing_bonds in-place defaults, retained axes and atomic
 reference-state graph/component publication. Distinguish true no-op coverage/
 history preservation from deferred projection and synchronization-only retry;
 never duplicate candidate calculation or infer complete chemical validity.
+
+
+Preserve alternate-site resolution as native in-place coordinate/B-factor/ID
+publication with retained index identity. Keep sorted atom-list location binding,
+first-processed-structure global labels and per-structure B-factor admission
+explicit. Native occupancy/partial-write limits remain #569/#570/#571; no
+consumer scientific repair, validation bypass or replay on projection retry.
