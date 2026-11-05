@@ -20,6 +20,41 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Native ion replacement and explicit solvation counts — 2026-11-05
+
+**#575 is source-corrected.** New experimental `build.add_ions` replaces complete
+waters with one of nine monovalent species, using existing sparse Rust-backed
+periodic neighbor queries. Counts, charge-dependent neutralization and additional
+salt pairs have separate documented semantics. PCG64 seeds, bounded failure,
+producer versions, attribution and composable source/output atom maps are retained
+in ChemicalStates preparation history and H5MSM 0.5. No new dependency, compiled
+kernel or file-format revision was needed. This prepares geometry, without
+equilibration or invented force-field parameters.
+
+OpenMM explicit counts and seeded requests construct water first, then delegate
+to the native operation; mixed neutralization uses the original force-field
+charge. Unseeded defaults keep OpenMM's ordinary provider route. Native solvation
+delegates placement while explicitly retaining its legacy pH-7 source-charge
+approximation. PDBFixer rejects explicit counts or a seed before construction;
+its ordinary default route remains supported and tested. See the
+[owning record](archive/resolved_bugs/openmm_solvate_ignores_explicit_ion_counts.md)
+for the precise bounds and corrected findings.
+
+Receiving passes **212 affected tests**, **77 published-floor tests**, **156
+native-owner tests**, **601 documentation/governance tests** and **2 doctests**.
+The new tutorial's five code cells and the added course/cookbook examples execute.
+Finite analytical charge and lattice-image controls support a deliberately
+**partial** scientific-evidence declaration, not an equilibrium or optimal-packing
+claim. The [receipt](../devtools/data/ion_replacement_receiving_575_20261105.json)
+retains exact commands, source hashes, failed drafts and limits.
+
+The prior main smoke **42118274443 passes**. The new source delivery still needs
+routine hosted inspection; none of this replaces exact-candidate installed,
+platform or release qualification. Queue review observes new **#578** (empty-view
+default) and PR #543 at `c0149a2d6147380046768b9211cf11b7b63ebeda`. Continue with
+**#574** (OpenMM labels), then #578 and expansion receiving; #576/#572 remain
+explicit capability work. No tag, Release or package promotion is authorized here.
+
 ## Water-box geometry receiving — 2026-11-05
 
 **#564 is source-corrected.** `build.make_water_box` uses the row-vector

@@ -32,6 +32,11 @@ The **{doc}`Element <../../tools/element/index>`** module (`molsysmt.element`) p
 
 ## Build
 The **{doc}`Build <../../tools/build/index>`** module (`molsysmt.build`) provides native structure preparation, capping, hydrogen placement, solvation, and molecular repair capabilities.
+Preparation can retain operation-scoped evidence and atom correspondences in
+`ChemicalStates`. Replacing solvent with ions requires an explicit composition
+contract: an added population, a neutralizing population and an approximate
+concentration are distinct requests. A stored chemical charge, a force-field
+charge and a tabulated pH reference are distinct sources of evidence.
 - **Key Operations**: `editable`, `get_missing_heavy_atoms`, `add_missing_heavy_atoms`, `get_missing_terminal_cappings`, `add_missing_terminal_cappings`, `add_missing_hydrogens`, `solvate`, `mutate`.
 - **Philosophy**: Modular construction and repair with explicit prerequisites. Operations combine native tools and lazily loaded optional engines according to their supported method; successful local repair does not certify complete chemical preparation.
 

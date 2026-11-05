@@ -181,6 +181,10 @@ sections:
             file: docs/content/user/tools/build/mutate.ipynb
             agents_file: docs/content/user/tools/build/mutate.ipynb.AGENTS.md
             description: Atom-axis selection for all mutation specifications, literal IDs, independent no-op copies, preflight diagnostics and explicit native/provider reconstruction scope.
+          - name: add_ions
+            file: docs/content/user/tools/build/add_ions.ipynb
+            agents_file: docs/content/user/tools/build/add_ions.ipynb.AGENTS.md
+            description: Added monovalent counts, explicit charge sources, periodic whole-water replacement, seeded bounded placement, composable atom maps and retained preparation evidence.
           - name: make_water_box
             file: docs/content/user/tools/build/make_water_box.ipynb
             agents_file: docs/content/user/tools/build/make_water_box.ipynb.AGENTS.md

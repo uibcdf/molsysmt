@@ -18,9 +18,9 @@ belong to both. APIs outside these scopes are not certified by this matrix.
 | Status | Stable APIs | Claimed APIs |
 | --- | ---: | ---: |
 | validated | 42 | 1 |
-| partial | 1 | 6 |
+| partial | 1 | 7 |
 | gap | 0 | 1 |
-| total | 43 | 8 |
+| total | 43 | 9 |
 
 ## Governed tolerances
 
@@ -83,6 +83,7 @@ belong to both. APIs outside these scopes are not certified by this matrix.
 
 | API | Stability | Status | Declared claim and scope | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
+| `molsysmt.build.add_ions` | experimental | partial | Monovalent whole-water replacement: algebraic counts/neutrality and periodic exclusion distances in small synthetic cells. | analytic: `tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance` (exact)<br>analytic: `tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images` (exact) | Finite fixtures establish composition and geometric exclusion only. No equilibrium distribution, free energy, ion pairing, final measured ionic strength, maximal packing or broad algorithm parity claim. |
 | `molsysmt.build.build_peptide` | experimental | partial | Native standard-peptide construction: inventory and named bond graph against independently scripted Amber LEaP for three declared sequences. | external: `tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap` (exact) | Only three standard sequences are governed here; the existing 40-sequence wrapper parity campaign remains additional regression evidence. Geometry, energies, force-field assignments and arbitrary chemistry are not certified. |
 | `molsysmt.physchem.get_bulkiness` | experimental | partial | Bounded ALA/GLY/TRP Zimmerman reference area values with physical conversion following Proust et al. (2019), Table 1. Twenty-entry curation parity is separately contract-tested; no coordinate-derived area claim. | versioned-reference: `tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids` (float64_kernel_atol) | The original 1968 full-text derivation and normalization have not been re-audited. Numeric agreement with curated tables and later published area interpretation do not validate the geometry of a molecular conformation, arbitrary modified groups or molecular area aggregation. |
 | `molsysmt.physchem.get_lipophilicity` | experimental | partial | Bounded Wildman-Crippen primary atomic sums for methane, ethane and benzene; state-preserving model scores, not logD or a general experimental logP accuracy claim. Bounded atomic-context and hydrogen-attribution controls also cover the selected-contribution extension. | versioned-reference: `tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums` (float64_kernel_atol)<br>versioned-reference: `tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution` (float64_kernel_atol) | Only three primary atomic-sum controls independently checked. Ionic/zwitterionic/form/H-presentation cases establish contract and provider parity, not experimental partition accuracy, pH-dependent logD, all atom-type validation or a calibrated applicability domain. |

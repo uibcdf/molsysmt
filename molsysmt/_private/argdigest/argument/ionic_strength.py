@@ -13,6 +13,13 @@ def digest_ionic_strength(ionic_strength, caller=None):
 
     if puw.is_quantity(ionic_strength):
         if puw.check(ionic_strength, dimensionality={"[L]": -3, "[mol]": 1}):
+            if caller in {
+                "molsysmt.build.add_ions.add_ions",
+                "molsysmt.build.solvate.solvate",
+            }:
+                # Both boundaries convert explicitly to molar. Do not require
+                # an application-wide concentration presentation standard.
+                return ionic_strength
             return puw.standardize(ionic_strength)
 
     raise ArgumentError(

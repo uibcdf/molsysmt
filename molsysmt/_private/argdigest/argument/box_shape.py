@@ -9,6 +9,9 @@ _box_shape_values = [
 
 def digest_box_shape(box_shape, caller=None):
 
+    if caller == "molsysmt.build.solvate.solvate" and box_shape == "rectangular":
+        return box_shape
+
     if caller == "molsysmt.basic.get.get":
         if isinstance(box_shape, bool):
             return box_shape

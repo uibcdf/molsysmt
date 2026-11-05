@@ -17,5 +17,32 @@
       }
     ],
     "gap": "Only three standard sequences are governed here; the existing 40-sequence wrapper parity campaign remains additional regression evidence. Geometry, energies, force-field assignments and arbitrary chemistry are not certified."
+  },
+  "molsysmt.build.add_ions": {
+    "domain": "build",
+    "status": "partial",
+    "claim": "Monovalent whole-water replacement: algebraic counts/neutrality and periodic exclusion distances in small synthetic cells.",
+    "units": [
+      "nm",
+      "elementary_charge",
+      "molar"
+    ],
+    "periodic_behavior": "Orthogonal and tilted row-vector boxes checked against explicit lattice-image enumeration.",
+    "contract_test_area": "tests/build/test_add_ions.py",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+        "oracle": "Literal integer charge balance; sum of complete output formal charges after neutral water removal.",
+        "comparison": "exact"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+        "oracle": "Independent 125-image lattice enumeration on a fixed tilted cell.",
+        "comparison": "exact"
+      }
+    ],
+    "gap": "Finite fixtures establish composition and geometric exclusion only. No equilibrium distribution, free energy, ion pairing, final measured ionic strength, maximal packing or broad algorithm parity claim."
   }
 }

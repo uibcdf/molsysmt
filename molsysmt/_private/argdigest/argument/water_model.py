@@ -3,6 +3,23 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_water_model(water_model, caller=None):
 
+    if caller == "molsysmt.build.solvate.solvate" and isinstance(water_model, str):
+        key = (
+            water_model.upper()
+            .replace("-", "")
+            .replace("/", "")
+            .replace("_", "")
+            .replace(" ", "")
+        )
+        aliases = {
+            "SPCE": "SPC/E",
+            "TIP4PEW": "TIP4P-EW",
+            "TIP3PFB": "TIP3P-FB",
+            "TIP4PFB": "TIP4P-FB",
+        }
+        if key in aliases:
+            return aliases[key]
+
     if caller == "molsysmt.basic.get.get":
         if isinstance(water_model, bool):
             return water_model

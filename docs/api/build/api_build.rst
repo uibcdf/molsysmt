@@ -31,6 +31,7 @@ API Build
    is_solvated
    make_bioassembly
    make_water_box
+   add_ions
    mutate
    remove_overlapping_molecules
    solvate
