@@ -1,0 +1,105 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#574",
+    "uibcdf/molsysmt#579"
+  ],
+  "base_commit": "b8cdbd101841f957cb6eb5ac46629bb19ab07ec9",
+  "python": "3.14.7",
+  "versions": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.22.0+15.g5ee88c1",
+    "pyunitwizard": "0.29.0+18.gab92f1e"
+  },
+  "version_note": "Reported installed/editable metadata, not release artifact coordinates; base_commit and file hashes separately identify source.",
+  "files": {
+    "molsysmt/basic/get.py": "84358880a5623bb351cef966b01397b36fd6d1a2e24e81d861e68012eb316c85",
+    "molsysmt/build/solvate.py": "e8caba7592399609d37caf4bdc05531b02ea2520026a986da9465ca5ab2adc50",
+    "molsysmt/build/_solvation_ids.py": "4caa96d70c0364913a23a9a4e02cb61f5ecc020fddde9ec3d40f1deb16fadfaa",
+    "tests/basic/get/test_nullable_ids.py": "c9bb814535d46c49906a7366862dbb8ce9d855ba9ae8cc2b342ca56ec645c087",
+    "tests/build/solvate/test_source_identifiers.py": "9fcb4e9672a53936be30156297f1b7b8c9b222302426d7125eaa6f994dc9f5d2",
+    "docs/content/user/tools/basic/get.ipynb": "aec1002d8d27d6ee561589bab17bb59a10318ea3ed4c351fa3e4995173db5790",
+    "docs/content/user/tools/build/solvate.ipynb": "dc2256abee59c966bd80eabca8d8132d29f73fa448facd339fd31a6464d27d9a",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb": "aa01d712cc52b136fd84f1dbbb209753f83158f3fa2de964296fb647901f471c",
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": "f9c4d24a011ead313bf1b664c933f38171f1cd62658d0570863bdbaf04d2ab43",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "417d384736b0e371535bbd5e7c9bc142662c748382542ccaf0626316ca2b0472"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest tests/basic/get tests/native tests/build/solvate tests/build/test_add_ions.py tests/basic/test_compose_atom_maps.py tests/form/openmm_Modeller tests/form/openmm_Topology -m 'not network' --receptor=llm -n 4",
+      "exit_code": 0,
+      "passed": 3273,
+      "seconds": 178.68
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:<argdigest-0.14.0>:<depdigest-0.15.1>:<smonitor-0.16.0>:<ackredit-0.9.0>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest -p no:smonitor tests/basic/get/test_nullable_ids.py tests/build/solvate/test_source_identifiers.py tests/build/solvate/test_explicit_ion_counts.py tests/basic/get/test_native_scalar_delivery.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 167,
+      "seconds": 27.99,
+      "note": "Published cached payloads; the known editable pytest entry point only is disabled under #524. Runtime diagnostics remain active."
+    },
+    {
+      "command": "python -m pytest devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_api_stability.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/basic/get.py molsysmt/build/solvate.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 585,
+      "seconds": 22.95
+    }
+  ],
+  "governance": [
+    "ruff check molsysmt",
+    "validate_dependencies.py",
+    "validate_docstrings.py",
+    "validate_public_api_stability.py",
+    "validate_course.py",
+    "validate_devguide.py",
+    "devguide_index.py --check"
+  ],
+  "notebook_preservation": "Five edited lessons retain all original executable cells, outputs and metadata; only explanatory prose changes.",
+  "failed_drafts": [
+    "An initial nullable-ID draft coerced mixed Python lists before classifying numeric NaN; scalar types are now retained in object storage.",
+    "A bundled legacy H5MSM fixture expected missing values, but its converter delivers literal None strings; the corrected fixture preserves those actual labels and tests genuine missing metadata separately."
+  ],
+  "limitations": [
+    "OpenMM traversal must agree with positional atom/group indices; noncanonical inputs are rejected before solvent construction.",
+    "Native output preserves missing labels; foreign output forms and file formats retain their own representation constraints.",
+    "Existing source duplicates are preserved; generated labels avoid retained known labels within their namespace.",
+    "Native ion maps are indexed on the water-replacement input; the solvation context records the original source counts.",
+    "No new placement method, scientific validation campaign, compiled kernel, dependency or H5MSM schema.",
+    "Routine hosted inspection and exact-candidate installed/platform/release qualification remain separate."
+  ],
+  "queue_review": {
+    "latest_issue": 579,
+    "next_native_issue": 578,
+    "expansion_pr": 543,
+    "expansion_head": "94548b434f5d673f6fcfc6c97db9d83601a5b4b7"
+  },
+  "runtime_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  }
+}

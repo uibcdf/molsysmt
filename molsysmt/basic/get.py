@@ -85,6 +85,11 @@ def get(
     None per selected atom when the hierarchy is partially populated. The same
     missing-parent mapping applies to group-based molecule/entity identities.
     A wholly absent group table retains its group-identity None result.
+    Present IDs are string labels. Missing ID values (None, pandas.NA and
+    numeric NaN) remain None in scalar, flat and nested results. Actual strings
+    such as '<NA>', 'None', 'nan' or an empty string remain literal labels.
+    This normalizer is shared by native get() methods; it does not invent an ID
+    or reinterpret an ID as a positional index.
     Native hierarchical atom-index membership follows the requested source element
     order, including empty elements; atoms without that parent are excluded.
 
@@ -612,22 +617,26 @@ def _coerce_native_scalars(value):
 
 def _coerce_ids_to_string(value):
     """Normalize present *_id values to strings while preserving missing IDs."""
+    import pandas as pd
+
     if value is None:
         return None
     if is_iterable_of_iterables(value):
         return [_coerce_ids_to_string(aux_value) for aux_value in value]
     else:
-        arr = np.asarray(value)
+        # A mixed Python list must not coerce NaN to the literal text 'nan',
+        # or integer labels to floats, before missing-value classification.
+        arr = np.asarray(value, dtype=object)
         if arr.shape == ():
-            if arr.item() is None:
+            if pd.isna(arr.item()):
                 return None
             return str(arr.astype(str))
         else:
-            if arr.dtype.kind == "O" and any(item is None for item in arr.flat):
-                normalized = np.asarray(
-                    [None if item is None else str(item) for item in arr.flat],
-                    dtype=object,
-                ).reshape(arr.shape)
+            if arr.dtype.kind in "Of" and np.any(pd.isna(arr)):
+                missing = pd.isna(arr)
+                normalized = np.empty(arr.shape, dtype=object)
+                normalized[missing] = None
+                normalized[~missing] = arr[~missing].astype(str)
                 return normalized.tolist()
             return arr.astype(str).tolist()
 

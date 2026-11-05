@@ -289,8 +289,15 @@ def solvate(
     Notes
     -----
     After solvation, water molecules and ions are automatically assigned to a new
-    chain by ``assign_selection_to_new_chain``. Atom and external residue IDs in the output
-    topology are renumbered sequentially to work around a known OpenMM bug.
+    chain by ``assign_selection_to_new_chain``. In the OpenMM route, retained
+    source atom/group IDs keep their original string labels, duplicates and
+    missing values in native output. Only generated sites receive new labels:
+    positive decimal strings starting at 1, skipping every known retained label
+    in their atom or group namespace. IDs are never parsed as integer indices.
+    Native finalization precedes the requested output conversion; foreign forms
+    and file formats retain their own label/serial representation constraints.
+    Provider traversal must agree with positional atom/group indices; a
+    noncanonical source is rejected before solvent construction.
 
     The forcefield used for solvation is read from the molecular system when
     available; otherwise the MolSysMT default forcefield is used.
@@ -305,7 +312,13 @@ def solvate(
 
     Native replacement retains seed, parameters, provenance and atom maps in
     ChemicalStates preparation history, with axes local to the water-replacement
-    input, not the original unsolvated source. Counts mean added ions. Known
+    input, not the original unsolvated source. Its solvation context records the
+    original source atom/group counts: the first source-atom-count entries of
+    the forward map refer to that original source, including -1 for an original
+    water replaced by an ion. Ordinary OpenMM construction without native
+    replacement retains the source as the leading atom/group prefix. Source
+    ownership and positional correspondence do not depend on unique labels.
+    Counts mean added ions. Known
     charged waters fail; placement does not equilibrate ions or assign new
     force-field parameters. Unsupported atom-aligned observations may be cleared
     by native atom-growth policies. Native coordinates remain in nm regardless
@@ -411,6 +424,9 @@ def solvate(
         ionic_strength = puw.convert(ionic_strength, to_form="openmm.unit")
 
         modeller = convert(molecular_system, to_form="openmm.Modeller")
+        from ._solvation_ids import capture, restore
+
+        source_labels = capture(molecular_system, modeller)
 
         aux_water_model, aux_forcefield = get(
             molecular_system, water_model=True, forcefield=True
@@ -531,22 +547,7 @@ def solvate(
                 **ion_options,
             )
 
-        # fixing a bug of OpenMM
-        list_atoms = list(modeller.topology.atoms())
-        atom_id = int(list_atoms[0].id)
-        for atom in list_atoms[1:]:
-            atom_id += 1
-            atom.id = str(atom_id)
-        list_residues = list(modeller.topology.residues())
-        residue_id = int(list_residues[0].id)
-        for residue in list_residues[1:]:
-            residue_id += 1
-            residue.id = str(residue_id)
-        #
-
-        tmp_item = convert(
-            modeller, to_form="molsysmt.MolSys" if native_ions else to_form
-        )
+        tmp_item = convert(modeller, to_form="molsysmt.MolSys")
 
         del modeller
 
@@ -573,20 +574,12 @@ def solvate(
             skip_digestion=True,
         )
 
-        if to_form == "molsysmt.MolSys":
-            tmp_item.topology.rebuild_entities(
-                redefine_indices=True,
-                redefine_ids=True,
-                redefine_names=True,
-                redefine_types=True,
-            )
-        elif to_form == "molsysmt.Topology":
-            tmp_item.rebuild_entities(
-                redefine_indices=True,
-                redefine_ids=True,
-                redefine_names=True,
-                redefine_types=True,
-            )
+        tmp_item.topology.rebuild_entities(
+            redefine_indices=True,
+            redefine_ids=True,
+            redefine_names=True,
+            redefine_types=True,
+        )
 
         assign_selection_to_new_chain(
             tmp_item, selection='group_type in ["water","ion"]'
@@ -594,6 +587,7 @@ def solvate(
 
         tmp_item = _place_in_box_origin_convention(tmp_item)
 
+        source_to_output = None
         if native_ions:
             from molsysmt.build.add_ions import add_ions
 
@@ -610,6 +604,7 @@ def solvate(
             history = tmp_item.chemical_states._states[0]._preparation_history[-1][
                 "report"
             ]
+            source_to_output = history["source_to_output_atom_indices"]
             import openmm
 
             from molsysmt import _ackredit
@@ -622,6 +617,8 @@ def solvate(
                 charge_source="forcefield"
                 if solute_charge is not None
                 else "not_required",
+                n_source_atoms=len(source_labels["atom_ids"]),
+                n_source_groups=len(source_labels["group_ids"]),
             )
             item = dict(
                 id=f"software:openmm:{openmm.__version__}",
@@ -640,8 +637,9 @@ def solvate(
                 _ackredit.credit(
                     provider, [item], "molsysmt.build.solvate", contextual=True
                 )
-            if to_form != "molsysmt.MolSys":
-                tmp_item = convert(tmp_item, to_form=to_form)
+        restore(tmp_item, source_labels, source_to_output)
+        if to_form != "molsysmt.MolSys":
+            tmp_item = convert(tmp_item, to_form=to_form)
         return tmp_item
 
     elif engine == "PDBFixer":

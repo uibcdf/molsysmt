@@ -20,6 +20,41 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Solvation identifier preservation — 2026-11-05
+
+**#574 and #579 are source-corrected.** OpenMM solvation no longer interprets
+source atom/group labels as integer indices. Native output preserves retained
+labels, duplicates and missing values, and allocates labels only for generated
+sites. Existing native ion maps handle removal of original waters; source counts
+are retained in their solvation context. Finalization uses native tools before
+the requested output conversion. Noncanonical provider traversal fails before
+construction rather than producing an ambiguous positional correspondence.
+
+The related **#579** fix belongs to the shared `get()` normalizer: pandas.NA,
+numeric NaN and None remain missing, while actual '<NA>', 'None', 'nan' and empty
+string labels remain literal. Universal and native queries reuse that boundary;
+solvation uses public get/set without a second missing-ID interpreter.
+
+Receiving passes **3,273 affected tests**, **167 published-support-floor tests**
+and **585 documentation/governance/doctest controls**. The five edited lessons
+retain every original executable cell, output and notebook metadata. See the
+[#574 record](archive/resolved_bugs/openmm_solvate_rejects_nonnumeric_atom_ids.md),
+[#579 record](archive/resolved_bugs/get_stringifies_nullable_ids.md) and
+[shared receipt](../devtools/data/source_identifier_receiving_574_579_20261105.json)
+for commands, source hashes, corrected draft assumptions and boundaries.
+No public signature, dependency floor, compiled kernel, H5MSM schema or new
+scientific credit changes. This is source evidence, not release qualification.
+
+Queue review observes PR #543 at
+`94548b434f5d673f6fcfc6c97db9d83601a5b4b7`. Next is **#578** (empty-view
+default), followed by remaining native correctness issues #559–#562 and expansion
+receiving; #572/#576 remain capability work. The preceding source checkpoint's
+hosted controls were queued at the last inspection. Finish this work block with
+an unskipped published head and inspect its own controls; missing routine hosted
+evidence remains pending under #334 until runners execute, with installed and
+release gates separately required. No extra release matrix or promotion is
+launched by this metadata correction.
+
 ## Native ion replacement and explicit solvation counts — 2026-11-05
 
 **#575 is source-corrected.** New experimental `build.add_ions` replaces complete

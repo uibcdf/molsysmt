@@ -10,6 +10,11 @@ appropriate to its domain.
 ---
 
 ## Basic
+Element IDs are nullable labels, while indices are positions. Universal and
+native `get()` keep missing IDs as `None`; literal strings such as `"None"`
+or `"<NA>"` remain labels. Preparation tools must transport correspondence by
+indices rather than infer it from labels or make existing labels unique.
+
 The **{doc}`Basic <../../tools/basic/index>`** module (`molsysmt.basic`) provides core, form-agnostic operations used across almost every workflow.
 - **Key Operations**: `get`, `set`, `select`, `convert`, `extract`, `view`, `compare`, `add`, `contains`, `copy`, `remove`, `append_structures`.
 - **Philosophy**: Universal interaction layer operating identically on any molecular representation — whether a disk file (PDB, mmCIF, GRO), an in-memory object (OpenMM `Topology`, MDAnalysis `Universe`), or a native `MolSys`.
