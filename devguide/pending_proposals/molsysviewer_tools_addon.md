@@ -15,6 +15,25 @@ supersedes: []
 # Bound MolSysMT tools addon for MolSysViewer
 
 
+## Graphical workspace design — 2026-11-05
+
+The [review design](../molsysviewer_tools_gui_design.md) proposes Molecular tools
+with System, Geometry, Chemistry and Analysis panels over the existing host
+contract. The [offline prototype](../../devtools/prototypes/molsysviewer_tools_workspace.html)
+uses labelled static 1TCD counts; no task panel or new runtime is registered.
+Selection/removal is the first vertical slice. Preview validity and execution
+must share the serialized boundary, while expert signatures/defaults remain
+unchanged. Opening an independent View requires a qualified common host
+presentation operation; constructing one is not enough.
+
+The real headless 1TCD exercise exposed Viewer #296: numeric region recipes
+failed scene transfer during extraction. The consumer owns that correction;
+there is no native scientific patch. The [receiving record](../../devtools/data/molsysviewer_tools_gui_design_receiving_20261105.json)
+keeps prototype
+layout evidence, native/API feasibility and prior 4,438-case source evidence
+separate. Owner review, live Jupyter/Qt/popups, installed qualification and both
+paused publications remain outside this design delivery.
+
 ## Explicit water-box factory receiving — 2026-11-05
 
 PR #543 adds `build.make_water_box` with explicit box/form/native digestion
