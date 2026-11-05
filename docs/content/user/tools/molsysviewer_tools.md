@@ -96,6 +96,8 @@ construction examples below.
 Explicit terminal-atom attachment and bounded missing-heavy-atom repair are
 also available as independent outputs. Their atom identity, attribute-loss
 and saved-analysis contracts are described below.
+Hydrogen generation and terminal capping also mirror their native paths;
+the pH-driven and explicitly fixed-state preparation contracts remain distinct.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -3447,6 +3449,131 @@ including completed pending edits, and never synchronize or adopt the result.
 Cached methods follow ordinary replacement/close behavior. Use the returned
 system in later native calculations or deliberately load it with the ordinary
 Viewer replacement API; molecular construction and scene adoption are separate.
+
+## Preparing hydrogens and termini independently
+
+### Materializing a declared hydrogen inventory
+
+`view.addons.molsysmt.build.add_missing_hydrogens` retains two different native
+workflows. Fixed-state mode adds missing H to an isolated, prepared component;
+it does not select a protonation state. Supply explicit chemistry and geometry
+before loading the view, then request the mode and backend explicitly:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+molsys = Chem.MolFromSmiles("CO")
+conformer = Chem.Conformer(2)
+conformer.SetAtomPosition(0, (0., 0., 0.))
+conformer.SetAtomPosition(1, (1.4, 0., 0.))  # RDKit positions use angstroms.
+conformer.Set3D(True)
+molsys.AddConformer(conformer)
+with msv.new_view(msm.convert(molsys)) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.add_missing_hydrogens(
+        pH=None, engine="RDKit", mode="fixed_chemical_state", return_report=True,
+    )
+    output, report = result["molecular_system"], result["report"]
+    assert output.get_n_atoms() == 6 and source.get_n_atoms() == 2
+    assert report["n_added_hydrogens"] == 4
+    assert report["coordinate_unit"] == "nm"
+    assert report["coordinate_evidence"] == "generated_local_geometry"
+    assert [item["report"]["schema"] for item in
+            output.chemical_states.get_preparation_history()] == [
+        "molsysmt.terminal_attachment@1", "molsysmt.hydrogen_addition@1",
+    ]
+    assert view.molsys is source
+```
+
+The example's SMILES declares connectivity, formal charges and hydrogen
+inventory; the supplied pose is explicit. The addon performs no additional
+curation. Fixed-state mode requires `pH=None`, explicit RDKit, one chemical
+state, one source structure and one supported prepared component. Existing
+coordinates and atom indices remain; appended H carry parent maps, typed
+inventory and native generation/attachment evidence. No heavy-atom conformer,
+minimization or periodic reconstruction is introduced. Unsupported chemistry,
+unresolved inventory and split periodic molecules retain native rejection.
+
+`chemical_state`, `structure_indices`, `return_report` and `attribute_policy`
+keep their native fixed-state contracts. A structure selector does not extract
+a multi-structure source automatically: extract the required single structure
+and chemical state first. This does not select the visible canvas structure.
+The default `return_report=False` returns the independent MolSys; both forms
+retain the native preparation history. Reports declare canonical nm evidence
+and original operation axes, not live maps after later edits. H5MSM preserves
+that historical evidence. Expanded output analyses become unevaluated; a
+no-addition result retains its analysis coverage. The original view stays intact.
+
+### Using residue and pH rules
+
+The default `mode="pH", pH=7.4, engine="OpenMM"` follows native residue-based
+preparation. Explicit `"PDBFixer"` and `"MolSysMT"` retain their own native
+routes; there is no backend fallback. These approximate rules use standard
+pKa thresholds and do not calculate environment-dependent pKa values. Existing
+H are not removed just because a different pH would exclude them. Check the
+intended chemistry before interpreting the result as prepared for simulation.
+
+The fixed-state-only options above reject in legacy pH mode. Optional backend
+conversion, structure and metadata preservation limits remain engine-specific;
+the receiving examples cover single-structure legacy input. They do not qualify
+trajectory-wide legacy hydrogenation. OpenMM placement is not promised to
+reproduce an identical new-H pose across independent calls. See
+{func}`molsysmt.build.add_missing_hydrogens`,
+{ref}`Adding hydrogens <Tutorial_Add_missing_hydrogens>` and
+{ref}`Fixed-state hydrogens <Tutorial_Fixed_State_Hydrogens>` for native details.
+
+### Completing or capping peptide termini
+
+`view.addons.molsysmt.build.add_missing_terminal_cappings` returns a separate
+molecular system with native terminal preparation. With no explicit caps it
+completes supported terminal atoms; with ACE/NME it inserts the requested groups.
+A single cap can also complete the opposite free terminus. Each call starts
+from the same current primary unless you deliberately replace it:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaValPro", engine="MolSysMT")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    one_cap = view.addons.molsysmt.build.add_missing_terminal_cappings(
+        N_terminal="ACE", C_terminal=None, pH=7.4, engine="MolSysMT",
+    )
+    both_caps = view.addons.molsysmt.build.add_missing_terminal_cappings(
+        N_terminal="ACE", C_terminal="NME", pH=7.4, engine="MolSysMT",
+    )
+    assert source.get_n_atoms() == 40
+    assert one_cap.get_n_atoms() == 47  # Six ACE atoms and the free C-terminal OXT.
+    assert both_caps.get_n_atoms() == 52
+    assert msm.get(both_caps, element="group", group_name=True) == [
+        "ACE", "ALA", "VAL", "PRO", "NME",
+    ]
+    assert view.molsys is source
+```
+
+These generated peptide geometries are initial models, not refined structures.
+The native engine retains bounded heavy-atom preflight and unassessed warnings.
+It preserves observed coordinates and old IDs while insertion can reorder atom
+indices. New chemical fields remain unknown; terminal geometry does not assign
+a complete protonation or force-field model. Unsupported structural/mechanical
+attributes are dropped with native diagnostics. Expanded output analyses retain
+remapped provenance but lose occurrences and evaluated coverage. All source
+structures are processed by the received native capping route.
+
+`selection`, `syntax`, `pH` and `keep_ids` follow native engine-specific behavior.
+PDBFixer is optional and explicit; `keep_ids=True` remains unsupported by that
+route. No report, strict attribute policy, `in_place` or `update_view` control
+is invented. See {func}`molsysmt.build.add_missing_terminal_cappings` and
+{ref}`Preparing termini <Tutorial_Add_missing_terminal_cappings>`.
+
+Both preparation methods use the serialized current primary, including
+completed pending edits, without synchronizing or adopting their output.
+Cached methods follow replacement and reject closed/empty owners. Explicitly
+chain returned systems or use ordinary Viewer replacement when you intend to
+change the scene; preparation and scene adoption remain separate operations.
 
 ## Recognizing hydrogen-bond sites and local directions
 

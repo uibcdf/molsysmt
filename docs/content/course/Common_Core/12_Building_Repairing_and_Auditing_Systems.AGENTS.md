@@ -51,3 +51,11 @@ coordinates with original-axis history; heavy repair uses bounded templates and
 can reorder atoms or leave gaps unassessed. Both preserve the source scene and
 apply declared loss/invalidation policies to their output, with no implicit
 adoption. Preserve all existing code, outputs, IDs and biological scenarios.
+
+
+Preserve the independent addon H/terminal routes: explicit fixed-state RDKit
+materialization and historical evidence are distinct from approximate legacy
+pH rules. A selector does not implicitly extract the required single source
+structure/state/component. Terminal preparation can complete the opposite free
+end. Keep source/scene preservation and native provider/chemistry limits, without
+changing original course code, outputs, metadata or biological scenarios.

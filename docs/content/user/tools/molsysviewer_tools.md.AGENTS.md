@@ -417,3 +417,14 @@ Distinguish native strict/intersection policies, output-only remapped analysis
 invalidation, no-change coverage and source/scene preservation. PDBFixer remains
 an explicit optional provider with separate limits; no hidden fallback or
 physical-refinement certificate. Neither tool adopts results or adds update_view.
+
+
+Preserve independent add_missing_hydrogens and add_missing_terminal_cappings.
+Keep approximate legacy pH preparation distinct from explicit RDKit fixed-state
+materialization, its one-component/state/source-structure prerequisites, no
+implicit extraction, old-pose preservation, parent maps and H5MSM history.
+Do not promise trajectory-wide legacy preparation or identical OpenMM H poses.
+Capping can complete the opposite free terminus as well as insert ACE/NME;
+retain native all-structure scope, reordering/invalidation and attribute losses.
+Keep approximate chemistry, unassessed gaps and provider/keep_ids limitations
+explicit, with independent outputs, pending reads and no automatic scene adoption.

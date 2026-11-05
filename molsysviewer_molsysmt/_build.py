@@ -13,7 +13,12 @@ def _independent_build_documentation(name):
             "returns a dictionary containing a separate molecular system and its report; "
             if name == "add_terminal_atoms"
             else "returns a separate molecular system; "
-            if name in {"make_bioassembly", "add_missing_heavy_atoms"}
+            if name
+            in {
+                "make_bioassembly",
+                "add_missing_heavy_atoms",
+                "add_missing_terminal_cappings",
+            }
             else "returns a separate molecular system, optionally with its report; "
         )
         function.__doc__ += (
@@ -111,6 +116,35 @@ def _independent_build_documentation(name):
                 "an automatic fallback. No hydrogen preparation or per-frame "
                 "selection is invented.\n"
             )
+        elif name == "add_missing_hydrogens":
+            function.__doc__ += (
+                "Legacy pH mode and fixed_chemical_state mode retain their "
+                "different native contracts. Fixed-state geometry requires "
+                "pH=None, explicit RDKit, one prepared component/state/structure "
+                "and a complete declared hydrogen inventory. Old coordinates "
+                "and indices remain; appended H carry parent maps and stored "
+                "generation/attachment history, also preserved by H5MSM. No "
+                "protonation choice, heavy conformer, minimization, periodic "
+                "reconstruction or fallback engine is introduced. Legacy pH "
+                "preparation uses approximate residue rules and does not remove "
+                "already present hydrogens. Optional engines retain their own "
+                "structure/form/metadata limits. No implicit visible-structure "
+                "selection or additional synchronization is added.\n"
+            )
+        elif name == "add_missing_terminal_cappings":
+            function.__doc__ += (
+                "The native engine can complete terminal atoms or insert explicit "
+                "ACE/NME groups and complete the opposite uncapped terminus, "
+                "retaining bounded heavy-atom preflight and "
+                "unassessed warnings. Native atom expansion preserves observed "
+                "coordinates and IDs but can reorder indices; output analyses "
+                "are remapped and invalidated while the source is preserved. "
+                "New chemical assignments remain unknown and native attribute "
+                "loss diagnostics remain visible. Geometry does not certify "
+                "terminal chemistry or physical refinement. PDBFixer and keep_ids "
+                "retain their native limitations; no report, attribute policy "
+                "or hidden preparation control is invented.\n"
+            )
         return function
 
     return decorate
@@ -126,6 +160,8 @@ class _BuildTools:
         "merge_nonpolar_hydrogens",
         "add_terminal_atoms",
         "add_missing_heavy_atoms",
+        "add_missing_hydrogens",
+        "add_missing_terminal_cappings",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -595,5 +631,62 @@ class _BuildTools:
                 "engine": engine,
                 "skip_digestion": skip_digestion,
                 "attribute_policy": attribute_policy,
+            },
+        )
+
+    @_independent_build_documentation("add_missing_hydrogens")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_missing_hydrogens(
+        self,
+        pH=7.4,
+        engine="OpenMM",
+        skip_digestion=False,
+        *,
+        mode="pH",
+        chemical_state="reference",
+        structure_indices="all",
+        return_report=False,
+        attribute_policy="intersection",
+    ):
+        return self._call(
+            "add_missing_hydrogens",
+            {
+                "pH": pH,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+                "mode": mode,
+                "chemical_state": chemical_state,
+                "structure_indices": structure_indices,
+                "return_report": return_report,
+                "attribute_policy": attribute_policy,
+            },
+        )
+
+    @_independent_build_documentation("add_missing_terminal_cappings")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_missing_terminal_cappings(
+        self,
+        N_terminal=None,
+        C_terminal=None,
+        pH=7.4,
+        keep_ids=False,
+        selection="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "add_missing_terminal_cappings",
+            {
+                "N_terminal": N_terminal,
+                "C_terminal": C_terminal,
+                "pH": pH,
+                "keep_ids": keep_ids,
+                "selection": selection,
+                "syntax": syntax,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
             },
         )

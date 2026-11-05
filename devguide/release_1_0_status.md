@@ -20,39 +20,41 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Atom-expansion addon receiving — 2026-11-04
+## Hydrogen/terminal addon receiving — 2026-11-04
 
-PR #543 adds primary-bound `build.add_terminal_atoms` and
-`build.add_missing_heavy_atoms`, both returning independent outputs without
-scene adoption or synchronization. Attachment retains supplied all-structure
-coordinates, old indices, inherited membership, explicit chemical records and
-historical report axes; H5MSM preserves the detached preparation record. Heavy
-repair retains bounded standard/curated templates, native reordering,
-unassessed warnings and explicit optional PDBFixer limits. Both preserve the
-source and apply declared attribute-loss and analysis-invalidation policies
-to the output. No preparation fallback or physical-refinement claim is added.
+PR #543 adds independent `build.add_missing_hydrogens` and
+`build.add_missing_terminal_cappings`. Fixed-state RDKit materialization keeps
+explicit chemistry/inventory, one source structure/state/component, retained
+pose, parent maps and H5MSM preparation history. Legacy pH mode keeps native
+approximate rules and provider limits. Terminal preparation can complete the
+opposite free end as well as insert ACE/NME. Native reordering, attribute loss
+and output-analysis invalidation remain explicit; the scene is not adopted.
 
-The 59 new cases have scoped receiving, with corrected test-only fixtures;
-39 directed native and 562 route/documentation controls pass. Both guide blocks
-execute unmodified, including native diagnostic output. Ruff, 156 course
-structures, 247 docstrings and the dependency audit pass. One course Markdown
-cell gains guidance; all original code, outputs, IDs and metadata remain
-unchanged. The complete addon regression passes 4,010 cases without failures,
-errors or skips; all 3,141 frozen source/test files, native Rust tree and
-retained backend bytes remain unchanged during execution. The
-[atom-expansion receipt](../devtools/data/molsysviewer_tools_atom_expansion_receiving_20261104.json)
-retains exact inputs, initial failures and scope; no failed attempt is
-relabeled as a passing gate.
+The 50 new cases have scoped receiving; 110 corrected new/prior build controls,
+two added structure-boundary cases and 56 directed native cases pass. Another
+562 route/docs controls, two unchanged guide blocks, 156 course structures,
+247 docstrings, dependencies and Ruff pass. Original course code, outputs, IDs
+and metadata remain intact. Complete regression retains 4,057 passes and three
+failures from an obsolete absence assertion for the new hydrogen wrapper. The
+corrected diagnostic file passes all 18 cases; all 4,060 semantic cases are
+received across these runs, not a new single green full execution. Scientific
+sources, backend/Rust and data remain unchanged; only the scoped test changes
+after execution. The
+[H/terminal receipt](../devtools/data/molsysviewer_tools_hydrogen_terminal_receiving_20261104.json)
+records exact inputs, initial test-only capping-count corrections and scope.
 
-The [independent-build receipt](../devtools/data/molsysviewer_tools_independent_build_receiving_20261104.json)
-retains its 3,951-case input and analytic geometry/charge receiving. Parent
-`32435e6fd` now passes smoke, performance, Ruff, dependency, guide, suite-policy
-and publication checks; its full matrix remains queued. That CI does not
-qualify the changed source. Native #549/#559–#562 remain owner work. New #564
-records independently reproduced triclinic water-box membership errors; the
-unexposed factory is not repaired in the addon. Exposure
-is 224/244, build 19/30 and mechanics 4/6, separate from owner acceptance,
-new-head hosted completion, installed qualification or publication.
+Parent `ee1153d98` smoke 41949691156 attempt 2 passes: 5,397 native cases with
+16 optional skips and 4,006 addon cases with four optional Ackredit skips.
+The original repodata failures remain preserved. Performance 41949690963
+attempt 2 completes measurements but fails solely on MDTraj centering +32.11%;
+all measured MolSysMT routes improve. Its historical Python 3.13/dirty baseline
+comparability and third-party gate semantics are now owner proposal #567.
+The failure and unchanged 15% threshold remain binding pending that decision;
+no benchmark implementation or policy is changed here.
+
+Source exposure is 226/244, build 21/30 and mechanics 4/6, separate from owner,
+new-head hosted and installed qualification. #549/#559–#562/#564 retain native
+ownership. No candidate, package or 1.0 publication is produced.
 
 ## Group-name scheme design accepted — 2026-11-04
 
