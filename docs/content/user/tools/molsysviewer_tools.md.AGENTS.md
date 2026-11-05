@@ -449,9 +449,11 @@ without source-pose/trajectory identity or automatic scene adoption. Preserve
 native output forms, canonical-sequence receiving and explicit unqualified LEaP
 execution. Mutation returns an independent result with native key/mask semantics,
 bounded incomplete side-chain warnings and native H-rebuilding/attribute limits.
-Do not conceal the external/numeric mask rejection or reinterpret atom/group
-indices. Mutation keeps addon-only digestion; build_peptide now mirrors native
-skip_digestion and keyword-only from_naming_scheme. Preserve stored source
+Preserve native atom-axis selection across mutation specifications, equivalent
+syntax/numeric masks, selected-ID checks and independent empty/disjoint results.
+Do not reinterpret atom/group indices. Mutation mirrors and forwards native
+keyword-only skip_digestion; build_peptide mirrors native skip_digestion and
+keyword-only from_naming_scheme. Preserve stored source
 context and native conflict rejection without defaulting to legacy.
 
 
@@ -501,3 +503,11 @@ removal correspondence. Keep fixed-pKa approximation, declared named-state and
 unassessed-group limits distinct from chemical readiness; there is no hidden
 charge/H/state preparation, private chemistry helper, identity inference or
 scene adoption. Native results and named analyses retain extraction semantics.
+
+
+Keep basic.view as a loaded-primary native visualization bridge returning a
+caller-owned separate visualization, not a scene clone or parent synchronization.
+Preserve native selectors, structure order, explicit backend/error/embedding
+contracts and lifetime. Historical hbonds exposes only the four native callable
+aliases using the actual canonical bound methods; do not duplicate calculations
+or count aliases as new scientific algorithms. Native MD stubs remain unexposed.

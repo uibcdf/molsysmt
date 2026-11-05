@@ -169,3 +169,15 @@ register with Ackredit; no support-library floor changes. The existing native
 Rust binary and four unrelated human edits are unchanged. Source/test/JUnit
 hashes and exact scope are retained in
 `devtools/data/mmcif_observations_receiving_556_563_20261105.json`.
+
+
+## Receiving correction note — 2026-11-05, terminal H reinsertion
+
+The broader #568 build receiving found one stale expectation in
+`test_real_est_reinsertion_preserves_partial_complex_and_source_pose`: CIF
+import now correctly retains occupancy, so adding atoms under the existing
+intersection policy reports both `b_factor` and `occupancy` as dropped. The
+test now requires source occupancy to exist, remain unchanged, and be absent
+on the expanded output alongside the exact two-field report. This strengthens
+source preservation and drop reporting without changing reinsertion behavior
+or weakening the strict-policy rejection.

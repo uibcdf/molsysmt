@@ -92,6 +92,17 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     ]:
         assert rows[path]["exposed"]
     assert inventory["modules"]["interactions"]["missing"] == []
+    assert rows["basic.view"]["exposed"]
+    assert inventory["modules"]["basic"]["missing"] == []
+    for name in (
+        "get_donor_atoms",
+        "get_acceptor_atoms",
+        "get_buch_hbonds",
+        "get_luzard_chandler_hbonds",
+    ):
+        assert rows[f"hbonds.{name}"]["exposed"]
+    assert inventory["modules"]["hbonds"]["missing"] == []
+    assert inventory["modules"]["molecular_dynamics"]["explicit_native_stubs"] == 2
     assert not rows["molecular_mechanics.get_forces"]["exposed"]
     assert rows["molecular_mechanics.get_engine_forcefield"]["exposed"]
     assert (

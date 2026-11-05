@@ -889,7 +889,7 @@ class _BuildTools:
             },
         )
 
-    @_independent_build_documentation("mutate", local_skip=True)
+    @_independent_build_documentation("mutate")
     @signal(tags=["addon", "build"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def mutate(
@@ -910,6 +910,7 @@ class _BuildTools:
                 "selection": selection,
                 "syntax": syntax,
                 "engine": engine,
+                "skip_digestion": skip_digestion,
             },
         )
 

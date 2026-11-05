@@ -21,6 +21,32 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Visualization and compatibility receiving — 2026-11-05
+
+PR #543 receives published native 27ccb1b6d and adds the loaded-primary basic.view
+bridge plus its native root alias. The separate visualization is caller-owned,
+without parent scene cloning, synchronization or adoption. Four historical
+hbonds aliases use the exact canonical bound methods. Native NVT/NPT stubs
+remain unexposed. Source exposure is 240/244: the remaining four paths are two
+native stubs and two pending native capabilities (#564/#572). Protonation's
+managed in-place mode remains separately unreceived under #576.
+
+Native #568 atom-axis selection and keyword-only digestion are received without
+consumer scientific translation; both owner and original consumer evidence are
+archived. Native default-empty visualization is separately reported under #578.
+The [receipt](../devtools/data/molsysviewer_tools_navigation_receiving_20261105.json)
+keeps source, validation and installed/CI scopes separate. Owner review, exact-head
+CI, native limits, task GUI and installed qualification remain pending. No
+candidate or publication; both 1.0 publications stay paused.
+
+Final source receiving passes **4,398 addon/integration cases**, without
+failures/errors/skips; 30 new navigation cases, 112 directed mutation cases
+and 124 documentation/source contracts pass separately. All 4,240 primary
+files and recorded provider/support sources retain their hashes. Existing
+backend/Rust is reused. Ruff (4,391 files), 246 native docstrings, 156 course
+notebooks, the exact guide example, dependencies and devguide/index checks pass.
+Owner course code, outputs, IDs and metadata remain preserved.
+
 ## Independent protonation reconciliation — 2026-11-05
 
 PR #543 adds the explicit current-primary `build.reconcile_protonation` mirror
@@ -195,7 +221,7 @@ The native masked-mutation discrepancy is independently reproduced: MDTraj masks
 reach the MolSysMT parser and atom-index lists reach a group-index mask boundary.
 Supported native-expression paths and rejected masks are distinguished in tests;
 no consumer translation is authored. The maintainer-authorized owner report is
-[#568](pending_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md),
+[#568](archive/resolved_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md),
 with direct reproduction and native pytest acceptance criteria. Native naming
 #549 and other existing owner work remain.
 
@@ -213,6 +239,49 @@ hashes. It does not independently reverify artifact certificates or qualify an
 installed public pair. This issue/report/link follow-up changes no executable
 source; its own CI, owner review/integration and package qualification remain
 separate.
+## Mutation selection receiving — 2026-11-05
+
+**#568 is source-corrected.** Mutation selectors now resolve on source
+atoms before either engine; all mutation specifications intersect the enabled
+groups. Literal IDs, duplicate-target checks and independent no-op copies share
+one resolver. Native heavy repair stays within target groups; legacy whole-system
+hydrogen completion and PDBFixer repair remain explicit. Optional-provider ID
+ambiguity is rejected before mutation. This does not expand coordinate-placement
+coverage or admit the expert addon expansion.
+
+Final mutation receiving passes **100 tests**, including the all-target H
+completion correction; published support floors pass **73 controls**. The earlier
+expanded selection passes 493 cases, documentation/API-registry receiving passes
+593, and the native doctest passes. The nine-code-cell tutorial executes in 12.3 s. Four actual course
+mutation blocks execute against local systems; complete network-backed lessons
+are not claimed. The broader selection passes **1,478 tests** before the final H-policy
+correction; the unchanged-path reuse and final focused receiving are explicit. The
+[receiving receipt](../devtools/data/mutation_selection_receiving_568_577_20261105.json)
+retains commands, failures, source hashes and scope. The
+[#568 record](archive/resolved_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md)
+and [#577 record](archive/resolved_bugs/live_build_tests_access_pdb_downloads_during_offline_selection.md)
+are archived with their executable guards.
+
+The first broader run has 1,475 passes, two failures and seven setup errors.
+Eight cases are unmarked live downloads, now separately owned by #577 with an
+exact real-pytest selection guard. The other is a stale reinsertion expectation:
+restored CIF occupancy is correctly reported as dropped when H are appended.
+The strengthened assertion checks source occupancy and output policy explicitly.
+
+Prior smoke 42095546341 on ccff2557f failed before tests because the intentional
+#504 signature extension was undeclared. Its narrow declaration is now recorded
+with #568's keyword-only skip flag. Historical failure remains visible; the
+validator is unchanged. Hosted/installed qualification is separate from local
+source receiving.
+
+The board review observes PR #543 at b285d7fb8a4bcf2fb852c8ce3899d7158063a202.
+Incoming #574 (solvation ID labels) and #575 (ignored explicit OpenMM ion counts)
+are reported native defects awaiting triage; #576 requests public protonation
+removal correspondence for managed consumers. Next: #564's triclinic water-box
+correction; triage #575/#574 before expanding
+preparation capabilities. #576, #572 and the naming #549 receiving remain owned
+work, without inventing another initial-1.0 detector requirement.
+
 ## Per-structure solvation predicate — 2026-11-05
 
 **#504 is source-corrected.** `build.is_solvated` now accepts keyword-only

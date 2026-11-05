@@ -95,3 +95,8 @@ Preserve independent addon protonation reconciliation with explicit reference-ru
 limits and no implicit adoption. Managed in-place removal remains unavailable
 until native correspondence is qualified; neither private rules nor identity
 matching is a substitute. Keep original course code, outputs, IDs and metadata.
+
+Preserve native mutation-selection repair receiving: masks address source atoms
+and enable groups for every request form, with independent no-op copies and
+pre-write ID/target validation. Forward native skip_digestion without a consumer
+selector translation. Retain all owner course code, outputs, IDs and metadata.

@@ -1,11 +1,12 @@
+from smonitor import signal
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import (
-    ArgumentChoiceError,
     NotImplementedMethodError,
-    StructuralInconsistencyError,
 )
 
 
+@signal(tags=["build", "mutation"])
 @arg_digest()
 def mutate(
     molecular_system,
@@ -14,6 +15,8 @@ def mutate(
     selection="all",
     syntax="MolSysMT",
     engine="MolSysMT",
+    *,
+    skip_digestion=False,
 ):
     """
     Applying amino-acid substitutions with explicit reconstruction limits.
@@ -32,16 +35,23 @@ def mutate(
     mutations : object, default=None
         Target substitutions as a group-keyed dictionary or mutation strings
         such as ``"VAL-1-GLY"`` (source name, group ID and target name).
+        Required unless an empty dictionary or list is supplied for a copy.
     keys : object, default='group_index'
         Dictionary key meaning: ``group_index``, ``group_id`` or ``group_name``.
-        Group indices are positions; group IDs are string labels.
+        Group indices are positions; group IDs are literal string labels.
+        Use ``keys='group_name'`` explicitly for name-keyed dictionaries.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
+        Atom selection restricting every mutation specification. Selecting any
+        atom enables its entire group. Integers are atom indices; a Boolean mask
+        has one entry per source atom. Repeated atoms enable each group once.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     engine : object, default='MolSysMT'
         Reconstruction engine: ``MolSysMT`` for bounded native placement or
         ``PDBFixer`` for that optional provider's reconstruction.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Keyword-only; safety-critical target checks still apply.
 
     Returns
     -------
@@ -50,16 +60,22 @@ def mutate(
         atoms rebuilt. Unsupported native gaps remain missing with a warning.
         Hydrogens are re-added if the original system contained them. Returned
         in the same form as the input; the source is unchanged.
+        Empty or disjoint valid requests return an independent copy without
+        invoking reconstruction.
 
 
     Raises
     ------
+    ArgumentError
+        If atom/group indices, mutation names or string specifications are
+        invalid, a group ID is unknown, or target substitutions conflict.
     ArgumentChoiceError
-        Raised when a mutation string specifies a source residue name that does not
-        match the actual residue at the given group ID.
+        If a selected mutation string's source name differs from the actual
+        group name.
 
     StructuralInconsistencyError
-        Raised when a group ID maps to more than one residue in the system.
+        If an ID identifies several selected groups, or the optional provider's
+        chain/ID addressing cannot distinguish the requested group.
 
     NotImplementedMethodError
         Raised if the requested ``engine`` is not supported.
@@ -67,9 +83,17 @@ def mutate(
 
     Notes
     -----
+    Selection is resolved once on the source atom axis. Every request is
+    intersected with its enabled groups, including index-keyed requests.
+    Unmatched source-name keys are ignored. Unknown group IDs and out-of-range
+    group indices are errors, even when selection is empty. Source-name checks
+    apply to selected string requests. Selected ambiguous IDs require a narrower
+    selection. Identical repeated substitutions are deduplicated; conflicting
+    targets for one selected group are rejected before engine edits.
+
     Target amino-acid names are converted to uppercase. Native mutation removes
     non-backbone atoms from each target and delegates reconstruction to
-    ``add_missing_heavy_atoms(engine='MolSysMT')``. Its conservative preflight
+    ``add_missing_heavy_atoms(engine='MolSysMT')`` on target groups. Its preflight
     rejects multiple missing side-chain atoms, invalid anchors and conflicting
     local geometry with ``UnassessedResidueWarning``. For example, a target TRP
     can retain only its observed backbone. Inspect ``get_missing_heavy_atoms``
@@ -81,6 +105,12 @@ def mutate(
     It can reconstruct inventories outside native coverage; matching atom counts
     does not independently validate those coordinates. No automatic engine
     fallback is performed.
+    PDBFixer requires non-negative integer target IDs and unique integer IDs
+    among groups sharing an addressed chain ID; ambiguous addresses are refused.
+    Its PDB-text conversion rounds retained coordinates to 0.001 angstrom.
+    PDBFixer heavy-atom repair and hydrogen completion in either engine retain
+    their whole-system scope: selection restricts substitutions, not every
+    possible repair. Native heavy-atom repair is restricted to target groups.
 
     See Also
     --------
@@ -98,6 +128,11 @@ def mutate(
     ['ALA', 'GLY', 'PRO']
     >>> msm.build.get_missing_heavy_atoms(new_molsys)
     {}
+    >>> atom_indices = msm.select(molsys, 'group_index==1')
+    >>> new_molsys = msm.build.mutate(molsys, {'VAL': 'GLY'},
+    ...     keys='group_name', selection=atom_indices[:1])
+    >>> msm.get(new_molsys, element='group', group_name=True)
+    ['ALA', 'GLY', 'PRO']
 
     .. admonition:: User guide
 
@@ -106,98 +141,35 @@ def mutate(
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt.basic import copy
+    from molsysmt.build._mutation_targets import resolve_mutation_targets
+
+    if engine not in ("MolSysMT", "PDBFixer"):
+        raise NotImplementedMethodError
+    targets = resolve_mutation_targets(
+        molecular_system, mutations, keys, selection, syntax
+    )
+    if not targets:
+        return copy(molecular_system)
+    group_indices, to_group_names = map(list, zip(*targets))
+
     if engine == "PDBFixer":
-        from molsysmt.basic import contains, convert, get, get_form
-
-        if isinstance(mutations, (tuple, list)):
-            group_indices = []
-            to_group_names = []
-
-            for mutation_string in mutations:
-                old_group_name, group_id, new_group_name = mutation_string.split("-")
-                group_id = str(group_id)
-                aux_index, group_name = get(
-                    molecular_system,
-                    element="group",
-                    selection=f'group_id=="{group_id}"',
-                    mask=selection,
-                    group_index=True,
-                    group_name=True,
-                )
-                if group_name[0].lower() != old_group_name.lower():
-                    raise ArgumentChoiceError(
-                        argument="mutations",
-                        value=old_group_name,
-                        choices=[group_name[0]],
-                        caller="molsysmt.build.mutate",
-                        message=f"The group with id {group_id} is {group_name[0]} and not {old_group_name}.",
-                    )
-                group_indices.append(aux_index[0])
-                to_group_names.append(new_group_name)
-
-        elif isinstance(mutations, dict):
-            if keys == "group_index":
-                group_indices = list(mutations.keys())
-                to_group_names = list(mutations.values())
-            elif keys == "group_id":
-                group_ids = [str(ii) for ii in mutations.keys()]
-                to_group_names = list(mutations.values())
-                group_indices = []
-                for ii in group_ids:
-                    aux_indices = get(
-                        molecular_system,
-                        element="group",
-                        selection=f'group_id=="{ii}"',
-                        mask=selection,
-                        group_index=True,
-                    )
-                    if len(aux_indices) > 1:
-                        raise StructuralInconsistencyError(
-                            reason=f"There are multiple groups with the group_id: {ii}",
-                            caller="molsysmt.build.mutate",
-                        )
-                    else:
-                        group_indices.append(aux_indices[0])
-            elif keys == "group_name":
-                group_indices = []
-                to_group_names = []
-                for from_name, to_name in mutations.items():
-                    aux_indices = get(
-                        molecular_system,
-                        element="group",
-                        selection="group_name==@from_name",
-                        mask=selection,
-                        group_index=True,
-                    )
-                    for aux_index in aux_indices:
-                        group_indices.append(aux_index)
-                        to_group_names.append(to_name)
-
-        to_group_names = [name.upper() for name in to_group_names]
+        from molsysmt.basic import contains, convert, get_form
+        from molsysmt.build._mutation_targets import pdbfixer_mutation_arguments
 
         form_in = get_form(molecular_system)
+        had_h = contains(molecular_system, selection='atom_type=="H"')
         tmp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
 
-        from_group_names, group_ids, in_chain_ids = get(
-            tmp_molecular_system,
-            element="group",
-            selection=group_indices,
-            group_name=True,
-            group_id=True,
-            chain_id=True,
-        )
-
-        for group_id, from_group_name, to_group_name, in_chain_id in zip(
-            group_ids, from_group_names, to_group_names, in_chain_ids
-        ):
-            mutation_string = "-".join([from_group_name, str(group_id), to_group_name])
+        arguments = pdbfixer_mutation_arguments(tmp_molecular_system, targets)
+        for mutation_string, in_chain_id in arguments:
             tmp_molecular_system.applyMutations([mutation_string], in_chain_id)
 
         tmp_molecular_system.findMissingResidues()
         tmp_molecular_system.findMissingAtoms()
         tmp_molecular_system.addMissingAtoms()
 
-        if contains(tmp_molecular_system, selection='atom_type=="H"'):
+        if had_h:
             tmp_molecular_system.addMissingHydrogens(7.4)
 
         tmp_molecular_system = convert(tmp_molecular_system, to_form=form_in)
@@ -205,7 +177,7 @@ def mutate(
         return tmp_molecular_system
 
     elif engine == "MolSysMT":
-        from molsysmt.basic import contains, convert, get, get_form
+        from molsysmt.basic import contains, convert, get_form
         from molsysmt.basic import remove as msm_remove
         from molsysmt.build.add_missing_heavy_atoms import add_missing_heavy_atoms
         from molsysmt.build.add_missing_hydrogens import add_missing_hydrogens
@@ -213,71 +185,6 @@ def mutate(
         # Backbone heavy atoms that are kept across any amino-acid mutation.
         # OXT is retained when present (C-terminal residues).
         _BACKBONE_HEAVY = frozenset({"N", "CA", "C", "O", "OXT"})
-
-        # ── parse mutations ──────────────────────────────────────────────────
-        if isinstance(mutations, (tuple, list)):
-            group_indices = []
-            to_group_names = []
-            for mutation_string in mutations:
-                old_group_name, group_id, new_group_name = mutation_string.split("-")
-                group_id = str(group_id)
-                aux_index, group_name = get(
-                    molecular_system,
-                    element="group",
-                    selection=f'group_id=="{group_id}"',
-                    mask=selection,
-                    group_index=True,
-                    group_name=True,
-                )
-                if group_name[0].lower() != old_group_name.lower():
-                    raise ArgumentChoiceError(
-                        argument="mutations",
-                        value=old_group_name,
-                        choices=[group_name[0]],
-                        caller="molsysmt.build.mutate",
-                        message=f"Group with id {group_id} is {group_name[0]}, not {old_group_name}.",
-                    )
-                group_indices.append(aux_index[0])
-                to_group_names.append(new_group_name)
-
-        elif isinstance(mutations, dict):
-            if keys == "group_index":
-                group_indices = list(mutations.keys())
-                to_group_names = list(mutations.values())
-            elif keys == "group_id":
-                group_ids = [str(ii) for ii in mutations.keys()]
-                to_group_names = list(mutations.values())
-                group_indices = []
-                for ii in group_ids:
-                    aux_indices = get(
-                        molecular_system,
-                        element="group",
-                        selection=f'group_id=="{ii}"',
-                        mask=selection,
-                        group_index=True,
-                    )
-                    if len(aux_indices) > 1:
-                        raise StructuralInconsistencyError(
-                            reason=f"Multiple groups with group_id: {ii}",
-                            caller="molsysmt.build.mutate",
-                        )
-                    group_indices.append(aux_indices[0])
-            elif keys == "group_name":
-                group_indices = []
-                to_group_names = []
-                for from_name, to_name in mutations.items():
-                    aux_indices = get(
-                        molecular_system,
-                        element="group",
-                        selection="group_name==@from_name",
-                        mask=selection,
-                        group_index=True,
-                    )
-                    for aux_index in aux_indices:
-                        group_indices.append(aux_index)
-                        to_group_names.append(to_name)
-
-        to_group_names = [name.upper() for name in to_group_names]
 
         # ── convert to native form ───────────────────────────────────────────
         form_in = get_form(molecular_system)
@@ -305,7 +212,7 @@ def mutate(
             tmp = msm_remove(tmp, selection=atoms_to_remove, skip_digestion=True)
 
         # ── 3. Rebuild sidechain heavy atoms (Kabsch alignment on backbone) ──
-        tmp = add_missing_heavy_atoms(tmp, engine="MolSysMT")
+        tmp = add_missing_heavy_atoms(tmp, selection=group_indices, engine="MolSysMT")
 
         # ── 4. Re-add hydrogens if original system had them ──────────────────
         if had_h:

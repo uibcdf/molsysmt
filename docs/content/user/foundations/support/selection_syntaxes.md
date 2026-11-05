@@ -22,6 +22,12 @@ Built-in selection shortcuts (such as `"backbone"`, `"heavy atoms"`, `"solvent"`
 
 ## Empty connectivity selections
 
+Selectors also have an explicit element axis. Integer atom indices do not become
+group indices merely because an operation acts on whole groups. For example,
+mutation resolves the atom selection first and enables its containing groups;
+dictionary mutation keys separately declare group indices, IDs or names. See
+{ref}`Tutorial_Mutate` for partial selections and empty/disjoint requests.
+
 In MolSysMT syntax, a valid `bonded to` operand with no matching atoms returns
 an empty selection; `not bonded to` that operand retains the left selection.
 An empty match is valid even inside a larger logical expression. Missing or

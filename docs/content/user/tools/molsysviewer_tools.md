@@ -3994,13 +3994,16 @@ source-name dictionaries (`keys="group_name"`) and mutation strings such as
 whereas group indices are positions. Selection and naming rules remain native;
 no caller atom/group mapping or selector translation is invented by the addon.
 
-There is a received native limitation in masked name/ID lookup, tracked in
-[MolSysMT#568](https://github.com/uibcdf/molsysmt/issues/568): MDTraj masks
-can be passed to the MolSysMT parser, and a list of atom indices can be treated
-as group indices. Native MolSysMT expressions, such as `selection="group_index==1"`,
-work for the qualified name-keyed route. The addon preserves the current native
-diagnostic for the unsupported masks; it does not reinterpret the input or
-advertise those modes as successful.
+Native selection is resolved on the source atom axis before reconstruction.
+A selected atom enables its entire group for every mutation specification,
+including explicit group-index requests. MolSysMT/MDTraj expressions, atom-index
+arrays, scalar indices and Boolean atom masks retain the repaired native contract.
+Repeated atoms enable a group once. Empty or disjoint valid requests return an
+independent copy without reconstruction. IDs are literal labels; unknown or
+selected ambiguous IDs and conflicting targets retain native diagnostics.
+The addon forwards these parameters without translating selectors or repairing
+scientific results. Native target safety checks remain active when digestion
+is explicitly skipped.
 
 Mutation can leave an unsupported side chain incomplete with
 `UnassessedResidueWarning`. For example, the received native VAL-to-TRP case
@@ -4024,9 +4027,9 @@ force-field assignment by the addon. See {func}`molsysmt.build.mutate` and
 
 Both methods resolve the serialized current primary, including completed pending
 edits, without scene synchronization or result adoption. Cached methods follow
-replacement and reject closed/empty owners. Mutation keeps its addon-only keyword `skip_digestion`, never forwarded to
-a native function without that argument. Peptide construction now mirrors and
-forwards native `skip_digestion` and keyword-only `from_naming_scheme`; its
+replacement and reject closed/empty owners. Mutation now mirrors and forwards the native keyword-only `skip_digestion`.
+Peptide construction also forwards native `skip_digestion` and keyword-only
+`from_naming_scheme`; its
 native trusted-caller validation contract applies. Neither wrapper adds `in_place` or `update_view`.
 Use a returned system explicitly in further calculations or deliberately replace
 the view when that is your intent.
@@ -4873,3 +4876,51 @@ coordinates and does not call private protonation rules. There is no
 `update_view`, `selection`, `structure_indices` or `return_report` argument on
 this mirror. Native digestion is forwarded; the integration admission boolean
 is checked even with `skip_digestion=True`.
+
+
+## Creating another visualization and using compatibility aliases
+
+`view.addons.molsysmt.basic.view` mirrors the native visualization entry point
+with the current molecular system implicit. It requires an open loaded owner
+and returns a separate visualization; the ordinary native root alias is also
+available as `view.addons.molsysmt.view`.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    tools = view.addons.molsysmt
+    with tools.basic.view(
+        selection=[0, 2, 4], structure_indices=[8, 3, 8],
+    ) as detail:
+        assert detail is not view and detail.molsys.get_n_atoms() == 3
+        assert detail.molsys.structures.n_structures == 3
+    assert not view.closed
+    assert tools.hbonds.get_buch_hbonds == tools.interactions.hbonds.get_buch_hbonds
+```
+
+The new visualization receives native source data and requested atom/structure
+selections, including repeated structure order. It does not copy parent regions,
+shapes, camera or history. Its lifetime is independent and the caller closes it.
+Completed pending molecular edits can be visualized without synchronizing or
+adopting anything in the parent. Cached calls bind the current replacement and
+reject closed owners. Use ordinary `msv.new_view()` to create an empty workspace.
+
+The `viewer`, `syntax` and `skip_digestion` arguments retain their native
+contracts, diagnostics and optional-provider availability. There is no backend
+fallback or implicit visible-structure selection. This receiving covers the
+MolSysViewer Python result, not another backend's rendering. Native configured
+HTML embedding retains its own contract.
+
+For compatibility with MolSysMT's historical namespace, `tools.hbonds` exposes
+exactly four callable aliases: `get_donor_atoms`, `get_acceptor_atoms`,
+`get_buch_hbonds` and `get_luzard_chandler_hbonds`. They are the same bound methods
+as `tools.interactions.hbonds`, with the same digestion, scientific parameters,
+units, results and owner lifetime. They do not attach results or create scene
+representations. Prefer `tools.interactions.hbonds` in new code; it also contains
+the modern recognition/direction and generic detection tools. Four aliases do
+not represent four additional scientific algorithms.
+
+The two legacy native NVT/NPT equilibration declarations are unconditional
+unimplemented stubs. The addon does not expose a `molecular_dynamics` namespace
+or advertise those declarations as runnable simulation tools.

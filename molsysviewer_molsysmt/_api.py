@@ -11,7 +11,7 @@ from ._build import _BuildTools
 from ._chemical_states import _ChemicalStatesTools
 from ._element import _ElementTools
 from ._files import _FormTools, _H5MSMTools
-from ._interactions import _InteractionsTools
+from ._interactions import _InteractionsTools, _LegacyHbondTools
 from ._molecular_mechanics import _MolecularMechanicsTools
 from ._pbc import _PbcTools
 from ._physchem import _PhyschemTools
@@ -29,6 +29,7 @@ class _MolSysMTTools:
         self.form = _FormTools(self)
         self.build = _BuildTools(self)
         self.interactions = _InteractionsTools(self)
+        self.hbonds = _LegacyHbondTools(self.interactions.hbonds)
         self.topology = _TopologyTools(self)
         self.chemical_states = _ChemicalStatesTools(self)
         self.structure = _StructureTools(self)
@@ -103,6 +104,7 @@ class _MolSysMTTools:
             "form",
             "build",
             "interactions",
+            "hbonds",
             "topology",
             "chemical_states",
             "structure",

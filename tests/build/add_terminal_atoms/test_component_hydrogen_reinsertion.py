@@ -322,7 +322,15 @@ def test_real_est_reinsertion_preserves_partial_complex_and_source_pose(
         len(result["report"]["parent_atom_pairs"]),
         prepared_source.get_n_atoms(),
     )
-    assert result["report"]["dropped_attributes"] == ["b_factor"]
+    # CIF imports preserve both measured atom attributes; appended H cannot
+    # extend either field under the existing intersection policy.
+    assert source.structures.occupancy is not None
+    assert prepared_source.structures.occupancy is not None
+    assert result["report"]["dropped_attributes"] == ["b_factor", "occupancy"]
+    assert output.structures.occupancy is None
+    np.testing.assert_array_equal(
+        prepared_source.structures.occupancy, before.structures.occupancy
+    )
     assert output.chemical_states._states[0].connectivity_completeness == "partial"
     pd.testing.assert_frame_equal(
         output.topology.atoms.iloc[:6596],

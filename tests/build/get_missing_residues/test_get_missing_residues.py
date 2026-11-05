@@ -53,11 +53,13 @@ def t4_bcif(tmp_path_factory):
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.network
 def test_get_missing_residues_returns_dict(t4_pdb):
     result = msm.build.get_missing_residues(t4_pdb, engine="MolSysMT")
     assert isinstance(result, dict)
 
 
+@pytest.mark.network
 def test_get_missing_residues_keys_are_tuples(t4_pdb):
     """Dict keys are (chain_index, insertion_position) int tuples."""
     result = msm.build.get_missing_residues(t4_pdb, engine="MolSysMT")
@@ -68,6 +70,7 @@ def test_get_missing_residues_keys_are_tuples(t4_pdb):
         assert isinstance(k[1], int)
 
 
+@pytest.mark.network
 def test_get_missing_residues_values_are_lists_of_strings(t4_pdb):
     """Dict values are lists of residue name strings."""
     result = msm.build.get_missing_residues(t4_pdb, engine="MolSysMT")
@@ -82,6 +85,7 @@ def test_get_missing_residues_values_are_lists_of_strings(t4_pdb):
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.network
 def test_get_missing_residues_pdb_detects_missing(t4_pdb):
     """181L PDB has 2 residues missing at C-terminus (ASN, LEU)."""
     result = msm.build.get_missing_residues(t4_pdb, engine="MolSysMT")
@@ -89,6 +93,7 @@ def test_get_missing_residues_pdb_detects_missing(t4_pdb):
     assert result[(0, 162)] == ["ASN", "LEU"]
 
 
+@pytest.mark.network
 def test_get_missing_residues_bcif_detects_missing(t4_bcif):
     """181L BCIF has the same 2 residues missing."""
     result = msm.build.get_missing_residues(t4_bcif, engine="MolSysMT")
@@ -135,6 +140,7 @@ def test_get_missing_residues_explicit_sequence(t4_lysozyme_h5msm):
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.network
 def test_get_missing_residues_with_selection(t4_pdb):
     result = msm.build.get_missing_residues(
         t4_pdb, selection='molecule_type=="protein"', engine="MolSysMT"
@@ -147,6 +153,7 @@ def test_get_missing_residues_with_selection(t4_pdb):
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.network
 def test_get_missing_residues_pdbfixer_parity(t4_pdb):
     """MolSysMT and PDBFixer return the same result for 181L."""
     result_msm = msm.build.get_missing_residues(t4_pdb, engine="MolSysMT")

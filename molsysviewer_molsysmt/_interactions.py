@@ -32,6 +32,24 @@ class _InteractionsTools:
         ]
 
 
+class _LegacyHbondTools:
+    """Retain historical function aliases using the canonical bound methods."""
+
+    _NAMES = (
+        "get_donor_atoms",
+        "get_acceptor_atoms",
+        "get_buch_hbonds",
+        "get_luzard_chandler_hbonds",
+    )
+
+    def __init__(self, canonical):
+        for name in self._NAMES:
+            setattr(self, name, getattr(canonical, name))
+
+    def __dir__(self):
+        return list(self._NAMES)
+
+
 class _HbondTools:
     _NAMES = (
         "get_donor_atoms",

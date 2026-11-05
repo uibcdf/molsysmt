@@ -1,13 +1,13 @@
 ---
 summary: mutate misroutes selection syntax and interprets atom masks as group indices.
 issue: uibcdf/molsysmt#568
-status: open
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: medium
 verification: reproduced
 area: [build, selection]
-guard:
+guard: tests/build/mutate/test_mutate_selection_contract.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-11-05 with explicit maintainer authorization, from independent
 2026-11-04 reproductions during PR #543 / uibcdf/molsysviewer#264 receiving.
-**Status:** open native defect; the addon preserves diagnostics without a correction.
+**Status:** resolved by published native 27ccb1b6d; consumer receiving remains a separate scope.
 
 ## What
 
@@ -91,3 +91,15 @@ resources by 2026-11-11. The owner handoff records its SHA-256. Existing consume
 coverage is in `tests/molsysviewer_molsysmt/test_build_sequence_tools.py`, with
 its original source/JUnit receipt retained; no native fix or new science run
 is claimed by filing this issue.
+
+
+## Resolution — 2026-11-05
+
+The native owner resolved #568 in 27ccb1b6d640b7e2087a86dea06f6e666dc73fe1.
+The addressable native guard tests/build/mutate/test_mutate_selection_contract.py
+protects atom-axis selection across specifications, masks/syntaxes and engines,
+pre-write target validation and independent no-op behavior. This original
+consumer evidence is archived separately from the owner's resolution report;
+its original reproductions retain their earlier source. The addon receives
+the public native skip flag and repaired selection contract without a scientific
+workaround. Installed qualification and full reconstruction coverage are separate.

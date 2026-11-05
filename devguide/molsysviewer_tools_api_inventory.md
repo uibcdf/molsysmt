@@ -3,9 +3,9 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-05, contribution PR #543, extending published source
-`b285d7fb8` with independent protonation reconciliation on published owner
-basis `ccff2557f`.
-The table describes this contribution's 235/244 paths, including
+`ac1f6dbad` with native mutation repair, visualization and compatibility
+receiving on published owner basis `27ccb1b6d`.
+The table describes this contribution's 240/244 paths, including
 all 57 element paths, twenty-nine build paths and five mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
 works before molecular loading; degree counting binds the serialized current
@@ -51,7 +51,7 @@ structure/reference choices, units, conditional aliasing and native remapping.
 The [peptide-sequence receipt](../devtools/data/molsysviewer_tools_peptide_sequence_receiving_20261104.json)
 records fresh sequence-based construction, bounded canonical substitution and
 explicit native mask/H/provider limits. The independently reproduced masked
-mutation defect is tracked by [#568](pending_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md);
+mutation defect is tracked by [#568](archive/resolved_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md);
 its filing does not qualify the rejected modes or alter scientific code.
 The [bond-addition receipt](../devtools/data/molsysviewer_tools_bond_addition_receiving_20261105.json)
 records managed native graph publication, independent ownership, true no-ops,
@@ -121,7 +121,7 @@ none certifies a published installed pair.
 
 | Namespace | Exposed source paths | Declared native paths | Remaining |
 | --- | ---: | ---: | ---: |
-| basic | 25 | 26 | 1 |
+| basic | 26 | 26 | 0 |
 | topology | 2 | 2 | 0 |
 | chemical_states | 9 | 9 | 0 |
 | structure | 28 | 28 | 0 |
@@ -132,12 +132,12 @@ none certifies a published installed pair.
 | interactions (canonical families) | 15 | 15 | 0 |
 | element and declared children | 57 | 57 | 0 |
 | h5msm file utilities | 7 | 7 | 0 |
-| historical hbonds aliases | 0 | 4 | 4 |
+| historical hbonds aliases | 4 | 4 | 0 |
 | attribute metadata helpers | 7 | 7 | 0 |
 | supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 235 exposed out of 244 inspected public callable paths. This is not
+These are 240 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -540,3 +540,29 @@ This is one callable path with a bounded admitted mode, not complete in-place
 coverage or environmental-pKa qualification. Native reference rules, explicit
 named states, unassessed groups and extraction semantics remain unchanged. No
 private chemistry helper, identity inference or implicit adoption is added.
+
+
+## Visualization, compatibility and native declarations — 2026-11-05
+
+The basic.view mirror and native root alias create a separate caller-owned
+visualization of the serialized current loaded primary. Selectors, structures,
+backend choice and errors stay native; no parent scene clone, synchronization
+or adoption is implied. An empty owner is rejected by ordinary primary binding.
+The separate native None/default validation discrepancy remains outside this
+admitted route and is reported under
+[#578](pending_bugs/basic_view_rejects_default_empty_input.md).
+
+Historical hbonds exposes four exact canonical bound-method aliases, not new
+scientific algorithms. All fifteen canonical interaction paths retain their
+existing receiving. The two native MD declarations are unconditional stubs and
+remain intentionally unexposed. Of the four unexposed declared paths, two are
+these nonoperational declarations and two are pending native capabilities:
+water-box #564 and MolSys forces #572. Protonation is exposed with its explicit
+independent-only mode limit under #576. Path exposure is not complete mode,
+scientific, platform or installed qualification.
+
+Published native 27ccb1b6d resolves #568 on the source atom axis. The consumer
+forwards its native skip flag and repaired selectors without scientific
+translation; original consumer evidence is retained in
+[its archive](archive/resolved_bugs/mutate_selection_masks_consumer_evidence.md),
+separately from the owner's resolution and original frozen receipts.

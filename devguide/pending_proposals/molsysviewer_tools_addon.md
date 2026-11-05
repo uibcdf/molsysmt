@@ -15,6 +15,32 @@ supersedes: []
 # Bound MolSysMT tools addon for MolSysViewer
 
 
+## Visualization and compatibility receiving — 2026-11-05
+
+PR #543 receives published native 27ccb1b6d and adds the loaded-primary basic.view
+bridge plus its native root alias. The separate visualization is caller-owned,
+without parent scene cloning, synchronization or adoption. Four historical
+hbonds aliases use the exact canonical bound methods. Native NVT/NPT stubs
+remain unexposed. Source exposure is 240/244: the remaining four paths are two
+native stubs and two pending native capabilities (#564/#572). Protonation's
+managed in-place mode remains separately unreceived under #576.
+
+Native #568 atom-axis selection and keyword-only digestion are received without
+consumer scientific translation; both owner and original consumer evidence are
+archived. Native default-empty visualization is separately reported under #578.
+The [receipt](../../devtools/data/molsysviewer_tools_navigation_receiving_20261105.json)
+keeps source, validation and installed/CI scopes separate. Owner review, exact-head
+CI, native limits, task GUI and installed qualification remain pending. No
+candidate or publication; both 1.0 publications stay paused.
+
+Final source receiving passes **4,398 addon/integration cases**, without
+failures/errors/skips; 30 new navigation cases, 112 directed mutation cases
+and 124 documentation/source contracts pass separately. All 4,240 primary
+files and recorded provider/support sources retain their hashes. Existing
+backend/Rust is reused. Ruff (4,391 files), 246 native docstrings, 156 course
+notebooks, the exact guide example, dependencies and devguide/index checks pass.
+Owner course code, outputs, IDs and metadata remain preserved.
+
 ## Independent protonation reconciliation — 2026-11-05
 
 PR #543 adds the explicit current-primary `build.reconcile_protonation` mirror

@@ -264,34 +264,37 @@ def test_mutation_mask_syntax_and_local_skip_remain_native(syntax, selection, sk
             selection=selection,
             syntax=syntax,
         )
-        if syntax == "MDTraj":
-            # Native mutate does not yet forward its mask's external syntax.
-            with pytest.raises(Exception, match="MolSysMT.*syntax") as native:
-                msm.build.mutate(view.molsys, **args)
-            with pytest.raises(type(native.value)) as actual:
-                view.addons.molsysmt.build.mutate(**args, skip_digestion=skip)
-            assert str(actual.value) == str(native.value)
-        else:
-            actual = view.addons.molsysmt.build.mutate(**args, skip_digestion=skip)
-            same(actual, msm.build.mutate(view.molsys, **args))
-            assert msm.get(actual, element="group", group_name=True) == [
-                "ALA",
-                "GLY",
-                "PRO",
-            ]
+        actual = view.addons.molsysmt.build.mutate(**args, skip_digestion=skip)
+        same(actual, msm.build.mutate(view.molsys, **args, skip_digestion=skip))
+        assert msm.get(actual, element="group", group_name=True) == [
+            "ALA",
+            "GLY",
+            "PRO",
+        ]
         unchanged(view, before)
 
 
-def test_native_atom_mask_axis_rejection_is_preserved_without_consumer_reinterpretation():
+@pytest.mark.parametrize("mask", ["indices", "boolean", "scalar"])
+@pytest.mark.parametrize("skip", [False, True])
+def test_native_atom_masks_follow_source_axis_without_consumer_translation(mask, skip):
     with msv.new_view(source()) as view:
         before = snapshot(view)
         atoms = msm.select(view.molsys, selection="group_index==1")
-        args = dict(mutations={"VAL": "GLY"}, keys="group_name", selection=atoms)
-        with pytest.raises(Exception, match="out-of-range group indices") as native:
-            msm.build.mutate(view.molsys, **args)
-        with pytest.raises(type(native.value)) as actual:
-            view.addons.molsysmt.build.mutate(**args)
-        assert str(actual.value) == str(native.value)
+        selection = (
+            np.isin(np.arange(view.molsys.get_n_atoms()), atoms)
+            if mask == "boolean"
+            else int(atoms[0])
+            if mask == "scalar"
+            else atoms
+        )
+        args = dict(mutations={"VAL": "GLY"}, keys="group_name", selection=selection)
+        actual = view.addons.molsysmt.build.mutate(**args, skip_digestion=skip)
+        same(actual, msm.build.mutate(view.molsys, **args, skip_digestion=skip))
+        assert msm.get(actual, element="group", group_name=True) == [
+            "ALA",
+            "GLY",
+            "PRO",
+        ]
         unchanged(view, before)
 
 
