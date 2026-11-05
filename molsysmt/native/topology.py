@@ -105,8 +105,8 @@ class Groups_DataFrame(pd.DataFrame):
         columns = ["group_id", "group_name", "group_type", "molecule_index"]
         super().__init__(index=range(n_groups), columns=columns)
         self["group_id"] = self["group_id"].astype("string")
-        self["group_name"] = self["group_name"].astype(str)
-        self["group_type"] = self["group_type"].astype(str)
+        self["group_name"] = self["group_name"].astype("string")
+        self["group_type"] = self["group_type"].astype("string")
         self["molecule_index"] = self["molecule_index"].astype("Int64")
 
     def __setitem__(self, key, value):

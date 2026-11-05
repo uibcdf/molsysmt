@@ -27,19 +27,24 @@ def _group_atom_names(topology):
 
 
 def infer_group_types_from_topology(topology):
-    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt._private.name_resolution import classify_group_name
     from molsysmt.element.group.small_molecule.group_names import (
         group_names as reserved_small_molecule_names,
     )
 
+    from ._group_naming import NAMES, stored
+
     group_names = topology.groups["group_name"].to_numpy(dtype=object)
     atom_names_by_group = _group_atom_names(topology)
 
+    codes = stored(topology)
     output = []
     for group_index, group_name in enumerate(group_names):
-        group_type = get_group_type_from_group_name(group_name)
+        scheme = None if codes is None else NAMES[codes[group_index]]
+        group_type = classify_group_name(group_name, scheme)
         if (
             group_type == "small molecule"
+            and scheme is None
             and group_name in reserved_small_molecule_names
         ):
             atom_names = atom_names_by_group.get(group_index, set())
@@ -54,21 +59,21 @@ def project_group_type_from_topology(
     topology, *, element="group", redefine_types=False
 ):
     if redefine_types or _needs_columns(topology.groups, ["group_type"]):
-        tmp_topology = topology.copy()
-        tmp_topology.rebuild_groups(redefine_ids=False, redefine_types=True)
+        group_types = infer_group_types_from_topology(topology)
     else:
-        tmp_topology = topology
-
-    group_types = tmp_topology.groups["group_type"].to_numpy(dtype=object)
+        group_types = topology.groups["group_type"].to_numpy(dtype=object)
 
     if element == "group":
         return group_types.tolist()
 
     if element == "atom":
-        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(
+        group_index_from_atom = topology.atoms["group_index"].to_numpy(
             dtype=np.int64, na_value=-1
         )
-        return group_types[group_index_from_atom].tolist()
+        return [
+            group_types[index] if index >= 0 else "unknown"
+            for index in group_index_from_atom
+        ]
 
     raise NotImplementedError
 

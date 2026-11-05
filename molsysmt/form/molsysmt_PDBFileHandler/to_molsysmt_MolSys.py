@@ -73,7 +73,9 @@ def _topology_rows(content):
 
 
 def _get_group_types(group_rows, atom_rows):
-    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt._private.name_resolution import (
+        classify_group_name as get_group_type_from_group_name,
+    )
     from molsysmt.element.group.small_molecule.group_names import (
         group_names as reserved_small_molecule_names,
     )

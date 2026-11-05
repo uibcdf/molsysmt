@@ -226,7 +226,9 @@ def get_group_type_from_atom(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt._private.name_resolution import (
+        classify_group_name as get_group_type_from_group_name,
+    )
 
     group_index_per_atom, _, group_names = _build_group_info(item)
     if not is_all(indices):
@@ -332,7 +334,9 @@ def get_group_type_from_group(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt._private.name_resolution import (
+        classify_group_name as get_group_type_from_group_name,
+    )
 
     _, _, group_names = _build_group_info(item)
     if not is_all(indices):

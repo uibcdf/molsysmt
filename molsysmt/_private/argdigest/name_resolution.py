@@ -31,8 +31,20 @@ def _scheme(naming_scheme, caller=None):
     )
 
 
+def _group_name(group_name, caller=None):
+    # Missing labels are a supported recognition input, never an invented name.
+    import pandas as pd
+
+    if group_name is None or isinstance(group_name, str) and group_name:
+        return group_name
+    if pd.api.types.is_scalar(group_name) and pd.isna(group_name):
+        return group_name
+    raise ArgumentError("group_name", value=group_name, caller=caller)
+
+
 ARGUMENT_DIGESTERS = {
     "name": _name,
+    "group_name": _group_name,
     "naming_scheme": _scheme,
     "skip_digestion": digest_skip_digestion,
 }

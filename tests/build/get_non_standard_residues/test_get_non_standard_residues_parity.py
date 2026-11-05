@@ -28,6 +28,7 @@ def mol_with_mse():
     )
     # Rename group 10 (MET) → MSE so both engines can find it
     mol.topology.groups.at[10, "group_name"] = "MSE"
+    mol.topology.set_group_naming_schemes("ccd", group_indices=[10])
     mol.topology._groups_dirty = True
     return mol
 
@@ -40,6 +41,7 @@ def mol_with_ptr():
     )
     # Rename group 19 (TYR) → PTR
     mol.topology.groups.at[19, "group_name"] = "PTR"
+    mol.topology.set_group_naming_schemes("ccd", group_indices=[19])
     mol.topology._groups_dirty = True
     return mol
 

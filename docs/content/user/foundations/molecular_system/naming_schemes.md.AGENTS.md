@@ -22,5 +22,8 @@ issue and primary sources.
 
 Retain shared native, direct-text and identity projection, original source maps,
 and topology-only dictionary/H5MSM all/index identity queries. Other-domain
-predicates retain ordinary form-agnostic selection. Keep recognition/preparation
-and the old public helper cutover distinct from these delivered consumers.
+predicates retain ordinary form-agnostic selection. Keep delivered reference-parent reporting, recognition, native type
+reconstruction and non-standard-group reports distinct from pending preparation
+and the old scalar one-letter helper cutover. Raw readers preserve ambiguous
+names as unknown; scalar queries require context. Declarations alone do not
+reclassify stored types or repartition stable molecules.

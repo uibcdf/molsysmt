@@ -22,6 +22,20 @@ contracts.
 
 ## Group-name scheme design accepted — 2026-11-04
 
+**Local D4 reference-name and recognition receiving:** Parent reporting,
+amino-acid recognition, per-group type inference and native non-standard-group
+reports now share the bounded naming resolver. Raw readers preserve ambiguous
+labels as unknown; scalar queries require context. Inference preserves stable
+molecule membership and copies no topology for an all-group query. Nullable
+initial group labels/types preserve missingness instead of creating literal
+`"nan"` strings. Published-provider floor receiving passes 419 cases; five revised
+tutorials execute. Final current-provider receiving passes 7,460 tests; 514
+documentation controls and three doctest items pass. The wider run's 19 missing-type
+failures are corrected and revalidated, with their failed evidence retained.
+Exact chemical preparation, conversion fidelity and the old scalar
+one-letter/addon cutover remain open under #549. Detailed receiving,
+negative controls and remaining boundaries belong to the owning record.
+
 **Local D4 sequence-consumer receiving:** Identity and direct three-to-one-letter
 conversion share the native naming authority, retaining stored conventions and
 original group positions. Native queries copy no domains; all/index dictionary

@@ -105,7 +105,92 @@ def one_letter(name, naming_scheme, *, caller):
     return aa3_to_aa1[result.parent], result.profile
 
 
-def references(profile):
+def assessed(name, naming_scheme, *, caller, require_context=False):
+    """Return a reviewed interpretation or no assessment, without legacy fallback.
+
+    Readers preserve ambiguous labels as unknown. Explicit user queries can
+    require context instead; neither route infers a convention from a file form.
+    """
+    if not isinstance(name, str) or not name:
+        return None
+    from molsysmt.element.group.amino_acid.codes import aa3_to_aa1
+
+    profiles = _profiles()
+    if naming_scheme is None:
+        if name in profiles["contextual_names"]:
+            return resolve(name, None, caller=caller) if require_context else None
+        entry = profiles["ccd"]["entries"].get(name)
+        if name in aa3_to_aa1 or entry is not None:
+            # The default resolver independently checks agreement of reviewed
+            # CCD and historical parents; an unassessed compound stays unknown.
+            from molsysmt.element.group.amino_acid.group_types import name_to_type
+
+            if name in aa3_to_aa1 or entry["parent"] == name_to_type.get(name):
+                return resolve(name, None, caller=caller)
+    elif (
+        naming_scheme == "sequence"
+        and name in aa3_to_aa1
+        or naming_scheme == "amber"
+        and name in profiles["amber"]["parents"]
+        or naming_scheme == "ccd"
+        and name in profiles["ccd"]["entries"]
+    ):
+        return resolve(name, naming_scheme, caller=caller)
+    elif naming_scheme == "legacy":
+        from molsysmt.element.group.amino_acid.group_types import name_to_type
+
+        if name in aa3_to_aa1 or name in name_to_type:
+            return resolve(name, naming_scheme, caller=caller)
+    return None
+
+
+def classify_group_name(group_name, naming_scheme=None, *, require_context=False):
+    """Recognize assessed peptide labels before independent non-peptide catalogs."""
+    result = assessed(
+        group_name,
+        naming_scheme,
+        caller="molsysmt.element.group.get_group_type_from_group_name",
+        require_context=require_context,
+    )
+    if result is not None:
+        return result.group_type
+    if not isinstance(group_name, str):
+        return "unknown"
+    # A potentially peptide/state label cannot fall through to a different
+    # catalog merely because its selected naming profile has no assessment.
+    from molsysmt.element.group.amino_acid.codes import aa3_to_aa1
+    from molsysmt.element.group.amino_acid.group_names import group_names
+    from molsysmt.element.group.amino_acid.group_types import name_to_type
+
+    if (
+        group_name in aa3_to_aa1
+        or group_name in group_names
+        or group_name in name_to_type
+    ):
+        return "unknown"
+    from molsysmt.element.group.ion import is_ion
+    from molsysmt.element.group.lipid import is_lipid
+    from molsysmt.element.group.nucleotide import is_nucleotide
+    from molsysmt.element.group.saccharide import is_saccharide
+    from molsysmt.element.group.small_molecule import is_small_molecule
+    from molsysmt.element.group.terminal_capping import is_terminal_capping
+    from molsysmt.element.group.water import is_water
+
+    for predicate, kind in (
+        (is_water, "water"),
+        (is_ion, "ion"),
+        (is_terminal_capping, "terminal capping"),
+        (is_nucleotide, "nucleotide"),
+        (is_small_molecule, "small molecule"),
+        (is_lipid, "lipid"),
+        (is_saccharide, "saccharide"),
+    ):
+        if predicate(group_name):
+            return kind
+    return "unknown"
+
+
+def references(profile, *, alphabet=True):
     """Declare only the data and alphabet reached by a successful projection."""
     profiles = _profiles()
     records = [
@@ -117,6 +202,8 @@ def references(profile):
             roles=["reference_data"],
         )
     ]
+    if not alphabet and profile != "sequence":
+        records.clear()
     if profile == "ccd":
         records.append(
             dict(
@@ -215,7 +302,14 @@ def project_sequence(names, kinds, positions, schemes, *, caller, with_indices=F
     source_indices = [] if with_indices else None
     for name, kind, index, scheme in zip(names, kinds, positions, schemes, strict=True):
         if not isinstance(kind, str) or kind != "amino acid":
-            continue
+            if not isinstance(kind, str) or kind == "unknown":
+                interpretation = assessed(
+                    name, scheme, caller=caller, require_context=True
+                )
+                if interpretation is None or interpretation.group_type != "amino acid":
+                    continue
+            else:
+                continue
         if not isinstance(name, str) or not name:
             raise ArgumentError(
                 "name",

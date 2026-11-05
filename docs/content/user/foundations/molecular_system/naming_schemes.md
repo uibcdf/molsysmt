@@ -7,8 +7,10 @@ is staged. Native group-aligned declarations and their dictionary/H5MSM transpor
 are implemented. The helper at `msm.element.group.get_1_letter_code_from_name`
 and native sequence conversion use the declared convention. Sequence identity
 and direct three-to-one-letter projection share that interpretation; alignment
-uses native sequence conversion. The older `amino_acid` helpers and other
-classification/preparation consumers still await coordinated migration.
+uses native sequence conversion. Reference-parent reporting, amino-acid recognition, native group-type
+reconstruction and non-standard-group reports now share the resolver.
+Chemical preparation and the older scalar one-letter helper still await
+coordinated migration.
 The general `from_naming_scheme` conversion
 argument is available for explicit source interpretation and native transport.
 :::
@@ -159,3 +161,31 @@ after later edits.
 
 Chemical-state selection does not rename stable groups. Changing the label's
 interpretation does not itself change bonds, charge, coordinates or protonation.
+
+## Recognition and parents
+
+Reference-parent reporting and name recognition share the bounded naming
+profiles. For example, GLH reports GLU under Amber and GLN under explicit legacy;
+HID is recognized as an amino acid under Amber and as a small molecule under CCD.
+A missing or unassessed type stays unknown. A negative amino-acid recognition
+means that this profile does not recognize the label, not that the compound's
+chemistry has been established as non-peptide. A scalar parent request with an
+explicit but unsupported profile/name pair raises an error.
+
+Raw molecular readers preserve ambiguous labels without choosing a convention;
+their inferred group type is unknown. This permits loading the inventory before
+a source declaration is available. A subsequent declaration is metadata only:
+it does not rename groups, recompute stored types, repair chemistry or repartition
+stable molecules. Native sequence queries can interpret a declared, assessed
+amino acid whose stored type is unknown. Native type queries can request new
+inference without editing the input; explicit group reconstruction writes types
+using each group's stored convention. Existing stable molecule membership stays
+unchanged in both cases.
+
+A reference parent never establishes chemical-template equivalence. In
+particular, CCD HIP/LYN share sequence parents with Amber labels while denoting
+different compounds. Preparation and exact-template receiving remain separate
+work under #549; these recognition changes do not certify their completion.
+See the executed {ref}`parent examples <Tutorial_Get_standard_name>`,
+{ref}`recognition examples <Tutorial_Is_amino_acid>` and
+{ref}`type examples <Tutorial_Get_group_type_from_group_name>`.

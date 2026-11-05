@@ -2145,17 +2145,16 @@ def get_group_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt._private.name_resolution import (
+        classify_group_name as get_group_type_from_group_name,
+    )
 
     if is_all(indices):
         n_indices = get_n_groups_from_system(item, skip_digestion=True)
         indices = range(n_indices)
 
     group = list(item.residues())
-    output = [
-        get_group_type_from_group_name(group[ii].name, skip_digestion=True)
-        for ii in indices
-    ]
+    output = [get_group_type_from_group_name(group[ii].name) for ii in indices]
     del group
 
     return output

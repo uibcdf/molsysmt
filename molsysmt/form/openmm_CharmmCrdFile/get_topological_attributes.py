@@ -251,12 +251,11 @@ def get_group_type_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt._private.name_resolution import (
+        classify_group_name as get_group_type_from_group_name,
+    )
 
-    values = [
-        get_group_type_from_group_name(name, skip_digestion=True)
-        for name in item.resname
-    ]
+    values = [get_group_type_from_group_name(name) for name in item.resname]
     return _select(values, indices)
 
 
@@ -361,11 +360,12 @@ def get_group_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt._private.name_resolution import (
+        classify_group_name as get_group_type_from_group_name,
+    )
 
     values = [
-        get_group_type_from_group_name(record[1], skip_digestion=True)
-        for record in _group_records(item)
+        get_group_type_from_group_name(record[1]) for record in _group_records(item)
     ]
     return _select(values, indices)
 

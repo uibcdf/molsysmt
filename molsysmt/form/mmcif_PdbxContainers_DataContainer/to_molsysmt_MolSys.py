@@ -40,11 +40,13 @@ def to_molsysmt_MolSys(
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt._private.name_resolution import (
+        classify_group_name as get_group_type_from_group_name,
+    )
     from molsysmt.build import get_missing_bonds
     from molsysmt.configure import min_length_protein
     from molsysmt.element.group import (
         get_bonded_atom_pairs,
-        get_group_type_from_group_name,
     )
     from molsysmt.native import MolSys
 

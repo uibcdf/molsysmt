@@ -724,3 +724,170 @@ related extras: missing pdb2pqr and older NumPy/Biopython constraints. #524 owns
 the detailed observation. No installation/downgrade is performed, and neither
 the 363-case provider probe nor development receiving is labelled complete
 workspace or installed-package qualification.
+
+
+## D4 reference names and recognition — 2026-11-04
+
+**Implemented and contract-tested locally.** Reference-parent reporting,
+amino-acid recognition, group-type inference and the native backend of
+`build.get_non_standard_residues` now consume the same bounded naming authority.
+This is another D4 delivery, not completion of D4 or closure of #549.
+
+### Delivered behavior
+
+- `amino_acid.get_standard_name` and `amino_acid.is_amino_acid` accept
+  `naming_scheme` and the standard `skip_digestion` contract. The existing
+  package-exported `get_group_type_from_group_name` preserves both positional
+  arguments and adds a keyword-only convention. All three boundaries use scoped
+  ArgDigest validation and SMonitor diagnostics. An ambiguous scalar query needs
+  context; there is no implicit legacy interpretation.
+- Parent reporting distinguishes Amber GLH/GLU from explicit legacy GLH/GLN.
+  CCD HID, ASH, CYX, XAA and XLE remain non-peptide components. Unassessed default
+  parents return None; explicit unsupported amino-acid candidates raise.
+  Negative recognition means not recognized in the selected bounded profile,
+  not proof of a non-peptide chemical identity. Independent existing water/ion
+  and other non-peptide catalogs remain usable without creating parent templates.
+- Native inference operates directly on tables through the shared private
+  recognizer. Raw readers preserve ambiguous names and unknown types without
+  inferring a convention from OpenMM, MDTraj, PDB, mmCIF or another source form.
+  Existing explicit declarations are respected per group; identical labels are
+  not collapsed into one interpretation. A declared CCD non-peptide cannot be
+  overridden by the former atom-name heuristic.
+- Type queries remain non-mutating; the native all-selection query no longer
+  copies/rebuilds the topology just to return inferred types. Explicit group
+  reconstruction writes types and preserves stable molecule membership, names
+  and declarations. Changing a declaration alone still changes metadata only.
+  An unknown/missing type can supply a sequence letter when naming interpretation
+  supports it; a bare ambiguous name still refuses projection.
+- Empty native group-name/type fields now remain nullable strings. Their former
+  `astype(str)` initialization created the literal label/type `"nan"`, which
+  concealed missingness from recognition. This correction does not synthesize
+  a group name or chemical identity.
+- The native non-standard-group report reads stored declarations from native
+  inventory, typed dictionaries and H5MSM topology layers, retaining original
+  selected group indices. It reports parents without editing any domain.
+  PDBFixer retains its separate catalogue. Existing parity fixtures now declare
+  CCD when they deliberately rename an Amber-built group's label to MSE/PTR;
+  a stale Amber declaration is not silently accepted as CCD.
+- The competing direct-module group classifier is an import alias of the
+  supported package-exported implementation. Its import path remains available;
+  the old unexported underscore-valued implementation is gone. An explicit
+  signature waiver explains the AST guard's missing-definition observation,
+  and an identity assertion protects the real public alias.
+- Optional Ackredit credits the reached naming dataset, including a successful
+  negative CCD recognition, without claiming an executed Amber/MDTraj engine.
+  Recognition/parent lookup does not credit an unused sequence alphabet.
+  Provider failures preserve results with the existing structured warning.
+  There is no physical quantity or new optional calculation engine at these
+  scalar boundaries; PyUnitWizard and new DepDigest declarations do not apply.
+  Existing optional-engine routes and lazy imports remain enforced.
+
+### Receiving and limits
+
+`tests/element/group/test_name_recognition.py` and
+`tests/build/get_non_standard_residues/test_naming_schemes.py` protect independently
+specified parent/type outcomes, missing and unsupported labels, argument/flag
+rejection, per-group mixed conventions, nonconsecutive atom/group queries,
+non-mutating inference, stable membership, direct private reconstruction,
+raw OpenMM input, typed/H5MSM parent reporting and actual optional attribution.
+The maintained smoke command includes both modules in the same pytest invocation.
+
+The four published-provider floor probe passes **419 cases** with ArgDigest
+0.14.0, DepDigest 0.15.1, SMonitor 0.16.0 and Ackredit 0.9.0. It reuses the already
+verified archives and import-path method recorded above. As in the previous
+probe, only the newer editable SMonitor pytest entry point is excluded: that
+plugin does not exist in the old runtime's distribution. There is no application
+assertion or scientific-result exclusion. Its four warnings are three deliberately
+injected optional-attribution failures and one existing attribute-drop diagnostic.
+
+The first broad receiving run passes 2,849 cases and fails two newly written
+fixture checks: direct fixture ID assignments use object dtype, while native
+reconstruction correctly normalizes IDs to nullable strings. The fixtures now
+use canonical native ID dtypes; value and membership assertions remain exact.
+The earlier public-example test's expected count is updated from four to seven
+because the new executed examples extend the docstring. A new optional-attribution
+assertion initially assumes item objects; it now reads the provider's supported
+capture dictionary, retaining the exact expected CCD-only reference set.
+The missing-type control separately exposes the real literal-`nan` constructor
+problem fixed above, rather than weakening that missingness assertion.
+
+Three revised scalar tutorials and the existing group-type/non-standard-group
+tutorials execute in the shared Python 3.14 environment. Jupyter's first sandboxed
+attempt cannot create its local sockets; the same runner succeeds with the local
+socket permission. No additional environment or dependency installation is used.
+The course and Cookbook receive explanatory text; their executable cells and
+stored results are retained. Full reader/native receiving and final governance
+checks are recorded below when complete.
+
+**Next D4 boundary:** preparation, hydrogen expectations and repair must use
+exact state/modified templates with declared naming context. Their existing
+parent substitutions have not been certified by this reporting/recognition
+change; ambiguous bare parent requests now refuse instead of selecting a legacy
+meaning. The old scalar amino-acid one-letter helper and addon mirror remain D6
+cutover work; D5's conversion-fidelity audit and D7's final acceptance remain open.
+No hosted CI run, push, tag, artifact or release qualification is claimed.
+
+
+### Nullable-type receiving follow-up
+
+The wider 7,431-case run passes 7,412 and fails 19 cases with one root cause:
+native PDBQT/rigid-fragment construction reaches the shared private
+molecule/component type aggregator with a genuine missing group type. Its
+first/last type comparisons assume every value is a string and try to coerce
+`pd.NA` into a boolean. The aggregator now returns unknown for empty/missing
+leading types and guards the trailing cap comparison. It preserves the existing
+classification rules for actual strings and does not invent a cap or name.
+Seven native tests explicitly exercise None, pd.NA, numeric NaN and fresh
+uninitialized groups. These join the maintained smoke invocation.
+
+The affected PDBQT/indexed-handler/Vina and component tests, together with these
+seven controls, pass **70 cases** after the correction, with one legacy-file
+notice. The complete reader/native selection is rerun before closeout; the
+failed wider XML is retained as `recognition-wide-nullable-failure.xml`, rather
+than relabelled as a passing process. This is local receiving evidence, not an
+installed-package or release-candidate gate.
+
+The isolated Sphinx API-navigation test additionally needs the real existing
+group-type tutorial as a target for the new docstring link. Its miniature source
+fixture now extracts that actual page's anchor. Both the empty-warning assertion
+and the deliberately broken negative control remain; no invented anchor or
+warning suppression is used. The corrected documentation set passes **514 cases**
+with 512 existing Sphinx deprecations.
+
+
+### Final local receiving for this block
+
+- **7,460 tests pass** in the final reader/native/sequence/preparation selection
+  on Linux/Python 3.14.7 with current development providers and normal pytest
+  diagnostics. Four workers complete in 293 seconds; the previous failed wider
+  process is retained separately. The 777 warnings are predominantly legacy
+  H5MSM 0.3/0.4 notices (723); the remaining 54 include existing parser/box,
+  atom-name, attribute-drop, pandas and preparation diagnostics plus the three
+  deliberately injected optional-attribution failures. No warnings are filtered
+  or assertions removed for this run.
+- **419 tests pass** with the four published support-library floors, including
+  the seven nullable-type controls; the entry-point-only harness limitation
+  remains as documented above. This probe takes 13 seconds with two workers.
+- **514 documentation/command controls** and **three doctest items** pass.
+  Five revised tutorials execute all **21 code cells** in the shared environment.
+  The course and Cookbook retain identical executable cells, outputs and notebook
+  metadata; only their explanatory text changes.
+- Whole-tree Ruff lint/formatting (**4,347 files**), all **247** checked public
+  docstrings, **278-symbol** and signature stability, the offline naming-asset
+  generator, dependency/import-contract checks, and devguide/index validation
+  pass. Four explicit signature changes/alias consolidations are accepted under
+  this issue; no mandatory gate is waived by a commit marker.
+- The unchanged native binary has SHA-256
+  `f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c`.
+  The four pre-existing unrelated human API-stub edits retain their original
+  hashes and remain outside this change. No support-library checkout, runtime
+  dependency floor or public package is changed in this block.
+
+Working evidence remains under `.pytest_cache/group-name-resolution-549/`:
+`recognition-provider-floors.xml`, `recognition-extended.xml`,
+`recognition-nullable-followup.xml`, `recognition-documentation.xml`,
+`recognition-doctests.xml` and the separately preserved failing wider XML.
+These source checks do not repair the already recorded optional-environment
+`pip check` failure under #524 and do not qualify an installed artifact or
+another interpreter/platform. Preparation, D5 fidelity, D6 cutover and D7 final
+acceptance remain open; #549 is not closed.
