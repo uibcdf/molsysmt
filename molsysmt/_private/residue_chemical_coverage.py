@@ -111,17 +111,31 @@ def _template(name, names, cache, naming_scheme=None):
             expected = get_expected_heavy_atoms(name, naming_scheme=naming_scheme)
         cache[key] = set(expected) - ({"OXT"} if "OXT" not in names else set())
     expected = cache[key]
+    catalogue = () if modified else _catalogue(name)
+    source_indices = {id(variant): index for index, variant in enumerate(catalogue)}
+    indexed = []
+    extra_index = len(catalogue)
+    sources = {}
+    for index, variant in enumerate(variants):
+        source_index = index if modified else source_indices.get(id(variant))
+        if source_index is None:
+            source_index = extra_index
+            extra_index += 1
+        indexed.append((source_index, variant))
+        actual_resource = variant.get("_resource", resource)
+        source_key = ("variant_resource", actual_resource)
+        if source_key not in cache:
+            package, basename = actual_resource.rsplit("/", 1)
+            cache[source_key] = dict(
+                resource=actual_resource,
+                packaged_sha256=sha256(
+                    files(package).joinpath(basename).read_bytes()
+                ).hexdigest(),
+            )
+        sources[str(source_index)] = cache[source_key]
     candidates = [
         (index, variant)
-        for index, variant in (
-            enumerate(variants)
-            if modified
-            else (
-                (i, v)
-                for i, v in enumerate(_catalogue(name))
-                if any(v is selected for selected in variants)
-            )
-        )
+        for index, variant in indexed
         if {a for a in variant["atoms"] if not _is_hydrogen(a)} - {"OXT"}
         == expected - {"OXT"}
         and ("OXT" not in names or "OXT" in variant["atoms"])
@@ -137,6 +151,9 @@ def _template(name, names, cache, naming_scheme=None):
             "naming_scheme": naming_scheme,
             "resource": resource,
             "variant_indices": [index for index, _ in candidates],
+            "variant_sources": {
+                str(index): sources[str(index)] for index, _ in candidates
+            },
             "provenance": deepcopy(provenance),
             "element_reference": elements_origin,
         },

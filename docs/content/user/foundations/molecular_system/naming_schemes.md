@@ -11,8 +11,8 @@ uses native sequence conversion. Reference-parent reporting, amino-acid recognit
 reconstruction and non-standard-group reports now share the resolver.
 Native atom/H expectations, missing-atom queries and bounded native preparation
 now consume naming context too. Reference-bond maps and native missing-bond
-candidates also use that context. Broader producer audits, external naming
-adapters and the older scalar one-letter helper still await coordinated migration.
+candidates also use that context. Peptide construction reads exact source
+labels and declares its known output convention. External naming adapters and the older scalar one-letter helper still await coordinated migration.
 The general `from_naming_scheme` conversion
 argument is available for explicit source interpretation and native transport.
 :::
@@ -227,3 +227,28 @@ while omitting automatic candidate inference for groups whose reviewed contextua
 labels lack declarations. Such omitted connectivity is not labelled complete.
 A later explicit template query requires the convention and can use the checked
 reference; loading a file does not choose it implicitly.
+
+
+## Construction provenance
+
+Peptide construction reads original group labels under their declared context;
+it does not pass through a parent sequence to select chemistry. The bounded
+constructor supports standard twenty names, eight reviewed Amber state labels
+and existing terminal caps. Ambiguous input needs context; unsupported modified
+names do not become their parent. Generated native labels declare the Amber
+construction vocabulary. That declaration comes from the producer's chosen
+references, rather than an assumption about the input form. Original systems
+remain unchanged.
+
+Group naming and atom naming are separate. The checked state layouts include
+both historical H names and those in the bundled Amber construction dataset;
+observed H names select a compatible layout. Preparation must not add a second
+hydrogen just because the two datasets call the same parent-bound H differently.
+Chemical coverage retains its candidate ambiguity and identifies each layout's
+resource. A matching H inventory does not certify protonation, charges or geometry.
+
+Native construction retains its existing approximate coordinates. The historical
+Amber-derived construction asset identifies bundled bytes but has no pinned
+upstream revision. The optional bibliography credits those data, without claiming
+execution of Amber software. Unsupported terminal chemistry, disulfide pairing,
+state assignments and external naming translation are separate operations.

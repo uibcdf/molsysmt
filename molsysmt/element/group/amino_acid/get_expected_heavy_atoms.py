@@ -46,6 +46,10 @@ def get_expected_heavy_atoms(
 
     Notes
     -----
+    Checked Amber construction layouts and historical catalogue layouts can use
+    different H names with the same heavy inventory. Heavy queries do not choose
+    an atom naming convention or certify coordinates.
+
     Standard twenty amino-acid labels use the existing atom/bond catalogue.
     Explicit Amber GLH, HID, HIE, HIP, ASH, CYM, CYX and LYN use only variants
     whose heavy connectivity and per-parent H counts agree with the bundled

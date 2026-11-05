@@ -80,3 +80,10 @@ still does not establish placement support or environmental protonation. Consult
 {ref}`user-foundations-group-naming-schemes` and the executed
 {ref}`Tutorial_Get_expected_heavy_atoms` and
 {ref}`Tutorial_Get_expected_hydrogens` examples.
+
+When you construct a peptide, retain its producer declaration instead of guessing
+it later from its native class. Group conventions do not force atom conventions:
+checked historical and Amber construction H layouts can differ. Inspect coverage
+candidates and `variant_sources` when names differ; do not treat an alternative
+H name as proof that another physical hydrogen is missing. See
+{ref}`Tutorial_Build_peptide` for exact-label construction and its limits.

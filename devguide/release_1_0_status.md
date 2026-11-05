@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-11-04
+**Last updated:** 2026-11-05
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,25 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Group-name producer receiving — 2026-11-05
+
+**D4 complete locally within #549's bounded scope.** Peptide construction now
+reads exact source labels/context, checks explicit overrides and declares its
+known Amber output vocabulary before native transport. The shared reference layer
+recognizes checked historical and construction H layouts. Native H addition no
+longer duplicates HID beta hydrogens or Amber ACE methyl hydrogens merely because
+reference names differ; group declarations do not force atom naming.
+Coverage retains candidate ambiguity and records each candidate's actual source.
+
+Local receiving passes **3,000 affected tests**, **221 provider-floor cases**,
+two additional input/preflight guards, 514 documentation controls and three
+doctest items. The final cap-attribution follow-up passes 62 producer/resource
+tests with current providers and the same 62 with published floors. Two revised
+tutorials execute 18 cells; course executable payload is retained. The owning
+record keeps failed-process evidence, corrected test premises and scientific
+limits. D5 fidelity, D6 old scalar/addon cutover and D7 final acceptance remain
+open. No installed artifact or release qualification is implied.
 
 ## Group-name scheme design accepted — 2026-11-04
 

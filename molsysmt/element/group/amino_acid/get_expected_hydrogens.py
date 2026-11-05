@@ -75,7 +75,11 @@ def get_expected_hydrogens(
     the bundled Meeko-derived state fragment. Their side chains are not reset
     by pH. These variants represent internal peptide groups; named-state terminal
     H completion remains unassessed. CCD/legacy interpretations cannot reuse the
-    Amber variants. No parent substitution, chemical-state selection or geometry
+    Amber variants. Both historical catalogue and bundled construction H names
+    are retained when their reference topology agrees. Observed H names select
+    the compatible layout; without them, the first checked catalogue layout
+    remains the default. Group conventions do not force atom conventions.
+    No parent substitution, chemical-state selection or geometry
     calculation occurs. Optional Ackredit credits the actual reference datasets.
 
     The following approximate rules remain for standard labels:

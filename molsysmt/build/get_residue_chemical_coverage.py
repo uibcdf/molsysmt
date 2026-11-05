@@ -59,6 +59,11 @@ def get_residue_chemical_coverage(
 
     Notes
     -----
+    Candidate ``variant_sources`` identifies each layout's actual resource and
+    content digest. Original catalogue indices are retained; added construction
+    layouts receive indices after that catalogue range. Multiple H-name sets
+    remain explicitly ambiguous, even when one matches the observed inventory.
+
     Per-group stored naming declarations scope reference lookup and caching.
     Missing context for an ambiguous label yields an unassessed entry. Named
     Amber states use only variants whose heavy connectivity and per-parent H

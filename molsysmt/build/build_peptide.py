@@ -1,10 +1,7 @@
-import gzip
-import json
 import warnings
-from functools import lru_cache
-from importlib.resources import files
 
 import numpy as np
+from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import (
@@ -222,50 +219,125 @@ def _atomic_number_to_symbol(atomic_number):
     return mapping.get(atomic_number)
 
 
-def _to_three_letter_peptide_sequence(molecular_system):
-    """Return a peptide sequence without applying generic string-form priority."""
+def _peptide_input(molecular_system, from_naming_scheme):
+    """Read exact group labels and source context without projecting parents."""
+    from molsysmt._private.amino_acid_templates import family
+    from molsysmt._private.name_resolution import check_source_scheme, stored_topology
+    from molsysmt._private.smonitor import NotImplementedMethodError
+    from molsysmt.element.group.terminal_capping import group_names as caps
+    from molsysmt.native._group_naming import NAMES
 
-    if type(molecular_system) is str:
-        sequence = molecular_system.removeprefix("amino_acids_1:").removeprefix(
-            "amino_acids_3:"
+    caller = "molsysmt.build.build_peptide"
+    topology = None
+    if isinstance(molecular_system, str):
+        from molsysmt.form._sequence_topology import from_string
+        from molsysmt.form.string_amino_acids_1.is_form import is_form as is_one
+        from molsysmt.form.string_amino_acids_3.is_form import is_form as is_three
+
+        width = (
+            1
+            if molecular_system.startswith("amino_acids_1:")
+            else 3
+            if molecular_system.startswith("amino_acids_3:")
+            else 3
+            if is_three(molecular_system)
+            else 1
+            if is_one(molecular_system)
+            else None
         )
-
-        from molsysmt.form.string_amino_acids_3.is_form import (
-            is_form as is_amino_acids_3,
-        )
-
-        if is_amino_acids_3(sequence):
-            return sequence
-
-        from molsysmt.form.string_amino_acids_1.is_form import (
-            is_form as is_amino_acids_1,
-        )
-
-        if is_amino_acids_1(sequence):
-            from molsysmt.form.string_amino_acids_1.to_string_amino_acids_3 import (
-                to_string_amino_acids_3,
+        if width is not None:
+            topology = from_string(
+                molecular_system,
+                width,
+                "all",
+                "all",
+                caller=caller,
+                naming_scheme=from_naming_scheme,
             )
+    if topology is None:
+        topology = stored_topology(molecular_system, caller=caller)
+    if topology is None:
+        from molsysmt.basic import convert
 
-            return to_string_amino_acids_3(sequence, skip_digestion=True)
-
-    from molsysmt.basic import convert
-
-    return convert(molecular_system, to_form="string:amino_acids_3")
-
-
-@lru_cache(maxsize=1)
-def _get_peptide_builder_templates():
-    """Load bundled peptide-builder templates."""
-
-    try:
-        path = files("molsysmt.data.databases.peptide_builder").joinpath(
-            "amber14sb.json.gz"
+        topology = convert(molecular_system, to_form="molsysmt.Topology")
+    positions = np.arange(topology.n_groups, dtype=np.int64)
+    codes = check_source_scheme(topology, positions, from_naming_scheme, caller=caller)
+    names = topology.groups["group_name"].tolist()
+    if not names:
+        raise ArgumentError(
+            "molecular_system",
+            caller=caller,
+            message="Peptide construction needs at least one group.",
         )
-        with gzip.open(path, "rt", encoding="utf-8") as file_handle:
-            database = json.load(file_handle)
-        return database.get("templates", {})
-    except Exception:
-        return {}
+    schemes = [
+        from_naming_scheme
+        if from_naming_scheme is not None
+        else NAMES[int(codes[i])]
+        if codes is not None
+        else None
+        for i in positions
+    ]
+    for name, scheme in zip(names, schemes):
+        if isinstance(name, str) and name in caps:
+            continue
+        kind = family(name, scheme, caller=caller)
+        if kind not in ("standard", "amber_state"):
+            raise NotImplementedMethodError(
+                caller=caller,
+                message=f"No supported peptide construction reference for {name!r} under {scheme!r}. Exact source labels are retained; a reporting parent cannot select chemical construction.",
+            )
+    return names
+
+
+def _get_peptide_builder_templates():
+    """Load the shared construction references without an optional engine."""
+    from molsysmt._private.peptide_builder_data import templates
+
+    return templates()
+
+
+def _credit_builder_references(groups_data):
+    """Credit the data used for native construction, without claiming LEaP execution."""
+    from molsysmt import _ackredit
+    from molsysmt._private.amino_acid_templates import credit, family
+    from molsysmt._private.peptide_builder_data import reference as _builder_reference
+
+    caller = "molsysmt.build.build_peptide"
+    items = []
+    if any(group["reference"] == "builder" for group in groups_data):
+        items.append(
+            _builder_reference(
+                "molsysmt.data.databases.peptide_builder",
+                "amber14sb.json.gz",
+                "Bundled MolSysMT peptide construction data derived from AmberClassic LEaP libraries",
+            )
+        )
+    seen = set()
+    for group in groups_data:
+        name, reference = group["group_name"], group["reference"]
+        if reference == "builder" or (name, reference) in seen:
+            continue
+        seen.add((name, reference))
+        if reference == "amino_acid":
+            credit(name, family(name, "amber", caller=caller), caller)
+        else:
+            from molsysmt.element.group.terminal_capping import n_terminal_capping_names
+
+            filename = (
+                "n_terminal.json"
+                if name in n_terminal_capping_names
+                else "c_terminal.json"
+            )
+            items.append(
+                _builder_reference(
+                    "molsysmt.data.databases.terminal_cappings",
+                    filename,
+                    "Historical MolSysMT terminal-cap atom/bond catalogue",
+                )
+            )
+    if items:
+        with _ackredit.scope(caller) as provider:
+            _ackredit.credit(provider, items, caller, contextual=True)
 
 
 def _resolve_template_alias(template_name, available_templates):
@@ -899,32 +971,49 @@ def _optimize_backbone_torsions(
     return optimized_coordinates
 
 
+@signal(tags=["api", "build", "naming"])
 @arg_digest()
-def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"):
+def build_peptide(
+    molecular_system,
+    to_form="molsysmt.MolSys",
+    engine="MolSysMT",
+    skip_digestion=False,
+    *,
+    from_naming_scheme=None,
+):
     """
     Building a peptide from a sequence.
 
-    This function constructs a capped or uncapped peptide from a sequence of amino acids.
-    It generates the complete atomic topology, including bonds, angles, and coordinates
-    for the resulting system. Optionally, terminal capping groups can be included in the input
-    sequence.
+    This function constructs a capped or uncapped peptide from ordered group
+    labels using the selected engine's references. Native construction supplies
+    atom/bond inventory and initial coordinates; it does not establish a complete
+    fixed chemical state or an energy-minimized conformation.
 
 
     Parameters
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    to_form : object, default='molsysmt.MolSys'
-        Argument to_form.
+    to_form : str, default='molsysmt.MolSys'
+        Output form or filename accepted by the public conversion API. Native
+        molecular outputs and typed dictionaries retain the generated convention.
     engine : str, default='MolSysMT'
         Peptide-building engine. Use ``'LEaP'`` explicitly to build with the
         optional AmberTools executable.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+    from_naming_scheme : str or none, default=None
+        Keyword-only source naming vocabulary: sequence, amber, ccd or legacy.
+        None reads stored declarations and supported unambiguous labels. An
+        explicit convention must agree with every known source declaration;
+        neither source names nor source chemistry are changed.
 
     Returns
     -------
     molecular system
-        A new molecular system representing the fully constructed peptide, including coordinates
-        and all relevant topological information.
+        Independent constructed peptide in the requested form. Native outputs
+        declare Amber for the labels generated from Amber construction references;
+        this is output provenance, rather than inferred source context.
 
 
     Raises
@@ -935,6 +1024,9 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
     ArgumentError
         Raised if the input sequence is invalid or contains unsupported codes.
 
+    NotImplementedMethodError
+        If an exact source label has no supported construction reference.
+
     NotSupportedFormError
         Raised if the output form is not recognized or supported.
     OSError
@@ -943,12 +1035,27 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
 
     Notes
     -----
-    - The sequence must contain amino acid and/or capping group codes recognized by the selected engine.
+    - Supported construction labels are the standard twenty amino acids, the
+      eight reviewed Amber state labels and existing terminal caps. Bare
+      contextual labels require a declaration; CCD/legacy meanings do not select
+      same-spelled Amber chemistry. Modified parents are not substituted.
     - One- and three-letter peptide sequences are handled natively. Biopython
       is not needed for these string inputs.
     - String inputs are interpreted as peptide sequences in this context, even
       when the same characters are also valid SMILES.
     - Terminal caps can be specified explicitly by using residue names such as 'ACE' (N-terminus) and 'NME' (C-terminus).
+    - Input structures, chemical states and naming metadata are not repaired or
+      copied into the new peptide: this is construction from labels. A named
+      state reference does not assign formal charges, bond orders, disulfide
+      pairing, validated terminal chemistry or an environmental protonation state.
+    - Nonempty MolecularMechanics still requires explicit omission before full
+      MolSysDict/H5MSM transport; constructing a Topology or TopologyDict preserves
+      group declarations without that domain. No mechanics data are dropped here.
+    - Native geometry retains its approximate placement and clash-relief model.
+      Its optional Ackredit record credits the bundled construction/catalogue data
+      actually used, without claiming an executed Amber/LEaP engine. The historical
+      construction asset has no pinned upstream revision; its byte hash identifies
+      the bundled data, not a validated contemporary force-field release.
     - The resulting structure is built in vacuum and can be subsequently solvated using :func:`molsysmt.build.solvate`.
     - The LEaP engine owns its intermediate directory through construction and
       conversion. It retires that directory on success and failure; file and
@@ -976,6 +1083,10 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
     >>> molsys = msm.build.build_peptide('AceGlyGlyNme')
     >>> msm.basic.get(molsys, n_groups=True)
     4
+    >>> molsys.topology.group_naming_schemes
+    ('amber', 'amber', 'amber', 'amber')
+    >>> msm.convert(molsys, to_form='string:amino_acids_1')
+    'GG'
 
 
     .. admonition:: User guide
@@ -986,6 +1097,8 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
     .. versionadded:: 1.0.0
     """
 
+    group_names = _peptide_input(molecular_system, from_naming_scheme)
+
     if engine == "LEaP":
         from tempfile import TemporaryDirectory
 
@@ -995,11 +1108,7 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
         from molsysmt.basic import convert
         from molsysmt.third_party.tleap import TLeap
 
-        sequence = _to_three_letter_peptide_sequence(molecular_system)
-        sequence = sequence.upper()
-        sequence = " ".join(
-            [sequence[ii : ii + 3] for ii in range(0, len(sequence), 3)]
-        )
+        sequence = " ".join(group_names)
 
         with TemporaryDirectory(prefix="molsysmt-peptide-") as working_directory:
             temp_prmtop = temp_filename(dir=working_directory, extension="prmtop")
@@ -1026,17 +1135,18 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
 
             del tleap
 
-            temp_item = convert([temp_prmtop, temp_inpcrd], to_form=to_form)
-
-            if to_form in ["molsysmt.MolSys", "molsysmt.Topology"]:
-                temp_item.topology.chains["chain_name"] = "A"
+            # Declare the vocabulary while the result still owns native inventory.
+            # Export only afterwards, so native/dictionary persistence can retain it.
+            temp_item = convert([temp_prmtop, temp_inpcrd], to_form="molsysmt.MolSys")
+            temp_item.topology.chains["chain_name"] = "A"
+            temp_item.topology.set_group_naming_schemes("amber")
+            if to_form != "molsysmt.MolSys":
+                temp_item = convert(temp_item, to_form=to_form)
 
     elif engine == "MolSysMT":
         from molsysmt import pyunitwizard as puw
+        from molsysmt._private.amino_acid_templates import variants
         from molsysmt.basic import convert
-        from molsysmt.element.group.amino_acid import (
-            get_group_db as get_amino_acid_group_db,
-        )
         from molsysmt.element.group.amino_acid import (
             group_names as amino_acid_group_names,
         )
@@ -1055,14 +1165,6 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
                 UserWarning,
                 stacklevel=2,
             )
-
-        sequence = _to_three_letter_peptide_sequence(molecular_system)
-        sequence = sequence.upper()
-        if sequence == "":
-            raise ArgumentError(
-                "sequence", value="empty", caller="molsysmt.build.build_peptide"
-            )
-        group_names = [sequence[ii : ii + 3] for ii in range(0, len(sequence), 3)]
 
         amino_acid_group_names = set(amino_acid_group_names)
         terminal_capping_group_names = set(terminal_capping_group_names)
@@ -1125,6 +1227,7 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
                         "group_name": group_name,
                         "group_type": group_type,
                         "template_name": resolved_template_name,
+                        "reference": "builder",
                         "atom_names": atom_names,
                         "atom_types": atom_types,
                         "atom_ff_types": list(
@@ -1145,19 +1248,21 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
                     group_db = get_terminal_capping_group_db(group_name)
                     topology = _pick_topology_variant(group_db["topology"])
                 else:
-                    group_db = get_amino_acid_group_db(template_name)
+                    supported_variants = variants(
+                        template_name, "amber", caller="molsysmt.build.build_peptide"
+                    )
 
                     if template_name == group_name:
                         if group_index == last_amino_group_index:
                             topology = _pick_topology_variant(
-                                group_db["topology"], prefer_oxt=True
+                                supported_variants, prefer_oxt=True
                             )
                         else:
                             topology = _pick_topology_variant(
-                                group_db["topology"], prefer_oxt=False
+                                supported_variants, prefer_oxt=False
                             )
                     else:
-                        topology = _pick_topology_variant(group_db["topology"])
+                        topology = _pick_topology_variant(supported_variants)
 
                 atom_names = list(topology["atoms"])
                 atom_types = [_guess_atom_type(atom_name) for atom_name in atom_names]
@@ -1186,6 +1291,9 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
                         "group_name": group_name,
                         "group_type": group_type,
                         "template_name": template_name,
+                        "reference": "cap"
+                        if group_name in terminal_capping_group_names
+                        else "amino_acid",
                         "atom_names": atom_names,
                         "atom_types": atom_types,
                         "atom_ff_types": list(atom_types),
@@ -1958,6 +2066,7 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
             group_data["group_type"] for group_data in groups_data
         ]
         temp_item.topology.groups["molecule_index"] = 0
+        temp_item.topology.set_group_naming_schemes("amber")
 
         temp_item.chemical_states._resolve_chemical_state().components[
             "component_id"
@@ -2021,6 +2130,7 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"
         )
 
         temp_item.topology._coerce_id_columns_to_string()
+        _credit_builder_references(groups_data)
         if to_form != "molsysmt.MolSys":
             temp_item = convert(temp_item, to_form=to_form)
 

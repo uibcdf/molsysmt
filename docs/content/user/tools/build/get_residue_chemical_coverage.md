@@ -139,7 +139,13 @@ The template identity includes the stored `naming_scheme` for the source group.
 The reference cache is scoped by both name and convention. An undeclared ambiguous
 name is unassessed, rather than interpreted as Amber or CCD. Amber-state provenance
 records verification against bundled Meeko-derived heavy connectivity and H counts
-per parent atom; only the matching raw catalogue variant indices are retained.
+per parent atom. Existing raw catalogue indices are retained; additional checked
+construction layouts receive indices after the raw catalogue range. The
+`variant_sources` mapping associates each candidate index with its actual resource
+and content digest. The top-level resource continues to identify the primary
+catalogue. Differing H-name sets still produce an unassessed/ambiguous H report,
+even when one candidate matches every observed H; candidate details preserve that
+exact match without certifying an environmental state.
 This does not validate charges, stereochemistry or an environmental protonation state.
 CCD/legacy meanings cannot reuse an Amber template with the same label. See
 {ref}`user-foundations-group-naming-schemes` and

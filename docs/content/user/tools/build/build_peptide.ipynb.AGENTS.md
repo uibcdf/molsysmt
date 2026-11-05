@@ -30,3 +30,11 @@ The canonical variable representing the molecular system MUST be `molsys`.
    - MolSysViewer static tag cell (`molsysviewer_htmlfile = '_static/views/tools_build_build_peptide_2.html'`) + `msm.view(molsys)`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance.
+
+## Naming and construction limits
+
+Preserve exact-label source context, from_naming_scheme conflict checks and known
+Amber producer declarations. Retain the worked named-state example and H-alias
+idempotence example. Distinguish group naming from atom naming, initial geometry
+from fixed chemical-state/minimization claims, and data attribution from executed
+external software. Keep the explicit MolecularMechanics transport limitation.

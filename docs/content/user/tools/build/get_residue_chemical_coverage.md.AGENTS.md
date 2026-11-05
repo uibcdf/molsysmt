@@ -11,3 +11,8 @@ chemical validity, automatic repair or docking readiness. Regression evidence:
 Keep naming-scoped caches, missing-context unassessed entries and the limited
 Meeko-derived heavy connectivity/H-count verification in template provenance.
 No full chemical-state certification follows from that reference comparison.
+
+Keep candidate variant_sources and actual content identities, preserving raw
+indices and explicitly identifying additional construction layouts. Multiple H
+name sets remain ambiguous; do not turn one exact match into unique chemical
+assessment.

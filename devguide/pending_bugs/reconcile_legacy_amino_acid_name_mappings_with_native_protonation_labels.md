@@ -181,7 +181,7 @@ report that authority but cannot substitute for scientific review of its entries
   Amber/CCD/canonical/legacy controls, refusal paths and immutable-input tests;
   introduce the group-level public code helper with ArgDigest and SMonitor.
   Keep modified-parent projection distinct from chemical replacement.
-- [ ] **D4 — native producers and consumer propagation.** Producers that
+- [x] **D4 — native producers and consumer propagation.** Producers that
   explicitly know their input vocabulary declare it. Propagate the conversion
   argument through selected direct and MolSys routes. Resolve declarations per
   selected group, preserve ordering/repetitions and refuse ambiguous mixed
@@ -1091,3 +1091,202 @@ platform. No push, hosted CI, tag or package publication accompanies this block.
 conversion/lifecycle fidelity matrix and D6's old scalar/addon cutover. Unsupported
 state terminal completion and external naming translation remain explicit limits;
 they are not silently certified by successful reference inventory queries.
+
+
+## D4 construction and final producer review — 2026-11-05
+
+**Implemented and contract-tested locally.** The bounded modern producer/consumer
+propagation in D4 is complete. D5's final fidelity matrix, D6's old scalar/addon
+cutover and D7 receiving remain open; #549 is not closed. External naming adapters
+and unsupported construction/terminal chemistry remain explicit refusals rather
+than unimplemented promises of this correction.
+
+### Construction boundary
+
+`build_peptide` preserves its three existing positional arguments and adds
+`skip_digestion=False` plus keyword-only `from_naming_scheme=None`. The normal
+ArgDigest boundary validates them; SMonitor supplies structured context/conflict
+and unsupported-reference diagnostics. A private input reader obtains exact
+ordered labels from native inventory, typed dictionaries, H5MSM topology-only
+reading or the ordinary topology conversion route. Native queries copy no source
+coordinates or chemical domains. String prefixes take precedence over guessing:
+`amino_acids_1:ALA` is A–L–A, while `amino_acids_3:ALA` is one alanine.
+
+Known source declarations must agree with an explicit override. Missing context
+on reviewed ambiguous labels is rejected before template loading or optional
+engine startup. Unsupported modified/CCD/legacy meanings do not select a
+same-spelled Amber reference or a reporting parent. Construction is bounded to
+the standard twenty names, eight reviewed Amber-state labels and existing caps.
+It does not infer source convention from file form or selected engine.
+
+Native products explicitly declare the Amber vocabulary used by their
+construction references. The LEaP route first reads its result into native
+inventory, declares that producer context and then exports it, still within its
+owned scratch directory. This also repairs its former Topology-output access
+through `.topology`. Its resource guard now verifies both native receiving and
+export; either failure retires the scratch. Construction creates a new molecular
+system from labels; it does not preserve/repair the source chemical state.
+
+When the construction database is unavailable, native construction uses the
+verified exact-name state catalogue variant rather than the first raw compound
+with the same name. The existing approximate fallback coordinates and warning
+remain. No geometry/minimization, force-field parameterization or disulfide-pairing
+algorithm is introduced or certified. The historical construction data have no
+pinned upstream revision: their bundled hash identifies the actual bytes, not a
+verified contemporary Amber release.
+
+### A real construction/preparation mismatch
+
+An executed round trip exposes an additional defect: the Amber-derived HID
+constructor has HB2/HB3, while the sole previously admitted historical reference
+has HB1/HB2. Native H addition appends HB1 to an already complete HID, giving three
+hydrogens on CB. This is a demonstrated wrong candidate/addition, beyond the
+initial naming-only reproduction. ACE similarly uses H1/H2/H3 in the construction
+data versus HH31/HH32/HH33 in the older placement reference.
+
+The private construction-data reader is now shared by construction and reference
+selection, with no import of an optional engine or a public build API from the
+reference layer. Checked state alternatives include the construction layout only
+when its heavy names/connectivity and per-parent H counts agree with the bundled
+Meeko fragment. A corrupted construction layout raises even if the raw catalogue
+is valid; a corrupted raw state still raises instead of being concealed by the
+additional source. Source assets and their geometry are unchanged.
+
+Observed H names choose a compatible layout. The old first checked historical
+layout remains the default with no observed names. Declared Amber caps similarly
+match existing names between supported layouts. A group convention does not
+force an atom convention: even an Amber-declared cap already using HH31/HH32/HH33
+must not gain alias H1/H2/H3. Tests exercise both the produced and renamed layouts.
+The eight state examples are idempotent under native H addition/reconciliation;
+this inventory result does not certify terminal states, charges or geometry.
+
+Chemical coverage retains its honest ambiguity when several H-name sets exist,
+even when one candidate exactly matches the observed names. Existing raw variant
+indices remain unchanged; added construction candidates receive indices after
+the raw range. `variant_sources` associates every candidate with its actual
+resource and digest. The primary resource/provenance remains the historical
+catalogue; no synthetic index is presented as a position inside that raw file.
+Content hashing is reused within an audit, rather than re-reading assets for
+every group/variant.
+
+### Producer audit disposition
+
+| Boundary | Delivered or preserved behavior |
+| --- | --- |
+| Native sequence/FASTA group construction | Canonical alphabet groups declare `sequence`; other unknown labels do not gain a chemical convention. Source declarations precede defaults. |
+| Fixed peptide chemical templates | Explicit Meeko-derived state construction already declares `amber`; ChemicalStates remains the assignment/connectivity owner. |
+| Native/LEaP peptide construction | Exact source labels are checked before constructing new chemistry; known producer labels declare `amber` before native transport/export. |
+| Atom append/repair | Existing group declarations are projected unchanged; adding atoms does not reinterpret a group name. |
+| Added groups/caps and generic builders | Existing D2 rules retain unknown context for newly introduced groups unless a producer explicitly declares its known vocabulary; no convention is inferred from a resulting native class. |
+| Foreign raw readers | Source labels and explicit bonds are retained; no file-form/engine heuristic supplies missing context. |
+| Modern sequence, recognition, parent, atom/H and bond-candidate consumers | Share the reviewed naming authority and stored per-group declarations; unsupported reference/engine translation is explicit. |
+| Old scalar one-letter helper and addon manifest/mirror | Deliberately still D6 work; they are not certified or silently retained as a second authority. |
+
+The audit finds no remaining direct amino-acid raw-catalogue selection in modern
+construction/preparation outside the owning private reference layer. The retained
+raw inspection API and unrelated water/ion/cap/small-molecule catalogues are not
+renamed as universal chemical-state selectors.
+
+### Support libraries and scientific provenance
+
+ArgDigest handles source scheme/skip validation once at the public boundary;
+private data/input helpers are not decorated. Existing conversion/optional-engine
+DepDigest contracts remain in force, with no new dependency or floor. TLeap
+executable handling remains in its own wrapper; bundled data do not require
+AmberTools, Meeko or an executed LEaP process. Geometry extraction and standardization
+retain the existing PyUnitWizard boundary; naming metadata are dimensionless.
+
+Optional Ackredit credits the bundled construction dataset or fallback catalogues
+actually used. State-layout verification also credits its Meeko/Amber data and
+construction source. Native construction claims no executed external engine.
+Provider absence/failure preserves the result and uses the existing SMonitor
+diagnostic. No automatic hooks, enrichment or journals are enabled.
+
+### Receiving and corrected test premises
+
+The first 319-case run passes 313 and fails six: four old geometry fixtures intend
+Amber HIE/HID/HIP/CYX but omit their declaration, while two new LEaP mocks use a
+non-exported root MolSys class. The fixtures now declare Amber without weakening
+their geometry/count checks; mocks import the actual native class. The first
+53-case new-module run passes 48 and exposes three analogous root-Topology fixture
+mistakes, an incorrect exception-class expectation and a test that incorrectly
+expects unique/complete H assessment. That last expectation is corrected to retain
+the actual ambiguous result and inspect the exact matching candidate.
+
+The next 372-case run passes 367 and fails five tests: three compare a base pandas
+copy to the native Groups_DataFrame subclass, and two incorrectly assert that
+one-letter strings containing H have no HIS group. Source values/dtypes remain
+identical; only irrelevant frame-class comparison is disabled. The sequence tests
+now assert all ten independently specified group labels, and require explicit
+three-letter input containing a four-letter token to fail. The former tests had
+merely accepted HISE/HISD strings as ten one-letter groups while describing them
+as histidine aliases; no such alias chemistry is certified.
+
+After those corrections, **373 focal cases pass**. The final affected selection
+passes **3,000 cases** on Linux/Python 3.14.7 with four workers in 213 seconds,
+without failures or omissions. Its 263 warnings retain 59 legacy-file notices,
+three deliberately injected attribution failures, four geometry warnings and the
+existing preparation/attribute diagnostics. Two later source-reading/preflight
+guards pass separately; they do not modify runtime code after the wider run.
+
+The published-provider selection passes **221 cases** with ArgDigest 0.14.0,
+DepDigest 0.15.1, SMonitor 0.16.0 and Ackredit 0.9.0 using the previously verified
+archive/import-path harness, two workers and the same entry-point-only SMonitor
+plugin exclusion documented under #524. Its five warnings are four geometry
+notices and one existing attribute-drop notice. Current-provider receiving keeps
+the ordinary diagnostics plugin enabled. No provider source or floor is changed.
+
+Two revised tutorials execute all **18 code cells** in the existing environment.
+The course's executable cells, outputs and notebook metadata remain identical;
+only explanatory Markdown is added. Initial documentation receiving passes 513
+of 514, with one failure because that new Markdown cell lacks its required stable
+ID. The ID is added; all **497 notebook-schema cases pass**. The isolated source
+boundary and its negative control remain intact. **Three doctest items pass**.
+Final consolidated documentation receiving and governance checks are recorded
+below. No auxiliary environment, hosted CI, push, tag or package publication is
+claimed by these local results.
+
+Local JUnit evidence is under `.pytest_cache/group-name-resolution-549/`:
+`producer-initial.xml`, `producer-new.xml`, `producer-followup.xml`,
+`producer-focus-final.xml`, `producer-extended-final.xml`,
+`producer-provider-floors.xml`, `producer-input-followup.xml`,
+`producer-documentation.xml`, `producer-notebook-schema-followup.xml` and
+`producer-doctests.xml`. Failed processes remain separate evidence; their test
+premises and the real H-alias defect are distinguished above. The broad command
+is the previous preparation receiving selection, now including the new producer
+module through `tests/build`; its existing unmarked PDB cases still need network
+access. The maintained smoke command includes the producer module in its single
+pytest invocation.
+
+**Next:** complete the D5 conversion/lifecycle matrix, then coordinate the D6 old
+scalar/addon cutover and D7 final acceptance. The environment-closure limitation
+in #524 and installed-client/release qualification under #334 remain separate.
+
+
+### Final documentation and attribution receiving
+
+The consolidated documentation/command selection now passes **514 cases** with
+512 existing Sphinx deprecations. No warning suppression or weakened link/schema
+assertion is introduced to repair the missing notebook cell ID. The three
+executed doctest items and eighteen executed tutorial cells remain as above.
+
+Final review adds explicit dataset credit to the selected Amber cap-layout path,
+which was already recognizing names correctly. The completed 3,000-case process
+precedes only that optional-attribution addition and the later extra guards;
+its scientific naming/geometry code is unchanged. After that final addition,
+**62 producer/resource tests pass with current providers and the same 62 pass
+with published floors**, covering real cap attribution, optional-provider
+absence/failure, idempotent H handling, source-only H5MSM reading and preflight.
+These bounded follow-ups are recorded separately as
+`producer-cap-attribution-final.xml` and `producer-cap-attribution-floors.xml`;
+the earlier broader process is not mislabelled as a new exact-candidate run.
+
+Whole-tree Ruff lint/formatting (**4,353 files**), all **247** checked public
+docstrings, the **278-symbol** API registry, the one approved construction
+signature extension, offline naming-asset equality and dependency/import-contract
+checks pass. Devguide/index and diff checks pass. The native binary retains its
+previous recorded SHA-256, as do the four unrelated human API-stub edits, which
+remain outside this work. The construction asset remains unchanged at SHA-256
+`afb6989a938d118ac6360dbb86548d45e9d6a30b8f02d009e42e1320febe5e79`.
+Local checkouts and archives are not an installed-candidate qualification; D7 and
+#334 retain their actual exact-source/artifact gates.

@@ -45,53 +45,54 @@ def _catalogue(name):
     return tuple(get_group_db(name)["topology"])
 
 
+def _matches_state(variant, fragment):
+    """Compare heavy topology and per-parent H counts independently of H labels."""
+    atoms = {a["name"]: a for a in fragment["atoms"]}
+    heavy = {a for a in variant["atoms"] if not is_hydrogen(a)}
+    if heavy != atoms.keys():
+        return False
+    edges = {frozenset(b["atom_names"]) for b in fragment["bonds"]}
+    heavy_edges, counts, hydrogen_degrees = set(), Counter(), Counter()
+    for a, b in variant["bonds"]:
+        if a in heavy and b in heavy:
+            heavy_edges.add(frozenset((a, b)))
+        elif is_hydrogen(a) and b in heavy:
+            counts[b] += 1
+            hydrogen_degrees[a] += 1
+        elif is_hydrogen(b) and a in heavy:
+            counts[a] += 1
+            hydrogen_degrees[b] += 1
+        else:
+            return False
+    return (
+        heavy_edges == edges
+        and all(counts[a] == record["hydrogen_count"] for a, record in atoms.items())
+        and all(hydrogen_degrees[h] == 1 for h in variant["atoms"] if is_hydrogen(h))
+    )
+
+
 @lru_cache(maxsize=None)
 def _verified_state_variants(name):
-    """Retain only heavy connectivity/H counts agreeing with the state fragment.
-
-    The raw catalogue mixes chemical dictionaries and force-field names, even
-    within one name's variants. String equality cannot select a chemical state.
-    """
+    """Keep independently checked catalogue and Amber construction H layouts."""
+    from molsysmt._private.peptide_builder_data import atom_variant
     from molsysmt._private.peptide_chemical_template import _fragments
 
     library, _ = _fragments()
     fragment = library["residues"][name]
-    atoms = {a["name"]: a for a in fragment["atoms"]}
-    edges = {frozenset(b["atom_names"]) for b in fragment["bonds"]}
-    hydrogen_counts = {a: record["hydrogen_count"] for a, record in atoms.items()}
-    selected = []
-    for variant in _catalogue(name):
-        heavy = {a for a in variant["atoms"] if not is_hydrogen(a)}
-        if heavy != atoms.keys():
-            continue
-        heavy_edges, counts = set(), Counter()
-        valid = True
-        hydrogen_degrees = Counter()
-        for a, b in variant["bonds"]:
-            if a in heavy and b in heavy:
-                heavy_edges.add(frozenset((a, b)))
-            elif is_hydrogen(a) and b in heavy:
-                counts[b] += 1
-                hydrogen_degrees[a] += 1
-            elif is_hydrogen(b) and a in heavy:
-                counts[a] += 1
-                hydrogen_degrees[b] += 1
-            else:
-                valid = False
-        if (
-            valid
-            and heavy_edges == edges
-            and all(counts[a] == expected for a, expected in hydrogen_counts.items())
-            and all(
-                hydrogen_degrees[h] == 1 for h in variant["atoms"] if is_hydrogen(h)
-            )
-        ):
-            selected.append(variant)
+    selected = [v for v in _catalogue(name) if _matches_state(v, fragment)]
     if not selected:
         raise StructuralInconsistencyError(
             reason=f"No bundled atom/bond variant matches the declared Amber {name} state fragment.",
             caller="molsysmt.element.group.amino_acid",
         )
+    construction = atom_variant(name)
+    if construction is not None:
+        if not _matches_state(construction, fragment):
+            raise StructuralInconsistencyError(
+                reason=f"Bundled construction layout disagrees with the declared Amber {name} state fragment.",
+                caller="molsysmt.element.group.amino_acid",
+            )
+        selected.append(construction)
     return tuple(selected)
 
 
@@ -162,6 +163,10 @@ def credit(name, kind, caller):
             from molsysmt._private.peptide_chemical_template import _fragments
 
             items.extend(references("amber", alphabet=False))
+            if any("_resource" in v for v in _verified_state_variants(name)):
+                from molsysmt._private.peptide_builder_data import reference
+
+                items.append(reference())
 
             library, _ = _fragments()
             source = library["source"]

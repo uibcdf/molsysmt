@@ -79,6 +79,11 @@ def add_missing_hydrogens(
 
     Notes
     -----
+    Checked historical and Amber construction state layouts can spell H names
+    differently. Existing H names select the compatible layout; group naming
+    alone does not force atom naming. Declared Amber caps similarly retain the
+    supported observed methyl-H layout rather than gaining alias duplicates.
+
     Native pH preparation reads stored per-group naming declarations. Ambiguous
     names without context fail before native component reconstruction. Explicit
     Amber state labels use atom/bond variants checked against bundled Meeko-derived
@@ -616,6 +621,33 @@ def add_missing_hydrogens(
                 template = load_residue_template(gname)
                 if template is None:
                     continue
+                if schemes[g] == "amber":
+                    from molsysmt._private.peptide_builder_data import atom_variant
+
+                    # A group convention does not declare an atom convention.
+                    # Match observed H names across the two known cap layouts.
+                    construction = atom_variant(gname)
+                    if construction is not None:
+                        legacy = dict(template)
+                        legacy["atoms"] = list(
+                            dict.fromkeys(
+                                list(template["atoms"])
+                                + [name for pair in template["bonds"] for name in pair]
+                            )
+                        )
+                        template = choose_variant(
+                            [legacy, construction], g_atoms["atom_name"].tolist()
+                        )
+                        if template is None:
+                            continue
+                        if template is construction:
+                            from molsysmt import _ackredit
+                            from molsysmt._private.peptide_builder_data import reference
+
+                            with _ackredit.scope(caller) as provider:
+                                _ackredit.credit(
+                                    provider, [reference()], caller, contextual=True
+                                )
                 present_hs = {
                     a
                     for a in g_atoms["atom_name"]

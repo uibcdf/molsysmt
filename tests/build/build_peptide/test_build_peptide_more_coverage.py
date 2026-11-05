@@ -2,7 +2,7 @@
 Additional coverage tests for molsysmt.build.build_peptide (MolSysMT engine).
 
 Targets branches not yet exercised by existing test files:
-- HIS variant aliases (HIE, HID, HIP, HISE, HISD) via _resolve_template_alias
+- Explicit Amber histidine labels and distinct valid one-letter strings
 - CYX (cysteine in disulfide)
 - Template fallback path (residues not in amber14sb template database)
 - ACE-only and NME-only (terminal cappings without flanking amino acid)
@@ -26,7 +26,10 @@ import molsysmt as msm
 def test_his_variants_geometry(his_variant):
     """HIS aliases (HIE/HID/HIP) build without error and produce valid geometry."""
     molsys = msm.build.build_peptide(
-        f"ALA{his_variant}ALA", to_form="molsysmt.MolSys", engine="MolSysMT"
+        f"ALA{his_variant}ALA",
+        to_form="molsysmt.MolSys",
+        engine="MolSysMT",
+        from_naming_scheme="amber",
     )
     assert molsys is not None
     n_groups = msm.get(molsys, element="system", n_groups=True)
@@ -34,12 +37,30 @@ def test_his_variants_geometry(his_variant):
 
 
 @pytest.mark.parametrize("his_variant", ["HISE", "HISD"])
-def test_his_long_variants(his_variant):
-    """Three-letter HIS synonyms also resolve and build."""
+def test_long_tokens_are_one_letter_sequences_rather_than_histidine_aliases(
+    his_variant,
+):
+    """Bare valid one-letter text must not certify a nonexistent 3-letter alias."""
     molsys = msm.build.build_peptide(
         f"GLY{his_variant}GLY", to_form="molsysmt.MolSys", engine="MolSysMT"
     )
-    assert molsys is not None
+    assert msm.get(molsys, n_groups=True) == 10
+    assert molsys.topology.groups.group_name.tolist() == [
+        "GLY",
+        "LEU",
+        "TYR",
+        "HIS",
+        "ILE",
+        "SER",
+        "GLU" if his_variant == "HISE" else "ASP",
+        "GLY",
+        "LEU",
+        "TYR",
+    ]
+    from molsysmt._private.smonitor import ArgumentError
+
+    with pytest.raises(ArgumentError):
+        msm.build.build_peptide(f"amino_acids_3:GLY{his_variant}GLY")
 
 
 # ---------------------------------------------------------------------------
@@ -50,7 +71,10 @@ def test_his_long_variants(his_variant):
 def test_cyx_builds():
     """CYX (disulfide cysteine) sequence builds without error."""
     molsys = msm.build.build_peptide(
-        "ALACYXALA", to_form="molsysmt.MolSys", engine="MolSysMT"
+        "ALACYXALA",
+        to_form="molsysmt.MolSys",
+        engine="MolSysMT",
+        from_naming_scheme="amber",
     )
     assert molsys is not None
     n_groups = msm.get(molsys, element="system", n_groups=True)

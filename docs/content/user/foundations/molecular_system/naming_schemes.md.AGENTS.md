@@ -32,3 +32,9 @@ reclassify stored types or repartition stable molecules.
 Preserve verified internal-state heavy connectivity/H inventories, raw mixed
 catalogue versus exact reference selection, unassessed named-state termini and
 unsupported layouts, and ChemicalStates-led fixed-state preparation.
+
+Preserve exact-label source interpretation and known producer declarations in
+peptide construction. Group naming does not impose an atom naming scheme. Keep
+both checked H layouts, their source identity and the historical construction
+asset's unpinned-upstream limitation explicit. No geometry/state certification
+follows from construction or compatible H names.
