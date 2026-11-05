@@ -76,6 +76,7 @@ attributes["velocities"] = True
 attributes["n_structures"] = True
 attributes["b_factor"] = True
 attributes["alternate_location"] = True
+attributes["occupancy"] = True
 attributes["bioassembly"] = True
 attributes["n_bioassemblies"] = True
 

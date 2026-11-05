@@ -68,9 +68,9 @@ def get_occupancy_from_atom(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Parsed mmCIF or BinaryCIF DataContainer to inspect.
     indices : object, default='all'
-        Argument indices.
+        Canonical atom indices. Explicit order and repetitions are preserved.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
@@ -78,8 +78,19 @@ def get_occupancy_from_atom(
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    numpy.ndarray or None
+        Dimensionless floating-point occupancies with shape
+        ``(n_selected_structures, n_selected_atoms)``. Unknown cells are NaN;
+        an entirely unavailable field is None. Structure order and repetitions
+        follow ``structure_indices``.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> source = msm.convert(msm.systems['chicken villin HP35']['1vii.bcif.gz'],
+    ...                      to_form='mmcif.PdbxContainers.DataContainer')
+    >>> get_occupancy_from_atom(source, indices=[2, 0, 2], structure_indices=[0, 0]).shape
+    (2, 3)
 
 
     .. versionadded:: 1.0.0
@@ -90,7 +101,10 @@ def get_occupancy_from_atom(
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(
-        tmp_item, indices=indices, structure_indices="all", skip_digestion=True
+        tmp_item,
+        indices=indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
     )
 
     return output
@@ -151,9 +165,9 @@ def get_b_factor_from_atom(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Parsed mmCIF or BinaryCIF DataContainer to inspect.
     indices : object, default='all'
-        Argument indices.
+        Canonical atom indices. Explicit order and repetitions are preserved.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
@@ -161,8 +175,10 @@ def get_b_factor_from_atom(
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    quantity or None
+        B factors on the selected structure/atom axes, carrying squared-length
+        units. Source values are in squared angstroms; structure order and
+        repetitions follow ``structure_indices``.
 
 
     .. versionadded:: 1.0.0
@@ -173,7 +189,10 @@ def get_b_factor_from_atom(
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(
-        tmp_item, indices=indices, structure_indices="all", skip_digestion=True
+        tmp_item,
+        indices=indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
     )
 
     return output

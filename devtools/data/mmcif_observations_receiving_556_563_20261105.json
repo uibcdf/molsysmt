@@ -1,0 +1,215 @@
+{
+  "schema": "molsysmt.receiving.mmcif-observations@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#556",
+    "uibcdf/molsysmt#563",
+    "uibcdf/molsysmt#565",
+    "uibcdf/molsysmt#573"
+  ],
+  "environment": {
+    "os": "Linux",
+    "machine": "x86_64",
+    "python": "3.14.7",
+    "workspace": "existing shared Python 3.14 development environment",
+    "pytest_receptor": "1.2.1 published payload"
+  },
+  "baseline_main": "532d036228c9673c5ddd63beaa8093220b06b6b2",
+  "assembly_pr": {
+    "number": 566,
+    "head": "3635c90acc9ca2453479f5dcdf1b361f84c5bf4f",
+    "merge_commit": "fcf76b7556add446c769d35d20b139ca471161f9",
+    "required_run": 41952069798,
+    "conclusion": "success",
+    "scope": "All eight Linux/macOS Python 3.11\u20133.14 test lanes, controlled Viewer build and aggregate job at the exact PR head; metadata inspected through public GH Run Receptor 1.3.0, exit 0. Not the later combined source or an installed artifact."
+  },
+  "network_marker_commit": "522d58067923065f730f1e116af6e369089ea56e",
+  "source_and_test_sha256": {
+    "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py": "0e3e94af8c2d366ef567e0c8d548f6ebebcc9835a941c7bc1385355a08282b50",
+    "molsysmt/form/mmcif_PdbxContainers_DataContainer/get_structural_attributes.py": "2f93fb6a191bab0a8e50bbd04f5d73c19eaba20b105e06b81ae28f5f50736f01",
+    "molsysmt/form/file_cif/attributes.py": "c4435d4f0adda527743ddf937b09c06f72c44e4968a80032f5501433293b5784",
+    "molsysmt/form/file_cif_gz/attributes.py": "c4435d4f0adda527743ddf937b09c06f72c44e4968a80032f5501433293b5784",
+    "molsysmt/form/file_bcif/attributes.py": "a96f9464e6c405643fcfef8a69b120080479f88f37a6c01957d9905abe34bf20",
+    "molsysmt/form/file_bcif_gz/attributes.py": "a96f9464e6c405643fcfef8a69b120080479f88f37a6c01957d9905abe34bf20",
+    "tests/form/mmcif_PdbxContainers_DataContainer/test_primary_occupancy.py": "dfcdd359470e9d3865fc4fb275087535aed571c1a71efa42430554d525881186",
+    "tests/form/mmcif_PdbxContainers_DataContainer/test_bioassembly_generators.py": "c8fc8e11f7ed627da6d2b87b9ad44f6c7d463edfbc26f4506d3cda157a07a0ea",
+    "tests/build/make_bioassembly/test_make_bioassembly.py": "eab498f49f690838e73134e75141bf625a9b5555dae01f6d8ae6907d95677dae",
+    "tests/basic/convert/one_to_one/test_convert_from_string_pdb_id.py": "f23148e5d2676b6a2b981c006b4f225227b5a3c54de28df1b5e39a060d5d698a"
+  },
+  "native_binary": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rebuilt": false
+  },
+  "published_floor_probe": {
+    "versions": {
+      "argdigest": "0.14.0",
+      "depdigest": "0.15.1",
+      "smonitor": "0.16.0",
+      "ackredit": "0.9.0",
+      "pytest-receptor": "1.2.1",
+      "mmcif": "1.1.1",
+      "pyunitwizard": "0.29.0+16.g9100cca",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3"
+    },
+    "all_four_support_import_origins_verified_as_cached_published_payloads": true
+  },
+  "receiving": [
+    {
+      "artifact": ".pytest_cache/cif-556-563/before.xml",
+      "sha256": "2747d95f5029ab6ab0cbc736b04a9a2e28c40c4b5336884a83b909a458726d74",
+      "exit_code": 1,
+      "scope": "Original 20-case joint reproduction on main 532d0362.",
+      "tests": 20,
+      "failures": 20,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "artifact": ".pytest_cache/cif-556-563/assembly-receiving.xml",
+      "sha256": "f3820542250f4dfccb177055bdf506638a9944837f4a8818534353dedf229d91",
+      "exit_code": 0,
+      "scope": "2020 reader/assembly/PBC/translation/contact/H5MSM cases before the occupancy repair.",
+      "tests": 2020,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "artifact": ".pytest_cache/cif-556-563/native-received.xml",
+      "sha256": "1a888a9cae90c36f6aa37b6a647a3dcc1792b997d84a6626c4905ba649a09b9f",
+      "exit_code": 2,
+      "scope": "Interrupted broad attempt: 154 of 5384 selected cases unexecuted; all five failures are live acquisition in the unmarked PDB-ID test module. Not a passing gate.",
+      "tests": 5230,
+      "failures": 5,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "artifact": ".pytest_cache/cif-556-563/native-offline-final.xml",
+      "sha256": "72cd53c904b2ac4f2e75deb88a4146fb0162c27b159e68ebcf42dc1a227688d7",
+      "exit_code": 0,
+      "scope": "Broader 5376-case affected receiving after the eight-test network classification fix, before the final B-factor getter forwarding correction. Reused only for unaffected behavior.",
+      "tests": 5376,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "artifact": ".pytest_cache/cif-556-563/b-factor-before.xml",
+      "sha256": "bab675dd5af0550e5cd11f27e3715fad49605239a8aa1b65cc7c478db00f406c",
+      "exit_code": 1,
+      "scope": "Independent final B-factor selection reproduction: source returns two structures instead of requested repeated three.",
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "artifact": ".pytest_cache/cif-556-563/bounded-final.xml",
+      "sha256": "58989186453340b4ff7c30d7a6bf18ee5ee0eba304880af58c1921abec9b3679",
+      "exit_code": 0,
+      "scope": "Current-source reader/native/get/assembly/PBC/persistence receiving, including the final B-factor getter correction; four workers.",
+      "tests": 2481,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "artifact": ".pytest_cache/cif-556-563/provider-floors-final.xml",
+      "sha256": "4520fdec1c3560a2f9359174ce7dec557d2f33fe118d7239096befd7894202be",
+      "exit_code": 0,
+      "scope": "Current-source 34 focused reader/assembly cases using published support-library floors; two workers. Only the installed SMonitor pytest entry point is disabled under existing #524; runtime diagnostics/assertions remain active.",
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "artifact": ".pytest_cache/cif-556-563/documentation-received.xml",
+      "sha256": "089a79fe21c6a547f5d2939950af2166e754e6252825949aeb7c30e4ed6c409e",
+      "exit_code": 0,
+      "scope": "551 documentation/form-delivery/schema/course/docstring/Sphinx controls; two workers. Precedes the final B-factor docstring wording; final docstring validator and doctests run separately.",
+      "tests": 551,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "artifact": ".pytest_cache/cif-556-563/doctest-final.xml",
+      "sha256": "fe206b1a3e15183c66f779422d862cdbe14953edc9c96a6b64007b7ec6c1c393",
+      "exit_code": 0,
+      "scope": "Both reader doctest items on final runtime source.",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "collection_controls": {
+    "assembly_offline": {
+      "exit_code": 5,
+      "selected": 0,
+      "deselected": 1
+    },
+    "pdb_id_offline_before": {
+      "exit_code": 0,
+      "selected": 8,
+      "executed": 0
+    },
+    "pdb_id_offline_after": {
+      "exit_code": 5,
+      "selected": 0,
+      "deselected": 8
+    },
+    "pdb_id_network_after": {
+      "exit_code": 0,
+      "selected": 8,
+      "executed": 0
+    },
+    "online_test_function_bodies_unchanged": true
+  },
+  "documentation": {
+    "cookbook_occupancy_block_executed": true,
+    "cookbook_occupancy_shape": [
+      1,
+      596
+    ],
+    "seven_notebook_executable_cells_outputs_and_metadata_preserved": true,
+    "live_provider_tutorials_reexecuted": false
+  },
+  "other_checks": {
+    "ruff_check": 0,
+    "ruff_format_check": 0,
+    "formatted_python_files": 4357,
+    "public_docstring_validator": {
+      "exit_code": 0,
+      "functions": 246
+    },
+    "form_adapters": {
+      "exit_code": 0,
+      "adapters": 97,
+      "unreachable_declarations": 0
+    },
+    "soft_dependency_validator": 0,
+    "course_structure_validator": 0
+  },
+  "previous_main_smoke": {
+    "run": 42082100392,
+    "head": "532d036228c9673c5ddd63beaa8093220b06b6b2",
+    "conclusion": "success",
+    "scope": "Routine previous-main source smoke; independent of the new reader checkpoint."
+  },
+  "preserved_human_edits": {
+    "count": 4,
+    "byte_hashes_verified_unchanged": true,
+    "staged": false
+  },
+  "limits": [
+    "Receiving runs overlap and are not additive.",
+    "No full current-source platform matrix or installed release pair is qualified by these local tests.",
+    "Heterogeneous per-operation assembly scopes are retained and persisted, but construction still fails explicitly.",
+    "No CIF/PDB positional mapping, inferred occupancy, molecular preparation or docking readiness is claimed.",
+    "Raw JUnit/provider-origin files remain local receipts; this sanitized manifest preserves their hashes and scope."
+  ]
+}

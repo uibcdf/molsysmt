@@ -2,6 +2,7 @@
 
 # Import package, test suite, and other packages as needed
 import numpy as np
+import pytest
 
 import molsysmt as msm
 from molsysmt import systems
@@ -9,6 +10,7 @@ from molsysmt import systems
 # Distance between atoms in space and time
 
 
+@pytest.mark.network
 def test_make_bioassembly_molsysmt_MolSys_1():
     molsys = msm.convert("3U71")
     n_atoms = msm.get(molsys, element="system", n_atoms=True)

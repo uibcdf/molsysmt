@@ -90,6 +90,7 @@ def _independent_build_documentation(name, *, local_skip=False):
                 "add_missing_terminal_cappings",
                 "mutate",
                 "build_peptide",
+                "solvate",
             }
             else "returns a separate molecular system, optionally with its report; "
         )
@@ -124,7 +125,21 @@ def _independent_build_documentation(name, *, local_skip=False):
                 "Full native copying may materialize coordinates and is not "
                 "an out-of-core trajectory promise.\n"
             )
-        if name == "make_bioassembly":
+        if name == "solvate":
+            function.__doc__ += (
+                "Solvation explicitly creates a new solvent/ion system using the "
+                "requested native engine and its stored/default force-field "
+                "settings. Exactly one loaded structure and engine-ready chemistry "
+                "are required; no hydrogen completion, protonation or visible-structure "
+                "selection is performed. Native box shapes, clearance/ionic-strength "
+                "units, model precedence, metadata losses and return forms remain "
+                "unchanged. Results are never adopted automatically. OpenMM "
+                "identifier and explicit-ion-count limits remain native; the facade "
+                "does not renumber inputs, compensate counts or switch engines. "
+                "A solvated box is a preparation output, not an equilibrated "
+                "ensemble or a certificate of suitable simulation conditions.\n"
+            )
+        elif name == "make_bioassembly":
             function.__doc__ += (
                 "The explicit operation dictionary or stored assembly name "
                 "is interpreted by native MolSysMT. None selects its first "
@@ -291,6 +306,7 @@ class _BuildTools:
         "remove_overlapping_molecules",
         "mutate",
         "build_peptide",
+        "solvate",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -894,6 +910,42 @@ class _BuildTools:
                 "engine": engine,
                 "skip_digestion": skip_digestion,
                 "from_naming_scheme": from_naming_scheme,
+            },
+        )
+
+    @_independent_build_documentation("solvate", local_skip=True)
+    @signal(tags=["addon", "build", "preparation"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def solvate(
+        self,
+        box_shape="truncated octahedral",
+        clearance="14.0 angstroms",
+        anion="Cl-",
+        n_anions="neutralize",
+        cation="Na+",
+        n_cations="neutralize",
+        ionic_strength="0.0 molar",
+        water_model="TIP3P",
+        engine="OpenMM",
+        to_form=None,
+        verbose=False,
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "solvate",
+            {
+                "box_shape": box_shape,
+                "clearance": clearance,
+                "anion": anion,
+                "n_anions": n_anions,
+                "cation": cation,
+                "n_cations": n_cations,
+                "ionic_strength": ionic_strength,
+                "water_model": water_model,
+                "engine": engine,
+                "to_form": to_form,
+                "verbose": verbose,
             },
         )
 

@@ -15,6 +15,35 @@ supersedes: []
 # Bound MolSysMT tools addon for MolSysViewer
 
 
+## Independent solvation consumer receiving — 2026-11-05
+
+PR #543 receives published native `06c065d33` and adds the explicit solvate
+mirror. The default operation returns a new system; source/scene/history and
+pending projection stay untouched. Preparation and selection of exactly one
+engine-ready structure are explicit. Native model, engine, units, return-form
+and metadata behavior are delegated without input rewriting or engine fallback.
+
+All **4,333 addon/integration cases** pass without failures/errors/skips,
+including 22 solvation controls; 86 focused integration and 142 documentation/
+reporting cases pass separately. Direct OpenMM parity, nominal TIP3P geometry
+at derived PDB precision and cubic/triclinic Gram matrices provide bounded
+scientific receiving. All 4,233 primary source/test files, the 91-file public
+provider snapshot and checked support sources retain their hashes. Backend/Rust
+is reused; no native scientific algorithm or Viewer runtime is authored. The
+[receipt](../../devtools/data/molsysviewer_tools_solvation_receiving_20261105.json)
+preserves initial overstrict geometric expectations, owner CIF input, original
+DNS failure and the single network-permitted recovery. Its 35 local native
+passes plus one recovered live case are aggregate evidence, not a relabelled
+single green native run. Every native-owner course executable cell, output,
+ID and metadata entry is retained; only three Markdown cells gain addon prose.
+
+Source exposure is 234/244, build 28/30 and mechanics 5/6. OpenMM identifier
+and explicit-ion-count limitations are recorded; separate native issue filing
+was offered to the maintainer and remains pending an explicit reply. Remaining
+protonation/remapping, water-box #564, force #572, GUI, owner review, exact-head
+CI and installed/public qualification remain separate. #421 stays partial;
+both 1.0 publications stay paused and no candidate or publication is introduced.
+
 ## Nonbonded-energy consumer receiving — 2026-11-05
 
 PR #543 adds an explicit primary-bound get_non_bonded_potential_energy mirror

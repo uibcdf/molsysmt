@@ -5,7 +5,11 @@ Unit and regression test for the convert module of the molsysmt package.
 # Import package, test suite, and other packages as needed
 import os
 
+import pytest
+
 import molsysmt as msm
+
+pytestmark = pytest.mark.network
 
 # Whole systems (selection='all' and structure_indices='all')
 

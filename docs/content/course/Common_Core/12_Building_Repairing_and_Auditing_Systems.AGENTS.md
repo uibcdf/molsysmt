@@ -83,3 +83,10 @@ Preserve the addon alternate-site guidance and native #569/#570/#571 limits.
 Distinguish retained indices from changed labels, deferred scene projection
 from partial native writes, and projection retry from scientific replay.
 All original course code, outputs, IDs and metadata remain unchanged.
+
+
+Preserve the independent addon solvate route and its one-structure engine-ready
+input, explicit molecular preparation, native model/identifier/count limits and
+absence of automatic scene adoption. Keep source copying/parity and geometric
+receiving separate from simulation-equilibration claims; retain all original
+course code, outputs, IDs and metadata.

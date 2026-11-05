@@ -118,6 +118,49 @@ detected.
 
 ## Conversion resolution
 
+### CIF primary observations
+
+The shared mmCIF DataContainer converter supplies primary dimensionless occupancy
+on the same `(n_structures, n_atoms)` axes as native coordinates. CIF/BinaryCIF
+file adapters, including compressed forms, declare this attribute and route
+queries through native Structures. Unknown `?`/`.` cells remain NaN; an entirely
+unavailable primary field remains None. Zero is a measured value, not missing.
+No occupancy is inferred from geometry or borrowed from another representation.
+
+Alternate-site reduction is model-local. The import policy chooses maximum
+known occupancy, then A among tied maxima, then source order. If all values
+are unknown, it retains the first variant with unknown occupancy. All raw
+variants remain available for explicit resolution; the import rule is distinct
+from the half-occupancy tie rule of `build.solve_atoms_with_alternate_location`.
+Coordinates, primary occupancy, B factors and model indices share one canonical
+atom map. Group occurrences are model-local before extraction, so per-group bond
+declarations apply independently. Generated global component-name ordinals do
+not prevent matching models from forming one ensemble; inventory and component
+membership comparisons still apply.
+
+Conversion retains native sorted atom-extraction order; direct attribute queries
+retain requested atom order/repetitions. Structure indices retain order and
+repetitions in both. H5MSM stores the primary array and sparse alternatives
+without inventing missing values. The owning regression is
+`tests/form/mmcif_PdbxContainers_DataContainer/test_primary_occupancy.py`.
+
+### Biological assembly generators
+
+The mmCIF DataContainer converter, including CIF/BinaryCIF routes through it,
+accumulates every `pdbx_struct_assembly_gen` row under its own assembly ID.
+Source row order, expanded operation order, duplicates and ordered chain sets
+are retained. Equal chain sets share a flat `chain_indices` sequence; different
+sets use one sequence per operation. Native storage and H5MSM preserve those
+scopes. `build.make_bioassembly` still refuses heterogeneous scopes explicitly;
+storage support is not construction support. Translations retain length units.
+
+The reader supports individual/list/range factors and products of two factors
+with the existing right-to-left composition. Empty factors and products with
+more than two factors fail conversion with a catalog `FormatError`; they cannot
+silently produce an empty or partial assembly. This correction changes no public
+signature or native schema. The regression module is
+`tests/form/mmcif_PdbxContainers_DataContainer/test_bioassembly_generators.py`.
+
 The current one-to-one resolver in `molsysmt/basic/convert.py` supports:
 
 1. a direct edge from the source adapter to the target adapter; or

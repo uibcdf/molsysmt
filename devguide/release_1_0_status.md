@@ -21,6 +21,35 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Independent solvation consumer receiving — 2026-11-05
+
+PR #543 receives published native `06c065d33` and adds the explicit solvate
+mirror. The default operation returns a new system; source/scene/history and
+pending projection stay untouched. Preparation and selection of exactly one
+engine-ready structure are explicit. Native model, engine, units, return-form
+and metadata behavior are delegated without input rewriting or engine fallback.
+
+All **4,333 addon/integration cases** pass without failures/errors/skips,
+including 22 solvation controls; 86 focused integration and 142 documentation/
+reporting cases pass separately. Direct OpenMM parity, nominal TIP3P geometry
+at derived PDB precision and cubic/triclinic Gram matrices provide bounded
+scientific receiving. All 4,233 primary source/test files, the 91-file public
+provider snapshot and checked support sources retain their hashes. Backend/Rust
+is reused; no native scientific algorithm or Viewer runtime is authored. The
+[receipt](../devtools/data/molsysviewer_tools_solvation_receiving_20261105.json)
+preserves initial overstrict geometric expectations, owner CIF input, original
+DNS failure and the single network-permitted recovery. Its 35 local native
+passes plus one recovered live case are aggregate evidence, not a relabelled
+single green native run. Every native-owner course executable cell, output,
+ID and metadata entry is retained; only three Markdown cells gain addon prose.
+
+Source exposure is 234/244, build 28/30 and mechanics 5/6. OpenMM identifier
+and explicit-ion-count limitations are recorded; separate native issue filing
+was offered to the maintainer and remains pending an explicit reply. Remaining
+protonation/remapping, water-box #564, force #572, GUI, owner review, exact-head
+CI and installed/public qualification remain separate. #421 stays partial;
+both 1.0 publications stay paused and no candidate or publication is introduced.
+
 ## Nonbonded-energy consumer receiving — 2026-11-05
 
 PR #543 adds an explicit primary-bound get_non_bonded_potential_energy mirror
@@ -140,6 +169,48 @@ installed public pair. This issue/report/link follow-up changes no executable
 source; its own CI, owner review/integration and package qualification remain
 separate.
 
+## CIF observations and assembly receiving — 2026-11-05
+
+**#556 and #563 are source-corrected.** CIF/BinaryCIF and compressed imports
+retain primary occupancy, explicit missing values and model-local alternate
+observations. Source coordinates, B factors and model indices follow the same
+canonical atom map. Explicit per-group chemistry remains separate between models.
+Both direct occupancy and B-factor getters honor ordered/repeated structure
+indices. Native sorted conversion extraction and direct-query atom order remain
+distinct documented contracts. The
+[#556 record](archive/resolved_bugs/cif_conversion_drops_primary_occupancy.md)
+retains the independent literal controls and limits.
+
+PR #566 is owner-reviewed and merged as fcf76b755, preserving its exact
+3635c90ac contributor head and history. Its full required source run 41952069798
+passes all eight Linux/macOS × Python 3.11–3.14 lanes. Repeated assembly rows now
+retain every operation in source order and preserve individual chain scopes;
+heterogeneous construction remains explicitly unsupported. The
+[#563 record](archive/resolved_bugs/mmcif_assembly_generator_rows_overwrite.md)
+distinguishes that source matrix from later combined-main receiving.
+
+Broader affected receiving passes **5,376 tests**. Following the final B-factor
+forwarding correction, **2,481 current-source tests**, **34 published-floor
+cases**, **551 documentation controls** and **two doctest items** pass. The
+Cookbook occupancy block executes; seven notebook executable payloads, outputs
+and metadata are unchanged. The shared
+[receiving receipt](../devtools/data/mmcif_observations_receiving_556_563_20261105.json)
+records exact hashes, failures, selection and reuse boundaries; these overlapping
+runs are not added together or presented as a full installed/release matrix.
+
+The broad initial attempt is retained as interrupted (exit 2), with five
+name-resolution/download failures in eight unmarked live PDB-ID conversion tests.
+#573 fixes that classification in 522d58067; offline selection now excludes all
+eight while network collection retains them. #565's assembly-specific marker
+correction is received through #566. Existing online assertions remain unchanged;
+local collection is not live-provider execution.
+
+The prior main 532d0362 smoke (42082100392) is now successful, independently of
+this new reader checkpoint. The periodic board review observes PR #543 head
+04b9fbbda4654516c01d6c34e9c19ad17c1be0fb and the new #572 force-input proposal.
+The naming handoff still awaits coordinated #543 receiving; the force proposal
+belongs with the mechanics contract review, without inventing an initial-1.0 gate.
+
 ## Incoming alternate-site corrections — 2026-11-05
 
 The checkpoint review of recent open issues identifies three new related
@@ -164,7 +235,8 @@ all seven applicable routine push workflows: smoke 42074491673, dependency
 suite policy 42074492404 and publication governance 42074492306. GH Run
 Receptor's public 1.3.0 payload reports terminal smoke success. This is not the
 full source/platform matrix or admission of PR #543. The #549 handoff is
-published in that PR; its inspected head remains a1dbe0fb, pending adaptation.
+published in that PR; the follow-up review observes head 04b9fbbda4654516c01d6c34e9c19ad17c1be0fb,
+pending coordinated adaptation and receiving.
 
 ### Revised bounded work order
 
@@ -174,12 +246,14 @@ latest fifty updated open reports preserves this route after #569–#571:
 
 1. Receive #543's naming mirrors and complete #549 D6/D7 when its owner is ready;
    independent native bug fixes continue meanwhile.
-2. Review #556 (CIF primary occupancy acquisition) and #563 (repeated assembly
-   generators), keeping both distinct from the alternate-site repair above.
-3. Continue the already planned #504 multi-structure solvation contract, #568
-   mutation selection/syntax and #564 triclinic water-box correctness.
-4. Receive #559–#562 engine/platform/registry/partition/doc failures and #565/#567
-   network-test/performance evidence before using affected routes as qualification.
+2. Continue #504's multi-structure solvation contract, #568's mutation
+   selection/syntax and #564's triclinic water-box correctness.
+3. Receive #559–#562 engine/platform/registry/partition/doc failures. Review the
+   new #572 native-force input proposal with the same mechanics contracts;
+   decide environment, selection and units before implementing that route.
+4. Keep #567's comparable performance and third-party gate semantics owned
+   before using those measurements as qualification. Network classification
+   #565/#573 is corrected in the reader checkpoint above.
 5. Keep #557's public CCD template proposal, #558 generation evidence and older
    explicit scientific studies in their owned queues; they are not silently
    promoted to initial-1.0 gates by the incoming review.

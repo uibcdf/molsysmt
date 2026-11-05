@@ -9,7 +9,7 @@ These queries do not adopt engine objects, prepare chemistry or change the
 scene/history. Keep the native shared-resource-list limit (#560) and unsupported
 platform contract (#559) explicit until their owner repairs are received.
 Native result ownership and errors are delegated; do not silently copy a
-registry list or add the other two mechanical functions without qualification.
+registry list or add unreceived mechanical functions without qualification.
 Energy selection constructs a parameterized subsystem, not an embedded energy
 contribution. Preserve native quantity/unit-policy and force-name decomposition
 contracts, explicit single-structure CPU receiving, the independent OpenMM
@@ -485,3 +485,12 @@ explicit; preserve native mixed-partition #561 errors without reshaping inputs.
 Retain the independent NoCutoff pair-energy reference and separate periodic/
 overlap/scientific limits. Native MolSys forces are pending #572: do not expose
 an always-rejected force method or add consumer-side parameterization.
+
+
+Preserve solvate as explicit independent construction, with native engine/model,
+box, clearance/ionic-strength units, metadata/return-form and single-structure
+contracts. Keep preparation deliberate and source/scene/pending state untouched;
+never infer adoption, frame choice, an engine fallback or equilibration. Preserve
+OpenMM identifier/count limits without rewriting inputs or compensating science.
+Keep direct OpenMM parity separate from geometric references, and derive nominal
+TIP3P tolerances from the bundled PDB precision rather than exact ideal geometry.

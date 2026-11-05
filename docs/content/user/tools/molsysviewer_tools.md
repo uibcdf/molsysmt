@@ -3869,6 +3869,57 @@ qualification. No scientific repair is implemented in the facade. See
 {func}`molsysmt.build.solve_atoms_with_alternate_location` and
 {ref}`Tutorial_Solve_atoms_with_alternate_locations` for native usage.
 
+## Constructing an independent solvated system
+
+`view.addons.molsysmt.build.solvate()` delegates explicit solvent/ion construction
+to the selected MolSysMT engine and returns a separate system. It requires one
+structure with chemistry that the engine can parameterize. Hydrogen completion,
+protonation and terminal preparation are separate operations; the addon does
+not perform them implicitly or select the visible structure from an ensemble.
+
+This small example constructs and caps its input explicitly before loading it:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaValPro")
+molsys = msm.build.add_missing_terminal_cappings(molsys)
+with msv.new_view(molsys) as view:
+    solvated = view.addons.molsysmt.build.solvate(
+        engine="OpenMM", box_shape="cubic", clearance="0.35 nm",
+        water_model="TIP3P", ionic_strength="0 molar",
+    )
+    assert solvated is not view.molsys
+    assert msm.get(solvated, n_waters=True) > 0
+    assert msm.get(solvated, n_structures=True) == 1
+    # Adopt it deliberately if desired:
+    # view.load(solvated, mode="replace")
+```
+
+The current view, regions, shapes, history and pending synchronization state
+remain unchanged. Reads use the current molecular system, including completed
+pending edits. Results use the native box-origin convention; the whole output
+may undergo a rigid translation. Source-coordinate labels are not an atom map
+between this new system and the existing scene. Output metadata, named-analysis
+losses and explicit `to_form` availability follow the native engine/conversion
+contract rather than being silently reconstructed by the facade.
+
+The native stored water model and force field can take precedence over requested
+settings. Explicitly choose the engine and model you need; the addon performs no
+engine fallback. Scientific receiving here covers OpenMM/TIP3P single-structure
+construction, independent direct-OpenMM parity, nominal water geometry at bundled
+PDB precision and cubic/triclinic box geometry. It does not establish equilibrium,
+packing quality for every solute or suitable simulation conditions.
+
+Two native OpenMM limits remain visible: a nonnumeric first atom ID currently
+raises ValueError, and explicit `n_anions`/`n_cations` counts are not applied or
+rejected. Only the qualified default neutralization workflow is demonstrated
+above; no input renumbering or count compensation occurs in the addon. These
+limits are being handed to the scientific owner separately from the facade.
+`skip_digestion` controls only addon validation because the native function has
+no such argument; it does not add a validation bypass to the native operation.
+
 ## Constructing and mutating independent peptides
 
 ### Building a new geometry from the current sequence
