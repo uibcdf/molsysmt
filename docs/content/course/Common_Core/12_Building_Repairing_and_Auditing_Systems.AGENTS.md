@@ -90,3 +90,8 @@ input, explicit molecular preparation, native model/identifier/count limits and
 absence of automatic scene adoption. Keep source copying/parity and geometric
 receiving separate from simulation-equilibration claims; retain all original
 course code, outputs, IDs and metadata.
+
+Preserve independent addon protonation reconciliation with explicit reference-rule
+limits and no implicit adoption. Managed in-place removal remains unavailable
+until native correspondence is qualified; neither private rules nor identity
+matching is a substitute. Keep original course code, outputs, IDs and metadata.

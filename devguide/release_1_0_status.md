@@ -21,6 +21,29 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Independent protonation reconciliation — 2026-11-05
+
+PR #543 adds the explicit current-primary `build.reconcile_protonation` mirror
+on published native `ccff2557f`. Only native in_place=False is received; True
+rejects before science pending the public removal-correspondence contract under
+[#576](pending_proposals/protonation_removal_correspondence_for_bound_consumers.md).
+The independent result is not adopted. Native reference-rule pH, naming contexts,
+unassessed groups, all-structure subset semantics and analysis remapping remain
+unchanged. No private chemistry helper or identity matching is used. Source
+exposure is 235/244, build 29/30, with this explicit mode limit. The
+[receipt](../devtools/data/molsysviewer_tools_protonation_receiving_20261105.json)
+records bounded controls and source/host/installed distinctions. Owner review,
+exact-head CI, remaining native work, GUI and installed qualification remain
+separate; both 1.0 publications stay paused. No candidate or publication.
+
+The final complete addon/integration regression passes **4,363 cases**, with no
+failures/errors/skips. The 29 new cases, 103 directed native/integration controls
+and 118 documentation/source contracts pass separately. All 4,235 primary files
+and recorded provider/support sources retain their hashes. Existing backend/Rust
+is reused. The exact guide block, 246 native docstrings, 156 course notebooks,
+Ruff (4,386 files), dependencies and developer-guide/index checks pass. Original
+course executable cells, outputs, IDs and metadata remain unchanged.
+
 ## Combined solvation/predicate consumer receiving — 2026-11-05
 
 PR #543 combines independent `build.solvate` with the published owner's #504

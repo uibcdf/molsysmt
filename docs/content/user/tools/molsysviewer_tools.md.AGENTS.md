@@ -494,3 +494,10 @@ never infer adoption, frame choice, an engine fallback or equilibration. Preserv
 OpenMM identifier/count limits without rewriting inputs or compensating science.
 Keep direct OpenMM parity separate from geometric references, and derive nominal
 TIP3P tolerances from the bundled PDB precision rather than exact ideal geometry.
+
+Preserve the independent reconcile_protonation route, its exact native parameters
+and explicit refusal of managed in_place=True before science pending public
+removal correspondence. Keep fixed-pKa approximation, declared named-state and
+unassessed-group limits distinct from chemical readiness; there is no hidden
+charge/H/state preparation, private chemistry helper, identity inference or
+scene adoption. Native results and named analyses retain extraction semantics.

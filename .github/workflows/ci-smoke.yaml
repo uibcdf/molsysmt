@@ -293,6 +293,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_build_expansion_tools.py \
             tests/molsysviewer_molsysmt/test_build_preparation_tools.py \
             tests/molsysviewer_molsysmt/test_solvation_tools.py \
+            tests/molsysviewer_molsysmt/test_protonation_tools.py \
             tests/molsysviewer_molsysmt/test_build_staging_tools.py \
             tests/molsysviewer_molsysmt/test_build_sequence_tools.py \
             tests/molsysviewer_molsysmt/test_build_bond_edit_tools.py \

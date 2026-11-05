@@ -4821,3 +4821,55 @@ The managed prefix-addition route requires a Viewer host with the explicit
 science. Independent outputs and explicit collection routes keep their separate
 contracts. This is source receiving, not published-package or universal scientific
 qualification.
+
+
+## Reconciling reference-rule hydrogens independently
+
+`view.addons.molsysmt.build.reconcile_protonation` returns a separate molecular
+system with hydrogens removed according to the native reference rules. It keeps
+`pH`, `engine`, `in_place` and `skip_digestion` from the native signature. This
+addon currently admits **only `in_place=False`**, its default.
+
+```python
+import molsysmt as msm
+import molsysviewer as msv
+
+molsys = msm.convert(
+    msm.systems["chicken villin HP35"]["1vii.pdb"],
+    to_form="molsysmt.MolSys",
+)
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.reconcile_protonation(pH=12.0)
+    assert source.get_n_atoms() == 596
+    assert result is not source and result.get_n_atoms() == 590
+    assert view.molsys is source
+    # Inspect the independent result before deliberate scene replacement:
+    # view.load(result, mode="replace")
+```
+
+This deposited-villin control removes the N-terminal H3 and five lysine HZ3
+atoms under the native fixed-pKa approximation. It checks reference-rule
+behavior; it does not predict titration in the molecular environment. Explicit
+Amber-state labels keep their supported side-chain inventories, and unsupported
+or unassessed references remain unchanged. No removal is not a certificate that
+all groups were assessed or that the system is chemically ready.
+
+The native operation removes atoms across every source structure and preserves
+retained poses through native extraction. It does not add missing H, choose a
+stored chemical state, assign charges or select the visible structure. Named
+analyses retain native subset/remapping semantics; they are not recalculated
+for the new system. Length units and other scientific policies are unchanged.
+
+The current source, scene, history and completed pending edits remain owned by
+the view. The independent result is never adopted implicitly. Full native
+copying/subsetting can materialize coordinates and is not an out-of-core
+trajectory promise. Cached methods follow replacement and closed-view rules.
+
+`in_place=True` raises `NotImplementedError` before scientific execution because
+the native tool does not yet provide public removal correspondence for managed
+scene remapping. The addon does not infer identity from counts, labels or
+coordinates and does not call private protonation rules. There is no
+`update_view`, `selection`, `structure_indices` or `return_report` argument on
+this mirror. Native digestion is forwarded; the integration admission boolean
+is checked even with `skip_digestion=True`.

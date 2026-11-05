@@ -91,6 +91,7 @@ def _independent_build_documentation(name, *, local_skip=False):
                 "mutate",
                 "build_peptide",
                 "solvate",
+                "reconcile_protonation",
             }
             else "returns a separate molecular system, optionally with its report; "
         )
@@ -125,7 +126,23 @@ def _independent_build_documentation(name, *, local_skip=False):
                 "Full native copying may materialize coordinates and is not "
                 "an out-of-core trajectory promise.\n"
             )
-        if name == "solvate":
+        if name == "reconcile_protonation":
+            function.__doc__ += (
+                "Only the native independent route (in_place=False) is received. "
+                "in_place=True raises NotImplementedError before scientific "
+                "execution: the native tool provides no public removal "
+                "correspondence for managed scene remapping. No update_view "
+                "control, private chemistry helper or name/coordinate matching "
+                "is added. The pH approximation, stored naming contexts and "
+                "unsupported/unassessed groups retain their native meaning. "
+                "Removal affects every source structure and does not select "
+                "a chemical state, add missing H, assign charges, predict an "
+                "environmental pKa or certify chemical readiness. Retained "
+                "coordinates, source mappings and analyses follow native "
+                "extraction; inspect the independent output before explicitly "
+                "replacing the viewed system.\n"
+            )
+        elif name == "solvate":
             function.__doc__ += (
                 "Solvation explicitly creates a new solvent/ion system using the "
                 "requested native engine and its stored/default force-field "
@@ -307,6 +324,7 @@ class _BuildTools:
         "mutate",
         "build_peptide",
         "solvate",
+        "reconcile_protonation",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -949,6 +967,39 @@ class _BuildTools:
                 "engine": engine,
                 "to_form": to_form,
                 "verbose": verbose,
+            },
+        )
+
+    @_independent_build_documentation("reconcile_protonation")
+    @signal(tags=["addon", "build", "preparation"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def reconcile_protonation(
+        self,
+        pH=7.4,
+        engine="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+    ):
+        from molsysmt._private.argdigest.argument.in_place import digest_in_place
+
+        # This flag controls integration admission even with digestion skipped.
+        in_place = digest_in_place(
+            in_place, caller="molsysviewer_molsysmt.build.reconcile_protonation"
+        )
+        self._owner._target()
+        if in_place:
+            raise NotImplementedError(
+                "Managed in-place protonation reconciliation requires public "
+                "native removal correspondence. Use in_place=False to inspect "
+                "an independent result before explicitly loading it."
+            )
+        return self._call(
+            "reconcile_protonation",
+            {
+                "pH": pH,
+                "engine": engine,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
             },
         )
 

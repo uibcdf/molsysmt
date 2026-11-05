@@ -1,0 +1,182 @@
+{
+  "schema": "molsysmt.viewer-protonation-source-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#576"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "b285d7fb8a4bcf2fb852c8ce3899d7158063a202",
+  "native_owner_basis": "ccff2557f576f004461c96950d36a8b6e465e91f",
+  "viewer_basis": "c1c0dcc4c0b6a8111d3cc7ba72d8711b9c70d797",
+  "viewer_runtime_logic": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "contract": {
+    "path": "build.reconcile_protonation",
+    "signature": "Exact native parameters/defaults minus primary molecular_system; skip_digestion forwarded. No additional controls or root alias.",
+    "admitted_mode": "Only in_place=False, with separate native result and no adoption, scene/history or pending-projection change.",
+    "in_place": "True rejects before scientific execution pending public removal correspondence #576. Boolean admission validated even when digestion is skipped. This path exposure is not complete in-place coverage.",
+    "science": "Native fixed-pKa/reference/naming decisions unchanged. No hidden H addition, charge assignment, chemical-state selection, environmental-pKa model or private helper in the facade. All source structures follow native extraction."
+  },
+  "scientific_reference": {
+    "dataset": "molsysmt/data/pdb/1vii.pdb",
+    "control": "Deposited villin: at pH 12 only H3 in group 0 and HZ3 in groups 7,24,29,30,32 are removed, 596 to 590 atoms. At pH 7.4 all 596 remain.",
+    "independence": "Expected removal labels fixed by the bounded deposited-system reference control, not calculated with the private H selector. All retained pose coordinates and topology values checked separately from native parity.",
+    "scope": "Reference-rule receiving only; no environmental-pKa or chemical-readiness certificate. Explicit Amber HID keeps HD1; unsupported UNL remains unassessed and unchanged.",
+    "structures": "Three explicitly constructed translated poses, repeated/nonconsecutive structure labels C/A/C, retained nm/angstrom geometry, time and box; no implicit visible-structure selection.",
+    "stored_analyses": "Synthetic retained/removed participant observations and evaluated-empty named coverage use native subset/remapping without detector replay; source analyses preserved.",
+    "dataset_sha256": "ebecd3d6c0dd9c8b34bcbea9b57c73e4f73986cc674150f0aaa0687db66e77ef"
+  },
+  "validation": [
+    {
+      "file": "protonation-all-addon-20261105.xml",
+      "sha256": "2e662b5afab626ce23ddb77d1e3f5d5963066361680501de181075d1b471c8e3",
+      "scope": "Final complete addon plus 32 source/host/inventory/command guards; four workers and fixed public PyUnitWizard source.",
+      "tests": 4363,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 343.699
+    },
+    {
+      "file": "protonation-focused-final-20261105.xml",
+      "sha256": "5b5dfce99c4c6d3c57ae8aa4e439fb1fd38f1f84fd786111780ffe0e51961bad",
+      "scope": "29 new facade cases.",
+      "tests": 29,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 12.956
+    },
+    {
+      "file": "protonation-native-integration-20261105.xml",
+      "sha256": "8468bac22452d03f45d88fcd169d66752d5e6cf509db52d7965fc9a57dc5b01f",
+      "scope": "103 native protonation/audit/inventory/host/command integration cases.",
+      "tests": 103,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 20.872
+    },
+    {
+      "file": "protonation-docs-contracts-20261105.xml",
+      "sha256": "be4f7c901f3d9a069022421a2d4a041bd5610a4620c3a4dbf48267c4aef864c2",
+      "scope": "118 documentation/course/source/inventory/reporting contracts.",
+      "tests": 118,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 101.632
+    }
+  ],
+  "preserved_failures": [
+    {
+      "file": "protonation-focused-initial-20261105.xml",
+      "sha256": "ce1f40105b297832c91f7bb5adfdb0e1b768de392ec2d49ed33a3458b5ff1d45",
+      "scope": "10 authored-test failures: nullable extraction index dtype and unsupported mappingproxy mutation; corrected tests, no scientific fix.",
+      "tests": 29,
+      "failures": 10,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 13.497
+    },
+    {
+      "file": "protonation-focused-corrected-20261105.xml",
+      "sha256": "4a701d6593960cf047a69e99fc6db0eaddb2229dc72590255506c1a725e960d5",
+      "scope": "Two remaining authored-test failures used nonexistent Interactions.n_occurrences; corrected to public occurrence storage length.",
+      "tests": 29,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 13.257
+    }
+  ],
+  "source_freeze": {
+    "files": 4235,
+    "sha256": "cb9546d8f7a8a877a0c9f3f049a46ab9bad5701658fd0e002743e8dab037724f",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "postcheck": {
+      "primary_files": 4235,
+      "primary_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "provider_files": 106,
+      "provider_python_files": 91,
+      "provider_changed": [],
+      "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "native_authored_diff": []
+    }
+  },
+  "provider_snapshot": {
+    "public_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "archive_sha256": "15837de15b443f3f0853d484da9990da74cc444b9c562e4aafe9fbf86642cdbd",
+    "scope": "Read-only public PyUnitWizard source overlay; no installation or editable provider writes. Distribution metadata is not its source identity."
+  },
+  "exposure": {
+    "exposed": 235,
+    "declared": 244,
+    "build": [
+      29,
+      30
+    ],
+    "molecular_mechanics": [
+      5,
+      6
+    ],
+    "mode_limit": "reconcile_protonation in-place remains unreceived under #576."
+  },
+  "static_validation": {
+    "whole_tree_ruff": "check and format pass, 4386 files",
+    "docstrings": 246,
+    "course_notebooks": 156,
+    "dependency_contract_audit": "passed",
+    "guide_blocks_executed": 1,
+    "owner_course_cells": 35,
+    "changed_markdown_ids": [
+      "96ebdbc9",
+      "4fb55a86",
+      "f158b27f"
+    ],
+    "all_owner_executable_cells_outputs_ids_metadata_preserved": true,
+    "devguide_and_indexes": "passed"
+  },
+  "limits": [
+    "Existing Linux/Python 3.14 development environment, not a clean installed solve or platform/release qualification.",
+    "No scientific native source, Rust/backend rebuild, Viewer runtime or dependency floor authored.",
+    "Native #561/#564/#572/#574/#575 and public correspondence #576 remain separate owner work; no facade scientific repairs.",
+    "Exact-head CI/owner review, remaining compatibility decisions, task GUI and installed qualification remain separate.",
+    "Both 1.0 publications remain paused; no candidate, tag, Release, promotion or publication."
+  ],
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "system": "Linux",
+    "observed_distribution_versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b"
+    },
+    "scope": "Read-only public PyUnitWizard source overlay; metadata is not asserted to identify that source."
+  },
+  "warnings": {
+    "full_addon": 2475,
+    "legacy_h5msm": 2405,
+    "atom_forcefield_attribute_drop": 54,
+    "scope": "All ten warning groups retained; no suppression added."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_build.py": "d3c25dffceb36c84fb14bee7213ab99b67dd9abcfaad81993914db3cdde84979",
+    "tests/molsysviewer_molsysmt/test_protonation_tools.py": "1fcadef7b3d20023a7dd8a9e6715c6a3bf39eaf1eef94010c9c59312f72991c5",
+    ".github/workflows/ci-smoke.yaml": "2f137a9ada71349c509385f836f4e5a62d0271b0e9a21f56500b1052f2d59ab8",
+    "docs/content/user/tools/molsysviewer_tools.md": "0c1fc3416e6f3d60328a4efae9adb14f5a9929d6152170745c9ebdf1073a75ef",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "ef6f0925072d577a4032aff1264038d9a7ee47b175faa35f8defc644c4108131"
+  }
+}
