@@ -1,0 +1,102 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#578",
+  "base_commit": "9750272c4f321d1e3c8ae1a391f8e721e6a58f02",
+  "python": "3.14.7",
+  "versions": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+    "nglview": "4.0.1",
+    "numpy": "2.4.6",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.22.0+15.g5ee88c1"
+  },
+  "version_note": "Installed/editable version metadata, not artifact coordinates; source base and file hashes are separate.",
+  "files": {
+    "molsysmt/basic/view.py": "084b4f427652a44de408d7167d11b798cc151cbcafd59d143d15e8667a130ddf",
+    "molsysmt/basic/viewer/molsysviewer.py": "6ed0195376e971dece747b7c83149d20ec5bfc9c36ee4fc931828bc55d2f09de",
+    "molsysmt/_private/argdigest/argument/molecular_system.py": "4ca114ac6ecd384d11a1505bcd5126ed5f968fdd351f60632f44897dde423ed6",
+    "molsysmt/_private/argdigest/argument/viewer.py": "a8fbb92daa1a387803099d31f838577214b618c6950b79ac5dcb6d278844ebc6",
+    "tests/basic/view/test_empty_view_contract.py": "382a836263b5c7c7f2de16a16e4930b398fc18a741c20f4f3a2b13b0267bdb9e",
+    "docs/content/user/foundations/support/viewers.md": "51dab4ac001dfc59f03f3418a0483f8ab6a28de1b53e8cb5f999f4e0fca2a27d",
+    "docs/content/user/tools/basic/view.ipynb": "d14eeebd1913033646a38cf651e3055d014881df571fccc322bebd651804fd40",
+    "docs/content/user/cookbook/spectacular_visualizations.ipynb": "a400ded32d25f08db692f2312ada220a392bc6ddb5c32e5b5fba9d1304f21825",
+    "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb": "bff06aaca669f82a96aacea9b7a5b453bf2c5e1702a3d72457e37e0efe6dcdba"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest tests/basic/view tests/basic/test_public_structure_index_boundaries.py tests/basic/test_structure_index_types.py tests/basic/select tests/_private/test_molecular_system_validation.py tests/_private/argdigest/test_viewer_and_misc_digesters.py tests/test_dependencies_architecture.py -m 'not network' --receptor=llm -n 4",
+      "exit_code": 0,
+      "passed": 273,
+      "seconds": 18.93
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:<argdigest-0.14.0>:<depdigest-0.15.1>:<smonitor-0.16.0>:<ackredit-0.9.0>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest -p no:smonitor tests/basic/view/test_empty_view_contract.py tests/_private/test_molecular_system_validation.py tests/basic/test_public_structure_index_boundaries.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 66,
+      "seconds": 9.92,
+      "note": "Only the editable pytest entry point is disabled under #524; runtime SMonitor remains active."
+    },
+    {
+      "command": "python -m pytest devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/basic/view.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 569,
+      "seconds": 19.74
+    }
+  ],
+  "baseline": "Default/explicit None fails normal digestion for both registered backends; valid trusted calls create actual empty widgets, which were inspected and closed.",
+  "governance": [
+    "ruff check molsysmt",
+    "validate_dependencies.py",
+    "validate_docstrings.py",
+    "validate_public_api_stability.py",
+    "validate_course.py",
+    "validate_devguide.py",
+    "devguide_index.py --check"
+  ],
+  "notebook_preservation": "All original executable cells, outputs and metadata preserved in three edited lessons; prose changes only.",
+  "scope": "Python factory, validation, dependency and widget-lifetime boundary; no new scientific calculation or backend renderer.",
+  "limitations": [
+    "An absent source is distinct from a zero-atom MolSys or an empty loaded selection.",
+    "MolSysViewer retains its deliberately nonempty loaded-selection requirement; it is not replaced by an empty workspace.",
+    "Static-HTML mode still requires a prepared asset.",
+    "No browser/canvas rendering, session, installed/platform or release qualification is claimed.",
+    "Existing viewer parameter default remains MolSysViewer; only explicit viewer=None reads configuration.",
+    "No dependency floor, compiled kernel, H5MSM schema or attribution event changes."
+  ],
+  "queue_review": {
+    "next_issue": 560,
+    "following_issues": [
+      559,
+      561,
+      562
+    ],
+    "expansion_pr": 543,
+    "expansion_head": "94548b434f5d673f6fcfc6c97db9d83601a5b4b7"
+  },
+  "runtime_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  }
+}

@@ -2,7 +2,10 @@ import os
 from inspect import stack
 from pathlib import Path
 
+from depdigest import dep_digest
 
+
+@dep_digest("molsysviewer")
 def view(
     molecular_system=None,
     selection="all",

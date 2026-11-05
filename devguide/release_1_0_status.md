@@ -20,6 +20,38 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Empty visualization input contract — 2026-11-05
+
+**#578 is source-corrected.** Ordinary `msm.view()` and explicit None create an
+empty Python workspace with either registered backend. Only this exact public
+caller gains the None exception. Shared axis validation rejects expressions or
+nonempty indices without a source before construction; all/None/flat empty axes
+are admitted. No zero-atom MolSys is synthesized. Loaded inputs retain their
+existing extraction/backend requirements, including rejection of unsupported
+empty loaded selections rather than replacing their source with None.
+
+The MolSysViewer adapter gains its explicit DepDigest guard; invalid viewer types
+retain native diagnostics. Backend selection, static-HTML behavior and the
+public signature remain unchanged. The corrected Foundations matrix lists only
+the two actual dispatch routes; explicit viewer=None reads configuration, while
+omitting viewer retains its MolSysViewer default.
+
+Receiving passes **273 affected tests**, **66 published-support-floor cases**
+and **569 documentation/governance/doctest cases**. Real empty widgets are closed
+after inspection; no browser rendering or session evidence is claimed. Three
+edited notebooks retain all original executable cells, outputs and metadata.
+See the [owning record](archive/resolved_bugs/basic_view_rejects_default_empty_input.md)
+and [receipt](../devtools/data/empty_view_receiving_578_20261105.json). No new
+dependency floor, scientific method/credit, compiled kernel or file-format schema.
+
+Queue review observes no newer issue than the now-resolved #579, with PR #543
+still at `94548b434f5d673f6fcfc6c97db9d83601a5b4b7`. Next: **#560** (mutable
+force-field registry results), then **#559**, **#561** and **#562**, before final
+expansion receiving. #572/#576 remain separate capability work. Finish this
+block with an unskipped published head and inspect its own hosted controls;
+missing hosted evidence remains pending under #334 until runners execute.
+Installed/platform and release qualification remain separately required.
+
 ## Solvation identifier preservation — 2026-11-05
 
 **#574 and #579 are source-corrected.** OpenMM solvation no longer interprets

@@ -48,6 +48,8 @@ def digest_molecular_system(molecular_system, caller=None):
 
     if molecular_system is None and caller_matches(caller, "editable"):
         return None
+    if molecular_system is None and caller == "molsysmt.basic.view.view":
+        return None
 
     assessment = assess_molecular_system(molecular_system)
 
