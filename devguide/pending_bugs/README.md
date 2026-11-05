@@ -20,11 +20,13 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (5)
 
+- [`openmm_solvate_ignores_explicit_ion_counts.md`](openmm_solvate_ignores_explicit_ion_counts.md) — [#575](https://github.com/uibcdf/molsysmt/issues/575) — OpenMM solvate silently ignores explicit n_anions and n_cations. *(high, reproduced)*
 - [`water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md`](water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md) — [#564](https://github.com/uibcdf/molsysmt/issues/564) — make_water_box places oxygen sites outside the requested triclinic cell. *(high, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`mutate_selection_masks_mix_syntax_and_atom_group_axes.md`](mutate_selection_masks_mix_syntax_and_atom_group_axes.md) — [#568](https://github.com/uibcdf/molsysmt/issues/568) — mutate misroutes selection syntax and interprets atom masks as group indices. *(medium, reproduced)*
+- [`openmm_solvate_rejects_nonnumeric_atom_ids.md`](openmm_solvate_rejects_nonnumeric_atom_ids.md) — [#574](https://github.com/uibcdf/molsysmt/issues/574) — OpenMM solvate rejects nonnumeric or missing atom IDs. *(medium, reproduced)*
 
 ### In progress (1)
 

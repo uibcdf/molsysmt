@@ -26,6 +26,9 @@ records the final combined inputs and validation; the earlier solvation receipt
 below retains its original owner basis, failures and recovery. Source/scene
 ownership, native identifier/ion-count limits and separate CI/owner/installed
 qualification remain explicit. No native scientific repair is authored here.
+Native OpenMM identifier and explicit-ion-count limits are now reported under
+uibcdf/molsysmt#574 and #575, with separate native reproductions and requested
+pytest acceptance coverage. Earlier receipts retain their initial filing state.
 
 The final combined regression passes **4,334 addon/integration cases** with no
 failures/errors/skips; 126 directed native/client cases and 60 documentation/
