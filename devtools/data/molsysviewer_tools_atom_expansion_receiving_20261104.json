@@ -1,0 +1,343 @@
+{
+  "schema": "molsysmt.viewer-atom-expansion-source-receiving@1",
+  "date": "2026-11-04",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#564"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "32435e6fd300e1753c6d843cb100aaabfc44787e",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "published_owner_documentation": "5ccad1d8a2537b24e52474bd95103cc94700cba1",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "source_identity": "Working-tree hashes below identify tested input; final contribution commit is delivered through PR #543 without a self-referential claim.",
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "linux",
+    "versions": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "openmm": "8.6.1",
+      "pdbfixer": "1.12.0",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "scope": "Existing explicit source environment; no package installation, fresh solver or installed-artifact qualification."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_build.py": {
+      "file": "_build.py",
+      "sha256": "6cf575ed154b55457123b10e590a2ad04141789ef447a18dcbcbdc209d49236d",
+      "size_bytes": 21835
+    },
+    "tests/molsysviewer_molsysmt/test_build_expansion_tools.py": {
+      "file": "test_build_expansion_tools.py",
+      "sha256": "b0cfe7717ab6aab7fcf63abcac523030ca980fbd0eacc07e13f4e15cea3d36af",
+      "size_bytes": 23247
+    },
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": {
+      "file": "test_build_audit_tools.py",
+      "sha256": "6d104aada242b165472be1a0de3566d1784e74a433ad944bc8a9e89233245740",
+      "size_bytes": 13927
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "file": "test_molsysviewer_tools_api_inventory.py",
+      "sha256": "e69bed548569e81d396241831d24eee004216c7d5cf6cf40ed3700f34da8522c",
+      "size_bytes": 9040
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "file": "ci-smoke.yaml",
+      "sha256": "89ca9915699b3cc39191580d0d549c9208e4bcbe07546c46845872705bf8bf3f",
+      "size_bytes": 14784
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "file": "molsysviewer_tools.md",
+      "sha256": "9088a1ec009b206e159b6d69212d720c61062896373c971af37ff889d447403c",
+      "size_bytes": 226519
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "file": "molsysviewer_tools.md.AGENTS.md",
+      "sha256": "30a6406a688d04b8342045d0322a0c14912f15ec1d79d5ff32ec5934c6dc4b16",
+      "size_bytes": 27378
+    },
+    "docs/docs_manifest.yml": {
+      "file": "docs_manifest.yml",
+      "sha256": "5661efd3669d77d3a30fd97fff5a9ff43b546558c314a0240b9792a08de81538",
+      "size_bytes": 56211
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "sha256": "7cc53e053764ad695265e8f59b177a3e830ff7910647be16edb0522f3ece36c9",
+      "size_bytes": 53420
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.AGENTS.md": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.AGENTS.md",
+      "sha256": "725f11e458e80569db84f3c18543a6cb96c156f33d7bcfa7b93519d2b231ed26",
+      "size_bytes": 3416
+    },
+    "devguide/pending_bugs/water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md": {
+      "file": "water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md",
+      "sha256": "0392cd375f96a0e4fbb5cd2d642051d42543c67c1cddd9d51f390b64249867c4",
+      "size_bytes": 4944
+    },
+    "devguide/pending_bugs/README.md": {
+      "file": "README.md",
+      "sha256": "ef7b179e935436f0ba4170730637d0761196174a874f3188e864aaa69854f25e",
+      "size_bytes": 8111
+    }
+  },
+  "datasets": {
+    "molsysmt/data/pdb/3c8h.pdb": {
+      "file": "3c8h.pdb",
+      "sha256": "65dcd30f745f6d57597ad6d26533a7915f4e39584cb413949d3fc3ff50076afa",
+      "size_bytes": 2132001
+    },
+    "molsysmt/data/pdb/1atp.pdb": {
+      "file": "1atp.pdb",
+      "sha256": "5ee1528569a18ad723092ec8b1cd7776af23fd3c5028f0e4074546d4a91e36a2",
+      "size_bytes": 299538
+    },
+    "tests/physchem/data/chemical_templates/1qku.cif.gz": {
+      "file": "1qku.cif.gz",
+      "sha256": "e96ca11da3e00e6c4f28b04bce7fa5dc6d5c9308711569f7dac8d68002c4b57e",
+      "size_bytes": 173227
+    },
+    "molsysmt/data/databases/peptide_builder/amber14sb.json.gz": {
+      "file": "amber14sb.json.gz",
+      "sha256": "afb6989a938d118ac6360dbb86548d45e9d6a30b8f02d009e42e1320febe5e79",
+      "size_bytes": 16247
+    },
+    "molsysmt/data/databases/residue_templates/SER.json": {
+      "file": "SER.json",
+      "sha256": "af5572e85290171e19c1cdc2c06f57e3985c1eb31963248fa610b868ffe0ef61",
+      "size_bytes": 635
+    },
+    "molsysmt/data/databases/residue_templates/ALA.json": {
+      "file": "ALA.json",
+      "sha256": "c2d63574a2a8f0635c267b9598fa93a6e05878aa2015155135a247e4938bf803",
+      "size_bytes": 539
+    },
+    "molsysmt/data/databases/residue_templates/MSE.json": {
+      "file": "MSE.json",
+      "sha256": "2863beac034fe9d8f67fd71c88394352b7390589f5b4e69f2ba0fc306a3452fb",
+      "size_bytes": 1375
+    },
+    "molsysmt/data/databases/residue_templates/SEP.json": {
+      "file": "SEP.json",
+      "sha256": "42421439ce9091ee0c5d4c8c5546b1c46b005ea7c8edcd11ad909e2f6c686946",
+      "size_bytes": 1606
+    },
+    "molsysmt/data/databases/residue_templates/TPO.json": {
+      "file": "TPO.json",
+      "sha256": "65fe1fbb1521bda310c7cd122a33425f14aa92edac907eabfed30ba7e4cd4e14",
+      "size_bytes": 1725
+    }
+  },
+  "frozen_sources": {
+    "manifest": {
+      "file": "build-expansion-sources-before-20261104.json",
+      "sha256": "8f8ffed9cf027341379a59dae55b183ab3818d1e6844221ffb5c6a37311cb485",
+      "size_bytes": 385939
+    },
+    "source_file_count": 3141,
+    "source_sha256": "81d17edeef4cfccdaa068969a2c4161f20f1f2035ca944610fa424c68acbb37d",
+    "digest_encoding": "SHA-256 of sorted compact JSON path-to-sha256 mapping",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "native_unchanged_from_parent": true,
+    "complete_run_postcheck": "All 3141 frozen files, the retained backend digest and native Rust tree match after complete execution.",
+    "unchanged_during_complete_run": true
+  },
+  "implemented": {
+    "paths": [
+      "build.add_terminal_atoms",
+      "build.add_missing_heavy_atoms"
+    ],
+    "binding": "Serialized current primary; completed pending edits are read without synchronization. Cached tools follow replacement and reject closed/empty owners.",
+    "terminal": "Native explicit records, supplied all-structure length coordinates, required dictionary/report, old-index preservation and appended atoms, inherited membership/string IDs/chemical fields. No automatic inventory correction or preparation.",
+    "heavy": "Native explicit selection/syntax/engine and keyword-only attribute_policy; full source-structure placement and native result ownership remain unchanged. No return_report/structure_indices/in_place/update_view arguments are invented.",
+    "controls": "Native skip_digestion and validation remain explicit. No root aliases, automatic adoption, scene/history mutation or new synchronization adapter."
+  },
+  "scientific_receiving": {
+    "terminal_geometry": "Two-atom/two-structure declared source, canonical old indices/IDs, explicit H/D isotope and parent chemical fields, nm/angstrom/pm quantity conversion; exact retained coordinates and supplied new coordinates checked in nm (atol=1e-15).",
+    "terminal_report": "terminal_attachment@1 source dimensions, old/new correspondence, parent pairs, generated string IDs, canonical nm coordinate_evidence, method/version and all-structure scope. Source analyses preserve evaluated coverage; expanded output coverage clears with new atom_source_indices=-1. Empty addition preserves attributes/coverage and records an independent history entry.",
+    "terminal_persistence": "Empty and nonempty output H5MSM roundtrips preserve detached preparation history, original report axes and coordinates; editing returned report arrays/metadata leaves the stored report intact. No result adoption.",
+    "heavy_geometry": "Native bounded repair of one missing serine OG, observed coordinates/IDs/chemical fields and state/provenance retained; new fields unknown. All three translated structures preserve time, box, IDs and state associations; repaired coordinates follow the declared translations under angstrom/pm policies (atol=1e-14 nm).",
+    "heavy_reference": "MSE and TPO compared with bundled deposited-residue coordinates; SEP uses an explicitly ideal transformed template fixture. Reconstructed atom elements are checked and new coordinates must be within 0.05 nm of the declared reference. These bounded controls do not certify arbitrary residues or refined physical models.",
+    "selection_and_failures": "Native all/numeric/expression/MDTraj selections, skip controls, unassessed collinear/nonfinite/wrong-element/duplicate-name cases, strict loss, invalid atom declarations/units/frames/multiple states and unsupported engines retain native behavior and source preservation. Nonfinite scientific arrays are introduced only after valid Viewer loading; native input admission is not weakened.",
+    "optional_engine": "PDBFixer is explicitly exercised for a supported serine gap with independent native parity; no automatic fallback or universal metadata/geometry guarantee is inferred.",
+    "limits": "Resident copies can materialize coordinates. Native single-state construction, unknown new chemistry, native heavy-atom reordering, output-only remapped analysis invalidation and strict/intersection drops remain explicit. No hidden H/charge/force-field assignment, clash/stereochemistry/rotamer/energy-minimum certification, arbitrary multi-state/trajectory-size or GUI qualification."
+  },
+  "initial_receiving": {
+    "first": {
+      "file": "build-expansion-focused-20261104.xml",
+      "sha256": "ded05cdc3e04df77b35b28af53b08259c5ff7c6b2e52beb00e4220c2faa3bc1d",
+      "size_bytes": 61806,
+      "tests": 55,
+      "failures": 18,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 14.757
+    },
+    "diagnosis_first": [
+      "Sixteen failures used a nonexistent Interactions.n_occurrences attribute; assertions now inspect the public occurrence_structures array.",
+      "One empty-analysis fixture omitted the required method argument.",
+      "One test tried to load nonfinite coordinates that Viewer correctly rejects. The unassessed reader case now injects the same malformed geometry after valid loading, without weakening native or host validation."
+    ],
+    "second": {
+      "file": "build-expansion-focused-corrected-20261104.xml",
+      "sha256": "8d76e05853a2ff2d981d8f2064342700965681c14f6438a15798870cfbf48d29",
+      "size_bytes": 39614,
+      "tests": 184,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 35.866
+    },
+    "diagnosis_second": "Two new ensemble controls replaced one explicitly associated structure with three while retaining stale one-frame associations. The synthetic fixture now retires its old analyses/associations before declaring the complete new three-frame domains. The native consistency guard is unchanged.",
+    "affected_ensemble_after_correction": {
+      "file": "build-expansion-ensemble-corrected-20261104.xml",
+      "sha256": "7e7f253e1cac26b6988f39ce2f523f1e515cf6901183316a72e050701c428411",
+      "size_bytes": 597,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.842
+    },
+    "scope": "Failures are test construction/expectation errors; no native scientific or host-runtime repair is introduced. The second run retains 182 passing cases; complete regression below independently tests the final inputs."
+  },
+  "local_receiving": {
+    "new_cases": 59,
+    "native": {
+      "file": "build-expansion-native-20261104.xml",
+      "sha256": "55d9e762d209e5aa3f77f288dddbfb964733ecb7f808c2700ebe2f9a1dfdce7e",
+      "size_bytes": 6795,
+      "tests": 39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 15.083
+    },
+    "structure_docs": {
+      "file": "build-expansion-structure-docs-20261104.xml",
+      "sha256": "39b14de24462a21710517c6fa969f90728c5061d6fedfff825845ac1f72c1bde",
+      "size_bytes": 104662,
+      "tests": 562,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 21.349
+    },
+    "complete_addon": {
+      "tests": 4010,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 962.828,
+      "file": "build-expansion-addon-complete-20261104.xml",
+      "sha256": "c86a0ce085e4c9ba247eaea3b6676d2fcb9419dc36b77be7480236f68e864370",
+      "size_bytes": 745863
+    },
+    "guide": {
+      "file": "build-expansion-guide-20261104.json",
+      "sha256": "7cb649d738dc730bd242c53011496b4f23d016dfca36d8d5c89c0bf65cc5908b",
+      "size_bytes": 359
+    },
+    "guide_blocks": [
+      {
+        "block": 1,
+        "code_sha256": "c1a8123371605248702154613b3bc0c9b1b682616e39a12d0f219a9384a3d872",
+        "passed": true,
+        "source_atoms": 1,
+        "output_atoms": 2
+      },
+      {
+        "block": 2,
+        "code_sha256": "50669b0a523818d8fb5f424f056b56c54634b5d08243142746117056ebd4e1eb",
+        "passed": true,
+        "source_atoms": 10,
+        "output_atoms": 11
+      }
+    ],
+    "inventory": {
+      "file": "build-expansion-inventory-20261104.json",
+      "sha256": "ae17dc0fd79801a6159601a8d2108ecd297837157751a25e7e9b374b1d36169e",
+      "size_bytes": 122737
+    },
+    "course_preservation": {
+      "file": "build-expansion-course-preservation-20261104.json",
+      "sha256": "98ed29b372b0cc0d30acff99698ac136db8e899ef469b1937482b75de557a409",
+      "size_bytes": 360
+    },
+    "course": "156 canonical notebook structures pass; only existing Module 12 Markdown cell 8 gains addon guidance. Code, outputs, IDs, all other cells and notebook metadata remain unchanged; no full biological-course execution claim.",
+    "native_docstrings": "247 public functions pass structural/default/minimum-content validation.",
+    "ruff": "Whole-tree check and format pass; 4348 files.",
+    "dependencies": "Dependency-route audit passes; no floor/route changes.",
+    "complete_addon_command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "warnings": {
+      "total": 2344,
+      "LegacyH5MSMWarning": 2333,
+      "StructuralAttributeDropWarning": 8,
+      "DigestNotDigestedWarning": 2,
+      "RuntimeWarning": 1,
+      "scope": "Native legacy data, explicit heavy-repair/concatenation losses, intentional invalid dihedral keys and degenerate geometry. No suppression introduced."
+    },
+    "devguide": "Offline validation and generated indexes pass."
+  },
+  "inventory": {
+    "exposed": 224,
+    "declared": 244,
+    "build": "19/30",
+    "molecular_mechanics": "4/6",
+    "element": "57/57",
+    "raw_fasta_readers": "Two explicit file/text routes outside the functional inventory.",
+    "meaning": "Exposure is not universal scientific qualification, owner acceptance or installed compatibility."
+  },
+  "previous_head_ci": {
+    "head": "32435e6fd300e1753c6d843cb100aaabfc44787e",
+    "smoke_run": 41937569345,
+    "smoke_conclusion": "success",
+    "receptor_manifest": {
+      "file": "manifest.json",
+      "sha256": "77cd8e7c764f1d3da830cbb0fed3ced7ea97f390cd61025c1befe2bfb409c43b",
+      "size_bytes": 1650
+    },
+    "full_run": 41937569331,
+    "full_state_at_inspection": "queued",
+    "other_controls": "Performance, Ruff, dependency, guide, suite-policy and publication checks pass.",
+    "scope": "Earlier-head CI does not qualify the changed working-tree input."
+  },
+  "scope_limits": {
+    "host_runtime_changed": false,
+    "native_algorithm_changed": false,
+    "rust_rebuilt": false,
+    "environment_created": false,
+    "package_installed": false,
+    "owner_acceptance": "Pending owner PR review.",
+    "hosted_ci": "New exact-head CI remains pending after publication.",
+    "installed_pair": "Not qualified by this source receiving.",
+    "publication": "No frozen candidate, package/tag/Release, promotion or 1.0 publication."
+  },
+  "retention": {
+    "raw": "Viewer .pytest_cache, retain through CI/PR receiving and review by 2026-11-11.",
+    "resources": "Existing contribution checkout retained; no environment/native build created. Process-owned temporary Matplotlib caches retire with their processes."
+  },
+  "provider_feedback": {
+    "564": {
+      "url": "https://github.com/uibcdf/molsysmt/issues/564",
+      "authorization": "Maintainer explicitly approved filing the native scientific defect.",
+      "observation": "Public make_water_box returns 111/266 oxygen sites outside the requested row-vector triclinic cell; orthogonal control 0/268. Stored box equality and a public selection-based reproduction are verified.",
+      "ownership": "Native MolSysMT repair and pytest guards; factory remains unexposed. No addon coordinate repair.",
+      "record": "devguide/pending_bugs/water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md",
+      "raw_probe_sha256": "371b6272ce789da2daec875d3153daf5782fc019d451f03dc1161e4aeca8c498",
+      "scope": "Separate from the two received expansion wrappers and their complete addon regression."
+    }
+  }
+}

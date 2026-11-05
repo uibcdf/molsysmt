@@ -20,35 +20,39 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Independent build addon receiving — 2026-11-04
+## Atom-expansion addon receiving — 2026-11-04
 
-The PR #543 contribution adds two native mirrors: `build.make_bioassembly`
-and `build.merge_nonpolar_hydrogens`. Both use the serialized current primary
-and return independent results without implicit adoption or scene updates.
-Assembly keeps declared chain/operator and structure scope, order/repeats,
-unit-bearing translations and native unique chain IDs. Hydrogen projection
-requires explicit AutoDock4 types, complete inventory/graph and finite charges;
-its report separates direct, omitted and merged identities, canonical charge
-units and derived assignment provenance. Source analyses remain unchanged.
+PR #543 adds primary-bound `build.add_terminal_atoms` and
+`build.add_missing_heavy_atoms`, both returning independent outputs without
+scene adoption or synchronization. Attachment retains supplied all-structure
+coordinates, old indices, inherited membership, explicit chemical records and
+historical report axes; H5MSM preserves the detached preparation record. Heavy
+repair retains bounded standard/curated templates, native reordering,
+unassessed warnings and explicit optional PDBFixer limits. Both preserve the
+source and apply declared attribute-loss and analysis-invalidation policies
+to the output. No preparation fallback or physical-refinement claim is added.
 
-All 63 new cases and the existing 62 build-audit cases pass, as do 47 directed
-native cases, 562 package/route/documentation controls and both unchanged guide
-examples. Whole-tree Ruff, 156 course structures, 247 native docstrings and the
-dependency audit pass. The complete addon regression passes 3,951 cases without
-failures, errors or skips; all 3,140 frozen files, Rust tree and retained backend
-remain unchanged during execution. The
-[independent-build receipt](../devtools/data/molsysviewer_tools_independent_build_receiving_20261104.json)
-records exact inputs, analytic geometry/charge oracles and initial test-only
-failures without a native scientific workaround. Only one course Markdown
-cell changes; original code, outputs, cell IDs and metadata remain unchanged.
+The 59 new cases have scoped receiving, with corrected test-only fixtures;
+39 directed native and 562 route/documentation controls pass. Both guide blocks
+execute unmodified, including native diagnostic output. Ruff, 156 course
+structures, 247 docstrings and the dependency audit pass. One course Markdown
+cell gains guidance; all original code, outputs, IDs and metadata remain
+unchanged. The complete addon regression passes 4,010 cases without failures,
+errors or skips; all 3,141 frozen source/test files, native Rust tree and
+retained backend bytes remain unchanged during execution. The
+[atom-expansion receipt](../devtools/data/molsysviewer_tools_atom_expansion_receiving_20261104.json)
+retains exact inputs, initial failures and scope; no failed attempt is
+relabeled as a passing gate.
 
-The [minimization receipt](../devtools/data/molsysviewer_tools_minimization_receiving_20261104.json)
-retains its own 3,888-case input, scoped CPU execution and the dated correction
-to the earlier energy receipt. Native #559/#560/#561 and course #562 remain
-owner work; no downstream repair or complete biological-course qualification
-is added. Two mechanical paths remain unexposed. Current source exposure is
-222/244, build 17/30 and mechanics 4/6; this is not owner acceptance,
-exact-head hosted completion, installed qualification or a release.
+The [independent-build receipt](../devtools/data/molsysviewer_tools_independent_build_receiving_20261104.json)
+retains its 3,951-case input and analytic geometry/charge receiving. Parent
+`32435e6fd` now passes smoke, performance, Ruff, dependency, guide, suite-policy
+and publication checks; its full matrix remains queued. That CI does not
+qualify the changed source. Native #549/#559–#562 remain owner work. New #564
+records independently reproduced triclinic water-box membership errors; the
+unexposed factory is not repaired in the addon. Exposure
+is 224/244, build 19/30 and mechanics 4/6, separate from owner acceptance,
+new-head hosted completion, installed qualification or publication.
 
 ## Group-name scheme design accepted — 2026-11-04
 

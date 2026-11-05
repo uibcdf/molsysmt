@@ -43,3 +43,11 @@ without automatic chemistry preparation or view adoption. Retain declared
 chain/operator/structure scope, typed charge/inventory prerequisites and distinct
 direct/merged identity. Keep all original biological scenarios, code, saved
 outputs, cell IDs and notebook metadata unchanged in prose-only receiving.
+
+
+Keep the independent addon atom-expansion routes distinct from hydrogen/pH
+preparation: terminal attachment consumes declared parents and all-structure
+coordinates with original-axis history; heavy repair uses bounded templates and
+can reorder atoms or leave gaps unassessed. Both preserve the source scene and
+apply declared loss/invalidation policies to their output, with no implicit
+adoption. Preserve all existing code, outputs, IDs and biological scenarios.

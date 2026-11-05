@@ -20,8 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (3)
 
+- [`water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md`](water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md) — [#564](https://github.com/uibcdf/molsysmt/issues/564) — make_water_box places oxygen sites outside the requested triclinic cell. *(high, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`is_solvated_fails_for_multiple_structures.md`](is_solvated_fails_for_multiple_structures.md) — [#504](https://github.com/uibcdf/molsysmt/issues/504) — is_solvated fails for multiple structures with waters and periodic boxes. *(medium, reproduced)*
 

@@ -30,6 +30,8 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "project_atom_names",
         "make_bioassembly",
         "merge_nonpolar_hydrogens",
+        "add_terminal_atoms",
+        "add_missing_heavy_atoms",
     ):
         assert rows[f"build.{name}"]["exposed"]
         assert rows[f"build.{name}"]["input_kind"] == "primary"

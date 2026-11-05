@@ -9,12 +9,18 @@ from ._basic import _native_documentation
 def _independent_build_documentation(name):
     def decorate(function):
         function = _native_documentation(name, module="build")(function)
+        result_description = (
+            "returns a dictionary containing a separate molecular system and its report; "
+            if name == "add_terminal_atoms"
+            else "returns a separate molecular system; "
+            if name in {"make_bioassembly", "add_missing_heavy_atoms"}
+            else "returns a separate molecular system, optionally with its report; "
+        )
         function.__doc__ += (
             "\nView integration\n----------------\n"
             "Reads the current view.molsys through the serialized molecular "
             "reader, including completed pending edits. The native function "
-            "returns a separate molecular system"
-            + ("; " if name == "make_bioassembly" else ", optionally with its report; ")
+            + result_description
             + "it does not replace view.molsys or publish scene/history changes. "
             "There is no update_view control or implicit adoption. Native "
             "chemical-state, structure, method, prerequisite, provenance, unit "
@@ -72,6 +78,39 @@ def _independent_build_documentation(name):
                 "in H5MSM 0.5. Optional attribution and native validation remain "
                 "with MolSysMT.\n"
             )
+        elif name == "add_terminal_atoms":
+            function.__doc__ += (
+                "Each declared atom has one existing parent and supplied finite "
+                "length coordinates covering every source structure. Native "
+                "attachment appends atoms without moving or reordering old atoms, "
+                "inherits parent membership and normalizes IDs to strings. No "
+                "coordinates, chemistry, hydrogen inventory or force-field "
+                "parameters are inferred. The terminal_attachment@1 report "
+                "declares old/new identity, parent pairs, original source axes, "
+                "canonical nm coordinate units and supplied-coordinate evidence. "
+                "An independent record is retained in output preparation history. "
+                "Nonempty expansion invalidates output analysis coverage and "
+                "preserves the source; strict attribute policy rejects unsupported "
+                "new values, while intersection reports discarded attributes. "
+                "An empty addition preserves coverage and attributes. Native "
+                "single-state, mapping and persistence limits remain explicit.\n"
+            )
+        elif name == "add_missing_heavy_atoms":
+            function.__doc__ += (
+                "Native bounded template placement estimates supported missing "
+                "non-H atoms across all source structures. Standard and curated "
+                "modified-residue support, observed-geometry checks and unassessed "
+                "warnings remain native; no clash, stereochemistry, rotamer or "
+                "energy-minimum guarantee is added. Native expansion can reorder "
+                "atom indices while preserving old IDs and observed coordinates. "
+                "Output analyses retain remapped provenance but lose occurrences "
+                "and evaluated coverage. Existing chemistry/state metadata is "
+                "retained; new chemical values remain unknown. Attribute policy "
+                "controls native drops of unsupported structural/mechanical data. "
+                "PDBFixer is an explicit optional engine with its own limits, not "
+                "an automatic fallback. No hydrogen preparation or per-frame "
+                "selection is invented.\n"
+            )
         return function
 
     return decorate
@@ -85,6 +124,8 @@ class _BuildTools:
         "project_atom_names",
         "make_bioassembly",
         "merge_nonpolar_hydrogens",
+        "add_terminal_atoms",
+        "add_missing_heavy_atoms",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -511,5 +552,48 @@ class _BuildTools:
                 "return_report": return_report,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("add_terminal_atoms")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_terminal_atoms(
+        self,
+        new_atoms,
+        coordinates,
+        attribute_policy="intersection",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "add_terminal_atoms",
+            {
+                "new_atoms": new_atoms,
+                "coordinates": coordinates,
+                "attribute_policy": attribute_policy,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("add_missing_heavy_atoms")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_missing_heavy_atoms(
+        self,
+        selection="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        skip_digestion=False,
+        *,
+        attribute_policy="intersection",
+    ):
+        return self._call(
+            "add_missing_heavy_atoms",
+            {
+                "selection": selection,
+                "syntax": syntax,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+                "attribute_policy": attribute_policy,
             },
         )

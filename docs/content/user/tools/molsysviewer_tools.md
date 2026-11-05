@@ -93,6 +93,9 @@ Independent `build` results also include biological assemblies and an explicit
 AutoDock4 nonpolar-hydrogen projection. They preserve native preparation and
 mapping requirements and never replace the view automatically; see the
 construction examples below.
+Explicit terminal-atom attachment and bounded missing-heavy-atom repair are
+also available as independent outputs. Their atom identity, attribute-loss
+and saved-analysis contracts are described below.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -3326,6 +3329,124 @@ at call time and read completed pending edits without scene synchronization.
 They preserve native `skip_digestion` and validation semantics. Neither offers
 `in_place` or `update_view`; deliberately chain the independent result or load it
 with the ordinary Viewer replacement API when that is your intention.
+
+## Expanding independent atom inventories
+
+### Attaching declared terminal atoms
+
+`view.addons.molsysmt.build.add_terminal_atoms` attaches each declared atom to
+one existing parent. You supply both the atom records and finite length
+coordinates covering every source structure. The method always returns a
+dictionary containing `molecular_system` and `report`; it does not place atoms
+for you or replace `view.molsys`:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+import numpy as np
+
+builder = msm.MolSysBuilder()
+builder.add_atom(atom_type="C", atom_name="C", atom_id="original")
+builder.set_coordinates(msm.pyunitwizard.quantity([[[0., 0., 0.]]], "nm"))
+with msv.new_view(builder.build()) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.add_terminal_atoms(
+        new_atoms=[{"parent_atom_index": 0, "atom_type": "H", "atom_id": 40}],
+        coordinates=msm.pyunitwizard.quantity([[[0., 0., 1.09]]], "angstrom"),
+    )
+    output, report = result["molecular_system"], result["report"]
+    assert source.get_n_atoms() == 1 and output.get_n_atoms() == 2
+    assert output.topology.atoms.atom_id.tolist() == ["original", "40"]
+    assert report["schema"] == "molsysmt.terminal_attachment@1"
+    assert report["coordinate_unit"] == "nm"
+    assert report["coordinate_evidence"] == "supplied_coordinates"
+    np.testing.assert_array_equal(report["atom_correspondence"], [[0, 0]])
+    np.testing.assert_array_equal(report["parent_atom_pairs"], [[0, 1]])
+    assert view.molsys is source
+```
+
+This small example declares a bond and a position; it is not a complete
+molecular preparation. Existing atoms keep their indices, IDs and coordinates.
+New atoms inherit their parent's membership; optional records declare names,
+IDs, isotopes, bond orders and chemical attributes. There is no automatic
+hydrogen-inventory correction, protonation, charge or force-field assignment.
+The native operation requires exactly one chemical state. Coordinates have
+shape `(n_structures, n_new_atoms, 3)`, independent of the visible frame.
+
+The report records the original source axes, old/new correspondence, parent
+pairs, generated string IDs and discarded attributes. It declares canonical nm
+units and supplied-coordinate evidence; it does not embed coordinate arrays.
+An independent copy enters the output's ChemicalStates preparation history,
+which H5MSM preserves. Historical indices describe the operation's original
+domain, not a live map after later extraction or reordering. Editing the returned
+report does not rewrite that history or authenticate its source.
+
+Nonempty attachment invalidates evaluated coverage on output analyses while
+preserving their definitions and source mappings; added atoms have source index
+`-1`. The original view's analyses stay unchanged. `attribute_policy="intersection"`
+reports unsupported structural/mechanical attributes that are dropped instead
+of fabricating values for new atoms. `"strict"` rejects such loss. An empty
+addition returns an independent unchanged system, retains attributes and
+analysis coverage, and records the examined scope in preparation history.
+See {ref}`Attaching terminal atoms <Tutorial_Add_Terminal_Atoms>` and
+{func}`molsysmt.build.add_terminal_atoms` for record fields and native limits.
+
+### Repairing supported missing heavy atoms
+
+`view.addons.molsysmt.build.add_missing_heavy_atoms` returns a new molecular
+system. Its native engine estimates supported missing non-H positions from
+bounded local templates. For example, explicitly remove one serine oxygen from
+a generated peptide before loading it, then repair that selected group:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("SerAla", engine="MolSysMT")
+molsys = msm.extract(molsys, selection="atom_type!='H' and atom_name!='OG'")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    output = view.addons.molsysmt.build.add_missing_heavy_atoms(
+        selection="group_name=='SER'", engine="MolSysMT",
+        attribute_policy="intersection",
+    )
+    assert output.get_n_atoms() == source.get_n_atoms() + 1
+    assert msm.select(output, selection="atom_name=='OG'")
+    assert not msm.select(source, selection="atom_name=='OG'")
+    assert view.molsys is source
+```
+
+The example can emit the native attribute-drop warning for the peptide's old
+atom parameters. The tool assigns no parameters to newly added atoms. The native engine
+preserves observed coordinates, old atom IDs, time, box and declared state
+metadata, but sorting by group can change indices. Use the output's native
+identity/source maps when relating it to earlier results; do not assume all
+old indices remain fixed. New chemical fields remain unknown and connectivity
+completeness becomes partial. Output analyses keep remapped provenance but
+lose occurrences and evaluated coverage after atom expansion; source analyses
+are preserved. No-change results retain their original analysis snapshots.
+
+The native engine supports bounded standard-residue placement and curated
+MSE/SEP/TPO cases. An ambiguous or unsupported gap can remain unchanged with
+`UnassessedResidueWarning`; absence of an exception does not mean every gap was
+repaired. Observed-anchor and bond-geometry checks do not certify clashes,
+stereochemistry, rotamers or an energy minimum. Repair examines all source
+structures; there is no implicit visible-frame selection. Full native copies
+can materialize trajectory coordinates.
+
+`engine="PDBFixer"` explicitly selects the optional external provider with its
+own chemistry, conversion and preservation limits. It is not an automatic
+fallback and currently supports only intersection attribute policy here. The
+native engine's multi-state and strict-loss rejections remain explicit. There
+is no `return_report`, `in_place` or `update_view` argument on this method.
+See {ref}`Adding heavy atoms <Tutorial_Add_missing_heavy_atoms>` and
+{func}`molsysmt.build.add_missing_heavy_atoms` for native scope and alternatives.
+
+Both expansion tools read the current primary through the serialized reader,
+including completed pending edits, and never synchronize or adopt the result.
+Cached methods follow ordinary replacement/close behavior. Use the returned
+system in later native calculations or deliberately load it with the ordinary
+Viewer replacement API; molecular construction and scene adoption are separate.
 
 ## Recognizing hydrogen-bond sites and local directions
 

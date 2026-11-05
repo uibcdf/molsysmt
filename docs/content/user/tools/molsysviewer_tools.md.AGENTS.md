@@ -404,3 +404,16 @@ units explicit, preserve derived assignment provenance and clear only output
 analyses. Representative lineage is not removed-atom identity or coordinates.
 Neither tool prepares chemistry, adopts results or offers update_view/in_place.
 Keep pending reads, lifetime, resident-output and H5MSM 0.5 mechanics limits.
+
+
+Preserve primary-bound independent add_terminal_atoms and add_missing_heavy_atoms.
+Attachment always returns its dictionary/report, appends declared atoms with
+all-structure supplied coordinates and preserves old indices; no inventory or
+chemistry is inferred. Keep one-state requirements, original report axes, nm
+coordinate evidence, detached preparation history and H5MSM preservation explicit.
+Heavy repair keeps native bounded standard/curated templates, all-structure
+geometry, unassessed warnings, possible atom reordering and unknown new chemistry.
+Distinguish native strict/intersection policies, output-only remapped analysis
+invalidation, no-change coverage and source/scene preservation. PDBFixer remains
+an explicit optional provider with separate limits; no hidden fallback or
+physical-refinement certificate. Neither tool adopts results or adds update_view.
