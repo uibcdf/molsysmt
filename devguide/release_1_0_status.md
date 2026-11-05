@@ -20,6 +20,37 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Per-structure solvation predicate — 2026-11-05
+
+**#504 is source-corrected.** `build.is_solvated` now accepts keyword-only
+`structure_indices='all'`, retaining source order/repetitions. It preserves Python
+bool for one selected structure and returns a Boolean vector for multiple/empty
+selections, with no implicit ensemble aggregation. The existing addon mirror and
+its help delegate the same contract. Native inputs need only inventory and box
+metadata; foreign-file loading retains its existing adapter costs.
+
+The criterion remains global water density above 15 waters/nm³. Independent unit
+controls exposed a floating-point equality difference between nm and angstrom/pm
+representations; the explicit eight-epsilon relative equality tolerance fixes
+that numerical boundary without a physical density margin. Absent waters/box
+produce false per selected structure; unknown inventory and unusable volumes
+have native diagnostics. This is not a solvent-completeness/equilibration claim.
+
+Receiving passes **796 affected tests**, **41 published-floor native cases**,
+**544 documentation controls** and the native doctest. The full tutorial executes
+13 code cells; the existing course/Cookbook executable content is preserved. The
+[#504 archived record](archive/resolved_bugs/is_solvated_fails_for_multiple_structures.md)
+and [receipt](../devtools/data/solvation_predicate_receiving_504_20261105.json)
+retain failures, corrected test assumptions, source identities and scope. No
+compiled kernel or dependency floor changes. Hosted and installed/release
+qualification remain separate.
+
+The checkpoint review finds no newer open issue than #572 and observes expansion
+PR #543 at 10ef88c907aa6a1bef83c76efee7f1beffbddcdf. That observation is not its
+admission or acknowledgement of the native naming handoff. The next independent
+corrections are #568 mutation selection/syntax, then #564 triclinic water boxes;
+#549 D6/D7 continues when the expansion owner is ready.
+
 ## CIF observations and assembly receiving — 2026-11-05
 
 **#556 and #563 are source-corrected.** CIF/BinaryCIF and compressed imports
@@ -97,8 +128,8 @@ latest fifty updated open reports preserves this route after #569–#571:
 
 1. Receive #543's naming mirrors and complete #549 D6/D7 when its owner is ready;
    independent native bug fixes continue meanwhile.
-2. Continue #504's multi-structure solvation contract, #568's mutation
-   selection/syntax and #564's triclinic water-box correctness.
+2. Continue #568's mutation selection/syntax, then #564's triclinic water-box
+   correctness. #504 is received in the solvation-predicate checkpoint above.
 3. Receive #559–#562 engine/platform/registry/partition/doc failures. Review the
    new #572 native-force input proposal with the same mechanics contracts;
    decide environment, selection and units before implementing that route.

@@ -181,6 +181,10 @@ sections:
             file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb
             agents_file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb.AGENTS.md
             description: Sparse preflight of all selected alternative observations, maximum/tie semantics, coherent primary occupancy and B factors, stable labels, unknown values and selective interaction invalidation.
+          - name: is_solvated
+            file: docs/content/user/tools/build/is_solvated.ipynb
+            agents_file: docs/content/user/tools/build/is_solvated.ipynb.AGENTS.md
+            description: Metadata-only per-structure water-density predicate, explicit structure order/repetition, scalar/vector/empty outputs, unit-boundary roundoff and deliberate ensemble reductions.
           - name: make_bioassembly
             file: docs/content/user/tools/build/make_bioassembly.ipynb
             agents_file: docs/content/user/tools/build/make_bioassembly.ipynb.AGENTS.md
@@ -722,7 +726,7 @@ sections:
         agents_file: docs/content/user/cookbook/big_data_trajectories.ipynb.AGENTS.md
         status: reviewed
       - name: from_pdb_to_solvated_box
-        description: Solvating a system, inspecting actual periodic geometry and choosing selected coordinate edit ownership.
+        description: Solvating a system, inspecting actual periodic geometry, scoped coordinate-edit ownership and bounded per-structure water-density auditing.
         file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb
         agents_file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb.AGENTS.md
       - name: binding_pocket_isolation

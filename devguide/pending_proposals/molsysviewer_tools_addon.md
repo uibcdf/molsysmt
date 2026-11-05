@@ -2049,7 +2049,11 @@ installed qualification, tags/packages and both 1.0 publications remain separate
 The expert build namespace now exposes eleven of thirty inspected native paths.
 The eight additions are get_missing_heavy_atoms, get_missing_bonds,
 get_missing_residues, get_missing_terminal_cappings, get_non_standard_residues,
-get_disulfide_bonds, has_hydrogens and is_solvated. All are serialized reads of
+get_disulfide_bonds, has_hydrogens and is_solvated. The latter accepts explicit
+structure indices, retaining order/repetitions; one selected structure returns
+bool and multiple/empty selections return a Boolean vector, without implicit
+aggregation. It checks global indexed-water density, not solvent completeness.
+All are serialized reads of
 the current primary, including pending science, with native result and source/
 scene ownership. There is no repair, covalent assignment, scene update or
 implicit choice of visible structure. Four legacy signatures lack native

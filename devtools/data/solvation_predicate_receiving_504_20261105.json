@@ -1,0 +1,281 @@
+{
+  "schema": "molsysmt.receiving.solvation-predicate@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#504",
+  "baseline_main": "06c065d335c7e42af141e9d85ee8e7e65a08e279",
+  "environment": {
+    "os": "Linux",
+    "machine": "x86_64",
+    "python": "3.14.7",
+    "workspace": "existing shared Python 3.14 development environment",
+    "pytest_receptor": "1.2.1 published payload",
+    "test_overrides": {
+      "MPLBACKEND": "Agg",
+      "OMP_NUM_THREADS": "1",
+      "PYTHONPATH": "Verified published Pytest Receptor overlay plus this checkout; floor run additionally prepends the four cached published providers recorded below."
+    }
+  },
+  "contract": {
+    "single_selected_structure": "Python bool",
+    "multiple_or_empty": "one-dimensional numpy Boolean array",
+    "structure_selection": "keyword-only structure_indices=all; source positions, requested order/repetitions; None refused",
+    "threshold": "above 15 indexed waters/nm**3",
+    "numerical_equality": "within eight relative machine epsilons of the threshold; not a physical density margin",
+    "native_loading": "inventory and box metadata; coordinate materialization refused in a passing guard",
+    "foreign_loading": "existing adapter costs; public H5MSM 0.5 resident-load boundary retained",
+    "compatibility_note": "Multi-structure no-water/no-box cases now return aligned false vectors, whereas the previous short circuit returned one false scalar. Single-structure bool and the old positional skip flag are retained."
+  },
+  "source_and_test_sha256": {
+    "molsysmt/build/is_solvated.py": "6531b2e836e9238ba5b7787d8b56d0f2c9dfd99eb187ff1a5930f597decb0f3e",
+    "molsysviewer_molsysmt/_build.py": "4d095407f9fb25f9d91685215f754fc3f12142e9729e288a6daee2e0a0db18d0",
+    "molsysviewer_molsysmt/_basic.py": "2c80ab7b189dbe6e963e9a7a63dbe647ddf334fcb1d1ed15b2c36b2f4fab574e",
+    "tests/build/is_solvated/test_structure_contract.py": "c0b5fb756b4af6f3d839505141ac9e5fd14f5fc5fde5f77cfa45d103a6280b3d",
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": "266359ef924a74976415d552c41ceeae7df8689f39e942d4a640b46dfc7ff768",
+    "docs/content/user/tools/build/is_solvated.ipynb": "825a9a4333d28f33be7080aea58698a9b0b3f82b228b7e9b516658785609e1c7"
+  },
+  "receiving": [
+    {
+      "artifact": ".pytest_cache/solvation-504/before.xml",
+      "sha256": "99abe206b5673796f139b8cf53549cf2b22c6f6e011f6f16c7dd9f9910421b0d",
+      "exit_code": 1,
+      "scope": "Initial draft on original native code; includes invalid interaction item-assignment fixture.",
+      "tests": 34,
+      "failures": 26,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "4",
+        "tests/build/is_solvated/test_structure_contract.py"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/solvation-504/baseline-corrected.xml",
+      "sha256": "ec6b92678ac835775a8cb771740b16d6026d742c0961e2ea0bb40e2637ab14e0",
+      "exit_code": 1,
+      "scope": "Original native code: 28 failures and six passes. One failure remains a nonexistent Structures.to_dict fixture call, subsequently corrected; not all failures are production defects.",
+      "tests": 34,
+      "failures": 28,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "4",
+        "tests/build/is_solvated/test_structure_contract.py"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/solvation-504/first-received.xml",
+      "sha256": "0be2d28627e00055344ebb412fb79ac0de544bae3af2e1bc20b95e59c8a898a4",
+      "exit_code": 0,
+      "scope": "First 34-case native receiving before additional coordinate/unit-boundary controls.",
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "4",
+        "tests/build/is_solvated/test_structure_contract.py"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/solvation-504/native-addon-first.xml",
+      "sha256": "79e6e194527175879bfe77709d22179c35aea5f20f4554d855634b78c5ffdc74",
+      "exit_code": 1,
+      "scope": "97 passes and three failures: scalar-only client equality assertions and a coordinate sentinel missing the backend owned keyword.",
+      "tests": 100,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "4",
+        "tests/build/is_solvated",
+        "tests/molsysviewer_molsysmt/test_build_audit_tools.py"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/solvation-504/native-addon-second.xml",
+      "sha256": "a4a9fed5c041a9b3efc3c46e192af0de37143c74bacd9d82e51467ec43924241",
+      "exit_code": 0,
+      "scope": "105 native/client cases including unit-boundary and coordinate-read guards.",
+      "tests": 105,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "4",
+        "tests/build/is_solvated",
+        "tests/molsysviewer_molsysmt/test_build_audit_tools.py"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/solvation-504/affected.xml",
+      "sha256": "fca517da5547f685c735a6dd1dbbdbddb01f6e06bc06e994f34e989aef377881",
+      "exit_code": 0,
+      "scope": "796 affected native, PBC, basic-get, solvation and addon cases; four workers. Final subsequent edits only clarify loading costs in prose/docstrings.",
+      "tests": 796,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "4",
+        "-m",
+        "not network and not heavy",
+        "tests/build/is_solvated",
+        "tests/build/has_hydrogens",
+        "tests/build/solvate",
+        "tests/pbc",
+        "tests/basic/get",
+        "tests/native/test_structures_extended.py",
+        "tests/native/test_atom_observation_setters.py",
+        "tests/molsysviewer_molsysmt/test_build_audit_tools.py",
+        "tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/solvation-504/provider-floors.xml",
+      "sha256": "c788f0122b0e9479a9e1e82e19dbe7ab44a6639c4c9305a9edd81d85cc8f44ad",
+      "exit_code": 0,
+      "scope": "41 native contract cases with published support-library floors; two workers. Existing #524 installed-plugin limitation disables only the SMonitor pytest entry point, retaining runtime diagnostics and every assertion.",
+      "tests": 41,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "2",
+        "tests/build/is_solvated/test_structure_contract.py"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/solvation-504/documentation.xml",
+      "sha256": "8fa716e82bfddf8fe806ac4037ec9b02a5323dbf66f0f986e8fb61a747e1db04",
+      "exit_code": 0,
+      "scope": "544 schema/course/docstring/Sphinx/client-inventory controls; two workers.",
+      "tests": 544,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "2",
+        "devtools/tests/test_documentation_notebook_schema.py",
+        "devtools/tests/test_validate_course.py",
+        "devtools/tests/test_validate_docstrings.py",
+        "devtools/tests/test_documentation_source_boundary.py",
+        "devtools/tests/test_documentation_directive_rendering.py",
+        "devtools/tests/test_molsysviewer_tools_api_inventory.py"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/solvation-504/doctest.xml",
+      "sha256": "f6ea0345fddccb9a886cd607b8fc43e136e348c67a0a9357e4d2c6dd7561190c",
+      "exit_code": 0,
+      "scope": "Native solvation-predicate doctest; no subsequent executable changes.",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--doctest-modules",
+        "molsysmt/build/is_solvated.py"
+      ]
+    }
+  ],
+  "published_floor_versions": {
+    "argdigest": "0.14.0",
+    "depdigest": "0.15.1",
+    "smonitor": "0.16.0",
+    "ackredit": "0.9.0"
+  },
+  "documentation": {
+    "tutorial_executed": true,
+    "code_cells": 13,
+    "executor_exit_code": 0,
+    "executor_elapsed_seconds": 8.7,
+    "initial_sandbox_attempt": "kernel startup failed before code execution because local sockets were unavailable",
+    "course_and_cookbook_executable_cells_outputs_and_metadata_preserved": true,
+    "executor_command": [
+      "python",
+      "docs/execute_notebooks.py",
+      "-q",
+      "-n",
+      "1",
+      "-f",
+      "docs/content/user/tools/build/is_solvated.ipynb"
+    ]
+  },
+  "other_checks": {
+    "ruff_check": 0,
+    "ruff_format_check": 0,
+    "formatted_python_files": 4358,
+    "public_docstring_validator": {
+      "exit_code": 0,
+      "functions": 246
+    },
+    "soft_dependency_validator": 0,
+    "course_structure_validator": 0
+  },
+  "native_binary": {
+    "sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rebuilt": false
+  },
+  "queue_review": {
+    "newest_open_issue": 572,
+    "unreceived_pr": 543,
+    "observed_pr_head": "10ef88c907aa6a1bef83c76efee7f1beffbddcdf",
+    "next_independent_issues": [
+      568,
+      564
+    ]
+  },
+  "limits": [
+    "Receiving runs overlap and are not additive.",
+    "This is a water-count/box-volume heuristic, not physical solvation calibration or molecular preparation.",
+    "No browser, Qt, full platform, installed-package or release qualification is claimed.",
+    "No optional engine, dependency floor, H5MSM schema or compiled numerical kernel is changed.",
+    "Raw local receipts are retained with their hashes; this manifest omits developer-machine paths."
+  ]
+}

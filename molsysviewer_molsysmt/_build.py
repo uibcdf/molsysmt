@@ -283,10 +283,13 @@ class _BuildTools:
     def is_solvated(
         self,
         skip_digestion=False,
+        *,
+        structure_indices="all",
     ):
         return self._call(
             "is_solvated",
             {
                 "skip_digestion": skip_digestion,
+                "structure_indices": structure_indices,
             },
         )

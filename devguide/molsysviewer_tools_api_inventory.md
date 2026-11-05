@@ -396,3 +396,20 @@ AB onward. The test-only correction preserves declared IDs and source ownership;
 the addressed guard passes 1/1 and the full module 5/5. No scientific code is
 changed. The original 6,166-case source/regression record keeps its own basis.
 Native #520 still limits named-analysis append with explicit state links.
+
+## Solvation predicate receiving — 2026-11-05
+
+The earlier #504 limitation above is repaired in the native provider and its
+existing explicit build mirror. `is_solvated` preserves its positional native
+skip flag and adds keyword-only `structure_indices='all'`. One selected structure
+returns Python bool; multiple or empty selections return a Boolean vector in
+requested order, retaining repetitions. The addon forwards the native result
+without aggregation, visible-structure substitution, preparation or scene edits.
+
+The density criterion remains a global indexed-water count divided by periodic
+volume, above 15 waters/nm³ with a documented machine-roundoff equality tolerance.
+Unknown inventory and unusable volumes have explicit native diagnostics. This
+correction adds no public path and does not change historical exposure receipts.
+Native/client receiving and final source identity belong to the
+[#504 record](archive/resolved_bugs/is_solvated_fails_for_multiple_structures.md); hosted
+and installed/release qualification remain separate.

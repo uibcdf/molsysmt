@@ -724,8 +724,10 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             function.__doc__ += (
                 "This whole-system native density predicate uses stored water count "
                 "and box volume, not solvent completeness or a preparation protocol. "
-                "It has no structure-selection argument; multi-structure behavior "
-                "and errors are delegated without inventing an aggregation.\n"
+                "Explicit structure_indices retain order and repetitions. One "
+                "selected structure returns bool; multiple or empty selections "
+                "return a Boolean vector. There is no implicit aggregation or "
+                "visible-structure substitution.\n"
             )
         if module == "build" and name == "get_residue_chemical_coverage":
             function.__doc__ += (
