@@ -10,7 +10,11 @@ def _independent_build_documentation(name):
     def decorate(function):
         function = _native_documentation(name, module="build")(function)
         result_description = (
-            "returns a dictionary containing a separate molecular system and its report; "
+            "returns an independent native MolSysBuilder; "
+            if name == "editable"
+            else "returns a new system when molecules are removed, otherwise the current primary; "
+            if name == "remove_overlapping_molecules"
+            else "returns a dictionary containing a separate molecular system and its report; "
             if name == "add_terminal_atoms"
             else "returns a separate molecular system; "
             if name
@@ -145,6 +149,40 @@ def _independent_build_documentation(name):
                 "retain their native limitations; no report, attribute policy "
                 "or hidden preparation control is invented.\n"
             )
+        elif name == "editable":
+            function.__doc__ += (
+                "The builder copies native topology, chemical states, structures "
+                "and state associations. Native builder conversion does not carry "
+                "molecular mechanics or named interaction analyses. Its edits and "
+                "build() outputs remain independent, also after owner replacement "
+                "or closure; they are not managed edits of view.molsys. Native "
+                "builder validation, coordinate-growth restrictions and domain "
+                "limits remain unchanged. A loaded owner is required; use "
+                "molsysmt.build.editable() directly to start an empty builder.\n"
+            )
+        elif name == "remove_overlapping_molecules":
+            function.__doc__ = function.__doc__.replace(
+                "\nReturns\n-------",
+                "\nskip_digestion : bool, default=False\n"
+                "    Keyword-only addon validation control, not forwarded to "
+                "the native function. Native validation always applies.\n\n"
+                "Returns\n-------",
+                1,
+            )
+            function.__doc__ += (
+                "selection identifies candidate atoms whose entire declared "
+                "molecules can be removed; selection_2 supplies reference atoms, "
+                "or its default uses the atom complement, including unselected "
+                "atoms of partially selected candidate molecules. There is no "
+                "implicit exclusion of contacts within one molecule. Contacts are evaluated only "
+                "at structure_index, default 0 rather than the visible structure. "
+                "Removal applies to every retained structure with native remapping. "
+                "Native pbc=True falls back to nonperiodic contacts without a box. "
+                "There is no alignment, chemistry repair or repeated trajectory "
+                "calculation. A no-contact result aliases view.molsys, so subsequent "
+                "raw edits to that result are ordinary external system edits, not "
+                "automatically observed scene changes.\n"
+            )
         return function
 
     return decorate
@@ -162,6 +200,8 @@ class _BuildTools:
         "add_missing_heavy_atoms",
         "add_missing_hydrogens",
         "add_missing_terminal_cappings",
+        "editable",
+        "remove_overlapping_molecules",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -688,5 +728,37 @@ class _BuildTools:
                 "syntax": syntax,
                 "engine": engine,
                 "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("editable")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def editable(self, skip_digestion=False):
+        return self._call("editable", {"skip_digestion": skip_digestion})
+
+    @_independent_build_documentation("remove_overlapping_molecules")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def remove_overlapping_molecules(
+        self,
+        selection,
+        selection_2=None,
+        structure_index=0,
+        threshold="3 angstroms",
+        pbc=True,
+        syntax="MolSysMT",
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "remove_overlapping_molecules",
+            {
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_index": structure_index,
+                "threshold": threshold,
+                "pbc": pbc,
+                "syntax": syntax,
             },
         )

@@ -98,6 +98,8 @@ also available as independent outputs. Their atom identity, attribute-loss
 and saved-analysis contracts are described below.
 Hydrogen generation and terminal capping also mirror their native paths;
 the pH-driven and explicitly fixed-state preparation contracts remain distinct.
+Native builder staging and molecule-overlap filtering are also exposed, with
+explicit independent-builder and conditional-result ownership.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -3574,6 +3576,101 @@ completed pending edits, without synchronizing or adopting their output.
 Cached methods follow replacement and reject closed/empty owners. Explicitly
 chain returned systems or use ordinary Viewer replacement when you intend to
 change the scene; preparation and scene adoption remain separate operations.
+
+## Staging edits and filtering overlapping molecules
+
+### Working on a separate builder
+
+`view.addons.molsysmt.build.editable()` initializes a native `MolSysBuilder`
+from the current system. You can stage supported edits without changing the
+molecule or scene in the view, then build a separate molecular system:
+
+```python
+import molsysviewer as msv
+
+with msv.demo["dialanine"] as view:
+    source = view.molsys
+    builder = view.addons.molsysmt.build.editable()
+    before = builder.n_bonds
+    builder.remove_bonds([0])
+    output = builder.build()
+    assert output.chemical_states.get(n_bonds=True) == before - 1
+    assert source.chemical_states.get(n_bonds=True) == before
+    assert view.molsys is source
+```
+
+Deleting a bond here illustrates ownership; it does not prepare a chemically
+valid peptide. Native builder validation and chemical-state choices apply to
+each edit. For example, adding atoms to a builder carrying atom-dependent
+coordinates is rejected; existing structural arrays are not silently expanded.
+
+Conversion copies the native topology, chemical states, structures and declared
+structure/state associations. A builder does not store molecular mechanics or
+named interaction analyses; building it does not restore those domains from the
+source. Inspect the output's actual domain availability before downstream work.
+Full native copying can materialize structural data and is not an out-of-core
+trajectory interface.
+
+The builder and its outputs remain usable after the view is replaced or closed.
+A new call through the cached addon method reads the replacement system, and
+calls through a closed or empty view reject. The addon requires a loaded system;
+use ordinary `msm.build.editable()` to start an empty builder. Its native
+`skip_digestion` flag is retained. Builder edits are not managed scene edits,
+and `sync_view()` does not adopt a builder's output. Deliberately load the
+returned system if you want to replace the scene. See
+{func}`molsysmt.build.editable` and {ref}`Editing systems <Tutorial_Editable>`.
+
+### Removing candidate molecules near reference atoms
+
+`view.addons.molsysmt.build.remove_overlapping_molecules()` finds candidate
+atoms closer than the requested distance to reference atoms and removes their
+entire declared molecules from the returned system. Choose the two sides
+explicitly when filtering solvent near a protein:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+with msv.demo["181L"] as view:
+    source = view.molsys
+    before = msm.get(source, n_waters=True)
+    output = view.addons.molsysmt.build.remove_overlapping_molecules(
+        selection="molecule_type=='water'",
+        selection_2="molecule_type=='protein'",
+        structure_index=0, threshold="3 angstroms", pbc=False,
+    )
+    assert msm.get(output, n_waters=True) < before
+    assert msm.get(source, n_waters=True) == before
+    assert view.molsys is source
+```
+
+`selection` supplies removable candidate atoms; `selection_2` supplies reference
+atoms. A single contacting candidate atom removes its whole molecule. With
+`selection_2=None`, the reference is the **atom complement** of `selection`.
+If you select only part of a candidate molecule, its unselected atoms can be
+reference contacts too: there is no automatic exclusion of contacts within the
+same molecule. Select complete candidate molecules or supply an explicit
+reference selection when that is your intent.
+
+The decision uses one explicit `structure_index` (default 0), independently of
+the structure visible in the canvas. Removal and native remapping then apply
+to all retained structures. Coordinates, box and time follow native removal;
+saved analyses follow its subset maps and coverage contract. `syntax` retains
+native MolSysMT/MDTraj selection behavior. `threshold` is a length quantity;
+`pbc=True` uses native periodic contacts when a box is present and falls back
+to nonperiodic contacts without one. No fitting, wrapping, chemistry repair,
+trajectory-wide contact decision or physical relaxation is added.
+
+When molecules are removed, the output is separate and the source is preserved.
+When nothing is removed, native MolSysMT returns the **original system**:
+`output is view.molsys`. Copy it explicitly before independent raw edits if
+needed. The addon does not disguise that alias or automatically observe raw
+changes. Its keyword-only `skip_digestion` controls addon validation only;
+it is not forwarded and never bypasses native validation. Neither tool adds
+`in_place`, `update_view` or automatic scene adoption. Completed pending edits
+are read without synchronizing the scene. See
+{func}`molsysmt.build.remove_overlapping_molecules` and
+{ref}`Filtering overlaps <Tutorial_Remove_overlapping_molecules>`.
 
 ## Recognizing hydrogen-bond sites and local directions
 

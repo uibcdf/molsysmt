@@ -428,3 +428,12 @@ Capping can complete the opposite free terminus as well as insert ACE/NME;
 retain native all-structure scope, reordering/invalidation and attribute losses.
 Keep approximate chemistry, unassessed gaps and provider/keep_ids limitations
 explicit, with independent outputs, pending reads and no automatic scene adoption.
+
+
+Preserve loaded-primary build.editable as a detached native builder, including
+its omitted mechanics/analyses, native edit/growth restrictions, independent
+lifetime and deliberate output adoption. Overlap removal targets whole declared
+molecules from candidate selection using one explicit structure; its default
+reference is the atom complement, including same-molecule partners. Keep native
+PBC fallback/remapping and no-contact primary alias explicit. The keyword-only
+overlap skip flag is addon-only and never disables native validation.

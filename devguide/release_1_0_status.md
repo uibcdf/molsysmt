@@ -20,41 +20,33 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Hydrogen/terminal addon receiving — 2026-11-04
+## Builder/overlap addon receiving — 2026-11-04
 
-PR #543 adds independent `build.add_missing_hydrogens` and
-`build.add_missing_terminal_cappings`. Fixed-state RDKit materialization keeps
-explicit chemistry/inventory, one source structure/state/component, retained
-pose, parent maps and H5MSM preparation history. Legacy pH mode keeps native
-approximate rules and provider limits. Terminal preparation can complete the
-opposite free end as well as insert ACE/NME. Native reordering, attribute loss
-and output-analysis invalidation remain explicit; the scene is not adopted.
+PR #543 adds loaded-primary `build.editable` and
+`build.remove_overlapping_molecules`. The builder copies native domains, omits
+mechanics/named analyses and remains independent after view replacement/close.
+Overlap filtering removes complete candidate molecules using contacts at one
+explicit structure, retaining native remapping and a primary alias when nothing
+is removed. The default atom complement includes same-molecule unselected atoms;
+no exclusion, preparation or automatic scene adoption is introduced.
 
-The 50 new cases have scoped receiving; 110 corrected new/prior build controls,
-two added structure-boundary cases and 56 directed native cases pass. Another
-562 route/docs controls, two unchanged guide blocks, 156 course structures,
-247 docstrings, dependencies and Ruff pass. Original course code, outputs, IDs
-and metadata remain intact. Complete regression retains 4,057 passes and three
-failures from an obsolete absence assertion for the new hydrogen wrapper. The
-corrected diagnostic file passes all 18 cases; all 4,060 semantic cases are
-received across these runs, not a new single green full execution. Scientific
-sources, backend/Rust and data remain unchanged; only the scoped test changes
-after execution. The
-[H/terminal receipt](../devtools/data/molsysviewer_tools_hydrogen_terminal_receiving_20261104.json)
-records exact inputs, initial test-only capping-count corrections and scope.
+All 37 new cases and the 387-case build/serialized-reader integration pass,
+with zero failures/errors/skips. Five directed native and 562 route/docs cases
+pass separately. Two exact guide blocks execute; 156 course structures,
+247 docstrings, dependencies and whole-tree Ruff/format pass. Original course
+code, outputs, IDs and metadata remain intact. All 3,143 frozen source/test
+files, backend/Rust and reference data match after execution. The
+[builder/overlap receipt](../devtools/data/molsysviewer_tools_builder_overlap_receiving_20261104.json)
+retains inputs, warnings, fixture/complement expectation corrections and scopes.
+This is not a new full-addon or installed-package certificate. Exposure is
+228/244, build 23/30 and mechanics 4/6.
 
-Parent `ee1153d98` smoke 41949691156 attempt 2 passes: 5,397 native cases with
-16 optional skips and 4,006 addon cases with four optional Ackredit skips.
-The original repodata failures remain preserved. Performance 41949690963
-attempt 2 completes measurements but fails solely on MDTraj centering +32.11%;
-all measured MolSysMT routes improve. Its historical Python 3.13/dirty baseline
-comparability and third-party gate semantics are now owner proposal #567.
-The failure and unchanged 15% threshold remain binding pending that decision;
-no benchmark implementation or policy is changed here.
-
-Source exposure is 226/244, build 21/30 and mechanics 4/6, separate from owner,
-new-head hosted and installed qualification. #549/#559–#562/#564 retain native
-ownership. No candidate, package or 1.0 publication is produced.
+Parent `53d90adc0` performance 41956040841 passes without another retry or a
+threshold change; five administrative controls pass. Smoke/full remain pending
+at inspection. Earlier `ee1153d98` smoke and failed performance keep their own
+source; #567's comparability/third-party contract remains open. New-head CI,
+owner review/integration and installed qualification stay separate. Native
+#549/#559–#562/#564 remain owner work. No candidate or 1.0 publication.
 
 ## Group-name scheme design accepted — 2026-11-04
 

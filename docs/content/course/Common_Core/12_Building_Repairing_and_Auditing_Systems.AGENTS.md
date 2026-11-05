@@ -59,3 +59,9 @@ pH rules. A selector does not implicitly extract the required single source
 structure/state/component. Terminal preparation can complete the opposite free
 end. Keep source/scene preservation and native provider/chemistry limits, without
 changing original course code, outputs, metadata or biological scenarios.
+
+
+Keep detached builder and conditional overlap-filter ownership explicit, including
+builder domain losses, candidate/reference selection and one-structure decisions.
+A no-removal result aliases the primary; neither route implicitly adopts an output.
+Preserve original code, saved outputs, IDs and notebook metadata.
