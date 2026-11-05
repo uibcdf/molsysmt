@@ -1,6 +1,7 @@
 """Distinguish code alphabets, chemical dictionaries and force-field labels."""
 
 import copy
+import importlib
 import json
 import subprocess
 import sys
@@ -37,6 +38,24 @@ def code(name, scheme=None, **kwargs):
     return msm.element.group.get_1_letter_code_from_name(
         name, naming_scheme=scheme, **kwargs
     )
+
+
+def test_one_letter_projection_has_one_supported_public_entry_point():
+    """Retire the second authority without restoring its implicit legacy meaning."""
+    from molsysmt.element.group.get_1_letter_code_from_name import (
+        get_1_letter_code_from_name,
+    )
+
+    assert msm.element.group.get_1_letter_code_from_name is get_1_letter_code_from_name
+    assert not hasattr(msm.element.group.amino_acid, "get_1_letter_code_from_name")
+    with pytest.raises(ModuleNotFoundError):
+        importlib.import_module(
+            "molsysmt.element.group.amino_acid.get_1_letter_code_from_name"
+        )
+    assert get_1_letter_code_from_name("GLH", naming_scheme="amber") == "E"
+    assert get_1_letter_code_from_name("GLH", naming_scheme="legacy") == "Q"
+    with pytest.raises(ArgumentError):
+        get_1_letter_code_from_name("GLH")
 
 
 @pytest.mark.parametrize("name,letter", ALPHABET.items())

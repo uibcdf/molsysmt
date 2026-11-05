@@ -20,6 +20,26 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Group-name public cutover — 2026-11-05
+
+**Native D6 delivered locally under #549; expansion receiving remains open.**
+The sole scalar code entry is now `element.group.get_1_letter_code_from_name`.
+The former amino-acid implementation/export is removed; historical values use
+explicit legacy context. User/API migration routes remain available, the
+canonical tutorial preserves the original alphabet example, and exact group
+stability/tier inventories retain Experimental status. Existing addon conversion
+and preflight signatures now mirror native from_naming_scheme without source,
+scene or scientific reinterpretation in the wrapper.
+
+Local receiving passes **9,062 native tests**, **2,699 addon/integration
+controls**, **270 published-floor cases**, **548 documentation controls** and
+**three doctest items**, without omissions. The tutorial executes ten cells;
+course executable content is unchanged. The
+[owning record](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#d6-native-public-cutover-and-addon-receiving--2026-11-05)
+retains failures/corrections, source hashes and PR #543's required wrapper,
+signature, discovery and manifest handoff. This checkpoint does not admit that
+expansion or complete D7/installed-release qualification; #549 stays active.
+
 ## Group-name fidelity receiving — 2026-11-05
 
 **D5 complete locally under #549.** Conversion/preflight now reports selected

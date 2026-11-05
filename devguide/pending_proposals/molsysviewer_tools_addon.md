@@ -14,6 +14,19 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Native naming-contract receiving — 2026-11-05
+
+Native #549 removes the old amino-acid scalar code entry and retains the
+canonical group-level query with explicit source context. Existing main
+conversion/preflight mirrors now expose native from_naming_scheme; source,
+scene, pending-state and independent-result ownership have focused guards.
+PR #543 remains separate and must update its element/template/construction
+signatures and discovery against this provider. The
+[owning adaptation handoff](../pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#pr-543-adaptation-handoff)
+records inspected expansion head and required changes. Earlier expansion
+counts and native scientific receipts keep their own source identities. This
+does not admit that PR, stabilize profiles or qualify installed artifacts.
+
 ## Metadata candidate accepted — 2026-11-04
 
 Exact candidate fbb09782c3f66735762bd4a507314db692927f97 completes all ten

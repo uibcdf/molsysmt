@@ -111,7 +111,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental expert MolSysViewer addon with native basic tools, all eleven topology, twenty-eight structure, thirteen PBC, thirty-four physchem and fifteen canonical interaction paths at the recorded baseline; eleven build diagnostics, managed edits and synchronization recovery; independent atom maps/order, four system-composition mirrors with managed prefix additions and native partial-write limits, seven explicit H5MSM file utilities and two raw FASTA occurrence readers. Source exposure and bounded receiving retain native scientific prerequisites, provider limits and separate installed qualification.
+          description: Experimental expert MolSysViewer addon with native basic tools, all eleven topology, twenty-eight structure, thirteen PBC, thirty-four physchem and fifteen canonical interaction paths at the recorded baseline; eleven build diagnostics, managed edits and synchronization recovery; independent atom maps/order, four system-composition mirrors with managed prefix additions and native partial-write limits, seven explicit H5MSM file utilities and two raw FASTA occurrence readers. Conversion and preflight expose explicit from_naming_scheme with native conflict/loss handling and independent source ownership. Source exposure and bounded receiving retain native scientific prerequisites, provider limits and separate installed qualification.
       groups:
       - name: basic
         path: docs/content/user/tools/basic
@@ -516,7 +516,11 @@ sections:
           - name: group_name_code
             file: docs/content/user/tools/element/group/get_1_letter_code_from_name.ipynb
             agents_file: docs/content/user/tools/element/group/get_1_letter_code_from_name.ipynb.AGENTS.md
-            description: Bounded scheme-aware amino-acid projection, explicit conversion context, selected-group conflict refusal, mixed native declarations, optional data attribution and H5MSM preservation.
+            description: Canonical group-level code entry, standard twenty and six extended alphabet symbols, explicit naming context, selected-group conflict refusal, mixed native declarations, optional data attribution and H5MSM preservation; former amino-acid route retired.
+          - name: retired_amino_acid_code_route
+            file: docs/content/user/tools/element/group/amino_acid/get_1_letter_code_from_name.md
+            agents_file: docs/content/user/tools/element/group/amino_acid/get_1_letter_code_from_name.md.AGENTS.md
+            description: Historical page and anchor retained as migration guidance to the sole scheme-aware group entry; legacy requires explicit context.
           - name: atom_types
             file: docs/content/user/tools/element/atom/atom_types.md
             agents_file: docs/content/user/tools/element/atom/atom_types.md.AGENTS.md

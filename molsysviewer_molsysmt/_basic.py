@@ -1503,6 +1503,8 @@ class _BasicTools:
         strict=False,
         return_report=False,
         skip_digestion=False,
+        *,
+        from_naming_scheme=None,
         **kwargs,
     ):
         return self._call(
@@ -1515,6 +1517,7 @@ class _BasicTools:
                 "strict": strict,
                 "return_report": return_report,
                 "skip_digestion": skip_digestion,
+                "from_naming_scheme": from_naming_scheme,
             },
             kwargs,
         )
@@ -1529,6 +1532,8 @@ class _BasicTools:
         structure_indices="all",
         syntax="MolSysMT",
         skip_digestion=False,
+        *,
+        from_naming_scheme=None,
     ):
         return self._call(
             "get_conversion_report",
@@ -1538,6 +1543,7 @@ class _BasicTools:
                 "structure_indices": structure_indices,
                 "syntax": syntax,
                 "skip_digestion": skip_digestion,
+                "from_naming_scheme": from_naming_scheme,
             },
         )
 

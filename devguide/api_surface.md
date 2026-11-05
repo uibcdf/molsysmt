@@ -34,7 +34,8 @@ when a registered export disappears, or when the generated table is stale.
 The exact member inventories currently tracked are `molsysmt`, `basic`,
 `structure`, `build`, `pbc`, `physchem`, `topology`, `chemical_states`, `hbonds`, `element.atom`,
 `interactions`, `interactions.hbonds`, `interactions.disulfides`, `interactions.ionic`, and
-`molecular_mechanics`. The canonical hydrogen-bond functions live under
+`molecular_mechanics`. Group and amino-acid exports under `element.group` are
+also tracked exactly and retain Experimental status. The canonical hydrogen-bond functions live under
 `interactions.hbonds`; `hbonds` retains the same function objects as an
 experimental compatibility path. Disulfide candidate observations live under
 `interactions.disulfides`, while recorded covalent bonds belong to ChemicalStates and
@@ -69,6 +70,14 @@ belong to the `1.x` compatibility contract.
 ## Evolution rules
 
 ### Shared chemical value tools and conversion queries
+
+`element.group.get_1_letter_code_from_name` is the sole supported public scalar
+code entry. The former amino-acid entry and its independent legacy authority
+were removed under #549 before 1.0; this is an explicit naming-contract
+correction, not a semantics-preserving alias. Use `naming_scheme='legacy'` for
+historical values. The group and amino-acid registries and derived tiers remain
+experimental. Supported profiles, context refusals and source preservation are
+specified in the [naming guide](../docs/content/user/foundations/molecular_system/naming_schemes.md).
 
 `element.atom.is_atom_type` checks genuine canonical chemical element symbols.
 `element.atom.normalize_atom_types` normalizes explicit D/T hydrogen isotope

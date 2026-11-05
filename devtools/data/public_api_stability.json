@@ -89,6 +89,14 @@
     "molsysmt.chemical_states": {
       "source": "molsysmt/chemical_states/__init__.py",
       "discovery": "package-init"
+    },
+    "molsysmt.element.group": {
+      "source": "molsysmt/element/group/__init__.py",
+      "discovery": "package-init"
+    },
+    "molsysmt.element.group.amino_acid": {
+      "source": "molsysmt/element/group/amino_acid/__init__.py",
+      "discovery": "package-init"
     }
   },
   "signature_waivers": {
@@ -2458,6 +2466,146 @@
       "owner": "root",
       "documentation": "devguide/api_surface.md",
       "contract_tests": "tests/native/test_chemical_domain_separation.py"
+    },
+    "molsysmt.element.group.amino_acid": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.get_1_letter_code_from_name": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group/test_name_resolution.py"
+    },
+    "molsysmt.element.group.get_bonded_atom_pairs": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.get_group_type": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.get_group_type_from_group_name": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.ion": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.is_group_type": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.lipid": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.nucleotide": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.saccharide": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.small_molecule": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.terminal_capping": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.water": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.amino_acid.get_bonded_atom_pairs": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.amino_acid.get_expected_heavy_atoms": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.amino_acid.get_expected_hydrogens": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.amino_acid.get_group_db": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.amino_acid.get_standard_name": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.amino_acid.group_names": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
+    },
+    "molsysmt.element.group.amino_acid.is_amino_acid": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "element",
+      "documentation": "docs/content/user/foundations/molecular_system/naming_schemes.md",
+      "contract_tests": "tests/element/group"
     }
   },
   "pre_1_0_namespace_moves": {

@@ -16,7 +16,8 @@ supersedes: []
 # Legacy names versus explicit native protonation labels
 
 **Reported:** 2026-11-03 while receiving #545/#547. **Status:** active; the
-maintainer accepts the explicit scheme design below. Runtime cutover remains due.
+maintainer accepts the explicit scheme design below. Native public cutover is
+delivered in D6 below; addon-expansion receiving and final acceptance remain due.
 
 ## What
 
@@ -35,8 +36,8 @@ get_1_letter_code_from_name('HID')  # KeyError
 ```
 
 The dated delivery sections below describe the corrected parent/recognition and
-preparation boundaries. The old scalar one-letter helper remains D6 cutover work;
-the initial unqualified parent-helper behavior above is no longer current.
+preparation boundaries. The old scalar one-letter helper is removed by D6 below; both initial
+unqualified helper behaviors above are historical reproductions, not the current API.
 
 ## How
 
@@ -1483,3 +1484,135 @@ pass before the local commit. The scientific assets, native binary, dependency
 floors and four pre-existing human API-stub edits are unchanged. The larger
 conversion tutorial and course retain their exact executable payloads/metadata.
 These local results do not qualify a public artifact or waive D7's combined gates.
+
+
+## D6 native public cutover and addon receiving — 2026-11-05
+
+**Native cutover implemented; coordinated expansion still pending.** The sole
+public scalar code query is `molsysmt.element.group.get_1_letter_code_from_name`.
+The former amino-acid export and implementation are removed, without a runtime
+alias. Historical values remain available through explicit `naming_scheme='legacy'`;
+this is a naming-contract correction, not a claim of unchanged implicit semantics.
+The old unexported amino-acid classifier is also removed: it imported an absent
+legacy data package and called a dictionary as a function, and no live consumer
+used it. The supported group classifier/import alias remains intact.
+
+### Consumers, documentation and classifications
+
+The canonical alphabet tests now call the group helper with explicit `sequence`.
+Existing modified-name controls retain their historical expected values under
+explicit `legacy`; primary-source semantic controls continue to distinguish
+Amber, CCD, sequence and historical meanings. A public guard checks one supported
+function identity, absence of the old export/module and literal Amber/legacy GLH
+results, including refusal without context. No scientific data table is changed.
+
+The duplicate tutorial becomes a narrative migration page at the same published
+HTML location with its original tutorial anchor. The canonical executed tutorial
+retains the original twenty-code demonstration, adds all six extended symbols,
+and preserves naming, source-map, identity, conflict and disk examples. Related
+recognition/parent links move with that content. API navigation, its historical
+migration page, the manifest, User Guide, Cookbook and Module 12 explain the new
+route. The course's executable cells, outputs, IDs and metadata are unchanged.
+The two group package scopes are tracked explicitly by the stability registry;
+all twenty newly enumerated exports retain their inherited Experimental status,
+and the derived support-tier view follows that same authority. This neither
+promotes scientific coverage nor invents a semantics-preserving namespace move.
+
+### Existing addon conversion boundary
+
+The first existing signature guard reproduces two failures and one pass: the
+bound conversion/preflight signatures lag their updated native providers.
+Both wrappers now expose and forward keyword-only `from_naming_scheme=None`,
+retaining all original positional arguments/defaults. ArgDigest still delegates
+scientific validation to the native function; no flag is forced, input is
+reinterpreted locally or metadata inferred from the Viewer. New real-view cases
+check independent declarations, selected-coverage invalidation, unchanged source
+coordinates/analysis identity, scene and synchronization state, and matching
+native conflict/unsupported-profile diagnostics.
+
+The first new 29-case module run has 27 passes and two failures because its
+invalid-profile fixture expects ArgumentError rather than the distinct native
+ArgumentChoiceError. The fixture now specifies the intended class separately;
+provider behavior is unchanged. Failed and final runs have separate JUnit files.
+
+### PR #543 adaptation handoff
+
+Inspected published expansion head:
+`a1dbe0fb67373c32b0ca3276aa40f52250ff9554`, branch
+`addon/element-utilities-20261103`. Its sources are read without modifying its
+working tree or merging the unrelated build/mechanics expansion. Before receiving
+that PR on the corrected native source, its owner must make these changes:
+
+| Surface | Required receiving change |
+| --- | --- |
+| `element.group.get_1_letter_code_from_name` | Move the wrapper from `_AminoAcidTools` to `_GroupTools`; mirror `(name, naming_scheme=None, skip_digestion=False)` and forward all three arguments. Retire the old addon path too. |
+| `element.group.get_group_type_from_group_name` | Retain the original arguments and forward keyword-only `naming_scheme=None`. |
+| `element.group.amino_acid.get_standard_name` and `is_amino_acid` | Mirror native naming_scheme/skip_digestion instead of adding an addon-only skip flag. Native recognition/parent semantics stay authoritative. |
+| Group/amino-acid `get_bonded_atom_pairs`, `get_expected_heavy_atoms` and `get_expected_hydrogens` | Mirror their actual keyword-only naming_scheme plus native skip flag; preserve every prior positional input, unit and mapping behavior. |
+| `build.build_peptide` | Forward keyword-only `from_naming_scheme=None` and the native skip flag. Preserve exact source labels, explicit state/reference limits and independent ownership. |
+| Existing `basic.convert` and `get_conversion_report` | Retain the native-owner changes delivered here when merging `_basic.py`; do not restore the older signatures. |
+| Discovery, inventory, help and tests | Move the old path rather than adding an alias; adjust namespace sets, direct native-signature comparisons, forwarding and explicit context examples. Recompute live exposure instead of editing historical receipts. |
+
+Exact native signatures are available through `inspect.signature` after importing
+the corrected provider. In this main worktree the live inventory remains
+155/244 paths, including zero of 57 element paths; only the canonical code path
+is declared. The expansion's earlier 57/57 receipt does not qualify these changed
+provider bytes. The new inventory guard rejects reintroduction of the old
+amino-acid declaration. No new addon source file is added on main, so its strict
+TOOLS_FILES distribution registry is unchanged. The expansion keeps its separate
+new-file registry and must retain it while adapting its mirrors.
+
+The owning #421/#543 handoff and final combined receiving remain necessary for
+D6; no downstream compatibility or package qualification is claimed yet.
+
+
+### Final local receiving for the native cutover
+
+On Linux/Python 3.14.7, **9,062 affected native tests** pass in 534 seconds with
+four workers, covering element/build/topology/native/basic/conversion/physchem,
+H5MSM and the public interaction persistence workflow. The **2,699 existing addon
+and integration-command controls** pass in 257 seconds with four workers.
+Neither run has omissions, failures or errors. The native binary is unchanged;
+these are final native and final addon source checks, not an installed-pair gate.
+
+The native run retains 1,435 warnings, predominantly 1,143 legacy-file notices,
+45 pandas notices and existing assessment/drop/PBC/GPU/unit/parser diagnostics,
+three controlled Ackredit failures and the already observed environment
+binary-size warning tracked separately under #524. Addon receiving retains
+1,620 warnings: 1,613 legacy notices, four attribute-drop notices, two deliberate
+unknown-digester controls and one determinant warning. No warning is suppressed
+for test receiving. The tutorial retains its existing presentation-only warning
+filter, separate from the tests.
+
+Published-floor receiving passes **241 naming/alphabet/sequence cases** and the
+**29-case addon conversion module**, with no omissions. Its thirty warnings are
+legacy-file notices in the addon fixtures. It uses ArgDigest 0.14.0, DepDigest
+0.15.1, SMonitor 0.16.0 and Ackredit 0.9.0 from the already verified public-payload
+harness. The same entry-point-only SMonitor pytest-plugin exclusion remains
+bounded by #524; normal current-provider receiving keeps that plugin enabled.
+No support-library source or dependency floor is changed.
+
+Final documentation receiving passes **548 controls** and **three doctest
+items**. The small canonical tutorial executes **ten code cells** in the
+existing environment. The first kernel attempt is blocked by the sandbox's
+local-socket restriction; authorized socket-enabled execution succeeds. The
+first documentation run has four failures from a disconnected historical API
+page, its short heading underline and the missing transferred related-links
+block. The migration page is connected, its heading corrected and the original
+links preserved on the canonical tutorial; the original guards and negative
+controls remain unchanged. Failed XML remains separate from final receiving.
+
+Whole-tree Ruff lint/format (**4,353 files**), **246 public docstrings**, the
+**298-symbol** registry, derived tiers, signature/dependency/import-contract,
+profile-generation, devguide/index and diff checks pass. The four unrelated
+human API stubs retain their recorded hashes. ArgDigest/SMonitor validation and
+optional Ackredit remain at the canonical native boundary. This cutover adds no
+physical quantity, heavy backend or optional dependency: there is no additional
+PyUnitWizard/Rust/DepDigest capability to invent.
+
+The [receiving receipt](../../devtools/data/group_naming_cutover_receiving_549_20261105.json)
+retains final code/test hashes and JUnit identities in
+`.pytest_cache/group-name-resolution-549/`. Native/runtime tests and public
+source attribution are distinct from hosted exact-source, expansion and
+installed-candidate qualification. D6's expansion receiving and D7 stay open;
+#549 is not closed by this checkpoint.

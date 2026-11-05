@@ -16,6 +16,18 @@ composition mirrors and the separately qualified Viewer prefix-addition host. Al
 interaction paths remain exposed explicitly. Prior source and installed qualification retain
 their own identities; this count is not universal scientific accuracy or stability.
 
+## Naming-contract cutover — 2026-11-05
+
+Native #549 retires `element.group.amino_acid.get_1_letter_code_from_name` in
+favor of the explicit group-level query. The native element count remains 57;
+main still exposes zero element paths while PR #543 is pending. Both existing
+bound conversion/preflight signatures now expose `from_naming_scheme` and
+retain native conflict/loss handling without source or scene edits. The live
+inventory and guard name the new path; historical receipts are unchanged.
+The [owning cutover record](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#pr-543-adaptation-handoff)
+lists the expansion's required mirror, signature and manifest receiving. Counts
+alone cannot certify that expansion against the corrected provider.
+
 Regenerate the full path/signature/missing-route inventory in the participating
 source environment:
 

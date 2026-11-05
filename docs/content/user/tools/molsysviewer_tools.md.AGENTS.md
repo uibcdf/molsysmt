@@ -20,6 +20,11 @@ native parameter/return/validation behavior, automatic entry-point discovery,
 replacement/close semantics, the native independent/in-place distinction, pending
 synchronization/recovery and the absence of task panels and other editing families. Link native tool references and Viewer host/author documentation.
 
+Preserve native keyword-only from_naming_scheme on conversion/preflight. Forward
+the caller's context to native validation without inferring it from the view.
+Retain selected declaration conflicts, independent-result naming/analysis
+invalidation and unchanged source metadata, scene and pending synchronization.
+
 Preserve the explicit secondary comparison input and the separation between
 read-only comparison and the unreceived two-system topology rebuild. Keep native
 argument aliases and duplicate-name rejection; never reinterpret a mutating

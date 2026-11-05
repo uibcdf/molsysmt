@@ -6,6 +6,8 @@ from devtools.scripts.audit_molsysviewer_tools_api import collect_inventory
 def test_inventory_records_real_complete_and_missing_public_routes():
     inventory = collect_inventory()
     rows = {row["path"]: row for row in inventory["functions"]}
+    assert "element.group.get_1_letter_code_from_name" in rows
+    assert "element.group.amino_acid.get_1_letter_code_from_name" not in rows
     assert rows["physchem.get_peptide_chemical_template"]["exposed"]
     assert (
         rows["physchem.get_peptide_chemical_template"]["input_kind"]

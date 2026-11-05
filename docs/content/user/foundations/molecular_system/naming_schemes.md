@@ -12,7 +12,11 @@ reconstruction and non-standard-group reports now share the resolver.
 Native atom/H expectations, missing-atom queries and bounded native preparation
 now consume naming context too. Reference-bond maps and native missing-bond
 candidates also use that context. Peptide construction reads exact source
-labels and declares its known output convention. External naming adapters and the older scalar one-letter helper still await coordinated migration.
+labels and declares its known output convention. The older scalar one-letter
+entry under `element.group.amino_acid` has been removed; use the group-level
+helper and choose `legacy` explicitly for historical table values. External
+naming adapters retain their documented refusals. Receiving the addon expansion
+in PR #543 against this contract remains separate work.
 The general `from_naming_scheme` conversion
 argument is available for explicit source interpretation and native transport.
 :::

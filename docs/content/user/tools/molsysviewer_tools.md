@@ -492,6 +492,15 @@ rejects losses detected by the provider's preflight. It adds no rollback or atom
 publication guarantee across multiple files. Optional converters retain their
 own dependencies and scientific limitations.
 
+Both bound operations expose the native keyword-only `from_naming_scheme`.
+It declares the input vocabulary; it does not rename groups, prepare chemistry
+or change the view's stored declarations. Preflight reports naming metadata
+that a target cannot preserve. Conversion retains a new declaration on its
+independent native result and applies native analysis invalidation there.
+A conflict with known selected declarations rejects without editing the system
+or scene. See {ref}`user-foundations-group-naming-schemes` for profiles, defaults
+and scientific limits.
+
 ## Saving molecular data
 
 ```python
