@@ -511,3 +511,11 @@ Preserve native selectors, structure order, explicit backend/error/embedding
 contracts and lifetime. Historical hbonds exposes only the four native callable
 aliases using the actual canonical bound methods; do not duplicate calculations
 or count aliases as new scientific algorithms. Native MD stubs remain unexposed.
+
+Preserve explicit make_water_box inputs and the open-empty-workspace contract.
+Delegate reference tiling, whole-water row-vector cell membership, units, form
+conversion and errors to the public native factory. Never read or synchronize
+the primary, infer its box, solvate it or adopt results. Keep caller-owned output,
+closed-owner rejection and native normalized-input requirements when digestion
+is skipped. Preserve packing/equilibration and force-field limits; native nm
+storage does not change the application unit policy.

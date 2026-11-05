@@ -55,6 +55,22 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if module == "build" and name == "make_water_box":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "An open empty view is sufficient. The box stays explicit; "
+                "the current primary and its box are not read or synchronized. "
+                "Returns a separate molecular system in the requested native "
+                "form, without replacing view.molsys or changing scene/history "
+                "or pending edits. There is no update_view control or implicit "
+                "adoption; use view.load(result) explicitly when desired. "
+                "The caller owns the box and must keep it stable during the "
+                "call. Native units, validation, output availability/errors "
+                "and whole-water reference geometry remain unchanged. No "
+                "solvation, force-field assignment, equilibration or overlap "
+                "repair is inferred. Results survive owner closure; new calls "
+                "through a closed owner are rejected.\n"
+            )
         if module == "basic" and name == "view":
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"

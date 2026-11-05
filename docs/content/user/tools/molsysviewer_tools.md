@@ -4924,3 +4924,47 @@ not represent four additional scientific algorithms.
 The two legacy native NVT/NPT equilibration declarations are unconditional
 unimplemented stubs. The addon does not expose a `molecular_dynamics` namespace
 or advertise those declarations as runnable simulation tools.
+
+
+## Constructing water from an explicit cell
+
+`tools.build.make_water_box` constructs a separate water system from one explicit
+box. It is available before loading any molecular system into the view:
+
+```python
+import numpy as np
+import molsysmt as msm
+import molsysviewer as msv
+
+with msv.new_view() as workspace:
+    box = msm.pyunitwizard.quantity(
+        [[2.0, 0.0, 0.0], [0.7, 1.8, 0.0], [0.3, 0.2, 1.7]], "nm",
+    )
+    water = workspace.addons.molsysmt.build.make_water_box(box)
+    assert workspace.molsys is None
+    workspace.load(water)  # Explicitly choose to display the independent result.
+    assert msm.get(workspace.molsys, n_waters=True) > 0
+```
+
+Vectors are rows, with origin zero: `r = f @ B`. Complete reference waters
+are retained when their oxygen is inside the requested cell; hydrogens can
+extend beyond its faces. Tilted and rotated cells follow the same convention.
+Input lengths may use compatible units; native output storage stays in nm
+without changing the application's presentation policy. `form` selects the
+ordinary native output conversion, including `molsysmt.Structures`; its required
+information and optional dependencies must be available.
+
+The current primary and its box are not used. Existing molecular data, regions,
+shapes, history and pending edits remain untouched. There is no `in_place` or
+`update_view` switch, implicit loading, or solvation of an existing molecule.
+The caller keeps explicit inputs stable during the call and owns the result
+afterwards, including after the workspace is closed. Calls through a closed
+workspace are rejected. Native `skip_digestion=True` skips normalization too:
+use native normalized inputs, including box shape `(1, 3, 3)`.
+
+The bundled SPC reference supplies coordinates and bonds, without assigning a
+force field or an equilibrated thermodynamic state. Clipping does not prescribe
+an exact density or guarantee that periodic-face contacts are free of overlaps.
+Inspect packing before simulation. A small valid cell may return a typed empty
+water system. See {func}`molsysmt.build.make_water_box` for the complete native
+contract, and {func}`molsysmt.build.solvate` to add solvent around a molecule.

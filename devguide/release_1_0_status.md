@@ -4257,3 +4257,14 @@ Exact-head CI, owner review, remaining native contracts, task GUI and installed
 qualification remain separate. Both 1.0 publications stay paused. This compact
 entry replaces duplicated unmerged consumer stage narratives; their original
 receipts and proposal evidence remain preserved.
+
+
+### Explicit water-factory contribution receiving
+
+Consumer PR #543 adds `build.make_water_box` over the published #564 repair,
+keeping box/form inputs explicit and output independent even from an empty
+workspace. No primary read, scene adoption or scientific algorithm is added.
+See the [consumer receipt](../devtools/data/molsysviewer_tools_water_factory_receiving_20261105.json).
+Source exposure is 241/244, build 30/30; native forces #572, managed protonation
+#576, remaining scientific contracts, owner review, CI, GUI and installed
+qualification remain separate. Both 1.0 publications stay paused.

@@ -3,10 +3,10 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-05, contribution PR #543, extending published source
-`99163c814` with published native water-box repair receiving on owner
-basis `8486ea59c`.
-The table describes this contribution's 240/244 paths, including
-all 57 element paths, twenty-nine build paths and five mechanical paths; it does not
+`442a2771e` with explicit-input water-box consumer receiving on published
+native owner basis `8486ea59c`.
+The table describes this contribution's 241/244 paths, including
+all 57 element paths, thirty build paths and five mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
 works before molecular loading; degree counting binds the serialized current
 primary and retains native parameterization prerequisites. The
@@ -127,7 +127,7 @@ none certifies a published installed pair.
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
 | physchem | 34 | 34 | 0 |
-| build | 29 | 30 | 1 |
+| build | 30 | 30 | 0 |
 | molecular_mechanics | 5 | 6 | 1 |
 | interactions (canonical families) | 15 | 15 | 0 |
 | element and declared children | 57 | 57 | 0 |
@@ -137,7 +137,7 @@ none certifies a published installed pair.
 | supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 240 exposed out of 244 inspected public callable paths. This is not
+These are 241 exposed out of 244 inspected public callable paths. This is not
 244 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
@@ -236,8 +236,9 @@ and installed/platform qualification remain separate.
    independent outputs: preserve all-structure supplied/template geometry,
    historical versus live atom maps, attribute policy and output-only analysis
    invalidation. Heavy repair can reorder indices or leave a gap unassessed.
-   Native water-box membership is separately reported under #564; that factory
-   remains unexposed and is not repaired in the addon.
+   Native #564 water-box membership is repaired by its owner. The addon now
+   delegates explicit box construction from an open empty view, returning
+   independent water in the requested form without adoption or source reads.
    Hydrogen generation and terminal capping are now independently exposed. Keep
    approximate pH rules distinct from explicit one-component/state/structure
    RDKit materialization, including maps/history, optional-engine limits and
@@ -557,7 +558,7 @@ scientific algorithms. All fifteen canonical interaction paths retain their
 existing receiving. The two native MD declarations are unconditional stubs and
 remain intentionally unexposed. Of the four unexposed declared paths, two are
 these nonoperational declarations and two are pending native capabilities:
-water-box consumer receiving after native #564 and native MolSys forces #572.
+native MolSys forces #572 and managed protonation correspondence #576.
 Protonation is exposed with its explicit
 independent-only mode limit under #576. Path exposure is not complete mode,
 scientific, platform or installed qualification.
@@ -567,3 +568,21 @@ forwards its native skip flag and repaired selectors without scientific
 translation; original consumer evidence is retained in
 [its archive](archive/resolved_bugs/mutate_selection_masks_consumer_evidence.md),
 separately from the owner's resolution and original frozen receipts.
+
+## Explicit water factory receiving — 2026-11-05
+
+`build.make_water_box(box, form="molsysmt.MolSys", skip_digestion=False)`
+keeps all native scientific inputs explicit. It works from an open empty view
+and never reads, synchronizes or adopts the primary. The published #564 native
+implementation owns reference tiling, row-vector clipping, whole-water geometry,
+validation and conversion. Native storage is canonical nm; presentation policy
+is unchanged. The independent result may be loaded explicitly.
+
+The [consumer receipt](../devtools/data/molsysviewer_tools_water_factory_receiving_20261105.json)
+records bounded cell/geometry and unit checks, native parity, lifecycle, output
+ownership, pending scene preservation and validation. No equilibration, assigned
+force field, exact density or absence of periodic-face overlaps is claimed.
+`skip_digestion=True` retains native normalized-input requirements; no consumer
+normalization or bypass is inserted. Source exposure is 241/244: native forces
+#572 and two unconditional MD stubs remain unexposed, while protonation's
+managed in-place mode remains separately pending #576.

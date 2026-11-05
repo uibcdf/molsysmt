@@ -324,6 +324,7 @@ class _BuildTools:
         "mutate",
         "build_peptide",
         "solvate",
+        "make_water_box",
         "reconcile_protonation",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
@@ -348,6 +349,15 @@ class _BuildTools:
         from molsysmt import build
 
         return self._owner._read(getattr(build, name), parameters)
+
+    @_native_documentation("make_water_box", module="build", bind_primary=False)
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def make_water_box(self, box, form="molsysmt.MolSys", skip_digestion=False):
+        from molsysmt import build
+
+        self._owner._view()
+        return build.make_water_box(box=box, form=form, skip_digestion=skip_digestion)
 
     @_native_documentation("get_residue_chemical_coverage", module="build")
     @signal(tags=["addon", "build"])

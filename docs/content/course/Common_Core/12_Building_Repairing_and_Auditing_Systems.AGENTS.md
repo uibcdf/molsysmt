@@ -100,3 +100,9 @@ Preserve native mutation-selection repair receiving: masks address source atoms
 and enable groups for every request form, with independent no-op copies and
 pre-write ID/target validation. Forward native skip_digestion without a consumer
 selector translation. Retain all owner course code, outputs, IDs and metadata.
+
+Preserve explicit addon water construction from an open empty workspace,
+independent output and deliberate separate loading. Keep row-vector oxygen
+clipping with whole waters, native unit policy and packing/force-field/
+equilibration limits distinct from solvation. Preserve all course code, outputs,
+cell IDs and metadata.

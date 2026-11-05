@@ -94,6 +94,9 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     assert inventory["modules"]["interactions"]["missing"] == []
     assert rows["basic.view"]["exposed"]
     assert inventory["modules"]["basic"]["missing"] == []
+    assert rows["build.make_water_box"]["exposed"]
+    assert rows["build.make_water_box"]["input_kind"] == "explicit_inputs"
+    assert inventory["modules"]["build"]["missing"] == []
     for name in (
         "get_donor_atoms",
         "get_acceptor_atoms",

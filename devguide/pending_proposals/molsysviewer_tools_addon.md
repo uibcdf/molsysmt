@@ -15,6 +15,28 @@ supersedes: []
 # Bound MolSysMT tools addon for MolSysViewer
 
 
+## Explicit water-box factory receiving — 2026-11-05
+
+PR #543 adds `build.make_water_box` with explicit box/form/native digestion
+inputs and no primary reader. An open empty view is sufficient; an existing
+system, its scene/history and pending edits remain untouched. Native #564
+owns all construction and clipping. The result is caller-owned and independent;
+loading it is a separate explicit action. No GUI task, host/runtime change,
+force field, packing guarantee or equilibration is introduced.
+
+The [receipt](../../devtools/data/molsysviewer_tools_water_factory_receiving_20261105.json)
+keeps this input separate from the previous native-repair gate. Source exposure
+is 241/244 with build 30/30; native forces #572 and two MD stubs remain
+unexposed, and managed protonation remains pending #576. Native default-empty
+visualization #578 is separate from this empty-workspace factory. Owner review,
+exact-head CI and installed qualification remain pending; no publication.
+
+Final local receiving passes **4,438 addon/integration cases** without
+failures/errors/skips, including 40 new factory cases; 118 docs/source controls
+pass separately. All 4,242 primary files, provider/support source and backend
+bytes remain unchanged through validation. Native algorithms, Viewer runtime
+and all owner course code/outputs/IDs/metadata remain preserved.
+
 ## Native water-box repair receiving
 
 Published owner 8486ea59c corrects #564. This branch receives its direct native
