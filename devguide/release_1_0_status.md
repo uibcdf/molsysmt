@@ -42,15 +42,25 @@ Exposure is 230/244, build 25/30 and mechanics 4/6.
 The native masked-mutation discrepancy is independently reproduced: MDTraj masks
 reach the MolSysMT parser and atom-index lists reach a group-index mask boundary.
 Supported native-expression paths and rejected masks are distinguished in tests;
-no consumer translation is authored. An owner report is prepared/offered, pending
-the maintainer response. Native naming #549 and other existing owner work remain.
+no consumer translation is authored. The maintainer-authorized owner report is
+[#568](pending_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md),
+with direct reproduction and native pytest acceptance criteria. Native naming
+#549 and other existing owner work remain.
 
 Parent `2d1923996` smoke 41958120548 passes 5,397 native cases (16 optional
 skips), 4,093 addon cases (four optional skips) and 31 command guards. Its audit
 41958120472 fails solely on MDTraj centering +18.54% at the unchanged 15% limit;
 #567 retains the comparability decision and all prior outcomes. Full CI remains
 queued at inspection. No retry, benchmark-policy change, candidate or publication.
-New-head CI, owner review/integration and installed qualification stay separate.
+On 2026-11-05, source `7bd844fa5` completes all eight full-matrix cells in
+41960424914, with every cell step successful; its smoke, performance and five
+administrative controls also pass. The
+[#568 handoff](../devtools/data/molsysviewer_tools_mutation_mask_handoff_20261105.json)
+retains official run/job/step evidence and unchanged scientific source/backend
+hashes. It does not independently reverify artifact certificates or qualify an
+installed public pair. This issue/report/link follow-up changes no executable
+source; its own CI, owner review/integration and package qualification remain
+separate.
 
 ## Group-name scheme design accepted — 2026-11-04
 

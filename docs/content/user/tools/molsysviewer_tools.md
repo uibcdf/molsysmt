@@ -3742,7 +3742,8 @@ source-name dictionaries (`keys="group_name"`) and mutation strings such as
 whereas group indices are positions. Selection and naming rules remain native;
 no caller atom/group mapping or selector translation is invented by the addon.
 
-There is a received native limitation in masked name/ID lookup: MDTraj masks
+There is a received native limitation in masked name/ID lookup, tracked in
+[MolSysMT#568](https://github.com/uibcdf/molsysmt/issues/568): MDTraj masks
 can be passed to the MolSysMT parser, and a list of atom indices can be treated
 as group indices. Native MolSysMT expressions, such as `selection="group_index==1"`,
 work for the qualified name-keyed route. The addon preserves the current native

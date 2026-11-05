@@ -37,7 +37,10 @@ records detached builder domains/lifetime and whole-molecule filtering with expl
 structure/reference choices, units, conditional aliasing and native remapping.
 The [peptide-sequence receipt](../devtools/data/molsysviewer_tools_peptide_sequence_receiving_20261104.json)
 records fresh sequence-based construction, bounded canonical substitution and
-explicit native mask/H/provider limits. Parent smoke success and the latest
+explicit native mask/H/provider limits. The independently reproduced masked
+mutation defect is tracked by [#568](pending_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md);
+its filing does not qualify the rejected modes or alter scientific code.
+Parent smoke success and the latest
 failed benchmark under #567 retain their own inputs.
 The [reference-map receipt](../devtools/data/molsysviewer_tools_reference_map_receiving_20261104.json)
 retains its own unchanged-addon input, red/green controls and hosted scope.
