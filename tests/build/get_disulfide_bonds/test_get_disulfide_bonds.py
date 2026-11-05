@@ -5,7 +5,11 @@ systems.
 
 # Import package, test suite, and other packages as needed
 
+import pytest
+
 import molsysmt as msm
+
+pytestmark = pytest.mark.network
 
 
 def test_get_disulfide_bonds():

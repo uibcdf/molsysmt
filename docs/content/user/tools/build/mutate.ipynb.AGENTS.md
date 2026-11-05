@@ -11,7 +11,7 @@ The canonical variable representing the molecular system MUST be `molsys` (`new_
 2. **Cell 2 (Markdown - Introductory Header Block)**:
    - Anchor `(Tutorial_Mutate)=`
    - H1 Title `# Mutate`
-   - Italic gerund summary `*Mutating amino acid or nucleotide residues in a molecular system.*`
+   - Italic gerund summary `*Mutating amino-acid groups in a molecular system.*`
    - Narrative intro paragraph explaining function role.
    - Version admonition `:::{versionadded} 1.0.0 :::`
    - Collapsible API documentation box `:::{admonition} API documentation \n :class: dropdown`.
@@ -25,6 +25,7 @@ The canonical variable representing the molecular system MUST be `molsys` (`new_
    - `new_molsys = msm.build.mutate(molsys, mutations=["GLY-2-ALA"])`
    - `msm.info(new_molsys, element='group')`
    - `new_molsys = msm.build.mutate(molsys, mutations={1: 'ALA', 2: 'VAL'})`
-   - `new_molsys = msm.build.mutate(molsys, mutations={'GLY': 'ALA'})`
-6. **Final Cell (Markdown)**:
+   - `new_molsys = msm.build.mutate(molsys, mutations={'GLY': 'ALA'}, keys='group_name')`
+6. **Selection Contract**: Atom-axis selections restrict all mutation specifications; partial atom selections enable whole groups, empty/disjoint valid requests return independent copies, and bounded provider/repair scope stays explicit.
+7. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.

@@ -177,6 +177,10 @@ sections:
         index_agents_file: docs/content/user/tools/build/index.AGENTS.md
         status: reviewed
         pages:
+          - name: mutate
+            file: docs/content/user/tools/build/mutate.ipynb
+            agents_file: docs/content/user/tools/build/mutate.ipynb.AGENTS.md
+            description: Atom-axis selection for all mutation specifications, literal IDs, independent no-op copies, preflight diagnostics and explicit native/provider reconstruction scope.
           - name: solve_alternate_locations
             file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb
             agents_file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb.AGENTS.md
@@ -737,6 +741,7 @@ sections:
         file: docs/content/user/cookbook/trajectory_performance_analysis.ipynb
         agents_file: docs/content/user/cookbook/trajectory_performance_analysis.ipynb.AGENTS.md
       - name: structural_surgery_mutagenesis
+        description: Independent mutation results, atom/group selection distinctions and bounded reconstruction before geometric comparison.
         file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb
         agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
       - name: form_teleportation

@@ -192,3 +192,16 @@ and empty outputs. Course/Cookbook executable cells, outputs and metadata are
 unchanged. Source/test/notebook hashes, failed attempts, final commands and
 bounded results are retained in
 `devtools/data/solvation_predicate_receiving_504_20261105.json`.
+
+
+## Correction note — 2026-11-05, signature checkpoint
+
+Hosted smoke 42095546341 on ccff2557f576f004461c96950d36a8b6e465e91f
+failed at the unchanged public-signature validator: the intentional keyword-only
+`structure_indices` extension had not been declared in the signature registry.
+The following #568 checkpoint adds the narrow declaration with
+`tests/build/is_solvated/test_structure_contract.py` as its guard. Local
+validation then reports zero unauthorized drifts against ccff2557f's parent.
+Scientific tests had not run in that failed hosted attempt; its failure remains
+part of the evidence. This note does not rewrite the completed local receiving
+or claim retrospective hosted success.

@@ -1,0 +1,272 @@
+{
+  "schema": "molsysmt.receiving.mutation-selection@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#568",
+    "uibcdf/molsysmt#577"
+  ],
+  "baseline_main": "ccff2557f576f004461c96950d36a8b6e465e91f",
+  "environment": {
+    "os": "Linux",
+    "machine": "x86_64",
+    "python": "3.14.7",
+    "workspace": "Existing shared Python 3.14 development environment; no auxiliary environment created.",
+    "pytest_receptor": "1.2.1 published overlay",
+    "workers": {
+      "affected": 4,
+      "floor": 2,
+      "documentation": 2
+    },
+    "overrides": {
+      "MPLBACKEND": "Agg",
+      "OMP_NUM_THREADS": "1"
+    },
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pdbfixer": "1.12.0",
+      "mdtraj": "1.11.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.29.0+18.gab92f1e"
+    }
+  },
+  "contract": {
+    "selection": "Source atom axis; partial membership enables the whole group; supported syntax applies to query strings.",
+    "scope": "All valid requests intersect enabled groups; no implicit preparation for an empty plan.",
+    "ids": "Literal source string labels; selected ambiguous IDs rejected. Optional PDBFixer effective integer/chain addresses must be unique.",
+    "ownership": "Independent same-form output; source inventory and retained observed geometry checked.",
+    "reconstruction": "Native heavy repair restricted to target groups; hydrogen completion and PDBFixer heavy repair retain existing whole-system scope.",
+    "provider_geometry": "Existing PDB-text conversion quantizes retained PDBFixer-route coordinates to 0.001 angstrom; tests use half-resolution 0.00005 nm; native comparisons are exact."
+  },
+  "published_floor_receiving": {
+    "payloads": [
+      "argdigest-0.14.0-py_0",
+      "depdigest-0.15.1-py_0",
+      "smonitor-0.16.0-py_1",
+      "ackredit-0.9.0-py_0"
+    ],
+    "origins_verified": true,
+    "pytest_option": "-p no:smonitor",
+    "limitation": "Only the installed SMonitor pytest entry point is disabled under #524; runtime SMonitor and scientific assertions remain active. This is not qualification of every dependency floor."
+  },
+  "source_and_test_sha256": {
+    "molsysmt/build/mutate.py": "2ac70f0e3892a3f3f225bef19d0d0e1abe5a8c5d91cde5ce73056d46d3f5dbdb",
+    "molsysmt/build/_mutation_targets.py": "d5530d9a4004dd3a94595f9e0f46db5cd4bc86632641a0f927d2d9f92a8bbb41",
+    "molsysmt/_private/argdigest/argument/selection.py": "b422559171b95395fbdcb5b0fb826e98f3f5a799fe4adede687c28973c247d8b",
+    "tests/build/mutate/test_mutate_selection_contract.py": "754dbee4728901ff92300440f5c5c9623f6a67e1a171aa5b60134968c5a09f19",
+    "tests/documentation/test_mutation_examples.py": "f29953bf76d5fbeca1750ef22e51a0cb8925b848fde2da705decca6087b7eeef",
+    "devtools/tests/test_live_build_test_selection.py": "f3fce15433581241c4fde37a0e5a1e2d5424b7f57d886b64747d9b49cb6a79ab",
+    "tests/build/get_disulfide_bonds/test_get_disulfide_bonds.py": "f2354e5feb745ff2d7f04231baa64844f632e399e8cb23df604939c629378589",
+    "tests/build/get_missing_residues/test_get_missing_residues.py": "6b3dd1a816f85d9d9483a7a1667629739eb6e2ce5884153c5adc45537b1d75df",
+    "tests/build/add_terminal_atoms/test_component_hydrogen_reinsertion.py": "352c1edcc3152e578a9a4c085ab20289eda24477ab3bf684065bf06420287e63",
+    "docs/content/user/tools/build/mutate.ipynb": "65fb519036dff1b02b55de17e9fa03d3bb9e2e7ee7ddf08b32e731cda6a35616",
+    "devtools/data/public_api_stability.json": "d3b7e37c7ebbd4aa5087011edaaf54f0640bf3724ce8fd8e4f6e501c18fcfa22"
+  },
+  "runs": [
+    {
+      "artifact": ".pytest_cache/mutate-568-baseline.xml",
+      "sha256": "a9ac349421a0b2207c9b6871cba1cfd566b1eff159ca063744c1dc66e02cbe62",
+      "exit_code": 1,
+      "scope": "Initial 30-case regression draft on original runtime; includes an overstrict new PDBFixer coordinate tolerance assumption.",
+      "counts": {
+        "tests": 30,
+        "failures": 18,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/mutate/test_mutate_selection_contract.py"
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-focused.xml",
+      "sha256": "a94f8ff91a90cd9799765c2ac319951878f9498fef469f9edac0e149dd1085ae",
+      "exit_code": 0,
+      "scope": "First corrected implementation and original mutation suite.",
+      "counts": {
+        "tests": 57,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/mutate"
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-expanded.xml",
+      "sha256": "1dc2958c932fd0d8555eeae46d49a2cedfaa863015a7aa3223a1a055617fc710",
+      "exit_code": 1,
+      "scope": "First expanded receiving; one test-double leakage failure retained by a lazy viewer import.",
+      "counts": {
+        "tests": 493,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/mutate tests/_private/argdigest"
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-expanded-fixed.xml",
+      "sha256": "7460a20fe7822778212bcd6ae4782cee99a41021936731b8902ce0ee93c367eb",
+      "exit_code": 0,
+      "scope": "Expanded receiving after removing the shared-boundary test monkeypatch.",
+      "counts": {
+        "tests": 493,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/mutate tests/_private/argdigest"
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-floors.xml",
+      "sha256": "d52e9cd9acfd4d67252ba1396d814ed1f536d5dbd2d706311c9dba536ac45f40",
+      "exit_code": 0,
+      "scope": "Final 69-case contract module with four verified cached published support providers and -p no:smonitor.",
+      "counts": {
+        "tests": 69,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 2 -p no:smonitor tests/build/mutate/test_mutate_selection_contract.py"
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-docs.xml",
+      "sha256": "a1ea772af4d7b8a987bea3e52348affee0c2ca828196895d9b2066bafcbc2788",
+      "exit_code": 0,
+      "scope": "Documentation, real course mutation blocks and API-validator controls.",
+      "counts": {
+        "tests": 593,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 2 tests/documentation devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_api_stability.py -m \"not network\""
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-affected.xml",
+      "sha256": "bcdfd8e7406668cc2c41aa25ed89997d30a78106ba4b0aef3e9da4e6b9457d5d",
+      "exit_code": 1,
+      "scope": "1,475 passes, two failures and seven setup errors; eight unmarked live-download cases and a stale CIF occupancy expectation.",
+      "counts": {
+        "tests": 1484,
+        "failures": 2,
+        "errors": 7,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build tests/_private/argdigest tests/documentation/test_mutation_examples.py -m \"not network\""
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-affected-corrected.xml",
+      "sha256": "6c7aa58990431d0bac02a5403d5cfec208e723e273774ab0425fd504d8e2129c",
+      "exit_code": 0,
+      "scope": "Final broader receiving with live build classification and strengthened occupancy controls.",
+      "counts": {
+        "tests": 1478,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build tests/_private/argdigest tests/documentation/test_mutation_examples.py devtools/tests/test_live_build_test_selection.py -m \"not network\""
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-final.xml",
+      "sha256": "c6a35dffdb2a64c364f061afb2a3ba5a12a143aefc0790381e2429a8438dda0b",
+      "exit_code": 0,
+      "scope": "Final H-policy correction receiving; source H presence determines completion even when every group is mutated.",
+      "counts": {
+        "tests": 100,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/mutate"
+    },
+    {
+      "artifact": ".pytest_cache/mutate-568-floors-final.xml",
+      "sha256": "1377eaec7d67c97d010f73a241894e77dca00490978cff87b911ff4c76fa7c42",
+      "exit_code": 0,
+      "scope": "Final H-policy correction receiving; source H presence determines completion even when every group is mutated.",
+      "counts": {
+        "tests": 73,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 2 -p no:smonitor tests/build/mutate/test_mutate_selection_contract.py"
+    }
+  ],
+  "other_checks": {
+    "ruff_check": {
+      "exit_code": 0
+    },
+    "ruff_format_check": {
+      "exit_code": 0,
+      "files": 4362
+    },
+    "dependency_validator": {
+      "exit_code": 0
+    },
+    "docstring_validator": {
+      "exit_code": 0,
+      "public_functions": 246
+    },
+    "api_registry": {
+      "exit_code": 0,
+      "symbols": 298
+    },
+    "signature_validator": {
+      "exit_code": 0,
+      "base": "HEAD~1 (06c065d335c7e42af141e9d85ee8e7e65a08e279 before this checkpoint)",
+      "declared_intentional_extensions": 2
+    },
+    "course_validator": {
+      "exit_code": 0,
+      "notebooks": 156
+    },
+    "doctest": {
+      "exit_code": 0,
+      "items": 1
+    },
+    "tutorial": {
+      "exit_code": 0,
+      "path": "docs/content/user/tools/build/mutate.ipynb",
+      "code_cells": 9,
+      "seconds": 12.3
+    }
+  },
+  "prior_hosted_checkpoint": {
+    "commit": "ccff2557f576f004461c96950d36a8b6e465e91f",
+    "run_id": 42095546341,
+    "conclusion": "failure",
+    "failed_step": "Validate public API stability against parent",
+    "cause": "Intentional #504 keyword-only structure_indices extension lacked its narrow registry declaration. No scientific tests executed in that attempt.",
+    "inspection": "Published GH Run Receptor 1.3.0, adaptive capture; exact violation read from captured official logs.",
+    "recovery": "Register #504 and #568 intentional extensions without changing the validator; inspect the next unskipped source checkpoint."
+  },
+  "consumer_handoff": {
+    "pull_request": "uibcdf/molsysmt#543",
+    "observed_head": "b285d7fb8a4bcf2fb852c8ce3899d7158063a202",
+    "state": "Native fix handoff; expansion is not merged/admitted by this checkpoint.",
+    "new_queue": [
+      "uibcdf/molsysmt#574",
+      "uibcdf/molsysmt#575",
+      "uibcdf/molsysmt#576"
+    ]
+  },
+  "limits": [
+    "Contract/parity tests are not independent scientific validation of generated coordinates.",
+    "Full network-backed course lessons remain unexecuted; actual changed mutation blocks execute on local systems.",
+    "Online test collection is not a live-provider run.",
+    "Local results do not qualify new installed packages, other platforms, a release or the expert addon expansion.",
+    "The receiving runs overlap and must not be summed."
+  ],
+  "temporary_resources": "No auxiliary environments or manual /tmp trees created; retain local pytest artifacts for diagnosis; Jupyter manages its kernel temporary resources.",
+  "compiled_backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "final_delta": {
+    "reproduction": "PDBFixer all-group GLY substitutions: original input has 21 H, prior branch returned 0 H.",
+    "correction": "Capture source H presence before deletion, rather than after applyMutations; preserve the existing H-placement algorithm.",
+    "receiving": "100 final mutation cases and 73 final published-floor contract cases pass, including four new both-engine/source-H controls.",
+    "reuse": "The 1,478-case broader pass precedes this final narrow change. Its other path coverage remains applicable; it is not claimed as a full rerun on the final source bytes."
+  }
+}
