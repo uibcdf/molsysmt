@@ -9,8 +9,10 @@ and native sequence conversion use the declared convention. Sequence identity
 and direct three-to-one-letter projection share that interpretation; alignment
 uses native sequence conversion. Reference-parent reporting, amino-acid recognition, native group-type
 reconstruction and non-standard-group reports now share the resolver.
-Chemical preparation and the older scalar one-letter helper still await
-coordinated migration.
+Native atom/H expectations, missing-atom queries and bounded native preparation
+now consume naming context too. Reference-bond maps and native missing-bond
+candidates also use that context. Broader producer audits, external naming
+adapters and the older scalar one-letter helper still await coordinated migration.
 The general `from_naming_scheme` conversion
 argument is available for explicit source interpretation and native transport.
 :::
@@ -189,3 +191,39 @@ work under #549; these recognition changes do not certify their completion.
 See the executed {ref}`parent examples <Tutorial_Get_standard_name>`,
 {ref}`recognition examples <Tutorial_Is_amino_acid>` and
 {ref}`type examples <Tutorial_Get_group_type_from_group_name>`.
+
+## Chemical reference limits
+
+Preparation does not use sequence parents as chemical templates. The historical
+raw atom/bond catalogue mixes sources, including distinct compounds stored under
+GLH, HIP, CYM and LYN. The named Amber-state reference layer retains only variants
+whose heavy connectivity and per-parent H counts match the bundled Meeko-derived
+fragments; labels alone cannot select a raw variant. Standard twenty names retain
+the existing catalogue/pH behavior, while MSE/SEP/TPO/MLY have separate CCD-derived
+heavy-only references. A source declaration does not itself validate ChemicalStates.
+
+The eight state references currently cover internal peptide groups. Named-state
+terminal H completion and unsupported layouts remain unassessed. A supported
+inventory does not imply that coordinate placement is verified. The standard pH
+and placement models retain their existing approximations. Raw catalogue access
+is available for inspection, not as an automatic state selector.
+
+Native molecular operations read group declarations; an audit can preserve an
+ambiguous group as unassessed. OpenMM/PDBFixer naming adapters for the reviewed
+contextual labels are not delivered, so the wrappers refuse those labels and
+incompatible declarations on curated modified names. Only selected groups are
+checked where selection is offered. Fixed-state preparation instead follows
+ChemicalStates without interpreting group labels chemically.
+
+Template-based bond candidates require the source convention too. They do not
+turn ambiguous labels into unknown groups for untyped distance fallback. Declared
+Amber states use verified layouts and local inferred types, preserving stored
+type metadata. The PyTraj route requires explicit Amber context for the reviewed
+state labels. Pure geometry remains a separate choice that does not select a
+naming template; geometric candidates do not certify chemical bonds.
+
+Raw readers remain permissive: they preserve supplied names and explicit edges,
+while omitting automatic candidate inference for groups whose reviewed contextual
+labels lack declarations. Such omitted connectivity is not labelled complete.
+A later explicit template query requires the convention and can use the checked
+reference; loading a file does not choose it implicitly.

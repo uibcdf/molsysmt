@@ -22,6 +22,23 @@ contracts.
 
 ## Group-name scheme design accepted — 2026-11-04
 
+**Local D4 chemical-reference receiving:** Atom/H expectations, bounded native
+preparation, chemical coverage and reference-bond candidates now consume stored
+group conventions without substituting sequence parents. The eight reviewed
+Amber states use only raw catalogue variants matching bundled reference heavy
+connectivity and H inventories. Named-state terminal completion, unavailable
+placement layouts and external naming adapters remain unassessed or explicitly
+unsupported. Raw readers preserve undeclared contextual labels/source edges and
+omit automatic inference for those groups. Exact bond-pair parity with PyTraj is
+retained after declaring the fixture's Amber context.
+
+Final local receiving passes **2,945 affected tests**, **333 tests with published
+support-library floors**, **514 documentation controls** and **four doctest
+items**. Ten tutorials execute all 57 code cells. The owning #549 record retains
+initial failures, negative controls, reference provenance and remaining limits.
+Broader producer audit, D5 fidelity, D6 old-path/addon cutover and D7 final receiving
+remain open; this block does not qualify an installed artifact or release.
+
 **Local D4 reference-name and recognition receiving:** Parent reporting,
 amino-acid recognition, per-group type inference and native non-standard-group
 reports now share the bounded naming resolver. Raw readers preserve ambiguous

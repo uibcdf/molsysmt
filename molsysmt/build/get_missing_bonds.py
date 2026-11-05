@@ -114,6 +114,14 @@ def get_missing_bonds(
     Group IDs need not be consecutive. Chain membership alone cannot preserve
     file-specific segment breaks that a source adapter has not retained.
 
+    Template-based native candidates respect stored group naming conventions.
+    Unqualified ambiguous names fail instead of being treated as unknown groups
+    for geometric fallback. Declared Amber states use verified reference layouts
+    and local inferred types without rewriting stored metadata. Geometry-only
+    operation does not select a naming template. The PyTraj route requires explicit
+    Amber context for the reviewed state labels. No naming convention is inferred
+    from the input file, and no sequence parent selects a chemical reference.
+
     The optional PyTraj route eagerly reads an intermediate PDB and materializes
     its bond pairs before retiring the managed scratch directory. Preparation,
     read and extraction failures also retire the scratch; cleanup errors remain
@@ -137,6 +145,19 @@ def get_missing_bonds(
     if disulfide_group_names is None:
         disulfide_group_names = ["CYS"]
 
+    from molsysmt._private.amino_acid_templates import family
+    from molsysmt._private.name_resolution import (
+        _profiles,
+        classify_group_name,
+        stored_topology,
+    )
+
+    naming_topology = stored_topology(
+        molecular_system, caller="molsysmt.build.get_missing_bonds"
+    )
+    naming_schemes = (
+        None if naming_topology is None else naming_topology.group_naming_schemes
+    )
     bonds = []
 
     if engine == "MolSysMT":
@@ -219,6 +240,20 @@ def get_missing_bonds(
             atom_names,
             atom_types,
         ) in zip(*aux_lists):
+            scheme = (
+                None if naming_schemes is None else naming_schemes[int(group_index)]
+            )
+            if with_templates:
+                reference_family = family(
+                    group_name, scheme, caller="molsysmt.build.get_missing_bonds"
+                )
+                if (
+                    reference_family == "amber_state"
+                    or group_name in _profiles()["contextual_names"]
+                    or not isinstance(group_type, str)
+                    or group_type == "unknown"
+                ):
+                    group_type = classify_group_name(group_name, scheme)
             group_chains[group_index] = chain_index
 
             aux_bonds = None
@@ -232,7 +267,11 @@ def get_missing_bonds(
                     )
                 case "amino acid":
                     aux_bonds = _bonds_in_amino_acid(
-                        group_name, atom_names, atom_indices, sorted=False
+                        group_name,
+                        atom_names,
+                        atom_indices,
+                        sorted=False,
+                        naming_scheme=scheme,
                     )
                 case "terminal capping":
                     aux_bonds = _bonds_in_terminal_capping(
@@ -365,6 +404,29 @@ def get_missing_bonds(
         from tempfile import TemporaryDirectory
 
         from molsysmt.basic import convert, get
+
+        attributes = get(
+            molecular_system,
+            element="atom",
+            selection=selection,
+            group_name=True,
+            group_index=True,
+            output_type="dictionary",
+        )
+        participants = dict.fromkeys(
+            zip(attributes["group_name"], attributes["group_index"])
+        )
+        for name, index in participants:
+            if name in _profiles()["contextual_names"]:
+                scheme = None if naming_schemes is None else naming_schemes[int(index)]
+                if (
+                    family(name, scheme, caller="molsysmt.build.get_missing_bonds")
+                    != "amber_state"
+                ):
+                    raise NotImplementedMethodError(
+                        caller="molsysmt.build.get_missing_bonds",
+                        message="PyTraj contextual-name candidates require the supported explicit Amber convention.",
+                    )
 
         old_bonds = get(
             molecular_system,

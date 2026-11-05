@@ -43,6 +43,7 @@ def to_molsysmt_MolSys(
     from molsysmt._private.name_resolution import (
         classify_group_name as get_group_type_from_group_name,
     )
+    from molsysmt._private.name_resolution import requires_naming_context
     from molsysmt.build import get_missing_bonds
     from molsysmt.configure import min_length_protein
     from molsysmt.element.group import (
@@ -485,11 +486,15 @@ def to_molsysmt_MolSys(
                     elif len(aux_atom_indices) == 1:
                         pass
                     else:
-                        aux_atom_pairs_bonded = get_bonded_atom_pairs(
-                            aux_group_name,
-                            aux_atom_names,
-                            aux_atom_indices,
-                            sorted=False,
+                        aux_atom_pairs_bonded = (
+                            None
+                            if requires_naming_context(aux_group_name)
+                            else get_bonded_atom_pairs(
+                                aux_group_name,
+                                aux_atom_names,
+                                aux_atom_indices,
+                                sorted=False,
+                            )
                         )
                         if aux_atom_pairs_bonded is None:
                             atoms_without_bonds += aux_atom_indices
@@ -507,8 +512,12 @@ def to_molsysmt_MolSys(
         for aux_group_index, aux_atom_indices in group_index_to_atom_indices.items():
             aux_atom_names = atom_name[aux_atom_indices].tolist()
             aux_group_name = group_name[aux_group_index]
-            aux_atom_pairs_bonded = get_bonded_atom_pairs(
-                aux_group_name, aux_atom_names, aux_atom_indices
+            aux_atom_pairs_bonded = (
+                None
+                if requires_naming_context(aux_group_name)
+                else get_bonded_atom_pairs(
+                    aux_group_name, aux_atom_names, aux_atom_indices
+                )
             )
             if aux_atom_pairs_bonded is None:
                 atoms_without_bonds += aux_atom_indices
@@ -933,9 +942,16 @@ def to_molsysmt_MolSys(
 
     # Build bonds
 
+    unresolved_naming_context = False
     if len(atoms_without_bonds):
+        from molsysmt._private.amino_acid_templates import inference_selection
+
+        inference_atoms = inference_selection(tmp_item.topology, atoms_without_bonds)
+        unresolved_naming_context = len(inference_atoms) < len(atoms_without_bonds)
         missing_bonds = get_missing_bonds(
-            tmp_item, selection=atoms_without_bonds, skip_digestion=False
+            tmp_item,
+            selection=inference_atoms,
+            skip_digestion=False,
         )
 
         if len(missing_bonds):
@@ -949,7 +965,9 @@ def to_molsysmt_MolSys(
     reference_state = tmp_item.chemical_states._resolve_chemical_state()
     reference_state.connectivity_completeness = (
         "partial"
-        if bond_accumulator.has_inference or bond_accumulator.has_conflict
+        if bond_accumulator.has_inference
+        or bond_accumulator.has_conflict
+        or unresolved_naming_context
         else "complete"
     )
 

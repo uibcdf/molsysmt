@@ -40,6 +40,14 @@ def get_missing_heavy_atoms(
 
     Notes
     -----
+    The native backend reads stored group naming declarations. Context-dependent
+    names require a convention; Amber state labels use only catalogue variants
+    checked against the bundled Meeko-derived heavy graphs and per-parent H
+    counts. CCD/legacy names cannot reuse an Amber variant. An empty result does
+    not certify unsupported groups. External PDBFixer naming adapters for the
+    reviewed contextual labels are not implemented; those labels are refused
+    within the selected groups. See the naming guide for bounded coverage.
+
     When ``engine='MolSysMT'`` the expected heavy atoms are obtained from the
     amino-acid topology database or an exact curated modified-residue template via
     :func:`~molsysmt.element.group.amino_acid.get_expected_heavy_atoms`.  The
@@ -52,12 +60,18 @@ def get_missing_heavy_atoms(
     standard sequence equivalents. Water, ions, and ligands are also skipped.
 
 
+    .. admonition:: User guide
+
+       See :ref:`user-foundations-group-naming-schemes` for naming context,
+       exact references and unsupported cases.
+
     .. versionadded:: 1.0.0
     """
 
     output = {}
 
     if engine == "MolSysMT":
+        from molsysmt._private.name_resolution import stored_topology
         from molsysmt.basic import get, select
         from molsysmt.element.group.amino_acid import (
             get_expected_heavy_atoms,
@@ -95,12 +109,20 @@ def get_missing_heavy_atoms(
             skip_digestion=True,
         )
 
+        topology = stored_topology(
+            molecular_system, caller="molsysmt.build.get_missing_heavy_atoms"
+        )
+        schemes = None if topology is None else topology.group_naming_schemes
         for group_idx, group_name, atom_idx_list in zip(
             group_indices, group_name_list, atom_indices_per_group
         ):
             actual_atom_names = [all_atom_names[i] for i in atom_idx_list]
 
-            expected_heavy = get_expected_heavy_atoms(group_name, actual_atom_names)
+            expected_heavy = get_expected_heavy_atoms(
+                group_name,
+                actual_atom_names,
+                naming_scheme=None if schemes is None else schemes[int(group_idx)],
+            )
             if expected_heavy is None:
                 continue
 
@@ -111,6 +133,15 @@ def get_missing_heavy_atoms(
                 output[int(group_idx)] = sorted(missing)
 
     elif engine == "PDBFixer":
+        from molsysmt._private.amino_acid_templates import check_external_preparation
+
+        check_external_preparation(
+            molecular_system,
+            engine,
+            "molsysmt.build.get_missing_heavy_atoms",
+            selection=selection,
+            syntax=syntax,
+        )
         from molsysmt.basic import convert, select
 
         group_indices_in_selection = select(

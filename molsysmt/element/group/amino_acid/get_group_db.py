@@ -26,6 +26,15 @@ def get_group_db(group_name):
         Reference dictionary containing residue connectivity and metadata.
 
 
+    Notes
+    -----
+    This is a raw historical mixed-source catalogue, not a naming-aware chemical
+    reference selector. Even variants stored under one label can describe distinct
+    compounds or naming conventions. GLH, HIP, CYM and LYN contain such mixtures.
+    Use get_expected_heavy_atoms or get_expected_hydrogens with source context for
+    bounded reference inventories. Do not choose the first raw variant for repair
+    or infer chemical-template equivalence from a reported sequence parent.
+
     .. versionadded:: 1.0.0
     """
 

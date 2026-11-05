@@ -12,19 +12,11 @@ implementations of "which hydrogens belong here" would eventually disagree, and 
 disagreement would be silent.
 """
 
-from molsysmt.element.group.amino_acid import group_names
+from molsysmt._private.amino_acid_templates import family
+from molsysmt._private.amino_acid_templates import is_hydrogen as _is_hydrogen
 from molsysmt.element.group.amino_acid.get_expected_hydrogens import (
     get_expected_hydrogens,
 )
-from molsysmt.element.group.amino_acid.get_standard_name import get_standard_name
-
-
-def _is_hydrogen(atom_name):
-    if not atom_name:
-        return False
-    if atom_name[0] == "H":
-        return True
-    return len(atom_name) >= 2 and atom_name[0].isdigit() and atom_name[1] == "H"
 
 
 def unexpected_hydrogens(native_molsys, pH):
@@ -50,6 +42,14 @@ def unexpected_hydrogens(native_molsys, pH):
     """
 
     topology = native_molsys.topology
+    schemes = topology.group_naming_schemes
+    # Resolve names before rebuilding cached components or removing any atoms.
+    for group_index, group_name in enumerate(topology.groups["group_name"]):
+        family(
+            group_name,
+            schemes[group_index],
+            caller="molsysmt.build.reconcile_protonation",
+        )
 
     native_molsys.rebuild_components(
         redefine_indices=True,
@@ -90,16 +90,13 @@ def unexpected_hydrogens(native_molsys, pH):
             continue
 
         group_name = topology.groups.loc[group_index, "group_name"]
-        canonical = get_standard_name(group_name)
-        lookup = canonical if canonical is not None else group_name
-        if lookup not in group_names:
-            continue
 
         component_index = int(component_indices.loc[group_atoms.index[0]])
 
         present_names = group_atoms["atom_name"].tolist()
         expected = get_expected_hydrogens(
             group_name,
+            naming_scheme=schemes[group_index],
             present_atom_names=present_names,
             pH=pH,
             is_n_terminal=(

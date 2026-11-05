@@ -9,6 +9,8 @@ run_smoke() {
     tests/element/group/test_reference_bond_map_validation.py \
     tests/element/group/test_name_resolution.py \
     tests/element/group/test_name_recognition.py \
+    tests/element/group/amino_acid/test_naming_atom_expectations.py \
+    tests/build/test_naming_preparation.py \
     tests/build/get_non_standard_residues/test_naming_schemes.py \
     tests/native/test_missing_group_type_inference.py \
     tests/basic/convert/test_source_naming_scheme.py \

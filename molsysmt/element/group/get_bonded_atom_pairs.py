@@ -3,7 +3,15 @@ from molsysmt._private.argdigest.reference_bonds import DIGEST_OPTIONS
 
 
 @arg_digest(**DIGEST_OPTIONS)
-def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True):
+def get_bonded_atom_pairs(
+    group_name,
+    atom_names,
+    atom_indices=None,
+    sorted=True,
+    skip_digestion=False,
+    *,
+    naming_scheme=None,
+):
     """Getting reference bond index pairs for a named group.
 
     Parameters
@@ -21,6 +29,12 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     sorted : bool, default=True
         Whether to sort pair rows lexicographically. Family conventions for
         endpoint orientation and unsorted row order are described below.
+
+    skip_digestion : bool, default=False
+        Skip argument digestion only for already validated inputs.
+    naming_scheme : str or none, default=None
+        Keyword-only source group vocabulary: sequence, amber, ccd or legacy.
+        Ambiguous labels require explicit context; no convention is translated.
 
     Returns
     -------
@@ -104,14 +118,18 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     )
     from .water import get_bonded_atom_pairs as get_bonded_atom_pairs_from_water
 
-    group_type = get_group_type_from_group_name(group_name)
+    group_type = get_group_type_from_group_name(group_name, naming_scheme=naming_scheme)
 
     bonds = None
 
     match group_type:
         case "amino acid":
             bonds = get_bonded_atom_pairs_from_amino_acid(
-                group_name, atom_names, atom_indices=atom_indices, sorted=sorted
+                group_name,
+                atom_names,
+                atom_indices=atom_indices,
+                sorted=sorted,
+                naming_scheme=naming_scheme,
             )
 
         case "ion":

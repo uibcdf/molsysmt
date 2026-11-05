@@ -1,107 +1,106 @@
-from molsysmt._private.residue_templates import (
-    CURATED_MODIFIED_RESIDUES,
-    load_residue_template,
-)
+"""Querying name-scoped heavy-atom references without parent substitution."""
 
-from .get_group_db import get_group_db
-from .group_names import group_names
+from smonitor import signal
 
-
-def _is_hydrogen(atom_name):
-    """Return True if atom_name follows PDB hydrogen naming conventions."""
-    if not atom_name:
-        return False
-    if atom_name[0] == "H":
-        return True
-    # Legacy PDB format: digit-first names like '1HB', '2HB', '3H'
-    if len(atom_name) >= 2 and atom_name[0].isdigit() and atom_name[1] == "H":
-        return True
-    return False
+from molsysmt._private.amino_acid_templates import is_hydrogen as _is_hydrogen
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.atom_expectations import DIGEST_OPTIONS
 
 
-def get_expected_heavy_atoms(group_name, present_atom_names=None):
-    """
-    Return the set of expected heavy (non-hydrogen) atom names for a residue.
-
-    Looks up standard residues in MolSysMT's amino-acid topology database and
-    MSE, SEP, TPO, and MLY in exact CCD-derived templates. When
-    ``present_atom_names`` is supplied the function selects the topology
-    variant whose atom set is a superset of the given heavy atoms (matching
-    PDBFixer's template-selection strategy).  When no variant matches, or when
-    ``present_atom_names`` is ``None``, the first (CCD canonical) variant is
-    used.
-
+@signal(tags=["api", "element", "preparation", "naming"])
+@arg_digest(**DIGEST_OPTIONS)
+def get_expected_heavy_atoms(
+    group_name, present_atom_names=None, skip_digestion=False, *, naming_scheme=None
+):
+    """Getting supported reference heavy-atom names for a group.
 
     Parameters
     ----------
-    group_name : str
-        Name of the chemical group (residue).
-    present_atom_names : object, default=None
-        Argument present_atom_names.
+    group_name : str or none
+        Case-sensitive uppercase group label. Missing names remain unassessed.
+    present_atom_names : list, tuple, numpy.ndarray or none, default=None
+        Flat atom-name strings used to select a compatible reference variant.
+        Hydrogen names do not constrain the heavy-atom match. None selects the
+        first supported reference; an empty list requests the smallest variant.
+    skip_digestion : bool, default=False
+        Skip argument digestion only for already validated inputs.
+    naming_scheme : str or none, default=None
+        Keyword-only source group vocabulary: sequence, amber, ccd or legacy.
+        None uses supported unambiguous names. Ambiguous labels require context.
 
     Returns
     -------
-    set of str or None
-        Set of heavy-atom names expected for the residue, or ``None`` when the
-        residue has no exact chemical template in the amino-acid database.
+    set of str or none
+        Detached heavy-atom names, or None when no chemical reference or no
+        compatible heavy-atom variant is supported. A terminal OXT can be included;
+        molecular missing-atom assessment handles terminal atoms separately.
 
+    Raises
+    ------
+    ArgumentError
+        If the name/atom list is invalid or an ambiguous label lacks context.
+    ArgumentChoiceError
+        If naming_scheme is unsupported.
+    StructuralInconsistencyError
+        If a bundled state variant disagrees with its verification reference.
 
     Notes
     -----
-    Heavy atoms are identified by PDB naming convention: a name is a hydrogen
-    if it starts with ``'H'`` or with a digit followed by ``'H'`` (e.g.
-    ``'1HB'``).
-
+    Standard twenty amino-acid labels use the existing atom/bond catalogue.
+    Explicit Amber GLH, HID, HIE, HIP, ASH, CYM, CYX and LYN use only variants
+    whose heavy connectivity and per-parent H counts agree with the bundled
+    Meeko-derived state fragments. Identical labels in CCD or legacy do not
+    authorize those Amber variants. CCD-derived MSE, SEP, TPO and MLY references
+    are supported under ccd or the unambiguous default. No parent fallback occurs.
+    These are bounded reference inventories, not a validation of stored chemical
+    states, bond orders, stereochemistry or coordinate-placement support.
+    Reached reference data are credited through optional Ackredit.
 
     Examples
     --------
     >>> sorted(get_expected_heavy_atoms('ALA'))
     ['C', 'CA', 'CB', 'N', 'O', 'OXT']
-    >>> sorted(get_expected_heavy_atoms('ALA', present_atom_names=['N', 'CA', 'C', 'O', 'CB']))
+    >>> sorted(get_expected_heavy_atoms('ALA', ['N', 'CA', 'C', 'O', 'CB']))
     ['C', 'CA', 'CB', 'N', 'O']
     >>> 'SE' in get_expected_heavy_atoms('MSE')
     True
-    >>> {'CH1', 'CH2'} <= get_expected_heavy_atoms('MLY')
+    >>> 'OE2' in get_expected_heavy_atoms('GLH', naming_scheme='amber')
+    True
+    >>> get_expected_heavy_atoms('HID', naming_scheme='ccd') is None
     True
     >>> get_expected_heavy_atoms('PTR') is None
     True
 
+    .. admonition:: User guide
+
+       See :ref:`user-foundations-group-naming-schemes` and
+       :ref:`Tutorial_Get_expected_heavy_atoms` for reference limits.
 
     .. versionadded:: 1.0.0
     """
+    from molsysmt._private.amino_acid_templates import (
+        choose_variant,
+        credit,
+        family,
+        variants,
+    )
+    from molsysmt._private.residue_templates import load_residue_template
 
-    if group_name in CURATED_MODIFIED_RESIDUES:
-        template = load_residue_template(group_name)
-        expected = set(template["atoms"])
+    caller = "molsysmt.element.group.amino_acid.get_expected_heavy_atoms"
+    kind = family(group_name, naming_scheme, caller=caller)
+    if kind == "curated_ccd":
+        expected = set(load_residue_template(group_name)["atoms"])
         if present_atom_names is not None:
-            present = {atom for atom in present_atom_names if not _is_hydrogen(atom)}
+            present = {a for a in present_atom_names if not _is_hydrogen(a)}
             if not present <= expected:
                 return None
-        return expected
-
-    # Sequence equivalence does not establish chemical-template equivalence.
-    if group_name not in group_names:
-        return None
-
-    db = get_group_db(group_name)
-
-    if present_atom_names is not None:
-        present_heavy = {a for a in present_atom_names if not _is_hydrogen(a)}
-        # Among all variants that contain the present heavy atoms, pick the one
-        # with the fewest extra (unexpected) heavy atoms — the tightest fit.
-        # This avoids falsely reporting terminal-only atoms (e.g. OXT) as
-        # missing for internal residues.
-        best_heavy = None
-        best_extra = None
-        for variant in db["topology"]:
-            variant_heavy = {a for a in variant["atoms"] if not _is_hydrogen(a)}
-            if present_heavy <= variant_heavy:
-                extra = len(variant_heavy) - len(present_heavy)
-                if best_extra is None or extra < best_extra:
-                    best_extra = extra
-                    best_heavy = variant_heavy
-        if best_heavy is not None:
-            return best_heavy
-
-    # Fallback: first (CCD canonical) variant.
-    return {a for a in db["topology"][0]["atoms"] if not _is_hydrogen(a)}
+    else:
+        candidates = variants(group_name, naming_scheme, caller=caller)
+        if candidates is None:
+            return None
+        variant = choose_variant(candidates, present_atom_names, match_hydrogens=False)
+        if variant is None:
+            return None
+        expected = {a for a in variant["atoms"] if not _is_hydrogen(a)}
+    credit(group_name, kind, caller)
+    return expected

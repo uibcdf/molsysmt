@@ -8,7 +8,13 @@ _sorted = sorted
 
 @arg_digest(**DIGEST_OPTIONS)
 def get_bonded_atom_pairs(
-    group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False
+    group_name,
+    atom_names,
+    atom_indices=None,
+    sorted=True,
+    skip_digestion=False,
+    *,
+    naming_scheme=None,
 ):
     """Getting reference bond index pairs for an amino-acid group.
 
@@ -32,6 +38,11 @@ def get_bonded_atom_pairs(
         bond order. Each pair has its smaller mapped endpoint first.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    naming_scheme : str or none, default=None
+        Keyword-only source group vocabulary: sequence, amber, ccd or legacy.
+        Ambiguous labels require context. Amber state variants are checked against
+        the bundled heavy connectivity and H counts; other meanings cannot reuse them.
 
     Returns
     -------
@@ -63,6 +74,12 @@ def get_bonded_atom_pairs(
     alternate locations should coexist. Unmatched layouts retain their legacy
     warning and None result.
 
+    Naming context selects bounded exact-name references, never a sequence parent.
+    Standard labels retain their terminal naming layouts; HIS also admits only the
+    checked HID/HIE/HIP layouts matching observed H names. Raw unrelated catalogue
+    entries are not searched. Reached data are credited through optional Ackredit.
+    Unsupported profiles/layouts return None, without a fallback to a parent.
+
     This queries bundled reference connectivity. It does not inspect coordinates,
     infer the graph of a molecular system, assign a chemical state or add bonds.
     Caller-owned names and index maps are not modified. Supply a flat integer
@@ -90,81 +107,49 @@ def get_bonded_atom_pairs(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.element.group.amino_acid import get_group_db, group_names
+    from molsysmt._private.amino_acid_templates import (
+        _catalogue,
+        credit,
+        family,
+        variants,
+    )
+    from molsysmt.element.group.amino_acid import group_names
 
-    if group_name not in group_names:
+    caller = "molsysmt.element.group.amino_acid.get_bonded_atom_pairs"
+    kind = family(group_name, naming_scheme, caller=caller)
+    candidates = variants(group_name, naming_scheme, caller=caller)
+    if candidates is None:
         return None
-
+    references = [(group_name, kind, candidate) for candidate in candidates]
+    if kind == "standard":
+        for prefix in ("C", "N"):
+            name = prefix + group_name
+            if name in group_names:
+                references.extend(
+                    (name, kind, candidate) for candidate in _catalogue(name)
+                )
+        if group_name == "HIS":
+            # Observed H names may identify an internal histidine layout. Search
+            # only checked histidine states, never unrelated catalogue entries.
+            for name in ("HID", "HIE", "HIP"):
+                references.extend(
+                    (name, "amber_state", candidate)
+                    for candidate in variants(name, "amber", caller=caller)
+                )
     if atom_indices is None:
         atom_indices = np.arange(len(atom_names), dtype=int).tolist()
-
-    aux_group_names = [group_name]
-
-    if "C" + group_name in group_names:
-        aux_group_names.append("C" + group_name)
-
-    if "N" + group_name in group_names:
-        aux_group_names.append("N" + group_name)
-
-    aux_dict = {}
-    for ii, jj in zip(atom_names, atom_indices):
-        if ii not in aux_dict:
-            aux_dict[ii] = [jj]
-        else:
-            aux_dict[ii].append(jj)
-
-    for aux_group_name in aux_group_names:
-        db = get_group_db(aux_group_name)
-
-        is_in = -1
-        for ii, jj in enumerate(db["topology"]):
-            if np.all(np.isin(atom_names, jj["atoms"])):
-                is_in = ii
-                break
-
-        if is_in != -1:
-            bonds = []
-            for ii, jj in db["topology"][is_in]["bonds"]:
-                if ii in atom_names:
-                    if jj in atom_names:
-                        for iii in aux_dict[ii]:
-                            for jjj in aux_dict[jj]:
-                                if iii < jjj:
-                                    bonds.append([iii, jjj])
-                                else:
-                                    bonds.append([jjj, iii])
-            if sorted:
-                return _sorted(bonds)
-            else:
-                return bonds
-
-    if group_name in ["HIS"]:
-        for aux_group_name in group_names:
-            try:
-                db = get_group_db(aux_group_name)
-                for ii, jj in enumerate(db["topology"]):
-                    if len(atom_names) == len(jj["atoms"]):
-                        if np.all(np.isin(atom_names, jj["atoms"])):
-                            if np.all(np.isin(jj["atoms"], atom_names)):
-                                bonds = []
-                                for aa, bb in jj["bonds"]:
-                                    if aa in atom_names:
-                                        if bb in atom_names:
-                                            iii = atom_indices[atom_names.index(aa)]
-                                            jjj = atom_indices[atom_names.index(bb)]
-                                            if iii < jjj:
-                                                bonds.append([iii, jjj])
-                                            else:
-                                                bonds.append([jjj, iii])
-                                if sorted:
-                                    return _sorted(bonds)
-                                else:
-                                    return bonds
-
-            except Exception:
-                pass
-
+    mapping = {}
+    for name, index in zip(atom_names, atom_indices):
+        mapping.setdefault(name, []).append(index)
+    for reference_name, reference_kind, variant in references:
+        if set(atom_names) <= set(variant["atoms"]):
+            pairs = []
+            for first, second in variant["bonds"]:
+                for a in mapping.get(first, ()):
+                    for b in mapping.get(second, ()):
+                        pairs.append([min(a, b), max(a, b)])
+            credit(reference_name, reference_kind, caller)
+            return _sorted(pairs) if sorted else pairs
     print(f"Warning! The amino acid {group_name} has no template.")
     print("No bonds were added by element.group.amino_acid.get_bonded_atom_pairs")
-
     return None

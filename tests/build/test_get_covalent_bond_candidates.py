@@ -246,8 +246,8 @@ def test_all_matching_variants_must_agree_on_one_hydrogen_parent(
 
     original = reference._template
 
-    def contradictory_reference(name, names, cache):
-        template = deepcopy(original(name, names, cache))
+    def contradictory_reference(name, names, cache, naming_scheme=None):
+        template = deepcopy(original(name, names, cache, naming_scheme))
         if name == "ALA":
             # Synthetic conflicting reference: reject a first-variant shortcut.
             variant = template["candidates"][0][1]

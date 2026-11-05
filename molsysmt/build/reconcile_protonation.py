@@ -6,15 +6,13 @@ def reconcile_protonation(
     molecular_system, pH=7.4, engine="MolSysMT", in_place=False, skip_digestion=False
 ):
     """
-    Removing the hydrogen atoms a molecular system carries that the pH does not call for.
+    Removing hydrogens inconsistent with supported pH/reference inventories.
 
-    `molsysmt.build.add_missing_hydrogens` only adds. A hydrogen already present that
-    the requested pH contradicts is left untouched, so a system that arrives protonated
-    — an NMR structure, or one prepared earlier at a different pH — keeps a protonation
-    state nobody asked for. This function is the other half of that comparison.
-
-    It removes and never adds. Run it before `add_missing_hydrogens` to bring an
-    incoming structure to the requested pH, then add what is missing.
+    This complements add_missing_hydrogens by removing rather than adding atoms.
+    Standard labels use the existing fixed-pKa approximation. Explicit named Amber
+    states constrain their side-chain inventory; unsupported references remain
+    unassessed and unchanged. This does not predict an environmental pKa or select
+    a stored chemical state.
 
     Parameters
     ----------
@@ -41,6 +39,14 @@ def reconcile_protonation(
 
     Notes
     -----
+    The native reference query reads each group's stored naming convention and
+    never substitutes a sequence parent. Explicit Amber-state side-chain inventories
+    stay constrained by their label, even at a different pH. Named-state terminal
+    completion, unsupported profile/name pairs and incompatible atom layouts are
+    unassessed, so their hydrogens are not removed. Undeclared ambiguous names fail
+    before component reconstruction. Use a fixed-state workflow when the stored
+    chemical assignments must determine the intended state independently of names.
+
     Only amino-acid residues are assessed. A residue with no entry in the template
     database has no expectation to compare against, so its hydrogens are never removed —
     silence about a residue means *not assessed*, not *correct*.

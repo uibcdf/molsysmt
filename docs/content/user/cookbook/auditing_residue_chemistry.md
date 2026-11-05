@@ -69,3 +69,14 @@ charges, empty hydrogen expectations or an assumed covalent graph.
 - {ref}`Tutorial_Chemical_Readiness` — stored fields in the nested assessment.
 - {ref}`user-foundations-molecular-system-definition` — forms and partial domains.
 :::
+
+## Checking the source vocabulary
+
+Declare a known group vocabulary on Topology before interpreting ambiguous names.
+The coverage report keeps undeclared ambiguous groups unassessed; native expectation
+queries and preparation require context. An Amber HID reference and a CCD HID
+component cannot share a cached template. Verification of a reference inventory
+still does not establish placement support or environmental protonation. Consult
+{ref}`user-foundations-group-naming-schemes` and the executed
+{ref}`Tutorial_Get_expected_heavy_atoms` and
+{ref}`Tutorial_Get_expected_hydrogens` examples.

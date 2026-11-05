@@ -11,7 +11,6 @@ import pandas as pd
 from molsysmt._private.chemical_readiness import _assess_from_domains as audit_fields
 from molsysmt._private.chemical_readiness import _domains
 from molsysmt._private.residue_templates import (
-    CURATED_MODIFIED_RESIDUES,
     load_residue_template,
 )
 from molsysmt._private.smonitor import (
@@ -26,21 +25,29 @@ def _pairs(values):
     return np.asarray(sorted(values), dtype=np.int64).reshape(-1, 2)
 
 
-def _template(name, names, cache):
+def _template(name, names, cache, naming_scheme=None):
     """Reuse exact owning reference tools; never resolve a sequence parent."""
+    from molsysmt._private.amino_acid_templates import _catalogue, family
+    from molsysmt._private.amino_acid_templates import variants as reference_variants
+    from molsysmt._private.peptide_chemical_template import _fragments
     from molsysmt.element.atom import get_atom_type_from_atom_name
     from molsysmt.element.atom.names import atom as named_elements
     from molsysmt.element.group.amino_acid import (
         get_expected_heavy_atoms,
-        get_group_db,
-        group_names,
     )
     from molsysmt.element.group.amino_acid.get_expected_heavy_atoms import _is_hydrogen
 
-    if name not in CURATED_MODIFIED_RESIDUES and name not in group_names:
+    kind = family(
+        name,
+        naming_scheme,
+        caller="molsysmt.build.get_residue_chemical_coverage",
+        require_context=False,
+    )
+    if kind is None:
         return None
-    if name not in cache:
-        modified = name in CURATED_MODIFIED_RESIDUES
+    cache_name = (name, naming_scheme)
+    if cache_name not in cache:
+        modified = kind == "curated_ccd"
         if modified:
             raw = load_residue_template(name)
             variants = [{"atoms": raw["atoms"], "bonds": raw["bonds"]}]
@@ -53,7 +60,11 @@ def _template(name, names, cache):
             resource = f"molsysmt.data.databases.residue_templates/{name}.json"
             provenance = deepcopy(raw["source"])
         else:
-            variants = get_group_db(name)["topology"]
+            variants = reference_variants(
+                name,
+                naming_scheme,
+                caller="molsysmt.build.get_residue_chemical_coverage",
+            )
             all_names = set().union(*(set(v["atoms"]) for v in variants))
             elements = {
                 atom: get_atom_type_from_atom_name(atom)
@@ -64,11 +75,22 @@ def _template(name, names, cache):
             orders = None
             resource = f"molsysmt.data.databases.amino_acids/{name[0]}.pkl.gz"
             provenance = {"original_sources": "unassessed"}
+            if kind == "amber_state":
+                library, digest = _fragments()
+                provenance["state_verification"] = dict(
+                    source=deepcopy(library["source"]),
+                    fragment_sha256=digest,
+                    checks=[
+                        "heavy_atom_names",
+                        "heavy_connectivity",
+                        "per_parent_hydrogen_counts",
+                    ],
+                )
         package, basename = resource.rsplit("/", 1)
         provenance["packaged_sha256"] = sha256(
             files(package).joinpath(basename).read_bytes()
         ).hexdigest()
-        cache[name] = (
+        cache[cache_name] = (
             variants,
             elements,
             orders,
@@ -78,18 +100,28 @@ def _template(name, names, cache):
             modified,
         )
     variants, elements, orders, resource, provenance, elements_origin, modified = cache[
-        name
+        cache_name
     ]
-    key = (name, tuple(sorted(names)))
+    key = (name, naming_scheme, tuple(sorted(names)))
     if key not in cache:
-        expected = get_expected_heavy_atoms(name, present_atom_names=sorted(names))
+        expected = get_expected_heavy_atoms(
+            name, present_atom_names=sorted(names), naming_scheme=naming_scheme
+        )
         if expected is None:
-            expected = get_expected_heavy_atoms(name)
+            expected = get_expected_heavy_atoms(name, naming_scheme=naming_scheme)
         cache[key] = set(expected) - ({"OXT"} if "OXT" not in names else set())
     expected = cache[key]
     candidates = [
         (index, variant)
-        for index, variant in enumerate(variants)
+        for index, variant in (
+            enumerate(variants)
+            if modified
+            else (
+                (i, v)
+                for i, v in enumerate(_catalogue(name))
+                if any(v is selected for selected in variants)
+            )
+        )
         if {a for a in variant["atoms"] if not _is_hydrogen(a)} - {"OXT"}
         == expected - {"OXT"}
         and ("OXT" not in names or "OXT" in variant["atoms"])
@@ -102,6 +134,7 @@ def _template(name, names, cache):
         "modified": modified,
         "identity": {
             "group_name": name,
+            "naming_scheme": naming_scheme,
             "resource": resource,
             "variant_indices": [index for index, _ in candidates],
             "provenance": deepcopy(provenance),
@@ -350,6 +383,7 @@ def assess(
         else:
             boundary[first].append(int(index))
             boundary[second].append(int(index))
+    schemes = topology.group_naming_schemes
     cache, entries = {}, []
     invalid_bonds = set(readiness["connectivity"]["invalid_bond_indices"])
     for group_index in groups:
@@ -366,7 +400,7 @@ def assess(
         heavy_names = {
             n for n, h in zip(names, hydrogen_mask) if not h and isinstance(n, str)
         }
-        template = _template(group_name, heavy_names, cache)
+        template = _template(group_name, heavy_names, cache, schemes[index])
         entry = {
             "group_index": index,
             "group_id": None

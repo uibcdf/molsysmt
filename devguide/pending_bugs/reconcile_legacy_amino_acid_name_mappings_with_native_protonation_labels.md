@@ -20,18 +20,23 @@ maintainer accepts the explicit scheme design below. Runtime cutover remains due
 
 ## What
 
-The current public one-letter/name helpers disagree with the explicit native
-protonation-template vocabulary. `get_1_letter_code_from_name('GLH')` returns Q
+At the initial reproduction, the public one-letter/name helpers disagreed with the
+explicit native protonation-template vocabulary. `get_1_letter_code_from_name('GLH')` returns Q
 and `get_standard_name('GLH')` returns GLN. HID/HIE raise KeyError in the one-letter
 helper. The native pinned peptide-fragment inventory includes GLH, HID and HIE;
 GLH has OE1/OE2 side-chain oxygen atoms, unlike GLN's terminal amide nitrogen.
 
 ```python
+# Initial reproduction, before the scheme-aware parent helper was introduced.
 from molsysmt.element.group.amino_acid import get_1_letter_code_from_name, get_standard_name
 print(get_1_letter_code_from_name('GLH'), get_standard_name('GLH'))
 # Q GLN
 get_1_letter_code_from_name('HID')  # KeyError
 ```
+
+The dated delivery sections below describe the corrected parent/recognition and
+preparation boundaries. The old scalar one-letter helper remains D6 cutover work;
+the initial unqualified parent-helper behavior above is no longer current.
 
 ## How
 
@@ -891,3 +896,198 @@ These source checks do not repair the already recorded optional-environment
 `pip check` failure under #524 and do not qualify an installed artifact or
 another interpreter/platform. Preparation, D5 fidelity, D6 cutover and D7 final
 acceptance remain open; #549 is not closed.
+
+
+## D4 chemical references and preparation — 2026-11-04
+
+**Implemented and contract-tested locally.** The atom/H expectation helpers,
+missing-heavy-atom query, native H addition/removal, chemical coverage and
+reference-bond candidates now read the same group naming declarations. This is
+a bounded D4 delivery; broader producer audit, D5 fidelity, D6 cutover and D7
+final acceptance remain open.
+
+### Reference selection and scientific limits
+
+The raw amino-acid atom/bond catalogue is not a chemical-state selector. Its
+GLH, HIP, CYM and LYN entries contain distinct compounds under different variants
+of the same label. For example, the matching Amber GLH/CYM/HIP/LYN internal
+variants are at raw index 2, rather than the previously selected first variant.
+The shared private reference layer filters all eight reviewed Amber-state names
+against the already bundled Meeko-derived fragments: exact heavy-atom names,
+heavy connectivity, H count at each heavy parent and one edge per H. Exactly one
+internal catalogue variant meets those checks for each reviewed state. The raw
+catalogue and pinned source assets are unchanged.
+
+These checks establish reference-layout consistency, not bond-order, formal-charge,
+stereochemical, geometric or environmental-protonation validation. Standard twenty
+names retain their existing catalogue and approximate pH model. MSE/SEP/TPO/MLY
+retain their separate CCD-derived heavy-only references. A sequence/reporting
+parent never substitutes for an exact chemical template. Unsupported CCD/legacy
+meanings and incompatible heavy layouts remain unassessed. An absent convention
+on a reviewed ambiguous scalar name raises instead of choosing Amber or legacy.
+
+`get_expected_heavy_atoms` and `get_expected_hydrogens` retain their existing
+positional arguments and add the normal validation switch plus keyword-only
+`naming_scheme`. Expected H names for explicit Amber states preserve their
+side-chain state across pH changes. Named-state terminal completion remains
+unassessed; matching an inventory is not a claim that placement coordinates are
+available. Native heavy repair skips states without exact placement references;
+native H completion reports unsupported terminal/layout cases with the existing
+structured warning. No terminal H naming or parent coordinates are invented.
+The standard pH thresholds and native placement algorithm are unchanged.
+
+The molecular coverage audit is deliberately permissive: undeclared ambiguous
+groups are reported as unassessed. Its reference cache is keyed by both label
+and convention, and its identity/provenance preserves the declaration, original
+catalogue variant positions and state-reference checks. Identical labels with
+different conventions cannot share a cached chemical assessment. Public molecular
+queries preserve selected source group indices, including H5MSM input.
+
+### Bond candidates, raw readers and external engines
+
+The two public group/amino-acid reference-bond maps accept the declared convention.
+Named states use checked internal layouts. Standard HIS can use checked internal
+histidine variants when observed H names require them; the former search across
+unrelated catalogue entries is removed. Existing index mapping, duplicate-name,
+scalar-ion and sorting behavior remains covered by the reference-map guards.
+
+`build.get_missing_bonds` passes stored declarations to templates and derives any
+required group type locally without rewriting stored metadata. With templates
+enabled, an undeclared contextual label cannot fall through to generic geometry.
+Explicit geometry-only operation remains available and does not select a naming
+template or certify a bond. The optional PyTraj route requires explicit Amber
+context for reviewed state labels; it cannot silently translate CCD/legacy names.
+
+Raw OpenMM, GRO, NGLWidget and mmCIF readers remain able to load undeclared labels.
+They preserve source names/edges, omit automatic missing-bond inference for the
+unresolved contextual groups and do not mark that omitted connectivity complete.
+The mmCIF early per-group reference lookup follows the same policy. Synthetic
+OpenMM and mmCIF controls distinguish permissive loading from a later explicit
+chemical-template query, which still requires context.
+
+OpenMM/PDBFixer preparation wrappers refuse reviewed contextual labels until a
+source-naming adapter is delivered, and reject incompatible declarations on curated
+modified names. Selection-aware wrappers preflight only selected groups. The
+fixed-state RDKit route instead follows ChemicalStates and bypasses label-based
+preparation. No new optional dependency or dependency floor is introduced.
+
+### Support libraries and independent controls
+
+The two scalar expectation boundaries use a scoped ArgDigest registry for names,
+finite dimensionless pH, actual boolean flags, supported schemes and the trusted
+validation switch. Reference-bond validation reuses the same scheme authority.
+Existing DepDigest guards and lazy optional-engine imports remain in force.
+SMonitor carries argument, unsupported-method, invalid-reference and unassessed
+preparation diagnostics. Private reference selectors are not decorated.
+
+Optional Ackredit records only the reference datasets actually used: the historical
+catalogue content identity, pinned Meeko fragment source, Amber naming dataset or
+curated CCD heavy template as applicable. Reading data does not claim execution
+of Meeko or Amber software. Optional-provider failure preserves the result through
+the existing diagnostic. These scalar references carry atom names/graphs rather
+than physical quantities; the existing geometry paths keep PyUnitWizard conversion.
+
+`tests/element/group/amino_acid/test_naming_atom_expectations.py` and
+`tests/build/test_naming_preparation.py` supply explicit state/H expectations,
+missing-context refusal, terminal exclusions, mixed per-group declarations,
+H5MSM selection, native addition/removal, external preflight and reader controls.
+Negative controls corrupt bundled candidate connectivity/H counts/H parents and
+require a structural diagnostic rather than a fallback. These two modules join
+the existing smoke command, without a second pytest invocation. Existing map
+validation and public scientific pair assertions remain intact.
+
+### Receiving history and documentation
+
+Early new-test runs expose fixture mistakes: an old HID example lacks its now
+required declaration; native-placement tests accidentally use the default OpenMM
+engine; and a reader assertion tries an unsupported ChemicalStates count property.
+Those fixtures use explicit context/engine and the public count query. A real
+warning-call error passes an unsupported `caller` keyword to the existing
+UnassessedResidueWarning; the call site is corrected without changing its API.
+Reference-map test doubles now accept and forward the new context argument.
+
+The first broad 2,092-case run passes 2,080 with five failures and seven setup
+errors. Nine cases need public PDB downloads blocked by the sandbox, two failures
+are outdated template doubles, and one is a real reference-routing defect: native
+md_1u19 bond candidates give 5,633 pairs against PyTraj's 5,632. The fixture now
+declares the Amber labels it intends, and the implementation uses that context.
+Both count and full pair equality remain exact at 5,632; no assertion is weakened.
+The separate network-enabled retry passes all twelve selected cases. A subsequent
+2,107-case run passes 2,106 and exposes the raw-reader missing-context regression
+fixed above. Earlier failed process results remain separate local evidence.
+
+Ten revised tutorials execute all 57 code cells in the shared Python 3.14
+environment. Jupyter uses the existing local-socket permission; no auxiliary
+environment or dependency installation is created. Their explanations distinguish
+raw catalogues, bounded chemical references and unsupported preparation. The
+conceptual User Guide, chemical-coverage page, Cookbook, course and docstrings
+reflect those limits. The course's executable cells, stored results and notebook
+metadata remain identical. The isolated documentation fixture links the actual
+new tutorial targets; its no-warning assertion and broken-link negative control
+are retained.
+
+
+### Final local receiving for the preparation block
+
+- **2,945 tests pass** in the affected preparation/group/reader selection, with
+  no failures or omissions, on Linux/Python 3.14.7. Four workers complete in
+  210 seconds. The 259 warnings include 59 legacy H5MSM notices, the three
+  deliberately injected attribution failures and existing unassessed-placement,
+  attribute-drop, atom-name, protonation and pandas diagnostics. No warning or
+  assertion is suppressed for this run. Existing unmarked public-PDB tests use
+  the network-enabled execution route; the `not network` marker selection alone
+  does not make this suite fully offline.
+- **333 tests pass** with public ArgDigest 0.14.0, DepDigest 0.15.1, SMonitor 0.16.0
+  and Ackredit 0.9.0, using the previously verified archive/import-path harness.
+  The same entry-point-only SMonitor harness exclusion remains under #524; it
+  excludes no runtime or scientific assertion. Two workers complete in 25 seconds
+  with one existing attribute-drop warning. The additional controls include the
+  raw-reader policy and the actual dataset-credit path.
+- **514 documentation/command controls** pass with 512 existing Sphinx
+  deprecations; **four doctest items** pass. Ten tutorial executions cover
+  **57 code cells**. The unchanged course executable payload and metadata are
+  verified against the parent commit.
+- Whole-tree Ruff lint and formatting (**4,351 files**), all **247** checked
+  public docstrings, the **278-symbol** registry, four approved signature changes,
+  offline naming-asset regeneration and dependency/import-contract checks pass.
+  Devguide/index and final staged-diff checks are run before the local commit.
+- The native binary retains SHA-256
+  `f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c`.
+  The four unrelated human API-stub edits retain their prior hashes and remain
+  outside this change. Support-library checkouts, runtime dependency floors,
+  pinned scientific assets and public packages are unchanged.
+
+The final broad command in the existing development environment is:
+
+```bash
+python -m pytest --receptor=llm -n 4 \
+  tests/build tests/element/group \
+  tests/physchem/test_get_peptide_chemical_template.py \
+  tests/physchem/test_chemical_template.py \
+  tests/native/test_group_naming_schemes.py \
+  tests/basic/convert/test_source_naming_scheme.py \
+  tests/form/openmm_Topology \
+  tests/form/mmcif_PdbxContainers_DataContainer \
+  tests/form/nglview_NGLWidget -m 'not network'
+```
+
+The published-provider probe selects the two new modules plus
+`tests/element/group/test_reference_bond_map_validation.py`,
+`tests/build/get_missing_bonds/test_pytraj_resource_lifecycle.py` and
+`tests/form/mmcif_PdbxContainers_DataContainer/test_chemical_state_fidelity.py::test_undeclared_contextual_group_does_not_gain_edges_or_complete_status`.
+It retains the previously recorded source-environment floor-import method, adds
+`-p no:smonitor` for that distribution-entry-point mismatch and uses two workers.
+Current-provider tests retain the normal diagnostics plugin.
+
+Final local JUnit evidence under `.pytest_cache/group-name-resolution-549/` is
+`preparation-extended-final.xml`, `preparation-provider-floors-final.xml`,
+`preparation-documentation-final.xml` and `preparation-doctests-final.xml`.
+The earlier failed/partial processes have separate filenames and are not
+relabelled as passing. This work does not fix the optional-environment `pip check`
+limitation under #524 or qualify an installed artifact, other interpreter or
+platform. No push, hosted CI, tag or package publication accompanies this block.
+
+**Next:** audit remaining producers such as `build_peptide`, then complete D5's
+conversion/lifecycle fidelity matrix and D6's old scalar/addon cutover. Unsupported
+state terminal completion and external naming translation remain explicit limits;
+they are not silently certified by successful reference inventory queries.

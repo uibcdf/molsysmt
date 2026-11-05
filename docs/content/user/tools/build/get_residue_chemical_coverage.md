@@ -132,3 +132,15 @@ are added or changed.
 - {func}`molsysmt.build.add_missing_heavy_atoms` performs a separate explicit repair.
 - {ref}`Cookbook_Auditing_Residue_Chemistry` combines inventory and coverage queries.
 :::
+
+## Scoping reference names
+
+The template identity includes the stored `naming_scheme` for the source group.
+The reference cache is scoped by both name and convention. An undeclared ambiguous
+name is unassessed, rather than interpreted as Amber or CCD. Amber-state provenance
+records verification against bundled Meeko-derived heavy connectivity and H counts
+per parent atom; only the matching raw catalogue variant indices are retained.
+This does not validate charges, stereochemistry or an environmental protonation state.
+CCD/legacy meanings cannot reuse an Amber template with the same label. See
+{ref}`user-foundations-group-naming-schemes` and
+{ref}`Tutorial_Get_expected_hydrogens` for reference and terminal limitations.

@@ -59,6 +59,13 @@ def get_residue_chemical_coverage(
 
     Notes
     -----
+    Per-group stored naming declarations scope reference lookup and caching.
+    Missing context for an ambiguous label yields an unassessed entry. Named
+    Amber states use only variants whose heavy connectivity and per-parent H
+    counts match the bundled Meeko-derived fragments; template provenance records
+    that check. This does not certify charges, stereochemistry or an environmental
+    state. CCD/legacy meanings cannot reuse an Amber reference with the same label.
+
     Exact amino-acid database names and curated MSE, SEP, TPO and MLY templates
     are supported. Sequence aliases do not justify parent-template substitution.
     Unexpected names and duplicate names are reported without automatic matching.

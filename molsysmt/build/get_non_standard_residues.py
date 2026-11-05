@@ -42,6 +42,10 @@ def get_non_standard_residues(
 
     Notes
     -----
+    PDBFixer delegation refuses the reviewed context-dependent labels until a
+    source-naming adapter is available, including explicit declarations. Only the
+    selected groups are checked. Native reference reporting remains available.
+
     The MolSysMT backend uses the shared naming resolver and stored per-group
     conventions in native objects, native dictionaries and H5MSM 0.5. Other
     forms have no implicit source convention. Ambiguous names without context
@@ -49,6 +53,11 @@ def get_non_standard_residues(
     Unassessed default names and unknown parents are omitted. The PDBFixer
     backend retains its own catalogue and may report different substitutions.
 
+
+    .. admonition:: User guide
+
+       See :ref:`user-foundations-group-naming-schemes` for naming context,
+       exact references and unsupported cases.
 
     .. versionadded:: 1.0.0
     """
@@ -86,6 +95,15 @@ def get_non_standard_residues(
                 output[int(group_idx)] = standard
 
     elif engine == "PDBFixer":
+        from molsysmt._private.amino_acid_templates import check_external_preparation
+
+        check_external_preparation(
+            molecular_system,
+            engine,
+            "molsysmt.build.get_non_standard_residues",
+            selection=selection,
+            syntax=syntax,
+        )
         from molsysmt.basic import convert, select
 
         group_indices_in_selection = select(

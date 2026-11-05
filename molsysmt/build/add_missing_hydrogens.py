@@ -79,6 +79,18 @@ def add_missing_hydrogens(
 
     Notes
     -----
+    Native pH preparation reads stored per-group naming declarations. Ambiguous
+    names without context fail before native component reconstruction. Explicit
+    Amber state labels use atom/bond variants checked against bundled Meeko-derived
+    heavy connectivity and per-parent hydrogen counts; their named side-chain H
+    inventory is preserved across pH choices. Modified heavy-only references,
+    named-state terminal completion and incompatible atom layouts remain unassessed
+    and emit UnassessedResidueWarning. The existing placement heuristic and standard
+    pH approximation are unchanged; this does not certify energy, stereochemistry,
+    bond orders or stored chemical assignments. OpenMM/PDBFixer wrappers refuse
+    reviewed contextual labels until naming adapters are implemented. Fixed-state
+    RDKit mode uses ChemicalStates and does not interpret group labels chemically.
+
     Fixed-state mode requires explicit elements, complete covalent connectivity,
     atom/bond aromaticity, formal charges, closed-shell assignments and virtual
     H counts. Nonaromatic bonds require declared integer orders of 1, 2 or 3;
@@ -219,6 +231,11 @@ def add_missing_hydrogens(
     output_molecular_system = None
     form_in = get_form(molecular_system)
     form_out = form_in
+
+    if engine in ("OpenMM", "PDBFixer"):
+        from molsysmt._private.amino_acid_templates import check_external_preparation
+
+        check_external_preparation(molecular_system, engine, caller)
 
     if engine == "OpenMM":
         from molsysmt.basic import set
@@ -486,9 +503,6 @@ def add_missing_hydrogens(
         )
         from molsysmt.element.group.amino_acid import (
             get_expected_hydrogens,
-            get_group_db,
-            get_standard_name,
-            group_names,
         )
 
         if form_in != "molsysmt.MolSys":
@@ -498,7 +512,16 @@ def add_missing_hydrogens(
         else:
             native_ms = molecular_system
 
+        from molsysmt._private.amino_acid_templates import (
+            choose_variant,
+            family,
+            variants,
+        )
+
         topo = native_ms.topology
+        schemes = topo.group_naming_schemes
+        for index, name in enumerate(topo.groups["group_name"]):
+            family(name, schemes[index], caller=caller)
         all_coords = puw.get_value(native_ms.structures.coordinates, to_unit="nm")
         n_structures = all_coords.shape[0]
 
@@ -586,8 +609,7 @@ def add_missing_hydrogens(
 
             gname = topo.groups.loc[g, "group_name"] if g < len(topo.groups) else None
 
-            canonical = get_standard_name(gname) if gname else None
-            lookup = canonical if canonical is not None else gname
+            lookup = gname
 
             if gname in ("ACE", "NME"):
                 # Place missing H atoms on pre-existing capping groups via template bonds.
@@ -684,8 +706,28 @@ def add_missing_hydrogens(
                         new_bonds_info.append((int(par_idx), h_new_idx))
                 continue
 
-            elif lookup not in group_names:
-                continue  # skip non-amino-acid groups
+            candidates = variants(gname, schemes[g], caller=caller)
+            if candidates is None:
+                from molsysmt._private.name_resolution import assessed
+                from molsysmt._private.residue_templates import (
+                    CURATED_MODIFIED_RESIDUES,
+                )
+                from molsysmt._private.smonitor import UnassessedResidueWarning
+
+                interpretation = assessed(gname, schemes[g], caller=caller)
+                if gname in CURATED_MODIFIED_RESIDUES or (
+                    interpretation is not None
+                    and interpretation.group_type == "amino acid"
+                ):
+                    _warn(
+                        UnassessedResidueWarning(
+                            group_name=gname,
+                            group_index=g,
+                            reason="no supported exact hydrogen reference for this naming interpretation",
+                        ),
+                        stacklevel=2,
+                    )
+                continue
 
             # Terminal status
             c_idx = int(
@@ -696,14 +738,6 @@ def add_missing_hydrogens(
             is_disulfide = g in disulfide_groups
 
             present_names = g_atoms["atom_name"].tolist()
-            present_heavy = [
-                a
-                for a in present_names
-                if not (
-                    a.startswith("H")
-                    or (len(a) >= 2 and a[0].isdigit() and a[1] == "H")
-                )
-            ]
             present_hs = {
                 a
                 for a in present_names
@@ -712,6 +746,7 @@ def add_missing_hydrogens(
 
             expected_hs = get_expected_hydrogens(
                 gname,
+                naming_scheme=schemes[g],
                 present_atom_names=present_names,
                 pH=pH,
                 is_n_terminal=is_n_term,
@@ -719,52 +754,26 @@ def add_missing_hydrogens(
                 is_disulfide=is_disulfide,
             )
             if expected_hs is None:
+                from molsysmt._private.smonitor import UnassessedResidueWarning
+
+                _warn(
+                    UnassessedResidueWarning(
+                        group_name=gname,
+                        group_index=g,
+                        reason="terminal-state completion or the observed atom layout is not supported by the exact hydrogen reference",
+                    ),
+                    stacklevel=2,
+                )
                 continue
 
             missing_hs = [h for h in expected_hs if h not in present_hs]
             if not missing_hs:
                 continue
 
-            # Get the variant bonds to know parent → H relationships
-            db = get_group_db(lookup)
-
-            # Select best variant.
-            # When H atoms are present, primary criterion is maximum overlap with
-            # their names (to avoid picking a variant that uses a different naming
-            # convention for the same physical atoms).  Secondary: fewest extra
-            # heavy atoms (tightest heavy-atom fit).
-            best_variant = None
-            best_h_overlap = -1
-            best_extra = None
-            present_heavy_set = {a for a in present_heavy}
-            for variant in db["topology"]:
-                variant_heavy = {
-                    a
-                    for a in variant["atoms"]
-                    if not (
-                        a.startswith("H")
-                        or (len(a) >= 2 and a[0].isdigit() and a[1] == "H")
-                    )
-                }
-                if present_heavy_set <= variant_heavy:
-                    extra = len(variant_heavy) - len(present_heavy_set)
-                    variant_hs = {
-                        a
-                        for a in variant["atoms"]
-                        if a.startswith("H")
-                        or (len(a) >= 2 and a[0].isdigit() and a[1] == "H")
-                    }
-                    h_overlap = len(present_hs & variant_hs)
-                    if (
-                        best_extra is None
-                        or h_overlap > best_h_overlap
-                        or (h_overlap == best_h_overlap and extra < best_extra)
-                    ):
-                        best_extra = extra
-                        best_h_overlap = h_overlap
-                        best_variant = variant
+            # Use exactly the same atom-name matching as the expectation tool.
+            best_variant = choose_variant(candidates, present_names)
             if best_variant is None:
-                best_variant = db["topology"][0]
+                continue
 
             # Build parent→Hs map from variant bonds
             parent_to_hs = {}  # atom_name -> [h_name, ...]

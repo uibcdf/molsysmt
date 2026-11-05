@@ -105,6 +105,11 @@ def one_letter(name, naming_scheme, *, caller):
     return aa3_to_aa1[result.parent], result.profile
 
 
+def requires_naming_context(name):
+    """Identify the reviewed labels that cannot select their own vocabulary."""
+    return isinstance(name, str) and name in _profiles()["contextual_names"]
+
+
 def assessed(name, naming_scheme, *, caller, require_context=False):
     """Return a reviewed interpretation or no assessment, without legacy fallback.
 
