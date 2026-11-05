@@ -38,6 +38,7 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "mutate",
         "build_peptide",
         "add_missing_heavy_atoms",
+        "add_missing_bonds",
     ):
         assert rows[f"build.{name}"]["exposed"]
         assert rows[f"build.{name}"]["input_kind"] == "primary"

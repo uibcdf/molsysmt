@@ -1,0 +1,384 @@
+{
+  "schema": "molsysmt.viewer-bond-addition-source-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "dea6d680fe8ba6648789f943aba6bc24173d3888",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "source_identity": "Working-tree hashes identify tested inputs; final reviewed delivery is through the existing PR, not owner main.",
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "linux",
+    "versions": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3"
+    },
+    "scope": "Existing source environment, no installation/solver or public artifact qualification."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_chemical_edits.py": {
+      "file": "_chemical_edits.py",
+      "sha256": "93f81026f0642818ea3b7006c108f42f43c564ae4c37f77e179a1adfd1dbe2e7",
+      "size_bytes": 2982
+    },
+    "molsysviewer_molsysmt/_build.py": {
+      "file": "_build.py",
+      "sha256": "1e3fb57f84f4f2eefdd9181221172bf61261c94e08274ae97c1e0fc1aa507813",
+      "size_bytes": 34696
+    },
+    "tests/molsysviewer_molsysmt/test_build_bond_edit_tools.py": {
+      "file": "test_build_bond_edit_tools.py",
+      "sha256": "b6fc37053839d6d0fd208c4d06ca6e558a2bd99b85d16be8f46262978b03b941",
+      "size_bytes": 12505
+    },
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": {
+      "file": "test_build_audit_tools.py",
+      "sha256": "af4b244fc4ba28a214e9dda7db60eafce3cd7d0e1f2259cb194dec18998de5f1",
+      "size_bytes": 14133
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "file": "test_molsysviewer_tools_api_inventory.py",
+      "sha256": "a84c282836807fa478217894d5b76790f594c7abbcdbe4fe2dd12d19b8d70c94",
+      "size_bytes": 9246
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "file": "ci-smoke.yaml",
+      "sha256": "abfbc51cbb272984605ae7bf839d117375d92d83068f01d5e3cd4af2bc09e03e",
+      "size_bytes": 15071
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "file": "molsysviewer_tools.md",
+      "sha256": "80559bc0fd937bb8916501f6dadf720ad3c1991b357be6130d87dc1eb0faf8f2",
+      "size_bytes": 246726
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "file": "molsysviewer_tools.md.AGENTS.md",
+      "sha256": "863080995c5d6d28dfe4a62f6a57d7597566315ed00154fa41c0fa5cf2af83e6",
+      "size_bytes": 29488
+    },
+    "docs/docs_manifest.yml": {
+      "file": "docs_manifest.yml",
+      "sha256": "3a4b23fc6fd48da6673940dbaf3e3df4a141c2e8f41c1aa6b7095ef32aeccab3",
+      "size_bytes": 56825
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "sha256": "0956be6f280bd830abaae414cf8c72fa6ccb387ca94fbe26f20a8a94b8053aca",
+      "size_bytes": 56161
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.AGENTS.md": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.AGENTS.md",
+      "sha256": "8581c80ef3ef6bb32f7ba4ac0753c296189e5cc12594b54525912b0c4a06e39f",
+      "size_bytes": 4817
+    }
+  },
+  "implemented": {
+    "path": "build.add_missing_bonds",
+    "signature": "Native scientific signature without primary molecular input, plus keyword-only update_view=True; declared native skip_digestion is forwarded.",
+    "ownership": "Native default in_place=True returns None and mutates the current primary; False returns independent data without adoption.",
+    "effects": "Native atomic graph/component publication in reference chemistry retains atom/structure/state identities and geometry; native invalidation owns saved analyses. No new native algorithm or host runtime behavior.",
+    "noop": "Reviewed publication identities classify real effects after one native call; empty candidates preserve revisions, analyses and scene history. update_view=True can still synchronize earlier pending work.",
+    "failures": "Read-only publication tokens receive native atomic rejection; uncertain writes require explicit recovery. A completed write followed by scene failure carries science_completed/result; sync retry does not rerun science."
+  },
+  "qualification": {
+    "classification": "Contract/parity tested with real molecular inputs and literal expected atom pairs; not universal chemical validation.",
+    "scope": "All/selected bonds; literal dialanine group pairs and equivalent numeric selection; nm/angstrom/pm cutoff inputs; independent and in-place ownership with native skip modes; evaluated-empty analysis invalidation and old snapshot preservation; coordinate-storage/stable-topology/other-state/association retention; JSON/array-native static bond metadata; no-op coverage/history/revision; invalid selection/frame/unit/engine and integration flags; pending composition with removal; lifetime/replacement; interrupted transport and retry.",
+    "exactly_once": "Noninvasive Python call profiling observes one native writer and one candidate call across interrupted projection plus sync retry; neither function is replaced or mocked.",
+    "limits": "Native reference state and structure_index=0 are kept, without visible-frame substitution. No bond type/order, hydrogen inventory, complete chemistry, periodic repair, hidden preparation or optional-engine fallback is inferred.",
+    "checks": {
+      "focused_final": {
+        "file": "bond-edit-final-formatted-20261105.xml",
+        "sha256": "f2b804417c2cd79417c2481aa7fae9d51ee6c13867386798b2bbf95e7ca389d9",
+        "size_bytes": 4374,
+        "tests": 24,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 6.437
+      },
+      "build_removal_composition": {
+        "file": "bond-edit-build-integration-20261105.xml",
+        "sha256": "0f018231bffc5e9d39132b1c8e901331c5a0bef4ff790c088274dd8e6fd20ef3",
+        "size_bytes": 87996,
+        "tests": 492,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 138.005
+      },
+      "native": {
+        "file": "bond-edit-native-20261105.xml",
+        "sha256": "0964308913749c2e819bf8079fd60f85af51720069546d50af87398eff11b85d",
+        "size_bytes": 8497,
+        "tests": 53,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 3.717
+      },
+      "route_docs": {
+        "file": "bond-edit-structure-docs-20261105.xml",
+        "sha256": "350f2fd50aacd2a49048b173499f88483d6321bcbc4918149a956c8d8daa224a",
+        "size_bytes": 10246,
+        "tests": 58,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 23.588
+      },
+      "viewer_host_frozen_provider": {
+        "file": "bond-edit-host-frozen-20261105.xml",
+        "sha256": "13476f1095f33b4499dbfe984f1f7487727e34a1eed6d9122b1656c30652b923",
+        "size_bytes": 1763,
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 4.603
+      },
+      "viewer_reporting": {
+        "file": "bond-edit-viewer-reporting-20261105.xml",
+        "sha256": "494b4ce5835be7f04bcaddf6f0063190521f7381db1406bcdcde909f0be1a1aa",
+        "size_bytes": 52230,
+        "tests": 300,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 1.781
+      }
+    }
+  },
+  "source_freeze": {
+    "frozen_files_match": true,
+    "count": 3146,
+    "source_sha256": "aec4d3b5a09f2dd41cd8387b8c4d5aae5c742458abbdcece3cec7547f7410d62",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "manifest": {
+      "file": "bond-edit-final-sources-20261105.json",
+      "sha256": "2e51d2dfbd594db3f0c761f7c8250b14bc051634fa3031695eed1e7e6a1ab82d",
+      "size_bytes": 386524
+    },
+    "native_unchanged_count": 3034,
+    "native_algorithm_changes": false,
+    "preformat_integration": {
+      "manifest": {
+        "file": "bond-edit-sources-before-20261105.json",
+        "sha256": "33c521db4776f61117dbf49fdd140c481c59392e3a56cf73d63991ca7343437f",
+        "size_bytes": 386524
+      },
+      "postcheck": {
+        "file": "bond-edit-postcheck-20261105.json",
+        "sha256": "5f73a70b405ecfbb78e2432f804765c8870b85fb698bbe2f5eb1c6cdd4f61331",
+        "size_bytes": 351
+      },
+      "format_equivalence": {
+        "file": "bond-edit-format-equivalence-20261105.json",
+        "sha256": "f095647a351b453f740ddd388e76139b0b98c833118ddb0140eb81a4d3bd63e6",
+        "size_bytes": 532
+      },
+      "scope": "492-case integration and 58 route/docs cases retain original preformat hashes. Only two files were line-wrapped afterwards with identical AST; final focused 24 cases pass on delivered bytes. Native sources/backend remain unchanged."
+    }
+  },
+  "documentation": {
+    "course_preservation": {
+      "file": "bond-edit-guide-course-20261105.json",
+      "sha256": "609dc1d98e1298f5f99b78b4c6c0354d87dfffa73fc8e576b56cc58f76c21f4a",
+      "size_bytes": 126
+    },
+    "course_structure": "156 notebooks pass; only one existing Markdown cell changes, all code/outputs/IDs/metadata retained.",
+    "native_docstrings": "247 structural/default/content checks pass.",
+    "guide": "One new public guide block executes. Owning guide/microinstructions/manifest and Module 12 prose updated. Viewer owns generic receiving documentation.",
+    "lint": "Ruff scoped package/tests/inventory passes; all 89 addon Python/test files pass formatting.",
+    "devguide": "Owner index check and integrity validator pass."
+  },
+  "initial_test_failures": {
+    "attempts": [
+      {
+        "file": "bond-edit-focused-20261105.xml",
+        "sha256": "ff2da27267baff7b03d54057b274fa2b62d2f06fbc0adfd1764f41901e42f1f5",
+        "size_bytes": 64708,
+        "tests": 20,
+        "failures": 1,
+        "errors": 19,
+        "skipped": 0,
+        "seconds": 4.522
+      },
+      {
+        "file": "bond-edit-focused-corrected-20261105.xml",
+        "sha256": "dc27a82d70183bef6e42ae58ec16aef7335037894991bcd83206717912ce6b66",
+        "size_bytes": 9536,
+        "tests": 20,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 5.605
+      },
+      {
+        "file": "bond-edit-focused-final-20261105.xml",
+        "sha256": "b25dd899b22aab1b41d947a18dc220dbeb50b5e68359e428d4d2ee99eaafce02",
+        "size_bytes": 5900,
+        "tests": 24,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 7.125
+      }
+    ],
+    "diagnosis": "New fixture first replaced structure axes without redeclaring state association. Subsequent test-only corrections use shape records and array payload metadata, their actual public objects; no product defect or native repair is inferred.",
+    "host_input_correction": "Initial 10-case host pass imported the concurrent owner checkout and is not used for frozen-provider qualification; rerun with explicit contribution import passes all 10."
+  },
+  "inventory": {
+    "file": {
+      "file": "bond-edit-inventory-20261105.json",
+      "sha256": "24d7c3e8a5f0f036b1e906f0e4113e0371da4e6241738a4b039f5777ad327e4b",
+      "size_bytes": 122482
+    },
+    "exposed": 231,
+    "declared": 244,
+    "build_exposed": 26,
+    "build_declared": 30,
+    "mechanics_exposed": 4,
+    "mechanics_declared": 6,
+    "modules": {
+      "basic": {
+        "native_paths": 26,
+        "exposed_paths": 25,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "basic.view"
+        ]
+      },
+      "topology": {
+        "native_paths": 2,
+        "exposed_paths": 2,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "chemical_states": {
+        "native_paths": 9,
+        "exposed_paths": 9,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "structure": {
+        "native_paths": 28,
+        "exposed_paths": 28,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "pbc": {
+        "native_paths": 13,
+        "exposed_paths": 13,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "physchem": {
+        "native_paths": 34,
+        "exposed_paths": 34,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "build": {
+        "native_paths": 30,
+        "exposed_paths": 26,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "build.make_water_box",
+          "build.reconcile_protonation",
+          "build.solvate",
+          "build.solve_atoms_with_alternate_location"
+        ]
+      },
+      "molecular_mechanics": {
+        "native_paths": 6,
+        "exposed_paths": 4,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "molecular_mechanics.get_forces",
+          "molecular_mechanics.get_non_bonded_potential_energy"
+        ]
+      },
+      "interactions": {
+        "native_paths": 15,
+        "exposed_paths": 15,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "element": {
+        "native_paths": 57,
+        "exposed_paths": 57,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "h5msm": {
+        "native_paths": 7,
+        "exposed_paths": 7,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "hbonds": {
+        "native_paths": 4,
+        "exposed_paths": 0,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "hbonds.get_acceptor_atoms",
+          "hbonds.get_buch_hbonds",
+          "hbonds.get_donor_atoms",
+          "hbonds.get_luzard_chandler_hbonds"
+        ]
+      },
+      "attribute": {
+        "native_paths": 7,
+        "exposed_paths": 7,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "supported": {
+        "native_paths": 4,
+        "exposed_paths": 4,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "molecular_dynamics": {
+        "native_paths": 2,
+        "exposed_paths": 0,
+        "explicit_native_stubs": 2,
+        "missing": [
+          "molecular_dynamics.run_NPT_equilibration",
+          "molecular_dynamics.run_NVT_equilibration"
+        ]
+      }
+    },
+    "scope": "Source function paths; aliases/stubs are not distinct scientific algorithms. Two raw FASTA readers remain separate."
+  },
+  "retained_ci": {
+    "owner_metadata_parent": {
+      "sha": "dea6d680fe8ba6648789f943aba6bc24173d3888",
+      "full": 42048290587,
+      "full_matrix_cells": 8,
+      "full_conclusion": "success",
+      "smoke": 42048290665,
+      "smoke_conclusion": "success",
+      "performance": 42048290625,
+      "performance_conclusion": "success",
+      "scope": "Official previous-source outcomes, not qualification of this new source or independently reverified certificate bodies. Earlier #567 benchmark failures retain their original inputs."
+    },
+    "new_head": "Not yet dispatched by this receipt; exact-head CI and owner review remain required."
+  },
+  "remaining": "Four build routes, two mechanical routes, basic.view and deliberate alias/stub disposition; task-oriented GUI, owner integration, installed compatibility and candidates retain separate scope. Native #549/#559-562/#564/#567/#568 remain with owner.",
+  "working_state": "Viewer human sandbox files are preserved. Concurrent MolSysMT owner main is eight commits ahead with 23 dirty paths at latest refreshed inspection; none adopted or edited. Contribution stays on frozen native basis.",
+  "retention": "Raw JUnit, source manifests, captures and existing contribution worktree retained through owner/CI receiving; review by 2026-11-11.",
+  "publication": "No owner-main push/merge, native algorithm/Rust/backend change, dependency-floor change, candidate, package, tag, Release or promotion. Both 1.0 publications remain paused."
+}

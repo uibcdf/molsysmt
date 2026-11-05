@@ -4,6 +4,33 @@ from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _native_documentation
+from ._chemical_edits import _run_add_missing_bonds
+
+
+def _bond_edit_documentation(function):
+    function = _native_documentation("add_missing_bonds", module="build")(function)
+    function.__doc__ += (
+        "\nView integration\n----------------\n"
+        "update_view : bool, keyword-only, default=True\n"
+        "    Reconcile an admitted in-place bond addition. False defers the "
+        "scene only; sync_view() completes pending projection without repeating "
+        "the scientific calculation. Independent outputs are never adopted.\n"
+        "Requires an open loaded owner. Native in_place=True returns None, "
+        "while False returns a separate molecular system. Atom, structure and "
+        "chemical-state identities are retained; the native reference state "
+        "and structure_index=0 apply, not the visible frame. Native template, "
+        "distance, selection, chain and periodic rules remain unchanged. No "
+        "bond order, type, complete chemistry, hydrogen preparation or engine "
+        "fallback is inferred by the addon. The native writer rebuilds "
+        "components and invalidates all named analyses on graph changes, "
+        "including evaluated-empty coverage, without running detectors. Empty "
+        "candidates preserve coverage, history and managed revision; they can "
+        "still synchronize earlier pending edits when update_view=True. A "
+        "scene failure exposes science_completed=True and scientific_result; "
+        "retry synchronization only. Atomic native rejections preserve prior "
+        "pending work; uncertain writes require explicit recovery.\n"
+    )
+    return function
 
 
 def _independent_build_documentation(name, *, local_skip=False):
@@ -226,6 +253,7 @@ class _BuildTools:
         "merge_nonpolar_hydrogens",
         "add_terminal_atoms",
         "add_missing_heavy_atoms",
+        "add_missing_bonds",
         "add_missing_hydrogens",
         "add_missing_terminal_cappings",
         "editable",
@@ -824,3 +852,32 @@ class _BuildTools:
         self, to_form="molsysmt.MolSys", engine="MolSysMT", *, skip_digestion=False
     ):
         return self._call("build_peptide", {"to_form": to_form, "engine": engine})
+
+    @_bond_edit_documentation
+    @signal(tags=["addon", "build", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_missing_bonds(
+        self,
+        max_bond_length="2 angstroms",
+        selection="all",
+        structure_index=0,
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        in_place=True,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        return _run_add_missing_bonds(
+            self._owner,
+            {
+                "max_bond_length": max_bond_length,
+                "selection": selection,
+                "structure_index": structure_index,
+                "syntax": syntax,
+                "engine": engine,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )

@@ -446,3 +446,9 @@ execution. Mutation returns an independent result with native key/mask semantics
 bounded incomplete side-chain warnings and native H-rebuilding/attribute limits.
 Do not conceal the external/numeric mask rejection or reinterpret atom/group
 indices. Both local skip flags leave ordinary native validation active.
+
+
+Preserve native add_missing_bonds in-place defaults, retained axes and atomic
+reference-state graph/component publication. Distinguish true no-op coverage/
+history preservation from deferred projection and synchronization-only retry;
+never duplicate candidate calculation or infer complete chemical validity.

@@ -71,3 +71,9 @@ Preserve independent peptide construction/substitution guidance, distinguishing
 fresh sequence-based geometry from observed coordinates and complete chemistry
 from an unassessed target name. Retain native mask/naming/provider/H limits and
 all original notebook code, outputs, metadata, IDs and biological scenarios.
+
+
+Preserve the managed add_missing_bonds guidance: native in-place default,
+retained identities, reference-state components/coverage effects and true
+no-op behavior. Deferred projection and its retry never repeat science;
+independent results remain caller-owned. Preserve original code and outputs.

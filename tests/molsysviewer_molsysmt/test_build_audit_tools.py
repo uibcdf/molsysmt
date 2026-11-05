@@ -113,6 +113,7 @@ def test_explicit_native_signature_and_local_only_skip_control(view, name):
         "mutate",
         "build_peptide",
         "add_missing_heavy_atoms",
+        "add_missing_bonds",
     }
     assert not hasattr(view.addons.molsysmt, name)
     assert "not a scene object" in inspect.getdoc(method)

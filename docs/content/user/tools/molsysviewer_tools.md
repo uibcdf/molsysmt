@@ -60,7 +60,8 @@ source metadata requirements remain explicit. Three additional build methods ret
 independent prepared systems: infer_covalent_bonds, assign_autodock_atom_types
 and assign_partial_charges. They do not adopt the result or update the scene;
 The label-only project_atom_names route also returns an independent output;
-other build editing remains pending.
+`add_missing_bonds` also receives native independent results or managed in-place
+graph publication; its default is in-place. Other build editing remains pending.
 
 The explicit `view.addons.molsysmt.interactions.hbonds` namespace now provides
 four recognition/characterization tools: `get_donor_atoms`, `get_acceptor_atoms`,
@@ -3673,6 +3674,57 @@ it is not forwarded and never bypasses native validation. Neither tool adds
 are read without synchronizing the scene. See
 {func}`molsysmt.build.remove_overlapping_molecules` and
 {ref}`Filtering overlaps <Tutorial_Remove_overlapping_molecules>`.
+
+## Adding missing covalent bonds to the loaded system
+
+`view.addons.molsysmt.build.add_missing_bonds()` keeps the native default
+`in_place=True`: it modifies `view.molsys`, returns `None` and reconciles the
+scene. `in_place=False` returns an independent system without adopting it,
+regardless of `update_view`. This differs from the independent
+`infer_covalent_bonds` route.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaAla", engine="MolSysMT")
+molsys.chemical_states.remove_bonds("all")  # Explicit fixture preparation.
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt
+    tools.build.add_missing_bonds(update_view=False)
+    assert msm.get(view.molsys, n_bonds=True) > 0
+    assert tools.get_sync_status()["state"] == "pending"
+    tools.sync_view()  # Project the completed graph; do not repeat the calculation.
+```
+
+Selection addresses source atom indices; both endpoints must belong. The
+single native `structure_index=0` determines geometric candidates, independently
+of the visible frame. Explicit `max_bond_length` quantities, template/chain
+rules, periodic criteria and selection syntax remain native. The operation
+updates the reference chemical state and rebuilds its components, retaining
+atom/structure/state indices, stable topology, other states and coordinate
+storage. It does not assign bond orders/types, prepare hydrogens or certify
+complete chemistry. Inspect native prerequisites and heuristics in
+{func}`molsysmt.build.add_missing_bonds` and
+{ref}`Tutorial_Add_missing_bonds`.
+
+A changed graph invalidates all named analysis coverage, including evaluated
+structures with no observations; old snapshots remain separate. Detectors are
+not rerun. Empty candidate results preserve coverage, history and managed
+revision. Each attempt still has an audit identifier. A no-op with
+`update_view=True` can synchronize earlier pending work; `False` defers only
+scene projection. Compatible pending removals/coordinate edits compose through
+the existing identity maps. Scene actions that depend on stale indices reject
+while work is pending.
+
+Scientific rejection retains the prior synchronized or pending state when the
+native atomic publication contract certifies preservation. A scene failure
+after successful science instead exposes `SystemEditSyncError` with
+`science_completed=True` and `scientific_result=None`: retry `sync_view()`, not
+bond reconstruction. Potentially partial writes require explicit recovery.
+Cached methods use the current loaded owner; empty and closed views reject.
+Native `skip_digestion` is forwarded; it never disables integration safeguards.
+This is bounded source receiving, not a new published-package guarantee.
 
 ## Constructing and mutating independent peptides
 
