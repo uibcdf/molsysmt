@@ -15,6 +15,34 @@ supersedes: []
 # Bound MolSysMT tools addon for MolSysViewer
 
 
+## Nonbonded-energy consumer receiving — 2026-11-05
+
+PR #543 adds an explicit primary-bound get_non_bonded_potential_energy mirror
+on source 04b9fbbda, retaining the native signature, model, units, selections,
+reader locking and source/scene ownership. It introduces no engine conversion,
+preparation or automatic representation in Viewer. The facade exposes 233/244
+reviewed paths, including five of six mechanical tools and 27/30 build tools.
+
+All 38 new cases pass within the 132-case mechanical/inventory integration;
+142 documentation/reporting contracts pass separately. The independent pair
+oracle uses a separately constructed NoCutoff AMBER14 model, Coulomb and
+Lennard-Jones formulas plus scaled/excluded exceptions. Four recorded numerical
+controls differ by at most 0.000107 kJ/mol, within the fixed CPU tolerance;
+energy-policy, scalar/matrix axes, pending edits and error ownership are checked.
+The final full addon/integration regression passes **4,311 cases** without
+failures/errors/skips. All 4,230 primary source/test files, the 91-file public
+provider snapshot and checked support sources retain their recorded hashes. The
+[receiving receipt](../../devtools/data/molsysviewer_tools_nonbonded_receiving_20261105.json)
+retains inputs, reference numbers, unit/engine scope and preserved course cells.
+
+Native mixed partition/flat selection #561 remains explicit. Native MolSys force
+input is not implemented: the maintainer-authorized #572 proposal records its
+independent rejection and an analytical OpenMM positive control. get_forces stays
+unexposed; no placeholder or consumer parameterization is added. Native algorithms,
+Rust/backend bytes, Viewer runtime and dependency floors remain unchanged. Owner
+review, exact-head CI, GUI and installed/public qualification remain separate;
+#421 stays partial and both 1.0 publications stay paused.
+
 ## Consumer receiving of alternate-site repairs — 2026-11-05
 
 PR #543 receives owner `532d03622` after the named-context merge `393757795`.

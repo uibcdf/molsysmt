@@ -39,6 +39,22 @@ def _mechanical_documentation(name, *, bind_primary):
                 "recovery. Minimization seeks a local minimum, without a global "
                 "minimum or equilibrium-ensemble guarantee.\n"
             )
+        elif name == "get_non_bonded_potential_energy":
+            function.__doc__ += (
+                "Reads the current view.molsys through the serialized molecular "
+                "reader, including completed pending edits. Native stored/default "
+                "mechanical settings parameterize the complete system. With "
+                "selection_2=None the result is its selected internal nonbonded "
+                "energy; two disjoint selections request their native cross "
+                "contribution. Scientific receiving covers single-structure CPU "
+                "NoCutoff models, explicit atomic selections and two-sided group "
+                "partitions. Native units, syntax and result axes remain intact. "
+                "Mixed partition/flat selections retain the native #561 limit; "
+                "overlapping selections and periodic long-range partitioning "
+                "are not scientifically qualified here. No force field, chemistry "
+                "preparation, visible-structure choice, scene/history change or "
+                "update_view control is introduced. Native errors propagate.\n"
+            )
         elif name == "get_potential_energy":
             function.__doc__ += (
                 "Reads the current view.molsys through the serialized molecular "
@@ -93,6 +109,7 @@ class _MolecularMechanicsTools:
         "get_engine_forcefield",
         "get_degrees_of_freedom",
         "get_potential_energy",
+        "get_non_bonded_potential_energy",
         "potential_energy_minimization",
     )
 
@@ -165,6 +182,32 @@ class _MolecularMechanicsTools:
             {
                 "selection": selection,
                 "decomposition": decomposition,
+                "platform": platform,
+                "engine": engine,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_mechanical_documentation("get_non_bonded_potential_energy", bind_primary=True)
+    @signal(tags=["addon", "molecular_mechanics", "read"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_non_bonded_potential_energy(
+        self,
+        selection="all",
+        selection_2=None,
+        platform="CPU",
+        engine="OpenMM",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        from molsysmt.molecular_mechanics import get_non_bonded_potential_energy
+
+        return self._owner._read(
+            get_non_bonded_potential_energy,
+            {
+                "selection": selection,
+                "selection_2": selection_2,
                 "platform": platform,
                 "engine": engine,
                 "syntax": syntax,

@@ -88,7 +88,8 @@ exposure, not unconditional scientific accuracy, stability or installed compatib
 
 The initial `view.addons.molsysmt.molecular_mechanics` slice provides explicit
 `get_engine_forcefield` resource lookup and primary-bound
-`get_degrees_of_freedom`, `get_potential_energy` and `potential_energy_minimization`.
+`get_degrees_of_freedom`, `get_potential_energy`,
+`get_non_bonded_potential_energy` and `potential_energy_minimization`.
 The minimizer retains independent output by default and supports managed
 in-place coordinate updates. Other mechanical calculations retain their separate
 receiving; see the mechanical section for model, engine and ownership limits.
@@ -1197,7 +1198,7 @@ This MolSysMT guide owns the capabilities and use of the MolSysMT tools addon.
 
 ## Inspecting mechanical resources and calculating energy
 
-Three queries and a minimizer are available under `tools.molecular_mechanics`. Resource lookup keeps
+Four queries and a minimizer are available under `tools.molecular_mechanics`. Resource lookup keeps
 its explicit inputs and works before loading a system. Degree counting and energy read
 the current primary through the same serialized reader as the other scientific
 queries. These queries do not change the scene, adopt an OpenMM object or add an
@@ -1284,6 +1285,60 @@ does not qualify periodic decompositions, GPU execution or arbitrary force
 fields. There is no automatic selection of the visible structure or trajectory
 loop. Native conversion errors, missing chemistry and optional-engine failures
 remain visible. Completed pending edits are read without synchronizing the scene.
+
+### Calculating nonbonded contributions
+
+`get_non_bonded_potential_energy` uses the complete parameterized system and
+selects its nonbonded contributions. With `selection_2=None` it returns the
+internal nonbonded energy of the selected atoms. Two disjoint atom sets give
+their cross contribution; two group partitions give a matrix whose axes follow
+the native selection order. Standard Coulomb, Lennard-Jones and scaled/excluded
+exception terms retain the selected native force field's definitions.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+import numpy as np
+
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        mechanics = view.addons.molsysmt.molecular_mechanics
+        internal = mechanics.get_non_bonded_potential_energy(
+            selection="group_index in [0,1]"
+        )
+        cross = mechanics.get_non_bonded_potential_energy(
+            selection="group_index in [0,1]",
+            selection_2="group_index in [4,5]",
+        )
+        matrix = mechanics.get_non_bonded_potential_energy(
+            selection="all in groups of group_index in [0,1]",
+            selection_2="all in groups of group_index in [4,5]",
+        )
+        cross_kj = msm.pyunitwizard.get_value(cross, to_unit="kJ/mol")
+        matrix_kj = msm.pyunitwizard.get_value(matrix, to_unit="kJ/mol")
+        assert matrix_kj.shape == (2, 2)
+        assert np.isfinite(msm.pyunitwizard.get_value(internal, to_unit="kJ/mol"))
+        np.testing.assert_allclose(matrix_kj.sum(), cross_kj, rtol=2e-6, atol=2e-4)
+```
+
+Results retain physical energy units under the active application policy.
+This source receiving covers single-structure CPU NoCutoff calculations against
+independent Coulomb/Lennard-Jones pair sums, including native exception terms.
+It does not establish binding affinity, free energy, periodic long-range
+partition correctness or overlapping-selection semantics. Stored/default native
+mechanical settings determine the model; there is no hidden preparation,
+visible-structure substitution or trajectory loop.
+
+[#561](https://github.com/uibcdf/molsysmt/issues/561) remains a native limit:
+a partitioned first selection and a flat second selection raise TypeError.
+The facade propagates that failure without reshaping the scientific inputs.
+Use the qualified flat/flat or two-sided partition forms deliberately. Reads
+include completed pending edits without scene projection or history changes.
+
+`get_forces` is still unexposed: its native MolSys input route is requested in
+[#572](https://github.com/uibcdf/molsysmt/issues/572). An OpenMM-only reader does
+not yet supply forces for the current `view.molsys`; the addon adds no implicit
+engine conversion or placeholder method.
 
 ### Relaxing coordinates
 

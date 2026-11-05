@@ -476,3 +476,12 @@ element.group.get_1_letter_code_from_name with its native naming_scheme/skip
 arguments, and mirror context flags on changed predicates/templates. Never
 restore retired aliases or substitute parent chemistry; retain native
 conversion/preflight from_naming_scheme when integrating owner changes.
+
+
+Preserve get_non_bonded_potential_energy as a serialized primary-bound reader
+with native selection_2, syntax, model, platform and energy-unit contracts.
+Keep internal versus disjoint cross contributions and two-sided partition axes
+explicit; preserve native mixed-partition #561 errors without reshaping inputs.
+Retain the independent NoCutoff pair-energy reference and separate periodic/
+overlap/scientific limits. Native MolSys forces are pending #572: do not expose
+an always-rejected force method or add consumer-side parameterization.

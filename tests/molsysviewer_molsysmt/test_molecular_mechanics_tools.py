@@ -101,7 +101,10 @@ def test_explicit_namespace_signatures_help_and_validation(name):
         assert "molecular_mechanics" in dir(view.addons.molsysmt)
         assert name in dir(namespace)
         assert not hasattr(view.addons.molsysmt, name)
-        assert set(dir(namespace)) == set(NAMES) | {"potential_energy_minimization"}
+        assert set(dir(namespace)) == set(NAMES) | {
+            "potential_energy_minimization",
+            "get_non_bonded_potential_energy",
+        }
         text = inspect.getdoc(method)
         assert "View integration" in text
         assert "\nmolecular_system :" not in text
