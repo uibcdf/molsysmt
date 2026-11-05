@@ -118,6 +118,23 @@ detected.
 
 ## Conversion resolution
 
+### Biological assembly generators
+
+The mmCIF DataContainer converter, including CIF/BinaryCIF routes through it,
+accumulates every `pdbx_struct_assembly_gen` row under its own assembly ID.
+Source row order, expanded operation order, duplicates and ordered chain sets
+are retained. Equal chain sets share a flat `chain_indices` sequence; different
+sets use one sequence per operation. Native storage and H5MSM preserve those
+scopes. `build.make_bioassembly` still refuses heterogeneous scopes explicitly;
+storage support is not construction support. Translations retain length units.
+
+The reader supports individual/list/range factors and products of two factors
+with the existing right-to-left composition. Empty factors and products with
+more than two factors fail conversion with a catalog `FormatError`; they cannot
+silently produce an empty or partial assembly. This correction changes no public
+signature or native schema. The regression module is
+`tests/form/mmcif_PdbxContainers_DataContainer/test_bioassembly_generators.py`.
+
 The current one-to-one resolver in `molsysmt/basic/convert.py` supports:
 
 1. a direct edge from the source adapter to the target adapter; or

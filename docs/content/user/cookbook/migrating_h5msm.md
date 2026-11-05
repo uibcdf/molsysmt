@@ -146,6 +146,16 @@ and does not modify the input. Building coordinates with
 compatible topology and coordinates. That builder accepts a common chain set
 or identical sets repeated per operation; heterogeneous sets remain unsupported.
 
+When reading mmCIF or BinaryCIF, all generator rows belonging to the same
+assembly ID are retained in source order, including repeated operations. A
+common ordered chain set stays flat; different sets are retained per operation.
+The builder refuses heterogeneous chain sets rather than combining them into a
+single scope. Empty operation factors or products with more than two factors
+fail conversion explicitly instead of yielding a partial assembly. Inspect the
+stored declarations before choosing an assembly; their presence does not
+establish biological relevance or unique physical copies.
+
+
 For a complete ensemble with topology, coordinates, at least three structures
 and an assembly named `"1"`, use
 `msm.build.make_bioassembly(molsys, bioassembly="1", structure_indices=[2, 0, 2])`

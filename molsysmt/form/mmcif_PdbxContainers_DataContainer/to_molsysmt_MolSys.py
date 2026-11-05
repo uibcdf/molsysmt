@@ -5,6 +5,7 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import (
     CrossChainCovalentBondsWarning,
+    FormatError,
     MolecularSystemMismatchWarning,
     warn,
 )
@@ -22,8 +23,8 @@ def to_molsysmt_MolSys(
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
+    item : mmcif.PdbxContainers.DataContainer
+        Parsed mmCIF or BinaryCIF categories for one molecular entry.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -35,6 +36,20 @@ def to_molsysmt_MolSys(
     -------
     molsysmt.MolSys
         Resulting object in molsysmt.MolSys form.
+
+    Raises
+    ------
+    FormatError
+        If an assembly generator has an empty operation factor or more than
+        two operation factors, which this reader cannot interpret.
+
+    Notes
+    -----
+    All generator rows for an assembly ID are retained in source order,
+    including repeated operations. Distinct chain sets are stored per operation;
+    ``build.make_bioassembly`` currently refuses to construct those heterogeneous
+    scopes. Translation vectors retain length units. Unsupported operation
+    expressions fail conversion rather than returning a partial assembly.
 
 
     .. versionadded:: 1.0.0
@@ -839,6 +854,7 @@ def to_molsysmt_MolSys(
         }
         old_chain_id_to_chain_index = {jj: ii for ii, jj in enumerate(chain_id)}
         for record in item.getObj("pdbx_struct_assembly_gen"):
+            assembly_id = str(record[index_att["assembly_id"]])
             aux = {"chain_indices": [], "rotations": [], "translations": []}
             old_chain_ids = record[index_att["asym_id_list"]].split(",")
             aux["chain_indices"] = [
@@ -865,6 +881,18 @@ def to_molsysmt_MolSys(
                 oper2.extend(
                     _parse_operation_expression(operation_expression[temp + 1 :])
                 )
+            if (
+                not oper
+                or any(not factor for factor in oper)
+                or (parenCount == 2 and not oper2)
+            ):
+                raise FormatError(
+                    reason=(
+                        f"Unsupported or empty operation expression "
+                        f"{operation_expression!r} for assembly {assembly_id!r}."
+                    ),
+                    caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys",
+                )
             if len(oper2) == 0:
                 for ii in oper:
                     aux["rotations"].append(operators[str(ii)]["matrix"])
@@ -881,7 +909,21 @@ def to_molsysmt_MolSys(
                         aux["rotations"].append(aux_rot)
                         aux["translations"].append(aux_trans)
 
-            bioassembly[str(record[index_att["assembly_id"]])] = aux
+            if assembly_id not in bioassembly:
+                bioassembly[assembly_id] = aux
+            else:
+                previous = bioassembly[assembly_id]
+                previous_chains = previous["chain_indices"]
+                if previous_chains and isinstance(previous_chains[0], list):
+                    previous_chains.extend(
+                        [list(aux["chain_indices"]) for _ in aux["rotations"]]
+                    )
+                elif previous_chains != aux["chain_indices"]:
+                    previous["chain_indices"] = [
+                        list(previous_chains) for _ in previous["rotations"]
+                    ] + [list(aux["chain_indices"]) for _ in aux["rotations"]]
+                previous["rotations"].extend(aux["rotations"])
+                previous["translations"].extend(aux["translations"])
 
     b_factor = puw.quantity(np.array(b_factor), unit="angstroms**2", standardized=True)
 
