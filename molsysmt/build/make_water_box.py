@@ -1,53 +1,102 @@
 from importlib.resources import files
 
 import numpy as np
+from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.pbc_validation import validate_box_array
 
 
+@signal(tags=["build", "solvation"])
 @arg_digest()
 def make_water_box(box, form="molsysmt.MolSys", skip_digestion=False):
     """
-    Building an SPC/E water box from a reference tile, supporting triclinic cells.
+    Building a water box from the bundled SPC reference configuration.
 
-    This helper replicates the bundled cubic `spc216.gro` tile (216 SPC waters at ~300 K)
-    to cover the orthorhombic bounding box of the target cell, then trims molecules whose
-    oxygen fractional coordinates fall outside the requested box (which can be triclinic).
-    The generated system contains one structure with coordinates in nanometers and a fully
-    populated topology for three-point waters. Because the packing comes from a pre-
-    equilibrated cubic tile, minimization and short equilibration are recommended to relax
-    any residual overlaps.
+    Replicate the bundled cubic ``spc216.gro`` tile to cover the Cartesian
+    bounding box of one requested cell, including tilted or rotated boxes.
+    Retain complete three-point waters whose oxygen lies inside that cell.
+    Inventory and bonds are populated; no force-field parameters are assigned.
 
 
     Parameters
     ----------
-    box : object
-        Argument box.
-    form : object, default='molsysmt.MolSys'
-        Argument form.
+    box : quantity
+        One finite, nonsingular periodic box with vectors as rows, shaped
+        ``(3, 3)`` or ``(1, 3, 3)``, in units of length. The origin is zero.
+    form : str, default='molsysmt.MolSys'
+        Requested output form, using public conversion when different from
+        native MolSys. Its required information and optional providers must
+        be available.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    molsysmt.native.molsys.MolSys
-        Water box with coordinates of shape ``(1, n_atoms, 3)`` in nanometers, topology for
-        SPC/E waters, and box of shape ``(1, 3, 3)`` in nanometers.
+    molecular system
+        Independent water system in the requested form. Default native output
+        has coordinates ``(1, n_atoms, 3)`` and box ``(1, 3, 3)`` in canonical
+        nanometers, with two O-H bonds per group. No retained waters gives
+        coordinates ``(1, 0, 3)`` and zero atoms, groups and bonds.
+
+    Raises
+    ------
+    ArgumentError
+        If box units or array shape are invalid.
+    StructuralInconsistencyError
+        If the box is absent, nonfinite, numerically singular, or contains
+        zero or multiple structure entries.
+
+    Notes
+    -----
+    With box row vectors ``B``, Cartesian and fractional coordinates obey
+    ``r = f @ B``. Keep a water if its oxygen satisfies ``0 <= f < 1`` on
+    every axis. Hydrogens can extend beyond a face: each reference molecule
+    is translated as a whole and is never wrapped atom by atom.
+
+    The reference file labels its configuration SPC-MODEL at 300 K. Its reuse
+    does not assign SPC/E or another force field, charges or an equilibrated
+    state to the output. Finite clipping does not prescribe an exact density
+    or guarantee the absence of overlaps at the new periodic boundaries.
+    Assess packing before using the result for simulation.
+
+    Native storage remains in nanometers without changing the application's
+    unit policy. Use PyUnitWizard conversion or standardization for another
+    presentation unit.
+
+    See Also
+    --------
+    molsysmt.build.solvate
+        Adding solvent around an existing molecular system.
+    molsysmt.pbc.wrap_to_pbc
+        Representing existing molecules in a periodic box.
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import molsysmt as msm
+    >>> box = msm.pyunitwizard.quantity(2 * np.eye(3), 'nm')
+    >>> molsys = msm.build.make_water_box(box)
+    >>> msm.get(molsys, n_waters=True)
+    268
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Make_water_box` for tilted cells and packing limits.
+
+    .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.file_gro.to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.native import MolSys
 
-    box_matrix = puw.get_value(box[0], to_unit="nm")
+    box_values = None if box is None else puw.get_value(box, to_unit="nm")
+    box_matrix = validate_box_array(
+        box_values, 1, caller="molsysmt.build.make_water_box"
+    )[0].copy()
     inv_box = np.linalg.inv(box_matrix)
 
-    spc216_gro_path = files("molsysmt.data.gro").joinpath("spc216.gro")
-    aux_item = to_molsysmt_Structures(spc216_gro_path)
-    tile = puw.get_value(aux_item.coordinates[0], to_unit="nm").copy()
-    length_tile = 1.86206  # nm
-    tile += length_tile / 2.0
-    del aux_item
+    tile, length_tile = _load_reference_tile()
 
     Os_indices = np.arange(0, 216) * 3
 
@@ -83,8 +132,8 @@ def make_water_box(box, form="molsysmt.MolSys", skip_digestion=False):
                 aux_tile[:, 2] += min_corner[2] + kk * length_tile
 
                 coors_Os = aux_tile[Os_indices]
-                aux = inv_box @ coors_Os.transpose()
-                mask = np.all(aux < 1.0, axis=0)
+                fractional = coors_Os @ inv_box
+                mask = np.all((fractional >= 0.0) & (fractional < 1.0), axis=1)
                 new_coors.append(aux_tile[np.repeat(mask, 3), :])
 
     new_coors = np.concatenate(new_coors)
@@ -161,4 +210,21 @@ def make_water_box(box, form="molsysmt.MolSys", skip_digestion=False):
         .components["component_id"]
         .astype("string")
     )
-    return output
+    if form == "molsysmt.MolSys":
+        return output
+
+    from molsysmt.basic import convert
+
+    return convert(output, to_form=form)
+
+
+def _load_reference_tile():
+    """Read and translate the fixed SPC reference into its positive cubic tile."""
+    from molsysmt.form.file_gro.to_molsysmt_Structures import to_molsysmt_Structures
+
+    path = files("molsysmt.data.gro").joinpath("spc216.gro")
+    reference = to_molsysmt_Structures(path)
+    tile = puw.get_value(reference.coordinates[0], to_unit="nm").copy()
+    length = 1.86206  # nm, as declared by the bundled reference box.
+    tile += length / 2.0
+    return tile, length

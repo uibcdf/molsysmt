@@ -20,6 +20,37 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Water-box geometry receiving — 2026-11-05
+
+**#564 is source-corrected.** `build.make_water_box` uses the row-vector
+fractional transform and both half-open bounds, preserving complete O-H-H
+reference waters. The reported cell now contains **207 waters, zero oxygen sites
+outside**, rather than 266/111. The orthogonal control retains 268 waters. An
+independent scalar enumeration verifies complete reference-lattice membership;
+checking output bounds alone would not detect missing valid candidates.
+
+The factory reuses shared PBC validation before reference loading and honors its
+existing output `form` through public conversion. Native storage remains nm
+under nondefault presentation policies. Empty populations have explicit shapes;
+no charges, force field, exact density or equilibration are inferred. The
+[archived record](archive/resolved_bugs/water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md)
+and [receipt](../devtools/data/water_box_receiving_564_20261105.json) retain the
+failed fixture drafts, baseline, analytical controls, source identities and limits.
+
+Receiving passes **773 affected cases**, **23 published-floor cases**, **586
+documentation/owner-invalidation cases** and the native doctest. The complete
+eight-code-cell tutorial executes in 7.4 s; three other edited notebooks preserve
+all code, outputs and metadata. The touched Structures page also removes a stale
+sentence contradicting the implemented #285 public-setter notification boundary.
+No signature, dependency floor, file schema or compiled kernel changes.
+
+Queue review observes no newer open issue than #576 and PR #543 head
+ac1f6dbad9ce3b29751dfd0a33e5df596e5dbae0. The prior main smoke 42114952994
+is in progress, not yet passing evidence. Next: **#575** explicit OpenMM ion-count
+semantics, then **#574** atom/group labels; #576 and #572 remain capability work.
+The new native source checkpoint still needs its own routine hosted inspection;
+installed/platform/release qualification and expansion admission stay separate.
+
 ## Mutation selection receiving — 2026-11-05
 
 **#568 is source-corrected.** Mutation selectors now resolve on source

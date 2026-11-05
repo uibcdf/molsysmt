@@ -39,6 +39,14 @@ structure axis. Partial box updates require an existing series; they do not
 invent periodic boxes for unspecified structures. Box quantities carry length
 units and are stored internally in nm. See {ref}`Tutorial_Set`.
 
+Box vectors are rows of `B`: Cartesian positions and fractional positions obey
+`r = f @ B`. Membership in an origin-zero primary cell means `0 <= f < 1` on
+every fractional axis. A complete molecule can have its reference atom inside
+while other atoms extend across a face. Water-box construction uses the oxygen
+as that reference and preserves its O-H geometry. See
+{ref}`Tutorial_Make_water_box` for a checked tilted-cell example. Canonical native
+nm storage and the application's quantity-presentation policy are distinct.
+
 ## Aligned Observables
 
 Temperature, potential energy and kinetic energy can be supplied directly to
@@ -138,8 +146,9 @@ not an object that queries coordinates lazily from disk.
 
 This protocol also underlies {ref}`MolSys copies <user-foundations-molsys-copying>`
 and complements {ref}`interaction analyses <user-tools-interactions-copying>`.
-Editing an attached `molsys.structures` directly still requires explicit invalidation of
-the owner's analyses; the automatic boundary is `msm.set(molsys, ...)`. See
+Public coordinate/box setters on attached `molsys.structures` notify the owner
+as described above. Raw/private writes remain outside that boundary; interactions
+are never automatically recalculated. See
 {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
 
 ---
