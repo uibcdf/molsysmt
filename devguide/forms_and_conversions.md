@@ -118,6 +118,32 @@ detected.
 
 ## Conversion resolution
 
+### CIF primary observations
+
+The shared mmCIF DataContainer converter supplies primary dimensionless occupancy
+on the same `(n_structures, n_atoms)` axes as native coordinates. CIF/BinaryCIF
+file adapters, including compressed forms, declare this attribute and route
+queries through native Structures. Unknown `?`/`.` cells remain NaN; an entirely
+unavailable primary field remains None. Zero is a measured value, not missing.
+No occupancy is inferred from geometry or borrowed from another representation.
+
+Alternate-site reduction is model-local. The import policy chooses maximum
+known occupancy, then A among tied maxima, then source order. If all values
+are unknown, it retains the first variant with unknown occupancy. All raw
+variants remain available for explicit resolution; the import rule is distinct
+from the half-occupancy tie rule of `build.solve_atoms_with_alternate_location`.
+Coordinates, primary occupancy, B factors and model indices share one canonical
+atom map. Group occurrences are model-local before extraction, so per-group bond
+declarations apply independently. Generated global component-name ordinals do
+not prevent matching models from forming one ensemble; inventory and component
+membership comparisons still apply.
+
+Conversion retains native sorted atom-extraction order; direct attribute queries
+retain requested atom order/repetitions. Structure indices retain order and
+repetitions in both. H5MSM stores the primary array and sparse alternatives
+without inventing missing values. The owning regression is
+`tests/form/mmcif_PdbxContainers_DataContainer/test_primary_occupancy.py`.
+
 ### Biological assembly generators
 
 The mmCIF DataContainer converter, including CIF/BinaryCIF routes through it,

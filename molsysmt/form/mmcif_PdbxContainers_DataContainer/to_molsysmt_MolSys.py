@@ -45,11 +45,32 @@ def to_molsysmt_MolSys(
 
     Notes
     -----
+    Primary occupancies are dimensionless floating-point arrays on the same
+    atom/structure axes as coordinates. Unknown mmCIF values (``?`` or ``.``)
+    remain NaN; an entirely unavailable field remains ``None``. Alternate
+    sites are reduced independently within each model, choosing the largest
+    known occupancy and preferring label A on a tie, then source order. If
+    every alternate occupancy is unknown, the first source variant is retained.
+    All variants and their original observations remain in ``alternate_location``.
+
     All generator rows for an assembly ID are retained in source order,
     including repeated operations. Distinct chain sets are stored per operation;
     ``build.make_bioassembly`` currently refuses to construct those heterogeneous
     scopes. Translation vectors retain length units. Unsupported operation
     expressions fail conversion rather than returning a partial assembly.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['chicken villin HP35']['1vii.bcif.gz'])
+    >>> molsys.structures.occupancy.shape
+    (1, 596)
+    >>> msm.get(molsys, element='atom', selection=[0, 1], occupancy=True).shape
+    (1, 2)
+
+    .. admonition:: Tutorial
+
+       See :ref:`Tutorial_Form_mmcif_PdbxContainers_DataContainer`.
 
 
     .. versionadded:: 1.0.0
@@ -97,7 +118,7 @@ def to_molsysmt_MolSys(
     atom_num_model = np.empty(n_atoms, dtype=int)
 
     coordinates = np.empty([1, n_atoms, 3], dtype=float)
-    occupancy = np.empty(n_atoms, dtype=float)
+    occupancy = np.full(n_atoms, np.nan, dtype=float)
     alternate_location = np.empty(n_atoms, dtype=object)
     b_factor = np.empty([1, n_atoms], dtype=float)
 
@@ -112,6 +133,7 @@ def to_molsysmt_MolSys(
     entity_id = []
 
     former_group_id = None
+    former_model = None
     group_index = -1
 
     former_chain_id = None
@@ -137,7 +159,10 @@ def to_molsysmt_MolSys(
         coordinates[0, atom_index, 1] = atom_record[index_att["Cartn_y"]]
         coordinates[0, atom_index, 2] = atom_record[index_att["Cartn_z"]]
 
-        occupancy[atom_index] = atom_record[index_att["occupancy"]]
+        if "occupancy" in index_att:
+            value = atom_record[index_att["occupancy"]]
+            if value is not None and str(value).strip() not in {"", ".", "?"}:
+                occupancy[atom_index] = float(value)
         alternate_location[atom_index] = atom_record[index_att["label_alt_id"]]
         b_factor[0, atom_index] = atom_record[index_att["B_iso_or_equiv"]]
 
@@ -174,7 +199,11 @@ def to_molsysmt_MolSys(
         else:
             chain_index = chain_id_to_chain_index[aux_chain_id]
 
-        if former_group_id != aux_group_id or former_chain_id != aux_chain_id:
+        if (
+            former_group_id != aux_group_id
+            or former_chain_id != aux_chain_id
+            or former_model != atom_num_model[atom_index]
+        ):
             group_index += 1
             group_name.append(aux_group_name)
             group_id.append(aux_group_id)
@@ -182,6 +211,7 @@ def to_molsysmt_MolSys(
             group_index_to_atom_indices[group_index] = []
             former_group_id = aux_group_id
             former_chain_id = aux_chain_id
+            former_model = atom_num_model[atom_index]
 
         group_index_from_atom[atom_index] = group_index
         chain_index_from_atom[atom_index] = chain_index
@@ -670,7 +700,7 @@ def to_molsysmt_MolSys(
 
     # alternate locations
 
-    alt_atom_indices = np.where(alternate_location != ".")[0]
+    alt_atom_indices = np.where(~np.isin(alternate_location, [".", "?", ""]))[0]
     aux_alternate_location = None
 
     if len(alt_atom_indices):
@@ -679,12 +709,17 @@ def to_molsysmt_MolSys(
         alt_chain_indices = chain_index_from_atom[alt_atom_indices]
         alt_group_ids = group_id[alt_group_indices]
         alt_chain_ids = chain_id[alt_chain_indices]
+        alt_model_numbers = atom_num_model[alt_atom_indices]
 
         aux_dict = {}
-        for aux_atom_index, aux_atom_name, aux_group_id, aux_chain_id in zip(
-            alt_atom_indices, alt_atom_names, alt_group_ids, alt_chain_ids
+        for aux_atom_index, aux_atom_name, aux_group_id, aux_chain_id, aux_model in zip(
+            alt_atom_indices,
+            alt_atom_names,
+            alt_group_ids,
+            alt_chain_ids,
+            alt_model_numbers,
         ):
-            aux_key = tuple([aux_atom_name, aux_group_id, aux_chain_id])
+            aux_key = (aux_model, aux_atom_name, aux_group_id, aux_chain_id)
             if aux_key in aux_dict:
                 aux_dict[aux_key].append(aux_atom_index)
             else:
@@ -695,13 +730,15 @@ def to_molsysmt_MolSys(
         for same_atoms in aux_dict.values():
             alt_occupancy = occupancy[same_atoms]
             alt_loc = alternate_location[same_atoms]
-            if np.allclose(alt_occupancy, alt_occupancy[0]):
-                if len(alt_loc) > 1:
-                    chosen = same_atoms[np.where(alt_loc == "A")[0][0]]
-                else:
-                    chosen = same_atoms[0]
+            known = np.flatnonzero(np.isfinite(alt_occupancy))
+            if known.size:
+                candidates = known[
+                    np.isclose(alt_occupancy[known], np.max(alt_occupancy[known]))
+                ]
+                label_a = candidates[alt_loc[candidates] == "A"]
+                chosen = same_atoms[label_a[0] if label_a.size else candidates[0]]
             else:
-                chosen = same_atoms[np.argmax(alt_occupancy)]
+                chosen = same_atoms[0]
             chosen_with_alt_loc.append(chosen)
             atoms_to_be_removed_with_alt_loc += [
                 ii for ii in same_atoms if ii != chosen
@@ -755,6 +792,8 @@ def to_molsysmt_MolSys(
 
         coordinates = coordinates[:, atom_indices_to_be_kept, :]
         b_factor = b_factor[:, atom_indices_to_be_kept]
+        occupancy = occupancy[atom_indices_to_be_kept]
+        atom_num_model = atom_num_model[atom_indices_to_be_kept]
 
         if len(atom_pairs_bonded_by_struct_conn):
             aux_list = []
@@ -971,6 +1010,7 @@ def to_molsysmt_MolSys(
     tmp_item.structures.append(
         coordinates=coordinates,
         box=box,
+        occupancy=None if np.isnan(occupancy).all() else occupancy[np.newaxis, :],
         alternate_location=aux_alternate_location,
         b_factor=b_factor,
         skip_digestion=True,
@@ -1058,7 +1098,9 @@ def to_molsysmt_MolSys(
                 group_id=True,
                 group_name=True,
                 component_index=True,
-                component_name=True,
+                # Component names are generated before splitting the models;
+                # their global ordinals are not source identity labels.
+                component_name=False,
                 molecule_index=True,
                 molecule_name=True,
                 skip_digestion=True,

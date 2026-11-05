@@ -109,6 +109,35 @@ before selection, and each domain must have one provider. You remain responsible
 for the declared index correspondence. This example assumes the selected atoms
 are not coupled to stored assembly metadata requiring additional chain remapping.
 
+(cookbook-h5msm-imported-occupancy)=
+## Preserving imported occupancies
+
+CIF and BinaryCIF imports retain the dimensionless primary occupancy array and
+the original alternate-site observations. They stay aligned with selected
+coordinates and structures when saved as H5MSM 0.5:
+
+```python
+import numpy as np
+import molsysmt as msm
+
+molsys = msm.convert(msm.systems["chicken villin HP35"]["1vii.bcif.gz"])
+occupancy = msm.get(molsys, element="atom", occupancy=True)
+msm.convert(molsys, to_form="observations.h5msm")
+restored = msm.convert("observations.h5msm")
+np.testing.assert_allclose(
+    msm.get(restored, element="atom", occupancy=True), occupancy, equal_nan=True
+)
+```
+
+For a different source with unknown cells, the array contains `NaN`; if the
+whole primary field is unavailable, it is `None`. Neither means occupancy one.
+The CIF import choice uses maximum known occupancy, A among tied maxima, then
+source order; all-unknown sites keep their first source variant. This initial
+choice and H5MSM preservation do not replace an explicit preparation policy.
+See the {ref}`CIF reader <Tutorial_Form_file_cif>` and
+{ref}`alternate-site resolver <Tutorial_Solve_atoms_with_alternate_locations>`
+for the distinct import and resolution rules.
+
 (cookbook-h5msm-assembly-operations)=
 ## Saving assembly operations
 

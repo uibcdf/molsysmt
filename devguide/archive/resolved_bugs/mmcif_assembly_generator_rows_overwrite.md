@@ -1,9 +1,9 @@
 ---
 summary: mmCIF conversion silently drops earlier generators with the same assembly ID.
 issue: uibcdf/molsysmt#563
-status: active
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: high
 verification: reproduced
 area: [form, convert, bioassembly]
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-11-05 UTC, during a public-coordinate capability review for
 Sabueso's structural journey (uibcdf/sabueso#173).
-**Status:** Correction and regression tests prepared for owner review; the issue
-remains open until the provider receives the change.
+**Status:** Owner-reviewed correction integrated locally on main; the final
+source checkpoint publishes this resolution and its receiving evidence.
 
 ## What
 
@@ -94,8 +94,8 @@ or consumer workaround is introduced. Invalid references still fail conversion.
 All cases in the guard module pass, including exact operation order, units,
 analytical coordinates, H5MSM persistence and controlled refusal. Neighboring
 CIF/BinaryCIF, builder and persistence gates pass. User tutorial, cookbook,
-course and maintained form contract describe the same boundary. Owner review
-and integration remain necessary before closing #563.
+course and maintained form contract describe the same boundary. Owner review and integration are complete; final publication and issue closure
+use the source checkpoint linked by the closing comment.
 
 ## Provenance
 
@@ -106,3 +106,35 @@ All receiving is offline, with socket connections forbidden. The shared Python
 3.14 workspace uses the PR checkout editable; no separate environment is created.
 The Sabueso consumer record retains exact commands, resource observations and
 original failing controls under uibcdf/sabueso#173.
+
+## Resolution — 2026-11-05
+
+Received PR #566 at exact head `3635c90acc9ca2453479f5dcdf1b361f84c5bf4f`.
+Its full required run
+[41952069798](https://github.com/uibcdf/molsysmt/actions/runs/41952069798)
+is successful at that exact head: all eight Linux/macOS × Python 3.11–3.14
+test lanes, the controlled-Viewer build and the aggregate job pass. Public
+GH Run Receptor 1.3.0 returns exit 0 for the inspected terminal run. This is
+PR-source qualification, not an installed artifact or the later combined main.
+
+A true merge onto main 532d0362 retains the contributor commit in history:
+`fcf76b7556add446c769d35d20b139ca471161f9`. All nine assembly regressions
+reproduce on the receiving baseline, then pass on the merge, together with
+2,020 selected reader, assembly, PBC, translation/contact and H5MSM cases
+(exit 0, four workers). The same nine controls also pass with the published
+support-library floors during combined occupancy receiving. No assembly-test
+assertion or synthetic geometry oracle is weakened.
+
+The companion #565 marker correction preserves the live 3U71 test. Explicit
+offline collection of its original node reports zero selected and one
+deselected (expected pytest exit 5), without downloading coordinates. The
+original online assertions remain available in the successful PR full suite.
+No installed/release evidence or heterogeneous assembly construction is claimed.
+
+The wwPDB [generator category](https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Categories/pdbx_struct_assembly_gen.html)
+defines repeated source rows, and its
+[operation expression](https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_pdbx_struct_assembly_gen.oper_expression.html)
+defines right-to-left product application. These format rules support the
+analytical controls; they are not a new interaction-detection method. Existing
+ArgDigest, native transformations, PyUnitWizard and catalog FormatError are
+reused, with no dependency-floor or attribution-registry addition.

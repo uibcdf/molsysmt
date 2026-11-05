@@ -181,6 +181,10 @@ sections:
             file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb
             agents_file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb.AGENTS.md
             description: Sparse preflight of all selected alternative observations, maximum/tie semantics, coherent primary occupancy and B factors, stable labels, unknown values and selective interaction invalidation.
+          - name: make_bioassembly
+            file: docs/content/user/tools/build/make_bioassembly.ipynb
+            agents_file: docs/content/user/tools/build/make_bioassembly.ipynb.AGENTS.md
+            description: Ordered structure selection and all mmCIF generator rows, preserved per-operation scopes, analytical transforms and explicit heterogeneous-construction refusal.
           - name: editable
             file: docs/content/user/tools/build/editable.ipynb
             agents_file: docs/content/user/tools/build/editable.ipynb.AGENTS.md
@@ -544,6 +548,22 @@ sections:
         status: pending_review
         description: Form contracts, including bounded GRO native/OpenMM bridges, selected coordinate and box correspondence, complete-handler copies and preserved reader ownership.
         pages:
+          - name: cif_primary_observations
+            file: docs/content/user/tools/form/file/file_cif.ipynb
+            agents_file: docs/content/user/tools/form/file/file_cif.ipynb.AGENTS.md
+            description: Primary occupancy, explicit missing values, model-local alternate choices and native selection axes.
+          - file: docs/content/user/tools/form/file/file_cif_gz.ipynb
+            agents_file: docs/content/user/tools/form/file/file_cif_gz.ipynb.AGENTS.md
+            description: Compressed CIF route retaining primary occupancy and alternate observations.
+          - file: docs/content/user/tools/form/file/file_bcif.ipynb
+            agents_file: docs/content/user/tools/form/file/file_bcif.ipynb.AGENTS.md
+            description: BinaryCIF route retaining primary occupancy and alternate observations.
+          - file: docs/content/user/tools/form/file/file_bcif_gz.ipynb
+            agents_file: docs/content/user/tools/form/file/file_bcif_gz.ipynb.AGENTS.md
+            description: Compressed BinaryCIF route retaining primary occupancy and alternate observations.
+          - file: docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb
+            agents_file: docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb.AGENTS.md
+            description: Shared parsed-category converter with coherent occupancy, coordinates, alternate sites and model axes.
           - name: one_letter_native_sequence
             file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb
             agents_file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb.AGENTS.md
@@ -754,7 +774,7 @@ sections:
         description: Named aromatic analyses from composed chemical and structural domains.
       - file: docs/content/user/cookbook/migrating_h5msm.md
         agents_file: docs/content/user/cookbook/migrating_h5msm.md.AGENTS.md
-        description: Source-preserving migration, complementary file composition and analyses without coordinates.
+        description: Source-preserving migration, complementary file composition, imported occupancy and missing-value persistence, ordered assembly generators and analyses without coordinates.
   showcase:
     path: docs/content/showcase
     status: in_progress
