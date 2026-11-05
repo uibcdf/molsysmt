@@ -52,7 +52,7 @@ sections:
           - name: structures
             file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md.AGENTS.md
-            description: Aligned structural series, protected geometry, independent copies, selected periodic edit ownership and chemistry-free embedding in MolSys.
+            description: Aligned structural series, row-vector periodic cells, canonical units, independent copies, protected geometry and selected edit ownership in MolSys.
           - name: molsysbuilder
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuilder.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuilder.md.AGENTS.md
@@ -181,6 +181,10 @@ sections:
             file: docs/content/user/tools/build/mutate.ipynb
             agents_file: docs/content/user/tools/build/mutate.ipynb.AGENTS.md
             description: Atom-axis selection for all mutation specifications, literal IDs, independent no-op copies, preflight diagnostics and explicit native/provider reconstruction scope.
+          - name: make_water_box
+            file: docs/content/user/tools/build/make_water_box.ipynb
+            agents_file: docs/content/user/tools/build/make_water_box.ipynb.AGENTS.md
+            description: Complete reference waters clipped by oxygen membership in row-vector cells, analytical tilted-cell checks, native units, requested forms and explicit packing/parameterization limits.
           - name: solve_alternate_locations
             file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb
             agents_file: docs/content/user/tools/build/solve_atoms_with_alternate_locations.ipynb.AGENTS.md
@@ -730,7 +734,7 @@ sections:
         agents_file: docs/content/user/cookbook/big_data_trajectories.ipynb.AGENTS.md
         status: reviewed
       - name: from_pdb_to_solvated_box
-        description: Solvating a system, inspecting actual periodic geometry, scoped coordinate-edit ownership and bounded per-structure water-density auditing.
+        description: Solvating a system, inspecting periodic/fractional geometry, pure-water clipping limits, scoped coordinate-edit ownership and bounded per-structure water-density auditing.
         file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb
         agents_file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb.AGENTS.md
       - name: binding_pocket_isolation

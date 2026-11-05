@@ -1,13 +1,13 @@
 ---
 summary: make_water_box places oxygen sites outside the requested triclinic cell.
 issue: uibcdf/molsysmt#564
-status: open
+status: resolved
 opened: 2026-11-04
-closed:
+closed: 2026-11-05
 severity: high
 verification: reproduced
 area: [build, pbc, tests]
-guard:
+guard: tests/build/make_water_box/test_cell_membership.py
 normative:
 blocked_by: []
 supersedes: []
@@ -114,3 +114,14 @@ The function SHA-256 is
 `87b5c776c30d5c02f36c5a81ce26a1351340f72c4725a3a3f895f7969eb1fd8b`.
 Raw probe evidence is retained in Viewer `.pytest_cache` through owner/CI
 receiving, with resource review by 2026-11-11. No package or candidate is qualified.
+
+
+## Resolution — 2026-11-05
+
+The native owner corrected #564 in 8486ea59cdca48de30abf3e66484c11fd843da59.
+The addressable guard tests/build/make_water_box/test_cell_membership.py protects
+row-vector fractional transforms, both cell bounds, complete-water retention,
+equivalent units and output ownership. This original consumer evidence is
+archived separately from the owner's resolution record. The factory remains
+unexposed in this addon contribution pending its own explicit-input receiving;
+source correction alone is not installed or consumer capability qualification.

@@ -25,5 +25,6 @@ The canonical variable representing the molecular system MUST be `molsys`.
    - `msm.info(molsys)`
    - `coordinates = msm.get(molsys, selection='atom_type=="O"', coordinates=True)`
    - `print(f'Min X: {coordinates[0,:,0].min()} and Max X: {coordinates[0,:,0].max()}')`
-6. **Final Cell (Markdown)**:
+6. **Cell Membership**: Preserve the executed tilted-cell example using an independent linear solve, complete-water clipping with `0 <= f < 1`, row-vector boxes, canonical nm storage and explicit template/parameterization limits. Preserve the requested output-form example.
+7. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.

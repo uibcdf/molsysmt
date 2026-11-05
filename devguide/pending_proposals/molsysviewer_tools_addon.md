@@ -15,6 +15,22 @@ supersedes: []
 # Bound MolSysMT tools addon for MolSysViewer
 
 
+## Native water-box repair receiving
+
+Published owner 8486ea59c corrects #564. This branch receives its direct native
+guard and preserves the unchanged addon navigation implementation. The factory
+remains unexposed until its explicit-input consumer qualification; it is no
+longer awaiting a native clipping fix. The
+[combined receipt](../../devtools/data/molsysviewer_tools_waterbox_native_receiving_20261105.json)
+keeps this final input separate from the earlier navigation gate. Source
+exposure stays 240/244; native #572, protonation mode #576, empty native view
+#578 and other declared limits remain explicit. No candidate or publication.
+
+Final combined receiving passes 4,398 addon/integration cases without omissions,
+22 native water-cell guards and 118 docs/source controls. All 4,241 primary files,
+recorded support/provider sources and backend bytes retain their hashes;
+Ruff, native docstrings/course, dependencies and devguide/index checks pass.
+
 ## Visualization and compatibility receiving — 2026-11-05
 
 PR #543 receives published native 27ccb1b6d and adds the loaded-primary basic.view

@@ -5,7 +5,6 @@
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
-
 ## Purpose
 
 This is the single current answer to:
@@ -21,224 +20,37 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Visualization and compatibility receiving — 2026-11-05
+## Water-box geometry receiving — 2026-11-05
 
-PR #543 receives published native 27ccb1b6d and adds the loaded-primary basic.view
-bridge plus its native root alias. The separate visualization is caller-owned,
-without parent scene cloning, synchronization or adoption. Four historical
-hbonds aliases use the exact canonical bound methods. Native NVT/NPT stubs
-remain unexposed. Source exposure is 240/244: the remaining four paths are two
-native stubs and two pending native capabilities (#564/#572). Protonation's
-managed in-place mode remains separately unreceived under #576.
+**#564 is source-corrected.** `build.make_water_box` uses the row-vector
+fractional transform and both half-open bounds, preserving complete O-H-H
+reference waters. The reported cell now contains **207 waters, zero oxygen sites
+outside**, rather than 266/111. The orthogonal control retains 268 waters. An
+independent scalar enumeration verifies complete reference-lattice membership;
+checking output bounds alone would not detect missing valid candidates.
 
-Native #568 atom-axis selection and keyword-only digestion are received without
-consumer scientific translation; both owner and original consumer evidence are
-archived. Native default-empty visualization is separately reported under #578.
-The [receipt](../devtools/data/molsysviewer_tools_navigation_receiving_20261105.json)
-keeps source, validation and installed/CI scopes separate. Owner review, exact-head
-CI, native limits, task GUI and installed qualification remain pending. No
-candidate or publication; both 1.0 publications stay paused.
+The factory reuses shared PBC validation before reference loading and honors its
+existing output `form` through public conversion. Native storage remains nm
+under nondefault presentation policies. Empty populations have explicit shapes;
+no charges, force field, exact density or equilibration are inferred. The
+[archived record](archive/resolved_bugs/water_box_clips_triclinic_cells_in_the_wrong_fractional_coordinates.md)
+and [receipt](../devtools/data/water_box_receiving_564_20261105.json) retain the
+failed fixture drafts, baseline, analytical controls, source identities and limits.
 
-Final source receiving passes **4,398 addon/integration cases**, without
-failures/errors/skips; 30 new navigation cases, 112 directed mutation cases
-and 124 documentation/source contracts pass separately. All 4,240 primary
-files and recorded provider/support sources retain their hashes. Existing
-backend/Rust is reused. Ruff (4,391 files), 246 native docstrings, 156 course
-notebooks, the exact guide example, dependencies and devguide/index checks pass.
-Owner course code, outputs, IDs and metadata remain preserved.
+Receiving passes **773 affected cases**, **23 published-floor cases**, **586
+documentation/owner-invalidation cases** and the native doctest. The complete
+eight-code-cell tutorial executes in 7.4 s; three other edited notebooks preserve
+all code, outputs and metadata. The touched Structures page also removes a stale
+sentence contradicting the implemented #285 public-setter notification boundary.
+No signature, dependency floor, file schema or compiled kernel changes.
 
-## Independent protonation reconciliation — 2026-11-05
+Queue review observes no newer open issue than #576 and PR #543 head
+ac1f6dbad9ce3b29751dfd0a33e5df596e5dbae0. The prior main smoke 42114952994
+is in progress, not yet passing evidence. Next: **#575** explicit OpenMM ion-count
+semantics, then **#574** atom/group labels; #576 and #572 remain capability work.
+The new native source checkpoint still needs its own routine hosted inspection;
+installed/platform/release qualification and expansion admission stay separate.
 
-PR #543 adds the explicit current-primary `build.reconcile_protonation` mirror
-on published native `ccff2557f`. Only native in_place=False is received; True
-rejects before science pending the public removal-correspondence contract under
-[#576](pending_proposals/protonation_removal_correspondence_for_bound_consumers.md).
-The independent result is not adopted. Native reference-rule pH, naming contexts,
-unassessed groups, all-structure subset semantics and analysis remapping remain
-unchanged. No private chemistry helper or identity matching is used. Source
-exposure is 235/244, build 29/30, with this explicit mode limit. The
-[receipt](../devtools/data/molsysviewer_tools_protonation_receiving_20261105.json)
-records bounded controls and source/host/installed distinctions. Owner review,
-exact-head CI, remaining native work, GUI and installed qualification remain
-separate; both 1.0 publications stay paused. No candidate or publication.
-
-The final complete addon/integration regression passes **4,363 cases**, with no
-failures/errors/skips. The 29 new cases, 103 directed native/integration controls
-and 118 documentation/source contracts pass separately. All 4,235 primary files
-and recorded provider/support sources retain their hashes. Existing backend/Rust
-is reused. The exact guide block, 246 native docstrings, 156 course notebooks,
-Ruff (4,386 files), dependencies and developer-guide/index checks pass. Original
-course executable cells, outputs, IDs and metadata remain unchanged.
-
-## Combined solvation/predicate consumer receiving — 2026-11-05
-
-PR #543 combines independent `build.solvate` with the published owner's #504
-correction from `ccff2557f`. The existing `is_solvated` mirror forwards explicit
-structure selections, scalar/vector/empty results and diagnostics without
-aggregation. Source exposure stays 234/244. The
-[combined receipt](../devtools/data/molsysviewer_tools_solvation_predicate_integration_20261105.json)
-records the final combined inputs and validation; the earlier solvation receipt
-below retains its original owner basis, failures and recovery. Source/scene
-ownership, native identifier/ion-count limits and separate CI/owner/installed
-qualification remain explicit. No native scientific repair is authored here.
-Native OpenMM identifier and explicit-ion-count limits are now reported under
-uibcdf/molsysmt#574 and #575, with separate native reproductions and requested
-pytest acceptance coverage. Earlier receipts retain their initial filing state.
-
-The final combined regression passes **4,334 addon/integration cases** with no
-failures/errors/skips; 126 directed native/client cases and 60 documentation/
-source contracts pass separately. All 4,234 primary sources/tests, 91 public
-provider Python files (106 package source files checked) and support sources
-retain their hashes. Backend/Rust is reused. Ruff, 246 docstrings, 156 notebooks,
-dependency audit and developer-guide/index checks pass in their recorded scopes.
-
-## Independent solvation consumer receiving — 2026-11-05
-
-PR #543 receives published native `06c065d33` and adds the explicit solvate
-mirror. The default operation returns a new system; source/scene/history and
-pending projection stay untouched. Preparation and selection of exactly one
-engine-ready structure are explicit. Native model, engine, units, return-form
-and metadata behavior are delegated without input rewriting or engine fallback.
-
-All **4,333 addon/integration cases** pass without failures/errors/skips,
-including 22 solvation controls; 86 focused integration and 142 documentation/
-reporting cases pass separately. Direct OpenMM parity, nominal TIP3P geometry
-at derived PDB precision and cubic/triclinic Gram matrices provide bounded
-scientific receiving. All 4,233 primary source/test files, the 91-file public
-provider snapshot and checked support sources retain their hashes. Backend/Rust
-is reused; no native scientific algorithm or Viewer runtime is authored. The
-[receipt](../devtools/data/molsysviewer_tools_solvation_receiving_20261105.json)
-preserves initial overstrict geometric expectations, owner CIF input, original
-DNS failure and the single network-permitted recovery. Its 35 local native
-passes plus one recovered live case are aggregate evidence, not a relabelled
-single green native run. Every native-owner course executable cell, output,
-ID and metadata entry is retained; only three Markdown cells gain addon prose.
-
-Source exposure is 234/244, build 28/30 and mechanics 5/6. OpenMM identifier
-and explicit-ion-count limitations are recorded; separate native issue filing
-was offered to the maintainer and remains pending an explicit reply. Remaining
-protonation/remapping, water-box #564, force #572, GUI, owner review, exact-head
-CI and installed/public qualification remain separate. #421 stays partial;
-both 1.0 publications stay paused and no candidate or publication is introduced.
-
-## Nonbonded-energy consumer receiving — 2026-11-05
-
-PR #543 adds an explicit primary-bound get_non_bonded_potential_energy mirror
-on source 04b9fbbda, retaining the native signature, model, units, selections,
-reader locking and source/scene ownership. It introduces no engine conversion,
-preparation or automatic representation in Viewer. The facade exposes 233/244
-reviewed paths, including five of six mechanical tools and 27/30 build tools.
-
-All 38 new cases pass within the 132-case mechanical/inventory integration;
-142 documentation/reporting contracts pass separately. The independent pair
-oracle uses a separately constructed NoCutoff AMBER14 model, Coulomb and
-Lennard-Jones formulas plus scaled/excluded exceptions. Four recorded numerical
-controls differ by at most 0.000107 kJ/mol, within the fixed CPU tolerance;
-energy-policy, scalar/matrix axes, pending edits and error ownership are checked.
-The final full addon/integration regression passes **4,311 cases** without
-failures/errors/skips. All 4,230 primary source/test files, the 91-file public
-provider snapshot and checked support sources retain their recorded hashes. The
-[receiving receipt](../devtools/data/molsysviewer_tools_nonbonded_receiving_20261105.json)
-retains inputs, reference numbers, unit/engine scope and preserved course cells.
-
-Native mixed partition/flat selection #561 remains explicit. Native MolSys force
-input is not implemented: the maintainer-authorized #572 proposal records its
-independent rejection and an analytical OpenMM positive control. get_forces stays
-unexposed; no placeholder or consumer parameterization is added. Native algorithms,
-Rust/backend bytes, Viewer runtime and dependency floors remain unchanged. Owner
-review, exact-head CI, GUI and installed/public qualification remain separate;
-#421 stays partial and both 1.0 publications stay paused.
-
-## Consumer receiving of alternate-site repairs — 2026-11-05
-
-PR #543 receives owner `532d03622` after the named-context merge `393757795`.
-The facade now forwards native skip_digestion and retains whole-request scientific
-validation. Location vectors follow selection order, all selected structures
-must agree on stable atom IDs, and primary occupancy/B-factor measurements follow
-the chosen coordinates. The original #569/#570/#571 reports are archived beside
-the owner's closed resolutions; their old-provider reproductions remain intact.
-
-All forty facade cases, 348 directed native cases and 88 documentation/integration
-controls pass without failures/errors/skips. The final complete addon and
-32 structural/package guards pass **4,273 cases**, also without omissions.
-All 4,229 frozen primary source files, the 91-file provider snapshot and checked
-support sources remain unchanged; the existing backend/Rust is retained. The
-[repair receipt](../devtools/data/molsysviewer_tools_alternate_site_repaired_receiving_20261105.json)
-keeps failed stale-fixture controls, native input hashes and the independent
-public PyUnitWizard source overlay separate from the earlier d3650cc09 passage.
-The complete owner proposal/status sections and manifest are preserved after
-catching an intermediate unpublished conflict-resolution omission. Module 12
-retains all 35 current owner cells, code, outputs, IDs and metadata; only three
-Markdown cells gain addon usage prose. No native scientific fix or Viewer runtime
-is authored. Source exposure stays 232/244; owner review, hosted CI and installed
-qualification remain separate. #421 remains partial; no publication is authorized.
-
-## Expansion naming-context receiving — 2026-11-05
-
-PR #543 receives published native `d3650cc09` on contribution `738f752cc`.
-The canonical group-level code query replaces the retired amino-acid path,
-without an alias; explicit native naming contexts and digestion flags are
-forwarded by the element/template/construction mirrors. Existing conversion
-and preflight signatures retain the owner's from_naming_scheme support.
-
-The local fixed-input run passes **4,263 addon/integration cases** without
-failures/errors/skips, including forty new context/ownership controls. Another
-**298 directed native cases** pass. All 4,163 frozen primary source files, the
-91-file public PyUnitWizard snapshot and checked argdigest/smonitor/depdigest
-sources remain unchanged; the existing Rust/backend is reused. The
-[consumer receipt](../devtools/data/molsysviewer_tools_naming_cutover_receiving_20261105.json)
-preserves initial stale-expectation failures, their corrected native contexts,
-the Sphinx fixture recovery and an earlier passing run with concurrent provider
-source drift. Course Module 12 retains all 34 owner cells and every executable
-cell, output, ID and metadata entry; only three Markdown cells gain addon prose.
-
-Exposure stays 232/244, including 57/57 element and 27/30 build paths. This
-implements the expansion handoff in source; owner review, current-head CI,
-native profile acceptance and installed/public qualification remain separate.
-The subsequently published alternate-location repair receives its own follow-up;
-these results certify d3650cc09, not its later descendants. #421 remains partial.
-
-## Peptide construction/substitution addon receiving — 2026-11-04
-
-PR #543 adds independent `build.build_peptide` and `build.mutate`. Construction
-uses the loaded sequence to produce a new native model, with no source-pose,
-trajectory, box or named-analysis transfer. Canonical substitutions retain native
-backbone/inventory behavior, H rebuilding and unassessed incomplete side-chain
-warnings; PDBFixer remains explicit. Local skip flags never bypass native digestion.
-
-All 34 new cases and the 421-case build/serialized-reader integration pass,
-with zero failures/errors/skips. Another 37 directed native and 562 route/docs
-cases pass. Two exact guide blocks execute; all 3,144 frozen sources/tests,
-backend/Rust and reference data remain unchanged. Course structures, 247
-docstrings, dependencies and whole-tree Ruff/format pass. Original course
-code, outputs, IDs and metadata remain intact. The
-[peptide receipt](../devtools/data/molsysviewer_tools_peptide_sequence_receiving_20261104.json)
-retains initial unit-policy reference correction, native mask failures and scope.
-This is not a new full-addon, platform or installed-package certificate.
-Exposure is 230/244, build 25/30 and mechanics 4/6.
-
-The native masked-mutation discrepancy is independently reproduced: MDTraj masks
-reach the MolSysMT parser and atom-index lists reach a group-index mask boundary.
-Supported native-expression paths and rejected masks are distinguished in tests;
-no consumer translation is authored. The maintainer-authorized owner report is
-[#568](archive/resolved_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md),
-with direct reproduction and native pytest acceptance criteria. Native naming
-#549 and other existing owner work remain.
-
-Parent `2d1923996` smoke 41958120548 passes 5,397 native cases (16 optional
-skips), 4,093 addon cases (four optional skips) and 31 command guards. Its audit
-41958120472 fails solely on MDTraj centering +18.54% at the unchanged 15% limit;
-#567 retains the comparability decision and all prior outcomes. Full CI remains
-queued at inspection. No retry, benchmark-policy change, candidate or publication.
-On 2026-11-05, source `7bd844fa5` completes all eight full-matrix cells in
-41960424914, with every cell step successful; its smoke, performance and five
-administrative controls also pass. The
-[#568 handoff](../devtools/data/molsysviewer_tools_mutation_mask_handoff_20261105.json)
-retains official run/job/step evidence and unchanged scientific source/backend
-hashes. It does not independently reverify artifact certificates or qualify an
-installed public pair. This issue/report/link follow-up changes no executable
-source; its own CI, owner review/integration and package qualification remain
-separate.
 ## Mutation selection receiving — 2026-11-05
 
 **#568 is source-corrected.** Mutation selectors now resolve on source
@@ -4425,3 +4237,23 @@ complete declared atom order, returning detached native domains and optional
 See the [delivery, guards and allocation measurements](archive/resolved_proposals/explicit_atom_permutation.md).
 DockingMT migration remains owned by uibcdf/dockingmt#49. These local source
 checks neither qualify a replacement installed pair nor authorize publication.
+
+## MolSysViewer expert addon contribution
+
+PR #543's source contribution exposes 240/244 declared callable paths, including
+26/26 basic paths and four historical hbonds aliases that use the canonical
+bound methods. Native MD stubs remain unavailable. The loaded-primary view
+bridge returns a caller-owned visualization without cloning the parent's scene.
+Native #568 and #564 repairs are received from their published owner; the
+water-box factory still needs its own explicit-input consumer receiving.
+Managed protonation remains independent-only under #576; native empty-view
+digestion is separately reported under #578. Source exposure is not owner
+admission, complete mode/scientific qualification or an installed release.
+
+Current implementation and evidence belong to the
+[owning proposal](pending_proposals/molsysviewer_tools_addon.md) and its immutable
+[stage receipt](../devtools/data/molsysviewer_tools_navigation_receiving_20261105.json).
+Exact-head CI, owner review, remaining native contracts, task GUI and installed
+qualification remain separate. Both 1.0 publications stay paused. This compact
+entry replaces duplicated unmerged consumer stage narratives; their original
+receipts and proposal evidence remain preserved.

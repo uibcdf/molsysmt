@@ -135,3 +135,13 @@ raw Structures writes, chemistry edits or incremental replacement are solved.
   audit passed (93 forms; delivery debt did not regress).
 
 No incremental-edit performance or browser qualification is claimed.
+
+
+## Documentation correction — 2026-11-05
+
+During #564 receiving, the Structures foundation page still contained a stale
+sentence requiring manual invalidation for all direct attached-domain edits.
+That sentence contradicted the same page's public coordinate/box setter
+notification contract. It now states that public setters notify the owning
+MolSys, private writes remain outside the boundary, and observations are not
+automatically recalculated. Runtime behavior and file schemas are unchanged.

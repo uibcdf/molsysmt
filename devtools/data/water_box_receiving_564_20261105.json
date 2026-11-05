@@ -1,0 +1,286 @@
+{
+  "schema": "molsysmt.receiving.water-box@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#564",
+  "baseline_main": "27ccb1b6d640b7e2087a86dea06f6e666dc73fe1",
+  "baseline_factory_sha256": "87b5c776c30d5c02f36c5a81ce26a1351340f72c4725a3a3f895f7969eb1fd8b",
+  "environment": {
+    "os": "Linux",
+    "machine": "x86_64",
+    "python": "3.14.7",
+    "workspace": "Existing shared development environment; no auxiliary environment created.",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.29.0+18.gab92f1e"
+    },
+    "pytest_receptor": "1.2.1 published payload",
+    "overrides": {
+      "MPLBACKEND": "Agg",
+      "OMP_NUM_THREADS": "1"
+    },
+    "workers": {
+      "affected": 4,
+      "floor": 2,
+      "documentation": 2
+    }
+  },
+  "geometry": {
+    "convention": "Box vectors are rows: r = f @ B. Oxygen membership is 0 <= f < 1 on all axes. Whole O-H-H groups are translated and retained together.",
+    "reported_box_nm": [
+      [
+        2,
+        0,
+        0
+      ],
+      [
+        0.7,
+        1.8,
+        0
+      ],
+      [
+        0.3,
+        0.2,
+        1.7
+      ]
+    ],
+    "before": {
+      "waters": 266,
+      "outside_oxygen": 111
+    },
+    "after": {
+      "waters": 207,
+      "outside_oxygen": 0
+    },
+    "orthogonal_control": {
+      "box_nm": [
+        [
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          2
+        ]
+      ],
+      "waters": 268,
+      "outside_oxygen": 0,
+      "population_unchanged": true
+    },
+    "independent_controls": [
+      "Linear solve for three tilted/rotated matrices and an orthogonal matrix.",
+      "Literal Cartesian coordinates for three kept waters, three negative fractional axes and three excluded upper faces.",
+      "Complete source oxygen multiset from a wider scalar lattice enumeration with analytic lower-triangular equations.",
+      "Both O-H reference vectors, two bonds per group and complete three-point inventory."
+    ],
+    "precision": "Reference coordinates have GRO precision; geometric molecule-vector and scalar multiset comparisons round at 1e-9 nm. Cell membership solve uses 1e-12 dimensionless comparison tolerance; the production predicate remains exact float64 >=0 and <1."
+  },
+  "contract": {
+    "input": "One finite nonsingular length-bearing box; reject absent, empty, multi-structure and unusable cells before reference loading.",
+    "storage": "Native coordinates and box remain canonical nm. Application presentation policy is preserved; explicit PUW standardization/conversion presents other units.",
+    "unit_controls": [
+      "nm",
+      "angstrom",
+      "pm"
+    ],
+    "output_forms": "Existing form argument now delegates to public conversion; tested native MolSys and Structures.",
+    "empty": "Coordinates (1,0,3), box (1,3,3), zero atoms/groups/waters/bonds.",
+    "model": "Coordinates and connectivity from the bundled SPC-MODEL configuration; no charges or force-field parameters assigned.",
+    "resource_ownership": "Input box independent of output; reference-loader test doubles are private to the factory and do not patch the shared form registry."
+  },
+  "published_support_floor_receiving": {
+    "payloads": [
+      "argdigest-0.14.0-py_0",
+      "depdigest-0.15.1-py_0",
+      "smonitor-0.16.0-py_1",
+      "ackredit-0.9.0-py_0"
+    ],
+    "origin_basis": "Same verified cached published payloads as #568, selected explicitly through PYTHONPATH.",
+    "pytest_option": "-p no:smonitor",
+    "scope": "Disable only the installed SMonitor pytest entry point under #524; runtime diagnostics remain active. Other providers retain their recorded development versions."
+  },
+  "source_and_test_sha256": {
+    "molsysmt/build/make_water_box.py": "fdcc8d68dc2bdd31aa2f0a222be1d09ee80aa8e94dd82ed9bdd0d382cc52119c",
+    "tests/build/make_water_box/test_cell_membership.py": "5a183f9fbb29039806d0f81afbced16bd13d895199c6bd5791f96191809a4430",
+    "docs/content/user/tools/build/make_water_box.ipynb": "6493f7c238ea75a894c123bac1cea3355c803b3de056dc1b98d254bb64653f7a",
+    "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "c0622a8dd73ea0809b1d80a9f8dc40d9dacd33a5c44134ae1afa7cdebd802b7f",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb": "f285258f7bc44f91a8726916c063f66bb77b10dc188fe2b8d97b7bb64d85ff30",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "b22d7ad432fa7f468f2c7a4c215e8e9ee929de960052055c499783067733e981",
+    "docs/content/course/Path_Enzyme/25_Solvation_Engineering.ipynb": "804c206e32e15088f887db6b7035d52a07417c0ce82026126d6fd9d78a1540f7"
+  },
+  "reference_sha256": "dcb2c65552058a5083fddc5a4bb3187b1eac6c46e3acf038643ec2ec9f147620",
+  "compiled_backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "runs": [
+    {
+      "artifact": ".pytest_cache/water-box-564-before.xml",
+      "sha256": "be29d250ee010d64bd3518499b7f63d0cadd4e9bd6bf2800656aba12f5c3e19c",
+      "exit_code": 1,
+      "scope": "First draft on original runtime; five fixture/policy assumptions are distinguished from production failures.",
+      "counts": {
+        "tests": 21,
+        "failures": 14,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/make_water_box"
+    },
+    {
+      "artifact": ".pytest_cache/water-box-564-baseline-corrected.xml",
+      "sha256": "9902ec94cb0f797c346e2ce32d0588e3952cfc7f78e851ebe8b1ad0fcbe4d502",
+      "exit_code": 1,
+      "scope": "Intermediate corrected draft; one remaining direct-setter rank error.",
+      "counts": {
+        "tests": 21,
+        "failures": 11,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/make_water_box"
+    },
+    {
+      "artifact": ".pytest_cache/water-box-564-baseline-final.xml",
+      "sha256": "81cc745bfe0fc688193390080a7a6854cfdaa4a069d5a8983d596b0e227915e0",
+      "exit_code": 1,
+      "scope": "Final baseline fixture on original runtime: 10 failures, 11 passes.",
+      "counts": {
+        "tests": 21,
+        "failures": 10,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/make_water_box"
+    },
+    {
+      "artifact": ".pytest_cache/water-box-564-focused.xml",
+      "sha256": "90efad5d7e58f0b514cb1dd736f9bc69fbf73fc3f32e7bfa161c68fc280b0997",
+      "exit_code": 0,
+      "scope": "Initial corrected implementation: 21 controls.",
+      "counts": {
+        "tests": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/make_water_box"
+    },
+    {
+      "artifact": ".pytest_cache/water-box-564-affected.xml",
+      "sha256": "7503f006f794d13c222e8b00fa69b13417b1f920a3cf0d687567afda679644cb",
+      "exit_code": 0,
+      "scope": "Final geometry/reference controls, PBC and ArgDigest receiving.",
+      "counts": {
+        "tests": 773,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 4 tests/build/make_water_box tests/pbc tests/_private/argdigest"
+    },
+    {
+      "artifact": ".pytest_cache/water-box-564-floors.xml",
+      "sha256": "08ec16346d04c2ed7cb63e0a2e74cca1f0119c3011e4ad3281fd2e37174dc4fa",
+      "exit_code": 0,
+      "scope": "Final 23 controls with four cached published support providers.",
+      "counts": {
+        "tests": 23,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 2 -p no:smonitor tests/build/make_water_box"
+    },
+    {
+      "artifact": ".pytest_cache/water-box-564-docs.xml",
+      "sha256": "f56776d42b7bc8cf9d1d49d7f00491dc2e543a154210375ca9164feaba9d7268",
+      "exit_code": 0,
+      "scope": "Documentation and native geometry-owner invalidation guards.",
+      "counts": {
+        "tests": 586,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command": "python -m pytest --receptor=llm -n 2 tests/documentation tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py"
+    }
+  ],
+  "other_checks": {
+    "ruff_check": {
+      "exit_code": 0
+    },
+    "ruff_format_check": {
+      "exit_code": 0,
+      "files": 4363
+    },
+    "dependencies": {
+      "exit_code": 0
+    },
+    "docstrings": {
+      "exit_code": 0,
+      "public_functions": 246
+    },
+    "api_registry": {
+      "exit_code": 0,
+      "symbols": 298
+    },
+    "signature_stability": {
+      "exit_code": 0,
+      "base": "27ccb1b6d640b7e2087a86dea06f6e666dc73fe1",
+      "signature_waivers_needed": 0
+    },
+    "course": {
+      "exit_code": 0,
+      "notebooks": 156
+    },
+    "doctest": {
+      "exit_code": 0,
+      "items": 1
+    },
+    "tutorial": {
+      "exit_code": 0,
+      "path": "docs/content/user/tools/build/make_water_box.ipynb",
+      "code_cells": 8,
+      "seconds": 7.4
+    }
+  },
+  "preserved_notebook_executable_payloads": [
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+    "docs/content/course/Path_Enzyme/25_Solvation_Engineering.ipynb"
+  ],
+  "consumer_handoff": {
+    "issue": "uibcdf/molsysviewer#264",
+    "pull_request": "uibcdf/molsysmt#543",
+    "observed_head": "ac1f6dbad9ce3b29751dfd0a33e5df596e5dbae0",
+    "state": "Native correction is delivered independently; this does not merge/admit the addon expansion."
+  },
+  "prior_hosted_smoke": {
+    "run_id": 42114952994,
+    "source": "27ccb1b6d640b7e2087a86dea06f6e666dc73fe1",
+    "observed_status": "in_progress",
+    "inspector": "Published GH Run Receptor 1.3.0; metadata capture"
+  },
+  "queue": [
+    "uibcdf/molsysmt#575",
+    "uibcdf/molsysmt#574",
+    "uibcdf/molsysmt#576",
+    "uibcdf/molsysmt#572"
+  ],
+  "limits": [
+    "Geometric/reference consistency does not certify exact density, equilibration, clash freedom or a particular water force field.",
+    "The tiling strategy and resident-output memory costs are unchanged; no large-system benchmark claim is made.",
+    "No new dependency floor, compiled kernel, H5MSM schema, scientific attribution provider or optional fallback is added.",
+    "Focused source receiving is distinct from full installed/platform, live-provider and release qualification.",
+    "Run selections overlap and must not be summed."
+  ],
+  "temporary_resources": "No auxiliary environment or manual /tmp tree; Jupyter kernel resources are managed by the executor. Retain local pytest artifacts as receiving evidence."
+}

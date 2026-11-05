@@ -3,8 +3,8 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-05, contribution PR #543, extending published source
-`ac1f6dbad` with native mutation repair, visualization and compatibility
-receiving on published owner basis `27ccb1b6d`.
+`99163c814` with published native water-box repair receiving on owner
+basis `8486ea59c`.
 The table describes this contribution's 240/244 paths, including
 all 57 element paths, twenty-nine build paths and five mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
@@ -557,7 +557,8 @@ scientific algorithms. All fifteen canonical interaction paths retain their
 existing receiving. The two native MD declarations are unconditional stubs and
 remain intentionally unexposed. Of the four unexposed declared paths, two are
 these nonoperational declarations and two are pending native capabilities:
-water-box #564 and MolSys forces #572. Protonation is exposed with its explicit
+water-box consumer receiving after native #564 and native MolSys forces #572.
+Protonation is exposed with its explicit
 independent-only mode limit under #576. Path exposure is not complete mode,
 scientific, platform or installed qualification.
 
