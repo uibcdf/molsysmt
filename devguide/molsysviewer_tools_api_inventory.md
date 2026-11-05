@@ -43,6 +43,9 @@ its filing does not qualify the rejected modes or alter scientific code.
 The [bond-addition receipt](../devtools/data/molsysviewer_tools_bond_addition_receiving_20261105.json)
 records managed native graph publication, independent ownership, true no-ops,
 retained indices and synchronization-only retry, with source/fixture identities.
+The [source-inventory recovery](../devtools/data/molsysviewer_tools_bond_source_inventory_recovery_20261105.json)
+retains the first smoke failure and registers the new helper in the exact
+source/distribution contract; scientific inputs and outcomes remain unchanged.
 Earlier benchmark failures under #567 retain their own inputs.
 The [reference-map receipt](../devtools/data/molsysviewer_tools_reference_map_receiving_20261104.json)
 retains its own unchanged-addon input, red/green controls and hosted scope.

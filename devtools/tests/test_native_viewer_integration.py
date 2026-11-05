@@ -80,10 +80,11 @@ def test_installed_backend_requires_a_file_inventory():
         installed.validate_native_viewer_metadata(distribution)
 
 
-def test_installed_metadata_requires_attribute_tools_source():
+@pytest.mark.parametrize("module", ["_attribute.py", "_chemical_edits.py"])
+def test_installed_metadata_requires_received_tools_source(module):
     with pytest.raises(RuntimeError, match="files are missing"):
         installed.validate_native_viewer_metadata(
-            _distribution(files=TOOLS_FILES - {"molsysviewer_molsysmt/_attribute.py"})
+            _distribution(files=TOOLS_FILES - {f"molsysviewer_molsysmt/{module}"})
         )
 
 
