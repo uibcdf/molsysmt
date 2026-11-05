@@ -65,3 +65,9 @@ Keep detached builder and conditional overlap-filter ownership explicit, includi
 builder domain losses, candidate/reference selection and one-structure decisions.
 A no-removal result aliases the primary; neither route implicitly adopts an output.
 Preserve original code, saved outputs, IDs and notebook metadata.
+
+
+Preserve independent peptide construction/substitution guidance, distinguishing
+fresh sequence-based geometry from observed coordinates and complete chemistry
+from an unassessed target name. Retain native mask/naming/provider/H limits and
+all original notebook code, outputs, metadata, IDs and biological scenarios.

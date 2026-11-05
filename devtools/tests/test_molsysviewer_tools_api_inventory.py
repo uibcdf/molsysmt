@@ -35,6 +35,8 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "add_missing_terminal_cappings",
         "editable",
         "remove_overlapping_molecules",
+        "mutate",
+        "build_peptide",
         "add_missing_heavy_atoms",
     ):
         assert rows[f"build.{name}"]["exposed"]

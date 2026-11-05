@@ -20,33 +20,37 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Builder/overlap addon receiving — 2026-11-04
+## Peptide construction/substitution addon receiving — 2026-11-04
 
-PR #543 adds loaded-primary `build.editable` and
-`build.remove_overlapping_molecules`. The builder copies native domains, omits
-mechanics/named analyses and remains independent after view replacement/close.
-Overlap filtering removes complete candidate molecules using contacts at one
-explicit structure, retaining native remapping and a primary alias when nothing
-is removed. The default atom complement includes same-molecule unselected atoms;
-no exclusion, preparation or automatic scene adoption is introduced.
+PR #543 adds independent `build.build_peptide` and `build.mutate`. Construction
+uses the loaded sequence to produce a new native model, with no source-pose,
+trajectory, box or named-analysis transfer. Canonical substitutions retain native
+backbone/inventory behavior, H rebuilding and unassessed incomplete side-chain
+warnings; PDBFixer remains explicit. Local skip flags never bypass native digestion.
 
-All 37 new cases and the 387-case build/serialized-reader integration pass,
-with zero failures/errors/skips. Five directed native and 562 route/docs cases
-pass separately. Two exact guide blocks execute; 156 course structures,
-247 docstrings, dependencies and whole-tree Ruff/format pass. Original course
-code, outputs, IDs and metadata remain intact. All 3,143 frozen source/test
-files, backend/Rust and reference data match after execution. The
-[builder/overlap receipt](../devtools/data/molsysviewer_tools_builder_overlap_receiving_20261104.json)
-retains inputs, warnings, fixture/complement expectation corrections and scopes.
-This is not a new full-addon or installed-package certificate. Exposure is
-228/244, build 23/30 and mechanics 4/6.
+All 34 new cases and the 421-case build/serialized-reader integration pass,
+with zero failures/errors/skips. Another 37 directed native and 562 route/docs
+cases pass. Two exact guide blocks execute; all 3,144 frozen sources/tests,
+backend/Rust and reference data remain unchanged. Course structures, 247
+docstrings, dependencies and whole-tree Ruff/format pass. Original course
+code, outputs, IDs and metadata remain intact. The
+[peptide receipt](../devtools/data/molsysviewer_tools_peptide_sequence_receiving_20261104.json)
+retains initial unit-policy reference correction, native mask failures and scope.
+This is not a new full-addon, platform or installed-package certificate.
+Exposure is 230/244, build 25/30 and mechanics 4/6.
 
-Parent `53d90adc0` performance 41956040841 passes without another retry or a
-threshold change; five administrative controls pass. Smoke/full remain pending
-at inspection. Earlier `ee1153d98` smoke and failed performance keep their own
-source; #567's comparability/third-party contract remains open. New-head CI,
-owner review/integration and installed qualification stay separate. Native
-#549/#559–#562/#564 remain owner work. No candidate or 1.0 publication.
+The native masked-mutation discrepancy is independently reproduced: MDTraj masks
+reach the MolSysMT parser and atom-index lists reach a group-index mask boundary.
+Supported native-expression paths and rejected masks are distinguished in tests;
+no consumer translation is authored. An owner report is prepared/offered, pending
+the maintainer response. Native naming #549 and other existing owner work remain.
+
+Parent `2d1923996` smoke 41958120548 passes 5,397 native cases (16 optional
+skips), 4,093 addon cases (four optional skips) and 31 command guards. Its audit
+41958120472 fails solely on MDTraj centering +18.54% at the unchanged 15% limit;
+#567 retains the comparability decision and all prior outcomes. Full CI remains
+queued at inspection. No retry, benchmark-policy change, candidate or publication.
+New-head CI, owner review/integration and installed qualification stay separate.
 
 ## Group-name scheme design accepted — 2026-11-04
 

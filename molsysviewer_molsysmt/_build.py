@@ -6,9 +6,18 @@ from smonitor import signal
 from ._basic import _native_documentation
 
 
-def _independent_build_documentation(name):
+def _independent_build_documentation(name, *, local_skip=False):
     def decorate(function):
         function = _native_documentation(name, module="build")(function)
+        if local_skip:
+            function.__doc__ = function.__doc__.replace(
+                "\nReturns\n-------",
+                "\nskip_digestion : bool, default=False\n"
+                "    Keyword-only addon validation control, not forwarded to "
+                "the native function. Native validation always applies.\n\n"
+                "Returns\n-------",
+                1,
+            )
         result_description = (
             "returns an independent native MolSysBuilder; "
             if name == "editable"
@@ -22,6 +31,8 @@ def _independent_build_documentation(name):
                 "make_bioassembly",
                 "add_missing_heavy_atoms",
                 "add_missing_terminal_cappings",
+                "mutate",
+                "build_peptide",
             }
             else "returns a separate molecular system, optionally with its report; "
         )
@@ -161,14 +172,6 @@ def _independent_build_documentation(name):
                 "molsysmt.build.editable() directly to start an empty builder.\n"
             )
         elif name == "remove_overlapping_molecules":
-            function.__doc__ = function.__doc__.replace(
-                "\nReturns\n-------",
-                "\nskip_digestion : bool, default=False\n"
-                "    Keyword-only addon validation control, not forwarded to "
-                "the native function. Native validation always applies.\n\n"
-                "Returns\n-------",
-                1,
-            )
             function.__doc__ += (
                 "selection identifies candidate atoms whose entire declared "
                 "molecules can be removed; selection_2 supplies reference atoms, "
@@ -182,6 +185,31 @@ def _independent_build_documentation(name):
                 "calculation. A no-contact result aliases view.molsys, so subsequent "
                 "raw edits to that result are ordinary external system edits, not "
                 "automatically observed scene changes.\n"
+            )
+        elif name == "mutate":
+            function.__doc__ += (
+                "Mutations use native group_index/group_id/group_name keys or "
+                "source-ID mutation strings, with explicit selection and engine. "
+                "The native route retains observed backbone coordinates and can "
+                "leave unsupported side chains incomplete with unassessed "
+                "warnings. Native hydrogen rebuilding when H are present, "
+                "attribute loss, index remapping and analysis invalidation remain "
+                "visible. PDBFixer is optional and explicit; no fallback, rotamer, "
+                "clash, protonation or energy-minimum certificate is introduced. "
+                "The addon selects no visible frame or implicit subsystem.\n"
+            )
+        elif name == "build_peptide":
+            function.__doc__ += (
+                "Builds a new peptide from the sequence converted from the "
+                "current system. This is fresh native construction, not a "
+                "coordinate repair or trajectory reconstruction. Output pose, "
+                "atom identity, chemistry and mechanics follow native template "
+                "construction; source geometry, named analyses and arbitrary "
+                "metadata are not transferred. Native sequence, chain, naming "
+                "and output-form limits remain. LEaP is an explicit optional "
+                "engine; the addon adds no engine fallback, solvent, alignment "
+                "or physical refinement. Use ordinary molsysmt.build.build_peptide "
+                "with an explicit sequence to construct without a loaded view.\n"
             )
         return function
 
@@ -202,6 +230,8 @@ class _BuildTools:
         "add_missing_terminal_cappings",
         "editable",
         "remove_overlapping_molecules",
+        "mutate",
+        "build_peptide",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -737,7 +767,7 @@ class _BuildTools:
     def editable(self, skip_digestion=False):
         return self._call("editable", {"skip_digestion": skip_digestion})
 
-    @_independent_build_documentation("remove_overlapping_molecules")
+    @_independent_build_documentation("remove_overlapping_molecules", local_skip=True)
     @signal(tags=["addon", "build"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def remove_overlapping_molecules(
@@ -762,3 +792,35 @@ class _BuildTools:
                 "syntax": syntax,
             },
         )
+
+    @_independent_build_documentation("mutate", local_skip=True)
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def mutate(
+        self,
+        mutations=None,
+        keys="group_index",
+        selection="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "mutate",
+            {
+                "mutations": mutations,
+                "keys": keys,
+                "selection": selection,
+                "syntax": syntax,
+                "engine": engine,
+            },
+        )
+
+    @_independent_build_documentation("build_peptide", local_skip=True)
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def build_peptide(
+        self, to_form="molsysmt.MolSys", engine="MolSysMT", *, skip_digestion=False
+    ):
+        return self._call("build_peptide", {"to_form": to_form, "engine": engine})

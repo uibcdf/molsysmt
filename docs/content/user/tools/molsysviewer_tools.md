@@ -100,6 +100,8 @@ Hydrogen generation and terminal capping also mirror their native paths;
 the pH-driven and explicitly fixed-state preparation contracts remain distinct.
 Native builder staging and molecule-overlap filtering are also exposed, with
 explicit independent-builder and conditional-result ownership.
+Peptide construction from the loaded sequence and amino-acid mutation are
+available as independent native results, with reconstruction limits below.
 
 Other scientific modules, editing families and graphical task panels
 are still being implemented. This is not a complete MolSysMT mirror
@@ -3671,6 +3673,109 @@ it is not forwarded and never bypasses native validation. Neither tool adds
 are read without synchronizing the scene. See
 {func}`molsysmt.build.remove_overlapping_molecules` and
 {ref}`Filtering overlaps <Tutorial_Remove_overlapping_molecules>`.
+
+## Constructing and mutating independent peptides
+
+### Building a new geometry from the current sequence
+
+`view.addons.molsysmt.build.build_peptide()` converts the loaded system to a
+peptide sequence and constructs a new native model from it. This can give you
+an independent starting geometry while retaining the original view:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaValPro", engine="MolSysMT")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    output = view.addons.molsysmt.build.build_peptide(engine="MolSysMT")
+    assert msm.get(output, element="group", group_name=True) == ["ALA", "VAL", "PRO"]
+    assert output is not source and view.molsys is source
+    assert output.structures.n_structures == 1
+```
+
+The operation builds fresh coordinates and native template chemistry; it does
+not repair observed coordinates or reproduce a source trajectory. A source with
+several structures still supplies one sequence for a new model. Source boxes,
+named analyses and arbitrary metadata are not transferred to that model, and
+there is no inferred correspondence between original and newly built atoms.
+Initial geometry is not an energy-minimum or simulation-readiness certificate.
+
+`to_form` selects the native output form; native MolSys, MDTraj trajectory and
+three-letter sequence output have explicit receiving. LEaP remains an explicitly
+requested optional engine with its executable, force-field, conversion and
+scratch-file requirements; this addon receiving does not qualify its execution.
+The native naming/sequence and chain limitations remain, including the separate
+naming-context work under MolSysMT#549. The current receiving uses canonical
+single-chain sequences, rather than certifying every deposited name or chain
+composition. The addon adds no selection, structure selector, fitting or engine
+fallback. Use ordinary `msm.build.build_peptide(sequence)` for a new explicit
+sequence before loading a view. See {func}`molsysmt.build.build_peptide` and
+{ref}`Building peptides <Tutorial_Build_peptide>`.
+
+### Substituting amino-acid groups independently
+
+`view.addons.molsysmt.build.mutate()` passes the requested substitutions to
+MolSysMT and returns its independent result. A supported shrinking substitution
+keeps observed backbone coordinates while changing the target group's inventory:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaValPro", engine="MolSysMT")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    output = view.addons.molsysmt.build.mutate(
+        mutations={1: "GLY"}, keys="group_index", engine="MolSysMT",
+    )
+    assert msm.get(output, element="group", group_name=True) == ["ALA", "GLY", "PRO"]
+    assert msm.build.get_missing_heavy_atoms(output) == {}
+    assert msm.get(source, element="group", group_name=True) == ["ALA", "VAL", "PRO"]
+    assert output is not source and view.molsys is source
+```
+
+The native specifications also accept group-ID dictionaries (`keys="group_id"`),
+source-name dictionaries (`keys="group_name"`) and mutation strings such as
+`"VAL-1-GLY"`, whose middle field is the source group ID. Group IDs are labels,
+whereas group indices are positions. Selection and naming rules remain native;
+no caller atom/group mapping or selector translation is invented by the addon.
+
+There is a received native limitation in masked name/ID lookup: MDTraj masks
+can be passed to the MolSysMT parser, and a list of atom indices can be treated
+as group indices. Native MolSysMT expressions, such as `selection="group_index==1"`,
+work for the qualified name-keyed route. The addon preserves the current native
+diagnostic for the unsupported masks; it does not reinterpret the input or
+advertise those modes as successful.
+
+Mutation can leave an unsupported side chain incomplete with
+`UnassessedResidueWarning`. For example, the received native VAL-to-TRP case
+retains only the target's observed backbone heavy atoms and reports ten missing
+side-chain atoms. A renamed TRP is not proof of a reconstructed indole or a
+validated rotamer. Inspect `msm.build.get_missing_heavy_atoms(output)` and all
+native warnings before downstream use. An explicit optional PDBFixer request
+has its own reconstruction behavior; inventory receiving does not independently
+validate its pose or certify resolved clashes.
+
+When the source contains H, native mutation can rebuild hydrogens using its
+native preparation rules and report attribute loss. That received path is
+single-structure. Heavy-only mutation is separately checked across three
+structures, preserving observed geometry, box, time and IDs. There is no implicit
+visible-structure selection or promise of trajectory-wide hydrogen preparation.
+Output atom order/maps, chemistry, mechanics and saved-analysis behavior follow
+the actual native reconstruction; source analyses are preserved and the addon
+never recalculates them. This is not hidden protonation, minimization or a new
+force-field assignment by the addon. See {func}`molsysmt.build.mutate` and
+{ref}`Mutating groups <Tutorial_Mutate>`.
+
+Both methods resolve the serialized current primary, including completed pending
+edits, without scene synchronization or result adoption. Cached methods follow
+replacement and reject closed/empty owners. Their keyword-only `skip_digestion`
+controls addon validation only; neither native function has that argument, so
+native validation always applies. Neither wrapper adds `in_place` or `update_view`.
+Use a returned system explicitly in further calculations or deliberately replace
+the view when that is your intent.
 
 ## Recognizing hydrogen-bond sites and local directions
 

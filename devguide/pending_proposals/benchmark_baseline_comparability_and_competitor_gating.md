@@ -70,6 +70,18 @@ Attempt 2 recovered provisioning, executed measurements and failed the numeric
 audit. Both remain distinct historical outcomes. Smoke 41949691156 attempt 2
 passes independently; a passing functional run is not a performance certificate.
 
+## Later source observation — 2026-11-04
+
+Parent source `53d90adc0` run 41956040841 passes with all benchmark/audit steps
+executed. The next source `2d1923996` run 41958120472 fails solely on the same
+MDTraj centering metric: 1434.73 μs baseline, 1700.76 μs current, +18.54%, with
+the unchanged 15% threshold. Both are ordinary new-source campaigns, without a
+manual retry or benchmark-policy change. Preserve each conclusion and its
+original input; the later failure does not establish its cause or waive the
+comparability decision. Native logs and receptor manifests are retained in the
+consumer receiving record. This observation adds no claim that all other native
+measurements improved in that run.
+
 ## Acceptance criteria
 
 Retain complete session JSON/provenance on successful and failed runs. Define

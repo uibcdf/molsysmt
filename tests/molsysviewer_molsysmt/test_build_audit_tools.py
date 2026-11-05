@@ -110,6 +110,8 @@ def test_explicit_native_signature_and_local_only_skip_control(view, name):
         "add_missing_terminal_cappings",
         "editable",
         "remove_overlapping_molecules",
+        "mutate",
+        "build_peptide",
         "add_missing_heavy_atoms",
     }
     assert not hasattr(view.addons.molsysmt, name)

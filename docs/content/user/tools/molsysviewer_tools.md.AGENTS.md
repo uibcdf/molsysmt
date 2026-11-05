@@ -437,3 +437,12 @@ molecules from candidate selection using one explicit structure; its default
 reference is the atom complement, including same-molecule partners. Keep native
 PBC fallback/remapping and no-contact primary alias explicit. The keyword-only
 overlap skip flag is addon-only and never disables native validation.
+
+
+Keep build_peptide as fresh construction from the loaded system's sequence,
+without source-pose/trajectory identity or automatic scene adoption. Preserve
+native output forms, canonical-sequence receiving and explicit unqualified LEaP
+execution. Mutation returns an independent result with native key/mask semantics,
+bounded incomplete side-chain warnings and native H-rebuilding/attribute limits.
+Do not conceal the external/numeric mask rejection or reinterpret atom/group
+indices. Both local skip flags leave ordinary native validation active.

@@ -3,10 +3,10 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-04, contribution PR #543, extending published source
-`53d90adc0` with detached native builder and conditional overlap-filter routes on native
+`2d1923996` with independent peptide construction/substitution routes on native
 owner basis `5f3af9374`.
-The table describes this contribution's 228/244 paths, including
-all 57 element paths, twenty-three build paths and four mechanical paths; it does not
+The table describes this contribution's 230/244 paths, including
+all 57 element paths, twenty-five build paths and four mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
 works before molecular loading; degree counting binds the serialized current
 primary and retains native parameterization prerequisites. The
@@ -35,7 +35,10 @@ preparation, and native terminal completion/capping without source adoption.
 The [builder/overlap receipt](../devtools/data/molsysviewer_tools_builder_overlap_receiving_20261104.json)
 records detached builder domains/lifetime and whole-molecule filtering with explicit
 structure/reference choices, units, conditional aliasing and native remapping.
-The parent performance success and earlier failure under #567 keep their own inputs.
+The [peptide-sequence receipt](../devtools/data/molsysviewer_tools_peptide_sequence_receiving_20261104.json)
+records fresh sequence-based construction, bounded canonical substitution and
+explicit native mask/H/provider limits. Parent smoke success and the latest
+failed benchmark under #567 retain their own inputs.
 The [reference-map receipt](../devtools/data/molsysviewer_tools_reference_map_receiving_20261104.json)
 retains its own unchanged-addon input, red/green controls and hosted scope.
 The earlier metadata integration's 155/244 snapshot and its frozen results retain
@@ -77,7 +80,7 @@ none certifies a published installed pair.
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
 | physchem | 34 | 34 | 0 |
-| build | 23 | 30 | 7 |
+| build | 25 | 30 | 5 |
 | molecular_mechanics | 4 | 6 | 2 |
 | interactions (canonical families) | 15 | 15 | 0 |
 | element and declared children | 57 | 57 | 0 |
@@ -114,7 +117,7 @@ The new source-preserving `form.file_fasta.read_records` and `parse_records`
 utilities (ae24866ba) are outside this 244-path functional inventory, which
 excludes form adapters. They are explicit file/text operations without a primary
 system slot. Both are now explicitly exposed at those same addon paths and independently
-received as file/text utilities. They are not included in 228/244 and do not
+received as file/text utilities. They are not included in 230/244 and do not
 justify exposing arbitrary adapters or binding filenames/text to view.molsys.
 
 ## Ordered expansion
@@ -200,6 +203,8 @@ and installed/platform qualification remain separate.
    receiving does not admit arbitrary topology edits. The loaded-primary build.editable route now returns a detached native builder
    with explicit domain loss and independent lifetime. Overlap filtering keeps
    whole-molecule scope, atom-complement semantics and no-contact primary alias.
+   Independent build_peptide and mutate now retain fresh-model versus observed-pose
+   semantics, bounded unassessed side chains and native naming/mask/provider limits.
    Remaining factories need explicit native object/lifetime contracts, not placeholders.
 7. **Complete navigation and compatibility decisions.** Receive element/file/attribute/supported
    utilities, canonical versus historical aliases and the basic.view bridge
