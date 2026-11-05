@@ -128,6 +128,63 @@ def test_converter_options_keep_native_live_reference_policy(view):
     assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
 
 
+@pytest.mark.parametrize("skip", [False, True])
+def test_source_naming_context_stays_on_the_independent_output(view, skip):
+    target = view.molsys
+    declarations = target.topology.group_naming_schemes
+    assert set(declarations) == {None}
+    coordinates = target.structures._coordinates
+    analysis = target.interactions["first"]
+    scene = view.export_state()
+    status = view.addons.molsysmt.get_sync_status()
+    parameters = dict(
+        from_naming_scheme="amber", structure_indices=[2, 0], skip_digestion=skip
+    )
+
+    report = view.addons.molsysmt.get_conversion_report(**parameters)
+    assert report == msm.get_conversion_report(target, **parameters)
+    assert any(
+        issue.attribute == "interactions" and issue.kind == "invalidation"
+        for issue in report.issues
+    )
+    result = view.addons.molsysmt.convert(**parameters)
+    expected = msm.convert(target, **parameters)
+    _same_molecular_result(result, expected)
+    assert result is not target
+    assert set(result.topology.group_naming_schemes) == {"amber"}
+    assert len(result.interactions["first"].evaluated_structure_indices) == 0
+    assert target.topology.group_naming_schemes == declarations
+    assert target.structures._coordinates is coordinates
+    assert target.interactions["first"] is analysis
+    np.testing.assert_array_equal(analysis.evaluated_structure_indices, [0, 1, 2])
+    assert view.export_state() == scene
+    assert view.addons.molsysmt.get_sync_status() == status
+
+
+@pytest.mark.parametrize("name", ["convert", "get_conversion_report"])
+@pytest.mark.parametrize(
+    "scheme,expected_error",
+    [("legacy", msm.ArgumentError), ("unsupported-profile", msm.ArgumentChoiceError)],
+)
+def test_naming_conflicts_and_invalid_profiles_keep_native_rejection(
+    view, name, scheme, expected_error
+):
+    view.molsys.topology.set_group_naming_schemes("amber")
+    declarations = view.molsys.topology.group_naming_schemes
+    coordinates = view.molsys.structures._coordinates
+    scene = view.export_state()
+    status = view.addons.molsysmt.get_sync_status()
+    with pytest.raises(expected_error) as native:
+        getattr(msm.basic, name)(view.molsys, from_naming_scheme=scheme)
+    with pytest.raises(type(native.value)) as bound:
+        getattr(view.addons.molsysmt, name)(from_naming_scheme=scheme)
+    assert bound.value.extra["argument"] == "from_naming_scheme"
+    assert view.molsys.topology.group_naming_schemes == declarations
+    assert view.molsys.structures._coordinates is coordinates
+    assert view.export_state() == scene
+    assert view.addons.molsysmt.get_sync_status() == status
+
+
 def test_multiple_target_forms_keep_order_types_reports_and_scope(view):
     args = dict(
         to_form=["molsysmt.MolSys", "molsysmt.Structures"],

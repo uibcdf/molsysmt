@@ -72,7 +72,11 @@ def to_molsysmt_MolSys(
     )
 
     if get_missing_bonds:
-        bonds = _get_missing_bonds(tmp_item)
+        from molsysmt._private.amino_acid_templates import inference_selection
+
+        bonds = _get_missing_bonds(
+            tmp_item, selection=inference_selection(tmp_item.topology)
+        )
         bonds = np.array(bonds)
         tmp_item.chemical_states._set_chemical_state_bonds(
             pd.DataFrame(columns=["atom1_index", "atom2_index"])

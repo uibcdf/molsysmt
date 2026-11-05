@@ -15,5 +15,5 @@ def test_standard_name_examples_execute_exactly_as_documented():
         0,
     )
     result = doctest.DocTestRunner().run(example)
-    assert result.attempted == 4
+    assert result.attempted == 7
     assert result.failed == 0

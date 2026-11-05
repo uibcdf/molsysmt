@@ -20,6 +20,11 @@ def test_get_missing_bonds_molsysmt_MolSys_1():
     molsys = msm.convert(
         msm.systems["nglview"]["md_1u19.pdb"], to_form="molsysmt.MolSys"
     )
+    # This fixture is an Amber-prepared system; state labels are not CCD names.
+    state_groups = molsys.topology.groups.index[
+        molsys.topology.groups["group_name"].isin(["ASH", "GLH"])
+    ].tolist()
+    molsys.topology.set_group_naming_schemes("amber", group_indices=state_groups)
     molsys.chemical_states.remove_bonds("all", skip_digestion=True)
     bonds1 = msm.build.get_missing_bonds(molsys)
     bonds2 = msm.build.get_missing_bonds(molsys, engine="pytraj")

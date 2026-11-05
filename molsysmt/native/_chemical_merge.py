@@ -75,6 +75,7 @@ def stable_inventory_equals(left, right):
         return left is right
     from ._atom_molecules import stored
     from ._chain_groups import by_chain
+    from ._group_naming import stored as stored_naming
 
     if any(
         not getattr(left, name).equals(getattr(right, name))
@@ -82,6 +83,9 @@ def stable_inventory_equals(left, right):
     ):
         return False
     a, b = stored(left), stored(right)
+    if (a is None) != (b is None) or a is not None and not np.array_equal(a, b):
+        return False
+    a, b = stored_naming(left), stored_naming(right)
     if (a is None) != (b is None) or a is not None and not np.array_equal(a, b):
         return False
     return all(np.array_equal(a, b) for a, b in zip(by_chain(left), by_chain(right)))

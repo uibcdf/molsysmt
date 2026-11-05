@@ -7,6 +7,17 @@ run_smoke() {
   MPLBACKEND=Agg python -m pytest --receptor=llm -q \
     tests/element/component/test_get_component_index.py \
     tests/element/group/test_reference_bond_map_validation.py \
+    tests/element/group/test_name_resolution.py \
+    tests/element/group/test_name_recognition.py \
+    tests/element/group/amino_acid/test_naming_atom_expectations.py \
+    tests/build/test_naming_preparation.py \
+    tests/build/build_peptide/test_naming_schemes.py \
+    tests/conversion_truth/test_group_naming_fidelity.py \
+    tests/build/get_non_standard_residues/test_naming_schemes.py \
+    tests/native/test_missing_group_type_inference.py \
+    tests/basic/convert/test_source_naming_scheme.py \
+    tests/topology/get_sequence_identity/test_naming_schemes.py \
+    tests/form/molsysmt_Topology/test_sequence_name_schemes.py \
     tests/topology/get_covalent_blocks/test_get_covalent_blocks_from_molsysmt_MolSys.py \
     tests/pbc/get_lengths_and_angles_from_box/test_get_lengths_and_angles_from_box.py \
     tests/structure/get_rmsd/test_get_rmsd_from_molsysmt_MolSys.py \

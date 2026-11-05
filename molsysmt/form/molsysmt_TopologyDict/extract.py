@@ -47,7 +47,7 @@ def extract(
     .. versionadded:: 1.0.0
     """
 
-    if item.data.get("version", "0.1") == "0.2":
+    if item.data.get("version", "0.1") in {"0.2", "0.3"}:
         if is_all(atom_indices):
             return item.copy() if copy_if_all else item
         from molsysmt.form._native_dict import decode_topology, encode_topology

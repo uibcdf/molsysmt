@@ -69,3 +69,33 @@ charges, empty hydrogen expectations or an assumed covalent graph.
 - {ref}`Tutorial_Chemical_Readiness` — stored fields in the nested assessment.
 - {ref}`user-foundations-molecular-system-definition` — forms and partial domains.
 :::
+
+## Checking the source vocabulary
+
+Declare a known group vocabulary on Topology before interpreting ambiguous names.
+The coverage report keeps undeclared ambiguous groups unassessed; native expectation
+queries and preparation require context. An Amber HID reference and a CCD HID
+component cannot share a cached template. Verification of a reference inventory
+still does not establish placement support or environmental protonation. Consult
+{ref}`user-foundations-group-naming-schemes` and the executed
+{ref}`Tutorial_Get_expected_heavy_atoms` and
+{ref}`Tutorial_Get_expected_hydrogens` examples.
+
+When you construct a peptide, retain its producer declaration instead of guessing
+it later from its native class. Group conventions do not force atom conventions:
+checked historical and Amber construction H layouts can differ. Inspect coverage
+candidates and `variant_sources` when names differ; do not treat an alternative
+H name as proof that another physical hydrogen is missing. See
+{ref}`Tutorial_Build_peptide` for exact-label construction and its limits.
+
+Before exporting that vocabulary to a representation that only stores labels,
+inspect `msm.get_conversion_report()` or request `strict=True` in `msm.convert()`.
+A PDB round trip can keep a group name while losing its source convention.
+Use native inventory, a supported typed dictionary or H5MSM when that declaration
+must accompany the system. See {ref}`Tutorial_Get_Conversion_Report`.
+
+If an output gains missing naming context, the existing policy invalidates its
+evaluated interaction coverage. Preflight reports that invalidation, including
+an analysis evaluated without occurrences; it leaves the original system and its
+snapshots intact. Review the report before deciding whether to export normally
+and recalculate, or retain an already declared compatible source.

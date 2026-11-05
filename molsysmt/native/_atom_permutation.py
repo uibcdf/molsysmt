@@ -17,7 +17,7 @@ from molsysmt._private.smonitor import (
 CALLER = "molsysmt.basic.permute_atoms"
 _FIELDS = {
     "MolSys": "_chemical_states_domain _interactions _structure_chemical_state_indices _structures _topology molecular_mechanics",
-    "Topology": "_atom_molecule_membership _chain_group_membership _atoms_dirty _chains_dirty _entities_dirty _groups_dirty _molecules_dirty _molsys_owner_ref atoms chains entities groups molecules",
+    "Topology": "_atom_molecule_membership _chain_group_membership _group_naming_codes _atoms_dirty _chains_dirty _entities_dirty _groups_dirty _molecules_dirty _molsys_owner_ref atoms chains entities groups molecules",
     "Structures": "_b_factor _box _coordinates _kinetic_energy _molsys_owner_ref _occupancy _potential_energy _temperature _time _time_step _velocities alternate_location bioassembly constant_box constant_id_step constant_time_step id_step structure_id",
     "ChemicalStates": "_molsys_owner_ref _n_atoms _reference_index _states",
     "_ChemicalStateStorage": "_component_completeness _component_evidence _connectivity_completeness _preparation_history _provenance_index atom_attributes bonds component_indices components state_id",
@@ -97,6 +97,9 @@ def _validate(source, n_atoms):
     ):
         _profile(value, cls)
     if top is not None:
+        from ._group_naming import stored as stored_naming
+
+        stored_naming(top)
         from ._atom_molecules import stored
 
         stored(top)

@@ -63,11 +63,13 @@ def test_native_scientific_signature_help_namespace_and_local_skip(case):
     name, view = case
     method = getattr(view.addons.molsysmt.build, name)
     native = inspect.signature(getattr(msm.build, name))
-    expected = list(native.parameters.values())[1:] + [
-        inspect.Parameter(
-            "skip_digestion", inspect.Parameter.KEYWORD_ONLY, default=False
+    expected = list(native.parameters.values())[1:]
+    if "skip_digestion" not in native.parameters:
+        expected.append(
+            inspect.Parameter(
+                "skip_digestion", inspect.Parameter.KEYWORD_ONLY, default=False
+            )
         )
-    ]
     assert inspect.signature(method) == native.replace(parameters=expected)
     assert method.digestion_plan is not None and name in dir(view.addons.molsysmt.build)
     assert not hasattr(view.addons.molsysmt, name)
@@ -299,7 +301,13 @@ def test_native_failure_is_not_bypassed_by_local_skip(case, skip):
     before = snapshot(view)
     args = parameters(name) | dict(engine="unavailable")
     with pytest.raises(Exception) as expected:
-        getattr(msm.build, name)(view.molsys, **args)
+        native_flags = (
+            {"skip_digestion": skip}
+            if "skip_digestion"
+            in inspect.signature(getattr(msm.build, name)).parameters
+            else {}
+        )
+        getattr(msm.build, name)(view.molsys, **args, **native_flags)
     with pytest.raises(type(expected.value)) as actual:
         getattr(view.addons.molsysmt.build, name)(**args, skip_digestion=skip)
     assert str(actual.value) == str(expected.value)

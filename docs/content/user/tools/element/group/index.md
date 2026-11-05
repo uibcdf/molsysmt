@@ -9,6 +9,7 @@ The `group` level in MolSysMT encompasses residues, solvent molecules, ions, and
 | [Get group type](get_group_type.ipynb) | Querying group classifications in molecular systems |
 | [Get group type from group name](get_group_type_from_group_name.ipynb) | Inferring group type from residue name strings |
 | [Get bonded atom pairs](get_bonded_atom_pairs.ipynb) | Extracting standard covalent bond pairs for residues |
+| [Get one-letter code from name](get_1_letter_code_from_name.ipynb) | Projecting a name under a declared sequence, Amber, CCD or legacy convention |
 | [Is group type](is_group_type.ipynb) | Validating recognized group classifications |
 
 ## Specialized Group Submodules
@@ -32,6 +33,7 @@ The `group` level in MolSysMT encompasses residues, solvent molecules, ions, and
    get_group_type.ipynb
    get_group_type_from_group_name.ipynb
    get_bonded_atom_pairs.ipynb
+   get_1_letter_code_from_name.ipynb
    is_group_type.ipynb
    amino_acid/index.md
    ion/index.md

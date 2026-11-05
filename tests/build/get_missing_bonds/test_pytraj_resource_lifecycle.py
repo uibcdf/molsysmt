@@ -46,9 +46,13 @@ def test_pytraj_bridge_retires_intermediates(monkeypatch, tmp_path, stage):
         return str(path)
 
     monkeypatch.setattr("molsysmt.basic.convert", convert)
-    monkeypatch.setattr(
-        "molsysmt.basic.get", lambda *args, **kwargs: np.array([[2, 1]])
-    )
+
+    def get(*args, **kwargs):
+        if kwargs.get("group_name"):
+            return {"group_name": ["ALA"] * 4, "group_index": [0] * 4}
+        return np.array([[2, 1]])
+
+    monkeypatch.setattr("molsysmt.basic.get", get)
     options = {
         "engine": "pytraj",
         "max_bond_length": puw.quantity(2, "angstrom"),

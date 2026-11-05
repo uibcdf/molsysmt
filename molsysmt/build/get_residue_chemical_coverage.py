@@ -59,6 +59,18 @@ def get_residue_chemical_coverage(
 
     Notes
     -----
+    Candidate ``variant_sources`` identifies each layout's actual resource and
+    content digest. Original catalogue indices are retained; added construction
+    layouts receive indices after that catalogue range. Multiple H-name sets
+    remain explicitly ambiguous, even when one matches the observed inventory.
+
+    Per-group stored naming declarations scope reference lookup and caching.
+    Missing context for an ambiguous label yields an unassessed entry. Named
+    Amber states use only variants whose heavy connectivity and per-parent H
+    counts match the bundled Meeko-derived fragments; template provenance records
+    that check. This does not certify charges, stereochemistry or an environmental
+    state. CCD/legacy meanings cannot reuse an Amber reference with the same label.
+
     Exact amino-acid database names and curated MSE, SEP, TPO and MLY templates
     are supported. Sequence aliases do not justify parent-template substitution.
     Unexpected names and duplicate names are reported without automatic matching.

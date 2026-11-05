@@ -86,6 +86,7 @@ def test_exact_names_signatures_help_and_validation(path):
             "is_group_type",
             "get_group_type_from_group_name",
             "get_group_type",
+            "get_1_letter_code_from_name",
             "small_molecule",
             "amino_acid",
             "ion",
@@ -313,7 +314,11 @@ def test_inherited_native_examples_execute(path):
     with msv.new_view() as view:
         method = _path(view.addons.molsysmt.element, path)
         example = doctest.DocTestParser().get_doctest(
-            inspect.getdoc(method), {}, path, None, 0
+            inspect.getdoc(method),
+            {path.rsplit(".", 1)[-1]: _path(msm.element, path)},
+            path,
+            None,
+            0,
         )
         outcome = doctest.DocTestRunner().run(example)
         assert outcome.failed == 0

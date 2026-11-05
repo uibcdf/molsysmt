@@ -17,7 +17,7 @@ from molsysmt._private.smonitor import ArgumentError
 PATHS = (
     "component.is_component_type",
     "molecule.is_molecule_type",
-    "group.amino_acid.get_1_letter_code_from_name",
+    "group.get_1_letter_code_from_name",
     "group.amino_acid.get_standard_name",
     "group.amino_acid.is_amino_acid",
     "group.ion.is_ion",
@@ -80,18 +80,21 @@ def test_exact_signatures_discovery_help_and_keyword_only_control(path):
     with msv.new_view() as view:
         native = _path(msm.element, path)
         method = _path(view.addons.molsysmt.element, path)
-        expected = [
-            *inspect.signature(native).parameters.values(),
-            inspect.Parameter(
-                "skip_digestion", inspect.Parameter.KEYWORD_ONLY, default=False
-            ),
-        ]
+        expected = list(inspect.signature(native).parameters.values())
+        native_skip = "skip_digestion" in inspect.signature(native).parameters
+        if not native_skip:
+            expected.append(
+                inspect.Parameter(
+                    "skip_digestion", inspect.Parameter.KEYWORD_ONLY, default=False
+                )
+            )
         assert list(inspect.signature(method).parameters.values()) == expected
         assert method.digestion_plan is not None
         assert "Works with an open empty view" in inspect.getdoc(method)
-        assert "not forwarded" in inspect.getdoc(method)
+        if not native_skip:
+            assert "not forwarded" in inspect.getdoc(method)
         if path.endswith("get_1_letter_code_from_name"):
-            assert "MolSysMT#549" in inspect.getdoc(method)
+            assert "naming_scheme :" in inspect.getdoc(method)
         if path.endswith(("is_n_terminal_capping", "is_c_terminal_capping")):
             assert "protected peptide end" in inspect.getdoc(method)
         assert "\nmolecular_system :" not in inspect.getdoc(method)
@@ -123,7 +126,14 @@ def test_native_scalar_behavior_and_unmodified_explicit_inputs(view, path, skip)
         [],
         {},
     ]:
-        assert _outcome(method, value, skip_digestion=skip) == _outcome(native, value)
+        native_flags = (
+            {"skip_digestion": skip}
+            if "skip_digestion" in inspect.signature(native).parameters
+            else {}
+        )
+        assert _outcome(method, value, skip_digestion=skip) == _outcome(
+            native, value, **native_flags
+        )
     assert view.molsys is target
 
 
@@ -135,7 +145,10 @@ def test_sampled_native_catalogues_and_canonical_aliases(view, path):
         values = msm.element.component._component_types
     elif path.startswith("molecule."):
         values = msm.element.molecule._molecule_types
-    elif path.startswith("group.amino_acid."):
+    elif (
+        path.startswith("group.amino_acid.")
+        or path == "group.get_1_letter_code_from_name"
+    ):
         from molsysmt.element.group.amino_acid.group_types import name_to_type
 
         values = list(name_to_type)
@@ -179,7 +192,16 @@ def test_sampled_native_catalogues_and_canonical_aliases(view, path):
 )
 def test_literal_supported_one_letter_codes(view, name, expected):
     assert (
-        view.addons.molsysmt.element.group.amino_acid.get_1_letter_code_from_name(name)
+        view.addons.molsysmt.element.group.get_1_letter_code_from_name(
+            name,
+            naming_scheme=(
+                "legacy"
+                if name == "UNK"
+                else "ccd"
+                if name in {"MSE", "SEP"}
+                else "sequence"
+            ),
+        )
         == expected
     )
 
@@ -289,7 +311,7 @@ with msv.new_view() as view:
     element=view.addons.molsysmt.element
     assert element.group.water.is_water('HOH') is True
     assert element.group.amino_acid.get_standard_name('MSE') == 'MET'
-    assert element.group.amino_acid.get_1_letter_code_from_name('SEC') == 'U'
+    assert element.group.get_1_letter_code_from_name('SEC', naming_scheme='sequence') == 'U'
     assert element.molecule.is_molecule_type('waters') is True
     assert view.molsys is None
 print('label-import-order-ok')
@@ -314,5 +336,5 @@ def test_inherited_standard_name_examples_remain_executable():
             0,
         )
         result = doctest.DocTestRunner().run(example)
-        assert result.attempted == 4
+        assert result.attempted == 7
         assert result.failed == 0

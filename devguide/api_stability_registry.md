@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 145 |
+| experimental | 165 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -404,6 +404,36 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.chemical_states.get_rings` | experimental | active | pre-1.0 |
 | `molsysmt.chemical_states.get_rotatable_bonds` | experimental | active | 1.0.0 |
 | `molsysmt.chemical_states.get_substructure_matches` | experimental | active | pre-1.0 |
+
+### `molsysmt.element.group`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.element.group.amino_acid` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.get_1_letter_code_from_name` | experimental | active | 1.0.0 |
+| `molsysmt.element.group.get_bonded_atom_pairs` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.get_group_type` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.get_group_type_from_group_name` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.ion` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.is_group_type` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.lipid` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.nucleotide` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.saccharide` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.small_molecule` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.terminal_capping` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.water` | experimental | active | pre-1.0 |
+
+### `molsysmt.element.group.amino_acid`
+
+| Symbol | Stability | Lifecycle | Introduced |
+| --- | --- | --- | --- |
+| `molsysmt.element.group.amino_acid.get_bonded_atom_pairs` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.amino_acid.get_expected_heavy_atoms` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.amino_acid.get_expected_hydrogens` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.amino_acid.get_group_db` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.amino_acid.get_standard_name` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.amino_acid.group_names` | experimental | active | pre-1.0 |
+| `molsysmt.element.group.amino_acid.is_amino_acid` | experimental | active | pre-1.0 |
 
 ## Approved pre-1.0 namespace moves
 

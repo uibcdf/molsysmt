@@ -45,6 +45,11 @@ native parameter/return/validation behavior, automatic entry-point discovery,
 replacement/close semantics, the native independent/in-place distinction, pending
 synchronization/recovery and the absence of task panels and other editing families. Link native tool references and Viewer host/author documentation.
 
+Preserve native keyword-only from_naming_scheme on conversion/preflight. Forward
+the caller's context to native validation without inferring it from the view.
+Retain selected declaration conflicts, independent-result naming/analysis
+invalidation and unchanged source metadata, scene and pending synchronization.
+
 Preserve the explicit secondary comparison input and the separation between
 read-only comparison and the unreceived two-system topology rebuild. Keep native
 argument aliases and duplicate-name rejection; never reinterpret a mutating
@@ -445,7 +450,9 @@ native output forms, canonical-sequence receiving and explicit unqualified LEaP
 execution. Mutation returns an independent result with native key/mask semantics,
 bounded incomplete side-chain warnings and native H-rebuilding/attribute limits.
 Do not conceal the external/numeric mask rejection or reinterpret atom/group
-indices. Both local skip flags leave ordinary native validation active.
+indices. Mutation keeps addon-only digestion; build_peptide now mirrors native
+skip_digestion and keyword-only from_naming_scheme. Preserve stored source
+context and native conflict rejection without defaulting to legacy.
 
 
 Preserve native add_missing_bonds in-place defaults, retained axes and atomic
@@ -459,3 +466,10 @@ publication with retained index identity. Keep sorted atom-list location binding
 first-processed-structure global labels and per-structure B-factor admission
 explicit. Native occupancy/partial-write limits remain #569/#570/#571; no
 consumer scientific repair, validation bypass or replay on projection retry.
+
+
+The naming cutover retires the old amino_acid scalar code path. Keep only
+element.group.get_1_letter_code_from_name with its native naming_scheme/skip
+arguments, and mirror context flags on changed predicates/templates. Never
+restore retired aliases or substitute parent chemistry; retain native
+conversion/preflight from_naming_scheme when integrating owner changes.

@@ -56,6 +56,20 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
         + "\n",
         encoding="utf-8",
     )
+    molecular_system = foundations / "molecular_system"
+    molecular_system.mkdir()
+    (molecular_system / "naming_schemes.md").write_text(
+        "\n".join(
+            (
+                validate_course.REPO
+                / "docs/content/user/foundations/molecular_system/naming_schemes.md"
+            )
+            .read_text(encoding="utf-8")
+            .splitlines()[:2]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     (core / "index.md").write_text(
         (validate_course.COURSE / "Common_Core/index.md").read_text(encoding="utf-8"),
         encoding="utf-8",
@@ -99,7 +113,8 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
     (source / "index.rst").write_text(
         "Course navigation\n=================\n\n.. toctree::\n\n"
         + "   course/Common_Core/index\n"
-        + "   user/foundations/index\n   user/foundations/support/selection_syntaxes\n",
+        + "   user/foundations/index\n   user/foundations/support/selection_syntaxes\n"
+        + "   user/foundations/molecular_system/naming_schemes\n",
         encoding="utf-8",
     )
     warnings = StringIO()
@@ -119,6 +134,11 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
                 tmp_path / f"html/course/Common_Core/{page.stem}.html"
             ).read_text(encoding="utf-8")
             assert 'href="../../user/foundations/index.html#' in rendered
+            if page.name.startswith(("04_", "12_")):
+                assert (
+                    'href="../../user/foundations/molecular_system/naming_schemes.html#'
+                    in rendered
+                )
             if index < len(pages) - 1:
                 following = pages[index + 1]
                 next_link = re.search(

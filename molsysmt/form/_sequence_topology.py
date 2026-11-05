@@ -30,7 +30,9 @@ def group_names(text, width, *, caller):
     return codes
 
 
-def from_string(item, width, group_indices, structure_indices, *, caller):
+def from_string(
+    item, width, group_indices, structure_indices, *, caller, naming_scheme=None
+):
     from molsysmt.native._sequence_topology import from_group_records
 
     from ._sequence_selection import extract
@@ -44,7 +46,7 @@ def from_string(item, width, group_indices, structure_indices, *, caller):
     names = group_names(
         selected.removeprefix(f"amino_acids_{width}:"), width, caller=caller
     )
-    return from_group_records([{"groups": names}])
+    return from_group_records([{"groups": names}], naming_scheme=naming_scheme)
 
 
 def require_no_structures(structure_indices, *, caller, form):

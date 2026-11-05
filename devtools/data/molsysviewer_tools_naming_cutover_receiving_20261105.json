@@ -1,0 +1,197 @@
+{
+  "schema": "molsysmt.viewer-naming-cutover-source-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#549",
+    "uibcdf/molsysviewer#264"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "738f752cc6543f45452f833f85046066a1e67d72",
+  "published_native_basis": "d3650cc09735ccfc7bf02d35ca4e0a746f83f96f",
+  "delivery": "Existing contribution PR only; no owner-main commit or merge. Final merge commit is recorded by the consumer, avoiding self-reference.",
+  "source_changes": {
+    "canonical_path": "element.group.get_1_letter_code_from_name",
+    "retired_addon_path": "element.group.amino_acid.get_1_letter_code_from_name",
+    "naming_context": "Native naming_scheme/skip_digestion and build_peptide from_naming_scheme forwarded explicitly; native conversion/preflight changes retained. No compatibility alias or scientific reinterpretation.",
+    "native_scientific_edits_authored": false
+  },
+  "exposure": {
+    "exposed": 232,
+    "declared": 244,
+    "element": [
+      57,
+      57
+    ],
+    "build": [
+      27,
+      30
+    ],
+    "molecular_mechanics": [
+      4,
+      6
+    ]
+  },
+  "source_freeze": {
+    "files": 4163,
+    "sha256": "f57ee85618dc43b5c22e113959a6ad8528b6b57fd80baf4824c80c4da91a5dce",
+    "postcheck": {
+      "primary_files": 4163,
+      "primary_changed": [],
+      "fixed_pyunitwizard_files": 91,
+      "fixed_pyunitwizard_changed": [],
+      "other_support_changes": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+    },
+    "backend_recompiled": false,
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67"
+  },
+  "provider_snapshot": {
+    "provider": "pyunitwizard",
+    "public_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "archive_sha256": "15837de15b443f3f0853d484da9990da74cc444b9c562e4aafe9fbf86642cdbd",
+    "files": 91,
+    "scope": "Read-only git archive source overlay during final local tests, not an installation or modified provider checkout. Distribution metadata is not asserted to identify the snapshot source."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_basic.py": "07c4d2fdf28240b4e1bb9a9bd96431bb8bac1548b6cc3c2272809634688e17a7",
+    "molsysviewer_molsysmt/_build.py": "d7c8839c0622ef078c6cce391cc8286cad731ddd2cf3a8c9f05b32e67370d741",
+    "molsysviewer_molsysmt/_element.py": "607c67e2eb303b6646d76effda34d61b24f3a39ac46f320b0e53669b336ca3e1",
+    "molsysviewer_molsysmt/_element_labels.py": "fc5650452397eb0663a1741fea7de3b089400af254968f35d2a6c12b4c6f128c",
+    "molsysviewer_molsysmt/_element_templates.py": "318129e46fbbe8a79f6fc723c7bc2925a558bf52e4f59c1822cd1b5b0f4750b2",
+    "tests/molsysviewer_molsysmt/test_naming_context_tools.py": "660e144a478854dd8957168be29c5c747adefb857ccdbccf6876f57e35c25cff",
+    "devtools/tests/test_validate_course.py": "afc7c439e24dab849f504e894cc1d5127df191aebbf4ed77d86a9de6ca89d668",
+    ".github/workflows/ci-smoke.yaml": "b5323a583c707bab9514bbca604c357280946a4309c7c541dfed163ef55657c2"
+  },
+  "validation": [
+    {
+      "file": "naming-context-new-20261105.xml",
+      "sha256": "ea0c8e84ac1d00f66e9b46950910b48f3331273834b95b2a35de303852931c29",
+      "scope": "Forty new explicit-context, native-signature/error and independent-output ownership cases.",
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.027
+    },
+    {
+      "file": "naming-integration-all-addon-fixed-provider-20261105.xml",
+      "sha256": "5eba68ffb0485b7a0e1c275c332633c48ecc0e3c75eb2b325dde1ab37d7adc68",
+      "scope": "Full addon and 32 structural/package guards; four workers and immutable public PyUnitWizard source.",
+      "tests": 4263,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 297.298
+    },
+    {
+      "file": "naming-integration-native-20261105.xml",
+      "sha256": "a180aec6bed3d971e10ece20fbe242d58333770f73b14193fd8ac57b9a9dd796",
+      "scope": "Directed native group naming, code, peptide source context and sequence identity; four workers.",
+      "tests": 298,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 11.463
+    },
+    {
+      "file": "naming-integration-docs-final-20261105.xml",
+      "sha256": "dab3dc82e94b9f9eadd91cf7c03fb0cff58586f84c0827430953231c9f6eb633",
+      "scope": "Final seven-file documentation/package/course contract receiving with corrected miniature Sphinx fixture.",
+      "tests": 88,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 24.102
+    }
+  ],
+  "preserved_failures": [
+    {
+      "file": "naming-integration-initial-20261105.xml",
+      "sha256": "8f946fc8fe914cd4c3ec50a949ad84f1c1534f6a694d23df0fa50df9b0efb1a9",
+      "scope": "Stale addon paths/signatures, local/native skip assumptions and doctest contexts/counts.",
+      "tests": 1093,
+      "failures": 54,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 208.314
+    },
+    {
+      "file": "naming-integration-focused-corrected-20261105.xml",
+      "sha256": "2fa2e28a2ea2315384081377fb876aef0396cec4f332f3f24136f98fadc1f08a",
+      "scope": "Two UNK controls used sequence context; native UNK declaration belongs to explicit legacy.",
+      "tests": 922,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 144.965
+    },
+    {
+      "file": "naming-unk-legacy-recovery-20261105.xml",
+      "sha256": "0d32eb20115e2544a6375fccda85f3d760d038e6d2adee65f1b6bbaa8d80b953",
+      "scope": "Two recovered UNK controls using actual native legacy declaration.",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.657
+    },
+    {
+      "file": "naming-integration-docs-contracts-20261105.xml",
+      "sha256": "74f452c9253b1e5cc2dd124960bbca587462d202f9aa55566da17e9d3f2ea2a6",
+      "scope": "Miniature Sphinx fixture lacked the real naming-schemes foundation label.",
+      "tests": 88,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 23.008
+    },
+    {
+      "file": "naming-course-navigation-recovery-20261105.xml",
+      "sha256": "fe2574f2e80f8a6e52ddb471d6d4ebd6043ddae7770eb1170cfc3f4ee890a419",
+      "scope": "Real foundation label retained and rendered; production links not suppressed.",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.431
+    }
+  ],
+  "concurrent_provider_observation": {
+    "initial_full_run": {
+      "file": "naming-integration-all-addon-20261105.xml",
+      "sha256": "fb33f09d8f137ec0faf66374578558e8eefe8fb434dfbdfdc6ef9c32335052b5",
+      "scope": "All cases passed but four live PyUnitWizard source files changed during this run; not a fixed-provider certificate.",
+      "tests": 4263,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 310.482
+    },
+    "disposition": "Preserved original result and repeated the complete addon run using the public immutable provider snapshot. Native/addon sources and other checked support sources did not drift."
+  },
+  "static_validation": {
+    "docstrings": 246,
+    "ruff_checked_and_formatted_files": 92,
+    "course": {
+      "owner_cells": 34,
+      "modified_markdown_ids": [
+        "96ebdbc9",
+        "4fb55a86",
+        "f158b27f"
+      ],
+      "code_outputs_ids_and_metadata_preserved": true
+    },
+    "devguide_and_generated_indexes": "passed"
+  },
+  "scope_limits": [
+    "Local Linux/Python 3.14.7 source environment only, not a clean Conda solve or installed/public qualification.",
+    "Native #549 profiles and exposed APIs retain their declared experimental scientific scope.",
+    "Original alternate-site receiving and #569/#570/#571 observations retain their old native inputs; later owner corrections require separate consumer receiving.",
+    "No new native algorithm, Rust build, dependency floor, Viewer runtime, tag, candidate or release."
+  ]
+}

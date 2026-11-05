@@ -107,3 +107,95 @@ def test_unknown_order_code_is_reported_and_strictly_rejected():
     assert [issue.attribute for issue in report.issues] == ["bond_order"]
     with pytest.raises(msm.NotCompatibleConversionError, match="Strict conversion"):
         msm.convert(container, to_form="molsysmt.Topology", strict=True)
+
+
+def test_undeclared_contextual_group_does_not_gain_edges_or_complete_status():
+    from mmcif.api.DataCategory import DataCategory
+    from mmcif.api.PdbxContainers import DataContainer
+
+    source = DataContainer("unresolved")
+    source.append(
+        DataCategory(
+            "chem_comp",
+            attributeNameList=["id", "type"],
+            rowList=[["GLH", "NON-POLYMER"]],
+        )
+    )
+    source.append(
+        DataCategory(
+            "pdbx_entity_nonpoly",
+            attributeNameList=["entity_id", "name", "comp_id"],
+            rowList=[["1", "Unresolved group", "GLH"]],
+        )
+    )
+    source.append(
+        DataCategory(
+            "entity",
+            attributeNameList=["id", "type", "pdbx_description"],
+            rowList=[["1", "non-polymer", "Unresolved group"]],
+        )
+    )
+    source.append(
+        DataCategory(
+            "struct_asym", attributeNameList=["id", "entity_id"], rowList=[["A", "1"]]
+        )
+    )
+    names = ["N", "CA", "C", "O", "CB", "CG", "CD", "OE1", "OE2"]
+    attributes = [
+        "group_PDB",
+        "id",
+        "type_symbol",
+        "label_atom_id",
+        "label_alt_id",
+        "label_comp_id",
+        "label_asym_id",
+        "label_entity_id",
+        "label_seq_id",
+        "pdbx_PDB_ins_code",
+        "Cartn_x",
+        "Cartn_y",
+        "Cartn_z",
+        "occupancy",
+        "B_iso_or_equiv",
+        "pdbx_formal_charge",
+        "auth_seq_id",
+        "auth_comp_id",
+        "auth_asym_id",
+        "auth_atom_id",
+        "pdbx_PDB_model_num",
+    ]
+    rows = []
+    for i, name in enumerate(names):
+        element = "N" if name == "N" else "O" if name.startswith("O") else "C"
+        rows.append(
+            [
+                "HETATM",
+                str(i + 1),
+                element,
+                name,
+                ".",
+                "GLH",
+                "A",
+                "1",
+                "1",
+                "?",
+                str(float(i)),
+                "0",
+                "0",
+                "1",
+                "0",
+                "?",
+                "1",
+                "GLH",
+                "A",
+                name,
+                "1",
+            ]
+        )
+    source.append(DataCategory("atom_site", attributeNameList=attributes, rowList=rows))
+    output = msm.convert(source, to_form="molsysmt.MolSys")
+    state = output.chemical_states._resolve_chemical_state()
+    assert output.topology.groups["group_name"].tolist() == ["GLH"]
+    assert output.topology.group_naming_schemes == (None,)
+    assert len(state.bonds) == 0
+    assert state.connectivity_completeness == "partial"

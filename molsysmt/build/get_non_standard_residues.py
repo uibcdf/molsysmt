@@ -7,11 +7,12 @@ def get_non_standard_residues(
     molecular_system, selection="all", syntax="MolSysMT", engine="MolSysMT"
 ):
     """
-    Identify non-standard residues in a molecular system and suggest standard replacements.
+    Reporting reference amino-acid names for non-standard groups.
 
     This function detects residues whose names are not part of the standard set
     recognised by the backend and maps their group indices to the names of the
-    standard residues that can be used as replacements.
+    reference amino acids. A reporting parent does not authorize replacing a
+    modified group or selecting its parent's chemical template.
 
 
     Parameters
@@ -29,8 +30,8 @@ def get_non_standard_residues(
     -------
     dict
         Dictionary mapping group (residue) indices (int) in the original molecular
-        system to the names (str) of the closest standard residue replacements
-        suggested by the backend.
+        system to reference amino-acid names (str). This is not a chemical
+        replacement operation.
 
 
     Raises
@@ -41,14 +42,22 @@ def get_non_standard_residues(
 
     Notes
     -----
-    When ``engine='MolSysMT'`` the detection relies on the ``name_to_type``
-    table in :mod:`molsysmt.element.group.amino_acid.group_types`, which maps
-    ~817 residue names (standard + non-standard amino acids, D-forms,
-    protonation-state variants, PTMs) to their canonical 3-letter codes.  A
-    residue is reported as non-standard when its name maps to a *different*
-    standard code (e.g. ``'MSE'`` → ``'MET'``).  Residues that map to
-    ``'XAA'`` (completely unknown) are not reported.
+    PDBFixer delegation refuses the reviewed context-dependent labels until a
+    source-naming adapter is available, including explicit declarations. Only the
+    selected groups are checked. Native reference reporting remains available.
 
+    The MolSysMT backend uses the shared naming resolver and stored per-group
+    conventions in native objects, native dictionaries and H5MSM 0.5. Other
+    forms have no implicit source convention. Ambiguous names without context
+    require a declaration, not a guessed Amber or legacy interpretation.
+    Unassessed default names and unknown parents are omitted. The PDBFixer
+    backend retains its own catalogue and may report different substitutions.
+
+
+    .. admonition:: User guide
+
+       See :ref:`user-foundations-group-naming-schemes` for naming context,
+       exact references and unsupported cases.
 
     .. versionadded:: 1.0.0
     """
@@ -56,22 +65,45 @@ def get_non_standard_residues(
     output = {}
 
     if engine == "MolSysMT":
+        from molsysmt._private.name_resolution import stored_topology
         from molsysmt.basic import get, select
         from molsysmt.element.group.amino_acid import get_standard_name
 
         group_indices = select(
             molecular_system, element="group", selection=selection, syntax=syntax
         )
-        group_name_list = get(
-            molecular_system, element="group", selection=group_indices, group_name=True
+        topology = stored_topology(
+            molecular_system, caller="molsysmt.build.get_non_standard_residues"
         )
-
+        group_name_list = (
+            topology.groups.iloc[group_indices]["group_name"].tolist()
+            if topology is not None
+            else get(
+                molecular_system,
+                element="group",
+                selection=group_indices,
+                group_name=True,
+            )
+        )
+        schemes = None if topology is None else topology.group_naming_schemes
         for group_idx, group_name in zip(group_indices, group_name_list):
-            standard = get_standard_name(group_name)
+            standard = get_standard_name(
+                group_name,
+                naming_scheme=None if schemes is None else schemes[int(group_idx)],
+            )
             if standard is not None:
                 output[int(group_idx)] = standard
 
     elif engine == "PDBFixer":
+        from molsysmt._private.amino_acid_templates import check_external_preparation
+
+        check_external_preparation(
+            molecular_system,
+            engine,
+            "molsysmt.build.get_non_standard_residues",
+            selection=selection,
+            syntax=syntax,
+        )
         from molsysmt.basic import convert, select
 
         group_indices_in_selection = select(

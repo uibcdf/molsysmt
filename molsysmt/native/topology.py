@@ -105,8 +105,8 @@ class Groups_DataFrame(pd.DataFrame):
         columns = ["group_id", "group_name", "group_type", "molecule_index"]
         super().__init__(index=range(n_groups), columns=columns)
         self["group_id"] = self["group_id"].astype("string")
-        self["group_name"] = self["group_name"].astype(str)
-        self["group_type"] = self["group_type"].astype(str)
+        self["group_name"] = self["group_name"].astype("string")
+        self["group_type"] = self["group_type"].astype("string")
         self["molecule_index"] = self["molecule_index"].astype("Int64")
 
     def __setitem__(self, key, value):
@@ -297,10 +297,123 @@ class Topology(NativeQueries):
         self.__dict__.update(state)
         self.__dict__.setdefault("_atom_molecule_membership", None)
         self.__dict__.setdefault("_chain_group_membership", None)
+        self.__dict__.setdefault("_group_naming_codes", None)
         if "isotope" not in self.atoms:
             self.atoms.insert(
                 3, "isotope", pd.array([pd.NA] * self.n_atoms, dtype="UInt16")
             )
+
+    @property
+    def group_naming_schemes(self):
+        """Getting immutable source-name declarations in group-index order.
+
+        Each entry is ``amber``, ``ccd``, ``legacy``, ``sequence`` or None (unknown).
+        A declaration describes the vocabulary of the stored group name; it
+        does not certify a complete database, infer chemistry or rename a group.
+        """
+        from ._group_naming import NAMES, stored
+
+        codes = stored(self)
+        return (
+            (None,) * self.n_groups if codes is None else tuple(NAMES[i] for i in codes)
+        )
+
+    @signal(tags=["native"])
+    @arg_digest(
+        digestion_source="molsysmt._private.argdigest.group_naming",
+        digestion_style="registry",
+        strictness="error",
+    )
+    def set_group_naming_schemes(
+        self, naming_schemes=None, group_indices="all", skip_digestion=False
+    ):
+        """Declaring source naming schemes for selected stable groups.
+
+        Parameters
+        ----------
+        naming_schemes : str, sequence of str or none, optional
+            Source vocabulary: 'amber', 'ccd', 'legacy' or 'sequence'. A scalar applies to
+            every selected group; a sequence aligns with group_indices. None
+            clears the selected declarations to unknown. Names are preserved.
+        group_indices : int or array_like of int or str, default='all'
+            Unique positional group indices in assignment order. The default
+            selects all groups, including groups without stored atoms.
+        skip_digestion : bool, default=False
+            Skip argument digestion only for already validated arguments.
+
+        Returns
+        -------
+        none
+            The declarations are replaced in place after complete validation.
+
+        Raises
+        ------
+        ArgumentError
+            If schemes or group positions are unsupported, repeated or invalid.
+        ArgumentLengthError
+            If a sequence does not align with the selected groups.
+        StructuralInconsistencyError
+            If existing declarations no longer align with the group inventory.
+
+        Notes
+        -----
+        This is explicit metadata assignment, not source-scheme inference.
+        Replacing a previous declaration is intentional here; conversion and
+        name interpretation must instead diagnose conflicting source overrides.
+        No bonds, chemical assignments, coordinates or group names are changed.
+        Resetting the group table clears its associated declarations. Copying,
+        extraction, merging and supported persistence preserve them.
+        A changed declaration invalidates attached named interaction analyses;
+        existing analysis snapshots remain intact. Repeating a declaration is
+        a no-op. Neither invalidation nor assignment runs a detector.
+
+        Examples
+        --------
+        >>> topology = Topology(n_groups=3)
+        >>> topology.set_group_naming_schemes(['amber', 'ccd'], group_indices=[2, 0])
+        >>> topology.group_naming_schemes
+        ('ccd', None, 'amber')
+        >>> topology.set_group_naming_schemes(None, group_indices=0)
+        >>> topology.group_naming_schemes
+        (None, None, 'amber')
+
+        .. admonition:: User guide
+
+           See :ref:`user-foundations-group-naming-schemes` for naming declarations.
+
+        .. versionadded:: 1.0.0
+        """
+        from ._group_naming import NAMES, compact, stored
+
+        previous = stored(self)
+        candidate = (
+            np.zeros(self.n_groups, dtype=np.uint8)
+            if previous is None
+            else previous.copy()
+        )
+        selected = slice(None) if is_all(group_indices) else group_indices
+        candidate[selected] = (
+            NAMES.index(naming_schemes)
+            if naming_schemes is None or isinstance(naming_schemes, str)
+            else np.fromiter(
+                (NAMES.index(value) for value in naming_schemes), dtype=np.uint8
+            )
+        )
+        candidate = compact(candidate)
+        if (candidate is None and previous is None) or (
+            candidate is not None
+            and previous is not None
+            and np.array_equal(candidate, previous)
+        ):
+            return
+        owner_ref = getattr(self, "_molsys_owner_ref", None)
+        owner = owner_ref() if owner_ref is not None else None
+        with (
+            owner._invalidating_interaction_frames("all")
+            if owner is not None
+            else nullcontext()
+        ):
+            self._group_naming_codes = candidate
 
     @property
     def chain_groups(self):
@@ -479,6 +592,7 @@ class Topology(NativeQueries):
 
         self.groups = Groups_DataFrame(n_groups=n_groups)
         self._chain_group_membership = None
+        self._group_naming_codes = None
 
     def reset_molecules(self, n_molecules=0):
         """Reset molecules table to a new size."""
@@ -557,6 +671,9 @@ class Topology(NativeQueries):
             old_group_indices = tmp_item.atoms["group_index"].dropna().unique().tolist()
             tmp_item.groups = self.groups.iloc[old_group_indices].copy()
             tmp_item.groups.index = pd.RangeIndex(len(tmp_item.groups))
+            from ._group_naming import project as project_naming
+
+            tmp_item._group_naming_codes = project_naming(self, old_group_indices)
 
             from ._atom_molecules import compact, stored
 
@@ -664,6 +781,7 @@ class Topology(NativeQueries):
         """Append stable inventory and hierarchy without reading chemical records."""
         from ._atom_molecules import compact, stored
         from ._chain_groups import by_chain
+        from ._group_naming import concatenate as concatenate_naming
 
         owner_ref = getattr(self, "_molsys_owner_ref", None)
         if owner_ref is not None and owner_ref() is not None:
@@ -684,6 +802,7 @@ class Topology(NativeQueries):
             self.n_entities,
             self.n_chains,
         )
+        naming = concatenate_naming(self, other)
         declared = (
             self._chain_group_membership is not None
             or other._chain_group_membership is not None
@@ -718,6 +837,7 @@ class Topology(NativeQueries):
                 _concatenate_columns(getattr(self, name), getattr(other, name)),
             )
         self._atom_molecule_membership = membership
+        self._group_naming_codes = naming
         if declared:
             self.set_chain_groups(chain_groups)
         # The concatenated declarations are authoritative. Re-inference here

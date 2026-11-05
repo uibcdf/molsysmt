@@ -67,6 +67,13 @@ def add_missing_heavy_atoms(
 
     Notes
     -----
+    Native assessment respects each group's stored naming convention and never
+    chooses a placement template from a sequence parent. A verified atom inventory
+    does not establish that coordinate placement is supported: the named Amber
+    states currently have no verified placement template and remain unassessed.
+    Reviewed contextual labels cannot be delegated to PDBFixer without an explicit
+    naming adapter; only selected groups are checked. No convention is translated.
+
     The native engine repairs standard residues and selected incomplete MSE, SEP,
     and TPO residues from exact chemical templates. Curated modified residues
     are matched by atom name, element, and connectivity; supported missing atoms
@@ -148,6 +155,15 @@ def add_missing_heavy_atoms(
     form_out = form_in
 
     if engine == "PDBFixer":
+        from molsysmt._private.amino_acid_templates import check_external_preparation
+
+        check_external_preparation(
+            molecular_system,
+            engine,
+            "molsysmt.build.add_missing_heavy_atoms",
+            selection=selection,
+            syntax=syntax,
+        )
         if attribute_policy != "intersection":
             raise NotImplementedMethodError(
                 method="PDBFixer with strict attribute_policy",
@@ -310,15 +326,21 @@ def add_missing_heavy_atoms(
         selected_groups = select(
             native_ms, element="group", selection=selection, syntax=syntax
         )
-        from molsysmt.element.group.amino_acid import get_standard_name
-        from molsysmt.element.group.amino_acid.group_names import group_names
+        from molsysmt._private.amino_acid_templates import family
+        from molsysmt.element.group.amino_acid.group_types import name_to_type
 
+        schemes = topo.group_naming_schemes
         for group_idx in selected_groups:
             group_name = topo.groups.at[int(group_idx), "group_name"]
-            if (
-                group_name not in CURATED_MODIFIED_RESIDUES
-                and group_name not in group_names
-                and get_standard_name(group_name) is not None
+            kind = family(
+                group_name,
+                schemes[int(group_idx)],
+                caller="molsysmt.build.add_missing_heavy_atoms",
+            )
+            if kind is None and (
+                group_name in name_to_type
+                or isinstance(topo.groups.at[int(group_idx), "group_type"], str)
+                and topo.groups.at[int(group_idx), "group_type"] == "amino acid"
             ):
                 warn(
                     UnassessedResidueWarning(
@@ -340,7 +362,12 @@ def add_missing_heavy_atoms(
             group_idx = int(group_idx)
             group_name = topo.groups.at[group_idx, "group_name"]
             if (
-                group_name not in CURATED_MODIFIED_RESIDUES
+                family(
+                    group_name,
+                    schemes[group_idx],
+                    caller="molsysmt.build.add_missing_heavy_atoms",
+                )
+                != "curated_ccd"
                 or group_idx in missing_atoms
             ):
                 continue
@@ -385,7 +412,14 @@ def add_missing_heavy_atoms(
             group_name = topo.groups["group_name"].values[group_idx]
             template = load_residue_template(group_name)
             if template is None:
-                if get_standard_name(group_name) is not None:
+                if (
+                    family(
+                        group_name,
+                        schemes[group_idx],
+                        caller="molsysmt.build.add_missing_heavy_atoms",
+                    )
+                    is not None
+                ):
                     warn(
                         UnassessedResidueWarning(
                             group_name=group_name,

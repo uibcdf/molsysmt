@@ -351,6 +351,26 @@ object can materialize arbitrary subsets without creating a new file. Writing,
 append behavior, and reader-object subset materialization require separate
 conversion edges and tests before they become contractual.
 
+### Group-name and analysis fidelity
+
+Stored group-name declarations are stable-inventory metadata, separate from
+labels and ChemicalStates. Native inventory, supported typed dictionaries and
+H5MSM carry their versioned registry and group map. Conversion preflight reports
+selected declarations that a target cannot retain, including prospective
+`from_naming_scheme` supplied by the caller. Strict conversion rejects detected
+loss before target creation; ordinary conversion keeps its permissive policy.
+Unknown context is never inferred from a format or a native class.
+
+Named analyses omitted by a target are reported in the `interactions` scope,
+including empty named results. Adding missing naming context uses the existing
+invalidation policy on the independent molecular output; the report exposes
+lost selected evaluated coverage, including evaluated-empty structures. Matching
+context, unevaluated coverage and unselected structures do not invent this
+invalidation loss. Source snapshots remain unchanged. Report scope does not
+certify scientific methods, schema validity, dependencies or writer availability.
+See [the owning #549 record](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md)
+and the public conversion/preflight documentation for boundaries and evidence.
+
 ### Contractual MDAnalysis forms
 
 `MDAnalysis.Universe`, `MDAnalysis.AtomGroup`, and `MDAnalysis.Topology` are

@@ -156,9 +156,13 @@ The release gate retains the offline validator; board synchronization is separat
 ## Git commits
 
 - Never add a `Co-Authored-By` trailer to commit messages. Commit messages must contain only the subject line and, when necessary, a body — no attribution footers of any kind.
-- Direct pushes by the internal maintainers may use `[skip ci]` when rapid
-  iteration warrants deferring tests. Omit it by default so the short smoke
-  suite runs. Every skipped commit remains in the nightly full-suite backlog
+- Keep focused commits local and batch direct pushes into meaningful work
+  checkpoints. Do not push every small change solely to trigger remote tests;
+  run the relevant local checks during development. When an intermediate
+  internal-maintainer push is needed for collaboration or backup and CI can
+  be deferred, use `[skip ci]`. Finish each work block with an unskipped head
+  and inspect its applicable CI, or use the authorized exact-head manual route.
+  Every skipped commit remains in the nightly full-suite backlog
   until a complete Linux matrix passes. Do not use `[skip ci]` on a pull
   request. Release candidates require all mandatory exact-candidate gates
   executed and verified, including through the authorized manual route when

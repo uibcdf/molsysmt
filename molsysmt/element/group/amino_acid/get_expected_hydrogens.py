@@ -1,19 +1,14 @@
-from .get_group_db import get_group_db
-from .get_standard_name import get_standard_name
-from .group_names import group_names
+"""Querying bounded hydrogen references under explicit group naming context."""
+
+from smonitor import signal
+
+from molsysmt._private.amino_acid_templates import is_hydrogen as _is_hydrogen
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.atom_expectations import DIGEST_OPTIONS
 
 
-def _is_hydrogen(atom_name):
-    """Return True if atom_name follows PDB hydrogen naming conventions."""
-    if not atom_name:
-        return False
-    if atom_name[0] == "H":
-        return True
-    if len(atom_name) >= 2 and atom_name[0].isdigit() and atom_name[1] == "H":
-        return True
-    return False
-
-
+@signal(tags=["api", "element", "preparation", "naming"])
+@arg_digest(**DIGEST_OPTIONS)
 def get_expected_hydrogens(
     group_name,
     present_atom_names=None,
@@ -21,40 +16,73 @@ def get_expected_hydrogens(
     is_n_terminal=False,
     is_c_terminal=False,
     is_disulfide=False,
+    skip_digestion=False,
+    *,
+    naming_scheme=None,
 ):
     """
-    Return the list of expected hydrogen atom names for a residue.
+    Getting supported hydrogen names under a group naming convention.
 
-    Selects the best-matching topology variant from the amino-acid database,
-    then applies pH-dependent protonation rules to decide which H atoms should
-    be present.
+    Standard amino-acid names retain the existing approximate pH model. Named
+    Amber states constrain their side-chain hydrogen inventory; a reporting
+    parent is never used as the chemical reference.
 
 
     Parameters
     ----------
     group_name : str
         Name of the chemical group (residue).
-    present_atom_names : object, default=None
-        Argument present_atom_names.
-    pH : object, default=7.4
-        Argument pH.
-    is_n_terminal : object, default=False
-        Argument is_n_terminal.
-    is_c_terminal : object, default=False
-        Argument is_c_terminal.
-    is_disulfide : object, default=False
-        Argument is_disulfide.
+    present_atom_names : list, tuple, numpy.ndarray or none, default=None
+        Flat atom-name strings selecting a compatible heavy-atom reference with
+        maximal overlap of existing H names, then minimal extra heavy atoms.
+        None selects the first supported variant.
+    pH : float, default=7.4
+        Finite dimensionless pH for the existing standard-group approximation.
+    is_n_terminal : bool, default=False
+        Whether the group occupies an amino terminus.
+    is_c_terminal : bool, default=False
+        Whether the group occupies a carboxyl terminus.
+    is_disulfide : bool, default=False
+        Whether cysteine participates in a declared disulfide bond.
+
+    skip_digestion : bool, default=False
+        Skip argument digestion only for already validated inputs.
+    naming_scheme : str or none, default=None
+        Keyword-only group vocabulary: sequence, amber, ccd or legacy. None
+        uses supported unambiguous names; ambiguous labels require context.
 
     Returns
     -------
     list of str or None
         Hydrogen atom names to be present, or ``None`` if the residue is not
-        in the amino-acid database.
+        supported by the exact-name reference. Modified heavy-only references,
+        incompatible atom layouts and named-state terminal completion return None.
+
+    Raises
+    ------
+    ArgumentError
+        If arguments are invalid or an ambiguous label lacks source context.
+    ArgumentChoiceError
+        If naming_scheme is unsupported.
+    StructuralInconsistencyError
+        If a bundled state variant fails chemical-reference verification.
 
 
     Notes
     -----
-    pH rules applied:
+    Explicit Amber GLH, HID, HIE, HIP, ASH, CYM, CYX and LYN select only
+    catalogue variants whose heavy connectivity and per-parent H counts match
+    the bundled Meeko-derived state fragment. Their side chains are not reset
+    by pH. These variants represent internal peptide groups; named-state terminal
+    H completion remains unassessed. CCD/legacy interpretations cannot reuse the
+    Amber variants. Both historical catalogue and bundled construction H names
+    are retained when their reference topology agrees. Observed H names select
+    the compatible layout; without them, the first checked catalogue layout
+    remains the default. Group conventions do not force atom conventions.
+    No parent substitution, chemical-state selection or geometry
+    calculation occurs. Optional Ackredit credits the actual reference datasets.
+
+    The following approximate rules remain for standard labels:
 
     * **ASP**: deprotonated (no HD2) when pH ≥ 4.4
     * **GLU**: deprotonated (no HE2) when pH ≥ 4.4
@@ -69,45 +97,41 @@ def get_expected_hydrogens(
     PROPKA-style calculation would do; see `devguide/structure_preparation_pipeline.md`.
 
 
+    Examples
+    --------
+    >>> 'HE2' in get_expected_hydrogens('GLH', naming_scheme='amber', pH=12.0)
+    True
+    >>> get_expected_hydrogens('MSE') is None
+    True
+    >>> get_expected_hydrogens('HIP', naming_scheme='ccd') is None
+    True
+
+    .. admonition:: User guide
+
+       See :ref:`user-foundations-group-naming-schemes` and
+       :ref:`Tutorial_Get_expected_hydrogens` for model limits.
+
     .. versionadded:: 1.0.0
     """
 
-    canonical = get_standard_name(group_name)
-    lookup_name = canonical if canonical is not None else group_name
+    from molsysmt._private.amino_acid_templates import (
+        choose_variant,
+        credit,
+        family,
+        variants,
+    )
 
-    if lookup_name not in group_names:
+    caller = "molsysmt.element.group.amino_acid.get_expected_hydrogens"
+    kind = family(group_name, naming_scheme, caller=caller)
+    candidates = variants(group_name, naming_scheme, caller=caller)
+    if candidates is None:
         return None
-
-    db = get_group_db(lookup_name)
-
-    # --- Select the best variant ---
-    # Strategy: choose the variant whose heavy-atom set is a superset of the
-    # present heavy atoms, with the fewest extra atoms (tightest fit).
-    # Prefer variants that match terminal status.
-    if present_atom_names is not None:
-        present_heavy = {a for a in present_atom_names if not _is_hydrogen(a)}
-        present_h = {a for a in present_atom_names if _is_hydrogen(a)}
-        best_variant = None
-        best_h_overlap = -1
-        best_extra = None
-        for variant in db["topology"]:
-            variant_heavy = {a for a in variant["atoms"] if not _is_hydrogen(a)}
-            if present_heavy <= variant_heavy:
-                extra = len(variant_heavy) - len(present_heavy)
-                variant_hs = {a for a in variant["atoms"] if _is_hydrogen(a)}
-                h_overlap = len(present_h & variant_hs)
-                if (
-                    best_extra is None
-                    or h_overlap > best_h_overlap
-                    or (h_overlap == best_h_overlap and extra < best_extra)
-                ):
-                    best_extra = extra
-                    best_h_overlap = h_overlap
-                    best_variant = variant
-        if best_variant is None:
-            best_variant = db["topology"][0]
-    else:
-        best_variant = db["topology"][0]
+    if kind == "amber_state" and (is_n_terminal or is_c_terminal):
+        return None
+    best_variant = choose_variant(candidates, present_atom_names)
+    if best_variant is None:
+        return None
+    lookup_name = group_name
 
     # All H names from the chosen variant
     all_hs = [a for a in best_variant["atoms"] if _is_hydrogen(a)]
@@ -175,4 +199,5 @@ def get_expected_hydrogens(
         remove_hs.update(h for h in all_hs_set if h in ("H", "HT1"))
 
     result = [h for h in all_hs if h not in remove_hs]
+    credit(group_name, kind, caller)
     return result

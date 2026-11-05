@@ -4,10 +4,10 @@ import numpy as np
 import pandas as pd
 
 
-def from_group_records(records):
+def from_group_records(records, *, naming_scheme=None):
     """Build independent canonical tables from already interpreted record groups."""
+    from molsysmt._private.name_resolution import classify_group_name
     from molsysmt.element.chain.chain_names import _alphabetic_chain_id
-    from molsysmt.element.group import get_group_type_from_group_name
     from molsysmt.element.group.amino_acid.codes import aa3_to_aa1
 
     from ._topology_infer import infer_molecule_types_from_topology
@@ -24,10 +24,22 @@ def from_group_records(records):
     topology.groups["group_name"] = pd.array(names, dtype="string")
     topology.groups["group_type"] = pd.array(
         [
-            "amino acid" if name in aa3_to_aa1 else get_group_type_from_group_name(name)
+            classify_group_name(
+                name,
+                naming_scheme
+                if naming_scheme is not None
+                else "sequence"
+                if name in aa3_to_aa1
+                else None,
+            )
             for name in names
         ],
         dtype="string",
+    )
+    topology.set_group_naming_schemes(
+        naming_scheme
+        if naming_scheme is not None
+        else ["sequence" if name in aa3_to_aa1 else None for name in names]
     )
     topology.groups["molecule_index"] = pd.array(
         np.repeat(np.arange(count), [len(record["groups"]) for record in records]),

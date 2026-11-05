@@ -1,7 +1,9 @@
 from depdigest import dep_digest
 
+from molsysmt._private.name_resolution import (
+    classify_group_name as get_group_type_from_group_name,
+)
 from molsysmt._private.variables import is_all
-from molsysmt.element.group import get_group_type_from_group_name
 
 
 def _element_symbol(atom):

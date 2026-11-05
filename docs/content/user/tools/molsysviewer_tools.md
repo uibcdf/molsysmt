@@ -298,7 +298,7 @@ with msv.new_view() as view:
     assert isinstance(n_membership, bool) and isinstance(c_membership, bool)
     assert element.group.amino_acid.get_standard_name("MSE") == "MET"
     assert element.group.amino_acid.get_standard_name("ALA") is None
-    assert element.group.amino_acid.get_1_letter_code_from_name("SEC") == "U"
+    assert element.group.get_1_letter_code_from_name("SEC", naming_scheme="sequence") == "U"
     assert view.molsys is None
 ```
 
@@ -312,32 +312,38 @@ unchanged; no array-vectorization or unknown-name fallback is added.
 such as MSE -> MET. It returns None for an already-standard name or one without
 a known replacement. This is a name lookup, not a validation or a transformation
 of atoms, elements, connectivity, stereochemistry or protonation. The one-letter
-lookup retains native codes and KeyError behavior rather than guessing a code.
+lookup uses the canonical group-level path and preserves native context diagnostics
+rather than guessing a vocabulary or code. The retired amino-acid path has no addon alias.
 
-All fourteen add a keyword-only local `skip_digestion=False`. It is consumed by
-the addon because none of these native helpers declares a skip argument; it is
-not passed to the helper or used to replace scientific validation. Calls still
+The code lookup, `get_standard_name` and `is_amino_acid` mirror native
+`naming_scheme` and `skip_digestion` arguments. Their native skip flags retain
+the trusted-caller meaning. The other eleven helpers add keyword-only local
+`skip_digestion=False`, consumed without forwarding an unsupported native flag. Calls still
 require an open owner, including when retaining a method after view closure.
 No molecular reader, pending-edit synchronization or history effect is involved.
 
-Canonical code lookup includes XLE -> J and XAA -> X. Cap predicates use the
+Canonical code lookup includes XLE -> J and XAA -> X under explicit
+`naming_scheme="sequence"`. Cap predicates use the
 protected peptide end: ACE is N-terminal; NME/NHE/NH2 are C-terminal. These
 received native corrections do not supply atomic templates for ambiguity
 symbols or attach caps to a system.
 
 :::{warning}
-[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549) tracks the remaining
-legacy name/code vocabulary mismatch with native protonation labels (including
-GLH, HID and HIE). Preserve the native context and results; sequence/name lookup
-is not evidence of chemical equivalence or a protonation assignment. The addon
-does not reinterpret these labels or repair a molecular graph.
+The received native cutover under
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549) distinguishes explicit
+sequence, Amber, bounded CCD and legacy vocabularies. For example GLH projects
+to E under Amber and Q under the explicitly selected historical legacy table.
+The scalar helper has no stored system context; ambiguous labels without a
+scheme retain the native diagnostic. Recognition/parent projection does not
+replace chemical groups or assign protonation. See
+{ref}`user-foundations-group-naming-schemes` for assessed profiles and limits.
 :::
 
 Native references: {func}`molsysmt.element.component.is_component_type`,
 {func}`molsysmt.element.molecule.is_molecule_type`,
 {func}`molsysmt.element.group.amino_acid.is_amino_acid`,
 {func}`molsysmt.element.group.amino_acid.get_standard_name`,
-{func}`molsysmt.element.group.amino_acid.get_1_letter_code_from_name`,
+{func}`molsysmt.element.group.get_1_letter_code_from_name`,
 {func}`molsysmt.element.group.ion.is_ion`,
 {func}`molsysmt.element.group.lipid.is_lipid`,
 {func}`molsysmt.element.group.nucleotide.is_nucleotide`,
@@ -409,9 +415,11 @@ Expected hydrogen queries keep explicit pH, terminal and disulfide context;
 their fixed reference thresholds are not predictions of environment-dependent
 pKa values. None of these queries protonates or repairs a system.
 
-Amino-acid and ion bond helpers retain their native `skip_digestion` arguments.
-The other twelve helpers add a keyword-only local control, consumed without
-forwarding a flag that the native function does not support. All require an
+The group dispatcher, amino-acid bond/heavy/H queries and ion bond helper
+retain their native `skip_digestion` arguments. The group and amino-acid
+queries expose keyword-only `naming_scheme` where the native signature declares
+it; raw `get_group_db` does not acquire a scheme argument. The other helpers
+keep a keyword-only local control without forwarding an unsupported flag. All require an
 open owner, work with an empty view and leave pending edits/history untouched.
 
 Explicit cap lookup returns the reference data for the supplied name. Protected
@@ -434,14 +442,16 @@ Length mismatches raise `ArgumentLengthError` with expected and actual counts.
 Valid read-only and strided arrays remain unchanged. These explicit labels
 are not checked against the current system's atom count. Native scalar
 single-atom compatibility remains available for amino-acid and ion helpers.
-The local addon skip controls do not disable native validation; the two native
+Local addon skip controls do not disable native validation; declared native
 skip flags retain their trusted-caller meaning. This is source receiving,
 separate from published package compatibility.
 
 :::{warning}
-Legacy protonation-name semantics remain under
-[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549). The addon preserves
-the native result/error rather than supplying its own chemical-name repair.
+The received naming profiles under
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549) keep a reporting
+parent distinct from an atomic reference. Explicit scheme context does not
+choose atom naming or authorize a parent-template substitution. The addon
+preserves native assessed/unassessed outcomes without a chemical-name repair.
 No template query prepares a molecule.
 :::
 
@@ -909,6 +919,15 @@ guarantee that a format preserves every property. `strict=True` on conversion
 rejects losses detected by the provider's preflight. It adds no rollback or atomic
 publication guarantee across multiple files. Optional converters retain their
 own dependencies and scientific limitations.
+
+Both bound operations expose the native keyword-only `from_naming_scheme`.
+It declares the input vocabulary; it does not rename groups, prepare chemistry
+or change the view's stored declarations. Preflight reports naming metadata
+that a target cannot preserve. Conversion retains a new declaration on its
+independent native result and applies native analysis invalidation there.
+A conflict with known selected declarations rejects without editing the system
+or scene. See {ref}`user-foundations-group-naming-schemes` for profiles, defaults
+and scientific limits.
 
 ## Saving molecular data
 
@@ -3826,10 +3845,12 @@ Initial geometry is not an energy-minimum or simulation-readiness certificate.
 three-letter sequence output have explicit receiving. LEaP remains an explicitly
 requested optional engine with its executable, force-field, conversion and
 scratch-file requirements; this addon receiving does not qualify its execution.
-The native naming/sequence and chain limitations remain, including the separate
-naming-context work under MolSysMT#549. The current receiving uses canonical
-single-chain sequences, rather than certifying every deposited name or chain
-composition. The addon adds no selection, structure selector, fitting or engine
+Native construction now reads exact stored group labels and their naming
+context. `from_naming_scheme=None` preserves that context; an explicit value
+must agree with known source declarations. It is not an override or a global
+preference. Named-state construction and atom/H layouts retain their bounded
+native support; source naming is distinct from chemical preparation. This does
+not certify every deposited label or chain composition. The addon adds no selection, structure selector, fitting or engine
 fallback. Use ordinary `msm.build.build_peptide(sequence)` for a new explicit
 sequence before loading a view. See {func}`molsysmt.build.build_peptide` and
 {ref}`Building peptides <Tutorial_Build_peptide>`.
@@ -3892,9 +3913,10 @@ force-field assignment by the addon. See {func}`molsysmt.build.mutate` and
 
 Both methods resolve the serialized current primary, including completed pending
 edits, without scene synchronization or result adoption. Cached methods follow
-replacement and reject closed/empty owners. Their keyword-only `skip_digestion`
-controls addon validation only; neither native function has that argument, so
-native validation always applies. Neither wrapper adds `in_place` or `update_view`.
+replacement and reject closed/empty owners. Mutation keeps its addon-only keyword `skip_digestion`, never forwarded to
+a native function without that argument. Peptide construction now mirrors and
+forwards native `skip_digestion` and keyword-only `from_naming_scheme`; its
+native trusted-caller validation contract applies. Neither wrapper adds `in_place` or `update_view`.
 Use a returned system explicitly in further calculations or deliberately replace
 the view when that is your intent.
 

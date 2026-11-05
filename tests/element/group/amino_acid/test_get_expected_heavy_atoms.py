@@ -12,6 +12,6 @@ def test_modified_residues_use_exact_templates():
 
 
 def test_supported_protonation_variant_keeps_its_exact_template():
-    expected = get_expected_heavy_atoms("HID")
+    expected = get_expected_heavy_atoms("HID", naming_scheme="amber")
     assert expected is not None
     assert {"ND1", "NE2"} <= expected

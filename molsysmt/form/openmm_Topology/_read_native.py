@@ -1,6 +1,8 @@
 import pandas as pd
 
-from molsysmt.element.group import get_group_type_from_group_name
+from molsysmt._private.name_resolution import (
+    classify_group_name as get_group_type_from_group_name,
+)
 
 
 def read_native(item, atom_indices="all", get_missing_bonds=True, skip_digestion=False):
@@ -109,12 +111,16 @@ def read_native(item, atom_indices="all", get_missing_bonds=True, skip_digestion
         )
         native.chemical_states._states[0].connectivity_completeness = "complete"
     elif get_missing_bonds:
+        from molsysmt._private.amino_acid_templates import inference_selection
         from molsysmt.build import get_missing_bonds as _get_missing_bonds
 
         # Query the already constructed domains: querying the foreign source
         # would pipe back into this reader. OpenMM Topology has no coordinates.
         bonded_atoms = _get_missing_bonds(
-            native, with_distances=False, skip_digestion=True
+            native,
+            selection=inference_selection(native.topology),
+            with_distances=False,
+            skip_digestion=True,
         )
         if bonded_atoms is not None and len(bonded_atoms) > 0:
             native.chemical_states._append_chemical_state_bonds(

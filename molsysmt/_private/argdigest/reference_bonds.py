@@ -9,6 +9,7 @@ from .argument._correspondence_axes import _has_units
 from .argument.atom_names import _flat_atom_name_list
 from .argument.skip_digestion import digest_skip_digestion
 from .argument.sorted import digest_sorted
+from .name_resolution import _scheme
 
 DIGEST_OPTIONS = {
     "digestion_source": "molsysmt._private.argdigest.reference_bonds",
@@ -23,13 +24,15 @@ _SCALAR_CALLERS = (
 _DISPATCHER = "molsysmt.element.group.get_bonded_atom_pairs.get_bonded_atom_pairs"
 
 
-def _scalar_allowed(caller, group_name):
+def _scalar_allowed(caller, group_name, naming_scheme=None):
     if caller_is_one_of(caller, _SCALAR_CALLERS):
         return True
     if caller_is_one_of(caller, (_DISPATCHER,)):
         from molsysmt.element.group.get_group_type import get_group_type_from_group_name
 
-        return get_group_type_from_group_name(group_name) in {"amino acid", "ion"}
+        return get_group_type_from_group_name(
+            group_name, naming_scheme=naming_scheme
+        ) in {"amino acid", "ion"}
     return False
 
 
@@ -39,13 +42,17 @@ def _group_name(group_name, caller=None):
     raise ArgumentError("group_name", value=group_name, caller=caller)
 
 
-def _atom_names(atom_names, group_name=None, caller=None):
-    if isinstance(atom_names, str) and _scalar_allowed(caller, group_name):
+def _atom_names(atom_names, group_name=None, naming_scheme=None, caller=None):
+    if isinstance(atom_names, str) and _scalar_allowed(
+        caller, group_name, naming_scheme
+    ):
         return [atom_names]
     return _flat_atom_name_list(atom_names, caller=caller)
 
 
-def _atom_indices(atom_indices, atom_names, group_name=None, caller=None):
+def _atom_indices(
+    atom_indices, atom_names, group_name=None, naming_scheme=None, caller=None
+):
     if atom_indices is None:
         return None
     if _has_units(atom_indices) or np.ma.isMaskedArray(atom_indices):
@@ -58,7 +65,11 @@ def _atom_indices(atom_indices, atom_names, group_name=None, caller=None):
     scalar = isinstance(atom_indices, (int, np.integer)) and not isinstance(
         atom_indices, (bool, np.bool_)
     )
-    if scalar and len(atom_names) == 1 and _scalar_allowed(caller, group_name):
+    if (
+        scalar
+        and len(atom_names) == 1
+        and _scalar_allowed(caller, group_name, naming_scheme)
+    ):
         values = [atom_indices]
     elif isinstance(atom_indices, (list, tuple, np.ndarray, range)):
         values = np.asarray(atom_indices, dtype=object)
@@ -106,6 +117,7 @@ def _atom_indices(atom_indices, atom_names, group_name=None, caller=None):
 
 ARGUMENT_DIGESTERS = {
     "group_name": _group_name,
+    "naming_scheme": _scheme,
     "atom_names": _atom_names,
     "atom_indices": _atom_indices,
     "sorted": digest_sorted,

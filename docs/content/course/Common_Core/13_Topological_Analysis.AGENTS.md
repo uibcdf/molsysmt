@@ -26,6 +26,10 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 3. Section 2: Sequence Alignment and Identity
 * Must demonstrate sequence alignment and sequence identity calculations using `msm.topology.get_sequence_alignment()` and `msm.topology.get_sequence_identity()` comparing T4 Lysozyme (`181L`) with T4 Lysozyme variant (`5X33`).
 
+* Preserve per-group naming interpretation, unchanged chemistry, original source
+  positions and explicit ambiguous-label refusal, with a link to the executed
+  naming examples. Biopython is optional and validated when selected.
+
 ### 4. Challenge & See Also
 * Must include **Challenge 13: The Sequence & Topology Master** using T4 Lysozyme (`181L`) and T4 Lysozyme variant (`5X33`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-covalent-connectivity-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 12 and Module 14.

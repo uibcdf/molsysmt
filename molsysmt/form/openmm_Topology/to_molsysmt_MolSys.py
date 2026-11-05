@@ -43,6 +43,8 @@ def to_molsysmt_MolSys(
     OpenMM Topology supplies no coordinates: inferred candidates use templates,
     not distances, peptide geometry or disulfide detection. Inferred connectivity
     remains partial; unsupported groups do not acquire guessed edges.
+    Groups with undeclared contextual naming labels keep their names and source
+    edges but do not receive automatically inferred template edges.
 
     Examples
     --------

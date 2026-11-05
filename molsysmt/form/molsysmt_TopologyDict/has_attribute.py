@@ -48,7 +48,7 @@ def has_attribute(
         return include_none or any(
             isinstance(row, dict) and row.get(attribute) is not None for row in records
         )
-    if molecular_system.data.get("version", "0.1") == "0.2":
+    if molecular_system.data.get("version", "0.1") in {"0.2", "0.3"}:
         if not molsysmt_Topology.attributes.get(attribute, False):
             return False
         from .to_molsysmt_Topology import to_molsysmt_Topology

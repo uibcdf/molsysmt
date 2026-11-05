@@ -68,10 +68,15 @@ def read_native(item, atom_indices="all", get_missing_bonds=True, skip_digestion
         tmp_molsys.structures = Structures()
         tmp_molsys.structures.coordinates = coordinates
 
+        # We ensure get_missing_bonds can find the coordinates
+        from molsysmt._private.amino_acid_templates import inference_selection
         from molsysmt.build import get_missing_bonds as _get_missing_bonds
 
-        # We ensure get_missing_bonds can find the coordinates
-        bonded_atoms = _get_missing_bonds(tmp_molsys, skip_digestion=True)
+        bonded_atoms = _get_missing_bonds(
+            tmp_molsys,
+            selection=inference_selection(tmp_molsys.topology),
+            skip_digestion=True,
+        )
         if bonded_atoms is not None and len(bonded_atoms) > 0:
             tmp_topology.chemical_states.add_bonds(bonded_atoms, skip_digestion=True)
 

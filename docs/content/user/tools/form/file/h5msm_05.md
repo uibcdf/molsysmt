@@ -57,9 +57,22 @@ their owner is already declared by the group. The layer can also contain the
 ordered `chain_groups` relation. Reading only this topology layer recovers
 molecule membership without loading chemical states.
 
-Current readers accept topology layer schemas 1, 2 and 3. Writers retain schema 1
+Topology layer schema 4 additionally stores explicit group-name conventions in
+`group_naming_schemes`. Its `codes` dataset is a one-byte unsigned integer vector
+of length `n_groups`, with zero for unknown and codes 1/2/3/4 for
+`amber`/`ccd`/`legacy`/`sequence`. Original three-profile registries remain
+readable; a code is valid only for a profile declared in its file.
+The subgroup's `schema_version=1` and JSON `profiles` attributes identify that
+versioned declaration vocabulary. Unsupported registries, versions, shapes,
+dtypes and codes reject. This records source labels without choosing chemical
+states or claiming complete naming-database support. See
+{ref}`user-foundations-group-naming-schemes`.
+
+Current readers accept topology layer schemas 1, 2, 3 and 4. Writers retain schema 1
 without either explicit relation, use schema 2 for the chain/group relation alone,
 and use schema 3 whenever ungrouped atom/molecule declarations are present.
+Known naming declarations select schema 4, which can retain either membership
+relation as well. Old input without a declaration keeps unknown naming context.
 A group-free atom inventory with stored molecules also uses schema 3 when
 every assignment is unknown. Its all-`-1` dataset prevents a joint read from
 mistaking newly unknown ownership for the old implicit representation.

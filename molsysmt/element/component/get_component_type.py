@@ -62,6 +62,8 @@ def _get_component_type_from_group_names_and_types(group_names, group_types):
     from ..group.nucleotide import dna_names, rna_names
 
     n_groups = len(group_types)
+    if n_groups == 0 or not isinstance(group_types[0], str):
+        return "unknown"
     first_group_type = group_types[0]
     last_group_type = group_types[-1]
     first_group_name = group_names[0]
@@ -71,7 +73,7 @@ def _get_component_type_from_group_names_and_types(group_names, group_types):
     elif (first_group_type == "amino acid") or (first_group_type == "terminal capping"):
         if first_group_type == "terminal capping":
             n_groups -= 1
-        if last_group_type == "terminal capping":
+        if isinstance(last_group_type, str) and last_group_type == "terminal capping":
             n_groups -= 1
         if n_groups >= min_length_protein:
             tmp_type = "protein"

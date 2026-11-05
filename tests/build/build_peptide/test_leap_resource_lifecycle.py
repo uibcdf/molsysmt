@@ -6,9 +6,10 @@ from unittest.mock import MagicMock
 import pytest
 
 import molsysmt as msm
+from molsysmt.native import MolSys
 
 
-@pytest.mark.parametrize("stage", ["setup", "run", "convert", "success"])
+@pytest.mark.parametrize("stage", ["setup", "run", "convert", "export", "success"])
 def test_leap_builder_retires_owned_scratch(monkeypatch, tmp_path, stage):
     """Retire intermediate files when preparation, execution or conversion fails."""
     scratch = tmp_path / "scratch"
@@ -30,11 +31,20 @@ def test_leap_builder_retires_owned_scratch(monkeypatch, tmp_path, stage):
 
     output = object()
 
-    def convert(files, to_form):
-        assert all(Path(file).parent == observed["directory"] for file in files)
+    def convert(source, to_form):
         assert observed["directory"].exists()
-        if stage == "convert":
-            raise RuntimeError("convert failed")
+        if isinstance(source, list):
+            assert to_form == "molsysmt.MolSys"
+            assert all(Path(file).parent == observed["directory"] for file in source)
+            if stage == "convert":
+                raise RuntimeError("convert failed")
+            native = MolSys(n_groups=2, n_chains=1)
+            native.topology.groups["group_name"] = ["GLY", "GLY"]
+            return native
+        assert to_form == "molsysmt.Structures"
+        assert source.topology.group_naming_schemes == ("amber", "amber")
+        if stage == "export":
+            raise RuntimeError("export failed")
         return output
 
     tleap.save_unit.side_effect = prepare

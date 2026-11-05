@@ -12,6 +12,8 @@ def get_conversion_report(
     structure_indices="all",
     syntax="MolSysMT",
     skip_digestion=False,
+    *,
+    from_naming_scheme=None,
 ):
     """Getting a conversion preflight report without creating the destination.
 
@@ -30,6 +32,10 @@ def get_conversion_report(
         Selection syntax. Default is 'MolSysMT'.
     skip_digestion : bool, default=False
         Whether to skip argument digestion. Default is False.
+    from_naming_scheme : str or none, default=None
+        Keyword-only source group convention: sequence, amber, ccd or legacy.
+        None reads stored declarations. An explicit convention must agree with
+        known selected declarations; a prospective declaration is audited too.
 
     Returns
     -------
@@ -48,6 +54,14 @@ def get_conversion_report(
     Notes
     -----
     Uses the same preflight as convert(strict=True) and convert(return_report=True).
+    Stored or explicitly supplied group-name declarations are topology metadata.
+    Targets retaining only labels report their loss; native inventories, supported
+    typed dictionaries and H5MSM retain the versioned declaration. Unknown source
+    context is not inferred from labels or file form. The source is not changed.
+    Named analyses omitted by the destination are reported in the interactions
+    scope. Adding naming context reports invalidation of selected evaluated
+    coverage on the independent result, including evaluated-empty structures;
+    unchanged declarations or unselected coverage do not invent this loss.
     A report without detected losses is a preservation guarantee only within
     its audited scopes. Check is_exhaustive before drawing broader conclusions.
     This is not a test of converter availability, dependency availability or
@@ -67,6 +81,13 @@ def get_conversion_report(
     >>> report = msm.get_conversion_report(molsys, to_form='molsysmt.StructuresDict')
     >>> report.to_form, report.is_exhaustive, report.is_lossy
     ('molsysmt.StructuresDict', True, False)
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_groups=1)
+    >>> topology.groups['group_name'] = ['GLH']
+    >>> topology.set_group_naming_schemes('amber')
+    >>> report = msm.get_conversion_report(topology, to_form='molsysmt.Structures')
+    >>> report.issues[0].attribute
+    'group_naming_schemes'
 
     .. admonition:: Tutorial with more examples
 
@@ -106,6 +127,7 @@ def get_conversion_report(
             selection=selection,
             structure_indices=structure_indices,
             syntax=syntax,
+            from_naming_scheme=from_naming_scheme,
         )
         for target in targets
     ]

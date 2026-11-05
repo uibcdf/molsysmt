@@ -8,7 +8,7 @@ def to_molsysmt_MolSys(item, atom_indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molsysmt.TopologyDict
-        Version 0.2 stable records or legacy 0.1 records with reference bonds.
+        Version 0.2/0.3 stable records or legacy 0.1 records with reference bonds.
     atom_indices : str or array-like of int, default='all'
         Atom positions to retain with their available domains.
     skip_digestion : bool, default=False
@@ -17,7 +17,7 @@ def to_molsysmt_MolSys(item, atom_indices="all", skip_digestion=False):
     Returns
     -------
     molsysmt.MolSys
-        Independent native domains; 0.2 inventory does not create chemical states.
+        Independent native domains; 0.2/0.3 inventory does not create chemical states.
 
     .. versionadded:: 1.0.0
     """
@@ -25,7 +25,7 @@ def to_molsysmt_MolSys(item, atom_indices="all", skip_digestion=False):
     from molsysmt.form._native_dict import decode_topology
     from molsysmt.native import MolSys, MolSysDict
 
-    if item.data.get("version", "0.1") == "0.2":
+    if item.data.get("version", "0.1") in {"0.2", "0.3"}:
         result = MolSys._from_partial_domains(topology=decode_topology(item.data))
     else:
         from molsysmt.form.molsysmt_MolSysDict._builder import (

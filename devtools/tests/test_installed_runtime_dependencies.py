@@ -29,17 +29,17 @@ def test_controlled_gate_rejects_transitive_conflict_above_direct_floor(monkeypa
     versions = {
         "smonitor": "0.18.0",
         "depdigest": "0.15.1",
-        "argdigest": "0.13.0",
+        "argdigest": "0.14.0",
         "pyunitwizard": "0.28.1",
     }
     monkeypatch.setattr(controlled.importlib.metadata, "version", versions.__getitem__)
     monkeypatch.setattr(
         controlled.importlib.metadata,
         "requires",
-        lambda name: ["argdigest>=0.14.0"] if name == "pyunitwizard" else [],
+        lambda name: ["argdigest>=0.15.0"] if name == "pyunitwizard" else [],
     )
     assert controlled.main() == 1
-    versions["argdigest"] = "0.14.0"
+    versions["argdigest"] = "0.15.0"
     assert controlled.main() == 0
 
 

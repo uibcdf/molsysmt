@@ -461,6 +461,9 @@ class MolSysBuilder(NativeQueries):
             membership = compact(membership)
 
         group_index = self.topology.n_groups
+        from ._group_naming import extend as extend_naming
+
+        naming = extend_naming(self.topology, 1)
         self.topology.groups.loc[group_index, "group_id"] = (
             self._normalize_optional_string(group_id, default=str(group_index))
         )
@@ -474,6 +477,7 @@ class MolSysBuilder(NativeQueries):
         self.topology.groups.loc[group_index, "molecule_index"] = molecule_index
         self.topology.atoms.loc[atom_indices, "group_index"] = int(group_index)
         self.topology._atom_molecule_membership = membership
+        self.topology._group_naming_codes = naming
 
         return group_index
 
@@ -970,6 +974,9 @@ class MolSysBuilder(NativeQueries):
         orphan_atom_indices = topology.atoms.index[
             topology.atoms["group_index"].isna()
         ].to_numpy(dtype=int)
+        from ._group_naming import extend as extend_naming
+
+        naming = extend_naming(topology, len(orphan_atom_indices))
         for atom_index in orphan_atom_indices:
             group_index = topology.n_groups
             topology.groups.loc[group_index, "group_id"] = str(group_index)
@@ -982,6 +989,7 @@ class MolSysBuilder(NativeQueries):
             if direct is not None:
                 direct[atom_index] = -1
         topology._atom_molecule_membership = None if direct is None else compact(direct)
+        topology._group_naming_codes = naming
 
     def _fill_chain_fallbacks(self, topology):
         from molsysmt.element.chain.chain_names import _alphabetic_chain_id

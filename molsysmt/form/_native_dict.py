@@ -37,9 +37,10 @@ def _version(data, kind):
     if not isinstance(data, dict):
         raise ValueError("A native dictionary payload must be a mapping.")
     version = data.get("version", "0.1")
-    if version not in {"0.1", "0.2"}:
+    supported = {"0.1", "0.2", "0.3"} if kind == "topology" else {"0.1", "0.2"}
+    if version not in supported:
         raise ValueError(f"Unsupported {kind} dictionary version {version!r}.")
-    if version == "0.2" and (
+    if version in {"0.2", "0.3"} and (
         data.get("format") != "molsysmt" or data.get("kind") != kind
     ):
         raise ValueError(f"Invalid {kind} dictionary identity.")
@@ -51,6 +52,7 @@ def encode_topology(topology):
     from molsysmt.native import TopologyDict
     from molsysmt.native._atom_molecules import stored
     from molsysmt.native._chain_groups import by_chain
+    from molsysmt.native._group_naming import encode as encode_naming
 
     _reject_extensions(
         topology,
@@ -58,6 +60,7 @@ def encode_topology(topology):
             *TABLES,
             "_atom_molecule_membership",
             "_chain_group_membership",
+            "_group_naming_codes",
             "_atoms_dirty",
             "_groups_dirty",
             "_molecules_dirty",
@@ -83,6 +86,11 @@ def encode_topology(topology):
         ]
     if topology._chain_group_membership is not None:
         data["chain_groups"] = [values.tolist() for values in by_chain(topology)]
+    naming = encode_naming(topology)
+    if naming is not None:
+        data["version"] = "0.3"
+        naming["codes"] = naming["codes"].tolist()
+        data["group_naming_schemes"] = naming
     return TopologyDict(data=data)
 
 
@@ -103,26 +111,30 @@ def decode_topology(data):
     from molsysmt.native import Topology
 
     version = _version(data, "topology")
-    if version == "0.2":
+    if version in {"0.2", "0.3"}:
         required = {"format", "kind", "version", "metadata", *TABLES}
+        if version == "0.3":
+            required.add("group_naming_schemes")
         if (
             not required <= set(data)
             or set(data) - required - {"chain_groups", "atom_molecules"}
             or data["metadata"] != {}
         ):
-            raise ValueError("Unsupported TopologyDict 0.2 fields or metadata.")
+            raise ValueError(f"Unsupported TopologyDict {version} fields or metadata.")
+    elif "group_naming_schemes" in data:
+        raise ValueError("Legacy TopologyDict cannot declare group naming schemes.")
     rows = {name: data.get(name, []) for name in TABLES}
     if any(
         not isinstance(value, list) or any(not isinstance(row, dict) for row in value)
         for value in rows.values()
     ):
         raise ValueError("Topology tables must be ordered record lists.")
-    if version == "0.2" and any(
+    if version in {"0.2", "0.3"} and any(
         set(row) != set(TABLES[name])
         for name, records in rows.items()
         for row in records
     ):
-        raise ValueError("Unsupported TopologyDict 0.2 row fields.")
+        raise ValueError(f"Unsupported TopologyDict {version} row fields.")
     topology = Topology(
         n_atoms=len(rows["atoms"]),
         n_groups=len(rows["groups"]),
@@ -178,6 +190,12 @@ def decode_topology(data):
         topology.set_chain_groups(data["chain_groups"], skip_digestion=True)
     if "atom_molecules" in data:
         topology.set_atom_molecules(data["atom_molecules"], skip_digestion=True)
+    if version == "0.3":
+        from molsysmt.native._group_naming import decode as decode_naming
+
+        topology._group_naming_codes = decode_naming(
+            data["group_naming_schemes"], topology.n_groups
+        )
     topology._coerce_id_columns_to_string()
     return topology
 

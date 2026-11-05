@@ -1,0 +1,108 @@
+{
+  "schema": "molsysmt.group-name-cutover-receiving@1",
+  "date": "2026-11-05",
+  "owner": "uibcdf/molsysmt#549",
+  "scope": "Local native public cutover and existing bound conversions; PR #543 expansion receiving and D7 exact-source acceptance remain pending.",
+  "producer_basis": "5e047581336af41177bdbfb80f46cb591a1ab63c",
+  "working_tree_patch": true,
+  "environment": {
+    "platform": "Linux",
+    "python": "3.14.7",
+    "runtime": "Existing molsyssuite@uibcdf_3.14 development environment",
+    "workers": {
+      "native": 4,
+      "addon": 4,
+      "floors": 2
+    },
+    "pytest_receptor": "Published 1.2.1 wheel in the previously verified tooling overlay"
+  },
+  "files_sha256": {
+    "molsysmt/element/group/__init__.py": "46cd0e3a9705d3dae0c3de1cb415f2e84f85734dbdc5bb18590711620d95bbc2",
+    "molsysmt/element/group/get_1_letter_code_from_name.py": "0b86b26898f7cefef8871038bb0258e5653bd6ca43f33e24c35d938d527c4a97",
+    "molsysmt/element/group/amino_acid/__init__.py": "ee1e0d4432b1ba1292cb2bf4ac5996c4c80b0f371607693525ddb8cc8ef6f4c1",
+    "molsysmt/_private/name_resolution.py": "9f83b3d10c5351149d08aa9158fbf8925f21d2d5f5c7e933abf89aad294e52d2",
+    "molsysmt/_private/argdigest/name_resolution.py": "4918bdc987a1c1b1ba841d516a611e413842b031436806ac50023111d48e4c56",
+    "molsysviewer_molsysmt/_basic.py": "4333202351f8e88296008012a0f15abf833765de0996680251a5929f5aa8a5b1",
+    "devtools/data/public_api_stability.json": "aab9623539d03e3e23ffcf983152ba567c524012718f4835234ffcd573e004bc",
+    "tests/element/group/test_name_resolution.py": "6fcfaa270228bb3a9406b56389a04864515eec4175b8daf761d48223b04e15ba",
+    "tests/element/group/amino_acid/test_codes.py": "66b672cd57f139f421076360b6d5322b9520c1837b14aa0b5d94a59f321d3516",
+    "tests/molsysviewer_molsysmt/test_conversion_tools.py": "05684f529cfea49234f3bb24ade24d3a7a9416565a99d4fc133d03cedd1d8efb",
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": "8542622f14c9588ce034df4e24ab9056c1778991f30ef5f50779af53a33ec926"
+  },
+  "retired_modules": [
+    "molsysmt/element/group/amino_acid/get_1_letter_code_from_name.py",
+    "molsysmt/element/group/amino_acid/get_group_type_from_group_name.py"
+  ],
+  "canonical_symbol": "molsysmt.element.group.get_1_letter_code_from_name",
+  "artifacts": [
+    {
+      "path": ".pytest_cache/group-name-resolution-549/final-native-receiving.xml",
+      "sha256": "bee8ec1ba4cc912065927977f97670fd0e2df2756caaa2625dd57a56d2c663c7",
+      "tests": 9062,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/group-name-resolution-549/cutover-addon-final.xml",
+      "sha256": "6616a8165dc963262222ba38e10943fa252a62a3f93ccc280a66e3b67e205140",
+      "tests": 2699,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/group-name-resolution-549/cutover-doc-receiving.xml",
+      "sha256": "c60d5cb2bfa2bd7c399f56a060a692500a1dcd23b0f7a269bfa603ee1f196832",
+      "tests": 548,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/group-name-resolution-549/cutover-provider-floors.xml",
+      "sha256": "c82f90e53747e401b01d1ca6beee6f442f3f8888fd82d8cb45c1e9fe38a884d1",
+      "tests": 241,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/group-name-resolution-549/cutover-addon-floors.xml",
+      "sha256": "480c0b47a3a929d55aff18a2af830a7ceac2a999511ef136e52408b4f9657aa3",
+      "tests": 29,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "path": ".pytest_cache/group-name-resolution-549/cutover-doctests.xml",
+      "sha256": "1a4bc157edb6c5391762350f1767a0231f8014bb0aac8eae7a61d4d0be6eb932",
+      "tests": 3,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "native_command": "python -m pytest --receptor=llm -n 4 tests/element tests/build tests/topology tests/native tests/basic tests/conversion_truth tests/form/file_h5msm tests/physchem tests/_private/test_conversion_report_scopes.py tests/_private/test_conversion_fidelity_audit.py tests/interactions/test_public_molsys_h5msm_workflow.py -m \"not network\"",
+  "addon_command": "python -m pytest --receptor=llm -n 4 tests/molsysviewer_molsysmt devtools/tests/test_native_viewer_integration.py devtools/tests/test_molsysviewer_tools_api_inventory.py devtools/tests/test_smoke_addon_test_command.py",
+  "floors": {
+    "argdigest": "0.14.0",
+    "depdigest": "0.15.1",
+    "smonitor": "0.16.0",
+    "ackredit": "0.9.0",
+    "route": "Previously verified public Conda payload/import-path harness; -p no:smonitor only for the existing #524 pytest-entry-point incompatibility, preserving runtime/scientific assertions."
+  },
+  "native_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "addon_expansion": {
+    "pr": "uibcdf/molsysmt#543",
+    "inspected_head": "a1dbe0fb67373c32b0ca3276aa40f52250ff9554",
+    "state": "Unmodified; wrapper/signature/discovery adaptation handed off in the owning record."
+  },
+  "nonclaims": [
+    "No installed-package or release qualification",
+    "No complete platform matrix",
+    "No admission of PR #543",
+    "No scientific profile promotion"
+  ]
+}

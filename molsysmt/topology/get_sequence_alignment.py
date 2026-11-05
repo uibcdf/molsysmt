@@ -1,3 +1,4 @@
+from depdigest import dep_digest
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
@@ -7,6 +8,7 @@ from molsysmt.basic import convert
 
 @signal(tags=["api", "topology"])
 @arg_digest()
+@dep_digest("Bio", when={"engine": "Biopython"})
 def get_sequence_alignment(
     molecular_system,
     selection="all",
@@ -51,8 +53,27 @@ def get_sequence_alignment(
 
     Raises
     ------
-    NotImplementedError
+    NotImplementedMethodError
         If an unsupported engine is requested.
+    LibraryNotFoundError
+        If the requested Biopython engine is unavailable.
+    ArgumentError
+        If sequence conversion requires missing naming context or cannot project
+        a declared component to an amino-acid sequence.
+
+    Notes
+    -----
+    Native sequence conversion reads group-aligned naming declarations. A group
+    label is not an implicit choice of protonation state or chemical parent.
+    Biopython is imported lazily and checked only for its selected engine;
+    another engine is not substituted when it is unavailable.
+    Optional Ackredit records the actual Biopython version after a successful
+    alignment, without changing scoring, rendering or the returned strings.
+
+    Examples
+    --------
+    >>> get_sequence_alignment('AG', reference_molecular_system='AG')
+    ('AG', 'AG')
 
 
     .. versionadded:: 1.0.0
@@ -65,6 +86,7 @@ def get_sequence_alignment(
         # See: https://biopython.org/docs/1.75/api/Bio.Align.html#Bio.Align.PairwiseAligner
 
         from Bio import Align
+        from Bio import __version__ as biopython_version
 
         tmp_ref_seq = convert(
             reference_molecular_system,
@@ -101,6 +123,16 @@ def get_sequence_alignment(
     else:
         raise NotImplementedMethodError(
             caller="molsysmt.topology.get_sequence_alignment"
+        )
+
+    from molsysmt import _ackredit
+
+    from ._sequence import biopython_reference
+
+    caller = "molsysmt.topology.get_sequence_alignment"
+    with _ackredit.scope(caller) as provider:
+        _ackredit.credit(
+            provider, [biopython_reference(biopython_version)], caller, contextual=True
         )
 
     if prettyprint:

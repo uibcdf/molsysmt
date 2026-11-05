@@ -879,13 +879,26 @@ class _BuildTools:
             },
         )
 
-    @_independent_build_documentation("build_peptide", local_skip=True)
+    @_independent_build_documentation("build_peptide", local_skip=False)
     @signal(tags=["addon", "build"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def build_peptide(
-        self, to_form="molsysmt.MolSys", engine="MolSysMT", *, skip_digestion=False
+        self,
+        to_form="molsysmt.MolSys",
+        engine="MolSysMT",
+        skip_digestion=False,
+        *,
+        from_naming_scheme=None,
     ):
-        return self._call("build_peptide", {"to_form": to_form, "engine": engine})
+        return self._call(
+            "build_peptide",
+            {
+                "to_form": to_form,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+                "from_naming_scheme": from_naming_scheme,
+            },
+        )
 
     @_bond_edit_documentation
     @signal(tags=["addon", "build", "edit"])

@@ -2155,7 +2155,7 @@ def get_group_type_from_group(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.element.group import get_group_type_from_group_name as aux_get
+    from molsysmt._private.name_resolution import classify_group_name as aux_get
 
     output = get_group_name_from_group(item, indices=indices, skip_digestion=True)
     output = [aux_get(ii) for ii in output]

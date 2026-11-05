@@ -1,11 +1,13 @@
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.name_resolution import (
+    classify_group_name as get_group_type_from_group_name,
+)
 from molsysmt._private.smonitor import (
     InternalAlgorithmError,
 )
 from molsysmt.element.atom import get_atom_type_from_atom_name
-from molsysmt.element.group import get_group_type_from_group_name
 
 
 @arg_digest(form="file:crd")

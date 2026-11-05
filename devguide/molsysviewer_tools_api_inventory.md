@@ -3,8 +3,8 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-05, contribution PR #543, extending published source
-`a1dbe0fb6` with managed alternate-site resolution on native
-owner basis `5f3af9374`.
+`738f752cc` with explicit naming-context receiving on published native
+owner basis `d3650cc09`.
 The table describes this contribution's 232/244 paths, including
 all 57 element paths, twenty-seven build paths and four mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
@@ -56,6 +56,25 @@ The earlier metadata integration's 155/244 snapshot and its frozen results retai
 their own source identities below. Native #549 naming-context review remains
 separate; the addon supplies no scientific repair. Source exposure is not
 universal scientific accuracy, supported-input coverage or package compatibility.
+
+## Naming-contract cutover — 2026-11-05
+
+Native #549 retires `element.group.amino_acid.get_1_letter_code_from_name` in
+favor of the explicit group-level query. The native element count remains 57;
+main still exposes zero element paths while PR #543 is pending. Both existing
+bound conversion/preflight signatures now expose `from_naming_scheme` and
+retain native conflict/loss handling without source or scene edits. The live
+inventory and guard name the new path; historical receipts are unchanged.
+The [owning cutover record](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#pr-543-adaptation-handoff)
+lists the expansion's required mirror, signature and manifest receiving. Counts
+alone cannot certify that expansion against the corrected provider.
+
+The expansion now receives that handoff through explicit mirrors and forty new
+context/signature/error/ownership cases. All 4,263 addon/integration cases and
+298 directed native cases pass on the recorded d3650cc09 inputs. The
+[consumer receipt](../devtools/data/molsysviewer_tools_naming_cutover_receiving_20261105.json)
+preserves red/green controls, a fixed published PyUnitWizard source snapshot and
+course-cell preservation. Owner acceptance and exact-head CI remain separate.
 
 Regenerate the full path/signature/missing-route inventory in the participating
 source environment:

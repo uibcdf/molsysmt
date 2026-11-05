@@ -46,6 +46,47 @@ remain arguments of `convert`; the report query does not interpret them. For
 example, you can inspect SD property loss without first authorizing its discard,
 but a later SDF conversion still requires explicit authorization.
 
+## Retaining naming context
+
+Group labels and their declared vocabulary are distinct information. Native
+inventories, their supported typed dictionaries and H5MSM carry the versioned
+`group_naming_schemes` declaration. PDB, other label-only representations and
+coordinate-only projections do not. Their reports contain an `unsupported`
+issue for `group_naming_schemes` in the `topology` scope when selected groups
+have a declaration. `convert(strict=True)` rejects that loss before creating
+or replacing the destination. Ordinary conversion retains its existing policy
+of permitting loss; inspect its returned report when fidelity matters.
+
+You can supply `from_naming_scheme` to audit a prospective source declaration
+with the same spelling and meaning as in `convert`. Existing selected declarations
+must agree with it. The query does not assign it to the source. An unknown
+vocabulary is not inferred from a group label, Python class or file format.
+Empty selections and undeclared selected groups do not invent a loss of known
+metadata merely because another, unselected group has a declaration.
+
+Known declarations can be lost even when the target keeps the same label. A
+same-format foreign conversion with an explicit source interpretation therefore
+does not inherit the exhaustive byte-copy claim of an ordinary file identity
+conversion. This scope does not certify every foreign adapter or chemical method.
+The executed {ref}`Tutorial_Group_Name_Code` demonstrates naming preflight.
+
+## Retaining interaction evidence
+
+Named analyses are represented information even when they contain no occurrences.
+A target without their storage reports an `interactions` loss in that scope.
+When an explicit source convention adds a previously missing declaration,
+MolSysMT's existing lifecycle policy invalidates attached evaluated interaction
+coverage on the independent result. Preflight reports this as `invalidation`,
+including structures evaluated without occurrences. Strict conversion refuses
+before publication; ordinary conversion keeps its existing invalidation policy.
+The original source and its analysis snapshots stay unchanged.
+
+Matching declarations do not invalidate analyses. Coverage outside the selected
+structures, or an already unevaluated analysis, does not create an invalidation
+loss in the selected output. The metadata preflight inspects coverage without
+expanding interaction occurrence columns; other report scopes can still read
+source data. Neither this query nor conversion recalculates interactions.
+
 :::{seealso}
 :class: dropdown
 

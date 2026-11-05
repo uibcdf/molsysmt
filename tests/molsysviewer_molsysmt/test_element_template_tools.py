@@ -296,7 +296,7 @@ def test_inherited_expected_heavy_atom_examples_are_executable():
             doc, {"get_expected_heavy_atoms": native}, "addon-heavy-atoms", None, 0
         )
         result = doctest.DocTestRunner().run(example)
-        assert result.attempted == 5
+        assert result.attempted == 6
         assert result.failed == 0
 
 

@@ -19,9 +19,9 @@ def _label_documentation(name, module, *, local_skip=True):
         if name in {"get_1_letter_code_from_name", "get_standard_name"}:
             function.__doc__ += (
                 "\nScientific qualification\n------------------------\n"
-                "Canonical sequence-code recognition does not supply an atomic "
-                "template or validate protonation. MolSysMT#549 tracks legacy "
-                "variant-name mappings versus native protonation labels; no "
+                "Declared name/parent recognition does not supply an atomic "
+                "template or validate protonation. MolSysMT#549 defines explicit "
+                "source vocabularies with assessed limits; no "
                 "addon reinterpretation or chemical substitution is introduced.\n"
             )
         if name in {"is_n_terminal_capping", "is_c_terminal_capping"}:
@@ -42,37 +42,38 @@ class _AminoAcidTools(_AminoAcidTemplates):
         "get_expected_heavy_atoms",
         "get_expected_hydrogens",
         "get_group_db",
-        "get_1_letter_code_from_name",
         "get_standard_name",
         "is_amino_acid",
     )
 
     @_label_documentation(
-        "get_1_letter_code_from_name", "element.group.amino_acid", local_skip=True
+        "get_standard_name", "element.group.amino_acid", local_skip=False
     )
     @signal(tags=["addon", "element"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def get_1_letter_code_from_name(self, name, *, skip_digestion=False):
+    def get_standard_name(self, group_name, naming_scheme=None, skip_digestion=False):
         return self._call_explicit(
-            ("group", "amino_acid"), "get_1_letter_code_from_name", {"name": name}
+            ("group", "amino_acid"),
+            "get_standard_name",
+            {
+                "group_name": group_name,
+                "naming_scheme": naming_scheme,
+                "skip_digestion": skip_digestion,
+            },
         )
 
-    @_label_documentation(
-        "get_standard_name", "element.group.amino_acid", local_skip=True
-    )
+    @_label_documentation("is_amino_acid", "element.group.amino_acid", local_skip=False)
     @signal(tags=["addon", "element"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def get_standard_name(self, group_name, *, skip_digestion=False):
+    def is_amino_acid(self, name, naming_scheme=None, skip_digestion=False):
         return self._call_explicit(
-            ("group", "amino_acid"), "get_standard_name", {"group_name": group_name}
-        )
-
-    @_label_documentation("is_amino_acid", "element.group.amino_acid", local_skip=True)
-    @signal(tags=["addon", "element"])
-    @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def is_amino_acid(self, name, *, skip_digestion=False):
-        return self._call_explicit(
-            ("group", "amino_acid"), "is_amino_acid", {"name": name}
+            ("group", "amino_acid"),
+            "is_amino_acid",
+            {
+                "name": name,
+                "naming_scheme": naming_scheme,
+                "skip_digestion": skip_digestion,
+            },
         )
 
 

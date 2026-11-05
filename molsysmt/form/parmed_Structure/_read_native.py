@@ -1,8 +1,10 @@
 import numpy as np
 import pandas as pd
 
+from molsysmt._private.name_resolution import (
+    classify_group_name as get_group_type_from_group_name,
+)
 from molsysmt.element.atom import get_atom_type_from_atom_name
-from molsysmt.element.group import get_group_type_from_group_name
 
 
 def read_native(item, atom_indices="all", skip_digestion=False):

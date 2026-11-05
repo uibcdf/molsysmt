@@ -83,6 +83,7 @@ class _GroupTools(_GroupTemplates):
         "is_group_type",
         "get_group_type_from_group_name",
         "get_group_type",
+        "get_1_letter_code_from_name",
         "small_molecule",
         "amino_acid",
         "ion",
@@ -139,11 +140,33 @@ class _GroupTools(_GroupTemplates):
     @_utility_documentation("get_group_type_from_group_name", "element.group")
     @signal(tags=["addon", "element"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def get_group_type_from_group_name(self, group_name, skip_digestion=False):
+    def get_group_type_from_group_name(
+        self, group_name, skip_digestion=False, *, naming_scheme=None
+    ):
         return self._call_explicit(
             ("group",),
             "get_group_type_from_group_name",
-            {"group_name": group_name, "skip_digestion": skip_digestion},
+            {
+                "group_name": group_name,
+                "skip_digestion": skip_digestion,
+                "naming_scheme": naming_scheme,
+            },
+        )
+
+    @_utility_documentation("get_1_letter_code_from_name", "element.group")
+    @signal(tags=["addon", "element"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_1_letter_code_from_name(
+        self, name, naming_scheme=None, skip_digestion=False
+    ):
+        return self._call_explicit(
+            ("group",),
+            "get_1_letter_code_from_name",
+            {
+                "name": name,
+                "naming_scheme": naming_scheme,
+                "skip_digestion": skip_digestion,
+            },
         )
 
 

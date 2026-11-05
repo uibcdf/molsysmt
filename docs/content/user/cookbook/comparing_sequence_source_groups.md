@@ -31,6 +31,13 @@ complete capped/extracted comparison. The {ref}`Topology foundation <user-founda
 explains the distinction between molecular groups and sequence positions.
 
 
+For a single label, use
+{func}`molsysmt.element.group.get_1_letter_code_from_name` with the actual source
+`naming_scheme`. The former `element.group.amino_acid` entry is removed. The
+historical table remains an explicit `legacy` profile; it is not a default.
+For a complete system, use sequence conversion so each selected group retains
+its stored context. See {ref}`Tutorial_Group_Name_Code` for both paths.
+
 For the optional Biopython object conversion, the source
 `amino_acids_3:AceAlaGlyNme` converts to `Seq("AG")`. Selecting original groups
 `[2, 1, 2, 0]` first produces `Seq("GAG")`: the selected cap contributes no

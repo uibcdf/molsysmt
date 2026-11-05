@@ -42,7 +42,7 @@ def _template_documentation(name, module, *, local_skip=False):
 
 
 class _GroupTemplates(_ElementUtilities):
-    @_template_documentation("get_bonded_atom_pairs", "element.group", local_skip=True)
+    @_template_documentation("get_bonded_atom_pairs", "element.group", local_skip=False)
     @signal(tags=["addon", "element"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def get_bonded_atom_pairs(
@@ -51,8 +51,9 @@ class _GroupTemplates(_ElementUtilities):
         atom_names,
         atom_indices=None,
         sorted=True,
-        *,
         skip_digestion=False,
+        *,
+        naming_scheme=None,
     ):
         return self._call_explicit(
             ("group",),
@@ -62,6 +63,8 @@ class _GroupTemplates(_ElementUtilities):
                 "atom_names": atom_names,
                 "atom_indices": atom_indices,
                 "sorted": sorted,
+                "skip_digestion": skip_digestion,
+                "naming_scheme": naming_scheme,
             },
         )
 
@@ -79,6 +82,8 @@ class _AminoAcidTemplates(_ElementUtilities):
         atom_indices=None,
         sorted=True,
         skip_digestion=False,
+        *,
+        naming_scheme=None,
     ):
         return self._call_explicit(
             ("group", "amino_acid"),
@@ -89,25 +94,36 @@ class _AminoAcidTemplates(_ElementUtilities):
                 "atom_indices": atom_indices,
                 "sorted": sorted,
                 "skip_digestion": skip_digestion,
+                "naming_scheme": naming_scheme,
             },
         )
 
     @_template_documentation(
-        "get_expected_heavy_atoms", "element.group.amino_acid", local_skip=True
+        "get_expected_heavy_atoms", "element.group.amino_acid", local_skip=False
     )
     @signal(tags=["addon", "element"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def get_expected_heavy_atoms(
-        self, group_name, present_atom_names=None, *, skip_digestion=False
+        self,
+        group_name,
+        present_atom_names=None,
+        skip_digestion=False,
+        *,
+        naming_scheme=None,
     ):
         return self._call_explicit(
             ("group", "amino_acid"),
             "get_expected_heavy_atoms",
-            {"group_name": group_name, "present_atom_names": present_atom_names},
+            {
+                "group_name": group_name,
+                "present_atom_names": present_atom_names,
+                "skip_digestion": skip_digestion,
+                "naming_scheme": naming_scheme,
+            },
         )
 
     @_template_documentation(
-        "get_expected_hydrogens", "element.group.amino_acid", local_skip=True
+        "get_expected_hydrogens", "element.group.amino_acid", local_skip=False
     )
     @signal(tags=["addon", "element"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
@@ -119,8 +135,9 @@ class _AminoAcidTemplates(_ElementUtilities):
         is_n_terminal=False,
         is_c_terminal=False,
         is_disulfide=False,
-        *,
         skip_digestion=False,
+        *,
+        naming_scheme=None,
     ):
         return self._call_explicit(
             ("group", "amino_acid"),
@@ -132,6 +149,8 @@ class _AminoAcidTemplates(_ElementUtilities):
                 "is_n_terminal": is_n_terminal,
                 "is_c_terminal": is_c_terminal,
                 "is_disulfide": is_disulfide,
+                "skip_digestion": skip_digestion,
+                "naming_scheme": naming_scheme,
             },
         )
 

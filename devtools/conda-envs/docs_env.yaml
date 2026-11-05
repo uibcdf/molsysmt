@@ -26,7 +26,7 @@ dependencies:
   # MolSysViewer do that configuration at import time.
   - scipy
   - matplotlib >=3.8.4
-  - argdigest >=0.13.0
+  - argdigest >=0.14.0
   - depdigest >=0.15.1
   - smonitor >=0.16.0
   - pyunitwizard >=0.28.1
