@@ -11,7 +11,7 @@ The canonical variable representing the molecular system MUST be `molsys`.
 2. **Cell 2 (Markdown - Introductory Header Block)**:
    - Anchor `(Tutorial_Is_solvated)=`
    - H1 Title `# Is solvated`
-   - Italic gerund summary `*Checking whether a molecular system contains solvent molecules.*`
+   - Italic gerund summary `*Checking a water-density solvation criterion per structure.*`
    - Narrative intro paragraph explaining function role.
    - Version admonition `:::{versionadded} 1.0.0 :::`
    - Collapsible API documentation box `:::{admonition} API documentation \n :class: dropdown`.
@@ -30,3 +30,12 @@ The canonical variable representing the molecular system MUST be `molsys`.
    - `msm.get(molsys, n_waters=True)`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.
+
+## Per-structure predicate contract
+
+Preserve the original preparation example and its source. Retain explicit ensemble
+selection, repeated source indices, one-structure bool versus array/empty outputs,
+caller-chosen all/any reduction and the synthetic-box warning in the ensemble
+example. Explain the strict 15 waters/nm³ criterion, machine-roundoff boundary
+tolerance, prerequisite/error distinction and metadata-only computation. Do not
+present this predicate as solvent completeness, equilibration or preparation.

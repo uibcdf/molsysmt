@@ -142,13 +142,15 @@ def test_native_values_and_source_scene_ownership_are_preserved(view, name, skip
     if "skip_digestion" in inspect.signature(getattr(msm.build, name)).parameters:
         args["skip_digestion"] = skip
     expected = getattr(msm.build, name)(primary, **args)
-    assert actual == expected
+    _same(actual, expected)
     # Mutating a returned diagnostic must not alter a subsequent native result.
     if isinstance(actual, dict):
         actual.clear()
     elif isinstance(actual, list):
         actual.append([-1, -1])
-    assert getattr(msm.build, name)(primary, **args) == expected
+    elif isinstance(actual, np.ndarray):
+        actual[:] = ~actual
+    _same(getattr(msm.build, name)(primary, **args), expected)
     assert primary is view.molsys and before == view.export_state()
     pd.testing.assert_frame_equal(atoms, primary.topology.atoms)
     pd.testing.assert_frame_equal(bonds, primary.chemical_states._states[0].bonds)
@@ -313,6 +315,23 @@ def test_solvation_native_density_threshold_is_not_solvent_preparation(
 ):
     with msv.new_view(_water_system(n_waters, length)) as view:
         assert bool(view.addons.molsysmt.build.is_solvated()) is expected
+
+
+def test_solvation_structure_selection_retains_native_values_and_primary_ownership():
+    source = _water_system(16, 1, structures=3)
+    boxes = np.repeat(np.eye(3)[None], 3, axis=0)
+    boxes[1, 0, 0] = 2.0
+    source.structures.box = puw.quantity(boxes, "nm")
+    with msv.new_view(source) as view:
+        primary = view.molsys
+        sync = deepcopy(view.addons.molsysmt.get_sync_status())
+        result = view.addons.molsysmt.build.is_solvated(structure_indices=[2, 1, 2, 0])
+        assert isinstance(result, np.ndarray) and result.dtype == np.dtype(bool)
+        np.testing.assert_array_equal(result, [True, False, True, True])
+        assert view.addons.molsysmt.build.is_solvated(structure_indices=1) is False
+        assert view.addons.molsysmt.build.is_solvated(structure_indices=0) is True
+        assert view.molsys is primary
+        assert view.addons.molsysmt.get_sync_status() == sync
 
 
 @pytest.mark.parametrize("name", NAMES)

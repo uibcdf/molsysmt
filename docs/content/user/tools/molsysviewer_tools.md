@@ -3103,7 +3103,7 @@ Eight further native readers are available under `view.addons.molsysmt.build`:
 | `get_missing_bonds` | Heuristic missing source-atom pairs from templates/geometry, using singular `structure_index` where applicable. |
 | `get_disulfide_bonds` | Distance-based sulfur candidate pairs from one structure; these may already be declared bonds. |
 | `has_hydrogens` | Presence of any selected indexed hydrogen, not hydrogen completeness or correct protonation. |
-| `is_solvated` | Native whole-system water-count/box-density predicate; not a preparation or solvent-completeness check. |
+| `is_solvated` | Native water-count/box-density predicate per selected structure; bool for one structure or a Boolean vector for multiple/empty selections. Not a preparation or solvent-completeness check. |
 
 ```python
 with msv.demo["181L"] as view:
@@ -3140,12 +3140,16 @@ Each method has `skip_digestion`. Where the native function has no such
 parameter, a keyword-only addon control affects only addon validation and is
 never passed to the native function.
 
-The current native `is_solvated()` can raise an ambiguous-array `ValueError` for
-multiple structures with water and box volumes. It offers no structure-selection
-argument. The addon does not choose an implicit first/any/all aggregation.
-Use an explicitly selected independent molecular system with native MolSysMT
-when a per-structure diagnostic is required. The receiving records preserve this
-limitation without treating an exception as a successful solvation result.
+`is_solvated(structure_indices='all')` preserves source structure order and
+repetitions. Selecting one structure returns a Python bool; multiple or empty
+selections return a Boolean NumPy vector. There is no implicit first/any/all
+aggregation or visible-structure substitution. Empty output is not evidence of
+solvation; check its size before a deliberate reduction. The criterion uses a
+global density above 15 waters/nm³ with a machine-roundoff equality tolerance,
+not solvent coverage, containment or equilibration. Missing waters/box yield
+false per structure; unknown water inventory and unusable volumes are explicit
+diagnostics. The source and scene remain unchanged. See the
+{ref}`solvation-predicate tutorial <Tutorial_Is_solvated>`.
 
 
 ## Preparing independent molecular systems

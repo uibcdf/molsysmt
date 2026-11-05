@@ -15,6 +15,25 @@ supersedes: []
 # Bound MolSysMT tools addon for MolSysViewer
 
 
+## Combined solvation/predicate consumer receiving — 2026-11-05
+
+PR #543 combines independent `build.solvate` with the published owner's #504
+correction from `ccff2557f`. The existing `is_solvated` mirror forwards explicit
+structure selections, scalar/vector/empty results and diagnostics without
+aggregation. Source exposure stays 234/244. The
+[combined receipt](../../devtools/data/molsysviewer_tools_solvation_predicate_integration_20261105.json)
+records the final combined inputs and validation; the earlier solvation receipt
+below retains its original owner basis, failures and recovery. Source/scene
+ownership, native identifier/ion-count limits and separate CI/owner/installed
+qualification remain explicit. No native scientific repair is authored here.
+
+The final combined regression passes **4,334 addon/integration cases** with no
+failures/errors/skips; 126 directed native/client cases and 60 documentation/
+source contracts pass separately. All 4,234 primary sources/tests, 91 public
+provider Python files (106 package source files checked) and support sources
+retain their hashes. Backend/Rust is reused. Ruff, 246 docstrings, 156 notebooks,
+dependency audit and developer-guide/index checks pass in their recorded scopes.
+
 ## Independent solvation consumer receiving — 2026-11-05
 
 PR #543 receives published native `06c065d33` and adds the explicit solvate
@@ -2214,7 +2233,11 @@ installed qualification, tags/packages and both 1.0 publications remain separate
 The expert build namespace now exposes eleven of thirty inspected native paths.
 The eight additions are get_missing_heavy_atoms, get_missing_bonds,
 get_missing_residues, get_missing_terminal_cappings, get_non_standard_residues,
-get_disulfide_bonds, has_hydrogens and is_solvated. All are serialized reads of
+get_disulfide_bonds, has_hydrogens and is_solvated. The latter accepts explicit
+structure indices, retaining order/repetitions; one selected structure returns
+bool and multiple/empty selections return a Boolean vector, without implicit
+aggregation. It checks global indexed-water density, not solvent completeness.
+All are serialized reads of
 the current primary, including pending science, with native result and source/
 scene ownership. There is no repair, covalent assignment, scene update or
 implicit choice of visible structure. Four legacy signatures lack native

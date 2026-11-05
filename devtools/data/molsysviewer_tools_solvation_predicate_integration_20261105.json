@@ -1,0 +1,123 @@
+{
+  "schema": "molsysmt.viewer-solvation-predicate-integration@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#504"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "4353431f094aaba0e075cdf3a27e479752d52663",
+  "native_owner_basis": "ccff2557f576f004461c96950d36a8b6e465e91f",
+  "earlier_solvation_receipt": {
+    "path": "devtools/data/molsysviewer_tools_solvation_receiving_20261105.json",
+    "sha256": "4f1a60023d9beb77e6cb1f2f1d622f047249ace6aa12637ffc48c370448f78cc",
+    "scope": "Original independent-solvation receiving retained unchanged, including preserved failures and scientific limits."
+  },
+  "contract": {
+    "solvate": "Independent native output, current primary implicit; no adoption or scene/history/pending projection changes. Explicit preparation and one engine-ready structure.",
+    "is_solvated": "Existing mirror receives owner #504 structure_indices keyword-only, preserving order/repetitions; bool for one structure, Boolean vector for multiple/empty selections. No first/any/all aggregation or visible-structure substitution.",
+    "native": "All scientific source from published owner; no facade scientific correction, Rust/backend build or Viewer runtime change."
+  },
+  "validation": [
+    {
+      "file": "solvation-504-all-addon-20261105.xml",
+      "sha256": "492470a41d4bd4cbd0be5aba1b9b096c856b03b61af6fd40fef92c187adf5816",
+      "scope": "Final complete addon plus 32 source/inventory/host/command guards, four workers, after receiving owner #504.",
+      "tests": 4334,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 295.244
+    },
+    {
+      "file": "solvation-504-focused-20261105.xml",
+      "sha256": "8ec12ed45d263fa3ddd31727cb705df9cc54d472c8d364194be07c9e5963b255",
+      "scope": "126 native per-structure predicate, existing audit mirror and new independent solvation cases.",
+      "tests": 126,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 64.478
+    },
+    {
+      "file": "solvation-504-docs-contracts-20261105.xml",
+      "sha256": "546c0918ab723803bd644b46d44e25ff8bf29a5d99c1dfc37d7410aa473cbc8a",
+      "scope": "60 documentation/course/source/inventory/command contracts after receiving owner #504.",
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 81.76
+    }
+  ],
+  "source_freeze": {
+    "files": 4234,
+    "sha256": "20b21d71e2e7f056f7b237e2d38e34d17b0ac17ceaccecc1d6ebcee6bd11ab54",
+    "changed_from_original_solvation_gate": [
+      "molsysmt/build/is_solvated.py",
+      "molsysviewer_molsysmt/_basic.py",
+      "molsysviewer_molsysmt/_build.py",
+      "tests/build/is_solvated/test_structure_contract.py",
+      "tests/molsysviewer_molsysmt/test_build_audit_tools.py"
+    ],
+    "postcheck": {
+      "primary_files": 4234,
+      "primary_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "provider_public_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+      "provider_files": 106,
+      "provider_changed": [],
+      "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "native_authored_diff": [],
+      "provider_python_files": 91
+    }
+  },
+  "static_validation": {
+    "whole_tree_ruff": "check and format pass, 4385 files",
+    "docstrings": 246,
+    "course_notebooks": 156,
+    "dependency_contract_audit": "passed",
+    "devguide_and_indexes": "passed after adding receipt",
+    "course_owner_cells": 35,
+    "modified_markdown_ids": [
+      "96ebdbc9",
+      "4fb55a86",
+      "f158b27f"
+    ],
+    "all_owner_executable_cells_outputs_ids_metadata_preserved": true
+  },
+  "exposure": {
+    "exposed": 234,
+    "declared": 244,
+    "build": [
+      28,
+      30
+    ],
+    "molecular_mechanics": [
+      5,
+      6
+    ]
+  },
+  "native_solvate_limitations": {
+    "identifier": "OpenMM route raises ValueError after attempting int(first_atom_id) for a valid nonnumeric label; missing IDs from bundled pentalanine reproduce the same boundary.",
+    "explicit_ion_counts": "Neutral pentalanine with n_anions=2/n_cations=2 and zero molar salt still gives zero ions/284 waters, identical to default-count construction.",
+    "reporting_state": "Open/closed issue search found no equivalent. Maintainer was asked to authorize two native issues; filing is pending an explicit reply. No pending-bug document with a fabricated issue number is created."
+  },
+  "limits": [
+    "Source integration and local receiving in the existing Linux/Python 3.14 environment with the same immutable public PyUnitWizard source overlay; not clean installed or platform qualification.",
+    "Exact-head CI and owner acceptance remain separate. No native main push or PR merge.",
+    "Remaining protonation/remapping, water-box #564, native MolSys forces #572, nonbonded selections #561, compatibility decisions and task GUI stay separate.",
+    "Both 1.0 publications remain paused; no candidate, dependency floor, package, tag, Release or promotion."
+  ],
+  "warnings": {
+    "full_addon": 2474,
+    "legacy_h5msm": 2405,
+    "terminal_preparation_attribute_drop": 53,
+    "scope": "All warning groups retained; no suppression introduced."
+  }
+}
