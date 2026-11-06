@@ -1,0 +1,102 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#583",
+  "base_commit": "e614ba36762b536448cc25688428fee3840d18c3",
+  "python": "3.14.7",
+  "versions_observed": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.0+20.ga5fe517",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "version_note": "Editable metadata is not an exact source identity or installed release qualification. Published floor payload origins and hashes are independently verified below.",
+  "files": {
+    "molsysmt/build/solvate.py": "7e7fbd2072b4927a8780690f9350495c7a500ec9a68d412123a16fcf1c9a9930",
+    "tests/build/solvate/test_scientific_attribution.py": "a79a0b31ea37d004f1162d58a16aa2ba442accb88571fd411f6484a76e78800c",
+    "devguide/archive/resolved_bugs/openmm_metadata_conflicts_between_implicit_models_and_solvation.md": "b19ea072b8733cf76f913c4ae281c8f723d8aeedf81629cafab61c84583527e9",
+    "devguide/release_1_0_status.md": "c5eabf50b1647a87482200a621fd9fa73716c887cb218b7adc8bf252b6fcaf08",
+    "docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md": "375072310b377d1706c436bcf93d443249bb48ef7e9314614ea1e2cb112f7346",
+    "docs/content/user/tools/build/solvate.ipynb": "35fb1827af72dd20a243b5ff61fae9ada7472b14d684ba8ac0c4ef5a5a88f2c2",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb": "3ed865f098bcba0d80f6689d4ce0a14b7428f8f3513c6549f9dfde0c2738570f",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "7e2ef67a338f6229408f0012a449d098f7a038e210f9a8745435a0a6b20df300"
+  },
+  "baseline": {
+    "selection": "tests/build/solvate/test_scientific_attribution.py -k alternative --receptor=llm -n 2",
+    "failed": 4,
+    "exit_code": 1,
+    "seconds": 4.83,
+    "observation": "Both orders and both OBC models emit the real Ackredit conflict on the shared software-version ID."
+  },
+  "checks": [
+    {
+      "selection": "tests/build/solvate tests/build/test_add_ions.py tests/form/openmm_Topology tests/molecular_mechanics tests/test_ackredit.py tests/topology/test_correspondence_attribution.py",
+      "runner": "python -m pytest --receptor=llm -n 4",
+      "passed": 1232,
+      "seconds": 105.56,
+      "exit_code": 0
+    },
+    {
+      "selection": "tests/build/solvate/test_scientific_attribution.py tests/form/openmm_Topology/test_implicit_solvent.py tests/test_ackredit.py",
+      "runner": "python -m pytest -p no:smonitor --receptor=llm -n 2",
+      "profile": "published-support-floors, not a new environment",
+      "passed": 54,
+      "seconds": 8.7,
+      "exit_code": 0
+    },
+    {
+      "selection": "devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/build/solvate.py",
+      "runner": "python -m pytest --receptor=llm -n 2",
+      "passed": 569,
+      "seconds": 18.49,
+      "exit_code": 0
+    }
+  ],
+  "thread_limits": {
+    "OMP_NUM_THREADS": 1,
+    "OPENMM_CPU_THREADS": 1,
+    "MPLBACKEND": "Agg"
+  },
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "scientific_boundary": "Actual OBC construction and explicit solvent placement on bundled 22-atom alanine; 151 atoms, 43 waters, zero ions, independent source coordinates/tables and same completed science without tracking. No new force-field method or complete minimization/dynamics workflow qualification.",
+  "attribution_boundary": "Shared offline SOFTWARE registry, actual producer version, separate operation contexts and nested native ion uses. No provider changes, disabled conflicts, new per-occurrence tracking, import-time loading or metadata-only execution credit. Existing unseeded provider-ion branch is not newly attributed.",
+  "notebook_payloads_preserved": [
+    "docs/content/user/tools/build/solvate.ipynb",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  ],
+  "protected_human_files_unchanged": true,
+  "compiled_binary_unchanged": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "hosted_and_release_boundary": "No tag, Release, promotion or new release matrix. Hosted exact-head status remains separately observed under #334.",
+  "extra_invocation": {
+    "command": "python docs/content/course/devtools/validate_course.py",
+    "exit_code": 1,
+    "interpretation": "Legacy checker requires obsolete literal headings and reports 0/156 compliant; it is not the maintained course gate. Current devtools/scripts/validate_course.py is exercised by the passing documentation suite and run separately."
+  }
+}

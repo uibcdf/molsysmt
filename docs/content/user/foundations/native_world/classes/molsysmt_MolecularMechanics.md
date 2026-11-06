@@ -50,6 +50,13 @@ the effective recipe and its limits. The optional Ackredit capture records
 the actual constructed variant and executed engine/version; reading saved
 OpenMM XML performs no new calculation and does not reconstruct that separate
 bibliography.
+
+Within one application-owned Ackredit session, implicit-model construction and
+OpenMM solvation with native ion replacement share a software reference for
+the OpenMM version actually used. Each operation retains its own contextual
+use; solvation does not inherit the implicit-model paper. The native-ion
+preparation history keeps its detached solvation reference even without
+Ackredit. These records do not qualify a complete simulation protocol.
 ---
 
 ## Invariants and Performance

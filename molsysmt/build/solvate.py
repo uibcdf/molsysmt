@@ -324,6 +324,12 @@ def solvate(
     by native atom-growth policies. Native coordinates remain in nm regardless
     of the application's PyUnitWizard presentation policy.
 
+    OpenMM solvation with native ion replacement retains a detached software
+    reference in that preparation history. Optional Ackredit tracking uses the
+    same versioned OpenMM identity as implicit-model construction, with separate
+    operation contexts in the application's current session. No attribution
+    provider is required for the scientific result or stored provenance.
+
     See Also
     --------
     molsysmt.build.add_ions : Add ions to existing solvent with explicit evidence.
@@ -605,9 +611,12 @@ def solvate(
                 "report"
             ]
             source_to_output = history["source_to_output_atom_indices"]
+            from copy import deepcopy
+
             import openmm
 
             from molsysmt import _ackredit
+            from molsysmt._private.scientific_citations import SOFTWARE
 
             history["solvation"] = dict(
                 engine="OpenMM",
@@ -623,7 +632,7 @@ def solvate(
             item = dict(
                 id=f"software:openmm:{openmm.__version__}",
                 type="software",
-                title="openmm",
+                **deepcopy(SOFTWARE["openmm"]),
                 version=openmm.__version__,
                 roles=["executed_software"],
             )
@@ -635,7 +644,16 @@ def solvate(
             )
             with _ackredit.scope("molsysmt.build.solvate") as provider:
                 _ackredit.credit(
-                    provider, [item], "molsysmt.build.solvate", contextual=True
+                    provider,
+                    [item],
+                    "molsysmt.build.solvate",
+                    contextual=True,
+                    context={
+                        "engine": "openmm",
+                        "forcefield": list(forcefield),
+                        "water_model": water_model,
+                        "charge_source": history["solvation"]["charge_source"],
+                    },
                 )
         restore(tmp_item, source_labels, source_to_output)
         if to_form != "molsysmt.MolSys":

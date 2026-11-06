@@ -20,6 +20,25 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Shared OpenMM scientific attribution — 2026-11-05
+
+**#583 is source-corrected.** Implicit-model construction and OpenMM solvation
+with native ion replacement now reuse canonical software metadata for the actual
+producer version. Separate captures retain each operation's context, OBC paper
+and nested ion-replacement uses without disabling conflict detection. Optional
+tracking absence/failure preserves completed science and detached provenance.
+No force field, coordinate algorithm, public signature or schema changes.
+
+Receiving passes **1,232 affected tests**, **54 published-support-floor cases**
+and **569 documentation/doctest cases**, including six real-engine guards.
+Suites overlap. The three edited notebooks preserve all executable evidence.
+See the [owning record](archive/resolved_bugs/openmm_metadata_conflicts_between_implicit_models_and_solvation.md)
+and [receipt](../devtools/data/openmm_attribution_receiving_583_20261105.json).
+Continue with **#584**, then **#589**; PR #543 receiving retains #587/#590/#591.
+Hosted controls, installed/platform and release gates remain separate under
+#334. This does not qualify the complete preparation/dynamics protocol or launch
+a tag, Release, promotion or new release matrix.
+
 ## Existing-engine minimization ownership — 2026-11-05
 
 **#588 is source-corrected.** Independent requests involving live OpenMM
