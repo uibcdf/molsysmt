@@ -30,6 +30,14 @@ native/route controls and five actual Jupyter scenarios. Rotate awaits native
 
 ## Chemistry inspection receiving — 2026-11-06
 
+The clean source 699fc69be now completes all 4,699 addon cases without skips
+(1090.15 s), with every warning retained. Official smoke 42215709274 passes
+both tiers: 6,042 native cases/23 optional skips and 4,695 addon cases/four
+optional Ackredit skips. Full platform matrices, owner integration, installed
+packages and postponed human acceptance remain distinct. The newer conditional
+replacement request in uibcdf/molsysviewer#306 and future preparation interface
+are not qualified by those original-host results.
+
 The [source receipt](../../devtools/data/molsysviewer_tools_chemistry_receiving_20261106.json)
 records two explicit-state native reports, 42 focused cases within 363 native/
 panel controls and actual synchronized Jupyter/Mol*/popup receiving. Presence,

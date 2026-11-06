@@ -31,8 +31,11 @@ keeps native/host/actual Jupyter and both-popup evidence separate, including the
 failed full attempt, eight synchronized passes and scoped pending-case recovery.
 Native science and expert signatures/defaults remain unchanged on ed09f6453.
 
-The prior 25-minute smoke cancellation is confirmed by GitHub and retained;
-#611 proposes the finite 45-minute budget with both scientific tiers intact.
+The clean contribution source 699fc69be passes all 4,699 addon cases without
+skips (1090.15 s), with 2,736 warnings in ten groups retained. The corrected
+45-minute smoke 42215709274 is officially successful on that source; the
+earlier 25-minute cancellation remains recorded under #611. Owner review and
+integration remain pending.
 Latest hosted/owner/installed and postponed human gates remain separate. The
 full earlier periodic gate does not certify new Chemistry source. Required
 Geometry/cell, Chemistry preparation/construction, Analysis and complete-session

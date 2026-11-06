@@ -237,5 +237,48 @@
     "addon_selected": 4699,
     "issue": "uibcdf/molsysmt#611",
     "proposal": "Finite 45-minute maximum; both complete tiers and assertions preserved. Corrected hosted outcome pending."
+  },
+  "complete_addon_gate": {
+    "source": "699fc69be57ac0e89f9bced3fd4f39139ccabf38",
+    "host": "2e17ee6f13333e5efd3726b353ade5c8cdc77b0b",
+    "state": "passed",
+    "passed": 4699,
+    "skipped": 0,
+    "failed": 0,
+    "duration_seconds": 1090.15,
+    "warnings": 2736,
+    "warning_groups": 10,
+    "log": "/tmp/msv-pending-reader-full-addon-20261106.log",
+    "sha256": "bf86f3907f1bcf250f5404320c5db06a69c4629cd75dec675d3be15cb859bab6",
+    "source_state": "Clean owning checkout at start and completion; recorded runtime/test source hashes unchanged.",
+    "scope": "Complete addon folder; actual Jupyter guards remain their separate explicit lane. Does not qualify newer host conditional replacement or future preparation UI."
+  },
+  "latest_hosted_smoke": {
+    "run": 42215709274,
+    "source": "699fc69be57ac0e89f9bced3fd4f39139ccabf38",
+    "state": "success",
+    "budget_minutes": 45,
+    "scope": "Official corrected complete smoke. Original 25-minute cancellation retained. Canonical installed packages and owner integration remain separate.",
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "native_skip_reasons": {
+      "ackredit": 21,
+      "unyt": 1,
+      "astropy": 1
+    },
+    "native_duration_seconds": 475.66,
+    "addon_passed": 4695,
+    "addon_skipped": 4,
+    "addon_skip_reason": "Optional Ackredit is not installed",
+    "addon_duration_seconds": 580.22,
+    "log": "/tmp/msv-pending-reader-smoke-42215709274.log",
+    "sha256": "327d70ce88143142323c8ee3342a044f39ba50a566e8d5cb49520e5b31ae0bff"
+  },
+  "next_preparation_probe": {
+    "path": "/tmp/msv-tctim-chemistry-opportunities-20261106.json",
+    "sha256": "f7e42c1d7c5f4f8ee77e028de3ecb15f502eb65c4ef4d76e3e1b91468eacd819",
+    "summary": "TcTIM 3983 atoms/one structure: native missing-heavy report empty within assessed scope; strict/intersection heavy completion return independent unchanged-size systems. MolSysMT pH 7.4 hydrogen generation returns 7868 atoms, source coordinates/atom count/revision unchanged. Native b_factor/occupancy drop warning retained.",
+    "timing_scope": "Functional probe under concurrent full-addon load, not an isolated performance benchmark.",
+    "gui": "Preparation, explicit adoption and complete-session recovery remain required; no new GUI task is claimed."
   }
 }

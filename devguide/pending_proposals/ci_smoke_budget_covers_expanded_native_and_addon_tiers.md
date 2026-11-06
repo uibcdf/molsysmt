@@ -50,3 +50,11 @@ cancelled run and qualify official terminal success on the corrected source
 before closing. Existing workflow/selection guards and actual hosted execution
 are the checks; do not add a test merely mirroring the timeout literal. Owner
 review/integration remains PR-only, and publication is not authorized.
+
+## Corrected-source receiving
+
+Smoke 42215709274 is officially successful on clean contribution 699fc69be
+with the finite 45-minute maximum and both original tiers. The separate local
+complete addon collection passes 4,699 cases without skips in 1090.15 s. The
+original 25-minute cancellation remains non-success. Owner review/integration
+of PR #543 is still required before this report is archived and closed.
