@@ -33,7 +33,12 @@ instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
 **Completed native/provider criteria: #304, #593, #428, #544, #572 and #576.**
-Next ordered issue: **#557**. The accepted fifteen-issue order above is unchanged.
+Next ordered issue: **#557**. Its source-permutation controls also identified supplemental
+[#617](archive/resolved_bugs/entry_mmcif_conversion_retains_a_retired_topology_component_flag_and_blocks_perm.md):
+the mmCIF converter wrote a retired Topology component flag. The one-line
+producer correction passes 137 adapter/permutation cases, preserving strict
+extension refusal. This is a prerequisite correction, not an expansion of the
+fifteen-item goal. The accepted fifteen-issue order above is unchanged.
 Native code through 8941bcfd4 is integrated on main, and the #428 installed
 producer bd40d7059 is independently received. Unfinished #557 source remains
 isolated and is excluded. Actual installed #428 receiving passes 2,542 consumer

@@ -1171,7 +1171,6 @@ def to_molsysmt_MolSys(
 
     # Extract
 
-    tmp_item.topology._components_dirty = False
     tmp_item.topology._molecules_dirty = False
     tmp_item.topology._entities_dirty = False
 
