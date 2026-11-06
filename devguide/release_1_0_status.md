@@ -54,6 +54,11 @@ The first installed run 42255147243 built the wheel but failed the complete
 environment check on three AmberTools companions' NumPy <2 metadata. Recovery
 isolates the external LEaP oracle in a hosted CLI-only prefix, preserving the
 consumer dependency check and every scientific control. #428 remains partial.
+The next attempt eff2fcb4a executed 2,542 consumer cases (2,527 pass, 14 fail,
+one skip) and exposed missing NGLView/Jinja2 in the receiving profile. Those
+tools are now explicit/preflighted; no test is removed. The implicit Jinja2
+requirement of default info output is separately recorded under #524 and must
+not disappear behind this larger test environment or ArgDigest acceptance.
 
 The #304 native profile has qualified explicit reader policy,
 exact standard/curated modified-group references, observed-H parent consensus,

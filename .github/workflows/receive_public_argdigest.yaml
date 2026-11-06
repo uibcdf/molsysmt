@@ -42,7 +42,7 @@ jobs:
             setuptools>=77.0.3 versioningit>=3 pytest pytest-xdist pytest-receptor=1.1.0
             pyyaml packaging pint scipy openmm mdtraj pyparsing!=3.3.3
             mdanalysis rdkit parmed biopython ipywidgets anywidget plotly beartype
-            pydantic traitlets>=5
+            pydantic traitlets>=5 nglview jinja2
 
       - name: Isolate the external LEaP reference from the Python consumer
         shell: bash -el {0}

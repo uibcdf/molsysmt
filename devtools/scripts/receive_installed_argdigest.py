@@ -41,6 +41,8 @@ MODULES = (
     "pandas",
     "h5py",
     "mmcif",
+    "nglview",
+    "jinja2",
 )
 
 

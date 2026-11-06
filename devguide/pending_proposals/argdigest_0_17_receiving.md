@@ -114,7 +114,10 @@ checks do not establish full-suite or installed-candidate qualification.
 
 ## Ownership decision
 
-Retain `native_constructor` and the current ArgDigest minimum `>=0.13.0`.
+Retain `native_constructor` without raising the public ArgDigest floor for
+this receiving. The October 25 study needed no change from the then-current
+`>=0.13.0`; independent #549 work subsequently established `>=0.14.0` for
+an already consumed API. The current `pyproject.toml` remains authoritative.
 Do not enable `contract_owner` globally or remove existing constructor context.
 The optional capability is received for study, not required by production code.
 
@@ -239,3 +242,17 @@ scientific nodes. Only the independent external LEaP reference gets a separate
 hosted Python 3.12/NumPy <2 prefix. A CLI-only shim exposes `tleap`; that prefix's
 Python is never added to the consumer PATH or import path. Its actual dependency
 inventory and AMBERHOME are explicit. No local environment is created.
+
+The corrected-reference attempt [42256423649](https://github.com/uibcdf/molsysmt/actions/runs/42256423649)
+at eff2fcb4a passed public solving, complete dependency checking, installed-byte
+and prefix verification, then executed all 2,542 selected consumer cases:
+2,527 passed, 14 failed, one skipped. The new test profile omitted NGLView
+(six failures and the skip) and Jinja2 (eight `info()` Styler failures).
+The verified artifact digest is
+`a3d361e2689b93960ced717c192f24871d6cb3238b986991118daa14c5db1548`.
+The profile now supplies and preflights both consumed tools, retaining all tests.
+This receiving adds no public dependency floor. The implicit Jinja2 requirement
+of default `info()` is a separately reported runtime-declaration gap under #524;
+successful ArgDigest receiving must not be mistaken for closing that inventory
+or establishing a minimal MolSysMT installation. Actual public versions include
+Pandas 3.1.1, NumPy 2.5.4, PyUnitWizard 0.29.1, Viewer 0.24.0 and Ackredit 0.12.1.
