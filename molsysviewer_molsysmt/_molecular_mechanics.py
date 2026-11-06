@@ -49,9 +49,10 @@ def _mechanical_documentation(name, *, bind_primary):
                 "contribution. Scientific receiving covers single-structure CPU or Reference "
                 "NoCutoff models, explicit atomic selections and two-sided group "
                 "partitions. Native units, syntax and result axes remain intact. "
-                "Mixed partition/flat selections retain the native #561 limit; "
-                "overlapping selections and periodic long-range partitioning "
-                "are not scientifically qualified here. No force field, chemistry "
+                "Native #561 also admits mixed partition/flat axes, retaining "
+                "a singleton matrix axis for the flat side. Cross axes must "
+                "be disjoint; arbitrary periodic long-range partitioning is "
+                "not scientifically qualified here. No force field, chemistry "
                 "preparation, visible-structure choice, scene/history change or "
                 "update_view control is introduced. Native errors propagate.\n"
             )

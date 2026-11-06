@@ -15,6 +15,11 @@ from depdigest import dep_digest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import (
+    ArgumentConflictError,
+    ArgumentError,
+    NotImplementedMethodError,
+)
 from molsysmt._private.variables import is_iterable_of_iterables
 
 
@@ -30,17 +35,26 @@ def get_non_bonded_potential_energy(
     skip_digestion=False,
 ):
     """
-    Calculating non-bonded interaction potential energy between selections or pairwise across structures.
+    Calculating non-bonded potential energy within or between atom selections.
 
+    With two disjoint atom sets A and B, evaluate E(A union B)-E(A)-E(B)
+    using the configured engine's standard non-bonded force. A partitioned
+    input requests one matrix entry per pair of sets, not per structure.
 
     Parameters
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
+        Atom selection, or a list of atom selections defining matrix rows.
+        Numeric selections and MolSysMT selection strings are supported;
+        other syntaxes retain their ordinary selector input restrictions.
+        Repeated indices within a set are deduplicated. Repeated partitions
+        and shared members within this axis are allowed.
     selection_2 : str, list, tuple, or numpy.ndarray, default=None
-        Second selection string or boolean/integer array.
+        Atom selection, or a list of selections defining matrix columns.
+        No atom may belong to both axes. With None, calculate the internal
+        non-bonded energy of one flat selection instead.
     platform : str, default='CPU'
         Execution platform name understood by the selected engine. OpenMM
         examples include 'Reference', 'CPU', 'CUDA' and 'OpenCL'; registered
@@ -57,8 +71,12 @@ def get_non_bonded_potential_energy(
 
     Returns
     -------
-    quantity or dict
-        Non-bonded potential energy interaction values in canonical units (`kJ/mol`).
+    quantity
+        Scalar energy for flat/flat inputs or an internal energy request.
+        If either input is partitioned, shape is (n_rows, n_columns), including
+        a singleton axis for a flat input. Units follow the active PyUnitWizard
+        policy (kJ/mol by default). Empty sets give exact typed zero entries;
+        [] is one flat empty set and [[], []] defines two empty partitions.
 
 
     Raises
@@ -69,19 +87,81 @@ def get_non_bonded_potential_energy(
         If a requested platform name is unknown to the selected engine.
     LibraryNotFoundError
         If the selected execution engine is not installed.
+    ArgumentConflictError
+        If the axes share atoms or a partitioned input has no second selection.
+    ArgumentError
+        If atom indices or partition nesting are invalid.
+    NotImplementedMethodError
+        If the engine model does not have exactly one standard non-bonded force.
+
+    Notes
+    -----
+    Source selections, coordinates, engine parameters and force groups are not
+    edited. A temporary engine System uses the supported public copy route.
+    OpenMM decomposes NonbondedForce, including its exceptions; custom and
+    implicit-solvent force contributions are not part of this result.
+    Periodic energies retain their configured engine method and box; they are
+    not an isolated pair potential or a binding free energy. Numerical partition
+    parity is tested on nonperiodic NoCutoff models, not every periodic/custom
+    model. Extract a specific structure before calling: this function does not
+    loop over a structure axis. Context/Simulation inputs use current positions.
+
+    See Also
+    --------
+    molsysmt.basic.select
+        Resolving atom selections independently of the molecular-system form.
+    molsysmt.molecular_mechanics.get_potential_energy
+        Calculating total energy, including the other configured forces.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], structure_indices=0)
+    >>> energy = msm.molecular_mechanics.get_non_bonded_potential_energy(
+    ...     molsys, selection=[[0, 1], [2, 3]], selection_2=[10, 11], platform='Reference')
+    >>> energy.shape
+    (2, 1)
+
+    .. admonition:: Tutorial with more examples
+
+       See :ref:`Tutorial_Get_non_bonded_potential_energy` for partitioned
+       selections, units and interpretation limits.
 
     .. versionadded:: 1.0.0
     """
 
     from depdigest import check_dependency
 
-    from molsysmt import convert, get_form, has_attribute, select
+    from molsysmt import convert, copy, get_form, has_attribute, select
     from molsysmt.configure import default_attribute
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+    partitions_1, nested_1 = _normalize_atom_partitions(atom_indices, "selection")
+    atom_indices = partitions_1 if nested_1 else partitions_1[0]
+    nested_2 = False
     if selection_2 is not None:
         atom_indices_2 = select(molecular_system, selection=selection_2, syntax=syntax)
+        partitions_2, nested_2 = _normalize_atom_partitions(
+            atom_indices_2, "selection_2"
+        )
+        atom_indices_2 = partitions_2 if nested_2 else partitions_2[0]
+        members_1 = {i for partition in partitions_1 for i in partition}
+        members_2 = {i for partition in partitions_2 for i in partition}
+        if members_1 & members_2:
+            raise ArgumentConflictError(
+                "selection",
+                "selection_2",
+                reason="Nonbonded interaction decomposition requires disjoint atom sets between the two axes.",
+                caller="molsysmt.molecular_mechanics.get_non_bonded_potential_energy",
+            )
     else:
+        if nested_1:
+            raise ArgumentConflictError(
+                "selection",
+                "selection_2",
+                reason="A partitioned selection requires an explicit second selection; internal energy accepts one flat selection.",
+                caller="molsysmt.molecular_mechanics.get_non_bonded_potential_energy",
+            )
         atom_indices_2 = None
 
     if engine == "OpenMM":
@@ -125,21 +205,32 @@ def get_non_bonded_potential_energy(
                 platform=platform,
             )
 
-        tmp_system = context.getSystem()
+        # Parameter masking must never edit the caller's engine System.
+        tmp_system = copy(context.getSystem())
 
-        non_bonded_force = None
-        non_bonded_forcegroup = None
-        for ii in range(tmp_system.getNumForces()):
-            force = tmp_system.getForce(ii)
-            if force.getName() == "NonbondedForce":
-                non_bonded_force = force
-                non_bonded_forcegroup = ii
-                non_bonded_force.setForceGroup(ii)
+        forces = list(tmp_system.getForces())
+        non_bonded_forces = [
+            force for force in forces if isinstance(force, mm.NonbondedForce)
+        ]
+        if len(non_bonded_forces) != 1:
+            raise NotImplementedMethodError(
+                method="nonbonded decomposition with exactly one OpenMM NonbondedForce",
+                arguments={"n_nonbonded_forces": len(non_bonded_forces)},
+                caller="molsysmt.molecular_mechanics.get_non_bonded_potential_energy",
+            )
+        for force in forces:
+            force.setForceGroup(1)
+        non_bonded_force = non_bonded_forces[0]
+        non_bonded_forcegroup = 0
+        non_bonded_force.setForceGroup(non_bonded_forcegroup)
+        non_bonded_force.setReciprocalSpaceForceGroup(non_bonded_forcegroup)
 
+        state = context.getState(getPositions=True)
+        tmp_system.setDefaultPeriodicBoxVectors(*state.getPeriodicBoxVectors())
         tmp_context = mm.Context(
             tmp_system, mm.VerletIntegrator(0.001), context.getPlatform()
         )
-        tmp_context.setPositions(context.getState(getPositions=True).getPositions())
+        tmp_context.setPositions(state.getPositions())
 
         original_particle_parameters = {}
         for ii in range(non_bonded_force.getNumParticles()):
@@ -176,9 +267,7 @@ def get_non_bonded_potential_energy(
             output = puw.standardize(output)
 
         else:
-            if not is_iterable_of_iterables(
-                atom_indices
-            ) and not is_iterable_of_iterables(atom_indices_2):
+            if not nested_1 and not nested_2:
                 output = _aux_openmm_crossed(
                     atom_indices,
                     atom_indices_2,
@@ -210,6 +299,28 @@ def get_non_bonded_potential_energy(
         raise NotImplementedError
 
 
+def _normalize_atom_partitions(atom_indices, argument):
+    """Normalize resolved atom sets without losing empty or repeated partitions."""
+    if atom_indices is None:
+        raise ArgumentError(
+            argument,
+            value=atom_indices,
+            caller="molsysmt.molecular_mechanics.get_non_bonded_potential_energy",
+        )
+    nested = bool(len(atom_indices)) and is_iterable_of_iterables(atom_indices)
+    partitions = atom_indices if nested else [atom_indices]
+    output = []
+    for partition in partitions:
+        if not all(isinstance(i, (int, np.integer)) for i in partition):
+            raise ArgumentError(
+                argument,
+                value=atom_indices,
+                caller="molsysmt.molecular_mechanics.get_non_bonded_potential_energy",
+            )
+        output.append(list(dict.fromkeys(partition)))
+    return output, nested
+
+
 def _aux_openmm(
     atoms_in,
     non_bonded_force,
@@ -220,6 +331,9 @@ def _aux_openmm(
 ):
 
     from openmm import unit
+
+    if not atoms_in:
+        return 0.0 * unit.kilojoule_per_mole
 
     for ii, parameters in original_particle_parameters.items():
         charge = parameters["charge"]
@@ -270,6 +384,9 @@ def _aux_openmm_crossed(
 ):
 
     from openmm import unit
+
+    if not atoms_in_1 or not atoms_in_2:
+        return 0.0 * unit.kilojoule_per_mole
 
     aux_exc_pars_11 = []
     aux_exc_pars_22 = []
@@ -433,11 +550,11 @@ def _aux_openmm_crossed_lists(
 
     from openmm import unit
 
-    if not is_iterable_of_iterables(atoms_in_1):
+    if not atoms_in_1 or not is_iterable_of_iterables(atoms_in_1):
         atoms_in_1 = [atoms_in_1]
 
-    if not is_iterable_of_iterables(atoms_in_2):
-        atoms_in_1 = [atoms_in_2]
+    if not atoms_in_2 or not is_iterable_of_iterables(atoms_in_2):
+        atoms_in_2 = [atoms_in_2]
 
     n_atoms_lists_in_1 = len(atoms_in_1)
     n_atoms_lists_in_2 = len(atoms_in_2)
@@ -468,11 +585,11 @@ def _aux_openmm_crossed_lists(
 
     for jj, aux in enumerate(atoms_in_1):
         for ii in aux:
-            inv_aux_dict_1[ii] = jj
+            inv_aux_dict_1.setdefault(ii, set()).add(jj)
 
     for jj, aux in enumerate(atoms_in_2):
         for ii in aux:
-            inv_aux_dict_2[ii] = jj
+            inv_aux_dict_2.setdefault(ii, set()).add(jj)
 
     for ii, parameters in original_particle_parameters.items():
         non_bonded_force.setParticleParameters(
@@ -486,41 +603,21 @@ def _aux_openmm_crossed_lists(
         sigma = parameters["sigma"]
         epsilon = parameters["epsilon"]
 
-        if particle1 in inv_aux_dict_1:
-            aa = inv_aux_dict_1[particle1]
-
-            if particle2 in inv_aux_dict_1:
-                bb = inv_aux_dict_1[particle2]
-
-                if aa == bb:
-                    aux_exc_pars_1[aa].append(
-                        [ii, particle1, particle2, chargeProd, sigma, epsilon]
-                    )
-
-            if particle2 in inv_aux_dict_2:
-                bb = inv_aux_dict_2[particle2]
-
-                aux_exc_pars_12[aa][bb].append(
-                    [ii, particle1, particle2, chargeProd, sigma, epsilon]
-                )
-
-        elif particle1 in inv_aux_dict_2:
-            bb = inv_aux_dict_2[particle1]
-
-            if particle2 in inv_aux_dict_2:
-                aa = inv_aux_dict_2[particle2]
-
-                if aa == bb:
-                    aux_exc_pars_2[aa].append(
-                        [ii, particle1, particle2, chargeProd, sigma, epsilon]
-                    )
-
-            if particle2 in inv_aux_dict_1:
-                aa = inv_aux_dict_1[particle2]
-
-                aux_exc_pars_12[aa][bb].append(
-                    [ii, particle1, particle2, chargeProd, sigma, epsilon]
-                )
+        first_1 = inv_aux_dict_1.get(particle1, set())
+        second_1 = inv_aux_dict_1.get(particle2, set())
+        first_2 = inv_aux_dict_2.get(particle1, set())
+        second_2 = inv_aux_dict_2.get(particle2, set())
+        parameters = [ii, particle1, particle2, chargeProd, sigma, epsilon]
+        for aa in sorted(first_1 & second_1):
+            aux_exc_pars_1[aa].append(parameters)
+        for bb in sorted(first_2 & second_2):
+            aux_exc_pars_2[bb].append(parameters)
+        for aa in sorted(first_1):
+            for bb in sorted(second_2):
+                aux_exc_pars_12[aa][bb].append(parameters)
+        for aa in sorted(second_1):
+            for bb in sorted(first_2):
+                aux_exc_pars_12[aa][bb].append(parameters)
 
         if chargeProd != 0.0 * unit.elementary_charge**2:
             non_bonded_force.setExceptionParameters(
@@ -734,6 +831,9 @@ def _aux_openmm_crossed_lists(
 
     for ii in range(n_atoms_lists_in_1):
         for jj in range(n_atoms_lists_in_2):
-            output[ii, jj] = output[ii, jj] - E1[ii] - E2[jj]
+            if atoms_in_1[ii] and atoms_in_2[jj]:
+                output[ii, jj] = output[ii, jj] - E1[ii] - E2[jj]
+            else:
+                output[ii, jj] = 0.0 * unit.kilojoule_per_mole
 
     return output

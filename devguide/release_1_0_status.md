@@ -20,6 +20,111 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Existing-engine minimization ownership — 2026-11-05
+
+**#588 is source-corrected.** Independent requests involving live OpenMM
+Context/Simulation inputs, including explicit output forms/files and composites,
+first use the public source-copy contract. Those copies remain unsupported and
+now raise before optimization or source-state changes. No snapshot rebuild,
+rollback or platform/model fallback is introduced. Native MolSys modes and
+explicit engine in-place editing retain their behavior; no new in-place rollback
+promise is made. Public signatures/defaults and physical models are unchanged.
+
+Receiving passes **1,847 affected tests**, **318 published-support-floor cases**,
+**569 documentation/doctest cases** and the executed seven-cell tutorial. Suites
+overlap. Twenty new engine/snapshot cases preserve State/System/Integrator and
+same-live-context checkpoint bytes on rejection, prove no optimizer invocation,
+cover explicit/file/composite outputs, retain intentional in-place behavior and
+clarify partial State snapshots. CPU native controls and actual Reference engine
+execution are included; GPU/cross-machine copying is not qualified. Checkpoints
+and serialized snapshots are test-only, with no product snapshot cache.
+
+See the [owning record](archive/resolved_bugs/independent_minimization_mutates_an_existing_engine_context_before_copy_failure.md)
+and [receipt](../devtools/data/engine_minimization_ownership_receiving_588_20261105.json).
+Docstrings, Foundations, Toolbox, Cookbook, five course lessons and three OpenMM
+form pages agree with the actual copy boundary. Nine prose-only notebooks retain
+all original executable evidence. **#592** owns a future faithful runtime/State
+copy contract in the existing adapters; it does not block this safety correction
+or claim a new cloning capability.
+
+Continue with **#583/#584**, then **#589**. The checkpoint board refresh also
+retains **#590/#591**, real-Jupyter addon outcome/CSS defects assigned to PR #543
+receiving, alongside **#587**. No native physics workaround is requested for those
+UI boundaries. Hosted runner, installed/platform and release evidence remain
+separate under #334. No tag, Release, promotion or new release matrix is launched.
+
+## Course minimization ownership — 2026-11-05
+
+**#562 is source-corrected.** All four Module 43 notebooks and Alzheimer Module
+54 retain the independent minimizer result used by subsequent steps. Unsupported
+tolerance keywords are removed. The optimizer runtime, public signature and
+engine defaults are unchanged; native independent/in-place ownership and units
+are documented consistently. Scientific prose now distinguishes local L-BFGS
+optimization from equilibrium, a nearest/global minimum or binding stability.
+
+The recovered, collected minimizer test includes four real CPU/Reference native
+mode controls and five tests executing the actual course call statements on a
+bounded model. Forgotten/unused results cannot satisfy genuine coordinate-change
+and energy-decrease assertions. Receiving passes **259 mechanics/digester tests**,
+**29 published-support-floor cases**, **569 documentation/doctest cases**, the
+focused ten-case run and the executed five-cell Toolbox tutorial. Suites overlap.
+Full network/ligand/membrane preparations remain unqualified; no course outputs
+are fabricated for sources that previously had none.
+
+See the [owning record](archive/resolved_bugs/course_minimization_discards_independent_results.md)
+and [receipt](../devtools/data/course_minimization_receiving_562_20261105.json).
+Foundations, Toolbox, Cookbook and course are aligned; Cookbook executable
+payloads and original course execution payloads are preserved.
+
+**New native defect #588:** existing Context/Simulation default independent
+requests minimize the source before failing on their unsupported copy route.
+Both forms are reproduced; explicit engine in-place operation succeeds. This is
+not fixed or waived by the native course correction. **#589** separately tracks
+the final project's reference-descriptor/interface-area misuse. Continue with
+#588 and #583/#584, then the remaining course observable and PR #543 receiving;
+#587 remains the separate board-pagination report. No new scientific capability,
+dependency floor, compiled code or schema is introduced. Publish an unskipped
+checkpoint and inspect its controls; installed/platform and release gates remain
+separate under #334, without tags or publication here.
+
+## Nonbonded partition shape and source ownership — 2026-11-05
+
+**#561 is source-corrected.** Flat/flat atom sets yield a scalar; partitioned
+inputs yield ordered rows from selection and columns from selection_2, including
+singleton axes. Typed empty entries, repeated partitions and overlaps within
+one axis are supported. Across-axis overlap and ambiguous partitioned internal
+requests receive explicit native diagnostics. The optimized evaluator is
+retained; its inverse map records every membership.
+
+A temporary engine System uses the existing public copy route and preserves
+source parameters, force groups and coordinates. Current context box vectors
+are retained. Standard nonbonded forces are isolated from other force groups;
+missing/multiple standard forces are rejected. The SMonitor catalog now shows
+conflict reasons and the unsupported method, using existing codes/classes.
+Public signatures/defaults, unit policy and dependency floors remain unchanged.
+
+Receiving: **1,818 affected tests**, **326 published-support-floor cases**,
+**569 documentation/doctest controls**, the final function doctest and the
+executed eight-cell tutorial. The 36-case function module includes scalar-cell
+parity, nesting/order, repeats, empty/invalid sets, unit policy, source ownership
+and a bounded current-cell cutoff control. This does not qualify arbitrary
+periodic/custom models or turn interaction energy into binding free energy.
+
+See the [owning record](archive/resolved_bugs/nonbonded_mixed_partitions_overwrite_first_selection.md)
+and [receipt](../devtools/data/nonbonded_partitions_receiving_561_20261105.json).
+Foundations, Toolbox, Cookbook and both relevant course modules are aligned;
+three prose-only notebooks retain original executable evidence. The tutorial's
+protein matrix is bounded to selected groups, with full lists an explicit
+larger request. An order-sensitive test previously confused lazy unit-library
+loading with policy mutation; it now checks policy and actual units separately.
+
+Next: **#562**, then incoming **#583/#584** and PR #543 expansion receiving.
+The board refresh also receives **#587**, a board-reconciliation pagination
+defect; offline devguide checks here do not claim complete board agreement.
+Publish an unskipped source checkpoint and inspect its own controls; hosted
+runner execution, installed/platform artifacts and release qualification remain
+separate under #334. No tag, Release, promotion or release matrix is launched.
+
 ## Engine-owned execution platform selection — 2026-11-05
 
 **#559 is source-corrected.** General mechanics validation accepts a nonempty

@@ -1340,11 +1340,13 @@ partition correctness or overlapping-selection semantics. Stored/default native
 mechanical settings determine the model; there is no hidden preparation,
 visible-structure substitution or trajectory loop.
 
-[#561](https://github.com/uibcdf/molsysmt/issues/561) remains a native limit:
-a partitioned first selection and a flat second selection raise TypeError.
-The facade propagates that failure without reshaping the scientific inputs.
-Use the qualified flat/flat or two-sided partition forms deliberately. Reads
-include completed pending edits without scene projection or history changes.
+The received [#561 repair](https://github.com/uibcdf/molsysmt/issues/561) also
+supports a partitioned axis paired with a flat selection. The flat side remains
+a singleton matrix axis: two partitions against one flat set give shape (2, 1),
+and the reversed inputs give (1, 2). The wrapper forwards these inputs and native
+outputs directly. Reads include completed pending edits without scene projection
+or history changes. Cross axes must be disjoint; repeated/shared members within
+one partition axis retain the native contract.
 
 `get_forces` is still unexposed: its native MolSys input route is requested in
 [#572](https://github.com/uibcdf/molsysmt/issues/572). An OpenMM-only reader does
@@ -1409,6 +1411,13 @@ appropriate single-structure system before this operation; no visible-structure
 inference or trajectory loop is added. No missing atoms, protonation states,
 force-field parameters or periodic images are prepared automatically.
 
+Only `method='L-BFGS'` is accepted. Existing OpenMM engine objects must satisfy
+the native independent-copy contract before optimization; unsupported detached
+Context/Simulation copies now reject before mutation, including explicit output
+forms. This is distinct from deliberate in-place engine execution. The addon's
+current primary remains its native MolSys; it does not cache an engine object
+as an alternate system or bypass these ownership checks.
+
 The received CPU route uses an explicit single-structure NoCutoff/HBonds model.
 Local optimization and an energy decrease do not certify a global minimum,
 equilibrium or physical stability. Converged coordinates can depend on model,
@@ -1425,10 +1434,9 @@ later device failures remain distinct. No platform is silently substituted.
 Named GPU/plugin admission is not GPU/device qualification. Existing native
 Context/Simulation inputs keep their actual execution platform.
 
-Nonbonded energy is exposed with explicit selection and physical limits; its
-mixed partition/flat-selection contract remains under
-[#561](https://github.com/uibcdf/molsysmt/issues/561). This is separate from
-platform receiving and does not imply arbitrary periodic partition accuracy.
+Nonbonded energy includes the received #561 mixed-axis repair, with explicit
+selection and physical limits. This is separate from platform receiving and
+does not imply arbitrary periodic partition accuracy.
 
 Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
 {func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`,

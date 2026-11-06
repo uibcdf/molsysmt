@@ -483,8 +483,9 @@ conversion/preflight from_naming_scheme when integrating owner changes.
 
 Preserve get_non_bonded_potential_energy as a serialized primary-bound reader
 with native selection_2, syntax, model, platform and energy-unit contracts.
-Keep internal versus disjoint cross contributions and two-sided partition axes
-explicit; preserve native mixed-partition #561 errors without reshaping inputs.
+Keep internal versus disjoint cross contributions, two-sided partitions and
+received mixed #561 axes explicit, including their singleton flat-side matrix
+axis. Forward inputs and native results without consumer-side reshaping.
 Retain the independent NoCutoff pair-energy reference and separate periodic/
 overlap/scientific limits. Native MolSys forces are pending #572: do not expose
 an always-rejected force method or add consumer-side parameterization.

@@ -1,0 +1,204 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#588",
+  "base_commit": "80ec9c1928a4dd43865c81a02ffab2f9a22c5959",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "versions_observed_at_closeout": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.0+20.ga5fe517",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "version_note": "Editable distribution metadata is an observation, not the current source Git identity or exact installed release qualification. Sibling working states may advance independently. Published floor payloads were checked separately by import origin and hash.",
+  "files": {
+    "devguide/archive/resolved_bugs/independent_minimization_mutates_an_existing_engine_context_before_copy_failure.md": "7ecb9781f56c6732b24baa7893fa73ec51bd1471e1c4843d586930d288279731",
+    "devguide/pending_proposals/define_faithful_openmm_runtime_and_state_snapshot_copy_contracts.md": "db1555a18da5d75a81511cd484c1da8e811806a37b549b5647fed043e72b6dc1",
+    "devguide/pending_bugs/README.md": "7d15a5045c2a14f53cb7f24984c9e7c3c98b814ecccf963f745170b2ad5b7f39",
+    "devguide/pending_proposals/README.md": "55196cb28ac687c5d3277375bc2cbe4c9c7a4bccd920215f14eeac05802ad639",
+    "devguide/release_1_0_status.md": "342a1aac976bfef3a5e51802b2033be67104a1b13acc11f7fbccc43c3569e757",
+    "docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb": "c7729aea0f88ac5ed5b346a47979b9e9f57321637442f9f7ef099ec87ef57c0e",
+    "docs/content/course/Path_Alzheimer/54_Final_Project.ipynb": "0c209f25fbb5b472ffda6099f2b0d79f9d4563c6f5e4a71afb47a94e475374fa",
+    "docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb": "99857fbf9d42e09d10a4c1e63a1d1e397c492ddf96ee9431568e264dd56cc5b9",
+    "docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb": "49d41da68ea07e25c183dae28d4db10757e2c47c05b61e3f48fe444c40400f08",
+    "docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb": "d480694e980423d3084ea0bac5ca02c66923420c7107956d8add8c2ca0169511",
+    "docs/content/user/cookbook/simulation_workflow.ipynb": "fb28e2167757acb1b7ed4874ecd99ba4ccb391b38c64563e3ed2d72c44576796",
+    "docs/content/user/foundations/support/molecular_mechanics.md": "bd298586d8574eb8b38799d7c2e8fbb9b8c98eb59045963825bd2a0935335878",
+    "docs/content/user/foundations/support/forms/classes.md": "cd9a46d42ed6124333d8f84187f1c7f28d4b42ce8ab0d6d01a0193a8b8b672db",
+    "docs/content/user/tools/form/class/openmm/openmm_Context.ipynb": "c4375e14f31073f62413a82880095ddc04f51abd87b235f19ecc54cb894d276d",
+    "docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb": "43e6ba85b5da98ea732648b3d1aa863966f0e6593bfd99bfb2aa28f699ce2239",
+    "docs/content/user/tools/form/class/openmm/openmm_State.ipynb": "429dc1f932f3acd23a3b48bed2cd3b4d87aecc895e4a29c34301799604a193f6",
+    "docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb": "f5c1cb823a14e10a05e202a372ce7a3af938e2f13960813fa3f6ad1e4c6c90c6",
+    "docs/content/user/tools/molecular_mechanics/potential_energy_minimization.nbconvert.last_run": "b33baae7ab9f201c75717f332be0d45fd4d6195eb1a40a99300d35c0fb491ef5",
+    "docs/docs_manifest.yml": "ca42c9ebcb0fbff7ef1a04639915d58e44181a6af5c779139dd90dc24b53edf9",
+    "molsysmt/basic/copy.py": "caadcb6ba831605feee2565eee4b24466f3e96c2af90928cd05d1e3ec68d3c63",
+    "molsysmt/form/openmm_Context/copy.py": "1f38da4a3d0fab30c34ad6e5ae36f2c8db9087f2720efe2071d838e87ac7f0d9",
+    "molsysmt/form/openmm_Simulation/copy.py": "6c3d470ccdd69d86071650e7feb849aa7c511ed82c19c42b3b11db925c62104c",
+    "molsysmt/form/openmm_State/copy.py": "bdfc4553354c4d21ec82832bfd22b9510e9db4e71920ddd89215077d6976fbfa",
+    "molsysmt/molecular_mechanics/potential_energy_minimization.py": "d57ba329f0540cee4377e9189283593eef186136494da994e75e4b3eb794f99e",
+    "tests/molecular_mechanics/potential_energy_minimization/test_potential_energy_minimization.py": "f9276bdfae29557095e03d35614516364566bd4aad3474a80cb836aac41fa259"
+  },
+  "archived_from": {
+    "devguide/pending_bugs/independent_minimization_mutates_an_existing_engine_context_before_copy_failure.md": "79c5f3df697a564d5a70b080ec613c52c148188a2753a145e5a771ee1141b698"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/molecular_mechanics tests/form/openmm_Context tests/form/openmm_Simulation tests/form/openmm_Topology tests/third_party/openmm/platforms tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/argdigest/test_mechanics_digesters.py tests/_private/smonitor tests/_private/test_smonitor_catalog_integrity.py tests/test_dependencies_architecture.py -m 'not network' --receptor=llm -n 4",
+      "exit_code": 0,
+      "passed": 1847,
+      "seconds": 120.68
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD:<argdigest-0.14.0>:<depdigest-0.15.1>:<smonitor-0.16.0>:<ackredit-0.9.0> MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest -p no:smonitor tests/molecular_mechanics/potential_energy_minimization tests/molecular_mechanics/test_platform_contract.py tests/_private/smonitor/test_exceptions.py tests/_private/test_smonitor_catalog_integrity.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 318,
+      "seconds": 16.25,
+      "note": "Runtime SMonitor stays active; only the editable pytest entry point is excluded under #524."
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/molecular_mechanics/potential_energy_minimization.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 569,
+      "seconds": 21.16
+    },
+    {
+      "command": "MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python docs/execute_notebooks.py -q -n 1 -f docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb",
+      "exit_code": 0,
+      "executed_notebooks": 1,
+      "code_cells": 7,
+      "seconds": 11.6
+    }
+  ],
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "baseline": {
+    "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/molecular_mechanics/potential_energy_minimization -k existing_engine_default --receptor=llm -n 2",
+    "failed": 2,
+    "exit_code": 1,
+    "seconds": 4.48,
+    "observed": "Serialized State and same-context checkpoint changed after independent copy failure for Context and Simulation."
+  },
+  "primary_source_review": {
+    "commit": "ba0aa236ac4d07241382869604c4d2ea58c4f3f5",
+    "files": {
+      "openmmapi/include/openmm/Context.h": "a1c6b438c9338b0c18011f145ba97d967570071c02c1ca6ef9554e7b62f10cae",
+      "openmmapi/src/ContextImpl.cpp": "1b6cb31e72bb13f646ff9721bdad14423b7f310c3eb202c06d8a8f9a84cc98c7",
+      "wrappers/python/tests/TestPickle.py": "e0ed5e226866737118a913d0edc4e386da258587777edbc2e09f249a0aba5147"
+    },
+    "meaning": "Reviewed upstream source identity, distinct from the installed OpenMM 8.6.1 qualification. State restoration is partial; checkpoints depend on model/platform/environment; no general runtime clone follows."
+  },
+  "contract": {
+    "independent_live_engine_input": "Public source-copy contract is applied before optimization, for standalone or composite engine input. Existing adapters reject unsupported copying.",
+    "explicit_output": "Cannot bypass source detachment; no requested file is created on refusal.",
+    "native_modes": "Independent/in-place native behavior retained.",
+    "engine_in_place": "Explicit request retains source model/platform and returns None; no rollback guarantee on an intentional edit failure.",
+    "State": "Existing registered snapshot form; copying remains unsupported, with a meaningful diagnostic and captured fields unchanged.",
+    "new_full_runtime_copy_implemented": false,
+    "copy_capability_followup": "uibcdf/molsysmt#592"
+  },
+  "guards": {
+    "function_module_cases": 29,
+    "new_engine_snapshot_cases": 20,
+    "existing_native_course_cases": 9,
+    "engine_fixture": "Bundled alanine dipeptide plus a current marker parameter; Reference live inputs with nondefault velocity/time/step/current box and seeded constrained integrator.",
+    "failure_snapshot_fields": [
+      "serialized State (positions, velocities, box, time, step, globals, integrator parameters)",
+      "serialized System",
+      "serialized Integrator",
+      "same-live-context checkpoint bytes",
+      "platform",
+      "Simulation reporters"
+    ],
+    "optimizer_not_called_on_rejection": true,
+    "checkpoints_in_production": false,
+    "raw_engine_CPU_or_GPU_execution_qualified": false,
+    "native_CPU_and_Reference_controls_included": true,
+    "partial_State_copy_cases": "With positions and energy-only; both preserve serialized fields on rejection."
+  },
+  "notebook_preservation": {
+    "prose_only": [
+      "docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb",
+      "docs/content/course/Path_Alzheimer/54_Final_Project.ipynb",
+      "docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb",
+      "docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb",
+      "docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb",
+      "docs/content/user/cookbook/simulation_workflow.ipynb",
+      "docs/content/user/tools/form/class/openmm/openmm_Context.ipynb",
+      "docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb",
+      "docs/content/user/tools/form/class/openmm/openmm_State.ipynb"
+    ],
+    "all_original_code_outputs_metadata_identical_to_base": true,
+    "tutorial": "Seven actual code cells demonstrate retained native modes, unchanged Reference source after refusal, and explicit Reference in-place editing."
+  },
+  "governance": [
+    "ruff check .",
+    "ruff format --check .",
+    "python devtools/scripts/validate_docstrings.py",
+    "python devtools/scripts/validate_public_api_stability.py",
+    "python devtools/scripts/validate_dependencies.py",
+    "python devtools/scripts/validate_course.py",
+    "python devtools/scripts/validate_devguide.py",
+    "python devtools/scripts/devguide_index.py --check",
+    "git diff --check"
+  ],
+  "scope": {
+    "public_signature_or_default_changed": false,
+    "optimizer_physical_model_changed": false,
+    "unit_policy_changed": false,
+    "dependency_floor_changed": false,
+    "new_Ackredit_scientific_event": false,
+    "compiled_kernel_changed": false,
+    "H5MSM_schema_changed": false,
+    "new_State_form_added": false,
+    "new_runtime_copy_capability": false
+  },
+  "runtime_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "queue_review": {
+    "next": [
+      "uibcdf/molsysmt#583",
+      "uibcdf/molsysmt#584",
+      "uibcdf/molsysmt#589"
+    ],
+    "addon_receiving": [
+      "uibcdf/molsysmt#587",
+      "uibcdf/molsysmt#590",
+      "uibcdf/molsysmt#591"
+    ],
+    "PR": "uibcdf/molsysmt#543",
+    "PR_head_last_observed": "e3d5d21a5289bec34f239a9a2010773de4cf1d1b",
+    "later_copy_capability": "uibcdf/molsysmt#592"
+  },
+  "limitations": [
+    "Unsupported engine copies are rejected safely, not newly implemented.",
+    "Snapshot/checkpoint comparisons are test evidence on the same live Reference context, not a portable copy or all-platform guarantee.",
+    "Explicit in-place backend failures do not acquire a rollback promise.",
+    "Other documented model/preparation/observable limitations and #583/#584/#589 remain separate.",
+    "Local overlapping source suites do not constitute hosted, installed/platform or release qualification."
+  ]
+}

@@ -192,20 +192,34 @@ def test_two_sided_group_matrix_matches_independent_pairs_and_keeps_inputs(
 
 
 @pytest.mark.parametrize("skip", [False, True])
-def test_native_mixed_partition_failure_is_retained_without_compensation(
-    view, engine, skip
+@pytest.mark.parametrize("platform", ["CPU", "Reference"])
+@pytest.mark.parametrize("partitioned_axis", ["rows", "columns"])
+def test_mixed_partition_energy_matches_independent_pairs_without_reshaping(
+    view, engine, skip, platform, partitioned_axis
 ):
     args = dict(
         selection="all in groups of group_index in [0,1]",
         selection_2=[40, 41],
+        platform=platform,
         skip_digestion=skip,
     )
-    before = snapshot(view)
-    with pytest.raises(TypeError) as native:
-        getattr(msm.molecular_mechanics, NAME)(view.molsys, **args)
-    with pytest.raises(type(native.value)) as actual:
-        method(view)(**args)
-    assert str(actual.value) == str(native.value)
+    groups = msm.select(view.molsys, args["selection"])
+    rows, columns = groups, [[40, 41]]
+    if partitioned_axis == "columns":
+        args["selection"], args["selection_2"] = args["selection_2"], args["selection"]
+        rows, columns = columns, rows
+    before_args, before = deepcopy(args), snapshot(view)
+    pairs = pair_energies(view.molsys)
+    expected = np.array([[pairs[np.ix_(a, b)].sum() for b in columns] for a in rows])
+    actual = method(view)(**args)
+    native = getattr(msm.molecular_mechanics, NAME)(view.molsys, **args)
+    assert actual.shape == (len(rows), len(columns))
+    for result in (actual, native):
+        energy_units(result)
+        np.testing.assert_allclose(
+            puw.get_value(result, to_unit="kJ/mol"), expected, rtol=2e-6, atol=2e-4
+        )
+    assert args == before_args
     unchanged(view, before)
 
 

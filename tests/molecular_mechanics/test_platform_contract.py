@@ -40,7 +40,10 @@ def test_cpu_reference_energy_parity_preserves_units_and_source(alanine_molsys, 
     with puw.context(
         standard_units=["angstrom", "ps", "kcal/mol", "e", "K", "radians"]
     ):
-        policy = puw.configure.report()
+        # Lazy unit backends may load during execution without changing policy.
+        policy = {
+            k: v for k, v in puw.configure.report().items() if k != "loaded_libraries"
+        }
         cpu = msm.molecular_mechanics.get_potential_energy(molsys, platform="CPU")
         reference = msm.molecular_mechanics.get_potential_energy(
             molsys, platform="Reference"
@@ -55,7 +58,9 @@ def test_cpu_reference_energy_parity_preserves_units_and_source(alanine_molsys, 
             atol=1e-3,
             rtol=1e-6,
         )
-        assert puw.configure.report() == policy
+        assert {
+            k: v for k, v in puw.configure.report().items() if k != "loaded_libraries"
+        } == policy
     np.testing.assert_array_equal(
         puw.get_value(msm.get(molsys, coordinates=True), to_unit="nm"), coordinates
     )

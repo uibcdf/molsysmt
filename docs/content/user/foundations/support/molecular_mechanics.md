@@ -47,6 +47,8 @@ Cutoff parameters, electrostatics algorithms, and continuum dielectric propertie
 | **`salt_concentration`** | Real positive quantity | Ionic strength for Debye-Hückel / Generalized Born screening. | `molar` (`M`) |
 | **`solute_dielectric`** | Real positive scalar | Relative dielectric permittivity inside the solute cavity (solute dielectric). | N/A |
 | **`solvent_dielectric`** | Real positive scalar | Relative dielectric permittivity of bulk solvent (solvent dielectric). | N/A |
+| **`dispersion_correction`** | Boolean | Analytical long-range dispersion correction for energy and pressure. | N/A |
+| **`ewald_error_tolerance`** | Real positive scalar | Target relative error tolerance for PME / Ewald direct-space sum. | N/A |
 
 For the current OpenMM OBC adapters, the executed recipe uses mbondi2 radii,
 the ACE surface term, solute/solvent dielectric constants 1/78.5 and zero salt
@@ -61,8 +63,14 @@ See the [OpenMM model definitions](https://docs.openmm.org/latest/userguide/appl
 and [Onufriev, Bashford and Case (2004)](https://doi.org/10.1002/prot.20033).
 The scientific variant and the engine actually executing it have distinct
 attribution roles. Metadata lookup alone records no scientific execution.
-| **`dispersion_correction`** | Boolean | Analytical long-range dispersion correction for energy and pressure. | N/A |
-| **`ewald_error_tolerance`** | Real positive scalar | Target relative error tolerance for PME / Ewald direct-space sum. | N/A |
+
+An interaction-energy decomposition describes the configured physical model
+at one configuration. Two atom sets must be disjoint between the axes; lists
+of sets define ordered matrix rows and columns. Empty sets have zero energy
+with units. Repeated partitions and shared atoms within an axis are separate
+entries, so adding them may double count contributions. Units follow the active
+quantity policy. Standard non-bonded force contributions do not include an
+implicit-solvent or arbitrary custom force and are not binding free energies.
 
 ---
 
@@ -91,3 +99,19 @@ migrate them. A failed explicit request does not choose another platform. The
 Reference implementation can be used for small numerical checks against other
 platforms, with tolerances reflecting their precision and settings. See the
 [engine's platform documentation](https://docs.openmm.org/latest/userguide/library/04_platform_specifics.html).
+
+Coordinate optimization is distinct from model preparation and dynamics.
+It requires appropriate chemistry, spatial assembly and force-field parameters.
+An independent native result must be retained for later analysis; an explicit
+in-place operation edits the source and returns no replacement system. A local
+energy decrease does not establish the nearest/global minimum, equilibrium,
+binding free energy or thermodynamic stability. Energy comparisons must retain
+the same physical model, constraints and unit convention.
+
+Independent work on a live engine object requires a supported copy operation
+before optimization. Existing OpenMM Context/Simulation copy adapters are
+currently unsupported, so such requests fail without changing the source; an
+explicit output form or composite input does not bypass that check. A captured
+State contains selected observations, not the complete runtime/model. Deliberate
+engine in-place work retains the original model/platform and its distinct
+mutation semantics.

@@ -548,11 +548,11 @@ sections:
             file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb.AGENTS.md
           - name: get_non_bonded_potential_energy
-            description: Nonbonded energies with explicit platform selection and distinct lookup/availability/execution outcomes.
+            description: Nonbonded atom-set and partitioned energy shapes, typed empty entries, input preservation, unit policy and scientific model limits with engine-owned platforms.
             file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb.AGENTS.md
           - name: potential_energy_minimization
-            description: Existing minimization semantics with engine-owned platform names, explicit failures and retained Context/Simulation platform identity.
+            description: Native minimization ownership and units, preflight engine-copy refusal including explicit/composite outputs, deliberate engine in-place editing, and scientific interpretation limits.
             file: docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb.AGENTS.md
       - name: element
@@ -587,7 +587,7 @@ sections:
         index_file: docs/content/user/tools/form/index.md
         index_agents_file: docs/content/user/tools/form/index.AGENTS.md
         status: pending_review
-        description: Form contracts, including bounded GRO native/OpenMM bridges, selected coordinate and box correspondence, complete-handler copies and preserved reader ownership.
+        description: Form contracts, including bounded GRO bridges, selected coordinate/box correspondence, reader ownership and explicitly unsupported OpenMM runtime/snapshot copies.
         pages:
           - name: cif_primary_observations
             file: docs/content/user/tools/form/file/file_cif.ipynb

@@ -16,11 +16,12 @@ def potential_energy_minimization(
     verbose=False,
 ):
     """
-    Relax a molecular system to a local minimum of the potential energy.
+    Minimizing potential energy with the selected engine's local optimizer.
 
     Performs energy minimization using the chosen backend optimizer. The minimized
     coordinates are applied either in-place to the original molecular system or to
-    a new copy depending on the ``in_place`` flag.
+    an independent result for forms supporting the requested copy/conversion.
+    Native MolSys examples below make that ownership choice explicit.
 
 
     Parameters
@@ -53,7 +54,7 @@ def potential_energy_minimization(
         When ``in_place=False``, returns a molecular system with the minimized
         coordinates in the form specified by ``to_form`` (or the original form).
         When ``in_place=True``, returns None and updates ``molecular_system`` in
-        place (only applicable for non-Context/Simulation forms).
+        place. Existing Context/Simulation inputs operate on their engine context.
 
 
     Raises
@@ -67,6 +68,9 @@ def potential_energy_minimization(
 
     NotImplementedError
         Raised if the requested ``engine`` is not supported.
+    NotImplementedMethodError
+        If detaching an existing engine input is unsupported. This is checked
+        before optimization, including when an explicit output form is requested.
 
 
     Notes
@@ -76,9 +80,44 @@ def potential_energy_minimization(
     default attributes for any missing molecular-mechanics parameters (forcefield,
     integrator, temperature, etc.).
 
-    The minimization is performed by OpenMM's ``LocalEnergyMinimizer.minimize``,
-    which converges to the nearest local minimum of the force-field potential
-    energy surface.
+    The implemented OpenMM path uses LocalEnergyMinimizer's L-BFGS algorithm
+    with engine default stopping settings. This public function does not expose
+    tolerance or iteration-count parameters. Constrained force components need
+    not all vanish. Local optimization does not guarantee the nearest or global
+    minimum, thermodynamic stability, equilibrium or a stable bound complex.
+    Chemistry, spatial assembly and force-field parameters must already be
+    appropriate. Extract one structure explicitly for a native MolSys input.
+
+    Existing engine inputs must satisfy the public independent-copy contract
+    before an independent optimization starts. OpenMM Context/Simulation copy
+    routes are currently unimplemented, so in_place=False raises before any
+    optimization or input-state change. An explicit to_form or a composite
+    input containing an engine object does not bypass this ownership check.
+    Use a prepared native MolSys for an independent workflow, or deliberately
+    request in_place=True on an existing engine object. In-place execution
+    operates on its actual model/platform and returns None; no rollback is
+    promised after an explicitly requested in-place engine failure.
+
+    See Also
+    --------
+    molsysmt.molecular_mechanics.get_potential_energy
+        Comparing energies under the same model before and after optimization.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], structure_indices=0)
+    >>> minimized = msm.molecular_mechanics.potential_energy_minimization(molsys, platform='Reference')
+    >>> minimized is molsys
+    False
+    >>> result = msm.molecular_mechanics.potential_energy_minimization(molsys, in_place=True, platform='Reference')
+    >>> result is None
+    True
+
+    .. admonition:: Tutorial with more examples
+
+       See :ref:`Tutorial_Potential_energy_minimization` for independent and
+       in-place native workflows, units and interpretation limits.
 
 
     .. versionadded:: 1.0.0
@@ -91,12 +130,22 @@ def potential_energy_minimization(
         from openmm import LocalEnergyMinimizer
 
         form_in = get_form(molecular_system)
+        source_forms = form_in if isinstance(form_in, (list, tuple)) else [form_in]
+        engine_input = any(
+            form in ("openmm.Context", "openmm.Simulation") for form in source_forms
+        )
+        # Existing engine objects can be shared by conversion routes. Detach
+        # them through the form's copy contract before any optimization.
+        detached_input = not in_place and engine_input
+        calculation_system = (
+            copy(molecular_system) if detached_input else molecular_system
+        )
 
         if form_in == "openmm.Context":
-            context = molecular_system
+            context = calculation_system
 
         elif form_in == "openmm.Simulation":
-            context = molecular_system.context
+            context = calculation_system.context
 
         else:
             extra_conversion_arguments = {}
@@ -121,7 +170,7 @@ def potential_energy_minimization(
                     extra_conversion_arguments[att] = default_attribute[att]
 
             context = convert(
-                molecular_system,
+                calculation_system,
                 to_form="openmm.Context",
                 **extra_conversion_arguments,
                 platform=platform,
@@ -146,9 +195,11 @@ def potential_energy_minimization(
             pass
         else:
             if to_form is None:
-                output = copy(molecular_system)
+                output = (
+                    calculation_system if detached_input else copy(molecular_system)
+                )
             else:
-                output = convert(molecular_system, to_form=to_form)
+                output = convert(calculation_system, to_form=to_form)
             coordinates = state_post_min.getPositions(asNumpy=True)
             set(output, coordinates=coordinates)
             return output
