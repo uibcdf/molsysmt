@@ -103,6 +103,299 @@ def calculate(case, task="distances", *, a=A, b=B, **parameters):
     return result
 
 
+def _conformation_oracle(
+    xyz, task, atoms, structures, reference_atoms, reference, weights=None
+):
+    selected = xyz[structures][:, atoms]
+    if task == "rmsf":
+        return np.sqrt(
+            np.mean(np.sum((selected - selected.mean(axis=0)) ** 2, axis=2), axis=0)
+        )
+    if task == "gyration":
+        center = np.average(selected, axis=1, weights=weights)
+        squared = np.sum((selected - center[:, None]) ** 2, axis=2)
+        return np.sqrt(np.average(squared, axis=1, weights=weights))
+    target = xyz[reference, reference_atoms]
+    if task == "rmsd":
+        return np.sqrt(np.mean(np.sum((selected - target) ** 2, axis=2), axis=1))
+    target = target - target.mean(axis=0)
+    results = []
+    for coords in selected:
+        centered = coords - coords.mean(axis=0)
+        u, _, vt = np.linalg.svd(centered.T @ target)
+        correction = np.diag([1.0, 1.0, np.linalg.det(u @ vt)])
+        fitted = centered @ (u @ correction @ vt)
+        results.append(np.sqrt(np.mean(np.sum((fitted - target) ** 2, axis=1))))
+    return np.array(results)
+
+
+@pytest.mark.parametrize("task", ["rmsd", "least_rmsd", "gyration", "rmsf"])
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+@pytest.mark.parametrize("structures", ["2, 0, 2", "1"])
+def test_conformations_preserve_native_axes_and_match_independent_geometry(
+    case, task, unit, structures
+):
+    view, sent, panel = case
+    before = snapshot(view)
+    atoms = [4, 0, 2, 4]
+    draft = {**A, "indices": "4,0,2,4"}
+    frames = [int(i) for i in structures.replace(",", " ").split()]
+    coords = puw.get_value(view.molsys.structures.coordinates, to_unit="nm")
+    expected = _conformation_oracle(coords, task, atoms, frames, atoms, 1)
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        result = calculate(
+            case, task, a=draft, indices=structures, reference_structure="1"
+        )
+        assert puw.get_unit(panel._report.values) == puw.unit(unit)
+    assert result["report"]["family"] == "conformation"
+    assert result["report"]["structure_indices"] == frames
+    assert result["report"]["result_axis"] == (
+        "atom" if task == "rmsf" else "structure"
+    )
+    rows = result["page"]["rows"]
+    assert [row[0] for row in rows] == (atoms if task == "rmsf" else frames)
+    np.testing.assert_allclose([float(row[1]) for row in rows], expected, atol=2e-9)
+    np.testing.assert_allclose(
+        puw.get_value(panel._report.values, to_unit="nm"), expected, atol=2e-9
+    )
+    assert result["report"]["reference_structure_index"] == (
+        1 if "rmsd" in task else None
+    )
+    assert result["report"]["requested_pbc"] is False
+    unchanged(view, before)
+
+
+@pytest.mark.parametrize("task", ["rmsd", "least_rmsd"])
+def test_rmsd_reference_atoms_are_explicit_positional_correspondence(case, task):
+    view, _, panel = case
+    before = snapshot(view)
+    atoms, reference_atoms = [4, 0, 2, 4], [5, 2, 3, 5]
+    result = calculate(
+        case,
+        task,
+        a={**A, "indices": "4 0 2 4"},
+        b={**B, "indices": "5 2 3 5"},
+        reference_population="second",
+        reference_structure="1",
+    )
+    xyz = puw.get_value(view.molsys.structures.coordinates, to_unit="nm")
+    expected = _conformation_oracle(xyz, task, atoms, FRAMES, reference_atoms, 1)
+    np.testing.assert_allclose(
+        puw.get_value(panel._report.values, to_unit="nm"), expected, atol=2e-9
+    )
+    assert result["report"]["second_atoms"] == 4
+    unchanged(view, before)
+
+
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+def test_gyration_mass_weighting_uses_native_standard_mass_table_without_edits(
+    case, unit
+):
+    view, _, panel = case
+    before = snapshot(view)
+    atoms = [4, 0, 2, 4]
+    masses = puw.get_value(
+        msm.physchem.get_mass(view.molsys, element="atom", selection=atoms),
+        to_unit="dalton",
+    )
+    xyz = puw.get_value(view.molsys.structures.coordinates, to_unit="nm")
+    expected = _conformation_oracle(xyz, "gyration", atoms, FRAMES, atoms, 0, masses)
+    with puw.context(standard_units=[unit, "ps", "dalton"]):
+        calculate(case, "gyration", a={**A, "indices": "4 0 2 4"}, weighting="masses")
+    np.testing.assert_allclose(
+        puw.get_value(panel._report.values, to_unit="nm"), expected, atol=2e-12
+    )
+    unchanged(view, before)
+
+
+def test_mass_weighting_retains_native_missing_mass_unit_diagnostic(case):
+    view, sent, _ = case
+    before = snapshot(view)
+    with puw.context(standard_units=["nm", "ps"]):
+        result = act(
+            view, sent, draft=A, parameters={"task": "gyration", "weighting": "masses"}
+        )
+    assert result["stage"] == "error" and "standard units" in result["message"]
+    unchanged(view, before)
+
+
+@pytest.mark.parametrize("task", ["rmsd", "least_rmsd", "gyration"])
+def test_deliberate_structure_plot_uses_core_axis_ownership_and_survives_clear(
+    case, task
+):
+    view, sent, panel = case
+    result = calculate(
+        case,
+        task,
+        a={**A, "indices": "4 0 2 4"},
+        structures="all",
+        reference_structure="1",
+    )
+    native_values = puw.get_value(panel._report.values, to_unit="nm").copy()
+    assert not result["report"]["plot_unavailable"]
+    source = snapshot(view)
+    plotted = act(view, sent, "add_structure_plot", report_id=result["report"]["id"])
+    assert plotted["stage"] == "scene", plotted["message"]
+    tag = plotted["scene_action"]["plot_tag"]
+    record = view.trajectory_plot.records()[0]
+    assert record["tag"] == tag and record["n_frames"] == 3
+    assert record["x_label"] == "Structure index" and record["y_label"] == "Length (nm)"
+    np.testing.assert_allclose(record["series"][0]["values"], native_values)
+    assert panel._report.token == result["report"]["id"]
+    # Repeating adoption updates the same core object, never recalculates science.
+    act(view, sent, "add_structure_plot", report_id=result["report"]["id"])
+    assert len(view.trajectory_plot.records()) == 1
+    act(view, sent, "clear")
+    assert panel._report is None and view.trajectory_plot.records()[0]["tag"] == tag
+    assert view.molsys is source[0]
+    same(view.molsys, source[1])
+    assert view.addons.molsysmt.get_sync_status() == source[3]
+
+
+@pytest.mark.parametrize(
+    "task,structures",
+    [
+        ("rmsf", "0,1,2"),
+        ("rmsd", "2,0"),
+        ("gyration", "2,1,0"),
+        ("least_rmsd", "0,0,2"),
+    ],
+)
+def test_nonstructure_or_partial_reordered_repeated_axes_cannot_be_padded_into_plot(
+    case, task, structures
+):
+    view, sent, _ = case
+    result = calculate(case, task, a={**A, "indices": "4 0 2 4"}, indices=structures)
+    before = snapshot(view)
+    assert result["report"]["plot_unavailable"]
+    rejected = act(view, sent, "add_structure_plot", report_id=result["report"]["id"])
+    assert rejected["stage"] == "error"
+    assert not view.trajectory_plot.records()
+    unchanged(view, before)
+
+
+def test_rmsf_rows_page_atom_indices_and_select_one_source_atom(case):
+    view, sent, panel = case
+    atoms = list(range(view.molsys.get_n_atoms())) + [4, 0]
+    result = calculate(case, "rmsf", a={**A, "indices": " ".join(map(str, atoms))})
+    assert result["page"]["columns"] == ["Atom index", "Value (nm)"]
+    assert len(result["page"]["rows"]) == 50 and result["page"]["total"] == len(atoms)
+    report_id = result["report"]["id"]
+    page = act(view, sent, "page", report_id=report_id, offset=50)
+    assert [row[0] for row in page["page"]["rows"]] == atoms[50:100]
+    selected = act(view, sent, "select_participants", report_id=report_id, row_index=51)
+    assert selected["stage"] == "scene"
+    assert selected["scene_action"]["observation_structure_index"] is None
+    assert view.active_selection.atom_indices == [atoms[51]]
+    rejected = act(view, sent, "add_live_distance", report_id=report_id, row_index=51)
+    assert rejected["stage"] == "error" and "not a pair distance" in rejected["message"]
+    assert panel._report is not None
+
+
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {"reference_structure": "-1"},
+        {"reference_structure": "3"},
+        {"reference_structure": "0.5"},
+        {"reference_population": "unknown"},
+        {"reference_structure": 0},
+    ],
+)
+def test_conformation_reference_validation_preserves_data_and_scene(case, parameters):
+    view, sent, _ = case
+    before = snapshot(view)
+    result = act(view, sent, draft=A, parameters={"task": "rmsd", **parameters})
+    assert result["stage"] == "error"
+    unchanged(view, before)
+
+
+def test_conformation_pending_reader_uses_current_coordinates_without_projecting_plot(
+    case,
+):
+    view, sent, panel = case
+    coordinates = puw.get_value(view.molsys.structures.coordinates, to_unit="nm").copy()
+    coordinates[2, 4] += [0.3, 0.1, -0.2]
+    view.addons.molsysmt.basic.set(
+        coordinates=puw.quantity(coordinates, "nm"), update_view=False
+    )
+    before = snapshot(view)
+    result = calculate(case, "rmsd", structures="all")
+    expected = _conformation_oracle(
+        coordinates, "rmsd", [4, 0, 4], [0, 1, 2], [4, 0, 4], 0
+    )
+    np.testing.assert_allclose(
+        puw.get_value(panel._report.values, to_unit="nm"), expected
+    )
+    assert result["context"]["state"] == "pending"
+    assert "add_structure_plot" not in panel.read_only_actions
+    start = len(sent)
+    act(view, sent, "add_structure_plot", report_id=result["report"]["id"])
+    assert panel._report.token == result["report"]["id"]
+    assert not any(
+        message.get("op") == "set_trajectory_plot" for message in sent[start:]
+    )
+    unchanged(view, before)
+
+
+@pytest.mark.parametrize(
+    "change", ["revision", "reference_selection", "unmount", "foreign"]
+)
+def test_stale_conformation_results_cannot_publish_plots(case, change):
+    view, sent, panel = case
+    draft = {**A, "source": "saved", "value": "chosen"}
+    result = calculate(case, "gyration", a=draft, structures="all")
+    token = result["report"]["id"]
+    if change == "revision":
+        view.addons.molsysmt.structure.translate(
+            translation=puw.quantity([1, 0, 0], "nm"), in_place=True
+        )
+    elif change == "reference_selection":
+        view.selections.delete("chosen")
+    elif change == "unmount":
+        view._handle_frontend_event(
+            {"event": "panel_unmount", "addon": "molsysmt", "panel": "analysis"}
+        )
+        mount(view)
+    else:
+        token = "foreign"
+    before = snapshot(view)
+    rejected = act(view, sent, "add_structure_plot", report_id=token)
+    assert rejected["stage"] == "error" and "expired" in rejected["message"]
+    unchanged(view, before)
+
+
+def test_plot_failure_and_retry_do_not_repeat_the_native_calculation(case, monkeypatch):
+    view, sent, panel = case
+    calls = []
+    method = view.addons.molsysmt.structure.get_radius_of_gyration
+
+    def counted(**parameters):
+        calls.append(parameters)
+        return method(**parameters)
+
+    monkeypatch.setattr(
+        view.addons.molsysmt.structure, "get_radius_of_gyration", counted
+    )
+    result = calculate(case, "gyration", structures="all")
+    values = panel._report.values
+    show = view.trajectory_plot.show
+
+    def rejected(*args, **kwargs):
+        raise RuntimeError("Injected plot failure before publication")
+
+    monkeypatch.setattr(view.trajectory_plot, "show", rejected)
+    failed = act(view, sent, "add_structure_plot", report_id=result["report"]["id"])
+    assert failed["stage"] == "error" and len(calls) == 1
+    assert panel._report.values is values and not view.trajectory_plot.records()
+    refreshed = act(view, sent, "refresh")
+    assert "Injected plot failure" in refreshed["message"]
+    monkeypatch.setattr(view.trajectory_plot, "show", show)
+    retried = act(view, sent, "add_structure_plot", report_id=result["report"]["id"])
+    assert retried["stage"] == "scene" and len(calls) == 1
+    assert panel._report.values is values
+
+
 @pytest.mark.parametrize("task", ["distances", "minimum", "maximum"])
 @pytest.mark.parametrize("unit", ["nm", "pm"])
 def test_native_distances_extrema_order_and_units_against_coordinate_oracle(

@@ -444,6 +444,40 @@ def main():
                 "print('JUPYTER_ANALYSIS_ENSEMBLE_OK',view.player.n_structures)\n",
             ]
         )
+    if args.scenario == "analysis":
+        cells.extend(
+            [
+                "_conformation_atoms=[4,0,2,4]\n"
+                "_conformation_xyz=_ensemble_xyz[:,_conformation_atoms]\n"
+                "_conformation_reference=_conformation_xyz[1]\n"
+                "_conformation_rmsd=np.sqrt(np.mean(np.sum((_conformation_xyz-_conformation_reference)**2,axis=2),axis=1))\n"
+                "_conformation_rg=np.sqrt(np.mean(np.sum((_conformation_xyz-_conformation_xyz.mean(axis=1)[:,None])**2,axis=2),axis=1))\n"
+                "_conformation_rmsf=np.sqrt(np.mean(np.sum((_conformation_xyz[[2,0,2]]-_conformation_xyz[[2,0,2]].mean(axis=0))**2,axis=2),axis=0))\n"
+                "_conformation_least=[]\n"
+                "_reference_centered=_conformation_reference-_conformation_reference.mean(axis=0)\n"
+                "for _pose in _conformation_xyz:\n"
+                "    _centered=_pose-_pose.mean(axis=0)\n"
+                "    _u,_singular,_vt=np.linalg.svd(_centered.T@_reference_centered)\n"
+                "    _rotation=_u@np.diag([1.,1.,np.linalg.det(_u@_vt)])@_vt\n"
+                "    _conformation_least.append(float(np.sqrt(np.mean(np.sum((_centered@_rotation-_reference_centered)**2,axis=1)))))\n"
+                f"Path({str(output / 'conformation-expected.json')!r}).write_text(json.dumps({{'rmsd':_conformation_rmsd.tolist(),'least_rmsd':_conformation_least,'gyration':_conformation_rg.tolist(),'rmsf':_conformation_rmsf.tolist()}}))\n"
+                "_conformation_callbacks=[]\nview.on_frame_change(_conformation_callbacks.append)\n"
+                "print('JUPYTER_CONFORMATION_ORACLES_OK',3)\n",
+                "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_ensemble_xyz)\n"
+                "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),_ensemble_chemistry)\n"
+                "assert view.addons.molsysmt.get_sync_status()['target_revision']==0\n"
+                "assert [event['frame'] for event in _conformation_callbacks]==[1,2], repr(_conformation_callbacks)\n"
+                "assert view.player.index==2, f'Expected current structure 2, got {view.player.index}'\n"
+                "assert len(view.measurements.info())==1\n"
+                "_plots=view.trajectory_plot.records()\nassert len(_plots)==2\n"
+                "_plot_values={_plot['title']:_plot['series'][0]['values'] for _plot in _plots}\n"
+                "assert set(_plot_values)=={'Radius of gyration','RMSD without superposition'}\n"
+                "np.testing.assert_allclose(_plot_values['Radius of gyration'],_conformation_rg)\n"
+                "np.testing.assert_allclose(_plot_values['RMSD without superposition'],_conformation_rmsd,atol=1e-12)\n"
+                "assert all(_plot['n_frames']==3 and _plot['x_label']=='Structure index' and _plot['y_label']=='Length (nm)' for _plot in _plots)\n"
+                "print('JUPYTER_CONFORMATION_SCENE_OK',len(_plots))\n",
+            ]
+        )
     (output / "notebooks/system.ipynb").write_text(json.dumps(_notebook(cells)))
     (output / "notebooks/plain.ipynb").write_text(
         json.dumps(_notebook(["print('PLAIN_JUPYTER_CONTROL_OK', 1 + 1)\n"]))

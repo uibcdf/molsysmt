@@ -1,4 +1,4 @@
-"""Native distance-family queries with bounded pages and explicit source axes."""
+"""Native molecular analyses with bounded pages and explicit source axes."""
 
 from dataclasses import dataclass
 from math import isfinite
@@ -26,15 +26,30 @@ _DEFAULTS = {
     "cutoff": "0.35",
     "cutoff_unit": "nm",
     "count": "5",
+    "reference_structure": "0",
+    "reference_population": "same",
+    "weighting": "uniform",
+}
+_CONFORMATION_METHODS = {
+    "rmsd": "get_rmsd",
+    "least_rmsd": "get_least_rmsd",
+    "gyration": "get_radius_of_gyration",
+    "rmsf": "get_rmsf",
 }
 _METHODS = {
     "distances": "get_distances",
     "minimum": "get_minimum_distances",
     "maximum": "get_maximum_distances",
     "neighbors": "get_neighbors",
+    **_CONFORMATION_METHODS,
 }
 _PAGE_SIZE = 50
-_SCENE_ACTIONS = {"select_participants", "focus_participants", "add_live_distance"}
+_SCENE_ACTIONS = {
+    "select_participants",
+    "focus_participants",
+    "add_live_distance",
+    "add_structure_plot",
+}
 
 
 def _parameters(value):
@@ -50,12 +65,14 @@ def _parameters(value):
         "structures": {"current", "all", "indices"},
         "neighbor_mode": {"cutoff", "count"},
         "cutoff_unit": {"nm", "angstrom", "pm"},
+        "reference_population": {"same", "second"},
+        "weighting": {"uniform", "masses"},
     }.items():
         if not isinstance(result[key], str) or result[key] not in choices:
             raise ValueError(
                 "Choose supported analysis, population and structure options."
             )
-    for key in ("indices", "cutoff", "count"):
+    for key in ("indices", "cutoff", "count", "reference_structure"):
         if not isinstance(result[key], str) or len(result[key]) > (
             4096 if key == "indices" else 64
         ):
@@ -87,6 +104,16 @@ class _AnalysisReport:
     total: int
     periodic: bool
     software: str
+    reference_frame: int | None = None
+
+
+def _uses_second(parameters):
+    if parameters["task"] in _CONFORMATION_METHODS:
+        return (
+            parameters["task"] in {"rmsd", "least_rmsd"}
+            and parameters["reference_population"] == "second"
+        )
+    return parameters["relation"] == "between"
 
 
 class _AnalysisPanel(_MolecularTaskPanel):
@@ -162,6 +189,8 @@ class _AnalysisPanel(_MolecularTaskPanel):
             )
         p = self._parameters
         first = self._population(target, self._draft, status)
+        if p["task"] in _CONFORMATION_METHODS:
+            return self._calculate_conformation(target, status, first)
         between = p["relation"] == "between"
         second = self._population(target, self._second, status) if between else first
         frames = _structures(
@@ -289,6 +318,86 @@ class _AnalysisPanel(_MolecularTaskPanel):
             str(msm.__version__)[:200],
         )
 
+    def _calculate_conformation(self, target, status, atoms):
+        import molsysmt as msm
+
+        p = self._parameters
+        frames = _structures(
+            p["structures"],
+            p["indices"],
+            int(target.structures.n_structures),
+            int(self._view.player.index),
+            allow_repeated=True,
+        )
+        arguments = {
+            "selection": atoms.tolist(),
+            "structure_indices": frames,
+            "engine": "MolSysMT",
+        }
+        reference_frame = None
+        reference_atoms = np.empty(0, dtype=np.int64)
+        if p["task"] in {"rmsd", "least_rmsd"}:
+            try:
+                reference_frame = int(p["reference_structure"])
+            except ValueError as exc:
+                raise ValueError(
+                    "Choose an integer reference structure index."
+                ) from exc
+            if not 0 <= reference_frame < int(target.structures.n_structures):
+                raise ValueError(
+                    "The reference structure index is outside this system."
+                )
+            reference_atoms = (
+                self._population(target, self._second, status)
+                if _uses_second(p)
+                else atoms
+            )
+            if len(reference_atoms) != len(atoms):
+                raise ValueError(
+                    "Query and reference populations need equal atom counts in the intended correspondence order."
+                )
+            arguments.update(
+                reference_selection=reference_atoms.tolist(),
+                reference_structure_index=reference_frame,
+                use_gpu=False,
+            )
+        elif p["task"] == "gyration":
+            arguments.update(
+                weights="masses" if p["weighting"] == "masses" else None, use_gpu=False
+            )
+        result = getattr(self._owner.structure, _CONFORMATION_METHODS[p["task"]])(
+            **arguments
+        )
+        raw = np.asarray(msm.pyunitwizard.get_value(result))
+        count = len(atoms) if p["task"] == "rmsf" else len(frames)
+        if raw.shape != (count,) or not np.all(np.isfinite(raw)):
+            raise ValueError(
+                "The native result does not provide finite values on the declared atom or structure axis."
+            )
+        return _AnalysisReport(
+            token_urlsafe(18),
+            ref(target),
+            status["target_revision"],
+            int(self._view.player.index),
+            dict(self._draft),
+            dict(self._second),
+            dict(p),
+            frames,
+            atoms,
+            reference_atoms,
+            (False, False),
+            result,
+            raw,
+            msm.pyunitwizard.get_unit(result),
+            None,
+            None,
+            "atom_values" if p["task"] == "rmsf" else "structure_values",
+            count,
+            False,
+            str(msm.__version__)[:200],
+            reference_frame,
+        )
+
     def _current_report(self, context):
         report = self._report
         if report is None:
@@ -297,7 +406,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
             report.parameters["structures"] == "current"
             or report.first_draft["context"] == "current"
             or (
-                report.parameters["relation"] == "between"
+                _uses_second(report.parameters)
                 and report.second_draft["context"] == "current"
             )
         )
@@ -318,7 +427,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
             (report.first_draft, report.first),
             *(
                 [(report.second_draft, report.second)]
-                if report.parameters["relation"] == "between"
+                if _uses_second(report.parameters)
                 else []
             ),
         ]:
@@ -339,6 +448,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
 
     def _summary(self):
         r = self._report
+        conformation = r.parameters["task"] in _CONFORMATION_METHODS
         return {
             "id": r.token,
             "method": "molsysmt.structure." + _METHODS[r.parameters["task"]],
@@ -352,10 +462,25 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "structure_count": len(r.frames),
             "source_revision": r.revision,
             "periodic": r.periodic,
-            "requested_pbc": r.parameters["pbc"],
+            "requested_pbc": r.parameters["pbc"] if not conformation else False,
             "disk_backed": callable(getattr(r.native_values, "cleanup", None)),
             "live_distance_unavailable": self._live_distance_limit(r),
+            "family": "conformation" if conformation else "distance",
+            "result_axis": "atom"
+            if r.layout == "atom_values"
+            else "structure"
+            if conformation
+            else "pair",
+            "reference_structure_index": r.reference_frame,
+            "plot_unavailable": self._plot_limit(r),
         }
+
+    def _plot_limit(self, report):
+        if report.layout != "structure_values":
+            return "This result is not indexed by one scalar per structure."
+        if report.frames != list(range(int(self._view.player.n_structures))):
+            return "A trajectory plot needs every loaded structure once, in index order. Choose All structures to calculate that scope."
+        return ""
 
     def _row(self, position):
         """Resolve native row axes once for tables and deliberate scene actions."""
@@ -388,6 +513,8 @@ class _AnalysisPanel(_MolecularTaskPanel):
 
     @staticmethod
     def _live_distance_limit(report):
+        if report.parameters["task"] in _CONFORMATION_METHODS:
+            return "This result is not a pair distance."
         if report.periodic:
             return "A live distance uses nonperiodic coordinates; this result uses a periodic image."
         if "mass" in (
@@ -405,6 +532,26 @@ class _AnalysisPanel(_MolecularTaskPanel):
         r = self._report
         if offset and offset >= r.total:
             raise ValueError("That analysis page is outside its result population.")
+        if r.layout in {"atom_values", "structure_values"}:
+            stop = min(r.total, offset + _PAGE_SIZE)
+            values = msm.pyunitwizard.get_value(
+                msm.pyunitwizard.quantity(r.native_values[offset:stop], r.unit),
+                to_unit="nm",
+            )
+            axis = r.first if r.layout == "atom_values" else r.frames
+            return {
+                "offset": offset,
+                "total": r.total,
+                "page_size": _PAGE_SIZE,
+                "columns": [
+                    "Atom index" if r.layout == "atom_values" else "Structure index",
+                    "Value (nm)",
+                ],
+                "rows": [
+                    [int(axis[i]), format(float(value), ".9g")]
+                    for i, value in zip(range(offset, stop), values, strict=True)
+                ],
+            }
         rows, samples = [], []
         for position in range(offset, min(r.total, offset + _PAGE_SIZE)):
             f, a, b, value = self._row(position)
@@ -442,6 +589,37 @@ class _AnalysisPanel(_MolecularTaskPanel):
             raise ValueError(
                 "That analysis has expired. Calculate it again for the current inputs."
             )
+        if action_id == "add_structure_plot":
+            reason = self._plot_limit(report)
+            if reason:
+                raise ValueError(reason)
+            import molsysmt as msm
+
+            if not self._owner._read(lambda target: target is report.target(), {}):
+                raise ValueError(
+                    "The calculated structure series no longer belongs to this system."
+                )
+            values = msm.pyunitwizard.get_value(report.values, to_unit="nm")
+            titles = {
+                "rmsd": "RMSD without superposition",
+                "least_rmsd": "RMSD after optimal superposition",
+                "gyration": "Radius of gyration",
+            }
+            tag = "molsysmt-" + report.parameters["task"] + "-" + report.token
+            self._view.trajectory_plot.show(
+                {titles[report.parameters["task"]]: values},
+                tag=tag,
+                title=titles[report.parameters["task"]],
+                x_label="Structure index",
+                y_label="Length (nm)",
+            )
+            self._publish(
+                stage="scene",
+                request_id=request_id,
+                message="Added a trajectory plot. It belongs to core Plots and remains after clearing this report. Move or close Studio if it covers the plot.",
+                scene_action={"id": action_id, "plot_tag": tag},
+            )
+            return
         position = payload.get("row_index")
         if (
             isinstance(position, bool)
@@ -451,13 +629,28 @@ class _AnalysisPanel(_MolecularTaskPanel):
             < min(report.total, self._offset + _PAGE_SIZE)
         ):
             raise ValueError("Choose a result row on the current page.")
-        f, a, b, _ = self._row(position)
-        first = (
-            report.first.tolist() if report.selections[0] else [int(report.first[a])]
-        )
-        second = (
-            report.second.tolist() if report.selections[1] else [int(report.second[b])]
-        )
+        if report.layout == "atom_values":
+            first, second, observation_structure = (
+                [int(report.first[position])],
+                [],
+                None,
+            )
+        elif report.layout == "structure_values":
+            first, second = report.first.tolist(), report.second.tolist()
+            observation_structure = report.frames[position]
+        else:
+            f, a, b, _ = self._row(position)
+            first = (
+                report.first.tolist()
+                if report.selections[0]
+                else [int(report.first[a])]
+            )
+            second = (
+                report.second.tolist()
+                if report.selections[1]
+                else [int(report.second[b])]
+            )
+            observation_structure = report.frames[f]
         participants = list(dict.fromkeys(first + second))
 
         def validate(target):
@@ -475,7 +668,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "id": action_id,
             "row_index": position,
             "structure_index": current,
-            "observation_structure_index": report.frames[f],
+            "observation_structure_index": observation_structure,
         }
         if action_id == "select_participants":
             self._view.active_selection.set(participants)
@@ -495,7 +688,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
             outcome["measurement_tag"] = measurement.tag
             message = (
                 f"Added live distance {measurement.tag} in Measures. It follows the visible "
-                f"structure; the selected result row remains in structure {report.frames[f]}."
+                f"structure; the selected result row remains in structure {observation_structure}."
             )
         self._publish(
             stage="scene", message=message, request_id=request_id, scene_action=outcome

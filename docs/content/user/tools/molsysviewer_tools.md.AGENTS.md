@@ -656,3 +656,14 @@ universal RAM bound, whole periodic-center reconstruction, numerical precision
 loss in Python, scientific result store or automatic scene adoption is added.
 Retain declared pending readers, independent native numerical oracles and the
 separate serial/concurrent, installed and human qualification scopes.
+
+Preserve the four conformation tasks as native, read-only delegation: raw RMSD,
+optimal-superposition RMSD, radius of gyration and per-atom RMSF. Keep explicit
+reference structures and positional atom correspondence, ordered/repeated
+structures and fixed selection contexts. Do not align or reconstruct inputs
+implicitly. Gyration mass weighting uses the native standard atomic mass table
+and its unit-policy prerequisites, not invented stored masses. RMSF's atom axis
+must never masquerade as a trajectory axis. Adopt a core structure plot only
+for complete canonical structure coverage without sorting, padding or discarding
+requested observations. Keep deliberate plot ownership/retry and pending/stale
+guards distinct from calculation, with full native precision retained in Python.

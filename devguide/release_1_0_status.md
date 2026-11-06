@@ -20,6 +20,20 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Conformation task receiving — 2026-11-06
+
+The isolated contribution adds read-only RMSD, optimal-superposition RMSD,
+gyration and atom-indexed RMSF, plus deliberate core structure-plot adoption.
+All 133 Analysis panel cases pass with independent numerical, unit, reference,
+axis and lifecycle controls. The actual Jupyter/Mol*/AnyWidget workflow passes
+17 steps through TcTIM, a real three-conformation ensemble and both popup
+boundaries, with source inputs unchanged throughout. The
+[receipt](../devtools/data/molsysviewer_tools_conformation_receiving_20261106.json)
+retains prior failed attempts and the causal Viewer #314 host prerequisite.
+This source work is not yet delivered or owner-integrated; complete/current
+hosted, installed and postponed human acceptance remain separate. All other
+approved GUI families and the complete scientific-session target stay required.
+
 ## Complete reference collection and test recovery — 2026-11-06
 
 The af8eabcd8 complete addon attempt executes all 4,974 cases with 4,966 passes
