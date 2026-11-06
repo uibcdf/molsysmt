@@ -20,13 +20,13 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
+
+### In progress (2)
+
 - [`mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md`](mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md) — [#600](https://github.com/uibcdf/molsysmt/issues/600) — mmCIF native conversion drops deposited model labels despite declared structure_id support. *(medium, reproduced)*
-
-### In progress (1)
-
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
 ### Partially resolved (4)

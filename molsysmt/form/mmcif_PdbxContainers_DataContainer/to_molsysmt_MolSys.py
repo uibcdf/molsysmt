@@ -44,14 +44,16 @@ def to_molsysmt_MolSys(
 
     Returns
     -------
-    molsysmt.MolSys
-        Resulting object in molsysmt.MolSys form.
+    molsysmt.MolSys or list
+        One native ensemble for compatible model inventories, or one native
+        system per incompatible model, each retaining its deposited model label.
 
     Raises
     ------
     FormatError
         If an assembly generator has an empty operation factor or more than
-        two operation factors, which this reader cannot interpret.
+        two operation factors, which this reader cannot interpret, or source
+        model labels are partly missing, invalid or conflicting.
 
     Notes
     -----
@@ -62,6 +64,14 @@ def to_molsysmt_MolSys(
     known occupancy and preferring label A on a tie, then source order. If
     every alternate occupancy is unknown, the first source variant is retained.
     All variants and their original observations remain in ``alternate_location``.
+
+    Deposited atom_site.pdbx_PDB_model_num spelling is retained as string
+    structure_id values on the existing ascending numeric model axis. Selected
+    structure indices preserve their order and repetitions independently of
+    these labels. Wholly missing labels remain None; atom rows then describe
+    one unlabeled structure. Partly missing, invalid or conflicting model
+    labels raise FormatError. Incompatible model inventories retain the existing
+    warning and separate-system result, each with its own deposited label.
 
     All generator rows for an assembly ID are retained in source order,
     including repeated operations. Distinct chain sets are stored per operation;
@@ -104,6 +114,7 @@ def to_molsysmt_MolSys(
     from molsysmt.native import MolSys
 
     from ._bond_state import BondAccumulator, metadata_from_chem_comp_bond
+    from ._model_axis import model_axis
 
     if isinstance(item, str):
         from .to_mmcif_PdbxContainers_DataContainer import (
@@ -131,7 +142,7 @@ def to_molsysmt_MolSys(
     chain_index_from_atom = np.empty(n_atoms, dtype=int)
     entity_index_from_atom = np.empty(n_atoms, dtype=int)
 
-    atom_num_model = np.empty(n_atoms, dtype=int)
+    atom_num_model, model_structure_ids = model_axis(item)
 
     coordinates = np.empty([1, n_atoms, 3], dtype=float)
     occupancy = np.full(n_atoms, np.nan, dtype=float)
@@ -181,8 +192,6 @@ def to_molsysmt_MolSys(
                 occupancy[atom_index] = float(value)
         alternate_location[atom_index] = atom_record[index_att["label_alt_id"]]
         b_factor[0, atom_index] = atom_record[index_att["B_iso_or_equiv"]]
-
-        atom_num_model[atom_index] = atom_record[index_att["pdbx_PDB_model_num"]]
 
         aux_group_id = atom_record[index_att["auth_seq_id"]]
         aux_group_name = atom_record[index_att["auth_comp_id"]]
@@ -1098,9 +1107,11 @@ def to_molsysmt_MolSys(
         item_per_model = []
         for model_index in models:
             aux_atom_indices = np.where(atom_num_model == model_index)[0].tolist()
-            item_per_model.append(
-                tmp_item.extract(atom_indices=aux_atom_indices, skip_digestion=True)
+            model = tmp_item.extract(atom_indices=aux_atom_indices, skip_digestion=True)
+            model.structures.structure_id = np.asarray(
+                [model_structure_ids[int(model_index)]], dtype=object
             )
+            item_per_model.append(model)
 
         from molsysmt.basic import compare
 
@@ -1142,6 +1153,11 @@ def to_molsysmt_MolSys(
             tmp_item = item_per_model
 
             return tmp_item
+
+    elif n_models == 1 and model_structure_ids[int(models[0])] is not None:
+        tmp_item.structures.structure_id = np.asarray(
+            [model_structure_ids[int(models[0])]], dtype=object
+        )
 
     del atom_num_model
 

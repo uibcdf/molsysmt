@@ -5,7 +5,7 @@ Covers get_structural_attributes functions that were previously broken
 due to object attributes not provided by a DataContainer (item.x_coord_list, item.num_models,
 item.unit_cell, item.bio_assembly).
 
-Oracle: HP35 (1vii) — single-model X-ray structure with unit cell.
+Oracle: HP35 (1vii) — a single deposited model with source structural metadata.
 """
 
 import pytest
@@ -126,6 +126,9 @@ def test_time_is_none(data_container):
     assert t is None
 
 
-def test_structure_id_is_none(data_container):
+def test_structure_id_matches_the_deposited_label(data_container):
     sid = gsa.get_structure_id_from_system(data_container, skip_digestion=True)
-    assert sid is None
+    category = data_container.getObj("atom_site")
+    column = category.getAttributeList().index("pdbx_PDB_model_num")
+    assert {str(row[column]) for row in category.data} == {"1"}
+    assert sid.tolist() == ["1"]

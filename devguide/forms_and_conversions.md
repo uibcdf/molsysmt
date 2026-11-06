@@ -144,6 +144,28 @@ repetitions in both. H5MSM stores the primary array and sparse alternatives
 without inventing missing values. The owning regression is
 `tests/form/mmcif_PdbxContainers_DataContainer/test_primary_occupancy.py`.
 
+### Deposited CIF model labels
+
+The shared DataContainer reader and structural getter retain exact
+atom_site.pdbx_PDB_model_num spelling as string structure_id values, including
+leading zeros. The existing structure axis remains ascending numeric model
+order, independently of source row encounter order. Coordinates and labels
+receive the same nonconsecutive/repeated structure-index selections. CIF,
+BinaryCIF and their gzip routes share this interpretation; native extraction
+and H5MSM retain the selected labels without replacing them by indices.
+
+A wholly absent/unknown model column supplies no IDs. Its atom rows describe one
+unlabeled structure; model boundaries are not guessed from repeated atom names.
+Partly missing labels, noninteger/out-of-range model numbers and conflicting
+spellings for one numeric model fail with FormatError before native output.
+Different model inventories retain the established warning/separate-system
+result, with each returned model carrying its own deposited ID. A label-only
+getter does not certify inventory compatibility or infer a chemical state.
+The private adapter helper shares only this declared model-axis interpretation;
+ArgDigest public boundaries, units and connectivity policy remain unchanged.
+
+Guard: `tests/form/mmcif_PdbxContainers_DataContainer/test_structure_ids.py`.
+
 ### Biological assembly generators
 
 The mmCIF DataContainer converter, including CIF/BinaryCIF routes through it,

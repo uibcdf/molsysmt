@@ -90,6 +90,14 @@ order and repetitions. Structure IDs and times follow that selected structure
 axis; IDs remain labels rather than positional selectors. See
 {ref}`Make bioassembly <Tutorial_Make_bioassembly>`.
 
+CIF/BinaryCIF imports preserve deposited model labels as strings, including
+leading zeros. The reader keeps its ascending numeric model order; selecting
+structure indices reorders labels and coordinates together, including repeats.
+An absent model label remains unknown. Labels are never synthesized from
+positions, and incompatible model inventories remain separate systems.
+H5MSM preserves these native labels. See
+{ref}`the shared CIF reader <Tutorial_Form_mmcif_PdbxContainers_DataContainer>`.
+
 ## Invariants and Performance
 
 `repr(structures)` reads stored shape metadata without array conversion, unit

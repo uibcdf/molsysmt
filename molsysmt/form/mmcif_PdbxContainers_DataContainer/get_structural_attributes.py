@@ -297,14 +297,10 @@ def get_n_structures_from_system(item, structure_indices="all", skip_digestion=F
     .. versionadded:: 1.0.0
     """
     if is_all(structure_indices):
-        index_att = {
-            jj: ii for ii, jj in enumerate(item.getObj("atom_site").getAttributeList())
-        }
-        model_nums = {
-            row[index_att["pdbx_PDB_model_num"]]
-            for row in item.getObj("atom_site").data
-        }
-        return len(model_nums)
+        from ._model_axis import model_axis
+
+        _, labels = model_axis(item)
+        return len(labels)
     else:
         return len(structure_indices)
 
@@ -405,27 +401,59 @@ def get_time_from_system(item, structure_indices="all", skip_digestion=False):
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
-    Getting structure id from system in form mmcif.PdbxContainers.DataContainer.
+    Getting deposited model labels on the mmCIF structure axis.
 
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Parsed mmCIF or BinaryCIF container supplying atom_site model labels.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Structure indices (0-based) in the reader's existing ascending numeric
+        model order. Nonconsecutive order and repetitions are preserved; labels
+        are independent of positional indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    numpy.ndarray or None
+        Detached string model labels in the selected structure order. Original
+        spelling, including leading zeros, is retained. Wholly unavailable
+        labels remain None; IDs are never invented from array positions.
+
+    Raises
+    ------
+    FormatError
+        If labels are partly missing, are not supported integers or use
+        conflicting spellings for the same numeric model.
+
+    Notes
+    -----
+    This reads declared labels independently of model inventory compatibility.
+    The native converter retains its separate mismatch warning/list behavior;
+    each incompatible returned model still carries its own deposited label.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> source = msm.convert(msm.systems['chicken villin HP35']['1vii.bcif.gz'],
+    ...                      to_form='mmcif.PdbxContainers.DataContainer')
+    >>> get_structure_id_from_system(source, structure_indices=[0, 0]).tolist()
+    ['1', '1']
 
 
     .. versionadded:: 1.0.0
     """
-    return None
+    if structure_indices is None:
+        return None
+    from ._model_axis import model_axis
+
+    _, labels = model_axis(item)
+    if not labels or all(label is None for label in labels.values()):
+        return None
+    output = np.asarray([labels[number] for number in sorted(labels)], dtype=object)
+    return output if is_all(structure_indices) else output[structure_indices]
 
 
 @arg_digest(form=form)

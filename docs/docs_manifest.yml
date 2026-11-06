@@ -52,7 +52,7 @@ sections:
           - name: structures
             file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md.AGENTS.md
-            description: Aligned structural series, row-vector periodic cells, canonical units, independent copies, protected geometry and selected edit ownership in MolSys.
+            description: Aligned structural series, retained deposited model labels, row-vector periodic cells, canonical units, independent copies, protected geometry and selected edit ownership in MolSys.
           - name: molsysbuilder
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuilder.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuilder.md.AGENTS.md
@@ -633,7 +633,7 @@ sections:
             description: Compressed BinaryCIF native reading with forwarded connectivity policy and retained observations.
           - file: docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb
             agents_file: docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb.AGENTS.md
-            description: Shared parsed-category conversion with explicit-only connectivity admission, retained mapped declarations, occupancy and model-local observations.
+            description: Shared parsed-category conversion with retained model-label spelling on the numeric coordinate axis, explicit-only connectivity, mapped declarations, occupancy and model-local observations.
           - name: one_letter_native_sequence
             file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb
             agents_file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb.AGENTS.md
@@ -819,7 +819,7 @@ sections:
         agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
       - name: form_teleportation
         file: docs/content/user/cookbook/form_teleportation.ipynb
-        description: Conversion workflows, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership, axis correspondence and public capability inspection.
+        description: Conversion workflows, deposited CIF model-label correspondence, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership and public capability inspection.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
         description: Sparse queries, independent copies, geometry and chemical owner notification, finite torsion rejection and scoped invalidation, state inventory publication, structure replacement and H5MSM persistence.
