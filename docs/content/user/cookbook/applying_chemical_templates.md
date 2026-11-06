@@ -106,6 +106,17 @@ state/structure. It returns a detached system and retains operation history;
 changed connectivity makes output interaction occurrences unevaluated. See
 {ref}`Tutorial_Infer_Covalent_Bonds` for evidence, defaults and persistence.
 
+The native report's `excluded_inference_policies` records that disulfides and
+metal coordination retain stored edges only, while geometry for groups without
+an exact template is disabled. Its typed `unsupported_group_indices` names the
+selected source groups affected by that exclusion. A close water, ligand, metal
+or unreviewed modified group does not acquire bonds from a universal cutoff.
+For a separate S-S proximity inspection, use
+`msm.interactions.disulfides.get_disulfide_candidates(molsys, pbc=False)`.
+Those candidates do not select a covalent partner or repair contradictory
+SSBOND declarations. Keep their geometric evidence separate from stored bonds;
+the detector and inference operation both preserve the source.
+
 Inspect deposited declarations separately from inferred candidates:
 
 ```python

@@ -22,8 +22,9 @@ engine selection, failure diagnostics and persisted per-edge inference provenanc
 are implemented and contract-tested. Explicitly naming-scoped cap references
 and their bounded amide endpoints are also contract-tested. Direct-reader
 naming context is delivered before classification/inference.
-Additional-group/disulfide/geometric policies and final acceptance/integration are
-pending; none of these tools certifies complete chemistry.
+Curated modified-group application and declared-only disulfide/coordination plus
+disabled unsupported-group geometry policies are contract-tested. Final combined
+qualification/integration is pending; none of these tools certifies complete chemistry.
 
 **Scheduling — 2026-10-05:** the bounded engine/application contract is included
 experimentally in the [frozen 1.0 scope](../release_1_0_scope.md). Remaining H-name,
@@ -1517,3 +1518,109 @@ the final combined-source gate and owner integration remain. Broader source/
 composite producer receiving belongs to the staged #549 rollout; direct-reader
 tests do not certify every multi-provider conversion. The issue stays partial,
 and no release or main integration is claimed by this checkpoint.
+
+
+## Final native policy boundaries — 2026-11-06
+
+### Decision and actual behavior
+
+The offered native composition retains stored disulfide and metal-coordination
+edges without inferring additional ones. Geometry for groups without an exact
+supported template is disabled. These are explicit boundaries of this profile,
+not a promise to reconstruct arbitrary chemistry. The #304 acceptance allows
+unsupported chemistry to remain reported; a universal distance cutoff would not
+establish covalency, oxidation state, coordination or chemical completeness.
+The existing public disulfide detector separately returns geometric candidates,
+including competing partners, without applying them. Its observations do not
+choose a disulfide matching. Existing source declarations and their conflicts
+remain stored; missing/ambiguous/symmetry-specific declarations are not replaced
+with a different nearby atom pair.
+
+The application report now records these fixed choices in
+`excluded_inference_policies`, with an int64 `unsupported_group_indices` array
+on the original selected source group axis. This additive metadata makes
+existing behavior inspectable; candidate pairs, scientific rule_version=2,
+function signatures/defaults, dictionary schema versions and H5MSM 0.5 are
+unchanged. A selector limits additions and the exclusion report, not the source
+system or retained edges. Historical indices retain their original operation
+scope after extraction. Returned report arrays are detached from stored history.
+
+The four reviewed MSE/SEP/TPO/MLY references retain their own literal heavy
+connectivity; sequence parents never replace them. ACE/NME/NHE/NH2 keep the
+previously received explicit naming and layout limits. Water, ions, arbitrary
+ligands and unreviewed modified groups remain unsupported and unassessed by
+this profile. Other H, order, valence, terminal and protonation exclusions remain
+with their owning candidate reports. No chemical store, geometry kernel,
+optional dependency or scientific reference is introduced in this checkpoint.
+Existing template attribution remains with the tools actually consulted.
+
+### Executed receiving
+
+The new module `tests/build/test_covalent_inference_policy_boundaries.py` has
+54 controls. It checks literal complete returned edge inventories through native,
+PDB file/text and caller-owned handler inputs for both existing compositions;
+three close sulfur sites; single/competing declarations; explicit LINK/CONECT;
+water/ligand/metal/unknown-group proximity; all four curated modified groups;
+unsupported symmetry, absent endpoints and malformed SSBOND labels; selected
+and empty atom populations; retained dative typing; nonfinite excluded-group
+coordinates; source identities, graph and coordinates; pm/fs policy; and detached
+historical policy arrays through extraction and H5MSM. These assertions check
+the graph, not merely output labels. No OpenMM import is permitted in native
+composition controls.
+
+The completed affected selection passes **227 cases in 16.43 s** with twelve
+workers and Pytest Receptor, retaining the one H5MSM 0.4 deprecation warning.
+It includes native application, PDB policy/declarations/context, cap and
+independent disulfide-detector controls plus the public inference doctest.
+The final published four-provider-floor selection passes **55 cases in 9.53 s**
+with four workers. It uses the existing ArgDigest 0.14.0, DepDigest 0.15.1,
+SMonitor 0.16.0 and Ackredit 0.9.0 payload routes; other development dependencies
+remain reused and only the incompatible development pytest plugin is disabled.
+This is source receiving, not a clean installed or all-dependency-floor claim.
+
+Documentation receiving passes **1,091 cases in 48.66 s**, with warnings retained.
+The docstring, Foundations, Toolbox, Cookbook and course explain the same
+policies. Both edited notebooks preserve every executable cell, output, ID,
+metadata value and cell count. Ruff lint/formatting over the whole checkout,
+247 public docstrings, dependencies/import laziness, generated arguments and
+API registry/signature guards pass. The aggregate fast release gate also passes
+14/14 checks; it explicitly does not run the full scientific/matrix/installed
+gates. This introduces no signature waiver.
+
+Both unchanged original PDBs pass fresh native child-process receiving with
+OpenMM imports blocked, two conversions per input and H5MSM round trips.
+Graphs, stable atom axes and physical coordinates match the earlier digests
+exactly: 1,322 bonds for 181L and 4,445 for original 1IEP. Individual timings and
+RSS are retained observations; no new statistical benchmark or improvement is
+claimed. The existing measured disadvantages remain part of this decision.
+
+The initial 44-case policy run had 43 missing-field failures and one pass; its
+literal graph assertions already passed. These are not 43 repaired chemistry
+bugs. The first larger command accidentally included the legacy network-only
+5XJH download test and was interrupted after 227 passes; it is not a completed
+passing gate. The final command explicitly excludes that one network case and
+completes all 227 selected cases. Ruff's first run found an import-order error
+in the new test; sorting imports corrects it, and final Ruff plus the final
+55-case profile pass. The
+[receiving receipt](../../devtools/data/pdb_policy_boundaries_receiving_304_20261106.json)
+retains these unsuccessful runs as well as the accepted results and exact hashes.
+
+### Final acceptance map and remaining gate
+
+| Requirement | Delivered boundary and evidence |
+| --- | --- |
+| Explicit-only/native/OpenMM policies | Six PDB routes, typed failure/absence outcomes and the existing engine/default policy guards; CIF/BCIF disabled-inference correction retained. |
+| Exact local chemistry | Standard/curated heavy templates, exact or opt-in alias H-parent consensus, naming-scoped caps; no sequence-parent substitution. |
+| Polymer context | Same-chain/TER/insertion/alternate controls, full-source competitor checks and explicitly selected source structure/state. |
+| Declared and excluded connectivity | Typed CONECT/LINK/SSBOND diagnostics, preserved conflicts, no proximity-derived disulfide/coordination or unknown-group fallback; new boundary controls above. |
+| Original truth and ownership | Exact 181L/1IEP graph/axis/coordinate regressions, retained disagreements, analytic literal pairs, non-default units, state/history and failure/source preservation. |
+| Workload and persistence | Retained 45-process benchmark, explicit slower/larger cases, typed H5MSM graph/history round trips and documented eager-memory limits. |
+| Public lifecycle | Docstrings/doctests, Foundations, Toolbox, Cookbook, course and maintained forms contract agree. |
+
+The remaining work is the **final combined-source/full-matrix gate, owner
+integration and documented closeout**. This matrix records implemented bounds;
+it does not itself certify those pending gates or a package/release. #304 stays
+partial until they finish, and the other fourteen issues retain the authorized
+order. Do not add a new universal chemistry implementation merely to remove an
+honest unsupported category, or silently drop a demonstrated defect from the
+offered profile.

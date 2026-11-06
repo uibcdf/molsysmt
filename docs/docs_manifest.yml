@@ -269,7 +269,7 @@ sections:
           - name: infer_covalent_bonds
             file: docs/content/user/tools/build/infer_covalent_bonds.md
             agents_file: docs/content/user/tools/build/infer_covalent_bonds.md.AGENTS.md
-            description: Applying bounded native group/cap candidates with optional H-name alternatives, historical evidence, explicit reader engines and unresolved chemistry.
+            description: Applying bounded native group/cap candidates with optional H-name alternatives, historical evidence, explicit reader engines and typed exclusions for disulfides, coordination and unsupported-group geometry.
             status: reviewed
       - name: topology
         path: docs/content/user/tools/topology

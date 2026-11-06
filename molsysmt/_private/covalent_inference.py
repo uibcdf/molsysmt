@@ -170,6 +170,19 @@ def apply(
             for group in hydrogen["groups"]
         ],
         peptide=_peptide_record(peptide),
+        excluded_inference_policies=dict(
+            disulfides="retain_stored_edges_only",
+            metal_coordination="retain_stored_edges_only",
+            unsupported_group_geometry="disabled",
+            unsupported_group_indices=np.asarray(
+                [
+                    group["group_index"]
+                    for group in heavy["groups"]
+                    if group["template"] is None
+                ],
+                dtype=np.int64,
+            ),
+        ),
         invalidated_analysis_names=invalidated,
         connectivity_completeness=state.connectivity_completeness,
         unassessed_checks=[

@@ -32,56 +32,44 @@ closure. Prior post-freeze scheduling of listed work does not block this explici
 instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
-**Active: #304.** The newly reported CIF/BCIF disabled-inference defect is locally
-corrected with 26 directed and 864 affected route cases passing. The full
-279-case inference/argument/doctest selection, 51 directed four-provider floor
-cases and 1,072 documentation cases also pass (overlapping selections). Both settings
-and declared-edge retention are checked; no complete chemistry claim follows.
-The larger native profile still needs its remaining coverage, declaration and
-workload requirements before closure. The generated argument inventory also
-needed regeneration after the earlier GRO additions in parent 282e8337e; its
-negative guard is retained and passes after generation, rather than being waived. See the
+**Active: #304.** The native profile now has qualified explicit reader policy,
+exact standard/curated modified-group references, observed-H parent consensus,
+optional pinned H-name alternatives, naming-scoped ACE/NME/NHE/NH2 references
+and bounded same-chain peptide candidates. PDB file/text/handler routes receive
+an explicit naming declaration before classification/inference. CIF/BCIF native
+conversion honors disabled inference and retains declared edges. Deposited PDB
+records have typed location, endpoint, alternate/symmetry and conflict evidence.
+All of these remain bounded connectivity operations, without chemistry-complete
+or default-engine-change claims. See the
 [owning record](pending_proposals/native_pdb_bond_inference_with_explicit_policy.md).
-Its deposited PDB declaration audit now also retains typed per-record locations,
-endpoint matches, symmetry/alternate scope and conflict evidence in the owning
-chemical-state history. Nineteen new guards and 637 affected cases pass, followed
-by 87 final directed cases after avoiding unused endpoint indexes. Four-provider
-floor receiving passes 48 cases, documentation receiving 1,072 (overlapping
-selections). Original 181L/1IEP graphs, axes and coordinates are retained. The
-remaining H-name/terminal/group and disulfide/geometry policies still prevent
-#304 closure. Original 1IEP differences are now explained by exact-name versus
-alias policy (25 pairs) and noncontiguous group interpretation (one native-only
-pair), with retained original-field/actual-engine evidence and a literal guard.
-A 45-process benchmark covers both originals plus three analytic workloads up
-to 10,240 atoms, including 15 H5MSM round trips. Native conversion is slower in
-these measurements; its larger-workload memory/storage cost is also explicit,
-without a faster/lighter claim. Full acceptance and integration remain pending.
-The explicitly selected H-name alternative now reuses the same parent checks
-with pinned, licensed local reference data and dataset attribution. Default
-exact methods and reader policy are unchanged. It adds exactly the 25 explained
-H-parent pairs on original 1IEP (4,470 total), preserving the exact native graph,
-source names and coordinates without importing OpenMM. Receiving passes 276
-affected cases, 18 published four-provider-floor cases and 1,072 documentation
-cases (overlapping selections). Alias-assisted H-role/protonation certification
-is not claimed. The next received extension reuses the existing ACE/NME/NHE/NH2
-catalogue under explicit amber/legacy naming declarations, with agreed heavy
-layouts, exact observed-H parent checks and permitted cap C/N amide roles.
-Forty-one new controls, a 321-case affected selection, 45 published four-provider
-floor cases and 1,091 documentation cases pass (overlapping selections).
-Both original PDB graphs, atom axes and coordinates are retained exactly.
-Reports record rule_version=2 for the cap extension, with no dictionary/H5MSM
-schema or public signature/default change. The following reader correction now
-delivers explicit from_naming_scheme before classification/inference through
-all six native PDB file/text/handler routes. It also uses interpreted inventory
-for semantic selection and avoids implicit inference for context-aware name-only
-queries. Sixty new controls, 543 affected cases, 64 published four-provider-floor
-cases and 1,091 documentation cases pass (overlapping selections), including
-actual native/OpenMM capped-peptide controls and unchanged original-source
-graph/axis/coordinate digests. Six intentional keyword-only additions preserve
-prior argument positions/defaults. Source naming is retained in typed history;
-unsupported external naming uses the existing explicit-refusal versus optional
-warning/cause policy. Additional-group/disulfide/geometry policies and final
-acceptance/integration still remain before #304 closure.
+
+The final policy-boundary receiving makes existing exclusions explicit in the
+application report: retain stored disulfide and coordination edges, infer no
+additional ones, and disable geometry for groups without an exact template.
+Its selected unsupported group indices are typed historical evidence. Fifty-four
+new controls qualify close/competing sulfur sites, contradictory/unresolved
+SSBOND, water/ligand/metal proximity, all four curated modified groups, source
+immutability, selection and H5MSM history. The completed affected selection passes
+227 cases, the four-published-provider-floor selection 55, and documentation
+1,091 (overlapping selections); the aggregate fast gate passes 14/14 checks.
+An earlier accidentally selected network-only
+case was interrupted; that command is not passing gate evidence. The final
+selection excludes that one network case explicitly. Both original PDB native
+graph, atom-axis and coordinate digests remain unchanged, with fresh H5MSM
+round trips and OpenMM imports blocked.
+
+Original 181L/1IEP differences are explained by exact-name versus H-name-alias
+policy (25 pairs) and noncontiguous group interpretation (one native-only pair).
+The retained 45-process benchmark covers both originals plus three analytic
+workloads up to 10,240 atoms and 15 H5MSM round trips. Native conversion is slower
+in those measurements; the larger-workload RAM/storage cost remains explicit.
+No new faster/lighter claim follows from the policy metadata.
+
+**Remaining for #304:** final combined-source/full-matrix qualification, owner
+integration and documented issue closeout. The disulfide/unsupported-group
+policies are now explicit and contract-tested; this does not promise automatic
+oxidation-state matching, arbitrary-ligand preparation or metal-coordination
+inference. The issue stays partial until its final gates and integration finish.
 New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
 for rescoring. Separately reported **#600** records missing mmCIF model-label
 delivery; selected geometry remains available, and the connectivity correction
@@ -133,10 +121,10 @@ input. No green full matrix or main integration is claimed. Ordered work uses
 a separate branch/worktree and the existing development environment. PR #543
 has meanwhile advanced to 1e7a4273b905ca020815658f23ba645d40817226; that later
 Geometry-panel expansion is outside this frozen receiving candidate.
-The ordered branch published a16d289ec84e6944ea9c38cbf7ca57d0a236b590 as an
+The ordered branch published 62a5bb62d as an
 intermediate source/backup handoff with local tests, source hashes and explicit
-partial #304 scope. The subsequent cap extension has separate local receiving
-evidence. The published checkpoint uses
+partial #304 scope. That checkpoint includes the cap and early PDB-context extensions; the subsequent
+policy-boundary receiving is retained separately. The published checkpoint uses
 the authorized deferred-CI marker to avoid another incomplete full matrix while
 the issue's remaining methods are implemented. This does not clear the skipped
 commit backlog, replace the frozen run's failures or qualify a release; finish

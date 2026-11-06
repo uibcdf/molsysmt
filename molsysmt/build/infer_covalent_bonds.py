@@ -70,8 +70,15 @@ def infer_covalent_bonds(
     complete graph, protonation, bond orders, H placement or polymer sequence.
     Unknown groups, H names and mixed H inventories remain recorded exclusions.
     No atoms are added and no distance fallback repairs arbitrary groups.
-    Disulfides and metal coordination are separate policies. Peptide geometry
-    uses pbc=False and the existing 0.153 nm effective ceiling.
+    Disulfide and metal-coordination policies retain existing edges without
+    adding proximity-derived ones. Unsupported groups, including water, ions,
+    arbitrary ligands and unreviewed modified groups, have no geometric fallback.
+    These choices and selected unsupported group indices are explicit in
+    excluded_inference_policies. Retained edges are not chemically recertified;
+    contradictory declarations remain available in the original reader history.
+    Use interactions.disulfides.get_disulfide_candidates separately to inspect
+    S-S proximity, including competing candidates, without selecting a covalent
+    partner. Peptide geometry uses pbc=False and the 0.153 nm effective ceiling.
 
     Stored 'amber' or 'legacy' naming declarations also enable the exact local
     ACE/NME/NHE/NH2 cap references and their permitted C/N amide endpoints.

@@ -420,6 +420,22 @@ The context-aware name-only projection requests inventory without implicit bond
 reconstruction when that reader exposes a connectivity policy; explicit engine/
 inference requests retain their normal semantics.
 
+The selected native PDB profile composes the general
+`build.infer_covalent_bonds` policy on source structure index 0, before output
+extraction. Its `excluded_inference_policies` explicitly retains stored disulfide
+and metal-coordination edges without adding proximity-derived ones. Groups
+without an exact template have no geometric fallback. The typed selected source
+group indices scope that exclusion; other groups' coverage and observed-H
+limitations remain in their owning candidate reports. Stored edges keep their
+evidence and are not chemically recertified. Missing/ambiguous/symmetry-specific
+declarations are not replaced by nearby observed sites. Conflicting declared
+sulfur partners remain stored and flagged in the original reader history.
+The separate public disulfide detector produces geometric candidates, including
+competing partners, without applying bonds. This bounded native policy does not
+promise general ligand chemistry, water reconstruction, metal coordination or
+oxidation-state assignment. The standalone inference tool retains all source
+structures and its independently selected state/structure scope.
+
 Named analyses omitted by a target are reported in the `interactions` scope,
 including empty named results. Adding missing naming context uses the existing
 invalidation policy on the independent molecular output; the report exposes

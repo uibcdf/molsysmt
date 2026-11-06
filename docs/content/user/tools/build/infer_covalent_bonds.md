@@ -82,12 +82,37 @@ declare its reviewed native naming context, then use this tool when cap support
 is required. You can alternatively supply `from_naming_scheme` to public
 conversion before the selected native reader engine executes. PDB reader
 defaults do not assume a cap naming convention.
-Disulfides, metals and arbitrary small-molecule connectivity require separate
-policies. Review those limitations before downstream preparation.
+The report's `excluded_inference_policies` makes three fixed choices explicit:
+
+| Scope | Policy |
+| :--- | :--- |
+| Disulfides | Retain stored edges; do not promote S-S proximity to a bond. |
+| Metal coordination | Retain stored edges; infer no coordination from distance. |
+| Groups without an exact template | Disable geometric fallback. |
+
+`unsupported_group_indices` is an `int64` array of selected source group indices
+without a template, including an empty `(0,)` result. It scopes the exclusion;
+it is not an inventory of every unsupported group in an unselected system.
+Waters, ions, arbitrary ligands and unreviewed modified groups remain unassessed.
+The four curated MSE/SEP/TPO/MLY heavy references retain their own chemistry;
+their sequence parents do not substitute for them.
+
+You can separately call
+{func}`molsysmt.interactions.disulfides.get_disulfide_candidates` with `pbc=False`
+to inspect nonperiodic S-S proximity on the same structure. It returns geometric
+candidates, including competing partners, without changing ChemicalStates.
+Three nearby sulfurs can produce three candidates; this native inference policy
+does not choose a matching or an oxidation state. Resolved PDB SSBOND/LINK/CONECT
+edges remain stored even when contradictory, with the reader's conflict evidence.
+An unresolved or unrepresented-symmetry declaration is not replaced by a nearby
+base-cell pair. Retaining an edge does not recertify its chemistry. Review the
+coverage and original declaration history before downstream preparation.
 
 The group, H, peptide and application reports record `rule_version=2` for this
 naming-scoped cap extension. Existing historical reports retain their original
-rule version; the serializable dictionary schemas remain at version 1.
+rule version; the serializable dictionary schemas remain at version 1. The
+additional policy fields document existing exclusions without changing which
+pairs this method applies.
 
 ## Preserving historical provenance
 
