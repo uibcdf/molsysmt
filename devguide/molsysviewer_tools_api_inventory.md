@@ -2,6 +2,16 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
+
+**Owner update — 2026-11-06:** the prepared native #572/#576 source is now
+integrated on main. `build.assess_protonation` is a new native-only route and
+remains explicitly missing from the bound inventory; object application and
+managed correspondence are not yet admitted to the addon. The existing bound
+`build.reconcile_protonation` route remains available. The dated contribution
+counts below describe their original snapshot, not complete exposure of these
+new native operations. The smoke inventory guard checks this exact known gap
+while continuing to refuse any other missing build route.
+
 **Snapshot:** 2026-11-05, contribution PR #543 head
 `f7b305b3a126109aff5909e857ea7c53981486e8`, including owner main `ed09f6453`.
 The owner receiving branch also carries #594–#598 native/test corrections.
@@ -24,8 +34,10 @@ records internal/disjoint cross and two-sided group contributions against
 independent Coulomb/Lennard-Jones pair sums, explicit energy-unit policy and
 source/scene ownership. Native mixed partition #561 remains visible. The
 [get_forces proposal](pending_proposals/native_molsys_force_reader_for_bound_consumers.md)
-tracks #572: native MolSys input is not implemented, so no always-rejected bound
-force method or consumer parameterization is added.
+tracks #572: native MolSys input was not implemented at that snapshot, so no always-rejected bound
+force method or consumer parameterization was added in the snapshot below.
+Native MolSys input is now implemented under #572; bound-force receiving remains
+a separate consumer step.
 The [minimization receipt](../devtools/data/molsysviewer_tools_minimization_receiving_20261104.json)
 records independent/native in-place ownership, retained coordinate axes,
 analysis invalidation and synchronization-only retry. Its scoped CPU controls

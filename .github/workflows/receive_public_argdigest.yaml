@@ -1,0 +1,132 @@
+name: Receive public ArgDigest with installed MolSysMT
+
+# Bounded consumer receiving for #428; no release/package publication.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  installed-receiving:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      MPLBACKEND: Agg
+      OMP_NUM_THREADS: "1"
+      OPENMM_CPU_THREADS: "1"
+      PYTHONPATH: ""
+      PYTEST_ADDOPTS: "-p no:smonitor"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Solve actual dependencies with public providers
+        uses: mamba-org/setup-micromamba@v3.2.1
+        with:
+          environment-file: devtools/conda-envs/production_env.yaml
+          environment-name: receiving
+          condarc: |
+            channels:
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+            pinned_packages:
+              - mkl<2026.2
+          create-args: >-
+            python=3.14 argdigest=0.17.1 smonitor=0.21.0 depdigest=0.15.1
+            pyunitwizard>=0.28.1 molsysviewer ackredit>=0.9.0 setuptools-rust>=1.10
+            setuptools>=77.0.3 versioningit>=3 pytest pytest-xdist pytest-receptor=1.1.0
+            pyyaml packaging pint scipy openmm ambertools mdtraj pyparsing!=3.3.3
+            mdanalysis rdkit parmed biopython ipywidgets anywidget plotly beartype
+            pydantic traitlets>=5
+
+      - name: Build and install this noneditable consumer
+        shell: bash -el {0}
+        env:
+          RUSTUP_TOOLCHAIN: 1.97.1
+        run: |
+          set -euo pipefail
+          rustup toolchain install 1.97.1 --profile minimal
+          python -m pip wheel --no-deps --no-build-isolation . --wheel-dir "$RUNNER_TEMP/consumer-wheel"
+          python -m pip install --no-deps "$RUNNER_TEMP"/consumer-wheel/*.whl
+          python -m pip check
+
+      - name: Verify public bytes and prepare isolated test inputs
+        shell: bash -el {0}
+        working-directory: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, os, shutil, urllib.request
+          from pathlib import Path
+          import molsysmt
+          root = Path(os.environ['GITHUB_WORKSPACE'])
+          receiving = Path(os.environ['RUNNER_TEMP']) / 'argdigest-receiving'
+          receiving.mkdir()
+          filename = 'argdigest-0.17.1-py_0.tar.bz2'
+          urllib.request.urlretrieve('https://conda.anaconda.org/uibcdf/noarch/' + filename, receiving / filename)
+          for name in ('tests', 'devtools', 'docs', '.github'):
+              shutil.copytree(root / name, receiving / name, ignore=shutil.ignore_patterns('__pycache__', '.pytest_cache'))
+          for name in ('pyproject.toml', 'README.md'):
+              shutil.copyfile(root / name, receiving / name)
+          # Source-inspection tests examine the installed wheel, never the checkout.
+          (receiving / 'molsysmt').symlink_to(Path(molsysmt.__file__).resolve().parent, target_is_directory=True)
+          wheel = next((Path(os.environ['RUNNER_TEMP']) / 'consumer-wheel').glob('*.whl'))
+          (receiving / 'consumer-wheel.json').write_text(json.dumps({'filename': wheel.name, 'sha256': hashlib.sha256(wheel.read_bytes()).hexdigest(), 'consumer_commit': os.environ['GITHUB_SHA']}, indent=2))
+          PY
+          python "$GITHUB_WORKSPACE/devtools/scripts/receive_installed_argdigest.py" \
+            --archive argdigest-receiving/argdigest-0.17.1-py_0.tar.bz2 \
+            --consumer-commit "$GITHUB_SHA" --output argdigest-receiving/preflight.json
+          micromamba list --json > argdigest-receiving/conda-list.json
+          python -m pip inspect > argdigest-receiving/pip-inspect.json
+
+      - name: Execute installed native and digestion contracts
+        shell: bash -el {0}
+        working-directory: ${{ runner.temp }}/argdigest-receiving
+        run: |
+          python -m pytest --receptor=ci -n 2 --junitxml=consumer.xml \
+            tests/native tests/_private/argdigest tests/basic/get tests/basic/compare \
+            tests/cross_repo/test_smonitor_contracts.py
+
+      - name: Execute every registered scientific control against installed code
+        shell: bash -el {0}
+        working-directory: ${{ runner.temp }}/argdigest-receiving
+        run: |
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          from devtools.scripts.validate_scientific_evidence import read_evidence_registry, scientific_test_nodes
+          registry, errors = read_evidence_registry()
+          if errors:
+              raise SystemExit('; '.join(errors))
+          nodes = scientific_test_nodes(registry)
+          if not nodes:
+              raise SystemExit('No scientific controls were selected')
+          Path('scientific-nodes.json').write_text(json.dumps(nodes, indent=2))
+          subprocess.run([sys.executable, '-m', 'pytest', '--receptor=ci', '-n', '2', '--junitxml=scientific.xml', *nodes], check=True)
+          PY
+
+      - name: Verify completed executions and unchanged public bytes
+        shell: bash -el {0}
+        working-directory: ${{ runner.temp }}/argdigest-receiving
+        run: |
+          python "$GITHUB_WORKSPACE/devtools/scripts/receive_installed_argdigest.py" \
+            --archive argdigest-0.17.1-py_0.tar.bz2 --consumer-commit "$GITHUB_SHA" \
+            --consumer-junit consumer.xml --scientific-junit scientific.xml \
+            --scientific-nodes scientific-nodes.json --output receipt.json
+
+      - name: Retain exact installed receiving evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: installed-argdigest-receiving-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/argdigest-receiving/*.json
+            ${{ runner.temp }}/argdigest-receiving/*.xml
+            ${{ runner.temp }}/consumer-wheel/*.whl
+          if-no-files-found: error
+          retention-days: 30

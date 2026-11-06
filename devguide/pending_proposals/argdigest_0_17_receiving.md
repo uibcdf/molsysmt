@@ -202,3 +202,29 @@ with exact candidate artifacts and actual dependency closure under #334, then
 close this issue in the maintainer's ordered sequence. Neither these tests nor
 the certificate's `release_eligible` predicate authorize publication or qualify
 an installed MolSysMT/Viewer pair.
+
+## Installed receiving recovery route — 2026-11-06
+
+The manual-only `receive_public_argdigest.yaml` workflow completes the missing
+installation boundary without creating another local environment. It solves
+the maintained public production environment, with the selected test engines and
+tools added on hosted Linux/Python 3.14, using public ArgDigest
+0.17.1, SMonitor 0.21.0 and DepDigest 0.15.1, builds this consumer into a wheel
+and installs it noneditably. It neither creates release tags nor publishes
+packages. Other dependency versions remain solver-selected and are recorded.
+
+`receive_installed_argdigest.py` rejects a different public archive digest,
+modified or additional ArgDigest runtime files, editable consumers/providers,
+imports outside the installed prefix, and violated runtime requirements.
+Preflight and final verification bracket the tests. Test inputs are copied away
+from the checkout; source-inspection tests see the installed package through a
+symlink, not checkout code. All native/digestion/get/compare/diagnostic controls
+and every registered scientific control run against that installed consumer.
+Empty, omitted, skipped and unsuccessful controls cannot produce a passing
+receipt. Wheel digest, imported origins, dependency inventories, JUnit reports
+and the final receipt are retained as hosted artifacts.
+
+This route is prepared, not yet executed or qualified. A passing local verifier
+guard does not replace its hosted installation. Close #428 only after receiving
+the exact successful run and its artifacts. This bounded Linux receiving does
+not substitute for the final installed MolSysMT/Viewer platform matrix in #334.

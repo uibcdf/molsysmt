@@ -216,3 +216,21 @@ then perform documented provider closeout. The Viewer team must separately recei
 the prepared correspondence before admitting managed in-place removal. No tag,
 Release, publication, Viewer runtime change or installed-package qualification is
 authorized or implied by this source checkpoint.
+
+## Integrated checkpoint receiving — 2026-11-06
+
+The prepared source reached main at 6b76a9d7e. Its actual smoke run
+[42252758948](https://github.com/uibcdf/molsysmt/actions/runs/42252758948)
+failed before runtime tiers: the hosted command omitted the newly added
+`test_native_receiving_583_584.py`, and the exposure inventory still assumed
+that every new native build function had already been admitted to the addon.
+These are real integration failures, not passing or cancelled evidence.
+
+Recovery includes the omitted module in the existing single pytest invocation
+and explicitly guards the sole unexposed build route, `build.assess_protonation`.
+The inventory continues reporting it as missing. This does not add a placeholder,
+claim complete addon exposure, remove an existing public bound route or admit
+managed assessment/application. The remaining native-route and command-completeness
+assertions stay active. All three hosted guard modules plus the newly included
+native-receiving module pass 38 local cases; six legacy-H5MSM warnings remain.
+The next published exact-head smoke run must still execute and be inspected.

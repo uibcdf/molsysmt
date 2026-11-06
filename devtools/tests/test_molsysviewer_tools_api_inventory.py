@@ -98,7 +98,14 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     assert rows["build.make_water_box"]["input_kind"] == "explicit_inputs"
     assert rows["build.add_ions"]["exposed"]
     assert rows["build.add_ions"]["input_kind"] == "primary"
-    assert inventory["modules"]["build"]["missing"] == []
+    # #576 receives the native assessment first; managed object application has
+    # not been admitted to the addon. Keep that single gap visible, not exposed
+    # by a placeholder or mistaken for a regression in an existing bound route.
+    assert inventory["modules"]["build"]["missing"] == ["build.assess_protonation"]
+    assert rows["build.assess_protonation"]["input_kind"] == "primary"
+    assert (
+        rows["build.assess_protonation"]["declaration_status"] == "callable_unqualified"
+    )
     for name in (
         "get_donor_atoms",
         "get_acceptor_atoms",

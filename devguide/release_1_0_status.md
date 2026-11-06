@@ -42,6 +42,15 @@ The [feature-closeout receipt](../devtools/data/ordered_feature_closeout_304_593
 records 447 passing exact-checkout controls, unchanged executable/tutorial bytes
 relative to the tested prepared source, and the qualification that remains open.
 
+**Integrated checkpoint follow-up — 2026-11-06:** main 6b76a9d7e smoke
+[42252758948](https://github.com/uibcdf/molsysmt/actions/runs/42252758948)
+failed its addon command/inventory guards before runtime execution. The recovery
+receives the omitted #583/#584 test module and explicitly retains the native-only
+assessment gap from #576; 38 affected local cases pass. A prepared manual-only
+installed ArgDigest route supplies #428's missing installation boundary without
+creating local environments or publishing packages. Hosted recovery/installed
+evidence remains pending; neither local result clears these gates.
+
 The #304 native profile has qualified explicit reader policy,
 exact standard/curated modified-group references, observed-H parent consensus,
 optional pinned H-name alternatives, naming-scoped ACE/NME/NHE/NH2 references
