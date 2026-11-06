@@ -1,0 +1,238 @@
+{
+  "schema": "molsysmt.viewer-system-panel-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#297",
+    "uibcdf/molsysviewer#298"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "status": "System / Remove atoms implemented and locally contract-tested in contribution source; owner review and hosted qualification pending.",
+  "contribution_parent": "94548b434f5d673f6fcfc6c97db9d83601a5b4b7",
+  "native_owner_basis": "8486ea59cdca48de30abf3e66484c11fd843da59",
+  "viewer_source": "ecf4635e3fe95bd382d127caf13e46ad3771d406",
+  "source_artifacts": {
+    "molsysviewer_molsysmt/_panel.py": "fd00c36188ac8a26c322f4f833f9d94f05ef91755248a2906deec78b177304a0",
+    "molsysviewer_molsysmt/_panel_frontend.py": "7d1b8e7d05daeabe949073255c4d44a3cee151029ca8bdf84c5cf2ab84a6e96b",
+    "molsysviewer_molsysmt/tools.py": "ba02f93d0b77638eeff2b683affd6a6846d6b3ead3f92eb76bea204d6ce09b72",
+    "tests/molsysviewer_molsysmt/test_system_panel.py": "2bc69393cc4d41dacb5b61e4f60c24514c26b832258cb9237b348a2b35cc15e6",
+    "tests/molsysviewer_molsysmt/system_panel_bridge.py": "67d7d8630a1f3d103bb5c57c30f91a30bbaf62e8cc4ba621f78553c8efea8fce",
+    "tests/molsysviewer_molsysmt/system_panel_browser.mjs": "d730e6eadfaed4d7daa39457b8c1aa8723fdba4fdf7673832c62ad7d9e5f1553",
+    "devtools/scripts/viewer_tools_contract.py": "528079097a278e2e8a2dbbd7319e20dbeffed3a39d6ecb2491371e1bc44613c9"
+  },
+  "host_sources": {
+    "molsysviewer/_private/argdigest/digest.py": "c4d166debe4558bc5279611f58297c171c2ad8b24065dfeb45c7b29911602ecf",
+    "molsysviewer/js/src/managers/viewer-controller.ts": "2fcbf6dd90e6c11b52fa2133d0513929b1c64bbd19df2ba8ed7cb2182ccbc683",
+    "molsysviewer/js/tests/unit/addon-panel-lifecycle.test.ts": "2458ce41727f4aeb8e1b3d5345af645fa815815032f8f8cfb45e3f0f0e72ebfe",
+    "molsysviewer/system_edits.py": "5e01ae9e078480731807e7996c7fd16fc65c4c0c78f7c0b01657110918998ffb",
+    "tests/test_addon_panel_pending_state.py": "328567aae4417bf3a878f4e9489e2be7f6dd18de5cac501d85b007f301ff64df"
+  },
+  "registered_panels": [
+    "System / Remove atoms"
+  ],
+  "remaining_design": [
+    "Other System tasks",
+    "Geometry",
+    "Chemistry",
+    "Analysis",
+    "Common host presentation for independent new Views"
+  ],
+  "expert_api": "Scientific signatures, defaults, results and native algorithms unchanged; GUI explicitly chooses all-structure in-place removal and immediate synchronization.",
+  "validation": [
+    {
+      "file": "gui-system-all-addon-20261105.xml",
+      "sha256": "27ececf344c169f47c4f0ab711ad76faa05f0ec1106fb964ab69e3ca5ffeff4a",
+      "scope": "Complete addon plus native-host integration, API inventory and exact smoke command; four workers; fixed provider overlay.",
+      "tests": 4470,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 336.972
+    },
+    {
+      "file": "gui-system-host-final-20261105.xml",
+      "sha256": "af400b506d44e5d5f97824edb5fdfce528e20ce8c604a71cff07039462fb7501",
+      "scope": "Viewer reporting guards, subclass metadata, managed edits and endpoint routing.",
+      "tests": 321,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 8.448
+    },
+    {
+      "file": "gui-system-docs-contracts-20261105.xml",
+      "sha256": "81217b592d3db8c931bbbfe39ed694f0260aa95b3e6889d649e900d58954a181",
+      "scope": "Owner documentation, course, docstring and reporting controls; excludes 32 integration/source controls already in full gate.",
+      "tests": 86,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 86.384
+    },
+    {
+      "file": "gui-system-pinned-route-20261105.xml",
+      "sha256": "b99ef569bc5afe753673b085cbb05c526c6e1ec4d34da4a21d913d09d6185d3d",
+      "scope": "Dependency routes and exact hosted smoke command after advancing the controlled host pin.",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.154
+    }
+  ],
+  "new_panel_guards": 32,
+  "browser": {
+    "scope": "Local headless real Mol* + addon ESM + persistent Python/native source. Not a live Jupyter, visible Qt, popup or installed-artifact certificate.",
+    "checks": [
+      "Actual host workspace mounts addon ESM and native 1TCD review reports 165/3818 atoms.",
+      "Real click-to-Python removal updates actual Mol* structure to 3818 atoms; native revision advances once.",
+      "Zero ion matches remain a native no-op without another managed revision.",
+      "Host Update view reconciles a real pending edit; generic status event refreshes addon without repeating science.",
+      "Unmount/remount preserves the bounded draft and never restores an executable review token."
+    ],
+    "page_errors": [],
+    "native_source": "/tmp/msv-naming-receiving-20261105/molsysmt/__init__.py"
+  },
+  "browser_artifacts": {
+    "result_sha256": "03cd73fe70c841c9d415895acec8779db67ba59222f50d1444e64a4052fa9138",
+    "screenshot_sha256": "e05fac741f3812775467af7f303325a9cfd3a4e75eaeeb98701771700a405f5b",
+    "command": "MOLSYSVIEWER_ROOT=<qualified Viewer checkout> PYTHON=<development interpreter> PYTHONPATH=<contribution>:<fixed public provider overlay> node tests/molsysviewer_molsysmt/system_panel_browser.mjs",
+    "requires": "Build Viewer runtime and E2E harness first; browser/WebGL2 failure fails; no E2E_ALLOW_SKIP."
+  },
+  "initial_failures": [
+    {
+      "file": "gui-system-panel-initial-20261105.xml",
+      "sha256": "775e2394c02309bfef969f2b0fa4a92efd245c0eb80c13bd0657528c77036b40",
+      "scope": "Initial implementation and authored test failures; retained.",
+      "tests": 29,
+      "failures": 25,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 14.948
+    },
+    {
+      "file": "gui-system-panel-recovery-20261105.xml",
+      "sha256": "50527799366f8345731aac576a7d3f416544d5805150a2af937e44d9009d7818",
+      "scope": "Inherited transport failure reported as Viewer #297.",
+      "tests": 32,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 11.174
+    },
+    {
+      "file": "gui-system-host-boundary-20261105.xml",
+      "sha256": "d8c383e243debfac31c75b5beb6642fe2f1e910f50e669e5dc2d4d0b26f8c290",
+      "scope": "Host repair removes transport failures; remaining consumer sync_failed classification corrected before final gates.",
+      "tests": 49,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 14.655
+    }
+  ],
+  "diagnoses": [
+    "Initial consumer assumptions about SMonitor emitter export, saved selection keys and quantity-wrapper identity were corrected without provider changes.",
+    "Pending addon commands remain correctly blocked: recovery uses the existing canvas Update view action.",
+    "Viewer #297 fixes inherited metadata transport during pending projection or foreign read locks; same-named consumer overrides remain guarded.",
+    "Viewer #298 fixes CSS lifetime outside replaceable render contents; real computed style/unmount/remount checks pass.",
+    "Consumer recovery recognizes native pending and sync_failed states; failed projection never repeats completed science."
+  ],
+  "source_freeze": {
+    "sha256": "58a8979af8da8f049bfc40213d0aa31aa90379780224ef6bfcd2de33d91db967",
+    "files": 4248,
+    "postcheck": {
+      "primary_files": 4248,
+      "primary_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "provider_python_files": 91,
+      "provider_changed": [],
+      "viewer_sources_changed": [],
+      "native_authored_diff": []
+    },
+    "support_sources": {
+      "argdigest": {
+        "files": 39,
+        "sha256": "3c4755458d50f130a2f3c28950a251ac648dd23e81746459be45f61270c4625b"
+      },
+      "smonitor": {
+        "files": 41,
+        "sha256": "b74089eef3ff3000cac98674e2adfdf926ff1776be3332dab74e2cf2e0cefe6f"
+      },
+      "depdigest": {
+        "files": 17,
+        "sha256": "403da67267b92db38ca9c0c97167cef9e66552780c3a6c4f97800ebd48dd743d"
+      }
+    },
+    "provider": {
+      "commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+      "python_files": 91,
+      "sha256": "b0b4bfaed9e617b53d3a553cb8a4f3b684018c14c4b3aebc3ab6558e8efabc4e",
+      "archive_sha256": "15837de15b443f3f0853d484da9990da74cc444b9c562e4aafe9fbf86642cdbd"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67"
+  },
+  "documentation": {
+    "native_docstrings": 246,
+    "course_notebooks": 156,
+    "module12_cells": 35,
+    "changed_markdown_cells": [
+      "f158b27f"
+    ],
+    "all_code_outputs_ids_metadata_preserved": true,
+    "devguide_indexes": "passed",
+    "dependency_scan_audit": "passed",
+    "ruff": "check and format --check passed in both source trees",
+    "typescript": "npx tsc --noEmit passed",
+    "js_unit_lane": "npm run test:js passed; native reporter counts the bundled file as one passing test target, no reconstructed individual-case total.",
+    "scope": "Modified guide prose and Module 12 narrative; first unchanged guide code example executed separately, other unchanged examples retain prior evidence.",
+    "provenance": "Final standalone docstring/course checks use explicit contribution+fixed-provider PYTHONPATH; an initial unpinned docstring probe and an invalid module.main wrapper are excluded from qualification."
+  },
+  "warnings": {
+    "full_addon": 2545,
+    "host_reporting": 14,
+    "docs_controls": 209,
+    "disposition": "Retained native H5MSM, attribute, digestion, quantity and numerical warnings; not suppressed or converted to omissions."
+  },
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "scope": "Source checkout plus fixed public provider overlay and retained native backend; not a clean installed artifact."
+  },
+  "pending": [
+    "Owner PR review/integration; no direct owner-main writes.",
+    "Exact-head hosted CI and original artifacts.",
+    "Live Jupyter, visible Qt and actual popup exercises.",
+    "Receive native b8cdbd101 \u2192 d2c0882ed (ions/solvation/maps, nullable identifiers, default-empty view and isolated force-field metadata); refresh dated inventory and reconcile owner document conflicts before merge.",
+    "Native forces #572 and reliable managed protonation maps #576.",
+    "Clean installed artifact and release-specific qualification."
+  ],
+  "publication": "Both 1.0 publications remain paused; no candidate, tag, package or promotion.",
+  "latest_unreceived_owner": "d2c0882ede355e475a3b8f8a6e618d5021d01ba1",
+  "hosted_ci_at_checkpoint": {
+    "viewer_source": "ecf4635e3fe95bd382d127caf13e46ad3771d406",
+    "ci": {
+      "run": 42136294152,
+      "status": "queued",
+      "jobs": {
+        "queued": 8,
+        "skipped": 1
+      }
+    },
+    "browser": {
+      "run": 42136294360,
+      "status": "queued",
+      "jobs": {
+        "queued": 1,
+        "skipped": 1
+      }
+    },
+    "inspection": "gh-run-receptor; no artifacts and no success claim."
+  }
+}

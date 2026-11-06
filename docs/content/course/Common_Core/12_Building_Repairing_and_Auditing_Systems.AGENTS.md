@@ -106,3 +106,9 @@ independent output and deliberate separate loading. Keep row-vector oxygen
 clipping with whole waters, native unit policy and packing/force-field/
 equilibration limits distinct from solvation. Preserve all course code, outputs,
 cell IDs and metadata.
+
+Preserve the source-qualified System GUI removal explanation, explicit selection
+context versus all-structure deletion, unchanged expert Python defaults, atomic
+review expiry and projection-only host recovery. Do not imply the other planned
+panels or visible/installed hosts are qualified by headless receiving. Preserve
+all original executable cells, outputs, IDs and metadata.

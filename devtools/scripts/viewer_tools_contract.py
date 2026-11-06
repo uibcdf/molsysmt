@@ -27,6 +27,8 @@ TOOLS_FILES = frozenset(
         "molsysviewer_molsysmt/_structure.py",
         "molsysviewer_molsysmt/_supported.py",
         "molsysviewer_molsysmt/_geometry.py",
+        "molsysviewer_molsysmt/_panel.py",
+        "molsysviewer_molsysmt/_panel_frontend.py",
         "molsysviewer_molsysmt/_element.py",
         "molsysviewer_molsysmt/_element_hierarchy.py",
         "molsysviewer_molsysmt/_element_domains.py",

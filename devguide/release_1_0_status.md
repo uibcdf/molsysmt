@@ -4268,3 +4268,12 @@ See the [consumer receipt](../devtools/data/molsysviewer_tools_water_factory_rec
 Source exposure is 241/244, build 30/30; native forces #572, managed protonation
 #576, remaining scientific contracts, owner review, CI, GUI and installed
 qualification remain separate. Both 1.0 publications stay paused.
+
+### First molecular-tools task panel
+
+Consumer PR #543 now implements System / Remove atoms in source, with bounded
+selection review and serialized confirmation through the existing expert
+adapter. Local real-browser/native receiving is separate from owner review,
+hosted CI, live Jupyter/Qt/popups and installed qualification. Viewer #297/#298
+own diagnostic transport and stylesheet lifetime fixes. Geometry, Chemistry,
+Analysis and other System tasks remain proposed; both publications stay paused.

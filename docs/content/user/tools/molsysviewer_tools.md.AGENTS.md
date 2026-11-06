@@ -43,7 +43,7 @@ published package compatibility. Keep the explicit qualified-tool inventory: six
 Update it only when more tools are implemented and qualified. Explain the bound primary system,
 native parameter/return/validation behavior, automatic entry-point discovery,
 replacement/close semantics, the native independent/in-place distinction, pending
-synchronization/recovery and the absence of task panels and other editing families. Link native tool references and Viewer host/author documentation.
+synchronization/recovery and the actual qualified task-panel scope and remaining editing families. Link native tool references and Viewer host/author documentation.
 
 Preserve native keyword-only from_naming_scheme on conversion/preflight. Forward
 the caller's context to native validation without inferring it from the view.
@@ -519,3 +519,13 @@ the primary, infer its box, solvate it or adopt results. Keep caller-owned outpu
 closed-owner rejection and native normalized-input requirements when digestion
 is skipped. Preserve packing/equilibration and force-field limits; native nm
 storage does not change the application unit policy.
+
+Preserve the qualified System removal panel over the existing expert adapter:
+source selections, explicit one-structure evaluation context and all-structure
+inventory removal remain distinct. Keep atomic review validity, single-use
+private tokens, no coordinate-copy preview, bounded frontend metadata and native
+independent Python defaults. Preserve drafts across navigation but expire reviews.
+Pending commands remain gated; use the host canvas Update view control and
+managed-state notification for reconciliation, never repeat completed science.
+Keep the first panel distinct from planned Geometry/Chemistry/Analysis panels
+and from installed, visible Qt/Jupyter/popup qualification.

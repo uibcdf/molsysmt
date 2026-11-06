@@ -3,8 +3,12 @@
 **Role:** proposed GUI design under uibcdf/molsysmt#421 and
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
-**Status:** design and offline interaction prototype, not a registered panel,
-implemented GUI, installed-package qualification or release authorization.
+**Status:** the System / Remove atoms slice is implemented in contribution
+source and locally contract-tested with a real Mol*/ESM/Python browser. Geometry,
+Chemistry, Analysis and the other System tasks remain proposed. The offline
+prototype illustrates that broader design; it is not runtime evidence. Owner
+review, exact-head CI, live Jupyter/Qt/popups and installed qualification remain
+separate. No release is authorized.
 
 The expert API remains the scientific foundation. This design uses qualified
 native operations and their existing managed-edit adapters; it does not change
@@ -14,8 +18,9 @@ Python signatures, defaults or result types. The core/addon boundary and
 ## Navigation and information density
 
 Use one addon workspace titled **Molecular tools**, identified as **MolSysMT**.
-Reuse AddonWorkspaceSpec, AddonPanelSpec and AddonPanelWidget. Four horizontal
-panels follow the existing Elastic Networks pattern:
+Reuse AddonWorkspaceSpec, AddonPanelSpec and AddonPanelWidget. Four intended
+horizontal panels follow the existing Elastic Networks pattern; register only
+panels with real qualified tasks. Current source registers System alone:
 
 | Panel | User intent | Typical tasks |
 | --- | --- | --- |
@@ -98,7 +103,8 @@ label, atom count and structure count, not a trajectory-sized payload.
 5. **Report outcome.** Show actual remaining inventory and retain the user's
    task/selector draft. Native no-op, rejection, completed edit with projection
    failure, and uncertain partial write are different outcomes. A completed-edit
-   projection failure offers sync_view only, never repeats removal. Uncertain
+   projection failure points to the existing canvas Update view action, never
+   repeats removal. Addon commands remain paused until that recovery. Uncertain
    writes require the host's explicit recovery/replacement contract.
 
 ## Review validity and concurrent windows
@@ -122,8 +128,18 @@ The protocol concerns managed edits. It does not claim to observe arbitrary
 mutations of view.molsys or raw arrays. External edits retain the documented
 explicit reconciliation responsibility; preview tokens are not source fingerprints.
 
-Keep only bounded draft/count metadata in frontend state. Resolved indices and
-short-lived operation tokens stay in Python. Do not broadcast full MolSys,
+The host's bounded `viewer:system-sync-changed` event invalidates frontend
+reviews and triggers a fresh context request when synchronized. Python still
+checks target identity, managed revision, structure and relevant selection
+inside the serialized execution callback. Mount/unmount scopes the token;
+only bounded drafts survive navigation. The source consumer requires the host
+fixes tracked in uibcdf/molsysviewer#297/#298, not merely its older declared
+capability floor. Current receiving pins the exact host source independently
+of public artifact compatibility.
+
+Keep only bounded drafts in persistent frontend state. Resolved indices stay
+in Python; the requesting panel receives one opaque, transient confirmation
+token without persisting it in the model or exported session. Do not broadcast full MolSys,
 coordinate arrays, all selection indices or candidate trajectories to every
 popup. Do not serialize stale tokens or arbitrary live addon state in session
 exports; use only the host's qualified persistence contracts.

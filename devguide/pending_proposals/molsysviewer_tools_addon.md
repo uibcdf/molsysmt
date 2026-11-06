@@ -14,6 +14,30 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## First graphical task implemented in source — 2026-11-05
+
+System / Remove atoms is registered in the Molecular tools workspace. Native
+selection resolves current/saved selections, regions, water/ion criteria or
+explicit expression/indices; a read-only count review precedes one destructive
+confirmation. Execution uses the expert removal adapter inside the existing
+serialized coordinator, without changing expert signatures or defaults.
+Tokens expire on target/revision/context changes and unmount; bounded drafts
+survive navigation. Molecular edits affect every structure and have no scene
+history Undo. Completed science with projection failure uses the existing
+canvas recovery, without repeating removal.
+
+Local receiving includes native 1TCD, real Mol*/ESM/Python click-through and
+the host fixes uibcdf/molsysviewer#297/#298. The broader four-panel prototype
+below remains design evidence; only System / Remove atoms is implemented.
+Other tasks, native b8cdbd101 receiving, owner review, exact-head CI, live
+Jupyter/Qt/popups and installed qualification remain separate. Both 1.0
+publications remain paused. The maintained design is
+[here](../molsysviewer_tools_gui_design.md). The
+[implementation receipt](../../devtools/data/molsysviewer_tools_system_panel_receiving_20261105.json)
+records 4,470 addon/integration passes, 86 documentation controls and 12
+pinned-route checks. Host ecf4635e is now the exact controlled-source input;
+public package floors and historical release coordinates remain unchanged.
+
 
 ## Graphical workspace design — 2026-11-05
 

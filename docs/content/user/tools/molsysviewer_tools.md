@@ -108,8 +108,8 @@ explicit independent-builder and conditional-result ownership.
 Peptide construction from the loaded sequence and amino-acid mutation are
 available as independent native results, with reconstruction limits below.
 
-Other scientific modules, editing families and graphical task panels
-are still being implemented. This is not a complete MolSysMT mirror
+The qualified source contribution also provides the System task panel described
+below. Other graphical tasks and some scientific modes remain under development. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
 
 The received `view.addons.molsysmt.element` slice contains eight explicit-input
@@ -4968,3 +4968,56 @@ an exact density or guarantee that periodic-face contacts are free of overlaps.
 Inspect packing before simulation. A small valid cell may return a typed empty
 water system. See {func}`molsysmt.build.make_water_box` for the complete native
 contract, and {func}`molsysmt.build.solvate` to add solvent around a molecule.
+
+
+## Removing atoms through Molecular tools
+
+This section describes the experimental source integration, not an admission
+of an older installed package pair. Enable MolSysMT in Studio/Add-ons if it is
+disabled, enter **Molecular tools**, and open **System**. The first task is
+**Remove atoms**. Other planned task panels are not advertised as runnable.
+
+Choose atoms from the current canvas selection, a saved selection, a region,
+or the Water/Ions categories. You can also enter a MolSysMT expression or
+comma- or space-separated integer atom indices. Categories prefill ordinary
+native selectors; they do not implement separate removal algorithms. Name
+suggestions show up to 200 entries; an existing name can also be entered directly.
+Text fields accept at most 4096 characters. Use a saved selection or region
+for a large explicit atom set.
+
+**Selection context** chooses one current or explicit structure for evaluating
+the selection. Expressions use the reference chemical state. This is distinct
+from the operation's scope: removing an atom removes it from **every structure**.
+The visible structure is never presented as a separate topology.
+
+Press **Review removal** to inspect selected/retained atom counts, structure
+coverage, available group counts and the selection context. Review does not
+copy coordinates or alter molecular data, canvas selection or scene history.
+No matches is a neutral outcome; selecting every atom is refused. To clear a
+view, use the host's separate loading/reset workflow.
+
+Confirm **Remove N atoms** to apply the qualified native removal with immediate
+scene reconciliation. This GUI decision chooses the admitted in-place effect;
+`tools.basic.remove` keeps its native independent default and expert options.
+Saved references follow the retained atom map. Scene Undo cannot restore
+removed molecular atoms. Back returns to the retained draft without execution.
+
+A review expires after a molecular revision/replacement, changed selection
+context or relevant selection source, draft change, panel unmount or close.
+The final check and publication share the host's serialized edit boundary.
+Review tokens and atom arrays stay private to Python; the frontend receives
+bounded summaries. An unmounted panel cannot revive a token. Other live panel
+instances refresh after an edit while retaining their drafts.
+
+If science completes but the scene update fails, use **Update view in the
+canvas**. This retries projection only; do not repeat the removal. The qualified
+host emits managed-state updates to refresh the panel after recovery. Hosts
+without that notification require an explicit Refresh after updating the view.
+An uncertain partial write instead requires explicit recovery/replacement.
+These controls do not observe arbitrary external edits to `view.molsys`.
+
+Molecular data remain owned by the view's single current MolSys. The panel
+uses the same native selection and removal preparation as the expert API.
+Extraction/copy result presentation, other task panels, live Jupyter/visible Qt
+and popup qualification, owner integration and installed artifacts retain their
+own receiving gates.
