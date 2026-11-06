@@ -43,6 +43,13 @@ families and postponed human acceptance remain required. This contributor
 checkpoint leaves the maintainer's ordered native issue goal below unchanged;
 all publication operations remain paused.
 
+The isolated reconciliation also preserves owner main `40bb54d05`, including
+its prepared-PDBQT projection and course work. All 117 affected native/digestion/
+documentation/addon-preflight cases pass on `c877038d9`; addon runtime/tests and
+the Rust tree remain unchanged. The reference receipt keeps this merged-source
+scope separate from the earlier directed runs. Complete-addon and hosted gates
+still need this exact combined input.
+
 ## Force-reader expert receiving — 2026-11-06
 
 The contribution following `2bb52b77c` explicitly binds native #572 as

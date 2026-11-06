@@ -159,5 +159,25 @@
     "All previously approved GUI and full TcTIM/ensemble scientific-session families remain required",
     "Human Jupyter/visible Qt acceptance remains explicitly postponed",
     "Candidate/tag/package operations and both 1.0 publications remain paused"
-  ]
+  ],
+  "owner_base_integration": {
+    "source_producer": "c877038d90c0979713bb66c2ce9f372bd6461322",
+    "included_owner_main": "40bb54d05182d4a87c48cc17a141b4152812421c",
+    "owner_scope": "Prepared PDBQT coordinate projection and strict metadata validation; owner science and course changes preserved",
+    "addon_runtime_and_tests_unchanged": true,
+    "passed": 117,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 5.85,
+    "scope": "Native correspondence digestion, PDBQT coordinate projection/docs and addon API/source/hosted-command preflight; not the complete addon collection",
+    "private_log": "msv-reference-owner-integration-20261106.log",
+    "log_sha256": "d85c5bd0332d381dc2f990d3636b5b7652e41d7caa6afd8c99cd72467dd77c66",
+    "checks": [
+      "devguide links/schema/lifecycle",
+      "156-course-notebook structure/manifest/labels",
+      "dependency contract audit",
+      "whole-tree Ruff check/format (4481 files)"
+    ],
+    "full_addon_gate": "Pending on the final frozen source; original 333/99/67 scopes keep their earlier inputs"
+  }
 }
