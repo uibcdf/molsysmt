@@ -171,18 +171,27 @@ def command_open(arguments: argparse.Namespace) -> int:
 
 
 def _remote_state() -> dict[int, dict]:
+    """Acquire every issue page before interpreting absence; REST also lists PRs."""
     payload = _gh(
-        "issue",
-        "list",
-        "--state",
-        "all",
-        "--limit",
-        "500",
-        "--json",
-        "number,state,labels,title",
+        "api",
+        "--paginate",
+        "--slurp",
+        "repos/{owner}/{repo}/issues?state=all&per_page=100",
     )
-    issues = json.loads(payload or "[]")
-    return {issue["number"]: issue for issue in issues}
+    pages = json.loads(payload)
+    return {
+        issue["number"]: {
+            "number": issue["number"],
+            "title": issue["title"],
+            "state": issue["state"].upper(),
+            "labels": [
+                {"name": label["name"]} for label in issue.get("labels", []) or []
+            ],
+        }
+        for page in pages
+        for issue in page
+        if "pull_request" not in issue
+    }
 
 
 def _drift(report: Report, issue: dict | None) -> list[str]:

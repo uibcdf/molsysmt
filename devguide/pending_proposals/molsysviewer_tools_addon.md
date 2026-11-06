@@ -14,6 +14,18 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Board acquisition tooling follow-up — 2026-11-05
+
+The reporting audit exposed #587's false missing-issue results after the first
+500 records. PR #543 proposes paginated issue-only acquisition and five transport
+regressions; 64 tool/reporting checks pass. Live acquisition finds 519 issues,
+including valid #22/#25. Three unrelated label discrepancies remain explicit.
+The [tooling receipt](../../devtools/data/devguide_board_pagination_receiving_20261105.json)
+keeps this input separate from the unchanged 8725a460c scientific/addon runtime
+and its 4,506-case gate. Local working instructions record the accepted action;
+shared review is notified in uibcdf/molsyssuite#171 and uibcdf/moli#85. Owner
+review/integration and canonical adoption are not implied.
+
 ## Native model and ion receiving — 2026-11-05
 
 Published native `8c2661293` is received over contribution `02c409e5b`, with

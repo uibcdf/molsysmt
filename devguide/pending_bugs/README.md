@@ -30,8 +30,9 @@ that front matter -- edit the entries, not this list.
 
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
-### Partially resolved (1)
+### Partially resolved (2)
 
+- [`devguide_board_sync_truncates_issue_history.md`](devguide_board_sync_truncates_issue_history.md) — [#587](https://github.com/uibcdf/molsysmt/issues/587) — Devguide board reconciliation falsely loses issues older than its capped inventory. *(medium, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
 
 <!-- /generated -->
