@@ -77,6 +77,10 @@ sections:
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md.AGENTS.md
             description: Typed chemical columns, direct selected-state get/info, null masks, bounded reads, explicit conversion for edits and persistence.
+          - name: molecular_mechanics
+            file: docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md
+            agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md.AGENTS.md
+            description: Engine-neutral physical requests, separate solute/solvent choices, stored-setting precedence and explicit limits on executed recipe tuning and persistence.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md
@@ -100,7 +104,7 @@ sections:
             file: docs/content/user/foundations/support/forms/files.md
             agents_file: docs/content/user/foundations/support/forms/files.md.AGENTS.md
           - name: molecular_mechanics
-            description: Parameter vocabularies and independent engine resource-name metadata, distinct from engine installation and scientific model configuration.
+            description: Engine-neutral parameter vocabularies, distinct OBC variants, independent resource metadata and the effective default recipe executed by the OpenMM adapter.
             file: docs/content/user/foundations/support/molecular_mechanics.md
             agents_file: docs/content/user/foundations/support/molecular_mechanics.md.AGENTS.md
       - name: ecosystem
@@ -536,7 +540,7 @@ sections:
         status: pending_review
         pages:
           - name: get_engine_forcefield
-            description: Independent ordered XML/leaprc lists, solvent-model precedence, local edits and the separation of metadata from actual parameterization.
+            description: Independent resource lists, explicit OBC1/OBC2 physics, native stored settings and conversion overrides, faithful OpenMM execution and physical constraint policies.
             file: docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb.AGENTS.md
       - name: element

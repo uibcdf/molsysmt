@@ -1,0 +1,218 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#580",
+    "uibcdf/molsysmt#581"
+  ],
+  "base_commit": "d2c0882ede355e475a3b8f8a6e618d5021d01ba1",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "versions_observed_at_closeout": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+    "openmm": "8.6.1",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.0+20.ga5fe517"
+  },
+  "version_note": "Editable package metadata is a closeout observation, not an exact source revision or installed release qualification. Shared sibling worktrees may advance. Use the base Git identity and file hashes for this patch; published minimum payloads have separate origins.",
+  "files": {
+    "devguide/archive/resolved_bugs/forcefield_resource_results_alias_registry_lists.md": "0e44055094bcd8073872c6db21926d8014f5685f93065cfe7fa9c0e65755374b",
+    "devguide/pending_bugs/README.md": "7d15a5045c2a14f53cb7f24984c9e7c3c98b814ecccf963f745170b2ad5b7f39",
+    "devguide/pending_proposals/README.md": "4a1d235afef2e2e499b3918fa90b7939e4961d22a063e8826e738a8f9d0cc44e",
+    "devguide/release_1_0_status.md": "7ef46d26e701c90b5ebf05bf33634ca7521cbf5aabb02953339286309ebe478a",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": "d3c54b283e4b488c287bedb08a9781f78437672a9344ffc887289114c1a5d243",
+    "docs/content/course/function_inventory.yml": "ea722be7210f0af44d45bbde13c1abf9008323dfd30d902098fec97f9162a730",
+    "docs/content/user/cookbook/simulation_workflow.ipynb": "427a67ad0f667c2052ef797a91d885d365bdc25fa0d029a8b32be04049bcea05",
+    "docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md": "0a00a72c9ca624d5466ef4d051847dbbd32354e56b0aa8514077c7f43ddd7b75",
+    "docs/content/user/foundations/support/molecular_mechanics.md": "bbc415b9a909fe429f4f9fe6505c81657190f22b62596c9ca733c820a13a44a0",
+    "docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb": "fe6fbf4f22f7363af3a624e6f86afaea2c1371d6a1b176e89a65b41a7dc2f63e",
+    "docs/content/user/tools/molecular_mechanics/get_engine_forcefield.nbconvert.last_run": "b6cf4d5dd2bd10664db81a2d549856cf96da9fa60056f31ab85308dfb3db426f",
+    "docs/docs_manifest.yml": "ad4601f93f455a2f9a49e356aff0bc291108dd2b71b7fb121eb39d1c91bd41de",
+    "molsysmt/_ackredit.py": "55190f7bc6e04c09b7d4c441b8c5446e23e3a3e1d1991b2530dcad0703026faf",
+    "molsysmt/_private/argdigest/argument/constraints.py": "0cfac550b3e1aba8719776bb707bcc328966aa5a9d82f8626490e6849ff2ea16",
+    "molsysmt/_private/forcefield.py": "5ddc4c065c73ef6430e5c7951af74a57750442321ced5bf318b130fa8e475ba8",
+    "molsysmt/_private/scientific_attribution.py": "8e574403e8a052e38b39fe502b6abc050d8c3a312ef260be9334be9f22cf6e6c",
+    "molsysmt/_private/scientific_citations.py": "9d4af73bdd4294d1f52305e22082d071f5cc56d92cbfd953741b669e9d319d59",
+    "molsysmt/basic/convert.py": "623ddf763ae7c9350a54d2c5db6bc6798baf03e30eebeea5f6c4aca1c4fb2d7f",
+    "molsysmt/form/openmm_Topology/to_openmm_System.py": "d7e10fe0aba2ffa59a84de86da9bb1b9ef02a9371bec896d4a93331ff65b9071",
+    "molsysmt/molecular_mechanics/forcefields.py": "bfa1bf5edcb7ce20b0d230a26bb7ad3bf214a21824be9349eb94a396027fd63d",
+    "molsysmt/molecular_mechanics/get_engine_forcefield.py": "01de8593defeadd3667bd6347754529af5192ac794fe45b21150a1de2a3f2313",
+    "molsysmt/native/molecular_mechanics.py": "943e7f596b80a517445e5d5516c2c041329e2a0cb2bc96fbe47b6697675977c4",
+    "tests/molecular_mechanics/test_get_engine_forcefield.py": "4e42c920a9cac033f0d0ba863ffc246c0dd3959a41d60b3c1551e00014e11710",
+    "devguide/archive/resolved_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md": "54dc6716749d4cd461f40716a279b95e49f67d752713f9afb230edaafca8071d",
+    "devguide/archive/resolved_bugs/openmm_system_conversion_ignores_the_requested_constraint_policy.md": "12a18d7892bd5ed45bca84c2f3b0eef508545de2a93de3affb2dc69e6ecc40ac",
+    "devguide/pending_proposals/expose_effective_engine_neutral_mechanics_recipes_and_unsupported_stored_control.md": "382c22b35716d37b076368f192605bcfd9549853e21f6006d6e0348818dee3e2",
+    "tests/basic/convert/test_stored_mechanics_options.py": "53bc60f8f9c8d0a6752f60c1589b75583e6a17b8bfd970a22e97cfbfe4b36195",
+    "tests/form/openmm_Topology/data/OPENMM_LICENSE.txt": "7ae1d35a96190aaca4715c9e5c5556e7f142ec3b999c2b4a554688355462e151",
+    "tests/form/openmm_Topology/data/README.md": "dcd4410111c8b00b5cdebf665d379df79a7ba7451e474f09edfbafdfc8494125",
+    "tests/form/openmm_Topology/data/obc1_alanine.pdb": "3a91889cb09262eccc1c106ef8146c8c618ef1ca88c540481732df642450a971",
+    "tests/form/openmm_Topology/data/obc1_reference_forces.json": "05fb8ac5a2becd5ee154b81d7c780b5159a90a22862467545e01e28de7f333e4",
+    "tests/form/openmm_Topology/test_implicit_solvent.py": "7613a22a738830d1c36c1791f89eaf9829a3746a350766fb6523335bbb54788d"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/basic/convert tests/form/openmm_Topology tests/form/molsysmt_MolSys tests/molecular_mechanics tests/test_ackredit.py tests/test_dependencies_architecture.py tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/argdigest/test_mechanics_digesters.py tests/_private/argdigest/test_definition_and_output_digesters.py -m 'not network' --receptor=llm -n 4",
+      "exit_code": 0,
+      "passed": 1817,
+      "seconds": 125.04
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD:<argdigest-0.14.0>:<depdigest-0.15.1>:<smonitor-0.16.0>:<ackredit-0.9.0> MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest -p no:smonitor tests/form/openmm_Topology/test_implicit_solvent.py tests/basic/convert/test_stored_mechanics_options.py tests/molecular_mechanics/test_get_engine_forcefield.py tests/test_ackredit.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 234,
+      "seconds": 8.61,
+      "note": "Only editable pytest entry point disabled under #524; runtime SMonitor remains active."
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/basic/convert.py molsysmt/molecular_mechanics/get_engine_forcefield.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 570,
+      "seconds": 22.49
+    },
+    {
+      "command": "MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python docs/execute_notebooks.py -q -n 1 -f docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb",
+      "exit_code": 0,
+      "notebooks_executed": 1,
+      "code_cells": 10,
+      "seconds": 8.1
+    },
+    {
+      "command": "fresh Python process imports molsysmt and looks up OBC2 resources; assert ackredit absent from sys.modules before/after",
+      "exit_code": 0
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/form/openmm_Topology/test_implicit_solvent.py::test_obc1_matches_frozen_upstream_reference_forces --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 1,
+      "seconds": 3.75,
+      "note": "Rechecked after normalizing trailing PDB padding; exact parsed source coordinates/atom fields separately verified."
+    }
+  ],
+  "reference": {
+    "schema": "molsysmt.test_reference_forces@1",
+    "source_repository": "https://github.com/openmm/openmm",
+    "commit": "ba0aa236ac4d07241382869604c4d2ea58c4f3f5",
+    "source_paths": {
+      "coordinates": "wrappers/python/tests/systems/alanine-dipeptide-implicit.pdb",
+      "forces": "wrappers/python/tests/systems/alanine-dipeptide-implicit-forces/OBC1_NonPeriodic.xml"
+    },
+    "source_sha256": {
+      "wrappers/python/tests/systems/alanine-dipeptide-implicit.pdb": "4110a5c2f68e6336e8ebf9f968635aa136c19873ca786dd085709be89929092d",
+      "wrappers/python/tests/systems/alanine-dipeptide-implicit-forces/OBC1_NonPeriodic.xml": "6cd8884fba3caa5062962d96b0439c76d80956e70b8431b47ef699bf3b018a31"
+    },
+    "method": {
+      "forcefield": "amber96.xml",
+      "solvent": "implicit/obc1.xml",
+      "nonbonded_method": "CutoffNonPeriodic",
+      "cutoff_nm": 1.0
+    },
+    "units": "kilojoule/mole/nanometer",
+    "tolerance": {
+      "absolute_vector_norm": 0.1,
+      "relative_vector_norm": 0.0001
+    },
+    "provenance_note": "Frozen upstream fixture used by TestForceField.test_ImplicitSolventForces, whose comment describes the AmberPrmtopFile construction route. The original numerical-generation command/engine revision is not retained by this fixture; do not describe it as an independently executed Amber benchmark.",
+    "coordinate_derivation": "Only trailing line padding removed; PDB atom/coordinate fields unchanged.",
+    "stored_coordinate_sha256": "3a91889cb09262eccc1c106ef8146c8c618ef1ca88c540481732df642450a971"
+  },
+  "reference_measurement": {
+    "max_force_vector_error_kJ_per_mol_nm": 0.024868854336030335,
+    "limits_unchanged": true,
+    "new_independent_Amber_run": false,
+    "reference_origin_limit": "Frozen upstream test describes an AmberPrmtopFile comparison route but retains no full historical generation command/version.",
+    "coordinate_padding_normalization": "Trailing padding only, exact parsed coordinates/atom fields checked against original checkout; original and stored hashes retained."
+  },
+  "model_measurement": {
+    "system": "22-atom upstream alanine dipeptide, fixed coordinates, AMBER14, Reference platform, NoCutoff, no constraints",
+    "units": "kJ/mol",
+    "vacuum": -55.76095949667376,
+    "OBC1": -106.7017213530296,
+    "OBC2": -105.16810801824288,
+    "interpretation": "Model potential energies; no measured binding/solvation free energy or general accuracy claim."
+  },
+  "baseline": {
+    "OpenMM_AMBER14_OBC1_no_GB_force": true,
+    "six_legacy_AMBER_OBC1_entries_construct_OBCII": true,
+    "first_new_regression_run": {
+      "failed": 8,
+      "exit_code": 1,
+      "scope": "Seven missing CustomGBForce controls; one public engine-enum argument rejected. Final public fixture uses engine-neutral string options."
+    },
+    "constraint_cause": "Original source hard-codes app.HBonds; frozen force comparison fails before honoring constraints=None. An overlapping diagnostic process saw repaired counts, not a separate red baseline."
+  },
+  "corrected_implementation_assumptions": [
+    "An attempted import of a non-exported mechanical-attribute list failed initial receiving; use the existing public attribute catalog.",
+    "Constraint mismatch was repaired in #581 without relaxing the upstream force tolerance."
+  ],
+  "governance_checks": [
+    "ruff check molsysmt tests/form/openmm_Topology/test_implicit_solvent.py tests/basic/convert/test_stored_mechanics_options.py tests/molecular_mechanics/test_get_engine_forcefield.py",
+    "python devtools/scripts/validate_docstrings.py",
+    "python devtools/scripts/validate_public_api_stability.py",
+    "python devtools/scripts/validate_dependencies.py",
+    "python devtools/scripts/validate_course.py",
+    "python devtools/scripts/validate_devguide.py",
+    "python devtools/scripts/devguide_index.py --check",
+    "git diff --check"
+  ],
+  "notebook_preservation": {
+    "code_outputs_metadata_unchanged": [
+      "docs/content/user/cookbook/simulation_workflow.ipynb",
+      "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb"
+    ],
+    "toolbox": "All ten code cells executed; later prose-only reference edits do not alter the code fingerprint."
+  },
+  "public_contract": {
+    "signature_drift": false,
+    "engine_neutral_physical_names": true,
+    "engine_resources_confined_to_adapter_and_metadata_lookup": true,
+    "stored_settings_precede_defaults": true,
+    "explicit_None_overrides_stored_model": true,
+    "new_dependency_floor": false,
+    "new_H5MSM_schema": false
+  },
+  "limitations": [
+    "Dielectric/screening/cutoff tuning fields are not independently consumed by these construction signatures; effective recipe/capability design is tracked by #582.",
+    "LEaP entries are preparation metadata, not qualification of later igb execution.",
+    "Ackredit capture is separate from OpenMM System XML; reading saved XML generates no new method credit.",
+    "Source suites overlap and do not qualify installed/platform/release artifacts. Hosted execution must be inspected separately after publishing."
+  ],
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "runtime_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "next_issues": [
+    "uibcdf/molsysmt#559",
+    "uibcdf/molsysmt#561",
+    "uibcdf/molsysmt#562"
+  ],
+  "proposal": "uibcdf/molsysmt#582",
+  "consumer": {
+    "PR": "uibcdf/molsysmt#543",
+    "observed_head": "02c409e5b243a8c974723cee57e72aa6228af000",
+    "qualification": "Native source handoff only; PR admission and installed/platform gates remain separate."
+  }
+}

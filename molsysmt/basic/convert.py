@@ -23,10 +23,11 @@ def _convert_one_to_one(
 ):
     """Internal helper: convert a single input from one form to another (one-to-one path)."""
 
+    from molsysmt.attribute import attributes
     from molsysmt.element import _element_index, _element_indices
     from molsysmt.form import _dict_modules, is_file, is_item, load_converter
 
-    from . import get_form, select
+    from . import get, get_form, has_attribute, select
 
     output = None
 
@@ -83,9 +84,26 @@ def _convert_one_to_one(
             set(conversion_arguments) | set(kwargs) | {"item", "copy_if_all"}
         )
 
+        stored_mechanics = False
         for missing_argument in missing_arguments:
-            if missing_argument in default_attribute:
+            if attributes.get(missing_argument, {}).get(
+                "mechanical", False
+            ) and has_attribute(
+                molecular_system, missing_argument, skip_digestion=True
+            ):
+                kwargs[missing_argument] = get(
+                    molecular_system,
+                    element="system",
+                    skip_digestion=True,
+                    **{missing_argument: True},
+                )
+                stored_mechanics = True
+            elif missing_argument in default_attribute:
                 kwargs[missing_argument] = default_attribute[missing_argument]
+
+        if stored_mechanics:
+            # Stored settings are new inputs, not previously validated keywords.
+            kwargs["skip_digestion"] = False
 
         missing_arguments = input_arguments - (
             set(conversion_arguments) | set(kwargs) | {"item", "copy_if_all"}
@@ -856,6 +874,12 @@ def convert(
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
     - Explicit structure indices are validated before a conversion adapter is called.
+    - For declared mechanical arguments, explicit conversion keywords take
+      precedence over supported stored source settings, then library defaults.
+      Explicit None remains an override, for example to disable a stored
+      implicit-solvent request. Newly read source settings pass the adapter's
+      argument boundary. This neither edits the source nor certifies support
+      for arbitrary mechanics fields absent from that adapter's signature.
     - Conversion reports audit stored and explicitly supplied group-name
       declarations as topology metadata. Targets that retain labels alone report
       this loss; strict=True rejects it before creating or replacing a target.

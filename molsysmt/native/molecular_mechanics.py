@@ -18,6 +18,14 @@ class MolecularMechanics:
     ``atom_type_assignment`` holds optional named chemical typing provenance.
     Replacing either property clears its report. Copying retains producer versions.
     This experimental domain is not persisted by H5MSM 0.5.
+
+    ``forcefield`` identifies the solute parameterization separately from
+    ``implicit_solvent`` (for example, OBC1 or OBC2). These are physical-model
+    requests, independent of a simulation engine. An execution adapter selects
+    its resources or rejects unsupported combinations. Public conversion uses
+    supported stored settings before defaults; explicit keywords, including
+    ``implicit_solvent=None``, override stored choices without editing them.
+    Storing a request does not certify completed parameterization.
     """
 
     def __repr__(self):

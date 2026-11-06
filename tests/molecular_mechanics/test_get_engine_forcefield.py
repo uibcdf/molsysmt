@@ -19,7 +19,7 @@ _ENTRIES = [
 def _model_kwargs(model):
     if model == "vacuum":
         return {}
-    if model == "OBC1":
+    if model in {"OBC1", "OBC2"}:
         return {"implicit_solvent": model}
     return {"water_model": model}
 
@@ -99,8 +99,8 @@ def test_parameterization_is_unchanged_after_caller_local_resource_edits(trusted
 @pytest.mark.parametrize(
     "engine,forcefield,expected",
     [
-        ("OpenMM", "AMBER10", ["amber10.xml", "amber10_obc.xml"]),
-        ("OpenMM", "AMBER14", ["amber14-all.xml"]),
+        ("OpenMM", "AMBER10", ["amber10.xml", "implicit/obc1.xml"]),
+        ("OpenMM", "AMBER14", ["amber14-all.xml", "implicit/obc1.xml"]),
         ("LEaP", "AMBER14", ["leaprc.protein.ff14SB"]),
         ("LEaP", "AMBER99SBILDN", ["oldff/leaprc.ff99SBildn"]),
     ],

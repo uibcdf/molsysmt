@@ -3,6 +3,8 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_constraints(constraints, caller=None):
 
+    if constraints is None and caller == "molsysmt.basic.convert.convert":
+        return None
     if caller is not None and caller.startswith("molsysmt.form.") and ".to_" in caller:
         return constraints
     elif isinstance(constraints, str):

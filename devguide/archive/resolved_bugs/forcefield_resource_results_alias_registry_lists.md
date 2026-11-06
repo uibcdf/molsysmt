@@ -111,7 +111,7 @@ All final counts above apply after that correction.
 AMBER14/OBC1 metadata currently lists only the protein XML. A real conversion
 builds no generalized-Born force; this preexisting physical-model contract is
 now owned by **uibcdf/molsysmt#580**, with its
-[pending record](../../pending_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md).
+[pending record](amber14_obc1_conversion_omits_implicit_solvent_force.md).
 This ownership correction does not redefine that model or certify implicit
 solvent. It does not require a new scientific Ackredit event; any subsequent
 scientific implementation must evaluate its attribution independently.

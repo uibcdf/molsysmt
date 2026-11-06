@@ -21,8 +21,9 @@ def get_engine_forcefield(
     forcefield : str
         Registered force-field name, such as 'AMBER14' or 'CHARMM36'.
     implicit_solvent : str, default=None
-        Registered implicit-solvent label. If supplied, this takes precedence
-        over water_model. By default, no implicit-solvent label is selected.
+        Physical implicit-solvent model: 'OBC1' or 'OBC2', subject to the
+        selected engine/force-field mapping. If supplied, takes precedence
+        over water_model. By default, no implicit-solvent model is selected.
     water_model : str, default=None
         Registered water-model name, such as 'TIP3P'. Used only when
         implicit_solvent is None. By default, no water model is selected.
@@ -50,8 +51,9 @@ def get_engine_forcefield(
     -----
     With neither solvent argument supplied, the vacuum entry is returned.
     Entries are resource-name metadata, not a check that files exist or that
-    an engine has completely configured a physical model. In particular, an
-    implicit-solvent label alone does not guarantee a distinct solvent XML.
+    an engine has completely configured a physical model. The OpenMM adapter
+    maps OBC1 and OBC2 to distinct model XMLs. LEaP resource names only prepare
+    topology/parameters; they do not set a subsequent simulation's igb option.
     Actual construction and parameterization occur in the consuming engine.
 
     Examples
@@ -66,6 +68,8 @@ def get_engine_forcefield(
     ['amber14-all.xml', 'amber14/tip3p.xml']
     >>> msm.molecular_mechanics.get_engine_forcefield('GAFF', engine='LEaP')
     ['leaprc.gaff']
+    >>> msm.molecular_mechanics.get_engine_forcefield('AMBER14', implicit_solvent='OBC2')
+    ['amber14-all.xml', 'implicit/obc2.xml']
 
     .. admonition:: Tutorial
 

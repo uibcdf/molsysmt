@@ -3,6 +3,48 @@
 from copy import deepcopy
 
 
+def credit_implicit_solvent(
+    method, software, version, caller, *, forcefield, resources
+):
+    """Credit a constructed physical model and the engine actually executing it."""
+    if method not in {"OBC1", "OBC2"}:
+        return
+    from molsysmt import _ackredit
+    from molsysmt._private.scientific_citations import ARTICLES, SOFTWARE
+
+    record = deepcopy(ARTICLES["onufriev_2004"])
+    items = [
+        dict(
+            id="doi:" + record["doi"],
+            type="article",
+            **record,
+            url="https://doi.org/" + record["doi"],
+            roles=["scientific_criterion"],
+        ),
+        dict(
+            id=f"software:{software}:{version}",
+            type="software",
+            **deepcopy(SOFTWARE.get(software, dict(title=software))),
+            version=version,
+            roles=["executed_software"],
+        ),
+    ]
+    with _ackredit.scope(caller) as provider:
+        _ackredit.credit(
+            provider,
+            items,
+            caller,
+            contextual=True,
+            context={
+                "implicit_solvent": method,
+                "engine": software,
+                "forcefield": forcefield,
+                "resources": list(resources),
+                "configuration": "engine_defaults",
+            },
+        )
+
+
 def attach_graph_attribution(result, caller):
     """Credit methodological inspiration separately from executed software."""
     from molsysmt import _ackredit

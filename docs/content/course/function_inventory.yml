@@ -1,3 +1,9 @@
+molsysmt.molecular_mechanics.get_engine_forcefield:
+  name: "msm.molecular_mechanics.get_engine_forcefield"
+  first_introduced_in: "Common_Core/20_The_Specialized_Domains.ipynb"
+  summary: "Returns independent engine resource metadata, distinct from the requested physical model and actual engine parameterization."
+  doc_ref: "{func}`molsysmt.molecular_mechanics.get_engine_forcefield`"
+
 molsysmt.physchem.get_area_buried:
   name: "msm.physchem.get_area_buried"
   first_introduced_in: "Path_Alzheimer/39_Physicochemical_Properties.ipynb"

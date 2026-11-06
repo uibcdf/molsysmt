@@ -20,6 +20,41 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Explicit implicit-solvent variants and physical policies — 2026-11-05
+
+**#580 and #581 are source-corrected.** Mechanics keeps physical model names
+independent of the engine. OBC1 and OBC2 now select their actual standard model
+XMLs in the OpenMM adapter for the seven existing AMBER fields. Native mechanics
+stores solute/solvent settings, not engine classes or resources. Shared conversion
+uses explicit keywords, then supported stored settings, then defaults, and
+validates newly read source values. Default HBonds remains; requested none,
+all-bond and hydrogen-angle policies are now translated faithfully.
+
+The actual unconstrained OBC1 conversion passes the pinned upstream 22-atom
+force reference at its original tolerance (max error 0.024869 kJ/mol/nm).
+Both variants agree with direct engine recipes and differ numerically from
+each other. No new independent Amber run or general physical-accuracy claim
+is made. Optional Ackredit records the scientific method, actual engine/version
+and contextual model/resources after successful construction only.
+
+Receiving passes **1,817 affected tests**, **234 published-support-floor cases**
+and **570 documentation/governance/doctest cases**, plus the executed ten-cell
+tutorial. User Guide, native mechanics, course and docstrings are aligned;
+Cookbook/course code and outputs are preserved. See the
+[#580 record](archive/resolved_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md),
+[#581 record](archive/resolved_bugs/openmm_system_conversion_ignores_the_requested_constraint_policy.md)
+and [receipt](../devtools/data/implicit_solvent_receiving_580_581_20261105.json).
+
+Broader effective-recipe/capability reporting and unsupported stored tuning
+are tracked separately in [#582](pending_proposals/expose_effective_engine_neutral_mechanics_recipes_and_unsupported_stored_control.md).
+No public OpenMM-shaped mechanics API or new backend placeholder is introduced.
+No dependency floor, compiled kernel or H5MSM schema changes. Next native reports
+remain **#559**, **#561**, **#562**, then PR #543 expansion receiving; the new
+proposal has no automatic release deferral or additional initial-1.0 gate.
+Publish an unskipped checkpoint and inspect its own hosted controls; missing
+runner execution remains pending under #334. Local results do not replace
+installed/platform or exact release qualification. No tag or release is created.
+
 ## Force-field resource ownership — 2026-11-05
 
 **#560 is source-corrected.** `get_engine_forcefield()` returns an independent
@@ -41,7 +76,7 @@ No resource definitions, dependency floors, compiled kernels or H5MSM schema cha
 
 The scientific review found **#580**: AMBER14/OBC1 conversion accepts the label
 but creates no implicit-solvent force. Its
-[record](pending_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md)
+[record](archive/resolved_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md)
 keeps the physical evidence separate from metadata ownership and makes no
 unmeasured energy claim. Review this silent model mismatch next, before the
 remaining **#559**, **#561** and **#562** native mechanics reports and final
