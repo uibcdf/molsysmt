@@ -12,6 +12,28 @@ import sys
 from pathlib import Path
 
 
+def test_actual_jupyter_analysis_distance_family(tmp_path):
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-analysis"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "analysis",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=300)
+    result = json.loads((output / "full-result.json").read_text())
+    assert len(result["checks"]) == 7
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+
+
 def test_actual_jupyter_chemistry_preparation_and_reviewed_replacement(tmp_path):
     viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
     output = tmp_path / "jupyter-preparation"

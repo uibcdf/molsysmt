@@ -616,3 +616,15 @@ candidate revision guards, and the host's conditional replacement boundary.
 Preserve presented result ownership, native warnings/history and the limits of
 attribute-name comparisons and external raw-edit observation. Python expert
 signatures, defaults and native returns remain unchanged.
+
+Preserve Analysis distance/extrema/neighborhood tasks as public native structure
+delegation, with explicit populations/contexts, structures and repeated-index
+order, centers/weights, PBC and native self/tie conventions. Map native local
+endpoint positions back to source atoms without copying scientific algorithms.
+Keep centers distinct from atom identities, empty results from uncalculated
+ones, and requested from actually available PBC. Pages convert only requested
+values to nm and release native disk resources on expiry/clear/unmount. No
+universal RAM bound, whole periodic-center reconstruction, numerical precision
+loss in Python, scientific result store or automatic scene adoption is added.
+Retain declared pending readers, independent native numerical oracles and the
+separate serial/concurrent, installed and human qualification scopes.

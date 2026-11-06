@@ -1,5 +1,6 @@
 /** Actual pending-reader pointer/keyboard receiving in all three live hosts. */
 import assert from 'node:assert/strict';
+import {openMolecularPanel} from './jupyter_panel_controls.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
@@ -13,19 +14,7 @@ async function execute(index,p=page){
  await p.locator('.jp-NotebookPanel:visible .jp-Cell').nth(index).locator('.cm-content').click();
  await p.getByRole('button',{name:/Run this cell and advance/}).click();
 }
-async function workspace(p){
- const tab=p.locator('[data-molsysviewer-addon-workspace-tab="molsysmt"]');
- await tab.waitFor({state:'attached'});
- const toggle=p.getByTitle('Panel mode (N / W)',{exact:true});
- if(!await tab.isVisible()&&await toggle.count()){
-  await p.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await p.keyboard.press('Enter');await toggle.click();
- }
- // Bootstrap can finish selecting Add-ons while the click is awaiting layout.
- // Resolve its stable identity in either selected or selectable form.
- if(!await tab.isVisible())await p.locator('[data-molsysviewer-panel-stack-option="addons"], [data-molsysviewer-panel-stack-current="addons"]').click();
- await tab.waitFor({state:'visible'});await tab.click();await p.locator('[data-molsysviewer-addon-panel-tab="chemistry"]').click();
- await p.locator('.msm-chemistry').waitFor();
-}
+const workspace=p=>openMolecularPanel(p,'chemistry');
 async function inspectPending(p,revision){
  const sheet=p.locator('[data-molsysviewer-system-sync="true"]');
  await sheet.evaluate(el=>{el.__readerInertBaseline=new Map(Array.from(el.parentElement.children).filter(x=>x!==el).map(x=>[x,x.inert]));});

@@ -22,6 +22,25 @@ contracts.
 
 ## Molecular task and pending-reader integration — 2026-11-06
 
+The Analysis extension registers native distance/minimum/maximum/neighborhood
+tasks with explicit populations/centers, source axes, ordered/repeated structures,
+PBC and bounded nm pages. Native disk-result storage is retired on context/input
+expiry, Clear and unmount; no universal RAM promise, generic persistence or
+scene adoption is introduced. The
+[Analysis receipt](../devtools/data/molsysviewer_tools_analysis_receiving_20261106.json)
+records independent coordinate references, 49 focused cases and 357 affected
+panel/packaging checks. Actual Jupyter/popups and full-suite follow-up retain
+their own recorded completion states. #614 owns the receiving bootstrap selector
+correction; #613 reports the independently reproduced concurrent native
+configuration defect. Serial source receiving does not qualify concurrency.
+
+The prior preparation head 4f1710c5e passes official smoke 42226585269: 6,042
+native cases/23 optional skips and 4,722 addon cases/four optional Ackredit
+skips. This preserves its own source scope and does not qualify new Analysis.
+Full matrices and all remaining task families, owner integration, installed
+artifacts and postponed human acceptance remain required. No publication is
+authorized by this source development checkpoint.
+
 The latest preparation extension to PR #543 adds independent heavy-atom and H
 generation, explicit native methods/prerequisites and reviewed scene-reset
 replacement through Viewer #306. Controlled routes now pin published Viewer

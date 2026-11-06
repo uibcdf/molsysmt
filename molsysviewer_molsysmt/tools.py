@@ -17,7 +17,7 @@ def get_addon(*, skip_digestion=False):
     Returns
     -------
     molsysviewer.AddonSpec
-        A lazy per-view expert facade and System, Geometry and Chemistry tasks.
+        A lazy per-view expert facade and molecular System, Geometry, Chemistry and Analysis tasks.
 
     Raises
     ------
@@ -70,7 +70,14 @@ def get_addon(*, skip_digestion=False):
                 title="Chemistry",
                 order=30,
                 widget_class="molsysviewer_molsysmt._chemistry_panel._ChemistryPanel",
-                description="Inspect stored chemistry and hydrogen inventories without preparing or changing molecular data.",
+                description="Inspect stored chemistry or explicitly prepare independent heavy-atom and hydrogen completion results.",
+            ),
+            AddonPanelSpec(
+                id="analysis",
+                title="Analysis",
+                order=40,
+                widget_class="molsysviewer_molsysmt._analysis_panel._AnalysisPanel",
+                description="Calculate native distances, extrema and neighborhoods with explicit populations, structures and units.",
             ),
         ),
         meta={"status": "experimental"},

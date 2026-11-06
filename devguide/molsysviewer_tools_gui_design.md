@@ -7,8 +7,9 @@ uibcdf/molsysviewer#264, delivered through PR #543.
 Extract subset and Copy system, plus Geometry / Translate, Center, Superpose structures and qualified periodic tools. Selection controls,
 lifecycle, bounded metadata and independent-result presentation are shared.
 Chemistry adds stored-information and hydrogen-inventory inspection, plus explicit
-heavy-atom and hydrogen preparation with reviewed independent-result replacement. Rotate,
-further Chemistry assignments/construction, Analysis and other tasks remain proposed; no placeholder
+heavy-atom and hydrogen preparation with reviewed independent-result replacement.
+Analysis adds native distances, extrema and neighborhoods. Rotate, further Chemistry
+assignments/construction and remaining Analysis families remain proposed; no placeholder
 panel/button is registered. Human Jupyter/visible Qt acceptance remains
 postponed, separate from automated Jupyter/Mol*/native numerical receiving.
 Center uses native geometric/mass-weighted source references and explicit
@@ -53,7 +54,7 @@ Use one addon workspace titled **Molecular tools**, identified as **MolSysMT**.
 Reuse AddonWorkspaceSpec, AddonPanelSpec and AddonPanelWidget. Four intended
 horizontal panels follow the existing Elastic Networks pattern; register only
 panels with real tasks and receiving guards. Current source registers System,
-Geometry and Chemistry; Analysis remains required and unregistered:
+Geometry, Chemistry and Analysis:
 
 | Panel | User intent | Typical tasks |
 | --- | --- | --- |
@@ -328,6 +329,44 @@ unassessed scope or unevaluated structures. Long calculations need actual
 progress/cancellation contracts before such controls are promised. Plotting or
 adding a result to the scene uses the appropriate core owner and a separately
 qualified adapter. Generic native results do not imply universal H5MSM storage.
+
+### Analysis distance family — source contract 2026-11-06
+
+Distances, Minimum distance, Maximum distance and Neighbor search delegate to
+the four public structure tools through the unchanged expert facade. Two shared
+atom editors independently select source populations; a within-population mode
+keeps the native symmetric/self or directed-neighbor conventions explicit.
+Selections resolve in a stated reference-state/structure context before the
+fixed population is used in the requested structures. Analysis permits ordered
+repeated structure indices; coordinate edit callers retain the distinct-index
+default. Atom order/repeated occurrences are preserved. Geometric or mass-weighted
+centers keep population labels, not invented atom identities. Provided periodic
+coordinates are not reconstructed to make those centers whole.
+
+Cartesian versus corresponding pairing, inclusive cutoff versus neighbor count,
+and requested versus actually available PBC remain separate choices. Extrema
+reuse native tie order. Neighbor local positions map back through their native
+endpoint populations; the panel does not implement a distance, cutoff, PBC or
+nearest-neighbor algorithm. Positive-cutoff flat inputs use native CSR where
+admitted; other native supported output forms keep their own resource behavior.
+
+Only 50 rows travel to the frontend. Pages convert requested native values to nm
+through PyUnitWizard, without copying the full result to change units. Flat
+Cartesian distance queries explicitly request native block mode. A returned
+native disk handle is consumed in pages and retired on Clear, changed context
+or unmount. Centers, corresponding pairs, extrema and nearest-count queries keep
+their native resource admission; bounded frontend pages are not a universal RAM
+limit or out-of-core promise. Current calculation receiving is serial; native
+concurrent configuration restoration is separately reported under #613.
+
+Reports are private to the mounted panel, expire on managed source/input or
+dependent structure/scene-membership changes, and never alter coordinates,
+chemistry, scene objects or analysis stores. Explicit current-primary requests
+remain declared readers while a scene update is pending; old-scene populations
+are rejected. Expert Python calls retain complete native results and signatures.
+Generic result persistence, plots and deliberate core visual adoption, further
+structural/property/sequence/mechanics families and complete-session acceptance
+remain required work; no placeholder operation is registered for them.
 
 ### Chemistry preparation and explicit replacement — source contract 2026-11-06
 

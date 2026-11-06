@@ -42,7 +42,7 @@ def _draft(value, *, allow_all=False):
     return result
 
 
-def _structures(scope, text, total, current):
+def _structures(scope, text, total, current, *, allow_repeated=False):
     if scope == "all":
         indices = list(range(total))
     elif scope == "current":
@@ -58,11 +58,13 @@ def _structures(scope, text, total, current):
         raise ValueError("Choose All, Current or explicit structure indices.")
     if (
         not indices
-        or len(set(indices)) != len(indices)
+        or (not allow_repeated and len(set(indices)) != len(indices))
         or any(i < 0 or i >= total for i in indices)
     ):
         raise ValueError(
-            "Choose nonempty, distinct structure indices within this system."
+            "Choose nonempty structure indices within this system."
+            if allow_repeated
+            else "Choose nonempty, distinct structure indices within this system."
         )
     return indices
 
@@ -226,10 +228,10 @@ class _MolecularTaskPanel(AddonPanelWidget):
             if not any(record["id"] == self._result["id"] for record in records):
                 self._result = None
 
-    def _selection(self, target, frame, *, unique=True):
+    def _selection(self, target, frame, *, unique=True, draft=None):
         from molsysmt import basic
 
-        draft, view = self._draft, self._view
+        draft, view = self._draft if draft is None else draft, self._view
         source = draft["source"]
         if source == "all" and self._allow_all:
             selection = "all"

@@ -1,0 +1,236 @@
+{
+  "schema": "molsysmt.molsysviewer-tools-analysis-receiving@1",
+  "date": "2026-11-06",
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "4f1710c5e66f7c9d5e9065fc82a7bd602824e611",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "viewer_source": "e920faf95c375ff7d3fcb326c7c0d2f3d1951b3e",
+  "viewer_controlled_source": "177e19a8fa06e37484a801da1711cc99acbc8f2d",
+  "host_runtime": "2e17ee6f13333e5efd3726b353ade5c8cdc77b0b",
+  "host_source_relation": "e920faf9 changes developer evidence only; runtime and public code remain those of 177e19a8.",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "python": {
+    "environment": "molsyssuite@uibcdf_3.14",
+    "version": "3.14.7"
+  },
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#304",
+    "uibcdf/molsysmt#613",
+    "uibcdf/molsysmt#614",
+    "uibcdf/molsysmt#615"
+  ],
+  "source_files": {
+    "molsysviewer_molsysmt/_analysis_panel.py": {
+      "sha256": "2281afb939063a1b29c58520ad4d678a4d384118c0ee332d13c36f29d552f397",
+      "size_bytes": 19067
+    },
+    "molsysviewer_molsysmt/_analysis_panel_frontend.py": {
+      "sha256": "2236904215ef3361d93a6be1862f17a060ceb95ed04f3ce10199c116b80c13f7",
+      "size_bytes": 16389
+    },
+    "molsysviewer_molsysmt/_task_panel.py": {
+      "sha256": "9d08261dced50136ca0fd6da19cb044c268df58f64168cf9ba6186c854d8e30e",
+      "size_bytes": 14410
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "sha256": "bbb6138da9c34ae32137ddb53ca1d7e9933e7dbac01fc57415b01f9b47314819",
+      "size_bytes": 3158
+    },
+    "tests/molsysviewer_molsysmt/test_analysis_panel.py": {
+      "sha256": "83d8a9c93f66af6afee51651caef725d974bd8f5643e0de48b4ac0a31abffbf0",
+      "size_bytes": 14642
+    },
+    "tests/molsysviewer_molsysmt/jupyter_panel_controls.mjs": {
+      "sha256": "c5f9d24bf69c51ac75d72b2464d42eba8d79b711ac98026e9e983682b0e8f1b5",
+      "size_bytes": 1035
+    },
+    "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": {
+      "sha256": "46f1c7e8dd146deea9d77e83905b0e40b5a830c3553fd8fa91e1339d677de3ee",
+      "size_bytes": 9292
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "0b42541df97ab6974e05d79ecc774074df0dfe3a5a5b878ac4e9e10fa8596298",
+      "size_bytes": 30017
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "ec48defa1efe45667222040f8b67ecea3034c195b8ed9f6bf11198c05f5e68ad",
+      "size_bytes": 9292
+    },
+    "devtools/scripts/viewer_tools_contract.py": {
+      "sha256": "9a286d3bdacc5ebd7116907fba08d91cdfb02b6987051b9ae87de00f6594f21a",
+      "size_bytes": 3742
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "sha256": "251d9363c2f13e45d5d8331a4a48e8cfe52581fe87de1387b95e3412078076e0",
+      "size_bytes": 16841
+    }
+  },
+  "logs": {
+    "msv-analysis-panel-focused-20261106.log": {
+      "sha256": "51c1cc17fd04a19cfdd745a5fd5ff7c664d6e1ca0ed5b089f06e2c8874616f51",
+      "size_bytes": 4366
+    },
+    "msv-analysis-panel-focused-qualified-20261106.log": {
+      "sha256": "3c01e29715da1d698e757f46b1094c6acda3d5eaa0f0b7c9af8130ca11415434",
+      "size_bytes": 488
+    },
+    "msv-analysis-panel-expanded-20261106.log": {
+      "sha256": "78c8ac747ec727870505e1ca3438ddd9fc35e13adcae89d5f0abd0eb62baa885",
+      "size_bytes": 501
+    },
+    "msv-analysis-shared-panel-regression-20261106.log": {
+      "sha256": "279ddb4384b156343051ff6f46109e14f9ab5b39a8aef8eb2e9e8e990f6a4d19",
+      "size_bytes": 835
+    },
+    "msv-analysis-jupyter-20261106.log": {
+      "sha256": "666ee0b14ace97afc917ad4d0d94ba101749be441c1f585dbe65faf600675e36",
+      "size_bytes": 2692
+    },
+    "msv-analysis-jupyter-oracle-fixed-20261106.log": {
+      "sha256": "30bee97f15b0d4ea9353d274a4b4672eafd19e80b0d29436ccd640acade9bc4d",
+      "size_bytes": 33
+    },
+    "msv-analysis-jupyter-retirement-20261106.log": {
+      "sha256": "a347bfd821b96a82c80045491f89d5a4903256afea8a682bd2a5db6fd7caf295",
+      "size_bytes": 3116
+    },
+    "msv-analysis-jupyter-retirement-qualified-20261106.log": {
+      "sha256": "eca9807424043df5dd9bcebfac707b43418beda2ee1e1aea4958449239cedf5c",
+      "size_bytes": 3410
+    },
+    "msv-native-config-overlap-20261106.json": {
+      "sha256": "aed77c324565923368f17d49ad729bcbaf2da547ff225549d50d619bdcaf3a84",
+      "size_bytes": 276
+    },
+    "msv-analysis-three-jupyter-20261106.log": {
+      "sha256": "f450844bfed16b8ad3575771f1707733175eb5a77a86c1450f90b0725fbd00dc",
+      "size_bytes": 2756
+    },
+    "msv-analysis-jupyter-init-trace-20261106.log": {
+      "sha256": "f868c73620487345380dbbad22c2ae82ee36bd5a7aac201b192fb8f734b210ee",
+      "size_bytes": 33
+    },
+    "msv-analysis-owner-governance-20261106.log": {
+      "sha256": "2baf7056efbed132a8b3c83d34bacb600d96fc6169b62ee41d0756921a4ef1da",
+      "size_bytes": 257
+    }
+  },
+  "qualification": [
+    {
+      "scope": "Initial source",
+      "outcome": "35 passed/4 failed in 11.04 s; test-only mass API, delete-method and request-counter assumptions corrected."
+    },
+    {
+      "scope": "Focused native/panel and numerical oracle",
+      "outcome": "39 passed in 10.79 s; expanded to 49 passed in 15.19 s; all legacy and intentional tiny-budget memory warnings retained."
+    },
+    {
+      "scope": "Affected shared System/Geometry/periodic/Chemistry/Analysis and packaging preflight",
+      "outcome": "357 passed in 88.07 s; 263 warnings in three groups retained."
+    },
+    {
+      "scope": "First actual TcTIM/Jupyter Analysis",
+      "outcome": "Notebook initialization failed on incompatible NumPy oracle axes; corrected endpoint broadcasting keeps independent expectations."
+    },
+    {
+      "scope": "Corrected notebook oracle",
+      "outcome": "Seven real Jupyter/Mol*/popup steps passed, 40.63 s; source coordinate, chemical-domain and scene-object equality verified."
+    },
+    {
+      "scope": "Final input-retirement refinement",
+      "outcome": "Initial packet ID 0 was confused with an absent cleanup ID; positive-request guard corrected. Later five scientific/paging steps passed before an independent navigation selector failure under #614."
+    },
+    {
+      "scope": "Shared helper receiving",
+      "outcome": "Three-case campaign: 2 passed/1 initial-canvas failure, 243.40 s. Chemistry preparation/pending reader passed. Scoped final Analysis passes all seven steps in 39.36 s with an initial cell duration of 3.357631 s. The earlier initialization observation stays open under #615; no single green three-case run is claimed."
+    },
+    {
+      "scope": "Owner distribution/documentation/dependency/reporting controls",
+      "outcome": "106 passed, 13.27 s; 504 Sphinx deprecation warnings retained. Ruff check/format pass on 4436 files; dependency and devguide validators pass."
+    }
+  ],
+  "contracts": {
+    "scope": "Distances, native extrema and cutoff/count neighborhoods; atom/center populations, explicit contexts, ordered/repeated structures and native self/tie/PBC conventions. Expert signatures/defaults and algorithms remain unchanged.",
+    "quantity": "Pages convert only requested native values to explicit nm, nine significant display digits; full Python precision remains native.",
+    "resources": "Flat Cartesian distances request public native heavy_mode force. Native disk handles are paged and cleaned on expiry/clear/unmount. Other modes retain native resource behavior; no universal RAM/disk/cancellation guarantee.",
+    "lifetime": "One private report per mounted panel; stale managed source, relevant input/frame/scene membership expires it. No raw external observation, generic scientific store, persistence or automatic scene adoption.",
+    "concurrency": "Current consumer gates are serial. Native configure.context GPU policy leaks across overlapping calls and leaves wrong restoration; independently reproduced under #613, not repaired downstream."
+  },
+  "previous_published_smoke": {
+    "source": "4f1710c5e66f7c9d5e9065fc82a7bd602824e611",
+    "run": 42226585269,
+    "conclusion": "success",
+    "preflight": 36,
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "native_seconds": 641.91,
+    "addon_passed": 4722,
+    "addon_skipped": 4,
+    "addon_seconds": 714.59,
+    "skips": "Optional Ackredit/unyt/astropy native tests and four optional Ackredit addon cases. Does not qualify new Analysis source."
+  },
+  "pending": [
+    "Complete clean current-source addon/full Jupyter receiving, exact-head hosted gates and owner integration; initialization observation #615 remains open.",
+    "Postponed human Jupyter/visible Qt and installed artifacts.",
+    "Remaining Geometry, Chemistry construction/assignments, Analysis series/properties/sequence/mechanics/plots and qualified visual adoption.",
+    "Complete TcTIM/real-ensemble save/recover session; both 1.0 publications and candidate freezes remain paused."
+  ],
+  "actual_jupyter": {
+    "jupyter-preparation": {
+      "checks": [
+        "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+        "Present the independent result in the notebook and keep it while changing tasks",
+        "Review Back preserves the original TcTIM and its chemical domain",
+        "Apply the reviewed result and render its independent copy in the original canvas",
+        "Inspect the adopted molecular data in the canvas popup and detached Studio",
+        "Python verifies one replacement, original preservation and independent result coordinates"
+      ],
+      "scope": "Actual TcTIM/Jupyter/Mol*/AnyWidget preparation, independent notebook result, heavy no-op 3983 atoms, hydrogen generation 7868 atoms, explicit losses, Back, conditional replacement and popup inspection. Source overlay; not human Qt or installed artifact qualification.",
+      "receipt": {
+        "sha256": "2d73ebfd3d8b80e01aa7f0f452fa4fef1b9601988d76f587ffe79c9a4ec8c9af",
+        "size_bytes": 6094
+      },
+      "observed_page_errors": 3,
+      "baseline_page_errors": 1
+    },
+    "jupyter-chemistry-pending": {
+      "checks": [
+        "Mount actual Chemistry in the embedded TcTIM view",
+        "Inspect and page current primary with real keys while embedded scene stays inert",
+        "Restore the same mounted panel after updating and open the canvas popup",
+        "Inspect current primary from the paused live canvas popup",
+        "Restore canvas popup and mount Chemistry in detached Studio",
+        "Inspect and page current primary in detached paused Studio",
+        "Restore detached Studio without recreating its panel and close popups",
+        "Verify native molecular data revisions scene regions and result ownership"
+      ],
+      "scope": "Actual Jupyter/AnyWidget/Mol*/canvas popup/detached Studio: pending native readers, real pointer/keyboard inputs, bounded pages, stale-scene sources disabled, exact reader DOM restored; three deliberate box edits only. Not human Qt acceptance.",
+      "receipt": {
+        "sha256": "1b98cf9184c75ae75648cb4071dd1afc01de532d96bcdeb5abae0f3ef8aa8872",
+        "size_bytes": 12736
+      },
+      "observed_page_errors": 8,
+      "baseline_page_errors": 1
+    },
+    "jupyter-analysis": {
+      "checks": [
+        "Load TcTIM and open Analysis without calculating implicitly",
+        "Calculate explicit atom populations and verify native distances against coordinates",
+        "Inspect native minimum and maximum without changing molecular data",
+        "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "Page through TcTIM source indices without transferring the complete result",
+        "Use independent Analysis panels in canvas popup and detached Studio",
+        "Python verifies every molecular coordinate chemical domain and scene object unchanged"
+      ],
+      "scope": "Actual TcTIM/Jupyter/Mol*/AnyWidget Analysis distances, extrema, empty and nearest neighborhoods, bounded source-index pages and both popup hosts, with independent coordinate oracles and unchanged source. Not human Qt or installed qualification.",
+      "receipt": {
+        "sha256": "77a4ebdf66ab482bfdf1acad319bf56f53877ccbf31276e1e654d6c402a65f92",
+        "size_bytes": 4788
+      },
+      "observed_page_errors": 2,
+      "baseline_page_errors": 1
+    }
+  }
+}

@@ -64,6 +64,7 @@ def main():
             "chemistry",
             "chemistry-pending",
             "chemistry-preparation",
+            "analysis",
         ),
         default="system",
     )
@@ -363,14 +364,38 @@ def main():
             "assert not np.shares_memory(msm.pyunitwizard.get_value(child.molsys.structures.coordinates,to_unit='nm'),msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'))\n"
             "print('JUPYTER_PREPARATION_NATIVE_OK',view.molsys.get_n_atoms())\n"
         )
+    if args.scenario == "analysis":
+        initial = initial.removesuffix("view\n") + (
+            "import numpy as np\nimport json\n"
+            "source_coordinates=msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm').copy()\n"
+            "source_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "source_scene=view.export_state()\n"
+            "_distances=np.linalg.norm(source_coordinates[0][[0,2]][:,None,:]-source_coordinates[0][[3,5,7]][None,:,:],axis=-1)\n"
+            f"Path({str(output / 'analysis-expected.json')!r}).write_text(json.dumps({{'distances':_distances.ravel().tolist(),'minimum':float(_distances.min()),'maximum':float(_distances.max()),'page51':float(np.linalg.norm(source_coordinates[0,50]-source_coordinates[0,3]))}}))\n"
+            "view\n"
+        )
+        final = (
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+            "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),source_chemistry)\n"
+            "assert view.addons.molsysmt.get_sync_status()['state']=='synchronized'\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==0\n"
+            "current_scene=view.export_state()\n"
+            "assert {k:v for k,v in current_scene.items() if k!='view'}=={k:v for k,v in source_scene.items() if k!='view'}\n"
+            "assert {k:v for k,v in current_scene['view'].items() if k!='camera'}==source_scene['view']\n"
+            "assert not view.addons.manager.presentations.records()\n"
+            "print('JUPYTER_ANALYSIS_UNCHANGED',view.molsys.get_n_atoms())\n"
+        )
     # Keep a native stack if initialization stalls. The shell event closes the
     # diagnostic after the actual display hook, without warming that hook first.
     initial = (
-        "import faulthandler as _source_faults\n"
+        "import faulthandler as _source_faults\nimport time as _source_clock\n"
         f"_source_trace = open({str(output / 'kernel-initialization-trace.log')!r}, 'w')\n"
-        "_source_faults.dump_traceback_later(45, repeat=True, file=_source_trace)\n"
+        "_source_started = _source_clock.monotonic()\n"
+        "_source_trace.write('Initial cell started\\n'); _source_trace.flush()\n"
+        "_source_faults.dump_traceback_later(15, repeat=True, file=_source_trace)\n"
         "def _source_initialized(_result):\n"
         "    _source_faults.cancel_dump_traceback_later()\n"
+        "    _source_trace.write(f'Initial cell completed in {_source_clock.monotonic()-_source_started:.6f} s\\n')\n"
         "    _source_trace.close()\n"
         "    get_ipython().events.unregister('post_run_cell', _source_initialized)\n"
         "get_ipython().events.register('post_run_cell', _source_initialized)\n"
@@ -437,7 +462,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("chemistry_pending_jupyter.mjs")
+                        Path(__file__).with_name("analysis_panel_jupyter.mjs")
+                        if args.scenario == "analysis"
+                        else Path(__file__).with_name("chemistry_pending_jupyter.mjs")
                         if args.scenario == "chemistry-pending"
                         else Path(__file__).with_name(
                             "chemistry_preparation_jupyter.mjs"

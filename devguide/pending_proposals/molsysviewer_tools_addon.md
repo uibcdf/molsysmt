@@ -17,7 +17,8 @@ supersedes: []
 **Current source GUI — 2026-11-06:** System / Remove atoms, Extract subset and
 Copy system, plus Geometry / Translate, Center, Superpose structures and bounded
 periodic coordinate tasks, Chemistry stored-information/hydrogen inspection and
-explicit heavy-atom/hydrogen preparation are implemented in this contribution.
+explicit heavy-atom/hydrogen preparation and Analysis distance-family queries
+are implemented in this contribution.
 Selection/lifecycle and independent-result controls are shared; native science
 and expert defaults are unchanged. The [receiving record](../../devtools/data/molsysviewer_tools_geometry_receiving_20261106.json)
 separates real Jupyter/popup and numerical evidence from pending hosted, owner,
@@ -27,6 +28,42 @@ adds geometric/mass-weighted centering, per-structure point/selection references
 and shared rejected-operation diagnostics (#603), with 114 panel checks, 172
 native/route controls and five actual Jupyter scenarios. Rotate awaits native
 #602; other required Geometry, Chemistry and Analysis tasks remain planned.
+
+## Analysis distance-family receiving — 2026-11-06
+
+Analysis registers Distances, Minimum distance, Maximum distance and Neighbor
+search over unchanged expert/native structure tools. It resolves two independent
+atom populations, optionally their geometric/mass centers, and ordered/repeated
+structures. Native self/tie/periodic conventions and atom-axis maps are explicit;
+no numerical algorithm, scientific preparation, representation or universal
+result store is added. Reports use bounded nm pages and retire native disk
+storage on Clear, changed inputs/context and unmount. Pending primary reads
+retain the existing exact declaration/old-scene isolation contract.
+
+The [receipt](../../devtools/data/molsysviewer_tools_analysis_receiving_20261106.json)
+retains 49 focused cases, 357 affected panel/packaging checks and actual TcTIM
+Jupyter receiving with independent coordinate references. The initial notebook
+oracle used incompatible NumPy axes and was corrected without weakening checks.
+A later popup bootstrap selector failure is separately tracked in #614 and
+corrected through one shared receiving helper; owner and final full-suite
+acceptance remain separate. The new report-retirement response path also keeps
+the initial state distinct from a cleanup acknowledgement.
+
+The helper campaign passes Chemistry preparation and pending readers but times
+out before the first Analysis canvas; that uncertainty remains open under #615.
+Analysis then passes all seven steps separately in 39.36 s, with a 3.357631 s
+initial Python cell. The runner captures stacks at 15 s while keeping its 30 s
+canvas deadline. This is two-plus-one receiving, not an explained initialization
+failure or a single green three-case campaign. Latest full source receiving is
+still pending.
+
+Serial receiving does not establish concurrent native configuration safety:
+#613 reproduces global GPU-policy leakage and wrong final restoration without
+Viewer or GPU execution. No addon-only lock or provider scientific repair is
+added. Complete Analysis property/series/sequence/mechanics/plot and core visual
+adoption families, Chemistry construction/assignments, remaining Geometry and
+whole-session save/recovery remain required, as do installed and postponed
+human qualification. Both 1.0 publications stay paused.
 
 ## Chemistry preparation and reviewed replacement — 2026-11-06
 

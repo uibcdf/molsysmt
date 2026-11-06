@@ -260,6 +260,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_periodic_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py \
+            tests/molsysviewer_molsysmt/test_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_remove_tools.py \
             tests/molsysviewer_molsysmt/test_set_tools.py \
             tests/molsysviewer_molsysmt/test_conversion_tools.py \

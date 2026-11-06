@@ -36,6 +36,8 @@ TOOLS_FILES = frozenset(
         "molsysviewer_molsysmt/_chemistry_panel.py",
         "molsysviewer_molsysmt/_chemistry_panel_frontend.py",
         "molsysviewer_molsysmt/_chemistry_preparation.py",
+        "molsysviewer_molsysmt/_analysis_panel.py",
+        "molsysviewer_molsysmt/_analysis_panel_frontend.py",
         "molsysviewer_molsysmt/_element.py",
         "molsysviewer_molsysmt/_element_hierarchy.py",
         "molsysviewer_molsysmt/_element_domains.py",

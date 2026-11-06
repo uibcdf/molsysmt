@@ -20,23 +20,26 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (7)
+### Open (9)
 
 - [`box_factory_physical_domain.md`](box_factory_physical_domain.md) — [#605](https://github.com/uibcdf/molsysmt/issues/605) — Box factory accepts degenerate dimensions and returns nonfinite cells for incompatible angles. *(high, reproduced)*
+- [`concurrent_configuration_contexts_leak_gpu_policy.md`](concurrent_configuration_contexts_leak_gpu_policy.md) — [#613](https://github.com/uibcdf/molsysmt/issues/613) — Concurrent configuration contexts leak GPU policy and restore the wrong state. *(high, reproduced)*
 - [`periodic_origin_unit_policy.md`](periodic_origin_unit_policy.md) — [#608](https://github.com/uibcdf/molsysmt/issues/608) — Near-zero periodic origins are snapped using application-dependent units. *(high, reproduced)*
 - [`periodic_wrapping_rotated_basis.md`](periodic_wrapping_rotated_basis.md) — [#607](https://github.com/uibcdf/molsysmt/issues/607) — Periodic wrapping uses Cartesian diagonal paths for rotated orthogonal row-vector boxes. *(high, reproduced)*
 - [`unwrap_changing_cell_classification.md`](unwrap_changing_cell_classification.md) — [#606](https://github.com/uibcdf/molsysmt/issues/606) — Temporal unwrap reuses the first box classification after later cells become triclinic. *(high, reproduced)*
 - [`alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md`](alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md) — [#593](https://github.com/uibcdf/molsysmt/issues/593) — Alzheimer capstone preparation uses unsupported builder keywords and drops independent repairs. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
+- [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
 
 ### In progress (1)
 
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
-### Partially resolved (6)
+### Partially resolved (7)
 
 - [`devguide_board_sync_truncates_issue_history.md`](devguide_board_sync_truncates_issue_history.md) — [#587](https://github.com/uibcdf/molsysmt/issues/587) — Devguide board reconciliation falsely loses issues older than its capped inventory. *(medium, reproduced)*
+- [`jupyter_popup_addon_navigation_identity.md`](jupyter_popup_addon_navigation_identity.md) — [#614](https://github.com/uibcdf/molsysmt/issues/614) — Jupyter popup receiving loses the current Add-ons header during bootstrap. *(medium, reproduced)*
 - [`jupyter_result_title_before_ack.md`](jupyter_result_title_before_ack.md) — [#609](https://github.com/uibcdf/molsysmt/issues/609) — Jupyter result-window guards read titles before presentation acknowledgement. *(medium, reproduced)*
 - [`molecular_task_rejection_diagnostic_lifetime.md`](molecular_task_rejection_diagnostic_lifetime.md) — [#603](https://github.com/uibcdf/molsysmt/issues/603) — Molecular task panels lose rejected-operation diagnostics during automatic synchronization refresh. *(medium, reproduced)*
 - [`molecular_tools_completion_lost_on_refresh.md`](molecular_tools_completion_lost_on_refresh.md) — [#590](https://github.com/uibcdf/molsysmt/issues/590) — Molecular tools loses the completed-removal outcome during automatic panel refresh *(medium, reproduced)*

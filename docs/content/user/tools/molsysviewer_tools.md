@@ -5094,8 +5094,9 @@ uses the same native selection and removal preparation as the expert API.
 Extraction/copy result presentation uses the separate flow below. Geometry
 offers Translate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory.
 Chemistry offers the two source inspection tasks and explicit heavy-atom/hydrogen
-preparation described below; further Geometry, Chemistry construction/assignments
-and Analysis tasks remain planned.
+preparation described below. Analysis offers native distance and neighborhood
+queries. Further Geometry, Chemistry construction/assignments and other Analysis
+tasks remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
 
@@ -5455,3 +5456,64 @@ Preparation, presentation and replacement remain disabled while the scene needs
 synchronization; the declared inspection readers keep their separate recovery
 contract. A prepared result is not a scientific-readiness certificate or an
 equilibrated structure.
+
+## Calculating distances and neighborhoods through Molecular tools
+
+In **Molecular tools > Analysis**, choose **Distances**, **Minimum distance**,
+**Maximum distance** or **Neighbor search**. These experimental source tasks
+reuse the corresponding `view.addons.molsysmt.structure` tools. Calculating a
+result changes neither molecular data nor the scene.
+
+Choose two populations, or switch to **Within one population**. Each population
+has its own atom selector and selection context. The fixed selected atoms are
+then used in every requested structure; this is not a new spatial selection in
+each structure. **Calculate structures** offers the current structure, all
+structures or explicit indices in order, including repeats such as `2, 0, 2`.
+Indices in the table refer to the source system, not positions in that list.
+
+**Endpoints and calculation settings** offers individual atoms, one geometric
+center or one mass-weighted center for each population. A center is labelled as
+a population center, not as an atom. Centers use the supplied coordinates;
+periodic molecules split across a box boundary are not reconstructed implicitly.
+Choosing periodic distances does not repair such a center.
+
+Distances normally evaluates the Cartesian product. **Corresponding endpoints**
+uses equal-length populations in supplied order and preserves repeated atom
+occurrences. Within-population Cartesian results include self distances and
+both directions. Minimum and maximum report the native extremal pair in each
+structure; ties retain the first local pair. These numerical pairs are not a
+list of unique physical interactions or hydrogen bonds.
+
+Neighbor search uses either an **inclusive distance cutoff**, with an explicit
+length unit, or a **number of nearest neighbors**. Within one population,
+native self matches are excluded; explicitly supplying two overlapping
+populations can include zero-distance matches. Results are directed and retain
+native distance/tie ordering. A successfully evaluated scope with no neighbors
+shows an empty result, rather than missing data or a failed calculation.
+
+Periodic minimum-image distances are an explicit option. If no stored box is
+available, the report states that native nonperiodic distances were used.
+Invalid geometry or unsupported prerequisites remain native diagnostics.
+
+The table displays at most 50 rows per page and distances in nm, with nine
+significant digits. Full native precision and output options remain in Python.
+Changing pages does not recalculate. Flat Cartesian distance queries request
+MolSysMT block mode and can use native temporary disk storage. The panel reads
+and converts only the requested values for each page. Centers, corresponding
+pairs, extrema and nearest-count searches retain their native resource behavior;
+coordinates and indexing can still require substantial memory. Paging is not a
+universal RAM limit, disk-capacity guarantee or cancellation mechanism.
+
+**Clear result**, changed inputs/source or leaving the panel releases its private
+result and any native temporary storage it owns. An independent explicit scope
+can survive an unrelated visible-structure change; a scope that depends on the
+current structure expires. Managed edits and scene selection/region changes
+invalidate dependent results. Arbitrary raw writes are not observed automatically.
+Reports are not added to the scene or saved automatically in H5MSM.
+
+An already open Analysis panel can calculate from current molecular data during
+pending scene synchronization, using explicit primary-data populations. Old
+canvas selections, saved selections and regions require updating the scene
+first. Current source receiving is serial; concurrent native configuration
+restoration is tracked separately in MolSysMT #613. Human GUI acceptance,
+installed artifacts and full platform qualification remain separate.
