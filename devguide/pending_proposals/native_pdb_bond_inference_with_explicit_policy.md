@@ -1100,3 +1100,111 @@ notebook preservation and individual overlapping JUnit results.
 disulfide/geometry policies, independently explain original-source differences,
 and qualify representative cold/warm, memory and storage scaling. This audit
 does not authorize a release or claim complete receptor preparation.
+
+## Original pair diagnosis and repeated workload evidence — 2026-11-06
+
+### What and independent source interpretation
+
+All original 1IEP disagreements are now classified without modifying its bytes
+or forcing parity. Direct fixed-column reads identify the 25 OpenMM-only pairs:
+HN1 (1), HN3 (1), HN (17) and HB1 (6). The actual installed OpenMM 8.6.1
+`pdbNames.xml` maps those source names to H, H3, H and HB3, respectively; the
+installed resource's SHA-256 exactly matches inspected primary OpenMM source
+`ba0aa236ac4d07241382869604c4d2ea58c4f3f5`. The current native method deliberately
+uses exact names. These findings explain its exclusions; they do not implement
+or qualify implicit alias application or a complete protonation inventory.
+
+The native-only pair is source atom indices **[0, 3427]**, HB2–CB in SER A 438,
+distance **1.1150762306 angstrom**. HB2 is the first ATOM record; the rest of that
+group occurs later in the unchanged source. An independent actual OpenMM parse
+places HB2 in group index 0 and CB in group index 214 despite identical deposited
+group labels. Native canonical identity reunites the observed sites. A literal
+synthetic guard now fixes the intended native pair inventory with noncontiguous
+group records and preserves source coordinates and group membership. This is a
+reader-policy difference, not a claim that geometric closeness alone proves
+bond order, protonation, stereochemistry or the correctness of every source site.
+No external OpenMM defect is asserted or published.
+
+The [pair audit](../../devtools/data/native_pdb_disagreement_audit_304_20261106.json)
+retains every differing source pair, labels, coordinates with explicit units,
+distances, exact alias resource, installed software origin and parsed group
+indices. The combined inference/benchmark-control selection passes **24 tests in
+5.31 s**, including that independent inventory guard. An earlier benchmark test
+omitted `get_missing_bonds=True` for text input and correctly hit the existing
+False-default conflict; the test now declares its requested policy. Product
+defaults are unchanged.
+
+### How the benchmark is executed
+
+`devtools/scripts/benchmark_native_pdb_connectivity.py` reuses the existing
+isolated-process probe. Three fresh interpreters per input/engine give **45
+processes**, **90 conversions** and **15 native H5MSM round trips** for the two
+original sources and three synthetic heavy-alanine workloads. Synthetic chains
+have analytically specified intra-group and peptide edges; TER boundaries forbid
+cross-chain links even when displayed chain labels repeat. Both actual enabled
+engines must reproduce those literal inventories. The coordinates are scale
+fixtures, not experimental observations or force-field-quality conformers.
+
+```bash
+python devtools/scripts/benchmark_native_pdb_connectivity.py \
+  molsysmt/data/pdb/181l.pdb <original-1IEP-PDB> \
+  --compare-openmm --repetitions 3 --alanine-groups 64 512 2048 \
+  --output <benchmark-receipt.json>
+```
+
+Use the existing qualified development interpreter and this source on PYTHONPATH.
+This Linux run sets OMP_NUM_THREADS, OPENMM_CPU_THREADS, OPENBLAS_NUM_THREADS and
+MKL_NUM_THREADS to 1. Processes run serially to bound aggregate memory. Kernel
+threading not governed by those variables retains its actual defaults; this is
+not a claim of universally single-threaded execution. No environment is created.
+Eight tool guards validate literal synthetic graphs, TER constraints, coordinate
+preservation, source size/field bounds and statistical summaries.
+
+Cold conversion here means the first call after package imports, including lazy
+adapter setup; it excludes interpreter/package startup. Warm conversion reuses
+that process's caches after releasing the previous result. Collection is outside
+the timer. Conversion RSS is the process high-water mark captured before query
+and serialization checks; final RSS includes H5MSM verification for the native
+route. Neither metric isolates graph allocations or a single coordinate buffer.
+The fresh-process wall measurement includes startup and verification. All raw
+observations, stderr summaries, exact graphs, hashes and producer/source context
+are retained in the [benchmark receipt](../../devtools/data/native_pdb_benchmark_304_20261106.json).
+Three replicates provide descriptive medians/ranges, not a statistical superiority
+claim or qualification of arbitrary trajectories/platforms.
+
+### Measured results and implications
+
+Median timings below are seconds; conversion RSS is MiB and native H5MSM size is
+MiB. Storage includes native domains and historical evidence, not only edges.
+
+| Input | Atoms | Native bonds | Native cold | Native warm | OpenMM warm | Native conversion RSS | OpenMM conversion RSS | Native H5MSM |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Original 181L | 1,441 | 1,322 | 2.226 | 1.147 | 0.291 | 233.2 | 252.9 | 3.071 |
+| Original 1IEP | 4,412 | 4,445 | 2.762 | 1.719 | 0.631 | 252.9 | 267.1 | 6.191 |
+| Synthetic ALA 64 | 320 | 318 | 1.420 | 0.377 | 0.158 | 218.5 | 246.6 | 0.831 |
+| Synthetic ALA 512 | 2,560 | 2,544 | 3.123 | 2.024 | 0.551 | 250.9 | 258.9 | 5.441 |
+| Synthetic ALA 2048 | 10,240 | 10,176 | 11.426 | 9.941 | 1.381 | 360.2 | 296.2 | 21.160 |
+
+The native path is **slower on these workloads**. Its complete output includes
+candidate/coverage/history evidence that is absent from the OpenMM comparison;
+that is a scope distinction, not proof that the overhead is necessary. At 10,240
+atoms, native H5MSM write/read medians are **7.207/6.160 s** and final process RSS
+is **405.7 MiB**. Source parsing, group assessment and evidence representation
+need profiling before attributing the cost to one layer. The two small real
+inputs use less conversion high-water RSS natively, while the larger synthetic
+input uses more; no blanket memory advantage follows. Keep the existing default
+and explicit engine choices. The native method is not a faster replacement claim.
+
+Historical two-conversion measurements remain intact. This probe now explicitly
+releases the first result before its second call and records pre-verification
+conversion RSS separately; older whole-process RSS is not interchangeable with
+the new scoped measurement. No scientific production code or compiled kernel
+changes in this benchmark/diagnosis checkpoint.
+
+**Remaining #304 work:** implement/qualify the approved H-name and terminal/group
+policies, disulfide composition and bounded unknown-group geometry policy, then
+audit all acceptance criteria and integrate the qualified source. The original
+edge disagreements and bounded repeated workload measurements are now explained
+and retained. Larger structures/trajectory scaling and performance improvements
+remain explicit limits; this checkpoint does not certify complete chemistry or
+close #304.

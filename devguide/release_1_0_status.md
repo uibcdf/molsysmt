@@ -48,8 +48,14 @@ chemical-state history. Nineteen new guards and 637 affected cases pass, followe
 by 87 final directed cases after avoiding unused endpoint indexes. Four-provider
 floor receiving passes 48 cases, documentation receiving 1,072 (overlapping
 selections). Original 181L/1IEP graphs, axes and coordinates are retained. The
-remaining H-name/terminal/group policies, independent disagreement explanations
-and representative workload qualification still prevent #304 closure.
+remaining H-name/terminal/group and disulfide/geometry policies still prevent
+#304 closure. Original 1IEP differences are now explained by exact-name versus
+alias policy (25 pairs) and noncontiguous group interpretation (one native-only
+pair), with retained original-field/actual-engine evidence and a literal guard.
+A 45-process benchmark covers both originals plus three analytic workloads up
+to 10,240 atoms, including 15 H5MSM round trips. Native conversion is slower in
+these measurements; its larger-workload memory/storage cost is also explicit,
+without a faster/lighter claim. Full acceptance and integration remain pending.
 New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
 for rescoring. Separately reported **#600** records missing mmCIF model-label
 delivery; selected geometry remains available, and the connectivity correction
@@ -57,6 +63,12 @@ does not claim to fix that label contract. PeptideMT's **#601** requests preserv
 adapter-load causes through form discovery and molecular-system validation.
 These are explicitly included at the end of the expanded objective, with their
 own implementation and acceptance work still pending.
+
+The later **#602** requests a public axis-angle matrix constructor for Viewer.
+It was read at this checkpoint and remains a separate incoming proposal; it was
+not among the three additions explicitly identified when the maintainer expanded
+this objective to fifteen. No automatic queue expansion or implementation is
+claimed for later arrivals.
 
 Other listed issues remain pending in the stated order; #594–#598 already have
 source repairs in the separate PR candidate but their closeout belongs at the

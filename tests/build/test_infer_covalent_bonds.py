@@ -243,3 +243,66 @@ def test_inference_preserves_declared_stable_molecule_and_entity_labels():
         )
     with pytest.raises(StructuralInconsistencyError, match="resolved chemical state"):
         msm.build.infer_covalent_bonds(source.topology)
+
+
+def test_observed_hydrogen_keeps_its_parent_when_group_records_are_not_contiguous():
+    # Original 1IEP begins with HB2 from SER 438, before MET 225 and the rest
+    # of SER 438. This independent inventory protects the observed-site mapping;
+    # it does not force agreement with a reader that splits contiguous groups.
+    from tests.conversion_truth.test_pdb_fidelity import _pdb_atom_line
+
+    text = "HEADER    NONCONTIGUOUS GROUP IDENTITY\n"
+    text += _pdb_atom_line(3429, "HB2", "SER", "A", 438, (11.4, 0.8, 2.63), "H")
+    for serial, name, element, xyz in [
+        (1, "N", "N", (0, 0, 0)),
+        (2, "CA", "C", (1.45, 0.8, 0)),
+        (3, "C", "C", (2.5, 0.4, 0)),
+        (4, "O", "O", (2.6, 1.6, 0)),
+        (5, "CB", "C", (1.4, 0.8, 1.52)),
+    ]:
+        text += _pdb_atom_line(serial, name, "ALA", "A", 225, xyz, element)
+    for serial, name, element, xyz in [
+        (3420, "N", "N", (10, 0, 0)),
+        (3421, "CA", "C", (11.45, 0.8, 0)),
+        (3422, "C", "C", (12.5, 0.4, 0)),
+        (3423, "O", "O", (12.6, 1.6, 0)),
+        (3427, "CB", "C", (11.4, 0.8, 1.52)),
+        (3428, "OG", "O", (11.4, 0.8, 0.1)),
+    ]:
+        text += _pdb_atom_line(serial, name, "SER", "A", 438, xyz, element)
+    text += "END\n"
+    source = msm.convert(text, get_missing_bonds=False)
+    result = msm.build.infer_covalent_bonds(source, return_report=True)
+    expected = [
+        [0, 10],
+        [1, 2],
+        [2, 3],
+        [2, 5],
+        [3, 4],
+        [6, 7],
+        [7, 8],
+        [7, 10],
+        [8, 9],
+        [10, 11],
+    ]
+    assert _pairs(result["molecular_system"]) == expected
+    assert source.topology.groups["group_id"].tolist() == ["438", "225"]
+    assert source.topology.atoms["group_index"].tolist() == [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+    ]
+    assert _pairs(source) == []
+    np.testing.assert_array_equal(
+        puw.get_value(source.structures.coordinates, to_unit="nm"),
+        puw.get_value(result["molecular_system"].structures.coordinates, to_unit="nm"),
+    )
