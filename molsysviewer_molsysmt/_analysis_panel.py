@@ -34,6 +34,7 @@ _METHODS = {
     "neighbors": "get_neighbors",
 }
 _PAGE_SIZE = 50
+_SCENE_ACTIONS = {"select_participants", "focus_participants", "add_live_distance"}
 
 
 def _parameters(value):
@@ -353,7 +354,50 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "periodic": r.periodic,
             "requested_pbc": r.parameters["pbc"],
             "disk_backed": callable(getattr(r.native_values, "cleanup", None)),
+            "live_distance_unavailable": self._live_distance_limit(r),
         }
+
+    def _row(self, position):
+        """Resolve native row axes once for tables and deliberate scene actions."""
+        r = self._report
+        na = 1 if r.selections[0] else len(r.first)
+        nb = 1 if r.selections[1] else len(r.second)
+        if r.layout == "matrix":
+            f, a, b = np.unravel_index(position, (len(r.frames), na, nb))
+            value = r.native_values[f, a, b]
+        elif r.layout == "paired":
+            f, a = np.unravel_index(position, (len(r.frames), na))
+            b = a
+            value = r.native_values[f, a]
+        elif r.layout.startswith("extrema"):
+            f = position
+            if r.layout == "extrema_paired":
+                a = b = int(r.auxiliary[f])
+            else:
+                a, b = (int(i) for i in r.auxiliary[f])
+            value = r.native_values[f]
+        else:
+            query = int(np.searchsorted(r.offsets, position, side="right") - 1)
+            f, a = divmod(query, na)
+            rank = position - int(r.offsets[query])
+            if r.layout == "csr":
+                b, value = int(r.auxiliary[position]), r.native_values[position]
+            else:
+                b, value = int(r.auxiliary[f, a][rank]), r.native_values[f, a][rank]
+        return int(f), int(a), int(b), value
+
+    @staticmethod
+    def _live_distance_limit(report):
+        if report.periodic:
+            return "A live distance uses nonperiodic coordinates; this result uses a periodic image."
+        if "mass" in (
+            report.parameters["first_endpoint"],
+            report.parameters["second_endpoint"]
+            if report.parameters["relation"] == "between"
+            else report.parameters["first_endpoint"],
+        ):
+            return "A live distance uses geometric centers, not mass-weighted centers."
+        return ""
 
     def _page(self, offset):
         import molsysmt as msm
@@ -362,31 +406,8 @@ class _AnalysisPanel(_MolecularTaskPanel):
         if offset and offset >= r.total:
             raise ValueError("That analysis page is outside its result population.")
         rows, samples = [], []
-        na = 1 if r.selections[0] else len(r.first)
-        nb = 1 if r.selections[1] else len(r.second)
         for position in range(offset, min(r.total, offset + _PAGE_SIZE)):
-            if r.layout == "matrix":
-                f, a, b = np.unravel_index(position, (len(r.frames), na, nb))
-                value = r.native_values[f, a, b]
-            elif r.layout == "paired":
-                f, a = np.unravel_index(position, (len(r.frames), na))
-                b = a
-                value = r.native_values[f, a]
-            elif r.layout.startswith("extrema"):
-                f = position
-                if r.layout == "extrema_paired":
-                    a = b = int(r.auxiliary[f])
-                else:
-                    a, b = (int(i) for i in r.auxiliary[f])
-                value = r.native_values[f]
-            else:
-                query = int(np.searchsorted(r.offsets, position, side="right") - 1)
-                f, a = divmod(query, na)
-                rank = position - int(r.offsets[query])
-                if r.layout == "csr":
-                    b, value = int(r.auxiliary[position]), r.native_values[position]
-                else:
-                    b, value = int(r.auxiliary[f, a][rank]), r.native_values[f, a][rank]
+            f, a, b, value = self._row(position)
             first = "Center A" if r.selections[0] else int(r.first[a])
             second = "Center B" if r.selections[1] else int(r.second[b])
             rows.append([r.frames[f], first, second])
@@ -410,7 +431,77 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "rows": rows,
         }
 
-    def _publish(self, *, stage="select", message="", request_id=0):
+    def _scene_action(self, action_id, payload, request_id):
+        # The host transport holds its managed-edit lock around this handler.
+        # Reader callbacks only validate; core scene calls happen after return.
+        context = self._context()
+        if context.get("state") != "synchronized":
+            raise ValueError("Update the scene before using an analysis result in it.")
+        report = self._current_report(context)
+        if report is None or payload.get("report_id") != report.token:
+            raise ValueError(
+                "That analysis has expired. Calculate it again for the current inputs."
+            )
+        position = payload.get("row_index")
+        if (
+            isinstance(position, bool)
+            or not isinstance(position, int)
+            or not self._offset
+            <= position
+            < min(report.total, self._offset + _PAGE_SIZE)
+        ):
+            raise ValueError("Choose a result row on the current page.")
+        f, a, b, _ = self._row(position)
+        first = (
+            report.first.tolist() if report.selections[0] else [int(report.first[a])]
+        )
+        second = (
+            report.second.tolist() if report.selections[1] else [int(report.second[b])]
+        )
+        participants = list(dict.fromkeys(first + second))
+
+        def validate(target):
+            if target is not report.target() or any(
+                atom < 0 or atom >= int(target.topology.n_atoms)
+                for atom in participants
+            ):
+                raise ValueError(
+                    "The result participants no longer belong to this system."
+                )
+
+        self._owner._read(validate, {})
+        current = int(self._view.player.index)
+        outcome = {
+            "id": action_id,
+            "row_index": position,
+            "structure_index": current,
+            "observation_structure_index": report.frames[f],
+        }
+        if action_id == "select_participants":
+            self._view.active_selection.set(participants)
+            message = f"Selected {len(participants)} participant atoms. Molecular data are unchanged."
+            if self._current_report(self._context()) is None:
+                message += " The result context changed; calculate it again before using another row."
+        elif action_id == "focus_participants":
+            self._view.focus_selection(participants, structure_indices=[current])
+            message = f"Focused participant atoms in visible structure {current}."
+        else:
+            reason = self._live_distance_limit(report)
+            if reason:
+                raise ValueError(reason)
+            measurement = self._view.measurements.add_distance(
+                first, second, endpoint_policy="centroid"
+            )
+            outcome["measurement_tag"] = measurement.tag
+            message = (
+                f"Added live distance {measurement.tag} in Measures. It follows the visible "
+                f"structure; the selected result row remains in structure {report.frames[f]}."
+            )
+        self._publish(
+            stage="scene", message=message, request_id=request_id, scene_action=outcome
+        )
+
+    def _publish(self, *, stage="select", message="", request_id=0, scene_action=None):
         if not self._alive or self._view is None or self._view.closed:
             return
         context = self._context()
@@ -432,6 +523,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
                 "message": message,
                 "report": self._summary() if report else None,
                 "page": self._page(self._offset) if report else None,
+                "scene_action": scene_action,
             }
         )
 
@@ -443,6 +535,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "parameters",
             "report_id",
             "offset",
+            "row_index",
         }:
             raise ValueError("The analysis request contains unsupported fields.")
         draft = self._normalize_draft(payload.get("draft", self._draft))
@@ -458,6 +551,9 @@ class _AnalysisPanel(_MolecularTaskPanel):
                 "analysis_parameters": dict(parameters),
             }
         )
+        if action_id in _SCENE_ACTIONS:
+            self._scene_action(action_id, payload, request_id)
+            return
         if action_id in {"refresh", "task"}:
             if action_id == "task":
                 self._release_task_data()

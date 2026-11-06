@@ -29,6 +29,25 @@ and shared rejected-operation diagnostics (#603), with 114 panel checks, 172
 native/route controls and five actual Jupyter scenarios. Rotate awaits native
 #602; other required Geometry, Chemistry and Analysis tasks remain planned.
 
+## Analysis row adoption — source receiving 2026-11-06
+
+The contribution implements selected-row core selection, visible-structure focus
+and geometric live distances. It reuses core APIs under the existing action
+lock and resolves row participants in Python from the retained report, with
+identity/revision/membership/page checks. Scene actions are not pending readers.
+Periodic and mass-weighted observations retain participant actions but refuse
+nonequivalent live conversion. Core Measures survive clearing/unmounting the
+report, retain participant multiplicity and follow the visible structure rather
+than a frozen scalar or implicit row navigation. Expert native APIs are unchanged.
+
+The [row-adoption receipt](../../devtools/data/molsysviewer_tools_scene_adoption_receiving_20261106.json)
+records numerical, lifecycle, native-axis and actual Jupyter/Mol*/popup receiving,
+including TcTIM and a real three-structure ensemble. It retains original failed
+test-authoring diagnostics, exact source fingerprints and the distinction between
+camera enclosure and measurement means. The complete new addon/hosted gates,
+owner review/integration, installed and postponed human acceptance stay separate.
+All remaining Geometry, Chemistry, Analysis and session families remain required.
+
 ## Analysis distance-family receiving — 2026-11-06
 
 **Complete implemented-task Jupyter receiving:** clean b18d5d823 / Viewer
@@ -39,8 +58,10 @@ of #615 is made. This receives the implemented tasks, not all required families
 or human/installed/owner acceptance.
 
 **Current controlled host:** all five source workflows and the dependency
-inventory now pin published Viewer `737f9bc349e84414be75163e0566a42fe7e480d2`,
-which fixes numeric region recovery under Viewer #307. The new scientific-session
+inventory now pin published Viewer `239c8dd74815a660159a95970e9136d7beebfdd2`,
+receiving numeric region recovery and measurement geometry/value/lifecycle fixes
+under Viewer #307–#313. Complete local Python/core, hosted E2E, four Linux
+Python cells and Linux/Windows source-pair jobs pass; macOS is still queued. The new scientific-session
 module is explicitly retained in the smoke tier. Earlier 8f8c442e full/smoke
 receipts keep their original host; source-route checks, actual Jupyter and hosted
 receiving on this follow-up retain their own gates. Public dependency floors,
@@ -64,8 +85,8 @@ Analysis registers Distances, Minimum distance, Maximum distance and Neighbor
 search over unchanged expert/native structure tools. It resolves two independent
 atom populations, optionally their geometric/mass centers, and ordered/repeated
 structures. Native self/tie/periodic conventions and atom-axis maps are explicit;
-no numerical algorithm, scientific preparation, representation or universal
-result store is added. Reports use bounded nm pages and retire native disk
+calculation adds no numerical algorithm, scientific preparation, representation
+or universal result store. Explicit row actions delegate scene effects to core. Reports use bounded nm pages and retire native disk
 storage on Clear, changed inputs/context and unmount. Pending primary reads
 retain the existing exact declaration/old-scene isolation contract.
 

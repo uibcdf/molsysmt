@@ -8,7 +8,8 @@ Extract subset and Copy system, plus Geometry / Translate, Center, Superpose str
 lifecycle, bounded metadata and independent-result presentation are shared.
 Chemistry adds stored-information and hydrogen-inventory inspection, plus explicit
 heavy-atom and hydrogen preparation with reviewed independent-result replacement.
-Analysis adds native distances, extrema and neighborhoods. Rotate, further Chemistry
+Analysis adds native distances, extrema, neighborhoods and explicit selected-row
+selection/focus/live-Measure actions. Rotate, further Chemistry
 assignments/construction and remaining Analysis families remain proposed; no placeholder
 panel/button is registered. Human Jupyter/visible Qt acceptance remains
 postponed, separate from automated Jupyter/Mol*/native numerical receiving.
@@ -35,9 +36,15 @@ detached Studio. Hosted exact-head gates remain pending. Native-window ownership
 visible Qt qualification. Other destinations, further Geometry tasks and Chemistry/Analysis
 remain planned. The dated status above retains its initial scope.
 
-The controlled host is Viewer `177e19a8fa06e37484a801da1711cc99acbc8f2d`, retaining
+The initial Geometry controlled host was Viewer `177e19a8fa06e37484a801da1711cc99acbc8f2d`, retaining
 presentation recovery and interactive declared readers under #304 and adding
 conditional replacement under #306. Earlier receipts retain their own host identities.
+The five current source routes now pin Viewer
+`239c8dd74815a660159a95970e9136d7beebfdd2`, receiving #307 and the measurement
+geometry/value/lifecycle corrections in #308–#313. Complete local Python and
+44-suite core receiving, hosted E2E, four Linux Python cells and Linux/Windows
+source-pair jobs pass for that host. MacOS remains queued; the source pin is
+not installed-artifact or full-platform qualification.
 The source receiver also incorporates native ed09f6453, including the owner's
 #583/#584 repairs. Consumer observations are archived alongside the native
 resolutions; no duplicate open report is retained. The final receiving receipt
@@ -360,30 +367,51 @@ limit or out-of-core promise. Current calculation receiving is serial; native
 concurrent configuration restoration is separately reported under #613.
 
 Reports are private to the mounted panel, expire on managed source/input or
-dependent structure/scene-membership changes, and never alter coordinates,
-chemistry, scene objects or analysis stores. Explicit current-primary requests
+dependent structure/scene-membership changes. Calculation never alters
+coordinates, chemistry, scene objects or analysis stores. Explicit current-primary requests
 remain declared readers while a scene update is pending; old-scene populations
 are rejected. Expert Python calls retain complete native results and signatures.
-Generic result persistence, plots and deliberate core visual adoption, further
+Generic result persistence, plots, further
 structural/property/sequence/mechanics families and complete-session acceptance
 remain required work; no placeholder operation is registered for them.
 
-### Next Analysis integration — planned
+### Analysis-to-scene actions — source contract 2026-11-06
 
-Connect a selected result row to the existing core selection/focus owners.
-Derive participants from the retained report and its row identity in Python;
-do not trust browser-supplied atom indices. Revalidate target, managed revision,
-membership and report lifetime inside the host panel action. The existing
-transport holds the managed-edit lock over that handler, so this does not need
-a second public scene-action service. A reader callback still cannot edit the
-scene; scene actions must remain unavailable while projection is pending.
+A chosen result row offers Select participants, Focus participants and Add live
+distance. Python resolves the private report token and global row position
+through the same native-axis mapper used by bounded pages. It rejects foreign,
+expired, off-page and malformed rows; browser-supplied atom lists are not
+admitted. Source identity, managed revision and scene-dependent membership are
+revalidated inside the existing host action lock. Reader callbacks only
+validate; scene calls occur after they return. These three actions are not
+declared readers and remain unavailable during pending/failed synchronization.
 
-Qualify visible-structure navigation and the report's actual context
-dependencies before offering row navigation. Keep a calculated numerical row
-distinct from a live core Measure. In particular, current core distances use
-nonperiodic live endpoint geometry: periodic observations and mass-weighted
-centers cannot be presented as equivalent live distances without an additional
-qualified owner contract. Do not copy a frozen scalar into a live measurement.
+Selection uses the unique union of actual participant atoms. Focus uses the
+existing core camera owner in the visible structure, enclosing atomic spheres;
+it does not promise an arithmetic-center camera target. Neither action seeks
+the calculated structure. A live distance uses the full geometric populations,
+including repeated occurrences, through core Measurements. It follows visible
+structures and stays separate from the immutable calculated row. Core may
+compute values across all loaded structures; no new resource bound is promised.
+The live Measure survives Clear and addon unmount and retains core history,
+visibility and persistence ownership. No frozen scalar is inserted as geometry.
+
+Actual periodic observations and mass-weighted centers cannot be converted to
+that nonperiodic geometric live distance; their participant actions remain
+available. A requested periodic calculation with no stored box reports its
+native nonperiodic fallback and may create a nonperiodic live Measure.
+
+One radio group selects rows by report identity and page. Changed input/page or
+result clears it; unchanged context refreshes can retain it. An action's own
+selection may expire a current-selection report. Retain the bounded action
+acknowledgement while refreshing, without restoring stale drafts or allowing
+old scene requests through synchronization recovery. Empty results offer no
+invented row. No second public scene-action service or expert wrapper is added.
+
+### Remaining Analysis integration — planned
+
+Qualify report/context dependencies before offering deliberate row navigation.
+The present row actions never navigate implicitly.
 
 Continue structural series through public RMSD, least-RMSD, radius-of-gyration
 and RMSF tools with explicit reference/weighting/structure choices. RMSF does

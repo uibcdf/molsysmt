@@ -5511,6 +5511,23 @@ current structure expires. Managed edits and scene selection/region changes
 invalidate dependent results. Arbitrary raw writes are not observed automatically.
 Reports are not added to the scene or saved automatically in H5MSM.
 
+To use a result in the scene, choose its row. **Select participants** selects
+its atoms. **Focus participants** frames those atoms in the visible structure.
+**Add live distance** creates a core Measure from the atom or geometric-center
+endpoints, retaining repeated atom occurrences. None of these actions navigates
+to the calculated structure. The live distance follows the visible structure;
+the numerical row remains the original observation. Adding it may calculate
+values across every loaded structure.
+
+A periodic observation or mass-weighted center cannot become that nonperiodic
+geometric live distance; the panel explains the disabled action. You can still
+select or focus its participants. A deliberately added Measure remains in
+**Studio > Measures** after clearing the report or leaving the addon and uses
+the core's visibility, history and scene persistence. Choosing another page,
+input or result clears the chosen row. Changing a current canvas selection can
+expire a report that depended on it. The three scene actions require an updated,
+synchronized scene and are separate from the declared calculation readers.
+
 An already open Analysis panel can calculate from current molecular data during
 pending scene synchronization, using explicit primary-data populations. Old
 canvas selections, saved selections and regions require updating the scene

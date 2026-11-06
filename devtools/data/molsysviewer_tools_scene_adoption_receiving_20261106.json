@@ -1,0 +1,158 @@
+{
+  "schema": "molsysmt.viewer_tools_scene_adoption_receiving@1",
+  "date": "2026-11-06",
+  "status": "scoped source receiving passes; full addon/exact-head hosted/owner/installed/human gates remain separate",
+  "source": {
+    "contribution_parent": "7c7b92a7c396612671bbebec6b8db3afe97d241c",
+    "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+    "viewer_controlled_pin": "239c8dd74815a660159a95970e9136d7beebfdd2",
+    "viewer_receiving_head": "fabf2d220c5d3cb906343005efb060670c84bdf0",
+    "viewer_receiving_note": "The evidence-only child has the same executable sources/runtime as qualified 239c8dd7.",
+    "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "python": "3.14.7",
+    "rust_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_note": "Reuse the unchanged existing native binary in the isolated receiving worktree; no scientific kernel changes or new build."
+  },
+  "scope": [
+    "Existing native Analysis reports retain numerical algorithms, defaults, physical units, PBC and native output axes",
+    "Private report token plus global current-page row position; no browser atom list; common native row mapper",
+    "Unique participant selection and visible-structure core focus; no implicit seeking",
+    "Core geometric live Measure preserves repeated participants and follows the visible structure, distinct from its frozen observation",
+    "Periodic/mass-weighted live conversion explicitly refused; Select/Focus remain available; no-box fallback remains nonperiodic",
+    "Report lifetime, revision/membership/endpoint guards and native resource retirement; Measures retain separate core lifetime/history/persistence",
+    "No new expert wrapper/public scene service or scientific store"
+  ],
+  "validation": {
+    "analysis_initial": {
+      "passed": 81,
+      "failed": 0,
+      "seconds": 26.77,
+      "warnings": 85,
+      "private_log": "msv-analysis-scene-headless-corrected-20261106.log"
+    },
+    "additional_edges": {
+      "passed": 4,
+      "failed": 0,
+      "seconds": 4.33,
+      "deselected": 81,
+      "private_log": "msv-analysis-scene-edge-20261106.log"
+    },
+    "shared_panels_preflight": {
+      "passed": 308,
+      "failed": 0,
+      "seconds": 98.16,
+      "warnings": 210,
+      "private_log": "msv-analysis-scene-shared-panels-20261106.log"
+    },
+    "actual_jupyter": {
+      "state": "passed",
+      "steps": [
+        "Load TcTIM and open Analysis without calculating implicitly",
+        "Calculate explicit atom populations and verify native distances against coordinates",
+        "Inspect native minimum and maximum without changing molecular data",
+        "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "Page through TcTIM source indices without transferring the complete result",
+        "Use independent Analysis panels in canvas popup and detached Studio",
+        "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+        "Select participants and focus the visible structure without losing the row acknowledgement",
+        "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+        "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+        "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+        "A repeated-population live Measure uses the visible structure and follows a real ensemble"
+      ],
+      "step_count": 12,
+      "page_error_count": 5,
+      "plain_control_error_count": 1,
+      "error_classification": "Every observed fingerprint matches the separate plain-Jupyter debugger control; not a zero-page-error claim.",
+      "private_artifact_directory": "msv-analysis-scene-jupyter-r6-20261106",
+      "scope": "Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native Analysis queries, bounded source-index pages, deliberately selected/focused participants and live Measures from source and both popups. Independent numerical, actual geometry/text-anchor/label and molecular-invariance checks, including duplicate participants, frozen rows versus visible structures and mass-weighted refusal. Not human Qt or installed qualification."
+    },
+    "shared_geometry_jupyter": {
+      "state": "passed",
+      "steps": [
+        "Render the source through the real notebook presentation surface",
+        "Review and cancel translation without changing the molecular system",
+        "Confirm the saved subset once through live Jupyter comms",
+        "Translate an independent whole-system result and display it below the source",
+        "The same result can move to its own live window and back",
+        "Geometry is reachable in canvas and detached Studio popups with its draft",
+        "Python verifies the numerical results and unchanged source of the independent calculation"
+      ],
+      "step_count": 7,
+      "page_error_count": 2,
+      "plain_control_error_count": 1,
+      "error_classification": "Every observed fingerprint matches the separate plain-Jupyter debugger control; not a zero-page-error claim.",
+      "private_artifact_directory": "msv-analysis-scene-shared-geometry-20261106",
+      "scope": "Real local JupyterLab/ipykernel/AnyWidget, saved selection translation, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification."
+    },
+    "ruff": {
+      "check": "passed",
+      "format_check": "4437 files formatted"
+    },
+    "dependency_audit": "passed; five source workflows/inventory now pin qualified Viewer239",
+    "final_analysis_and_preflight": {
+      "passed": 121,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 25.46,
+      "warnings": 89,
+      "scope": "Final 85-case Analysis module plus all three owner smoke/inventory/native-bridge preflight modules after source-pin receiving",
+      "private_log": "msv-analysis-scene-final-preflight-20261106.log"
+    },
+    "developer_guide": {
+      "validation": "passed",
+      "queue_index_check": "passed"
+    }
+  },
+  "retained_diagnostics": [
+    {
+      "private_artifact": "msv-analysis-scene-headless-20261106.log",
+      "outcome": "76 passes/5 test-authoring failures: public measurement info is flat and direct remount retained a request counter. Correct public metadata and actual host unmount/remount keep all scientific assertions."
+    },
+    {
+      "private_artifact": "msv-analysis-scene-jupyter-r1-20261106",
+      "outcome": "Seven prior steps passed; the new details locator was incorrectly nested."
+    },
+    {
+      "private_artifact": "msv-analysis-scene-jupyter-r2-20261106",
+      "outcome": "Incorrect arithmetic-midpoint expectation for core camera focus."
+    },
+    {
+      "private_artifact": "msv-analysis-scene-jupyter-r3-20261106",
+      "outcome": "Actual visible camera and atom radii captured: core encloses atomic spheres, which is distinct from measurement geometric means. No product camera change."
+    },
+    {
+      "private_artifact": "msv-analysis-scene-jupyter-r4-20261106",
+      "outcome": "Ten steps pass; the new trajectory test used the wrong button title. Stable existing trajectory data attribute restores the intended check."
+    },
+    {
+      "private_artifact": "msv-analysis-scene-jupyter-r5-20261106",
+      "outcome": "Eleven steps pass before final pager/weighted-UI polish; original receipt retained."
+    }
+  ],
+  "input_sha256": {
+    ".github/workflows/benchmarks.yml": "b28e11ff36886ea2c40b8204e8b1dc0121d389dfd2225423557af59a631191e1",
+    ".github/workflows/ci-full.yaml": "86cb9423d235e63d92affd57b6eb036641d97f1933339ad4045f5bd6c60c1927",
+    ".github/workflows/ci-smoke.yaml": "76deda2c0d1e6071b8558a438b150e5bd8eeec2a4d6b95876e818fb3cfb41906",
+    ".github/workflows/ci-weekly.yaml": "2267ddc857553d66f9dddd966651f168a5a7e19724e39a09ecd421e66055db18",
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": "fa04ef3de7467a304fe2b1747a6504105b0512c5644e938d3a91c09037086c86",
+    "devtools/dependency_contract.toml": "c6bb60dcca0df792034c053a0826593c96448818a453837cd0adc29c190425ed",
+    "molsysviewer_molsysmt/_analysis_panel.py": "a79b25f1be780957a6172a4e217758eba272d5bf3674fe658fcc678426aad91f",
+    "molsysviewer_molsysmt/_analysis_panel_frontend.py": "df56678bf975233772004a3e6e374ddfb394173723fd45e85cd06ce86576dfad",
+    "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": "ddfe7386f45721741eabad6c4d1a2b5951a29eb9d38b314ae4de231f59fd7e55",
+    "tests/molsysviewer_molsysmt/geometry_panel_jupyter.mjs": "5d9adba18ecfe61207dc4555c1304b8b630348706861e215da4bcef8fdb2d0cd",
+    "tests/molsysviewer_molsysmt/jupyter_panel_controls.mjs": "9b1bc7ed65da40c8a0b9154167f5414e120fd449c6e761ae13219a604eef5f39",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "047efd62f9ebff7eff33f5b48e6b9548cef0a51b1802642f24a9a6a27b08fce1",
+    "tests/molsysviewer_molsysmt/test_analysis_panel.py": "461094e31cf0fa68d410b645e53cad003ee63da2476f8aec1d57495b8197b538"
+  },
+  "limits": [
+    "No new full addon collection claim yet",
+    "Owner PR543 review/integration remains required; no owner-main push or merge",
+    "Hosted exact-head/platform and installed-package qualification remain separate",
+    "Human Jupyter/visible Qt acceptance remains explicitly postponed",
+    "General row navigation, structural/property/sequence/mechanics/plot families and all other approved task families remain required",
+    "No universal RAM bound, periodic or mass-weighted live measure, automatic calculation/adoption or raw-edit observation",
+    "Source receiving is serial within each kernel; native same-process concurrent configuration issue613 remains separate",
+    "Both 1.0 publications and candidate/tag/package operations remain paused"
+  ]
+}

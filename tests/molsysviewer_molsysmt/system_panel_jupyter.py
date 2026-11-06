@@ -371,7 +371,8 @@ def main():
             "source_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
             "source_scene=view.export_state()\n"
             "_distances=np.linalg.norm(source_coordinates[0][[0,2]][:,None,:]-source_coordinates[0][[3,5,7]][None,:,:],axis=-1)\n"
-            f"Path({str(output / 'analysis-expected.json')!r}).write_text(json.dumps({{'distances':_distances.ravel().tolist(),'minimum':float(_distances.min()),'maximum':float(_distances.max()),'page51':float(np.linalg.norm(source_coordinates[0,50]-source_coordinates[0,3]))}}))\n"
+            "_centers=np.stack([source_coordinates[0,[0,2]].mean(axis=0),source_coordinates[0,[3,5,7]].mean(axis=0)])\n"
+            f"Path({str(output / 'analysis-expected.json')!r}).write_text(json.dumps({{'distances':_distances.ravel().tolist(),'minimum':float(_distances.min()),'maximum':float(_distances.max()),'page51':float(np.linalg.norm(source_coordinates[0,50]-source_coordinates[0,3])),'center_points_angstrom':(_centers*10).tolist(),'focus_points_angstrom':(source_coordinates[0,[0,3]]*10).tolist()}}))\n"
             "view\n"
         )
         final = (
@@ -411,6 +412,38 @@ def main():
                 ["defer_reader_box()\n", f"verify_reader_pending({revision})\n"]
             )
         cells.append(final)
+    if args.scenario == "analysis":
+        cells.extend(
+            [
+                "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+                "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),source_chemistry)\n"
+                "assert view.addons.molsysmt.get_sync_status()['target_revision']==0\n"
+                "assert set(view.active_selection.atom_indices)=={0,2,3,5,7}\n"
+                "_measures=view.measurements.info()\nassert len(_measures)==3\n"
+                "for _measure in _measures:\n"
+                "    assert _measure['picks_atom_indices']==[[0,2],[3,5,7]]\n"
+                "    np.testing.assert_allclose(msm.pyunitwizard.get_value(view.measurements.series(_measure['tag']),to_unit='nm'),[np.linalg.norm(_centers[0]-_centers[1])])\n"
+                "_scene=view.export_state()\n"
+                "_effects={'view','active_selection','measurements','order_high_water_mark','uid_high_water_mark','tag_high_water_marks'}\n"
+                "assert {k:v for k,v in _scene.items() if k not in _effects}=={k:v for k,v in source_scene.items() if k not in _effects}\n"
+                "assert {k:v for k,v in _scene['view'].items() if k!='camera'}=={k:v for k,v in source_scene['view'].items() if k!='camera'}\n"
+                "print('JUPYTER_ANALYSIS_SCENE_OK',len(_measures))\n",
+                "view.close()\n"
+                "with msv.demo['pentalanine'] as _seed:\n"
+                "    view=msv.new_view(_seed.molsys,structure_indices=[0,8,3])\n"
+                "_ensemble_xyz=msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm').copy()\n"
+                "_ensemble_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+                "_ensemble_points=np.stack([_ensemble_xyz[:,[4,0,4]].mean(axis=1),_ensemble_xyz[:,[5,2]].mean(axis=1)],axis=1)\n"
+                f"Path({str(output / 'analysis-ensemble-expected.json')!r}).write_text(json.dumps({{'points_angstrom':(_ensemble_points*10).tolist(),'distances_nm':np.linalg.norm(_ensemble_points[:,0]-_ensemble_points[:,1],axis=1).tolist()}}))\nview\n",
+                "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_ensemble_xyz)\n"
+                "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),_ensemble_chemistry)\n"
+                "_measures=view.measurements.info()\nassert len(_measures)==1\n"
+                "assert _measures[0]['picks_atom_indices']==[[4,0,4],[5,2]]\n"
+                "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.measurements.series(_measures[0]['tag']),to_unit='nm'),np.linalg.norm(_ensemble_points[:,0]-_ensemble_points[:,1],axis=1))\n"
+                "assert view.player.index==2 and view.addons.molsysmt.get_sync_status()['target_revision']==0\n"
+                "print('JUPYTER_ANALYSIS_ENSEMBLE_OK',view.player.n_structures)\n",
+            ]
+        )
     (output / "notebooks/system.ipynb").write_text(json.dumps(_notebook(cells)))
     (output / "notebooks/plain.ipynb").write_text(
         json.dumps(_notebook(["print('PLAIN_JUPYTER_CONTROL_OK', 1 + 1)\n"]))

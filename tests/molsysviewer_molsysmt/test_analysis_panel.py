@@ -7,7 +7,11 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from tests.molsysviewer_molsysmt.test_build_assignment_tools import snapshot, unchanged
+from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+    same,
+    snapshot,
+    unchanged,
+)
 from tests.molsysviewer_molsysmt.test_system_panel import transport
 
 puw = msm.pyunitwizard
@@ -412,3 +416,341 @@ def test_foreign_page_token_and_unmount_cannot_reuse_a_report(case):
         request_id=panel._last_request + 1,
     )
     assert rejected["stage"] == "error" and not rejected["report"]
+
+
+@pytest.mark.parametrize(
+    "task,pairing",
+    [
+        (task, pairing)
+        for task in ["distances", "minimum", "maximum", "neighbors"]
+        for pairing in ["cartesian", "paired"]
+        if task != "neighbors" or pairing != "paired"
+    ],
+)
+def test_row_scene_actions_keep_native_global_atom_axes_without_navigation(
+    case, task, pairing
+):
+    view, sent, _ = case
+    result = calculate(
+        case, task, b={**B, "indices": "5 2 5"}, pairing=pairing, cutoff="100"
+    )
+    scientific = view.molsys.copy()
+    for position, row in enumerate(result["page"]["rows"][:4]):
+        selected = act(
+            view,
+            sent,
+            "select_participants",
+            report_id=result["report"]["id"],
+            row_index=position,
+        )
+        assert selected["stage"] == "scene", selected["message"]
+        assert set(view.active_selection.atom_indices) == set(row[1:3])
+        assert selected["scene_action"]["observation_structure_index"] == row[0]
+        assert view.player.index == 0
+        start = len(sent)
+        focused = act(
+            view,
+            sent,
+            "focus_participants",
+            report_id=result["report"]["id"],
+            row_index=position,
+        )
+        assert focused["stage"] == "scene"
+        zooms = [m for m in sent[start:] if m.get("op") == "zoom"]
+        assert len(zooms) == 1 and set(zooms[0]["atom_indices"]) == set(row[1:3])
+        assert view.player.index == 0
+    same(view.molsys, scientific)
+
+
+@pytest.mark.parametrize(
+    "first_mode,second_mode",
+    [
+        ("atoms", "atoms"),
+        ("geometric", "atoms"),
+        ("atoms", "geometric"),
+        ("geometric", "geometric"),
+    ],
+)
+def test_live_distance_preserves_populations_multiplicity_current_structure_and_core_ownership(
+    case, first_mode, second_mode
+):
+    view, sent, _ = case
+    result = calculate(case, first_endpoint=first_mode, second_endpoint=second_mode)
+    scientific = view.molsys.copy()
+    with puw.context(standard_units=["pm", "ps"]):
+        added = act(
+            view,
+            sent,
+            "add_live_distance",
+            report_id=result["report"]["id"],
+            row_index=0,
+        )
+        assert added["stage"] == "scene", added["message"]
+        tag = added["scene_action"]["measurement_tag"]
+        measurement = view.measurements[tag]
+        first = [4, 0, 4] if first_mode == "geometric" else [4]
+        second = [5, 2] if second_mode == "geometric" else [5]
+        assert measurement.info()["picks_atom_indices"] == [first, second]
+        xyz = puw.get_value(view.get_coordinates(), to_unit="nm")
+        expected = np.linalg.norm(
+            xyz[:, first].mean(axis=1) - xyz[:, second].mean(axis=1), axis=1
+        )
+        np.testing.assert_allclose(
+            puw.get_value(view.measurements.series(tag), to_unit="nm"), expected
+        )
+        assert (
+            view.player.index == 0
+            and added["scene_action"]["observation_structure_index"] == 2
+        )
+        assert float(result["page"]["rows"][0][3]) == pytest.approx(
+            expected[2], abs=1e-8
+        )
+        assert expected[0] != pytest.approx(expected[2], abs=1e-8)
+        for index in [2, 1, 0]:
+            view.player.go_to_structure(index)
+            coordinates = puw.get_value(measurement.get_coordinates(), to_unit="nm")
+            np.testing.assert_allclose(
+                coordinates,
+                [xyz[index, first].mean(axis=0), xyz[index, second].mean(axis=0)],
+            )
+        act(view, sent, "clear")
+        assert view.measurements.contains(tag)
+    same(view.molsys, scientific)
+
+
+@pytest.mark.parametrize("reason", ["periodic", "mass"])
+def test_nonequivalent_live_distance_is_refused_but_participants_remain_usable(
+    case, reason
+):
+    view, sent, _ = case
+    if reason == "periodic":
+        view.addons.molsysmt.basic.set(
+            box=puw.quantity(np.repeat((np.eye(3) * 3)[None], 3, axis=0), "nm")
+        )
+    result = calculate(
+        case,
+        pbc=reason == "periodic",
+        first_endpoint="mass" if reason == "mass" else "atoms",
+    )
+    assert reason in result["report"]["live_distance_unavailable"]
+    before = snapshot(view)
+    rejected = act(
+        view, sent, "add_live_distance", report_id=result["report"]["id"], row_index=0
+    )
+    assert rejected["stage"] == "error" and reason in rejected["message"]
+    unchanged(view, before)
+    selected = act(
+        view, sent, "select_participants", report_id=result["report"]["id"], row_index=0
+    )
+    assert selected["stage"] == "scene" and view.active_selection.atom_indices
+    focused = act(
+        view, sent, "focus_participants", report_id=result["report"]["id"], row_index=0
+    )
+    assert focused["stage"] == "scene"
+
+
+def test_requested_periodicity_without_a_box_can_create_a_nonperiodic_live_distance(
+    case,
+):
+    view, sent, _ = case
+    msm.set(view.molsys, box=None)
+    result = calculate(case, pbc=True)
+    assert (
+        not result["report"]["periodic"]
+        and not result["report"]["live_distance_unavailable"]
+    )
+    added = act(
+        view, sent, "add_live_distance", report_id=result["report"]["id"], row_index=0
+    )
+    assert added["stage"] == "scene" and view.measurements.contains(
+        added["scene_action"]["measurement_tag"]
+    )
+
+
+@pytest.mark.parametrize("position", [None, True, -1, 0.5, "0", 18, 1000000])
+def test_invalid_scene_row_never_changes_selection_history_or_molecular_data(
+    case, position
+):
+    view, sent, _ = case
+    result = calculate(case)
+    before = snapshot(view)
+    rejected = act(
+        view,
+        sent,
+        "add_live_distance",
+        report_id=result["report"]["id"],
+        row_index=position,
+    )
+    assert rejected["stage"] == "error" and "row" in rejected["message"]
+    unchanged(view, before)
+
+
+def test_scene_row_must_belong_to_the_current_page_and_ignores_no_browser_atom_list(
+    case,
+):
+    view, sent, _ = case
+    result = calculate(
+        case, a={**A, "indices": "0 1 2 3 4 5 6"}, b={**B, "indices": "7 8 9 10 11 12"}
+    )
+    page = act(view, sent, "page", report_id=result["report"]["id"], offset=50)
+    before = snapshot(view)
+    stale = act(
+        view, sent, "select_participants", report_id=result["report"]["id"], row_index=0
+    )
+    assert stale["stage"] == "error"
+    forged = act(
+        view,
+        sent,
+        "select_participants",
+        report_id=result["report"]["id"],
+        row_index=50,
+        atom_indices=[61],
+    )
+    assert forged["stage"] == "error" and "unsupported" in forged["message"]
+    unchanged(view, before)
+    selected = act(
+        view,
+        sent,
+        "select_participants",
+        report_id=result["report"]["id"],
+        row_index=50,
+    )
+    assert selected["stage"] == "scene"
+    assert set(view.active_selection.atom_indices) == set(page["page"]["rows"][0][1:3])
+
+
+@pytest.mark.parametrize(
+    "change", ["nonce", "inputs", "revision", "unmount", "endpoint"]
+)
+def test_expired_or_foreign_reports_cannot_create_scene_objects(case, change):
+    view, sent, panel = case
+    result = calculate(case)
+    token = result["report"]["id"]
+    endpoint = None
+    if change == "nonce":
+        token = "foreign"
+    elif change == "inputs":
+        act(view, sent, "refresh", draft={**A, "indices": "1"})
+    elif change == "revision":
+        view.addons.molsysmt.structure.translate(
+            translation="[0.1,0,0] nm", in_place=True
+        )
+    elif change == "unmount":
+        view._handle_frontend_event(
+            {"event": "panel_unmount", "addon": "molsysmt", "panel": "analysis"}
+        )
+        mount(view)
+    else:
+        endpoint = "analysis-peer"
+        view._endpoint_transfers.register(endpoint, "canvas")
+        mount(view, endpoint)
+    before = snapshot(view)
+    rejected = act(
+        view, sent, "add_live_distance", endpoint=endpoint, report_id=token, row_index=0
+    )
+    assert rejected["stage"] == "error" and "expired" in rejected["message"]
+    unchanged(view, before)
+
+
+@pytest.mark.parametrize(
+    "action", ["select_participants", "focus_participants", "add_live_distance"]
+)
+def test_pending_scene_rejects_row_actions_while_retaining_declared_calculation_readers(
+    case, action
+):
+    view, sent, panel = case
+    view.addons.molsysmt.basic.set(
+        box=puw.quantity(np.repeat(np.eye(3)[None], 3, axis=0), "nm"), update_view=False
+    )
+    result = calculate(case)
+    assert (
+        result["context"]["state"] == "pending"
+        and action not in panel.read_only_actions
+    )
+    before = snapshot(view)
+    act(view, sent, action, report_id=result["report"]["id"], row_index=0)
+    unchanged(view, before)
+
+
+def test_selecting_from_current_selection_expires_its_report_but_keeps_the_action_outcome(
+    case,
+):
+    view, sent, panel = case
+    result = calculate(case, a={**A, "source": "current"})
+    selected = act(
+        view, sent, "select_participants", report_id=result["report"]["id"], row_index=0
+    )
+    assert selected["stage"] == "scene" and "Selected" in selected["message"]
+    assert "context changed" in selected["message"]
+    assert set(view.active_selection.atom_indices) == set(
+        result["page"]["rows"][0][1:3]
+    )
+    assert selected["report"] is None and panel._report is None
+
+
+def test_replayed_request_cannot_duplicate_a_measurement_but_new_requests_have_distinct_core_tags(
+    case,
+):
+    view, sent, _ = case
+    result = calculate(case)
+    added = act(
+        view, sent, "add_live_distance", report_id=result["report"]["id"], row_index=0
+    )
+    tag = added["scene_action"]["measurement_tag"]
+    view._handle_frontend_event(
+        {
+            "event": "addon_panel_action",
+            "addon": "molsysmt",
+            "panel": "analysis",
+            "content": {
+                "type": "action",
+                "id": "add_live_distance",
+                "payload": {
+                    "request_id": added["request_id"],
+                    "report_id": result["report"]["id"],
+                    "row_index": 0,
+                },
+            },
+        }
+    )
+    assert len(view.measurements.info()) == 1
+    second = act(
+        view, sent, "add_live_distance", report_id=result["report"]["id"], row_index=0
+    )
+    assert second["scene_action"]["measurement_tag"] != tag
+    assert len(view.measurements.info()) == 2
+
+
+@pytest.mark.parametrize(
+    "action", ["select_participants", "focus_participants", "add_live_distance"]
+)
+def test_evaluated_empty_report_has_no_scene_row(case, action):
+    view, sent, _ = case
+    result = calculate(
+        case, "neighbors", a={**A, "indices": "4"}, b={**B, "indices": "5"}, cutoff="0"
+    )
+    assert result["report"]["rows"] == 0
+    before = snapshot(view)
+    rejected = act(view, sent, action, report_id=result["report"]["id"], row_index=0)
+    assert rejected["stage"] == "error" and "row" in rejected["message"]
+    unchanged(view, before)
+
+
+def test_unused_second_population_weighting_does_not_restrict_a_within_population_result(
+    case,
+):
+    view, sent, _ = case
+    result = calculate(
+        case, relation="within", first_endpoint="geometric", second_endpoint="mass"
+    )
+    assert not result["report"]["live_distance_unavailable"]
+    added = act(
+        view, sent, "add_live_distance", report_id=result["report"]["id"], row_index=0
+    )
+    assert added["stage"] == "scene"
+    measurement = view.measurements[added["scene_action"]["measurement_tag"]]
+    assert measurement.info()["picks_atom_indices"] == [[4, 0, 4], [4, 0, 4]]
+    np.testing.assert_allclose(
+        puw.get_value(view.measurements.series(measurement.tag), to_unit="nm"),
+        np.zeros(3),
+    )
