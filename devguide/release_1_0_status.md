@@ -20,6 +20,30 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Audit execution and next correction — 2026-11-06
+
+The maintainer requests the new
+[robustness audit and action plan](pre_1_0_robustness_audit_20261106.md)
+under #334. It preserves the dated findings, reasons, acceptance evidence,
+phase order and subsequent scientific work. The maintainer now authorizes
+execution with durable records and periodic progress estimates. Phase 1 fixes
+#618 selected-domain alignment and #616 recovered-inventory append in
+`19d6d55c1663bf3c6c7adfb9433fc775326292b5`. Local receiving passes 2,748 joint
+native/composition/H5MSM/interaction cases and 40 overlapping directed/doctest
+cases, with failed attempts and warnings retained in the
+[receipt](../devtools/data/pre_1_0_robustness_phase1_receiving_20261106.json).
+Ruff, dependency validation and the 156-notebook course checks pass. All existing
+human edits and backend bytes are preserved.
+
+Publish/verify the checkpoint before closing #618/#616. The next correction is
+**#605**, then **#607 → #606 → #608**. The packet owns the weighted estimate
+(20% for accepted phase-one delivery), its evidence and all remaining exits;
+that estimate is not release readiness. The #616 consumer report from PR #543
+is preserved in its owner archive and must not return as a duplicate pending
+report on integration. The earlier fifteen-issue goal retains its original
+evidence. Candidate selection and the publication pause remain unchanged;
+platform, installed Viewer and exact-release gates are still required.
+
 ## Maintainer-ordered resolution goal — 2026-11-06
 
 The maintainer explicitly authorizes resolution in this order:

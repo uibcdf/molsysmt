@@ -1,0 +1,409 @@
+{
+  "schema_version": "molsysmt.pre1_0_robustness_audit@1",
+  "date": "2026-11-06",
+  "audit_capture_utc": "2026-11-06T21:45:56.067078+00:00",
+  "owning_issue": "uibcdf/molsysmt#334",
+  "source_commit": "4a80c22941090257d8ef78df09c944831413ee31",
+  "scope": "Directed maintainer audit of current architecture, critical native/PBC/persistence/configuration code, scientific registry, exact release rules and complete issue/PR inventories. Not a line-by-line or full-platform certification.",
+  "board_snapshot": {
+    "initial_issues": 549,
+    "initial_open_issues": 103,
+    "final_open_issues": 104,
+    "open_prs": [
+      543
+    ],
+    "new_reproduced_issue": 618
+  },
+  "new_defect_issue": "https://github.com/uibcdf/molsysmt/issues/618",
+  "execution": {
+    "python": "3.14.7",
+    "environment": "Existing development environment; not a clean installed-package qualification.",
+    "pytest_receptor": "published 1.2.1",
+    "gh_run_receptor": "published 1.1.1",
+    "controlled_viewer_source": "42234de839ed047016f8f241ea5eb717cfeb07be",
+    "no_dependency_or_environment_changes": true,
+    "scientific_runner": "Intentionally serial; unrelated directed pytest profiles use 12 workers.",
+    "provider_version_limit": "This receipt does not freeze the complete dependency closure; exact source, selected tool versions and scientific platform metadata identify development receiving."
+  },
+  "scientific_execution": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "4a80c22941090257d8ef78df09c944831413ee31",
+    "tracked_source_dirty": true,
+    "release_eligible": false,
+    "created_at": "2026-11-06T21:35:35.453943+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 61,
+    "collected_cases": 83,
+    "passed": 83,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "nodes": [
+      "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+      "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+      "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+      "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+      "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+      "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+      "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+      "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+    ]
+  },
+  "test_profiles": [
+    {
+      "description": "Existing native-add cases and exact alternate-location selector; 12 workers.",
+      "local_artifact": ".pytest_cache/pre1-review-20261106/add-and-altloc.xml",
+      "sha256": "45b4f26525915bad1f1f08248ff12135cb55738e888297ee346f3fada264c698",
+      "tests": 51,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "description": "Complete issue-acquisition transport guards; 12 workers.",
+      "local_artifact": ".pytest_cache/pre1-review-20261106/pagination.xml",
+      "sha256": "d8ed2c9f63f034cb468b00fee7ff794eda3a12930f16f41c04d1e70eebc55f05",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "reproduced_observations": {
+    "618": {
+      "atom_names": [
+        "L0",
+        "R0",
+        "R2"
+      ],
+      "x_coordinates_nm": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "formal_charge": [
+        0,
+        2,
+        0
+      ],
+      "n_atoms": 3,
+      "mechanics_rows": 4,
+      "mechanics_partial_charge": [
+        0.0,
+        0.0,
+        1.0,
+        2.0
+      ]
+    },
+    "616": {
+      "atoms": 3818,
+      "fresh_control_structures": 2,
+      "recovered_append": {
+        "type": "StructuralInconsistencyError",
+        "message": "Structural inconsistency detected: Appending declared source chemistry requires exact ordered inventory alignment.. Ensure that the atoms, residues, or frames match between the systems being compared or merged. Docs: https://www.uibcdf.org/MolSysMT"
+      },
+      "restored_structures_after_attempt": 1,
+      "source_component_dtypes": {
+        "component_id": "string",
+        "component_name": "object",
+        "component_type": "object"
+      },
+      "restored_component_dtypes": {
+        "component_id": "string",
+        "component_name": "string",
+        "component_type": "string"
+      }
+    },
+    "605_606_607_608": {
+      "605": {
+        "zero": {
+          "accepted": true,
+          "all_finite": true,
+          "determinant_nm3": 0.0
+        },
+        "negative": {
+          "accepted": true,
+          "all_finite": true,
+          "determinant_nm3": -23.999999999999993
+        },
+        "incompatible_angles": {
+          "accepted": true,
+          "all_finite": false,
+          "determinant_nm3": "nan"
+        }
+      },
+      "607": {
+        "wrap_to_pbc": [
+          [
+            [
+              5.0,
+              6.0,
+              2.0
+            ]
+          ]
+        ],
+        "wrap_to_mic": [
+          [
+            [
+              5.0,
+              6.0,
+              2.0
+            ]
+          ]
+        ]
+      },
+      "608": {
+        "nm": [
+          [
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "angstrom": [
+          [
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "pm": [
+          [
+            [
+              3.0,
+              0.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "606": {
+        "observed_final_nm": [
+          -1.1,
+          -0.20000000000000018,
+          0.0
+        ],
+        "expected_final_nm": [
+          -0.1,
+          -0.2,
+          0.0
+        ]
+      }
+    },
+    "613": {
+      "initial": [
+        "auto",
+        "auto"
+      ],
+      "after": [
+        false,
+        false
+      ],
+      "correctly_restored": false
+    }
+  },
+  "source_corrected_closeout_candidates": {
+    "612": "Current exact reported selector passes: preserves atomic stable-ID rejection plus explicit A resolution and PDB round trip.",
+    "587": "Current paginated acquisition and all five transport guards pass; complete board read works."
+  },
+  "conversion_execution_plan": {
+    "profile": "resident-files-v12",
+    "declared_edges": 620,
+    "planned_smoke_edges": 220,
+    "accepted_unexecuted_edges": 400,
+    "errors": [],
+    "execution": "not performed by this audit"
+  },
+  "ci_snapshot": {
+    "main_smoke": {
+      "run": 42295589104,
+      "result": "success"
+    },
+    "pr543": {
+      "head": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+      "files": 99,
+      "additions": 14970,
+      "deletions": 531,
+      "mergeable": "conflicting at inspected GitHub snapshot",
+      "current_smoke": "success",
+      "full_matrix": "42291734556 pending, four Linux jobs active and four macOS jobs queued at last inspection; no rerun dispatched"
+    },
+    "later_results": "Refresh by exact run/attempt/source before treating any pending result as completed. No workflow is dispatched by this audit or planning document."
+  },
+  "preservation_at_audit": {
+    "head": "4a80c22941090257d8ef78df09c944831413ee31",
+    "status": " M docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst\n M docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst\n M docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst\n M docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst\n",
+    "protected_sha256": {
+      "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "original_nonpassing_attempt": {
+    "description": "The first executor invocation accidentally supplied xdist arguments to the intentionally serial runner; usage-error certificate/log retained separately, zero tests executed.",
+    "certificate": {
+      "schema_version": "molsysmt.scientific-evidence-execution@1",
+      "verdict": "fail",
+      "commit": "4a80c22941090257d8ef78df09c944831413ee31",
+      "tracked_source_dirty": true,
+      "release_eligible": false,
+      "created_at": "2026-11-06T21:34:13.330836+00:00",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "registered_nodes": 61,
+      "collected_cases": 0,
+      "passed": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 4,
+      "nodes": [
+        "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+        "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+        "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+        "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+        "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+        "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+        "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+        "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+        "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+        "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+        "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+        "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+      ]
+    },
+    "certificate_sha256": "d90d64aa979083f52e69273e0485ae3c67e8cded3497335e8f63303403a0f1c2",
+    "log_sha256": "e1cac1477463c92b646a75f02c33b8f33c926ac8e8bb4121f9d7a2ef2b0541fa"
+  },
+  "original_local_evidence_sha256": {
+    "issues-pages.json": "a5917ad0a03c4f2e992a13726d1b1e738a0a8a2c319ad519df1e14af64a83171",
+    "final-open-pages.json": "bc299d54984533bf1c9eebcef9a1c4a28d09bdddf3b59615fadbb21e9c012581",
+    "open-pr-pages.json": "140ba3d9b389e79ecbca9ce6f309a5f5b3ba848beca7ec9739659cc73fc3bf9d",
+    "scientific-execution.json": "c0220d260877abaa993ae127a8440e189f6d18f2ed718ad4fdad39b93eb7b69b",
+    "add-and-altloc.xml": "45b4f26525915bad1f1f08248ff12135cb55738e888297ee346f3fada264c698",
+    "pagination.xml": "d8ed2c9f63f034cb468b00fee7ff794eda3a12930f16f41c04d1e70eebc55f05",
+    "add-axis-probe.json": "25b8ae7dac9767aed60f52235b1baaa3953f4215d4167720ffda821ced96f606",
+    "pbc-probes.json": "2f975938608ee81958a0c6184a18768aec094de9ba411c10b99f4ef919459c24",
+    "configure-concurrency.json": "e98cc8247cc2ad0633a0b82147812d4cde25b2832625054ec7d01abfc524f3c8",
+    "h5msm-append-probe.json": "b7655fb4917a2b24147b16343cc0864fa3302461dce4cbca1e946b7af9c5ec0f",
+    "conversion-execution-audit.json": "a5bc72a4c101a752597233678d8ec8398a266d5540549d58d16d934f29539d2e",
+    "source-preservation.json": "0a4fd6b18767b7c124e961b17668b306ad74d284657b0ae422b84ea57df11749"
+  },
+  "limits": [
+    "Counts belong to dated snapshots, not a live board or a global scientific-correctness percentage.",
+    "Directed profiles are not a complete platform, installed-pair, browser or performance campaign.",
+    "The four pre-existing human documentation edits make the scientific certificate development-only.",
+    "No scientific method, implementation, tag, release, package or promotion is qualified or authorized by recording this receipt."
+  ]
+}

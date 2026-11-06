@@ -1,0 +1,494 @@
+# Pre-1.0 robustness audit and action plan — 6 November 2026
+
+**Role:** operational audit and correction-tracking packet.  
+**Owner:** [uibcdf/molsysmt#334](https://github.com/uibcdf/molsysmt/issues/334).  
+**Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
+**Last tracking review:** 2026-11-06.  
+**Current execution:** phase 1 source corrections qualified in `19d6d55c1`;
+publish/verify this checkpoint and close #618/#616, then start #605. No
+replacement candidate is selected.
+
+The maintainer requests a durable record of the new audit, its reasoning, the
+remaining work and the order in which to strengthen MolSysMT before 1.0.
+Individual issues own their defects and acceptance criteria. This packet connects
+them into bounded work blocks and records the evidence needed to advance.
+
+The [release ledger](release_1_0_status.md) remains the authority for overall
+execution, selected candidates and publication state. The
+[scope decision](release_1_0_scope.md) governs admission, and the
+[release gate](release_gate.md) owns mandatory qualification. This packet selects
+no new candidate, changes no stability classification and authorizes no tag,
+Release, artifact replacement or promotion. Preparing the record implements none
+of its proposed runtime corrections.
+
+## How to resume and maintain this packet
+
+1. Read the current release ledger and the owning issue for the selected item.
+2. Refresh its actual source, PR and receiving state. The audit snapshot below
+   is dated evidence, not a live GitHub mirror.
+3. Work in the sequence below unless a newly reproduced correctness or
+   data-integrity defect warrants a documented change of order.
+4. Keep correction details in the owning report. Update the affected work block
+   here with the source commit, addressable guard, observed result and next exit.
+5. Add one dated row to the progress log at a meaningful checkpoint, and update
+   the release ledger with the resulting overall next step.
+
+Do not overwrite the dated findings or old unsuccessful results when a fix
+arrives. Append a dated correction if an audit statement was wrong. Record
+source implementation, local qualification, consumer receiving, publication and
+issue closure separately. A passing local case does not complete an installed
+pair or final-candidate gate. Do not derive a release percentage from issue
+counts, test counts or the historical weighted campaign.
+
+Each correction checkpoint records its implementation and published-source
+commits, an addressable regression, the executed result, remaining dependencies
+and consumer acceptance when applicable. The portable receipt preserves audit
+observations; a cached probe is not a maintained regression. Promote its minimal
+counterexample into the owning test suite when implementing the correction.
+
+The earlier fifteen-issue goal through #601 is complete. Its archived evidence
+remains intact; this is a subsequent audit and work sequence.
+
+## Dated audit: scope, evidence and limits
+
+This was a directed maintainer review of architecture, critical native
+composition, periodic geometry, configuration, persistence, scientific evidence,
+dependency contracts, public documentation and the complete issue/PR inventory.
+It was not a line-by-line inspection of every module, independent external
+certification, full platform matrix or clean installed-artifact qualification.
+
+The [portable audit receipt](../devtools/data/pre_1_0_robustness_audit_20261106.json)
+retains the source identity, selected observations, scientific certificate,
+test-result identities and evidence limits. Original local acquisitions and
+logs are under `.pytest_cache/pre1-review-20261106/`; their digests are recorded
+in the receipt. They are local evidence, not published attachments. No raw
+GitHub inventory or unrestricted log is required to interpret the findings here.
+
+| Observation at the audit checkpoint | Evidence and scope |
+| --- | --- |
+| Complete initial board | Seven paginated issue pages: 549 issues, 103 open, excluding PR entries. One open PR, #543. |
+| New defect recorded | #618 was opened after independent reproduction and a search of the complete inventory. A fresh two-page open inventory then contains 104 issues and one PR. These counts describe that capture only. |
+| Registered scientific execution | 83 cases pass for 61 registered nodes, with zero failures, errors or skips. The executor deliberately runs serially. |
+| Addition and alternate-location receiving | 51 cases pass under 12 workers, including the exact #612 selector. The new #618 counterexample is outside those existing assertions. |
+| Board acquisition regression | All five pagination controls pass under 12 workers; old issues beyond the former limit remain visible. |
+| Conversion execution plan | Static audit of `resident-files-v12`: 220 of 620 declared edges are selected; 400 remain explicit debt outside that profile; zero plan errors. This audit does not execute those edges. |
+| Main CI | Smoke 42295589104 succeeds at the audited source. Its four other ordinary push checks also succeeded at receiving. This is not the release matrix. |
+| PR #543 | Reviewed head `8ab2f5474b2e04c68d31ef2854a238984b645fc8`: 99 changed files, 14,970 additions and 531 deletions. GitHub reports conflicts; its smoke succeeds. Full run 42291734556 remains pending at inspection, with four Linux jobs active and four macOS jobs queued. |
+
+Execution uses the existing Linux/Python 3.14.7 development environment and
+published Pytest Receptor 1.2.1. The existing controlled Viewer source is
+`42234de839ed047016f8f241ea5eb717cfeb07be`; that development input does not
+qualify the different Viewer source in PR #543. GH Run Receptor 1.1.1 supplies
+the first full-run inspection, with native GitHub facts used for subsequent
+status updates. No environment or dependency was installed or replaced.
+
+Four pre-existing human autosummary edits remain unchanged. The scientific
+certificate therefore correctly records `tracked_source_dirty=true` and
+`release_eligible=false`. The unchanged native extension has SHA-256
+`f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c`.
+Passed development checks must not be described as a clean release certificate.
+
+The first scientific-executor invocation incorrectly supplied xdist options to
+its intentionally serial runner. It executes zero tests and produces a usage
+failure. That original certificate/log is retained separately; the corrected
+invocation supplies the 83-case result above. Test durations are not benchmarks.
+
+### Architectural assessment
+
+The architecture is a sound basis for 1.0:
+
+- Stable inventory, chemical assignments/connectivity, structures and calculated
+  interactions have explicit, independent owners.
+- Form-agnostic entry points and direct native queries share contracts while
+  serving different interoperability and repeated-query workloads.
+- Sparse interaction relations/occurrences, compound participants, coverage,
+  provenance, source maps and typed H5MSM persistence are appropriate foundations.
+- ArgDigest, DepDigest, SMonitor, PyUnitWizard and optional Ackredit have clear
+  responsibilities. Their actual behavior at a boundary still needs testing;
+  decorators and passing static validators are not scientific evidence.
+
+The immediate improvement is stronger composition and numerical guarantees for
+existing operations. Preserve these owners while correcting the failures below.
+Additional Rust work requires a measured need; an index-map or metadata defect
+does not become a kernel-performance problem merely because it affects a large
+system.
+
+### Reproduced defects on the audited source
+
+| Issue | Observation | Consequence |
+| --- | --- | --- |
+| [#618](https://github.com/uibcdf/molsysmt/issues/618) | Adding a three-atom source to a one-atom target with `selection=[2,0]` yields names `[L0,R0,R2]`, x coordinates `[0,2,0]` nm and formal charges `[0,2,0]`. The three-atom result retains four mechanics rows. | Coordinates/assignments can refer to different atoms from the stable inventory, and the mechanics axis is inconsistent. |
+| [#616](https://github.com/uibcdf/molsysmt/issues/616) | A fresh 3,818-atom TcTIM control accepts an additional structure. Its H5MSM-recovered counterpart rejects the same source. Component names/types change from object-backed strings to canonical nullable strings. | Persistence changes compatibility despite equivalent represented chemical fields. Rejection remains atomic in this probe. |
+| [#605](https://github.com/uibcdf/molsysmt/issues/605) | The box factory accepts zero/negative lengths; `[10,10,170]` degrees produces nonfinite cell entries. | Invalid physical cells reach downstream periodic consumers. |
+| [#607](https://github.com/uibcdf/molsysmt/issues/607) | For row vectors `[[0,3,0],[-4,0,0],[0,0,5]]` nm and position `[5,6,7]` nm, both wrapping routes return `[5,6,2]` nm. Primary and nearest images are respectively `[-3,0,2]` and `[1,0,2]` nm. | Geometric orthogonality is incorrectly treated as Cartesian alignment. |
+| [#606](https://github.com/uibcdf/molsysmt/issues/606) | An orthogonal-to-triclinic sequence unwraps the final atom to `[-1.1,-0.2,0]` nm instead of the independent lattice result `[-0.1,-0.2,0]`. | The first cell's classification is reused after the cell changes. |
+| [#608](https://github.com/uibcdf/molsysmt/issues/608) | An origin of `[1e-5,0,0]` nm gives x=0 under nm/angstrom policies and x=3 nm under pm policy. | A numerical near-zero threshold changes the physical image with application units. |
+| [#613](https://github.com/uibcdf/molsysmt/issues/613) | Deterministically overlapping contexts start with GPU aliases `('auto','auto')` and finish at `(False,False)`. | Temporary configuration leaks into the application after both contexts exit. This probe evaluates no GPU calculation. |
+
+For #618, `native/molsys.py` passes the original selected indices to several
+owners. `Topology.add()` extracts/sorts the inventory, structures and chemical
+union retain the original order, and mechanics receives the full source.
+Matching cardinalities alone cannot protect identity. Bioassembly chain
+references need review under the same selected-source correction; no separate
+bioassembly failure was executed in this audit.
+
+For periodic operations, `rust/src/pbc.rs` retains assumptions distinct from
+the general reduced-cell machinery in `rust/src/mic.rs`. Review reuse of the
+existing primitives and their applicable conventions. Do not copy another
+unqualified wrapping formula into a consumer or private parallel implementation.
+
+### Other important findings
+
+- **Installation (#524):** default `basic.info()` and native `.info()` use pandas
+  Styler, but the declared runtime does not require Jinja2. The issue retains
+  installed receiving that fails despite a successful dependency check. Resolve
+  the dependency/output contract, actual public Viewer floor and justified
+  provider restrictions without guessing versions or hiding optional-tool
+  conflicts. Existing core-floor work is already delivered.
+- **Closeout candidates:** the exact #612 test now passes and protects atomic
+  stable-ID rejection, explicit valid resolution and PDB persistence. #587's
+  paginated implementation and transport guards also pass. Reconcile their
+  remaining owning acceptance before closure; do not reimplement corrected code.
+- **Naming (#549):** implementation and extensive source evidence exist. Remaining
+  producer/composite, consumer and final-candidate receiving must be distinguished
+  from the original vocabulary defect.
+- **Documentation (#378):** README still calls
+  `msm.topology.get_dihedral_quartets`; the supported owner is `chemical_states`.
+  The long release ledger also contains historical resume instructions that need
+  a clearly identified current route. This does not authorize rewriting archived
+  evidence or requiring a complete documentation redesign.
+- **Scientific meaning (#473/#475):** the surface-area convention is explicitly
+  provisional; Collantes ECI dimension/aggregation remain unqualified. Typed
+  units and regression parity do not establish the original scientific meaning.
+- **Mechanics (#582):** distinguish stored requests from controls applied by an
+  engine. The bounded standard recipes do not certify arbitrary stored tuning.
+- **Public XYZ use (#610):** explicit atom-level querying and direct quantity
+  assignment already have receiving. Settle the omitted-element diagnostic and
+  documentation before proposing another coordinate API.
+
+## Action plan and initial progress
+
+The following order is the proposed implementation route recorded at the
+maintainer's request. Individual API/scientific decisions still require their
+owning review. Existing admission and publication rules remain unchanged.
+
+The phases express priority and acceptance dependencies, not an obligation to
+serialize unrelated work. #612/#587 closeout can proceed at an earlier checkpoint
+once its criteria are met. UI receiving fixes can advance independently of a
+native scientific correction, while keeping affected GUI modes bounded. The
+public Viewer floor in phase 3 depends on the host decision/receiving in phase 4
+and artifact delivery in phase 6: retain that named dependency rather than
+inventing a published version or treating the whole dependency review as done.
+
+### Release relevance and responsibility
+
+| Work class | Reports | Required disposition and owner |
+| --- | --- | --- |
+| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
+| Declared installed runtime | #524 | MolSysMT owns its manifests, default-output contract and installed receiving. A Viewer minimum depends on an actual qualified host artifact; provider limitations stay with their providers. |
+| Public scientific meaning | #473, #475, #582 | Review the exposed claim and evidence. Correct a misleading contract or agree an explicit bounded disposition; an unavailable paper does not justify invented units, and a stored request must not be advertised as an effective engine control. Wider models or tuning are not automatically required. |
+| Implemented contracts awaiting acceptance | #549, #250, #254 | Complete the remaining owning criteria and final-candidate/client receiving. Source delivery, scientific validation and public stability are separate decisions. |
+| Accepted bound-tool workflows | #421, PR #543 and linked host reports | MolSysMT owns the bound scientific adapters; Viewer owns rendering, presentation, navigation authority and sessions. Receive their agreed workflow inventory together. Source-path exposure alone does not complete graphical or scientific acceptance. |
+| Already corrected behavior | #612, #587 | Reconcile the addressable guard and remaining owning criteria, then close promptly. Do not hold an otherwise completed bug open solely until release. |
+| Remaining extensions | Follow-up table below | Keep the remaining scope deferred unless the maintainer admits it or an included-workflow defect is demonstrated. An open issue is not evidence that its delivered subset is absent. |
+
+Labels and milestones aid navigation; they do not determine correctness or
+readiness. The refreshed open inventory still has 104 issues and one PR. Only
+#549, #334, #254 and #250 have the exact `1.0.0` milestone at this review; the
+newly reproduced bugs still require disposition under the admission rule.
+Refresh these dated facts before relying on them at a later checkpoint.
+
+### Progress estimate for the authorized execution
+
+The maintainer now authorizes execution and requests periodic percentages.
+Use the planning weights below for this new work only, starting at **0%** on
+2026-11-06. They are estimates of work distribution, not measurements of library
+quality, elapsed time, scientific coverage or readiness to publish. Earlier
+completed campaigns retain their results and are not reset by this baseline.
+
+| Block | Planning weight | Completed contribution at execution start |
+| --- | ---: | ---: |
+| Phase 1: selected composition and recovered append | 20% | 0% |
+| Phase 2: periodic construction, images, continuity and units | 20% | 0% |
+| Phase 3: configuration and installed-runtime closure | 10% | 0% |
+| Phase 4: addon integration and required graphical receiving | 25% | 0% |
+| Phase 5: contract closeout and scientific/public claims | 10% | 0% |
+| Phase 6: exact candidate, required qualification and publication decision | 15% | 0% |
+
+Phase 1 contributes 10 percentage points per independently qualified/published
+native correction; phase 2 contributes five per accepted numerical correction.
+Other blocks contribute their weight when their stated exit is evidenced. Mark
+partial work in prose without turning an unexecuted exit into completed weight.
+Weights emphasize cross-domain integrity, numerical behavior and the broad
+joint graphical receiving. Revisit them only for a documented scope change;
+preserve the old baseline and explain any resulting percentage change. Link
+each credited contribution to its report/receipt. The release ledger links this
+estimate rather than maintaining an independent percentage.
+
+**Current checkpoint: 20%**, credited to the two phase-one source corrections
+and their owning acceptance records below. Deliver and independently verify this
+checkpoint on origin before closing the issues. If resuming after an interrupted
+delivery, verify those source/board steps before treating prepared work as
+published. Remaining contribution: phase 2 20%, phase 3 10%, phase 4 25%, phase 5
+10%, phase 6 15%. This is the progress of the authorized plan, not a 1.0 readiness
+score or a delivery-time prediction.
+
+### Phase 1 — Native composition and persistence continuity
+
+**Initial position:** both defects reproduced; corrections not yet implemented
+under this packet. **Order:** #618, then #616.
+
+| Work | Required outcome and acceptance evidence |
+| --- | --- |
+| #618 selected addition | Choose one canonical selected-source map consistent with native extraction semantics, including the existing repeated-index policy. Apply it to inventory, coordinates and structural fields, chemical assignments, bonds/components, mechanics and relevant assembly references. Cover reversed/nonconsecutive, empty and full selections, both in-place modes and relevant form routes. Compare actual identities and values; retain source independence, explicit unsupported-state policies and atomic rejection. Do not impose global sorting on unrelated queries to hide this mismatch. |
+| #616 recovered inventory | Resolve canonical storage versus semantic inventory equality in the owner. Cover compatible null/string representations and optional fields, full input preservation and structure/state associations. Keep rejection of real differences in bonds, assignments, state/reference ordering, completeness and correspondence; do not reduce compatibility to counts or names. |
+
+**Exit:** public compositions preserve all represented axes, and continued work
+after H5MSM recovery behaves consistently with the qualified native control.
+
+**Execution checkpoint — 2026-11-06:** the selected-add and recovered-append
+corrections are implemented in `19d6d55c1663bf3c6c7adfb9433fc775326292b5`.
+The final joint native/composition/H5MSM/named-interaction selection passes
+2,748 cases, with zero failures/errors/skips. The separate expanded
+string/append/doctest selection passes 40 cases. These profiles overlap.
+Ruff, dependency and course checks pass; original failures and 746 final-profile
+warnings remain recorded. See the
+[#618 closeout](archive/resolved_bugs/native_add_misaligns_selected_atom_domains.md),
+[#616 closeout](archive/resolved_bugs/h5msm_component_dtype_append_rejection.md)
+and [phase-one receipt](../devtools/data/pre_1_0_robustness_phase1_receiving_20261106.json).
+Source publication/board closure must follow actual origin verification. This
+source receiving does not complete platform/installed-pair/release gates.
+
+The #616 record receives and preserves PR #543's existing consumer report.
+During integration, retain this resolved record and its native guard rather
+than reintroducing that PR's pending copy as a second active report.
+
+### Phase 2 — Periodic geometry and unit invariance
+
+**Initial position:** all four reports reproduced; correction receiving pending.
+**Order:** #605, #607, #606, #608, with shared geometry reviewed together.
+
+| Work | Required outcome and acceptance evidence |
+| --- | --- |
+| #605 cell construction | Validate finite positive lengths and physically meaningful, mutually compatible angle triples. Verify finite nonsingular output under the documented rounding convention, with a unit-invariant degeneracy/conditioning policy. Preserve valid orthogonal/triclinic, shared/per-structure angles, units and supported empty axes. Review the other public cell factory; keep arbitrary raw-vector conventions separate. |
+| #607 oriented bases | Correct general admitted row-vector bases. Exercise primary, centered and MIC routes, compound and isolated selections, origin translations, canonical/rotated/skewed cells and both in-place modes against independent lattice truth. Narrowing an existing supported geometry requires a separate reviewed contract decision; rejecting all rotated cells is not equivalent to repairing this defect. |
+| #606 temporal continuity | Define the previous/current transition-cell convention. Classify and apply the actual transition cell. Cover both classification changes, changing lengths, explicit structure traversal/order and atomicity. Document the sampling assumption: nearest-image continuity cannot uniquely recover physical winding after an undersampled large jump. Keep temporal continuity distinct from within-structure reconstruction. |
+| #608 physical origins | Preserve explicit reference quantities without an application-dependent zero replacement. Cover exact zero, small signed origins, boundary positions, nm/angstrom/pm policies and input-unit variants across applicable wrapping routes. |
+
+**Exit:** independent lattice/image controls pass, presentation units preserve
+physical results, and unsupported geometry fails before molecular publication.
+Include rotated and changing-cell cases in governed scientific evidence where
+they protect a declared claim; retain existing valid analytic cases.
+
+### Phase 3 — Configuration authority and installed runtime
+
+**Initial position:** #613 reproduced; #524 remains partially implemented.
+
+- For **#613**, choose the supported concurrency model at the configuration
+  owner. Protect aliases, nesting, exceptions, unrelated observers and all
+  applicable per-call overrides, including real decorated calls. Distinguish
+  process serialization from thread/task-local isolation. A Viewer-local lock
+  cannot protect direct MolSysMT callers.
+- For **#524**, settle styled-output/Jinja2 requirements, complete API-grounded
+  provider review and coordinate a real published Viewer minimum. Keep manifests,
+  recipes and runtime-bearing environments aligned. Qualify the actual minimum
+  installed closure and representative default operations, alongside newer
+  published-provider compatibility. Preserve optionality and owning exceptions;
+  source pins and development extras are not public release floors.
+
+**Exit:** calls respect their declared configuration authority, and default
+supported operations work in the declared installed runtime.
+
+### Phase 4 — Bound-tool contribution and graphical receiving
+
+**Initial position:** #421 partial; PR #543 open with conflicts at the audit
+snapshot. Its successful smoke and pending full matrix are separate evidence.
+
+| Work | Required outcome and acceptance evidence |
+| --- | --- |
+| #543/#421 integration | Reconcile the contribution with the corrected native source and a named Viewer source. Review expert mirrors, edits, detached results and graphical actions separately. Keep scientific algorithms and units with their native owners. |
+| #602 rotation constructor | Review the smallest reusable public boundary over existing mathematical kernels for the agreed Rotate task. Specify axis validation, explicit angular units, handedness and row-vector active-rotation convention. Require analytic signed rotations, scaling/degeneracy and unit controls. No new algorithm/backend is implied. |
+| #590/#591/#603 outcomes and layout | Receive durable completion/rejection messages and actual Jupyter layout. Refresh must not replay science, revive a consumed token or erase the relevant native diagnostic. Distinguish already implemented contribution fixes from owner integration and graphical acceptance. |
+| #609/#614 asynchronous receiving | Follow acknowledged presentation and actual attached/current panel identity. Retain exact title, numerical, lifetime and popup assertions; sleeps, forced clicks and accepted placeholders are not repairs. |
+| #615 initial canvas | Preserve the original intermittent failure and early stack/timing instrumentation. Establish its causal stage on recurrence or an evidenced bounded environment disposition. A later passing run alone does not establish repair. |
+| Viewer #314 navigation authority | Receive the Viewer-owned correction and rerun the conformational workflow that exposed it. A plot-selected structure must agree between canvas and Python authority across the admitted notebook/popup paths. Keep this host dependency explicit; do not patch native scientific coordinates to compensate. |
+| #611/#567 gate semantics | Retain complete test tiers with a finite budget justified by their real workload. Preserve failed/cancelled attempts. Define comparable performance baselines and third-party/control roles, retain result artifacts and review policy changes rather than weakening a failing assertion. |
+
+The plan review confirms [Viewer #314](https://github.com/uibcdf/molsysviewer/issues/314)
+is open: actual Jupyter receiving observes a plot-selected canvas structure
+without the required Python current-structure agreement. The PR explicitly
+keeps that receiving and broader Geometry, Chemistry, Analysis/property,
+sequence/mechanics/plot and scientific-session families pending. Use the
+[owning #421 record](pending_proposals/molsysviewer_tools_addon.md),
+[GUI design](molsysviewer_tools_gui_design.md) and linked receiving issues to
+identify the accepted workflows. Neither the dated 246/248 source-path count nor
+the initial task subset replaces that inventory. Do not silently drop an accepted
+workflow to pass qualification or demand a GUI for every expert API path.
+
+**Exit:** the agreed expert and graphical workflows receive the exact combined
+sources, with full applicable tests, actual Jupyter/popup acceptance and explicit
+remaining host/Qt limitations. Review/integration does not qualify installed
+packages or make experimental scientific profiles stable. Do not dispatch a
+duplicate matrix merely to monitor an existing run.
+
+### Phase 5 — Reconcile acceptance and public scientific claims
+
+**Initial position:** mixed implementation, closeout and scientific-disposition
+work; no blanket closure is justified.
+
+| Work | Required outcome and acceptance evidence |
+| --- | --- |
+| #612/#587 | Receive the current corrected source and addressable guards, satisfy remaining owning criteria, archive/synchronize through the reporting protocol and close with the actual public commit. |
+| #549 | Complete the remaining producer/composite and consumer receiving. Preserve original labels, explicit naming schemes, unknown context and ChemicalStates ownership. Separate delivered lookup/storage behavior from final-candidate acceptance. |
+| #250/#254 | Reconcile implemented interaction/native-domain contracts with final-candidate and Viewer feedback. Decide public stability by surface; scientific detector evidence and container/persistence reliability remain separate questions. |
+| #473/#475 | Establish the original physical meaning, units and justified aggregation, or record an explicit bounded experimental disposition. Keep ISA distinct from conformational SASA and ECI distinct from independently verified physical charges. Do not guess dimensions, sums or a replacement model. |
+| #378/#610 | Correct the stale README namespace and affected examples; explain supported XYZ composition/default-element behavior. Check API/User Guide/Cookbook/course where affected. Broader SEO work remains separate. |
+| #582 | Make requested versus effective mechanical recipes and unsupported controls explicit. Retain engine-neutral physical language and adapter ownership; wider tuning support needs separate execution evidence. |
+| #334 status | Keep one concise current next-step entry in the release ledger. Preserve dated checkpoints and original candidate identities; reorganize history only with retained links and evidence. |
+
+**Exit:** public claims match implemented and qualified scope; unresolved
+scientific meaning is visible; source completion is not confused with release
+qualification. Close only the issues whose actual acceptance criteria are met.
+
+### Phase 6 — Exact candidate and publication decision
+
+**Initial position:** replacement candidate selection and qualification are not
+performed by this audit. The existing publication pause and immutable historical
+artifact identities remain in force under #334.
+
+After the accepted correction and receiving blocks are complete:
+
+1. Agree exact compatible MolSysMT/Viewer sources, versions, builds and the
+   affected qualification scope with their owners.
+2. Freeze a clean candidate and execute the mandatory fast, scientific,
+   full-source, native wheel, Conda/installed-pair and documentation gates in
+   [release_gate.md](release_gate.md). The specified eight source cells and
+   sixteen installed-pair cells retain their actual platform obligations.
+3. Receive immutable artifact names, digests, dependency closure and actual
+   import origins. Qualify client/session behavior separately from install smoke.
+4. Return a failed gate's affected scope to stabilization. Preserve failed and
+   incomplete attempts; do not reuse an older candidate's verdict for new bytes.
+5. Obtain the existing final publication authorization, then perform the required
+   public-artifact and Zenodo verification under
+   [release and citation](release_and_citation.md).
+
+**Exit:** the exact candidate satisfies the release contract and owner sign-off.
+A passed development audit, source smoke or superseded installed pair is not
+that exit.
+
+## Cross-operation acceptance
+
+Single-function guards need a small set of composed workflows because #618 and
+#616 survive existing passing suites. Reuse existing fixtures and acceptance
+tools; this is no new test framework or exhaustive Cartesian-product matrix.
+
+| Workflow | Required evidence within the supported contract |
+| --- | --- |
+| Selected composition | Add a reversed/nonconsecutive source selection and compare names/source maps, coordinates, chemical fields, connectivity and selected mechanics against the expected identities. Exercise independent/in-place behavior and rejection before partial publication. |
+| Native domains and persistence | Use a system with a named analysis; apply supported selection/permutation, write/read H5MSM 0.5, and check domain/source maps, producer metadata and documented occurrence identity. Compare a compatible structure append with its native control, including newly unevaluated coverage. Check supported coordinate/chemical edits and the affected interaction invalidation. H5MSM 0.5 does not persist nonempty MolecularMechanics: retain its explicit rejection rather than demanding that round trip. |
+| Periodic observations | Check admitted image vectors/geometries against row-vector boxes and physical coordinates under changed application units. Receive the affected Viewer workflow on those same conventions where graphical consumption is required. |
+| Installed default workflow | Outside checkouts, exercise representative default `get`/`info`, geometry and save/read operations with the declared dependencies. Verify real import origins and actionable optional-provider absence; development extras must not supply a missing runtime requirement. |
+
+For each affected operation, select meaningful combinations from these axes:
+ordered/nonconsecutive/empty/repeated selections under its own policy;
+native/recovered logical string and null representations; valid/invalid and
+changing cells; input and application units; independent/in-place ownership;
+supported eager/chunked paths; and evaluated-empty versus unevaluated coverage.
+Include unchanged-source and failure-atomicity checks where mutation is involved,
+including warning-as-error behavior when the operation can emit one. A numerical
+or identity regression needs an independent oracle and a valid positive control;
+parity between two routes sharing the same bug is insufficient.
+
+### Resource impact of the corrections
+
+Review allocations on changed selection, composition, remap and persistence
+paths. A small selected addition should not acquire an avoidable full-trajectory
+copy merely to repair its index map. Reuse the existing native-copy/H5MSM
+workloads when a correction changes resource behavior; record selected data,
+resident outputs, first-index and repeated-query costs as applicable. Measure
+peak memory when the allocation change warrants it. Do not infer process-RSS
+bounds from array sizes, launch an unbounded stress test on this machine or add
+an arbitrary performance gate. #567 owns baseline comparability; #336's general
+streaming/editor work remains separately scoped.
+
+## Cross-cutting requirements for every correction
+
+- Reuse meaningful general tools in their owning modules. Keep selection/remap
+  contracts shared; chemical connectivity belongs in `chemical_states`, stable
+  inventory in `topology`, geometric primitives in `structure`, periodic rules
+  in `pbc` and detector criteria in their interaction family.
+- Validate at the public boundary with ArgDigest. Use trusted delegation only
+  for values already satisfying the complete callee contract. Keep private
+  helpers undecorated.
+- Use DepDigest for applicable optional/backend availability and SMonitor for
+  actionable diagnostics. Preserve absence, operational failure and unsupported
+  scientific scope as distinct outcomes.
+- Preserve PyUnitWizard quantity meaning through kernels, storage and outputs;
+  test a non-default application policy. Use optional Ackredit for the executed
+  scientific method when applicable, retaining original producer attribution.
+- Test identities and values, not only counts/shapes or agreement between paths
+  sharing an implementation. Add failure/unknown/empty cases and independent
+  truth; review every gate for conforming output that could pass without doing
+  the intended work.
+- Check relevant form/native and eager/chunked parity within supported scope.
+  Input streaming does not establish resident-output or process-RSS bounds.
+  Reuse bounded existing workloads before commissioning another benchmark.
+- Complete docstrings, User Guide, Cookbook and affected course lifecycle.
+  Run applicable local checks, batch meaningful pushes and retain exact-head CI
+  conclusions through the existing checkpoint policy.
+- Revisit incoming issues/PRs at phase boundaries, recording why any new defect
+  changes the order. Providers and consumers retain their own implementation
+  and scientific acceptance responsibilities.
+
+## When to stop stabilization and qualify
+
+Declare **ready to qualify** only when reproduced included-profile defects have
+their corrections/guards, accepted workflows have their required source receiving,
+and exposed scientific claims have an agreed evidence or limitation disposition.
+Identify exact counterpart sources and outstanding artifact gates in the release
+ledger. Unresolved required host receiving remains an explicit dependency, not a
+MolSysMT-native defect or a passing gate.
+
+The **ready to publish** decision additionally requires the exact artifacts and
+all applicable qualification/sign-off in the existing release gate. Keep that
+single authority rather than maintaining another independent release checklist.
+New extension requests do not restart completed stabilization blocks; a newly
+demonstrated included-profile defect returns its affected block to correction
+under the admission rule. No passing result here certifies untested optional
+engines, GPU execution, chemical models or larger workloads.
+
+## Preserved subsequent scientific and engineering work
+
+These are valuable follow-ups, not missing implementations automatically added
+to the initial release. Delivered subsets still ship and need their applicable
+receiving; the table concerns each issue's remaining extension scope.
+
+| Direction | Owning issues | Preserved boundary and reassessment trigger |
+| --- | --- | --- |
+| Environmental H refinement and broader site directions | #323, #375 | Keep fixed-state geometry, movable/frozen populations, model/environment coverage and correspondence explicit. Reusable operations belong in MolSysMT; composite protocol registration/orchestration is coordinated with Praxis. Publish/receive already implemented site-direction subsets separately from broader acceptor-model work. |
+| Molecular identity and read-only plausibility | #447, #555 | Explicit chemical-state/stereo/isotope and geometry-rule policies, maps and unsupported outcomes. Keep dataset/docking/pharmacophore interpretation in consumers. Reassess on an admitted concrete workflow. |
+| Recognition/model breadth | #262, #337 | Delocalized charge and chemically specific metal criteria need independent chemical evidence. Geometric candidates are not physical coordination certification. |
+| Interaction editing and scale | #335, #336 | Preserve existing replacement/invalidation/compaction and bounded serialization. Individual observation editing, direct detector-to-file streams and general resumable append need separate contracts and recovery/measurement work. |
+| Mechanical storage and runtime copies | #256, #592 | H5MSM 0.6 mechanics and faithful OpenMM runtime/State copies remain separately scoped. Do not invent complete runtime clones or persist the experimental mechanics model implicitly. |
+| Preparation, states and pose analysis | #219, #220, #229, #230, #366, #604 | Explicit transformations/correspondence and declared clustering rules require their own scientific/API review. Existing partial or unsupported chemistry remains visible. |
+| Wider forms and internal layout | #519, #438, #181 | Resource-owning FASTA, H5MSM module-location review and broader conversion profiles remain bounded independent work. Prioritize actual included-workflow defects without requiring every declared edge before 1.0. |
+| Provider/performance follow-up | #403, #486, #530, #128, #382 | Retain qualified compatibility protections until actual replacement receiving. Profile additional query/startup/storage work before redesign; no unmeasured speedup or automatic provider upgrade. |
+
+## Progress log
+
+Add rows rather than replacing earlier measurements. A completion row names the
+implementation/publication commit, guard or receipt, consumer scope when needed,
+issue state and next unresolved exit. Do not copy complete issue bodies here.
+
+| Date | Scope | Verified position | Next step |
+| --- | --- | --- | --- |
+| 2026-11-06 | Audit at `4a80c2294` | Seven current defects reproduced, #618 reported; 83 scientific, 51 directed and five pagination cases pass in their stated scopes. Source and existing human edits are preserved. | Record the bounded plan, then begin #618 followed by #616 when implementation proceeds. |
+| 2026-11-06 | Tracking packet | The maintainer requests this new document to retain the audit and track corrections. No runtime correction, new candidate or publication is made by this documentation step. | Append implementation/qualification evidence to the relevant phase and owning report as work advances. |
+| 2026-11-06 | Plan review | Rechecked the full open inventory and PR #543's receiving scope. Added release relevance/owners, the open Viewer #314 dependency, composed-workflow and resource acceptance, and distinct qualification/publication exits. Dated audit results are unchanged. | Keep #618 → #616 as the immediate order; record the implementation guards in their owners when correction begins. |
+| 2026-11-06 | Execution authorized | The maintainer requests execution, durable checkpoints and periodic progress estimates. The new-plan baseline is 0%; #618 implementation/receiving starts. All earlier audit observations and failed attempts remain evidence. | Qualify and publish #618, then continue #616. No tag, Release or promotion is made by this execution start. |
+| 2026-11-06 | Phase 1 source checkpoint | #618 and #616 implemented in `19d6d55c1`, with 2,748 joint and 40 overlapping directed/doctest passes. Owning records are resolved/archived; original failures, warnings and limitations are retained. Planned completed contribution: 20% after origin/board receiving. | Verify public delivery and close #618/#616, then #605 → #607 → #606 → #608. No installed or release qualification is implied. |
+
+Once this work is complete, consolidate any lasting rules into their normative
+owners and archive the dated packet through the owning release/reporting route.
+Preserve the receipt, original outcomes and links so a future reviewer can recover
+what was known, decided, implemented and qualified at each checkpoint.

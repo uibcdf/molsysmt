@@ -1,0 +1,252 @@
+{
+  "schema_version": "molsysmt.pre1_0_robustness_phase1_receiving@1",
+  "created_at": "2026-11-06T22:33:01.361898+00:00",
+  "owning_issue": "uibcdf/molsysmt#334",
+  "corrected_issues": [
+    618,
+    616
+  ],
+  "audited_baseline": "4a80c22941090257d8ef78df09c944831413ee31",
+  "implementation_commit": "19d6d55c1663bf3c6c7adfb9433fc775326292b5",
+  "receiving_scope": "Existing Linux development working tree; local contract/native/composition/persistence receiving, not installed/release qualification.",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "python": "3.14.7",
+  "pytest_workers": 12,
+  "environment_changed": false,
+  "native_backend_changed": false,
+  "native_backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "versions": {
+    "numpy": {
+      "installed_metadata_version": "2.4.6",
+      "runtime_version": "2.4.6",
+      "origin_classification": "existing-development-environment"
+    },
+    "pandas": {
+      "installed_metadata_version": "2.3.3",
+      "runtime_version": "2.3.3",
+      "origin_classification": "existing-development-environment"
+    },
+    "pyunitwizard": {
+      "installed_metadata_version": "0.29.1+6.gf82b618",
+      "runtime_version": "0.29.1+6.gf82b618",
+      "origin_classification": "existing-external-editable-source"
+    },
+    "argdigest": {
+      "installed_metadata_version": "0.16.0+1.g6dabaf7",
+      "runtime_version": "0.16.0+1.g6dabaf7",
+      "origin_classification": "existing-external-editable-source"
+    },
+    "smonitor": {
+      "installed_metadata_version": "0.21.0+1.gd6b2394",
+      "runtime_version": "0.22.0+15.g5ee88c1",
+      "origin_classification": "existing-external-editable-source"
+    },
+    "depdigest": {
+      "installed_metadata_version": "0.15.1+3.ga27172b",
+      "runtime_version": "0.15.1+3.ga27172b",
+      "origin_classification": "existing-external-editable-source"
+    },
+    "pytest": {
+      "installed_metadata_version": "9.1.1",
+      "runtime_version": "9.1.1",
+      "origin_classification": "existing-development-environment"
+    },
+    "pytest-receptor": {
+      "installed_metadata_version": "1.2.1",
+      "runtime_version": "1.2.1",
+      "origin_classification": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py"
+    },
+    "pytest-xdist": {
+      "installed_metadata_version": "3.8.0",
+      "runtime_version": "3.8.0",
+      "origin_classification": "existing-development-environment"
+    }
+  },
+  "test_profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/618-before.xml",
+      "sha256": "ea1eb2c1e4939eb1cb4022404ab3a935b4beb82fad6f73a56367faf83f62cbdb",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 30,
+        "failures": 30,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "scope": "First fixture authoring attempt; all cases fail before add."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/618-counterexamples.xml",
+      "sha256": "91c3bcf586b294a9bbd021e7b19a3ed4b88eb76aea813116dd06fb2d2753d227",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 30,
+        "failures": 30,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "scope": "Second fixture authoring attempt; all cases fail before add."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/618-before-correction.xml",
+      "sha256": "d5b1be6f389622454ca731b6b4d15d414e9cef8c10f87e8a2a434479fa37e9ad",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 30,
+        "failures": 23,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7
+      },
+      "scope": "Original add runtime; 23 failures include one quantity assertion-authoring failure."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/618-after.xml",
+      "sha256": "2e3948dbce34c34b1cce6099dca370a6d0f39e2d51065d30cc51321d62d5d0e8",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 30,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 27
+      },
+      "scope": "Initial add correction; remaining failures concern diagnostic wording."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/618-receiving.xml",
+      "sha256": "2c11c95346d9ba803debc6bf6f6b62966a299bb76b13d3ddd5a0a7b740a739c8",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 120,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 120
+      },
+      "scope": "Directed add/native receiving, including 33 new selected-domain cases."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/616-before.xml",
+      "sha256": "9183970228c69e7bf871f37c72a5ab9233d6af7ddb299fc90c085afc34eff775",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 21,
+        "failures": 7,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 14
+      },
+      "scope": "Initial append fixture authoring: occurrence access error plus original TcTIM failure."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/616-counterexamples.xml",
+      "sha256": "f1c771a2beb7d9ce0b7ebf3625e8cdabba1abd9c77cf60484f01185c7fbe7c7e",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 21,
+        "failures": 5,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 16
+      },
+      "scope": "Original append runtime: five persistence-positive failures, sixteen passing controls."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/616-receiving.xml",
+      "sha256": "7ab4621ff2fb2cd4b5ada4adeac0c9b4aee4c7e7b6b82a59fd6592f5a89babf6",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 75,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 75
+      },
+      "scope": "First corrected append/association/atomicity receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase1-integrated.xml",
+      "sha256": "5e475ef579c43180e17ee6ba85add5df30adca8470947d7f3bc965f30f754dd1",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 2735,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2735
+      },
+      "scope": "First broader native/composition/H5MSM/named-interaction receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase1-docstrings-and-strings.xml",
+      "sha256": "be49b780260cf8585d7d47703fbc199574b5fd38c96815513ad2c11b5c196c27",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 40,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 40
+      },
+      "scope": "Expanded string backings, inventory negatives and three module doctest collections."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase1-final.xml",
+      "sha256": "44f2dbb03ac3918f37062fac99a1c658492cb558826dec58a82b36300d22496a",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 2748,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2748
+      },
+      "scope": "Final broader native/composition/H5MSM/named-interaction receiving."
+    }
+  ],
+  "source_sha256": {
+    "molsysmt/native/molsys.py": "284379c2064655ede041d6d4393e800e386c63cc2571086107bec1cbe955a8f9",
+    "molsysmt/native/_bioassembly.py": "7896eb727df84f8194421482d859653c31a5aca9324e7d59f581ce5cc2c6e2a8",
+    "molsysmt/native/_table_columns.py": "36e9c9457c41fc1e603e60d1884e82d2dbb34f7e4fa81c6f9659a482a1685524",
+    "molsysmt/native/_chemical_merge.py": "c1fd905ca9329739ac1f35350017ff47f8267d81576b8a5ef8c8dfb107deb4c1",
+    "molsysmt/native/chemical_states.py": "17ef7220772cf8d53d2686546df786986a8c55bc67d2a5254e3b92266d3ca515",
+    "molsysmt/basic/add.py": "c81c2a59251846da654177204c50c01477e25d12e7320de167386d58e41c154c",
+    "molsysmt/basic/append_structures.py": "e9afb02599e63869de3cfd16d1e56a8b8a00240ea477e5116a88876386f5c963",
+    "tests/basic/add/test_selected_domain_alignment.py": "0d5f0a8a93e3f3a2e5663f4cab6a605134ee80d313c51340472daeb970b845cb",
+    "tests/native/test_recovered_inventory_append.py": "0f342069dbaa25e5a2cfe6050f93ed104da0d794d5e952a81e297e6cf507b734"
+  },
+  "checks": {
+    "ruff_check_all": {
+      "exit_code": 0
+    },
+    "ruff_format_check_all": {
+      "exit_code": 0,
+      "files": 4473
+    },
+    "dependency_validator": {
+      "exit_code": 0
+    },
+    "course_structure": {
+      "exit_code": 0,
+      "notebooks": 156
+    },
+    "notebook_preservation": "All code cells, outputs, IDs and metadata remain unchanged in add, append_structures and Common Core Module 17.",
+    "human_work": "Four pre-existing human autosummary files retain the audit hashes."
+  },
+  "progress": {
+    "phase1_planning_weight": 20,
+    "credit_condition": "Public source verification of this checkpoint and owning issue closeout; not a release-readiness percentage."
+  },
+  "limits": [
+    "Profiles overlap and their passing counts are not summed.",
+    "The final profile has 746 retained warnings; it is not a warning-free qualification.",
+    "No installed Viewer pair, new platform, full scientific certificate or clean release candidate is qualified.",
+    "Existing human edits make this a dirty development worktree; no release-eligible claim.",
+    "No speed or peak-RSS benchmark is claimed; changed allocation behavior is source-inspected.",
+    "The runtime version record is not a frozen dependency closure.",
+    "Pandas str backing follows the provider version; testing that spelling here is not independent installed pandas 3 qualification."
+  ]
+}

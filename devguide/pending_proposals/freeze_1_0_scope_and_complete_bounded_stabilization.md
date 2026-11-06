@@ -16,6 +16,18 @@ supersedes: []
 
 **Accepted:** 2026-10-05, following the maintainer's request to stop capability expansion and preserve deferred work in issues.
 
+## Robustness audit follow-up — 2026-11-06
+
+The maintainer requests a separate durable
+[audit and action-tracking packet](../pre_1_0_robustness_audit_20261106.md)
+for the review at `4a80c22941090257d8ef78df09c944831413ee31`.
+It records reproduced native/PBC/configuration/persistence defects, closeout
+candidates, PR #543 receiving, dependency/scientific-claim work and the proposed
+sequence before exact-candidate qualification. This remains part of #334 rather
+than a competing release issue or feature inventory. The packet does not change
+scope admission, select new artifacts or authorize publication. Individual
+issues retain their own implementation and acceptance records.
+
 ## Source delta for coordination resumption — 2026-10-10
 
 **Role of this checkpoint:** plan the affected review scope during the publication

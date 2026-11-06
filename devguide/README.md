@@ -46,6 +46,11 @@ For Viewer-owned Qt and user-workflow gates, use `uibcdf/molsysviewer#109`,
 Historical sections in the two checkpoints preserve evidence but are not
 instructions to repeat staging.
 
+For the correction sequence following the 6 November review, use the
+[pre-1.0 robustness audit and action plan](pre_1_0_robustness_audit_20261106.md).
+It retains the dated findings and tracks bounded work under #334; candidate
+selection and release qualification remain in the execution ledger.
+
 Read these documents in order when first working on MolSysMT:
 
 1. [Core specification](CORE_SPECIFICATION.md) — native model, hierarchy, and
