@@ -871,6 +871,10 @@ def convert(
     ArgumentError
         If any input argument is invalid or inconsistent, including an
         out-of-range structure index.
+    MolecularSystemVerificationError
+        If form loading, detection or complementary-system inspection cannot
+        finish because of an operational failure. The original exception chain
+        is retained; this does not declare the molecular input malformed.
 
 
     Notes

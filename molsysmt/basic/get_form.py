@@ -3,7 +3,10 @@ from pathlib import Path
 import depdigest
 
 from molsysmt._private.form_tier import check_form_tier
-from molsysmt._private.smonitor import NotSupportedFormError
+from molsysmt._private.smonitor import (
+    MolecularSystemVerificationError,
+    NotSupportedFormError,
+)
 
 #: Resolved once. `get_form` asks `_is_detector_available` for every form module on every
 #: call, so the `import` statements that used to sit inside it ran ~73 times per call.
@@ -142,6 +145,10 @@ def get_form(molecular_system):
     ------
     NotSupportedFormError
         If the input molecular system has a form that is not supported.
+    MolecularSystemVerificationError
+        If a declared adapter cannot load or a detector fails operationally.
+        The original Python exception chain is retained in __cause__; this is
+        not evidence that the supplied molecular system is invalid.
 
 
 
@@ -156,6 +163,10 @@ def get_form(molecular_system):
       recognition does not parse the payload or validate its chemistry. Existing
       file-extension matching keeps priority, and unprefixed strings retain the
       general detector fallback.
+    - Known adapter failures remain cached by the existing provider registry.
+      Correct the runtime setup before using a fresh process. Detection does
+      not retry another parser or silently treat an operational failure as an
+      unsupported input. Optional-dependency visibility rules remain unchanged.
 
 
 
@@ -212,7 +223,16 @@ def get_form(molecular_system):
     if isinstance(molecular_system, Path):
         molecular_system = molecular_system.absolute().__str__()
 
-    output = _detect(molecular_system)
+    try:
+        output = _detect(molecular_system)
+    except (MolecularSystemVerificationError, NotSupportedFormError):
+        raise
+    except Exception as error:
+        raise MolecularSystemVerificationError(
+            forms=[],
+            reason=f"Form detection could not finish: {type(error).__name__}: {error}",
+            caller="molsysmt.basic.get_form",
+        ) from error
 
     if output is None:
         raise NotSupportedFormError(

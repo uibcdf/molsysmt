@@ -1,0 +1,194 @@
+{
+  "schema_version": "molsysmt.adapter_load_causes_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#601",
+  "source": {
+    "base_commit": "4cafeaa6543e9fddf55119c56546cce524b238e9",
+    "implementation_commit": "7117178284cc750636a27fdea40de2408ec34969",
+    "sha256": {
+      "molsysmt/form/_registry.py": "c673f52d7152a5fd941f21c3675dd6cf1e44c5fe3c0fa94ff5432edb8c5925f8",
+      "molsysmt/form/__init__.py": "3c2924d204c28c79638b41093240443b9f3f0ae50a2de6fad4ba4d1d76232977",
+      "molsysmt/basic/get_form.py": "fefa970f6ba0d5f5f3364ce3b0a9bd32ec785c8d8a0c66f462eda601920605b6",
+      "molsysmt/_private/molecular_system_validation.py": "ee047e4943b94ee310ab61e2b77f618fd32d79fab9cb78b0f7c72b7298353d89",
+      "molsysmt/_private/argdigest/argument/item.py": "626b77060166bc8c688f2a877c618ffc1622c86a747cf2107de65fcbaa44bf10",
+      "molsysmt/_private/argdigest/argument/molecular_system.py": "6ed10ba75499598889bceca3bb601eaaff007aeb2ca971384e717cf8f690083b",
+      "molsysmt/_private/smonitor/catalog.py": "cda990f2878b95f77911d87ad40cec01f7e148c3a4cc810b220d6ef5fc03aa35",
+      "tests/_private/test_adapter_load_diagnostics.py": "3915e4a862dc7e258e20e4a03e5b671d3c9cea2f44a3ff373e2ffbb406ae0804",
+      "tests/form/test_declared_registry_integration.py": "27c2f5100f5ca7ba7bbef7c08ddcc0a087f09d7d04327c05a1178f701590d5a1",
+      "tests/basic/test_get_form_prefixes.py": "85a7ed43d6b52d155f2386c4fb34e9763ce505e5b201d5c7303b86792d6e037b",
+      "tests/_private/test_molecular_system_validation.py": "67996909dd4b9f1a91137a12d93c31d196718378fd9aa3f45946ba2430164ae2"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "molsysmt_version_caveat": "Editable installed metadata is stale; this exact source commit and hashes identify the receiving."
+  },
+  "checks": [
+    {
+      "local_artifact": ".pytest_cache/601-adapter-causes-before.xml",
+      "sha256": "83b9f9025045719e2257c002f4f7e1ec90604b554a4fcddb9725c2023a776ddd",
+      "result": "expected reproduction failure",
+      "tests": 7,
+      "failures": 7,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/601-adapter-causes-after.xml",
+      "sha256": "cdc3ee28d1e057ec1b444261cd0a438785c2baf7cf7605bcb2853ec404a62cb1",
+      "result": "pass",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/601-classification-and-registry-first.xml",
+      "sha256": "e36c053934d03b755af140ab243b8e8171b5d83215b4b6464a02b52e294eb39c",
+      "result": "usage error: nonexistent selector; no executed tests",
+      "tests": 0,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/601-classification-and-registry.xml",
+      "sha256": "bddfbed06f4d0c4e787a2c35b571dbfb4230857b26130df134e4add9f5027c9a",
+      "result": "old raw-exception expectation fails; strengthened in current guards",
+      "tests": 331,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/601-boundary-and-digestion.xml",
+      "sha256": "e56024852a9a1649da882e1b8894eb34324426a174f0e1ae3c740f6aaf42b0e5",
+      "result": "pass",
+      "tests": 774,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/601-conversion-and-projection.xml",
+      "sha256": "7acbd31458b19e64ef68501491038e91d843b4ad27d0bfa438ad7248cbffd7c1",
+      "result": "interrupted network-restricted attempt; not complete or passing",
+      "tests": 1402,
+      "failures": 5,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/601-conversion-and-projection-offline.xml",
+      "sha256": "2ed0b2cfd0d71c9f91a5efbe3b9a15d7b107dd2be17a1457407a6974058243de",
+      "result": "pass; eight network cases explicitly deselected",
+      "tests": 1397,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/601-network-conversions.xml",
+      "sha256": "b50afe6d4b7fcb2fe195b91b342ebc8fc6e644daa00e10f9731f10614ded814d",
+      "result": "pass; separate network-enabled run",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/601-provider-floors.xml",
+      "sha256": "a0dbcdfb00a6bf1dac78c46398af46d337c6c954ccf021633697a9a4a2022558",
+      "result": "pass",
+      "tests": 68,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "execution": {
+    "python": "3.14.7",
+    "pytest_receptor": "published 1.2.1",
+    "workers": 12,
+    "provider_floor_paths": {
+      "argdigest": {
+        "version": "0.14.0",
+        "file": "/home/diego/Myopt/miniconda3/pkgs/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py"
+      },
+      "depdigest": {
+        "version": "0.15.1",
+        "file": "/home/diego/Myopt/miniconda3/pkgs/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py"
+      },
+      "smonitor": {
+        "version": "0.16.0",
+        "file": "/home/diego/Myopt/miniconda3/pkgs/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py"
+      },
+      "ackredit": {
+        "version": "0.9.0",
+        "file": "/home/diego/Myopt/miniconda3/pkgs/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py"
+      },
+      "pyunitwizard": {
+        "version": "0.28.1",
+        "file": "/home/diego/Myopt/miniconda3/pkgs/pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py"
+      }
+    },
+    "floor_caveat": "Only the incompatible development SMonitor pytest plugin is disabled; runtime validation/diagnostics remain active. No provider, package or environment is installed or modified.",
+    "default_provider_metadata": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "ackredit": "0.12.1+2.ge233973",
+      "pyunitwizard": "0.29.1+6.gf82b618"
+    },
+    "network_attempt": "Sandbox DNS failed for marked live-PDB cases; graceful interrupt preserved the original nonpassing XML. The unchanged eight cases all pass with authorized network access. No failed or incomplete attempt is counted as a passing profile."
+  },
+  "contract": {
+    "known_adapter_failure": "Existing MolecularSystemVerificationError with provider KeyError and original operational cause chain retained.",
+    "classification": "Undetermined/unverified discovery failures; unsupported/invalid and real complementary-axis conflicts remain distinct.",
+    "provider_ownership": "Published DepDigest already preserves original load causes; declaration, cache, concurrency, visibility and explicit retry remain provider-owned.",
+    "argument_boundary": "Operational item errors propagate; allowed None and recognized cross-form append targets keep their existing contract; regular molecular-system validation probes once.",
+    "diagnostics": "Existing MSM-ERR-SYS-004 code and application configuration retained; user reason is visible.",
+    "recovery": "Cold published-registry injection verifies cached failure, no implicit retry, explicit recovery, unchanged-source conversion and original file bytes.",
+    "scope": "No parser/scientific fallback, chemical assignment, unit policy, application startup policy or dependency-floor change."
+  },
+  "documentation": {
+    "narrative_notebooks": [
+      {
+        "path": "docs/content/user/tools/basic/get_form.ipynb",
+        "markdown_cell": 7,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/user/tools/basic/convert.ipynb",
+        "markdown_cell": 4,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/user/tools/basic/is_a_molecular_system.ipynb",
+        "markdown_cell": 2,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/user/cookbook/form_teleportation.ipynb",
+        "markdown_cell": 2,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/course/Common_Core/14_System_Comparison_and_Validation.ipynb",
+        "markdown_cell": 1,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      }
+    ],
+    "sphinx": "Complete incremental HTML build passes without warnings.",
+    "sphinx_local_log": ".pytest_cache/601-sphinx-final.log",
+    "sphinx_sha256": "23cf9c142d71a0cb3e0ae4de81e88b006632a6a9a9e929b34eff6d5e4a2ed9e0",
+    "generated_stubs_restored": 20,
+    "fast_gate": "14/14 pass",
+    "fast_gate_sha256": "d979ed93120f7371f853aae88cc13a18497ec5b6fd8a5d7cc6657fa07772e1d9",
+    "fast_gate_local_log": ".pytest_cache/601-fast-gates-final.log"
+  },
+  "limits": "Profiles overlap; do not sum them as unique tests. No global exact-head platform matrix, installed Viewer pair, package, tag, Release or promotion is qualified.",
+  "style": {
+    "ruff_check": "all checks pass",
+    "ruff_format_check": "4470 files already formatted",
+    "diff_check": "pass"
+  }
+}

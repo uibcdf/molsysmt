@@ -20,7 +20,7 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (10)
+### Open (9)
 
 - [`box_factory_physical_domain.md`](box_factory_physical_domain.md) — [#605](https://github.com/uibcdf/molsysmt/issues/605) — Box factory accepts degenerate dimensions and returns nonfinite cells for incompatible angles. *(high, reproduced)*
 - [`concurrent_configuration_contexts_leak_gpu_policy.md`](concurrent_configuration_contexts_leak_gpu_policy.md) — [#613](https://github.com/uibcdf/molsysmt/issues/613) — Concurrent configuration contexts leak GPU policy and restore the wrong state. *(high, reproduced)*
@@ -30,7 +30,6 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`h5msm_component_dtype_append_rejection.md`](h5msm_component_dtype_append_rejection.md) — [#616](https://github.com/uibcdf/molsysmt/issues/616) — Reconcile canonical H5MSM string storage with chemical-inventory append checks. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
-- [`mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md`](mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md) — [#600](https://github.com/uibcdf/molsysmt/issues/600) — mmCIF native conversion drops deposited model labels despite declared structure_id support. *(medium, reproduced)*
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
 
 ### In progress (1)

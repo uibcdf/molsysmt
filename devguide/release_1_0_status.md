@@ -133,9 +133,10 @@ closure. Prior post-freeze scheduling of listed work does not block this explici
 instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
-**Completed native/provider criteria: #304, #593, #428, #544, #572, #576, #557,
-#594, #595, #596, #597, #598 and #599 (13 of 15).**
-Next ordered issue: **#600**, followed by #601. The #557 source-permutation controls also identified supplemental
+**Completed native/provider criteria: all fifteen ordered issues, through #601.**
+No further implementation remains within this bounded goal. The final #600/#601
+source checkpoint is published together; their board closure is performed in that
+order only after independent public-source verification. The #557 source-permutation controls also identified supplemental
 [#617](archive/resolved_bugs/entry_mmcif_conversion_retains_a_retired_topology_component_flag_and_blocks_perm.md):
 the mmCIF converter wrote a retired Topology component flag. The one-line
 producer correction passes 137 adapter/permutation cases, preserving strict
@@ -183,7 +184,29 @@ unchanged. See the [owning closeout](archive/resolved_proposals/prepared_pdbqt_c
 and [receiving receipt](../devtools/data/prepared_pdbqt_projection_receiving_599_20261106.json).
 The preserved earlier #304 full run 42205436569 now concludes successfully at
 56b37c983; it does not qualify this new projection checkpoint. Current source
-publication/CI is recorded separately. #600/#601 remain required in that order.
+publication/CI is recorded separately. The final two criteria are recorded below.
+
+The #600 model-label correction in 68fc09224 retains exact deposited string IDs
+on the unchanged numeric model/coordinate axis, including repeated selections,
+explicit missing-data handling and separate incompatible-model results. **925 affected
+cases**, **38 provider-floor cases** and one additional real NMR coordinate/label
+control pass; documentation HTML has no warnings. See the
+[owning closeout](archive/resolved_bugs/mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md)
+and [receiving receipt](../devtools/data/mmcif_model_labels_receiving_600_20261106.json).
+The final shared #600/#601 source checkpoint retains that implementation order.
+The preceding main 40bb54d05 delivers #599, with all five applicable workflows
+passing, including smoke 42283798590. The new checkpoint has separate CI evidence.
+
+The #601 correction in 711717828 preserves operational adapter-load causes through
+public form detection and argument validation. DepDigest retains ownership of
+loading/cache/retry; unsupported input and incompatible axes remain distinct.
+**774 boundary/digestion cases**, **1,397 offline conversion/PDBQT cases**,
+**8 separate live-network conversion cases** and **68 public-provider-floor
+cases** pass. Profiles overlap. The original sandbox-DNS/incomplete run and old
+exception expectation are retained rather than counted as passes. All fourteen
+fast gates pass, and updated documentation compiles without warnings. See the
+[owning closeout](archive/resolved_bugs/adapter_load_causes_are_lost_in_molecular_system_validation.md)
+and [receiving receipt](../devtools/data/adapter_load_causes_receiving_601_20261106.json).
 
 Feature closure does not qualify the complete version matrix, a future Viewer
 candidate, its canvas/sessions, or the sixteen-cell installed release pair under

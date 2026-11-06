@@ -108,6 +108,7 @@ def test_adapter_failure_preserves_cause_and_requires_explicit_retry():
         import importlib.abc
         import sys
         import molsysmt as msm
+        from molsysmt._private.smonitor import MolecularSystemVerificationError
         from molsysmt.form import _dict_modules, catalogue
 
         cause = ImportError('controlled adapter import failure')
@@ -125,8 +126,9 @@ def test_adapter_failure_preserves_cause_and_requires_explicit_retry():
         ):
             try:
                 operation()
-            except KeyError as error:
-                assert error.__cause__ is cause
+            except MolecularSystemVerificationError as error:
+                assert isinstance(error.__cause__, KeyError)
+                assert error.__cause__.__cause__ is cause
             else:
                 raise AssertionError('A real adapter failure was hidden.')
         assert failure.calls == 1
@@ -135,8 +137,9 @@ def test_adapter_failure_preserves_cause_and_requires_explicit_retry():
         sys.meta_path.remove(failure)
         try:
             catalogue.module_of('file:pdb.gz')
-        except KeyError as error:
-            assert error.__cause__ is cause
+        except MolecularSystemVerificationError as error:
+            assert isinstance(error.__cause__, KeyError)
+            assert error.__cause__.__cause__ is cause
         else:
             raise AssertionError('An adapter failure retried implicitly.')
         _dict_modules.retry('file:pdb.gz')

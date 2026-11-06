@@ -35,8 +35,11 @@ def digest_molecular_system(molecular_system, caller=None):
 
     Raises
     ------
-    MolecularSystemNeededError
-        If the given object is not a molecular system.
+    ArgumentError
+        If the given object has a genuinely unsupported form.
+    MolecularSystemVerificationError
+        If form discovery or complementary-axis verification cannot finish.
+        The original operational exception remains in the Python cause chain.
     """
     from molsysmt._private.molecular_system_validation import (
         assess_molecular_system,
@@ -51,9 +54,8 @@ def digest_molecular_system(molecular_system, caller=None):
     if molecular_system is None and caller == "molsysmt.basic.view.view":
         return None
 
-    assessment = assess_molecular_system(molecular_system)
-
     if caller == "molsysmt.basic.view.view":
+        assessment = assess_molecular_system(molecular_system)
         if assessment.is_valid_single_system:
             return molecular_system
         elif are_multiple_molecular_systems(molecular_system):
