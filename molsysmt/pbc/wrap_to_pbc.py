@@ -77,6 +77,15 @@ def wrap_to_pbc(
 
     Notes
     -----
+    Boxes contain lattice vectors as rows. Primary and centered-primary
+    boundaries use the supplied primitive basis, including rotated cells;
+    geometric orthogonality alone does not permit a Cartesian-diagonal path.
+    Explicit origins/centers retain their physical values without near-zero
+    snapping. Cell nonsingularity uses a dimensionless normalized determinant.
+    At a cell face, floating-point unit conversion can select an adjacent
+    equivalent image; periodic positions remain equivalent. Away from such
+    discontinuities, presentation units do not change the physical image.
+
     With ``compact=False``, atoms are wrapped independently. With
     ``compact='component'``, bonded blocks are reconstructed with
     minimum-image bond displacements and each block center is wrapped into the
@@ -231,17 +240,11 @@ def wrap_to_pbc(
             box_origin = puw.get_value(box_origin, standardized=True)
             box_origin = np.asarray(box_origin, dtype=np.float64)
 
-            if np.all(np.isclose(box_origin, 0, atol=1e-4)):
-                box_origin = np.zeros((3), dtype=np.float64)
-
             _kernels.wrap_to_pbc(coordinates, box, box_origin)
 
         else:
             box_center = puw.get_value(box_center, standardized=True)
             box_center = np.asarray(box_center, dtype=np.float64)
-
-            if np.all(np.isclose(box_center, 0, atol=1e-4)):
-                box_origin = np.zeros((3), dtype=np.float64)
 
             _kernels.wrap_to_pbc_center(coordinates, box, box_center)
 

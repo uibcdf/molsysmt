@@ -36,7 +36,9 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion
     ------
     ArgumentError
         If units or input shapes are invalid, or the angle-row count is
-        neither one nor the number of length rows.
+        neither one nor the number of length rows. Also raised for nonfinite
+        or nonpositive lengths, incompatible angles, or a cell that becomes
+        nonfinite/singular under the documented rounding.
 
     Notes
     -----
@@ -46,6 +48,13 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion
     receives aligned length and angle rows. Supplied angular units are
     converted to radians without requiring an application angle standard;
     only the returned length quantity needs an active length standard.
+    Lengths must be finite and strictly positive. Each angle is strictly
+    between zero and pi radians; triples satisfy strict triangle inequalities
+    and sum to less than two pi. These are the positive-Gram conditions for
+    independent cell vectors. The canonical lower-triangular matrix must retain
+    finite entries and a positive diagonal after rounding in nm. No cutoff
+    expressed in the application's display units is used. This factory does
+    not impose a handedness convention on separately supplied raw box vectors.
 
     Examples
     --------
@@ -75,6 +84,11 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion
         angles_value = np.full((1, 3), np.pi / 2, dtype=np.float64)
     else:
         angles_value = puw.get_value(box_angles, to_unit="radians")
+    from ._cell_domain import validate_angles, validate_lengths
+
+    caller = "molsysmt.pbc.get_box_from_lengths_and_angles"
+    validate_lengths(lengths_value, caller=caller)
+    validate_angles(angles_value, caller=caller)
     if angles_value.shape[0] not in (1, lengths_value.shape[0]):
         from molsysmt._private.smonitor import ArgumentError
 
@@ -89,7 +103,16 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion
         np.array(lengths_value, dtype=np.float64),
         np.array(angles_value, dtype=np.float64),
     )
-    box = box.round(6) * units
+    box = box.round(6)
+    if not np.isfinite(box).all() or np.any(np.diagonal(box, axis1=1, axis2=2) <= 0):
+        from molsysmt._private.smonitor import ArgumentError
+
+        raise ArgumentError(
+            "box_lengths",
+            caller=caller,
+            message="The canonical cell must remain finite and nonsingular after rounding to six decimal places in nm.",
+        )
+    box = box * units
 
     del (lengths_value, angles_value)
 

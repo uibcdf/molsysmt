@@ -208,6 +208,12 @@
         "test": "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
         "oracle": "Explicit fractional-coordinate trajectory crossing a triclinic boundary.",
         "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+        "oracle": "Literal [-0.1,-0.2,0] or [-1.1,-0.2,0] nm nearest displacements for triclinic or diagonal previous transition cells, covering both classification changes and nm/m application policies.",
+        "tolerance": "float64_kernel_atol"
       }
     ],
     "gap": null
@@ -227,6 +233,12 @@
         "test": "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
         "oracle": "Closed-form bonded displacement across a triclinic boundary.",
         "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+        "oracle": "Literal primary/nearest lattice images of [5.1,6.2,7.3] nm in a quarter-turned 3/4/5-nm row-vector cell, under nm/pm/m application policies.",
+        "tolerance": "float64_kernel_atol"
       }
     ],
     "gap": null
@@ -245,6 +257,18 @@
         "class": "analytic",
         "test": "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
         "oracle": "Explicit boundary-spanning three-atom covalent block.",
+        "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+        "oracle": "Literal primary/nearest lattice images of [5.1,6.2,7.3] nm in a quarter-turned 3/4/5-nm row-vector cell, under nm/pm/m application policies.",
+        "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+        "oracle": "The point x=0 lies outside a primary cell beginning at x=1e-5 nm and has the literal image x=3 nm, under nm/angstrom/pm/m application policies.",
         "tolerance": "float64_kernel_atol"
       }
     ],

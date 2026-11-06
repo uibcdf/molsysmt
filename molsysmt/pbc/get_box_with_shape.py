@@ -20,7 +20,8 @@ def get_box_with_shape(
     shape : str, default='cubic'
         Geometric shape of the periodic box.
     length : PyUnitWizard quantity, default='1 nm'
-        Edge length used to construct the periodic box.
+        One finite, strictly positive scalar edge length used to construct
+        the periodic box. A three-length vector is not one shape parameter.
     n_structures : int, default=1
         Number of identical box matrices to return.
     skip_digestion : bool, default=False
@@ -31,11 +32,30 @@ def get_box_with_shape(
     quantity
         Box array of shape `(n_structures, 3, 3)` in the specified length units.
 
+    Raises
+    ------
+    ArgumentError
+        If length is not one finite, strictly positive edge length.
+
 
     .. versionadded:: 1.0.0
     """
 
     length_value, length_unit = puw.get_value_and_unit(length)
+    from molsysmt._private.smonitor import ArgumentError
+
+    from ._cell_domain import validate_lengths
+
+    length_value = np.asarray(length_value, dtype=np.float64)
+    caller = "molsysmt.pbc.get_box_with_shape"
+    if length_value.size != 1:
+        raise ArgumentError(
+            "length",
+            caller=caller,
+            message="length must be one scalar edge length for the requested shape.",
+        )
+    validate_lengths(length_value, argument="length", caller=caller)
+    length_value = float(length_value.reshape(-1)[0])
 
     match shape:
         case "cubic":

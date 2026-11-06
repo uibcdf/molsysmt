@@ -1,38 +1,17 @@
-//! Block 9 — the `molsysmt.lib.pbc` package: box geometry and the wrap/unwrap family.
+//! Box geometry and periodic wrapping over row-vector cell bases.
 //!
-//! Ports `box_is_orthogonal`, `get_lengths_from_box`, `get_angles_from_box`,
-//! `get_lengths_and_angles_from_box`, `get_box_from_lengths_and_angles`, `wrap_to_pbc`,
-//! `wrap_to_pbc_center`, `wrap_to_mic` and `unwrap`.
+//! Public geometric orthogonality remains basis-independent. Computational diagonal
+//! fast paths require actual Cartesian axis alignment; other orientations use the
+//! full inverse. Primary/centered-primary wrapping keeps the original primitive
+//! basis, while MIC wrapping reuses the distance family's reduced-cell mechanism.
 //!
-//! Two details are load-bearing for parity:
+//! Temporal unwrap uses the previous selected structure's actual cell at every
+//! transition. Original-basis ties-to-even seeds survive unless a strictly shorter
+//! MIC image exists. This retains the historical exact half-cell convention.
 //!
-//! 1. **`round` is round-half-to-even.** `unwrap` uses Python's `round`, which Numba
-//!    implements with Python semantics (verified: 0.5 -> 0, 1.5 -> 2, 2.5 -> 2). Rust's
-//!    `f64::round` rounds half *away from zero*, so this module uses `round_ties_even`.
-//!    Getting this wrong would displace an atom by a full box length on exact ties.
-//! 2. **Accumulation order in the 27-image searches.** The triclinic MIC paths build each
-//!    candidate as `((v + i*b0) + j*b1) + k*b2`; folding those differently changes the
-//!    last bits, so the stepwise structure is preserved.
-//!
-//! Parity status for this block is *not* uniform, and the reasons are worth separating:
-//!
-//! - **Orthogonal boxes: bit-for-bit.** Every kernel matches the Numba oracle exactly.
-//! - **Triclinic boxes: 1e-12 tolerance, and the oracle is the reason.** `lazy_njit` sets
-//!   `fastmath=True`, which lets LLVM contract the three-term dot products of the
-//!   fractional wrap into FMAs. Rust does not fuse by default, so the last bits differ on
-//!   738/2000 sampled vectors (max 6.2e-15). This is *not* a port defect: compiling the
-//!   same kernel with `fastmath=False` makes Rust and Numba agree on 2000/2000. It is a
-//!   property of the oracle, so it cannot be fixed on this side — only matched by
-//!   guessing LLVM's contraction choices, which would be brittle.
-//! - **`wrap_to_mic` on triclinic boxes: deliberately corrected**, see `wrap_mic_vec`.
-//!   The replaced Numba implementation did not return the minimum image there; parity would mean copying that.
-//!
-//! Note that this package's orthogonality test is a *fourth*, independent implementation
-//! of the predicate discussed in `sasa.rs`: it compares dot products between box vectors
-//! against 1e-4, which is basis-independent, rather than testing off-diagonal elements
-//! against 1e-10. It is the most robust of the four and it is correct, so it is ported
-//! as-is; the divergence between the four is reported in
-//! `devguide/archive/resolved_bugs/sasa_is_orthogonal_typo.md`.
+//! Earlier Numba-port measurements and the former local 27-image search are
+//! historical evidence in source history and the archived wrap-to-MIC report.
+//! Current orientation and changing-cell corrections are tracked by #607/#606.
 
 use numpy::ndarray::{Array1, Array2, Array3, ArrayView3};
 use numpy::{
@@ -42,8 +21,9 @@ use numpy::{
 use pyo3::prelude::*;
 
 use crate::mathlib::{
-    dot_product, fast_floor, fast_round_ties_even, inverse_matrix_3x3, norm_vector, Mat3, Vec3,
+    dot_product, fast_floor, fast_round_ties_even, inverse_matrix_3x3_full, norm_vector, Mat3, Vec3,
 };
+use crate::mic::{box_is_axis_aligned, mic_vector, prep_dist};
 
 #[inline]
 fn box_at(b: &ArrayView3<f64>, s: usize) -> Mat3 {
@@ -111,79 +91,57 @@ fn box_of(lengths: Vec3, angles: Vec3) -> Mat3 {
 /// the centre-based one, which was the only difference between the two replaced Numba
 /// kernels.
 #[inline]
-fn wrap_pbc_vec(v: Vec3, b: &Mat3, inv: &Mat3, orthogonal: bool, half: f64) -> Vec3 {
-    if orthogonal {
+fn wrap_pbc_vec(v: Vec3, b: &Mat3, inv: &Mat3, axis_aligned: bool, half: f64) -> Vec3 {
+    if axis_aligned {
         [
             v[0] - b[0][0] * fast_floor(v[0] / b[0][0] + half),
             v[1] - b[1][1] * fast_floor(v[1] / b[1][1] + half),
             v[2] - b[2][2] * fast_floor(v[2] / b[2][2] + half),
         ]
     } else {
-        let mut s = [
-            inv[0][0] * v[0] + inv[1][0] * v[1] + inv[2][0] * v[2],
-            inv[1][1] * v[1] + inv[2][1] * v[2],
-            inv[2][2] * v[2],
-        ];
+        let mut s = fractional(v, inv);
         s[0] -= fast_floor(s[0] + half);
         s[1] -= fast_floor(s[1] + half);
         s[2] -= fast_floor(s[2] + half);
-        [
-            b[0][0] * s[0] + b[1][0] * s[1] + b[2][0] * s[2],
-            b[1][1] * s[1] + b[2][1] * s[2],
-            b[2][2] * s[2],
-        ]
+        cartesian(s, b)
     }
 }
 
-/// Exhaustive search over the 27 neighbouring images, keeping the shortest. Shared by
-/// `wrap_to_mic` and `unwrap`'s triclinic branch. `seed`/`dmin` carry the incumbent so
-/// the caller's fractional wrap stays in the running, and the accumulation order matches
-/// the replaced Numba implementation did (`((v + i*b0) + j*b1) + k*b2`).
 #[inline]
-fn shortest_image(v: Vec3, b: &Mat3, seed: Vec3, dmin_in: f64) -> Vec3 {
-    let mut best = seed;
-    let mut dmin = dmin_in;
-    for i in [-1.0f64, 0.0, 1.0] {
-        let a = [v[0] + i * b[0][0], v[1] + i * b[0][1], v[2] + i * b[0][2]];
-        for j in [-1.0f64, 0.0, 1.0] {
-            let c = [a[0] + j * b[1][0], a[1] + j * b[1][1], a[2] + j * b[1][2]];
-            for k in [-1.0f64, 0.0, 1.0] {
-                let d = [c[0] + k * b[2][0], c[1] + k * b[2][1], c[2] + k * b[2][2]];
-                let dd = dot_product(d, d);
-                if dmin > dd {
-                    best = d;
-                    dmin = dd;
-                }
-            }
-        }
-    }
-    best
+fn fractional(v: Vec3, inv: &Mat3) -> Vec3 {
+    [
+        inv[0][0] * v[0] + inv[1][0] * v[1] + inv[2][0] * v[2],
+        inv[0][1] * v[0] + inv[1][1] * v[1] + inv[2][1] * v[2],
+        inv[0][2] * v[0] + inv[1][2] * v[1] + inv[2][2] * v[2],
+    ]
 }
 
-/// Mirrors `wrap_to_mic.py`, with one **deliberate correction** on the triclinic branch.
-///
-/// The replaced Numba implementation wrapped to the [0,1) fractional cell and then searches the 27 images *of the
-/// original vector*. When the input lies several box lengths outside the cell, none of
-/// those 27 images is near the origin, so the corner-cell wrap wins by default — and the
-/// primitive cell is not the minimum image. Measured on a triclinic box with inputs up to
-/// 20 units out: the replaced Numba implementation returned the minimum image in only 55/300 cases, while its own
-/// orthogonal branch is always correct.
-///
-/// Searching around the *wrapped* candidate instead fixes it (300/300), and it is what
-/// `unwrap.py` already does on its triclinic branch — which is what identifies this as a
-/// defect rather than a design choice. Reported in
-/// `devguide/archive/resolved_bugs/wrap_to_mic_triclinic_not_minimum_image.md`.
-///
-/// Note the ±1 shell is only exhaustive for reasonably conditioned cells; a strongly
-/// skewed box needs a reduced (Niggli) cell for a general guarantee. That limitation is
-/// inherited from the replaced Numba implementation and is not addressed here.
 #[inline]
-fn wrap_mic_vec(v: Vec3, b: &Mat3, inv: &Mat3, orthogonal: bool) -> Vec3 {
-    if orthogonal {
-        return wrap_pbc_vec(v, b, inv, true, 0.5);
-    }
-    let wrapped = wrap_pbc_vec(v, b, inv, false, 0.0);
-    shortest_image(wrapped, b, wrapped, dot_product(wrapped, wrapped))
+fn cartesian(s: Vec3, b: &Mat3) -> Vec3 {
+    [
+        b[0][0] * s[0] + b[1][0] * s[1] + b[2][0] * s[2],
+        b[0][1] * s[0] + b[1][1] * s[1] + b[2][1] * s[2],
+        b[0][2] * s[0] + b[1][2] * s[1] + b[2][2] * s[2],
+    ]
+}
+
+/// Prepare the original primitive basis; reduction would change its cell boundaries.
+fn prep_primary(b: &Mat3) -> (bool, Mat3, Mat3) {
+    let aligned = box_is_axis_aligned(b);
+    let inv = if aligned {
+        [[0.0; 3]; 3]
+    } else {
+        inverse_matrix_3x3_full(b)
+    };
+    (aligned, *b, inv)
+}
+
+/// Reuse the production distance-family MIC primitive and its per-cell preparation.
+/// This replaces the historical PBC-local 27-image search; original port evidence
+/// remains in the archived wrap-to-MIC report and the source history.
+#[inline]
+fn wrap_mic_vec(v: Vec3, b: &Mat3, inv: &Mat3, axis_aligned: bool) -> Vec3 {
+    mic_vector(v, b, inv, axis_aligned)
 }
 
 /// Per-structure driver shared by the three whole-system wrap kernels.
@@ -196,11 +154,9 @@ fn wrap_all(
     let (n_structures, n_atoms) = (coordinates.shape()[0], coordinates.shape()[1]);
     for s in 0..n_structures {
         let b = box_at(boxes, s);
-        let orthogonal = box_is_orthogonal_one(&b);
-        let inv = if orthogonal {
-            [[0.0; 3]; 3]
-        } else {
-            inverse_matrix_3x3(&b)
+        let (axis_aligned, cell, inv) = match kind {
+            WrapKind::Mic => prep_dist(&b),
+            _ => prep_primary(&b),
         };
         for a in 0..n_atoms {
             let v = [
@@ -209,9 +165,9 @@ fn wrap_all(
                 coordinates[[s, a, 2]] - origin[2],
             ];
             let w = match kind {
-                WrapKind::Pbc => wrap_pbc_vec(v, &b, &inv, orthogonal, 0.0),
-                WrapKind::PbcCenter => wrap_pbc_vec(v, &b, &inv, orthogonal, 0.5),
-                WrapKind::Mic => wrap_mic_vec(v, &b, &inv, orthogonal),
+                WrapKind::Pbc => wrap_pbc_vec(v, &cell, &inv, axis_aligned, 0.0),
+                WrapKind::PbcCenter => wrap_pbc_vec(v, &cell, &inv, axis_aligned, 0.5),
+                WrapKind::Mic => wrap_mic_vec(v, &cell, &inv, axis_aligned),
             };
             for k in 0..3 {
                 coordinates[[s, a, k]] = w[k] + origin[k];
@@ -420,12 +376,7 @@ pub fn wrap_to_pbc_vector_single_structure<'py>(
 ) -> Bound<'py, PyArray1<f64>> {
     let v = vector.as_array();
     let m = mat_of(&b.as_array());
-    let ortho = box_is_orthogonal_one(&m);
-    let inv = if ortho {
-        [[0.0; 3]; 3]
-    } else {
-        inverse_matrix_3x3(&m)
-    };
+    let (ortho, _, inv) = prep_primary(&m);
     let w = wrap_pbc_vec([v[0], v[1], v[2]], &m, &inv, ortho, 0.0);
     Array1::from_vec(w.to_vec()).into_pyarray(py)
 }
@@ -438,12 +389,7 @@ pub fn wrap_to_pbc_center_vector_single_structure<'py>(
 ) -> Bound<'py, PyArray1<f64>> {
     let v = vector.as_array();
     let m = mat_of(&b.as_array());
-    let ortho = box_is_orthogonal_one(&m);
-    let inv = if ortho {
-        [[0.0; 3]; 3]
-    } else {
-        inverse_matrix_3x3(&m)
-    };
+    let (ortho, _, inv) = prep_primary(&m);
     let w = wrap_pbc_vec([v[0], v[1], v[2]], &m, &inv, ortho, 0.5);
     Array1::from_vec(w.to_vec()).into_pyarray(py)
 }
@@ -456,19 +402,16 @@ pub fn wrap_to_mic_vector_single_structure<'py>(
 ) -> Bound<'py, PyArray1<f64>> {
     let v = vector.as_array();
     let m = mat_of(&b.as_array());
-    let ortho = box_is_orthogonal_one(&m);
-    let inv = if ortho {
-        [[0.0; 3]; 3]
-    } else {
-        inverse_matrix_3x3(&m)
-    };
-    let w = wrap_mic_vec([v[0], v[1], v[2]], &m, &inv, ortho);
+    let (ortho, cell, inv) = prep_dist(&m);
+    let w = wrap_mic_vec([v[0], v[1], v[2]], &cell, &inv, ortho);
     Array1::from_vec(w.to_vec()).into_pyarray(py)
 }
 
 /// Mirrors `unwrap.py`. Deliberately serial: structure `s+1` is written from the already
 /// updated structure `s`, so the loop carries a dependency and cannot be parallelised.
-/// Orthogonality is decided once from structure 0 and applied to all, as the replaced Numba implementation did.
+/// Each transition uses the previous selected structure's actual cell. Axis-aligned
+/// half-cell jumps retain ties-to-even; general cells retain the original-basis
+/// ties-to-even seed unless the shared MIC mechanism finds a strictly shorter image.
 #[pyfunction]
 #[allow(clippy::needless_range_loop)] // Fixed Cartesian indexing is intentional in this hot loop.
 pub fn unwrap(mut coordinates: PyReadwriteArray3<'_, f64>, boxes: PyReadonlyArray3<'_, f64>) {
@@ -478,14 +421,13 @@ pub fn unwrap(mut coordinates: PyReadwriteArray3<'_, f64>, boxes: PyReadonlyArra
     if n_structures == 0 {
         return;
     }
-    let orthogonal = box_is_orthogonal_one(&box_at(&b, 0));
-
     for s in 0..n_structures.saturating_sub(1) {
         let bs = box_at(&b, s);
-        let inv = if orthogonal {
+        let (axis_aligned, cell, reduced_inv) = prep_dist(&bs);
+        let inv = if axis_aligned {
             [[0.0; 3]; 3]
         } else {
-            inverse_matrix_3x3(&bs)
+            inverse_matrix_3x3_full(&bs)
         };
         for a in 0..n_atoms {
             let prev = [c[[s, a, 0]], c[[s, a, 1]], c[[s, a, 2]]];
@@ -494,27 +436,24 @@ pub fn unwrap(mut coordinates: PyReadwriteArray3<'_, f64>, boxes: PyReadonlyArra
                 c[[s + 1, a, 1]] - prev[1],
                 c[[s + 1, a, 2]] - prev[2],
             ];
-            let shift = if orthogonal {
+            let shift = if axis_aligned {
                 // `round`, not `f64::round`: Python/Numba round half to even.
                 for k in 0..3 {
                     delta[k] -= bs[k][k] * fast_round_ties_even(delta[k] / bs[k][k]);
                 }
                 delta
             } else {
-                let mut f = [
-                    inv[0][0] * delta[0] + inv[1][0] * delta[1] + inv[2][0] * delta[2],
-                    inv[1][1] * delta[1] + inv[2][1] * delta[2],
-                    inv[2][2] * delta[2],
-                ];
+                let mut f = fractional(delta, &inv);
                 for k in 0..3 {
                     f[k] -= fast_round_ties_even(f[k]);
                 }
-                let wrapped = [
-                    bs[0][0] * f[0] + bs[1][0] * f[1] + bs[2][0] * f[2],
-                    bs[1][1] * f[1] + bs[2][1] * f[2],
-                    bs[2][2] * f[2],
-                ];
-                shortest_image(wrapped, &bs, wrapped, dot_product(wrapped, wrapped))
+                let seed = cartesian(f, &bs);
+                let shortest = mic_vector(delta, &cell, &reduced_inv, false);
+                if dot_product(shortest, shortest) < dot_product(seed, seed) {
+                    shortest
+                } else {
+                    seed
+                }
             };
             for k in 0..3 {
                 c[[s + 1, a, k]] = prev[k] + shift[k];
@@ -604,7 +543,7 @@ mod tests {
 
     #[test]
     fn wrap_to_pbc_lands_inside_the_cell_and_mic_is_centred() {
-        let inv = inverse_matrix_3x3(&ORTHO);
+        let inv = inverse_matrix_3x3_full(&ORTHO);
         for v in [[13.7, -9.2, 20.1], [-0.001, 6.999, 8.0], [0.0, 0.0, 0.0]] {
             let w = wrap_pbc_vec(v, &ORTHO, &inv, true, 0.0);
             for k in 0..3 {
@@ -626,7 +565,8 @@ mod tests {
     /// box lengths outside the cell — the regime where the replaced Numba implementation failed (see `wrap_mic_vec`).
     #[test]
     fn triclinic_mic_wrap_returns_the_minimum_image() {
-        let inv = inverse_matrix_3x3(&TRIC);
+        let original_inverse = inverse_matrix_3x3_full(&TRIC);
+        let (ortho, cell, inv) = prep_dist(&TRIC);
         // deterministic spread, deliberately far outside the cell
         let mut seed = 12345u64;
         let mut next = || {
@@ -637,7 +577,7 @@ mod tests {
         };
         for _ in 0..200 {
             let v = [next(), next(), next()];
-            let out = wrap_mic_vec(v, &TRIC, &inv, false);
+            let out = wrap_mic_vec(v, &cell, &inv, ortho);
             let d2 = dot_product(out, out);
             for i in [-1.0f64, 0.0, 1.0] {
                 for j in [-1.0f64, 0.0, 1.0] {
@@ -659,9 +599,15 @@ mod tests {
             // and it must still be an image of the original vector
             let d = [out[0] - v[0], out[1] - v[1], out[2] - v[2]];
             let f = [
-                inv[0][0] * d[0] + inv[1][0] * d[1] + inv[2][0] * d[2],
-                inv[1][1] * d[1] + inv[2][1] * d[2],
-                inv[2][2] * d[2],
+                original_inverse[0][0] * d[0]
+                    + original_inverse[1][0] * d[1]
+                    + original_inverse[2][0] * d[2],
+                original_inverse[0][1] * d[0]
+                    + original_inverse[1][1] * d[1]
+                    + original_inverse[2][1] * d[2],
+                original_inverse[0][2] * d[0]
+                    + original_inverse[1][2] * d[1]
+                    + original_inverse[2][2] * d[2],
             ];
             for k in 0..3 {
                 assert!(

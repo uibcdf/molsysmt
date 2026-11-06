@@ -110,3 +110,74 @@ def test_invalid_units_shapes_and_angle_structure_counts_fail_before_kernel(
 def test_factory_default_does_not_make_angles_optional_for_other_public_contracts():
     with pytest.raises(ArgumentError):
         msm.pbc.get_volume_from_lengths_and_angles(puw.quantity([2, 3, 4], "nm"), None)
+
+
+@pytest.mark.parametrize("application_unit", ["nm", "pm"])
+@pytest.mark.parametrize("bad_length", [0.0, -2.0, np.nan, np.inf])
+@pytest.mark.parametrize("operation", ["box", "volume"])
+def test_cell_factories_reject_nonpositive_or_nonfinite_lengths(
+    application_unit, bad_length, operation
+):
+    lengths = puw.quantity([bad_length, 3, 4], "nm")
+    angles = puw.quantity([90, 90, 90], "degrees")
+    with puw.context(standard_units=[application_unit, "ps", "radians"]):
+        function = (
+            msm.pbc.get_box_from_lengths_and_angles
+            if operation == "box"
+            else msm.pbc.get_volume_from_lengths_and_angles
+        )
+        with pytest.raises(ArgumentError, match="box_lengths"):
+            function(lengths, angles)
+
+
+@pytest.mark.parametrize(
+    "angles",
+    [
+        [0, 90, 90],
+        [180, 90, 90],
+        [-1, 90, 90],
+        [np.nan, 90, 90],
+        [np.inf, 90, 90],
+        [10, 10, 170],
+        [60, 60, 120],
+        [130, 130, 130],
+    ],
+)
+@pytest.mark.parametrize("operation", ["box", "volume"])
+def test_cell_factories_reject_nonphysical_angle_triples(angles, operation):
+    function = (
+        msm.pbc.get_box_from_lengths_and_angles
+        if operation == "box"
+        else msm.pbc.get_volume_from_lengths_and_angles
+    )
+    with pytest.raises(ArgumentError, match="box_angles"):
+        function(puw.quantity([2, 3, 4], "nm"), puw.quantity(angles, "degrees"))
+
+
+@pytest.mark.parametrize("application_unit", ["nm", "pm"])
+def test_cell_factory_rejects_rounding_collapse_but_keeps_representable_small_boxes(
+    application_unit,
+):
+    with puw.context(standard_units=[application_unit, "ps"]):
+        with pytest.raises(ArgumentError, match="rounding"):
+            msm.pbc.get_box_from_lengths_and_angles(puw.quantity([1e-7, 3, 4], "nm"))
+        result = msm.pbc.get_box_from_lengths_and_angles(puw.quantity([1e-6] * 3, "nm"))
+        np.testing.assert_allclose(
+            puw.get_value(result, to_unit="nm"), [np.eye(3) * 1e-6], atol=0, rtol=1e-12
+        )
+
+
+@pytest.mark.parametrize("length", [0, -1, np.nan, np.inf, [1, 2, 3]])
+@pytest.mark.parametrize(
+    "shape", ["cubic", "truncated octahedral", "rhombic dodecahedral"]
+)
+def test_shape_factory_requires_one_positive_finite_edge(length, shape):
+    with pytest.raises(ArgumentError, match="length"):
+        msm.pbc.get_box_with_shape(shape=shape, length=puw.quantity(length, "nm"))
+
+
+def test_empty_cell_axes_keep_defined_box_and_volume_outputs():
+    empty = puw.quantity(np.empty((0, 3)), "nm")
+    angles = puw.quantity([90, 90, 90], "degrees")
+    assert msm.pbc.get_box_from_lengths_and_angles(empty, angles).shape == (0, 3, 3)
+    assert msm.pbc.get_volume_from_lengths_and_angles(empty, angles).shape == (0,)

@@ -20,7 +20,13 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
     Returns
     -------
     quantity
-        Volume in cubic nanometers.
+        Volume following the active PyUnitWizard length-cubed standard.
+
+    Raises
+    ------
+    ArgumentError
+        If lengths are nonpositive/nonfinite, angles cannot define an
+        independent cell, or float64 cannot resolve a finite positive volume.
 
 
     Notes
@@ -32,6 +38,10 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
 
     This avoids propagating the six-decimal matrix rounding performed by
     :func:`molsysmt.pbc.get_box_from_lengths_and_angles`.
+    Both routes require positive finite lengths and compatible angles: each
+    angle lies strictly between zero and pi, the strict triangle inequalities
+    hold, and their sum is below two pi. This route checks float64 volume
+    representability without imposing the matrix factory's nm rounding.
 
 
     See Also
@@ -70,6 +80,13 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
 
     angles = puw.get_value(box_angles, to_unit="radians")
     angles = np.asarray(angles, dtype=np.float64)
+    from molsysmt._private.smonitor import ArgumentError
+
+    from ._cell_domain import validate_angles, validate_lengths
+
+    caller = "molsysmt.pbc.get_volume_from_lengths_and_angles"
+    validate_lengths(lengths, caller=caller)
+    validate_angles(angles, caller=caller)
 
     cosines = np.cos(angles)
     radicand = (
@@ -77,6 +94,19 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
         + 2.0 * cosines[..., 0] * cosines[..., 1] * cosines[..., 2]
         - np.sum(cosines**2, axis=-1)
     )
-    volume = np.prod(lengths, axis=-1) * np.sqrt(radicand)
+    if np.any(radicand <= 0) or not np.isfinite(radicand).all():
+        raise ArgumentError(
+            "box_angles",
+            caller=caller,
+            message="box_angles do not resolve a positive Gram determinant at float64 precision.",
+        )
+    with np.errstate(over="ignore", invalid="ignore"):
+        volume = np.prod(lengths, axis=-1) * np.sqrt(radicand)
+    if np.any(volume <= 0) or not np.isfinite(volume).all():
+        raise ArgumentError(
+            "box_lengths",
+            caller=caller,
+            message="box_lengths do not resolve a finite positive volume at float64 precision.",
+        )
 
     return puw.standardize(puw.quantity(volume, length_unit**3))

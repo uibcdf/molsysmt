@@ -43,7 +43,7 @@ pub(crate) fn box_is_orthogonal(b: &Mat3) -> bool {
 /// The diagonal fast path is valid only when each lattice vector follows its
 /// corresponding Cartesian axis. A rotated orthogonal box is still orthogonal
 /// but needs the general lattice-vector calculation.
-fn box_is_axis_aligned(b: &Mat3) -> bool {
+pub(crate) fn box_is_axis_aligned(b: &Mat3) -> bool {
     (0..3).all(|row| {
         b[row][row].is_finite()
             && b[row][row] != 0.0

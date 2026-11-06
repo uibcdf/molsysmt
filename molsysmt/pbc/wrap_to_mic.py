@@ -74,6 +74,13 @@ def wrap_to_mic(
 
     Notes
     -----
+    General row-vector cells use the shared distance-family MIC primitive,
+    including rotated orthogonal cells. Explicit origins retain their physical
+    values without near-zero snapping, and cell nonsingularity is checked by
+    a dimensionless normalized determinant. Equal-distance image boundaries
+    can have multiple physically equivalent answers; floating-point unit
+    conversion can affect that choice without changing periodic geometry.
+
     With ``compact=False``, atoms are wrapped independently. With
     ``compact='component'``, bonded blocks are reconstructed with
     minimum-image bond displacements and translated as complete units.
@@ -168,9 +175,6 @@ def wrap_to_mic(
 
         mic_origin = puw.get_value(mic_origin, standardized=True)
         mic_origin = np.asarray(mic_origin, dtype=np.float64)
-
-        if np.all(np.isclose(mic_origin, 0, atol=1e-4)):
-            mic_origin = np.zeros((3), dtype=np.float64)
 
         # With no bonds every atom is a covalent component of its own, so compacting by
         # component is atom-wise wrapping. That is the degenerate answer rather than a

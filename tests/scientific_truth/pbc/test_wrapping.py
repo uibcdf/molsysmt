@@ -168,3 +168,66 @@ def test_periodic_transformations_reject_missing_and_singular_boxes():
         msm.pbc.unwrap(no_box)
     with pytest.raises(StructuralInconsistencyError):
         msm.pbc.wrap_to_pbc(_system(coordinates, singular_box))
+
+
+@pytest.mark.parametrize("unit", ["nm", "pm", "m"])
+@pytest.mark.parametrize("mic", [False, True])
+def test_rotated_row_cell_wrapping_matches_explicit_images(
+    unit, mic, float64_kernel_atol
+):
+    """Select literal primary/nearest images in a quarter-turned orthogonal cell."""
+
+    box = np.array([[[0.0, 3, 0], [-4, 0, 0], [0, 0, 5]]])
+    coordinates = np.array([[[5.1, 6.2, 7.3]]])
+    function = msm.pbc.wrap_to_mic if mic else msm.pbc.wrap_to_pbc
+    # Primary subtracts 2*b0 - 2*b1 + b2; nearest subtracts 2*b0 - b1 + b2.
+    expected = np.array([[[1.1 if mic else -2.9, 0.2, 2.3]]])
+    with msm.pyunitwizard.context(standard_units=[unit, "ps"]):
+        result = function(_system(coordinates, box), compact=False)
+    np.testing.assert_allclose(
+        _values(result), expected, rtol=0, atol=float64_kernel_atol
+    )
+
+
+@pytest.mark.parametrize("unit", ["nm", "m"])
+@pytest.mark.parametrize("triclinic_first", [False, True])
+def test_changing_cells_follow_the_previous_transition_basis(
+    unit, triclinic_first, float64_kernel_atol
+):
+    """Recover literal images when the transition-cell classification changes."""
+
+    orthogonal = np.diag([3.0, 4, 5])
+    triclinic = np.array([[3.0, 0, 0], [2, 4, 0], [0, 0, 5]])
+    cells = (
+        [triclinic, orthogonal, orthogonal]
+        if triclinic_first
+        else [orthogonal, triclinic, triclinic]
+    )
+    coordinates = np.array([[[0.0, 0, 0]], [[0.0, 0, 0]], [[1.9, 3.8, 0]]])
+    expected = coordinates.copy()
+    # The second transition subtracts b0+b1 for the diagonal cell, b1 for the tilted cell.
+    expected[2, 0] = [-1.1 if triclinic_first else -0.1, -0.2, 0]
+    with msm.pyunitwizard.context(standard_units=[unit, "ps"]):
+        result = msm.pbc.unwrap(_system(coordinates, np.array(cells)))
+    np.testing.assert_allclose(
+        _values(result), expected, rtol=0, atol=float64_kernel_atol
+    )
+
+
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm", "m"])
+def test_explicit_small_origin_keeps_the_requested_primary_cell(
+    unit, float64_kernel_atol
+):
+    """Place x=0 at x=3 nm when the primary cell starts at x=1e-5 nm."""
+
+    coordinates = np.zeros((1, 1, 3))
+    box = np.diag([3.0, 4, 5])[None]
+    with msm.pyunitwizard.context(standard_units=[unit, "ps"]):
+        result = msm.pbc.wrap_to_pbc(
+            _system(coordinates, box),
+            box_origin=msm.pyunitwizard.quantity([1e-5, 0, 0], "nm"),
+            compact=False,
+        )
+    np.testing.assert_allclose(
+        _values(result), np.array([[[3.0, 0, 0]]]), rtol=0, atol=float64_kernel_atol
+    )

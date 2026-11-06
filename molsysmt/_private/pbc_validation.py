@@ -8,7 +8,11 @@ from molsysmt._private.smonitor import StructuralInconsistencyError
 
 
 def validate_box_array(box, n_structures, *, caller):
-    """Validate finite, non-singular box matrices and broadcast a constant box."""
+    """Validate finite, nonsingular box matrices independent of length units.
+
+    Numerical singularity uses a dimensionless determinant after per-cell
+    maximum-entry normalization, compared with float64 machine epsilon.
+    """
 
     if box is None:
         raise StructuralInconsistencyError(
@@ -36,7 +40,10 @@ def validate_box_array(box, n_structures, *, caller):
             reason="Box vectors must contain only finite values.",
             caller=caller,
         )
-    if np.any(np.abs(np.linalg.det(box)) <= np.finfo(np.float64).eps):
+    scale = np.max(np.abs(box), axis=(1, 2))
+    if np.any(scale == 0) or np.any(
+        np.abs(np.linalg.det(box / scale[:, None, None])) <= np.finfo(np.float64).eps
+    ):
         raise StructuralInconsistencyError(
             reason="Periodic box matrices must be non-singular.",
             caller=caller,

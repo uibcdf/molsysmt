@@ -54,9 +54,18 @@ def unwrap(
     Notes
     -----
     This operation restores temporal continuity independently for every atom.
-    It does not reconstruct a molecule within one frame. Use
+    It does not reconstruct a molecule within one structure. Use
     :func:`molsysmt.pbc.wrap_to_pbc` or :func:`molsysmt.pbc.wrap_to_mic` with
     ``compact='component'`` for covalent reconstruction.
+
+    Traverse the supplied structure indices in their given order. Each
+    transition uses the box of the previous selected structure, with its
+    current lengths and orientation. Axis-aligned half-cell jumps use
+    ties-to-even rounding; general cells retain that original-basis seed
+    unless the shared MIC calculation finds a strictly shorter image.
+    This nearest-image assumption cannot recover a unique physical winding
+    when selected structures undersample motion across several cells.
+    General row-vector cells use the same MIC primitive as periodic distances.
 
 
     .. versionadded:: 1.0.0

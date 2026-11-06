@@ -4,21 +4,11 @@ from __future__ import annotations
 
 import numpy as np
 
-_NEIGHBOR_SHIFTS = np.array(
-    [
-        [i, j, k]
-        for i in (-1.0, 0.0, 1.0)
-        for j in (-1.0, 0.0, 1.0)
-        for k in (-1.0, 0.0, 1.0)
-    ]
-)
+from .rust_backend import wrap_to_mic_vector_single_structure
 
 
-def _minimum_image_vector(vector, box, inverse_box):
-    fractional = vector @ inverse_box
-    base = fractional - np.round(fractional)
-    candidates = (base[None, :] + _NEIGHBOR_SHIFTS) @ box
-    return candidates[np.argmin(np.einsum("ij,ij->i", candidates, candidates))]
+def _minimum_image_vector(vector, box):
+    return wrap_to_mic_vector_single_structure(vector, box)
 
 
 def _connected_blocks(n_atoms, bonded_pairs):
@@ -75,7 +65,7 @@ def reconstruct_and_wrap_covalent_blocks(
                         continue
                     displacement = frame[child] - frame[parent]
                     frame[child] = frame[parent] + _minimum_image_vector(
-                        displacement, frame_box, inverse_box
+                        displacement, frame_box
                     )
                     visited.add(child)
                     stack.append(child)
@@ -88,9 +78,7 @@ def reconstruct_and_wrap_covalent_blocks(
                 fractional = relative_center @ inverse_box
                 wrapped_center = (fractional - np.floor(fractional + 0.5)) @ frame_box
             elif mode == "mic":
-                wrapped_center = _minimum_image_vector(
-                    relative_center, frame_box, inverse_box
-                )
+                wrapped_center = _minimum_image_vector(relative_center, frame_box)
             else:
                 raise ValueError(f"Unknown covalent wrapping mode: {mode}")
             frame[block] += origin + wrapped_center - center
