@@ -97,6 +97,15 @@ packaged resource hash and available source provenance. Reference elements are
 declared in curated templates or identified as standard atom-name mappings in the
 legacy database.
 
+The local cap catalogue also supports **ACE, NME, NHE and NH2** under an
+explicit stored `amber` or `legacy` declaration. Unknown, `ccd` and `sequence`
+contexts remain unassessed for these cap references. Compatible layouts must
+agree on one heavy inventory; incomplete NME names cannot select C versus CH3.
+The reference identity includes the actual resource digest and cap family.
+Its dataset is credited through optional Ackredit; its original external source
+and reference bond orders remain unassessed. This comparison does not locate
+biological termini or certify inter-group cap attachment.
+
 Duplicate or absent atom names prevent a unique correspondence. Missing terminal
 `OXT` is outside this comparison when it is not observed; peptide breaks and group
 order do not establish biological termini.

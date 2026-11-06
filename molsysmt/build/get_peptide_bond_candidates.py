@@ -89,6 +89,13 @@ def get_peptide_bond_candidates(
     An outgoing C in a group with OXT is excluded. Alternate-site evidence at
     either endpoint blocks this first policy rather than mixing conformers.
 
+    Declared 'amber' or 'legacy' ACE/NME/NHE/NH2 groups can supply cap endpoints
+    after the same exact heavy-template audit. The cap catalogue's N-terminal
+    family supplies C and its C-terminal family supplies N. NME's methyl C cannot
+    become an outgoing peptide carbon. The same chain, distance, competition,
+    alternate-site, stored-edge and output-selection constraints still apply.
+    Bare cap labels or unsupported naming contexts remain unassessed.
+
     The optional ``unique_backbone_distance`` policy reuses the sparse Rust
     neighbor search in ``structure.get_neighbors``. It does not sort group IDs
     or change source axes. Competition includes unselected and chemically
@@ -105,8 +112,9 @@ def get_peptide_bond_candidates(
     Numeric/all H5MSM 0.5 queries read only one coordinate structure and its
     sparse alternate-site evidence. Rich selections may require broader access.
 
-    Terminal caps, nonpeptide polymer links, sequence completion, hydrogen
-    placement, bond orders, valence and protonation are unassessed. Existing
+    Terminal-state assignment, unsupported caps, nonpeptide polymer links,
+    sequence completion, hydrogen placement, bond orders, valence and protonation
+    are unassessed. Existing
     edges, coordinates and named interactions are unchanged. A candidate is
     inferred evidence, never a declaration of complete or validated chemistry.
 
@@ -248,6 +256,13 @@ def get_peptide_bond_candidates(
             reasons.append("different_source_chains")
         if any(group["status"] == "unassessed" for group in (left, right)):
             reasons.append("group_template_unassessed")
+        for group, role in ((left, "C"), (right, "N")):
+            if (
+                group["template"] is not None
+                and group["template"].get("family") == "terminal_capping"
+                and role not in group["template"]["backbone_roles"]
+            ):
+                reasons.append("unsupported_terminal_cap_direction")
         endpoints = []
         for group, role in ((left, "C"), (right, "N")):
             matches = [
@@ -380,7 +395,7 @@ def get_peptide_bond_candidates(
     report = {
         "schema": "molsysmt.peptide_bond_candidates@1",
         "method": method,
-        "rule_version": 1,
+        "rule_version": 2,
         "software": deepcopy(group_coverage["software"]),
         "source_forms": deepcopy(source_forms),
         "n_atoms": group_coverage["n_atoms"],
@@ -422,7 +437,8 @@ def get_peptide_bond_candidates(
         },
         "pbc_applied": pbc_applied,
         "unassessed_checks": [
-            "terminal_caps",
+            "terminal_state_assignment",
+            "unsupported_terminal_groups",
             "nonpeptide_polymer_links",
             "sequence_completion",
             "hydrogen_edges",

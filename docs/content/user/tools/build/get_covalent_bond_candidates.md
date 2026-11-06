@@ -72,6 +72,16 @@ with its sequence parent. Template identity retains the packaged resource hash
 and available reference provenance. The legacy database's original-source
 provenance can remain unassessed.
 
+The same auditor supports **ACE, NME, NHE and NH2** from the existing cap
+catalogue when you explicitly declare their source naming scheme as `amber` or
+`legacy`. A bare cap label, `ccd` or `sequence` does not authorize that lookup.
+Every compatible layout must agree on one heavy-name inventory: an incomplete
+NME containing only N cannot choose between methyl names C and CH3. Heavy and
+observed-H methods keep their separate outputs and existing conflict checks.
+Cap identity retains its family, allowed backbone roles and actual reference
+hash; the historical catalogue's original external provenance remains unassessed.
+This does not assign a biological terminus or add a cap.
+
 Water, ions, lipids and arbitrary small molecules remain unassessed in this first
 method. The default does not infer hydrogen edges. No candidate mode infers links between groups, disulfides or
 metal coordination. Bond orders, protonation and valence remain unassessed.

@@ -72,7 +72,15 @@ def get_residue_chemical_coverage(
     state. CCD/legacy meanings cannot reuse an Amber reference with the same label.
 
     Exact amino-acid database names and curated MSE, SEP, TPO and MLY templates
-    are supported. Sequence aliases do not justify parent-template substitution.
+    are supported. ACE, NME, NHE and NH2 also use the bundled terminal-cap
+    catalogue when their stored naming scheme is explicitly 'amber' or 'legacy'.
+    A bare label, 'ccd' or 'sequence' does not authorize this interpretation.
+    All compatible cap layouts must agree on one heavy inventory; incomplete
+    NME names cannot choose between C and CH3. Exact cap H names are compared
+    separately, without assigning a terminal state or validating inter-group links.
+    Cap references have no bond orders or independently established original
+    source provenance; their actual packaged hashes and dataset credit are retained.
+    Sequence aliases do not justify parent-template substitution.
     Unexpected names and duplicate names are reported without automatic matching.
     Missing OXT is not assessed without terminal context. Modified templates are
     heavy-only; ambiguous standard hydrogen variants remain unassessed. No pH,

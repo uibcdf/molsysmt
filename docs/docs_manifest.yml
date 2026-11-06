@@ -72,7 +72,7 @@ sections:
           - name: chemical_states
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md.AGENTS.md
-            description: Ordered native chemistry, typed reader declarations, nullable queries, staged assignments, metadata correspondence, state-local bounds, completeness and live-table boundaries.
+            description: Ordered native chemistry, typed reader declarations, naming-scoped cap references, nullable queries, staged assignments, metadata correspondence, state-local bounds and completeness.
           - name: chemical_states_dict
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md.AGENTS.md
@@ -254,21 +254,22 @@ sections:
           - name: get_residue_chemical_coverage
             file: docs/content/user/tools/build/get_residue_chemical_coverage.md
             agents_file: docs/content/user/tools/build/get_residue_chemical_coverage.md.AGENTS.md
+            description: Exact state-scoped group and declared cap references, heavy connectivity, separate H inventories and unassessed chemical dimensions.
             status: reviewed
           - name: get_covalent_bond_candidates
             file: docs/content/user/tools/build/get_covalent_bond_candidates.md
             agents_file: docs/content/user/tools/build/get_covalent_bond_candidates.md.AGENTS.md
-            description: Exact heavy-group and observed-H parent candidates, opt-in pinned H-name alternatives, source selections and unresolved chemistry.
+            description: Exact heavy-group and declared cap references, observed-H parent candidates, opt-in pinned H-name alternatives, source selections and unresolved chemistry.
             status: reviewed
           - name: get_peptide_bond_candidates
             file: docs/content/user/tools/build/get_peptide_bond_candidates.md
             agents_file: docs/content/user/tools/build/get_peptide_bond_candidates.md.AGENTS.md
-            description: Adjacent or geometrically unique peptide C-N candidates with full-source competition, explicit geometry and conservative exclusions.
+            description: Adjacent or geometrically unique peptide and declared cap C-N candidates with explicit endpoint roles, full-source competition and conservative exclusions.
             status: reviewed
           - name: infer_covalent_bonds
             file: docs/content/user/tools/build/infer_covalent_bonds.md
             agents_file: docs/content/user/tools/build/infer_covalent_bonds.md.AGENTS.md
-            description: Applying bounded native candidates with optional H-name alternatives, historical evidence, explicit reader engines and unresolved chemistry.
+            description: Applying bounded native group/cap candidates with optional H-name alternatives, historical evidence, explicit reader engines and unresolved chemistry.
             status: reviewed
       - name: topology
         path: docs/content/user/tools/topology
@@ -733,7 +734,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit PDB connectivity and typed declaration diagnostics, template transfer, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells with declared polymer context.
+        description: Explicit PDB connectivity and typed declarations, naming-scoped cap inference, template transfer, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells.
         status: reviewed
       - name: permuting_export_order
         file: docs/content/user/cookbook/permuting_export_order.md

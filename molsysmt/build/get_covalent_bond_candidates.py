@@ -73,6 +73,10 @@ def get_covalent_bond_candidates(
     -----
     The method ``exact_heavy_group_templates`` reuses the residue-coverage
     auditor and its exact amino-acid and curated modified-group templates.
+    ACE, NME, NHE and NH2 use the existing cap catalogue only with an explicitly
+    stored 'amber' or 'legacy' naming scheme and an agreed heavy-name layout.
+    Their template identity retains the family, allowed C/N backbone roles and
+    actual resource hash. A cap label does not select its own naming scheme.
     It never substitutes a sequence parent. Only unambiguous mapped heavy-atom
     edges are proposed. Missing heavy atoms can leave a partial candidate set;
     duplicate/unexpected names, unknown/conflicting heavy elements, unresolved
@@ -147,6 +151,12 @@ def get_covalent_bond_candidates(
     ...     method='observed_hydrogen_alias_consensus')
     >>> report['groups'][0]['hydrogen_coverage']['parent_atom_indices'][0].item()
     6
+
+    >>> molsys.topology.set_group_naming_schemes('legacy', group_indices=[0, 2])
+    >>> caps = msm.build.get_covalent_bond_candidates(
+    ...     molsys, selection='group_index in [0, 2]', structure_indices=0)
+    >>> [group['template']['family'] for group in caps['groups']]
+    ['terminal_capping', 'terminal_capping']
 
     .. admonition:: User guide
 
@@ -320,7 +330,7 @@ def get_covalent_bond_candidates(
     result = {
         "schema": "molsysmt.covalent_bond_candidates@1",
         "method": method,
-        "rule_version": 1,
+        "rule_version": 2,
         "software": deepcopy(readiness["software"]),
         "source_forms": deepcopy(source_forms),
         "n_atoms": readiness["n_atoms"],

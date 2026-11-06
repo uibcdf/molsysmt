@@ -80,7 +80,10 @@ def candidates(group, selected, group_reasons, context):
             if template["modified"]:
                 reasons.append("heavy_only_template")
             else:
-                if context["use_aliases"]:
+                if (
+                    context["use_aliases"]
+                    and group["template"].get("family") != "terminal_capping"
+                ):
                     from molsysmt._private.hydrogen_name_aliases import credit, resolve
 
                     examined_names, reference = resolve(group["group_name"], name)

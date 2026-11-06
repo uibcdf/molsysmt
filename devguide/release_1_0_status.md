@@ -63,8 +63,17 @@ H-parent pairs on original 1IEP (4,470 total), preserving the exact native graph
 source names and coordinates without importing OpenMM. Receiving passes 276
 affected cases, 18 published four-provider-floor cases and 1,072 documentation
 cases (overlapping selections). Alias-assisted H-role/protonation certification
-is not claimed. Terminal/group/disulfide/geometry policies and integration still
-remain before #304 closure.
+is not claimed. The next received extension reuses the existing ACE/NME/NHE/NH2
+catalogue under explicit amber/legacy naming declarations, with agreed heavy
+layouts, exact observed-H parent checks and permitted cap C/N amide roles.
+Forty-one new controls, a 321-case affected selection, 45 published four-provider
+floor cases and 1,091 documentation cases pass (overlapping selections).
+Both original PDB graphs, atom axes and coordinates are retained exactly.
+Reports record rule_version=2 for the cap extension, with no dictionary/H5MSM
+schema or public signature/default change. The qualified cap route currently
+declares naming after explicit-only reading and before standalone inference.
+Early PDB naming-context delivery, additional-group/disulfide/geometry policies
+and final acceptance/integration still remain before #304 closure.
 New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
 for rescoring. Separately reported **#600** records missing mmCIF model-label
 delivery; selected geometry remains available, and the connectivity correction
@@ -95,8 +104,10 @@ input. No green full matrix or main integration is claimed. Ordered work uses
 a separate branch/worktree and the existing development environment. PR #543
 has meanwhile advanced to 1e7a4273b905ca020815658f23ba645d40817226; that later
 Geometry-panel expansion is outside this frozen receiving candidate.
-The ordered branch is prepared for an intermediate source/backup handoff with
-local tests, source hashes and explicit partial #304 scope. Its checkpoint uses
+The ordered branch published a16d289ec84e6944ea9c38cbf7ca57d0a236b590 as an
+intermediate source/backup handoff with local tests, source hashes and explicit
+partial #304 scope. The subsequent cap extension has separate local receiving
+evidence. The published checkpoint uses
 the authorized deferred-CI marker to avoid another incomplete full matrix while
 the issue's remaining methods are implemented. This does not clear the skipped
 commit backlog, replace the frozen run's failures or qualify a release; finish

@@ -19,8 +19,10 @@ supersedes: []
 heavy-template, observed-H parent consensus and two bounded peptide candidate
 policies are contract-tested. A bounded native application tool, explicit reader
 engine selection, failure diagnostics and persisted per-edge inference provenance
-are implemented and contract-tested. Complete chemical coverage and independent
-scientific/performance qualification remain pending.
+are implemented and contract-tested. Explicitly naming-scoped cap references
+and their bounded amide endpoints are also contract-tested. The remaining
+group/disulfide/geometric policies and final acceptance/integration audit are
+pending; none of these tools certifies complete chemistry.
 
 **Scheduling — 2026-10-05:** the bounded engine/application contract is included
 experimentally in the [frozen 1.0 scope](../release_1_0_scope.md). Remaining H-name,
@@ -28,6 +30,12 @@ terminal/group/disulfide/declaration and performance extensions stay owned by
 #304 in the post-1.0 backlog. Correctness defects in the offered profile remain
 admissible stabilization work; this scheduling decision does not close the issue
 or certify complete native receptor preparation.
+
+**Current scheduling — 2026-11-06:** the maintainer's
+[ordered resolution objective](../release_1_0_status.md#maintainer-ordered-resolution-goal--2026-11-06)
+explicitly resumes the remaining #304 work before closeout. The earlier
+post-1.0 allocation is not a reason to stop that authorized work. This retains
+the bounded connectivity scope and separate release authorization.
 
 ## What
 
@@ -1294,3 +1302,110 @@ source probe. No dependency floor, compiled backend or H5MSM schema changes.
 disulfide composition, the bounded unknown-group geometry policy and the final
 acceptance/integration audit before closing. This H-parent extension does not
 resolve those remaining chemical questions or authorize a release.
+
+## Declared local terminal-cap references — 2026-11-06
+
+### What and shared ownership
+
+The existing public coverage/candidate/application tools now reuse the owning
+`element.group.terminal_capping.get_group_db()` catalogue for **ACE, NME, NHE and
+NH2**. No new parser-specific chemistry table, public function, dependency or
+compiled routine is introduced. The private adapter supplies reference layouts
+to the existing heavy-inventory, stored-connectivity and per-H consensus audits.
+The public peptide tool consumes the same audited identity rather than inferring
+cap roles from an atom's element or a new hard-coded list.
+
+Only an explicit stored **amber or legacy** group naming declaration admits
+this local cap interpretation. Bare labels, CCD and sequence declarations do
+not authorize the historical cap catalogue. Every compatible layout must agree
+on one heavy-name inventory. In particular, NME containing N but no observed
+methyl name cannot choose the C versus CH3 layout by taking the first variant.
+An ACE with one missing heavy atom can retain supported partial pairs while
+reporting blocked endpoint names. Duplicate/unexpected names, incompatible or
+unknown heavy elements and contradictory stored chemistry retain their existing
+exclusions. No label, coordinate or stored assignment is repaired implicitly.
+
+The N-terminal catalogue supplies C and the C-terminal catalogue supplies N for
+amide candidates; the identity retains those `backbone_roles`. NME's methyl C
+cannot become an outgoing peptide carbon. Both public peptide policies retain
+their existing chain/TER, geometry, alternate-site, stored-edge and selection
+criteria. The unique policy still checks full-source named competitors before
+output filtering, including endpoints that are unselected or not chemically
+qualified. Neither policy assigns biological termini or a complete terminal
+chemical state. Without coordinates, only eligible intra-group reference pairs
+can be proposed or applied.
+
+Observed cap H atoms use the same exact-name, all-matching-parent and stored-H
+assignment checks as other supported groups. They do not consult or credit the
+protein H-alias dataset. A partial or mixed H inventory is not complete
+protonation, H-role or valence certification. No caps or H atoms are added.
+
+The operation retains actual hashes of the existing n_terminal/c_terminal JSON
+resources and original variant indices. Optional Ackredit credits the inspected
+historical catalogue as **data**, not OpenMM execution or an independently
+validated published parameterization. The catalogue's external original sources
+and bond orders remain explicitly unassessed. The coverage, covalent-candidate,
+peptide-candidate and application reports now record **rule_version=2** for this
+new scope; dictionary schema identifiers remain at version 1, and historical
+reports are not rewritten. H5MSM 0.5 needs no schema change for these typed values.
+
+### Executed evidence
+
+The final **321-case selection passes in 20.01 s** with twelve workers and
+Pytest Receptor. It includes **41 new cap controls**, the affected heavy/H,
+coverage, peptide and inference suites, PDB policies, reference-data guards,
+native history, generated argument contracts and four public doctest modules.
+The new controls use literal independent atom pairs and analytic C-N geometry,
+both methyl layouts, NHE/NH2 attachment, explicit naming exclusions, duplicate/
+element/stored-field conflicts, an unselected competing group, original-axis
+selections, TER and alternate PDB sites with OpenMM imports blocked, absent
+structures, independent states/all-structure retention, non-default pm output,
+unchanged stable topology and coordinates, H5MSM typed history and repeated real
+Ackredit captures. Test selections overlap and are not a full source matrix.
+
+The final directed four-provider-floor profile passes **45 cases in 9.06 s**
+with published ArgDigest 0.14.0, DepDigest 0.15.1, SMonitor 0.16.0 and Ackredit
+0.9.0 payloads. Each actual import origin/hash is checked. Other dependencies
+come from the existing development environment; this does not qualify a clean
+installed runtime. SMonitor runtime remains active while its incompatible
+development pytest plugin is disabled in that floor profile.
+
+Documentation/source-boundary/schema/docstring tests pass **1,091 cases in
+57.34 s**, with existing warnings retained. Foundations, four Toolbox pages,
+Cookbook, the course and docstrings describe the same limits. A final Markdown
+paragraph separation changes no course executable cell, output, ID, metadata or
+cell inventory. Ruff, import-laziness/dependency checks, 247 public docstrings,
+API registry and signature stability against a16d289ec also pass.
+The final notebook/source-boundary selection passes another **1,004 overlapping
+cases in 12.94 s** after that final paragraph correction. Developer-guide and
+generated-index checks pass without changing report lifecycle status.
+
+The initial 23-control development run had 22 failures; three negative controls
+expected the coverage auditor's reason rather than the public candidate reason
+and were corrected. Those three are test defects, not library regressions.
+The expanded run had one further fixture error: a purported competitor was in
+the target's own group and was correctly excluded by the existing method.
+Moving that competitor to a different source group fixes the intended control;
+the production competition rule is unchanged. The receipt retains these
+development failures rather than presenting them as passing runs.
+
+The [receiving receipt](../../devtools/data/terminal_cap_receiving_304_20261106.json)
+records implementation/data hashes, the JUnit results, provider origins and
+unchanged-original probes. Original 181L/1IEP source bytes are retained; their
+disabled/native graph, stable-axis and coordinate digests match the earlier
+benchmark exactly. This is a regression observation, not a new speed/memory claim.
+
+### Remaining before #304 closure
+
+The current qualified PDB path is explicit-only reading, reviewed naming
+declaration on the native topology, then standalone inference. Delivering a
+conversion naming request before native PDB inference is still part of the
+remaining reader/context audit; a late declaration must not be mistaken for an
+already context-aware calculation. No source convention is inferred from cap
+labels and existing reader-engine defaults remain unchanged.
+
+Additional supported-group and disulfide policies, bounded unknown-group
+geometry and their adversarial acceptance controls remain to be settled and
+qualified. Complete terminal/protonation-state assignment is not offered by this
+cap reference lookup. Final source qualification and owner integration remain
+pending; #304 stays partial and no release is authorized.

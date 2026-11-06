@@ -72,8 +72,20 @@ remains unassessed. This choice is explicit in this policy and does not establis
 protonation, terminal chemistry, missing H atoms or H placement. Unknown H names,
 modified heavy-only H references, conflicting chemistry and unsupported groups
 remain recorded; no alias or general distance fallback silently repairs them.
-Disulfides, metals, terminal caps and arbitrary small-molecule connectivity
-require separate policies. Review those limitations before downstream preparation.
+The local ACE/NME/NHE/NH2 references are available when those groups explicitly
+declare `amber` or `legacy` naming. The shared heavy/H tools retain exact cap
+layouts and the peptide tool admits only their permitted C/N backbone roles.
+All ordinary conflict, geometry, chain and selection checks still apply. Unknown
+cap conventions remain exclusions. This does not add a cap or infer a biological
+terminus or complete terminal state. Read a PDB with `get_missing_bonds=False`,
+declare its reviewed native naming context, then use this tool when cap support
+is required; PDB reader defaults do not assume a cap naming convention.
+Disulfides, metals and arbitrary small-molecule connectivity require separate
+policies. Review those limitations before downstream preparation.
+
+The group, H, peptide and application reports record `rule_version=2` for this
+naming-scoped cap extension. Existing historical reports retain their original
+rule version; the serializable dictionary schemas remain at version 1.
 
 ## Preserving historical provenance
 

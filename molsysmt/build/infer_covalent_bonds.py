@@ -73,6 +73,14 @@ def infer_covalent_bonds(
     Disulfides and metal coordination are separate policies. Peptide geometry
     uses pbc=False and the existing 0.153 nm effective ceiling.
 
+    Stored 'amber' or 'legacy' naming declarations also enable the exact local
+    ACE/NME/NHE/NH2 cap references and their permitted C/N amide endpoints.
+    Unknown cap conventions remain explicit exclusions. This neither adds caps
+    nor infers biological termini or a complete terminal/protonation state.
+    Read a PDB with get_missing_bonds=False, declare the reviewed source naming
+    scheme on the native topology, then call this tool when cap context is needed;
+    the PDB reader does not assume or obtain that convention from these labels.
+
     The optional alias composition changes only H-parent reference lookup, not
     source names, coordinates, heavy templates or peptide criteria. Its history
     retains the exact local name dataset and detached bibliography. This is an

@@ -120,8 +120,17 @@ endpoint also leaves that link unassessed: this first policy does not select or
 combine alternate conformers. Alternate side-chain atoms do not block a unique
 backbone pair.
 
-Without coordinates, eligible links remain unassessed. Terminal caps, other
-polymers, sequence completion, hydrogen edges, bond-order assignments, valence
+The existing cap catalogue can also supply ACE C and NME/NHE/NH2 N endpoints
+when the groups explicitly declare `amber` or `legacy` naming and pass the same
+heavy-template audit. The protected end differs from the connecting atom: an
+N-terminal cap supplies C; a C-terminal cap supplies N. NME's methyl C cannot
+become an outgoing peptide carbon. Both policies retain their chain, geometry,
+alternate-site, stored-edge and selection checks for cap links. The unique
+policy still considers unselected or unassessed competitors across the source.
+Bare labels or incompatible naming declarations remain unassessed.
+
+Without coordinates, eligible links remain unassessed. Terminal-state assignment,
+unsupported caps, other polymers, sequence completion, hydrogen edges, bond-order assignments, valence
 and protonation are outside this method. The source, declared file edges and
 named interaction analyses are unchanged; this does not change the PDB reader.
 

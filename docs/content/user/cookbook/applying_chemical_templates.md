@@ -161,6 +161,28 @@ includes unsupported groups; the default proposes no hydrogen or inter-group edg
 It leaves the source unchanged and does not invoke OpenMM for a PDB input.
 See {ref}`Tutorial_Covalent_Bond_Candidates`.
 
+The inspectable auditor and native inference tool also reuse the local
+ACE/NME/NHE/NH2 references with explicit `amber` or `legacy` declarations:
+
+```python
+molsys = msm.convert(pdb_file, to_form='molsysmt.MolSys', get_missing_bonds=False)
+# Declare only the cap groups whose source convention you have reviewed.
+molsys.topology.set_group_naming_schemes('amber', group_indices=cap_group_indices)
+report = msm.build.get_covalent_bond_candidates(molsys, structure_indices=0)
+result = msm.build.infer_covalent_bonds(molsys, structure_indices=0, return_report=True)
+```
+
+Here `cap_group_indices` are source group positions, not group IDs. Declaring a
+convention changes no atom names or chemistry. Bare cap labels and unsupported
+conventions remain unassessed. Heavy layouts must agree; ambiguous missing NME
+methyl names cannot select a first variant. The same H-parent and peptide guards
+then operate on the cap reference. Cap identity records allowed backbone roles,
+content hashes and the historical dataset; its original external provenance,
+bond orders and complete terminal state remain unassessed. No caps or H atoms
+are added, and inferred amide links still require compatible chain/geometry
+evidence. This two-step route supplies native naming context explicitly rather
+than assuming that a PDB label declares a convention.
+
 For H atoms already present, call the same tool with
 `method='observed_hydrogen_template_consensus'`. Its separate H-parent report
 requires exact-name agreement among every matching heavy-compatible reference

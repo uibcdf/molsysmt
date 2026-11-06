@@ -44,6 +44,15 @@ its resource, bibliography and original source indices belong to the operation's
 history. Parent agreement does not assign stereochemical H roles, protonation
 or a complete terminal state. See {ref}`Tutorial_Covalent_Bond_Candidates`.
 
+Local terminal-cap references also require explicit source context. Stored
+`amber` or `legacy` declarations let the shared auditor compare ACE/NME/NHE/NH2
+inventories and cap roles before bounded connectivity inference. Bare labels do
+not establish that interpretation. Reference identity and inferred edges belong
+to the operation history and selected chemical state; stable group naming
+declarations remain in Topology. This does not assign a biological terminus,
+add a cap or certify a terminal/protonation state. See
+{ref}`Tutorial_Residue_Chemical_Coverage`.
+
 ## State Availability
 
 A new collection contains zero states. `append_state()` explicitly creates an
