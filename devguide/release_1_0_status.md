@@ -20,6 +20,44 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Nonbonded partition shape and source ownership — 2026-11-05
+
+**#561 is source-corrected.** Flat/flat atom sets yield a scalar; partitioned
+inputs yield ordered rows from selection and columns from selection_2, including
+singleton axes. Typed empty entries, repeated partitions and overlaps within
+one axis are supported. Across-axis overlap and ambiguous partitioned internal
+requests receive explicit native diagnostics. The optimized evaluator is
+retained; its inverse map records every membership.
+
+A temporary engine System uses the existing public copy route and preserves
+source parameters, force groups and coordinates. Current context box vectors
+are retained. Standard nonbonded forces are isolated from other force groups;
+missing/multiple standard forces are rejected. The SMonitor catalog now shows
+conflict reasons and the unsupported method, using existing codes/classes.
+Public signatures/defaults, unit policy and dependency floors remain unchanged.
+
+Receiving: **1,818 affected tests**, **326 published-support-floor cases**,
+**569 documentation/doctest controls**, the final function doctest and the
+executed eight-cell tutorial. The 36-case function module includes scalar-cell
+parity, nesting/order, repeats, empty/invalid sets, unit policy, source ownership
+and a bounded current-cell cutoff control. This does not qualify arbitrary
+periodic/custom models or turn interaction energy into binding free energy.
+
+See the [owning record](archive/resolved_bugs/nonbonded_mixed_partitions_overwrite_first_selection.md)
+and [receipt](../devtools/data/nonbonded_partitions_receiving_561_20261105.json).
+Foundations, Toolbox, Cookbook and both relevant course modules are aligned;
+three prose-only notebooks retain original executable evidence. The tutorial's
+protein matrix is bounded to selected groups, with full lists an explicit
+larger request. An order-sensitive test previously confused lazy unit-library
+loading with policy mutation; it now checks policy and actual units separately.
+
+Next: **#562**, then incoming **#583/#584** and PR #543 expansion receiving.
+The board refresh also receives **#587**, a board-reconciliation pagination
+defect; offline devguide checks here do not claim complete board agreement.
+Publish an unskipped source checkpoint and inspect its own controls; hosted
+runner execution, installed/platform artifacts and release qualification remain
+separate under #334. No tag, Release, promotion or release matrix is launched.
+
 ## Engine-owned execution platform selection — 2026-11-05
 
 **#559 is source-corrected.** General mechanics validation accepts a nonempty

@@ -1,0 +1,192 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#561",
+  "base_commit": "50854766d86817bba352c8c843931237595cf134",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "versions_observed_at_closeout": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.0+20.ga5fe517",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "version_note": "Editable distribution metadata is an observation, not the current source Git identity or exact installed release qualification. Sibling working states may advance independently. Published floor payloads were checked separately by import origin and hash.",
+  "files": {
+    "devguide/archive/resolved_bugs/nonbonded_mixed_partitions_overwrite_first_selection.md": "336281b2277b1a4ade8ed79edd17a74e66c0b6bcaf48b984842ab33b4d4d05de",
+    "devguide/release_1_0_status.md": "ca82f5a3487dcbe96376547247fc669370715421c3a76a11f8e91055e59b6494",
+    "docs/content/course/Path_Alzheimer/42_Molecular_Mechanics.ipynb": "3aef1479733974d81de7ec067df517fa393426b48455a718aa5da6eb9b7fd9e9",
+    "docs/content/course/Path_Enzyme/42_Molecular_Mechanics.ipynb": "f1c31383c00e0ef387115189a99639bb19342854d766d8cb68fb706193739413",
+    "docs/content/user/cookbook/simulation_workflow.ipynb": "05c117554ad9b5bbff6945399c7211f554ea2e94f2106b1c5924398561211c1e",
+    "docs/content/user/foundations/support/molecular_mechanics.md": "77832114339671b5530bac49c425080ce05d9b54f8f2a0ece5c478a52f438e8a",
+    "docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb": "dff8efc90dffc4cce563dbddc5082af566d3a35438defa5f341a8079ae4e23c0",
+    "docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.nbconvert.last_run": "c469ba0216296e59eda8f18af42c8d49584eea94ddcbb9e0fcedc2e764374ba6",
+    "docs/docs_manifest.yml": "ef06d666f7e91c704f7d746d58752e5d6fc53cfb17db5ce5f27411cd03e967ce",
+    "molsysmt/_private/smonitor/catalog.py": "d1d7dad50c81637628637babbbc9c25daaeb818f5a21a70056cfdbc2ab6851a9",
+    "molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py": "f032c573d0eefa28d6f4b58f7168ce10436aac22c53c53ba0a871c3826938005",
+    "tests/molecular_mechanics/get_non_bonded_potential_energy/test_get_non_bonded_potential_energy.py": "2de1c5c8a31999e1d5bbf85066757768c924c8b227c96bff7e6198fa552bbfa1",
+    "tests/molecular_mechanics/test_platform_contract.py": "1fa0acc326351c382db20ce2fa9a90b006df98749eaffeedadc6f239488d50f7"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/molecular_mechanics tests/form/openmm_Context tests/form/openmm_Simulation tests/form/openmm_Topology tests/third_party/openmm/platforms tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/argdigest/test_mechanics_digesters.py tests/_private/smonitor tests/_private/test_smonitor_catalog_integrity.py tests/test_dependencies_architecture.py -m 'not network' --receptor=llm -n 4",
+      "exit_code": 0,
+      "passed": 1818,
+      "seconds": 130.15
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD:<argdigest-0.14.0>:<depdigest-0.15.1>:<smonitor-0.16.0>:<ackredit-0.9.0> MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest -p no:smonitor tests/molecular_mechanics/get_non_bonded_potential_energy tests/molecular_mechanics/test_platform_contract.py tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/smonitor/test_exceptions.py tests/_private/test_smonitor_catalog_integrity.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 326,
+      "seconds": 20.39,
+      "note": "Runtime SMonitor is active; -p no:smonitor excludes only the editable pytest entry point tracked under #524."
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 569,
+      "seconds": 21.31
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest --doctest-modules molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 1,
+      "seconds": 3.92,
+      "note": "Final-source focused doctest after current-cell construction repair."
+    },
+    {
+      "command": "MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python docs/execute_notebooks.py -q -n 1 -f docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb",
+      "exit_code": 0,
+      "executed_notebooks": 1,
+      "code_cells": 8,
+      "seconds": 14.2
+    }
+  ],
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "baseline": {
+    "red_guard_failed": 1,
+    "exit_code": 1,
+    "seconds": 4.16,
+    "failure": "TypeError in nested/flat inverse-map construction on the ordinary public Reference route."
+  },
+  "corrected_test_assumptions": [
+    "Only entries involving an empty set are zero; nonempty entries remain compared to independent scalar calls.",
+    "Lazy unit backend registration is not policy mutation. Exclude only loaded_libraries inventory while checking remaining settings and actual kcal/mol results.",
+    "Initial broad run had 1 failed/1816 passed due to that preceding platform test assumption; final full affected run passes after repair."
+  ],
+  "contract": {
+    "flat_flat": "scalar quantity",
+    "partitioned": "(len(selection partitions), len(selection_2 partitions)) with singleton axes for flat sets",
+    "repeated_indices": "deduplicated within an atom set without input mutation",
+    "repeated_or_overlapping_partitions_within_an_axis": "retained as distinct matrix rows/columns",
+    "overlap_between_axes": "ArgumentConflictError",
+    "empty_sets": "exact typed zeros, [] means one flat empty set",
+    "internal_energy": "selection_2=None requires one flat selection",
+    "standard_force_counts": "exactly one NonbondedForce, identified by engine class; others rejected explicitly",
+    "temporary_model": "public System copy; distinct force groups for target and other forces; current source cell retained before context construction"
+  },
+  "numerical_controls": {
+    "function_module_cases": 36,
+    "fixture": "Bundled alanine dipeptide, structure index 0; existing Barnase-Barstar controls retained.",
+    "Reference_absolute_tolerance_kj_per_mol": 1e-08,
+    "Reference_relative_tolerance": 1e-10,
+    "CPU_group_string_absolute_tolerance_kj_per_mol": 1e-05,
+    "CPU_group_string_relative_tolerance": 1e-06,
+    "noncanonical_policy": [
+      "angstrom",
+      "ps",
+      "kcal/mol",
+      "e",
+      "K",
+      "radians"
+    ],
+    "periodic_control": {
+      "particles": 2,
+      "method": "CutoffPeriodic",
+      "stored_box_nm": 2.0,
+      "current_box_nm": 3.0,
+      "cutoff_nm": 1.0,
+      "separation_nm": 1.3,
+      "expected_energy_kj_per_mol": 0.0,
+      "absolute_tolerance_kj_per_mol": 1e-12,
+      "meaning": "Current-cell retention only; stored defaults would wrap the distance to 0.7 nm."
+    }
+  },
+  "notebook_preservation": {
+    "prose_only": [
+      "docs/content/course/Path_Alzheimer/42_Molecular_Mechanics.ipynb",
+      "docs/content/course/Path_Enzyme/42_Molecular_Mechanics.ipynb",
+      "docs/content/user/cookbook/simulation_workflow.ipynb"
+    ],
+    "all_original_code_outputs_metadata_identical_to_base": true,
+    "tutorial": "Original complex and scientific workflow retained; routine group matrix bounded to 3x3, full lists remain explicit; mixed 3x1 column agrees. Existing static full-analysis image is labeled separately."
+  },
+  "governance": [
+    "ruff check .",
+    "ruff format --check .",
+    "python devtools/scripts/validate_docstrings.py",
+    "python devtools/scripts/validate_public_api_stability.py",
+    "python devtools/scripts/validate_dependencies.py",
+    "python devtools/scripts/validate_course.py",
+    "python devtools/scripts/validate_devguide.py",
+    "python devtools/scripts/devguide_index.py --check",
+    "git diff --check"
+  ],
+  "scope": {
+    "public_signature_or_default_changed": false,
+    "new_scientific_decomposition": false,
+    "dependency_floor_changed": false,
+    "new_Ackredit_scientific_event": false,
+    "compiled_kernel_changed": false,
+    "H5MSM_schema_changed": false,
+    "native_mechanics_engine_neutral": true,
+    "existing_optimized_matrix_evaluator_retained": true
+  },
+  "runtime_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "limitations": [
+    "Scalar parity does not independently validate the force field or the physical model.",
+    "The bounded current-cell cutoff case does not qualify all PME/periodic/custom models.",
+    "No trajectory-axis loop, binding free energy or full preparation/dynamics scenario is introduced or qualified.",
+    "System copy scales with the engine model and matrix storage remains dense; no speed or peak-RAM benchmark is claimed.",
+    "Overlapping/repeated partitions within an axis can double count if summed.",
+    "Local source controls overlap and do not constitute installed/platform/release qualification; hosted exact-head execution must be inspected after push."
+  ],
+  "next": [
+    "uibcdf/molsysmt#562",
+    "uibcdf/molsysmt#583",
+    "uibcdf/molsysmt#584",
+    "uibcdf/molsysmt#543"
+  ],
+  "queue_review": {
+    "PR": "uibcdf/molsysmt#543",
+    "PR_head_last_observed": "96191e07e6c0ba755b53e14c785ad953e7aa55f3",
+    "new_report": "uibcdf/molsysmt#587",
+    "note": "Board pagination bug is a separate receiving item; offline devguide validation does not claim complete remote-board agreement."
+  }
+}

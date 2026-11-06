@@ -548,7 +548,7 @@ sections:
             file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb.AGENTS.md
           - name: get_non_bonded_potential_energy
-            description: Nonbonded energies with explicit platform selection and distinct lookup/availability/execution outcomes.
+            description: Nonbonded atom-set and partitioned energy shapes, typed empty entries, input preservation, unit policy and scientific model limits with engine-owned platforms.
             file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb.AGENTS.md
           - name: potential_energy_minimization

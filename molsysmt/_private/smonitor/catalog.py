@@ -669,14 +669,14 @@ CODES = {
     },
     "MSM-ERR-ARG-004": {
         "title": "Argument conflict",
-        "user_message": "Arguments '{arg1}' and '{arg2}' cannot be used together or are missing.",
-        "user_hint": "Check the documentation for mutually exclusive or required arguments. Docs: {doc_url}",
+        "user_message": "Arguments '{arg1}' and '{arg2}' conflict: {reason}",
+        "user_hint": "Check the documented relationship between these arguments. Docs: {doc_url}",
         "dev_message": "Conflict between '{arg1}' and '{arg2}' in '{caller}'. Reason: {reason}.",
         "dev_hint": "Enforce argument logic. Docs: {doc_url}",
-        "qa_message": "Argument conflict in '{caller}'.",
+        "qa_message": "Argument conflict in '{caller}': {reason}",
         "qa_hint": "Check parameter matrix. Docs: {doc_url}",
-        "agent_message": "Conflict between arguments '{arg1}' and '{arg2}'.",
-        "agent_hint": "Use one or the other, or provide the missing one.",
+        "agent_message": "Conflict between arguments '{arg1}' and '{arg2}': {reason}",
+        "agent_hint": "Apply the documented relationship; do not infer that the arguments are always mutually exclusive.",
     },
     "MSM-ERR-STRUCT-003": {
         "title": "Structural inconsistency",
@@ -803,7 +803,7 @@ CODES = {
     },
     "MSM-ERR-METHOD-001": {
         "title": "Method not implemented",
-        "user_message": "This method is not implemented yet.",
+        "user_message": "This method is not implemented yet: {method}.",
         "user_hint": "Check alternative methods or wait for an update. Docs: {doc_url}",
         "dev_message": "Method '{method}' not implemented in '{caller}'.",
         "dev_hint": "Implement method or document missing functionality. Arguments: {arguments}. Docs: {doc_url}",
