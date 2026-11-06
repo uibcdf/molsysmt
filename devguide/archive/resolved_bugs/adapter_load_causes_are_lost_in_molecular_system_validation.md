@@ -1,9 +1,9 @@
 ---
 summary: Preserve operational adapter-load causes instead of rejecting valid molecular-system inputs.
 issue: uibcdf/molsysmt#601
-status: active
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-06
 severity: medium
 verification: reproduced
 area: [basic, form, argdigest, diagnostics]
@@ -118,3 +118,18 @@ input. All code cells, outputs, execution counts, cell IDs and notebook metadata
 remain unchanged. The complete incremental Sphinx HTML build has no warnings;
 all fourteen fast release checks and Ruff pass. These bounded source checks do
 not qualify a release, global platform matrix or installed Viewer pair.
+
+## Resolution
+
+Implemented in `7117178284cc750636a27fdea40de2408ec34969`. The guard
+`tests/_private/test_adapter_load_diagnostics.py` fails when a cold declared
+adapter failure becomes absence/invalid input, its original cause is discarded,
+retry becomes implicit, or existing append-target acceptance changes. The
+[receiving receipt](../../../devtools/data/adapter_load_causes_receiving_601_20261106.json)
+records original nonpassing attempts, all final profiles, provider paths and
+source hashes. The durable rule is in
+[forms and conversions](../../forms_and_conversions.md#molecular-system-verification-failures).
+
+Publication is batched with the already qualified #600; board closure remains
+#600 then #601 after the public checkpoint is independently received. No release
+or provider publication is part of this resolution.
