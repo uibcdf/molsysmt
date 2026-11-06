@@ -45,6 +45,16 @@ payload and its supported profile. See {ref}`Tutorial_Get_form`.
 
 ## Reading explicit data
 
+If you already have a prepared source and only need new geometry, use the
+{ref}`mapped coordinate projection <Tutorial_Project_Prepared_PDBQT>` through
+the file/text adapter or `PDBQTFileHandler.project_coordinates()`. It preserves
+the original non-coordinate atom fields and torsion tree, including charge
+precision. Require explicit length units, all-atom correspondence and a
+disposition for stale score remarks. Source and output hashes/maps are returned;
+atomic file output avoids a full result string. Native copy/set/write remains
+appropriate when the native writer's explicit canonical normalization is
+acceptable. Neither route reassigns chemistry or evaluates a score.
+
 For a complete chemically declared ligand, classify torsion candidates with
 {func}`molsysmt.chemical_states.get_rotatable_bonds`, inspect its versioned criteria
 and exclusions, then choose active source bond indices and call

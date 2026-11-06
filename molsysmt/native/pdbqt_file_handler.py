@@ -3,8 +3,10 @@
 from pathlib import Path
 
 import numpy as np
+from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.pdbqt_projection import DIGEST_OPTIONS
 from molsysmt._private.smonitor import ArgumentError, FormatError
 from molsysmt._private.variables import is_all
 
@@ -60,6 +62,11 @@ class PDBQTFileHandler:
         if get_form(item) not in {"file:pdbqt", "string:pdbqt_text"}:
             raise ArgumentError("item", value=item, caller="PDBQTFileHandler")
         self._storage_mode = storage_mode
+        self._source_path = (
+            None
+            if isinstance(item, str) and item.startswith(PREFIX)
+            else Path(item).absolute()
+        )
         if isinstance(item, str) and item.startswith(PREFIX):
             if storage_mode == "indexed":
                 raise ArgumentError(
@@ -162,6 +169,7 @@ class PDBQTFileHandler:
         output._document = self._document
         output._native_cache = None
         output._storage_mode = self._storage_mode
+        output._source_path = self._source_path
         from weakref import finalize
 
         output._finalizer = finalize(output, output._document.release)
@@ -174,6 +182,134 @@ class PDBQTFileHandler:
         output = self.copy()
         memo[id(self)] = output
         return output
+
+    @signal(tags=["api", "form"])
+    @arg_digest(**DIGEST_OPTIONS)
+    def project_coordinates(
+        self,
+        coordinates,
+        atom_correspondence,
+        structure_indices="all",
+        output_filename=None,
+        discard_remarks=False,
+        chemical_state_provenance=None,
+        skip_digestion=False,
+    ):
+        """Projecting mapped coordinates while preserving prepared PDBQT fields.
+
+        Parameters
+        ----------
+        coordinates : quantity
+            Replacement lengths with explicit units and shape
+            (n_selected_structures, n_prepared_atoms, 3). One structure may be
+            supplied as (n_prepared_atoms, 3). Every prepared atom, including H,
+            must have coordinates; absent atoms never inherit source positions.
+        atom_correspondence : array_like of int
+            Complete bijective pairs (coordinate_atom_index,
+            source_pdbqt_atom_index), shape (n_prepared_atoms, 2). Indices are
+            positions, not atom serial IDs. Explicit identity pairs are required
+            even when both axes already have the same order.
+        structure_indices : int, list, tuple or numpy.ndarray, default='all'
+            Nonempty, unique source structure indices in output order. Each
+            coordinate structure corresponds to the selected source structure
+            at the same position. Nonconsecutive/reordered selections are valid;
+            MODEL labels are retained independently of positional indices.
+        output_filename : str or pathlib.Path, default=None
+            None returns detached pdbqt_text: text. A destination writes a
+            staged, atomically replaced UTF-8 file and returns its path. Paths,
+            symlinks and hard links aliasing the source are rejected.
+        discard_remarks : bool, default=False
+            Explicitly authorize dropping all source REMARK records, including
+            scores and preparation annotations. The default refuses sources
+            containing any remarks rather than presenting a stale score as new.
+        chemical_state_provenance : dict, default=None
+            Optional JSON-compatible caller declaration, detached into the
+            report. This is provenance, not authentication or inferred chemistry.
+        skip_digestion : bool, default=False
+            Whether to skip argument digestion.
+
+        Returns
+        -------
+        dict
+            molecular_system is prepared text or a file path. report uses
+            molsysmt.pdbqt_coordinate_projection@1 and retains both atom maps,
+            selected source structure indices/labels, actual UTF-8 source/output
+            SHA-256 digests, coordinate-input digest, precision, metadata
+            disposition and producer version. Payload hashes exclude the
+            pdbqt_text: form prefix. Numeric report fields carry explicit units.
+
+        Raises
+        ------
+        ArgumentError
+            If units, dimensions, selections, correspondence, provenance or
+            destination are invalid. Bare coordinate arrays are not lengths.
+        FormatError
+            If remarks lack explicit disposition, projected lengths are
+            nonfinite or exceed the 8.3 angstrom field, atom records are not
+            ASCII, or an indexed source changes during the operation.
+        MemoryBudgetExceededError
+            If estimated projection buffers exceed configure.max_ram_usage.
+
+        Notes
+        -----
+        This experimental operation changes only columns 31--54 of ATOM/HETATM
+        records. Charges retain their original precision, types and serials are
+        unchanged, and ROOT/BRANCH/TORSDOF meaning is preserved. It neither
+        requires nor fabricates a complete chemical graph, retypes atoms,
+        changes protonation nor validates a pose scientifically. Source
+        coordinates and objects remain unchanged.
+
+        Coordinates are serialized with three decimals in angstroms, regardless
+        of application unit policy. The report measures maximum absolute
+        rounding error per structure in that unit. MODEL wrappers use canonical
+        whitespace; inter-model blank lines and a terminal document END may be
+        omitted. All source remarks, including outside selected models, follow
+        the explicit discard policy; their original payload identity is retained.
+
+        Indexed file output reads one model at a time and uses the existing
+        atomic document writer. Coordinate input and report maps remain resident;
+        text output additionally materializes its full result. The conservative
+        buffer budget is not a complete process-RSS guarantee. For many new
+        conformations, reuse one handler and project/write one bounded selection
+        per call. Caller inputs must not be concurrently edited.
+
+        See Also
+        --------
+        molsysmt.form.file_pdbqt.project_coordinates : Project a prepared file.
+        molsysmt.form.string_pdbqt_text.project_coordinates : Project prepared text.
+        read_poses : Read against a complete known chemical source and export map.
+
+        Examples
+        --------
+        >>> import numpy as np
+        >>> from molsysmt import pyunitwizard as puw
+        >>> from molsysmt.native import PDBQTFileHandler
+        >>> line = 'ATOM      1   C1 LIG A   1       1.000   2.000   3.000  1.00  0.00     0.125 C'
+        >>> with PDBQTFileHandler('pdbqt_text:' + line + '\\nEND\\n') as prepared:
+        ...     result = prepared.project_coordinates(
+        ...         puw.quantity([[4.0, 5.0, 6.0]], 'angstrom'), [[0, 0]])
+        >>> result['report']['output_to_source_atom_indices']
+        [0]
+        >>> result['molecular_system'].removeprefix('pdbqt_text:').splitlines()[0][30:54]
+        '   4.000   5.000   6.000'
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Project_Prepared_PDBQT` for mapped projection.
+
+        .. versionadded:: 1.0.0
+        """
+        from molsysmt._private.pdbqt_projection import project_coordinates
+
+        return project_coordinates(
+            self,
+            coordinates,
+            atom_correspondence,
+            structure_indices,
+            output_filename,
+            discard_remarks,
+            chemical_state_provenance,
+        )
 
     def _axis(self, value, size, name):
         from molsysmt._private.argdigest.argument._correspondence_axes import flat_axis

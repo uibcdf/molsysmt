@@ -17,6 +17,8 @@ API Form
    load_converter
    file_pdbqt.read_poses
    string_pdbqt_text.read_poses
+   file_pdbqt.project_coordinates
+   string_pdbqt_text.project_coordinates
 
 .. autoclass:: molsysmt.native.PDBQTFileHandler
    :members:

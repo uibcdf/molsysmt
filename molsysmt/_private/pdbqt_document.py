@@ -29,10 +29,11 @@ def _model_ranges(lines, start_offset=0):
                 or int(tokens[1]) <= 0
             ):
                 fail("Invalid, nested or misplaced PDBQT MODEL record.")
-            label = str(int(tokens[1]))
-            if label in seen:
+            label = tokens[1]
+            numeric_label = int(label)
+            if numeric_label in seen:
                 fail("Repeated PDBQT MODEL label.")
-            seen.add(label)
+            seen.add(numeric_label)
             if not wrapped:
                 if nonremarks:
                     fail("PDBQT cannot mix unwrapped atoms and MODEL structures.")

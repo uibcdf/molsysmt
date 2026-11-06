@@ -343,11 +343,18 @@ def test_new_pose_system_roundtrips_h5msm_05(pose_case, tmp_path):
 def test_ready_native_pose_read_loads_no_optional_chemical_engine():
     import subprocess
     import sys
+    from pathlib import Path
 
     script = r"""
 import importlib.abc
 import importlib.machinery
 import sys
+from types import ModuleType
+# Fixture imports belong to this repository, independently of another checkout's
+# regular 'tests' package on PYTHONPATH. No scientific engine is preloaded.
+local_tests = ModuleType("tests")
+local_tests.__path__ = [sys.argv[1]]
+sys.modules["tests"] = local_tests
 from tests.build.test_merge_nonpolar_hydrogens import declared_methanol
 from tests.form.file_pdbqt.test_known_source_poses import rigid_tree, ensemble, read_poses
 import molsysmt as msm
@@ -377,7 +384,10 @@ assert not attempted, attempted
 assert not roots.intersection(name.split(".")[0] for name in sys.modules)
 """
     completed = subprocess.run(
-        [sys.executable, "-c", script], capture_output=True, text=True, timeout=60
+        [sys.executable, "-c", script, str(Path(__file__).resolve().parents[2])],
+        capture_output=True,
+        text=True,
+        timeout=60,
     )
     assert completed.returncode == 0, completed.stdout + completed.stderr
 

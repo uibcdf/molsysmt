@@ -46,6 +46,13 @@ until that namespace is promoted into exact member tracking.
 The method criteria, result shapes, and scientific evidence level of these
 families are specified in [Interaction Analysis API](interactions_api.md).
 
+Prepared PDBQT coordinate projection inherits the `molsysmt.form` subtree's
+Experimental classification. Its file/text functions and native
+`PDBQTFileHandler.project_coordinates` method share the bounded
+[prepared-coordinate contract](forms_and_conversions.md#prepared-coordinate-projection).
+This addition does not promote the form namespace or canonicalize a partial
+prepared representation into scientifically complete chemistry.
+
 `pre-1.0` in the introduction field means that the symbol was already present
 during pre-release development and that no trustworthy finer-grained public
 release provenance exists. It is not an inferred maturity claim.

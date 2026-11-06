@@ -64,8 +64,11 @@ guard in cddc3f3a6 independently checks every deposited coordinate across 38
 structures and normalized source labels. See the
 [bounded bug receipt](../devtools/data/ordered_bug_closeout_594_598_20261106.json).
 Runtime comparison semantics, unsupported naming defaults, immutable catalogues
-and production widget serialization are preserved. Current #557 CI smoke
-42271829370 is still running; its four administrative workflows pass. The
+and production widget serialization are preserved. #557 smoke 42271829370
+was later cancelled after the next main checkpoint; its workflow declares
+branch-scoped cancel-in-progress. Latest checkpoint 882b65b9c has four passing
+administrative workflows and successful smoke 42273763066. No cancelled run is
+counted as a pass. The
 [source handoff to DockingMT](https://github.com/uibcdf/dockingmt/issues/49#issuecomment-6692452871)
 records public usage and leaves consumer/scientific acceptance separate.
 

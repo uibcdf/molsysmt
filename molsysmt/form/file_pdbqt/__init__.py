@@ -12,6 +12,7 @@ from .get_torsion_tree import get_torsion_tree
 from .has_attribute import has_attribute
 from .is_form import is_form
 from .iterators import StructuresIterator, TopologyIterator
+from .project_coordinates import project_coordinates
 from .read_poses import read_poses
 
 form_name = "file:pdbqt"

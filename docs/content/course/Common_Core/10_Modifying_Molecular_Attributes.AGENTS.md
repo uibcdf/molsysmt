@@ -37,6 +37,11 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate deep copying objects with `msm.copy()` before applying in-place modifications.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.copy`.
 
+Preserve the executed prepared-PDBQT projection example and its explicit
+nonidentity map, length units, all-atom coverage and REMARK disposition.
+Distinguish format-field preservation from complete chemistry and scoring;
+retain the projection tutorial link and source/output provenance explanation.
+
 ### 6. Challenge & See Also
 * Must include **Challenge 10: The Molecular Editor** using T4 Lysozyme (`181L`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-system-modification-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 9 and Module 11.
