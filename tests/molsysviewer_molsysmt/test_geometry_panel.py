@@ -247,8 +247,9 @@ def test_unmount_discards_unpresented_result_and_restores_only_bounded_draft(cas
 
 
 @pytest.mark.parametrize("policy", ["angstrom", "pm"])
+@pytest.mark.parametrize("task", ["translate", "center", "fit"])
 def test_gui_units_and_native_coverage_survive_nondefault_application_policy(
-    case, policy
+    case, policy, task
 ):
     view, sent = case
     analysis = msm.interactions.hbonds.get_buch_hbonds(
@@ -266,6 +267,9 @@ def test_gui_units_and_native_coverage_survive_nondefault_application_policy(
             "review",
             draft={"source": "indices", "indices": "2,4"},
             parameters={
+                "task": task,
+                "fit_expression": "atom_name=='CA'",
+                "fit_reference_structure": "1",
                 "dx": "1",
                 "unit": "angstrom",
                 "structures": "indices",
@@ -277,7 +281,16 @@ def test_gui_units_and_native_coverage_survive_nondefault_application_policy(
             act(view, sent, "apply", token=packet["review"]["token"])["stage"] == "done"
         )
     expected = before.copy()
-    expected[np.ix_([2, 0], [2, 4], range(3))] += [0.1, 0, 0]
+    if task == "translate":
+        expected[np.ix_([2, 0], [2, 4], range(3))] += [0.1, 0, 0]
+    elif task == "center":
+        for frame in [2, 0]:
+            expected[frame, [2, 4]] -= before[frame, [2, 4]].mean(axis=0)
+    else:
+        alpha = np.asarray(
+            msm.select(view.molsys, selection="atom_name=='CA'"), dtype=int
+        )
+        expected = _fitted_coordinates(before, [2, 4], alpha, alpha, [2, 0], 1)
     np.testing.assert_allclose(coords(view), expected)
     np.testing.assert_array_equal(analysis.evaluated_structure_indices, [0, 1, 2])
     np.testing.assert_array_equal(
@@ -561,3 +574,229 @@ def test_geometry_diagnostic_does_not_survive_a_new_task_or_parameters(case):
     assert act(view, sent, "refresh", parameters={"dx": "1"})["stage"] == "select"
     assert act(view, sent, "review", parameters={"dx": "bad"})["stage"] == "error"
     assert act(view, sent, "task", parameters={"task": "center"})["stage"] == "select"
+
+
+def _fitted_coordinates(before, moving, fit, reference, frames, reference_frame):
+    """Independent unweighted Kabsch oracle; no native fitting helper."""
+    expected = before.copy()
+    target = before[reference_frame, reference]
+    target_center = target.mean(axis=0)
+    for frame in frames:
+        anchors = before[frame, fit]
+        center = anchors.mean(axis=0)
+        u, _, vt = np.linalg.svd((anchors - center).T @ (target - target_center))
+        proper = np.eye(3)
+        proper[-1, -1] = np.linalg.det(u @ vt)
+        rotation = u @ proper @ vt
+        expected[frame, moving] = (
+            before[frame, moving] - center
+        ) @ rotation + target_center
+    return expected
+
+
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("partial", [False, True])
+@pytest.mark.parametrize("correspondence", ["moving", "alpha", "explicit"])
+def test_superposition_matches_independent_kabsch_with_declared_correspondence(
+    case, effect, partial, correspondence
+):
+    view, sent = case
+    before, target = coords(view), view.molsys
+    box = puw.get_value(target.structures.box, to_unit="nm").copy()
+    moving = list(range(10 if partial else target.get_n_atoms()))
+    alpha = np.asarray(
+        msm.select(target, selection="atom_name=='CA'"), dtype=int
+    ).tolist()
+    fit, reference = moving, moving
+    parameters = {
+        "task": "fit",
+        "fit_reference_structure": "1",
+        "structures": "indices",
+        "indices": "2,0",
+        "effect": effect,
+    }
+    if correspondence != "moving":
+        fit = alpha if correspondence == "alpha" else alpha[:3]
+        reference = fit if correspondence == "alpha" else alpha[1:4]
+        parameters["fit_expression"] = f"atom_index in {fit}"
+        if correspondence == "explicit":
+            parameters["fit_reference_expression"] = f"atom_index in {reference}"
+    expected = _fitted_coordinates(before, moving, fit, reference, [2, 0], 1)
+    revision = view.addons.molsysmt.get_sync_status()["target_revision"]
+    with puw.context(standard_units=["pm", "ps", "radians", "dalton"]):
+        reviewed = act(
+            view,
+            sent,
+            "review",
+            draft={"source": "indices", "indices": ",".join(map(str, moving))},
+            parameters=parameters,
+        )
+        assert reviewed["stage"] == "review", reviewed["message"]
+        assert reviewed["review"]["n_fit_atoms"] == len(fit)
+        assert reviewed["review"]["reference_structure"] == 1
+        np.testing.assert_array_equal(coords(view), before)
+        applied = act(view, sent, "apply", token=reviewed["review"]["token"])
+    assert applied["stage"] == ("done" if effect == "update" else "result"), applied[
+        "message"
+    ]
+    output = (
+        view
+        if effect == "update"
+        else view.addons.manager.presentations.get(applied["result"]["id"])
+    )
+    np.testing.assert_allclose(coords(output), expected, atol=1e-10)
+    np.testing.assert_array_equal(coords(output)[1], before[1])
+    np.testing.assert_array_equal(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"), box
+    )
+    if partial:
+        np.testing.assert_array_equal(coords(output)[:, 10:], before[:, 10:])
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+        assert output.molsys is not target
+        assert applied["result"]["operation"] == "molsysmt.structure.least_rmsd_fit"
+        assert applied["result"]["effect_label"] == "Superposed"
+        act(view, sent, "result.discard")
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + int(
+        effect == "update"
+    )
+
+
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {"fit_reference_structure": "-1"},
+        {"fit_reference_structure": "3"},
+        {"fit_reference_structure": "nan"},
+        {"fit_reference_structure": "0.5"},
+        {"fit_reference_structure": ""},
+        {"fit_reference_structure": 0},
+        {"fit_expression": "atom_index == 0"},
+        {"fit_expression": "atom_index == 999"},
+        {"fit_reference_expression": "atom_index in [0,1,2]"},
+        {"fit_reference_expression": "atom_index == 999"},
+    ],
+)
+def test_superposition_rejects_invalid_reference_requests_before_editing(
+    case, parameters
+):
+    view, sent = case
+    before, revision = (
+        coords(view),
+        view.addons.molsysmt.get_sync_status()["target_revision"],
+    )
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={"task": "fit", **parameters},
+    )
+    assert packet["stage"] == "error"
+    np.testing.assert_array_equal(coords(view), before)
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
+    assert not view.addons.manager.presentations.records()
+
+
+def test_superposition_validates_all_structure_geometry_before_any_native_write(case):
+    view, sent = case
+    # A later degenerate structure must not leave an earlier valid one fitted.
+    anchors = np.asarray(
+        msm.select(view.molsys, selection="atom_name=='CA'"), dtype=int
+    )[:3]
+    changed = coords(view)
+    changed[2, anchors] = [[0, 0, 0], [1, 0, 0], [2, 0, 0]]
+    view.addons.molsysmt.basic.set(coordinates=puw.quantity(changed, "nm"))
+    before, revision = (
+        coords(view),
+        view.addons.molsysmt.get_sync_status()["target_revision"],
+    )
+    review = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={
+            "task": "fit",
+            "fit_expression": f"atom_index in {anchors.tolist()}",
+            "fit_reference_structure": "1",
+            "structures": "indices",
+            "indices": "0,2",
+        },
+    )
+    assert review["stage"] == "review"
+    failed = act(view, sent, "apply", token=review["review"]["token"])
+    assert failed["stage"] == "error" and "non-collinear" in failed["message"]
+    np.testing.assert_array_equal(coords(view), before)
+    status = view.addons.molsysmt.get_sync_status()
+    assert status["state"] == "synchronized" and status["target_revision"] == revision
+    assert act(view, sent, "refresh")["message"] == failed["message"]
+    assert "review" not in state(sent)
+
+
+def test_superposition_projection_retry_preserves_completed_native_fit(
+    case, monkeypatch
+):
+    view, sent = case
+    before = coords(view)
+    atoms = list(range(view.molsys.get_n_atoms()))
+    expected = _fitted_coordinates(before, atoms, atoms, atoms, [2, 0], 1)
+    review = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={
+            "task": "fit",
+            "fit_reference_structure": "1",
+            "structures": "indices",
+            "indices": "2,0",
+        },
+    )
+    rebuild = view._rebuild_view_from_current_molsys
+
+    def reject_projection(*args, **kwargs):
+        raise RuntimeError("Injected projection failure after the actual native fit")
+
+    monkeypatch.setattr(view, "_rebuild_view_from_current_molsys", reject_projection)
+    failed = act(view, sent, "apply", token=review["review"]["token"])
+    assert failed["stage"] == "sync_required"
+    np.testing.assert_allclose(coords(view), expected, atol=1e-10)
+    revision = view.addons.molsysmt.get_sync_status()["target_revision"]
+    monkeypatch.setattr(view, "_rebuild_view_from_current_molsys", rebuild)
+    view._handle_frontend_event(
+        {"event": "interaction_context_action", "action": "sync_system_edits"}
+    )
+    np.testing.assert_allclose(coords(view), expected, atol=1e-10)
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"fit_reference_structure": "2"},
+        {"fit_expression": "atom_name=='CA'"},
+        {"fit_reference_expression": "atom_name=='CA'"},
+    ],
+)
+def test_superposition_reference_changes_expire_the_single_use_review(case, change):
+    view, sent = case
+    before, revision = (
+        coords(view),
+        view.addons.molsysmt.get_sync_status()["target_revision"],
+    )
+    parameters = {"task": "fit", "fit_reference_structure": "1"}
+    reviewed = act(view, sent, "review", draft={"source": "all"}, parameters=parameters)
+    assert reviewed["stage"] == "review"
+    rejected = act(
+        view,
+        sent,
+        "apply",
+        token=reviewed["review"]["token"],
+        parameters={**parameters, **change},
+    )
+    assert rejected["stage"] == "error" and "expired" in rejected["message"]
+    np.testing.assert_array_equal(coords(view), before)
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision

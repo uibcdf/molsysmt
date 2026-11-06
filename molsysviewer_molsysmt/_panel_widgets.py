@@ -1,6 +1,6 @@
 """Reusable controls for selection and explicit independent-result presentation."""
 
-SELECTION_MARKUP = r"""    <div data-editor><label>Choose atoms<select data-source aria-label="Choose atoms">
+SELECTION_MARKUP = r"""    <div data-editor><label><span data-selection-caption>Choose atoms</span><select data-source aria-label="Choose atoms">
       <option value="none">Choose a selection…</option><option value="category">Molecular category</option>
       <option value="current">Current canvas selection</option><option value="saved">Saved selection</option>
       <option value="region">Region</option><option value="expression">Selection expression</option>

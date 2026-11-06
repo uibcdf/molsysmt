@@ -5092,7 +5092,7 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
 Extraction/copy result presentation uses the separate flow below. Geometry
-offers Translate and Center; other Geometry tasks, Chemistry and Analysis remain planned.
+offers Translate, Center and Superpose structures; other Geometry tasks, Chemistry and Analysis remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
 
@@ -5206,3 +5206,48 @@ diagnostic visible through automatic refreshes; adjust the input and review
 again. A completed edit with a failed scene update instead needs **Update view**,
 without repeating the scientific operation. The expert `structure.center` API
 retains its complete native arguments, weighting options and return semantics.
+
+
+## Superposing molecular structures through Geometry
+
+Choose **Superpose structures** in **Molecular tools > Geometry** for a rigid,
+unweighted least-RMSD fit with the Kabsch method. **Atoms to move** chooses the
+complete population that should move together. Choose
+**All structures**, **Current structure** or distinct explicit structure indices.
+Set **Reference structure in this system** to an existing structure index. The
+reference uses its initial coordinates; it need not belong to the processed
+structures. This task rotates/translates molecular data, not the camera, and
+uses the qualified MolSysMT CPU route.
+
+By default, every moving atom is also a fit atom, paired with the same atom index
+in the reference structure. Expand **Fitting atoms and correspondence** to use a
+smaller fitting population, such as alpha carbons, or different reference atoms.
+**Fit atom expression** selects in the stated selection context; **Reference
+atom expression** selects in the reference structure. An empty fit expression
+uses all moving atoms. An empty reference expression uses the same fit indices.
+
+Expressions resolve fixed, unique populations in ascending system-index order.
+The two populations must have equal sizes and are paired by position. This GUI
+does not infer sequence or atom-name correspondence. Check chemical matching
+explicitly when using different populations. Fit atoms can lie outside the
+moving selection: they determine the transformation, but only the moving atoms
+change. At least three non-collinear corresponding points are required. Native
+geometry validation covers every requested structure before any coordinate
+write. Periodic reconstruction and sequence-based matching are separate tasks.
+
+**Review superposition** states the moving/fitting counts, reference structure,
+method and affected structure scope. **Back** leaves the data untouched. Changing
+the references, request, managed system revision or selection context expires
+the confirmation. **Current system** uses the managed edit/scene update;
+**Independent result** copies the whole system, changing only the requested
+atoms and structures. The explicit presentation/lifetime rules described above
+apply, including Python recovery of the independent View.
+
+The periodic box stays fixed and coordinates are not wrapped. A rigid transform
+preserves distances within a moving population, but can change distances to
+stationary atoms and periodic images. Stored analysis coverage follows the
+native coordinate edits. Scene Undo cannot restore these coordinates. A failed
+scene update after completed science needs **Update view**, without repeating
+the fit. The expert `structure.least_rmsd_fit` API retains its complete inputs,
+external references and native return semantics. This GUI slice's source/browser
+checks remain distinct from human acceptance and installed qualification.

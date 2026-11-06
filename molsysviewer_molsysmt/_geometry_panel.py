@@ -1,4 +1,4 @@
-"""Reviewed translation and centering over qualified native geometry adapters."""
+"""Reviewed coordinate tasks over qualified native geometry adapters."""
 
 from dataclasses import dataclass
 from secrets import token_urlsafe
@@ -14,6 +14,9 @@ from ._task_panel import _MolecularTaskPanel, _structures
 
 _PARAMETERS = {
     "task": "translate",
+    "fit_expression": "",
+    "fit_reference_expression": "",
+    "fit_reference_structure": "0",
     "cx": "0",
     "cy": "0",
     "cz": "0",
@@ -34,14 +37,23 @@ _PARAMETERS = {
 _COMPLETED = {
     "translate": "Translation applied. The view is up to date.",
     "center": "Centering applied. The view is up to date.",
+    "fit": "Superposition applied. The view is up to date.",
 }
+
+_OPERATIONS = {"translate": "translate", "center": "center", "fit": "least_rmsd_fit"}
+_RESULT_TITLES = {
+    "translate": "Translated system",
+    "center": "Centered system",
+    "fit": "Superposed system",
+}
+_EFFECT_LABELS = {"translate": "Translated", "center": "Centered", "fit": "Superposed"}
 
 
 def _parameters(value):
     if not isinstance(value, dict) or set(value) - set(_PARAMETERS):
         raise ValueError("The coordinate request contains unsupported fields.")
     result = dict(_PARAMETERS, **value)
-    if result["task"] not in {"translate", "center"}:
+    if result["task"] not in _OPERATIONS:
         raise ValueError("Choose a supported Geometry task.")
     if result["center_kind"] not in {"geometric", "masses"} or result[
         "destination_kind"
@@ -55,7 +67,7 @@ def _parameters(value):
     }:
         raise ValueError("Choose a length unit and the result destination.")
     if result["structures"] not in {"all", "current", "indices"}:
-        raise ValueError("Choose which structures to translate.")
+        raise ValueError("Choose which structures to transform.")
     for key, limit in (
         ("dx", 64),
         ("dy", 64),
@@ -64,6 +76,9 @@ def _parameters(value):
         ("cy", 64),
         ("cz", 64),
         ("source_expression", 4096),
+        ("fit_expression", 4096),
+        ("fit_reference_expression", 4096),
+        ("fit_reference_structure", 64),
         ("target_expression", 4096),
         ("indices", 4096),
         ("title", 200),
@@ -91,6 +106,15 @@ def _translation(parameters, *, center=False):
 
 
 @dataclass(frozen=True)
+class _GeometryReferences:
+    center: tuple = ()
+    target: tuple = ()
+    fit: tuple = ()
+    reference: tuple = ()
+    reference_frame: int | None = None
+
+
+@dataclass(frozen=True)
 class _GeometryReview:
     token: str
     target: object
@@ -101,8 +125,7 @@ class _GeometryReview:
     parameters: dict
     indices: np.ndarray
     frames: tuple
-    center_indices: tuple
-    target_indices: tuple
+    references: _GeometryReferences
 
 
 class _GeometryPanel(_MolecularTaskPanel):
@@ -159,8 +182,10 @@ class _GeometryPanel(_MolecularTaskPanel):
             packet["review"] = {
                 "token": review.token,
                 "n_atoms": int(review.indices.size),
-                "n_center_atoms": len(review.center_indices),
-                "n_target_atoms": len(review.target_indices),
+                "n_center_atoms": len(review.references.center),
+                "n_target_atoms": len(review.references.target),
+                "n_fit_atoms": len(review.references.fit),
+                "reference_structure": review.references.reference_frame,
                 "n_structures": len(review.frames),
                 "selection_structure": review.frame,
                 "structure_indices": list(review.frames[:200]),
@@ -195,55 +220,72 @@ class _GeometryPanel(_MolecularTaskPanel):
             total,
             int(self._view.player.index),
         )
-        center_indices, target_indices = (), ()
+        from molsysmt import basic
+
+        def population(expression, fallback, context_frame=frame):
+            if not expression.strip():
+                return tuple(int(i) for i in fallback)
+            indices = np.asarray(
+                basic.select(
+                    target,
+                    selection=expression.strip(),
+                    element="atom",
+                    structure_indices=[context_frame],
+                    chemical_state="reference",
+                ),
+                dtype=np.int64,
+            )
+            if indices.ndim != 1 or not indices.size:
+                raise ValueError(
+                    "A reference expression must select a nonempty atom population."
+                )
+            return tuple(int(i) for i in np.unique(indices))
+
+        references = _GeometryReferences()
         if self._parameters["task"] == "translate":
             _translation(self._parameters)
-        else:
-            from molsysmt import basic
-
-            def population(expression, fallback):
-                if not expression.strip():
-                    return tuple(int(i) for i in fallback)
-                indices = np.asarray(
-                    basic.select(
-                        target,
-                        selection=expression.strip(),
-                        element="atom",
-                        structure_indices=[frame],
-                        chemical_state="reference",
-                    ),
-                    dtype=np.int64,
-                )
-                if indices.ndim != 1 or not indices.size:
-                    raise ValueError(
-                        "A center expression must select a nonempty atom population."
-                    )
-                return tuple(int(i) for i in np.unique(indices))
-
-            center_indices = population(self._parameters["source_expression"], atoms)
+        elif self._parameters["task"] == "center":
+            centers = population(self._parameters["source_expression"], atoms)
             moving_set = set(atoms.tolist())
-            if not all(i in moving_set for i in center_indices):
+            if not all(i in moving_set for i in centers):
                 raise ValueError(
                     "Source center atoms must belong to the moving selection."
                 )
+            targets = ()
             if self._parameters["destination_kind"] == "point":
                 _translation(self._parameters, center=True)
             else:
                 if not self._parameters["target_expression"].strip():
                     raise ValueError("Choose a target-center selection expression.")
-                target_indices = population(self._parameters["target_expression"], ())
-        return (
-            status,
-            total,
-            frame,
-            atoms,
-            tuple(frames),
-            center_indices,
-            target_indices,
-        )
+                targets = population(self._parameters["target_expression"], ())
+            references = _GeometryReferences(center=centers, target=targets)
+        else:
+            text = self._parameters["fit_reference_structure"].strip()
+            try:
+                reference_frame = int(text)
+            except ValueError as exc:
+                raise ValueError(
+                    "Choose an integer reference structure index."
+                ) from exc
+            if not 0 <= reference_frame < total:
+                raise ValueError(
+                    "The reference structure index is outside this system."
+                )
+            fit = population(self._parameters["fit_expression"], atoms)
+            reference = population(
+                self._parameters["fit_reference_expression"], fit, reference_frame
+            )
+            if atoms.size and (len(fit) < 3 or len(reference) != len(fit)):
+                raise ValueError(
+                    "A rigid fit needs at least three corresponding atom pairs with equal population sizes."
+                )
+            references = _GeometryReferences(
+                fit=fit, reference=reference, reference_frame=reference_frame
+            )
+        return status, total, frame, atoms, tuple(frames), references
 
     def _prepare_review(self, target):
-        status, total, frame, atoms, frames, centers, targets = self._resolve(target)
+        status, total, frame, atoms, frames, references = self._resolve(target)
         if not atoms.size:
             return None
         atoms = atoms.copy()
@@ -258,8 +300,7 @@ class _GeometryPanel(_MolecularTaskPanel):
             dict(self._parameters),
             atoms,
             frames,
-            centers,
-            targets,
+            references,
         )
 
     def _check_review(self, target, review):
@@ -274,13 +315,12 @@ class _GeometryPanel(_MolecularTaskPanel):
             raise ValueError(
                 "The system or requested coordinate change changed. Review the coordinate change again."
             )
-        _, total, frame, atoms, frames, centers, targets = self._resolve(target)
+        _, total, frame, atoms, frames, references = self._resolve(target)
         if (
             total != review.structures
             or frame != review.frame
             or frames != review.frames
-            or centers != review.center_indices
-            or targets != review.target_indices
+            or references != review.references
             or not np.array_equal(atoms, review.indices)
         ):
             raise ValueError(
@@ -295,18 +335,31 @@ class _GeometryPanel(_MolecularTaskPanel):
         }
         if review.parameters["task"] == "translate":
             parameters["translation"] = _translation(review.parameters)
-        else:
+        elif review.parameters["task"] == "center":
             parameters.update(
                 {
-                    "source_center_selection": list(centers),
-                    "target_center_selection": list(targets) if targets else None,
+                    "source_center_selection": list(references.center),
+                    "target_center_selection": list(references.target)
+                    if references.target
+                    else None,
                     "target_coordinates": None
-                    if targets
+                    if references.target
                     else _translation(review.parameters, center=True),
                     "weights": None
                     if review.parameters["center_kind"] == "geometric"
                     else "masses",
                     "engine": "MolSysMT",
+                }
+            )
+        else:
+            parameters.update(
+                {
+                    "selection_fit": list(references.fit),
+                    "reference_molecular_system": None,
+                    "reference_selection_fit": list(references.reference),
+                    "reference_structure_index": references.reference_frame,
+                    "engine": "MolSysMT",
+                    "use_gpu": False,
                 }
             )
         return parameters
@@ -322,13 +375,13 @@ class _GeometryPanel(_MolecularTaskPanel):
             def prepare(target):
                 return _prepare_geometry_transform(
                     target,
-                    review.parameters["task"],
+                    _OPERATIONS[review.parameters["task"]],
                     self._check_review(target, review),
                 )
 
             self._view.addons.manager.system_edits.execute(
                 prepare,
-                name="molsysmt.structure." + review.parameters["task"],
+                name="molsysmt.structure." + _OPERATIONS[review.parameters["task"]],
                 update_view=True,
                 rejection_check=_geometry_token,
             )
@@ -348,25 +401,20 @@ class _GeometryPanel(_MolecularTaskPanel):
             def calculate(target):
                 parameters = self._check_review(target, review)
                 parameters["in_place"] = False
-                operation = getattr(self._owner.structure, review.parameters["task"])
+                operation = getattr(
+                    self._owner.structure, _OPERATIONS[review.parameters["task"]]
+                )
                 candidate = operation(**parameters)
                 result = self._store_result(
                     candidate,
                     title=review.parameters["title"].strip()
-                    or (
-                        "Translated system"
-                        if review.parameters["task"] == "translate"
-                        else "Centered system"
-                    ),
-                    operation="molsysmt.structure." + review.parameters["task"],
+                    or _RESULT_TITLES[review.parameters["task"]],
+                    operation="molsysmt.structure."
+                    + _OPERATIONS[review.parameters["task"]],
                     structure_indices=list(range(review.structures)),
                     revision=review.revision,
                 )
-                result["effect_label"] = (
-                    "Translated"
-                    if review.parameters["task"] == "translate"
-                    else "Centered"
-                )
+                result["effect_label"] = _EFFECT_LABELS[review.parameters["task"]]
                 result["affected_structures"] = list(review.frames[:200])
                 result["affected_truncated"] = len(review.frames) > 200
                 return result

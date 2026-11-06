@@ -4,7 +4,7 @@
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
 **Status — 2026-11-06:** contribution source implements System / Remove atoms,
-Extract subset and Copy system, plus Geometry / Translate and Center. Selection controls,
+Extract subset and Copy system, plus Geometry / Translate, Center and Superpose structures. Selection controls,
 lifecycle, bounded metadata and independent-result presentation are shared.
 Rotate, Chemistry, Analysis and other tasks remain proposed; no placeholder
 panel/button is registered. Human Jupyter/visible Qt acceptance remains
@@ -14,7 +14,11 @@ point/selection destinations per processed structure, with fixed box and reviewe
 current/independent effects. Shared diagnostics retain rejected-operation text
 through automatic refresh without replaying science (#603). The
 [Center receiving receipt](../devtools/data/molsysviewer_tools_center_receiving_20261106.json)
-records analytical, native and actual Jupyter/popup coverage. Owner integration,
+records analytical, native and actual Jupyter/popup coverage. The
+[superposition receipt](../devtools/data/molsysviewer_tools_fit_receiving_20261106.json)
+adds 315 native/panel and 63 route cases plus six actual Jupyter scenarios. It
+also records the completed 4,568-case collection on the prior Center source;
+that full result is not presented as a full run on the new superposition source. Owner integration,
 hosted exact-head and installed gates remain separate.
 
 **Independent results update — 2026-11-05:** source now adds Extract subset and
@@ -214,13 +218,13 @@ visible Qt qualification.
 ### Next Geometry slice: translation and rotation — design review 2026-11-05
 
 **Implementation update — 2026-11-06:** Translate is implemented as the first
-Geometry slice; Rotate remains proposed pending #602; Center can proceed independently. The maintainer keeps human System/Jupyter/Qt
+Geometry slice; Center and Superpose structures are now implemented in contribution source. Rotate remains proposed pending #602. The maintainer keeps human System/Jupyter/Qt
 acceptance postponed. That deferral does not accept the UI or block preparation
 of this next slice. Register Geometry only when actual tasks and their guards
 exist. Preserve System as a separately pending acceptance item.
 
-When a second task is implemented, use one Geometry task picker for
-**Translate** and **Rotate**, with the
+Use one Geometry task picker for implemented **Translate**, **Center** and
+**Superpose structures**, adding **Rotate** when its native prerequisite is received, with the
 same selection/result vocabulary as System. Both edit molecular coordinates;
 they do not change the camera. Directions use the molecular Cartesian axes,
 independently of the camera orientation. Keep one task form visible at a time.
@@ -321,6 +325,27 @@ progress/cancellation contracts before such controls are promised. Plotting or
 adding a result to the scene uses the appropriate core owner and a separately
 qualified adapter. Generic native results do not imply universal H5MSM storage.
 
+### Superpose structures — source contract 2026-11-06
+
+The task delegates to public `structure.least_rmsd_fit` through the existing
+managed coordinate adapter or independent expert route. It moves the chosen
+atoms in all/current/ordered-distinct structures. A same-system reference index
+is explicit and refers to the initial pose. Default fit/reference atoms are the
+moving indices; advanced expressions choose fixed ascending-index populations
+in their declared source/reference structure contexts. Pairing is positional,
+user-declared and unweighted; there is no inferred sequence/name mapping.
+Fit atoms may be outside the moving set. Native non-collinearity validation
+covers the whole request before writes; the GUI does not implement Kabsch.
+
+The qualified GUI route identifies MolSysMT CPU explicitly; expert engine,
+external-reference and execution controls remain intact. Shared review tokens,
+managed revision locking, coverage, fixed-cell/no-wrap semantics, independent
+whole-system results and projection-only retry are preserved. The shared
+reference snapshot now groups center/target/fit/reference populations with an
+immutable reference index for exact revalidation; no trajectory is copied by
+review. Sequence correspondence, principal-axis orientation, further reference
+workflows and periodic/cell tools remain pending families, not removed scope.
+
 ## Whole-session target and task-family ledger — 2026-11-06
 
 **Approved product objective; incomplete.** The maintainer adopts completion of
@@ -334,8 +359,8 @@ GUI result or an automatic post-1.0 exclusion.
 | Surface / task family | Reused scientific and host owners | Required receiving |
 | --- | --- | --- |
 | System inventory, selection, removal, subset and copy | Core System/selection; basic remove/extract/copy; host edit/presentation services | Current three tasks have source and real Jupyter guards. Retain all-structure inventory semantics and independent output ownership. |
-| Geometry explicit translation, rotation and centering | structure translate/rotate/center/get_center | Translate implemented. Rotate needs the public constructor requested in #602. Test centers per structure, Cartesian handedness, selections, units and actual Mol* coordinates. |
-| Geometry structural comparison/fitting and principal-axis alignment | structure least_rmsd_fit/least_rmsd_align/align_principal_axes | Explicit source/reference populations and structures; distinguish sequence correspondence, rigid fitting and orientation; expose native degeneracy/prerequisite errors. |
+| Geometry explicit translation, rotation and centering | structure translate/rotate/center/get_center | Translate and Center implemented with analytical/native/Mol* receiving. Rotate needs the public constructor requested in #602. Preserve centers, handedness, units, selections and actual rendered coordinates. |
+| Geometry structural comparison/fitting and principal-axis alignment | structure least_rmsd_fit/least_rmsd_align/align_principal_axes | Superpose structures implements rigid fitting within the current system, with explicit moving/fitting/reference populations, initial reference structure and user-declared index pairing. Sequence-derived matching, principal-axis orientation and other reference workflows remain required work. Preserve native degeneracy/prerequisite errors. |
 | Geometry periodic coordinates and cell assignment | pbc wrap_to_pbc/wrap_to_mic/unwrap, public cell factories and admitted basic.set | Explicit box/image/structure choices, units and unchanged axes; no inferred lattice or automatic wrapping during unrelated edits. |
 | Chemistry readiness and preparation audits | build audit readers, physchem chemical-readiness/H inventory, chemical_states reports | Preserve reference/state and assessed/unassessed scope. Reports do not prepare or assign chemistry. |
 | Chemistry explicit repair and assignments | Received build/physchem atom/bond/H/terminal and typing/charge tools | State method/model and prerequisites; use qualified maps for managed edits or independent results. No inferred identity by equal counts/names. |

@@ -15,7 +15,7 @@ supersedes: []
 # Bound MolSysMT tools addon for MolSysViewer
 
 **Current source GUI — 2026-11-06:** System / Remove atoms, Extract subset and
-Copy system, plus Geometry / Translate and Center, are implemented in this contribution.
+Copy system, plus Geometry / Translate, Center and Superpose structures, are implemented in this contribution.
 Selection/lifecycle and independent-result controls are shared; native science
 and expert defaults are unchanged. The [receiving record](../../devtools/data/molsysviewer_tools_geometry_receiving_20261106.json)
 separates real Jupyter/popup and numerical evidence from pending hosted, owner,
@@ -25,6 +25,20 @@ adds geometric/mass-weighted centering, per-structure point/selection references
 and shared rejected-operation diagnostics (#603), with 114 panel checks, 172
 native/route controls and five actual Jupyter scenarios. Rotate awaits native
 #602; other required Geometry, Chemistry and Analysis tasks remain planned.
+
+## Superposition receiving — 2026-11-06
+
+The [source receipt](../../devtools/data/molsysviewer_tools_fit_receiving_20261106.json)
+adds reviewed unweighted native Kabsch fitting, explicit moving/fit/reference
+populations and same-system reference structure, current/independent effects
+and fixed-box/coverage semantics. All 315 affected native/panel cases and six
+actual Jupyter scenarios pass; 63 route/reporting controls pass separately.
+The clean prior Center source completed all 4,568 addon cases in 1040.89 s,
+without skips. That result retains its exact source; the new fit slice keeps
+its own hosted/full/installed gates. Sequence correspondence, other reference
+workflows, principal-axis orientation and periodic/cell tools remain required.
+Native algorithms and expert signatures/defaults are unchanged. Human acceptance
+is postponed and neither 1.0 publication is authorized.
 
 ## Native execution-platform repair received — 2026-11-05
 

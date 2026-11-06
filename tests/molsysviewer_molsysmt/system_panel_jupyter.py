@@ -53,7 +53,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
         "--scenario",
-        choices=("system", "results", "geometry", "center", "center-errors"),
+        choices=("system", "results", "geometry", "center", "center-errors", "fit"),
         default="system",
     )
     parser.add_argument("--node", default="/usr/bin/node")
@@ -175,7 +175,7 @@ def main():
             "view.close()\nassert not subset_view.closed and not copy_view.closed\n"
             "print('JUPYTER_INDEPENDENT_RESULTS_OK', len(records))\n"
         )
-    if args.scenario in {"geometry", "center", "center-errors"}:
+    if args.scenario in {"geometry", "center", "center-errors", "fit"}:
         initial = initial[: initial.index("view = msv.demo")] + (
             "with msv.demo['pentalanine'] as seed:\n"
             "    view = msv.new_view(seed.molsys, structure_indices=[0, 8, 3])\n"
@@ -209,6 +209,34 @@ def main():
             "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates, to_unit='nm'), candidate, atol=1e-12)\n"
             "assert result.molsys is not view.molsys and result.player.n_structures == 3\n"
             "print('JUPYTER_CENTER_NATIVE_OK', len(records))\n"
+        )
+    if args.scenario == "fit":
+        initial = initial.removesuffix("view\n") + (
+            "import json\nimport numpy as np\n"
+            "def _fit_oracle(base, frames, ref_frame):\n"
+            "    expected = base.copy()\n"
+            "    anchor = np.asarray(msm.select(view.molsys, selection=\"atom_name=='CA'\"), dtype=int)\n"
+            "    reference = base[ref_frame,anchor]\n"
+            "    qc = reference.mean(axis=0)\n"
+            "    for frame in frames:\n"
+            "        query = base[frame,anchor]\n"
+            "        pc = query.mean(axis=0)\n"
+            "        u, _, vt = np.linalg.svd((query-pc).T@(reference-qc))\n"
+            "        proper = np.eye(3); proper[-1,-1] = np.linalg.det(u@vt)\n"
+            "        expected[frame,:10] = (base[frame,:10]-pc)@(u@proper@vt)+qc\n"
+            "    return expected\n"
+            "_fit_source_expected = _fit_oracle(source_coordinates,[2,0],1)\n"
+            "_fit_result_expected = _fit_oracle(_fit_source_expected,[0],2)\n"
+            f"Path({str(output / 'fit-expected.json')!r}).write_text(json.dumps({{'source_angstrom':(_fit_source_expected*10).tolist(),'result_angstrom':(_fit_result_expected*10).tolist()}}))\nview\n"
+        )
+        final = (
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),_fit_source_expected,atol=1e-10)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==1\n"
+            "records=view.addons.manager.presentations.records()\nassert len(records)==1\n"
+            "result=view.addons.manager.presentations.get(records[0]['id'])\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates,to_unit='nm'),_fit_result_expected,atol=1e-10)\n"
+            "assert result.molsys is not view.molsys and result.player.n_structures==3\n"
+            "print('JUPYTER_FIT_NATIVE_OK',len(records))\n"
         )
     if args.scenario == "center-errors":
         initial = initial.removesuffix("view\n") + (
@@ -291,7 +319,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("center_error_jupyter.mjs")
+                        Path(__file__).with_name("fit_panel_jupyter.mjs")
+                        if args.scenario == "fit"
+                        else Path(__file__).with_name("center_error_jupyter.mjs")
                         if args.scenario == "center-errors"
                         else Path(__file__).with_name("center_panel_jupyter.mjs")
                         if args.scenario == "center"

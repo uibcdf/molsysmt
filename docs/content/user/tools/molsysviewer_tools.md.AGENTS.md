@@ -565,3 +565,13 @@ Shared task diagnostics retain bounded text through automatic same-context
 refreshes and expire with new intent/context/lifecycle; old replies must not
 restore an obsolete draft, confirmation or error. Preserve native validation,
 source ownership and synchronization-only retry without scientific replay.
+
+
+Preserve Superpose structures as native unweighted Kabsch fitting with explicit
+moving/fitting populations and the initial reference pose from the same system.
+Declare the qualified CPU route, fixed index-order correspondence and lack of
+sequence/name matching; validate geometry through the native owner, not a GUI
+matrix implementation. Keep reference/structure order, subset effects, fixed
+box, coverage, atomic rejection and synchronization-only retry. Expert external
+references and complete signatures remain unchanged. Native sequence matching,
+principal-axis orientation and further periodic tools retain their planned scope.
