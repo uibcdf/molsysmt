@@ -69,6 +69,7 @@ with its unit. Application standard units are preserved.
 The coordinate array must then contain exactly two structures in the same
 order, each with all prepared atoms. Source MODEL labels are preserved as
 strings, including declared leading zeros; they are not positional indices.
+The supported MODEL labels are ASCII positive-integer tokens.
 Serialized selections must be nonempty and unique. An unwrapped source has no
 declared structure ID. Getters and iterators retain their separate repeated-index
 contract. Source validation always checks every model, including unselected ones.
@@ -77,7 +78,9 @@ The default `discard_remarks=False` refuses any source containing REMARK records
 Set `discard_remarks=True` to authorize removing **all** remarks, including old
 scores, preparation annotations, inter-model and trailing comments. The report
 retains the original input payload hash and optional caller-declared chemical
-provenance. It does not interpret a stale score as a newly evaluated result or
+provenance. That declaration uses finite JSON-compatible values and string keys
+at every object level; non-string or colliding keys are rejected. It does not
+interpret a stale score as a newly evaluated result or
 authenticate a declaration. MODEL wrapper whitespace is canonical; inter-model
 blank lines and a terminal document END may be omitted for MODEL output.
 

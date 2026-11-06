@@ -49,7 +49,17 @@ def _provenance(value, caller=None):
         return None
     if isinstance(value, dict):
         try:
-            return json.loads(json.dumps(value, allow_nan=False))
+            encoded = json.dumps(value, allow_nan=False)
+            pending = [value]
+            while pending:
+                item = pending.pop()
+                if isinstance(item, dict):
+                    if any(not isinstance(key, str) for key in item):
+                        raise TypeError("Provenance JSON object keys must be strings.")
+                    pending.extend(item.values())
+                elif isinstance(item, (list, tuple)):
+                    pending.extend(item)
+            return json.loads(encoded)
         except (ValueError, TypeError, OverflowError) as error:
             raise ArgumentError(
                 "chemical_state_provenance", value=value, caller=caller

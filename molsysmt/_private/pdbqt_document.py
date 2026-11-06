@@ -25,6 +25,7 @@ def _model_ranges(lines, start_offset=0):
                 active is not None
                 or ended
                 or len(tokens) != 2
+                or not tokens[1].isascii()
                 or not tokens[1].isdigit()
                 or int(tokens[1]) <= 0
             ):

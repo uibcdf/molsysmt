@@ -177,13 +177,13 @@ limits are checked, without a total-RSS or constant-time hash/opening claim.
 
 Verification on Python 3.14, with the published Pytest Receptor and twelve workers:
 
-- **392 affected tests/doctests pass**, no failures or omissions. They include all
+- **396 affected tests/doctests pass**, no failures or omissions. They include all
   PDBQT file/handler/indexed/known-source/presentation/real-example tests, shared
   atom-map controls, naming/H-merge/map consumers, the tutorial/course guard and
   all three public projection docstrings. Five pinned real Vina preparations,
   including a receptor, retain every non-coordinate atom field under explicit
   nonidentity coordinate maps; no new search or scoring experiment is executed.
-- **80 cases pass with all five published provider floors**: ArgDigest 0.14.0,
+- **84 cases pass with all five published provider floors**: ArgDigest 0.14.0,
   DepDigest 0.15.1, SMonitor 0.16.0, Ackredit 0.9.0 and PyUnitWizard 0.28.1.
   Only the incompatible development pytest SMonitor plugin is disabled on that
   route; runtime diagnostics and public validation remain active. No environment
@@ -197,8 +197,8 @@ Verification on Python 3.14, with the published Pytest Receptor and twelve worke
   the authorized local-kernel route passes. The public tutorial's two blocks and
   new course code are also executed by the addressable documentation guard.
 
-Retained local XML: `.pytest_cache/599-affected-final.xml` and
-`.pytest_cache/599-five-provider-floors.xml`. The first 48-case draft had thirteen
+Retained local XML: `.pytest_cache/599-affected-reviewed.xml` and
+`.pytest_cache/599-five-provider-floors-reviewed.xml`. The first 48-case draft had thirteen
 test-expectation failures (wrong standard-unit query and treating the explicit
 form prefix as molecular text); corrected expectations pass all 48. The first
 broader command passes 369/370: a pre-existing fresh-process fixture import finds
@@ -206,7 +206,11 @@ the controlled Viewer checkout's regular tests package instead of this
 repository's namespace package. The test now explicitly scopes only its own
 fixture namespace in that child, retaining its unchanged engine-denial assertions.
 The next command passes 384/386, with two further prefix mistakes in new examples;
-both examples are corrected before the final 392/392 receiving. None of these
+both examples are corrected before the 392/392 receiving. The final review adds
+four controls: non-ASCII MODEL tokens are refused before retaining label lexemes,
+and provenance rejects non-string JSON object keys, including nested/colliding
+keys, rather than coercing and potentially losing caller declarations. All 396
+affected and 84 floor cases pass after that refinement. None of the earlier
 nonpassing attempts is reported as passing evidence, and no production parser or
 dependency check is weakened to satisfy the tests.
 

@@ -228,7 +228,17 @@ def test_quantity_wrapped_atom_maps_are_not_positional_indices(unit, tmp_path):
         )
 
 
-@pytest.mark.parametrize("provenance", [[], {"state": np.nan}, {"state": object()}])
+@pytest.mark.parametrize(
+    "provenance",
+    [
+        [],
+        {"state": np.nan},
+        {"state": object()},
+        {1: "state"},
+        {"1": "one", 1: "other"},
+        {"states": [{1: "state"}]},
+    ],
+)
 def test_provenance_requires_a_json_compatible_declaration(provenance, tmp_path):
     with pytest.raises(ArgumentError):
         run(RIGID, "text", tmp_path, chemical_state_provenance=provenance)
@@ -364,6 +374,11 @@ def test_adverse_unselected_source_model_is_validated_before_output(tmp_path):
             discard_remarks=True,
         )
     assert target.read_bytes() == b"unchanged"
+
+
+def test_non_ascii_model_labels_are_rejected_before_projection(tmp_path):
+    with pytest.raises(FormatError, match="MODEL"):
+        run("MODEL ９\n" + RIGID + "ENDMDL\n", "text", tmp_path)
 
 
 def test_budget_distinguishes_full_text_from_one_model_file_buffers(
