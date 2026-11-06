@@ -1130,7 +1130,7 @@
   ],
   "accounting_note": "JUnit includes module-collection skipped testcases; receptor counts executed items. Both totals and the exact accounted collection records are retained.",
   "issue": "uibcdf/molsysmt#304",
-  "observed_at_utc": "2026-11-06T12:15:40.852172+00:00",
+  "observed_at_utc": "2026-11-06T13:46:42.950871+00:00",
   "workflow_url": "https://github.com/uibcdf/molsysmt/actions/runs/42205436569",
   "attempt": 1,
   "scope": "Partial exact-source receiving; Linux Python 3.11-3.14 succeeded, macOS 3.11-3.14 remains queued. Not installed-pair or release qualification.",
@@ -1143,49 +1143,49 @@
     },
     {
       "id": 127850916731,
-      "name": "Full matrix \u2014 macos-15, Python 3.13",
-      "status": "queued",
-      "conclusion": null
+      "name": "Full matrix — macos-15, Python 3.13",
+      "status": "completed",
+      "conclusion": "success"
     },
     {
       "id": 127850916755,
-      "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
+      "name": "Full matrix — ubuntu-latest, Python 3.12",
       "status": "completed",
       "conclusion": "success"
     },
     {
       "id": 127850916779,
-      "name": "Full matrix \u2014 macos-15, Python 3.12",
-      "status": "queued",
+      "name": "Full matrix — macos-15, Python 3.12",
+      "status": "in_progress",
       "conclusion": null
     },
     {
       "id": 127850916814,
-      "name": "Full matrix \u2014 macos-15, Python 3.11",
+      "name": "Full matrix — macos-15, Python 3.11",
       "status": "queued",
       "conclusion": null
     },
     {
       "id": 127850916873,
-      "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
+      "name": "Full matrix — ubuntu-latest, Python 3.14",
       "status": "completed",
       "conclusion": "success"
     },
     {
       "id": 127850916878,
-      "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
+      "name": "Full matrix — ubuntu-latest, Python 3.13",
       "status": "completed",
       "conclusion": "success"
     },
     {
       "id": 127850916913,
-      "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
+      "name": "Full matrix — ubuntu-latest, Python 3.11",
       "status": "completed",
       "conclusion": "success"
     },
     {
       "id": 127850917052,
-      "name": "Full matrix \u2014 macos-15, Python 3.14",
+      "name": "Full matrix — macos-15, Python 3.14",
       "status": "queued",
       "conclusion": null
     }
@@ -1428,11 +1428,14 @@
     ]
   },
   "receiving_limits": [
-    "All four macOS jobs remain queued; the complete source matrix is pending.",
+    "The macOS Python 3.13 job reports success, but its certificate/full-suite archives have not yet been received here. Python 3.12 is running and Python 3.11/3.14 remain queued; the complete matrix stays pending.",
     "Certificate release_eligible is the certificate's clean-source predicate, not publication authorization.",
     "Public Pytest Receptor read_artifact verified completeness and integrity; JUnit and receptor counts retain their distinct collection-skip accounting.",
     "Three optional Ackredit-presence controls omitted in hosted suites were separately executed locally; this does not establish installed-Ackredit qualification on every matrix cell.",
     "Source #593 is separately prepared on a descendant branch; it is not the source executed by this run.",
     "The first comparison incorrectly required identical JUnit/receptor totals and zero optional skips. Investigation found one genuine collection-skipped module and three genuine absent-Ackredit skips; no runtime code or test was changed to make those comparisons pass."
+  ],
+  "successful_jobs_awaiting_artifact_receiving": [
+    127850916731
   ]
 }

@@ -79,7 +79,8 @@ the contract; this consumer report does not authorize native changes or publicat
 ## Prepared implementation — 2026-11-06
 
 **Implemented; contract-tested; bounded parity and numerical checks passed.**
-The maintainer's ordered objective now includes #572. Its prepared provider source
+The maintainer's ordered objective now includes #572. Prepared owner code is
+`993967a0f361d70cba5f7e5c7c246b0000734550`. Its provider source
 accepts native MolSys and supported coordinate/model compositions as well as
 existing Context/Simulation inputs. It does not change the Viewer runtime.
 

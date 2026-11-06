@@ -69,7 +69,9 @@ The exact-source gate for #304 is now
 [42205436569](https://github.com/uibcdf/molsysmt/actions/runs/42205436569),
 on **56b37c983253e8f93cda6333703df2b3a626a238** with controlled Viewer
 42234de839ed047016f8f241ea5eb717cfeb07be. All four Linux Python 3.11–3.14
-cells pass; all four macOS cells remain queued. Each Linux suite records
+cells and the macOS Python 3.13 job report success; the three remaining macOS
+cells are unfinished: Python 3.12 is running and 3.11/3.14 are queued.
+The macOS artifact-level receiving remains pending. Each Linux suite records
 29,253 passes and zero failures/errors. Its 118 JUnit skips comprise 117 item
 skips plus one collection-skipped module; the receptor retains the separate
 executed-item accounting. All 83 registered scientific cases and 432 directed
@@ -151,6 +153,20 @@ No package or registry mutation is executed. The
 [owning record](pending_proposals/conda_provider_v2_3_owner_adoption.md)
 retains the exact input/source evidence and remaining ordered owner integration.
 
+Prepared source for **#572** at 993967a0f361d70cba5f7e5c7c246b0000734550
+supplies complete-environment native forces,
+explicit structure axes, selection order/masks, magnitudes and application units.
+One model context consumes bounded native/H5MSM coordinate blocks; an explicit
+System can use a structures-only file without reconstructed chemistry. The
+shared OpenMM converter also applies switching and explicit dispersion choices.
+The affected 2,005-case selection, 77 published-support-floor controls and 583
+documentation/doctest checks pass; the nine-cell tutorial executes with its plot
+and 14/14 fast gates pass. Detailed source digests and execution limits belong to the
+[owning record](pending_proposals/native_molsys_force_reader_for_bound_consumers.md).
+The User Guide, Cookbook and course distinguish provider capability from addon
+exposure. No issue is closed out of order, no Viewer runtime is changed and no
+installed/release qualification follows from these local checks.
+
 The subsequent board checkpoint reads **#608–#610**, again without expanding
 the fifteen-item objective. #608 reports application-unit-dependent origin
 snapping and extends the unresolved native PBC qualification obligations above;
@@ -169,6 +185,16 @@ smoke need owner receiving. It does not change the active fifteen-item goal
 or certify a new source gate here. At this board checkpoint PR #543 is at
 **699fc69be57ac0e89f9bced3fd4f39139ccabf38**; this later source remains
 outside the frozen receiving inputs 282e8337e and 56b37c983.
+
+The next inspected incoming **#612** records a conflict between a multi-model
+alternate-location fixture and the already accepted stable-ID preflight. Its
+reported source is native main ed09f6453 and later PR source 699fc69be; it does
+not establish that the safety guard should be removed. The frozen #304 input
+keeps its own test inventory and exact gate. This distinct follow-up needs owner
+receiving without weakening atomicity or round-trip coverage. PR #543 has since
+advanced to **4f1710c5e66f7c9d5e9065fc82a7bd602824e611**, outside both frozen
+receiving inputs. This incoming review does not silently expand the fifteen
+maintainer-ordered issues.
 
 Other listed issues remain pending in the stated order; #594–#598 already have
 source repairs in the separate PR candidate but their closeout belongs at the
