@@ -1,0 +1,241 @@
+{
+  "schema": "molsysviewer.pending-addon-reader-receiving@1",
+  "date": "2026-11-06",
+  "issues": [
+    "uibcdf/molsysviewer#304",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#421"
+  ],
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "viewer_source_basis": "6e23f37fce0b823fba0bc8bb7971387c8305eba7",
+  "owner_source_basis": "9739f8dee1f8c71ae4e0043a19eb67acab8939ad",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "environment": {
+    "name": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc"
+  },
+  "viewer_inputs": {
+    "molsysviewer/js/src/ui/system-sync-overlay.ts": {
+      "sha256": "206589dd97690c4a214ab77b37aed0956f8792417ed80c6f5255ac5245e2864c",
+      "size_bytes": 7906
+    },
+    "molsysviewer/js/src/managers/viewer-controller.ts": {
+      "sha256": "522d7adafc7aac987f3cad6591c56bda4b90f6bac450295a5bc0c9e750028617",
+      "size_bytes": 237305
+    },
+    "molsysviewer/js/src/ui/controls.ts": {
+      "sha256": "cd1a4ba3f668c8f50a39eb3572850414d5f658a850c1ce5f78686e8457b1fd64",
+      "size_bytes": 40058
+    },
+    "molsysviewer/js/src/ui/help-overlay.ts": {
+      "sha256": "222f7376752aad77ef0ccfa0c909089b3aaf71da8078b3b55d4def46146734ae",
+      "size_bytes": 11649
+    },
+    "molsysviewer/js/src/managers/measurement-tools.ts": {
+      "sha256": "1085b9caf6fdcc86ef921c017714324e5333aa3d983f704e2a232530665a1dbb",
+      "size_bytes": 9906
+    },
+    "molsysviewer/viewer/panel_mode.py": {
+      "sha256": "397e8087bcdae179e6e602a4485ecfbd58670f6311bb7d8b619c117cdc5661f6",
+      "size_bytes": 19668
+    },
+    "molsysviewer/js/tests/unit/addon-panel-lifecycle.test.ts": {
+      "sha256": "d052236fe280fa09772345426bc3b9afcd79bc1ca1cbc04366b57af5c05f7d99",
+      "size_bytes": 12351
+    },
+    "molsysviewer/js/tests/e2e/managed-system-edits-bridge.py": {
+      "sha256": "ee5e36acff3306bae0463e4956232a7b84a05a3275ee941d41bb0b75d6ded794",
+      "size_bytes": 5590
+    },
+    "molsysviewer/js/tests/e2e/managed-system-edits-scenarios.ts": {
+      "sha256": "2ab4f4e208746539ae62fc4987cf239af371eaf97e1afea2986d091953f25223",
+      "size_bytes": 8427
+    },
+    "tests/test_addon_read_only_actions.py": {
+      "sha256": "d25f41bd4ee883d3c1f19073a82f37428d8589ae17ef464ce13da6d7f89fdd07",
+      "size_bytes": 6081
+    }
+  },
+  "owner_inputs": {
+    "molsysviewer_molsysmt/_chemistry_panel_frontend.py": {
+      "sha256": "f2da0c304b440f7fd875a3aa780808c8acf73d1455f1a11ccd7e12fd0f858c32",
+      "size_bytes": 13399
+    },
+    "tests/molsysviewer_molsysmt/chemistry_pending_jupyter.mjs": {
+      "sha256": "758b6a9fe711aa41d5c5e05033f747834c190830ba7de20f55d3f273dc76fd3e",
+      "size_bytes": 9182
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "70b1824203846b11a9a9a2d3ea538c2310da0ce140bc82ae9d88a6a5a20745a9",
+      "size_bytes": 7646
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "bcd10bda7c7b3f60acdc67b9886533e0c424da11791919f72966731daf1dcc11",
+      "size_bytes": 24989
+    }
+  },
+  "contract": {
+    "ui": "An already mounted declared reader is temporarily reparented into the pending/sync_failed sheet. Same widget, DOM, handlers and CSS; native input/paging preserved. Other host children stay inert, old scene shortcuts/pointer actions isolated. Synchronization restores original parent and per-element inert states; unmount releases reader. No navigation or implicit mounting privilege.",
+    "requests": "Exact server-owned action IDs and mapping payload only. No trait mutation or result presentation while paused. Editing/syncing/uncertain/closed deny readers. Backend mounted owner/authenticated endpoint and nested scene guards stay authoritative.",
+    "consumer": "Chemistry invalidates in-flight replies on sync-state changes. Never request a refresh in an unadmitted state without a promised reply; refresh anew when synchronized/pending/sync_failed. Old scene selections/regions stay disabled. Native calculation and expert API unchanged."
+  },
+  "checks": [
+    {
+      "scope": "Python host reader/managed-edit/addon/endpoint regression",
+      "log": "/tmp/msv-reader-sheet-host-regression-20261106.log",
+      "sha256": "d568948cc85e3b37a9aac858c6bc1cf22c5dd4892d0c4465a01381881a6866c1",
+      "size_bytes": 414,
+      "passed": 94,
+      "skipped": 1,
+      "skip_reason": "Unchanged optional legacy MolSysMT entry point is not installed",
+      "duration_seconds": 11.14
+    },
+    {
+      "scope": "JavaScript full unit collection including request/state rejection and unmount reader release",
+      "log": "/tmp/msv-reader-sheet-shadow-js-20261106.log",
+      "sha256": "45701cabfc12ff35542ba7ecd707391afd5780dda8e94de1cc32ca6c28ef411b",
+      "size_bytes": 31798,
+      "passed": 339,
+      "skipped": 0
+    },
+    {
+      "scope": "All original eight synchronized actual Jupyter/Mol*/popup cases plus initial pending-driver navigation failure",
+      "log": "/tmp/msv-reader-sheet-jupyter-all-20261106.log",
+      "sha256": "ef2c2575461456fc0506c9358d4639802b1abaa28c603ff711e4c66805735fce",
+      "size_bytes": 3433,
+      "passed": 8,
+      "failed": 1,
+      "duration_seconds": 452.95,
+      "boundary": "Retain eight passes; only new pending driver failed resolving a button that became the selected header."
+    },
+    {
+      "scope": "Final pending actual Jupyter and both popup boundaries",
+      "log": "/tmp/msv-reader-sheet-jupyter-shadow-final-20261106.log",
+      "sha256": "6da7d0a9ab16fc9605f07c7df2fdc40763329afdd07003bb91f3f17c5d63a779",
+      "size_bytes": 33,
+      "passed": 1,
+      "skipped": 0,
+      "duration_seconds": 50.4,
+      "steps": 8,
+      "boundary": "Final reader presentation and corrected navigation; native arrays/domains/regions unchanged, only three deliberate box edits. Three hosts receive real typing, keyboard activation, native pages and same-DOM recovery."
+    },
+    {
+      "scope": "Entire controls-visibility export/notebook/scientific-popup-mirror entry",
+      "log": "/tmp/msv-host63-controls-diagnostic-20261106.log",
+      "sha256": "83deb46c06e33738adb9d8b517e573ad4c02626749bacd4f476a11e9ea140290",
+      "size_bytes": 1470,
+      "state": "passed",
+      "boundary": "Independent local receiving does not explain the historical hosted failure; tracked separately in #305."
+    },
+    {
+      "scope": "Real Mol*/Python mandatory managed-edit entry with native reader primary-versus-old-box oracle",
+      "log": "/tmp/msv-reader-sheet-native-e2e-shadow-final-20261106.log",
+      "sha256": "a89613ae12a387bcb8586d5cb49505a48fca3771cfc9975773946adfcde8d4f2",
+      "size_bytes": 238,
+      "state": "passed",
+      "boundary": "New permanent root E2E; typing, exact action admission, nm box oracle, unchanged old rendered box, mounted DOM and original live-element inert restoration."
+    },
+    {
+      "scope": "Reporting/link/architecture guards",
+      "passed": 326,
+      "duration_seconds": 2.19,
+      "log": "/tmp/msv-reader-sheet-records-qualified-20261106.log"
+    },
+    {
+      "scope": "Owner distribution/preflight/reporting/course controls",
+      "passed": 100,
+      "duration_seconds": 6.79,
+      "warnings": "142 existing Sphinx deprecations",
+      "log": "/tmp/msv-reader-sheet-owner-routes-20261106.log"
+    }
+  ],
+  "preserved_failures": [
+    {
+      "log": "/tmp/msv-reader-sheet-jupyter-first-20261106.log",
+      "observation": "Native reader controls stayed busy because editing-state refresh requests have no admission/reply.",
+      "resolution": "Retire stale requests and refresh only after admitted state. Native scientific code unchanged."
+    },
+    {
+      "log": "/tmp/msv-reader-sheet-jupyter-statefix-20261106.log",
+      "observation": "Test assumed every original child must become non-inert; autohidden controls were inert before the edit.",
+      "resolution": "Check the exact original inert value of each retained element."
+    },
+    {
+      "log": "/tmp/msv-reader-sheet-native-e2e-20261106.log",
+      "observation": "Test compared positional child arrays even though a normal transient toast was removed.",
+      "resolution": "Check original values by retained DOM identity; expiry of a toast is not a synchronization defect."
+    },
+    {
+      "log": "/tmp/msv-reader-sheet-jupyter-all-20261106.log",
+      "observation": "New driver selected Add-ons during bootstrap; its button became the selected header and the old selector disappeared.",
+      "resolution": "Wait for workspace metadata and use the stable selected/selectable header identity. Keep pointer, timeout and all scientific assertions."
+    },
+    {
+      "run": 42206567233,
+      "source": "63e79096ef3c3414c2fabacf5f44e81e9b475440",
+      "observation": "Hosted controls context-menu timeout remains unexplained.",
+      "owner": "uibcdf/molsysviewer#305"
+    }
+  ],
+  "qualification": "Source receiving only. Owner integration, exact-head hosted gates, public packages and postponed human Jupyter/visible Qt acceptance remain separate. No complete single green nine-case Jupyter run is claimed.",
+  "publication": "Both 1.0 publications paused; no tag/candidate freeze/package/promotion.",
+  "hosted_previous_checkpoint": {
+    "run": 42210858347,
+    "source": "6e23f37fce0b823fba0bc8bb7971387c8305eba7",
+    "state": "success",
+    "scope": "Original pre-reader runtime core E2E on documentation checkpoint; does not qualify new reader code or explain prior #305 failure."
+  },
+  "viewer_source": "2e17ee6f13333e5efd3726b353ade5c8cdc77b0b",
+  "viewer_receipt_sha256": "0feccf13130f3cfbd8a146f1b53639de75374949663806c52240d18ceeab7c50",
+  "controlled_inputs": {
+    ".github/workflows/benchmarks.yml": {
+      "sha256": "856b97282cc1b04cdd68dc809cb39c0499e1c6f98cbd9b7f3b2e31482c39b0c1",
+      "size_bytes": 3310
+    },
+    ".github/workflows/ci-full.yaml": {
+      "sha256": "4889bbd213159f00b6e68ca0642725d30d0b05a94b3a36e67ac4c4d7a02535ac",
+      "size_bytes": 6973
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "sha256": "fb6c1de6fdfd770dba41f6e6a8a0bacec5c769ac0f00c59986e3d63aa4b64ae0",
+      "size_bytes": 16698
+    },
+    ".github/workflows/ci-weekly.yaml": {
+      "sha256": "bac010df7ca9fc2aa74a29698319de0c3afd987e7248a4ab02f41628260813c1",
+      "size_bytes": 7568
+    },
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": {
+      "sha256": "0fb28125346c30ab078685051470fb5c6863cf01b1f4617a6e50e8e63778bcd6",
+      "size_bytes": 3195
+    },
+    "devtools/dependency_contract.toml": {
+      "sha256": "b363a9433e078b78253f1d63a0538fdd38abf4cb8920ade251fe75379a0022fe",
+      "size_bytes": 1882
+    }
+  },
+  "controlled_route_validation": {
+    "passed": 100,
+    "duration_seconds": 6.69,
+    "log": "/tmp/msv-reader-sheet-owner-routes-pinned-20261106.log",
+    "sha256": "973db2a9adfe0874d51d9f302b832aa6ab4ef0b136b0c1759b45c198825ac9bf",
+    "dependency_audit": "PASS",
+    "ruff": "check/format PASS, 4431 files",
+    "owner_integration": "PR #543, not merged"
+  },
+  "prior_owner_hosted": {
+    "source": "9739f8dee1f8c71ae4e0043a19eb67acab8939ad",
+    "smoke_run": 42210639321,
+    "state": "cancelled",
+    "step": "Receive the bound MolSysViewer tools",
+    "boundary": "Original cancelled outcome retained; not a passing science or full-smoke gate. Cause inspection pending.",
+    "cause": "GitHub check-run 127868146225: The job has exceeded the maximum execution time of 25m0s",
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "native_duration_seconds": 642.1,
+    "addon_progress": 3760,
+    "addon_selected": 4699,
+    "issue": "uibcdf/molsysmt#611",
+    "proposal": "Finite 45-minute maximum; both complete tiers and assertions preserved. Corrected hosted outcome pending."
+  }
+}

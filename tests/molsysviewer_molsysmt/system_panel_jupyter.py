@@ -62,6 +62,7 @@ def main():
             "fit",
             "periodic",
             "chemistry",
+            "chemistry-pending",
         ),
         default="system",
     )
@@ -115,6 +116,7 @@ def main():
         "contribution": str(source),
         "viewer_root": str(viewer),
         "chromium": args.chromium,
+        "scenario": args.scenario,
     }
     (output / "settings.json").write_text(json.dumps(settings))
     (output / "settings.json").chmod(0o600)
@@ -302,6 +304,35 @@ def main():
             "assert not view.addons.manager.presentations.records()\n"
             "print('JUPYTER_CHEMISTRY_UNCHANGED',view.molsys.get_n_atoms())\n"
         )
+    if args.scenario == "chemistry-pending":
+        initial = initial.removesuffix("view\n") + (
+            "import numpy as np\n"
+            "source_coordinates=msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm').copy()\n"
+            "source_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "view.regions.add(selection=[0,2],tag='owned-before-edit')\n"
+            "source_regions=view.export_state()['regions']\n"
+            "def defer_reader_box():\n"
+            "    revision=view.addons.molsysmt.get_sync_status()['target_revision']\n"
+            "    view.addons.molsysmt.basic.set(box=msm.pyunitwizard.quantity((np.eye(3)*(3+revision))[None],'nm'),update_view=False)\n"
+            "    assert view.addons.molsysmt.get_sync_status()['state']=='pending'\n"
+            "    print('READER_PENDING',revision+1)\n"
+            "def verify_reader_pending(expected_revision):\n"
+            "    status=view.addons.molsysmt.get_sync_status()\n"
+            "    assert status['state']=='pending' and status['target_revision']==expected_revision, status\n"
+            "    np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+            "    np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),source_chemistry)\n"
+            "    print('READER_PENDING_UNCHANGED',expected_revision)\n"
+            "view\n"
+        )
+        final = (
+            "assert view.addons.molsysmt.get_sync_status()['state']=='synchronized'\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==3\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+            "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),source_chemistry)\n"
+            "assert view.export_state()['regions']==source_regions\n"
+            "assert not view.addons.manager.presentations.records()\n"
+            "print('JUPYTER_PENDING_READERS_OK',view.molsys.get_n_atoms())\n"
+        )
     # Keep a native stack if initialization stalls. The shell event closes the
     # diagnostic after the actual display hook, without warming that hook first.
     initial = (
@@ -315,9 +346,15 @@ def main():
         "get_ipython().events.register('post_run_cell', _source_initialized)\n"
         + initial
     )
-    (output / "notebooks/system.ipynb").write_text(
-        json.dumps(_notebook([initial, final]))
-    )
+    cells = [initial, final]
+    if args.scenario == "chemistry-pending":
+        cells = [initial]
+        for revision in range(1, 4):
+            cells.extend(
+                ["defer_reader_box()\n", f"verify_reader_pending({revision})\n"]
+            )
+        cells.append(final)
+    (output / "notebooks/system.ipynb").write_text(json.dumps(_notebook(cells)))
     (output / "notebooks/plain.ipynb").write_text(
         json.dumps(_notebook(["print('PLAIN_JUPYTER_CONTROL_OK', 1 + 1)\n"]))
     )
@@ -368,7 +405,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("chemistry_panel_jupyter.mjs")
+                        Path(__file__).with_name("chemistry_pending_jupyter.mjs")
+                        if args.scenario == "chemistry-pending"
+                        else Path(__file__).with_name("chemistry_panel_jupyter.mjs")
                         if args.scenario == "chemistry"
                         else Path(__file__).with_name("periodic_panel_jupyter.mjs")
                         if args.scenario == "periodic"

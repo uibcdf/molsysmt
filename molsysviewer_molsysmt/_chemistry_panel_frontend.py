@@ -99,10 +99,12 @@ export function render({model,el}) {
     const state=msg.state;busy=false;draft={...initial,...state.draft};parameters={...defaults,...state.parameters};context=state.context||{};report=state.report||null;page=state.page||null;message=state.message||'';render();
     if(report&&state.stage==='report')q('report-heading').focus();
   }
-  function onContext(){stamp++;report=null;page=null;if(!busy)request('refresh');else render();}
+  function onContext(){stamp++;report=null;page=null;if(!busy&&context.can_inspect)request('refresh');else render();}
   function onSync(status){
-    stamp++;report=null;page=null;context={...context,...status,can_inspect:!!context.has_system&&['synchronized','pending','sync_failed'].includes(status.state)};
-    if(!busy)request('refresh');else render();
+    // Busy-state requests have no host admission and therefore no reply.
+    // Retire older responses and start a fresh read only in an admitted state.
+    stamp++;sequence++;busy=false;report=null;page=null;context={...context,...status,can_inspect:!!context.has_system&&['synchronized','pending','sync_failed'].includes(status.state)};
+    if(context.can_inspect)request('refresh');else render();
   }
   model.on('msg:custom',onState);model.on('viewer:frame-changed',onContext);model.on('viewer:selection-changed',onContext);model.on('viewer:system-sync-changed',onSync);
   render();return()=>{abort.abort();model.off('msg:custom',onState);model.off('viewer:frame-changed',onContext);model.off('viewer:selection-changed',onContext);model.off('viewer:system-sync-changed',onSync);report=null;page=null;el.replaceChildren();};

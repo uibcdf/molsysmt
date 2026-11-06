@@ -33,7 +33,7 @@ detached Studio. Hosted exact-head gates remain pending. Native-window ownership
 visible Qt qualification. Other destinations, further Geometry tasks and Chemistry/Analysis
 remain planned. The dated status above retains its initial scope.
 
-The host code is Viewer `49dba88ae992088259a6f0891b59dfc8730f5183` (source fixes #302/#303 and presentation CI recovery).
+The controlled host is Viewer `2e17ee6f13333e5efd3726b353ade5c8cdc77b0b` (source #302/#303, presentation recovery and interactive declared readers under #304).
 The source receiver also incorporates native ed09f6453, including the owner's
 #583/#584 repairs. Consumer observations are archived alongside the native
 resolutions; no duplicate open report is retained. The final receiving receipt
@@ -391,11 +391,13 @@ No molecular/scene/analysis/history operation follows from inspection.
 
 The new read_only_actions capability in uibcdf/molsysviewer#304 admits declared
 incoming reader requests under pending synchronization. The addon rejects old
-scene selections/regions in that state. The core recovery sheet still prevents
-pointer/keyboard access to underlying Studio; frontend admission and its actual
-receiving remain required in #304. This source slice does not claim that UX
-complete, source support is distinct from a public package, and human visible
-acceptance remains postponed. The full periodic source dd34c371c completed
+scene selections/regions in that state. The host now temporarily places that already mounted reader inside the
+recovery sheet, preserving input/DOM identity and native bounded pages while
+the old scene stays inert. Synchronization restores its original Studio host.
+Chemistry retires stale requests and only refreshes in admitted states, avoiding
+a busy request without a response during editing. Actual Jupyter and both popup
+boundaries are received under #304; exact-head hosted/owner/installed gates
+remain separate and human visible acceptance remains postponed. The full periodic source dd34c371c completed
 4,657 cases before these Chemistry changes; retain that input distinction.
 
 ## Whole-session target and task-family ledger — 2026-11-06

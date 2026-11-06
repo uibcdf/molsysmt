@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-11-05
+**Last updated:** 2026-11-06
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,25 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Molecular task and pending-reader integration — 2026-11-06
+
+PR #543 now includes System tasks, Geometry transforms/fitting and bounded
+periodic tools, plus two read-only Chemistry reports. Controlled Viewer
+2e17ee6f13333e5efd3726b353ade5c8cdc77b0b preserves the same mounted reader
+inside recovery while old-scene actions remain blocked. The
+[reader receipt](../devtools/data/molsysviewer_tools_pending_reader_receiving_20261106.json)
+keeps native/host/actual Jupyter and both-popup evidence separate, including the
+failed full attempt, eight synchronized passes and scoped pending-case recovery.
+Native science and expert signatures/defaults remain unchanged on ed09f6453.
+
+The prior 25-minute smoke cancellation is confirmed by GitHub and retained;
+#611 proposes the finite 45-minute budget with both scientific tiers intact.
+Latest hosted/owner/installed and postponed human gates remain separate. The
+full earlier periodic gate does not certify new Chemistry source. Required
+Geometry/cell, Chemistry preparation/construction, Analysis and complete-session
+preservation still need receiving; #602/#605/#606/#607/#608 remain native
+requirements. Both 1.0 publications remain paused.
 
 ## Independent addon result Views — 2026-11-05
 

@@ -1435,7 +1435,7 @@ operation or automatic scene adoption.
 
 ### Bounded native-plus-addon scientific smoke budget
 
-The development `ci-smoke.yaml` job has a finite 25-minute maximum. Its scope
+The development `ci-smoke.yaml` job has a finite 45-minute maximum. Its scope
 includes environment/toolchain setup, native build, native scientific guards,
 the bound MolSysViewer scientific tier and cleanup. Keep those selected tiers
 when adjusting operational budget; do not remove tests to manufacture green CI.
@@ -1443,8 +1443,11 @@ This ceiling is a bounded operational choice, not a guaranteed runtime across
 all runners. GitHub timeout/cancellation remains a non-success conclusion even
 when completed pytest output is positive. Preserve the official run, annotations
 and original outputs, then qualify a corrected source through an actual complete
-run. The measured 15-minute exhaustion and accepted adjustment are tracked by
-uibcdf/molsysmt#501; fixture migration is the separate uibcdf/molsysmt#500.
+run. The measured 15-minute exhaustion and original 25-minute adjustment are
+retained under uibcdf/molsysmt#501. Coverage growth to 6,065 native and 4,699
+bound selections exhausted that 25-minute limit in run 42210639321; the bounded
+45-minute follow-up is uibcdf/molsysmt#611. Official complete hosted receiving
+remains required. Fixture migration is the separate uibcdf/molsysmt#500.
 
 ### Descriptor CI closeout — 2026-10-27
 

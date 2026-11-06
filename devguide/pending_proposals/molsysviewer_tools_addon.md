@@ -38,11 +38,16 @@ distinct. Reports have bounded 50-row source-index pages, an explicit mounted
 lifetime and no preparation, scene adoption or generic persistence effects.
 Expert scientific signatures and native source remain unchanged.
 
-Controlled host 63e79096 adds declared incoming reader transport under
-uibcdf/molsysviewer#304. Old scene memberships are refused during pending
-synchronization, while the expert native reader remains available. The core
-recovery sheet still blocks the underlying pointer/keyboard UI, which remains
-required work in #304. Full latest-source/hosted, owner integration, postponed
+Controlled host 2e17ee6f13333e5efd3726b353ade5c8cdc77b0b supplies declared incoming readers and interactive
+recovery under uibcdf/molsysviewer#304. The same mounted reader is temporarily
+placed in the sheet; native input/pages work while old-scene selections and
+scene shortcuts remain blocked. Synchronization restores its original DOM
+and original live-element inert values. Chemistry retires stale requests and
+refreshes only in admitted states. The
+[pending-reader receipt](../../devtools/data/molsysviewer_tools_pending_reader_receiving_20261106.json)
+retains eight synchronized Jupyter passes and the separate eight-step pending
+case after a driver navigation correction (50.40 s), plus the failed full
+attempt and native-reader host oracle. No single green nine-case run is claimed. Full latest-source/hosted, owner integration, postponed
 human and installed gates remain separate. Chemistry preparation/construction,
 Analysis and the whole scientific session still require their own receiving.
 

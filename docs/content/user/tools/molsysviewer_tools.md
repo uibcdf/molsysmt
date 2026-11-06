@@ -5381,8 +5381,13 @@ inspection. Use a separate explicit preparation tool when that is your intent.
 
 These panels require a qualified source host with the declared read-only addon
 request contract. Pending scientific reads use the current primary rather than
-old scene indices; selections/regions from an outdated scene are refused. The
-core recovery sheet still blocks pointer/keyboard access during pending scene
-updates (Viewer #304), so the interactive recovery workflow is incomplete.
-Synchronized Jupyter/popups, human visible Qt/Jupyter acceptance, owner
-integration and installed-package qualification retain their separate evidence.
+old scene indices; selections/regions from an outdated scene are refused. While a scene update is pending, a Chemistry panel that is already open
+remains available inside the recovery sheet. You can choose a primary-system
+selection, inspect the report and turn its pages with the mouse or keyboard.
+The scene remains paused. Use **Update view** to synchronize it and return the
+same panel to Studio. Opening another panel or using old scene selections
+requires completing that update first.
+
+This workflow has source receiving in Jupyter and both popup hosts (Viewer
+#304). Human visible Qt/Jupyter acceptance, owner integration and installed
+packages retain their separate qualification.

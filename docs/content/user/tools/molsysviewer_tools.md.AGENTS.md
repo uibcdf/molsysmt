@@ -596,6 +596,9 @@ stored presence from validation and unknown non-indexed H from zero. Keep
 reference-context populations, whole-state versus incident connectivity, native
 units/indices/evidence, bounded 50-row pages and mounted-report lifetimes. Do
 not add preparation, adoption, a global readiness flag or generic persistence.
-Keep declared pending-reader transport separate from the still-blocked recovery
-sheet UX in Viewer #304, and source qualification separate from installed and
-postponed human acceptance.
+Preserve the declared pending-reader contract in Viewer #304: only an already
+mounted reader is temporarily hosted by the recovery sheet, with scene inputs
+blocked and exact DOM/state restoration after synchronization. Retire stale
+requests and refresh only in admitted states; editing/busy states promise no
+reader reply. Keep source qualification separate from installed and postponed
+human acceptance.

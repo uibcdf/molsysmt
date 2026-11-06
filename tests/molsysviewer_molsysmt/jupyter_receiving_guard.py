@@ -186,3 +186,25 @@ def test_actual_jupyter_chemistry_inspection(tmp_path):
     assert len(result["checks"]) == 7
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
+
+
+def test_actual_jupyter_pending_chemistry_readers(tmp_path):
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-chemistry-pending"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "chemistry-pending",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=300)
+    result = json.loads((output / "full-result.json").read_text())
+    assert len(result["checks"]) == 8
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()

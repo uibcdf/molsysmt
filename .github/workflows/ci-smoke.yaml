@@ -41,7 +41,7 @@ jobs:
         (github.event_name == 'pull_request' && contains(github.event.pull_request.head.ref, 'skip-ci'))
       )
     runs-on: ${{ matrix.cfg.os }}
-    timeout-minutes: 25
+    timeout-minutes: 45
     concurrency:
       group: ci-smoke-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
@@ -96,7 +96,7 @@ jobs:
           set -euo pipefail
           python -m pip install --no-deps \
             -r devtools/controlled_sources.txt \
-            git+https://github.com/uibcdf/molsysviewer@63e79096ef3c3414c2fabacf5f44e81e9b475440
+            git+https://github.com/uibcdf/molsysviewer@2e17ee6f13333e5efd3726b353ade5c8cdc77b0b
           python -m pip install --editable . --no-deps
 
       - name: Validate controlled dependency versions
