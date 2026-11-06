@@ -14,6 +14,12 @@ from ._task_panel import _MolecularTaskPanel, _structures
 
 _PARAMETERS = {
     "task": "translate",
+    "wrap_mode": "primary",
+    "wrap_compact": "component",
+    "ox": "0",
+    "oy": "0",
+    "oz": "0",
+    "origin_unit": "angstrom",
     "fit_expression": "",
     "fit_reference_expression": "",
     "fit_reference_structure": "0",
@@ -38,15 +44,40 @@ _COMPLETED = {
     "translate": "Translation applied. The view is up to date.",
     "center": "Centering applied. The view is up to date.",
     "fit": "Superposition applied. The view is up to date.",
+    "wrap": "Periodic wrapping applied. The view is up to date.",
+    "unwrap": "Temporal unwrapping applied. The view is up to date.",
 }
 
-_OPERATIONS = {"translate": "translate", "center": "center", "fit": "least_rmsd_fit"}
+_OPERATIONS = {
+    "translate": ("structure", "translate"),
+    "center": ("structure", "center"),
+    "fit": ("structure", "least_rmsd_fit"),
+    "wrap": ("pbc", "wrap_to_pbc"),
+    "unwrap": ("pbc", "unwrap"),
+}
+
+
+def _operation(parameters):
+    module, name = _OPERATIONS[parameters["task"]]
+    if parameters["task"] == "wrap" and parameters["wrap_mode"] == "nearest":
+        name = "wrap_to_mic"
+    return module, name
+
+
 _RESULT_TITLES = {
     "translate": "Translated system",
     "center": "Centered system",
     "fit": "Superposed system",
+    "wrap": "Wrapped system",
+    "unwrap": "Unwrapped trajectory",
 }
-_EFFECT_LABELS = {"translate": "Translated", "center": "Centered", "fit": "Superposed"}
+_EFFECT_LABELS = {
+    "translate": "Translated",
+    "center": "Centered",
+    "fit": "Superposed",
+    "wrap": "Wrapped",
+    "unwrap": "Unwrapped",
+}
 
 
 def _parameters(value):
@@ -55,6 +86,12 @@ def _parameters(value):
     result = dict(_PARAMETERS, **value)
     if result["task"] not in _OPERATIONS:
         raise ValueError("Choose a supported Geometry task.")
+    if result["wrap_mode"] not in {"primary", "centered", "nearest"} or result[
+        "wrap_compact"
+    ] not in {"component", "atom"}:
+        raise ValueError("Choose a supported periodic placement and grouping.")
+    if result["origin_unit"] not in {"angstrom", "nm"}:
+        raise ValueError("Choose an explicit periodic reference length unit.")
     if result["center_kind"] not in {"geometric", "masses"} or result[
         "destination_kind"
     ] not in {"point", "selection"}:
@@ -69,6 +106,9 @@ def _parameters(value):
     if result["structures"] not in {"all", "current", "indices"}:
         raise ValueError("Choose which structures to transform.")
     for key, limit in (
+        ("ox", 64),
+        ("oy", 64),
+        ("oz", 64),
         ("dx", 64),
         ("dy", 64),
         ("dz", 64),
@@ -88,21 +128,44 @@ def _parameters(value):
     return result
 
 
-def _translation(parameters, *, center=False):
+def _length_vector(parameters, kind="translation"):
     from molsysmt import pyunitwizard as puw
 
+    fields, unit = {
+        "translation": (("dx", "dy", "dz"), "unit"),
+        "center": (("cx", "cy", "cz"), "center_unit"),
+        "origin": (("ox", "oy", "oz"), "origin_unit"),
+    }[kind]
     try:
-        values = [
-            float(parameters[key])
-            for key in (("cx", "cy", "cz") if center else ("dx", "dy", "dz"))
-        ]
+        values = [float(parameters[key]) for key in fields]
     except ValueError as exc:
         raise ValueError("Enter three finite length values.") from exc
     if not np.all(np.isfinite(values)):
         raise ValueError("Enter three finite length values.")
-    # The GUI record carries its explicit unit. Native digestion still owns
-    # dimensional validation and supported coordinate broadcasting.
-    return puw.quantity(values, parameters["center_unit" if center else "unit"])
+    return puw.quantity(values, parameters[unit])
+
+
+def _admit_periodic_profile(target, frames, *, temporal):
+    """Bound the GUI's received native route; never repair a box or an image."""
+    from molsysmt import basic
+    from molsysmt import pyunitwizard as puw
+
+    box = basic.get(target, structure_indices=list(frames), box=True)
+    if box is None:
+        raise ValueError(
+            "Periodic tools require stored box vectors. Load box data or explicitly assign a box before using this task."
+        )
+    values = np.asarray(puw.get_value(box, to_unit="nm"))
+    # Temporary input admission for owner #607, not a new physical definition.
+    # No tolerance, rotation or minimum-image algorithm is introduced here.
+    if np.any(np.triu(values, k=1) != 0):
+        raise ValueError(
+            "This periodic editor does not yet support that box orientation. The molecular data were not changed."
+        )
+    if temporal and not np.all(values == values[:1]):
+        raise ValueError(
+            "Temporal unwrapping currently requires an unchanged periodic cell across the selected structures. Changing-cell support is pending."
+        )
 
 
 @dataclass(frozen=True)
@@ -243,7 +306,17 @@ class _GeometryPanel(_MolecularTaskPanel):
 
         references = _GeometryReferences()
         if self._parameters["task"] == "translate":
-            _translation(self._parameters)
+            _length_vector(self._parameters)
+        elif self._parameters["task"] in {"wrap", "unwrap"}:
+            temporal = self._parameters["task"] == "unwrap"
+            if temporal and len(frames) < 2:
+                raise ValueError(
+                    "Choose at least two structures in their intended temporal order."
+                )
+            if atoms.size:
+                _admit_periodic_profile(target, frames, temporal=temporal)
+            if not temporal:
+                _length_vector(self._parameters, "origin")
         elif self._parameters["task"] == "center":
             centers = population(self._parameters["source_expression"], atoms)
             moving_set = set(atoms.tolist())
@@ -253,7 +326,7 @@ class _GeometryPanel(_MolecularTaskPanel):
                 )
             targets = ()
             if self._parameters["destination_kind"] == "point":
-                _translation(self._parameters, center=True)
+                _length_vector(self._parameters, "center")
             else:
                 if not self._parameters["target_expression"].strip():
                     raise ValueError("Choose a target-center selection expression.")
@@ -334,7 +407,21 @@ class _GeometryPanel(_MolecularTaskPanel):
             "skip_digestion": False,
         }
         if review.parameters["task"] == "translate":
-            parameters["translation"] = _translation(review.parameters)
+            parameters["translation"] = _length_vector(review.parameters)
+        elif review.parameters["task"] in {"wrap", "unwrap"}:
+            parameters["engine"] = "MolSysMT"
+            if review.parameters["task"] == "wrap":
+                parameters["compact"] = (
+                    "component"
+                    if review.parameters["wrap_compact"] == "component"
+                    else False
+                )
+                field = {
+                    "primary": "box_origin",
+                    "centered": "box_center",
+                    "nearest": "mic_origin",
+                }[review.parameters["wrap_mode"]]
+                parameters[field] = _length_vector(review.parameters, "origin")
         elif review.parameters["task"] == "center":
             parameters.update(
                 {
@@ -344,7 +431,7 @@ class _GeometryPanel(_MolecularTaskPanel):
                     else None,
                     "target_coordinates": None
                     if references.target
-                    else _translation(review.parameters, center=True),
+                    else _length_vector(review.parameters, "center"),
                     "weights": None
                     if review.parameters["center_kind"] == "geometric"
                     else "masses",
@@ -370,18 +457,20 @@ class _GeometryPanel(_MolecularTaskPanel):
             raise ValueError(
                 "This review has expired. Review the coordinate change again."
             )
+        module, name = _operation(review.parameters)
         if review.parameters["effect"] == "update":
 
             def prepare(target):
                 return _prepare_geometry_transform(
                     target,
-                    _OPERATIONS[review.parameters["task"]],
+                    name,
                     self._check_review(target, review),
+                    module=module,
                 )
 
             self._view.addons.manager.system_edits.execute(
                 prepare,
-                name="molsysmt.structure." + _OPERATIONS[review.parameters["task"]],
+                name=f"molsysmt.{module}.{name}",
                 update_view=True,
                 rejection_check=_geometry_token,
             )
@@ -401,16 +490,13 @@ class _GeometryPanel(_MolecularTaskPanel):
             def calculate(target):
                 parameters = self._check_review(target, review)
                 parameters["in_place"] = False
-                operation = getattr(
-                    self._owner.structure, _OPERATIONS[review.parameters["task"]]
-                )
+                operation = getattr(getattr(self._owner, module), name)
                 candidate = operation(**parameters)
                 result = self._store_result(
                     candidate,
                     title=review.parameters["title"].strip()
                     or _RESULT_TITLES[review.parameters["task"]],
-                    operation="molsysmt.structure."
-                    + _OPERATIONS[review.parameters["task"]],
+                    operation=f"molsysmt.{module}.{name}",
                     structure_indices=list(range(review.structures)),
                     revision=review.revision,
                 )

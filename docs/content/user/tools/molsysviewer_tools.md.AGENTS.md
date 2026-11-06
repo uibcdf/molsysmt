@@ -575,3 +575,17 @@ matrix implementation. Keep reference/structure order, subset effects, fixed
 box, coverage, atomic rejection and synchronization-only retry. Expert external
 references and complete signatures remain unchanged. Native sequence matching,
 principal-axis orientation and further periodic tools retain their planned scope.
+
+
+Preserve periodic GUI tasks as public native pbc delegation through existing
+coordinate edit/result adapters. Keep primary-origin, centered-primary and
+nearest-image semantics distinct, with explicit length units and provided-bond
+component versus atomwise grouping. Temporal unwrapping follows supplied order
+per atom, not within-structure molecular reconstruction. Preserve boxes, exact
+selected scope, source ownership, coverage and synchronization-only retry.
+Keep interim source admission visible: exact lower-triangular cells (#607) and
+fixed selected cells for temporal unwrapping (#606). Do not copy/reorient cells
+or implement periodic formulas in the addon. Cell editing remains required and
+pending #605; general-cell support is not silently deferred or declared complete.
+Keep complete expert native signatures and their actual limits distinct from
+this graphical admission. Follow devguide/periodic_tools_gui_qualification.md.

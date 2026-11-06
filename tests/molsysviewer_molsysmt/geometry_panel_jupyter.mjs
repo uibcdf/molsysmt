@@ -84,7 +84,9 @@ try{
  });
  await step('The same result can move to its own live window and back',async()=>{
   const opened=page.waitForEvent('popup');await panel().locator('[data-show-window]').click();const child=await opened;record(child);
-  await child.locator('#molsysviewer-loading').waitFor({state:'hidden'});assert.equal(await child.title(),'Translated result');
+  await child.locator('#molsysviewer-loading').waitFor({state:'hidden'});
+  await panel().locator('[data-status]').filter({hasText:'Result opened in its own window.'}).waitFor();
+  assert.equal(await child.title(),'Translated result');
   const closed=child.waitForEvent('close');await panel().locator('[data-show-notebook]').click();await closed;
   await panel().locator('[data-status]').filter({hasText:'Result shown below'}).waitFor();
   assert.equal(await page.evaluate(()=>window.__controllers.length),2);

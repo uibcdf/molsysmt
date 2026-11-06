@@ -8,14 +8,15 @@ verification: inspected
 area: [api, molsysviewer, addons]
 guard:
 normative:
-blocked_by: []
+blocked_by: [uibcdf/molsysmt#602, uibcdf/molsysmt#605, uibcdf/molsysmt#606, uibcdf/molsysmt#607, uibcdf/molsysmt#608]
 supersedes: []
 ---
 
 # Bound MolSysMT tools addon for MolSysViewer
 
 **Current source GUI — 2026-11-06:** System / Remove atoms, Extract subset and
-Copy system, plus Geometry / Translate, Center and Superpose structures, are implemented in this contribution.
+Copy system, plus Geometry / Translate, Center, Superpose structures and bounded
+periodic coordinate tasks, are implemented in this contribution.
 Selection/lifecycle and independent-result controls are shared; native science
 and expert defaults are unchanged. The [receiving record](../../devtools/data/molsysviewer_tools_geometry_receiving_20261106.json)
 separates real Jupyter/popup and numerical evidence from pending hosted, owner,
@@ -25,6 +26,28 @@ adds geometric/mass-weighted centering, per-structure point/selection references
 and shared rejected-operation diagnostics (#603), with 114 panel checks, 172
 native/route controls and five actual Jupyter scenarios. Rotate awaits native
 #602; other required Geometry, Chemistry and Analysis tasks remain planned.
+
+## Periodic coordinate receiving — 2026-11-06
+
+The [source receipt](../../devtools/data/molsysviewer_tools_periodic_receiving_20261106.json)
+records 58 new periodic panel cases within a 356-case System/Geometry/PBC gate,
+63 route/reporting controls and seven actual Jupyter/Mol*/popup scenarios.
+Wrap coordinates offers primary, centered-primary and nearest images with
+explicit reference points, units and component/atomwise grouping. Unwrap
+trajectory follows a deliberately ordered structure sequence per atom.
+Current edits and independent results preserve boxes, selected scope and
+synchronization-only recovery. No native science or expert signature changes.
+
+This remains an experimental, partial source family. Native #605–#608 block
+general cell validation, changing-cell temporal behavior, general orientation
+and unit-independent near-zero origins. Temporary admission and its
+2026-11-13 review/removal checkpoint are explicit in
+[periodic qualification](../periodic_tools_gui_qualification.md); #608 has no
+consumer scientific repair. Cell editing and full periodic support remain
+required. Receiving-harness #609 now awaits acknowledged window presentation
+before checking titles; all seven scenarios pass without weakening assertions.
+Owner integration, full latest-source/hosted gates, postponed human acceptance
+and installed qualification remain separate. Both 1.0 publications stay paused.
 
 ## Superposition receiving — 2026-11-06
 

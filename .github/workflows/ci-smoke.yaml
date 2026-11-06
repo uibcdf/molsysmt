@@ -257,6 +257,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_water_box_tools.py \
             tests/molsysviewer_molsysmt/test_system_panel.py \
             tests/molsysviewer_molsysmt/test_geometry_panel.py \
+            tests/molsysviewer_molsysmt/test_periodic_panel.py \
             tests/molsysviewer_molsysmt/test_remove_tools.py \
             tests/molsysviewer_molsysmt/test_set_tools.py \
             tests/molsysviewer_molsysmt/test_conversion_tools.py \

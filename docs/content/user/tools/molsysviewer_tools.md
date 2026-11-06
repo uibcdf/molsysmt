@@ -5092,7 +5092,7 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
 Extraction/copy result presentation uses the separate flow below. Geometry
-offers Translate, Center and Superpose structures; other Geometry tasks, Chemistry and Analysis remain planned.
+offers Translate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory; further Geometry tasks, Chemistry and Analysis remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
 
@@ -5251,3 +5251,76 @@ scene update after completed science needs **Update view**, without repeating
 the fit. The expert `structure.least_rmsd_fit` API retains its complete inputs,
 external references and native return semantics. This GUI slice's source/browser
 checks remain distinct from human acceptance and installed qualification.
+
+
+## Choosing periodic images through Geometry
+
+Choose **Wrap coordinates** in **Molecular tools > Geometry** to place selected
+atoms in periodic images using each processed structure's stored box. Choose
+**Atoms to wrap** and All, Current or distinct structure indices in their desired
+order. The operation edits molecular coordinates; it does not move the camera,
+infer a box or change the box vectors.
+
+**Periodic placement** offers three meanings. **Primary box from origin** puts
+fractional positions in the primary parallelepiped starting at the stated
+origin. **Primary box around center** uses a parallelepiped centered on the
+stated point. **Nearest periodic image** chooses the nearest Cartesian image to
+the reference point. The centered parallelepiped and nearest-image choices can
+differ for skew cells. Enter the point in Å or nm; no camera-axis conversion is
+performed.
+
+**Selected covalent components** is the grouping default. The native operation
+reconstructs bonded blocks using provided bonds among the selected atoms, then
+places their centers in the requested cell. Atoms may extend outside the cell.
+**Each atom separately** places each atom's image independently and can leave
+molecules split across opposite faces. No bonds are detected or inferred, and
+unselected atoms never move; a selection cutting a bonded component can change
+its distances to stationary atoms.
+
+**Review periodic wrapping** states the population, structure scope, placement,
+point, units and grouping. Back changes nothing. Current system uses one managed
+edit and scene update; Independent result copies the whole system and changes
+only the selected atoms and structures. The explicit result destinations and
+ownership rules above apply. Native analysis coverage follows coordinate edits;
+Scene Undo does not restore them. Retry only **Update view** after a completed
+calculation whose scene projection failed.
+
+The current development GUI admits conventional lower-triangular box vectors.
+It rejects other orientations before a molecular edit, pending the native
+correction in [#607](https://github.com/uibcdf/molsysmt/issues/607). This is a
+qualification boundary of the current editor, not a definition of every valid
+physical box or a new restriction on the expert wrapper. General orientation
+remains required work. A stored box is necessary; the graphical cell editor
+remains pending native factory validation
+([#605](https://github.com/uibcdf/molsysmt/issues/605)).
+
+The native handling of very small nonzero reference points also remains under
+correction ([#608](https://github.com/uibcdf/molsysmt/issues/608)): changing the
+application length standard can change the chosen image. This prepared source
+editor is experimental; general periodic-reference and release qualification
+remain pending. The addon does not replace the origin or force a unit policy.
+
+## Restoring temporal continuity through Geometry
+
+Choose **Unwrap trajectory** for per-atom continuity in an explicitly ordered
+sequence of at least two structures. Choose **Atoms to unwrap**, then All or
+explicit distinct indices in the intended temporal order. The first selected
+sample anchors continuity. Native unwrapping places subsequent samples using
+periodic image displacements; it does not reconstruct a molecule split within
+one structure. Use component wrapping for that separate purpose.
+
+Skipped intervals and large unobserved displacements can make the real image
+history ambiguous. A set of independent conformations is not automatically a
+time series. Review the supplied order and choose Current system or Independent
+result explicitly. Only the chosen atoms and structures change; an independent
+result retains all source structures in their original storage order. Unselected
+structures keep their original coordinates and the box vectors stay fixed.
+
+The current GUI admits an identical periodic cell across the selected sequence,
+in the conventional orientation described above. Varying-cell support is
+pending the native contract/correction in
+[#606](https://github.com/uibcdf/molsysmt/issues/606). The limitation is explicit
+and temporary; the full periodic task family is not yet complete. The expert
+`pbc.unwrap` route retains the native signature, supplied order and result/error
+semantics, with the reported native limits. Human Jupyter/visible Qt acceptance,
+owner integration and installed-package qualification remain separate.

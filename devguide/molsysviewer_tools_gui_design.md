@@ -4,7 +4,7 @@
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
 **Status — 2026-11-06:** contribution source implements System / Remove atoms,
-Extract subset and Copy system, plus Geometry / Translate, Center and Superpose structures. Selection controls,
+Extract subset and Copy system, plus Geometry / Translate, Center, Superpose structures and qualified periodic tools. Selection controls,
 lifecycle, bounded metadata and independent-result presentation are shared.
 Rotate, Chemistry, Analysis and other tasks remain proposed; no placeholder
 panel/button is registered. Human Jupyter/visible Qt acceptance remains
@@ -346,6 +346,30 @@ immutable reference index for exact revalidation; no trajectory is copied by
 review. Sequence correspondence, principal-axis orientation, further reference
 workflows and periodic/cell tools remain pending families, not removed scope.
 
+### Periodic source tasks — qualification 2026-11-06
+
+Wrap coordinates delegates primary-origin, centered-primary and nearest-image
+placement with explicit Å/nm reference points and native selected-component or
+atomwise grouping. Unwrap trajectory delegates per-atom temporal continuity in
+a deliberately supplied sequence of at least two structures. Both retain the
+same reviewed current/independent effects, box vectors, selected scope and
+projection-only recovery. No periodic formula or chemical preparation is added.
+
+The [bounded source qualification](periodic_tools_gui_qualification.md) admits
+exact lower-triangular row-vector cells; temporal unwrapping additionally needs
+identical selected cells. These are temporary compatibility controls for native
+#607/#606, not general physical definitions. The expert API remains native.
+Native #608 additionally blocks general near-zero reference-point and release
+qualification; its failed unit-policy case is not repaired in the addon.
+General orientation, changing-cell unwrapping and the cell editor (#605) remain
+required before declaring this family complete. No nonfunctional cell control
+is registered. Reassess the guards by 2026-11-13 or upon owner correction. The
+[periodic source receipt](../devtools/data/molsysviewer_tools_periodic_receiving_20261106.json)
+records the independent lattice controls, 356 affected System/Geometry/PBC cases
+and seven actual Jupyter scenarios. The window-title receiving race (#609) is
+corrected by waiting for presentation acknowledgement; no runtime or scientific
+behavior is substituted to satisfy the harness.
+
 ## Whole-session target and task-family ledger — 2026-11-06
 
 **Approved product objective; incomplete.** The maintainer adopts completion of
@@ -361,7 +385,7 @@ GUI result or an automatic post-1.0 exclusion.
 | System inventory, selection, removal, subset and copy | Core System/selection; basic remove/extract/copy; host edit/presentation services | Current three tasks have source and real Jupyter guards. Retain all-structure inventory semantics and independent output ownership. |
 | Geometry explicit translation, rotation and centering | structure translate/rotate/center/get_center | Translate and Center implemented with analytical/native/Mol* receiving. Rotate needs the public constructor requested in #602. Preserve centers, handedness, units, selections and actual rendered coordinates. |
 | Geometry structural comparison/fitting and principal-axis alignment | structure least_rmsd_fit/least_rmsd_align/align_principal_axes | Superpose structures implements rigid fitting within the current system, with explicit moving/fitting/reference populations, initial reference structure and user-declared index pairing. Sequence-derived matching, principal-axis orientation and other reference workflows remain required work. Preserve native degeneracy/prerequisite errors. |
-| Geometry periodic coordinates and cell assignment | pbc wrap_to_pbc/wrap_to_mic/unwrap, public cell factories and admitted basic.set | Explicit box/image/structure choices, units and unchanged axes; no inferred lattice or automatic wrapping during unrelated edits. |
+| Geometry periodic coordinates and cell assignment | pbc wrap_to_pbc/wrap_to_mic/unwrap, public cell factories and admitted basic.set | Wrap coordinates and Unwrap trajectory implement the bounded source profile in periodic_tools_gui_qualification.md. General orientation (#607), varying-cell temporal semantics (#606) and cell editing (#605) remain required. Preserve explicit units/order/effects and native validation. |
 | Chemistry readiness and preparation audits | build audit readers, physchem chemical-readiness/H inventory, chemical_states reports | Preserve reference/state and assessed/unassessed scope. Reports do not prepare or assign chemistry. |
 | Chemistry explicit repair and assignments | Received build/physchem atom/bond/H/terminal and typing/charge tools | State method/model and prerequisites; use qualified maps for managed edits or independent results. No inferred identity by equal counts/names. |
 | Chemistry construction, solvent and ions | Received peptide/water-cell/assembly/solvation/add_ions tools | Explicit independent inputs, charge source, model, box, seed and placement limits. Construction may start without a loaded primary; no implicit equilibration. |

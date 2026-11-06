@@ -63,7 +63,7 @@ def get_addon(*, skip_digestion=False):
                 title="Geometry",
                 order=20,
                 widget_class="molsysviewer_molsysmt._geometry_panel._GeometryPanel",
-                description="Translate, center or superpose coordinates with explicit atoms, structures, references and units.",
+                description="Transform coordinates and use qualified periodic tools with explicit atoms, structures, references and units.",
             ),
         ),
         meta={"status": "experimental"},

@@ -53,7 +53,15 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
         "--scenario",
-        choices=("system", "results", "geometry", "center", "center-errors", "fit"),
+        choices=(
+            "system",
+            "results",
+            "geometry",
+            "center",
+            "center-errors",
+            "fit",
+            "periodic",
+        ),
         default="system",
     )
     parser.add_argument("--node", default="/usr/bin/node")
@@ -175,7 +183,7 @@ def main():
             "view.close()\nassert not subset_view.closed and not copy_view.closed\n"
             "print('JUPYTER_INDEPENDENT_RESULTS_OK', len(records))\n"
         )
-    if args.scenario in {"geometry", "center", "center-errors", "fit"}:
+    if args.scenario in {"geometry", "center", "center-errors", "fit", "periodic"}:
         initial = initial[: initial.index("view = msv.demo")] + (
             "with msv.demo['pentalanine'] as seed:\n"
             "    view = msv.new_view(seed.molsys, structure_indices=[0, 8, 3])\n"
@@ -237,6 +245,24 @@ def main():
             "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates,to_unit='nm'),_fit_result_expected,atol=1e-10)\n"
             "assert result.molsys is not view.molsys and result.player.n_structures==3\n"
             "print('JUPYTER_FIT_NATIVE_OK',len(records))\n"
+        )
+    if args.scenario == "periodic":
+        initial = (
+            initial.removesuffix("view\n")
+            + "import itertools\nimport json\nimport numpy as np\n_periodic_box=np.array([[3.,0,0],[0.7,4.,0],[0.2,0.6,5.]])\n_periodic_boxes=np.repeat(_periodic_box[None],3,axis=0)\n_periodic_before=source_coordinates+[8.,7.,6.]\nview.addons.molsysmt.basic.set(coordinates=msm.pyunitwizard.quantity(_periodic_before,'nm'),box=msm.pyunitwizard.quantity(_periodic_boxes,'nm'))\n_periodic_revision=view.addons.molsysmt.get_sync_status()['target_revision']\n_origin=np.array([0.2,-0.4,0.7])\n_periodic_component=_periodic_before.copy()\nfor frame in [2,0]:\n    center=_periodic_before[frame].mean(axis=0)\n    fractional=(center-_origin)@np.linalg.inv(_periodic_box)\n    target=_origin+(fractional-np.floor(fractional+0.5))@_periodic_box\n    _periodic_component[frame]+=target-center\n_shifts=np.array(list(itertools.product(range(-2,3),repeat=3)))\ndef _nearest_lattice(vectors):\n    seed=np.rint(vectors@np.linalg.inv(_periodic_box))\n    candidates=vectors[:,None]-(seed[:,None]+_shifts[None])@_periodic_box\n    return candidates[np.arange(len(vectors)),np.argmin(np.sum(candidates*candidates,axis=-1),axis=1)]\n_periodic_source=_periodic_component.copy()\n_periodic_source[0]=np.array([10.,10.,10.])+_nearest_lattice(_periodic_component[0]-[10.,10.,10.])\nassert np.max(np.abs(_periodic_source[0]-_periodic_component[0]))>1\n_periodic_result=_periodic_source.copy()\nfor frame in [1,2]:\n    _periodic_result[frame]=_periodic_result[frame-1]+_nearest_lattice(_periodic_source[frame]-_periodic_result[frame-1])\n"
+        )
+        initial += f"Path({str(output / 'periodic-expected.json')!r}).write_text(json.dumps({{'before_angstrom':(_periodic_before*10).tolist(),'component_angstrom':(_periodic_component*10).tolist(),'source_angstrom':(_periodic_source*10).tolist(),'result_angstrom':(_periodic_result*10).tolist()}}))\nview\n"
+        final = (
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),_periodic_source,atol=5e-12)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),_periodic_boxes)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_periodic_revision+2\n"
+            "records=view.addons.manager.presentations.records()\nassert len(records)==1\n"
+            "result=view.addons.manager.presentations.get(records[0]['id'])\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates,to_unit='nm'),_periodic_result,atol=5e-12)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(result.molsys.structures.box,to_unit='nm'),_periodic_boxes)\n"
+            "assert result.molsys is not view.molsys and result.player.n_structures==3\n"
+            "result.player.go_to_structure(1)\n"
+            "print('JUPYTER_PERIODIC_NATIVE_OK',len(records))\n"
         )
     if args.scenario == "center-errors":
         initial = initial.removesuffix("view\n") + (
@@ -319,7 +345,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("fit_panel_jupyter.mjs")
+                        Path(__file__).with_name("periodic_panel_jupyter.mjs")
+                        if args.scenario == "periodic"
+                        else Path(__file__).with_name("fit_panel_jupyter.mjs")
                         if args.scenario == "fit"
                         else Path(__file__).with_name("center_error_jupyter.mjs")
                         if args.scenario == "center-errors"
