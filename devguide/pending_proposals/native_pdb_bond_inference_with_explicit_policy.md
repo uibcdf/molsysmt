@@ -20,8 +20,9 @@ heavy-template, observed-H parent consensus and two bounded peptide candidate
 policies are contract-tested. A bounded native application tool, explicit reader
 engine selection, failure diagnostics and persisted per-edge inference provenance
 are implemented and contract-tested. Explicitly naming-scoped cap references
-and their bounded amide endpoints are also contract-tested. The remaining
-group/disulfide/geometric policies and final acceptance/integration audit are
+and their bounded amide endpoints are also contract-tested. Direct-reader
+naming context is delivered before classification/inference.
+Additional-group/disulfide/geometric policies and final acceptance/integration are
 pending; none of these tools certifies complete chemistry.
 
 **Scheduling — 2026-10-05:** the bounded engine/application contract is included
@@ -1409,3 +1410,110 @@ geometry and their adversarial acceptance controls remain to be settled and
 qualified. Complete terminal/protonation-state assignment is not offered by this
 cap reference lookup. Final source qualification and owner integration remain
 pending; #304 stays partial and no release is authorized.
+
+## PDB source naming before reconstruction — 2026-11-06
+
+### What and shared boundaries
+
+All six PDB file/text/handler conversions to MolSys/Topology now accept the
+existing public source declaration as keyword-only `from_naming_scheme=None`.
+Every previous positional argument and form-specific connectivity default is
+preserved. The declaration reaches fresh Topology before group classification,
+native templates and source-structure-0 inference. No convention is guessed and
+no label is renamed. The undeclared reserved-small-molecule backbone heuristic
+cannot overwrite an explicit CCD interpretation: HID under CCD remains a small
+molecule, while the same label under Amber is an amino acid. This is bounded
+label interpretation, not chemical validation of the observed atom inventory.
+
+The generic naming dispatcher already discovers readers supporting this
+keyword, so their science is not duplicated in basic.convert. Numeric/all output
+selection retains the direct reader route. A semantic selection instead uses
+interpreted native inventory before selecting its source atom population.
+The shared helper no longer truncates atom_indices during that first read;
+conflicting explicit indices and a semantic selector are refused before reading
+or inference. This shared fix also receives the existing GRO/native naming paths.
+
+Context-aware name-only projection requests topology inventory without implicit
+bond reconstruction when that reader exposes a connectivity option. An explicit
+engine or inference request retains its normal meaning. Ordinary MolSys reader
+defaults are unchanged; notably text-to-MolSys still defaults to disabled
+inference. These name-only queries neither require graph reconstruction nor
+produce a chemical assessment.
+
+Source naming admission for external OpenMM inference reuses the existing
+preparation guard. Reviewed contextual labels and incompatible cap declarations
+need an external naming adapter; they are not silently interpreted by another
+vocabulary. Explicit OpenMM requests raise before provider execution. The legacy
+optional route warns, retains the typed failure cause and preserves declared
+edges. Undeclared input keeps its previous policy. This is not a native fallback.
+Reader inference examines the full source before output extraction: selecting
+only an ordinary group does not conceal another unsupported input label from
+that external operation. Ordinary preparation tools retain their own selected
+group scopes.
+
+The first reader report now retains scalar `source_naming_scheme` as an original
+operation input. Later metadata changes do not rewrite it. Existing typed history
+and H5MSM 0.5 preserve it without a schema change or coordinate snapshot. Pure
+Topology projection retains stable inventory/declarations, not ChemicalStates
+bonds or history; one stale converter doctest that still queried those bonds is
+corrected to inspect the 1,441 source atoms instead.
+
+### Executed evidence
+
+The final source selection passes **543 cases in 25.30 s**, with twelve workers
+and Pytest Receptor. It includes **60 new PDB context controls**, all affected
+candidate/inference/name/preparation modules, GRO/MDTraj source context,
+conversion-fidelity and generated argument contracts, plus public doctests.
+Literal checks cover all six reader/projection routes, all three source kinds,
+undeclared/Amber/CCD classification, semantic selections, pre-inference naming,
+unchanged positions/Boolean defaults, bad-context diagnostics, caller-owned
+handler reuse and lifetime, original file bytes, nonconsecutive structures,
+atom maps and non-default pm/fs policy, immutable original history and H5MSM.
+Real native and OpenMM engines both match the independent nine-edge capped
+peptide control; injected engine cases qualify dispatch only. No whole-profile
+scientific equivalence is inferred from that small control.
+
+The final directed profile passes **64 cases in 7.70 s** with published
+ArgDigest 0.14.0, DepDigest 0.15.1, SMonitor 0.16.0 and Ackredit 0.9.0 payloads;
+actual import origins and content hashes are checked. Other development
+dependencies remain reused. Only SMonitor's incompatible development pytest
+plugin is disabled there; its runtime diagnostics remain active. This does not
+qualify an all-dependency-floor or clean installed environment.
+
+Documentation receiving passes **1,091 cases in 47.88 s**, with warnings retained.
+Foundations, the build tutorial, three form pages, Cookbook, course and public
+docstrings agree. All four edited notebooks retain every code cell, output,
+cell ID, metadata value and cell count. The source registry records the six
+intentional keyword-only additions; independent guards retain old positions
+and exact Boolean defaults. The generated converter-argument union is already
+correct and passes unchanged. Dependency/import-laziness, 247 public docstrings,
+API registry/signatures and Ruff checks pass.
+
+The final notebook/source-boundary follow-up passes **1,004 overlapping cases in
+13.86 s** after the last narrative clarification. Developer-guide and generated
+index checks pass with the issue still partial.
+
+The [receiving receipt](../../devtools/data/pdb_naming_context_receiving_304_20261106.json)
+retains exact sources, runtime/floor provider origins and all failed development
+runs. The initial draft used an unavailable root Topology import; the supported
+native namespace fixes that test defect. The corrected baseline has 24 failures
+and five passes. Another six initial assertions expected ArgumentError instead
+of its distinct ArgumentChoiceError diagnostic; those tests now require the
+correct class and argument. One affected-run failure found the real stale
+Topology doctest described above. No native graph or validation was weakened to
+make those tests pass.
+
+Both unchanged original PDBs retain exact disabled/native/OpenMM graph,
+atom-axis and coordinate digests against the retained benchmark. Counts remain
+13/1,322/1,322 for 181L and 0/4,445/4,469 for 1IEP. The explained native/OpenMM
+disagreements remain. These isolated conversion observations are regression
+receiving, not a new speed/memory claim.
+
+### Remaining scope
+
+This closes the direct PDB naming-context prerequisite, not #304 as a whole.
+Additional-group/disulfide/unknown-geometry policies and their acceptance controls,
+the final combined-source gate and owner integration remain. Broader source/
+composite producer receiving belongs to the staged #549 rollout; direct-reader
+tests do not certify every multi-provider conversion. The issue stays partial,
+and no release or main integration is claimed by this checkpoint.

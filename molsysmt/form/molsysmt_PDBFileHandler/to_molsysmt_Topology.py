@@ -11,6 +11,7 @@ def to_molsysmt_Topology(
     skip_digestion=False,
     *,
     bond_inference_engine=None,
+    from_naming_scheme=None,
 ):
     """
     Converting from molsysmt.PDBFileHandler to molsysmt.Topology.
@@ -30,10 +31,15 @@ def to_molsysmt_Topology(
         Explicit 'MolSysMT' or 'OpenMM' engine, requiring get_missing_bonds=True.
         None retains legacy optional OpenMM inference with diagnosed failures.
 
+    from_naming_scheme : str or None, default=None
+        Source group-name convention declared before classification and native
+        inference. None leaves it undeclared; no chemical state is translated.
+
     Returns
     -------
     molsysmt.Topology
-        Resulting object in molsysmt.Topology form.
+        Stable source inventory and naming metadata. This pure Topology has
+        no ChemicalStates graph or preparation-history facade.
 
 
     .. versionadded:: 1.0.0
@@ -60,12 +66,14 @@ def to_molsysmt_Topology(
                 item,
                 get_missing_bonds=get_missing_bonds,
                 bond_inference_engine=bond_inference_engine,
+                from_naming_scheme=from_naming_scheme,
             ).topology
         else:
             tmp_item = _build_topology_from_content(
                 item,
                 get_missing_bonds=get_missing_bonds,
                 bond_inference_engine=bond_inference_engine,
+                from_naming_scheme=from_naming_scheme,
             )
         return tmp_item.extract(
             atom_indices=atom_indices, copy_if_all=False, skip_digestion=True

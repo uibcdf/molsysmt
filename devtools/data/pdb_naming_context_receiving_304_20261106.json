@@ -1,0 +1,898 @@
+{
+  "schema": "molsysmt.pdb_naming_context_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#304",
+  "related_issue": "uibcdf/molsysmt#549",
+  "source_base_commit": "39c59def654e11dc65ab16569834eee844d72afb",
+  "working_tree_patch": true,
+  "source_hashes": {
+    "molsysmt/basic/convert.py": "c4a714764b120ad5721a8120394b7ab35cd2c5d7e56137b73b1c27706f43ef09",
+    "molsysmt/_private/naming_conversion.py": "b86dbe303ecba3c3e8ebf1888d55cdd949e8d40427df503b9ae02b6d5842fce9",
+    "molsysmt/_private/amino_acid_templates.py": "1e1d319d4af147944e9d3ae20c683661aec3f7871d1a9b3d07600190841f0f50",
+    "molsysmt/_private/pdb_connectivity.py": "8368df3366e8aecfe039e4c9da230a945e67cf43a2f7b1864ef3053c81f2d0a9",
+    "molsysmt/build/infer_covalent_bonds.py": "a7b24a760043ad9633b324cce683253325c481fe1dd8311a151c5d55618a472e",
+    "tests/form/file_pdb/test_naming_context.py": "71fb28cb2c659e725963008837dab8097f24e25d9e8d1c4e2fd93c7a1a175e50",
+    "tests/build/test_terminal_cap_covalent_candidates.py": "0110f2d2fc7cafe30f0b7ddf95ef887f165b899ed221583947bb5cfce0360228",
+    "devtools/data/public_api_stability.json": "11d98835f042ae0965d969d4348e351c8e8607ffc551ea6085dc16f19e34d901",
+    "molsysmt/data/databases/naming_schemes/group_name_profiles.json": "98d626fd11acbf600921d7cc00b279207816cbcbe2eb0b9269b0b9e6e1695547",
+    "molsysmt/data/databases/terminal_cappings/n_terminal.json": "151ad17a9779d079d5d3fb49dd1f944a48740657654afa30190c47444719a23c",
+    "molsysmt/data/databases/terminal_cappings/c_terminal.json": "c8347c759a3dad77b5b07f538a3daab186e6e125862ee213d77ea76ddcecd114",
+    "molsysmt/form/file_pdb/to_molsysmt_MolSys.py": "179221abaaa143c0e61701f1ee8dd16e83357c8888e00776dbd313442a81de9a",
+    "molsysmt/form/file_pdb/to_molsysmt_Topology.py": "142f36505f2caf54e59c0ddd91b699fbf0cf2a9080957cf75a758d1a4f93a316",
+    "molsysmt/form/string_pdb_text/to_molsysmt_MolSys.py": "3bc39bb4e6c121720764876165b36b1b2195be565d562897f0282972e044f1f7",
+    "molsysmt/form/string_pdb_text/to_molsysmt_Topology.py": "8b675ec26f2029cc166e4508dc98392509d3d35c70bdf185747f87761a7432a0",
+    "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py": "b47e78879fd4490b6086e98021f4c9abb05e9470c4b8ab925b79ed91ec0686e7",
+    "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_Topology.py": "135ac5ced4e667e3cdae9de97a26b17d6c15e89b284787ad2689792ab470f39b"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "checks": {
+    "baseline": {
+      "tests": 29,
+      "failures": 26,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 5.822,
+      "junit_path": ".pytest_cache/304-pdb-naming-baseline.xml",
+      "junit_sha256": "3c57d5b6d5582606b49c29414f7c1fa3c78d9e764bb0f7c3496cfc3e691532d4",
+      "development_failures": [
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.MolSys-None-unknown]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Topology'. Did you mean: 'topology'?"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.MolSys-handler]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.MolSys-file]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.Topology-text]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.MolSys-text]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.Topology-file]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.Topology-None-unknown]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Topology'. Did you mean: 'topology'?"
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.MolSys-amber-amino acid]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Topology'. Did you mean: 'topology'?"
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.Topology-ccd-small molecule]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Topology'. Did you mean: 'topology'?"
+        },
+        {
+          "test": "test_semantic_selection_uses_declared_context_before_selecting_atoms[amber-5-file]",
+          "message": "assert 0 == 5\n +  where 0 = Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0).n_atoms\n +    where Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0) = MolSys(n_atoms=0, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True).topology"
+        },
+        {
+          "test": "test_semantic_selection_uses_declared_context_before_selecting_atoms[amber-5-text]",
+          "message": "assert 0 == 5\n +  where 0 = Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0).n_atoms\n +    where Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0) = MolSys(n_atoms=0, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True).topology"
+        },
+        {
+          "test": "test_semantic_selection_uses_declared_context_before_selecting_atoms[amber-5-handler]",
+          "message": "assert 0 == 5\n +  where 0 = Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0).n_atoms\n +    where Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0) = MolSys(n_atoms=0, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True).topology"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.Topology-handler]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-file]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.file_pdb.to_molsysmt_MolSys.to_molsysmt_MolSys' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion, structure_indices. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.MolSys-ccd-small molecule]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Topology'. Did you mean: 'topology'?"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-handler]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_MolSys.to_molsysmt_MolSys' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion, structure_indices. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-text]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.string_pdb_text.to_molsysmt_MolSys.to_molsysmt_MolSys' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion, structure_indices. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.Topology-amber-amino acid]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Topology'. Did you mean: 'topology'?"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-file]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.file_pdb.to_molsysmt_Topology.to_molsysmt_Topology' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_one_handler_can_supply_independent_naming_interpretations",
+          "message": "AssertionError: assert ['unknown'] == ['amino acid']\n  \n  At index 0 diff: 'unknown' != 'amino acid'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_contextual_external_inference_requires_an_adapter_and_never_runs_implicitly[amber]",
+          "message": "Failed: Unsupported source interpretation reached OpenMM"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-text]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.string_pdb_text.to_molsysmt_Topology.to_molsysmt_Topology' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-handler]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_Topology.to_molsysmt_Topology' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_explicit_cap_context_and_history_survive_h5msm_roundtrip",
+          "message": "assert [[3, 4], [4, ...4, 7], [5, 6]] == [[0, 1], [1, ..., [4, 7], ...]\n  \n  At index 0 diff: [3, 4] != [0, 1]\n  Right contains 5 more items, first extra item: [4, 5]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_contextual_external_inference_requires_an_adapter_and_never_runs_implicitly[ccd]",
+          "message": "Failed: Unsupported source interpretation reached OpenMM"
+        },
+        {
+          "test": "test_openmm_does_not_reinterpret_ccd_cap_labels_as_legacy_caps",
+          "message": "Failed: Unsupported CCD cap interpretation reached OpenMM"
+        }
+      ]
+    },
+    "corrected-baseline": {
+      "tests": 29,
+      "failures": 24,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 5.892,
+      "junit_path": ".pytest_cache/304-pdb-naming-corrected-baseline.xml",
+      "junit_sha256": "08e1a6046811fa73c69d9551d1ca90c3694c8ea4978c45927999078d24a0b7bf",
+      "development_failures": [
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.Topology-text]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.MolSys-file]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.MolSys-handler]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.MolSys-text]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.Topology-file]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.MolSys-amber-amino acid]",
+          "message": "AssertionError: assert ['unknown'] == ['amino acid']\n  \n  At index 0 diff: 'unknown' != 'amino acid'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.Topology-amber-amino acid]",
+          "message": "AssertionError: assert ['unknown'] == ['amino acid']\n  \n  At index 0 diff: 'unknown' != 'amino acid'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_semantic_selection_uses_declared_context_before_selecting_atoms[amber-5-file]",
+          "message": "assert 0 == 5\n +  where 0 = Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0).n_atoms\n +    where Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0) = MolSys(n_atoms=0, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True).topology"
+        },
+        {
+          "test": "test_semantic_selection_uses_declared_context_before_selecting_atoms[amber-5-text]",
+          "message": "assert 0 == 5\n +  where 0 = Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0).n_atoms\n +    where Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0) = MolSys(n_atoms=0, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True).topology"
+        },
+        {
+          "test": "test_semantic_selection_uses_declared_context_before_selecting_atoms[amber-5-handler]",
+          "message": "assert 0 == 5\n +  where 0 = Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0).n_atoms\n +    where Topology(n_atoms=0, n_groups=0, n_molecules=0, n_chains=0) = MolSys(n_atoms=0, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True).topology"
+        },
+        {
+          "test": "test_cap_context_reaches_native_inference_before_any_output_projection[molsysmt.Topology-handler]",
+          "message": "AssertionError: assert (None, None, None) == ('amber', 'amber', 'amber')\n  \n  At index 0 diff: None != 'amber'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-file]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.file_pdb.to_molsysmt_MolSys.to_molsysmt_MolSys' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion, structure_indices. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.MolSys-ccd-small molecule]",
+          "message": "AssertionError: assert ['unknown'] == ['small molecule']\n  \n  At index 0 diff: 'unknown' != 'small molecule'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-text]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.string_pdb_text.to_molsysmt_MolSys.to_molsysmt_MolSys' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion, structure_indices. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_explicit_context_precedes_group_classification_without_inference[molsysmt.Topology-ccd-small molecule]",
+          "message": "AssertionError: assert ['unknown'] == ['small molecule']\n  \n  At index 0 diff: 'unknown' != 'small molecule'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-handler]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_MolSys.to_molsysmt_MolSys' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion, structure_indices. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-file]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.file_pdb.to_molsysmt_Topology.to_molsysmt_Topology' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-handler]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_Topology.to_molsysmt_Topology' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-text]",
+          "message": "argdigest.core.errors.UnknownArgumentError: 'molsysmt.form.string_pdb_text.to_molsysmt_Topology.to_molsysmt_Topology' does not accept the argument 'from_naming_scheme'. Check the arguments it accepts. It accepts: atom_indices, bond_inference_engine, get_missing_bonds, item, skip_digestion. See https://www.uibcdf.org/argdigest."
+        },
+        {
+          "test": "test_one_handler_can_supply_independent_naming_interpretations",
+          "message": "AssertionError: assert ['unknown'] == ['amino acid']\n  \n  At index 0 diff: 'unknown' != 'amino acid'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_explicit_cap_context_and_history_survive_h5msm_roundtrip",
+          "message": "assert [[3, 4], [4, ...4, 7], [5, 6]] == [[0, 1], [1, ..., [4, 7], ...]\n  \n  At index 0 diff: [3, 4] != [0, 1]\n  Right contains 5 more items, first extra item: [4, 5]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_contextual_external_inference_requires_an_adapter_and_never_runs_implicitly[amber]",
+          "message": "Failed: Unsupported source interpretation reached OpenMM"
+        },
+        {
+          "test": "test_openmm_does_not_reinterpret_ccd_cap_labels_as_legacy_caps",
+          "message": "Failed: Unsupported CCD cap interpretation reached OpenMM"
+        },
+        {
+          "test": "test_contextual_external_inference_requires_an_adapter_and_never_runs_implicitly[ccd]",
+          "message": "Failed: Unsupported source interpretation reached OpenMM"
+        }
+      ]
+    },
+    "initial": {
+      "tests": 29,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 5.705,
+      "junit_path": ".pytest_cache/304-pdb-naming-initial.xml",
+      "junit_sha256": "7ce89f165d7bc8d30428ad6acf10bafb6d0c47ce20273e05184aaa612ad9112e",
+      "development_failures": [
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-file]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentChoiceError: The value 'AMBER' is not valid for argument 'from_naming_scheme'. Valid options are: [None, 'amber', 'ccd', 'legacy', 'sequence']. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-text]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentChoiceError: The value 'AMBER' is not valid for argument 'from_naming_scheme'. Valid options are: [None, 'amber', 'ccd', 'legacy', 'sequence']. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-text]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentChoiceError: The value 'AMBER' is not valid for argument 'from_naming_scheme'. Valid options are: [None, 'amber', 'ccd', 'legacy', 'sequence']. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.MolSys-handler]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentChoiceError: The value 'AMBER' is not valid for argument 'from_naming_scheme'. Valid options are: [None, 'amber', 'ccd', 'legacy', 'sequence']. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-file]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentChoiceError: The value 'AMBER' is not valid for argument 'from_naming_scheme'. Valid options are: [None, 'amber', 'ccd', 'legacy', 'sequence']. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        {
+          "test": "test_direct_converter_validates_the_source_scheme[molsysmt.Topology-handler]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentChoiceError: The value 'AMBER' is not valid for argument 'from_naming_scheme'. Valid options are: [None, 'amber', 'ccd', 'legacy', 'sequence']. Docs: https://www.uibcdf.org/MolSysMT"
+        }
+      ]
+    },
+    "extended": {
+      "tests": 159,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 12.21,
+      "junit_path": ".pytest_cache/304-pdb-naming-extended.xml",
+      "junit_sha256": "312698bf0f9b4f0799134a01ab082ffe67c66f85dd979692a6e1cde1600cab22"
+    },
+    "affected": {
+      "tests": 526,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 21.04,
+      "junit_path": ".pytest_cache/304-pdb-naming-affected.xml",
+      "junit_sha256": "5086a6442cdfe583646bc7136f861ec7365191e5b00f763984426116e76ec9f7",
+      "development_failures": [
+        {
+          "test": "molsysmt.form.file_pdb.to_molsysmt_Topology.to_molsysmt_Topology",
+          "message": "035 -----\n036 The existing True default remains dependent on optional OpenMM availability.\n037 Connectivity inference does not establish complete chemical assignments.\n038 \n039 Examples\n040 --------\n041 >>> import molsysmt as msm\n042 >>> path = msm.systems[\"T4 lysozyme L99A\"][\"181l.pdb\"]\n043 >>> topology = msm.convert(path, to_form=\"molsysmt.Topology\", get_missing_bonds=False)\n044 >>> msm.get(topology, n_bonds=True)\nExpected:\n    13\nGot nothing\n\n/home/diego/repos@uibcdf/molsysmt/.pytest_cache/ordered-issues-20261106/worktree/molsysmt/form/file_pdb/to_molsysmt_Topology.py:44: DocTestFailure"
+        }
+      ]
+    },
+    "final": {
+      "tests": 531,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 21.454,
+      "junit_path": ".pytest_cache/304-pdb-naming-final.xml",
+      "junit_sha256": "c555d11ce0ce5b427e5bd8f8715a95822e4e71adcae57b50fa0c5c4b8f6a5861"
+    },
+    "final-parity": {
+      "tests": 543,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 25.264,
+      "junit_path": ".pytest_cache/304-pdb-naming-final-parity.xml",
+      "junit_sha256": "6602fc954174be4add25c78c21fdd82faceb57adac1ab0bc9c8242a9190615c7"
+    },
+    "floor": {
+      "tests": 52,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 7.661,
+      "junit_path": ".pytest_cache/304-pdb-naming-floor.xml",
+      "junit_sha256": "9be5403dc2a8cb5efd2f503c338d8dcf37014f07dbbded9b5c453ebfca891c21"
+    },
+    "final-floor": {
+      "tests": 64,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 7.592,
+      "junit_path": ".pytest_cache/304-pdb-naming-final-floor.xml",
+      "junit_sha256": "e40cf6321d6ac398b62c5b7337deff97c047ce4cd445cbce4b55f4ab6c129f0b"
+    },
+    "docs": {
+      "tests": 1091,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 47.843,
+      "junit_path": ".pytest_cache/304-pdb-naming-docs.xml",
+      "junit_sha256": "8535852512c07986edb6c22ca1cd7b6c02e2cc0c85762ecfe73a614b0811e027"
+    },
+    "final-doc-boundary": {
+      "tests": 1004,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 13.831,
+      "junit_path": ".pytest_cache/304-pdb-naming-final-doc-boundary.xml",
+      "junit_sha256": "73db67be86c0a5dbb41f338b632b359a39f20c85002a02f665d3de40f76f6448"
+    }
+  },
+  "quality_checks": [
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_dependencies.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Scanning codebase at /home/diego/repos@uibcdf/molsysmt/.pytest_cache/ordered-issues-20261106/worktree/molsysmt for top-level soft dependency imports...\n\n[PASS] No top-level imports of soft dependencies found.\n[PASS] OpenFF CI dependency bounds are complete.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/audit_dependency_contract.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Dependency contract audit: PASS (public requirements and declared routes agree)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_docstrings.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Running MolSysMT docstring fidelity and minimum-content validation...\nPASSED: All 247 public functions have structurally consistent NumPy docstrings, exact default fidelity, and no known vacuous stable-API content!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/generate_converter_arguments.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.2\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_api_stability.py"
+      ],
+      "exit_code": 0,
+      "stdout": "API stability registry valid: 299 symbols classified.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_public_api_stability.py",
+        "--base",
+        "39c59def654e11dc65ab16569834eee844d72afb"
+      ],
+      "exit_code": 0,
+      "stdout": "\u2705 Public API Stability Guard: 0 unauthorized signature drifts detected.\n  Note: 6 intentional signature modification(s) approved via signature_waivers registry.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "ruff",
+        "check",
+        "molsysmt",
+        "tests/form/file_pdb/test_naming_context.py"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "molsysmt",
+        "tests/form/file_pdb/test_naming_context.py"
+      ],
+      "exit_code": 0,
+      "stdout": "3059 files already formatted\n",
+      "stderr": ""
+    }
+  ],
+  "runtime": {
+    "python": "3.14.7",
+    "providers": {
+      "molsysmt": {
+        "version": "0.23.0+201.g3502232d8.dirty",
+        "origin": "/home/diego/repos@uibcdf/molsysmt/.pytest_cache/ordered-issues-20261106/worktree/molsysmt/__init__.py",
+        "sha256": "bfdcf6e83f9038c96475db435122a9a1c1d7475d5b301af80270990376dacb16"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "origin": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/numpy/__init__.py",
+        "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+      },
+      "pandas": {
+        "version": "2.3.3",
+        "origin": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/pandas/__init__.py",
+        "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+      },
+      "pyunitwizard": {
+        "version": "0.29.1+6.gf82b618",
+        "origin": "/home/diego/repos@uibcdf/pyunitwizard/pyunitwizard/__init__.py",
+        "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "argdigest": {
+        "version": "0.16.0+1.g6dabaf7",
+        "origin": "/home/diego/repos@uibcdf/argdigest/argdigest/__init__.py",
+        "sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+      },
+      "depdigest": {
+        "version": "0.15.1+3.ga27172b",
+        "origin": "/home/diego/repos@uibcdf/depdigest/depdigest/__init__.py",
+        "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "smonitor": {
+        "version": "0.22.0+15.g5ee88c1",
+        "origin": "/home/diego/repos@uibcdf/smonitor/smonitor/__init__.py",
+        "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "ackredit": {
+        "version": "0.12.1+2.ge233973",
+        "origin": "/home/diego/repos@uibcdf/ackredit/ackredit/__init__.py",
+        "sha256": "43264d45f63ed941ac032aed67c882543a952bc6f58a3555e1a100a5d7b13533"
+      },
+      "openmm": {
+        "version": "8.6.1",
+        "origin": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/openmm/__init__.py",
+        "sha256": "c513bcdf3407fb0efdffc8f2f4e61d4de40b0a6612c3017af948e0245bf319ab"
+      }
+    }
+  },
+  "four_provider_floor_origins": {
+    "argdigest": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "original_regression": {
+    "reference_receipt": "devtools/data/native_pdb_benchmark_304_20261106.json",
+    "reference_sha256": "567e51ca4082024d017d209f45ee39e22946800058d149377f01853f63aa1b7e",
+    "exact_graph_axis_coordinate_digests_preserved": true,
+    "observations": {
+      "schema": "molsysmt.native_pdb_reader_probe@1",
+      "source_base_commit": "39c59def654e11dc65ab16569834eee844d72afb",
+      "implementation_files": {
+        "molsysmt/_private/covalent_inference.py": "416c77a8bea50c0a56f5cdb97b07b0ca08262ee54d038c6fdaaeb95cd0713abe",
+        "molsysmt/_private/pdb_connectivity.py": "8368df3366e8aecfe039e4c9da230a945e67cf43a2f7b1864ef3053c81f2d0a9",
+        "molsysmt/_private/preparation_history.py": "1bb964fd80ca74636a16ca305f0c9cf4b3e414e7fb80c710223bb7a9e5b81407",
+        "molsysmt/build/infer_covalent_bonds.py": "a7b24a760043ad9633b324cce683253325c481fe1dd8311a151c5d55618a472e",
+        "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py": "b47e78879fd4490b6086e98021f4c9abb05e9470c4b8ab925b79ed91ec0686e7",
+        "molsysmt/form/molsysmt_Topology/merge.py": "299ec671bd5e0b4cad58203e8c2544b725c27efd47d1c3da659eece073a13b5b"
+      },
+      "platform": "Linux",
+      "measurement_scope": "Each engine runs in a fresh process. Conversion timings exclude interpreter/package startup; the first result is released before the repeated conversion, and collection is untimed. Conversion peak RSS is captured before query/serialization verification. Final RSS is the whole-process high-water mark, including native H5MSM verification where applicable. Two conversions per process are observations, not a statistical benchmark.",
+      "sources": [
+        {
+          "source": "181l.pdb",
+          "sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+          "routes": [
+            {
+              "engine": "disabled",
+              "n_atoms": 1441,
+              "n_bonds": 13,
+              "first_conversion_seconds": 0.784892015857622,
+              "repeated_conversion_seconds": 0.17349490383639932,
+              "post_import_peak_rss_bytes": 75546624,
+              "conversion_peak_rss_bytes": 192245760,
+              "candidate_pair_sha256": "abf83f9c4268ced844928d2e8bf1ed0a25086afd5bcbe151407bf3dee54a1da5",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 220430336,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 2.534115864895284,
+              "repeated_conversion_seconds": 1.3275242371018976,
+              "post_import_peak_rss_bytes": 75325440,
+              "conversion_peak_rss_bytes": 244457472,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 1309,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_state_assignment",
+                "unsupported_terminal_groups",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 1.0946548460051417,
+              "h5msm_bytes": 3219890,
+              "h5msm_read_seconds": 1.05540059087798,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 282775552,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 1.0269110230728984,
+              "repeated_conversion_seconds": 0.3083266008179635,
+              "post_import_peak_rss_bytes": 75182080,
+              "conversion_peak_rss_bytes": 265531392,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 290598912,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            }
+          ],
+          "native_only_pairs": [],
+          "openmm_only_pairs": []
+        },
+        {
+          "source": "1iep_receptorH.pdb",
+          "sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+          "routes": [
+            {
+              "engine": "disabled",
+              "n_atoms": 4412,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.7358627310022712,
+              "repeated_conversion_seconds": 0.09330859198234975,
+              "post_import_peak_rss_bytes": 75685888,
+              "conversion_peak_rss_bytes": 195923968,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 218324992,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 4412,
+              "n_bonds": 4445,
+              "first_conversion_seconds": 2.7390078911557794,
+              "repeated_conversion_seconds": 1.8190129699651152,
+              "post_import_peak_rss_bytes": 75608064,
+              "conversion_peak_rss_bytes": 264704000,
+              "candidate_pair_sha256": "348e5a6732d3d18c95a01a9b1c3569380d340b24de5f99caa50cbb4c53a7dd5f",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 4445,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_state_assignment",
+                "unsupported_terminal_groups",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.9859116629231721,
+              "h5msm_bytes": 6491685,
+              "h5msm_read_seconds": 0.9952279708813876,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 295071744,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 4412,
+              "n_bonds": 4469,
+              "first_conversion_seconds": 1.2961076418869197,
+              "repeated_conversion_seconds": 0.6290615841280669,
+              "post_import_peak_rss_bytes": 75419648,
+              "conversion_peak_rss_bytes": 279830528,
+              "candidate_pair_sha256": "6c80c9aa710d217a339fa514b186ce8e08548897e0190e67e9a55b02a4fe8b6d",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 295264256,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            }
+          ],
+          "native_only_pairs": [
+            [
+              0,
+              3427
+            ]
+          ],
+          "openmm_only_pairs": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              272,
+              273
+            ],
+            [
+              344,
+              345
+            ],
+            [
+              350,
+              351
+            ],
+            [
+              1096,
+              1097
+            ],
+            [
+              1137,
+              1138
+            ],
+            [
+              1143,
+              1144
+            ],
+            [
+              1428,
+              1429
+            ],
+            [
+              1447,
+              1448
+            ],
+            [
+              1983,
+              1984
+            ],
+            [
+              2199,
+              2200
+            ],
+            [
+              2218,
+              2219
+            ],
+            [
+              2224,
+              2225
+            ],
+            [
+              2430,
+              2431
+            ],
+            [
+              2436,
+              2437
+            ],
+            [
+              2752,
+              2753
+            ],
+            [
+              2758,
+              2759
+            ],
+            [
+              2853,
+              2854
+            ],
+            [
+              3099,
+              3100
+            ],
+            [
+              3333,
+              3334
+            ],
+            [
+              3487,
+              3488
+            ],
+            [
+              4244,
+              4245
+            ],
+            [
+              4263,
+              4264
+            ],
+            [
+              4269,
+              4270
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "notebooks": [
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "sha256": "d827bc62325a904f800b3526d0f0e6f30d6770a199318f5339717b21a82304cf",
+      "code_outputs_ids_metadata_and_cell_inventory_preserved": true
+    },
+    {
+      "path": "docs/content/user/tools/form/file/file_pdb.ipynb",
+      "sha256": "0efa47cd5878e00699b089eabc8055221ac1ad9411ddbad68b94c2fd8bbe4f03",
+      "code_outputs_ids_metadata_and_cell_inventory_preserved": true
+    },
+    {
+      "path": "docs/content/user/tools/form/string/string_pdb_text.ipynb",
+      "sha256": "cd0a6a9328359c393994647b8f716e094f35a385d83cd175ca3b107dcbc38d14",
+      "code_outputs_ids_metadata_and_cell_inventory_preserved": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb",
+      "sha256": "df8bc34aef6764f76f9888e1c8b7b3890c360889b91b30c38d82b658bb8d17bc",
+      "code_outputs_ids_metadata_and_cell_inventory_preserved": true
+    }
+  ],
+  "limits": [
+    "Six direct PDB native readers gain keyword-only from_naming_scheme; all prior positional arguments and form-specific Boolean defaults are preserved.",
+    "Fresh classification and native inference receive context first. Semantic output selection uses interpreted inventory; early atom subsetting and conflicting selector arguments cannot change source axes.",
+    "Context-aware name-only projection does not request implicit graph reconstruction; explicit engine/inference requests retain their semantics.",
+    "The existing external preparation guard rejects reviewed contextual labels and incompatible cap declarations before provider execution. Explicit OpenMM raises; optional inference warns and archives failure without a native fallback.",
+    "Reader history retains source_naming_scheme as original provenance; pure Topology projections retain stable inventory only.",
+    "Sixty direct reader controls plus four doctest modules pass on four published support-library floors, reusing other development providers; this is not all-dependency-floor or clean installed qualification.",
+    "Actual native/OpenMM capped-peptide graphs match nine literal pairs. Stub engine cases qualify dispatch, not scientific correctness.",
+    "Original source bytes/graphs/axes/coordinates are retained for all three reader modes; two-conversion timings/RSS are regression observations, not new benchmarks.",
+    "Initial test errors used an unavailable root Topology export and the wrong exception superclass; final tests use the supported native namespace and precise ArgumentChoiceError. One genuine stale Topology doctest was corrected to inspect stable inventory.",
+    "No dependency-floor, Rust backend or H5MSM/dictionary schema change. Six intentional signature additions are registered; generated converter-argument union passes unchanged.",
+    "Additional-group/disulfide/unknown-geometry policies, broader producer/composite receiving and final owner integration/source gates remain; #304 is partial."
+  ],
+  "reporting_checks": [
+    {
+      "command": "python devtools/scripts/validate_devguide.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python devtools/scripts/devguide_index.py --check",
+      "exit_code": 0
+    },
+    {
+      "command": "git -c core.fsmonitor=false diff --check",
+      "exit_code": 0
+    }
+  ],
+  "separate_frozen_source_ci": {
+    "run_id": 42171874158,
+    "source_commit": "282e8337e04c14003622c19a359b7cd35d2b5e4b",
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/42171874158",
+    "status": "queued",
+    "conclusion": null,
+    "job_counts": {
+      "success": 1,
+      "failure": 6,
+      "in_progress": 1,
+      "queued": 1
+    },
+    "additional_completed_job": {
+      "id": 127743502032,
+      "platform": "macos-15",
+      "python": "3.14",
+      "conclusion": "failure",
+      "verified_cause": "tests/test_argument_contract.py::test_the_converter_table_still_matches_the_converters"
+    },
+    "scope": "This remains a failing, active gate on the unchanged frozen parent, not qualification of the ordered working branch. No new run was launched."
+  }
+}

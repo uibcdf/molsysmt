@@ -183,6 +183,24 @@ are added, and inferred amide links still require compatible chain/geometry
 evidence. This two-step route supplies native naming context explicitly rather
 than assuming that a PDB label declares a convention.
 
+When every group uses the same reviewed source convention, the reader can
+receive it directly before native inference:
+
+```python
+molsys = msm.convert(
+    pdb_file, to_form='molsysmt.MolSys', from_naming_scheme='amber',
+    get_missing_bonds=True, bond_inference_engine='MolSysMT')
+```
+
+Do not use one file-wide declaration for a mixed Amber/CCD system; keep the
+per-group route above. Context-dependent selections run on interpreted native
+inventory. The same source keyword works for file, text and handler conversions,
+including pure Topology projections; a pure Topology retains stable inventory
+and declarations, not ChemicalStates bonds/history. Request MolSys to inspect
+the reader's source_naming_scheme and inference evidence. An unsupported
+OpenMM naming interpretation is refused before provider execution; the legacy
+optional policy warns and archives failure rather than substituting chemistry.
+
 For H atoms already present, call the same tool with
 `method='observed_hydrogen_template_consensus'`. Its separate H-parent report
 requires exact-name agreement among every matching heavy-compatible reference

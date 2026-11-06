@@ -203,6 +203,7 @@ def check_external_preparation(
     from molsysmt._private.name_resolution import _profiles
     from molsysmt._private.variables import is_all
     from molsysmt.basic import select
+    from molsysmt.element.group.terminal_capping import group_names as cap_names
 
     indices = (
         range(topology.n_groups)
@@ -213,6 +214,16 @@ def check_external_preparation(
     contextual = _profiles()["contextual_names"]
     for index in indices:
         name = topology.groups.at[int(index), "group_name"]
+        if (
+            isinstance(name, str)
+            and name in cap_names
+            and schemes[index] is not None
+            and schemes[index] not in ("amber", "legacy")
+        ):
+            raise NotImplementedMethodError(
+                caller=caller,
+                message=f"{engine} preparation has no source-naming adapter for cap label {name!r} under {schemes[index]!r} at group index {index}. No legacy cap meaning is substituted.",
+            )
         if isinstance(name, str) and (
             name in contextual
             or name in CURATED_MODIFIED_RESIDUES

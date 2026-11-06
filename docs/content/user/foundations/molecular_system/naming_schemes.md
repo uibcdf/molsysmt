@@ -19,6 +19,9 @@ naming adapters retain their documented refusals. Receiving the addon expansion
 in PR #543 against this contract remains separate work.
 The general `from_naming_scheme` conversion
 argument is available for explicit source interpretation and native transport.
+Native PDB and GRO readers receive it before initial group classification and
+native connectivity inference. This does not extend their scientific template
+coverage or imply external naming adapters.
 :::
 
 A group name is a label interpreted in a naming scheme. Identical labels can
@@ -199,6 +202,18 @@ inference without editing the input; explicit group reconstruction writes types
 using each group's stored convention. Existing stable molecule membership stays
 unchanged in both cases.
 
+Fresh PDB and GRO inventory can instead receive an explicit source convention
+while being read. Classification and native template inference then consult
+that declaration before producing the new system, including context-dependent
+atom selections. This is different from relabelling an already constructed
+native inventory. PDB file, text and handler routes share this behavior; none
+infers a convention from the form. The original PDB declaration is retained in
+historical reader evidence, independently of later naming edits. Native PDB
+inference still uses source structure index 0 before output extraction. External
+OpenMM inference retains the preparation adapter's contextual-label refusals:
+explicit requests raise, while the legacy optional route warns and archives
+failure before retaining declared edges. No native fallback is invented.
+
 A reference parent never establishes chemical-template equivalence. In
 particular, CCD HIP/LYN share sequence parents with Amber labels while denoting
 different compounds. Preparation and exact-template receiving remain separate
@@ -227,7 +242,11 @@ Native molecular operations read group declarations; an audit can preserve an
 ambiguous group as unassessed. OpenMM/PDBFixer naming adapters for the reviewed
 contextual labels are not delivered, so the wrappers refuse those labels and
 incompatible declarations on curated modified names. Only selected groups are
-checked where selection is offered. Fixed-state preparation instead follows
+checked by preparation operations that offer that scope. PDB reader inference
+uses the full source before output extraction, so its naming admission cannot
+be narrowed by the output selection. A name-only projection with an explicit
+source convention uses topology inventory without automatic bond inference
+unless inference was explicitly requested. Fixed-state preparation instead follows
 ChemicalStates without interpreting group labels chemically.
 
 Template-based bond candidates require the source convention too. They do not
@@ -237,9 +256,12 @@ type metadata. The PyTraj route requires explicit Amber context for the reviewed
 state labels. Pure geometry remains a separate choice that does not select a
 naming template; geometric candidates do not certify chemical bonds.
 
-Raw readers remain permissive: they preserve supplied names and explicit edges,
-while omitting automatic candidate inference for groups whose reviewed contextual
-labels lack declarations. Such omitted connectivity is not labelled complete.
+The bounded native template-reader policies remain permissive: they preserve
+supplied names and explicit edges while omitting template inference for groups
+whose reviewed contextual labels lack declarations. Such omitted connectivity
+is not labelled complete. PDB's legacy optional OpenMM policy remains a separate
+external reference interpretation and does not declare a source naming scheme;
+use explicit-only reading when no inferred interpretation is wanted.
 A later explicit template query requires the convention and can use the checked
 reference; loading a file does not choose it implicitly.
 

@@ -70,10 +70,18 @@ Forty-one new controls, a 321-case affected selection, 45 published four-provide
 floor cases and 1,091 documentation cases pass (overlapping selections).
 Both original PDB graphs, atom axes and coordinates are retained exactly.
 Reports record rule_version=2 for the cap extension, with no dictionary/H5MSM
-schema or public signature/default change. The qualified cap route currently
-declares naming after explicit-only reading and before standalone inference.
-Early PDB naming-context delivery, additional-group/disulfide/geometry policies
-and final acceptance/integration still remain before #304 closure.
+schema or public signature/default change. The following reader correction now
+delivers explicit from_naming_scheme before classification/inference through
+all six native PDB file/text/handler routes. It also uses interpreted inventory
+for semantic selection and avoids implicit inference for context-aware name-only
+queries. Sixty new controls, 543 affected cases, 64 published four-provider-floor
+cases and 1,091 documentation cases pass (overlapping selections), including
+actual native/OpenMM capped-peptide controls and unchanged original-source
+graph/axis/coordinate digests. Six intentional keyword-only additions preserve
+prior argument positions/defaults. Source naming is retained in typed history;
+unsupported external naming uses the existing explicit-refusal versus optional
+warning/cause policy. Additional-group/disulfide/geometry policies and final
+acceptance/integration still remain before #304 closure.
 New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
 for rescoring. Separately reported **#600** records missing mmCIF model-label
 delivery; selected geometry remains available, and the connectivity correction
@@ -88,6 +96,26 @@ not among the three additions explicitly identified when the maintainer expanded
 this objective to fifteen. No automatic queue expansion or implementation is
 claimed for later arrivals.
 
+The next board checkpoint also reads **#603–#607**. These are incoming reports,
+not additions to the maintainer's fifteen-item objective:
+
+- **#603:** rejected-operation diagnostics lost by addon refresh; the contributor
+  plans a fix in PR #543. That later source still needs owner receiving.
+- **#604:** bounded positional RMSD/clustering requested by DockingMT. Its own
+  proposal explicitly does not enlarge the frozen initial release gates.
+- **#605:** box factories reportedly admit degenerate/nonfinite periodic cells.
+- **#606:** temporal unwrap reportedly reuses the first cell classification after
+  later cells become triclinic.
+- **#607:** wrapping reportedly treats rotated orthogonal row bases as Cartesian
+  diagonal cells.
+
+The three new PBC reports contain consumer reproductions against main ed09f6453;
+they are not independently reproduced in this PDB receiving checkpoint. Native
+triage and correction/qualification are required before treating the affected
+periodic families as ready for 1.0. The current PDB inference's nonperiodic
+controls do not qualify those routes. Preserve the active ordered work and these
+additional release obligations; do not silently mark them completed or deferred.
+
 Other listed issues remain pending in the stated order; #594–#598 already have
 source repairs in the separate PR candidate but their closeout belongs at the
 end of this goal. Do not implement them again or close them out of order.
@@ -96,9 +124,10 @@ PR #543 receiving candidate **282e8337e04c14003622c19a359b7cd35d2b5e4b** stays
 frozen on its published branch. Its exact full source gate is
 [42171874158](https://github.com/uibcdf/molsysmt/actions/runs/42171874158), with
 Viewer 42234de839ed047016f8f241ea5eb717cfeb07be. At the latest verified inspection,
-the controlled wheel succeeds, all four Linux cells and macOS Python 3.11 fail,
-and three macOS cells remain queued. The independently inspected Linux Python
-3.14 and macOS Python 3.11 job logs identify the stale converter-argument table; its
+the controlled wheel succeeds, all four Linux cells and macOS Python 3.11/3.14
+fail, macOS Python 3.13 is running and macOS Python 3.12 remains queued. The
+independently inspected Linux Python 3.14 and macOS Python 3.11/3.14 job logs
+identify the stale converter-argument table; its
 regenerated correction belongs to the ordered-work branch, not the frozen CI
 input. No green full matrix or main integration is claimed. Ordered work uses
 a separate branch/worktree and the existing development environment. PR #543

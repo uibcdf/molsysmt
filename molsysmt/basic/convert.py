@@ -845,9 +845,11 @@ def convert(
         convention must agree with known declarations in the selected groups.
         Topology, MolSys, their typed dictionaries and H5MSM outputs retain the
         declaration; the input is unchanged.
-        Native GRO readers apply an explicit declaration before initial group
+        Native GRO and PDB readers apply an explicit declaration before initial group
         classification and candidate bond inference. This supplies reading
         context, not a chemical-state assignment or force-field validation.
+        Semantic selections on these readers use that interpreted inventory;
+        existing native types are not recomputed merely by adding metadata.
 
     Returns
     -------
@@ -1092,9 +1094,13 @@ def convert(
             source_reader_accepts_scheme,
         )
 
-        if source_reader_accepts_scheme(from_form, to_form):
+        if source_reader_accepts_scheme(from_form, to_form) and (
+            not isinstance(selection, str) or is_all(selection)
+        ):
             # Preserve the reader's coordinate/selection route while supplying
             # naming context before any source chemistry is reconstructed.
+            # Semantic selections below instead need that context on native
+            # inventory before they can choose the source atom population.
             kwargs = {**kwargs, "from_naming_scheme": from_naming_scheme}
         else:
             output = convert_with_source_scheme(

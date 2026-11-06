@@ -404,6 +404,22 @@ selected declarations that a target cannot retain, including prospective
 loss before target creation; ordinary conversion keeps its permissive policy.
 Unknown context is never inferred from a format or a native class.
 
+Direct PDB/GRO native readers accept the explicit source convention before
+initial group classification and native connectivity inference. PDB file/text/
+handler MolSys and Topology routes share that boundary. The generic dispatcher
+uses interpreted native inventory before a semantic selection; raw output
+indices still retain the reader's established selection route. It never applies
+an output atom subset before interpreting those source axes. Existing native
+metadata declarations do not implicitly reclassify stored types. PDB history
+retains source_naming_scheme as an original operation input. Unsupported external
+OpenMM source interpretations use the shared preparation refusal, with the
+existing explicit-raise versus optional-warning/history policy; no native
+fallback or default convention is introduced. Pure Topology projections retain
+stable inventory and naming metadata, not ChemicalStates graphs or histories.
+The context-aware name-only projection requests inventory without implicit bond
+reconstruction when that reader exposes a connectivity policy; explicit engine/
+inference requests retain their normal semantics.
+
 Named analyses omitted by a target are reported in the `interactions` scope,
 including empty named results. Adding missing naming context uses the existing
 invalidation policy on the independent molecular output; the report exposes

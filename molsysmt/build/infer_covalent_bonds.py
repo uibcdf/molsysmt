@@ -79,7 +79,9 @@ def infer_covalent_bonds(
     nor infers biological termini or a complete terminal/protonation state.
     Read a PDB with get_missing_bonds=False, declare the reviewed source naming
     scheme on the native topology, then call this tool when cap context is needed;
-    the PDB reader does not assume or obtain that convention from these labels.
+    alternatively, public convert accepts from_naming_scheme before executing
+    the explicitly selected native reader engine. The reader never assumes a
+    convention from the labels themselves.
 
     The optional alias composition changes only H-parent reference lookup, not
     source names, coordinates, heavy templates or peptide criteria. Its history

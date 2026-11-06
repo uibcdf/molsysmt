@@ -79,7 +79,9 @@ All ordinary conflict, geometry, chain and selection checks still apply. Unknown
 cap conventions remain exclusions. This does not add a cap or infer a biological
 terminus or complete terminal state. Read a PDB with `get_missing_bonds=False`,
 declare its reviewed native naming context, then use this tool when cap support
-is required; PDB reader defaults do not assume a cap naming convention.
+is required. You can alternatively supply `from_naming_scheme` to public
+conversion before the selected native reader engine executes. PDB reader
+defaults do not assume a cap naming convention.
 Disulfides, metals and arbitrary small-molecule connectivity require separate
 policies. Review those limitations before downstream preparation.
 
@@ -117,6 +119,15 @@ prepared = msm.convert(
     get_missing_bonds=True, bond_inference_engine='MolSysMT',
 )
 ```
+
+If the whole source uses one reviewed convention, include
+`from_naming_scheme='amber'` (or another supported declaration) in that call.
+The convention reaches classification and native inference before output
+selection. A selection such as `group_type=='amino acid'` uses this interpreted
+inventory. Mixed conventions need per-group native declarations instead of a
+single file-wide claim. Reader history retains `source_naming_scheme`; later
+metadata edits do not rewrite that historical input. The ordinary defaults and
+structure-0 inference policy below remain unchanged.
 
 File, text and `PDBFileHandler` routes support the same explicit engine choices
 for native `MolSys` and `Topology` output:
