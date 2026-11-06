@@ -41,6 +41,14 @@ For constraints, store `'none'` to retain an explicit no-constraints request;
 an unset container field uses the operation's default. An explicit conversion
 keyword `constraints=None` requests no constraints for that call.
 
+Use `msm.get(molsys, constraints=True)` to inspect that stored policy. The
+Boolean is a reader flag: False omits the attribute; a missing stored setting
+returns None. The same flags apply to other scalar mechanics settings, including
+unit-bearing parameters and settings whose stored values are themselves Boolean.
+Reads do not construct a physical model, fill operation defaults or certify
+engine support. These queries work on MolSys, MolecularMechanics and
+MolecularMechanicsDict; native `molsys.get(...)` shares the contract on MolSys.
+
 OBC1 and OBC2 denote distinct mathematical variants. OpenMM currently executes
 its standard OBC recipes; a stored label or tuning parameter does not certify
 engine support or completed parameterization. Its dielectric/screening tuning

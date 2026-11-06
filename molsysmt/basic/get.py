@@ -81,6 +81,13 @@ def get(
 
     Notes
     -----
+    Scalar mechanics attributes also use Boolean request flags. For example,
+    ``constraints=True`` reads the stored policy, while ``constraints=False``
+    omits that attribute. A stored Boolean setting is returned as data when
+    requested with True; it is not confused with the reader flag. An absent
+    setting returns None without filling defaults or constructing an engine
+    model. Physical parameter values belong to setters/converters, not flags.
+
     Native atom-level group identities preserve missing parent membership as
     None per selected atom when the hierarchy is partially populated. The same
     missing-parent mapping applies to group-based molecule/entity identities.
@@ -236,6 +243,13 @@ def get(
     [2]
     >>> sites[0][2]['atom_id']
     ['10', '11']
+
+    >>> from molsysmt.native import MolecularMechanics
+    >>> molsys = MolecularMechanics(constraints='none')
+    >>> msm.get(molsys, constraints=True)
+    'none'
+    >>> msm.get(molsys, constraints=False, output_type='dictionary')
+    {}
 
 
     .. admonition:: Tutorial with more examples

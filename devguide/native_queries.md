@@ -70,6 +70,12 @@ axis and catalogued attribute flags. `skip_digestion=True` remains reserved for
 values already satisfying that complete callee contract. No value-passport or
 permanently validated mutable-object state is introduced.
 
+Scalar mechanics attribute requests are Boolean flags, not physical parameter
+values. True reads the stored setting, False omits it and an absent setting
+returns None. Stored Boolean settings are still returned as data. Native MolSys
+and basic queries share this rule through the existing value-contract registry.
+Reading does not supply engine defaults, certify support or credit execution.
+
 ## Shared execution
 
 `basic.get._get` and `basic.info._info` contain shared internal execution and

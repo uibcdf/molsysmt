@@ -1,0 +1,171 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#584",
+  "base_commit": "6005bb4bcb17708abb4a12fc6249dc3e40315fa1",
+  "python": "3.14.7",
+  "versions_observed": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.0+20.ga5fe517",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "version_note": "Editable metadata is not an exact source identity or installed release qualification. Published floor payload origins and hashes are independently verified below.",
+  "files": {
+    "molsysmt/_private/argdigest/argument/forcefield.py": "57ad580632730f0f7510aed0aaa6fa53bfda39b61418ab5458bb44cbb1b0d744",
+    "molsysmt/_private/argdigest/argument/non_bonded_method.py": "1979d02a20b303d4123df50eb75f682279d6aa6bdd28367cbcf62dc6d1368a22",
+    "molsysmt/_private/argdigest/argument/cutoff_distance.py": "c8eddf711a5f16e0bd3ffa4ffde1ea66fd8fcd859e9262d15a8d9de5bc1cd097",
+    "molsysmt/_private/argdigest/argument/switch_distance.py": "0f3a429a2964a611064b57e9375bd8d18e44ed7c49a0353b67d899b475947080",
+    "molsysmt/_private/argdigest/argument/dispersion_correction.py": "46b233f1e323e4f6e235b73917affcd84b9d47f14d4c305c6b610b961738888e",
+    "molsysmt/_private/argdigest/argument/ewald_error_tolerance.py": "f3c5e19f10f693d33eedd12518302577e2beb5a51df36482548b2376aa3669bf",
+    "molsysmt/_private/argdigest/argument/hydrogen_mass.py": "79be5374ac2b3be849fbfdcfaedec3ad1385aea5edc5f38a8a3477fb9e9ef3e2",
+    "molsysmt/_private/argdigest/argument/constraints.py": "23b71d0b3c303f4e515b037bd27cf56df0d1ccfc77933922153971f802e65cd0",
+    "molsysmt/_private/argdigest/argument/flexible_constraints.py": "a85f726517867abfeb1ec098ae2a8c5d32e73e58871bd14afe9a0b7f0b00f273",
+    "molsysmt/_private/argdigest/argument/water_model.py": "6f1c86fc3d3ce4984d8414bc32cca88ab7cccc621a3d0116e87f2fc6037986b9",
+    "molsysmt/_private/argdigest/argument/rigid_water.py": "18503f64e4385322d472ae29f830bcc722039f7bda1bf4744bf57870f4065d9b",
+    "molsysmt/_private/argdigest/argument/implicit_solvent.py": "1628a3e64a47399c28f3745930687b51f8cdbcad8b87c325231518daa9dbe3f2",
+    "molsysmt/_private/argdigest/argument/solute_dielectric.py": "226a61429a869db6cce9c19221c445fcf71f925380b7e7db0681b88cf2f3ebdb",
+    "molsysmt/_private/argdigest/argument/solvent_dielectric.py": "01bb8c51e72206b2b9ed0bb3be56c1a2a672193a1a83b3cf5831809319b0ac04",
+    "molsysmt/_private/argdigest/argument/salt_concentration.py": "eb2e668f1e1f05880bf731c5605ed301d97ea27e2f6e44036734c3f29439e816",
+    "molsysmt/_private/argdigest/argument/kappa.py": "22dbe8a7e18b7f504deec103fdee775ebe7d9048c9792bf30a14e701bb4c06cb",
+    "molsysmt/_private/argdigest/argument/chemical_state_id.py": "b6b45724e02489822e1e030fadaee3c8ae0dccfef8e43f6afaafd90e02fe653b",
+    "molsysmt/_private/argdigest/argument/chemical_state_index.py": "8a866893bd472f07cabc34259c50584cbd576cbfb1db504ddf6b66a84fe87c80",
+    "molsysmt/_private/argdigest/argument/component_completeness.py": "1213c41b3dc46cde0109f79503dd10b1637513bbdf19389eac153c8a308dd95c",
+    "molsysmt/_private/argdigest/argument/component_evidence.py": "1656ce0e342722f47d89a64de29c8f602d1296b8d36633092d5d332bfd2043ad",
+    "molsysmt/_private/argdigest/argument/connectivity_completeness.py": "ab4b2d97fb515733f520c4863fc6f30589f3930a5c64c294f1be8ded58bcd05f",
+    "molsysmt/_private/argdigest/argument/n_chemical_states.py": "c91615bfcb498bcd5c66801354124574bb850c1b1374091567305522c2ddb3f1",
+    "molsysmt/_private/argdigest/argument/reference_chemical_state_index.py": "7f29834d4736eb342e5f923601a8ec57ca9b7a67d47cf7217e3348c983b72562",
+    "molsysmt/_private/argdigest/argument/_attribute_query.py": "0e8adfe1f7132b60981d28026ba253b71e990e0e9eea23a45168ea9a8c8fd492",
+    "molsysmt/basic/get.py": "b69ae197aee127afeb38c5d99df0ada1b65f35b6a37f99dd0fb5e4abea1c677c",
+    "tests/basic/get/test_mechanical_query_flags.py": "4d5a256eb4d2480d3cd1980d8468528531af791632ee6c0bb5dd461f4dcc7ba3",
+    "devguide/archive/resolved_bugs/basic_get_constraints_reader_flag_is_rejected.md": "2468148b58a297de3d56116ae9976b93d74e793a28d1a230e0a47310e927e8b5",
+    "devguide/native_queries.md": "dd375d807106f7133ffacd3a5def7e6ed2f79d7e8aed8522ae4b7617048e4916",
+    "devguide/release_1_0_status.md": "44efc7522ee12a156c7ea589ccaf36ee04a3ddb01358fc7768c7eb01d243662f",
+    "docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md": "0f46ed71a0b6d783fd2c9238a4a9005f1eb714dd3355253256d1eba55da17ea0",
+    "docs/content/user/tools/basic/get.ipynb": "f41530fd81a301c3e45e4b4a888b16be14091a0ade6b236ed213b1a3eb08a277",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb": "8d0b7b2a5222b74c52add962b5b664b5d7359001833b05147785766a0e59ad86",
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": "cdc209e498757291d8a21b10c8f86944755094a4270d2cc3725f4059b63c6ac8"
+  },
+  "renamed_private_helper": {
+    "from": "molsysmt/_private/argdigest/argument/_chemical_state_query.py",
+    "to": "molsysmt/_private/argdigest/argument/_attribute_query.py",
+    "executable_body_unchanged": true,
+    "existing_chemical_state_consumers": 7
+  },
+  "baseline": {
+    "selection": "tests/basic/get/test_mechanical_query_flags.py -k 'system_mechanical and constraints' --receptor=llm -n 2",
+    "failed": 6,
+    "exit_code": 1,
+    "seconds": 5.08,
+    "observation": "Constraint and flexible-constraint reader flags fail in all three native/dictionary source forms."
+  },
+  "checks": [
+    {
+      "selection": "tests/_private/argdigest tests/basic/get tests/native/test_native_queries.py tests/native/test_chemical_state_queries.py tests/native/test_chemical_state_field_queries.py tests/native/test_molsys_mechanics_setters.py tests/form/molsysmt_MolecularMechanics tests/form/molsysmt_MolecularMechanicsDict tests/form/openmm_Topology/test_implicit_solvent.py tests/build/solvate/test_scientific_attribution.py",
+      "runner": "python -m pytest --receptor=llm -n 4",
+      "passed": 1193,
+      "seconds": 39.12,
+      "exit_code": 0
+    },
+    {
+      "selection": "tests/basic/get/test_mechanical_query_flags.py tests/_private/argdigest/test_mechanics_digesters.py tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/argdigest/test_behavior_grouping_digesters.py tests/native/test_chemical_state_field_queries.py tests/form/openmm_Topology/test_implicit_solvent.py tests/build/solvate/test_scientific_attribution.py",
+      "runner": "python -m pytest -p no:smonitor --receptor=llm -n 2",
+      "profile": "published-support-floors, not a new environment",
+      "passed": 313,
+      "seconds": 14.83,
+      "exit_code": 0
+    },
+    {
+      "selection": "tests/basic/test_set_contracts.py tests/basic/test_set_partial_charge.py tests/basic/test_set_mechanical_atom_types.py tests/basic/convert/test_stored_mechanics_options.py",
+      "runner": "python -m pytest --receptor=llm -n 2",
+      "passed": 23,
+      "seconds": 5.25,
+      "exit_code": 0
+    },
+    {
+      "selection": "devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/basic/get.py",
+      "runner": "python -m pytest --receptor=llm -n 2",
+      "passed": 569,
+      "seconds": 18.92,
+      "exit_code": 0
+    }
+  ],
+  "new_public_guard_cases": 152,
+  "scalar_settings": [
+    "forcefield",
+    "non_bonded_method",
+    "cutoff_distance",
+    "switch_distance",
+    "dispersion_correction",
+    "ewald_error_tolerance",
+    "hydrogen_mass",
+    "constraints",
+    "flexible_constraints",
+    "water_model",
+    "rigid_water",
+    "implicit_solvent",
+    "solute_dielectric",
+    "solvent_dielectric",
+    "salt_concentration",
+    "kappa"
+  ],
+  "public_forms": [
+    "molsysmt.MolSys",
+    "molsysmt.MolecularMechanics",
+    "molsysmt.MolecularMechanicsDict"
+  ],
+  "native_method_parity": "MolSys.get reuses basic-get value contracts; MolecularMechanics does not acquire a new native get method.",
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "thread_limits": {
+    "OMP_NUM_THREADS": 1,
+    "OPENMM_CPU_THREADS": 1,
+    "MPLBACKEND": "Agg"
+  },
+  "contract": "Boolean requests are validated in the get caller context only. True reads, False omits, stored false remains data, unset remains None, malformed requests fail. Existing physical setter/converter branches and engine translation remain separate.",
+  "scientific_boundary": "Read-only inspection; no engine model construction, completed-parameterization certification, new scientific method, attribution event, unit policy, dependency floor, compiled code or persistence schema.",
+  "notebook_payloads_preserved": [
+    "docs/content/user/tools/basic/get.ipynb",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb",
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb"
+  ],
+  "compiled_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "invalid_initial_selection": {
+    "path": "tests/basic/set",
+    "exit_code": 5,
+    "tests_executed": 0,
+    "resolution": "Corrected broad selection and separate actual setter test files pass; this attempt is not passing evidence."
+  },
+  "queue_refresh": {
+    "pull_request": "uibcdf/molsysmt#543",
+    "head_observed": "1c88e785b4327350ad586d437a569eff1a2c5c9a",
+    "qualification": "Not received or merged by this native fix.",
+    "next_native_issue": "uibcdf/molsysmt#589"
+  },
+  "hosted_and_release_boundary": "Published at the final shared #583/#584 checkpoint; source receiving is not installed/platform/release qualification. No tag, Release, promotion or new release matrix."
+}

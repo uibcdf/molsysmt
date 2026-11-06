@@ -1,4 +1,4 @@
-"""Validating chemical-state metadata query flags."""
+"""Validating attribute requests separately from physical or stored values."""
 
 from molsysmt._private.smonitor import ArgumentError
 

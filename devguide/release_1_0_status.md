@@ -20,6 +20,32 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Mechanical reader flags — 2026-11-05
+
+**#584 is source-corrected.** Sixteen scalar mechanics readers now use the
+existing shared Boolean query contract. True reads, False omits, absent settings
+return None and stored Boolean settings remain data. Basic reads across MolSys,
+MolecularMechanics and MolecularMechanicsDict agree; native MolSys reads reuse
+the same value contract. Physical setter/converter branches and #581 constraint
+translation retain their meaning. No new defaults, engine execution, signature,
+dependency, attribution event or schema is introduced by a read.
+
+Receiving passes **1,193 affected tests**, **313 published-support-floor cases**,
+**23 setter/conversion cases** and **569 documentation/doctest cases**, including
+152 new public query cases. Suites overlap. See the
+[owning record](archive/resolved_bugs/basic_get_constraints_reader_flag_is_rejected.md)
+and [receipt](../devtools/data/mechanical_query_flags_receiving_584_20261105.json).
+All three edited notebooks preserve executable evidence. The shared private
+helper's chemical-state consumers remain covered by the broader run.
+
+The checkpoint board refresh found no new native correctness report ahead of
+the existing queue. Continue with **#589**, then PR **#543** receiving (latest
+head observed `1c88e785b4327350ad586d437a569eff1a2c5c9a`), including #587/#590/#591.
+The PR is not merged or qualified by these native fixes. #582 and #592 remain
+separate design/capability proposals. Batch #583/#584 into one unskipped hosted
+checkpoint; installed/platform and release evidence remains separate under #334.
+No tag, Release, promotion or new release matrix is launched.
+
 ## Shared OpenMM scientific attribution — 2026-11-05
 
 **#583 is source-corrected.** Implicit-model construction and OpenMM solvation

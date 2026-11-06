@@ -1,4 +1,4 @@
-from ._chemical_state_query import digest_query_flag
+from ._attribute_query import digest_query_flag
 
 
 def digest_reference_chemical_state_index(reference_chemical_state_index, caller=None):

@@ -1,10 +1,14 @@
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
 
+from ._attribute_query import digest_query_flag
 from ._quantity_parsing import parse_quantity_string
 
 
 def digest_switch_distance(switch_distance, caller=None):
+
+    if caller == "molsysmt.basic.get.get":
+        return digest_query_flag("switch_distance", switch_distance, caller=caller)
 
     if isinstance(switch_distance, str):
         switch_distance = parse_quantity_string(
