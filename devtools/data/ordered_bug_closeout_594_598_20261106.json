@@ -1,0 +1,150 @@
+{
+  "schema": "molsysmt.ordered_bug_closeout@1",
+  "recorded_at": "2026-11-06T18:43:38.040740+00:00",
+  "issues_in_order": [
+    594,
+    595,
+    596,
+    597,
+    598
+  ],
+  "implementation_integration_commit": "ab789897bad51a7258f366aadc01840895d6366e",
+  "verified_source_commit": "cddc3f3a613282693126549654233d2fd1d739a4",
+  "base_main_commit": "faab727ca5b5c9078e2f2e505971fc0ea1cf1a8d",
+  "new_guard_commit": "cddc3f3a613282693126549654233d2fd1d739a4",
+  "source_file_sha256": {
+    "molsysmt/element/group/__init__.py": "c614815c378a5f3d651824f3b471917196811f8aa00c67f364b16218cb52c799",
+    "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py": "e62b51a98730211f67d166affb851f9090ee8e76b7d7652ee233f9d1c144d348",
+    "molsysmt/form/file_gro/to_molsysmt_MolSys.py": "5687dcd209bf020826082be6df14343490af83d7ea00cdaf8be5348816803296",
+    "molsysmt/form/file_gro/to_mdtraj_Topology.py": "291186cb3edc8c1d28518ec999dcf98eaeca2fa82487706f050342e7977a7c8d",
+    "molsysmt/form/file_gro/to_mdtraj_Trajectory.py": "11c0f804a9f358973c5453314f828cca8da1369a2069b680bdcfbebb44556470",
+    "molsysmt/form/molsysmt_GROFileHandler/to_molsysmt_MolSys.py": "dc18f5c27ef94e990d3d6ea31f589928bc60289e13aebf0a952f36a5a67dfc6d",
+    "tests/data/databases/test_ccd_generators.py": "e9aee5dc3000171c6e2e63e76ab439d2b363a795ae39b404e3901c91b289589a",
+    "tests/basic/view/test_empty_view_contract.py": "547780ee2c2700f743baa70c02863a78e5c508baaa10b0bd84c359c8ebcc1055",
+    "tests/form/string_pdb_id/test_to_mmcif_PdbxContainers_DataContainer.py": "ba56c53b140f5741cadf1739af6bea2037086452c487f3239fd382b1602f8276"
+  },
+  "runs": {
+    "594_serial_import_classifier_addon_doctest": {
+      "path": ".pytest_cache/594-import-order-final.xml",
+      "sha256": "8a02e2749529f380812f54fe15fda86e8302b5e64a6ace4d697037e22394c54e",
+      "counts": {
+        "tests": 259,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "by_class": {
+        "molsysmt.element.group.get_group_type": 1,
+        "tests.element.group.test_name_recognition": 86,
+        "tests.molsysviewer_molsysmt.test_element_utilities": 132,
+        "tests.molsysviewer_molsysmt.test_naming_context_tools": 40
+      }
+    },
+    "595_596_conversion_and_comparison": {
+      "path": ".pytest_cache/595-596-conversion-verified.xml",
+      "sha256": "b86d60be9e793f856be1fca10be1a5f4f201a9e9e4bceed620dfde6a02cd1f30",
+      "counts": {
+        "tests": 242,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "by_class": {
+        "tests.basic.compare.test_compare": 6,
+        "tests.basic.compare.test_compare_extended": 32,
+        "tests.basic.compare.test_compare_structural": 30,
+        "tests.form.file_gro.test_bridge_contract": 34,
+        "tests.form.file_gro.test_contract": 4,
+        "tests.form.file_gro.test_mdtraj_connectivity": 10,
+        "tests.form.file_gro.test_provider_selection_contract": 35,
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_bioassembly_generators": 9,
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_chemical_state_fidelity": 6,
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_connectivity_policy": 26,
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_contract": 9,
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_primary_occupancy": 25,
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_structural_attributes": 11,
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_topology_domain_ownership": 3,
+        "tests.form.string_pdb_id.test_to_mmcif_PdbxContainers_DataContainer": 2
+      }
+    },
+    "597_serial_generated_catalogue_then_conversions": {
+      "path": ".pytest_cache/597-serial-catalogue-conversion-verified.xml",
+      "sha256": "c273b0ee7315f603a500a4004fc29f518ceead67f17310363d73f98477f692fb",
+      "counts": {
+        "tests": 51,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "by_class": {
+        "tests.data.databases.test_ccd_generators": 39,
+        "tests.form.file_gro.test_mdtraj_connectivity": 10,
+        "tests.form.string_pdb_id.test_to_mmcif_PdbxContainers_DataContainer": 2
+      }
+    },
+    "598_serial_empty_workspace_then_ngl_controls": {
+      "path": ".pytest_cache/598-serial-widget-graph-final.xml",
+      "sha256": "32b8205a9fbf57eb4a9a0cfaca85956415993652ccfe981e71a47ee50e1358bb",
+      "counts": {
+        "tests": 83,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "by_class": {
+        "tests.basic.view.test_empty_view_contract": 46,
+        "tests.form.nglview_NGLWidget.test_parity": 15,
+        "tests.third_party.nglview.test_add_arrows": 3,
+        "tests.third_party.nglview.test_add_contacts": 2,
+        "tests.third_party.nglview.test_add_cylinders": 3,
+        "tests.third_party.nglview.test_add_hbonds": 2,
+        "tests.third_party.nglview.test_set_color_by_value": 2,
+        "tests.third_party.nglview.test_set_color_by_value_digestion": 1,
+        "tests.third_party.nglview.test_show_as_balls_and_sticks": 2,
+        "tests.third_party.nglview.test_show_as_cartoon": 2,
+        "tests.third_party.nglview.test_show_as_licorice": 2,
+        "tests.third_party.nglview.test_show_as_surface": 2,
+        "tests.third_party.nglview.test_write_html": 1
+      }
+    }
+  },
+  "execution": {
+    "interpreter": "Existing molsyssuite development Python 3.14",
+    "pytest_receptor": "1.2.1 published",
+    "workers": {
+      "594": 0,
+      "595_596": 12,
+      "597": 0,
+      "598": 0
+    },
+    "serial_reason": "Actual process-global import/catalogue/widget lifetime contamination requires serial tests; these are not independent worker checks.",
+    "controlled_viewer_commit": "42234de839ed047016f8f241ea5eb717cfeb07be",
+    "new_environments_or_installations": false
+  },
+  "added_assertions": {
+    "issue": 595,
+    "source": "Raw bundled 1L2Y atom_site observations grouped in their original model order, not native output re-used as an oracle.",
+    "scope": "All 38 x 304 Cartesian coordinates, original first-model atom names and IDs normalized to native string labels, and declared full occupancy.",
+    "coordinate_unit": "angstrom",
+    "rtol": 0,
+    "atol": 1e-12,
+    "reason_for_tolerance": "Only deterministic float64 nm/angstrom representation conversion; no fitting, scientific model adjustment or inferred alignment."
+  },
+  "earlier_controls": [
+    "The strengthened NMR control first compared native string IDs with raw numeric BinaryCIF IDs. Coordinates already agreed. Corrected the test expectation to the existing explicit native string-label invariant, without changing runtime IDs or relaxing coordinate comparisons.",
+    "The two initial broader/serial commands retaining that same draft assertion failed once each. Only the corrected 242-case and 51-case receipts qualify the final guard."
+  ],
+  "quality": {
+    "ruff": "Repository lint PASS; 4459 Python files format-clean",
+    "fast_gate": "14/14 PASS after archival and release-ledger updates"
+  },
+  "limits": [
+    "Existing bounded bugs resolved; no new scientific method, dependency floor, file schema or compiled code.",
+    "No automatic naming convention from GRO extension; undeclared ambiguous chemistry remains unassessed.",
+    "No change to compare False inequality semantics or permission to merge different inventories.",
+    "No production catalogue cache invalidation and no NGLView serializer/global lifecycle workaround.",
+    "Application-owned closed-widget provider limitation remains outside the test cleanup; no external issue was published without permission.",
+    "Counts overlap; this is source/owner receiving, not the complete platform matrix, installed release pair or historical PR qualification.",
+    "No tag, Release, package upload, promotion, consumer source/pin or shared-environment change."
+  ]
+}
