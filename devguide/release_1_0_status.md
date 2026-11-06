@@ -131,6 +131,17 @@ outputs or readiness claim. This prepares the next ordered step; it does not
 close #593 before #304. See the
 [owning record](pending_bugs/alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md).
 
+Next-source preparation also receives public **ArgDigest 0.17.1** for **#428**:
+2,542 native/digestion/query/diagnostics cases, all 83 registered scientific
+cases and 14/14 fast gates pass. A 123-case overlapping constructor/ownership/
+diagnostics selection also passes with SMonitor 0.16.0. Exact public payloads
+are verified; the existing interpreter and other recorded development providers
+are reused. `native_constructor`, global ownership policy and dependency floors
+stay unchanged. The
+[owning record](pending_proposals/argdigest_0_17_receiving.md)
+retains the deliberate deferral of production ownership adoption and the
+remaining clean installed receiving; source compatibility does not close #428.
+
 The subsequent board checkpoint reads **#608–#610**, again without expanding
 the fifteen-item objective. #608 reports application-unit-dependent origin
 snapping and extends the unresolved native PBC qualification obligations above;

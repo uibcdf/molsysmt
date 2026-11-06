@@ -148,3 +148,57 @@ provider identities and actual import origins; it can accompany final candidate
 qualification under uibcdf/molsysmt#334. Other platform/interpreter cells and the
 MolSysMT/Viewer installed pair remain separate obligations. No provider patch,
 guide edit, release, staging upload or dependency-floor change was made.
+
+## Corrected public patch receiving — 2026-11-06
+
+The provider delivered the compatible **0.17.1** patch in the issue after the
+original 0.17.0 receiving. Its exact public file is
+`argdigest-0.17.1-py_0.tar.bz2`, 55,828 bytes, SHA-256
+`5af09e12b0c3d344337f2a2d90ac8b5fcea5be8a8467694c41e3daac018c3899`,
+from qualified provider source `c9c9ee623dab5331fdfa4227bd784dd38620e18b`.
+The original 0.17.0 receipt remains unchanged. This new receiving uses the
+existing Linux/Python 3.14.7 development interpreter and clean tracked consumer
+source **99fb2a67b0d454029dfc156304414870cd52aef0**. It creates no environment,
+installs no package and edits no sibling provider.
+
+**Contract-tested:** unmodified public ArgDigest 0.17.1, SMonitor 0.21.0 `py_2`
+and DepDigest 0.15.1 `py_0` payloads pass **2,542 cases in 38.66 s** with twelve
+workers, Pytest Receptor, zero failures and zero omissions. The selected native,
+digestion, get, compare and diagnostics suites include all 100 inherited-
+constructor controls, all 14 opt-in ownership controls and nine SMonitor
+integration controls. The 100 warnings remain visible. An additional selection
+with SMonitor's supported 0.16.0 `py_1` payload passes the same 123 inheritance,
+ownership and diagnostics cases in 3.69 s with four workers and no omissions.
+These selections overlap and are not additive independent coverage.
+
+The primary profile also executes all **83 scientific cases for the 61 registry
+selectors**, with no omissions or failures, and passes the aggregate **14/14
+fast gates**. These scientific tests retain their individual registry-defined
+truth scope; this is compatibility receiving rather than new validation of
+every scientific method. The published three-provider archives and every
+runtime payload file were checked against their original archived bytes.
+Actual module origins, versions, source/test hashes, commands and certificates
+are retained in the
+[patch receiving receipt](../../devtools/data/argdigest_0_17_1_receiving_428_20261106.json).
+
+Only the incompatible development SMonitor pytest plugin is disabled in these
+commands; runtime SMonitor and its consumer assertions remain active. Other
+dependencies retain their recorded development/source origins. MolSysMT reads
+its version string from the active shared distribution metadata in this source
+profile; that observed string is not the exact checkout identity. The receipt
+therefore preserves both metadata and the actual source commit/module paths.
+
+The decision remains to **retain `native_constructor`, defer production
+`contract_owner` adoption and preserve the existing public dependency floor**.
+The study demonstrates why definition ownership is not a drop-in global
+replacement for the current value-context solution. No demonstrated consumer
+defect requires a migration merely to use the new provider patch. Synchronized
+guide distribution stays with MolSysSuite's owner route, now also coordinated
+under uibcdf/molsyssuite#169 and #164.
+
+The issue is still **partial**: this extends public-payload source receiving,
+not the explicitly required clean installed receiving. Complete that acceptance
+with exact candidate artifacts and actual dependency closure under #334, then
+close this issue in the maintainer's ordered sequence. Neither these tests nor
+the certificate's `release_eligible` predicate authorize publication or qualify
+an installed MolSysMT/Viewer pair.
