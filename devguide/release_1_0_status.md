@@ -59,6 +59,10 @@ one skip) and exposed missing NGLView/Jinja2 in the receiving profile. Those
 tools are now explicit/preflighted; no test is removed. The implicit Jinja2
 requirement of default info output is separately recorded under #524 and must
 not disappear behind this larger test environment or ArgDigest acceptance.
+Attempt 42257905311 then passes all 2,542 consumer cases and 80/83 scientific
+cases. Its three LEaP failures expose the CLI symlink's changed `$0` prefix;
+the corrected absolute-path exec launcher has a real local companion-resolution
+regression. Hosted all-node receiving remains required before #428 closes.
 
 The #304 native profile has qualified explicit reader policy,
 exact standard/curated modified-group references, observed-H parent consensus,

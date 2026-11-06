@@ -3,6 +3,9 @@
 import hashlib
 import io
 import json
+import os
+import re
+import subprocess
 import tarfile
 from pathlib import Path
 from types import SimpleNamespace
@@ -151,3 +154,46 @@ def test_hosted_receiving_cannot_publish_or_run_implicitly():
     assert "--editable" not in code
     assert "--consumer-junit consumer.xml --scientific-junit scientific.xml" in code
     assert "--scientific-nodes scientific-nodes.json" in code
+
+
+def test_external_cli_keeps_its_real_prefix_and_literal_arguments(
+    tmp_path, monkeypatch
+):
+    root = Path(__file__).resolve().parents[2]
+    workflow = yaml.safe_load(
+        (root / ".github/workflows/receive_public_argdigest.yaml").read_text()
+    )
+    step = next(
+        s
+        for s in workflow["jobs"]["installed-receiving"]["steps"]
+        if s.get("name")
+        == "Isolate the external LEaP reference from the Python consumer"
+    )
+    runtime = tmp_path / "runner with spaces"
+    binary = runtime / "amber-reference/bin"
+    binary.mkdir(parents=True)
+    (runtime / "reference-cli").mkdir()
+    # The real vendor script finds its companion using its invoked $0. A
+    # symlink from another directory breaks that resolution even with AMBERHOME.
+    wrapper = binary / "tleap"
+    wrapper.write_text('#!/bin/sh\nexec "$(dirname "$0")/teLeap" "$@"\n')
+    wrapper.chmod(0o755)
+    companion = binary / "teLeap"
+    companion.write_text('#!/bin/sh\nprintf "%s\\n" "$0" "$@"\n')
+    companion.chmod(0o755)
+    old_link = runtime / "reference-cli/old-tleap"
+    old_link.symlink_to(wrapper)
+    assert subprocess.run([str(old_link)], capture_output=True).returncode != 0
+    monkeypatch.setenv("RUNNER_TEMP", str(runtime))
+    scripts = re.findall(r"python - <<'PY'\n(.*?)\nPY", step["run"], flags=re.S)
+    assert len(scripts) == 1
+    exec(compile(scripts[0], "hosted-reference-launcher", "exec"), {})
+    arguments = ["-s", "-f", "input with spaces.leap", "literal$argument"]
+    actual = subprocess.run(
+        [str(runtime / "reference-cli/tleap"), *arguments],
+        check=True,
+        text=True,
+        capture_output=True,
+        env=os.environ.copy(),
+    )
+    assert actual.stdout.splitlines() == [str(companion), *arguments]

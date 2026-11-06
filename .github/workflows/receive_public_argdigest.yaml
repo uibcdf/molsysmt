@@ -52,7 +52,15 @@ jobs:
             --channel conda-forge --strict-channel-priority \
             'python=3.12' 'numpy<2' ambertools
           mkdir -p "$RUNNER_TEMP/reference-cli"
-          ln -s "$RUNNER_TEMP/amber-reference/bin/tleap" "$RUNNER_TEMP/reference-cli/tleap"
+          python - <<'PY'
+          import os, shlex
+          from pathlib import Path
+          root = Path(os.environ['RUNNER_TEMP'])
+          target = root / 'amber-reference/bin/tleap'
+          launcher = root / 'reference-cli/tleap'
+          launcher.write_text('#!/bin/sh\nexec ' + shlex.quote(str(target)) + ' "$@"\n')
+          launcher.chmod(0o755)
+          PY
           echo "$RUNNER_TEMP/reference-cli" >> "$GITHUB_PATH"
           echo "AMBERHOME=$RUNNER_TEMP/amber-reference" >> "$GITHUB_ENV"
           micromamba list --prefix "$RUNNER_TEMP/amber-reference" --json \

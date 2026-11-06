@@ -256,3 +256,14 @@ of default `info()` is a separately reported runtime-declaration gap under #524;
 successful ArgDigest receiving must not be mistaken for closing that inventory
 or establishing a minimal MolSysMT installation. Actual public versions include
 Pandas 3.1.1, NumPy 2.5.4, PyUnitWizard 0.29.1, Viewer 0.24.0 and Ackredit 0.12.1.
+
+Attempt [42257905311](https://github.com/uibcdf/molsysmt/actions/runs/42257905311)
+at d8a178856 passes **all 2,542 installed consumer cases without omissions**
+and 80 of 83 scientific cases. Three external LEaP cases fail because its vendor
+shell script resolves `teLeap` relative to the invoked `$0`; the CLI symlink
+therefore changes its installation prefix. This is an execution-wrapper failure,
+not a passing scientific comparison. The launcher now execs the real installed
+script by its quoted absolute path. A local regression recreates the failing
+vendor-relative companion lookup and checks the actual workflow's corrected
+launcher, paths with spaces and literal argument forwarding. The full receiving
+selection and every registered scientific case remain mandatory.
