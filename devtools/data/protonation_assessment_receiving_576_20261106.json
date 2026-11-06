@@ -219,5 +219,7 @@
     "No new H5MSM domain; application uses ordinary native subset/remap/invalidation, including new analysis-local occurrence positions.",
     "Source preparation does not establish ordered main integration, managed Viewer admission, a complete candidate matrix, installed-pair qualification or publication authority."
   ],
-  "validation_fixture_commit": "b7ab074a5"
+  "validation_fixture_commit": "b7ab074a5",
+  "prepared_source_commit": "5c13fcd85f03a5db956f7854686f5493789820d4",
+  "owner_handoff": "https://github.com/uibcdf/molsysmt/issues/576#issuecomment-6688444056"
 }

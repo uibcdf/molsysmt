@@ -131,6 +131,11 @@ source-preparation tasks, without claiming main integration or addon admission.
 
 ## Prepared owner contract and receiving — 2026-11-06
 
+Prepared source: **5c13fcd85f03a5db956f7854686f5493789820d4**, published on
+`dev/ordered-stabilization-576-20261106`. The owner handoff is recorded in
+[issue #576](https://github.com/uibcdf/molsysmt/issues/576#issuecomment-6688444056).
+This source is available for consumer review; it is not yet integrated in main.
+
 **Implemented and contract-tested:** `build.assess_protonation` returns a public
 `build.ProtonationAssessment`. Its detached `to_dict()` report uses
 `molsysmt.protonation_assessment@1` and the existing `molsysmt.atom_map@1` schema.

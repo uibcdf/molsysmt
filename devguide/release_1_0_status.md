@@ -170,7 +170,8 @@ The User Guide, Cookbook and course distinguish provider capability from addon
 exposure. No issue is closed out of order, no Viewer runtime is changed and no
 installed/release qualification follows from these local checks.
 
-Prepared owner source for **#576** now supplies read-only
+Prepared owner source for **#576**, 5c13fcd85f03a5db956f7854686f5493789820d4,
+is published on `dev/ordered-stabilization-576-20261106` and supplies read-only
 `build.assess_protonation` and a public `build.ProtonationAssessment` result.
 Detached coverage retains every group's actual naming/reference context and
 canonical bidirectional positional maps. Single-use application consumes the
@@ -217,6 +218,22 @@ receiving without weakening atomicity or round-trip coverage. PR #543 has since
 advanced to **4f1710c5e66f7c9d5e9065fc82a7bd602824e611**, outside both frozen
 receiving inputs. This incoming review does not silently expand the fifteen
 maintainer-ordered issues.
+
+The next source-preparation checkpoint reads **#613–#616** without expanding the
+ordered objective. #613 reports overlapping global configuration contexts leaking
+GPU policy; its deterministic consumer reproduction requires owner receiving and
+does not establish GPU numerical failure. #614 concerns the Jupyter popup
+navigation fixture's real current/selectable Add-ons identity. #615 preserves an
+intermittent first-canvas initialization timeout whose cause remains unknown;
+a later passing diagnostic does not resolve it. #616 reports native append
+rejecting otherwise compatible H5MSM-recovered chemical inventories because
+component string storage dtypes differ. The latter needs owner qualification
+while retaining rejection of actual chemical differences. None is independently
+reproduced or repaired by the #576 assessment controls. The open PR #543 is now
+at **b18d5d82366808e8c170295f6fe483ffb58094bc**, outside the frozen receiving
+inputs; its later additions and fixes still need owner review and exact-source
+evidence. These incoming reports remain explicit release follow-up obligations,
+not source qualification supplied by the active #304 matrix.
 
 Other listed issues remain pending in the stated order; #594–#598 already have
 source repairs in the separate PR candidate but their closeout belongs at the
