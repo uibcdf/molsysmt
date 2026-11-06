@@ -107,3 +107,11 @@ in-place operation edits the source and returns no replacement system. A local
 energy decrease does not establish the nearest/global minimum, equilibrium,
 binding free energy or thermodynamic stability. Energy comparisons must retain
 the same physical model, constraints and unit convention.
+
+Independent work on a live engine object requires a supported copy operation
+before optimization. Existing OpenMM Context/Simulation copy adapters are
+currently unsupported, so such requests fail without changing the source; an
+explicit output form or composite input does not bypass that check. A captured
+State contains selected observations, not the complete runtime/model. Deliberate
+engine in-place work retains the original model/platform and its distinct
+mutation semantics.

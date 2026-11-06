@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import NotImplementedMethodError
 @arg_digest(form="openmm.State")
 def copy(item, skip_digestion=False):
     """
-    Creating a copy of an item of form openmm.State.
+    Requesting an independent copy of an OpenMM State snapshot.
 
 
     Parameters
@@ -18,10 +18,20 @@ def copy(item, skip_digestion=False):
     Returns
     -------
     openmm.State
-        Resulting object in openmm.State form.
+        The requested independent snapshot. This operation is currently
+        unsupported and raises without returning a result.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        State copying is not implemented. The captured snapshot is unchanged.
 
 
     .. versionadded:: 1.0.0
     """
 
-    raise NotImplementedMethodError()
+    raise NotImplementedMethodError(
+        method="independent copy of openmm.State",
+        arguments={"form": "openmm.State"},
+        caller="molsysmt.form.openmm_State.copy",
+    )

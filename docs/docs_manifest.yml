@@ -552,7 +552,7 @@ sections:
             file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb.AGENTS.md
           - name: potential_energy_minimization
-            description: Native minimization result ownership, independent and in-place modes, units, local-optimization meaning and the explicit existing-engine-context limitation.
+            description: Native minimization ownership and units, preflight engine-copy refusal including explicit/composite outputs, deliberate engine in-place editing, and scientific interpretation limits.
             file: docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb.AGENTS.md
       - name: element
@@ -587,7 +587,7 @@ sections:
         index_file: docs/content/user/tools/form/index.md
         index_agents_file: docs/content/user/tools/form/index.AGENTS.md
         status: pending_review
-        description: Form contracts, including bounded GRO native/OpenMM bridges, selected coordinate and box correspondence, complete-handler copies and preserved reader ownership.
+        description: Form contracts, including bounded GRO bridges, selected coordinate/box correspondence, reader ownership and explicitly unsupported OpenMM runtime/snapshot copies.
         pages:
           - name: cif_primary_observations
             file: docs/content/user/tools/form/file/file_cif.ipynb

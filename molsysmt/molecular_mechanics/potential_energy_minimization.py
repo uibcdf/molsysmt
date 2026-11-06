@@ -69,8 +69,8 @@ def potential_energy_minimization(
     NotImplementedError
         Raised if the requested ``engine`` is not supported.
     NotImplementedMethodError
-        If the requested independent output copy is unsupported. For existing
-        engine contexts this can currently occur after minimization; see Notes.
+        If detaching an existing engine input is unsupported. This is checked
+        before optimization, including when an explicit output form is requested.
 
 
     Notes
@@ -88,12 +88,15 @@ def potential_energy_minimization(
     Chemistry, spatial assembly and force-field parameters must already be
     appropriate. Extract one structure explicitly for a native MolSys input.
 
-    Existing OpenMM Context/Simulation inputs are minimized directly. Their
-    independent copy routes are unimplemented: avoid in_place=False for those
-    inputs, because copy failure can occur after their coordinates change.
-    Use a native MolSys for an independent result, or deliberately request
-    in_place=True on an engine context. Failure atomicity is tracked in
-    https://github.com/uibcdf/molsysmt/issues/588.
+    Existing engine inputs must satisfy the public independent-copy contract
+    before an independent optimization starts. OpenMM Context/Simulation copy
+    routes are currently unimplemented, so in_place=False raises before any
+    optimization or input-state change. An explicit to_form or a composite
+    input containing an engine object does not bypass this ownership check.
+    Use a prepared native MolSys for an independent workflow, or deliberately
+    request in_place=True on an existing engine object. In-place execution
+    operates on its actual model/platform and returns None; no rollback is
+    promised after an explicitly requested in-place engine failure.
 
     See Also
     --------
@@ -127,12 +130,22 @@ def potential_energy_minimization(
         from openmm import LocalEnergyMinimizer
 
         form_in = get_form(molecular_system)
+        source_forms = form_in if isinstance(form_in, (list, tuple)) else [form_in]
+        engine_input = any(
+            form in ("openmm.Context", "openmm.Simulation") for form in source_forms
+        )
+        # Existing engine objects can be shared by conversion routes. Detach
+        # them through the form's copy contract before any optimization.
+        detached_input = not in_place and engine_input
+        calculation_system = (
+            copy(molecular_system) if detached_input else molecular_system
+        )
 
         if form_in == "openmm.Context":
-            context = molecular_system
+            context = calculation_system
 
         elif form_in == "openmm.Simulation":
-            context = molecular_system.context
+            context = calculation_system.context
 
         else:
             extra_conversion_arguments = {}
@@ -157,7 +170,7 @@ def potential_energy_minimization(
                     extra_conversion_arguments[att] = default_attribute[att]
 
             context = convert(
-                molecular_system,
+                calculation_system,
                 to_form="openmm.Context",
                 **extra_conversion_arguments,
                 platform=platform,
@@ -182,9 +195,11 @@ def potential_energy_minimization(
             pass
         else:
             if to_form is None:
-                output = copy(molecular_system)
+                output = (
+                    calculation_system if detached_input else copy(molecular_system)
+                )
             else:
-                output = convert(molecular_system, to_form=to_form)
+                output = convert(calculation_system, to_form=to_form)
             coordinates = state_post_min.getPositions(asNumpy=True)
             set(output, coordinates=coordinates)
             return output

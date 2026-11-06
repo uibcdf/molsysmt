@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
-- [`independent_minimization_mutates_an_existing_engine_context_before_copy_failure.md`](independent_minimization_mutates_an_existing_engine_context_before_copy_failure.md) — [#588](https://github.com/uibcdf/molsysmt/issues/588) — Independent minimization mutates an existing engine context before copy failure. *(high, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 
 ### In progress (1)

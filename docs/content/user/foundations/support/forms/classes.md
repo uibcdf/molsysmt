@@ -40,10 +40,10 @@ MolSysMT seamlessly digests and converts object instances from major ecosystem p
 | **`mdtraj.AmberRestartFile`** | MDTraj | AMBER restart file handle. |
 | **`openmm.Topology`** | OpenMM | Molecular topology object representation. |
 | **`openmm.System`** | OpenMM | Physical forcefield system and force terms object. |
-| **`openmm.State`** | OpenMM | Thermodynamic state holding coordinates, velocities, and energies. |
+| **`openmm.State`** | OpenMM | Captured snapshot containing only the requested observations; independent copying is currently unsupported. A snapshot is not a complete live runtime/model. |
 | **`openmm.Modeller`** | OpenMM | Structural editing, residue addition, and solvation object. |
-| **`openmm.Simulation`** | OpenMM | OpenMM simulation context and integrator workspace. |
-| **`openmm.Context`** | OpenMM | Low-level OpenMM execution context handle. |
+| **`openmm.Simulation`** | OpenMM | Topology and engine runtime with workflow/reporters; independent copying is currently unsupported. |
+| **`openmm.Context`** | OpenMM | Live engine execution context with model/integrator state; independent copying is currently unsupported. |
 | **`openmm.app.PDBFile`** | OpenMM | OpenMM PDB file object representation. |
 | **`openmm.app.AmberPrmtopFile`** | OpenMM | OpenMM AMBER topology file object. |
 | **`openmm.app.AmberInpcrdFile`** | OpenMM | OpenMM AMBER coordinate file object. |

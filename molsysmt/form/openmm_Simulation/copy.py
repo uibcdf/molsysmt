@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import NotImplementedMethodError
 @arg_digest(form="openmm.Simulation")
 def copy(item, skip_digestion=False):
     """
-    Creating a copy of an item of form openmm.Simulation.
+    Requesting an independent copy of an OpenMM Simulation.
 
 
     Parameters
@@ -18,10 +18,20 @@ def copy(item, skip_digestion=False):
     Returns
     -------
     openmm.Simulation
-        Resulting object in openmm.Simulation form.
+        The requested independent simulation. This operation is currently
+        unsupported and raises without returning a result.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        Independent Simulation copying is not implemented. The input is unchanged.
 
 
     .. versionadded:: 1.0.0
     """
 
-    raise NotImplementedMethodError()
+    raise NotImplementedMethodError(
+        method="independent copy of openmm.Simulation",
+        arguments={"form": "openmm.Simulation"},
+        caller="molsysmt.form.openmm_Simulation.copy",
+    )

@@ -20,6 +20,39 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Existing-engine minimization ownership — 2026-11-05
+
+**#588 is source-corrected.** Independent requests involving live OpenMM
+Context/Simulation inputs, including explicit output forms/files and composites,
+first use the public source-copy contract. Those copies remain unsupported and
+now raise before optimization or source-state changes. No snapshot rebuild,
+rollback or platform/model fallback is introduced. Native MolSys modes and
+explicit engine in-place editing retain their behavior; no new in-place rollback
+promise is made. Public signatures/defaults and physical models are unchanged.
+
+Receiving passes **1,847 affected tests**, **318 published-support-floor cases**,
+**569 documentation/doctest cases** and the executed seven-cell tutorial. Suites
+overlap. Twenty new engine/snapshot cases preserve State/System/Integrator and
+same-live-context checkpoint bytes on rejection, prove no optimizer invocation,
+cover explicit/file/composite outputs, retain intentional in-place behavior and
+clarify partial State snapshots. CPU native controls and actual Reference engine
+execution are included; GPU/cross-machine copying is not qualified. Checkpoints
+and serialized snapshots are test-only, with no product snapshot cache.
+
+See the [owning record](archive/resolved_bugs/independent_minimization_mutates_an_existing_engine_context_before_copy_failure.md)
+and [receipt](../devtools/data/engine_minimization_ownership_receiving_588_20261105.json).
+Docstrings, Foundations, Toolbox, Cookbook, five course lessons and three OpenMM
+form pages agree with the actual copy boundary. Nine prose-only notebooks retain
+all original executable evidence. **#592** owns a future faithful runtime/State
+copy contract in the existing adapters; it does not block this safety correction
+or claim a new cloning capability.
+
+Continue with **#583/#584**, then **#589**. The checkpoint board refresh also
+retains **#590/#591**, real-Jupyter addon outcome/CSS defects assigned to PR #543
+receiving, alongside **#587**. No native physics workaround is requested for those
+UI boundaries. Hosted runner, installed/platform and release evidence remain
+separate under #334. No tag, Release, promotion or new release matrix is launched.
+
 ## Course minimization ownership — 2026-11-05
 
 **#562 is source-corrected.** All four Module 43 notebooks and Alzheimer Module

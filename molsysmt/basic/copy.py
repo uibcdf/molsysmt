@@ -44,6 +44,8 @@ def copy(molecular_system, output_filename=None, skip_digestion=False):
     ArgumentError
         If an explicit file destination aliases its source, names a directory,
         or a single destination is supplied for a composite source.
+    NotImplementedMethodError
+        If the recognized form has no supported independent-copy operation.
 
 
     Notes
@@ -60,6 +62,11 @@ def copy(molecular_system, output_filename=None, skip_digestion=False):
     - Copying retains a legacy file version; it does not migrate H5MSM. Copying
       does not add a format's missing write capabilities; use a native MolSys
       when a subsequent transformation requires one.
+    - Recognizing a form does not imply that its independent-copy operation is
+      implemented. Existing OpenMM Context, Simulation and State copy adapters
+      currently raise NotImplementedMethodError without changing the source.
+      A captured State is not a full live-context/model clone; conversion and
+      independent copying have separate contracts.
 
 
     See Also
