@@ -20,8 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
+- [`amber14_obc1_conversion_omits_implicit_solvent_force.md`](amber14_obc1_conversion_omits_implicit_solvent_force.md) — [#580](https://github.com/uibcdf/molsysmt/issues/580) — AMBER14 OBC1 conversion builds no implicit-solvent force. *(high, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 
 ### In progress (1)

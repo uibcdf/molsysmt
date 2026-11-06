@@ -20,6 +20,40 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Force-field resource ownership — 2026-11-05
+
+**#560 is source-corrected.** `get_engine_forcefield()` returns an independent
+ordered list of XML/leaprc names on every valid call. Caller edits cannot mutate
+the registry, other results or later parameterizations. All 71 registry entries,
+resource ordering and implicit-solvent precedence are retained. The existing
+public signature is unchanged; ArgDigest and SMonitor now cover the public
+metadata boundary. Engine installation and actual physical configuration remain
+separate from metadata lookup.
+
+Receiving passes **984 affected tests**, **169 published-support-floor cases**
+and **569 documentation/governance/doctest controls**, plus the executed
+seven-cell tutorial. The real OpenMM control preserves particle/constraint and
+per-force payloads after caller-local edits. See the
+[owning record](archive/resolved_bugs/forcefield_resource_results_alias_registry_lists.md)
+and [receipt](../devtools/data/forcefield_resources_receiving_560_20261105.json).
+The Cookbook and Module 20 retain original executable cells and outputs.
+No resource definitions, dependency floors, compiled kernels or H5MSM schema change.
+
+The scientific review found **#580**: AMBER14/OBC1 conversion accepts the label
+but creates no implicit-solvent force. Its
+[record](pending_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md)
+keeps the physical evidence separate from metadata ownership and makes no
+unmeasured energy claim. Review this silent model mismatch next, before the
+remaining **#559**, **#561** and **#562** native mechanics reports and final
+PR #543 expansion receiving. #572/#576 remain separate capability work.
+
+#578 is already closed and published in `ea4086c7297a7ecf1757648ebd3c5bd44e440c7f`;
+its five routine checks were still queued when inspected through GH Run Receptor.
+Publish this block without a skip marker and inspect its own hosted checks;
+missing execution remains pending under #334. Local source evidence does not
+replace installed/platform or release qualification. No new tag, Release,
+promotion or release matrix is launched.
+
 ## Empty visualization input contract — 2026-11-05
 
 **#578 is source-corrected.** Ordinary `msm.view()` and explicit None create an

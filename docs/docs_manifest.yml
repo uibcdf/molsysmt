@@ -99,6 +99,10 @@ sections:
             description: File parser capabilities, eager CIF/TRJPK reading, fixed TRJPK units and topology-only AMBER box metadata.
             file: docs/content/user/foundations/support/forms/files.md
             agents_file: docs/content/user/foundations/support/forms/files.md.AGENTS.md
+          - name: molecular_mechanics
+            description: Parameter vocabularies and independent engine resource-name metadata, distinct from engine installation and scientific model configuration.
+            file: docs/content/user/foundations/support/molecular_mechanics.md
+            agents_file: docs/content/user/foundations/support/molecular_mechanics.md.AGENTS.md
       - name: ecosystem
         agents_file: docs/content/user/foundations/ecosystem/AGENTS.md
         index_file: docs/content/user/foundations/ecosystem/index.md
@@ -530,6 +534,11 @@ sections:
         index_file: docs/content/user/tools/molecular_mechanics/index.md
         index_agents_file: docs/content/user/tools/molecular_mechanics/index.AGENTS.md
         status: pending_review
+        pages:
+          - name: get_engine_forcefield
+            description: Independent ordered XML/leaprc lists, solvent-model precedence, local edits and the separation of metadata from actual parameterization.
+            file: docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb
+            agents_file: docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb.AGENTS.md
       - name: element
         path: docs/content/user/tools/element
         agents_file: docs/content/user/tools/element/AGENTS.md

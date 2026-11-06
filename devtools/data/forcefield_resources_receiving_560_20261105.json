@@ -1,0 +1,142 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#560",
+  "base_commit": "ea4086c7297a7ecf1757648ebd3c5bd44e440c7f",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "versions_observed_at_closeout": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.0+18.gab92f1e",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "version_note": "Editable distribution metadata is an observation, not the current source Git identity or exact installed release qualification. Sibling working states may advance independently. Published floor payloads were checked separately by import origin and hash.",
+  "files": {
+    "molsysmt/molecular_mechanics/get_engine_forcefield.py": "6a7dbcd36bf51249ac5e53fdf60c47875344ee4bf63a6c7ae3ad67c53b4c1ebb",
+    "molsysmt/molecular_mechanics/forcefields.py": "7a3bdfde9f98ade07da681f4ca31e3fafb53ac587502ce4bcd31a4b697feb6ce",
+    "tests/molecular_mechanics/test_get_engine_forcefield.py": "d6344135a2e963f5633289b154792c8858e252f8371216297efbc7f05d3fed83",
+    "docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb": "774060d40371a9946816d24c0b6131852a31fa4cf6168b4c56b471b7556a3b23",
+    "docs/content/user/tools/molecular_mechanics/get_engine_forcefield.nbconvert.last_run": "93f251312daed80b5412e4743a270a1bc3ca08d816ee00fa189fe11cd0fa2367",
+    "docs/content/user/foundations/support/molecular_mechanics.md": "cbe8da686596f69ef59716b8740b43dd802df184918550ac04f4bddd97c8beaf",
+    "docs/content/user/cookbook/simulation_workflow.ipynb": "248de4abfabbac8811d9ceaa31afb7be49039f3512aec49818af7f9e15212dc1",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": "fa39a7cc4dc28d62b22bff3fb22b599eb6fce63ab7a33ddae7e7a94fc4ea6a69",
+    "docs/docs_manifest.yml": "fccb3ddb15989845ed5fb6879c7efd0c2ba645f56d5ec0bafc7be3c807b59904",
+    "devguide/archive/resolved_bugs/forcefield_resource_results_alias_registry_lists.md": "7e15cdffad5eba708dad594c6bd0e9efe66ea74412db929d06d0eb3356b12629",
+    "devguide/pending_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md": "ef7a070beaf1f69158d1bd26c9980dc63f3c0d9f7d15adfe81f9de99ce7f5708",
+    "devguide/release_1_0_status.md": "6a90f5967d29ee12e2a61ed13c3b13462059c504d51a900804608606f2a082f8"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/molecular_mechanics tests/form/openmm_Topology tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/argdigest/test_mechanics_digesters.py tests/_private/argdigest/test_definition_and_output_digesters.py tests/test_dependencies_architecture.py -m 'not network' --receptor=llm -n 4",
+      "exit_code": 0,
+      "passed": 984,
+      "seconds": 77.19
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD:<argdigest-0.14.0>:<depdigest-0.15.1>:<smonitor-0.16.0>:<ackredit-0.9.0> MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest -p no:smonitor tests/molecular_mechanics/test_get_engine_forcefield.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 169,
+      "seconds": 5.13,
+      "note": "-p no:smonitor excludes only the editable pytest entry point under #524; runtime SMonitor remains active. The same final guard body is included in the broad run."
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/molecular_mechanics/get_engine_forcefield.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 569,
+      "seconds": 18.6
+    },
+    {
+      "command": "MPLBACKEND=Agg OMP_NUM_THREADS=1 python docs/execute_notebooks.py -q -n 1 -f docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb",
+      "exit_code": 0,
+      "executed_notebooks": 1,
+      "code_cells": 7,
+      "seconds": 6.1,
+      "note": "Initial local-socket startup was sandbox-denied; the same canonical command succeeded under authorized execution."
+    }
+  ],
+  "baseline": {
+    "repeated_lookup_aliases_registry": true,
+    "appended_missing_XML_breaks_independent_matched_model_conversion": true,
+    "restored_particles": 304,
+    "registered_entries": 71,
+    "red_guard_exit": 2,
+    "red_guard_failed": 2,
+    "red_guard_note": "xdist -x stopped at the first-failure boundary; both observed failures were the original registry-list identity assertion."
+  },
+  "corrected_test_assumptions": [
+    "The interim guessed constraint count 153 was corrected after direct unchanged-baseline inspection (150); the final test compares all actual constraint parameters.",
+    "Complete serialized OpenMM systems may enumerate force classes differently; final controls compare masses, constraints and sorted individual force payloads."
+  ],
+  "notebook_preservation": {
+    "prose_only": [
+      "docs/content/user/cookbook/simulation_workflow.ipynb",
+      "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb"
+    ],
+    "all_original_code_outputs_metadata_identical_to_base": true,
+    "toolbox_tutorial": "Existing examples retained; three new examples executed and saved."
+  },
+  "governance": [
+    "ruff check molsysmt tests/molecular_mechanics/test_get_engine_forcefield.py",
+    "python devtools/scripts/validate_docstrings.py",
+    "python devtools/scripts/validate_public_api_stability.py",
+    "python devtools/scripts/validate_dependencies.py",
+    "python devtools/scripts/validate_course.py",
+    "python devtools/scripts/validate_devguide.py",
+    "python devtools/scripts/devguide_index.py --check",
+    "git diff --check"
+  ],
+  "scope": {
+    "independent_lists_for_all_registered_entries": true,
+    "registry_definitions_changed": false,
+    "public_signature_changed": false,
+    "new_dependency_floor": false,
+    "new_Ackredit_scientific_event": false,
+    "compiled_kernel_changed": false,
+    "H5MSM_schema_changed": false
+  },
+  "limitations": [
+    "Resource metadata is not proof of engine availability, file existence or complete scientific model configuration.",
+    "No engine object is constructed by this helper.",
+    "Scientific implicit-solvent applicability is tracked separately in #580; matching resource names alone do not establish numerical identity.",
+    "Local overlapping source suites are not installed/platform/release qualification. Routine hosted results must be inspected after publishing the exact head."
+  ],
+  "queue_review": {
+    "next": [
+      "uibcdf/molsysmt#580",
+      "uibcdf/molsysmt#559",
+      "uibcdf/molsysmt#561",
+      "uibcdf/molsysmt#562"
+    ],
+    "PR": "uibcdf/molsysmt#543",
+    "PR_head_last_observed": "94548b434f5d673f6fcfc6c97db9d83601a5b4b7"
+  },
+  "runtime_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  }
+}

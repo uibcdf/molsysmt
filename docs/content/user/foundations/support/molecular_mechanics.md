@@ -16,6 +16,14 @@ Recognized forcefield architectures, explicit water models, and atom-level param
 | **`atom_ff_type`** | Atom | Forcefield-assigned atom type name. | N/A |
 | **`partial_charge`** | Atom | Fractional atomic point charge. | `elementary_charge` (`e`) |
 
+Model vocabularies do not imply that every engine supports every combination.
+Engine-specific resource mappings are metadata: ordered XML or leaprc names,
+returned as independent lists. Editing a returned list does not change later
+parameterizations or another caller's resources. These names have no physical
+units. Inspecting them requires neither an installed engine nor installed
+parameter files; construction and scientific model configuration are separate
+steps. A solvent label alone does not certify a complete solvent implementation.
+
 ---
 
 ## Non-Bonded and Continuum Solvent Settings
