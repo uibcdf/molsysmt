@@ -1,9 +1,9 @@
 ---
 summary: mmCIF model merging mistakes inequality requests for ignored labels.
 issue: uibcdf/molsysmt#595
-status: active
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-06
 severity: high
 verification: reproduced
 area: [form, convert]
@@ -67,3 +67,15 @@ that information. The guard now checks the complete (38, 304) array of ones.
 No occupancy is manufactured by this fix. The selected conversion run passes
 146 cases, including the existing genuine-inventory-mismatch control and full
 PDB fidelity. A serial CCD/conversion run passes 72 overlapping cases.
+
+## Resolution — 2026-11-06
+
+The existing main correction omits non-identity labels from comparison without changing public False-as-inequality semantics. The strengthened offline guard independently reads the deposited 1L2Y atom_site observations and checks every coordinate across all 38 structures, first-model atom names, normalized string IDs and declared occupancy. The 242-case affected conversion/comparison selection and 51-case serial catalogue/conversion selection pass without failure or omission. The first draft test expected raw numeric BinaryCIF IDs; its assertion was corrected to the existing native string-label invariant, not by changing runtime IDs or loosening the coordinate oracle. Different-inventory refusal remains covered.
+
+Verified source: cddc3f3a613282693126549654233d2fd1d739a4. Existing implementation originated in
+ab789897bad51a7258f366aadc01840895d6366e; no new production fix is claimed by
+this closeout. The new NMR guard belongs to the received source above.
+[Exact source, JUnit digests and scope](../../../devtools/data/ordered_bug_closeout_594_598_20261106.json)
+retain these independent profiles and their overlapping counts. Existing failed
+full-suite history, remaining version-matrix/installed gates and release authority
+are not changed by this bounded bug closure.

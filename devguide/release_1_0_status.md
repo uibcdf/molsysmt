@@ -57,8 +57,9 @@ closure. Prior post-freeze scheduling of listed work does not block this explici
 instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
-**Completed native/provider criteria: #304, #593, #428, #544, #572, #576 and #557.**
-Next ordered issue: **#594**. The #557 source-permutation controls also identified supplemental
+**Completed native/provider criteria: #304, #593, #428, #544, #572, #576, #557,
+#594, #595, #596, #597 and #598 (12 of 15).**
+Next ordered issue: **#599**, followed by #600 and #601. The #557 source-permutation controls also identified supplemental
 [#617](archive/resolved_bugs/entry_mmcif_conversion_retains_a_retired_topology_component_flag_and_blocks_perm.md):
 the mmCIF converter wrote a retired Topology component flag. The one-line
 producer correction passes 137 adapter/permutation cases, preserving strict
@@ -79,6 +80,19 @@ and [joint closeout receipt](../devtools/data/ordered_feature_closeout_428_544_5
 Main 34b8c09e2 smoke 42267238580 passes, as do its four other applicable
 hosted checks. Earlier #428 receiving failures remain in their archive; the
 new #557 checkpoint retains its own source/local gates and CI evidence.
+
+The #594–#598 implementation was already incorporated by ab789897b; current
+owner closeout verifies 259 serial classifier/addon/doctest cases, 242 affected
+conversion/comparison cases, 51 serial catalogue/conversion cases and 83 serial
+NGL/widget cases, all without failures or omissions. Counts overlap. The new NMR
+guard in cddc3f3a6 independently checks every deposited coordinate across 38
+structures and normalized source labels. See the
+[bounded bug receipt](../devtools/data/ordered_bug_closeout_594_598_20261106.json).
+Runtime comparison semantics, unsupported naming defaults, immutable catalogues
+and production widget serialization are preserved. Current #557 CI smoke
+42271829370 is still running; its four administrative workflows pass. The
+[source handoff to DockingMT](https://github.com/uibcdf/dockingmt/issues/49#issuecomment-6692452871)
+records public usage and leaves consumer/scientific acceptance separate.
 
 Feature closure does not qualify the complete version matrix, a future Viewer
 candidate, its canvas/sessions, or the sixteen-cell installed release pair under

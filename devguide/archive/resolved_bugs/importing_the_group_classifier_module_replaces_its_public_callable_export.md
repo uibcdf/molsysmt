@@ -1,9 +1,9 @@
 ---
 summary: Importing the group classifier module replaces its public callable export.
 issue: uibcdf/molsysmt#594
-status: active
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-06
 severity: medium
 verification: reproduced
 area: [api, tests]
@@ -60,3 +60,15 @@ ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6 with PR #543 head
 1c88e785b4327350ad586d437a569eff1a2c5c9a. Hosted evidence is separately
 identified above, with native command and per-job log fallback after the
 receptor correctly reported an active matrix with four failed Linux jobs.
+
+## Resolution — 2026-11-06
+
+The original correction is already present in main through ab789897b. Current serial receiving passes 259 classifier, naming-context, public signature/doctest and real addon cases, without failure or omission. Both import routes retain the same supported callable; scientific naming rules and dependency floors are unchanged.
+
+Verified source: cddc3f3a613282693126549654233d2fd1d739a4. Existing implementation originated in
+ab789897bad51a7258f366aadc01840895d6366e; no new production fix is claimed by
+this closeout. The new NMR guard belongs to the received source above.
+[Exact source, JUnit digests and scope](../../../devtools/data/ordered_bug_closeout_594_598_20261106.json)
+retain these independent profiles and their overlapping counts. Existing failed
+full-suite history, remaining version-matrix/installed gates and release authority
+are not changed by this bounded bug closure.

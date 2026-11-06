@@ -8,14 +8,15 @@
   "status": "Frozen contribution full addon passes; scoped owner-base integration passes; exact integrated full/hosted/installed/human acceptance remains pending",
   "source": {
     "contribution": "fa119ac122b0ad025c9679b13b3af79bf2f21fb5",
-    "merged_owner_main": "faab727ca5b5c9078e2f2e505971fc0ea1cf1a8d",
-    "integration_identity": "Uncommitted merge at receiving; source fingerprints below bind the exercised modules",
+    "merged_owner_main": "882b65b9cdd2d66ff8c68d0069b9728e6b715840",
+    "integration_identity": "Consecutive non-fast-forward merges into contribution branch; scoped validation preceded the owner documentation/test-only closeout, with no intervening molecular/addon/Rust source change",
     "viewer": "fabf2d220c5d3cb906343005efb060670c84bdf0",
     "viewer_controlled_code": "239c8dd74815a660159a95970e9136d7beebfdd2",
     "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
     "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
     "rust_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
-    "rust_note": "The merged owner and frozen contribution have identical Rust trees. The existing qualified binary is reused; no rebuild or native scientific algorithm change in this contribution."
+    "rust_note": "The merged owner and frozen contribution have identical Rust trees. The existing qualified binary is reused; no rebuild or native scientific algorithm change in this contribution.",
+    "scoped_validation_owner_basis": "faab727ca5b5c9078e2f2e505971fc0ea1cf1a8d"
   },
   "frozen_contribution_full_addon": {
     "source": "fa119ac122b0ad025c9679b13b3af79bf2f21fb5",
@@ -98,6 +99,12 @@
         "molecular_dynamics.run_NVT_equilibration"
       ],
       "scope": "Source exposure only. The two MD paths are native stubs. The four new native capabilities require separate bound-consumer receiving."
+    },
+    "later_owner_closeout": {
+      "source": "882b65b9cdd2d66ff8c68d0069b9728e6b715840",
+      "previous": "faab727ca5b5c9078e2f2e505971fc0ea1cf1a8d",
+      "molecular_addon_rust_source_diff": [],
+      "note": "Owner closes 594 through 598 and adds a source-ID test control. Scoped addon/Jupyter evidence remains applicable to identical runtime sources; original full collection remains tied to fa119ac12."
     }
   },
   "environment": {

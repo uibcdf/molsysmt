@@ -1,9 +1,9 @@
 ---
 summary: GRO source naming declarations arrive after connectivity inference
 issue: uibcdf/molsysmt#596
-status: active
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-06
 severity: high
 verification: reproduced
 area: [form, convert]
@@ -62,3 +62,15 @@ Linux/Python 3.14.7; main ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6 plus PR
 1c88e785b4327350ad586d437a569eff1a2c5c9a and local receiving corrections.
 Receipts: .pytest_cache/543-native-conversion-r3.xml and
 .pytest_cache/543-serial-conversion-repaired.xml (private local evidence).
+
+## Resolution — 2026-11-06
+
+The reader-context correction is already on main. Current 242-case conversion/comparison receiving includes native file/handler and MDTraj routes, nonconsecutive structure selections, units, boxes, remapped edges and disabled inference. The 51-case serial catalogue/conversion profile also passes. Explicit Amber supports the declared acidic fixture; undeclared ambiguity and the mixed-label bundled GRO exclusions remain intentional. No extension-based convention, force field or complete chemistry is inferred.
+
+Verified source: cddc3f3a613282693126549654233d2fd1d739a4. Existing implementation originated in
+ab789897bad51a7258f366aadc01840895d6366e; no new production fix is claimed by
+this closeout. The new NMR guard belongs to the received source above.
+[Exact source, JUnit digests and scope](../../../devtools/data/ordered_bug_closeout_594_598_20261106.json)
+retain these independent profiles and their overlapping counts. Existing failed
+full-suite history, remaining version-matrix/installed gates and release authority
+are not changed by this bounded bug closure.

@@ -1,9 +1,9 @@
 ---
 summary: NGLView empty-workspace tests leave links referencing closed widgets
 issue: uibcdf/molsysmt#598
-status: active
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-06
 severity: medium
 verification: reproduced
 area: [tests, basic]
@@ -50,3 +50,15 @@ Linux/Python 3.14.7, NGLView 4.0.1, ipywidgets 8.1.9; main ed09f6453 plus PR
 1c88e785b and owner receiving corrections. Baseline receipt:
 .pytest_cache/543-ngl-lifecycle-baseline.xml; repaired two-module receipt:
 .pytest_cache/543-ngl-lifecycle-repaired.xml (private local source evidence).
+
+## Resolution — 2026-11-06
+
+The current serial empty-workspace, complete NGL tools and native widget-parity selection passes 83 cases without failure or omission. The actual widget serializer runs after test-owned empty-workspace cleanup, retaining all existing HTML/representation assertions and pre-existing widgets. No production serializer monkeypatch, skipped export or application-level closed-widget claim is introduced. Browser rendering and the upstream application-owned limitation remain separate.
+
+Verified source: cddc3f3a613282693126549654233d2fd1d739a4. Existing implementation originated in
+ab789897bad51a7258f366aadc01840895d6366e; no new production fix is claimed by
+this closeout. The new NMR guard belongs to the received source above.
+[Exact source, JUnit digests and scope](../../../devtools/data/ordered_bug_closeout_594_598_20261106.json)
+retain these independent profiles and their overlapping counts. Existing failed
+full-suite history, remaining version-matrix/installed gates and release authority
+are not changed by this bounded bug closure.

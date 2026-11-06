@@ -33,13 +33,8 @@ that front matter -- edit the entries, not this list.
 - [`mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md`](mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md) — [#600](https://github.com/uibcdf/molsysmt/issues/600) — mmCIF native conversion drops deposited model labels despite declared structure_id support. *(medium, reproduced)*
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
 
-### In progress (6)
+### In progress (1)
 
-- [`gro_source_naming_declarations_arrive_after_connectivity_inference.md`](gro_source_naming_declarations_arrive_after_connectivity_inference.md) — [#596](https://github.com/uibcdf/molsysmt/issues/596) — GRO source naming declarations arrive after connectivity inference *(high, reproduced)*
-- [`mmcif_model_merging_mistakes_inequality_requests_for_ignored_labels.md`](mmcif_model_merging_mistakes_inequality_requests_for_ignored_labels.md) — [#595](https://github.com/uibcdf/molsysmt/issues/595) — mmCIF model merging mistakes inequality requests for ignored labels. *(high, reproduced)*
-- [`generated_ccd_reader_tests_leak_miniature_amino_acid_catalogues_across_tests.md`](generated_ccd_reader_tests_leak_miniature_amino_acid_catalogues_across_tests.md) — [#597](https://github.com/uibcdf/molsysmt/issues/597) — Generated CCD reader tests leak miniature amino-acid catalogues across tests *(medium, reproduced)*
-- [`importing_the_group_classifier_module_replaces_its_public_callable_export.md`](importing_the_group_classifier_module_replaces_its_public_callable_export.md) — [#594](https://github.com/uibcdf/molsysmt/issues/594) — Importing the group classifier module replaces its public callable export. *(medium, reproduced)*
-- [`nglview_empty_workspace_tests_leave_links_referencing_closed_widgets.md`](nglview_empty_workspace_tests_leave_links_referencing_closed_widgets.md) — [#598](https://github.com/uibcdf/molsysmt/issues/598) — NGLView empty-workspace tests leave links referencing closed widgets *(medium, reproduced)*
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
 ### Partially resolved (7)
