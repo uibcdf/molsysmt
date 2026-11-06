@@ -507,14 +507,33 @@ Forward native random_seed and skip_digestion rather than retaining a local-only
 Keep direct OpenMM parity separate from geometric references, and derive nominal
 TIP3P tolerances from the bundled PDB precision rather than exact ideal geometry.
 
-Preserve the independent reconcile_protonation route, its exact native parameters
-and explicit refusal of managed in_place=True before science pending public
-removal-correspondence receiving. The native provider's prepared assessment can
-be documented independently; it does not qualify managed addon execution.
-Keep fixed-pKa approximation, declared named-state and
-unassessed-group limits distinct from chemical readiness; there is no hidden
-charge/H/state preparation, private chemistry helper, identity inference or
-scene adoption. Native results and named analyses retain extraction semantics.
+Preserve the native independent reconcile_protonation default and explicit
+managed in_place=True receiving through a single public ProtonationAssessment.
+Keep native pH/engine/skip arguments, keyword-only update_view, positional
+bidirectional maps, all structures and source/scene ownership explicit. Never
+repeat inference, guess correspondence or call private protonation rules. Keep
+native no-op domain/revision behavior, composition with pending maps, atomic
+prepublication rejection, uncertain postpublication failures and synchronization-
+only retry after completed science. Scene history is not molecular Undo.
+
+Preserve assess_protonation as a serialized current-primary reader returning the
+ordinary native assessment, not a proxy or implicit application. Reports are
+detached, plans are source-bound/single-use, and native apply requires its explicit
+source. Its raw native in-place mode is outside host coordination; no automatic
+observation is promised. Keep fixed-pKa, named-state and unassessed coverage
+separate from chemical readiness and H/charge/state preparation.
+
+Preserve get_chemical_template as an explicit CCD factory available without a
+loaded primary. Source authority, offline/network choice, descriptor/search
+limits, H policy and original source/producer provenance remain native. The
+coordinate-free template is independent and never applied or loaded. Missing
+descriptors remain unassessed, not a fallback to another source/program.
+Preserve exact-name correspondence with query/reference source columns, unique
+names/elements and explicit scopes. It is neither identity authentication nor
+chemical matching; template assessment requires the explicit reversed column
+order when the observed system is the bound primary. Keep pending reads,
+replacement/close lifetime and separate chemical/graph validation explicit.
+
 
 
 Keep basic.view as a loaded-primary native visualization bridge returning a

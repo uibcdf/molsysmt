@@ -327,8 +327,10 @@ Never add H, assign charges, change protonation or choose a force field to make
 a later task succeed. Native assessed/unassessed scope and incomplete results
 remain visible. Independent candidates need explicit use; unsupported mapping
 must not be faked by atom names, counts or coordinates. Managed protonation
-awaits #576; force calculation awaits #572. Missing modes do not block unrelated
-qualified tasks. Do not present unpublished owner work as a released capability.
+now receives #576's public assessment/maps through the expert edit adapter;
+#572's force reader is also source-received. Their graphical tasks and broader
+scientific qualification remain explicit work. Missing modes do not block
+unrelated qualified tasks. Do not present unpublished owner work as a released capability.
 
 Analysis uses bounded summaries/tables/pages and explicit units, structures,
 method/model and provenance. A zero result is distinct from missing data,

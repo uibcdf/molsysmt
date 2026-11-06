@@ -3,7 +3,27 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 
-**Owner update — 2026-11-06:** the prepared native #572/#576 source is now
+**Current reference receiving — 2026-11-06:** the expert facade additionally
+receives `topology.get_atom_name_correspondence`,
+`physchem.get_chemical_template` and `build.assess_protonation`. The first and
+third bind the serialized current primary; the CCD factory keeps its scientific
+inputs explicit and returns an independent coordinate-free reference, including
+from an empty open view. Native result types, source authority, units and
+experimental scientific limits are retained. Managed in-place
+`build.reconcile_protonation` now consumes one public native assessment and its
+bidirectional positional maps under the host edit lock. Its native independent
+default is unchanged; keyword-only `update_view` controls scene projection and
+`sync_view()` retries a visual failure without repeating science.
+
+The [reference receiving receipt](../devtools/data/molsysviewer_tools_reference_receiving_20261106.json)
+records scoped contract/parity tests, real deposited-reference composition,
+native controls and executable help/course checks. Source exposure is **246/248**;
+only the two unconditional native MD stubs remain unexposed. This counts callable
+paths, not every mode, scientific guarantee or graphical task. The complete
+latest-source addon gate, owner review/integration, hosted/platform/installed
+qualification and postponed human observations remain separate obligations.
+
+**Earlier owner update — 2026-11-06:** the prepared native #572/#576 source was
 integrated on main. `build.assess_protonation` is a new native-only route and
 remains explicitly missing from the bound inventory; object application and
 managed correspondence are not yet admitted to the addon. The existing bound
@@ -191,12 +211,12 @@ none certifies a published installed pair.
 | Namespace | Exposed source paths | Declared native paths | Remaining |
 | --- | ---: | ---: | ---: |
 | basic | 26 | 26 | 0 |
-| topology | 2 | 3 | 1 |
+| topology | 3 | 3 | 0 |
 | chemical_states | 9 | 9 | 0 |
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
-| physchem | 34 | 35 | 1 |
-| build | 31 | 32 | 1 |
+| physchem | 35 | 35 | 0 |
+| build | 32 | 32 | 0 |
 | molecular_mechanics | 6 | 6 | 0 |
 | interactions (canonical families) | 15 | 15 | 0 |
 | element and declared children | 57 | 57 | 0 |
@@ -206,8 +226,8 @@ none certifies a published installed pair.
 | supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 243 exposed out of 248 inspected public callable paths at the
-2026-11-06 force-reader snapshot. This is not 248 independent scientific capabilities: the historical hbonds routes alias
+These are 246 exposed out of 248 inspected public callable paths at the
+2026-11-06 reference-receiving snapshot. This is not 248 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
 inventory. The output records implementation identities so aliases remain

@@ -3176,3 +3176,34 @@ status are unchanged. The [complete receiving receipt](../../devtools/data/molsy
 retains original hashes/log digests. This receives the combined owner base and
 Analysis tasks; it precedes the force addition and does not replace that
 addition's scoped tests or its future exact full/hosted gates.
+
+
+## Chemical references and managed protonation — 2026-11-06
+
+Three further exact expert mirrors receive the native atom-name correspondence,
+explicit CCD reference factory and source-bound protonation assessment. CCD
+construction may run before molecular loading; it retains the caller's source,
+native descriptor/hydrogen policies and independent coordinate-free output.
+Name matching retains query/reference source-index columns and exact label/element
+semantics, without chemical identity inference. Assessment remains the native
+single-use object. Its raw `apply` does not become an implicitly observed edit.
+
+Managed in-place reconciliation now prepares one public assessment under the
+existing host edit lock, checks its atom maps/structure scope and applies that
+same decision once. Deferred maps, sparse saved observations, historical coverage,
+no-ops and prepublication rejection retain their contracts. A visual failure is
+recovered by synchronization only; an unexpected postpublication error remains
+uncertain. The native independent default is unchanged and no scientific rules,
+automatic H addition, charge assignment or environmental-pKa claim are added.
+
+The [reference receipt](../../devtools/data/molsysviewer_tools_reference_receiving_20261106.json)
+retains 333 affected/preflight passes and 99 native controls separately from the
+later deposited-reference, rejection and surviving-observation tests. Five guide
+blocks and twenty inherited help doctests pass. The original test-authoring
+failures remain recorded; missing descriptor evidence and a no-op are explicitly
+unassessed/no_op native outcomes. Only existing course prose is changed, with
+executable cells/outputs/IDs preserved. Source path exposure is 246/248; the two
+native MD stubs remain omitted. Complete latest-source, owner/hosted/installed and
+postponed human gates remain pending, along with every previously approved GUI
+and scientific-session family. Neither this count nor these scoped tests close
+the overall addon objective or authorize publication.

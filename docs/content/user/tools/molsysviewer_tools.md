@@ -3053,6 +3053,45 @@ Water recognition does not certify a water force field or hydrogen-bond roles.
 No H, coordinates, charges or aromatic assignments are generated. See
 {ref}`Tutorial_Get_water_sites` and {ref}`Tutorial_Get_metal_coordination_sites`.
 
+## Constructing an explicit CCD reference
+
+`physchem.get_chemical_template(component_id, source, ...)` keeps both required
+inputs explicit. It works in an open empty view and never reads or changes the
+current molecular system. A local path, directory or byte definition remains
+offline; choose `source="rcsb"` deliberately for a network request. The CCD
+identifier is a reference label, not a component index in the current system.
+
+```python
+import molsysviewer as msv
+
+definition = b"""data_HEL
+_chem_comp.id HEL
+_chem_comp_atom.atom_id HE
+_chem_comp_atom.type_symbol He
+_chem_comp_atom.charge 0
+_chem_comp_atom.pdbx_aromatic_flag N
+_chem_comp_atom.pdbx_stereo_config N
+"""
+with msv.new_view() as view:
+    reference = view.addons.molsysmt.physchem.get_chemical_template(
+        "HEL", source=definition, method="ccd_tables",
+    )
+    assert reference["template"].structures is None
+    assert reference["report"]["status"] == "unassessed"
+    assert view.molsys is None
+```
+
+The native default `ccd_canonical_descriptor` uses optional RDKit and the
+explicit descriptor program to interpret the selected reference. `ccd_tables`
+retains declarations and unknown interpretation; it does not fabricate complete
+chemistry. Missing descriptors remain explicitly unassessed, without selecting
+another program. Exceeding `max_matches` raises rather than certifying a
+truncated consensus. Choose `stored_counts` or `explicit_atoms` for H inventory;
+neither policy supplies H coordinates. The result retains source bytes/hashes,
+projection maps, attribution and native elementary-charge conventions. It is
+coordinate-free, independently owned and never applied or loaded automatically.
+See {ref}`Tutorial_Get_Chemical_Template` for the full scientific contract.
+
 ## Assessing and applying explicit chemical templates
 
 `assess_chemical_template()` assesses the current primary against an explicit
@@ -4696,6 +4735,43 @@ an independent copied system when saving H5MSM; graphical attachment remains a
 separate qualified core workflow. All detector contracts remain experimental.
 
 
+## Matching selected atom names explicitly
+
+`topology.get_atom_name_correspondence()` matches unique names and elements
+from the current primary to an explicit reference. With no reference, it uses
+the current system. `reference_selection=None` means the same selection as the
+query, including positional indices; it does not mean every reference atom.
+
+```python
+import molsysmt as msm
+import molsysviewer as msv
+import numpy as np
+
+with msv.new_view(msm.systems["caffeine"]["caffeine.sdf"]) as view:
+    order = np.arange(view.molsys.get_n_atoms())[::-1]
+    reference = msm.permute_atoms(view.molsys, atom_indices=order)
+    pairs = view.addons.molsysmt.topology.get_atom_name_correspondence(
+        reference_molecular_system=reference,
+    )
+    assert pairs.dtype == np.int64
+    np.testing.assert_array_equal(pairs[:, 0], np.arange(len(order)))
+    np.testing.assert_array_equal(pairs[:, 1], order)
+```
+
+The detached int64 columns are current-system and reference **source indices**,
+in query selection order. Repeated indices, missing/duplicate names, differing
+name sets or incompatible elements are refused. Select a single appropriate
+scope when names repeat across groups. Neither coordinates nor chemical
+assignments establish this map; exact labels do not prove chemical identity.
+The explicit reference remains caller-owned and must stay stable during use.
+
+For `physchem.assess_chemical_template`, the required columns are template then
+observed source. When the primary is the observed system and the reference is
+the template, explicitly pass `atom_correspondence=pairs[:, [1, 0]]`. Keep the
+exhaustive selection and chemistry/graph assessment; do not substitute label
+matching for them. Reads include pending data without changing the scene.
+See {ref}`Tutorial_Get_Atom_Name_Correspondence`.
+
 ## Keeping atom correspondence and independent atom order
 
 Use `tools.basic.compose_atom_maps(atom_maps)` to compose explicit native map
@@ -4939,12 +5015,14 @@ contracts. This is source receiving, not published-package or universal scientif
 qualification.
 
 
-## Reconciling reference-rule hydrogens independently
+(reconciling-reference-rule-hydrogens-independently)=
+## Assessing and reconciling reference-rule hydrogens
 
 `view.addons.molsysmt.build.reconcile_protonation` returns a separate molecular
-system with hydrogens removed according to the native reference rules. It keeps
-`pH`, `engine`, `in_place` and `skip_digestion` from the native signature. This
-addon currently admits **only `in_place=False`**, its default.
+system by default, removing hydrogens according to the native reference rules.
+It preserves `pH`, `engine`, `in_place` and `skip_digestion`, with keyword-only
+`update_view` controlling projection for admitted in-place edits. Independent
+results are never adopted by this flag.
 
 ```python
 import molsysmt as msm
@@ -4982,18 +5060,60 @@ the view. The independent result is never adopted implicitly. Full native
 copying/subsetting can materialize coordinates and is not an out-of-core
 trajectory promise. Cached methods follow replacement and closed-view rules.
 
-`in_place=True` raises `NotImplementedError` before scientific execution because
-the addon has not yet received the native prepared-removal correspondence for
-managed scene remapping. The provider now offers
-{func}`molsysmt.build.assess_protonation` and a source-bound
-{class}`molsysmt.build.ProtonationAssessment`: inspect its detached positional map,
-then apply that same decision once. See {ref}`Tutorial_Protonation_Assessment`.
-This provider route does not by itself qualify managed execution in the addon.
-The addon does not infer identity from counts, labels or
-coordinates and does not call private protonation rules. There is no
-`update_view`, `selection`, `structure_indices` or `return_report` argument on
-this mirror. Native digestion is forwarded; the integration admission boolean
-is checked even with `skip_digestion=True`.
+### Inspecting a prepared decision
+
+`build.assess_protonation()` returns the ordinary native source-bound
+`ProtonationAssessment`, without changing the source, copying its coordinate
+trajectory or attaching an analysis. Inspect its detached maps and coverage
+before deciding whether removal is appropriate:
+
+```python
+with msv.new_view(molsys) as view:
+    assessment = view.addons.molsysmt.build.assess_protonation(pH=12.0)
+    report = assessment.to_dict()
+    assert len(report["removed_atom_indices"]) == 6
+    assert view.molsys.get_n_atoms() == 596
+    candidate = assessment.apply(view.molsys)
+    assert candidate.get_n_atoms() == 590
+    assert view.molsys.get_n_atoms() == 596
+```
+
+The maps use positional indices, including `-1` for removed atoms, and preserve
+all source structures. Unknown/unassessed groups remain explicit even when
+nothing is removed. Applying the same decision succeeds once, including no-op
+copies; incompatible source identity, inventory or chemistry requires a new
+assessment. Coordinate edits on unchanged native axes retain the decision and
+use current coordinates at application. The native object's `apply()` requires
+its explicit source and is not a managed addon method. Prefer independent
+output; raw native in-place writes are not automatically observed by the view.
+See {ref}`Tutorial_Protonation_Assessment`.
+
+### Updating the current system
+
+Use the bound reconciliation method for a managed in-place removal. It prepares
+one public assessment under the edit lock, checks its bidirectional maps and
+applies that same decision once. The default updates the scene immediately:
+
+```python
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt
+    assert tools.build.reconcile_protonation(pH=12.0, in_place=True) is None
+    assert view.molsys.get_n_atoms() == 590
+    assert tools.get_sync_status()["state"] == "synchronized"
+```
+
+`update_view=False` defers only the scene; science has already changed the
+current system. `tools.sync_view()` later projects that result without repeating
+pH inference or removal. True no-ops preserve domains and managed revision,
+although an update can finish earlier pending work. Native atomic failures
+preserve prior pending edits; a visual failure exposes
+`SystemEditSyncError.science_completed=True` and the native result `None`.
+Retry synchronization, not the calculation. Unexpected postpublication failures
+remain uncertain and require explicit recovery. Scene history is not molecular
+Undo. The addon never guesses identity from names, IDs or coordinates and never
+calls private protonation criteria. There are no `selection`, `structure_indices`
+or `return_report` additions. Integration booleans remain validated even when
+native digestion is skipped.
 
 
 ## Creating another visualization and using compatibility aliases

@@ -9,6 +9,7 @@ import pandas as pd
 import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import StructuralInconsistencyError
 
 pytest.importorskip("molsysviewer.system_edits")
 
@@ -94,6 +95,7 @@ def test_native_signatures_digestion_help_and_explicit_namespace(peptide, name):
     assert set(dir(peptide.addons.molsysmt.topology)) == {
         "get_sequence_alignment",
         "get_sequence_identity",
+        "get_atom_name_correspondence",
     }
     assert set(dir(peptide.addons.molsysmt.chemical_states)) == set(
         OLD_NAMES + NEW_NAMES
@@ -340,3 +342,177 @@ def test_identity_forwards_the_native_validation_flag(peptide, monkeypatch):
         )
         assert_native(actual, expected)
     assert observed == [False, True]
+
+
+@pytest.fixture
+def name_view():
+    with msv.new_view(msm.systems["caffeine"]["caffeine.sdf"]) as view:
+        assert view.molsys.topology.atoms["atom_name"].is_unique
+        view.regions.add(selection=[0, 3], tag="names")
+        yield view
+
+
+def test_exact_name_correspondence_has_native_signature_and_read_contract(name_view):
+    from argdigest import UnknownArgumentError
+
+    call = name_view.addons.molsysmt.topology.get_atom_name_correspondence
+    native = inspect.signature(msm.topology.get_atom_name_correspondence)
+    assert inspect.signature(call) == native.replace(
+        parameters=list(native.parameters.values())[1:]
+    )
+    assert call.digestion_plan is not None
+    assert "exact label match" in inspect.getdoc(call)
+    assert "not" in inspect.getdoc(call)
+    assert "\nmolecular_system :" not in inspect.getdoc(call)
+    assert not hasattr(name_view.addons.molsysmt, "get_atom_name_correspondence")
+    with pytest.raises(UnknownArgumentError):
+        call(molecular_system=name_view.molsys)
+    with pytest.raises(UnknownArgumentError):
+        call(update_view=True)
+    with pytest.raises(msm.ArgumentError):
+        call(skip_digestion="yes")
+
+
+@pytest.mark.parametrize(
+    "selection", [[5, 0, 2], (5, 0, 2), np.array([5, 0, 2], dtype=np.int64)]
+)
+@pytest.mark.parametrize("skip", [False, True])
+def test_exact_name_map_preserves_query_order_and_both_source_axes(
+    name_view, selection, skip
+):
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        same,
+        snapshot,
+        unchanged,
+    )
+
+    target = name_view.molsys
+    order = np.arange(target.get_n_atoms())[::-1]
+    reference = msm.permute_atoms(target, order)
+    reference.topology.atoms["atom_id"] = "repeated label"
+    expected_reference = reference.copy()
+    inverse = np.argsort(order)
+    atoms = np.asarray(selection)
+    before = snapshot(name_view)
+    result = name_view.addons.molsysmt.topology.get_atom_name_correspondence(
+        selection=selection,
+        reference_molecular_system=reference.topology,
+        reference_selection=inverse[atoms[::-1]],
+        skip_digestion=skip,
+    )
+    assert result.dtype == np.int64 and result.shape == (3, 2)
+    np.testing.assert_array_equal(result, np.column_stack([atoms, inverse[atoms]]))
+    result[:] = -1
+    np.testing.assert_array_equal(
+        name_view.addons.molsysmt.topology.get_atom_name_correspondence(
+            selection=selection
+        ),
+        np.column_stack([atoms, atoms]),
+    )
+    same(reference, expected_reference)
+    unchanged(name_view, before)
+
+
+@pytest.mark.parametrize(
+    "selection,syntax",
+    [("atom_type=='C'", "MolSysMT"), ("element C", "MDTraj"), ([], "MolSysMT")],
+)
+def test_exact_names_preserve_syntax_empty_axes_and_native_reference_defaults(
+    name_view, selection, syntax
+):
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        snapshot,
+        unchanged,
+    )
+
+    before = snapshot(name_view)
+    expected = (
+        np.flatnonzero(name_view.molsys.topology.atoms["atom_type"].to_numpy() == "C")
+        if selection
+        else np.array([], dtype=int)
+    )
+    result = name_view.addons.molsysmt.topology.get_atom_name_correspondence(
+        selection=selection, syntax=syntax
+    )
+    assert result.dtype == np.int64 and result.shape == (len(expected), 2)
+    np.testing.assert_array_equal(result, np.column_stack([expected, expected]))
+    unchanged(name_view, before)
+
+
+@pytest.mark.parametrize("selection", [[0, 0], [-1], [10000]])
+def test_exact_name_selection_errors_are_native_and_nonmutating(name_view, selection):
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        snapshot,
+        unchanged,
+    )
+
+    before = snapshot(name_view)
+    with pytest.raises(Exception) as native:
+        msm.topology.get_atom_name_correspondence(name_view.molsys, selection=selection)
+    with pytest.raises(type(native.value)) as actual:
+        name_view.addons.molsysmt.topology.get_atom_name_correspondence(
+            selection=selection
+        )
+    assert str(actual.value) == str(native.value)
+    unchanged(name_view, before)
+
+
+def test_exact_names_do_not_guess_different_reference_scope_or_duplicate_labels(
+    name_view,
+):
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        snapshot,
+        unchanged,
+    )
+
+    reference = msm.permute_atoms(
+        name_view.molsys, np.arange(name_view.molsys.get_n_atoms())[::-1]
+    )
+    call = name_view.addons.molsysmt.topology.get_atom_name_correspondence
+    before = snapshot(name_view)
+    # None means the same positional selection, not all of a different reference.
+    with pytest.raises(StructuralInconsistencyError):
+        call(selection=[0], reference_molecular_system=reference)
+    reference.topology.atoms.loc[1, "atom_name"] = reference.topology.atoms.loc[
+        0, "atom_name"
+    ]
+    with pytest.raises(StructuralInconsistencyError):
+        call(reference_molecular_system=reference)
+    unchanged(name_view, before)
+
+
+def test_exact_name_cached_reader_follows_replacement_pending_removal_and_close(
+    name_view,
+):
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        snapshot,
+        unchanged,
+    )
+
+    call = name_view.addons.molsysmt.topology.get_atom_name_correspondence
+    reference = name_view.molsys
+    order = np.arange(reference.get_n_atoms())[::-1]
+    name_view.load(msm.permute_atoms(reference, order), mode="replace")
+    before = snapshot(name_view)
+    result = call(reference_molecular_system=reference)
+    np.testing.assert_array_equal(
+        result, np.column_stack([np.arange(len(order)), order])
+    )
+    unchanged(name_view, before)
+    name_view.addons.molsysmt.basic.remove(
+        selection=[len(order) - 1], in_place=True, update_view=False
+    )
+    before = snapshot(name_view)
+    assert before[3]["state"] == "pending"
+    result = call(reference_molecular_system=reference, reference_selection=order[:-1])
+    np.testing.assert_array_equal(
+        result, np.column_stack([np.arange(len(order) - 1), order[:-1]])
+    )
+    unchanged(name_view, before)
+    name_view.close()
+    for skip in (False, True):
+        with pytest.raises(RuntimeError, match="closed view"):
+            call(skip_digestion=skip)
+    with msv.new_view() as empty:
+        with pytest.raises(ValueError, match="Load a molecular system"):
+            empty.addons.molsysmt.topology.get_atom_name_correspondence()

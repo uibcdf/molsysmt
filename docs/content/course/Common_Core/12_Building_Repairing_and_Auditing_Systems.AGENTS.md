@@ -96,9 +96,11 @@ receiving separate from simulation-equilibration claims; retain all original
 course code, outputs, IDs and metadata.
 
 Preserve independent addon protonation reconciliation with explicit reference-rule
-limits and no implicit adoption. Managed in-place removal remains unavailable
-until native correspondence is qualified; neither private rules nor identity
-matching is a substitute. Keep original course code, outputs, IDs and metadata.
+limits and no implicit adoption. Managed in-place removal now uses one public
+assessment with explicit positional maps and keyword-only update_view. Preserve
+native no-op/atomic-failure semantics and synchronization-only retry; neither
+private rules nor identity guesses supply correspondence. Keep original course
+code, outputs, IDs and metadata.
 
 Distinguish the native prepared assessment and single-use execution contract from
 managed addon receiving. Preserve explicit unassessed coverage, positional maps
@@ -130,3 +132,7 @@ native field coverage and unassessed checks, unknown versus zero H counts,
 bounded source-index pages and no preparation or scene effects. Keep the
 pending-reader transport distinct from recovery-sheet interaction in Viewer
 #304, with expert APIs and all original executable course content preserved.
+
+Preserve source-qualified addon CCD/reference-name availability without changing
+its explicit source authority, query/reference column order or separate chemical
+assessment. These are experimental source bindings, not installed qualification.

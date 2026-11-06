@@ -42,6 +42,7 @@ class _PhyschemTools:
         "apply_chemical_template",
         "normalize_aromatic_bond_orders",
         "get_peptide_chemical_template",
+        "get_chemical_template",
     )
 
     def __init__(self, owner):
@@ -899,4 +900,32 @@ class _PhyschemTools:
             c_terminal_state=c_terminal_state,
             skip_digestion=skip_digestion,
             disulfide_group_pairs=disulfide_group_pairs,
+        )
+
+    @_native_documentation(
+        "get_chemical_template", module="physchem", bind_primary=False
+    )
+    @signal(tags=["addon", "physchem", "reference"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_chemical_template(
+        self,
+        component_id,
+        source,
+        method="ccd_canonical_descriptor",
+        hydrogen_policy="stored_counts",
+        descriptor_program="CACTVS",
+        max_matches=4096,
+        skip_digestion=False,
+    ):
+        from molsysmt import physchem
+
+        self._owner._view()
+        return physchem.get_chemical_template(
+            component_id=component_id,
+            source=source,
+            method=method,
+            hydrogen_policy=hydrogen_policy,
+            descriptor_program=descriptor_program,
+            max_matches=max_matches,
+            skip_digestion=skip_digestion,
         )

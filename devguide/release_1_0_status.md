@@ -20,6 +20,29 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Chemical-reference and managed-protonation expert receiving — 2026-11-06
+
+The contribution following `38147a9f8` receives three additional native paths:
+atom-name correspondence, explicit CCD reference construction and source-bound
+protonation assessment. Native result types, label/reference authority,
+coordinate-free templates and experimental limits remain visible. Managed
+in-place protonation now applies the same public assessment once under the host
+edit lock, validates its positional maps and unchanged structure axis, preserves
+native analysis remapping and uses synchronization-only recovery after a visual
+failure. The native independent default is retained.
+
+The [reference receipt](../devtools/data/molsysviewer_tools_reference_receiving_20261106.json)
+records 333 affected/preflight passes, 99 native controls and separate deposited,
+atomic-rejection and surviving-observation cases. Five guide blocks and twenty
+inherited help doctests execute; existing course executable cells and outputs
+are preserved. Source path exposure becomes 246/248, with only the two native
+MD stubs omitted. This is scoped contract/parity receiving, not universal
+scientific accuracy, complete mode coverage, owner acceptance or a release gate.
+The complete latest-source addon/hosted/installed gates, remaining approved GUI
+families and postponed human acceptance remain required. This contributor
+checkpoint leaves the maintainer's ordered native issue goal below unchanged;
+all publication operations remain paused.
+
 ## Force-reader expert receiving — 2026-11-06
 
 The contribution following `2bb52b77c` explicitly binds native #572 as
