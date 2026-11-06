@@ -4,10 +4,11 @@
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
 **Status:** the System / Remove atoms slice is implemented in contribution
-source and locally contract-tested with a real Mol*/ESM/Python browser. Geometry,
+source and locally tested with real Mol*/ESM/Python and actual Jupyter comms,
+including both popup lifecycles. Geometry,
 Chemistry, Analysis and the other System tasks remain proposed. The offline
 prototype illustrates that broader design; it is not runtime evidence. Owner
-review, exact-head CI, live Jupyter/Qt/popups and installed qualification remain
+review, exact-head CI, human Jupyter/visible Qt observations and installed qualification remain
 separate. No release is authorized.
 
 The expert API remains the scientific foundation. This design uses qualified
@@ -106,6 +107,13 @@ label, atom count and structure count, not a trajectory-sized payload.
    projection failure points to the existing canvas Update view action, never
    repeats removal. Addon commands remain paused until that recovery. Uncertain
    writes require the host's explicit recovery/replacement contract.
+
+Completed removal retains its bounded outcome across synchronized-context
+refreshes while the same target, revision and draft remain valid. A new action,
+changed target/revision/draft or panel lifetime expires it. The retained outcome
+contains neither selected indices nor an executable token; refreshing never
+repeats removal. Review summary labels and values explicitly own their layout
+under notebook HTML styles. These corrections are tracked in #590 and #591.
 
 ## Review validity and concurrent windows
 
@@ -219,3 +227,28 @@ lifetimes, addon disable/re-enable, drafts, popup navigation and late responses.
 Test keyboard access, focus, errors, scroll and compact/large layout separately.
 Retain actual Jupyter and visible Qt observations; headless browser layout tests
 are not substitutes for those hosts. CI/source/installed evidence stays separate.
+
+The local actual-Jupyter receiving runner creates a private loopback server,
+source-bound kernel and named workspaces. It exercises real anywidget comms,
+Mol* rendering and both popup lifecycles, compares browser errors with a plain
+notebook control, and shuts down its own server/kernels. Run with the qualified
+Python 3.14 interpreter from this repository:
+
+```bash
+python tests/molsysviewer_molsysmt/system_panel_jupyter.py \
+  --viewer-root ../molsysviewer --output /tmp/molecular-tools-jupyter-receiving
+```
+
+Use a new output directory. `--provider-root` may select the explicitly recorded
+public PyUnitWizard snapshot when required by the receiving profile; it does not
+install or change a provider. `--node` and `--chromium` name the inspected local
+tools. Retained private server logs are not publication-ready artifacts. Actual
+Jupyter transport evidence remains distinct from human visual acceptance,
+visible Qt/GPU observation and clean installed-package qualification.
+
+The same browser boundary has an explicitly selected pytest guard at
+`tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups`.
+Set `MOLSYSVIEWER_ROOT` and optionally `MOLSYSVIEWER_PROVIDER_ROOT`, then run
+that node with `--receptor=llm` in the qualified GUI environment. This separate
+local GUI lane is not part of the default scientific filename collection;
+missing Jupyter/browser prerequisites fail rather than producing a skip.

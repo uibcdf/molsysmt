@@ -22,6 +22,7 @@ _DEFAULT = {
 }
 _CATEGORIES = {"water": "group_type=='water'", "ions": "group_type=='ion'"}
 _SOURCES = {"none", "category", "current", "saved", "region", "expression", "indices"}
+_REMOVAL_COMPLETED = "Selected atoms removed. The view is up to date."
 
 
 def _draft(value):
@@ -54,6 +55,13 @@ class _Review:
     groups: int | None
 
 
+@dataclass(frozen=True)
+class _Outcome:
+    target: object
+    revision: int
+    draft: dict
+
+
 class _SystemPanel(AddonPanelWidget):
     _esm = ESM
     _css = CSS
@@ -63,6 +71,7 @@ class _SystemPanel(AddonPanelWidget):
         self._owner = None
         self._alive = False
         self._review = None
+        self._outcome = None
         self._draft = dict(_DEFAULT)
         self._last_request = 0
         self._actions = RLock()
@@ -75,6 +84,7 @@ class _SystemPanel(AddonPanelWidget):
             raise ValueError("The panel requires its open owning view.")
         self._owner = view.addons.molsysmt
         self._alive = True
+        self._outcome = None
         try:
             self._draft = _draft(self.state.get("system_draft", {}))
         except (TypeError, ValueError):
@@ -90,6 +100,7 @@ class _SystemPanel(AddonPanelWidget):
         """Discarding review tokens while leaving the bounded editor draft."""
         self._alive = False
         self._review = None
+        self._outcome = None
         if self._owner is not None:
             self._owner._system_panels.discard(self)
         self._owner = None
@@ -153,6 +164,19 @@ class _SystemPanel(AddonPanelWidget):
         if not self._alive or self._view is None or self._view.closed:
             return
         context = self._context()
+        outcome = self._outcome
+        if outcome is not None:
+            if (
+                context.get("state") != "synchronized"
+                or context.get("target_revision") != outcome.revision
+                or self._view.molsys is not outcome.target()
+                or self._draft != outcome.draft
+            ):
+                self._outcome = None
+            elif stage == "select" and not message:
+                # The host refreshes context after synchronization. Keep the
+                # completed outcome, without retaining indices or a review token.
+                stage, message = "done", _REMOVAL_COMPLETED
         review = self._review
         packet = {
             "request_id": request_id,
@@ -323,6 +347,7 @@ class _SystemPanel(AddonPanelWidget):
                 peer._publish(
                     message="The system changed in another window. Review the selection again."
                 )
+        return review
 
     @signal(tags=["addon", "panel"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
@@ -373,12 +398,14 @@ class _SystemPanel(AddonPanelWidget):
             draft = _draft(payload["draft"])
             if draft != self._draft:
                 self._review = None
+                self._outcome = None
             self._draft = draft
             self.set_state({"system_draft": dict(draft)})
         if action_id == "refresh":
             self._review = None
             self._publish(request_id=request_id)
             return
+        self._outcome = None
         if action_id not in {"review", "remove", "back"}:
             raise ValueError("This molecular task is not available.")
         if action_id == "back":
@@ -397,9 +424,15 @@ class _SystemPanel(AddonPanelWidget):
                 request_id=request_id,
             )
         else:
-            self._remove(payload.get("token"))
+            review = self._remove(payload.get("token"))
+            # Nonempty removal is one managed edit. A competing edit/replacement
+            # cannot be mistaken for this outcome: publication checks its target
+            # and expected revision, rather than tagging a later observed status.
+            self._outcome = _Outcome(
+                review.target, review.revision + 1, dict(review.draft)
+            )
             self._publish(
                 stage="done",
-                message="Selected atoms removed. The view is up to date.",
+                message=_REMOVAL_COMPLETED,
                 request_id=request_id,
             )

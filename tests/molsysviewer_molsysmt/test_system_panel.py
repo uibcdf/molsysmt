@@ -249,6 +249,46 @@ def test_review_is_single_use_and_unknown_actions_cannot_execute_science(case):
     assert view.molsys.get_n_atoms() == count
 
 
+def test_completed_removal_survives_context_refresh_without_replaying_science(case):
+    view, sent = case
+    review = act(view, sent, "review", draft={"source": "indices", "indices": "2,4"})
+    completed = act(view, sent, "remove", token=review["review"]["token"])
+    count = view.molsys.get_n_atoms()
+    status = view.addons.molsysmt.get_sync_status()
+    for _ in range(3):
+        refreshed = act(view, sent, "refresh")
+        assert refreshed["stage"] == "done"
+        assert refreshed["message"] == completed["message"]
+        assert "review" not in refreshed
+        assert view.molsys.get_n_atoms() == count
+        assert view.addons.molsysmt.get_sync_status() == status
+
+
+@pytest.mark.parametrize("change", ["draft", "revision", "unmount", "new_action"])
+def test_completed_removal_notice_expires_with_its_operation_context(case, change):
+    view, sent = case
+    review = act(view, sent, "review", draft={"source": "indices", "indices": "2,4"})
+    completed = act(view, sent, "remove", token=review["review"]["token"])
+    if change == "draft":
+        refreshed = act(
+            view, sent, "refresh", draft={"source": "indices", "indices": "0"}
+        )
+    elif change == "revision":
+        view.addons.molsysmt.basic.remove(selection=[0], in_place=True)
+        refreshed = act(view, sent, "refresh")
+    elif change == "unmount":
+        view._handle_frontend_event(
+            {"event": "panel_unmount", "addon": "molsysmt", "panel": "system"}
+        )
+        mount(view)
+        refreshed = act(view, sent, "refresh")
+    else:
+        act(view, sent, "review", draft={"source": "indices", "indices": "0"})
+        refreshed = act(view, sent, "back")
+    assert refreshed["stage"] != "done"
+    assert refreshed["message"] != completed["message"]
+
+
 def test_pending_reconciliation_is_not_repeated_science(case):
     view, sent = case
     view.addons.molsysmt.basic.set(

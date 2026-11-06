@@ -5062,6 +5062,10 @@ scene reconciliation. This GUI decision chooses the admitted in-place effect;
 Saved references follow the retained atom map. Scene Undo cannot restore
 removed molecular atoms. Back returns to the retained draft without execution.
 
+The completion message remains visible through context refreshes while the
+system revision and task draft still match. A new action, changed draft or
+system, or leaving the panel expires it. Refreshing does not repeat removal.
+
 A review expires after a molecular revision/replacement, changed selection
 context or relevant selection source, draft change, panel unmount or close.
 The final check and publication share the host's serialized edit boundary.
@@ -5078,6 +5082,6 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
-Extraction/copy result presentation, other task panels, live Jupyter/visible Qt
-and popup qualification, owner integration and installed artifacts retain their
-own receiving gates.
+Extraction/copy result presentation and other task panels remain separate work.
+Automated Jupyter and popup transport checks do not replace human Jupyter/visible
+Qt observations, owner integration or installed-artifact qualification.
