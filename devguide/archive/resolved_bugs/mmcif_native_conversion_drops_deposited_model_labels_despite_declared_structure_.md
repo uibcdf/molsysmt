@@ -1,14 +1,14 @@
 ---
 summary: mmCIF native conversion drops deposited model labels despite declared structure_id support.
 issue: uibcdf/molsysmt#600
-status: active
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-06
 severity: medium
 verification: reproduced
 area: [form, attribute]
 guard: tests/form/mmcif_PdbxContainers_DataContainer/test_structure_ids.py
-normative:
+normative: devguide/forms_and_conversions.md
 blocked_by: []
 supersedes: []
 ---
@@ -100,3 +100,18 @@ contract is executed in the focused guards and doctests. The incremental complet
 Sphinx HTML build passes without warnings. Twenty unrelated generated autosummary
 stubs are restored to their prior committed bytes in the isolated worktree.
 The actual public forms remain experimental; no H5MSM schema or release is changed.
+
+## Resolution
+
+Fixed in 68fc0922400face24e07f29ba78d221736bf505e. The addressable guard checks
+independent literal model labels and coordinates through all five forms,
+nonconsecutive/repeated selections, missing/ambiguous labels, separate mismatched
+models, unchanged source records and native/H5MSM persistence. The real 1L2Y guard
+also passes, checking selected deposited labels against independently read raw
+coordinates. The [receiving receipt](../../../devtools/data/mmcif_model_labels_receiving_600_20261106.json)
+retains the initial 23 failures, final passing profiles and actual source hashes.
+The current rule lives in [forms and conversions](../../forms_and_conversions.md#deposited-cif-model-labels).
+This is metadata fidelity on the existing geometry axis, not a new scientific
+model, schema, reader-engine default or release qualification. Publication is
+batched with the following #601 work to avoid redundant CI; board closure follows
+publication in the maintainer's requested order.

@@ -1,0 +1,143 @@
+{
+  "schema_version": "molsysmt.mmcif_model_labels_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#600",
+  "source": {
+    "base_commit": "40bb54d05182d4a87c48cc17a141b4152812421c",
+    "implementation_commit": "68fc0922400face24e07f29ba78d221736bf505e",
+    "sha256": {
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/_model_axis.py": "87f0414253641cf510b5a1d68340485b99bea2f45c5bf2750ace57c7cc798ae7",
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/get_structural_attributes.py": "21e72c97a8f1ec66e638163c5f0f6a13c376eab28501700ddf3fd178a2a2e85b",
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py": "00aa853f537d4b8cd00db97342d3ee16cc7f54b2da4584de7c48c9aec533e13e",
+      "tests/form/mmcif_PdbxContainers_DataContainer/test_structure_ids.py": "cf66adbd28c30e67dee83f400219c78d2f3d20faecef02671b8fa9a367b3e6c2",
+      "tests/form/mmcif_PdbxContainers_DataContainer/test_structural_attributes.py": "e8ae61ed6c2f497343fbdc4ab85523b20be851db1a880bfa7b95ce80727442cc"
+    },
+    "backend": "unchanged existing Rust abi3 extension",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "checks": [
+    {
+      "local_artifact": ".pytest_cache/600-model-labels-before.xml",
+      "sha256": "33518e465634de7f409a7569bee3aab0dcc9192f06fbd81547bdd0e79c4f9a0e",
+      "tests": 23,
+      "failures": 23,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/600-model-labels-after.xml",
+      "sha256": "6df17a74d65048a842e32218d7fe3639266e59f974c918324d0730857cf23ac0",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/600-affected-first.xml",
+      "sha256": "d50a3f20b03be6db225bd6427cd6310f98565789b603a5385035faf6644c1938",
+      "tests": 913,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/600-affected-final.xml",
+      "sha256": "5b08f5650718d64b552ef77a42b2783745435fe5559362a6a2d59f8d71e56215",
+      "tests": 925,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/600-provider-floors.xml",
+      "sha256": "944ab6914f141f1d17a0501bd6db6e60d7f50b3975ecaa9646b899f541a6027e",
+      "tests": 38,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/600-real-nmr-labels.xml",
+      "sha256": "0c647504d6ae87e781bdd390e7b54012d087d42a07104fd6475fb245a50935f8",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "execution": {
+    "python": "3.14.7",
+    "pytest_receptor": "published 1.2.1",
+    "workers": 12,
+    "real_input_control": "One separate serial 1L2Y control compares selected labels and coordinates with raw source records.",
+    "provider_floors": {
+      "argdigest": "0.14.0",
+      "depdigest": "0.15.1",
+      "smonitor": "0.16.0",
+      "ackredit": "0.9.0",
+      "pyunitwizard": "0.28.1"
+    },
+    "floor_caveat": "Only the development SMonitor pytest plugin is disabled; runtime validation/diagnostics are active. No provider is installed, modified or replaced.",
+    "observed_default_provider_context": "The same existing source environment and immutable cached public floor payloads recorded in prepared_pdbqt_projection_receiving_599_20261106.json; no environment/metadata installation changes.",
+    "molsysmt_version_caveat": "Editable installed metadata is stale; exact implementing source above identifies this receiving."
+  },
+  "semantics": {
+    "model_order": "Existing ascending numeric model order, unchanged.",
+    "ids": "Exact source spelling as strings, independently of positional indices; order/repetitions align with coordinates.",
+    "missing": "Wholly absent/unknown model labels remain None; atom inventory is one unlabeled structure.",
+    "ambiguous": "Partly missing, invalid/out-of-range numbers and conflicting spellings for one numeric model fail with existing FormatError.",
+    "incompatible_models": "Existing warning and separate native results retained, each with its own label.",
+    "persistence": "Selected native labels and coordinates survive H5MSM 0.5.",
+    "source_immutability": "Original rows and file bytes unchanged.",
+    "chemistry_and_units": "No chemistry policy or application unit policy changed."
+  },
+  "documentation": {
+    "narrative_notebooks": [
+      {
+        "path": "docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb",
+        "markdown_cell": 1,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/user/tools/form/file/file_cif.ipynb",
+        "markdown_cell": 1,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/user/tools/form/file/file_cif_gz.ipynb",
+        "markdown_cell": 1,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/user/tools/form/file/file_bcif.ipynb",
+        "markdown_cell": 1,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/user/tools/form/file/file_bcif_gz.ipynb",
+        "markdown_cell": 1,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/user/cookbook/form_teleportation.ipynb",
+        "markdown_cell": 21,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      },
+      {
+        "path": "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb",
+        "markdown_cell": 1,
+        "code_outputs_cell_count_and_metadata_unchanged": true
+      }
+    ],
+    "sphinx_result": "complete incremental HTML build passes without warnings",
+    "sphinx_local_log": ".pytest_cache/600-sphinx.log",
+    "sphinx_log_sha256": "23cf9c142d71a0cb3e0ae4de81e88b006632a6a9a9e929b34eff6d5e4a2ed9e0",
+    "unrelated_generated_stubs_restored": 20
+  },
+  "limits": "No new H5MSM schema, provider release, global matrix, installed pair, tag or promotion qualification.",
+  "fast_gate": {
+    "result": "14/14 pass",
+    "full_source_matrix_qualified": false,
+    "installed_pair_qualified": false
+  }
+}

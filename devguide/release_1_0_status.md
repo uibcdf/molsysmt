@@ -33,8 +33,8 @@ instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
 **Completed native/provider criteria: #304, #593, #428, #544, #572, #576, #557,
-#594, #595, #596, #597, #598 and #599 (13 of 15).**
-Next ordered issue: **#600**, followed by #601. The #557 source-permutation controls also identified supplemental
+#594, #595, #596, #597, #598, #599 and #600 (14 of 15).**
+Next implementation: **#601**. #600 source is complete; its publication and board closure are batched with #601. The published board still has thirteen closed goal issues until that checkpoint. The #557 source-permutation controls also identified supplemental
 [#617](archive/resolved_bugs/entry_mmcif_conversion_retains_a_retired_topology_component_flag_and_blocks_perm.md):
 the mmCIF converter wrote a retired Topology component flag. The one-line
 producer correction passes 137 adapter/permutation cases, preserving strict
@@ -83,6 +83,18 @@ and [receiving receipt](../devtools/data/prepared_pdbqt_projection_receiving_599
 The preserved earlier #304 full run 42205436569 now concludes successfully at
 56b37c983; it does not qualify this new projection checkpoint. Current source
 publication/CI is recorded separately. #600/#601 remain required in that order.
+
+The #600 model-label correction in 68fc09224 retains exact deposited string IDs
+on the unchanged numeric model/coordinate axis, including repeated selections,
+explicit missing-data handling and separate incompatible-model results. **925 affected
+cases**, **38 provider-floor cases** and one additional real NMR coordinate/label
+control pass; documentation HTML has no warnings. See the
+[owning closeout](archive/resolved_bugs/mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md)
+and [receiving receipt](../devtools/data/mmcif_model_labels_receiving_600_20261106.json).
+This local source work awaits the shared #600/#601 publication checkpoint;
+implementation order remains unchanged. Public main 40bb54d05 already delivers
+#599, with four applicable administrative workflows passing and smoke
+42283798590 still in progress at the latest inspection. A pending run is not a pass.
 
 Feature closure does not qualify the complete version matrix, a future Viewer
 candidate, its canvas/sessions, or the sixteen-cell installed release pair under
