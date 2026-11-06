@@ -108,8 +108,9 @@ explicit independent-builder and conditional-result ownership.
 Peptide construction from the loaded sequence and amino-acid mutation are
 available as independent native results, with reconstruction limits below.
 
-The qualified source contribution also provides the System task panel described
-below. Other graphical tasks and some scientific modes remain under development. This is not a complete MolSysMT mirror
+The qualified source contribution also provides System tasks and Geometry /
+Translate, described below. Other graphical tasks and some scientific modes
+remain under development. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
 
 The received `view.addons.molsysmt.element` slice contains eight explicit-input
@@ -5090,8 +5091,8 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
-Extraction/copy result presentation uses the separate flow below; other task
-panels remain planned.
+Extraction/copy result presentation uses the separate flow below. Geometry
+currently offers Translate; other Geometry tasks, Chemistry and Analysis remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
 
@@ -5132,3 +5133,36 @@ implicitly display a result. Native data saving and explicit replacement retain
 their own routes; this GUI slice does not yet add those destinations.
 Automated browser/native-window ownership evidence does not replace postponed
 human Jupyter/visible Qt observations or installed-package qualification.
+
+
+## Translating molecular coordinates through Geometry
+
+In **Molecular tools > Geometry**, **Translate** moves molecular coordinates,
+not the camera. Choose atoms using Whole system, a canvas/saved selection, a
+region or explicit MolSysMT expression/atom indices. Expression evaluation uses
+one stated structure and the reference chemical state, resolving a fixed atom
+population for the operation. An empty selection never means the whole system.
+
+Choose **All structures**, **Current structure** or distinct explicit indices
+such as `2, 0`. Enter Δx, Δy and Δz with the explicit Å or nm unit. The vector
+uses the molecular Cartesian axes, independently of the camera orientation.
+Choose **Current system** to edit molecular data and synchronize the scene, or
+**Independent result** to copy the whole system and change only the selected
+atoms/structures. The latter retains every source structure and uses the same
+explicit presentation destinations and result ownership described above.
+
+**Review translation** shows the resolved atom/structure counts, vector, units
+and effect before execution. **Back** leaves data unchanged. A changed target,
+managed revision, selection membership, structure context or request expires
+the review. Confirmation is single-use. The expert `structure.translate` API
+keeps its native independent default, broadcasting, arguments and return type.
+
+The periodic box stays fixed and coordinates are not automatically wrapped.
+Affected native analysis coverage is invalidated rather than recalculated.
+Scene Undo does not restore edited molecular coordinates. If science completed
+but scene projection failed, use the canvas **Update view** action; do not apply
+the translation a second time. Independent systems and Views consume memory;
+this GUI does not promise streaming transforms or a trajectory-size RAM bound.
+Source/browser receiving does not replace postponed human Jupyter/visible Qt
+acceptance, owner review or exact installed-package qualification. Rotate and
+other Geometry tools are not yet offered by this panel.

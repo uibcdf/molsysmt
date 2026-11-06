@@ -51,7 +51,9 @@ def main():
     parser.add_argument("--viewer-root", type=Path, required=True)
     parser.add_argument("--provider-root", type=Path)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--scenario", choices=("system", "results"), default="system")
+    parser.add_argument(
+        "--scenario", choices=("system", "results", "geometry"), default="system"
+    )
     parser.add_argument("--node", default="/usr/bin/node")
     parser.add_argument(
         "--chromium",
@@ -171,6 +173,26 @@ def main():
             "view.close()\nassert not subset_view.closed and not copy_view.closed\n"
             "print('JUPYTER_INDEPENDENT_RESULTS_OK', len(records))\n"
         )
+    if args.scenario == "geometry":
+        initial = initial[: initial.index("view = msv.demo")] + (
+            "with msv.demo['pentalanine'] as seed:\n"
+            "    view = msv.new_view(seed.molsys, structure_indices=[0, 8, 3])\n"
+            "view.selections.add('chosen', atom_indices=[2,4])\n"
+            "source_coordinates = msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit='nm').copy()\nview\n"
+        )
+        final = (
+            "import numpy as np\n"
+            "expected = source_coordinates.copy()\n"
+            "expected[np.ix_([2,0],[2,4],range(3))] += [0.1,-0.2,0.3]\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit='nm'), expected)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision'] == 1\n"
+            "records = view.addons.manager.presentations.records()\nassert len(records) == 1\n"
+            "result = view.addons.manager.presentations.get(records[0]['id'])\n"
+            "expected[0,[2,4]] += [2,0,0]\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates, to_unit='nm'), expected)\n"
+            "assert result.molsys is not view.molsys and result.player.n_structures == 3\n"
+            "print('JUPYTER_GEOMETRY_NATIVE_OK', len(records))\n"
+        )
     (output / "notebooks/system.ipynb").write_text(
         json.dumps(_notebook([initial, final]))
     )
@@ -224,7 +246,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("result_panel_jupyter.mjs")
+                        Path(__file__).with_name("geometry_panel_jupyter.mjs")
+                        if args.scenario == "geometry"
+                        else Path(__file__).with_name("result_panel_jupyter.mjs")
                         if args.scenario == "results"
                         else Path(__file__).with_suffix(".mjs")
                     ),

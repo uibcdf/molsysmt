@@ -17,7 +17,7 @@ def get_addon(*, skip_digestion=False):
     Returns
     -------
     molsysviewer.AddonSpec
-        A lazy per-view expert facade and the qualified System task editor.
+        A lazy per-view expert facade and the System and Geometry task editors.
 
     Raises
     ------
@@ -57,6 +57,13 @@ def get_addon(*, skip_digestion=False):
                 order=10,
                 widget_class="molsysviewer_molsysmt._panel._SystemPanel",
                 description="Remove atoms, extract a subset or copy the molecular system independently.",
+            ),
+            AddonPanelSpec(
+                id="geometry",
+                title="Geometry",
+                order=20,
+                widget_class="molsysviewer_molsysmt._geometry_panel._GeometryPanel",
+                description="Translate coordinates with explicit atoms, structures and units.",
             ),
         ),
         meta={"status": "experimental"},

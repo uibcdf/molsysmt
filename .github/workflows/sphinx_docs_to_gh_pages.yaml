@@ -63,7 +63,7 @@ jobs:
       - name: Install molsysviewer
         shell: bash -l {0}
         run: |
-          python -m pip install --no-deps git+https://github.com/uibcdf/molsysviewer@42234de839ed047016f8f241ea5eb717cfeb07be
+          python -m pip install --no-deps git+https://github.com/uibcdf/molsysviewer@49dba88ae992088259a6f0891b59dfc8730f5183
 
       # Building the private extension needs only rustc/cargo. Pinning the minimal
       # toolchain here prevents rustup from processing the development-only Clippy and

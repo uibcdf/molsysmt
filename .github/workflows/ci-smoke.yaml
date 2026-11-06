@@ -96,7 +96,7 @@ jobs:
           set -euo pipefail
           python -m pip install --no-deps \
             -r devtools/controlled_sources.txt \
-            git+https://github.com/uibcdf/molsysviewer@42234de839ed047016f8f241ea5eb717cfeb07be
+            git+https://github.com/uibcdf/molsysviewer@49dba88ae992088259a6f0891b59dfc8730f5183
           python -m pip install --editable . --no-deps
 
       - name: Validate controlled dependency versions
@@ -256,6 +256,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_navigation_tools.py \
             tests/molsysviewer_molsysmt/test_water_box_tools.py \
             tests/molsysviewer_molsysmt/test_system_panel.py \
+            tests/molsysviewer_molsysmt/test_geometry_panel.py \
             tests/molsysviewer_molsysmt/test_remove_tools.py \
             tests/molsysviewer_molsysmt/test_set_tools.py \
             tests/molsysviewer_molsysmt/test_conversion_tools.py \

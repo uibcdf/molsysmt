@@ -2,45 +2,15 @@
 
 from dataclasses import dataclass
 from secrets import token_urlsafe
-from threading import RLock
-from weakref import WeakSet, ref
+from weakref import ref
 
 import numpy as np
-from argdigest import arg_digest
-from molsysviewer import AddonPanelWidget
 from smonitor import signal
 
 from ._panel_frontend import CSS, ESM
+from ._task_panel import _draft, _MolecularTaskPanel, _structures
 
-_DEFAULT = {
-    "source": "none",
-    "value": "",
-    "expression": "",
-    "indices": "",
-    "context": "current",
-    "structure_index": 0,
-}
-_CATEGORIES = {"water": "group_type=='water'", "ions": "group_type=='ion'"}
-_SOURCES = {"none", "category", "current", "saved", "region", "expression", "indices"}
 _REMOVAL_COMPLETED = "Selected atoms removed. The view is up to date."
-
-
-def _draft(value):
-    if not isinstance(value, dict) or set(value) - set(_DEFAULT):
-        raise ValueError("The selection draft contains unsupported fields.")
-    result = dict(_DEFAULT, **value)
-    if result["source"] not in _SOURCES or result["context"] not in {
-        "current",
-        "index",
-    }:
-        raise ValueError("Choose a supported selection source and structure context.")
-    for key in ("value", "expression", "indices"):
-        if not isinstance(result[key], str) or len(result[key]) > 4096:
-            raise ValueError("Selection text must contain at most 4096 characters.")
-    index = result["structure_index"]
-    if isinstance(index, bool) or not isinstance(index, int) or index < 0:
-        raise ValueError("The structure index must be a nonnegative integer.")
-    return result
 
 
 @dataclass
@@ -62,116 +32,14 @@ class _Outcome:
     draft: dict
 
 
-class _SystemPanel(AddonPanelWidget):
+class _SystemPanel(_MolecularTaskPanel):
     _esm = ESM
     _css = CSS
 
     def __init__(self, view=None, **kwargs):
         super().__init__(view=view, **kwargs)
-        self._owner = None
-        self._alive = False
-        self._review = None
-        self._outcome = None
-        self._draft = dict(_DEFAULT)
-        self._last_request = 0
-        self._actions = RLock()
         self._task = "remove"
-        self._result = None
         self._result_draft = {"structures": "all", "indices": "", "title": ""}
-
-    @signal(tags=["addon", "panel"])
-    @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def on_mount(self, view, *, skip_digestion=False):
-        """Mounting the view-bound molecular task editor."""
-        if view is not self._view or view.closed:
-            raise ValueError("The panel requires its open owning view.")
-        self._owner = view.addons.molsysmt
-        self._alive = True
-        self._outcome = None
-        try:
-            self._draft = _draft(self.state.get("system_draft", {}))
-        except (TypeError, ValueError):
-            self._draft = dict(_DEFAULT)
-        if not hasattr(self._owner, "_system_panels"):
-            self._owner._system_panels = WeakSet()
-        self._owner._system_panels.add(self)
-        self._publish()
-
-    @signal(tags=["addon", "panel"])
-    @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def on_unmount(self, view, *, skip_digestion=False):
-        """Discarding review tokens while leaving the bounded editor draft."""
-        self._alive = False
-        self._review = None
-        self._outcome = None
-        if self._owner is not None:
-            self._owner._system_panels.discard(self)
-        self._owner = None
-        self._discard_unpresented_result()
-
-    def _discard_unpresented_result(self):
-        if self._result is not None:
-            service = self._view.addons.manager.presentations
-            records = {item["id"]: item for item in service.records()}
-            record = records.get(self._result["id"])
-            if record is not None and record["destination"] is None:
-                service.close(self._result["id"])
-            self._result = None
-
-    def _context(self):
-        view = self._view
-        coordinator = getattr(view.addons.manager, "system_edits", None)
-        if coordinator is None:
-            return {
-                "state": "unavailable",
-                "has_system": view.molsys is not None,
-                "can_review": False,
-            }
-        from molsysviewer.system_edits import SystemEditPendingError
-
-        try:
-            status = coordinator.get_status()
-            context = {
-                **status,
-                "has_system": view.molsys is not None,
-                "can_review": False,
-            }
-            if view.molsys is None:
-                return context
-
-            def read(target):
-                saved = (
-                    list(view.selections.tags())
-                    if status["state"] == "synchronized"
-                    else []
-                )
-                regions = (
-                    list(view.regions.keys())
-                    if status["state"] == "synchronized"
-                    else []
-                )
-                return {
-                    "n_atoms": int(target.get_n_atoms()),
-                    "n_structures": int(target.structures.n_structures),
-                    "structure_index": int(view.player.index),
-                    "saved": saved[:200],
-                    "regions": regions[:200],
-                    "choices_truncated": len(saved) > 200 or len(regions) > 200,
-                }
-
-            if status["state"] in {"synchronized", "pending", "sync_failed"}:
-                context.update(coordinator.read(read))
-            context["can_review"] = (
-                status["state"] == "synchronized" and context.get("n_structures", 0) > 0
-            )
-            return context
-
-        except SystemEditPendingError:
-            return {
-                "state": "busy",
-                "has_system": view.molsys is not None,
-                "can_review": False,
-            }
 
     def _publish(self, *, stage="select", message="", request_id=0):
         if not self._alive or self._view is None or self._view.closed:
@@ -216,66 +84,7 @@ class _SystemPanel(AddonPanelWidget):
         if self._alive and self._view is not None and not self._view.closed:
             self.push_state(packet)
 
-    def _refresh_result(self):
-        if self._result is not None:
-            records = self._view.addons.manager.presentations.records()
-            if not any(record["id"] == self._result["id"] for record in records):
-                self._result = None
-
-    def _selection(self, target, frame, *, unique=True):
-        from molsysmt import basic
-
-        draft, view = self._draft, self._view
-        source = draft["source"]
-        if source == "category":
-            if draft["value"] not in _CATEGORIES:
-                raise ValueError("Choose Water or Ions.")
-            selection = _CATEGORIES[draft["value"]]
-        elif source == "current":
-            selection = list(view.active_selection.atom_indices)
-        elif source == "saved":
-            item = view.selections.get(draft["value"])
-            if item is None:
-                raise ValueError(
-                    "That saved selection no longer exists. Refresh the choices."
-                )
-            selection = list(item.atom_indices)
-        elif source == "region":
-            if draft["value"] not in view.regions:
-                raise ValueError("That region no longer exists. Refresh the choices.")
-            selection = list(view.regions[draft["value"]].atom_indices or ())
-        elif source == "expression":
-            selection = draft["expression"].strip()
-            if not selection:
-                raise ValueError("Enter a MolSysMT selection expression.")
-        elif source == "indices":
-            try:
-                selection = [
-                    int(word) for word in draft["indices"].replace(",", " ").split()
-                ]
-            except ValueError as exc:
-                raise ValueError(
-                    "Use comma- or space-separated integer atom indices."
-                ) from exc
-        else:
-            raise ValueError("Choose which atoms to review.")
-        # This is a native query with one explicit structure context, not a
-        # per-structure topology edit or a consumer selection interpreter.
-        indices = np.asarray(
-            basic.select(
-                target,
-                selection=selection,
-                structure_indices=[frame],
-                element="atom",
-                chemical_state="reference",
-            ),
-            dtype=np.int64,
-        )
-        return np.unique(indices) if unique else indices
-
     def _create_result(self):
-        import molsysviewer as msv
-
         service = getattr(self._view.addons.manager, "presentations", None)
         if (
             service is None
@@ -313,33 +122,12 @@ class _SystemPanel(AddonPanelWidget):
                     raise ValueError(
                         "No atoms match this selection. Choose a nonempty subset."
                     )
-                scope = self._result_draft["structures"]
-                if scope == "all":
-                    structure_indices = list(range(total))
-                elif scope == "current":
-                    structure_indices = [int(self._view.player.index)]
-                else:
-                    try:
-                        structure_indices = [
-                            int(word)
-                            for word in self._result_draft["indices"]
-                            .replace(",", " ")
-                            .split()
-                        ]
-                    except ValueError as exc:
-                        raise ValueError(
-                            "Use integer structure indices in the desired order."
-                        ) from exc
-                    if (
-                        not structure_indices
-                        or len(set(structure_indices)) != len(structure_indices)
-                        or any(
-                            index < 0 or index >= total for index in structure_indices
-                        )
-                    ):
-                        raise ValueError(
-                            "Choose nonempty, distinct structure indices within this system."
-                        )
+                structure_indices = _structures(
+                    self._result_draft["structures"],
+                    self._result_draft["indices"],
+                    total,
+                    int(self._view.player.index),
+                )
                 candidate = self._owner.basic.extract(
                     selection=atoms.tolist(), structure_indices=structure_indices
                 )
@@ -347,21 +135,13 @@ class _SystemPanel(AddonPanelWidget):
             title = self._result_draft["title"].strip() or (
                 "System copy" if self._task == "copy" else "Extracted subset"
             )
-            # Keep only the prepared View after this call. Native extraction and
-            # View loading keep their ordinary independent-copy contracts.
-            handle = service.prepare(
-                lambda child: msv.new_view(candidate, view=child), title=title
+            return self._store_result(
+                candidate,
+                title=title,
+                operation=operation,
+                structure_indices=structure_indices,
+                revision=status["target_revision"],
             )
-            return {
-                "id": handle,
-                "title": title,
-                "n_atoms": int(candidate.get_n_atoms()),
-                "n_structures": int(candidate.structures.n_structures),
-                "structure_indices": structure_indices[:200],
-                "structures_truncated": len(structure_indices) > 200,
-                "operation": operation,
-                "source_revision": status["target_revision"],
-            }
 
         self._result = self._owner._read(calculate, {})
 
@@ -511,54 +291,8 @@ class _SystemPanel(AddonPanelWidget):
             )
 
         coordinator.execute(prepare, name="molsysmt.basic.remove", update_view=True)
-        for peer in list(self._owner._system_panels):
-            if peer is not self and peer._alive:
-                peer._review = None
-                peer._publish(
-                    message="The system changed in another window. Review the selection again."
-                )
+        self._invalidate_peers()
         return review
-
-    @signal(tags=["addon", "panel"])
-    @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def handle_action(self, view, action_id, payload, *, skip_digestion=False):
-        """Handling one bounded editor request without changing the expert API."""
-        if not self._alive or view is not self._view or view.closed:
-            return
-        with self._actions:
-            request_id = (
-                payload.get("request_id") if isinstance(payload, dict) else None
-            )
-            if (
-                isinstance(request_id, bool)
-                or not isinstance(request_id, int)
-                or request_id <= self._last_request
-            ):
-                return
-            self._last_request = request_id
-            try:
-                self._perform_action(action_id, payload, request_id)
-            except Exception as exc:
-                if not self._alive or self._owner is None or view.closed:
-                    return
-                self._review = None
-                status = self._context()
-                stage = (
-                    "sync_required"
-                    if getattr(exc, "science_completed", False)
-                    and status["state"] in {"pending", "sync_failed"}
-                    else "recovery_required"
-                    if status["state"] == "uncertain"
-                    else "error"
-                )
-                message = (
-                    "The molecular edit completed. Retry only the view update."
-                    if stage == "sync_required"
-                    else "The system needs explicit recovery before further editing."
-                    if stage == "recovery_required"
-                    else str(exc)[:1000]
-                )
-                self._publish(stage=stage, message=message, request_id=request_id)
 
     @signal(tags=["addon", "panel"], exception_level="DEBUG")
     def _perform_action(self, action_id, payload, request_id):

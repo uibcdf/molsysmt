@@ -97,7 +97,8 @@ maps. Solvation receives exact counts and nullable/source-label preservation,
 and forwards native random_seed and skip_digestion. Resource lookup receives
 independent lists and distinct OBC1/OBC2 recipes; energies and stored constraint
 policies are checked against explicit OpenMM on a qualified small source.
-Only System / Remove atoms is graphical. Native effective-recipe/control
+The current graphical source slice includes System / Remove atoms, Extract
+subset and Copy system, and Geometry / Translate. Other tasks remain planned. Native effective-recipe/control
 reporting #582 and attribution conflict #583 remain visible. Native MolSys
 forces #572, managed protonation maps #576 and the two MD stubs retain their
 separate dispositions. Source exposure does not establish universal scientific

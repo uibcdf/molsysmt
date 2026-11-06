@@ -82,7 +82,10 @@ def test_workspace_registration_keeps_lazy_expert_api_and_only_real_task(case):
     assert [(w.id, w.title, w.entry_panel) for w in spec.workspaces] == [
         ("molsysmt", "Molecular tools", "system")
     ]
-    assert [(p.id, p.title) for p in spec.panels] == [("system", "System")]
+    assert [(p.id, p.title) for p in spec.panels] == [
+        ("system", "System"),
+        ("geometry", "Geometry"),
+    ]
     assert "system" not in dir(view.addons.molsysmt)
     assert state(sent)["context"]["has_system"]
     assert state(sent)["context"]["saved"] == ["chosen"]
@@ -247,6 +250,27 @@ def test_review_is_single_use_and_unknown_actions_cannot_execute_science(case):
     assert act(view, sent, "remove", token=token)["stage"] == "error"
     assert act(view, sent, "__import__")["stage"] == "error"
     assert view.molsys.get_n_atoms() == count
+
+
+@pytest.mark.parametrize("source", ["saved", "current", "region"])
+def test_confirmed_scene_selection_removes_exact_native_subset(case, source):
+    view, sent = case
+    original = view.molsys
+    before = puw.get_value(original.structures.coordinates, to_unit="nm").copy()
+    retained = np.setdiff1d(np.arange(original.get_n_atoms()), [2, 4])
+    review = act(view, sent, "review", draft={"source": source, "value": "chosen"})
+    result = act(view, sent, "remove", token=review["review"]["token"])
+    assert result["stage"] == "done", result["message"]
+    assert view.molsys is original
+    np.testing.assert_array_equal(
+        puw.get_value(original.structures.coordinates, to_unit="nm"),
+        before[:, retained],
+    )
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == 1
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
+    assert (
+        act(view, sent, "remove", token=review["review"]["token"])["stage"] == "error"
+    )
 
 
 def test_completed_removal_survives_context_refresh_without_replaying_science(case):

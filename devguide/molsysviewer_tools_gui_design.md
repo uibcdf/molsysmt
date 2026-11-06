@@ -3,13 +3,13 @@
 **Role:** proposed GUI design under uibcdf/molsysmt#421 and
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
-**Status:** the System / Remove atoms slice is implemented in contribution
-source and locally tested with real Mol*/ESM/Python and actual Jupyter comms,
-including both popup lifecycles. Geometry,
-Chemistry, Analysis and the other System tasks remain proposed. The offline
-prototype illustrates that broader design; it is not runtime evidence. Owner
-review, exact-head CI, human Jupyter/visible Qt observations and installed qualification remain
-separate. No release is authorized.
+**Status — 2026-11-06:** contribution source implements System / Remove atoms,
+Extract subset and Copy system, plus Geometry / Translate. Selection controls,
+lifecycle, bounded metadata and independent-result presentation are shared.
+Rotate, Chemistry, Analysis and other tasks remain proposed; no placeholder
+panel/button is registered. Human Jupyter/visible Qt acceptance remains
+postponed, separate from automated Jupyter/Mol*/native numerical receiving.
+Owner integration, hosted exact-head and installed gates remain separate.
 
 **Independent results update — 2026-11-05:** source now adds Extract subset and
 Copy system through the host presentation boundary in uibcdf/molsysviewer#301.
@@ -19,10 +19,10 @@ results are discarded when a task is left; presented Views survive panel/source
 closure. Real Jupyter receiving covers ordered structures, separate native data
 and both destinations, repeated destination changes, fullscreen delivery and
 detached Studio. Hosted exact-head gates remain pending. Native-window ownership is tested separately from postponed human
-visible Qt qualification. Other destinations and Geometry/Chemistry/Analysis
+visible Qt qualification. Other destinations, further Geometry tasks and Chemistry/Analysis
 remain planned. The dated status above retains its initial scope.
 
-The host code is Viewer `42234de839ed047016f8f241ea5eb717cfeb07be`.
+The host code is Viewer `49dba88ae992088259a6f0891b59dfc8730f5183` (source fixes #302/#303 and presentation CI recovery).
 The source receiver also incorporates native ed09f6453, including the owner's
 #583/#584 repairs. Consumer observations are archived alongside the native
 resolutions; no duplicate open report is retained. The final receiving receipt
@@ -38,7 +38,8 @@ Python signatures, defaults or result types. The core/addon boundary and
 Use one addon workspace titled **Molecular tools**, identified as **MolSysMT**.
 Reuse AddonWorkspaceSpec, AddonPanelSpec and AddonPanelWidget. Four intended
 horizontal panels follow the existing Elastic Networks pattern; register only
-panels with real qualified tasks. Current source registers System alone:
+panels with real tasks and receiving guards. Current source registers System
+and Geometry (Translate only):
 
 | Panel | User intent | Typical tasks |
 | --- | --- | --- |
@@ -206,12 +207,14 @@ visible Qt qualification.
 
 ### Next Geometry slice: translation and rotation — design review 2026-11-05
 
-**Proposed, not implemented.** The maintainer keeps human System/Jupyter/Qt
+**Implementation update — 2026-11-06:** Translate is implemented as the first
+Geometry slice; Rotate remains proposed. The maintainer keeps human System/Jupyter/Qt
 acceptance postponed. That deferral does not accept the UI or block preparation
 of this next slice. Register Geometry only when actual tasks and their guards
 exist. Preserve System as a separately pending acceptance item.
 
-Use one Geometry task picker, initially **Translate** and **Rotate**, and the
+When a second task is implemented, use one Geometry task picker for
+**Translate** and **Rotate**, with the
 same selection/result vocabulary as System. Both edit molecular coordinates;
 they do not change the camera. Directions use the molecular Cartesian axes,
 independently of the camera orientation. Keep one task form visible at a time.

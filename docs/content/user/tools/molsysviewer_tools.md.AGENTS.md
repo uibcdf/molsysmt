@@ -530,8 +530,14 @@ private tokens, no coordinate-copy preview, bounded frontend metadata and native
 independent Python defaults. Preserve drafts across navigation but expire reviews.
 Pending commands remain gated; use the host canvas Update view control and
 managed-state notification for reconciliation, never repeat completed science.
-Keep the first panel distinct from planned Geometry/Chemistry/Analysis panels
-and from installed, visible Qt/Jupyter/popup qualification.
+Keep System tasks distinct from Geometry / Translate and from planned Rotate,
+Chemistry and Analysis tasks. Preserve the shared selection/result vocabulary,
+explicit displacement units and molecular Cartesian axes, selected structures,
+fixed box, native coverage invalidation and single-use confirmation. Independent
+translation copies the whole system rather than extracting the chosen atoms;
+native expert defaults and result types stay unchanged. Automated source and
+Jupyter/popup receiving remain distinct from postponed human visual acceptance,
+owner integration and installed-package qualification.
 
 Preserve the explicit independent build.add_ions mirror with native species,
 counts, charge source, seed, periodic clearance, attempts, form and report controls.
