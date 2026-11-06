@@ -75,11 +75,10 @@ Entries carrying front matter under
 - [`standard_residue_side_chain_reconstruction.md`](standard_residue_side_chain_reconstruction.md) — [#327](https://github.com/uibcdf/molsysmt/issues/327) — Reconstruct ambiguous standard-residue side chains with explicit geometric evidence *(inspected)*
 - [`support_paired_rigid_and_flexible_receptor_pdbqt_forms.md`](support_paired_rigid_and_flexible_receptor_pdbqt_forms.md) — [#225](https://github.com/uibcdf/molsysmt/issues/225) — Support paired rigid and flexible receptor PDBQT forms *(inspected)*
 
-### In progress (3)
+### In progress (2)
 
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`freeze_1_0_scope_and_complete_bounded_stabilization.md`](freeze_1_0_scope_and_complete_bounded_stabilization.md) — [#334](https://github.com/uibcdf/molsysmt/issues/334) — Freeze 1.0 scope and complete bounded stabilization *(measured)*
-- [`prepared_pdbqt_conformation_projection.md`](prepared_pdbqt_conformation_projection.md) — [#599](https://github.com/uibcdf/molsysmt/issues/599) — Preserve a prepared PDBQT representation while projecting explicitly mapped coordinates. *(measured)*
 
 ### Blocked (2)
 

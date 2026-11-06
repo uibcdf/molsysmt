@@ -33,8 +33,8 @@ instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
 **Completed native/provider criteria: #304, #593, #428, #544, #572, #576, #557,
-#594, #595, #596, #597 and #598 (12 of 15).**
-Next ordered issue: **#599**, followed by #600 and #601. The #557 source-permutation controls also identified supplemental
+#594, #595, #596, #597, #598 and #599 (13 of 15).**
+Next ordered issue: **#600**, followed by #601. The #557 source-permutation controls also identified supplemental
 [#617](archive/resolved_bugs/entry_mmcif_conversion_retains_a_retired_topology_component_flag_and_blocks_perm.md):
 the mmCIF converter wrote a retired Topology component flag. The one-line
 producer correction passes 137 adapter/permutation cases, preserving strict
@@ -71,6 +71,18 @@ administrative workflows and successful smoke 42273763066. No cancelled run is
 counted as a pass. The
 [source handoff to DockingMT](https://github.com/uibcdf/dockingmt/issues/49#issuecomment-6692452871)
 records public usage and leaves consumer/scientific acceptance separate.
+
+The #599 prepared-PDBQT projection is implemented in fe36aa3ff and
+464158e5c with **396 affected tests/doctests** and **84 cases at all five public
+provider floors** passing. It preserves non-coordinate prepared fields and tree
+meaning under explicit complete atom/structure correspondence, with declared
+REMARK removal, actual payload hashes, partial-reference semantics and atomic
+one-model file output. Full Module 10 executes; its previous cells/outputs remain
+unchanged. See the [owning closeout](archive/resolved_proposals/prepared_pdbqt_conformation_projection.md)
+and [receiving receipt](../devtools/data/prepared_pdbqt_projection_receiving_599_20261106.json).
+The preserved earlier #304 full run 42205436569 now concludes successfully at
+56b37c983; it does not qualify this new projection checkpoint. Current source
+publication/CI is recorded separately. #600/#601 remain required in that order.
 
 Feature closure does not qualify the complete version matrix, a future Viewer
 candidate, its canvas/sessions, or the sixteen-cell installed release pair under

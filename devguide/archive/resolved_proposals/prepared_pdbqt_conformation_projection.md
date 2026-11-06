@@ -1,13 +1,13 @@
 ---
 summary: Preserve a prepared PDBQT representation while projecting explicitly mapped coordinates.
 issue: uibcdf/molsysmt#599
-status: active
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-06
 verification: measured
 area: [form, structure, build, data, docs]
 guard: tests/form/file_pdbqt/test_coordinate_projection.py
-normative:
+normative: devguide/forms_and_conversions.md
 blocked_by: []
 supersedes: []
 ---
@@ -220,3 +220,33 @@ source annotations mention them. The producer version is recorded as actually
 reported; editable installation metadata and the implementing source commit are
 kept separate in the receiving receipt. Publication and owning-issue closure
 follow this measured source block; #600 and #601 retain their ordered places.
+
+## Resolution
+
+Implemented in fe36aa3fffa3bf324b988f591e230ce3652e5c3d and refined in
+464158e5c612d15cec83e1d8d43ede6ee997d84d. The addressable projection guard checks
+independent fixed-column data and known nonidentity maps, complete H coverage,
+all-structure validation, source/destination ownership, actual payload hashes,
+metadata disposition and bounded file reuse. It also consumes five unchanged
+pinned real preparations without executing a new docking/scoring study.
+The documentation guard executes the public tutorial and course code.
+
+The [receiving receipt](../../../devtools/data/prepared_pdbqt_projection_receiving_599_20261106.json)
+retains exact source and provider bytes, original nonpassing attempts, the final
+396 affected and 84 floor cases, full Module 10 execution and unchanged previous
+cells. The maintained contract is [forms and conversions](../../forms_and_conversions.md#prepared-coordinate-projection).
+Publication and closure deliver a supported provider tool; DockingMT's consumer
+receiving and rescoring/evaluation-lineage policy remain owned by its team.
+#600 and #601 are the remaining ordered issues. No release/pair/scientific-profile
+promotion is implied.
+
+## Additional closeout verification — 2026-11-06
+
+The complete Sphinx HTML build passes with 1,013 doctrees and no warnings using
+one worker to limit documentation-build memory. The new projection tutorial HTML
+is present; all six internal API/tutorial targets in its article resolve to
+existing HTML files and anchors. The receiving receipt retains the exact log hash.
+Twenty unrelated autosummary regenerations are restored to their prior committed
+bytes only in the isolated worktree; the two new projection stubs retain the
+Sphinx-generated form. The root's four pre-existing edits remain separately
+protected. This verifies documentation delivery, not new scientific evidence.
