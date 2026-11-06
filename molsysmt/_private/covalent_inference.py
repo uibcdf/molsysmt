@@ -33,7 +33,9 @@ def _peptide_record(report):
     return output
 
 
-def apply(source, selection, structure_indices, chemical_state, return_report, syntax):
+def apply(
+    source, selection, structure_indices, chemical_state, return_report, syntax, method
+):
     """Apply missing eligible pairs to a copy and retain original report domains."""
     from molsysmt._private.preparation_history import append_report
     from molsysmt._private.smonitor import StructuralInconsistencyError
@@ -71,7 +73,9 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
         structure_indices=structure_indices,
         chemical_state=chemical_state,
         syntax=syntax,
-        method="observed_hydrogen_template_consensus",
+        method="observed_hydrogen_alias_consensus"
+        if method == "supported_group_templates_with_hydrogen_aliases"
+        else "observed_hydrogen_template_consensus",
         skip_digestion=True,
     )
     peptide = get_peptide_bond_candidates(
@@ -124,7 +128,7 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
     pairs = sorted(candidate_methods)
     report = dict(
         schema="molsysmt.covalent_inference@1",
-        method="supported_group_templates",
+        method=method,
         engine="MolSysMT",
         rule_version=1,
         status="added" if added else "unchanged",
@@ -181,5 +185,7 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
             "metal_coordination",
         ],
     )
+    if "hydrogen_name_policy" in hydrogen:
+        report["hydrogen_name_policy"] = deepcopy(hydrogen["hydrogen_name_policy"])
     append_report(state, report, state_index)
     return dict(molecular_system=output, report=report) if return_report else output

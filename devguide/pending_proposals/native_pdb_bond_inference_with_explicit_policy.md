@@ -1208,3 +1208,89 @@ edge disagreements and bounded repeated workload measurements are now explained
 and retained. Larger structures/trajectory scaling and performance improvements
 remain explicit limits; this checkpoint does not certify complete chemistry or
 close #304.
+
+## Explicit observed-H name alternatives — 2026-11-06
+
+### What and reference ownership
+
+The approved H-name extension now offers two explicit method choices through
+the existing public tools:
+
+- `build.get_covalent_bond_candidates(method='observed_hydrogen_alias_consensus')`
+  inspects local observed-H parent evidence.
+- `build.infer_covalent_bonds(method='supported_group_templates_with_hydrogen_aliases')`
+  composes that report with the unchanged heavy-template and peptide tools.
+
+Defaults, signatures and the PDB native reader's exact-name policy are unchanged.
+Use an explicit-only read followed by the standalone build tool when selecting
+this alternative. Both source atom names and group naming declarations survive;
+this is not an implicit normalization or preparation operation.
+
+A reproducible offline generator derives only canonical-protein H-name
+alternatives from the inspected OpenMM PDB name resource. The unchanged primary
+XML, source commit `ba0aa236ac4d07241382869604c4d2ea58c4f3f5`, SHA-256
+`740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969`, MIT notice and
+generated JSON are bundled. There are twenty canonical group labels, without
+the source resource's group-name replacements or heavy-atom aliases. In
+particular, CCD HID is not reinterpreted as histidine; declared Amber HID keeps
+its own exact chemical reference. The H-parent helper now forwards the already
+resolved template naming declaration instead of losing that context.
+
+This is an adaptation using OpenMM **reference data**, not execution of OpenMM
+or a claim that OpenMM invented local parent consensus. Optional Ackredit credits
+the actually consulted dataset once per operation, including reused references
+inside enclosing captures. Detached bibliography, original/derived hashes and
+source revision accompany results/history regardless of provider availability.
+The data helper imports no engine or Ackredit at module import time.
+
+### How the evidence is decided
+
+The existing whole-group prerequisites, heavy-element checks, stored H
+assignments and incident-edge conflict checks still apply. The literal H name
+and its declared alternative are examined against all compatible reference
+variants. Every match must agree on one known, present heavy parent. There is no
+nearest-atom guess, first-variant selection, H addition or coordinate placement.
+Unknown names and conflicting partners remain unassessed.
+
+Alias-mode CSR name arrays retain the strings examined per source H and a
+Boolean alias mask. These fields are not added to default exact-mode history,
+avoiding unnecessary small-array storage in the existing profile. Missing names
+do not become literal "None" labels. Alias-assisted whole inventories stay
+unassessed: local parent agreement is not a joint/stereochemical assignment of
+H roles, terminal-state choice, valence or protonation certification. The new
+application profile retains the same source/selected-state ownership,
+interaction invalidation, unknown orders and typed historical persistence.
+
+### Executed evidence
+
+Nine baseline cases reject the previously unsupported named methods. Receiving
+now passes **276 affected inference/argument/doctest cases in 18.84 s**, with
+twelve workers. The new data/alias modules supply eighteen cases covering
+literal positive/negative parents, source selection/ownership, H5MSM history,
+stored conflicts, contradictory reference parents, declared naming context,
+missing labels, independent states/nondefault units, optional provider absence/
+failure, real repeated Ackredit captures, empty lookup attribution and exact
+offline regeneration. A development-only warning-class import in the first
+failure guard was corrected; no public diagnostic export was added for that test.
+
+The same **18 cases pass in 6.11 s** with published ArgDigest 0.14.0, DepDigest
+0.15.1, SMonitor 0.16.0 and Ackredit 0.9.0 payloads, using current other
+dependencies. This is a four-provider source floor profile, not a clean installed
+runtime matrix. Documentation/source boundaries pass **1,072 cases in 43.35 s**;
+retained warnings are not suppressed. The revised docstrings execute and the
+Foundations, both Toolbox pages, Cookbook and course agree. Original course
+code, outputs and metadata remain unchanged.
+
+An unchanged-original 1IEP probe with OpenMM imports blocked yields **4,470
+edges**, adding exactly the earlier 25 OpenMM-only H-parent pairs to the exact
+native 4,445. No exact-native pair is lost; the explained noncontiguous-group
+HB2–CB pair remains. Names, stable atom rows and physical coordinates are
+unchanged. This does not make OpenMM parity a target or certify whole-source
+chemistry. See the [receiving receipt](../../devtools/data/hydrogen_alias_receiving_304_20261106.json)
+for exact source/assets, provider origins, raw JUnit results and the original
+source probe. No dependency floor, compiled backend or H5MSM schema changes.
+
+**#304 remains partial.** Complete terminal/cap and additional-group policies,
+disulfide composition, the bounded unknown-group geometry policy and the final
+acceptance/integration audit before closing. This H-parent extension does not
+resolve those remaining chemical questions or authorize a release.

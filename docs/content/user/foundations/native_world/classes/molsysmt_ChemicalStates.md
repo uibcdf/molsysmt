@@ -38,6 +38,12 @@ The original operation's indices remain historical when you extract or reorder
 the system; use current bond tables for the current index domain. See
 {ref}`cookbook-pdb-connectivity-policy` for inspecting this evidence.
 
+Native H-parent inference can explicitly consult bundled, versioned H-name
+alternatives. That lookup changes no atom/group labels or naming declarations;
+its resource, bibliography and original source indices belong to the operation's
+history. Parent agreement does not assign stereochemical H roles, protonation
+or a complete terminal state. See {ref}`Tutorial_Covalent_Bond_Candidates`.
+
 ## State Availability
 
 A new collection contains zero states. `append_state()` explicitly creates an

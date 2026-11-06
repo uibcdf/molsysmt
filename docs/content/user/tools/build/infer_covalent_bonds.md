@@ -34,6 +34,15 @@ tools rather than a new parser-specific chemistry engine:
 - Exact-name local consensus on the heavy parent of each **already observed H**.
 - {ref}`Unique same-chain peptide C-N geometry <Tutorial_Peptide_Bond_Candidates>`.
 
+Choose `method='supported_group_templates_with_hydrogen_aliases'` to use the
+explicit H-name alternative from the same public candidate tool. Heavy templates,
+peptide geometry, source ownership and invalidation rules are unchanged. This
+alternative records the pinned name dataset and detached bibliography under
+`hydrogen_name_policy`, including in H5MSM history. It does not rename atoms,
+interpret group-name aliases, import OpenMM, select protonation or establish
+stereochemical H roles. The default method keeps exact H-name matching. See
+{ref}`Tutorial_Covalent_Bond_Candidates` for alias scope and exclusions.
+
 Only missing eligible pairs are appended as `type='covalent'` and
 `evidence='inferred'`. Orders remain unknown. Existing rows and their declared
 types, orders and evidence are retained. Both endpoints must be selected, but
@@ -116,13 +125,20 @@ Reader inference uses **source structure index 0**, before atom/structure
 extraction, for one shared graph. Selectable per-structure inference belongs to
 the standalone build tool. For ensembles whose connectivity changes, declare
 chemical states and structure associations separately. PDB parsing remains eager.
+The native reader continues using the default exact-name composition. To select
+the alias composition, read explicitly without inference and call the standalone
+build function with its named method; no reader flag silently changes that policy.
 
 The reader archives `molsysmt.pdb_connectivity@1` outcomes, including disabled,
 inferred, unavailable and failed operations, declaration-resolution flags,
 producer versions and error type/message. The native route first records the
 explicit parse, then archives `covalent_inference@1`. Resolved declared bonds
-keep precedence over inferred evidence. Current declaration flags are aggregate
-evidence; they do not provide a complete per-record malformed-file diagnosis.
+keep precedence over inferred evidence. Declaration diagnostics retain typed
+per-record source locations, endpoint matches, alternate/symmetry scope and
+conflicts, alongside their aggregate flags. Historical endpoints are not current
+atom indices after extraction. Unsupported images and missing/ambiguous sites
+remain explicit limitations; an accepted edge does not certify its chemical kind.
+See {ref}`cookbook-pdb-connectivity-policy`.
 
 :::{seealso}
 :class: dropdown

@@ -5,7 +5,7 @@ from collections import defaultdict
 import numpy as np
 
 
-def prepare_context(readiness, atom_names):
+def prepare_context(readiness, atom_names, *, use_aliases=False):
     """Index already-audited fields and incident edges once for the report."""
     fields = {name: field["values"] for name, field in readiness["fields"].items()}
     incident = defaultdict(list)
@@ -25,6 +25,8 @@ def prepare_context(readiness, atom_names):
         "invalid_bonds": set(readiness["connectivity"]["invalid_bond_indices"]),
         "templates": {},
         "parents": {},
+        "use_aliases": use_aliases,
+        "name_reference": None,
     }
 
 
@@ -47,11 +49,17 @@ def candidates(group, selected, group_reasons, context):
             group["group_name"],
             set(group["heavy_atoms"]["expected_atom_names"]),
             context["templates"],
+            group["template"]["naming_scheme"],
         )
     parents = np.full(len(atoms), -1, dtype=np.int64)
     eligible = np.zeros(len(atoms), dtype=bool)
     selected_mask = np.zeros(len(atoms), dtype=bool)
     offsets, variants, issues, pairs = [0], [], [], []
+    name_offsets, reference_names, alias_mask = (
+        [0],
+        [],
+        np.zeros(len(atoms), dtype=bool),
+    )
     joint = []
     if template is not None and not template["modified"]:
         observed = {names[atom] for atom in atoms}
@@ -65,26 +73,41 @@ def candidates(group, selected, group_reasons, context):
         name = names[atom]
         reasons = list(group_reasons)
         reference_parents, matching = [], []
+        examined_names = [name]
         if not reasons:
             if _value(context, "atom_type", atom) != "H":
                 reasons.append("hydrogen_element_unassessed")
             if template["modified"]:
                 reasons.append("heavy_only_template")
             else:
-                key = (group["group_name"], tuple(sorted(template["expected"])), name)
+                if context["use_aliases"]:
+                    from molsysmt._private.hydrogen_name_aliases import credit, resolve
+
+                    examined_names, reference = resolve(group["group_name"], name)
+                    if context["name_reference"] is None:
+                        context["name_reference"] = reference
+                        credit(reference, "molsysmt.build.get_covalent_bond_candidates")
+                alias_mask[row] = len(examined_names) > 1
+                key = (
+                    group["group_name"],
+                    group["template"]["naming_scheme"],
+                    tuple(sorted(template["expected"])),
+                    tuple(examined_names),
+                )
                 if key not in context["parents"]:
                     matches = [
-                        (index, variant)
+                        (index, variant, reference_name)
                         for index, variant in template["candidates"]
-                        if name in variant["atoms"]
+                        for reference_name in examined_names
+                        if reference_name in variant["atoms"]
                     ]
                     parent_sets = [
                         {
-                            b if a == name else a
+                            b if a == reference_name else a
                             for a, b in variant["bonds"]
-                            if a == name or b == name
+                            if a == reference_name or b == reference_name
                         }
-                        for _, variant in matches
+                        for _, variant, reference_name in matches
                     ]
                     all_parents = (
                         sorted(set().union(*parent_sets)) if parent_sets else []
@@ -95,14 +118,20 @@ def candidates(group, selected, group_reasons, context):
                         and len(all_parents) == 1
                     )
                     context["parents"][key] = (
-                        [index for index, _ in matches],
+                        sorted({index for index, _, _ in matches}),
                         all_parents,
                         consensus,
+                        all(
+                            template["elements"].get(reference_name) == "H"
+                            for _, _, reference_name in matches
+                        ),
                     )
-                matching, reference_parents, consensus = context["parents"][key]
+                matching, reference_parents, consensus, reference_elements_valid = (
+                    context["parents"][key]
+                )
                 if not matching:
                     reasons.append("unrecognized_hydrogen_name")
-                elif template["elements"].get(name) != "H":
+                elif not reference_elements_valid:
                     reasons.append("hydrogen_reference_element_conflict")
                 elif not consensus:
                     reasons.append("ambiguous_hydrogen_parent")
@@ -120,6 +149,10 @@ def candidates(group, selected, group_reasons, context):
                         parents[row] = parent
         variants.extend(matching)
         offsets.append(len(variants))
+        reference_names.extend(
+            value for value in examined_names if isinstance(value, str) and value
+        )
+        name_offsets.append(len(reference_names))
         for field in (
             "formal_charge",
             "n_unpaired_electrons",
@@ -165,7 +198,11 @@ def candidates(group, selected, group_reasons, context):
                     "reason_codes": list(dict.fromkeys(reasons)),
                 }
             )
-    return {
+    # Name alternatives establish local parent agreement, not an injective
+    # assignment of every observed H to stereochemical/reference-H roles.
+    if alias_mask.any():
+        joint = []
+    report = {
         "atom_indices": atoms,
         "parent_atom_indices": parents,
         "eligible_mask": eligible,
@@ -179,4 +216,11 @@ def candidates(group, selected, group_reasons, context):
         or (len(atoms) and not joint)
         else "compatible_subset",
         "issues": issues,
-    }, pairs
+    }
+    if context["use_aliases"]:
+        report.update(
+            reference_name_offsets=np.asarray(name_offsets, dtype=np.int64),
+            reference_names=np.asarray(reference_names, dtype=str),
+            alias_mask=alias_mask,
+        )
+    return report, pairs

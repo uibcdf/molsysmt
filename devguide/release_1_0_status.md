@@ -56,6 +56,15 @@ A 45-process benchmark covers both originals plus three analytic workloads up
 to 10,240 atoms, including 15 H5MSM round trips. Native conversion is slower in
 these measurements; its larger-workload memory/storage cost is also explicit,
 without a faster/lighter claim. Full acceptance and integration remain pending.
+The explicitly selected H-name alternative now reuses the same parent checks
+with pinned, licensed local reference data and dataset attribution. Default
+exact methods and reader policy are unchanged. It adds exactly the 25 explained
+H-parent pairs on original 1IEP (4,470 total), preserving the exact native graph,
+source names and coordinates without importing OpenMM. Receiving passes 276
+affected cases, 18 published four-provider-floor cases and 1,072 documentation
+cases (overlapping selections). Alias-assisted H-role/protonation certification
+is not claimed. Terminal/group/disulfide/geometry policies and integration still
+remain before #304 closure.
 New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
 for rescoring. Separately reported **#600** records missing mmCIF model-label
 delivery; selected geometry remains available, and the connectivity correction
@@ -78,14 +87,20 @@ PR #543 receiving candidate **282e8337e04c14003622c19a359b7cd35d2b5e4b** stays
 frozen on its published branch. Its exact full source gate is
 [42171874158](https://github.com/uibcdf/molsysmt/actions/runs/42171874158), with
 Viewer 42234de839ed047016f8f241ea5eb717cfeb07be. At the latest verified inspection,
-the controlled wheel succeeds, Linux Python 3.14 fails the generated converter-
-argument inventory guard, three Linux jobs remain live and four macOS jobs are
-queued. The job-only log identifies the already reproduced stale table; its
+the controlled wheel succeeds, all four Linux cells and macOS Python 3.11 fail,
+and three macOS cells remain queued. The independently inspected Linux Python
+3.14 and macOS Python 3.11 job logs identify the stale converter-argument table; its
 regenerated correction belongs to the ordered-work branch, not the frozen CI
 input. No green full matrix or main integration is claimed. Ordered work uses
 a separate branch/worktree and the existing development environment. PR #543
 has meanwhile advanced to 1e7a4273b905ca020815658f23ba645d40817226; that later
 Geometry-panel expansion is outside this frozen receiving candidate.
+The ordered branch is prepared for an intermediate source/backup handoff with
+local tests, source hashes and explicit partial #304 scope. Its checkpoint uses
+the authorized deferred-CI marker to avoid another incomplete full matrix while
+the issue's remaining methods are implemented. This does not clear the skipped
+commit backlog, replace the frozen run's failures or qualify a release; finish
+the complete work block through an unskipped/manual exact-head gate.
 
 ## PR #543 owner receiving and full-suite failures — 2026-11-05
 

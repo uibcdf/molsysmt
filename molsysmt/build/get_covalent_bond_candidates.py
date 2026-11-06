@@ -45,6 +45,8 @@ def get_covalent_bond_candidates(
         'exact_heavy_group_templates' proposes only heavy intra-group pairs.
         'observed_hydrogen_template_consensus' proposes only observed H-parent
         pairs with a unique reference parent. Defaults to 'exact_heavy_group_templates'.
+        'observed_hydrogen_alias_consensus' also examines explicit PDB protein
+        H-name alternatives from a pinned local reference; source names stay unchanged.
 
     Returns
     -------
@@ -88,6 +90,23 @@ def get_covalent_bond_candidates(
     consensus. No name aliases, first-variant choice, pH or terminal inference
     is applied. Modified heavy-only templates supply no H reference.
 
+    The explicit ``observed_hydrogen_alias_consensus`` alternative reuses that
+    same parent agreement and stored-field validation with the literal name and
+    its declared H-name alternative. The local, versioned OpenMM PDB-name data
+    supplies aliases for twenty canonical amino-acid labels; no OpenMM import,
+    group-name substitution or heavy-atom renaming occurs. Every matching
+    reference must still agree on the same heavy parent. This does not assign
+    stereochemical H identity, terminal context, pH or a joint H-role mapping.
+    Alias-assisted inventories remain unassessed. Unknown names remain explicit.
+
+    ``hydrogen_name_policy`` retains the actual resource/derived hashes, source
+    revision, detached dataset bibliography and limitations for this alternative.
+    Optional Ackredit credits the inspected reference as data, not executed
+    software. Per-H ``reference_name_offsets``/``reference_names`` retain the
+    literal and alternative strings examined; their presence does not establish
+    an exact template match. ``alias_mask`` identifies alternative lookup rows.
+    Neither this tool nor its default method renames source atoms or groups.
+
     ``groups[*]['hydrogen_coverage']`` retains typed H/parent arrays (unknown
     parent -1), eligibility and output-selection masks, CSR-style offsets and
     exact variant indices, joint inventory evidence and sparse issue records.
@@ -121,6 +140,14 @@ def get_covalent_bond_candidates(
     >>> report['bonded_atom_pairs'].tolist()
     [[6, 7], [8, 9], [10, 11], [10, 12], [10, 13]]
 
+    >>> molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'])
+    >>> msm.set(molsys, element='atom', selection=[7], atom_name='HN1')
+    >>> report = msm.build.get_covalent_bond_candidates(
+    ...     molsys, selection='group_index==1', structure_indices=0,
+    ...     method='observed_hydrogen_alias_consensus')
+    >>> report['groups'][0]['hydrogen_coverage']['parent_atom_indices'][0].item()
+    6
+
     .. admonition:: User guide
 
        See :ref:`Tutorial_Covalent_Bond_Candidates` for coverage and exclusions.
@@ -132,6 +159,7 @@ def get_covalent_bond_candidates(
     if not isinstance(method, str) or method not in (
         "exact_heavy_group_templates",
         "observed_hydrogen_template_consensus",
+        "observed_hydrogen_alias_consensus",
     ):
         raise ArgumentError(
             "method", value=method, caller="molsysmt.build.get_covalent_bond_candidates"
@@ -178,7 +206,10 @@ def get_covalent_bond_candidates(
     candidates = []
     reports = []
     hydrogen_context = None
-    if method == "observed_hydrogen_template_consensus":
+    if method in (
+        "observed_hydrogen_template_consensus",
+        "observed_hydrogen_alias_consensus",
+    ):
         from molsysmt._private.hydrogen_covalent_candidates import prepare_context
 
         names = get(
@@ -189,7 +220,9 @@ def get_covalent_bond_candidates(
             skip_digestion=True,
         )
         hydrogen_context = prepare_context(
-            readiness, dict(zip(readiness["atom_indices"], names))
+            readiness,
+            dict(zip(readiness["atom_indices"], names)),
+            use_aliases=method == "observed_hydrogen_alias_consensus",
         )
     for group in coverage["groups"]:
         heavy = group["heavy_atoms"]
@@ -284,7 +317,7 @@ def get_covalent_bond_candidates(
                 )
     candidates.sort()
     pairs = np.asarray([pair for pair, _ in candidates], dtype=np.int64).reshape(-1, 2)
-    return {
+    result = {
         "schema": "molsysmt.covalent_bond_candidates@1",
         "method": method,
         "rule_version": 1,
@@ -319,3 +352,20 @@ def get_covalent_bond_candidates(
             "valence",
         ],
     }
+    if method == "observed_hydrogen_alias_consensus":
+        from molsysmt._private.hydrogen_name_aliases import bibliography
+
+        reference = hydrogen_context["name_reference"]
+        result["hydrogen_name_policy"] = dict(
+            name="pdb_protein_hydrogen_aliases",
+            rule_version=1,
+            reference=deepcopy(reference),
+            references=[] if reference is None else [bibliography(reference)],
+            group_scope="twenty_canonical_amino_acid_labels",
+            unassessed_checks=[
+                "joint_alias_role_assignment",
+                "stereochemical_hydrogen_identity",
+                "protonation",
+            ],
+        )
+    return result

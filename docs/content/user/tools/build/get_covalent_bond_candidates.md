@@ -5,11 +5,13 @@
 
 Use {func}`molsysmt.build.get_covalent_bond_candidates` to obtain candidate
 intra-group edges and inspect their coverage before choosing a repair policy.
-Both experimental methods reuse the existing
+The experimental methods reuse the existing
 {ref}`exact-template auditor <Tutorial_Residue_Chemical_Coverage>`.
 The default `exact_heavy_group_templates` returns heavy intra-group pairs.
 Choose `method='observed_hydrogen_template_consensus'` for a separate report of
 candidate bonds between already observed H atoms and their heavy parents.
+The optional `observed_hydrogen_alias_consensus` also examines explicitly
+declared H-name alternatives; it does not change the default.
 
 :::{versionadded} 1.0.0
 :::
@@ -71,7 +73,7 @@ and available reference provenance. The legacy database's original-source
 provenance can remain unassessed.
 
 Water, ions, lipids and arbitrary small molecules remain unassessed in this first
-method. The default does not infer hydrogen edges. Neither method infers links between groups, disulfides or
+method. The default does not infer hydrogen edges. No candidate mode infers links between groups, disulfides or
 metal coordination. Bond orders, protonation and valence remain unassessed.
 Nonconsecutive group/chain identity cannot authorize a polymer link here because
 this method proposes no inter-group links at all.
@@ -114,6 +116,8 @@ Each `groups` entry adds a `hydrogen_coverage` record:
 | `joint_variant_indices` | Reference variants containing the entire observed H-name inventory. |
 | `inventory_status` | `compatible_subset` when a joint naming inventory is supported, otherwise `unassessed`. This does not assess missing H atoms or protonation. |
 | `issues` | Sparse failed-H records with source index, name, possible reference parent names and reason codes. |
+| `reference_name_offsets`, `reference_names` | Alias-mode CSR strings examined per H: the literal name and its alternative. Presence is not proof of a template match. |
+| `alias_mask` | Alias-mode flag for whether a name alternative was examined for each source H. |
 
 Local parent consensus and a coherent whole-group inventory are separate evidence.
 Mixed naming conventions may produce useful local candidates while no single
@@ -121,6 +125,39 @@ reference variant contains all the observed names; the group then remains
 `partial`. Even `compatible_subset` does not establish a complete protonation
 state, terminal assignment, valence or correct H placement. Review both the pairs
 and the exclusions before adopting any reconstruction policy.
+
+## Interpreting explicit hydrogen-name alternatives
+
+```python
+report = msm.build.get_covalent_bond_candidates(
+    molsys, structure_indices=0,
+    method='observed_hydrogen_alias_consensus',
+)
+policy = report['hydrogen_name_policy']
+```
+
+This explicitly selected method examines the literal name and an H-name
+alternative from pinned OpenMM PDB name data. Every matching reference must
+agree on one heavy parent. For example, HN1 can consult the reference name H,
+and HIS HB1 can consult HB3. These are parent-lookup alternatives, not assignments
+of stereochemical H identity. Source names, indices, coordinates and stored
+chemistry remain unchanged. Unknown names and conflicting stored partners are
+still reported, without nearest-atom guesses or H placement.
+
+Only the twenty canonical amino-acid group labels have alias mappings. The
+resource's group-name replacements and heavy-atom aliases are deliberately
+excluded: selecting this mode does not declare an Amber naming scheme, reinterpret
+CCD HID as histidine, or replace a modified group with its sequence parent.
+Stored group naming declarations still select the exact chemical templates.
+Alias-assisted whole inventories remain unassessed; the local parent evidence
+does not solve a joint assignment of H roles or protonation.
+
+`hydrogen_name_policy` retains the actual source revision, original/derived
+hashes, bibliography and limitations. The reference is bundled, with its license
+and reproducible offline generator. OpenMM is neither imported nor required.
+Optional Ackredit credits the inspected reference as data; it does not report
+execution of that software. Detached bibliography remains available without
+Ackredit or if its recorder fails.
 
 ## Reviewing before preparation
 

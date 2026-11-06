@@ -45,7 +45,10 @@ def digest_method(method, caller=None):
         raise ArgumentError("method", value=method, caller=caller)
 
     if caller == "molsysmt.build.infer_covalent_bonds.infer_covalent_bonds":
-        if isinstance(method, str) and method == "supported_group_templates":
+        if isinstance(method, str) and method in {
+            "supported_group_templates",
+            "supported_group_templates_with_hydrogen_aliases",
+        }:
             return method
         raise ArgumentError("method", value=method, caller=caller)
 
@@ -56,6 +59,7 @@ def digest_method(method, caller=None):
         if isinstance(method, str) and method in {
             "exact_heavy_group_templates",
             "observed_hydrogen_template_consensus",
+            "observed_hydrogen_alias_consensus",
         }:
             return method
         raise ArgumentError("method", value=method, caller=caller)

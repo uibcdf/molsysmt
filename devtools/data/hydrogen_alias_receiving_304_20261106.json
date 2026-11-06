@@ -1,0 +1,285 @@
+{
+  "schema": "molsysmt.hydrogen_alias_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#304",
+  "source_base_commit": "2356f59640f8b4961b6c4e2eacd370bfb2fc99b8",
+  "working_tree_patch": true,
+  "source_hashes": {
+    "molsysmt/build/get_covalent_bond_candidates.py": "f76fd4ac3edae4485a7ba51b1723646f05cecb5339a2a334621639b230b16260",
+    "molsysmt/build/infer_covalent_bonds.py": "0da6f7364014ce15db5f702732f6ad265a850fbf2f5621b6cb38d46fccec934e",
+    "molsysmt/_private/hydrogen_covalent_candidates.py": "02f9cba89436ba6f010f2eec022dc53a563511f381c71924066b4c3734151d28",
+    "molsysmt/_private/hydrogen_name_aliases.py": "2388d3a7fcf10659eb81c99468649a012877d57675a45243ef25c95f3faaf434",
+    "molsysmt/_private/covalent_inference.py": "9fb6e0f9894cde319ed6b40a60365cefcb63cccf255826e959c0a42ff4b515ce",
+    "molsysmt/_private/argdigest/argument/method.py": "5ebc7bb9f99fbab781f978e855a336c6c0db7af531de792faa00b6db94725780",
+    "molsysmt/data/_make/make_pdb_hydrogen_aliases.py": "c3b3537ea9770c08428eed295603165bf4ab3c68d023937dfd1f95be74c1bb23",
+    "molsysmt/data/_make/pdb_names/pdbNames.xml": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969",
+    "molsysmt/data/databases/amino_acids/pdb_hydrogen_aliases.json": "d5914d2c35778e8b5300928a080fccc46e54414bfc9cc2ff89364cee1359b9a3",
+    "molsysmt/data/databases/amino_acids/OPENMM_LICENSE.txt": "514b148b05b4fb9b5979953802c97dbf3830219b17510b2857e452651bc44994",
+    "tests/build/test_hydrogen_name_alias_candidates.py": "2ea9bd1a36bc2d97ab4bb236c6f025517887820a11235fa63333c37ff10f5e44",
+    "tests/data/databases/test_pdb_hydrogen_aliases.py": "c38c84f036e043d521e7906768b763cd93be82c6c9aea85955534474b1338c09"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "checks": {
+    "baseline": {
+      "tests": "9",
+      "failures": "9",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.801",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-baseline.xml",
+      "junit_sha256": "8d48d08b7eff2d0eea80b238ffffd52e3fdd4a47441397e02dbfb645662e11e8"
+    },
+    "corrected": {
+      "tests": "88",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "7.151",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-corrected.xml",
+      "junit_sha256": "6ffc714955045cf9b6d237949f82fc59a68c259ed96cf567ce45134a437bdd0c"
+    },
+    "provenance": {
+      "tests": "15",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.986",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-provenance.xml",
+      "junit_sha256": "924f6580e498cdb479b275c0872531c561470fca6828f9b8c3f4787c6cfb03b1"
+    },
+    "final": {
+      "tests": "17",
+      "failures": "1",
+      "errors": "0",
+      "skipped": "0",
+      "time": "4.046",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-final.xml",
+      "junit_sha256": "49521c8507d273602068694db7a0c3bc39eecb0b7f0dda72919651507e167d17"
+    },
+    "affected": {
+      "tests": "98",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "9.238",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-affected.xml",
+      "junit_sha256": "c6134fd72dc08945d85f3ea6b1438cb2dbb8f38e702b71d187f866947ab28c99"
+    },
+    "full": {
+      "tests": "275",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "23.075",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-full.xml",
+      "junit_sha256": "12612af529a40dc862f925fc7d19522f7e43bb038d7a581d128c312f76f98f3c"
+    },
+    "floor": {
+      "tests": "18",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "4.277",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-floor.xml",
+      "junit_sha256": "79c65dc4081f11f1b82b6c86faa8a632e4b8778390791e116124aed2b70a9e65"
+    },
+    "docs": {
+      "tests": "1072",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "43.322",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-docs.xml",
+      "junit_sha256": "131089ca816073ef83791bbbde08a1c653a344a209623316106a9241451ba0f5"
+    },
+    "final-full": {
+      "tests": "276",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "18.820",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-final-full.xml",
+      "junit_sha256": "ca93b99e1a611428328a3925ad7c00008e2872872c61b33255c075c6527fd29a"
+    },
+    "final-floor": {
+      "tests": "18",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "6.090",
+      "junit_path": ".pytest_cache/304-hydrogen-alias-final-floor.xml",
+      "junit_sha256": "3acbf277602a87d05ec7d5e03a412ac2bc67768bee6bd3100927e9095fef0dae"
+    }
+  },
+  "four_provider_floor_origins": {
+    "argdigest": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "original_probe": {
+    "schema": "molsysmt.hydrogen_alias_original_probe@1",
+    "source_sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+    "n_atoms": 4412,
+    "exact_bonds": 4445,
+    "alias_bonds": 4470,
+    "added_pairs": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        272,
+        273
+      ],
+      [
+        344,
+        345
+      ],
+      [
+        350,
+        351
+      ],
+      [
+        1096,
+        1097
+      ],
+      [
+        1137,
+        1138
+      ],
+      [
+        1143,
+        1144
+      ],
+      [
+        1428,
+        1429
+      ],
+      [
+        1447,
+        1448
+      ],
+      [
+        1983,
+        1984
+      ],
+      [
+        2199,
+        2200
+      ],
+      [
+        2218,
+        2219
+      ],
+      [
+        2224,
+        2225
+      ],
+      [
+        2430,
+        2431
+      ],
+      [
+        2436,
+        2437
+      ],
+      [
+        2752,
+        2753
+      ],
+      [
+        2758,
+        2759
+      ],
+      [
+        2853,
+        2854
+      ],
+      [
+        3099,
+        3100
+      ],
+      [
+        3333,
+        3334
+      ],
+      [
+        3487,
+        3488
+      ],
+      [
+        4244,
+        4245
+      ],
+      [
+        4263,
+        4264
+      ],
+      [
+        4269,
+        4270
+      ]
+    ],
+    "lost_exact_pairs": [],
+    "name_policy": {
+      "name": "pdb_protein_hydrogen_aliases",
+      "rule_version": 1,
+      "reference": {
+        "commit": "ba0aa236ac4d07241382869604c4d2ea58c4f3f5",
+        "license": "MIT",
+        "license_file": "OPENMM_LICENSE.txt",
+        "sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969",
+        "title": "OpenMM PDB atom-name reference: canonical protein hydrogen aliases",
+        "url": "https://github.com/openmm/openmm/blob/ba0aa236ac4d07241382869604c4d2ea58c4f3f5/wrappers/python/openmm/app/data/pdbNames.xml",
+        "packaged_sha256": "d5914d2c35778e8b5300928a080fccc46e54414bfc9cc2ff89364cee1359b9a3"
+      },
+      "references": [
+        {
+          "id": "dataset:openmm-pdb-hydrogen-aliases:740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969",
+          "type": "dataset",
+          "title": "OpenMM PDB atom-name reference: canonical protein hydrogen aliases",
+          "url": "https://github.com/openmm/openmm/blob/ba0aa236ac4d07241382869604c4d2ea58c4f3f5/wrappers/python/openmm/app/data/pdbNames.xml",
+          "version": "ba0aa236ac4d07241382869604c4d2ea58c4f3f5",
+          "roles": [
+            "chemical_name_reference_data"
+          ]
+        }
+      ],
+      "group_scope": "twenty_canonical_amino_acid_labels",
+      "unassessed_checks": [
+        "joint_alias_role_assignment",
+        "stereochemical_hydrogen_identity",
+        "protonation"
+      ]
+    },
+    "openmm_import_blocked": true,
+    "source_names_and_coordinates_preserved": true
+  },
+  "course_executable_payload_preserved": true,
+  "notes": [
+    "New optional named methods, no signature/default/dependency/Rust/H5MSM schema change.",
+    "Final 276 source cases and 18 public four-provider-floor cases pass. Documentation selection passes 1072; selections overlap and legacy warnings remain visible. Floor uses current other dependencies and is not a clean installed matrix.",
+    "Baseline nine cases refuse the previously unsupported method names. A development-only warning-class import in the first optional-provider-failure guard was corrected; no product exception export was added.",
+    "Default exact results retain their previous report shape; alias-only reference arrays are not added to default history.",
+    "Template lookup now carries the already-declared group naming scheme into H-parent lookup. Group-name replacements from the source name table are not adopted.",
+    "Existing local-parent validity is preserved; alias-assisted role assignment, global H inventory, stereochemical identity, terminal state and protonation remain unassessed.",
+    "No full PR, public installed-package or release qualification is claimed. Other #304 terminal/group/disulfide/geometry and integration requirements remain pending."
+  ]
+}

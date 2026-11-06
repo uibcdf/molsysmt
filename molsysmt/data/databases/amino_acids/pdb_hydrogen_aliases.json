@@ -1,0 +1,249 @@
+{
+  "common": {
+    "1H": "H",
+    "2H": "H2",
+    "3H": "H3",
+    "H1": "H",
+    "HN": "H",
+    "HN1": "H",
+    "HN2": "H2",
+    "HN3": "H3",
+    "HT1": "H",
+    "HT2": "H2",
+    "HT3": "H3"
+  },
+  "groups": {
+    "ALA": {
+      "1HB": "HB1",
+      "2HB": "HB2",
+      "3HB": "HB3"
+    },
+    "ARG": {
+      "1HB": "HB3",
+      "1HD": "HD3",
+      "1HG": "HG3",
+      "1HH1": "HH11",
+      "1HH2": "HH21",
+      "2HB": "HB2",
+      "2HD": "HD2",
+      "2HG": "HG2",
+      "2HH1": "HH12",
+      "2HH2": "HH22",
+      "3HB": "HB3",
+      "3HD": "HD3",
+      "3HG": "HG3",
+      "HB1": "HB3",
+      "HD1": "HD3",
+      "HG1": "HG3",
+      "HN11": "HH11",
+      "HN12": "HH12",
+      "HN21": "HH21",
+      "HN22": "HH22"
+    },
+    "ASN": {
+      "1HB": "HB3",
+      "1HD2": "HD21",
+      "2HB": "HB2",
+      "2HD2": "HD22",
+      "3HB": "HB3",
+      "HB1": "HB3",
+      "HND1": "HD21",
+      "HND2": "HD22"
+    },
+    "ASP": {
+      "1HB": "HB3",
+      "2HB": "HB2",
+      "3HB": "HB3",
+      "HB1": "HB3"
+    },
+    "CYS": {
+      "1HB": "HB3",
+      "2HB": "HB2",
+      "3HB": "HB3",
+      "HB1": "HB3",
+      "HG1": "HG",
+      "HSG": "HG"
+    },
+    "GLN": {
+      "1HB": "HB3",
+      "1HE2": "HE21",
+      "1HG": "HG3",
+      "2HB": "HB2",
+      "2HE2": "HE22",
+      "2HG": "HG2",
+      "3HB": "HB3",
+      "3HG": "HG3",
+      "HB1": "HB3",
+      "HG1": "HG3",
+      "HNE1": "HE21",
+      "HNE2": "HE22"
+    },
+    "GLU": {
+      "1HB": "HB3",
+      "1HG": "HG3",
+      "2HB": "HB2",
+      "2HG": "HG2",
+      "3HB": "HB3",
+      "3HG": "HG3",
+      "HB1": "HB3",
+      "HG1": "HG3"
+    },
+    "GLY": {
+      "1HA": "HA3",
+      "2HA": "HA2",
+      "3HA": "HA3",
+      "HA1": "HA3"
+    },
+    "HIS": {
+      "1HB": "HB3",
+      "2HB": "HB2",
+      "3HB": "HB3",
+      "HB1": "HB3",
+      "HD": "HD2",
+      "HE": "HE1",
+      "HND": "HD1",
+      "HND1": "HD1",
+      "HNE": "HE2",
+      "HNE2": "HE2"
+    },
+    "ILE": {
+      "1HD1": "HD11",
+      "1HG1": "HG13",
+      "1HG2": "HG21",
+      "2HD1": "HD12",
+      "2HG1": "HG12",
+      "2HG2": "HG22",
+      "3HD1": "HD13",
+      "3HG1": "HG13",
+      "3HG2": "HG23",
+      "HD1": "HD11",
+      "HD2": "HD12",
+      "HD3": "HD13",
+      "HG11": "HG13"
+    },
+    "LEU": {
+      "1HB": "HB3",
+      "1HD1": "HD11",
+      "1HD2": "HD21",
+      "2HB": "HB2",
+      "2HD1": "HD12",
+      "2HD2": "HD22",
+      "3HB": "HB3",
+      "3HD1": "HD13",
+      "3HD2": "HD23",
+      "HB1": "HB3"
+    },
+    "LYS": {
+      "1HB": "HB3",
+      "1HD": "HD3",
+      "1HE": "HE3",
+      "1HG": "HG3",
+      "1HZ": "HZ1",
+      "2HB": "HB2",
+      "2HD": "HD2",
+      "2HE": "HE2",
+      "2HG": "HG2",
+      "2HZ": "HZ2",
+      "3HB": "HB3",
+      "3HD": "HD3",
+      "3HE": "HE3",
+      "3HG": "HG3",
+      "3HZ": "HZ3",
+      "HB1": "HB3",
+      "HD1": "HD3",
+      "HE1": "HE3",
+      "HG1": "HG3",
+      "HNZ1": "HZ1",
+      "HNZ2": "HZ2",
+      "HNZ3": "HZ3"
+    },
+    "MET": {
+      "1HB": "HB3",
+      "1HE": "HE1",
+      "1HG": "HG3",
+      "2HB": "HB2",
+      "2HE": "HE2",
+      "2HG": "HG2",
+      "3HB": "HB3",
+      "3HE": "HE3",
+      "3HG": "HG3",
+      "HB1": "HB3",
+      "HG1": "HG3"
+    },
+    "PHE": {
+      "1HB": "HB3",
+      "1HD": "HD1",
+      "1HE": "HE1",
+      "2HB": "HB2",
+      "2HD": "HD2",
+      "2HE": "HE2",
+      "3HB": "HB3",
+      "HB1": "HB3"
+    },
+    "PRO": {
+      "1HB": "HB3",
+      "1HD": "HD3",
+      "1HG": "HG3",
+      "2HB": "HB2",
+      "2HD": "HD2",
+      "2HG": "HG2",
+      "3HB": "HB3",
+      "3HD": "HD3",
+      "3HG": "HG3",
+      "HB1": "HB3",
+      "HD1": "HD3",
+      "HG1": "HG3",
+      "HT1": "H2",
+      "HT2": "H3"
+    },
+    "SER": {
+      "1HB": "HB3",
+      "2HB": "HB2",
+      "3HB": "HB3",
+      "HB1": "HB3",
+      "HG1": "HG",
+      "HOG": "HG"
+    },
+    "THR": {
+      "1HG": "HG1",
+      "1HG2": "HG21",
+      "2HG2": "HG22",
+      "3HG2": "HG23",
+      "HOG": "HG1",
+      "HOG1": "HG1"
+    },
+    "TRP": {
+      "1HB": "HB3",
+      "2HB": "HB2",
+      "3HB": "HB3",
+      "HB1": "HB3",
+      "HNE": "HE1"
+    },
+    "TYR": {
+      "1HB": "HB3",
+      "2HB": "HB2",
+      "3HB": "HB3",
+      "HB1": "HB3",
+      "HOH": "HH"
+    },
+    "VAL": {
+      "1HG1": "HG11",
+      "1HG2": "HG21",
+      "2HG1": "HG12",
+      "2HG2": "HG22",
+      "3HG1": "HG13",
+      "3HG2": "HG23"
+    }
+  },
+  "rule_version": 1,
+  "schema": "molsysmt.pdb_hydrogen_aliases@1",
+  "scope": "Twenty canonical amino-acid group labels only. No group-name substitutions, heavy-atom aliases, coordinate placement, protonation or stereochemical H identity.",
+  "source": {
+    "commit": "ba0aa236ac4d07241382869604c4d2ea58c4f3f5",
+    "license": "MIT",
+    "license_file": "OPENMM_LICENSE.txt",
+    "sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969",
+    "title": "OpenMM PDB atom-name reference: canonical protein hydrogen aliases",
+    "url": "https://github.com/openmm/openmm/blob/ba0aa236ac4d07241382869604c4d2ea58c4f3f5/wrappers/python/openmm/app/data/pdbNames.xml"
+  }
+}

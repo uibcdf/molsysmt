@@ -169,6 +169,25 @@ parents or conflicting stored H assignments are explicit, and local parent
 consensus does not imply a jointly compatible naming inventory. This is candidate
 connectivity, not H addition, protonation assignment or coordinate placement.
 
+If the source uses supported PDB H-name alternatives, select that interpretation
+explicitly instead of renaming its atoms:
+
+```python
+report = msm.build.get_covalent_bond_candidates(
+    molsys, structure_indices=0,
+    method='observed_hydrogen_alias_consensus')
+result = msm.build.infer_covalent_bonds(
+    molsys, structure_indices=0,
+    method='supported_group_templates_with_hydrogen_aliases', return_report=True)
+```
+
+The returned system is independent. Its H-parent evidence records literal and
+alternative reference names, dataset hashes and bibliography, with no OpenMM
+import. Only twenty canonical group labels have alias mappings; group-name
+interpretation still follows the source naming declarations. This does not
+assign stereochemical H identity, a complete H inventory or protonation. The
+default methods continue requiring exact H-name matches.
+
 Review inter-group peptide candidates separately with
 `msm.build.get_peptide_bond_candidates(molsys, structure_indices=0)`.
 The default report requires consecutive source group indices in one chain and

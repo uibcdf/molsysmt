@@ -258,7 +258,7 @@ sections:
           - name: get_covalent_bond_candidates
             file: docs/content/user/tools/build/get_covalent_bond_candidates.md
             agents_file: docs/content/user/tools/build/get_covalent_bond_candidates.md.AGENTS.md
-            description: Exact heavy-group or observed-H parent consensus candidates, source atom selections and explicit unresolved chemistry.
+            description: Exact heavy-group and observed-H parent candidates, opt-in pinned H-name alternatives, source selections and unresolved chemistry.
             status: reviewed
           - name: get_peptide_bond_candidates
             file: docs/content/user/tools/build/get_peptide_bond_candidates.md
@@ -268,7 +268,7 @@ sections:
           - name: infer_covalent_bonds
             file: docs/content/user/tools/build/infer_covalent_bonds.md
             agents_file: docs/content/user/tools/build/infer_covalent_bonds.md.AGENTS.md
-            description: Applying bounded native candidates with historical evidence, explicit reader engines and unresolved chemistry.
+            description: Applying bounded native candidates with optional H-name alternatives, historical evidence, explicit reader engines and unresolved chemistry.
             status: reviewed
       - name: topology
         path: docs/content/user/tools/topology
