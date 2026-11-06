@@ -1632,8 +1632,9 @@ on `dev/ordered-stabilization-304-20261106`. Manual full-source run
 [42205436569](https://github.com/uibcdf/molsysmt/actions/runs/42205436569),
 attempt 1, uses controlled MolSysViewer
 **42234de839ed047016f8f241ea5eb717cfeb07be**. The controlled wheel and all
-four Linux Python 3.11–3.14 jobs succeed. All four macOS jobs remain queued at
-this inspection; the complete gate is pending. Do not restart this active run
+four Linux Python 3.11–3.14 jobs and macOS Python 3.12/3.13 succeed. The two
+remaining macOS jobs are queued at this inspection; the complete gate is pending.
+Do not restart this active run
 merely because an observation times out. The separate #593 course correction
 is prepared on a descendant branch and is not silently included in these
 source results.
@@ -1642,9 +1643,9 @@ source results.
 
 The [partial receiving receipt](../../devtools/data/native_pdb_full_source_receiving_304_20261106.json)
 retains the native artifact metadata, exact run/head, SHA-256, size, scientific
-certificates and selected test-accounting facts. All nine received archives
+certificates and selected test-accounting facts. All thirteen received archives
 match their independently checked GitHub digest and size. Ephemeral download
-URLs and raw event logs are not committed. The four scientific certificates
+URLs and raw event logs are not committed. The six scientific certificates
 each qualify the expected 61 registry selectors, expanded to 83 actual cases,
 with no omissions or failures and clean tracked source. Their
 `release_eligible` field is a certificate predicate, not authorization to
@@ -1669,6 +1670,16 @@ ArgDigest 0.14.0, DepDigest 0.15.1, SMonitor 0.16.0 and Ackredit 0.9.0 payloads:
 **3 passed, no omissions**. Other optional full-suite omissions remain visible
 in the receipt. This does not establish installed-Ackredit receiving in every
 hosted cell or a clean installed MolSysMT/Viewer pair.
+
+The macOS Python 3.12 and 3.13 full artifacts independently pass the same
+archive, receptor-integrity and scientific-selector checks. Each records
+29,252 passing cases, 119 JUnit skips and 118 receptor item skips, including
+the same virtual collection-skipped module. The one extra platform omission is
+`tests/build/get_missing_bonds/test_get_missing_bonds.py::test_get_missing_bonds_molsysmt_MolSys_1`,
+explicitly restricted to Linux. All 83 scientific and 432 directed cases pass.
+Event-cache filenames include platform and Python minor, and original archive
+digests are rechecked before extraction; a cached Linux event log cannot stand
+in for a macOS result.
 
 The initial receiving comparison incorrectly required identical JUnit and
 executed-item totals, and then required zero skips even for the optional
@@ -1701,7 +1712,7 @@ universal valence, protonation, hydrogen placement or mechanics readiness.
 
 ### Still pending
 
-Finish the four macOS jobs, inspect their actual evidence, integrate the
+Finish the two queued macOS jobs, inspect their actual evidence, integrate the
 qualified owner source and perform documented closeout. The issue remains
 partial; the ordered fifteen-issue objective is unchanged. These receipts
 do not authorize tags, Releases, package promotion or a new source matrix.

@@ -471,8 +471,12 @@ def test_ready_native_projection_does_not_load_optional_chemical_engines():
     script = r"""
 import importlib.abc
 import importlib.machinery
+import importlib.util
 import sys
-from tests.build.test_merge_nonpolar_hydrogens import declared_methanol, merge
+fixture_spec = importlib.util.spec_from_file_location("projection_fixture", sys.argv[1])
+fixture_module = importlib.util.module_from_spec(fixture_spec)
+fixture_spec.loader.exec_module(fixture_module)
+declared_methanol, merge = fixture_module.declared_methanol, fixture_module.merge
 import molsysmt as msm
 roots = {"rdkit", "meeko", "openmm", "MDAnalysis", "mdtraj", "vina"}
 assert not roots.intersection(name.split(".")[0] for name in sys.modules)
@@ -499,6 +503,9 @@ assert not attempted, attempted
 assert not roots.intersection(name.split(".")[0] for name in sys.modules)
 """
     completed = subprocess.run(
-        [sys.executable, "-c", script], capture_output=True, text=True, timeout=60
+        [sys.executable, "-c", script, __file__],
+        capture_output=True,
+        text=True,
+        timeout=60,
     )
     assert completed.returncode == 0, completed.stdout + completed.stderr
