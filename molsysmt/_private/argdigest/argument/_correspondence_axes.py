@@ -18,6 +18,7 @@ CALLERS = {
     "molsysmt.native.pdbqt_file_handler.get_coordinates",
     "molsysmt.native.pdbqt_file_handler.PDBQTFileHandler.get_coordinates",
     "molsysmt.chemical_states.get_atom_correspondences.get_atom_correspondences",
+    "molsysmt.topology.get_atom_name_correspondence.get_atom_name_correspondence",
     "molsysmt.structure.get_symmetry_corrected_rmsd.get_symmetry_corrected_rmsd",
     "molsysmt.molecular_mechanics.get_forces.get_forces",
 }

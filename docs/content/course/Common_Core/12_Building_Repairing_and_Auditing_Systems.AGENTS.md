@@ -1,5 +1,9 @@
 # Module 12 Content Governance (`12_Building_Repairing_and_Auditing_Systems.AGENTS.md`)
 
+Preserve the executed offline CCD reference and unique-name correspondence
+example. Table projection remains explicitly unassessed, label matching is not
+chemical identity, and neither reference construction nor H counts supply a pose.
+
 This document defines the **non-negotiable content contract** for `12_Building_Repairing_and_Auditing_Systems.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
 

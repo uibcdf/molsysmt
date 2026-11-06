@@ -61,3 +61,29 @@ meaning. The manifest describes the exact committed artifact, not future bytes.
 This provider contract control is related to uibcdf/molsysmt#298 and the consumer
 request uibcdf/pharmacophoremt#22. It does not establish that the consumer's entire
 ERalpha workflow has passed.
+
+## Generic CCD factory inputs
+
+`MK1.cif` and `BTN.cif` are verbatim individual CCD responses captured on
+2026-11-06, not hand-authored native templates. `ccd_reference_inputs.json`
+records their source URLs, byte counts, exact hashes and CCD modification dates.
+Capture used the existing managed `download_with_retries` route, followed by
+byte-preserving copying after checksum verification. Future retrieval can change;
+these committed bytes define the offline controls.
+
+The generic #557 factory reads those definitions and the existing EST definition.
+MK1 has 45 non-H atoms and 47 H atoms; its canonical descriptor admits twelve
+graph correspondences that agree on transferred assignments. BTN has sixteen
+non-H atoms and sixteen H atoms. These cases supplement charged, symmetric,
+partial and malformed definitions; they do not bound the public API to two
+component identifiers or certify their bound protonation in 1HSG/1STP.
+
+`1hsg.cif.gz` and `1stp.cif.gz` retain the complete deposited entry responses.
+The same manifest records both original compressed and decompressed hashes,
+source URLs, selected group/atom indices and exact atom names. The offline
+application controls use the generic constructor and public exact-name map;
+they do not curate a separate native MK1/BTN template. Three structures are
+deliberately replicated from each deposited pose to test coordinate-axis
+preservation, not to claim an experimental ensemble. Native/H5MSM input,
+whole-system atom reordering, non-default units and conflicting assignments
+are exercised by `tests/physchem/test_ccd_template_application.py`.

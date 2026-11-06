@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 168 |
+| experimental | 171 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -25,6 +25,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.ArgumentConflictError` | stable | active | pre-1.0 |
 | `molsysmt.ArgumentError` | stable | active | pre-1.0 |
 | `molsysmt.ArgumentLengthError` | stable | active | pre-1.0 |
+| `molsysmt.ChemicalReferenceLookupError` | experimental | active | pre-1.0 |
 | `molsysmt.ChemicalStates` | experimental | active | 1.0.0 |
 | `molsysmt.ChemicalStatesDict` | experimental | active | 1.0.0 |
 | `molsysmt.ConversionIssue` | experimental | active | pre-1.0 |
@@ -241,6 +242,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.physchem.get_charge` | stable | active | pre-1.0 |
 | `molsysmt.physchem.get_charge_centers` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_chemical_readiness` | experimental | active | pre-1.0 |
+| `molsysmt.physchem.get_chemical_template` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_cip_stereochemistry` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_electronegativity` | experimental | active | pre-1.0 |
 | `molsysmt.physchem.get_halogen_bond_sites` | experimental | active | pre-1.0 |
@@ -268,6 +270,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
+| `molsysmt.topology.get_atom_name_correspondence` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_sequence_alignment` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_sequence_identity` | experimental | active | pre-1.0 |
 

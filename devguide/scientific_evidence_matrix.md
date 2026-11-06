@@ -163,6 +163,7 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.physchem.get_buried_fraction`
 - `molsysmt.physchem.get_charge_centers`
 - `molsysmt.physchem.get_chemical_readiness`
+- `molsysmt.physchem.get_chemical_template`
 - `molsysmt.physchem.get_cip_stereochemistry`
 - `molsysmt.physchem.get_electronegativity`
 - `molsysmt.physchem.get_halogen_bond_sites`
@@ -183,5 +184,6 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.structure.get_least_squares_plane`
 - `molsysmt.structure.get_symmetry_corrected_rmsd`
 - `molsysmt.structure.get_vectors`
+- `molsysmt.topology.get_atom_name_correspondence`
 - `molsysmt.topology.get_sequence_alignment`
 - `molsysmt.topology.get_sequence_identity`

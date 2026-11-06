@@ -21,6 +21,7 @@ API Physical and Chemical Properties
    get_charge
    get_charge_centers
    get_chemical_readiness
+   get_chemical_template
    get_electronegativity
    get_hydrogen_inventory
    get_halogen_bond_sites

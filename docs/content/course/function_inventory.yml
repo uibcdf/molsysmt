@@ -529,3 +529,17 @@ molsysmt.build.solve_atoms_with_alternate_location:
   first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
   summary: "Resolves recorded alternate sites after full selected-request preflight, preserving original records and coherent primary observations."
   doc_ref: "{func}`molsysmt.build.solve_atoms_with_alternate_location`"
+
+molsysmt.physchem.get_chemical_template:
+  name: "msm.physchem.get_chemical_template"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Constructs a coordinate-free reference from an explicitly selected CCD definition."
+  doc_ref: "{func}`molsysmt.physchem.get_chemical_template`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.physchem.get_chemical_template()**: Constructs a coordinate-free reference from an explicitly selected CCD definition.\n:::"
+
+molsysmt.topology.get_atom_name_correspondence:
+  name: "msm.topology.get_atom_name_correspondence"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Matches selected unique atom names and elements while retaining both source index axes."
+  doc_ref: "{func}`molsysmt.topology.get_atom_name_correspondence`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_atom_name_correspondence()**: Matches selected unique atom names and elements while retaining both source index axes.\n:::"

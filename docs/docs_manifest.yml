@@ -282,6 +282,11 @@ sections:
         index_agents_file: docs/content/user/tools/topology/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_atom_name_correspondence
+            file: docs/content/user/tools/topology/get_atom_name_correspondence.md
+            agents_file: docs/content/user/tools/topology/get_atom_name_correspondence.md.AGENTS.md
+            description: Exact selected unique-name and element correspondence with full source indices, without chemical identity inference.
+            status: reviewed
           - name: get_sequence_alignment
             file: docs/content/user/tools/topology/get_sequence_alignment.ipynb
             agents_file: docs/content/user/tools/topology/get_sequence_alignment.ipynb.AGENTS.md
@@ -454,7 +459,7 @@ sections:
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
-            description: Explicit template and stereo-declaration transfer, mapped polymer context, scoped bond completion and retained preparation evidence.
+            description: Explicit CCD source acquisition and reference interpretation, exact label correspondence, template transfer, mapped context and retained preparation evidence.
             status: reviewed
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md
@@ -757,7 +762,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit PDB connectivity and typed declarations, naming-scoped cap inference, template transfer, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells.
+        description: Explicit PDB connectivity, CCD reference construction and mapped application, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells.
         status: reviewed
       - name: permuting_export_order
         file: docs/content/user/cookbook/permuting_export_order.md

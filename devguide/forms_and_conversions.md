@@ -582,6 +582,56 @@ and fixed-state H placement are separate implemented tools; neither runs implici
 during template application. Broader chemistry and environment-dependent refinement
 remain outside the frozen profile.
 
+### Explicit CCD references and stable label correspondence
+
+`physchem.get_chemical_template` constructs a coordinate-free native reference
+from caller CCD bytes, a selected local file/catalogue/cache directory, or explicit
+individual `source='rcsb'` acquisition. An offline miss never becomes a network
+request. The streaming selector retains the selected decompressed block and
+hashes the complete original resource. It respects CIF text fields, compression,
+duplicate blocks and source replacement. Physical-line and retained-definition
+buffers have separate estimated quarter-memory budgets; these do not bound the
+parser, native object or process RSS.
+
+The named `ccd_tables` projection requires no RDKit and retains unknown radical,
+conjugation and interpretation scope. The default `ccd_canonical_descriptor`
+selects an exact descriptor program, uses optional RDKit and reuses accurate CIP
+primitives. Assignment requires graph/charge/aromatic/H compatibility and agreement
+across every admissible mapping. Missing descriptors, incomplete declarations,
+unsupported models and conflicts remain explicit. Truncated enumeration cannot
+certify consensus. Aromatic triples/quadruples are outside this interpretation
+profile, without a general claim that the source chemistry is impossible.
+CCD case-insensitive order/aromatic/stereo codes are normalized according to the
+dictionary; original source bytes retain the exact declarations.
+
+Ordinary indexed H can be projected to stored heavy-atom counts, retaining both
+atom/bond source maps. Lossy isotopic, charged, unknown-charge, isolated or
+multiply linked H projections are refused; explicit atoms remain available.
+Formal charges use the existing integer elementary-charge schema. The result
+retains exact source bytes, revision/digests, descriptor choices/disagreements,
+producer software and detached bibliography in the existing ChemicalStates
+preparation-history envelope. H5MSM/typed dictionaries preserve original operation
+axes; historical maps do not certify current indices after editing/extraction.
+No ideal/model coordinates, protonation prediction or observed-system edits enter
+construction. Optional attribution credits only executed software and consulted
+definitions; descriptor program metadata is not runtime software credit.
+
+`topology.get_atom_name_correspondence` reads stable names/elements through public
+form-agnostic queries. It requires exact unique names and compatible elements in
+explicit scopes, returning query/reference full source-index pairs. Repeated or
+invalid indices and absent/ambiguous/incompatible names are refused; empty pairs
+retain shape `(0, 2)` and int64 dtype. This is a label map, not graph matching or
+chemical identity. Template application still performs its complete chemical
+assessment. No chemical-state or coordinate context is required for this stable
+inventory operation.
+
+Both surfaces remain experimental. Their source contracts and deposited MK1/BTN
+application controls do not establish bound-state correctness, docking acceptance,
+an installed consumer pair or a new addon facade. See the
+[reference tutorial](../docs/content/user/tools/physchem/chemical_templates.md),
+[label contract](../docs/content/user/tools/topology/get_atom_name_correspondence.md)
+and `tests/physchem/test_ccd_template_application.py`.
+
 ### Hierarchy selection delivery
 
 After resolving atom selections, `basic.select` projects group/component/chain/

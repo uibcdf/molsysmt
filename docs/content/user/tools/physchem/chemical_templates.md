@@ -20,8 +20,88 @@ dependency requirements.
 - {func}`molsysmt.physchem.assess_chemical_template`
 - {func}`molsysmt.physchem.apply_chemical_template`
 - {func}`molsysmt.physchem.get_peptide_chemical_template`
+- {func}`molsysmt.physchem.get_chemical_template`
 - {func}`molsysmt.physchem.normalize_aromatic_bond_orders`
 :::
+
+(Tutorial_Get_Chemical_Template)=
+## Constructing a CCD reference
+
+Use `msm.physchem.get_chemical_template()` to construct a coordinate-free native
+reference from a CCD component definition. Choose the source explicitly:
+
+```python
+from pathlib import Path
+import molsysmt as msm
+
+# Read your previously acquired component file; this operation stays offline.
+definition = msm.physchem.get_chemical_template('BTN', source=Path('BTN.cif'))
+template = definition['template']
+assert template.structures is None
+```
+
+An explicit `source='rcsb'` downloads that individual component. Other sources
+are exact caller bytes, a local component CIF, a local CCD catalogue, or a
+directory containing a matching component file. Gzip input is supported. A local
+miss, invalid input or ambiguous match never triggers online fallback. This
+factory reads CCD definitions; it is not a general chemical database resolver.
+
+| Method | Interpretation and requirements |
+| :--- | :--- |
+| `ccd_canonical_descriptor` | Default. Uses optional RDKit to validate graph, charges, aromatic declarations and H inventory against the chosen `SMILES_CANONICAL` descriptor. Transfers assignments only when all admissible graph maps agree. |
+| `ccd_tables` | Projects declared tables without RDKit. Radical counts and conjugation remain unknown; CCD stereo flags are retained without independent interpretation. The result remains `unassessed`. |
+
+`descriptor_program='CACTVS'` selects that exact descriptor source. It does not
+run CACTVS or choose another available program when its row is missing or
+ambiguous. The result retains descriptor text, program/version and original CCD
+flags. Canonical interpretation reuses RDKit's accurate CIP implementation,
+attributed to [Hanson et al. (2018)](https://doi.org/10.1021/acs.jcim.8b00324);
+conflicting CCD stereo flags remain
+explicit disagreements. Unknown potential stereocenters stay unknown. It does
+not copy every `N` flag into an achiral assignment.
+
+With `hydrogen_policy='stored_counts'`, ordinary indexed CCD H atoms become
+heavy-atom H counts. Isotopic, charged, unknown-charge, isolated or multiply linked
+H cannot be collapsed without loss and cause an error; request `explicit_atoms`
+to retain their source axis. Neither policy generates H coordinates. Charges
+remain integer multiples of the elementary charge; bond orders are dimensionless.
+
+Inspect `definition['report']['status']`, `issues` and `descriptor` before
+application. Missing or unsupported declarations remain unknown. Contradictory
+aromatic declarations or a component charge inconsistent with its atom sum are
+reported as conflicts. A descriptor match never certifies a truncated search:
+exceeding `max_matches` or the candidate memory budget raises explicitly.
+
+The report contains original atom IDs and row indices, original bond-row maps,
+both directions of the H projection, source revision, software versions and
+exact component bytes encoded as base64. `resource_sha256` hashes the complete
+original resource, including gzip encoding; `definition_sha256` hashes the
+selected decompressed definition. These hashes identify different byte sets.
+Local catalogue scanning bounds physical-line and retained-definition buffers
+against a quarter of `msm.configure.max_ram_usage` each. These are estimated input
+budgets, not a promise about total process RSS or parser/object allocations.
+
+The template's `ChemicalStates` history archives the construction report. H5MSM
+0.5 and `ChemicalStatesDict` retain its original maps and producer versions.
+Returned provenance and reports are independent copies. Reading them later does
+not rerun the calculation or credit the reader's software as the original
+producer. Optional Ackredit credits executed software, consulted definitions and
+the [CCD reference](https://doi.org/10.1093/bioinformatics/btu789); descriptor
+program metadata is provenance, not executed-software credit. Caller-supplied
+definitions are declarations, not authenticated wwPDB records.
+
+:::{warning}
+A CCD component is a chosen reference state. It does not establish the bound
+ligand's protonation, tautomer, experimental pH or force-field coverage. CCD
+ideal/model coordinates are never substituted for the observed pose. Constructing
+a reference does not modify the observed system or make it ready for docking.
+:::
+
+Use the separate {ref}`exact-name correspondence tool
+<Tutorial_Get_Atom_Name_Correspondence>` when a selected observed component and
+the template share unique atom labels. The existing assessment below must still
+validate their chemistry and graph. See the
+{ref}`CCD application recipe <cookbook-ccd-reference-template>`.
 
 ## Transferring stereo declarations
 

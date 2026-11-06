@@ -2643,6 +2643,30 @@
       "owner": "build",
       "documentation": "docs/content/user/tools/build/assess_protonation.ipynb",
       "contract_tests": "tests/build/test_protonation_assessment.py"
+    },
+    "molsysmt.physchem.get_chemical_template": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "physchem",
+      "documentation": "docs/content/user/tools/physchem/chemical_templates.md",
+      "contract_tests": "tests/physchem/test_get_chemical_template.py"
+    },
+    "molsysmt.topology.get_atom_name_correspondence": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "topology",
+      "documentation": "docs/content/user/tools/topology/get_atom_name_correspondence.md",
+      "contract_tests": "tests/topology/test_get_atom_name_correspondence.py"
+    },
+    "molsysmt.ChemicalReferenceLookupError": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "root",
+      "documentation": "docs/content/user/tools/physchem/chemical_templates.md",
+      "contract_tests": "tests/physchem/test_get_chemical_template.py"
     }
   },
   "pre_1_0_namespace_moves": {

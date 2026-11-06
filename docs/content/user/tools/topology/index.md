@@ -1,6 +1,6 @@
 # Topology
 
-`molsysmt.topology` provides sequence comparison over stable represented groups.
+`molsysmt.topology` provides stable-inventory correspondence and sequence comparison.
 Native `Topology` owns atoms, groups, molecules, entities and chains. It has no
 bonds, components or chemical-state facade, even while attached to MolSys.
 
@@ -12,6 +12,7 @@ for independent chemical storage.
 
 | Tool | Purpose |
 | :--- | :--- |
+| {ref}`Match atom names <Tutorial_Get_Atom_Name_Correspondence>` | Matching selected unique atom labels and elements while retaining source indices. |
 | [Get sequence alignment](get_sequence_alignment.ipynb) | Aligning represented amino-acid sequences while retaining source group indices. |
 | [Get sequence identity](get_sequence_identity.ipynb) | Computing identity between aligned sequences. |
 
@@ -21,4 +22,5 @@ for independent chemical storage.
 
 get_sequence_alignment
 get_sequence_identity
+get_atom_name_correspondence
 ```

@@ -27,6 +27,47 @@ other atoms remain unmatched. The resulting graph remains partial. This is a
 reading policy, not template application, protonation or chemical preparation;
 keep the subsequent template/state decisions explicit.
 
+(cookbook-ccd-reference-template)=
+## Choosing a CCD reference
+
+The generic {ref}`CCD factory <Tutorial_Get_Chemical_Template>` supplies a
+coordinate-free template without a consumer-side parser or chemistry-transfer
+loop. The following pattern uses previously acquired local files; you must
+select the actual component and review the reference state for your experiment.
+
+```python
+import molsysmt as msm
+
+molsys = msm.convert('complex.cif', to_form='molsysmt.MolSys',
+                     get_missing_bonds=False)
+selected = msm.select(molsys, selection='group_name == "BTN"')
+definition = msm.physchem.get_chemical_template('BTN', source='BTN.cif')
+correspondence = msm.topology.get_atom_name_correspondence(
+    definition['template'], reference_molecular_system=molsys,
+    reference_selection=selected)
+assessment = msm.physchem.assess_chemical_template(
+    molsys, selection=selected, template=definition['template'],
+    atom_correspondence=correspondence,
+    template_provenance=definition['template_provenance'])
+```
+
+Check the construction report and `assessment['status']` before calling
+`apply_chemical_template()` with these same arguments. The name correspondence
+uses full input indices, with template indices first; it is not proof of chemical
+identity. Repeated component labels need an explicitly narrower selection.
+Conflicting source charges, different graphs or incomplete reference declarations
+must not be overwritten to make the assessment pass. The default
+`require_same_graph` remains active; graph completion is a separate explicit choice.
+
+Offline regression controls apply the generic factory to deposited 1HSG/MK1 and
+1STP/BTN, including selected full-system indices, atom reordering, three retained
+structures, non-default units, refusals and H5MSM round trips. The fixtures contain
+45 and 16 selected heavy atoms respectively. They establish reference transfer
+and pose preservation, not their bound protonation or docking readiness.
+Full indexed H requires a matching full-H observed inventory; the default
+stored-count projection fits these heavy-only references and supplies no donor-H
+geometry. The EST control below retains its independent stereochemical checks.
+
 ## Preparing correspondence context
 
 When consulting a saccharide, small-molecule or cap bond-name template, pass a

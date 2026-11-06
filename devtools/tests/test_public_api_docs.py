@@ -209,6 +209,22 @@ def test_directed_vector_docstring_renders_without_rst_errors(tmp_path):
     )
 
 
+@pytest.mark.parametrize(
+    "function_name,tutorial_label",
+    [
+        ("molsysmt.physchem.get_chemical_template", "Tutorial_Get_Chemical_Template"),
+        (
+            "molsysmt.topology.get_atom_name_correspondence",
+            "Tutorial_Get_Atom_Name_Correspondence",
+        ),
+    ],
+)
+def test_chemical_reference_boundary_docstrings_render_without_rst_errors(
+    tmp_path, function_name, tutorial_label
+):
+    _render_api_docstring(tmp_path, function_name, tutorial_label)
+
+
 def test_hbond_site_direction_docstring_renders_without_rst_errors(tmp_path):
     _render_api_docstring(
         tmp_path,

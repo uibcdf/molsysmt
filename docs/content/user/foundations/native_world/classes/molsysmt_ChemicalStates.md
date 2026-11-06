@@ -55,6 +55,14 @@ add a cap or certify a terminal/protonation state. See
 
 ## State Availability
 
+An explicit CCD reference can be constructed without coordinates through
+{func}`molsysmt.physchem.get_chemical_template`. Its chemical assignments and
+historical construction report belong to ChemicalStates; names and original
+element inventory belong to Topology. Neither CCD model coordinates nor a
+reference's chemical state replace an observed pose or determine its bound
+protonation. Inspect missing/conflicting declarations and validate an explicit
+correspondence before application. See {ref}`Tutorial_Get_Chemical_Template`.
+
 A new collection contains zero states. `append_state()` explicitly creates an
 unknown state; an empty bond table does not establish that no bonds exist.
 No editing method creates a state implicitly. A single state resolves as the
