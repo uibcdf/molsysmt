@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (37)
+### Open (36)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -57,7 +57,6 @@ Entries carrying front matter under
 - [`h5msm_0_6_molecular_mechanics_persistence.md`](h5msm_0_6_molecular_mechanics_persistence.md) — [#256](https://github.com/uibcdf/molsysmt/issues/256) — Design H5MSM 0.6 persistence for MolecularMechanics *(inspected)*
 - [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
 - [`molecular_identity_and_scaffold_overlap_annotations.md`](molecular_identity_and_scaffold_overlap_annotations.md) — [#447](https://github.com/uibcdf/molsysmt/issues/447) — Provide reusable molecular identity and scaffold overlap annotations for leakage audits. *(measured)*
-- [`native_molsys_force_reader_for_bound_consumers.md`](native_molsys_force_reader_for_bound_consumers.md) — [#572](https://github.com/uibcdf/molsysmt/issues/572) — Support native MolSys input in get_forces for primary-bound consumers. *(reproduced)*
 - [`paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md) — [#191](https://github.com/uibcdf/molsysmt/issues/191) — paper/main.tex is an unfilled template and the manuscript argument is unrecorded. *(inspected)*
 - [`post_1_0_chemically_specific_metal_coordination.md`](post_1_0_chemically_specific_metal_coordination.md) — [#337](https://github.com/uibcdf/molsysmt/issues/337) — Post-1.0 chemically specific metal coordination *(inspected)*
 - [`post_1_0_individual_interaction_editing.md`](post_1_0_individual_interaction_editing.md) — [#335](https://github.com/uibcdf/molsysmt/issues/335) — Post-1.0 individual interaction editing *(inspected)*
@@ -89,7 +88,7 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (18)
+### Partially resolved (19)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
@@ -102,6 +101,7 @@ Entries carrying front matter under
 - [`fixed_state_hbond_site_directions.md`](fixed_state_hbond_site_directions.md) — [#375](https://github.com/uibcdf/molsysmt/issues/375) — Expose reusable fixed-state hydrogen-bond site directions through public geometry tools. *(measured)*
 - [`local_molecule_names_and_external_enrichment.md`](local_molecule_names_and_external_enrichment.md) — [#25](https://github.com/uibcdf/molsysmt/issues/25) — Separate supported local molecule labels from future database enrichment. *(inspected)*
 - [`molsysviewer_tools_addon.md`](molsysviewer_tools_addon.md) — [#421](https://github.com/uibcdf/molsysmt/issues/421) — Implement a bound MolSysMT tools addon with a scientific API mirror. *(inspected)*
+- [`native_molsys_force_reader_for_bound_consumers.md`](native_molsys_force_reader_for_bound_consumers.md) — [#572](https://github.com/uibcdf/molsysmt/issues/572) — Support native MolSys input in get_forces for primary-bound consumers. *(measured)*
 - [`native_pdb_bond_inference_with_explicit_policy.md`](native_pdb_bond_inference_with_explicit_policy.md) — [#304](https://github.com/uibcdf/molsysmt/issues/304) — Add native PDB bond inference with explicit policy while retaining OpenMM *(measured)*
 - [`native_query_shortcuts.md`](native_query_shortcuts.md) — [#128](https://github.com/uibcdf/molsysmt/issues/128) — Native objects query their domains without universal form dispatch *(measured)*
 - [`organize_interaction_detection_by_family_before_1_0.md`](organize_interaction_detection_by_family_before_1_0.md) — [#250](https://github.com/uibcdf/molsysmt/issues/250) — Organize interaction detection by family before 1.0 *(measured)*

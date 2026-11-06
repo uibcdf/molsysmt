@@ -104,7 +104,7 @@ sections:
             file: docs/content/user/foundations/support/forms/files.md
             agents_file: docs/content/user/foundations/support/forms/files.md.AGENTS.md
           - name: molecular_mechanics
-            description: Engine-neutral physical models, effective OBC recipes and separate platform-name, registration, dependency and device-initialization contracts.
+            description: Engine-neutral models, OBC recipes, platform/dependency distinctions and complete-environment atomic potential forces with explicit units and ownership.
             file: docs/content/user/foundations/support/molecular_mechanics.md
             agents_file: docs/content/user/foundations/support/molecular_mechanics.md.AGENTS.md
       - name: ecosystem
@@ -548,6 +548,10 @@ sections:
             description: Total/decomposed model energies with engine-owned platform names and construction-only platform selection.
             file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb.AGENTS.md
+          - name: get_forces
+            description: Complete-model native and engine forces, legacy versus explicit structure axes, selected atom order, physical units, periodic boxes, bounded H5MSM reading, ownership and model limits.
+            file: docs/content/user/tools/molecular_mechanics/get_forces.ipynb
+            agents_file: docs/content/user/tools/molecular_mechanics/get_forces.ipynb.AGENTS.md
           - name: get_non_bonded_potential_energy
             description: Nonbonded atom-set and partitioned energy shapes, typed empty entries, input preservation, unit policy and scientific model limits with engine-owned platforms.
             file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb
@@ -776,6 +780,7 @@ sections:
         file: docs/content/user/cookbook/spectacular_visualizations.ipynb
         agents_file: docs/content/user/cookbook/spectacular_visualizations.ipynb.AGENTS.md
       - name: simulation_workflow
+        description: OpenMM setup and dynamics, native minimization ownership, and complete-model atomic force reading with explicit structure and unit contracts.
         file: docs/content/user/cookbook/simulation_workflow.ipynb
         agents_file: docs/content/user/cookbook/simulation_workflow.ipynb.AGENTS.md
       - name: big_data_trajectories

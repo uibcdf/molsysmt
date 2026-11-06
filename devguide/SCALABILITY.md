@@ -95,6 +95,26 @@ This source capability alone does not establish bounded memory for an entire
 public operation. Other public preflight calls can still materialize a 0.5
 file, and sparse/dense output storage needs its own budget.
 
+### Force evaluation working estimates
+
+`molecular_mechanics.get_forces` constructs one complete model context, filters
+atoms after evaluation and streams supported coordinate sources through
+`ChunkedExecutor`. A path to H5MSM 0.5 projects declared chemistry and one model
+structure before coordinate iteration; it does not load named analyses or the
+complete coordinate series. Multiple/competing structural sources require
+explicit alignment first. Native structures must share the reference chemical
+state. Other unsupported streaming compositions require a bounded eager read
+or fail explicitly.
+
+For `N` source atoms and `S` selected atoms, the numerical estimate reserves
+`256*N + 64*S + 4096` bytes per structure, plus 16 bytes per output scalar
+for the resident float64 result and its unit-presentation buffer. The block size
+is bounded by both this remainder and `configure.chunk_size`; preflight rejects
+an output that cannot fit with one work block before constructing a context.
+This is not a process-RSS or engine-allocation bound: the model, chemistry,
+engine buffers and caller-owned storage have additional costs. There is no
+checkpoint/resume, output streaming or disk-backed force-result contract.
+
 ### Plane fitting working estimates
 
 `structure.get_least_squares_plane` projects the union of complete selected groups and fills

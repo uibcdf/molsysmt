@@ -115,3 +115,15 @@ explicit output form or composite input does not bypass that check. A captured
 State contains selected observations, not the complete runtime/model. Deliberate
 engine in-place work retains the original model/platform and its distinct
 mutation semantics.
+
+Atomic potential forces are the negative spatial gradient of the declared
+potential, normally expressed in kJ/(mol*nm). Selecting atoms filters the force
+result while retaining the complete physical environment. These forces exclude
+constraint reactions and do not imply that coordinates were minimized or
+integrated. A model request stored in the native domain is not a parameterized
+engine model: appropriate chemistry and supported construction settings are
+still required. Different chemical states need an explicitly compatible model.
+Periodic forces use each structure's row-vector box and the potential's chosen
+nonbonded method. Coordinate blocks can be bounded while the full force result
+remains resident; engine memory is a separate cost. See the
+{ref}`force tutorial <Tutorial_Get_forces>` for supported forms and output axes.

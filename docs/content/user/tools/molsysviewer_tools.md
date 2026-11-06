@@ -1346,10 +1346,13 @@ outputs directly. Reads include completed pending edits without scene projection
 or history changes. Cross axes must be disjoint; repeated/shared members within
 one partition axis retain the native contract.
 
-`get_forces` is still unexposed: its native MolSys input route is requested in
-[#572](https://github.com/uibcdf/molsysmt/issues/572). An OpenMM-only reader does
-not yet supply forces for the current `view.molsys`; the addon adds no implicit
-engine conversion or placeholder method.
+`get_forces` is still unexposed in the addon. The scientific provider's native
+MolSys route is implemented under
+[#572](https://github.com/uibcdf/molsysmt/issues/572), with complete-model atom
+filtering, explicit structure axes and physical units. Its source receiving
+does not qualify addon exposure or installed delivery. The addon adds no
+consumer-side parameterization or placeholder method. See the
+{ref}`native force tutorial <Tutorial_Get_forces>` for the provider contract.
 
 ### Relaxing coordinates
 

@@ -1,0 +1,233 @@
+{
+  "schema": "molsysmt.native_force_reader_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#572",
+  "recorded_at_utc": "2026-11-06T13:48:18.633079+00:00",
+  "source_basis": "4bc7e53494c5ae1f575533cd4a56dd6198fb6fd3",
+  "source_basis_is_final_candidate": false,
+  "prepared_branch": "dev/ordered-stabilization-572-20261106",
+  "source_file_sha256": {
+    "molsysmt/molecular_mechanics/get_forces.py": "8345af2013727be5211dd933bc62466ab5f8ddca8757c866b4e96d37057e2e4a",
+    "molsysmt/_private/molecular_forces.py": "326428a4001aab16634200892f61c5e0ef86c1b329005feff1ee1718a5329845",
+    "molsysmt/_private/argdigest/argument/selection.py": "9a9f1c9d04e0cade7b6ef78fe2ae67ca50e9dd26bb7c445f5bbbb10ddd3e3020",
+    "molsysmt/_private/argdigest/argument/_correspondence_axes.py": "ab8e39b35198d960eebd8beab073c4bd8a482fef260a1bfde291526051cc4c30",
+    "molsysmt/_private/scientific_attribution.py": "6eb4156ea573036c18d3240657ea48977d69e1f862c7a0390af1f41aa2ac2fb0",
+    "molsysmt/form/openmm_Topology/to_openmm_System.py": "89d4d235ccb089bd3e34448bbb02248f9c61c0688562510cacdceadabb2656fa",
+    "tests/molecular_mechanics/get_forces/test_native_contract.py": "3fbf36dba68cc7ac094324426678b98a4d9217752f3b7e570ce3eeb32c1c05d8",
+    "tests/form/openmm_Topology/test_nonbonded_options.py": "7785d4774742e1aa1c5e756fb4aacfcc1ac0016f0b4f2b97e72a531c103e8450",
+    "tests/scientific_truth/molecular_mechanics/test_forces.py": "de3b726235bd0b371f6ba137ac1b29dbd52fa126948e7873523a172333f63e9f"
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "providers": {
+      "argdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../argdigest/argdigest/__init__.py",
+        "module_file_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee",
+        "reported_module_version": "0.16.0+1.g6dabaf7",
+        "distribution_metadata_version": "0.16.0+1.g6dabaf7",
+        "source_commit": "07126411f108ee1ff607e9c9a0816109b2c9253e",
+        "tracked_source_dirty": false
+      },
+      "depdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../depdigest/depdigest/__init__.py",
+        "module_file_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "reported_module_version": "0.15.1+3.ga27172b",
+        "distribution_metadata_version": "0.15.1+3.ga27172b",
+        "source_commit": "032d345becf8f8f574c24ede61ee62fcf0321de7",
+        "tracked_source_dirty": false
+      },
+      "smonitor": {
+        "module_origin_relative_to_receiving_worktree": "../../../../smonitor/smonitor/__init__.py",
+        "module_file_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+        "reported_module_version": "0.22.0+15.g5ee88c1",
+        "distribution_metadata_version": "0.21.0+1.gd6b2394",
+        "source_commit": "c1b6ce29c3729b99429b395a00c7866a759be406",
+        "tracked_source_dirty": false
+      },
+      "ackredit": {
+        "module_origin_relative_to_receiving_worktree": "../../../../ackredit/ackredit/__init__.py",
+        "module_file_sha256": "43264d45f63ed941ac032aed67c882543a952bc6f58a3555e1a100a5d7b13533",
+        "reported_module_version": "0.12.1+2.ge233973",
+        "distribution_metadata_version": "0.12.1+2.ge233973",
+        "source_commit": "e2339732d6f056ae1f038e9c3491d0c5cb2f8bf7",
+        "tracked_source_dirty": false
+      },
+      "pyunitwizard": {
+        "module_origin_relative_to_receiving_worktree": "../../../../pyunitwizard/pyunitwizard/__init__.py",
+        "module_file_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+        "reported_module_version": "0.29.1+6.gf82b618",
+        "distribution_metadata_version": "0.29.1+6.gf82b618",
+        "source_commit": "f82b618ea88c151a9b43009228126b1cf7fda65c",
+        "tracked_source_dirty": false
+      },
+      "openmm": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/openmm/__init__.py",
+        "module_file_sha256": "c513bcdf3407fb0efdffc8f2f4e61d4de40b0a6612c3017af948e0245bf319ab",
+        "reported_module_version": "8.6.1",
+        "distribution_metadata_version": "8.6.1"
+      },
+      "numpy": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/numpy/__init__.py",
+        "module_file_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a",
+        "reported_module_version": "2.4.6",
+        "distribution_metadata_version": "2.4.6"
+      },
+      "pytest_receptor": {
+        "module_origin_relative_to_receiving_worktree": "../../stabilization-551/tooling/published/pytest_receptor/__init__.py",
+        "module_file_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b",
+        "reported_module_version": "1.2.1",
+        "distribution_metadata_version": "1.2.1",
+        "provenance": "Existing published 1.2.1 payload in the consumer cache; the containing MolSysMT checkout is not a Pytest Receptor source repository."
+      }
+    },
+    "version_identity_note": "Distribution metadata can describe an older editable build. Module origins, actual source commits and file digests identify this receiving; it is not clean installed-artifact qualification."
+  },
+  "tests": {
+    "final_broad": {
+      "junit": ".pytest_cache/572-forces-broad-final.xml",
+      "junit_sha256": "0459901b6ea9e3716c1f9c9e4f22ff5fc09135cf2b962edfe9903e00524cc47a",
+      "tests": 2005,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 60.169
+    },
+    "final_published_floor": {
+      "junit": ".pytest_cache/572-forces-public-floors-final.xml",
+      "junit_sha256": "b515a319890296ed477841b8a0705d07f4972880314789315cc76ab09b0bcf42",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 9.046
+    },
+    "documentation_and_doctest": {
+      "junit": ".pytest_cache/572-forces-docs.xml",
+      "junit_sha256": "659bad42337f312556396757a724e828102d6ce01cef7a00673b7945fa5bbed4",
+      "tests": 583,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 30.653
+    }
+  },
+  "published_floor_profile": {
+    "argdigest": "0.14.0 py_0",
+    "depdigest": "0.15.1 py_0",
+    "smonitor": "0.16.0 py_1",
+    "ackredit": "0.9.0 py_0",
+    "source": "Existing unmodified public Conda payloads prepended to PYTHONPATH; no installation or new environment. The development SMonitor pytest plugin was disabled; runtime diagnostics remained enabled.",
+    "installed_release_qualification": false,
+    "verified_origins": {
+      "argdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+        "module_file_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+        "distribution_version": "0.14.0"
+      },
+      "depdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+        "module_file_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "distribution_version": "0.15.1"
+      },
+      "smonitor": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+        "module_file_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3",
+        "distribution_version": "0.16.0"
+      },
+      "ackredit": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+        "module_file_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42",
+        "distribution_version": "0.9.0"
+      }
+    }
+  },
+  "documentation": {
+    "tutorial": "docs/content/user/tools/molecular_mechanics/get_forces.ipynb",
+    "code_cells": 9,
+    "executed_code_cells": 9,
+    "plot_png_present": true,
+    "code_fingerprint": "7d61ac1ef8d3d2603ae474ba120866fca6102e3390cd24df0b720632b0ef7ae3",
+    "last_notebook_execution_seconds": 9.3,
+    "course_original_code_outputs_and_metadata_preserved": true,
+    "course_code_cells_preserved": 5,
+    "static_view_regenerated": false,
+    "scope_note": "Tutorial execution and stored presentation outputs, not exact-release scientific certification."
+  },
+  "numerical_evidence": {
+    "harmonic_force": "Literal +/-10 kJ/(mol nm) derivative, atom filtering/order and magnitudes; independently built two-particle model.",
+    "native_force_gradient": "Independently constructed Amber14/TIP3P model; central energy difference at delta=1e-6 nm, atol=2e-4 and rtol=1e-6.",
+    "periodic": "Changing orthogonal/reduced triclinic row boxes; compare to an independent context initialized with the same first requested box. Separate supplied-System default-box harmonic control.",
+    "additional_scientific_truth_cases": 4,
+    "registered_release_certificate_changed": false,
+    "scientific_api_classification_changed": false
+  },
+  "initial_failure_evidence": {
+    "old_public_force_contract": {
+      "junit": ".pytest_cache/572-forces-baseline.xml",
+      "junit_sha256": "99089e48d990d19e38177e13318924512ea91fcd495747784c7d66e860f4d1c1",
+      "tests": 31,
+      "failures": 25,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.573
+    },
+    "nonbonded_option_probe": {
+      "junit": ".pytest_cache/572-nonbonded-options-baseline.xml",
+      "junit_sha256": "0fa1c41864ef67727717b0f629155a461cd4598d476301359e79a9cf55c8b99c",
+      "tests": 10,
+      "failures": 9,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.523
+    },
+    "dispositions": [
+      "The initial switch-distance rejection test at zero was corrected against the engine source; zero now has an explicit positive switching control.",
+      "An initial native identity comparison was invalid: independent copies do not implement semantic __eq__. Final checks compare inventory tables, chemistry/history and coordinates.",
+      "A first H5MSM fixture appended directly to Structures and desynchronized its state association; it was replaced with public append_structures.",
+      "Later exploratory probes used an invalid top-level Structures constructor, direct-domain write through the MolSys-only writer, or an absent provider against an already-created engine object; final controls use supported public routes and native-input dependency absence.",
+      "One documentation pytest command named a nonexistent guard file and did not execute; the corrected complete documentation/doctest selection passes.",
+      "The sandbox denied Jupyter local kernel sockets before execution; authorized local-port execution succeeded. The numerical-only Agg run was followed by inline rendering to preserve the PNG figure."
+    ]
+  },
+  "limits": [
+    "Prepared source only; no ordered issue closeout, main integration, tag, Release, package or registry mutation.",
+    "The #304 full source gate runs frozen 56b37c983253e8f93cda6333703df2b3a626a238, not this force source.",
+    "Outside-contract API stability remains unchanged; added governed-truth-directory controls are explicitly tested but do not expand the existing registered 83-case certificate.",
+    "Numerical output/work-block estimate excludes model/chemistry/engine allocations, caller-owned storage and process RSS. No output streaming, checkpoint/resume or broad performance claim.",
+    "Full-candidate matrix and clean installed consumer receiving remain required. No Viewer force method is exposed by this source change."
+  ],
+  "quality_checks": {
+    "ruff": {
+      "exit_code": 0,
+      "seconds": 0.081,
+      "log": ".pytest_cache/572-quality-ruff-final.log",
+      "initial_import_spacing_failure_retained": ".pytest_cache/572-quality-ruff-initial.json",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "format": {
+      "exit_code": 0,
+      "seconds": 0.081,
+      "log": ".pytest_cache/572-quality-format.log",
+      "log_sha256": "a170b634f830751e0db8588fce586717cec4635dc939f1f3252794f6d7a0cbd3"
+    },
+    "api_signatures": {
+      "exit_code": 0,
+      "seconds": 0.124,
+      "log": ".pytest_cache/572-quality-api_signatures.log",
+      "log_sha256": "08dfae90798bef0fde38deda3da8f4174442aa3d8f179a4ffa255735e718f936"
+    },
+    "devguide_index": {
+      "exit_code": 0,
+      "seconds": 0.095,
+      "log": ".pytest_cache/572-quality-devguide_index.log",
+      "log_sha256": "ec79801862b0b484137766150a4fb5a199d686f7a43a31be7a327f33d081eb5a"
+    },
+    "release_fast_gate": {
+      "exit_code": 0,
+      "seconds": 20.411,
+      "log": ".pytest_cache/572-quality-release_fast_gate.log",
+      "log_sha256": "0280184c1024d1f61b82c1936b7bd0226f06bb778760bbdb89465ab525e02a5a"
+    }
+  }
+}

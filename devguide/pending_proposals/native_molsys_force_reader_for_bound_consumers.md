@@ -1,12 +1,12 @@
 ---
 summary: Support native MolSys input in get_forces for primary-bound consumers.
 issue: uibcdf/molsysmt#572
-status: open
+status: partial
 opened: 2026-11-05
 closed:
-verification: reproduced
-area: [api, molsysviewer]
-guard:
+verification: measured
+area: [api, molecular_mechanics, molsysviewer]
+guard: tests/molecular_mechanics/get_forces/test_native_contract.py
 normative:
 blocked_by: []
 supersedes: []
@@ -76,8 +76,99 @@ inputs and scientific source preservation. Compare with analytical forces or an
 independent energy-gradient oracle. The scientific owner chooses and implements
 the contract; this consumer report does not authorize native changes or publication.
 
-## Disposition
+## Prepared implementation — 2026-11-06
 
-The maintainer explicitly authorized opening #572. Existing source and installed
-qualification retain their own scopes. No native force implementation, placeholder
-wrapper, Viewer runtime change or dependency-floor increase is added here.
+**Implemented; contract-tested; bounded parity and numerical checks passed.**
+The maintainer's ordered objective now includes #572. Its prepared provider source
+accepts native MolSys and supported coordinate/model compositions as well as
+existing Context/Simulation inputs. It does not change the Viewer runtime.
+
+### Public contract
+
+- Preserve every prior positional parameter and default. Add keyword-only
+  `structure_indices=None` and `platform='CPU'`. None preserves the legacy
+  `(n_atoms, 3)` vector or `(n_atoms,)` magnitude result for the first stored
+  structure/current engine state. Explicit indices, including one index and
+  `'all'`, retain a leading structure axis. Order and repetitions are retained.
+- Select atoms **after** complete-model force evaluation. Queries, explicit
+  ordered/repeated indices and full Boolean masks filter the output; they never
+  remove the environment. This differs deliberately from subsystem energy
+  parameterization. Only `element='atom'` is supported; unsupported aggregation
+  fails explicitly. Empty axes have defined shapes and force units without
+  model construction/evaluation.
+- Use OpenMM's raw negative potential gradient, not constraint reactions or
+  accelerations. Existing Context/Simulation inputs preserve positions,
+  velocities, time, System, integrator and platform. A native read constructs
+  one complete context with supported stored requests before configured
+  defaults. It never repairs chemistry, adds hydrogens, minimizes or integrates.
+- Keep physical units at the engine boundary explicit, then standardize the
+  result with the application's PyUnitWizard policy. Periodic models receive
+  each structure's row-vector box. Parameterization from native chemistry requires a known
+  reference-state association for every requested structure; no implicit state
+  switch is performed.
+- Refuse unsupported stored construction overrides instead of discarding them.
+  Supply a preparameterized Context/Simulation or an aligned System/coordinate
+  composition for custom models. A structures-only H5MSM 0.5 plus a supplied
+  System does not require invented topology or chemical-state data. That supplied
+  System is authoritative for the potential; its fixed default periodic box is
+  used when structural data has no boxes. The supplied axes must correspond.
+- Apply ArgDigest at the public boundary, conditional DepDigest for OpenMM,
+  catalogued SMonitor diagnostics, and optional Ackredit credit for the actual
+  executed engine version. No dependency floor or environment is changed.
+
+### Reusable ownership and two shared option defects
+
+The public mechanics function delegates numeric iteration to a private reducer
+and the existing ChunkedExecutor. Native coordinate sources read their existing
+structures; modular H5MSM projects chemistry or stable query context and one
+model structure before streaming. Named interaction analyses are not loaded.
+Complete model/axis compatibility stays explicit.
+
+The shared `openmm.Topology -> openmm.System` adapter previously ignored
+`switch_distance` and treated explicit `dispersion_correction=False` as an absent
+request. A ten-case regression selection recorded nine failures and one pass.
+Its initial rejection expectation for zero switching length was corrected
+against OpenMM's source; the retained positive control now requires that an
+explicit zero actually enable switching. The initial failure total is not a
+count of independently established defects.
+The repair lives in that existing general converter, not in the force reader:
+apply the actual Boolean, enable switching at a scalar finite length satisfying
+`0 <= distance < cutoff`, reject NoCutoff/LJPME switching, and apply an explicitly
+validated positive finite Ewald tolerance. The zero lower bound follows OpenMM's
+own NonbondedForce implementation; it is not a newly invented physical rule.
+Invalid shape/value and incompatible-method controls protect the correction.
+
+### Evidence and limits
+
+The [receiving receipt](../../devtools/data/native_force_reader_receiving_572_20261106.json)
+retains final source-file digests, test counts, provider origins and failed-probe
+dispositions. The direct checks cover literal two-particle harmonic forces,
+an independently constructed alanine model and central energy difference,
+nonconsecutive/repeated axes, magnitude/masks/empties, nm/pm and alternate force
+units, one complete context with bounded read-only blocks, changing orthogonal/
+triclinic boxes, H5MSM/full-reader exclusion, a structures-only H5MSM with an
+explicit System, dependency/attribution behavior, and source preservation on
+success and nonfinite-coordinate failure.
+
+The new literal harmonic cases under `tests/scientific_truth/molecular_mechanics`
+are additional explicitly executed numerical controls. The pre-existing 83-case
+registered release certificate on frozen #304 source is unchanged; its receipt
+does not certify this newer force implementation. The force API retains its
+existing outside-contract stability classification. These bounded tests do not
+certify arbitrary chemistry, force fields, GPU/device execution or all periodic
+cells. PME comparisons match the first requested box used to initialize the
+context; they do not assume an identical FFT grid after arbitrary reinitialization.
+
+Output remains resident. The numerical estimate in [SCALABILITY](../SCALABILITY.md)
+is not a process-RSS or engine-allocation bound. There is no force-output writer,
+checkpoint/resume protocol or broad performance superiority claim.
+
+### Remaining ordered integration
+
+The source remains prepared on the dedicated ordered-work branch until #304 and
+the preceding issues finish their gates and integration. Do not close #572 out
+of order or treat focused checks as exact-candidate release evidence. The User
+Guide tutorial, Foundations, Cookbook and course distinguish the native provider
+route from the addon method that remains unexposed. Viewer owner receiving and
+clean installed qualification remain separate handoffs; no placeholder addon,
+release, tag, package promotion or sibling code edit is authorized by this work.
