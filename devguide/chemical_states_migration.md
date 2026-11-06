@@ -111,6 +111,15 @@ Legacy object-backed label columns retain that representation rather than being
 silently normalized during extraction. Permuting atoms preserves the other index
 axes, including component-row order.
 
+Structure append compares ordered inventories by their declared values. Actual
+string labels and missing values remain equivalent across object-backed and
+nullable-string storage, including canonical H5MSM/typed-dictionary recovery.
+The shared native table comparator changes neither input. Numeric/Boolean
+assignments retain typed equality; numbers never become label strings. Ordered
+axes/columns, bonds, component membership, optional-field presence, completeness,
+state metadata and reference/order still participate in compatibility. This
+does not infer correspondence or authenticate sources from matching IDs.
+
 Controlled edits preserve other domains and invalidate affected named analyses
 according to the [query](native_queries.md), [copy](native_copy.md) and
 [interaction](interactions_api.md) contracts. Raw pandas/array writes do not gain

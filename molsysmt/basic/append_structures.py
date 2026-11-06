@@ -81,6 +81,11 @@ def append_structures(
     - A target with one chemical state associates new structures with that state implicitly.
       Multi-state targets preserve explicit source associations when inventories match and use
       an unknown association only when the incoming state cannot be determined.
+    - Native declared inventories compare ordered values, including equivalent
+      object-backed and nullable string storage after H5MSM/dictionary recovery.
+      This does not coerce numbers into labels or ignore missing values, changed
+      assignments, bonds, completeness or state/reference order. The comparison
+      does not modify either input's stored tables.
 
 
     See Also

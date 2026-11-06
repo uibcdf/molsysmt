@@ -56,6 +56,15 @@ the whole state inventory, its reference and the declared association. A map
 equal populations can use compact identity storage. Unknown associations remain
 unknown. See {ref}`user-tools-form-h5msm-05` for an executable round trip.
 
+You can continue appending compatible native structures after recovery. H5MSM's
+canonical nullable strings compare equally to the same native object-backed
+labels and missing values; saving does not change that compatibility. Ordered
+atom/state correspondence, bonds, assignments, component membership and
+completeness still have to match. The comparison preserves both inputs' table
+representations. New structures extend named analyses as unevaluated, while
+existing observations and evaluated-empty coverage survive. See
+{ref}`Tutorial_Append_structures`.
+
 An invalid identity marker across unequal populations is rejected. If an older
 writer produced such a file, regenerate it from the original native source with
 the corrected writer; the reader does not guess missing correspondence.

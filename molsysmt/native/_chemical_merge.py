@@ -76,9 +76,10 @@ def stable_inventory_equals(left, right):
     from ._atom_molecules import stored
     from ._chain_groups import by_chain
     from ._group_naming import stored as stored_naming
+    from ._table_columns import equivalent
 
     if any(
-        not getattr(left, name).equals(getattr(right, name))
+        not equivalent(getattr(left, name), getattr(right, name))
         for name in ("atoms", "groups", "molecules", "entities", "chains")
     ):
         return False

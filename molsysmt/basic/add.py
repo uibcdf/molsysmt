@@ -36,7 +36,9 @@ def add(
     from_molecular_system : molecular system
         Source molecular system providing the elements or structures to add.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
+        Source atom selection. With native topology, unique selected atoms
+        are added in ascending source-index order, as in native extraction.
+        Repeated source atom indices are rejected.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     keep_ids : bool, default=True
@@ -89,6 +91,11 @@ def add(
     - Native chain indices are offset independently of their labels. With
       ``keep_ids=True``, explicit chain IDs and names are preserved, including
       duplicate IDs. With ``keep_ids=False``, local chain IDs are regenerated.
+    - The same selected source atom map applies to coordinates, chemical
+      fields, connectivity and mechanical columns. Bioassembly operations
+      survive only when their referenced source chains remain present, with
+      remapped chain indices.
+      Structure indices retain the supplied order and repetitions.
 
 
     See Also

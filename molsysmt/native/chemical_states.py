@@ -107,6 +107,8 @@ class ChemicalStates(NativeQueries):
         is not a chemical change; it remains outside this inventory comparison.
         Index alignment is declared separately, never inferred from matching IDs.
         """
+        from ._table_columns import equivalent
+
         if (
             not isinstance(other, ChemicalStates)
             or self.n_atoms != other.n_atoms
@@ -130,7 +132,7 @@ class ChemicalStates(NativeQueries):
                 "atom_attributes",
                 "bonds",
             ):
-                if not getattr(left, field).equals(getattr(right, field)):
+                if not equivalent(getattr(left, field), getattr(right, field)):
                     return False
         return True
 

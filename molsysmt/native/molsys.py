@@ -18,14 +18,18 @@ def _merged_bioassembly(target, source, chain_offset):
     identifier that already exists is renamed rather than overwriting the target's.
     """
 
-    if source is None:
-        return target if target is None else dict(target)
+    from copy import deepcopy
 
-    merged = {} if target is None else dict(target)
+    if source is None:
+        return deepcopy(target)
+
+    merged = {} if target is None else deepcopy(target)
     renamed = []
-    for assembly_id, assembly in source.items():
+    for assembly_id, assembly in deepcopy(source).items():
         chain_indices = assembly["chain_indices"]
-        if chain_indices and isinstance(chain_indices[0], (list, tuple, np.ndarray)):
+        if len(chain_indices) and isinstance(
+            chain_indices[0], (list, tuple, np.ndarray)
+        ):
             shifted = [
                 [int(index) + chain_offset for index in operation]
                 for operation in chain_indices
@@ -57,7 +61,7 @@ def _merged_bioassembly(target, source, chain_offset):
     return merged or None
 
 
-def _merged_molecular_mechanics(target, source, attribute_policy):
+def _merged_molecular_mechanics(target, source, attribute_policy, atom_indices="all"):
     """Merging two molecular-mechanics blocks along the atom axis.
 
     `atoms_ff` is atom-aligned, so a one-sided table would parameterize only part of the
@@ -74,6 +78,8 @@ def _merged_molecular_mechanics(target, source, attribute_policy):
 
     target_ff = None if target is None else target.atoms_ff
     source_ff = None if source is None else source.atoms_ff
+    if source_ff is not None and not is_all(atom_indices):
+        source_ff = source_ff.iloc[atom_indices].reset_index(drop=True)
 
     if target_ff is None and source_ff is None:
         return target.copy() if target is not None else MolecularMechanics()
@@ -1080,52 +1086,11 @@ class MolSys(NativeQueries):
                     old_index: new_index
                     for new_index, old_index in enumerate(selected_chain_indices)
                 }
-                retained_assemblies = {}
-                for assembly_id, assembly in tmp_item.structures.bioassembly.items():
-                    chain_indices = assembly["chain_indices"]
-                    if len(chain_indices) and isinstance(
-                        chain_indices[0], (list, tuple, np.ndarray)
-                    ):
-                        retained_operations = [
-                            operation_index
-                            for operation_index, operation_chains in enumerate(
-                                chain_indices
-                            )
-                            if all(
-                                int(chain_index) in chain_index_map
-                                for chain_index in operation_chains
-                            )
-                        ]
-                        if not retained_operations:
-                            continue
-                        retained_assemblies[assembly_id] = {
-                            **assembly,
-                            "chain_indices": [
-                                [
-                                    chain_index_map[int(chain_index)]
-                                    for chain_index in chain_indices[operation_index]
-                                ]
-                                for operation_index in retained_operations
-                            ],
-                            "rotations": assembly["rotations"][retained_operations],
-                            "translations": assembly["translations"][
-                                retained_operations
-                            ],
-                        }
-                    else:
-                        if not all(
-                            int(chain_index) in chain_index_map
-                            for chain_index in chain_indices
-                        ):
-                            continue
-                        retained_assemblies[assembly_id] = {
-                            **assembly,
-                            "chain_indices": [
-                                chain_index_map[int(chain_index)]
-                                for chain_index in chain_indices
-                            ],
-                        }
-                tmp_item.structures.bioassembly = retained_assemblies or None
+                from ._bioassembly import restrict
+
+                tmp_item.structures.bioassembly = restrict(
+                    tmp_item.structures.bioassembly, chain_index_map
+                )
             tmp_item.molecular_mechanics = (
                 None
                 if self.molecular_mechanics is None
@@ -1226,6 +1191,11 @@ class MolSys(NativeQueries):
         ``keep_ids`` accepts a boolean and defaults to ``True``. Native public
         calls validate arguments; leave ``skip_digestion=False`` unless every
         argument already satisfies this method's contract.
+
+        Explicit source atom indices must be unique and valid. They follow
+        native extraction order (ascending source indices) in every domain,
+        including per-atom mechanical fields and assembly chain references.
+        Structure selection retains its supplied order and repetitions.
         """
 
         if item.interactions:
@@ -1233,6 +1203,26 @@ class MolSys(NativeQueries):
                 "Adding atoms from a source with interaction analyses "
                 "requires an explicit analysis-merge policy."
             )
+
+        if not is_all(atom_indices):
+            indices = np.asarray(atom_indices)
+            if indices.size == 0 and indices.ndim == 1:
+                indices = indices.astype(np.int64)
+            if (
+                indices.ndim != 1
+                or indices.dtype.kind not in "iu"
+                or np.any(indices < 0)
+                or np.any(indices >= item.topology.n_atoms)
+                or np.unique(indices).size != indices.size
+            ):
+                from molsysmt._private.smonitor import ArgumentError
+
+                raise ArgumentError(
+                    "atom_indices",
+                    caller="molsysmt.native.MolSys.add",
+                    message="atom_indices must contain unique valid source atom indices.",
+                )
+            atom_indices = np.sort(indices.astype(np.int64, copy=False))
 
         n_atoms_before = self.topology.n_atoms
         n_chains_before = self.topology.n_chains
@@ -1273,15 +1263,31 @@ class MolSys(NativeQueries):
                 n_atoms_added=n_atoms_added,
                 skip_digestion=True,
             )
+            source_bioassembly = item.structures.bioassembly
+            if source_bioassembly is not None and not is_all(atom_indices):
+                from ._bioassembly import restrict
+
+                selected_chains = (
+                    item.topology.atoms.iloc[atom_indices]["chain_index"]
+                    .dropna()
+                    .astype(int)
+                    .unique()
+                    .tolist()
+                )
+                source_bioassembly = restrict(
+                    source_bioassembly,
+                    {old: new for new, old in enumerate(selected_chains)},
+                )
             candidate_structures.bioassembly = _merged_bioassembly(
                 self.structures.bioassembly,
-                item.structures.bioassembly,
+                source_bioassembly,
                 chain_offset=n_chains_before,
             )
         candidate_mechanics = _merged_molecular_mechanics(
             self.molecular_mechanics,
             item.molecular_mechanics,
             attribute_policy=attribute_policy,
+            atom_indices=atom_indices,
         )
         candidate_interactions = {
             name: _extend_interaction_atoms(result, candidate_topology.n_atoms)
@@ -1312,7 +1318,13 @@ class MolSys(NativeQueries):
         attribute_policy="intersection",
         skip_digestion=False,
     ):
-        """Append structures from another MolSys while aligning atom indices."""
+        """Appending structures from another MolSys while aligning atom indices.
+
+        Ordered chemical inventory must agree. Object-backed and nullable
+        string columns with the same labels/missing values are equivalent,
+        including after H5MSM recovery; inputs are not rewritten. Bonds,
+        assignments, state/reference order and completeness remain checked.
+        """
 
         if item.interactions:
             raise ValueError(

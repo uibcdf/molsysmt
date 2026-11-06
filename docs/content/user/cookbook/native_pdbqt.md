@@ -221,6 +221,13 @@ renaming them. Use `keep_ids=False` only when local ID regeneration is intended.
 Direct native `MolSys.add` and `Topology.add` validate that boolean without
 requiring `skip_digestion=True`; ordinary public calls should keep digestion enabled.
 
+When adding a subset of a prepared native source, provide unique atom indices.
+The added atoms follow ascending source-index order, consistently across names,
+coordinates, chemical assignments, connectivity and mechanical columns. For
+example, `selection=[2, 0]` adds source atoms 0 then 2; it is not a permutation.
+Structure indices retain their supplied order and repetitions. Inspect these
+axes before creating an export map; see {ref}`Tutorial_Add`.
+
 Every source hydrogen is retained. Parsing and writing do not prepare chemistry,
 merge nonpolar hydrogen atoms, aggregate charges or assign parameter labels.
 For an explicitly prepared chemical graph, use
