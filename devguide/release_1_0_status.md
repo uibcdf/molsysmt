@@ -32,12 +32,26 @@ execution with durable records and periodic progress estimates. Phase 1 fixes
 native/composition/H5MSM/interaction cases and 40 overlapping directed/doctest
 cases, with failed attempts and warnings retained in the
 [receipt](../devtools/data/pre_1_0_robustness_phase1_receiving_20261106.json).
-Ruff, dependency validation and the 156-notebook course checks pass. All existing
-human edits and backend bytes are preserved.
+Ruff, dependency validation and the 156-notebook course checks pass. Phase one
+preserves the existing human edits and original backend bytes. Its checkpoint
+is now public at `a91a4fd1b`; public source and #618/#616 closure are independently
+verified.
 
-Publish/verify the checkpoint before closing #618/#616. The next correction is
-**#605**, then **#607 → #606 → #608**. The packet owns the weighted estimate
-(20% for accepted phase-one delivery), its evidence and all remaining exits;
+Current work is **phase-two PBC receiving and delivery** for #605/#607/#606/#608
+and the subsequently reproduced #619 dimensional box-admission defect. Source
+`3eb720444b97f77f9325acf52f55114ece0b5f9e` passes 5,435 joint cases, 1,195
+final directed/documentation cases and a 97-case/64-node scientific certificate;
+all 82 Rust unit tests pass. Counts overlap. The
+[phase-two receipt](../devtools/data/pre_1_0_robustness_phase2_receiving_20261106.json)
+records the deliberate native backend rebuild, original failures, retained
+warnings and exact receiving limits. The zero-test integrated attempt used a
+nonexistent directory; a controlled exit-4 diagnostic identifies the cause and
+corrected-path receiving exits 0. Publication/board closeout is next. Phase-one
+smoke 42305861858 is independently verified successful, not release qualification.
+The next implementation block is #613, alongside independently actionable #524
+work. The packet's completeness review maps evidence depth and preserves finite
+GUI acceptance and bounded scientific claims. It owns the weighted estimate
+(still 20% for accepted phase-one delivery), its evidence and all remaining exits;
 that estimate is not release readiness. The #616 consumer report from PR #543
 is preserved in its owner archive and must not return as a duplicate pending
 report on integration. The earlier fifteen-issue goal retains its original

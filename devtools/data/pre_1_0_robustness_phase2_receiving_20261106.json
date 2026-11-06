@@ -1,0 +1,444 @@
+{
+  "schema_version": "molsysmt.pre1_0_robustness_phase2_receiving@1",
+  "created_at": "2026-11-06T23:26:20.241232+00:00",
+  "owning_issue": "uibcdf/molsysmt#334",
+  "corrected_issues": [
+    605,
+    607,
+    606,
+    608,
+    619
+  ],
+  "audited_baseline": "4a80c22941090257d8ef78df09c944831413ee31",
+  "source_parent": "a91a4fd1b748a0f47ad9f5167554cf7ca0f4ae04",
+  "implementation_commit": "3eb720444b97f77f9325acf52f55114ece0b5f9e",
+  "receiving_scope": "Existing Linux/Python development working tree, including existing editable providers; local correction receiving, not installed or exact-release qualification.",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "pytest_workers": 12,
+  "environment_changed": false,
+  "versions": {
+    "numpy": {
+      "installed_metadata_version": "2.4.6",
+      "runtime_version": "2.4.6"
+    },
+    "pandas": {
+      "installed_metadata_version": "2.3.3",
+      "runtime_version": "2.3.3"
+    },
+    "pyunitwizard": {
+      "installed_metadata_version": "0.29.1+6.gf82b618",
+      "runtime_version": "0.29.1+6.gf82b618"
+    },
+    "argdigest": {
+      "installed_metadata_version": "0.16.0+1.g6dabaf7",
+      "runtime_version": "0.16.0+1.g6dabaf7"
+    },
+    "smonitor": {
+      "installed_metadata_version": "0.21.0+1.gd6b2394",
+      "runtime_version": "0.22.0+15.g5ee88c1"
+    },
+    "depdigest": {
+      "installed_metadata_version": "0.15.1+3.ga27172b",
+      "runtime_version": "0.15.1+3.ga27172b"
+    },
+    "pytest": {
+      "installed_metadata_version": "9.1.1",
+      "runtime_version": "9.1.1"
+    },
+    "pytest-receptor": {
+      "installed_metadata_version": "1.2.1",
+      "runtime_version": "1.2.1"
+    },
+    "pytest-xdist": {
+      "installed_metadata_version": "3.8.0",
+      "runtime_version": "3.8.0"
+    }
+  },
+  "native_backend": {
+    "rebuilt": true,
+    "sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "size_bytes": 5971624,
+    "original_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "original_backup": ".pytest_cache/pre1-review-20261106/original-rust.abi3.so",
+    "compiler": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "build_command": "CARGO_BUILD_JOBS=2 PYO3_PYTHON=<existing-development-python> cargo build --offline --release --manifest-path rust/Cargo.toml",
+    "installation": "Atomic copy/replace from rust/target/release/lib_rust.so; no loaded binary truncated and no environment reinstallation."
+  },
+  "implementation_file_sha256": {
+    "devguide/scientific_evidence_matrix.md": "1fc1376ed7e60b678c5e722dcbc1853bb8e2ddf5007d78e04fa2ccddab57a6d4",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": "1c6ee4e9312d9915c96d3c7fedc5cadc65bc53b3bce03bb5e2550b353f1adce3",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb": "ed16e65351d0b47cf344a7623ec47b6334502e45b227fe16d63ad05ee642d405",
+    "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb": "5bc6d00face8dd3a622e3fd0c2691817a32e00826c89d7f109caa387b68b7a62",
+    "docs/content/user/tools/pbc/get_box_with_shape.ipynb": "f725b487ee8351fe1731dd0cef093f3e3c230ec7b35c9d826ae384447341ab94",
+    "docs/content/user/tools/pbc/get_volume_from_lengths_and_angles.ipynb": "c4a6107477eec4ecbab24cb9db0fb09fa53797aac8fb9a53e0ff04611b94d6da",
+    "docs/content/user/tools/pbc/unwrap.ipynb": "6e96d61f8c1dc545c66c06210141e4a701c0d1445aa9be28e71e862f149f2dea",
+    "docs/content/user/tools/pbc/wrap_to_mic.ipynb": "080820577f99aba0386097a89bc39dfa673eab64eface79f33dc73ec436728ff",
+    "docs/content/user/tools/pbc/wrap_to_pbc.ipynb": "286506cc4b7b062311d7ae8e059fc4bbbb7d7cd897337298c1017bbeeafaf288",
+    "molsysmt/_private/pbc_reconstruction.py": "0c5b7559f20f2ab90e7430da210a2d1e28af078bf15ace920a4ffdb979c4f0e7",
+    "molsysmt/_private/pbc_validation.py": "643fe68e6252a5ca28f5ae516e0ae4df6667221f7b82886f5c47e70cdaddf5f2",
+    "molsysmt/pbc/_cell_domain.py": "b1c4e8d492a256842c5bf244769bb10cbc29def11838ed7eb0a7ee18a4141a87",
+    "molsysmt/pbc/get_box_from_lengths_and_angles.py": "121ab5a06bce291a51f0e1642b51b8a9c9e182829241d3cd43345ec39e1a615c",
+    "molsysmt/pbc/get_box_with_shape.py": "e0d3c8c422cf2942bc15baf2b2b8cd0eb12e76acec56e1ff1624d68424a174ef",
+    "molsysmt/pbc/get_volume_from_lengths_and_angles.py": "b801732fa01969bcd0dc079655fafda2fbfc988971c261e0401ccd811cee16e7",
+    "molsysmt/pbc/unwrap.py": "c82d32fbb86072afa05203ca1b38a19bad4d54bbe2920ffbeeb2d538c7e77950",
+    "molsysmt/pbc/wrap_to_mic.py": "0ad46ed01aa84833d3fcbcaad6fdc38ecd034ba938b94bf11db12da127f489ed",
+    "molsysmt/pbc/wrap_to_pbc.py": "2d7d17cfd719fc2103d92e78d3d1153211dd508152eb2b61775c28e009627acb",
+    "rust/src/mic.rs": "c0a704bbbba998837e7bd49f3d83a6a24a8a364258f92de666541f5d22f624c1",
+    "rust/src/pbc.rs": "8a27c34269d1feac4514f2114f9f50f5a6cb2f4ffa23cbe99e6f3194e2f8d677",
+    "tests/pbc/get_box_from_lengths_and_angles/test_get_box_from_lengths_and_angles.py": "6f513b741c82cfff3944feeaee25961e55a77ebe8fdb493bb3ca6e0afe4ede81",
+    "tests/pbc/test_general_cell_wrapping.py": "796c1c4664b895e6e052da4424818ae6014e8f134807f87b8fe5cbe7f184c757",
+    "tests/pbc/test_small_periodic_origins.py": "315039d269709248c14881aff468c5e2abd4b0d43ab5783295b46c5a1ea654b7",
+    "tests/pbc/unwrap/test_changing_cells.py": "54e25145e0efdf9c9beea4bb231cf79dfa29d9045755d4f33d2150c3c0efd8af",
+    "tests/scientific_truth/evidence/capabilities/pbc.json": "f6ec0fd21742da107354c65c7482ad0887558be04bfd7c2f01b345d103c7951f",
+    "tests/scientific_truth/pbc/test_wrapping.py": "16a35e34ac23d7bfdcd2f0b173085f473b32ffa10b27595880eef2138ac828f4"
+  },
+  "test_profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/605-before.xml",
+      "sha256": "f2293a221ea4eb7e5600157ddbc9581ef06ada8267df36b5a4e613f951abff9b",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 78,
+        "failures": 49,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 29
+      },
+      "scope": "Original physical-cell guards: 49 failures and 29 passing controls."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/605-receiving.xml",
+      "sha256": "29eadb8695c18f22d240be0e10da773cd6a36caae6de1c4186734e572e15c9b1",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 430,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 430
+      },
+      "scope": "First corrected constructor and PBC/scientific receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/605-documentation.xml",
+      "sha256": "980e56434736eed9a55bd07f222c92ac3d5deb6c24f0fc532ef8a3fe20e0ec68",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 502,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 502
+      },
+      "scope": "First constructor documentation/doctest receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/607-606-before.xml",
+      "sha256": "2b845fd6a4623af29035cb6daf8919a864d5db21517baf1426feec8b2bd62c1d",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 63,
+        "failures": 48,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 15
+      },
+      "scope": "Original orientation/changing-cell counterexamples."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/608-before.xml",
+      "sha256": "0d6008a15f8b6584b8cda958ce527a2bb2ee26c049770818237caebc01aa6498",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 36,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 32
+      },
+      "scope": "Initial origin fixture missed most atom-boundary cases; four component failures only."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/608-expanded-before.xml",
+      "sha256": "9aef40b6d9e3ae77cdcc56e0b94e1b59508604379c3c89e76b2e41243bc1431d",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 108,
+        "failures": 24,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 84
+      },
+      "scope": "Refined near-boundary origin counterexamples: 24 failures."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/608-box-admission-before.xml",
+      "sha256": "8379bd73eb8f5cfd6858aeed1557ddd9324ead0fe3a6d1e355b415e015a84f76",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 9,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 6
+      },
+      "scope": "Independent dimensional determinant counterexample."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/607-606-608-first-receiving.xml",
+      "sha256": "afa6f5368891bddbd9407cca857a858e850a9466cfdbd1424592f00930aff126",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 171,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 171
+      },
+      "scope": "First joint corrected PBC receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase2-first-full.xml",
+      "sha256": "f3e231b779d7f42a5ecc698069254c0d739ee12e628330a56babbcd3d533f4fa",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 626,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 626
+      },
+      "scope": "Intermediate complete PBC/scientific profile."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase2-final-pbc.xml",
+      "sha256": "835fc472588f2aea6ab9bc7f4f26acb24139bc34a326cf1fa3b2c797deaeee7e",
+      "pytest_exit_code": 1,
+      "counts": {
+        "tests": 692,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 690
+      },
+      "scope": "Two exact primitive-face SI-unit image-choice failures, preserved; not a final passing profile."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase2-qualified-pbc.xml",
+      "sha256": "c22dbb2668eb2e32b5b64a478befaac7b95c3f388b603cacac4227bd9365d8e4",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 692,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 692
+      },
+      "scope": "Expanded nonboundary PBC profile, with separate exact-face and temporal tie controls retained."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase2-integrated.xml",
+      "sha256": "c9bd6a0d9af3eae1440b96641a34f5b20fd0e16d722a90ed5053cb6894a03d66",
+      "pytest_exit_code": null,
+      "counts": {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "scope": "Zero-test artifact; original terminal observation was lost. Not successful receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase2-documentation.xml",
+      "sha256": "ad39b33edcf1fdf855e8bb6a24ec2b86ac8fc1353ab224f27b639c652ddd3c06",
+      "pytest_exit_code": null,
+      "counts": {
+        "tests": 505,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 505
+      },
+      "scope": "505-case artifact; original terminal observation was lost. Not used as accepted final receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase2-missing-target-diagnostic.xml",
+      "sha256": "5f7a4e99878c495936e467623c2356392c73ddd6f934184008e23b86aced8e15",
+      "pytest_exit_code": 4,
+      "counts": {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "scope": "Controlled collect-only diagnostic for the nonexistent tests/structure/get_vectors path."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase2-integrated-corrected.xml",
+      "sha256": "a76a2cb8bb9c6204ceca2e43096276481e259e60ffbbced6395a5972d16c294e",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 5435,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5435
+      },
+      "scope": "Native/add/append/PBC/vector/distance/interactions/H5MSM combined receiving. Completed 5435 cases before final extra traversal fixture and scientific registration; those final additions are received separately below."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/phase2-final-directed-and-docs.xml",
+      "sha256": "847da26aff0b29bfc48bf2f2e4f8abbe996c5d512589f1a6f2bcda220ee6ba88",
+      "pytest_exit_code": 0,
+      "counts": {
+        "tests": 1195,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1195
+      },
+      "scope": "Final PBC, public PBC doctests, notebook schema/course and scientific registry/executor guards; includes the final bidirectional classification and traversal fixtures."
+    }
+  ],
+  "scientific_execution": {
+    "artifact": ".pytest_cache/pre1-review-20261106/phase2-final-scientific.json",
+    "sha256": "3313db6e79c7b53fa210d11661d473c8a85d8e2c96ccb2437b9450db982f4484",
+    "certificate": {
+      "schema_version": "molsysmt.scientific-evidence-execution@1",
+      "verdict": "pass",
+      "commit": "a91a4fd1b748a0f47ad9f5167554cf7ca0f4ae04",
+      "tracked_source_dirty": true,
+      "release_eligible": false,
+      "created_at": "2026-11-06T23:23:36.768406+00:00",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "registered_nodes": 64,
+      "collected_cases": 97,
+      "passed": 97,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "nodes": [
+        "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+        "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+        "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+        "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+        "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+        "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+        "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+        "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+        "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+        "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+        "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+        "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+      ]
+    },
+    "command": "python devtools/scripts/execute_scientific_evidence.py --receptor=llm --certificate .pytest_cache/pre1-review-20261106/phase2-final-scientific.json",
+    "process_exit_code": 0
+  },
+  "rust_unit_execution": {
+    "command": "CARGO_BUILD_JOBS=2 PYO3_PYTHON=<existing-development-python> LD_LIBRARY_PATH=<existing-development-library-path> cargo test --offline --manifest-path rust/Cargo.toml --no-default-features",
+    "artifact": ".pytest_cache/pre1-review-20261106/phase2-rust-unit.log",
+    "sha256": "aee0ae37474016d406bad11242a596e67e54ac50633263eb017dc34c0efdbc2b",
+    "process_exit_code": 0,
+    "passed": 82,
+    "failed": 0,
+    "ignored": 0,
+    "rust_doctests": 0
+  },
+  "accepted_commands": [
+    "python -m pytest --receptor=llm -n 12 tests/native tests/basic/add tests/basic/append_structures tests/pbc tests/structure/test_get_vectors.py tests/structure/test_distance_family_contract.py tests/interactions tests/form/file_h5msm --junitxml=.pytest_cache/pre1-review-20261106/phase2-integrated-corrected.xml",
+    "python -m pytest --receptor=llm -n 12 tests/pbc --doctest-modules molsysmt/pbc devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_validate_course.py devtools/tests/test_validate_scientific_evidence.py devtools/tests/test_execute_scientific_evidence.py --junitxml=.pytest_cache/pre1-review-20261106/phase2-final-directed-and-docs.xml"
+  ],
+  "retained_warnings": {
+    "integrated_corrected": 769,
+    "final_directed_and_docs": 150,
+    "final_scientific": 1,
+    "note": "Counts overlap. Legacy-format, synthetic memory-budget, provider/deprecation and diagnostic warnings were retained, not suppressed."
+  },
+  "additional_checks": {
+    "ruff_check": "pass",
+    "ruff_format_check": "4477 files pass",
+    "cargo_fmt_check": "pass",
+    "validate_dependencies": "pass",
+    "validate_course": "156 notebooks pass",
+    "notebook_preservation": "All eight edited notebooks retain code, outputs, cell IDs and metadata; only Markdown sources change."
+  },
+  "original_attempt_dispositions": [
+    "The original integrated command selected nonexistent tests/structure/get_vectors. Its zero-test artifact is retained without inventing the unobserved original exit. A controlled collect-only diagnostic returns exit 4; corrected-path receiving returns exit 0.",
+    "Two newly authored SI-unit tests used points on an exact primitive-cell face. Unit-conversion roundoff selected the adjacent periodically equivalent image. Cross-unit tests now avoid that discontinuity; literal exact-face vector and sixteen actual half-cell temporal tie controls remain. Tolerances were not loosened.",
+    "The original reversed-cell fixture used a triclinic previous cell twice. Final receiving explicitly covers diagonal-to-triclinic and triclinic-to-diagonal transition classifications, plus both nonconsecutive traversal orders."
+  ],
+  "phase1_terminal_ci": {
+    "head": "a91a4fd1b748a0f47ad9f5167554cf7ca0f4ae04",
+    "smoke_run_id": 42305861858,
+    "status": "completed",
+    "conclusion": "success",
+    "scope": "Ordinary bounded Linux/Python 3.14 smoke, not a release matrix."
+  },
+  "limits": [
+    "Profiles overlap and must not be added as unique tests.",
+    "The scientific certificate predates the source commit and correctly reports dirty source and release_eligible=false; the receipt binds the delivered implementation bytes separately.",
+    "Human autosummary edits remain outside the source commits.",
+    "No installed-artifact/platform/Viewer graphical/GPU/performance or scientific model-breadth qualification is claimed.",
+    "Source publication and board closure must be independently observed after receipt preparation.",
+    "No new dependency, public method signature, physical model or file schema is introduced.",
+    "The additional #619 defect shares the existing #608 unit-invariance milestone and awards no extra progress weight."
+  ]
+}

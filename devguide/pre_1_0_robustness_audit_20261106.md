@@ -4,9 +4,12 @@
 **Owner:** [uibcdf/molsysmt#334](https://github.com/uibcdf/molsysmt/issues/334).  
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-06.  
-**Current execution:** phase 1 source corrections qualified in `19d6d55c1`;
-publish/verify this checkpoint and close #618/#616, then start #605. No
-replacement candidate is selected.
+**Current execution:** phase 1 is published/closed. Phase-two source
+`3eb720444b97f77f9325acf52f55114ece0b5f9e` corrects #605/#607/#606/#608/#619.
+Joint receiving passes 5,435 cases, final directed/documentation receiving
+passes 1,195, and the scientific certificate passes 97 cases across 64 nodes.
+These scopes overlap. Public delivery/board closeout is next; accepted progress
+remains 20% until that exit is observed. No replacement candidate is selected.
 
 The maintainer requests a durable record of the new audit, its reasoning, the
 remaining work and the order in which to strengthen MolSysMT before 1.0.
@@ -113,6 +116,58 @@ Additional Rust work requires a measured need; an index-map or metadata defect
 does not become a kernel-performance problem merely because it affects a large
 system.
 
+### Completeness review and evidence boundaries — 2026-11-06
+
+This is a sufficiently broad stabilization plan for the accepted release scope,
+not an exhaustive scientific audit of MolSysMT. Its strongest evidence concerns
+native composition, persistence continuity and the reproduced periodic defects.
+Architecture inspection and registered-test execution do not establish equivalent
+depth across every domain. Use this map to identify the remaining review instead
+of interpreting an overall passing count as library-wide certification.
+
+| Domain | Evidence available to this packet | Remaining acceptance boundary |
+| --- | --- | --- |
+| Native inventory, chemistry and composition | Independent selected-add and recovered-append counterexamples; published phase-one guards and receipt. | Receive affected consumer workflows and the exact installed candidate. Preserve partial-domain, state-association and failure-atomicity contracts. |
+| Structure and periodic geometry | Governed analytic/external controls and directed rotated/changing-cell/unit regressions; phase-two source is still local. | Complete combined receiving and publication. Numerical conditioning, exact-boundary equivalence and the temporal sampling assumption must remain explicit. |
+| Interactions | Sparse container, query, coverage, occurrence identity and persistence contracts; existing detector and curated tests. | Under #250/#254, assess container reliability separately from each offered method's scientific claim, chemical scope, parameters, units, provenance and periodic conventions. Existing tests are not absent merely because a method is outside the governed registry. |
+| Physicochemical and secondary-structure observables | The generated [scientific evidence matrix](scientific_evidence_matrix.md) identifies bounded reference evidence and remaining gaps. | #473/#475 retain their scientific dispositions. The registered secondary-structure assignment gap must also remain visible: backend agreement/vocabulary checks do not independently validate assignment accuracy. This review does not admit a new predictor. |
+| Forms, parsers and H5MSM | Declared conversion-profile audit, phase-one persistence receiving and existing schema/version rejection tests. | Execute the affected supported routes, quantity/map preservation and negative persistence controls on the combined source. A declared edge or one successful round trip is not universal format coverage. |
+| Configuration and dependencies | Reproduced #613 leak, installed-runtime evidence under #524 and published dependency contracts. | Qualify actual decorated concurrent calls and a minimal installed dependency closure. Editable siblings and successful dependency metadata checks cannot substitute for either. |
+| Mechanics and preparation | Existing bounded engine/preparation recipes, explicit experimental scope and earlier receiving. | #582 must distinguish requested/effective controls. Preserve unsupported chemistry, state and correspondence outcomes; no general force-field or preparation accuracy claim follows. |
+| Viewer and distribution | Contribution/source inspection and historical host/artifact evidence. | Receive the agreed workflows against exact combined sources, then qualify exact artifacts through the existing release gate. Rendering, sessions, package installation and scientific accuracy are distinct conclusions. |
+
+The generated registry remains the authority for scientific classifications;
+this table does not create a second symbol inventory or change API stability.
+For the nine offered interaction families, reuse the existing method profiles,
+curated fixtures and attribution records during #250 acceptance. Record which
+claims have independent evidence, which have provider/contract parity only,
+and which remain explicitly unqualified. Resolve misleading public claims before
+qualification; broader scientific benchmarking remains separately scoped.
+
+Two execution details need stronger controls:
+
+- **Finite graphical acceptance:** before phase-four receiving, pin the agreed
+  #421 workflow inventory and named Viewer source. For each accepted workflow,
+  identify its expert/notebook/popup modes, owner, numerical expectation and
+  observable completion or rejection. Record exclusions and their reasons. Use
+  the existing catalogue/design and receiving tools; neither add a GUI for every
+  expert operation nor silently reduce the agreed set to obtain a green result.
+- **Observed test completion:** a receiving record needs the exact command,
+  source/backend identity, expected selection, actual collected/executed scope,
+  native process exit and result artifact. At this review, the original local
+  `phase2-integrated.xml` contains zero tests and supplies no successful combined
+  receiving evidence. Investigate its command/collection outcome before crediting
+  that exit. A zero-failure XML file, missing terminal output or a lost process
+  handle cannot establish success. Do not repeat a still-running suite merely
+  because its observation was interrupted.
+
+These are acceptance and traceability improvements under #334, not permission
+for another implementation expansion. The immediate order remains finishing
+phase two, then #613 and the independently actionable portion of #524. Host
+coordination and already-satisfied issue closeout may proceed alongside that
+work. Keep the qualified Viewer-floor dependency explicit until its actual
+artifact exists.
+
 ### Reproduced defects on the audited source
 
 | Issue | Observation | Consequence |
@@ -184,7 +239,7 @@ inventing a published version or treating the whole dependency review as done.
 
 | Work class | Reports | Required disposition and owner |
 | --- | --- | --- |
-| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
+| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
 | Declared installed runtime | #524 | MolSysMT owns its manifests, default-output contract and installed receiving. A Viewer minimum depends on an actual qualified host artifact; provider limitations stay with their providers. |
 | Public scientific meaning | #473, #475, #582 | Review the exposed claim and evidence. Correct a misleading contract or agree an explicit bounded disposition; an unavailable paper does not justify invented units, and a stored request must not be advertised as an effective engine control. Wider models or tuning are not automatically required. |
 | Implemented contracts awaiting acceptance | #549, #250, #254 | Complete the remaining owning criteria and final-candidate/client receiving. Source delivery, scientific validation and public stability are separate decisions. |
@@ -226,10 +281,10 @@ each credited contribution to its report/receipt. The release ledger links this
 estimate rather than maintaining an independent percentage.
 
 **Current checkpoint: 20%**, credited to the two phase-one source corrections
-and their owning acceptance records below. Deliver and independently verify this
-checkpoint on origin before closing the issues. If resuming after an interrupted
-delivery, verify those source/board steps before treating prepared work as
-published. Remaining contribution: phase 2 20%, phase 3 10%, phase 4 25%, phase 5
+and their owning acceptance records below. Publication at `a91a4fd1b` and closure
+of #618/#616 have been independently verified; the review reconfirms their closed
+board state. Local phase-two work remains uncredited pending its complete exit.
+Remaining contribution: phase 2 20%, phase 3 10%, phase 4 25%, phase 5
 10%, phase 6 15%. This is the progress of the authorized plan, not a 1.0 readiness
 score or a delivery-time prediction.
 
@@ -274,11 +329,47 @@ than reintroducing that PR's pending copy as a second active report.
 | #607 oriented bases | Correct general admitted row-vector bases. Exercise primary, centered and MIC routes, compound and isolated selections, origin translations, canonical/rotated/skewed cells and both in-place modes against independent lattice truth. Narrowing an existing supported geometry requires a separate reviewed contract decision; rejecting all rotated cells is not equivalent to repairing this defect. |
 | #606 temporal continuity | Define the previous/current transition-cell convention. Classify and apply the actual transition cell. Cover both classification changes, changing lengths, explicit structure traversal/order and atomicity. Document the sampling assumption: nearest-image continuity cannot uniquely recover physical winding after an undersampled large jump. Keep temporal continuity distinct from within-structure reconstruction. |
 | #608 physical origins | Preserve explicit reference quantities without an application-dependent zero replacement. Cover exact zero, small signed origins, boundary positions, nm/angstrom/pm policies and input-unit variants across applicable wrapping routes. |
+| Subsequent #619 raw-cell admission | Remove the dimensional determinant cutoff without bypassing genuine singularity, finite/shape/count or handedness conventions. Cover ordinary and small cells under nm/angstrom/pm/m application policies. Its separate mechanism and report share #608's five-point unit-invariance milestone; do not award additional progress weight. |
 
 **Exit:** independent lattice/image controls pass, presentation units preserve
 physical results, and unsupported geometry fails before molecular publication.
 Include rotated and changing-cell cases in governed scientific evidence where
 they protect a declared claim; retain existing valid analytic cases.
+
+**Execution checkpoint — 2026-11-06:** #605 is corrected locally, with 430
+PBC/scientific cases passing after 49 original guard failures. Its
+[owning report](archive/resolved_bugs/box_factory_physical_domain.md) records the shared
+physical-domain checks, unchanged numerical kernels and post-rounding policy.
+Finish doctest/governance and public source receiving before crediting its five
+percentage points. #607/#606/#608 remain uncorrected under this packet.
+
+**Subsequent local checkpoint — 2026-11-06:** #605/#607/#606/#608 and
+[#619](archive/resolved_bugs/periodic_box_nonsingularity_uses_a_dimensional_volume_threshold.md)
+now have local implementations and directed receiving. The expanded PBC profile
+passes 692 cases; the native backend was deliberately rebuilt for the general
+cell/temporal corrections. The audit's original backend identity above remains
+historical, not the identity of this subsequent execution. The working tree is
+not a release candidate. Complete the combined receiving and portable receipt,
+retain failed numerical-boundary attempts and their scientific interpretation,
+then publish/verify the source and synchronize the five owning reports. Do not
+infer that broader receiving passed from the zero-test integrated XML noted in
+the completeness review. Accepted progress remains 20% until these exits hold.
+
+**Final local source checkpoint — 2026-11-06:** implementation
+`3eb720444b97f77f9325acf52f55114ece0b5f9e` passes 5,435 joint cases and
+1,195 final PBC/docstring/documentation/evidence-runner cases. The latter receives
+the final strengthened fixtures for both actual classification changes and
+both nonconsecutive traversal orders. The scientific registry now includes
+literal rotated images, changing-cell displacements and small-origin results
+under non-default application units: **97 cases across 64 nodes pass**, with
+zero failures/errors/skips. All 82 Rust unit tests pass. Counts overlap.
+The [phase-two receipt](../devtools/data/pre_1_0_robustness_phase2_receiving_20261106.json)
+binds source/backend identities, commands, native exits, original failed and
+unobserved attempts, warnings and receiving chronology. The original zero-test
+run selected a nonexistent directory; a controlled diagnostic exits 4 and the
+corrected-path integrated run exits 0. This repairs the evidence gap, without
+retroactively declaring the original run successful. Public delivery/issue
+closeout is next; installed/platform, Viewer and exact-release gates remain due.
 
 ### Phase 3 — Configuration authority and installed runtime
 
@@ -487,6 +578,9 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Plan review | Rechecked the full open inventory and PR #543's receiving scope. Added release relevance/owners, the open Viewer #314 dependency, composed-workflow and resource acceptance, and distinct qualification/publication exits. Dated audit results are unchanged. | Keep #618 → #616 as the immediate order; record the implementation guards in their owners when correction begins. |
 | 2026-11-06 | Execution authorized | The maintainer requests execution, durable checkpoints and periodic progress estimates. The new-plan baseline is 0%; #618 implementation/receiving starts. All earlier audit observations and failed attempts remain evidence. | Qualify and publish #618, then continue #616. No tag, Release or promotion is made by this execution start. |
 | 2026-11-06 | Phase 1 source checkpoint | #618 and #616 implemented in `19d6d55c1`, with 2,748 joint and 40 overlapping directed/doctest passes. Owning records are resolved/archived; original failures, warnings and limitations are retained. Planned completed contribution: 20% after origin/board receiving. | Verify public delivery and close #618/#616, then #605 → #607 → #606 → #608. No installed or release qualification is implied. |
+| 2026-11-06 | Phase 1 delivered; phase 2 begins | `a91a4fd1b` is public on main; all nine implementation/test blobs independently match. #618/#616 are verified closed. Four remote checks pass; smoke 42305861858 is still active at inspection. Accepted progress: 20%. #605 additionally passes 430 local PBC/scientific cases. | Complete #605 documentation/source delivery, then #607. Preserve the actual smoke conclusion; do not treat an active run as passing or start another solely to monitor it. |
+| 2026-11-06 | Completeness and execution review | Reconfirmed #618/#616 closed and #613/#524/#619 open. Added a domain/evidence map, explicit scientific-claim and finite GUI acceptance boundaries, and #619 without changing the phase weights. Directed local PBC receiving has 692 passes; the integrated XML contains zero tests and is not a passing receiving. Accepted progress remains 20%. | Resolve combined receiving, record the phase-two backend/receipt and deliver its source/closeout; then #613 and independently actionable #524 work. No new API, scientific method or publication is authorized by this review. |
+| 2026-11-06 | Phase 2 source qualified | `3eb720444` implements all five PBC corrections. Corrected-path integrated receiving passes 5,435 cases; final directed/documentation receiving passes 1,195; the scientific certificate passes 97/97 for 64 nodes; 82 Rust unit tests pass. Counts overlap. The receipt retains original failures, zero-test/unobserved attempts and exact rebuilt backend identity. Phase-one smoke 42305861858 is now verified successful. | Publish and independently verify the source, synchronize/close #605/#607/#606/#608/#619, then credit the existing phase-two 20 points and continue #613/#524. No extra points for #619 and no installed-release claim. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
