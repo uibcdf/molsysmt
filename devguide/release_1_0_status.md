@@ -22,6 +22,24 @@ contracts.
 
 ## Molecular task and pending-reader integration — 2026-11-06
 
+The latest preparation extension to PR #543 adds independent heavy-atom and H
+generation, explicit native methods/prerequisites and reviewed scene-reset
+replacement through Viewer #306. Controlled routes now pin published Viewer
+177e19a8fa06e37484a801da1711cc99acbc8f2d. Expert signatures/defaults and native
+ed09f6453 remain unchanged. The
+[preparation receipt](../devtools/data/molsysviewer_tools_preparation_receiving_20261106.json)
+records local task, packaging and actual TcTIM/Jupyter/popup receiving, including
+the 3,983-to-7,868-atom result and independent adoption. This is not installed
+artifact qualification or postponed human acceptance.
+
+Prior full matrix 42215709260 remains unsuccessful: Python 3.13 has 33 failures,
+29,192 passes, 112 skips and 40 deselections. Existing #594–#598 own recurring
+native/import/isolation failures. #612 separately records the reproduced
+alternate-location fidelity/preflight expectation disagreement. Do not describe
+the green smoke or the addon-only 4,699-case result as a full matrix pass. Owner
+repairs/integration and full candidate qualification remain required. All task
+families and both paused 1.0 publication decisions retain their original scope.
+
 PR #543 now includes System tasks, Geometry transforms/fitting and bounded
 periodic tools, plus two read-only Chemistry reports. Controlled Viewer
 2e17ee6f13333e5efd3726b353ade5c8cdc77b0b preserves the same mounted reader

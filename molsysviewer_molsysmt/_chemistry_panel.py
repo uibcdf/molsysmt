@@ -11,10 +11,21 @@ from molsysviewer.system_edits import SystemEditPendingError
 
 from ._chemistry_panel_frontend import CSS as CHEMISTRY_CSS
 from ._chemistry_panel_frontend import ESM
+from ._chemistry_preparation import (
+    PREPARATION_DEFAULTS,
+    PREPARATION_TASKS,
+    _ChemistryPreparation,
+    validate_preparation_parameters,
+)
 from ._panel_frontend import CSS
 from ._task_panel import _MolecularTaskPanel
 
-_PARAMETERS = {"task": "chemistry", "state_mode": "reference", "state_index": "0"}
+_PARAMETERS = {
+    "task": "chemistry",
+    "state_mode": "reference",
+    "state_index": "0",
+    **PREPARATION_DEFAULTS,
+}
 _METHODS = {
     "chemistry": "get_chemical_readiness",
     "hydrogens": "get_hydrogen_inventory",
@@ -35,7 +46,9 @@ def _parameters(value):
     if not isinstance(value, dict) or set(value) - set(_PARAMETERS):
         raise ValueError("The chemistry request contains unsupported fields.")
     result = dict(_PARAMETERS, **value)
-    if result["task"] not in _METHODS or result["state_mode"] not in {
+    if result["task"] not in (set(_METHODS) | PREPARATION_TASKS) or result[
+        "state_mode"
+    ] not in {
         "reference",
         "structure",
         "index",
@@ -51,6 +64,7 @@ def _parameters(value):
             raise ValueError("Enter a nonnegative chemical state index.") from exc
         if index < 0:
             raise ValueError("Enter a nonnegative chemical state index.")
+    validate_preparation_parameters(result)
     return result
 
 
@@ -86,7 +100,7 @@ class _ChemistryReport:
     data: dict
 
 
-class _ChemistryPanel(_MolecularTaskPanel):
+class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
     _esm = ESM
     _css = CSS + CHEMISTRY_CSS
     _state_key = "chemistry_selection"
@@ -103,6 +117,8 @@ class _ChemistryPanel(_MolecularTaskPanel):
         self._report = None
         self._detail = ""
         self._offset = 0
+        self._prepared_source = None
+        self._adoption = None
 
     def _restore_inputs(self):
         try:
@@ -115,11 +131,16 @@ class _ChemistryPanel(_MolecularTaskPanel):
         self._report = None
         self._detail = ""
         self._offset = 0
+        self._adoption = None
 
     def _diagnostic_inputs(self):
         return (dict(self._draft), dict(self._parameters))
 
     def _calculate(self, target):
+        if self._parameters["task"] not in _METHODS:
+            raise ValueError(
+                "Choose an inspection task before requesting a chemistry report."
+            )
         status = self._owner.get_sync_status()
         if status["state"] not in {"synchronized", "pending", "sync_failed"}:
             raise ValueError("Finish molecular recovery before inspecting chemistry.")
@@ -376,6 +397,7 @@ class _ChemistryPanel(_MolecularTaskPanel):
         ] in {"synchronized", "pending", "sync_failed"}
         stage, message = self._retained_diagnostic(context, stage, message)
         report = self._current_report(context)
+        preparation = self._preparation_packet(context)
         summary = self._summary() if report else None
         self.push_state(
             {
@@ -387,6 +409,10 @@ class _ChemistryPanel(_MolecularTaskPanel):
                 "message": message,
                 "report": summary,
                 "page": self._page(summary) if report else None,
+                "destinations": list(
+                    self._view.addons.manager.presentations.destinations
+                ),
+                **preparation,
             }
         )
 
@@ -398,16 +424,21 @@ class _ChemistryPanel(_MolecularTaskPanel):
             "report_id",
             "dataset",
             "offset",
+            "token",
         }:
             raise ValueError("The chemistry request contains unsupported fields.")
         draft = self._normalize_draft(payload.get("draft", self._draft))
         parameters = _parameters(payload.get("parameters", self._parameters))
         if draft != self._draft or parameters != self._parameters:
             self._release_task_data()
+            self._adoption = None
         self._draft, self._parameters = draft, parameters
         self.set_state(
             {self._state_key: dict(draft), "chemistry_parameters": dict(parameters)}
         )
+        if action_id == "prepare" or action_id.startswith(("replacement.", "result.")):
+            self._preparation_action(action_id, payload, request_id)
+            return
         if action_id in {"refresh", "task"}:
             if action_id == "task":
                 self._release_task_data()

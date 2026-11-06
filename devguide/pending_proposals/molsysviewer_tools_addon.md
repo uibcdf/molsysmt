@@ -16,8 +16,8 @@ supersedes: []
 
 **Current source GUI — 2026-11-06:** System / Remove atoms, Extract subset and
 Copy system, plus Geometry / Translate, Center, Superpose structures and bounded
-periodic coordinate tasks, and Chemistry stored-information/hydrogen inspection
-are implemented in this contribution.
+periodic coordinate tasks, Chemistry stored-information/hydrogen inspection and
+explicit heavy-atom/hydrogen preparation are implemented in this contribution.
 Selection/lifecycle and independent-result controls are shared; native science
 and expert defaults are unchanged. The [receiving record](../../devtools/data/molsysviewer_tools_geometry_receiving_20261106.json)
 separates real Jupyter/popup and numerical evidence from pending hosted, owner,
@@ -27,6 +27,45 @@ adds geometric/mass-weighted centering, per-structure point/selection references
 and shared rejected-operation diagnostics (#603), with 114 panel checks, 172
 native/route controls and five actual Jupyter scenarios. Rotate awaits native
 #602; other required Geometry, Chemistry and Analysis tasks remain planned.
+
+## Chemistry preparation and reviewed replacement — 2026-11-06
+
+The [preparation receipt](../../devtools/data/molsysviewer_tools_preparation_receiving_20261106.json)
+records native heavy-atom completion and two explicit H-generation modes over
+the unchanged expert build wrappers. Heavy completion maps the atom editor to
+whole groups, retaining every structure. Hydrogen preparation distinguishes
+template/pH approximation from prepared-state RDKit placement, with one-source-
+structure admission and explicit prerequisites. No hidden extraction or chemical
+repair is introduced. Independent results retain native diagnostics/history;
+attribute-availability differences do not certify value or chemical fidelity.
+
+Use in this view has Back, scene-reset/copy disclosure and single-use review.
+Candidate object/revision is validated and copied under its reader; Viewer #306
+atomically checks source identity/revision before replacement. Presented result
+Views remain independent; stale managed source/result reviews reject without
+overwriting current work. External raw-array writes still require reconciliation.
+Leaving the panel also releases the replacement token. These operations are not
+declared pending readers. Controlled source routes now pin published Viewer
+177e19a8fa06e37484a801da1711cc99acbc8f2d; expert/public dependency floors are unchanged.
+
+Actual TcTIM/Jupyter receiving prepares 7,868 atoms from 3,983, exposes native
+B-factor/occupancy losses, verifies Back/source preservation, conditionally
+loads an independent copy and inspects it in both popup hosts. The preparation
+and existing pending-reader scenarios are checked together. Earlier 4,699-case
+full-addon evidence remains scoped to 699fc69be and Viewer 2e17ee6f, not this
+new preparation source. Owner integration, latest hosted full qualification,
+installed artifacts and postponed human acceptance remain pending.
+
+Full source matrix 42215709260 is not green: the inspected Python 3.13 cell
+has 33 failures, 29,192 passes, 112 skips and 40 deselections. Reproductions
+confirm the previously reported classifier/catalogue/GRO families; #594–#598
+retain their separate owner issues. New #612 asks the owner to reconcile the
+alternate-location fidelity expectation with the accepted stable-ID preflight;
+the one native failing case is reproduced independently of Viewer. No native
+repair, source workaround or test weakening is included here. This qualification
+debt does not remove the required construction, assignments, Analysis, Geometry
+and end-to-end save/recover families from the active plan. Both 1.0 publications
+remain paused.
 
 ## Chemistry inspection receiving — 2026-11-06
 

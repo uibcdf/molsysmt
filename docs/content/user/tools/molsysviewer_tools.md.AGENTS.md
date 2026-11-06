@@ -595,10 +595,24 @@ reports over one explicit structure and stated chemical state. Distinguish
 stored presence from validation and unknown non-indexed H from zero. Keep
 reference-context populations, whole-state versus incident connectivity, native
 units/indices/evidence, bounded 50-row pages and mounted-report lifetimes. Do
-not add preparation, adoption, a global readiness flag or generic persistence.
+not add preparation or adoption to those inspection actions, a global readiness
+flag or generic persistence.
 Preserve the declared pending-reader contract in Viewer #304: only an already
 mounted reader is temporarily hosted by the recovery sheet, with scene inputs
 blocked and exact DOM/state restoration after synchronization. Retire stale
 requests and refresh only in admitted states; editing/busy states promise no
 reader reply. Keep source qualification separate from installed and postponed
 human acceptance.
+
+Preserve separate explicit Chemistry preparation tasks over public build tools.
+Heavy-atom completion resolves the atom editor to whole groups across all source
+structures; unknown/unassessed scope and native attribute policies remain visible.
+Hydrogen generation distinguishes template/pH approximation from prepared-state
+RDKit addition, with explicit engines/states and single-structure prerequisites.
+Never hide extraction, protonation, periodic reconstruction or minimization.
+Keep independent results distinct from the current system. Use in this view
+requires Back/confirmation, explicit scene-reset/copy costs, managed source and
+candidate revision guards, and the host's conditional replacement boundary.
+Preserve presented result ownership, native warnings/history and the limits of
+attribute-name comparisons and external raw-edit observation. Python expert
+signatures, defaults and native returns remain unchanged.

@@ -6,8 +6,9 @@ uibcdf/molsysviewer#264, delivered through PR #543.
 **Status — 2026-11-06:** contribution source implements System / Remove atoms,
 Extract subset and Copy system, plus Geometry / Translate, Center, Superpose structures and qualified periodic tools. Selection controls,
 lifecycle, bounded metadata and independent-result presentation are shared.
-Chemistry adds stored-information and hydrogen-inventory inspection. Rotate,
-Chemistry preparation/construction, Analysis and other tasks remain proposed; no placeholder
+Chemistry adds stored-information and hydrogen-inventory inspection, plus explicit
+heavy-atom and hydrogen preparation with reviewed independent-result replacement. Rotate,
+further Chemistry assignments/construction, Analysis and other tasks remain proposed; no placeholder
 panel/button is registered. Human Jupyter/visible Qt acceptance remains
 postponed, separate from automated Jupyter/Mol*/native numerical receiving.
 Center uses native geometric/mass-weighted source references and explicit
@@ -33,7 +34,9 @@ detached Studio. Hosted exact-head gates remain pending. Native-window ownership
 visible Qt qualification. Other destinations, further Geometry tasks and Chemistry/Analysis
 remain planned. The dated status above retains its initial scope.
 
-The controlled host is Viewer `2e17ee6f13333e5efd3726b353ade5c8cdc77b0b` (source #302/#303, presentation recovery and interactive declared readers under #304).
+The controlled host is Viewer `177e19a8fa06e37484a801da1711cc99acbc8f2d`, retaining
+presentation recovery and interactive declared readers under #304 and adding
+conditional replacement under #306. Earlier receipts retain their own host identities.
 The source receiver also incorporates native ed09f6453, including the owner's
 #583/#584 repairs. Consumer observations are archived alongside the native
 resolutions; no duplicate open report is retained. The final receiving receipt
@@ -49,8 +52,8 @@ Python signatures, defaults or result types. The core/addon boundary and
 Use one addon workspace titled **Molecular tools**, identified as **MolSysMT**.
 Reuse AddonWorkspaceSpec, AddonPanelSpec and AddonPanelWidget. Four intended
 horizontal panels follow the existing Elastic Networks pattern; register only
-panels with real tasks and receiving guards. Current source registers System
-and Geometry (Translate only):
+panels with real tasks and receiving guards. Current source registers System,
+Geometry and Chemistry; Analysis remains required and unregistered:
 
 | Panel | User intent | Typical tasks |
 | --- | --- | --- |
@@ -325,6 +328,42 @@ unassessed scope or unevaluated structures. Long calculations need actual
 progress/cancellation contracts before such controls are promised. Plotting or
 adding a result to the scene uses the appropriate core owner and a separately
 qualified adapter. Generic native results do not imply universal H5MSM storage.
+
+### Chemistry preparation and explicit replacement — source contract 2026-11-06
+
+Chemistry offers Add missing heavy atoms and Add missing hydrogens alongside its
+unchanged read-only inspection tasks. It delegates through the existing public
+build wrappers without changing expert signatures or native defaults. Heavy
+completion resolves the shared atom editor to stable group indices through
+public basic.get, then processes those groups across all structures. It exposes
+native versus PDBFixer engines and the actual strict/intersection admission.
+Hydrogen completion makes template/pH approximation versus fixed-state RDKit
+explicit. The latter exposes chemical-state and preservation policy; the former
+exposes its pH/engine and lack of strict preservation. Both require one source
+structure in this panel; no frame/component is extracted implicitly.
+
+Prepared results use the existing host View presentation service. Only bounded
+counts, method parameters, software and attribute-availability differences travel
+to the frontend. Native preparation history remains in the independent MolSys;
+warnings remain observable in Python. Availability differences do not certify
+all other attribute values, protonation, geometry or scientific readiness.
+
+Use in this view opens an inline scene-reset/copy review. Confirmation consumes
+the token, checks the independent result's object/revision under its molecular
+reader and copies it. The source replacement then atomically checks the original
+source identity and managed revision through Viewer #306. Source and candidate
+checks do not observe raw external writes. The copied candidate is never shared
+as a mutable primary with a separately displayed View. Back makes no edit;
+successful replacement resets scene objects rather than inventing an atom map.
+Load failure keeps the host recovery contract, not a rollback guarantee.
+
+Preparation/replacement/presentation are not declared recovery-sheet readers.
+While pending, only the existing exact inspection actions remain admitted.
+Leaving a task releases unpresented results; already presented Views survive.
+The preparation receipt records actual TcTIM/Jupyter and pending-reader controls;
+human Qt/Jupyter, owner integration, installed artifacts and full matrices remain
+separate. Further Chemistry assignments/construction, all required Analysis and
+the complete-session persistence target remain required in the family ledger.
 
 ### Superpose structures — source contract 2026-11-06
 

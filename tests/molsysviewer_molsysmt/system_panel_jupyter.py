@@ -63,6 +63,7 @@ def main():
             "periodic",
             "chemistry",
             "chemistry-pending",
+            "chemistry-preparation",
         ),
         default="system",
     )
@@ -333,6 +334,35 @@ def main():
             "assert not view.addons.manager.presentations.records()\n"
             "print('JUPYTER_PENDING_READERS_OK',view.molsys.get_n_atoms())\n"
         )
+    if args.scenario == "chemistry-preparation":
+        initial = initial.removesuffix("view\n") + (
+            "import numpy as np\n"
+            "original_system=view.molsys\n"
+            "source_coordinates=msm.pyunitwizard.get_value(original_system.structures.coordinates,to_unit='nm').copy()\n"
+            "source_chemistry=msm.convert(original_system.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "view.regions.add(selection=[0,2],tag='before-preparation')\n"
+            "def verify_preparation_source():\n"
+            "    assert view.molsys is original_system\n"
+            "    assert view.addons.molsysmt.get_sync_status()['target_revision']==0\n"
+            "    np.testing.assert_array_equal(msm.pyunitwizard.get_value(original_system.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+            "    np.testing.assert_equal(msm.convert(original_system.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),source_chemistry)\n"
+            "    print('PREPARATION_SOURCE_UNCHANGED')\n"
+            "view\n"
+        )
+        final = (
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(original_system.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+            "assert view.molsys is not original_system and view.molsys.get_n_atoms()==7868\n"
+            "assert 'before-preparation' not in view.regions\n"
+            "status=view.addons.molsysmt.get_sync_status()\n"
+            "assert status['state']=='synchronized' and status['target_revision']==1, status\n"
+            "records=view.addons.manager.presentations.records()\nassert len(records)==2, records\n"
+            "hydrogens=next(x for x in records if x['title']=='TcTIM with hydrogens')\n"
+            "child=view.addons.manager.presentations.get(hydrogens['id'])\n"
+            "assert child.molsys is not view.molsys and child.molsys.get_n_atoms()==7868\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(child.molsys.structures.coordinates,to_unit='nm'),msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'))\n"
+            "assert not np.shares_memory(msm.pyunitwizard.get_value(child.molsys.structures.coordinates,to_unit='nm'),msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'))\n"
+            "print('JUPYTER_PREPARATION_NATIVE_OK',view.molsys.get_n_atoms())\n"
+        )
     # Keep a native stack if initialization stalls. The shell event closes the
     # diagnostic after the actual display hook, without warming that hook first.
     initial = (
@@ -347,6 +377,8 @@ def main():
         + initial
     )
     cells = [initial, final]
+    if args.scenario == "chemistry-preparation":
+        cells = [initial, "verify_preparation_source()\n", final]
     if args.scenario == "chemistry-pending":
         cells = [initial]
         for revision in range(1, 4):
@@ -407,6 +439,10 @@ def main():
                     str(
                         Path(__file__).with_name("chemistry_pending_jupyter.mjs")
                         if args.scenario == "chemistry-pending"
+                        else Path(__file__).with_name(
+                            "chemistry_preparation_jupyter.mjs"
+                        )
+                        if args.scenario == "chemistry-preparation"
                         else Path(__file__).with_name("chemistry_panel_jupyter.mjs")
                         if args.scenario == "chemistry"
                         else Path(__file__).with_name("periodic_panel_jupyter.mjs")

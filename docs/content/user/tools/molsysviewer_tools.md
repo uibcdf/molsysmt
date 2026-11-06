@@ -5093,8 +5093,9 @@ Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
 Extraction/copy result presentation uses the separate flow below. Geometry
 offers Translate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory.
-Chemistry offers the two source inspection tasks described below; further Geometry,
-Chemistry preparation/construction and Analysis tasks remain planned.
+Chemistry offers the two source inspection tasks and explicit heavy-atom/hydrogen
+preparation described below; further Geometry, Chemistry construction/assignments
+and Analysis tasks remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
 
@@ -5391,3 +5392,66 @@ requires completing that update first.
 This workflow has source receiving in Jupyter and both popup hosts (Viewer
 #304). Human visible Qt/Jupyter acceptance, owner integration and installed
 packages retain their separate qualification.
+
+## Preparing independent systems through Molecular tools
+
+In **Molecular tools > Chemistry**, choose **Add missing heavy atoms** or **Add
+missing hydrogens**. These experimental source tasks call the same native
+`view.addons.molsysmt.build` functions as Python. They create a separate system;
+they do not silently edit the current one or prepare it for another calculation.
+
+**Add missing heavy atoms** uses the atom selector to choose contributing groups.
+A partially selected group is still a whole group for template completion. The
+selection context resolves that population; the native operation considers every
+source structure. Choose MolSysMT or the optional PDBFixer explicitly. Template
+placement is an estimate, not refinement; unsupported or conflicting gaps can
+remain unassessed. Native diagnostics are retained in the Python output. The
+native engine can stop if attributes would be lost, or omit attributes with a
+diagnostic. PDBFixer admits only the omission policy. New atoms do not acquire
+inferred force-field parameters, and atom indices can change.
+
+**Add missing hydrogens** applies to the complete system and requires one source
+structure in this panel. To work from an ensemble or trajectory, first use
+**System > Extract subset** to create the intended single-structure system. No
+structure or component is extracted implicitly. Choose between:
+
+- **Template-based pH approximation:** choose the pH and MolSysMT, OpenMM or
+  PDBFixer explicitly. This uses fixed free-amino-acid pKa thresholds, not an
+  environmental pKa predictor. Existing hydrogens are not removed. This native
+  route can discard attributes and does not offer the strict preservation policy.
+- **Prepared chemical state:** explicitly use RDKit and choose the chemical
+  state. This requires one isolated prepared component with declared chemistry,
+  complete connectivity and hydrogen inventory. It places local H on the supplied
+  pose, without choosing protonation, minimizing or reconstructing periodic
+  images. The native versioned report remains in the result's preparation history;
+  the panel transfers only bounded metadata. This mode does not apply a pH.
+
+Give the result an optional name and choose **Prepare separate system**. Review
+the atom/structure counts, native diagnostics and source attributes that became
+unavailable. Attribute-name availability is not proof that every value or chemical
+interpretation was preserved. The result can be shown below the notebook or in
+a separate window; the desktop host uses a new window. Its Python reference is
+available in the result card. Preparing and copying molecular data can materialize
+the full result in memory; no out-of-core promise is made.
+
+**Use in this view…** opens an inline replacement review. **Back** leaves molecular
+data unchanged. **Replace system** loads a separate copy of the prepared result
+and resets the current scene: existing regions, selections, shapes and other scene
+objects are not transferred. Scene Undo cannot restore this molecular replacement.
+The independently presented result remains separate and editable.
+
+Replacement is conditional on the original source object and its managed revision
+remaining current, and on the reviewed result not changing through managed edits.
+An expired review is rejected rather than overwriting later work. Arbitrary raw
+array writes or edits through another owner are not observed automatically;
+reconcile them explicitly. A qualified Viewer host with conditional replacement
+is required for this action. Replacement failure retains the host's explicit
+recovery semantics; it is not a promise to roll back a failed molecular load.
+
+**Create another result** releases an unpresented result but leaves presented
+views open. **Close result** closes that result view; **Clear report** releases
+only an inspection report. Leaving the panel releases its unpresented result.
+Preparation, presentation and replacement remain disabled while the scene needs
+synchronization; the declared inspection readers keep their separate recovery
+contract. A prepared result is not a scientific-readiness certificate or an
+equilibrated structure.

@@ -20,7 +20,7 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (6)
+### Open (7)
 
 - [`box_factory_physical_domain.md`](box_factory_physical_domain.md) — [#605](https://github.com/uibcdf/molsysmt/issues/605) — Box factory accepts degenerate dimensions and returns nonfinite cells for incompatible angles. *(high, reproduced)*
 - [`periodic_origin_unit_policy.md`](periodic_origin_unit_policy.md) — [#608](https://github.com/uibcdf/molsysmt/issues/608) — Near-zero periodic origins are snapped using application-dependent units. *(high, reproduced)*
@@ -28,6 +28,7 @@ that front matter -- edit the entries, not this list.
 - [`unwrap_changing_cell_classification.md`](unwrap_changing_cell_classification.md) — [#606](https://github.com/uibcdf/molsysmt/issues/606) — Temporal unwrap reuses the first box classification after later cells become triclinic. *(high, reproduced)*
 - [`alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md`](alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md) — [#593](https://github.com/uibcdf/molsysmt/issues/593) — Alzheimer capstone preparation uses unsupported builder keywords and drops independent repairs. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
+- [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
 
 ### In progress (1)
 
