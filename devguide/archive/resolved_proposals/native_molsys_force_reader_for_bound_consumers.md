@@ -1,9 +1,9 @@
 ---
 summary: Support native MolSys input in get_forces for primary-bound consumers.
 issue: uibcdf/molsysmt#572
-status: partial
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-06
 verification: measured
 area: [api, molecular_mechanics, molsysviewer]
 guard: tests/molecular_mechanics/get_forces/test_native_contract.py
@@ -141,7 +141,7 @@ Invalid shape/value and incompatible-method controls protect the correction.
 
 ### Evidence and limits
 
-The [receiving receipt](../../devtools/data/native_force_reader_receiving_572_20261106.json)
+The [receiving receipt](../../../devtools/data/native_force_reader_receiving_572_20261106.json)
 retains final source-file digests, test counts, provider origins and failed-probe
 dispositions. The direct checks cover literal two-particle harmonic forces,
 an independently constructed alanine model and central energy difference,
@@ -160,7 +160,7 @@ certify arbitrary chemistry, force fields, GPU/device execution or all periodic
 cells. PME comparisons match the first requested box used to initialize the
 context; they do not assume an identical FFT grid after arbitrary reinitialization.
 
-Output remains resident. The numerical estimate in [SCALABILITY](../SCALABILITY.md)
+Output remains resident. The numerical estimate in [SCALABILITY](../../SCALABILITY.md)
 is not a process-RSS or engine-allocation bound. There is no force-output writer,
 checkpoint/resume protocol or broad performance superiority claim.
 
@@ -173,3 +173,20 @@ Guide tutorial, Foundations, Cookbook and course distinguish the native provider
 route from the addon method that remains unexposed. Viewer owner receiving and
 clean installed qualification remain separate handoffs; no placeholder addon,
 release, tag, package promotion or sibling code edit is authorized by this work.
+
+## Resolution — 2026-11-06
+
+The provider-owned native MolSys force contract is implemented and integrated
+on main. Its documented complete-environment semantics, structure/atom selection,
+magnitudes, supported element scope, units, stored model and PBC settings,
+ownership and explicit refusal paths satisfy the original request. Analytical
+and independent gradient/Context comparisons, Simulation reuse and non-default
+unit controls remain in the native-contract guard; the earlier 2,005 affected
+cases, provider-floor and documentation results remain scoped evidence above.
+The final joint source selection reruns this guard against integrated code.
+
+No hidden preparation, subsystem model substitution or arbitrary engine fallback
+is introduced. The source-ready native capability closes this provider issue;
+adding its bound facade and receiving it in a real Viewer remains consumer work
+under #421 / uibcdf/molsysviewer#264. Final installed release-pair/platform gates
+and scientific expansion remain independent. No release or publication follows.

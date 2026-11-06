@@ -32,37 +32,23 @@ closure. Prior post-freeze scheduling of listed work does not block this explici
 instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
-**Completed feature criteria: #304 and #593. Next ordered issue: #428.**
-Owner integration uses the verified prepared source through 8941bcfd4. The
-unfinished #557 working branch is excluded. #428 still requires actual installed
-public-ArgDigest receiving; public payload inspection/source-path tests do not
-satisfy that requirement. The complete version matrix and installed MolSysMT/Viewer
-pair remain required by #334 and the release gate, independently of feature closure.
-The [feature-closeout receipt](../devtools/data/ordered_feature_closeout_304_593_20261106.json)
-records 447 passing exact-checkout controls, unchanged executable/tutorial bytes
-relative to the tested prepared source, and the qualification that remains open.
+**Completed native/provider criteria: #304, #593, #428, #544, #572 and #576.**
+Next ordered issue: **#557**. The accepted fifteen-issue order above is unchanged.
+Native code through 8941bcfd4 is integrated on main, and the #428 installed
+producer bd40d7059 is independently received. Unfinished #557 source remains
+isolated and is excluded. Actual installed #428 receiving passes 2,542 consumer
+and 83 scientific cases with no omissions; 248 integrated guards for the four
+latest closures pass locally. See the
+[installed receipt](../devtools/data/argdigest_installed_receiving_428_20261106.json)
+and [joint closeout receipt](../devtools/data/ordered_feature_closeout_428_544_572_576_20261106.json).
+Main 9e1f1b1ad smoke 42255097956 passes after the documented command/inventory
+correction. Earlier failed receiving attempts remain in the #428 archive.
 
-**Integrated checkpoint follow-up — 2026-11-06:** main 6b76a9d7e smoke
-[42252758948](https://github.com/uibcdf/molsysmt/actions/runs/42252758948)
-failed its addon command/inventory guards before runtime execution. The recovery
-receives the omitted #583/#584 test module and explicitly retains the native-only
-assessment gap from #576; 38 affected local cases pass. A prepared manual-only
-installed ArgDigest route supplies #428's missing installation boundary without
-creating local environments or publishing packages. Hosted recovery/installed
-evidence remains pending; neither local result clears these gates.
-The first installed run 42255147243 built the wheel but failed the complete
-environment check on three AmberTools companions' NumPy <2 metadata. Recovery
-isolates the external LEaP oracle in a hosted CLI-only prefix, preserving the
-consumer dependency check and every scientific control. #428 remains partial.
-The next attempt eff2fcb4a executed 2,542 consumer cases (2,527 pass, 14 fail,
-one skip) and exposed missing NGLView/Jinja2 in the receiving profile. Those
-tools are now explicit/preflighted; no test is removed. The implicit Jinja2
-requirement of default info output is separately recorded under #524 and must
-not disappear behind this larger test environment or ArgDigest acceptance.
-Attempt 42257905311 then passes all 2,542 consumer cases and 80/83 scientific
-cases. Its three LEaP failures expose the CLI symlink's changed `$0` prefix;
-the corrected absolute-path exec launcher has a real local companion-resolution
-regression. Hosted all-node receiving remains required before #428 closes.
+Feature closure does not qualify the complete version matrix, a future Viewer
+candidate, its canvas/sessions, or the sixteen-cell installed release pair under
+#334. Native force/assessment facades still need consumer receiving under #421 /
+uibcdf/molsysviewer#264. The default-info Jinja2 declaration remains tracked in
+#524. No tag, release, registry upload or promotion is authorized by these closures.
 
 The #304 native profile has qualified explicit reader policy,
 exact standard/curated modified-group references, observed-H parent consensus,
@@ -169,30 +155,33 @@ existing interface/minimizer regressions and documentation pass 1,118 cases;
 22 overlapping published-provider-floor cases also pass, without omissions.
 The 2BEG full biological route remains an explicit outline, with no invented
 outputs or readiness claim. These satisfy the issue's explicit bounded-workflow
-acceptance; documented closeout follows #304. See the
+acceptance; documented closeout is complete after #304. See the
 [owning record](archive/resolved_bugs/alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md).
 
-Next-source preparation also receives public **ArgDigest 0.17.1** for **#428**:
+Public **ArgDigest 0.17.1** receiving for **#428** is complete:
 2,542 native/digestion/query/diagnostics cases, all 83 registered scientific
 cases and 14/14 fast gates pass. A 123-case overlapping constructor/ownership/
 diagnostics selection also passes with SMonitor 0.16.0. Exact public payloads
 are verified; the existing interpreter and other recorded development providers
 are reused. `native_constructor`, global ownership policy and dependency floors
 stay unchanged. The
-[owning record](pending_proposals/argdigest_0_17_receiving.md)
-retains the deliberate deferral of production ownership adoption and the
-remaining clean installed receiving; source compatibility does not close #428.
+[owning record](archive/resolved_proposals/argdigest_0_17_receiving.md)
+retains the deliberate deferral of production ownership adoption. The subsequent
+clean installed producer bd40d7059 passes 2,542 consumer and 83 scientific cases
+in 42259461880 with verified archive/wheel/source bytes and actual public imports.
+That actual installed evidence completes #428; the earlier source profile alone
+did not close it. The final release-pair and #524 runtime-declaration gap remain.
 
-Prepared owner source for **#544** pins all four active native build/upload,
+Integrated owner source for **#544** pins all four active native build/upload,
 ABI3 experiment and promotion calls to reviewed Conda provider v2.3.0
 87c70b1443d5f22d738ee3ddf812bdbe0152f6c2. The other parsed workflow semantics
 are unchanged. Its 54 local packaging/route controls, 29 offline provider cases,
 exact already-called policy/publication checkers and dependency audit pass.
 No package or registry mutation is executed. The
-[owning record](pending_proposals/conda_provider_v2_3_owner_adoption.md)
-retains the exact input/source evidence and remaining ordered owner integration.
+[owning record](archive/resolved_proposals/conda_provider_v2_3_owner_adoption.md)
+retains the exact input/source evidence and completed ordered owner adoption.
 
-Prepared source for **#572** at 993967a0f361d70cba5f7e5c7c246b0000734550
+Integrated source for **#572**, implemented at 993967a0f361d70cba5f7e5c7c246b0000734550,
 supplies complete-environment native forces,
 explicit structure axes, selection order/masks, magnitudes and application units.
 One model context consumes bounded native/H5MSM coordinate blocks; an explicit
@@ -201,13 +190,13 @@ shared OpenMM converter also applies switching and explicit dispersion choices.
 The affected 2,005-case selection, 77 published-support-floor controls and 583
 documentation/doctest checks pass; the nine-cell tutorial executes with its plot
 and 14/14 fast gates pass. Detailed source digests and execution limits belong to the
-[owning record](pending_proposals/native_molsys_force_reader_for_bound_consumers.md).
+[owning record](archive/resolved_proposals/native_molsys_force_reader_for_bound_consumers.md).
 The User Guide, Cookbook and course distinguish provider capability from addon
-exposure. No issue is closed out of order, no Viewer runtime is changed and no
-installed/release qualification follows from these local checks.
+exposure. The native provider issue is resolved in order; no Viewer runtime is
+changed and no release-pair qualification follows from these local checks.
 
-Prepared owner source for **#576**, 5c13fcd85f03a5db956f7854686f5493789820d4,
-is published on `dev/ordered-stabilization-576-20261106` and supplies read-only
+Integrated owner source for **#576**, implemented at 5c13fcd85f03a5db956f7854686f5493789820d4,
+supplies read-only
 `build.assess_protonation` and a public `build.ProtonationAssessment` result.
 Detached coverage retains every group's actual naming/reference context and
 canonical bidirectional positional maps. Single-use application consumes the
@@ -220,11 +209,12 @@ The 1,717-case affected selection, 260 published-support-floor controls and 631
 documentation/doctest/final-assessment checks pass without omissions; selections
 overlap. All ten tutorial code cells execute, the fast gate passes 14/14, and
 repository-wide Ruff lint/format checks pass. The
-[owning record](pending_proposals/protonation_removal_correspondence_for_bound_consumers.md)
+[owning record](archive/resolved_proposals/protonation_removal_correspondence_for_bound_consumers.md)
 retains exact receipts, ownership/scientific limits and corrected validation
-fixtures. This is prepared source, not ordered main integration, managed addon
-admission, installed qualification or issue closeout. The #304 exact-source
-matrix remains the active predecessor; no additional remote run is launched.
+fixtures. The native provider issue is resolved in order. Managed addon admission
+and final installed release-pair qualification remain separate. The frozen #304
+version matrix retains its original source and outstanding qualification under
+#334; it is not replaced by the bounded installed #428 receiving.
 
 The subsequent board checkpoint reads **#608–#610**, again without expanding
 the fifteen-item objective. #608 reports application-unit-dependent origin

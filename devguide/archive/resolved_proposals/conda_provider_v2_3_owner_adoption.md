@@ -1,9 +1,9 @@
 ---
 summary: Review Conda provider v2.3.0 adoption for the owned publisher.
 issue: uibcdf/molsysmt#544
-status: partial
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-06
 verification: measured
 area: [ci, packaging]
 guard: devtools/tests/test_conda_release_workflows.py
@@ -130,7 +130,7 @@ and index validation, whole-checkout Ruff lint and formatting also pass
 line-break correction in an updated assertion; the final whole-checkout checks
 pass after that correction.
 
-The [receiving receipt](../../devtools/data/conda_provider_owner_receiving_544_20261106.json)
+The [receiving receipt](../../../devtools/data/conda_provider_owner_receiving_544_20261106.json)
 retains source hashes, exact operations, input names, commands, results and
 administrative limits. ArgDigest, DepDigest, SMonitor, PyUnitWizard and Ackredit
 applicability is recorded without adding unused runtime machinery to workflow
@@ -141,3 +141,21 @@ Remaining: integrate the reviewed owner source after the earlier ordered work,
 publish the final **Review completed** adoption reference and close #544 in
 order. Source review does not authorize a build, registry write or promotion,
 and those future operations retain their exact-candidate gates.
+
+## Resolution — 2026-11-06
+
+**Review completed.** The reviewed four-operation adoption reached main in
+6b76a9d7e, with its exact input/output, workflow-semantics and provider-fixture
+proof retained above and in the receiving receipt. Native staging/direct
+build-upload, upload-disabled ABI3 and exact-file promotion use immutable v2.3.0
+`87c70b1443d5f22d738ee3ddf812bdbe0152f6c2`. No noarch substitution, format
+conversion, secret/overwrite change, historical receipt rewrite or suspended-route
+activation occurred. Actual source-head publication governance and suite policy
+also pass on main 9e1f1b1ad. The final joint closure selection reruns the relevant
+publisher/ABI3/artifact guards without weakening their gate-order assertions.
+
+This satisfies the requested owner review/adoption decision. Builds, installed
+qualification, registry writes, promotion and independent public receiving keep
+their own exact-candidate execution/authorization boundaries. Fixture-based
+transports remain explicitly fixture evidence. No package was built or uploaded
+through the publisher by this adoption.

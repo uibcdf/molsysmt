@@ -1,9 +1,9 @@
 ---
 summary: Expose public protonation-removal correspondence for managed consumers.
 issue: uibcdf/molsysmt#576
-status: partial
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-06
 verification: measured
 area: [build, protonation, molsysviewer]
 guard: tests/build/test_protonation_assessment.py
@@ -14,9 +14,9 @@ supersedes: []
 
 # Public protonation-removal correspondence for managed consumers
 
-**Status:** implemented and contract-tested on prepared owner source. Ordered
-main integration and managed consumer receiving remain pending. Native method
-and pH criteria are unchanged; the new result remains experimental.
+**Status:** native provider contract resolved and integrated on main. Managed
+consumer receiving is separate. Native method and pH criteria are unchanged;
+the result remains experimental.
 
 ## What
 
@@ -175,7 +175,7 @@ memory costs; neither a universal streaming promise nor an RSS benchmark follows
 Existing compiled component labeling honors joins_components without rebuilding
 source components. No scientific pH rule, heavy template or H placement changes.
 
-The [receiving receipt](../../devtools/data/protonation_assessment_receiving_576_20261106.json)
+The [receiving receipt](../../../devtools/data/protonation_assessment_receiving_576_20261106.json)
 retains source/runtime identities, fingerprints and separate overlapping checks:
 
 - **1,717 affected cases pass**, covering build tools, amino-acid expectations,
@@ -234,3 +234,24 @@ managed assessment/application. The remaining native-route and command-completen
 assertions stay active. All three hosted guard modules plus the newly included
 native-receiving module pass 38 local cases; six legacy-H5MSM warnings remain.
 The next published exact-head smoke run must still execute and be inspected.
+
+## Resolution — 2026-11-06
+
+The public provider contract is implemented and integrated on main:
+`build.assess_protonation` returns a read-only prepared `ProtonationAssessment`
+with detached typed report, explicit source/retained maps, named/reference-state
+and evaluated/unassessed scope. `apply` consumes that same decision, validates
+its declared identity/axis/chemistry assumptions, and preserves the documented
+independent/in-place/no-op and atomic-failure behavior. Actual H removal,
+repeated labels/structures, retained geometry, analysis remapping and refusals
+remain protected by `tests/build/test_protonation_assessment.py`; the final
+joint source selection reruns this guard. Earlier 1,717 affected, public-floor
+and documentation results remain the scoped evidence recorded above.
+
+This completes the native contract requested by the issue. Fixed-pKa rules remain
+bounded and experimental; no H addition, charge assignment or environmental pKa
+prediction is claimed. The existing independent bound reconcile route remains,
+and managed assessment/application receiving stays with the Viewer consumer
+under #421 / uibcdf/molsysviewer#264. The explicit missing facade in the source
+inventory is not erased or replaced with a placeholder. Closing this provider
+issue does not certify that consumer workflow or the #334 installed release pair.

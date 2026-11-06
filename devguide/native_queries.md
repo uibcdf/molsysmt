@@ -60,9 +60,9 @@ contract ownership under
 MolSysMT retains its current context and dependency floor: fixing an owner also
 changes alias, standardizer and function/domain lookup, and some assembled
 mixins deliberately need runtime ownership. The
-[consumer receiving study](pending_proposals/argdigest_0_17_receiving.md)
-records the tested alternatives and the remaining installed-package evidence
-under uibcdf/molsysmt#428. No global definition-owner policy is enabled.
+[consumer receiving study](archive/resolved_proposals/argdigest_0_17_receiving.md)
+records the tested alternatives and completed clean installed public 0.17.1
+receiving under uibcdf/molsysmt#428. No global definition-owner policy is enabled.
 
 Private execution/provider helpers are undecorated. Trusted provider calls
 receive normalized options, selected indices validated against the available

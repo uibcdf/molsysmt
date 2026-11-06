@@ -1,9 +1,9 @@
 ---
 summary: Receive public ArgDigest 0.17.0 and assess opt-in contract ownership.
 issue: uibcdf/molsysmt#428
-status: partial
+status: resolved
 opened: 2026-10-22
-closed:
+closed: 2026-11-06
 verification: measured
 area: [deps, digestion, native]
 guard: tests/native/test_inherited_constructors.py
@@ -91,7 +91,7 @@ PYTHONPATH="$PUBLIC_PAYLOAD_PATH" python -m pytest tests/native \
   tests/cross_repo/test_smonitor_contracts.py --receptor=llm -n 12
 ```
 
-The [receiving receipt](../../devtools/data/argdigest_0_17_receiving_20261025.json)
+The [receiving receipt](../../../devtools/data/argdigest_0_17_receiving_20261025.json)
 records exact public URLs, independently verified digests, package versions,
 actual import origins expressed relative to their owning root, source/guard
 identity and JUnit digests. The same final constructor/ownership guard selection
@@ -122,7 +122,7 @@ Do not enable `contract_owner` globally or remove existing constructor context.
 The optional capability is received for study, not required by production code.
 
 The new
-[ownership study](../../tests/_private/argdigest/test_contract_ownership_receiving.py)
+[ownership study](../../../tests/_private/argdigest/test_contract_ownership_receiving.py)
 demonstrates that definition/exact ownership can replace count context on the
 three base constructors. Removing context without choosing an owner reproduces
 the inherited-count refusal. Independently decorated overrides have their own
@@ -182,7 +182,7 @@ every scientific method. The published three-provider archives and every
 runtime payload file were checked against their original archived bytes.
 Actual module origins, versions, source/test hashes, commands and certificates
 are retained in the
-[patch receiving receipt](../../devtools/data/argdigest_0_17_1_receiving_428_20261106.json).
+[patch receiving receipt](../../../devtools/data/argdigest_0_17_1_receiving_428_20261106.json).
 
 Only the incompatible development SMonitor pytest plugin is disabled in these
 commands; runtime SMonitor and its consumer assertions remain active. Other
@@ -267,3 +267,27 @@ script by its quoted absolute path. A local regression recreates the failing
 vendor-relative companion lookup and checks the actual workflow's corrected
 launcher, paths with spaces and literal argument forwarding. The full receiving
 selection and every registered scientific case remain mandatory.
+
+## Resolution — 2026-11-06
+
+The actual clean installed receiving is complete. Exact producer source
+`bd40d70591c2ada8d2fa2e7e2ce65d7420e60b33` passes
+[42259461880](https://github.com/uibcdf/molsysmt/actions/runs/42259461880):
+**2,542 consumer cases and 83 scientific cases, zero failures or omissions**.
+The final installed-public-byte/prefix/dependency verification also passes.
+Independent receiving rehashes the artifact and consumer wheel, reconciles both
+JUnit inventories and all registered scientific selectors, and matches 3,098
+wheel Python files to the exact source (excluding the generated version module).
+The [installed receipt](../../../devtools/data/argdigest_installed_receiving_428_20261106.json)
+retains exact public ArgDigest identity, noneditable origins, actual dependencies,
+external LEaP profile, complete step facts and prior failed attempts.
+
+Retain `native_constructor`, defer production `contract_owner` adoption and keep
+the independently established public ArgDigest floor >=0.14.0. Inheritance,
+optional counts, invalid-count/unknown-keyword refusal and opt-in ownership/mixin
+semantics retain their real executable guards. No provider patch or optional
+feature adoption is needed to close this receiving. The selected public Viewer
+0.24.0 is an installed dependency, not a new coordinated release/canvas/session
+qualification. Default-info Jinja2 declaration remains #524; synchronized guide
+rollout remains MolSysSuite-owned. Final installed-pair/platform and release gates
+remain under #334. This closure authorizes no publication.

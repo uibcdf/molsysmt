@@ -33,7 +33,7 @@ The [nonbonded-energy receipt](../devtools/data/molsysviewer_tools_nonbonded_rec
 records internal/disjoint cross and two-sided group contributions against
 independent Coulomb/Lennard-Jones pair sums, explicit energy-unit policy and
 source/scene ownership. Native mixed partition #561 remains visible. The
-[get_forces proposal](pending_proposals/native_molsys_force_reader_for_bound_consumers.md)
+[get_forces proposal](archive/resolved_proposals/native_molsys_force_reader_for_bound_consumers.md)
 tracks #572: native MolSys input was not implemented at that snapshot, so no always-rejected bound
 force method or consumer parameterization was added in the snapshot below.
 Native MolSys input is now implemented under #572; bound-force receiving remains
@@ -583,7 +583,8 @@ and installed/release qualification remain separate.
 
 The build mirror exposes the native signature with the current primary implicit.
 Only in_place=False is received: managed True rejects before science pending
-[public correspondence #576](pending_proposals/protonation_removal_correspondence_for_bound_consumers.md).
+consumer receiving of the now-implemented
+[public correspondence #576](archive/resolved_proposals/protonation_removal_correspondence_for_bound_consumers.md).
 This is one callable path with a bounded admitted mode, not complete in-place
 coverage or environmental-pKa qualification. Native reference rules, explicit
 named states, unassessed groups and extraction semantics remain unchanged. No

@@ -205,7 +205,9 @@ Owner course code, outputs, IDs and metadata remain preserved.
 PR #543 adds the explicit current-primary `build.reconcile_protonation` mirror
 on published native `ccff2557f`. Only native in_place=False is received; True
 rejects before science pending the public removal-correspondence contract under
-[#576](protonation_removal_correspondence_for_bound_consumers.md).
+[#576](../archive/resolved_proposals/protonation_removal_correspondence_for_bound_consumers.md).
+The native contract is implemented and owner-resolved as of 2026-11-06; the
+remaining block is managed consumer receiving, not missing provider science.
 The independent result is not adopted. Native reference-rule pH, naming contexts,
 unassessed groups, all-structure subset semantics and analysis remapping remain
 unchanged. No private chemistry helper or identity matching is used. Source

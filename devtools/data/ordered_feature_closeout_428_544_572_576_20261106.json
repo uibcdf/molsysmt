@@ -1,0 +1,38 @@
+{
+  "schema": "molsysmt.ordered_feature_closeout@1",
+  "recorded_at": "2026-11-06T17:24:11.283432+00:00",
+  "issues_in_order": [
+    428,
+    544,
+    572,
+    576
+  ],
+  "source_commit": "bd40d70591c2ada8d2fa2e7e2ce65d7420e60b33",
+  "main_before": "9e1f1b1ad8bf09446374ab6f04ca7208e2717936",
+  "installed_receiving_run": 42259461880,
+  "main_smoke_run": 42255097956,
+  "joint_guards": {
+    "tests": 248,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "joint_junit_sha256": "151e097279a0127a5e71a8a95d5f4cffbe35da60124ec824bc0fb3f8fd932d7a",
+  "workers": 12,
+  "receipts": {
+    "devtools/data/argdigest_installed_receiving_428_20261106.json": "e82616145ea84b448d257e6cc27981818cbce66606ee4f0b03a44700861a015e",
+    "devtools/data/conda_provider_owner_receiving_544_20261106.json": "822924b5a01b725441c10a58987ee2a7c38b3b63a8b57f1bb08d6c11cc5c078b",
+    "devtools/data/native_force_reader_receiving_572_20261106.json": "c601181e288a99ec3535466f228941203849676792560bf199f6dfdf46cd1e01",
+    "devtools/data/protonation_assessment_receiving_576_20261106.json": "6632cccacdb85c131d9cc7f31848814088c35ae1dfd64ce28838d1a8273a458d"
+  },
+  "next_ordered_issue": 557,
+  "incomplete_557_included": false,
+  "limits": [
+    "No complete source-platform matrix or installed release-pair/canvas/session qualification.",
+    "No publication, package promotion or provider code edits.",
+    "Consumer force/assessment facade receiving remains separately owned.",
+    "Default-info Jinja2 declaration remains tracked by #524."
+  ],
+  "fast_gate": "14/14 PASS after archival/index/current-guide changes; full matrix and installed release-pair gates remain separate.",
+  "ruff": "Repository lint passes; all 4448 Python files pass format verification."
+}
