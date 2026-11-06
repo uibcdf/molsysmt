@@ -85,6 +85,10 @@
     ".github/workflows/sphinx_docs_to_gh_pages.yaml": {
       "sha256": "54a4e12d4d7fdb40a176315d66a13df91d74747a84bd88f66bb4c73f16a4319d",
       "size_bytes": 3195
+    },
+    "devtools/scripts/viewer_tools_contract.py": {
+      "sha256": "f1eeab1c6cdd27cfdc03439ab152f5084e36979d94d3eacd9077346a94d289ee",
+      "size_bytes": 3570
     }
   },
   "contract": {
@@ -287,6 +291,16 @@
       "log": "/tmp/msv-chemistry-record-route-checks-20261106.log",
       "log_sha256": "f55419ee0beb88bb2ad1615b283998bf111f0a9031a5365815f0e386f147f18e",
       "command": "python -m pytest --receptor=llm tests/test_distribution_manifests.py devtools/tests/test_validate_devguide.py devtools/tests/test_molsysviewer_tools_api_inventory.py devtools/tests/test_validate_course.py"
+    },
+    {
+      "scope": "exact hosted preflight and source/wheel/installed file-inventory contract",
+      "state": "passed",
+      "passed": 36,
+      "exit": 0,
+      "duration_seconds": 3.02,
+      "log": "/tmp/msv-chemistry-distribution-inventory-20261106.log",
+      "log_sha256": "1ae07eee65954cb78a85c2e2ff871a677918581c09f69e07fd158990ad962573",
+      "command": "python -m pytest --receptor=llm devtools/tests/test_smoke_addon_test_command.py devtools/tests/test_molsysviewer_tools_api_inventory.py devtools/tests/test_native_viewer_integration.py"
     }
   ],
   "scene_comparison": {
@@ -315,6 +329,14 @@
       "log": "/tmp/msv-chemistry-jupyter-popup-qualified-20261106.log",
       "observation": "All six UI steps passed; a whole-document equality compared a pre-render snapshot without a camera with a live frontend snapshot.",
       "disposition": "Assert the exact camera-only difference and retain exact objects/frame/playback, chemical dictionaries and every coordinate. Final seven-step case passes in 38.85 s and all eight scenarios pass in 355.50 s."
+    },
+    {
+      "source": "408195fe8b49f82cc650e1c1905833eb95b954a0",
+      "run": 42208445163,
+      "step": "Validate bound addon test command",
+      "observation": "The explicit reviewed-file inventory omitted the two new Chemistry source modules; 35 preflight cases passed and one failed before scientific tests ran.",
+      "log": "/tmp/msv-chemistry-smoke-42208445163-failed.log",
+      "disposition": "Add exactly the two reviewed Python sources to TOOLS_FILES. Keep strict missing/unreviewed/retired source and bytecache rejection. All 36 preflight cases now pass; no runtime/scientific input changes and no assertion removal."
     }
   ],
   "host_evidence": {
@@ -361,5 +383,18 @@
     "clean installed/public packages",
     "remaining Geometry/cell, Chemistry preparation/construction, Analysis and full session persistence"
   ],
-  "publication": "Both 1.0 publications remain paused; no tag/candidate freeze/package/promotion."
+  "publication": "Both 1.0 publications remain paused; no tag/candidate freeze/package/promotion.",
+  "owner_hosted_checkpoint": {
+    "source": "408195fe8b49f82cc650e1c1905833eb95b954a0",
+    "smoke": {
+      "run": 42208445163,
+      "state": "failure",
+      "stage": "packaging preflight; science not executed"
+    },
+    "full": {
+      "run": 42208445431,
+      "state": "queued"
+    },
+    "recovery": "Published follow-up/source-matrix result remains pending; earlier failed run retained."
+  }
 }
