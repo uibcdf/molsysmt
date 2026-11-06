@@ -173,7 +173,7 @@
     "skips": "Optional Ackredit/unyt/astropy native tests and four optional Ackredit addon cases. Does not qualify new Analysis source."
   },
   "pending": [
-    "Full latest-source actual Jupyter receiving, exact-head hosted gates and owner integration; initialization observation #615 remains open. The clean 8f8c442e 4,775-case collection below retains its original host and precedes the new session guards.",
+    "Current hosted gates, owner integration and remaining required GUI/session families. Complete actual-Jupyter receiving on b18d5d823 / 737f9bc3 passes 11 scenarios and 76 steps; #615 remains unexplained.",
     "Postponed human Jupyter/visible Qt and installed artifacts.",
     "Remaining Geometry, Chemistry construction/assignments, Analysis series/properties/sequence/mechanics/plots and qualified visual adoption.",
     "Full task-family/GUI session completion and native H5MSM continuation #616 remain pending. Both 1.0 publications and candidate freezes remain paused."
@@ -339,5 +339,211 @@
       "boundary": "Published corrected Viewer; current new test and controlled workflow inputs only. No repeated complete 4777-case collection is claimed."
     },
     "static_checks": "Ruff check/format: 4437 files pass; dependency audit and devguide validator/index pass; native algorithms and course executable inputs unchanged."
+  },
+  "complete_current_jupyter": {
+    "addon_source": "b18d5d82366808e8c170295f6fe483ffb58094bc",
+    "viewer_source": "737f9bc349e84414be75163e0566a42fe7e480d2",
+    "passed": 11,
+    "skipped": 0,
+    "steps": 76,
+    "pytest_seconds": 671.62,
+    "wrapper_seconds": 675.5728753011208,
+    "tracked_source_inputs": 4456,
+    "source_unchanged": true,
+    "clean_addon_checkout": true,
+    "human_viewer_worktree_status_unchanged": true,
+    "log_sha256": "2534f90c292e47c7d70c2a557f5904debd056a64ebc21f5f90203b1c8d1edc3f",
+    "wrapper_receipt_sha256": "772a421ab9c18754b2fb5011f0e031a803ef1abe6ad536bffa5bbcd81c668925",
+    "scenarios": [
+      {
+        "scenario": "jupyter-analysis",
+        "checks": [
+          "Load TcTIM and open Analysis without calculating implicitly",
+          "Calculate explicit atom populations and verify native distances against coordinates",
+          "Inspect native minimum and maximum without changing molecular data",
+          "Inspect evaluated-empty neighbors and explicit nearest-count results",
+          "Page through TcTIM source indices without transferring the complete result",
+          "Use independent Analysis panels in canvas popup and detached Studio",
+          "Python verifies every molecular coordinate chemical domain and scene object unchanged"
+        ],
+        "receipt_sha256": "d691fc67e37b71d7e368ef14155d373ac2578de10408f83ca42ad4f5aafca496",
+        "initial_cell_seconds": 4.979011,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-preparation",
+        "checks": [
+          "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+          "Present the independent result in the notebook and keep it while changing tasks",
+          "Review Back preserves the original TcTIM and its chemical domain",
+          "Apply the reviewed result and render its independent copy in the original canvas",
+          "Inspect the adopted molecular data in the canvas popup and detached Studio",
+          "Python verifies one replacement, original preservation and independent result coordinates"
+        ],
+        "receipt_sha256": "2d44d9e416cdbc81bba39d7a7ede6200bf0e16ca1397997d21f6b9014252d6a8",
+        "initial_cell_seconds": 3.597561,
+        "observed_page_errors": 3,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-chemistry",
+        "checks": [
+          "Render bundled TcTIM and open Chemistry without starting an assessment",
+          "Inspect actual stored fields with distinct present partial and missing coverage",
+          "Read bounded source-index pages without recalculating the molecular system",
+          "Inspect a duplicate numeric selection and expose unassessed scientific checks",
+          "Keep unknown hydrogen counts distinct from zero and indexed atoms",
+          "Use the same native reports and clear only panel data in both popup hosts",
+          "Python verifies every source coordinate chemical domain scene and revision is unchanged"
+        ],
+        "receipt_sha256": "8b2c9ae7c96937f79340ae6e6f69b4abffc4772c1101574f6f632175744ebba3",
+        "initial_cell_seconds": 5.001528,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-center",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review centering and cancel while actual Mol* coordinates stay unchanged",
+          "Apply centering and verify the actual displayed coordinates analytically",
+          "Create an independent result centered on another selection in the current structure",
+          "The centered result keeps its identity across window and notebook destinations",
+          "Center task and its references survive canvas and Studio popups",
+          "Python verifies every selected and unselected atom and structure"
+        ],
+        "receipt_sha256": "166bc52e91d05232e6e94b4d558ff4eccb8b82ad75658bed09b48ce5467e8ce4",
+        "initial_cell_seconds": 3.267739,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-fit",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review explicit fitting atoms and cancel without changing rendered coordinates",
+          "Apply rigid superposition and compare actual Mol* positions with the independent SVD oracle",
+          "Create a separate result fitted to another explicit reference structure",
+          "The superposed result preserves its identity across window and notebook destinations",
+          "Fitting references remain explicit in canvas and detached Studio popups",
+          "Python verifies every selected/unselected atom and structure against the independent oracle",
+          "Independent notebook Views bind saved-choice inputs to their own datalist"
+        ],
+        "receipt_sha256": "a7681d4f9a0623c7d20f66e21554c9acc32bdbb2d976b8ae9e6ee7b0d7c52e7e",
+        "initial_cell_seconds": 3.26986,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-geometry",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review and cancel translation without changing the molecular system",
+          "Confirm the saved subset once through live Jupyter comms",
+          "Translate an independent whole-system result and display it below the source",
+          "The same result can move to its own live window and back",
+          "Geometry is reachable in canvas and detached Studio popups with its draft",
+          "Python verifies the numerical results and unchanged source of the independent calculation"
+        ],
+        "receipt_sha256": "d420b47dbb7cb03dc77e18f4d74d67616ccb068962bcb4724a0fdfe9e09271d8",
+        "initial_cell_seconds": 3.771304,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-results",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Extract ordered nonconsecutive structures without editing the source",
+          "Notebook delivery from fullscreen explains how to reach the result",
+          "Changing destination reuses one View through rapid window/notebook cycles",
+          "Copy opens a separate live View in an external window without recomputing",
+          "Detached Studio can open and close an independent result without closing its source",
+          "Python recovers both Views and source closure preserves them"
+        ],
+        "receipt_sha256": "780f3083800f317709f1e4d5c4ab97da5a140621da46dcf5a3b7fcdbc535375c",
+        "initial_cell_seconds": 5.094646,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-chemistry-pending",
+        "checks": [
+          "Mount actual Chemistry in the embedded TcTIM view",
+          "Inspect and page current primary with real keys while embedded scene stays inert",
+          "Restore the same mounted panel after updating and open the canvas popup",
+          "Inspect current primary from the paused live canvas popup",
+          "Restore canvas popup and mount Chemistry in detached Studio",
+          "Inspect and page current primary in detached paused Studio",
+          "Restore detached Studio without recreating its panel and close popups",
+          "Verify native molecular data revisions scene regions and result ownership"
+        ],
+        "receipt_sha256": "5ce97eaf6e26c71449189a14174a3424be83d4fdf8e8f8accb3b58f58fcb1714",
+        "initial_cell_seconds": 3.65875,
+        "observed_page_errors": 8,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-periodic",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review compact centered-box wrapping and Back without changing Mol* positions",
+          "Apply native compact wrapping and verify its actual centered image",
+          "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+          "Review per-atom temporal unwrapping and create an independent whole-system result",
+          "The periodic result keeps its View while moving between notebook and window",
+          "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+          "Python verifies all native arrays and drives a second structure of the rendered result"
+        ],
+        "receipt_sha256": "8cd137be0d604518a6b137f7f2c3c99dcdf64ec6e9e46efea6f6a04abd6b9177",
+        "initial_cell_seconds": 3.507885,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-center-errors",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review a native center-of-mass request under the explicit partial application policy",
+          "The native error remains visible after its automatic synchronized refresh",
+          "Python verifies that the rejected native call did not mutate the system",
+          "A new user choice clears the diagnostic and requires a new review"
+        ],
+        "receipt_sha256": "2a2273376474067fa71c79c2ffb751207212b9d5f37a4fd265518411ba4558db",
+        "initial_cell_seconds": 3.287835,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter",
+        "checks": [
+          "Execute real notebook with source-pinned Python 3.14 kernel",
+          "Native review is 165 waters / 3818 retained; Back does not edit",
+          "Confirm traverses real widget comms, native edit and Mol* rendering",
+          "Empty ion selection and remount retain a bounded draft without a review",
+          "Canvas popup and Studio popup share the actual Jupyter authority",
+          "Kernel verifies actual inventory and exactly two managed edits"
+        ],
+        "receipt_sha256": "ab33ee306de3595cb219a79f186fb0012860ac67253864e15d5387ff78729030",
+        "initial_cell_seconds": 3.325236,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      }
+    ],
+    "page_error_boundary": "All observed errors match their plain-Jupyter control fingerprint (No active debugger session). This is not a zero-page-error claim.",
+    "initialization_boundary": "All eleven initial cells complete in this campaign; this does not establish the cause/repair of earlier #615.",
+    "source_boundary": "Clean published b18d5d823 / Viewer 737f9bc3. Native ed09f6453 and fixed PyUnitWizard profile; actual Jupyter/Mol*/popups, not human Qt or installed artifacts."
   }
 }

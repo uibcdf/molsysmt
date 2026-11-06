@@ -40,6 +40,13 @@ Preserve two-plus-one receiving; no single green three-case campaign is claimed.
 
 ## Follow-up
 
+Complete clean follow-up receiving on b18d5d823 / Viewer 737f9bc3 passes all
+eleven actual-Jupyter scenarios and 76 steps in 671.62 s; the before/after
+source snapshots agree. Initial Python cells take 3.27–5.10 s. This adds a
+conclusive campaign on those inputs, without establishing a cause or repair
+for the earlier timeout. This report remains open; no deadline or assertion
+was relaxed and no warm-up was introduced.
+
 On recurrence identify the live kernel/library, widget-transport/bootstrap or
 first-draw stage and capture its actual stack/status before changing behavior.
 Do not infer process termination from an observation timeout, restart a live

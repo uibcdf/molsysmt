@@ -22,6 +22,13 @@ contracts.
 
 ## Molecular task and pending-reader integration — 2026-11-06
 
+Complete local Jupyter/Mol*/popup receiving on clean b18d5d823 / Viewer
+737f9bc3 now passes 11 scenarios / 76 steps in 671.62 s, with all selected
+source inputs unchanged. This receives the implemented task workspace. Preserve
+the corresponding plain-Jupyter debugger error classification and #615's
+unexplained earlier initialization failure. Required remaining families,
+hosted/owner/installed and postponed human gates remain incomplete.
+
 **Current controlled host:** all five source workflows and the dependency
 inventory now pin published Viewer `737f9bc349e84414be75163e0566a42fe7e480d2`,
 which fixes numeric region recovery under Viewer #307. The new scientific-session

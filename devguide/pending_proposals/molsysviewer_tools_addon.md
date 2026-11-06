@@ -31,6 +31,13 @@ native/route controls and five actual Jupyter scenarios. Rotate awaits native
 
 ## Analysis distance-family receiving — 2026-11-06
 
+**Complete implemented-task Jupyter receiving:** clean b18d5d823 / Viewer
+737f9bc3 passes all eleven scenarios and 76 steps in 671.62 s, with 4,456
+selected source inputs unchanged. All observed page-error fingerprints match
+the corresponding plain-Jupyter control; no zero-error claim or causal closure
+of #615 is made. This receives the implemented tasks, not all required families
+or human/installed/owner acceptance.
+
 **Current controlled host:** all five source workflows and the dependency
 inventory now pin published Viewer `737f9bc349e84414be75163e0566a42fe7e480d2`,
 which fixes numeric region recovery under Viewer #307. The new scientific-session

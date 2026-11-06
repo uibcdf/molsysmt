@@ -40,6 +40,14 @@ It is distinct from #609's result-window-title acknowledgement race. The full
 
 ## Correction and acceptance
 
+The complete clean b18d5d823 / Viewer 737f9bc3 campaign now passes all eleven
+actual-Jupyter scenarios and 76 steps in 671.62 s, including Analysis,
+Chemistry preparation and pending readers in one run. All 4,456 selected
+tracked inputs and both checkout identities/status remain unchanged. Earlier
+failed attempts and #615's separate initialization observation are preserved.
+Owner review/integration remains pending; the source correction is proposed
+through PR #543 rather than installed or merged qualification.
+
 A shared test helper waits for attached workspace metadata, resolves either
 the current or selectable Add-ons header and waits for the requested panel.
 Analysis, Chemistry preparation and the pending-reader driver reuse it.

@@ -368,6 +368,33 @@ Generic result persistence, plots and deliberate core visual adoption, further
 structural/property/sequence/mechanics families and complete-session acceptance
 remain required work; no placeholder operation is registered for them.
 
+### Next Analysis integration — planned
+
+Connect a selected result row to the existing core selection/focus owners.
+Derive participants from the retained report and its row identity in Python;
+do not trust browser-supplied atom indices. Revalidate target, managed revision,
+membership and report lifetime inside the host panel action. The existing
+transport holds the managed-edit lock over that handler, so this does not need
+a second public scene-action service. A reader callback still cannot edit the
+scene; scene actions must remain unavailable while projection is pending.
+
+Qualify visible-structure navigation and the report's actual context
+dependencies before offering row navigation. Keep a calculated numerical row
+distinct from a live core Measure. In particular, current core distances use
+nonperiodic live endpoint geometry: periodic observations and mass-weighted
+centers cannot be presented as equivalent live distances without an additional
+qualified owner contract. Do not copy a frozen scalar into a live measurement.
+
+Continue structural series through public RMSD, least-RMSD, radius-of-gyration
+and RMSF tools with explicit reference/weighting/structure choices. RMSF does
+not align its input; any preparation remains a separate deliberate operation.
+Reuse core plot rendering where its axis contract applies. Its present
+trajectory cards require a finite value for each loaded structure; never pad
+uncomputed structures with zero, relabel atom indices as structures, or sort/
+discard requested indices to obtain a plot. Other mappings need their own
+reviewed renderer contract. These remain required implementation/receiving
+tasks under #421, not implemented buttons or expert API aliases.
+
 ### Chemistry preparation and explicit replacement — source contract 2026-11-06
 
 Chemistry offers Add missing heavy atoms and Add missing hydrogens alongside its
