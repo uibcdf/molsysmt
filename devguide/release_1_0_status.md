@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-11-05
+**Last updated:** 2026-11-06
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -59,6 +59,53 @@ Next: complete combined-candidate review and exact required source gates, then
 return to **#593**'s distinct course-preparation contract and **#334**.
 **#587/#590/#591 remain pending owner integration.** No tag, Release, promotion
 or new release matrix is authorized or launched by these source checks.
+
+## Expanded PR owner reproduction — 2026-11-05
+
+The frozen f7b305b3a / Viewer 42234de8 delta now passes **95** directed
+System/native/tooling controls, **53** published-support-floor cases and **510**
+documentation-boundary cases. Both actual-Jupyter guards pass (**2 cases**,
+112.9 s): removal/layout/popups and seven independent-result checks covering
+ordered extraction, repeated presentation destination changes, copy, detached
+Studio, Python recovery and result lifetime after source closure. Private server
+settings are removed and only test-owned browser/server resources are stopped.
+The [owner receipt](../devtools/data/owner_pr543_result_views_receiving_20261105.json)
+records this separately from contributor claims and the earlier input.
+The complete addon selection on the combined new tree passes **4,507 cases**
+in 325.7 s (four workers, Pytest Receptor). Final Ruff, formatting, dependency
+contract and developer-guide checks also pass.
+
+The obsolete run 42153312659 cannot qualify the candidate: its four completed
+Linux jobs fail and its source is superseded. Cancellation of its remaining
+queued jobs was requested to avoid redundant CI; this is not a successful gate.
+Final combined-source full qualification and main integration remain pending.
+
+## Independent addon result Views — 2026-11-05
+
+**Contributor receiving record:** the following measurements were supplied by
+the PR. Owner reproduction of this expanded fixed source is pending; the
+preceding owner section identifies its separately received scope.
+
+PR #543 now includes System / Extract subset and Copy system, using Viewer
+`42234de839ed047016f8f241ea5eb717cfeb07be` through exact controlled-source pins.
+The expert wrappers retain native molecular returns; the GUI prepares an
+independent View and explicitly presents it below the notebook or in a window.
+Changing destination reuses the same View, including from detached Studio.
+Fullscreen delivery is explained rather than falsely described as visible.
+Python can recover the result by handle. Native science and source remain
+unchanged; leaving an unpresented result releases it.
+
+Receiving on native ed09f6453 passes 128 addon System/mechanics cases and 180
+read-tool/native #583/#584 controls, in overlapping scopes. The published Viewer
+source passes the seven-step actual-Jupyter result scenario; the existing
+six-step removal/popups control remains separately passing. Native offscreen
+Qt ownership is separate from postponed human visible Qt qualification. All
+157 incoming course notebooks preserve code, outputs and metadata. Current
+evidence is in
+[the receiving receipt](../devtools/data/molsysviewer_tools_result_views_receiving_20261105.json).
+Owner review/integration, hosted exact-head CI and installed qualification remain
+pending. Both 1.0 publications remain paused. No native algorithm is authored
+by this GUI addition, and no tag, Release or promotion is authorized.
 
 ## Course geometric interface observable — 2026-11-05
 

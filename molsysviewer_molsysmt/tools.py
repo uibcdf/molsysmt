@@ -56,7 +56,7 @@ def get_addon(*, skip_digestion=False):
                 title="System",
                 order=10,
                 widget_class="molsysviewer_molsysmt._panel._SystemPanel",
-                description="Choose atoms, review their removal and update the molecular system.",
+                description="Remove atoms, extract a subset or copy the molecular system independently.",
             ),
         ),
         meta={"status": "experimental"},

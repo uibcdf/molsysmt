@@ -51,6 +51,7 @@ def main():
     parser.add_argument("--viewer-root", type=Path, required=True)
     parser.add_argument("--provider-root", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--scenario", choices=("system", "results"), default="system")
     parser.add_argument("--node", default="/usr/bin/node")
     parser.add_argument(
         "--chromium",
@@ -149,6 +150,27 @@ def main():
         "assert status['state'] == 'synchronized'\nassert status['target_revision'] == 2\n"
         "print('JUPYTER_SYSTEM_NATIVE_OK', view.molsys.get_n_atoms())\n"
     )
+    if args.scenario == "results":
+        initial = initial[: initial.index("view = msv.demo")] + (
+            "with msv.demo['pentalanine'] as seed:\n"
+            "    view = msv.new_view(seed.molsys, structure_indices=[0, 8, 3])\n"
+            "source_coordinates = msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit='nm').copy()\nview\n"
+        )
+        final = (
+            "import numpy as np\n"
+            "records = view.addons.manager.presentations.records()\n"
+            "assert len(records) == 2, records\n"
+            "subset = next(item for item in records if item['title'] == 'Subset review')\n"
+            "copy = next(item for item in records if item['title'] == 'Copy review')\n"
+            "subset_view = view.addons.manager.presentations.get(subset['id'])\n"
+            "copy_view = view.addons.manager.presentations.get(copy['id'])\n"
+            "assert subset_view.molsys.get_n_atoms() == 3\n"
+            "np.testing.assert_equal(msm.pyunitwizard.get_value(subset_view.molsys.structures.coordinates, to_unit='nm'), source_coordinates[[2,0]][:,[2,4,6]])\n"
+            "np.testing.assert_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit='nm'), source_coordinates)\n"
+            "assert not np.shares_memory(msm.pyunitwizard.get_value(copy_view.molsys.structures.coordinates, to_unit='nm'), msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit='nm'))\n"
+            "view.close()\nassert not subset_view.closed and not copy_view.closed\n"
+            "print('JUPYTER_INDEPENDENT_RESULTS_OK', len(records))\n"
+        )
     (output / "notebooks/system.ipynb").write_text(
         json.dumps(_notebook([initial, final]))
     )
@@ -199,7 +221,14 @@ def main():
             if not ready:
                 raise RuntimeError("Isolated Jupyter did not become ready.")
             subprocess.run(
-                [args.node, str(Path(__file__).with_suffix(".mjs"))],
+                [
+                    args.node,
+                    str(
+                        Path(__file__).with_name("result_panel_jupyter.mjs")
+                        if args.scenario == "results"
+                        else Path(__file__).with_suffix(".mjs")
+                    ),
+                ],
                 env=env,
                 check=True,
                 timeout=240,

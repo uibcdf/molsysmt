@@ -11,6 +11,23 @@ prototype illustrates that broader design; it is not runtime evidence. Owner
 review, exact-head CI, human Jupyter/visible Qt observations and installed qualification remain
 separate. No release is authorized.
 
+**Independent results update — 2026-11-05:** source now adds Extract subset and
+Copy system through the host presentation boundary in uibcdf/molsysviewer#301.
+The result is computed once, then explicitly shown in notebook output or a
+window (desktop: window only). Python recovers the View by handle. Unpresented
+results are discarded when a task is left; presented Views survive panel/source
+closure. Real Jupyter receiving covers ordered structures, separate native data
+and both destinations, repeated destination changes, fullscreen delivery and
+detached Studio. Hosted exact-head gates remain pending. Native-window ownership is tested separately from postponed human
+visible Qt qualification. Other destinations and Geometry/Chemistry/Analysis
+remain planned. The dated status above retains its initial scope.
+
+The host code is Viewer `42234de839ed047016f8f241ea5eb717cfeb07be`.
+The source receiver also incorporates native ed09f6453, including the owner's
+#583/#584 repairs. Consumer observations are archived alongside the native
+resolutions; no duplicate open report is retained. The final receiving receipt
+records exact source hashes and separately selected browser/Qt scopes.
+
 The expert API remains the scientific foundation. This design uses qualified
 native operations and their existing managed-edit adapters; it does not change
 Python signatures, defaults or result types. The core/addon boundary and
@@ -177,6 +194,13 @@ presentation contract before enabling that destination. This does not block the
 remove-atoms slice. It must be settled before calling the extraction GUI complete.
 Candidate retention, replacing an earlier result and explicit discard need
 bounded ownership; unmounting a panel must not leak large independent outputs.
+
+The current source uses `view.addons.manager.presentations.prepare` and `get`
+and the panel's `model.present_view` adapter under Viewer #301. Expert wrappers
+retain molecular returns. A fresh destination click handles browser activation;
+Qt creates another native window with its own transport in the same application.
+Retry does not recalculate. Source support is not published-package or human
+visible Qt qualification.
 
 ## Remaining panels and result policy
 

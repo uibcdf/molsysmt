@@ -442,3 +442,109 @@ def test_projection_failure_exposes_completed_science_and_core_retry_only(
     assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
     assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
     assert view.molsys.get_n_atoms() == count - 2
+
+
+@pytest.mark.parametrize(
+    "task,scope,indices,atoms,structures",
+    [
+        ("extract", "all", "", 2, 3),
+        ("extract", "current", "", 2, 1),
+        ("extract", "indices", "2, 0", 2, 2),
+        ("copy", "all", "", 62, 3),
+    ],
+)
+def test_independent_result_tasks_preserve_source_and_order(
+    case, task, scope, indices, atoms, structures
+):
+    view, sent = case
+    before = puw.get_value(view.molsys.structures.coordinates, to_unit="nm").copy()
+    initial = view.addons.molsysmt.get_sync_status()
+    act(view, sent, "result.task", task=task)
+    draft = {**state(sent)["draft"], "source": "indices", "indices": "2, 4"}
+    result_state = act(
+        view,
+        sent,
+        "result.create",
+        draft=draft,
+        result_draft={
+            "structures": scope,
+            "indices": indices,
+            "title": "Independent result",
+        },
+    )
+    assert result_state["stage"] == "result", result_state
+    result = result_state["result"]
+    child = view.addons.manager.presentations.get(result["id"])
+    assert child.molsys.get_n_atoms() == atoms
+    assert child.molsys.structures.n_structures == structures
+    assert child.molsys is not view.molsys
+    assert view.addons.molsysmt.get_sync_status() == initial
+    np.testing.assert_equal(
+        puw.get_value(view.molsys.structures.coordinates, to_unit="nm"), before
+    )
+    if scope == "indices":
+        np.testing.assert_equal(
+            puw.get_value(child.molsys.structures.coordinates, to_unit="nm"),
+            before[[2, 0]][:, [2, 4]],
+        )
+    repeated = act(
+        view,
+        sent,
+        "result.create",
+        draft=draft,
+        result_draft={
+            "structures": scope,
+            "indices": indices,
+            "title": "Independent result",
+        },
+    )
+    assert repeated["stage"] == "error"
+    assert repeated["result"]["id"] == result["id"]
+    closed = act(view, sent, "result.discard")
+    assert child.closed
+    assert closed["result"] is None
+
+
+@pytest.mark.parametrize("indices", ["", "0,0", "-1", "3", "0, text"])
+def test_result_rejects_invalid_structures_before_preparing_a_view(case, indices):
+    view, sent = case
+    act(view, sent, "result.task", task="extract")
+    draft = {**state(sent)["draft"], "source": "indices", "indices": "2,4"}
+    result = act(
+        view,
+        sent,
+        "result.create",
+        draft=draft,
+        result_draft={"structures": "indices", "indices": indices, "title": ""},
+    )
+    assert result["stage"] == "error"
+    assert result["result"] is None
+    assert view.addons.manager.presentations.records() == []
+
+
+def test_panel_navigation_discards_only_unpresented_results(case):
+    view, sent = case
+    act(view, sent, "result.task", task="copy")
+    result = act(
+        view,
+        sent,
+        "result.create",
+        result_draft={"structures": "all", "indices": "", "title": ""},
+    )["result"]
+    child = view.addons.manager.presentations.get(result["id"])
+    view._unmount_addon_panel()
+    assert child.closed
+    assert view.addons.manager.presentations.records() == []
+    mount(view)
+    act(view, sent, "result.task", task="copy")
+    result = act(
+        view,
+        sent,
+        "result.create",
+        result_draft={"structures": "all", "indices": "", "title": ""},
+    )["result"]
+    child = view.addons.manager.presentations.get(result["id"])
+    view.addons.manager.presentations._show(result["id"], "notebook", request=1)
+    view._unmount_addon_panel()
+    assert not child.closed
+    child.close()

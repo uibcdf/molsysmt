@@ -1,0 +1,150 @@
+{
+  "schema": "molsysviewer.independent-view-receiving@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysviewer#301",
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "viewer_runtime_commit": "42234de839ed047016f8f241ea5eb717cfeb07be",
+  "owner_merge_checkpoint": "5d28cd50ca6a566ddb930d7bd550a877b3601879",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "owner_state": "contribution source plus recorded final file hashes; not yet owner-integrated",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "viewer_source_sha256": {
+    "molsysviewer/presentations.py": "2bf9de358659a81fb3f8012d69b09a9f53d86f655661dee062e6436bc26ae909",
+    "molsysviewer/widget.py": "48256385faf77492a04d950fe5cff5b0101a7e42f094549ba706b84710eb87a6",
+    "molsysviewer/viewer/core.py": "3c31172b7f9cdea6cdf57a3ca2b45f59a4b179b2af4c9d7ed9e4bd3dd0fa458c",
+    "molsysviewer/addons.py": "6c9943f8d117a15475f00d7268ecad1ed3c0c2f0f5579571f287a36745232882",
+    "molsysviewer/standalone_qt/application.py": "29fe917581103db3586fefd2cd98d8d0879e9fd118356fb8dc2a83f890149c89",
+    "molsysviewer/js/src/index.ts": "824bc8c37928eb6063c952b2e8a7ae268643be552d59452cc2daae50c0f79899",
+    "molsysviewer/js/src/ui/presentation-surface.ts": "faccc487422865e311a56677c8676b74857ed492f18d8915de57a0822a33749d",
+    "molsysviewer/js/src/managers/popup-host.ts": "f6a895d90c016ca2d02dfbebe330f018ace6718cc0f04c48edadf8a970e8b754",
+    "molsysviewer/js/src/managers/viewer-controller.ts": "c42c2d8ddb11a01a0e42f154dd289e7cc2afe241b10483c3a007da1533481dac"
+  },
+  "runtime_bundle_sha256": "ef02bbda64e5174bed474bf471d02c16bfd1154b7eca2a85405583c0e1a0cb8e",
+  "addon_source_sha256": {
+    "molsysviewer_molsysmt/_panel.py": "9db8d45eea98734c8a1cbe9d7360fedb0b1e11553647342c7ecf57f5f81c4c15",
+    "molsysviewer_molsysmt/_panel_frontend.py": "83fde2f97e6b9360f8efd7a75ccddb95c1367375f19d10ed1909333b84e9d5da",
+    "molsysviewer_molsysmt/tools.py": "77990e8239557d400c3d3af49d18756f307f9f4b8b7be6fff64de7e4b17c2b24",
+    "tests/molsysviewer_molsysmt/result_panel_jupyter.mjs": "899b3c074bfb5e1bffde422403cc1fcd28db4c23d9bb568bba3ecc64f2fd5ab7",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "739684b10bb70a89d817b0cb9a6104918f23400b6ed8cd07d40161670bc58403",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "6d808790dacace23ef4084775209b13c5c6773631696e1e90f5c79f35c122dc8"
+  },
+  "jupyter": {
+    "result_node": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_independent_result_views",
+    "result_status": "passed",
+    "result_checks": [
+      "Render the source through the real notebook presentation surface",
+      "Extract ordered nonconsecutive structures without editing the source",
+      "Notebook delivery from fullscreen explains how to reach the result",
+      "Changing destination reuses one View through rapid window/notebook cycles",
+      "Copy opens a separate live View in an external window without recomputing",
+      "Detached Studio can open and close an independent result without closing its source",
+      "Python recovers both Views and source closure preserves them"
+    ],
+    "result_receipt_sha256": "478756c42fad09873e64bdf47240e4c73aa63306b7877b73bc144a1f9a95c7ad",
+    "result_gate_log_sha256": "718a27189c1099700198cb080a6b3331d070dbe32763e25fc76e45da1ce95c49",
+    "existing_control_node": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups",
+    "existing_control_status": "passed",
+    "existing_control_receipt_sha256": "e168d505f7819a6a24488bc9bb3d57a3934322a5831fc0d5485ce39bdca626a1",
+    "existing_control_checks": [
+      "Execute real notebook with source-pinned Python 3.14 kernel",
+      "Native review is 165 waters / 3818 retained; Back does not edit",
+      "Confirm traverses real widget comms, native edit and Mol* rendering",
+      "Empty ion selection and remount retain a bounded draft without a review",
+      "Canvas popup and Studio popup share the actual Jupyter authority",
+      "Kernel verifies actual inventory and exactly two managed edits"
+    ],
+    "existing_control_final_atoms": 3817,
+    "existing_control_managed_edits": 2,
+    "control_context": "The existing control passed within an otherwise failed mixed session; the second test failed on a panel-only harness selector, then passed separately after correction. No failed overall session is counted as green.",
+    "page_error_fingerprints_match_plain_control": true,
+    "retained_plain_control_diagnostic": "JupyterLab: No active debugger session",
+    "scope": "Real local JupyterLab/ipykernel/AnyWidget, ordered native extraction, independent Mol* Views, notebook and browser-window presentation including detached Studio. Not visible human Qt qualification."
+  },
+  "python_checks": [
+    {
+      "selection": "host boundary suite",
+      "passed": 359,
+      "scope": "earlier presentation inputs; reused only where unchanged"
+    },
+    {
+      "selection": "frozen host source/lifecycle/runtime/argdigest/inventory/reporting",
+      "passed": 341
+    },
+    {
+      "selection": "final presentation/widget/pending-state nodes",
+      "passed": 14
+    },
+    {
+      "selection": "API reference/inventory/reporting",
+      "passed": 324
+    },
+    {
+      "selection": "public API docs/followup/hardening",
+      "passed": 44
+    },
+    {
+      "selection": "addon System and mechanics on new native basis",
+      "passed": 128
+    },
+    {
+      "selection": "native #583/#584 and addon read tools",
+      "passed": 180
+    }
+  ],
+  "counts_policy": "Selections overlap; these counts must not be added as a scientific total.",
+  "js_unit_status": "passed; real source bundled Node lane, no skipped lane",
+  "native_owner_repairs_received": [
+    "6005bb4bc (#583)",
+    "8e9e3d207 (#584)"
+  ],
+  "incoming_course_notebooks": 157,
+  "changed_incoming_executable_evidence": [],
+  "public_api_inventory": {
+    "public_callables": 736,
+    "digested": 736,
+    "declared_digesters": 448,
+    "undigested": 0,
+    "missing_digesters": 0
+  },
+  "limitations": [
+    "Hosted exact-head CI pending/queued",
+    "MolSysMT owner review/integration pending",
+    "Human Jupyter/visible Qt review postponed",
+    "Qt offscreen ownership is not GPU/visual qualification",
+    "No installed package pair qualified",
+    "No tags/releases/promotions authorized"
+  ],
+  "qualification_failures_retained": [
+    "Initial AnyWidget inner/outer element lookup repaired",
+    "Invalid NumPy shares_memory use on a Pint quantity repaired in tests with explicit nm conversion",
+    "One test selector usage error selected a nonexistent test_basic.py; zero tests counted",
+    "One cold kernel exceeded a harness timeout incorrectly passed as an argument; intended 120-second option corrected",
+    "Outdated six/seven step counts corrected without removing assertions",
+    "Panel-only Studio helper incorrectly sought canvas controls; corrected without skipping the scenario"
+  ],
+  "qt_ownership": {
+    "status": "passed",
+    "pytest_cases": 9,
+    "receipt": {
+      "same_application": true,
+      "independent_qt_transport": true,
+      "source_close_preserves_result": true,
+      "native_close_releases_result": true,
+      "temporary_shells_released": true,
+      "platform": "offscreen",
+      "scope": "Native Qt windows and transports; no molecular GPU or human visual qualification."
+    },
+    "receipt_sha256": "f4debb5932adb5aee917cfdbc0e625da3a3167e3cb62e1db294e8dda8cb5ef34",
+    "log_sha256": "9bd2402435f4dff3e0c9e62290957a389ff253a053daf820c226f1ed6faafd82"
+  },
+  "hosted_ci": {
+    "viewer_code_sha": "42234de839ed047016f8f241ea5eb717cfeb07be",
+    "ci_run": 42168035122,
+    "status": "queued",
+    "receptor": "PENDING; 8 queued test jobs, 1 unrelated skipped job; no artifacts",
+    "e2e_run": 42168035224,
+    "qt_run": 42168035229,
+    "source_pair_run": 42168035156,
+    "notebooks_run": 42168035169
+  }
+}

@@ -404,5 +404,6 @@
     "the provider global-widget export limitation is not fixed by test fixture cleanup",
     "original owner main and Viewer dirty worktrees preserved"
   ],
-  "result_note": "4,944-case combined selection preceded the final explicit inference-opt-out keyword addition; the separate 11-case conversion control verifies that addition. Required final candidate gates remain pending."
+  "result_note": "4,944-case combined selection preceded the final explicit inference-opt-out keyword addition; the separate 11-case conversion control verifies that addition. Required final candidate gates remain pending.",
+  "hash_scope_clarification": "The source_hashes inventory records bytes observed during first receipt assembly; operational ledgers changed before that checkpoint commit. Runtime/guard hashes identify observations, not an assertion that every operational-document hash equals the final checkpoint. The second owner receipt and immutable Git candidate identify the expanded tree."
 }

@@ -14,6 +14,31 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Owner receiving checkpoint — 2026-11-05
+
+Owner main ed09f6453 already resolves #583/#584; their native archives remain
+authoritative. This receiving retains the contributor's separate archived
+observations and adds six direct bound-consumer guards. The original PR head
+1c88e785b passes 4,944 overlapping addon/native cases with owner corrections,
+real Jupyter removal/layout/popups, 215 directed support-floor cases and 1,077
+documentation/reporting cases. See the
+[owner receipt](../../devtools/data/owner_pr543_receiving_20261105.json).
+
+Full hosted PR run 42153312659 fails on the same 33 cases in all four Linux
+Python jobs. #594–#598 own the reproduced causes and local receiving repairs;
+macOS jobs remain queued at inspection. These local checks do not satisfy the
+required final full gate. #587/#590/#591 are not yet closed by owner integration.
+
+The contribution then advanced to frozen head f7b305b3a with Viewer
+42234de839ed047016f8f241ea5eb717cfeb07be and independent GUI extraction/copy
+results. That delta is being received separately before one combined candidate
+is fixed. Both owner actual-Jupyter guards now pass, along with 95 directed, 53 floor
+and 510 documentation-boundary cases. The complete combined addon selection
+also passes 4,507 cases, with required hosted qualification still pending.
+See the [delta receipt](../../devtools/data/owner_pr543_result_views_receiving_20261105.json).
+The graphical and installed-release scopes remain distinct. #421 is
+still partial, and no release/publication is authorized by source receiving.
+
 ## Native execution-platform repair received — 2026-11-05
 
 The contribution receives published native 50854766d over 96191e07e, preserving
