@@ -25,14 +25,16 @@ def _model_ranges(lines, start_offset=0):
                 active is not None
                 or ended
                 or len(tokens) != 2
+                or not tokens[1].isascii()
                 or not tokens[1].isdigit()
                 or int(tokens[1]) <= 0
             ):
                 fail("Invalid, nested or misplaced PDBQT MODEL record.")
-            label = str(int(tokens[1]))
-            if label in seen:
+            label = tokens[1]
+            numeric_label = int(label)
+            if numeric_label in seen:
                 fail("Repeated PDBQT MODEL label.")
-            seen.add(label)
+            seen.add(numeric_label)
             if not wrapped:
                 if nonremarks:
                     fail("PDBQT cannot mix unwrapped atoms and MODEL structures.")

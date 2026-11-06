@@ -1,0 +1,217 @@
+{
+  "schema_version": "molsysmt.prepared_pdbqt_projection_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#599",
+  "source": {
+    "base_commit": "882b65b9cdd2d66ff8c68d0069b9728e6b715840",
+    "feature_commit": "fe36aa3fffa3bf324b988f591e230ce3652e5c3d",
+    "reviewed_implementation_commit": "464158e5c612d15cec83e1d8d43ede6ee997d84d",
+    "compiled_backend": "unchanged existing abi3 extension",
+    "compiled_backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "source_sha256": {
+      "molsysmt/_private/argdigest/argument/atom_correspondence.py": "c76029c579c08102fec9ce64c96b7b46448e00eb93921148744e1e1a58e92699",
+      "molsysmt/_private/argdigest/pdbqt_projection.py": "6678a314a6039bddc19d1e4d4915e1d72e8b8a9cbd5090cb444798157f22b8fe",
+      "molsysmt/_private/pdbqt_document.py": "3a9c1c45408edd7758138429675a3ee5b7b1b7251ee86624a32bed5a79d445af",
+      "molsysmt/_private/pdbqt_projection.py": "2f87683e478eb61ec5c7108f76a7835839a22c7c1e3333309a7ccd7c52057bbc",
+      "molsysmt/native/pdbqt_file_handler.py": "671b1cf2053661c811349bd3c26b96eb8067b3cf7fa3c202f3660d17483b42bf",
+      "molsysmt/form/file_pdbqt/project_coordinates.py": "f0deaf8bc3eed90e00a6efe981af5e9dca128148f903e1650a35d00bd0623018",
+      "molsysmt/form/string_pdbqt_text/project_coordinates.py": "fe89b018b02c7d941b1fb8cfa7a00bf40c5ac63cbd909eb1d0212d632cef512c",
+      "tests/form/file_pdbqt/test_coordinate_projection.py": "814a127b4b92a6210d784386229b6b6f951f377bce7008d1810047f5c6ed3ed4",
+      "tests/documentation/test_pdbqt_coordinate_projection.py": "f01325e1e0ec6e6231bbff54b1d23f8d2c1232c51469007dc5afa65295011197"
+    }
+  },
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "reported_molsysmt_version": "0.23.0+201.g3502232d8.dirty",
+    "version_caveat": "Observed editable distribution metadata, not a claim that its embedded Git suffix identifies the running worktree; exact implementing source is recorded separately.",
+    "providers": {
+      "argdigest": {
+        "distribution_version": "0.16.0+1.g6dabaf7",
+        "module_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+      },
+      "depdigest": {
+        "distribution_version": "0.15.1+3.ga27172b",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "smonitor": {
+        "distribution_version": "0.21.0+1.gd6b2394",
+        "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "pyunitwizard": {
+        "distribution_version": "0.29.1+6.gf82b618",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "ackredit": {
+        "distribution_version": "0.12.1+2.ge233973",
+        "module_sha256": "43264d45f63ed941ac032aed67c882543a952bc6f58a3555e1a100a5d7b13533"
+      },
+      "pytest-receptor": {
+        "distribution_version": "1.2.1",
+        "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+      }
+    }
+  },
+  "floor_route": {
+    "providers": {
+      "argdigest": {
+        "version": "0.14.0",
+        "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+        "conda_cache_payload": "argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py"
+      },
+      "depdigest": {
+        "version": "0.15.1",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "conda_cache_payload": "depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py"
+      },
+      "smonitor": {
+        "version": "0.16.0",
+        "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3",
+        "conda_cache_payload": "smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py"
+      },
+      "ackredit": {
+        "version": "0.9.0",
+        "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42",
+        "conda_cache_payload": "ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py"
+      },
+      "pyunitwizard": {
+        "version": "0.28.1",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+        "conda_cache_payload": "pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py"
+      }
+    },
+    "pytest_options": [
+      "--receptor=llm",
+      "-p",
+      "no:smonitor",
+      "-n",
+      "12",
+      "--doctest-modules"
+    ],
+    "plugin_caveat": "Only the development pytest SMonitor plugin is disabled with the older runtime floor; public/runtime validation and structured exceptions remain active.",
+    "provider_installation": "No installation, new environment or sibling code edit."
+  },
+  "checks": [
+    {
+      "local_artifact": ".pytest_cache/599-shared-map-before.xml",
+      "sha256": "6e27e3562e744842ae821d4e5b99689842f3d6b8e357d246a2b3b0fa2101dafb",
+      "tests": 10,
+      "failures": 7,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-shared-map-after.xml",
+      "sha256": "f5ddd69d4a12c9dac3da74bfe76249fc8722afdfad0b8044c532d402a29d0bf9",
+      "tests": 226,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-projection-first.xml",
+      "sha256": "94faf0de2f56059267e8084da0bcda0329213f892302a777cb7bd760945747aa",
+      "tests": 48,
+      "failures": 13,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-projection-second.xml",
+      "sha256": "bef9af33928aac362898d20374cbf9056191245c93d3c17a7510956c0f63eb4d",
+      "tests": 48,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-affected-first.xml",
+      "sha256": "68f95f0b1360929d8093666a408e1212c1b2fc3595eea0997dcc41bb5865b104",
+      "tests": 370,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-affected-second.xml",
+      "sha256": "ab65b67386a6e7a797c30d675c4bb6c3955bec7e2c92617e0267dfb8565a73af",
+      "tests": 386,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-affected-final.xml",
+      "sha256": "4de7fd0a9902af29e06fa59073d765e4935cddc712194db1dee8ce2a8d7aa3e4",
+      "tests": 392,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-five-provider-floors.xml",
+      "sha256": "fa5a9dec77444d7f1f7e4813e36b26ad05b4af9c881611288d3b1e38dd1e6ed8",
+      "tests": 80,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-affected-reviewed.xml",
+      "sha256": "db72423f38c0b2b314124c3d4ba035f517b4dba246db64133b3461a1e22e18ee",
+      "tests": 396,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "local_artifact": ".pytest_cache/599-five-provider-floors-reviewed.xml",
+      "sha256": "3c1e2bb4b7fdfd7e06cc9354643735da09313f4893278290572f121dd0e9efed",
+      "tests": 84,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "fast_gate": {
+    "result": "14/14 pass",
+    "scientific_matrix_executed": false,
+    "installed_release_pair_qualified": false
+  },
+  "course": {
+    "notebook": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+    "full_execution": "passed via quiet runner on an isolated complete copy, Python 3.14",
+    "new_code_cell_id": "prepared-pdbqt-projection-code",
+    "preserved_previous_cells": 22,
+    "previous_outputs_and_notebook_metadata_unchanged": true,
+    "local_log": ".pytest_cache/599-course-execution/module10_full.nbconvert.log",
+    "initial_kernel_attempt": "Sandbox prevented local socket creation before code execution; authorized local-kernel route succeeds."
+  },
+  "semantics": {
+    "chemistry": "Explicit supplied representation only; complete graph neither required nor reconstructed.",
+    "correspondence": "Exhaustive explicit coordinate-input/source bijection; one block per unique selected source structure.",
+    "prepared_fields": "All non-coordinate atom columns and torsion-tree records retained.",
+    "remarks": "Default refusal; discard_remarks=True explicitly removes every source REMARK.",
+    "output": "Detached text or one-model staged atomic file output, with source alias and indexed-source-change refusal.",
+    "provenance": "Exact UTF-8 input/output payload hashes exclude the string prefix; maps, labels, coordinate digest encoding, angstrom rounding and actual software metadata remain explicit.",
+    "scientific_scope": "No new search, scoring, state assignment, charge/type/H calculation or chemical validation.",
+    "memory": "Conservative model/string-buffer safeguards and serial file use; no total-RSS, constant-time opening/hash or whole-input streaming claim."
+  },
+  "historical_ci": {
+    "run_id": 42205436569,
+    "source_commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+    "conclusion": "success",
+    "meaning": "Preserved earlier #304 full source matrix; this is not qualification of the projection checkpoint or an installed release pair."
+  },
+  "release_authority": "No tag, Release, registry upload or promotion.",
+  "documentation_html": {
+    "result": "pass",
+    "command": "make -C docs html SPHINXOPTS=\"-q -j 1\"",
+    "doctree_count": 1013,
+    "warning_count": 0,
+    "projection_html_and_internal_targets_verified": 6,
+    "local_log": ".pytest_cache/599-sphinx.log",
+    "local_log_sha256": "23cf9c142d71a0cb3e0ae4de81e88b006632a6a9a9e929b34eff6d5e4a2ed9e0",
+    "unrelated_generated_stubs_restored": 20
+  }
+}

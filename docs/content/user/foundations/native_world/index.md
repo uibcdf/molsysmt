@@ -19,6 +19,14 @@ ordering boundary and practical examples.
 
 ## **Contents**
 
+A native molecular projection and a format-preserving document edit serve
+different purposes. A prepared PDBQT can carry mechanical labels, charge
+precision and a torsion tree that do not amount to complete native chemistry.
+Its experimental handler can replace explicitly mapped coordinates while
+retaining those prepared fields, with declared metadata losses and independent
+output. This neither fills missing atoms nor certifies a chemical state.
+See {ref}`Tutorial_Project_Prepared_PDBQT` for that representation boundary.
+
 - **{doc}`classes/index`**  
   Native Python classes and declarative dictionaries representing molecular systems, topology, structures, molecular mechanics, and visualization schemas.
 

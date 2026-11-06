@@ -802,7 +802,7 @@ labels, by default canonical positive integer string IDs within field width, and
 `typing_scheme='autodock4'`. A tree writes ligand layout; None requests rigid
 layout. Validate exact selected atom-ID correspondence, a rooted partition and
 branch roles before writing. Complete native graphs additionally validate cuts
-and fragments through the public `topology.get_rigid_fragments` tool. Tree
+and fragments through the public `chemical_states.get_rigid_fragments` tool. Tree
 traversal may reorder atom lines; export maps preserve source correspondence.
 `output_presentation` optionally changes output serials/names, per-atom group
 and chain labels, and occupancy/B factors without changing the native inventory,
@@ -839,6 +839,46 @@ nonempty mechanics before creating a file. Labels/charges are not silently omitt
 
 User contract: [prepared PDBQT recipe](../docs/content/user/cookbook/native_pdbqt.md).
 Implementation and acceptance debt: uibcdf/molsysmt#214.
+
+### Prepared coordinate projection
+
+`PDBQTFileHandler.project_coordinates`, `form.file_pdbqt.project_coordinates`
+and `form.string_pdbqt_text.project_coordinates` share one experimental
+format-owned kernel. Require explicit length quantities, complete bijective
+coordinate-input/source atom pairs and one full coordinate block for each unique
+selected source structure. No positional/name guess, stale omitted-H coordinate,
+complete-graph requirement or chemical reassignment is permitted. Native copy,
+atom-level set and canonical writing remain a supported alternative when their
+documented formatting losses are acceptable.
+
+Projection changes only the original atom coordinate columns. It retains charge
+precision, typing, record kinds, serials, grouping, occupancy/B factors and tree
+meaning. All source MODEL records are validated before selection. Original model
+label lexemes are retained as string IDs; numerically duplicate labels remain
+invalid. Coordinate fields are 8.3 angstrom, with measured per-structure rounding
+error in the same unit. Application unit policy is never replaced.
+
+Default remark policy refuses any source REMARK; explicit discard_remarks=True
+removes every remark, including stale scores and global/inter-model annotations.
+MODEL wrapper whitespace is canonical; extra inter-model blank lines and terminal
+END may be omitted. The JSON-compatible molsysmt.pdbqt_coordinate_projection@1
+report retains exact UTF-8 input/output SHA-256 and byte counts (without form
+prefix), both atom-axis directions, source/output structure correspondence and
+labels, converted coordinate-input digest encoding, units/precision, metadata
+disposition, producing software version and optional caller-declared state
+provenance. Neither hashes nor declarations authenticate molecular identity.
+
+Indexed file output streams one model through PDBQTDocument.write_chunks and
+commits only after successful generation and source revalidation. Source aliases
+are refused for resident/indexed handlers and their copies. Coordinate input,
+model buffers, reference/index data, report maps and full text output have
+separate costs; configured estimates are buffer safeguards, not total RSS bounds.
+No optional engine, new graph store, scoring workflow or compiled backend is
+needed. Source grammar/field references remain those of the existing PDBQT
+parser; no third-party algorithm is executed by this format edit.
+
+User contract: [projection tutorial](../docs/content/user/tools/form/project_pdbqt_coordinates.md).
+Guard: `tests/form/file_pdbqt/test_coordinate_projection.py`.
 
 Mixed public queries preserve requested mechanical fields alongside topology
 and structures. Reduced-domain pipes cover their own fields; the dispatcher

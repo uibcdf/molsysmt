@@ -167,10 +167,20 @@ To reconstruct returned poses on a known prepared graph, use
 PDBQT conversion preserves a partial graph; mapped reading supplies the known
 chemistry and still validates every pose before returning a selection.
 
+To replace coordinates while retaining original prepared fields, use
+`handler.project_coordinates()` with a complete explicit atom correspondence.
+It preserves charge precision, types, serials and tree meaning, requires new
+coordinates for every atom, and reports angstrom rounding and actual payload
+hashes. Remarks require explicit removal because old scores may become stale.
+File output uses the same atomic one-model writer; text output is resident.
+See {ref}`Tutorial_Project_Prepared_PDBQT` for units, selected source structures,
+provenance and partial-reference limits. This is not a chemistry or scoring step.
+
 :::{seealso}
 :class: dropdown
 
 - {ref}`Tutorial_Read_PDBQT_Poses`
+- {ref}`Tutorial_Project_Prepared_PDBQT`
 - {ref}`cookbook-native-pdbqt`
 - {ref}`Tutorial_Iterator`
 :::

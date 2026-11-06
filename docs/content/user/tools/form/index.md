@@ -25,6 +25,7 @@ MolSysMT is built on a form-agnostic architecture capable of ingesting, querying
 | [Is string](is_string.ipynb) | Checking if an item or form names an in-memory string |
 | [Close](close.ipynb) | Closing open file handlers and streams for resource forms |
 | [Read PDBQT poses](read_pdbqt_poses.md) | Reading mapped pose ensembles against known source chemistry |
+| [Project PDBQT coordinates](project_pdbqt_coordinates.md) | Replacing explicitly mapped geometry while retaining prepared fields |
 
 ```{eval-rst}
 .. toctree::
@@ -41,4 +42,5 @@ MolSysMT is built on a form-agnostic architecture capable of ingesting, querying
    is_string.ipynb
    close.ipynb
    read_pdbqt_poses.md
+   project_pdbqt_coordinates.md
 ```

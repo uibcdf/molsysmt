@@ -40,7 +40,7 @@ sections:
             agents_file: docs/content/user/foundations/molecular_system/naming_schemes.md.AGENTS.md
             description: Declared sequence/Amber/CCD/legacy meanings, early PDB/GRO reader context, verified collisions, native metadata and versioned transport with explicit scientific limits.
       - name: native_world
-        description: Native representations and analysis-specific logical independence over shared immutable storage.
+        description: Native representations, analysis-specific logical independence and the separate prepared-document coordinate projection boundary.
         agents_file: docs/content/user/foundations/native_world/AGENTS.md
         index_file: docs/content/user/foundations/native_world/index.md
         index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
@@ -656,6 +656,11 @@ sections:
             agents_file: docs/content/user/tools/form/read_pdbqt_poses.md.AGENTS.md
             description: Known-source pose ensembles, completed export maps, strict identity and explicit missing-atom policy.
             status: reviewed
+          - name: project_pdbqt_coordinates
+            file: docs/content/user/tools/form/project_pdbqt_coordinates.md
+            agents_file: docs/content/user/tools/form/project_pdbqt_coordinates.md.AGENTS.md
+            description: Explicit full coordinate maps, unchanged prepared fields, remark disposition, typed payload lineage and atomic one-model output without chemistry reconstruction.
+            status: reviewed
           - file: docs/content/user/tools/form/file/file_pdb_gz.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb_gz.ipynb.AGENTS.md
             description: Experimental gzip PDB input, shared parser, connectivity policy and read isolation.
@@ -776,7 +781,7 @@ sections:
       - name: native_pdbqt
         file: docs/content/user/cookbook/native_pdbqt.md
         agents_file: docs/content/user/cookbook/native_pdbqt.md.AGENTS.md
-        description: Prepared PDBQT exchange, output-only presentation and caller remarks with final-byte maps, supplied torsion/parameter data and H5MSM mechanics exclusions.
+        description: Prepared PDBQT exchange, explicit coordinate projection, output-only presentation and caller remarks with final-byte maps, supplied torsion/parameter data and H5MSM mechanics exclusions.
         status: reviewed
       - name: auditing_residue_chemistry
         file: docs/content/user/cookbook/auditing_residue_chemistry.md
