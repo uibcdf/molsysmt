@@ -50,6 +50,10 @@ assessment gap from #576; 38 affected local cases pass. A prepared manual-only
 installed ArgDigest route supplies #428's missing installation boundary without
 creating local environments or publishing packages. Hosted recovery/installed
 evidence remains pending; neither local result clears these gates.
+The first installed run 42255147243 built the wheel but failed the complete
+environment check on three AmberTools companions' NumPy <2 metadata. Recovery
+isolates the external LEaP oracle in a hosted CLI-only prefix, preserving the
+consumer dependency check and every scientific control. #428 remains partial.
 
 The #304 native profile has qualified explicit reader policy,
 exact standard/curated modified-group references, observed-H parent consensus,

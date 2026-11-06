@@ -40,9 +40,23 @@ jobs:
             python=3.14 argdigest=0.17.1 smonitor=0.21.0 depdigest=0.15.1
             pyunitwizard>=0.28.1 molsysviewer ackredit>=0.9.0 setuptools-rust>=1.10
             setuptools>=77.0.3 versioningit>=3 pytest pytest-xdist pytest-receptor=1.1.0
-            pyyaml packaging pint scipy openmm ambertools mdtraj pyparsing!=3.3.3
+            pyyaml packaging pint scipy openmm mdtraj pyparsing!=3.3.3
             mdanalysis rdkit parmed biopython ipywidgets anywidget plotly beartype
             pydantic traitlets>=5
+
+      - name: Isolate the external LEaP reference from the Python consumer
+        shell: bash -el {0}
+        run: |
+          set -euo pipefail
+          micromamba create --yes --prefix "$RUNNER_TEMP/amber-reference" \
+            --channel conda-forge --strict-channel-priority \
+            'python=3.12' 'numpy<2' ambertools
+          mkdir -p "$RUNNER_TEMP/reference-cli"
+          ln -s "$RUNNER_TEMP/amber-reference/bin/tleap" "$RUNNER_TEMP/reference-cli/tleap"
+          echo "$RUNNER_TEMP/reference-cli" >> "$GITHUB_PATH"
+          echo "AMBERHOME=$RUNNER_TEMP/amber-reference" >> "$GITHUB_ENV"
+          micromamba list --prefix "$RUNNER_TEMP/amber-reference" --json \
+            > "$RUNNER_TEMP/amber-reference-list.json"
 
       - name: Build and install this noneditable consumer
         shell: bash -el {0}
@@ -67,6 +81,7 @@ jobs:
           root = Path(os.environ['GITHUB_WORKSPACE'])
           receiving = Path(os.environ['RUNNER_TEMP']) / 'argdigest-receiving'
           receiving.mkdir()
+          shutil.copyfile(Path(os.environ['RUNNER_TEMP']) / 'amber-reference-list.json', receiving / 'amber-reference-list.json')
           filename = 'argdigest-0.17.1-py_0.tar.bz2'
           urllib.request.urlretrieve('https://conda.anaconda.org/uibcdf/noarch/' + filename, receiving / filename)
           for name in ('tests', 'devtools', 'docs', '.github'):

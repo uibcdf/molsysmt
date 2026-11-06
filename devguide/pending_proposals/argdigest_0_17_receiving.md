@@ -228,3 +228,14 @@ This route is prepared, not yet executed or qualified. A passing local verifier
 guard does not replace its hosted installation. Close #428 only after receiving
 the exact successful run and its artifacts. This bounded Linux receiving does
 not substitute for the final installed MolSysMT/Viewer platform matrix in #334.
+
+The first hosted execution, [42255147243](https://github.com/uibcdf/molsysmt/actions/runs/42255147243)
+at 9e1f1b1ad, successfully solved the public dependencies and built/installed
+the consumer wheel, then failed `pip check`: AmberTools companions `proprep`,
+`ndfes` and `edgembar` require NumPy <2, while Python 3.14 selected NumPy 2.5.4.
+No receiving/scientific tests executed. Retain that failure; it is not a pass.
+The corrected route keeps the complete consumer dependency check and all
+scientific nodes. Only the independent external LEaP reference gets a separate
+hosted Python 3.12/NumPy <2 prefix. A CLI-only shim exposes `tleap`; that prefix's
+Python is never added to the consumer PATH or import path. Its actual dependency
+inventory and AMBERHOME are explicit. No local environment is created.
