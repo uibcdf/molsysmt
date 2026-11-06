@@ -66,6 +66,26 @@ def test_convert_multimodel_pdb_id_uses_all_nmr_models_offline(monkeypatch):
     """Convert the public 1L2Y identifier into its complete NMR ensemble."""
 
     source = msm.systems["Trp-Cage"]["1l2y.bcif.gz"]
+    deposited = msm.convert(source, to_form="mmcif.PdbxContainers.DataContainer")
+    atom_site = deposited.getObj("atom_site")
+    columns = {name: index for index, name in enumerate(atom_site.getAttributeList())}
+    models = {}
+    for row in atom_site.getRowList():
+        models.setdefault(row[columns["pdbx_PDB_model_num"]], []).append(row)
+    assert len(models) == 38
+    first_model = next(iter(models.values()))
+    expected_coordinates = np.asarray(
+        [
+            [
+                [
+                    float(row[columns[field]])
+                    for field in ("Cartn_x", "Cartn_y", "Cartn_z")
+                ]
+                for row in rows
+            ]
+            for rows in models.values()
+        ]
+    )
     requested_ids = []
 
     def use_bundled_bcif(pdb_id=None, output_filename=None, **kwargs):
@@ -85,5 +105,18 @@ def test_convert_multimodel_pdb_id_uses_all_nmr_models_offline(monkeypatch):
     assert ensemble.topology.n_groups == 20
     assert ensemble.structures.n_structures == 38
     assert ensemble.structures.coordinates.shape == (38, 304, 3)
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(ensemble.structures.coordinates, to_unit="angstrom"),
+        expected_coordinates,
+        rtol=0,
+        atol=1e-12,
+    )
+    assert ensemble.topology.atoms.atom_id.tolist() == [
+        str(row[columns["id"]]) for row in first_model
+    ]
+    assert ensemble.topology.atoms.atom_name.tolist() == [
+        row[columns["label_atom_id"]] for row in first_model
+    ]
+    assert all(isinstance(label, str) for label in ensemble.topology.atoms.atom_id)
     # The source explicitly declares full occupancy for every observation.
     np.testing.assert_array_equal(ensemble.structures.occupancy, np.ones((38, 304)))
