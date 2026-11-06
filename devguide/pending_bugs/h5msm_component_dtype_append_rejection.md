@@ -70,3 +70,22 @@ The consumer's separate save/recover guards compare all scientific values,
 nulls, membership and structural fields, allowing only the documented nullable
 string representation. Those guards do not claim that subsequent source
 structure append passes; this issue retains that continuation requirement.
+
+## Consumer guard follow-up — 2026-11-06
+
+Smoke 42239788034 on b18d5d823 passes 6,042 native cases/23 optional skips but
+fails one new consumer session comparison (4,772 other addon passes, four
+optional skips). CI uses pandas 3.1.1; its source component names have
+`StringDtype(na_value=nan)` rather than the local object backing. The reader
+returns `StringDtype(na_value=pd.NA)`. The consumer helper had admitted only
+object-to-string normalization, so that stricter-than-format test rejects a
+storage-only difference. A local NaN-string fixture reproduces the failure.
+
+The test-only follow-up compares text values and exact null masks before
+canonicalizing both string backings in temporary comparison copies. It adds
+real TcTIM cases for object, nullable string and, where exposed by pandas,
+NaN-backed string storage. Negative controls must still reject changed chemical
+labels and null masks under each collected backing. All ten local session/
+comparison cases pass; hosted recovery remains a new-source gate. No native
+chemical data, append alignment check or scientific algorithm is changed, so
+this does not resolve #616.

@@ -22,6 +22,14 @@ contracts.
 
 ## Molecular task and pending-reader integration — 2026-11-06
 
+Latest hosted follow-up: b18d5d823 smoke 42239788034 passes 6,042 native
+cases/23 optional skips, then fails one new session-comparison assumption about
+NaN-backed versus nullable string storage (4,772 addon passes/four optional
+skips). The test-only correction admits that declared representation while
+checking every value/null, with ten local cases including negative controls.
+Its new-source CI remains pending; native #616 stays open. Earlier clean
+addon/Jupyter successes retain their actual runtime and source scopes.
+
 Complete local Jupyter/Mol*/popup receiving on clean b18d5d823 / Viewer
 737f9bc3 now passes 11 scenarios / 76 steps in 671.62 s, with all selected
 source inputs unchanged. This receives the implemented task workspace. Preserve

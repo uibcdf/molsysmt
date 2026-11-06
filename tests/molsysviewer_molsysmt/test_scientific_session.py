@@ -1,12 +1,25 @@
 """Independent source receiving of a molecular work session and recovery."""
 
+import inspect
+
 import molsysviewer as msv
 import numpy as np
 import pandas as pd
+import pytest
 
 import molsysmt as msm
 
 puw = msm.pyunitwizard
+COMPONENT_STORAGE = [
+    pytest.param(object, id="object"),
+    pytest.param(pd.StringDtype(), id="nullable-string"),
+]
+# Only runtimes exposing this representation can produce the CI-observed
+# NaN-backed string inventory. Older admitted pandas keep the other cases.
+if "na_value" in inspect.signature(pd.StringDtype).parameters:
+    COMPONENT_STORAGE.append(
+        pytest.param(pd.StringDtype(na_value=np.nan), id="nan-string")
+    )
 
 
 def xyz(system):
@@ -73,11 +86,18 @@ def compare_molecular(before, after):
                 # The format promises canonical nullable strings. Require
                 # all source non-null values to be strings before allowing
                 # that storage-only normalization; compare every value/null.
-                if x[column].dtype == object and isinstance(
-                    y[column].dtype, pd.StringDtype
-                ):
+                if (
+                    x[column].dtype == object
+                    or isinstance(x[column].dtype, pd.StringDtype)
+                ) and isinstance(y[column].dtype, pd.StringDtype):
                     assert all(isinstance(value, str) for value in x[column].dropna())
-                    x[column] = x[column].astype(y[column].dtype)
+                    assert all(isinstance(value, str) for value in y[column].dropna())
+                    np.testing.assert_array_equal(
+                        x[column].isna().to_numpy(), y[column].isna().to_numpy()
+                    )
+                    canonical = pd.StringDtype(storage="python")
+                    x[column] = x[column].astype(canonical)
+                    y[column] = y[column].astype(canonical)
             pd.testing.assert_frame_equal(x, y)
 
 
@@ -98,8 +118,32 @@ def compare_scene(before, after):
     assert after.player.index == before.player.index
 
 
-def test_tctim_edit_transform_analyze_and_recover(tmp_path):
+@pytest.mark.parametrize("component_storage", COMPONENT_STORAGE)
+@pytest.mark.parametrize("change", ["value", "null-mask"])
+def test_recovery_comparison_rejects_changed_chemical_values_and_nulls(
+    component_storage, change
+):
+    with msv.demo["dialanine"] as view:
+        before = view.molsys.copy()
+        table = before.chemical_states._states[0].components
+        table["component_name"] = pd.Series(
+            ["declared"] * len(table), dtype=component_storage
+        )
+        after = before.copy()
+        changed = after.chemical_states._states[0].components
+        changed.loc[0, "component_name"] = "different" if change == "value" else None
+        with pytest.raises(AssertionError):
+            compare_molecular(before, after)
+
+
+@pytest.mark.parametrize("component_storage", COMPONENT_STORAGE)
+def test_tctim_edit_transform_analyze_and_recover(tmp_path, component_storage):
     with msv.demo["1TCD"] as view:
+        # Exercise real molecular values under the supported source string
+        # backings, before taking the scientific/workflow snapshot.
+        components = view.molsys.chemical_states._states[0].components
+        for column in ("component_name", "component_type"):
+            components[column] = components[column].astype(component_storage)
         tools = view.addons.molsysmt
         initial = xyz(view.molsys).copy()
         n_initial = view.molsys.get_n_atoms()

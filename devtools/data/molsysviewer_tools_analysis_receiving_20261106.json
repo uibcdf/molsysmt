@@ -545,5 +545,53 @@
     "page_error_boundary": "All observed errors match their plain-Jupyter control fingerprint (No active debugger session). This is not a zero-page-error claim.",
     "initialization_boundary": "All eleven initial cells complete in this campaign; this does not establish the cause/repair of earlier #615.",
     "source_boundary": "Clean published b18d5d823 / Viewer 737f9bc3. Native ed09f6453 and fixed PyUnitWizard profile; actual Jupyter/Mol*/popups, not human Qt or installed artifacts."
+  },
+  "pandas_string_storage_follow_up": {
+    "published_source": "b18d5d82366808e8c170295f6fe483ffb58094bc",
+    "hosted_run": 42239788034,
+    "hosted_conclusion": "failure",
+    "preflight_passed": 36,
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "addon_passed": 4772,
+    "addon_failed": 1,
+    "addon_skipped": 4,
+    "pandas_hosted": "3.1.1",
+    "pandas_local": "2.3.3",
+    "cause": "The consumer comparison admitted object -> nullable string but not the equivalent StringDtype(na_value=nan) -> StringDtype(na_value=pd.NA).",
+    "local_reproduction": {
+      "failed": 1,
+      "passed": 3
+    },
+    "correction": "Test-only, temporary comparison copies: require strings and exactly matching null masks, then canonicalize both declared string backings. No native or scientific edit.",
+    "qualified_cases": 10,
+    "qualified_seconds": 6.49,
+    "negative_controls": "Changed chemical label and changed null mask must fail under every collected backing.",
+    "case_admission": "The NaN-backed constructor case is collected only when the installed pandas exposes that representation; no skips or new runtime floor.",
+    "source_sha256": "9593cb0f67ffca6c6c1ac2ba9b1a6cdf846e44b1f0aca01c2480d185d99f5452",
+    "evidence": {
+      "hosted_failure": {
+        "name": "msv-session-smoke-42239788034-failed-20261106.log",
+        "sha256": "cf82e9bade9bfcade4b4e6477f3fece5b50aaeff9274ffc2722b82c597f5082e"
+      },
+      "local_reproduction": {
+        "name": "msv-session-string-storage-reproduced-20261106.log",
+        "sha256": "0c0805b0bf2e67b8c88ca47c19181abfc9bd6a0ad0a34a0e4add8ebfc23558ae"
+      },
+      "local_qualified": {
+        "name": "msv-session-string-storage-final-20261106.log",
+        "sha256": "731ef7e8da65a5f16e6ec1598ed9f9750119a13bb4c7206beae131912e8889d7"
+      }
+    },
+    "pending": "New exact-head hosted recovery; native #616 remains unresolved. Complete 11-scenario GUI receiving remains applicable to unchanged runtime/driver inputs.",
+    "affected_preflight": {
+      "passed": 100,
+      "skipped": 0,
+      "seconds": 8.39,
+      "warnings": 7,
+      "log": "msv-session-string-storage-preflight-final-20261106.log",
+      "sha256": "870dd33d7054ae2401f02fcd2519b0523475c5685d8643db63818b101a6e395e",
+      "scope": "Ten session/negative-control cases plus exact smoke/inventory/native-bridge and devguide controls. Does not claim a new full addon collection or pandas 3.1.1 installed qualification."
+    }
   }
 }
