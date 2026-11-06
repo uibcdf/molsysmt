@@ -51,6 +51,19 @@ msm.configure.chunk_size = 500
 msm.configure.heavy_mode = 'force'
 
 # 3. Contextual override for a specific code block
-with msm.configure.set(chunk_size=200, heavy_mode='auto'):
+with msm.configure.context(chunk_size=200, heavy_mode='auto'):
     center = msm.structure.get_center('system.h5msm')
 ```
+
+Configuration is process-global. Context writers and the public session setters
+serialize their updates; nested contexts restore the previous values, including
+after an exception. Misspelled, private, callable or module names are rejected
+before any setting changes. The reserved `gpu_mode`/`use_gpu` aliases agree
+within a context; specifying contradictory values raises an error.
+
+Other threads running outside a context can observe its temporary values, and
+direct assignments do not take the writer lock. Keep synchronous contexts within
+one uninterrupted block; do not hold them across `await` in overlapping tasks.
+Use explicit per-call CPU controls when concurrent calculations need different
+thread policies. Those controls remain context-local, and calls with no global
+override do not wait for a context writer.

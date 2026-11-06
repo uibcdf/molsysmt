@@ -1,6 +1,8 @@
 # Configuration file for MolSysMT
 
 from contextvars import ContextVar as _ContextVar
+from threading import RLock as _RLock
+from types import ModuleType as _ModuleType
 
 # Preserve configuration setup before argument digestion.
 # isort: off
@@ -113,6 +115,52 @@ _parallel_override = _ContextVar(
     "molsysmt_parallel_override",
     default=(None, None),
 )
+_configuration_lock = _RLock()
+
+
+def _configuration_names():
+    """Enumerate configurable public data without exposing implementation objects."""
+    return tuple(
+        name
+        for name, value in globals().items()
+        if not name.startswith("_")
+        and not callable(value)
+        and not isinstance(value, _ModuleType)
+    )
+
+
+def _normalize_context_overrides(values):
+    """Validate the complete name/alias declaration before publishing any value."""
+    from molsysmt._private.argdigest.argument.use_gpu import digest_use_gpu
+    from molsysmt._private.smonitor import ArgumentConflictError, ArgumentError
+
+    result = dict(values)
+    names = _configuration_names()
+    for name in result:
+        if name not in names:
+            raise ArgumentError(
+                name,
+                caller="molsysmt.configure.context",
+                message="Only existing public configuration data can be overridden.",
+            )
+    for name in ("gpu_mode", "use_gpu"):
+        if name in result:
+            result[name] = digest_use_gpu(
+                result[name], caller="molsysmt.configure.context"
+            )
+    if "gpu_mode" in result and "use_gpu" in result:
+        if result["gpu_mode"] != result["use_gpu"]:
+            raise ArgumentConflictError(
+                arg1="gpu_mode",
+                arg2="use_gpu",
+                reason="The two compatibility aliases must declare the same policy.",
+                caller="molsysmt.configure.context",
+            )
+    elif "gpu_mode" in result:
+        result["use_gpu"] = result["gpu_mode"]
+    elif "use_gpu" in result:
+        result["gpu_mode"] = result["use_gpu"]
+    return result
 
 
 @arg_digest()
@@ -143,8 +191,9 @@ def set_parallelization(parallel="auto", num_threads=-1):
 
     .. versionadded:: 1.0.0
     """
-    globals()["parallel_mode"] = parallel
-    globals()["num_threads"] = num_threads
+    with _configuration_lock:
+        globals()["parallel_mode"] = parallel
+        globals()["num_threads"] = num_threads
     return {"parallel": parallel, "num_threads": num_threads}
 
 
@@ -166,7 +215,8 @@ def set_num_threads(num_threads):
 
     .. versionadded:: 1.0.0
     """
-    globals()["num_threads"] = num_threads
+    with _configuration_lock:
+        globals()["num_threads"] = num_threads
     return num_threads
 
 
@@ -229,40 +279,101 @@ def _resolve_num_threads(*payloads):
 
 
 class configure_context:
-    """Context manager to temporarily override global configurations in a thread-safe manner."""
+    """Overriding process-global data with serialized, reversible context writers.
 
-    def __init__(self, **kwargs):
-        self.new_values = dict(kwargs)
-        self.old_values = {}
+    Use :func:`context` for the configuration contract. Contexts may nest and
+    the same object may be reused. This synchronous context is not task-local
+    and must not span awaits in overlapping asynchronous tasks.
+    """
+
+    # Axis 1 validates names; this configuration boundary deliberately preserves
+    # operation-owned values. This spelling also supports the declared 0.14 floor.
+    @arg_digest(digestion_source=None, strictness="ignore")
+    def __init__(self, *, skip_digestion=False, **kwargs):
+        if type(skip_digestion) is not bool:
+            from molsysmt._private.smonitor import ArgumentError
+
+            raise ArgumentError("skip_digestion", value=skip_digestion)
+        self.new_values = _normalize_context_overrides(kwargs)
+        self._snapshots = []
 
     def __enter__(self):
-        import sys
-
-        module = sys.modules[__name__]
-
-        # Symmetrically synchronize gpu_mode and use_gpu aliases if one is specified
-        if "gpu_mode" in self.new_values and "use_gpu" not in self.new_values:
-            self.new_values["use_gpu"] = self.new_values["gpu_mode"]
-        elif "use_gpu" in self.new_values and "gpu_mode" not in self.new_values:
-            self.new_values["gpu_mode"] = self.new_values["use_gpu"]
-
-        for k, v in self.new_values.items():
-            if hasattr(module, k):
-                self.old_values[k] = getattr(module, k)
-            setattr(module, k, v)
+        _configuration_lock.acquire()
+        try:
+            values = _normalize_context_overrides(self.new_values)
+            self._snapshots.append({name: globals()[name] for name in values})
+            globals().update(values)
+        except BaseException:
+            _configuration_lock.release()
+            raise
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        import sys
+        try:
+            globals().update(self._snapshots.pop())
+        finally:
+            _configuration_lock.release()
+        return False
 
-        module = sys.modules[__name__]
-        for k, v in self.old_values.items():
-            setattr(module, k, v)
 
+@arg_digest(digestion_source=None, strictness="ignore")
+def context(*, skip_digestion=False, **kwargs):
+    """Overriding process-global configuration for one synchronous block.
 
-def context(**kwargs):
-    """Return a configure_context to temporarily modify configuration attributes."""
-    return configure_context(**kwargs)
+    Parameters
+    ----------
+    skip_digestion : bool, default=False
+        Whether to skip argument digestion for an already validated call.
+    **kwargs : dict
+        Existing public configuration data to replace temporarily. Unknown,
+        private, callable and module names are rejected before any write.
+        ``gpu_mode`` and ``use_gpu`` are synchronized compatibility aliases;
+        contradictory values are rejected. Other values retain the contracts
+        of the operations that consume those settings.
+
+    Returns
+    -------
+    configure_context
+        Reusable synchronous context restoring the previous values on exit,
+        including exceptional exits.
+
+    Raises
+    ------
+    UnknownArgumentError
+        If a normal public call names data outside the configuration domain.
+    ArgumentError
+        If a configuration name or GPU compatibility policy is invalid.
+    ArgumentConflictError
+        If both GPU aliases specify different policies.
+
+    Notes
+    -----
+    Writers are serialized for their full lifetime by a reentrant process
+    lock. Nesting is supported. Concurrent code outside a context can observe
+    temporary values; direct module assignments do not take the lock. Session
+    setter functions participate in writer serialization. This is
+    not thread/task-local isolation. Do not hold the context across an await
+    in overlapping asynchronous tasks. Explicit CPU per-call controls remain
+    context-local and calls without global overrides do not acquire this lock.
+    Key and alias integrity checks still apply to trusted delegation.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> previous = msm.configure.chunk_size
+    >>> with msm.configure.context(chunk_size=2):
+    ...     assert msm.configure.chunk_size == 2
+    >>> msm.configure.chunk_size == previous
+    True
+
+    .. versionadded:: 1.0.0
+    """
+    if type(skip_digestion) is not bool:
+        from molsysmt._private.smonitor import ArgumentError
+
+        raise ArgumentError("skip_digestion", value=skip_digestion)
+    values = _normalize_context_overrides(kwargs)
+    return configure_context(skip_digestion=True, **values)
 
 
 def with_configure_overrides(func):
@@ -285,11 +396,9 @@ def with_configure_overrides(func):
 
         ctx_kwargs = {}
         if use_gpu_val is not None:
-            ctx_kwargs["gpu_mode"] = use_gpu_val
             ctx_kwargs["use_gpu"] = use_gpu_val
         if gpu_mode_val is not None:
             ctx_kwargs["gpu_mode"] = gpu_mode_val
-            ctx_kwargs["use_gpu"] = gpu_mode_val
         if gpu_backend_val is not None:
             ctx_kwargs["gpu_backend"] = gpu_backend_val
         if precision_val is not None:
@@ -313,6 +422,8 @@ def with_configure_overrides(func):
         )
         token = _parallel_override.set((active_parallel, active_num_threads))
         try:
+            if not ctx_kwargs:
+                return func(*args, **kwargs)
             with context(**ctx_kwargs):
                 return func(*args, **kwargs)
         finally:

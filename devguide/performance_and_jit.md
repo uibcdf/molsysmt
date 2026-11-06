@@ -87,7 +87,11 @@ lock, so overlapping contexts cannot corrupt each other's snapshot or
 restoration, and nested contexts in one thread remain supported. This is
 serialization, not isolation: code running concurrently *outside* a context can
 still observe its temporary values, and direct module assignments do not take
-the lock. The diagnosis and the rejected `contextvars` alternative are recorded
+the lock. Public session setters participate in writer serialization. The
+complete configuration key/alias declaration is checked before any change;
+private, callable and module names are not settings. A synchronous context must
+not span awaits in overlapping asynchronous tasks. The diagnosis and the
+rejected `contextvars` alternative are recorded
 in
 [`archive/resolved_bugs/configure_context_is_not_thread_safe.md`](archive/resolved_bugs/configure_context_is_not_thread_safe.md).
 
