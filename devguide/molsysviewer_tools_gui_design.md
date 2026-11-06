@@ -204,6 +204,92 @@ visible Qt qualification.
 
 ## Remaining panels and result policy
 
+### Next Geometry slice: translation and rotation — design review 2026-11-05
+
+**Proposed, not implemented.** The maintainer keeps human System/Jupyter/Qt
+acceptance postponed. That deferral does not accept the UI or block preparation
+of this next slice. Register Geometry only when actual tasks and their guards
+exist. Preserve System as a separately pending acceptance item.
+
+Use one Geometry task picker, initially **Translate** and **Rotate**, and the
+same selection/result vocabulary as System. Both edit molecular coordinates;
+they do not change the camera. Directions use the molecular Cartesian axes,
+independently of the camera orientation. Keep one task form visible at a time.
+
+The proposed form has these ordered groups:
+
+1. **Atoms:** Whole system, current selection, saved selection, region or an
+   explicit expression/index list. Reuse the selection owner; resolve one fixed
+   atom population in a stated current/explicit structure context. Do not
+   silently select a different population in every trajectory frame. Empty
+   selections cannot become a whole-system edit. Duplicate GUI atom indices
+   must not accidentally weight a centroid; retain expert native semantics.
+2. **Structures:** All (visible default), Current or explicit distinct indices
+   in their supplied order. The review states actual atom and structure counts.
+   GUI uniqueness avoids ambiguous repeated edits; expert wrappers retain native
+   repeated-axis behavior and broadcasting. Never substitute the visible frame
+   for an explicitly requested all-structures operation.
+3. **Parameters:** Translate exposes dx/dy/dz and explicit length units. Rotate
+   should expose a clearly labeled system axis and angle with degree/radian
+   units, not require a nonprogrammer to enter a 3x3 matrix. Its center is an
+   explicit choice: geometric center of the selected atoms **in each processed
+   structure**, coordinate origin, or a fixed unit-bearing point. The proposed
+   friendly default is the geometric center, without mass weighting. This GUI
+   choice does not change native rotation_center=None or the expert API.
+4. **Effect:** propose Current system (with review) or Independent result. Keep
+   one primary action: Review change / Apply translation or rotation for the
+   current system; Create result for independent output. Native independent
+   defaults remain unchanged. An independent transform returns a **complete
+   system**, modifying only the chosen atoms/structures; it is not an extraction
+   of that population. Reuse the qualified result destinations and handle
+   lifetime rather than implementing another result registry.
+
+An inline current-system review freezes target identity, managed revision,
+selection/structure context, resolved indices and the full parameter/effect
+draft. Changing any relevant input, navigation, replacement or managed edit
+expires it. The final validation and calculation share system_edits.execute's
+lock, using the same admitted coordinate-transform preparation adapter as the
+expert API. Compute frame-dependent centers inside that serialized operation,
+not in an earlier preview that can become stale. Preview must not copy a
+trajectory merely to count atoms or display parameters.
+
+Use the native public translate/rotate operations and get_center(weights=None)
+for geometric centers. Native centers already have shape (n_structures,1,3),
+matching the transform's frame broadcasting; preserve explicit structure order.
+The native quaternion/Rodrigues kernels and an existing builder axis-angle
+helper are available. Before enabling an axis/angle control, settle and test
+the reusable conversion in its proper MolSysMT mathematical owner; do not copy
+a rotation formula into the frontend/addon or add an undeclared SciPy dependency.
+Matrix and rotation-object inputs remain available through the expert API.
+
+Scientific effects must stay visible: these operations keep the periodic box
+fixed and do not wrap coordinates. A coordinate rotation is not automatically
+a rotation of a periodic lattice. Euclidean rigid-body invariance does not
+promise unchanged periodic minimum-image geometry. Native coverage invalidation
+for affected stored analyses remains authoritative. Anchored and absolute scene
+objects keep their existing coordinate semantics; molecular edits have no
+scene-history coordinate Undo. After completed science with failed projection,
+retry only Update view. Do not infer scientific no-ops from approximate matrix
+equality or suppress a small requested transformation.
+
+Qualification must include analytic translations and +90-degree proper rotation,
+nondefault unit policies, fixed and per-structure centers, explicit [2,0]
+structure order, unchanged unselected atoms/structures, independent source
+preservation, fixed boxes, native analysis coverage, stale confirmations across
+windows and synchronization-only recovery. Then qualify real Jupyter/Qt and
+popup presentation in their separate scopes. Do not claim human acceptance from
+headless tests.
+
+**Read-only receiving:** on contribution f7b305b3a/native ed09f6453 with Viewer
+42234de8, the existing transform and principal-axis receiver files pass 184
+cases in 55.93 s. Their 188 legacy-H5MSM warnings and one invalid-determinant
+warning from negative-input validation are retained. A separate real-pentalanine
+probe rotates six atoms in structures [2,0] about their native geometric centers
+under an angstrom application policy. The +90-degree Cartesian oracle agrees
+within 2.23e-16 nm, the source stays unchanged and no scene/result View is
+created. This supports reuse of the primitives; it does not qualify a GUI or
+arbitrary axis/angle inputs. No runtime or scientific function changes here.
+
 Geometry chooses atoms, structures, reference, units and periodic behavior
 explicitly. A GUI Apply action may choose a qualified in-place edit with immediate
 projection; native independent defaults and expert options remain unchanged.
