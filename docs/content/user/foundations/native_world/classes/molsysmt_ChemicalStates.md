@@ -29,6 +29,15 @@ explicit/inferred evidence distinction. A partial reference match must not erase
 a deposited edge or its known order. See
 {ref}`Tutorial_Form_mmcif_PdbxContainers_DataContainer` for the reader contract.
 
+PDB reading also retains a typed, per-declaration audit in the chemical-state
+preparation history. A missing/ambiguous endpoint, unrepresented symmetry image
+or contradictory sulfur partnership is different from an ordinary redundant
+record. Alternate serials retain their canonical-site correspondence and their
+conditional source scope. This is deposited evidence, not chemical validation.
+The original operation's indices remain historical when you extract or reorder
+the system; use current bond tables for the current index domain. See
+{ref}`cookbook-pdb-connectivity-policy` for inspecting this evidence.
+
 ## State Availability
 
 A new collection contains zero states. `append_state()` explicitly creates an

@@ -42,6 +42,14 @@ workload requirements before closure. The generated argument inventory also
 needed regeneration after the earlier GRO additions in parent 282e8337e; its
 negative guard is retained and passes after generation, rather than being waived. See the
 [owning record](pending_proposals/native_pdb_bond_inference_with_explicit_policy.md).
+Its deposited PDB declaration audit now also retains typed per-record locations,
+endpoint matches, symmetry/alternate scope and conflict evidence in the owning
+chemical-state history. Nineteen new guards and 637 affected cases pass, followed
+by 87 final directed cases after avoiding unused endpoint indexes. Four-provider
+floor receiving passes 48 cases, documentation receiving 1,072 (overlapping
+selections). Original 181L/1IEP graphs, axes and coordinates are retained. The
+remaining H-name/terminal/group policies, independent disagreement explanations
+and representative workload qualification still prevent #304 closure.
 New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
 for rescoring. Separately reported **#600** records missing mmCIF model-label
 delivery; selected geometry remains available, and the connectivity correction

@@ -51,6 +51,10 @@ class PDBLinkRecord:
 
     endpoint1: tuple
     endpoint2: tuple
+    symmetry1: str = ""
+    symmetry2: str = ""
+    line_number: int = 0
+    record_text: str = ""
 
 
 @dataclass(frozen=True)
@@ -59,6 +63,10 @@ class PDBSSBondRecord:
 
     endpoint1: tuple
     endpoint2: tuple
+    symmetry1: str = ""
+    symmetry2: str = ""
+    line_number: int = 0
+    record_text: str = ""
 
 
 @dataclass(frozen=True)
@@ -67,6 +75,8 @@ class PDBConectRecord:
 
     source_serial: int
     target_serials: tuple
+    line_number: int = 0
+    record_text: str = ""
 
 
 @dataclass(frozen=True)
@@ -296,7 +306,7 @@ def parse_pdb_content(lines, parse_serial):
         current_model = None
         chain_segment = 0
 
-    for line in normalized_lines:
+    for line_number, line in enumerate(normalized_lines, start=1):
         record = line[0:6].strip()
         if record == "MODEL":
             finish_model()
@@ -349,6 +359,10 @@ def parse_pdb_content(lines, parse_serial):
                     endpoint2=_link_endpoint(
                         line, slice(42, 46), 46, slice(47, 50), 51, slice(52, 56), 56
                     ),
+                    symmetry1=line[59:65].strip(),
+                    symmetry2=line[66:72].strip(),
+                    line_number=line_number,
+                    record_text=line[:80],
                 )
             )
             continue
@@ -365,6 +379,10 @@ def parse_pdb_content(lines, parse_serial):
                         line[31:35].strip(),
                         line[35].strip(),
                     ),
+                    symmetry1=line[59:65].strip(),
+                    symmetry2=line[66:72].strip(),
+                    line_number=line_number,
+                    record_text=line[:80],
                 )
             )
             continue
@@ -375,7 +393,9 @@ def parse_pdb_content(lines, parse_serial):
                 for start in (11, 16, 21, 26)
                 if line[start : start + 5].strip()
             )
-            content.conect.append(PDBConectRecord(source, targets))
+            content.conect.append(
+                PDBConectRecord(source, targets, line_number, line[:80])
+            )
 
     finish_model()
     if explicit_models:

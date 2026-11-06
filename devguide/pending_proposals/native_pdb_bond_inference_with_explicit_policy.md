@@ -1018,3 +1018,85 @@ imports/contracts and 247-function docstring validation pass. The
 [policy receipt](../../devtools/data/cif_connectivity_policy_receiving_304_20261106.json)
 retains source/test/backend hashes, actual four-provider public import origins,
 individual overlapping JUnit results, draft failures and remaining issue scope.
+
+## Typed deposited-declaration audit — 2026-11-06
+
+### What and implementation
+
+The reader's two coarse flags could not identify an unresolved declaration or
+distinguish a missing endpoint from an ambiguous identity, self-reference,
+symmetry image or conditional alternate mapping. The normalized handler now
+retains LINK/SSBOND symmetry operators, original fixed-column record text and
+1-based source line numbers. A format-private resolver is shared by native
+construction and public conversion assessment. Symbolic and serial indexes are
+built once when the corresponding record kinds exist; a source with no
+declarations needs neither index. No general chemistry is duplicated in the
+adapter, and no public signature, dependency or compiled routine changes.
+
+The first `molsysmt.pdb_connectivity@1` report keeps its existing coarse keys and
+adds a nested `molsysmt.pdb_declarations@1` typed table. Its rows identify record
+kind/index, CONECT target ordinal, source line/text, directed canonical endpoint
+indices, endpoint match counts, status, acceptance, conditional scope, alternate
+labels and symmetry operators. Missing/ambiguous endpoint indices are -1.
+Empty tables have defined dtypes and `(0, 2)` endpoint shapes; no occurrence
+objects or object arrays persist. The preparation-history codec and H5MSM 0.5
+retain these arrays without a new file schema. Historical indices stay on the
+original first-model canonical-site axis after extraction.
+
+### Scientific boundary and corrected draft assumptions
+
+Interpretation follows wwPDB PDB 3.3 sections 6 and 10 (references retained in
+the report). An unknown requested alternate is not silently matched to another
+site; a nonidentity symmetry operation is not flattened onto the observed base
+cell. Reciprocal/repeated declarations retain one pair without assigning order.
+Multiple declared CYS sulfur partners are retained and explicitly flagged;
+record order or distance does not select a supposedly valid disulfide state.
+LINK/CONECT alone do not establish chemical bond kind, valence or completeness.
+
+The first test draft assumed a nullable bond-order column must be physically
+present; this reader legitimately represents an entirely unknown order by an
+absent column. The guard now requires that no order be assigned, supporting both
+representations. A later draft rejected all connections involving alternate
+sites. The existing fidelity guard correctly rejected that narrowing: known
+alternate serials already map to canonical sites. That public contract is
+preserved; new conditional-scope evidence qualifies the claim instead of
+discarding deposited connectivity. Full alternate-specific chemical states
+remain unassessed. Neither failure is hidden by weakening the existing guard.
+
+Public conversion reports now expose unresolved, conditional and contradictory
+declarations through the existing adapter-limitation boundary; strict conversion
+rejects those limitations. Complete chemical certification is not introduced.
+
+### Executed evidence
+
+- Nineteen new public controls cover file/handler/text parity, exact source
+  record locations, redundancy, missing/self/empty endpoints, duplicate serials,
+  repeated symbolic identities across TER, insertion codes, identity/nonidentity
+  symmetry, known/missing alternate scope, conflicting sulfur partners, typed
+  empty results, extraction and detached H5MSM persistence.
+- The full affected reader/native/fidelity/application selection passes
+  **637 cases in 66.69 s** with twelve workers. A subsequent index-allocation
+  optimization is covered by **87 final directed cases in 11.85 s**.
+- Four published-provider floor receiving passes **48 cases in 12.88 s**;
+  actual ArgDigest/DepDigest/SMonitor/Ackredit origins and hashes are recorded.
+  Other dependencies remain current; this is not a clean installed-floor matrix.
+- Documentation/source-boundary receiving passes **1,072 cases in 43.23 s**.
+  Retained warnings remain visible. Foundations, form Toolbox, Cookbook, course
+  and the reader docstring agree. Both edited notebooks preserve all executable
+  cells, outputs, IDs and metadata.
+- Repeating the original-source reader probe preserves 181L's 13/1,322/1,322
+  and original 1IEP's 0/4,445/4,469 disabled/native/OpenMM graphs, source axes and
+  coordinates. Its two timing observations/process RSS are not a statistical
+  performance qualification or an explanation of the remaining disagreements.
+
+Ruff lint/format, dependency imports/contracts, public API stability and the
+247-function docstring check pass. Linux/Python 3.14.7, existing development
+environment and unchanged compiled backend. See the
+[receiving receipt](../../devtools/data/pdb_declaration_receiving_304_20261106.json)
+for exact source hashes, original-input probe, failure history, import origins,
+notebook preservation and individual overlapping JUnit results.
+
+**#304 remains partial.** Next complete the approved H-name/terminal and group/
+disulfide/geometry policies, independently explain original-source differences,
+and qualify representative cold/warm, memory and storage scaling. This audit
+does not authorize a release or claim complete receptor preparation.

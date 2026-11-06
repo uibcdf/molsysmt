@@ -106,6 +106,37 @@ state/structure. It returns a detached system and retains operation history;
 changed connectivity makes output interaction occurrences unevaluated. See
 {ref}`Tutorial_Infer_Covalent_Bonds` for evidence, defaults and persistence.
 
+Inspect deposited declarations separately from inferred candidates:
+
+```python
+history = molsys.chemical_states.get_preparation_history()
+declarations = history[0]['report']['declaration_issues']
+records = declarations['records']
+records['record_type'], records['line_number'], records['status']
+```
+
+The typed columns locate each declared connection in its original PDB record.
+`line_number` starts at 1; `record_index` starts at 0 within CONECT, LINK or
+SSBOND, and `target_index` identifies the CONECT target field (-1 otherwise).
+Directed `atom_indices` refer to the first source model's canonical sites;
+-1 means an endpoint is missing or ambiguous, and `endpoint_match_counts`
+distinguishes these cases. These are historical operation indices, not the
+current indices after extraction. Arrays, original fixed-column text, symmetry
+operators and alternate labels survive H5MSM round trips.
+
+`accepted=True` means that a literal declaration contributes a canonical edge;
+it does not certify a chemically valid bond. Reciprocal/repeated records retain
+one pair without assigning bond order. Known alternate serials map to canonical
+sites with `conditional=True`; complete alternate-specific chemistry remains
+unassessed. An absent requested alternate or a nonidentity symmetry image is
+reported without being projected onto a different observed atom. Conflicting
+declared CYS sulfur partners remain explicit with conflict evidence. LINK and
+CONECT can describe connections whose chemical bond kind is not established by
+these records alone. Use `return_report=True` or `strict=True` on `msm.convert`
+to inspect or refuse adapter limitations, respectively. This interpretation
+follows [wwPDB connectivity annotations](https://www.wwpdb.org/documentation/file-format-content/format33/sect6.html)
+and [CONECT](https://www.wwpdb.org/documentation/file-format-content/format33/sect10.html).
+
 For a separate native audit, `msm.build.get_missing_bonds(molsys)` returns
 template/geometric candidates without changing the source. Peptide candidates
 require consecutive source group indices in the same defined chain; selections

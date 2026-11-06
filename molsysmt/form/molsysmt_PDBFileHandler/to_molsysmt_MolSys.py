@@ -100,82 +100,6 @@ def _get_group_types(group_rows, atom_rows):
     return np.array(group_types, dtype=object)
 
 
-def _resolve_link_endpoint(canonical_atoms, endpoint):
-    chain_id, group_id, insertion_code, group_name, atom_name, _ = endpoint
-    return [
-        atom_index
-        for atom_index, atom in enumerate(canonical_atoms)
-        if (
-            atom.chain_id == chain_id
-            and atom.group_id == group_id
-            and atom.insertion_code == insertion_code
-            and atom.group_name == group_name
-            and atom.atom_name == atom_name
-        )
-    ]
-
-
-def _resolve_ssbond_endpoint(canonical_atoms, endpoint):
-    chain_id, group_id, insertion_code = endpoint
-    return [
-        atom_index
-        for atom_index, atom in enumerate(canonical_atoms)
-        if (
-            atom.chain_id == chain_id
-            and atom.group_id == group_id
-            and atom.insertion_code == insertion_code
-            and atom.group_name == "CYS"
-            and atom.atom_name == "SG"
-        )
-    ]
-
-
-def _get_explicit_bonds(content, canonical_atoms, variants):
-    serial_to_indices = {}
-    for atom_index, items in enumerate(variants.values()):
-        for item in items:
-            serial_to_indices.setdefault(item.serial, set()).add(atom_index)
-
-    pairs = set()
-    repeated_pairs = set()
-    unresolved = False
-    for record in content.conect:
-        for target in record.target_serials:
-            sources = serial_to_indices.get(record.source_serial, set())
-            targets = serial_to_indices.get(target, set())
-            if len(sources) != 1 or len(targets) != 1:
-                unresolved = True
-                continue
-            pair = tuple(sorted((next(iter(sources)), next(iter(targets)))))
-            if pair[0] == pair[1]:
-                continue
-            if pair in pairs:
-                repeated_pairs.add(pair)
-            pairs.add(pair)
-
-    for record in content.links:
-        endpoint1 = _resolve_link_endpoint(canonical_atoms, record.endpoint1)
-        endpoint2 = _resolve_link_endpoint(canonical_atoms, record.endpoint2)
-        if len(endpoint1) != 1 or len(endpoint2) != 1:
-            unresolved = True
-            continue
-        pair = tuple(sorted((endpoint1[0], endpoint2[0])))
-        if pair[0] != pair[1]:
-            pairs.add(pair)
-
-    for record in content.ssbonds:
-        endpoint1 = _resolve_ssbond_endpoint(canonical_atoms, record.endpoint1)
-        endpoint2 = _resolve_ssbond_endpoint(canonical_atoms, record.endpoint2)
-        if len(endpoint1) != 1 or len(endpoint2) != 1:
-            unresolved = True
-            continue
-        pair = tuple(sorted((endpoint1[0], endpoint2[0])))
-        if pair[0] != pair[1]:
-            pairs.add(pair)
-
-    return sorted(pairs), unresolved, bool(repeated_pairs)
-
-
 @dep_digest("openmm")
 def _get_bonded_atom_pairs_from_openmm_pdb(item):
     from io import StringIO
@@ -279,6 +203,7 @@ def _build_domains_from_content(
         )
 
     from molsysmt._private.pdb_connectivity import record, validate_policy
+    from molsysmt._private.pdb_declarations import resolve
     from molsysmt._private.smonitor import (
         LibraryNotFoundError,
         PDBBondInferenceWarning,
@@ -286,9 +211,7 @@ def _build_domains_from_content(
     )
 
     validate_policy(get_missing_bonds, bond_inference_engine)
-    explicit_pairs, unresolved, repeated = _get_explicit_bonds(
-        content, canonical_atoms, variants
-    )
+    explicit_pairs, declaration_issues = resolve(content, canonical_atoms, variants)
     bond_evidence = {pair: "explicit" for pair in explicit_pairs}
     inference_status, inference_error = "disabled", None
     if get_missing_bonds:
@@ -347,7 +270,7 @@ def _build_domains_from_content(
         inference_status,
         bond_inference_engine,
         error=inference_error,
-        declaration_issues=dict(unresolved=unresolved, repeated_pairs=repeated),
+        declaration_issues=declaration_issues,
     )
 
     return native
@@ -608,6 +531,27 @@ def to_molsysmt_MolSys(
     molsysmt.MolSys
         Resulting object in molsysmt.MolSys form.
 
+    Notes
+    -----
+    The first chemical-state preparation record stores typed declaration
+    diagnostics under ``report['declaration_issues']``. It retains source line
+    numbers (1-based), record indices (0-based within each record kind), raw
+    fixed-column records and directed canonical endpoint indices (-1 when
+    missing or ambiguous). These historical indices describe the original
+    reader operation, even after extraction or reordering.
+
+    Alternate serials map to canonical sites with conditional scope recorded.
+    Unknown LINK alternates and nonidentity symmetry images are not projected
+    onto different observed sites. Redundant declarations retain one edge and
+    do not establish bond order. Conflicting declared CYS sulfur partners remain
+    explicit, with their conflict reported rather than resolved by a guess.
+    Use ``return_report=True`` or ``strict=True`` on public ``msm.convert`` for
+    conversion limitations. Declared LINK/CONECT records do not certify covalent
+    bond kind, valence or a complete alternate-specific chemical state.
+
+    The interpretation follows wwPDB PDB 3.3 sections 6 and 10:
+    https://www.wwpdb.org/documentation/file-format-content/format33/sect6.html
+    and https://www.wwpdb.org/documentation/file-format-content/format33/sect10.html.
 
     .. versionadded:: 1.0.0
     """
