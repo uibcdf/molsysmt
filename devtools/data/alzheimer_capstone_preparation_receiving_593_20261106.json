@@ -1,0 +1,194 @@
+{
+  "schema": "molsysmt.course_preparation_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#593",
+  "source_base_commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+  "working_tree_patch": true,
+  "source_hashes": {
+    "docs/content/course/Path_Alzheimer/54_Final_Project.ipynb": "b3f6b52906d27c669e54e06ee49b8c0bf172a7474b6c6fc271f96b8a250fdf98",
+    "docs/content/course/Path_Alzheimer/54_Final_Project.AGENTS.md": "1d4823345f2ae61452bf6046ff22eeb4db8598f5c1708122d69488d4f254a162",
+    "docs/content/course/function_inventory.yml": "44b4c29b755770f7f572acde0316724e9ddbb48a3ae0db36bc46f02a947c9d2d",
+    "tests/documentation/test_alzheimer_preparation_examples.py": "aabd10407762076f4a05ac802cb276dbd167e7de0e5c9c37fbd8e1efde1d4aae",
+    "tests/physchem/get_sasa/test_course_interface_sasa.py": "242ace399f4f789fb6794f7a57b46c799d828386cf4645947e6f8d352d481d13"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux",
+    "machine": "x86_64",
+    "openmm": "8.6.1",
+    "environment": "existing molsyssuite@uibcdf_3.14; no new environment or installation"
+  },
+  "checks": {
+    "baseline": {
+      "exit_code": 1,
+      "tests": 10,
+      "failures": 10,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.869,
+      "junit_path": ".pytest_cache/593-preparation-baseline.xml",
+      "junit_sha256": "8d9df9395bc84884e08e3eb6d9e15fa9d6d1e7647d7dcc6f9432d57d64d414f4",
+      "failure_messages": [
+        "AssertionError: \nArrays are not equal\n\nMismatched elements: 22 / 132 (16.7%)\nFirst 5 mismatches are at indices:\n [0, 22, 0]: 0.2000001072883606 (ACTUAL), 2.2000001072883606 (DESIRED)\n [0, 23, 0]: 0.2000001072883606 (ACTUAL), 2.2000001072883606 (DESIRED)\n [0, 24, 0]: 0.1486264020204544 (ACTUAL), 2.1486264020204544 (DESIRED)\n [0, 25, 0]: 0.14862589538097382 (ACTUAL), 2.148625895380974 (DESIRED)\n [0, 26, 0]: 0.342741996049881 (ACTUAL), 2.342741996049881 (DESIRED)\nMax absolute difference among violations: 2.\nMax relative difference among violations: 0.93082747\n ACTUAL: array([[[ 2.000001e-01,  1.000000e-01, -1.300000e-07],\n        [ 2.000001e-01,  2.090000e-01,  1.000000e-08],\n        [ 1.486264e-01,  2.453849e-01,  8.898240e-02],...\n DESIRED: array([[[ 2.000001e-01,  1.000000e-01, -1.300000e-07],\n        [ 2.000001e-01,  2.090000e-01,  1.000000e-08],\n        [ 1.486264e-01,  2.453849e-01,  8.898240e-02],...",
+        "Failed: A missing candidate pose reached solvation",
+        "argdigest.core.errors.UnknownArgumentError: 'molsysmt.build.build_peptide.build_peptide' does not accept the argument 'n_terminal'. Check the arguments it accepts. It accepts: engine, from_naming_scheme, molecular_system, skip_digestion, to_form. See https://www.uibcdf.org/argdigest.",
+        "assert MolSys(n_atoms=21, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True) is MolSys(n_atoms=21, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True)",
+        "assert MolSys(n_atoms=21, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True) is MolSys(n_atoms=22, n_structures=1, topology=True, structures=True, n_chemical_states=1, n_interaction_analyses=0, molecular_mechanics=True)"
+      ]
+    },
+    "initial": {
+      "exit_code": 0,
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 7.783,
+      "junit_path": ".pytest_cache/593-preparation-initial.xml",
+      "junit_sha256": "e7f2e9244e7aa0a7e1cc67ea95d94d1488a3624174b0346cf3f748e3a526ec5a",
+      "failure_messages": []
+    },
+    "affected": {
+      "exit_code": 0,
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 8.017,
+      "junit_path": ".pytest_cache/593-preparation-affected.xml",
+      "junit_sha256": "ead4f30cb8f51ab6b0d9e0941c2da6ea0f9b57b3c61cae11389d1789e139232f",
+      "failure_messages": []
+    },
+    "initial_four_provider_floor": {
+      "exit_code": 0,
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 8.004,
+      "junit_path": ".pytest_cache/593-preparation-floor.xml",
+      "junit_sha256": "da2f0a53139746cc3219de329b2299c6ee61b60a883b78377d9f9063b2b99787",
+      "failure_messages": []
+    },
+    "final": {
+      "exit_code": 0,
+      "tests": 1118,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 50.221,
+      "junit_path": ".pytest_cache/593-preparation-final.xml",
+      "junit_sha256": "83d12c800b2d46b2e78ec6f3df16f43b8400cf4d5b82f4dffd0611a0a38f3219",
+      "failure_messages": []
+    },
+    "final_four_provider_floor": {
+      "exit_code": 0,
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 8.746,
+      "junit_path": ".pytest_cache/593-preparation-final-floor.xml",
+      "junit_sha256": "8f028d772382cf319f074a4f24b0f79d544dd4bfc42a6629017f0841fc9eba3e",
+      "failure_messages": []
+    }
+  },
+  "quality_checks": [
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "4437 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "devtools/scripts/validate_course.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Course structure valid: 156 notebooks (20 core + 4x34 paths), toctrees, manifest, and labels consistent.\n",
+      "stderr": ""
+    }
+  ],
+  "controls": {
+    "target": "Bundled alanine dipeptide structure index 0 with one known H or O removed: 21 input atoms, 22 repaired output atoms; unique controlled group/name correspondence preserves all 21 observed atom positions and elements.",
+    "candidate": "Actual KLVFF construction, explicit ACE/NME capping and legacy OpenMM pH request: 109 atoms in seven named groups, five phi and five psi quartets; measured declared targets -135/+135 degrees within 2e-5 degrees.",
+    "pose": "Actual rank-two/rank-three length quantities, nm/pm application policies, copied candidate assignment at structure index 0 and exact merge-order source populations. No pose enters solvation when the declared input is None.",
+    "mechanics": "AMBER14/TIP3P request bound to native output and accepted for a finite energy evaluation of the constructed candidate; no minimization, model quality or biological validity inferred.",
+    "regressions": "The five #562 minimization continuations execute on bundled controls; #589 geometric cell/definition and its independent analytic controls remain intact."
+  },
+  "notebook": {
+    "cell_count": 12,
+    "ids_metadata_outputs_and_execution_counts_preserved": true,
+    "minimization_cell_sha256": "becfaa981eef5b4c1c42427c05c281f44f1a12e6ad112d6ebdcd95ada529316e",
+    "interface_cell_sha256": "6517ac4e4d4c21d26dc25ef0b43c6ea680a15acd54f52e7d69c423f42295157b",
+    "saved_biological_outputs_created": false
+  },
+  "provider_floor_profile": {
+    "argdigest": "0.14.0 published payload",
+    "depdigest": "0.15.1 published payload",
+    "smonitor": "0.16.0 published payload; runtime active, incompatible development pytest plugin disabled",
+    "ackredit": "0.9.0 published payload",
+    "scope": "Other development dependencies are reused; neither all-dependency-floor nor clean installed qualification."
+  },
+  "limits": [
+    "The initial ten failures protect lost independent returns, unsupported builder keywords and newly explicit pose/model prerequisites. No library keyword aliases, new scientific algorithm, fallback or dependency is introduced.",
+    "The final new module has twelve cases after rank-two and rank-three pose controls were separated. Test selections overlap and are not unique totals.",
+    "Final documentation/affected and published-provider-floor selections ran concurrently with four workers each. Durations are test observations, not performance claims.",
+    "The whole 2BEG network/preparation/pose/parameterization/solvation/relaxation route is not executed. It remains an explicit outline requiring a user-supplied reviewed candidate pose.",
+    "Synthetic receiving never populates the notebook with biological results; its existing empty outputs and language metadata are preserved, rather than claiming full-notebook execution.",
+    "Heavy-template coverage, retained inventory, finite coordinates/energy and requested torsions do not establish complete chemistry, clashes/rotamers, physical stability, binding, inhibition or efficacy.",
+    "Native construction/capping use their existing local references and attribution boundaries; legacy hydrogen placement is the explicitly selected OpenMM pH route. No new attribution method or reference claim is created.",
+    "Source #304 remains frozen at the base commit under run 42205436569. #593 closeout is held until #304 integration and the authorized issue order are satisfied."
+  ],
+  "verified_floor_origins": [
+    {
+      "provider": "argdigest",
+      "package": "argdigest-0.14.0-py_0",
+      "origin": "argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    {
+      "provider": "depdigest",
+      "package": "depdigest-0.15.1-py_0",
+      "origin": "depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    {
+      "provider": "smonitor",
+      "package": "smonitor-0.16.0-py_1",
+      "origin": "smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    {
+      "provider": "ackredit",
+      "package": "ackredit-0.9.0-py_0",
+      "origin": "ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  ],
+  "reporting_checks": {
+    "validate_devguide": "passed",
+    "devguide_index_check": "passed",
+    "git_diff_check": "passed"
+  }
+}

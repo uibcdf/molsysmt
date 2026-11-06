@@ -22,3 +22,13 @@ Rose/Janin reference descriptors must never substitute for geometric interface
 measurements. Keep full biological preparation qualification separate from
 bounded analytic execution of the actual characterization cell. Do not publish
 synthetic outputs under the biological project's labels.
+
+Preserve the bounded preparation contracts: retain heavy/hydrogen repair
+outputs, use the supported terminal-capping API and measured quartet-based
+torsion targets, and require a supplied length quantity on the final candidate
+atom axis before assembly. Retain independent candidate placement, merge-order
+partner maps and the explicit example mechanics request. A force-field admission
+control on the constructed candidate does not qualify the biological complex,
+its pose or a full simulation workflow. Preserve the independent minimization
+continuation and the existing geometric interface cell. Preparation guards:
+`tests/documentation/test_alzheimer_preparation_examples.py`.

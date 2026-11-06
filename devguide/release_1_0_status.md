@@ -104,6 +104,27 @@ periodic families as ready for 1.0. The current PDB inference's nonperiodic
 controls do not qualify those routes. Preserve the active ordered work and these
 additional release obligations; do not silently mark them completed or deferred.
 
+Separate source preparation for **#593** is now contract-tested while #304's
+exact source remains frozen. The course consumes independent repair outputs,
+uses supported caps/quartets/torsion tools, requires a declared candidate pose
+and binds the example mechanics request after atom edits. Its 12 new controls,
+existing interface/minimizer regressions and documentation pass 1,118 cases;
+22 overlapping published-provider-floor cases also pass, without omissions.
+The 2BEG full biological route remains an explicit outline, with no invented
+outputs or readiness claim. This prepares the next ordered step; it does not
+close #593 before #304. See the
+[owning record](pending_bugs/alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md).
+
+The subsequent board checkpoint reads **#608–#610**, again without expanding
+the fifteen-item objective. #608 reports application-unit-dependent origin
+snapping and extends the unresolved native PBC qualification obligations above;
+it is not independently reproduced in this course receiving. #609 belongs to
+later PR #543 Jupyter presentation-acknowledgement receiving, outside frozen
+56b37c983. #610 asks for the supported XYZ/coordinate-delivery composition for
+DockingMT; direct public quantity assignment is exercised here on bounded native
+systems with both ranks and nm/pm policy, without claiming the consumer E4 run
+or its exact older provider source has been received.
+
 Other listed issues remain pending in the stated order; #594–#598 already have
 source repairs in the separate PR candidate but their closeout belongs at the
 end of this goal. Do not implement them again or close them out of order.
