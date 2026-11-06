@@ -59,7 +59,7 @@ function resultCard(el,model,options,access) {
     if(result){
       q('result-heading').textContent=result.title;
       q('result-summary').textContent=`${result.n_atoms.toLocaleString()} ${result.n_atoms===1?'atom':'atoms'} · ${result.n_structures.toLocaleString()} ${result.n_structures===1?'structure':'structures'}`;
-      q('result-provenance').textContent=(result.affected_structures?`Translated structures: ${result.affected_structures.join(', ')}${result.affected_truncated?'…':''}. All source structures retained.`:`Source structures, in order: ${result.structure_indices.join(', ')}${result.structures_truncated?'…':''}.`)+(context.target_revision!==result.source_revision?' The source has changed since this result was created.':'');
+      q('result-provenance').textContent=(result.affected_structures?`${result.effect_label||'Translated'} structures: ${result.affected_structures.join(', ')}${result.affected_truncated?'…':''}. All source structures retained.`:`Source structures, in order: ${result.structure_indices.join(', ')}${result.structures_truncated?'…':''}.`)+(context.target_revision!==result.source_revision?' The source has changed since this result was created.':'');
       q('result-handle').textContent=`view.addons.manager.presentations.get(${JSON.stringify(result.id)})`;
     }
     for(const [key,destination] of [['show-notebook','notebook'],['show-window','window']]){q(key).hidden=!destinations.includes(destination);q(key).disabled=busy;}

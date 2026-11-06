@@ -41,11 +41,15 @@ class _SystemPanel(_MolecularTaskPanel):
         self._task = "remove"
         self._result_draft = {"structures": "all", "indices": "", "title": ""}
 
+    def _diagnostic_inputs(self):
+        return (dict(self._draft), self._task, dict(self._result_draft))
+
     def _publish(self, *, stage="select", message="", request_id=0):
         if not self._alive or self._view is None or self._view.closed:
             return
         context = self._context()
         self._refresh_result()
+        stage, message = self._retained_diagnostic(context, stage, message)
         outcome = self._outcome
         if outcome is not None:
             if (

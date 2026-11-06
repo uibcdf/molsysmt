@@ -63,7 +63,7 @@ def get_addon(*, skip_digestion=False):
                 title="Geometry",
                 order=20,
                 widget_class="molsysviewer_molsysmt._geometry_panel._GeometryPanel",
-                description="Translate coordinates with explicit atoms, structures and units.",
+                description="Translate or center coordinates with explicit atoms, structures, references and units.",
             ),
         ),
         meta={"status": "experimental"},

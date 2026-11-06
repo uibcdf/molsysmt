@@ -1,7 +1,9 @@
 """Shared selection, lifecycle and result ownership for molecular task panels."""
 
+from copy import deepcopy
+from dataclasses import dataclass
 from threading import RLock
-from weakref import WeakSet
+from weakref import WeakSet, ref
 
 import numpy as np
 from argdigest import arg_digest
@@ -65,6 +67,17 @@ def _structures(scope, text, total, current):
     return indices
 
 
+@dataclass(frozen=True)
+class _TaskDiagnostic:
+    target: object
+    revision: int | None
+    state: str
+    frame: int | None
+    inputs: tuple
+    stage: str
+    message: str
+
+
 class _MolecularTaskPanel(AddonPanelWidget):
     _state_key = "system_draft"
     _allow_all = False
@@ -75,6 +88,7 @@ class _MolecularTaskPanel(AddonPanelWidget):
         self._alive = False
         self._review = None
         self._outcome = None
+        self._diagnostic = None
         self._draft = dict(_DEFAULT)
         self._last_request = 0
         self._actions = RLock()
@@ -95,6 +109,7 @@ class _MolecularTaskPanel(AddonPanelWidget):
         self._owner = view.addons.molsysmt
         self._alive = True
         self._outcome = None
+        self._diagnostic = None
         try:
             self._draft = self._normalize_draft(self.state.get(self._state_key, {}))
         except (TypeError, ValueError):
@@ -112,6 +127,7 @@ class _MolecularTaskPanel(AddonPanelWidget):
         self._alive = False
         self._review = None
         self._outcome = None
+        self._diagnostic = None
         if self._owner is not None:
             self._owner._task_panels.discard(self)
         self._owner = None
@@ -180,6 +196,25 @@ class _MolecularTaskPanel(AddonPanelWidget):
                 "has_system": view.molsys is not None,
                 "can_review": False,
             }
+
+    def _diagnostic_inputs(self):
+        return (dict(self._draft),)
+
+    def _retained_diagnostic(self, context, stage, message):
+        diagnostic = self._diagnostic
+        if diagnostic is not None:
+            if (
+                self._view.molsys
+                is not (diagnostic.target() if diagnostic.target else None)
+                or context.get("target_revision") != diagnostic.revision
+                or context.get("state") != diagnostic.state
+                or context.get("structure_index") != diagnostic.frame
+                or self._diagnostic_inputs() != diagnostic.inputs
+            ):
+                self._diagnostic = None
+            elif stage == "select" and not message:
+                stage, message = diagnostic.stage, diagnostic.message
+        return stage, message
 
     def _refresh_result(self):
         if self._result is not None:
@@ -257,6 +292,8 @@ class _MolecularTaskPanel(AddonPanelWidget):
             ):
                 return
             self._last_request = request_id
+            if action_id != "refresh":
+                self._diagnostic = None
             try:
                 self._perform_action(action_id, payload, request_id)
             except Exception as exc:
@@ -278,6 +315,18 @@ class _MolecularTaskPanel(AddonPanelWidget):
                     else "The system needs explicit recovery before further editing."
                     if stage == "recovery_required"
                     else str(exc)[:1000]
+                )
+                # Store only bounded display data, never an exception, molecular
+                # arrays or a confirmation token. Automatic refresh is a context
+                # read, not permission to erase the rejected operation's outcome.
+                self._diagnostic = _TaskDiagnostic(
+                    ref(view.molsys) if view.molsys is not None else None,
+                    status.get("target_revision"),
+                    status["state"],
+                    status.get("structure_index"),
+                    deepcopy(self._diagnostic_inputs()),
+                    stage,
+                    message,
                 )
                 self._publish(stage=stage, message=message, request_id=request_id)
 

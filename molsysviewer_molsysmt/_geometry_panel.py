@@ -1,4 +1,4 @@
-"""Explicit translation task over the qualified native geometry adapter."""
+"""Reviewed translation and centering over qualified native geometry adapters."""
 
 from dataclasses import dataclass
 from secrets import token_urlsafe
@@ -13,6 +13,15 @@ from ._panel_frontend import CSS
 from ._task_panel import _MolecularTaskPanel, _structures
 
 _PARAMETERS = {
+    "task": "translate",
+    "cx": "0",
+    "cy": "0",
+    "cz": "0",
+    "center_unit": "angstrom",
+    "center_kind": "geometric",
+    "source_expression": "",
+    "destination_kind": "point",
+    "target_expression": "",
     "dx": "0",
     "dy": "0",
     "dz": "0",
@@ -22,48 +31,67 @@ _PARAMETERS = {
     "effect": "update",
     "title": "",
 }
-_COMPLETED = "Translation applied. The view is up to date."
+_COMPLETED = {
+    "translate": "Translation applied. The view is up to date.",
+    "center": "Centering applied. The view is up to date.",
+}
 
 
 def _parameters(value):
     if not isinstance(value, dict) or set(value) - set(_PARAMETERS):
-        raise ValueError("The translation contains unsupported fields.")
+        raise ValueError("The coordinate request contains unsupported fields.")
     result = dict(_PARAMETERS, **value)
+    if result["task"] not in {"translate", "center"}:
+        raise ValueError("Choose a supported Geometry task.")
+    if result["center_kind"] not in {"geometric", "masses"} or result[
+        "destination_kind"
+    ] not in {"point", "selection"}:
+        raise ValueError("Choose a supported center and destination.")
+    if result["center_unit"] not in {"angstrom", "nm"}:
+        raise ValueError("Choose an explicit center length unit.")
     if result["unit"] not in {"angstrom", "nm"} or result["effect"] not in {
         "update",
         "result",
     }:
-        raise ValueError("Choose a length unit and the translation destination.")
+        raise ValueError("Choose a length unit and the result destination.")
     if result["structures"] not in {"all", "current", "indices"}:
         raise ValueError("Choose which structures to translate.")
     for key, limit in (
         ("dx", 64),
         ("dy", 64),
         ("dz", 64),
+        ("cx", 64),
+        ("cy", 64),
+        ("cz", 64),
+        ("source_expression", 4096),
+        ("target_expression", 4096),
         ("indices", 4096),
         ("title", 200),
     ):
         if not isinstance(result[key], str) or len(result[key]) > limit:
-            raise ValueError("Translation fields contain invalid or overlong text.")
+            raise ValueError("Coordinate fields contain invalid or overlong text.")
     return result
 
 
-def _translation(parameters):
+def _translation(parameters, *, center=False):
     from molsysmt import pyunitwizard as puw
 
     try:
-        values = [float(parameters[key]) for key in ("dx", "dy", "dz")]
+        values = [
+            float(parameters[key])
+            for key in (("cx", "cy", "cz") if center else ("dx", "dy", "dz"))
+        ]
     except ValueError as exc:
-        raise ValueError("Enter three finite displacement values.") from exc
+        raise ValueError("Enter three finite length values.") from exc
     if not np.all(np.isfinite(values)):
-        raise ValueError("Enter three finite displacement values.")
+        raise ValueError("Enter three finite length values.")
     # The GUI record carries its explicit unit. Native digestion still owns
     # dimensional validation and supported coordinate broadcasting.
-    return puw.quantity(values, parameters["unit"])
+    return puw.quantity(values, parameters["center_unit" if center else "unit"])
 
 
 @dataclass(frozen=True)
-class _TranslationReview:
+class _GeometryReview:
     token: str
     target: object
     revision: int
@@ -73,6 +101,8 @@ class _TranslationReview:
     parameters: dict
     indices: np.ndarray
     frames: tuple
+    center_indices: tuple
+    target_indices: tuple
 
 
 class _GeometryPanel(_MolecularTaskPanel):
@@ -91,11 +121,15 @@ class _GeometryPanel(_MolecularTaskPanel):
         except (TypeError, ValueError):
             self._parameters = dict(_PARAMETERS)
 
+    def _diagnostic_inputs(self):
+        return (dict(self._draft), dict(self._parameters))
+
     def _publish(self, *, stage="select", message="", request_id=0):
         if not self._alive or self._view is None or self._view.closed:
             return
         context = self._context()
         self._refresh_result()
+        stage, message = self._retained_diagnostic(context, stage, message)
         if self._outcome is not None:
             target, revision, draft, parameters = self._outcome
             if (
@@ -106,7 +140,7 @@ class _GeometryPanel(_MolecularTaskPanel):
                 and parameters == self._parameters
             ):
                 if stage == "select" and not message:
-                    stage, message = "done", _COMPLETED
+                    stage, message = "done", _COMPLETED[self._parameters["task"]]
             else:
                 self._outcome = None
         service = getattr(self._view.addons.manager, "presentations", None)
@@ -125,6 +159,8 @@ class _GeometryPanel(_MolecularTaskPanel):
             packet["review"] = {
                 "token": review.token,
                 "n_atoms": int(review.indices.size),
+                "n_center_atoms": len(review.center_indices),
+                "n_target_atoms": len(review.target_indices),
                 "n_structures": len(review.frames),
                 "selection_structure": review.frame,
                 "structure_indices": list(review.frames[:200]),
@@ -137,7 +173,7 @@ class _GeometryPanel(_MolecularTaskPanel):
         if status["state"] != "synchronized" and status["state"] != "editing":
             raise ValueError("Update the view before reviewing molecular coordinates.")
         if target.structures.coordinates is None:
-            raise ValueError("Load coordinates before translating a molecular system.")
+            raise ValueError("Load coordinates before transforming a molecular system.")
         total = int(target.structures.n_structures)
         frame = (
             int(self._view.player.index)
@@ -159,16 +195,60 @@ class _GeometryPanel(_MolecularTaskPanel):
             total,
             int(self._view.player.index),
         )
-        _translation(self._parameters)
-        return status, total, frame, atoms, tuple(frames)
+        center_indices, target_indices = (), ()
+        if self._parameters["task"] == "translate":
+            _translation(self._parameters)
+        else:
+            from molsysmt import basic
+
+            def population(expression, fallback):
+                if not expression.strip():
+                    return tuple(int(i) for i in fallback)
+                indices = np.asarray(
+                    basic.select(
+                        target,
+                        selection=expression.strip(),
+                        element="atom",
+                        structure_indices=[frame],
+                        chemical_state="reference",
+                    ),
+                    dtype=np.int64,
+                )
+                if indices.ndim != 1 or not indices.size:
+                    raise ValueError(
+                        "A center expression must select a nonempty atom population."
+                    )
+                return tuple(int(i) for i in np.unique(indices))
+
+            center_indices = population(self._parameters["source_expression"], atoms)
+            moving_set = set(atoms.tolist())
+            if not all(i in moving_set for i in center_indices):
+                raise ValueError(
+                    "Source center atoms must belong to the moving selection."
+                )
+            if self._parameters["destination_kind"] == "point":
+                _translation(self._parameters, center=True)
+            else:
+                if not self._parameters["target_expression"].strip():
+                    raise ValueError("Choose a target-center selection expression.")
+                target_indices = population(self._parameters["target_expression"], ())
+        return (
+            status,
+            total,
+            frame,
+            atoms,
+            tuple(frames),
+            center_indices,
+            target_indices,
+        )
 
     def _prepare_review(self, target):
-        status, total, frame, atoms, frames = self._resolve(target)
+        status, total, frame, atoms, frames, centers, targets = self._resolve(target)
         if not atoms.size:
             return None
         atoms = atoms.copy()
         atoms.setflags(write=False)
-        return _TranslationReview(
+        return _GeometryReview(
             token_urlsafe(24),
             ref(target),
             status["target_revision"],
@@ -178,6 +258,8 @@ class _GeometryPanel(_MolecularTaskPanel):
             dict(self._parameters),
             atoms,
             frames,
+            centers,
+            targets,
         )
 
     def _check_review(self, target, review):
@@ -190,41 +272,63 @@ class _GeometryPanel(_MolecularTaskPanel):
             or self._parameters != review.parameters
         ):
             raise ValueError(
-                "The system or translation changed. Review the translation again."
+                "The system or requested coordinate change changed. Review the coordinate change again."
             )
-        _, total, frame, atoms, frames = self._resolve(target)
+        _, total, frame, atoms, frames, centers, targets = self._resolve(target)
         if (
             total != review.structures
             or frame != review.frame
             or frames != review.frames
+            or centers != review.center_indices
+            or targets != review.target_indices
             or not np.array_equal(atoms, review.indices)
         ):
             raise ValueError(
-                "The selected atoms or structures changed. Review the translation again."
+                "The selected atoms or structures changed. Review the coordinate change again."
             )
-        return {
-            "translation": _translation(review.parameters),
+        parameters = {
             "selection": atoms.tolist(),
             "structure_indices": list(frames),
             "syntax": "MolSysMT",
             "in_place": True,
             "skip_digestion": False,
         }
+        if review.parameters["task"] == "translate":
+            parameters["translation"] = _translation(review.parameters)
+        else:
+            parameters.update(
+                {
+                    "source_center_selection": list(centers),
+                    "target_center_selection": list(targets) if targets else None,
+                    "target_coordinates": None
+                    if targets
+                    else _translation(review.parameters, center=True),
+                    "weights": None
+                    if review.parameters["center_kind"] == "geometric"
+                    else "masses",
+                    "engine": "MolSysMT",
+                }
+            )
+        return parameters
 
     def _apply(self, token):
         review, self._review = self._review, None
         if review is None or token != review.token:
-            raise ValueError("This review has expired. Review the translation again.")
+            raise ValueError(
+                "This review has expired. Review the coordinate change again."
+            )
         if review.parameters["effect"] == "update":
 
             def prepare(target):
                 return _prepare_geometry_transform(
-                    target, "translate", self._check_review(target, review)
+                    target,
+                    review.parameters["task"],
+                    self._check_review(target, review),
                 )
 
             self._view.addons.manager.system_edits.execute(
                 prepare,
-                name="molsysmt.structure.translate",
+                name="molsysmt.structure." + review.parameters["task"],
                 update_view=True,
                 rejection_check=_geometry_token,
             )
@@ -244,13 +348,24 @@ class _GeometryPanel(_MolecularTaskPanel):
             def calculate(target):
                 parameters = self._check_review(target, review)
                 parameters["in_place"] = False
-                candidate = self._owner.structure.translate(**parameters)
+                operation = getattr(self._owner.structure, review.parameters["task"])
+                candidate = operation(**parameters)
                 result = self._store_result(
                     candidate,
-                    title=review.parameters["title"].strip() or "Translated system",
-                    operation="molsysmt.structure.translate",
+                    title=review.parameters["title"].strip()
+                    or (
+                        "Translated system"
+                        if review.parameters["task"] == "translate"
+                        else "Centered system"
+                    ),
+                    operation="molsysmt.structure." + review.parameters["task"],
                     structure_indices=list(range(review.structures)),
                     revision=review.revision,
+                )
+                result["effect_label"] = (
+                    "Translated"
+                    if review.parameters["task"] == "translate"
+                    else "Centered"
                 )
                 result["affected_structures"] = list(review.frames[:200])
                 result["affected_truncated"] = len(review.frames) > 200
@@ -271,8 +386,11 @@ class _GeometryPanel(_MolecularTaskPanel):
         self.set_state(
             {self._state_key: dict(draft), "translation_parameters": dict(parameters)}
         )
-        if action_id in {"refresh", "back"}:
+        if action_id in {"refresh", "back", "task"}:
             self._review = None
+            if action_id == "task":
+                self._discard_unpresented_result()
+                self._outcome = None
         elif action_id == "review":
             self._outcome = None
             self._review = None
@@ -281,7 +399,7 @@ class _GeometryPanel(_MolecularTaskPanel):
                 stage="review" if self._review else "no_matches",
                 message=""
                 if self._review
-                else "Nothing to translate: no atoms match this selection.",
+                else "Nothing to transform: no atoms match this selection.",
                 request_id=request_id,
             )
             return
@@ -290,7 +408,7 @@ class _GeometryPanel(_MolecularTaskPanel):
             self._apply(payload.get("token"))
             self._publish(
                 stage="result" if self._result else "done",
-                message="" if self._result else _COMPLETED,
+                message="" if self._result else _COMPLETED[self._parameters["task"]],
                 request_id=request_id,
             )
             return

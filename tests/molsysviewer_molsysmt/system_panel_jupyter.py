@@ -52,7 +52,9 @@ def main():
     parser.add_argument("--provider-root", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
-        "--scenario", choices=("system", "results", "geometry"), default="system"
+        "--scenario",
+        choices=("system", "results", "geometry", "center", "center-errors"),
+        default="system",
     )
     parser.add_argument("--node", default="/usr/bin/node")
     parser.add_argument(
@@ -173,7 +175,7 @@ def main():
             "view.close()\nassert not subset_view.closed and not copy_view.closed\n"
             "print('JUPYTER_INDEPENDENT_RESULTS_OK', len(records))\n"
         )
-    if args.scenario == "geometry":
+    if args.scenario in {"geometry", "center", "center-errors"}:
         initial = initial[: initial.index("view = msv.demo")] + (
             "with msv.demo['pentalanine'] as seed:\n"
             "    view = msv.new_view(seed.molsys, structure_indices=[0, 8, 3])\n"
@@ -193,6 +195,49 @@ def main():
             "assert result.molsys is not view.molsys and result.player.n_structures == 3\n"
             "print('JUPYTER_GEOMETRY_NATIVE_OK', len(records))\n"
         )
+    if args.scenario == "center":
+        final = (
+            "import numpy as np\nexpected = source_coordinates.copy()\n"
+            "for frame in [2,0]:\n"
+            "    expected[frame,:10] += np.array([0.1,0.2,0.3])-source_coordinates[frame,[2,4]].mean(axis=0)\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit='nm'), expected, atol=1e-12)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision'] == 1\n"
+            "records = view.addons.manager.presentations.records()\nassert len(records) == 1\n"
+            "result = view.addons.manager.presentations.get(records[0]['id'])\n"
+            "candidate = expected.copy()\n"
+            "candidate[0,:10] += expected[0,[10,12]].mean(axis=0)-expected[0,[2,4]].mean(axis=0)\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates, to_unit='nm'), candidate, atol=1e-12)\n"
+            "assert result.molsys is not view.molsys and result.player.n_structures == 3\n"
+            "print('JUPYTER_CENTER_NATIVE_OK', len(records))\n"
+        )
+    if args.scenario == "center-errors":
+        initial = initial.removesuffix("view\n") + (
+            "from molsysviewer_molsysmt._geometry_panel import _GeometryPanel\n"
+            "_GeometryPanel._esm = _GeometryPanel._esm.replace('export function render({model,el}) {', 'export function render({model,el}) { window.__errorPanelModel=model;')\n"
+            "_mass_policy = msm.pyunitwizard.context(standard_units=['pm','ps','radians'])\n"
+            "_mass_policy.__enter__()\nview\n"
+        )
+        final = (
+            "import numpy as np\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+            "assert view.addons.molsysmt.get_sync_status()['state']=='synchronized'\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==0\n"
+            "_mass_policy.__exit__(None,None,None)\n"
+            "print('JUPYTER_NATIVE_ERROR_PRESERVED')\n"
+        )
+    # Keep a native stack if initialization stalls. The shell event closes the
+    # diagnostic after the actual display hook, without warming that hook first.
+    initial = (
+        "import faulthandler as _source_faults\n"
+        f"_source_trace = open({str(output / 'kernel-initialization-trace.log')!r}, 'w')\n"
+        "_source_faults.dump_traceback_later(45, repeat=True, file=_source_trace)\n"
+        "def _source_initialized(_result):\n"
+        "    _source_faults.cancel_dump_traceback_later()\n"
+        "    _source_trace.close()\n"
+        "    get_ipython().events.unregister('post_run_cell', _source_initialized)\n"
+        "get_ipython().events.register('post_run_cell', _source_initialized)\n"
+        + initial
+    )
     (output / "notebooks/system.ipynb").write_text(
         json.dumps(_notebook([initial, final]))
     )
@@ -246,7 +291,11 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("geometry_panel_jupyter.mjs")
+                        Path(__file__).with_name("center_error_jupyter.mjs")
+                        if args.scenario == "center-errors"
+                        else Path(__file__).with_name("center_panel_jupyter.mjs")
+                        if args.scenario == "center"
+                        else Path(__file__).with_name("geometry_panel_jupyter.mjs")
                         if args.scenario == "geometry"
                         else Path(__file__).with_name("result_panel_jupyter.mjs")
                         if args.scenario == "results"

@@ -5092,7 +5092,7 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
 Extraction/copy result presentation uses the separate flow below. Geometry
-currently offers Translate; other Geometry tasks, Chemistry and Analysis remain planned.
+offers Translate and Center; other Geometry tasks, Chemistry and Analysis remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
 
@@ -5165,4 +5165,44 @@ the translation a second time. Independent systems and Views consume memory;
 this GUI does not promise streaming transforms or a trajectory-size RAM bound.
 Source/browser receiving does not replace postponed human Jupyter/visible Qt
 acceptance, owner review or exact installed-package qualification. Rotate and
-other Geometry tools are not yet offered by this panel.
+other Geometry tools remain planned.
+
+
+## Centering molecular coordinates through Geometry
+
+Choose **Center** in **Molecular tools > Geometry** to place a selected source
+center at a destination by translating molecular coordinates. Select the atoms
+to move, the structures to process, and **Geometric center** or **Center of mass**.
+Each processed structure gets its own displacement. The operation does not rotate
+coordinates or move the camera.
+
+The default source reference uses every moving atom. Expand **Reference atoms**
+to give a MolSysMT expression selecting a smaller reference population, such as
+alpha carbons within a selected protein. Every source reference atom must belong
+to the moving selection. Reference expressions resolve to fixed populations in
+the stated selection structure and reference chemical state; they are not
+reevaluated independently in every processed structure.
+
+Choose **Explicit point** with x, y and z in Å or nm, or **Geometric center of a
+selection** with an explicit MolSysMT expression. The latter uses that target
+population's initial geometric center separately in each processed structure;
+target atoms may lie outside the moving selection. Stored Cartesian coordinates
+are used directly. Periodic reconstruction and wrapping are separate operations.
+The periodic box stays fixed.
+
+**Review centering** shows the moving, source-reference and target-reference
+populations, processed structures and destination before execution. **Back**
+leaves the molecular data unchanged. Choose **Current system** for a managed
+molecular edit and scene update, or **Independent result** for a copy retaining
+every source atom and structure and changing only the chosen subset. The result
+uses the same explicit presentation and lifetime rules as Translate. Scene Undo
+does not restore changed coordinates; affected stored analyses may need
+recalculation.
+
+Center of mass delegates mass assignment and unit validation to MolSysMT.
+Applications that install a partial custom unit policy must include a mass
+standard when requesting mass-weighted operations. A rejected request keeps its
+diagnostic visible through automatic refreshes; adjust the input and review
+again. A completed edit with a failed scene update instead needs **Update view**,
+without repeating the scientific operation. The expert `structure.center` API
+retains its complete native arguments, weighting options and return semantics.

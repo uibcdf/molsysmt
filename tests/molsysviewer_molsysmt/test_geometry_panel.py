@@ -329,3 +329,235 @@ def test_geometry_edit_invalidates_system_review_in_a_peer_window(case):
     assert peer._review is None
     assert peer._draft["indices"] == "2,4"
     assert "another window" in state(sent, "peer")["message"]
+
+
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("weighting", ["geometric", "masses"])
+@pytest.mark.parametrize("destination", ["point", "selection"])
+def test_centering_uses_explicit_reference_destination_and_native_frames(
+    case, effect, weighting, destination
+):
+    view, sent = case
+    before = coords(view)
+    box = puw.get_value(view.molsys.structures.box, to_unit="nm").copy()
+    revision = view.addons.molsysmt.get_sync_status()["target_revision"]
+    moving, source, target = list(range(10)), [2, 4], [10, 12]
+    weights = (
+        None
+        if weighting == "geometric"
+        else puw.get_value(
+            msm.physchem.get_mass(view.molsys, element="atom", selection=source),
+            to_unit="dalton",
+        )
+    )
+    if weights is not None:
+        assert np.ptp(weights) > 0, "The mass-weighting oracle needs unequal masses."
+    expected = before.copy()
+    for frame in [2, 0]:
+        reference = np.average(before[frame, source], weights=weights, axis=0)
+        point = (
+            np.array([0.1, 0.2, 0.3])
+            if destination == "point"
+            else before[frame, target].mean(axis=0)
+        )
+        expected[frame, moving] += point - reference
+    parameters = {
+        "task": "center",
+        "cx": "1",
+        "cy": "2",
+        "cz": "3",
+        "center_unit": "angstrom",
+        "center_kind": weighting,
+        "source_expression": "atom_index in [2,4]",
+        "destination_kind": destination,
+        "target_expression": "atom_index in [10,12]",
+        "structures": "indices",
+        "indices": "2,0",
+        "effect": effect,
+    }
+    with puw.context(standard_units=["pm", "ps", "radians", "dalton"]):
+        packet = act(
+            view,
+            sent,
+            "review",
+            draft={"source": "indices", "indices": ",".join(map(str, moving))},
+            parameters=parameters,
+        )
+        assert packet["stage"] == "review", packet["message"]
+        assert packet["review"]["n_center_atoms"] == 2
+        assert packet["review"]["n_target_atoms"] == (
+            2 if destination == "selection" else 0
+        )
+        np.testing.assert_array_equal(coords(view), before)
+        result = act(view, sent, "apply", token=packet["review"]["token"])
+    assert result["stage"] == ("done" if effect == "update" else "result"), result[
+        "message"
+    ]
+    output = (
+        view
+        if effect == "update"
+        else view.addons.manager.presentations.get(result["result"]["id"])
+    )
+    np.testing.assert_allclose(coords(output), expected, atol=1e-12)
+    np.testing.assert_array_equal(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"), box
+    )
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+        assert result["result"]["operation"] == "molsysmt.structure.center"
+        assert result["result"]["effect_label"] == "Centered"
+        act(view, sent, "result.discard")
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + int(
+        effect == "update"
+    )
+
+
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {"center_kind": "charges"},
+        {"destination_kind": "implicit"},
+        {"center_unit": "ps"},
+        {"cx": "nan"},
+        {"source_expression": "atom_index==15"},
+        {"source_expression": "atom_name=='NOT_AN_ATOM'"},
+        {"destination_kind": "selection", "target_expression": ""},
+        {
+            "destination_kind": "selection",
+            "target_expression": "atom_name=='NOT_AN_ATOM'",
+        },
+    ],
+)
+def test_centering_rejects_invalid_or_undefined_inputs_before_editing(case, parameters):
+    view, sent = case
+    before, status = coords(view), view.addons.molsysmt.get_sync_status()
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "indices", "indices": "2,4"},
+        parameters={"task": "center", **parameters},
+    )
+    assert packet["stage"] == "error"
+    np.testing.assert_array_equal(coords(view), before)
+    assert view.addons.molsysmt.get_sync_status() == status
+
+
+def test_switching_geometry_task_cannot_reuse_review_or_unpresented_result(case):
+    view, sent = case
+    review = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={"dx": "1", "effect": "result"},
+    )
+    packet = act(view, sent, "apply", token=review["review"]["token"])
+    child = view.addons.manager.presentations.get(packet["result"]["id"])
+    changed = act(view, sent, "task", parameters={"task": "center"})
+    assert child.closed and changed["result"] is None
+    assert act(view, sent, "apply", token=review["review"]["token"])["stage"] == "error"
+
+
+def test_missing_mass_unit_policy_rejects_before_write_and_can_be_retried(case):
+    view, sent = case
+    before, status = coords(view), view.addons.molsysmt.get_sync_status()
+    parameters = {"task": "center", "center_kind": "masses"}
+    with puw.context(standard_units=["pm", "ps", "radians"]):
+        packet = act(
+            view,
+            sent,
+            "review",
+            draft={"source": "indices", "indices": "0,1,2,3"},
+            parameters=parameters,
+        )
+        assert packet["stage"] == "review"
+        failed = act(view, sent, "apply", token=packet["review"]["token"])
+        assert failed["stage"] == "error"
+        diagnostic = failed["message"]
+        for _ in range(2):
+            refreshed = act(view, sent, "refresh")
+            assert refreshed["stage"] == "error"
+            assert refreshed["message"] == diagnostic
+            assert "review" not in refreshed
+        assert view._active_panel_widgets[None][2]._diagnostic.message == diagnostic
+    np.testing.assert_array_equal(coords(view), before)
+    rejected = view.addons.molsysmt.get_sync_status()
+    for key in (
+        "state",
+        "target_revision",
+        "integration_revision",
+        "pending_operations",
+        "reason",
+    ):
+        assert rejected[key] == status[key]
+    assert rejected["operation_id"].startswith("molsysmt.structure.center:")
+    with puw.context(standard_units=["pm", "ps", "radians", "dalton"]):
+        packet = act(view, sent, "review")
+        assert (
+            act(view, sent, "apply", token=packet["review"]["token"])["stage"] == "done"
+        )
+    assert (
+        view.addons.molsysmt.get_sync_status()["target_revision"]
+        == status["target_revision"] + 1
+    )
+
+
+@pytest.mark.parametrize("panel_name", ["system", "geometry"])
+@pytest.mark.parametrize(
+    "change", ["review", "back", "frame", "draft", "revision", "remount"]
+)
+def test_task_diagnostic_expires_with_its_inputs_context_or_lifecycle(
+    case, panel_name, change
+):
+    view, sent = case
+    mount(view, panel_name)
+    panel = view._active_panel_widgets[None][2]
+    sequence = 0
+
+    def request(action, **payload):
+        nonlocal sequence
+        sequence += 1
+        panel.handle_action(view, action, {"request_id": sequence, **payload})
+        return state(sent)
+
+    failed = request("review", draft={"source": "indices", "indices": "bad"})
+    assert failed["stage"] == "error"
+    for _ in range(2):
+        refreshed = request("refresh")
+        assert refreshed["stage"] == "error"
+        assert refreshed["message"] == failed["message"]
+        assert "review" not in refreshed
+    if change in {"review", "draft"}:
+        packet = request(
+            change if change == "review" else "refresh",
+            draft={"source": "indices", "indices": "2,4"},
+        )
+        assert packet["stage"] == ("review" if change == "review" else "select")
+    elif change == "back":
+        assert request("back")["stage"] == "select"
+    elif change == "frame":
+        view.player.go_to_structure(1)
+        assert request("refresh")["stage"] == "select"
+    elif change == "revision":
+        view.addons.molsysmt.structure.translate(
+            translation=puw.quantity([0.1, 0, 0], "nm"), in_place=True
+        )
+        assert request("refresh")["stage"] == "select"
+    else:
+        panel.on_unmount(view)
+        panel.on_mount(view)
+        assert state(sent)["stage"] == "select"
+    assert panel._diagnostic is None
+
+
+def test_geometry_diagnostic_does_not_survive_a_new_task_or_parameters(case):
+    view, sent = case
+    failed = act(
+        view, sent, "review", draft={"source": "all"}, parameters={"dx": "bad"}
+    )
+    assert failed["stage"] == "error"
+    assert act(view, sent, "refresh")["stage"] == "error"
+    assert act(view, sent, "refresh", parameters={"dx": "1"})["stage"] == "select"
+    assert act(view, sent, "review", parameters={"dx": "bad"})["stage"] == "error"
+    assert act(view, sent, "task", parameters={"task": "center"})["stage"] == "select"

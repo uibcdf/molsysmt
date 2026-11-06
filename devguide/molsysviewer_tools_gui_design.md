@@ -4,12 +4,18 @@
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
 **Status — 2026-11-06:** contribution source implements System / Remove atoms,
-Extract subset and Copy system, plus Geometry / Translate. Selection controls,
+Extract subset and Copy system, plus Geometry / Translate and Center. Selection controls,
 lifecycle, bounded metadata and independent-result presentation are shared.
 Rotate, Chemistry, Analysis and other tasks remain proposed; no placeholder
 panel/button is registered. Human Jupyter/visible Qt acceptance remains
 postponed, separate from automated Jupyter/Mol*/native numerical receiving.
-Owner integration, hosted exact-head and installed gates remain separate.
+Center uses native geometric/mass-weighted source references and explicit
+point/selection destinations per processed structure, with fixed box and reviewed
+current/independent effects. Shared diagnostics retain rejected-operation text
+through automatic refresh without replaying science (#603). The
+[Center receiving receipt](../devtools/data/molsysviewer_tools_center_receiving_20261106.json)
+records analytical, native and actual Jupyter/popup coverage. Owner integration,
+hosted exact-head and installed gates remain separate.
 
 **Independent results update — 2026-11-05:** source now adds Extract subset and
 Copy system through the host presentation boundary in uibcdf/molsysviewer#301.
@@ -208,7 +214,7 @@ visible Qt qualification.
 ### Next Geometry slice: translation and rotation — design review 2026-11-05
 
 **Implementation update — 2026-11-06:** Translate is implemented as the first
-Geometry slice; Rotate remains proposed. The maintainer keeps human System/Jupyter/Qt
+Geometry slice; Rotate remains proposed pending #602; Center can proceed independently. The maintainer keeps human System/Jupyter/Qt
 acceptance postponed. That deferral does not accept the UI or block preparation
 of this next slice. Register Geometry only when actual tasks and their guards
 exist. Preserve System as a separately pending acceptance item.
@@ -261,7 +267,7 @@ for geometric centers. Native centers already have shape (n_structures,1,3),
 matching the transform's frame broadcasting; preserve explicit structure order.
 The native quaternion/Rodrigues kernels and an existing builder axis-angle
 helper are available. Before enabling an axis/angle control, settle and test
-the reusable conversion in its proper MolSysMT mathematical owner; do not copy
+the reusable conversion in its proper MolSysMT mathematical owner (#602); do not copy
 a rotation formula into the frontend/addon or add an undeclared SciPy dependency.
 Matrix and rotation-object inputs remain available through the expert API.
 
@@ -314,6 +320,73 @@ unassessed scope or unevaluated structures. Long calculations need actual
 progress/cancellation contracts before such controls are promised. Plotting or
 adding a result to the scene uses the appropriate core owner and a separately
 qualified adapter. Generic native results do not imply universal H5MSM storage.
+
+## Whole-session target and task-family ledger — 2026-11-06
+
+**Approved product objective; incomplete.** The maintainer adopts completion of
+an actual molecular working session through the expert API and these four task
+panels. The ledger below groups scientific tools by user intent; it is not a
+promise to expose every native argument as a GUI field. Preserve the full expert
+API. Entries remain pending until their own operation/effect and host acceptance
+is recorded. A missing native mode is an owned prerequisite, not a successful
+GUI result or an automatic post-1.0 exclusion.
+
+| Surface / task family | Reused scientific and host owners | Required receiving |
+| --- | --- | --- |
+| System inventory, selection, removal, subset and copy | Core System/selection; basic remove/extract/copy; host edit/presentation services | Current three tasks have source and real Jupyter guards. Retain all-structure inventory semantics and independent output ownership. |
+| Geometry explicit translation, rotation and centering | structure translate/rotate/center/get_center | Translate implemented. Rotate needs the public constructor requested in #602. Test centers per structure, Cartesian handedness, selections, units and actual Mol* coordinates. |
+| Geometry structural comparison/fitting and principal-axis alignment | structure least_rmsd_fit/least_rmsd_align/align_principal_axes | Explicit source/reference populations and structures; distinguish sequence correspondence, rigid fitting and orientation; expose native degeneracy/prerequisite errors. |
+| Geometry periodic coordinates and cell assignment | pbc wrap_to_pbc/wrap_to_mic/unwrap, public cell factories and admitted basic.set | Explicit box/image/structure choices, units and unchanged axes; no inferred lattice or automatic wrapping during unrelated edits. |
+| Chemistry readiness and preparation audits | build audit readers, physchem chemical-readiness/H inventory, chemical_states reports | Preserve reference/state and assessed/unassessed scope. Reports do not prepare or assign chemistry. |
+| Chemistry explicit repair and assignments | Received build/physchem atom/bond/H/terminal and typing/charge tools | State method/model and prerequisites; use qualified maps for managed edits or independent results. No inferred identity by equal counts/names. |
+| Chemistry construction, solvent and ions | Received peptide/water-cell/assembly/solvation/add_ions tools | Explicit independent inputs, charge source, model, box, seed and placement limits. Construction may start without a loaded primary; no implicit equilibration. |
+| Coordinate refinement | Native molecular_mechanics potential_energy_minimization | Explicit model/engine, native single-structure admission and independent/current effect; no hidden parameterization or global-minimum promise. Final panel placement follows this edit intent. |
+| Analysis geometry, neighborhoods and structural series | Received distances/vectors/angles/torsions, neighbors/contacts, RMSD/RMSF/radius and PCA tools | Independent numerical controls, explicit reference/weights/PBC/structures, native local/global index maps and units; bounded summaries/pages/plots. |
+| Analysis properties, sequence/connectivity, interactions and mechanics | Received physchem, topology, chemical_states, interactions and energy readers | Tables versus calculations stay distinct; scientific prerequisites, evidence, engine and evaluated scope remain visible. Core Interactions/Measures/colors/plots own visual adoption. |
+| Saving and recovery | Core Load/Export/session services plus actual MolSysMT format capabilities | Recover molecular data, supported named interactions and scene through their owners. Independent generic results retain their actual native format contracts. |
+
+A task family may contain several understandable operations or method choices;
+implemented forms must identify the qualified inputs and limitations precisely.
+Required families cannot be silently dropped because another family is easier
+to render or because an old subset of tests passes. Keep API exposure distinct
+from complete graphical/effect qualification and source distinct from installed
+availability. Do not add placeholder panels for the rows above.
+
+### Scientific session acceptance
+
+1. Load bundled TcTIM / 1TCD and record source identity, atom/group/structure
+   counts, molecular selection and the default scene. Receive the PDB-ID route
+   separately where networking applies; no live download is needed for local
+   deterministic guards.
+2. Inspect/select categories or arbitrary atoms, review and remove an explicit
+   population, extract a subset and create an independent copy. Verify exact
+   retained coordinates, inventory and scene/reference remapping.
+3. Inspect chemical readiness before an analysis that needs missing chemistry.
+   Run a deliberately chosen qualified preparation with explicit state/method
+   and destination; inspect its report and input/output correspondence. Do not
+   silently add hydrogens or choose a force field to obtain a desired result.
+4. Apply a coordinate transform and a reference-based comparison/alignment.
+   Supplement TcTIM with three distinct pentalanine conformations and structure
+   order [2,0]; verify unselected structures/atoms and the stated cell effects.
+5. Calculate representative geometric, property and interaction results,
+   inspect units/method/evidence/coverage and deliberately add qualified visual
+   content through its core owner. Missing prerequisites, zero results and
+   unevaluated structures must remain distinguishable.
+6. Preserve the resulting molecular system and supported analyses in an actual
+   native-supported format (H5MSM recommended), and preserve scene state through
+   the Viewer owner. Reopen and compare inventory, coordinates, structures,
+   coverage, scientific parameters/units and recoverable scene objects.
+7. Exercise the same resolved operations headlessly and through Jupyter, the
+   canvas popup and detached Studio; retain applicable native Qt observations
+   separately. Check error/retry behavior and source/result lifetimes. Human
+   visual acceptance remains explicitly postponed, not inferred from automation.
+
+Independent analytical fixtures supplement the real-protein workflow. Native
+parity alone is not a scientific oracle. Reproducibility does not introduce a
+general scientific-result store, observation of arbitrary raw writes, molecular
+Undo, or the previously deferred Copy Python feature. Keep broad documentation,
+owner integration, exact installed qualification and publication as separately
+executed gates; both 1.0 publications remain paused.
 
 ## Evidence and implementation gates
 

@@ -554,3 +554,14 @@ Preserve native #559 platform resolution, structured unavailable-registration
 diagnostics and later device errors without fallback. Keep CPU/Reference
 consumer receiving separate from optional GPU/plugin execution and from the
 unchanged scientific/input limits of each mechanical function.
+
+
+Preserve Geometry Center as a reviewed native translation using explicit source
+and destination populations, per-structure centers and declared length units.
+Mass weighting belongs to the native operation and respects the application's
+unit policy; never add implicit mass defaults or a graphical centering formula.
+Keep fixed-box/no-wrap and independent whole-system-result semantics explicit.
+Shared task diagnostics retain bounded text through automatic same-context
+refreshes and expire with new intent/context/lifecycle; old replies must not
+restore an obsolete draft, confirmation or error. Preserve native validation,
+source ownership and synchronization-only retry without scientific replay.

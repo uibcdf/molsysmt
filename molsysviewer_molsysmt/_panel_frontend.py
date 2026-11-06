@@ -11,7 +11,7 @@ export function render({model, el}) {
   const initial = {source:'none', value:'', expression:'', indices:'', context:'current', structure_index:0};
   let draft = {...initial, ...(model.get('system_draft') || {})};
   let context = {}, review = null, sequence = 0, busy = false, stage = 'select', message = '';
-  let draftStamp=0,lastRemove=0,lastRemoveStamp=0;
+  let draftStamp=0,requestStamp=0;
   let task='remove',result=null,resultDraft={structures:'all',indices:'',title:''},destinations=[];
   let alive=true;
   el.innerHTML = `<section class="msm-system" aria-label="Molecular system tools">
@@ -78,7 +78,7 @@ __RESULT_CARD__
   function request(action,extra={}) {
     if (busy && action!=='refresh') return;
     const token=review?.token;busy=true;sequence++;
-    if(action==='remove'){lastRemove=sequence;lastRemoveStamp=draftStamp;}
+    requestStamp=draftStamp;
     if(action!=='remove')review=null;
     render();
     model.send({type:'action',id:action,payload:{request_id:sequence,draft:{...draft},...(token?{token}:{}),...extra}});
@@ -92,10 +92,8 @@ __RESULT_CARD__
   function onState(msg) {
     if(msg?.type==='presentation_closed'&&result?.id===msg.id){result=null;message='Result view closed.';if(!busy)request('refresh');else render();return;}
     if(msg?.type!=='state' || typeof msg.state?.request_id!=='number')return;
-    if(msg.state.request_id < sequence){
-      if(msg.state.request_id===lastRemove && draftStamp===lastRemoveStamp && msg.state.stage==='done' && msg.state.context?.target_revision===context.target_revision){message=msg.state.message;render();}
-      return;
-    }
+    if(msg.state.request_id < sequence)return;
+    if(requestStamp!==draftStamp){busy=false;request('refresh');return;}
     const state=msg.state;busy=false;draft={...initial,...state.draft};context=state.context || {};review=state.review || null;stage=state.stage;message=state.message || '';task=state.task||'remove';result=state.result||null;resultDraft={...resultDraft,...state.result_draft};destinations=state.destinations||[];render();
     if(review)q('confirm').focus();else if(['done','error','sync_required'].includes(stage))q('status').setAttribute('tabindex','-1');
   }
@@ -125,5 +123,5 @@ CSS = """
 .msm-system :focus-visible{outline:2px solid #a6c5eb;outline-offset:2px}.msm-system .msm-context,.msm-system .msm-hint{font-size:12px;color:#b9c4d3}.msm-system details{font-size:12px}.msm-system summary{cursor:pointer}.msm-system details label{margin-top:10px}.msm-system .msm-scope,.msm-system [data-review]{padding:10px;border:1px solid #596473;border-radius:7px}.msm-system [data-review]>*+*{margin-top:10px}.msm-system .msm-actions{display:flex;gap:7px;flex-wrap:wrap}.msm-system .msm-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}.msm-system dt{font-size:11px;color:#b9c4d3}.msm-system dd{margin:3px 0 0;font-size:18px;font-variant-numeric:tabular-nums}.msm-system .msm-status{min-height:20px}.msm-system [hidden]{display:none!important}
 .msm-system .msm-stats dt,.msm-system .msm-stats dd{display:block;float:none;clear:none;width:auto;max-width:none}
 .msm-system [data-result-editor]{display:flex;flex-direction:column;gap:12px}.msm-system [data-result]>*+*{margin-top:8px}.msm-system [data-result-handle]{display:block;overflow-wrap:anywhere;font-size:11px;margin-top:8px}
-.msm-system [data-transform]{display:flex;flex-direction:column;gap:12px}.msm-system .msm-vector{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.msm-system [data-center]{display:flex;flex-direction:column;gap:12px}.msm-system [data-transform]{display:flex;flex-direction:column;gap:12px}.msm-system .msm-vector{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 """
