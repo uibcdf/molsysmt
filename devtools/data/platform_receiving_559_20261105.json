@@ -1,0 +1,209 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#559",
+  "base_commit": "8c266129320799bd4da8802ec27653642f45ba21",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "versions_observed_at_closeout": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.0+20.ga5fe517",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "version_note": "Editable distribution metadata is an observation, not the current source Git identity or exact installed release qualification. Sibling working states may advance independently. Published floor payloads were checked separately by import origin and hash.",
+  "files": {
+    "devguide/archive/resolved_bugs/mechanical_platform_validation_rejects_reference_and_opencl.md": "65f8220278dcd3d7eb0552111c7cecb357d4599522c4a069f7b0b136e7ed0ede",
+    "devguide/release_1_0_status.md": "a1664b9a074571e6b202f0299b3fab450a923a5a748279efe0f2ca61acfd0c4d",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": "3febd61ef8074df8afa8fa90ad5d559d28a48df7016da2f7f1807c7791ce60a2",
+    "docs/content/user/cookbook/simulation_workflow.ipynb": "4b8fa6d685187344ad27aac1e56f82a4290b07250d9cbcf73097189790c1f138",
+    "docs/content/user/foundations/support/molecular_mechanics.md": "712d55b59c1ffc7e7bbe23b8ad23500ec134165da2e395ce171a0ba59327e485",
+    "docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb": "442d5901e1b2cd61b1b4d9d83eaf3f452afbe81ed38c8ef7182e810a27fff914",
+    "docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb": "b64f6bb57a04fff65557a527c03a17520520652b78676e690bad336b798ae0c9",
+    "docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb": "4e833ec505b1b4d1c6a664005418314b97220cbb76e0c097d181ecb3ecb2dc75",
+    "docs/content/user/tools/third_party/openmm/platforms/available_platforms.ipynb": "7e425ef02eee4cc42dee38be89d298a7256c86344db3d2eb8abf8447d2b01988",
+    "docs/content/user/tools/third_party/openmm/platforms/available_platforms.nbconvert.last_run": "cc1aa278787b97a3d5ed26faeca35311f8bb0e4496b6ce4fb0d6a0fde0474335",
+    "docs/docs_manifest.yml": "74f4eff434ea5998158afc82758afde86863c457100a9c5c9236da59f917912e",
+    "molsysmt/_private/argdigest/argument/platform.py": "70301d9e1d6476a46ac47e60709b58c7d0a83402682a525f1176e4d982efc483",
+    "molsysmt/_private/smonitor/__init__.py": "dbf4cc6f77e9661dab7ecd2a57a6547ecadd62adba4649aabd755c62f2b80be8",
+    "molsysmt/_private/smonitor/catalog.py": "3134f9252eb37cf81d017ba45086bec0853783cfde54b03dde6c22d4af182f85",
+    "molsysmt/_private/smonitor/exceptions.py": "b7d9e8c5e2b96b7fecbf7b70183d1fe66040ee27a9436963109951110b683336",
+    "molsysmt/form/molsysmt_MolSys/to_openmm_Context.py": "196c63bcefecd5c2b3e9299e89330189052516351037e7fcf49cfc73ae27392e",
+    "molsysmt/form/molsysmt_MolSys/to_openmm_Simulation.py": "945754576e27f0ae672107b3aa6044508b7a50a10f9d811aeed3361edd155a21",
+    "molsysmt/form/openmm_Modeller/to_openmm_Simulation.py": "1e31577451c062ecce658bafb4e54ac43745932a3b2e5511c94ecd3e99235838",
+    "molsysmt/form/openmm_Simulation/_build.py": "76ef0e05c7734cae30b5653a8e6a3576187b276876d2521fc2247c14f6c366c9",
+    "molsysmt/form/openmm_System/to_openmm_Context.py": "bfc6bad487c399b1f139a5d8f636732c423b83381b4d38394e70fdddaacf3487",
+    "molsysmt/form/openmm_Topology/to_openmm_Context.py": "fb0fc024665458535428c89ccea24893610bc7a6f8ca8b4671254cc0444f8afa",
+    "molsysmt/form/openmm_Topology/to_openmm_Simulation.py": "5b3236781b5ee2e7bd8d355ef5088fb79fa9138e08921b021a86b408f41fa381",
+    "molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py": "04c5ba2945651fa6cf8a6deb9c5ea993dd6c0dc775611aa7cf9d2fd60e121fba",
+    "molsysmt/molecular_mechanics/get_potential_energy.py": "e1da1a758f2ef26571c1edda8ff062c707fd2e93893ce3ecfc4cc1c351e0fd1b",
+    "molsysmt/molecular_mechanics/potential_energy_minimization.py": "9c0ed2ed042ad5e76cf1a7a350ebb5efa2afaad9ad442e7c1c5ef19670ea8683",
+    "molsysmt/third_party/openmm/platforms/_resolve.py": "9c9825454017cc57e295c1ed46db6e1018b6b60deb3e3e0eb52c1540cd0fa824",
+    "molsysmt/third_party/openmm/platforms/platforms.py": "e6dbb29c1dcb0d361ae7fc0028079bc8f77e1b964922593b1491cc9d662cd6f1",
+    "tests/_private/argdigest/test_engine_and_mechanics_digesters.py": "150910a36a6f944dd8c5d230eade6420d51abe1ca089651fd50078fad34335dd",
+    "tests/molecular_mechanics/test_get_engine_forcefield.py": "13fdeb2fc29de17cc91f38c70a5d0e0552f7c8fd3d58692d98f9846f77349a14",
+    "tests/molecular_mechanics/test_platform_contract.py": "2f66566f5bff84a80477885089104ed5e1d7ef335cd64562f0ec596cc7ff395e"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/molecular_mechanics tests/form/openmm_Context tests/form/openmm_Simulation tests/form/openmm_Topology tests/third_party/openmm/platforms tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/argdigest/test_mechanics_digesters.py tests/_private/smonitor tests/_private/test_smonitor_catalog_integrity.py tests/test_dependencies_architecture.py -m 'not network' --receptor=llm -n 4",
+      "exit_code": 0,
+      "passed": 1784,
+      "seconds": 128.83,
+      "note": "Preceded the namespace-only removal of the exception wildcard export; final focused, floor and API checks cover the final namespace."
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD:<argdigest-0.14.0>:<depdigest-0.15.1>:<smonitor-0.16.0>:<ackredit-0.9.0> MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest -p no:smonitor tests/molecular_mechanics/test_platform_contract.py tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/smonitor/test_exceptions.py tests/_private/test_smonitor_catalog_integrity.py tests/third_party/openmm/platforms --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 293,
+      "seconds": 7.72,
+      "note": "Final rerun preserves a directly observed numeric exit after an earlier process result was unavailable. Runtime SMonitor is active; only the editable pytest entry point is excluded under #524."
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 python -m pytest devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/third_party/openmm/platforms/platforms.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 570,
+      "seconds": 19.78
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/molecular_mechanics/test_platform_contract.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 20,
+      "seconds": 6.2
+    },
+    {
+      "command": "MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python docs/execute_notebooks.py -q -n 1 -f docs/content/user/tools/third_party/openmm/platforms/available_platforms.ipynb",
+      "exit_code": 0,
+      "executed_notebooks": 1,
+      "code_cells": 4,
+      "seconds": 7.8
+    }
+  ],
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "baseline": {
+    "red_guard_failed": 3,
+    "exit_code": 1,
+    "registered_platforms": [
+      "Reference",
+      "CPU",
+      "CUDA"
+    ],
+    "Reference_and_OpenCL_rejected_by_general_digestion": true,
+    "separate_Context_constructor_gap": "Inspected CPU/CUDA-only string-to-platform conversion; top-level trusted calls still meet nested validation."
+  },
+  "observed_energies_kj_per_mol": [
+    {
+      "implicit_solvent": null,
+      "CPU": -55.79422995687311,
+      "Reference": -55.79426034236738,
+      "absolute_difference": 3.038549427003545e-05
+    },
+    {
+      "implicit_solvent": "OBC1",
+      "CPU": -106.67533481360262,
+      "Reference": -106.67536045927429,
+      "absolute_difference": 2.5645671669849435e-05
+    },
+    {
+      "implicit_solvent": "OBC2",
+      "CPU": -105.14513817668741,
+      "Reference": -105.14515954511856,
+      "absolute_difference": 2.1368431148971467e-05
+    }
+  ],
+  "numerical_scope": {
+    "fixture": "Bundled alanine dipeptide H5MSM, structure index 0; one CPU thread, OpenMM 8.6.1, existing physical defaults.",
+    "absolute_tolerance_kj_per_mol": 0.001,
+    "relative_tolerance": 1e-06,
+    "bitwise_or_general_GPU_accuracy_claim": false,
+    "unit_policy_test": "angstrom, ps, kcal/mol, e, K, radians; explicit kJ/mol comparison and caller policy preservation"
+  },
+  "notebook_preservation": {
+    "prose_only": [
+      "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+      "docs/content/user/cookbook/simulation_workflow.ipynb",
+      "docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb",
+      "docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb",
+      "docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb"
+    ],
+    "all_original_code_outputs_metadata_identical_to_base": true,
+    "toolbox_tutorial": "Existing discovery examples retained and four code cells executed."
+  },
+  "corrected_development_checks": [
+    "Intermediate dependency import order caused NameError and was fixed before successful receiving.",
+    "One broad command selected nonexistent tests/form/openmm_System; exit 5 executed no tests and is not passing evidence.",
+    "Full Ruff format normalized the prior resource test without assertion changes."
+  ],
+  "governance": [
+    "python devtools/scripts/validate_docstrings.py",
+    "python devtools/scripts/validate_public_api_stability.py",
+    "python devtools/scripts/validate_dependencies.py",
+    "python devtools/scripts/validate_course.py",
+    "python devtools/scripts/validate_devguide.py",
+    "python devtools/scripts/devguide_index.py --check",
+    "git diff --check",
+    "ruff check .",
+    "ruff format --check ."
+  ],
+  "runtime_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "scope": {
+    "engine_neutral_name_validation": true,
+    "OpenMM_owned_registry_resolution": true,
+    "no_fallback": true,
+    "public_signature_or_default_changed": false,
+    "model_or_unit_policy_changed": false,
+    "dependency_floor_changed": false,
+    "new_Ackredit_scientific_event": false,
+    "compiled_kernel_changed": false,
+    "H5MSM_schema_changed": false
+  },
+  "limitations": [
+    "Registration does not establish device/context readiness. Actual Reference/CPU execution is tested; CUDA is merely registered and GPU execution is not qualified.",
+    "Controlled plugin registry and constructor failure test classification only, not external plugin science or real failing GPU hardware.",
+    "Existing Context/Simulation inputs retain their platform; the argument selects newly constructed contexts only.",
+    "Overlapping local source suites are not full installed/platform/release qualification.",
+    "Effective recipe/provenance extension remains #582. New #583 attribution collision and #584 constraints reader defect are distinct incoming native reports."
+  ],
+  "queue_review": {
+    "next": [
+      "uibcdf/molsysmt#561",
+      "uibcdf/molsysmt#562"
+    ],
+    "new_native_bugs": [
+      "uibcdf/molsysmt#583",
+      "uibcdf/molsysmt#584"
+    ],
+    "new_study_proposals": [
+      "uibcdf/molsysmt#585",
+      "uibcdf/molsysmt#586"
+    ],
+    "PR": "uibcdf/molsysmt#543",
+    "PR_head_last_observed": "8725a460ca6e9da43400ef527e85c480f5924c2e"
+  }
+}

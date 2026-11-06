@@ -104,7 +104,7 @@ sections:
             file: docs/content/user/foundations/support/forms/files.md
             agents_file: docs/content/user/foundations/support/forms/files.md.AGENTS.md
           - name: molecular_mechanics
-            description: Engine-neutral parameter vocabularies, distinct OBC variants, independent resource metadata and the effective default recipe executed by the OpenMM adapter.
+            description: Engine-neutral physical models, effective OBC recipes and separate platform-name, registration, dependency and device-initialization contracts.
             file: docs/content/user/foundations/support/molecular_mechanics.md
             agents_file: docs/content/user/foundations/support/molecular_mechanics.md.AGENTS.md
       - name: ecosystem
@@ -543,6 +543,18 @@ sections:
             description: Independent resource lists, explicit OBC1/OBC2 physics, native stored settings and conversion overrides, faithful OpenMM execution and physical constraint policies.
             file: docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb.AGENTS.md
+          - name: get_potential_energy
+            description: Total/decomposed model energies with engine-owned platform names and construction-only platform selection.
+            file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb
+            agents_file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb.AGENTS.md
+          - name: get_non_bonded_potential_energy
+            description: Nonbonded energies with explicit platform selection and distinct lookup/availability/execution outcomes.
+            file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb
+            agents_file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb.AGENTS.md
+          - name: potential_energy_minimization
+            description: Existing minimization semantics with engine-owned platform names, explicit failures and retained Context/Simulation platform identity.
+            file: docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb
+            agents_file: docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb.AGENTS.md
       - name: element
         path: docs/content/user/tools/element
         agents_file: docs/content/user/tools/element/AGENTS.md
@@ -636,6 +648,11 @@ sections:
         index_file: docs/content/user/tools/third_party/index.md
         index_agents_file: docs/content/user/tools/third_party/index.AGENTS.md
         status: pending_review
+        pages:
+          - name: openmm_available_platforms
+            description: Registration metadata, Reference context construction and separate invalid-name, availability, dependency and driver failure outcomes.
+            file: docs/content/user/tools/third_party/openmm/platforms/available_platforms.ipynb
+            agents_file: docs/content/user/tools/third_party/openmm/platforms/available_platforms.ipynb.AGENTS.md
     course:
       path: docs/content/course
       agents_file: docs/content/course/AGENTS.md

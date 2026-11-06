@@ -108,9 +108,12 @@ def test_parameterization_is_unchanged_after_caller_local_resource_edits(trusted
 def test_implicit_solvent_precedes_water_model_without_rewriting_resources(
     engine, forcefield, expected
 ):
-    assert msm.molecular_mechanics.get_engine_forcefield(
-        forcefield, engine=engine, implicit_solvent="OBC1", water_model="TIP4P-FB"
-    ) == expected
+    assert (
+        msm.molecular_mechanics.get_engine_forcefield(
+            forcefield, engine=engine, implicit_solvent="OBC1", water_model="TIP4P-FB"
+        )
+        == expected
+    )
 
 
 @pytest.mark.parametrize(
@@ -148,7 +151,9 @@ def test_invalid_arguments_have_native_diagnostics(argument, value):
 )
 def test_unregistered_combinations_have_native_choice_diagnostics(kwargs, argument):
     with pytest.raises(ArgumentChoiceError, match=argument):
-        msm.molecular_mechanics.get_engine_forcefield(**{"forcefield": "AMBER14", **kwargs})
+        msm.molecular_mechanics.get_engine_forcefield(
+            **{"forcefield": "AMBER14", **kwargs}
+        )
 
 
 @pytest.mark.parametrize("engine", ["OpenMM", "LEaP"])

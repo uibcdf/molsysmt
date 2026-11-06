@@ -1,8 +1,11 @@
+from depdigest import dep_digest
+
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest()
+@dep_digest("openmm", when={"engine": "OpenMM"})
 def potential_energy_minimization(
     molecular_system,
     method="L-BFGS",
@@ -28,7 +31,11 @@ def potential_energy_minimization(
         Local minimization algorithm. OpenMM's ``LocalEnergyMinimizer`` implements
         L-BFGS, so 'L-BFGS' is the only accepted value; any other name is refused.
     platform : str, default='CPU'
-        OpenMM platform name. Accepted values are 'CPU' and 'CUDA'.
+        Execution platform name understood by the selected engine. OpenMM
+        examples include 'Reference', 'CPU', 'CUDA' and 'OpenCL'; registered
+        plugins are also admitted. Selects newly constructed contexts;
+        existing Context/Simulation inputs keep their actual platform.
+        Unknown names, absent registration and device failures stay distinct.
     engine : str, default='OpenMM'
         Engine performing the minimization. Only 'OpenMM' is implemented.
     to_form : str, default=None
@@ -51,6 +58,13 @@ def potential_energy_minimization(
 
     Raises
     ------
+    ExecutionPlatformUnavailableError
+        If a recognized execution platform is not registered by the engine.
+    ArgumentChoiceError
+        If a requested platform name is unknown to the selected engine.
+    LibraryNotFoundError
+        If the selected execution engine is not installed.
+
     NotImplementedError
         Raised if the requested ``engine`` is not supported.
 

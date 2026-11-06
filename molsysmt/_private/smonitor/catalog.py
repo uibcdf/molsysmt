@@ -188,6 +188,12 @@ CATALOG = {
         },
     },
     "exceptions": {
+        "ExecutionPlatformUnavailableError": {
+            "code": "MSM-ERR-PLATFORM-001",
+            "source": "molsysmt.error.platform_unavailable",
+            "category": "execution",
+            "level": "ERROR",
+        },
         "ArgumentError": {
             "code": "MSM-ERR-ARG-001",
             "source": "molsysmt.error.argument",
@@ -348,6 +354,17 @@ CATALOG = {
 }
 
 CODES = {
+    "MSM-ERR-PLATFORM-001": {
+        "title": "Execution platform unavailable",
+        "user_message": "{engine} platform '{platform}' is not registered in this installation. Registered platforms: {available_platforms}.",
+        "user_hint": "Select an available platform explicitly or inspect the engine's plugin installation. Docs: {doc_url}",
+        "dev_message": "Unregistered {engine} platform '{platform}' in '{caller}'. Registered: {available_platforms}.",
+        "dev_hint": "Distinguish platform registration from subsequent device/context initialization.",
+        "qa_message": "Unregistered {engine} platform '{platform}'. Registered: {available_platforms}.",
+        "qa_hint": "Verify absence is not classified as an unknown name or driver execution failure.",
+        "agent_message": "{engine} platform '{platform}' is unavailable in this installation. Registered: {available_platforms}.",
+        "agent_hint": "Keep the requested platform explicit; review the selected engine's plugins.",
+    },
     "MSM-WARN-ATTR-001": {
         "title": "Optional attribution tracking unavailable",
         "user_message": "Ackredit could not {operation}: {reason}",
@@ -1000,6 +1017,9 @@ CODES = {
 }
 
 SIGNALS = {
+    "molsysmt.error.platform_unavailable": {
+        "extra_required": ["engine", "platform", "available_platforms", "caller"]
+    },
     "molsysmt.warning.selection": {"extra_required": ["caller"]},
     "molsysmt.warning.deprecation": {"extra_required": ["caller"]},
     "molsysmt.warning.h5msm_legacy": {"extra_required": ["version"]},

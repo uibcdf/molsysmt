@@ -11,6 +11,7 @@ From energy minimization to potential energy contribution of specific set of ato
 """
 
 import numpy as np
+from depdigest import dep_digest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
@@ -18,6 +19,7 @@ from molsysmt._private.variables import is_iterable_of_iterables
 
 
 @arg_digest()
+@dep_digest("openmm", when={"engine": "OpenMM"})
 def get_non_bonded_potential_energy(
     molecular_system,
     selection="all",
@@ -40,9 +42,14 @@ def get_non_bonded_potential_energy(
     selection_2 : str, list, tuple, or numpy.ndarray, default=None
         Second selection string or boolean/integer array.
     platform : str, default='CPU'
-        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
-    engine : object, default='OpenMM'
-        Argument engine.
+        Execution platform name understood by the selected engine. OpenMM
+        examples include 'Reference', 'CPU', 'CUDA' and 'OpenCL'; registered
+        plugins are also admitted. Names are case-sensitive in this adapter.
+        Selects newly constructed contexts; existing Context/Simulation inputs
+        retain their actual platform. Unknown names and known unavailable
+        platforms have separate native diagnostics. Device failures propagate.
+    engine : str, default='OpenMM'
+        Computation engine. Currently only 'OpenMM' is implemented.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
@@ -53,6 +60,15 @@ def get_non_bonded_potential_energy(
     quantity or dict
         Non-bonded potential energy interaction values in canonical units (`kJ/mol`).
 
+
+    Raises
+    ------
+    ExecutionPlatformUnavailableError
+        If a recognized execution platform is not registered by the engine.
+    ArgumentChoiceError
+        If a requested platform name is unknown to the selected engine.
+    LibraryNotFoundError
+        If the selected execution engine is not installed.
 
     .. versionadded:: 1.0.0
     """
