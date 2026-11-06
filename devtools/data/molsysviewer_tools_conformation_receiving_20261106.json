@@ -6,7 +6,7 @@
     "uibcdf/molsysviewer#264",
     "uibcdf/molsysviewer#314"
   ],
-  "status": "Isolated conformation source passes panel/preflight and actual Jupyter checks; host correction and delivery pending",
+  "status": "Local committed conformation source and owner4a80 reconciliation pass directed native/addon and actual Jupyter gates; delivery and final full gates pending",
   "source": {
     "contribution_parent": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
     "included_native_owner": "40bb54d05182d4a87c48cc17a141b4152812421c",
@@ -133,5 +133,45 @@
     "Every remaining Geometry/Chemistry/Analysis renderer and complete scientific-session family",
     "Installed qualification and explicitly postponed human Jupyter/visible Qt acceptance",
     "Candidate/tag/package operations and both1.0 publications stay paused"
-  ]
+  ],
+  "later_owner_receiving": {
+    "merged_source": "8a0583fbecddd54a2b22a2621b9fff5be33483d3",
+    "feature_commit": "b358847cd0203b674ffa62ba90a15ed1a7c6f524",
+    "owner_source": "4a80c22941090257d8ef78df09c944831413ee31",
+    "native_changes": "Owner#600 retains deposited mmCIF structure labels; owner#601 preserves adapter-load diagnostics. No addon/Rust changes in the merge. Official generated index resolves the only conflict.",
+    "combined_tests": {
+      "passed": 245,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 136.76,
+      "warnings": 137,
+      "private_log": "msv-conformation-owner-integration-20261106.log",
+      "sha256": "c64209b4bcbe166b09572deddba5fe4f978c69089045d3e2d382a81fbcbfa8c8",
+      "scope": "Six native adapter/validation/model-axis modules plus complete Analysis module and all three required addon preflight modules; directed receiving, not full addon or installed/platform gate"
+    },
+    "actual_jupyter": {
+      "checks": 17,
+      "exit_code": 0,
+      "seconds": 108.07167589198798,
+      "selected_inputs": 4770,
+      "inputs_heads_statuses_unchanged": true,
+      "private_receipt": "msv-conformation-jupyter-r5-receipt-20261106.json",
+      "receipt_sha256": "1e4b573aa4b1609a78414e54957e7e3a97d87ce45054a2995823b5481bb7254b",
+      "browser_result_sha256": "fe5b3ee96d79ed95d7e9f9bfb8d344da6b206b62a3c2a22154a64cc06b9f6264",
+      "source_before": "8a0583fbecddd54a2b22a2621b9fff5be33483d3",
+      "source_after": "8a0583fbecddd54a2b22a2621b9fff5be33483d3",
+      "viewer_before": "1bff5884265f90339f4dbf856523427969ff56db",
+      "viewer_after": "1bff5884265f90339f4dbf856523427969ff56db",
+      "page_errors": 7,
+      "plain_baseline_errors": 1,
+      "scope": "Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native geometric/conformational queries, bounded source-index pages, explicit participant and core Measure/plot adoption from source and both popups. Independent numerical, actual geometry/text/plot-axis and molecular-invariance checks, including duplicate participants, atom-versus-structure axes, frozen observations versus deliberate navigation and mass-weighted live-distance refusal. Not human Qt or installed qualification."
+    },
+    "course": {
+      "executed_original_cells": 10,
+      "failed": 0,
+      "private_log": "msv-conformation-course-merged-20261106.log",
+      "sha256": "9ecf44fc3b647d564ef41c1fb058b3eeeaf2a83475f4b2c3f5f2536926cce86f",
+      "scope": "Same original course executable content on owner4a80 merged source; notebook not rewritten"
+    }
+  }
 }

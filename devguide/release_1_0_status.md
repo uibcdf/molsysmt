@@ -34,6 +34,13 @@ This source work is not yet delivered or owner-integrated; complete/current
 hosted, installed and postponed human acceptance remain separate. All other
 approved GUI families and the complete scientific-session target stay required.
 
+Local merge `8a0583fbe` also receives the owner's `4a80c2294` adapter-load and
+deposited-model-label repairs. All 245 directed native/Analysis/preflight cases
+pass, and the repeated 17-step Jupyter workflow retains all 4,770 selected
+source inputs, both heads and worktree statuses. The ten original course code
+cells execute on that merged source. These are separate receiving scopes, not
+a new complete addon run or an owner-main integration.
+
 ## Complete reference collection and test recovery — 2026-11-06
 
 The af8eabcd8 complete addon attempt executes all 4,974 cases with 4,966 passes
