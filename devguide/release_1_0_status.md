@@ -44,14 +44,18 @@ final directed/documentation cases and a 97-case/64-node scientific certificate;
 all 82 Rust unit tests pass. Counts overlap. The
 [phase-two receipt](../devtools/data/pre_1_0_robustness_phase2_receiving_20261106.json)
 records the deliberate native backend rebuild, original failures, retained
-warnings and exact receiving limits. The zero-test integrated attempt used a
+warnings and exact receiving limits. Public checkpoint `27bc4d3c5` now delivers
+that source: independent GitHub receiving matches all 27 checked blobs and
+confirms #605/#607/#606/#608/#619 closed with their addressable regressions. The
+[delivery receipt](../devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json)
+records this separate acceptance. The zero-test integrated attempt used a
 nonexistent directory; a controlled exit-4 diagnostic identifies the cause and
-corrected-path receiving exits 0. Publication/board closeout is next. Phase-one
+corrected-path receiving exits 0. Phase-one
 smoke 42305861858 is independently verified successful, not release qualification.
 The next implementation block is #613, alongside independently actionable #524
 work. The packet's completeness review maps evidence depth and preserves finite
 GUI acceptance and bounded scientific claims. It owns the weighted estimate
-(still 20% for accepted phase-one delivery), its evidence and all remaining exits;
+(40% for accepted phases one and two), its evidence and all remaining exits;
 that estimate is not release readiness. The #616 consumer report from PR #543
 is preserved in its owner archive and must not return as a duplicate pending
 report on integration. The earlier fifteen-issue goal retains its original

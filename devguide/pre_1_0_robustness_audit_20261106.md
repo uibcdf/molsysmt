@@ -4,12 +4,13 @@
 **Owner:** [uibcdf/molsysmt#334](https://github.com/uibcdf/molsysmt/issues/334).  
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-06.  
-**Current execution:** phase 1 is published/closed. Phase-two source
-`3eb720444b97f77f9325acf52f55114ece0b5f9e` corrects #605/#607/#606/#608/#619.
-Joint receiving passes 5,435 cases, final directed/documentation receiving
-passes 1,195, and the scientific certificate passes 97 cases across 64 nodes.
-These scopes overlap. Public delivery/board closeout is next; accepted progress
-remains 20% until that exit is observed. No replacement candidate is selected.
+**Current execution:** phases 1 and 2 are published/closed. Phase-two source
+`3eb720444b97f77f9325acf52f55114ece0b5f9e` corrects #605/#607/#606/#608/#619;
+independent public-file and closed-board receiving is recorded below. Joint
+receiving passes 5,435 cases, final directed/documentation receiving passes
+1,195, and the scientific certificate passes 97 cases across 64 nodes. These
+scopes overlap. Accepted progress is 40%; phase 3 starts with #613 and the
+independently actionable #524 work. No replacement candidate is selected.
 
 The maintainer requests a durable record of the new audit, its reasoning, the
 remaining work and the order in which to strengthen MolSysMT before 1.0.
@@ -280,11 +281,13 @@ preserve the old baseline and explain any resulting percentage change. Link
 each credited contribution to its report/receipt. The release ledger links this
 estimate rather than maintaining an independent percentage.
 
-**Current checkpoint: 20%**, credited to the two phase-one source corrections
-and their owning acceptance records below. Publication at `a91a4fd1b` and closure
-of #618/#616 have been independently verified; the review reconfirms their closed
-board state. Local phase-two work remains uncredited pending its complete exit.
-Remaining contribution: phase 2 20%, phase 3 10%, phase 4 25%, phase 5
+**Current checkpoint: 40%**, credited to the two phase-one corrections (20 points)
+and the four phase-two numerical milestones (20 points), with public delivery,
+addressable guards and owner closure independently verified. The separate #619
+mechanism shares #608's unit-invariance milestone without adding weight. The
+[delivery receipt](../devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json)
+records all 27 verified public blobs and five closed PBC issues.
+Remaining contribution: phase 3 10%, phase 4 25%, phase 5
 10%, phase 6 15%. This is the progress of the authorized plan, not a 1.0 readiness
 score or a delivery-time prediction.
 
@@ -371,9 +374,29 @@ corrected-path integrated run exits 0. This repairs the evidence gap, without
 retroactively declaring the original run successful. Public delivery/issue
 closeout is next; installed/platform, Viewer and exact-release gates remain due.
 
+**Public closeout — 2026-11-06:** checkpoint
+`27bc4d3c5ce67235d07c68f4a195b727a176eefd` publishes the implementation and
+receiving record. Independent GitHub retrieval matches all 26 implementation/
+test/documentation blobs and the receiving JSON. #605/#607/#606/#608/#619 are
+independently verified closed with the public source commit and their owning
+regressions. Phase 2 now contributes its original 20 points: total **40%**.
+Installed/platform, graphical and final-candidate obligations remain due.
+
 ### Phase 3 — Configuration authority and installed runtime
 
 **Initial position:** #613 reproduced; #524 remains partially implemented.
+
+**Current receiving decision:** #613 source contradicts the existing
+process-global writer-serialization contract in
+[performance guidance](performance_and_jit.md#cpu-parallel-execution).
+Restore that accepted owner contract: reentrant serialization for the full
+context lifetime, atomic key/alias validation and restoration on exceptions.
+Keep the separate CPU per-call ContextVar authority and no-override concurrency.
+An unrelated observer can see temporary process-global values; neither the
+correction nor the documentation may promise thread/task-local isolation or
+protection from unsynchronized direct assignments. Verify this documented
+limitation alongside the behavior rather than silently redesigning configuration.
+Actual implementation and receiving remain pending at this checkpoint.
 
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
@@ -581,6 +604,8 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Phase 1 delivered; phase 2 begins | `a91a4fd1b` is public on main; all nine implementation/test blobs independently match. #618/#616 are verified closed. Four remote checks pass; smoke 42305861858 is still active at inspection. Accepted progress: 20%. #605 additionally passes 430 local PBC/scientific cases. | Complete #605 documentation/source delivery, then #607. Preserve the actual smoke conclusion; do not treat an active run as passing or start another solely to monitor it. |
 | 2026-11-06 | Completeness and execution review | Reconfirmed #618/#616 closed and #613/#524/#619 open. Added a domain/evidence map, explicit scientific-claim and finite GUI acceptance boundaries, and #619 without changing the phase weights. Directed local PBC receiving has 692 passes; the integrated XML contains zero tests and is not a passing receiving. Accepted progress remains 20%. | Resolve combined receiving, record the phase-two backend/receipt and deliver its source/closeout; then #613 and independently actionable #524 work. No new API, scientific method or publication is authorized by this review. |
 | 2026-11-06 | Phase 2 source qualified | `3eb720444` implements all five PBC corrections. Corrected-path integrated receiving passes 5,435 cases; final directed/documentation receiving passes 1,195; the scientific certificate passes 97/97 for 64 nodes; 82 Rust unit tests pass. Counts overlap. The receipt retains original failures, zero-test/unobserved attempts and exact rebuilt backend identity. Phase-one smoke 42305861858 is now verified successful. | Publish and independently verify the source, synchronize/close #605/#607/#606/#608/#619, then credit the existing phase-two 20 points and continue #613/#524. No extra points for #619 and no installed-release claim. |
+| 2026-11-06 | Phase 2 delivered and closed | Public checkpoint `27bc4d3c5` independently matches all 27 checked blobs. #605/#607/#606/#608/#619 are closed with source `3eb720444` and addressable guards. Accepted plan progress is 40%; #619 shares the existing unit milestone. The receipt preserves original failures and local/installed evidence boundaries. | Finish this checkpoint's ordinary unskipped CI and begin #613 under the accepted process-global serialization contract; continue independently actionable #524 runtime work. PR #543 remains open at the same reviewed head. |
+| 2026-11-06 | Phase boundary board refresh | Complete paginated open inventory contains 98 issues and one PR after PBC closeout. No newly numbered open report changes the selected #613 next step. PR #543 remains open at `8ab2f5474b2e04c68d31ef2854a238984b645fc8`; its qualification remains separate. | Continue configuration correctness and installed-runtime closure, preserving the existing graphical and final-candidate dependencies. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

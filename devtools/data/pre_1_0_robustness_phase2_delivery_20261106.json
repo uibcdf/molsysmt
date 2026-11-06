@@ -1,0 +1,181 @@
+{
+  "schema_version": "molsysmt.pre1_0_robustness_phase2_delivery@1",
+  "owning_issue": "uibcdf/molsysmt#334",
+  "implementation_commit": "3eb720444b97f77f9325acf52f55114ece0b5f9e",
+  "published_checkpoint": "27bc4d3c5ce67235d07c68f4a195b727a176eefd",
+  "independent_public_verification": "GitHub connector file retrieval at main, comparing every returned Git blob SHA to local git hash-object.",
+  "blob_verifications": [
+    {
+      "path": "devguide/scientific_evidence_matrix.md",
+      "git_blob_sha": "dfa1d8c9134361bb9e728bab24d17f80ac0dd9c3",
+      "matched": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+      "git_blob_sha": "e2a85b3e2a3294044dc8ccbf4111fc5f57c57e9d",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb",
+      "git_blob_sha": "e572fb1764a147f2cce277f057ce78555d662898",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb",
+      "git_blob_sha": "53acd00ff1b660086c1b51d3c3f839da7cf2b764",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/tools/pbc/get_box_with_shape.ipynb",
+      "git_blob_sha": "5d58626c70322c4b87d9bf29534349d711395fe1",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/tools/pbc/get_volume_from_lengths_and_angles.ipynb",
+      "git_blob_sha": "628149ffc8278e17cd54ed19a481e735be9240d0",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/tools/pbc/unwrap.ipynb",
+      "git_blob_sha": "8e3439975dcc1a45734b3a7d3ff0579e6d2712b6",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/tools/pbc/wrap_to_mic.ipynb",
+      "git_blob_sha": "596640234dc33bc7eb5a98bda153ca461c79418a",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/tools/pbc/wrap_to_pbc.ipynb",
+      "git_blob_sha": "52c2b1b7a298fab660a93cd7f0ef7deef272295f",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/_private/pbc_reconstruction.py",
+      "git_blob_sha": "388ecece99d797498803fb76e55252da69bedb0e",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/_private/pbc_validation.py",
+      "git_blob_sha": "7bd010457627a90f89f7ecfe5449209b0a1cbfa4",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/pbc/_cell_domain.py",
+      "git_blob_sha": "bf5a2683d2349dc34ac47dc48d39feb231068579",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/pbc/get_box_from_lengths_and_angles.py",
+      "git_blob_sha": "e2b269ed35b313554c613d207b85cdfab1041f68",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/pbc/get_box_with_shape.py",
+      "git_blob_sha": "4f739505a3fdc170ffa8722660b417ab3658d9c2",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/pbc/get_volume_from_lengths_and_angles.py",
+      "git_blob_sha": "8bfd7138302de13e31f4dad13f0632423f5f4292",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/pbc/unwrap.py",
+      "git_blob_sha": "9531313826436e4d752e76f8ad551a65bb6df2b1",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/pbc/wrap_to_mic.py",
+      "git_blob_sha": "2a9c8b7fb9c013df7deead966b09119830494036",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/pbc/wrap_to_pbc.py",
+      "git_blob_sha": "3aadf090a5e24b2313ead361effb70bfd06e6ecc",
+      "matched": true
+    },
+    {
+      "path": "rust/src/mic.rs",
+      "git_blob_sha": "553bae6eb4cdc61f7bda3b7a57bd4bb7cf9f5d8a",
+      "matched": true
+    },
+    {
+      "path": "rust/src/pbc.rs",
+      "git_blob_sha": "34fbacf1d20a7d283ef87036976d2a361caaa768",
+      "matched": true
+    },
+    {
+      "path": "tests/pbc/get_box_from_lengths_and_angles/test_get_box_from_lengths_and_angles.py",
+      "git_blob_sha": "729486e8232553488f721b4a256d1023bcbfd35e",
+      "matched": true
+    },
+    {
+      "path": "tests/pbc/test_general_cell_wrapping.py",
+      "git_blob_sha": "8ded6f508f0fe4ec667917b9e6a14fee4e7ddac9",
+      "matched": true
+    },
+    {
+      "path": "tests/pbc/test_small_periodic_origins.py",
+      "git_blob_sha": "1d34be9150baecb5b4dd06145e83862b5e31e54d",
+      "matched": true
+    },
+    {
+      "path": "tests/pbc/unwrap/test_changing_cells.py",
+      "git_blob_sha": "3f0795113cb1248d71544cfbbd0e0d636c960abe",
+      "matched": true
+    },
+    {
+      "path": "tests/scientific_truth/evidence/capabilities/pbc.json",
+      "git_blob_sha": "d4ff0b70b3b9c1e1bc222e51f2bc7dc255502f35",
+      "matched": true
+    },
+    {
+      "path": "tests/scientific_truth/pbc/test_wrapping.py",
+      "git_blob_sha": "0f0c7b1bafaf334258d2fb09fb19e79e39bf4c5b",
+      "matched": true
+    },
+    {
+      "path": "devtools/data/pre_1_0_robustness_phase2_receiving_20261106.json",
+      "git_blob_sha": "2a426e25ba5cdd54e94f5d1689ed8861b41f0c4c",
+      "matched": true
+    }
+  ],
+  "issues": [
+    {
+      "issue": 605,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-06T23:29:11Z"
+    },
+    {
+      "issue": 607,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-06T23:29:45Z"
+    },
+    {
+      "issue": 606,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-06T23:30:12Z"
+    },
+    {
+      "issue": 608,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-06T23:30:17Z"
+    },
+    {
+      "issue": 619,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-06T23:30:22Z"
+    }
+  ],
+  "accepted_plan_progress_percent": 40,
+  "limits": [
+    "Source delivery and owner closeout only; not an installed, graphical, platform or release certificate.",
+    "The receipt records the observed main checkpoint and closed board states. It does not rewrite earlier prepared-closeout or failed-run records."
+  ]
+}
