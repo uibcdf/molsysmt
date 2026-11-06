@@ -65,7 +65,23 @@ workloads up to 10,240 atoms and 15 H5MSM round trips. Native conversion is slow
 in those measurements; the larger-workload RAM/storage cost remains explicit.
 No new faster/lighter claim follows from the policy metadata.
 
-**Remaining for #304:** final combined-source/full-matrix qualification, owner
+The exact-source gate for #304 is now
+[42205436569](https://github.com/uibcdf/molsysmt/actions/runs/42205436569),
+on **56b37c983253e8f93cda6333703df2b3a626a238** with controlled Viewer
+42234de839ed047016f8f241ea5eb717cfeb07be. All four Linux Python 3.11–3.14
+cells pass; all four macOS cells remain queued. Each Linux suite records
+29,253 passes and zero failures/errors. Its 118 JUnit skips comprise 117 item
+skips plus one collection-skipped module; the receptor retains the separate
+executed-item accounting. All 83 registered scientific cases and 432 directed
+connectivity cases execute successfully per cell. Three additional optional
+Ackredit controls are skipped for genuine dependency absence in each hosted
+cell and pass separately with the published provider payloads locally.
+The [partial receiving receipt](../devtools/data/native_pdb_full_source_receiving_304_20261106.json)
+retains exact artifact identities/digests and omissions. These are source checks,
+not a complete matrix, installed pair or release qualification. This new gate
+does not alter the earlier frozen PR candidate or erase its failed gate.
+
+**Remaining for #304:** complete macOS qualification, owner
 integration and documented issue closeout. The disulfide/unsupported-group
 policies are now explicit and contract-tested; this does not promise automatic
 oxidation-state matching, arbitrary-ligand preparation or metal-coordination

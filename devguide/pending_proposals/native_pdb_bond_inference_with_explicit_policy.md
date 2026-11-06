@@ -1624,3 +1624,84 @@ partial until they finish, and the other fourteen issues retain the authorized
 order. Do not add a new universal chemistry implementation merely to remove an
 honest unsupported category, or silently drop a demonstrated defect from the
 offered profile.
+
+## Exact-source gate receiving — 2026-11-06
+
+The source remains frozen at **56b37c983253e8f93cda6333703df2b3a626a238**
+on `dev/ordered-stabilization-304-20261106`. Manual full-source run
+[42205436569](https://github.com/uibcdf/molsysmt/actions/runs/42205436569),
+attempt 1, uses controlled MolSysViewer
+**42234de839ed047016f8f241ea5eb717cfeb07be**. The controlled wheel and all
+four Linux Python 3.11–3.14 jobs succeed. All four macOS jobs remain queued at
+this inspection; the complete gate is pending. Do not restart this active run
+merely because an observation times out. The separate #593 course correction
+is prepared on a descendant branch and is not silently included in these
+source results.
+
+### Received artifacts and actual test accounting
+
+The [partial receiving receipt](../../devtools/data/native_pdb_full_source_receiving_304_20261106.json)
+retains the native artifact metadata, exact run/head, SHA-256, size, scientific
+certificates and selected test-accounting facts. All nine received archives
+match their independently checked GitHub digest and size. Ephemeral download
+URLs and raw event logs are not committed. The four scientific certificates
+each qualify the expected 61 registry selectors, expanded to 83 actual cases,
+with no omissions or failures and clean tracked source. Their
+`release_eligible` field is a certificate predicate, not authorization to
+publish a release.
+
+Each of the four full Linux suites has **29,253 passes, zero failures/errors**
+and 118 JUnit skips. The public `pytest_receptor.read_artifact` API verifies
+complete event evidence, valid integrity, a complete final record and exit 0.
+Its counts are 29,370 executed items and 117 item skips; JUnit has 29,371
+testcases because it also represents the genuine collection-skipped
+`tests.build.solvate.test_scientific_attribution` module as one virtual case.
+Both views and the exact collection record are retained rather than forcing
+their totals to agree. All 83 registered scientific cases are also present
+and passing in the full suites.
+
+Eleven directed PDB, CIF and native connectivity/coverage modules contain
+**432 passing cases per Linux cell** and three optional Ackredit-presence
+omissions. Each omission is the exact absent-dependency condition; none masks
+a connectivity failure. Those same three controls execute separately on the
+frozen source with the existing Linux/Python 3.14 interpreter and published
+ArgDigest 0.14.0, DepDigest 0.15.1, SMonitor 0.16.0 and Ackredit 0.9.0 payloads:
+**3 passed, no omissions**. Other optional full-suite omissions remain visible
+in the receipt. This does not establish installed-Ackredit receiving in every
+hosted cell or a clean installed MolSysMT/Viewer pair.
+
+The initial receiving comparison incorrectly required identical JUnit and
+executed-item totals, and then required zero skips even for the optional
+Ackredit controls. Investigation established the collection record and genuine
+dependency absences above. The comparison was corrected to account for those
+exact observations; no library implementation or scientific test was changed
+to make the comparison pass. The receipt preserves that limitation and the
+receiving-script digest. This observation is separate from the older failed
+frozen PR gate caused by the stale generated argument table.
+
+### Coverage reads the returned graph
+
+The [original-graph receiving receipt](../../devtools/data/native_pdb_actual_graph_receiving_304_20261106.json)
+records an additional fresh audit of both unchanged original PDBs on this
+tracked-clean source, with OpenMM imports blocked. For 181L, explicit-only
+input has 13 stored bonds, zero assessed groups, 162 incomplete and 140
+unassessed; native inference returns 1,322 bonds, 162 assessed, zero incomplete
+and the same 140 unassessed groups. Original 1IEP changes from zero bonds and
+274 incomplete groups to 4,445 bonds and 274 assessed groups, with zero
+incomplete or unassessed groups. In every case the readiness report's stored
+pair inventory equals the graph actually returned.
+
+Removing one literal N–CA pair on a detached native copy through the public
+ChemicalStates tool makes exactly its MET group incomplete: pair `[0, 1]`
+for 181L, `[1, 5]` for 1IEP. The audit reports exactly that missing pair and
+leaves each original source graph unchanged. Thus the assessment observes
+current stored edges rather than treating a previously matched template as
+permanent completeness. An assessed heavy-template group does not imply
+universal valence, protonation, hydrogen placement or mechanics readiness.
+
+### Still pending
+
+Finish the four macOS jobs, inspect their actual evidence, integrate the
+qualified owner source and perform documented closeout. The issue remains
+partial; the ordered fifteen-issue objective is unchanged. These receipts
+do not authorize tags, Releases, package promotion or a new source matrix.

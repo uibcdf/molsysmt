@@ -1,0 +1,97 @@
+{
+  "schema": "molsysmt.native_pdb_final_graph_coverage_receiving@1",
+  "date": "2026-11-06",
+  "source_commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+  "source_tracked_clean": true,
+  "openmm_imports_blocked": true,
+  "rows": [
+    {
+      "source": "181l.pdb",
+      "sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "coverage": [
+        {
+          "engine": "disabled",
+          "n_bonds": 13,
+          "summary": {
+            "assessed": 0,
+            "incomplete": 162,
+            "unassessed": 140
+          },
+          "readiness_matches_actual_graph": true
+        },
+        {
+          "engine": "MolSysMT",
+          "n_bonds": 1322,
+          "summary": {
+            "assessed": 162,
+            "incomplete": 0,
+            "unassessed": 140
+          },
+          "readiness_matches_actual_graph": true
+        }
+      ],
+      "removed_pair": [
+        0,
+        1
+      ],
+      "affected_group_index": 0,
+      "affected_group_name": "MET",
+      "after_removal_summary": {
+        "assessed": 161,
+        "incomplete": 1,
+        "unassessed": 140
+      },
+      "after_removal_missing_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "source_graph_unchanged": true
+    },
+    {
+      "source": "1iep_receptorH.pdb",
+      "sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+      "coverage": [
+        {
+          "engine": "disabled",
+          "n_bonds": 0,
+          "summary": {
+            "assessed": 0,
+            "incomplete": 274,
+            "unassessed": 0
+          },
+          "readiness_matches_actual_graph": true
+        },
+        {
+          "engine": "MolSysMT",
+          "n_bonds": 4445,
+          "summary": {
+            "assessed": 274,
+            "incomplete": 0,
+            "unassessed": 0
+          },
+          "readiness_matches_actual_graph": true
+        }
+      ],
+      "removed_pair": [
+        1,
+        5
+      ],
+      "affected_group_index": 1,
+      "affected_group_name": "MET",
+      "after_removal_summary": {
+        "assessed": 273,
+        "incomplete": 1,
+        "unassessed": 0
+      },
+      "after_removal_missing_pairs": [
+        [
+          1,
+          5
+        ]
+      ],
+      "source_graph_unchanged": true
+    }
+  ]
+}
