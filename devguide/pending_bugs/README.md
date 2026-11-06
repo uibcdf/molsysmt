@@ -20,8 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
+- [`rust_cpu_kernel_inputs_follow_an_unsupported_single_precision_setting.md`](rust_cpu_kernel_inputs_follow_an_unsupported_single_precision_setting.md) — [#620](https://github.com/uibcdf/molsysmt/issues/620) — Single-precision configuration sends float32 coordinates to float64-only Rust CPU kernels. *(high, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 
 ### In progress (1)

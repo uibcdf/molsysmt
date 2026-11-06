@@ -9,8 +9,9 @@
 independent public-file and closed-board receiving is recorded below. Joint
 receiving passes 5,435 cases, final directed/documentation receiving passes
 1,195, and the scientific certificate passes 97 cases across 64 nodes. These
-scopes overlap. Accepted progress is 40%; phase 3 starts with #613 and the
-independently actionable #524 work. No replacement candidate is selected.
+scopes overlap. Accepted progress is 40%; #613 source is now locally qualified
+and awaits public closeout. Phase 3 continues with #620 and independently
+actionable #524 work. No replacement candidate is selected.
 
 The maintainer requests a durable record of the new audit, its reasoning, the
 remaining work and the order in which to strengthen MolSysMT before 1.0.
@@ -398,6 +399,28 @@ protection from unsynchronized direct assignments. Verify this documented
 limitation alongside the behavior rather than silently redesigning configuration.
 Actual implementation and receiving remain pending at this checkpoint.
 
+**Subsequent local execution:** #613 now has owner code and maintained guards;
+first corrected receiving passes 25 cases, including the same cases on controlled
+source from public ArgDigest 0.14.0. The implementation uses its supported
+key-domain contract without adopting a newer provider API or raising a floor.
+The independent public-call probe also discovers
+[#620](pending_bugs/rust_cpu_kernel_inputs_follow_an_unsupported_single_precision_setting.md):
+the global single-precision request sends float32 inputs to float64-only CPU
+bindings. This serially reproduced boundary defect needs disposition within
+phase 3 after #613; it does not require another precision backend or additional
+progress weight. Final broader receiving and source closeout remain pending.
+
+**Final #613 source checkpoint:** implementation
+`f60e25b7edad28f035429563fd8b46f4d93395f2` passes 4,438 integrated cases,
+32 final source-floor/docstring cases, 500 documentation cases and the
+97-case/64-node scientific certificate, all without failures/errors/skips.
+Counts overlap. The [owning closeout](archive/resolved_bugs/concurrent_configuration_contexts_leak_gpu_policy.md)
+and [receipt](../devtools/data/configuration_serialization_receiving_613_20261106.json)
+preserve original authoring/runtime failures, domain-bootstrap correction,
+actual source-floor limits and unchanged environment/backend. Public delivery
+and board closure follow. #620 and #524 remain unresolved; this checkpoint
+does not yet credit phase 3 or raise accepted progress above 40%.
+
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
   applicable per-call overrides, including real decorated calls. Distinguish
@@ -606,6 +629,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Phase 2 source qualified | `3eb720444` implements all five PBC corrections. Corrected-path integrated receiving passes 5,435 cases; final directed/documentation receiving passes 1,195; the scientific certificate passes 97/97 for 64 nodes; 82 Rust unit tests pass. Counts overlap. The receipt retains original failures, zero-test/unobserved attempts and exact rebuilt backend identity. Phase-one smoke 42305861858 is now verified successful. | Publish and independently verify the source, synchronize/close #605/#607/#606/#608/#619, then credit the existing phase-two 20 points and continue #613/#524. No extra points for #619 and no installed-release claim. |
 | 2026-11-06 | Phase 2 delivered and closed | Public checkpoint `27bc4d3c5` independently matches all 27 checked blobs. #605/#607/#606/#608/#619 are closed with source `3eb720444` and addressable guards. Accepted plan progress is 40%; #619 shares the existing unit milestone. The receipt preserves original failures and local/installed evidence boundaries. | Finish this checkpoint's ordinary unskipped CI and begin #613 under the accepted process-global serialization contract; continue independently actionable #524 runtime work. PR #543 remains open at the same reviewed head. |
 | 2026-11-06 | Phase boundary board refresh | Complete paginated open inventory contains 98 issues and one PR after PBC closeout. No newly numbered open report changes the selected #613 next step. PR #543 remains open at `8ab2f5474b2e04c68d31ef2854a238984b645fc8`; its qualification remains separate. | Continue configuration correctness and installed-runtime closure, preserving the existing graphical and final-candidate dependencies. |
+| 2026-11-06 | Configuration source qualified | #613 correction `f60e25b7e` passes 4,438 integrated, 32 source-floor/doctest, 500 documentation and 97 scientific cases in overlapping scopes. Its receipt retains all failed attempts and process-global limitations. Independent serial precision mismatch is reported as #620 after complete seven-page acquisition; no new backend is required. Accepted plan progress remains 40%. | Publish/verify and close #613; resolve #620 and independently actionable #524 before phase-three credit. The existing phase-two smoke remains active in its bound-tool receiving step at inspection. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

@@ -1,0 +1,301 @@
+{
+  "schema_version": "molsysmt.configuration_serialization_receiving@1",
+  "created_at": "2026-11-06T23:49:14.658058+00:00",
+  "owning_issue": "uibcdf/molsysmt#613",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "implementation_commit": "f60e25b7edad28f035429563fd8b46f4d93395f2",
+  "source_parent": "16ecaae01c4b670ef3a38ce595362b83e172cc69",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "pytest_workers": 12,
+  "environment_changed": false,
+  "backend_rebuilt_in_this_block": false,
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "contract": {
+    "authority": "Existing process-global writer-serialization contract in devguide/performance_and_jit.md.",
+    "writers": "Context managers and public session setters acquire a reentrant lock; nested/reused contexts restore snapshots on normal/exceptional exit.",
+    "call_policy": "Per-call CPU ContextVars remain scoped; calls with no global overrides bypass writer locking.",
+    "validation": "ArgDigest key domain, lazily reading owning configuration data; existing GPU digester plus SMonitor conflict/error classes; no generic value coercion outside consuming-operation contracts.",
+    "trusted_delegation": "Name/alias integrity remains checked when digestion is skipped.",
+    "limits": "Outside observers can see temporary values. Direct module writes bypass the lock. Synchronous contexts must not span awaits in overlapping asynchronous tasks."
+  },
+  "implementation_file_sha256": {
+    "devguide/performance_and_jit.md": "a18a9caef1e15cbda9d16c0ea227b56e535e428fbd8ef3af2b5fc2d652d2c4c0",
+    "devtools/tests/test_validate_course.py": "8f866ca4e9d1926ebe2a5663f920a1c51e94af8773b979666ba8acf0ad1218dc",
+    "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb": "64f2d8d30d41f4475dedda36f0f65d0904a2a3c56573ed043cadf05e55a1bb2a",
+    "docs/content/user/cookbook/big_data_trajectories.ipynb": "667f4ad5da51a4c71760dd674ccbdbca5cc5ebbf0a53370b106c26735bf0b13f",
+    "docs/content/user/foundations/governance/configuration_options.md": "18e2934b4e0eda008729b4a0867698bb10fd74c3e14c4ee1caa1852013837802",
+    "molsysmt/_private/argdigest/domain/configuration.py": "3197d380d5028dc77167a38f7271184a8f18cf15b43b8e2a01e70a6262eb1041",
+    "molsysmt/_private/argdigest/function/configuration.py": "2955410f76be77b6391babb1cf0b1183978cf8d3276945305aca4d1d38558085",
+    "molsysmt/configure/__init__.py": "deffcde124857dfa4294456dd7043e2711d2d8c2d64f9b87553e6fa73221d27f",
+    "tests/basic/test_configuration_context.py": "a413e16c1a61a10b4881351a2760427f445209fc51c65cf715cf1c9ebaad1186"
+  },
+  "test_profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-before.xml",
+      "sha256": "da8fdfb85215cb6d36f5af1a7c4bd2adab9c4416744134139d27d7d2bdbb62da",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 14,
+        "failures": 14,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "scope": "Initial test authoring: twelve context failures and two invalid fixture references to nonexistent root msm.Structures."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-counterexamples.xml",
+      "sha256": "bf169cf63aebbbe3c67f565391f40344f867b2cf9c4770513a24e7551435bbf2",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 14,
+        "failures": 13,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1
+      },
+      "scope": "Twelve context failures plus independently reproduced #620 precision mismatch; one passing control."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-context-counterexamples.xml",
+      "sha256": "6dcafcc338375f045764a703a66c50696324b290c82762db09fb779c6bd8d66d",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 14,
+        "failures": 12,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      },
+      "scope": "Original context runtime: twelve failures and two passing real-public-call controls; separate precision setting excluded deliberately."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-first-receiving.xml",
+      "sha256": "cf4f03c5dd746c03a7a8481a31cb3f4f2809ee22ac54bcfbb207995cc805524e",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 25,
+        "failures": 20,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5
+      },
+      "scope": "Initial owner implementation: eager domain/configure import caused unknown-domain bootstrap failures and consequently timed-out event controls. Consumer design error, not successful receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-second-receiving.xml",
+      "sha256": "45925fed8ca64770627b53d6d729da4df705b5fc1e5d4c819657aad538a1ca6b",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 25,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 25
+      },
+      "scope": "First corrected context/parallel receiving after lazy domain discovery."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-public-floor-source.xml",
+      "sha256": "6e389c69c359063c3b99fb6ee9a3fee8dcd986dea9fa670eaaf7f68ffa3b3715",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 25,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 25
+      },
+      "scope": "Initial 25-case controlled public ArgDigest 0.14.0 source receiving."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-final-floor-and-docstring.xml",
+      "sha256": "f32909f94f359bb36f90d7f3d49cb248c7464ae3e4611742c376d820aa240665",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 32,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 32
+      },
+      "scope": "Final 31 context/parallel cases and one public context doctest on controlled public ArgDigest 0.14.0 source."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-integrated.xml",
+      "sha256": "b2cf0b6a48e0f3db1d4861dab07f2c9bbff5da29386b593f2f67d10ec683201e",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 4438,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4438
+      },
+      "scope": "4438 context/parallel/heavy/structure/interactions/PBC cases under 12 workers; zero skips/failures/errors."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-documentation.xml",
+      "sha256": "c29a2f0d48e9e0d13aa82c7db164e50bf69f855e9894dddb934d977e4ce48dfb",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 500,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 499
+      },
+      "scope": "New valid course link absent from the minimal Sphinx receiving fixture: 499 passes and one undefined-label failure."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/613-documentation-corrected.xml",
+      "sha256": "d05ff2172af890c9a29d1b5274d6234d19fdf864483ef0653263ebaca6a21e1d",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 500,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 500
+      },
+      "scope": "500 notebook schema/course controls after including the actual maintained target header in the receiving fixture; warning-as-error assertions unchanged."
+    }
+  ],
+  "scientific_execution": {
+    "artifact": ".pytest_cache/pre1-review-20261106/613-scientific.json",
+    "sha256": "861f0e3a914d474441b74190642603be0d72c79954e99c885382cd7d859685b1",
+    "process_exit_code": 0,
+    "certificate": {
+      "schema_version": "molsysmt.scientific-evidence-execution@1",
+      "verdict": "pass",
+      "commit": "16ecaae01c4b670ef3a38ce595362b83e172cc69",
+      "tracked_source_dirty": true,
+      "release_eligible": false,
+      "created_at": "2026-11-06T23:47:22.205869+00:00",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "registered_nodes": 64,
+      "collected_cases": 97,
+      "passed": 97,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "nodes": [
+        "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+        "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+        "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+        "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+        "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+        "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+        "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+        "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+        "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+        "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+        "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+        "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+      ]
+    }
+  },
+  "public_floor_source_receiving": {
+    "provider": "argdigest",
+    "tag": "0.14.0",
+    "commit": "0fa776af2d271065c60727c28480b20c3ce09aee",
+    "acquisition": "Read-only git archive into ignored workspace cache; no install or environment replacement.",
+    "scope": "32 final cases including context doctest. Controlled source only; not an installed distribution or minimal dependency-closure certificate.",
+    "floor_changed": false,
+    "design": "Use the existing digestion_source=None/strictness=ignore spelling for the deliberately key-only configuration boundary; do not rely on the newer argument_digestion selector."
+  },
+  "documentation_preservation": "Course Module 19 and big-data cookbook retain all code, outputs, cell IDs and metadata. Only Markdown sources change. The configuration guide fixes nonexistent configure.set to supported configure.context.",
+  "additional_checks": {
+    "ruff_check": "pass",
+    "ruff_format": "4480 files pass",
+    "api_stability": "304 symbols valid",
+    "dependency_validator": "pass",
+    "course": "156 notebooks pass",
+    "devguide": "pass before final closeout move"
+  },
+  "retained_warnings": {
+    "integrated": 531,
+    "final_floor_and_docstring": 1,
+    "documentation": 142,
+    "scientific": 1,
+    "note": "Profiles overlap; legacy-format, controlled memory-budget, reserved GPU fallback and Sphinx deprecation warnings remain visible."
+  },
+  "related_findings": [
+    {
+      "issue": "uibcdf/molsysmt#620",
+      "status": "open",
+      "scope": "Serial precision-setting/float64-only kernel mismatch; independent of context restoration and not repaired by #613."
+    }
+  ],
+  "ordinary_ci_observation": {
+    "head": "16ecaae01c4b670ef3a38ce595362b83e172cc69",
+    "run_id": 42312538781,
+    "status": "in_progress",
+    "active_step": "Receive the bound MolSysViewer tools",
+    "conclusion": null,
+    "note": "Observed existing phase-two smoke, not a new run or a pass."
+  },
+  "limits": [
+    "Profiles overlap and cannot be added as unique cases.",
+    "Local development receiving, not an installed/graphical/platform or exact-release qualification.",
+    "Scientific certificate predates the source commit and correctly reports dirty source and release_eligible=false; source byte identities are bound separately.",
+    "Four pre-existing human autosummary edits remain outside the commits.",
+    "Phase-three plan credit remains zero until the configuration/runtime block including #620/#524 reaches its exit; total accepted plan progress remains 40%.",
+    "Source publication and issue closure require independent receiving after this prepared record."
+  ]
+}

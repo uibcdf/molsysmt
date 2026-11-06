@@ -22,45 +22,36 @@ contracts.
 
 ## Audit execution and next correction — 2026-11-06
 
-The maintainer requests the new
-[robustness audit and action plan](pre_1_0_robustness_audit_20261106.md)
-under #334. It preserves the dated findings, reasons, acceptance evidence,
-phase order and subsequent scientific work. The maintainer now authorizes
-execution with durable records and periodic progress estimates. Phase 1 fixes
-#618 selected-domain alignment and #616 recovered-inventory append in
-`19d6d55c1663bf3c6c7adfb9433fc775326292b5`. Local receiving passes 2,748 joint
-native/composition/H5MSM/interaction cases and 40 overlapping directed/doctest
-cases, with failed attempts and warnings retained in the
-[receipt](../devtools/data/pre_1_0_robustness_phase1_receiving_20261106.json).
-Ruff, dependency validation and the 156-notebook course checks pass. Phase one
-preserves the existing human edits and original backend bytes. Its checkpoint
-is now public at `a91a4fd1b`; public source and #618/#616 closure are independently
-verified.
+The [robustness audit and action plan](pre_1_0_robustness_audit_20261106.md)
+owns the current six-phase work sequence and weighted progress estimate under
+#334. Phases 1 and 2 are published and their seven owner issues are closed:
+#618/#616 in `19d6d55c1`, and #605/#607/#606/#608/#619 in `3eb720444`.
+The [PBC delivery receipt](../devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json)
+independently verifies all 27 checked blobs and five closed PBC issues. Accepted
+plan progress is **40%**, not a release-readiness percentage.
 
-Current work is **phase-two PBC receiving and delivery** for #605/#607/#606/#608
-and the subsequently reproduced #619 dimensional box-admission defect. Source
-`3eb720444b97f77f9325acf52f55114ece0b5f9e` passes 5,435 joint cases, 1,195
-final directed/documentation cases and a 97-case/64-node scientific certificate;
-all 82 Rust unit tests pass. Counts overlap. The
-[phase-two receipt](../devtools/data/pre_1_0_robustness_phase2_receiving_20261106.json)
-records the deliberate native backend rebuild, original failures, retained
-warnings and exact receiving limits. Public checkpoint `27bc4d3c5` now delivers
-that source: independent GitHub receiving matches all 27 checked blobs and
-confirms #605/#607/#606/#608/#619 closed with their addressable regressions. The
-[delivery receipt](../devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json)
-records this separate acceptance. The zero-test integrated attempt used a
-nonexistent directory; a controlled exit-4 diagnostic identifies the cause and
-corrected-path receiving exits 0. Phase-one
-smoke 42305861858 is independently verified successful, not release qualification.
-The next implementation block is #613, alongside independently actionable #524
-work. The packet's completeness review maps evidence depth and preserves finite
-GUI acceptance and bounded scientific claims. It owns the weighted estimate
-(40% for accepted phases one and two), its evidence and all remaining exits;
-that estimate is not release readiness. The #616 consumer report from PR #543
-is preserved in its owner archive and must not return as a duplicate pending
-report on integration. The earlier fifteen-issue goal retains its original
-evidence. Candidate selection and the publication pause remain unchanged;
-platform, installed Viewer and exact-release gates are still required.
+Current phase-three source `f60e25b7edad28f035429563fd8b46f4d93395f2` corrects
+#613 configuration writer/restoration races. Local receiving passes 4,438
+integrated cases, 32 controlled-source floor/docstring cases, 500 documentation
+cases and 97 scientific cases; these scopes overlap. The
+[receipt](../devtools/data/configuration_serialization_receiving_613_20261106.json)
+retains exact source/backend identity, original failures, warnings and limits.
+It implements the existing process-global serialization contract; outside
+observers, direct assignments and overlapping async contexts are not isolated.
+Public delivery and owner closeout are next.
+
+Then resolve #620's separately reproduced precision-setting/kernel mismatch and
+advance independently actionable #524 installed-runtime work. A new precision
+backend is not required. #613 alone does not complete this block or increase its
+credited weight. The PBC checkpoint smoke 42312538781 remains active in bound-tool
+receiving at inspection; older phase-one smoke 42305861858 is verified successful.
+Neither is a release matrix. Preserve the #616/#613 consumer reports on PR #543
+integration rather than reintroducing duplicate pending records.
+
+Four human autosummary edits remain outside the commits. Candidate selection
+and the publication pause remain unchanged; exact-platform, installed Viewer,
+graphical and release gates are still due. The earlier fifteen-issue campaign
+retains its original completed evidence below.
 
 ## Maintainer-ordered resolution goal — 2026-11-06
 
