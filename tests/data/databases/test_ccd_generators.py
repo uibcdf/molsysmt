@@ -121,7 +121,7 @@ def test_generator_import_has_no_io_side_effects(monkeypatch, tmp_path, kind):
     ],
 )
 def test_generated_tables_deliver_bonds_through_existing_readers(
-    tmp_path, monkeypatch, kind, element_kind, code, aliases
+    tmp_path, kind, element_kind, code, aliases
 ):
     from importlib import import_module
 
@@ -129,12 +129,43 @@ def test_generated_tables_deliver_bonds_through_existing_readers(
     result = _run(kind, output)
     assert result.returncode == 0, result.stderr
     package = import_module(f"molsysmt.element.group.{element_kind}")
-    getter = import_module(f"molsysmt.element.group.{element_kind}.get_group_db")
-    names = _load(output, "group_names.pkl.gz")
-    monkeypatch.setattr(package, "group_names", names)
-    monkeypatch.setattr(getter, "group_names", names)
-    monkeypatch.setattr(getter, "path", lambda package, filename: output / filename)
-    assert package.get_bonded_atom_pairs(code, aliases, atom_indices=[9, 4]) == [[4, 9]]
+    if kind == "amino_acids":
+        # Warm the real catalogue: reading test data must neither reuse this
+        # snapshot nor replace it for subsequent tests in the same worker.
+        real_pairs = package.get_bonded_atom_pairs("ALA", ["N", "CA", "C", "O"])
+    script = """
+import json
+import sys
+from importlib import import_module
+from pathlib import Path
+
+directory, element_kind, code, aliases = sys.argv[1:]
+directory = Path(directory)
+package = import_module(f"molsysmt.element.group.{element_kind}")
+getter = import_module(f"molsysmt.element.group.{element_kind}.get_group_db")
+package.group_names = getter.group_names = [code]
+getter.path = lambda package, filename: directory / filename
+assert package.get_bonded_atom_pairs(code, json.loads(aliases), atom_indices=[9, 4]) == [[4, 9]]
+"""
+    # The generated catalogue has a separate lifetime from the immutable
+    # installed catalogue and its derived caches. Isolate that fixture by process.
+    receiving = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            script,
+            str(output),
+            element_kind,
+            code,
+            json.dumps(aliases),
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert receiving.returncode == 0, receiving.stdout + receiving.stderr
+    if kind == "amino_acids":
+        assert package.get_bonded_atom_pairs("ALA", ["N", "CA", "C", "O"]) == real_pairs
 
 
 @pytest.mark.parametrize("kind", KINDS)

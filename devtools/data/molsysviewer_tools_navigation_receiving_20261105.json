@@ -1,0 +1,185 @@
+{
+  "schema": "molsysmt.viewer-navigation-source-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#568",
+    "uibcdf/molsysmt#577",
+    "uibcdf/molsysmt#578"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "ac1f6dbad9ce3b29751dfd0a33e5df596e5dbae0",
+  "native_owner_basis": "27ccb1b6d640b7e2087a86dea06f6e666dc73fe1",
+  "viewer_basis": "790aa948fa3a018079e372d800e4ab3c52f191b3",
+  "viewer_runtime_logic": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "contract": {
+    "basic.view": "Exact native signature minus primary, also through the native root alias. Loaded-primary serialized read, including pending edits; separate caller-owned native visualization, no parent scene/camera/history clone, synchronization or adoption. Empty/closed owners reject. Other native backend/embedding availability and diagnostics remain explicit, without fallback.",
+    "historical_hbonds": "Exactly four native callable aliases, using the actual canonical bound methods: get_donor_atoms, get_acceptor_atoms, get_buch_hbonds, get_luzard_chandler_hbonds. Same scientific callable/signature/digestion/lifetime, no new algorithm or attachment.",
+    "molecular_dynamics": "Two unconditional native NVT/NPT stubs remain unexposed and unavailable; not described as runnable tools or two missing thin wrappers.",
+    "mutation": "Native #568 repair received without consumer science/selector translation. Existing wrapper now forwards native keyword-only skip_digestion; source-atom selection and all-specification group admission, independent no-ops and safety checks remain native.",
+    "empty_native_input": "Native basic.view default None rejects with digestion and creates an empty MolSysView when digestion is bypassed. Maintainer-authorized separate native #578 records this; loaded-primary receiving does not bypass digestion or promise that route."
+  },
+  "validation": [
+    {
+      "file": "navigation-all-addon-20261105.xml",
+      "sha256": "1fd8cc6cb879444a875f0b44083f4d5c868d2a2c01c16c2c10c53138dd52d5bc",
+      "scope": "Final complete addon plus 32 host/source/inventory/command guards, four workers and immutable public provider source.",
+      "tests": 4398,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 334.63
+    },
+    {
+      "file": "navigation-focused-corrected-20261105.xml",
+      "sha256": "12c63c611814cab33775fd6bffb4af6198070ed60fd8bfc56004abff52cfad16",
+      "scope": "30 new navigation/alias/stub-admission cases.",
+      "tests": 30,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 12.306
+    },
+    {
+      "file": "navigation-mutation-receiving-20261105.xml",
+      "sha256": "47e74c05d98544b5bb7d34586f6d53226af24e126784dcd1a1716c4082867fce",
+      "scope": "112 directed native mutation and existing facade receiving cases.",
+      "tests": 112,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 45.05
+    },
+    {
+      "file": "navigation-docs-contracts-20261105.xml",
+      "sha256": "f993d9e5c1c01c7dfac854fe7784804a7aca46bacd6c7deba5b0a0b43f12fcca",
+      "scope": "124 documentation/course/source/inventory/reporting and owner mutation-example/offline-network-selection guards.",
+      "tests": 124,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 98.557
+    }
+  ],
+  "preserved_failures": [
+    {
+      "file": "navigation-focused-initial-20261105.xml",
+      "sha256": "fceeb5e7073f9bdc21068c3aa2e19f35046d1aebe1638def2d6b02deebdf4d31",
+      "scope": "11 initial failures: 6 authored ShapesManager truthiness assumptions, 2 missing explicit native MD module imports, 2 unsupported output_type shorthand values, 1 native default-None discrepancy outside final loaded-owner admission. No scientific fix in the facade.",
+      "tests": 30,
+      "failures": 11,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 14.436
+    }
+  ],
+  "source_freeze": {
+    "files": 4240,
+    "sha256": "95cd9c6a64c7fec1988b0fd095a48f288e8173b0ceb1bbdd909b4c7a914b64c5",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "postcheck": {
+      "primary_files": 4240,
+      "primary_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "provider_files": 106,
+      "provider_python_files": 91,
+      "provider_changed": [],
+      "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "native_authored_diff": []
+    }
+  },
+  "provider_snapshot": {
+    "public_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "archive_sha256": "15837de15b443f3f0853d484da9990da74cc444b9c562e4aafe9fbf86642cdbd",
+    "scope": "Read-only immutable public PyUnitWizard source overlay; no installation or provider edits. Metadata does not identify these source bytes."
+  },
+  "references": {
+    "visualization": "Bundled pentalanine atom indices 0/2/4 and structures 8/3/8; exact source coordinate subset, parent ownership and separate lifetime checked, without a browser-rendering claim.",
+    "alias_science": "Previously received explicit two-water fixtures; direct native typed-result/role parity plus exact canonical bound-method identity. Existing canonical numerical/scientific guards remain the reference, not four invented new algorithm validations.",
+    "mutation": "Owner public guard plus consumer repaired MDTraj/integer/scalar/Boolean atom selections and native passthrough. Native reconstruction/PDBFixer limits retained."
+  },
+  "exposure": {
+    "exposed": 240,
+    "declared": 244,
+    "basic": [
+      26,
+      26
+    ],
+    "hbonds_historical": [
+      4,
+      4
+    ],
+    "build": [
+      29,
+      30
+    ],
+    "molecular_mechanics": [
+      5,
+      6
+    ],
+    "unexposed_native_stubs": 2,
+    "unexposed_pending_native_capabilities": [
+      "build.make_water_box #564",
+      "molecular_mechanics.get_forces #572"
+    ],
+    "mode_limit": "reconcile_protonation managed in-place still pending #576; path counts do not establish complete mode coverage."
+  },
+  "static_validation": {
+    "whole_tree_ruff": "check and format pass, 4391 files",
+    "docstrings": 246,
+    "course_notebooks": 156,
+    "dependency_contract_audit": "passed",
+    "guide_blocks_executed": 1,
+    "owner_course_cells": 35,
+    "modified_markdown_ids": [
+      "96ebdbc9",
+      "4fb55a86",
+      "f158b27f"
+    ],
+    "all_owner_executable_cells_outputs_ids_metadata_preserved": true,
+    "merge_resolution": "Both owner and consumer status sections preserved; original #568 consumer evidence archived separately with the native guard and corrected current links."
+  },
+  "limits": [
+    "Existing Linux/Python 3.14 source environment, not a clean installed solve or platform/release certificate.",
+    "MolSysViewer Python return/lifetime receiving does not independently qualify NGLView, native configured HTML embedding or browser rendering.",
+    "No native scientific algorithm, Rust/backend build, Viewer runtime or dependency floor authored.",
+    "Native #549/#559/#560/#561/#562/#564/#572/#574/#575/#576/#578, exact-head CI/owner review, task GUI and installed/public qualification remain separate.",
+    "Both 1.0 publications remain paused; no candidate, package, tag, Release or promotion."
+  ],
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "system": "Linux",
+    "observed_distribution_versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b"
+    },
+    "scope": "Existing development environment and explicit immutable provider overlay; no clean solve."
+  },
+  "warnings": {
+    "full_addon": 2513,
+    "legacy_h5msm": 2427,
+    "atom_forcefield_attribute_drop": 70,
+    "scope": "All ten warning groups retained; no suppression added."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_api.py": "295f8359723cdbb7f0a9d8ee485ae0f0667a963492e815bac794f3c3d183faf5",
+    "molsysviewer_molsysmt/_basic.py": "d53154895dd5ff8966c89fbb6581850767a4b9ea896489f8174a1f6d99c932c3",
+    "molsysviewer_molsysmt/_build.py": "d1cb9249c3d725e723c589ed50c73f67d50f71d63969d3b7b7aa0bbeba28c608",
+    "molsysviewer_molsysmt/_interactions.py": "55fa52fe35feea0b28b1a9b1e866c6ef75f140bbaafd7d954338035ed7559ff4",
+    "tests/molsysviewer_molsysmt/test_navigation_tools.py": "7a1fab86477cbde3fa91b8d70f69a7f9f3060584ee6c6dcf6742996332f5fdee",
+    "tests/molsysviewer_molsysmt/test_build_sequence_tools.py": "44fafad8f21f9022851c03c98cca4fb5ee00444dd8d77f5005e1f00c1470868f",
+    ".github/workflows/ci-smoke.yaml": "bf0242cc3a9c7843920df365c275da39b6bdc96edc55ba05431efde2465bbe06"
+  }
+}

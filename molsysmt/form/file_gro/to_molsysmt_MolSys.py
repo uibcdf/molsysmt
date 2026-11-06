@@ -8,6 +8,8 @@ def to_molsysmt_MolSys(
     structure_indices="all",
     get_missing_bonds=True,
     skip_digestion=False,
+    *,
+    from_naming_scheme=None,
 ):
     """
     Converting from file:gro to molsysmt.MolSys.
@@ -25,6 +27,9 @@ def to_molsysmt_MolSys(
         Argument get_missing_bonds.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    from_naming_scheme : str or none, optional
+        Explicit source group-name convention, applied before classification
+        and candidate connectivity inference. Defaults to None (undeclared).
 
     Returns
     -------
@@ -47,6 +52,7 @@ def to_molsysmt_MolSys(
         atom_indices=atom_indices,
         structure_indices=structure_indices,
         get_missing_bonds=get_missing_bonds,
+        from_naming_scheme=from_naming_scheme,
         skip_digestion=True,
     )
 

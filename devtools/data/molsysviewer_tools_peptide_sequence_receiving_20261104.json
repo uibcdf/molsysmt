@@ -1,0 +1,318 @@
+{
+  "schema": "molsysmt.viewer-peptide-sequence-source-receiving@1",
+  "date": "2026-11-04",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#567"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "2d192399665111794cdd68d53342ce322d524310",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "published_owner_documentation": "5ccad1d8a2537b24e52474bd95103cc94700cba1",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "source_identity": "Working-tree hashes identify tested input; final delivery is through the existing owner-reviewed PR, without a self-referential source claim.",
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "linux",
+    "versions": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "rdkit": "2025.9.5",
+      "openmm": "8.6.1",
+      "pdbfixer": "1.12.0",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3"
+    },
+    "scope": "Existing explicit source environment; no new installation, solve or artifact qualification."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_build.py": {
+      "file": "_build.py",
+      "sha256": "9ed310ad614db288bb2eda3c94ab23ab19a4d151c2de643bd26925d082f46a8c",
+      "size_bytes": 32159
+    },
+    "tests/molsysviewer_molsysmt/test_build_sequence_tools.py": {
+      "file": "test_build_sequence_tools.py",
+      "sha256": "887306a149380d99d98f212904f4fce0b2dc7d62aca243b177b17a63d6770191",
+      "size_bytes": 13043
+    },
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": {
+      "file": "test_build_audit_tools.py",
+      "sha256": "9527c56ab4d0c05221d39392204375623d9a296955d27ef54d75275fd3bf8566",
+      "size_bytes": 14104
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "file": "test_molsysviewer_tools_api_inventory.py",
+      "sha256": "ad29debcaac57e04c08cfd3a3827c555ffffbfae4f894cd2a8e8c78079e6a9c4",
+      "size_bytes": 9217
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "file": "ci-smoke.yaml",
+      "sha256": "8bb22753a8fcf7abe70fd8cf61b2bd3dfb11e843ad7410086297664ce0250a35",
+      "size_bytes": 14999
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "file": "molsysviewer_tools.md",
+      "sha256": "22f8691d78a628cb856f71dd199542b580a3c09b50955fde5246943ab9f9ef10",
+      "size_bytes": 243794
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "file": "molsysviewer_tools.md.AGENTS.md",
+      "sha256": "d20fe2702389a043905dcbdff13e7bfbff1339d96d24347831beff9cd4b8bf7f",
+      "size_bytes": 29177
+    },
+    "docs/docs_manifest.yml": {
+      "file": "docs_manifest.yml",
+      "sha256": "8227b28a12b77255d1bcbebcdcf73ba0f575d76f640f91398dfc70995a094e8c",
+      "size_bytes": 56689
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "sha256": "c7883b9287bdaef1edc75f2ff70a78fb280006a2d5013c20ccbbaee60d3a0d25",
+      "size_bytes": 55386
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.AGENTS.md": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.AGENTS.md",
+      "sha256": "cfe594bf12b940816b1a2bb1815bef275e1bc59ef0cc8512a21eaedf43423c80",
+      "size_bytes": 4518
+    },
+    "devguide/pending_proposals/benchmark_baseline_comparability_and_competitor_gating.md": {
+      "file": "benchmark_baseline_comparability_and_competitor_gating.md",
+      "sha256": "bcb6fcc2cf3079d9e78299451be856e115b3fd3b918fc0f01f1cf3774c762406",
+      "size_bytes": 5009
+    }
+  },
+  "datasets": {
+    "molsysmt/data/databases/peptide_builder/amber14sb.json.gz": {
+      "file": "amber14sb.json.gz",
+      "sha256": "afb6989a938d118ac6360dbb86548d45e9d6a30b8f02d009e42e1320febe5e79",
+      "size_bytes": 16247
+    }
+  },
+  "frozen_sources": {
+    "frozen_files_match": true,
+    "count": 3144,
+    "source_sha256": "7c71d6c69d17f7e8b90d43f1450cf2dc78096900f50e1566c2c7f7d3d97bcb30",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "native_sources_unchanged_from_parent": true,
+    "manifest": {
+      "file": "build-sequence-sources-before-20261104.json",
+      "sha256": "ac200a3635dc995d5f3c2d8ed6deb731324b0c83962d90d6dda03e4265159ae7",
+      "size_bytes": 386275
+    },
+    "postcheck": {
+      "file": "build-sequence-postcheck-20261104.json",
+      "sha256": "2a1796a547e7e3619e22f79d4ff0e02e51ecafdc100ae2dfd25ed94fe78fe1b3",
+      "size_bytes": 332
+    }
+  },
+  "implemented": {
+    "paths": [
+      "build.build_peptide",
+      "build.mutate"
+    ],
+    "binding": "Serialized current primary, including completed pending edits; independent results with no scene/history synchronization or adoption. Cached calls resolve replacement and reject closed/empty owners.",
+    "validation": "Scientific signatures/defaults remain native. Keyword-only skip_digestion controls addon validation only and is never forwarded; native validation always applies. No in_place/update_view or root alias is added."
+  },
+  "scientific_receiving": {
+    "construction": "Canonical AlaValPro input with translated three-structure geometry supplies a sequence for a new single-structure 40-atom model, preserving neither source pose nor box/analyses. nm/angstrom/pm controls compare native parity under the same unit policy and independently check finite coordinates and bond lengths in (0.09,0.185) nm. Native MolSys, MDTraj trajectory and three-letter string output routes are received; LEaP execution is not qualified.",
+    "substitution": "Canonical VAL-to-GLY with group-index/ID/name and string specifications, literal target heavy inventory and retained observed backbone/source groups. Native VAL-to-TRP stays explicitly incomplete with ten missing heavy atoms and unassessed warning; explicit PDBFixer supplies target inventory without an independent pose certificate.",
+    "structures": "Single-structure H-bearing mutation retains its native H rebuilding and attribute-loss behavior. Heavy-only mutation separately preserves all three structures, retained-atom coordinate maps, box/time/IDs. No implicit visible-frame choice or trajectory-wide H preparation is claimed.",
+    "limits": "Native naming #549, conservative reconstruction, chemistry/mechanics/analysis remapping and engine limitations remain. Initial geometry is not a global/local energy minimum, complete preparation or validated rotamer. No native algorithm, host coordinator or consumer scientific correction is authored."
+  },
+  "native_mask_feedback": {
+    "observed": "Independent mutate calls with name-keyed targets parse an MDTraj mask as MolSysMT and treat an equivalent atom-index mask as group indices. Native expression group_index==1 succeeds.",
+    "reproduction": {
+      "file": "mutate-selection-native-20261104.json",
+      "sha256": "e91b4d8dfe303e6f8ed7fdeba0032cc4776420059116b355bee19f2f6658cea2",
+      "size_bytes": 10980
+    },
+    "native_file_sha256": "0a85b50a079604a5f2a3d18972ce2d989aaf05c4b574583575833e62df389ebc",
+    "current_owner_file_matches": true,
+    "disposition": "Unsupported-mask diagnostics are preserved in consumer tests; no selector translation or axis coercion. Owner report prepared and offered to the maintainer; issue creation remains pending the response."
+  },
+  "initial_receiving": {
+    "focused": {
+      "file": "build-sequence-focused-20261104.xml",
+      "sha256": "630868c2eed445b07b79c43b5e4351f9d749180429f6d152d06ebc29ee72515d",
+      "size_bytes": 90438,
+      "tests": 33,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 28.083
+    },
+    "diagnosis": "Four construction parity failures compared different unit-policy round trips at exact equality, with observed differences about 1e-16 nm. Corrected the reference to execute under the same policy while preserving independent physical bond bounds; no tolerance or native code changes. Two additional failures expose the native MDTraj mask defect; they are received as explicit native limitation, not successful syntax support. Added a separate native atom-mask rejection control."
+  },
+  "local_receiving": {
+    "new_cases": 34,
+    "focused": {
+      "file": "build-sequence-focused-corrected-20261104.xml",
+      "sha256": "810d5d6b66b15e4188a5ce23cf83feefef2b7e94b2a76547270471884cf3194f",
+      "size_bytes": 6096,
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 27.729
+    },
+    "build_and_reader_integration": {
+      "file": "build-sequence-build-integration-20261104.xml",
+      "sha256": "baa70d6559657f4f43cdcba4b88b2b6e2405b7be6245c80a12a832eb1340baab",
+      "size_bytes": 75449,
+      "tests": 421,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 123.271
+    },
+    "native": {
+      "file": "build-sequence-native-20261104.xml",
+      "sha256": "2ef122e38e48a12d9d2f802cb024733bd7e8f66f77db29cfccd66165b4f7fe28",
+      "size_bytes": 4945,
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 14.329
+    },
+    "structure_docs": {
+      "file": "build-sequence-structure-docs-20261104.xml",
+      "sha256": "629f39d1a0367a8eedc8bf4cb7617bda7668ae340bd6fd6ebd85b4bb42a3c491",
+      "size_bytes": 104662,
+      "tests": 562,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 21.856
+    },
+    "warnings": {
+      "integration": {
+        "total": 92,
+        "LegacyH5MSMWarning": 52,
+        "StructuralAttributeDropWarning": 32,
+        "DeprecationWarning": 4,
+        "UnitStrippedWarning": 4
+      },
+      "focused": {
+        "StructuralAttributeDropWarning": 23
+      },
+      "native": {
+        "StructuralAttributeDropWarning": 13,
+        "UnassessedResidueWarning": 5
+      },
+      "structure_docs": {
+        "RemovedInSphinx11Warning": 560,
+        "LegacyH5MSMWarning": 3
+      }
+    },
+    "guide": {
+      "file": "build-sequence-guide-20261104.json",
+      "sha256": "bc0cbe1ca2c71131a55686db8098b6921b4aad30a9094f0670cd88d4dc2e6389",
+      "size_bytes": 361
+    },
+    "guide_blocks": [
+      {
+        "block": 1,
+        "code_sha256": "b10b67b34e920bd8f9ef51f4ce9abbfb29c0fa845a0b0fc718e8a97afc97e43b",
+        "passed": true,
+        "source_atoms": 40,
+        "output_atoms": 40
+      },
+      {
+        "block": 2,
+        "code_sha256": "5c2eed9df649f8fce392ecbd0eb4278c9cce614f01f0b9456bd70355f2491efc",
+        "passed": true,
+        "source_atoms": 40,
+        "output_atoms": 31
+      }
+    ],
+    "course_preservation": {
+      "file": "build-sequence-course-preservation-20261104.json",
+      "sha256": "4b0176c1ddd83c56855d63645153b7904d95de7d0d4cf852224134aa24156c86",
+      "size_bytes": 145
+    },
+    "course": "156 canonical notebook structures validate; one existing Markdown cell changes, with original code/outputs/IDs/metadata retained. No full-course execution claim.",
+    "native_docstrings": "247 structural/default/minimum-content checks pass.",
+    "ruff": "Whole-tree check/format pass; 4351 files.",
+    "dependencies": "Route audit passes; no floor/route change.",
+    "inventory": {
+      "file": "build-sequence-inventory-20261104.json",
+      "sha256": "9d0469fb7031fb7c45b63892b0d17b72013af8ba4d8558283c8825ec36d339cc",
+      "size_bytes": 122518
+    },
+    "exposure": {
+      "exposed": 230,
+      "inspected": 244,
+      "build": "25/30",
+      "mechanics": "4/6",
+      "element": "57/57"
+    },
+    "scope": "421 build/reader cases cover the changed boundary, including all 34 new cases. No new complete 4131-case addon regression, source matrix or installed-pair certificate is claimed."
+  },
+  "parent_hosted_receiving": {
+    "head": "2d192399665111794cdd68d53342ce322d524310",
+    "smoke": {
+      "run": 41958120548,
+      "attempt": 1,
+      "conclusion": "success",
+      "command_guard_passed": 31,
+      "native_passed": 5397,
+      "native_skipped": 16,
+      "addon_passed": 4093,
+      "addon_skipped": 4,
+      "native_log": {
+        "file": "builder-overlap-smoke-20261104.log",
+        "sha256": "5b62ac2f789c1a6f13414ee65ec27ff975ab349324a6f45fdf116f1f72882daf",
+        "size_bytes": 382753
+      },
+      "receptor_manifest": {
+        "file": "manifest.json",
+        "sha256": "06137d6da24b23ca215dda704b5efc254a7a75a47af4bcbb84bebb81857ebcc1",
+        "size_bytes": 1650
+      },
+      "skip_scope": "Original optional-environment omissions retained; not counted as local full execution."
+    },
+    "performance": {
+      "run": 41958120472,
+      "attempt": 1,
+      "conclusion": "failure",
+      "metric": "competitor_center_mdtraj",
+      "baseline_us": 1434.73,
+      "current_us": 1700.76,
+      "delta_percent": 18.54,
+      "threshold_percent": 15,
+      "issue": "uibcdf/molsysmt#567",
+      "logs_zip": {
+        "file": "logs.zip",
+        "sha256": "0b3563c80525450abd8067be3bee3c620d27272349db71868b355b55e5d97715",
+        "size_bytes": 90726
+      },
+      "receptor_manifest": {
+        "file": "manifest.json",
+        "sha256": "74f7e9be3c0f996d0a299690229a14a577d8617168c6421fab7da7d9f8db7c53",
+        "size_bytes": 1847
+      },
+      "scope": "Sole reported audit violation; cause remains unverified. Prior 53d90adc0 performance success and older +32.11% failure retain their own inputs. No retry, threshold or baseline change."
+    },
+    "full": {
+      "run": 41958120506,
+      "at_inspection": "queued"
+    },
+    "administrative": "Ruff, dependency, guide integrity, suite policy and Conda publication governance pass.",
+    "scope": "Parent CI does not qualify this changed source. New-head hosted completion, owner integration and installed qualification remain separate."
+  },
+  "working_state": "Human Viewer sandbox work and MolSysMT owner main with six unpublished commits/57 dirty paths are preserved. The contribution imports its frozen source; no concurrent owner files are adopted.",
+  "retention": {
+    "raw": "Viewer .pytest_cache; retain through CI/owner receiving and review by 2026-11-11.",
+    "resources": "Existing contribution worktree retained; no environment or native build created. Process-owned matplotlib caches retire with their process."
+  },
+  "publication": "No owner main commit/push or merge, dependency-floor change, frozen candidate, package, tag, Release or promotion. Both 1.0 publications remain paused."
+}

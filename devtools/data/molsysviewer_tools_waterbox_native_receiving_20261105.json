@@ -1,0 +1,146 @@
+{
+  "schema": "molsysmt.viewer-waterbox-native-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#564",
+    "uibcdf/molsysmt#568",
+    "uibcdf/molsysmt#578"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "99163c814f203d37190528d3e81e6185b8c6b658",
+  "native_owner_basis": "8486ea59cdca48de30abf3e66484c11fd843da59",
+  "viewer_basis": "790aa948fa3a018079e372d800e4ab3c52f191b3",
+  "viewer_runtime_logic": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "earlier_navigation_receipt": {
+    "path": "devtools/data/molsysviewer_tools_navigation_receiving_20261105.json",
+    "sha256": "34a5a760dd26a8822994fcb123ceaadf3f216677a21770fa398a1a799a787f4d",
+    "scope": "Original 4,398-case gate on native 27ccb1b6d remains immutable."
+  },
+  "contract": {
+    "unchanged_addon": "basic.view loaded-primary bridge, four exact canonical historical aliases, native MD stubs unexposed; mutation native flag/repair retained.",
+    "native_waterbox": "Published #564 repair received with direct native guards. No scientific source authored and no addon make_water_box function exposed in this receiving. That explicit-input factory needs its own consumer qualification.",
+    "status_ownership": "The shared release ledger preserves all owner8486 content and one compact contribution entry; original consumer stage details stay in the proposal and immutable receipts. Original #564 consumer evidence is archived separately with the same native guard.",
+    "classification": "240/244 declared paths, including four aliases. Two unexposed MD stubs are unavailable; get_forces needs native #572, while corrected make_water_box needs consumer receiving. Managed protonation remains independent-only under #576."
+  },
+  "validation": [
+    {
+      "file": "navigation-waterbox-native-20261105.xml",
+      "sha256": "d5f0d6d67cc5df112bfb6e9c9b657220e1f5a06da49c4f6cb8cc5bd2e4edb77e",
+      "scope": "22 direct native water-cell membership/whole-water/units/ownership guards.",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.807
+    },
+    {
+      "file": "navigation-waterbox-all-addon-20261105.xml",
+      "sha256": "69a483f18ee1784c750843d50a8bc0539aa4c2ea986dd51612ca9a3cdd0f13d9",
+      "scope": "Final combined 4,398-case addon plus 32 source/host/inventory/command controls, four workers on native8486 input.",
+      "tests": 4398,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 323.245
+    },
+    {
+      "file": "navigation-waterbox-docs-contracts-20261105.xml",
+      "sha256": "1ebdd677e579da832d6507a8e3f108892d531140e087f7db4e9cf79ff1e505bf",
+      "scope": "118 documentation/course/source/inventory/reporting controls on combined input.",
+      "tests": 118,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 87.569
+    }
+  ],
+  "source_freeze": {
+    "files": 4241,
+    "sha256": "3362e019e8ee6728bd4062f7e32f7ff32ababb161763e9054044df9bf7e17c64",
+    "changed_from_navigation_gate": [
+      "molsysmt/build/make_water_box.py",
+      "tests/build/make_water_box/test_cell_membership.py"
+    ],
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "postcheck": {
+      "primary_files": 4241,
+      "primary_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "provider_files": 106,
+      "provider_python_files": 91,
+      "provider_changed": [],
+      "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "native_authored_diff": []
+    }
+  },
+  "exposure": {
+    "exposed": 240,
+    "declared": 244,
+    "basic": [
+      26,
+      26
+    ],
+    "hbonds_historical": [
+      4,
+      4
+    ],
+    "build": [
+      29,
+      30
+    ],
+    "molecular_mechanics": [
+      5,
+      6
+    ],
+    "native_stubs_unexposed": 2
+  },
+  "limits": [
+    "Existing Linux/Python 3.14 source environment with the same immutable public provider overlay; no clean installation or platform/release qualification.",
+    "Native scientific algorithms belong to the published owner; Rust/backend and Viewer runtime remain unchanged.",
+    "Native #564 correction is not an exposed addon factory, simulation equilibration or installed package admission.",
+    "Exact-head CI, owner review, remaining contracts, task GUI and installed qualification remain separate.",
+    "Both 1.0 publications stay paused; no candidate, tag, Release, package or promotion."
+  ],
+  "static_validation": {
+    "whole_tree_ruff": "check and format pass,4392 files",
+    "native_docstrings": 246,
+    "course_notebooks": 156,
+    "dependency_contract_audit": "passed",
+    "devguide_and_indexes": "passed",
+    "owner_course_cells": 35,
+    "modified_markdown_ids": [
+      "96ebdbc9",
+      "4fb55a86",
+      "f158b27f"
+    ],
+    "owner_executable_cells_outputs_ids_metadata_preserved": true
+  },
+  "warnings": {
+    "full_addon": 2513,
+    "legacy_h5msm": 2427,
+    "atom_forcefield_attribute_drop": 70,
+    "scope": "All ten groups retained; no suppression added."
+  },
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "system": "Linux",
+    "observed_distribution_versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b"
+    },
+    "scope": "Existing development environment and explicit immutable provider overlay; no clean solve."
+  }
+}

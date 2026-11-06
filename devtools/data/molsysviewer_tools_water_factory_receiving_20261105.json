@@ -1,0 +1,164 @@
+{
+  "schema": "molsysmt.viewer-water-factory-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#564"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "442a2771e9c756e94982d230702f6f6cfc881719",
+  "native_owner_basis": "8486ea59cdca48de30abf3e66484c11fd843da59",
+  "viewer_basis": "1c2ea7921ccb5bbcbbe634875e5ef030971b3fb9",
+  "viewer_runtime_logic": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "earlier_receipt": {
+    "path": "devtools/data/molsysviewer_tools_waterbox_native_receiving_20261105.json",
+    "sha256": "84716216e4eb4a9ee13dc983af9c20afcd224fc85c70b5eb178d65e076da2e97"
+  },
+  "contract": {
+    "factory": "Explicit native box/form/skip_digestion; open empty owner, no primary reader, pending synchronization, scene write or adoption. Independent caller-owned native result. Explicit view.load is a separate action.",
+    "science": "Published native #564 owns all reference tiling, whole-water oxygen clipping, units, validation and form conversion. No consumer scientific source or fallback.",
+    "digestion": "Native normalization and flag forwarded unchanged. skip_digestion=True requires normalized shape (1,3,3); unsupported keyword raises native Python TypeError when digestion is skipped.",
+    "geometry": "Row vectors B; r=f@B. Oxygen 0<=f<1; whole water retained, H may cross a cell face. No assigned force field, equilibration, exact density or overlap-free packing guarantee."
+  },
+  "exposure": {
+    "exposed": 241,
+    "declared": 244,
+    "build": [
+      30,
+      30
+    ],
+    "molecular_mechanics": [
+      5,
+      6
+    ],
+    "native_stubs_unexposed": 2
+  },
+  "validation": [
+    {
+      "file": "water-factory-all-addon-20261105.xml",
+      "sha256": "d113bf5bab23d0181999c084a7eb52567ffe1e3000456919836cdde9d72ff1d9",
+      "scope": "Complete addon plus 32 host/source/inventory/command controls; four workers, fixed public provider overlay.",
+      "tests": 4438,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 335.652
+    },
+    {
+      "file": "water-factory-corrected-20261105.xml",
+      "sha256": "cc47ff9b4bb21430709bb2dbcaba850589edaaf59e8c4eeeb989335efaf6395a",
+      "scope": "40 new water-factory cases plus existing build audits, inventory and exact hosted-command controls.",
+      "tests": 105,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 15.307
+    },
+    {
+      "file": "water-factory-docs-contracts-20261105.xml",
+      "sha256": "b89e2ef07a18f120bb7f41bb94d017db5e1e21d8dd1a3fb1967be918d574ef11",
+      "scope": "118 documentation/course/source/inventory/reporting controls.",
+      "tests": 118,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 85.655
+    }
+  ],
+  "source_freeze": {
+    "parent": "442a2771e9c756e94982d230702f6f6cfc881719",
+    "native_basis": "8486ea59cdca48de30abf3e66484c11fd843da59",
+    "sha256": "b7cd58709551657ddbffd3f41daa13c8e371c1da14411cbccb7f92c65f5992ae",
+    "changed_from_native_receiving": [
+      "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+      "molsysviewer_molsysmt/_basic.py",
+      "molsysviewer_molsysmt/_build.py",
+      "tests/molsysviewer_molsysmt/test_build_audit_tools.py",
+      "tests/molsysviewer_molsysmt/test_water_box_tools.py"
+    ],
+    "files": 4242,
+    "postcheck": {
+      "primary_files": 4242,
+      "primary_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "provider_files": 106,
+      "provider_python_files": 91,
+      "provider_changed": [],
+      "provider_archive_sha256": "15837de15b443f3f0853d484da9990da74cc444b9c562e4aafe9fbf86642cdbd",
+      "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "native_authored_diff": []
+    },
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67"
+  },
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "system": "Linux",
+    "observed_distribution_versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b"
+    },
+    "scope": "Existing development environment and explicit immutable provider overlay; no clean solve."
+  },
+  "limits": [
+    "Existing Linux/Python 3.14 source environment with immutable public PUW overlay; no clean installed solve or other-platform qualification.",
+    "Native force #572, managed protonation #576, native empty visualization #578 and existing scientific/provider limitations remain separate.",
+    "Owner review, exact-head CI, task GUI and installed qualification remain pending. Both 1.0 publications stay paused; no candidate, tag, Release, package or promotion."
+  ],
+  "status": "Source contribution locally validated; exact-head CI, owner review and installed qualification pending.",
+  "static_validation": {
+    "whole_tree_ruff": "check and format pass, 4393 files",
+    "native_docstrings": 246,
+    "course_notebooks": 156,
+    "exact_guide_example": "passed",
+    "dependency_contract_audit": "passed",
+    "devguide_and_indexes": "passed",
+    "owner_course_cells": 35,
+    "modified_markdown_ids": [
+      "96ebdbc9",
+      "4fb55a86",
+      "f158b27f"
+    ],
+    "owner_executable_cells_outputs_ids_metadata_preserved": true
+  },
+  "provider_snapshot": {
+    "public_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "archive_sha256": "15837de15b443f3f0853d484da9990da74cc444b9c562e4aafe9fbf86642cdbd",
+    "scope": "Read-only immutable public source overlay; no provider installation or source edit. Distribution metadata does not identify these source bytes."
+  },
+  "initial_test_diagnosis": {
+    "junit": "water-factory-focused-20261105.xml",
+    "tests": 39,
+    "failures": 5,
+    "passed": 34,
+    "causes": [
+      "Four authored cases incorrectly skipped native normalization for a rank-two box; corrected to the existing normalized rank-three native contract.",
+      "One authored case expected UnknownArgumentError after intentionally bypassing argument digestion; native Python TypeError is correct."
+    ],
+    "resolution": "Only consumer test expectations changed; no provider, scientific implementation or validation bypass changed. Added explicit native normalized-input error parity guard.",
+    "sha256": "8d506480fa91fe3e72959b4bc5f4e8451a38387b356a4512364148dc1d322b8c"
+  },
+  "new_water_factory_cases": 40,
+  "warnings": {
+    "full_addon": 2515,
+    "legacy_h5msm": 2429,
+    "atom_forcefield_attribute_drop": 70,
+    "groups": 10,
+    "scope": "All native warning groups retained, including the invalid-box determinant warning; no suppression added."
+  },
+  "retained_native_guard": {
+    "receipt": "devtools/data/molsysviewer_tools_waterbox_native_receiving_20261105.json",
+    "tests": 22,
+    "scope": "Unchanged published native8486 input; prior scalar completeness/boundary/geometry/units/form guard remains applicable. Not rerun or represented as 22 additional new consumer cases."
+  }
+}

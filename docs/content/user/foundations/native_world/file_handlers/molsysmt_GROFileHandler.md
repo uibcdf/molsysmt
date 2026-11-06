@@ -71,6 +71,16 @@ Inference occurs on the complete first entry before atom extraction. Consecutive
 groups with equal IDs remain distinct when their names differ. Inferred bonds
 do not certify arbitrary chemistry or assign force-field parameters.
 
+Supply `from_naming_scheme='amber'` to {func}`molsysmt.basic.convert` only when
+Amber is the source group-name convention. Native file/handler readers apply
+this declaration before classifying groups or inferring candidate bonds.
+The file-to-MDTraj routes use it for the same initial connectivity inference
+while retaining their coordinate-series reading. Without a declaration,
+ambiguous names such as ASH/GLH remain unknown and are excluded from inference;
+the `.gro` extension does not imply a convention. A global declaration is not
+appropriate for a file mixing naming schemes. See
+{ref}`user-foundations-group-naming-schemes` for mixed-group metadata and limits.
+
 The file-to-OpenMM Topology and Modeller bridges reuse native conversion and
 extraction. Selected atom labels, inferred bonds and coordinates use the same
 native source order, and the periodic box is retained. These native-backed file

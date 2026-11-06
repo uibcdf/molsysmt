@@ -1,0 +1,198 @@
+{
+  "schema": "molsysmt.viewer-reference-map-source-receiving@1",
+  "date": "2026-11-04",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#554",
+    "uibcdf/molsysmt#549"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "d257b67893c9f673f315462a1308d4ee7df44723",
+  "received_owner_commit": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "source_identity": "Uncommitted merge inputs below were frozen during testing; the eventual contribution commit receives both parents. No self-referential final-commit assertion.",
+  "viewer_source": "793a92db38c4074dd042d220ac1e49191a9b2905",
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "linux",
+    "installed_support_metadata": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "qualification": "Existing explicit source environment, not a fresh solver installation; no environment mutation."
+  },
+  "source_guards": {
+    "tracked_source_files": 3088,
+    "source_sha256": "50b85971778bd4459270513ee2215dbde7398b106b3d889a102161a8f63df774",
+    "addon_files": 31,
+    "addon_sha256": "5a55663fbc13f308ec0d7fcbe59827e7547ed006404d04bcff774f75bfd2039b",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "runtime_rust_build_inputs_unchanged_during_full_run": true,
+    "native_package_and_rust_equal_owner_commit": true,
+    "addon_runtime_and_metadata_equal_contribution_parent": true,
+    "retained_full_input_manifest": {
+      "sha256": "0fdc013a6e470fcd7706af16d5b49562c655bf5957d48974be6029c5d2545a0a",
+      "size_bytes": 378977
+    },
+    "native_map_inputs": {
+      "molsysmt/_private/argdigest/reference_bonds.py": {
+        "sha256": "03a7ce71768f387647268eb04f2128887708a94af661b6caaa5ade1044e09ec9",
+        "size_bytes": 3985
+      },
+      "molsysmt/element/group/get_bonded_atom_pairs.py": {
+        "sha256": "e0c96eb5ee4066188794c527d32bd4b5c631a009cb7a137479e4fc0642e41001",
+        "size_bytes": 5990
+      },
+      "molsysmt/element/group/amino_acid/get_bonded_atom_pairs.py": {
+        "sha256": "811089bc5efc41815a1335c5d9cd48c2cb4fdc5c07741c8fb3f59b0a11f500c9",
+        "size_bytes": 6798
+      },
+      "molsysmt/element/group/ion/get_bonded_atom_pairs.py": {
+        "sha256": "ce387e147c6888088080aee90cf753254dd6aab086f2940880f2f164b377bddd",
+        "size_bytes": 5355
+      },
+      "molsysmt/element/group/saccharide/get_bonded_atom_pairs.py": {
+        "sha256": "b0185d7d6e2e5b557561b3a5d70d412903b6240ffadec3d987d59018f69bc37e",
+        "size_bytes": 4484
+      },
+      "molsysmt/element/group/small_molecule/get_bonded_atom_pairs.py": {
+        "sha256": "bf94b3685524f88baad4ab23c08252e3af0d76609ff1b99c6fe8d5312dc1e1d1",
+        "size_bytes": 3933
+      },
+      "molsysmt/element/group/terminal_capping/get_bonded_atom_pairs.py": {
+        "sha256": "7d5da7f98097dfc81f7219ef7299040d1e9724305782b715e1c6330c4df96de8",
+        "size_bytes": 4503
+      },
+      "molsysmt/element/group/water/get_bonded_atom_pairs.py": {
+        "sha256": "642e732d455c7b4950da0db3513ed915d9c3b205d6a850795be3059f13e39ec6",
+        "size_bytes": 3914
+      }
+    },
+    "consumer_test_input": {
+      "path": "tests/molsysviewer_molsysmt/test_element_template_tools.py",
+      "sha256": "09f865f7f275ff2c62d629dfb06bf2a2e56512dc6dc60ed830adea5e3d2dd5e4",
+      "size_bytes": 16360
+    }
+  },
+  "implementation": "The owner supplies all native validation. This receiving increment adds no addon runtime coercion, scientific implementation, chemistry assignment, generic-selection restriction or dependency floor.",
+  "merge_resolution": "The only textual conflict is native smoke selection; retain both amino_acid/test_name_examples.py and test_reference_bond_map_validation.py, with all addon files still in one pytest command.",
+  "local_receiving": {
+    "preliminary_existing_tests_with_owner_source_and_addon_only_overlay": {
+      "tests": 542,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 43.994,
+      "junit_file": "reference-map-554-existing-20261104.xml",
+      "sha256": "139ac868a06aa7b20df5e438c96b4bacfa51f3a5833ca1033a7fb222ac5ba630",
+      "size_bytes": 93375
+    },
+    "old_provider_red": {
+      "tests": 14,
+      "failures": 14,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.248,
+      "junit_file": "reference-map-554-addon-red-20261104.xml",
+      "sha256": "8538a7c6b2eb145a35b700ae28f0f1a03b105d8a7a0017d36ff845fe832275a0",
+      "size_bytes": 27202
+    },
+    "red_scope": "Fourteen string-map cases: eight missing refusals and six missing qualified public-caller diagnostics. 520 other cases deselected; no old full-suite claim.",
+    "directed_template_and_native": {
+      "tests": 720,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 57.191,
+      "junit_file": "reference-map-554-addon-green-20261104.xml",
+      "sha256": "9a49dd3de83f6d767a187f61aca4eff581bc0600d64ea6e1529b0caf1935da9e",
+      "size_bytes": 141166
+    },
+    "directed_scope": {
+      "addon_template_cases": 534,
+      "native_map_cases": 186,
+      "new_consumer_cases": 178
+    },
+    "complete_addon": {
+      "tests": 3796,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 829.395,
+      "junit_file": "reference-map-554-addon-full-20261104.xml",
+      "sha256": "4db5bf7feb742920ea57cc84020c5b058d1fcb59d975ecdcdc1b18a599289b68",
+      "size_bytes": 707725
+    },
+    "complete_addon_command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "complete_addon_warnings": {
+      "total": 2262,
+      "groups": {
+        "LegacyH5MSMWarning": 2255,
+        "StructuralAttributeDropWarning": 4,
+        "DigestNotDigestedWarning": 2,
+        "RuntimeWarning": 1
+      },
+      "scope": "Retained native outcomes, including deliberately invalid dihedral keywords and degenerate geometry; no warning suppression introduced."
+    },
+    "route_inventory_documentation_notebook_guards": {
+      "tests": 533,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 23.841,
+      "junit_file": "reference-map-554-routes-docs-20261104.xml",
+      "sha256": "61e4f19b13f32f1c8efd8cc773875e431127af20f66615a174b9dc30b1d97b0c",
+      "size_bytes": 99436
+    },
+    "guide": {
+      "result": "One affected public guide block executes; four notebook payloads match their exact declared owner inputs.",
+      "sha256": "2a2b634acb5ad964545be578a10341425ebd2bcb11cef5dcae32f7a4eab20932",
+      "size_bytes": 687
+    },
+    "course": "156 canonical notebooks validate; no contributor change to owner notebook code, outputs, IDs, metadata or schemas.",
+    "docstrings": "246 public native docstrings pass structural/default/minimum-content validation, not scientific correctness certification.",
+    "ruff": "Whole-tree check and format pass, 4343 files formatted.",
+    "dependency_contract": "pass; no dependency declaration changes",
+    "devguide": "Offline validator and generated indexes pass; final receipt/record additions receive the same checks before commit."
+  },
+  "exposure": {
+    "exposed_paths": 216,
+    "declared_paths": 244,
+    "element": "57/57",
+    "build": "15/30",
+    "supported": "4/4",
+    "attribute": "7/7",
+    "fasta_readers_counted_separately": 2,
+    "qualification": "Paths include aliases and native stubs; exposure does not certify all inputs, scientific definitions, engines or installed packages.",
+    "inventory": {
+      "sha256": "b692a0f90bef4d18c5614147c8a593282af23f0071a8385a873d730b1454b662",
+      "size_bytes": 123118
+    }
+  },
+  "hosted_scope": {
+    "prior_molsysmt_head": "d257b67893c9f673f315462a1308d4ee7df44723",
+    "prior_run": 41876733234,
+    "prior_attempt_1": "Seven successful scientific cells; macOS Python 3.12 cancelled without acquiring a runner. Failed aggregate remains preserved.",
+    "prior_attempt_2": "Only cancelled job requested again; observed running full suite at final local receiving. It cannot qualify the received #554 source.",
+    "new_contribution": "Exact-head CI and owner acceptance pending; no manual duplicate full dispatch or cancellation of the old run."
+  },
+  "remaining": [
+    "Receive exact-head hosted gates and owner acceptance of PR #543.",
+    "Keep #549 legacy naming/protonation semantics open without facade repair.",
+    "Continue remaining fifteen build and six mechanics paths plus explicit bridge/alias/stub dispositions.",
+    "Task GUI and exact installed-artifact qualification remain separate; both 1.0 publications paused."
+  ],
+  "temporary_resources": {
+    "cleaned": "Completed addon-only import overlay removed after its scoped receiving.",
+    "retained": "Original JUnit/source manifest in Viewer task-local .pytest_cache; original source worktree retained for PR/hosted receiving. Review at next hosted closeout or 2026-11-11. No new Conda environment."
+  },
+  "publication": "No candidate freeze, package, public tag, Release or promotion."
+}

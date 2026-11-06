@@ -1,0 +1,248 @@
+{
+  "schema": "molsysmt.viewer-jupyter-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysviewer#300",
+    "uibcdf/molsysmt#590",
+    "uibcdf/molsysmt#591",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#421"
+  ],
+  "viewer_source_parent": "f31cf31a466b130436f5ed977e781ec5efd14e2f",
+  "owner_contribution_parent": "e3d5d21a5289bec34f239a9a2010773de4cf1d1b",
+  "native_owner_basis": "50854766d86817bba352c8c843931237595cf134",
+  "provider_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "qualified_sources": {
+    "viewer": {
+      "molsysviewer/viewer/popup_snapshot.py": "ce00678b257c37aa7b99b45c2464174a688e786adefc0214b6d7645b751753a1",
+      "tests/test_popup_snapshot.py": "242b4a55c1e1bbcfa23fd7696f13b8dc429f56ce6651246ee634124226b088d3"
+    },
+    "addon": {
+      "molsysviewer_molsysmt/_panel.py": "19dd2ad4965e2840388ad7fa06c79f9d0204b4756c3cad68d0d8cbcda4c04e76",
+      "molsysviewer_molsysmt/_panel_frontend.py": "e4179c2dfb08af296f574a3eef1e4734dce3fe99b28019148b3eb70df2d9e2c6",
+      "tests/molsysviewer_molsysmt/test_system_panel.py": "62f4ca32c832e94c6b2701b26ea6e7098cd1f7c3a93c82dff505ba72bdc3d30b",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "282c1c3c953ddd03a3aad6d9758fe514c11cf823fee4690541c8ba206489aa33",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.mjs": "6daaa475356433103cb13dd66300aad722b76b339809b83c67d0db9ba31d0fa2",
+      "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "fb8d6274185ecedb72929e087cb4b3cee29c9389c5579fa948e1bb7d1631ab70"
+    },
+    "native_backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "changes": [
+    "Current addon catalogue and context projections reach canvas/panel bootstrap without replaying endpoint-owned widget instances; static export builds the addon metadata once.",
+    "Completed removal keeps a weak-target/revision/draft outcome across context refresh and expires it without replaying science or retaining atom arrays/tokens.",
+    "Scoped review summary layout overrides real Jupyter definition-list float/width rules.",
+    "Reproducible private-loopback Jupyter/actual-kernel/anywidget/popup receiving starts and shuts down its own resources, without installing dependencies."
+  ],
+  "actual_jupyter": {
+    "file": "jupyter-guard-final-20261105/test_actual_jupyter_review_and0/jupyter/full-result.json",
+    "sha256": "3afe145aabaf2b5e43251699184e202a3e01fbbf0afc1c7837bdc78c8c357963",
+    "environment": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "packages": {
+        "jupyterlab": "4.6.4",
+        "ipykernel": "7.3.0",
+        "anywidget": "0.11.0",
+        "ipywidgets": "8.1.9"
+      },
+      "node": "v22.22.1"
+    },
+    "checks": [
+      "Execute real notebook with source-pinned Python 3.14 kernel",
+      "Native review is 165 waters / 3818 retained; Back does not edit",
+      "Confirm traverses real widget comms, native edit and Mol* rendering",
+      "Empty ion selection and remount retain a bounded draft without a review",
+      "Canvas popup and Studio popup share the actual Jupyter authority",
+      "Kernel verifies actual inventory and exactly two managed edits"
+    ],
+    "final_atoms": 3817,
+    "managed_edits": 2,
+    "summary_layout": "Actual Jupyter computed dt/dd floats are none; values are below and left-aligned with labels.",
+    "host_baseline": {
+      "message": "No active debugger session",
+      "plain_notebook_occurrences": 1,
+      "viewer_flow_occurrences": 2,
+      "source": "JupyterLab h.displayModules; same first stack frame reproduced without either molecular library.",
+      "new_viewer_page_errors": 0
+    },
+    "resource_cleanup": "Passed explicit pytest guard after private kernel/server shutdown and removal of both credential files; histories, profiles, settings and caches use the private receiving directory."
+  },
+  "validation": [
+    {
+      "file": "outcome-focused.xml",
+      "sha256": "41ef0df05ec8ed76f8a5530e6391e2d9d38b517db9cc86919925ca2c3b7b810c",
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "popup300-corrected.xml",
+      "sha256": "c6c96e089f5e5b6900ecdda2b283d4ed9c7d7d22659d2430fa70887eb70a5f71",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "popup300-final.xml",
+      "sha256": "54cf0afb98a2b1162408b9825f16e9b434fdd0f67b4eb4144c2591ea2fb8f806",
+      "tests": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "file": "host-protocol.xml",
+      "sha256": "73da51467ad3587d944ccce1a1e88dc1503bbc5ffae1b06e34d8dc53797dde49",
+      "tests": 315,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "owner-documentation.xml",
+      "sha256": "1eb63d8aa3cf88935bf5bb8ce5d27dfd2431941bc4ce288f8536d21b9ead41b2",
+      "tests": 65,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "addon-full.xml",
+      "sha256": "a7d0e47224395a47c18cd2c86bc420ef22dc0481419668bba941f3bd4863d273",
+      "tests": 4485,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "jupyter-guard-final.xml",
+      "sha256": "ab7465af4e2c003183ea37372ef9dc5d43a8f1de90ee0942e68ce066982baaa1",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "owner-routes-final.xml",
+      "sha256": "d9dd4b2ac721b2f402661bc0f27fc989ef0a88318cd630f6573d84905908ec57",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "host-reporting-final.xml",
+      "sha256": "9174817304899074e219578ba203a5eca44718458f145385cf38710bb5327c03",
+      "tests": 305,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "ordinary_browser": {
+    "file": "ordinary-browser.json",
+    "sha256": "2ac73044f766db3be8285b1276eb490d9a72942a0925fea63866b225890d44cf",
+    "checks": 5,
+    "page_errors": 0,
+    "scope": "Real Mol*/ESM/persistent native Python; no Jupyter comm transport in this separate guard."
+  },
+  "existing_popup_browser": {
+    "command": "Node 22 controls-visibility.e2e.js with the recorded Python/native source",
+    "exit_code": 0,
+    "scenarios": 3,
+    "scope": "Actual Python widget/export bootstrap, controls, both popup types, bidirectional scientific scene/camera/selection/playback and native picks/markers. Two rawReturn performance warnings retained."
+  },
+  "original_failures": [
+    {
+      "file": "outcome-original.xml",
+      "sha256": "974f005d0654132d85f7aabd3ffe9cb7e17ae2a0b430bf3b585705afcb24454a",
+      "result": "One real-demo failure: refresh returned select instead of done."
+    },
+    {
+      "file": "issue590-original-full-failure.json",
+      "sha256": "345a8b269ae549957369d60f3052ed3d433b503cbd12e5e70d6e08b6c113a830",
+      "result": "Actual Jupyter DOM completion is followed by blank selection-stage status."
+    },
+    {
+      "file": "issue300-original-full-failure.json",
+      "sha256": "822f161c2f1597c1487b5d6c872464228a407e4c43408007cb9fecadaada0199",
+      "result": "Actual canvas popup has no registered addon catalogue; molecular scene is present."
+    },
+    {
+      "kind": "Recorded pre-fix computed-style observation, not a retained raw-file digest",
+      "source": "e3d5d21a5 addon CSS in actual JupyterLab output",
+      "dt_float": "left",
+      "dd_float": "left",
+      "structures_label_width_px": 39.6562,
+      "value_horizontal_offset_px": 39.6562,
+      "result": "The original measured raw layout file was overwritten by a later corrected exploratory run; its observed values are retained here without relabelling the later bytes."
+    }
+  ],
+  "harness_corrections": "Exploratory attempts addressed the wrong/hidden control, raced restored or unloaded notebook cells, assumed shared popup navigation and used an invalid registry method in a first unit fixture. Corrected waits, public registry registration and independent navigation; no force-click, scientific expectation or gate reduction.",
+  "limitations": [
+    "Human Jupyter/Qt review is explicitly postponed; headless transport/layout is not that acceptance or a visible Qt/GPU certificate.",
+    "No installed-package, release, candidate, tag or both-1.0 publication qualification; publication remains paused.",
+    "Owner PR review/integration, exact-head CI and native #583/#584 repairs remain separate.",
+    "The native Jupyter debugger error is retained as a baseline observation; the complete page is not declared error-free."
+  ],
+  "earlier_jupyter_receiving": {
+    "file": "jupyter-system-final-v2-20261105/full-result.json",
+    "sha256": "4e8fc79f90aec64a15068bfcab81105bebe4a991cddc8f4e54ac8ab2d87b37da",
+    "environment": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "packages": {
+        "jupyterlab": "4.6.4",
+        "ipykernel": "7.3.0",
+        "anywidget": "0.11.0",
+        "ipywidgets": "8.1.9"
+      },
+      "node": "v22.22.1"
+    },
+    "checks": [
+      "Execute real notebook with source-pinned Python 3.14 kernel",
+      "Native review is 165 waters / 3818 retained; Back does not edit",
+      "Confirm traverses real widget comms, native edit and Mol* rendering",
+      "Empty ion selection and remount retain a bounded draft without a review",
+      "Canvas popup and Studio popup share the actual Jupyter authority",
+      "Kernel verifies actual inventory and exactly two managed edits"
+    ],
+    "final_atoms": 3817,
+    "managed_edits": 2,
+    "summary_layout": "Actual Jupyter computed dt/dd floats are none; values are below and left-aligned with labels.",
+    "host_baseline": {
+      "message": "No active debugger session",
+      "plain_notebook_occurrences": 1,
+      "viewer_flow_occurrences": 2,
+      "source": "JupyterLab h.displayModules; same first stack frame reproduced without either molecular library.",
+      "new_viewer_page_errors": 0
+    },
+    "resource_cleanup": "Launcher exits after server/kernel shutdown and removes private credential settings; no user Jupyter server or environment was modified."
+  },
+  "viewer_source": "36ab93b7f8bc0530818bbc178c35dc04a9defd07",
+  "validation_scope": "Scopes overlap. The 4,485-case run is the complete default addon scientific/integration collection; the actual-Jupyter guard is a separate explicitly selected GUI lane, not a skipped scientific test.",
+  "runtime_warnings": {
+    "addon_full": 2562,
+    "groups": 11,
+    "ackredit_tracking_warnings": 2,
+    "owner": "uibcdf/molsysmt#583",
+    "disposition": "Retained, not repaired by the GUI changes."
+  },
+  "source_control": {
+    "prior_frozen_inputs": 4270,
+    "intentionally_changed": [
+      "molsysviewer_molsysmt/_panel.py",
+      "molsysviewer_molsysmt/_panel_frontend.py",
+      "tests/molsysviewer_molsysmt/test_system_panel.py"
+    ],
+    "other_prior_inputs_changed": [],
+    "provider_files_unchanged": {
+      "argdigest": 39,
+      "smonitor": 41,
+      "depdigest": 17,
+      "pyunitwizard": 91
+    },
+    "native_authored_diff": []
+  },
+  "guard_hardening": "The first explicit GUI pytest attempt ran before the kernel accepted its first cell. The final driver waits for idle and uses Jupyter toolbar execution; the strict six-scenario scientific/visual assertions are unchanged. The failed attempt is retained locally in jupyter-guard.xml."
+}

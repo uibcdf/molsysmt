@@ -1,5 +1,7 @@
 """Exercise empty workspaces and preflight without rendering a browser canvas."""
 
+from contextlib import contextmanager
+
 import numpy as np
 import pytest
 
@@ -7,11 +9,53 @@ import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError
 
 
+@contextmanager
+def _owned_ngl_widgets():
+    """Dispose one test-owned widget graph, including player links."""
+    pytest.importorskip("nglview")
+    # NGLWidget.close() closes its own comm, but leaves player jslinks alive.
+    # Snapshot only this test's new widgets; do not close pre-existing widgets
+    # or modify the provider's production lifecycle/serialization behavior.
+    from ipywidgets.widgets.widget import _instances
+
+    previous = set(_instances)
+    try:
+        yield
+    finally:
+        for key, widget in list(_instances.items()):
+            if key not in previous:
+                widget.close()
+
+
+@pytest.fixture
+def owned_ngl_widgets(request):
+    """Dispose the widget graph created by each empty NGL workspace case."""
+    if request.node.callspec.params["viewer"] == "NGLView":
+        with _owned_ngl_widgets():
+            yield
+    else:
+        yield
+
+
+def test_closed_empty_ngl_workspace_keeps_later_widget_embedding_valid(monkeypatch):
+    pytest.importorskip("nglview")
+    from ipywidgets.embed import embed_snippet
+
+    monkeypatch.delenv("MSM_VIEWS_FROM_HTML_FILES", raising=False)
+    with _owned_ngl_widgets():
+        closed = msm.view(viewer="NGLView")
+        closed.close()
+    with _owned_ngl_widgets():
+        live = msm.view(viewer="NGLView")
+        html = embed_snippet([live])
+        assert live.model_id in html
+
+
 @pytest.mark.parametrize("viewer", ["MolSysViewer", "NGLView"])
 @pytest.mark.parametrize("explicit", [False, True])
 @pytest.mark.parametrize("trusted", [False, True])
 def test_default_or_explicit_none_creates_empty_workspace(
-    viewer, explicit, trusted, monkeypatch
+    viewer, explicit, trusted, monkeypatch, owned_ngl_widgets
 ):
     pytest.importorskip("molsysviewer" if viewer == "MolSysViewer" else "nglview")
     monkeypatch.delenv("MSM_VIEWS_FROM_HTML_FILES", raising=False)
@@ -76,7 +120,7 @@ def test_absent_selected_backend_uses_native_dependency_diagnostic(
 
 
 @pytest.mark.parametrize("viewer", ["MolSysViewer", "NGLView"])
-def test_real_empty_axes_create_empty_workspace(viewer, monkeypatch):
+def test_real_empty_axes_create_empty_workspace(viewer, monkeypatch, owned_ngl_widgets):
     pytest.importorskip("molsysviewer" if viewer == "MolSysViewer" else "nglview")
     monkeypatch.delenv("MSM_VIEWS_FROM_HTML_FILES", raising=False)
     result = msm.view(selection=[], structure_indices=[], viewer=viewer)

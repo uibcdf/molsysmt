@@ -1,0 +1,246 @@
+{
+  "schema": "molsysmt.viewer-nonbonded-source-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#561",
+    "uibcdf/molsysmt#572"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "04b9fbbda4654516c01d6c34e9c19ad17c1be0fb",
+  "native_owner_basis": "532d036228c9673c5ddd63beaa8093220b06b6b2",
+  "viewer_basis": "8826b5a29df01c24f7c9f10e2157cc79c3a5651c",
+  "viewer_runtime_logic": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "delivery": "Existing owner-reviewed PR only; final commit identity is recorded downstream without self-reference. No owner-main push or PR merge.",
+  "path": "molecular_mechanics.get_non_bonded_potential_energy",
+  "contract": {
+    "signature": "Native primary omitted; selection, selection_2, platform, engine, syntax and skip_digestion mirrored and forwarded explicitly. No update_view or scientific root alias.",
+    "reader": "Existing serialized reader binds current primary, including completed pending edits, without adoption, scene projection or history change. Cached methods rebind on replacement and reject empty/closed owners.",
+    "science": "Complete native parameterized system, selected internal nonbonded contribution or disjoint cross contribution; two-sided partition matrices keep native axes and energy quantities. No selected-subsystem preparation or new model is introduced in the facade.",
+    "limits": "Mixed partition/flat #561 native TypeError retained. Scientific receiving is bounded to the recorded single-structure CPU NoCutoff AMBER14 model; periodic long-range partitions, overlapping selections, arbitrary force fields and other platforms are not qualified."
+  },
+  "scientific_reference": {
+    "dataset": {
+      "path": "molsysmt/data/h5msm/traj_pentalanine.h5msm",
+      "file_sha256": "d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6",
+      "structure_indices": [
+        0
+      ]
+    },
+    "model": "Separate OpenMM ForceField amber14-all.xml + amber14/tip3p.xml; NoCutoff, HBonds. Native mechanical calculations/private masking helpers are not used by the numerical oracle.",
+    "formula": "All selected Coulomb and Lennard-Jones pairs with arithmetic sigma/geometric epsilon mixing; excluded and scaled 1-4 exceptions taken from the separate force-field model. SciPy CODATA constants supply the Coulomb factor in kJ nm/(mol e**2).",
+    "tolerance": {
+      "rtol": 2e-06,
+      "atol_kJ_per_mol": 0.0002
+    },
+    "recorded_values": {
+      "whole_internal": {
+        "parameters": {},
+        "unit": "kJ/mol",
+        "actual": -127.31487465272608,
+        "expected": -127.3149808573585,
+        "maximum_absolute_difference": 0.00010620463243071754
+      },
+      "atomic_internal": {
+        "parameters": {
+          "selection": [
+            0,
+            2,
+            7,
+            15
+          ]
+        },
+        "unit": "kJ/mol",
+        "actual": -89.74878025054932,
+        "expected": -89.74879520494683,
+        "maximum_absolute_difference": 1.4954397514088669e-05
+      },
+      "disjoint_cross": {
+        "parameters": {
+          "selection": [
+            0,
+            2,
+            7
+          ],
+          "selection_2": [
+            15,
+            19,
+            40
+          ]
+        },
+        "unit": "kJ/mol",
+        "actual": -126.9621787071228,
+        "expected": -126.9621890512042,
+        "maximum_absolute_difference": 1.0344081402990923e-05
+      },
+      "group_matrix": {
+        "parameters": {
+          "selection": "all in groups of group_index in [0,1]",
+          "selection_2": "all in groups of group_index in [4,5]"
+        },
+        "unit": "kJ/mol",
+        "actual": [
+          [
+            0.48406171798706055,
+            0.038308143615722656
+          ],
+          [
+            -0.4667539596557617,
+            0.018781661987247844
+          ]
+        ],
+        "expected": [
+          [
+            0.48406162377192885,
+            0.03829820827465369
+          ],
+          [
+            -0.4667317534082329,
+            0.018786725020369488
+          ]
+        ],
+        "maximum_absolute_difference": 2.220624752879985e-05
+      }
+    },
+    "unit_policy": "kJ/mol and kcal/mol with angstrom display-length policy; results compared explicitly in kJ/mol, output units and unchanged application policy asserted.",
+    "cpu_threads": "Test/probe process requests OPENMM_CPU_THREADS=1; no universal native thread-limit guarantee is inferred."
+  },
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "Linux",
+    "observed_distribution_versions": {
+      "openmm": "8.6.1",
+      "scipy": "1.18.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b"
+    },
+    "scope": "Existing source environment; no clean solve or installed/public qualification."
+  },
+  "source_freeze": {
+    "files": 4230,
+    "sha256": "b1b225f8872ed532aec70fdc101b397f29d9f8330eee92b74651f1d9fe91e930",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "postcheck": {
+      "primary_files": 4230,
+      "primary_changed": [],
+      "provider_files": 91,
+      "provider_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+      "native_authored_diff": []
+    }
+  },
+  "provider_snapshot": {
+    "provider": "pyunitwizard",
+    "public_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "archive_sha256": "15837de15b443f3f0853d484da9990da74cc444b9c562e4aafe9fbf86642cdbd",
+    "files": 91,
+    "scope": "Read-only public source overlay; live provider work and existing installation unchanged. Distribution metadata is not asserted to identify this source."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_molecular_mechanics.py": "1229332db8be4c70c1123017da1639c3403e9038b5c707fd9212bd1252ccb6e3",
+    "tests/molsysviewer_molsysmt/test_nonbonded_energy_tools.py": "9613817b91c1c9da1c7d1e184f7372ecfb257505fb637b4e8c69cde0006d3b2b",
+    "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py": "649b2c60e77f7202717d26625f0936886c2593c91d019dfa523126e2458a9d54",
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": "a6d8d4e6dd0b9c19614695c31e99b94f37ab97c49e1ef0ac42cb451e6ddacb40",
+    ".github/workflows/ci-smoke.yaml": "d52ed14bb4462ad6d21c0c6ce841f1ff78ea0139761ae57e1305c04fd135fa4d",
+    "docs/content/user/tools/molsysviewer_tools.md": "08279d6e80d2b847ef8a3389e5ad0b7b009daaba07711b2b127b272b283bcb2a",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "fc85f41cb51a1f08cdc62c881b702a137eea5744b102a8e6361e64038a686aa0",
+    "docs/docs_manifest.yml": "3b84d8c1fbb1716bf4cb6ae7087b79671fc6fa5c55148412d3ac9e5fa4db5124",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": "e3ac881249966c35f183f9517ccd3c79c535aaf65ebb79ac4cb90f8dd3c3015f",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.AGENTS.md": "216a4df9bdb3d928262f5ceb6d681b318a2fc2e51817f1016ad8750e7e2a9454"
+  },
+  "validation": [
+    {
+      "file": "nonbonded-all-addon-20261105.xml",
+      "sha256": "5a4be1a000a47aa51ab1229147c6ee8b26322c53a15b8a862d3a0029fda15ef6",
+      "scope": "Final complete addon plus 32 host/source/distribution/inventory/smoke-command guards; four workers and immutable public PyUnitWizard source.",
+      "tests": 4311,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 325.52
+    },
+    {
+      "file": "nonbonded-mechanics-focused-20261105.xml",
+      "sha256": "2647dd3857cc5d49de9ef85c00f39c2974edcc0d0b2a6165d6189fce07520291",
+      "scope": "132 mechanical reader/minimizer/inventory/command cases, including all 38 new nonbonded cases.",
+      "tests": 132,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 58.882
+    },
+    {
+      "file": "nonbonded-docs-contracts-20261105.xml",
+      "sha256": "fdda6474270b5487890ceb6dc4bddfa8c02b7447b12c55241375e8510d32e6ec",
+      "scope": "142 documentation/source/distribution/course/reporting contract cases.",
+      "tests": 142,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 30.923
+    }
+  ],
+  "initial_receiving": {
+    "file": "nonbonded-focused-initial-20261105.xml",
+    "sha256": "0aafc13c9bf6a9de876c136916f8eedd0a5df8fbd806188fc00cca5bf4be1cc9",
+    "scope": "Initial 26 nonbonded cases pass; expanded coverage later adds empty, tuple/NumPy selections and output-policy assertions.",
+    "tests": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 17.183
+  },
+  "static_checks": {
+    "ruff": "Whole-tree check and format pass; 4381 files already formatted. Initial E731 in an authored test helper was corrected to def before final receiving.",
+    "docstrings": 246,
+    "course_notebooks": 156,
+    "dependency_contract_audit": "passed",
+    "guide_blocks_executed": 1,
+    "course_preservation": "Module 20 has 16 original cells; only Markdown cell 12 gains addon prose. Every original code cell, output, ID and metadata entry is preserved."
+  },
+  "forces_disposition": {
+    "issue": "uibcdf/molsysmt#572",
+    "authorization": "Maintainer explicitly approved opening the native route request after an open/closed issue search found no equivalent.",
+    "native_MolSys": "Bundled Trp-Cage, structure 0: NotImplementedError with ordinary digestion and skip_digestion=True, independently reproduced without Viewer.",
+    "positive_control": "Native get_forces on a two-particle harmonic OpenMM CPU Context returns [+10,0,0] and [-10,0,0] kJ/(mol nm), matching the analytic force.",
+    "not_exposed": true,
+    "native_fix_authored": false,
+    "request": "Owner defines structures, full-environment versus subsystem selection, magnitudes, supported element levels, units/PBC, ownership and diagnostics, protected by scientific pytest controls."
+  },
+  "exposure": {
+    "exposed": 233,
+    "declared": 244,
+    "build": [
+      27,
+      30
+    ],
+    "molecular_mechanics": [
+      5,
+      6
+    ]
+  },
+  "scope_limits": [
+    "No native scientific source, Rust/backend build, Viewer runtime, dependency floor or engine-model default authored.",
+    "Source exposure does not establish universal scientific accuracy, experimental-API stability, package/platform compatibility or a release.",
+    "Remaining build tools, force-reader request, bridge/alias/stub decisions and task-oriented GUI retain their separate work.",
+    "Exact-head hosted CI and owner acceptance are pending after delivery. Both 1.0 publications remain paused."
+  ],
+  "warnings": {
+    "full_addon": 2451,
+    "legacy_h5msm": 2404,
+    "scope": "Retained attribute-drop, pandas/unit-strip, deliberate unknown-digester and determinant diagnostics; none suppressed for test receiving."
+  }
+}

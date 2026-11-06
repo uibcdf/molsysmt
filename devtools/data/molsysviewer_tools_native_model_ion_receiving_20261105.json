@@ -1,0 +1,393 @@
+{
+  "schema": "molsysmt.viewer-native-model-ion-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#583",
+    "uibcdf/molsysmt#584"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "02c409e5b243a8c974723cee57e72aa6228af000",
+  "native_owner_basis": "8c266129320799bd4da8802ec27653642f45ba21",
+  "viewer_runtime_source": "ecf4635e3fe95bd382d127caf13e46ad3771d406",
+  "viewer_checkout": "0bef28879ac1d25a23aa13ae5dc186420554d5b7",
+  "status": "Native source received and documented conflicts reconciled in the owner PR; source gates pass. No owner-main write or merge is authorized.",
+  "changes": [
+    "Mirror native independent build.add_ions with current primary implicit and every scientific parameter explicit. No update_view/in_place mode or implicit adoption.",
+    "Solvate now mirrors native random_seed and skip_digestion; exact ion-count and source/missing-label repairs are received.",
+    "Resource lookup owns each returned list; distinct OBC1/OBC2 resources and stored constraint policies are received and tested against explicit OpenMM.",
+    "Preserve original owner course code/outputs/IDs/metadata and addon narrative; archive three original consumer reports alongside independent owner reports without overwriting history.",
+    "Retain the existing single graphical System / Remove atoms task; no additional GUI or host runtime change."
+  ],
+  "exposure": {
+    "source_paths": 242,
+    "declared_paths": 245,
+    "modules": {
+      "basic": {
+        "native_paths": 26,
+        "exposed_paths": 26,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "topology": {
+        "native_paths": 2,
+        "exposed_paths": 2,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "chemical_states": {
+        "native_paths": 9,
+        "exposed_paths": 9,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "structure": {
+        "native_paths": 28,
+        "exposed_paths": 28,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "pbc": {
+        "native_paths": 13,
+        "exposed_paths": 13,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "physchem": {
+        "native_paths": 34,
+        "exposed_paths": 34,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "build": {
+        "native_paths": 31,
+        "exposed_paths": 31,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "molecular_mechanics": {
+        "native_paths": 6,
+        "exposed_paths": 5,
+        "explicit_native_stubs": 0,
+        "missing": [
+          "molecular_mechanics.get_forces"
+        ]
+      },
+      "interactions": {
+        "native_paths": 15,
+        "exposed_paths": 15,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "element": {
+        "native_paths": 57,
+        "exposed_paths": 57,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "h5msm": {
+        "native_paths": 7,
+        "exposed_paths": 7,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "hbonds": {
+        "native_paths": 4,
+        "exposed_paths": 4,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "attribute": {
+        "native_paths": 7,
+        "exposed_paths": 7,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "supported": {
+        "native_paths": 4,
+        "exposed_paths": 4,
+        "explicit_native_stubs": 0,
+        "missing": []
+      },
+      "molecular_dynamics": {
+        "native_paths": 2,
+        "exposed_paths": 0,
+        "explicit_native_stubs": 2,
+        "missing": [
+          "molecular_dynamics.run_NPT_equilibration",
+          "molecular_dynamics.run_NVT_equilibration"
+        ]
+      }
+    },
+    "inventory_sha256": "b49ad931d78b44d4cd3a273942ff846bacf552f88506b190dec3449ac51df01e",
+    "scope": "Dated native functional path inventory; aliases are not independent science. Excludes classes/configuration/form adapters/third-party bridges."
+  },
+  "validation": [
+    {
+      "file": "native8c-final-addon-20261105.xml",
+      "sha256": "8fa0df4eb59e9f3664d2dda89a48a5af401f94bca56c7c233a3c74fa90ae093b",
+      "scope": "Complete addon plus 32 host/source/inventory/smoke-command controls; four workers; fixed provider source.",
+      "tests": 4506,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 341.461
+    },
+    {
+      "file": "native8c-provider-controls-20261105.xml",
+      "sha256": "2b754d95cbd2a7f4c23db907068f77dc3c89d91efbba7bcd3b36f86a6ee7353f",
+      "scope": "362 incoming native ID/view/ion/solvation/force-field/OBC/constraint/scientific controls, before formatting one native guard.",
+      "tests": 362,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 25.979
+    },
+    {
+      "file": "native8c-formatted-guard-20261105.xml",
+      "sha256": "38ed1410d7f7f0a711d2e5f4d47073c86b1d61743a96477183b0317be8945487",
+      "scope": "183 native resource guards after AST-identical formatting; overlaps provider controls.",
+      "tests": 183,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.633
+    },
+    {
+      "file": "native8c-physical-consumer-corrected-20261105.xml",
+      "sha256": "fb649be78cedae040bc06d18a7b5c75d1c68ae08d7e494fed3595da9f170a6a5",
+      "scope": "18 resource-ownership and explicit-model/constraint consumer controls, included in full addon.",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 10.423
+    },
+    {
+      "file": "native8c-ion-corrected-20261105.xml",
+      "sha256": "6f039d888ebe90f8c32d7b19df56170d8a31dc8cdea66ca231290bdbc32ff90f",
+      "scope": "18 new independent ion wrapper controls, included in full addon.",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 10.87
+    },
+    {
+      "file": "native8c-registrations-corrected-20261105.xml",
+      "sha256": "0e6e25c25afb9b2f55c4fe679268e72d8389dcdcfa9142f17329872c65521c74",
+      "scope": "64 build exposure and exact hosted smoke-command guards; included in full addon.",
+      "tests": 64,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 15.409
+    },
+    {
+      "file": "native8c-viewer-boundary-20261105.xml",
+      "sha256": "be14af9dfed15628f0b3dacc3a352a04f404a657e235a05de884df4aae576198",
+      "scope": "321 Viewer reporting/managed-edit/panel-endpoint controls with the received native source.",
+      "tests": 321,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 7.665
+    },
+    {
+      "file": "native8c-final-protocol-20261105.xml",
+      "sha256": "c3022cce5705ae5c40a681a72fe9c3b57296bbf7a41d4c60c04b5b72ee770213",
+      "scope": "54 owner reporting controls after preserving and archiving duplicate consumer records.",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.225
+    }
+  ],
+  "counts": "Scopes overlap; new physical/ion and registration cases are included in the complete 4506-case gate, not additive totals.",
+  "browser": {
+    "scope": "Local headless real Mol* + addon ESM + persistent Python/native source. Not a live Jupyter, visible Qt, popup or installed-artifact certificate.",
+    "checks": [
+      "Actual host workspace mounts addon ESM and native 1TCD review reports 165/3818 atoms.",
+      "Real click-to-Python removal updates actual Mol* structure to 3818 atoms; native revision advances once.",
+      "Zero ion matches remain a native no-op without another managed revision.",
+      "Host Update view reconciles a real pending edit; generic status event refreshes addon without repeating science.",
+      "Unmount/remount preserves the bounded draft and never restores an executable review token."
+    ],
+    "page_errors": [],
+    "native_source": "/tmp/msv-native-receiving-20261105/molsysmt/__init__.py"
+  },
+  "browser_artifacts": {
+    "result_sha256": "e338bc742c9947477969478af7367915c8042a68cf9f4a966994a9d2d6dc4fa8",
+    "screenshot_sha256": "83742f11e3bd86919f957c2c7f5066b564af6ef0b3cef5059f2fbea0ed9d8c14",
+    "scope": "Actual Mol*/ESM/persistent Python click-through; headless Chromium, not visible Qt/Jupyter/actual-popup or installed qualification."
+  },
+  "scientific_scope": {
+    "ions": "2 nm native water box; whole-water counts/maps, preserved coordinates/cell/source, explicit charge/seed/distance and native error ownership. Native engine/scientific controls remain separately identified.",
+    "mechanics": "22-atom native alanine fixture; OBC1/OBC2 and absent/default, none, HBonds, AllBonds/HAngles stored policies. Independent explicit OpenMM CPU recipes; energy tolerance rel=1e-6, abs=1e-4 kJ/mol. Not an arbitrary-system/model accuracy guarantee.",
+    "attribution": "#583 loses operation-specific OpenMM attribution after mixed model use; science completes. No downstream metadata replacement or disabled conflict detection.",
+    "reader": "#584 rejects the Boolean public constraints query. Native stored physical policies still reach tested engine construction; no downstream getter."
+  },
+  "initial_failures": [
+    {
+      "file": "native8c-initial-compatibility-20261105.xml",
+      "sha256": "3c092c564d1b775b986914c4728dd73774be8ac30af6f4dd7a9e3cca7f96aa33",
+      "scope": "Initial six incompatibilities: revised OBC resource expectation, newly native solvation flag, new add_ions exposure.",
+      "tests": 22,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 7.447
+    },
+    {
+      "file": "native8c-affected-20261105.xml",
+      "sha256": "86c9d45cfe8757db2343522893bffc8931c941fdff7aa9e11a1de7e567ed31c6",
+      "scope": "Original tests still expected pre-repair ID/count rejection and local-only digestion; four failures corrected to native contract.",
+      "tests": 114,
+      "failures": 4,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 52.016
+    },
+    {
+      "file": "native8c-ion-solvation-20261105.xml",
+      "sha256": "89105dc8a40349f3ef8a1158e387b324f2de1ace8a5b37f6edf3428475484866",
+      "scope": "Initial authored tests assumed invalid flags always reject with digestion skipped and exact floating decimal conversion; corrected test scope/tolerance.",
+      "tests": 46,
+      "failures": 8,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 32.631
+    },
+    {
+      "file": "native8c-physical-consumer-20261105.xml",
+      "sha256": "d9a392079892ffbf14be22e8a411a1a137f4693712a59e343085c4af75945c18",
+      "scope": "Initial authored checks mixed setter/converter None semantics and overly strict CPU tolerance. Stored absence/default and explicit none now distinguished.",
+      "tests": 18,
+      "failures": 7,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 9.504
+    },
+    {
+      "file": "native8c-full-addon-20261105.xml",
+      "sha256": "0b4b5f7949d1e2d9c71cd110b346394fff56192b70f3378eabe5eb4462e1febd",
+      "scope": "Initial full gate: 4497 pass, nine stale exposure/CI-registration assertions fail; fixed before the complete final gate.",
+      "tests": 4506,
+      "failures": 9,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 343.325
+    },
+    {
+      "file": "native8c-docs-controls-20261105.xml",
+      "sha256": "df7e4283d7596ed222b448785e743f16e15c60d434bf218a56debac21f03d2f7",
+      "scope": "583 owner docs/schema/report checks: 582 pass, one protocol check identifies three stale consumer-open reports beside owner-resolved reports. Final reporting controls recheck resolution.",
+      "tests": 583,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 88.525
+    }
+  ],
+  "test_only_formatting": {
+    "path": "tests/molecular_mechanics/test_get_engine_forcefield.py",
+    "original_sha256": "4e42c920a9cac033f0d0ba863ffc246c0dd3959a41d60b3c1551e00014e11710",
+    "formatted_sha256": "13fdeb2fc29de17cc91f38c70a5d0e0552f7c8fd3d58692d98f9846f77349a14",
+    "ast_unchanged": true,
+    "scope": "Incoming native test formatting only; scientific source and addon test inputs unchanged."
+  },
+  "source_freeze": {
+    "sha256": "1821a456172ade02adaf2119ff6258fa8793d599edf96eb511039dbe1be07657",
+    "files": 4267,
+    "postcheck": {
+      "primary_files": 4267,
+      "primary_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "provider_python_files": 91,
+      "provider_changed": [],
+      "viewer_source_files": 5,
+      "native_authored_diff": []
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "provider": {
+      "commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+      "python_files": 91,
+      "sha256": "b0b4bfaed9e617b53d3a553cb8a4f3b684018c14c4b3aebc3ab6558e8efabc4e"
+    },
+    "support": {
+      "argdigest": {
+        "files": 39,
+        "sha256": "3c4755458d50f130a2f3c28950a251ac648dd23e81746459be45f61270c4625b"
+      },
+      "smonitor": {
+        "files": 41,
+        "sha256": "b74089eef3ff3000cac98674e2adfdf926ff1776be3332dab74e2cf2e0cefe6f"
+      },
+      "depdigest": {
+        "files": 17,
+        "sha256": "403da67267b92db38ca9c0c97167cef9e66552780c3a6c4f97800ebd48dd743d"
+      }
+    }
+  },
+  "course_preservation": {
+    "owner_basis": "8c266129320799bd4da8802ec27653642f45ba21",
+    "notebooks": 157,
+    "changed_markdown": {
+      "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": [
+        "position:12"
+      ],
+      "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": [
+        "96ebdbc9",
+        "4fb55a86",
+        "f158b27f"
+      ],
+      "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb": [
+        "position:5"
+      ],
+      "docs/content/course/Common_Core/16_Structural_Operations.ipynb": [
+        "3a9e865b87b95025"
+      ]
+    },
+    "code_outputs_ids_metadata_preserved": true
+  },
+  "documentation": {
+    "validated_course_modules": 156,
+    "validated_native_docstrings": 247,
+    "new_ion_guide_example": "executed successfully",
+    "ruff": "whole-tree check and format --check pass",
+    "dependency_scan_audit": "pass",
+    "devguide_indexes": "pass",
+    "unchanged_examples": "Earlier unchanged source examples retain their previous input scopes."
+  },
+  "native_observations": {
+    "583": {
+      "file": "native8c-attribution-conflict-20261105.json",
+      "sha256": "f07c220bb57e84214885cdd0d560274fda11df21871211370c60a2fb7fa5ac79"
+    },
+    "584": {
+      "file": "native8c-constraints-query-20261105.json",
+      "sha256": "448b5c6afac439573a3024855c42c0d72f857882a709cbdef3f62ac01672e915"
+    }
+  },
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "source_profile": "Explicit new contribution path + fixed public provider overlay + retained native backend. No reinstall or build; distribution metadata is not source identity."
+  },
+  "workspace_preservation": "Suite inventory refreshed. Four owner generated API stubs and seven pre-existing Viewer sandbox items remain untouched; lagging/unrelated source checkouts and missing PeptideMT were not reconciled as part of this bounded task.",
+  "pending": [
+    "Owner PR review/integration and exact-head hosted CI/artifacts.",
+    "Native #583/#584 repairs; #582 effective recipes/control availability remains separate.",
+    "Native MolSys forces #572 and managed protonation correspondence #576.",
+    "Live Jupyter, visible Qt and real popup review; remaining graphical tasks.",
+    "Clean installed qualification and a separate authorized publication decision."
+  ],
+  "publication": "Both 1.0 publications remain paused; no tags, candidate files, package production or promotion."
+}

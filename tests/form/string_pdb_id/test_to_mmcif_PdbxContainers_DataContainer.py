@@ -3,6 +3,7 @@
 import importlib
 import shutil
 
+import numpy as np
 import pytest
 
 import molsysmt as msm
@@ -84,4 +85,5 @@ def test_convert_multimodel_pdb_id_uses_all_nmr_models_offline(monkeypatch):
     assert ensemble.topology.n_groups == 20
     assert ensemble.structures.n_structures == 38
     assert ensemble.structures.coordinates.shape == (38, 304, 3)
-    assert ensemble.structures.occupancy is None
+    # The source explicitly declares full occupancy for every observation.
+    np.testing.assert_array_equal(ensemble.structures.occupancy, np.ones((38, 304)))

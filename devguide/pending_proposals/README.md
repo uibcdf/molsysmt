@@ -37,12 +37,13 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (34)
+### Open (37)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
 - [`adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md) — [#155](https://github.com/uibcdf/molsysmt/issues/155) — Audit PyUnitWizard fast-path adoption at quantity boundaries. *(inspected)*
+- [`benchmark_baseline_comparability_and_competitor_gating.md`](benchmark_baseline_comparability_and_competitor_gating.md) — [#567](https://github.com/uibcdf/molsysmt/issues/567) — Define comparable performance baselines and third-party gate semantics. *(measured)*
 - [`define_faithful_openmm_runtime_and_state_snapshot_copy_contracts.md`](define_faithful_openmm_runtime_and_state_snapshot_copy_contracts.md) — [#592](https://github.com/uibcdf/molsysmt/issues/592) — Define faithful OpenMM runtime and State snapshot copy contracts. *(inspected)*
 - [`define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md`](define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md) — [#220](https://github.com/uibcdf/molsysmt/issues/220) — Define small-molecule chemical-state enumeration with atom correspondence *(inspected)*
 - [`energy_minimized_placement_for_ambiguous_modified_residue_gaps.md`](energy_minimized_placement_for_ambiguous_modified_residue_gaps.md) — [#249](https://github.com/uibcdf/molsysmt/issues/249) — Energy-minimized placement for ambiguous modified-residue gaps *(measured)*
@@ -56,6 +57,7 @@ Entries carrying front matter under
 - [`h5msm_0_6_molecular_mechanics_persistence.md`](h5msm_0_6_molecular_mechanics_persistence.md) — [#256](https://github.com/uibcdf/molsysmt/issues/256) — Design H5MSM 0.6 persistence for MolecularMechanics *(inspected)*
 - [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
 - [`molecular_identity_and_scaffold_overlap_annotations.md`](molecular_identity_and_scaffold_overlap_annotations.md) — [#447](https://github.com/uibcdf/molsysmt/issues/447) — Provide reusable molecular identity and scaffold overlap annotations for leakage audits. *(measured)*
+- [`native_molsys_force_reader_for_bound_consumers.md`](native_molsys_force_reader_for_bound_consumers.md) — [#572](https://github.com/uibcdf/molsysmt/issues/572) — Support native MolSys input in get_forces for primary-bound consumers. *(reproduced)*
 - [`paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md) — [#191](https://github.com/uibcdf/molsysmt/issues/191) — paper/main.tex is an unfilled template and the manuscript argument is unrecorded. *(inspected)*
 - [`post_1_0_chemically_specific_metal_coordination.md`](post_1_0_chemically_specific_metal_coordination.md) — [#337](https://github.com/uibcdf/molsysmt/issues/337) — Post-1.0 chemically specific metal coordination *(inspected)*
 - [`post_1_0_individual_interaction_editing.md`](post_1_0_individual_interaction_editing.md) — [#335](https://github.com/uibcdf/molsysmt/issues/335) — Post-1.0 individual interaction editing *(inspected)*
@@ -64,6 +66,7 @@ Entries carrying front matter under
 - [`post_1_0_streaming_interactions_and_h5msm_append.md`](post_1_0_streaming_interactions_and_h5msm_append.md) — [#336](https://github.com/uibcdf/molsysmt/issues/336) — Post-1.0 streaming interactions and H5MSM append *(inspected)*
 - [`post_1_0_water_paths_beyond_two_mediators.md`](post_1_0_water_paths_beyond_two_mediators.md) — [#338](https://github.com/uibcdf/molsysmt/issues/338) — Post-1.0 water paths beyond two mediators *(inspected)*
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*
+- [`protonation_removal_correspondence_for_bound_consumers.md`](protonation_removal_correspondence_for_bound_consumers.md) — [#576](https://github.com/uibcdf/molsysmt/issues/576) — Expose public protonation-removal correspondence for managed consumers. *(inspected)*
 - [`qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md`](qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md) — [#530](https://github.com/uibcdf/molsysmt/issues/530) — Qualify corrected MDTraj batch SASA and retire independent-structure evaluation *(inspected)*
 - [`qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md`](qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md) — [#486](https://github.com/uibcdf/molsysmt/issues/486) — Qualify PyParsing 3.3.4 or its published successor for MDTraj selections *(upstream)*
 - [`read_only_geometry_and_steric_plausibility_assessment.md`](read_only_geometry_and_steric_plausibility_assessment.md) — [#555](https://github.com/uibcdf/molsysmt/issues/555) — Provide explicit read-only molecular geometry and steric plausibility assessment. *(inspected)*

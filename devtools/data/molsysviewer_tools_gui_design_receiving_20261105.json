@@ -1,0 +1,159 @@
+{
+  "schema": "molsysmt.viewer-gui-design-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#296"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "c0149a2d6147380046768b9211cf11b7b63ebeda",
+  "native_owner_basis": "8486ea59cdca48de30abf3e66484c11fd843da59",
+  "viewer_parent": "136221e25541e491f909351d8e9597db4b30ba8b",
+  "status": "Design for review; no graphical panel registered or live GUI operation implemented.",
+  "design": {
+    "workspace": "Molecular tools / MolSysMT",
+    "proposed_panels": [
+      "System",
+      "Geometry",
+      "Chemistry",
+      "Analysis"
+    ],
+    "first_slice": "Native selection, all-structure atom removal review, single confirmation and serialized managed execution. Water/ions are selection presets, not extra scientific algorithms.",
+    "result_gate": "Native molecular extraction is not View construction; View construction is not host presentation. A common qualified presentation path is needed before Open as new view in Jupyter/Qt.",
+    "python_api": "Expert signatures, defaults, native science and result ownership unchanged."
+  },
+  "artifacts": [
+    {
+      "path": "devguide/molsysviewer_tools_gui_design.md",
+      "sha256": "81dc94db414d1aaafbeb7c0162bc620554f6cc65e8782bc08d81d1dc327e45b1",
+      "size_bytes": 14014
+    },
+    {
+      "path": "devtools/prototypes/molsysviewer_tools_workspace.html",
+      "sha256": "735c84fe150f2a279ea8ab0dedbfa0b61ac2e80a6df8276423d8706c2706ce07",
+      "size_bytes": 12105
+    }
+  ],
+  "headless_native_flow": {
+    "dataset": "TcTIM/1tcd.bcif.gz",
+    "dataset_sha256": "6f15f9412a97e38ffb01e0aec8ffa6016ac5d1ddf50042e0129583caf65be125",
+    "source_atoms": 3983,
+    "original_structures": 1,
+    "water_atoms": 165,
+    "water_groups": 165,
+    "ion_atoms": 0,
+    "remaining_atoms": 3818,
+    "replicated_structures_for_scope_exercise": 3,
+    "checks": [
+      "Native category selection: 165 stored O atoms in 165 water groups; no ion-classified groups; no H construction.",
+      "Native extract/copy return independent molecular data; nonconsecutive structure order [2,0] and source coordinates/revision preserved.",
+      "view.extract returns a separate caller-owned View with remapped region; construction/lifetime only, no presentation claim.",
+      "Managed removal preserves target identity, retained coordinates and all three structures, remaps saved region/selection, synchronizes scene.",
+      "Empty selection is a no-op without a new managed revision.",
+      "All-atom removal rejects and preserves the retained system."
+    ],
+    "scope": "Headless native/API feasibility on existing source profile; no panel click, real popup, Qt window or installed-package qualification.",
+    "result_sha256": "422d2b3d98cd68e3ecf579d648364c59b7e91589b1257f2f2ab7dd7f62c5c8e5"
+  },
+  "prototype_browser": {
+    "scope": "Offline static design prototype; no kernel, native molecular edit, real addon panel, Jupyter or Qt qualification.",
+    "checks": [
+      "All four tabs without page overflow at viewport 390px (Compact).",
+      "Empty default, no-match ions, water review/back, disconnected confirmation, extraction gate and keyboard navigation at 390px.",
+      "All four tabs without page overflow at viewport 1000px (Notebook).",
+      "Empty default, no-match ions, water review/back, disconnected confirmation, extraction gate and keyboard navigation at 1000px.",
+      "All four tabs without page overflow at viewport 1400px (Desktop).",
+      "Empty default, no-match ions, water review/back, disconnected confirmation, extraction gate and keyboard navigation at 1400px."
+    ],
+    "page_errors": [],
+    "result_sha256": "9fe20a89aac145908aea8d37c8463c3a81255935c459a903be30f6aeadf2119e"
+  },
+  "viewer_fix": {
+    "issue": "uibcdf/molsysviewer#296",
+    "source_sha256": "3ce269a7644b6fb7d6bee31b870c126d53058f3f06b53284f41355176d9677f4",
+    "guard_sha256": "c706ae8e3f9a2374fc590c6de3b0a027ea0bbde0d08feb93b1590052b4d6aed7",
+    "cause": "Numeric region query expression was passed to regex; changed-universe numeric selectors now transfer resolved atoms/colors and freeze with source evidence rather than replaying old indices.",
+    "new_guards": 15,
+    "validation": [
+      {
+        "file": "extract-numeric-region-real-red-20261105.xml",
+        "sha256": "b808a48af66725058688cf33a2e58aed75e069aed568e05064f5cfe48e627263",
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "extract-numeric-region-final-scoped-20261105.xml",
+        "sha256": "493327a1bd4749c941f2b99adbb85e31bea8d86d3e39fc16ab1b2fb99abff625",
+        "tests": 33,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "extract-numeric-region-boundary-20261105.xml",
+        "sha256": "48e256af24b076c320bd5194938f892c73e7511e74712a4dd5cb4d07d4e31072",
+        "tests": 119,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "note": "The real-red case intentionally runs the original host source, fails with the intended TypeError and restores the exact fix before final checks. 33 scoped cases are included in the 119 boundary cases, not additive totals."
+  },
+  "prior_expert_evidence": {
+    "receipt": "devtools/data/molsysviewer_tools_water_factory_receiving_20261105.json",
+    "scope": "Original 4,438-case source/runtime input retained unchanged; not rerun or described as a full gate on the new Viewer patch."
+  },
+  "diagnoses": {
+    "initial_authored_tests": "Corrected test assumptions: region mode uses set_mode, public provenance is a read-only mapping, and core region Boolean masks are not admitted. No argument validation was weakened. Initial JUnit failures retained separately.",
+    "initial_probe": "An early file-script invocation did not assert package origins and is not used as source evidence. Final invocation pins worktree and immutable provider explicitly and asserts both native/addon origins. SavedSelection indices are lists; no-op operation IDs may change while target/integration revisions stay fixed.",
+    "matplotlib": "Sandbox logs preserve the unwritable default configuration warning and automatic temporary cache fallback; no persistent environment or provider workaround introduced.",
+    "initial_authored_junit": [
+      {
+        "file": "extract-numeric-region-before-20261105.xml",
+        "sha256": "3d24f944a6ec136386afaf1a1e58e2957a305f3fd24081d66be9abc5c0bc0473",
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "extract-numeric-region-scoped-20261105.xml",
+        "sha256": "95995cba942f65704fb472792d40c4d17e0297547d555759d4c895ff9950850e",
+        "tests": 35,
+        "failures": 11,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "extract-numeric-region-corrected-20261105.xml",
+        "sha256": "cf79c0f671c42ada3921577c86519a87880508ab61e4756d28ca3443722b3b09",
+        "tests": 17,
+        "failures": 11,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "source_changes": {
+    "owner_runtime_diff": [],
+    "viewer": "One private transfer classification fix plus regression guards; no new public API or frontend bundle."
+  },
+  "limits": [
+    "Existing Linux/Python 3.14 source profile and immutable public PyUnitWizard 02d0015 overlay; no installation or publication.",
+    "Browser prototype is static and disconnected, not live click-to-Python, Jupyter, Qt or popup qualification.",
+    "Host presentation, atomic review tokens, GUI lifecycle and result retention still require implementation and tests.",
+    "Owner review, exact-head CI, native #572/#576, task GUI and installed qualification remain separate. Both 1.0 publications remain paused."
+  ],
+  "owner_document_checks": {
+    "file": "molsysmt-gui-design-owner-docs-20261105.xml",
+    "sha256": "afd88854ade1a4275591d17c63b6d11e21e0baef26bf8544104b3b26d0f9d602",
+    "tests": 59,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}

@@ -8,6 +8,8 @@ def to_molsysmt_Topology(
     structure_indices="all",
     get_missing_bonds=True,
     skip_digestion=False,
+    *,
+    from_naming_scheme=None,
 ):
     """
     Converting from file:gro to molsysmt.Topology.
@@ -32,6 +34,10 @@ def to_molsysmt_Topology(
         distance rules. GRO declares no bonds. Defaults to True.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    from_naming_scheme : str or none, optional
+        Explicit source group-name convention, applied before classification
+        and candidate connectivity inference. Defaults to None (undeclared).
+        Declare 'amber' only when it is the convention of the source data.
 
     Returns
     -------
@@ -68,6 +74,7 @@ def to_molsysmt_Topology(
             atom_indices=atom_indices,
             structure_indices=structure_indices,
             get_missing_bonds=get_missing_bonds,
+            from_naming_scheme=from_naming_scheme,
             skip_digestion=True,
         )
     finally:

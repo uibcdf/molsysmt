@@ -320,6 +320,14 @@ python devtools/scripts/devguide_index.py --check   # fail if stale
 
 ## What is checked automatically
 
+Remote reconciliation acquires every issue page before making absence claims.
+The owning script uses repository-context REST pagination, excludes PR entries
+and preserves the normalized state/label/title contract. A limited search/list
+is exploration, not an exhaustive audit; failed/empty transport is not proof of
+an empty board. See #587 and its bounded transport regression. Shared agent
+guidance remains under uibcdf/molsyssuite#171 and uibcdf/moli#85; delivery of
+those notices does not establish ecosystem adoption.
+
 `devtools/scripts/validate_devguide.py`, already part of the release gate, checks:
 
 - front matter present, parseable, and carrying every required field;

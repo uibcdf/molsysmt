@@ -8,6 +8,24 @@ from molsysmt._private.variables import is_all
 CALLER = "molsysmt.convert"
 
 
+def source_reader_accepts_scheme(source_form, target):
+    """Identify a direct reader that interprets the declaration during reading."""
+    from molsysmt.form import _dict_modules, load_converter
+
+    if not isinstance(source_form, str) or source_form in {
+        "molsysmt.Topology",
+        "molsysmt.MolSys",
+    }:
+        return False
+    module = _dict_modules[source_form]
+    route = module._convert_to.get(target)
+    return (
+        route is not None
+        and "from_naming_scheme"
+        in inspect.signature(load_converter(module, route)).parameters
+    )
+
+
 def _native_source(source, source_form, target, options, scheme):
     """Read only the required domain; keep source-reading options on that read."""
     from molsysmt.basic import convert
@@ -42,12 +60,20 @@ def _native_source(source, source_form, target, options, scheme):
             "molsysmt.MolSys"
         )
         if route is not None:
-            parameters = inspect.signature(load_converter(module, route)).parameters
+            converter = load_converter(module, route)
+            parameters = inspect.signature(converter).parameters
             consumed = {
                 key: value
                 for key, value in options.items()
                 if key in parameters and key not in {"group_indices", "copy_if_all"}
             }
+            if "from_naming_scheme" in parameters:
+                # Readers that interpret labels while constructing chemistry
+                # need the declaration before their first reconstruction.
+                native = converter(source, from_naming_scheme=scheme, **consumed)
+                return native, {
+                    key: value for key, value in options.items() if key not in consumed
+                }
     native = convert(source, to_form=target, **consumed)
     return native, {key: value for key, value in options.items() if key not in consumed}
 

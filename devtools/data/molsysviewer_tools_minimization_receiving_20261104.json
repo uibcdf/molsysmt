@@ -1,0 +1,257 @@
+{
+  "schema": "molsysmt.viewer-minimization-source-receiving@1",
+  "date": "2026-11-04",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#559",
+    "uibcdf/molsysmt#560",
+    "uibcdf/molsysmt#561",
+    "uibcdf/molsysmt#562"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "8357622508d1b87bc6d13ba90c624a9b7ede6fdc",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "published_owner_documentation": "5ccad1d8a2537b24e52474bd95103cc94700cba1",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "source_identity": "Working-tree hashes below identify the received input. Final contribution commit is delivered through the existing PR without a self-referential producer claim.",
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "linux",
+    "support_metadata": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "openmm": "8.6.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "scope": "Existing explicit source environment; no installation, fresh solve or artifact qualification."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_molecular_mechanics.py": {
+      "file": "_molecular_mechanics.py",
+      "sha256": "56718d133ebfb45dfb38c44b31e811cfddbc4d44decb2b7f8cc7bdb507d4a7ae",
+      "size_bytes": 8821
+    },
+    "molsysviewer_molsysmt/_geometry.py": {
+      "file": "_geometry.py",
+      "sha256": "ca79cfc3ce600bdc477cc6afe044dfec516e243cd6b636a688b0c7edb9b3a32c",
+      "size_bytes": 10094
+    },
+    "tests/molsysviewer_molsysmt/test_minimization_tools.py": {
+      "file": "test_minimization_tools.py",
+      "sha256": "109998e8ad9616100192c4566244e9d4c7d2dd07c7ce35cbb3d839650f73db42",
+      "size_bytes": 15595
+    },
+    "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py": {
+      "file": "test_molecular_mechanics_tools.py",
+      "sha256": "bd678191b1025eb8494ea3a7d16ba7b5e269a3225bc1281778fb9decccaa23ae",
+      "size_bytes": 17366
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "file": "test_molsysviewer_tools_api_inventory.py",
+      "sha256": "5eab2021847b32fc2b71a9b251ffde7d7ce536ed78e335917af8ffad7d8fa5d8",
+      "size_bytes": 8911
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "file": "ci-smoke.yaml",
+      "sha256": "97e41f0719526faa055afa89244043673dbc987a3b2916b5b2f9dab99b964cc0",
+      "size_bytes": 14638
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "file": "molsysviewer_tools.md",
+      "sha256": "55abf74a9ce92c46acf025bbe9f94514df286d39431ce284441486fa0f2886d9",
+      "size_bytes": 214161
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "file": "molsysviewer_tools.md.AGENTS.md",
+      "sha256": "d074006f96a835c4995541c0b14b27f0a06056e618f7f4dc1b06e1a3309636da",
+      "size_bytes": 25712
+    },
+    "docs/docs_manifest.yml": {
+      "file": "docs_manifest.yml",
+      "sha256": "032df2a7626bed5d836d89bd456ee38baefc708ab86353e5a9b641cb401ccd35",
+      "size_bytes": 55949
+    },
+    "docs/content/course/Common_Core/16_Structural_Operations.ipynb": {
+      "file": "16_Structural_Operations.ipynb",
+      "sha256": "7a044b77d289bf90347210c609008e3fcbf8397cd0c3190c3126862d60f71b3a",
+      "size_bytes": 33446
+    },
+    "docs/content/course/Common_Core/16_Structural_Operations.AGENTS.md": {
+      "file": "16_Structural_Operations.AGENTS.md",
+      "sha256": "b807b9600d600c8fd709e61578440f818a4a0700c28ec754d8f9a1a68a7a2d9d",
+      "size_bytes": 3131
+    }
+  },
+  "frozen_sources": {
+    "manifest": {
+      "file": "mechanics-minimization-sources-before-20261104.json",
+      "sha256": "f3cffac65cdf1864b5c83840cbe656fcdf5018f61ba87d0ebd0183b688e0d311",
+      "size_bytes": 385592
+    },
+    "source_file_count": 3139,
+    "source_sha256": "85aac10c6379049f3d9c4b44e19ca544689bda2c69faa8a97d46eb9de9a82d87",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "native_rust_and_project_metadata_unchanged_from_parent": true,
+    "unchanged_during_complete_run": true
+  },
+  "implemented": {
+    "path": "molecular_mechanics.potential_energy_minimization",
+    "binding": "Current primary, serialized independent reads or managed retained-axis in-place coordinates.",
+    "native_parameters": "method, platform, engine, to_form, in_place=False and verbose retain native signatures/defaults/results.",
+    "local_parameters": "Keyword-only update_view=True controls projection; skip_digestion=False controls addon digestion only. The native minimizer has no declared skip flag and keeps ordinary validation.",
+    "ownership": "Independent output is never adopted. Native in-place output is None; retained atom/structure identities and native analysis invalidation are received through the existing geometry adapter/coordinator.",
+    "failure_contract": "A clean native rejection preserves science/scene and revisions, while retaining its managed attempt identifier. Scene synchronization failure exposes completed science; sync_view retries projection without minimization. Uncertain writes retain explicit-recovery requirements."
+  },
+  "scientific_receiving": {
+    "reference": "Separately constructed OpenMM ForceField(amber14-all.xml, amber14/tip3p.xml), NoCutoff/HBonds System, CPU Context with explicit Threads=1, nm positions and LocalEnergyMinimizer; the reference does not call MolSysMT mechanical functions.",
+    "resource_control": "The native CPU platform Threads default is scoped to 1 for each test and restored in finally. The test-only environment also restores through pytest; product/engine defaults are not changed by the addon.",
+    "policies": "Complete application policies use angstrom lengths and kJ/mol or kcal/mol energies; native geometry is compared in nm and energies in kJ/mol.",
+    "tolerances": {
+      "energy_rtol": 1e-07,
+      "energy_atol_kJ_per_mol": 1e-05,
+      "coordinate_rtol": 0,
+      "coordinate_atol_nm": 5e-06
+    },
+    "bounded_observation": {
+      "system": "Bundled pentalanine, structure 0",
+      "atoms": 62,
+      "initial_energy_kJ_per_mol": 282.55476539551114,
+      "final_energy_kJ_per_mol": 26.866007071360706,
+      "meaning": "Diagnostic native one-thread run; tests compare each result against an independently constructed model, not a hard-coded converged coordinate set."
+    },
+    "qualified_cases": "Independent/in-place ownership; immediate/deferred projection; local skip controls; native method/platform/form errors; explicit native output form and verbose path; unchanged topology/chemistry/mechanics/time/box; saved-analysis coverage invalidation; pending composition with translation; cached-primary replacement/closed/empty lifetime; completed-science transport failure and retry without coordinate replay.",
+    "unqualified": "No global-minimum, equilibrium/stability, GPU, arbitrary preparation/model, multiple-structure minimization loop, force reader or nonbonded partition qualification.",
+    "thread_control_evidence": {
+      "file": "mechanics-minimization-thread-control-20261104.json",
+      "sha256": "007b500bfa5b81b782c0160380a9b4d4e105a5c107a2cd413d2fa63e88dbc1a7",
+      "size_bytes": 331,
+      "observed": {
+        "before": "20",
+        "after_late_environment_change": "20",
+        "scoped_default": "1",
+        "observed_native_conversion_context_threads": "1",
+        "restored_default": "20",
+        "scope": "Independent real MolSysMT Context conversion, with the same default-attribute admission used by native minimization; no addon invocation or mocking."
+      }
+    }
+  },
+  "initial_receiving": {
+    "junit": {
+      "tests": 31,
+      "failures": 15,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 21.962,
+      "file": "mechanics-minimization-focused-20261104.xml",
+      "sha256": "8542be1ebffdbb908aed2e8d81c44be0fe797d91c55d495655dac16911ffa2a0",
+      "size_bytes": 42252
+    },
+    "diagnosis": [
+      "Eight strict cross-context checks and one fixed-energy-threshold case failed under uncontrolled native CPU threading: changing OPENMM_CPU_THREADS after import leaves an observed default of 20, while the reference explicitly used one. Original numerical tolerances and the threshold are retained after matching the execution settings.",
+      "Six clean-rejection checks incorrectly required an unchanged operation_id. Managed attempts deliberately retain an identifier; the tests now assert its namespace and all other unchanged science/scene/status fields."
+    ],
+    "correction": "Scope and restore the real CPU platform default; retain original numerical tolerances. Correct the rejected-attempt metadata expectation. No native algorithm or product workaround."
+  },
+  "local_receiving": {
+    "focused": {
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 20.663,
+      "file": "mechanics-minimization-focused-scoped-cpu-20261104.xml",
+      "sha256": "a8f71d6330ff5d638d609872ed9e6048ab16e6c5b4b4049867ba2520b674d8d3",
+      "size_bytes": 5415
+    },
+    "structure_docs": {
+      "tests": 562,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 22.82,
+      "file": "mechanics-minimization-structure-docs-20261104.xml",
+      "sha256": "92a4bd83ff6972f886fc56060632a3f27aa466629f34f12d7839b9213f89aaf0",
+      "size_bytes": 104662
+    },
+    "complete_addon": {
+      "tests": 3888,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "file": "mechanics-minimization-addon-complete-20261104.xml",
+      "seconds": 897.01,
+      "sha256": "85345f7652734af52258e9b244d02691ec38f6335042f04025e24822e0d4a46b",
+      "size_bytes": 724111
+    },
+    "guide": {
+      "file": "mechanics-minimization-guide-20261104.json",
+      "sha256": "1c955f3f47945f7ca4d89e2bb5fa34dbacc7a5c99cfcd3fbbd4da826c310c031",
+      "size_bytes": 1061
+    },
+    "course": "156 canonical notebook structures validate; one existing introductory Markdown cell gains addon prose. All code cells, outputs, cell IDs, other cells and notebook metadata remain identical to parent. The full Path minimization scenarios remain unqualified under #562.",
+    "native_docstrings": "247 native public functions pass structural/default/minimum-content validation.",
+    "ruff": "Whole-tree check and format pass; 4346 files.",
+    "dependencies": "Dependency-route audit passes; no dependency/floor/route changes.",
+    "complete_addon_command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "warnings": {
+      "total": 2340,
+      "LegacyH5MSMWarning": 2333,
+      "StructuralAttributeDropWarning": 4,
+      "DigestNotDigestedWarning": 2,
+      "RuntimeWarning": 1,
+      "scope": "Native legacy datasets, intentional invalid dihedral keywords and degenerate geometry; no suppression introduced."
+    },
+    "devguide": "Offline validation and generated queue indexes pass."
+  },
+  "historical_correction": "A dated correction appended to the preceding energy receipt withdraws its unverified native one-thread assertion. Its numerical results/source inputs remain preserved. The prior explicit reference Context and guide-process thread settings keep their recorded scopes.",
+  "provider_feedback": {
+    "562": "Maintainer-authorized course issue filed: nonexistent tolerance keyword and discarded independent minimization results. Reproduced keyword rejection on bundled native data; four remote biological courses inspected, not executed or scientifically qualified.",
+    "559_560_561": "Existing platform/resource/partition limitations stay native owner work; no facade repair."
+  },
+  "inventory": {
+    "exposed": 220,
+    "declared": 244,
+    "molecular_mechanics": "4/6",
+    "build": "15/30",
+    "element": "57/57",
+    "raw_fasta_readers": "Two, outside the functional inventory.",
+    "meaning": "Source exposure and bounded receiving do not establish universal science, owner acceptance or installed compatibility."
+  },
+  "scope_limits": {
+    "host_runtime_changed": false,
+    "native_algorithm_changed": false,
+    "rust_rebuilt": false,
+    "environment_created": false,
+    "package_installed": false,
+    "owner_acceptance": "Pending owner PR review.",
+    "hosted_ci": "New exact-head CI remains pending after publication; older energy campaigns retain their own source.",
+    "installed_pair": "Not qualified by this source receiving.",
+    "publication": "No frozen candidate, package, tag, Release, promotion or 1.0 publication."
+  },
+  "retention": {
+    "raw": "Task evidence in Viewer .pytest_cache, retain through CI/PR receiving and review by 2026-11-11.",
+    "temporary_resources": "Existing contribution worktree retained; no environment or native build created. Matplotlib-owned process caches are retired by their owning process."
+  },
+  "datasets": [
+    {
+      "system": "pentalanine",
+      "filename": "traj_pentalanine.h5msm",
+      "sha256": "d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6",
+      "size_bytes": 3494262
+    },
+    {
+      "system": "Trp-Cage",
+      "filename": "1l2y.h5msm",
+      "sha256": "fb1fcfdf51f323d3fcaf3157660d1b4f4ed7a16e3232c1f29d08e5bacf6d649b",
+      "size_bytes": 236395
+    }
+  ]
+}

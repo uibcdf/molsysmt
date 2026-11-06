@@ -1091,16 +1091,14 @@ def to_molsysmt_MolSys(
             aux = compare(
                 item_per_model[0],
                 item_per_model[ii],
-                atom_id=False,
                 atom_name=True,
                 atom_type=True,
                 group_index=True,
                 group_id=True,
                 group_name=True,
                 component_index=True,
-                # Component names are generated before splitting the models;
-                # their global ordinals are not source identity labels.
-                component_name=False,
+                # Only request identity-bearing fields. In basic.compare,
+                # False requests inequality; it does not omit an attribute.
                 molecule_index=True,
                 molecule_name=True,
                 skip_digestion=True,

@@ -1,0 +1,155 @@
+{
+  "schema": "molsysmt.viewer-element-domains-source-receiving@1",
+  "date": "2026-11-03",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "native_source": "55f18aefd284c422fbf93634c2076fc4de322f92",
+  "contribution_parent": "8e2f2c1f1377ccb4ffe398979bec1ba481953721",
+  "earlier_feature_head": "2cb4c8f01eea474d3959f1117f11c2291e49512f",
+  "viewer_source": "a61a01b2eb7b47d4ee36c73af14cd7a42fc1333d",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "environment": {
+    "packages": {
+      "molsysmt": "0.23.0+201.g3502232d8.dirty",
+      "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "mdtraj": "1.11.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "backend": {
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "scope": "Unchanged copied compiled backend; no new build, install or artifact/solver qualification. Native scientific sources equal the received owner commit, with no facade scientific patch."
+  },
+  "contract": {
+    "paths": [
+      "element.component.get_component_index",
+      "element.component.get_component_id",
+      "element.component.get_component_name",
+      "element.component.get_component_type",
+      "element.component.get_n_components",
+      "element.molecule.get_molecule_index",
+      "element.molecule.get_molecule_id",
+      "element.molecule.get_molecule_name",
+      "element.molecule.get_molecule_type",
+      "element.molecule.get_n_molecules",
+      "element.group.get_group_type",
+      "element.group.small_molecule.small_molecule_is_amino_acid"
+    ],
+    "binding": "All twelve use the loaded current primary through the serialized reader, without assignment, scene reconciliation or root aliases. Open/loaded lifetime and pending native edits retain the existing host contract.",
+    "ownership": "Molecules/groups are stable topology; components are ChemicalStates-local and retain native reference/reconstruction semantics. No canvas-frame chemistry choice, missing-domain repair, hidden preparation or scene/history effect.",
+    "legacy": "The native catalogued group-name plus CA/CB/C/O/N atom-name heuristic is preserved explicitly; no chemical connectivity or stereochemical validation or stored classification is claimed.",
+    "skip": "get_n_molecules and the legacy heuristic consume keyword-only local flags; the other ten preserve declared native skip flags. No forced scientific bypass."
+  },
+  "inventory": {
+    "native": 244,
+    "branch_exposed": 173,
+    "element_exposed": 29,
+    "element_native": 57,
+    "primary_element_exposed": 21,
+    "primary_element_native": 21,
+    "explicit_element_exposed": 8,
+    "remaining_explicit_element": 28,
+    "independent_metadata_prs": [
+      "uibcdf/molsysmt#538",
+      "uibcdf/molsysmt#540"
+    ],
+    "hypothetical_union_exposed": 184,
+    "union_integrated_or_qualified": false,
+    "collector": "devtools/scripts/audit_molsysviewer_tools_api.py",
+    "raw_sha256": "68bd42686c19428aae206c7812384db2b39a8faa747b6ee48954d3f8095dcba7"
+  },
+  "validation": {
+    "native_molecule_component_group": {
+      "tests": 117,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "4bc2423e81081ba8b71d2d1efca93c02e28b0701a6e353da48c140f859518f88"
+    },
+    "received_owner_graph_donor_reference_fixes": {
+      "tests": 354,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "729f72a68483b95e659d61ac49a9cbf5d96079b989497bda93dfd6c363246a17"
+    },
+    "focused_before_import_polish": {
+      "tests": 352,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "e6346b6cefa5d2fb9cc5f3464bcf4958d3a6a288e9baf958852bdc2b2aac4d2e"
+    },
+    "final_focused_after_import_polish": {
+      "tests": 352,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "d16d827dda5a3ee8ab3ff644c75500aa5e213bace6fd9b9e64a05423d4679c57"
+    },
+    "distribution_inventory_notebook_structure": {
+      "tests": 530,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "25ea608d177347dfd07d98860b1a59e33fa4aa7254ccbdab0008472d6d19cf9d"
+    },
+    "complete_addon": {
+      "tests": 2805,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "ca158608fca93b55a6122c68a85c0b0d3454b1ef6bad90b7637be1f6d73844ff",
+      "seconds": 678.97,
+      "warnings": 1825,
+      "new_domain_cases": 118,
+      "native_log_sha256": "9b65d8b9c88277083e94aad8561f57e02e4b2b23c38ae17473c60467c45fad9a",
+      "input_sha256": {
+        "molsysviewer_molsysmt/_element.py": "ba5277d3b2d3f32ba6fd85b62eea138322df32095a4848aab1048d43060a4f4a",
+        "molsysviewer_molsysmt/_element_domains.py": "7a600266efd2eaa88702ed03c3d9d5e8c531d641ed9f1157ab5a1e025de55cca",
+        "tests/molsysviewer_molsysmt/test_element_domain_tools.py": "3a3fff85fb7fbd747efe0d932eaf62debf0eaeff50dc950ccdfc795d55528bb5"
+      },
+      "scope": "Broad complete addon invocation on owner source 55f18aef, retained across the import-order-only polish. Final focused receiving below follows that polish; no exact installed or hosted certificate."
+    },
+    "import_order_polish": {
+      "change": "Only the order of two independent private-module imports; no function or class body change.",
+      "full_input_sha256": "ba5277d3b2d3f32ba6fd85b62eea138322df32095a4848aab1048d43060a4f4a",
+      "final_sha256": "c50957bea33af4120ce441abf1ea46f36aa95ecf45f1e68360a3bddbfbc5768e",
+      "function_and_class_ast_equal": true
+    },
+    "guide_examples": "All twelve added tools execute in two real-system blocks; the earlier guide content remains intact.",
+    "course": "156 notebooks validate; only Module 06 Markdown cell 5 extended by this increment, with code/output/execution counts/IDs preserved against the merged parent.",
+    "ruff": "Whole-tree check and format pass; 4319 files already formatted.",
+    "devguide": "Validation and generated indexes pass."
+  },
+  "initial_test_corrections": [
+    "ChemicalStates uses object identity for ==. The immutability guard now uses the existing strict inventory comparator, not a fabricated semantic equality.",
+    "The ordinary chemical_states setter rejects None by design. The absent-domain fixture uses the native partial-domain constructor with real copied topology/structures.",
+    "The native MolSys class is imported from molsysmt.native, not an unexported root alias. No native behavior was changed to satisfy these fixtures."
+  ],
+  "source_sha256": {
+    "molsysviewer_molsysmt/_element.py": "c50957bea33af4120ce441abf1ea46f36aa95ecf45f1e68360a3bddbfbc5768e",
+    "molsysviewer_molsysmt/_element_domains.py": "7a600266efd2eaa88702ed03c3d9d5e8c531d641ed9f1157ab5a1e025de55cca",
+    "tests/molsysviewer_molsysmt/test_element_domain_tools.py": "3a3fff85fb7fbd747efe0d932eaf62debf0eaeff50dc950ccdfc795d55528bb5",
+    "devtools/scripts/viewer_tools_contract.py": "27de877018c669da4fc5e086a5ce18b4a1bc938f8782b7cb98eebdf14a350b39",
+    ".github/workflows/ci-smoke.yaml": "1fce5bce0b1cd5e7142dbf567b48982fbe138bab8848301b7518fce2e1a894ad"
+  },
+  "limits": [
+    "Complete primary-element source exposure is not complete scientific/optional-engine/form/multi-platform or installed-artifact qualification.",
+    "The two independent metadata PRs are absent from this branch. 184/244 is a hypothetical union, not received integration.",
+    "Owner fixes are received from committed 55f18aef; no native scientific source or Rust patch is authored in this increment.",
+    "Review and integration remain MolSysMT-owned; no owner-main push, PR merge, host runtime/GUI change, dependency floor, candidate, tag or publication.",
+    "Structural archive controls do not replace actual archive and package-metadata qualification."
+  ],
+  "temporary_resources": "Existing isolated PR checkout and copied backend retained for owner review; no new checkout, environment or installation."
+}

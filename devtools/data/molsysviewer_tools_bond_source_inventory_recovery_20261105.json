@@ -1,0 +1,69 @@
+{
+  "schema": "molsysmt.viewer-bond-source-inventory-recovery@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "cb03d4bff95743c226ba3e4d0024e6a3952836f3",
+  "canonical_scientific_receipt": {
+    "path": "devtools/data/molsysviewer_tools_bond_addition_receiving_20261105.json",
+    "file": "molsysviewer_tools_bond_addition_receiving_20261105.json",
+    "sha256": "085e4afedb7c7142a7af6ecc2ab9af91dc1e80c73a0c829bd04045f829f0f9d6",
+    "size_bytes": 16149
+  },
+  "observed": {
+    "run": 42061378731,
+    "attempt": 1,
+    "conclusion": "failure",
+    "step": "Validate bound addon test command",
+    "failed": 1,
+    "passed": 30,
+    "cause": "test_current_source_distribution_does_not_advertise_or_include_legacy_addon detects unregistered molsysviewer_molsysmt/_chemical_edits.py in the exact source inventory. Scientific pytest tiers did not run in this smoke job.",
+    "manifest": {
+      "file": "manifest.json",
+      "sha256": "b93594b014c01c22c95c46478fbf4a9a06530951c1175d358181b4f26eb36433",
+      "size_bytes": 1843
+    },
+    "native_log": {
+      "file": "bond-edit-smoke-failed-native-20261105.log",
+      "sha256": "0e2116083d2222d80e45bb70451cd9573194a90fa30322a5a3ff59895d18e85d",
+      "size_bytes": 9155
+    }
+  },
+  "correction": "Register the reviewed helper in TOOLS_FILES, preserving exact source/wheel/installed inventory enforcement. Extend missing-source rejection to this module; do not remove or relax the guard.",
+  "changed_inputs": {
+    "devtools/scripts/viewer_tools_contract.py": {
+      "file": "viewer_tools_contract.py",
+      "sha256": "571f80a94d77a1235c9c94270474b0e910e27939d4a0225353cd7effc1f186c0",
+      "size_bytes": 3148
+    },
+    "devtools/tests/test_native_viewer_integration.py": {
+      "file": "test_native_viewer_integration.py",
+      "sha256": "719080a9c1c2e3fe76bd588b1eb04afe551b3edf2b8df21e5b0ae8e29cd0c48d",
+      "size_bytes": 9137
+    }
+  },
+  "validation": {
+    "command": "python -m pytest --receptor=llm devtools/tests/test_native_viewer_integration.py devtools/tests/test_molsysviewer_tools_api_inventory.py devtools/tests/test_smoke_addon_test_command.py",
+    "junit": {
+      "file": "bond-edit-package-contract-recovery-20261105.xml",
+      "sha256": "a8a597801c85404e8025bcc03860b5d930d91f6b8658700df8ff5db14d787915",
+      "size_bytes": 5963
+    },
+    "tests": 32,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "lint_format": "Both changed files pass Ruff lint/format.",
+    "source_count": 3146,
+    "source_sha256": "aec4d3b5a09f2dd41cd8387b8c4d5aae5c742458abbdcece3cec7547f7410d62",
+    "source_backend_unchanged": true,
+    "retained_science": "Original 24 focused / 492 integration / 53 native / 58 route-doc checks retain their exact inputs and limitations. No scientific/addon runtime code changes; no repeat of those full suites.",
+    "scope": "Source/distribution structural checks, including a controlled fixture-wheel installation. This is not a real package or installed scientific-pair qualification."
+  },
+  "remaining": "Receive exact new-head applicable CI and owner review; keep original failing run and previous source evidence.",
+  "retention": "Original capture/log/JUnit/source manifests retained through owner/CI receiving; review by 2026-11-11.",
+  "publication": "PR-only contribution; no owner-main edit/push/merge, algorithm/Rust/backend change, dependency-floor change, candidate, package, tag, Release or promotion."
+}

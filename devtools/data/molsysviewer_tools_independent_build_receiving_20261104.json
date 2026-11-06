@@ -1,0 +1,267 @@
+{
+  "schema": "molsysmt.viewer-independent-build-source-receiving@1",
+  "date": "2026-11-04",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "6cdace2b7fd84555fcd0da7304955df0e1599fbd",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "published_owner_documentation": "5ccad1d8a2537b24e52474bd95103cc94700cba1",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "source_identity": "Working-tree hashes identify the received input; final contribution SHA is delivered through the PR without a self-referential claim.",
+  "environment": {
+    "python": "3.14.7",
+    "molsysmt_origin": "/tmp/msv-element-1103/molsysmt/__init__.py",
+    "viewer_origin": "/home/diego/repos@uibcdf/molsysviewer/molsysviewer/__init__.py",
+    "profile": "molsyssuite@uibcdf_3.14",
+    "versions": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "openmm": "8.6.1",
+      "rdkit": "2025.9.5",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    }
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_build.py": {
+      "file": "_build.py",
+      "sha256": "78dba2f4fb2a6f04c76b52f352acfadbacec471226ae3997aeaef036c6db4e94",
+      "size_bytes": 17839
+    },
+    "tests/molsysviewer_molsysmt/test_build_independent_tools.py": {
+      "file": "test_build_independent_tools.py",
+      "sha256": "e59e915a1af5e49f86b8bae231b4eae691c0341f28da342dafe173b8e490139f",
+      "size_bytes": 19131
+    },
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": {
+      "file": "test_build_audit_tools.py",
+      "sha256": "4a62990e8702dd1bd063493a93c6c78141d32a147b5b96a94e0d402dd0a94555",
+      "size_bytes": 13862
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "file": "test_molsysviewer_tools_api_inventory.py",
+      "sha256": "9079100d497acabb714f3446262ea955ab7ebf30c163a30f7e4e828236091dd3",
+      "size_bytes": 8975
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "file": "ci-smoke.yaml",
+      "sha256": "bdc3a644e7e12cca53c5c7e7cd9f315098107091ea7df60235a24923e0986b48",
+      "size_bytes": 14712
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "file": "molsysviewer_tools.md",
+      "sha256": "4cf954d490a281b3119c503f8ce492682da73822ff7e65de24c62a8c6b91d01c",
+      "size_bytes": 219910
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "file": "molsysviewer_tools.md.AGENTS.md",
+      "sha256": "f80749e7739d4a3c8b368d6ce205d8fbfaede23b7324d1f7d8440a8f46e0edeb",
+      "size_bytes": 26503
+    },
+    "docs/docs_manifest.yml": {
+      "file": "docs_manifest.yml",
+      "sha256": "4df2460efdc2e2541058d195762706377afd3d68ff4b8894661033c5addf9431",
+      "size_bytes": 56054
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "sha256": "a57ed6c343a1978d79cc098c89d40c472c644e46de8d26159aef0003fbb262ca",
+      "size_bytes": 52655
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.AGENTS.md": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.AGENTS.md",
+      "sha256": "44ef27e78e4c55a41fb5d71e93cde03d78eb97a5f92c55c63753d0d4dc61d861",
+      "size_bytes": 2950
+    }
+  },
+  "frozen_sources": {
+    "manifest": {
+      "file": "build-independent-sources-before-20261104.json",
+      "sha256": "1a8e76c69407cfbddbfb500d87196723b33cb087f977bd7f0bc0da3aaffa6f2e",
+      "size_bytes": 385733
+    },
+    "source_file_count": 3140,
+    "source_sha256": "e728aa639247a9a45150243f3956c280d760c2b547b8db2c68a1b15458d75d92",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "native_unchanged_from_parent": true,
+    "complete_run_postcheck": "All 3140 frozen files, the retained backend digest and native Rust tree match after complete execution.",
+    "unchanged_during_complete_run": true
+  },
+  "implemented": {
+    "paths": [
+      "build.make_bioassembly",
+      "build.merge_nonpolar_hydrogens"
+    ],
+    "binding": "Serialized current primary, including completed pending edits without synchronization. Cached tools resolve replacement at call time; empty/closed owners reject.",
+    "signatures": "Native arguments/defaults and skip_digestion are preserved. Both outputs remain independent; no in_place/update_view, root aliases, implicit preparation, scene/history edits or adoption."
+  },
+  "scientific_receiving": {
+    "assembly": "Independent analytic coordinate oracle for identity plus proper 90-degree Z rotation and unit-bearing translation; declared common/repeated chain sets, structures [2,0,2]/[1], nm/angstrom/pm, times and structure IDs. Stored assembly/default-first-frame and native rejection of bad frames/missing name/heterogeneous chains are preserved. Real Barnase-Barstar expansion verifies 36 unique IDs A-Z/AA-AJ and repeated author names.",
+    "hydrogen_projection": "Declared six-atom methanol retains source indices [0,1,5], transfers [0.1,0.2,0.3] elementary_charge into the parent and preserves total charge within the native 1e-12 tolerance. Source IDs/names and H versus HD are explicit; omitted atoms remain distinct from merged H. Retained coordinates, structure repetitions, state/syntax choices, virtual H inventory, JSON report, representative lineage composition and output-only analysis invalidation are checked.",
+    "unit_policy": "Assembly geometry is compared in explicit nm under nm/angstrom/pm policies. Projection retains canonical charge_unit=elementary_charge and values under alternate length/charge policies; serialized quantity fields are checked before interpretation.",
+    "provenance": "Real explicitly prepared caffeine reduces 24 atoms to 14, conserves charge and retains derived typing/charge assignments with Gasteiger-Marsili source software/provenance. Reports detach from subsequent calculations; public output edits preserve the view.",
+    "unqualified": "No biological-model certification, implicit chain/chemistry inference, arbitrary force-field united-atom semantics, graphical workflow, GPU/out-of-core execution or H5MSM 0.5 mechanics persistence qualification."
+  },
+  "initial_receiving": {
+    "first": {
+      "file": "build-independent-focused-20261104.xml",
+      "sha256": "efe1f467c73ab04ae7bda5127767a57072f0f02bc0989a18bb862bbc0c285f6d",
+      "size_bytes": 17433,
+      "tests": 55,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 13.103
+    },
+    "second": {
+      "file": "build-independent-focused-corrected-20261104.xml",
+      "sha256": "c6c3a63f24f1603e4d1c004d49fa3ec840c99d4fab16dd9fb0b4ba6c33ce9c84",
+      "size_bytes": 24383,
+      "tests": 125,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 21.923
+    },
+    "diagnosis": [
+      "First failure: a nullable/object pandas Series was sent to NumPy comparison without an explicit float representation in the test; four parametrized cases also returned early without exercising assembly and are excluded as acceptance evidence.",
+      "Remove the four vacuous cases and add twelve real state/selection cases; the next failure compared a native floating-roundoff charge (-5.55e-17) to zero with atol=0. The final test uses the explicitly declared native charge_conservation_tolerance (1e-12). No runtime conversion or scientific algorithm changes."
+    ],
+    "exploratory_probe": "An initial pentalanine assembly probe printed coordinates.shape on a native empty result after requesting undeclared chain membership. This was an invalid positive fixture/diagnostic, not an established native defect. Positive controls use declared-chain fixtures and bundled Barnase-Barstar; no consumer inference or workaround is added."
+  },
+  "local_receiving": {
+    "focused_new_and_existing_build": {
+      "file": "build-independent-focused-final-20261104.xml",
+      "sha256": "d29c66d0a0a17241ca4373f38db521734a0dc6c6137e82284a6317356aa2b849",
+      "size_bytes": 22517,
+      "tests": 125,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 23.597
+    },
+    "new_cases": 63,
+    "native_reference": {
+      "file": "build-independent-native-20261104.xml",
+      "sha256": "3161a68d3ccaaa94d5a1264afa6d67eaa22821e5ddcbe6e99f3f7a0e2bc0fa3c",
+      "size_bytes": 8131,
+      "tests": 47,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 11.36
+    },
+    "structure_docs": {
+      "file": "build-independent-structure-docs-20261104.xml",
+      "sha256": "eb87fd5bb7a8495d05b22bca54a78a0b8d49371c434a43258347dafcada23ed4",
+      "size_bytes": 104662,
+      "tests": 562,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 20.159
+    },
+    "complete_addon": {
+      "tests": 3951,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 817.194,
+      "file": "build-independent-addon-complete-20261104.xml",
+      "sha256": "c42e9cc7118c3e2cf56b2ada743c7b9d94ea5e95fbfe62e02ba28044471b4ade",
+      "size_bytes": 735496
+    },
+    "guide": {
+      "file": "build-independent-guide-20261104.json",
+      "sha256": "803a00881ecb8f3024c63cb58474bc36a859d6daa061e4a7c352ab92c31bb312",
+      "size_bytes": 403
+    },
+    "guide_blocks": [
+      {
+        "block": 1,
+        "code_sha256": "8a6a004f1d78d3b9882646af7dfcb3ba17cc14b9b97c2ed776c146c2225b8fd3",
+        "passed": true,
+        "output_atoms": 1779,
+        "output_chains": 4
+      },
+      {
+        "block": 2,
+        "code_sha256": "e3663b8353451192997fee5178baca4eadeba2b71124a9a1d5ec80ec0abb4993",
+        "passed": true,
+        "source_atoms": 24,
+        "output_atoms": 14,
+        "charge_unit": "elementary_charge"
+      }
+    ],
+    "inventory": {
+      "file": "build-independent-inventory-20261104.json",
+      "sha256": "59a0ac189f2a5f4c06bbc1d15d84738746de281d7f51e8a075b6279e17416d75",
+      "size_bytes": 122816
+    },
+    "course_preservation": {
+      "file": "build-independent-course-preservation-20261104.json",
+      "sha256": "dd2cbbb01b9f280c16875a8301121ed22f99a51b119d68ee4748356e3ad87c87",
+      "size_bytes": 352
+    },
+    "course": "156 canonical notebook structures pass; one existing Markdown cell gains addon guidance. Original code, outputs, cell IDs, all other cells and notebook metadata are unchanged. This is structural receiving, not execution of all biological scenarios.",
+    "native_docstrings": "247 public functions pass structural/default/minimum-content checks.",
+    "ruff": "Whole-tree check/format pass: 4347 files.",
+    "dependencies": "Dependency-route audit passes; no dependency/floor/route changes.",
+    "complete_addon_command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "warnings": {
+      "total": 2340,
+      "LegacyH5MSMWarning": 2333,
+      "StructuralAttributeDropWarning": 4,
+      "DigestNotDigestedWarning": 2,
+      "RuntimeWarning": 1,
+      "scope": "Native legacy datasets, intentional invalid dihedral keywords and degenerate geometry; no suppression introduced."
+    },
+    "devguide": "Offline validation and generated queue indexes pass."
+  },
+  "inventory": {
+    "exposed": 222,
+    "declared": 244,
+    "build": "17/30",
+    "molecular_mechanics": "4/6",
+    "element": "57/57",
+    "raw_fasta_readers": "Two explicit file/text routes outside the functional inventory.",
+    "meaning": "Exposure is not universal scientific qualification, owner acceptance or installed compatibility."
+  },
+  "scope_limits": {
+    "host_runtime_changed": false,
+    "native_algorithm_changed": false,
+    "rust_rebuilt": false,
+    "environment_created": false,
+    "package_installed": false,
+    "owner_acceptance": "Pending review of PR #543.",
+    "hosted_ci": "Exact new-head CI pending after push. Earlier campaigns retain their own sources.",
+    "installed_pair": "Not qualified by this source exercise.",
+    "publication": "No frozen candidate, package/tag/Release, promotion or 1.0 publication."
+  },
+  "retention": {
+    "raw": "Viewer .pytest_cache; retain through CI/owner receiving and review by 2026-11-11.",
+    "resources": "Existing contribution worktree retained; no new environment or native build. Process-owned temporary Matplotlib cache retires with its process."
+  },
+  "datasets": [
+    {
+      "system": "Barnase-Barstar",
+      "filename": "1brs.bcif.gz",
+      "sha256": "aed172bd303f4de89f9458494985064d9ff878279726b2b01b46bb24a4791e82",
+      "size_bytes": 87209
+    },
+    {
+      "system": "caffeine",
+      "filename": "caffeine.sdf",
+      "sha256": "5fa7d904623492f573a51f82300b815e1036b90c76545b27ab32a8a61e08206c",
+      "size_bytes": 2319
+    }
+  ]
+}

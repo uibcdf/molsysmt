@@ -845,6 +845,9 @@ def convert(
         convention must agree with known declarations in the selected groups.
         Topology, MolSys, their typed dictionaries and H5MSM outputs retain the
         declaration; the input is unchanged.
+        Native GRO readers apply an explicit declaration before initial group
+        classification and candidate bond inference. This supplies reading
+        context, not a chemical-state assignment or force-field validation.
 
     Returns
     -------
@@ -1084,21 +1087,29 @@ def convert(
             )
 
     if from_naming_scheme is not None:
-        from molsysmt._private.naming_conversion import convert_with_source_scheme
-
-        output = convert_with_source_scheme(
-            molecular_system,
-            from_form,
-            to_form,
-            selection,
-            structure_indices,
-            syntax,
-            from_naming_scheme,
-            kwargs,
+        from molsysmt._private.naming_conversion import (
+            convert_with_source_scheme,
+            source_reader_accepts_scheme,
         )
-        if isinstance(output, (list, tuple)) and len(output) == 1:
-            output = output[0]
-        return (output, report) if return_report else output
+
+        if source_reader_accepts_scheme(from_form, to_form):
+            # Preserve the reader's coordinate/selection route while supplying
+            # naming context before any source chemistry is reconstructed.
+            kwargs = {**kwargs, "from_naming_scheme": from_naming_scheme}
+        else:
+            output = convert_with_source_scheme(
+                molecular_system,
+                from_form,
+                to_form,
+                selection,
+                structure_indices,
+                syntax,
+                from_naming_scheme,
+                kwargs,
+            )
+            if isinstance(output, (list, tuple)) and len(output) == 1:
+                output = output[0]
+            return (output, report) if return_report else output
 
     if to_form == "file:h5msm" or str(to_form).endswith(".h5msm"):
         options = dict(kwargs)

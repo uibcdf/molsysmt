@@ -56,7 +56,15 @@ The first three are:
 systems or assigned bonds. Eight further readers audit missing heavy atoms, bonds,
 residues and terminal cappings, nonstandard groups, indexed hydrogens, solvation
 and disulfide candidates; see the preparation-audit section below. Their native single-structure, exact-template and
-source metadata requirements remain explicit. Broader build editing is pending.
+source metadata requirements remain explicit. Three additional build methods return
+independent prepared systems: infer_covalent_bonds, assign_autodock_atom_types
+and assign_partial_charges. They do not adopt the result or update the scene;
+The label-only project_atom_names route also returns an independent output;
+`add_missing_bonds` also receives native independent results or managed in-place
+graph publication; its default is in-place. The native
+`solve_atoms_with_alternate_location` route receives selected coordinate,
+B-factor and atom-label publication with managed synchronization and explicit
+native limitations. Other build editing remains pending.
 
 The explicit `view.addons.molsysmt.interactions.hbonds` namespace now provides
 four recognition/characterization tools: `get_donor_atoms`, `get_acceptor_atoms`,
@@ -78,9 +86,41 @@ The source now also exposes `interactions.metal_coordination.get_metal_coordinat
 interaction function paths have explicit expert wrappers. This counts source
 exposure, not unconditional scientific accuracy, stability or installed compatibility.
 
-Other scientific modules, editing families and graphical task panels
-are still being implemented. This is not a complete MolSysMT mirror
+The initial `view.addons.molsysmt.molecular_mechanics` slice provides explicit
+`get_engine_forcefield` resource lookup and primary-bound
+`get_degrees_of_freedom`, `get_potential_energy`,
+`get_non_bonded_potential_energy` and `potential_energy_minimization`.
+The minimizer retains independent output by default and supports managed
+in-place coordinate updates. Other mechanical calculations retain their separate
+receiving; see the mechanical section for model, engine and ownership limits.
+
+Independent `build` results also include biological assemblies and an explicit
+AutoDock4 nonpolar-hydrogen projection. They preserve native preparation and
+mapping requirements and never replace the view automatically; see the
+construction examples below.
+Explicit terminal-atom attachment and bounded missing-heavy-atom repair are
+also available as independent outputs. Their atom identity, attribute-loss
+and saved-analysis contracts are described below.
+Hydrogen generation and terminal capping also mirror their native paths;
+the pH-driven and explicitly fixed-state preparation contracts remain distinct.
+Native builder staging and molecule-overlap filtering are also exposed, with
+explicit independent-builder and conditional-result ownership.
+Peptide construction from the loaded sequence and amino-acid mutation are
+available as independent native results, with reconstruction limits below.
+
+The qualified source contribution also provides the System task panel described
+below. Other graphical tasks and some scientific modes remain under development. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
+
+The received `view.addons.molsysmt.element` slice contains eight explicit-input
+utilities: `is_element`, `is_composed_of`, four `atom` type/name/isotope tools,
+and `group.is_group_type` / `group.get_group_type_from_group_name`. They work
+with an open empty view and keep caller inputs explicit; see the element
+utilities section below. Nine current-system chain/entity readers are received
+separately below. Twelve more primary-bound paths cover molecules, components,
+group types and a legacy name heuristic. Fourteen more explicit name/type/code
+utilities and fourteen reference-template queries are received below. The reviewed
+element source surface has all 57 paths; native qualification limits remain explicit.
 
 Install compatible versions of both components. MolSysMT supplies the
 integration; MolSysViewer discovers its declared entry point automatically.
@@ -174,6 +214,395 @@ with `skip_digestion` receive its value unchanged. The native `is_attribute` and
 addon control validates the integration call and is not forwarded. This source
 increment receives the native metadata/bootstrap repair from #534/#535; it does
 not establish a new compatible published package floor.
+
+## Using explicit element utilities
+
+You can check a supplied label or normalize explicit isotope aliases before
+loading a system. These helpers keep their scientific inputs; they do not read
+`view.molsys`, assign atom/group types or change the scene.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    element = view.addons.molsysmt.element
+    assert element.is_element("groups") is True
+    assert element.is_composed_of("group", "atom") is True
+    assert element.atom.is_atom_type("Ca") is True
+    assert element.atom.is_atom_type("CA") is False
+    assert element.atom.get_atom_type_from_atom_name("CA") == "C"
+    assert element.atom.normalize_atom_types(
+        ["C", "D", "T"], isotope=[13, None, 3]
+    ) == (["C", "H", "H"], [13, 2, 3])
+    assert element.atom.get_atom_type_from_atom_ff_type(
+        ["A", "NA", "HD", "Cl"], typing_scheme="autodock4"
+    ) == ["C", "N", "H", "Cl"]
+    assert element.group.is_group_type("amino acid") is True
+    assert element.group.get_group_type_from_group_name("ALA") == "amino acid"
+```
+
+`Ca` is a chemical element symbol; `CA` is an atom name in the name lookup.
+Force-field labels use their explicitly named typing scheme. `D` and `T`
+normalize to hydrogen with isotope mass numbers 2 and 3, respectively. No
+reference isotope, force-field type, chemical preparation or charge is assigned.
+Array/list shapes, errors, unknown-name warnings and result ownership follow
+MolSysMT; these eight tools do not acquire the primary molecular reader or
+flush pending managed edits.
+
+`element.is_composed_of` reports the native declared relation between two
+**element-level names**. It does not examine the contents of your system. The
+existing `basic.is_composed_of` and its root alias keep their molecular-system
+query role. Group-name lookup uses the public native export, including its
+`"unknown"` marker and spelling; no additional classification is invented.
+
+All eight methods expose `skip_digestion=False`. For `is_element`,
+`is_composed_of`, `atom.get_atom_type_from_atom_name` and `group.is_group_type`,
+this is a keyword-only addon control because the native function has no skip
+parameter. It is consumed locally, and native validation remains in force.
+The other four forward their declared native skip flag unchanged.
+
+Native references: {func}`molsysmt.element.is_element`,
+{func}`molsysmt.element.is_composed_of`,
+{func}`molsysmt.element.atom.is_atom_type`,
+{func}`molsysmt.element.atom.normalize_atom_types`,
+{func}`molsysmt.element.atom.get_atom_type_from_atom_name`,
+{func}`molsysmt.element.atom.get_atom_type_from_atom_ff_type`,
+{func}`molsysmt.element.group.is_group_type` and
+{func}`molsysmt.element.group.get_group_type_from_group_name`.
+
+## Recognizing explicit labels and looking up amino-acid codes
+
+Fourteen additional utilities accept explicit names without reading your system:
+`component.is_component_type`, `molecule.is_molecule_type`, ten group-family
+predicates, and the two amino-acid name/code lookups. They work before a system
+is loaded and do not inspect coordinates, select atoms, assign chemistry or
+change the scene.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    element = view.addons.molsysmt.element
+    assert element.component.is_component_type("peptide") is True
+    assert element.molecule.is_molecule_type("waters") is True
+    assert element.group.amino_acid.is_amino_acid("ALA") is True
+    assert element.group.ion.is_ion("NA") is True
+    assert element.group.lipid.is_lipid("POPC") is True
+    assert element.group.nucleotide.is_nucleotide("DA") is True
+    assert element.group.saccharide.is_saccharide("NAG") is True
+    assert element.group.small_molecule.is_small_molecule("ATP") is True
+    assert element.group.water.is_water("HOH") is True
+    assert element.group.terminal_capping.is_terminal_capping("ACE") is True
+    # Classify the protected peptide end without attaching a cap.
+    n_membership = element.group.terminal_capping.is_n_terminal_capping("ACE")
+    c_membership = element.group.terminal_capping.is_c_terminal_capping("NME")
+    assert isinstance(n_membership, bool) and isinstance(c_membership, bool)
+    assert element.group.amino_acid.get_standard_name("MSE") == "MET"
+    assert element.group.amino_acid.get_standard_name("ALA") is None
+    assert element.group.get_1_letter_code_from_name("SEC", naming_scheme="sequence") == "U"
+    assert view.molsys is None
+```
+
+These predicates recognize native catalogued labels. For example,
+`small_molecule.is_small_molecule("ATP")` can be True even when the view has no
+ATP atoms. It is distinct from the primary-bound legacy amino-acid name
+heuristic below. Native case, supported scalar inputs, returns and errors stay
+unchanged; no array-vectorization or unknown-name fallback is added.
+
+`get_standard_name` returns a replacement label for a known non-standard name,
+such as MSE -> MET. It returns None for an already-standard name or one without
+a known replacement. This is a name lookup, not a validation or a transformation
+of atoms, elements, connectivity, stereochemistry or protonation. The one-letter
+lookup uses the canonical group-level path and preserves native context diagnostics
+rather than guessing a vocabulary or code. The retired amino-acid path has no addon alias.
+
+The code lookup, `get_standard_name` and `is_amino_acid` mirror native
+`naming_scheme` and `skip_digestion` arguments. Their native skip flags retain
+the trusted-caller meaning. The other eleven helpers add keyword-only local
+`skip_digestion=False`, consumed without forwarding an unsupported native flag. Calls still
+require an open owner, including when retaining a method after view closure.
+No molecular reader, pending-edit synchronization or history effect is involved.
+
+Canonical code lookup includes XLE -> J and XAA -> X under explicit
+`naming_scheme="sequence"`. Cap predicates use the
+protected peptide end: ACE is N-terminal; NME/NHE/NH2 are C-terminal. These
+received native corrections do not supply atomic templates for ambiguity
+symbols or attach caps to a system.
+
+:::{warning}
+The received native cutover under
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549) distinguishes explicit
+sequence, Amber, bounded CCD and legacy vocabularies. For example GLH projects
+to E under Amber and Q under the explicitly selected historical legacy table.
+The scalar helper has no stored system context; ambiguous labels without a
+scheme retain the native diagnostic. Recognition/parent projection does not
+replace chemical groups or assign protonation. See
+{ref}`user-foundations-group-naming-schemes` for assessed profiles and limits.
+:::
+
+Native references: {func}`molsysmt.element.component.is_component_type`,
+{func}`molsysmt.element.molecule.is_molecule_type`,
+{func}`molsysmt.element.group.amino_acid.is_amino_acid`,
+{func}`molsysmt.element.group.amino_acid.get_standard_name`,
+{func}`molsysmt.element.group.get_1_letter_code_from_name`,
+{func}`molsysmt.element.group.ion.is_ion`,
+{func}`molsysmt.element.group.lipid.is_lipid`,
+{func}`molsysmt.element.group.nucleotide.is_nucleotide`,
+{func}`molsysmt.element.group.saccharide.is_saccharide`,
+{func}`molsysmt.element.group.small_molecule.is_small_molecule`,
+{func}`molsysmt.element.group.terminal_capping.is_terminal_capping`,
+{func}`molsysmt.element.group.terminal_capping.is_n_terminal_capping`,
+{func}`molsysmt.element.group.terminal_capping.is_c_terminal_capping` and
+{func}`molsysmt.element.group.water.is_water`.
+
+## Querying explicit group reference templates
+
+Fourteen further utilities expose native group reference data, independently of
+any loaded molecular system. They query reference bond pairs, five family
+databases and expected amino-acid heavy/hydrogen names. They do not inspect the
+view's connectivity, add atoms or bonds, choose a chemical state or update the
+scene. All atom names, index labels and chemical context remain explicit.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    group = view.addons.molsysmt.element.group
+    names = ["N", "CA", "C", "O", "CB"]
+    indices = [1040, 1009, 1030, 1007, 1012]
+    common = group.get_bonded_atom_pairs("ALA", names, atom_indices=indices)
+    specific = group.amino_acid.get_bonded_atom_pairs(
+        "ALA", names, atom_indices=indices
+    )
+    assert common == specific
+    assert group.ion.get_bonded_atom_pairs("SO4", ["S", "O1"]) == [[0, 1]]
+    assert group.saccharide.get_bonded_atom_pairs("NAG", ["C1", "C2"]) == [[0, 1]]
+    assert group.small_molecule.get_bonded_atom_pairs("ATP", ["PG", "O1G"]) == [[0, 1]]
+    assert group.terminal_capping.get_bonded_atom_pairs("ACE", ["C", "O"]) == [[0, 1]]
+    assert group.water.get_bonded_atom_pairs(["O", "H1", "H2"]) == [[0, 1], [0, 2]]
+    for family, name in [
+        (group.amino_acid, "ALA"), (group.ion, "SO4"),
+        (group.saccharide, "NAG"), (group.small_molecule, "ATP"),
+        (group.terminal_capping, "ACE"),
+    ]:
+        assert isinstance(family.get_group_db(name), dict)
+    assert group.amino_acid.get_expected_heavy_atoms(
+        "ALA", present_atom_names=names
+    ) == set(names)
+    hydrogens = group.amino_acid.get_expected_hydrogens(
+        "CYS", present_atom_names=["N", "CA", "C", "O", "CB", "SG"],
+        pH=7.4, is_n_terminal=False, is_c_terminal=False, is_disulfide=True,
+    )
+    assert isinstance(hydrogens, list)
+    assert view.molsys is None
+```
+
+Bond queries return native index pairs, using your explicit `atom_indices` or
+local positions in `atom_names` when omitted. These labels are not resolved
+against `view.molsys`. Native ordering, accepted containers, missing-template
+None/empty/error distinctions and family support remain unchanged. The general
+dispatcher is not a universal bond-perception engine: unsupported families can
+return None. No atom-name normalization or automatic template repair is added.
+The native return-documentation correction under
+[MolSysMT#548](https://github.com/uibcdf/molsysmt/issues/548) is received: all
+seven helpers describe index pairs. The addon preserves those native results;
+the documentation change does not alter reference connectivity.
+
+The five `get_group_db` helpers return the provider's reference dictionaries,
+whose family-specific layouts remain native. The addon introduces no cache or
+new normalized database schema. Expected heavy-atom queries keep native exact
+modified-group templates, variant selection and unknown-template behavior.
+Expected hydrogen queries keep explicit pH, terminal and disulfide context;
+their fixed reference thresholds are not predictions of environment-dependent
+pKa values. None of these queries protonates or repairs a system.
+
+The group dispatcher, amino-acid bond/heavy/H queries and ion bond helper
+retain their native `skip_digestion` arguments. The group and amino-acid
+queries expose keyword-only `naming_scheme` where the native signature declares
+it; raw `get_group_db` does not acquire a scheme argument. The other helpers
+keep a keyword-only local control without forwarding an unsupported flag. All require an
+open owner, work with an empty view and leave pending edits/history untouched.
+
+Explicit cap lookup returns the reference data for the supplied name. Protected
+peptide-end classification follows ACE at N and NME/NHE/NH2 at C; lookup does
+not choose an end, attach atoms or prepare chemistry.
+
+The received native flat-name normalization supports one-dimensional NumPy
+arrays, lists and tuples in the saccharide, small-molecule and capping bond
+helpers, including through the general dispatcher. Invalid name dimensions
+raise the native ArgumentError. The addon forwards inputs without a conversion
+or validation bypass; even its local skip control does not disable this native
+check. Reference connectivity and valid list results remain unchanged.
+
+Source receiving of
+[MolSysMT#554](https://github.com/uibcdf/molsysmt/issues/554) also preserves the
+native index-map contract: one nonnegative, unit-free integer per atom name,
+within the int64 range. Repeated labels are allowed; booleans, masked arrays,
+quantities and noninteger values are rejected with an `ArgumentError`.
+Length mismatches raise `ArgumentLengthError` with expected and actual counts.
+Valid read-only and strided arrays remain unchanged. These explicit labels
+are not checked against the current system's atom count. Native scalar
+single-atom compatibility remains available for amino-acid and ion helpers.
+Local addon skip controls do not disable native validation; declared native
+skip flags retain their trusted-caller meaning. This is source receiving,
+separate from published package compatibility.
+
+:::{warning}
+The received naming profiles under
+[MolSysMT#549](https://github.com/uibcdf/molsysmt/issues/549) keep a reporting
+parent distinct from an atomic reference. Explicit scheme context does not
+choose atom naming or authorize a parent-template substitution. The addon
+preserves native assessed/unassessed outcomes without a chemical-name repair.
+No template query prepares a molecule.
+:::
+
+Native references: {func}`molsysmt.element.group.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.amino_acid.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.amino_acid.get_expected_heavy_atoms`,
+{func}`molsysmt.element.group.amino_acid.get_expected_hydrogens`,
+{func}`molsysmt.element.group.amino_acid.get_group_db`,
+{func}`molsysmt.element.group.ion.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.ion.get_group_db`,
+{func}`molsysmt.element.group.saccharide.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.saccharide.get_group_db`,
+{func}`molsysmt.element.group.small_molecule.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.small_molecule.get_group_db`,
+{func}`molsysmt.element.group.terminal_capping.get_bonded_atom_pairs`,
+{func}`molsysmt.element.group.terminal_capping.get_group_db` and
+{func}`molsysmt.element.group.water.get_bonded_atom_pairs`.
+
+## Querying chains and entities
+
+`element.chain` exposes `get_chain_index`, `get_chain_id`, `get_chain_name`
+and `get_chain_type`. `element.entity` exposes `get_entity_index`,
+`get_entity_id`, `get_entity_name`, `get_entity_type` and `get_n_entities`.
+These nine readers use the current loaded system. Their selections, output
+levels, missing values, IDs and native result containers are preserved.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    element = view.addons.molsysmt.element
+    assert element.chain.get_chain_index(element="chain") == [0]
+    assert element.entity.get_entity_index() == [0]
+    assert element.entity.get_n_entities() == 1
+    atom_chain_names = element.chain.get_chain_name()
+    atom_chain_types = element.chain.get_chain_type()
+    atom_chain_ids = element.chain.get_chain_id()
+    entity_names = element.entity.get_entity_name()
+    entity_types = element.entity.get_entity_type()
+    entity_ids = element.entity.get_entity_id()
+    projected_names = element.chain.get_chain_name(
+        element="chain", redefine_names=True
+    )
+```
+
+Defaults match the native readers: chain getters default to output at the atom
+level, and entity getters default to the entity level. `get_n_entities`
+selects atoms when a subset is supplied. Indices are positions; returned IDs
+and names follow MolSysMT and may reflect missing source labels. No label is
+invented by the addon.
+
+`redefine_*` controls the native returned projection. It does not assign that
+projection to your system or change the scene. Native unsupported combinations
+retain their errors. Readers include completed molecular edits that are pending
+scene synchronization, while leaving that pending state unchanged. They acquire
+the managed molecular reader and require an open view with a loaded system;
+there is no `update_view` parameter or automatic representation.
+
+All nine expose `skip_digestion=False`. For `entity.get_n_entities` alone,
+this is a keyword-only addon control because the native reader has no skip
+parameter. It is consumed locally; native validation stays active. The other
+eight preserve and forward their native flags. Component/molecule and group readers are covered next. Other unreceived
+explicit-input element utilities remain pending.
+
+Native references: {func}`molsysmt.element.chain.get_chain_index`,
+{func}`molsysmt.element.chain.get_chain_id`,
+{func}`molsysmt.element.chain.get_chain_name`,
+{func}`molsysmt.element.chain.get_chain_type`,
+{func}`molsysmt.element.entity.get_entity_index`,
+{func}`molsysmt.element.entity.get_entity_id`,
+{func}`molsysmt.element.entity.get_entity_name`,
+{func}`molsysmt.element.entity.get_entity_type` and
+{func}`molsysmt.element.entity.get_n_entities`.
+
+## Querying molecules, components and group types
+
+The `element.molecule` and `element.component` namespaces each expose their
+native index, ID, name, type and count readers. `element.group.get_group_type`
+queries types from the current system; it remains distinct from the explicit
+name lookup `element.group.get_group_type_from_group_name`.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    element = view.addons.molsysmt.element
+    assert element.molecule.get_molecule_index() == [0]
+    assert element.molecule.get_n_molecules() == 1
+    molecule_ids = element.molecule.get_molecule_id()
+    molecule_names = element.molecule.get_molecule_name()
+    molecule_types = element.molecule.get_molecule_type()
+    assert element.component.get_component_index() == [0]
+    assert element.component.get_n_components() == 1
+    component_ids = element.component.get_component_id()
+    component_names = element.component.get_component_name()
+    component_types = element.component.get_component_type()
+    group_types = element.group.get_group_type()
+    assert group_types[1] == "amino acid"
+```
+
+Molecules belong to stable topology. Components describe connectivity within
+`ChemicalStates`; they are not interchangeable. Removing bonds can split one
+stable molecule into several components without changing molecule membership.
+Component queries preserve native reference-state and explicit reconstruction
+semantics. The addon does not select chemistry from the canvas frame, infer
+missing chemistry or turn a projection into a molecular edit.
+
+The index/ID/name/type getters default to their named output level; group type
+queries default to groups. Count readers interpret a subset as an atom
+selection. Selections, syntax, returned containers, missing values and native
+unsupported combinations are retained. `redefine_*` controls returned native
+projections; these tools never assign them or reconcile pending scene changes.
+They require a loaded, open view and use the managed molecular reader.
+`molecule.get_n_molecules` adds a keyword-only local `skip_digestion` control;
+all other readers here forward their declared native flag unchanged.
+
+Native references: {func}`molsysmt.element.molecule.get_molecule_index`,
+{func}`molsysmt.element.molecule.get_molecule_id`,
+{func}`molsysmt.element.molecule.get_molecule_name`,
+{func}`molsysmt.element.molecule.get_molecule_type`,
+{func}`molsysmt.element.molecule.get_n_molecules`,
+{func}`molsysmt.element.component.get_component_index`,
+{func}`molsysmt.element.component.get_component_id`,
+{func}`molsysmt.element.component.get_component_name`,
+{func}`molsysmt.element.component.get_component_type`,
+{func}`molsysmt.element.component.get_n_components` and
+{func}`molsysmt.element.group.get_group_type`.
+
+## Using the legacy amino-acid name heuristic
+
+`element.group.small_molecule.small_molecule_is_amino_acid(group_name)` mirrors
+the native legacy helper on the current system. It checks a catalogued
+small-molecule group name and the presence of the atom names `CA`, `CB`, `C`,
+`O` and `N`. It does not validate chemical connectivity or stereochemistry,
+prepare the system or assign a stored classification.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    heuristic = view.addons.molsysmt.element.group.small_molecule.small_molecule_is_amino_acid
+    assert heuristic("ATP") is False  # No group named ATP is present.
+```
+
+This Boolean name-pattern result is not chemical validation. Native errors and
+results stay unchanged. The explicit `group_name` is retained; its keyword-only
+`skip_digestion` is local because the native helper has no such flag. It still
+requires the current loaded open owner and uses the managed molecular reader
+without scene/history effects. See
+{func}`molsysmt.element.group.small_molecule.small_molecule_is_amino_acid`.
 
 ## Querying the current system
 
@@ -766,6 +1195,253 @@ MolSysViewer documents discovery, activation, configuration, lifecycle, its
 addon catalogue and how to create an addon in its
 [addon guide](https://www.uibcdf.org/molsysviewer/content/user/introduction/addons.html).
 This MolSysMT guide owns the capabilities and use of the MolSysMT tools addon.
+
+## Inspecting mechanical resources and calculating energy
+
+Four queries and a minimizer are available under `tools.molecular_mechanics`. Resource lookup keeps
+its explicit inputs and works before loading a system. Degree counting and energy read
+the current primary through the same serialized reader as the other scientific
+queries. These queries do not change the scene, adopt an OpenMM object or add an
+`update_view` control.
+
+```python
+import molsysviewer as msv
+
+with msv.new_view() as view:
+    mechanics = view.addons.molsysmt.molecular_mechanics
+    resources = mechanics.get_engine_forcefield("AMBER14")
+    assert resources == ["amber14-all.xml"]
+    assert mechanics.get_engine_forcefield("AMBER14", engine="LEaP") == [
+        "leaprc.protein.ff14SB"
+    ]
+    custom_resources = list(resources)
+    custom_resources.append("project-specific.xml")
+```
+
+These are resource-name lists: this call does not construct a force-field
+object, run an engine, verify an installed executable or prepare a system.
+The native lookup keeps its model precedence and errors for unknown names.
+
+The received source includes the native [#560 repair](https://github.com/uibcdf/molsysmt/issues/560):
+every resource lookup owns its list, so caller edits leave later calculations
+unchanged. OBC1 and OBC2 select distinct physical-model XMLs, such as
+`implicit/obc1.xml` and `implicit/obc2.xml`; an engine/resource name is not a
+substitute for the chosen physical model. The source receiving checks energies
+and constraint counts against explicit OpenMM recipes on a small qualified
+fixture. Additional stored controls and effective-recipe reporting remain
+under [#582](https://github.com/uibcdf/molsysmt/issues/582).
+
+When mixing implicit-model construction and solvation in one attribution
+session, [#583](https://github.com/uibcdf/molsysmt/issues/583) tracks a native
+OpenMM metadata conflict: science completes but that operation's software use
+can be missing from Ackredit. The addon does not hide the warning or replace
+the native bibliography.
+The native generic reader currently rejects `constraints=True` under
+[#584](https://github.com/uibcdf/molsysmt/issues/584); supported stored policies
+still reach qualified engine construction. The addon preserves that native
+query error rather than adding a separate getter.
+
+Degree counting performs native OpenMM parameterization, with the selected
+force field and the original molecular prerequisites. It does not add missing
+hydrogens, choose protonation states or assign stored mechanics. Start with an
+explicit single-structure view:
+
+```python
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        mechanics = view.addons.molsysmt.molecular_mechanics
+        dof = mechanics.get_degrees_of_freedom(forcefield="AMBER14")
+        assert type(dof) is int
+        assert dof == 154
+```
+
+The native mechanical definition is `3 * n_particles - n_constraints`. This
+example has 62 particles and 32 constraints. It adds no center-of-mass or
+thermostat correction and returns a dimensionless integer. Native conversion
+can reject multiple-structure boxes; this API does not silently select the
+visible structure. Completed pending edits are read without synchronizing the
+scene. Cached tools resolve a replaced primary and reject a closed owner.
+
+Potential energy uses native OpenMM conversion with the system's stored or
+default mechanical settings. These determine the force field, nonbonded method
+and other parameterization choices. No preparation, minimization, charge
+assignment or engine object is adopted by the view. Request the total energy
+or the native dictionary keyed by force name:
+
+```python
+import molsysmt as msm
+import numpy as np
+
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        mechanics = view.addons.molsysmt.molecular_mechanics
+        energy = mechanics.get_potential_energy(platform="CPU")
+        terms = mechanics.get_potential_energy(decomposition=True, platform="CPU")
+        energy_kj = msm.pyunitwizard.get_value(energy, to_unit="kJ/mol")
+        terms_kj = [
+            msm.pyunitwizard.get_value(term, to_unit="kJ/mol")
+            for term in terms.values()
+        ]
+        assert np.isfinite(energy_kj)
+        np.testing.assert_allclose(sum(terms_kj), energy_kj, rtol=1e-7, atol=1e-5)
+```
+
+The result retains physical units under the application's active unit policy;
+convert explicitly to the desired unit, as above. `selection` constructs the
+native selected subsystem for parameterization: it is not a contribution from
+selected atoms interacting with an unchanged surrounding system. Partial groups
+can fail parameterization. CPU total and decomposed energies have bounded
+single-structure receiving against a separately constructed OpenMM model; this
+does not qualify periodic decompositions, GPU execution or arbitrary force
+fields. There is no automatic selection of the visible structure or trajectory
+loop. Native conversion errors, missing chemistry and optional-engine failures
+remain visible. Completed pending edits are read without synchronizing the scene.
+
+### Calculating nonbonded contributions
+
+`get_non_bonded_potential_energy` uses the complete parameterized system and
+selects its nonbonded contributions. With `selection_2=None` it returns the
+internal nonbonded energy of the selected atoms. Two disjoint atom sets give
+their cross contribution; two group partitions give a matrix whose axes follow
+the native selection order. Standard Coulomb, Lennard-Jones and scaled/excluded
+exception terms retain the selected native force field's definitions.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+import numpy as np
+
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        mechanics = view.addons.molsysmt.molecular_mechanics
+        internal = mechanics.get_non_bonded_potential_energy(
+            selection="group_index in [0,1]"
+        )
+        cross = mechanics.get_non_bonded_potential_energy(
+            selection="group_index in [0,1]",
+            selection_2="group_index in [4,5]",
+        )
+        matrix = mechanics.get_non_bonded_potential_energy(
+            selection="all in groups of group_index in [0,1]",
+            selection_2="all in groups of group_index in [4,5]",
+        )
+        cross_kj = msm.pyunitwizard.get_value(cross, to_unit="kJ/mol")
+        matrix_kj = msm.pyunitwizard.get_value(matrix, to_unit="kJ/mol")
+        assert matrix_kj.shape == (2, 2)
+        assert np.isfinite(msm.pyunitwizard.get_value(internal, to_unit="kJ/mol"))
+        np.testing.assert_allclose(matrix_kj.sum(), cross_kj, rtol=2e-6, atol=2e-4)
+```
+
+Results retain physical energy units under the active application policy.
+This source receiving covers single-structure CPU NoCutoff calculations against
+independent Coulomb/Lennard-Jones pair sums, including native exception terms.
+It does not establish binding affinity, free energy, periodic long-range
+partition correctness or overlapping-selection semantics. Stored/default native
+mechanical settings determine the model; there is no hidden preparation,
+visible-structure substitution or trajectory loop.
+
+The received [#561 repair](https://github.com/uibcdf/molsysmt/issues/561) also
+supports a partitioned axis paired with a flat selection. The flat side remains
+a singleton matrix axis: two partitions against one flat set give shape (2, 1),
+and the reversed inputs give (1, 2). The wrapper forwards these inputs and native
+outputs directly. Reads include completed pending edits without scene projection
+or history changes. Cross axes must be disjoint; repeated/shared members within
+one partition axis retain the native contract.
+
+`get_forces` is still unexposed: its native MolSys input route is requested in
+[#572](https://github.com/uibcdf/molsysmt/issues/572). An OpenMM-only reader does
+not yet supply forces for the current `view.molsys`; the addon adds no implicit
+engine conversion or placeholder method.
+
+### Relaxing coordinates
+
+`potential_energy_minimization` delegates the native OpenMM L-BFGS operation.
+Its default `in_place=False` returns an independent molecular system. Keep that
+result deliberately; the current view is preserved:
+
+```python
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        tools = view.addons.molsysmt
+        original = msm.pyunitwizard.get_value(
+            view.molsys.structures.coordinates, to_unit="nm"
+        ).copy()
+        energy_before = tools.molecular_mechanics.get_potential_energy()
+        relaxed = tools.molecular_mechanics.potential_energy_minimization()
+        energy_after = msm.molecular_mechanics.get_potential_energy(relaxed)
+        assert relaxed is not view.molsys
+        np.testing.assert_array_equal(
+            msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit="nm"),
+            original,
+        )
+        assert msm.pyunitwizard.get_value(energy_after, to_unit="kJ/mol") < (
+            msm.pyunitwizard.get_value(energy_before, to_unit="kJ/mol")
+        )
+```
+
+With `in_place=True`, native coordinates change and the call returns `None`.
+The addon retains atom/structure identities and reconciles the scene by default.
+For a batch of edits, `update_view=False` defers only projection:
+
+```python
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0]) as view:
+        tools = view.addons.molsysmt
+        assert tools.molecular_mechanics.potential_energy_minimization(
+            in_place=True, update_view=False
+        ) is None
+        assert tools.get_sync_status()["state"] == "pending"
+        tools.sync_view()
+        assert tools.get_sync_status()["state"] == "synchronized"
+```
+
+The native write invalidates evaluated coverage in saved interaction analyses;
+it does not recalculate them. A scene-projection failure exposes
+`science_completed=True`; call `sync_view()` to retry projection without
+repeating minimization. An uncertain scientific write requires explicit recovery.
+Scene history is not molecular Undo. Cached tools resolve replacement and reject
+closed or empty owners, as for the other bound operations.
+
+The native method, platform, force-field defaults, `to_form`, verbose output
+and physical units remain explicit native contracts. The addon-only
+`skip_digestion` flag is keyword-only; the native function has no such escape
+hatch and always receives ordinary validation. It has no public `tolerance`,
+atom selection or structure-selection argument at this source. Select an
+appropriate single-structure system before this operation; no visible-structure
+inference or trajectory loop is added. No missing atoms, protonation states,
+force-field parameters or periodic images are prepared automatically.
+
+Only `method='L-BFGS'` is accepted. Existing OpenMM engine objects must satisfy
+the native independent-copy contract before optimization; unsupported detached
+Context/Simulation copies now reject before mutation, including explicit output
+forms. This is distinct from deliberate in-place engine execution. The addon's
+current primary remains its native MolSys; it does not cache an engine object
+as an alternate system or bypass these ownership checks.
+
+The received CPU route uses an explicit single-structure NoCutoff/HBonds model.
+Local optimization and an energy decrease do not certify a global minimum,
+equilibrium or physical stability. Converged coordinates can depend on model,
+platform and numerical execution settings. GPU and arbitrary-system preparation
+remain outside this bounded receiving.
+
+Five native mechanical tools are exposed; the native MolSys force reader
+remains unexposed under [#572](https://github.com/uibcdf/molsysmt/issues/572).
+The received [#559 repair](https://github.com/uibcdf/molsysmt/issues/559) resolves
+execution names in the engine. CPU and Reference now have bounded consumer
+energy, pair-energy and minimization checks against independent models.
+Unknown names, recognized but unregistered platforms, missing engines and
+later device failures remain distinct. No platform is silently substituted.
+Named GPU/plugin admission is not GPU/device qualification. Existing native
+Context/Simulation inputs keep their actual execution platform.
+
+Nonbonded energy includes the received #561 mixed-axis repair, with explicit
+selection and physical limits. This is separate from platform receiving and
+does not imply arbitrary periodic partition accuracy.
+
+Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
+{func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`,
+{func}`molsysmt.molecular_mechanics.get_potential_energy`,
+{func}`molsysmt.molecular_mechanics.potential_energy_minimization`.
 
 ## Computing geometry on the current system
 
@@ -2501,6 +3177,931 @@ diagnostics. The source and scene remain unchanged. See the
 {ref}`solvation-predicate tutorial <Tutorial_Is_solvated>`.
 
 
+## Preparing independent molecular systems
+
+Three `build` methods return a new molecular system from the current primary:
+`infer_covalent_bonds`, `assign_autodock_atom_types` and
+`assign_partial_charges`. Their native methods, chemical-state choices,
+structure scope and optional reports remain explicit. The source system and
+scene stay unchanged, including regions, saved analyses and pending edits.
+These are separate prepared outputs, distinct from the diagnostic/candidate
+readers above and from `physchem` calculations that return unattached values.
+
+For typing and charges, prepare the input chemistry explicitly before loading
+it. This example constructs a small complete graph with indexed hydrogens;
+the addon never performs this preparation for you:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+import numpy as np
+from rdkit import Chem
+
+molecule = Chem.AddHs(Chem.MolFromSmiles("CO"))
+conformer = Chem.Conformer(molecule.GetNumAtoms())
+conformer.SetPositions(np.asarray([
+    (0.0, 0.0, 0.0), (1.4, 0.0, 0.0),
+    (-0.5, 0.8, 0.0), (-0.5, -0.8, 0.0),
+    (0.0, 0.0, 1.0), (1.8, 0.6, 0.0),
+], dtype=float))
+molecule.AddConformer(conformer)
+with msv.new_view(msm.convert(molecule)) as view:
+    source = view.molsys
+    typed = view.addons.molsysmt.build.assign_autodock_atom_types(
+        typing_scheme="autodock4", return_report=True,
+    )
+    charged = view.addons.molsysmt.build.assign_partial_charges(
+        method="gasteiger_marsili", expected_total_charge=0,
+        return_report=True,
+    )
+    assert typed["molecular_system"] is not source
+    assert charged["molecular_system"] is not source
+    assert view.molsys is source
+    assert source.molecular_mechanics.partial_charge is None
+    assert source.molecular_mechanics.atom_ff_type is None
+```
+
+Each call above starts from the current primary. The charge result does not
+inherit the independently returned typing result. To chain preparation, pass
+the returned system to public MolSysMT, or explicitly load it before the next
+addon call. `view.load(result, mode="replace")` uses the ordinary Viewer
+replacement contract; the addon does not adopt results automatically. There
+is no `in_place` or `update_view` argument on these three native-independent
+routes. Methods require an open loaded owner, resolve replacement at call time,
+and read completed pending molecular edits without synchronizing the scene.
+
+Covalent inference is also an explicit native preparation policy. It returns a
+new system with eligible bonds and preparation evidence, retaining source atoms,
+structures and declared edges. Select a source structure explicitly when
+geometry is ambiguous; the visible canvas structure is never substituted:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+import numpy as np
+
+builder = msm.MolSysBuilder()
+names = ["N", "CA", "C", "O", "CB", "H", "HN1"]
+elements = ["N", "C", "C", "O", "C", "H", "H"]
+atoms = [builder.add_atom(atom_name=n, atom_type=t)
+         for n, t in zip(names, elements)]
+builder.add_group(atoms, group_name="ALA", group_id="100")
+builder.set_coordinates(msm.pyunitwizard.quantity(np.zeros((1, 7, 3)), "nm"))
+with msv.new_view(builder.build()) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.infer_covalent_bonds(
+        structure_indices=0, method="supported_group_templates", return_report=True,
+    )
+    assert result["report"]["n_added_bonds"] == 5
+    assert view.molsys is source
+    assert len(source.chemical_states.get_bonds()) == 0
+```
+
+This reference-name example does not model a physical pose. Native inference
+combines supported exact heavy-group templates, observed-H parent evidence and
+bounded same-chain peptide candidates. It is not universal graph perception,
+protonation, bond-order assignment or a chemical-validity certificate. Added
+bonds invalidate named interactions on the returned system; the view's saved
+analyses remain unchanged. No graph change retains native analysis snapshots.
+
+AutoDock typing requires the named scheme and a complete nonempty single
+chemical state. Charge assignment requires an explicit model; the force-field
+route also requires a named force field and a usable template match. RDKit or
+OpenMM availability follows that native choice. Atom types, charges and their
+provenance are attached to the output's experimental MolecularMechanics; they
+do not establish complete force-field parameterization. Stored charges retain
+native elementary-charge units even under another presentation policy. Named
+analyses preserve their snapshots; recalculation of mechanics-dependent
+analyses remains explicit. Full native copies can materialize source coordinates;
+these calls offer no out-of-core trajectory guarantee.
+
+:::{warning}
+MolecularMechanics remains experimental and is excluded from H5MSM 0.5. Saving
+these assigned types/charges to that format rejects rather than silently
+losing the mechanical data. A type/charge assignment alone is not complete
+force-field parameterization.
+:::
+
+Native references: {func}`molsysmt.build.infer_covalent_bonds`,
+{func}`molsysmt.build.assign_autodock_atom_types` and
+{func}`molsysmt.build.assign_partial_charges`.
+
+## Projecting atom names for export
+
+`view.addons.molsysmt.build.project_atom_names` applies the native naming
+constraints for `file:pdbqt` or `string:pdbqt_text`. It returns a separate
+MolSys, optionally with a `molsysmt.atom_map@1` report. The required `target_form`
+selects the label policy; it does not write a file or choose the returned form.
+The current primary and scene remain unchanged.
+
+```python
+import molsysviewer as msv
+import numpy as np
+
+with msv.demo["pentalanine"] as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.project_atom_names(
+        target_form="file:pdbqt", selection="all", return_report=True,
+    )
+    output, report = result["molecular_system"], result["report"]
+    assert output is not source and view.molsys is source
+    assert output.get_n_atoms() == source.get_n_atoms()
+    assert output.structures.n_structures == source.structures.n_structures
+    np.testing.assert_array_equal(
+        report["source_to_output_atom_indices"], np.arange(source.get_n_atoms()),
+    )
+    composed = view.addons.molsysmt.basic.compose_atom_maps([report])
+    assert composed["source_to_output_atom_indices"].shape == (source.get_n_atoms(),)
+```
+
+The experimental native preserve-or-base36 policy retains valid printable ASCII
+names of at most four characters, including existing duplicates. Invalid
+selected names get a lexical prefix and collision-free counter within the
+native group or conservative system-wide scope. A lexical prefix is not an
+atom-type or element assignment. Unselected invalid names remain invalid; a
+later writer can still reject the system. Namespace exhaustion raises rather
+than returning a partial rename. See the [native projection guide](build/project_atom_names.md)
+for explicit invalid-name examples and mapping details.
+
+Selections are sorted/deduplicated, but output atoms and structures keep their
+full source axes and IDs. Original/projected names and identity index maps are
+returned explicitly; the addon does not match atoms back by their names.
+Mutable native domains are independent. Geometry uses protected shared blocks
+until a public native edit detaches them, so this label-only projection does
+not require a trajectory-sized coordinate copy.
+
+The method requires a loaded open view and reads completed pending edits
+without synchronizing or adopting the result. There is no `in_place` or
+`update_view` control. This projection does not infer chemistry, choose a torsion
+tree, recalculate charges or recertify template-sensitive assignments. Existing
+provenance is retained and can fail its native export checks after names change;
+project before such assignment when its naming contract requires that order.
+Actual export and result adoption remain separate explicit operations.
+
+Native reference: {func}`molsysmt.build.project_atom_names`.
+
+## Constructing independent molecular representations
+
+### Expanding a biological assembly
+
+`view.addons.molsysmt.build.make_bioassembly` expands declared chains using
+stored or explicit assembly operators. It returns an independent molecular
+system. For example, use the stored assembly in bundled Barnase–Barstar data:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.convert(msm.systems["Barnase-Barstar"]["1brs.bcif.gz"])
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    assembly = view.addons.molsysmt.build.make_bioassembly(bioassembly="1")
+    assert assembly is not source and view.molsys is source
+    assert assembly.structures.n_structures == 1
+    chain_ids = msm.get(assembly, element="chain", chain_id=True)
+    assert len(chain_ids) == len(set(chain_ids))
+```
+
+The default `structure_indices=0` selects the first stored structure, independent
+of the visible canvas frame. Explicit lists retain order and repetitions, such
+as `[2, 0, 2]` for an ensemble with at least three structures. Times and structure
+IDs follow that order. `bioassembly=None` selects the first stored assembly;
+a missing assembly rejects rather than inferring one. Explicit operators require
+proper rotations and compatible declared chain memberships. Different chain
+sets across operators currently reject. Native collision handling generates
+unique chain IDs while retaining author chain names; `to_form` controls final
+conversion.
+
+This operation requires valid source chain membership. It does not infer chains,
+repair periodic images or certify that a constructed assembly is a physically
+correct biological model. It returns no atom-map report or Viewer source-region
+mapping. The output is resident; this is not an out-of-core ensemble operation.
+See {ref}`Make bioassembly <Tutorial_Make_bioassembly>` and
+{func}`molsysmt.build.make_bioassembly` for native operator and form contracts.
+
+### Merging explicitly typed nonpolar hydrogens
+
+`view.addons.molsysmt.build.merge_nonpolar_hydrogens` requires an explicit
+`typing_scheme="autodock4"`. After preparation, it merges atoms labelled `H`
+into their retained covalent parents and adds their partial charges. Polar
+hydrogens labelled `HD` remain indexed. Atom names do not determine this choice.
+Prepare the complete graph, hydrogen inventory, atom types and finite partial
+charges explicitly before loading the view:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.convert(msm.systems["caffeine"]["caffeine.sdf"], to_form="rdkit.Mol")
+molsys = msm.build.assign_autodock_atom_types(molsys, typing_scheme="autodock4")
+molsys = msm.build.assign_partial_charges(molsys, method="gasteiger_marsili")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.merge_nonpolar_hydrogens(
+        typing_scheme="autodock4", return_report=True,
+    )
+    projected, report = result["molecular_system"], result["report"]
+    assert projected.get_n_atoms() == 14 and source.get_n_atoms() == 24
+    assert report["schema"] == "molsysmt.atom_projection@1"
+    assert report["charge_unit"] == "elementary_charge"
+    assert abs(report["selected_total_charge"] - report["output_total_charge"]) <= (
+        report["charge_conservation_tolerance"]
+    )
+    lineage = view.addons.molsysmt.basic.compose_atom_maps([report])
+    assert len(lineage["source_to_representative_atom_indices"]) == 24
+    assert view.molsys is source
+```
+
+This example uses optional RDKit for explicit typing/charge preparation. The
+addon adds no hidden preparation, protonation or charge calculation. Native
+single-state chemistry and complete hydrogen-inventory requirements still apply.
+The default structures are `"all"`; explicit structure lists retain order and
+repetitions. Atom selections are normalized by the native projection; a merged
+hydrogen needs its retained parent in the selection.
+
+With `return_report=False`, the result is the independent MolSys itself. The
+optional report keeps direct output/source identity, omitted atoms, merged
+hydrogen–parent pairs and charge transfers separate. Its charge fields declare
+canonical elementary-charge units even under another presentation policy.
+`basic.compose_atom_maps` can compose this lineage; a representative parent
+index is not the removed hydrogen's identity or coordinate. Retained coordinates
+belong to retained atoms. Native typing/charge assignment records become derived
+and preserve their source provenance. Native scientific attribution remains
+available through the report.
+
+After a merge, named interaction analyses on the returned system are cleared;
+the source analyses, source chemistry and scene remain unchanged. This is a
+representation projection, not a general united-atom force field or a new
+protonation state. Experimental MolecularMechanics types/charges are not stored
+by H5MSM 0.5; that writer rejects unsupported mechanical data explicitly. See the
+[native projection guide](build/merge_nonpolar_hydrogens.md) and
+{func}`molsysmt.build.merge_nonpolar_hydrogens` for prerequisites and export maps.
+
+Both construction methods require an open loaded view, use its current primary
+at call time and read completed pending edits without scene synchronization.
+They preserve native `skip_digestion` and validation semantics. Neither offers
+`in_place` or `update_view`; deliberately chain the independent result or load it
+with the ordinary Viewer replacement API when that is your intention.
+
+## Expanding independent atom inventories
+
+### Attaching declared terminal atoms
+
+`view.addons.molsysmt.build.add_terminal_atoms` attaches each declared atom to
+one existing parent. You supply both the atom records and finite length
+coordinates covering every source structure. The method always returns a
+dictionary containing `molecular_system` and `report`; it does not place atoms
+for you or replace `view.molsys`:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+import numpy as np
+
+builder = msm.MolSysBuilder()
+builder.add_atom(atom_type="C", atom_name="C", atom_id="original")
+builder.set_coordinates(msm.pyunitwizard.quantity([[[0., 0., 0.]]], "nm"))
+with msv.new_view(builder.build()) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.add_terminal_atoms(
+        new_atoms=[{"parent_atom_index": 0, "atom_type": "H", "atom_id": 40}],
+        coordinates=msm.pyunitwizard.quantity([[[0., 0., 1.09]]], "angstrom"),
+    )
+    output, report = result["molecular_system"], result["report"]
+    assert source.get_n_atoms() == 1 and output.get_n_atoms() == 2
+    assert output.topology.atoms.atom_id.tolist() == ["original", "40"]
+    assert report["schema"] == "molsysmt.terminal_attachment@1"
+    assert report["coordinate_unit"] == "nm"
+    assert report["coordinate_evidence"] == "supplied_coordinates"
+    np.testing.assert_array_equal(report["atom_correspondence"], [[0, 0]])
+    np.testing.assert_array_equal(report["parent_atom_pairs"], [[0, 1]])
+    assert view.molsys is source
+```
+
+This small example declares a bond and a position; it is not a complete
+molecular preparation. Existing atoms keep their indices, IDs and coordinates.
+New atoms inherit their parent's membership; optional records declare names,
+IDs, isotopes, bond orders and chemical attributes. There is no automatic
+hydrogen-inventory correction, protonation, charge or force-field assignment.
+The native operation requires exactly one chemical state. Coordinates have
+shape `(n_structures, n_new_atoms, 3)`, independent of the visible frame.
+
+The report records the original source axes, old/new correspondence, parent
+pairs, generated string IDs and discarded attributes. It declares canonical nm
+units and supplied-coordinate evidence; it does not embed coordinate arrays.
+An independent copy enters the output's ChemicalStates preparation history,
+which H5MSM preserves. Historical indices describe the operation's original
+domain, not a live map after later extraction or reordering. Editing the returned
+report does not rewrite that history or authenticate its source.
+
+Nonempty attachment invalidates evaluated coverage on output analyses while
+preserving their definitions and source mappings; added atoms have source index
+`-1`. The original view's analyses stay unchanged. `attribute_policy="intersection"`
+reports unsupported structural/mechanical attributes that are dropped instead
+of fabricating values for new atoms. `"strict"` rejects such loss. An empty
+addition returns an independent unchanged system, retains attributes and
+analysis coverage, and records the examined scope in preparation history.
+See {ref}`Attaching terminal atoms <Tutorial_Add_Terminal_Atoms>` and
+{func}`molsysmt.build.add_terminal_atoms` for record fields and native limits.
+
+### Repairing supported missing heavy atoms
+
+`view.addons.molsysmt.build.add_missing_heavy_atoms` returns a new molecular
+system. Its native engine estimates supported missing non-H positions from
+bounded local templates. For example, explicitly remove one serine oxygen from
+a generated peptide before loading it, then repair that selected group:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("SerAla", engine="MolSysMT")
+molsys = msm.extract(molsys, selection="atom_type!='H' and atom_name!='OG'")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    output = view.addons.molsysmt.build.add_missing_heavy_atoms(
+        selection="group_name=='SER'", engine="MolSysMT",
+        attribute_policy="intersection",
+    )
+    assert output.get_n_atoms() == source.get_n_atoms() + 1
+    assert msm.select(output, selection="atom_name=='OG'")
+    assert not msm.select(source, selection="atom_name=='OG'")
+    assert view.molsys is source
+```
+
+The example can emit the native attribute-drop warning for the peptide's old
+atom parameters. The tool assigns no parameters to newly added atoms. The native engine
+preserves observed coordinates, old atom IDs, time, box and declared state
+metadata, but sorting by group can change indices. Use the output's native
+identity/source maps when relating it to earlier results; do not assume all
+old indices remain fixed. New chemical fields remain unknown and connectivity
+completeness becomes partial. Output analyses keep remapped provenance but
+lose occurrences and evaluated coverage after atom expansion; source analyses
+are preserved. No-change results retain their original analysis snapshots.
+
+The native engine supports bounded standard-residue placement and curated
+MSE/SEP/TPO cases. An ambiguous or unsupported gap can remain unchanged with
+`UnassessedResidueWarning`; absence of an exception does not mean every gap was
+repaired. Observed-anchor and bond-geometry checks do not certify clashes,
+stereochemistry, rotamers or an energy minimum. Repair examines all source
+structures; there is no implicit visible-frame selection. Full native copies
+can materialize trajectory coordinates.
+
+`engine="PDBFixer"` explicitly selects the optional external provider with its
+own chemistry, conversion and preservation limits. It is not an automatic
+fallback and currently supports only intersection attribute policy here. The
+native engine's multi-state and strict-loss rejections remain explicit. There
+is no `return_report`, `in_place` or `update_view` argument on this method.
+See {ref}`Adding heavy atoms <Tutorial_Add_missing_heavy_atoms>` and
+{func}`molsysmt.build.add_missing_heavy_atoms` for native scope and alternatives.
+
+Both expansion tools read the current primary through the serialized reader,
+including completed pending edits, and never synchronize or adopt the result.
+Cached methods follow ordinary replacement/close behavior. Use the returned
+system in later native calculations or deliberately load it with the ordinary
+Viewer replacement API; molecular construction and scene adoption are separate.
+
+## Preparing hydrogens and termini independently
+
+### Materializing a declared hydrogen inventory
+
+`view.addons.molsysmt.build.add_missing_hydrogens` retains two different native
+workflows. Fixed-state mode adds missing H to an isolated, prepared component;
+it does not select a protonation state. Supply explicit chemistry and geometry
+before loading the view, then request the mode and backend explicitly:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+from rdkit import Chem
+
+molsys = Chem.MolFromSmiles("CO")
+conformer = Chem.Conformer(2)
+conformer.SetAtomPosition(0, (0., 0., 0.))
+conformer.SetAtomPosition(1, (1.4, 0., 0.))  # RDKit positions use angstroms.
+conformer.Set3D(True)
+molsys.AddConformer(conformer)
+with msv.new_view(msm.convert(molsys)) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.add_missing_hydrogens(
+        pH=None, engine="RDKit", mode="fixed_chemical_state", return_report=True,
+    )
+    output, report = result["molecular_system"], result["report"]
+    assert output.get_n_atoms() == 6 and source.get_n_atoms() == 2
+    assert report["n_added_hydrogens"] == 4
+    assert report["coordinate_unit"] == "nm"
+    assert report["coordinate_evidence"] == "generated_local_geometry"
+    assert [item["report"]["schema"] for item in
+            output.chemical_states.get_preparation_history()] == [
+        "molsysmt.terminal_attachment@1", "molsysmt.hydrogen_addition@1",
+    ]
+    assert view.molsys is source
+```
+
+The example's SMILES declares connectivity, formal charges and hydrogen
+inventory; the supplied pose is explicit. The addon performs no additional
+curation. Fixed-state mode requires `pH=None`, explicit RDKit, one chemical
+state, one source structure and one supported prepared component. Existing
+coordinates and atom indices remain; appended H carry parent maps, typed
+inventory and native generation/attachment evidence. No heavy-atom conformer,
+minimization or periodic reconstruction is introduced. Unsupported chemistry,
+unresolved inventory and split periodic molecules retain native rejection.
+
+`chemical_state`, `structure_indices`, `return_report` and `attribute_policy`
+keep their native fixed-state contracts. A structure selector does not extract
+a multi-structure source automatically: extract the required single structure
+and chemical state first. This does not select the visible canvas structure.
+The default `return_report=False` returns the independent MolSys; both forms
+retain the native preparation history. Reports declare canonical nm evidence
+and original operation axes, not live maps after later edits. H5MSM preserves
+that historical evidence. Expanded output analyses become unevaluated; a
+no-addition result retains its analysis coverage. The original view stays intact.
+
+### Using residue and pH rules
+
+The default `mode="pH", pH=7.4, engine="OpenMM"` follows native residue-based
+preparation. Explicit `"PDBFixer"` and `"MolSysMT"` retain their own native
+routes; there is no backend fallback. These approximate rules use standard
+pKa thresholds and do not calculate environment-dependent pKa values. Existing
+H are not removed just because a different pH would exclude them. Check the
+intended chemistry before interpreting the result as prepared for simulation.
+
+The fixed-state-only options above reject in legacy pH mode. Optional backend
+conversion, structure and metadata preservation limits remain engine-specific;
+the receiving examples cover single-structure legacy input. They do not qualify
+trajectory-wide legacy hydrogenation. OpenMM placement is not promised to
+reproduce an identical new-H pose across independent calls. See
+{func}`molsysmt.build.add_missing_hydrogens`,
+{ref}`Adding hydrogens <Tutorial_Add_missing_hydrogens>` and
+{ref}`Fixed-state hydrogens <Tutorial_Fixed_State_Hydrogens>` for native details.
+
+### Completing or capping peptide termini
+
+`view.addons.molsysmt.build.add_missing_terminal_cappings` returns a separate
+molecular system with native terminal preparation. With no explicit caps it
+completes supported terminal atoms; with ACE/NME it inserts the requested groups.
+A single cap can also complete the opposite free terminus. Each call starts
+from the same current primary unless you deliberately replace it:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaValPro", engine="MolSysMT")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    one_cap = view.addons.molsysmt.build.add_missing_terminal_cappings(
+        N_terminal="ACE", C_terminal=None, pH=7.4, engine="MolSysMT",
+    )
+    both_caps = view.addons.molsysmt.build.add_missing_terminal_cappings(
+        N_terminal="ACE", C_terminal="NME", pH=7.4, engine="MolSysMT",
+    )
+    assert source.get_n_atoms() == 40
+    assert one_cap.get_n_atoms() == 47  # Six ACE atoms and the free C-terminal OXT.
+    assert both_caps.get_n_atoms() == 52
+    assert msm.get(both_caps, element="group", group_name=True) == [
+        "ACE", "ALA", "VAL", "PRO", "NME",
+    ]
+    assert view.molsys is source
+```
+
+These generated peptide geometries are initial models, not refined structures.
+The native engine retains bounded heavy-atom preflight and unassessed warnings.
+It preserves observed coordinates and old IDs while insertion can reorder atom
+indices. New chemical fields remain unknown; terminal geometry does not assign
+a complete protonation or force-field model. Unsupported structural/mechanical
+attributes are dropped with native diagnostics. Expanded output analyses retain
+remapped provenance but lose occurrences and evaluated coverage. All source
+structures are processed by the received native capping route.
+
+`selection`, `syntax`, `pH` and `keep_ids` follow native engine-specific behavior.
+PDBFixer is optional and explicit; `keep_ids=True` remains unsupported by that
+route. No report, strict attribute policy, `in_place` or `update_view` control
+is invented. See {func}`molsysmt.build.add_missing_terminal_cappings` and
+{ref}`Preparing termini <Tutorial_Add_missing_terminal_cappings>`.
+
+Both preparation methods use the serialized current primary, including
+completed pending edits, without synchronizing or adopting their output.
+Cached methods follow replacement and reject closed/empty owners. Explicitly
+chain returned systems or use ordinary Viewer replacement when you intend to
+change the scene; preparation and scene adoption remain separate operations.
+
+## Staging edits and filtering overlapping molecules
+
+### Working on a separate builder
+
+`view.addons.molsysmt.build.editable()` initializes a native `MolSysBuilder`
+from the current system. You can stage supported edits without changing the
+molecule or scene in the view, then build a separate molecular system:
+
+```python
+import molsysviewer as msv
+
+with msv.demo["dialanine"] as view:
+    source = view.molsys
+    builder = view.addons.molsysmt.build.editable()
+    before = builder.n_bonds
+    builder.remove_bonds([0])
+    output = builder.build()
+    assert output.chemical_states.get(n_bonds=True) == before - 1
+    assert source.chemical_states.get(n_bonds=True) == before
+    assert view.molsys is source
+```
+
+Deleting a bond here illustrates ownership; it does not prepare a chemically
+valid peptide. Native builder validation and chemical-state choices apply to
+each edit. For example, adding atoms to a builder carrying atom-dependent
+coordinates is rejected; existing structural arrays are not silently expanded.
+
+Conversion copies the native topology, chemical states, structures and declared
+structure/state associations. A builder does not store molecular mechanics or
+named interaction analyses; building it does not restore those domains from the
+source. Inspect the output's actual domain availability before downstream work.
+Full native copying can materialize structural data and is not an out-of-core
+trajectory interface.
+
+The builder and its outputs remain usable after the view is replaced or closed.
+A new call through the cached addon method reads the replacement system, and
+calls through a closed or empty view reject. The addon requires a loaded system;
+use ordinary `msm.build.editable()` to start an empty builder. Its native
+`skip_digestion` flag is retained. Builder edits are not managed scene edits,
+and `sync_view()` does not adopt a builder's output. Deliberately load the
+returned system if you want to replace the scene. See
+{func}`molsysmt.build.editable` and {ref}`Editing systems <Tutorial_Editable>`.
+
+### Removing candidate molecules near reference atoms
+
+`view.addons.molsysmt.build.remove_overlapping_molecules()` finds candidate
+atoms closer than the requested distance to reference atoms and removes their
+entire declared molecules from the returned system. Choose the two sides
+explicitly when filtering solvent near a protein:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+with msv.demo["181L"] as view:
+    source = view.molsys
+    before = msm.get(source, n_waters=True)
+    output = view.addons.molsysmt.build.remove_overlapping_molecules(
+        selection="molecule_type=='water'",
+        selection_2="molecule_type=='protein'",
+        structure_index=0, threshold="3 angstroms", pbc=False,
+    )
+    assert msm.get(output, n_waters=True) < before
+    assert msm.get(source, n_waters=True) == before
+    assert view.molsys is source
+```
+
+`selection` supplies removable candidate atoms; `selection_2` supplies reference
+atoms. A single contacting candidate atom removes its whole molecule. With
+`selection_2=None`, the reference is the **atom complement** of `selection`.
+If you select only part of a candidate molecule, its unselected atoms can be
+reference contacts too: there is no automatic exclusion of contacts within the
+same molecule. Select complete candidate molecules or supply an explicit
+reference selection when that is your intent.
+
+The decision uses one explicit `structure_index` (default 0), independently of
+the structure visible in the canvas. Removal and native remapping then apply
+to all retained structures. Coordinates, box and time follow native removal;
+saved analyses follow its subset maps and coverage contract. `syntax` retains
+native MolSysMT/MDTraj selection behavior. `threshold` is a length quantity;
+`pbc=True` uses native periodic contacts when a box is present and falls back
+to nonperiodic contacts without one. No fitting, wrapping, chemistry repair,
+trajectory-wide contact decision or physical relaxation is added.
+
+When molecules are removed, the output is separate and the source is preserved.
+When nothing is removed, native MolSysMT returns the **original system**:
+`output is view.molsys`. Copy it explicitly before independent raw edits if
+needed. The addon does not disguise that alias or automatically observe raw
+changes. Its keyword-only `skip_digestion` controls addon validation only;
+it is not forwarded and never bypasses native validation. Neither tool adds
+`in_place`, `update_view` or automatic scene adoption. Completed pending edits
+are read without synchronizing the scene. See
+{func}`molsysmt.build.remove_overlapping_molecules` and
+{ref}`Filtering overlaps <Tutorial_Remove_overlapping_molecules>`.
+
+## Adding missing covalent bonds to the loaded system
+
+`view.addons.molsysmt.build.add_missing_bonds()` keeps the native default
+`in_place=True`: it modifies `view.molsys`, returns `None` and reconciles the
+scene. `in_place=False` returns an independent system without adopting it,
+regardless of `update_view`. This differs from the independent
+`infer_covalent_bonds` route.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaAla", engine="MolSysMT")
+molsys.chemical_states.remove_bonds("all")  # Explicit fixture preparation.
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt
+    tools.build.add_missing_bonds(update_view=False)
+    assert msm.get(view.molsys, n_bonds=True) > 0
+    assert tools.get_sync_status()["state"] == "pending"
+    tools.sync_view()  # Project the completed graph; do not repeat the calculation.
+```
+
+Selection addresses source atom indices; both endpoints must belong. The
+single native `structure_index=0` determines geometric candidates, independently
+of the visible frame. Explicit `max_bond_length` quantities, template/chain
+rules, periodic criteria and selection syntax remain native. The operation
+updates the reference chemical state and rebuilds its components, retaining
+atom/structure/state indices, stable topology, other states and coordinate
+storage. It does not assign bond orders/types, prepare hydrogens or certify
+complete chemistry. Inspect native prerequisites and heuristics in
+{func}`molsysmt.build.add_missing_bonds` and
+{ref}`Tutorial_Add_missing_bonds`.
+
+A changed graph invalidates all named analysis coverage, including evaluated
+structures with no observations; old snapshots remain separate. Detectors are
+not rerun. Empty candidate results preserve coverage, history and managed
+revision. Each attempt still has an audit identifier. A no-op with
+`update_view=True` can synchronize earlier pending work; `False` defers only
+scene projection. Compatible pending removals/coordinate edits compose through
+the existing identity maps. Scene actions that depend on stale indices reject
+while work is pending.
+
+Scientific rejection retains the prior synchronized or pending state when the
+native atomic publication contract certifies preservation. A scene failure
+after successful science instead exposes `SystemEditSyncError` with
+`science_completed=True` and `scientific_result=None`: retry `sync_view()`, not
+bond reconstruction. Potentially partial writes require explicit recovery.
+Cached methods use the current loaded owner; empty and closed views reject.
+Native `skip_digestion` is forwarded; it never disables integration safeguards.
+This is bounded source receiving, not a new published-package guarantee.
+
+## Resolving alternate crystallographic sites
+
+`view.addons.molsysmt.build.solve_atoms_with_alternate_location(...)` runs the
+native in-place operation on the current loaded system and returns `None`.
+It preserves source atom/structure indices and chemistry while applying the
+selected stored sites. It has no `in_place` switch or independent result.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.convert(
+    msm.systems["Barnase-Barstar"]["1brs.bcif.gz"], to_form="molsysmt.MolSys"
+)
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt
+    tools.build.solve_atoms_with_alternate_location(
+        selection=[2686, 2687], location_id="B", update_view=False
+    )
+    assert msm.get(view.molsys, selection=[2686, 2687], atom_id=True) == ["2688", "2690"]
+    tools.sync_view()
+```
+
+`structure_indices` retains native order, including nonconsecutive selections;
+its default is all structures, independently of the visible structure. A list
+of `location_id` values follows the atom order returned by the native selection,
+including an explicit non-sorted list. Repeated atoms must request the same site.
+Atom-ID labels are topology-wide: selected structures must agree on each updated
+label. Conflicting labels are rejected before any publication. These labels do
+not establish or change retained scene/source correspondence.
+
+Primary coordinates, occupancy and B factors follow the chosen site. Missing
+optional observations become unknown instead of retaining measurements from a
+previous site; occupancy is unit-free and B factors carry squared-length units.
+The occupancy criterion chooses the largest known value; its documented half
+occupancy tie rule favors A only when A shares that maximum. Unknown occupancies
+are ignored by this criterion; choosing an explicit label can retain unknown
+occupancy. Alternate-site records remain available without renormalization.
+
+All selected sites and admitted writers are validated before the first native
+write. A rejected request preserves source observations and analysis identities.
+Named analysis coverage follows successful coordinate publication for affected
+structures, including evaluated-empty analyses; no detector is rerun. A call
+without selected sites preserves managed revision and scene history. Repeating
+a real native write can invalidate coverage even when coordinates compare equal.
+No conformer generation, occupancy fitting or molecular preparation is added.
+
+`update_view=False` defers projection only. Compatible pending edits compose
+through the existing maps. A subsequent no-op with `update_view=True` can finish
+earlier pending projection. After successful science, a scene error carries
+`science_completed=True` and `scientific_result=None`; retry `sync_view()`.
+Unexpected failures within mutable adapters retain their partial-write limit;
+if native geometry was published, status becomes `uncertain` and requires
+explicit replacement without scientific replay. This is not a transaction across
+arbitrary backends or files. `skip_digestion` mirrors and forwards the native
+flag; scientific site validation remains active even when digestion is skipped.
+
+The owner corrections for [#569](https://github.com/uibcdf/molsysmt/issues/569),
+[#570](https://github.com/uibcdf/molsysmt/issues/570) and
+[#571](https://github.com/uibcdf/molsysmt/issues/571) are received from published
+source `532d03622`. Earlier receipts retain the previous provider's outcomes;
+this source receiving is not a published dependency floor or installed-package
+qualification. No scientific repair is implemented in the facade. See
+{func}`molsysmt.build.solve_atoms_with_alternate_location` and
+{ref}`Tutorial_Solve_atoms_with_alternate_locations` for native usage.
+
+## Constructing an independent solvated system
+
+`view.addons.molsysmt.build.solvate()` delegates explicit solvent/ion construction
+to the selected MolSysMT engine and returns a separate system. It requires one
+structure with chemistry that the engine can parameterize. Hydrogen completion,
+protonation and terminal preparation are separate operations; the addon does
+not perform them implicitly or select the visible structure from an ensemble.
+
+This small example constructs and caps its input explicitly before loading it:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaValPro")
+molsys = msm.build.add_missing_terminal_cappings(molsys)
+with msv.new_view(molsys) as view:
+    solvated = view.addons.molsysmt.build.solvate(
+        engine="OpenMM", box_shape="cubic", clearance="0.35 nm",
+        water_model="TIP3P", ionic_strength="0 molar",
+    )
+    assert solvated is not view.molsys
+    assert msm.get(solvated, n_waters=True) > 0
+    assert msm.get(solvated, n_structures=True) == 1
+    # Adopt it deliberately if desired:
+    # view.load(solvated, mode="replace")
+```
+
+The current view, regions, shapes, history and pending synchronization state
+remain unchanged. Reads use the current molecular system, including completed
+pending edits. Results use the native box-origin convention; the whole output
+may undergo a rigid translation. Source-coordinate labels are not an atom map
+between this new system and the existing scene. Output metadata, named-analysis
+losses and explicit `to_form` availability follow the native engine/conversion
+contract rather than being silently reconstructed by the facade.
+
+The native stored water model and force field can take precedence over requested
+settings. Explicitly choose the engine and model you need; the addon performs no
+engine fallback. Scientific receiving here covers OpenMM/TIP3P single-structure
+construction, independent direct-OpenMM parity, nominal water geometry at bundled
+PDB precision and cubic/triclinic box geometry. It does not establish equilibrium,
+packing quality for every solute or suitable simulation conditions.
+
+The received native [#574/#579 identifier repairs](https://github.com/uibcdf/molsysmt/issues/574)
+preserve nonnumeric, missing and literal source labels; they are not inferred
+atom correspondences. The [#575 count repair](https://github.com/uibcdf/molsysmt/issues/575)
+applies requested ion populations using the native replacement operation.
+`random_seed` makes that placement reproducible for the same ordered inputs,
+parameters and software. `skip_digestion` is now a native argument and is
+forwarded as requested; ordinary validation remains the default. The addon
+performs no input renumbering, count compensation or silent engine substitution.
+Use explicit native counts, charge evidence and model settings. The attribution
+conflict [#583](https://github.com/uibcdf/molsysmt/issues/583) remains visible.
+
+## Adding ions to an independent system
+
+`view.addons.molsysmt.build.add_ions()` mirrors native periodic whole-water
+replacement. The loaded source needs one structure, one chemical state,
+declared water molecules and a finite nonsingular box. It returns independent
+molecular data; it does not update the current view or offer `in_place` or
+`update_view`. Exact-count requests do not silently neutralize or infer charge.
+
+```python
+import numpy as np
+import molsysmt as msm
+import molsysviewer as msv
+
+molsys = msm.build.make_water_box(msm.pyunitwizard.quantity(2*np.eye(3), 'nm'))
+with msv.new_view(molsys) as view:
+    result = view.addons.molsysmt.build.add_ions(
+        n_cations=1, n_anions=1, random_seed=7, return_report=True)
+    assert msm.get(result['molecular_system'], n_ions=True) == 2
+    assert msm.get(view.molsys, n_ions=True) == 0
+    forward = result['report']['source_to_output_atom_indices']
+    reverse = result['report']['output_to_source_atom_indices']
+    # view.load(result['molecular_system'], mode='replace')  # Explicit adoption.
+```
+
+Both maps use positions: removed input atoms and newly added output atoms map
+to -1. Complete waters, including extra sites, are replaced; coordinates of
+retained atoms and the cell stay native. New ions have known formal charges,
+not automatically assigned partial charges or force-field parameters. Native
+reports retain seed, placement bounds, distances in nm and charge evidence.
+Neutralization requires an explicit declared total or the selected complete
+charge source. The optional `physical_pH7` source is a tabulated approximation.
+
+Additional salt uses the native water-count convention after base replacements,
+with the 55.4 molar reference. It is not a measured final ionic strength or a
+volume-based concentration. Clearance and bounded greedy placement can reject
+an otherwise conceivable packing; no relaxation or equilibration is implied.
+Pending edits remain pending, errors propagate, and cached methods use the
+current loaded source. See the {ref}`native ion tutorial <Tutorial_Add_ions>`
+for scientific options and limitations.
+
+## Constructing and mutating independent peptides
+
+### Building a new geometry from the current sequence
+
+`view.addons.molsysmt.build.build_peptide()` converts the loaded system to a
+peptide sequence and constructs a new native model from it. This can give you
+an independent starting geometry while retaining the original view:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaValPro", engine="MolSysMT")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    output = view.addons.molsysmt.build.build_peptide(engine="MolSysMT")
+    assert msm.get(output, element="group", group_name=True) == ["ALA", "VAL", "PRO"]
+    assert output is not source and view.molsys is source
+    assert output.structures.n_structures == 1
+```
+
+The operation builds fresh coordinates and native template chemistry; it does
+not repair observed coordinates or reproduce a source trajectory. A source with
+several structures still supplies one sequence for a new model. Source boxes,
+named analyses and arbitrary metadata are not transferred to that model, and
+there is no inferred correspondence between original and newly built atoms.
+Initial geometry is not an energy-minimum or simulation-readiness certificate.
+
+`to_form` selects the native output form; native MolSys, MDTraj trajectory and
+three-letter sequence output have explicit receiving. LEaP remains an explicitly
+requested optional engine with its executable, force-field, conversion and
+scratch-file requirements; this addon receiving does not qualify its execution.
+Native construction now reads exact stored group labels and their naming
+context. `from_naming_scheme=None` preserves that context; an explicit value
+must agree with known source declarations. It is not an override or a global
+preference. Named-state construction and atom/H layouts retain their bounded
+native support; source naming is distinct from chemical preparation. This does
+not certify every deposited label or chain composition. The addon adds no selection, structure selector, fitting or engine
+fallback. Use ordinary `msm.build.build_peptide(sequence)` for a new explicit
+sequence before loading a view. See {func}`molsysmt.build.build_peptide` and
+{ref}`Building peptides <Tutorial_Build_peptide>`.
+
+### Substituting amino-acid groups independently
+
+`view.addons.molsysmt.build.mutate()` passes the requested substitutions to
+MolSysMT and returns its independent result. A supported shrinking substitution
+keeps observed backbone coordinates while changing the target group's inventory:
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AlaValPro", engine="MolSysMT")
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    output = view.addons.molsysmt.build.mutate(
+        mutations={1: "GLY"}, keys="group_index", engine="MolSysMT",
+    )
+    assert msm.get(output, element="group", group_name=True) == ["ALA", "GLY", "PRO"]
+    assert msm.build.get_missing_heavy_atoms(output) == {}
+    assert msm.get(source, element="group", group_name=True) == ["ALA", "VAL", "PRO"]
+    assert output is not source and view.molsys is source
+```
+
+The native specifications also accept group-ID dictionaries (`keys="group_id"`),
+source-name dictionaries (`keys="group_name"`) and mutation strings such as
+`"VAL-1-GLY"`, whose middle field is the source group ID. Group IDs are labels,
+whereas group indices are positions. Selection and naming rules remain native;
+no caller atom/group mapping or selector translation is invented by the addon.
+
+Native selection is resolved on the source atom axis before reconstruction.
+A selected atom enables its entire group for every mutation specification,
+including explicit group-index requests. MolSysMT/MDTraj expressions, atom-index
+arrays, scalar indices and Boolean atom masks retain the repaired native contract.
+Repeated atoms enable a group once. Empty or disjoint valid requests return an
+independent copy without reconstruction. IDs are literal labels; unknown or
+selected ambiguous IDs and conflicting targets retain native diagnostics.
+The addon forwards these parameters without translating selectors or repairing
+scientific results. Native target safety checks remain active when digestion
+is explicitly skipped.
+
+Mutation can leave an unsupported side chain incomplete with
+`UnassessedResidueWarning`. For example, the received native VAL-to-TRP case
+retains only the target's observed backbone heavy atoms and reports ten missing
+side-chain atoms. A renamed TRP is not proof of a reconstructed indole or a
+validated rotamer. Inspect `msm.build.get_missing_heavy_atoms(output)` and all
+native warnings before downstream use. An explicit optional PDBFixer request
+has its own reconstruction behavior; inventory receiving does not independently
+validate its pose or certify resolved clashes.
+
+When the source contains H, native mutation can rebuild hydrogens using its
+native preparation rules and report attribute loss. That received path is
+single-structure. Heavy-only mutation is separately checked across three
+structures, preserving observed geometry, box, time and IDs. There is no implicit
+visible-structure selection or promise of trajectory-wide hydrogen preparation.
+Output atom order/maps, chemistry, mechanics and saved-analysis behavior follow
+the actual native reconstruction; source analyses are preserved and the addon
+never recalculates them. This is not hidden protonation, minimization or a new
+force-field assignment by the addon. See {func}`molsysmt.build.mutate` and
+{ref}`Mutating groups <Tutorial_Mutate>`.
+
+Both methods resolve the serialized current primary, including completed pending
+edits, without scene synchronization or result adoption. Cached methods follow
+replacement and reject closed/empty owners. Mutation now mirrors and forwards the native keyword-only `skip_digestion`.
+Peptide construction also forwards native `skip_digestion` and keyword-only
+`from_naming_scheme`; its
+native trusted-caller validation contract applies. Neither wrapper adds `in_place` or `update_view`.
+Use a returned system explicitly in further calculations or deliberately replace
+the view when that is your intent.
+
 ## Recognizing hydrogen-bond sites and local directions
 
 The expert route follows the native family path:
@@ -3291,3 +4892,204 @@ The managed prefix-addition route requires a Viewer host with the explicit
 science. Independent outputs and explicit collection routes keep their separate
 contracts. This is source receiving, not published-package or universal scientific
 qualification.
+
+
+## Reconciling reference-rule hydrogens independently
+
+`view.addons.molsysmt.build.reconcile_protonation` returns a separate molecular
+system with hydrogens removed according to the native reference rules. It keeps
+`pH`, `engine`, `in_place` and `skip_digestion` from the native signature. This
+addon currently admits **only `in_place=False`**, its default.
+
+```python
+import molsysmt as msm
+import molsysviewer as msv
+
+molsys = msm.convert(
+    msm.systems["chicken villin HP35"]["1vii.pdb"],
+    to_form="molsysmt.MolSys",
+)
+with msv.new_view(molsys) as view:
+    source = view.molsys
+    result = view.addons.molsysmt.build.reconcile_protonation(pH=12.0)
+    assert source.get_n_atoms() == 596
+    assert result is not source and result.get_n_atoms() == 590
+    assert view.molsys is source
+    # Inspect the independent result before deliberate scene replacement:
+    # view.load(result, mode="replace")
+```
+
+This deposited-villin control removes the N-terminal H3 and five lysine HZ3
+atoms under the native fixed-pKa approximation. It checks reference-rule
+behavior; it does not predict titration in the molecular environment. Explicit
+Amber-state labels keep their supported side-chain inventories, and unsupported
+or unassessed references remain unchanged. No removal is not a certificate that
+all groups were assessed or that the system is chemically ready.
+
+The native operation removes atoms across every source structure and preserves
+retained poses through native extraction. It does not add missing H, choose a
+stored chemical state, assign charges or select the visible structure. Named
+analyses retain native subset/remapping semantics; they are not recalculated
+for the new system. Length units and other scientific policies are unchanged.
+
+The current source, scene, history and completed pending edits remain owned by
+the view. The independent result is never adopted implicitly. Full native
+copying/subsetting can materialize coordinates and is not an out-of-core
+trajectory promise. Cached methods follow replacement and closed-view rules.
+
+`in_place=True` raises `NotImplementedError` before scientific execution because
+the native tool does not yet provide public removal correspondence for managed
+scene remapping. The addon does not infer identity from counts, labels or
+coordinates and does not call private protonation rules. There is no
+`update_view`, `selection`, `structure_indices` or `return_report` argument on
+this mirror. Native digestion is forwarded; the integration admission boolean
+is checked even with `skip_digestion=True`.
+
+
+## Creating another visualization and using compatibility aliases
+
+`view.addons.molsysmt.basic.view` mirrors the native visualization entry point
+with the current molecular system implicit. It requires an open loaded owner
+and returns a separate visualization; the ordinary native root alias is also
+available as `view.addons.molsysmt.view`.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    tools = view.addons.molsysmt
+    with tools.basic.view(
+        selection=[0, 2, 4], structure_indices=[8, 3, 8],
+    ) as detail:
+        assert detail is not view and detail.molsys.get_n_atoms() == 3
+        assert detail.molsys.structures.n_structures == 3
+    assert not view.closed
+    assert tools.hbonds.get_buch_hbonds == tools.interactions.hbonds.get_buch_hbonds
+```
+
+The new visualization receives native source data and requested atom/structure
+selections, including repeated structure order. It does not copy parent regions,
+shapes, camera or history. Its lifetime is independent and the caller closes it.
+Completed pending molecular edits can be visualized without synchronizing or
+adopting anything in the parent. Cached calls bind the current replacement and
+reject closed owners. Use ordinary `msv.new_view()` to create an empty workspace.
+
+The `viewer`, `syntax` and `skip_digestion` arguments retain their native
+contracts, diagnostics and optional-provider availability. There is no backend
+fallback or implicit visible-structure selection. This receiving covers the
+MolSysViewer Python result, not another backend's rendering. Native configured
+HTML embedding retains its own contract.
+
+For compatibility with MolSysMT's historical namespace, `tools.hbonds` exposes
+exactly four callable aliases: `get_donor_atoms`, `get_acceptor_atoms`,
+`get_buch_hbonds` and `get_luzard_chandler_hbonds`. They are the same bound methods
+as `tools.interactions.hbonds`, with the same digestion, scientific parameters,
+units, results and owner lifetime. They do not attach results or create scene
+representations. Prefer `tools.interactions.hbonds` in new code; it also contains
+the modern recognition/direction and generic detection tools. Four aliases do
+not represent four additional scientific algorithms.
+
+The two legacy native NVT/NPT equilibration declarations are unconditional
+unimplemented stubs. The addon does not expose a `molecular_dynamics` namespace
+or advertise those declarations as runnable simulation tools.
+
+
+## Constructing water from an explicit cell
+
+`tools.build.make_water_box` constructs a separate water system from one explicit
+box. It is available before loading any molecular system into the view:
+
+```python
+import numpy as np
+import molsysmt as msm
+import molsysviewer as msv
+
+with msv.new_view() as workspace:
+    box = msm.pyunitwizard.quantity(
+        [[2.0, 0.0, 0.0], [0.7, 1.8, 0.0], [0.3, 0.2, 1.7]], "nm",
+    )
+    water = workspace.addons.molsysmt.build.make_water_box(box)
+    assert workspace.molsys is None
+    workspace.load(water)  # Explicitly choose to display the independent result.
+    assert msm.get(workspace.molsys, n_waters=True) > 0
+```
+
+Vectors are rows, with origin zero: `r = f @ B`. Complete reference waters
+are retained when their oxygen is inside the requested cell; hydrogens can
+extend beyond its faces. Tilted and rotated cells follow the same convention.
+Input lengths may use compatible units; native output storage stays in nm
+without changing the application's presentation policy. `form` selects the
+ordinary native output conversion, including `molsysmt.Structures`; its required
+information and optional dependencies must be available.
+
+The current primary and its box are not used. Existing molecular data, regions,
+shapes, history and pending edits remain untouched. There is no `in_place` or
+`update_view` switch, implicit loading, or solvation of an existing molecule.
+The caller keeps explicit inputs stable during the call and owns the result
+afterwards, including after the workspace is closed. Calls through a closed
+workspace are rejected. Native `skip_digestion=True` skips normalization too:
+use native normalized inputs, including box shape `(1, 3, 3)`.
+
+The bundled SPC reference supplies coordinates and bonds, without assigning a
+force field or an equilibrated thermodynamic state. Clipping does not prescribe
+an exact density or guarantee that periodic-face contacts are free of overlaps.
+Inspect packing before simulation. A small valid cell may return a typed empty
+water system. See {func}`molsysmt.build.make_water_box` for the complete native
+contract, and {func}`molsysmt.build.solvate` to add solvent around a molecule.
+
+
+## Removing atoms through Molecular tools
+
+This section describes the experimental source integration, not an admission
+of an older installed package pair. Enable MolSysMT in Studio/Add-ons if it is
+disabled, enter **Molecular tools**, and open **System**. The first task is
+**Remove atoms**. Other planned task panels are not advertised as runnable.
+
+Choose atoms from the current canvas selection, a saved selection, a region,
+or the Water/Ions categories. You can also enter a MolSysMT expression or
+comma- or space-separated integer atom indices. Categories prefill ordinary
+native selectors; they do not implement separate removal algorithms. Name
+suggestions show up to 200 entries; an existing name can also be entered directly.
+Text fields accept at most 4096 characters. Use a saved selection or region
+for a large explicit atom set.
+
+**Selection context** chooses one current or explicit structure for evaluating
+the selection. Expressions use the reference chemical state. This is distinct
+from the operation's scope: removing an atom removes it from **every structure**.
+The visible structure is never presented as a separate topology.
+
+Press **Review removal** to inspect selected/retained atom counts, structure
+coverage, available group counts and the selection context. Review does not
+copy coordinates or alter molecular data, canvas selection or scene history.
+No matches is a neutral outcome; selecting every atom is refused. To clear a
+view, use the host's separate loading/reset workflow.
+
+Confirm **Remove N atoms** to apply the qualified native removal with immediate
+scene reconciliation. This GUI decision chooses the admitted in-place effect;
+`tools.basic.remove` keeps its native independent default and expert options.
+Saved references follow the retained atom map. Scene Undo cannot restore
+removed molecular atoms. Back returns to the retained draft without execution.
+
+The completion message remains visible through context refreshes while the
+system revision and task draft still match. A new action, changed draft or
+system, or leaving the panel expires it. Refreshing does not repeat removal.
+
+A review expires after a molecular revision/replacement, changed selection
+context or relevant selection source, draft change, panel unmount or close.
+The final check and publication share the host's serialized edit boundary.
+Review tokens and atom arrays stay private to Python; the frontend receives
+bounded summaries. An unmounted panel cannot revive a token. Other live panel
+instances refresh after an edit while retaining their drafts.
+
+If science completes but the scene update fails, use **Update view in the
+canvas**. This retries projection only; do not repeat the removal. The qualified
+host emits managed-state updates to refresh the panel after recovery. Hosts
+without that notification require an explicit Refresh after updating the view.
+An uncertain partial write instead requires explicit recovery/replacement.
+These controls do not observe arbitrary external edits to `view.molsys`.
+
+Molecular data remain owned by the view's single current MolSys. The panel
+uses the same native selection and removal preparation as the expert API.
+Extraction/copy result presentation and other task panels remain separate work.
+Automated Jupyter and popup transport checks do not replace human Jupyter/visible
+Qt observations, owner integration or installed-artifact qualification.

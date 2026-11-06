@@ -1,0 +1,183 @@
+{
+  "schema": "molsysmt.viewer-execution-platform-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#559",
+    "uibcdf/molsysmt#587"
+  ],
+  "contribution_parent": "96191e07e6c0ba755b53e14c785ad953e7aa55f3",
+  "native_owner_basis": "50854766d86817bba352c8c843931237595cf134",
+  "viewer_runtime_source": "ecf4635e3fe95bd382d127caf13e46ad3771d406",
+  "status": "Native #559 received in the owner PR with source/platform controls; owner review and exact-head CI remain separate.",
+  "changes": [
+    "Receive native engine-owned platform names, registration/device failure distinction and no fallback.",
+    "Replace outdated Reference-rejection expectations and add six explicit CPU/Reference consumer energy, pair-energy and minimization ownership cases.",
+    "Preserve owner course content and update capability prose without adding algorithms or new functional exports."
+  ],
+  "validation": [
+    {
+      "file": "platform559-full-addon-20261105.xml",
+      "sha256": "9c32c223926d249c01030166a4ae5e71f74a4c388332a8b63e22b5b4e83b6e1d",
+      "scope": "Complete addon and 32 host/source/inventory/CI-command guards.",
+      "tests": 4512,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "platform559-native-controls-20261105.xml",
+      "sha256": "9b65055b693a567a45c0469a4da01316974f0525eb033b1cc13d8a0f0a54bae4",
+      "scope": "Native platform/force-field/digestion/diagnostic controls plus the unchanged board pagination guard; overlaps earlier native controls.",
+      "tests": 481,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "platform559-docs-controls-20261105.xml",
+      "sha256": "03fcb985b5c259295037fe4346f1e9773ddc8da18d4131a7e7b1253893343cf8",
+      "scope": "Owner documentation, report/index/lifecycle and paging guards.",
+      "tests": 85,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "platform559-viewer-boundary-20261105.xml",
+      "sha256": "75229806f7fc4675284c0356161d29d9403a12e15afe6269e44234c5611e385e",
+      "scope": "Viewer metadata, managed-edit and endpoint behavior with this native source.",
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "source_freeze": {
+    "sha256": "9e0a5b8ebc22e2e26993e8ccd5b1f0c69a33d54a591267fa7ca5cb211e0daa63",
+    "files": 4270,
+    "postcheck": {
+      "primary_files": 4270,
+      "primary_changed": [],
+      "support_changed": {
+        "argdigest": [],
+        "smonitor": [],
+        "depdigest": []
+      },
+      "provider_python_files": 91,
+      "viewer_sources": 5,
+      "native_authored_diff": []
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "provider_commit": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc"
+  },
+  "scientific_scope": {
+    "platforms": [
+      "CPU",
+      "Reference"
+    ],
+    "models": "Existing bounded single-structure NoCutoff/HBonds references; distinct OBC models retain prior explicit physical tests.",
+    "pair_energy_tolerance": {
+      "CPU": {
+        "rtol": 2e-06,
+        "atol_kj_mol": 0.0002
+      },
+      "Reference": {
+        "rtol": 1e-07,
+        "atol_kj_mol": 1e-05
+      }
+    },
+    "limits": "No GPU/plugin-device, arbitrary-system, periodic partition or full staged preparation/dynamics qualification."
+  },
+  "initial_results": [
+    {
+      "file": "platform559-original-expectations-20261105.xml",
+      "sha256": "a64467ee17d0db79f28b3f1d759da6ccb8ef2f3a8393628350bd22d03f8dafb7",
+      "scope": "Four outdated native Reference-rejection expectations fail after the repair.",
+      "tests": 18,
+      "failures": 4,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "platform559-consumer-focused-20261105.xml",
+      "sha256": "5b54c664ade8f674d440ba1a72fbe6fc4bceb8e083196d039125b77c578c0e10",
+      "scope": "153 pass, one newly authored CPU pair-oracle check uses an unjustified tighter tolerance; restored established CPU tolerance, preserving the Reference bound.",
+      "tests": 154,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "platform559-pair-corrected-20261105.xml",
+      "sha256": "ad432b38aae44468bdc8fc2932a9851ea9ac568e751730de605f930d2984c0e9",
+      "scope": "Both explicit platforms meet their documented pair-oracle tolerance; included in final gate.",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "browser": {
+    "scope": "Local headless real Mol* + addon ESM + persistent Python/native source. Not a live Jupyter, visible Qt, popup or installed-artifact certificate.",
+    "checks": [
+      "Actual host workspace mounts addon ESM and native 1TCD review reports 165/3818 atoms.",
+      "Real click-to-Python removal updates actual Mol* structure to 3818 atoms; native revision advances once.",
+      "Zero ion matches remain a native no-op without another managed revision.",
+      "Host Update view reconciles a real pending edit; generic status event refreshes addon without repeating science.",
+      "Unmount/remount preserves the bounded draft and never restores an executable review token."
+    ],
+    "page_errors": [],
+    "native_source": "/tmp/msv-platform-receiving-20261105/molsysmt/__init__.py"
+  },
+  "browser_artifacts": {
+    "result_sha256": "1a4376dfa4ca251ecc106ff9791daa7b71c4dd38c638337d0139985897dc2441",
+    "screenshot_sha256": "1fbde506c809c8ffe7f76db5c6e9a5f27301a1c23ebe9a41c8924ab0ed45e3ca",
+    "scope": "Actual headless Mol*/ESM/Python with native 50854766d; not live Jupyter/Qt/popups or installed qualification."
+  },
+  "course_preservation": {
+    "owner_basis": "50854766d86817bba352c8c843931237595cf134",
+    "notebooks": 157,
+    "changed_markdown": {
+      "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": [
+        "position:12"
+      ],
+      "docs/content/course/Common_Core/16_Structural_Operations.ipynb": [
+        "3a9e865b87b95025"
+      ],
+      "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": [
+        "96ebdbc9",
+        "4fb55a86",
+        "f158b27f"
+      ],
+      "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb": [
+        "position:5"
+      ]
+    },
+    "code_outputs_ids_metadata_preserved": true
+  },
+  "quality": {
+    "native_docstrings": 247,
+    "validated_course_modules": 156,
+    "ruff": "check/format pass",
+    "dependencies": "audit and soft-import scan pass",
+    "devguide_indexes": "pass"
+  },
+  "prior_receipts": [
+    "devtools/data/molsysviewer_tools_native_model_ion_receiving_20261105.json",
+    "devtools/data/devguide_board_pagination_receiving_20261105.json"
+  ],
+  "shared_notices": [
+    "uibcdf/molsyssuite#171",
+    "uibcdf/moli#85"
+  ],
+  "pending": [
+    "Owner PR review and hosted exact-head CI/artifacts.",
+    "Native #583/#584 repairs, #582 recipes, #572 forces and #576 correspondence.",
+    "#587 tooling fix is proposed; retain three genuine board-label discrepancies.",
+    "Remaining graphical tasks, live Jupyter/visible Qt/actual popups and installed qualification."
+  ],
+  "publication": "Both 1.0 publications remain paused; no candidate, package, tag or promotion."
+}

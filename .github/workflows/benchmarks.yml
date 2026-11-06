@@ -72,7 +72,7 @@ jobs:
           set -euo pipefail
           python -m pip install --no-deps \
             -r devtools/controlled_sources.txt \
-            git+https://github.com/uibcdf/molsysviewer@ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352
+            git+https://github.com/uibcdf/molsysviewer@36ab93b7f8bc0530818bbc178c35dc04a9defd07
           python -m pip install --editable . --no-deps
           python devtools/scripts/validate_controlled_dependencies.py
 

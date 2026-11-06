@@ -29,3 +29,13 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 4. Choose Your Scientific Path & See Also
 * Must include the **Choose Your Scientific Path** block detailing Paths A through D.
 * Must include the **See Also** block (`(course-core-the-specialized-domains-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 19.
+
+
+Preserve the expert-addon nonbonded-energy pointer in Section 6: native energy
+units and single-structure CPU NoCutoff receiving remain distinct from mixed
+partition limits, periodic/overlap qualification and the pending native MolSys
+force reader. Keep all original executable cells, outputs and notebook metadata.
+
+Preserve received native #559 engine-owned platform resolution and bounded
+CPU/Reference consumer controls, while retaining device/GPU and physical-model
+qualification limits and the independent result/scene ownership boundary.

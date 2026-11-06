@@ -1,0 +1,278 @@
+{
+  "schema": "molsysmt.viewer-alternate-site-source-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#569",
+    "uibcdf/molsysmt#570",
+    "uibcdf/molsysmt#571"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "a1dbe0fb67373c32b0ca3276aa40f52250ff9554",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "viewer_receiving_basis": "004464dfca7e49e924b14c4af56b3826bda648d9",
+  "viewer_runtime_logic": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "source_identity": "Recorded working-tree hashes identify tested code; delivery is through the existing owner-reviewed PR. Final commit identity is received downstream without self-reference.",
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "linux",
+    "observed_distribution_versions": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3"
+    },
+    "scope": "Existing explicit source environment. Versions are receipt-time observations; support-library source checkouts are not included in this native/addon freeze. No environment solve, new backend build or clean installed qualification."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_build.py": {
+      "file": "_build.py",
+      "sha256": "9689537fd1bfcdc450ed7431c536037de8feecb6bc14251cf9fb99931e90a25c",
+      "size_bytes": 37432
+    },
+    "molsysviewer_molsysmt/_geometry.py": {
+      "file": "_geometry.py",
+      "sha256": "872462cca0b87bb28dda17d9d8d336dd1ecef8e5ae1617fc990f3b6a05a7e413",
+      "size_bytes": 12020
+    },
+    "tests/molsysviewer_molsysmt/test_build_alternate_tools.py": {
+      "file": "test_build_alternate_tools.py",
+      "sha256": "6208329400bb3be7617e2e17d4ab809a573a397d44576ef442b8373d9721145f",
+      "size_bytes": 15125
+    },
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": {
+      "file": "test_build_audit_tools.py",
+      "sha256": "d2c85b3566816d019ff2177753d43c11dcc9c81231c0f6e592f929db72544f92",
+      "size_bytes": 14180
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "file": "test_molsysviewer_tools_api_inventory.py",
+      "sha256": "e323509452b0f9e4936bb62f1976051aad58d48ef4b7023f4e9bf7249102d190",
+      "size_bytes": 9293
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "file": "ci-smoke.yaml",
+      "sha256": "15866dc70a784826e2717c222a7ad19a1cdbd5d2c7d571b2e496a561002a2f15",
+      "size_bytes": 15143
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "file": "molsysviewer_tools.md",
+      "sha256": "a8e6acf8d24185a701278cede33e73669ae96c1670d9824423162260d28f4f64",
+      "size_bytes": 250434
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "file": "molsysviewer_tools.md.AGENTS.md",
+      "sha256": "ee5efcf073ecc3ab477879f678b76f21f6aea38767a3f0d98e941576546c3cee",
+      "size_bytes": 29877
+    },
+    "docs/docs_manifest.yml": {
+      "file": "docs_manifest.yml",
+      "sha256": "aaeae676ec60a44603e04fdf4b9582ff5c1095c358bfb3e21c80b695bc9b7e29",
+      "size_bytes": 56971
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "sha256": "92fbcdc29994284a6e98c9c16e4d6135bef0261a65f5618a9180452025cb71b9",
+      "size_bytes": 56877
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.AGENTS.md": {
+      "file": "12_Building_Repairing_and_Auditing_Systems.AGENTS.md",
+      "sha256": "ca066fe9f292edde00af3721b57cf071dd97ac820de92282ccf44e5cc5db77f9",
+      "size_bytes": 5115
+    }
+  },
+  "native_input": {
+    "path": "molsysmt/build/solve_atoms_with_alternate_location.py",
+    "file": "solve_atoms_with_alternate_location.py",
+    "sha256": "91028f58c53cf0424f585b6d6e3333e14e8edf1841b2f7dddeee2503ec006af7",
+    "size_bytes": 6152,
+    "owner_checkout_same_function_bytes": true
+  },
+  "datasets": {
+    "barnase_barstar_bcif": {
+      "file": "1brs.bcif.gz",
+      "sha256": "aed172bd303f4de89f9458494985064d9ff878279726b2b01b46bb24a4791e82",
+      "size_bytes": 87209
+    },
+    "peptide_builder_templates": {
+      "file": "amber14sb.json.gz",
+      "sha256": "afb6989a938d118ac6360dbb86548d45e9d6a30b8f02d009e42e1320febe5e79",
+      "size_bytes": 16247
+    }
+  },
+  "implemented": {
+    "path": "build.solve_atoms_with_alternate_location",
+    "signature": "Native primary omitted, scientific parameters/defaults preserved, plus keyword-only update_view=True and addon-only skip_digestion=False. Native function has no skip parameter; ordinary native validation is always used.",
+    "ownership": "Native in-place None return. No invented in_place control, independent result, molecular-system argument or root alias. Requires loaded coordinates and open owner.",
+    "effects": "Retained atom/structure/chemical identity; selected stored coordinates, native per-structure B-factor sets and global atom-ID labels. Native alternate-site records remain and analysis invalidation follows actual coordinate publication. Source correspondence uses retained indices, not labels.",
+    "binding": "Native location list binds sorted unique selected atoms; the first processed selected structure chooses each global atom label. Nonconsecutive structure order remains native and no visible structure is substituted.",
+    "noop": "No selected-site publication preserves revision/history/coverage; update_view=True may still synchronize prior pending work. Equal numerical values alone do not establish no-op.",
+    "failure_receiving": "The reviewed native route publishes protected coordinates before any metadata writes. With loaded coordinates, an unchanged geometry publication token certifies a clean rejection; a changed token on error enters uncertain state and requires explicit replacement. Native error classes/messages remain.",
+    "sync_retry": "A separate scene failure carries science_completed=True/scientific_result=None. Real native-call profiling across a transport failure plus retry observes one scientific call; retries only reconstruct projection.",
+    "host": "Existing generic coordinator is sufficient; no Viewer runtime logic or scientific algorithm changes."
+  },
+  "qualification": {
+    "classification": "Contract/parity tests plus literal stored crystallographic coordinate/ID controls, not general occupancy/conformer certification.",
+    "cases": "30 focused cases cover explicit/tied/received higher-occupancy choices, location lists and selected/nonconsecutive structures, MolSysMT/MDTraj syntax, physical quantities in nm/angstrom/pm and squared lengths, native B-factor admission, alternate metadata retention, native and integration validation including local skip, unchanged chemistry/source/index handles, analysis coverage, no-ops, partial native failure and explicit recovery, removal composition, lifetime/replacement and projection-only retry.",
+    "crystallographic_control": "Bundled Barnase-Barstar 1brs BCIF sites 2686/2687 resolve B to IDs 2688/2690 and literal nm coordinates [[3.2757,2.2571,0.1533],[3.3396,2.192,0.2619]], atol=1e-12, without invented chemistry or coordinate preparation.",
+    "checks": {
+      "focused": {
+        "file": "alternate-focused-complete-20261105.xml",
+        "sha256": "a94791b33c68d43314ed40c27e108764eaa7d83950cf8cd3567bc18e734ad733",
+        "size_bytes": 5511,
+        "tests": 30,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 20.694
+      },
+      "edit_integration": {
+        "file": "alternate-edit-integration-20261105.xml",
+        "sha256": "61adfd5997e068bc47acacb176b7c72393f83168a06cc4dc2ab0e75ec8d52780",
+        "size_bytes": 180929,
+        "tests": 999,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 302.784
+      },
+      "native": {
+        "file": "alternate-native-20261105.xml",
+        "sha256": "af6beb78b13f00aa6c60e4447f6e5e88faec1f8970b44c6f846b1b250529739f",
+        "size_bytes": 6279,
+        "tests": 34,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 9.544
+      },
+      "package_reporting": {
+        "file": "alternate-package-reporting-20261105.xml",
+        "sha256": "96acbfcfcc1ef0370f2eb9415f6ebac0dc52ddc3994f1b82a93f7958762abf5f",
+        "size_bytes": 13130,
+        "tests": 87,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 6.368
+      },
+      "docs": {
+        "file": "alternate-docs-20261105.xml",
+        "sha256": "867df49e0b1b5176adc59f0aa97ef87163bf51e18fb0a2a00dd3dd2faebe7388",
+        "size_bytes": 9930,
+        "tests": 56,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 26.83
+      }
+    }
+  },
+  "native_limitations": {
+    "reports": {
+      "uibcdf/molsysmt#569": {
+        "path": "devguide/pending_bugs/alternate_location_occupancy_can_choose_a_lower_occupancy_site.md",
+        "file": "alternate_location_occupancy_can_choose_a_lower_occupancy_site.md",
+        "sha256": "5f694fc487ae8dfe529c89d4892d05513e5a91216a60dfd915ec05e48c434e74",
+        "size_bytes": 3969
+      },
+      "uibcdf/molsysmt#570": {
+        "path": "devguide/pending_bugs/resolved_alternate_location_retains_previous_primary_occupancy.md",
+        "file": "resolved_alternate_location_retains_previous_primary_occupancy.md",
+        "sha256": "eb874bac4d83a0847955fccdf107aba630a93b7e566b46639bad2251ef0bf406",
+        "size_bytes": 4426
+      },
+      "uibcdf/molsysmt#571": {
+        "path": "devguide/pending_bugs/alternate_location_rejection_can_leave_partial_structure_writes.md",
+        "file": "alternate_location_rejection_can_leave_partial_structure_writes.md",
+        "sha256": "ca1eaa8f39e0071a2cf724fd86873cb64299e0e7693c024f4aa96016a45a84b0",
+        "size_bytes": 5085
+      }
+    },
+    "observations": {
+      "file": "alternate-native-observations-20261105.json",
+      "sha256": "0a3960b2df57dfaa4e1374fb17b0ed47eed5c097732c4d271e773c3e2c2e0a47",
+      "size_bytes": 939
+    },
+    "569": "Maximum 0.5 can incorrectly select lower-occupancy A; report requests native policy tests.",
+    "570": "Primary occupancy remains old; observation is reproduced, intended semantics await owner clarification.",
+    "571": "Invalid later location can leave earlier coordinates/B factors written and raises malformed choice-constructor TypeError; native partial state is not automatically recovered.",
+    "opening_verification": "Final issue examples were executed literally. Two opening ID queries were corrected to request element=atom; this fixes reproduction queries, not the scientific observations. The first partial-write probe used aliased dictionaries and was refuted; final independent dictionaries reproduce partial publication.",
+    "authority": "Explicit maintainer approval to open all three issues; searched open and closed reports. No scientific fix or compensating normalization in the addon."
+  },
+  "source_freeze": {
+    "count": 3147,
+    "source_sha256": "e402940b1953e30ab6378e820e04097ea4b6aaeb578115ba399abd513927a705",
+    "manifest": {
+      "file": "alternate-sources-before-20261105.json",
+      "sha256": "851ae8da72af0392d5c9a4af5ddcb31d3469e70c94de317be341254ee38b48b8",
+      "size_bytes": 386657
+    },
+    "postcheck": {
+      "file": "alternate-postcheck-20261105.json",
+      "sha256": "6440c58192561a98b98088aa3dda0f63f48412e103e11e3943af4505e571d889",
+      "size_bytes": 320
+    },
+    "native_unchanged_count": 3034,
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "native_algorithm_changes": false
+  },
+  "documentation": {
+    "course_preservation": {
+      "file": "alternate-guide-course-20261105.json",
+      "sha256": "609dc1d98e1298f5f99b78b4c6c0354d87dfffa73fc8e576b56cc58f76c21f4a",
+      "size_bytes": 126
+    },
+    "course_structure": "156 notebooks validate; one existing Markdown cell changes, original code/outputs/IDs/metadata unchanged.",
+    "native_docstrings": "246 functions pass the fresh-process structural/default/content checker; scope is that execution, not an all-import-orders coverage claim.",
+    "guide": "One new owning guide block executes. Guide/microinstructions/manifest and Module 12 prose updated with explicit native limitations.",
+    "lint": "Ruff package/tests pass; all 90 addon and addon-test Python files pass formatting.",
+    "devguide": "Three owning reports and generated queue index are synchronized; owner integrity/index checks pass."
+  },
+  "inventory": {
+    "exposed": 232,
+    "declared": 244,
+    "build": "27/30",
+    "mechanics": "4/6",
+    "file": {
+      "file": "alternate-inventory-20261105.json",
+      "sha256": "11f60ff5eb1a714e6b4bdb226afac8cf40d594c167f2ac3d118de4c5c7105ed1",
+      "size_bytes": 122428
+    },
+    "scope": "Source function-path exposure, not distinct algorithms or installed compatibility. Two raw FASTA utilities remain outside this inventory."
+  },
+  "prior_ci": {
+    "source": "a1dbe0fb67373c32b0ca3276aa40f52250ff9554",
+    "smoke": 42062370918,
+    "conclusion": "success",
+    "command_guards_passed": 32,
+    "native_passed": 5397,
+    "native_optional_skips": 16,
+    "addon_passed": 4151,
+    "addon_optional_skips": 4,
+    "smoke_manifest": {
+      "file": "manifest.json",
+      "sha256": "540c5344074c6295e1d0ea7faa40edcf2e7dd16172b4e2502c06a4726bb98f14",
+      "size_bytes": 1650
+    },
+    "native_log": {
+      "file": "bond-inventory-success-smoke-20261105.log",
+      "sha256": "82a9bf5007b3570c26dcf3327b8c5eee976157e04fc26fd93cc2f0647992244a",
+      "size_bytes": 383121
+    },
+    "full_matrix": 42062370977,
+    "full_scope": "Last inspection: three full test cells passed, one in progress, four queued; wheel passed. No complete result or independently verified certificate bodies is claimed.",
+    "scope": "These are earlier source outcomes; neither this new source nor an installed-public pair is qualified by them."
+  },
+  "working_state": "Human Viewer sandbox files are preserved. Concurrent owner main is nine commits ahead with four dirty API stubs at refreshed inspection; none adopted or edited. The contribution retains the frozen native basis.",
+  "remaining": "Three build routes, two mechanical routes, basic.view, aliases/stubs, owner #569/#570/#571 clarification/fixes and other native pending work, task GUI and installed qualification remain separately owned.",
+  "retention": "Source/JUnit/reproduction/capture files and the existing contribution worktree retained through owner/CI receiving; review by 2026-11-11.",
+  "publication": "PR-only owner contribution. No owner-main push/merge, native algorithm/Rust/backend or dependency-floor change, candidate, package, tag, Release or promotion. Both 1.0 publications remain paused."
+}

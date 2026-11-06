@@ -1,13 +1,346 @@
-"""Explicit native build diagnostics; no preparation or scene adoption."""
+"""Native build diagnostics and detached preparation without scene adoption."""
 
 from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _native_documentation
+from ._chemical_edits import _run_add_missing_bonds
+from ._geometry import _run_alternate_locations
+
+
+def _alternate_edit_documentation(function):
+    function = _native_documentation(
+        "solve_atoms_with_alternate_location", module="build"
+    )(function)
+    function.__doc__ += (
+        "\nView integration\n----------------\n"
+        "update_view : bool, keyword-only, default=True\n"
+        "    Reconcile the completed native in-place edit. False defers only "
+        "scene projection; sync_view() retries projection without science.\n"
+        "Requires an open loaded native owner with coordinates. Returns native "
+        "None; no in_place switch or independent output is invented. Atom and "
+        "structure indices, chemistry and source identity remain. The native "
+        "tool writes selected coordinates, occupancy, B factors and consistent atom-ID "
+        "labels; IDs are not correspondence indices. Alternate-site records "
+        "remain available. Native order, location policy, units and analysis "
+        "invalidation remain unchanged; there is no visible-frame substitution, "
+        "conformer search or molecular preparation. Calls that publish no "
+        "selected site preserve managed revision/history; repeating a native write "
+        "can invalidate coverage even with equal coordinate values. Clean "
+        "rejections retain prior pending work, while partial native writes "
+        "enter uncertain state and require explicit replacement. A scene "
+        "failure after successful science exposes science_completed and "
+        "scientific_result=None; retry synchronization only. Native preflight "
+        "rejects invalid selected sites before publication. Native digestion "
+        "flags are forwarded; scientific site validation remains active.\n"
+    )
+    return function
+
+
+def _bond_edit_documentation(function):
+    function = _native_documentation("add_missing_bonds", module="build")(function)
+    function.__doc__ += (
+        "\nView integration\n----------------\n"
+        "update_view : bool, keyword-only, default=True\n"
+        "    Reconcile an admitted in-place bond addition. False defers the "
+        "scene only; sync_view() completes pending projection without repeating "
+        "the scientific calculation. Independent outputs are never adopted.\n"
+        "Requires an open loaded owner. Native in_place=True returns None, "
+        "while False returns a separate molecular system. Atom, structure and "
+        "chemical-state identities are retained; the native reference state "
+        "and structure_index=0 apply, not the visible frame. Native template, "
+        "distance, selection, chain and periodic rules remain unchanged. No "
+        "bond order, type, complete chemistry, hydrogen preparation or engine "
+        "fallback is inferred by the addon. The native writer rebuilds "
+        "components and invalidates all named analyses on graph changes, "
+        "including evaluated-empty coverage, without running detectors. Empty "
+        "candidates preserve coverage, history and managed revision; they can "
+        "still synchronize earlier pending edits when update_view=True. A "
+        "scene failure exposes science_completed=True and scientific_result; "
+        "retry synchronization only. Atomic native rejections preserve prior "
+        "pending work; uncertain writes require explicit recovery.\n"
+    )
+    return function
+
+
+def _independent_build_documentation(name, *, local_skip=False):
+    def decorate(function):
+        function = _native_documentation(name, module="build")(function)
+        if local_skip:
+            function.__doc__ = function.__doc__.replace(
+                "\nReturns\n-------",
+                "\nskip_digestion : bool, default=False\n"
+                "    Keyword-only addon validation control, not forwarded to "
+                "the native function. Native validation always applies.\n\n"
+                "Returns\n-------",
+                1,
+            )
+        result_description = (
+            "returns an independent native MolSysBuilder; "
+            if name == "editable"
+            else "returns a new system when molecules are removed, otherwise the current primary; "
+            if name == "remove_overlapping_molecules"
+            else "returns a dictionary containing a separate molecular system and its report; "
+            if name == "add_terminal_atoms"
+            else "returns a separate molecular system; "
+            if name
+            in {
+                "make_bioassembly",
+                "add_missing_heavy_atoms",
+                "add_missing_terminal_cappings",
+                "mutate",
+                "build_peptide",
+                "solvate",
+                "reconcile_protonation",
+            }
+            else "returns a separate molecular system, optionally with its report; "
+        )
+        function.__doc__ += (
+            "\nView integration\n----------------\n"
+            "Reads the current view.molsys through the serialized molecular "
+            "reader, including completed pending edits. The native function "
+            + result_description
+            + "it does not replace view.molsys or publish scene/history changes. "
+            "There is no update_view control or implicit adoption. Native "
+            "chemical-state, structure, method, prerequisite, provenance, unit "
+            "and validation contracts remain unchanged. No chemistry, model "
+            "or optional engine is selected or prepared by the addon. An open "
+            "loaded owner is required.\n"
+        )
+        if name == "project_atom_names":
+            function.__doc__ += (
+                "Export naming projection\n------------------------\n"
+                "target_form selects the native naming constraint, not a file "
+                "write or output-format conversion. All source atoms and "
+                "structures remain; report index maps are identity maps with "
+                "original/projected labels, not a name-based atom match. "
+                "No atom types, elements, chemistry or template-sensitive "
+                "assignments are inferred or recertified. Native geometry "
+                "blocks stay protected and shared until a later native edit; "
+                "this projection does not require a trajectory-sized geometry "
+                "copy. Existing assignments retain their provenance and may "
+                "fail their native export validation after renaming.\n"
+            )
+        else:
+            function.__doc__ += (
+                "Full native copying may materialize coordinates and is not "
+                "an out-of-core trajectory promise.\n"
+            )
+        if name == "reconcile_protonation":
+            function.__doc__ += (
+                "Only the native independent route (in_place=False) is received. "
+                "in_place=True raises NotImplementedError before scientific "
+                "execution: the native tool provides no public removal "
+                "correspondence for managed scene remapping. No update_view "
+                "control, private chemistry helper or name/coordinate matching "
+                "is added. The pH approximation, stored naming contexts and "
+                "unsupported/unassessed groups retain their native meaning. "
+                "Removal affects every source structure and does not select "
+                "a chemical state, add missing H, assign charges, predict an "
+                "environmental pKa or certify chemical readiness. Retained "
+                "coordinates, source mappings and analyses follow native "
+                "extraction; inspect the independent output before explicitly "
+                "replacing the viewed system.\n"
+            )
+        elif name == "solvate":
+            function.__doc__ += (
+                "Solvation explicitly creates a new solvent/ion system using the "
+                "requested native engine and its stored/default force-field "
+                "settings. Exactly one loaded structure and engine-ready chemistry "
+                "are required; no hydrogen completion, protonation or visible-structure "
+                "selection is performed. Native box shapes, clearance/ionic-strength "
+                "units, model precedence, metadata losses and return forms remain "
+                "unchanged. Results are never adopted automatically. Native "
+                "identifier preservation and exact-ion-count repairs are received. "
+                "random_seed and skip_digestion are forwarded to the native "
+                "boundary; the facade does not renumber inputs, compensate "
+                "counts or switch engines. "
+                "A solvated box is a preparation output, not an equilibrated "
+                "ensemble or a certificate of suitable simulation conditions.\n"
+            )
+        elif name == "add_ions":
+            function.__doc__ += (
+                "Replaces complete native water molecules with monovalent ions "
+                "in an independent result. Exactly one structure/state, declared "
+                "water membership and a valid periodic cell are required. Count, "
+                "charge-source, seed, distance and placement-attempt policies are "
+                "explicit native inputs. The native report preserves both atom "
+                "maps and records distance units and seed. New formal charges "
+                "are not assigned partial charges or force-field parameters. "
+                "No automatic neutralization, scene replacement, equilibration, "
+                "managed in-place mode or update_view argument is introduced.\n"
+            )
+        elif name == "make_bioassembly":
+            function.__doc__ += (
+                "The explicit operation dictionary or stored assembly name "
+                "is interpreted by native MolSysMT. None selects its first "
+                "stored assembly; chains must have declared source indices. "
+                "Structure indices retain native order/repetitions and default "
+                "to structure 0, not the visible structure. Common chain sets "
+                "and proper rotations are supported; heterogeneous per-operation "
+                "chain sets retain native rejection. Source chain IDs are "
+                "preserved once; generated collisions use native unique IDs, "
+                "while author names may repeat. No assembly inference, atom-map "
+                "report, scene source block, periodic repair or physical-validity "
+                "certificate is added. Native form/domain/composition limits "
+                "remain unchanged.\n"
+            )
+        elif name == "merge_nonpolar_hydrogens":
+            function.__doc__ += (
+                "typing_scheme='autodock4' is explicit. Stored H labels merge "
+                "into their retained single-bonded heavy parents; HD labels "
+                "remain. Names do not choose the reduction. Complete single-state "
+                "chemistry, known hydrogen inventory, finite stored charges and "
+                "typing are prerequisites; the addon calculates none of them. "
+                "The native atom_projection@1 report distinguishes direct "
+                "correspondence, omitted atoms and merged H/parent pairs, with "
+                "charge transfers/totals declared in elementary_charge. The "
+                "result retains derived assignment provenance and clears reduced "
+                "interaction analyses; the source is preserved. This does not "
+                "derive a general united-atom force field or persist mechanics "
+                "in H5MSM 0.5. Optional attribution and native validation remain "
+                "with MolSysMT.\n"
+            )
+        elif name == "add_terminal_atoms":
+            function.__doc__ += (
+                "Each declared atom has one existing parent and supplied finite "
+                "length coordinates covering every source structure. Native "
+                "attachment appends atoms without moving or reordering old atoms, "
+                "inherits parent membership and normalizes IDs to strings. No "
+                "coordinates, chemistry, hydrogen inventory or force-field "
+                "parameters are inferred. The terminal_attachment@1 report "
+                "declares old/new identity, parent pairs, original source axes, "
+                "canonical nm coordinate units and supplied-coordinate evidence. "
+                "An independent record is retained in output preparation history. "
+                "Nonempty expansion invalidates output analysis coverage and "
+                "preserves the source; strict attribute policy rejects unsupported "
+                "new values, while intersection reports discarded attributes. "
+                "An empty addition preserves coverage and attributes. Native "
+                "single-state, mapping and persistence limits remain explicit.\n"
+            )
+        elif name == "add_missing_heavy_atoms":
+            function.__doc__ += (
+                "Native bounded template placement estimates supported missing "
+                "non-H atoms across all source structures. Standard and curated "
+                "modified-residue support, observed-geometry checks and unassessed "
+                "warnings remain native; no clash, stereochemistry, rotamer or "
+                "energy-minimum guarantee is added. Native expansion can reorder "
+                "atom indices while preserving old IDs and observed coordinates. "
+                "Output analyses retain remapped provenance but lose occurrences "
+                "and evaluated coverage. Existing chemistry/state metadata is "
+                "retained; new chemical values remain unknown. Attribute policy "
+                "controls native drops of unsupported structural/mechanical data. "
+                "PDBFixer is an explicit optional engine with its own limits, not "
+                "an automatic fallback. No hydrogen preparation or per-frame "
+                "selection is invented.\n"
+            )
+        elif name == "add_missing_hydrogens":
+            function.__doc__ += (
+                "Legacy pH mode and fixed_chemical_state mode retain their "
+                "different native contracts. Fixed-state geometry requires "
+                "pH=None, explicit RDKit, one prepared component/state/structure "
+                "and a complete declared hydrogen inventory. Old coordinates "
+                "and indices remain; appended H carry parent maps and stored "
+                "generation/attachment history, also preserved by H5MSM. No "
+                "protonation choice, heavy conformer, minimization, periodic "
+                "reconstruction or fallback engine is introduced. Legacy pH "
+                "preparation uses approximate residue rules and does not remove "
+                "already present hydrogens. Optional engines retain their own "
+                "structure/form/metadata limits. No implicit visible-structure "
+                "selection or additional synchronization is added.\n"
+            )
+        elif name == "add_missing_terminal_cappings":
+            function.__doc__ += (
+                "The native engine can complete terminal atoms or insert explicit "
+                "ACE/NME groups and complete the opposite uncapped terminus, "
+                "retaining bounded heavy-atom preflight and "
+                "unassessed warnings. Native atom expansion preserves observed "
+                "coordinates and IDs but can reorder indices; output analyses "
+                "are remapped and invalidated while the source is preserved. "
+                "New chemical assignments remain unknown and native attribute "
+                "loss diagnostics remain visible. Geometry does not certify "
+                "terminal chemistry or physical refinement. PDBFixer and keep_ids "
+                "retain their native limitations; no report, attribute policy "
+                "or hidden preparation control is invented.\n"
+            )
+        elif name == "editable":
+            function.__doc__ += (
+                "The builder copies native topology, chemical states, structures "
+                "and state associations. Native builder conversion does not carry "
+                "molecular mechanics or named interaction analyses. Its edits and "
+                "build() outputs remain independent, also after owner replacement "
+                "or closure; they are not managed edits of view.molsys. Native "
+                "builder validation, coordinate-growth restrictions and domain "
+                "limits remain unchanged. A loaded owner is required; use "
+                "molsysmt.build.editable() directly to start an empty builder.\n"
+            )
+        elif name == "remove_overlapping_molecules":
+            function.__doc__ += (
+                "selection identifies candidate atoms whose entire declared "
+                "molecules can be removed; selection_2 supplies reference atoms, "
+                "or its default uses the atom complement, including unselected "
+                "atoms of partially selected candidate molecules. There is no "
+                "implicit exclusion of contacts within one molecule. Contacts are evaluated only "
+                "at structure_index, default 0 rather than the visible structure. "
+                "Removal applies to every retained structure with native remapping. "
+                "Native pbc=True falls back to nonperiodic contacts without a box. "
+                "There is no alignment, chemistry repair or repeated trajectory "
+                "calculation. A no-contact result aliases view.molsys, so subsequent "
+                "raw edits to that result are ordinary external system edits, not "
+                "automatically observed scene changes.\n"
+            )
+        elif name == "mutate":
+            function.__doc__ += (
+                "Mutations use native group_index/group_id/group_name keys or "
+                "source-ID mutation strings, with explicit selection and engine. "
+                "The native route retains observed backbone coordinates and can "
+                "leave unsupported side chains incomplete with unassessed "
+                "warnings. Native hydrogen rebuilding when H are present, "
+                "attribute loss, index remapping and analysis invalidation remain "
+                "visible. PDBFixer is optional and explicit; no fallback, rotamer, "
+                "clash, protonation or energy-minimum certificate is introduced. "
+                "The addon selects no visible frame or implicit subsystem.\n"
+            )
+        elif name == "build_peptide":
+            function.__doc__ += (
+                "Builds a new peptide from the sequence converted from the "
+                "current system. This is fresh native construction, not a "
+                "coordinate repair or trajectory reconstruction. Output pose, "
+                "atom identity, chemistry and mechanics follow native template "
+                "construction; source geometry, named analyses and arbitrary "
+                "metadata are not transferred. Native sequence, chain, naming "
+                "and output-form limits remain. LEaP is an explicit optional "
+                "engine; the addon adds no engine fallback, solvent, alignment "
+                "or physical refinement. Use ordinary molsysmt.build.build_peptide "
+                "with an explicit sequence to construct without a loaded view.\n"
+            )
+        return function
+
+    return decorate
 
 
 class _BuildTools:
     _NAMES = (
+        "infer_covalent_bonds",
+        "assign_autodock_atom_types",
+        "assign_partial_charges",
+        "project_atom_names",
+        "make_bioassembly",
+        "merge_nonpolar_hydrogens",
+        "add_terminal_atoms",
+        "add_missing_heavy_atoms",
+        "add_missing_bonds",
+        "solve_atoms_with_alternate_location",
+        "add_missing_hydrogens",
+        "add_missing_terminal_cappings",
+        "editable",
+        "remove_overlapping_molecules",
+        "mutate",
+        "build_peptide",
+        "solvate",
+        "add_ions",
+        "make_water_box",
+        "reconcile_protonation",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -31,6 +364,15 @@ class _BuildTools:
         from molsysmt import build
 
         return self._owner._read(getattr(build, name), parameters)
+
+    @_native_documentation("make_water_box", module="build", bind_primary=False)
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def make_water_box(self, box, form="molsysmt.MolSys", skip_digestion=False):
+        from molsysmt import build
+
+        self._owner._view()
+        return build.make_water_box(box=box, form=form, skip_digestion=skip_digestion)
 
     @_native_documentation("get_residue_chemical_coverage", module="build")
     @signal(tags=["addon", "build"])
@@ -292,4 +634,493 @@ class _BuildTools:
                 "skip_digestion": skip_digestion,
                 "structure_indices": structure_indices,
             },
+        )
+
+    @_independent_build_documentation("infer_covalent_bonds")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def infer_covalent_bonds(
+        self,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        method="supported_group_templates",
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "infer_covalent_bonds",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "return_report": return_report,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("assign_autodock_atom_types")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def assign_autodock_atom_types(
+        self,
+        typing_scheme,
+        structure_indices="all",
+        chemical_state="reference",
+        method="chemical_environment",
+        return_report=False,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "assign_autodock_atom_types",
+            {
+                "typing_scheme": typing_scheme,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "method": method,
+                "return_report": return_report,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("assign_partial_charges")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def assign_partial_charges(
+        self,
+        method,
+        structure_indices="all",
+        chemical_state="reference",
+        forcefield=None,
+        water_model=None,
+        expected_total_charge=None,
+        return_report=False,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "assign_partial_charges",
+            {
+                "method": method,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "forcefield": forcefield,
+                "water_model": water_model,
+                "expected_total_charge": expected_total_charge,
+                "return_report": return_report,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("project_atom_names")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def project_atom_names(
+        self,
+        target_form,
+        selection="all",
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "project_atom_names",
+            {
+                "target_form": target_form,
+                "selection": selection,
+                "return_report": return_report,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("make_bioassembly")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def make_bioassembly(
+        self,
+        bioassembly=None,
+        structure_indices=0,
+        to_form=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "make_bioassembly",
+            {
+                "bioassembly": bioassembly,
+                "structure_indices": structure_indices,
+                "to_form": to_form,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("merge_nonpolar_hydrogens")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def merge_nonpolar_hydrogens(
+        self,
+        typing_scheme,
+        selection="all",
+        structure_indices="all",
+        chemical_state="reference",
+        return_report=False,
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "merge_nonpolar_hydrogens",
+            {
+                "typing_scheme": typing_scheme,
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "chemical_state": chemical_state,
+                "return_report": return_report,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("add_terminal_atoms")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_terminal_atoms(
+        self,
+        new_atoms,
+        coordinates,
+        attribute_policy="intersection",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "add_terminal_atoms",
+            {
+                "new_atoms": new_atoms,
+                "coordinates": coordinates,
+                "attribute_policy": attribute_policy,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("add_missing_heavy_atoms")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_missing_heavy_atoms(
+        self,
+        selection="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        skip_digestion=False,
+        *,
+        attribute_policy="intersection",
+    ):
+        return self._call(
+            "add_missing_heavy_atoms",
+            {
+                "selection": selection,
+                "syntax": syntax,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+                "attribute_policy": attribute_policy,
+            },
+        )
+
+    @_independent_build_documentation("add_missing_hydrogens")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_missing_hydrogens(
+        self,
+        pH=7.4,
+        engine="OpenMM",
+        skip_digestion=False,
+        *,
+        mode="pH",
+        chemical_state="reference",
+        structure_indices="all",
+        return_report=False,
+        attribute_policy="intersection",
+    ):
+        return self._call(
+            "add_missing_hydrogens",
+            {
+                "pH": pH,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+                "mode": mode,
+                "chemical_state": chemical_state,
+                "structure_indices": structure_indices,
+                "return_report": return_report,
+                "attribute_policy": attribute_policy,
+            },
+        )
+
+    @_independent_build_documentation("add_missing_terminal_cappings")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_missing_terminal_cappings(
+        self,
+        N_terminal=None,
+        C_terminal=None,
+        pH=7.4,
+        keep_ids=False,
+        selection="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "add_missing_terminal_cappings",
+            {
+                "N_terminal": N_terminal,
+                "C_terminal": C_terminal,
+                "pH": pH,
+                "keep_ids": keep_ids,
+                "selection": selection,
+                "syntax": syntax,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("editable")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def editable(self, skip_digestion=False):
+        return self._call("editable", {"skip_digestion": skip_digestion})
+
+    @_independent_build_documentation("remove_overlapping_molecules", local_skip=True)
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def remove_overlapping_molecules(
+        self,
+        selection,
+        selection_2=None,
+        structure_index=0,
+        threshold="3 angstroms",
+        pbc=True,
+        syntax="MolSysMT",
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "remove_overlapping_molecules",
+            {
+                "selection": selection,
+                "selection_2": selection_2,
+                "structure_index": structure_index,
+                "threshold": threshold,
+                "pbc": pbc,
+                "syntax": syntax,
+            },
+        )
+
+    @_independent_build_documentation("mutate")
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def mutate(
+        self,
+        mutations=None,
+        keys="group_index",
+        selection="all",
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        *,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "mutate",
+            {
+                "mutations": mutations,
+                "keys": keys,
+                "selection": selection,
+                "syntax": syntax,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("build_peptide", local_skip=False)
+    @signal(tags=["addon", "build"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def build_peptide(
+        self,
+        to_form="molsysmt.MolSys",
+        engine="MolSysMT",
+        skip_digestion=False,
+        *,
+        from_naming_scheme=None,
+    ):
+        return self._call(
+            "build_peptide",
+            {
+                "to_form": to_form,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+                "from_naming_scheme": from_naming_scheme,
+            },
+        )
+
+    @_independent_build_documentation("solvate")
+    @signal(tags=["addon", "build", "preparation"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def solvate(
+        self,
+        box_shape="truncated octahedral",
+        clearance="14.0 angstroms",
+        anion="Cl-",
+        n_anions="neutralize",
+        cation="Na+",
+        n_cations="neutralize",
+        ionic_strength="0.0 molar",
+        water_model="TIP3P",
+        engine="OpenMM",
+        to_form=None,
+        verbose=False,
+        random_seed=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "solvate",
+            {
+                "box_shape": box_shape,
+                "clearance": clearance,
+                "anion": anion,
+                "n_anions": n_anions,
+                "cation": cation,
+                "n_cations": n_cations,
+                "ionic_strength": ionic_strength,
+                "water_model": water_model,
+                "engine": engine,
+                "to_form": to_form,
+                "verbose": verbose,
+                "random_seed": random_seed,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("add_ions")
+    @signal(tags=["addon", "build", "preparation"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_ions(
+        self,
+        anion="Cl-",
+        n_anions=0,
+        cation="Na+",
+        n_cations=0,
+        ionic_strength="0 molar",
+        expected_total_charge=None,
+        charge_source="formal_charge",
+        min_solute_distance="0.5 nm",
+        min_ion_distance="0.5 nm",
+        random_seed=None,
+        max_attempts=10,
+        to_form="molsysmt.MolSys",
+        return_report=False,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "add_ions",
+            {
+                "anion": anion,
+                "n_anions": n_anions,
+                "cation": cation,
+                "n_cations": n_cations,
+                "ionic_strength": ionic_strength,
+                "expected_total_charge": expected_total_charge,
+                "charge_source": charge_source,
+                "min_solute_distance": min_solute_distance,
+                "min_ion_distance": min_ion_distance,
+                "random_seed": random_seed,
+                "max_attempts": max_attempts,
+                "to_form": to_form,
+                "return_report": return_report,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("reconcile_protonation")
+    @signal(tags=["addon", "build", "preparation"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def reconcile_protonation(
+        self,
+        pH=7.4,
+        engine="MolSysMT",
+        in_place=False,
+        skip_digestion=False,
+    ):
+        from molsysmt._private.argdigest.argument.in_place import digest_in_place
+
+        # This flag controls integration admission even with digestion skipped.
+        in_place = digest_in_place(
+            in_place, caller="molsysviewer_molsysmt.build.reconcile_protonation"
+        )
+        self._owner._target()
+        if in_place:
+            raise NotImplementedError(
+                "Managed in-place protonation reconciliation requires public "
+                "native removal correspondence. Use in_place=False to inspect "
+                "an independent result before explicitly loading it."
+            )
+        return self._call(
+            "reconcile_protonation",
+            {
+                "pH": pH,
+                "engine": engine,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_bond_edit_documentation
+    @signal(tags=["addon", "build", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_missing_bonds(
+        self,
+        max_bond_length="2 angstroms",
+        selection="all",
+        structure_index=0,
+        syntax="MolSysMT",
+        engine="MolSysMT",
+        in_place=True,
+        skip_digestion=False,
+        *,
+        update_view=True,
+    ):
+        return _run_add_missing_bonds(
+            self._owner,
+            {
+                "max_bond_length": max_bond_length,
+                "selection": selection,
+                "structure_index": structure_index,
+                "syntax": syntax,
+                "engine": engine,
+                "in_place": in_place,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
+        )
+
+    @_alternate_edit_documentation
+    @signal(tags=["addon", "build", "edit"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def solve_atoms_with_alternate_location(
+        self,
+        selection="all",
+        structure_indices="all",
+        location_id="occupancy",
+        syntax="MolSysMT",
+        *,
+        skip_digestion=False,
+        update_view=True,
+    ):
+        return _run_alternate_locations(
+            self._owner,
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "location_id": location_id,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+            },
+            update_view,
         )

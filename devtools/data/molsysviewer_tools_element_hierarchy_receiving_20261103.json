@@ -1,0 +1,138 @@
+{
+  "schema": "molsysmt.viewer-element-hierarchy-source-receiving@1",
+  "date": "2026-11-03",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "source_base": "03050a16ba2354848313a6781e94078ab036da89",
+  "contribution_parent": "c6d0b9ecb2ff132c65203d5d04a6f4509d6faf13",
+  "viewer_source": "e5de3413746dac50ab186f4165440d3d83fc0bea",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "environment": {
+    "python": "3.14.7",
+    "packages": {
+      "molsysmt": "0.23.0+201.g3502232d8.dirty",
+      "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "mdtraj": "1.11.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "backend": {
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "scope": "Unchanged copied compiled backend and unchanged native scientific sources; no build, install, wheel or resolver qualification."
+  },
+  "contract": {
+    "paths": [
+      "element.chain.get_chain_index",
+      "element.chain.get_chain_id",
+      "element.chain.get_chain_name",
+      "element.chain.get_chain_type",
+      "element.entity.get_entity_index",
+      "element.entity.get_entity_id",
+      "element.entity.get_entity_name",
+      "element.entity.get_entity_type",
+      "element.entity.get_n_entities"
+    ],
+    "binding": "The current loaded primary is read through owner._read, including completed pending molecular edits without scene reconciliation. A closed or empty owner is rejected.",
+    "effects": "Native redefine_* options produce returned local projections, not assignments. Defaults, selectors, syntax, IDs/unknowns, output containers, validation and exceptions remain native. No update_view flag, representation, root alias, preparation or history effect.",
+    "local_skip": "Only get_n_entities adds a keyword-only locally consumed skip_digestion flag. Other native flags are forwarded unchanged; no forced scientific bypass.",
+    "explicit_utilities": "The earlier eight utilities still work without a primary system and do not acquire the molecular reader."
+  },
+  "inventory": {
+    "native": 244,
+    "branch_exposed": 161,
+    "element_exposed": 17,
+    "element_native": 57,
+    "remaining_primary_element": 12,
+    "remaining_explicit_element": 28,
+    "independent_prs": [
+      "uibcdf/molsysmt#538",
+      "uibcdf/molsysmt#540"
+    ],
+    "hypothetical_union_exposed": 172,
+    "union_integrated_or_qualified": false,
+    "collector": "devtools/scripts/audit_molsysviewer_tools_api.py",
+    "raw_sha256": "777f37adc8e66defbb1a1d31ec69cc9769f6f015b35cd480ba0aa24464dc3a1f"
+  },
+  "validation": {
+    "native_chain_entity": {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "b1a68a57d0b2c53b382e26fc34573bdddbe49f9a857479b77b40e16540826bcc"
+    },
+    "focused_all_element_and_integration": {
+      "tests": 234,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "24e735c4a6aa5981e3695280c7a6fbed40e8d0a6f00b2e366c87a99cd54dc3f5"
+    },
+    "distribution_inventory_notebook_structure": {
+      "tests": 530,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "195aead525a123cb91d6c8f2f19ce78df297475469382bbc92a6214a62429fc3"
+    },
+    "complete_addon": {
+      "tests": 2687,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "79fdfaa6175061eecc4582c2da2c28ef92d04384d283f4022dfc1524938e2cb0",
+      "new_hierarchy_cases": 93,
+      "explicit_element_cases": 132,
+      "native_log_sha256": "9ba535f1b06401dd72a24702b5999e5174dabf9b68455570d8059257643214d5",
+      "seconds": 673.89,
+      "warnings": 1695
+    },
+    "structural_control_split": {
+      "distribution_and_inventory": 34,
+      "notebook_schema": 496
+    },
+    "guide_example": "All nine readers plus a redefine_names projection execute on a real pentalanine view.",
+    "course": "156 notebooks validate; only Module 06 Markdown cell 5 extended; every code cell/output/execution count and all cell IDs remain identical to parent.",
+    "docstrings": "Nine explicit bound signatures and parameter/help contracts pass; unchanged 246 native docstring validation retained from the frozen source.",
+    "ruff": "Whole-tree check and format pass; 4312 files already formatted.",
+    "devguide": "Validation and generated indexes pass."
+  },
+  "initial_test_correction": "The merged-fixture test used a one-item Python list of structures for two sources. Native input correctly rejected the per-source length. A NumPy array now requests the common structure subset; no scientific fix or facade workaround was needed.",
+  "workflow_receiving": {
+    "original_failed_run": 41731053122,
+    "original_head": "6ca857e81d5a28a95e37ed40c59450719f8f9e00",
+    "repair_commit": "c6d0b9ecb2ff132c65203d5d04a6f4509d6faf13",
+    "cause": "New element test module was missing from the explicit hosted addon command.",
+    "red_failed": 1,
+    "green_passed": 9,
+    "guard": "devtools/tests/test_smoke_addon_test_command.py::test_all_addon_test_modules_are_arguments_of_one_pytest_invocation",
+    "new_increment": "Both element test modules are explicit arguments of the same fail-closed pytest invocation; its guard passes within the 234 focused cases.",
+    "scope": "The original failure is retained; exact final-head hosted qualification remains pending."
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_element.py": "a4edd133a2e44616d982a90cfbcd377acf3539ee181f456c75955e448288e375",
+    "molsysviewer_molsysmt/_element_hierarchy.py": "cb7e10e0e417286d6dd11ec4bab3c776f0e303119830c9c2bfaec104446eebe6",
+    "tests/molsysviewer_molsysmt/test_element_hierarchy_tools.py": "5ac4a951be0f5f5f757493ba655cd2db4f82e7fcf7dbd4bdb3b3b86af7eb8c2c",
+    "tests/molsysviewer_molsysmt/test_element_utilities.py": "7edd8cb40cf9d310a2fd8fd3588fe23710c27d3f20be26a3902d6ae4395b517e",
+    "devtools/scripts/viewer_tools_contract.py": "d84328d08f80da472f8a4cea6cd1115629fc585e184db0aa1170814300336c18",
+    ".github/workflows/ci-smoke.yaml": "e0b76b1d26544c98d531e377ceea288ee0c1f52d1b6e28a177b4862e08663f65"
+  },
+  "limits": [
+    "Source-addon receiving is not full scientific, multi-platform, installed artifact or resolver qualification.",
+    "Owner main and independent metadata PRs are not integrated or modified here; review and integration belong to MolSysMT.",
+    "Later owner #542 repair dbdbc9bfe is outside the frozen native test source. No scientific workaround or native source edit is introduced.",
+    "Structural distribution controls do not replace actual archive qualification or separate package-metadata gates.",
+    "No host runtime, GUI, dependency floor, frozen candidate, tag or publication change."
+  ],
+  "temporary_resources": "Reuse the existing isolated PR checkout and copied backend for owner review; remove after integration or withdrawal. No new checkout, environment or installation."
+}

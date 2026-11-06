@@ -55,6 +55,39 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if module == "build" and name == "make_water_box":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "An open empty view is sufficient. The box stays explicit; "
+                "the current primary and its box are not read or synchronized. "
+                "Returns a separate molecular system in the requested native "
+                "form, without replacing view.molsys or changing scene/history "
+                "or pending edits. There is no update_view control or implicit "
+                "adoption; use view.load(result) explicitly when desired. "
+                "The caller owns the box and must keep it stable during the "
+                "call. Native units, validation, output availability/errors "
+                "and whole-water reference geometry remain unchanged. No "
+                "solvation, force-field assignment, equilibration or overlap "
+                "repair is inferred. Results survive owner closure; new calls "
+                "through a closed owner are rejected.\n"
+            )
+        if module == "basic" and name == "view":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "Creates a separate native visualization of the current "
+                "molecular system. An open loaded owner is required. Reads "
+                "use the serialized current target, including completed "
+                "pending edits; no parent synchronization or result adoption "
+                "occurs. This is not a clone of the parent's scene, camera "
+                "or history. Selectors, structure order, explicit viewer "
+                "backend, availability/errors and configured native HTML "
+                "embedding behavior remain native. No backend fallback or "
+                "implicit visible-frame selection is introduced. The newly "
+                "created visualization has its own lifetime and is caller-owned; "
+                "closing the parent does not close the result. Calls through "
+                "a closed owner are rejected. MolSysViewer receiving does not "
+                "qualify another backend's rendering.\n"
+            )
         if module in {"supported", "supported.supported"}:
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -668,7 +701,19 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                     "Native block/output budgets exclude some Python/source "
                     "overhead and are not an RSS guarantee.\n"
                 )
-        if module == "build":
+        if module == "build" and name in {
+            "get_residue_chemical_coverage",
+            "get_covalent_bond_candidates",
+            "get_peptide_bond_candidates",
+            "get_missing_heavy_atoms",
+            "get_missing_bonds",
+            "get_missing_residues",
+            "get_missing_terminal_cappings",
+            "get_non_standard_residues",
+            "get_disulfide_bonds",
+            "has_hydrogens",
+            "is_solvated",
+        }:
             function.__doc__ += (
                 "The result is an independent native diagnostic or candidate report, "
                 "not a scene object, preparation edit or inserted bond. Explicit "
@@ -1151,6 +1196,7 @@ class _BasicTools:
         "concatenate_structures",
         "remove",
         "set",
+        "view",
     )
 
     def __init__(self, owner):
@@ -1163,6 +1209,26 @@ class _BasicTools:
         from molsysmt import basic
 
         return self._owner._read(getattr(basic, name), parameters, extra)
+
+    @_native_documentation("view")
+    @signal(tags=["addon", "view"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def view(
+        self,
+        selection="all",
+        structure_indices="all",
+        viewer="MolSysViewer",
+        syntax="MolSysMT",
+        skip_digestion=False,
+    ):
+        parameters = {
+            "selection": selection,
+            "structure_indices": structure_indices,
+            "viewer": viewer,
+            "syntax": syntax,
+            "skip_digestion": skip_digestion,
+        }
+        return self._call("view", parameters)
 
     @_native_documentation("get")
     @signal(tags=["addon", "get"])

@@ -1,5 +1,31 @@
 # MolSysViewer tools guide content contract
 
+Preserve explicit molecular_mechanics.get_engine_forcefield resource lookup
+without a primary or engine execution, and serialized primary-bound
+get_degrees_of_freedom and get_potential_energy with native OpenMM parameterization and prerequisites.
+Keep the 3*N_particles-N_constraints integer definition, absence of COM/thermal
+corrections, explicit one-structure receiving and no implicit visible-frame use.
+These queries do not adopt engine objects, prepare chemistry or change the
+scene/history. Preserve the received independent resource-list repair (#560), distinct OBC1/OBC2
+models and received engine-owned platform contract (#559). CPU/Reference receiving
+does not qualify GPU devices or imply fallback.
+Native result ownership and errors are delegated; do not silently copy a
+registry list or add unreceived mechanical functions without qualification.
+Energy selection constructs a parameterized subsystem, not an embedded energy
+contribution. Preserve native quantity/unit-policy and force-name decomposition
+contracts, explicit single-structure CPU receiving, the independent OpenMM
+reference and native defaults, chemistry, periodic and optional-engine limits.
+Do not introduce implicit frame iteration, preparation, engine adoption or a
+scientific platform fallback. Keep pending reads independent of scene sync.
+
+Preserve native potential_energy_minimization with independent output by default,
+managed retained-axis in-place coordinates and keyword-only update_view and
+local skip_digestion. Native validation is never bypassed. Keep independent
+result ownership, explicit single-structure CPU/model prerequisites, native
+analysis invalidation and synchronization-only retry after completed science.
+Do not invent tolerance/selection/frame arguments, global-minimum guarantees,
+preparation or implicit adoption. Scene history is not molecular Undo.
+
 Preserve the four explicit supported-capability reports and their open-empty-view
 contract. Keep native filters/default Styler and explicit plain outputs, directional
 syntax flags, independent metadata, closed-owner rejection and unchanged pending
@@ -18,7 +44,7 @@ published package compatibility. Keep the explicit qualified-tool inventory: six
 Update it only when more tools are implemented and qualified. Explain the bound primary system,
 native parameter/return/validation behavior, automatic entry-point discovery,
 replacement/close semantics, the native independent/in-place distinction, pending
-synchronization/recovery and the absence of task panels and other editing families. Link native tool references and Viewer host/author documentation.
+synchronization/recovery and the actual qualified task-panel scope and remaining editing families. Link native tool references and Viewer host/author documentation.
 
 Preserve native keyword-only from_naming_scheme on conversion/preflight. Forward
 the caller's context to native validation without inferring it from the view.
@@ -291,3 +317,234 @@ Do not invent new per-structure visual values or repeat completed science.
 Keep native #520 partial-publication receiving separate from successful implicit
 state/no-analysis cases, and distinguish missing-coordinate synchronization
 failure from uncertain scientific writes. Installed compatibility is separate.
+
+
+Preserve the eight explicit element utilities: two element-level predicates,
+four atom symbol/name/force-field/isotope helpers and two group-label helpers.
+They work on an open empty view without a primary reader or scene/edit effects.
+Keep the element-name composition relation distinct from basic's actual-system
+predicate and root alias. Preserve canonical case, native D/T/isotope and
+AutoDock4 contracts, public group-name lookup/unknown markers and native errors/
+warnings. Four addon-only skip controls remain keyword-only and are not sent
+to native functions lacking that parameter.
+
+Preserve the nine current-primary chain/entity readers and their managed-reader
+binding, including completed pending edits without scene synchronization. Keep
+native output-level defaults, IDs/unknowns, containers, selection and redefine_*
+projection semantics without molecular assignment, an update_view parameter or
+new root aliases. entity.get_n_entities consumes only its keyword-only local
+skip control; other native skip flags are forwarded. Require a loaded open
+owner.
+
+Preserve the twelve additional primary-bound paths: five molecule, five
+component, group type and the legacy small-molecule/amino-acid name heuristic.
+Keep stable molecules distinct from reference-state ChemicalStates components,
+native selectors/defaults/unknowns, returned projections without assignment, and
+missing-domain/error behavior without implicit chemistry or frame-state choice.
+The count helper consumes its local skip flag; other declared native flags pass
+unchanged. The legacy helper is a catalogued name plus five atom-name checks,
+not chemical or stereochemical validation or stored preparation; its group_name
+stays explicit and its keyword-only skip control is local. All reviewed element
+source paths are now exposed, with qualification separate from exposure.
+
+
+Preserve fourteen additional explicit name/type/code helpers with open-empty-view
+lifetime, native scalar/case/error behavior, and locally consumed keyword-only
+skip controls. They do not read the primary system, normalize science, prepare
+chemistry or synchronize scene/history. Name recognition is distinct from
+system classification; standard-name lookup preserves None for canonical or
+unmapped labels. Preserve received canonical XLE/J and XAA/X and the protected
+peptide-end convention (ACE at N; NME/NHE/NH2 at C). Keep legacy protonation-name
+semantics (MolSysMT#549) explicit without addon substitution. Keep inherited
+native examples executable.
+
+
+Preserve all fourteen explicit group-template queries: seven bond helpers, five
+family database readers and expected amino-acid heavy/hydrogen names. Explicit
+index labels do not refer to the primary; no graph inference, chemistry repair,
+protonation, cache, normalized database schema or scene publication is added.
+Retain native template fallback, family support, container/order/error behavior,
+caller chemical context and fixed pH-rule limits. Native skip controls pass for
+amino-acid/ion bonds; the other twelve controls are local and keyword-only.
+Keep protected peptide-end classification separate from explicit template data
+access and from attaching atoms to a system.
+Preserve received native flat-name array/list/tuple support for the three
+reference families and their dispatcher, with actual positive pair controls and
+native ArgumentError for invalid dimensions. The addon introduces no coercion
+or native-validation bypass. Preserve the received #554 index-map validation:
+one nonnegative unit-free int64-range integer per name, repeated labels allowed,
+structured argument/length diagnostics, valid readonly/strided and empty maps,
+and native scalar compatibility. Explicit map labels are not primary-system
+selections. Native skip flags retain trusted-caller semantics; local addon
+flags do not disable native validation. Keep legacy name semantics under #549
+and source receiving separate from installed compatibility.
+
+
+Preserve the three independent build routes: infer_covalent_bonds,
+assign_autodock_atom_types and assign_partial_charges. Bind the current primary
+through the serialized reader, retain explicit methods/states/structures/native
+validation, and never adopt results or publish scene/history automatically.
+Distinguish inference evidence and output-only invalidation from mechanical
+assignment snapshots. Keep the single-state restriction, required scheme/model,
+optional providers, provenance and elementary-charge storage, H5MSM 0.5 mechanics
+exclusion and materialization limits explicit. Pending reads do not synchronize;
+independent outputs require deliberate chaining or replacement.
+
+
+Preserve project_atom_names as primary-bound independent label projection:
+required export constraint, no file write/output-format conversion or adoption,
+full axes/IDs, original/projected names and identity maps with native composition.
+Keep lexical collision scope distinct from chemistry and never recertify stale
+assignments. Native mutable domains detach while protected geometry can stay
+shared until a public edit. Keep pending reads and replacement/close behavior
+consistent with the other independent build routes.
+
+
+Preserve the two primary-bound independent construction routes: make_bioassembly
+and merge_nonpolar_hydrogens. Assembly uses declared chain membership, proper
+operators and explicit native structure scope, retaining order/repeats and unique
+chain IDs without biological certification or Viewer identity maps. Nonpolar-H
+projection requires explicit AutoDock4 typing, known inventory and partial
+charges; keep H/HD distinct, omitted/direct/merged mappings and canonical charge
+units explicit, preserve derived assignment provenance and clear only output
+analyses. Representative lineage is not removed-atom identity or coordinates.
+Neither tool prepares chemistry, adopts results or offers update_view/in_place.
+Keep pending reads, lifetime, resident-output and H5MSM 0.5 mechanics limits.
+
+
+Preserve primary-bound independent add_terminal_atoms and add_missing_heavy_atoms.
+Attachment always returns its dictionary/report, appends declared atoms with
+all-structure supplied coordinates and preserves old indices; no inventory or
+chemistry is inferred. Keep one-state requirements, original report axes, nm
+coordinate evidence, detached preparation history and H5MSM preservation explicit.
+Heavy repair keeps native bounded standard/curated templates, all-structure
+geometry, unassessed warnings, possible atom reordering and unknown new chemistry.
+Distinguish native strict/intersection policies, output-only remapped analysis
+invalidation, no-change coverage and source/scene preservation. PDBFixer remains
+an explicit optional provider with separate limits; no hidden fallback or
+physical-refinement certificate. Neither tool adopts results or adds update_view.
+
+
+Preserve independent add_missing_hydrogens and add_missing_terminal_cappings.
+Keep approximate legacy pH preparation distinct from explicit RDKit fixed-state
+materialization, its one-component/state/source-structure prerequisites, no
+implicit extraction, old-pose preservation, parent maps and H5MSM history.
+Do not promise trajectory-wide legacy preparation or identical OpenMM H poses.
+Capping can complete the opposite free terminus as well as insert ACE/NME;
+retain native all-structure scope, reordering/invalidation and attribute losses.
+Keep approximate chemistry, unassessed gaps and provider/keep_ids limitations
+explicit, with independent outputs, pending reads and no automatic scene adoption.
+
+
+Preserve loaded-primary build.editable as a detached native builder, including
+its omitted mechanics/analyses, native edit/growth restrictions, independent
+lifetime and deliberate output adoption. Overlap removal targets whole declared
+molecules from candidate selection using one explicit structure; its default
+reference is the atom complement, including same-molecule partners. Keep native
+PBC fallback/remapping and no-contact primary alias explicit. The keyword-only
+overlap skip flag is addon-only and never disables native validation.
+
+
+Keep build_peptide as fresh construction from the loaded system's sequence,
+without source-pose/trajectory identity or automatic scene adoption. Preserve
+native output forms, canonical-sequence receiving and explicit unqualified LEaP
+execution. Mutation returns an independent result with native key/mask semantics,
+bounded incomplete side-chain warnings and native H-rebuilding/attribute limits.
+Preserve native atom-axis selection across mutation specifications, equivalent
+syntax/numeric masks, selected-ID checks and independent empty/disjoint results.
+Do not reinterpret atom/group indices. Mutation mirrors and forwards native
+keyword-only skip_digestion; build_peptide mirrors native skip_digestion and
+keyword-only from_naming_scheme. Preserve stored source
+context and native conflict rejection without defaulting to legacy.
+
+
+Preserve native add_missing_bonds in-place defaults, retained axes and atomic
+reference-state graph/component publication. Distinguish true no-op coverage/
+history preservation from deferred projection and synchronization-only retry;
+never duplicate candidate calculation or infer complete chemical validity.
+
+
+Preserve alternate-site resolution as native in-place coordinate/occupancy/
+B-factor/ID publication with retained index identity. Location lists follow the
+native selection order; selected structures must agree on global atom IDs.
+Native preflight rejects invalid selected requests before publication; unknown
+optional observations must not retain previous-site values. Forward the native
+skip flag without bypassing scientific site validation. Preserve the received
+#569/#570/#571 fixes and separate unexpected mutable-adapter failure limits;
+no consumer scientific repair or replay on projection retry.
+
+
+The naming cutover retires the old amino_acid scalar code path. Keep only
+element.group.get_1_letter_code_from_name with its native naming_scheme/skip
+arguments, and mirror context flags on changed predicates/templates. Never
+restore retired aliases or substitute parent chemistry; retain native
+conversion/preflight from_naming_scheme when integrating owner changes.
+
+
+Preserve get_non_bonded_potential_energy as a serialized primary-bound reader
+with native selection_2, syntax, model, platform and energy-unit contracts.
+Keep internal versus disjoint cross contributions, two-sided partitions and
+received mixed #561 axes explicit, including their singleton flat-side matrix
+axis. Forward inputs and native results without consumer-side reshaping.
+Retain the independent NoCutoff pair-energy reference and separate periodic/
+overlap/scientific limits. Native MolSys forces are pending #572: do not expose
+an always-rejected force method or add consumer-side parameterization.
+
+
+Preserve solvate as explicit independent construction, with native engine/model,
+box, clearance/ionic-strength units, metadata/return-form and single-structure
+contracts. Keep preparation deliberate and source/scene/pending state untouched;
+never infer adoption, frame choice, an engine fallback or equilibration. Preserve
+the received OpenMM identifier/count repairs without rewriting inputs or compensating science.
+Forward native random_seed and skip_digestion rather than retaining a local-only flag.
+Keep direct OpenMM parity separate from geometric references, and derive nominal
+TIP3P tolerances from the bundled PDB precision rather than exact ideal geometry.
+
+Preserve the independent reconcile_protonation route, its exact native parameters
+and explicit refusal of managed in_place=True before science pending public
+removal correspondence. Keep fixed-pKa approximation, declared named-state and
+unassessed-group limits distinct from chemical readiness; there is no hidden
+charge/H/state preparation, private chemistry helper, identity inference or
+scene adoption. Native results and named analyses retain extraction semantics.
+
+
+Keep basic.view as a loaded-primary native visualization bridge returning a
+caller-owned separate visualization, not a scene clone or parent synchronization.
+Preserve native selectors, structure order, explicit backend/error/embedding
+contracts and lifetime. Historical hbonds exposes only the four native callable
+aliases using the actual canonical bound methods; do not duplicate calculations
+or count aliases as new scientific algorithms. Native MD stubs remain unexposed.
+
+Preserve explicit make_water_box inputs and the open-empty-workspace contract.
+Delegate reference tiling, whole-water row-vector cell membership, units, form
+conversion and errors to the public native factory. Never read or synchronize
+the primary, infer its box, solvate it or adopt results. Keep caller-owned output,
+closed-owner rejection and native normalized-input requirements when digestion
+is skipped. Preserve packing/equilibration and force-field limits; native nm
+storage does not change the application unit policy.
+
+Preserve the qualified System removal panel over the existing expert adapter:
+source selections, explicit one-structure evaluation context and all-structure
+inventory removal remain distinct. Keep atomic review validity, single-use
+private tokens, no coordinate-copy preview, bounded frontend metadata and native
+independent Python defaults. Preserve drafts across navigation but expire reviews.
+Pending commands remain gated; use the host canvas Update view control and
+managed-state notification for reconciliation, never repeat completed science.
+Keep the first panel distinct from planned Geometry/Chemistry/Analysis panels
+and from installed, visible Qt/Jupyter/popup qualification.
+
+Preserve the explicit independent build.add_ions mirror with native species,
+counts, charge source, seed, periodic clearance, attempts, form and report controls.
+Keep whole-water replacement, bidirectional -1 atom maps, formal versus partial
+charges, concentration convention and lack of implicit adoption/equilibration
+explicit. Keep the #583 attribution conflict visible until the native repair
+is received; do not add a consumer bibliography or alter scientific outputs.
+
+Keep #584's generic constraints-query failure distinct from actual stored-policy
+application and #582's broader effective-recipe design. Preserve native errors
+without a downstream getter or a false claim that every metadata flag works.
+
+Preserve native #559 platform resolution, structured unavailable-registration
+diagnostics and later device errors without fallback. Keep CPU/Reference
+consumer receiving separate from optional GPU/plugin execution and from the
+unchanged scientific/input limits of each mechanical function.

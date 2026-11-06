@@ -9,8 +9,10 @@ from ._attribute import _AttributeTools
 from ._basic import _BasicTools
 from ._build import _BuildTools
 from ._chemical_states import _ChemicalStatesTools
+from ._element import _ElementTools
 from ._files import _FormTools, _H5MSMTools
-from ._interactions import _InteractionsTools
+from ._interactions import _InteractionsTools, _LegacyHbondTools
+from ._molecular_mechanics import _MolecularMechanicsTools
 from ._pbc import _PbcTools
 from ._physchem import _PhyschemTools
 from ._structure import _StructureTools
@@ -27,12 +29,15 @@ class _MolSysMTTools:
         self.form = _FormTools(self)
         self.build = _BuildTools(self)
         self.interactions = _InteractionsTools(self)
+        self.hbonds = _LegacyHbondTools(self.interactions.hbonds)
         self.topology = _TopologyTools(self)
         self.chemical_states = _ChemicalStatesTools(self)
         self.structure = _StructureTools(self)
         self.pbc = _PbcTools(self)
         self.physchem = _PhyschemTools(self)
+        self.element = _ElementTools(self)
         self.supported = _SupportedTools(self)
+        self.molecular_mechanics = _MolecularMechanicsTools(self)
 
     def _view(self):
         view = self._view_ref()
@@ -99,12 +104,15 @@ class _MolSysMTTools:
             "form",
             "build",
             "interactions",
+            "hbonds",
             "topology",
             "chemical_states",
             "structure",
             "pbc",
             "physchem",
+            "element",
             "supported",
+            "molecular_mechanics",
             "get_sync_status",
             "sync_view",
             *_BasicTools._NAMES,

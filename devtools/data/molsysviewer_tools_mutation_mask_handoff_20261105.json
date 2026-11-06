@@ -1,0 +1,98 @@
+{
+  "schema": "molsysmt.viewer-mutation-mask-issue-handoff@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#568",
+  "issue_url": "https://github.com/uibcdf/molsysmt/issues/568",
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "7bd844fa5e05570c013a8b8fdd59507fbcf48bbb",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "previous_receipt": {
+    "path": "devtools/data/molsysviewer_tools_peptide_sequence_receiving_20261104.json",
+    "sha256": "909d51eb8cd3fa9348d82d0feea67ef2cbada81b7eabdc46a9d994e13d22df05",
+    "scope": "Original science/source/JUnit and offered-report disposition remain immutable; this dated handoff records the later issue filing."
+  },
+  "reproduction": {
+    "file": "mutate-selection-native-20261104.json",
+    "sha256": "e91b4d8dfe303e6f8ed7fdeba0032cc4776420059116b355bee19f2f6658cea2",
+    "scope": "Original independent MolSysMT reproduction, not a new native scientific execution."
+  },
+  "status": "Open native defect; no addon normalization or scientific fix.",
+  "authorisation": "Explicit maintainer approval received 2026-11-05; issue filed after duplicate search.",
+  "source_support": "230/244 paths (build 25/30) and existing rejected-mask qualification retain their original source; no compatibility-floor or installed claim.",
+  "pending": "MolSysMT defines/fixes mask syntax/axis behavior and adds a native pytest matrix; consumer receives the published repair later.",
+  "retention": "Raw reproduction and existing source worktree retained through owner/CI receiving; review by 2026-11-11.",
+  "publication": "No owner-main edit/push or merge, package, candidate, tag, Release or promotion.",
+  "retained_scientific_ci": {
+    "source": "7bd844fa5e05570c013a8b8fdd59507fbcf48bbb",
+    "run": 41960424914,
+    "attempt": 1,
+    "conclusion": "success",
+    "matrix_cells": [
+      {
+        "id": 127025585026,
+        "name": "Full matrix \u2014 macos-15, Python 3.12",
+        "conclusion": "success",
+        "all_steps_successful": true
+      },
+      {
+        "id": 127025585043,
+        "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
+        "conclusion": "success",
+        "all_steps_successful": true
+      },
+      {
+        "id": 127025585044,
+        "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
+        "conclusion": "success",
+        "all_steps_successful": true
+      },
+      {
+        "id": 127025585049,
+        "name": "Full matrix \u2014 macos-15, Python 3.11",
+        "conclusion": "success",
+        "all_steps_successful": true
+      },
+      {
+        "id": 127025585057,
+        "name": "Full matrix \u2014 macos-15, Python 3.13",
+        "conclusion": "success",
+        "all_steps_successful": true
+      },
+      {
+        "id": 127025585077,
+        "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
+        "conclusion": "success",
+        "all_steps_successful": true
+      },
+      {
+        "id": 127025585129,
+        "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
+        "conclusion": "success",
+        "all_steps_successful": true
+      },
+      {
+        "id": 127025585170,
+        "name": "Full matrix \u2014 macos-15, Python 3.14",
+        "conclusion": "success",
+        "all_steps_successful": true
+      }
+    ],
+    "manifest": {
+      "file": "manifest.json",
+      "sha256": "930d56c0930a66784cdb95e0e5a22db155de5b827119a1369826d65c6b56e52e",
+      "size_bytes": 1655
+    },
+    "scope": "All eight official source-matrix cells and their steps succeed. Published artifact bodies/certificates are not downloaded or independently reverified by this reporting handoff; this is not an installed-public pair. All 3144 executable source/test hashes and backend bytes remain unchanged in this metadata follow-up."
+  },
+  "reporting_checks": {
+    "file": "mutation-mask-owner-reporting-20261105.xml",
+    "sha256": "8d6d8c05227d321a91c3b458dd9f4cc14d25bf69f9337a5e7c3cc950568e8aeb",
+    "size_bytes": 7249,
+    "tests": 54,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 0.987,
+    "index_and_devguide": "Pass"
+  }
+}

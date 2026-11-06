@@ -1,0 +1,83 @@
+{
+  "schema": "molsysmt.devguide-board-pagination-receiving@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#587",
+  "contribution_parent": "8725a460ca6e9da43400ef527e85c480f5924c2e",
+  "status": "Fix proposed and locally tested in PR #543; owner integration pending, issue remains partial.",
+  "defect": "A fixed 500-issue acquisition cap was interpreted as confirmed absence of old valid issues.",
+  "correction": "Repository-context REST pagination/slurp; PR filtering, existing normalized title/state/label schema; empty/malformed acquisition cannot become an empty board.",
+  "source_artifacts": {
+    "devtools/scripts/devguide_issue.py": "571defe4f0288214b02b45af4fb4178a8c132ede50718c18ec9462503f20bee1",
+    "devtools/tests/test_devguide_issue_pagination.py": "8355a8c293e57411fa64b97a2284d0fa10b4f750485e677e66a5a62e282c2999",
+    "devguide/reporting_protocol.md": "5cbb48a6d3ff5f661da7e2e61da58c5d6e90764c74b0bf6722e2c1ae29ee4190",
+    "devguide/AGENTS.md": "cd191208990664846a0fedacad5e83d49267408c787dae5200eb1a22c18ea9ac"
+  },
+  "regression": {
+    "original": {
+      "file": "board-pagination-original-red-20261105.xml",
+      "sha256": "ecb2b0db0b0eebbf5cddae693ef73651d1ad046752c10592e8542d0ea4d45924",
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "corrected": {
+      "file": "board-pagination-final-20261105.xml",
+      "sha256": "83a2c62e0351e71203129336a6af3821cff25e10195300d450dc855cfb9cf555",
+      "tests": 64,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "scope": "Five transport controls plus existing label/workflow/reporting controls; valid issues after five full pages, mixed states, PR exclusion and acquisition errors."
+  },
+  "live_inventory": {
+    "issues": 519,
+    "verified_old_issues": {
+      "22": {
+        "number": 22,
+        "title": "Hbonds output formats",
+        "state": "CLOSED",
+        "labels": [
+          {
+            "name": "enhancement"
+          }
+        ]
+      },
+      "25": {
+        "number": 25,
+        "title": "Proteins, small molecules and entities names",
+        "state": "OPEN",
+        "labels": [
+          {
+            "name": "proposal"
+          },
+          {
+            "name": "partial"
+          },
+          {
+            "name": "attribute"
+          },
+          {
+            "name": "docs"
+          }
+        ]
+      }
+    },
+    "scope": "Live paginated acquisition, issue-only schema; remaining label drift is preserved separately."
+  },
+  "live_sync": {
+    "file": "board-pagination-live-20261105.txt",
+    "sha256": "5c3b2f170e2c9c9cfc4eea32aa26ff493d93e47fa2852e5dabe4da5dd3969729",
+    "exit_code": 1,
+    "remaining": "Three genuine missing-label sets for existing #555/#572/#576. The old false #22/#25 absence is gone; a failing live check is not described as green."
+  },
+  "central_notices": [
+    "uibcdf/molsyssuite#171",
+    "uibcdf/moli#85"
+  ],
+  "adoption": "Two local working instructions record the accepted action; central notices request review/adoption and do not establish a new canonical policy.",
+  "scientific_scope": "No molsysmt/molsysviewer_molsysmt/Rust/package change after 8725a460c. Its 4506-case scientific/addon gate is retained at its actual source, not repeated or relabelled as this tooling gate.",
+  "quality": "Whole-tree Ruff check/format, devguide schema/indexes pass.",
+  "publication": "No main write in MolSysMT, no package/candidate/tag/promotion and both 1.0 publications remain paused."
+}

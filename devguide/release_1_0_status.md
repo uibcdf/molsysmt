@@ -20,6 +20,46 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## PR #543 owner receiving and full-suite failures — 2026-11-05
+
+**Owner receiving is in progress, not merged.** The isolated combination of
+main `ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6` and submitted PR head
+`1c88e785b4327350ad586d437a569eff1a2c5c9a` passes the 4,491-case addon suite,
+52 tooling/dependency/documentation-boundary cases, 202 published-support-floor
+cases, six additional #583/#584 consumer guards in both source/floor profiles,
+and the real Jupyter removal/layout/popups guard. Suites overlap; these are
+local source observations. Original main repairs and course executable evidence
+are preserved. The duplicate incoming #583/#584 pending reports are reconciled
+against their resolved owner records, without reopening them.
+
+Existing PR full run **42153312659** has four failed Linux jobs and queued
+macOS jobs at inspection. Linux Python 3.11–3.14 each records the same 33 failing
+cases across seven modules; these are real failures, not a pending-only gate.
+Owner fixes are tracked separately by **#594** (public export import identity),
+**#595** (mmCIF inequality/comparison consumer), **#596** (initial GRO source
+context), **#597** (generated-catalogue fixture isolation) and **#598** (test-owned
+NGL widget graph cleanup). Current primary occupancy/stable-label contracts
+remain strict; stale fidelity expectations are corrected rather than weakening
+native validation. Related local selections pass 146 conversion, 72 serial
+CCD/conversion and 83 serial NGL cases. The combined local selection passes **4,944 cases**, and 215 directed cases
+pass with published support floors. Four edited-reader doctests and 1,077
+documentation/reporting cases pass. These selections overlap. No mandatory
+full hosted gate is claimed passed.
+
+During receiving the PR advanced to
+**`f7b305b3a126109aff5909e857ea7c53981486e8`**, adding independent GUI result
+views and changing its controlled Viewer to
+**`42234de839ed047016f8f241ea5eb717cfeb07be`**. That fixed delta needs separate
+owner review and receiving; preceding measurements do not qualify it. Preserve
+other teams' dirty worktrees and use isolated exact source snapshots. The
+shared development environment still has optional dependency closure conflicts
+under #524 (including Praxis/PyUnitWizard); it is not an installed-pair gate.
+
+Next: complete combined-candidate review and exact required source gates, then
+return to **#593**'s distinct course-preparation contract and **#334**.
+**#587/#590/#591 remain pending owner integration.** No tag, Release, promotion
+or new release matrix is authorized or launched by these source checks.
+
 ## Course geometric interface observable — 2026-11-05
 
 **#589 is source-corrected.** The Alzheimer capstone uses explicit partner atom
@@ -4621,3 +4661,65 @@ complete declared atom order, returning detached native domains and optional
 See the [delivery, guards and allocation measurements](archive/resolved_proposals/explicit_atom_permutation.md).
 DockingMT migration remains owned by uibcdf/dockingmt#49. These local source
 checks neither qualify a replacement installed pair nor authorize publication.
+
+## MolSysViewer expert addon contribution
+
+PR #543's source contribution exposes 240/244 declared callable paths, including
+26/26 basic paths and four historical hbonds aliases that use the canonical
+bound methods. Native MD stubs remain unavailable. The loaded-primary view
+bridge returns a caller-owned visualization without cloning the parent's scene.
+Native #568 and #564 repairs are received from their published owner; the
+water-box factory still needs its own explicit-input consumer receiving.
+Managed protonation remains independent-only under #576; native empty-view
+digestion is separately reported under #578. Source exposure is not owner
+admission, complete mode/scientific qualification or an installed release.
+
+Current implementation and evidence belong to the
+[owning proposal](pending_proposals/molsysviewer_tools_addon.md) and its immutable
+[stage receipt](../devtools/data/molsysviewer_tools_navigation_receiving_20261105.json).
+Exact-head CI, owner review, remaining native contracts, task GUI and installed
+qualification remain separate. Both 1.0 publications stay paused. This compact
+entry replaces duplicated unmerged consumer stage narratives; their original
+receipts and proposal evidence remain preserved.
+
+
+### Explicit water-factory contribution receiving
+
+Consumer PR #543 adds `build.make_water_box` over the published #564 repair,
+keeping box/form inputs explicit and output independent even from an empty
+workspace. No primary read, scene adoption or scientific algorithm is added.
+See the [consumer receipt](../devtools/data/molsysviewer_tools_water_factory_receiving_20261105.json).
+Source exposure is 241/244, build 30/30; native forces #572, managed protonation
+#576, remaining scientific contracts, owner review, CI, GUI and installed
+qualification remain separate. Both 1.0 publications stay paused.
+
+### First molecular-tools task panel
+
+Consumer PR #543 now implements System / Remove atoms in source, with bounded
+selection review and serialized confirmation through the existing expert
+adapter. Local real-browser/native receiving is separate from owner review,
+hosted CI, live Jupyter/Qt/popups and installed qualification. Viewer #297/#298
+own diagnostic transport and stylesheet lifetime fixes. Geometry, Chemistry,
+Analysis and other System tasks remain proposed; both publications stay paused.
+
+### Native model/ion consumer receiving
+
+PR #543 receives native 8c2661293 without authoring native algorithms; expert
+exposure is 242/245 and build 31/31. The full addon gate passes 4,506 cases,
+362 directed native checks and 321 Viewer controls pass separately. The
+[source receipt](../devtools/data/molsysviewer_tools_native_model_ion_receiving_20261105.json)
+retains original failures, course preservation and real browser evidence.
+Native #583/#584 are reported; #582 and prior #572/#576 remain separate.
+No new GUI beyond System / Remove atoms, owner-main integration, installed
+qualification or publication is declared. Both 1.0 publications remain paused.
+
+### Execution-platform consumer receiving
+
+PR #543 receives native 50854766d (#559) with CPU/Reference model and result
+ownership controls; the source full gate passes 4,512 cases, with 481 native/tool
+controls and real browser receiving separately scoped in the
+[receipt](../devtools/data/molsysviewer_tools_platform_receiving_20261105.json).
+No new functional export, GPU/device qualification or scientific workaround is
+introduced. Native #583/#584, #582/#572/#576 and proposed #587 remain explicit;
+owner review, hosted CI, remaining tasks and installed qualification are pending.
+Both 1.0 publications remain paused.

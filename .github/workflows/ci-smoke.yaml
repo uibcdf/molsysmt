@@ -96,7 +96,7 @@ jobs:
           set -euo pipefail
           python -m pip install --no-deps \
             -r devtools/controlled_sources.txt \
-            git+https://github.com/uibcdf/molsysviewer@ca7ebea60d530a7a0c65cb4d0ccea7b4288f3352
+            git+https://github.com/uibcdf/molsysviewer@36ab93b7f8bc0530818bbc178c35dc04a9defd07
           python -m pip install --editable . --no-deps
 
       - name: Validate controlled dependency versions
@@ -139,6 +139,7 @@ jobs:
           # Keep this bounded tier aligned with devtools/tests/run_tiers.sh smoke.
           python -m pytest --receptor=ci -q \
             tests/element/component/test_get_component_index.py \
+            tests/element/group/amino_acid/test_name_examples.py \
             tests/element/group/test_reference_bond_map_validation.py \
             tests/element/group/test_name_resolution.py \
             tests/element/group/test_name_recognition.py \
@@ -252,6 +253,9 @@ jobs:
           python -c "import inspect; from molsysviewer.system_edits import SystemEditsManager; assert callable(SystemEditsManager.synchronize); assert 'rejection_check' in inspect.signature(SystemEditsManager.execute).parameters"
           python -m pytest --receptor=ci \
             tests/molsysviewer_molsysmt/test_read_tools.py \
+            tests/molsysviewer_molsysmt/test_navigation_tools.py \
+            tests/molsysviewer_molsysmt/test_water_box_tools.py \
+            tests/molsysviewer_molsysmt/test_system_panel.py \
             tests/molsysviewer_molsysmt/test_remove_tools.py \
             tests/molsysviewer_molsysmt/test_set_tools.py \
             tests/molsysviewer_molsysmt/test_conversion_tools.py \
@@ -283,12 +287,33 @@ jobs:
             tests/molsysviewer_molsysmt/test_chemical_assignment_readers_tools.py \
             tests/molsysviewer_molsysmt/test_physchem_remainder_tools.py \
             tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py \
+            tests/molsysviewer_molsysmt/test_build_assignment_tools.py \
+            tests/molsysviewer_molsysmt/test_build_name_projection_tools.py \
+            tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py \
+            tests/molsysviewer_molsysmt/test_nonbonded_energy_tools.py \
+            tests/molsysviewer_molsysmt/test_minimization_tools.py \
+            tests/molsysviewer_molsysmt/test_build_independent_tools.py \
+            tests/molsysviewer_molsysmt/test_build_expansion_tools.py \
+            tests/molsysviewer_molsysmt/test_build_preparation_tools.py \
+            tests/molsysviewer_molsysmt/test_solvation_tools.py \
+            tests/molsysviewer_molsysmt/test_ion_tools.py \
+            tests/molsysviewer_molsysmt/test_protonation_tools.py \
+            tests/molsysviewer_molsysmt/test_build_staging_tools.py \
+            tests/molsysviewer_molsysmt/test_build_sequence_tools.py \
+            tests/molsysviewer_molsysmt/test_build_bond_edit_tools.py \
+            tests/molsysviewer_molsysmt/test_build_alternate_tools.py \
+            tests/molsysviewer_molsysmt/test_naming_context_tools.py \
             tests/molsysviewer_molsysmt/test_build_audit_tools.py \
             tests/molsysviewer_molsysmt/test_hbond_site_tools.py \
             tests/molsysviewer_molsysmt/test_interaction_detector_tools.py \
             tests/molsysviewer_molsysmt/test_contact_detector_tools.py \
             tests/molsysviewer_molsysmt/test_remaining_interaction_tools.py \
             tests/molsysviewer_molsysmt/test_map_and_file_tools.py \
+            tests/molsysviewer_molsysmt/test_element_utilities.py \
+            tests/molsysviewer_molsysmt/test_element_hierarchy_tools.py \
+            tests/molsysviewer_molsysmt/test_element_domain_tools.py \
+            tests/molsysviewer_molsysmt/test_element_label_tools.py \
+            tests/molsysviewer_molsysmt/test_element_template_tools.py \
             tests/molsysviewer_molsysmt/test_composition_tools.py \
             tests/molsysviewer_molsysmt/test_supported_tools.py \
             tests/molsysviewer_molsysmt/test_attribute_tools.py

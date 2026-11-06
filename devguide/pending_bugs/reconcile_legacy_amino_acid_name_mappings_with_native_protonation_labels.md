@@ -1566,6 +1566,20 @@ The owning #421/#543 handoff and final combined receiving remain necessary for
 D6; no downstream compatibility or package qualification is claimed yet.
 
 
+### Expansion consumer adaptation in PR #543 — 2026-11-05
+
+Contribution merge `393757795` implements the explicit naming-context handoff
+above, including canonical path retirement, exact native signatures, discovery
+and independent output ownership. The
+[consumer receipt](../../devtools/data/molsysviewer_tools_naming_cutover_receiving_20261105.json)
+retains 4,263 addon/integration and 298 directed native passes on d3650cc09,
+with a fixed published PyUnitWizard source snapshot. The subsequent owner
+alternate-site repair has its
+[separate receiving](../../devtools/data/molsysviewer_tools_alternate_site_repaired_receiving_20261105.json).
+This delivers the requested adaptation for owner review; it does not itself
+admit the expansion, complete D7 or stabilize naming profiles. Historical source
+and original owner test evidence below remain unchanged.
+
 ### Final local receiving for the native cutover
 
 On Linux/Python 3.14.7, **9,062 affected native tests** pass in 534 seconds with

@@ -86,6 +86,13 @@ with a different premise and deserves a fresh document rather than a revived one
 
 ## Checking your work
 
+Before a board audit declares a report's issue missing, acquire the complete
+paginated issue inventory through the owning script. A capped list/search is
+valid exploration, not proof of absence. Preserve partial/acquisition failures
+as such; never remove a valid record to compensate for truncated remote data.
+The local regression is tracked in uibcdf/molsysmt#587; shared review belongs
+to uibcdf/molsyssuite#171 and uibcdf/moli#85, without implying their adoption.
+
 ```bash
 python devtools/scripts/validate_devguide.py        # links, schema, lifecycle, indexes
 python devtools/scripts/devguide_index.py --check   # indexes only, writes nothing

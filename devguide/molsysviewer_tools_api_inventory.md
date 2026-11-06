@@ -2,19 +2,106 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-11-04, corrected isolated integration based on main `d9255c85c`,
-combining PR #538's four supported reports and PR #540's seven attribute helpers.
-The runtime/addon/Rust and build inputs are identical to frozen r2; only #552's
-test expectations, eight public rejection cases, native smoke selection and
-records change. The corrected candidate passes 136 focal controls without
-omissions. Earlier 664-case metadata and 572-case documentation receipts keep
-their r2 identity. New exact-candidate hosted gates remain pending.
-Original contribution evidence keeps its own source/host identity. Installed
-scene-loader receiving remains separate under uibcdf/molsysviewer#269.
-The prior 2026-10-28 source receiving extended ac30d5ba4 with four native
-composition mirrors and the separately qualified Viewer prefix-addition host. All fifteen canonical
-interaction paths remain exposed explicitly. Prior source and installed qualification retain
-their own identities; this count is not universal scientific accuracy or stability.
+**Snapshot:** 2026-11-05, contribution PR #543 receiving published native
+`50854766d` over the prior `96191e07e` contribution; the native #559
+platform repair changes execution admission without adding functional paths.
+The table describes this contribution's 242/245 paths, including
+all 57 element paths, thirty-one build paths and five mechanical paths; it does not
+claim owner acceptance or an installed release. Explicit engine-resource lookup
+works before molecular loading; degree counting binds the serialized current
+primary and retains native parameterization prerequisites. The
+[initial mechanics receipt](../devtools/data/molsysviewer_tools_mechanics_receiving_20261104.json)
+preserves its two-tool input. The
+[energy receipt](../devtools/data/molsysviewer_tools_energy_receiving_20261104.json)
+records total/decomposed energy against a separately constructed OpenMM model,
+unit-policy receiving, lifecycle and native limitations.
+The [nonbonded-energy receipt](../devtools/data/molsysviewer_tools_nonbonded_receiving_20261105.json)
+records internal/disjoint cross and two-sided group contributions against
+independent Coulomb/Lennard-Jones pair sums, explicit energy-unit policy and
+source/scene ownership. Native mixed partition #561 remains visible. The
+[get_forces proposal](pending_proposals/native_molsys_force_reader_for_bound_consumers.md)
+tracks #572: native MolSys input is not implemented, so no always-rejected bound
+force method or consumer parameterization is added.
+The [minimization receipt](../devtools/data/molsysviewer_tools_minimization_receiving_20261104.json)
+records independent/native in-place ownership, retained coordinate axes,
+analysis invalidation and synchronization-only retry. Its scoped CPU controls
+also correct the earlier energy receipt's unverified native thread-limit claim;
+the original numerical outcomes and source inputs remain preserved.
+The [independent-build receipt](../devtools/data/molsysviewer_tools_independent_build_receiving_20261104.json)
+records declared biological assemblies and explicit AutoDock4 nonpolar-H
+projection, analytic geometry/charge controls, lineage, units and source/scene
+preservation. Both outputs remain independent; no new host or native algorithm
+is introduced.
+The [solvation receipt](../devtools/data/molsysviewer_tools_solvation_receiving_20261105.json)
+records the original native independent construction, direct OpenMM parity,
+unit/structure/box/water geometry, source preservation and then-current
+identifier/count limits. Their repairs are now received from the newer native
+basis; the original receipt retains its source and outcomes.
+The native CIF observations/assembly fixes #556/#563 are received in the same
+source without authoring scientific algorithms; earlier receipts keep their
+original inputs.
+The [atom-expansion receipt](../devtools/data/molsysviewer_tools_atom_expansion_receiving_20261104.json)
+records explicit terminal records/coordinates, historical attachment reports and
+bounded template-based heavy repair. It preserves independent output ownership,
+source/scene identity, native losses/invalidation and optional-engine limits.
+The [H/terminal receipt](../devtools/data/molsysviewer_tools_hydrogen_terminal_receiving_20261104.json)
+records fixed-state inventory/pose/history receiving separately from legacy pH
+preparation, and native terminal completion/capping without source adoption.
+The [builder/overlap receipt](../devtools/data/molsysviewer_tools_builder_overlap_receiving_20261104.json)
+records detached builder domains/lifetime and whole-molecule filtering with explicit
+structure/reference choices, units, conditional aliasing and native remapping.
+The [peptide-sequence receipt](../devtools/data/molsysviewer_tools_peptide_sequence_receiving_20261104.json)
+records fresh sequence-based construction, bounded canonical substitution and
+explicit native mask/H/provider limits. The independently reproduced masked
+mutation defect is tracked by [#568](archive/resolved_bugs/mutate_selection_masks_mix_syntax_and_atom_group_axes.md);
+its filing does not qualify the rejected modes or alter scientific code.
+The [bond-addition receipt](../devtools/data/molsysviewer_tools_bond_addition_receiving_20261105.json)
+records managed native graph publication, independent ownership, true no-ops,
+retained indices and synchronization-only retry, with source/fixture identities.
+The [source-inventory recovery](../devtools/data/molsysviewer_tools_bond_source_inventory_recovery_20261105.json)
+retains the first smoke failure and registers the new helper in the exact
+source/distribution contract; scientific inputs and outcomes remain unchanged.
+The [alternate-site receipt](../devtools/data/molsysviewer_tools_alternate_site_receiving_20261105.json)
+records the original native coordinate/B-factor/label publication and its
+old-provider limits. The subsequent owner repair of #569/#570/#571 is received
+with coherent primary observations and whole-request preflight; historical
+receipts retain their original inputs.
+The [repair receiving](../devtools/data/molsysviewer_tools_alternate_site_repaired_receiving_20261105.json)
+records the corrected source, native skip flag and preserved owner documents.
+Earlier benchmark failures under #567 retain their own inputs.
+The [reference-map receipt](../devtools/data/molsysviewer_tools_reference_map_receiving_20261104.json)
+retains its own unchanged-addon input, red/green controls and hosted scope.
+The earlier metadata integration's 155/244 snapshot and its frozen results retain
+their own source identities below. Native #549 naming-context review remains
+separate; the addon supplies no scientific repair. Source exposure is not
+universal scientific accuracy, supported-input coverage or package compatibility.
+
+## Native execution-platform repair received — 2026-11-05
+
+The [platform receipt](../devtools/data/molsysviewer_tools_platform_receiving_20261105.json)
+qualifies native #559 with explicit CPU/Reference energy, pair-energy and
+minimization controls; 4,512 addon/integration cases pass in the complete source
+gate. Engine-owned names, unavailable registration and device failures retain
+their distinct diagnostics without fallback. GPU/plugin-device execution is
+not qualified. Path exposure remains 242/245, build 31/31; native science and
+original owner course executable content are preserved. #583/#584 remain open.
+
+## Native model and ion receiving — 2026-11-05
+
+The [source receipt](../devtools/data/molsysviewer_tools_native_model_ion_receiving_20261105.json)
+records final gates and original failures for this exact input.
+
+The source now mirrors `build.add_ions` as independent native whole-water
+replacement, with explicit count/charge/seed/periodic clearance and native atom
+maps. Solvation receives exact counts and nullable/source-label preservation,
+and forwards native random_seed and skip_digestion. Resource lookup receives
+independent lists and distinct OBC1/OBC2 recipes; energies and stored constraint
+policies are checked against explicit OpenMM on a qualified small source.
+Only System / Remove atoms is graphical. Native effective-recipe/control
+reporting #582 and attribution conflict #583 remain visible. Native MolSys
+forces #572, managed protonation maps #576 and the two MD stubs retain their
+separate dispositions. Source exposure does not establish universal scientific
+or installed qualification; exact receipts retain their input and scope.
 
 ## Naming-contract cutover — 2026-11-05
 
@@ -27,6 +114,13 @@ inventory and guard name the new path; historical receipts are unchanged.
 The [owning cutover record](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#pr-543-adaptation-handoff)
 lists the expansion's required mirror, signature and manifest receiving. Counts
 alone cannot certify that expansion against the corrected provider.
+
+The expansion now receives that handoff through explicit mirrors and forty new
+context/signature/error/ownership cases. All 4,263 addon/integration cases and
+298 directed native cases pass on the recorded d3650cc09 inputs. The
+[consumer receipt](../devtools/data/molsysviewer_tools_naming_cutover_receiving_20261105.json)
+preserves red/green controls, a fixed published PyUnitWizard source snapshot and
+course-cell preservation. Owner acceptance and exact-head CI remain separate.
 
 Regenerate the full path/signature/missing-route inventory in the participating
 source environment:
@@ -43,7 +137,8 @@ be counted as zero. HEAD identifies the checkout basis; the inventory observes
 working-tree source too. Local receiving records identify tested code hashes.
 Keep historical receipts immutable; a new baseline needs a new dated snapshot.
 The [corrected-candidate receipt](../devtools/data/molsysviewer_tools_corrected_guard_candidate_20261104.json)
-records the live 155/244 audit, exact production equivalence and new guard scope.
+retains the earlier metadata-only 155/244 audit, exact production equivalence
+and its guard scope.
 The [r2 receiving receipt](../devtools/data/molsysviewer_tools_refreshed_receiving_20261103.json)
 retains its own source/archive hashes and separate test scopes.
 The [original combined receipt](../devtools/data/molsysviewer_tools_combined_receiving_20261103.json)
@@ -55,24 +150,24 @@ none certifies a published installed pair.
 
 | Namespace | Exposed source paths | Declared native paths | Remaining |
 | --- | ---: | ---: | ---: |
-| basic | 25 | 26 | 1 |
+| basic | 26 | 26 | 0 |
 | topology | 2 | 2 | 0 |
 | chemical_states | 9 | 9 | 0 |
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
 | physchem | 34 | 34 | 0 |
-| build | 11 | 30 | 19 |
-| molecular_mechanics | 0 | 6 | 6 |
+| build | 31 | 31 | 0 |
+| molecular_mechanics | 5 | 6 | 1 |
 | interactions (canonical families) | 15 | 15 | 0 |
-| element and declared children | 0 | 57 | 57 |
+| element and declared children | 57 | 57 | 0 |
 | h5msm file utilities | 7 | 7 | 0 |
-| historical hbonds aliases | 0 | 4 | 4 |
+| historical hbonds aliases | 4 | 4 | 0 |
 | attribute metadata helpers | 7 | 7 | 0 |
 | supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 155 exposed out of 244 inspected public callable paths. This is not
-244 independent scientific capabilities: the historical hbonds routes alias
+These are 242 exposed out of 245 inspected public callable paths. This is not
+245 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
 inventory. The output records implementation identities so aliases remain
@@ -98,7 +193,7 @@ The new source-preserving `form.file_fasta.read_records` and `parse_records`
 utilities (ae24866ba) are outside this 244-path functional inventory, which
 excludes form adapters. They are explicit file/text operations without a primary
 system slot. Both are now explicitly exposed at those same addon paths and independently
-received as file/text utilities. They are not included in 155/244 and do not
+received as file/text utilities. They are not included in 232/244 and do not
 justify exposing arbitrary adapters or binding filenames/text to view.molsys.
 
 ## Ordered expansion
@@ -108,7 +203,8 @@ system. No primary reader, pending-edit synchronization, scene action or new
 root scientific alias is introduced. Their programmatic outputs remain native;
 the default is still visual. The seven attribute helpers retain the independently
 repaired #534/#535 classification, connectivity and cold-import alias contracts.
-Combined main integration and installed/platform qualification remain pending.
+The metadata contributions are integrated on main. Owner acceptance of PR #543
+and installed/platform qualification remain separate.
 
 1. **Retain the received baseline.** Complete exact-source CI for all 34 physchem
    wrappers and three build diagnostics. Keep the native CIP reference-ownership
@@ -133,18 +229,68 @@ Combined main integration and installed/platform qualification remain pending.
    to/from targets and molecular_systems collections are not automatically the
    current primary. File utilities and element helpers preserve their explicit
    inputs and ownership; some are useful before any system is loaded.
-5. **Molecular mechanics calculations.** Start with diagnostics and independently
-   returned energies/forces. Keep force field, engine, atom correspondence,
-   units, provider availability and preparation prerequisites explicit. Receive
-   minimization separately as a potentially mutating operation; no hidden
+5. **Molecular mechanics calculations.** Engine-resource lookup, the native
+   particle/constraint degree count and potential energy are now exposed.
+   Resource lookup supplies explicit metadata; it does not construct an engine
+   or certify availability. The two calculations use the current primary
+   through native OpenMM parameterization. Preserve
+   native resource ownership under #560 until repair and receive #559's platform
+   contract before claiming Reference/OpenCL execution. Energy retains native
+   stored/default settings, physical units and force-name decomposition. Its
+   selection constructs a subsystem for parameterization, not an embedded
+   contribution; no implicit visible-structure selection or trajectory loop is
+   introduced. Single-structure CPU receiving does not qualify periodic
+   decompositions, GPUs or arbitrary models. Native minimization is now received
+   with independent output by default and managed retained-axis in-place edits.
+   Keyword-only update_view controls projection; its local skip_digestion does
+   not bypass native validation. The CPU reference scopes threads explicitly
+   and restores the previous process default; product settings are unchanged.
+   Two native mechanical
+   routes remain unexposed; `get_forces` currently accepts OpenMM Context/Simulation
+   rather than the View's MolSys, which needs an owner input-contract decision.
+   Native #561 owns the mixed-partition nonbonded-energy failure; keep that
+   route unexposed until its selection contract and correction are received.
+   Keep force field, engine, atom correspondence,
+   units, provider availability and preparation prerequisites explicit. The
+   minimizer retains native saved-analysis invalidation and projection-only
+   recovery without scientific replay. Local optimization does not establish
+   equilibrium or global stability; course defects remain native #562. No hidden
    parameterization or engine fallback is introduced.
-6. **Molecular edits and preparation.** Review every remaining build edit and
+6. **Molecular edits and preparation.** Independent assembly expansion and typed
+   nonpolar-H projection are now exposed. Preserve declared chain/operator and
+   structure scope, explicit AutoDock4/charge/inventory prerequisites, direct
+   versus merged atom identity and source-preserving independent results. They
+   do not infer chemistry, choose the visible frame or adopt results. Explicit
+   terminal attachment and bounded heavy-atom repair are now also received as
+   independent outputs: preserve all-structure supplied/template geometry,
+   historical versus live atom maps, attribute policy and output-only analysis
+   invalidation. Heavy repair can reorder indices or leave a gap unassessed.
+   Native #564 water-box membership is repaired by its owner. The addon now
+   delegates explicit box construction from an open empty view, returning
+   independent water in the requested form without adoption or source reads.
+   Hydrogen generation and terminal capping are now independently exposed. Keep
+   approximate pH rules distinct from explicit one-component/state/structure
+   RDKit materialization, including maps/history, optional-engine limits and
+   completion of an uncapped opposite terminus. No result is implicitly adopted.
+   Review every remaining build edit and
    basic add/append/merge route by native effect, return ownership and mapping.
    Independent native outputs may remain independent; in-place operations need
    their own host synchronization, atom/structure correspondence, invalidation,
    retained source identity and recovery contract. Existing coordinate/removal
-   receiving does not admit arbitrary topology edits. Public build.editable and
-   factories need explicit native object/lifetime contracts, not placeholders.
+   receiving does not admit arbitrary topology edits. The loaded-primary build.editable route now returns a detached native builder
+   with explicit domain loss and independent lifetime. Overlap filtering keeps
+   whole-molecule scope, atom-complement semantics and no-contact primary alias.
+   Independent build_peptide and mutate now retain fresh-model versus observed-pose
+   semantics, bounded unassessed side chains and native naming/mask/provider limits.
+   Missing-bond addition now receives native in-place graph publication and
+   independent outputs. Reviewed publication tokens distinguish real changes
+   from no-ops without duplicating candidates; atom/structure/state axes remain,
+   native analyses invalidate once and projection retries never rerun science.
+   Alternate-site resolution now receives native coordinate/B-factor/label
+   writes with retained atom/structure identity, no-op preservation and
+   explicit uncertainty after partial native work. Occupancy policy/storage
+   and late rejection remain native #569/#570/#571, without facade repair.
+   Remaining factories need explicit native object/lifetime contracts, not placeholders.
 7. **Complete navigation and compatibility decisions.** Receive element/file/attribute/supported
    utilities, canonical versus historical aliases and the basic.view bridge
    deliberately. A useful core route is not proof that its expert mirror exists.
@@ -413,3 +559,59 @@ correction adds no public path and does not change historical exposure receipts.
 Native/client receiving and final source identity belong to the
 [#504 record](archive/resolved_bugs/is_solvated_fails_for_multiple_structures.md); hosted
 and installed/release qualification remain separate.
+
+
+## Independent protonation reconciliation — 2026-11-05
+
+The build mirror exposes the native signature with the current primary implicit.
+Only in_place=False is received: managed True rejects before science pending
+[public correspondence #576](pending_proposals/protonation_removal_correspondence_for_bound_consumers.md).
+This is one callable path with a bounded admitted mode, not complete in-place
+coverage or environmental-pKa qualification. Native reference rules, explicit
+named states, unassessed groups and extraction semantics remain unchanged. No
+private chemistry helper, identity inference or implicit adoption is added.
+
+
+## Visualization, compatibility and native declarations — 2026-11-05
+
+The basic.view mirror and native root alias create a separate caller-owned
+visualization of the serialized current loaded primary. Selectors, structures,
+backend choice and errors stay native; no parent scene clone, synchronization
+or adoption is implied. An empty owner is rejected by ordinary primary binding.
+The separate native None/default validation repair is received under
+[#578](archive/resolved_bugs/consumer_basic_view_default_empty_input.md).
+It does not change this bound method's loaded-primary requirement.
+
+Historical hbonds exposes four exact canonical bound-method aliases, not new
+scientific algorithms. All fifteen canonical interaction paths retain their
+existing receiving. The two native MD declarations are unconditional stubs and
+remain intentionally unexposed. Of the four unexposed declared paths, two are
+these nonoperational declarations and two are pending native capabilities:
+native MolSys forces #572 and managed protonation correspondence #576.
+Protonation is exposed with its explicit
+independent-only mode limit under #576. Path exposure is not complete mode,
+scientific, platform or installed qualification.
+
+Published native 27ccb1b6d resolves #568 on the source atom axis. The consumer
+forwards its native skip flag and repaired selectors without scientific
+translation; original consumer evidence is retained in
+[its archive](archive/resolved_bugs/mutate_selection_masks_consumer_evidence.md),
+separately from the owner's resolution and original frozen receipts.
+
+## Explicit water factory receiving — 2026-11-05
+
+`build.make_water_box(box, form="molsysmt.MolSys", skip_digestion=False)`
+keeps all native scientific inputs explicit. It works from an open empty view
+and never reads, synchronizes or adopts the primary. The published #564 native
+implementation owns reference tiling, row-vector clipping, whole-water geometry,
+validation and conversion. Native storage is canonical nm; presentation policy
+is unchanged. The independent result may be loaded explicitly.
+
+The [consumer receipt](../devtools/data/molsysviewer_tools_water_factory_receiving_20261105.json)
+records bounded cell/geometry and unit checks, native parity, lifecycle, output
+ownership, pending scene preservation and validation. No equilibration, assigned
+force field, exact density or absence of periodic-face overlaps is claimed.
+`skip_digestion=True` retains native normalized-input requirements; no consumer
+normalization or bypass is inserted. Source exposure is 241/244: native forces
+#572 and two unconditional MD stubs remain unexposed, while protonation's
+managed in-place mode remains separately pending #576.

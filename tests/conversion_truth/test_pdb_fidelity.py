@@ -395,10 +395,19 @@ def test_pdb_multimodel_alternate_locations_share_a_canonical_atom_axis():
     restored.structures.coordinates = puw.quantity(
         np.zeros((2, 2, 3), dtype=float), "nm"
     )
-    msm.build.solve_atoms_with_alternate_location(restored)
+    before_ids = restored.topology.atoms.atom_id.tolist()
+    # Occupancy chooses different serial labels across the two structures.
+    # One stable atom axis cannot publish both labels; rejection is atomic.
+    from molsysmt._private.smonitor import ArgumentError
+
+    with pytest.raises(ArgumentError, match="stable atom ID"):
+        msm.build.solve_atoms_with_alternate_location(restored)
+    np.testing.assert_array_equal(puw.get_value(restored.structures.coordinates), 0)
+    assert restored.topology.atoms.atom_id.tolist() == before_ids
+    msm.build.solve_atoms_with_alternate_location(restored, location_id="A")
     np.testing.assert_allclose(
         puw.get_value(restored.structures.coordinates[:, 0], to_unit="nm"),
-        [[0.0, 0.0, 0.0], [0.3, 0.0, 0.0]],
+        [[0.0, 0.0, 0.0], [0.2, 0.0, 0.0]],
     )
 
     roundtrip = msm.convert(

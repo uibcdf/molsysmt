@@ -1,0 +1,265 @@
+{
+  "schema": "molsysmt.viewer-mechanics-source-receiving@1",
+  "date": "2026-11-04",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#559",
+    "uibcdf/molsysmt#560"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "8fc115e2eb8aff41345696d067e600819c6ad51d",
+  "native_owner_basis": "5f3af9374f2bf4ce9c3598450e22d43ca14509ae",
+  "source_identity": "Qualified uncommitted runtime/test bytes below; final contribution commit is delivered through the existing PR. No self-referential final-commit claim.",
+  "viewer_checkpoint": "524f033912bd046bafa0c197d87ed830b984ac84",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "environment": {
+    "profile": "molsyssuite@uibcdf_3.14",
+    "python": "3.14.7",
+    "platform": "linux",
+    "installed_support_metadata": {
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "openmm": "8.6.1",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "scope": "Existing explicit source environment; no package installation, fresh solve or installed-artifact qualification."
+  },
+  "input_sha256": {
+    "molsysviewer_molsysmt/_molecular_mechanics.py": {
+      "sha256": "e76aee6fe0336988904295abc049b913dcfa78e9364915da61db3644bd09e310",
+      "size_bytes": 3873
+    },
+    "molsysviewer_molsysmt/_api.py": {
+      "sha256": "1bfa7b0b877715e7f77f7d882bcceeb88312ce3764f32f5aaa45e1913d70ab56",
+      "size_bytes": 4132
+    },
+    "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py": {
+      "sha256": "2c45db0aacd5c1db4108a5c4083a74e1b76b4b1af82e1201ba15fd4302a600b1",
+      "size_bytes": 9455
+    },
+    "tests/molsysviewer_molsysmt/test_build_assignment_tools.py": {
+      "sha256": "beed5a72a8d604d6a8e26129071a03ce3bd1df7b605a622993b3618cf8e6bedd",
+      "size_bytes": 14701
+    },
+    "devtools/scripts/viewer_tools_contract.py": {
+      "sha256": "42e7f736d6e5e80eee0dd404f2fccf7be9f72ed6c72df9122da1864acd32ae08",
+      "size_bytes": 3096
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "sha256": "15fd5a545600a69e5f848acf948bd7f5d267fb291e11c6f9c8e404d3602cf7f8",
+      "size_bytes": 8553
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "sha256": "21c27913ed66d0607ef9351973a905c5ef58256fdedf993cf5ad593d5d692d63",
+      "size_bytes": 14569
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "sha256": "c5f50f82d3b0de9de1852b7ec342ed85dcce5f6be2c1ee4f1614c5153022c6da",
+      "size_bytes": 208568
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "sha256": "ba2476a917e51774112861fff3e87232aba35a5e1076a6bb2652260029afaebf",
+      "size_bytes": 24685
+    },
+    "docs/docs_manifest.yml": {
+      "sha256": "9606dfe56dd59dd1a11e78dfea069a394f6cf2a48e13921d99bec003c6daabc4",
+      "size_bytes": 55453
+    }
+  },
+  "datasets": [
+    {
+      "system": "pentalanine",
+      "filename": "traj_pentalanine.h5msm",
+      "sha256": "d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6",
+      "size_bytes": 3494262
+    },
+    {
+      "system": "Trp-Cage",
+      "filename": "1l2y.h5msm",
+      "sha256": "fb1fcfdf51f323d3fcaf3157660d1b4f4ed7a16e3232c1f29d08e5bacf6d649b",
+      "size_bytes": 236395
+    }
+  ],
+  "frozen_sources": {
+    "source_sha256": "661f54fc43f72752dcf5024ec77da80dfc89316a1f25ae5afa9331f6b8b916b8",
+    "source_file_count": 3089,
+    "retained_input_manifest": {
+      "file": "mechanics-tools-sources-before-20261104.json",
+      "sha256": "ba17e8c0b5a77ab9cb1c5fbf3cd45eb26a7aa128518df2c7771e9605b3159232",
+      "size_bytes": 378994
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "unchanged_during_complete_run": true,
+    "native_rust_and_project_metadata_unchanged_from_parent": true
+  },
+  "implemented": {
+    "molecular_mechanics.get_engine_forcefield": {
+      "binding": "explicit inputs, open empty owner allowed",
+      "result": "Native resource-name list, not a constructed engine object or availability certificate. No selected-engine import/execution. Native lookup errors/model precedence/result ownership retained.",
+      "known_limit": "Native shared-list alias under #560; no silent consumer deepcopy. Caller may explicitly copy before customizing."
+    },
+    "molecular_mechanics.get_degrees_of_freedom": {
+      "binding": "serialized current primary, including completed pending edits",
+      "result": "Dimensionless integer under native 3*N_particles-N_constraints definition, with native OpenMM parameterization.",
+      "truth_control": {
+        "dataset": "single-structure bundled pentalanine",
+        "direct_openmm_particles": 62,
+        "direct_openmm_constraints": 32,
+        "expected_count": 154,
+        "reference": "Separate OpenMM ForceField.createSystem(NoCutoff, HBonds), not the native counting wrapper."
+      },
+      "replacement_control": {
+        "dataset": "Trp-Cage, selected structure 0",
+        "count": 762,
+        "scope": "Current-primary replacement and native parity; not force/energy or thermostat qualification."
+      },
+      "limits": "No implicit visible-structure selection, COM/thermostat correction, chemistry preparation, stored mechanics assignment, scene/history update or engine-object adoption. Native conversion can reject multiple-structure boxes."
+    }
+  },
+  "local_receiving": {
+    "initial_affected_module": {
+      "tests": 38,
+      "failures": 15,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 12.467,
+      "junit_file": "mechanics-initial-tools-20261104.xml",
+      "sha256": "bb5b3fc5129e93362a6b441826e4e35ab985563398a3cc08306b2e000a059874",
+      "size_bytes": 36827
+    },
+    "initial_failure_disposition": "15 failures were the shared scientific test snapshot calling None.copy() for empty owners; the helper now supports None. No product/runtime fix was required for this failure.",
+    "affected_and_existing_helper": {
+      "tests": 82,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 25.17,
+      "junit_file": "mechanics-tools-focused-20261104.xml",
+      "sha256": "17de1b88e44b1ccb9bff11f6aac917111cc265dec995e0ae595223cd6ca57329",
+      "size_bytes": 16020
+    },
+    "final_mechanical_module": {
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 13.501,
+      "junit_file": "mechanics-tools-final-focused-20261104.xml",
+      "sha256": "8c2445ca3212aa4099e9305440ada490bc7b12d73cf63d3b0c5456baa0f1dad1",
+      "size_bytes": 8171
+    },
+    "package_route_scope": {
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.325,
+      "junit_file": "mechanics-tools-package-20261104.xml",
+      "sha256": "c9e2de224b53586a0c5b032051ce41c5a22ccf994f469bfecd7f991c7b88bd6e",
+      "size_bytes": 5784
+    },
+    "final_structure_docs_routes": {
+      "tests": 562,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 24.623,
+      "junit_file": "mechanics-tools-structure-docs-20261104.xml",
+      "sha256": "15fb1d216c46d4c637bb9805ad0f4901c04b07c076027a8111a42c03d6a14a77",
+      "size_bytes": 104662
+    },
+    "complete_addon": {
+      "tests": 3838,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 868.399,
+      "junit_file": "mechanics-tools-addon-complete-20261104.xml",
+      "sha256": "8cf38457c17e9a18c2d394b5e2db40f68e04338710af940b1ca4c501e2781288",
+      "size_bytes": 715653
+    },
+    "complete_addon_command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "warnings": {
+      "total": 2287,
+      "LegacyH5MSMWarning": 2280,
+      "StructuralAttributeDropWarning": 4,
+      "DigestNotDigestedWarning": 2,
+      "RuntimeWarning": 1,
+      "scope": "Existing native outcomes, including intentional invalid dihedral keywords and degenerate geometry; no suppression introduced."
+    },
+    "guide": {
+      "file": "mechanics-tools-guide-20261104.json",
+      "blocks": 2,
+      "shared_unmodified_namespace": true,
+      "all_passed": true,
+      "sha256": "c08db6d3ae2e114cc98feffdf02be39cf4e416ab02afa510e50c67219ec6d959",
+      "size_bytes": 318
+    },
+    "course": "156 canonical notebooks validate; no course file changes in this increment.",
+    "ruff": "Whole-tree check/format pass; 4345 files.",
+    "dependency_contract": "pass; no dependency declaration/floor changes",
+    "devguide": "Final receipt and inventory receive offline validation before publication; earlier pre-receipt failure was the deliberately unfinished receipt link."
+  },
+  "provider_feedback": {
+    "559": "Documented Reference/OpenCL names rejected by the native platform digester before engine availability; CPU succeeds. No GPU execution claimed, no consumer platform table or skip bypass.",
+    "560": "Native getter returns live forcefield registry lists. Mutating the AMBER14/TIP3P list makes a later matching explicit OpenMM parameterization fail on the added missing filename; restoring it returns a 304-particle system. Vacuum-list mutation alone did not affect a TIP3P route; no incorrect numeric energy was observed.",
+    "ownership": "Both independently reproduced without addon, searched for equivalents and filed with explicit maintainer authorization and component:molsysviewer relationship labels.",
+    "consumer_scope": "Known source limits, not automatically deferred post-1.0. Native repairs remain with MolSysMT; receive their exact source before removing warnings.",
+    "review_by": "2026-11-11"
+  },
+  "integration_review": {
+    "argdigest": "Both explicit public wrappers declare skip_digestion and use ArgDigest; local lifecycle/integration controls and native scientific input contracts remain distinct. The legacy resource utility currently retains native lookup errors.",
+    "depdigest": "Metadata lookup executes no optional engine and adds no availability gate. Bound count delegates the existing native public conversion route and retains its optional-engine errors, including legacy generic failure behavior; no fallback is introduced.",
+    "smonitor": "Public orchestration uses signal; native diagnostics and caller context are preserved.",
+    "physical_quantities": "No new physical quantity boundary: resource names and a dimensionless count. Native conversion retains its existing quantity contracts; no unit stripping or new serialization.",
+    "ackredit": "No new attribution schema/session hook or replacement of native provenance; existing native plain-result contracts remain."
+  },
+  "exposure": {
+    "exposed_paths": 218,
+    "declared_paths": 244,
+    "molecular_mechanics": "2/6",
+    "element": "57/57",
+    "build": "15/30",
+    "fasta_readers_separate": 2,
+    "inventory": {
+      "file": "mechanics-tools-inventory-20261104.json",
+      "sha256": "00e7f4ae658433598253864aa35b124e33428589f9801421626653f793cbc0b8",
+      "size_bytes": 123009
+    },
+    "scope": "Source exposure; aliases/stubs are not independent scientific algorithms or installed availability."
+  },
+  "remaining": [
+    "Receive exact new-head hosted CI and owner acceptance. Older 8fc115e2 campaigns retain their own inputs.",
+    "Receive native #559/#560 and the separate #549 naming cutover; no facade scientific repair.",
+    "Four mechanical functions remain unexposed; get_forces currently requires Context/Simulation rather than the View MolSys. Review this native input contract before offering it.",
+    "Remaining fifteen build tools, bridge/alias/stub dispositions, GUI and exact installed-package qualification remain separate."
+  ],
+  "temporary_resources": "No new Conda environment or native build. JUnit/input/guide evidence retained in Viewer task-local .pytest_cache for hosted closeout; review by 2026-11-11. Existing contribution worktree retained.",
+  "publication": "No candidate freeze, tag, package, Release or promotion; both 1.0 publications remain paused.",
+  "documentation_merge_followup": {
+    "original_feature_head": "60450a7f01d2e91fa1c7d659a272fd164702fb0f",
+    "received_published_owner_docs": "5ccad1d8a2537b24e52474bd95103cc94700cba1",
+    "reason": "GitHub reports mergeable=false/dirty on the feature head; only the push Developer guide workflow registered. Published main adds #549 design documentation, with no runtime/native/Rust/test/dependency changes.",
+    "workflow_rule_reference": "https://docs.github.com/en/actions/how-tos/troubleshoot-workflows",
+    "resolution": "Keep both mechanical receiving and group-name design sections in release_1_0_status.md; preserve incoming conceptual guide, accepted scope, inventory and manifest additions.",
+    "equivalence": "All recorded frozen runtime/native/Rust/build hashes and the new mechanical test hash match. No differences in molsysmt, molsysviewer_molsysmt, rust, tests, devtools/tests or pyproject.toml against original feature head.",
+    "retained_complete_regression": 3838,
+    "repeated_affected_docs_routes": {
+      "tests": 562,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_file": "mechanics-tools-documentation-merge-20261104.xml",
+      "sha256": "42941c815fa1313b6e9b988cf2546ccd46c4744bf5d864a5e65ddd5d00747e2c"
+    },
+    "devguide": "offline validator passes; regenerated owner indexes retained",
+    "scope": "Documentation integration restores the PR route; no scientific result or installed qualification is inferred from it."
+  }
+}

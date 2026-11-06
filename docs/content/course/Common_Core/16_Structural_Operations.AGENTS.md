@@ -38,3 +38,8 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 5. Challenge & See Also
 * Must include **Challenge 16: The Structural Master** using T4 Lysozyme (`181L`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-structural-operations-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 15 and Module 17.
+
+Preserve the experimental addon bridge for native minimization: independent
+outputs by default, explicit in-place retained-axis coordinates, projection-only
+deferral/retry, native analysis invalidation and bounded single-structure CPU
+receiving. Keep local optimization distinct from equilibrium or global stability.

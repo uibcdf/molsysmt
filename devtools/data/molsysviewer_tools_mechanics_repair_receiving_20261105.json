@@ -1,0 +1,127 @@
+{
+  "schema": "molsysmt.viewer-mechanics-repair-receiving@1",
+  "date": "2026-11-05",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#561",
+    "uibcdf/molsysmt#588",
+    "uibcdf/molsysmt#562",
+    "uibcdf/molsysmt#590",
+    "uibcdf/molsysmt#591",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#300"
+  ],
+  "contribution_parent": "4c681998c9236f701521a892705548ca0ea80597",
+  "native_owner_basis": "e614ba36762b536448cc25688428fee3840d18c3",
+  "viewer_source": "36ab93b7f8bc0530818bbc178c35dc04a9defd07",
+  "changes": [
+    "Receive published native nonbonded partition/model preservation and pre-optimization engine-copy ownership fixes without authoring scientific changes.",
+    "Resolve only the generated proposal-index merge conflict; retain both owners' records.",
+    "Replace two obsolete TypeError expectations with eight mixed-axis CPU/Reference/native-digestion cases against independent Coulomb/Lennard-Jones pair sums.",
+    "Update mirrored capability documentation for singleton axes, L-BFGS admission and unsupported engine copies. No function-path or expert signature change."
+  ],
+  "native_authored_diff": [],
+  "native_files": {
+    "molsysmt/_private/smonitor/catalog.py": "d1d7dad50c81637628637babbbc9c25daaeb818f5a21a70056cfdbc2ab6851a9",
+    "molsysmt/basic/copy.py": "caadcb6ba831605feee2565eee4b24466f3e96c2af90928cd05d1e3ec68d3c63",
+    "molsysmt/form/openmm_Context/copy.py": "1f38da4a3d0fab30c34ad6e5ae36f2c8db9087f2720efe2071d838e87ac7f0d9",
+    "molsysmt/form/openmm_Simulation/copy.py": "6c3d470ccdd69d86071650e7feb849aa7c511ed82c19c42b3b11db925c62104c",
+    "molsysmt/form/openmm_State/copy.py": "bdfc4553354c4d21ec82832bfd22b9510e9db4e71920ddd89215077d6976fbfa",
+    "molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py": "f032c573d0eefa28d6f4b58f7168ce10436aac22c53c53ba0a871c3826938005",
+    "molsysmt/molecular_mechanics/potential_energy_minimization.py": "d57ba329f0540cee4377e9189283593eef186136494da994e75e4b3eb794f99e"
+  },
+  "contribution_inputs": {
+    "molsysviewer_molsysmt/_molecular_mechanics.py": "853846bd3bf41244bea91fed00c611cc8b330ecd55ef604ff28293f34b29df1f",
+    "tests/molsysviewer_molsysmt/test_nonbonded_energy_tools.py": "d7300f39d01526ddfc221a74447faea25cbecec0d4395bad92373c7bf13bcb2a",
+    "molsysviewer_molsysmt/_panel.py": "19dd2ad4965e2840388ad7fa06c79f9d0204b4756c3cad68d0d8cbcda4c04e76",
+    "molsysviewer_molsysmt/_panel_frontend.py": "e4179c2dfb08af296f574a3eef1e4734dce3fe99b28019148b3eb70df2d9e2c6",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "282c1c3c953ddd03a3aad6d9758fe514c11cf823fee4690541c8ba206489aa33",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.mjs": "6daaa475356433103cb13dd66300aad722b76b339809b83c67d0db9ba31d0fa2",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "fb8d6274185ecedb72929e087cb4b3cee29c9389c5579fa948e1bb7d1631ab70"
+  },
+  "validation": [
+    {
+      "file": "native-e614-controls.xml",
+      "sha256": "123750a01516ab8cc14864e4e7f062f95b81e28de0f1ff1b77e788bc6558f051",
+      "tests": 85,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "addon-e614-focused.xml",
+      "sha256": "13049747fcd9a7541c95ad8a161c7631f7cc903dd3fee8985ad1ecf41d6159fa",
+      "tests": 118,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "addon-e614-mechanics-final.xml",
+      "sha256": "cb31cda4971ddb31218d5a8ce97182fafda25691dd870ea8bd7ef6264203bb52",
+      "tests": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "jupyter-e614-guard.xml",
+      "sha256": "9c2cfe33f44c044d9d58b4237020fefd28adb3991e5a46e6ab6450736b9e6659",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "original_compatibility_result": {
+    "file": "addon-e614-mechanics-original.xml",
+    "sha256": "a0949b666c8e3b346e32614e71788c9406777e74c5b715944be194ac718a2ad4",
+    "tests": 73,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0
+  },
+  "original_result_explanation": "71 pass, two obsolete expected TypeError cases fail because the native #561 repair now succeeds. No native algorithm was changed to satisfy those old expectations.",
+  "actual_jupyter": {
+    "file": "jupyter-guard-e614-20261105/test_actual_jupyter_review_and0/jupyter/full-result.json",
+    "sha256": "edf9c1f822c8098509bd2c363a51cfffc75fc3aa0ff7407aa0ca998b58bd5f82",
+    "checks": [
+      "Execute real notebook with source-pinned Python 3.14 kernel",
+      "Native review is 165 waters / 3818 retained; Back does not edit",
+      "Confirm traverses real widget comms, native edit and Mol* rendering",
+      "Empty ion selection and remount retain a bounded draft without a review",
+      "Canvas popup and Studio popup share the actual Jupyter authority",
+      "Kernel verifies actual inventory and exactly two managed edits"
+    ],
+    "final_atoms": 3817,
+    "managed_edits": 2,
+    "baseline_host_errors": 1,
+    "viewer_flow_matching_baseline_errors": 2,
+    "new_viewer_page_errors": 0
+  },
+  "prior_complete_gate": {
+    "source": "4c681998c9236f701521a892705548ca0ea80597",
+    "native_basis": "50854766d86817bba352c8c843931237595cf134",
+    "result": {
+      "file": "addon-full.xml",
+      "sha256": "a7d0e47224395a47c18cd2c86bc420ef22dc0481419668bba941f3bd4863d273",
+      "tests": 4485,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "scope": "Retained earlier complete default addon/integration run. This is not reclassified as a complete run on e614ba367."
+  },
+  "source_preservation": {
+    "incoming_course_notebooks": 157,
+    "executable_code_outputs_ids_and_metadata_changed": [],
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67"
+  },
+  "limits": [
+    "Exact new-head full hosted CI and owner review/integration remain pending.",
+    "No fresh complete scientific suite on the new native basis is claimed; affected native/addon/GUI scopes are executed separately.",
+    "Human Jupyter/visible Qt review is explicitly postponed; no installed-package, candidate, tag or publication. Both 1.0 publications remain paused.",
+    "Native #583/#584 and faithful engine-state copy proposal #589 retain their owning scopes; arbitrary periodic/GPU/model qualification is not inferred."
+  ]
+}

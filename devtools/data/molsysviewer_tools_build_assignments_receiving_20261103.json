@@ -1,0 +1,191 @@
+{
+  "schema": "molsysmt.viewer-build-assignments-source-receiving@1",
+  "date": "2026-11-03",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysmt#545",
+    "uibcdf/molsysmt#546",
+    "uibcdf/molsysmt#547",
+    "uibcdf/molsysmt#548",
+    "uibcdf/molsysmt#549",
+    "uibcdf/molsysmt#550"
+  ],
+  "pull_request": "https://github.com/uibcdf/molsysmt/pull/543",
+  "owner_base": "333d0808ce73423fcfab336831f88f9c6380e351",
+  "contribution_parent": "e05cc91859876d713a27b7bc11f1cc1c19d70f8d",
+  "earlier_feature": "807dde8a530a486bfb80a8200ba86e40c2fe751b",
+  "viewer_source": "0d0157ed6b6618d55232219f916008d3330fa027",
+  "viewer_runtime_source": "78ede79e2e345593db5bfe80d246d3f6c70bd005",
+  "environment": {
+    "python": "Python 3.14.7",
+    "packages": {
+      "molsysmt": "0.23.0+201.g3502232d8.dirty",
+      "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "depdigest": "0.15.1+3.ga27172b",
+      "pyunitwizard": "0.28.1+15.g6c62ca6",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "h5py": "3.16.0",
+      "networkx": "3.7",
+      "tqdm": "4.70.1",
+      "matplotlib": "3.11.2",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1+22.g00a31c4",
+      "rdkit": "2025.9.5",
+      "openmm": "8.6.1"
+    },
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "backend": {
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "scope": "Existing copied backend reused unchanged; producer and consumer SHA agree. No new environment, install, build, solver or archive qualification."
+  },
+  "native_receiving": {
+    "producer_receipt_sha256": "323bd2113fe294dc0483248ae6bfd4805405ae44fadd711bfbd4b7e5e2545a70",
+    "all_producer_final_input_hashes_match": true,
+    "native_tree_equals_owner": true,
+    "received_repairs": [
+      "Canonical XLE/J and XAA/X reachability; all canonical codes receive native guards without qualifying chemical templates.",
+      "Protected peptide-end convention: ACE at N, NME/NHE/NH2 at C; resource partition, missing-bond consumer and template generator corrected together.",
+      "The prior #546 docstring-only patch/guard is now integrated and closed by the native owner.",
+      "Ancestor basic Pandas info, H5MSM structure-index and runtime API-floor repairs are received and tested, not independently authored in this facade."
+    ],
+    "received_api_floors": {
+      "h5py": ">=3.11.0",
+      "pandas": ">=2.2.2",
+      "networkx": ">=3.3",
+      "tqdm": ">=4.65.0",
+      "matplotlib": ">=3.8.4"
+    },
+    "remaining": "Legacy name/protonation vocabulary remains #549. Bond-pair return docs #548 and the three failing NumPy input routes #550 remain separate. No downstream scientific reinterpretation or coercion."
+  },
+  "contract": {
+    "new_paths": [
+      "build.infer_covalent_bonds",
+      "build.assign_autodock_atom_types",
+      "build.assign_partial_charges"
+    ],
+    "binding": "Current primary through the existing serialized reader, including completed pending edits; loaded/open owner required and cached handles follow replacement.",
+    "ownership": "Native detached MolSys or molecular_system/report result; no adoption, in_place/update_view control, scene/history publication or pending-edit flush. Native methods, defaults, state/structure scope, validation and errors are preserved.",
+    "chemistry": "Inference applies the explicit bounded native policy only on the output. Added bonds invalidate output analyses; source analyses remain unchanged. Type/charge assignment binds complete native single-state mechanical values/provenance and preserves analysis snapshots; neither supplies a full force field or hidden preparation.",
+    "units": "Stored mechanical charges retain native elementary-charge units under alternate/no-charge presentation standards. Force-field and Gasteiger branches preserve explicit scientific model selection.",
+    "resources": "Native copying may materialize source coordinates. MolecularMechanics is experimental and not persisted by H5MSM 0.5; no streaming or universal trajectory-memory promise.",
+    "help": "Restrict the pre-existing diagnostic-only build help to its eleven actual diagnostics. Three preparation helpers receive separate output-ownership documentation rather than a contradictory diagnostic claim."
+  },
+  "inventory": {
+    "native": 244,
+    "branch_exposed": 204,
+    "build_exposed": 14,
+    "build_native": 30,
+    "remaining_build": 16,
+    "element_exposed": 57,
+    "element_native": 57,
+    "independent_metadata_prs": [
+      "uibcdf/molsysmt#538",
+      "uibcdf/molsysmt#540"
+    ],
+    "hypothetical_union_exposed": 215,
+    "union_integrated_or_qualified": false,
+    "collector": "devtools/scripts/audit_molsysviewer_tools_api.py",
+    "raw_sha256": "d0f8624c93c7848efd0bc31d6d7036114ce4c1b5dd4ae85ec5f9b3adec8a7dce"
+  },
+  "validation": {
+    "native_repairs_and_preparation_baseline": {
+      "tests": 446,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "6c2b2829ba7c787b6648800695ef7cbb4ddfbfa807abd242680ae3d9741a5446"
+    },
+    "joint_before_legacy_expectation_update": {
+      "tests": 644,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "44b735017c858dbc217943c8f4842b9f357a9a427e3c6766b430e16d2deb2475"
+    },
+    "corrected_build_and_inventory": {
+      "tests": 63,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "c83bea7d0ff38f0e4db518e8d7a074595ead99bfab10b66c23ba39a4546598b5"
+    },
+    "final_build_after_replacement_guard_refinement": {
+      "tests": 44,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "7d4bf9854f9a1a900032fb537c081777b22d3858de93881a93b3e922bdb025b7"
+    },
+    "distribution_inventory_license_notebook_structure": {
+      "tests": 534,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "c8c2da510228821956a2a2994335bfecf247c914c4d685a960fe1ae933f976ea"
+    },
+    "complete_addon": {
+      "tests": 3368,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "fce6242d805eafb01aa9a5d43292434ca29c96a33a9306a06dfed8c1203c0267",
+      "seconds": 715.67,
+      "warnings": 2083,
+      "new_build_cases": 44,
+      "log_sha256": "11b7c9665d956361cd1ecbc21a8d7c7cf072f6502f56f10c6e327af21921d609",
+      "scope": "Complete frozen-runtime regression before strengthening three replacement-handle cases. All runtime inputs and other tests are unchanged; the final 44-case module receiving below follows that test-only refinement."
+    },
+    "guide_examples": "Affected label/template examples and both new independent-preparation examples execute; no automatic result adoption.",
+    "course": "Canonical validator passes 156 notebooks; only Module 06 Markdown cell 5 changed against the received merge parent, preserving code/output/counts/IDs/schema.",
+    "docstrings": "246 native public docstrings validate; inherited four standard-name examples remain executable.",
+    "ruff": "Whole-tree check and format pass; 4334 files already formatted.",
+    "dependencies": "Optional-import and dependency-route audits pass with received owner API floors."
+  },
+  "test_development": {
+    "initial": {
+      "tests": 44,
+      "failures": 41,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "8f07833ead6d96ce71fde42d6a40051e0887e74a1845335e969b07cb10ef350b"
+    },
+    "corrected": {
+      "tests": 44,
+      "failures": 4,
+      "errors": 0,
+      "skipped": 0,
+      "junit_sha256": "6c7bf5a4c58c741419e9413e97d3ceb4fe1bd2df1654140e5ada66efe3b32b48"
+    },
+    "resolution": "Initial guards used an unexported root MolSys alias, attempted export_state during intentionally pending edits, and over-constrained a native error phrase. Use the native class and retain pending protection while checking scientific state/messages/history. Four later numeric guards now convert the native extension-array values to explicit float arrays for known elementary-charge comparisons. No host/native API was added or weakened.",
+    "legacy_discovery": "Update the exact build namespace to fourteen paths; its unreceived-editor guard now names still-unreceived add_missing_hydrogens instead of newly implemented infer_covalent_bonds.",
+    "guide": "The first new RDKit example incorrectly passed a list to Conformer.SetPositions; the executable example now uses an ndarray. This was an authored example error, not a native scientific defect."
+  },
+  "replacement_test_refinement": {
+    "change": "Only the cached-handle guard uses replacement coordinates translated by 7 nm, so a stale bound target cannot pass by returning identical chemistry/coordinates.",
+    "baseline_sha256": "ba6fee8b27460020ac5787e2fb701808831194b9c70f74948d16956b67fcad6f",
+    "final_sha256": "564921d2c1351273c3039316654f5dc292d2ecd6f1809dd104f483de20d244a6",
+    "runtime_and_other_test_AST_unchanged": true
+  },
+  "source_sha256": {
+    "molsysviewer_molsysmt/_element_templates.py": "3a7ce0144b9a17e9e3c45315ba01a687dfee32c99b2c493954ee651d9170b775",
+    "molsysviewer_molsysmt/_element_labels.py": "06f5b847eaaf5188794aed75ba930b7c9a3dbfd9c4e1f9ed36803ecd2e2cdc22",
+    "molsysviewer_molsysmt/_build.py": "588e9a6363e6d3fcd4d9c4b59ec8b7e9ae580288cde690db5aea2d826cd54529",
+    "molsysviewer_molsysmt/_basic.py": "d4c8d47cc3022d0e5265f802e6928717efc6eb4005d019fccdb3e901cf838b30",
+    "tests/molsysviewer_molsysmt/test_build_assignment_tools.py": "564921d2c1351273c3039316654f5dc292d2ecd6f1809dd104f483de20d244a6",
+    "tests/molsysviewer_molsysmt/test_element_label_tools.py": "286d84dcb2114be3b0148952967e681816d2f1d3354d1c46b5eacb555dd258ca",
+    "tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py": "bd3c83b54547d9bfa07d87a4f4231e4e2043278d088b95e9b66aae193f23d1f9",
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": "fab7cc8e70e417ca710da0c17d00c81092da275fa1b30114a55f4cb76faf4822"
+  },
+  "limits": [
+    "Contract/parity and bounded literal Gasteiger/OpenMM/inference controls are not complete scientific, engine/form/platform or installed/archive qualification.",
+    "Independent metadata PRs are absent here; 215/244 is hypothetical until owner integration.",
+    "No newly authored native algorithm/data/docstring patch, runtime floor, host runtime/GUI, candidate, tag or publication change. Received owner API floors are recorded separately.",
+    "Owner main is neither pushed nor merged by this contribution; all delivery remains on the owner-reviewed PR."
+  ],
+  "temporary_resources": "Retain the existing isolated PR checkout and copied backend until owner integration/withdrawal. No new checkout, environment, build or installation; unrelated suite changes are preserved. Matplotlib temporary-cache warnings reflect sandbox write restrictions and introduce no product workaround."
+}
