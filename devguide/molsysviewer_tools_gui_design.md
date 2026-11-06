@@ -538,6 +538,17 @@ availability. Do not add placeholder panels for the rows above.
    separately. Check error/retry behavior and source/result lifetimes. Human
    visual acceptance remains explicitly postponed, not inferred from automation.
 
+**Headless session receiving — 2026-11-06:**
+`tests/molsysviewer_molsysmt/test_scientific_session.py` now receives real TcTIM
+removal/coordinate analysis/H5MSM and scene recovery plus nonempty pentalanine
+observations under the unchanged native 0.23 nm Buch criterion. It independently
+checks H-A distances, complete native records and evaluated-empty/unevaluated
+coverage. The later Viewer #307 fixes numeric selector metadata; native #616
+still prevents compatible-source append after canonical string restoration.
+This is a partial expert/source checkpoint, not completion of GUI steps 1–7 or
+all required families. Its evidence stays distinct from the clean 4,775-case
+8f8c442e collection on the earlier host.
+
 Independent analytical fixtures supplement the real-protein workflow. Native
 parity alone is not a scientific oracle. Reproducibility does not introduce a
 general scientific-result store, observation of arbitrary raw writes, molecular

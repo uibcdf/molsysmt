@@ -31,6 +31,28 @@ native/route controls and five actual Jupyter scenarios. Rotate awaits native
 
 ## Analysis distance-family receiving — 2026-11-06
 
+**Current controlled host:** all five source workflows and the dependency
+inventory now pin published Viewer `737f9bc349e84414be75163e0566a42fe7e480d2`,
+which fixes numeric region recovery under Viewer #307. The new scientific-session
+module is explicitly retained in the smoke tier. Earlier 8f8c442e full/smoke
+receipts keep their original host; source-route checks, actual Jupyter and hosted
+receiving on this follow-up retain their own gates. Public dependency floors,
+experimental classifications, packages and candidate freezes are unchanged.
+
+
+Clean published 8f8c442e now passes the complete 4,775-case addon collection
+without skips (1094.35 s), with all 4,209 input hashes and both checkout
+identities/status unchanged. Official smoke 42233782220 passes 6,042 native
+cases/23 optional skips and 4,771 addon cases/four optional Ackredit skips.
+Those gates keep their original Viewer e920faf9/controlled 177e19a8 inputs.
+The subsequent Viewer #307 and new headless session guards are separate inputs:
+87 affected/preflight cases pass, and final two session guards pass in 4.03 s.
+They receive actual TcTIM removal/coordinate analysis/H5MSM and scene recovery,
+plus real nonempty ensemble hbonds and evaluated-empty/unevaluated scope.
+Native append continuation after canonical string recovery remains open under
+#616; no chemistry-table workaround is introduced. Full current GUI/session,
+owner, hosted, installed and postponed human qualification remain distinct.
+
 Analysis registers Distances, Minimum distance, Maximum distance and Neighbor
 search over unchanged expert/native structure tools. It resolves two independent
 atom populations, optionally their geometric/mass centers, and ordered/repeated

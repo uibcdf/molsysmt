@@ -22,6 +22,26 @@ contracts.
 
 ## Molecular task and pending-reader integration — 2026-11-06
 
+**Current controlled host:** all five source workflows and the dependency
+inventory now pin published Viewer `737f9bc349e84414be75163e0566a42fe7e480d2`,
+which fixes numeric region recovery under Viewer #307. The new scientific-session
+module is explicitly retained in the smoke tier. Earlier 8f8c442e full/smoke
+receipts keep their original host; source-route checks, actual Jupyter and hosted
+receiving on this follow-up retain their own gates. Public dependency floors,
+experimental classifications, packages and candidate freezes are unchanged.
+
+
+Published Analysis head 8f8c442e passes 4,775 full addon cases without skips in
+1094.35 s, with 4,209 inputs unchanged. Its smoke 42233782220 also succeeds:
+6,042 native cases/23 optional skips and 4,771 addon cases/four optional Ackredit
+skips. The exact original host/control pin and warnings remain in the receipt.
+Later session receiving is separate: Viewer #307 repairs numeric region metadata
+and two expert/headless guards preserve real edited TcTIM and nonempty native
+ensemble interaction data/scene through recovery. Native #616 retains the
+compatible-source append failure after canonical H5MSM string restoration.
+These results do not complete the required task families or qualify current
+GUI sessions, owner integration, postponed human review or public artifacts.
+
 The Analysis extension registers native distance/minimum/maximum/neighborhood
 tasks with explicit populations/centers, source axes, ordered/repeated structures,
 PBC and bounded nm pages. Native disk-result storage is retired on context/input

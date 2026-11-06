@@ -19,7 +19,8 @@
     "uibcdf/molsysviewer#304",
     "uibcdf/molsysmt#613",
     "uibcdf/molsysmt#614",
-    "uibcdf/molsysmt#615"
+    "uibcdf/molsysmt#615",
+    "uibcdf/molsysmt#616"
   ],
   "source_files": {
     "molsysviewer_molsysmt/_analysis_panel.py": {
@@ -172,10 +173,10 @@
     "skips": "Optional Ackredit/unyt/astropy native tests and four optional Ackredit addon cases. Does not qualify new Analysis source."
   },
   "pending": [
-    "Complete clean current-source addon/full Jupyter receiving, exact-head hosted gates and owner integration; initialization observation #615 remains open.",
+    "Full latest-source actual Jupyter receiving, exact-head hosted gates and owner integration; initialization observation #615 remains open. The clean 8f8c442e 4,775-case collection below retains its original host and precedes the new session guards.",
     "Postponed human Jupyter/visible Qt and installed artifacts.",
     "Remaining Geometry, Chemistry construction/assignments, Analysis series/properties/sequence/mechanics/plots and qualified visual adoption.",
-    "Complete TcTIM/real-ensemble save/recover session; both 1.0 publications and candidate freezes remain paused."
+    "Full task-family/GUI session completion and native H5MSM continuation #616 remain pending. Both 1.0 publications and candidate freezes remain paused."
   ],
   "actual_jupyter": {
     "jupyter-preparation": {
@@ -232,5 +233,111 @@
       "observed_page_errors": 2,
       "baseline_page_errors": 1
     }
+  },
+  "full_addon_collection": {
+    "source": "8f8c442e09edaf2f54492e0c09f6fe16ff4cd6f8",
+    "viewer_source": "e920faf95c375ff7d3fcb326c7c0d2f3d1951b3e",
+    "viewer_controlled_source": "177e19a8fa06e37484a801da1711cc99acbc8f2d",
+    "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "passed": 4775,
+    "skipped": 0,
+    "exit": 0,
+    "pytest_seconds": 1094.35,
+    "wrapper_seconds": 1099.5455537820235,
+    "warnings": 2794,
+    "warning_groups": 11,
+    "source_inputs": 4209,
+    "source_unchanged": true,
+    "source_inventory_sha256": "3ca89dc1d2f7a855c4ad116c5fc7b7ceef0f9a4bd983aba6ddd36aeb3f95c680",
+    "clean_addon_checkout": true,
+    "human_sandbox_status_preserved": true,
+    "evidence": {
+      "log": "msv-analysis-full-addon-20261106.log",
+      "sha256": "37c5e51aac7a63be9730bab8871a3fc4f6693062a14e6949b17d33fad80d939b",
+      "bytes": 2334
+    },
+    "scope": "Clean published Analysis source before the later Viewer #307 fix and two new scientific-session guards. Not a full collection on those later inputs."
+  },
+  "scientific_session_receiving": {
+    "guard": "tests/molsysviewer_molsysmt/test_scientific_session.py",
+    "guard_sha256": "417d8a5b5d2ef0f680fab0e131f4a14ba2cc05c59ac07e787b86dc8c9e6ad632",
+    "passed": 2,
+    "skipped": 0,
+    "seconds": 4.03,
+    "evidence": {
+      "log": "msv-scientific-session-final-qualified-20261106.log",
+      "sha256": "aee011aca5bd2b45fd7f3b8cd5ba681337058c60d4da22d6944049af5efc2b97",
+      "bytes": 287
+    },
+    "source_profile": "Native ed09f6453 / addon runtime 8f8c442e with published Viewer 737f9bc349e84414be75163e0566a42fe7e480d2. New session guards are test-only source added after that addon runtime checkpoint.",
+    "tctim": {
+      "initial_atoms": 3983,
+      "removed_water_ion_atoms": 165,
+      "retained_atoms": 3818,
+      "alpha_carbons": 497,
+      "checks": "Exact retained/translated coordinates, independent RMSD and geometric radius oracle under pm policy, full stable inventory and chemical fields/nulls, structural attributes/box/time, region/selection/annotation/measurement state, H5MSM and session recovery, independent reopened view."
+    },
+    "ensemble": {
+      "source_structure_indices": [
+        0,
+        8,
+        2
+      ],
+      "processed_structure_indices": [
+        2,
+        0
+      ],
+      "checks": "Real nonempty Buch observations with default 0.23 nm criterion and independent H-A distance; evaluated-empty structure 0 versus unevaluated structure 1; full interaction dictionary, occurrence references, roles/participants, measurements/units/parameters/method and scene preserved."
+    },
+    "dtype_boundary": "Only declared nullable string representation is normalized for comparisons; source non-null values must be strings. This does not fix or qualify subsequent source append under MolSysMT #616.",
+    "not_qualified": "Headless expert workflow only; not the complete required family ledger, GUI session receiving, human review, installed packages or publication."
+  },
+  "analysis_hosted_smoke": {
+    "source": "8f8c442e09edaf2f54492e0c09f6fe16ff4cd6f8",
+    "run": 42233782220,
+    "conclusion": "success",
+    "preflight_passed": 36,
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "native_seconds": 621.45,
+    "addon_passed": 4771,
+    "addon_skipped": 4,
+    "addon_seconds": 710.2,
+    "skip_reasons": {
+      "native": {
+        "ackredit_absent": 21,
+        "unyt_absent": 1,
+        "astropy_absent": 1
+      },
+      "addon": {
+        "ackredit_absent": 4
+      }
+    },
+    "log_sha256": "e48ebc5cd4bf10294c654d367d19df7455e3df60a86881bf45088da69b7429cd",
+    "scope": "Original published Analysis head and controlled Viewer 177e19a8, before subsequent Viewer #307/session receiving. Not installed artifact qualification."
+  },
+  "subsequent_controlled_host": {
+    "viewer_source": "737f9bc349e84414be75163e0566a42fe7e480d2",
+    "reason": "Viewer #307 restores numeric region metadata through state/session recovery; required by the new scientific-session guards. No new public API or runtime bundle.",
+    "runtime": "2e17ee6f13333e5efd3726b353ade5c8cdc77b0b",
+    "routes": {
+      ".github/workflows/benchmarks.yml": "6f5e77389c6a4d8264cb0cfc2505997d95fd3ba6faffdf034c9488dc103be4dc",
+      ".github/workflows/ci-full.yaml": "648ef02bf6df32bb42639d47853d1abd0535c73feda574ca528eae2ff63bccc2",
+      ".github/workflows/ci-smoke.yaml": "bdb7b50cd5384eb8aa8f34714500f08d33cf5d8056a7205137ae203a37a33a2e",
+      ".github/workflows/ci-weekly.yaml": "23c85e9872debba055fce472bece53d9df78eb03b843ad8ac937f4b1b76d2add",
+      ".github/workflows/sphinx_docs_to_gh_pages.yaml": "859e37bf1c739b9bcaffbd5ca2dc885478242aef26043d90e12209c55be1a1a9",
+      "devtools/dependency_contract.toml": "0638494be329143616dc8e451aaedb907e5d337160c677ec0e5371a09ca62ff3"
+    },
+    "qualification": "Two final expert/session guards and the 87-case affected/preflight gate pass on identical corrected host code. Full 4775-case clean and hosted-smoke results above retain the prior host. New actual-Jupyter, hosted and installed gates remain separate.",
+    "local_gate": {
+      "passed": 92,
+      "skipped": 0,
+      "seconds": 6.13,
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_scientific_session.py devtools/tests/test_smoke_addon_test_command.py devtools/tests/test_molsysviewer_tools_api_inventory.py devtools/tests/test_native_viewer_integration.py devtools/tests/test_validate_devguide.py",
+      "log": "msv-session-controlled-host-validation-20261106.log",
+      "sha256": "4e4b768c040d479397d0c4b7a7c08287807b487d9bb388e1c68e4a01bd6d5e93",
+      "boundary": "Published corrected Viewer; current new test and controlled workflow inputs only. No repeated complete 4777-case collection is claimed."
+    },
+    "static_checks": "Ruff check/format: 4437 files pass; dependency audit and devguide validator/index pass; native algorithms and course executable inputs unchanged."
   }
 }
