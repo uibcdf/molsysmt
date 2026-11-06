@@ -927,3 +927,94 @@ diagnosis, independently established chemical inventories and larger time/memory
 storage workloads remain pending. The native application currently materializes
 and copies the complete system; it is not a streaming preparation route.
 Retain the reader defaults and the optional OpenMM route. **#304 stays partial.**
+
+## CIF/BCIF disabled-inference correction — 2026-11-06
+
+The maintainer's ordered goal starts with full resolution of #304. This section
+receives PeptideMT's new wrapper observation; it does not close the earlier
+chemical-coverage, declaration-diagnosis or workload requirements.
+
+### What and reproduced mechanism
+
+The DataContainer-to-Topology converter accepted `get_missing_bonds` without
+reading or forwarding it. The native MolSys reader and CIF/BCIF/gzip/identifier
+wrappers did not accept the flag, allowing public conversion to discard the
+policy. Ten file/container/target controls reproduce a candidate-tool call with
+inference disabled. An additional independent control reproduces loss of a
+mapped explicit double bond when another source atom lacks a reference.
+
+Initial draft assertions also assumed requested atom order and deposited model
+labels were retained. The existing external conversion retains atoms in source
+order, and does not populate native structure IDs. Policy assertions now check
+actual selected coordinate/occupancy axes instead of inventing a label guarantee.
+The declared-ID delivery mismatch is reported separately and is not fixed or
+hidden by the connectivity correction.
+
+### Implemented policy and ownership
+
+Eleven native readers/wrappers add a keyword-only Boolean policy; the parsed
+Topology reader forwards its existing positional flag. Every earlier positional
+argument and enabled default survives. The established ArgDigest validator owns
+Boolean admission. False disables local template, terminal-H, inferred peptide
+and distance additions; mapped component-bond and supported connection evidence
+remain explicit. A partial reference match no longer discards declared edges or
+orders before an inference attempt. Existing general candidate operations and
+BondAccumulator remain the chemistry/metadata owners; no scientific formula,
+compiled kernel, dependency, unit policy or file schema is added.
+
+An explicit-only output is partial: retaining declared edges does not establish
+complete chemistry. True and omitted policy have matching real-source graphs
+and observations. No OpenMM engine is imported for the supported disabled route.
+Unsupported connection declarations and their broader diagnosis are not newly
+qualified by this policy fix.
+
+### Executed evidence and scope
+
+- New policy module: 26 passed in 6.77 s, including five container/file variants,
+  both native targets, offline identifier acquisition, invalid Boolean refusal,
+  real 1VII BCIF without OpenMM imports, source preservation, explicit orders,
+  three source structures selected as [2, 0], occupancy and noncanonical units.
+- Affected CIF/BCIF/identifier/fidelity selection: 864 passed in 34.37 s.
+- Signature guard against parent 282e8337e passes with eleven explicit
+  maintainer-authorized additive signature entries. No existing parameter is
+  renamed or reinterpreted.
+
+These are local source controls, not full release/scientific qualification.
+The work starts from 282e8337e04c14003622c19a359b7cd35d2b5e4b in a separate
+ordered-work branch. The original PR candidate and its live full CI remain
+unchanged. Linux/Python 3.14.7; shared development interpreter, four workers,
+Pytest Receptor llm. Original course/tool notebook executable cells and metadata
+are preserved. The new reader policy is documented in Foundations, form Toolbox,
+the explicit-template Cookbook and Common Core 12.
+
+Remaining before #304 closure: complete the earlier native-profile coverage,
+source-declaration diagnostics, independent inventory/comparison explanations and
+representative workload evidence. This forwarding correction alone is insufficient.
+
+### Additional receiving evidence
+
+The relevant inference/argument selection initially passes 278 cases and fails
+one generated-inventory guard. The generator identifies four missing source-
+naming keyword entries introduced by the earlier GRO receiving checkpoint;
+this is pre-existing in parent 282e8337e, not a scientific inference failure.
+The committed converter-argument inventory is regenerated from actual adapter
+signatures instead of weakening the guard. The independent default/False
+policy and mapped-edge controls remain unchanged.
+
+The directed policy/occupancy controls also pass 51 cases against the published
+ArgDigest 0.14.0, DepDigest 0.15.1, SMonitor 0.16.0 and Ackredit 0.9.0 payloads.
+This is a four-provider floor profile using the existing interpreter and current
+other dependencies, not a full clean installed-runtime minimum matrix.
+Documentation/schema/source-boundary receiving passes 1,072 cases; retained
+Sphinx/legacy/explicit-unassessed warnings are not suppressed. These suites
+overlap with other selections and are not additive unique test counts.
+
+Final source receiving after regeneration passes the full 279-case inference/
+argument/doctest selection (18.07 s, twelve workers) and a 47-case final contract
+selection (11.56 s). Structural form checks pass for 97 adapters without declaring
+runtime-field fidelity; #600 is an explicit counterexample to treating that
+structural result as scientific delivery proof. Ruff, formatting, dependency
+imports/contracts and 247-function docstring validation pass. The
+[policy receipt](../../devtools/data/cif_connectivity_policy_receiving_304_20261106.json)
+retains source/test/backend hashes, actual four-provider public import origins,
+individual overlapping JUnit results, draft failures and remaining issue scope.

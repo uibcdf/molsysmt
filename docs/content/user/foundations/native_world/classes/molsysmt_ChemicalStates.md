@@ -15,6 +15,20 @@ ChemicalStates. Topology owns stable inventory and has no chemical facade,
 including while attached to MolSys. See {ref}`user-foundations-native-world-classes-molsysmt-molsys` for
 composition and domain correspondence.
 
+## Declared and Inferred Reader Connectivity
+
+CIF/BCIF native conversion with `get_missing_bonds=False` retains mapped
+component-bond and supported connection declarations without reconstructing
+missing edges from templates, terminal H names, polymer sequence or distance.
+The returned state is partial: an explicit edge list is not certification that
+all chemical connectivity was declared. Unknown orders remain unknown. Original
+observations and stable inventory are separate from these chemical claims.
+
+With the default `True`, the reader keeps its existing inferred additions and
+explicit/inferred evidence distinction. A partial reference match must not erase
+a deposited edge or its known order. See
+{ref}`Tutorial_Form_mmcif_PdbxContainers_DataContainer` for the reader contract.
+
 ## State Availability
 
 A new collection contains zero states. `append_state()` explicitly creates an

@@ -3,7 +3,12 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form="string:pdb_id")
 def to_molsysmt_MolSys(
-    item, atom_indices="all", structure_indices="all", skip_digestion=False
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    skip_digestion=False,
+    *,
+    get_missing_bonds=True,
 ):
     """
     Converting from string:pdb_id to molsysmt.MolSys.
@@ -19,6 +24,11 @@ def to_molsysmt_MolSys(
         Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    get_missing_bonds : bool, default=True
+        Whether to infer missing connectivity. False retains only supported
+        deposited chem_comp_bond/struct_conn declarations, without template,
+        terminal-H, peptide-link or distance inference. It does not certify
+        complete chemistry or change the previous enabled default.
 
     Returns
     -------
@@ -42,6 +52,7 @@ def to_molsysmt_MolSys(
         tmp_item,
         atom_indices=atom_indices,
         structure_indices=structure_indices,
+        get_missing_bonds=get_missing_bonds,
         skip_digestion=True,
     )
 

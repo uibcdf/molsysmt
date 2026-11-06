@@ -20,6 +20,53 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Maintainer-ordered resolution goal — 2026-11-06
+
+The maintainer explicitly authorizes resolution in this order:
+**#304 → #593 → #428 → #544 → #572 → #576 → #557 → #594 → #595 → #596 → #597 → #598 → #599 → #600 → #601**.
+The last three were explicitly added by the maintainer after the board review;
+the active objective now contains fifteen issues. Their addition preserves the
+previous twelve-item order and does not authorize premature closure of #304.
+Keep the entire objective; do not substitute a narrow passing subcase for issue
+closure. Prior post-freeze scheduling of listed work does not block this explicit
+instruction. Tags, Releases, promotions and provider-repository code edits keep
+their existing authorization boundaries.
+
+**Active: #304.** The newly reported CIF/BCIF disabled-inference defect is locally
+corrected with 26 directed and 864 affected route cases passing. The full
+279-case inference/argument/doctest selection, 51 directed four-provider floor
+cases and 1,072 documentation cases also pass (overlapping selections). Both settings
+and declared-edge retention are checked; no complete chemistry claim follows.
+The larger native profile still needs its remaining coverage, declaration and
+workload requirements before closure. The generated argument inventory also
+needed regeneration after the earlier GRO additions in parent 282e8337e; its
+negative guard is retained and passes after generation, rather than being waived. See the
+[owning record](pending_proposals/native_pdb_bond_inference_with_explicit_policy.md).
+New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
+for rescoring. Separately reported **#600** records missing mmCIF model-label
+delivery; selected geometry remains available, and the connectivity correction
+does not claim to fix that label contract. PeptideMT's **#601** requests preserving
+adapter-load causes through form discovery and molecular-system validation.
+These are explicitly included at the end of the expanded objective, with their
+own implementation and acceptance work still pending.
+
+Other listed issues remain pending in the stated order; #594–#598 already have
+source repairs in the separate PR candidate but their closeout belongs at the
+end of this goal. Do not implement them again or close them out of order.
+
+PR #543 receiving candidate **282e8337e04c14003622c19a359b7cd35d2b5e4b** stays
+frozen on its published branch. Its exact full source gate is
+[42171874158](https://github.com/uibcdf/molsysmt/actions/runs/42171874158), with
+Viewer 42234de839ed047016f8f241ea5eb717cfeb07be. At the latest verified inspection,
+the controlled wheel succeeds, Linux Python 3.14 fails the generated converter-
+argument inventory guard, three Linux jobs remain live and four macOS jobs are
+queued. The job-only log identifies the already reproduced stale table; its
+regenerated correction belongs to the ordered-work branch, not the frozen CI
+input. No green full matrix or main integration is claimed. Ordered work uses
+a separate branch/worktree and the existing development environment. PR #543
+has meanwhile advanced to 1e7a4273b905ca020815658f23ba645d40817226; that later
+Geometry-panel expansion is outside this frozen receiving candidate.
+
 ## PR #543 owner receiving and full-suite failures — 2026-11-05
 
 **Owner receiving is in progress, not merged.** The isolated combination of

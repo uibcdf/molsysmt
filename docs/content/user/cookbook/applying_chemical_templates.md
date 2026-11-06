@@ -18,6 +18,15 @@ storage without modifying the source directory. Concurrent preparation jobs can
 read the same source file; no manual decompression beside it is needed.
 Temporary storage must be available, and parsing remains eager.
 
+For a native CIF/BinaryCIF input, pass `get_missing_bonds=False` to
+`msm.convert()` when the workflow must inspect only supported deposited bond
+declarations. The option also reaches compressed files and public identifier
+acquisition. It disables the reader's template, terminal-H, peptide-link and
+geometric additions, preserving explicit orders on every mapped edge even if
+other atoms remain unmatched. The resulting graph remains partial. This is a
+reading policy, not template application, protonation or chemical preparation;
+keep the subsequent template/state decisions explicit.
+
 ## Preparing correspondence context
 
 When consulting a saccharide, small-molecule or cap bond-name template, pass a

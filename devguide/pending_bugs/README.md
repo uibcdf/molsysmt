@@ -20,10 +20,11 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (3)
 
 - [`alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md`](alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md) — [#593](https://github.com/uibcdf/molsysmt/issues/593) — Alzheimer capstone preparation uses unsupported builder keywords and drops independent repairs. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
+- [`mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md`](mmcif_native_conversion_drops_deposited_model_labels_despite_declared_structure_.md) — [#600](https://github.com/uibcdf/molsysmt/issues/600) — mmCIF native conversion drops deposited model labels despite declared structure_id support. *(medium, reproduced)*
 
 ### In progress (6)
 
