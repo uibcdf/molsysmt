@@ -37,6 +37,9 @@ def is_a_molecular_system(molecular_system):
       read. Two topology-providing items represent separate systems.
     - Complementary items are validated by atom count. The function returns `False` when they
       are inconsistent or when consistency cannot be verified.
+    - `False` also includes unavailable form verification. A processing call
+      reports such operational failures as MolecularSystemVerificationError
+      with the original cause, rather than rejecting the input as malformed.
 
 
 

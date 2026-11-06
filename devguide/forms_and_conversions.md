@@ -279,6 +279,40 @@ and the default system request.
 Known delivery gaps are tracked under `pending_bugs/` and take precedence over
 historical claims of complete adapter verification.
 
+## Molecular-system verification failures
+
+Form recognition and consistency evidence distinguish unsupported inputs from
+operations whose verification could not finish. A detector returning False may
+lead to NotSupportedFormError; ordinary public argument validation maps genuinely
+unsupported input to ArgumentError with its original reason/cause. Incompatible
+complementary atom axes still raise StructuralInconsistencyError.
+
+An adapter initialization failure, unexpected detector error or failed domain/count
+probe is unverified evidence. get_form and processing boundaries report the
+existing public MolecularSystemVerificationError and retain the complete Python
+__cause__ chain. The internal assessment uses kind=undetermined when form
+recognition fails operationally, validation=unverified, only successfully recognized
+form identities and the original exception reference. It does not declare the
+source invalid or certify chemistry. The boolean is_a_molecular_system predicate
+returns False whenever one valid consistent system has not been proved.
+
+The private host _FormRegistry delegates declarations, visibility, loading,
+failure caching, overrides, retry and concurrency to DepDigest. It translates a
+known-entry KeyError with an original load cause into the domain verification
+error; absent/hidden keys retain ordinary mapping behavior. Known failures remain
+cached until explicit provider retry/refresh or a new process. There is no implicit
+parser fallback, automatic retry or competing cache. The supported provider floor
+already retains the cause; no dependency upgrade or provider patch is needed.
+
+The item digester propagates operational errors and retains unsupported-input
+causes. Allowed empty append targets avoid a detector probe; recognized cross-form
+append targets retain their existing contract. Normal molecular-system digestion
+does not duplicate the consistency probe. Public signatures, skip_digestion,
+dependency visibility, application diagnostics and unit policy are unchanged.
+
+Guard: `tests/_private/test_adapter_load_diagnostics.py`; existing registry,
+classification and complementary-domain controls also remain applicable.
+
 ## Composite molecular systems and the structure axis
 
 A molecular system may be given as several complementary items. Two consistency
@@ -286,8 +320,9 @@ contracts govern which item may deliver what, and neither depends on the order t
 caller listed them in.
 
 **Atom axis.** Complementary items must agree on `n_atoms`. They otherwise describe
-different molecules, and `assess_molecular_system` raises
-`StructuralInconsistencyError`. At most one item may provide a primary topology.
+different molecules. Assessment records that invalid evidence, and public
+argument validation raises `StructuralInconsistencyError`. At most one item may
+provide a primary topology.
 
 **Structure axis.** Items need *not* agree on `n_structures`: a topology file
 holding a single reference conformation beside a trajectory file is an ordinary

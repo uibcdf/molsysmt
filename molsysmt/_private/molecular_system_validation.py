@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 
 
@@ -12,6 +12,7 @@ class MolecularSystemKind(str, Enum):
     SINGLE = "single"
     MULTIPLE = "multiple"
     UNSUPPORTED = "unsupported"
+    UNDETERMINED = "undetermined"
 
 
 class ValidationStatus(str, Enum):
@@ -31,6 +32,7 @@ class MolecularSystemAssessment:
     forms: tuple[str, ...] = ()
     atom_counts: tuple[int, ...] = ()
     reason: str | None = None
+    cause: Exception | None = field(default=None, repr=False, compare=False)
 
     @property
     def is_valid_single_system(self) -> bool:
@@ -75,6 +77,7 @@ def _provides_structures(form_module) -> bool:
 def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
     """Classify an input and validate complementary items when possible."""
 
+    from molsysmt._private.smonitor import NotSupportedFormError
     from molsysmt.basic import get, get_form
     from molsysmt.form import _dict_modules
 
@@ -90,14 +93,27 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
             reason="The input container is empty.",
         )
 
+    recognized = []
     try:
-        forms = tuple(get_form(item) for item in items)
-    except Exception as error:
+        for item in items:
+            recognized.append(get_form(item))
+    except NotSupportedFormError as error:
         return MolecularSystemAssessment(
             MolecularSystemKind.UNSUPPORTED,
             ValidationStatus.INVALID,
+            forms=tuple(recognized),
             reason=f"{type(error).__name__}: {error}",
+            cause=error,
         )
+    except Exception as error:
+        return MolecularSystemAssessment(
+            MolecularSystemKind.UNDETERMINED,
+            ValidationStatus.UNVERIFIED,
+            forms=tuple(recognized),
+            reason=f"Could not identify input form: {type(error).__name__}: {error}",
+            cause=error,
+        )
+    forms = tuple(recognized)
 
     if len(items) == 1:
         return MolecularSystemAssessment(
@@ -106,12 +122,12 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
             forms=forms,
         )
 
-    from molsysmt._private.h5msm import modular_h5msm_axes
-    from molsysmt.native import MolSys, Structures
-
     topology_items = 0
     instance_counts = []
     try:
+        from molsysmt._private.h5msm import modular_h5msm_axes
+        from molsysmt.native import MolSys, Structures
+
         for item, form in zip(items, forms):
             axes = modular_h5msm_axes(item) if form == "file:h5msm" else None
             if axes is not None:
@@ -135,6 +151,7 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
             ValidationStatus.UNVERIFIED,
             forms=forms,
             reason=f"Could not inspect domain axes: {type(error).__name__}: {error}",
+            cause=error,
         )
     if topology_items > 1:
         return MolecularSystemAssessment(
@@ -149,20 +166,22 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
         if counts is not None:
             atom_counts.extend(int(count) for count in counts)
             continue
-        form_module = _dict_modules[form]
-        if not (
-            _provides_topology(form_module)
-            or _provides_structures(form_module)
-            or getattr(form_module, "provides_atom_domain", False)
-        ):
-            continue
         try:
+            form_module = _dict_modules[form]
+            if not (
+                _provides_topology(form_module)
+                or _provides_structures(form_module)
+                or getattr(form_module, "provides_atom_domain", False)
+            ):
+                continue
             n_atoms = get(
                 item,
                 element="system",
                 n_atoms=True,
                 skip_digestion=True,
             )
+            if n_atoms is not None:
+                n_atoms = int(n_atoms)
         except Exception as error:
             return MolecularSystemAssessment(
                 MolecularSystemKind.SINGLE,
@@ -173,6 +192,7 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
                     f"Could not obtain 'n_atoms' from form {form!r}: "
                     f"{type(error).__name__}: {error}"
                 ),
+                cause=error,
             )
 
         if n_atoms is None:
@@ -183,7 +203,7 @@ def assess_molecular_system(molecular_system) -> MolecularSystemAssessment:
                 atom_counts=tuple(atom_counts),
                 reason=f"Form {form!r} returned no 'n_atoms' value.",
             )
-        atom_counts.append(int(n_atoms))
+        atom_counts.append(n_atoms)
 
     if len(set(atom_counts)) > 1:
         return MolecularSystemAssessment(
@@ -215,6 +235,12 @@ def validate_molecular_system_argument(value, argument, caller=None):
     assessment = assess_molecular_system(value)
     if assessment.is_valid_single_system:
         return value
+    if assessment.validation is ValidationStatus.UNVERIFIED:
+        raise MolecularSystemVerificationError(
+            forms=list(assessment.forms),
+            reason=assessment.reason,
+            caller=caller,
+        ) from assessment.cause
     if assessment.kind is MolecularSystemKind.MULTIPLE:
         raise MultipleMolecularSystemsError(
             n_systems=len(value),
@@ -224,10 +250,10 @@ def validate_molecular_system_argument(value, argument, caller=None):
     if assessment.kind is MolecularSystemKind.SINGLE:
         if assessment.validation is ValidationStatus.INVALID:
             raise StructuralInconsistencyError(reason=assessment.reason, caller=caller)
-        if assessment.validation is ValidationStatus.UNVERIFIED:
-            raise MolecularSystemVerificationError(
-                forms=list(assessment.forms),
-                reason=assessment.reason,
-                caller=caller,
-            )
-    raise ArgumentError(argument, value=value, caller=caller, message=None)
+    raise ArgumentError(
+        argument,
+        value=value,
+        caller=caller,
+        message=f"Error in argument '{argument}': {assessment.reason}",
+        cause=assessment.cause,
+    ) from assessment.cause

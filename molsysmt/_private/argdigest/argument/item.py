@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.smonitor import ArgumentError, NotSupportedFormError
 
 
 def digest_item(item, form=None, caller=None):
@@ -15,9 +15,11 @@ def digest_item(item, form=None, caller=None):
 
     Raises
     ------
-    WrongItemError or WrongItemFormError
-        A WrongItemError is raised if the item object is not in deed an item.
-        A WrongItemFormError is raised if the item object has not the expected form.
+    ArgumentError
+        If the input is genuinely unsupported or has the wrong required form.
+    MolecularSystemVerificationError
+        If a declared adapter or form detector cannot finish verification.
+        Operational exceptions retain their original Python cause chain.
 
     Examples
     --------
@@ -29,26 +31,26 @@ def digest_item(item, form=None, caller=None):
 
     from molsysmt.basic import get_form
 
-    try:
-        in_form = get_form(item)
-        output = True
-    except Exception:
-        output = False
-
-    if (
+    append_target = (
         isinstance(caller, str)
         and caller.startswith("molsysmt.form")
         and caller.endswith("append_structures")
-    ):
-        if item is None:
-            return None
-        elif output:
-            return item
+    )
+    if append_target and item is None:
+        return None
 
-    if output:
-        if form is not None:
-            if in_form != form:
-                raise ArgumentError("item", value=item, caller=caller, message=None)
+    try:
+        in_form = get_form(item)
+    except NotSupportedFormError as error:
+        raise ArgumentError(
+            "item",
+            value=item,
+            caller=caller,
+            message=f"Error in argument 'item': {error}",
+            cause=error,
+        ) from error
+    if append_target:
         return item
-
-    raise ArgumentError("item", value=item, caller=caller, message=None)
+    if form is not None and in_form != form:
+        raise ArgumentError("item", value=item, caller=caller, message=None)
+    return item

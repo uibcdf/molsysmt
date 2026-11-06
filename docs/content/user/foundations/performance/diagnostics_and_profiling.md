@@ -5,6 +5,26 @@ MolSysMT integrates a built-in diagnostics and profiling engine managed through 
 
 ---
 
+## Verification Failures
+
+An adapter or detector may fail before MolSysMT can verify your input.
+`MolecularSystemVerificationError` reports that operational failure and retains
+the original Python exception chain in `error.__cause__`. Its diagnostic includes
+the underlying reason. This identifies an incomplete verification, rather than
+declaring the molecular source malformed.
+
+Unsupported forms still produce `NotSupportedFormError` during recognition or
+`ArgumentError` at a processing argument boundary. Genuine incompatible atom
+counts produce `StructuralInconsistencyError`. The boolean
+`is_a_molecular_system()` returns `False` for both inconsistent inputs and
+unverified inputs; use a processing call to receive the diagnostic context.
+
+Known adapter initialization failures remain cached. After correcting runtime
+or startup requirements, use a fresh process. MolSysMT preserves your diagnostic
+configuration and does not switch parsers or retry another engine automatically.
+See {ref}`form recognition <Tutorial_Get_form>` and
+{ref}`molecular-system consistency <Tutorial_Is_a_molecular_system>`.
+
 ## Performance Diagnostics and Profiling
 
 Analyzing large molecular systems involves non-trivial execution costs split across file I/O, selection parsing, form conversion, and numeric kernel evaluation.

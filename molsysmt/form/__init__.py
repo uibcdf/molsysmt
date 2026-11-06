@@ -1,13 +1,14 @@
 import os
 
-from depdigest import DeclaredRegistry
+from depdigest import DeclaredRegistry as DeclaredRegistry
 
 from . import catalogue
+from ._registry import _FormRegistry
 
 # Adapter inspection is separate from guarded optional-engine execution.
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-_dict_modules = DeclaredRegistry(
+_dict_modules = _FormRegistry(
     package_prefix="molsysmt.form",
     directory=current_dir,
     declarations={name: catalogue.plugin_of(name) for name in catalogue.form_names()},

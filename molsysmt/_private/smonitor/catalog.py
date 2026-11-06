@@ -765,14 +765,14 @@ CODES = {
     },
     "MSM-ERR-SYS-004": {
         "title": "Molecular-system consistency could not be verified",
-        "user_message": "MolSysMT could not verify that the supplied items describe one consistent molecular system.",
-        "user_hint": "Check the forms and their atom-count support. Details: {reason}. Docs: {doc_url}",
+        "user_message": "MolSysMT could not complete molecular-system verification: {reason}.",
+        "user_hint": "Check adapter availability, runtime setup and atom-count support. Inspect the original cause. Docs: {doc_url}",
         "dev_message": "Molecular-system verification failed in '{caller}': {reason}.",
-        "dev_hint": "Forms received: {forms}. Ensure each complementary form can deliver n_atoms.",
+        "dev_hint": "Forms received or being loaded: {forms}. Inspect adapter initialization and complementary n_atoms delivery.",
         "qa_message": "Molecular-system verification failed in '{caller}': {reason}.",
         "qa_hint": "Forms received: {forms}. Exercise the missing delivery route.",
         "agent_message": "Could not verify one molecular system: {reason}.",
-        "agent_hint": "Inspect n_atoms delivery for forms {forms} before retrying.",
+        "agent_hint": "Inspect adapter initialization and n_atoms delivery for forms {forms} before an explicit retry.",
     },
     "MSM-ERR-CONV-001": {
         "title": "Incompatible conversion",

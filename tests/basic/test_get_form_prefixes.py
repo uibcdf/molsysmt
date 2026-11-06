@@ -47,13 +47,17 @@ def test_rejected_prefix_candidate_still_uses_the_fallback(monkeypatch):
 
 def test_prefix_detector_failure_keeps_its_original_cause(monkeypatch):
     adapter = catalogue.module_of("string:pdbqt_text")
+    original = RuntimeError("the selected detector failed")
 
     def broken(item):
-        raise RuntimeError("the selected detector failed")
+        raise original
 
     monkeypatch.setattr(adapter, "is_form", broken)
-    with pytest.raises(RuntimeError, match="the selected detector failed"):
+    with pytest.raises(
+        msm.MolecularSystemVerificationError, match="the selected detector failed"
+    ) as caught:
         msm.get_form("pdbqt_text:declared")
+    assert caught.value.__cause__ is original
 
 
 def test_file_extension_retains_priority_over_a_string_prefix():

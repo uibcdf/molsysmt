@@ -24,8 +24,9 @@ that front matter -- edit the entries, not this list.
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 
-### In progress (1)
+### In progress (2)
 
+- [`adapter_load_causes_are_lost_in_molecular_system_validation.md`](adapter_load_causes_are_lost_in_molecular_system_validation.md) — [#601](https://github.com/uibcdf/molsysmt/issues/601) — Preserve operational adapter-load causes instead of rejecting valid molecular-system inputs. *(medium, reproduced)*
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
 ### Partially resolved (4)

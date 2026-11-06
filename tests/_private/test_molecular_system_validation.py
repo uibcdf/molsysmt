@@ -70,17 +70,21 @@ def test_failed_consistency_probe_is_unverified_not_valid(monkeypatch):
     topology = msm.systems["pentalanine"]["pentalanine.prmtop"]
     structures = msm.systems["pentalanine"]["pentalanine.inpcrd"]
 
+    original = RuntimeError("missing getter")
+
     def fail_if_called(*args, **kwargs):
-        raise RuntimeError("missing getter")
+        raise original
 
     monkeypatch.setattr(msm.basic, "get", fail_if_called)
     assessment = assess_molecular_system([topology, structures])
 
     assert assessment.kind is MolecularSystemKind.SINGLE
     assert assessment.validation is ValidationStatus.UNVERIFIED
+    assert assessment.cause is original
     assert assessment.is_valid_single_system is False
-    with pytest.raises(MolecularSystemVerificationError):
+    with pytest.raises(MolecularSystemVerificationError) as caught:
         digest_molecular_system([topology, structures], caller="test")
+    assert caught.value.__cause__ is original
 
 
 def test_pure_mechanical_metadata_does_not_require_an_atom_count():

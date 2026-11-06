@@ -145,7 +145,7 @@ sections:
           - name: get_form
             file: docs/content/user/tools/basic/get_form.ipynb
             agents_file: docs/content/user/tools/basic/get_form.ipynb.AGENTS.md
-            description: Registry-confirmed string prefixes, extension priority and recognition separate from parsing.
+            description: Registry-confirmed prefixes, extension priority, recognition separate from parsing and preserved operational failure causes.
           - name: get
             description: Attribute queries, incident group bond counts and valid empty connectivity.
             file: docs/content/user/tools/basic/get.ipynb
@@ -165,7 +165,7 @@ sections:
             status: reviewed
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
-            description: Form conversion, independent native domains, explicit GRO source conventions before candidate inference, coordinate-free OpenMM template inference and opt-out, axis conflicts and preserved provenance.
+            description: Form conversion, independent native domains, explicit GRO source conventions before candidate inference, coordinate-free OpenMM template inference and opt-out, axis conflicts and preserved provenance, with operational verification failures distinguished from invalid input.
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
           - name: extract
             file: docs/content/user/tools/basic/extract.ipynb
@@ -819,7 +819,7 @@ sections:
         agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
       - name: form_teleportation
         file: docs/content/user/cookbook/form_teleportation.ipynb
-        description: Conversion workflows, deposited CIF model-label correspondence, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership and public capability inspection.
+        description: Conversion workflows, operational verification causes, deposited CIF model-label correspondence, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership and public capability inspection.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
         description: Sparse queries, independent copies, geometry and chemical owner notification, finite torsion rejection and scoped invalidation, state inventory publication, structure replacement and H5MSM persistence.
