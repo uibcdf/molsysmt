@@ -29,6 +29,15 @@ refer to different compounds in a chemical dictionary and a force-field
 vocabulary. A naming scheme explains the label; chemical assignments remain
 stored independently in `ChemicalStates`.
 
+A preparation preview must keep that distinction. A reference-rule protonation
+assessment reads the stored naming scheme and reference chemical state, then
+reports which groups it assessed and which remain unknown. Other stored states
+are explicitly unassessed. A no-change result does not certify protonation.
+Its positional atom maps describe the proposed removal independently of labels
+or coordinates; they do not become another molecular-system form or chemical
+assignment. See {ref}`Tutorial_Protonation_Assessment` for previewing and applying
+the same removal decision once.
+
 ## Schemes and scope
 
 The native declaration vocabulary defines four explicit identifiers. Storing

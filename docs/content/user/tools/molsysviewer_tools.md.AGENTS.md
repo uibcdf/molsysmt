@@ -503,7 +503,9 @@ TIP3P tolerances from the bundled PDB precision rather than exact ideal geometry
 
 Preserve the independent reconcile_protonation route, its exact native parameters
 and explicit refusal of managed in_place=True before science pending public
-removal correspondence. Keep fixed-pKa approximation, declared named-state and
+removal-correspondence receiving. The native provider's prepared assessment can
+be documented independently; it does not qualify managed addon execution.
+Keep fixed-pKa approximation, declared named-state and
 unassessed-group limits distinct from chemical readiness; there is no hidden
 charge/H/state preparation, private chemistry helper, identity inference or
 scene adoption. Native results and named analyses retain extraction semantics.

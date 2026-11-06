@@ -10,6 +10,7 @@
 | [Add missing bonds](add_missing_bonds.ipynb) | Adding the missing bonds in a molecular system |
 | [Add missing heavy atoms](add_missing_heavy_atoms.ipynb) | Adding the missing heavy atoms in a molecular system |
 | [Add missing hydrogens](add_missing_hydrogens.ipynb) | Adding the missing hydrogen atoms in a molecular system |
+| [Assess protonation removal](assess_protonation.ipynb) | Inspecting positional removal maps and applying the same reference-rule decision |
 | [Add missing terminal cappings](add_missing_terminal_cappings.ipynb) | Adding the missing terminal cappings in a molecular system |
 | [Build peptide](build_peptide.ipynb) | Building a peptide |
 | [Editable](editable.ipynb) | Creating an editable molecular system builder to modify or construct topologies |
@@ -42,6 +43,7 @@
    add_missing_bonds.ipynb
    add_missing_heavy_atoms.ipynb
    add_missing_hydrogens.ipynb
+   assess_protonation.ipynb
    fixed_state_hydrogens.md
    assign_autodock_atom_types.md
    assign_partial_charges.md

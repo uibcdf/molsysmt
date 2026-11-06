@@ -119,8 +119,9 @@ mol = msm.build.add_missing_terminal_cappings(
 )
 ```
 
-**Key rule:** `topology.rebuild_components()` is called internally before
-querying `component_type`, so the function is robust to any input origin.
+**Key rule:** component reconstruction belongs to `ChemicalStates`, with stable
+context supplied by `MolSys`. Preparation must use that route before querying
+state-local component types; `Topology` has no connectivity/component facade.
 
 **MolSysMT limitations:** only ACE and NME are supported as capping groups.
 PDBFixer supports a wider range of terminal variants via its residue template
@@ -134,6 +135,32 @@ Adds missing H according to the selected engine's supported templates and pH
 rules. It does not remove existing H that contradict the requested pH. Inspect
 the diagnostic and use `build.reconcile_protonation` explicitly when you intend
 to apply the native removal policy; neither operation predicts environmental pKa.
+
+Use `build.assess_protonation` when an application must inspect the removal before
+executing it. Its `ProtonationAssessment.to_dict()` report records the reference
+state, actual naming context, assessed/unassessed coverage, removed source atom
+indices and the canonical `molsysmt.atom_map@1` correspondence. The
+`output_to_source_atom_indices` vector gives retained source atoms in output order;
+`source_to_output_atom_indices` spans the original axis with -1 for removed atoms.
+All structures retain their source order. Other stored chemical states remain
+explicitly unassessed even though execution subsets their stored fields too.
+
+`assessment.apply(source)` consumes that prepared decision once, including a
+no-op, and returns an independent native `MolSys`. Explicit native
+`in_place=True` prepares the complete subset before publishing it; a true in-place
+no-op preserves domain identities. A failed preparation leaves source and decision
+unconsumed. Source/domain identity and inventory/chemistry/axis fingerprints reject
+stale use. Coordinate edits on unchanged axes are permitted: current coordinates,
+mechanics and named analyses are subset at execution, rather than held in the plan.
+Callers serialize source access; the assessment does not lock arbitrary external
+mutation, authenticate a resource or implement persistent transactions. Execution
+uses ordinary subset/invalidation rules and does not recalculate interactions.
+
+Assessment uses the existing fixed-pKa and explicit-name inventory rules. It does
+not add H, assign charges or select another chemical state. The native and modular
+H5MSM assessment paths avoid trajectory coordinate reads, but full application can
+materialize a complete candidate. See [SCALABILITY.md](SCALABILITY.md) and the
+executed [assessment tutorial](../docs/content/user/tools/build/assess_protonation.ipynb).
 
 ```python
 mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')

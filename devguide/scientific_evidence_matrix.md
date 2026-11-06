@@ -100,11 +100,13 @@ symbols. These symbols have not been classified here; absence is not
 a scientific gap assessment. Expand the explicit Claimed inventory
 after reviewing each operation's claim and available evidence.
 
+- `molsysmt.build.ProtonationAssessment`
 - `molsysmt.build.add_missing_bonds`
 - `molsysmt.build.add_missing_heavy_atoms`
 - `molsysmt.build.add_missing_hydrogens`
 - `molsysmt.build.add_missing_terminal_cappings`
 - `molsysmt.build.add_terminal_atoms`
+- `molsysmt.build.assess_protonation`
 - `molsysmt.build.assign_autodock_atom_types`
 - `molsysmt.build.assign_partial_charges`
 - `molsysmt.build.get_covalent_bond_candidates`

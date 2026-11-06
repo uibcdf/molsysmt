@@ -140,11 +140,14 @@ def _catalogue_reference(name):
     )
 
 
-def credit(name, kind, caller):
-    """Credit the reference data actually inspected, without claiming an engine."""
-    from molsysmt import _ackredit
+def references(name, kind):
+    """Return detached reference records without requiring optional tracking."""
+    from copy import deepcopy
+
     from molsysmt._private.residue_templates import load_residue_template
 
+    if kind is None:
+        return []
     if kind == "curated_ccd":
         source = load_residue_template(name)["source"]
         items = [
@@ -180,7 +183,15 @@ def credit(name, kind, caller):
                     roles=["chemical_reference_data"],
                 )
             )
+    return deepcopy(items)
+
+
+def credit(name, kind, caller):
+    """Credit the reference data actually inspected, without claiming an engine."""
+    from molsysmt import _ackredit
+
     with _ackredit.scope(caller) as provider:
+        items = references(name, kind)
         _ackredit.credit(provider, items, caller, contextual=True)
 
 

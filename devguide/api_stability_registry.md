@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 166 |
+| experimental | 168 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -173,12 +173,14 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
+| `molsysmt.build.ProtonationAssessment` | experimental | active | 1.0.0 |
 | `molsysmt.build.add_ions` | experimental | active | 1.0.0 |
 | `molsysmt.build.add_missing_bonds` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_missing_heavy_atoms` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_missing_hydrogens` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_missing_terminal_cappings` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_terminal_atoms` | experimental | active | pre-1.0 |
+| `molsysmt.build.assess_protonation` | experimental | active | 1.0.0 |
 | `molsysmt.build.assign_autodock_atom_types` | experimental | active | 1.0.0 |
 | `molsysmt.build.assign_partial_charges` | experimental | active | 1.0.0 |
 | `molsysmt.build.build_peptide` | experimental | active | pre-1.0 |

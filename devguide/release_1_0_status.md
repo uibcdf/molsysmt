@@ -170,6 +170,25 @@ The User Guide, Cookbook and course distinguish provider capability from addon
 exposure. No issue is closed out of order, no Viewer runtime is changed and no
 installed/release qualification follows from these local checks.
 
+Prepared owner source for **#576** now supplies read-only
+`build.assess_protonation` and a public `build.ProtonationAssessment` result.
+Detached coverage retains every group's actual naming/reference context and
+canonical bidirectional positional maps. Single-use application consumes the
+same decision without repeating reference queries, rejects stale inventory,
+chemistry and axes, and stages the complete native subset before publication.
+Independent no-ops are real copies; all supported independent inputs return
+native MolSys. Native/modular assessment avoids coordinate payloads, while
+application retains ordinary resident candidate costs and analysis remapping.
+The 1,717-case affected selection, 260 published-support-floor controls and 631
+documentation/doctest/final-assessment checks pass without omissions; selections
+overlap. All ten tutorial code cells execute, the fast gate passes 14/14, and
+repository-wide Ruff lint/format checks pass. The
+[owning record](pending_proposals/protonation_removal_correspondence_for_bound_consumers.md)
+retains exact receipts, ownership/scientific limits and corrected validation
+fixtures. This is prepared source, not ordered main integration, managed addon
+admission, installed qualification or issue closeout. The #304 exact-source
+matrix remains the active predecessor; no additional remote run is launched.
+
 The subsequent board checkpoint reads **#608–#610**, again without expanding
 the fifteen-item objective. #608 reports application-unit-dependent origin
 snapping and extends the unresolved native PBC qualification obligations above;

@@ -418,3 +418,26 @@ calculations keep their eager route; no general force-mode support is implied.
 selected output bytes, quantity policy, bounded second reads, PBC, metadata and
 indexed PDBQT. Vector behavior remains covered independently after extracting
 the shared private delivery tools.
+
+## Prepared protonation removal
+
+`build.assess_protonation` reads inventory, naming and stored chemistry without
+copying coordinate trajectories on native `MolSys` and modular H5MSM paths.
+Modular assessment reads domain metadata and structure-state associations, not
+coordinate or interaction payloads. Other forms may require ordinary conversion;
+the operation does not promise universally bounded foreign-form conversion.
+
+The process-local assessment holds detached coverage, positional maps, references
+and fingerprints, plus weak source references where possible. Memory scales with
+atoms, groups, stored bonds/states and structure-axis metadata, rather than with
+the coordinate tensor. It is not a complete RSS limit, portable executable token
+or resource authentication mechanism. Changed inventory, naming, chemistry or
+axes requires reassessment; coordinate edits on unchanged axes remain valid.
+
+`ProtonationAssessment.apply` rechecks those assumptions and stages an ordinary
+complete native subset before in-place publication. Source and candidate can
+coexist in memory, including coordinates and analyses. Independent no-ops also
+copy data; true native in-place no-ops preserve domains. There is no streaming
+publication or automatic interaction recalculation. See
+[the preparation contract](structure_preparation_pipeline.md) and
+`tests/build/test_protonation_assessment.py` for the actual supported boundaries.

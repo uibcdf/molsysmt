@@ -25,6 +25,7 @@ Houses tutorial units for system building, topology construction, missing heavy 
 - `add_missing_heavy_atoms.ipynb` ➔ `add_missing_heavy_atoms.ipynb.AGENTS.md`
 - `add_missing_hydrogens.ipynb` ➔ `add_missing_hydrogens.ipynb.AGENTS.md`
 - `add_missing_terminal_cappings.ipynb` ➔ `add_missing_terminal_cappings.ipynb.AGENTS.md`
+- `assess_protonation.ipynb` ➔ `assess_protonation.ipynb.AGENTS.md`: Read-only reference-rule coverage, positional maps and single-use removal execution.
 - `build_peptide.ipynb` ➔ `build_peptide.ipynb.AGENTS.md`
 - `editable.ipynb` ➔ `editable.ipynb.AGENTS.md`
 - `get_disulfide_bonds.ipynb` ➔ `get_disulfide_bonds.ipynb.AGENTS.md`

@@ -15,6 +15,9 @@ API Build
    add_missing_terminal_cappings
    assign_autodock_atom_types
    assign_partial_charges
+   assess_protonation
+   ProtonationAssessment
+   reconcile_protonation
    merge_nonpolar_hydrogens
    build_peptide
    editable

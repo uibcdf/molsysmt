@@ -3,20 +3,24 @@
 from copy import deepcopy
 
 
-def credit_executed_software(software, version, caller, **context):
-    """Credit an engine actually used by a completed scientific operation."""
-    from molsysmt import _ackredit
+def executed_software_reference(software, version):
+    """Build a detached record for software actually reached by an operation."""
     from molsysmt._private.scientific_citations import SOFTWARE
 
-    items = [
-        dict(
-            id=f"software:{software}:{version}",
-            type="software",
-            **deepcopy(SOFTWARE.get(software, dict(title=software))),
-            version=version,
-            roles=["executed_software"],
-        )
-    ]
+    return dict(
+        id=f"software:{software}:{version}",
+        type="software",
+        **deepcopy(SOFTWARE.get(software, dict(title=software))),
+        version=version,
+        roles=["executed_software"],
+    )
+
+
+def credit_executed_software(software, version, caller, **context):
+    """Credit software actually used by a completed scientific operation."""
+    from molsysmt import _ackredit
+
+    items = [executed_software_reference(software, version)]
     with _ackredit.scope(caller) as provider:
         _ackredit.credit(provider, items, caller, contextual=True, context=context)
 

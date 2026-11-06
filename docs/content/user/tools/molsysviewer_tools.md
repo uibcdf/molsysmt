@@ -4940,8 +4940,13 @@ copying/subsetting can materialize coordinates and is not an out-of-core
 trajectory promise. Cached methods follow replacement and closed-view rules.
 
 `in_place=True` raises `NotImplementedError` before scientific execution because
-the native tool does not yet provide public removal correspondence for managed
-scene remapping. The addon does not infer identity from counts, labels or
+the addon has not yet received the native prepared-removal correspondence for
+managed scene remapping. The provider now offers
+{func}`molsysmt.build.assess_protonation` and a source-bound
+{class}`molsysmt.build.ProtonationAssessment`: inspect its detached positional map,
+then apply that same decision once. See {ref}`Tutorial_Protonation_Assessment`.
+This provider route does not by itself qualify managed execution in the addon.
+The addon does not infer identity from counts, labels or
 coordinates and does not call private protonation rules. There is no
 `update_view`, `selection`, `structure_indices` or `return_report` argument on
 this mirror. Native digestion is forwarded; the integration admission boolean

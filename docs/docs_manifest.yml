@@ -223,6 +223,10 @@ sections:
             agents_file: docs/content/user/tools/build/add_missing_heavy_atoms.ipynb.AGENTS.md
             description: Bounded local heavy-atom repair, unassessed gaps, preserved native domains and strict attribute policy.
             status: reviewed
+          - name: assess_protonation
+            file: docs/content/user/tools/build/assess_protonation.ipynb
+            agents_file: docs/content/user/tools/build/assess_protonation.ipynb.AGENTS.md
+            description: Read-only reference-rule assessment, canonical atom maps, single-use execution, source lifetime, stored-domain projection and scientific limits.
           - name: add_missing_terminal_cappings
             file: docs/content/user/tools/build/add_missing_terminal_cappings.ipynb
             agents_file: docs/content/user/tools/build/add_missing_terminal_cappings.ipynb.AGENTS.md
