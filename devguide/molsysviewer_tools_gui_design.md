@@ -6,7 +6,8 @@ uibcdf/molsysviewer#264, delivered through PR #543.
 **Status — 2026-11-06:** contribution source implements System / Remove atoms,
 Extract subset and Copy system, plus Geometry / Translate, Center, Superpose structures and qualified periodic tools. Selection controls,
 lifecycle, bounded metadata and independent-result presentation are shared.
-Rotate, Chemistry, Analysis and other tasks remain proposed; no placeholder
+Chemistry adds stored-information and hydrogen-inventory inspection. Rotate,
+Chemistry preparation/construction, Analysis and other tasks remain proposed; no placeholder
 panel/button is registered. Human Jupyter/visible Qt acceptance remains
 postponed, separate from automated Jupyter/Mol*/native numerical receiving.
 Center uses native geometric/mass-weighted source references and explicit
@@ -369,6 +370,33 @@ records the independent lattice controls, 356 affected System/Geometry/PBC cases
 and seven actual Jupyter scenarios. The window-title receiving race (#609) is
 corrected by waiting for presentation acknowledgement; no runtime or scientific
 behavior is substituted to satisfy the harness.
+
+## Chemistry inspection source tasks — 2026-11-06
+
+Inspect stored chemistry and Hydrogen inventory reuse the two public physchem
+reports without preparing molecular data. They use one explicit structure
+context and a reference, structure-associated or indexed chemical state.
+Selections resolve in the reference context; the report audits those fixed
+atoms in the stated state. Unknown, missing, conflicting, unsupported, empty
+and unassessed results remain native. A stored value is not a chemistry or
+readiness certificate; unknown H counts do not become zero.
+
+Only a bounded summary and up to fifty source-index rows cross the panel
+boundary. Full native reports remain private to each mounted panel, without a
+universal RAM limit or generic H5MSM/result-store promise. Long labels are
+shortened explicitly. Paging reuses the report, retains units and native indices,
+and never reruns the calculation. Inputs, source revision, structure context
+and relevant scene membership expire the report; unmount/Clear releases it.
+No molecular/scene/analysis/history operation follows from inspection.
+
+The new read_only_actions capability in uibcdf/molsysviewer#304 admits declared
+incoming reader requests under pending synchronization. The addon rejects old
+scene selections/regions in that state. The core recovery sheet still prevents
+pointer/keyboard access to underlying Studio; frontend admission and its actual
+receiving remain required in #304. This source slice does not claim that UX
+complete, source support is distinct from a public package, and human visible
+acceptance remains postponed. The full periodic source dd34c371c completed
+4,657 cases before these Chemistry changes; retain that input distinction.
 
 ## Whole-session target and task-family ledger — 2026-11-06
 

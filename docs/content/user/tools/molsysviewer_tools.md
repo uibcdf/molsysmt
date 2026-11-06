@@ -108,8 +108,8 @@ explicit independent-builder and conditional-result ownership.
 Peptide construction from the loaded sequence and amino-acid mutation are
 available as independent native results, with reconstruction limits below.
 
-The qualified source contribution also provides System tasks and Geometry /
-Translate, described below. Other graphical tasks and some scientific modes
+The qualified source contribution also provides System and Geometry tasks;
+Chemistry inspection is being received in source, as described below. Further graphical tasks and some scientific modes
 remain under development. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
 
@@ -5092,7 +5092,9 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
 Extraction/copy result presentation uses the separate flow below. Geometry
-offers Translate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory; further Geometry tasks, Chemistry and Analysis remain planned.
+offers Translate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory.
+Chemistry offers the two source inspection tasks described below; further Geometry,
+Chemistry preparation/construction and Analysis tasks remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
 
@@ -5324,3 +5326,63 @@ and temporary; the full periodic task family is not yet complete. The expert
 `pbc.unwrap` route retains the native signature, supplied order and result/error
 semantics, with the reported native limits. Human Jupyter/visible Qt acceptance,
 owner integration and installed-package qualification remain separate.
+
+## Inspecting stored chemistry through Molecular tools
+
+In **Molecular tools > Chemistry**, choose **Inspect stored chemistry**, choose
+an atom population and click **Inspect chemistry**. This experimental source
+task reuses `physchem.get_chemical_readiness`; it reports stored information
+without adding atoms, assigning bonds/charges, choosing protonation or changing
+the scene. The expert method keeps its native arguments and result dictionary.
+
+**Selection context** chooses the one structure being inspected. **Chemical
+state** offers the reference state, the state associated with that structure,
+or an explicit state index. The selection uses the reference context; its fixed
+atom population is then inspected in the chosen state. Absent or ambiguous
+states remain unassessed. A report for one structure does not assess all other
+structures in a trajectory or ensemble.
+
+The summary separates present, partial, missing, unsupported, conflicting and
+empty fields. **What was not assessed** lists scientific checks that were not
+performed. Presence of a charge, bond order or other stored value does not
+certify valence, protonation, aromaticity, conformer quality or readiness for a
+later calculation. Coordinates report finite-position flags assessed in nm;
+formal charges retain elementary-charge units. No global ready flag is offered.
+
+**Inspect source indices and values** pages through native atom or bond indices,
+values and declared origins. At most 50 rows are transferred at a time; long
+labels are shortened to 200 characters. Paging reuses the report without
+recalculating. Selected-incident bonds can include outside atoms. Connectivity
+checks of the whole state are labelled separately from the selected population.
+The expert API returns the complete native report.
+
+The mounted panel holds one report in memory. **Clear report** or leaving the
+panel releases that report without deleting molecular data. A source revision,
+structure context, input or relevant scene-membership change expires it.
+Arbitrary external native writes are not automatically observed; inspect again
+after explicit external edits. This private report is not attached to the scene
+or saved automatically in H5MSM. Full report construction can scale with the
+source system; bounded pages do not promise a universal RAM limit.
+
+## Inspecting hydrogen inventory through Molecular tools
+
+Choose **Hydrogen inventory** and click **Inspect hydrogens**. The native
+`physchem.get_hydrogen_inventory` report distinguishes indexed H atoms and
+neighbors from stored non-indexed H annotations. Its status, count convention,
+issues and unassessed checks remain visible. Unknown native counts (`-1`) are
+shown as **Unknown**; a known zero remains **0**. An observed explicit H count
+does not establish how many H atoms should be added or the appropriate
+protonation state.
+
+Paged tables show per-atom counts, parent–H pairs, selected explicit H indices
+and native inventory issues. Parent–H pairs can include an H outside the chosen
+parent population. No hydrogen is added, removed, inferred or adopted by this
+inspection. Use a separate explicit preparation tool when that is your intent.
+
+These panels require a qualified source host with the declared read-only addon
+request contract. Pending scientific reads use the current primary rather than
+old scene indices; selections/regions from an outdated scene are refused. The
+core recovery sheet still blocks pointer/keyboard access during pending scene
+updates (Viewer #304), so the interactive recovery workflow is incomplete.
+Synchronized Jupyter/popups, human visible Qt/Jupyter acceptance, owner
+integration and installed-package qualification retain their separate evidence.

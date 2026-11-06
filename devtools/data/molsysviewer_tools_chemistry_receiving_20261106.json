@@ -1,0 +1,365 @@
+{
+  "schema": "molsysmt.molsysviewer-tools-chemistry-receiving@1",
+  "date": "2026-11-06",
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_base": "dd34c371cbe78ba2ddd884266c0915d0783fb831",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "viewer_source": "63e79096ef3c3414c2fabacf5f44e81e9b475440",
+  "viewer_javascript_runtime": "49dba88ae992088259a6f0891b59dfc8730f5183",
+  "viewer_runtime_boundary": "New Python host reader admission; no TS or generated runtime change since 49dba88a.",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "python": {
+    "environment": "molsyssuite@uibcdf_3.14",
+    "version": "3.14.7"
+  },
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#304"
+  ],
+  "source_files": {
+    "molsysviewer_molsysmt/_chemistry_panel.py": {
+      "sha256": "b975b42510a571e2e884c79a35eaf3ec9c58d06c5ff6b93b11fc3aac3b05fe39",
+      "size_bytes": 16874
+    },
+    "molsysviewer_molsysmt/_chemistry_panel_frontend.py": {
+      "sha256": "95db5428f4edbdb8eb64d5f462adea100d30f50d77c733e205c15fd59180ed2f",
+      "size_bytes": 13188
+    },
+    "molsysviewer_molsysmt/_task_panel.py": {
+      "sha256": "2e65049b0d7184ea0c45d87085d2ef5a7eb74ad9e4c42f64631e5914ae276627",
+      "size_bytes": 14217
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "sha256": "a1759d7e26f879904fb4c80827be811cd31638a33579b07b3b1f485b9765d783",
+      "size_bytes": 2778
+    },
+    "tests/molsysviewer_molsysmt/test_chemistry_panel.py": {
+      "sha256": "d70f81b32fe0668294c196a57128ef6f5b0a60e57313ac2b92ee86cc463164d9",
+      "size_bytes": 14591
+    },
+    "tests/molsysviewer_molsysmt/test_system_panel.py": {
+      "sha256": "865acb46f2f9fdfafe758f21cd237d852b4b73c4713b6ccb040168e76c279b83",
+      "size_bytes": 21542
+    },
+    "tests/molsysviewer_molsysmt/chemistry_panel_jupyter.mjs": {
+      "sha256": "323068fab10b48136ad558bf1dca132ee3d5c6c6ea6454c910b3ad98f5c3bccd",
+      "size_bytes": 9912
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "a9d83e71a6e397a010e71d09a1caa8231b2bc989deeea118ff633a251f3c057e",
+      "size_bytes": 6823
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "010b1689a70d5a5f3dd09a058fbaf74416efc7515564d5608b8f6ab9e77921cc",
+      "size_bytes": 22249
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "sha256": "2c336ab4c333b670be5319a05ba5d0b407dbae2e68f0c0f97ac00ce4bcea0f06",
+      "size_bytes": 291231
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "sha256": "ff59bab7e217b019340139af9d991b6bee614b209f9359cf79be76c80b8c8ce7",
+      "size_bytes": 71739
+    },
+    "devtools/dependency_contract.toml": {
+      "sha256": "231ddd5637eef0bbfbfbfd55af6064ffd18eab54f7199237e60463db1d7fb607",
+      "size_bytes": 1882
+    },
+    ".github/workflows/benchmarks.yml": {
+      "sha256": "6d4e1a82db4bf1efe19fbb58b15133d665fc7df2ff66143666abbaedc6e87464",
+      "size_bytes": 3310
+    },
+    ".github/workflows/ci-full.yaml": {
+      "sha256": "65d38172c2536bffdd9a663091fd31aff473be82cac2fa21273fa98834e5df15",
+      "size_bytes": 6973
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "sha256": "e07668474c55a9432c12e61e8c75c073afdc89520e7e0daa0080323b6c544c7d",
+      "size_bytes": 16698
+    },
+    ".github/workflows/ci-weekly.yaml": {
+      "sha256": "753e59b449e2e6437b6c067ff943e3b84ba753b54fb4952664b1ecb774c20b1d",
+      "size_bytes": 7568
+    },
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": {
+      "sha256": "54a4e12d4d7fdb40a176315d66a13df91d74747a84bd88f66bb4c73f16a4319d",
+      "size_bytes": 3195
+    }
+  },
+  "contract": {
+    "expert_api": "Unchanged native physchem.get_chemical_readiness and get_hydrogen_inventory signatures, values and independent detached results. No chemistry GUI alias is introduced into the expert facade.",
+    "selection": "Shared Whole/category/current/saved/region/expression/indices controls. Fixed reference-context population, one explicit inspection structure, reference/associated/indexed chemical state. Ambiguous/unassociated states remain unassessed.",
+    "science": "Native stored-field/hydrogen audit only; no preparation, atom/bond/charge assignment, scene change, analysis attachment or generic result persistence.",
+    "presentation": "Native coverage/status/unknowns, explicit/indexed versus stored H, source atom/bond indices, declared units/method/software, incident versus whole-state connectivity and unassessed checks. No global ready flag; unknown H is not zero.",
+    "resources": "One full detached native report per mounted panel; at most 50 rows per frontend packet, clipped 200-character labels, private report reuse while paging. Unit tests paginate all 3983 TcTIM indices and check each packet below 65536 bytes. Not a universal RAM bound or out-of-memory reader.",
+    "lifetime": "Expire on inputs/revision/structure context/changed scene membership; Clear/unmount releases the report. External raw writes remain unobserved and require deliberate reinspection/reconciliation.",
+    "host_admission": "Root #304 declares exact read_only_actions and keeps endpoint ownership/scene guards. Current-primary reads accept pending/sync_failed; old-scene selections/regions are refused. The recovery sheet still blocks underlying pointer/keyboard UI; that required part of #304 remains incomplete. Actual Jupyter receiving here uses synchronized data only."
+  },
+  "checks": [
+    {
+      "scope": "expanded Chemistry panel source cases",
+      "state": "passed",
+      "passed": 42,
+      "skipped": 0,
+      "exit": 0,
+      "duration_seconds": 10.36,
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_chemistry_panel.py",
+      "log": "/tmp/msv-chemistry-panel-states-qualified-20261106.log",
+      "log_sha256": "a13b5d0bcf3faedfb8804a8629b9935956e6ceb8754861c8ec08b1340ff12f62"
+    },
+    {
+      "scope": "native chemistry/hydrogen and System/Geometry/periodic regression",
+      "state": "passed",
+      "passed": 363,
+      "skipped": 0,
+      "exit": 0,
+      "duration_seconds": 83.41,
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_chemistry_panel.py tests/molsysviewer_molsysmt/test_chemical_audit_tools.py tests/physchem/test_get_chemical_readiness.py tests/physchem/get_hydrogen_inventory tests/molsysviewer_molsysmt/test_system_panel.py tests/molsysviewer_molsysmt/test_geometry_panel.py tests/molsysviewer_molsysmt/test_periodic_panel.py",
+      "log": "/tmp/msv-chemistry-native-panels-20261106.log",
+      "log_sha256": "dafe79c77d88329d9feda04da010741913c26a98a0a36e21b33514a100240f15"
+    },
+    {
+      "scope": "all actual Jupyter/Mol*/popup scenarios",
+      "state": "passed",
+      "passed": 8,
+      "skipped": 0,
+      "exit": 0,
+      "duration_seconds": 355.5,
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+      "log": "/tmp/msv-chemistry-jupyter-all-20261106.log",
+      "log_sha256": "fa5d92e2b97da947989d1254f671c6cc64b545ff514cc6f40626ee0c75bbe413",
+      "scenarios": [
+        {
+          "name": "jupyter-chemistry",
+          "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_chemistry_0/jupyter-chemistry/full-result.json",
+          "sha256": "ec673a6bc82e3192768e5f68cafb2f9f25886a2828ad23703d8a616228f7a18a",
+          "size_bytes": 4818,
+          "checks": [
+            "Render bundled TcTIM and open Chemistry without starting an assessment",
+            "Inspect actual stored fields with distinct present partial and missing coverage",
+            "Read bounded source-index pages without recalculating the molecular system",
+            "Inspect a duplicate numeric selection and expose unassessed scientific checks",
+            "Keep unknown hydrogen counts distinct from zero and indexed atoms",
+            "Use the same native reports and clear only panel data in both popup hosts",
+            "Python verifies every source coordinate chemical domain scene and revision is unchanged"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-center",
+          "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_geometry_c0/jupyter-center/full-result.json",
+          "sha256": "9bb93feb2dadd65107165cf708cce6e112b12e38c1ec9cec511a220ededc8a7f",
+          "size_bytes": 4753,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review centering and cancel while actual Mol* coordinates stay unchanged",
+            "Apply centering and verify the actual displayed coordinates analytically",
+            "Create an independent result centered on another selection in the current structure",
+            "The centered result keeps its identity across window and notebook destinations",
+            "Center task and its references survive canvas and Studio popups",
+            "Python verifies every selected and unselected atom and structure"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-fit",
+          "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_geometry_s0/jupyter-fit/full-result.json",
+          "sha256": "feab8addc8ea41cc798a9d2673cfa6641bf1d7b6bd0fa476d344f9794d6fc037",
+          "size_bytes": 4954,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review explicit fitting atoms and cancel without changing rendered coordinates",
+            "Apply rigid superposition and compare actual Mol* positions with the independent SVD oracle",
+            "Create a separate result fitted to another explicit reference structure",
+            "The superposed result preserves its identity across window and notebook destinations",
+            "Fitting references remain explicit in canvas and detached Studio popups",
+            "Python verifies every selected/unselected atom and structure against the independent oracle",
+            "Independent notebook Views bind saved-choice inputs to their own datalist"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-geometry",
+          "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_geometry_t0/jupyter-geometry/full-result.json",
+          "sha256": "7985aa9ede3945cb7e4a217332c9827025bb386295d28d64bc9a8637aa8f02f5",
+          "size_bytes": 4740,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review and cancel translation without changing the molecular system",
+            "Confirm the saved subset once through live Jupyter comms",
+            "Translate an independent whole-system result and display it below the source",
+            "The same result can move to its own live window and back",
+            "Geometry is reachable in canvas and detached Studio popups with its draft",
+            "Python verifies the numerical results and unchanged source of the independent calculation"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-results",
+          "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_independen0/jupyter-results/full-result.json",
+          "sha256": "0c98772ab91a5dae17c089514a288c87e18beb0b370465aa3f74e220a64c2860",
+          "size_bytes": 4705,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Extract ordered nonconsecutive structures without editing the source",
+            "Notebook delivery from fullscreen explains how to reach the result",
+            "Changing destination reuses one View through rapid window/notebook cycles",
+            "Copy opens a separate live View in an external window without recomputing",
+            "Detached Studio can open and close an independent result without closing its source",
+            "Python recovers both Views and source closure preserves them"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-periodic",
+          "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_periodic_g0/jupyter-periodic/full-result.json",
+          "sha256": "73a847317473f6c5c2bab7728b7a83fa4538e5cc23077eadc52bb535ac30e243",
+          "size_bytes": 4957,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review compact centered-box wrapping and Back without changing Mol* positions",
+            "Apply native compact wrapping and verify its actual centered image",
+            "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+            "Review per-atom temporal unwrapping and create an independent whole-system result",
+            "The periodic result keeps its View while moving between notebook and window",
+            "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+            "Python verifies all native arrays and drives a second structure of the rendered result"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-center-errors",
+          "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_rejected_o0/jupyter-center-errors/full-result.json",
+          "sha256": "dc5fa307ce114d1dbc98cec760e25366b71612202dbec242c88ae7d1500c9c09",
+          "size_bytes": 4546,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review a native center-of-mass request under the explicit partial application policy",
+            "The native error remains visible after its automatic synchronized refresh",
+            "Python verifies that the rejected native call did not mutate the system",
+            "A new user choice clears the diagnostic and requires a new review"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter",
+          "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_review_and0/jupyter/full-result.json",
+          "sha256": "35c772cb150ef7cec8c288ea6b093ac81b882cd6ac03ea7eb89cf1dc2747c4e5",
+          "size_bytes": 4701,
+          "checks": [
+            "Execute real notebook with source-pinned Python 3.14 kernel",
+            "Native review is 165 waters / 3818 retained; Back does not edit",
+            "Confirm traverses real widget comms, native edit and Mol* rendering",
+            "Empty ion selection and remount retain a bounded draft without a review",
+            "Canvas popup and Studio popup share the actual Jupyter authority",
+            "Kernel verifies actual inventory and exactly two managed edits"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_fingerprints": 1,
+          "unexpected_page_errors": 0
+        }
+      ],
+      "scenario_steps": 55
+    },
+    {
+      "scope": "distribution/reporting/inventory/course controls",
+      "state": "passed",
+      "passed": 65,
+      "exit": 0,
+      "duration_seconds": 6.26,
+      "warnings": 142,
+      "warning_groups": 1,
+      "log": "/tmp/msv-chemistry-record-route-checks-20261106.log",
+      "log_sha256": "f55419ee0beb88bb2ad1615b283998bf111f0a9031a5365815f0e386f147f18e",
+      "command": "python -m pytest --receptor=llm tests/test_distribution_manifests.py devtools/tests/test_validate_devguide.py devtools/tests/test_molsysviewer_tools_api_inventory.py devtools/tests/test_validate_course.py"
+    }
+  ],
+  "scene_comparison": {
+    "receipt": "/tmp/msv-chemistry-jupyter-all-20261106/test_actual_jupyter_chemistry_0/jupyter-chemistry/chemistry-scene-comparison.json",
+    "sha256": "a39a30f783804f25ffc6da3d5479e0887ef2bf4f0fe0af7242ab14c2f366381f",
+    "size_bytes": 3365,
+    "only_difference": "The first frontend camera record arrives after the initial pre-display snapshot. All scene objects, structure index and playback settings are identical; native coordinates/chemical dictionaries/revision are independently checked unchanged."
+  },
+  "preserved_failures": [
+    {
+      "log": "/tmp/msv-chemistry-panel-first-20261106.log",
+      "observation": "32 cases passed; two pending-reader panel requests were dropped by the existing host guard.",
+      "disposition": "Owned host #304 adds declared reader transport. Consumer 42-case gate now passes, while visual recovery-sheet admission remains incomplete."
+    },
+    {
+      "log": "/tmp/msv-chemistry-panel-states-20261106.log",
+      "observation": "Two new tests used nonexistent remove methods on scene managers.",
+      "disposition": "Use the established delete API; all original assertions remain."
+    },
+    {
+      "log": "/tmp/msv-chemistry-jupyter-first-20261106.log",
+      "observation": "Five preceding UI steps passed; a driver reused canvas navigation in detached Studio.",
+      "disposition": "Use the actual detached workspace/tab path already qualified in other drivers, retain deadlines and assertions."
+    },
+    {
+      "log": "/tmp/msv-chemistry-jupyter-popup-qualified-20261106.log",
+      "observation": "All six UI steps passed; a whole-document equality compared a pre-render snapshot without a camera with a live frontend snapshot.",
+      "disposition": "Assert the exact camera-only difference and retain exact objects/frame/playback, chemical dictionaries and every coordinate. Final seven-step case passes in 38.85 s and all eight scenarios pass in 355.50 s."
+    }
+  ],
+  "host_evidence": {
+    "focused": "23 host/metadata cases passed in 4.74 s; broader host/addon/endpoint/public API 111 passed with one existing legacy-entry skip in 9.40 s.",
+    "full_core_initial": "Restricted sandbox: 3451 passed, 24 failed, six errors, 21 skips and 15 Qt deselections in 531.24 s. Failed modules require loopback/Chromium/nested Node processes.",
+    "full_core_recovery": "All seven affected modules pass under approved host permissions with unchanged production inputs: 64 passed and one existing GPU-environment skip, 59.89 s. Scopes overlap; not a newly executed single green full run.",
+    "hosted": {
+      "run": 42206567353,
+      "state": "queued/in_progress",
+      "test_jobs": "two succeeded, two in progress, four queued",
+      "artifacts": [
+        "javascript-source-coverage"
+      ],
+      "qualification": "Exact-head hosted gate remains pending."
+    }
+  },
+  "prior_full_collection": {
+    "source": "dd34c371cbe78ba2ddd884266c0915d0783fb831",
+    "passed": 4657,
+    "skipped": 0,
+    "duration_seconds": 1072.21,
+    "warnings": 2732,
+    "warning_groups": 10,
+    "boundary": "Clean published periodic source only; not a complete collection on new Chemistry inputs."
+  },
+  "course_preservation": {
+    "changed_markdown_cells": [
+      22
+    ],
+    "preserved": "Every executable cell, output, cell ID, non-source field and notebook metadata. No native scientific backend edit or rebuild."
+  },
+  "static_checks": {
+    "ruff": "check/format passed, 4431 formatted files",
+    "dependency_contract": "PASS; five controlled workflows and source inventory pin published Viewer 63e79096",
+    "javascript": "Changed driver parses; actual Jupyter executes the real provider ESM",
+    "devguide": "validate_devguide.py and generated-index check pass"
+  },
+  "not_qualified": [
+    "pending-state pointer/keyboard workflow under Viewer #304",
+    "owner review/integration",
+    "complete latest-source addon collection",
+    "latest owner hosted matrix",
+    "postponed human Jupyter/visible Qt acceptance",
+    "clean installed/public packages",
+    "remaining Geometry/cell, Chemistry preparation/construction, Analysis and full session persistence"
+  ],
+  "publication": "Both 1.0 publications remain paused; no tag/candidate freeze/package/promotion."
+}

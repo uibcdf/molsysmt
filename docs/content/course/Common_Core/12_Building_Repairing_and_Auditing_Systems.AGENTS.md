@@ -116,3 +116,9 @@ all original executable cells, outputs, IDs and metadata.
 Preserve the independent expert add_ions pointer and received solvation seed,
 count, identifier and native digestion controls. Native scientific placement,
 atom maps and explicit result adoption remain separate from scene rendering.
+
+Preserve the source Chemistry report pointer: one stated structure/state,
+native field coverage and unassessed checks, unknown versus zero H counts,
+bounded source-index pages and no preparation or scene effects. Keep the
+pending-reader transport distinct from recovery-sheet interaction in Viewer
+#304, with expert APIs and all original executable course content preserved.

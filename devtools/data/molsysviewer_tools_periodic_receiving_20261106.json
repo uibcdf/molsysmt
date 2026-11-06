@@ -335,7 +335,6 @@
   },
   "not_qualified": [
     "owner review and integration",
-    "complete latest-source addon collection",
     "exact latest-head hosted matrix",
     "human Jupyter/visible Qt acceptance (explicitly postponed)",
     "clean installed packages and publication",
@@ -344,9 +343,17 @@
   ],
   "publication": "Both 1.0 publications paused; no tag, candidate freezing, package build or promotion authorized by this receipt.",
   "latest_full_collection": {
-    "state": "in_progress",
+    "state": "passed",
+    "source": "dd34c371cbe78ba2ddd884266c0915d0783fb831",
+    "passed": 4657,
+    "skipped": 0,
+    "exit": 0,
+    "duration_seconds": 1072.21,
+    "warnings": 2732,
+    "warning_groups": 10,
     "log": "/tmp/msv-periodic-full-addon-20261106.log",
+    "log_sha256": "9ae59756ed90185f0fc9faa1200bfebf2934ba4be820152d0818ae823e25534b",
     "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
-    "boundary": "Started on the fixed periodic source files recorded above. No passing result is claimed until authoritative completion."
+    "boundary": "Completed on the clean published periodic source; all 14 recorded source digests unchanged. This does not qualify subsequent Chemistry or other new runtime changes."
   }
 }

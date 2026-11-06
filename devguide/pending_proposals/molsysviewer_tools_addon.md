@@ -8,7 +8,7 @@ verification: inspected
 area: [api, molsysviewer, addons]
 guard:
 normative:
-blocked_by: [uibcdf/molsysmt#602, uibcdf/molsysmt#605, uibcdf/molsysmt#606, uibcdf/molsysmt#607, uibcdf/molsysmt#608]
+blocked_by: [uibcdf/molsysmt#602, uibcdf/molsysmt#605, uibcdf/molsysmt#606, uibcdf/molsysmt#607, uibcdf/molsysmt#608, uibcdf/molsysviewer#304]
 supersedes: []
 ---
 
@@ -16,7 +16,8 @@ supersedes: []
 
 **Current source GUI — 2026-11-06:** System / Remove atoms, Extract subset and
 Copy system, plus Geometry / Translate, Center, Superpose structures and bounded
-periodic coordinate tasks, are implemented in this contribution.
+periodic coordinate tasks, and Chemistry stored-information/hydrogen inspection
+are implemented in this contribution.
 Selection/lifecycle and independent-result controls are shared; native science
 and expert defaults are unchanged. The [receiving record](../../devtools/data/molsysviewer_tools_geometry_receiving_20261106.json)
 separates real Jupyter/popup and numerical evidence from pending hosted, owner,
@@ -26,6 +27,28 @@ adds geometric/mass-weighted centering, per-structure point/selection references
 and shared rejected-operation diagnostics (#603), with 114 panel checks, 172
 native/route controls and five actual Jupyter scenarios. Rotate awaits native
 #602; other required Geometry, Chemistry and Analysis tasks remain planned.
+
+## Chemistry inspection receiving — 2026-11-06
+
+The [source receipt](../../devtools/data/molsysviewer_tools_chemistry_receiving_20261106.json)
+records two explicit-state native reports, 42 focused cases within 363 native/
+panel controls and actual synchronized Jupyter/Mol*/popup receiving. Presence,
+unknowns, native field coverage, connectivity scope and unassessed checks stay
+distinct. Reports have bounded 50-row source-index pages, an explicit mounted
+lifetime and no preparation, scene adoption or generic persistence effects.
+Expert scientific signatures and native source remain unchanged.
+
+Controlled host 63e79096 adds declared incoming reader transport under
+uibcdf/molsysviewer#304. Old scene memberships are refused during pending
+synchronization, while the expert native reader remains available. The core
+recovery sheet still blocks the underlying pointer/keyboard UI, which remains
+required work in #304. Full latest-source/hosted, owner integration, postponed
+human and installed gates remain separate. Chemistry preparation/construction,
+Analysis and the whole scientific session still require their own receiving.
+
+The earlier clean periodic source dd34c371c completed all 4,657 addon cases in
+1072.21 s without skips. Its 2,732 warnings and exact inputs are retained; it
+does not qualify a full collection on these new Chemistry inputs.
 
 ## Periodic coordinate receiving — 2026-11-06
 

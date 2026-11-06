@@ -61,6 +61,7 @@ def main():
             "center-errors",
             "fit",
             "periodic",
+            "chemistry",
         ),
         default="system",
     )
@@ -279,6 +280,28 @@ def main():
             "_mass_policy.__exit__(None,None,None)\n"
             "print('JUPYTER_NATIVE_ERROR_PRESERVED')\n"
         )
+    if args.scenario == "chemistry":
+        initial = initial.removesuffix("view\n") + (
+            "import numpy as np\n"
+            "source_coordinates=msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm').copy()\n"
+            "source_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "source_scene=view.export_state()\n"
+            "view\n"
+        )
+        final = (
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+            "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),source_chemistry)\n"
+            "import json\n"
+            "current_scene=view.export_state()\n"
+            f"Path({str(output / 'chemistry-scene-comparison.json')!r}).write_text(json.dumps({{'before':source_scene,'after':current_scene}}))\n"
+            "assert 'camera' not in source_scene['view'] and 'camera' in current_scene['view']\n"
+            "source_objects={k:v for k,v in source_scene.items() if k!='view'}\n"
+            "assert {k:v for k,v in current_scene.items() if k!='view'}==source_objects\n"
+            "assert {k:v for k,v in current_scene['view'].items() if k!='camera'}==source_scene['view']\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==0\n"
+            "assert not view.addons.manager.presentations.records()\n"
+            "print('JUPYTER_CHEMISTRY_UNCHANGED',view.molsys.get_n_atoms())\n"
+        )
     # Keep a native stack if initialization stalls. The shell event closes the
     # diagnostic after the actual display hook, without warming that hook first.
     initial = (
@@ -345,7 +368,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("periodic_panel_jupyter.mjs")
+                        Path(__file__).with_name("chemistry_panel_jupyter.mjs")
+                        if args.scenario == "chemistry"
+                        else Path(__file__).with_name("periodic_panel_jupyter.mjs")
                         if args.scenario == "periodic"
                         else Path(__file__).with_name("fit_panel_jupyter.mjs")
                         if args.scenario == "fit"

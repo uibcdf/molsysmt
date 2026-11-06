@@ -30,13 +30,13 @@ jobs:
       - name: Require an exact MolSysViewer commit
         shell: bash
         env:
-          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || '49dba88ae992088259a6f0891b59dfc8730f5183' }}
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || '63e79096ef3c3414c2fabacf5f44e81e9b475440' }}
         run: |
           [[ "$MOLSYSVIEWER_SHA" =~ ^[0-9a-f]{40}$ ]]
 
       - name: Build the exact portable MolSysViewer dependency
         env:
-          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || '49dba88ae992088259a6f0891b59dfc8730f5183' }}
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || '63e79096ef3c3414c2fabacf5f44e81e9b475440' }}
         run: >-
           python -m pip wheel --no-deps
           git+https://github.com/uibcdf/molsysviewer@$MOLSYSVIEWER_SHA

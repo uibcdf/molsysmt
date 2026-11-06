@@ -100,6 +100,9 @@ class _MolecularTaskPanel(AddonPanelWidget):
     def _restore_inputs(self):
         pass
 
+    def _release_task_data(self):
+        """Release panel-owned reports when their mounted lifetime ends."""
+
     @signal(tags=["addon", "panel"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def on_mount(self, view, *, skip_digestion=False):
@@ -128,6 +131,7 @@ class _MolecularTaskPanel(AddonPanelWidget):
         self._review = None
         self._outcome = None
         self._diagnostic = None
+        self._release_task_data()
         if self._owner is not None:
             self._owner._task_panels.discard(self)
         self._owner = None
@@ -267,7 +271,7 @@ class _MolecularTaskPanel(AddonPanelWidget):
             basic.select(
                 target,
                 selection=selection,
-                structure_indices=[frame],
+                structure_indices="all" if frame is None else [frame],
                 element="atom",
                 chemical_state="reference",
             ),

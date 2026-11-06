@@ -589,3 +589,13 @@ or implement periodic formulas in the addon. Cell editing remains required and
 pending #605; general-cell support is not silently deferred or declared complete.
 Keep complete expert native signatures and their actual limits distinct from
 this graphical admission. Follow devguide/periodic_tools_gui_qualification.md.
+
+Preserve Chemistry inspection as read-only native chemical-readiness/hydrogen
+reports over one explicit structure and stated chemical state. Distinguish
+stored presence from validation and unknown non-indexed H from zero. Keep
+reference-context populations, whole-state versus incident connectivity, native
+units/indices/evidence, bounded 50-row pages and mounted-report lifetimes. Do
+not add preparation, adoption, a global readiness flag or generic persistence.
+Keep declared pending-reader transport separate from the still-blocked recovery
+sheet UX in Viewer #304, and source qualification separate from installed and
+postponed human acceptance.

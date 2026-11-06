@@ -85,6 +85,7 @@ def test_workspace_registration_keeps_lazy_expert_api_and_only_real_task(case):
     assert [(p.id, p.title) for p in spec.panels] == [
         ("system", "System"),
         ("geometry", "Geometry"),
+        ("chemistry", "Chemistry"),
     ]
     assert "system" not in dir(view.addons.molsysmt)
     assert state(sent)["context"]["has_system"]
