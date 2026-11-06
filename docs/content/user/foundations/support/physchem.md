@@ -87,8 +87,8 @@ Observables describing spatial extent, solvent exposure, and molecular volume:
 | **`sasa`** | Supported geometric population | Coordinate-based solvent-accessible surface area. | `nanometer ** 2` (`nm²`) |
 | **`surface_area`** | Group | Tabulated Collantes ISA with a provisional Å² convention; original-paper review remains open in #473. | standardized area (nm² by default) |
 | **`volume`** | Group / System | Molecular or atomic volume via Voronoi tessellation or solvent envelope. | `nanometer ** 3` (`nm³`) |
-| **`area_buried`** | Group / Interface | Surface area buried upon interface formation or folding. | `nanometer ** 2` (`nm²`) |
-| **`buried_fraction`** | Atom / Group | Fractional extent of surface burial ($0.0 \dots 1.0$). | N/A |
+| **`area_buried`** | Group | Tabulated Rose reference buried-area descriptor, independent of coordinates. | raw reference array in `angstrom ** 2` (`Å²`) |
+| **`buried_fraction`** | Group | Tabulated Janin reference buried-fraction descriptor, independent of coordinates. | dimensionless |
 
 The historical Collantes ISA table is a lookup of QSAR descriptors, not a new
 surface measurement on the selected coordinates. Its public reader now wraps
@@ -105,6 +105,16 @@ selection or aggregation. All atoms in the input remain occluders. Its quantity
 is standardized to the square of the configured standard length unit (nm² by
 default), independently of coordinate or probe input units. Use explicit area
 conversion for exports and comparisons.
+
+For a two-partner geometric interface, extract the dry pair and each isolated
+partner at the same coordinates. Their total loss of SASA is
+`SASA(A) + SASA(B) - SASA(A ∪ B)`; its half is the mean interface-area convention.
+All three calculations must use identical radii, probe and numerical settings.
+An output selection leaves unselected atoms as occluders, including solvent.
+The Rose/Janin tables do not measure this area. See
+{ref}`Tutorial_Get_sasa_interface` for an executed geometric example and its
+Cartesian/whole-image assumptions. Neither area nor a geometric interaction
+count establishes binding affinity or stability.
 
 Request Cartesian screening with `pbc=False`. With a box, the native default
 `pbc=True` uses minimum-image screening by other atoms, excluding self-images;

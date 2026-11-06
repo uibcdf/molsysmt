@@ -1,11 +1,12 @@
 from molsysmt._private.smonitor import ArgumentError
 
+from ._attribute_query import digest_query_flag
+
 
 def digest_implicit_solvent(implicit_solvent, caller=None):
 
     if caller == "molsysmt.basic.get.get":
-        if isinstance(implicit_solvent, bool):
-            return implicit_solvent
+        return digest_query_flag("implicit_solvent", implicit_solvent, caller=caller)
     elif caller == "molsysmt.basic.convert.convert" or (
         caller is not None and caller.startswith("molsysmt.molecular_mechanics.")
     ):

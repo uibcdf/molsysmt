@@ -1,5 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 
+from ._attribute_query import digest_query_flag
+
 
 def digest_forcefield(forcefield, caller=None):
 
@@ -10,8 +12,7 @@ def digest_forcefield(forcefield, caller=None):
         return None
 
     if caller == "molsysmt.basic.get.get":
-        if isinstance(forcefield, bool):
-            return forcefield
+        return digest_query_flag("forcefield", forcefield, caller=caller)
 
     if isinstance(forcefield, str):
         from molsysmt.attribute import attributes

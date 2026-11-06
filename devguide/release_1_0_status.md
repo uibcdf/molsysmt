@@ -20,6 +20,83 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Course geometric interface observable — 2026-11-05
+
+**#589 is source-corrected.** The Alzheimer capstone uses explicit partner atom
+populations and existing extraction/SASA tools to calculate fixed-coordinate
+total SASA loss and its separately named half-area convention. The dry union
+and isolated partners use identical radii/probe/sampling and Cartesian geometry.
+H-bond counts use the same geometry and state a distance criterion rather than
+energetic stabilization. Rose/Janin descriptors are distinguished from geometric
+measurements in Foundations, Toolbox, Cookbook and course. No runtime API,
+algorithm, dependency, unit policy, compiled kernel or schema changes.
+
+Receiving passes **749 related tests**, **22 published-support-floor cases**
+and **569 documentation/doctest cases**, including ten new actual-cell guards.
+Suites overlap. Independent carbon-sphere, separated/periodic-cell, background
+occluder, noncanonical-unit and source-preservation controls bound the science.
+The complete seven-cell SASA tutorial executes in **11.2 s**, retaining original
+examples. No synthetic output is published under biological project labels.
+See the [owning record](archive/resolved_bugs/alzheimer_final_project_uses_a_reference_descriptor_as_a_geometric_interface_are.md)
+and [receipt](../devtools/data/course_interface_sasa_receiving_589_20261105.json).
+
+**New #593** owns the capstone's unsupported builder keywords, discarded
+independent repair outputs and unqualified complete preparation. The course
+labels that route as an outline; closing the surface-observable defect does not
+qualify a simulation-ready model, pose or biological effect. Retain this separate
+correctness item before claiming complete course execution. Next work returns
+to PR **#543** receiving (#587/#590/#591), observed head
+`1c88e785b4327350ad586d437a569eff1a2c5c9a`; it is not merged or qualified here.
+The checkpoint board refresh found no other new native bug. The prior
+#583/#584 head now has five successful routine hosted controls; this remains
+separate from nightly, installed/platform and release qualification under #334.
+No tag, Release, promotion or new release matrix is launched.
+
+## Mechanical reader flags — 2026-11-05
+
+**#584 is source-corrected.** Sixteen scalar mechanics readers now use the
+existing shared Boolean query contract. True reads, False omits, absent settings
+return None and stored Boolean settings remain data. Basic reads across MolSys,
+MolecularMechanics and MolecularMechanicsDict agree; native MolSys reads reuse
+the same value contract. Physical setter/converter branches and #581 constraint
+translation retain their meaning. No new defaults, engine execution, signature,
+dependency, attribution event or schema is introduced by a read.
+
+Receiving passes **1,193 affected tests**, **313 published-support-floor cases**,
+**23 setter/conversion cases** and **569 documentation/doctest cases**, including
+152 new public query cases. Suites overlap. See the
+[owning record](archive/resolved_bugs/basic_get_constraints_reader_flag_is_rejected.md)
+and [receipt](../devtools/data/mechanical_query_flags_receiving_584_20261105.json).
+All three edited notebooks preserve executable evidence. The shared private
+helper's chemical-state consumers remain covered by the broader run.
+
+The checkpoint board refresh found no new native correctness report ahead of
+the existing queue. Continue with **#589**, then PR **#543** receiving (latest
+head observed `1c88e785b4327350ad586d437a569eff1a2c5c9a`), including #587/#590/#591.
+The PR is not merged or qualified by these native fixes. #582 and #592 remain
+separate design/capability proposals. Batch #583/#584 into one unskipped hosted
+checkpoint; installed/platform and release evidence remains separate under #334.
+No tag, Release, promotion or new release matrix is launched.
+
+## Shared OpenMM scientific attribution — 2026-11-05
+
+**#583 is source-corrected.** Implicit-model construction and OpenMM solvation
+with native ion replacement now reuse canonical software metadata for the actual
+producer version. Separate captures retain each operation's context, OBC paper
+and nested ion-replacement uses without disabling conflict detection. Optional
+tracking absence/failure preserves completed science and detached provenance.
+No force field, coordinate algorithm, public signature or schema changes.
+
+Receiving passes **1,232 affected tests**, **54 published-support-floor cases**
+and **569 documentation/doctest cases**, including six real-engine guards.
+Suites overlap. The three edited notebooks preserve all executable evidence.
+See the [owning record](archive/resolved_bugs/openmm_metadata_conflicts_between_implicit_models_and_solvation.md)
+and [receipt](../devtools/data/openmm_attribution_receiving_583_20261105.json).
+Continue with **#584**, then **#589**; PR #543 receiving retains #587/#590/#591.
+Hosted controls, installed/platform and release gates remain separate under
+#334. This does not qualify the complete preparation/dynamics protocol or launch
+a tag, Release, promotion or new release matrix.
+
 ## Existing-engine minimization ownership — 2026-11-05
 
 **#588 is source-corrected.** Independent requests involving live OpenMM

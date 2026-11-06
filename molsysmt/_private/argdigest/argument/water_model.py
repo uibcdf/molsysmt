@@ -1,5 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 
+from ._attribute_query import digest_query_flag
+
 
 def digest_water_model(water_model, caller=None):
 
@@ -21,8 +23,7 @@ def digest_water_model(water_model, caller=None):
             return aliases[key]
 
     if caller == "molsysmt.basic.get.get":
-        if isinstance(water_model, bool):
-            return water_model
+        return digest_query_flag("water_model", water_model, caller=caller)
 
     if isinstance(water_model, str):
         from molsysmt.attribute import attributes

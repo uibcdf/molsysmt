@@ -1,10 +1,14 @@
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
 
+from ._attribute_query import digest_query_flag
 from ._quantity_parsing import parse_quantity_string
 
 
 def digest_cutoff_distance(cutoff_distance, caller=None):
+
+    if caller == "molsysmt.basic.get.get":
+        return digest_query_flag("cutoff_distance", cutoff_distance, caller=caller)
 
     if isinstance(cutoff_distance, str):
         cutoff_distance = parse_quantity_string(

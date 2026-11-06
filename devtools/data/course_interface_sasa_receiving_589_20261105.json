@@ -1,0 +1,143 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#589",
+  "base_commit": "8e9e3d2078ef41d22f6198e1d5c23379e11f4619",
+  "python": "3.14.7",
+  "versions_observed": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.1+6.gf82b618",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "version_note": "Editable distribution metadata is not current source Git identity or an installed/platform release qualification. Public support floors are independently checked by import origin and hash.",
+  "files": {
+    "devguide/archive/resolved_bugs/alzheimer_final_project_uses_a_reference_descriptor_as_a_geometric_interface_are.md": "f4dd7898917ee92f1e8b1a82feaf354e05379fca36e87bd11903ee7b663077a9",
+    "devguide/pending_bugs/alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md": "c8ac7a00d030f90276b0f02b7cedf3e12dbf35edfaec2d146f2caf7f3f95fe79",
+    "devguide/pending_bugs/README.md": "1ca63fb7c05395d3997596fad7ff81454085bf2f88d889e0917fa8dfd0c5b253",
+    "devguide/pending_bugs/docs/README.md": "67b7bdeebd82cd769f3f08508c82493bd1216b5603d1ca753fb1ce14da5da5b4",
+    "devguide/release_1_0_status.md": "75aed28c40bf7acda7371f5241de93fc303607362cdd06eca6223e465d282406",
+    "docs/content/course/Path_Alzheimer/54_Final_Project.ipynb": "c1a7977ef491ab8972558241c6c49a2473bc9ac4176d028012e3485eee57b941",
+    "docs/content/course/Path_Alzheimer/54_Final_Project.AGENTS.md": "2c88cf6f61a06046b8926c8d5b40abaf07c7877547827361387849d97276afe4",
+    "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb": "140293f29fc207788b92f89ac431b596c47daadfdc73056a5ea1ed73bda31f93",
+    "docs/content/user/foundations/support/physchem.md": "cbe8dded29d70d6fa08517e9b246cb79568fe75a6709b8f2bf91a2a5ce18d8e3",
+    "docs/content/user/tools/physchem/get_sasa.ipynb": "8ff7dc96b4fee68582d61e9398048a3329dbbf7a701a6e21fa2eaa5e1f3f20c2",
+    "docs/content/user/tools/physchem/get_sasa.ipynb.AGENTS.md": "898431a21d55fcd68e4f8d33304f56a8494c601c97a3fd36dfa80a3a6dc11bed",
+    "docs/content/user/tools/physchem/get_sasa.nbconvert.last_run": "a7af52fb6bd64ea42b1479a6ae2a87bc32acf130059dd090f10e7752ac033ccb",
+    "tests/physchem/get_sasa/test_course_interface_sasa.py": "0018f8e554cc2fa10fe8daff7eaccdc7532c4a80239cbbd50fd9fabb86dad0fd"
+  },
+  "baseline": {
+    "selection": "tests/physchem/get_sasa/test_course_interface_sasa.py -k tracks_geometry --receptor=llm -n 2",
+    "failed": 4,
+    "exit_code": 1,
+    "seconds": 2.91,
+    "observation": "Executing the actual characterization cell fails with UnknownArgumentError for selection_2 on a reference-table lookup."
+  },
+  "checks": [
+    {
+      "selection": "tests/physchem/get_sasa tests/physchem/get_area_buried tests/physchem/test_property_selection_contract.py tests/scientific_truth/physchem/test_sasa.py tests/molecular_mechanics/potential_energy_minimization",
+      "runner": "python -m pytest --receptor=llm -n 4",
+      "passed": 749,
+      "seconds": 57.37,
+      "exit_code": 0
+    },
+    {
+      "selection": "tests/physchem/get_sasa/test_course_interface_sasa.py tests/scientific_truth/physchem/test_sasa.py",
+      "runner": "python -m pytest -p no:smonitor --receptor=llm -n 2",
+      "profile": "published-support-floors, no new environment",
+      "passed": 22,
+      "seconds": 5.2,
+      "exit_code": 0
+    },
+    {
+      "selection": "devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/physchem/get_sasa.py",
+      "runner": "python -m pytest --receptor=llm -n 2",
+      "passed": 569,
+      "seconds": 18.86,
+      "exit_code": 0
+    },
+    {
+      "command": "python docs/execute_notebooks.py -q -n 1 -f docs/content/user/tools/physchem/get_sasa.ipynb",
+      "executed_notebooks": 1,
+      "code_cells": 7,
+      "seconds": 11.2,
+      "exit_code": 0
+    }
+  ],
+  "new_guard_cases": 10,
+  "scientific_oracle": {
+    "kind": "independent closed-form equal-sphere cap area",
+    "carbon_vdw_radius_nm": 0.17,
+    "probe_radius_nm": 0.14,
+    "distance_nm": [
+      0.31,
+      2.9
+    ],
+    "n_sphere_points": 960,
+    "total_sasa_loss_formula": "2*pi*r*max(0, 2*r-d)",
+    "mean_interface_area": "total_sasa_loss/2",
+    "per_atom_sampling_tolerance_nm2": 0.0101,
+    "total_loss_tolerance_nm2": 0.0202,
+    "tolerance_owner": "tests/scientific_truth/evidence/tolerances.json",
+    "scope": "Two carbon probes only; not general molecular/PISA/GPU accuracy."
+  },
+  "geometry": "Cartesian pbc=False for both SASA and H-bonds. Dry partner extraction removes a nearby background oxygen. Partners must already be whole in the intended common image; no periodic reconstruction.",
+  "units": "Quantities remain typed through three SASA calls and subtraction/division. nm and angstrom standard policies preserve physical nm-squared results and application policy.",
+  "source_ownership": "Original atom/group tables and coordinates remain unchanged; isolated partners use unchanged bound coordinates.",
+  "attribution_boundary": "Original Shrake-Rupley reference and PDBePISA half-area convention are documented. PISA is not executed or credited; no new library method/attribution boundary is introduced. H-bond detection retains its existing attribution implementation.",
+  "primary_sources": [
+    {
+      "url": "https://doi.org/10.1016/0022-2836(73)90011-9",
+      "role": "Existing Shrake-Rupley method reference."
+    },
+    {
+      "url": "https://www.ebi.ac.uk/pdbe/prot_int/pi_tips.html",
+      "role": "Only the half-area convention; its radii/energetic choices are not adopted."
+    }
+  ],
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "payload_preservation": {
+    "cookbook": "Original executable cells/outputs and metadata retained; prose only.",
+    "course": "Original preparation/minimization code and all unexecuted output payloads retained. Assembly maps and geometric characterization updated; no synthetic output saved under biological labels.",
+    "toolbox": "Every original cell source retained; complete tutorial re-executed, including a new clearly labeled carbon-probe example."
+  },
+  "followup": {
+    "issue": "uibcdf/molsysmt#593",
+    "scope": "Unsupported upstream builder keywords, discarded independent repair returns, physical preparation/assembly/parameterization and full-project execution remain unqualified."
+  },
+  "runtime_source_files_changed": false,
+  "protected_human_files_unchanged": true,
+  "compiled_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "thread_limits": {
+    "OMP_NUM_THREADS": 1,
+    "OPENMM_CPU_THREADS": 1,
+    "MPLBACKEND": "Agg"
+  },
+  "hosted_and_release_boundary": "Routine exact-head inspection follows publication; full nightly, installed/platform and release gates remain separate under #334. No tag, Release, promotion or new release matrix."
+}
