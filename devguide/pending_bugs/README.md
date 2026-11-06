@@ -34,9 +34,8 @@ that front matter -- edit the entries, not this list.
 - [`nglview_empty_workspace_tests_leave_links_referencing_closed_widgets.md`](nglview_empty_workspace_tests_leave_links_referencing_closed_widgets.md) — [#598](https://github.com/uibcdf/molsysmt/issues/598) — NGLView empty-workspace tests leave links referencing closed widgets *(medium, reproduced)*
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
-### Partially resolved (5)
+### Partially resolved (4)
 
-- [`alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md`](alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md) — [#593](https://github.com/uibcdf/molsysmt/issues/593) — Alzheimer capstone preparation uses unsupported builder keywords and drops independent repairs. *(medium, reproduced)*
 - [`devguide_board_sync_truncates_issue_history.md`](devguide_board_sync_truncates_issue_history.md) — [#587](https://github.com/uibcdf/molsysmt/issues/587) — Devguide board reconciliation falsely loses issues older than its capped inventory. *(medium, reproduced)*
 - [`molecular_tools_completion_lost_on_refresh.md`](molecular_tools_completion_lost_on_refresh.md) — [#590](https://github.com/uibcdf/molsysmt/issues/590) — Molecular tools loses the completed-removal outcome during automatic panel refresh *(medium, reproduced)*
 - [`molecular_tools_jupyter_summary_layout.md`](molecular_tools_jupyter_summary_layout.md) — [#591](https://github.com/uibcdf/molsysmt/issues/591) — Molecular tools review summary inherits incompatible Jupyter definition-list floats *(medium, reproduced)*

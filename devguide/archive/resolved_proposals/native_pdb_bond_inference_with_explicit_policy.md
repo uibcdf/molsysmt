@@ -1,9 +1,9 @@
 ---
 summary: Add native PDB bond inference with explicit policy while retaining OpenMM
 issue: uibcdf/molsysmt#304
-status: partial
+status: resolved
 opened: 2026-10-03
-closed:
+closed: 2026-11-06
 verification: measured
 area: [form, build]
 guard: tests/form/file_pdb/test_connectivity_policy.py
@@ -23,18 +23,20 @@ are implemented and contract-tested. Explicitly naming-scoped cap references
 and their bounded amide endpoints are also contract-tested. Direct-reader
 naming context is delivered before classification/inference.
 Curated modified-group application and declared-only disulfide/coordination plus
-disabled unsupported-group geometry policies are contract-tested. Final combined
-qualification/integration is pending; none of these tools certifies complete chemistry.
+disabled unsupported-group geometry policies are contract-tested. Feature
+acceptance is complete at owner integration. Full-version matrix and installed
+qualification remain separate release obligations; none of these tools certifies
+complete chemistry.
 
 **Scheduling — 2026-10-05:** the bounded engine/application contract is included
-experimentally in the [frozen 1.0 scope](../release_1_0_scope.md). Remaining H-name,
+experimentally in the [frozen 1.0 scope](../../release_1_0_scope.md). Remaining H-name,
 terminal/group/disulfide/declaration and performance extensions stay owned by
 #304 in the post-1.0 backlog. Correctness defects in the offered profile remain
 admissible stabilization work; this scheduling decision does not close the issue
 or certify complete native receptor preparation.
 
 **Current scheduling — 2026-11-06:** the maintainer's
-[ordered resolution objective](../release_1_0_status.md#maintainer-ordered-resolution-goal--2026-11-06)
+[ordered resolution objective](../../release_1_0_status.md#maintainer-ordered-resolution-goal--2026-11-06)
 explicitly resumes the remaining #304 work before closeout. The earlier
 post-1.0 allocation is not a reason to stop that authorized work. This retains
 the bounded connectivity scope and separate release authorization.
@@ -328,7 +330,7 @@ python devtools/scripts/probe_covalent_bond_candidates.py \
 ```
 
 The source checksums match the original inputs in #304. The retained receipt is
-[`native_covalent_candidate_profile_20261005.json`](../../devtools/data/native_covalent_candidate_profile_20261005.json).
+[`native_covalent_candidate_profile_20261005.json`](../../../devtools/data/native_covalent_candidate_profile_20261005.json).
 On 181L (1,441 atoms / 302 groups), the method returns **1,148 heavy intra-group
 candidates**: 162 assessed groups and 140 unassessed groups. Original 1IEP
 (4,412 atoms / 274 groups) returns **2,015 heavy intra-group candidates** with
@@ -399,7 +401,7 @@ public `get` stringification of alternate mapping indices as though they were ID
 The candidate tool continues using source-preserving native/form iterators for
 bounded geometry access. uibcdf/molsysmt#330 fixes legacy iterator reads
 of an absent box and is recorded in the
-[resolved report](../archive/resolved_bugs/legacy_h5msm_iterator_indexes_an_absent_periodic_box.md).
+[resolved report](../resolved_bugs/legacy_h5msm_iterator_indexes_an_absent_periodic_box.md).
 Legacy alternate-label arrays unsupported by the sparse-site contract remain
 unassessed rather than being ignored. Caller-owned handlers stay open.
 
@@ -441,7 +443,7 @@ python devtools/scripts/probe_covalent_bond_candidates.py \
 ```
 
 The retained receipt is
-[`native_peptide_candidate_profile_20261005.json`](../../devtools/data/native_peptide_candidate_profile_20261005.json).
+[`native_peptide_candidate_profile_20261005.json`](../../../devtools/data/native_peptide_candidate_profile_20261005.json).
 Original input hashes and heavy-template candidate hashes match the previous
 probe. 181L returns **161 peptide candidates**, in addition to its 1,148 heavy
 intra-group candidates. Original 1IEP returns **271 peptide candidates**, in
@@ -578,7 +580,7 @@ python devtools/scripts/probe_covalent_bond_candidates.py \
 ```
 
 The retained receipt is
-[`native_unique_peptide_candidate_profile_20261005.json`](../../devtools/data/native_unique_peptide_candidate_profile_20261005.json).
+[`native_unique_peptide_candidate_profile_20261005.json`](../../../devtools/data/native_unique_peptide_candidate_profile_20261005.json).
 Original source checksums and heavy intra-group candidate hashes match the prior
 probe. 181L retains **161** peptide candidates. Original 1IEP produces **273**,
 retaining all 271 previous candidates and adding these directional source pairs:
@@ -706,7 +708,7 @@ python devtools/scripts/probe_covalent_bond_candidates.py \
 ```
 
 The retained receipt is
-[`native_hydrogen_candidate_profile_20261005.json`](../../devtools/data/native_hydrogen_candidate_profile_20261005.json).
+[`native_hydrogen_candidate_profile_20261005.json`](../../../devtools/data/native_hydrogen_candidate_profile_20261005.json).
 181L has no observed H and returns a typed empty H candidate result. Original
 1IEP has **2,183 observed H atoms** and yields **2,157 H-parent candidates**.
 The remaining 26 names lack an exact reference in their own group: HN1 (1),
@@ -718,7 +720,7 @@ Heavy and peptide candidate counts/hashes match the previous receipt. Original
 file bytes and coordinates are unchanged.
 
 The separate
-[`native_hydrogen_reader_comparison_20261005.json`](../../devtools/data/native_hydrogen_reader_comparison_20261005.json)
+[`native_hydrogen_reader_comparison_20261005.json`](../../../devtools/data/native_hydrogen_reader_comparison_20261005.json)
 compares these pairs with the existing enabled-reader graph (4,469 edges).
 **2,156 of 2,157 candidates occur in that graph.** The disagreement is source
 pair `[0, 3427]`, HB2-CB in source group index 0, SER with group ID `438`.
@@ -879,7 +881,7 @@ python devtools/scripts/probe_native_pdb_connectivity.py \
 ```
 
 The retained
-[`native_pdb_reader_profile_20261005.json`](../../devtools/data/native_pdb_reader_profile_20261005.json)
+[`native_pdb_reader_profile_20261005.json`](../../../devtools/data/native_pdb_reader_profile_20261005.json)
 records original source checksums, axis/coordinate/pair hashes, producer versions,
 source base commit and six implementation file fingerprints. Source bytes and
 coordinates remain unchanged; compared source atom axes match. Native runs reject
@@ -1025,7 +1027,7 @@ selection (11.56 s). Structural form checks pass for 97 adapters without declari
 runtime-field fidelity; #600 is an explicit counterexample to treating that
 structural result as scientific delivery proof. Ruff, formatting, dependency
 imports/contracts and 247-function docstring validation pass. The
-[policy receipt](../../devtools/data/cif_connectivity_policy_receiving_304_20261106.json)
+[policy receipt](../../../devtools/data/cif_connectivity_policy_receiving_304_20261106.json)
 retains source/test/backend hashes, actual four-provider public import origins,
 individual overlapping JUnit results, draft failures and remaining issue scope.
 
@@ -1102,7 +1104,7 @@ rejects those limitations. Complete chemical certification is not introduced.
 Ruff lint/format, dependency imports/contracts, public API stability and the
 247-function docstring check pass. Linux/Python 3.14.7, existing development
 environment and unchanged compiled backend. See the
-[receiving receipt](../../devtools/data/pdb_declaration_receiving_304_20261106.json)
+[receiving receipt](../../../devtools/data/pdb_declaration_receiving_304_20261106.json)
 for exact source hashes, original-input probe, failure history, import origins,
 notebook preservation and individual overlapping JUnit results.
 
@@ -1135,7 +1137,7 @@ reader-policy difference, not a claim that geometric closeness alone proves
 bond order, protonation, stereochemistry or the correctness of every source site.
 No external OpenMM defect is asserted or published.
 
-The [pair audit](../../devtools/data/native_pdb_disagreement_audit_304_20261106.json)
+The [pair audit](../../../devtools/data/native_pdb_disagreement_audit_304_20261106.json)
 retains every differing source pair, labels, coordinates with explicit units,
 distances, exact alias resource, installed software origin and parsed group
 indices. The combined inference/benchmark-control selection passes **24 tests in
@@ -1178,7 +1180,7 @@ and serialization checks; final RSS includes H5MSM verification for the native
 route. Neither metric isolates graph allocations or a single coordinate buffer.
 The fresh-process wall measurement includes startup and verification. All raw
 observations, stderr summaries, exact graphs, hashes and producer/source context
-are retained in the [benchmark receipt](../../devtools/data/native_pdb_benchmark_304_20261106.json).
+are retained in the [benchmark receipt](../../../devtools/data/native_pdb_benchmark_304_20261106.json).
 Three replicates provide descriptive medians/ranges, not a statistical superiority
 claim or qualification of arbitrary trajectories/platforms.
 
@@ -1296,7 +1298,7 @@ edges**, adding exactly the earlier 25 OpenMM-only H-parent pairs to the exact
 native 4,445. No exact-native pair is lost; the explained noncontiguous-group
 HB2–CB pair remains. Names, stable atom rows and physical coordinates are
 unchanged. This does not make OpenMM parity a target or certify whole-source
-chemistry. See the [receiving receipt](../../devtools/data/hydrogen_alias_receiving_304_20261106.json)
+chemistry. See the [receiving receipt](../../../devtools/data/hydrogen_alias_receiving_304_20261106.json)
 for exact source/assets, provider origins, raw JUnit results and the original
 source probe. No dependency floor, compiled backend or H5MSM schema changes.
 
@@ -1391,7 +1393,7 @@ Moving that competitor to a different source group fixes the intended control;
 the production competition rule is unchanged. The receipt retains these
 development failures rather than presenting them as passing runs.
 
-The [receiving receipt](../../devtools/data/terminal_cap_receiving_304_20261106.json)
+The [receiving receipt](../../../devtools/data/terminal_cap_receiving_304_20261106.json)
 records implementation/data hashes, the JUnit results, provider origins and
 unchanged-original probes. Original 181L/1IEP source bytes are retained; their
 disabled/native graph, stable-axis and coordinate digests match the earlier
@@ -1494,7 +1496,7 @@ The final notebook/source-boundary follow-up passes **1,004 overlapping cases in
 13.86 s** after the last narrative clarification. Developer-guide and generated
 index checks pass with the issue still partial.
 
-The [receiving receipt](../../devtools/data/pdb_naming_context_receiving_304_20261106.json)
+The [receiving receipt](../../../devtools/data/pdb_naming_context_receiving_304_20261106.json)
 retains exact sources, runtime/floor provider origins and all failed development
 runs. The initial draft used an unavailable root Topology import; the supported
 native namespace fixes that test defect. The corrected baseline has 24 failures
@@ -1602,7 +1604,7 @@ passing gate. The final command explicitly excludes that one network case and
 completes all 227 selected cases. Ruff's first run found an import-order error
 in the new test; sorting imports corrects it, and final Ruff plus the final
 55-case profile pass. The
-[receiving receipt](../../devtools/data/pdb_policy_boundaries_receiving_304_20261106.json)
+[receiving receipt](../../../devtools/data/pdb_policy_boundaries_receiving_304_20261106.json)
 retains these unsuccessful runs as well as the accepted results and exact hashes.
 
 ### Final acceptance map and remaining gate
@@ -1641,7 +1643,7 @@ source results.
 
 ### Received artifacts and actual test accounting
 
-The [partial receiving receipt](../../devtools/data/native_pdb_full_source_receiving_304_20261106.json)
+The [partial receiving receipt](../../../devtools/data/native_pdb_full_source_receiving_304_20261106.json)
 retains the native artifact metadata, exact run/head, SHA-256, size, scientific
 certificates and selected test-accounting facts. All thirteen received archives
 match their independently checked GitHub digest and size. Ephemeral download
@@ -1692,7 +1694,7 @@ frozen PR gate caused by the stale generated argument table.
 
 ### Coverage reads the returned graph
 
-The [original-graph receiving receipt](../../devtools/data/native_pdb_actual_graph_receiving_304_20261106.json)
+The [original-graph receiving receipt](../../../devtools/data/native_pdb_actual_graph_receiving_304_20261106.json)
 records an additional fresh audit of both unchanged original PDBs on this
 tracked-clean source, with OpenMM imports blocked. For 181L, explicit-only
 input has 13 stored bonds, zero assessed groups, 162 incomplete and 140
@@ -1716,3 +1718,31 @@ Finish the two queued macOS jobs, inspect their actual evidence, integrate the
 qualified owner source and perform documented closeout. The issue remains
 partial; the ordered fifteen-issue objective is unchanged. These receipts
 do not authorize tags, Releases, package promotion or a new source matrix.
+
+## Resolution and feature-closeout audit — 2026-11-06
+
+**Accepted and implemented:** the bounded native PDB alternative, retained OpenMM
+route, explicit-only policy and provenance contract satisfy this issue's acceptance.
+The guard `tests/form/file_pdb/test_connectivity_policy.py` protects the original
+direct-file policy failure and explicit native/OpenMM behavior. The additional
+declaration, exact-template, H-name, cap, peptide, unsupported-chemistry, graph-audit
+and benchmark controls documented above cover the remaining requested dimensions.
+Original input hashes, disagreements and the measured native performance costs
+remain visible; no faster, universal-chemistry or full-preparation claim is made.
+
+Owner integration takes prepared source 8941bcfd4, containing the qualified
+#304 implementation at 56b37c983 and subsequent compatible prepared work.
+The source-only closeout does not include the unfinished #557 branch.
+
+The earlier decision to wait for every full-version matrix cell before closing
+this feature was broader than the issue's acceptance criteria. All four Linux
+Python minors and macOS 3.12/3.13 have independently received full-suite artifacts,
+including all 83 registered scientific and 432 directed connectivity cases. The
+two queued macOS lanes remain mandatory **version qualification** under #334 and
+the maintained release ledger. The frozen running source/ref is retained, without
+restart, a gate waiver or an installed/release readiness claim.
+
+The feature is therefore closed with its implementation, public documentation,
+benchmarks and executable guards. Untested larger scientific interpretations stay
+outside the bounded method contract; their independent owners are not silently
+declared complete. No tag, Release, package build, upload or promotion follows.

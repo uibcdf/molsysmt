@@ -32,7 +32,17 @@ closure. Prior post-freeze scheduling of listed work does not block this explici
 instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
-**Active: #304.** The native profile now has qualified explicit reader policy,
+**Completed feature criteria: #304 and #593. Next ordered issue: #428.**
+Owner integration uses the verified prepared source through 8941bcfd4. The
+unfinished #557 working branch is excluded. #428 still requires actual installed
+public-ArgDigest receiving; public payload inspection/source-path tests do not
+satisfy that requirement. The complete version matrix and installed MolSysMT/Viewer
+pair remain required by #334 and the release gate, independently of feature closure.
+The [feature-closeout receipt](../devtools/data/ordered_feature_closeout_304_593_20261106.json)
+records 447 passing exact-checkout controls, unchanged executable/tutorial bytes
+relative to the tested prepared source, and the qualification that remains open.
+
+The #304 native profile has qualified explicit reader policy,
 exact standard/curated modified-group references, observed-H parent consensus,
 optional pinned H-name alternatives, naming-scoped ACE/NME/NHE/NH2 references
 and bounded same-chain peptide candidates. PDB file/text/handler routes receive
@@ -41,7 +51,7 @@ conversion honors disabled inference and retains declared edges. Deposited PDB
 records have typed location, endpoint, alternate/symmetry and conflict evidence.
 All of these remain bounded connectivity operations, without chemistry-complete
 or default-engine-change claims. See the
-[owning record](pending_proposals/native_pdb_bond_inference_with_explicit_policy.md).
+[owning record](archive/resolved_proposals/native_pdb_bond_inference_with_explicit_policy.md).
 
 The final policy-boundary receiving makes existing exclusions explicit in the
 application report: retain stored disulfide and coordination edges, infer no
@@ -86,11 +96,15 @@ retains exact artifact identities/digests and omissions. These are source checks
 not a complete matrix, installed pair or release qualification. This new gate
 does not alter the earlier frozen PR candidate or erase its failed gate.
 
-**Remaining for #304:** complete macOS qualification, owner
-integration and documented issue closeout. The disulfide/unsupported-group
+**Feature #304 is resolved at owner integration.** Its issue acceptance is
+covered by the retained graph/policy/provenance/benchmark evidence. The earlier
+decision to wait for the entire version matrix before closing this feature was
+broader than that acceptance; the two queued macOS lanes remain mandatory
+version qualification, with their exact running source/ref preserved. The disulfide/unsupported-group
 policies are now explicit and contract-tested; this does not promise automatic
 oxidation-state matching, arbitrary-ligand preparation or metal-coordination
-inference. The issue stays partial until its final gates and integration finish.
+inference. No complete-matrix, installed-pair or release claim follows from closing
+the implemented bounded feature.
 New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
 for rescoring. Separately reported **#600** records missing mmCIF model-label
 delivery; selected geometry remains available, and the connectivity correction
@@ -125,16 +139,16 @@ periodic families as ready for 1.0. The current PDB inference's nonperiodic
 controls do not qualify those routes. Preserve the active ordered work and these
 additional release obligations; do not silently mark them completed or deferred.
 
-Separate source preparation for **#593** is now contract-tested while #304's
-exact source remains frozen. The course consumes independent repair outputs,
+The integrated correction for **#593** is contract-tested while #304's
+version-matrix source remains frozen. The course consumes independent repair outputs,
 uses supported caps/quartets/torsion tools, requires a declared candidate pose
 and binds the example mechanics request after atom edits. Its 12 new controls,
 existing interface/minimizer regressions and documentation pass 1,118 cases;
 22 overlapping published-provider-floor cases also pass, without omissions.
 The 2BEG full biological route remains an explicit outline, with no invented
-outputs or readiness claim. This prepares the next ordered step; it does not
-close #593 before #304. See the
-[owning record](pending_bugs/alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md).
+outputs or readiness claim. These satisfy the issue's explicit bounded-workflow
+acceptance; documented closeout follows #304. See the
+[owning record](archive/resolved_bugs/alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md).
 
 Next-source preparation also receives public **ArgDigest 0.17.1** for **#428**:
 2,542 native/digestion/query/diagnostics cases, all 83 registered scientific

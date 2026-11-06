@@ -1661,7 +1661,7 @@ native inference under #304. Semantic selections use interpreted inventory;
 context-aware name-only projection does not request implicit bond reconstruction.
 The shared external preparation refusal is retained for unsupported contextual
 labels and incompatible caps. Original source naming is retained in typed reader
-history. See the [owning #304 record](../pending_proposals/native_pdb_bond_inference_with_explicit_policy.md)
+history. See the [owning #304 record](../archive/resolved_proposals/native_pdb_bond_inference_with_explicit_policy.md)
 and `tests/form/file_pdb/test_naming_context.py` for measured scope and evidence.
 This receives the six direct PDB routes; it does not close the broader producer/
 composite audit or qualify every external naming adapter in this staged rollout.

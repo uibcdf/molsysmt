@@ -1,9 +1,9 @@
 ---
 summary: Alzheimer capstone preparation uses unsupported builder keywords and drops independent repairs.
 issue: uibcdf/molsysmt#593
-status: partial
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-06
 severity: medium
 verification: reproduced
 area: [docs, build]
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** review of #589 on 2026-11-05.
 **Status:** bounded preparation statements and scientific/ownership controls are
-implemented and contract-tested on a separate source branch. Ordered integration
-and closeout wait for #304. The full biological route remains an explicitly
+implemented, contract-tested and included in owner integration after #304.
+The full biological route remains an explicitly
 unqualified outline, as permitted by the acceptance criteria.
 
 ## What
@@ -171,8 +171,25 @@ helpers at their existing Common Core introduction. Notebook cell inventory,
 IDs, outputs, execution counts and metadata are retained; empty outputs are not
 replaced with synthetic results or a claim of full-notebook execution.
 
-The [receiving receipt](../../devtools/data/alzheimer_capstone_preparation_receiving_593_20261106.json)
+The [receiving receipt](../../../devtools/data/alzheimer_capstone_preparation_receiving_593_20261106.json)
 retains hashes, actual execution counts, unsuccessful baseline, runtime/backend,
 quality checks and precise scientific limits. The source is based on the frozen
 #304 candidate and is prepared separately so it cannot move that running matrix's
 input. Main integration and issue closeout remain pending in the authorized order.
+
+## Resolution — 2026-11-06
+
+Fixed by the source correction 5f2ecdd8ff3b8d24664cd6dc1b1cff61430f7898,
+included in the maintainer integration of prepared source 8941bcfd4 after #304.
+The guard `tests/documentation/test_alzheimer_preparation_examples.py` executes
+the real lesson statements and rejects the original unsupported keywords,
+discarded independent repairs and implicit unplaced-pose continuation. It also
+checks actual outputs, retained coordinates/maps, physical units and deliberate
+model prerequisites rather than checking code spelling alone.
+
+All issue acceptance criteria are satisfied by those bounded controls and the
+explicitly unqualified full-project outline. Full 2BEG preparation/pose/model
+qualification was never executed here and is not claimed. The issue expressly
+allows that disposition; keeping the corrected syntax/ownership defect open
+until general release qualification would conflate different obligations.
+The archived receipt and the unchanged #562/#589 controls retain that boundary.
