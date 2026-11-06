@@ -99,3 +99,11 @@ migrate them. A failed explicit request does not choose another platform. The
 Reference implementation can be used for small numerical checks against other
 platforms, with tolerances reflecting their precision and settings. See the
 [engine's platform documentation](https://docs.openmm.org/latest/userguide/library/04_platform_specifics.html).
+
+Coordinate optimization is distinct from model preparation and dynamics.
+It requires appropriate chemistry, spatial assembly and force-field parameters.
+An independent native result must be retained for later analysis; an explicit
+in-place operation edits the source and returns no replacement system. A local
+energy decrease does not establish the nearest/global minimum, equilibrium,
+binding free energy or thermodynamic stability. Energy comparisons must retain
+the same physical model, constraints and unit convention.

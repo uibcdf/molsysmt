@@ -552,7 +552,7 @@ sections:
             file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb.AGENTS.md
           - name: potential_energy_minimization
-            description: Existing minimization semantics with engine-owned platform names, explicit failures and retained Context/Simulation platform identity.
+            description: Native minimization result ownership, independent and in-place modes, units, local-optimization meaning and the explicit existing-engine-context limitation.
             file: docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb.AGENTS.md
       - name: element

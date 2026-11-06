@@ -20,6 +20,40 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Course minimization ownership — 2026-11-05
+
+**#562 is source-corrected.** All four Module 43 notebooks and Alzheimer Module
+54 retain the independent minimizer result used by subsequent steps. Unsupported
+tolerance keywords are removed. The optimizer runtime, public signature and
+engine defaults are unchanged; native independent/in-place ownership and units
+are documented consistently. Scientific prose now distinguishes local L-BFGS
+optimization from equilibrium, a nearest/global minimum or binding stability.
+
+The recovered, collected minimizer test includes four real CPU/Reference native
+mode controls and five tests executing the actual course call statements on a
+bounded model. Forgotten/unused results cannot satisfy genuine coordinate-change
+and energy-decrease assertions. Receiving passes **259 mechanics/digester tests**,
+**29 published-support-floor cases**, **569 documentation/doctest cases**, the
+focused ten-case run and the executed five-cell Toolbox tutorial. Suites overlap.
+Full network/ligand/membrane preparations remain unqualified; no course outputs
+are fabricated for sources that previously had none.
+
+See the [owning record](archive/resolved_bugs/course_minimization_discards_independent_results.md)
+and [receipt](../devtools/data/course_minimization_receiving_562_20261105.json).
+Foundations, Toolbox, Cookbook and course are aligned; Cookbook executable
+payloads and original course execution payloads are preserved.
+
+**New native defect #588:** existing Context/Simulation default independent
+requests minimize the source before failing on their unsupported copy route.
+Both forms are reproduced; explicit engine in-place operation succeeds. This is
+not fixed or waived by the native course correction. **#589** separately tracks
+the final project's reference-descriptor/interface-area misuse. Continue with
+#588 and #583/#584, then the remaining course observable and PR #543 receiving;
+#587 remains the separate board-pagination report. No new scientific capability,
+dependency floor, compiled code or schema is introduced. Publish an unskipped
+checkpoint and inspect its controls; installed/platform and release gates remain
+separate under #334, without tags or publication here.
+
 ## Nonbonded partition shape and source ownership — 2026-11-05
 
 **#561 is source-corrected.** Flat/flat atom sets yield a scalar; partitioned

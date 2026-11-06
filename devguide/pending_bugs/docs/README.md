@@ -17,8 +17,9 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
+- [`alzheimer_final_project_uses_a_reference_descriptor_as_a_geometric_interface_are.md`](alzheimer_final_project_uses_a_reference_descriptor_as_a_geometric_interface_are.md) — [#589](https://github.com/uibcdf/molsysmt/issues/589) — Alzheimer final project uses a reference descriptor as a geometric interface area. *(medium, reproduced)*
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
 <!-- /generated -->

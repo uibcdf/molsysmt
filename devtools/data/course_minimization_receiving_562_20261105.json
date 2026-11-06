@@ -1,0 +1,256 @@
+{
+  "schema": "molsysmt.receiving-evidence@1",
+  "date": "2026-11-05",
+  "issue": "uibcdf/molsysmt#562",
+  "base_commit": "1b359d441b899d26a06a6d927b809f770a09c462",
+  "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+  "versions_observed_at_closeout": {
+    "molsysmt": "0.23.0+393.ge1facf624.dirty",
+    "molsysviewer": "0.24.0+97.gdf4bf477.dirty",
+    "openmm": "8.6.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "ackredit": "0.12.1+2.ge233973",
+    "pyunitwizard": "0.29.0+20.ga5fe517",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "version_note": "Editable distribution metadata is an observation, not the current source Git identity or exact installed release qualification. Sibling working states may advance independently. Published floor payloads were checked separately by import origin and hash.",
+  "files": {
+    "devguide/archive/resolved_bugs/course_minimization_discards_independent_results.md": "8e4df8c0e6697d0385ee93e2c2485b208be84f3ddfdb9c45d3f2a10958f159ae",
+    "devguide/pending_bugs/independent_minimization_mutates_an_existing_engine_context_before_copy_failure.md": "79c5f3df697a564d5a70b080ec613c52c148188a2753a145e5a771ee1141b698",
+    "devguide/pending_bugs/docs/alzheimer_final_project_uses_a_reference_descriptor_as_a_geometric_interface_are.md": "9994705ca0e00f509f4e40373e0d9a003fb3a03ff121092a3e84505424e1bf47",
+    "devguide/pending_bugs/README.md": "61fc400d431dcdcd4bd89813248829cdf5003bf7d3d7b0312cd6dfc30cc639eb",
+    "devguide/pending_bugs/docs/README.md": "6f2801d3bdd1693a1199b636c173b14620664bf6b9a9f74575105a5aed96600e",
+    "devguide/release_1_0_status.md": "1a0c4ea19cb0467a12c8aef8460a6295f319c3d8873739ccb1f4b18472d9f16b",
+    "docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb": "fc95f955dd1a3b97583a5e86f892ef768330c8c508a7ed83356e000abf60c4ea",
+    "docs/content/course/Path_Alzheimer/54_Final_Project.ipynb": "ebe21c42779d4fdcf9ed2b6fe24afc050fc71166eac23f08a28477e838fae329",
+    "docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb": "ed77a65d524bb87be361e18c1d308730d1d8e72f2a69eca8c4ff42a3d7df2fca",
+    "docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb": "740819861325ccc3767ed09e6f005ec6ec3f8b9fa8e4791d932844b6384773fd",
+    "docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb": "3dd59e4116f4b298f666066251c07ff75eb478f1ca30f5bd5b7cf320c429eb46",
+    "docs/content/user/cookbook/simulation_workflow.ipynb": "6ea5a46a2bc6a18d7ba8936419fa328918aba392dff754ab23cf7da413befe97",
+    "docs/content/user/foundations/support/molecular_mechanics.md": "6c1228178ae2f824db91a8f6a76ecd0685ffb9278c1918f94e6055cc59e3c383",
+    "docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb": "51f8e6f806a47a66cf15fffac70b6348413c64e17c023d609b3937d6e8985e7a",
+    "docs/content/user/tools/molecular_mechanics/potential_energy_minimization.nbconvert.last_run": "8a51dcc9849ee88d713264e3634f7a61dddf863403b2e2b84b4742ed1d276599",
+    "docs/docs_manifest.yml": "6dab828e967827395fc5395279de0b817f3ec0567ef0eaac2e8b28ea60f7a2c6",
+    "molsysmt/molecular_mechanics/potential_energy_minimization.py": "198a19778087eb647708a58f1d2f2dd04d952e21ae2d9c2ef111deb62eedf066",
+    "tests/molecular_mechanics/potential_energy_minimization/test_potential_energy_minimization.py": "c4a65789cf5a95c16f55d8f24ee2c4670343177ebaacfbc8eaff5b412d71fdb3"
+  },
+  "removed_files": {
+    "tests/molecular_mechanics/potential_energy_minimization/potential_energy_minimization.py": "6f767bdf1bfc75aecaef2961cea68d77ccc4268cb541ab5d5e3eaa3a7444f18a"
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/molecular_mechanics tests/_private/argdigest/test_engine_and_mechanics_digesters.py tests/_private/argdigest/test_mechanics_digesters.py -m 'not network' --receptor=llm -n 4",
+      "exit_code": 0,
+      "passed": 259,
+      "seconds": 14.91
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD:<argdigest-0.14.0>:<depdigest-0.15.1>:<smonitor-0.16.0>:<ackredit-0.9.0> MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest -p no:smonitor tests/molecular_mechanics/potential_energy_minimization tests/molecular_mechanics/test_platform_contract.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 29,
+      "seconds": 9.63,
+      "note": "Runtime SMonitor remains active; only the editable pytest entry point is excluded under #524."
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest devtools/tests/test_documentation_notebook_schema.py devtools/tests/test_documentation_heading_structure.py devtools/tests/test_public_api_docs.py devtools/tests/test_validate_course.py devtools/tests/test_validate_public_api_stability.py devtools/tests/test_validate_docstrings.py --doctest-modules molsysmt/molecular_mechanics/potential_energy_minimization.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 569,
+      "seconds": 18.92
+    },
+    {
+      "command": "PYTHONPATH=<published-receptor>:$PWD MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python -m pytest tests/molecular_mechanics/potential_energy_minimization --doctest-modules molsysmt/molecular_mechanics/potential_energy_minimization.py --receptor=llm -n 2",
+      "exit_code": 0,
+      "passed": 10,
+      "seconds": 6.0
+    },
+    {
+      "command": "MPLBACKEND=Agg OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 python docs/execute_notebooks.py -q -n 1 -f docs/content/user/tools/molecular_mechanics/potential_energy_minimization.ipynb",
+      "exit_code": 0,
+      "executed_notebooks": 1,
+      "code_cells": 5,
+      "seconds": 11.4
+    }
+  ],
+  "published_floor_origins": {
+    "argdigest": {
+      "version": "0.14.0",
+      "path": "<conda-package-cache>/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "path": "<conda-package-cache>/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.16.0",
+      "path": "<conda-package-cache>/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "version": "0.9.0",
+      "path": "<conda-package-cache>/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "baseline": {
+    "failed": 5,
+    "passed": 4,
+    "exit_code": 1,
+    "seconds": 5.48,
+    "failure_categories": {
+      "unsupported_tolerance_keyword": 2,
+      "continuation_with_original_coordinates": 3
+    },
+    "note": "Actual notebook statements, bound to the public signature and executed with a bounded bundled input; whole preparation cells are excluded."
+  },
+  "test_discovery": {
+    "old_file_collected_by_pytest": false,
+    "new_function_module_cases": 9,
+    "native_cases": 4,
+    "actual_lesson_call_cases": 5,
+    "guard_intent": "Require real coordinate/energy changes in the continuing variable, source preservation and later energy/view references to that result; an unused or missing assignment cannot pass."
+  },
+  "corrected_test_assumptions": [
+    "Use the actual native input class instead of an unavailable top-level class alias.",
+    "Check stored native coordinates exactly; numbers read through different session-unit round trips can differ at 1e-16 nm without mutation. Require coordinate changes exceeding 1e-5 nm on the bounded fixture, not just unequal floating representations.",
+    "A newly added tutorial Markdown cell initially lacked its schema ID; the gate rejected it and its explicit deterministic ID was fixed before successful final receiving."
+  ],
+  "physical_controls": {
+    "fixture": "Bundled alanine dipeptide, structure index 0; CPU and Reference.",
+    "noncanonical_policy": [
+      "angstrom",
+      "ps",
+      "kcal/mol",
+      "e",
+      "K",
+      "radians"
+    ],
+    "coordinate_change_threshold": {
+      "value": 1e-05,
+      "unit": "nm"
+    },
+    "energy_drop_threshold": {
+      "value": 0.0001,
+      "unit": "kJ/mol"
+    },
+    "meaning": "Bounded ownership and real optimization controls, not an accuracy/thermodynamic claim for arbitrary models."
+  },
+  "notebook_preservation": {
+    "course_pages": [
+      "docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb",
+      "docs/content/course/Path_Alzheimer/54_Final_Project.ipynb",
+      "docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb",
+      "docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb",
+      "docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb"
+    ],
+    "original_course_code_cell_counts_and_execution_payloads_preserved": true,
+    "whole_course_sources_previously_executed": false,
+    "bundled_outputs_substituted_for_biological_scenarios": false,
+    "prose_only_cookbook": "docs/content/user/cookbook/simulation_workflow.ipynb",
+    "cookbook_original_code_outputs_metadata_identical_to_base": true,
+    "tutorial": "Both native independent/in-place modes executed on Trp-Cage; engine-context independence limitation disclosed."
+  },
+  "runtime_optimizer_executable_AST_equal_after_docstring_removal": true,
+  "primary_reference": {
+    "source_commit": "ba0aa236ac4d07241382869604c4d2ea58c4f3f5",
+    "path": "openmmapi/include/openmm/LocalEnergyMinimizer.h",
+    "source_url": "https://github.com/openmm/openmm/blob/ba0aa236ac4d07241382869604c4d2ea58c4f3f5/openmmapi/include/openmm/LocalEnergyMinimizer.h",
+    "sha256": "40ac5bc1e07440fd554ca7c2f379c2c3fb6035a12934db0f6554bb6d05cd78a5"
+  },
+  "separate_findings": {
+    "uibcdf/molsysmt#588": {
+      "status": "open, unresolved",
+      "bounded_observations": [
+        {
+          "form": "openmm.Context",
+          "in_place": false,
+          "outcome": "NotImplementedMethodError",
+          "maximum_absolute_coordinate_component_change": {
+            "value": 0.07551541742736932,
+            "unit": "nm"
+          }
+        },
+        {
+          "form": "openmm.Context",
+          "in_place": true,
+          "outcome": "None",
+          "maximum_absolute_coordinate_component_change": {
+            "value": 0.07551541742736932,
+            "unit": "nm"
+          }
+        },
+        {
+          "form": "openmm.Simulation",
+          "in_place": false,
+          "outcome": "NotImplementedMethodError",
+          "maximum_absolute_coordinate_component_change": {
+            "value": 0.07551541742736932,
+            "unit": "nm"
+          }
+        },
+        {
+          "form": "openmm.Simulation",
+          "in_place": true,
+          "outcome": "None",
+          "maximum_absolute_coordinate_component_change": {
+            "value": 0.07551541742736932,
+            "unit": "nm"
+          }
+        }
+      ],
+      "no_expected_failure_or_gate_waiver_added": true
+    },
+    "uibcdf/molsysmt#589": {
+      "status": "open, unresolved",
+      "observed_error": "UnknownArgumentError for get_area_buried selection_2 on a bundled native input.",
+      "scientific_mismatch": "A Rose group reference lookup is not a conformational geometric interface area."
+    }
+  },
+  "governance": [
+    "ruff check .",
+    "ruff format --check .",
+    "python devtools/scripts/validate_docstrings.py",
+    "python devtools/scripts/validate_public_api_stability.py",
+    "python devtools/scripts/validate_dependencies.py",
+    "python devtools/scripts/validate_course.py",
+    "python devtools/scripts/validate_devguide.py",
+    "python devtools/scripts/devguide_index.py --check",
+    "git diff --check"
+  ],
+  "scope": {
+    "public_signature_or_default_changed": false,
+    "runtime_optimizer_changed": false,
+    "dependency_floor_changed": false,
+    "new_Ackredit_scientific_event": false,
+    "compiled_kernel_changed": false,
+    "H5MSM_schema_changed": false
+  },
+  "runtime_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "limitations": [
+    "Independent existing engine-context failure atomicity is not repaired here; both forms are reproduced and tracked in #588.",
+    "Full downloaded protein/ligand/membrane preparation, parameterization, assembly, complete final characterization and viewer scenes are not qualified by the bounded guards.",
+    "Source tests overlap and do not establish installed/platform/release qualification.",
+    "No unsupported tolerance or iteration argument, stopping guarantee, global/nearest minimum, equilibrium or binding-stability claim is introduced."
+  ],
+  "next": [
+    "uibcdf/molsysmt#588",
+    "uibcdf/molsysmt#583",
+    "uibcdf/molsysmt#584",
+    "uibcdf/molsysmt#589",
+    "uibcdf/molsysmt#587",
+    "uibcdf/molsysmt#543"
+  ],
+  "queue_review": {
+    "PR": "uibcdf/molsysmt#543",
+    "PR_head_last_observed": "e3d5d21a5289bec34f239a9a2010773de4cf1d1b",
+    "new_owned_reports": [
+      "uibcdf/molsysmt#588",
+      "uibcdf/molsysmt#589"
+    ],
+    "board_pagination": "#587 remains separate; no full board-agreement claim."
+  }
+}
