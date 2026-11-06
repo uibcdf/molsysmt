@@ -56,6 +56,25 @@ def _mechanical_documentation(name, *, bind_primary):
                 "preparation, visible-structure choice, scene/history change or "
                 "update_view control is introduced. Native errors propagate.\n"
             )
+        elif name == "get_forces":
+            function.__doc__ += (
+                "Reads the complete current view.molsys through the serialized "
+                "molecular reader, including completed pending edits. Atom "
+                "selection filters the returned forces after full-model "
+                "evaluation; it does not extract a physical subsystem. Native "
+                "structure_indices=None reads the first structure without a "
+                "structure axis, regardless of the visible structure. Explicit "
+                "structure selections retain their axis, order and repetitions; "
+                "atomic repetitions, empty axes and magnitude are native. "
+                "Returns detached raw potential forces under the application's "
+                "unit policy, not constraint reaction forces or accelerations. "
+                "Stored model requests, reference-state requirements, periodic "
+                "boxes, engine/platform errors and numerical memory limits "
+                "remain native. No model, chemistry preparation, minimization, "
+                "visible-structure choice, scene/history update, force arrows "
+                "or update_view control is introduced. CPU/Reference model "
+                "receiving remains distinct from optional GPU qualification.\n"
+            )
         elif name == "get_potential_energy":
             function.__doc__ += (
                 "Reads the current view.molsys through the serialized molecular "
@@ -110,6 +129,7 @@ class _MolecularMechanicsTools:
     _NAMES = (
         "get_engine_forcefield",
         "get_degrees_of_freedom",
+        "get_forces",
         "get_potential_energy",
         "get_non_bonded_potential_energy",
         "potential_energy_minimization",
@@ -162,6 +182,37 @@ class _MolecularMechanicsTools:
                 "water_model": water_model,
                 "implicit_solvent": implicit_solvent,
                 "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_mechanical_documentation("get_forces", bind_primary=True)
+    @signal(tags=["addon", "molecular_mechanics", "read"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_forces(
+        self,
+        element="atom",
+        selection="all",
+        magnitude=False,
+        engine="OpenMM",
+        syntax="MolSysMT",
+        skip_digestion=False,
+        *,
+        structure_indices=None,
+        platform="CPU",
+    ):
+        from molsysmt.molecular_mechanics import get_forces
+
+        return self._owner._read(
+            get_forces,
+            {
+                "element": element,
+                "selection": selection,
+                "magnitude": magnitude,
+                "engine": engine,
+                "syntax": syntax,
+                "skip_digestion": skip_digestion,
+                "structure_indices": structure_indices,
+                "platform": platform,
             },
         )
 

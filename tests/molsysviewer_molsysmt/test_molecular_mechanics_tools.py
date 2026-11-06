@@ -12,9 +12,18 @@ from argdigest import UnknownArgumentError
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError
-from tests.molsysviewer_molsysmt.test_build_assignment_tools import snapshot, unchanged
+from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+    same,
+    snapshot,
+    unchanged,
+)
 
-NAMES = ("get_engine_forcefield", "get_degrees_of_freedom", "get_potential_energy")
+NAMES = (
+    "get_engine_forcefield",
+    "get_degrees_of_freedom",
+    "get_potential_energy",
+    "get_forces",
+)
 
 
 def energy_units(energy_unit):
@@ -113,11 +122,17 @@ def test_explicit_namespace_signatures_help_and_validation(name):
         assert "\nmolecular_system :" not in text
         for parameter in parameters:
             assert f"{parameter.name} :" in text
-        inputs = {} if name == "get_potential_energy" else {"forcefield": "AMBER14"}
+        inputs = (
+            {}
+            if name in {"get_potential_energy", "get_forces"}
+            else {"forcefield": "AMBER14"}
+        )
         for extra in (
             {"molecular_system": None},
             {"update_view": True},
-            {"structure_indices": [0]},
+            {"to_form": "molsysmt.MolSys"}
+            if name == "get_forces"
+            else {"structure_indices": [0]},
         ):
             with pytest.raises(UnknownArgumentError):
                 method(**inputs, **extra)
@@ -571,3 +586,400 @@ def test_explicit_execution_platform_matches_its_independent_model(
         atol=1e-5,
     )
     unchanged(view, before)
+
+
+# Native #572 supplies the scientific implementation. These receive the bound
+# current-primary/scene contract and compare against a separately built model.
+FORCE_UNIT = "kJ/(mol*nm)"
+
+
+@pytest.fixture
+def force_view():
+    with msv.demo["pentalanine"] as source:
+        with msv.new_view(source.molsys, structure_indices=[0, 8, 3]) as owner:
+            owner.regions.add(selection=[0, 5], tag="force-source")
+            owner.measurements.add_distance(0, 5, tag="preserve-distance")
+            owner.interactions.attach(
+                msm.Interactions.from_records(
+                    [],
+                    n_atoms=owner.molsys.get_n_atoms(),
+                    n_structures=3,
+                    evaluated_structure_indices=[0, 1, 2],
+                    method="receiving.force-read",
+                ),
+                name="preserve-coverage",
+                assume_aligned=True,
+            )
+            owner.player.go_to_structure(1)
+            yield owner
+
+
+def independent_force_context(
+    source, engine, *, platform="Reference", periodic=False, structure_index=0
+):
+    from openmm import app
+
+    topology = msm.convert(
+        source, to_form="openmm.Topology", structure_indices=[structure_index]
+    )
+    system = app.ForceField("amber14-all.xml", "amber14/tip3p.xml").createSystem(
+        topology,
+        nonbondedMethod=app.PME if periodic else app.NoCutoff,
+        constraints=app.HBonds,
+    )
+    return engine.Context(
+        system,
+        engine.VerletIntegrator(0.001),
+        engine.Platform.getPlatformByName(platform),
+        {"Threads": "1"} if platform == "CPU" else {},
+    )
+
+
+def independent_force_rows(
+    source, engine, structures, *, platform="Reference", periodic=False
+):
+    from openmm import unit
+
+    context = independent_force_context(
+        source,
+        engine,
+        platform=platform,
+        periodic=periodic,
+        structure_index=structures[0] if structures else 0,
+    )
+    xyz = msm.pyunitwizard.get_value(source.structures.coordinates, to_unit="nm")
+    boxes = (
+        msm.pyunitwizard.get_value(source.structures.box, to_unit="nm")
+        if periodic
+        else None
+    )
+    try:
+        rows = []
+        for index in structures:
+            if boxes is not None:
+                context.setPeriodicBoxVectors(*(boxes[index] * unit.nanometer))
+            context.setPositions(xyz[index] * unit.nanometer)
+            rows.append(
+                context.getState(getForces=True)
+                .getForces(asNumpy=True)
+                .value_in_unit(unit.kilojoule_per_mole / unit.nanometer)
+            )
+        return np.asarray(rows).reshape(len(structures), source.get_n_atoms(), 3)
+    finally:
+        del context
+
+
+@pytest.mark.parametrize("skip", [False, True])
+@pytest.mark.parametrize("platform", ["CPU", "Reference"])
+def test_force_vectors_read_full_environment_without_adopting_or_seeking(
+    force_view, energy_engine, skip, platform
+):
+    before = snapshot(force_view)
+    expected = independent_force_rows(
+        force_view.molsys, energy_engine, [0], platform=platform
+    )[0]
+    result = force_view.addons.molsysmt.molecular_mechanics.get_forces(
+        selection=[5, 0, 5], platform=platform, skip_digestion=skip
+    )
+    assert result.shape == (3, 3)
+    assert msm.pyunitwizard.get_unit(result) == msm.pyunitwizard.unit(FORCE_UNIT)
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(result, to_unit=FORCE_UNIT),
+        expected[[5, 0, 5]],
+        rtol=1e-7,
+        atol=1e-5,
+    )
+    assert force_view.player.index == 1
+    unchanged(force_view, before)
+
+
+@pytest.mark.parametrize("structures", [None, [2, 0, 2], [], "all"])
+@pytest.mark.parametrize("magnitude", [False, True])
+@pytest.mark.parametrize(
+    "population", ["all", "repeated", "mask", "empty", "native", "mdtraj"]
+)
+def test_force_axes_units_and_selection_order_are_native(
+    force_view, energy_engine, structures, magnitude, population
+):
+    size = force_view.molsys.get_n_atoms()
+    syntax = "MolSysMT"
+    if population == "all":
+        selection, atoms = "all", np.arange(size)
+    elif population == "repeated":
+        selection, atoms = [5, 0, 5], np.array([5, 0, 5])
+    elif population == "mask":
+        selection = np.isin(np.arange(size), [0, 5])
+        atoms = np.array([0, 5])
+    elif population == "empty":
+        selection, atoms = [], np.array([], dtype=int)
+    else:
+        atoms = np.flatnonzero(
+            force_view.molsys.topology.atoms["atom_name"].to_numpy() == "CA"
+        )
+        selection = "atom_name=='CA'" if population == "native" else "name CA"
+        syntax = "MolSysMT" if population == "native" else "MDTraj"
+    indices = (
+        [0]
+        if structures is None
+        else list(range(3))
+        if structures == "all"
+        else structures
+    )
+    before = snapshot(force_view)
+    result = force_view.addons.molsysmt.molecular_mechanics.get_forces(
+        selection=selection,
+        structure_indices=structures,
+        magnitude=magnitude,
+        syntax=syntax,
+        platform="Reference",
+    )
+    expected = independent_force_rows(force_view.molsys, energy_engine, indices)[
+        :, atoms
+    ]
+    if magnitude:
+        expected = np.linalg.norm(expected, axis=-1)
+    if structures is None:
+        expected = expected[0]
+    assert result.shape == expected.shape
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(result, to_unit=FORCE_UNIT),
+        expected,
+        rtol=1e-10,
+        atol=1e-8,
+    )
+    unchanged(force_view, before)
+
+
+def test_force_gradient_has_the_correct_sign_and_complete_model(
+    force_view, energy_engine
+):
+    from openmm import unit
+
+    context = independent_force_context(force_view.molsys, energy_engine)
+    xyz = msm.pyunitwizard.get_value(
+        force_view.molsys.structures.coordinates, to_unit="nm"
+    )[0].copy()
+    step = 1e-6
+    try:
+        energies = []
+        for sign in (-1, 1):
+            displaced = xyz.copy()
+            displaced[5, 0] += sign * step
+            context.setPositions(displaced * unit.nanometer)
+            energies.append(
+                context.getState(getEnergy=True)
+                .getPotentialEnergy()
+                .value_in_unit(unit.kilojoule_per_mole)
+            )
+        expected = -(energies[1] - energies[0]) / (2 * step)
+    finally:
+        del context
+    before = snapshot(force_view)
+    result = force_view.addons.molsysmt.molecular_mechanics.get_forces(
+        selection=[5], platform="Reference"
+    )
+    assert msm.pyunitwizard.get_value(result, to_unit=FORCE_UNIT)[
+        0, 0
+    ] == pytest.approx(expected, rel=1e-6, abs=2e-4)
+    unchanged(force_view, before)
+
+
+def test_force_result_follows_nondefault_energy_and_length_policy(
+    force_view, energy_engine
+):
+    puw = msm.pyunitwizard
+    expected = independent_force_rows(force_view.molsys, energy_engine, [2, 0])
+    before = snapshot(force_view)
+    with puw.context(standard_units=energy_units("kcal/mol") + ["kcal/(mol*angstrom)"]):
+        result = force_view.addons.molsysmt.molecular_mechanics.get_forces(
+            structure_indices=[2, 0], platform="Reference"
+        )
+        assert puw.get_unit(result) == puw.unit("kcal/(mol*angstrom)")
+        np.testing.assert_allclose(
+            puw.get_value(result, to_unit=FORCE_UNIT), expected, atol=1e-8, rtol=1e-10
+        )
+    unchanged(force_view, before)
+
+
+def test_force_reader_uses_pending_coordinates_without_scene_synchronization(
+    force_view, energy_engine
+):
+    puw = msm.pyunitwizard
+    tools = force_view.addons.molsysmt
+    original = tools.molecular_mechanics.get_forces(selection=[0], platform="Reference")
+    xyz = puw.get_value(force_view.molsys.structures.coordinates, to_unit="nm").copy()
+    xyz[0, 0, 0] += 0.003
+    tools.basic.set(coordinates=puw.quantity(xyz, "nm"), update_view=False)
+    assert tools.get_sync_status()["state"] == "pending"
+    before = snapshot(force_view)
+    result = tools.molecular_mechanics.get_forces(selection=[0], platform="Reference")
+    expected = independent_force_rows(force_view.molsys, energy_engine, [0])[0, [0]]
+    np.testing.assert_allclose(
+        puw.get_value(result, to_unit=FORCE_UNIT), expected, atol=1e-8, rtol=1e-10
+    )
+    assert not np.allclose(
+        puw.get_value(result, to_unit=FORCE_UNIT),
+        puw.get_value(original, to_unit=FORCE_UNIT),
+    )
+    unchanged(force_view, before)
+
+
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {"element": "group"},
+        {"engine": "unknown"},
+        {"platform": "unknown"},
+        {"selection": [100000]},
+        {"structure_indices": [3]},
+        {"structure_indices": [-1]},
+    ],
+)
+def test_force_native_validation_errors_leave_source_scene_and_history_intact(
+    force_view, energy_engine, parameters
+):
+    before = snapshot(force_view)
+    with pytest.raises(Exception) as native:
+        msm.molecular_mechanics.get_forces(force_view.molsys, **parameters)
+    with pytest.raises(type(native.value)) as actual:
+        force_view.addons.molsysmt.molecular_mechanics.get_forces(**parameters)
+    assert str(actual.value) == str(native.value)
+    unchanged(force_view, before)
+
+
+def test_force_result_is_detached_and_cached_reader_resolves_replacement(
+    force_view, energy_engine
+):
+    puw = msm.pyunitwizard
+    method = force_view.addons.molsysmt.molecular_mechanics.get_forces
+    first = method(selection=[0], platform="Reference")
+    expected_first = puw.get_value(first, to_unit=FORCE_UNIT).copy()
+    puw.get_value(first)[:] = 0
+    assert np.any(expected_first)
+    np.testing.assert_allclose(
+        puw.get_value(method(selection=[0], platform="Reference"), to_unit=FORCE_UNIT),
+        expected_first,
+        rtol=1e-10,
+        atol=1e-8,
+    )
+    with msv.demo["dialanine"] as replacement:
+        force_view.load(replacement.molsys, mode="replace")
+    before = snapshot(force_view)
+    result = method(platform="Reference")
+    assert result.shape == (force_view.molsys.get_n_atoms(), 3)
+    np.testing.assert_allclose(
+        puw.get_value(result, to_unit=FORCE_UNIT),
+        independent_force_rows(force_view.molsys, energy_engine, [0])[0],
+        rtol=1e-10,
+        atol=1e-8,
+    )
+    unchanged(force_view, before)
+    expected_after_close = puw.get_value(result, to_unit=FORCE_UNIT).copy()
+    force_view.close()
+    assert result.shape[1] == 3
+    np.testing.assert_array_equal(
+        puw.get_value(result, to_unit=FORCE_UNIT), expected_after_close
+    )
+    for skip in (False, True):
+        with pytest.raises(RuntimeError, match="closed view"):
+            method(skip_digestion=skip)
+    with msv.new_view() as empty:
+        with pytest.raises(ValueError, match="Load a molecular system"):
+            empty.addons.molsysmt.molecular_mechanics.get_forces()
+
+
+@pytest.mark.parametrize("magnitude", [False, True])
+def test_force_periodic_model_uses_each_ordered_structure_box(
+    force_view, energy_engine, magnitude
+):
+    puw = msm.pyunitwizard
+    boxes = np.array(
+        [
+            np.diag([3.0, 3.0, 3.0]),
+            [[3.2, 0.0, 0.0], [0.3, 3.0, 0.0], [0.2, 0.1, 3.4]],
+            np.diag([4.0, 4.0, 4.0]),
+        ]
+    )
+    msm.set(force_view.molsys, non_bonded_method="PME")
+    force_view.addons.molsysmt.basic.set(box=puw.quantity(boxes, "nm"))
+    before = snapshot(force_view)
+    structures = [2, 1, 0, 2]
+    result = force_view.addons.molsysmt.molecular_mechanics.get_forces(
+        selection=[5, 0, 5],
+        structure_indices=structures,
+        magnitude=magnitude,
+        platform="Reference",
+    )
+    # An existing PME context retains its initial FFT grid. Build the oracle
+    # against the first requested box, then update row-vector boxes in order.
+    expected = independent_force_rows(
+        force_view.molsys, energy_engine, structures, periodic=True
+    )[:, [5, 0, 5]]
+    if magnitude:
+        expected = np.linalg.norm(expected, axis=-1)
+    assert result.shape == expected.shape
+    np.testing.assert_allclose(
+        puw.get_value(result, to_unit=FORCE_UNIT), expected, rtol=1e-10, atol=1e-7
+    )
+    unchanged(force_view, before)
+
+
+def test_force_numerical_budget_refusal_does_not_mutate_or_synchronize(
+    force_view, energy_engine, monkeypatch
+):
+    from molsysmt._private.smonitor import MemoryBudgetExceededError
+
+    monkeypatch.setattr(msm.configure, "max_ram_usage", 100)
+    before = snapshot(force_view)
+    with pytest.raises(MemoryBudgetExceededError):
+        force_view.addons.molsysmt.molecular_mechanics.get_forces(
+            structure_indices="all", platform="Reference"
+        )
+    unchanged(force_view, before)
+
+
+def test_force_unavailable_model_override_is_not_silently_dropped(
+    force_view, energy_engine
+):
+    from molsysmt._private.smonitor import NotImplementedMethodError
+
+    force_view.molsys.molecular_mechanics.cutoff_distance = "1.1 nm"
+    before = snapshot(force_view)
+    with pytest.raises(NotImplementedMethodError, match="overrides") as native:
+        msm.molecular_mechanics.get_forces(force_view.molsys, platform="Reference")
+    with pytest.raises(NotImplementedMethodError, match="overrides") as actual:
+        force_view.addons.molsysmt.molecular_mechanics.get_forces(platform="Reference")
+    assert str(actual.value) == str(native.value)
+    unchanged(force_view, before)
+
+
+def test_force_read_preserves_all_native_domains_and_structural_observations(
+    force_view, energy_engine
+):
+    source = force_view.molsys
+    scientific = source.copy()
+    before = snapshot(force_view)
+    force_view.addons.molsysmt.molecular_mechanics.get_forces(
+        structure_indices=[2, 0, 2], platform="Reference"
+    )
+    for name in ("atoms", "groups", "molecules", "chains", "entities"):
+        same(getattr(source.topology, name), getattr(scientific.topology, name))
+    assert source.chemical_states._inventory_equals(scientific.chemical_states)
+    same(
+        source.chemical_states.get_preparation_history(),
+        scientific.chemical_states.get_preparation_history(),
+    )
+    same(source.molecular_mechanics.to_dict(), scientific.molecular_mechanics.to_dict())
+    for attribute in (
+        "coordinates",
+        "box",
+        "time",
+        "b_factor",
+        "occupancy",
+        "structure_id",
+    ):
+        same(
+            msm.get(source, **{attribute: True}),
+            msm.get(scientific, **{attribute: True}),
+        )
+    unchanged(force_view, before)

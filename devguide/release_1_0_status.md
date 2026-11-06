@@ -20,7 +20,23 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Molecular tools contributor checkpoint — 2026-11-06
+## Force-reader expert receiving — 2026-11-06
+
+The contribution following `2bb52b77c` explicitly binds native #572 as
+`view.addons.molsysmt.molecular_mechanics.get_forces`. The 149-case mechanical
+module and 175 native/affected/preflight controls pass, as do one new guide
+example and six help doctests. Independent CPU/Reference, energy-gradient and
+selected Reference PME checks preserve complete-model filtering, native
+structure axes, force units and source/scene ownership. The
+[force receipt](../devtools/data/molsysviewer_tools_force_receiving_20261106.json)
+retains source scope and original test-authoring diagnostics. All six mechanical
+paths are now exposed, without force arrows, preparation or automatic scene
+updates. The source inventory is 243/248; other new native routes, managed
+protonation application, remaining GUI families and exact full/hosted/installed/
+human qualification remain required. This adds no owner-main integration or
+publication authority and preserves the owner's ordered resolution goal.
+
+## Earlier molecular tools contributor checkpoint — 2026-11-06
 
 Contribution `fa119ac122b0ad025c9679b13b3af79bf2f21fb5` uses native basis
 `ed09f6453` and controlled Viewer `239c8dd74815a660159a95970e9136d7beebfdd2`.
@@ -38,10 +54,13 @@ All remaining approved GUI families, owner/hosted/installed and postponed human
 acceptance remain required; publications remain paused.
 
 The subsequent isolated owner-base merge receives 121 Analysis/preflight cases
-and the same 12 actual Jupyter steps. Its newer native Python source is not
-covered by the frozen contribution full gate. The
+and the same 12 actual Jupyter steps. Its published `2bb52b77c` parent now also
+passes the complete 4,827-case addon collection with 5,001 unchanged selected
+inputs and source heads; see the [complete receipt](../devtools/data/molsysviewer_tools_scene_integration_full_receiving_20261106.json).
+That complete gate precedes the force addition. Its newer native Python source is not
+covered by the earlier fa119ac12 gate; it has its own result above. The
 [combined receiving receipt](../devtools/data/molsysviewer_tools_scene_integration_receiving_20261106.json)
-binds both scopes and preserves owner review, integrated full/hosted and
+binds both scopes and preserves owner review, later-source full/hosted and
 installed acceptance as pending. The owner's ordered issue-resolution goal below
 is preserved.
 

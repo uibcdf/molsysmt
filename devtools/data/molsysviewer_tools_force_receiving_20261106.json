@@ -1,0 +1,147 @@
+{
+  "schema": "molsysmt.viewer_tools_force_receiving@1",
+  "date": "2026-11-06",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#572",
+    "uibcdf/molsysviewer#264"
+  ],
+  "status": "Explicit force mirror and affected/native source receiving pass; owner/full/platform/installed/human gates remain separate",
+  "source": {
+    "contribution_parent": "2bb52b77c52edbca98a11c621cee499437a80832",
+    "included_owner_main": "882b65b9cdd2d66ff8c68d0069b9728e6b715840",
+    "viewer": "db337d94755b00ca523fcc633aee9f888ac3cbb0",
+    "viewer_controlled_code": "239c8dd74815a660159a95970e9136d7beebfdd2",
+    "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "rust_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "backend_note": "Existing binary from the unchanged owner Rust tree; no native rebuild or scientific source change",
+    "python": "3.14.7",
+    "installed_metadata": {
+      "openmm": "8.6.1",
+      "numpy": "2.4.6",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "pyunitwizard": "0.29.1+6.gf82b618",
+      "pytest-receptor": "1.2.1+22.g00a31c4"
+    },
+    "metadata_scope": "Editable metadata can lag explicitly consumed source; no package-floor or clean solver-installed claim"
+  },
+  "contracts": [
+    "Exact native signature minus primary molecular_system, with native keyword-only structure_indices/platform and skip_digestion",
+    "Complete-model evaluation before filtering atomic forces; no physical-subsystem extraction",
+    "First structure without a leading axis for None, irrespective of visible structure; explicit axes preserve order/repetition and typed empties",
+    "Vector/magnitude arrays retain native units under an explicit non-default application policy",
+    "Read completed pending coordinates without synchronizing scene; resolve replacement and reject empty/closed owners",
+    "Independent result arrays; source coordinates, chemistry, mechanics, saved analyses/coverage, scene, history and messages preserved",
+    "Native unsupported level/model/platform/index and memory errors propagate without preparation, mutation or fallback",
+    "All stable topology tables, chemical inventory/history, complete mechanics metadata and public structural observations remain identical; numerical returned values survive owner closure"
+  ],
+  "validation": {
+    "mechanics": {
+      "passed": 149,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "seconds": 59.47,
+      "warnings": 119,
+      "private_log": "msv-native-force-mechanics-final-20261106.log",
+      "log_sha256": "649d3acfc65a00f5c93ce2e018a31ca7c37f9a3a88b9455d8bf88cf758a68e37"
+    },
+    "native_and_affected": {
+      "passed": 175,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "seconds": 54.71,
+      "warnings": 81,
+      "private_log": "msv-native-force-boundary-20261106.log",
+      "log_sha256": "3ca13439fa4ef0bec24af48e4c387c8c013600274f704e67f818bbfa58e46763"
+    },
+    "mechanics_before_full_domain_check": {
+      "passed": 148,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "seconds": 62.0,
+      "warnings": 118,
+      "private_log": "msv-native-force-mechanics-corrected-20261106.log",
+      "log_sha256": "039fee1847a2dbea373a6a996b75e5556459e883a1443633c32be1d39eb44362"
+    }
+  },
+  "independent_science": [
+    "CPU and Reference complete NoCutoff AMBER14/TIP3P/HBonds OpenMM models distinct from the native force helper",
+    "Analytical central potential-energy difference verifies raw force sign/component",
+    "Reference PME on ordered repeated structures with distinct orthogonal/lower-triangular boxes; initial model/grid corresponds to the first requested box",
+    "Actual selected-frame, duplicate/empty population, MDTraj/native selection and force-unit controls"
+  ],
+  "documentation": {
+    "new_example_blocks": 1,
+    "bound_help_doctests": 6,
+    "failed": 0,
+    "private_log": "msv-native-force-doc-example-20261106.log",
+    "log_sha256": "5ddcf7f5033828bf1bc3c524d3ee65f316867395ea7ceea8401219a2d0c64abf",
+    "course_code_cells_unchanged": 5,
+    "course_metadata_preserved": true,
+    "course_note": "Only the existing addon availability paragraph changes; all executable cells/outputs/IDs and other cell metadata remain intact",
+    "ruff": "Whole-tree check and format pass; 4474 files already formatted"
+  },
+  "retained_attempts": [
+    {
+      "private_log": "msv-native-force-initial-20261106.log",
+      "result": "4 signature passes; 4 fixture errors from invented Player.seek. Corrected fixture to actual public go_to_structure; no product change."
+    },
+    {
+      "private_log": "msv-native-force-vectors-20261106.log",
+      "result": "Four independent CPU/Reference vector controls pass"
+    },
+    {
+      "private_log": "msv-native-force-mechanics-full-20261106.log",
+      "result": "90 pass, 58 fail: oracle helper signature omitted its new structure_index; periodic setup wrongly requested an unreceived mechanical attribute through managed basic.set. Corrected test helper and used explicit public native mechanical setup plus admitted box edit. Product wrapper unchanged; no scientific assertion weakened."
+    }
+  ],
+  "working_source_sha256": {
+    "molsysviewer_molsysmt/_molecular_mechanics.py": "85fc8f94c7a066c596b59abb622807c77073a988651391ab07f60570419e4353",
+    "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py": "05b82d436a288e9c95050b0958b9524e643c95a0ab248787e41852f8ad75f714",
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": "f7f69f13b97491820f6843e3b9155d176666d9c25bb41e5fe65d2ac8006410aa"
+  },
+  "remaining": [
+    "This source adds the sixth mechanical path; complete source inventory is 243/248, not complete scientific qualification",
+    "Three native capabilities still need expert receiving: topology.get_atom_name_correspondence, physchem.get_chemical_template, build.assess_protonation; two MD declarations are native stubs",
+    "The separate complete addon run on 2bb52b77c predates this force addition; do not rebrand it as a force-head full gate",
+    "Owner review/integration, exact-head hosted/platform and installed qualification remain separate",
+    "All required graphical/scientific-session families remain active; no implicit force-arrow GUI is introduced",
+    "Human Jupyter/visible Qt acceptance is postponed; all candidate/tag/package and both 1.0 publications remain paused"
+  ],
+  "complete_parent_addon_receiving": {
+    "schema": "molsysmt.viewer_tools_integration_full_receiving@1",
+    "date": "2026-11-06",
+    "issues": [
+      "uibcdf/molsysmt#421",
+      "uibcdf/molsysviewer#264"
+    ],
+    "source": "2bb52b77c52edbca98a11c621cee499437a80832",
+    "viewer": "db337d94755b00ca523fcc633aee9f888ac3cbb0",
+    "viewer_code": "239c8dd74815a660159a95970e9136d7beebfdd2",
+    "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "exit_code": 0,
+    "passed": 4827,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 2838,
+    "pytest_seconds": 1134.99,
+    "wrapper_seconds": 1141.218467778992,
+    "started": "2026-11-06T18:57:46.012547+00:00",
+    "finished": "2026-11-06T19:16:47.234305+00:00",
+    "selected_input_count": 5001,
+    "selected_inputs_unchanged": true,
+    "heads_unchanged": true,
+    "contribution_status_unchanged": true,
+    "selected_input_manifest_sha256": "6907bdd2d62c421212979785930d9ae2f0733fe7cffbd8447db39d5f13352b8d",
+    "manifest_encoding": "UTF-8 canonical json.dumps with sort_keys=True and separators=(comma,colon)",
+    "private_receipt": "msv-analysis-scene-integrated-full-addon-receipt-20261106.json",
+    "private_receipt_sha256": "a5dfe3808bf77eb1143f00bac1b203bec69ff9e47c433908c55cd0cfc9f6afbc",
+    "private_log": "msv-analysis-scene-integrated-full-addon-20261106.log",
+    "private_log_sha256": "849c36d08c0d5efed564283da0682561eade63ea7d0279883f4cc7a2fe9e029d",
+    "scope": "Complete addon collection on published 2bb52b77c with owner basis 882b65b9c. Subsequent force wrapper is qualified separately; this gate does not qualify that later source. Source-only named Linux environment with explicit provider overlay, not clean installed/platform or human acceptance. Both 1.0 publications remain paused."
+  }
+}

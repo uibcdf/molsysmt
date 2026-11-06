@@ -3141,3 +3141,38 @@ reference templates. The two MD functions remain native stubs. This is source
 receiving, not installed qualification, owner approval or postponed human
 acceptance. All previously approved GUI and complete scientific-session work
 remains required; publication remains paused.
+
+
+## Native force reader received by the expert facade — 2026-11-06
+
+The explicit `molecular_mechanics.get_forces` mirror receives native #572 on
+contribution basis `2bb52b77c`, with the current primary implicit and all other
+scientific parameters/defaults preserved. It reads the complete model before
+filtering returned atoms, retains explicit structure order/repetition, empty
+axes and force quantities, and never seeks or updates the scene. Pending reads,
+replacement/close lifetime and detached ownership retain the shared reader
+contract. The mechanical module passes 149 cases; 175 native/affected/preflight
+cases, one new guide block and six inherited help doctests pass separately.
+Independent references cover CPU/Reference, a central energy gradient and
+selected Reference PME boxes. No engine or scientific algorithm is authored
+in the addon.
+
+The [force receiving receipt](../../devtools/data/molsysviewer_tools_force_receiving_20261106.json)
+retains original test-authoring failures, exact source inputs, units, source/scene
+checks and the unchanged course executable content. Source exposure becomes
+243/248 paths, with all six mechanics functions. Atom-name correspondence,
+chemical templates and protonation assessment still need expert admission;
+managed assessment application and all remaining GUI families retain their own
+work. This is not complete latest-source/hosted/installed or postponed human
+acceptance, and publications remain paused.
+
+
+### Complete reconciled Analysis baseline — 2026-11-06
+
+The clean published parent `2bb52b77c` / Viewer `db337d94` now passes the
+complete addon collection: 4,827 passed, zero failures/skips, 2,838 warnings,
+1,134.99 seconds. All 5,001 selected inputs, source heads and contribution
+status are unchanged. The [complete receiving receipt](../../devtools/data/molsysviewer_tools_scene_integration_full_receiving_20261106.json)
+retains original hashes/log digests. This receives the combined owner base and
+Analysis tasks; it precedes the force addition and does not replace that
+addition's scoped tests or its future exact full/hosted gates.

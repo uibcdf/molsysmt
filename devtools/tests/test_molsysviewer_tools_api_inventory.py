@@ -115,7 +115,8 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         assert rows[f"hbonds.{name}"]["exposed"]
     assert inventory["modules"]["hbonds"]["missing"] == []
     assert inventory["modules"]["molecular_dynamics"]["explicit_native_stubs"] == 2
-    assert not rows["molecular_mechanics.get_forces"]["exposed"]
+    assert rows["molecular_mechanics.get_forces"]["exposed"]
+    assert rows["molecular_mechanics.get_forces"]["input_kind"] == "primary"
     assert rows["molecular_mechanics.get_engine_forcefield"]["exposed"]
     assert (
         rows["molecular_mechanics.get_engine_forcefield"]["input_kind"]
@@ -128,7 +129,7 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         rows["molecular_mechanics.get_non_bonded_potential_energy"]["input_kind"]
         == "primary"
     )
-    assert inventory["modules"]["molecular_mechanics"]["exposed_paths"] == 5
+    assert inventory["modules"]["molecular_mechanics"]["exposed_paths"] == 6
     assert rows["molecular_mechanics.get_potential_energy"]["exposed"]
     assert rows["molecular_mechanics.get_potential_energy"]["input_kind"] == "primary"
     assert rows["molecular_mechanics.potential_energy_minimization"]["exposed"]

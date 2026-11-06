@@ -88,7 +88,7 @@ exposure, not unconditional scientific accuracy, stability or installed compatib
 
 The initial `view.addons.molsysmt.molecular_mechanics` slice provides explicit
 `get_engine_forcefield` resource lookup and primary-bound
-`get_degrees_of_freedom`, `get_potential_energy`,
+`get_degrees_of_freedom`, `get_potential_energy`, `get_forces`,
 `get_non_bonded_potential_energy` and `potential_energy_minimization`.
 The minimizer retains independent output by default and supports managed
 in-place coordinate updates. Other mechanical calculations retain their separate
@@ -1199,7 +1199,7 @@ This MolSysMT guide owns the capabilities and use of the MolSysMT tools addon.
 
 ## Inspecting mechanical resources and calculating energy
 
-Four queries and a minimizer are available under `tools.molecular_mechanics`. Resource lookup keeps
+Five queries and a minimizer are available under `tools.molecular_mechanics`. Resource lookup keeps
 its explicit inputs and works before loading a system. Degree counting and energy read
 the current primary through the same serialized reader as the other scientific
 queries. These queries do not change the scene, adopt an OpenMM object or add an
@@ -1347,13 +1347,54 @@ outputs directly. Reads include completed pending edits without scene projection
 or history changes. Cross axes must be disjoint; repeated/shared members within
 one partition axis retain the native contract.
 
-`get_forces` is still unexposed in the addon. The scientific provider's native
-MolSys route is implemented under
-[#572](https://github.com/uibcdf/molsysmt/issues/572), with complete-model atom
-filtering, explicit structure axes and physical units. Its source receiving
-does not qualify addon exposure or installed delivery. The addon adds no
-consumer-side parameterization or placeholder method. See the
-{ref}`native force tutorial <Tutorial_Get_forces>` for the provider contract.
+### Reading atomic forces
+
+`get_forces` evaluates the complete current system with the native declared
+model, then selects the returned atoms. Selecting two atoms does not remove
+the other atoms from their physical environment. These are raw potential
+forces, not constraint reactions or accelerations.
+
+The default `structure_indices=None` reads the first structure and returns
+`(n_atoms, 3)`, irrespective of the visible structure. An explicit structure
+selection retains a leading axis, including order and repetitions. With
+`magnitude=True`, the final component axis is replaced by the Euclidean norm.
+Empty atom or structure selections retain typed empty axes.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0, 8, 3]) as view:
+        mechanics = view.addons.molsysmt.molecular_mechanics
+        forces = mechanics.get_forces(
+            selection=[0, 5, 0],
+            structure_indices=[2, 0, 2],
+            platform="Reference",
+        )
+        assert forces.shape == (3, 3, 3)
+        assert msm.pyunitwizard.get_unit(forces) == msm.pyunitwizard.unit("kJ/(mol*nm)")
+        magnitudes = mechanics.get_forces(
+            selection=[0, 5, 0],
+            structure_indices=[2, 0, 2],
+            magnitude=True,
+            platform="Reference",
+        )
+        assert magnitudes.shape == (3, 3)
+```
+
+Returned quantities follow your PyUnitWizard policy and own their data. Reads
+include completed pending coordinate edits without synchronizing the scene.
+They neither add force arrows nor change coordinates, saved analyses, history
+or the visible structure. There is no `update_view` control.
+
+Native model requests, chemical-state prerequisites, per-structure periodic
+boxes, unsupported overrides and numerical memory diagnostics remain explicit.
+No chemistry repair, minimization, alternative engine or platform fallback is
+introduced. Source receiving covers CPU/Reference NoCutoff models and selected
+Reference PME boxes; this does not qualify arbitrary models, GPU devices or
+installed packages. See the {ref}`native force tutorial <Tutorial_Get_forces>`
+for the provider's complete model, streaming and memory contract.
 
 ### Relaxing coordinates
 
@@ -1443,6 +1484,7 @@ does not imply arbitrary periodic partition accuracy.
 Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
 {func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`,
 {func}`molsysmt.molecular_mechanics.get_potential_energy`,
+{func}`molsysmt.molecular_mechanics.get_forces`,
 {func}`molsysmt.molecular_mechanics.potential_energy_minimization`.
 
 ## Computing geometry on the current system
