@@ -58,7 +58,11 @@ def to_openmm_Context(
     time_step : object, default='2 femtoseconds'
         Argument time_step.
     platform : str, default='CUDA'
-        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
+        Exact OpenMM platform name, such as 'Reference', 'CPU', 'CUDA' or
+        'OpenCL', or another registered plugin name. An unknown name is
+        rejected; a known unregistered platform has an availability diagnostic.
+        Device/context initialization failures are retained as engine errors.
+        No different platform is selected on failure.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

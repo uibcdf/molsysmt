@@ -1415,14 +1415,20 @@ equilibrium or physical stability. Converged coordinates can depend on model,
 platform and numerical execution settings. GPU and arbitrary-system preparation
 remain outside this bounded receiving.
 
-The other two native mechanical functions remain unexposed pending their own
-input, engine, unit and mutation review. The platform-name validation mismatch
-is tracked in [MolSysMT#559](https://github.com/uibcdf/molsysmt/issues/559);
-Reference/OpenCL requests are currently rejected by native validation. This
-integration does not bypass that validation or choose another platform.
-Nonbonded-energy partitioned-selection receiving is tracked separately in
-[MolSysMT#561](https://github.com/uibcdf/molsysmt/issues/561); that function is
-not exposed by this addon yet.
+Five native mechanical tools are exposed; the native MolSys force reader
+remains unexposed under [#572](https://github.com/uibcdf/molsysmt/issues/572).
+The received [#559 repair](https://github.com/uibcdf/molsysmt/issues/559) resolves
+execution names in the engine. CPU and Reference now have bounded consumer
+energy, pair-energy and minimization checks against independent models.
+Unknown names, recognized but unregistered platforms, missing engines and
+later device failures remain distinct. No platform is silently substituted.
+Named GPU/plugin admission is not GPU/device qualification. Existing native
+Context/Simulation inputs keep their actual execution platform.
+
+Nonbonded energy is exposed with explicit selection and physical limits; its
+mixed partition/flat-selection contract remains under
+[#561](https://github.com/uibcdf/molsysmt/issues/561). This is separate from
+platform receiving and does not imply arbitrary periodic partition accuracy.
 
 Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
 {func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`,

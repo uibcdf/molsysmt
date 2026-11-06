@@ -20,6 +20,37 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Engine-owned execution platform selection — 2026-11-05
+
+**#559 is source-corrected.** General mechanics validation accepts a nonempty
+platform name without an engine whitelist. The OpenMM adapter resolves exact
+registered names and installed plugins through a shared Context/Simulation
+selector. Invalid names, known absent registrations, missing engines and device
+initialization failures remain distinct; failed requests do not change platform.
+Existing engine contexts retain their actual platform. Public signatures and
+defaults, physical models and quantity result formats are unchanged.
+
+Receiving passes **1,784 affected tests**, **293 published-support-floor cases**
+and **570 documentation/governance/doctest cases**, plus the executed four-cell
+platform tutorial. Twenty focused controls cover actual Reference construction,
+CPU/Reference energy/unit parity for vacuum and both OBC variants, metadata and
+failure categories, source preservation and existing-context identity. GPU
+hardware is not qualified. The largest observed small-fixture energy difference
+is 0.000030386 kJ/mol. Full Ruff check/format and native dependency/doc guards pass.
+
+See the [owning record](archive/resolved_bugs/mechanical_platform_validation_rejects_reference_and_opencl.md)
+and [receipt](../devtools/data/platform_receiving_559_20261105.json).
+Five other edited notebooks retain original executable cells, outputs and
+metadata. No new runtime dependency/floor, scientific method/credit, compiled
+kernel or H5MSM schema. Next: **#561**, **#562**, then PR #543 expansion
+receiving. #582 retains the broader engine-neutral effective-recipe proposal.
+The board refresh also identifies native defects #583 (conflicting OpenMM
+attribution metadata) and #584 (Boolean constraints reader), plus separate
+interoperability study proposals #585/#586. They are not covered by #559.
+Publish an unskipped checkpoint and inspect its own hosted controls; missing
+runner execution remains pending under #334. Installed/platform and release
+qualification remain separately required; no tag or release is created here.
+
 ## Explicit implicit-solvent variants and physical policies — 2026-11-05
 
 **#580 and #581 are source-corrected.** Mechanics keeps physical model names
@@ -4459,3 +4490,14 @@ retains original failures, course preservation and real browser evidence.
 Native #583/#584 are reported; #582 and prior #572/#576 remain separate.
 No new GUI beyond System / Remove atoms, owner-main integration, installed
 qualification or publication is declared. Both 1.0 publications remain paused.
+
+### Execution-platform consumer receiving
+
+PR #543 receives native 50854766d (#559) with CPU/Reference model and result
+ownership controls; the source full gate passes 4,512 cases, with 481 native/tool
+controls and real browser receiving separately scoped in the
+[receipt](../devtools/data/molsysviewer_tools_platform_receiving_20261105.json).
+No new functional export, GPU/device qualification or scientific workaround is
+introduced. Native #583/#584, #582/#572/#576 and proposed #587 remain explicit;
+owner review, hosted CI, remaining tasks and installed qualification are pending.
+Both 1.0 publications remain paused.

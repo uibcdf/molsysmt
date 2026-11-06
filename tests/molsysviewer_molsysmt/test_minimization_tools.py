@@ -54,7 +54,7 @@ def view():
             yield view
 
 
-def direct_openmm_minimum(molsys, engine):
+def direct_openmm_minimum(molsys, engine, platform="CPU"):
     """Construct and minimize the qualified model without MolSysMT mechanics."""
     from openmm import app, unit
 
@@ -64,7 +64,10 @@ def direct_openmm_minimum(molsys, engine):
     )
     integrator = engine.VerletIntegrator(0.001)
     context = engine.Context(
-        system, integrator, engine.Platform.getPlatformByName("CPU"), {"Threads": "1"}
+        system,
+        integrator,
+        engine.Platform.getPlatformByName(platform),
+        {"Threads": "1"} if platform == "CPU" else {},
     )
     try:
         context.setPositions(xyz(molsys)[0] * unit.nanometer)
@@ -236,7 +239,7 @@ def test_local_skip_keeps_real_native_minimization(view, engine, in_place, skip)
     [
         {"engine": "not-an-engine"},
         {"platform": "not-a-platform"},
-        {"platform": "Reference"},
+        {"platform": ""},
         {"to_form": "not-a-form"},
     ],
 )
@@ -381,3 +384,31 @@ def test_cached_minimizer_rebinds_and_rejects_closed_empty_owners(view, engine):
     with msv.new_view() as empty:
         with pytest.raises(ValueError, match="Load a molecular system"):
             empty.addons.molsysmt.molecular_mechanics.potential_energy_minimization()
+
+
+@pytest.mark.parametrize("in_place", [False, True])
+def test_reference_platform_minimum_preserves_native_result_ownership(
+    view, engine, in_place
+):
+    before = snapshot(view)
+    _, expected_energy, expected_xyz, _ = direct_openmm_minimum(
+        view.molsys, engine, platform="Reference"
+    )
+    original = msm.copy(view.molsys)
+    result = view.addons.molsysmt.molecular_mechanics.potential_energy_minimization(
+        platform="Reference", in_place=in_place
+    )
+    output = view.molsys if in_place else result
+    assert (result is None) == in_place
+    np.testing.assert_allclose(xyz(output)[0], expected_xyz, rtol=1e-8, atol=1e-8)
+    observed = msm.molecular_mechanics.get_potential_energy(
+        output, platform="Reference"
+    )
+    assert float(puw.get_value(observed, to_unit="kJ/mol")) == pytest.approx(
+        expected_energy, rel=1e-8, abs=1e-7
+    )
+    same_noncoordinate_domains(output, original)
+    if not in_place:
+        unchanged(view, before)
+    else:
+        assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"

@@ -14,6 +14,24 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Native execution-platform repair received — 2026-11-05
+
+The contribution receives published native 50854766d over 96191e07e, preserving
+its scientific source and original course code/outputs/IDs/metadata. Native
+#559 now resolves engine-owned execution names without fallback. Six additional
+consumer cases qualify CPU/Reference energies, independent pair energies and
+minimization ownership against explicit models. GPU/plugin-device execution
+is separate. The full addon gate passes 4,512 cases; 481 native/tool controls,
+85 owner docs/reporting controls and 17 Viewer boundary cases pass separately.
+
+The [receipt](../../devtools/data/molsysviewer_tools_platform_receiving_20261105.json)
+retains the original outdated rejection failures, CPU tolerance correction,
+frozen inputs and real Mol*/ESM/Python receiving. Native #583/#584 and broader
+#582/#572/#576 remain separate. #587 is proposed in this PR with its own guard;
+MolSysSuite#171 and MolI#85 are delivered notices, not canonical adoption. Owner
+review, exact-head hosted CI, remaining graphical tasks, live hosts, installed
+qualification and both paused publications retain their separate gates.
+
 ## Board acquisition tooling follow-up — 2026-11-05
 
 The reporting audit exposed #587's false missing-issue results after the first

@@ -111,6 +111,24 @@ class LibraryNotFoundError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
+class ExecutionPlatformUnavailableError(MolSysMTCatalogException):
+    """Report a known execution platform absent from the selected installation."""
+
+    catalog_key = "ExecutionPlatformUnavailableError"
+
+    def __init__(
+        self, engine, platform, available_platforms, caller=None, message=None
+    ):
+        extra = dict(
+            engine=engine,
+            platform=platform,
+            available_platforms=list(available_platforms),
+        )
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
+
+
 class MolecularSystemNeededError(MolSysMTCatalogException):
     catalog_key = "MolecularSystemNeededError"
 
@@ -335,6 +353,7 @@ __all__ = [
     "InternalAlgorithmError",
     "IteratorError",
     "LibraryNotFoundError",
+    "ExecutionPlatformUnavailableError",
     "MolecularSystemNeededError",
     "MolecularSystemsNeededError",
     "MultipleMolecularSystemsError",

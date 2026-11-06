@@ -33,6 +33,8 @@ def test_engine_and_mechanics_digesters():
     assert digest_integrator("Langevin") == "Langevin"
     assert digest_integrator(True, caller="molsysmt.basic.get.get") is True
     assert digest_platform("CPU") == "CPU"
+    assert digest_platform("OpenCL") == "OpenCL"
+    assert digest_platform("future-engine-platform") == "future-engine-platform"
     assert digest_non_bonded_method("PME") == "PME"
     assert (
         digest_non_bonded_method(
@@ -70,6 +72,6 @@ def test_engine_and_mechanics_digesters():
     with pytest.raises(ArgumentError):
         digest_integrator(object())
     with pytest.raises(ArgumentError):
-        digest_platform("OpenCL")
+        digest_platform(None)
     with pytest.raises(ArgumentError):
         digest_use_gpu("gpu")

@@ -7,7 +7,8 @@ Keep the 3*N_particles-N_constraints integer definition, absence of COM/thermal
 corrections, explicit one-structure receiving and no implicit visible-frame use.
 These queries do not adopt engine objects, prepare chemistry or change the
 scene/history. Preserve the received independent resource-list repair (#560), distinct OBC1/OBC2
-models and the still-unreceived platform contract (#559).
+models and received engine-owned platform contract (#559). CPU/Reference receiving
+does not qualify GPU devices or imply fallback.
 Native result ownership and errors are delegated; do not silently copy a
 registry list or add unreceived mechanical functions without qualification.
 Energy selection constructs a parameterized subsystem, not an embedded energy
@@ -541,3 +542,8 @@ is received; do not add a consumer bibliography or alter scientific outputs.
 Keep #584's generic constraints-query failure distinct from actual stored-policy
 application and #582's broader effective-recipe design. Preserve native errors
 without a downstream getter or a false claim that every metadata flag works.
+
+Preserve native #559 platform resolution, structured unavailable-registration
+diagnostics and later device errors without fallback. Keep CPU/Reference
+consumer receiving separate from optional GPU/plugin execution and from the
+unchanged scientific/input limits of each mechanical function.

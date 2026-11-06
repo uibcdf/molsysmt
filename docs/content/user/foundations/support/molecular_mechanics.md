@@ -76,3 +76,18 @@ Geometric constraints, rigid water settings, and mass repartitioning:
 | **`flexible_constraints`** | Boolean | Policy allowing constrained bonds to vibrate harmonically. | N/A |
 | **`rigid_water`** | Boolean | Enforces rigid geometry on tri-atomic water molecules. | N/A |
 | **`hydrogen_mass`** | Real positive quantity | Mass repartitioning value assigned to hydrogen atoms for integration stability. | `dalton` (`Da`) |
+
+The execution platform is an engine-owned choice, separate from these physical
+parameters. General mechanics validation checks its name format; the selected
+adapter resolves supported names and registration. OpenMM admits exact names
+such as `Reference`, `CPU`, `CUDA` and `OpenCL`, plus installed plugin names.
+Discovery reports registration, which does not certify that a driver/device can
+initialize a calculation. Unknown names, known unregistered platforms, missing
+engines and subsequent initialization failures have separate diagnostics.
+
+The `platform` argument selects newly constructed contexts. Existing engine
+Context/Simulation inputs retain their actual platform; the argument does not
+migrate them. A failed explicit request does not choose another platform. The
+Reference implementation can be used for small numerical checks against other
+platforms, with tolerances reflecting their precision and settings. See the
+[engine's platform documentation](https://docs.openmm.org/latest/userguide/library/04_platform_specifics.html).

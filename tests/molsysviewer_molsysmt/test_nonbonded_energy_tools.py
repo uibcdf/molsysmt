@@ -213,7 +213,7 @@ def test_native_mixed_partition_failure_is_retained_without_compensation(
     "parameters",
     [
         {"engine": "invalid"},
-        {"platform": "Reference"},
+        {"platform": ""},
         {"selection": [100000]},
         {"selection": "invalid_selection"},
     ],
@@ -268,3 +268,19 @@ def test_cached_reader_rebinds_and_rejects_empty_closed_owners(view, engine):
     with msv.new_view() as empty:
         with pytest.raises(ValueError, match="Load a molecular system"):
             method(empty)()
+
+
+@pytest.mark.parametrize("platform", ["CPU", "Reference"])
+def test_explicit_platform_keeps_independent_pair_energy(view, engine, platform):
+    before = snapshot(view)
+    expected = pair_energies(view.molsys).sum() / 2
+    observed = method(view)(platform=platform)
+    # Preserve the existing pair-oracle CPU tolerance; Reference admits a
+    # tighter bound. Both retain the independently constructed physical model.
+    tolerance = (
+        dict(rtol=2e-6, atol=2e-4) if platform == "CPU" else dict(rtol=1e-7, atol=1e-5)
+    )
+    np.testing.assert_allclose(
+        puw.get_value(observed, to_unit="kJ/mol"), expected, **tolerance
+    )
+    unchanged(view, before)

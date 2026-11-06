@@ -1,18 +1,33 @@
+from depdigest import dep_digest
+
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest()
+@dep_digest("openmm")
 def available_platforms(verbose=True):
     """
-    Listing available OpenMM compute platform backend names on the host machine.
+    Listing registered OpenMM compute platforms on the host machine.
 
 
     Parameters
     ----------
-    verbose : object, default=True
-        Argument verbose.
+    verbose : bool, default=True
+        Print platform names and engine speed estimates. With False, return
+        the names instead. Registry discovery does not initialize a device.
 
     Returns
     -------
-    list of str
-        List of available platform names (e.g. `['Reference', 'CPU', 'CUDA', 'OpenCL']`).
+    list of str or none
+        Registered platform names when verbose=False; otherwise None after
+        printing. Registration alone does not certify context/driver readiness.
 
+    Examples
+    --------
+    >>> from molsysmt.third_party.openmm.platforms import available_platforms
+    >>> names = available_platforms(verbose=False)
+    >>> 'Reference' in names
+    True
 
     .. versionadded:: 1.0.0
     """
@@ -34,6 +49,8 @@ def available_platforms(verbose=True):
         return platforms_available
 
 
+@arg_digest()
+@dep_digest("openmm")
 def loading_failures():
     """
     Retrieving OpenMM platform plugin loading failure messages.
@@ -41,9 +58,19 @@ def loading_failures():
 
     Returns
     -------
-    tuple of str
-        Error strings reported when attempting to dynamically load platform plugins.
+    none
+        Print the engine's platform-plugin loading failure messages. The
+        existing print-only return contract is preserved.
 
+    Examples
+    --------
+    >>> from contextlib import redirect_stdout
+    >>> from io import StringIO
+    >>> from molsysmt.third_party.openmm.platforms import loading_failures
+    >>> with redirect_stdout(StringIO()):
+    ...     result = loading_failures()
+    >>> result is None
+    True
 
     .. versionadded:: 1.0.0
     """

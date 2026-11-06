@@ -35,7 +35,11 @@ def build_simulation(
     integration_timestep : object, default='2.0 fs'
         Argument integration_timestep.
     platform : str, default='CPU'
-        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
+        Exact OpenMM platform name, such as 'Reference', 'CPU', 'CUDA' or
+        'OpenCL', or another registered plugin name. An unknown name is
+        rejected; a known unregistered platform has an availability diagnostic.
+        Device/context initialization failures are retained as engine errors.
+        No different platform is selected on failure.
 
     Returns
     -------
@@ -89,10 +93,10 @@ def build_simulation(
 
     openmm_platform = None
     if platform is not None:
-        openmm_platform = (
-            mm.Platform.getPlatformByName(platform)
-            if isinstance(platform, str)
-            else platform
+        from molsysmt.third_party.openmm.platforms._resolve import resolve_platform
+
+        openmm_platform = resolve_platform(
+            platform, "molsysmt.form.openmm_Simulation._build.build_simulation"
         )
 
     simulation = Simulation(

@@ -53,7 +53,7 @@ def energy_engine(engine, monkeypatch):
     return engine
 
 
-def direct_openmm_energies(molsys, engine):
+def direct_openmm_energies(molsys, engine, platform="CPU"):
     """Evaluate the complete NoCutoff model independently of MolSysMT mechanics."""
     from openmm import app, unit
 
@@ -65,7 +65,10 @@ def direct_openmm_energies(molsys, engine):
         force.setForceGroup(index)
     integrator = engine.VerletIntegrator(0.001)
     context = engine.Context(
-        system, integrator, engine.Platform.getPlatformByName("CPU"), {"Threads": "1"}
+        system,
+        integrator,
+        engine.Platform.getPlatformByName(platform),
+        {"Threads": "1"} if platform == "CPU" else {},
     )
     try:
         xyz = msm.pyunitwizard.get_value(molsys.structures.coordinates, to_unit="nm")
@@ -273,8 +276,8 @@ def test_full_system_selection_forms_keep_energy_and_source(
 @pytest.mark.parametrize(
     "parameters",
     [
-        {"platform": "Reference"},
-        {"platform": "OpenCL"},
+        {"platform": ""},
+        {"platform": None},
         {"platform": "not-a-platform"},
         {"engine": "not-an-engine"},
         {"selection": [0, 1]},
@@ -550,3 +553,21 @@ def test_received_implicit_energy_and_degrees_match_explicit_physical_recipe(
             3 * system.getNumParticles() - system.getNumConstraints()
         )
         unchanged(owner, before)
+
+
+@pytest.mark.parametrize("platform", ["CPU", "Reference"])
+def test_explicit_execution_platform_matches_its_independent_model(
+    view, energy_engine, platform
+):
+    before = snapshot(view)
+    expected, _ = direct_openmm_energies(view.molsys, energy_engine, platform=platform)
+    observed = view.addons.molsysmt.molecular_mechanics.get_potential_energy(
+        platform=platform
+    )
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(observed, to_unit="kJ/mol"),
+        expected,
+        rtol=1e-7,
+        atol=1e-5,
+    )
+    unchanged(view, before)

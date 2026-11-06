@@ -3,7 +3,8 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 **Snapshot:** 2026-11-05, contribution PR #543 receiving published native
-`8c2661293` over the prior `02c409e5b` System-panel contribution.
+`50854766d` over the prior `96191e07e` contribution; the native #559
+platform repair changes execution admission without adding functional paths.
 The table describes this contribution's 242/245 paths, including
 all 57 element paths, thirty-one build paths and five mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
@@ -74,6 +75,16 @@ The earlier metadata integration's 155/244 snapshot and its frozen results retai
 their own source identities below. Native #549 naming-context review remains
 separate; the addon supplies no scientific repair. Source exposure is not
 universal scientific accuracy, supported-input coverage or package compatibility.
+
+## Native execution-platform repair received — 2026-11-05
+
+The [platform receipt](../devtools/data/molsysviewer_tools_platform_receiving_20261105.json)
+qualifies native #559 with explicit CPU/Reference energy, pair-energy and
+minimization controls; 4,512 addon/integration cases pass in the complete source
+gate. Engine-owned names, unavailable registration and device failures retain
+their distinct diagnostics without fallback. GPU/plugin-device execution is
+not qualified. Path exposure remains 242/245, build 31/31; native science and
+original owner course executable content are preserved. #583/#584 remain open.
 
 ## Native model and ion receiving — 2026-11-05
 
