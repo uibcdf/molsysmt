@@ -3207,3 +3207,21 @@ native MD stubs remain omitted. Complete latest-source, owner/hosted/installed a
 postponed human gates remain pending, along with every previously approved GUI
 and scientific-session family. Neither this count nor these scoped tests close
 the overall addon objective or authorize publication.
+
+### Complete reference collection and namespace recovery — 2026-11-06
+
+Frozen af8eabcd8 / Viewer d33e97bc executes every one of 4,974 addon cases:
+4,966 pass and eight fail, with all 5,288 selected inputs, both source heads and
+worktree statuses unchanged. Hosted smoke 42286603304 also reaches all cases:
+4,960 pass, the same eight fail and six optional Ackredit cases skip; its native
+suite separately passes 6,042 cases with 23 optional skips. The common failure
+is one strict build-namespace expectation missing assess_protonation. Runtime
+exports and scientific calculations are not changed by its correction.
+
+Adding that exact function to the expected set retains strict namespace,
+signature and digestion assertions. All 63 affected module cases pass, including
+the original eight. This covers 4,974 distinct local cases across attempts,
+not a single green full run. The [recovery receipt](../../devtools/data/molsysviewer_tools_reference_full_recovery_20261106.json)
+preserves original logs/input digests and all overlap/skip scopes. Corrected-head
+hosted receiving, owner/installed/human gates and remaining GUI families stay
+required. No publication or owner-main integration is authorized.

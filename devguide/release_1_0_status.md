@@ -20,6 +20,19 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Complete reference collection and test recovery — 2026-11-06
+
+The af8eabcd8 complete addon attempt executes all 4,974 cases with 4,966 passes
+and eight failures; all 5,288 selected source/runtime/provider inputs, heads and
+worktree statuses remain unchanged. The eight failures share a stale explicit
+build-namespace assertion missing assess_protonation. Its exact-set correction
+changes no runtime/scientific code and all 63 affected cases pass. The
+[recovery receipt](../devtools/data/molsysviewer_tools_reference_full_recovery_20261106.json)
+keeps this multi-attempt receiving distinct from one green complete run. Original
+hosted smoke 42286603304 retains the same failure and optional-dependency skips;
+corrected-head CI and owner/installed/human gates remain pending. The ordered
+native work below and every required GUI/scientific-session family stay intact.
+
 ## Chemical-reference and managed-protonation expert receiving — 2026-11-06
 
 The contribution following `38147a9f8` receives three additional native paths:
