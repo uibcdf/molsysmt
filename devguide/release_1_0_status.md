@@ -32,22 +32,28 @@ closure. Prior post-freeze scheduling of listed work does not block this explici
 instruction. Tags, Releases, promotions and provider-repository code edits keep
 their existing authorization boundaries.
 
-**Completed native/provider criteria: #304, #593, #428, #544, #572 and #576.**
-Next ordered issue: **#557**. Its source-permutation controls also identified supplemental
+**Completed native/provider criteria: #304, #593, #428, #544, #572, #576 and #557.**
+Next ordered issue: **#594**. The #557 source-permutation controls also identified supplemental
 [#617](archive/resolved_bugs/entry_mmcif_conversion_retains_a_retired_topology_component_flag_and_blocks_perm.md):
 the mmCIF converter wrote a retired Topology component flag. The one-line
 producer correction passes 137 adapter/permutation cases, preserving strict
 extension refusal. This is a prerequisite correction, not an expansion of the
 fifteen-item goal. The accepted fifteen-issue order above is unchanged.
-Native code through 8941bcfd4 is integrated on main, and the #428 installed
-producer bd40d7059 is independently received. Unfinished #557 source remains
-isolated and is excluded. Actual installed #428 receiving passes 2,542 consumer
+The #557 generic CCD factory and exact-name correspondence are implemented in
+d419e6fc2, with 421 affected cases, 101 public-provider-floor cases and
+2 doctests passing. The [owning closeout](archive/resolved_proposals/ccd_component_chemical_templates.md)
+and [source receipt](../devtools/data/ccd_template_receiving_557_20261106.json)
+retain experimental/scientific limits, original provider versions, exact source
+bytes/maps and deposited MK1/BTN pose controls. The new offline course example
+is executed without rewriting historical cells. The #428 installed producer
+bd40d7059 is independently received. Actual installed #428 receiving passes 2,542 consumer
 and 83 scientific cases with no omissions; 248 integrated guards for the four
 latest closures pass locally. See the
 [installed receipt](../devtools/data/argdigest_installed_receiving_428_20261106.json)
 and [joint closeout receipt](../devtools/data/ordered_feature_closeout_428_544_572_576_20261106.json).
-Main 9e1f1b1ad smoke 42255097956 passes after the documented command/inventory
-correction. Earlier failed receiving attempts remain in the #428 archive.
+Main 34b8c09e2 smoke 42267238580 passes, as do its four other applicable
+hosted checks. Earlier #428 receiving failures remain in their archive; the
+new #557 checkpoint retains its own source/local gates and CI evidence.
 
 Feature closure does not qualify the complete version matrix, a future Viewer
 candidate, its canvas/sessions, or the sixteen-cell installed release pair under
@@ -92,9 +98,10 @@ The exact-source gate for #304 is now
 [42205436569](https://github.com/uibcdf/molsysmt/actions/runs/42205436569),
 on **56b37c983253e8f93cda6333703df2b3a626a238** with controlled Viewer
 42234de839ed047016f8f241ea5eb717cfeb07be. All four Linux Python 3.11–3.14
-cells and the macOS Python 3.12/3.13 jobs report success; macOS Python 3.11/3.14
-remain queued. All six successful full-suite artifacts have been independently
-received and their archive digests, JUnit and receptor evidence checked.
+cells and macOS Python 3.11/3.12/3.13 report success; macOS Python 3.14 is
+still running. The six previously successful full-suite artifacts have been
+independently received and their archive digests, JUnit and receptor evidence
+checked. The additional macOS 3.11 artifact still needs independent receiving.
 Each Linux suite records
 29,253 passes and zero failures/errors. Its 118 JUnit skips comprise 117 item
 skips plus one collection-skipped module; the receptor retains the separate
@@ -112,8 +119,9 @@ does not alter the earlier frozen PR candidate or erase its failed gate.
 **Feature #304 is resolved at owner integration.** Its issue acceptance is
 covered by the retained graph/policy/provenance/benchmark evidence. The earlier
 decision to wait for the entire version matrix before closing this feature was
-broader than that acceptance; the two queued macOS lanes remain mandatory
-version qualification, with their exact running source/ref preserved. The disulfide/unsupported-group
+broader than that acceptance; the last active macOS lane and the additional
+artifact receiving remain mandatory version qualification, with the exact running
+source/ref preserved. The disulfide/unsupported-group
 policies are now explicit and contract-tested; this does not promise automatic
 oxidation-state matching, arbitrary-ligand preparation or metal-coordination
 inference. No complete-matrix, installed-pair or release claim follows from closing

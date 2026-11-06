@@ -1,0 +1,285 @@
+{
+  "schema": "molsysmt.ccd_template_receiving@1",
+  "recorded_at": "2026-11-06T18:30:12.778083+00:00",
+  "issue": "uibcdf/molsysmt#557",
+  "source_implementation_commit": "d419e6fc2c73ff00c0caad8d6a70fde23e3b6dd6",
+  "parent_main_commit": "34b8c09e267683037045004d1897951da8761d80",
+  "source_file_sha256": {
+    "devguide/api_stability_registry.md": "d1832c46a6307a2aaf1cecc1b232678cb1cf0e38c2947c5148bfd27cc666d390",
+    "devguide/scientific_evidence_matrix.md": "ecf6fa512c6805cb66869eeec9567165b79712d5584170f4f152fd2f1702b9f1",
+    "devguide/forms_and_conversions.md": "65314be75a7d48fffeedd793630e05779cc011e21bd2bcc46b64642c65a8a3f8",
+    "devtools/data/public_api_stability.json": "3405b55b039905977bceaa51c0e38486416dfd4684a75d38df35200f174827f3",
+    "devtools/tests/test_public_api_docs.py": "0bbb4d28fe6a2f985b3129f1b80901966874fee714d02f74604cc2ac39e013bf",
+    "docs/api/physchem/api_physchem.rst": "5597b2497e2d69561bd400e1e05390fed38e70c3bcd499cafa164f419efa7562",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_chemical_template.rst": "38c5493d225a5efadb6d69a4aad20f50863fd131e39d906205bce2e070dc6304",
+    "docs/api/topology/api_topology.rst": "8afd01ea03d94f95e509a900971f0ce3faba1d694d9f895e325419d6cdc8386a",
+    "docs/api/topology/autosummary/molsysmt.topology.get_atom_name_correspondence.rst": "f7b61f0aa38d65eef9212d19fb9fb612c9eb530e8605b9463b9d3799ca5a0612",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.AGENTS.md": "8d320f5ef43deeafc039c5609d94adacda7b976f38c9ece8e759b42b9e394207",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "bdd4a179dddcb256f1e80da2c9edec9148561d731d27a8f0627df64576f73fdd",
+    "docs/content/course/function_inventory.yml": "d44f28a1819fedb2574b8cda9b6a3aa7e332216bcf1e16c92d1b78bbab67df51",
+    "docs/content/user/cookbook/applying_chemical_templates.md": "44260ec3274af1f0cd662599d4973797dd3b041b1d55a52dacbb52a7ac04d765",
+    "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "a9c44da6d79f74d2c6f961381dc45097c5872385666c0c331cf598f2936a3536",
+    "docs/content/user/tools/physchem/chemical_templates.md": "de6e28db1d3d84e555b3d3a268990035dbae0067fb0de165a216a1a9ba7a7c98",
+    "docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md": "26d37f287089aea99001f1676c4caf1d8359145869d103d5633e6a566e8e0851",
+    "docs/content/user/tools/topology/get_atom_name_correspondence.md": "8153644c2ff42f546d77fba82d27da14d9396fea7dcc2804b04d93bf51b04640",
+    "docs/content/user/tools/topology/get_atom_name_correspondence.md.AGENTS.md": "8ab2d6a0700e6476ed60361ba6d9d10e072b9b34104efdedff374f992a8904c2",
+    "docs/content/user/tools/topology/index.md": "f8c6f37c77d435696bd0fd94102b82118a0fd2280a3e40702684d67b95b02cc7",
+    "docs/docs_manifest.yml": "cb099ff391563ceb420d5eeee79ecd0c5e631acc3182022a35a0172d785eec76",
+    "molsysmt/__init__.py": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280",
+    "molsysmt/_private/argdigest/argument/_correspondence_axes.py": "dfae3111826a71f8cfbd3c880919a05473a537637c2e84b90071dca324c5bab3",
+    "molsysmt/_private/scientific_citations.py": "f7896fae764b0695c19a0cf717e5d963f2b286b944ede38e45f5a10a0e25b892",
+    "molsysmt/_private/smonitor/__init__.py": "88c2c081d3eda04ee00d476b6c989c33b45ad6d08c862618d7d08d4a1840b70d",
+    "molsysmt/_private/smonitor/catalog.py": "f678dfb2fcf4506d7d7c41ef6198be71f884596f64868542c77c031d31bd6960",
+    "molsysmt/_private/smonitor/exceptions.py": "1f86df3dabb7f98ca5408c1cba4b89cd3d2e82c7efabbaebc5c7e7d66c0fd525",
+    "molsysmt/_private/argdigest/chemical_reference.py": "62ed413507fcca071c321f8f335af2ae0717375e03ff902515c36a281ec22b7d",
+    "molsysmt/_private/ccd_descriptor.py": "c59238f506cfde1c6b9a79a06d45a7442f3376e83f3544f8308e4f3af5102077",
+    "molsysmt/_private/ccd_reference.py": "3519388e57ece9201cb0098327c011069a082df219fd50aedde4a24a69132981",
+    "molsysmt/_private/chemical_reference_template.py": "a04ccea321c4c1ad42a94a06a765c19516630ab4723dd5d5d3c17615e28cd56f",
+    "molsysmt/physchem/__init__.py": "d0d27f6c8579c24f4ea8bab10cd60f54cfa8fa5a3d19d0f48c8ca5ea2c731030",
+    "molsysmt/physchem/get_chemical_template.py": "240eba77b0f40f3267318aa6a0677531d24640b82fb9a2caec08556855a145e4",
+    "molsysmt/topology/__init__.py": "eb109e37017473e806d6113358c09d5bd9558c6f5fcdb20798d9c0a129552111",
+    "molsysmt/topology/get_atom_name_correspondence.py": "9f655b36b9212db86fdab1357be23b9731a2b9314ad1e582393cad172bcfbcef",
+    "tests/physchem/data/chemical_templates/README.md": "eb6d15c723e5a517431b6081c8677f8d4d3103f97de752dd7dec47ce17d12566",
+    "tests/physchem/data/chemical_templates/1hsg.cif.gz": "4406bfd675bc07d1628b17f411a83f71a8dbf44d2965dfa6b74e6cc8e1c13f91",
+    "tests/physchem/data/chemical_templates/1stp.cif.gz": "dfc2ec2b215b1ae5441487725a094a1ffbf3886b890028206267902f6335fd9e",
+    "tests/physchem/data/chemical_templates/BTN.cif": "9fff069dc9e0387d49c3ef62cab0867a10dae56274931a779fb87f377b9c11ea",
+    "tests/physchem/data/chemical_templates/MK1.cif": "c1d46b02c24a3f7e6c089762a365c094078d9a00aee824131d75768d2805141a",
+    "tests/physchem/data/chemical_templates/ccd_reference_inputs.json": "d5c3815853b32cffa0571618a7f0c4d89ad8af7331ac2005aaeb2e27d7a21d2e",
+    "tests/physchem/test_ccd_reference_chemistry.py": "000f0c2b662017dceda7a0991f08f2a6ea45240cc9df3dc2ea849ef8faef9fe5",
+    "tests/physchem/test_ccd_template_application.py": "05b334973ed10027be147c3770e44a6cfb20403b5e748dc52cc4238aca04fb10",
+    "tests/physchem/test_get_chemical_template.py": "d0c4e31c8d8cc95c3728e6bb6a6170f3b995648c15a4533365ba39f95a11f9cd",
+    "tests/topology/test_get_atom_name_correspondence.py": "a6dff83e13b039696f4987c63a1e72e587200854bfa3d7ab459fc4061c3c8164"
+  },
+  "development_environment": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "modules": {
+      "molsysmt": {
+        "module_origin_relative_to_receiving_worktree": "molsysmt/__init__.py",
+        "module_file_sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280",
+        "distribution_metadata_version": "0.23.0+201.g3502232d8.dirty",
+        "reported_module_version": "0.23.0+201.g3502232d8.dirty"
+      },
+      "argdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../argdigest/argdigest/__init__.py",
+        "module_file_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee",
+        "distribution_metadata_version": "0.16.0+1.g6dabaf7",
+        "reported_module_version": "0.16.0+1.g6dabaf7"
+      },
+      "depdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../depdigest/depdigest/__init__.py",
+        "module_file_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "distribution_metadata_version": "0.15.1+3.ga27172b",
+        "reported_module_version": "0.15.1+3.ga27172b"
+      },
+      "smonitor": {
+        "module_origin_relative_to_receiving_worktree": "../../../../smonitor/smonitor/__init__.py",
+        "module_file_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+        "distribution_metadata_version": "0.21.0+1.gd6b2394",
+        "reported_module_version": "0.22.0+15.g5ee88c1"
+      },
+      "ackredit": {
+        "module_origin_relative_to_receiving_worktree": "../../../../ackredit/ackredit/__init__.py",
+        "module_file_sha256": "43264d45f63ed941ac032aed67c882543a952bc6f58a3555e1a100a5d7b13533",
+        "distribution_metadata_version": "0.12.1+2.ge233973",
+        "reported_module_version": "0.12.1+2.ge233973"
+      },
+      "pyunitwizard": {
+        "module_origin_relative_to_receiving_worktree": "../../../../pyunitwizard/pyunitwizard/__init__.py",
+        "module_file_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+        "distribution_metadata_version": "0.29.1+6.gf82b618",
+        "reported_module_version": "0.29.1+6.gf82b618"
+      },
+      "mmcif": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/mmcif/__init__.py",
+        "module_file_sha256": "4c038245503928953375159410bcf28234ba3ad3539fb47f8cc1d310dfc657d9",
+        "distribution_metadata_version": "1.1.1",
+        "reported_module_version": "1.1.1"
+      },
+      "rdkit": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/rdkit/__init__.py",
+        "module_file_sha256": "eca4a895c02c16eadbe7887ed1463c7ed75b86b222f0843d1c090c331e7c40a7",
+        "distribution_metadata_version": "2025.9.5",
+        "reported_module_version": "2025.09.5"
+      },
+      "pytest_receptor": {
+        "module_origin_relative_to_receiving_worktree": "../../stabilization-551/tooling/published/pytest_receptor/__init__.py",
+        "module_file_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b",
+        "distribution_metadata_version": "1.2.1",
+        "reported_module_version": "1.2.1"
+      },
+      "molsysviewer": {
+        "module_origin_relative_to_receiving_worktree": "../../pr543-viewer-4223-20261105/molsysviewer/__init__.py",
+        "module_file_sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4",
+        "distribution_metadata_version": "0.24.0+97.gdf4bf477.dirty",
+        "reported_module_version": "0.24.0+97.gdf4bf477.dirty"
+      },
+      "numpy": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/numpy/__init__.py",
+        "module_file_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a",
+        "distribution_metadata_version": "2.4.6",
+        "reported_module_version": "2.4.6"
+      },
+      "pandas": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/pandas/__init__.py",
+        "module_file_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b",
+        "distribution_metadata_version": "2.3.3",
+        "reported_module_version": "2.3.3"
+      }
+    }
+  },
+  "public_provider_floor_origins": {
+    "argdigest": {
+      "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_file_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+      "distribution_version": "0.14.0"
+    },
+    "depdigest": {
+      "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_file_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+      "distribution_version": "0.15.1"
+    },
+    "smonitor": {
+      "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_file_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3",
+      "distribution_version": "0.16.0"
+    },
+    "ackredit": {
+      "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_file_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42",
+      "distribution_version": "0.9.0"
+    }
+  },
+  "test_runs": {
+    "affected_final": {
+      "path": ".pytest_cache/557-affected-codes-final.xml",
+      "sha256": "9f74a13f70a68d4a9eef6b32c94ceb2b924932ec0b16045fa5faeda6de96b455",
+      "counts": {
+        "tests": 421,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "by_class": {
+        "devtools.tests.test_molsysviewer_tools_api_inventory": 1,
+        "devtools.tests.test_public_api_docs": 32,
+        "tests._private.argdigest.test_scientific_array_digesters": 4,
+        "tests.physchem.test_ccd_reference_chemistry": 37,
+        "tests.physchem.test_ccd_template_application": 8,
+        "tests.physchem.test_chemical_template": 50,
+        "tests.physchem.test_chemical_template_connectivity": 16,
+        "tests.physchem.test_chemical_template_context": 27,
+        "tests.physchem.test_chemical_template_est": 4,
+        "tests.physchem.test_chemical_template_receptor": 6,
+        "tests.physchem.test_chemical_template_selection": 24,
+        "tests.physchem.test_chemical_template_stereochemistry": 9,
+        "tests.physchem.test_get_chemical_template": 39,
+        "tests.physchem.test_get_peptide_chemical_template": 80,
+        "tests.topology.test_correspondence_attribution": 7,
+        "tests.topology.test_get_atom_correspondences": 60,
+        "tests.topology.test_get_atom_name_correspondence": 17
+      }
+    },
+    "published_floors_final": {
+      "path": ".pytest_cache/557-reference-public-floors-codes-final.xml",
+      "sha256": "5d9c3300223766a3d1b160625c994961228ffe652f777d1223b8dd78e851402d",
+      "counts": {
+        "tests": 101,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "by_class": {
+        "tests.physchem.test_ccd_reference_chemistry": 37,
+        "tests.physchem.test_ccd_template_application": 8,
+        "tests.physchem.test_get_chemical_template": 39,
+        "tests.topology.test_get_atom_name_correspondence": 17
+      }
+    },
+    "public_doctests": {
+      "path": ".pytest_cache/557-public-doctests.xml",
+      "sha256": "f07d3bb6df46bfd5ed9d5a8f6ca01270e0f856faee2c6a62aa8e409055e42d62",
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "by_class": {
+        "molsysmt.physchem.get_chemical_template": 1,
+        "molsysmt.topology.get_atom_name_correspondence": 1
+      }
+    }
+  },
+  "execution": {
+    "workers": 12,
+    "pytest_receptor": "1.2.1 published",
+    "floor_profile": "Unchanged public Conda payloads prepended to PYTHONPATH in the existing development interpreter; no installation/new environment. Development SMonitor pytest plugin disabled, runtime diagnostics active.",
+    "development_version_metadata": "Observed editable-distribution version strings are retained; they do not freeze the current source. Use source_implementation_commit and source_file_sha256 for this receiving."
+  },
+  "online_individual_receiving": {
+    "status": "constructed",
+    "source": {
+      "kind": "rcsb",
+      "resource": "https://files.rcsb.org/ligands/download/BTN.cif",
+      "acquired_at": "2026-11-06T18:20:52.314187+00:00",
+      "component_id": "BTN",
+      "block_name": "BTN",
+      "version": "2024-09-27",
+      "resource_sha256": "9fff069dc9e0387d49c3ef62cab0867a10dae56274931a779fb87f377b9c11ea",
+      "resource_n_bytes": 9167,
+      "compression": "none",
+      "definition_sha256": "9fff069dc9e0387d49c3ef62cab0867a10dae56274931a779fb87f377b9c11ea",
+      "definition_n_bytes": 9167,
+      "definition_decompressed_offset": 0
+    },
+    "software": {
+      "molsysmt": "0.23.0+201.g3502232d8.dirty",
+      "mmcif": "1.1.1",
+      "rdkit": "2025.09.5"
+    },
+    "matches_pinned_definition": true,
+    "n_atoms": 16
+  },
+  "fixture_manifest": "tests/physchem/data/chemical_templates/ccd_reference_inputs.json",
+  "course": {
+    "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+    "execution": "New offline example executed with existing quiet runner in an isolated three-cell notebook; executed cells inserted without changing any original cell, output, ID or notebook metadata. The complete historical module is not newly re-executed.",
+    "new_cell_ids": [
+      "ccd-label-map-557",
+      "ccd-reference-557",
+      "ccd-reference-hints-557"
+    ],
+    "expected_output": "unassessed None [[0, 1], [1, 2], [2, 0]]",
+    "original_cells_preserved": true
+  },
+  "tutorial": {
+    "path": "docs/content/user/tools/topology/get_atom_name_correspondence.md",
+    "executed_python_blocks": 2
+  },
+  "quality": {
+    "fast_gate": "14/14 PASS after final archive and release-ledger updates",
+    "ruff": "Repository lint PASS and 4459 Python files format-clean",
+    "public_signature_guard": "No unauthorized signature drift against main",
+    "devguide_index": "Fresh generated index check passes after archival"
+  },
+  "failed_controls_retained": [
+    "Original #617 converter flag blocked actual source permutation; separately fixed and closed in parent main commit, retaining strict unknown-extension refusal.",
+    "Adversarial aromatic order and large charge controls exposed silent order loss and raw RDKit overflow. Final unsupported aromatic-order models remain unassessed, without asserting universal chemical impossibility.",
+    "Two initial optional-provider tests had harness errors; corrected absence simulation preserves distribution discovery, and real provider portable attribution uses its supported schema.",
+    "One initial tutorial snippet used an unexported root Topology alias; final snippet imports the public native class explicitly and both blocks execute."
+  ],
+  "primary_references": [
+    "https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_chem_comp_atom.pdbx_stereo_config.html",
+    "https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_chem_comp_bond.pdbx_aromatic_flag.html",
+    "https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Items/_chem_comp.pdbx_formal_charge.html",
+    "https://pubmed.ncbi.nlm.nih.gov/25540181/"
+  ],
+  "limits": [
+    "Experimental CCD reference interpretation and label matching, not universal chemistry or bound-state protonation/tautomer selection.",
+    "No source pose replacement, minimization, H placement, force-field coverage or docking/pharmacophore biological acceptance.",
+    "Input buffers/candidate estimates do not bound process RSS or parser/native-object memory.",
+    "No new addon facade, installed consumer pair, canvas/session qualification, tag, Release, upload or package promotion.",
+    "Ruff, fast and affected tests do not qualify the complete source-platform or installed release-pair matrices."
+  ]
+}
