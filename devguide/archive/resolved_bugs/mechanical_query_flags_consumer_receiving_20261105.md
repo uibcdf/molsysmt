@@ -1,13 +1,13 @@
 ---
 summary: basic.get rejects the Boolean reader flag for stored constraints.
 issue: uibcdf/molsysmt#584
-status: open
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: medium
 verification: reproduced
 area: [basic, argdigest]
-guard:
+guard: tests/basic/get/test_mechanical_query_flags.py
 normative:
 blocked_by: []
 supersedes: []
@@ -43,3 +43,14 @@ sweep related mechanical readers for equivalent semantic collisions. Preserve
 physical policy validation and #581 translation without enabling arbitrary
 Booleans as model choices. Keep native ownership and avoid an addon getter
 workaround. Related: #421 / PR #543 and uibcdf/molsysviewer#264.
+
+## Resolution
+
+The scientific owner delivers reader/value separation in 8e9e3d207, received
+through the contribution's merge of native ed09f6453. This preserves the original
+consumer report rather than leaving a duplicate open record after the owner's
+canonical resolution. The native guard above distinguishes query flags from
+stored physical values. The receiving run also passes 128 addon System and
+mechanics cases; it is separate from the owner's complete native evidence.
+No scientific getter workaround is introduced in the addon. See the
+[owner's resolution](basic_get_constraints_reader_flag_is_rejected.md).

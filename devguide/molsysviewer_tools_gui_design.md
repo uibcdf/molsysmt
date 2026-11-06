@@ -17,10 +17,16 @@ The result is computed once, then explicitly shown in notebook output or a
 window (desktop: window only). Python recovers the View by handle. Unpresented
 results are discarded when a task is left; presented Views survive panel/source
 closure. Real Jupyter receiving covers ordered structures, separate native data
-and both initial destinations. Extended popup and exact-head gates remain
-pending. Native-window ownership is tested separately from postponed human
+and both destinations, repeated destination changes, fullscreen delivery and
+detached Studio. Hosted exact-head gates remain pending. Native-window ownership is tested separately from postponed human
 visible Qt qualification. Other destinations and Geometry/Chemistry/Analysis
 remain planned. The dated status above retains its initial scope.
+
+The host code is Viewer `42234de839ed047016f8f241ea5eb717cfeb07be`.
+The source receiver also incorporates native ed09f6453, including the owner's
+#583/#584 repairs. Consumer observations are archived alongside the native
+resolutions; no duplicate open report is retained. The final receiving receipt
+records exact source hashes and separately selected browser/Qt scopes.
 
 The expert API remains the scientific foundation. This design uses qualified
 native operations and their existing managed-edit adapters; it does not change

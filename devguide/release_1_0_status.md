@@ -20,6 +20,29 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Independent addon result Views — 2026-11-05
+
+PR #543 now includes System / Extract subset and Copy system, using Viewer
+`42234de839ed047016f8f241ea5eb717cfeb07be` through exact controlled-source pins.
+The expert wrappers retain native molecular returns; the GUI prepares an
+independent View and explicitly presents it below the notebook or in a window.
+Changing destination reuses the same View, including from detached Studio.
+Fullscreen delivery is explained rather than falsely described as visible.
+Python can recover the result by handle. Native science and source remain
+unchanged; leaving an unpresented result releases it.
+
+Receiving on native ed09f6453 passes 128 addon System/mechanics cases and 180
+read-tool/native #583/#584 controls, in overlapping scopes. The published Viewer
+source passes the seven-step actual-Jupyter result scenario; the existing
+six-step removal/popups control remains separately passing. Native offscreen
+Qt ownership is separate from postponed human visible Qt qualification. All
+157 incoming course notebooks preserve code, outputs and metadata. Current
+evidence is in
+[the receiving receipt](../devtools/data/molsysviewer_tools_result_views_receiving_20261105.json).
+Owner review/integration, hosted exact-head CI and installed qualification remain
+pending. Both 1.0 publications remain paused. No native algorithm is authored
+by this GUI addition, and no tag, Release or promotion is authorized.
+
 ## Course geometric interface observable — 2026-11-05
 
 **#589 is source-corrected.** The Alzheimer capstone uses explicit partner atom

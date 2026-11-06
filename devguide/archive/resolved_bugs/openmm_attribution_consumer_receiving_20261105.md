@@ -1,13 +1,13 @@
 ---
 summary: OpenMM attribution metadata conflicts between implicit models and solvation.
 issue: uibcdf/molsysmt#583
-status: open
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: medium
 verification: reproduced
 area: [build, convert]
-guard:
+guard: tests/build/solvate/test_scientific_attribution.py
 normative:
 blocked_by: []
 supersedes: []
@@ -52,3 +52,13 @@ No consumer copy, disabled conflict detection or scientific workaround is needed
 
 Related consumer: uibcdf/molsysviewer#264; implementation contribution #421 / PR
 #543. The source receiving receipt retains the original warning and capture.
+
+## Resolution
+
+The scientific owner delivers canonical software metadata in 6005bb4bc,
+received through the contribution's merge of native ed09f6453. The native guard
+captures both operation orders and their contextual references. This archived
+consumer report keeps the original observation and legitimate staged-workflow
+rationale without duplicating an open entry after the owner's correction. No
+attribution suppression or scientific workaround is added to the addon. See the
+[owner's resolution](openmm_metadata_conflicts_between_implicit_models_and_solvation.md).

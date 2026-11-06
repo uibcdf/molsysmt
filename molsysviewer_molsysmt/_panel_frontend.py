@@ -126,7 +126,7 @@ export function render({model, el}) {
   async function present(destination){
     if(busy||!result)return;
     busy=true;message='Opening result…';render();
-    try{await model.present_view(result.id,destination);message=destination==='notebook'?'Result shown below the original canvas.':'Result opened in its own window.';}
+    try{const notice=await model.present_view(result.id,destination);message=notice||(destination==='notebook'?'Result shown below the original canvas.':'Result opened in its own window.');}
     catch(error){message=String(error.message||error);}
     finally{busy=false;if(alive)render();}
   }

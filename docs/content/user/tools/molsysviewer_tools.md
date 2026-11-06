@@ -5113,8 +5113,9 @@ After calculation, choose **Show in notebook** or **Open in new window** in
 Jupyter. Qt offers a new native window. The destination is explicit, including
 from canvas/Studio popups. If the browser blocks the window, allow it and retry;
 the scientific operation is not repeated. Reopening the same destination
-returns to the existing View. A result already shown in the notebook can use
-its own canvas popup.
+returns to the existing View. Changing destination moves that same View,
+including back from a window to the notebook. Its own canvas popup is also
+available when shown in the notebook.
 
 Expand **Python reference** to recover the independent View. For example,
 `view_B = view.addons.manager.presentations.get(handle)` returns it without

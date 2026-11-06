@@ -12,11 +12,13 @@ async function step(name,action){stage=name;console.log('STEP '+name);await acti
 async function execute(cell,p=page){await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();await cell.locator('.cm-content').click();await p.getByRole('button',{name:/Run this cell and advance/}).click();}
 async function workspace(p){
  const tab=p.locator('[data-molsysviewer-addon-workspace-tab="molsysmt"]');
- if(!await tab.isVisible()){
+ const toggle=p.getByTitle('Panel mode (N / W)',{exact:true});
+ if(!await tab.isVisible()&&await toggle.count()){
   const hot=p.getByRole('button',{name:'Show canvas controls',exact:true});await hot.focus();await p.keyboard.press('Enter');
-  await p.getByTitle('Panel mode (N / W)',{exact:true}).click();
-  const addons=p.locator('[data-molsysviewer-panel-stack-option="addons"]');if(!await tab.isVisible())await addons.click();
+  await toggle.click();
  }
+ if(!await tab.isVisible()){const addons=p.locator('[data-molsysviewer-panel-stack-option="addons"]');await addons.waitFor({state:'visible'});await addons.click();}
+ await tab.waitFor({state:'visible'});
  await tab.click();await p.locator('.msm-system').waitFor();
 }
 try{
@@ -31,7 +33,7 @@ try{
   await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/results-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});
   const cell=page.locator('.jp-NotebookPanel:visible .jp-Cell').first();await cell.filter({hasText:'import molsysviewer as msv'}).waitFor();
   const no=page.getByRole('button',{name:'No',exact:true});if(await no.isVisible())await no.click();
-  await execute(cell);await page.waitForFunction(()=>window.__controllers?.[0]?.getStructureData()?.elementCount===62,{timeout:120000});
+  await execute(cell);await page.waitForFunction(()=>window.__controllers?.[0]?.getStructureData()?.elementCount===62,null,{timeout:120000});
   await workspace(page);
  });
  const panel=()=>page.locator('.msm-system').first();
@@ -45,6 +47,23 @@ try{
   await page.waitForFunction(()=>window.__controllers.length===2&&window.__controllers[1].getStructureData()?.elementCount===3);
   assert.equal(await page.locator('[data-molsysviewer-result]').count(),1);
   await page.screenshot({path:output+'/notebook-result.png',fullPage:true});
+ });
+ await step('Notebook delivery from fullscreen explains how to reach the result',async()=>{
+  const source=page.locator('[data-molsysviewer-canvas-output]').first();
+  await source.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');
+  await source.getByTitle('Fullscreen',{exact:true}).click();await page.waitForFunction(()=>!!document.fullscreenElement);
+  await panel().locator('[data-show-notebook]').click();await panel().locator('[data-status]').filter({hasText:'Leave fullscreen to see it'}).waitFor();
+  await page.evaluate(()=>document.exitFullscreen());await page.waitForFunction(()=>!document.fullscreenElement);
+ });
+ await step('Changing destination reuses one View through rapid window/notebook cycles',async()=>{
+  for(let cycle=0;cycle<2;cycle++){
+   const opened=page.waitForEvent('popup');await panel().locator('[data-show-window]').click();const child=await opened;record(child);
+   await child.locator('#molsysviewer-loading').waitFor({state:'hidden'});
+   const closed=child.waitForEvent('close');await panel().locator('[data-show-notebook]').click();await closed;
+   await panel().locator('[data-status]').filter({hasText:'Result shown below'}).waitFor();
+   assert.equal(await page.locator('[data-molsysviewer-result]').count(),1);
+   assert.equal(await page.evaluate(()=>window.__controllers.length),2);
+  }
  });
  await step('Copy opens a separate live View in an external window without recomputing',async()=>{
   await panel().locator('[data-task]').selectOption('copy');await panel().locator('[data-heading]').filter({hasText:'Copy system'}).waitFor();
@@ -79,5 +98,5 @@ try{
  assert.ok(errors.every(error=>baselineErrors.some(baseline=>fingerprint(error)===fingerprint(baseline))),'A page error was introduced beyond the plain Jupyter control');
  const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Real local JupyterLab/ipykernel/AnyWidget, ordered native extraction, independent Mol* Views, notebook and browser-window presentation including detached Studio. Not visible human Qt qualification.'};
  await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
-}catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors},null,2));if(page){await page.screenshot({path:output+'/failure.png',fullPage:true});await writeFile(output+'/failure-dom.txt',await page.locator('body').innerText());}console.error(error);process.exitCode=1;}
+}catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors},null,2));if(browser){for(const [index,p] of browser.contexts().flatMap(c=>c.pages()).entries())await writeFile(output+'/window-'+index+'-failure-dom.txt',await p.locator('body').innerText());}if(page){await page.screenshot({path:output+'/failure.png',fullPage:true});await writeFile(output+'/failure-dom.txt',await page.locator('body').innerText());}console.error(error);process.exitCode=1;}
 finally{if(browser)await browser.close();}

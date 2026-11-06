@@ -51,6 +51,6 @@ def test_actual_jupyter_independent_result_views(tmp_path):
         command.extend(["--provider-root", provider])
     subprocess.run(command, check=True, timeout=300)
     result = json.loads((output / "full-result.json").read_text())
-    assert len(result["checks"]) == 5
+    assert len(result["checks"]) == 7
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()

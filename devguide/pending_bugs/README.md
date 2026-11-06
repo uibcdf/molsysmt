@@ -20,12 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (4)
+### Open (2)
 
 - [`alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md`](alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md) — [#593](https://github.com/uibcdf/molsysmt/issues/593) — Alzheimer capstone preparation uses unsupported builder keywords and drops independent repairs. *(medium, reproduced)*
-- [`basic_get_constraints_reader_flag_is_rejected.md`](basic_get_constraints_reader_flag_is_rejected.md) — [#584](https://github.com/uibcdf/molsysmt/issues/584) — basic.get rejects the Boolean reader flag for stored constraints. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
-- [`openmm_metadata_conflicts_between_implicit_models_and_solvation.md`](openmm_metadata_conflicts_between_implicit_models_and_solvation.md) — [#583](https://github.com/uibcdf/molsysmt/issues/583) — OpenMM attribution metadata conflicts between implicit models and solvation. *(medium, reproduced)*
 
 ### In progress (1)
 
