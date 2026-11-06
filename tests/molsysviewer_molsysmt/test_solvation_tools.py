@@ -99,22 +99,17 @@ def assert_water_geometry(result):
     np.testing.assert_allclose(angles, 104.52, rtol=0, atol=angle_bound)
 
 
-def test_native_signature_help_discovery_and_local_control(view):
+def test_native_signature_help_discovery_and_forwarded_control(view):
     call = view.addons.molsysmt.build.solvate
     native = inspect.signature(msm.build.solvate)
     assert inspect.signature(call) == native.replace(
-        parameters=[
-            *list(native.parameters.values())[1:],
-            inspect.Parameter(
-                "skip_digestion", inspect.Parameter.KEYWORD_ONLY, default=False
-            ),
-        ]
+        parameters=list(native.parameters.values())[1:]
     )
     assert call.digestion_plan is not None and "solvate" in dir(
         view.addons.molsysmt.build
     )
     assert not hasattr(view.addons.molsysmt, "solvate")
-    assert "not forwarded" in inspect.getdoc(call)
+    assert "random_seed" in inspect.getdoc(call)
     assert "no update_view control" in inspect.getdoc(call)
     assert "\nmolecular_system :" not in inspect.getdoc(call)
     for name in inspect.signature(call).parameters:
@@ -213,7 +208,7 @@ def test_native_failures_keep_diagnostics_and_source(view, engine, parameters, s
     args = {**PARAMETERS, **parameters}
     before = snapshot(view)
     with pytest.raises(Exception) as native:
-        msm.build.solvate(view.molsys, **args)
+        msm.build.solvate(view.molsys, **args, skip_digestion=skip)
     with pytest.raises(type(native.value)) as actual:
         view.addons.molsysmt.build.solvate(**args, skip_digestion=skip)
     assert str(actual.value) == str(native.value)
@@ -231,26 +226,25 @@ def test_multistructure_input_keeps_native_rejection_before_preparation(engine):
         unchanged(view, before)
 
 
-def test_nonnumeric_identifier_rejection_is_native_and_source_is_preserved(
-    view, engine
-):
+def test_nonnumeric_identifier_is_preserved_without_source_changes(view, engine):
     msm.set(view.molsys, element="atom", selection=[0], atom_id="alpha")
     before = snapshot(view)
-    with pytest.raises(ValueError) as native:
-        msm.build.solvate(view.molsys, **PARAMETERS)
-    with pytest.raises(type(native.value)) as actual:
-        view.addons.molsysmt.build.solvate(**PARAMETERS)
-    assert str(actual.value) == str(native.value)
+    result = view.addons.molsysmt.build.solvate(**PARAMETERS)
+    assert result.topology.atoms.atom_id.iloc[0] == "alpha"
+    assert result is not view.molsys
     unchanged(view, before)
 
 
 def test_explicit_openmm_counts_are_forwarded_without_hidden_compensation(view, engine):
     before = snapshot(view)
-    args = {**PARAMETERS, "n_cations": 2, "n_anions": 2}
+    args = {**PARAMETERS, "n_cations": 2, "n_anions": 2, "random_seed": 7}
     native = msm.build.solvate(view.molsys, **args)
     result = view.addons.molsysmt.build.solvate(**args)
-    # Known native limitation: these explicit counts are ignored by OpenMM.
-    assert msm.get(native, n_ions=True) == msm.get(result, n_ions=True) == 0
+    assert msm.get(native, n_ions=True) == msm.get(result, n_ions=True) == 4
+    np.testing.assert_array_equal(
+        puw.get_value(result.structures.coordinates, to_unit="nm"),
+        puw.get_value(native.structures.coordinates, to_unit="nm"),
+    )
     unchanged(view, before)
 
 
@@ -275,8 +269,9 @@ def test_cached_method_rebinds_and_rejects_closed_empty_views(view, engine):
     msm.set(replacement, element="atom", selection=[0], atom_id="replacement")
     view.load(replacement, mode="replace")
     before = snapshot(view)
-    with pytest.raises(ValueError, match="replacement"):
-        call(**PARAMETERS)
+    result = call(**PARAMETERS)
+    assert result.topology.atoms.atom_id.iloc[0] == "replacement"
+    assert result is not view.molsys
     unchanged(view, before)
     view.close()
     with pytest.raises(RuntimeError, match="closed view"):

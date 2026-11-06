@@ -1,13 +1,13 @@
 ---
 summary: OpenMM solvate silently ignores explicit n_anions and n_cations.
 issue: uibcdf/molsysmt#575
-status: open
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: high
 verification: reproduced
 area: [build, solvate, molsysviewer]
-guard:
+guard: tests/build/solvate/test_explicit_ion_counts.py::test_openmm_applies_explicit_ion_counts
 normative:
 blocked_by: []
 supersedes: []
@@ -78,3 +78,12 @@ this documentation-only handoff. Native scientific correction belongs to MolSysM
 The failure is reproduced by direct MolSysMT calls without a Viewer instance.
 The consumer facade is not its cause and does not repair it. Other engines,
 force fields and broader preparation protocols are outside the executed scope.
+
+## Consumer receiving resolution — 2026-11-05
+
+Native owner source 8c2661293 includes the published repair. Receiving retains
+this original consumer reproduction alongside the independent owner's report;
+neither is deleted or overwritten. The native guard named above passes within
+the 362-case directed receiving gate. Addon selection/ownership boundaries are
+kept separate from this native correction. See the paired owner report in this
+directory for the scientific implementation and detailed native coverage.

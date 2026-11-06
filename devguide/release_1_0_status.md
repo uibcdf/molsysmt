@@ -20,6 +20,177 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Explicit implicit-solvent variants and physical policies — 2026-11-05
+
+**#580 and #581 are source-corrected.** Mechanics keeps physical model names
+independent of the engine. OBC1 and OBC2 now select their actual standard model
+XMLs in the OpenMM adapter for the seven existing AMBER fields. Native mechanics
+stores solute/solvent settings, not engine classes or resources. Shared conversion
+uses explicit keywords, then supported stored settings, then defaults, and
+validates newly read source values. Default HBonds remains; requested none,
+all-bond and hydrogen-angle policies are now translated faithfully.
+
+The actual unconstrained OBC1 conversion passes the pinned upstream 22-atom
+force reference at its original tolerance (max error 0.024869 kJ/mol/nm).
+Both variants agree with direct engine recipes and differ numerically from
+each other. No new independent Amber run or general physical-accuracy claim
+is made. Optional Ackredit records the scientific method, actual engine/version
+and contextual model/resources after successful construction only.
+
+Receiving passes **1,817 affected tests**, **234 published-support-floor cases**
+and **570 documentation/governance/doctest cases**, plus the executed ten-cell
+tutorial. User Guide, native mechanics, course and docstrings are aligned;
+Cookbook/course code and outputs are preserved. See the
+[#580 record](archive/resolved_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md),
+[#581 record](archive/resolved_bugs/openmm_system_conversion_ignores_the_requested_constraint_policy.md)
+and [receipt](../devtools/data/implicit_solvent_receiving_580_581_20261105.json).
+
+Broader effective-recipe/capability reporting and unsupported stored tuning
+are tracked separately in [#582](pending_proposals/expose_effective_engine_neutral_mechanics_recipes_and_unsupported_stored_control.md).
+No public OpenMM-shaped mechanics API or new backend placeholder is introduced.
+No dependency floor, compiled kernel or H5MSM schema changes. Next native reports
+remain **#559**, **#561**, **#562**, then PR #543 expansion receiving; the new
+proposal has no automatic release deferral or additional initial-1.0 gate.
+Publish an unskipped checkpoint and inspect its own hosted controls; missing
+runner execution remains pending under #334. Local results do not replace
+installed/platform or exact release qualification. No tag or release is created.
+
+## Force-field resource ownership — 2026-11-05
+
+**#560 is source-corrected.** `get_engine_forcefield()` returns an independent
+ordered list of XML/leaprc names on every valid call. Caller edits cannot mutate
+the registry, other results or later parameterizations. All 71 registry entries,
+resource ordering and implicit-solvent precedence are retained. The existing
+public signature is unchanged; ArgDigest and SMonitor now cover the public
+metadata boundary. Engine installation and actual physical configuration remain
+separate from metadata lookup.
+
+Receiving passes **984 affected tests**, **169 published-support-floor cases**
+and **569 documentation/governance/doctest controls**, plus the executed
+seven-cell tutorial. The real OpenMM control preserves particle/constraint and
+per-force payloads after caller-local edits. See the
+[owning record](archive/resolved_bugs/forcefield_resource_results_alias_registry_lists.md)
+and [receipt](../devtools/data/forcefield_resources_receiving_560_20261105.json).
+The Cookbook and Module 20 retain original executable cells and outputs.
+No resource definitions, dependency floors, compiled kernels or H5MSM schema change.
+
+The scientific review found **#580**: AMBER14/OBC1 conversion accepts the label
+but creates no implicit-solvent force. Its
+[record](archive/resolved_bugs/amber14_obc1_conversion_omits_implicit_solvent_force.md)
+keeps the physical evidence separate from metadata ownership and makes no
+unmeasured energy claim. Review this silent model mismatch next, before the
+remaining **#559**, **#561** and **#562** native mechanics reports and final
+PR #543 expansion receiving. #572/#576 remain separate capability work.
+
+#578 is already closed and published in `ea4086c7297a7ecf1757648ebd3c5bd44e440c7f`;
+its five routine checks were still queued when inspected through GH Run Receptor.
+Publish this block without a skip marker and inspect its own hosted checks;
+missing execution remains pending under #334. Local source evidence does not
+replace installed/platform or release qualification. No new tag, Release,
+promotion or release matrix is launched.
+
+## Empty visualization input contract — 2026-11-05
+
+**#578 is source-corrected.** Ordinary `msm.view()` and explicit None create an
+empty Python workspace with either registered backend. Only this exact public
+caller gains the None exception. Shared axis validation rejects expressions or
+nonempty indices without a source before construction; all/None/flat empty axes
+are admitted. No zero-atom MolSys is synthesized. Loaded inputs retain their
+existing extraction/backend requirements, including rejection of unsupported
+empty loaded selections rather than replacing their source with None.
+
+The MolSysViewer adapter gains its explicit DepDigest guard; invalid viewer types
+retain native diagnostics. Backend selection, static-HTML behavior and the
+public signature remain unchanged. The corrected Foundations matrix lists only
+the two actual dispatch routes; explicit viewer=None reads configuration, while
+omitting viewer retains its MolSysViewer default.
+
+Receiving passes **273 affected tests**, **66 published-support-floor cases**
+and **569 documentation/governance/doctest cases**. Real empty widgets are closed
+after inspection; no browser rendering or session evidence is claimed. Three
+edited notebooks retain all original executable cells, outputs and metadata.
+See the [owning record](archive/resolved_bugs/basic_view_rejects_default_empty_input.md)
+and [receipt](../devtools/data/empty_view_receiving_578_20261105.json). No new
+dependency floor, scientific method/credit, compiled kernel or file-format schema.
+
+Queue review observes no newer issue than the now-resolved #579, with PR #543
+still at `94548b434f5d673f6fcfc6c97db9d83601a5b4b7`. Next: **#560** (mutable
+force-field registry results), then **#559**, **#561** and **#562**, before final
+expansion receiving. #572/#576 remain separate capability work. Finish this
+block with an unskipped published head and inspect its own hosted controls;
+missing hosted evidence remains pending under #334 until runners execute.
+Installed/platform and release qualification remain separately required.
+
+## Solvation identifier preservation — 2026-11-05
+
+**#574 and #579 are source-corrected.** OpenMM solvation no longer interprets
+source atom/group labels as integer indices. Native output preserves retained
+labels, duplicates and missing values, and allocates labels only for generated
+sites. Existing native ion maps handle removal of original waters; source counts
+are retained in their solvation context. Finalization uses native tools before
+the requested output conversion. Noncanonical provider traversal fails before
+construction rather than producing an ambiguous positional correspondence.
+
+The related **#579** fix belongs to the shared `get()` normalizer: pandas.NA,
+numeric NaN and None remain missing, while actual '<NA>', 'None', 'nan' and empty
+string labels remain literal. Universal and native queries reuse that boundary;
+solvation uses public get/set without a second missing-ID interpreter.
+
+Receiving passes **3,273 affected tests**, **167 published-support-floor tests**
+and **585 documentation/governance/doctest controls**. The five edited lessons
+retain every original executable cell, output and notebook metadata. See the
+[#574 record](archive/resolved_bugs/openmm_solvate_rejects_nonnumeric_atom_ids.md),
+[#579 record](archive/resolved_bugs/get_stringifies_nullable_ids.md) and
+[shared receipt](../devtools/data/source_identifier_receiving_574_579_20261105.json)
+for commands, source hashes, corrected draft assumptions and boundaries.
+No public signature, dependency floor, compiled kernel, H5MSM schema or new
+scientific credit changes. This is source evidence, not release qualification.
+
+Queue review observes PR #543 at
+`94548b434f5d673f6fcfc6c97db9d83601a5b4b7`. Next is **#578** (empty-view
+default), followed by remaining native correctness issues #559–#562 and expansion
+receiving; #572/#576 remain capability work. The preceding source checkpoint's
+hosted controls were queued at the last inspection. Finish this work block with
+an unskipped published head and inspect its own controls; missing routine hosted
+evidence remains pending under #334 until runners execute, with installed and
+release gates separately required. No extra release matrix or promotion is
+launched by this metadata correction.
+
+## Native ion replacement and explicit solvation counts — 2026-11-05
+
+**#575 is source-corrected.** New experimental `build.add_ions` replaces complete
+waters with one of nine monovalent species, using existing sparse Rust-backed
+periodic neighbor queries. Counts, charge-dependent neutralization and additional
+salt pairs have separate documented semantics. PCG64 seeds, bounded failure,
+producer versions, attribution and composable source/output atom maps are retained
+in ChemicalStates preparation history and H5MSM 0.5. No new dependency, compiled
+kernel or file-format revision was needed. This prepares geometry, without
+equilibration or invented force-field parameters.
+
+OpenMM explicit counts and seeded requests construct water first, then delegate
+to the native operation; mixed neutralization uses the original force-field
+charge. Unseeded defaults keep OpenMM's ordinary provider route. Native solvation
+delegates placement while explicitly retaining its legacy pH-7 source-charge
+approximation. PDBFixer rejects explicit counts or a seed before construction;
+its ordinary default route remains supported and tested. See the
+[owning record](archive/resolved_bugs/openmm_solvate_ignores_explicit_ion_counts.md)
+for the precise bounds and corrected findings.
+
+Receiving passes **212 affected tests**, **77 published-floor tests**, **156
+native-owner tests**, **601 documentation/governance tests** and **2 doctests**.
+The new tutorial's five code cells and the added course/cookbook examples execute.
+Finite analytical charge and lattice-image controls support a deliberately
+**partial** scientific-evidence declaration, not an equilibrium or optimal-packing
+claim. The [receipt](../devtools/data/ion_replacement_receiving_575_20261105.json)
+retains exact commands, source hashes, failed drafts and limits.
+
+The prior main smoke **42118274443 passes**. The new source delivery still needs
+routine hosted inspection; none of this replaces exact-candidate installed,
+platform or release qualification. Queue review observes new **#578** (empty-view
+default) and PR #543 at `c0149a2d6147380046768b9211cf11b7b63ebeda`. Continue with
+**#574** (OpenMM labels), then #578 and expansion receiving; #576/#572 remain
+explicit capability work. No tag, Release or package promotion is authorized here.
+
 ## Water-box geometry receiving — 2026-11-05
 
 **#564 is source-corrected.** `build.make_water_box` uses the row-vector
@@ -4277,3 +4448,14 @@ adapter. Local real-browser/native receiving is separate from owner review,
 hosted CI, live Jupyter/Qt/popups and installed qualification. Viewer #297/#298
 own diagnostic transport and stylesheet lifetime fixes. Geometry, Chemistry,
 Analysis and other System tasks remain proposed; both publications stay paused.
+
+### Native model/ion consumer receiving
+
+PR #543 receives native 8c2661293 without authoring native algorithms; expert
+exposure is 242/245 and build 31/31. The full addon gate passes 4,506 cases,
+362 directed native checks and 321 Viewer controls pass separately. The
+[source receipt](../devtools/data/molsysviewer_tools_native_model_ion_receiving_20261105.json)
+retains original failures, course preservation and real browser evidence.
+Native #583/#584 are reported; #582 and prior #572/#576 remain separate.
+No new GUI beyond System / Remove atoms, owner-main integration, installed
+qualification or publication is declared. Both 1.0 publications remain paused.

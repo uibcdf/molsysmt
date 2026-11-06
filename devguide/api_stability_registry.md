@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 165 |
+| experimental | 166 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -173,6 +173,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
+| `molsysmt.build.add_ions` | experimental | active | 1.0.0 |
 | `molsysmt.build.add_missing_bonds` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_missing_heavy_atoms` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_missing_hydrogens` | experimental | active | pre-1.0 |

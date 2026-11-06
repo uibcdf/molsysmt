@@ -1,13 +1,13 @@
 ---
 summary: basic.view rejects its default None input before empty visualization.
 issue: uibcdf/molsysmt#578
-status: open
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-05
 severity: medium
 verification: reproduced
 area: [basic, view, argdigest, molsysviewer]
-guard:
+guard: tests/basic/view/test_empty_view_contract.py::test_default_or_explicit_none_creates_empty_workspace
 normative:
 blocked_by: []
 supersedes: []
@@ -66,3 +66,12 @@ The native reproduction uses the recorded source and existing source host.
 Other visualization backends and browser rendering were not qualified. The
 consumer keeps its loaded-primary admission and does not bypass native digestion.
 The native owner decides the supported default and selector/backend semantics.
+
+## Consumer receiving resolution — 2026-11-05
+
+Native owner source 8c2661293 includes the published repair. Receiving retains
+this original consumer reproduction alongside the independent owner's report;
+neither is deleted or overwritten. The native guard named above passes within
+the 362-case directed receiving gate. Addon selection/ownership boundaries are
+kept separate from this native correction. See the paired owner report in this
+directory for the scientific implementation and detailed native coverage.

@@ -15,7 +15,8 @@ def compose_atom_maps(atom_maps, skip_digestion=False):
     atom_maps : list or tuple of dict
         Nonempty sequence of completed reports in operation order. Supported
         schemas are molsysmt.terminal_attachment@1, hydrogen_addition@1,
-        atom_projection@1, atom_export@1, pdbqt_pose_read@1 and atom_map@1.
+        atom_projection@1, atom_export@1, ion_replacement@1, pdbqt_pose_read@1
+        and atom_map@1.
         Report arrays may be NumPy arrays or JSON-decoded lists. These are
         declared correspondences; no spatial or chemical matching is performed.
     skip_digestion : bool, default=False

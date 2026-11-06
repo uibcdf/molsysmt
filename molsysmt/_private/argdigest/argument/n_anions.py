@@ -2,12 +2,9 @@ from molsysmt._private.smonitor import ArgumentError
 
 
 def digest_n_anions(n_anions, caller=None):
+    if caller in {"molsysmt.build.solvate.solvate", "molsysmt.build.add_ions.add_ions"}:
+        from molsysmt.build._ion_replacement import nonnegative_integer
 
-    if caller == "molsysmt.build.solvate.solvate":
-        if isinstance(n_anions, str):
-            if n_anions == "neutralize":
-                return "neutralize"
-        if isinstance(n_anions, int):
-            return n_anions
+        return nonnegative_integer(n_anions, "n_anions", neutralize=True, caller=caller)
 
     raise ArgumentError("n_anions", value=n_anions, caller=caller, message=None)

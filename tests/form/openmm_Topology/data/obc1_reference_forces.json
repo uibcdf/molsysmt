@@ -1,0 +1,139 @@
+{
+  "schema": "molsysmt.test_reference_forces@1",
+  "source_repository": "https://github.com/openmm/openmm",
+  "commit": "ba0aa236ac4d07241382869604c4d2ea58c4f3f5",
+  "source_paths": {
+    "coordinates": "wrappers/python/tests/systems/alanine-dipeptide-implicit.pdb",
+    "forces": "wrappers/python/tests/systems/alanine-dipeptide-implicit-forces/OBC1_NonPeriodic.xml"
+  },
+  "source_sha256": {
+    "wrappers/python/tests/systems/alanine-dipeptide-implicit.pdb": "4110a5c2f68e6336e8ebf9f968635aa136c19873ca786dd085709be89929092d",
+    "wrappers/python/tests/systems/alanine-dipeptide-implicit-forces/OBC1_NonPeriodic.xml": "6cd8884fba3caa5062962d96b0439c76d80956e70b8431b47ef699bf3b018a31"
+  },
+  "method": {
+    "forcefield": "amber96.xml",
+    "solvent": "implicit/obc1.xml",
+    "nonbonded_method": "CutoffNonPeriodic",
+    "cutoff_nm": 1.0
+  },
+  "units": "kilojoule/mole/nanometer",
+  "forces": [
+    [
+      118.75197611749172,
+      37.31967115402222,
+      -0.27059119939804077
+    ],
+    [
+      319.6333022713661,
+      341.64345021545887,
+      -0.5288973026908934
+    ],
+    [
+      0.2122395746409893,
+      -48.4974714294076,
+      -33.63206410780549
+    ],
+    [
+      1.172732662409544,
+      -48.143215753138065,
+      33.092639449983835
+    ],
+    [
+      -684.7492891550064,
+      -22.71616694331169,
+      142.82319979975
+    ],
+    [
+      -480.4688265323639,
+      -646.0529344677925,
+      396.2935791655909
+    ],
+    [
+      19.13356330501847,
+      -860.4653923611622,
+      -259.51502784877084
+    ],
+    [
+      -55.92518413066864,
+      -27.145088732242584,
+      -0.7603530795313418
+    ],
+    [
+      429.2403093329631,
+      382.1770090353675,
+      60.34707065927796
+    ],
+    [
+      -26.955144122242928,
+      24.935925662517548,
+      56.52590095857158
+    ],
+    [
+      3.497140398947522,
+      -239.83717452944256,
+      -301.7230455505196
+    ],
+    [
+      24.14258260652423,
+      -15.982009936124086,
+      -62.18898533610627
+    ],
+    [
+      92.46831530146301,
+      -180.48632702417672,
+      -122.92353540635668
+    ],
+    [
+      424.0495262593031,
+      312.01640206342563,
+      -348.84565827436745
+    ],
+    [
+      204.3266766667366,
+      -102.10523875057697,
+      290.7208612586837
+    ],
+    [
+      -454.11176013946533,
+      168.45798873901367,
+      1.5088972502853721
+    ],
+    [
+      -223.03344660252333,
+      420.29524646978825,
+      149.7152159397956
+    ],
+    [
+      -39.53340256214142,
+      -150.4378457069397,
+      1.7263585741166025
+    ],
+    [
+      248.08668254315853,
+      195.30956656951457,
+      -1.4342415807768703
+    ],
+    [
+      83.9709010720253,
+      328.7274760007858,
+      -0.4131510257720947
+    ],
+    [
+      -1.8617023173719645,
+      65.95496952533722,
+      9.68197262659669
+    ],
+    [
+      -2.0471442881971598,
+      65.03140318393707,
+      -10.200121019035578
+    ]
+  ],
+  "tolerance": {
+    "absolute_vector_norm": 0.1,
+    "relative_vector_norm": 0.0001
+  },
+  "provenance_note": "Frozen upstream fixture used by TestForceField.test_ImplicitSolventForces, whose comment describes the AmberPrmtopFile construction route. The original numerical-generation command/engine revision is not retained by this fixture; do not describe it as an independently executed Amber benchmark.",
+  "coordinate_derivation": "Only trailing line padding removed; PDB atom/coordinate fields unchanged.",
+  "stored_coordinate_sha256": "3a91889cb09262eccc1c106ef8146c8c618ef1ca88c540481732df642450a971"
+}

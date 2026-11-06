@@ -30,7 +30,8 @@ water_models = {
 }
 
 implicit_solvent_models = {
-    "OBC1": "",
+    "OBC1": "Onufriev-Bashford-Case I (Amber igb=2)",
+    "OBC2": "Onufriev-Bashford-Case II (Amber igb=5)",
 }
 
 switcher = {}
@@ -43,7 +44,8 @@ switcher["OpenMM"] = {
         "TIP3P-FB": ["amber14-all.xml", "amber14/tip3pfb.xml"],
         "TIP4P-EW": ["amber14-all.xml", "amber14/tip4pew.xml"],
         "TIP4P-FB": ["amber14-all.xml", "amber14/tip4pfb.xml"],
-        "OBC1": ["amber14-all.xml"],
+        "OBC1": ["amber14-all.xml", "implicit/obc1.xml"],
+        "OBC2": ["amber14-all.xml", "implicit/obc2.xml"],
     },
     "AMBER10": {
         "vacuum": ["amber10.xml"],
@@ -52,7 +54,8 @@ switcher["OpenMM"] = {
         "TIP3P-FB": ["amber10.xml", "tip3pfb.xml"],
         "TIP4P-EW": ["amber10.xml", "tip4pew.xml"],
         "TIP4P-FB": ["amber10.xml", "tip4pfb.xml"],
-        "OBC1": ["amber10.xml", "amber10_obc.xml"],
+        "OBC1": ["amber10.xml", "implicit/obc1.xml"],
+        "OBC2": ["amber10.xml", "implicit/obc2.xml"],
     },
     "AMBER03": {
         "vacuum": ["amber03.xml"],
@@ -61,7 +64,8 @@ switcher["OpenMM"] = {
         "TIP3P-FB": ["amber03.xml", "tip3pfb.xml"],
         "TIP4P-EW": ["amber03.xml", "tip4pew.xml"],
         "TIP4P-FB": ["amber03.xml", "tip4pfb.xml"],
-        "OBC1": ["amber03.xml", "amber03_obc.xml"],
+        "OBC1": ["amber03.xml", "implicit/obc1.xml"],
+        "OBC2": ["amber03.xml", "implicit/obc2.xml"],
     },
     "AMBER99SB": {
         "vacuum": ["amber99sb.xml"],
@@ -70,7 +74,8 @@ switcher["OpenMM"] = {
         "TIP3P-FB": ["amber99sb.xml", "tip3pfb.xml"],
         "TIP4P-EW": ["amber99sb.xml", "tip4pew.xml"],
         "TIP4P-FB": ["amber99sb.xml", "tip4pfb.xml"],
-        "OBC1": ["amber99sb.xml", "amber99_obc.xml"],
+        "OBC1": ["amber99sb.xml", "implicit/obc1.xml"],
+        "OBC2": ["amber99sb.xml", "implicit/obc2.xml"],
     },
     "AMBER99SBILDN": {
         "vacuum": ["amber99sbildn.xml"],
@@ -79,7 +84,8 @@ switcher["OpenMM"] = {
         "TIP3P-FB": ["amber99sbildn.xml", "tip3pfb.xml"],
         "TIP4P-EW": ["amber99sbildn.xml", "tip4pew.xml"],
         "TIP4P-FB": ["amber99sbildn.xml", "tip4pfb.xml"],
-        "OBC1": ["amber99sbildn.xml", "amber99_obc.xml"],
+        "OBC1": ["amber99sbildn.xml", "implicit/obc1.xml"],
+        "OBC2": ["amber99sbildn.xml", "implicit/obc2.xml"],
     },
     "AMBER99SBNMR": {
         "vacuum": ["amber99sbnmr.xml"],
@@ -88,7 +94,8 @@ switcher["OpenMM"] = {
         "TIP3P-FB": ["amber99sbnmr.xml", "tip3pfb.xml"],
         "TIP4P-EW": ["amber99sbnmr.xml", "tip4pew.xml"],
         "TIP4P-FB": ["amber99sbnmr.xml", "tip4pfb.xml"],
-        "OBC1": ["amber99sbnmr.xml", "amber99_obc.xml"],
+        "OBC1": ["amber99sbnmr.xml", "implicit/obc1.xml"],
+        "OBC2": ["amber99sbnmr.xml", "implicit/obc2.xml"],
     },
     "AMBER96": {
         "vacuum": ["amber96.xml"],
@@ -97,7 +104,8 @@ switcher["OpenMM"] = {
         "TIP3P-FB": ["amber96.xml", "tip3pfb.xml"],
         "TIP4P-EW": ["amber96.xml", "tip4pew.xml"],
         "TIP4P-FB": ["amber96.xml", "tip4pfb.xml"],
-        "OBC1": ["amber96.xml", "amber96_obc.xml"],
+        "OBC1": ["amber96.xml", "implicit/obc1.xml"],
+        "OBC2": ["amber96.xml", "implicit/obc2.xml"],
     },
     "CHARMM36": {
         "vacuum": ["charmm36.xml"],

@@ -6,6 +6,15 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "onufriev_2004": dict(
+        doi="10.1002/prot.20033",
+        title="Exploring protein native states and large-scale conformational changes with a modified generalized Born model",
+        authors=["Onufriev, Alexey", "Bashford, Donald", "Case, David A."],
+        year=2004,
+        journal="Proteins: Structure, Function, and Bioinformatics",
+        volume="55",
+        pages="383-394",
+    ),
     "wildman_1999": dict(
         doi="10.1021/ci990307l",
         title="Prediction of Physicochemical Parameters by Atomic Contributions",
@@ -238,6 +247,7 @@ ARTICLES = {
 # or author list. RDKit asks additionally for the version used; the producer
 # version is attached by the consumer, without resolving a moving release DOI.
 SOFTWARE = {
+    "openmm": dict(title="OpenMM", url="https://openmm.org"),
     "molsysmt": dict(
         title="MolSysMT",
         authors=["Prada-Gracia, Diego", "Moreno-Vargas, Liliana M."],

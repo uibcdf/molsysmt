@@ -112,3 +112,7 @@ context versus all-structure deletion, unchanged expert Python defaults, atomic
 review expiry and projection-only host recovery. Do not imply the other planned
 panels or visible/installed hosts are qualified by headless receiving. Preserve
 all original executable cells, outputs, IDs and metadata.
+
+Preserve the independent expert add_ions pointer and received solvation seed,
+count, identifier and native digestion controls. Native scientific placement,
+atom maps and explicit result adoption remain separate from scene rendering.

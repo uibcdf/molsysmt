@@ -1,12 +1,12 @@
-# =======================
-# Creando cajas solvatadas
-# =======================
+"""Building solvent boxes and delegating native ion replacement."""
 
 import numpy as np
+from depdigest import dep_digest
+from smonitor import signal
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentError, InternalAlgorithmError
+from molsysmt._private.smonitor import ArgumentError
 
 """
 Solvate Box
@@ -155,81 +155,6 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     return result
 
 
-def _build_ions(ion_name, atom_name, atom_type, positions):
-    """Build a MolSys with single-atom ion groups at the given positions.
-
-    Parameters
-    ----------
-    ion_name : str
-        Group/residue name (PDB convention, e.g. 'NA', 'CL').
-    atom_name : str
-        Atom name (same as group name for monatomic ions).
-    atom_type : str
-        Element symbol (e.g. 'Na', 'Cl').
-    positions : np.ndarray, shape (n_ions, 3)
-        Coordinates in nm for each ion.
-
-    Returns
-    -------
-    molsysmt.MolSys
-    """
-    import pandas as pd
-
-    from molsysmt.native import MolSys, Structures
-
-    n_ions = positions.shape[0]
-
-    result = MolSys(
-        n_atoms=n_ions,
-        n_groups=n_ions,
-        n_components=n_ions,
-        n_molecules=n_ions,
-        n_entities=0,
-        n_chains=1,
-        n_bonds=0,
-    )
-    new_topo = result.topology
-    new_topo.atoms["atom_id"] = pd.array(
-        [str(i + 1) for i in range(n_ions)], dtype="string"
-    )
-    new_topo.atoms["atom_name"] = np.full(n_ions, atom_name, dtype=object)
-    new_topo.atoms["atom_type"] = np.full(n_ions, atom_type, dtype=object)
-    new_topo.atoms["group_index"] = pd.array(
-        np.arange(n_ions, dtype=np.int64), dtype="Int64"
-    )
-    result.chemical_states._set_component_indices(np.arange(n_ions, dtype=np.int64))
-    new_topo.atoms["chain_index"] = pd.array(
-        np.zeros(n_ions, dtype=np.int64), dtype="Int64"
-    )
-
-    new_topo.groups["group_id"] = pd.array(
-        [str(i + 1) for i in range(n_ions)], dtype="string"
-    )
-    new_topo.groups["group_name"] = np.full(n_ions, ion_name, dtype=object)
-    new_topo.groups["group_type"] = np.full(n_ions, "ion", dtype=object)
-    new_topo.groups["molecule_index"] = pd.array(
-        np.arange(n_ions, dtype=np.int64), dtype="Int64"
-    )
-
-    new_topo.chains["chain_id"] = pd.array(["ION"], dtype="string")
-    new_topo.chains["chain_name"] = [None]
-    new_topo.chains["chain_type"] = [None]
-
-    xyz = positions.reshape(1, n_ions, 3)
-    new_struc = Structures(
-        coordinates=puw.quantity(xyz, "nm"),
-        structure_id=np.array(["1"], dtype=object),
-    )
-
-    # Declare stable hierarchy once during construction; later chemistry edits
-    # must not be needed to recover solvent/ion molecule labels.
-    new_topo.rebuild_molecules(redefine_indices=False)
-    new_topo.rebuild_entities()
-    result.structures = new_struc
-    return result
-
-
-@arg_digest()
 def _place_in_box_origin_convention(item):
     """Translate a solvated system so the box it declares occupies ``[0, L)``.
 
@@ -271,6 +196,10 @@ def _place_in_box_origin_convention(item):
     return translate(item, translation=puw.quantity(shift, "nm"), in_place=False)
 
 
+@signal(tags=["build", "solvation"])
+@arg_digest()
+@dep_digest("openmm", when={"engine": "OpenMM"})
+@dep_digest("pdbfixer", when={"engine": "PDBFixer"})
 def solvate(
     molecular_system,
     box_shape="truncated octahedral",
@@ -284,9 +213,11 @@ def solvate(
     engine="OpenMM",
     to_form=None,
     verbose=False,
+    random_seed=None,
+    skip_digestion=False,
 ):
     """
-    Solvate a molecular system by surrounding it with explicit water molecules and ions.
+    Solvating a molecular system with explicit water molecules and ions.
 
     This function places the molecular system inside a solvent box of the chosen
     geometry, fills it with explicit water molecules of the selected model, and
@@ -300,28 +231,40 @@ def solvate(
         Molecular system in any supported MolSysMT format. The system must
         contain exactly one structure. Select one structure first with
         ``structure_indices`` when the input is an ensemble or trajectory.
-    box_shape : object, default='truncated octahedral'
-        Argument box_shape.
-    clearance : object, default='14.0 angstroms'
-        Argument clearance.
-    anion : object, default='Cl-'
-        Argument anion.
-    n_anions : object, default='neutralize'
-        Argument n_anions.
-    cation : object, default='Na+'
-        Argument cation.
-    n_cations : object, default='neutralize'
-        Argument n_cations.
-    ionic_strength : object, default='0.0 molar'
-        Argument ionic_strength.
+    box_shape : str, default='truncated octahedral'
+        'cubic', 'truncated octahedral' or 'rhombic dodecahedral'. Native
+        MolSysMT also supports 'rectangular'.
+    clearance : quantity or str, default='14.0 angstroms'
+        Positive solvent clearance, using any supported length unit.
+    anion : str, default='Cl-'
+        Monovalent negative ion: 'Cl-', 'Br-', 'F-' or 'I-'.
+    n_anions : int or str, default='neutralize'
+        Additional anions, or 'neutralize'. OpenMM/native explicit counts
+        are applied through build.add_ions; PDBFixer rejects explicit counts.
+    cation : str, default='Na+'
+        Monovalent positive ion: 'Na+', 'K+', 'Li+', 'Rb+' or 'Cs+'.
+    n_cations : int or str, default='neutralize'
+        Additional cations, or 'neutralize'. Mixed requests solve the automatic
+        population from source charge plus the explicitly added population.
+    ionic_strength : quantity or str, default='0.0 molar'
+        Nonnegative additional salt concentration. Native replacement adds
+        equal ion pairs after base replacements using the 55.4 molar
+        water-count proxy; it does not measure final total ionic strength.
     water_model : str, default='TIP3P'
         Water model parameter identifier (e.g., 'TIP3P').
-    engine : object, default='OpenMM'
-        Argument engine.
-    to_form : object, default=None
-        Argument to_form.
-    verbose : object, default=False
-        Argument verbose.
+    engine : str, default='OpenMM'
+        Solvent builder: 'OpenMM', 'PDBFixer' or native 'MolSysMT'. Optional
+        providers are loaded only for their selected route.
+    to_form : str, default=None
+        Requested output form. None preserves the input form.
+    verbose : bool, default=False
+        Legacy verbosity control; no additional report is printed.
+    random_seed : int, default=None
+        Nonnegative PCG64 seed for native ion placement. Supplying one also
+        selects native placement after OpenMM water construction. PDBFixer
+        rejects this control because its public solvation API cannot honor it.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -334,10 +277,57 @@ def solvate(
     Raises
     ------
     ArgumentError
-        Raised if ``molecular_system`` contains more than one structure.
+        If the source does not contain exactly one structure, controls are
+        invalid, or a PDBFixer request includes explicit counts or a seed.
+    StructuralInconsistencyError
+        If native replacement cannot place the requested population, or a
+        charge-dependent request is inconsistent.
     NotImplementedError
         Raised if the requested ``engine`` or ``water_model`` is not supported.
 
+
+    Notes
+    -----
+    After solvation, water molecules and ions are automatically assigned to a new
+    chain by ``assign_selection_to_new_chain``. In the OpenMM route, retained
+    source atom/group IDs keep their original string labels, duplicates and
+    missing values in native output. Only generated sites receive new labels:
+    positive decimal strings starting at 1, skipping every known retained label
+    in their atom or group namespace. IDs are never parsed as integer indices.
+    Native finalization precedes the requested output conversion; foreign forms
+    and file formats retain their own label/serial representation constraints.
+    Provider traversal must agree with positional atom/group indices; a
+    noncanonical source is rejected before solvent construction.
+
+    The forcefield used for solvation is read from the molecular system when
+    available; otherwise the MolSysMT default forcefield is used.
+
+    Unseeded default OpenMM neutralization/concentration uses the ordinary
+    provider algorithm. Explicit counts or a seed construct water with provider
+    neutralization/salt disabled, then call build.add_ions. Neutralization in
+    that route uses the OpenMM force-field charge of the complete source. Native
+    solvation retains its historical physical_pH7 tabulated source approximation;
+    this is not a chemical-state or force-field assignment. For explicit charge
+    control use build.add_ions on a separately solvated system.
+
+    Native replacement retains seed, parameters, provenance and atom maps in
+    ChemicalStates preparation history, with axes local to the water-replacement
+    input, not the original unsolvated source. Its solvation context records the
+    original source atom/group counts: the first source-atom-count entries of
+    the forward map refer to that original source, including -1 for an original
+    water replaced by an ion. Ordinary OpenMM construction without native
+    replacement retains the source as the leading atom/group prefix. Source
+    ownership and positional correspondence do not depend on unique labels.
+    Counts mean added ions. Known
+    charged waters fail; placement does not equilibrate ions or assign new
+    force-field parameters. Unsupported atom-aligned observations may be cleared
+    by native atom-growth policies. Native coordinates remain in nm regardless
+    of the application's PyUnitWizard presentation policy.
+
+    See Also
+    --------
+    molsysmt.build.add_ions : Add ions to existing solvent with explicit evidence.
+    molsysmt.build.make_water_box : Build a standalone water box.
 
     Examples
     --------
@@ -351,24 +341,42 @@ def solvate(
     >>> msm.get(molsys, n_structures=True)
     1
 
+    .. admonition:: User guide
 
-    Notes
-    -----
-    After solvation, water molecules and ions are automatically assigned to a new
-    chain by ``assign_selection_to_new_chain``. Atom and residue IDs in the output
-    topology are renumbered sequentially to work around a known OpenMM bug.
-
-    The forcefield used for solvation is read from the molecular system when
-    available; otherwise the MolSysMT default forcefield is used.
-
+       See :ref:`Tutorial_Solvate` and :ref:`Tutorial_Add_ions` for engine contracts.
 
     .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import convert, get, get_form
+    from molsysmt.build._ion_replacement import scalar_quantity
+
+    if not isinstance(skip_digestion, bool):
+        from molsysmt._private.argdigest.argument.skip_digestion import (
+            digest_skip_digestion,
+        )
+
+        digest_skip_digestion(skip_digestion, caller="molsysmt.build.solvate")
+    scalar_quantity(clearance, "nm", "clearance", positive=True)
+    scalar_quantity(ionic_strength, "molar", "ionic_strength")
+    if box_shape == "rectangular" and engine != "MolSysMT":
+        raise ArgumentError(
+            "box_shape",
+            value=box_shape,
+            caller="molsysmt.build.solvate",
+            message="Rectangular solvation is supported by engine='MolSysMT'.",
+        )
+    if engine == "PDBFixer" and (
+        n_anions != "neutralize" or n_cations != "neutralize" or random_seed is not None
+    ):
+        raise ArgumentError(
+            "n_anions/n_cations/random_seed",
+            caller="molsysmt.build.solvate",
+            message="PDBFixer supports only default neutralization with no seed control. Use engine='OpenMM' or 'MolSysMT' for explicit counts or seeded native placement.",
+        )
 
     n_structures = get(molecular_system, n_structures=True)
-    if n_structures > 1:
+    if n_structures != 1:
         raise ArgumentError(
             "molecular_system",
             value=n_structures,
@@ -416,6 +424,9 @@ def solvate(
         ionic_strength = puw.convert(ionic_strength, to_form="openmm.unit")
 
         modeller = convert(molecular_system, to_form="openmm.Modeller")
+        from ._solvation_ids import capture, restore
+
+        source_labels = capture(molecular_system, modeller)
 
         aux_water_model, aux_forcefield = get(
             molecular_system, water_model=True, forcefield=True
@@ -437,12 +448,47 @@ def solvate(
 
         if water_model == "SPC":
             solvent_model = "tip3p"
-        elif water_model in ["TIP3P", "TIP3PFB", "SPCE", "TIP4PEW", "TIP4PFB", "TIP5P"]:
-            solvent_model = water_model.lower()
+        elif water_model in {
+            "TIP3P",
+            "TIP3P-FB",
+            "SPC/E",
+            "TIP4P-EW",
+            "TIP4P-FB",
+            "TIP5P",
+        }:
+            solvent_model = {
+                "TIP3P": "tip3p",
+                "TIP3P-FB": "tip3p",
+                "SPC/E": "spce",
+                "TIP4P-EW": "tip4pew",
+                "TIP4P-FB": "tip4pew",
+                "TIP5P": "tip5p",
+            }[water_model]
         else:
             raise NotImplementedError()
 
         openmm_forcefield = ForceField(*forcefield)
+        native_ions = (
+            n_anions != "neutralize"
+            or n_cations != "neutralize"
+            or random_seed is not None
+        )
+        ion_strength = ionic_strength
+        ion_options = {}
+        solute_charge = None
+        if native_ions:
+            from openmm import unit
+
+            from molsysmt.physchem import get_charge
+
+            if n_anions == "neutralize" or n_cations == "neutralize":
+                solute_charge = get_charge(
+                    openmm_forcefield.createSystem(modeller.topology),
+                    definition="OpenMM",
+                    element="system",
+                )
+            ion_strength = 0 * unit.molar
+            ion_options["neutralize"] = False
 
         if box_shape == "truncated octahedral":
             max_size = max(
@@ -461,9 +507,10 @@ def solvate(
                 openmm_forcefield,
                 model=solvent_model,
                 boxVectors=box_vectors,
-                ionicStrength=ionic_strength,
+                ionicStrength=ion_strength,
                 positiveIon=cation,
                 negativeIon=anion,
+                **ion_options,
             )
 
         elif box_shape == "rhombic dodecahedral":
@@ -483,9 +530,10 @@ def solvate(
                 openmm_forcefield,
                 model=solvent_model,
                 boxVectors=box_vectors,
-                ionicStrength=ionic_strength,
+                ionicStrength=ion_strength,
                 positiveIon=cation,
                 negativeIon=anion,
+                **ion_options,
             )
 
         else:
@@ -493,25 +541,13 @@ def solvate(
                 openmm_forcefield,
                 model=solvent_model,
                 padding=clearance,
-                ionicStrength=ionic_strength,
+                ionicStrength=ion_strength,
                 positiveIon=cation,
                 negativeIon=anion,
+                **ion_options,
             )
 
-        # fixing a bug of OpenMM
-        list_atoms = list(modeller.topology.atoms())
-        atom_id = int(list_atoms[0].id)
-        for atom in list_atoms[1:]:
-            atom_id += 1
-            atom.id = str(atom_id)
-        list_residues = list(modeller.topology.residues())
-        residue_id = int(list_residues[0].id)
-        for residue in list_residues[1:]:
-            residue_id += 1
-            residue.id = str(residue_id)
-        #
-
-        tmp_item = convert(modeller, to_form=to_form)
+        tmp_item = convert(modeller, to_form="molsysmt.MolSys")
 
         del modeller
 
@@ -538,20 +574,12 @@ def solvate(
             skip_digestion=True,
         )
 
-        if to_form == "molsysmt.MolSys":
-            tmp_item.topology.rebuild_entities(
-                redefine_indices=True,
-                redefine_ids=True,
-                redefine_names=True,
-                redefine_types=True,
-            )
-        elif to_form == "molsysmt.Topology":
-            tmp_item.rebuild_entities(
-                redefine_indices=True,
-                redefine_ids=True,
-                redefine_names=True,
-                redefine_types=True,
-            )
+        tmp_item.topology.rebuild_entities(
+            redefine_indices=True,
+            redefine_ids=True,
+            redefine_names=True,
+            redefine_types=True,
+        )
 
         assign_selection_to_new_chain(
             tmp_item, selection='group_type in ["water","ion"]'
@@ -559,6 +587,59 @@ def solvate(
 
         tmp_item = _place_in_box_origin_convention(tmp_item)
 
+        source_to_output = None
+        if native_ions:
+            from molsysmt.build.add_ions import add_ions
+
+            tmp_item = add_ions(
+                tmp_item,
+                anion=anion,
+                n_anions=n_anions,
+                cation=cation,
+                n_cations=n_cations,
+                ionic_strength=ionic_strength,
+                expected_total_charge=solute_charge,
+                random_seed=random_seed,
+            )
+            history = tmp_item.chemical_states._states[0]._preparation_history[-1][
+                "report"
+            ]
+            source_to_output = history["source_to_output_atom_indices"]
+            import openmm
+
+            from molsysmt import _ackredit
+
+            history["solvation"] = dict(
+                engine="OpenMM",
+                version=openmm.__version__,
+                forcefield=list(forcefield),
+                water_model=water_model,
+                charge_source="forcefield"
+                if solute_charge is not None
+                else "not_required",
+                n_source_atoms=len(source_labels["atom_ids"]),
+                n_source_groups=len(source_labels["group_ids"]),
+            )
+            item = dict(
+                id=f"software:openmm:{openmm.__version__}",
+                type="software",
+                title="openmm",
+                version=openmm.__version__,
+                roles=["executed_software"],
+            )
+            history["software"]["openmm"] = openmm.__version__
+            history["solvation"]["attribution"] = dict(
+                schema="molsysmt.scientific_attribution@1",
+                target="molsysmt.build.solvate",
+                items=[item],
+            )
+            with _ackredit.scope("molsysmt.build.solvate") as provider:
+                _ackredit.credit(
+                    provider, [item], "molsysmt.build.solvate", contextual=True
+                )
+        restore(tmp_item, source_labels, source_to_output)
+        if to_form != "molsysmt.MolSys":
+            tmp_item = convert(tmp_item, to_form=to_form)
         return tmp_item
 
     elif engine == "PDBFixer":
@@ -732,27 +813,6 @@ def solvate(
         tile_nm = tmpl_info["tile_nm"]
         o_name = tmpl_info["o_name"]
 
-        # ── ion lookup table (PDB residue name, atom name, element symbol) ─
-        _ion_info = {
-            "Na+": ("NA", "NA", "Na"),
-            "K+": ("K", "K", "K"),
-            "Li+": ("LI", "LI", "Li"),
-            "Rb+": ("RB", "RB", "Rb"),
-            "Cs+": ("CS", "CS", "Cs"),
-            "Cl-": ("CL", "CL", "Cl"),
-            "Br-": ("BR", "BR", "Br"),
-            "F-": ("F", "F", "F"),
-            "I-": ("I", "I", "I"),
-        }
-        if cation not in _ion_info:
-            raise NotImplementedError(
-                f"cation={cation!r} is not supported with engine='MolSysMT'."
-            )
-        if anion not in _ion_info:
-            raise NotImplementedError(
-                f"anion={anion!r} is not supported with engine='MolSysMT'."
-            )
-
         # ── save solute metadata ─────────────────────────────────────────────
         component_indices, component_names = get(
             molecular_system,
@@ -918,145 +978,35 @@ def solvate(
             pbc=False,
         )
 
-        # ── 8.5. Add ions ──────────────────────────────────────────────────────
-        # Determine ion counts.
-        # Charge comes from the original solute (before solvation).
-        n_cat_to_add = 0
-        n_an_to_add = 0
+        # Native solvation retains its historical explicit pH-7 approximation;
+        # the standalone operation instead defaults to stored formal charges.
+        from molsysmt.build.add_ions import add_ions
 
+        native_charge = None
         if n_cations == "neutralize" or n_anions == "neutralize":
-            from molsysmt.physchem import get_charge as _get_charge
+            from molsysmt.physchem import get_charge
 
-            solute_charge = int(
-                round(
-                    puw.get_value(
-                        _get_charge(
-                            molecular_system,
-                            element="system",
-                            definition="physical_pH7",
-                        ),
-                        to_unit="elementary_charge",
-                    )
-                )
+            native_charge = get_charge(
+                molecular_system, element="system", definition="physical_pH7"
             )
-        else:
-            solute_charge = 0  # not needed
-
-        if n_cations == "neutralize":
-            n_cat_to_add = max(-solute_charge, 0)
-        elif n_cations != 0:
-            n_cat_to_add = int(n_cations)
-
-        if n_anions == "neutralize":
-            n_an_to_add = max(solute_charge, 0)
-        elif n_anions != 0:
-            n_an_to_add = int(n_anions)
-
-        # Extra pairs for ionic strength (OpenMM formula: n_pairs ≈ n_waters × C / 55.4 M)
-        ionic_strength_M = puw.get_value(ionic_strength, to_unit="molar")
-        if ionic_strength_M > 0.0:
-            n_waters = get(
-                solvated,
-                element="molecule",
-                selection='molecule_type=="water"',
-                n_molecules=True,
-                skip_digestion=True,
-            )
-            n_pairs = int(round(n_waters * ionic_strength_M / 55.4))
-            n_cat_to_add += n_pairs
-            n_an_to_add += n_pairs
-
-        n_ions_total = n_cat_to_add + n_an_to_add
-
-        if n_ions_total > 0:
-            # Positions of all water oxygens (candidates for ion placement)
-            o_atom_indices, o_mol_indices, o_coords = get(
-                solvated,
-                element="atom",
-                selection=f'atom_name=="{o_name}"',
-                atom_index=True,
-                molecule_index=True,
-                coordinates=True,
-                skip_digestion=True,
-            )
-            o_xyz = puw.get_value(o_coords, to_unit="nm")[0]  # (n_w, 3)
-            o_mol_idx = np.asarray(o_mol_indices, dtype=np.int64)  # (n_w,)
-
-            # Positions of all solute (non-water) atoms for distance checks
-            solute_xyz = puw.get_value(
-                get(
-                    solvated,
-                    element="atom",
-                    selection='molecule_type!="water"',
-                    coordinates=True,
-                    skip_digestion=True,
-                ),
-                to_unit="nm",
-            )[0]  # (n_sol, 3)
-
-            min_dist_nm = 0.5  # 5 Å — exclude waters in pockets / channels
-            ion_ion_cutoff_nm = (
-                0.05  # 0.5 Å — avoid placing two ions on top of each other
-            )
-
-            # Shuffle candidates and run rejection loop
-            rng = np.random.default_rng()
-            order = rng.permutation(len(o_xyz))
-            accepted_mol_indices = []  # water molecule indices to remove
-            accepted_positions = []  # ion positions (nm)
-
-            for idx in order:
-                if len(accepted_positions) >= n_ions_total:
-                    break
-                o_pos = o_xyz[idx]
-
-                # Distance to nearest solute atom
-                diff = solute_xyz - o_pos  # (n_sol, 3)
-                if np.sqrt((diff * diff).sum(axis=1)).min() < min_dist_nm:
-                    continue
-
-                # Distance to already-placed ions
-                too_close = False
-                for prev_pos in accepted_positions:
-                    d = o_pos - prev_pos
-                    if np.sqrt((d * d).sum()) < ion_ion_cutoff_nm:
-                        too_close = True
-                        break
-                if too_close:
-                    continue
-
-                accepted_mol_indices.append(int(o_mol_idx[idx]))
-                accepted_positions.append(o_pos)
-
-            if len(accepted_positions) < n_ions_total:
-                raise InternalAlgorithmError(
-                    caller="molsysmt.build.solvate",
-                    reason=(
-                        f"Could not place all {n_ions_total} ions: only "
-                        f"{len(accepted_positions)} valid water positions found. "
-                        "Try reducing ionic_strength or increasing clearance."
-                    ),
-                )
-
-            # Remove the selected water molecules
-            solvated = remove(
-                solvated,
-                selection="molecule_index in @accepted_mol_indices",
-                skip_digestion=True,
-            )
-
-            # Build ion MolSys objects and merge
-            positions_arr = np.array(accepted_positions)  # (n_ions_total, 3)
-
-            if n_cat_to_add > 0:
-                g, a, t = _ion_info[cation]
-                cat_ms = _build_ions(g, a, t, positions_arr[:n_cat_to_add])
-                solvated = merge([solvated, cat_ms], skip_digestion=True)
-
-            if n_an_to_add > 0:
-                g, a, t = _ion_info[anion]
-                an_ms = _build_ions(g, a, t, positions_arr[n_cat_to_add:])
-                solvated = merge([solvated, an_ms], skip_digestion=True)
+        solvated = add_ions(
+            solvated,
+            anion=anion,
+            n_anions=n_anions,
+            cation=cation,
+            n_cations=n_cations,
+            ionic_strength=ionic_strength,
+            expected_total_charge=native_charge,
+            random_seed=random_seed,
+        )
+        history = solvated.chemical_states._states[0]._preparation_history[-1]["report"]
+        history["solvation"] = dict(
+            engine="MolSysMT",
+            water_model=water_model,
+            charge_source="tabulated_physical_pH7_approximation"
+            if native_charge is not None
+            else "not_required",
+        )
 
         # ── 9. Post-processing ─────────────────────────────────────────────────
         tmp_item = convert(solvated, to_form=to_form, skip_digestion=True)

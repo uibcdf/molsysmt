@@ -150,11 +150,25 @@ def _independent_build_documentation(name, *, local_skip=False):
                 "are required; no hydrogen completion, protonation or visible-structure "
                 "selection is performed. Native box shapes, clearance/ionic-strength "
                 "units, model precedence, metadata losses and return forms remain "
-                "unchanged. Results are never adopted automatically. OpenMM "
-                "identifier and explicit-ion-count limits remain native; the facade "
-                "does not renumber inputs, compensate counts or switch engines. "
+                "unchanged. Results are never adopted automatically. Native "
+                "identifier preservation and exact-ion-count repairs are received. "
+                "random_seed and skip_digestion are forwarded to the native "
+                "boundary; the facade does not renumber inputs, compensate "
+                "counts or switch engines. "
                 "A solvated box is a preparation output, not an equilibrated "
                 "ensemble or a certificate of suitable simulation conditions.\n"
+            )
+        elif name == "add_ions":
+            function.__doc__ += (
+                "Replaces complete native water molecules with monovalent ions "
+                "in an independent result. Exactly one structure/state, declared "
+                "water membership and a valid periodic cell are required. Count, "
+                "charge-source, seed, distance and placement-attempt policies are "
+                "explicit native inputs. The native report preserves both atom "
+                "maps and records distance units and seed. New formal charges "
+                "are not assigned partial charges or force-field parameters. "
+                "No automatic neutralization, scene replacement, equilibration, "
+                "managed in-place mode or update_view argument is introduced.\n"
             )
         elif name == "make_bioassembly":
             function.__doc__ += (
@@ -324,6 +338,7 @@ class _BuildTools:
         "mutate",
         "build_peptide",
         "solvate",
+        "add_ions",
         "make_water_box",
         "reconcile_protonation",
         "get_residue_chemical_coverage",
@@ -945,7 +960,7 @@ class _BuildTools:
             },
         )
 
-    @_independent_build_documentation("solvate", local_skip=True)
+    @_independent_build_documentation("solvate")
     @signal(tags=["addon", "build", "preparation"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def solvate(
@@ -961,7 +976,7 @@ class _BuildTools:
         engine="OpenMM",
         to_form=None,
         verbose=False,
-        *,
+        random_seed=None,
         skip_digestion=False,
     ):
         return self._call(
@@ -978,6 +993,48 @@ class _BuildTools:
                 "engine": engine,
                 "to_form": to_form,
                 "verbose": verbose,
+                "random_seed": random_seed,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_independent_build_documentation("add_ions")
+    @signal(tags=["addon", "build", "preparation"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def add_ions(
+        self,
+        anion="Cl-",
+        n_anions=0,
+        cation="Na+",
+        n_cations=0,
+        ionic_strength="0 molar",
+        expected_total_charge=None,
+        charge_source="formal_charge",
+        min_solute_distance="0.5 nm",
+        min_ion_distance="0.5 nm",
+        random_seed=None,
+        max_attempts=10,
+        to_form="molsysmt.MolSys",
+        return_report=False,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "add_ions",
+            {
+                "anion": anion,
+                "n_anions": n_anions,
+                "cation": cation,
+                "n_cations": n_cations,
+                "ionic_strength": ionic_strength,
+                "expected_total_charge": expected_total_charge,
+                "charge_source": charge_source,
+                "min_solute_distance": min_solute_distance,
+                "min_ion_distance": min_ion_distance,
+                "random_seed": random_seed,
+                "max_attempts": max_attempts,
+                "to_form": to_form,
+                "return_report": return_report,
+                "skip_digestion": skip_digestion,
             },
         )
 

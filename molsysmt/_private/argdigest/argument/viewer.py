@@ -24,8 +24,6 @@ def digest_viewer(viewer, caller=None):
 
     from molsysmt.supported.viewers import lowercase_viewers
 
-    try:
-        tmp_viewer = lowercase_viewers[viewer.lower()]
-        return tmp_viewer
-    except KeyError:
-        raise ArgumentError("viewer", value=viewer, caller=caller, message=None)
+    if isinstance(viewer, str) and viewer.lower() in lowercase_viewers:
+        return lowercase_viewers[viewer.lower()]
+    raise ArgumentError("viewer", value=viewer, caller=caller, message=None)

@@ -134,7 +134,7 @@ def test_explicit_namespace_signatures_help_and_validation(name):
         ),
         (
             {"forcefield": "AMBER99SB", "implicit_solvent": "OBC1"},
-            ["amber99sb.xml", "amber99_obc.xml"],
+            ["amber99sb.xml", "implicit/obc1.xml"],
         ),
         ({"forcefield": "AMBER14", "engine": "LEaP"}, ["leaprc.protein.ff14SB"]),
         (
@@ -155,8 +155,7 @@ def test_resource_lookup_keeps_native_values_and_does_not_read_primary(
         assert result == msm.molecular_mechanics.get_engine_forcefield(
             **parameters, skip_digestion=skip
         )
-        # Native return ownership is delegated; this test does not bless the
-        # separately reported shared-list defect or mutate the provider registry.
+        # Resource contents and ownership belong to the native registry.
         unchanged(view, before)
 
 
@@ -464,3 +463,90 @@ def test_cached_methods_resolve_replacement_and_reject_closed_owner(view, engine
         count(skip_digestion=True)
     with pytest.raises(RuntimeError, match="closed view"):
         lookup("AMBER14", skip_digestion=True)
+
+
+@pytest.mark.parametrize("loaded", [False, True])
+@pytest.mark.parametrize("skip", [False, True])
+@pytest.mark.parametrize("model", ["OBC1", "OBC2"])
+def test_received_resource_results_are_independent(loaded, skip, model):
+    with msv.demo["pentalanine"] if loaded else msv.new_view() as owner:
+        before = snapshot(owner)
+        call = owner.addons.molsysmt.molecular_mechanics.get_engine_forcefield
+        expected = ["amber14-all.xml", f"implicit/{model.lower()}.xml"]
+        first = call("AMBER14", implicit_solvent=model, skip_digestion=skip)
+        second = call("AMBER14", implicit_solvent=model, skip_digestion=skip)
+        assert first == second == expected
+        assert first is not second
+        first[:] = ["caller-local.xml"]
+        assert call("AMBER14", implicit_solvent=model, skip_digestion=skip) == expected
+        assert (
+            msm.molecular_mechanics.get_engine_forcefield(
+                "AMBER14", implicit_solvent=model
+            )
+            == expected
+        )
+        unchanged(owner, before)
+
+
+@pytest.mark.parametrize("model", ["OBC1", "OBC2"])
+@pytest.mark.parametrize(
+    "constraints", [None, "none", "hbonds", "all bonds", "h angles"]
+)
+def test_received_implicit_energy_and_degrees_match_explicit_physical_recipe(
+    energy_engine, model, constraints
+):
+    from pathlib import Path
+
+    from openmm import app, unit
+
+    data = Path(__file__).parents[1] / "form/openmm_Topology/data/obc1_alanine.pdb"
+    pdb = app.PDBFile(str(data))
+    source = msm.convert(pdb)
+    settings = dict(
+        forcefield="AMBER14", implicit_solvent=model, non_bonded_method="no cutoff"
+    )
+    # An absent stored setting uses the native HBonds default. The explicit
+    # string "none" requests no constraints; converter-level None is tested
+    # separately by the native owner and is not a setter contract here.
+    if constraints is not None:
+        settings["constraints"] = constraints
+    msm.set(source, **settings)
+    policy = {
+        None: app.HBonds,
+        "none": None,
+        "hbonds": app.HBonds,
+        "all bonds": app.AllBonds,
+        "h angles": app.HAngles,
+    }[constraints]
+    system = app.ForceField(
+        "amber14-all.xml", f"implicit/{model.lower()}.xml"
+    ).createSystem(pdb.topology, nonbondedMethod=app.NoCutoff, constraints=policy)
+    integrator = energy_engine.VerletIntegrator(0.001 * unit.picoseconds)
+    context = energy_engine.Context(
+        system,
+        integrator,
+        energy_engine.Platform.getPlatformByName("CPU"),
+        {"Threads": "1"},
+    )
+    try:
+        context.setPositions(pdb.positions)
+        expected = (
+            context.getState(getEnergy=True)
+            .getPotentialEnergy()
+            .value_in_unit(unit.kilojoules_per_mole)
+        )
+    finally:
+        del context, integrator
+    with msv.new_view(source) as owner:
+        before = snapshot(owner)
+        tools = owner.addons.molsysmt.molecular_mechanics
+        observed = tools.get_potential_energy()
+        # Explicit small-fixture CPU tolerance; finite-precision context
+        # differences are not an implicit-model or arbitrary-system accuracy claim.
+        assert msm.pyunitwizard.get_value(observed, to_unit="kJ/mol") == pytest.approx(
+            expected, rel=1e-6, abs=1e-4
+        )
+        assert tools.get_degrees_of_freedom() == (
+            3 * system.getNumParticles() - system.getNumConstraints()
+        )
+        unchanged(owner, before)

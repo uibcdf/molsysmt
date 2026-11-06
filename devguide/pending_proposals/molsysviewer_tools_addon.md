@@ -14,6 +14,29 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Native model and ion receiving — 2026-11-05
+
+Published native `8c2661293` is received over contribution `02c409e5b`, with
+original course code/outputs/IDs/metadata and owner scientific source preserved.
+The expert mirror now exposes 242/245 dated functional paths (build 31/31):
+`build.add_ions` returns independent native whole-water replacement and maps;
+`build.solvate` forwards native seed/digestion and receives identifier/count
+repairs. Independent resource lists and distinct OBC1/OBC2/constraint policies
+are qualified against explicit OpenMM on a bounded source. No additional GUI
+or host runtime change is introduced.
+
+The [source receipt](../../devtools/data/molsysviewer_tools_native_model_ion_receiving_20261105.json)
+records 4,506 full addon/integration passes, 362 directed native controls,
+321 Viewer boundary/reporting controls and separate physical, format and
+protocol checks. Scopes overlap and remain labelled. Real Mol*/ESM/Python
+receiving passes with the new native source. Three stale consumer-open reports
+are archived alongside the native resolutions; no original record is overwritten.
+Native #583 attribution metadata and #584 constraints-reader flags are reported
+without downstream workarounds. Owner review, exact-head hosted CI, native
+#572/#576/#582, remaining graphical tasks, live Jupyter/Qt/popups and installed
+qualification remain separate. Both 1.0 publications remain paused.
+
+
 ## First graphical task implemented in source — 2026-11-05
 
 System / Remove atoms is registered in the Molecular tools workspace. Native

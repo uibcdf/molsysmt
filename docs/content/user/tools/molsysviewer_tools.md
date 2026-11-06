@@ -1222,13 +1222,24 @@ These are resource-name lists: this call does not construct a force-field
 object, run an engine, verify an installed executable or prepare a system.
 The native lookup keeps its model precedence and errors for unknown names.
 
-:::{warning}
-[MolSysMT#560](https://github.com/uibcdf/molsysmt/issues/560) tracks the native
-shared-list ownership defect. Until its repair is received, copy a returned
-resource list explicitly before customizing it. Editing the native list can
-alter later lookups and parameterizations of that same model. The addon does
-not hide this with its own registry or automatic copying.
-:::
+The received source includes the native [#560 repair](https://github.com/uibcdf/molsysmt/issues/560):
+every resource lookup owns its list, so caller edits leave later calculations
+unchanged. OBC1 and OBC2 select distinct physical-model XMLs, such as
+`implicit/obc1.xml` and `implicit/obc2.xml`; an engine/resource name is not a
+substitute for the chosen physical model. The source receiving checks energies
+and constraint counts against explicit OpenMM recipes on a small qualified
+fixture. Additional stored controls and effective-recipe reporting remain
+under [#582](https://github.com/uibcdf/molsysmt/issues/582).
+
+When mixing implicit-model construction and solvation in one attribution
+session, [#583](https://github.com/uibcdf/molsysmt/issues/583) tracks a native
+OpenMM metadata conflict: science completes but that operation's software use
+can be missing from Ackredit. The addon does not hide the warning or replace
+the native bibliography.
+The native generic reader currently rejects `constraints=True` under
+[#584](https://github.com/uibcdf/molsysmt/issues/584); supported stored policies
+still reach qualified engine construction. The addon preserves that native
+query error rather than adding a separate getter.
 
 Degree counting performs native OpenMM parameterization, with the selected
 force field and the original molecular prerequisites. It does not add missing
@@ -3916,13 +3927,56 @@ construction, independent direct-OpenMM parity, nominal water geometry at bundle
 PDB precision and cubic/triclinic box geometry. It does not establish equilibrium,
 packing quality for every solute or suitable simulation conditions.
 
-Two native OpenMM limits remain visible: a nonnumeric first atom ID currently
-raises ValueError, and explicit `n_anions`/`n_cations` counts are not applied or
-rejected. Only the qualified default neutralization workflow is demonstrated
-above; no input renumbering or count compensation occurs in the addon. These
-limits are being handed to the scientific owner separately from the facade.
-`skip_digestion` controls only addon validation because the native function has
-no such argument; it does not add a validation bypass to the native operation.
+The received native [#574/#579 identifier repairs](https://github.com/uibcdf/molsysmt/issues/574)
+preserve nonnumeric, missing and literal source labels; they are not inferred
+atom correspondences. The [#575 count repair](https://github.com/uibcdf/molsysmt/issues/575)
+applies requested ion populations using the native replacement operation.
+`random_seed` makes that placement reproducible for the same ordered inputs,
+parameters and software. `skip_digestion` is now a native argument and is
+forwarded as requested; ordinary validation remains the default. The addon
+performs no input renumbering, count compensation or silent engine substitution.
+Use explicit native counts, charge evidence and model settings. The attribution
+conflict [#583](https://github.com/uibcdf/molsysmt/issues/583) remains visible.
+
+## Adding ions to an independent system
+
+`view.addons.molsysmt.build.add_ions()` mirrors native periodic whole-water
+replacement. The loaded source needs one structure, one chemical state,
+declared water molecules and a finite nonsingular box. It returns independent
+molecular data; it does not update the current view or offer `in_place` or
+`update_view`. Exact-count requests do not silently neutralize or infer charge.
+
+```python
+import numpy as np
+import molsysmt as msm
+import molsysviewer as msv
+
+molsys = msm.build.make_water_box(msm.pyunitwizard.quantity(2*np.eye(3), 'nm'))
+with msv.new_view(molsys) as view:
+    result = view.addons.molsysmt.build.add_ions(
+        n_cations=1, n_anions=1, random_seed=7, return_report=True)
+    assert msm.get(result['molecular_system'], n_ions=True) == 2
+    assert msm.get(view.molsys, n_ions=True) == 0
+    forward = result['report']['source_to_output_atom_indices']
+    reverse = result['report']['output_to_source_atom_indices']
+    # view.load(result['molecular_system'], mode='replace')  # Explicit adoption.
+```
+
+Both maps use positions: removed input atoms and newly added output atoms map
+to -1. Complete waters, including extra sites, are replaced; coordinates of
+retained atoms and the cell stay native. New ions have known formal charges,
+not automatically assigned partial charges or force-field parameters. Native
+reports retain seed, placement bounds, distances in nm and charge evidence.
+Neutralization requires an explicit declared total or the selected complete
+charge source. The optional `physical_pH7` source is a tabulated approximation.
+
+Additional salt uses the native water-count convention after base replacements,
+with the 55.4 molar reference. It is not a measured final ionic strength or a
+volume-based concentration. Clearance and bounded greedy placement can reject
+an otherwise conceivable packing; no relaxation or equilibration is implied.
+Pending edits remain pending, errors propagate, and cached methods use the
+current loaded source. See the {ref}`native ion tutorial <Tutorial_Add_ions>`
+for scientific options and limitations.
 
 ## Constructing and mutating independent peptides
 

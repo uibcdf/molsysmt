@@ -96,8 +96,9 @@ def _mechanical_documentation(name, *, bind_primary):
                 "engine construction, availability check or parameterization. "
                 "It does not load the selected engine or synchronize pending "
                 "edits. Native lookup errors, model precedence and result "
-                "ownership remain unchanged. Native resource lists can be "
-                "shared; make an explicit copy before customizing a list.\n"
+                "ownership remain native. Each resource lookup owns its list; "
+                "editing it does not alter the registry or subsequent calls. "
+                "OBC1 and OBC2 select distinct physical model resources.\n"
             )
         return function
 

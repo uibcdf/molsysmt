@@ -27,6 +27,7 @@
 | [Is solvated](is_solvated.ipynb) | Checking if a molecular system is solvated |
 | [Make bioassembly](make_bioassembly.ipynb) | Making a bioassembly of a molecular system |
 | [Make water box](make_water_box.ipynb) | Making a water box system |
+| [Add ions](add_ions.ipynb) | Replacing complete waters with reproducible periodic monovalent ion placement |
 | [Mutate](mutate.ipynb) | Mutating residues in a molecular system |
 | [Remove overlapping molecules](remove_overlapping_molecules.ipynb) | Removing overlapping molecules in a molecular system |
 | [Solvate](solvate.ipynb) | Solvating of a molecular system |
@@ -63,6 +64,7 @@
    is_solvated.ipynb
    make_bioassembly.ipynb
    make_water_box.ipynb
+   add_ions.ipynb
    mutate.ipynb
    remove_overlapping_molecules.ipynb
    solvate.ipynb

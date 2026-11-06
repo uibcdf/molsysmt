@@ -20,12 +20,11 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (4)
+### Open (3)
 
-- [`openmm_solvate_ignores_explicit_ion_counts.md`](openmm_solvate_ignores_explicit_ion_counts.md) — [#575](https://github.com/uibcdf/molsysmt/issues/575) — OpenMM solvate silently ignores explicit n_anions and n_cations. *(high, reproduced)*
-- [`basic_view_rejects_default_empty_input.md`](basic_view_rejects_default_empty_input.md) — [#578](https://github.com/uibcdf/molsysmt/issues/578) — basic.view rejects its default None input before empty visualization. *(medium, reproduced)*
+- [`basic_get_constraints_reader_flag_is_rejected.md`](basic_get_constraints_reader_flag_is_rejected.md) — [#584](https://github.com/uibcdf/molsysmt/issues/584) — basic.get rejects the Boolean reader flag for stored constraints. *(medium, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
-- [`openmm_solvate_rejects_nonnumeric_atom_ids.md`](openmm_solvate_rejects_nonnumeric_atom_ids.md) — [#574](https://github.com/uibcdf/molsysmt/issues/574) — OpenMM solvate rejects nonnumeric or missing atom IDs. *(medium, reproduced)*
+- [`openmm_metadata_conflicts_between_implicit_models_and_solvation.md`](openmm_metadata_conflicts_between_implicit_models_and_solvation.md) — [#583](https://github.com/uibcdf/molsysmt/issues/583) — OpenMM attribution metadata conflicts between implicit models and solvation. *(medium, reproduced)*
 
 ### In progress (1)
 

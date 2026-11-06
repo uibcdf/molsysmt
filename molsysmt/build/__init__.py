@@ -22,6 +22,7 @@ from .build_peptide import build_peptide
 from .editable import editable
 from .is_solvated import is_solvated
 from .solvate import solvate
+from .add_ions import add_ions
 from .mutate import mutate
 from .make_water_box import make_water_box
 from .reconcile_protonation import reconcile_protonation

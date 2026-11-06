@@ -16,20 +16,24 @@ def view(
     """
     Visualizing a molecular system.
 
-    This function displays a molecular system using an external interactive 3D visualization library
-    inside a Jupyter notebook. The visualization backend can be selected by the `viewer` argument.
+    Create a viewer widget, optionally loading a molecular system. None creates
+    an empty workspace with MolSysViewer or NGLView, without a molecular payload.
 
 
     Parameters
     ----------
     molecular_system : molecular system, default=None
-        Molecular system in any supported MolSysMT format.
+        Molecular system in any supported MolSysMT format, or None to create an
+        empty workspace. The source is unchanged by creating the view.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
+        Selection expression or integer atom indices.
+        Without a system, only 'all', None or a flat empty sequence is valid.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
+        Without a system, only 'all', None or a flat empty sequence is valid.
     viewer : str, default='MolSysViewer'
-        Viewer backend used to create the interactive representation.
+        'MolSysViewer' or 'NGLView', matched case-insensitively. An explicit None
+        reads configure.default_viewer; omitting the argument uses MolSysViewer.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
@@ -44,13 +48,12 @@ def view(
 
     Raises
     ------
-    NotSupportedFormError
-        If the molecular system is provided in an unsupported form.
     ArgumentError
-        If one or more input arguments are invalid, including a malformed
-        selection or an out-of-range element or structure index.
-    ModuleNotFoundError
-        If the requested viewer backend is not available in the current environment.
+        If the source or controls are invalid, including a malformed selection,
+        an out-of-range index, or an expression/nonempty axis without a system.
+    LibraryNotFoundError
+        If the selected viewer dependency is unavailable. Other backends are not
+        imported or selected as an automatic fallback.
 
 
     Notes
@@ -58,6 +61,14 @@ def view(
     - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
     - Selections and structure indices are validated before the viewer backend is created.
+    - None does not construct a zero-atom MolSys. Empty selector sequences on
+      this absent source keep the workspace empty. With an existing source,
+      selectors follow ordinary extraction and backend loading requirements;
+      an empty result is not silently replaced by an absent source.
+    - The returned object owns its widget resources. Close it when finished.
+      Returning a Python widget does not certify browser/WebGL rendering.
+    - Documentation's static-HTML mode retains its existing asset requirement;
+      it embeds a prepared view rather than constructing a runtime workspace.
 
 
     See Also
@@ -68,17 +79,16 @@ def view(
 
     Examples
     --------
-    The following example illustrates how to visualize only the protein component of a molecular system:
-
     >>> import molsysmt as msm
-    >>> molecular_system = msm.systems['T4 lysozyme L99A']['181l.h5msm']
-    >>> msm.basic.view(molecular_system, selection='molecule_type=="protein"')  # doctest: +ELLIPSIS
-    <molsysviewer.viewer.MolSysView object at 0x...>
-
-    Select an alternative backend (requires nglview):
-
-    >>> msm.basic.view(molecular_system, selection='molecule_type=="protein"', viewer='NGLView')
-    NGLWidget()
+    >>> workspace = msm.view()
+    >>> workspace.molsys is None
+    True
+    >>> workspace.close()
+    >>> molsys = msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
+    >>> widget = msm.view(molsys)
+    >>> msm.get_form(widget)
+    'molsysviewer.MolSysView'
+    >>> widget.close()
 
 
     .. admonition:: Tutorial with more examples
@@ -93,10 +103,41 @@ def view(
     from molsysmt._private.smonitor import LibraryNotFoundError
     from molsysmt.basic.viewer import _dict_view
 
+    if not isinstance(skip_digestion, bool):
+        from molsysmt._private.argdigest.argument.skip_digestion import (
+            digest_skip_digestion,
+        )
+
+        digest_skip_digestion(skip_digestion, caller="molsysmt.basic.view")
+
     if viewer not in _dict_view:
         raise LibraryNotFoundError(library=viewer, caller="molsysmt.basic.view")
 
-    if molecular_system is not None:
+    if molecular_system is None:
+        from ._index_validation import (
+            validate_element_indices,
+            validate_structure_indices,
+        )
+
+        # No source means zero available atoms/structures, not unbounded axes.
+        def empty_count(element):
+            return 0
+
+        selection = validate_element_indices(
+            None,
+            selection,
+            "atom",
+            "selection",
+            "molsysmt.view",
+            count_getter=empty_count,
+        )
+        structure_indices = validate_structure_indices(
+            None,
+            structure_indices,
+            "molsysmt.view",
+            count_getter=empty_count,
+        )
+    else:
         from . import select
         from ._index_validation import validate_structure_indices
 

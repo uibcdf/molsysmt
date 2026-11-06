@@ -116,6 +116,7 @@ def test_explicit_native_signature_and_local_only_skip_control(view, name):
         "add_missing_bonds",
         "solve_atoms_with_alternate_location",
         "solvate",
+        "add_ions",
         "make_water_box",
         "reconcile_protonation",
     }

@@ -21,3 +21,9 @@ retained for provenance and design context but do not define current behavior.
 Treat completion labels, test counts, coverage values, capability matrices, and
 benchmark numbers as observations at the time of writing. Use current code,
 tests, and the maintained normative documents for present-day decisions.
+
+- [consumer_basic_view_default_empty_input.md](resolved_bugs/consumer_basic_view_default_empty_input.md) retains the original consumer reproduction and receiving of the native repair.
+
+- [consumer_openmm_solvation_explicit_counts.md](resolved_bugs/consumer_openmm_solvation_explicit_counts.md) retains the original consumer reproduction and receiving of the native repair.
+
+- [consumer_openmm_solvation_source_ids.md](resolved_bugs/consumer_openmm_solvation_source_ids.md) retains the original consumer reproduction and receiving of the native repair.

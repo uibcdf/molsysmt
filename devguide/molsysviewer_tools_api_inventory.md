@@ -2,11 +2,10 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-11-05, contribution PR #543, extending published source
-`442a2771e` with explicit-input water-box consumer receiving on published
-native owner basis `8486ea59c`.
-The table describes this contribution's 241/244 paths, including
-all 57 element paths, thirty build paths and five mechanical paths; it does not
+**Snapshot:** 2026-11-05, contribution PR #543 receiving published native
+`8c2661293` over the prior `02c409e5b` System-panel contribution.
+The table describes this contribution's 242/245 paths, including
+all 57 element paths, thirty-one build paths and five mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
 works before molecular loading; degree counting binds the serialized current
 primary and retains native parameterization prerequisites. The
@@ -33,8 +32,10 @@ projection, analytic geometry/charge controls, lineage, units and source/scene
 preservation. Both outputs remain independent; no new host or native algorithm
 is introduced.
 The [solvation receipt](../devtools/data/molsysviewer_tools_solvation_receiving_20261105.json)
-records native independent construction, direct OpenMM parity, unit/structure/
-box/water geometry, source preservation and explicit identifier/count limits.
+records the original native independent construction, direct OpenMM parity,
+unit/structure/box/water geometry, source preservation and then-current
+identifier/count limits. Their repairs are now received from the newer native
+basis; the original receipt retains its source and outcomes.
 The native CIF observations/assembly fixes #556/#563 are received in the same
 source without authoring scientific algorithms; earlier receipts keep their
 original inputs.
@@ -73,6 +74,23 @@ The earlier metadata integration's 155/244 snapshot and its frozen results retai
 their own source identities below. Native #549 naming-context review remains
 separate; the addon supplies no scientific repair. Source exposure is not
 universal scientific accuracy, supported-input coverage or package compatibility.
+
+## Native model and ion receiving — 2026-11-05
+
+The [source receipt](../devtools/data/molsysviewer_tools_native_model_ion_receiving_20261105.json)
+records final gates and original failures for this exact input.
+
+The source now mirrors `build.add_ions` as independent native whole-water
+replacement, with explicit count/charge/seed/periodic clearance and native atom
+maps. Solvation receives exact counts and nullable/source-label preservation,
+and forwards native random_seed and skip_digestion. Resource lookup receives
+independent lists and distinct OBC1/OBC2 recipes; energies and stored constraint
+policies are checked against explicit OpenMM on a qualified small source.
+Only System / Remove atoms is graphical. Native effective-recipe/control
+reporting #582 and attribution conflict #583 remain visible. Native MolSys
+forces #572, managed protonation maps #576 and the two MD stubs retain their
+separate dispositions. Source exposure does not establish universal scientific
+or installed qualification; exact receipts retain their input and scope.
 
 ## Naming-contract cutover — 2026-11-05
 
@@ -127,7 +145,7 @@ none certifies a published installed pair.
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
 | physchem | 34 | 34 | 0 |
-| build | 30 | 30 | 0 |
+| build | 31 | 31 | 0 |
 | molecular_mechanics | 5 | 6 | 1 |
 | interactions (canonical families) | 15 | 15 | 0 |
 | element and declared children | 57 | 57 | 0 |
@@ -137,8 +155,8 @@ none certifies a published installed pair.
 | supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 241 exposed out of 244 inspected public callable paths. This is not
-244 independent scientific capabilities: the historical hbonds routes alias
+These are 242 exposed out of 245 inspected public callable paths. This is not
+245 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
 inventory. The output records implementation identities so aliases remain
@@ -549,9 +567,9 @@ The basic.view mirror and native root alias create a separate caller-owned
 visualization of the serialized current loaded primary. Selectors, structures,
 backend choice and errors stay native; no parent scene clone, synchronization
 or adoption is implied. An empty owner is rejected by ordinary primary binding.
-The separate native None/default validation discrepancy remains outside this
-admitted route and is reported under
-[#578](pending_bugs/basic_view_rejects_default_empty_input.md).
+The separate native None/default validation repair is received under
+[#578](archive/resolved_bugs/consumer_basic_view_default_empty_input.md).
+It does not change this bound method's loaded-primary requirement.
 
 Historical hbonds exposes four exact canonical bound-method aliases, not new
 scientific algorithms. All fifteen canonical interaction paths retain their

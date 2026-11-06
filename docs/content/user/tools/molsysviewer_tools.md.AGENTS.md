@@ -6,8 +6,8 @@ get_degrees_of_freedom and get_potential_energy with native OpenMM parameterizat
 Keep the 3*N_particles-N_constraints integer definition, absence of COM/thermal
 corrections, explicit one-structure receiving and no implicit visible-frame use.
 These queries do not adopt engine objects, prepare chemistry or change the
-scene/history. Keep the native shared-resource-list limit (#560) and unsupported
-platform contract (#559) explicit until their owner repairs are received.
+scene/history. Preserve the received independent resource-list repair (#560), distinct OBC1/OBC2
+models and the still-unreceived platform contract (#559).
 Native result ownership and errors are delegated; do not silently copy a
 registry list or add unreceived mechanical functions without qualification.
 Energy selection constructs a parameterized subsystem, not an embedded energy
@@ -493,7 +493,8 @@ Preserve solvate as explicit independent construction, with native engine/model,
 box, clearance/ionic-strength units, metadata/return-form and single-structure
 contracts. Keep preparation deliberate and source/scene/pending state untouched;
 never infer adoption, frame choice, an engine fallback or equilibration. Preserve
-OpenMM identifier/count limits without rewriting inputs or compensating science.
+the received OpenMM identifier/count repairs without rewriting inputs or compensating science.
+Forward native random_seed and skip_digestion rather than retaining a local-only flag.
 Keep direct OpenMM parity separate from geometric references, and derive nominal
 TIP3P tolerances from the bundled PDB precision rather than exact ideal geometry.
 
@@ -529,3 +530,14 @@ Pending commands remain gated; use the host canvas Update view control and
 managed-state notification for reconciliation, never repeat completed science.
 Keep the first panel distinct from planned Geometry/Chemistry/Analysis panels
 and from installed, visible Qt/Jupyter/popup qualification.
+
+Preserve the explicit independent build.add_ions mirror with native species,
+counts, charge source, seed, periodic clearance, attempts, form and report controls.
+Keep whole-water replacement, bidirectional -1 atom maps, formal versus partial
+charges, concentration convention and lack of implicit adoption/equilibration
+explicit. Keep the #583 attribution conflict visible until the native repair
+is received; do not add a consumer bibliography or alter scientific outputs.
+
+Keep #584's generic constraints-query failure distinct from actual stored-policy
+application and #582's broader effective-recipe design. Preserve native errors
+without a downstream getter or a false claim that every metadata flag works.

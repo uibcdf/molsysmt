@@ -1,3 +1,9 @@
+molsysmt.molecular_mechanics.get_engine_forcefield:
+  name: "msm.molecular_mechanics.get_engine_forcefield"
+  first_introduced_in: "Common_Core/20_The_Specialized_Domains.ipynb"
+  summary: "Returns independent engine resource metadata, distinct from the requested physical model and actual engine parameterization."
+  doc_ref: "{func}`molsysmt.molecular_mechanics.get_engine_forcefield`"
+
 molsysmt.physchem.get_area_buried:
   name: "msm.physchem.get_area_buried"
   first_introduced_in: "Path_Alzheimer/39_Physicochemical_Properties.ipynb"
@@ -201,6 +207,13 @@ molsysmt.basic.select:
   summary: "Returns atom or element indices matching a form-agnostic selection expression."
   doc_ref: "{func}`molsysmt.basic.select`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.select()**: Evaluates selection expressions to return matching element indices (atoms, groups, chains). See API doc: {func}`molsysmt.basic.select`.\n:::"
+
+molsysmt.build.add_ions:
+  name: msm.build.add_ions
+  first_introduced_in: Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb
+  summary: Adding monovalent ions by periodic whole-water replacement with a reproducible seed and preparation evidence.
+  doc_ref: "{func}`molsysmt.build.add_ions`"
+  admonition_hint: ":::{hint}\n:class: dropdown\n**msm.build.add_ions()**: Replaces complete waters using explicit counts, periodic distances and retained evidence. See API doc: {func}`molsysmt.build.add_ions`.\n:::"
 
 molsysmt.basic.view:
   name: "msm.view"

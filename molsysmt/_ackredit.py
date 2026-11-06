@@ -90,7 +90,7 @@ def scope(target):
                 _failed("finish attribution tracking", error)
 
 
-def credit(ackredit, items, target, *, contextual=False):
+def credit(ackredit, items, target, *, contextual=False, context=None):
     """Register detached bibliographic records and credit the reached branch."""
     if ackredit is None:
         return
@@ -108,6 +108,7 @@ def credit(ackredit, items, target, *, contextual=False):
                     context={
                         "relationship": item.get("roles", []),
                         "version": item.get("version"),
+                        **deepcopy(context or {}),
                     },
                 )
             else:
