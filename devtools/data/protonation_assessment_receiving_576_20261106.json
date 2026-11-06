@@ -1,0 +1,225 @@
+{
+  "schema": "molsysmt.protonation_assessment_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#576",
+  "recorded_at_utc": "2026-11-06T15:21:29.585394+00:00",
+  "source_basis": "06bdf6e1e2bbaa727afd576b5a2585b963d0f6c7",
+  "source_basis_is_final_candidate": false,
+  "prepared_branch": "dev/ordered-stabilization-576-20261106",
+  "source_file_sha256": {
+    "molsysmt/_private/amino_acid_templates.py": "0c121960d01123cad4c66c09ba49718845174ace6c2a8e7e94db02f6cd66aee6",
+    "molsysmt/_private/scientific_attribution.py": "846aa8993d4b8fa0dc73ba7bed11edb3a60a2d906ad544a3fc395d21e65351e3",
+    "molsysmt/_private/protonation_preparation.py": "6fe9a87e641a4b32904690cfde61215dd279b19e4e5746c8397e4f1084b9c0f7",
+    "molsysmt/_private/argdigest/protonation.py": "38dd11130a6b5b279f3d2592ce041e1885b8e17768cb66fa5146a92de7dc70de",
+    "molsysmt/build/__init__.py": "c5f916b065d49bdc103031b262a3027ecc4b276bf2ca9813e7d317a046c8e773",
+    "molsysmt/build/_protonation.py": "299a8529b920612b14333625d93be8ad3c1a6b3353b038758042ebd2fd9cab4c",
+    "molsysmt/build/reconcile_protonation.py": "9b26a38e1ab3c8e07e9b8d4efc77ad6644b70ac23f49f2199594fb024caae4ad",
+    "molsysmt/build/assess_protonation.py": "042912905effaab7709b0fc2c4b1b68dd985008f131b2ff6d173d7404e20553f",
+    "molsysmt/build/protonation_assessment.py": "4378b0119fb34a55aed295156ae300282afb20d38005d08c79b518a5b207ecc2"
+  },
+  "guard_file_sha256": {
+    "tests/build/test_protonation_assessment.py": "4cf515c9b737a500c42b88aa6a8cbc56137eac8a3430725d37db67a0784a1c99",
+    "tests/build/test_merge_nonpolar_hydrogens.py": "9bf692f5eccc2ad81a652c275e27c3427d6065d3303087aeaf8ef5eb6d4d42c1",
+    "devtools/tests/test_validate_course.py": "0e965eed0c6500463ec3a035e181a9cc2a8b2d6dab3e303df970d11127049d35"
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "providers": {
+      "argdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../argdigest/argdigest/__init__.py",
+        "module_file_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee",
+        "reported_module_version": "0.16.0+1.g6dabaf7",
+        "distribution_metadata_version": "0.16.0+1.g6dabaf7",
+        "source_commit": "07126411f108ee1ff607e9c9a0816109b2c9253e",
+        "tracked_source_dirty": false
+      },
+      "depdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../depdigest/depdigest/__init__.py",
+        "module_file_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "reported_module_version": "0.15.1+3.ga27172b",
+        "distribution_metadata_version": "0.15.1+3.ga27172b",
+        "source_commit": "032d345becf8f8f574c24ede61ee62fcf0321de7",
+        "tracked_source_dirty": false
+      },
+      "smonitor": {
+        "module_origin_relative_to_receiving_worktree": "../../../../smonitor/smonitor/__init__.py",
+        "module_file_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+        "reported_module_version": "0.22.0+15.g5ee88c1",
+        "distribution_metadata_version": "0.21.0+1.gd6b2394",
+        "source_commit": "c1b6ce29c3729b99429b395a00c7866a759be406",
+        "tracked_source_dirty": false
+      },
+      "ackredit": {
+        "module_origin_relative_to_receiving_worktree": "../../../../ackredit/ackredit/__init__.py",
+        "module_file_sha256": "43264d45f63ed941ac032aed67c882543a952bc6f58a3555e1a100a5d7b13533",
+        "reported_module_version": "0.12.1+2.ge233973",
+        "distribution_metadata_version": "0.12.1+2.ge233973",
+        "source_commit": "e2339732d6f056ae1f038e9c3491d0c5cb2f8bf7",
+        "tracked_source_dirty": false
+      },
+      "pyunitwizard": {
+        "module_origin_relative_to_receiving_worktree": "../../../../pyunitwizard/pyunitwizard/__init__.py",
+        "module_file_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+        "reported_module_version": "0.29.1+6.gf82b618",
+        "distribution_metadata_version": "0.29.1+6.gf82b618",
+        "source_commit": "f82b618ea88c151a9b43009228126b1cf7fda65c",
+        "tracked_source_dirty": false
+      },
+      "openmm": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/openmm/__init__.py",
+        "module_file_sha256": "c513bcdf3407fb0efdffc8f2f4e61d4de40b0a6612c3017af948e0245bf319ab",
+        "reported_module_version": "8.6.1",
+        "distribution_metadata_version": "8.6.1"
+      },
+      "numpy": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/numpy/__init__.py",
+        "module_file_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a",
+        "reported_module_version": "2.4.6",
+        "distribution_metadata_version": "2.4.6"
+      },
+      "pytest_receptor": {
+        "module_origin_relative_to_receiving_worktree": "../../stabilization-551/tooling/published/pytest_receptor/__init__.py",
+        "module_file_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b",
+        "reported_module_version": "1.2.1",
+        "distribution_metadata_version": "1.2.1",
+        "provenance": "Existing published 1.2.1 payload; the containing consumer checkout is not its provider source repository."
+      }
+    },
+    "version_identity_note": "Actual module origins, file digests and source commits are recorded separately from possibly stale editable distribution metadata. This is source receiving, not installed artifact qualification."
+  },
+  "tests": {
+    "affected": {
+      "junit": {
+        "tests": 1717,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit_sha256": "8cce73667d9a52a65075fdc907c2f32e377b7a3bdc4dd5e158a1188602a447ca",
+      "seconds": 135.62
+    },
+    "public_provider_floors": {
+      "junit": {
+        "tests": 260,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit_sha256": "4a57b2c52d89af0e099c26df6e11a2a65f3d8ac9f8df40cc6a458415b57ee82d",
+      "seconds": 13.39
+    },
+    "documentation_doctests_and_final_assessment": {
+      "junit": {
+        "tests": 631,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit_sha256": "b106c8f1ee7c58376d46500b8e1d3df89613f1d3a4c5c23ed1ccb5d77a46ab44",
+      "seconds": 32.161
+    },
+    "isolated_projection_fixture": {
+      "junit": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit_sha256": "11e1ca3a24ec03dc69ddb326d695822c69efe4c48f3b792e57da5af66c56fcc2",
+      "seconds": 3.038
+    },
+    "overlap_note": "Selections overlap. The final documentation/assessment selection also includes the two new non-default-unit controls, absent from the earlier 1717-case collection."
+  },
+  "receptor_evidence": {
+    "complete": true,
+    "integrity_valid": true,
+    "counts": {
+      "collected": 1717,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 1717,
+      "failed": 0,
+      "not_executed": 0,
+      "passed": 1717,
+      "reruns": 0,
+      "skipped": 0,
+      "subtests": {},
+      "warnings": 294,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "event_sha256": "62ba0059faa917ce5f5ec88cadd4f5fb405a4301a10ce5da88e241761c4d353d"
+  },
+  "published_floor_profile": {
+    "argdigest": "0.14.0 py_0",
+    "depdigest": "0.15.1 py_0",
+    "smonitor": "0.16.0 py_1",
+    "ackredit": "0.9.0 py_0",
+    "source": "Existing unchanged public Conda payloads prepended to PYTHONPATH; no installation or new environment. Only the incompatible development SMonitor pytest plugin was disabled; runtime diagnostics remained enabled.",
+    "installed_release_qualification": false,
+    "verified_origins": {
+      "argdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+        "module_file_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+        "distribution_version": "0.14.0"
+      },
+      "depdigest": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+        "module_file_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "distribution_version": "0.15.1"
+      },
+      "smonitor": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+        "module_file_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3",
+        "distribution_version": "0.16.0"
+      },
+      "ackredit": {
+        "module_origin_relative_to_receiving_worktree": "../../../../../Myopt/miniconda3/pkgs/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+        "module_file_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42",
+        "distribution_version": "0.9.0"
+      }
+    }
+  },
+  "documentation": {
+    "notebook": "docs/content/user/tools/build/assess_protonation.ipynb",
+    "code_cells_executed": 10,
+    "notebook_sha256": "7513bcaced52b3b158fc63e3e4c35c9dfaf83e02f06a8e23ff449dcba3405e4c",
+    "course_original_code_outputs_ids_metadata_preserved": true
+  },
+  "contracts": {
+    "report_schema": "molsysmt.protonation_assessment@1",
+    "atom_map_schema": "molsysmt.atom_map@1",
+    "independent_output": "molsysmt.MolSys, including no-op and file/complementary inputs",
+    "native_in_place": "Complete candidate precedes atomic subset publication; true no-op keeps domain identities",
+    "source_binding": "Source/domain identity plus chemistry/inventory/naming/axis fingerprint; coordinate edits on unchanged axes are permitted; callers serialize external access",
+    "coverage": "Every group retains its naming/context/status; only the reference state is compared, other stored states remain unassessed",
+    "attribution": "Detached actual software/reference records, real reused-reference capture and optional absence; apply does not repeat pH inference"
+  },
+  "quality_checks": {
+    "fast_gate": "14/14 PASS; fast portion only",
+    "ruff_lint": "PASS: repository-wide ruff check .",
+    "ruff_format": "PASS: repository-wide ruff format --check ., 4446 files",
+    "dependency_contract": "PASS",
+    "lazy_dependencies": "PASS",
+    "public_signature_drift": "0 unauthorized",
+    "api_stability_symbols": 301
+  },
+  "initial_failure_evidence": [
+    "Restricted broad invocation: 1707 passed, three failed, seven setup errors. Nine online PDB/BCIF cases lacked DNS; the tenth case resolved a foreign tests package in its isolated subprocess.",
+    "Permitted-read repeat: 1716 passed, one isolated-fixture import failed. The fixture now loads its own exact source file and keeps all optional-engine denial assertions; the final complete affected selection passes 1717/1717.",
+    "Initial documentation invocation: 587 passed and one reduced navigation build lacked two real destination headers. The fixture now reads those actual stored headings and asserts both rendered links; the final documentation/assessment selection passes 631/631.",
+    "A newly authored class doctest used a nonexistent root MolSys alias; corrected to the public molsysmt.native namespace and executed successfully.",
+    "The first fast gate found the generated experimental-symbol inventory stale. Regeneration adds the two experimental symbols only; no scientific evidence registry or test was weakened."
+  ],
+  "limits": [
+    "No environmental pKa, protonation-state selection, charge assignment, H addition, force-field or docking certification.",
+    "Native/modular assessment avoids coordinate and interaction payloads; foreign conversion and full application can materialize data. No process-RSS benchmark is claimed.",
+    "The executable assessment is process-local, single-use and not an authentication or general transaction protocol. Detached report data is separate from executable serialization.",
+    "No new H5MSM domain; application uses ordinary native subset/remap/invalidation, including new analysis-local occurrence positions.",
+    "Source preparation does not establish ordered main integration, managed Viewer admission, a complete candidate matrix, installed-pair qualification or publication authority."
+  ],
+  "validation_fixture_commit": "b7ab074a5",
+  "prepared_source_commit": "5c13fcd85f03a5db956f7854686f5493789820d4",
+  "owner_handoff": "https://github.com/uibcdf/molsysmt/issues/576#issuecomment-6688444056"
+}

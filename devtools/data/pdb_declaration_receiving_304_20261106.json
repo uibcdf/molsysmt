@@ -1,0 +1,431 @@
+{
+  "schema": "molsysmt.pdb_declaration_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#304",
+  "source_base_commit": "9a022d6fd33fd7259c46eff7ffbc93dcfc2e15f1",
+  "working_tree_patch": true,
+  "python": "3.14.7",
+  "platform": "Linux",
+  "compiled_backend_changed": false,
+  "implementation_files": {
+    "molsysmt/_private/pdb_declarations.py": "b30ec20510216f8a6b2f4d8fafd576533387c8ba0cf3a10190945131a6c0a48f",
+    "molsysmt/_private/pdb_connectivity.py": "5589393872bde17e28ec7113c620812f3a9cd6666581012a20d895e4b78494bf",
+    "molsysmt/_private/conversion_report.py": "f39d46ec32ea539257b2e8738fcae629a3fd91bc68a03960a53159a027c9e4c1",
+    "molsysmt/native/_pdb_file_handler_content.py": "2754516f351456ed19f83bf1e46ebf6719c818eebfc6bdb38998d6e6b91bab00",
+    "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py": "3264fb292725af3ac37a3069d2b47f030d3df259862ad90d1c2f965b682145f1",
+    "tests/form/file_pdb/test_declaration_diagnostics.py": "c09d3a276b9038a48e23f85ef86d37884fc37c76d545ac1a4e2be0a71cdf742c"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "checks": {
+    "baseline": {
+      "tests": "14",
+      "failures": "14",
+      "errors": "0",
+      "skipped": "0",
+      "time": "4.901",
+      "junit_sha256": "ab819ec93457d14837d39cef5b0a31aab25bfe750fbc4e2959c898d4734dda1c",
+      "junit_path": ".pytest_cache/304-declarations-baseline.xml"
+    },
+    "corrected": {
+      "tests": "14",
+      "failures": "3",
+      "errors": "0",
+      "skipped": "0",
+      "time": "4.858",
+      "junit_sha256": "ad9bc745dabb7551413c7f507e60ee7326b388d16c8715cf86d99c95871d79e8",
+      "junit_path": ".pytest_cache/304-declarations-corrected.xml"
+    },
+    "fidelity": {
+      "tests": "58",
+      "failures": "1",
+      "errors": "0",
+      "skipped": "0",
+      "time": "7.184",
+      "junit_sha256": "3c95edeb13efd9cdfc7c8f75f43e4ca504541e54598aa59902a9ffe16323c2a2",
+      "junit_path": ".pytest_cache/304-declarations-fidelity.xml"
+    },
+    "fidelity-final": {
+      "tests": "58",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "7.242",
+      "junit_sha256": "a49a840bc16fc0b171431230d007eaada29bfb1e24455edae247e9e836897dbc",
+      "junit_path": ".pytest_cache/304-declarations-fidelity-final.xml"
+    },
+    "affected": {
+      "tests": "637",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "66.661",
+      "junit_sha256": "7cd54378f7bab9613a5a0fe6c583b00201a5e6f3404f92ea8469354b00b704cd",
+      "junit_path": ".pytest_cache/304-declarations-affected.xml",
+      "new_declaration_cases": 19
+    },
+    "index-final": {
+      "tests": "87",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "11.784",
+      "junit_sha256": "741256015e0fd289c39aa349c58124f7db29c0d2983cbbef4e11ea782b62daf9",
+      "junit_path": ".pytest_cache/304-declarations-index-final.xml"
+    },
+    "floor": {
+      "tests": "48",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "12.858",
+      "junit_sha256": "1773c2d12678be281bc048cfa9da2fc1eb976168a4f6545a641909932f4aace8",
+      "junit_path": ".pytest_cache/304-declarations-floor.xml"
+    },
+    "docs": {
+      "tests": "1072",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "43.189",
+      "junit_sha256": "4b82345cee0c9c2c32ab23aea35b68af0be6aa9232f45a4fe20235d4f91db5ba",
+      "junit_path": ".pytest_cache/304-declarations-docs.xml"
+    }
+  },
+  "four_provider_floor_origins": {
+    "argdigest": {
+      "module_origin": "/home/diego/Myopt/miniconda3/pkgs/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "module_origin": "/home/diego/Myopt/miniconda3/pkgs/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "module_origin": "/home/diego/Myopt/miniconda3/pkgs/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "module_origin": "/home/diego/Myopt/miniconda3/pkgs/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "notebooks": {
+    "docs/content/user/tools/form/file/file_pdb.ipynb": {
+      "code_outputs_ids_metadata_preserved_from": "9a022d6fd",
+      "cell_count": 6
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "code_outputs_ids_metadata_preserved_from": "9a022d6fd",
+      "cell_count": 38
+    }
+  },
+  "original_source_probe": {
+    "schema": "molsysmt.native_pdb_reader_probe@1",
+    "source_base_commit": "9a022d6fd33fd7259c46eff7ffbc93dcfc2e15f1",
+    "implementation_files": {
+      "molsysmt/_private/covalent_inference.py": "e2b3e4eb6ebb23b27e1aae8c6f5861fb78db71f1e469283628986f4c22799126",
+      "molsysmt/_private/pdb_connectivity.py": "5589393872bde17e28ec7113c620812f3a9cd6666581012a20d895e4b78494bf",
+      "molsysmt/_private/preparation_history.py": "1bb964fd80ca74636a16ca305f0c9cf4b3e414e7fb80c710223bb7a9e5b81407",
+      "molsysmt/build/infer_covalent_bonds.py": "e338b967229181d3ffcda5ec4ccae4ada4a4192ad7333e6881d44d1307baca94",
+      "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py": "3264fb292725af3ac37a3069d2b47f030d3df259862ad90d1c2f965b682145f1",
+      "molsysmt/form/molsysmt_Topology/merge.py": "299ec671bd5e0b4cad58203e8c2544b725c27efd47d1c3da659eece073a13b5b"
+    },
+    "platform": "Linux",
+    "measurement_scope": "Each engine runs in a fresh process. Conversion timings exclude interpreter/package startup; RSS is the whole-process high-water mark, including native H5MSM verification where applicable. Two conversions per process are observations, not a statistical benchmark.",
+    "sources": [
+      {
+        "source": "181l.pdb",
+        "sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+        "routes": [
+          {
+            "engine": "disabled",
+            "n_atoms": 1441,
+            "n_bonds": 13,
+            "first_conversion_seconds": 0.7523438590578735,
+            "repeated_conversion_seconds": 0.21106191398575902,
+            "candidate_pair_sha256": "abf83f9c4268ced844928d2e8bf1ed0a25086afd5bcbe151407bf3dee54a1da5",
+            "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+            "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+            "history_schemas": [
+              "molsysmt.pdb_connectivity@1"
+            ],
+            "software": {
+              "molsysmt": "0.23.0+201.g3502232d8.dirty"
+            },
+            "process_peak_rss_bytes": 219910144,
+            "python": "3.14.7",
+            "numpy": "2.4.6"
+          },
+          {
+            "engine": "MolSysMT",
+            "n_atoms": 1441,
+            "n_bonds": 1322,
+            "first_conversion_seconds": 2.1474235060159117,
+            "repeated_conversion_seconds": 1.1154721290804446,
+            "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+            "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+            "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+            "history_schemas": [
+              "molsysmt.pdb_connectivity@1",
+              "molsysmt.covalent_inference@1"
+            ],
+            "software": {
+              "molsysmt": "0.23.0+201.g3502232d8.dirty"
+            },
+            "n_added_bonds": 1309,
+            "unassessed_checks": [
+              "bond_orders",
+              "valence",
+              "protonation",
+              "hydrogen_placement",
+              "hydrogen_inventory_completeness",
+              "polymer_sequence_order",
+              "terminal_caps",
+              "unsupported_groups",
+              "disulfides",
+              "metal_coordination"
+            ],
+            "h5msm_write_seconds": 0.9562411811202765,
+            "h5msm_bytes": 3219846,
+            "h5msm_read_seconds": 1.0078485140111297,
+            "h5msm_geometry_graph_and_producer_preserved": true,
+            "process_peak_rss_bytes": 282267648,
+            "python": "3.14.7",
+            "numpy": "2.4.6"
+          },
+          {
+            "engine": "OpenMM",
+            "n_atoms": 1441,
+            "n_bonds": 1322,
+            "first_conversion_seconds": 0.9446367260534316,
+            "repeated_conversion_seconds": 0.28847119421698153,
+            "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+            "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+            "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+            "history_schemas": [
+              "molsysmt.pdb_connectivity@1"
+            ],
+            "software": {
+              "molsysmt": "0.23.0+201.g3502232d8.dirty",
+              "openmm": "8.6.1"
+            },
+            "process_peak_rss_bytes": 292298752,
+            "python": "3.14.7",
+            "numpy": "2.4.6"
+          }
+        ],
+        "native_only_pairs": [],
+        "openmm_only_pairs": []
+      },
+      {
+        "source": "1iep_receptorH.pdb",
+        "sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+        "routes": [
+          {
+            "engine": "disabled",
+            "n_atoms": 4412,
+            "n_bonds": 0,
+            "first_conversion_seconds": 0.6655219800304621,
+            "repeated_conversion_seconds": 0.07993450202047825,
+            "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+            "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+            "history_schemas": [
+              "molsysmt.pdb_connectivity@1"
+            ],
+            "software": {
+              "molsysmt": "0.23.0+201.g3502232d8.dirty"
+            },
+            "process_peak_rss_bytes": 218128384,
+            "python": "3.14.7",
+            "numpy": "2.4.6"
+          },
+          {
+            "engine": "MolSysMT",
+            "n_atoms": 4412,
+            "n_bonds": 4445,
+            "first_conversion_seconds": 2.7128519939724356,
+            "repeated_conversion_seconds": 1.7426715148612857,
+            "candidate_pair_sha256": "348e5a6732d3d18c95a01a9b1c3569380d340b24de5f99caa50cbb4c53a7dd5f",
+            "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+            "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+            "history_schemas": [
+              "molsysmt.pdb_connectivity@1",
+              "molsysmt.covalent_inference@1"
+            ],
+            "software": {
+              "molsysmt": "0.23.0+201.g3502232d8.dirty"
+            },
+            "n_added_bonds": 4445,
+            "unassessed_checks": [
+              "bond_orders",
+              "valence",
+              "protonation",
+              "hydrogen_placement",
+              "hydrogen_inventory_completeness",
+              "polymer_sequence_order",
+              "terminal_caps",
+              "unsupported_groups",
+              "disulfides",
+              "metal_coordination"
+            ],
+            "h5msm_write_seconds": 0.942454697098583,
+            "h5msm_bytes": 6491692,
+            "h5msm_read_seconds": 0.948428220115602,
+            "h5msm_geometry_graph_and_producer_preserved": true,
+            "process_peak_rss_bytes": 297340928,
+            "python": "3.14.7",
+            "numpy": "2.4.6"
+          },
+          {
+            "engine": "OpenMM",
+            "n_atoms": 4412,
+            "n_bonds": 4469,
+            "first_conversion_seconds": 1.373444841010496,
+            "repeated_conversion_seconds": 0.6237986700143665,
+            "candidate_pair_sha256": "6c80c9aa710d217a339fa514b186ce8e08548897e0190e67e9a55b02a4fe8b6d",
+            "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+            "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+            "history_schemas": [
+              "molsysmt.pdb_connectivity@1"
+            ],
+            "software": {
+              "molsysmt": "0.23.0+201.g3502232d8.dirty",
+              "openmm": "8.6.1"
+            },
+            "process_peak_rss_bytes": 298434560,
+            "python": "3.14.7",
+            "numpy": "2.4.6"
+          }
+        ],
+        "native_only_pairs": [
+          [
+            0,
+            3427
+          ]
+        ],
+        "openmm_only_pairs": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            272,
+            273
+          ],
+          [
+            344,
+            345
+          ],
+          [
+            350,
+            351
+          ],
+          [
+            1096,
+            1097
+          ],
+          [
+            1137,
+            1138
+          ],
+          [
+            1143,
+            1144
+          ],
+          [
+            1428,
+            1429
+          ],
+          [
+            1447,
+            1448
+          ],
+          [
+            1983,
+            1984
+          ],
+          [
+            2199,
+            2200
+          ],
+          [
+            2218,
+            2219
+          ],
+          [
+            2224,
+            2225
+          ],
+          [
+            2430,
+            2431
+          ],
+          [
+            2436,
+            2437
+          ],
+          [
+            2752,
+            2753
+          ],
+          [
+            2758,
+            2759
+          ],
+          [
+            2853,
+            2854
+          ],
+          [
+            3099,
+            3100
+          ],
+          [
+            3333,
+            3334
+          ],
+          [
+            3487,
+            3488
+          ],
+          [
+            4244,
+            4245
+          ],
+          [
+            4263,
+            4264
+          ],
+          [
+            4269,
+            4270
+          ]
+        ]
+      }
+    ]
+  },
+  "interpretation": [
+    "637 affected cases precede an index-allocation optimization; 87 final directed cases verify the current optimized resolver.",
+    "48 floor cases exercise four published providers with current other dependencies, not a complete clean installed-runtime floor matrix.",
+    "Baseline 14 failures expose absent per-record diagnostics. The first corrected draft had three invalid bond-order-column assumptions; the next draft exposed and corrected an over-restrictive alternate-serial policy against the existing fidelity guard.",
+    "Original-source graph, axes and coordinates remain unchanged: 181L 13/1322/1322 and original 1IEP 0/4445/4469 for disabled/native/OpenMM. Two conversion timings and process RSS are observations, not a statistical benchmark.",
+    "No full PR, installed-package or release qualification is claimed. No engine default, physical unit, public signature or H5MSM schema changes."
+  ],
+  "remaining_304_scope": [
+    "H aliases and terminal conventions",
+    "caps and additional supported local groups",
+    "disulfide application policy",
+    "bounded unknown-group geometry policy",
+    "independent explanation of retained original-source disagreements",
+    "representative cold/warm time, memory and storage scaling"
+  ],
+  "original_source_comparison": {
+    "reference": "devtools/data/native_pdb_reader_profile_20261005.json",
+    "source_hashes_atom_axes_coordinates_and_exact_edge_fingerprints_preserved": true
+  }
+}

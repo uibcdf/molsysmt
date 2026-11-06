@@ -15,6 +15,7 @@ from .exceptions import (
     ArgumentConflictError,
     ArgumentError,
     ArgumentLengthError,
+    ChemicalReferenceLookupError,
     ExecutionPlatformUnavailableError,
     FileAlreadyHandledError,
     FileContentError,

@@ -13,6 +13,7 @@ from pathlib import Path
 
 def probe(path, engine):
     import builtins
+    import gc
     import platform
     import resource
     import tempfile
@@ -24,6 +25,7 @@ def probe(path, engine):
     from molsysmt import pyunitwizard as puw
 
     original_bytes = path.read_bytes()
+    post_import_peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
     if engine == "MolSysMT":
         original_import = builtins.__import__
 
@@ -37,10 +39,17 @@ def probe(path, engine):
     if engine != "disabled":
         options["bond_inference_engine"] = engine
     timings = []
-    for _ in range(2):
+    molsys = None
+    for index in range(2):
+        if index:
+            # Do not measure simultaneous ownership of the previous result as
+            # intrinsic memory needed by one conversion. Collection is untimed.
+            molsys = None
+            gc.collect()
         start = perf_counter()
         molsys = msm.convert(path, to_form="molsysmt.MolSys", **options)
         timings.append(perf_counter() - start)
+    conversion_peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
     pairs = molsys.chemical_states.get_bonds()[["atom1_index", "atom2_index"]].to_numpy(
         dtype=np.int64
     )
@@ -56,6 +65,8 @@ def probe(path, engine):
         n_bonds=len(pairs),
         first_conversion_seconds=timings[0],
         repeated_conversion_seconds=timings[1],
+        post_import_peak_rss_bytes=post_import_peak,
+        conversion_peak_rss_bytes=conversion_peak,
         pairs=pairs.tolist(),
         candidate_pair_sha256=sha256(pairs.astype("<i8").tobytes()).hexdigest(),
         atom_axis_sha256=sha256(
@@ -179,7 +190,7 @@ def main():
         ).strip(),
         implementation_files=implementation_files,
         platform="Linux",
-        measurement_scope="Each engine runs in a fresh process. Conversion timings exclude interpreter/package startup; RSS is the whole-process high-water mark, including native H5MSM verification where applicable. Two conversions per process are observations, not a statistical benchmark.",
+        measurement_scope="Each engine runs in a fresh process. Conversion timings exclude interpreter/package startup; the first result is released before the repeated conversion, and collection is untimed. Conversion peak RSS is captured before query/serialization verification. Final RSS is the whole-process high-water mark, including native H5MSM verification where applicable. Two conversions per process are observations, not a statistical benchmark.",
         sources=sources,
     )
     arguments.output.write_text(json.dumps(payload, indent=2) + "\n")

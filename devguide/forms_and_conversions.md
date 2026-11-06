@@ -404,6 +404,38 @@ selected declarations that a target cannot retain, including prospective
 loss before target creation; ordinary conversion keeps its permissive policy.
 Unknown context is never inferred from a format or a native class.
 
+Direct PDB/GRO native readers accept the explicit source convention before
+initial group classification and native connectivity inference. PDB file/text/
+handler MolSys and Topology routes share that boundary. The generic dispatcher
+uses interpreted native inventory before a semantic selection; raw output
+indices still retain the reader's established selection route. It never applies
+an output atom subset before interpreting those source axes. Existing native
+metadata declarations do not implicitly reclassify stored types. PDB history
+retains source_naming_scheme as an original operation input. Unsupported external
+OpenMM source interpretations use the shared preparation refusal, with the
+existing explicit-raise versus optional-warning/history policy; no native
+fallback or default convention is introduced. Pure Topology projections retain
+stable inventory and naming metadata, not ChemicalStates graphs or histories.
+The context-aware name-only projection requests inventory without implicit bond
+reconstruction when that reader exposes a connectivity policy; explicit engine/
+inference requests retain their normal semantics.
+
+The selected native PDB profile composes the general
+`build.infer_covalent_bonds` policy on source structure index 0, before output
+extraction. Its `excluded_inference_policies` explicitly retains stored disulfide
+and metal-coordination edges without adding proximity-derived ones. Groups
+without an exact template have no geometric fallback. The typed selected source
+group indices scope that exclusion; other groups' coverage and observed-H
+limitations remain in their owning candidate reports. Stored edges keep their
+evidence and are not chemically recertified. Missing/ambiguous/symmetry-specific
+declarations are not replaced by nearby observed sites. Conflicting declared
+sulfur partners remain stored and flagged in the original reader history.
+The separate public disulfide detector produces geometric candidates, including
+competing partners, without applying bonds. This bounded native policy does not
+promise general ligand chemistry, water reconstruction, metal coordination or
+oxidation-state assignment. The standalone inference tool retains all source
+structures and its independently selected state/structure scope.
+
 Named analyses omitted by a target are reported in the `interactions` scope,
 including empty named results. Adding missing naming context uses the existing
 invalidation policy on the independent molecular output; the report exposes
@@ -549,6 +581,56 @@ and `tests/physchem/test_chemical_template.py`. Declared aromatic-order normaliz
 and fixed-state H placement are separate implemented tools; neither runs implicitly
 during template application. Broader chemistry and environment-dependent refinement
 remain outside the frozen profile.
+
+### Explicit CCD references and stable label correspondence
+
+`physchem.get_chemical_template` constructs a coordinate-free native reference
+from caller CCD bytes, a selected local file/catalogue/cache directory, or explicit
+individual `source='rcsb'` acquisition. An offline miss never becomes a network
+request. The streaming selector retains the selected decompressed block and
+hashes the complete original resource. It respects CIF text fields, compression,
+duplicate blocks and source replacement. Physical-line and retained-definition
+buffers have separate estimated quarter-memory budgets; these do not bound the
+parser, native object or process RSS.
+
+The named `ccd_tables` projection requires no RDKit and retains unknown radical,
+conjugation and interpretation scope. The default `ccd_canonical_descriptor`
+selects an exact descriptor program, uses optional RDKit and reuses accurate CIP
+primitives. Assignment requires graph/charge/aromatic/H compatibility and agreement
+across every admissible mapping. Missing descriptors, incomplete declarations,
+unsupported models and conflicts remain explicit. Truncated enumeration cannot
+certify consensus. Aromatic triples/quadruples are outside this interpretation
+profile, without a general claim that the source chemistry is impossible.
+CCD case-insensitive order/aromatic/stereo codes are normalized according to the
+dictionary; original source bytes retain the exact declarations.
+
+Ordinary indexed H can be projected to stored heavy-atom counts, retaining both
+atom/bond source maps. Lossy isotopic, charged, unknown-charge, isolated or
+multiply linked H projections are refused; explicit atoms remain available.
+Formal charges use the existing integer elementary-charge schema. The result
+retains exact source bytes, revision/digests, descriptor choices/disagreements,
+producer software and detached bibliography in the existing ChemicalStates
+preparation-history envelope. H5MSM/typed dictionaries preserve original operation
+axes; historical maps do not certify current indices after editing/extraction.
+No ideal/model coordinates, protonation prediction or observed-system edits enter
+construction. Optional attribution credits only executed software and consulted
+definitions; descriptor program metadata is not runtime software credit.
+
+`topology.get_atom_name_correspondence` reads stable names/elements through public
+form-agnostic queries. It requires exact unique names and compatible elements in
+explicit scopes, returning query/reference full source-index pairs. Repeated or
+invalid indices and absent/ambiguous/incompatible names are refused; empty pairs
+retain shape `(0, 2)` and int64 dtype. This is a label map, not graph matching or
+chemical identity. Template application still performs its complete chemical
+assessment. No chemical-state or coordinate context is required for this stable
+inventory operation.
+
+Both surfaces remain experimental. Their source contracts and deposited MK1/BTN
+application controls do not establish bound-state correctness, docking acceptance,
+an installed consumer pair or a new addon facade. See the
+[reference tutorial](../docs/content/user/tools/physchem/chemical_templates.md),
+[label contract](../docs/content/user/tools/topology/get_atom_name_correspondence.md)
+and `tests/physchem/test_ccd_template_application.py`.
 
 ### Hierarchy selection delivery
 

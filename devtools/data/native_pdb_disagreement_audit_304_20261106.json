@@ -1,0 +1,1016 @@
+{
+  "schema": "molsysmt.native_pdb_disagreement_audit@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#304",
+  "coordinate_units": "angstrom",
+  "source_sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+  "primary_software_inspection": {
+    "software": {
+      "openmm": "8.6.1"
+    },
+    "module_origin": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/openmm/__init__.py",
+    "source_sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+    "atoms": [
+      {
+        "atom_index": 0,
+        "atom_id": "3429",
+        "atom_name": "HB2",
+        "group_id": "438",
+        "group_name": "SER",
+        "group_index": 0,
+        "chain_id": "A",
+        "chain_index": 0
+      },
+      {
+        "atom_index": 3427,
+        "atom_id": "3427",
+        "atom_name": "CB",
+        "group_id": "438",
+        "group_name": "SER",
+        "group_index": 214,
+        "chain_id": "A",
+        "chain_index": 0
+      }
+    ],
+    "installed_pdb_names": {
+      "source": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/site-packages/openmm/app/data/pdbNames.xml",
+      "sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+    },
+    "inspected_primary_source": {
+      "source": "/home/diego/repos@others/openmm/wrappers/python/openmm/app/data/pdbNames.xml",
+      "sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+    },
+    "inspected_git_commit": "ba0aa236ac4d07241382869604c4d2ea58c4f3f5"
+  },
+  "openmm_only_name_counts": {
+    "HN1": 1,
+    "HN3": 1,
+    "HN": 17,
+    "HB1": 6
+  },
+  "pairs": [
+    {
+      "comparison": "native_only_pairs",
+      "atoms": [
+        {
+          "index": 0,
+          "serial": "3429",
+          "name": "HB2",
+          "group": "SER",
+          "chain": "A",
+          "group_id": "438",
+          "xyz": [
+            13.612,
+            67.338,
+            33.314
+          ]
+        },
+        {
+          "index": 3427,
+          "serial": "3427",
+          "name": "CB",
+          "group": "SER",
+          "chain": "A",
+          "group_id": "438",
+          "xyz": [
+            12.793,
+            67.803,
+            32.717
+          ]
+        }
+      ],
+      "distance_angstrom": 1.1150762305779844
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 1,
+          "serial": "1",
+          "name": "N",
+          "group": "MET",
+          "chain": "A",
+          "group_id": "225",
+          "xyz": [
+            19.353,
+            41.547,
+            -3.887
+          ]
+        },
+        {
+          "index": 2,
+          "serial": "2",
+          "name": "HN1",
+          "group": "MET",
+          "chain": "A",
+          "group_id": "225",
+          "xyz": [
+            19.594,
+            42.398,
+            -3.38
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0194758457168127,
+      "reference_alias": {
+        "source_atom_name": "HN1",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 1,
+          "serial": "1",
+          "name": "N",
+          "group": "MET",
+          "chain": "A",
+          "group_id": "225",
+          "xyz": [
+            19.353,
+            41.547,
+            -3.887
+          ]
+        },
+        {
+          "index": 4,
+          "serial": "4",
+          "name": "HN3",
+          "group": "MET",
+          "chain": "A",
+          "group_id": "225",
+          "xyz": [
+            18.582,
+            41.715,
+            -4.533
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0197945871595926,
+      "reference_alias": {
+        "source_atom_name": "HN3",
+        "reference_atom_name": "H3",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 272,
+          "serial": "272",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "242",
+          "xyz": [
+            17.769,
+            55.355,
+            -3.484
+          ]
+        },
+        {
+          "index": 273,
+          "serial": "273",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "242",
+          "xyz": [
+            18.673,
+            54.885,
+            -3.429
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0203631706407277,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 344,
+          "serial": "344",
+          "name": "N",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "246",
+          "xyz": [
+            19.272,
+            66.25,
+            3.293
+          ]
+        },
+        {
+          "index": 345,
+          "serial": "345",
+          "name": "HN",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "246",
+          "xyz": [
+            18.344,
+            66.553,
+            2.998
+          ]
+        }
+      ],
+      "distance_angstrom": 1.019812727906449,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 350,
+          "serial": "350",
+          "name": "CB",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "246",
+          "xyz": [
+            19.161,
+            68.198,
+            4.74
+          ]
+        },
+        {
+          "index": 351,
+          "serial": "351",
+          "name": "HB1",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "246",
+          "xyz": [
+            19.609,
+            68.711,
+            5.623
+          ]
+        }
+      ],
+      "distance_angstrom": 1.1151511108365564,
+      "reference_alias": {
+        "source_atom_name": "HB1",
+        "reference_atom_name": "HB3",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 1096,
+          "serial": "1096",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "293",
+          "xyz": [
+            12.433,
+            42.047,
+            14.221
+          ]
+        },
+        {
+          "index": 1097,
+          "serial": "1097",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "293",
+          "xyz": [
+            13.046,
+            42.677,
+            13.703
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0202906448654734,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 1137,
+          "serial": "1137",
+          "name": "N",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "295",
+          "xyz": [
+            6.178,
+            45.117,
+            14.26
+          ]
+        },
+        {
+          "index": 1138,
+          "serial": "1138",
+          "name": "HN",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "295",
+          "xyz": [
+            6.598,
+            45.865,
+            13.708
+          ]
+        }
+      ],
+      "distance_angstrom": 1.020101955688747,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 1143,
+          "serial": "1143",
+          "name": "CB",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "295",
+          "xyz": [
+            5.381,
+            45.406,
+            16.534
+          ]
+        },
+        {
+          "index": 1144,
+          "serial": "1144",
+          "name": "HB1",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "295",
+          "xyz": [
+            6.185,
+            46.154,
+            16.729
+          ]
+        }
+      ],
+      "distance_angstrom": 1.115322823222051,
+      "reference_alias": {
+        "source_atom_name": "HB1",
+        "reference_atom_name": "HB3",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 1428,
+          "serial": "1428",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "313",
+          "xyz": [
+            20.799,
+            52.067,
+            6.803
+          ]
+        },
+        {
+          "index": 1429,
+          "serial": "1429",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "313",
+          "xyz": [
+            20.87,
+            53.079,
+            6.904
+          ]
+        }
+      ],
+      "distance_angstrom": 1.019502820005909,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 1447,
+          "serial": "1447",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "314",
+          "xyz": [
+            17.597,
+            51.846,
+            6.44
+          ]
+        },
+        {
+          "index": 1448,
+          "serial": "1448",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "314",
+          "xyz": [
+            17.658,
+            50.89,
+            6.089
+          ]
+        }
+      ],
+      "distance_angstrom": 1.020224485101192,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 1983,
+          "serial": "1983",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "347",
+          "xyz": [
+            2.412,
+            52.448,
+            22.986
+          ]
+        },
+        {
+          "index": 1984,
+          "serial": "1984",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "347",
+          "xyz": [
+            1.918,
+            53.281,
+            23.308
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0205924749869542,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 2199,
+          "serial": "2199",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "360",
+          "xyz": [
+            15.209,
+            43.435,
+            24.97
+          ]
+        },
+        {
+          "index": 2200,
+          "serial": "2200",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "360",
+          "xyz": [
+            16.015,
+            43.301,
+            24.36
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0196528821123396,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 2218,
+          "serial": "2218",
+          "name": "N",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "361",
+          "xyz": [
+            14.813,
+            46.839,
+            25.61
+          ]
+        },
+        {
+          "index": 2219,
+          "serial": "2219",
+          "name": "HN",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "361",
+          "xyz": [
+            14.094,
+            46.754,
+            26.329
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0203661107661326,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 2224,
+          "serial": "2224",
+          "name": "CB",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "361",
+          "xyz": [
+            13.817,
+            49.029,
+            25.113
+          ]
+        },
+        {
+          "index": 2225,
+          "serial": "2225",
+          "name": "HB1",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "361",
+          "xyz": [
+            12.872,
+            48.457,
+            24.963
+          ]
+        }
+      ],
+      "distance_angstrom": 1.1147685858508944,
+      "reference_alias": {
+        "source_atom_name": "HB1",
+        "reference_atom_name": "HB3",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 2430,
+          "serial": "2430",
+          "name": "N",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "375",
+          "xyz": [
+            -2.148,
+            60.559,
+            15.398
+          ]
+        },
+        {
+          "index": 2431,
+          "serial": "2431",
+          "name": "HN",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "375",
+          "xyz": [
+            -1.744,
+            61.34,
+            14.881
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0200323524281025,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 2436,
+          "serial": "2436",
+          "name": "CB",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "375",
+          "xyz": [
+            -2.63,
+            60.426,
+            17.792
+          ]
+        },
+        {
+          "index": 2437,
+          "serial": "2437",
+          "name": "HB1",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "375",
+          "xyz": [
+            -2.244,
+            60.097,
+            18.785
+          ]
+        }
+      ],
+      "distance_angstrom": 1.115027353924556,
+      "reference_alias": {
+        "source_atom_name": "HB1",
+        "reference_atom_name": "HB3",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 2752,
+          "serial": "2752",
+          "name": "N",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "396",
+          "xyz": [
+            29.468,
+            57.322,
+            32.983
+          ]
+        },
+        {
+          "index": 2753,
+          "serial": "2753",
+          "name": "HN",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "396",
+          "xyz": [
+            29.877,
+            57.222,
+            32.054
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0199617639892145,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 2758,
+          "serial": "2758",
+          "name": "CB",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "396",
+          "xyz": [
+            28.164,
+            55.632,
+            34.222
+          ]
+        },
+        {
+          "index": 2759,
+          "serial": "2759",
+          "name": "HB1",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "396",
+          "xyz": [
+            27.558,
+            56.384,
+            34.78
+          ]
+        }
+      ],
+      "distance_angstrom": 1.115394100755426,
+      "reference_alias": {
+        "source_atom_name": "HB1",
+        "reference_atom_name": "HB3",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 2853,
+          "serial": "2853",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "403",
+          "xyz": [
+            20.053,
+            58.89,
+            33.888
+          ]
+        },
+        {
+          "index": 2854,
+          "serial": "2854",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "403",
+          "xyz": [
+            20.834,
+            59.499,
+            33.646
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0195126286613614,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 3099,
+          "serial": "3099",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "418",
+          "xyz": [
+            13.891,
+            43.413,
+            31.215
+          ]
+        },
+        {
+          "index": 3100,
+          "serial": "3100",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "418",
+          "xyz": [
+            13.995,
+            42.403,
+            31.314
+          ]
+        }
+      ],
+      "distance_angstrom": 1.020155380322035,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 3333,
+          "serial": "3333",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "432",
+          "xyz": [
+            4.511,
+            61.835,
+            29.384
+          ]
+        },
+        {
+          "index": 3334,
+          "serial": "3334",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "432",
+          "xyz": [
+            4.779,
+            60.91,
+            29.72
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0199730388593646,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 3487,
+          "serial": "3488",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "443",
+          "xyz": [
+            15.593,
+            68.236,
+            41.185
+          ]
+        },
+        {
+          "index": 3488,
+          "serial": "3489",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "443",
+          "xyz": [
+            14.694,
+            67.92,
+            40.822
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0197185886311966,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 4244,
+          "serial": "4245",
+          "name": "N",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "489",
+          "xyz": [
+            0.422,
+            45.576,
+            31.83
+          ]
+        },
+        {
+          "index": 4245,
+          "serial": "4246",
+          "name": "HN",
+          "group": "ILE",
+          "chain": "A",
+          "group_id": "489",
+          "xyz": [
+            1.333,
+            45.125,
+            31.748
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0198264558247154,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 4263,
+          "serial": "4264",
+          "name": "N",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "490",
+          "xyz": [
+            -0.323,
+            46.64,
+            29.335
+          ]
+        },
+        {
+          "index": 4264,
+          "serial": "4265",
+          "name": "HN",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "490",
+          "xyz": [
+            0.433,
+            45.955,
+            29.325
+          ]
+        }
+      ],
+      "distance_angstrom": 1.0202259553647923,
+      "reference_alias": {
+        "source_atom_name": "HN",
+        "reference_atom_name": "H",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    },
+    {
+      "comparison": "openmm_only_pairs",
+      "atoms": [
+        {
+          "index": 4269,
+          "serial": "4270",
+          "name": "CB",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "490",
+          "xyz": [
+            -0.539,
+            46.055,
+            26.957
+          ]
+        },
+        {
+          "index": 4270,
+          "serial": "4271",
+          "name": "HB1",
+          "group": "HIS",
+          "chain": "A",
+          "group_id": "490",
+          "xyz": [
+            -0.498,
+            44.97,
+            27.209
+          ]
+        }
+      ],
+      "distance_angstrom": 1.1146344692319547,
+      "reference_alias": {
+        "source_atom_name": "HB1",
+        "reference_atom_name": "HB3",
+        "reference_resource_sha256": "740c56071d092940ce386074447ce88ed2b07c77d0065f2bd0d1087e9ef76969"
+      }
+    }
+  ],
+  "conclusions": [
+    "All 25 OpenMM-only pairs involve observed H names with explicit PDB-name aliases in the actual installed OpenMM reference, which matches the inspected primary source bytes. The current native method intentionally requires exact H-name matches.",
+    "The native-only HB2-CB pair belongs to canonical SER A 438. Its HB2 is the first ATOM record, outside the contiguous remaining SER records. OpenMM 8.6.1 creates two distinct group indices for those identical group labels; its standard bond construction does not join them. Native observed-site grouping and the independent noncontiguous-group guard preserve the parent edge.",
+    "Distances corroborate local geometry; distance alone does not establish bond order, protonation, hydrogen identity or a chemically complete source. This audit neither changes the file nor automatically applies aliases."
+  ],
+  "guard": "tests/build/test_infer_covalent_bonds.py::test_observed_hydrogen_keeps_its_parent_when_group_records_are_not_contiguous"
+}

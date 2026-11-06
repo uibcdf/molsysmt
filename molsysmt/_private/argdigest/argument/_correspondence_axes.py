@@ -18,7 +18,9 @@ CALLERS = {
     "molsysmt.native.pdbqt_file_handler.get_coordinates",
     "molsysmt.native.pdbqt_file_handler.PDBQTFileHandler.get_coordinates",
     "molsysmt.chemical_states.get_atom_correspondences.get_atom_correspondences",
+    "molsysmt.topology.get_atom_name_correspondence.get_atom_name_correspondence",
     "molsysmt.structure.get_symmetry_corrected_rmsd.get_symmetry_corrected_rmsd",
+    "molsysmt.molecular_mechanics.get_forces.get_forces",
 }
 
 
@@ -48,7 +50,7 @@ def _has_units(value):
     return hasattr(value, "unit") or hasattr(value, "units")
 
 
-def flat_axis(value, argument, caller):
+def flat_axis(value, argument, caller, *, allow_boolean=False):
     """Validate unit-free, flat positional integer axes before casting."""
     if _has_units(value) or (
         isinstance(value, (list, tuple)) and any(_has_units(item) for item in value)
@@ -63,13 +65,18 @@ def flat_axis(value, argument, caller):
     if isinstance(value, (list, tuple)) and any(
         isinstance(item, (bool, np.bool_)) for item in value
     ):
-        raise ArgumentError(argument, value=value, caller=caller)
+        if not allow_boolean or not all(
+            isinstance(item, (bool, np.bool_)) for item in value
+        ):
+            raise ArgumentError(argument, value=value, caller=caller)
     try:
         array = np.asarray(value)
         if array.ndim == 0:
             array = array.reshape(1)
         if array.ndim == 1 and array.size == 0:
             return np.empty(0, dtype=np.int64)
+        if allow_boolean and array.ndim == 1 and array.dtype.kind == "b":
+            return array.copy()
         if (
             array.ndim == 1
             and array.dtype.kind in "iu"

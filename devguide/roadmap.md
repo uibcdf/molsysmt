@@ -288,7 +288,7 @@ receptor force-field coverage, docking quality or biological acceptance.
 
 ### PDB connectivity continuation — 2026-10-05
 
-[Explicit PDB inference policy #304](pending_proposals/native_pdb_bond_inference_with_explicit_policy.md)
+[Explicit PDB inference policy #304](archive/resolved_proposals/native_pdb_bond_inference_with_explicit_policy.md)
 owns the direct-file disabled-inference correction and the subsequent selectable
 native method. Local PDB-to-MolSys/Topology routes must forward the explicit
 `get_missing_bonds=False` request to the existing handler. Keep current defaults
@@ -296,10 +296,12 @@ and separate parser evidence from inferred connectivity and chemical preparation
 The bounded native reader/application tool is now implemented with explicit
 `bond_inference_engine='MolSysMT'`, engine failure diagnostics and persisted
 per-edge history references. Its original-source probe and focused controls are
-in the #304 record. It does not establish arbitrary-group geometry, complete H
-coverage or independent chemical truth. Those remaining extensions stay in #304
-after 1.0 under the scope freeze, while current-profile correctness remains part
-of stabilization.
+in the archived #304 record. The maintainer resumed its remaining bounded H-name,
+cap/declaration and performance work before 1.0; that feature scope is now
+implemented and contract-tested. It does not establish arbitrary-group geometry,
+complete H coverage or universal chemical truth. Those limits do not become an
+unbounded backlog on the closed feature. Broader preparation retains its separate
+owning issues, and complete-version/installed qualification remains with #334.
 
 ## Maintainer-requested follow-up — 2026-10-28
 

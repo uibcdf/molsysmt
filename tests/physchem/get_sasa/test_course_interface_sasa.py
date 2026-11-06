@@ -157,7 +157,12 @@ def test_course_declares_partner_atom_ranges_from_actual_merge_order():
         statements.append(statement)
     target = _source(0.31)
     candidate = msm.extract(target, selection=[1])
-    namespace = {"msm": msm, "fibril": target, "peptide": candidate}
+    namespace = {
+        "msm": msm,
+        "fibril": target,
+        "peptide": candidate,
+        "candidate_pose_coordinates": msm.get(candidate, coordinates=True),
+    }
     exec(
         compile(
             ast.fix_missing_locations(ast.Module(body=statements, type_ignores=[])),

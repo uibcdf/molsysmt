@@ -766,9 +766,9 @@ def _audit_pdb_read(
 ):
     """Return exhaustive, content-aware limitations of native PDB reading."""
 
+    from molsysmt._private.pdb_declarations import resolve
     from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_MolSys import (
         _canonical_atoms,
-        _get_explicit_bonds,
     )
 
     handler, opened_here = _pdb_handler(item, source_form)
@@ -805,28 +805,55 @@ def _audit_pdb_read(
             )
 
         _, variants = _canonical_atoms(handler.content)
-        _, unresolved_bonds, repeated_conect = _get_explicit_bonds(
-            handler.content, canonical_atoms, variants
-        )
-        if unresolved_bonds:
+        _, declarations = resolve(handler.content, canonical_atoms, variants)
+        if declarations["unresolved"]:
             issues.append(
                 ConversionIssue(
                     attribute="bonded_atoms",
                     reason=(
-                        "At least one explicit PDB connectivity endpoint is missing "
-                        "or ambiguous."
+                        "At least one PDB connectivity declaration is unresolved, "
+                        "malformed, or requires unsupported alternate/symmetry scope. "
+                        "The chemical-state preparation history locates each record."
                     ),
                     kind="adapter_limitation",
                     scope="chemical_state",
                 )
             )
-        if repeated_conect:
+        if declarations["repeated_pairs"]:
             issues.append(
                 ConversionIssue(
                     attribute="bond_order",
                     reason=(
-                        "Repeated PDB CONECT endpoints are retained as one bond and "
+                        "Redundant PDB connectivity declarations retain one bond and "
                         "are not interpreted silently as a bond order."
+                    ),
+                    kind="adapter_limitation",
+                    scope="chemical_state",
+                )
+            )
+
+        if declarations["conflicting_disulfide_partners"]:
+            issues.append(
+                ConversionIssue(
+                    attribute="bonded_atoms",
+                    reason=(
+                        "A CYS sulfur has multiple declared sulfur partners. "
+                        "All literal edges are retained with conflict evidence; "
+                        "no chemically valid disulfide state is selected."
+                    ),
+                    kind="adapter_limitation",
+                    scope="chemical_state",
+                )
+            )
+
+        if declarations["conditional_pairs"]:
+            issues.append(
+                ConversionIssue(
+                    attribute="bonded_atoms",
+                    reason=(
+                        "Alternate-location connectivity is mapped to canonical "
+                        "sites with its source scope retained in preparation history. "
+                        "A complete alternate-specific chemical state is unassessed."
                     ),
                     kind="adapter_limitation",
                     scope="chemical_state",

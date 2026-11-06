@@ -1,0 +1,334 @@
+{
+  "schema": "molsysmt.native_pdb_policy_boundaries_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#304",
+  "source_base_commit": "62a5bb62d13fa9d9b97688299bd626c209527965",
+  "working_tree_patch": true,
+  "source_hashes": {
+    "molsysmt/_private/covalent_inference.py": "029cf32fe0ad5787ac6fab919b2c9228a661b24f91d2f1ab6ea6feb8530db5a1",
+    "molsysmt/build/infer_covalent_bonds.py": "0e9f1393456620486ba4f1008840085273db9f5d4c71ebd3dfa8349e14b5cf02",
+    "tests/build/test_covalent_inference_policy_boundaries.py": "09c26a81c37698111e261d05dda4174efe6897b016553a3b16b87154c1ba5708",
+    "devtools/scripts/probe_native_pdb_connectivity.py": "2a21939118c62a841cdc2abd62d95c6e963cfa874137592827b79d79df619e10"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "policy_decision": {
+    "disulfides": "retain_stored_edges_only",
+    "metal_coordination": "retain_stored_edges_only",
+    "unsupported_group_geometry": "disabled",
+    "scope": "Selected source groups; graph and scientific rule_version=2 unchanged."
+  },
+  "checks": {
+    "initial_policy_fields": {
+      "exit_code": 1,
+      "tests": 44,
+      "failures": 43,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 7.818,
+      "junit_path": ".pytest_cache/304-policy-boundaries-baseline.xml",
+      "junit_sha256": "aa30e7863b746ecf94dcdb777d50bfc66f739ac146f733d7c920bb90847668fc",
+      "failure_messages": [
+        "KeyError: 'excluded_inference_policies'"
+      ]
+    },
+    "interrupted_selection": {
+      "exit_code": 2,
+      "tests": 227,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 140.7,
+      "junit_path": ".pytest_cache/304-policy-boundaries-affected.xml",
+      "junit_sha256": "f22d405c178d4a8592de02725cac24a96e787e4d2a7c230c580e6aff91ed6d15",
+      "failure_messages": []
+    },
+    "affected_final": {
+      "exit_code": 0,
+      "tests": 227,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 16.409,
+      "junit_path": ".pytest_cache/304-policy-boundaries-final.xml",
+      "junit_sha256": "cd37c1cd670064bd4d880275e834befdea3e4c7cda5d5b30006d88955b73854e",
+      "failure_messages": []
+    },
+    "four_provider_floor": {
+      "exit_code": 0,
+      "tests": 55,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 9.058,
+      "junit_path": ".pytest_cache/304-policy-boundaries-floor.xml",
+      "junit_sha256": "61e89ba1265338c130b0c62bc006164c34040f62098e0f1d2a1f1f5e59795904",
+      "failure_messages": []
+    },
+    "four_provider_floor_after_import_sort": {
+      "exit_code": 0,
+      "tests": 55,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 9.512,
+      "junit_path": ".pytest_cache/304-policy-boundaries-final-floor.xml",
+      "junit_sha256": "0d024f66b85fe1beaeec477537811d7a77466be898b40b43db8c86d00c4dcc42",
+      "failure_messages": []
+    },
+    "documentation": {
+      "exit_code": 0,
+      "tests": 1091,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 48.622,
+      "junit_path": ".pytest_cache/304-policy-boundaries-docs.xml",
+      "junit_sha256": "bbca0fa83a64e253494a758579c825cb58e1a57eead19ab601bd0f1fe4c879de",
+      "failure_messages": []
+    }
+  },
+  "quality_initial": [
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 1,
+      "stdout": "I001 [*] Import block is un-sorted or un-formatted\n  --> tests/build/test_covalent_inference_policy_boundaries.py:3:1\n   |\n 1 |   \"\"\"Checking declared connectivity against excluded geometric inference policies.\"\"\"\n 2 |\n 3 | / import builtins\n 4 | |\n 5 | | import numpy as np\n 6 | | import pandas as pd\n 7 | | import pytest\n 8 | |\n 9 | | import molsysmt as msm\n10 | | from molsysmt import pyunitwizard as puw\n11 | | from tests.build.test_get_residue_chemical_coverage import MLY, MSE, SEP, TPO\n12 | | from tests.conversion_truth.test_pdb_fidelity import (\n13 | |     _pdb_atom_line,\n14 | |     _pdb_link_line,\n15 | |     _pdb_ssbond_line,\n16 | | )\n   | |_^\nhelp: Organize imports\n   |\n17 |\n   -\n18 | METHODS = [\n   |\n\nFound 1 error.\n[*] 1 fixable with the `--fix` option.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "4436 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "devtools/scripts/validate_dependencies.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Scanning codebase at /home/diego/repos@uibcdf/molsysmt/.pytest_cache/ordered-issues-20261106/worktree/molsysmt for top-level soft dependency imports...\n\n[PASS] No top-level imports of soft dependencies found.\n[PASS] OpenFF CI dependency bounds are complete.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "devtools/scripts/audit_dependency_contract.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Dependency contract audit: PASS (public requirements and declared routes agree)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "devtools/scripts/validate_docstrings.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Running MolSysMT docstring fidelity and minimum-content validation...\nPASSED: All 247 public functions have structurally consistent NumPy docstrings, exact default fidelity, and no known vacuous stable-API content!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "devtools/scripts/generate_converter_arguments.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.2\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "devtools/scripts/validate_api_stability.py"
+      ],
+      "exit_code": 0,
+      "stdout": "API stability registry valid: 299 symbols classified.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "devtools/scripts/validate_public_api_stability.py",
+        "--base",
+        "62a5bb62d"
+      ],
+      "exit_code": 0,
+      "stdout": "\u2705 Public API Stability Guard: 0 unauthorized signature drifts detected.\n",
+      "stderr": ""
+    }
+  ],
+  "quality_correction": [
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "4436 files already formatted\n",
+      "stderr": ""
+    }
+  ],
+  "notebooks": [
+    {
+      "path": "docs/content/user/foundations/molecular_system/attributes.ipynb",
+      "sha256": "4e8eb450e85c83911e23ac6d3e7d48ba718e93fb4758deb898b9d2b25124e4cc",
+      "code_outputs_ids_metadata_and_cell_inventory_preserved": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "sha256": "0306c8623f6ce51cd9ca7e24701a51afd5385ef112434382a59b71605405bc94",
+      "code_outputs_ids_metadata_and_cell_inventory_preserved": true
+    }
+  ],
+  "original_native_receiving": [
+    {
+      "source": "181l.pdb",
+      "sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "receiving": {
+        "engine": "MolSysMT",
+        "n_atoms": 1441,
+        "n_bonds": 1322,
+        "first_conversion_seconds": 2.3254673599731177,
+        "repeated_conversion_seconds": 1.202084428165108,
+        "post_import_peak_rss_bytes": 75526144,
+        "conversion_peak_rss_bytes": 244584448,
+        "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+        "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+        "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+        "history_schemas": [
+          "molsysmt.pdb_connectivity@1",
+          "molsysmt.covalent_inference@1"
+        ],
+        "software": {
+          "molsysmt": "0.23.0+201.g3502232d8.dirty"
+        },
+        "n_added_bonds": 1309,
+        "unassessed_checks": [
+          "bond_orders",
+          "valence",
+          "protonation",
+          "hydrogen_placement",
+          "hydrogen_inventory_completeness",
+          "polymer_sequence_order",
+          "terminal_state_assignment",
+          "unsupported_terminal_groups",
+          "unsupported_groups",
+          "disulfides",
+          "metal_coordination"
+        ],
+        "h5msm_write_seconds": 1.022178839193657,
+        "h5msm_bytes": 3222692,
+        "h5msm_read_seconds": 0.9896629918366671,
+        "h5msm_geometry_graph_and_producer_preserved": true,
+        "process_peak_rss_bytes": 282484736,
+        "python": "3.14.7",
+        "numpy": "2.4.6"
+      },
+      "parity_with_previous_receiving": true
+    },
+    {
+      "source": "1iep_receptorH.pdb",
+      "sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+      "receiving": {
+        "engine": "MolSysMT",
+        "n_atoms": 4412,
+        "n_bonds": 4445,
+        "first_conversion_seconds": 2.9750315609853715,
+        "repeated_conversion_seconds": 1.8228842809330672,
+        "post_import_peak_rss_bytes": 75816960,
+        "conversion_peak_rss_bytes": 265134080,
+        "candidate_pair_sha256": "348e5a6732d3d18c95a01a9b1c3569380d340b24de5f99caa50cbb4c53a7dd5f",
+        "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+        "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+        "history_schemas": [
+          "molsysmt.pdb_connectivity@1",
+          "molsysmt.covalent_inference@1"
+        ],
+        "software": {
+          "molsysmt": "0.23.0+201.g3502232d8.dirty"
+        },
+        "n_added_bonds": 4445,
+        "unassessed_checks": [
+          "bond_orders",
+          "valence",
+          "protonation",
+          "hydrogen_placement",
+          "hydrogen_inventory_completeness",
+          "polymer_sequence_order",
+          "terminal_state_assignment",
+          "unsupported_terminal_groups",
+          "unsupported_groups",
+          "disulfides",
+          "metal_coordination"
+        ],
+        "h5msm_write_seconds": 1.0190803199075162,
+        "h5msm_bytes": 6492076,
+        "h5msm_read_seconds": 1.0350202429108322,
+        "h5msm_geometry_graph_and_producer_preserved": true,
+        "process_peak_rss_bytes": 295682048,
+        "python": "3.14.7",
+        "numpy": "2.4.6"
+      },
+      "parity_with_previous_receiving": true
+    }
+  ],
+  "prior_runtime_profile": {
+    "path": "devtools/data/pdb_naming_context_receiving_304_20261106.json",
+    "sha256": "cdc3bcc56501895785b26733331aec6b8da5b7bbaa8d02bf92851fa649a01fa0",
+    "scope": "Same development interpreter, controlled Viewer and published-floor payload routes; no clean installed or all-dependency-floor claim."
+  },
+  "limits": [
+    "The initial 44-case run has 43 failures for the absent new policy fields and one pass. Existing literal graph assertions pass; these are not 43 repaired chemistry defects.",
+    "The first affected command accidentally selected an existing network test fetching PDB 5XJH. It was interrupted after 227 passing cases and cannot qualify a completed gate. The final identical selection explicitly excludes network cases and completes 227 cases; one network-only case is deselected.",
+    "The expanded new module has 54 cases. The 55-case floor selection includes its public doctest. Selections overlap; totals are not unique cases.",
+    "Ruff initially identifies one import-order error in the new test. Its correction changes only import ordering; the final published-floor run and both Ruff checks pass.",
+    "Both original native probes use fresh child processes with OpenMM imports blocked, two serial conversions and H5MSM graph/coordinate/producer round trips. Their graph, atom-axis and coordinate digests match previous receiving. Isolated timings/RSS are retained observations, not a new statistical benchmark or performance improvement.",
+    "No new force field, valence/protonation, disulfide matching, metal-coordinate bond typing, arbitrary-ligand reconstruction, missing atom generation or PBC inference is certified.",
+    "Code/output/ID/metadata-preserving notebook prose changes are checked by deep comparison; previous executable content is not regenerated.",
+    "Final combined-source/full-matrix qualification, owner integration and ordered issue closeout remain pending. No main merge, release or package qualification is claimed."
+  ],
+  "fast_release_gate": {
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "devtools/scripts/release_gate.py"
+    ],
+    "exit_code": 0,
+    "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 299 symbols classified.\n  [PASS] Public function support tiers                          4.7s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        6.2s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    6.9s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   3.0s  [PASS] OpenFF CI dependency bounds are complete.\n  [PASS] Developer-guide integrity                              1.8s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Demo assets / H5MSM fixtures                           0.3s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       3.0s  public-API smoke OK\n=======================================================================\nFast gates: 14/14 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+    "stderr": ""
+  },
+  "reporting_checks": {
+    "validate_devguide": "passed",
+    "devguide_index_check": "passed",
+    "git_diff_check": "passed"
+  }
+}

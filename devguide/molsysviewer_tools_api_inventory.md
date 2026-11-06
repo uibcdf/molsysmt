@@ -2,10 +2,33 @@
 
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
-**Snapshot:** 2026-11-05, contribution PR #543 receiving published native
-`50854766d` over the prior `96191e07e` contribution; the native #559
-platform repair changes execution admission without adding functional paths.
-The table describes this contribution's 242/245 paths, including
+
+**Owner update — 2026-11-06:** the prepared native #572/#576 source is now
+integrated on main. `build.assess_protonation` is a new native-only route and
+remains explicitly missing from the bound inventory; object application and
+managed correspondence are not yet admitted to the addon. The existing bound
+`build.reconcile_protonation` route remains available. The dated contribution
+counts below describe their original snapshot, not complete exposure of these
+new native operations. The smoke inventory guard checks this exact known gap
+while continuing to refuse any other missing build route.
+
+**Consumer integration snapshot — 2026-11-06:** the source inventory reports
+242 exposed paths out of 248 declared paths. The new gaps are
+`topology.get_atom_name_correspondence`, `physchem.get_chemical_template`,
+`build.assess_protonation` and `molecular_mechanics.get_forces`; the two MD
+functions remain native stubs. These are explicit admission tasks, not
+scientific implementations to reproduce in the addon. The
+[combined receiving receipt](../devtools/data/molsysviewer_tools_scene_integration_receiving_20261106.json)
+keeps exposure distinct from scoped/full, owner and installed qualification.
+
+**Snapshot:** 2026-11-05, contribution PR #543 head
+`f7b305b3a126109aff5909e857ea7c53981486e8`, including owner main `ed09f6453`.
+The owner receiving branch also carries #594–#598 native/test corrections.
+The earlier `1c88e785b` / Viewer `36ab93b7` receiving is recorded in the
+[owner receipt](../devtools/data/owner_pr543_receiving_20261105.json);
+new independent GUI result tasks use Viewer `42234de839ed047016f8f241ea5eb717cfeb07be`
+and retain separate owner receiving and exact full-CI gates. Native #583/#584
+are resolved, with independent consumer observations archived. The table describes this contribution's 242/245 paths, including
 all 57 element paths, thirty-one build paths and five mechanical paths; it does not
 claim owner acceptance or an installed release. Explicit engine-resource lookup
 works before molecular loading; degree counting binds the serialized current
@@ -19,9 +42,11 @@ The [nonbonded-energy receipt](../devtools/data/molsysviewer_tools_nonbonded_rec
 records internal/disjoint cross and two-sided group contributions against
 independent Coulomb/Lennard-Jones pair sums, explicit energy-unit policy and
 source/scene ownership. Native mixed partition #561 remains visible. The
-[get_forces proposal](pending_proposals/native_molsys_force_reader_for_bound_consumers.md)
-tracks #572: native MolSys input is not implemented, so no always-rejected bound
-force method or consumer parameterization is added.
+[get_forces proposal](archive/resolved_proposals/native_molsys_force_reader_for_bound_consumers.md)
+tracks #572: native MolSys input was not implemented at that snapshot, so no always-rejected bound
+force method or consumer parameterization was added in the snapshot below.
+Native MolSys input is now implemented under #572; bound-force receiving remains
+a separate consumer step.
 The [minimization receipt](../devtools/data/molsysviewer_tools_minimization_receiving_20261104.json)
 records independent/native in-place ownership, retained coordinate axes,
 analysis invalidation and synchronization-only retry. Its scoped CPU controls
@@ -84,7 +109,8 @@ minimization controls; 4,512 addon/integration cases pass in the complete source
 gate. Engine-owned names, unavailable registration and device failures retain
 their distinct diagnostics without fallback. GPU/plugin-device execution is
 not qualified. Path exposure remains 242/245, build 31/31; native science and
-original owner course executable content are preserved. #583/#584 remain open.
+original owner course executable content are preserved. #583/#584 were open at that contribution checkpoint; owner main now resolves
+both, as recorded in the current snapshot above.
 
 ## Native model and ion receiving — 2026-11-05
 
@@ -97,11 +123,13 @@ maps. Solvation receives exact counts and nullable/source-label preservation,
 and forwards native random_seed and skip_digestion. Resource lookup receives
 independent lists and distinct OBC1/OBC2 recipes; energies and stored constraint
 policies are checked against explicit OpenMM on a qualified small source.
-The current graphical source slice includes System / Remove atoms, Extract
-subset and Copy system, and Geometry / Translate. Other tasks remain planned. Native effective-recipe/control
-reporting #582 and attribution conflict #583 remain visible. Native MolSys
-forces #572, managed protonation maps #576 and the two MD stubs retain their
-separate dispositions. Source exposure does not establish universal scientific
+The maintained GUI design records the later System, Geometry, Chemistry and
+Analysis source tasks, including explicit Analysis-to-core row actions. Native
+effective-recipe/control reporting #582 retains its scope; owner main resolves
+attribution conflict #583 and its consumer evidence remains archived. Native
+forces #572 and protonation correspondence #576 are delivered on owner main,
+but their bound-consumer admission still requires its own receiving. The two
+MD stubs retain their separate dispositions. Source exposure does not establish universal scientific
 or installed qualification; exact receipts retain their input and scope.
 
 ## Naming-contract cutover — 2026-11-05
@@ -566,7 +594,8 @@ and installed/release qualification remain separate.
 
 The build mirror exposes the native signature with the current primary implicit.
 Only in_place=False is received: managed True rejects before science pending
-[public correspondence #576](pending_proposals/protonation_removal_correspondence_for_bound_consumers.md).
+consumer receiving of the now-implemented
+[public correspondence #576](archive/resolved_proposals/protonation_removal_correspondence_for_bound_consumers.md).
 This is one callable path with a bounded admitted mode, not complete in-place
 coverage or environmental-pKa qualification. Native reference rules, explicit
 named states, unassessed groups and extraction semantics remain unchanged. No

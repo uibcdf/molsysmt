@@ -100,11 +100,13 @@ symbols. These symbols have not been classified here; absence is not
 a scientific gap assessment. Expand the explicit Claimed inventory
 after reviewing each operation's claim and available evidence.
 
+- `molsysmt.build.ProtonationAssessment`
 - `molsysmt.build.add_missing_bonds`
 - `molsysmt.build.add_missing_heavy_atoms`
 - `molsysmt.build.add_missing_hydrogens`
 - `molsysmt.build.add_missing_terminal_cappings`
 - `molsysmt.build.add_terminal_atoms`
+- `molsysmt.build.assess_protonation`
 - `molsysmt.build.assign_autodock_atom_types`
 - `molsysmt.build.assign_partial_charges`
 - `molsysmt.build.get_covalent_bond_candidates`
@@ -161,6 +163,7 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.physchem.get_buried_fraction`
 - `molsysmt.physchem.get_charge_centers`
 - `molsysmt.physchem.get_chemical_readiness`
+- `molsysmt.physchem.get_chemical_template`
 - `molsysmt.physchem.get_cip_stereochemistry`
 - `molsysmt.physchem.get_electronegativity`
 - `molsysmt.physchem.get_halogen_bond_sites`
@@ -181,5 +184,6 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.structure.get_least_squares_plane`
 - `molsysmt.structure.get_symmetry_corrected_rmsd`
 - `molsysmt.structure.get_vectors`
+- `molsysmt.topology.get_atom_name_correspondence`
 - `molsysmt.topology.get_sequence_alignment`
 - `molsysmt.topology.get_sequence_identity`

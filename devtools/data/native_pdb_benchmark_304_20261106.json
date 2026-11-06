@@ -1,0 +1,3114 @@
+{
+  "schema": "molsysmt.native_pdb_connectivity_benchmark@1",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "python": "3.14.7",
+  "base_commit": "9cf71bd0120325aa1fa2c7063ad22197805484ae",
+  "source_files": {
+    "devtools/scripts/benchmark_native_pdb_connectivity.py": "0e222a766518a5e347d7ddf7f7fc59f4007e61dbecb3eb5b2712c92286f09e44",
+    "devtools/scripts/probe_native_pdb_connectivity.py": "2a21939118c62a841cdc2abd62d95c6e963cfa874137592827b79d79df619e10",
+    "molsysmt/_private/pdb_declarations.py": "b30ec20510216f8a6b2f4d8fafd576533387c8ba0cf3a10190945131a6c0a48f",
+    "molsysmt/_private/covalent_inference.py": "e2b3e4eb6ebb23b27e1aae8c6f5861fb78db71f1e469283628986f4c22799126",
+    "molsysmt/_private/hydrogen_covalent_candidates.py": "b226039c4d8995b42f3c9402507129f53aa69c76cbb3ec275bf835e152e9e7ab",
+    "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py": "3264fb292725af3ac37a3069d2b47f030d3df259862ad90d1c2f965b682145f1",
+    "molsysmt/_rust.abi3.so": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENMM_CPU_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "measurement_scope": "Serial fresh-process replicates, two conversions per process. First conversion excludes interpreter/package startup but includes lazy initialization; repeated conversion reuses process caches after releasing the prior result. Collection is untimed. Conversion RSS is process high-water before queries/H5MSM; final RSS includes native H5MSM write/read verification. Neither is allocation attribution or an isolated single-structure buffer size. Fresh-process wall includes startup and verification. Synthetic heavy-alanine chains test scaling and literal expected graphs, not experimental or force-field geometry. Raw observations, warnings and graph disagreements are retained. Small sample summaries do not establish universal speed or memory superiority.",
+  "sources": [
+    {
+      "source": "181l.pdb",
+      "sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+      "synthetic": false,
+      "routes": [
+        {
+          "engine": "disabled",
+          "observations": [
+            {
+              "engine": "disabled",
+              "n_atoms": 1441,
+              "n_bonds": 13,
+              "first_conversion_seconds": 0.9512010850012302,
+              "repeated_conversion_seconds": 0.18129132594913244,
+              "post_import_peak_rss_bytes": 75632640,
+              "conversion_peak_rss_bytes": 192053248,
+              "candidate_pair_sha256": "abf83f9c4268ced844928d2e8bf1ed0a25086afd5bcbe151407bf3dee54a1da5",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 220078080,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.6531727930996567,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 1441,
+              "n_bonds": 13,
+              "first_conversion_seconds": 0.7099742509890348,
+              "repeated_conversion_seconds": 0.14793345308862627,
+              "post_import_peak_rss_bytes": 75665408,
+              "conversion_peak_rss_bytes": 192839680,
+              "candidate_pair_sha256": "abf83f9c4268ced844928d2e8bf1ed0a25086afd5bcbe151407bf3dee54a1da5",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 220372992,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.1109314309433103,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 1441,
+              "n_bonds": 13,
+              "first_conversion_seconds": 0.6982580970507115,
+              "repeated_conversion_seconds": 0.145867174025625,
+              "post_import_peak_rss_bytes": 75452416,
+              "conversion_peak_rss_bytes": 192167936,
+              "candidate_pair_sha256": "abf83f9c4268ced844928d2e8bf1ed0a25086afd5bcbe151407bf3dee54a1da5",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 220041216,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.1034945209976286,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.9512010850012302,
+                0.7099742509890348,
+                0.6982580970507115
+              ],
+              "minimum": 0.6982580970507115,
+              "median": 0.7099742509890348,
+              "maximum": 0.9512010850012302,
+              "interquartile_range": 0.12647149397525936
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.18129132594913244,
+                0.14793345308862627,
+                0.145867174025625
+              ],
+              "minimum": 0.145867174025625,
+              "median": 0.14793345308862627,
+              "maximum": 0.18129132594913244,
+              "interquartile_range": 0.017712075961753726
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                2.6531727930996567,
+                2.1109314309433103,
+                2.1034945209976286
+              ],
+              "minimum": 2.1034945209976286,
+              "median": 2.1109314309433103,
+              "maximum": 2.6531727930996567,
+              "interquartile_range": 0.27483913605101407
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75632640,
+                75665408,
+                75452416
+              ],
+              "minimum": 75452416,
+              "median": 75632640,
+              "maximum": 75665408,
+              "interquartile_range": 106496.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                192053248,
+                192839680,
+                192167936
+              ],
+              "minimum": 192053248,
+              "median": 192167936,
+              "maximum": 192839680,
+              "interquartile_range": 393216.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                220078080,
+                220372992,
+                220041216
+              ],
+              "minimum": 220041216,
+              "median": 220078080,
+              "maximum": 220372992,
+              "interquartile_range": 165888.0
+            }
+          }
+        },
+        {
+          "engine": "MolSysMT",
+          "observations": [
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 2.242074547102675,
+              "repeated_conversion_seconds": 1.151346200145781,
+              "post_import_peak_rss_bytes": 75382784,
+              "conversion_peak_rss_bytes": 244494336,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 1309,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.9892474878579378,
+              "h5msm_bytes": 3219846,
+              "h5msm_read_seconds": 0.9792359080165625,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 282992640,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 6.433764414163306,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 2.2011165430303663,
+              "repeated_conversion_seconds": 1.1470189709216356,
+              "post_import_peak_rss_bytes": 75382784,
+              "conversion_peak_rss_bytes": 244498432,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 1309,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.9860839419998229,
+              "h5msm_bytes": 3219846,
+              "h5msm_read_seconds": 0.9776865078601986,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 282349568,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 6.387037192936987,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 2.2255174480378628,
+              "repeated_conversion_seconds": 1.1470189969986677,
+              "post_import_peak_rss_bytes": 75419648,
+              "conversion_peak_rss_bytes": 244543488,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 1309,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.9725336141418666,
+              "h5msm_bytes": 3219846,
+              "h5msm_read_seconds": 0.951558870030567,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 283045888,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 6.363725977949798,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                2.242074547102675,
+                2.2011165430303663,
+                2.2255174480378628
+              ],
+              "minimum": 2.2011165430303663,
+              "median": 2.2255174480378628,
+              "maximum": 2.242074547102675,
+              "interquartile_range": 0.02047900203615427
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                1.151346200145781,
+                1.1470189709216356,
+                1.1470189969986677
+              ],
+              "minimum": 1.1470189709216356,
+              "median": 1.1470189969986677,
+              "maximum": 1.151346200145781,
+              "interquartile_range": 0.0021636146120727062
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                6.433764414163306,
+                6.387037192936987,
+                6.363725977949798
+              ],
+              "minimum": 6.363725977949798,
+              "median": 6.387037192936987,
+              "maximum": 6.433764414163306,
+              "interquartile_range": 0.035019218106754124
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75382784,
+                75382784,
+                75419648
+              ],
+              "minimum": 75382784,
+              "median": 75382784,
+              "maximum": 75419648,
+              "interquartile_range": 18432.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                244494336,
+                244498432,
+                244543488
+              ],
+              "minimum": 244494336,
+              "median": 244498432,
+              "maximum": 244543488,
+              "interquartile_range": 24576.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                282992640,
+                282349568,
+                283045888
+              ],
+              "minimum": 282349568,
+              "median": 282992640,
+              "maximum": 283045888,
+              "interquartile_range": 348160.0
+            },
+            "h5msm_write_seconds": {
+              "n": 3,
+              "values": [
+                0.9892474878579378,
+                0.9860839419998229,
+                0.9725336141418666
+              ],
+              "minimum": 0.9725336141418666,
+              "median": 0.9860839419998229,
+              "maximum": 0.9892474878579378,
+              "interquartile_range": 0.008356936858035624
+            },
+            "h5msm_read_seconds": {
+              "n": 3,
+              "values": [
+                0.9792359080165625,
+                0.9776865078601986,
+                0.951558870030567
+              ],
+              "minimum": 0.951558870030567,
+              "median": 0.9776865078601986,
+              "maximum": 0.9792359080165625,
+              "interquartile_range": 0.013838518992997706
+            },
+            "h5msm_bytes": {
+              "n": 3,
+              "values": [
+                3219846,
+                3219846,
+                3219846
+              ],
+              "minimum": 3219846,
+              "median": 3219846,
+              "maximum": 3219846,
+              "interquartile_range": 0.0
+            }
+          }
+        },
+        {
+          "engine": "OpenMM",
+          "observations": [
+            {
+              "engine": "OpenMM",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 1.0114299710839987,
+              "repeated_conversion_seconds": 0.2906578138936311,
+              "post_import_peak_rss_bytes": 75534336,
+              "conversion_peak_rss_bytes": 265220096,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 290942976,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.5935094200540334,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 0.9863859489560127,
+              "repeated_conversion_seconds": 0.2879651337862015,
+              "post_import_peak_rss_bytes": 75444224,
+              "conversion_peak_rss_bytes": 265093120,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 290816000,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.600166921969503,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 0.9711156878620386,
+              "repeated_conversion_seconds": 0.30118671897798777,
+              "post_import_peak_rss_bytes": 75239424,
+              "conversion_peak_rss_bytes": 265314304,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 290873344,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.5659639360383153,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                1.0114299710839987,
+                0.9863859489560127,
+                0.9711156878620386
+              ],
+              "minimum": 0.9711156878620386,
+              "median": 0.9863859489560127,
+              "maximum": 1.0114299710839987,
+              "interquartile_range": 0.020157141610980034
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.2906578138936311,
+                0.2879651337862015,
+                0.30118671897798777
+              ],
+              "minimum": 0.2879651337862015,
+              "median": 0.2906578138936311,
+              "maximum": 0.30118671897798777,
+              "interquartile_range": 0.006610792595893145
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                2.5935094200540334,
+                2.600166921969503,
+                2.5659639360383153
+              ],
+              "minimum": 2.5659639360383153,
+              "median": 2.5935094200540334,
+              "maximum": 2.600166921969503,
+              "interquartile_range": 0.017101492965593934
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75534336,
+                75444224,
+                75239424
+              ],
+              "minimum": 75239424,
+              "median": 75444224,
+              "maximum": 75534336,
+              "interquartile_range": 147456.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                265220096,
+                265093120,
+                265314304
+              ],
+              "minimum": 265093120,
+              "median": 265220096,
+              "maximum": 265314304,
+              "interquartile_range": 110592.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                290942976,
+                290816000,
+                290873344
+              ],
+              "minimum": 290816000,
+              "median": 290873344,
+              "maximum": 290942976,
+              "interquartile_range": 63488.0
+            }
+          }
+        }
+      ],
+      "native_only_pairs": [],
+      "openmm_only_pairs": []
+    },
+    {
+      "source": "1iep_receptorH.pdb",
+      "sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+      "synthetic": false,
+      "routes": [
+        {
+          "engine": "disabled",
+          "observations": [
+            {
+              "engine": "disabled",
+              "n_atoms": 4412,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.6646640410181135,
+              "repeated_conversion_seconds": 0.08227217616513371,
+              "post_import_peak_rss_bytes": 75546624,
+              "conversion_peak_rss_bytes": 195350528,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 217595904,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.006001768168062,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 4412,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.6807051210198551,
+              "repeated_conversion_seconds": 0.08452230296097696,
+              "post_import_peak_rss_bytes": 75681792,
+              "conversion_peak_rss_bytes": 196235264,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 218562560,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.046338165877387,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 4412,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.6704205961432308,
+              "repeated_conversion_seconds": 0.08433170802891254,
+              "post_import_peak_rss_bytes": 75620352,
+              "conversion_peak_rss_bytes": 195936256,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 218292224,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.0300760369282216,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.6646640410181135,
+                0.6807051210198551,
+                0.6704205961432308
+              ],
+              "minimum": 0.6646640410181135,
+              "median": 0.6704205961432308,
+              "maximum": 0.6807051210198551,
+              "interquartile_range": 0.008020540000870824
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.08227217616513371,
+                0.08452230296097696,
+                0.08433170802891254
+              ],
+              "minimum": 0.08227217616513371,
+              "median": 0.08433170802891254,
+              "maximum": 0.08452230296097696,
+              "interquartile_range": 0.0011250633979216218
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                2.006001768168062,
+                2.046338165877387,
+                2.0300760369282216
+              ],
+              "minimum": 2.006001768168062,
+              "median": 2.0300760369282216,
+              "maximum": 2.046338165877387,
+              "interquartile_range": 0.020168198854662478
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75546624,
+                75681792,
+                75620352
+              ],
+              "minimum": 75546624,
+              "median": 75620352,
+              "maximum": 75681792,
+              "interquartile_range": 67584.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                195350528,
+                196235264,
+                195936256
+              ],
+              "minimum": 195350528,
+              "median": 195936256,
+              "maximum": 196235264,
+              "interquartile_range": 442368.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                217595904,
+                218562560,
+                218292224
+              ],
+              "minimum": 217595904,
+              "median": 218292224,
+              "maximum": 218562560,
+              "interquartile_range": 483328.0
+            }
+          }
+        },
+        {
+          "engine": "MolSysMT",
+          "observations": [
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 4412,
+              "n_bonds": 4445,
+              "first_conversion_seconds": 2.7217347249388695,
+              "repeated_conversion_seconds": 1.790129094850272,
+              "post_import_peak_rss_bytes": 75612160,
+              "conversion_peak_rss_bytes": 265150464,
+              "candidate_pair_sha256": "348e5a6732d3d18c95a01a9b1c3569380d340b24de5f99caa50cbb4c53a7dd5f",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 4445,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.9784495430067182,
+              "h5msm_bytes": 6491692,
+              "h5msm_read_seconds": 0.9783296901732683,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 295301120,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 7.5331573551520705,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 4412,
+              "n_bonds": 4445,
+              "first_conversion_seconds": 2.7615716089494526,
+              "repeated_conversion_seconds": 1.7152102168183774,
+              "post_import_peak_rss_bytes": 75694080,
+              "conversion_peak_rss_bytes": 265261056,
+              "candidate_pair_sha256": "348e5a6732d3d18c95a01a9b1c3569380d340b24de5f99caa50cbb4c53a7dd5f",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 4445,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.9665504819713533,
+              "h5msm_bytes": 6491692,
+              "h5msm_read_seconds": 0.9590170050505549,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 296644608,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 7.480403545079753,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 4412,
+              "n_bonds": 4445,
+              "first_conversion_seconds": 2.8144669719040394,
+              "repeated_conversion_seconds": 1.7189291389659047,
+              "post_import_peak_rss_bytes": 75591680,
+              "conversion_peak_rss_bytes": 264929280,
+              "candidate_pair_sha256": "348e5a6732d3d18c95a01a9b1c3569380d340b24de5f99caa50cbb4c53a7dd5f",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 4445,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.9740719879046082,
+              "h5msm_bytes": 6491692,
+              "h5msm_read_seconds": 0.9722438009921461,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 294948864,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 7.560560143087059,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                2.7217347249388695,
+                2.7615716089494526,
+                2.8144669719040394
+              ],
+              "minimum": 2.7217347249388695,
+              "median": 2.7615716089494526,
+              "maximum": 2.8144669719040394,
+              "interquartile_range": 0.04636612348258495
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                1.790129094850272,
+                1.7152102168183774,
+                1.7189291389659047
+              ],
+              "minimum": 1.7152102168183774,
+              "median": 1.7189291389659047,
+              "maximum": 1.790129094850272,
+              "interquartile_range": 0.03745943901594728
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                7.5331573551520705,
+                7.480403545079753,
+                7.560560143087059
+              ],
+              "minimum": 7.480403545079753,
+              "median": 7.5331573551520705,
+              "maximum": 7.560560143087059,
+              "interquartile_range": 0.04007829900365323
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75612160,
+                75694080,
+                75591680
+              ],
+              "minimum": 75591680,
+              "median": 75612160,
+              "maximum": 75694080,
+              "interquartile_range": 51200.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                265150464,
+                265261056,
+                264929280
+              ],
+              "minimum": 264929280,
+              "median": 265150464,
+              "maximum": 265261056,
+              "interquartile_range": 165888.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                295301120,
+                296644608,
+                294948864
+              ],
+              "minimum": 294948864,
+              "median": 295301120,
+              "maximum": 296644608,
+              "interquartile_range": 847872.0
+            },
+            "h5msm_write_seconds": {
+              "n": 3,
+              "values": [
+                0.9784495430067182,
+                0.9665504819713533,
+                0.9740719879046082
+              ],
+              "minimum": 0.9665504819713533,
+              "median": 0.9740719879046082,
+              "maximum": 0.9784495430067182,
+              "interquartile_range": 0.005949530517682433
+            },
+            "h5msm_read_seconds": {
+              "n": 3,
+              "values": [
+                0.9783296901732683,
+                0.9590170050505549,
+                0.9722438009921461
+              ],
+              "minimum": 0.9590170050505549,
+              "median": 0.9722438009921461,
+              "maximum": 0.9783296901732683,
+              "interquartile_range": 0.009656342561356723
+            },
+            "h5msm_bytes": {
+              "n": 3,
+              "values": [
+                6491692,
+                6491692,
+                6491692
+              ],
+              "minimum": 6491692,
+              "median": 6491692,
+              "maximum": 6491692,
+              "interquartile_range": 0.0
+            }
+          }
+        },
+        {
+          "engine": "OpenMM",
+          "observations": [
+            {
+              "engine": "OpenMM",
+              "n_atoms": 4412,
+              "n_bonds": 4469,
+              "first_conversion_seconds": 1.3343575950711966,
+              "repeated_conversion_seconds": 0.6446101360488683,
+              "post_import_peak_rss_bytes": 75759616,
+              "conversion_peak_rss_bytes": 280109056,
+              "candidate_pair_sha256": "6c80c9aa710d217a339fa514b186ce8e08548897e0190e67e9a55b02a4fe8b6d",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 295538688,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.2907169610261917,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 4412,
+              "n_bonds": 4469,
+              "first_conversion_seconds": 1.333241947926581,
+              "repeated_conversion_seconds": 0.6309386019129306,
+              "post_import_peak_rss_bytes": 75685888,
+              "conversion_peak_rss_bytes": 280268800,
+              "candidate_pair_sha256": "6c80c9aa710d217a339fa514b186ce8e08548897e0190e67e9a55b02a4fe8b6d",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 295682048,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.264511483022943,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 4412,
+              "n_bonds": 4469,
+              "first_conversion_seconds": 1.3310356480069458,
+              "repeated_conversion_seconds": 0.6235387669876218,
+              "post_import_peak_rss_bytes": 75743232,
+              "conversion_peak_rss_bytes": 279973888,
+              "candidate_pair_sha256": "6c80c9aa710d217a339fa514b186ce8e08548897e0190e67e9a55b02a4fe8b6d",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 295350272,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.246043689083308,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                1.3343575950711966,
+                1.333241947926581,
+                1.3310356480069458
+              ],
+              "minimum": 1.3310356480069458,
+              "median": 1.333241947926581,
+              "maximum": 1.3343575950711966,
+              "interquartile_range": 0.0016609735321253538
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.6446101360488683,
+                0.6309386019129306,
+                0.6235387669876218
+              ],
+              "minimum": 0.6235387669876218,
+              "median": 0.6309386019129306,
+              "maximum": 0.6446101360488683,
+              "interquartile_range": 0.010535684530623257
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                3.2907169610261917,
+                3.264511483022943,
+                3.246043689083308
+              ],
+              "minimum": 3.246043689083308,
+              "median": 3.264511483022943,
+              "maximum": 3.2907169610261917,
+              "interquartile_range": 0.022336635971441865
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75759616,
+                75685888,
+                75743232
+              ],
+              "minimum": 75685888,
+              "median": 75743232,
+              "maximum": 75759616,
+              "interquartile_range": 36864.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                280109056,
+                280268800,
+                279973888
+              ],
+              "minimum": 279973888,
+              "median": 280109056,
+              "maximum": 280268800,
+              "interquartile_range": 147456.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                295538688,
+                295682048,
+                295350272
+              ],
+              "minimum": 295350272,
+              "median": 295538688,
+              "maximum": 295682048,
+              "interquartile_range": 165888.0
+            }
+          }
+        }
+      ],
+      "native_only_pairs": [
+        [
+          0,
+          3427
+        ]
+      ],
+      "openmm_only_pairs": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          272,
+          273
+        ],
+        [
+          344,
+          345
+        ],
+        [
+          350,
+          351
+        ],
+        [
+          1096,
+          1097
+        ],
+        [
+          1137,
+          1138
+        ],
+        [
+          1143,
+          1144
+        ],
+        [
+          1428,
+          1429
+        ],
+        [
+          1447,
+          1448
+        ],
+        [
+          1983,
+          1984
+        ],
+        [
+          2199,
+          2200
+        ],
+        [
+          2218,
+          2219
+        ],
+        [
+          2224,
+          2225
+        ],
+        [
+          2430,
+          2431
+        ],
+        [
+          2436,
+          2437
+        ],
+        [
+          2752,
+          2753
+        ],
+        [
+          2758,
+          2759
+        ],
+        [
+          2853,
+          2854
+        ],
+        [
+          3099,
+          3100
+        ],
+        [
+          3333,
+          3334
+        ],
+        [
+          3487,
+          3488
+        ],
+        [
+          4244,
+          4245
+        ],
+        [
+          4263,
+          4264
+        ],
+        [
+          4269,
+          4270
+        ]
+      ]
+    },
+    {
+      "source": "synthetic_ala_64.pdb",
+      "sha256": "9c1fc4638be3c9b0bebe6ec76aefa87a8a2511ce8fe792c224c00654d5ddbbd1",
+      "synthetic": true,
+      "routes": [
+        {
+          "engine": "disabled",
+          "observations": [
+            {
+              "engine": "disabled",
+              "n_atoms": 320,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.5646517209243029,
+              "repeated_conversion_seconds": 0.02780344383791089,
+              "post_import_peak_rss_bytes": 75505664,
+              "conversion_peak_rss_bytes": 184606720,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 215986176,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 1.8484638538211584,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 320,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.5716915929224342,
+              "repeated_conversion_seconds": 0.026285533094778657,
+              "post_import_peak_rss_bytes": 75673600,
+              "conversion_peak_rss_bytes": 184754176,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 216113152,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 1.869774787221104,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 320,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.5614640899002552,
+              "repeated_conversion_seconds": 0.026441027177497745,
+              "post_import_peak_rss_bytes": 75427840,
+              "conversion_peak_rss_bytes": 184594432,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 216117248,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 1.8619295731186867,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.5646517209243029,
+                0.5716915929224342,
+                0.5614640899002552
+              ],
+              "minimum": 0.5614640899002552,
+              "median": 0.5646517209243029,
+              "maximum": 0.5716915929224342,
+              "interquartile_range": 0.005113751511089504
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.02780344383791089,
+                0.026285533094778657,
+                0.026441027177497745
+              ],
+              "minimum": 0.026285533094778657,
+              "median": 0.026441027177497745,
+              "maximum": 0.02780344383791089,
+              "interquartile_range": 0.0007589553715661168
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                1.8484638538211584,
+                1.869774787221104,
+                1.8619295731186867
+              ],
+              "minimum": 1.8484638538211584,
+              "median": 1.8619295731186867,
+              "maximum": 1.869774787221104,
+              "interquartile_range": 0.010655466699972749
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75505664,
+                75673600,
+                75427840
+              ],
+              "minimum": 75427840,
+              "median": 75505664,
+              "maximum": 75673600,
+              "interquartile_range": 122880.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                184606720,
+                184754176,
+                184594432
+              ],
+              "minimum": 184594432,
+              "median": 184606720,
+              "maximum": 184754176,
+              "interquartile_range": 79872.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                215986176,
+                216113152,
+                216117248
+              ],
+              "minimum": 215986176,
+              "median": 216113152,
+              "maximum": 216117248,
+              "interquartile_range": 65536.0
+            }
+          }
+        },
+        {
+          "engine": "MolSysMT",
+          "observations": [
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 320,
+              "n_bonds": 318,
+              "first_conversion_seconds": 1.420359438052401,
+              "repeated_conversion_seconds": 0.3772656051442027,
+              "post_import_peak_rss_bytes": 75419648,
+              "conversion_peak_rss_bytes": 228982784,
+              "candidate_pair_sha256": "47649ede5d62189681b7c468de10ab1f16d6a2b627a0628306aebcc078b3ac62",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 318,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.25583998882211745,
+              "h5msm_bytes": 871776,
+              "h5msm_read_seconds": 0.33579050097614527,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 250654720,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.409062982071191,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 320,
+              "n_bonds": 318,
+              "first_conversion_seconds": 1.4581819879822433,
+              "repeated_conversion_seconds": 0.37267019506543875,
+              "post_import_peak_rss_bytes": 75538432,
+              "conversion_peak_rss_bytes": 229130240,
+              "candidate_pair_sha256": "47649ede5d62189681b7c468de10ab1f16d6a2b627a0628306aebcc078b3ac62",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 318,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.2518659259658307,
+              "h5msm_bytes": 871776,
+              "h5msm_read_seconds": 0.3224549018777907,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 250753024,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.4457356960047036,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 320,
+              "n_bonds": 318,
+              "first_conversion_seconds": 1.4117324359249324,
+              "repeated_conversion_seconds": 0.3774853569921106,
+              "post_import_peak_rss_bytes": 75378688,
+              "conversion_peak_rss_bytes": 229097472,
+              "candidate_pair_sha256": "47649ede5d62189681b7c468de10ab1f16d6a2b627a0628306aebcc078b3ac62",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 318,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.24961759988218546,
+              "h5msm_bytes": 871776,
+              "h5msm_read_seconds": 0.3321266230195761,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 250798080,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.400992858922109,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                1.420359438052401,
+                1.4581819879822433,
+                1.4117324359249324
+              ],
+              "minimum": 1.4117324359249324,
+              "median": 1.420359438052401,
+              "maximum": 1.4581819879822433,
+              "interquartile_range": 0.02322477602865547
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.3772656051442027,
+                0.37267019506543875,
+                0.3774853569921106
+              ],
+              "minimum": 0.37267019506543875,
+              "median": 0.3772656051442027,
+              "maximum": 0.3774853569921106,
+              "interquartile_range": 0.0024075809633359313
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                3.409062982071191,
+                3.4457356960047036,
+                3.400992858922109
+              ],
+              "minimum": 3.400992858922109,
+              "median": 3.409062982071191,
+              "maximum": 3.4457356960047036,
+              "interquartile_range": 0.022371418541297317
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75419648,
+                75538432,
+                75378688
+              ],
+              "minimum": 75378688,
+              "median": 75419648,
+              "maximum": 75538432,
+              "interquartile_range": 79872.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                228982784,
+                229130240,
+                229097472
+              ],
+              "minimum": 228982784,
+              "median": 229097472,
+              "maximum": 229130240,
+              "interquartile_range": 73728.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                250654720,
+                250753024,
+                250798080
+              ],
+              "minimum": 250654720,
+              "median": 250753024,
+              "maximum": 250798080,
+              "interquartile_range": 71680.0
+            },
+            "h5msm_write_seconds": {
+              "n": 3,
+              "values": [
+                0.25583998882211745,
+                0.2518659259658307,
+                0.24961759988218546
+              ],
+              "minimum": 0.24961759988218546,
+              "median": 0.2518659259658307,
+              "maximum": 0.25583998882211745,
+              "interquartile_range": 0.0031111944699659944
+            },
+            "h5msm_read_seconds": {
+              "n": 3,
+              "values": [
+                0.33579050097614527,
+                0.3224549018777907,
+                0.3321266230195761
+              ],
+              "minimum": 0.3224549018777907,
+              "median": 0.3321266230195761,
+              "maximum": 0.33579050097614527,
+              "interquartile_range": 0.006667799549177289
+            },
+            "h5msm_bytes": {
+              "n": 3,
+              "values": [
+                871776,
+                871776,
+                871776
+              ],
+              "minimum": 871776,
+              "median": 871776,
+              "maximum": 871776,
+              "interquartile_range": 0.0
+            }
+          }
+        },
+        {
+          "engine": "OpenMM",
+          "observations": [
+            {
+              "engine": "OpenMM",
+              "n_atoms": 320,
+              "n_bonds": 318,
+              "first_conversion_seconds": 0.7904506979975849,
+              "repeated_conversion_seconds": 0.15600569499656558,
+              "post_import_peak_rss_bytes": 75476992,
+              "conversion_peak_rss_bytes": 257986560,
+              "candidate_pair_sha256": "47649ede5d62189681b7c468de10ab1f16d6a2b627a0628306aebcc078b3ac62",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 287969280,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.2414463669992983,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 320,
+              "n_bonds": 318,
+              "first_conversion_seconds": 0.7919924010057002,
+              "repeated_conversion_seconds": 0.1581947160884738,
+              "post_import_peak_rss_bytes": 75599872,
+              "conversion_peak_rss_bytes": 258629632,
+              "candidate_pair_sha256": "47649ede5d62189681b7c468de10ab1f16d6a2b627a0628306aebcc078b3ac62",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 288612352,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.2607394501101226,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 320,
+              "n_bonds": 318,
+              "first_conversion_seconds": 0.7892946498468518,
+              "repeated_conversion_seconds": 0.1584017330314964,
+              "post_import_peak_rss_bytes": 75517952,
+              "conversion_peak_rss_bytes": 258727936,
+              "candidate_pair_sha256": "47649ede5d62189681b7c468de10ab1f16d6a2b627a0628306aebcc078b3ac62",
+              "atom_axis_sha256": "d127944c39da14d532c221875fec5779d8516de758fab8f0f3b27e724a610dfa",
+              "coordinate_sha256": "7d9d6484f6d896881f0b9a1ebec357b99c1bfc3e51f6130ed279297f983b6664",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 288874496,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.231111580040306,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.7904506979975849,
+                0.7919924010057002,
+                0.7892946498468518
+              ],
+              "minimum": 0.7892946498468518,
+              "median": 0.7904506979975849,
+              "maximum": 0.7919924010057002,
+              "interquartile_range": 0.0013488755794242024
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.15600569499656558,
+                0.1581947160884738,
+                0.1584017330314964
+              ],
+              "minimum": 0.15600569499656558,
+              "median": 0.1581947160884738,
+              "maximum": 0.1584017330314964,
+              "interquartile_range": 0.0011980190174654126
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                2.2414463669992983,
+                2.2607394501101226,
+                2.231111580040306
+              ],
+              "minimum": 2.231111580040306,
+              "median": 2.2414463669992983,
+              "maximum": 2.2607394501101226,
+              "interquartile_range": 0.014813935034908354
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75476992,
+                75599872,
+                75517952
+              ],
+              "minimum": 75476992,
+              "median": 75517952,
+              "maximum": 75599872,
+              "interquartile_range": 61440.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                257986560,
+                258629632,
+                258727936
+              ],
+              "minimum": 257986560,
+              "median": 258629632,
+              "maximum": 258727936,
+              "interquartile_range": 370688.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                287969280,
+                288612352,
+                288874496
+              ],
+              "minimum": 287969280,
+              "median": 288612352,
+              "maximum": 288874496,
+              "interquartile_range": 452608.0
+            }
+          }
+        }
+      ],
+      "independent_expected_pairs_sha256": "47649ede5d62189681b7c468de10ab1f16d6a2b627a0628306aebcc078b3ac62",
+      "native_only_pairs": [],
+      "openmm_only_pairs": [],
+      "generator": {
+        "n_groups": 64,
+        "groups_per_chain": 32,
+        "observed_hydrogens": 0,
+        "units": "angstrom",
+        "experimental": false
+      }
+    },
+    {
+      "source": "synthetic_ala_512.pdb",
+      "sha256": "8e7b9059b379b1869c9ed673c031ada9958c28f3236f12d9bc9b674912b053fc",
+      "synthetic": true,
+      "routes": [
+        {
+          "engine": "disabled",
+          "observations": [
+            {
+              "engine": "disabled",
+              "n_atoms": 2560,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.6560197160579264,
+              "repeated_conversion_seconds": 0.05692116194404662,
+              "post_import_peak_rss_bytes": 75587584,
+              "conversion_peak_rss_bytes": 191979520,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 217604096,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 1.981305985013023,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 2560,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.6587276929058135,
+              "repeated_conversion_seconds": 0.05783826415427029,
+              "post_import_peak_rss_bytes": 75538432,
+              "conversion_peak_rss_bytes": 191885312,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 217509888,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 1.986297840019688,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 2560,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.6636235301848501,
+              "repeated_conversion_seconds": 0.05667508905753493,
+              "post_import_peak_rss_bytes": 75563008,
+              "conversion_peak_rss_bytes": 191885312,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 217509888,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.026063140016049,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.6560197160579264,
+                0.6587276929058135,
+                0.6636235301848501
+              ],
+              "minimum": 0.6560197160579264,
+              "median": 0.6587276929058135,
+              "maximum": 0.6636235301848501,
+              "interquartile_range": 0.00380190706346184
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.05692116194404662,
+                0.05783826415427029,
+                0.05667508905753493
+              ],
+              "minimum": 0.05667508905753493,
+              "median": 0.05692116194404662,
+              "maximum": 0.05783826415427029,
+              "interquartile_range": 0.0005815875483676791
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                1.981305985013023,
+                1.986297840019688,
+                2.026063140016049
+              ],
+              "minimum": 1.981305985013023,
+              "median": 1.986297840019688,
+              "maximum": 2.026063140016049,
+              "interquartile_range": 0.022378577501513064
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75587584,
+                75538432,
+                75563008
+              ],
+              "minimum": 75538432,
+              "median": 75563008,
+              "maximum": 75587584,
+              "interquartile_range": 24576.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                191979520,
+                191885312,
+                191885312
+              ],
+              "minimum": 191885312,
+              "median": 191885312,
+              "maximum": 191979520,
+              "interquartile_range": 47104.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                217604096,
+                217509888,
+                217509888
+              ],
+              "minimum": 217509888,
+              "median": 217509888,
+              "maximum": 217604096,
+              "interquartile_range": 47104.0
+            }
+          }
+        },
+        {
+          "engine": "MolSysMT",
+          "observations": [
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 2560,
+              "n_bonds": 2544,
+              "first_conversion_seconds": 3.1233336119912565,
+              "repeated_conversion_seconds": 2.023831000784412,
+              "post_import_peak_rss_bytes": 75624448,
+              "conversion_peak_rss_bytes": 263258112,
+              "candidate_pair_sha256": "fc0b0169cba3c9291e478da8a5cf587ad1570e6cf1481e3d11bbd1f596779c83",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 2544,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 1.6347432469483465,
+              "h5msm_bytes": 5705353,
+              "h5msm_read_seconds": 1.6288052380550653,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 299958272,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 9.518449247116223,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 2560,
+              "n_bonds": 2544,
+              "first_conversion_seconds": 3.1053718361072242,
+              "repeated_conversion_seconds": 2.0221369098871946,
+              "post_import_peak_rss_bytes": 75460608,
+              "conversion_peak_rss_bytes": 263061504,
+              "candidate_pair_sha256": "fc0b0169cba3c9291e478da8a5cf587ad1570e6cf1481e3d11bbd1f596779c83",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 2544,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 1.654813993955031,
+              "h5msm_bytes": 5705353,
+              "h5msm_read_seconds": 1.6467281540390104,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 299798528,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 9.534612945048138,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 2560,
+              "n_bonds": 2544,
+              "first_conversion_seconds": 3.2985314570832998,
+              "repeated_conversion_seconds": 2.1525671049021184,
+              "post_import_peak_rss_bytes": 75378688,
+              "conversion_peak_rss_bytes": 262619136,
+              "candidate_pair_sha256": "fc0b0169cba3c9291e478da8a5cf587ad1570e6cf1481e3d11bbd1f596779c83",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 2544,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 1.7171244858764112,
+              "h5msm_bytes": 5705353,
+              "h5msm_read_seconds": 1.7657850659452379,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 299393024,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 10.193899787962437,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                3.1233336119912565,
+                3.1053718361072242,
+                3.2985314570832998
+              ],
+              "minimum": 3.1053718361072242,
+              "median": 3.1233336119912565,
+              "maximum": 3.2985314570832998,
+              "interquartile_range": 0.09657981048803777
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                2.023831000784412,
+                2.0221369098871946,
+                2.1525671049021184
+              ],
+              "minimum": 2.0221369098871946,
+              "median": 2.023831000784412,
+              "maximum": 2.1525671049021184,
+              "interquartile_range": 0.0652150975074619
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                9.518449247116223,
+                9.534612945048138,
+                10.193899787962437
+              ],
+              "minimum": 9.518449247116223,
+              "median": 9.534612945048138,
+              "maximum": 10.193899787962437,
+              "interquartile_range": 0.33772527042310685
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75624448,
+                75460608,
+                75378688
+              ],
+              "minimum": 75378688,
+              "median": 75460608,
+              "maximum": 75624448,
+              "interquartile_range": 122880.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                263258112,
+                263061504,
+                262619136
+              ],
+              "minimum": 262619136,
+              "median": 263061504,
+              "maximum": 263258112,
+              "interquartile_range": 319488.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                299958272,
+                299798528,
+                299393024
+              ],
+              "minimum": 299393024,
+              "median": 299798528,
+              "maximum": 299958272,
+              "interquartile_range": 282624.0
+            },
+            "h5msm_write_seconds": {
+              "n": 3,
+              "values": [
+                1.6347432469483465,
+                1.654813993955031,
+                1.7171244858764112
+              ],
+              "minimum": 1.6347432469483465,
+              "median": 1.654813993955031,
+              "maximum": 1.7171244858764112,
+              "interquartile_range": 0.04119061946403235
+            },
+            "h5msm_read_seconds": {
+              "n": 3,
+              "values": [
+                1.6288052380550653,
+                1.6467281540390104,
+                1.7657850659452379
+              ],
+              "minimum": 1.6288052380550653,
+              "median": 1.6467281540390104,
+              "maximum": 1.7657850659452379,
+              "interquartile_range": 0.0684899139450863
+            },
+            "h5msm_bytes": {
+              "n": 3,
+              "values": [
+                5705353,
+                5705353,
+                5705353
+              ],
+              "minimum": 5705353,
+              "median": 5705353,
+              "maximum": 5705353,
+              "interquartile_range": 0.0
+            }
+          }
+        },
+        {
+          "engine": "OpenMM",
+          "observations": [
+            {
+              "engine": "OpenMM",
+              "n_atoms": 2560,
+              "n_bonds": 2544,
+              "first_conversion_seconds": 1.3434174191206694,
+              "repeated_conversion_seconds": 0.5022263438440859,
+              "post_import_peak_rss_bytes": 75452416,
+              "conversion_peak_rss_bytes": 271462400,
+              "candidate_pair_sha256": "fc0b0169cba3c9291e478da8a5cf587ad1570e6cf1481e3d11bbd1f596779c83",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 292433920,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.3913996189367026,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 2560,
+              "n_bonds": 2544,
+              "first_conversion_seconds": 1.3398604670073837,
+              "repeated_conversion_seconds": 0.5511160830501467,
+              "post_import_peak_rss_bytes": 75550720,
+              "conversion_peak_rss_bytes": 271552512,
+              "candidate_pair_sha256": "fc0b0169cba3c9291e478da8a5cf587ad1570e6cf1481e3d11bbd1f596779c83",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 292524032,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.5365506620146334,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 2560,
+              "n_bonds": 2544,
+              "first_conversion_seconds": 1.5445594498887658,
+              "repeated_conversion_seconds": 0.6255042939446867,
+              "post_import_peak_rss_bytes": 75653120,
+              "conversion_peak_rss_bytes": 271192064,
+              "candidate_pair_sha256": "fc0b0169cba3c9291e478da8a5cf587ad1570e6cf1481e3d11bbd1f596779c83",
+              "atom_axis_sha256": "615b6901eb8ebefb2951fd8923699331513f9b79b8159dc7d178cfc301380a5c",
+              "coordinate_sha256": "a37a0b48148c4b1317a3341097df849ad7aefc5ef66a3f89acafe0f573121d3d",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 292163584,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 3.8606677271891385,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                1.3434174191206694,
+                1.3398604670073837,
+                1.5445594498887658
+              ],
+              "minimum": 1.3398604670073837,
+              "median": 1.3434174191206694,
+              "maximum": 1.5445594498887658,
+              "interquartile_range": 0.10234949144069105
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.5022263438440859,
+                0.5511160830501467,
+                0.6255042939446867
+              ],
+              "minimum": 0.5022263438440859,
+              "median": 0.5511160830501467,
+              "maximum": 0.6255042939446867,
+              "interquartile_range": 0.06163897505030036
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                3.3913996189367026,
+                3.5365506620146334,
+                3.8606677271891385
+              ],
+              "minimum": 3.3913996189367026,
+              "median": 3.5365506620146334,
+              "maximum": 3.8606677271891385,
+              "interquartile_range": 0.23463405412621796
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                75452416,
+                75550720,
+                75653120
+              ],
+              "minimum": 75452416,
+              "median": 75550720,
+              "maximum": 75653120,
+              "interquartile_range": 100352.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                271462400,
+                271552512,
+                271192064
+              ],
+              "minimum": 271192064,
+              "median": 271462400,
+              "maximum": 271552512,
+              "interquartile_range": 180224.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                292433920,
+                292524032,
+                292163584
+              ],
+              "minimum": 292163584,
+              "median": 292433920,
+              "maximum": 292524032,
+              "interquartile_range": 180224.0
+            }
+          }
+        }
+      ],
+      "independent_expected_pairs_sha256": "fc0b0169cba3c9291e478da8a5cf587ad1570e6cf1481e3d11bbd1f596779c83",
+      "native_only_pairs": [],
+      "openmm_only_pairs": [],
+      "generator": {
+        "n_groups": 512,
+        "groups_per_chain": 32,
+        "observed_hydrogens": 0,
+        "units": "angstrom",
+        "experimental": false
+      }
+    },
+    {
+      "source": "synthetic_ala_2048.pdb",
+      "sha256": "f6120fd968d61ceedc35f069a3370b37c809132f39c88cea3656f80710ffe1e3",
+      "synthetic": true,
+      "routes": [
+        {
+          "engine": "disabled",
+          "observations": [
+            {
+              "engine": "disabled",
+              "n_atoms": 10240,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.8182120588608086,
+              "repeated_conversion_seconds": 0.18469511601142585,
+              "post_import_peak_rss_bytes": 76333056,
+              "conversion_peak_rss_bytes": 211730432,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 223473664,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.435999447014183,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 10240,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.9618950309231877,
+              "repeated_conversion_seconds": 0.19625947205349803,
+              "post_import_peak_rss_bytes": 76214272,
+              "conversion_peak_rss_bytes": 211566592,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 223289344,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.6217994911130518,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "disabled",
+              "n_atoms": 10240,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.9865178151521832,
+              "repeated_conversion_seconds": 0.30649718013592064,
+              "post_import_peak_rss_bytes": 76374016,
+              "conversion_peak_rss_bytes": 212013056,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 223715328,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 2.8686830999795347,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.8182120588608086,
+                0.9618950309231877,
+                0.9865178151521832
+              ],
+              "minimum": 0.8182120588608086,
+              "median": 0.9618950309231877,
+              "maximum": 0.9865178151521832,
+              "interquartile_range": 0.08415287814568728
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                0.18469511601142585,
+                0.19625947205349803,
+                0.30649718013592064
+              ],
+              "minimum": 0.18469511601142585,
+              "median": 0.19625947205349803,
+              "maximum": 0.30649718013592064,
+              "interquartile_range": 0.060901032062247396
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                2.435999447014183,
+                2.6217994911130518,
+                2.8686830999795347
+              ],
+              "minimum": 2.435999447014183,
+              "median": 2.6217994911130518,
+              "maximum": 2.8686830999795347,
+              "interquartile_range": 0.21634182648267597
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                76333056,
+                76214272,
+                76374016
+              ],
+              "minimum": 76214272,
+              "median": 76333056,
+              "maximum": 76374016,
+              "interquartile_range": 79872.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                211730432,
+                211566592,
+                212013056
+              ],
+              "minimum": 211566592,
+              "median": 211730432,
+              "maximum": 212013056,
+              "interquartile_range": 223232.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                223473664,
+                223289344,
+                223715328
+              ],
+              "minimum": 223289344,
+              "median": 223473664,
+              "maximum": 223715328,
+              "interquartile_range": 212992.0
+            }
+          }
+        },
+        {
+          "engine": "MolSysMT",
+          "observations": [
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 10240,
+              "n_bonds": 10176,
+              "first_conversion_seconds": 11.823005615966395,
+              "repeated_conversion_seconds": 9.941061021061614,
+              "post_import_peak_rss_bytes": 76201984,
+              "conversion_peak_rss_bytes": 377679872,
+              "candidate_pair_sha256": "d72cd03a76879538d7cfcf22b75d4d931a8523a1fc409cbfe1362afec07245ec",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 10176,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 7.207374210003763,
+              "h5msm_bytes": 22188339,
+              "h5msm_read_seconds": 7.778021067846566,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 425205760,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 38.58360673021525,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 10240,
+              "n_bonds": 10176,
+              "first_conversion_seconds": 11.42597247287631,
+              "repeated_conversion_seconds": 10.389861183939502,
+              "post_import_peak_rss_bytes": 76386304,
+              "conversion_peak_rss_bytes": 377630720,
+              "candidate_pair_sha256": "d72cd03a76879538d7cfcf22b75d4d931a8523a1fc409cbfe1362afec07245ec",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 10176,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 8.117095802212134,
+              "h5msm_bytes": 22188339,
+              "h5msm_read_seconds": 6.159529895987362,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 425439232,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 37.52733370591886,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 10240,
+              "n_bonds": 10176,
+              "first_conversion_seconds": 9.0182776581496,
+              "repeated_conversion_seconds": 7.974921830929816,
+              "post_import_peak_rss_bytes": 76316672,
+              "conversion_peak_rss_bytes": 377876480,
+              "candidate_pair_sha256": "d72cd03a76879538d7cfcf22b75d4d931a8523a1fc409cbfe1362afec07245ec",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 10176,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_caps",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 6.368589584948495,
+              "h5msm_bytes": 22188339,
+              "h5msm_read_seconds": 6.061841076007113,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 426176512,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 30.75820416607894,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                11.823005615966395,
+                11.42597247287631,
+                9.0182776581496
+              ],
+              "minimum": 9.0182776581496,
+              "median": 11.42597247287631,
+              "maximum": 11.823005615966395,
+              "interquartile_range": 1.4023639789083973
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                9.941061021061614,
+                10.389861183939502,
+                7.974921830929816
+              ],
+              "minimum": 7.974921830929816,
+              "median": 9.941061021061614,
+              "maximum": 10.389861183939502,
+              "interquartile_range": 1.207469676504843
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                38.58360673021525,
+                37.52733370591886,
+                30.75820416607894
+              ],
+              "minimum": 30.75820416607894,
+              "median": 37.52733370591886,
+              "maximum": 38.58360673021525,
+              "interquartile_range": 3.9127012820681557
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                76201984,
+                76386304,
+                76316672
+              ],
+              "minimum": 76201984,
+              "median": 76316672,
+              "maximum": 76386304,
+              "interquartile_range": 92160.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                377679872,
+                377630720,
+                377876480
+              ],
+              "minimum": 377630720,
+              "median": 377679872,
+              "maximum": 377876480,
+              "interquartile_range": 122880.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                425205760,
+                425439232,
+                426176512
+              ],
+              "minimum": 425205760,
+              "median": 425439232,
+              "maximum": 426176512,
+              "interquartile_range": 485376.0
+            },
+            "h5msm_write_seconds": {
+              "n": 3,
+              "values": [
+                7.207374210003763,
+                8.117095802212134,
+                6.368589584948495
+              ],
+              "minimum": 6.368589584948495,
+              "median": 7.207374210003763,
+              "maximum": 8.117095802212134,
+              "interquartile_range": 0.8742531086318195
+            },
+            "h5msm_read_seconds": {
+              "n": 3,
+              "values": [
+                7.778021067846566,
+                6.159529895987362,
+                6.061841076007113
+              ],
+              "minimum": 6.061841076007113,
+              "median": 6.159529895987362,
+              "maximum": 7.778021067846566,
+              "interquartile_range": 0.8580899959197268
+            },
+            "h5msm_bytes": {
+              "n": 3,
+              "values": [
+                22188339,
+                22188339,
+                22188339
+              ],
+              "minimum": 22188339,
+              "median": 22188339,
+              "maximum": 22188339,
+              "interquartile_range": 0.0
+            }
+          }
+        },
+        {
+          "engine": "OpenMM",
+          "observations": [
+            {
+              "engine": "OpenMM",
+              "n_atoms": 10240,
+              "n_bonds": 10176,
+              "first_conversion_seconds": 2.0609776249621063,
+              "repeated_conversion_seconds": 1.3808887740597129,
+              "post_import_peak_rss_bytes": 76423168,
+              "conversion_peak_rss_bytes": 310542336,
+              "candidate_pair_sha256": "d72cd03a76879538d7cfcf22b75d4d931a8523a1fc409cbfe1362afec07245ec",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 310542336,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 4.745958589948714,
+              "replicate_index": 0,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 10240,
+              "n_bonds": 10176,
+              "first_conversion_seconds": 2.030986601021141,
+              "repeated_conversion_seconds": 1.361819822806865,
+              "post_import_peak_rss_bytes": 76386304,
+              "conversion_peak_rss_bytes": 310501376,
+              "candidate_pair_sha256": "d72cd03a76879538d7cfcf22b75d4d931a8523a1fc409cbfe1362afec07245ec",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 310501376,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 4.699082935927436,
+              "replicate_index": 1,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            },
+            {
+              "engine": "OpenMM",
+              "n_atoms": 10240,
+              "n_bonds": 10176,
+              "first_conversion_seconds": 2.101484606973827,
+              "repeated_conversion_seconds": 1.4169669568073004,
+              "post_import_peak_rss_bytes": 76197888,
+              "conversion_peak_rss_bytes": 310620160,
+              "candidate_pair_sha256": "d72cd03a76879538d7cfcf22b75d4d931a8523a1fc409cbfe1362afec07245ec",
+              "atom_axis_sha256": "86c5cfa1be3baa41b7a61e4b39fade173fb2ffd16e8d0ac4ea9c56e03958cec3",
+              "coordinate_sha256": "485fe2c02927b1874f38822287cee32954550d08b91d1d7358404f00ffd5b5be",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty",
+                "openmm": "8.6.1"
+              },
+              "process_peak_rss_bytes": 310620160,
+              "python": "3.14.7",
+              "numpy": "2.4.6",
+              "fresh_process_wall_seconds": 4.813189313979819,
+              "replicate_index": 2,
+              "stderr": {
+                "n_lines": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "preview": ""
+              }
+            }
+          ],
+          "statistics": {
+            "first_conversion_seconds": {
+              "n": 3,
+              "values": [
+                2.0609776249621063,
+                2.030986601021141,
+                2.101484606973827
+              ],
+              "minimum": 2.030986601021141,
+              "median": 2.0609776249621063,
+              "maximum": 2.101484606973827,
+              "interquartile_range": 0.035249002976343036
+            },
+            "repeated_conversion_seconds": {
+              "n": 3,
+              "values": [
+                1.3808887740597129,
+                1.361819822806865,
+                1.4169669568073004
+              ],
+              "minimum": 1.361819822806865,
+              "median": 1.3808887740597129,
+              "maximum": 1.4169669568073004,
+              "interquartile_range": 0.027573567000217736
+            },
+            "fresh_process_wall_seconds": {
+              "n": 3,
+              "values": [
+                4.745958589948714,
+                4.699082935927436,
+                4.813189313979819
+              ],
+              "minimum": 4.699082935927436,
+              "median": 4.745958589948714,
+              "maximum": 4.813189313979819,
+              "interquartile_range": 0.05705318902619183
+            },
+            "post_import_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                76423168,
+                76386304,
+                76197888
+              ],
+              "minimum": 76197888,
+              "median": 76386304,
+              "maximum": 76423168,
+              "interquartile_range": 112640.0
+            },
+            "conversion_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                310542336,
+                310501376,
+                310620160
+              ],
+              "minimum": 310501376,
+              "median": 310542336,
+              "maximum": 310620160,
+              "interquartile_range": 59392.0
+            },
+            "process_peak_rss_bytes": {
+              "n": 3,
+              "values": [
+                310542336,
+                310501376,
+                310620160
+              ],
+              "minimum": 310501376,
+              "median": 310542336,
+              "maximum": 310620160,
+              "interquartile_range": 59392.0
+            }
+          }
+        }
+      ],
+      "independent_expected_pairs_sha256": "d72cd03a76879538d7cfcf22b75d4d931a8523a1fc409cbfe1362afec07245ec",
+      "native_only_pairs": [],
+      "openmm_only_pairs": [],
+      "generator": {
+        "n_groups": 2048,
+        "groups_per_chain": 32,
+        "observed_hydrogens": 0,
+        "units": "angstrom",
+        "experimental": false
+      }
+    }
+  ],
+  "execution_source_state": {
+    "base_commit": "9cf71bd01",
+    "working_tree_patch": true,
+    "scope": "The hashed benchmark/probe source bytes were executed before this receiving commit; production scientific source is the recorded base plus unchanged hashes."
+  }
+}

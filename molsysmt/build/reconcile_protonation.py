@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.argdigest.protonation import DIGEST_OPTIONS
 
 
-@arg_digest()
+@arg_digest(**DIGEST_OPTIONS)
 def reconcile_protonation(
     molecular_system, pH=7.4, engine="MolSysMT", in_place=False, skip_digestion=False
 ):
@@ -19,18 +20,20 @@ def reconcile_protonation(
     molecular_system : molecular system
         Molecular system in any of the supported forms.
     pH : float, default=7.4
-        The pH the resulting protonation must correspond to.
+        Finite dimensionless pH for the existing fixed-pKa reference comparison.
     engine : str, default='MolSysMT'
         Engine used to decide the protonation states. Only `'MolSysMT'` is supported.
     in_place : bool, default=False
-        If `True`, the input system is modified and `None` is returned.
+        True publishes a prepared subset on the original native MolSys and returns
+        None. False returns an independent native MolSys, including no-op results
+        and supported file/complementary inputs.
     skip_digestion : bool, default=False
         If `True`, the input arguments are not digested.
 
     Returns
     -------
-    molecular system
-        A copy with the unwanted hydrogens removed, or `None` if `in_place=True`.
+    molsysmt.MolSys or None
+        Independent native output, or None after native in-place execution.
 
     Raises
     ------
@@ -44,12 +47,23 @@ def reconcile_protonation(
     stay constrained by their label, even at a different pH. Named-state terminal
     completion, unsupported profile/name pairs and incompatible atom layouts are
     unassessed, so their hydrogens are not removed. Undeclared ambiguous names fail
-    before component reconstruction. Use a fixed-state workflow when the stored
+    before candidate preparation. Stored source components are never rebuilt.
+    Use a fixed-state workflow when the stored
     chemical assignments must determine the intended state independently of names.
 
     Only amino-acid residues are assessed. A residue with no entry in the template
     database has no expectation to compare against, so its hydrogens are never removed —
     silence about a residue means *not assessed*, not *correct*.
+
+    For a preview, call assess_protonation and inspect its detached report and
+    canonical bidirectional atom map. Its apply() method consumes the same
+    source-bound decision once without repeating inference. This convenience
+    function performs those two steps together. A complete candidate precedes
+    publication; preparation failures leave the source unchanged. Native in-place
+    no-ops retain domain identities; independent no-ops are real copies.
+    The reference state supplies the rule's connectivity context. Removing atoms
+    projects the shared atom axis in every stored state and every structure;
+    other chemical states are not certified by the reference-state comparison.
 
     .. warning::
 
@@ -64,48 +78,32 @@ def reconcile_protonation(
     --------
     :func:`molsysmt.build.add_missing_hydrogens`
         The complementary operation, which only adds.
+    assess_protonation
+        Prepare inspectable removal maps without changing the source.
 
     Examples
     --------
     >>> import molsysmt as msm
     >>> molsys = msm.convert(msm.systems['chicken villin HP35']['1vii.pdb'],
-    ...                      to_form='molsysmt.MolSys')   # doctest: +SKIP
-    >>> molsys = msm.build.reconcile_protonation(molsys, pH=12.0)   # doctest: +SKIP
+    ...                      to_form='molsysmt.MolSys')
+    >>> result = msm.build.reconcile_protonation(molsys, pH=12.0)
+    >>> (molsys.get(n_atoms=True), result.get(n_atoms=True))
+    (596, 590)
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Protonation_Assessment` for preview and execution modes.
 
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt._private.smonitor import NotImplementedMethodError
-
-    if engine != "MolSysMT":
-        raise NotImplementedMethodError(
-            caller="molsysmt.build.reconcile_protonation",
-            message=f"engine='{engine}' is not implemented; only 'MolSysMT' is available.",
-        )
-
-    from molsysmt.basic import convert, get_form, remove
-    from molsysmt.build._protonation import unexpected_hydrogens
-
-    form_in = get_form(molecular_system)
-    native_molsys = (
-        molecular_system
-        if form_in == "molsysmt.MolSys"
-        else convert(molecular_system, to_form="molsysmt.MolSys", skip_digestion=True)
-    )
-
-    unexpected = unexpected_hydrogens(native_molsys, pH=pH)
-
-    if not unexpected:
-        if in_place:
-            return None
-        return convert(molecular_system, to_form=form_in, skip_digestion=True)
-
-    atom_indices = [entry[0] for entry in unexpected]
-
-    output = remove(
-        molecular_system, selection=atom_indices, in_place=in_place, skip_digestion=True
-    )
-
     if in_place:
-        return None
-    return output
+        from molsysmt.native._subset import validate_removal_target
+
+        validate_removal_target(molecular_system, None)
+    from .assess_protonation import assess_protonation
+
+    assessment = assess_protonation(
+        molecular_system, pH=pH, engine=engine, skip_digestion=True
+    )
+    return assessment.apply(molecular_system, in_place=in_place, skip_digestion=True)

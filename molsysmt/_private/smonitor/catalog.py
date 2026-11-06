@@ -188,6 +188,12 @@ CATALOG = {
         },
     },
     "exceptions": {
+        "ChemicalReferenceLookupError": {
+            "code": "MSM-ERR-REF-001",
+            "source": "molsysmt.error.chemical_reference_lookup",
+            "category": "resource",
+            "level": "ERROR",
+        },
         "ExecutionPlatformUnavailableError": {
             "code": "MSM-ERR-PLATFORM-001",
             "source": "molsysmt.error.platform_unavailable",
@@ -891,6 +897,17 @@ CODES = {
             "Not a defect in the caller. The system contains a residue with no "
             "parameters; remove it or parameterise it."
         ),
+    },
+    "MSM-ERR-REF-001": {
+        "title": "Chemical reference lookup failed",
+        "user_message": "Chemical reference '{component_id}' in '{resource}': {reason}.",
+        "user_hint": "Check the selected source and component identifier; offline requests never fall back to the network. Docs: {doc_url}",
+        "dev_message": "Chemical reference '{component_id}' in '{resource}': {reason}.",
+        "dev_hint": "Preserve lookup scope and the original operational cause. Docs: {doc_url}",
+        "qa_message": "Chemical reference '{component_id}' in '{resource}': {reason}.",
+        "qa_hint": "Distinguish missing, ambiguous and unavailable sources.",
+        "agent_message": "Chemical reference '{component_id}' in '{resource}': {reason}.",
+        "agent_hint": "Do not change the source or perform an implicit online fallback.",
     },
     "MSM-ERR-IO-003": {
         "title": "Format error",

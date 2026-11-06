@@ -1,0 +1,500 @@
+{
+  "schema": "molsysmt.terminal_cap_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#304",
+  "source_base_commit": "a16d289ec84e6944ea9c38cbf7ca57d0a236b590",
+  "working_tree_patch": true,
+  "source_hashes": {
+    "molsysmt/_private/terminal_cap_templates.py": "3f5b370928e031eae380c5a5b06352bcd7368810e010b9ab2ca561b29fb82102",
+    "molsysmt/_private/residue_chemical_coverage.py": "51a4e9947646a0ec6d5f8a3cdc37d118c1f7f33b2b92f43489ec0712ff961694",
+    "molsysmt/_private/hydrogen_covalent_candidates.py": "cf45077638ca8971bc6214e822104e648e8a3503b0e3bfef458617e6c12db67c",
+    "molsysmt/_private/covalent_inference.py": "416c77a8bea50c0a56f5cdb97b07b0ca08262ee54d038c6fdaaeb95cd0713abe",
+    "molsysmt/build/get_covalent_bond_candidates.py": "30e8353783f2102a5c82301d932c28726dcd6fac9069314d0b06752cf679778f",
+    "molsysmt/build/get_residue_chemical_coverage.py": "cc52a0146d82d3af2a7e21d99509ed1a162d4caf056df2d95ac0884e27ff6c8a",
+    "molsysmt/build/get_peptide_bond_candidates.py": "7e31a00dda42ab95289fb81b52413d522efb8f779dc3b4c68b9285a2b2983497",
+    "molsysmt/build/infer_covalent_bonds.py": "705465e107e5f8515da0ebde4feb2805c6389fa9e462bb379908e9cda199c6f7",
+    "tests/build/test_terminal_cap_covalent_candidates.py": "0110f2d2fc7cafe30f0b7ddf95ef887f165b899ed221583947bb5cfce0360228",
+    "molsysmt/data/databases/terminal_cappings/n_terminal.json": "151ad17a9779d079d5d3fb49dd1f944a48740657654afa30190c47444719a23c",
+    "molsysmt/data/databases/terminal_cappings/c_terminal.json": "c8347c759a3dad77b5b07f538a3daab186e6e125862ee213d77ea76ddcecd114"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "checks": {
+    "baseline": {
+      "tests": 23,
+      "failures": 22,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 5.241,
+      "junit_path": ".pytest_cache/304-terminal-caps-baseline.xml",
+      "junit_sha256": "b5781a67cdbc9716d83d78754df2f1fb997967d9cd82c1b49dbb528e4ddce4b6",
+      "development_failures": [
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[legacy-NME-names1-elements1-heavy1-hydrogens1]",
+          "message": "assert [] == [[0, 1]]\n  \n  Right contains one more item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[amber-ACE-names0-elements0-heavy0-hydrogens0]",
+          "message": "assert [] == [[0, 1], [1, 2]]\n  \n  Right contains 2 more items, first extra item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[amber-NH2-names4-elements4-heavy4-hydrogens4]",
+          "message": "assert [] == [[0, 1], [0, 2]]\n  \n  Right contains 2 more items, first extra item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[amber-NME-names2-elements2-heavy2-hydrogens2]",
+          "message": "assert [] == [[0, 1]]\n  \n  Right contains one more item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[amber-NME-names1-elements1-heavy1-hydrogens1]",
+          "message": "assert [] == [[0, 1]]\n  \n  Right contains one more item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[legacy-NME-names2-elements2-heavy2-hydrogens2]",
+          "message": "assert [] == [[0, 1]]\n  \n  Right contains one more item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[amber-NHE-names3-elements3-heavy3-hydrogens3]",
+          "message": "assert [] == [[0, 1], [0, 2]]\n  \n  Right contains 2 more items, first extra item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[legacy-ACE-names0-elements0-heavy0-hydrogens0]",
+          "message": "assert [] == [[0, 1], [1, 2]]\n  \n  Right contains 2 more items, first extra item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[legacy-NHE-names3-elements3-heavy3-hydrogens3]",
+          "message": "assert [] == [[0, 1], [0, 2]]\n  \n  Right contains 2 more items, first extra item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_labels_do_not_select_their_own_naming_context[None]",
+          "message": "AssertionError: assert ['no_exact_group_template'] == ['no_exact_residue_template']\n  \n  At index 0 diff: 'no_exact_group_template' != 'no_exact_residue_template'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_exact_cap_heavy_and_hydrogen_pairs_reuse_the_declared_catalogue[legacy-NH2-names4-elements4-heavy4-hydrogens4]",
+          "message": "assert [] == [[0, 1], [0, 2]]\n  \n  Right contains 2 more items, first extra item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_labels_do_not_select_their_own_naming_context[ccd]",
+          "message": "AssertionError: assert ['no_exact_group_template'] == ['no_exact_residue_template']\n  \n  At index 0 diff: 'no_exact_group_template' != 'no_exact_residue_template'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_labels_do_not_select_their_own_naming_context[sequence]",
+          "message": "AssertionError: assert ['no_exact_group_template'] == ['no_exact_residue_template']\n  \n  At index 0 diff: 'no_exact_group_template' != 'no_exact_residue_template'\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_missing_cap_atoms_have_only_the_supported_partial_pairs",
+          "message": "assert [] == [[0, 1]]\n  \n  Right contains one more item: [0, 1]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_conflicts_block_inference_instead_of_repairing_identity[names2-elements2-heavy_element_conflict]",
+          "message": "AssertionError: assert 'heavy_element_conflict' in ['no_exact_group_template']"
+        },
+        {
+          "test": "test_cap_conflicts_block_inference_instead_of_repairing_identity[names0-elements0-ambiguous_atom_names]",
+          "message": "AssertionError: assert 'ambiguous_atom_names' in ['no_exact_group_template']"
+        },
+        {
+          "test": "test_cap_conflicts_block_inference_instead_of_repairing_identity[names1-elements1-unexpected_heavy_atoms]",
+          "message": "AssertionError: assert 'unexpected_heavy_atoms' in ['no_exact_group_template']"
+        },
+        {
+          "test": "test_cap_amide_links_use_the_same_chain_and_geometry_guards[adjacent_backbone_distance]",
+          "message": "assert [] == [[1, 3], [5, 8]]\n  \n  Right contains 2 more items, first extra item: [1, 3]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_amide_links_use_the_same_chain_and_geometry_guards[unique_backbone_distance]",
+          "message": "assert [] == [[1, 3], [5, 8]]\n  \n  Right contains 2 more items, first extra item: [1, 3]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_a_c_terminal_cap_methyl_is_not_an_outgoing_peptide_carbon",
+          "message": "assert False\n +  where False = any(<generator object test_a_c_terminal_cap_methyl_is_not_an_outgoing_peptide_carbon.<locals>.<genexpr> at 0x737bf3dba420>)"
+        },
+        {
+          "test": "test_cap_assembly_retains_all_structures_and_typed_state_history",
+          "message": "assert [[3, 4], [4, ...4, 7], [5, 6]] == [[0, 1], [1, ..., [4, 7], ...]\n  \n  At index 0 diff: [3, 4] != [0, 1]\n  Right contains 5 more items, first extra item: [4, 5]\n  Use -v to get more diff"
+        },
+        {
+          "test": "test_cap_template_hydrogens_do_not_use_the_protein_alias_dataset",
+          "message": "assert [] == [[0, 3]]\n  \n  Right contains one more item: [0, 3]\n  Use -v to get more diff"
+        }
+      ]
+    },
+    "initial": {
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 5.138,
+      "junit_path": ".pytest_cache/304-terminal-caps-initial.xml",
+      "junit_sha256": "81f4ba664b9099f494ab8d508c3118c52040b4dbe2993ec99a5f6f7cec36d254"
+    },
+    "extended": {
+      "tests": 36,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 5.404,
+      "junit_path": ".pytest_cache/304-terminal-caps-extended.xml",
+      "junit_sha256": "ae9f89d172fbe974e78cfba30a19e423b6e917544be6517051342b644886f07f",
+      "development_failures": [
+        {
+          "test": "test_unselected_competitor_blocks_a_cap_link_before_output_selection",
+          "message": "assert (1, 2) == (0, 2)\n  \n  At index 0 diff: 1 != 0\n  Use -v to get more diff"
+        }
+      ]
+    },
+    "affected": {
+      "tests": 298,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 17.332,
+      "junit_path": ".pytest_cache/304-terminal-caps-affected.xml",
+      "junit_sha256": "d524ef4f94dab72b8c0486f0c733ff7da7d4229727060cea3483d5da181dce45"
+    },
+    "final": {
+      "tests": 321,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 18.319,
+      "junit_path": ".pytest_cache/304-terminal-caps-final.xml",
+      "junit_sha256": "a579db9fbdb6c20ec1d7e8962b72df9a8abf18c1947c1ddbc2a6d549254f3d9e"
+    },
+    "floor": {
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 8.092,
+      "junit_path": ".pytest_cache/304-terminal-caps-floor.xml",
+      "junit_sha256": "fc3d714f102087519f1450f93b9535a38994f38348664892076678ae6f0b0234"
+    },
+    "final-floor": {
+      "tests": 45,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 7.138,
+      "junit_path": ".pytest_cache/304-terminal-caps-final-floor.xml",
+      "junit_sha256": "a0da1bfa42f19db19d7a6b5144a01294300fc5c301ebc13388f5a72a1543f0b6"
+    },
+    "rule2-final": {
+      "tests": 321,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 19.992,
+      "junit_path": ".pytest_cache/304-terminal-caps-rule2-final.xml",
+      "junit_sha256": "b31bd12a26fcf51f4fe1d28e4700af00dc7bf0c197021428070f6289d2792cbb"
+    },
+    "rule2-final-floor": {
+      "tests": 45,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 9.027,
+      "junit_path": ".pytest_cache/304-terminal-caps-rule2-final-floor.xml",
+      "junit_sha256": "d8d6f5df9c6148d50d821547afd126d089abc376a8129845a6a4bc8d022cf505"
+    },
+    "docs": {
+      "tests": 1091,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 57.306,
+      "junit_path": ".pytest_cache/304-terminal-caps-docs.xml",
+      "junit_sha256": "2ef6ba6c94c74168fd41ce8c99e140ba54aa5874e7a9ef3bf828d2ac743d24c1"
+    },
+    "final-doc-boundary": {
+      "tests": 1004,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 12.908,
+      "junit_path": ".pytest_cache/304-terminal-caps-final-doc-boundary.xml",
+      "junit_sha256": "68ce873c55b0f7852ce32e317bf502a83feb7080090694bc753975b4db34faf2"
+    }
+  },
+  "quality_checks": [
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_dependencies.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Scanning codebase at /home/diego/repos@uibcdf/molsysmt/.pytest_cache/ordered-issues-20261106/worktree/molsysmt for top-level soft dependency imports...\n\n[PASS] No top-level imports of soft dependencies found.\n[PASS] OpenFF CI dependency bounds are complete.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/audit_dependency_contract.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Dependency contract audit: PASS (public requirements and declared routes agree)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_docstrings.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Running MolSysMT docstring fidelity and minimum-content validation...\nPASSED: All 247 public functions have structurally consistent NumPy docstrings, exact default fidelity, and no known vacuous stable-API content!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_api_stability.py"
+      ],
+      "exit_code": 0,
+      "stdout": "API stability registry valid: 299 symbols classified.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "devtools/scripts/validate_public_api_stability.py",
+        "--base",
+        "a16d289ec84e6944ea9c38cbf7ca57d0a236b590"
+      ],
+      "exit_code": 0,
+      "stdout": "\u2705 Public API Stability Guard: 0 unauthorized signature drifts detected.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "ruff",
+        "check",
+        "molsysmt",
+        "tests/build/test_terminal_cap_covalent_candidates.py"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "molsysmt",
+        "tests/build/test_terminal_cap_covalent_candidates.py"
+      ],
+      "exit_code": 0,
+      "stdout": "3059 files already formatted\n",
+      "stderr": ""
+    }
+  ],
+  "four_provider_floor_origins": {
+    "argdigest": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "origin": "/home/diego/Myopt/miniconda3/pkgs/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "original_graph_regression": {
+    "reference_receipt": "devtools/data/native_pdb_benchmark_304_20261106.json",
+    "reference_sha256": "567e51ca4082024d017d209f45ee39e22946800058d149377f01853f63aa1b7e",
+    "exact_pair_axis_coordinate_digests_preserved": true,
+    "observations": {
+      "schema": "molsysmt.native_pdb_reader_probe@1",
+      "source_base_commit": "a16d289ec84e6944ea9c38cbf7ca57d0a236b590",
+      "implementation_files": {
+        "molsysmt/_private/covalent_inference.py": "416c77a8bea50c0a56f5cdb97b07b0ca08262ee54d038c6fdaaeb95cd0713abe",
+        "molsysmt/_private/pdb_connectivity.py": "5589393872bde17e28ec7113c620812f3a9cd6666581012a20d895e4b78494bf",
+        "molsysmt/_private/preparation_history.py": "1bb964fd80ca74636a16ca305f0c9cf4b3e414e7fb80c710223bb7a9e5b81407",
+        "molsysmt/build/infer_covalent_bonds.py": "705465e107e5f8515da0ebde4feb2805c6389fa9e462bb379908e9cda199c6f7",
+        "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py": "3264fb292725af3ac37a3069d2b47f030d3df259862ad90d1c2f965b682145f1",
+        "molsysmt/form/molsysmt_Topology/merge.py": "299ec671bd5e0b4cad58203e8c2544b725c27efd47d1c3da659eece073a13b5b"
+      },
+      "platform": "Linux",
+      "measurement_scope": "Each engine runs in a fresh process. Conversion timings exclude interpreter/package startup; the first result is released before the repeated conversion, and collection is untimed. Conversion peak RSS is captured before query/serialization verification. Final RSS is the whole-process high-water mark, including native H5MSM verification where applicable. Two conversions per process are observations, not a statistical benchmark.",
+      "sources": [
+        {
+          "source": "181l.pdb",
+          "sha256": "77018feaaa65bb22dea47c784e8c059b0ccc09cd6dc7442b79cce83f3170985f",
+          "routes": [
+            {
+              "engine": "disabled",
+              "n_atoms": 1441,
+              "n_bonds": 13,
+              "first_conversion_seconds": 1.035796503070742,
+              "repeated_conversion_seconds": 0.22090373514220119,
+              "post_import_peak_rss_bytes": 75177984,
+              "conversion_peak_rss_bytes": 191492096,
+              "candidate_pair_sha256": "abf83f9c4268ced844928d2e8bf1ed0a25086afd5bcbe151407bf3dee54a1da5",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 219516928,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 1441,
+              "n_bonds": 1322,
+              "first_conversion_seconds": 2.955048542935401,
+              "repeated_conversion_seconds": 1.7104146908968687,
+              "post_import_peak_rss_bytes": 75251712,
+              "conversion_peak_rss_bytes": 243957760,
+              "candidate_pair_sha256": "3e1cfcc7e4c9463a7a895638932e4c6ad4a8df75dbc31db764b5b52775f69414",
+              "atom_axis_sha256": "1434aff031700f2eed0b0476a3298ac5fce94d55a8a8fc28833a091fc9eb9a9e",
+              "coordinate_sha256": "7de1876882d7bb851aa1be19d4ef7f3941ba5d9f209ca487df2ca4de5ef0a00e",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 1309,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_state_assignment",
+                "unsupported_terminal_groups",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 1.1417956489603966,
+              "h5msm_bytes": 3219839,
+              "h5msm_read_seconds": 1.0591191910207272,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 282316800,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            }
+          ]
+        },
+        {
+          "source": "1iep_receptorH.pdb",
+          "sha256": "5f6aee6029f9a2a2c2be32d4eb948ae70808690573e1b69a0850cdffd7048ca7",
+          "routes": [
+            {
+              "engine": "disabled",
+              "n_atoms": 4412,
+              "n_bonds": 0,
+              "first_conversion_seconds": 0.6614096318371594,
+              "repeated_conversion_seconds": 0.08106397092342377,
+              "post_import_peak_rss_bytes": 75542528,
+              "conversion_peak_rss_bytes": 195768320,
+              "candidate_pair_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "process_peak_rss_bytes": 218165248,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            },
+            {
+              "engine": "MolSysMT",
+              "n_atoms": 4412,
+              "n_bonds": 4445,
+              "first_conversion_seconds": 2.7507867179811,
+              "repeated_conversion_seconds": 1.721157204825431,
+              "post_import_peak_rss_bytes": 75558912,
+              "conversion_peak_rss_bytes": 264642560,
+              "candidate_pair_sha256": "348e5a6732d3d18c95a01a9b1c3569380d340b24de5f99caa50cbb4c53a7dd5f",
+              "atom_axis_sha256": "b9f16118401d8ea18e90d97ca31113558b88682291ec85847f4b47843869ce0c",
+              "coordinate_sha256": "4ad9eb60b660da9fc7129c52b2fc79302f4e45fe631df02d693981a08a8d9e37",
+              "history_schemas": [
+                "molsysmt.pdb_connectivity@1",
+                "molsysmt.covalent_inference@1"
+              ],
+              "software": {
+                "molsysmt": "0.23.0+201.g3502232d8.dirty"
+              },
+              "n_added_bonds": 4445,
+              "unassessed_checks": [
+                "bond_orders",
+                "valence",
+                "protonation",
+                "hydrogen_placement",
+                "hydrogen_inventory_completeness",
+                "polymer_sequence_order",
+                "terminal_state_assignment",
+                "unsupported_terminal_groups",
+                "unsupported_groups",
+                "disulfides",
+                "metal_coordination"
+              ],
+              "h5msm_write_seconds": 0.9404048528522253,
+              "h5msm_bytes": 6491677,
+              "h5msm_read_seconds": 0.9614239491056651,
+              "h5msm_geometry_graph_and_producer_preserved": true,
+              "process_peak_rss_bytes": 296087552,
+              "python": "3.14.7",
+              "numpy": "2.4.6"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "course": {
+    "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+    "sha256": "0853d2424e759e519abd8ec1fad6a58260cc3135e5aea00babc8459755d70d76",
+    "all_code_outputs_ids_metadata_and_cell_inventory_preserved": true
+  },
+  "scope": [
+    "Shared exact reference audits admit ACE/NME/NHE/NH2 only under explicit amber/legacy naming declarations.",
+    "All compatible cap heavy layouts must agree; NME C/CH3 ambiguity is not resolved by first-variant selection.",
+    "Cap endpoint roles come from the existing N/C-terminal catalogue; ordinary peptide constraints are retained.",
+    "Exact local H-parent evidence does not establish a complete joint H inventory, protonation, valence or H placement.",
+    "No protein-alias dataset consultation or OpenMM execution for cap H parents. Optional Ackredit credits actual historical cap data.",
+    "Rule version 2, dictionary schema version 1. Existing history is immutable; H5MSM 0.5 typed round trips require no format change.",
+    "No public signature/default, dependency-floor, compiled-backend or original-input change.",
+    "Published support-floor payload origins are verified; all other development dependencies are reused. This is source receiving, not clean installed runtime qualification.",
+    "Historical pandas/H5MSM/Sphinx warnings are retained, not erased. Test selections overlap.",
+    "Baseline included three candidate-reason expectation errors; extended draft included a same-group competitor fixture error. Production uniqueness criteria were not relaxed.",
+    "Original probes qualify graph/axis/coordinate regression only; two-conversion RSS/timing observations are not a new performance benchmark.",
+    "Remaining #304 work includes early PDB naming-context delivery, additional-group/disulfide/unknown-geometry policies and final acceptance/integration; issue stays partial."
+  ],
+  "reporting_checks": [
+    {
+      "command": "python devtools/scripts/validate_devguide.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python devtools/scripts/devguide_index.py --check",
+      "exit_code": 0
+    },
+    {
+      "command": "git -c core.fsmonitor=false diff --check",
+      "exit_code": 0
+    }
+  ]
+}

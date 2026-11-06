@@ -11,6 +11,8 @@ def to_molsysmt_MolSys(
     structure_indices="all",
     get_missing_bonds=True,
     skip_digestion=False,
+    *,
+    from_naming_scheme=None,
 ):
     """
     Converting from molsysmt.GROFileHandler to molsysmt.MolSys.
@@ -28,6 +30,10 @@ def to_molsysmt_MolSys(
         Argument get_missing_bonds.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    from_naming_scheme : str or none, optional
+        Explicit source group-name convention, applied before classification
+        and candidate connectivity inference. Defaults to None (undeclared).
+        No convention is inferred from the GRO file extension.
 
     Returns
     -------
@@ -59,6 +65,9 @@ def to_molsysmt_MolSys(
 
     tmp_item.topology.groups.group_id = item.entry.group_ids
     tmp_item.topology.groups.group_name = item.entry.group_names
+
+    if from_naming_scheme is not None:
+        tmp_item.topology.set_group_naming_schemes(from_naming_scheme)
 
     tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
 

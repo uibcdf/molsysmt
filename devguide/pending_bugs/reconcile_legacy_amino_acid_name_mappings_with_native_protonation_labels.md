@@ -1653,3 +1653,15 @@ link assertion incorrectly treated saved notebook outputs as navigation;
 the final guard uses only the Markdown navigation excerpt, requires the two
 actual source modules to retain the naming reference, and checks their exact
 rendered page/anchor destinations. Missing real targets still fail Sphinx.
+
+### Direct PDB producer receiving — 2026-11-06
+
+Direct file/text/handler PDB source context now precedes fresh classification and
+native inference under #304. Semantic selections use interpreted inventory;
+context-aware name-only projection does not request implicit bond reconstruction.
+The shared external preparation refusal is retained for unsupported contextual
+labels and incompatible caps. Original source naming is retained in typed reader
+history. See the [owning #304 record](../archive/resolved_proposals/native_pdb_bond_inference_with_explicit_policy.md)
+and `tests/form/file_pdb/test_naming_context.py` for measured scope and evidence.
+This receives the six direct PDB routes; it does not close the broader producer/
+composite audit or qualify every external naming adapter in this staged rollout.

@@ -10,6 +10,7 @@ def to_molsysmt_MolSys(
     *,
     get_missing_bonds=True,
     bond_inference_engine=None,
+    from_naming_scheme=None,
 ):
     """
     Converting from file:pdb to molsysmt.MolSys.
@@ -33,6 +34,10 @@ def to_molsysmt_MolSys(
         Explicit 'MolSysMT' or 'OpenMM' engine, requiring get_missing_bonds=True.
         None retains legacy optional OpenMM inference with diagnosed failures.
 
+    from_naming_scheme : str or None, default=None
+        Source group-name convention declared before classification and native
+        inference. None leaves it undeclared; no chemical state is translated.
+
     Returns
     -------
     molsysmt.MolSys
@@ -53,6 +58,11 @@ def to_molsysmt_MolSys(
     >>> msm.get(molsys, n_bonds=True)
     13
 
+    >>> molsys = msm.convert(path, get_missing_bonds=False,
+    ...                      from_naming_scheme='ccd', selection=[0, 1])
+    >>> molsys.topology.group_naming_schemes
+    ('ccd',)
+
 
     .. versionadded:: 1.0.0
     """
@@ -72,6 +82,7 @@ def to_molsysmt_MolSys(
             structure_indices=structure_indices,
             get_missing_bonds=get_missing_bonds,
             bond_inference_engine=bond_inference_engine,
+            from_naming_scheme=from_naming_scheme,
             skip_digestion=True,
         )
     finally:

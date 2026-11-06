@@ -30,12 +30,17 @@ def _template(name, names, cache, naming_scheme=None):
     from molsysmt._private.amino_acid_templates import _catalogue, family
     from molsysmt._private.amino_acid_templates import variants as reference_variants
     from molsysmt._private.peptide_chemical_template import _fragments
+    from molsysmt._private.terminal_cap_templates import template as cap_template
     from molsysmt.element.atom import get_atom_type_from_atom_name
     from molsysmt.element.atom.names import atom as named_elements
     from molsysmt.element.group.amino_acid import (
         get_expected_heavy_atoms,
     )
     from molsysmt.element.group.amino_acid.get_expected_heavy_atoms import _is_hydrogen
+
+    cap = cap_template(name, names, cache, naming_scheme)
+    if cap is not None:
+        return cap
 
     kind = family(
         name,
@@ -551,7 +556,7 @@ def assess(
     return {
         "schema": "molsysmt.residue_chemical_coverage@1",
         "method": "exact_residue_template_comparison",
-        "rule_version": 1,
+        "rule_version": 2,
         "group_indices": groups,
         "groups": entries,
         "chemical_readiness": readiness,

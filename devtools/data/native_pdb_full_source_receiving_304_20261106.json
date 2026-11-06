@@ -1,0 +1,2112 @@
+{
+  "schema": "molsysmt.full_source_gate_receiving@1",
+  "run_id": 42205436569,
+  "source_commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+  "molsysviewer_commit": "42234de839ed047016f8f241ea5eb717cfeb07be",
+  "overall_gate": "pending",
+  "scientific_certificates": [
+    {
+      "artifact": {
+        "id": 13496068188,
+        "name": "scientific-evidence-ubuntu-latest-py3.11",
+        "size_in_bytes": 1995,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13496068188",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13496068188/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:51:31Z",
+        "expires_at": "2026-11-20T10:51:31Z",
+        "updated_at": "2026-11-06T10:51:31Z",
+        "digest": "sha256:49e0b2e03a7a125a83e5943b20b7f88a11bd384c36d6ddc7ea9f5ff96ab0632b",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "certificate": {
+        "schema_version": "molsysmt.scientific-evidence-execution@1",
+        "verdict": "pass",
+        "commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+        "tracked_source_dirty": false,
+        "release_eligible": true,
+        "created_at": "2026-11-06T10:51:30.969312+00:00",
+        "python": "3.11.18",
+        "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+        "registered_nodes": 61,
+        "collected_cases": 83,
+        "passed": 83,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "nodes": [
+          "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+          "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+          "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+          "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+          "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+          "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+          "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+          "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+        ]
+      }
+    },
+    {
+      "artifact": {
+        "id": 13495968341,
+        "name": "scientific-evidence-ubuntu-latest-py3.12",
+        "size_in_bytes": 1996,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495968341",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495968341/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:51:04Z",
+        "expires_at": "2026-11-20T10:51:03Z",
+        "updated_at": "2026-11-06T10:51:04Z",
+        "digest": "sha256:3eafe7531ff17e3ccdc0938702e3018af16fa4e0c278802ab71b1249bfccdd3e",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "certificate": {
+        "schema_version": "molsysmt.scientific-evidence-execution@1",
+        "verdict": "pass",
+        "commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+        "tracked_source_dirty": false,
+        "release_eligible": true,
+        "created_at": "2026-11-06T10:51:03.820590+00:00",
+        "python": "3.12.16",
+        "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+        "registered_nodes": 61,
+        "collected_cases": 83,
+        "passed": 83,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "nodes": [
+          "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+          "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+          "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+          "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+          "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+          "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+          "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+          "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+        ]
+      }
+    },
+    {
+      "artifact": {
+        "id": 13495419388,
+        "name": "scientific-evidence-ubuntu-latest-py3.13",
+        "size_in_bytes": 1996,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495419388",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495419388/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:51:37Z",
+        "expires_at": "2026-11-20T10:51:37Z",
+        "updated_at": "2026-11-06T10:51:37Z",
+        "digest": "sha256:9c44afeee8c8e49ee3cb4f81c71f55dce7b13c19e63d6291cc871c3ee8347a9d",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "certificate": {
+        "schema_version": "molsysmt.scientific-evidence-execution@1",
+        "verdict": "pass",
+        "commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+        "tracked_source_dirty": false,
+        "release_eligible": true,
+        "created_at": "2026-11-06T10:51:37.122298+00:00",
+        "python": "3.13.18",
+        "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+        "registered_nodes": 61,
+        "collected_cases": 83,
+        "passed": 83,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "nodes": [
+          "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+          "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+          "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+          "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+          "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+          "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+          "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+          "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+        ]
+      }
+    },
+    {
+      "artifact": {
+        "id": 13495779937,
+        "name": "scientific-evidence-ubuntu-latest-py3.14",
+        "size_in_bytes": 1995,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495779937",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495779937/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:51:37Z",
+        "expires_at": "2026-11-20T10:51:36Z",
+        "updated_at": "2026-11-06T10:51:37Z",
+        "digest": "sha256:5039156741d44fe41c8952e27ec669b14397b79f6f71106fc2f4343d75e72c3b",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "certificate": {
+        "schema_version": "molsysmt.scientific-evidence-execution@1",
+        "verdict": "pass",
+        "commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+        "tracked_source_dirty": false,
+        "release_eligible": true,
+        "created_at": "2026-11-06T10:51:35.967810+00:00",
+        "python": "3.14.10",
+        "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+        "registered_nodes": 61,
+        "collected_cases": 83,
+        "passed": 83,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "nodes": [
+          "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+          "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+          "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+          "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+          "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+          "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+          "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+          "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+        ]
+      }
+    },
+    {
+      "artifact": {
+        "id": 13507160798,
+        "name": "scientific-evidence-macos-15-py3.12",
+        "size_in_bytes": 1981,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13507160798",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13507160798/zip",
+        "expired": false,
+        "created_at": "2026-11-06T13:46:34Z",
+        "expires_at": "2026-11-20T13:46:33Z",
+        "updated_at": "2026-11-06T13:46:34Z",
+        "digest": "sha256:f016537b21ed2649f044d623aa27b532e34eb9d28c5f4417ae25aab63b4c3d6f",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "certificate": {
+        "schema_version": "molsysmt.scientific-evidence-execution@1",
+        "verdict": "pass",
+        "commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+        "tracked_source_dirty": false,
+        "release_eligible": true,
+        "created_at": "2026-11-06T13:46:33.120510+00:00",
+        "python": "3.12.16",
+        "platform": "macOS-15.8.2-arm64-arm-64bit",
+        "registered_nodes": 61,
+        "collected_cases": 83,
+        "passed": 83,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "nodes": [
+          "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+          "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+          "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+          "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+          "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+          "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+          "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+          "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+        ]
+      }
+    },
+    {
+      "artifact": {
+        "id": 13501999202,
+        "name": "scientific-evidence-macos-15-py3.13",
+        "size_in_bytes": 1992,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13501999202",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13501999202/zip",
+        "expired": false,
+        "created_at": "2026-11-06T12:43:30Z",
+        "expires_at": "2026-11-20T12:43:29Z",
+        "updated_at": "2026-11-06T12:43:30Z",
+        "digest": "sha256:f410a2f1da86ef76fd75e8643028c9759c124b08b0c5a112f641fcec0b985f92",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "certificate": {
+        "schema_version": "molsysmt.scientific-evidence-execution@1",
+        "verdict": "pass",
+        "commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+        "tracked_source_dirty": false,
+        "release_eligible": true,
+        "created_at": "2026-11-06T12:43:29.098098+00:00",
+        "python": "3.13.18",
+        "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+        "registered_nodes": 61,
+        "collected_cases": 83,
+        "passed": 83,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "nodes": [
+          "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+          "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+          "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+          "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+          "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+          "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+          "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+          "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+          "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+          "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+          "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+          "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+          "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+          "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+          "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+          "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+          "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+          "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+          "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+          "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+          "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+          "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+          "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+        ]
+      }
+    }
+  ],
+  "received_full_suite_results": [
+    {
+      "artifact": {
+        "id": 13500427349,
+        "name": "full-suite-results-ubuntu-latest-py3.11",
+        "size_in_bytes": 2644846,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13500427349",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13500427349/zip",
+        "expired": false,
+        "created_at": "2026-11-06T11:56:43Z",
+        "expires_at": "2026-11-20T11:56:42Z",
+        "updated_at": "2026-11-06T11:56:43Z",
+        "digest": "sha256:0d3a7ac2a6ce294fca53296a6508c97439a57294b68682d087df1f231ac22bc8",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "junit": {
+        "tests": 29371,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 118
+      },
+      "junit_sha256": "51edebdb11ab5a32b64b19d81d0155998fcc7d5ab22b4af4ab6c453e5f4cca05",
+      "receptor_complete": true,
+      "receptor_integrity_valid": true,
+      "receptor_outcome": "PASS",
+      "receptor_counts": {
+        "collected": 29370,
+        "deselected": 40,
+        "errors": 0,
+        "executed": 29370,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 29253,
+        "reruns": 0,
+        "skipped": 117,
+        "subtests": {},
+        "warnings": 4786,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "scientific_nodes_observed_in_full_suite": 61,
+      "scientific_cases_observed_in_full_suite": 83,
+      "directed_modules": {
+        "tests.form.file_pdb.test_connectivity_policy": {
+          "total": 29,
+          "passed": 29,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_declaration_diagnostics": {
+          "total": 19,
+          "passed": 19,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_naming_context": {
+          "total": 60,
+          "passed": 60,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_covalent_inference_policy_boundaries": {
+          "total": 54,
+          "passed": 54,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_terminal_cap_covalent_candidates": {
+          "total": 41,
+          "passed": 40,
+          "optional_ackredit_skips": [
+            "test_cap_reference_is_credited_as_data_in_each_capture"
+          ]
+        },
+        "tests.build.test_hydrogen_name_alias_candidates": {
+          "total": 15,
+          "passed": 13,
+          "optional_ackredit_skips": [
+            "test_real_ackredit_captures_reused_dataset_without_claiming_engine_execution",
+            "test_no_alias_reference_is_credited_when_no_selected_hydrogen_is_examined"
+          ]
+        },
+        "tests.build.test_infer_covalent_bonds": {
+          "total": 16,
+          "passed": 16,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_residue_chemical_coverage": {
+          "total": 21,
+          "passed": 21,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_covalent_bond_candidates": {
+          "total": 63,
+          "passed": 63,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_peptide_bond_candidates": {
+          "total": 91,
+          "passed": 91,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_connectivity_policy": {
+          "total": 26,
+          "passed": 26,
+          "optional_ackredit_skips": []
+        }
+      },
+      "skipped_reasons": [
+        {
+          "reason": "CuPy is not available.",
+          "count": 1
+        },
+        {
+          "reason": "Optional astropy quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: astropy",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: unyt",
+          "count": 1
+        },
+        {
+          "reason": "Optional unyt quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "The optional ownership study requires ArgDigest >=0.17.0.",
+          "count": 14
+        },
+        {
+          "reason": "collection skipped",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'ackredit': No module named 'ackredit'",
+          "count": 47
+        },
+        {
+          "reason": "could not import 'astropy': No module named 'astropy'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'myst_parser': No module named 'myst_parser'",
+          "count": 31
+        },
+        {
+          "reason": "could not import 'sphinx': No module named 'sphinx'",
+          "count": 6
+        },
+        {
+          "reason": "could not import 'unyt': No module named 'unyt'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'vina': No module named 'vina'",
+          "count": 11
+        },
+        {
+          "reason": "with rdkit CCO is recognized as valid SMILES",
+          "count": 1
+        }
+      ],
+      "collection_skips": [
+        {
+          "name": "tests.build.solvate.test_scientific_attribution",
+          "reason": "('/home/runner/work/molsysmt/molsysmt/tests/build/solvate/test_scientific_attribution.py', 16, \"Skipped: could not import 'ackredit': No module named 'ackredit'\")"
+        }
+      ]
+    },
+    {
+      "artifact": {
+        "id": 13497848586,
+        "name": "full-suite-results-ubuntu-latest-py3.12",
+        "size_in_bytes": 2650334,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13497848586",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13497848586/zip",
+        "expired": false,
+        "created_at": "2026-11-06T11:29:10Z",
+        "expires_at": "2026-11-20T11:29:09Z",
+        "updated_at": "2026-11-06T11:29:10Z",
+        "digest": "sha256:8c184986da4de553247ab1241ac0522afd8c41b98991e5aa210d306357101a19",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "junit": {
+        "tests": 29371,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 118
+      },
+      "junit_sha256": "50869d0ac355b4672e361eb1505b918a05f6d5cd3056400163d71139e91c6700",
+      "receptor_complete": true,
+      "receptor_integrity_valid": true,
+      "receptor_outcome": "PASS",
+      "receptor_counts": {
+        "collected": 29370,
+        "deselected": 40,
+        "errors": 0,
+        "executed": 29370,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 29253,
+        "reruns": 0,
+        "skipped": 117,
+        "subtests": {},
+        "warnings": 5553,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "scientific_nodes_observed_in_full_suite": 61,
+      "scientific_cases_observed_in_full_suite": 83,
+      "directed_modules": {
+        "tests.form.file_pdb.test_connectivity_policy": {
+          "total": 29,
+          "passed": 29,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_declaration_diagnostics": {
+          "total": 19,
+          "passed": 19,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_naming_context": {
+          "total": 60,
+          "passed": 60,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_covalent_inference_policy_boundaries": {
+          "total": 54,
+          "passed": 54,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_terminal_cap_covalent_candidates": {
+          "total": 41,
+          "passed": 40,
+          "optional_ackredit_skips": [
+            "test_cap_reference_is_credited_as_data_in_each_capture"
+          ]
+        },
+        "tests.build.test_hydrogen_name_alias_candidates": {
+          "total": 15,
+          "passed": 13,
+          "optional_ackredit_skips": [
+            "test_real_ackredit_captures_reused_dataset_without_claiming_engine_execution",
+            "test_no_alias_reference_is_credited_when_no_selected_hydrogen_is_examined"
+          ]
+        },
+        "tests.build.test_infer_covalent_bonds": {
+          "total": 16,
+          "passed": 16,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_residue_chemical_coverage": {
+          "total": 21,
+          "passed": 21,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_covalent_bond_candidates": {
+          "total": 63,
+          "passed": 63,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_peptide_bond_candidates": {
+          "total": 91,
+          "passed": 91,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_connectivity_policy": {
+          "total": 26,
+          "passed": 26,
+          "optional_ackredit_skips": []
+        }
+      },
+      "skipped_reasons": [
+        {
+          "reason": "CuPy is not available.",
+          "count": 1
+        },
+        {
+          "reason": "Optional astropy quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: astropy",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: unyt",
+          "count": 1
+        },
+        {
+          "reason": "Optional unyt quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "The optional ownership study requires ArgDigest >=0.17.0.",
+          "count": 14
+        },
+        {
+          "reason": "collection skipped",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'ackredit': No module named 'ackredit'",
+          "count": 47
+        },
+        {
+          "reason": "could not import 'astropy': No module named 'astropy'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'myst_parser': No module named 'myst_parser'",
+          "count": 31
+        },
+        {
+          "reason": "could not import 'sphinx': No module named 'sphinx'",
+          "count": 6
+        },
+        {
+          "reason": "could not import 'unyt': No module named 'unyt'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'vina': No module named 'vina'",
+          "count": 11
+        },
+        {
+          "reason": "with rdkit CCO is recognized as valid SMILES",
+          "count": 1
+        }
+      ],
+      "collection_skips": [
+        {
+          "name": "tests.build.solvate.test_scientific_attribution",
+          "reason": "('/home/runner/work/molsysmt/molsysmt/tests/build/solvate/test_scientific_attribution.py', 16, \"Skipped: could not import 'ackredit': No module named 'ackredit'\")"
+        }
+      ]
+    },
+    {
+      "artifact": {
+        "id": 13499670897,
+        "name": "full-suite-results-ubuntu-latest-py3.13",
+        "size_in_bytes": 2654456,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13499670897",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13499670897/zip",
+        "expired": false,
+        "created_at": "2026-11-06T11:37:12Z",
+        "expires_at": "2026-11-20T11:37:11Z",
+        "updated_at": "2026-11-06T11:37:12Z",
+        "digest": "sha256:9fb7b3fb5666be09bf8fdd0e315d2e60e9efbbf4ad32217b6ceeceb165637282",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "junit": {
+        "tests": 29371,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 118
+      },
+      "junit_sha256": "81d8d399fea998a5f07c5239e1ee2149fd8f4a8a6148d449044c01aca3516262",
+      "receptor_complete": true,
+      "receptor_integrity_valid": true,
+      "receptor_outcome": "PASS",
+      "receptor_counts": {
+        "collected": 29370,
+        "deselected": 40,
+        "errors": 0,
+        "executed": 29370,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 29253,
+        "reruns": 0,
+        "skipped": 117,
+        "subtests": {},
+        "warnings": 5553,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "scientific_nodes_observed_in_full_suite": 61,
+      "scientific_cases_observed_in_full_suite": 83,
+      "directed_modules": {
+        "tests.form.file_pdb.test_connectivity_policy": {
+          "total": 29,
+          "passed": 29,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_declaration_diagnostics": {
+          "total": 19,
+          "passed": 19,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_naming_context": {
+          "total": 60,
+          "passed": 60,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_covalent_inference_policy_boundaries": {
+          "total": 54,
+          "passed": 54,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_terminal_cap_covalent_candidates": {
+          "total": 41,
+          "passed": 40,
+          "optional_ackredit_skips": [
+            "test_cap_reference_is_credited_as_data_in_each_capture"
+          ]
+        },
+        "tests.build.test_hydrogen_name_alias_candidates": {
+          "total": 15,
+          "passed": 13,
+          "optional_ackredit_skips": [
+            "test_real_ackredit_captures_reused_dataset_without_claiming_engine_execution",
+            "test_no_alias_reference_is_credited_when_no_selected_hydrogen_is_examined"
+          ]
+        },
+        "tests.build.test_infer_covalent_bonds": {
+          "total": 16,
+          "passed": 16,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_residue_chemical_coverage": {
+          "total": 21,
+          "passed": 21,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_covalent_bond_candidates": {
+          "total": 63,
+          "passed": 63,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_peptide_bond_candidates": {
+          "total": 91,
+          "passed": 91,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_connectivity_policy": {
+          "total": 26,
+          "passed": 26,
+          "optional_ackredit_skips": []
+        }
+      },
+      "skipped_reasons": [
+        {
+          "reason": "CuPy is not available.",
+          "count": 1
+        },
+        {
+          "reason": "Optional astropy quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: astropy",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: unyt",
+          "count": 1
+        },
+        {
+          "reason": "Optional unyt quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "The optional ownership study requires ArgDigest >=0.17.0.",
+          "count": 14
+        },
+        {
+          "reason": "collection skipped",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'ackredit': No module named 'ackredit'",
+          "count": 47
+        },
+        {
+          "reason": "could not import 'astropy': No module named 'astropy'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'myst_parser': No module named 'myst_parser'",
+          "count": 31
+        },
+        {
+          "reason": "could not import 'sphinx': No module named 'sphinx'",
+          "count": 6
+        },
+        {
+          "reason": "could not import 'unyt': No module named 'unyt'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'vina': No module named 'vina'",
+          "count": 11
+        },
+        {
+          "reason": "with rdkit CCO is recognized as valid SMILES",
+          "count": 1
+        }
+      ],
+      "collection_skips": [
+        {
+          "name": "tests.build.solvate.test_scientific_attribution",
+          "reason": "('/home/runner/work/molsysmt/molsysmt/tests/build/solvate/test_scientific_attribution.py', 16, \"Skipped: could not import 'ackredit': No module named 'ackredit'\")"
+        }
+      ]
+    },
+    {
+      "artifact": {
+        "id": 13499915216,
+        "name": "full-suite-results-ubuntu-latest-py3.14",
+        "size_in_bytes": 2652227,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13499915216",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13499915216/zip",
+        "expired": false,
+        "created_at": "2026-11-06T11:36:11Z",
+        "expires_at": "2026-11-20T11:36:10Z",
+        "updated_at": "2026-11-06T11:36:11Z",
+        "digest": "sha256:694d8b782d90d62be5257ffc85b880c1d35e96cb9c76c6c9a99af37953a97c79",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "junit": {
+        "tests": 29371,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 118
+      },
+      "junit_sha256": "ed548b25342871b6df43053e678ead5a269139d04eac407c06dbb0e551b267ab",
+      "receptor_complete": true,
+      "receptor_integrity_valid": true,
+      "receptor_outcome": "PASS",
+      "receptor_counts": {
+        "collected": 29370,
+        "deselected": 40,
+        "errors": 0,
+        "executed": 29370,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 29253,
+        "reruns": 0,
+        "skipped": 117,
+        "subtests": {},
+        "warnings": 5553,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "scientific_nodes_observed_in_full_suite": 61,
+      "scientific_cases_observed_in_full_suite": 83,
+      "directed_modules": {
+        "tests.form.file_pdb.test_connectivity_policy": {
+          "total": 29,
+          "passed": 29,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_declaration_diagnostics": {
+          "total": 19,
+          "passed": 19,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_naming_context": {
+          "total": 60,
+          "passed": 60,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_covalent_inference_policy_boundaries": {
+          "total": 54,
+          "passed": 54,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_terminal_cap_covalent_candidates": {
+          "total": 41,
+          "passed": 40,
+          "optional_ackredit_skips": [
+            "test_cap_reference_is_credited_as_data_in_each_capture"
+          ]
+        },
+        "tests.build.test_hydrogen_name_alias_candidates": {
+          "total": 15,
+          "passed": 13,
+          "optional_ackredit_skips": [
+            "test_real_ackredit_captures_reused_dataset_without_claiming_engine_execution",
+            "test_no_alias_reference_is_credited_when_no_selected_hydrogen_is_examined"
+          ]
+        },
+        "tests.build.test_infer_covalent_bonds": {
+          "total": 16,
+          "passed": 16,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_residue_chemical_coverage": {
+          "total": 21,
+          "passed": 21,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_covalent_bond_candidates": {
+          "total": 63,
+          "passed": 63,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_peptide_bond_candidates": {
+          "total": 91,
+          "passed": 91,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_connectivity_policy": {
+          "total": 26,
+          "passed": 26,
+          "optional_ackredit_skips": []
+        }
+      },
+      "skipped_reasons": [
+        {
+          "reason": "CuPy is not available.",
+          "count": 1
+        },
+        {
+          "reason": "Optional astropy quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: astropy",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: unyt",
+          "count": 1
+        },
+        {
+          "reason": "Optional unyt quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "The optional ownership study requires ArgDigest >=0.17.0.",
+          "count": 14
+        },
+        {
+          "reason": "collection skipped",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'ackredit': No module named 'ackredit'",
+          "count": 47
+        },
+        {
+          "reason": "could not import 'astropy': No module named 'astropy'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'myst_parser': No module named 'myst_parser'",
+          "count": 31
+        },
+        {
+          "reason": "could not import 'sphinx': No module named 'sphinx'",
+          "count": 6
+        },
+        {
+          "reason": "could not import 'unyt': No module named 'unyt'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'vina': No module named 'vina'",
+          "count": 11
+        },
+        {
+          "reason": "with rdkit CCO is recognized as valid SMILES",
+          "count": 1
+        }
+      ],
+      "collection_skips": [
+        {
+          "name": "tests.build.solvate.test_scientific_attribution",
+          "reason": "('/home/runner/work/molsysmt/molsysmt/tests/build/solvate/test_scientific_attribution.py', 16, \"Skipped: could not import 'ackredit': No module named 'ackredit'\")"
+        }
+      ]
+    },
+    {
+      "artifact": {
+        "id": 13506220596,
+        "name": "full-suite-results-macos-15-py3.13",
+        "size_in_bytes": 2644290,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13506220596",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13506220596/zip",
+        "expired": false,
+        "created_at": "2026-11-06T13:29:32Z",
+        "expires_at": "2026-11-20T13:29:31Z",
+        "updated_at": "2026-11-06T13:29:32Z",
+        "digest": "sha256:7f5d5aa3e6de6baf39957129082481fcb885a7c49edb28ea8e3ec1cfb24aba04",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "junit": {
+        "tests": 29371,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 119
+      },
+      "junit_sha256": "befa395578eb385198c50b1669dc9ffc9b58c3836b9088417307312912d51cea",
+      "receptor_complete": true,
+      "receptor_integrity_valid": true,
+      "receptor_outcome": "PASS",
+      "receptor_counts": {
+        "collected": 29370,
+        "deselected": 40,
+        "errors": 0,
+        "executed": 29370,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 29252,
+        "reruns": 0,
+        "skipped": 118,
+        "subtests": {},
+        "warnings": 5558,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "scientific_nodes_observed_in_full_suite": 61,
+      "scientific_cases_observed_in_full_suite": 83,
+      "directed_modules": {
+        "tests.form.file_pdb.test_connectivity_policy": {
+          "total": 29,
+          "passed": 29,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_declaration_diagnostics": {
+          "total": 19,
+          "passed": 19,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_naming_context": {
+          "total": 60,
+          "passed": 60,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_covalent_inference_policy_boundaries": {
+          "total": 54,
+          "passed": 54,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_terminal_cap_covalent_candidates": {
+          "total": 41,
+          "passed": 40,
+          "optional_ackredit_skips": [
+            "test_cap_reference_is_credited_as_data_in_each_capture"
+          ]
+        },
+        "tests.build.test_hydrogen_name_alias_candidates": {
+          "total": 15,
+          "passed": 13,
+          "optional_ackredit_skips": [
+            "test_real_ackredit_captures_reused_dataset_without_claiming_engine_execution",
+            "test_no_alias_reference_is_credited_when_no_selected_hydrogen_is_examined"
+          ]
+        },
+        "tests.build.test_infer_covalent_bonds": {
+          "total": 16,
+          "passed": 16,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_residue_chemical_coverage": {
+          "total": 21,
+          "passed": 21,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_covalent_bond_candidates": {
+          "total": 63,
+          "passed": 63,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_peptide_bond_candidates": {
+          "total": 91,
+          "passed": 91,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_connectivity_policy": {
+          "total": 26,
+          "passed": 26,
+          "optional_ackredit_skips": []
+        }
+      },
+      "skipped_reasons": [
+        {
+          "reason": "CuPy is not available.",
+          "count": 1
+        },
+        {
+          "reason": "Optional astropy quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: astropy",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: unyt",
+          "count": 1
+        },
+        {
+          "reason": "Optional unyt quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "The optional ownership study requires ArgDigest >=0.17.0.",
+          "count": 14
+        },
+        {
+          "reason": "This test can only be run in linux",
+          "count": 1
+        },
+        {
+          "reason": "collection skipped",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'ackredit': No module named 'ackredit'",
+          "count": 47
+        },
+        {
+          "reason": "could not import 'astropy': No module named 'astropy'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'myst_parser': No module named 'myst_parser'",
+          "count": 31
+        },
+        {
+          "reason": "could not import 'sphinx': No module named 'sphinx'",
+          "count": 6
+        },
+        {
+          "reason": "could not import 'unyt': No module named 'unyt'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'vina': No module named 'vina'",
+          "count": 11
+        },
+        {
+          "reason": "with rdkit CCO is recognized as valid SMILES",
+          "count": 1
+        }
+      ],
+      "collection_skips": [
+        {
+          "name": "tests.build.solvate.test_scientific_attribution",
+          "reason": "('/Users/runner/work/molsysmt/molsysmt/tests/build/solvate/test_scientific_attribution.py', 16, \"Skipped: could not import 'ackredit': No module named 'ackredit'\")"
+        }
+      ]
+    },
+    {
+      "artifact": {
+        "id": 13510774443,
+        "name": "full-suite-results-macos-15-py3.12",
+        "size_in_bytes": 2642264,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13510774443",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13510774443/zip",
+        "expired": false,
+        "created_at": "2026-11-06T14:34:03Z",
+        "expires_at": "2026-11-20T14:34:02Z",
+        "updated_at": "2026-11-06T14:34:03Z",
+        "digest": "sha256:e7f5373ddc8f67535e73f833838629a151b44c2f6d08ee941e13d9a6531c18ba",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "junit": {
+        "tests": 29371,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 119
+      },
+      "junit_sha256": "91dd07bcbfcb611dbdb571c589ad6b03659012bfe942aa2ed6c788cc2775aff0",
+      "receptor_complete": true,
+      "receptor_integrity_valid": true,
+      "receptor_outcome": "PASS",
+      "receptor_counts": {
+        "collected": 29370,
+        "deselected": 40,
+        "errors": 0,
+        "executed": 29370,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 29252,
+        "reruns": 0,
+        "skipped": 118,
+        "subtests": {},
+        "warnings": 5558,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "scientific_nodes_observed_in_full_suite": 61,
+      "scientific_cases_observed_in_full_suite": 83,
+      "directed_modules": {
+        "tests.form.file_pdb.test_connectivity_policy": {
+          "total": 29,
+          "passed": 29,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_declaration_diagnostics": {
+          "total": 19,
+          "passed": 19,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.file_pdb.test_naming_context": {
+          "total": 60,
+          "passed": 60,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_covalent_inference_policy_boundaries": {
+          "total": 54,
+          "passed": 54,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_terminal_cap_covalent_candidates": {
+          "total": 41,
+          "passed": 40,
+          "optional_ackredit_skips": [
+            "test_cap_reference_is_credited_as_data_in_each_capture"
+          ]
+        },
+        "tests.build.test_hydrogen_name_alias_candidates": {
+          "total": 15,
+          "passed": 13,
+          "optional_ackredit_skips": [
+            "test_real_ackredit_captures_reused_dataset_without_claiming_engine_execution",
+            "test_no_alias_reference_is_credited_when_no_selected_hydrogen_is_examined"
+          ]
+        },
+        "tests.build.test_infer_covalent_bonds": {
+          "total": 16,
+          "passed": 16,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_residue_chemical_coverage": {
+          "total": 21,
+          "passed": 21,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_covalent_bond_candidates": {
+          "total": 63,
+          "passed": 63,
+          "optional_ackredit_skips": []
+        },
+        "tests.build.test_get_peptide_bond_candidates": {
+          "total": 91,
+          "passed": 91,
+          "optional_ackredit_skips": []
+        },
+        "tests.form.mmcif_PdbxContainers_DataContainer.test_connectivity_policy": {
+          "total": 26,
+          "passed": 26,
+          "optional_ackredit_skips": []
+        }
+      },
+      "skipped_reasons": [
+        {
+          "reason": "CuPy is not available.",
+          "count": 1
+        },
+        {
+          "reason": "Optional astropy quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: astropy",
+          "count": 1
+        },
+        {
+          "reason": "Optional quantity backend: unyt",
+          "count": 1
+        },
+        {
+          "reason": "Optional unyt quantity backend",
+          "count": 1
+        },
+        {
+          "reason": "The optional ownership study requires ArgDigest >=0.17.0.",
+          "count": 14
+        },
+        {
+          "reason": "This test can only be run in linux",
+          "count": 1
+        },
+        {
+          "reason": "collection skipped",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'ackredit': No module named 'ackredit'",
+          "count": 47
+        },
+        {
+          "reason": "could not import 'astropy': No module named 'astropy'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'myst_parser': No module named 'myst_parser'",
+          "count": 31
+        },
+        {
+          "reason": "could not import 'sphinx': No module named 'sphinx'",
+          "count": 6
+        },
+        {
+          "reason": "could not import 'unyt': No module named 'unyt'",
+          "count": 1
+        },
+        {
+          "reason": "could not import 'vina': No module named 'vina'",
+          "count": 11
+        },
+        {
+          "reason": "with rdkit CCO is recognized as valid SMILES",
+          "count": 1
+        }
+      ],
+      "collection_skips": [
+        {
+          "name": "tests.build.solvate.test_scientific_attribution",
+          "reason": "('/Users/runner/work/molsysmt/molsysmt/tests/build/solvate/test_scientific_attribution.py', 16, \"Skipped: could not import 'ackredit': No module named 'ackredit'\")"
+        }
+      ]
+    }
+  ],
+  "accounting_note": "JUnit includes module-collection skipped testcases; receptor counts executed items. Both totals and the exact accounted collection records are retained.",
+  "issue": "uibcdf/molsysmt#304",
+  "observed_at_utc": "2026-11-06T15:04:36.913Z",
+  "workflow_url": "https://github.com/uibcdf/molsysmt/actions/runs/42205436569",
+  "attempt": 1,
+  "scope": "Partial exact-source receiving: Linux Python 3.11-3.14 and macOS Python 3.12/3.13 succeeded and their artifacts were independently inspected; macOS Python 3.11/3.14 remain queued. Not installed-pair or release qualification.",
+  "workflow_jobs_at_observation": [
+    {
+      "id": 127850764553,
+      "name": "Build controlled MolSysViewer wheel",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 127850916731,
+      "name": "Full matrix \u2014 macos-15, Python 3.13",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 127850916755,
+      "name": "Full matrix \u2014 ubuntu-latest, Python 3.12",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 127850916779,
+      "name": "Full matrix \u2014 macos-15, Python 3.12",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 127850916814,
+      "name": "Full matrix \u2014 macos-15, Python 3.11",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 127850916873,
+      "name": "Full matrix \u2014 ubuntu-latest, Python 3.14",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 127850916878,
+      "name": "Full matrix \u2014 ubuntu-latest, Python 3.13",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 127850916913,
+      "name": "Full matrix \u2014 ubuntu-latest, Python 3.11",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 127850917052,
+      "name": "Full matrix \u2014 macos-15, Python 3.14",
+      "status": "queued",
+      "conclusion": null
+    }
+  ],
+  "download_receipts": [
+    {
+      "metadata": {
+        "id": 13495179442,
+        "name": "controlled-molsysviewer-wheel",
+        "size_in_bytes": 1970650,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495179442",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495179442/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:48:33Z",
+        "expires_at": "2026-11-20T10:48:32Z",
+        "updated_at": "2026-11-06T10:48:33Z",
+        "digest": "sha256:26d506ba1d462acd96060ab51077a5d54104d92af6f77c1e023a867b8fe63086",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13495179442.zip",
+      "sha256": "26d506ba1d462acd96060ab51077a5d54104d92af6f77c1e023a867b8fe63086",
+      "bytes": 1970650
+    },
+    {
+      "metadata": {
+        "id": 13500427349,
+        "name": "full-suite-results-ubuntu-latest-py3.11",
+        "size_in_bytes": 2644846,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13500427349",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13500427349/zip",
+        "expired": false,
+        "created_at": "2026-11-06T11:56:43Z",
+        "expires_at": "2026-11-20T11:56:42Z",
+        "updated_at": "2026-11-06T11:56:43Z",
+        "digest": "sha256:0d3a7ac2a6ce294fca53296a6508c97439a57294b68682d087df1f231ac22bc8",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13500427349.zip",
+      "sha256": "0d3a7ac2a6ce294fca53296a6508c97439a57294b68682d087df1f231ac22bc8",
+      "bytes": 2644846
+    },
+    {
+      "metadata": {
+        "id": 13497848586,
+        "name": "full-suite-results-ubuntu-latest-py3.12",
+        "size_in_bytes": 2650334,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13497848586",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13497848586/zip",
+        "expired": false,
+        "created_at": "2026-11-06T11:29:10Z",
+        "expires_at": "2026-11-20T11:29:09Z",
+        "updated_at": "2026-11-06T11:29:10Z",
+        "digest": "sha256:8c184986da4de553247ab1241ac0522afd8c41b98991e5aa210d306357101a19",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13497848586.zip",
+      "sha256": "8c184986da4de553247ab1241ac0522afd8c41b98991e5aa210d306357101a19",
+      "bytes": 2650334
+    },
+    {
+      "metadata": {
+        "id": 13499670897,
+        "name": "full-suite-results-ubuntu-latest-py3.13",
+        "size_in_bytes": 2654456,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13499670897",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13499670897/zip",
+        "expired": false,
+        "created_at": "2026-11-06T11:37:12Z",
+        "expires_at": "2026-11-20T11:37:11Z",
+        "updated_at": "2026-11-06T11:37:12Z",
+        "digest": "sha256:9fb7b3fb5666be09bf8fdd0e315d2e60e9efbbf4ad32217b6ceeceb165637282",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13499670897.zip",
+      "sha256": "9fb7b3fb5666be09bf8fdd0e315d2e60e9efbbf4ad32217b6ceeceb165637282",
+      "bytes": 2654456
+    },
+    {
+      "metadata": {
+        "id": 13499915216,
+        "name": "full-suite-results-ubuntu-latest-py3.14",
+        "size_in_bytes": 2652227,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13499915216",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13499915216/zip",
+        "expired": false,
+        "created_at": "2026-11-06T11:36:11Z",
+        "expires_at": "2026-11-20T11:36:10Z",
+        "updated_at": "2026-11-06T11:36:11Z",
+        "digest": "sha256:694d8b782d90d62be5257ffc85b880c1d35e96cb9c76c6c9a99af37953a97c79",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13499915216.zip",
+      "sha256": "694d8b782d90d62be5257ffc85b880c1d35e96cb9c76c6c9a99af37953a97c79",
+      "bytes": 2652227
+    },
+    {
+      "metadata": {
+        "id": 13496068188,
+        "name": "scientific-evidence-ubuntu-latest-py3.11",
+        "size_in_bytes": 1995,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13496068188",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13496068188/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:51:31Z",
+        "expires_at": "2026-11-20T10:51:31Z",
+        "updated_at": "2026-11-06T10:51:31Z",
+        "digest": "sha256:49e0b2e03a7a125a83e5943b20b7f88a11bd384c36d6ddc7ea9f5ff96ab0632b",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13496068188.zip",
+      "sha256": "49e0b2e03a7a125a83e5943b20b7f88a11bd384c36d6ddc7ea9f5ff96ab0632b",
+      "bytes": 1995
+    },
+    {
+      "metadata": {
+        "id": 13495968341,
+        "name": "scientific-evidence-ubuntu-latest-py3.12",
+        "size_in_bytes": 1996,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495968341",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495968341/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:51:04Z",
+        "expires_at": "2026-11-20T10:51:03Z",
+        "updated_at": "2026-11-06T10:51:04Z",
+        "digest": "sha256:3eafe7531ff17e3ccdc0938702e3018af16fa4e0c278802ab71b1249bfccdd3e",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13495968341.zip",
+      "sha256": "3eafe7531ff17e3ccdc0938702e3018af16fa4e0c278802ab71b1249bfccdd3e",
+      "bytes": 1996
+    },
+    {
+      "metadata": {
+        "id": 13495419388,
+        "name": "scientific-evidence-ubuntu-latest-py3.13",
+        "size_in_bytes": 1996,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495419388",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495419388/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:51:37Z",
+        "expires_at": "2026-11-20T10:51:37Z",
+        "updated_at": "2026-11-06T10:51:37Z",
+        "digest": "sha256:9c44afeee8c8e49ee3cb4f81c71f55dce7b13c19e63d6291cc871c3ee8347a9d",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13495419388.zip",
+      "sha256": "9c44afeee8c8e49ee3cb4f81c71f55dce7b13c19e63d6291cc871c3ee8347a9d",
+      "bytes": 1996
+    },
+    {
+      "metadata": {
+        "id": 13495779937,
+        "name": "scientific-evidence-ubuntu-latest-py3.14",
+        "size_in_bytes": 1995,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495779937",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13495779937/zip",
+        "expired": false,
+        "created_at": "2026-11-06T10:51:37Z",
+        "expires_at": "2026-11-20T10:51:36Z",
+        "updated_at": "2026-11-06T10:51:37Z",
+        "digest": "sha256:5039156741d44fe41c8952e27ec669b14397b79f6f71106fc2f4343d75e72c3b",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13495779937.zip",
+      "sha256": "5039156741d44fe41c8952e27ec669b14397b79f6f71106fc2f4343d75e72c3b",
+      "bytes": 1995
+    },
+    {
+      "metadata": {
+        "id": 13507160798,
+        "name": "scientific-evidence-macos-15-py3.12",
+        "size_in_bytes": 1981,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13507160798",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13507160798/zip",
+        "expired": false,
+        "created_at": "2026-11-06T13:46:34Z",
+        "expires_at": "2026-11-20T13:46:33Z",
+        "updated_at": "2026-11-06T13:46:34Z",
+        "digest": "sha256:f016537b21ed2649f044d623aa27b532e34eb9d28c5f4417ae25aab63b4c3d6f",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13507160798.zip",
+      "sha256": "f016537b21ed2649f044d623aa27b532e34eb9d28c5f4417ae25aab63b4c3d6f",
+      "bytes": 1981
+    },
+    {
+      "metadata": {
+        "id": 13506220596,
+        "name": "full-suite-results-macos-15-py3.13",
+        "size_in_bytes": 2644290,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13506220596",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13506220596/zip",
+        "expired": false,
+        "created_at": "2026-11-06T13:29:32Z",
+        "expires_at": "2026-11-20T13:29:31Z",
+        "updated_at": "2026-11-06T13:29:32Z",
+        "digest": "sha256:7f5d5aa3e6de6baf39957129082481fcb885a7c49edb28ea8e3ec1cfb24aba04",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13506220596.zip",
+      "sha256": "7f5d5aa3e6de6baf39957129082481fcb885a7c49edb28ea8e3ec1cfb24aba04",
+      "bytes": 2644290
+    },
+    {
+      "metadata": {
+        "id": 13501999202,
+        "name": "scientific-evidence-macos-15-py3.13",
+        "size_in_bytes": 1992,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13501999202",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13501999202/zip",
+        "expired": false,
+        "created_at": "2026-11-06T12:43:30Z",
+        "expires_at": "2026-11-20T12:43:29Z",
+        "updated_at": "2026-11-06T12:43:30Z",
+        "digest": "sha256:f410a2f1da86ef76fd75e8643028c9759c124b08b0c5a112f641fcec0b985f92",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13501999202.zip",
+      "sha256": "f410a2f1da86ef76fd75e8643028c9759c124b08b0c5a112f641fcec0b985f92",
+      "bytes": 1992
+    },
+    {
+      "metadata": {
+        "id": 13510774443,
+        "name": "full-suite-results-macos-15-py3.12",
+        "size_in_bytes": 2642264,
+        "url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13510774443",
+        "archive_download_url": "https://api.github.com/repos/uibcdf/molsysmt/actions/artifacts/13510774443/zip",
+        "expired": false,
+        "created_at": "2026-11-06T14:34:03Z",
+        "expires_at": "2026-11-20T14:34:02Z",
+        "updated_at": "2026-11-06T14:34:03Z",
+        "digest": "sha256:e7f5373ddc8f67535e73f833838629a151b44c2f6d08ee941e13d9a6531c18ba",
+        "workflow_run": {
+          "id": 42205436569,
+          "repository_id": 137937243,
+          "head_repository_id": 137937243,
+          "head_branch": "dev/ordered-stabilization-304-20261106",
+          "head_sha": "56b37c983253e8f93cda6333703df2b3a626a238"
+        }
+      },
+      "path": ".pytest_cache/304-full-source-42205436569/artifacts/13510774443.zip",
+      "sha256": "e7f5373ddc8f67535e73f833838629a151b44c2f6d08ee941e13d9a6531c18ba",
+      "bytes": 2642264
+    }
+  ],
+  "receiving_script_sha256": "80fc93c1e2e9c67b24ff49343ea2d8340fb72ce8d146654e7e28abbe28129b8c",
+  "optional_ackredit_presence_receiving": {
+    "source_commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+    "python": "3.14.7",
+    "platform": "Linux",
+    "profile": "Existing interpreter, public ArgDigest 0.14.0 / DepDigest 0.15.1 / SMonitor 0.16.0 / Ackredit 0.9.0 payloads; only incompatible development pytest plugin disabled.",
+    "junit": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "ca8e7d5fd987bc82600fac62f4521afdc75ed9aca31d2b2d727a7c05c721d226",
+    "tests": [
+      "tests/build/test_terminal_cap_covalent_candidates.py::test_cap_reference_is_credited_as_data_in_each_capture",
+      "tests/build/test_hydrogen_name_alias_candidates.py::test_real_ackredit_captures_reused_dataset_without_claiming_engine_execution",
+      "tests/build/test_hydrogen_name_alias_candidates.py::test_no_alias_reference_is_credited_when_no_selected_hydrogen_is_examined"
+    ]
+  },
+  "receiving_limits": [
+    "All four Linux full suites and macOS Python 3.12/3.13 have digest-verified and independently inspected full-suite artifacts. macOS Python 3.11/3.14 remain queued. The matrix stays pending.",
+    "Certificate release_eligible is the certificate's clean-source predicate, not publication authorization.",
+    "Public Pytest Receptor read_artifact verified completeness and integrity; JUnit and receptor counts retain their distinct collection-skip accounting.",
+    "Three optional Ackredit-presence controls omitted in hosted suites were separately executed locally; this does not establish installed-Ackredit qualification on every matrix cell.",
+    "Source #593 is separately prepared on a descendant branch; it is not the source executed by this run.",
+    "The first comparison incorrectly required identical JUnit/receptor totals and zero optional skips. Investigation found one genuine collection-skipped module and three genuine absent-Ackredit skips; no runtime code or test was changed to make those comparisons pass.",
+    "Receptor event-cache filenames include both platform and Python minor. The receiving script verifies every original archive digest/size before extracting, so one platform cannot reuse another platform event log."
+  ],
+  "successful_jobs_awaiting_artifact_receiving": [],
+  "artifact_receiving_updated_at_utc": "2026-11-06T15:04:36.913Z",
+  "macos_additional_omission": {
+    "node": "tests/build/get_missing_bonds/test_get_missing_bonds.py::test_get_missing_bonds_molsysmt_MolSys_1",
+    "reason": "This test can only be run in linux",
+    "junit_skipped": 119,
+    "receptor_item_skipped": 118,
+    "passed": 29252
+  }
+}

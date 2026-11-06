@@ -304,6 +304,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_solvation_tools.py \
             tests/molsysviewer_molsysmt/test_ion_tools.py \
             tests/molsysviewer_molsysmt/test_protonation_tools.py \
+            tests/molsysviewer_molsysmt/test_native_receiving_583_584.py \
             tests/molsysviewer_molsysmt/test_build_staging_tools.py \
             tests/molsysviewer_molsysmt/test_build_sequence_tools.py \
             tests/molsysviewer_molsysmt/test_build_bond_edit_tools.py \

@@ -2,7 +2,9 @@ from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="file:cif.gz")
-def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
+def to_molsysmt_Topology(
+    item, atom_indices="all", skip_digestion=False, *, get_missing_bonds=True
+):
     """
     Converting from file:cif.gz to molsysmt.Topology.
 
@@ -15,6 +17,11 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
         Atom indices (0-based) to include.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    get_missing_bonds : bool, default=True
+        Whether to infer missing connectivity. False retains only supported
+        deposited chem_comp_bond/struct_conn declarations, without template,
+        terminal-H, peptide-link or distance inference. It does not certify
+        complete chemistry or change the previous enabled default.
 
     Returns
     -------
@@ -35,7 +42,10 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
 
     tmp_item = to_mmcif_PdbxContainers_DataContainer(item, skip_digestion=True)
     tmp_item = mmcif_PdbxContainers_DataContainer_to_molsysmt_Topology(
-        tmp_item, atom_indices=atom_indices, skip_digestion=True
+        tmp_item,
+        atom_indices=atom_indices,
+        get_missing_bonds=get_missing_bonds,
+        skip_digestion=True,
     )
 
     return tmp_item

@@ -1,0 +1,63 @@
+{
+  "schema": "molsysmt.ordered_feature_closeout@1",
+  "recorded_at_utc": "2026-11-06T16:21:17.580326+00:00",
+  "issues": [
+    304,
+    593
+  ],
+  "integration_source": "8941bcfd44825ba49baab84362341f084b0e2d80",
+  "main_before": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "closure_decision": "Feature acceptance is complete; complete-version matrix and installed-pair qualification remain mandatory separately under #334. Source #557 is not included.",
+  "executable_or_tutorial_delta_from_tested_prepared_source": [],
+  "guards": [
+    "tests/form/file_pdb/test_connectivity_policy.py",
+    "tests/documentation/test_alzheimer_preparation_examples.py"
+  ],
+  "focused_receiving": {
+    "junit": {
+      "tests": 447,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "da350ba53803ec1b91509e5ad1c9eaeeafc7078cb116030b95e5586c7c0a015c",
+    "seconds": 25.504,
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "workers": 12
+  },
+  "retained_receipts": {
+    "devtools/data/native_pdb_full_source_receiving_304_20261106.json": "d8191c5f6b83a8202c5658d6b9f928366677660d72daadcd155530fafe7205c9",
+    "devtools/data/native_pdb_benchmark_304_20261106.json": "567e51ca4082024d017d209f45ee39e22946800058d149377f01853f63aa1b7e",
+    "devtools/data/native_pdb_disagreement_audit_304_20261106.json": "d850b659f4ff0f2cf4e180da7ee54fa9862c6ed6bd6101a4939a7cff3ca649e4",
+    "devtools/data/native_pdb_actual_graph_receiving_304_20261106.json": "33b28f715cb4abfb20091c10936d77e024ffcc8a70031c1497b48940ec0d1a71",
+    "devtools/data/pdb_policy_boundaries_receiving_304_20261106.json": "deffb7a9f79ffc39aabaeb0e3c88800b2f4d9a98dc9a02d2e7153c9e042e7829",
+    "devtools/data/alzheimer_capstone_preparation_receiving_593_20261106.json": "55716b93a72dedb995807d20ee982a1604adfae3f03ac304e7cccb5241d50499"
+  },
+  "acceptance_304": [
+    "Explicit-only/native/OpenMM reader policy and failure diagnostics; existing defaults retained.",
+    "Exact reference/H-parent/peptide/cap/modified-group scope and explicit unsupported/disulfide/metal policies.",
+    "Original 181L/1IEP graph identities, disagreements, source maps/coordinates/associations and current-graph coverage audits.",
+    "Cold/warm, scaling and memory benchmark with retained raw measurements, including native performance disadvantages."
+  ],
+  "acceptance_593": [
+    "Actual lesson statements use supported builder/cap/conformation calls and retain independent repairs.",
+    "Bounded ownership, coordinates/maps, non-default units, explicit pose and physical-model prerequisites execute in regression controls.",
+    "The biological 2BEG route remains explicitly unqualified and outside ready-to-run claims, as the issue acceptance permits."
+  ],
+  "pending_version_gate": {
+    "run_id": 42205436569,
+    "source_commit": "56b37c983253e8f93cda6333703df2b3a626a238",
+    "passed_full_cells": 6,
+    "queued": [
+      "macos-15/Python 3.11",
+      "macos-15/Python 3.14"
+    ],
+    "complete": false,
+    "installed_pair_qualified": false,
+    "publication_authorized": false
+  },
+  "next_ordered_issue": 428,
+  "next_issue_remaining_requirement": "Actual installed public ArgDigest receiving; source-path/payload compatibility evidence does not satisfy this criterion.",
+  "fast_gate": "14/14 PASS; complete-version and installed-pair gates remain pending."
+}

@@ -15,8 +15,9 @@ def to_molsysmt_Topology(
         Argument item.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    get_missing_bonds : object, default=True
-        Argument get_missing_bonds.
+    get_missing_bonds : bool, default=True
+        Whether to infer missing connectivity before constructing the stable
+        inventory. False uses only supported deposited bond declarations.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -31,6 +32,11 @@ def to_molsysmt_Topology(
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
-    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(
+        item,
+        atom_indices=atom_indices,
+        get_missing_bonds=get_missing_bonds,
+        skip_digestion=True,
+    )
 
     return tmp_item.topology

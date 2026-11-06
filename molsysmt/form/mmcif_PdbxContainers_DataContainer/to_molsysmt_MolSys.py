@@ -15,7 +15,12 @@ from molsysmt._private.smonitor import (
 
 @arg_digest(form="mmcif.PdbxContainers.DataContainer")
 def to_molsysmt_MolSys(
-    item, atom_indices="all", structure_indices="all", skip_digestion=False
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    skip_digestion=False,
+    *,
+    get_missing_bonds=True,
 ):
     """
     Converting from mmcif.PdbxContainers.DataContainer to molsysmt.MolSys.
@@ -31,6 +36,11 @@ def to_molsysmt_MolSys(
         Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    get_missing_bonds : bool, default=True
+        Whether to use the existing template, terminal-H, peptide-link and
+        distance candidate rules for missing connectivity. False preserves only
+        mapped chem_comp_bond and supported struct_conn declarations. It neither
+        removes declared bonds nor certifies a complete graph.
 
     Returns
     -------
@@ -67,6 +77,12 @@ def to_molsysmt_MolSys(
     (1, 596)
     >>> msm.get(molsys, element='atom', selection=[0, 1], occupancy=True).shape
     (1, 2)
+    >>> declared = msm.convert(msm.systems['chicken villin HP35']['1vii.bcif.gz'],
+    ...                        get_missing_bonds=False)
+    >>> set(declared.chemical_states.get_bonds()['evidence'])
+    {'explicit'}
+    >>> msm.get(declared, connectivity_completeness=True)
+    'partial'
 
     .. admonition:: Tutorial
 
@@ -80,7 +96,7 @@ def to_molsysmt_MolSys(
         classify_group_name as get_group_type_from_group_name,
     )
     from molsysmt._private.name_resolution import requires_naming_context
-    from molsysmt.build import get_missing_bonds
+    from molsysmt.build import get_missing_bonds as _get_missing_bonds
     from molsysmt.configure import min_length_protein
     from molsysmt.element.group import (
         get_bonded_atom_pairs,
@@ -516,12 +532,16 @@ def to_molsysmt_MolSys(
                     except Exception:
                         pass
 
+                # Mapped deposited evidence survives incomplete atom coverage,
+                # irrespective of whether optional inference can supply more.
+                for pair, metadata in aux_bond_records:
+                    bond_accumulator.add(pair, **metadata)
+                if not get_missing_bonds:
+                    continue
                 remains = [ii for ii, jj in dict_mask.items() if not jj]
 
                 if len(remains):
                     if set(remains) == set(["H1", "H3"]):
-                        for pair, metadata in aux_bond_records:
-                            bond_accumulator.add(pair, **metadata)
                         for at1, at2 in [["N", "H1"], ["N", "H3"]]:
                             bond_accumulator.add(
                                 sorted([dict_aux[at1], dict_aux[at2]]),
@@ -549,11 +569,7 @@ def to_molsysmt_MolSys(
                                 bond_type="covalent",
                                 evidence="inferred",
                             )
-                else:
-                    for pair, metadata in aux_bond_records:
-                        bond_accumulator.add(pair, **metadata)
-
-    else:
+    elif get_missing_bonds:
         for aux_group_index, aux_atom_indices in group_index_to_atom_indices.items():
             aux_atom_names = atom_name[aux_atom_indices].tolist()
             aux_group_name = group_name[aux_group_index]
@@ -577,73 +593,74 @@ def to_molsysmt_MolSys(
 
     ### peptidic bonds
 
-    pair_groups_peptidic_bonds = []
+    if get_missing_bonds:
+        pair_groups_peptidic_bonds = []
 
-    for chain_index, group_indices in chain_index_to_group_indices.items():
-        aux_entity_index = chain_index_to_entity_index[chain_index]
-        aux_entity_type = entity_type[aux_entity_index]
-        aux_entity_name = entity_name[aux_entity_index]
-        if aux_entity_type in ["protein", "peptide"]:
-            if (
-                aux_entity_polymer_type[aux_entity_index]["poly_type"]
-                == "polypeptide(L)"
-            ):
-                former_group_id = -10
-                former_group_index = -10
-                for aux_group_index in chain_index_to_group_indices[chain_index]:
-                    aux_group_id = group_id[aux_group_index]
-                    if not with_insertions:
-                        if former_group_id + 1 == aux_group_id:
-                            pair_groups_peptidic_bonds.append(
-                                [former_group_index, aux_group_index]
-                            )
-                    else:
-                        if isinstance(former_group_id, int) and isinstance(
-                            aux_group_id, int
-                        ):
+        for chain_index, group_indices in chain_index_to_group_indices.items():
+            aux_entity_index = chain_index_to_entity_index[chain_index]
+            aux_entity_type = entity_type[aux_entity_index]
+            aux_entity_name = entity_name[aux_entity_index]
+            if aux_entity_type in ["protein", "peptide"]:
+                if (
+                    aux_entity_polymer_type[aux_entity_index]["poly_type"]
+                    == "polypeptide(L)"
+                ):
+                    former_group_id = -10
+                    former_group_index = -10
+                    for aux_group_index in chain_index_to_group_indices[chain_index]:
+                        aux_group_id = group_id[aux_group_index]
+                        if not with_insertions:
                             if former_group_id + 1 == aux_group_id:
                                 pair_groups_peptidic_bonds.append(
                                     [former_group_index, aux_group_index]
                                 )
-                        elif isinstance(former_group_id, int) and isinstance(
-                            aux_group_id, str
-                        ):
-                            if str(former_group_id) + "A" == aux_group_id:
-                                pair_groups_peptidic_bonds.append(
-                                    [former_group_index, aux_group_index]
-                                )
-                        elif isinstance(former_group_id, str) and isinstance(
-                            aux_group_id, str
-                        ):
-                            if (
-                                former_group_id[:-1] == aux_group_id[:-1]
-                                and ord(aux_group_id[-1]) - ord(former_group_id[-1])
-                                == 1
+                        else:
+                            if isinstance(former_group_id, int) and isinstance(
+                                aux_group_id, int
                             ):
-                                pair_groups_peptidic_bonds.append(
-                                    [former_group_index, aux_group_index]
-                                )
-                        elif isinstance(former_group_id, str) and isinstance(
-                            aux_group_id, int
-                        ):
-                            if int(former_group_id[:-1]) + 1 == aux_group_id:
-                                pair_groups_peptidic_bonds.append(
-                                    [former_group_index, aux_group_index]
-                                )
-                    former_group_id = aux_group_id
-                    former_group_index = aux_group_index
+                                if former_group_id + 1 == aux_group_id:
+                                    pair_groups_peptidic_bonds.append(
+                                        [former_group_index, aux_group_index]
+                                    )
+                            elif isinstance(former_group_id, int) and isinstance(
+                                aux_group_id, str
+                            ):
+                                if str(former_group_id) + "A" == aux_group_id:
+                                    pair_groups_peptidic_bonds.append(
+                                        [former_group_index, aux_group_index]
+                                    )
+                            elif isinstance(former_group_id, str) and isinstance(
+                                aux_group_id, str
+                            ):
+                                if (
+                                    former_group_id[:-1] == aux_group_id[:-1]
+                                    and ord(aux_group_id[-1]) - ord(former_group_id[-1])
+                                    == 1
+                                ):
+                                    pair_groups_peptidic_bonds.append(
+                                        [former_group_index, aux_group_index]
+                                    )
+                            elif isinstance(former_group_id, str) and isinstance(
+                                aux_group_id, int
+                            ):
+                                if int(former_group_id[:-1]) + 1 == aux_group_id:
+                                    pair_groups_peptidic_bonds.append(
+                                        [former_group_index, aux_group_index]
+                                    )
+                        former_group_id = aux_group_id
+                        former_group_index = aux_group_index
 
-    for group_index_1, group_index_2 in pair_groups_peptidic_bonds:
-        atom_indices_1 = group_index_to_atom_indices[group_index_1]
-        C_index = np.argwhere(atom_name[atom_indices_1] == "C")
-        atom_indices_2 = group_index_to_atom_indices[group_index_2]
-        N_index = np.argwhere(atom_name[atom_indices_2] == "N")
-        if len(C_index) and len(N_index):
-            bond_accumulator.add(
-                [atom_indices_1[C_index[0, 0]], atom_indices_2[N_index[0, 0]]],
-                bond_type="covalent",
-                evidence="inferred",
-            )
+        for group_index_1, group_index_2 in pair_groups_peptidic_bonds:
+            atom_indices_1 = group_index_to_atom_indices[group_index_1]
+            C_index = np.argwhere(atom_name[atom_indices_1] == "C")
+            atom_indices_2 = group_index_to_atom_indices[group_index_2]
+            N_index = np.argwhere(atom_name[atom_indices_2] == "N")
+            if len(C_index) and len(N_index):
+                bond_accumulator.add(
+                    [atom_indices_1[C_index[0, 0]], atom_indices_2[N_index[0, 0]]],
+                    bond_type="covalent",
+                    evidence="inferred",
+                )
 
     ### bonds in struct_conn
 
@@ -1025,12 +1042,12 @@ def to_molsysmt_MolSys(
     # Build bonds
 
     unresolved_naming_context = False
-    if len(atoms_without_bonds):
+    if get_missing_bonds and len(atoms_without_bonds):
         from molsysmt._private.amino_acid_templates import inference_selection
 
         inference_atoms = inference_selection(tmp_item.topology, atoms_without_bonds)
         unresolved_naming_context = len(inference_atoms) < len(atoms_without_bonds)
-        missing_bonds = get_missing_bonds(
+        missing_bonds = _get_missing_bonds(
             tmp_item,
             selection=inference_atoms,
             skip_digestion=False,
@@ -1047,7 +1064,8 @@ def to_molsysmt_MolSys(
     reference_state = tmp_item.chemical_states._resolve_chemical_state()
     reference_state.connectivity_completeness = (
         "partial"
-        if bond_accumulator.has_inference
+        if not get_missing_bonds
+        or bond_accumulator.has_inference
         or bond_accumulator.has_conflict
         or unresolved_naming_context
         else "complete"
@@ -1091,16 +1109,14 @@ def to_molsysmt_MolSys(
             aux = compare(
                 item_per_model[0],
                 item_per_model[ii],
-                atom_id=False,
                 atom_name=True,
                 atom_type=True,
                 group_index=True,
                 group_id=True,
                 group_name=True,
                 component_index=True,
-                # Component names are generated before splitting the models;
-                # their global ordinals are not source identity labels.
-                component_name=False,
+                # Only request identity-bearing fields. In basic.compare,
+                # False requests inequality; it does not omit an attribute.
                 molecule_index=True,
                 molecule_name=True,
                 skip_digestion=True,
@@ -1155,7 +1171,6 @@ def to_molsysmt_MolSys(
 
     # Extract
 
-    tmp_item.topology._components_dirty = False
     tmp_item.topology._molecules_dirty = False
     tmp_item.topology._entities_dirty = False
 

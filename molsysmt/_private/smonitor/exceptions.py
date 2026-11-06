@@ -274,6 +274,28 @@ class FileContentError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
+class ChemicalReferenceLookupError(MolSysMTCatalogException):
+    """Report an explicit chemical-reference lookup outcome and original cause."""
+
+    catalog_key = "ChemicalReferenceLookupError"
+
+    def __init__(self, component_id, resource, reason, caller=None):
+        self.component_id = component_id
+        self.resource = resource
+        self.reason = reason
+        extra = dict(component_id=component_id, resource=resource, reason=reason)
+        if caller:
+            extra["caller"] = caller
+        super().__init__(extra=extra)
+
+    def __reduce__(self):
+        return (
+            type(self),
+            (self.component_id, self.resource, self.reason),
+            dict(self.__dict__, args=self.args),
+        )
+
+
 class UnknownGroupInTableError(MolSysMTCatalogException, KeyError):
     """A residue with no entry in a per-residue property table.
 
@@ -367,6 +389,7 @@ __all__ = [
     "NotWithThisFormError",
     "FileAlreadyHandledError",
     "FileContentError",
+    "ChemicalReferenceLookupError",
     "FormatError",
     "UnknownGroupInTableError",
     "NotDigestedArgumentWarning",

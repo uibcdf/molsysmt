@@ -34,6 +34,15 @@ tools rather than a new parser-specific chemistry engine:
 - Exact-name local consensus on the heavy parent of each **already observed H**.
 - {ref}`Unique same-chain peptide C-N geometry <Tutorial_Peptide_Bond_Candidates>`.
 
+Choose `method='supported_group_templates_with_hydrogen_aliases'` to use the
+explicit H-name alternative from the same public candidate tool. Heavy templates,
+peptide geometry, source ownership and invalidation rules are unchanged. This
+alternative records the pinned name dataset and detached bibliography under
+`hydrogen_name_policy`, including in H5MSM history. It does not rename atoms,
+interpret group-name aliases, import OpenMM, select protonation or establish
+stereochemical H roles. The default method keeps exact H-name matching. See
+{ref}`Tutorial_Covalent_Bond_Candidates` for alias scope and exclusions.
+
 Only missing eligible pairs are appended as `type='covalent'` and
 `evidence='inferred'`. Orders remain unknown. Existing rows and their declared
 types, orders and evidence are retained. Both endpoints must be selected, but
@@ -63,8 +72,47 @@ remains unassessed. This choice is explicit in this policy and does not establis
 protonation, terminal chemistry, missing H atoms or H placement. Unknown H names,
 modified heavy-only H references, conflicting chemistry and unsupported groups
 remain recorded; no alias or general distance fallback silently repairs them.
-Disulfides, metals, terminal caps and arbitrary small-molecule connectivity
-require separate policies. Review those limitations before downstream preparation.
+The local ACE/NME/NHE/NH2 references are available when those groups explicitly
+declare `amber` or `legacy` naming. The shared heavy/H tools retain exact cap
+layouts and the peptide tool admits only their permitted C/N backbone roles.
+All ordinary conflict, geometry, chain and selection checks still apply. Unknown
+cap conventions remain exclusions. This does not add a cap or infer a biological
+terminus or complete terminal state. Read a PDB with `get_missing_bonds=False`,
+declare its reviewed native naming context, then use this tool when cap support
+is required. You can alternatively supply `from_naming_scheme` to public
+conversion before the selected native reader engine executes. PDB reader
+defaults do not assume a cap naming convention.
+The report's `excluded_inference_policies` makes three fixed choices explicit:
+
+| Scope | Policy |
+| :--- | :--- |
+| Disulfides | Retain stored edges; do not promote S-S proximity to a bond. |
+| Metal coordination | Retain stored edges; infer no coordination from distance. |
+| Groups without an exact template | Disable geometric fallback. |
+
+`unsupported_group_indices` is an `int64` array of selected source group indices
+without a template, including an empty `(0,)` result. It scopes the exclusion;
+it is not an inventory of every unsupported group in an unselected system.
+Waters, ions, arbitrary ligands and unreviewed modified groups remain unassessed.
+The four curated MSE/SEP/TPO/MLY heavy references retain their own chemistry;
+their sequence parents do not substitute for them.
+
+You can separately call
+{func}`molsysmt.interactions.disulfides.get_disulfide_candidates` with `pbc=False`
+to inspect nonperiodic S-S proximity on the same structure. It returns geometric
+candidates, including competing partners, without changing ChemicalStates.
+Three nearby sulfurs can produce three candidates; this native inference policy
+does not choose a matching or an oxidation state. Resolved PDB SSBOND/LINK/CONECT
+edges remain stored even when contradictory, with the reader's conflict evidence.
+An unresolved or unrepresented-symmetry declaration is not replaced by a nearby
+base-cell pair. Retaining an edge does not recertify its chemistry. Review the
+coverage and original declaration history before downstream preparation.
+
+The group, H, peptide and application reports record `rule_version=2` for this
+naming-scoped cap extension. Existing historical reports retain their original
+rule version; the serializable dictionary schemas remain at version 1. The
+additional policy fields document existing exclusions without changing which
+pairs this method applies.
 
 ## Preserving historical provenance
 
@@ -97,6 +145,15 @@ prepared = msm.convert(
 )
 ```
 
+If the whole source uses one reviewed convention, include
+`from_naming_scheme='amber'` (or another supported declaration) in that call.
+The convention reaches classification and native inference before output
+selection. A selection such as `group_type=='amino acid'` uses this interpreted
+inventory. Mixed conventions need per-group native declarations instead of a
+single file-wide claim. Reader history retains `source_naming_scheme`; later
+metadata edits do not rewrite that historical input. The ordinary defaults and
+structure-0 inference policy below remain unchanged.
+
 File, text and `PDBFileHandler` routes support the same explicit engine choices
 for native `MolSys` and `Topology` output:
 
@@ -116,13 +173,20 @@ Reader inference uses **source structure index 0**, before atom/structure
 extraction, for one shared graph. Selectable per-structure inference belongs to
 the standalone build tool. For ensembles whose connectivity changes, declare
 chemical states and structure associations separately. PDB parsing remains eager.
+The native reader continues using the default exact-name composition. To select
+the alias composition, read explicitly without inference and call the standalone
+build function with its named method; no reader flag silently changes that policy.
 
 The reader archives `molsysmt.pdb_connectivity@1` outcomes, including disabled,
 inferred, unavailable and failed operations, declaration-resolution flags,
 producer versions and error type/message. The native route first records the
 explicit parse, then archives `covalent_inference@1`. Resolved declared bonds
-keep precedence over inferred evidence. Current declaration flags are aggregate
-evidence; they do not provide a complete per-record malformed-file diagnosis.
+keep precedence over inferred evidence. Declaration diagnostics retain typed
+per-record source locations, endpoint matches, alternate/symmetry scope and
+conflicts, alongside their aggregate flags. Historical endpoints are not current
+atom indices after extraction. Unsupported images and missing/ambiguous sites
+remain explicit limitations; an accepted edge does not certify its chemical kind.
+See {ref}`cookbook-pdb-connectivity-policy`.
 
 :::{seealso}
 :class: dropdown

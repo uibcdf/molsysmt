@@ -33,8 +33,10 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 Preserve the expert-addon nonbonded-energy pointer in Section 6: native energy
 units and single-structure CPU NoCutoff receiving remain distinct from mixed
-partition limits, periodic/overlap qualification and the pending native MolSys
-force reader. Keep all original executable cells, outputs and notebook metadata.
+partition limits and periodic/overlap qualification. Distinguish the #572 native
+provider force route and its complete-model selection/structure/unit contract
+from the addon force method that remains unexposed and unqualified. Keep all
+original executable cells, outputs and notebook metadata.
 
 Preserve received native #559 engine-owned platform resolution and bounded
 CPU/Reference consumer controls, while retaining device/GPU and physical-model

@@ -6,6 +6,22 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "westbrook_2015": dict(
+        doi="10.1093/bioinformatics/btu789",
+        title="The chemical component dictionary: complete descriptions of constituent molecules in experimentally determined 3D macromolecules in the Protein Data Bank",
+        authors=[
+            "Westbrook, John D.",
+            "Shao, Chenghua",
+            "Feng, Zukang",
+            "Zhuravleva, Marina",
+            "Velankar, Sameer",
+            "Young, Jasmine",
+        ],
+        year=2015,
+        journal="Bioinformatics",
+        volume="31",
+        pages="1274-1278",
+    ),
     "onufriev_2004": dict(
         doi="10.1002/prot.20033",
         title="Exploring protein native states and large-scale conformational changes with a modified generalized Born model",
@@ -247,6 +263,9 @@ ARTICLES = {
 # or author list. RDKit asks additionally for the version used; the producer
 # version is attached by the consumer, without resolving a moving release DOI.
 SOFTWARE = {
+    "mmcif": dict(
+        title="RCSB mmCIF Core Access Library", url="https://github.com/rcsb/py-mmcif"
+    ),
     "openmm": dict(title="OpenMM", url="https://openmm.org"),
     "molsysmt": dict(
         title="MolSysMT",

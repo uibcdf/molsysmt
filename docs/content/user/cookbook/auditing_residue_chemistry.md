@@ -24,7 +24,7 @@ print(report['summary'])
 
 Conversion lets repeated queries reuse the loaded native domains. It does not
 establish chemical completeness. Both public queries also accept supported source
-forms directly. Group, atom and frame indices refer to the system being queried.
+forms directly. Group, atom and structure indices refer to the system being queried.
 
 ## Separate gaps from unknown chemistry
 
@@ -52,6 +52,29 @@ retains the declared reference state and sorted unique source atom indices.
 For explicit or structure-associated state queries, keep the common selector's
 restrictions: use MolSysMT syntax or explicit indices rather than guessing a
 state or translating selections downstream. See {ref}`Tutorial_Chemical_Readiness`.
+
+## Preview a reference-rule removal without changing the source
+
+```python
+assessment = msm.build.assess_protonation(molsys, pH=7.4)
+preview = assessment.to_dict()
+print(preview['coverage'])
+print(preview['removed_atom_indices'])
+retained = preview['atom_map']['output_to_source_atom_indices']
+```
+
+This preview reads reference-state naming and connectivity. It does not remove
+atoms or select a chemical state. Coverage separates assessed groups from
+unsupported or unassessed layouts and states, including when the proposed removal
+is empty. The retained array lists original atom indices in proposed output order;
+the inverse map has one entry per original atom and uses -1 for removed atoms.
+It never matches repeated atom IDs or names.
+
+Keep the assessment when a consumer needs to validate this correspondence before
+deliberate publication. Applying it executes the same decision without repeating
+the reference-rule query. This recipe stops at the preview; see
+{ref}`Tutorial_Protonation_Assessment` for independent output, explicit native
+in-place execution, stale-source rejection and the limits of the fixed-pKa model.
 
 ## Choose a separate preparation operation
 

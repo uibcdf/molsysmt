@@ -36,6 +36,9 @@ def infer_covalent_bonds(
     method : str, default='supported_group_templates'
         Experimental composition of exact heavy-group templates, local observed-H
         parent consensus and unique same-chain peptide C-N distance candidates.
+        'supported_group_templates_with_hydrogen_aliases' selects the explicit
+        PDB H-name alternative of the same local parent tool. The default keeps
+        exact H-name matching.
     return_report : bool, default=False
         Return a dictionary with molecular_system and report when True. The
         output retains historical evidence regardless of this option.
@@ -67,8 +70,32 @@ def infer_covalent_bonds(
     complete graph, protonation, bond orders, H placement or polymer sequence.
     Unknown groups, H names and mixed H inventories remain recorded exclusions.
     No atoms are added and no distance fallback repairs arbitrary groups.
-    Disulfides and metal coordination are separate policies. Peptide geometry
-    uses pbc=False and the existing 0.153 nm effective ceiling.
+    Disulfide and metal-coordination policies retain existing edges without
+    adding proximity-derived ones. Unsupported groups, including water, ions,
+    arbitrary ligands and unreviewed modified groups, have no geometric fallback.
+    These choices and selected unsupported group indices are explicit in
+    excluded_inference_policies. Retained edges are not chemically recertified;
+    contradictory declarations remain available in the original reader history.
+    Use interactions.disulfides.get_disulfide_candidates separately to inspect
+    S-S proximity, including competing candidates, without selecting a covalent
+    partner. Peptide geometry uses pbc=False and the 0.153 nm effective ceiling.
+
+    Stored 'amber' or 'legacy' naming declarations also enable the exact local
+    ACE/NME/NHE/NH2 cap references and their permitted C/N amide endpoints.
+    Unknown cap conventions remain explicit exclusions. This neither adds caps
+    nor infers biological termini or a complete terminal/protonation state.
+    Read a PDB with get_missing_bonds=False, declare the reviewed source naming
+    scheme on the native topology, then call this tool when cap context is needed;
+    alternatively, public convert accepts from_naming_scheme before executing
+    the explicitly selected native reader engine. The reader never assumes a
+    convention from the labels themselves.
+
+    The optional alias composition changes only H-parent reference lookup, not
+    source names, coordinates, heavy templates or peptide criteria. Its history
+    retains the exact local name dataset and detached bibliography. This is an
+    adaptation using OpenMM's PDB name reference data, not OpenMM execution.
+    All matching names/variants must agree on one parent; aliases do not establish
+    global inventory, stereochemical H roles, pH or a complete terminal state.
 
     Added bonds make connectivity completeness partial and invalidate all named
     interaction occurrences on the output. Unchanged outputs retain their analyses.
@@ -109,7 +136,10 @@ def infer_covalent_bonds(
         )
 
         digest_skip_digestion(skip_digestion, caller=__name__ + ".infer_covalent_bonds")
-    if method != "supported_group_templates":
+    if not isinstance(method, str) or method not in (
+        "supported_group_templates",
+        "supported_group_templates_with_hydrogen_aliases",
+    ):
         raise ArgumentError("method", value=method, caller=__name__)
     return apply(
         molecular_system,
@@ -118,4 +148,5 @@ def infer_covalent_bonds(
         chemical_state,
         return_report,
         syntax,
+        method,
     )

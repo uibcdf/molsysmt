@@ -79,13 +79,38 @@ EXPECTED_PAIRS = {
 }
 
 
+@pytest.mark.parametrize("use_handler", [False, True])
+@pytest.mark.parametrize("scheme", [None, "amber"])
+def test_gro_source_convention_precedes_candidate_inference(
+    acidic_peptide_gro, use_handler, scheme
+):
+    path, _ = acidic_peptide_gro
+    source = (
+        msm.convert(path, to_form="molsysmt.GROFileHandler") if use_handler else path
+    )
+    try:
+        result = msm.convert(source, from_naming_scheme=scheme)
+    finally:
+        if use_handler:
+            source.close()
+    assert result.topology.group_naming_schemes == (scheme, scheme)
+    assert result.topology.groups.group_name.tolist() == ["ASH", "GLH"]
+    assert result.topology.atoms.atom_id.tolist() == [str(i) for i in range(41, 58)]
+    bonds = result.chemical_states._get_chemical_state_bonds()
+    observed = {
+        tuple(pair) for pair in bonds[["atom1_index", "atom2_index"]].to_numpy()
+    }
+    # An undeclared ambiguous label must not silently select Amber chemistry.
+    assert observed == (EXPECTED_PAIRS if scheme == "amber" else set())
+
+
 @pytest.mark.parametrize("target", ["mdtraj.Topology", "mdtraj.Trajectory"])
 def test_gro_mdtraj_retains_supported_acidic_group_connectivity(
     acidic_peptide_gro, target
 ):
     pytest.importorskip("mdtraj")
     path, _ = acidic_peptide_gro
-    result = msm.convert(path, to_form=target)
+    result = msm.convert(path, to_form=target, from_naming_scheme="amber")
     topology = result.topology if target == "mdtraj.Trajectory" else result
     assert bond_pairs(topology) == EXPECTED_PAIRS
     assert len(topology.find_molecules()) == 1
@@ -108,6 +133,7 @@ def test_gro_mdtraj_preserves_nonconsecutive_structures_and_selected_bonds(
             to_form="mdtraj.Trajectory",
             selection=selected,
             structure_indices=[2, 0],
+            from_naming_scheme="amber",
         )
     assert result.xyz.shape == (2, 4, 3)
     np.testing.assert_allclose(
@@ -118,6 +144,20 @@ def test_gro_mdtraj_preserves_nonconsecutive_structures_and_selected_bonds(
     np.testing.assert_allclose(result.time, [4.0, 0.0])
     np.testing.assert_allclose(result.unitcell_vectors, [np.eye(3) * 5] * 2)
     assert bond_pairs(result.topology) == {(0, 1), (1, 2), (2, 3)}
+
+
+def test_declared_gro_trajectory_can_disable_candidate_inference(acidic_peptide_gro):
+    pytest.importorskip("mdtraj")
+    path, coordinates = acidic_peptide_gro
+    result = msm.convert(
+        path,
+        to_form="mdtraj.Trajectory",
+        from_naming_scheme="amber",
+        get_missing_bonds=False,
+        structure_indices=[2, 0],
+    )
+    assert result.topology.n_bonds == 0
+    np.testing.assert_allclose(result.xyz, [coordinates + 0.2, coordinates], atol=1e-7)
 
 
 def test_gro_native_separates_consecutive_different_groups_with_same_label(tmp_path):
@@ -137,10 +177,20 @@ def test_gro_native_separates_consecutive_different_groups_with_same_label(tmp_p
 def test_bundled_nglview_gro_uses_native_connectivity():
     pytest.importorskip("mdtraj")
     topology = msm.convert(
-        msm.systems["nglview"]["md_1u19.gro"], to_form="mdtraj.Topology"
+        msm.systems["nglview"]["md_1u19.gro"],
+        to_form="mdtraj.Topology",
     )
     assert topology.n_atoms == 5547
     assert topology.n_residues == 349
-    # This pins the native candidate profile, not chemical validation of all edges.
-    assert topology.n_bonds == 5632
-    assert len(topology.find_molecules()) == 1
+    # No source convention is declared for this mixed-label input. The 31
+    # candidate edges reaching ambiguous ASH/GLH groups are intentionally absent.
+    # Curated YPL/LRT groups retain their exact-name reference connectivity.
+    assert topology.n_bonds == 5601
+    ambiguous_atoms = {
+        atom.index for atom in topology.atoms if atom.residue.name in {"ASH", "GLH"}
+    }
+    assert not any(ambiguous_atoms.intersection(pair) for pair in bond_pairs(topology))
+    assert any(
+        bond.atom1.residue.name == "YPL" and bond.atom2.residue.name == "YPL"
+        for bond in topology.bonds
+    )

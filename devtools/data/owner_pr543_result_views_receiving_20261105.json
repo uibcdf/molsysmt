@@ -1,0 +1,167 @@
+{
+  "schema": "molsysmt.owner-pr-receiving@1",
+  "date": "2026-11-05",
+  "scope": "new independent-result GUI delta after the first owner checkpoint",
+  "inputs": {
+    "pr_head": "f7b305b3a126109aff5909e857ea7c53981486e8",
+    "owner_previous_checkpoint": "ab789897bad51a7258f366aadc01840895d6366e",
+    "viewer": "42234de839ed047016f8f241ea5eb717cfeb07be",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "source_hashes": {
+    ".github/workflows/benchmarks.yml": "22effca9d047b3f77440ac4112f1aea5f5fef0b910d31009ab9ad307ae18b290",
+    ".github/workflows/ci-full.yaml": "3cf9d810b0ca190683ee1651dd8c5efd39752b9c09c3acf1754b036fb09e70c2",
+    ".github/workflows/ci-smoke.yaml": "aefa67600774e4151b3eea84004e918295d992de7286a6434c47624fbdeb76dd",
+    ".github/workflows/ci-weekly.yaml": "3075d67204b647d860771f54a6ad7093d46db4c921439651447a56570ccfec02",
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": "1d2f80ba58054a95084c3c863e3ef20e78a5444f7cfcfb2cd5730455007c836e",
+    "devtools/dependency_contract.toml": "b02bc425078fcba70d881b99cbd369aeb60f85071d98d2fc09081c25f079e1bf",
+    "molsysviewer_molsysmt/_panel.py": "9db8d45eea98734c8a1cbe9d7360fedb0b1e11553647342c7ecf57f5f81c4c15",
+    "molsysviewer_molsysmt/_panel_frontend.py": "83fde2f97e6b9360f8efd7a75ccddb95c1367375f19d10ed1909333b84e9d5da",
+    "molsysviewer_molsysmt/tools.py": "77990e8239557d400c3d3af49d18756f307f9f4b8b7be6fff64de7e4b17c2b24",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "739684b10bb70a89d817b0cb9a6104918f23400b6ed8cd07d40161670bc58403",
+    "tests/molsysviewer_molsysmt/result_panel_jupyter.mjs": "899b3c074bfb5e1bffde422403cc1fcd28db4c23d9bb568bba3ecc64f2fd5ab7",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "6d808790dacace23ef4084775209b13c5c6773631696e1e90f5c79f35c122dc8",
+    "tests/molsysviewer_molsysmt/test_system_panel.py": "72e5223d07de3f5e52baa9988d87ee4d0a32bb069853ba78411a4fe189bf526c"
+  },
+  "local_results_overlap": true,
+  "results": [
+    {
+      "local_receipt": ".pytest_cache/543-new-result-slice.xml",
+      "sha256": "92617e75d0b7c55e0e21c1ac0a698d5362c5a85027aca745469e77d9bc47c24a",
+      "suites": [
+        {
+          "tests": "95",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "11.863"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/543-new-result-floors.xml",
+      "sha256": "07fb47d490f43feb786b3b1825079c19568ddb8afc7a20a43ce8e11533a1b646",
+      "suites": [
+        {
+          "tests": "53",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "13.645"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/543-new-jupyter.xml",
+      "sha256": "cb15b49840c222f5b08e9a750e3f14a7aeb30f7b49a305952cfd6c42490fca40",
+      "suites": [
+        {
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "112.892"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/543-final-doc-boundaries.xml",
+      "sha256": "456f6ac5f2931414db45c2743b749f5102ade2c2226cf6a5c7e02fc92d764c2d",
+      "suites": [
+        {
+          "tests": "510",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "13.383"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/543-new-head-addon-complete.xml",
+      "sha256": "48280f91d9d6d6c9b1ff3a1ecdaca14408df233198179d2b7207a5766cf876cd",
+      "suites": [
+        {
+          "tests": "4507",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "325.578"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/543-final-governance.xml",
+      "sha256": "3d211fd68f42bde163bcca801840538559479568905760d2fed4e4166fa80404",
+      "suites": [
+        {
+          "tests": "52",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "7.740"
+        }
+      ]
+    }
+  ],
+  "actual_browser": [
+    {
+      "scenario": "jupyter-results",
+      "sha256": "eb2aa0d417a65052764513da086e7650a95394eb1020bb46c2d79abeea1523e0",
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Extract ordered nonconsecutive structures without editing the source",
+        "Notebook delivery from fullscreen explains how to reach the result",
+        "Changing destination reuses one View through rapid window/notebook cycles",
+        "Copy opens a separate live View in an external window without recomputing",
+        "Detached Studio can open and close an independent result without closing its source",
+        "Python recovers both Views and source closure preserves them"
+      ],
+      "private_settings_removed": true,
+      "final_atoms": null,
+      "managed_edits": null
+    },
+    {
+      "scenario": "jupyter",
+      "sha256": "9eabb4ec93b4f77f71d1b52868e456958e8f699b45a278a6af3b3c01579256cc",
+      "checks": [
+        "Execute real notebook with source-pinned Python 3.14 kernel",
+        "Native review is 165 waters / 3818 retained; Back does not edit",
+        "Confirm traverses real widget comms, native edit and Mol* rendering",
+        "Empty ion selection and remount retain a bounded draft without a review",
+        "Canvas popup and Studio popup share the actual Jupyter authority",
+        "Kernel verifies actual inventory and exactly two managed edits"
+      ],
+      "private_settings_removed": true,
+      "final_atoms": 3817,
+      "managed_edits": 2
+    }
+  ],
+  "review": [
+    "native copy/extract calls keep source ownership and requested nonconsecutive structures",
+    "selection and preparation run under the existing host read coordinator",
+    "presentation is explicit and reuses the prepared independent View",
+    "leaving an unpresented result closes its view; presented results have host-owned lifetime",
+    "source failed/open reports reconciled against existing owner fixes without rewriting archived originals"
+  ],
+  "pending": [
+    "required exact candidate full hosted source gate",
+    "main integration and source closeout for #587/#590/#591 and #594\u2013#598",
+    "distinct preparation correctness #593",
+    "installed/platform/release qualification #334"
+  ],
+  "limits": [
+    "local sources, not packages or installed-pair qualification",
+    "no human visible Qt receiving claim",
+    "no tag, release or promotion authorization",
+    "shared environment closure conflicts remain #524",
+    "not a universal scientific correctness claim for all exposed tools"
+  ],
+  "completed_addon_selection": {
+    "passed": 4507,
+    "failed": 0,
+    "seconds": 325.65,
+    "profile": "Python 3.14.7, four workers, Pytest Receptor llm, exact Viewer 42234de8"
+  },
+  "source_hashes_scope": "Selected runtime, guards and controlled-source configuration; operational ledgers/receipts are excluded to avoid self-referential hashes. The final Git candidate identifies the full immutable tree."
+}

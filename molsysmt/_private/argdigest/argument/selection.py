@@ -28,6 +28,9 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
 
     from ._correspondence_axes import CALLERS, flat_axis
 
+    if caller == "molsysmt.molecular_mechanics.get_forces.get_forces":
+        return flat_axis(selection, "selection", caller, allow_boolean=True)
+
     if caller == "molsysmt.build.mutate.mutate" and not isinstance(selection, str):
         try:
             array = np.asarray(selection)

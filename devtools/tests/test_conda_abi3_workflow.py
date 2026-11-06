@@ -42,7 +42,15 @@ def test_experiment_builds_once_and_tests_one_artifact_four_times():
     workflow = _workflow()
     lto_input = workflow[True]["workflow_dispatch"]["inputs"]["lto"]
 
-    assert "action-build-and-upload-conda-packages@v2.1.0" in text
+    build = next(
+        step
+        for step in workflow["jobs"]["build-and-test"]["steps"]
+        if step.get("id") == "build"
+    )
+    assert build["uses"] == (
+        "uibcdf/action-build-and-upload-conda-packages"
+        "@87c70b1443d5f22d738ee3ddf812bdbe0152f6c2"
+    )
     assert lto_input["options"] == ["true", "thin", "false", "off"]
     assert "CARGO_PROFILE_RELEASE_LTO: ${{ inputs.lto }}" in text
     assert 'MOLSYSMT_CONDA_ABI3: "true"' in text

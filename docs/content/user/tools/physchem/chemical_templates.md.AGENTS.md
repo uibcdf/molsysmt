@@ -1,5 +1,12 @@
 # Chemical-template contract
 
+Keep generic CCD construction distinct from peptide construction and application:
+explicit online/offline authority, retained bytes/maps, selected descriptor policy,
+H projection limits, unknown/conflicting chemistry and producer attribution.
+Exact label correspondence remains a separate stable-inventory tool and never
+certifies chemical identity or a bound protonation state. No CCD reference
+coordinates replace an observed pose.
+
 Preserve `Tutorial_Chemical_Templates`, the exhaustive template/source index map,
 independent state selection, absent-field-only transfer, copy/failure semantics,
 explicit versus stored-count hydrogen policies, unsupported normalization and

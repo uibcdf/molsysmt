@@ -18,6 +18,56 @@ storage without modifying the source directory. Concurrent preparation jobs can
 read the same source file; no manual decompression beside it is needed.
 Temporary storage must be available, and parsing remains eager.
 
+For a native CIF/BinaryCIF input, pass `get_missing_bonds=False` to
+`msm.convert()` when the workflow must inspect only supported deposited bond
+declarations. The option also reaches compressed files and public identifier
+acquisition. It disables the reader's template, terminal-H, peptide-link and
+geometric additions, preserving explicit orders on every mapped edge even if
+other atoms remain unmatched. The resulting graph remains partial. This is a
+reading policy, not template application, protonation or chemical preparation;
+keep the subsequent template/state decisions explicit.
+
+(cookbook-ccd-reference-template)=
+## Choosing a CCD reference
+
+The generic {ref}`CCD factory <Tutorial_Get_Chemical_Template>` supplies a
+coordinate-free template without a consumer-side parser or chemistry-transfer
+loop. The following pattern uses previously acquired local files; you must
+select the actual component and review the reference state for your experiment.
+
+```python
+import molsysmt as msm
+
+molsys = msm.convert('complex.cif', to_form='molsysmt.MolSys',
+                     get_missing_bonds=False)
+selected = msm.select(molsys, selection='group_name == "BTN"')
+definition = msm.physchem.get_chemical_template('BTN', source='BTN.cif')
+correspondence = msm.topology.get_atom_name_correspondence(
+    definition['template'], reference_molecular_system=molsys,
+    reference_selection=selected)
+assessment = msm.physchem.assess_chemical_template(
+    molsys, selection=selected, template=definition['template'],
+    atom_correspondence=correspondence,
+    template_provenance=definition['template_provenance'])
+```
+
+Check the construction report and `assessment['status']` before calling
+`apply_chemical_template()` with these same arguments. The name correspondence
+uses full input indices, with template indices first; it is not proof of chemical
+identity. Repeated component labels need an explicitly narrower selection.
+Conflicting source charges, different graphs or incomplete reference declarations
+must not be overwritten to make the assessment pass. The default
+`require_same_graph` remains active; graph completion is a separate explicit choice.
+
+Offline regression controls apply the generic factory to deposited 1HSG/MK1 and
+1STP/BTN, including selected full-system indices, atom reordering, three retained
+structures, non-default units, refusals and H5MSM round trips. The fixtures contain
+45 and 16 selected heavy atoms respectively. They establish reference transfer
+and pose preservation, not their bound protonation or docking readiness.
+Full indexed H requires a matching full-H observed inventory; the default
+stored-count projection fits these heavy-only references and supplies no donor-H
+geometry. The EST control below retains its independent stereochemical checks.
+
 ## Preparing correspondence context
 
 When consulting a saccharide, small-molecule or cap bond-name template, pass a
@@ -97,6 +147,48 @@ state/structure. It returns a detached system and retains operation history;
 changed connectivity makes output interaction occurrences unevaluated. See
 {ref}`Tutorial_Infer_Covalent_Bonds` for evidence, defaults and persistence.
 
+The native report's `excluded_inference_policies` records that disulfides and
+metal coordination retain stored edges only, while geometry for groups without
+an exact template is disabled. Its typed `unsupported_group_indices` names the
+selected source groups affected by that exclusion. A close water, ligand, metal
+or unreviewed modified group does not acquire bonds from a universal cutoff.
+For a separate S-S proximity inspection, use
+`msm.interactions.disulfides.get_disulfide_candidates(molsys, pbc=False)`.
+Those candidates do not select a covalent partner or repair contradictory
+SSBOND declarations. Keep their geometric evidence separate from stored bonds;
+the detector and inference operation both preserve the source.
+
+Inspect deposited declarations separately from inferred candidates:
+
+```python
+history = molsys.chemical_states.get_preparation_history()
+declarations = history[0]['report']['declaration_issues']
+records = declarations['records']
+records['record_type'], records['line_number'], records['status']
+```
+
+The typed columns locate each declared connection in its original PDB record.
+`line_number` starts at 1; `record_index` starts at 0 within CONECT, LINK or
+SSBOND, and `target_index` identifies the CONECT target field (-1 otherwise).
+Directed `atom_indices` refer to the first source model's canonical sites;
+-1 means an endpoint is missing or ambiguous, and `endpoint_match_counts`
+distinguishes these cases. These are historical operation indices, not the
+current indices after extraction. Arrays, original fixed-column text, symmetry
+operators and alternate labels survive H5MSM round trips.
+
+`accepted=True` means that a literal declaration contributes a canonical edge;
+it does not certify a chemically valid bond. Reciprocal/repeated records retain
+one pair without assigning bond order. Known alternate serials map to canonical
+sites with `conditional=True`; complete alternate-specific chemistry remains
+unassessed. An absent requested alternate or a nonidentity symmetry image is
+reported without being projected onto a different observed atom. Conflicting
+declared CYS sulfur partners remain explicit with conflict evidence. LINK and
+CONECT can describe connections whose chemical bond kind is not established by
+these records alone. Use `return_report=True` or `strict=True` on `msm.convert`
+to inspect or refuse adapter limitations, respectively. This interpretation
+follows [wwPDB connectivity annotations](https://www.wwpdb.org/documentation/file-format-content/format33/sect6.html)
+and [CONECT](https://www.wwpdb.org/documentation/file-format-content/format33/sect10.html).
+
 For a separate native audit, `msm.build.get_missing_bonds(molsys)` returns
 template/geometric candidates without changing the source. Peptide candidates
 require consecutive source group indices in the same defined chain; selections
@@ -121,6 +213,46 @@ includes unsupported groups; the default proposes no hydrogen or inter-group edg
 It leaves the source unchanged and does not invoke OpenMM for a PDB input.
 See {ref}`Tutorial_Covalent_Bond_Candidates`.
 
+The inspectable auditor and native inference tool also reuse the local
+ACE/NME/NHE/NH2 references with explicit `amber` or `legacy` declarations:
+
+```python
+molsys = msm.convert(pdb_file, to_form='molsysmt.MolSys', get_missing_bonds=False)
+# Declare only the cap groups whose source convention you have reviewed.
+molsys.topology.set_group_naming_schemes('amber', group_indices=cap_group_indices)
+report = msm.build.get_covalent_bond_candidates(molsys, structure_indices=0)
+result = msm.build.infer_covalent_bonds(molsys, structure_indices=0, return_report=True)
+```
+
+Here `cap_group_indices` are source group positions, not group IDs. Declaring a
+convention changes no atom names or chemistry. Bare cap labels and unsupported
+conventions remain unassessed. Heavy layouts must agree; ambiguous missing NME
+methyl names cannot select a first variant. The same H-parent and peptide guards
+then operate on the cap reference. Cap identity records allowed backbone roles,
+content hashes and the historical dataset; its original external provenance,
+bond orders and complete terminal state remain unassessed. No caps or H atoms
+are added, and inferred amide links still require compatible chain/geometry
+evidence. This two-step route supplies native naming context explicitly rather
+than assuming that a PDB label declares a convention.
+
+When every group uses the same reviewed source convention, the reader can
+receive it directly before native inference:
+
+```python
+molsys = msm.convert(
+    pdb_file, to_form='molsysmt.MolSys', from_naming_scheme='amber',
+    get_missing_bonds=True, bond_inference_engine='MolSysMT')
+```
+
+Do not use one file-wide declaration for a mixed Amber/CCD system; keep the
+per-group route above. Context-dependent selections run on interpreted native
+inventory. The same source keyword works for file, text and handler conversions,
+including pure Topology projections; a pure Topology retains stable inventory
+and declarations, not ChemicalStates bonds/history. Request MolSys to inspect
+the reader's source_naming_scheme and inference evidence. An unsupported
+OpenMM naming interpretation is refused before provider execution; the legacy
+optional policy warns and archives failure rather than substituting chemistry.
+
 For H atoms already present, call the same tool with
 `method='observed_hydrogen_template_consensus'`. Its separate H-parent report
 requires exact-name agreement among every matching heavy-compatible reference
@@ -128,6 +260,25 @@ variant. Inspect `groups[*]['hydrogen_coverage']`: unresolved names, missing
 parents or conflicting stored H assignments are explicit, and local parent
 consensus does not imply a jointly compatible naming inventory. This is candidate
 connectivity, not H addition, protonation assignment or coordinate placement.
+
+If the source uses supported PDB H-name alternatives, select that interpretation
+explicitly instead of renaming its atoms:
+
+```python
+report = msm.build.get_covalent_bond_candidates(
+    molsys, structure_indices=0,
+    method='observed_hydrogen_alias_consensus')
+result = msm.build.infer_covalent_bonds(
+    molsys, structure_indices=0,
+    method='supported_group_templates_with_hydrogen_aliases', return_report=True)
+```
+
+The returned system is independent. Its H-parent evidence records literal and
+alternative reference names, dataset hashes and bibliography, with no OpenMM
+import. Only twenty canonical group labels have alias mappings; group-name
+interpretation still follows the source naming declarations. This does not
+assign stereochemical H identity, a complete H inventory or protonation. The
+default methods continue requiring exact H-name matches.
 
 Review inter-group peptide candidates separately with
 `msm.build.get_peptide_bond_candidates(molsys, structure_indices=0)`.

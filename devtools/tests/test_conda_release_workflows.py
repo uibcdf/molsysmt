@@ -122,7 +122,8 @@ def test_publish_workflow_is_atomic_per_native_platform():
     )
     assert staging_build["env"]["MOLSYSMT_CONDA_ABI3"] == "true"
     assert staging_build["uses"] == (
-        "uibcdf/action-build-and-upload-conda-packages@v2.1.0"
+        "uibcdf/action-build-and-upload-conda-packages"
+        "@87c70b1443d5f22d738ee3ddf812bdbe0152f6c2"
     )
     assert staging_build["with"]["label"] == "staging"
     assert staging_build["id"] == "conda_staging"
@@ -141,7 +142,8 @@ def test_publish_workflow_is_atomic_per_native_platform():
     assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 0
     assert release_build["env"]["MOLSYSMT_CONDA_ABI3"] == "true"
     assert release_build["uses"] == (
-        "uibcdf/action-build-and-upload-conda-packages@v2.1.0"
+        "uibcdf/action-build-and-upload-conda-packages"
+        "@87c70b1443d5f22d738ee3ddf812bdbe0152f6c2"
     )
     assert release_build["with"]["label"] == "main"
     assert release_build["id"] == "conda_release"

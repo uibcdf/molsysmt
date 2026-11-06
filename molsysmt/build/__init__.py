@@ -30,6 +30,8 @@ from .remove_overlapping_molecules import remove_overlapping_molecules
 from .assign_partial_charges import assign_partial_charges
 # isort: on
 
+from .assess_protonation import assess_protonation
 from .assign_autodock_atom_types import assign_autodock_atom_types
 from .merge_nonpolar_hydrogens import merge_nonpolar_hydrogens
 from .project_atom_names import project_atom_names
+from .protonation_assessment import ProtonationAssessment

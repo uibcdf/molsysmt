@@ -1,0 +1,409 @@
+{
+  "schema": "molsysmt.owner-pr-receiving@1",
+  "date": "2026-11-05",
+  "qualification": "local source receiving; mandatory full hosted gate not passed",
+  "inputs": {
+    "owner_base": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+    "submitted_pr": "1c88e785b4327350ad586d437a569eff1a2c5c9a",
+    "viewer": "36ab93b7f8bc0530818bbc178c35dc04a9defd07",
+    "new_pr_head_observed_separately": "f7b305b3a126109aff5909e857ea7c53981486e8",
+    "new_viewer_not_qualified_by_these_results": "42234de839ed047016f8f241ea5eb717cfeb07be",
+    "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c"
+  },
+  "results_overlap": true,
+  "results": [
+    {
+      "receipt": ".pytest_cache/pr543-addon-receiving.xml",
+      "sha256": "fd23294d1c1fc1b22ae1199a25c8f74233c03c26d8c2c6f383250d9633cf21ee",
+      "suites": [
+        {
+          "tests": "4491",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "338.070"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-governance.xml",
+      "sha256": "35b24bf7af959ff680598ff12212ee618754e2f572218792687caf9d4db04f47",
+      "suites": [
+        {
+          "tests": "52",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "10.618"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-support-floors.xml",
+      "sha256": "df29d599f68841f9ccc9f3c904365a46e7bd22fcee49dda8e75a4e8507045c38",
+      "suites": [
+        {
+          "tests": "202",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "53.026"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-jupyter-r1.xml",
+      "sha256": "ce342b6f89c407d2dbcb89c5fad5f0e5cd249738259d4796f7cbccf082df9074",
+      "suites": [
+        {
+          "tests": "1",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "51.730"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-native-583-584.xml",
+      "sha256": "2a7e8987320847123088b1e6e6cf8e106c1d249c3ab0c3239cc5f8bceff60097",
+      "suites": [
+        {
+          "tests": "6",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "8.315"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-native-583-584-floors.xml",
+      "sha256": "fe98d293ae5a21b6fc34c0269cdb0425f3e195d9f57761e4fe816d67d45a4634",
+      "suites": [
+        {
+          "tests": "6",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "6.518"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-import-order-repaired.xml",
+      "sha256": "d614ca494344c5044d649d1194bcb0147c229f19b235f7901e77d526c49f251a",
+      "suites": [
+        {
+          "tests": "173",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "22.659"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-native-conversion-r3.xml",
+      "sha256": "b4ac619ff91133e1b2a3bb80485504f86af6253f5c89cbfa5fccc16998c93cc9",
+      "suites": [
+        {
+          "tests": "146",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "14.366"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-serial-conversion-repaired.xml",
+      "sha256": "87a9334cf974f33d8c121325819882a9020769b3d1e5f3cddbafe9068d87228d",
+      "suites": [
+        {
+          "tests": "72",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "37.210"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-ngl-lifecycle-complete.xml",
+      "sha256": "6ce5c039d2c390d9edd8e92587e57b33136a50962318fc6c26461eeaf79ac9ea",
+      "suites": [
+        {
+          "tests": "83",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "26.249"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-latest-conversion-controls.xml",
+      "sha256": "5af21c4731c99c4d6e60662de79e0f8cee395e97bb2ffd5c42fbbbfff0b26898",
+      "suites": [
+        {
+          "tests": "11",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "2.855"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-docs-reporting.xml",
+      "sha256": "db843175bad47c5ee46227d687034a68bad9c449638fc86529e9d97afc939f57",
+      "suites": [
+        {
+          "tests": "1077",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "52.159"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-combined-receiving-r2.xml",
+      "sha256": "1ecc8a88e5cdc72ae61f2decf1113af173f120ed80858dd25f52829c8c5f98b2",
+      "suites": [
+        {
+          "tests": "4944",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "337.930"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-native-corrections-floors.xml",
+      "sha256": "916892d08b801d8d63df76dae78887a0550fd8eb6cadd55a225b342be7344202",
+      "suites": [
+        {
+          "tests": "215",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "17.755"
+        }
+      ]
+    },
+    {
+      "receipt": ".pytest_cache/543-reader-doctests.xml",
+      "sha256": "531a938a3d9972245d0de58943c1a91b249846e13db08f8b38a99a0c6212ad69",
+      "suites": [
+        {
+          "tests": "4",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "4.597"
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    ".github/workflows/benchmarks.yml": "27f3ef89bb3182fccd90e6b164a0da1b315c8008d8ef7718287b4a7215ae4da4",
+    ".github/workflows/ci-full.yaml": "e7e0b5799f5111d95362df6b4396b2525b15badc86d0595acb2cd3048c115e4d",
+    ".github/workflows/ci-smoke.yaml": "7617663ee54bd9c715324783f4dfda2b15a853ecb6cce979497cbddc1424c97e",
+    ".github/workflows/ci-weekly.yaml": "90b73e871d243ae42f7d7568cb0aaa2bd5ac7dad0c803538224416dfd7fa4d14",
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": "7e855b170139abe423abfdf1b29d1cec8cddd340f11f6aab20bd801b2d661024",
+    "devguide/AGENTS.md": "cd191208990664846a0fedacad5e83d49267408c787dae5200eb1a22c18ea9ac",
+    "devguide/archive/README.md": "b4ae9535ee31c6dbf92c1b6c6c156742f5f4fb86187f1d47a11812ac2ecad869",
+    "devguide/archive/resolved_bugs/alternate_location_occupancy_can_choose_a_lower_occupancy_site.md": "ef7a9c6a3575393e80008a3e24921890a70dd93806baa048f3e6897ed8d91d23",
+    "devguide/archive/resolved_bugs/alternate_location_rejection_can_leave_partial_structure_writes.md": "3e3e42b34a859fa566afac5b1ee01ef5734d425b597abd60a62aa5b680d4b2ff",
+    "devguide/archive/resolved_bugs/consumer_basic_view_default_empty_input.md": "d473a217ea013700ac5dd351f9e9662e2d4fd9065537e9cd62c5310a6ea6ca30",
+    "devguide/archive/resolved_bugs/consumer_openmm_solvation_explicit_counts.md": "1fc4e6bbb396e3f850c0479583f4e4288ad9eb09be370b699a2e3c32d0d9b8b5",
+    "devguide/archive/resolved_bugs/consumer_openmm_solvation_source_ids.md": "32547544c35779c127ac103d7553441840d714e158485999de5ebb7ef70bf3fd",
+    "devguide/archive/resolved_bugs/mutate_selection_masks_consumer_evidence.md": "285d7fc15d7f2a7e70faa73df0968cb11a127f90b7cedcf76cb0561d1b4b4ed8",
+    "devguide/archive/resolved_bugs/resolved_alternate_location_retains_previous_primary_occupancy.md": "91278faea026f070f85f7d919ca98845d51e813c652bc2dc12d48658f9019140",
+    "devguide/archive/resolved_bugs/water_box_triclinic_consumer_evidence.md": "38f53bb1104babb9a250b80d84bb544e491c0adb88967898373fa5500dbd79bb",
+    "devguide/molsysviewer_tools_api_inventory.md": "d3d3f73c46cbe2624c0c04ce36c92d1e7610a216d75f752dea6cf414a8caeb78",
+    "devguide/molsysviewer_tools_gui_design.md": "682c5279fbfe28b008dc8b9edecb9874cfed6f0d5323b52461c9defec1e13403",
+    "devguide/pending_bugs/README.md": "ab15cc83ae9e0cb1b5eb2340c6b2e43b880041b499a35b2b0c8caced2502ba29",
+    "devguide/pending_bugs/devguide_board_sync_truncates_issue_history.md": "b5fa2447c57a3fe49d8859aed3b459df85694e03238eb9252a7dec5e721e5e3a",
+    "devguide/pending_bugs/generated_ccd_reader_tests_leak_miniature_amino_acid_catalogues_across_tests.md": "be65693040bbb1be7aaca1a6345391d6fa62e36603545c80e2e23c3534e25f5b",
+    "devguide/pending_bugs/gro_source_naming_declarations_arrive_after_connectivity_inference.md": "fe928a430324378315ec7681b842e0313130b53fe8566e742c0e5d5dd66aae2a",
+    "devguide/pending_bugs/importing_the_group_classifier_module_replaces_its_public_callable_export.md": "795cf33e16da34c2de7e70c190869c98727f3f366e32fe444b82fdb2af39d04a",
+    "devguide/pending_bugs/mmcif_model_merging_mistakes_inequality_requests_for_ignored_labels.md": "838d328effc7e28aafdd884963cea403d0ee10f076dcde0933a4b27f9d25bc9f",
+    "devguide/pending_bugs/molecular_tools_completion_lost_on_refresh.md": "16bdcad2e8af49c7645b81b6c38a68279972e31867633c0f61bf327f1c796aa8",
+    "devguide/pending_bugs/molecular_tools_jupyter_summary_layout.md": "7b08f70317f63775142c4ff69b648a0d30a10bc46da056949074624921f839a0",
+    "devguide/pending_bugs/nglview_empty_workspace_tests_leave_links_referencing_closed_widgets.md": "7b591c82d146a04ec7bac7879c6888fb4e45083e68ff6ddddb636936bd2c628f",
+    "devguide/pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md": "f8953cf41cc632c4985f711c690607255f085e92d8bda1623afc9d238d5bf39f",
+    "devguide/pending_proposals/README.md": "851f6579c1a0f3afd6cf9519697367453f9e448ac32b625959556d134eeae470",
+    "devguide/pending_proposals/benchmark_baseline_comparability_and_competitor_gating.md": "bcb6fcc2cf3079d9e78299451be856e115b3fd3b918fc0f01f1cf3774c762406",
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": "a0caa8bd99c6b3e5262b6e2c88805896efbac933d1c90af291504bd7f74ce835",
+    "devguide/pending_proposals/native_molsys_force_reader_for_bound_consumers.md": "bb51f8e3504e68745eadd49f9e6093739f4fe9433ed9709fb97a90b37fd09b89",
+    "devguide/pending_proposals/protonation_removal_correspondence_for_bound_consumers.md": "69c2dab0a4cd5746bfa250738835b98e50dad96b460919e13db766d32ceaa198",
+    "devguide/release_1_0_status.md": "0f2a4ef0bc6eaf9d2c93b138e43ac450da976f7663911830e1d11f22527fa4ad",
+    "devguide/reporting_protocol.md": "5cbb48a6d3ff5f661da7e2e61da58c5d6e90764c74b0bf6722e2c1ae29ee4190",
+    "devtools/data/devguide_board_pagination_receiving_20261105.json": "f5b46a43af86dcc4940d0b5a3722d90a8796c6f338b7d4caf52718b7b7284d32",
+    "devtools/data/molsysviewer_tools_alternate_site_receiving_20261105.json": "d840ba386c60cc414a9fea0bc9124ce15317a8b956a3e6a06064244f6d6bdab4",
+    "devtools/data/molsysviewer_tools_alternate_site_repaired_receiving_20261105.json": "f84ba93034d94cd40550b2c95057dfc97adad0f02e798b2e12af4eeb5cb50780",
+    "devtools/data/molsysviewer_tools_atom_expansion_receiving_20261104.json": "3dc3911e29f7e923e6064b45c7b4783d48910cd6e0e1c0617ef488545acbc277",
+    "devtools/data/molsysviewer_tools_bond_addition_receiving_20261105.json": "085e4afedb7c7142a7af6ecc2ab9af91dc1e80c73a0c829bd04045f829f0f9d6",
+    "devtools/data/molsysviewer_tools_bond_source_inventory_recovery_20261105.json": "04fe5fd8be51bb1c73eb61e562aec9965371fd600dd288c193c954112000ce9f",
+    "devtools/data/molsysviewer_tools_build_assignments_receiving_20261103.json": "015bc42f24f14da756f349f5826e7937ab2cd1d8a0fc9d85dcc7547419dbf1ee",
+    "devtools/data/molsysviewer_tools_builder_overlap_receiving_20261104.json": "92a584671d12be6176328f9e2e70a28e9000fddb2c1721516c5a846b3585e448",
+    "devtools/data/molsysviewer_tools_element_domains_receiving_20261103.json": "46b4d723a94cf3de73a4849bbd79b8979bbc5d04a4d373a9bce7e293ae89b7f8",
+    "devtools/data/molsysviewer_tools_element_hierarchy_receiving_20261103.json": "b90c06dfe3cd234d48679344ec21f395addc78defa8a4dba78dc511282183a01",
+    "devtools/data/molsysviewer_tools_element_labels_receiving_20261103.json": "d0f46e5621bc5b01869bb1c47ee6d32efb1c18b77bf22662e81c7287eac81312",
+    "devtools/data/molsysviewer_tools_element_templates_receiving_20261103.json": "512cbe50b28656f12c3df70502923b20996f9a2cae4d5bc8bbd8c14af92d86dd",
+    "devtools/data/molsysviewer_tools_element_utilities_receiving_20261103.json": "66d46dc022478c8ab8d144eed35752c39933c7d95a83dd74537a3e096a368fd6",
+    "devtools/data/molsysviewer_tools_energy_receiving_20261104.json": "d481b6b3a401421219b59b638104c1c4613ea7d23294a3c2ae90d8b56165021b",
+    "devtools/data/molsysviewer_tools_gui_design_receiving_20261105.json": "4f71808dc9d9ab074715ddbacb77153cbf1c2fd6b803c9b182e068a813504cc8",
+    "devtools/data/molsysviewer_tools_hydrogen_terminal_receiving_20261104.json": "8e11e0d07529c08b63169965fb2c8c087c54dff92bf28ffe308300a1e13d8f1a",
+    "devtools/data/molsysviewer_tools_independent_build_receiving_20261104.json": "e4b2c47f26f1cc4f7117111dc64afe340b4627dfb12341fe9bdf80cf5089fbd2",
+    "devtools/data/molsysviewer_tools_jupyter_receiving_20261105.json": "ade52ec6283e07acecbd8fdd6b5597405e941b8ab2b19d7637603ebdf5d36d65",
+    "devtools/data/molsysviewer_tools_mechanics_receiving_20261104.json": "409166300d67dc5a2a622e9c3b9faf423a9f7bba6a4117236f361f7a02234427",
+    "devtools/data/molsysviewer_tools_mechanics_repair_receiving_20261105.json": "82d3fe86d37637581689ac318f58f3dbbb18e37e82ec80d7f1df017c13a00b5f",
+    "devtools/data/molsysviewer_tools_minimization_receiving_20261104.json": "a7182c77432f9da8a5652db274fb398c55f1498a36f9c4001494678ce2648607",
+    "devtools/data/molsysviewer_tools_mutation_mask_handoff_20261105.json": "c8896daab5c357b6643aa10be1e9bbc6dc6fbd7ad61fc62683cee6c04474fc82",
+    "devtools/data/molsysviewer_tools_name_projection_receiving_20261104.json": "9d3b71d54948e31d0bc9220bd32e923ef553928e47a3ec70a78e4c3d41889f1f",
+    "devtools/data/molsysviewer_tools_naming_cutover_receiving_20261105.json": "6be7a15d1bfe2e9b11b91394017111f25b632c07e8151215084202b2daac3e38",
+    "devtools/data/molsysviewer_tools_native_model_ion_receiving_20261105.json": "cf1d97114842bbc285128a5075582923f48c919fa683dcb4fa261073457da2f4",
+    "devtools/data/molsysviewer_tools_navigation_receiving_20261105.json": "34a5a760dd26a8822994fcb123ceaadf3f216677a21770fa398a1a799a787f4d",
+    "devtools/data/molsysviewer_tools_nonbonded_receiving_20261105.json": "0fd1f99828952aba0cbcfe89f6686287c4cc32bfb4ce312cd339186d8afddfb3",
+    "devtools/data/molsysviewer_tools_peptide_sequence_receiving_20261104.json": "909d51eb8cd3fa9348d82d0feea67ef2cbada81b7eabdc46a9d994e13d22df05",
+    "devtools/data/molsysviewer_tools_platform_receiving_20261105.json": "97d64c922ffa7b091810d99b9f92aafebf8ac58ba9a79c1890c6be8cf8afe64a",
+    "devtools/data/molsysviewer_tools_protonation_receiving_20261105.json": "5d344cc19a689717c40b50ef94c1f64030d426381535f59e4e814ef6e093016a",
+    "devtools/data/molsysviewer_tools_reference_map_receiving_20261104.json": "bc07dd5e1056ea643ab1db6ab888cf9b8036fbd56611bcf923a6a6bc907345cc",
+    "devtools/data/molsysviewer_tools_solvation_predicate_integration_20261105.json": "fb368e59f22f3acc41d4baa94e4fae3f6059999ad95a7df2b928a08ba8640e92",
+    "devtools/data/molsysviewer_tools_solvation_receiving_20261105.json": "4f1a60023d9beb77e6cb1f2f1d622f047249ace6aa12637ffc48c370448f78cc",
+    "devtools/data/molsysviewer_tools_system_panel_receiving_20261105.json": "f32adb2647a01399b00024967357fe0cbdc874dc85967b0286957a3959c4509a",
+    "devtools/data/molsysviewer_tools_water_factory_receiving_20261105.json": "b841b3543c86082d2656c2dfeeda816de8b2b7693dd2f446e870cbba8fc763b4",
+    "devtools/data/molsysviewer_tools_waterbox_native_receiving_20261105.json": "84716216e4eb4a9ee13dc983af9c20afcd224fc85c70b5eb178d65e076da2e97",
+    "devtools/dependency_contract.toml": "2a983e95465129b76481c0931a580b98a8a2ec8b57fa688fc8301c14afc6d3e1",
+    "devtools/prototypes/molsysviewer_tools_workspace.html": "735c84fe150f2a279ea8ab0dedbfa0b61ac2e80a6df8276423d8706c2706ce07",
+    "devtools/scripts/devguide_issue.py": "571defe4f0288214b02b45af4fb4178a8c132ede50718c18ec9462503f20bee1",
+    "devtools/scripts/viewer_tools_contract.py": "528079097a278e2e8a2dbbd7319e20dbeffed3a39d6ecb2491371e1bc44613c9",
+    "devtools/tests/test_devguide_issue_pagination.py": "8355a8c293e57411fa64b97a2284d0fa10b4f750485e677e66a5a62e282c2999",
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": "3fa579808ba661d97de8912eebbe523ee19e70557f457246b59656cf524cc377",
+    "devtools/tests/test_native_viewer_integration.py": "719080a9c1c2e3fe76bd588b1eb04afe551b3edf2b8df21e5b0ae8e29cd0c48d",
+    "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb": "53619b6088d274a6a0e7246fa7d0c0a5de7e53fba5101876ff3d6ac9618b59e7",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.AGENTS.md": "4ee4eb41aaae9ef16f0c4ca8f6312c34f57d53129fb6bffef66e4a07a3f13e1b",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "308bd11b5f5933f917d5c915fe79dee2b118bc2f091731a733d8e6117bc6c2d4",
+    "docs/content/course/Common_Core/16_Structural_Operations.AGENTS.md": "b807b9600d600c8fd709e61578440f818a4a0700c28ec754d8f9a1a68a7a2d9d",
+    "docs/content/course/Common_Core/16_Structural_Operations.ipynb": "7a044b77d289bf90347210c609008e3fcbf8397cd0c3190c3126862d60f71b3a",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.AGENTS.md": "ca0ffa9b7c2a8091816cc9d035e41cc8fa1b1d86916a0c8c3b15fe88aa29367d",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": "595b97237a69c2aaf7a9ab1b154fb34580358a6d6378e7879061b8f0d7184d28",
+    "docs/content/user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.md": "5160de9e622d4be68e48793c4992126440b883d07036505db2517954b34378d8",
+    "docs/content/user/tools/basic/convert.ipynb": "e5c087b110d3d34649f8b4b4a75b85ef0bcc47a87c2932ceff0d34bd9f3ae0c0",
+    "docs/content/user/tools/molsysviewer_tools.md": "f1dae526d5b437deeead9dec3cbb7572e173beec67cc4b48af89b2955de21d5d",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "02d6d1771754b32ce05d897b0d03152686e04f1b683f972bd7898a658c58b861",
+    "docs/docs_manifest.yml": "86691ce282ffba4a440f9dbeae7db08ffbe4ed313ebc2edbf963355d91f36bb3",
+    "molsysmt/_private/naming_conversion.py": "2ea31b91f6905c3c903a4e0f56fd6ddbb22cf8f95ca205e2ffe55051fa9baae7",
+    "molsysmt/basic/convert.py": "4c17abbcc6b55487cd6f3fdbe5d2865a8849897698f88427c622fa3da64954ab",
+    "molsysmt/element/group/__init__.py": "c614815c378a5f3d651824f3b471917196811f8aa00c67f364b16218cb52c799",
+    "molsysmt/form/file_gro/to_mdtraj_Topology.py": "291186cb3edc8c1d28518ec999dcf98eaeca2fa82487706f050342e7977a7c8d",
+    "molsysmt/form/file_gro/to_mdtraj_Trajectory.py": "11c0f804a9f358973c5453314f828cca8da1369a2069b680bdcfbebb44556470",
+    "molsysmt/form/file_gro/to_molsysmt_MolSys.py": "5687dcd209bf020826082be6df14343490af83d7ea00cdaf8be5348816803296",
+    "molsysmt/form/file_gro/to_molsysmt_Topology.py": "b5dd6acfebcf3164c629cea1976336fd81a3c22feb388b00e55f9b7f8bdbd441",
+    "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py": "f18e046704de604b737aa30b40001ac02cbdd29809bb779141281e2b55a941c7",
+    "molsysmt/form/molsysmt_GROFileHandler/to_molsysmt_MolSys.py": "dc18f5c27ef94e990d3d6ea31f589928bc60289e13aebf0a952f36a5a67dfc6d",
+    "molsysmt/form/molsysmt_GROFileHandler/to_molsysmt_Topology.py": "f3a45f1c1b83d437fc24dc24b0295f7dcee1014f6cd9c3bdf36347b90060adb2",
+    "molsysviewer_molsysmt/_api.py": "295f8359723cdbb7f0a9d8ee485ae0f0667a963492e815bac794f3c3d183faf5",
+    "molsysviewer_molsysmt/_basic.py": "952876fdb539dc998aa5a94ba3c65004db3e1eb261afb8081ef22403647e4ca4",
+    "molsysviewer_molsysmt/_build.py": "a72aa60b09ca646ab6930c0f52184df1306fa6540a6bf73d0152805de285fa49",
+    "molsysviewer_molsysmt/_chemical_edits.py": "93f81026f0642818ea3b7006c108f42f43c564ae4c37f77e179a1adfd1dbe2e7",
+    "molsysviewer_molsysmt/_element.py": "607c67e2eb303b6646d76effda34d61b24f3a39ac46f320b0e53669b336ca3e1",
+    "molsysviewer_molsysmt/_element_common.py": "e132788a349eb3d2004356812ad19f4aee21a186ff0965721d05478171c68d1e",
+    "molsysviewer_molsysmt/_element_domains.py": "7723bf325646abaa97a2c09368b71e0b42ed30807b893a9df3796e4512f07c12",
+    "molsysviewer_molsysmt/_element_hierarchy.py": "cb7e10e0e417286d6dd11ec4bab3c776f0e303119830c9c2bfaec104446eebe6",
+    "molsysviewer_molsysmt/_element_labels.py": "fc5650452397eb0663a1741fea7de3b089400af254968f35d2a6c12b4c6f128c",
+    "molsysviewer_molsysmt/_element_templates.py": "318129e46fbbe8a79f6fc723c7bc2925a558bf52e4f59c1822cd1b5b0f4750b2",
+    "molsysviewer_molsysmt/_geometry.py": "872462cca0b87bb28dda17d9d8d336dd1ecef8e5ae1617fc990f3b6a05a7e413",
+    "molsysviewer_molsysmt/_interactions.py": "55fa52fe35feea0b28b1a9b1e866c6ef75f140bbaafd7d954338035ed7559ff4",
+    "molsysviewer_molsysmt/_molecular_mechanics.py": "853846bd3bf41244bea91fed00c611cc8b330ecd55ef604ff28293f34b29df1f",
+    "molsysviewer_molsysmt/_panel.py": "19dd2ad4965e2840388ad7fa06c79f9d0204b4756c3cad68d0d8cbcda4c04e76",
+    "molsysviewer_molsysmt/_panel_frontend.py": "e4179c2dfb08af296f574a3eef1e4734dce3fe99b28019148b3eb70df2d9e2c6",
+    "molsysviewer_molsysmt/tools.py": "ba02f93d0b77638eeff2b683affd6a6846d6b3ead3f92eb76bea204d6ce09b72",
+    "tests/basic/view/test_empty_view_contract.py": "547780ee2c2700f743baa70c02863a78e5c508baaa10b0bd84c359c8ebcc1055",
+    "tests/conversion_truth/test_pdb_fidelity.py": "d6561838b9d228d0e26117f16482f8d164ec14ce364965320fab37cfa828cec0",
+    "tests/data/databases/test_ccd_generators.py": "e9aee5dc3000171c6e2e63e76ab439d2b363a795ae39b404e3901c91b289589a",
+    "tests/element/group/test_name_recognition.py": "8022b6cbc67cf90288e17ea3719ec29a863f86ba5042323debea81ebf4eb9334",
+    "tests/form/file_gro/test_mdtraj_connectivity.py": "05165be6187aabba72619f891da6636bab596ebb2493c95387f075cd299fe621",
+    "tests/form/string_pdb_id/test_to_mmcif_PdbxContainers_DataContainer.py": "6175a1321f58766254f78d1ad62b9f986806bae0ef7a571eb83001aa918b36ac",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "fb8d6274185ecedb72929e087cb4b3cee29c9389c5579fa948e1bb7d1631ab70",
+    "tests/molsysviewer_molsysmt/system_panel_bridge.py": "67d7d8630a1f3d103bb5c57c30f91a30bbaf62e8cc4ba621f78553c8efea8fce",
+    "tests/molsysviewer_molsysmt/system_panel_browser.mjs": "d730e6eadfaed4d7daa39457b8c1aa8723fdba4fdf7673832c62ad7d9e5f1553",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.mjs": "6daaa475356433103cb13dd66300aad722b76b339809b83c67d0db9ba31d0fa2",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "282c1c3c953ddd03a3aad6d9758fe514c11cf823fee4690541c8ba206489aa33",
+    "tests/molsysviewer_molsysmt/test_build_alternate_tools.py": "e4a2cb567f6b043b3596a6910ee05fceb27a00e31cc83ad4f8db79aed0c2bfd9",
+    "tests/molsysviewer_molsysmt/test_build_assignment_tools.py": "beed5a72a8d604d6a8e26129071a03ce3bd1df7b605a622993b3618cf8e6bedd",
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": "761058b929b71d25b5914644fe049368bf31a82d1097fa90292a950eaae16b83",
+    "tests/molsysviewer_molsysmt/test_build_bond_edit_tools.py": "b6fc37053839d6d0fd208c4d06ca6e558a2bd99b85d16be8f46262978b03b941",
+    "tests/molsysviewer_molsysmt/test_build_diagnostic_tools.py": "25972c3c59d65a0c25057a66390378651489f7944b5a29362be08a333fa42fc4",
+    "tests/molsysviewer_molsysmt/test_build_expansion_tools.py": "b0cfe7717ab6aab7fcf63abcac523030ca980fbd0eacc07e13f4e15cea3d36af",
+    "tests/molsysviewer_molsysmt/test_build_independent_tools.py": "e59e915a1af5e49f86b8bae231b4eae691c0341f28da342dafe173b8e490139f",
+    "tests/molsysviewer_molsysmt/test_build_name_projection_tools.py": "a2a59e7321b4f4f7fd2a6eb561f9b5dd5b6c199a41d0b6e0ebc5904bcc2f22d6",
+    "tests/molsysviewer_molsysmt/test_build_preparation_tools.py": "f486bc51560169ef8dfd9389511ae4dade12ec2a232be901ca5fe00910fb086e",
+    "tests/molsysviewer_molsysmt/test_build_sequence_tools.py": "44fafad8f21f9022851c03c98cca4fb5ee00444dd8d77f5005e1f00c1470868f",
+    "tests/molsysviewer_molsysmt/test_build_staging_tools.py": "9c963c252387b25c2594f3a0b197b1b55b08b004a172aacef2355c1bcdec7151",
+    "tests/molsysviewer_molsysmt/test_element_domain_tools.py": "3a3fff85fb7fbd747efe0d932eaf62debf0eaeff50dc950ccdfc795d55528bb5",
+    "tests/molsysviewer_molsysmt/test_element_hierarchy_tools.py": "5ac4a951be0f5f5f757493ba655cd2db4f82e7fcf7dbd4bdb3b3b86af7eb8c2c",
+    "tests/molsysviewer_molsysmt/test_element_label_tools.py": "93ce08d46b8d725708010ca80b3c18e6475ff6df70965efdd6416f810dfab865",
+    "tests/molsysviewer_molsysmt/test_element_template_tools.py": "c946f110da1ccb00f15ffce30ed0b489a3fd0817a4a30ebcf335db7fea76e01e",
+    "tests/molsysviewer_molsysmt/test_element_utilities.py": "ac3cb605c8642fa708cb74724c0530652508d30ede424ffc331871855a29ab38",
+    "tests/molsysviewer_molsysmt/test_ion_tools.py": "7cf3df5216da600a084cac4132f0f210400480521af2bfaf7dc6178130583c39",
+    "tests/molsysviewer_molsysmt/test_minimization_tools.py": "7573719821c54ab9eb6126885258dea6572e02040a44c707244e4a3ae5c1d905",
+    "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py": "2a9daad38799b5ba8b87bf0d1b4977f93285979719af083703a06d7d9250ee88",
+    "tests/molsysviewer_molsysmt/test_naming_context_tools.py": "660e144a478854dd8957168be29c5c747adefb857ccdbccf6876f57e35c25cff",
+    "tests/molsysviewer_molsysmt/test_native_receiving_583_584.py": "0a56b35fc47ce5210b4755f4880dc28fff37bfddffa1dfa13225500e77ae11ac",
+    "tests/molsysviewer_molsysmt/test_navigation_tools.py": "7a1fab86477cbde3fa91b8d70f69a7f9f3060584ee6c6dcf6742996332f5fdee",
+    "tests/molsysviewer_molsysmt/test_nonbonded_energy_tools.py": "d7300f39d01526ddfc221a74447faea25cbecec0d4395bad92373c7bf13bcb2a",
+    "tests/molsysviewer_molsysmt/test_protonation_tools.py": "1fcadef7b3d20023a7dd8a9e6715c6a3bf39eaf1eef94010c9c59312f72991c5",
+    "tests/molsysviewer_molsysmt/test_solvation_tools.py": "56409abb718a517251992af5a135598adb96705dda2688e46d6657790e5e8c7c",
+    "tests/molsysviewer_molsysmt/test_system_panel.py": "62f4ca32c832e94c6b2701b26ea6e7098cd1f7c3a93c82dff505ba72bdc3d30b",
+    "tests/molsysviewer_molsysmt/test_water_box_tools.py": "aef37063a3abae04513db4937b3632f36576e161c51b231b5c65a3ce05cbb311"
+  },
+  "original_notebook_code_and_metadata_preserved": [
+    "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+    "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+    "docs/content/user/tools/basic/convert.ipynb"
+  ],
+  "hosted_baseline": {
+    "run": 42153312659,
+    "status_at_inspection": "four Linux failures; four macOS jobs queued",
+    "linux_python": [
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ],
+    "failures_per_linux_job": 33,
+    "cause_issues": [
+      594,
+      595,
+      596,
+      597,
+      598
+    ],
+    "stale_expectations": [
+      "full source occupancy is retained",
+      "stable atom IDs cannot disagree across chosen alternate locations"
+    ]
+  },
+  "remaining": [
+    "receive new PR/Viewer delta separately",
+    "qualify one combined exact source candidate through required full gates",
+    "complete #593 preparation route separately",
+    "installed/platform/release qualification under #334"
+  ],
+  "limits": [
+    "shared environment pip check has tracked optional closure conflicts (#524), including Praxis/PyUnitWizard",
+    "no GPU qualification, release artifact, tag, release or promotion",
+    "the provider global-widget export limitation is not fixed by test fixture cleanup",
+    "original owner main and Viewer dirty worktrees preserved"
+  ],
+  "result_note": "4,944-case combined selection preceded the final explicit inference-opt-out keyword addition; the separate 11-case conversion control verifies that addition. Required final candidate gates remain pending.",
+  "hash_scope_clarification": "The source_hashes inventory records bytes observed during first receipt assembly; operational ledgers changed before that checkpoint commit. Runtime/guard hashes identify observations, not an assertion that every operational-document hash equals the final checkpoint. The second owner receipt and immutable Git candidate identify the expanded tree."
+}

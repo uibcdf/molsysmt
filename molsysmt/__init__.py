@@ -136,6 +136,10 @@ _LAZY_ATTRIBUTES = {
     "NotWithThisFormError": ("._private.smonitor", "NotWithThisFormError"),
     "FileAlreadyHandledError": ("._private.smonitor", "FileAlreadyHandledError"),
     "FileContentError": ("._private.smonitor", "FileContentError"),
+    "ChemicalReferenceLookupError": (
+        "._private.smonitor",
+        "ChemicalReferenceLookupError",
+    ),
     "warn": ("._private.smonitor", "warn"),
     "warn_once": ("._private.smonitor", "warn_once"),
 }

@@ -9,6 +9,7 @@ def to_molsysmt_Topology(
     *,
     get_missing_bonds=True,
     bond_inference_engine=None,
+    from_naming_scheme=None,
 ):
     """
     Converting from file:pdb to molsysmt.Topology.
@@ -30,10 +31,15 @@ def to_molsysmt_Topology(
         Explicit 'MolSysMT' or 'OpenMM' engine, requiring get_missing_bonds=True.
         None retains legacy optional OpenMM inference with diagnosed failures.
 
+    from_naming_scheme : str or None, default=None
+        Source group-name convention declared before classification and native
+        inference. None leaves it undeclared; no chemical state is translated.
+
     Returns
     -------
     molsysmt.Topology
-        Native topology retaining source atom identity and declared bond evidence.
+        Native topology retaining stable source inventory and naming metadata.
+        Bonds and preparation history belong to ChemicalStates, not this projection.
 
     Notes
     -----
@@ -45,8 +51,8 @@ def to_molsysmt_Topology(
     >>> import molsysmt as msm
     >>> path = msm.systems["T4 lysozyme L99A"]["181l.pdb"]
     >>> topology = msm.convert(path, to_form="molsysmt.Topology", get_missing_bonds=False)
-    >>> msm.get(topology, n_bonds=True)
-    13
+    >>> msm.get(topology, n_atoms=True)
+    1441
 
 
     .. versionadded:: 1.0.0
@@ -66,6 +72,7 @@ def to_molsysmt_Topology(
             atom_indices=atom_indices,
             get_missing_bonds=get_missing_bonds,
             bond_inference_engine=bond_inference_engine,
+            from_naming_scheme=from_naming_scheme,
             skip_digestion=True,
         )
     finally:

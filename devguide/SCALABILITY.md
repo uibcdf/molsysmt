@@ -95,6 +95,26 @@ This source capability alone does not establish bounded memory for an entire
 public operation. Other public preflight calls can still materialize a 0.5
 file, and sparse/dense output storage needs its own budget.
 
+### Force evaluation working estimates
+
+`molecular_mechanics.get_forces` constructs one complete model context, filters
+atoms after evaluation and streams supported coordinate sources through
+`ChunkedExecutor`. A path to H5MSM 0.5 projects declared chemistry and one model
+structure before coordinate iteration; it does not load named analyses or the
+complete coordinate series. Multiple/competing structural sources require
+explicit alignment first. Native structures must share the reference chemical
+state. Other unsupported streaming compositions require a bounded eager read
+or fail explicitly.
+
+For `N` source atoms and `S` selected atoms, the numerical estimate reserves
+`256*N + 64*S + 4096` bytes per structure, plus 16 bytes per output scalar
+for the resident float64 result and its unit-presentation buffer. The block size
+is bounded by both this remainder and `configure.chunk_size`; preflight rejects
+an output that cannot fit with one work block before constructing a context.
+This is not a process-RSS or engine-allocation bound: the model, chemistry,
+engine buffers and caller-owned storage have additional costs. There is no
+checkpoint/resume, output streaming or disk-backed force-result contract.
+
 ### Plane fitting working estimates
 
 `structure.get_least_squares_plane` projects the union of complete selected groups and fills
@@ -398,3 +418,26 @@ calculations keep their eager route; no general force-mode support is implied.
 selected output bytes, quantity policy, bounded second reads, PBC, metadata and
 indexed PDBQT. Vector behavior remains covered independently after extracting
 the shared private delivery tools.
+
+## Prepared protonation removal
+
+`build.assess_protonation` reads inventory, naming and stored chemistry without
+copying coordinate trajectories on native `MolSys` and modular H5MSM paths.
+Modular assessment reads domain metadata and structure-state associations, not
+coordinate or interaction payloads. Other forms may require ordinary conversion;
+the operation does not promise universally bounded foreign-form conversion.
+
+The process-local assessment holds detached coverage, positional maps, references
+and fingerprints, plus weak source references where possible. Memory scales with
+atoms, groups, stored bonds/states and structure-axis metadata, rather than with
+the coordinate tensor. It is not a complete RSS limit, portable executable token
+or resource authentication mechanism. Changed inventory, naming, chemistry or
+axes requires reassessment; coordinate edits on unchanged axes remain valid.
+
+`ProtonationAssessment.apply` rechecks those assumptions and stages an ordinary
+complete native subset before in-place publication. Source and candidate can
+coexist in memory, including coordinates and analyses. Independent no-ops also
+copy data; true native in-place no-ops preserve domains. There is no streaming
+publication or automatic interaction recalculation. See
+[the preparation contract](structure_preparation_pipeline.md) and
+`tests/build/test_protonation_assessment.py` for the actual supported boundaries.

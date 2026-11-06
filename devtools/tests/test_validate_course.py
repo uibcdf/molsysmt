@@ -70,6 +70,18 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
         + "\n",
         encoding="utf-8",
     )
+    extra_targets = (
+        "user/tools/build/infer_covalent_bonds.md",
+        "user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.md",
+    )
+    for relative in extra_targets:
+        original = validate_course.REPO / "docs/content" / relative
+        header = original.read_text(encoding="utf-8").splitlines()[:2]
+        assert header[0].startswith("(") and header[0].endswith(")=")
+        assert header[1].startswith("# ")
+        target = source / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text("\n".join(header) + "\n", encoding="utf-8")
     (core / "index.md").write_text(
         (validate_course.COURSE / "Common_Core/index.md").read_text(encoding="utf-8"),
         encoding="utf-8",
@@ -117,7 +129,8 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
         "Course navigation\n=================\n\n.. toctree::\n\n"
         + "   course/Common_Core/index\n"
         + "   user/foundations/index\n   user/foundations/support/selection_syntaxes\n"
-        + "   user/foundations/molecular_system/naming_schemes\n",
+        + "   user/foundations/molecular_system/naming_schemes\n"
+        + "".join("   " + path.removesuffix(".md") + "\n" for path in extra_targets),
         encoding="utf-8",
     )
     assert {
@@ -144,6 +157,15 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
             if page.name in naming_pages:
                 assert (
                     'href="../../user/foundations/molecular_system/naming_schemes.html#user-foundations-group-naming-schemes"'
+                    in rendered
+                )
+            if page.name == "12_Building_Repairing_and_Auditing_Systems.ipynb":
+                assert (
+                    'href="../../user/tools/build/infer_covalent_bonds.html#tutorial-infer-covalent-bonds"'
+                    in rendered
+                )
+                assert (
+                    'href="../../user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.html#user-foundations-native-world-file-handlers-molsysmt-grofilehandler"'
                     in rendered
                 )
             if index < len(pages) - 1:

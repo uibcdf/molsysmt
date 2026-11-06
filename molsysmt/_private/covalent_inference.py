@@ -33,7 +33,9 @@ def _peptide_record(report):
     return output
 
 
-def apply(source, selection, structure_indices, chemical_state, return_report, syntax):
+def apply(
+    source, selection, structure_indices, chemical_state, return_report, syntax, method
+):
     """Apply missing eligible pairs to a copy and retain original report domains."""
     from molsysmt._private.preparation_history import append_report
     from molsysmt._private.smonitor import StructuralInconsistencyError
@@ -71,7 +73,9 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
         structure_indices=structure_indices,
         chemical_state=chemical_state,
         syntax=syntax,
-        method="observed_hydrogen_template_consensus",
+        method="observed_hydrogen_alias_consensus"
+        if method == "supported_group_templates_with_hydrogen_aliases"
+        else "observed_hydrogen_template_consensus",
         skip_digestion=True,
     )
     peptide = get_peptide_bond_candidates(
@@ -124,9 +128,9 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
     pairs = sorted(candidate_methods)
     report = dict(
         schema="molsysmt.covalent_inference@1",
-        method="supported_group_templates",
+        method=method,
         engine="MolSysMT",
-        rule_version=1,
+        rule_version=2,
         status="added" if added else "unchanged",
         source_forms=source_forms,
         n_atoms=heavy["n_atoms"],
@@ -166,6 +170,19 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
             for group in hydrogen["groups"]
         ],
         peptide=_peptide_record(peptide),
+        excluded_inference_policies=dict(
+            disulfides="retain_stored_edges_only",
+            metal_coordination="retain_stored_edges_only",
+            unsupported_group_geometry="disabled",
+            unsupported_group_indices=np.asarray(
+                [
+                    group["group_index"]
+                    for group in heavy["groups"]
+                    if group["template"] is None
+                ],
+                dtype=np.int64,
+            ),
+        ),
         invalidated_analysis_names=invalidated,
         connectivity_completeness=state.connectivity_completeness,
         unassessed_checks=[
@@ -175,11 +192,14 @@ def apply(source, selection, structure_indices, chemical_state, return_report, s
             "hydrogen_placement",
             "hydrogen_inventory_completeness",
             "polymer_sequence_order",
-            "terminal_caps",
+            "terminal_state_assignment",
+            "unsupported_terminal_groups",
             "unsupported_groups",
             "disulfides",
             "metal_coordination",
         ],
     )
+    if "hydrogen_name_policy" in hydrogen:
+        report["hydrogen_name_policy"] = deepcopy(hydrogen["hydrogen_name_policy"])
     append_report(state, report, state_index)
     return dict(molecular_system=output, report=report) if return_report else output

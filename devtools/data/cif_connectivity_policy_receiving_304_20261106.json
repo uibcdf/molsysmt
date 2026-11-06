@@ -1,0 +1,165 @@
+{
+  "schema": "molsysmt.cif-policy-receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#304",
+  "status": "local policy correction; entire #304 remains partial",
+  "base": "282e8337e04c14003622c19a359b7cd35d2b5e4b",
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "development_environment": "existing shared Python; no environment created or package installed"
+  },
+  "changes": [
+    "validated keyword-only reader policy across native CIF/BCIF/gzip/identifier paths",
+    "mapped explicit edges/orders retained before optional inference",
+    "disabled output remains partial without candidate-tool or OpenMM calls",
+    "generated converter-argument inventory matches actual signatures"
+  ],
+  "inputs": {
+    "molsysmt/_private/argdigest/domain/converter_arguments.py": "0644a76225bdc7e603400b7a436baf5a7cad1bbc6d951857d9019c83527cc780",
+    "molsysmt/form/file_bcif/to_molsysmt_MolSys.py": "3e5683313b174ccd23c4ff5705ab07fac764136e12949f5b5d64fa31d78b0261",
+    "molsysmt/form/file_bcif/to_molsysmt_Topology.py": "15e9e22dc6e6dcd38d0615e63bc2d1450e4cdc096e3677fd26ee3f4884404992",
+    "molsysmt/form/file_bcif_gz/to_molsysmt_MolSys.py": "81ab73f2a607a71ee80935e97bfbbf670346b010628ca981f490b4ed4c533810",
+    "molsysmt/form/file_bcif_gz/to_molsysmt_Topology.py": "9218eac84f22f8a26084758895b1e461f4ebb7b52476071fa883c8c4d1564da8",
+    "molsysmt/form/file_cif/to_molsysmt_MolSys.py": "5afeff2f5541f0e1a6033b7ff8c39d8d770b7134e517ffc30226b823f687d04d",
+    "molsysmt/form/file_cif/to_molsysmt_Topology.py": "e7e5c3dd867b186a7ed1283e7f78c15792f0bde48e851e5904173f57394d95e4",
+    "molsysmt/form/file_cif_gz/to_molsysmt_MolSys.py": "559ee8b72a40766891e589a756a9f394646812e37581549013da43235a73931b",
+    "molsysmt/form/file_cif_gz/to_molsysmt_Topology.py": "88fce8d942e5b7ef3e9d901744e9198bc106eb025b9468b50614696d0b3938d3",
+    "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py": "c97519c69bd2545fcb93945c651021b10aeba870a354d14dd6a351021b261581",
+    "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_Topology.py": "d2d7d81743f0624391e21fd98e164253d120f1badc29b7ee79e2573fb7ee2987",
+    "molsysmt/form/string_pdb_id/to_molsysmt_MolSys.py": "4e5be7a0f8d0ff6308da0cb1c9200e6e6fffee986794f7d83e6645f6e0fceccc",
+    "molsysmt/form/string_pdb_id/to_molsysmt_Topology.py": "a6b5d87b9ba5fa7e88ee91b8f2b5046d44c1115e0f6a68ea5114668273d6aa96",
+    "tests/form/mmcif_PdbxContainers_DataContainer/test_connectivity_policy.py": "db35c150edab6d1854354648cff068dcebad76cb11b72da35a7a477250a2fbfc"
+  },
+  "backend_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+  "receipts_overlap": true,
+  "results": [
+    {
+      "local_receipt": ".pytest_cache/304-cif-complete-policy.xml",
+      "sha256": "d8cab3adaf3ebb5c8e1db9969824538ab9c075bc920c5dcf0a6ae7c6e2aa3621",
+      "suites": [
+        {
+          "tests": "26",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "6.754"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/304-cif-affected-regressions.xml",
+      "sha256": "4acacfd9a3f84bdeec49f6bd06e9a7490a18ff77ef37c622228afcf2de7139c2",
+      "suites": [
+        {
+          "tests": "864",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "34.084"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/304-inference-final.xml",
+      "sha256": "523270f3b00849542941a205cca278ec1cb4bef75c42872fd6627b0e2102720b",
+      "suites": [
+        {
+          "tests": "279",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "18.049"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/304-cif-final-contract.xml",
+      "sha256": "db54aadde04682d506282362954ba6d331c9823c80ae26c50daf54fa10105ebb",
+      "suites": [
+        {
+          "tests": "47",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "11.287"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/304-cif-floor.xml",
+      "sha256": "1daa281f85213932885d3e435f6e2d195c69c8977e950e00ccc30fa62043ef9d",
+      "suites": [
+        {
+          "tests": "51",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "16.526"
+        }
+      ]
+    },
+    {
+      "local_receipt": ".pytest_cache/304-cif-docs.xml",
+      "sha256": "078fa1cefa3da95856e4b6b305ccd64c3efc3a66cc49d5316e72722ea65780aa",
+      "suites": [
+        {
+          "tests": "1072",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "44.612"
+        }
+      ]
+    }
+  ],
+  "published_floor_origins": {
+    "argdigest": {
+      "origin": "argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+      "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+    },
+    "depdigest": {
+      "origin": "depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "origin": "smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+      "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+    },
+    "ackredit": {
+      "origin": "ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+      "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+    }
+  },
+  "original_notebook_code_and_metadata_preserved": [
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+    "docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb",
+    "docs/content/user/tools/form/file/file_bcif.ipynb",
+    "docs/content/user/tools/form/file/file_bcif_gz.ipynb",
+    "docs/content/user/tools/form/file/file_cif.ipynb",
+    "docs/content/user/tools/form/file/file_cif_gz.ipynb",
+    "docs/content/user/tools/form/string/string_pdb_id.ipynb"
+  ],
+  "earlier_failures": [
+    "ten disabled-route controls reached candidate inference",
+    "partial template mapping discarded a deposited explicit double bond",
+    "draft assumptions about external atom order/native model labels were corrected; label loss separately reported as #600",
+    "inference selection 278 passed/one generated-inventory guard failed; regeneration plus final 279-case repeat passes"
+  ],
+  "remaining_304_scope": [
+    "native chemical/naming/terminal/disulfide coverage and independent explanations",
+    "complete declaration diagnostics",
+    "representative cold/warm timing, memory and storage evidence"
+  ],
+  "separate_work": [
+    "new DockingMT #599 retained without reordering the goal",
+    "#600 model-label delivery reported, not implemented",
+    "frozen #543 candidate and its live full CI unchanged",
+    "remaining ordered issues are not declared resolved"
+  ],
+  "limits": [
+    "not an installed MolSysMT/Viewer package qualification",
+    "four published support payload floors are tested; this is not every runtime minimum",
+    "no claim of complete chemistry, performance improvement, release readiness or publication"
+  ]
+}

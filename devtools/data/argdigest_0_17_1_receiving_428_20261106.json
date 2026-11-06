@@ -1,0 +1,323 @@
+{
+  "schema": "molsysmt.argdigest_public_patch_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#428",
+  "consumer_source_commit": "99fb2a67b0d454029dfc156304414870cd52aef0",
+  "consumer_tracked_source_clean_at_execution": true,
+  "provider_source_commit": "c9c9ee623dab5331fdfa4227bd784dd38620e18b",
+  "mode": "Unmodified exact public Conda payloads on PYTHONPATH with the existing development interpreter; no package installation or new environment.",
+  "artifacts": [
+    {
+      "filename": "argdigest-0.17.1-py_0.tar.bz2",
+      "sha256": "5af09e12b0c3d344337f2a2d90ac8b5fcea5be8a8467694c41e3daac018c3899",
+      "bytes": 55828,
+      "metadata": {
+        "arch": null,
+        "build": "py_0",
+        "build_number": 0,
+        "depends": [
+          "depdigest >=0.11.0",
+          "python >=3.11,<3.15",
+          "smonitor >=0.16.0"
+        ],
+        "license": "MIT",
+        "name": "argdigest",
+        "noarch": "python",
+        "platform": null,
+        "subdir": "noarch",
+        "timestamp": 1793907753481,
+        "version": "0.17.1"
+      },
+      "verified_runtime_file_count": 48,
+      "runtime_inventory_sha256": "da8226784122047814f10a6210aecd28f56d51168a04c1bca439442dfad1e820",
+      "url": "https://conda.anaconda.org/uibcdf/noarch/argdigest-0.17.1-py_0.tar.bz2"
+    },
+    {
+      "filename": "smonitor-0.21.0-py_2.tar.bz2",
+      "sha256": "62b6cbae37f7fa06374af87923792f00253020955d000294b1a7d37eb9d04e56",
+      "bytes": 57219,
+      "metadata": {
+        "arch": null,
+        "build": "py_2",
+        "build_number": 2,
+        "depends": [
+          "python >=3.11,<3.15"
+        ],
+        "license": "MIT",
+        "name": "smonitor",
+        "noarch": "python",
+        "platform": null,
+        "subdir": "noarch",
+        "timestamp": 1791960734678,
+        "version": "0.21.0"
+      },
+      "verified_runtime_file_count": 50,
+      "runtime_inventory_sha256": "af207640ca98b1682a8489510aba070a0a9dec949f68ea899aa7e5aa4658404d",
+      "url": "https://conda.anaconda.org/uibcdf/noarch/smonitor-0.21.0-py_2.tar.bz2"
+    },
+    {
+      "filename": "depdigest-0.15.1-py_0.tar.bz2",
+      "sha256": "2765c692de4e6aacff4197c4226ebb42ec1f0df9edb27e92f196ef1390cb1850",
+      "bytes": 32244,
+      "metadata": {
+        "arch": null,
+        "build": "py_0",
+        "build_number": 0,
+        "depends": [
+          "python >=3.11,<3.15",
+          "smonitor >=0.13.0"
+        ],
+        "license": "MIT License",
+        "name": "depdigest",
+        "noarch": "python",
+        "platform": null,
+        "subdir": "noarch",
+        "timestamp": 1791922874694,
+        "version": "0.15.1"
+      },
+      "verified_runtime_file_count": 26,
+      "runtime_inventory_sha256": "6af18255ca9c93f9a8d131014ec13ec30bdeee389272bf220543cdf2f599dbe1",
+      "url": "https://conda.anaconda.org/uibcdf/noarch/depdigest-0.15.1-py_0.tar.bz2"
+    }
+  ],
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "runtime": {
+      "argdigest": {
+        "module_origin": "PUBLIC_PAYLOAD_ROOT/argdigest/site-packages/argdigest/__init__.py",
+        "module_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee",
+        "distribution_version": "0.17.1",
+        "module_version": "0.17.1"
+      },
+      "smonitor": {
+        "module_origin": "PUBLIC_CONDA_CACHE/smonitor-0.21.0-py_2/site-packages/smonitor/__init__.py",
+        "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+        "distribution_version": "0.21.0",
+        "module_version": "0.21.0"
+      },
+      "depdigest": {
+        "module_origin": "PUBLIC_CONDA_CACHE/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "distribution_version": "0.15.1",
+        "module_version": "0.15.1"
+      },
+      "molsysmt": {
+        "module_origin": "CONSUMER_SOURCE_ROOT/molsysmt/__init__.py",
+        "module_sha256": "bfdcf6e83f9038c96475db435122a9a1c1d7475d5b301af80270990376dacb16",
+        "distribution_version": "0.23.0+201.g3502232d8.dirty",
+        "module_version": "0.23.0+201.g3502232d8.dirty"
+      },
+      "pyunitwizard": {
+        "module_origin": "SIBLING_SOURCE_ROOT/pyunitwizard/pyunitwizard/__init__.py",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+        "distribution_version": "0.29.1+6.gf82b618",
+        "module_version": "0.29.1+6.gf82b618"
+      },
+      "numpy": {
+        "module_origin": "DEVELOPMENT_PREFIX/lib/python3.14/site-packages/numpy/__init__.py",
+        "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a",
+        "distribution_version": "2.4.6",
+        "module_version": "2.4.6"
+      },
+      "ackredit": {
+        "module_origin": "SIBLING_SOURCE_ROOT/ackredit/ackredit/__init__.py",
+        "module_sha256": "43264d45f63ed941ac032aed67c882543a952bc6f58a3555e1a100a5d7b13533",
+        "distribution_version": "0.12.1+2.ge233973",
+        "module_version": "0.12.1+2.ge233973"
+      },
+      "pytest": {
+        "module_origin": "DEVELOPMENT_PREFIX/lib/python3.14/site-packages/pytest/__init__.py",
+        "module_sha256": "ee37885c9583f843390684dfb496907f87a0905128e7a3cf4ad227f49ff34c2d",
+        "distribution_version": "9.1.1",
+        "module_version": "9.1.1"
+      },
+      "pytest_receptor": {
+        "module_origin": "PUBLISHED_TOOL_PAYLOAD_ROOT/pytest_receptor/__init__.py",
+        "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b",
+        "distribution_version": "1.2.1",
+        "module_version": "1.2.1"
+      },
+      "molsysviewer": {
+        "module_origin": "CONTROLLED_VIEWER_SNAPSHOT/molsysviewer/__init__.py",
+        "module_sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4",
+        "distribution_version": "0.24.0+97.gdf4bf477.dirty",
+        "module_version": "0.24.0+97.gdf4bf477.dirty"
+      }
+    },
+    "consumer_source_commit": "99fb2a67b0d454029dfc156304414870cd52aef0",
+    "consumer_tracked_source_clean": true,
+    "version_identity_note": "MolSysMT takes its version from active distribution metadata in this source profile. That shared editable metadata is not the source identity; the exact Git head, file hashes and actual module origins identify this receiving input. MolSysViewer source and distribution metadata versions may also differ."
+  },
+  "smonitor_floor_profile": {
+    "runtime": {
+      "argdigest": {
+        "version": "0.17.1",
+        "origin": "PUBLIC_PAYLOAD_ROOT/argdigest/site-packages/argdigest/__init__.py",
+        "module_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+      },
+      "smonitor": {
+        "version": "0.16.0",
+        "origin": "PUBLIC_CONDA_CACHE/smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+        "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+      },
+      "depdigest": {
+        "version": "0.15.1",
+        "origin": "PUBLIC_CONDA_CACHE/depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      }
+    },
+    "smonitor_artifact": {
+      "filename": "smonitor-0.16.0-py_1.tar.bz2",
+      "sha256": "a7f0ea073786354695c606e89959e67fcd4afc910a42683bba00955eb17163d7",
+      "bytes": 47252,
+      "digest_matches_cached_repodata_record": true,
+      "verified_runtime_file_count": 46
+    }
+  },
+  "consumer_receiving": {
+    "exit_code": 0,
+    "command": "python -m pytest tests/native tests/_private/argdigest tests/basic/get tests/basic/compare tests/cross_repo/test_smonitor_contracts.py -p no:smonitor --receptor=llm -n 12 --junitxml=consumer.xml",
+    "workers": 12,
+    "receptor_seconds": 38.66,
+    "warnings": 100,
+    "tests": 2542,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 38.593,
+    "junit_sha256": "9855bb35f9131a528707727fbdc631c8050e32b506efe4cab66848cbd03cb3c2",
+    "inheritance_cases": 100,
+    "ownership_cases": 14,
+    "smonitor_contract_cases": 9
+  },
+  "smonitor_floor_receiving": {
+    "exit_code": 0,
+    "command": "python -m pytest tests/native/test_inherited_constructors.py tests/_private/argdigest/test_contract_ownership_receiving.py tests/cross_repo/test_smonitor_contracts.py -p no:smonitor --receptor=llm -n 4 --junitxml=smonitor-floor.xml",
+    "workers": 4,
+    "receptor_seconds": 3.69,
+    "tests": 123,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 3.673,
+    "junit_sha256": "7d1dfd832c0e1e7ebdde987fbc8e3b0c2867ccba59ee102b60ddf0a846c37c9b",
+    "inheritance_cases": 100,
+    "ownership_cases": 14,
+    "smonitor_contract_cases": 9
+  },
+  "scientific_evidence": {
+    "command": "PYTEST_ADDOPTS=\"-p no:smonitor\" python devtools/scripts/execute_scientific_evidence.py --receptor=llm --require-clean --certificate=scientific-certificate.json",
+    "certificate_sha256": "76e0bbd4f4893abcdc2c8b0ab0856eadbb40e6216aee4376b22edc811c2aff8c",
+    "certificate": {
+      "schema_version": "molsysmt.scientific-evidence-execution@1",
+      "verdict": "pass",
+      "commit": "99fb2a67b0d454029dfc156304414870cd52aef0",
+      "tracked_source_dirty": false,
+      "release_eligible": true,
+      "created_at": "2026-11-06T12:22:07.274109+00:00",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "registered_nodes": 61,
+      "collected_cases": 83,
+      "passed": 83,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "nodes": [
+        "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+        "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+        "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+        "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+        "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+        "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+        "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+        "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+        "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+        "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+        "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+        "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+        "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+        "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+        "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+        "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+        "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+        "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+        "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+        "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+        "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+        "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+        "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+        "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+      ]
+    }
+  },
+  "fast_gate": {
+    "exit_code": 0,
+    "passed": 14,
+    "total": 14,
+    "captured_output_sha256": "1bbab4e27546f79c61a57f5a836536308a363e69b9d51ef5fe0323d1d4743153"
+  },
+  "source_hashes": {
+    "molsysmt/_argdigest.py": "2c3f81e86cda80d8f9aafb2b8f1003defd865f34d1c65759ca6c78e996cd621f",
+    "molsysmt/native/molsys.py": "d48254b7292bf2c2516c2e49ef8cfa49af91c1b1a1a6e4158e28da267afbc4a6",
+    "molsysmt/native/topology.py": "63396b967e3db08e9869531b145edba7815cb5a09d7aefd34410be0b3749e2ae",
+    "molsysmt/native/chemical_states.py": "1cce5ba70b6295eb0d6f8947c22ac5f292b9a5e335f6c87cf32f0c2d77202c77",
+    "tests/native/test_inherited_constructors.py": "8f0289f9bdcfe80bab9769f030fd2fc6ed1870e103588b5b79a4e7ceb783b128",
+    "tests/_private/argdigest/test_contract_ownership_receiving.py": "85c89297e9c6727085c613af2e08d94c94ea8e98fe7647e65f7185038fabf9ae"
+  },
+  "decision": {
+    "native_constructor_retained": true,
+    "contract_owner_adopted": false,
+    "global_contract_owner_changed": false,
+    "public_argdigest_floor_changed": false,
+    "runtime_sources_changed": false,
+    "synchronized_guide_copy_changed": false
+  },
+  "limitations": [
+    "Source consumer only. Clean installed receiving required by #428 remains pending under the candidate qualification route; this record does not close the issue.",
+    "Linux/Python 3.14.7 only; no complete OS/interpreter or final installed MolSysMT/Viewer pair claim.",
+    "Other runtime providers retain the exact recorded development/source origins; this is not an all-public dependency closure or a clean solve.",
+    "Only the incompatible development SMonitor pytest plugin was disabled; runtime SMonitor remained active and its nine consumer controls passed in both profiles.",
+    "Shared editable distribution metadata version strings are retained as observed, not mistaken for exact source identities.",
+    "Scientific certificate release_eligible is not release or registry-mutation authorization."
+  ]
+}

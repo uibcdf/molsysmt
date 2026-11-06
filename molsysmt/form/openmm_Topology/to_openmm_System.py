@@ -45,11 +45,17 @@ def to_openmm_System(
         Physical constraint policy: None/'none', 'hbonds', 'all bonds' or
         'h angles'. The adapter translates these names to engine constants.
     switch_distance : object, default=None
-        Argument switch_distance.
+        Length where Lennard-Jones switching begins, in nm or another physical
+        length unit. Must be a finite scalar from zero up to, but excluding,
+        the constructed force's cutoff. NoCutoff and LJPME reject this option.
+        None preserves the force field's switching policy.
     dispersion_correction : object, default=None
-        Argument dispersion_correction.
+        Boolean enabling or disabling the periodic Lennard-Jones long-range
+        correction. None preserves the engine default. The correction affects
+        only periodic cutoff methods.
     ewald_error_tolerance : object, default=None
-        Argument ewald_error_tolerance.
+        Positive finite dimensionless tolerance used by Ewald/PME. None
+        preserves the engine default.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -57,6 +63,15 @@ def to_openmm_System(
     -------
     openmm.System
         Resulting object in openmm.System form.
+
+    Raises
+    ------
+    ArgumentError
+        If a supplied nonbonded option has an invalid value or physical shape.
+    ArgumentConflictError
+        If switching is requested for a method that does not apply it.
+    NotImplementedMethodError
+        If the requested options have no NonbondedForce in the constructed model.
 
     Notes
     -----
@@ -73,7 +88,12 @@ def to_openmm_System(
     import openmm
     from openmm import app
 
-    from molsysmt._private.smonitor import ArgumentChoiceError
+    from molsysmt._private.smonitor import (
+        ArgumentChoiceError,
+        ArgumentConflictError,
+        ArgumentError,
+        NotImplementedMethodError,
+    )
     from molsysmt.molecular_mechanics import get_engine_forcefield
 
     resources = get_engine_forcefield(
@@ -151,12 +171,68 @@ def to_openmm_System(
         item, nonbondedMethod=non_bonded_method, constraints=constraints
     )
 
-    if dispersion_correction or ewald_error_tolerance:
-        forces = {ii.__class__.__name__: ii for ii in system.getForces()}
-    if dispersion_correction:
-        forces["NonbondedForce"].setUseDispersionCorrection(True)
-    if ewald_error_tolerance:
-        forces["NonbondedForce"].setEwaldErrorTolerance(ewald_error_tolerance)
+    if any(
+        value is not None
+        for value in (switch_distance, dispersion_correction, ewald_error_tolerance)
+    ):
+        import numpy as np
+
+        from molsysmt import pyunitwizard as puw
+
+        caller = "molsysmt.form.openmm_Topology.to_openmm_System"
+        forces = [
+            force
+            for force in system.getForces()
+            if isinstance(force, openmm.NonbondedForce)
+        ]
+        if not forces:
+            raise NotImplementedMethodError(
+                method="to_openmm_System",
+                arguments="nonbonded options",
+                caller=caller,
+                message="The constructed model has no NonbondedForce to receive these options.",
+            )
+        if switch_distance is not None:
+            distance = np.asarray(puw.get_value(switch_distance, to_unit="nm"))
+            if distance.ndim != 0 or not np.isfinite(distance) or distance < 0:
+                raise ArgumentError(
+                    "switch_distance", value=switch_distance, caller=caller
+                )
+            for force in forces:
+                if force.getNonbondedMethod() in (force.NoCutoff, force.LJPME):
+                    raise ArgumentConflictError(
+                        "switch_distance",
+                        "non_bonded_method",
+                        reason="This nonbonded method does not apply Lennard-Jones switching.",
+                        caller=caller,
+                    )
+                cutoff = force.getCutoffDistance().value_in_unit(openmm.unit.nanometer)
+                if distance >= cutoff:
+                    raise ArgumentError(
+                        "switch_distance", value=switch_distance, caller=caller
+                    )
+                force.setUseSwitchingFunction(True)
+                force.setSwitchingDistance(float(distance))
+        if dispersion_correction is not None:
+            if not isinstance(dispersion_correction, (bool, np.bool_)):
+                raise ArgumentError(
+                    "dispersion_correction", value=dispersion_correction, caller=caller
+                )
+            for force in forces:
+                force.setUseDispersionCorrection(bool(dispersion_correction))
+        if ewald_error_tolerance is not None:
+            tolerance = np.asarray(ewald_error_tolerance)
+            if (
+                tolerance.ndim != 0
+                or tolerance.dtype.kind not in "fiu"
+                or not np.isfinite(tolerance)
+                or tolerance <= 0
+            ):
+                raise ArgumentError(
+                    "ewald_error_tolerance", value=ewald_error_tolerance, caller=caller
+                )
+            for force in forces:
+                force.setEwaldErrorTolerance(float(tolerance))
 
     from molsysmt._private.scientific_attribution import credit_implicit_solvent
 

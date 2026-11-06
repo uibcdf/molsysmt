@@ -15,7 +15,53 @@ ChemicalStates. Topology owns stable inventory and has no chemical facade,
 including while attached to MolSys. See {ref}`user-foundations-native-world-classes-molsysmt-molsys` for
 composition and domain correspondence.
 
+## Declared and Inferred Reader Connectivity
+
+CIF/BCIF native conversion with `get_missing_bonds=False` retains mapped
+component-bond and supported connection declarations without reconstructing
+missing edges from templates, terminal H names, polymer sequence or distance.
+The returned state is partial: an explicit edge list is not certification that
+all chemical connectivity was declared. Unknown orders remain unknown. Original
+observations and stable inventory are separate from these chemical claims.
+
+With the default `True`, the reader keeps its existing inferred additions and
+explicit/inferred evidence distinction. A partial reference match must not erase
+a deposited edge or its known order. See
+{ref}`Tutorial_Form_mmcif_PdbxContainers_DataContainer` for the reader contract.
+
+PDB reading also retains a typed, per-declaration audit in the chemical-state
+preparation history. A missing/ambiguous endpoint, unrepresented symmetry image
+or contradictory sulfur partnership is different from an ordinary redundant
+record. Alternate serials retain their canonical-site correspondence and their
+conditional source scope. This is deposited evidence, not chemical validation.
+The original operation's indices remain historical when you extract or reorder
+the system; use current bond tables for the current index domain. See
+{ref}`cookbook-pdb-connectivity-policy` for inspecting this evidence.
+
+Native H-parent inference can explicitly consult bundled, versioned H-name
+alternatives. That lookup changes no atom/group labels or naming declarations;
+its resource, bibliography and original source indices belong to the operation's
+history. Parent agreement does not assign stereochemical H roles, protonation
+or a complete terminal state. See {ref}`Tutorial_Covalent_Bond_Candidates`.
+
+Local terminal-cap references also require explicit source context. Stored
+`amber` or `legacy` declarations let the shared auditor compare ACE/NME/NHE/NH2
+inventories and cap roles before bounded connectivity inference. Bare labels do
+not establish that interpretation. Reference identity and inferred edges belong
+to the operation history and selected chemical state; stable group naming
+declarations remain in Topology. This does not assign a biological terminus,
+add a cap or certify a terminal/protonation state. See
+{ref}`Tutorial_Residue_Chemical_Coverage`.
+
 ## State Availability
+
+An explicit CCD reference can be constructed without coordinates through
+{func}`molsysmt.physchem.get_chemical_template`. Its chemical assignments and
+historical construction report belong to ChemicalStates; names and original
+element inventory belong to Topology. Neither CCD model coordinates nor a
+reference's chemical state replace an observed pose or determine its bound
+protonation. Inspect missing/conflicting declarations and validate an explicit
+correspondence before application. See {ref}`Tutorial_Get_Chemical_Template`.
 
 A new collection contains zero states. `append_state()` explicitly creates an
 unknown state; an empty bond table does not establish that no bonds exist.

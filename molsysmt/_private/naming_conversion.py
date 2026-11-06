@@ -8,7 +8,25 @@ from molsysmt._private.variables import is_all
 CALLER = "molsysmt.convert"
 
 
-def _native_source(source, source_form, target, options, scheme):
+def source_reader_accepts_scheme(source_form, target):
+    """Identify a direct reader that interprets the declaration during reading."""
+    from molsysmt.form import _dict_modules, load_converter
+
+    if not isinstance(source_form, str) or source_form in {
+        "molsysmt.Topology",
+        "molsysmt.MolSys",
+    }:
+        return False
+    module = _dict_modules[source_form]
+    route = module._convert_to.get(target)
+    return (
+        route is not None
+        and "from_naming_scheme"
+        in inspect.signature(load_converter(module, route)).parameters
+    )
+
+
+def _native_source(source, source_form, target, options, scheme, *, query=False):
     """Read only the required domain; keep source-reading options on that read."""
     from molsysmt.basic import convert
     from molsysmt.form import _dict_modules, load_converter
@@ -42,12 +60,30 @@ def _native_source(source, source_form, target, options, scheme):
             "molsysmt.MolSys"
         )
         if route is not None:
-            parameters = inspect.signature(load_converter(module, route)).parameters
+            converter = load_converter(module, route)
+            parameters = inspect.signature(converter).parameters
             consumed = {
                 key: value
                 for key, value in options.items()
-                if key in parameters and key not in {"group_indices", "copy_if_all"}
+                if key in parameters
+                and key not in {"atom_indices", "group_indices", "copy_if_all"}
             }
+            if (
+                query
+                and "get_missing_bonds" in parameters
+                and "get_missing_bonds" not in consumed
+                and options.get("bond_inference_engine") is None
+            ):
+                # A name-only projection needs inventory, not engine-dependent
+                # graph reconstruction. Preserve explicit inference requests.
+                consumed["get_missing_bonds"] = False
+            if "from_naming_scheme" in parameters:
+                # Readers that interpret labels while constructing chemistry
+                # need the declaration before their first reconstruction.
+                native = converter(source, from_naming_scheme=scheme, **consumed)
+                return native, {
+                    key: value for key, value in options.items() if key not in consumed
+                }
     native = convert(source, to_form=target, **consumed)
     return native, {key: value for key, value in options.items() if key not in consumed}
 
@@ -62,6 +98,12 @@ def convert_with_source_scheme(
     from .name_resolution import check_source_scheme, group_positions, native_sequence
 
     query = target == "string:amino_acids_1"
+    if not query and "atom_indices" in options and not is_all(selection):
+        raise ArgumentError(
+            "atom_indices",
+            caller=CALLER,
+            message="Use either selection or explicit atom_indices, not both.",
+        )
     if not query and source_form in ("string:amino_acids_1", "string:amino_acids_3"):
         from molsysmt.form._sequence_topology import from_string
 
@@ -100,7 +142,7 @@ def convert_with_source_scheme(
         else "molsysmt.MolSys"
     )
     native, remaining = _native_source(
-        source, source_form, reduced_target, options, scheme
+        source, source_form, reduced_target, options, scheme, query=query
     )
     topology = (
         native if isinstance(native, Topology) else getattr(native, "topology", None)

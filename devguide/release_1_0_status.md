@@ -20,101 +20,379 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Molecular task and pending-reader integration — 2026-11-06
+## Molecular tools contributor checkpoint — 2026-11-06
 
-Latest hosted follow-up: b18d5d823 smoke 42239788034 passes 6,042 native
-cases/23 optional skips, then fails one new session-comparison assumption about
-NaN-backed versus nullable string storage (4,772 addon passes/four optional
-skips). The test-only correction admits that declared representation while
-checking every value/null, with ten local cases including negative controls.
-Its new-source CI remains pending; native #616 stays open. Earlier clean
-addon/Jupyter successes retain their actual runtime and source scopes.
+Contribution `fa119ac122b0ad025c9679b13b3af79bf2f21fb5` uses native basis
+`ed09f6453` and controlled Viewer `239c8dd74815a660159a95970e9136d7beebfdd2`.
+It adds explicit Analysis row selection/focus/live Measures through the core,
+with 121 final Analysis/preflight cases, 12 actual TcTIM/ensemble/Jupyter steps
+and seven shared Geometry steps passing. Its complete addon collection passes
+4,821 cases without failures or skips on that frozen source, with unchanged
+selected inputs and source heads. The
+[row-adoption receipt](../devtools/data/molsysviewer_tools_scene_adoption_receiving_20261106.json)
+retains independent actual geometry/text anchors, repeated participants,
+visible-structure versus frozen-row semantics and qualified camera enclosure.
+This is not complete receiving of the new owner-main source. Native force and
+protonation-assessment/correspondence admission remain separate consumer work.
+All remaining approved GUI families, owner/hosted/installed and postponed human
+acceptance remain required; publications remain paused.
 
-Complete local Jupyter/Mol*/popup receiving on clean b18d5d823 / Viewer
-737f9bc3 now passes 11 scenarios / 76 steps in 671.62 s, with all selected
-source inputs unchanged. This receives the implemented task workspace. Preserve
-the corresponding plain-Jupyter debugger error classification and #615's
-unexplained earlier initialization failure. Required remaining families,
-hosted/owner/installed and postponed human gates remain incomplete.
+The subsequent isolated owner-base merge receives 121 Analysis/preflight cases
+and the same 12 actual Jupyter steps. Its newer native Python source is not
+covered by the frozen contribution full gate. The
+[combined receiving receipt](../devtools/data/molsysviewer_tools_scene_integration_receiving_20261106.json)
+binds both scopes and preserves owner review, integrated full/hosted and
+installed acceptance as pending. The owner's ordered issue-resolution goal below
+is preserved.
 
-**Current controlled host:** all five source workflows and the dependency
-inventory now pin published Viewer `737f9bc349e84414be75163e0566a42fe7e480d2`,
-which fixes numeric region recovery under Viewer #307. The new scientific-session
-module is explicitly retained in the smoke tier. Earlier 8f8c442e full/smoke
-receipts keep their original host; source-route checks, actual Jupyter and hosted
-receiving on this follow-up retain their own gates. Public dependency floors,
-experimental classifications, packages and candidate freezes are unchanged.
+## Maintainer-ordered resolution goal — 2026-11-06
 
+The maintainer explicitly authorizes resolution in this order:
+**#304 → #593 → #428 → #544 → #572 → #576 → #557 → #594 → #595 → #596 → #597 → #598 → #599 → #600 → #601**.
+The last three were explicitly added by the maintainer after the board review;
+the active objective now contains fifteen issues. Their addition preserves the
+previous twelve-item order and does not authorize premature closure of #304.
+Keep the entire objective; do not substitute a narrow passing subcase for issue
+closure. Prior post-freeze scheduling of listed work does not block this explicit
+instruction. Tags, Releases, promotions and provider-repository code edits keep
+their existing authorization boundaries.
 
-Published Analysis head 8f8c442e passes 4,775 full addon cases without skips in
-1094.35 s, with 4,209 inputs unchanged. Its smoke 42233782220 also succeeds:
-6,042 native cases/23 optional skips and 4,771 addon cases/four optional Ackredit
-skips. The exact original host/control pin and warnings remain in the receipt.
-Later session receiving is separate: Viewer #307 repairs numeric region metadata
-and two expert/headless guards preserve real edited TcTIM and nonempty native
-ensemble interaction data/scene through recovery. Native #616 retains the
-compatible-source append failure after canonical H5MSM string restoration.
-These results do not complete the required task families or qualify current
-GUI sessions, owner integration, postponed human review or public artifacts.
+**Completed native/provider criteria: #304, #593, #428, #544, #572, #576 and #557.**
+Next ordered issue: **#594**. The #557 source-permutation controls also identified supplemental
+[#617](archive/resolved_bugs/entry_mmcif_conversion_retains_a_retired_topology_component_flag_and_blocks_perm.md):
+the mmCIF converter wrote a retired Topology component flag. The one-line
+producer correction passes 137 adapter/permutation cases, preserving strict
+extension refusal. This is a prerequisite correction, not an expansion of the
+fifteen-item goal. The accepted fifteen-issue order above is unchanged.
+The #557 generic CCD factory and exact-name correspondence are implemented in
+d419e6fc2, with 421 affected cases, 101 public-provider-floor cases and
+2 doctests passing. The [owning closeout](archive/resolved_proposals/ccd_component_chemical_templates.md)
+and [source receipt](../devtools/data/ccd_template_receiving_557_20261106.json)
+retain experimental/scientific limits, original provider versions, exact source
+bytes/maps and deposited MK1/BTN pose controls. The new offline course example
+is executed without rewriting historical cells. The #428 installed producer
+bd40d7059 is independently received. Actual installed #428 receiving passes 2,542 consumer
+and 83 scientific cases with no omissions; 248 integrated guards for the four
+latest closures pass locally. See the
+[installed receipt](../devtools/data/argdigest_installed_receiving_428_20261106.json)
+and [joint closeout receipt](../devtools/data/ordered_feature_closeout_428_544_572_576_20261106.json).
+Main 34b8c09e2 smoke 42267238580 passes, as do its four other applicable
+hosted checks. Earlier #428 receiving failures remain in their archive; the
+new #557 checkpoint retains its own source/local gates and CI evidence.
 
-The Analysis extension registers native distance/minimum/maximum/neighborhood
-tasks with explicit populations/centers, source axes, ordered/repeated structures,
-PBC and bounded nm pages. Native disk-result storage is retired on context/input
-expiry, Clear and unmount; no universal RAM promise, generic persistence or
-scene adoption is introduced. The
-[Analysis receipt](../devtools/data/molsysviewer_tools_analysis_receiving_20261106.json)
-records independent coordinate references, 49 focused cases and 357 affected
-panel/packaging checks. Actual Jupyter/popups and full-suite follow-up retain
-their own recorded completion states. #614 owns the receiving bootstrap selector
-correction; #613 reports the independently reproduced concurrent native
-configuration defect. Serial source receiving does not qualify concurrency.
+Feature closure does not qualify the complete version matrix, a future Viewer
+candidate, its canvas/sessions, or the sixteen-cell installed release pair under
+#334. Native force/assessment facades still need consumer receiving under #421 /
+uibcdf/molsysviewer#264. The default-info Jinja2 declaration remains tracked in
+#524. No tag, release, registry upload or promotion is authorized by these closures.
 
-The prior preparation head 4f1710c5e passes official smoke 42226585269: 6,042
-native cases/23 optional skips and 4,722 addon cases/four optional Ackredit
-skips. This preserves its own source scope and does not qualify new Analysis.
-Full matrices and all remaining task families, owner integration, installed
-artifacts and postponed human acceptance remain required. No publication is
-authorized by this source development checkpoint.
+The #304 native profile has qualified explicit reader policy,
+exact standard/curated modified-group references, observed-H parent consensus,
+optional pinned H-name alternatives, naming-scoped ACE/NME/NHE/NH2 references
+and bounded same-chain peptide candidates. PDB file/text/handler routes receive
+an explicit naming declaration before classification/inference. CIF/BCIF native
+conversion honors disabled inference and retains declared edges. Deposited PDB
+records have typed location, endpoint, alternate/symmetry and conflict evidence.
+All of these remain bounded connectivity operations, without chemistry-complete
+or default-engine-change claims. See the
+[owning record](archive/resolved_proposals/native_pdb_bond_inference_with_explicit_policy.md).
 
-The latest preparation extension to PR #543 adds independent heavy-atom and H
-generation, explicit native methods/prerequisites and reviewed scene-reset
-replacement through Viewer #306. Controlled routes now pin published Viewer
-177e19a8fa06e37484a801da1711cc99acbc8f2d. Expert signatures/defaults and native
-ed09f6453 remain unchanged. The
-[preparation receipt](../devtools/data/molsysviewer_tools_preparation_receiving_20261106.json)
-records local task, packaging and actual TcTIM/Jupyter/popup receiving, including
-the 3,983-to-7,868-atom result and independent adoption. This is not installed
-artifact qualification or postponed human acceptance.
+The final policy-boundary receiving makes existing exclusions explicit in the
+application report: retain stored disulfide and coordination edges, infer no
+additional ones, and disable geometry for groups without an exact template.
+Its selected unsupported group indices are typed historical evidence. Fifty-four
+new controls qualify close/competing sulfur sites, contradictory/unresolved
+SSBOND, water/ligand/metal proximity, all four curated modified groups, source
+immutability, selection and H5MSM history. The completed affected selection passes
+227 cases, the four-published-provider-floor selection 55, and documentation
+1,091 (overlapping selections); the aggregate fast gate passes 14/14 checks.
+An earlier accidentally selected network-only
+case was interrupted; that command is not passing gate evidence. The final
+selection excludes that one network case explicitly. Both original PDB native
+graph, atom-axis and coordinate digests remain unchanged, with fresh H5MSM
+round trips and OpenMM imports blocked.
 
-Prior full matrix 42215709260 remains unsuccessful: Python 3.13 has 33 failures,
-29,192 passes, 112 skips and 40 deselections. Existing #594–#598 own recurring
-native/import/isolation failures. #612 separately records the reproduced
-alternate-location fidelity/preflight expectation disagreement. Do not describe
-the green smoke or the addon-only 4,699-case result as a full matrix pass. Owner
-repairs/integration and full candidate qualification remain required. All task
-families and both paused 1.0 publication decisions retain their original scope.
+Original 181L/1IEP differences are explained by exact-name versus H-name-alias
+policy (25 pairs) and noncontiguous group interpretation (one native-only pair).
+The retained 45-process benchmark covers both originals plus three analytic
+workloads up to 10,240 atoms and 15 H5MSM round trips. Native conversion is slower
+in those measurements; the larger-workload RAM/storage cost remains explicit.
+No new faster/lighter claim follows from the policy metadata.
 
-PR #543 now includes System tasks, Geometry transforms/fitting and bounded
-periodic tools, plus two read-only Chemistry reports. Controlled Viewer
-2e17ee6f13333e5efd3726b353ade5c8cdc77b0b preserves the same mounted reader
-inside recovery while old-scene actions remain blocked. The
-[reader receipt](../devtools/data/molsysviewer_tools_pending_reader_receiving_20261106.json)
-keeps native/host/actual Jupyter and both-popup evidence separate, including the
-failed full attempt, eight synchronized passes and scoped pending-case recovery.
-Native science and expert signatures/defaults remain unchanged on ed09f6453.
+The exact-source gate for #304 is now
+[42205436569](https://github.com/uibcdf/molsysmt/actions/runs/42205436569),
+on **56b37c983253e8f93cda6333703df2b3a626a238** with controlled Viewer
+42234de839ed047016f8f241ea5eb717cfeb07be. All four Linux Python 3.11–3.14
+cells and macOS Python 3.11/3.12/3.13 report success; macOS Python 3.14 is
+still running. The six previously successful full-suite artifacts have been
+independently received and their archive digests, JUnit and receptor evidence
+checked. The additional macOS 3.11 artifact still needs independent receiving.
+Each Linux suite records
+29,253 passes and zero failures/errors. Its 118 JUnit skips comprise 117 item
+skips plus one collection-skipped module; the receptor retains the separate
+executed-item accounting. All 83 registered scientific cases and 432 directed
+connectivity cases execute successfully per cell. Three additional optional
+Ackredit controls are skipped for genuine dependency absence in each hosted
+cell and pass separately with the published provider payloads locally.
+Each received macOS suite has 29,252 passes, zero failures/errors and one additional
+Linux-only test skip, retained explicitly rather than equating platform counts.
+The [partial receiving receipt](../devtools/data/native_pdb_full_source_receiving_304_20261106.json)
+retains exact artifact identities/digests and omissions. These are source checks,
+not a complete matrix, installed pair or release qualification. This new gate
+does not alter the earlier frozen PR candidate or erase its failed gate.
 
-The clean contribution source 699fc69be passes all 4,699 addon cases without
-skips (1090.15 s), with 2,736 warnings in ten groups retained. The corrected
-45-minute smoke 42215709274 is officially successful on that source; the
-earlier 25-minute cancellation remains recorded under #611. Owner review and
-integration remain pending.
-Latest hosted/owner/installed and postponed human gates remain separate. The
-full earlier periodic gate does not certify new Chemistry source. Required
-Geometry/cell, Chemistry preparation/construction, Analysis and complete-session
-preservation still need receiving; #602/#605/#606/#607/#608 remain native
-requirements. Both 1.0 publications remain paused.
+**Feature #304 is resolved at owner integration.** Its issue acceptance is
+covered by the retained graph/policy/provenance/benchmark evidence. The earlier
+decision to wait for the entire version matrix before closing this feature was
+broader than that acceptance; the last active macOS lane and the additional
+artifact receiving remain mandatory version qualification, with the exact running
+source/ref preserved. The disulfide/unsupported-group
+policies are now explicit and contract-tested; this does not promise automatic
+oxidation-state matching, arbitrary-ligand preparation or metal-coordination
+inference. No complete-matrix, installed-pair or release claim follows from closing
+the implemented bounded feature.
+New DockingMT proposal **#599** requests prepared-PDBQT conformation projection
+for rescoring. Separately reported **#600** records missing mmCIF model-label
+delivery; selected geometry remains available, and the connectivity correction
+does not claim to fix that label contract. PeptideMT's **#601** requests preserving
+adapter-load causes through form discovery and molecular-system validation.
+These are explicitly included at the end of the expanded objective, with their
+own implementation and acceptance work still pending.
+
+The later **#602** requests a public axis-angle matrix constructor for Viewer.
+It was read at this checkpoint and remains a separate incoming proposal; it was
+not among the three additions explicitly identified when the maintainer expanded
+this objective to fifteen. No automatic queue expansion or implementation is
+claimed for later arrivals.
+
+The next board checkpoint also reads **#603–#607**. These are incoming reports,
+not additions to the maintainer's fifteen-item objective:
+
+- **#603:** rejected-operation diagnostics lost by addon refresh; the contributor
+  plans a fix in PR #543. That later source still needs owner receiving.
+- **#604:** bounded positional RMSD/clustering requested by DockingMT. Its own
+  proposal explicitly does not enlarge the frozen initial release gates.
+- **#605:** box factories reportedly admit degenerate/nonfinite periodic cells.
+- **#606:** temporal unwrap reportedly reuses the first cell classification after
+  later cells become triclinic.
+- **#607:** wrapping reportedly treats rotated orthogonal row bases as Cartesian
+  diagonal cells.
+
+The three new PBC reports contain consumer reproductions against main ed09f6453;
+they are not independently reproduced in this PDB receiving checkpoint. Native
+triage and correction/qualification are required before treating the affected
+periodic families as ready for 1.0. The current PDB inference's nonperiodic
+controls do not qualify those routes. Preserve the active ordered work and these
+additional release obligations; do not silently mark them completed or deferred.
+
+The integrated correction for **#593** is contract-tested while #304's
+version-matrix source remains frozen. The course consumes independent repair outputs,
+uses supported caps/quartets/torsion tools, requires a declared candidate pose
+and binds the example mechanics request after atom edits. Its 12 new controls,
+existing interface/minimizer regressions and documentation pass 1,118 cases;
+22 overlapping published-provider-floor cases also pass, without omissions.
+The 2BEG full biological route remains an explicit outline, with no invented
+outputs or readiness claim. These satisfy the issue's explicit bounded-workflow
+acceptance; documented closeout is complete after #304. See the
+[owning record](archive/resolved_bugs/alzheimer_capstone_preparation_uses_unsupported_builder_keywords_and_drops_indep.md).
+
+Public **ArgDigest 0.17.1** receiving for **#428** is complete:
+2,542 native/digestion/query/diagnostics cases, all 83 registered scientific
+cases and 14/14 fast gates pass. A 123-case overlapping constructor/ownership/
+diagnostics selection also passes with SMonitor 0.16.0. Exact public payloads
+are verified; the existing interpreter and other recorded development providers
+are reused. `native_constructor`, global ownership policy and dependency floors
+stay unchanged. The
+[owning record](archive/resolved_proposals/argdigest_0_17_receiving.md)
+retains the deliberate deferral of production ownership adoption. The subsequent
+clean installed producer bd40d7059 passes 2,542 consumer and 83 scientific cases
+in 42259461880 with verified archive/wheel/source bytes and actual public imports.
+That actual installed evidence completes #428; the earlier source profile alone
+did not close it. The final release-pair and #524 runtime-declaration gap remain.
+
+Integrated owner source for **#544** pins all four active native build/upload,
+ABI3 experiment and promotion calls to reviewed Conda provider v2.3.0
+87c70b1443d5f22d738ee3ddf812bdbe0152f6c2. The other parsed workflow semantics
+are unchanged. Its 54 local packaging/route controls, 29 offline provider cases,
+exact already-called policy/publication checkers and dependency audit pass.
+No package or registry mutation is executed. The
+[owning record](archive/resolved_proposals/conda_provider_v2_3_owner_adoption.md)
+retains the exact input/source evidence and completed ordered owner adoption.
+
+Integrated source for **#572**, implemented at 993967a0f361d70cba5f7e5c7c246b0000734550,
+supplies complete-environment native forces,
+explicit structure axes, selection order/masks, magnitudes and application units.
+One model context consumes bounded native/H5MSM coordinate blocks; an explicit
+System can use a structures-only file without reconstructed chemistry. The
+shared OpenMM converter also applies switching and explicit dispersion choices.
+The affected 2,005-case selection, 77 published-support-floor controls and 583
+documentation/doctest checks pass; the nine-cell tutorial executes with its plot
+and 14/14 fast gates pass. Detailed source digests and execution limits belong to the
+[owning record](archive/resolved_proposals/native_molsys_force_reader_for_bound_consumers.md).
+The User Guide, Cookbook and course distinguish provider capability from addon
+exposure. The native provider issue is resolved in order; no Viewer runtime is
+changed and no release-pair qualification follows from these local checks.
+
+Integrated owner source for **#576**, implemented at 5c13fcd85f03a5db956f7854686f5493789820d4,
+supplies read-only
+`build.assess_protonation` and a public `build.ProtonationAssessment` result.
+Detached coverage retains every group's actual naming/reference context and
+canonical bidirectional positional maps. Single-use application consumes the
+same decision without repeating reference queries, rejects stale inventory,
+chemistry and axes, and stages the complete native subset before publication.
+Independent no-ops are real copies; all supported independent inputs return
+native MolSys. Native/modular assessment avoids coordinate payloads, while
+application retains ordinary resident candidate costs and analysis remapping.
+The 1,717-case affected selection, 260 published-support-floor controls and 631
+documentation/doctest/final-assessment checks pass without omissions; selections
+overlap. All ten tutorial code cells execute, the fast gate passes 14/14, and
+repository-wide Ruff lint/format checks pass. The
+[owning record](archive/resolved_proposals/protonation_removal_correspondence_for_bound_consumers.md)
+retains exact receipts, ownership/scientific limits and corrected validation
+fixtures. The native provider issue is resolved in order. Managed addon admission
+and final installed release-pair qualification remain separate. The frozen #304
+version matrix retains its original source and outstanding qualification under
+#334; it is not replaced by the bounded installed #428 receiving.
+
+The subsequent board checkpoint reads **#608–#610**, again without expanding
+the fifteen-item objective. #608 reports application-unit-dependent origin
+snapping and extends the unresolved native PBC qualification obligations above;
+it is not independently reproduced in this course receiving. #609 belongs to
+later PR #543 Jupyter presentation-acknowledgement receiving, outside frozen
+56b37c983. #610 asks for the supported XYZ/coordinate-delivery composition for
+DockingMT; direct public quantity assignment is exercised here on bounded native
+systems with both ranks and nm/pm policy, without claiming the consumer E4 run
+or its exact older provider source has been received.
+
+The next incoming report, **#611**, requests a measured finite smoke-budget
+increase for the later PR's enlarged native/addon selection. Its cited run
+42210639321 timed out at 25 minutes after the native tier completed; the addon
+terminal result is absent. That PR contribution and its next exact-source
+smoke need owner receiving. It does not change the active fifteen-item goal
+or certify a new source gate here. At this board checkpoint PR #543 is at
+**699fc69be57ac0e89f9bced3fd4f39139ccabf38**; this later source remains
+outside the frozen receiving inputs 282e8337e and 56b37c983.
+
+The next inspected incoming **#612** records a conflict between a multi-model
+alternate-location fixture and the already accepted stable-ID preflight. Its
+reported source is native main ed09f6453 and later PR source 699fc69be; it does
+not establish that the safety guard should be removed. The frozen #304 input
+keeps its own test inventory and exact gate. This distinct follow-up needs owner
+receiving without weakening atomicity or round-trip coverage. PR #543 has since
+advanced to **4f1710c5e66f7c9d5e9065fc82a7bd602824e611**, outside both frozen
+receiving inputs. This incoming review does not silently expand the fifteen
+maintainer-ordered issues.
+
+The next source-preparation checkpoint reads **#613–#616** without expanding the
+ordered objective. #613 reports overlapping global configuration contexts leaking
+GPU policy; its deterministic consumer reproduction requires owner receiving and
+does not establish GPU numerical failure. #614 concerns the Jupyter popup
+navigation fixture's real current/selectable Add-ons identity. #615 preserves an
+intermittent first-canvas initialization timeout whose cause remains unknown;
+a later passing diagnostic does not resolve it. #616 reports native append
+rejecting otherwise compatible H5MSM-recovered chemical inventories because
+component string storage dtypes differ. The latter needs owner qualification
+while retaining rejection of actual chemical differences. None is independently
+reproduced or repaired by the #576 assessment controls. The open PR #543 is now
+at **b18d5d82366808e8c170295f6fe483ffb58094bc**, outside the frozen receiving
+inputs; its later additions and fixes still need owner review and exact-source
+evidence. These incoming reports remain explicit release follow-up obligations,
+not source qualification supplied by the active #304 matrix.
+
+Other listed issues remain pending in the stated order; #594–#598 already have
+source repairs in the separate PR candidate but their closeout belongs at the
+end of this goal. Do not implement them again or close them out of order.
+
+PR #543 receiving candidate **282e8337e04c14003622c19a359b7cd35d2b5e4b** stays
+frozen on its published branch. Its exact full source gate is
+[42171874158](https://github.com/uibcdf/molsysmt/actions/runs/42171874158), with
+Viewer 42234de839ed047016f8f241ea5eb717cfeb07be. At the latest verified inspection,
+the controlled wheel succeeds and all eight Linux/macOS cells have now failed
+at the full-suite step. The
+independently inspected Linux Python 3.14 and macOS Python 3.11/3.14 job logs
+identify the stale converter-argument table; its
+regenerated correction belongs to the ordered-work branch, not the frozen CI
+input. No green full matrix or main integration is claimed. Ordered work uses
+a separate branch/worktree and the existing development environment. PR #543
+had advanced to 1e7a4273b905ca020815658f23ba645d40817226 at the earlier
+receiving inspection; its still-later head is recorded above and remains
+outside this frozen receiving candidate. Only the explicitly inspected logs
+support the stated failure diagnosis; the other final failures are not silently
+assigned the same cause.
+The ordered branch published 62a5bb62d as an
+intermediate source/backup handoff with local tests, source hashes and explicit
+partial #304 scope. That checkpoint includes the cap and early PDB-context extensions; the subsequent
+policy-boundary receiving is retained separately. The published checkpoint uses
+the authorized deferred-CI marker to avoid another incomplete full matrix while
+the issue's remaining methods are implemented. This does not clear the skipped
+commit backlog, replace the frozen run's failures or qualify a release; finish
+the complete work block through an unskipped/manual exact-head gate.
+
+## PR #543 owner receiving and full-suite failures — 2026-11-05
+
+**Owner receiving is in progress, not merged.** The isolated combination of
+main `ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6` and submitted PR head
+`1c88e785b4327350ad586d437a569eff1a2c5c9a` passes the 4,491-case addon suite,
+52 tooling/dependency/documentation-boundary cases, 202 published-support-floor
+cases, six additional #583/#584 consumer guards in both source/floor profiles,
+and the real Jupyter removal/layout/popups guard. Suites overlap; these are
+local source observations. Original main repairs and course executable evidence
+are preserved. The duplicate incoming #583/#584 pending reports are reconciled
+against their resolved owner records, without reopening them.
+
+Existing PR full run **42153312659** has four failed Linux jobs and queued
+macOS jobs at inspection. Linux Python 3.11–3.14 each records the same 33 failing
+cases across seven modules; these are real failures, not a pending-only gate.
+Owner fixes are tracked separately by **#594** (public export import identity),
+**#595** (mmCIF inequality/comparison consumer), **#596** (initial GRO source
+context), **#597** (generated-catalogue fixture isolation) and **#598** (test-owned
+NGL widget graph cleanup). Current primary occupancy/stable-label contracts
+remain strict; stale fidelity expectations are corrected rather than weakening
+native validation. Related local selections pass 146 conversion, 72 serial
+CCD/conversion and 83 serial NGL cases. The combined local selection passes **4,944 cases**, and 215 directed cases
+pass with published support floors. Four edited-reader doctests and 1,077
+documentation/reporting cases pass. These selections overlap. No mandatory
+full hosted gate is claimed passed.
+
+During receiving the PR advanced to
+**`f7b305b3a126109aff5909e857ea7c53981486e8`**, adding independent GUI result
+views and changing its controlled Viewer to
+**`42234de839ed047016f8f241ea5eb717cfeb07be`**. That fixed delta needs separate
+owner review and receiving; preceding measurements do not qualify it. Preserve
+other teams' dirty worktrees and use isolated exact source snapshots. The
+shared development environment still has optional dependency closure conflicts
+under #524 (including Praxis/PyUnitWizard); it is not an installed-pair gate.
+
+Next: complete combined-candidate review and exact required source gates, then
+return to **#593**'s distinct course-preparation contract and **#334**.
+**#587/#590/#591 remain pending owner integration.** No tag, Release, promotion
+or new release matrix is authorized or launched by these source checks.
+
+## Expanded PR owner reproduction — 2026-11-05
+
+The frozen f7b305b3a / Viewer 42234de8 delta now passes **95** directed
+System/native/tooling controls, **53** published-support-floor cases and **510**
+documentation-boundary cases. Both actual-Jupyter guards pass (**2 cases**,
+112.9 s): removal/layout/popups and seven independent-result checks covering
+ordered extraction, repeated presentation destination changes, copy, detached
+Studio, Python recovery and result lifetime after source closure. Private server
+settings are removed and only test-owned browser/server resources are stopped.
+The [owner receipt](../devtools/data/owner_pr543_result_views_receiving_20261105.json)
+records this separately from contributor claims and the earlier input.
+The complete addon selection on the combined new tree passes **4,507 cases**
+in 325.7 s (four workers, Pytest Receptor). Final Ruff, formatting, dependency
+contract and developer-guide checks also pass.
+
+The obsolete run 42153312659 cannot qualify the candidate: its four completed
+Linux jobs fail and its source is superseded. Cancellation of its remaining
+queued jobs was requested to avoid redundant CI; this is not a successful gate.
+Final combined-source full qualification and main integration remain pending.
 
 ## Independent addon result Views — 2026-11-05
+
+**Contributor receiving record:** the following measurements were supplied by
+the PR. Owner reproduction of this expanded fixed source is pending; the
+preceding owner section identifies its separately received scope.
 
 PR #543 now includes System / Extract subset and Copy system, using Viewer
 `42234de839ed047016f8f241ea5eb717cfeb07be` through exact controlled-source pins.

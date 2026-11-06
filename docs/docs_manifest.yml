@@ -38,7 +38,7 @@ sections:
           - name: naming_schemes
             file: docs/content/user/foundations/molecular_system/naming_schemes.md
             agents_file: docs/content/user/foundations/molecular_system/naming_schemes.md.AGENTS.md
-            description: Amber/CCD/legacy meanings, verified collisions, compact native declarations and versioned transport, distinguished from pending scheme-aware resolution.
+            description: Declared sequence/Amber/CCD/legacy meanings, early PDB/GRO reader context, verified collisions, native metadata and versioned transport with explicit scientific limits.
       - name: native_world
         description: Native representations and analysis-specific logical independence over shared immutable storage.
         agents_file: docs/content/user/foundations/native_world/AGENTS.md
@@ -72,7 +72,7 @@ sections:
           - name: chemical_states
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md.AGENTS.md
-            description: Ordered native chemistry, nullable queries, staged field/component assignments, exact metadata correspondence, state-local bounds, completeness and live-table boundaries.
+            description: Ordered native chemistry, typed reader declarations, naming-scoped cap references, nullable queries, staged assignments, metadata correspondence, state-local bounds and completeness.
           - name: chemical_states_dict
             file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.md.AGENTS.md
@@ -104,7 +104,7 @@ sections:
             file: docs/content/user/foundations/support/forms/files.md
             agents_file: docs/content/user/foundations/support/forms/files.md.AGENTS.md
           - name: molecular_mechanics
-            description: Engine-neutral physical models, effective OBC recipes and separate platform-name, registration, dependency and device-initialization contracts.
+            description: Engine-neutral models, OBC recipes, platform/dependency distinctions and complete-environment atomic potential forces with explicit units and ownership.
             file: docs/content/user/foundations/support/molecular_mechanics.md
             agents_file: docs/content/user/foundations/support/molecular_mechanics.md.AGENTS.md
       - name: ecosystem
@@ -119,7 +119,7 @@ sections:
         - name: molsysviewer_tools
           file: docs/content/user/tools/molsysviewer_tools.md
           agents_file: docs/content/user/tools/molsysviewer_tools.md.AGENTS.md
-          description: Experimental expert MolSysViewer addon with native basic tools, two topology and nine chemical-state paths, twenty-eight structure, thirteen PBC, thirty-four physchem and fifteen canonical interaction paths at the recorded baseline; eleven build diagnostics, three detached covalent/type/charge preparation routes, independent export-name projection with identity maps and protected shared geometry, declared biological assemblies and explicit AutoDock4 nonpolar-H projection with charge/provenance maps, independent declared terminal attachment with historical reports and bounded standard/curated heavy-atom repair with native attribute/invalidation policies, independent hydrogen generation with distinct legacy/fixed-state contracts and historical H5MSM evidence, native terminal completion/capping with explicit chemistry/provider limits, detached native builder staging without mechanics/analyses and conditional overlap-filter ownership with explicit candidate/reference and structure scope, fresh peptide construction from the loaded sequence and independent bounded substitutions with explicit reconstruction and mask limitations, independent engine-selected solvation with explicit preparation/model requirements, direct OpenMM parity and bounded water/box geometry, independent reference-rule protonation reconciliation with named-state/unassessed limits and explicit in-place admission pending public correspondence, native missing-bond addition with managed reference-state graph publication, true no-op preservation and synchronization-only recovery; native alternate-site coordinate/occupancy/B-factor/ID publication with retained indices, consistent stable labels, whole-request scientific preflight and bounded adapter-failure limits without scientific replay; managed edits and synchronization recovery; independent atom maps/order, four system-composition mirrors with managed prefix additions and native partial-write limits, seven explicit H5MSM file utilities, two raw FASTA occurrence readers and eight explicit element/atom/group label utilities with empty-view access and no molecular binding; twenty-one current-primary element paths preserve native projections without assignment, stable versus chemical-state ownership and the limits of the legacy amino-acid name heuristic; fourteen additional explicit name/type/code helpers preserve scalar lookup semantics and the received canonical/protected-end conventions and remaining legacy-name qualification limits. Fourteen explicit reference-template queries complete the reviewed element surface, preserving index labels, received native index-map validation and structured diagnostics, native family data layouts and fixed chemical-context rules without preparation or scene changes. Five molecular-mechanics tools provide explicit engine-resource lookup, primary-bound degree counting, total/decomposed potential energy, internal/cross nonbonded contributions with bounded NoCutoff pair references and explicit partition limits, and native minimization, preserving physical units, independent output defaults, managed retained-axis coordinate publication, saved-analysis invalidation and synchronization-only retry. Independent visualization through basic.view preserves native selectors/backends and caller lifetime; four historical hbonds routes alias canonical bound methods, while native MD stubs remain unavailable. Repaired mutation atom-axis selection and native digestion are forwarded without consumer translation. Source exposure and bounded receiving retain native scientific prerequisites, provider limits and separate installed qualification. Conversion and preflight retain explicit from_naming_scheme with native loss/conflict handling. Source-aware code lookup uses element.group with naming_scheme; retired amino-acid scalar paths are not preserved as aliases. Explicit-input water construction works before loading and returns independent native output without adoption or equilibration claims. Independent native whole-water ion replacement retains explicit charge/seed/clearance controls and bidirectional reports without scene adoption; solvation now forwards native seed/digestion and receives identifier/count repairs. Resource lookup returns independent lists and distinguishes physical OBC models, with attribution conflict #583 still explicit. Native platform resolution distinguishes invalid names, unavailable registration and device failures without fallback; CPU/Reference execution has bounded consumer qualification, with GPU execution separate. The experimental System panel reviews explicit selections and applies qualified all-structure atom removal with atomic single-use confirmation and host-only reconciliation recovery. Source Geometry offers reviewed coordinate transforms and bounded periodic tools; Chemistry adds explicit-state stored-information and hydrogen inspection with native coverage and 50-row pages, alongside separate heavy-atom and hydrogen preparation tasks with explicit methods, native prerequisites, independent results and reviewed conditional scene-reset replacement. Analysis adds native distances, minimum/maximum separations and cutoff/nearest-count neighborhoods with explicit source axes and centers, ordered/repeated structures, 50-row nm pages and native disk-result retirement. Declared pending readers remain usable in the recovery sheet with scene isolation and exact panel restoration; source qualification under Viewer #304 remains separate from installed and postponed human acceptance.
+          description: Experimental expert MolSysViewer addon with native basic tools, two topology and nine chemical-state paths, twenty-eight structure, thirteen PBC, thirty-four physchem and fifteen canonical interaction paths at the recorded baseline; eleven build diagnostics, three detached covalent/type/charge preparation routes, independent export-name projection with identity maps and protected shared geometry, declared biological assemblies and explicit AutoDock4 nonpolar-H projection with charge/provenance maps, independent declared terminal attachment with historical reports and bounded standard/curated heavy-atom repair with native attribute/invalidation policies, independent hydrogen generation with distinct legacy/fixed-state contracts and historical H5MSM evidence, native terminal completion/capping with explicit chemistry/provider limits, detached native builder staging without mechanics/analyses and conditional overlap-filter ownership with explicit candidate/reference and structure scope, fresh peptide construction from the loaded sequence and independent bounded substitutions with explicit reconstruction and mask limitations, independent engine-selected solvation with explicit preparation/model requirements, direct OpenMM parity and bounded water/box geometry, independent reference-rule protonation reconciliation with named-state/unassessed limits and explicit in-place admission pending public correspondence, native missing-bond addition with managed reference-state graph publication, true no-op preservation and synchronization-only recovery; native alternate-site coordinate/occupancy/B-factor/ID publication with retained indices, consistent stable labels, whole-request scientific preflight and bounded adapter-failure limits without scientific replay; managed edits and synchronization recovery; independent atom maps/order, four system-composition mirrors with managed prefix additions and native partial-write limits, seven explicit H5MSM file utilities, two raw FASTA occurrence readers and eight explicit element/atom/group label utilities with empty-view access and no molecular binding; twenty-one current-primary element paths preserve native projections without assignment, stable versus chemical-state ownership and the limits of the legacy amino-acid name heuristic; fourteen additional explicit name/type/code helpers preserve scalar lookup semantics and the received canonical/protected-end conventions and remaining legacy-name qualification limits. Fourteen explicit reference-template queries complete the reviewed element surface, preserving index labels, received native index-map validation and structured diagnostics, native family data layouts and fixed chemical-context rules without preparation or scene changes. Five molecular-mechanics tools provide explicit engine-resource lookup, primary-bound degree counting, total/decomposed potential energy, internal/cross nonbonded contributions with bounded NoCutoff pair references and explicit partition limits, and native minimization, preserving physical units, independent output defaults, managed retained-axis coordinate publication, saved-analysis invalidation and synchronization-only retry. Independent visualization through basic.view preserves native selectors/backends and caller lifetime; four historical hbonds routes alias canonical bound methods, while native MD stubs remain unavailable. Repaired mutation atom-axis selection and native digestion are forwarded without consumer translation. Source exposure and bounded receiving retain native scientific prerequisites, provider limits and separate installed qualification. Conversion and preflight retain explicit from_naming_scheme with native loss/conflict handling. Source-aware code lookup uses element.group with naming_scheme; retired amino-acid scalar paths are not preserved as aliases. Explicit-input water construction works before loading and returns independent native output without adoption or equilibration claims. Independent native whole-water ion replacement retains explicit charge/seed/clearance controls and bidirectional reports without scene adoption; solvation now forwards native seed/digestion and receives identifier/count repairs. Resource lookup returns independent lists and distinguishes physical OBC models, with canonical shared OpenMM attribution metadata after #583. Native platform resolution distinguishes invalid names, unavailable registration and device failures without fallback; CPU/Reference execution has bounded consumer qualification, with GPU execution separate. The experimental System panel reviews explicit selections and applies qualified all-structure atom removal with atomic single-use confirmation and host-only reconciliation recovery. Source Geometry offers reviewed coordinate transforms and bounded periodic tools; Chemistry adds explicit-state stored-information and hydrogen inspection with native coverage and 50-row pages, alongside separate heavy-atom and hydrogen preparation tasks with explicit methods, native prerequisites, independent results and reviewed conditional scene-reset replacement. Analysis adds native distances, minimum/maximum separations and cutoff/nearest-count neighborhoods with explicit source axes and centers, ordered/repeated structures, 50-row nm pages and native disk-result retirement. Declared pending readers remain usable in the recovery sheet with scene isolation and exact panel restoration; source qualification under Viewer #304 remains separate from installed and postponed human acceptance.
       groups:
       - name: basic
         path: docs/content/user/tools/basic
@@ -165,7 +165,7 @@ sections:
             status: reviewed
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
-            description: Form conversion, independent native domains, coordinate-free OpenMM template inference and opt-out, axis conflicts and preserved provenance.
+            description: Form conversion, independent native domains, explicit GRO source conventions before candidate inference, coordinate-free OpenMM template inference and opt-out, axis conflicts and preserved provenance.
             agents_file: docs/content/user/tools/basic/convert.ipynb.AGENTS.md
           - name: extract
             file: docs/content/user/tools/basic/extract.ipynb
@@ -223,6 +223,10 @@ sections:
             agents_file: docs/content/user/tools/build/add_missing_heavy_atoms.ipynb.AGENTS.md
             description: Bounded local heavy-atom repair, unassessed gaps, preserved native domains and strict attribute policy.
             status: reviewed
+          - name: assess_protonation
+            file: docs/content/user/tools/build/assess_protonation.ipynb
+            agents_file: docs/content/user/tools/build/assess_protonation.ipynb.AGENTS.md
+            description: Read-only reference-rule assessment, canonical atom maps, single-use execution, source lifetime, stored-domain projection and scientific limits.
           - name: add_missing_terminal_cappings
             file: docs/content/user/tools/build/add_missing_terminal_cappings.ipynb
             agents_file: docs/content/user/tools/build/add_missing_terminal_cappings.ipynb.AGENTS.md
@@ -254,21 +258,22 @@ sections:
           - name: get_residue_chemical_coverage
             file: docs/content/user/tools/build/get_residue_chemical_coverage.md
             agents_file: docs/content/user/tools/build/get_residue_chemical_coverage.md.AGENTS.md
+            description: Exact state-scoped group and declared cap references, heavy connectivity, separate H inventories and unassessed chemical dimensions.
             status: reviewed
           - name: get_covalent_bond_candidates
             file: docs/content/user/tools/build/get_covalent_bond_candidates.md
             agents_file: docs/content/user/tools/build/get_covalent_bond_candidates.md.AGENTS.md
-            description: Exact heavy-group or observed-H parent consensus candidates, source atom selections and explicit unresolved chemistry.
+            description: Exact heavy-group and declared cap references, observed-H parent candidates, opt-in pinned H-name alternatives, source selections and unresolved chemistry.
             status: reviewed
           - name: get_peptide_bond_candidates
             file: docs/content/user/tools/build/get_peptide_bond_candidates.md
             agents_file: docs/content/user/tools/build/get_peptide_bond_candidates.md.AGENTS.md
-            description: Adjacent or geometrically unique peptide C-N candidates with full-source competition, explicit geometry and conservative exclusions.
+            description: Adjacent or geometrically unique peptide and declared cap C-N candidates with explicit endpoint roles, full-source competition and conservative exclusions.
             status: reviewed
           - name: infer_covalent_bonds
             file: docs/content/user/tools/build/infer_covalent_bonds.md
             agents_file: docs/content/user/tools/build/infer_covalent_bonds.md.AGENTS.md
-            description: Applying bounded native candidates with historical evidence, explicit reader engines and unresolved chemistry.
+            description: Applying bounded native group/cap candidates with optional H-name alternatives, historical evidence, explicit reader engines and typed exclusions for disulfides, coordination and unsupported-group geometry.
             status: reviewed
       - name: topology
         path: docs/content/user/tools/topology
@@ -277,6 +282,11 @@ sections:
         index_agents_file: docs/content/user/tools/topology/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_atom_name_correspondence
+            file: docs/content/user/tools/topology/get_atom_name_correspondence.md
+            agents_file: docs/content/user/tools/topology/get_atom_name_correspondence.md.AGENTS.md
+            description: Exact selected unique-name and element correspondence with full source indices, without chemical identity inference.
+            status: reviewed
           - name: get_sequence_alignment
             file: docs/content/user/tools/topology/get_sequence_alignment.ipynb
             agents_file: docs/content/user/tools/topology/get_sequence_alignment.ipynb.AGENTS.md
@@ -449,7 +459,7 @@ sections:
           - name: chemical_templates
             file: docs/content/user/tools/physchem/chemical_templates.md
             agents_file: docs/content/user/tools/physchem/chemical_templates.md.AGENTS.md
-            description: Explicit template and stereo-declaration transfer, mapped polymer context, scoped bond completion and retained preparation evidence.
+            description: Explicit CCD source acquisition and reference interpretation, exact label correspondence, template transfer, mapped context and retained preparation evidence.
             status: reviewed
           - name: get_chemical_readiness
             file: docs/content/user/tools/physchem/get_chemical_readiness.md
@@ -547,6 +557,10 @@ sections:
             description: Total/decomposed model energies with engine-owned platform names and construction-only platform selection.
             file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb.AGENTS.md
+          - name: get_forces
+            description: Complete-model native and engine forces, legacy versus explicit structure axes, selected atom order, physical units, periodic boxes, bounded H5MSM reading, ownership and model limits.
+            file: docs/content/user/tools/molecular_mechanics/get_forces.ipynb
+            agents_file: docs/content/user/tools/molecular_mechanics/get_forces.ipynb.AGENTS.md
           - name: get_non_bonded_potential_energy
             description: Nonbonded atom-set and partitioned energy shapes, typed empty entries, input preservation, unit policy and scientific model limits with engine-owned platforms.
             file: docs/content/user/tools/molecular_mechanics/get_non_bonded_potential_energy.ipynb
@@ -587,24 +601,39 @@ sections:
         index_file: docs/content/user/tools/form/index.md
         index_agents_file: docs/content/user/tools/form/index.AGENTS.md
         status: pending_review
-        description: Form contracts, including bounded GRO bridges, selected coordinate/box correspondence, reader ownership and explicitly unsupported OpenMM runtime/snapshot copies.
+        description: Form contracts, early PDB/GRO naming context, selected coordinate/box correspondence, reader ownership and explicitly unsupported OpenMM runtime/snapshot copies.
         pages:
+          - name: pdb_reader_context
+            file: docs/content/user/tools/form/file/file_pdb.ipynb
+            agents_file: docs/content/user/tools/form/file/file_pdb.ipynb.AGENTS.md
+            description: Native PDB source context before classification/inference, explicit-only edges, inventory-only Topology projections and retained reader evidence.
+            status: pending_review
+          - name: pdb_text_reader_context
+            file: docs/content/user/tools/form/string/string_pdb_text.ipynb
+            agents_file: docs/content/user/tools/form/string/string_pdb_text.ipynb.AGENTS.md
+            description: Declared native PDB text context, unchanged disabled-inference default, semantic selections and external interpretation limits.
+            status: pending_review
+          - name: pdb_handler_reader_context
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb.AGENTS.md
+            description: Early native PDB context, independent interpretations over caller-owned parsed records and unchanged handler lifetime.
+            status: pending_review
           - name: cif_primary_observations
             file: docs/content/user/tools/form/file/file_cif.ipynb
             agents_file: docs/content/user/tools/form/file/file_cif.ipynb.AGENTS.md
-            description: Primary occupancy, explicit missing values, model-local alternate choices and native selection axes.
+            description: Primary observations, explicit-only connectivity policy, mapped declaration retention and native selection axes.
           - file: docs/content/user/tools/form/file/file_cif_gz.ipynb
             agents_file: docs/content/user/tools/form/file/file_cif_gz.ipynb.AGENTS.md
-            description: Compressed CIF route retaining primary occupancy and alternate observations.
+            description: Compressed CIF native reading with forwarded connectivity policy and retained primary/alternate observations.
           - file: docs/content/user/tools/form/file/file_bcif.ipynb
             agents_file: docs/content/user/tools/form/file/file_bcif.ipynb.AGENTS.md
-            description: BinaryCIF route retaining primary occupancy and alternate observations.
+            description: BinaryCIF native reading with explicit versus inferred connectivity and retained observations.
           - file: docs/content/user/tools/form/file/file_bcif_gz.ipynb
             agents_file: docs/content/user/tools/form/file/file_bcif_gz.ipynb.AGENTS.md
-            description: Compressed BinaryCIF route retaining primary occupancy and alternate observations.
+            description: Compressed BinaryCIF native reading with forwarded connectivity policy and retained observations.
           - file: docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb
             agents_file: docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb.AGENTS.md
-            description: Shared parsed-category converter with coherent occupancy, coordinates, alternate sites and model axes.
+            description: Shared parsed-category conversion with explicit-only connectivity admission, retained mapped declarations, occupancy and model-local observations.
           - name: one_letter_native_sequence
             file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb
             agents_file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb.AGENTS.md
@@ -733,7 +762,7 @@ sections:
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md
-        description: Explicit PDB connectivity policy, template transfer, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells with declared polymer context.
+        description: Explicit PDB connectivity, CCD reference construction and mapped application, retained construction and normalization, mapped H reinsertion, bounded peptides and 1QKU receptor shells.
         status: reviewed
       - name: permuting_export_order
         file: docs/content/user/cookbook/permuting_export_order.md
@@ -760,6 +789,7 @@ sections:
         file: docs/content/user/cookbook/spectacular_visualizations.ipynb
         agents_file: docs/content/user/cookbook/spectacular_visualizations.ipynb.AGENTS.md
       - name: simulation_workflow
+        description: OpenMM setup and dynamics, native minimization ownership, and complete-model atomic force reading with explicit structure and unit contracts.
         file: docs/content/user/cookbook/simulation_workflow.ipynb
         agents_file: docs/content/user/cookbook/simulation_workflow.ipynb.AGENTS.md
       - name: big_data_trajectories

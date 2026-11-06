@@ -487,8 +487,9 @@ Keep internal versus disjoint cross contributions, two-sided partitions and
 received mixed #561 axes explicit, including their singleton flat-side matrix
 axis. Forward inputs and native results without consumer-side reshaping.
 Retain the independent NoCutoff pair-energy reference and separate periodic/
-overlap/scientific limits. Native MolSys forces are pending #572: do not expose
-an always-rejected force method or add consumer-side parameterization.
+overlap/scientific limits. Distinguish the #572 native provider force route from
+addon exposure and installed qualification, which remain pending. Do not expose
+an unreceived force method or add consumer-side parameterization.
 
 
 Preserve solvate as explicit independent construction, with native engine/model,
@@ -502,7 +503,9 @@ TIP3P tolerances from the bundled PDB precision rather than exact ideal geometry
 
 Preserve the independent reconcile_protonation route, its exact native parameters
 and explicit refusal of managed in_place=True before science pending public
-removal correspondence. Keep fixed-pKa approximation, declared named-state and
+removal-correspondence receiving. The native provider's prepared assessment can
+be documented independently; it does not qualify managed addon execution.
+Keep fixed-pKa approximation, declared named-state and
 unassessed-group limits distinct from chemical readiness; there is no hidden
 charge/H/state preparation, private chemistry helper, identity inference or
 scene adoption. Native results and named analyses retain extraction semantics.

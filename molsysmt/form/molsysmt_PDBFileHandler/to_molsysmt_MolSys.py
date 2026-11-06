@@ -72,7 +72,7 @@ def _topology_rows(content):
     return atom_rows, group_rows, chain_rows, canonical_atoms, variants
 
 
-def _get_group_types(group_rows, atom_rows):
+def _get_group_types(group_rows, atom_rows, naming_scheme=None):
     from molsysmt._private.name_resolution import (
         classify_group_name as get_group_type_from_group_name,
     )
@@ -86,9 +86,10 @@ def _get_group_types(group_rows, atom_rows):
 
     group_types = []
     for group_index, (_, group_name, _) in enumerate(group_rows):
-        group_type = get_group_type_from_group_name(group_name)
+        group_type = get_group_type_from_group_name(group_name, naming_scheme)
         if (
-            group_type == "small molecule"
+            naming_scheme is None
+            and group_type == "small molecule"
             and reserved_small_molecule_names is not None
             and group_name in reserved_small_molecule_names
             and {"N", "CA", "C", "O", "CB"}.issubset(
@@ -98,82 +99,6 @@ def _get_group_types(group_rows, atom_rows):
             group_type = "amino acid"
         group_types.append(group_type)
     return np.array(group_types, dtype=object)
-
-
-def _resolve_link_endpoint(canonical_atoms, endpoint):
-    chain_id, group_id, insertion_code, group_name, atom_name, _ = endpoint
-    return [
-        atom_index
-        for atom_index, atom in enumerate(canonical_atoms)
-        if (
-            atom.chain_id == chain_id
-            and atom.group_id == group_id
-            and atom.insertion_code == insertion_code
-            and atom.group_name == group_name
-            and atom.atom_name == atom_name
-        )
-    ]
-
-
-def _resolve_ssbond_endpoint(canonical_atoms, endpoint):
-    chain_id, group_id, insertion_code = endpoint
-    return [
-        atom_index
-        for atom_index, atom in enumerate(canonical_atoms)
-        if (
-            atom.chain_id == chain_id
-            and atom.group_id == group_id
-            and atom.insertion_code == insertion_code
-            and atom.group_name == "CYS"
-            and atom.atom_name == "SG"
-        )
-    ]
-
-
-def _get_explicit_bonds(content, canonical_atoms, variants):
-    serial_to_indices = {}
-    for atom_index, items in enumerate(variants.values()):
-        for item in items:
-            serial_to_indices.setdefault(item.serial, set()).add(atom_index)
-
-    pairs = set()
-    repeated_pairs = set()
-    unresolved = False
-    for record in content.conect:
-        for target in record.target_serials:
-            sources = serial_to_indices.get(record.source_serial, set())
-            targets = serial_to_indices.get(target, set())
-            if len(sources) != 1 or len(targets) != 1:
-                unresolved = True
-                continue
-            pair = tuple(sorted((next(iter(sources)), next(iter(targets)))))
-            if pair[0] == pair[1]:
-                continue
-            if pair in pairs:
-                repeated_pairs.add(pair)
-            pairs.add(pair)
-
-    for record in content.links:
-        endpoint1 = _resolve_link_endpoint(canonical_atoms, record.endpoint1)
-        endpoint2 = _resolve_link_endpoint(canonical_atoms, record.endpoint2)
-        if len(endpoint1) != 1 or len(endpoint2) != 1:
-            unresolved = True
-            continue
-        pair = tuple(sorted((endpoint1[0], endpoint2[0])))
-        if pair[0] != pair[1]:
-            pairs.add(pair)
-
-    for record in content.ssbonds:
-        endpoint1 = _resolve_ssbond_endpoint(canonical_atoms, record.endpoint1)
-        endpoint2 = _resolve_ssbond_endpoint(canonical_atoms, record.endpoint2)
-        if len(endpoint1) != 1 or len(endpoint2) != 1:
-            unresolved = True
-            continue
-        pair = tuple(sorted((endpoint1[0], endpoint2[0])))
-        if pair[0] != pair[1]:
-            pairs.add(pair)
-
-    return sorted(pairs), unresolved, bool(repeated_pairs)
 
 
 @dep_digest("openmm")
@@ -217,7 +142,7 @@ def _get_bonded_atom_pairs_from_openmm_pdb(item):
 
 
 def _build_domains_from_content(
-    item, get_missing_bonds=True, bond_inference_engine=None
+    item, get_missing_bonds=True, bond_inference_engine=None, *, from_naming_scheme=None
 ):
     from molsysmt.native import MolSys
 
@@ -263,7 +188,11 @@ def _build_domains_from_content(
         topology.groups["group_name"] = np.array(
             [row[1] for row in group_rows], dtype=object
         )
-        topology.groups["group_type"] = _get_group_types(group_rows, atom_rows)
+        if from_naming_scheme is not None:
+            topology.set_group_naming_schemes(from_naming_scheme)
+        topology.groups["group_type"] = _get_group_types(
+            group_rows, atom_rows, from_naming_scheme
+        )
     if chain_rows:
         topology.chains["chain_id"] = np.array(
             [row[0] for row in chain_rows], dtype=object
@@ -279,6 +208,7 @@ def _build_domains_from_content(
         )
 
     from molsysmt._private.pdb_connectivity import record, validate_policy
+    from molsysmt._private.pdb_declarations import resolve
     from molsysmt._private.smonitor import (
         LibraryNotFoundError,
         PDBBondInferenceWarning,
@@ -286,13 +216,21 @@ def _build_domains_from_content(
     )
 
     validate_policy(get_missing_bonds, bond_inference_engine)
-    explicit_pairs, unresolved, repeated = _get_explicit_bonds(
-        content, canonical_atoms, variants
-    )
+    explicit_pairs, declaration_issues = resolve(content, canonical_atoms, variants)
     bond_evidence = {pair: "explicit" for pair in explicit_pairs}
     inference_status, inference_error = "disabled", None
     if get_missing_bonds:
         try:
+            if from_naming_scheme is not None:
+                from molsysmt._private.amino_acid_templates import (
+                    check_external_preparation,
+                )
+
+                check_external_preparation(
+                    native,
+                    "OpenMM",
+                    "molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_MolSys",
+                )
             inferred_pairs = _get_bonded_atom_pairs_from_openmm_pdb(item)
             inference_status = "inferred"
         except Exception as error:
@@ -347,18 +285,22 @@ def _build_domains_from_content(
         inference_status,
         bond_inference_engine,
         error=inference_error,
-        declaration_issues=dict(unresolved=unresolved, repeated_pairs=repeated),
+        declaration_issues=declaration_issues,
+        from_naming_scheme=from_naming_scheme,
     )
 
     return native
 
 
 def _build_topology_from_content(
-    item, get_missing_bonds=True, bond_inference_engine=None
+    item, get_missing_bonds=True, bond_inference_engine=None, *, from_naming_scheme=None
 ):
     """Project stable inventory from the declared PDB domain reader."""
     return _build_domains_from_content(
-        item, get_missing_bonds, bond_inference_engine
+        item,
+        get_missing_bonds,
+        bond_inference_engine,
+        from_naming_scheme=from_naming_scheme,
     ).topology
 
 
@@ -552,7 +494,7 @@ def _apply_compnd_names(item, molsys):
 
 
 def _build_molsys_from_pdb_handler(
-    item, get_missing_bonds=True, bond_inference_engine=None
+    item, get_missing_bonds=True, bond_inference_engine=None, *, from_naming_scheme=None
 ):
     from molsysmt._private.pdb_connectivity import validate_policy
 
@@ -563,6 +505,7 @@ def _build_molsys_from_pdb_handler(
         item,
         get_missing_bonds=False if native_inference else get_missing_bonds,
         bond_inference_engine=None if native_inference else bond_inference_engine,
+        from_naming_scheme=from_naming_scheme,
     )
     output.structures = _build_structures_from_content(item)
     if native_inference:
@@ -582,6 +525,7 @@ def to_molsysmt_MolSys(
     skip_digestion=False,
     *,
     bond_inference_engine=None,
+    from_naming_scheme=None,
 ):
     """
     Converting from molsysmt.PDBFileHandler to molsysmt.MolSys.
@@ -602,12 +546,49 @@ def to_molsysmt_MolSys(
     bond_inference_engine : str or None, default=None
         Explicit 'MolSysMT' or 'OpenMM', requiring get_missing_bonds=True. None
         retains the legacy optional OpenMM policy, with diagnosed failures.
+    from_naming_scheme : str or None, default=None
+        Source group-name convention ('amber', 'ccd', 'legacy' or 'sequence'),
+        declared before classification and native inference. None leaves it
+        undeclared. This does not rename atoms/groups or translate chemical state.
 
     Returns
     -------
     molsysmt.MolSys
         Resulting object in molsysmt.MolSys form.
 
+    Notes
+    -----
+    An explicit source convention is declared on the fresh topology before
+    classification and native inference. Original labels are retained. No
+    source naming is guessed from the PDB format. The reader history records
+    source_naming_scheme independently of later metadata edits. Semantic
+    selections through public convert use the interpreted inventory.
+
+    OpenMM has no source-naming adapter for the reviewed contextual labels or
+    incompatible cap declarations. Explicit OpenMM requests raise before that
+    provider executes; the legacy optional route warns and retains the typed
+    cause and declared edges. No native fallback is selected automatically.
+    Undeclared input keeps the prior engine/default policy.
+
+    The first chemical-state preparation record stores typed declaration
+    diagnostics under ``report['declaration_issues']``. It retains source line
+    numbers (1-based), record indices (0-based within each record kind), raw
+    fixed-column records and directed canonical endpoint indices (-1 when
+    missing or ambiguous). These historical indices describe the original
+    reader operation, even after extraction or reordering.
+
+    Alternate serials map to canonical sites with conditional scope recorded.
+    Unknown LINK alternates and nonidentity symmetry images are not projected
+    onto different observed sites. Redundant declarations retain one edge and
+    do not establish bond order. Conflicting declared CYS sulfur partners remain
+    explicit, with their conflict reported rather than resolved by a guess.
+    Use ``return_report=True`` or ``strict=True`` on public ``msm.convert`` for
+    conversion limitations. Declared LINK/CONECT records do not certify covalent
+    bond kind, valence or a complete alternate-specific chemical state.
+
+    The interpretation follows wwPDB PDB 3.3 sections 6 and 10:
+    https://www.wwpdb.org/documentation/file-format-content/format33/sect6.html
+    and https://www.wwpdb.org/documentation/file-format-content/format33/sect10.html.
 
     .. versionadded:: 1.0.0
     """
@@ -624,6 +605,7 @@ def to_molsysmt_MolSys(
             item,
             get_missing_bonds=get_missing_bonds,
             bond_inference_engine=bond_inference_engine,
+            from_naming_scheme=from_naming_scheme,
         )
         return output.extract(
             atom_indices=atom_indices,

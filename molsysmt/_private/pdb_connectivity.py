@@ -16,7 +16,15 @@ def validate_policy(get_missing_bonds, engine):
         )
 
 
-def record(chemical_states, status, engine, *, error=None, declaration_issues=None):
+def record(
+    chemical_states,
+    status,
+    engine,
+    *,
+    error=None,
+    declaration_issues=None,
+    from_naming_scheme=None,
+):
     """Archive an outcome with original bond indices and producer identity."""
     from molsysmt import __version__
     from molsysmt._private.preparation_history import append_report
@@ -39,6 +47,7 @@ def record(chemical_states, status, engine, *, error=None, declaration_issues=No
         schema="molsysmt.pdb_connectivity@1",
         status=status,
         requested_engine=engine,
+        source_naming_scheme=from_naming_scheme,
         attempted_engine=None if status == "disabled" else "OpenMM",
         actual_engine="OpenMM" if status == "inferred" else None,
         method="openmm_pdb_standard_bonds"

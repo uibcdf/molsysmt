@@ -1232,15 +1232,13 @@ and constraint counts against explicit OpenMM recipes on a small qualified
 fixture. Additional stored controls and effective-recipe reporting remain
 under [#582](https://github.com/uibcdf/molsysmt/issues/582).
 
-When mixing implicit-model construction and solvation in one attribution
-session, [#583](https://github.com/uibcdf/molsysmt/issues/583) tracks a native
-OpenMM metadata conflict: science completes but that operation's software use
-can be missing from Ackredit. The addon does not hide the warning or replace
-the native bibliography.
-The native generic reader currently rejects `constraints=True` under
-[#584](https://github.com/uibcdf/molsysmt/issues/584); supported stored policies
-still reach qualified engine construction. The addon preserves that native
-query error rather than adding a separate getter.
+Implicit-model construction and solvation share the canonical OpenMM
+software/version record after [#583](https://github.com/uibcdf/molsysmt/issues/583),
+retaining their separate contextual uses in Ackredit. The addon reuses that
+native bibliography. After [#584](https://github.com/uibcdf/molsysmt/issues/584),
+the native generic reader accepts `constraints=True` as a query flag and
+`constraints=False` omits the query. Stored physical policies keep their
+distinct setter/engine meanings; the addon adds no competing getter.
 
 Degree counting performs native OpenMM parameterization, with the selected
 force field and the original molecular prerequisites. It does not add missing
@@ -1349,10 +1347,13 @@ outputs directly. Reads include completed pending edits without scene projection
 or history changes. Cross axes must be disjoint; repeated/shared members within
 one partition axis retain the native contract.
 
-`get_forces` is still unexposed: its native MolSys input route is requested in
-[#572](https://github.com/uibcdf/molsysmt/issues/572). An OpenMM-only reader does
-not yet supply forces for the current `view.molsys`; the addon adds no implicit
-engine conversion or placeholder method.
+`get_forces` is still unexposed in the addon. The scientific provider's native
+MolSys route is implemented under
+[#572](https://github.com/uibcdf/molsysmt/issues/572), with complete-model atom
+filtering, explicit structure axes and physical units. Its source receiving
+does not qualify addon exposure or installed delivery. The addon adds no
+consumer-side parameterization or placeholder method. See the
+{ref}`native force tutorial <Tutorial_Get_forces>` for the provider contract.
 
 ### Relaxing coordinates
 
@@ -3950,8 +3951,9 @@ applies requested ion populations using the native replacement operation.
 parameters and software. `skip_digestion` is now a native argument and is
 forwarded as requested; ordinary validation remains the default. The addon
 performs no input renumbering, count compensation or silent engine substitution.
-Use explicit native counts, charge evidence and model settings. The attribution
-conflict [#583](https://github.com/uibcdf/molsysmt/issues/583) remains visible.
+Use explicit native counts, charge evidence and model settings. The canonical
+OpenMM attribution record is shared with model construction after
+[#583](https://github.com/uibcdf/molsysmt/issues/583).
 
 ## Adding ions to an independent system
 
@@ -4939,8 +4941,13 @@ copying/subsetting can materialize coordinates and is not an out-of-core
 trajectory promise. Cached methods follow replacement and closed-view rules.
 
 `in_place=True` raises `NotImplementedError` before scientific execution because
-the native tool does not yet provide public removal correspondence for managed
-scene remapping. The addon does not infer identity from counts, labels or
+the addon has not yet received the native prepared-removal correspondence for
+managed scene remapping. The provider now offers
+{func}`molsysmt.build.assess_protonation` and a source-bound
+{class}`molsysmt.build.ProtonationAssessment`: inspect its detached positional map,
+then apply that same decision once. See {ref}`Tutorial_Protonation_Assessment`.
+This provider route does not by itself qualify managed execution in the addon.
+The addon does not infer identity from counts, labels or
 coordinates and does not call private protonation rules. There is no
 `update_view`, `selection`, `structure_indices` or `return_report` argument on
 this mirror. Native digestion is forwarded; the integration admission boolean

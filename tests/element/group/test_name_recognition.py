@@ -274,4 +274,5 @@ def test_direct_module_import_is_the_supported_classifier():
     )
 
     assert get_group_type_from_group_name is kind
+    assert msm.element.group.get_group_type_from_group_name is kind
     assert get_group_type_from_group_name("ALA") == "amino acid"

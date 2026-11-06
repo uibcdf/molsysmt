@@ -6,7 +6,13 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form="file:gro")
 @dep_digest("mdtraj")
 def to_mdtraj_Trajectory(
-    item, atom_indices="all", structure_indices="all", skip_digestion=False
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    skip_digestion=False,
+    *,
+    from_naming_scheme=None,
+    get_missing_bonds=True,
 ):
     """
     Converting from file:gro to mdtraj.Trajectory.
@@ -31,6 +37,12 @@ def to_mdtraj_Trajectory(
         inferred using the first structure before this selection.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    from_naming_scheme : str or none, optional
+        Explicit source group-name convention, applied to native candidate
+        inference before reading/extracting the coordinate series. Defaults to None.
+    get_missing_bonds : bool, default=True
+        Whether to infer candidate connectivity. False retains an edge-free
+        graph because GRO itself declares no bonds.
 
     Returns
     -------
@@ -64,7 +76,11 @@ def to_mdtraj_Trajectory(
 
     tmp_item = load(item)
     native_topology = to_molsysmt_MolSys(
-        item, structure_indices=[0], skip_digestion=True
+        item,
+        structure_indices=[0],
+        from_naming_scheme=from_naming_scheme,
+        get_missing_bonds=get_missing_bonds,
+        skip_digestion=True,
     )
     tmp_item.topology = native_to_mdtraj(native_topology, skip_digestion=True)
     tmp_item = extract(
