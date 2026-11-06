@@ -5090,6 +5090,44 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
-Extraction/copy result presentation and other task panels remain separate work.
+Extraction/copy result presentation uses the separate flow below; other task
+panels remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
+
+## Creating independent results through Molecular tools
+
+This is experimental source functionality paired with the Viewer host under
+Viewer #301. In **Molecular tools > System**, choose **Extract subset** or
+**Copy system**. Extraction reuses the atom-selection controls and offers all
+structures, the current structure or explicit distinct indices in the requested
+order, such as `2, 0`. Copying includes the complete system and every structure.
+Selection context controls expression evaluation independently of output scope.
+
+Give the result an optional name and choose **Create result**. Molecular data
+are materialized in memory; large trajectories can be expensive. The source is
+unchanged. These tasks create molecular results with a new default scene;
+they do not transfer the source's regions, annotations or other decorations.
+
+After calculation, choose **Show in notebook** or **Open in new window** in
+Jupyter. Qt offers a new native window. The destination is explicit, including
+from canvas/Studio popups. If the browser blocks the window, allow it and retry;
+the scientific operation is not repeated. Reopening the same destination
+returns to the existing View. A result already shown in the notebook can use
+its own canvas popup.
+
+Expand **Python reference** to recover the independent View. For example,
+`view_B = view.addons.manager.presentations.get(handle)` returns it without
+displaying it. `view.addons.manager.presentations.records()` lists live handles.
+Closing a result releases its View. Leaving the task closes an unpresented
+result; an already presented View survives navigation and source closure.
+Browser results remain connected to the same kernel; restarting it ends their
+live connection. Live handles are not a scientific-file serialization format.
+
+The expert contracts remain distinct: `tools.basic.extract(...)` and
+`tools.basic.copy()` return native molecular data; `view.extract(...)` returns
+a View with its existing scene-transfer rules. These expert calls do not
+implicitly display a result. Native data saving and explicit replacement retain
+their own routes; this GUI slice does not yet add those destinations.
+Automated browser/native-window ownership evidence does not replace postponed
+human Jupyter/visible Qt observations or installed-package qualification.
