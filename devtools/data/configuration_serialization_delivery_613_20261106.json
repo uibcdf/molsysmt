@@ -1,0 +1,115 @@
+{
+  "schema_version": "molsysmt.configuration_serialization_delivery@1",
+  "owning_issue": "uibcdf/molsysmt#613",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "implementation_commit": "f60e25b7edad28f035429563fd8b46f4d93395f2",
+  "published_checkpoint": "1b1cc42e0c88de0df507e02f9349658e223369ef",
+  "independent_public_verification": "GitHub connector retrieval from main; all 12 implementation/receipt/owner-report Git blob SHAs match local git hash-object.",
+  "blobs": [
+    {
+      "path": "devguide/performance_and_jit.md",
+      "git_blob_sha": "2f8f5914162cef12be3bb2b4a447707e44c922ce",
+      "matched": true
+    },
+    {
+      "path": "devtools/tests/test_validate_course.py",
+      "git_blob_sha": "483473ace827b2001f35974e59d3321fcdf9cf1b",
+      "matched": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb",
+      "git_blob_sha": "962be9d3e8c37d2b740d8bab040f81b4bd648a9e",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/cookbook/big_data_trajectories.ipynb",
+      "git_blob_sha": "07d3e0fcdea0b0b5fc6716de142f5f0502a23d7f",
+      "matched": true
+    },
+    {
+      "path": "docs/content/user/foundations/governance/configuration_options.md",
+      "git_blob_sha": "f1383a0b81526a2931d7964f85d2d8b22952f9e4",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/_private/argdigest/domain/configuration.py",
+      "git_blob_sha": "b67c86bd56301e42bdda12edecc308403db149d2",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/_private/argdigest/function/configuration.py",
+      "git_blob_sha": "cd952e30485d854a39d3ba1c2bceaf0a5e7ecaaa",
+      "matched": true
+    },
+    {
+      "path": "molsysmt/configure/__init__.py",
+      "git_blob_sha": "140ec298803a60aaf928bc20123b4e5da8f4e319",
+      "matched": true
+    },
+    {
+      "path": "tests/basic/test_configuration_context.py",
+      "git_blob_sha": "e8b0bc414bc973ff7ee0d6c2f7f5c643f0f6c59f",
+      "matched": true
+    },
+    {
+      "path": "devtools/data/configuration_serialization_receiving_613_20261106.json",
+      "git_blob_sha": "bd7490e3c17e217b806556c1585a783ecd2ef760",
+      "matched": true
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/concurrent_configuration_contexts_leak_gpu_policy.md",
+      "git_blob_sha": "866dd37ec4b61fe4e10e96856ab5e26a744bdbfc",
+      "matched": true
+    },
+    {
+      "path": "devguide/pending_bugs/rust_cpu_kernel_inputs_follow_an_unsupported_single_precision_setting.md",
+      "git_blob_sha": "2b38a581c831deb3220325a4477dcdf19a1fff2f",
+      "matched": true
+    }
+  ],
+  "issue": {
+    "number": 613,
+    "state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-06T23:51:29Z"
+  },
+  "phase2_ordinary_ci": {
+    "head": "16ecaae01c4b670ef3a38ce595362b83e172cc69",
+    "runs": [
+      {
+        "id": 42312539177,
+        "name": "MolSysSuite policy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 42312539512,
+        "name": "Conda publication governance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 42312538834,
+        "name": "Developer guide integrity",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 42312538781,
+        "name": "CI smoke",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "scope": "Four observed ordinary workflows; not a full/platform/installed/release matrix."
+  },
+  "accepted_plan_progress_percent": 40,
+  "remaining_in_phase3": [
+    "uibcdf/molsysmt#620",
+    "uibcdf/molsysmt#524"
+  ],
+  "limits": [
+    "Public source and owner closeout only; no installed-floor, graphical or release qualification.",
+    "Original prepared closeout, failed attempts and scientific dirty-source certificates remain unchanged."
+  ]
+}

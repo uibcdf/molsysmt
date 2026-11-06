@@ -38,13 +38,16 @@ cases and 97 scientific cases; these scopes overlap. The
 retains exact source/backend identity, original failures, warnings and limits.
 It implements the existing process-global serialization contract; outside
 observers, direct assignments and overlapping async contexts are not isolated.
-Public delivery and owner closeout are next.
+Public checkpoint `1b1cc42e0` independently matches all 12 checked implementation/
+receipt/report blobs, and #613 is verified closed. Its
+[delivery record](../devtools/data/configuration_serialization_delivery_613_20261106.json)
+keeps that separate acceptance and the remaining phase-three scope.
 
 Then resolve #620's separately reproduced precision-setting/kernel mismatch and
 advance independently actionable #524 installed-runtime work. A new precision
 backend is not required. #613 alone does not complete this block or increase its
-credited weight. The PBC checkpoint smoke 42312538781 remains active in bound-tool
-receiving at inspection; older phase-one smoke 42305861858 is verified successful.
+credited weight. All four observed ordinary workflows at PBC head `16ecaae01`,
+including smoke 42312538781, now pass; older phase-one smoke 42305861858 is also verified successful.
 Neither is a release matrix. Preserve the #616/#613 consumer reports on PR #543
 integration rather than reintroducing duplicate pending records.
 

@@ -9,8 +9,8 @@
 independent public-file and closed-board receiving is recorded below. Joint
 receiving passes 5,435 cases, final directed/documentation receiving passes
 1,195, and the scientific certificate passes 97 cases across 64 nodes. These
-scopes overlap. Accepted progress is 40%; #613 source is now locally qualified
-and awaits public closeout. Phase 3 continues with #620 and independently
+scopes overlap. Accepted progress is 40%; #613 source is now published and its
+owner issue is independently verified closed. Phase 3 continues with #620 and independently
 actionable #524 work. No replacement candidate is selected.
 
 The maintainer requests a durable record of the new audit, its reasoning, the
@@ -421,6 +421,17 @@ actual source-floor limits and unchanged environment/backend. Public delivery
 and board closure follow. #620 and #524 remain unresolved; this checkpoint
 does not yet credit phase 3 or raise accepted progress above 40%.
 
+**#613 public closeout:** checkpoint
+`1b1cc42e0c88de0df507e02f9349658e223369ef` publishes the implementation and
+records. All 12 checked implementation/receipt/report blobs independently match
+GitHub, and #613 is verified closed with its regression and source commit. The
+[delivery receipt](../devtools/data/configuration_serialization_delivery_613_20261106.json)
+also records all four ordinary workflows successful at the earlier PBC head
+`16ecaae01`. These results do not qualify the new configuration source or an
+installed candidate; finish this source block with its own unskipped head.
+Next: #620 precision-boundary disposition and #524 installed-runtime closure.
+Phase-three credit remains pending and total accepted progress remains 40%.
+
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
   applicable per-call overrides, including real decorated calls. Distinguish
@@ -630,6 +641,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Phase 2 delivered and closed | Public checkpoint `27bc4d3c5` independently matches all 27 checked blobs. #605/#607/#606/#608/#619 are closed with source `3eb720444` and addressable guards. Accepted plan progress is 40%; #619 shares the existing unit milestone. The receipt preserves original failures and local/installed evidence boundaries. | Finish this checkpoint's ordinary unskipped CI and begin #613 under the accepted process-global serialization contract; continue independently actionable #524 runtime work. PR #543 remains open at the same reviewed head. |
 | 2026-11-06 | Phase boundary board refresh | Complete paginated open inventory contains 98 issues and one PR after PBC closeout. No newly numbered open report changes the selected #613 next step. PR #543 remains open at `8ab2f5474b2e04c68d31ef2854a238984b645fc8`; its qualification remains separate. | Continue configuration correctness and installed-runtime closure, preserving the existing graphical and final-candidate dependencies. |
 | 2026-11-06 | Configuration source qualified | #613 correction `f60e25b7e` passes 4,438 integrated, 32 source-floor/doctest, 500 documentation and 97 scientific cases in overlapping scopes. Its receipt retains all failed attempts and process-global limitations. Independent serial precision mismatch is reported as #620 after complete seven-page acquisition; no new backend is required. Accepted plan progress remains 40%. | Publish/verify and close #613; resolve #620 and independently actionable #524 before phase-three credit. The existing phase-two smoke remains active in its bound-tool receiving step at inspection. |
+| 2026-11-06 | Configuration delivered; PBC CI terminal | Public checkpoint `1b1cc42e0` matches all 12 checked implementation/receipt/report blobs. #613 is independently verified closed. All four observed ordinary workflows at PBC head `16ecaae01`, including smoke 42312538781, conclude successfully. Accepted plan progress remains 40%; source and installed-release qualification stay separate. | Finish the configuration checkpoint with an unskipped head and inspect its applicable CI, then continue #620 and independently actionable #524. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
