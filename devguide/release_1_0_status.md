@@ -20,6 +20,38 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Course geometric interface observable — 2026-11-05
+
+**#589 is source-corrected.** The Alzheimer capstone uses explicit partner atom
+populations and existing extraction/SASA tools to calculate fixed-coordinate
+total SASA loss and its separately named half-area convention. The dry union
+and isolated partners use identical radii/probe/sampling and Cartesian geometry.
+H-bond counts use the same geometry and state a distance criterion rather than
+energetic stabilization. Rose/Janin descriptors are distinguished from geometric
+measurements in Foundations, Toolbox, Cookbook and course. No runtime API,
+algorithm, dependency, unit policy, compiled kernel or schema changes.
+
+Receiving passes **749 related tests**, **22 published-support-floor cases**
+and **569 documentation/doctest cases**, including ten new actual-cell guards.
+Suites overlap. Independent carbon-sphere, separated/periodic-cell, background
+occluder, noncanonical-unit and source-preservation controls bound the science.
+The complete seven-cell SASA tutorial executes in **11.2 s**, retaining original
+examples. No synthetic output is published under biological project labels.
+See the [owning record](archive/resolved_bugs/alzheimer_final_project_uses_a_reference_descriptor_as_a_geometric_interface_are.md)
+and [receipt](../devtools/data/course_interface_sasa_receiving_589_20261105.json).
+
+**New #593** owns the capstone's unsupported builder keywords, discarded
+independent repair outputs and unqualified complete preparation. The course
+labels that route as an outline; closing the surface-observable defect does not
+qualify a simulation-ready model, pose or biological effect. Retain this separate
+correctness item before claiming complete course execution. Next work returns
+to PR **#543** receiving (#587/#590/#591), observed head
+`1c88e785b4327350ad586d437a569eff1a2c5c9a`; it is not merged or qualified here.
+The checkpoint board refresh found no other new native bug. The prior
+#583/#584 head now has five successful routine hosted controls; this remains
+separate from nightly, installed/platform and release qualification under #334.
+No tag, Release, promotion or new release matrix is launched.
+
 ## Mechanical reader flags — 2026-11-05
 
 **#584 is source-corrected.** Sixteen scalar mechanics readers now use the
