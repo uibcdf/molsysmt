@@ -142,6 +142,15 @@ stay unchanged. The
 retains the deliberate deferral of production ownership adoption and the
 remaining clean installed receiving; source compatibility does not close #428.
 
+Prepared owner source for **#544** pins all four active native build/upload,
+ABI3 experiment and promotion calls to reviewed Conda provider v2.3.0
+87c70b1443d5f22d738ee3ddf812bdbe0152f6c2. The other parsed workflow semantics
+are unchanged. Its 54 local packaging/route controls, 29 offline provider cases,
+exact already-called policy/publication checkers and dependency audit pass.
+No package or registry mutation is executed. The
+[owning record](pending_proposals/conda_provider_v2_3_owner_adoption.md)
+retains the exact input/source evidence and remaining ordered owner integration.
+
 The subsequent board checkpoint reads **#608–#610**, again without expanding
 the fifteen-item objective. #608 reports application-unit-dependent origin
 snapping and extends the unresolved native PBC qualification obligations above;
@@ -152,6 +161,15 @@ DockingMT; direct public quantity assignment is exercised here on bounded native
 systems with both ranks and nm/pm policy, without claiming the consumer E4 run
 or its exact older provider source has been received.
 
+The next incoming report, **#611**, requests a measured finite smoke-budget
+increase for the later PR's enlarged native/addon selection. Its cited run
+42210639321 timed out at 25 minutes after the native tier completed; the addon
+terminal result is absent. That PR contribution and its next exact-source
+smoke need owner receiving. It does not change the active fifteen-item goal
+or certify a new source gate here. At this board checkpoint PR #543 is at
+**699fc69be57ac0e89f9bced3fd4f39139ccabf38**; this later source remains
+outside the frozen receiving inputs 282e8337e and 56b37c983.
+
 Other listed issues remain pending in the stated order; #594–#598 already have
 source repairs in the separate PR candidate but their closeout belongs at the
 end of this goal. Do not implement them again or close them out of order.
@@ -160,15 +178,18 @@ PR #543 receiving candidate **282e8337e04c14003622c19a359b7cd35d2b5e4b** stays
 frozen on its published branch. Its exact full source gate is
 [42171874158](https://github.com/uibcdf/molsysmt/actions/runs/42171874158), with
 Viewer 42234de839ed047016f8f241ea5eb717cfeb07be. At the latest verified inspection,
-the controlled wheel succeeds, all four Linux cells and macOS Python 3.11/3.14
-fail, macOS Python 3.13 is running and macOS Python 3.12 remains queued. The
+the controlled wheel succeeds and all eight Linux/macOS cells have now failed
+at the full-suite step. The
 independently inspected Linux Python 3.14 and macOS Python 3.11/3.14 job logs
 identify the stale converter-argument table; its
 regenerated correction belongs to the ordered-work branch, not the frozen CI
 input. No green full matrix or main integration is claimed. Ordered work uses
 a separate branch/worktree and the existing development environment. PR #543
-has meanwhile advanced to 1e7a4273b905ca020815658f23ba645d40817226; that later
-Geometry-panel expansion is outside this frozen receiving candidate.
+had advanced to 1e7a4273b905ca020815658f23ba645d40817226 at the earlier
+receiving inspection; its still-later head is recorded above and remains
+outside this frozen receiving candidate. Only the explicitly inspected logs
+support the stated failure diagnosis; the other final failures are not silently
+assigned the same cause.
 The ordered branch published 62a5bb62d as an
 intermediate source/backup handoff with local tests, source hashes and explicit
 partial #304 scope. That checkpoint includes the cap and early PDB-context extensions; the subsequent

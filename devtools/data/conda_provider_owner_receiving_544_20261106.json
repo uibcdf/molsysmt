@@ -1,0 +1,233 @@
+{
+  "schema": "molsysmt.conda_provider_owner_receiving@1",
+  "date": "2026-11-06",
+  "issue": "uibcdf/molsysmt#544",
+  "consumer_source_base": "3f6a5f4ec74b1e29fd7f5079c0ad14f4fb74b346",
+  "working_tree_patch": true,
+  "provider_commit": "87c70b1443d5f22d738ee3ddf812bdbe0152f6c2",
+  "provider_release": "v2.3.0",
+  "central_delivery_commit": "95f693be10c9205ab9b912cb53453710a207bf45",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "environment": "Existing development interpreter; cached anaconda-client 1.14.1 payload used for offline provider tests, without installation or a new environment.",
+  "provider_hashes": {
+    "action.yml": "e56022df89f205026a1748e00137c58fd3e4d4e8f9d62b78a20986b6b9105b56",
+    "promote/action.yml": "9308530e60723c93b876990f784459bee1b7f01b4c5bd77f5fd01f2ddfab9994",
+    "upload/action.yml": "13ba513e109ca3cae324c59c9b309d10ce615c3acec4fe35258f25cb2503db51",
+    "scripts/conda_label_utils.py": "41d2eca6b742dcb446e52d78c7e6527c92546343d71b9caeb64ac026de560282",
+    "scripts/promote_conda_package.py": "3c1ecbd80769fc5196a531f31679375adefead7014d1be8179c7637adb67e5c0",
+    "scripts/upload_conda_package.py": "a37d891351a3f8c05e4c77f684dce15bccaf6e530a0875190775c9f1d87fea69",
+    "scripts/write_receptor_events.py": "aab381561b3f413d245ddfa5a2c29e347a8c7d8ecc5d8de7779728e9d4333c3b",
+    "tests/test_compilation_environment.py": "b9fc55156237e7d35627bb99ede451da5992b3bd6acf610e4a57d504cec4a0e7",
+    "tests/test_promote_conda_package.py": "5c82df0cdf7c33458777e881dc32d0d58671ddcf8e0990f59d07a35b51f4b186",
+    "tests/test_upload_conda_package.py": "c7685d8b0929562d2f03457416f6614f1b5bd49f9d56de38d6db0e6b8c1ae304",
+    "tests/test_upload_composite.py": "505ca76f849bfd43bad7c99ac8d12d4463f360facc1aa9557c7653d196762d6a",
+    "tests/test_write_receptor_events.py": "e3eff4505f8d168191f7396088e71b4f721a16ec4d28a3d59ad44909dec951d5"
+  },
+  "consumer_hashes": {
+    ".github/workflows/build_and_upload_conda_packages.yaml": "c5cae064efd7942fbc4770043817826ffe85c264f7b749bf22a220afd82ea50d",
+    ".github/workflows/promote_conda_package.yaml": "9e5b869f2a5811fe0a6b5b932c84966139df01bcfa893ef946d6effe158b1d0f",
+    ".github/workflows/test_conda_abi3.yaml": "a09294e7dbc20a882615e03ebf7bade1b49839a6a2e86bf3e4c8816d0b6c8a71",
+    "devtools/tests/test_conda_release_workflows.py": "4855d9e538dbf24e0e8b97c928dcebe9676ba56b7a06ce56c2e6726670c2aed2",
+    "devtools/tests/test_conda_abi3_workflow.py": "3bc02f73491dcff875dbe1078bf4dd62d675e4ed4c715c6218ac70055e751143",
+    "devtools/tests/test_release_route.py": "20a837e70f5aeb2604d62a8fdfbdd2760bb50a9b3d8ee122d72c1b2f8cf1d5a9"
+  },
+  "call_contracts": [
+    {
+      "workflow": ".github/workflows/build_and_upload_conda_packages.yaml",
+      "job": "build-and-publish",
+      "step": "conda_staging",
+      "operation": "build-and-upload",
+      "provider_ref": "87c70b1443d5f22d738ee3ddf812bdbe0152f6c2",
+      "inputs": [
+        "conda_build_args",
+        "evidence_matrix_index",
+        "label",
+        "meta_yaml_dir",
+        "token",
+        "user"
+      ]
+    },
+    {
+      "workflow": ".github/workflows/build_and_upload_conda_packages.yaml",
+      "job": "build-and-publish",
+      "step": "conda_release",
+      "operation": "build-and-upload",
+      "provider_ref": "87c70b1443d5f22d738ee3ddf812bdbe0152f6c2",
+      "inputs": [
+        "conda_build_args",
+        "evidence_matrix_index",
+        "label",
+        "meta_yaml_dir",
+        "token",
+        "user"
+      ]
+    },
+    {
+      "workflow": ".github/workflows/promote_conda_package.yaml",
+      "job": "promote",
+      "step": "promotion",
+      "operation": "/promote",
+      "provider_ref": "87c70b1443d5f22d738ee3ddf812bdbe0152f6c2",
+      "inputs": [
+        "expected-sha256",
+        "from-label",
+        "package-spec",
+        "to-label",
+        "token"
+      ]
+    },
+    {
+      "workflow": ".github/workflows/test_conda_abi3.yaml",
+      "job": "build-and-test",
+      "step": "build",
+      "operation": "build-and-upload",
+      "provider_ref": "87c70b1443d5f22d738ee3ddf812bdbe0152f6c2",
+      "inputs": [
+        "conda_build_args",
+        "evidence_matrix_index",
+        "meta_yaml_dir",
+        "upload"
+      ]
+    }
+  ],
+  "workflow_semantics_equal_base_except_reviewed_provider_refs": true,
+  "checks": {
+    "provider_offline": {
+      "exit_code": 0,
+      "junit_header": {
+        "tests": 35,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "serialized_testcase_count": 29,
+      "receptor_passed_nodes": 29,
+      "receptor_seconds": 4.38,
+      "junit_sha256": "0ee34e1719515e43d96be27e9da77531e9a74e6d88730f3b2b786a5d6d83d293",
+      "command": "python -m pytest -c /dev/null --rootdir=PROVIDER_SNAPSHOT --confcutdir=PROVIDER_SNAPSHOT -p no:smonitor tests/test_compilation_environment.py tests/test_promote_conda_package.py tests/test_upload_conda_package.py tests/test_upload_composite.py tests/test_write_receptor_events.py --receptor=llm --junitxml=544-provider-tests.xml",
+      "accounting": "JUnit reports 35 passes in its suite header but serializes 29 method testcases, matching the receptor method count. The executed source contains six unittest subtest contexts: two mambabuild variants and four invalid exact-package specifications. The unmodified XML is retained by digest; no outcomes are dropped to force its counts to match."
+    },
+    "consumer": {
+      "exit_code": 0,
+      "junit_header": {
+        "tests": 54,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "serialized_testcase_count": 54,
+      "receptor_passed_nodes": 54,
+      "receptor_seconds": 3.46,
+      "junit_sha256": "d07feba58508e2b143f26ae8d1aed953093d2e8688adfb0e828e28e9e727b5d5",
+      "command": "python -m pytest devtools/tests/test_conda_release_workflows.py devtools/tests/test_conda_abi3_workflow.py devtools/tests/test_release_route.py devtools/tests/test_audit_dependency_contract.py devtools/tests/test_validate_conda_abi3_artifact.py devtools/tests/test_validate_conda_staging.py --receptor=llm -n 4 --junitxml=544-consumer-tests.xml"
+    }
+  },
+  "quality": [
+    {
+      "name": "frozen_publication_contract",
+      "command": [
+        "DEVELOPMENT_PYTHON",
+        ".pytest_cache/544-suite-publication/devtools/scripts/conda_release_contract.py",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "Conda publication contract passed (administrative evidence only).\n",
+      "stderr": ""
+    },
+    {
+      "name": "called_suite_policy",
+      "command": [
+        "DEVELOPMENT_PYTHON",
+        ".pytest_cache/544-suite-policy/devtools/scripts/check_repository.py",
+        ".",
+        "--repository",
+        "uibcdf/molsysmt",
+        "--skip-guide-content"
+      ],
+      "exit_code": 0,
+      "stdout": "uibcdf/molsysmt conforms to MolSysSuite policy 1.0.\n",
+      "stderr": ""
+    },
+    {
+      "name": "dependency_contract",
+      "command": [
+        "DEVELOPMENT_PYTHON",
+        "devtools/scripts/audit_dependency_contract.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Dependency contract audit: PASS (public requirements and declared routes agree)\n",
+      "stderr": ""
+    },
+    {
+      "name": "devguide",
+      "command": [
+        "DEVELOPMENT_PYTHON",
+        "devtools/scripts/validate_devguide.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Developer-guide validation passed.\n",
+      "stderr": ""
+    },
+    {
+      "name": "devguide_index",
+      "command": [
+        "DEVELOPMENT_PYTHON",
+        "devtools/scripts/devguide_index.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "Every queue index is up to date.\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "-c",
+        "core.fsmonitor=false",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "ruff": {
+    "lint": {
+      "command": "python -m ruff check .",
+      "exit_code": 0
+    },
+    "format": {
+      "command": "python -m ruff format --check .",
+      "exit_code": 0,
+      "formatted_files": 4437
+    },
+    "initial_selected_format_check": {
+      "exit_code": 1,
+      "reason": "One changed assertion needed the standard line break; corrected before the full lint/format pass."
+    }
+  },
+  "called_governance_sources": {
+    "policy-v1.5.9": "3116b7d9f1fa9ba4d09b81a8f24a22b749805f9f",
+    "publication": "2a63a15d67d2e72724b6349e89f9f026b25e860f"
+  },
+  "governance_execution_note": "Execute the exact already-called frozen governance sources, including their existing guide-content delegation, rather than a newer sibling main checkout.",
+  "boundary_review": {
+    "argdigest": "No runtime API or new argument-validation boundary.",
+    "depdigest": "No optional runtime backend or dependency change; existing dependency audit passes.",
+    "smonitor": "No runtime diagnostic change; provider fixture failures retain native nonzero status and receipts.",
+    "pyunitwizard": "No physical-quantity boundary.",
+    "ackredit": "No scientific method or reference-data implementation introduced."
+  },
+  "limits": [
+    "Fixture Conda commands, uploads and label transports are simulated; no real package build, upload, promotion, tag or release was executed.",
+    "No scientific, installed-package, all-platform or final release qualification is inferred from administrative tests.",
+    "The shared noarch route, central helper pins, native platforms, ABI3 recipe, build environment, artifact format and all non-provider workflow semantics remain unchanged.",
+    "Historical backup workflows and producer/publication receipts retain their original source identities and bytes.",
+    "Provider withdrawal is outside the adoption scope and its tests were not selected.",
+    "Owner integration and ordered issue closeout remain pending; no #544 closure before #428.",
+    "The first receipt inspection assumed JUnit suite counts equalled serialized testcases; the six observed unittest subtest contexts require separate accounting. No test or runtime code was changed to make that inspection pass."
+  ]
+}

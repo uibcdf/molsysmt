@@ -167,8 +167,8 @@ def test_promotion_requires_exact_release_and_installed_pair_evidence():
     )
     assert evidence["with"]["if-no-files-found"] == "error"
     assert (
-        promotion["uses"]
-        == "uibcdf/action-build-and-upload-conda-packages/promote@v2.2.2"
+        promotion["uses"] == "uibcdf/action-build-and-upload-conda-packages/promote"
+        "@87c70b1443d5f22d738ee3ddf812bdbe0152f6c2"
     )
     assert promotion["with"]["from-label"] == "staging"
     assert promotion["with"]["to-label"] == "main"
