@@ -149,7 +149,9 @@ def least_rmsd_align(
     gpu_backend : str or None, default=None
         GPU backend delegated to least_rmsd_fit; None uses application settings.
     precision : {'single', 'double'} or None, default=None
-        Precision delegated to least_rmsd_fit; None uses application settings.
+        Coordinate-publication precision delegated to least_rmsd_fit; None
+        uses application settings. Native CPU arithmetic stays float64;
+        supported single-coordinate quantization is a separate final step.
     skip_digestion : bool, default=False
         Whether to skip argument digestion for already validated internal calls.
 

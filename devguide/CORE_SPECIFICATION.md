@@ -93,8 +93,10 @@ The builder stores no named interactions or molecular-mechanics domain.
 - **Coordinates:** NumPy arrays with shape `(n_structures, n_atoms, 3)`.
 - **Simulation Box:** NumPy arrays with shape `(n_structures, 3, 3)`.
 - **Precision:** Native coordinates and box vectors are stored as `float64`.
-  Double precision is the default kernel policy; selected paths may opt into the
-  configured single-precision mode and must document their tolerances.
+  Native CPU working arrays and Rust arithmetic use `float64`. A single-precision
+  request is diagnosed without downcasting working coordinates. Methods that
+  explicitly implement single-coordinate publication retain that final lossy
+  quantization; native containers still store those values as `float64`.
 
 ### 3.2 Standard Units
 MolSysMT enforces physical integrity via `molsysmt.pyunitwizard`.

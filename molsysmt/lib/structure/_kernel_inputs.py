@@ -31,11 +31,9 @@ def _normalize_coordinates_array(values, dtype=np.float64):
 
 
 def extract_coordinates_value_and_unit(value):
-    import molsysmt.configure as config
+    from molsysmt._private.numeric_precision import native_float_dtype
 
-    dtype = (
-        np.float32 if getattr(config, "precision", "double") == "single" else np.float64
-    )
+    dtype = native_float_dtype()
     values, unit = puw.get_value_and_unit(
         value,
         value_type="numpy.ndarray",
@@ -45,13 +43,9 @@ def extract_coordinates_value_and_unit(value):
 
 
 def align_coordinates_values_and_unit(coordinates, reference_coordinates):
-    import molsysmt.configure as config
-
-    dtype = (
-        np.float32 if getattr(config, "precision", "double") == "single" else np.float64
-    )
     # Performance path: extract the value and unit of the first set
     coordinates_value, unit = extract_coordinates_value_and_unit(coordinates)
+    dtype = coordinates_value.dtype
 
     # Align the reference set to the same unit.
     reference_value = _normalize_coordinates_array(

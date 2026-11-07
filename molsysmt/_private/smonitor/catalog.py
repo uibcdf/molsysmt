@@ -186,6 +186,12 @@ CATALOG = {
             "category": "performance",
             "level": "WARNING",
         },
+        "PrecisionFallbackWarning": {
+            "code": "MSM-WARN-PRECISION-001",
+            "source": "molsysmt.warning.precision.fallback",
+            "category": "execution",
+            "level": "WARNING",
+        },
     },
     "exceptions": {
         "ChemicalReferenceLookupError": {
@@ -429,6 +435,17 @@ CODES = {
         "qa_hint": "The CPU fallback path was exercised; GPU kernels were not covered by this run.",
         "agent_message": "GPU unavailable in '{caller}': {reason}. Fell back to CPU.",
         "agent_hint": "Results are valid; only the execution backend changed.",
+    },
+    "MSM-WARN-PRECISION-001": {
+        "title": "Native arithmetic precision",
+        "user_message": "{backend} computes in {effective_precision} although {requested_precision} precision was requested.",
+        "user_hint": "Single-coordinate output remains available where the operation implements it. Use precision='double' to request native arithmetic explicitly. Docs: {doc_url}",
+        "dev_message": "{backend} uses {effective_precision}; requested precision is {requested_precision}.",
+        "dev_hint": "Working arrays retain float64; coordinate publication is an independent operation-owned policy.",
+        "qa_message": "Effective arithmetic is {effective_precision} on {backend}, requested {requested_precision}.",
+        "qa_hint": "Check canonical working arrays and supported single-coordinate publication separately.",
+        "agent_message": "{backend} computes in {effective_precision}, requested {requested_precision}.",
+        "agent_hint": "Do not describe this execution as single-precision arithmetic or suppress a promoted diagnostic.",
     },
     "MSM-WARN-DEP-001": {
         "title": "Deprecated API",

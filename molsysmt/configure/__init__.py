@@ -102,7 +102,9 @@ gpu_threshold = (
     3_000_000  # payload (n_structures * n_atoms * 3) above which 'auto' uses GPU
 )
 gpu_backend = None
-precision = "double"  # 'double' (float64) | 'single' (float32)
+precision = (
+    "double"  # native CPU arithmetic is float64; supported outputs may use 'single'
+)
 cell_list = "auto"  # 'auto' | True | False
 
 # Native CPU parallelization policy
@@ -131,6 +133,7 @@ def _configuration_names():
 
 def _normalize_context_overrides(values):
     """Validate the complete name/alias declaration before publishing any value."""
+    from molsysmt._private.argdigest.argument.precision import digest_precision
     from molsysmt._private.argdigest.argument.use_gpu import digest_use_gpu
     from molsysmt._private.smonitor import ArgumentConflictError, ArgumentError
 
@@ -143,6 +146,10 @@ def _normalize_context_overrides(values):
                 caller="molsysmt.configure.context",
                 message="Only existing public configuration data can be overridden.",
             )
+    if "precision" in result:
+        result["precision"] = digest_precision(
+            result["precision"], caller="molsysmt.configure.context"
+        )
     for name in ("gpu_mode", "use_gpu"):
         if name in result:
             result[name] = digest_use_gpu(

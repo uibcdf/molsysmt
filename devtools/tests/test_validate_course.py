@@ -74,6 +74,7 @@ def test_common_core_navigation_links_reach_real_module_and_foundations_targets(
         "user/tools/build/infer_covalent_bonds.md",
         "user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.md",
         "user/foundations/governance/configuration_options.md",
+        "user/foundations/governance/precision_and_types.md",
     )
     for relative in extra_targets:
         original = validate_course.REPO / "docs/content" / relative

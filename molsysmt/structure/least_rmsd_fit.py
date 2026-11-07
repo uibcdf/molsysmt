@@ -77,7 +77,10 @@ def least_rmsd_fit(
     gpu_backend : str or None, default=None
         GPU array backend, or `None` to use the configured backend.
     precision : {'single', 'double'} or None, default=None
-        Floating-point precision, or `None` to use the configured precision.
+        Coordinate-publication precision, or ``None`` to inherit configuration.
+        Native CPU fitting computes in float64 and diagnoses a single request.
+        ``'single'`` retains final float32 coordinate quantization where the
+        output form permits; native containers store those values as float64.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -316,7 +319,7 @@ def least_rmsd_fit(
                     )
                     return tmp_molecular_system
 
-        # CPU JIT pipeline fallback
+        # Native CPU fitting pipeline
         if fitted_coords is None:
             fit_coords = fit_coords.astype(np.float64)
             ref_coords = ref_coords.astype(np.float64)

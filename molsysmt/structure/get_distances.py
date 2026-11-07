@@ -243,6 +243,11 @@ def get_distances(
 
     Notes
     -----
+    Native CPU arithmetic and working coordinates use float64. A configured
+    single-precision request emits ``MSM-WARN-PRECISION-001`` on the native
+    preparation/execution path; it does not quantize distance inputs or select
+    a float32 CPU kernel. See :ref:`user-foundations-governance-precision-and-types`.
+
     - Uses minimum image convention when `pbc=True` and box is available.
     - When `pairs=True`, expects equal-length explicit pairs; otherwise use Cartesian products.
     - Structure lists are paired positionally, with explicit repeated indices for reuse.

@@ -181,6 +181,14 @@ SAMPLES = {
         "ambiguous oxygen labels",
     ),
     "GpuNotAvailableWarning": ({"reason": "no CUDA GPU is accessible"}, "CUDA"),
+    "PrecisionFallbackWarning": (
+        {
+            "requested_precision": "single",
+            "effective_precision": "float64",
+            "backend": "CPU test",
+        },
+        "CPU test",
+    ),
 }
 
 

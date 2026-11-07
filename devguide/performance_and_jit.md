@@ -34,14 +34,21 @@ Python imports should import the required public namespaces explicitly.
 
 ## Precision
 
-`molsysmt.configure.precision` defaults to `"double"`. Structure preparation
-helpers select `float64` in double mode and `float32` in single mode. The heavy
-trajectory chunk contract is different: `ChunkedExecutor._build_chunk()`
-currently normalizes coordinates, box, and time to `float64` canonical values.
+`molsysmt.configure.precision` defaults to `"double"`. Native coordinate
+preparation and the canonical chunk contract use `float64`, as required by the
+bundled CPU kernels. A `"single"` request emits `MSM-WARN-PRECISION-001` when
+those preparation/execution paths consume it. The diagnostic identifies the
+requested and effective arithmetic; it is not evidence for a float32 CPU backend.
+Canonical float64 coordinate payloads do not acquire an extra dtype copy.
 
-Consequently, do not document a package-wide float64 or mixed-precision
-guarantee. Each public operation and backend needs parity tests for every
-precision mode it exposes.
+Working precision and coordinate publication are separate. `least_rmsd_fit`
+and its alignment consumer retain their supported final single-coordinate
+quantization. A quantity output may carry float32 magnitudes; native containers
+store the quantized values under their float64 storage invariant. This does not
+reduce native-container RAM by half. Float32 input values cannot regain bits
+already lost in their source representation. File/export precision is a separate
+format contract. Other engines retain their own documented arithmetic behavior;
+no package-wide dtype promise is made for third-party objects or outputs.
 
 ## CPU parallel execution
 

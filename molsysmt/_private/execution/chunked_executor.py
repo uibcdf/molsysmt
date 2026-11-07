@@ -146,6 +146,11 @@ class ChunkedExecutor:
 
         from .memory_policy import decide_mode, estimate_footprint
 
+        if "coordinates" in self.attributes:
+            from molsysmt._private.numeric_precision import native_float_dtype
+
+            native_float_dtype()
+
         n_atoms, n_structures = self._get_dimensions()
         footprint = estimate_footprint(n_atoms, n_structures)
         mode = decide_mode(footprint, self.heavy_mode)

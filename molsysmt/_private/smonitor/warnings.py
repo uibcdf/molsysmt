@@ -363,6 +363,32 @@ class UnknownAtomNameWarning(MolSysMTCatalogWarning):
         super().__init__(message, extra={"atom_name": atom_name})
 
 
+class PrecisionFallbackWarning(MolSysMTCatalogWarning):
+    """Identify the effective arithmetic without changing output-precision requests."""
+
+    catalog_key = "PrecisionFallbackWarning"
+
+    def __init__(
+        self,
+        message=None,
+        *,
+        requested_precision="single",
+        effective_precision="float64",
+        backend="MolSysMT native CPU",
+    ):
+        if message is not None:
+            super().__init__(message)
+            return
+        super().__init__(
+            message,
+            extra={
+                "requested_precision": requested_precision,
+                "effective_precision": effective_precision,
+                "backend": backend,
+            },
+        )
+
+
 class GpuNotAvailableWarning(MolSysMTCatalogWarning):
     """Emitted when the GPU is requested but is not accessible."""
 
@@ -400,6 +426,7 @@ __all__ = [
     "MemoryPressureWarning",
     "UnknownAtomNameWarning",
     "GpuNotAvailableWarning",
+    "PrecisionFallbackWarning",
     "warn",
     "warn_once",
 ]
