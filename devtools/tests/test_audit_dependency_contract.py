@@ -215,7 +215,7 @@ def test_required_optional_provider_must_have_a_public_declaration(contract_tree
 def test_invalid_optional_coverage_declarations_fail(contract_tree, value):
     _replace(
         contract_tree / "devtools/dependency_contract.toml",
-        'optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "rdkit", "openff-toolkit", "openff-units"]',
+        'optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "mdanalysis", "rdkit", "parmed", "openff-toolkit", "openff-units"]',
         f"optional_required = {value}",
     )
     assert any(

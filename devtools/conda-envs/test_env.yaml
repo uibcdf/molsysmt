@@ -21,9 +21,9 @@ dependencies:
 - openff-units >=0.3.0
 - mdtraj >=1.11.0
 - pyparsing !=3.3.3
-- mdanalysis
+- mdanalysis>=2.8.0
 - rdkit>=2024.3.4
-- parmed
+- parmed>=4.3.1
 - biopython
 - ipywidgets
 - py-mmcif >=1.1.1
