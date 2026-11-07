@@ -20,7 +20,53 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current native diagnostic delivery — 2026-11-07
+## Current modular-query receiving — 2026-11-07
+
+The #643 provider correction is locally implemented and passes **1,921**
+integrated cases (including eighty new actual-I/O guards), three doctest nodes
+and fourteen fast gates. The independent 5,000-structure probe now reads no
+coordinates for counts/numeric selection and only five atoms of one structure
+for the projected coordinate request. The [owning report](pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
+and [receiving receipt](../devtools/data/modular_h5_query_receiving_643_20261107.json)
+retain failed attempts, fixture corrections, exact scope and memory limits.
+This is local source evidence; no issue closure, published provider fix or GUI
+milestone is claimed yet. HTML builds and the rendered query scope is checked, with six retained
+existing title-underline warnings. Next: clean scientific qualification and the
+unchanged original external-reference guard, then public source closeout and
+actual #421 graphical receiving. Progress remains **approximately 61%**, graphical
+**22/50**, closed audit-related issues **32**. Contract/installed/candidate exits
+and every remaining agreed family remain required.
+
+## Previous external-reference prerequisite — 2026-11-07
+
+The next #421 graphical slice has a local, unmerged external-reference
+prototype (`ca59736a4`). Its explicit ordered atom pairs and physical-unit
+snapshot pass 339 directed cases, but a strengthened HDF5 I/O guard refuses
+unrequested full-series reads (340 passes/one failure). The public query layer
+materializes H5MSM 0.5 before applying even scalar/selected requests. The
+[owning #643 report](pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
+and [independent baseline](../devtools/data/modular_h5_query_baseline_643_20261107.json)
+record a 5,000-structure primitive probe and eighteen failing standalone form
+regressions on runtime bytes matching public `07f04d9e8`. The original source
+and failed assertions are retained. A 120-byte stored reference snapshot is
+not evidence of bounded I/O or peak RAM.
+
+Correct the general H5MSM file/query route first, preserving schema, axes,
+chemical context, units and lifetime contracts. Reuse its metadata, typed layer
+readers, projected iterator and validated query delegation. The GUI continues
+to call public MolSysMT tools; no GUI-only HDF5 reader or weakened window guard
+is accepted. The prototype is not merged or source-accepted. Actual external
+reference Jupyter/Mol*/popup receiving remains pending after provider repair.
+The board has 575 issues, 97 open, through new #643; the preceding complete
+acquisition had no open PR. Scope and the next remaining sequence/cell/task/
+session families are unchanged.
+
+Progress remains **approximately 61%**, **22/50 accepted graphical intents** and
+**32 closed audit-related issues**. This is a required discovered prerequisite,
+not bonus progress or a selected candidate. Installed/platform, contract,
+human/Qt and final exact-artifact gates retain their independent requirements.
+
+## Previous native diagnostic delivery — 2026-11-07
 
 The native #640/#641 corrections are published on main at `49d1a720f` and
 independently verified closed. Degeneracy now names

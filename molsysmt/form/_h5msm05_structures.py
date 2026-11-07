@@ -83,6 +83,8 @@ def _selection(indices, size, name):
     if indices is None:
         return None
     values = np.asarray(indices)
+    if values.ndim == 1 and values.size == 0:
+        return np.empty(0, dtype=np.int64)
     if values.ndim != 1 or values.dtype.kind not in "iu":
         raise ValueError(f"{name} must be a one-dimensional integer list.")
     if np.any(values < 0) or np.any(values >= size):
@@ -403,10 +405,12 @@ def _validate_structure_series(group, name, n_structures, n_atoms):
             raise ValueError(
                 "Structural series 'structure_id' has an invalid integer type."
             )
+    elif dataset.dtype.kind not in "iuf":
+        raise ValueError(f"Structural series {name!r} has an invalid numeric type.")
 
 
-def read_independent_structures(root, *, structure_indices=None, atom_indices=None):
-    """Read selected structural series from an optional H5MSM 0.5 layer."""
+def validate_structures_metadata(root):
+    """Validate structural schemas, cardinalities and units without payload reads."""
     if "structures" not in root:
         return None
     group = root["structures"]
@@ -419,6 +423,19 @@ def read_independent_structures(root, *, structure_indices=None, atom_indices=No
     unknown = set(group) - set(_FIELDS) - {"bioassembly", "alternate_location"}
     if unknown:
         raise ValueError(f"Unknown structural series {sorted(unknown)}.")
+    for name in set(group).intersection(_FIELDS):
+        _validate_structure_series(group, name, n_structures, n_atoms)
+    return group, n_structures, n_atoms
+
+
+def read_independent_structures(
+    root, *, structure_indices=None, atom_indices=None, fields=None
+):
+    """Read selected structural series from an optional H5MSM 0.5 layer."""
+    metadata = validate_structures_metadata(root)
+    if metadata is None:
+        return None
+    group, n_structures, n_atoms = metadata
     frame_selection = _selection(structure_indices, n_structures, "structure_indices")
     if n_atoms == -1 and atom_indices is not None:
         raise ValueError("Cannot select atoms from an unknown atom domain.")
@@ -427,8 +444,16 @@ def read_independent_structures(root, *, structure_indices=None, atom_indices=No
         if atom_indices is None
         else _selection(atom_indices, n_atoms, "atom_indices")
     )
+    requested = (
+        set(_FIELDS) | {"bioassembly", "alternate_location"}
+        if fields is None
+        else set(fields)
+    )
+    if requested - set(_FIELDS) - {"bioassembly", "alternate_location"}:
+        raise ValueError("Unknown structural series requested.")
     if (
-        "bioassembly" in group
+        "bioassembly" in requested
+        and "bioassembly" in group
         and atom_selection is not None
         and not np.array_equal(atom_selection, np.arange(n_atoms))
     ):
@@ -441,7 +466,8 @@ def read_independent_structures(root, *, structure_indices=None, atom_indices=No
         if name not in group:
             continue
         dataset = group[name]
-        _validate_structure_series(group, name, n_structures, n_atoms)
+        if name not in requested:
+            continue
         if name in {"coordinates", "box"}:
             shape = (
                 n_structures if frame_selection is None else len(frame_selection),
@@ -484,10 +510,12 @@ def read_independent_structures(root, *, structure_indices=None, atom_indices=No
             )
         data[name] = values
 
-    data["bioassembly"] = read_bioassembly(group)
-    data["alternate_location"] = read_alternate_location(
-        group, n_structures, n_atoms, frame_selection, atom_selection
-    )
+    if "bioassembly" in requested:
+        data["bioassembly"] = read_bioassembly(group)
+    if "alternate_location" in requested:
+        data["alternate_location"] = read_alternate_location(
+            group, n_structures, n_atoms, frame_selection, atom_selection
+        )
     structures = Structures(skip_digestion=True, **data)
     complete_order = frame_selection is None or np.array_equal(
         frame_selection, np.arange(n_structures)

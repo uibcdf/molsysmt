@@ -36,8 +36,24 @@ You can inspect a legacy source's structure positions before migrating it:
 open `H5MSMFileHandler`. The query reads only metadata, retains order/repetitions,
 validates bounds and does not rewrite the file. Stored structure IDs are separate
 labels. Use `[]` for an empty result or `None` to leave the structure axis unset.
-The legacy warning and unit checks remain active; this does not change the
-resident-load boundary of general 0.5 queries.
+The legacy warning and unit checks remain active.
+
+After migration, inspect counts and selected dense fields directly:
+
+```python
+n_structures = msm.get("trajectory_05.h5msm", n_structures=True)
+coordinates = msm.get(
+    "trajectory_05.h5msm", element="atom", selection=[1, 0, 1],
+    structure_indices=[2, 0, 2], coordinates=True,
+)
+```
+
+This example requires at least two atoms and three structures. The count reads
+metadata; coordinates read only the listed atom/structure positions and return
+a unit-bearing `(3, 3, 3)` array. Order and repetitions are retained. Unrequested
+coordinate structures, other dense fields and named interaction observations
+are not loaded. Full conversion remains a resident operation. See
+{ref}`user-tools-form-h5msm-05` for expression-selection and static-domain limits.
 
 ## Resolving unit errors
 

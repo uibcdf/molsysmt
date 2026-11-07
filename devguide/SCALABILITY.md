@@ -91,9 +91,21 @@ order, and closes its owned handle on completion or context exit. Other
 structural attributes are not supported by this iterator yet. The existing
 H5MSM 0.4 file and handler iterators retain their legacy schema route.
 
-This source capability alone does not establish bounded memory for an entire
-public operation. Other public preflight calls can still materialize a 0.5
-file, and sparse/dense output storage needs its own budget.
+Public H5MSM 0.5 `get`, `select` and `has_attribute` retain the file form rather
+than using the eager compatibility bridge. Counts and numeric selections use
+metadata; dense structural getters read only requested fields and atom/structure
+positions. MolSysMT expressions reuse scoped native inventory/chemical domains,
+and spatial expressions read their requested structures. One lexical query
+owns its static decoded domains and closes its HDF5 handles on every exit;
+there is no persistent file cache. This is the [#643 query correction](pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md).
+
+This does not establish bounded memory for an entire public analysis. Static
+domains and explicit association maps may be decoded in full when required;
+sparse alternate-site readers can retain their offset/index vectors. External
+selection backends retain their conversion routes. Full resident conversion,
+selected-layer loading and sparse/dense output storage need their own budgets.
+HDF5 decompression may touch complete stored chunks even when logical selections
+are smaller. Tests observe dataset windows, not physical disk bytes or total RSS.
 
 ### Force evaluation working estimates
 
@@ -122,8 +134,9 @@ preallocated dense arrays without accumulating a second list of output blocks.
 Native Structures/MolSys and H5MSM support streamed coordinates; eager getter
 delivery covers other coordinate-bearing forms. Placeholder iterator classes
 do not count as streaming support. Numeric selections on H5MSM 0.5 read only
-axis metadata and projected structural series. Rich selections can materialize
-the source through ordinary selection.
+axis metadata and projected structural series. MolSysMT rich selections use
+the scoped static/query route; external selection backends may still materialize
+the source through their conversion.
 
 The numerical estimate reserves two output-sized buffers for quantities and
 standardization, packed memberships and projections, 24 bytes per projected atom

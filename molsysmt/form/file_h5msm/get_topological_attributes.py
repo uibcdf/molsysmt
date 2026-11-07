@@ -1,6 +1,9 @@
 import types
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt.form._query_delegation import make_routed_getter as _make_routed_getter
+
+from ._modular_query import route_getter as _route_getter
 
 form = "file:h5msm"
 
@@ -17323,3 +17326,7 @@ __all__ = [
     for name, obj in globals().items()
     if isinstance(obj, types.FunctionType) and name.startswith("get_")
 ]
+
+for _name in __all__:
+    globals()[_name] = _make_routed_getter(_name, globals()[_name], form, _route_getter)
+del _name, _make_routed_getter, _route_getter

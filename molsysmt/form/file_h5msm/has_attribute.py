@@ -28,7 +28,12 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     """
 
     from . import attributes
+    from ._modular_query import query_has_attribute
     from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+
+    modular = query_has_attribute(molecular_system, attribute, include_none)
+    if modular is not None:
+        return modular
 
     output = attributes[attribute]
 

@@ -189,7 +189,13 @@ def _check_dataset(child, name, dtype, shape):
 
 
 def read_alternate_location(
-    group, n_structures, n_atoms, frame_selection=None, atom_selection=None
+    group,
+    n_structures,
+    n_atoms,
+    frame_selection=None,
+    atom_selection=None,
+    *,
+    remap_atoms=True,
 ):
     """Read only requested frames and remap their sparse atom keys."""
     if "alternate_location" not in group:
@@ -234,7 +240,10 @@ def read_alternate_location(
     if atom_selection is not None:
         atom_map = {}
         for new_index, old_index in enumerate(atom_selection):
-            atom_map.setdefault(int(old_index), []).append(new_index)
+            targets = atom_map.setdefault(int(old_index), [])
+            target = new_index if remap_atoms else int(old_index)
+            if target not in targets:
+                targets.append(target)
     result = []
     for frame_index in frames:
         start, stop = frame_offsets[int(frame_index) : int(frame_index) + 2]

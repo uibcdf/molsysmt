@@ -11,21 +11,20 @@ from molsysmt._private.smonitor import StructuralInconsistencyError
 
 
 def select_inventory(molecular_system, selection, element):
+    from molsysmt._private.h5msm import query_inventory_candidates
     from molsysmt.native import MolSys, Topology
     from molsysmt.native._chain_groups import uses_declared_hierarchy
     from molsysmt.native._group_hierarchy import query_rows
 
-    candidates = (
-        molecular_system
-        if isinstance(molecular_system, (list, tuple))
-        else [molecular_system]
-    )
+    candidates, file_context = query_inventory_candidates(molecular_system)
     topologies = [
         item.topology if isinstance(item, MolSys) else item
         for item in candidates
         if isinstance(item, (MolSys, Topology))
     ]
-    if len(topologies) != 1:
+    if file_context and topologies:
+        topology = topologies[-1]
+    elif len(topologies) != 1:
         from molsysmt.basic import convert, get, has_attribute
 
         if has_attribute(molecular_system, "n_atoms", include_none=True):

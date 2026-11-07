@@ -49,12 +49,16 @@ def _native_molsystems(molecular_system):
             yield item if isinstance(item, MolSys) else item._query_view()
 
 
-def resolve_chemical_state(function=None, *, convert_if_missing=False):
+def resolve_chemical_state(
+    function=None, *, convert_if_missing=False, bounded_file_queries=False
+):
     """Scope native state-dependent access to the public ``chemical_state`` argument."""
 
     if function is None:
         return lambda target: resolve_chemical_state(
-            target, convert_if_missing=convert_if_missing
+            target,
+            convert_if_missing=convert_if_missing,
+            bounded_file_queries=bounded_file_queries,
         )
 
     function_signature = signature(function)
@@ -69,9 +73,18 @@ def resolve_chemical_state(function=None, *, convert_if_missing=False):
         molecular_system = arguments.arguments.get(
             "molecular_system", arguments.arguments.get("self")
         )
-        from molsysmt._private.h5msm import maybe_read_modular_h5msm
+        from molsysmt._private.h5msm import has_h5msm_path, maybe_read_modular_h5msm
 
-        native_system = maybe_read_modular_h5msm(molecular_system)
+        native_system = (
+            molecular_system
+            if bounded_file_queries
+            else maybe_read_modular_h5msm(molecular_system)
+        )
+        file_queries = []
+        if bounded_file_queries and has_h5msm_path(molecular_system):
+            from molsysmt.form.file_h5msm._modular_query import current_queries
+
+            file_queries = current_queries(molecular_system)
         from molsysmt.native import MolSysDict
 
         if isinstance(native_system, MolSysDict):
@@ -99,6 +112,11 @@ def resolve_chemical_state(function=None, *, convert_if_missing=False):
             args, kwargs = arguments.args, arguments.kwargs
         if chemical_state == "structure":
             molsystems = list(_native_molsystems(molecular_system))
+            molsystems.extend(
+                query
+                for query in file_queries
+                if "structures" in query.file and "chemical_states" in query.file
+            )
             if len(molsystems) != 1:
                 from molsysmt._private.smonitor import ArgumentError
 
@@ -115,6 +133,11 @@ def resolve_chemical_state(function=None, *, convert_if_missing=False):
             )
 
         collections = list(_native_chemical_collections(molecular_system))
+        collections.extend(
+            query.domain("chemical_states")
+            for query in file_queries
+            if "chemical_states" in query.file
+        )
         if not collections:
             from molsysmt._private.smonitor import ArgumentError
 
@@ -129,4 +152,20 @@ def resolve_chemical_state(function=None, *, convert_if_missing=False):
                 stack.enter_context(collection._using_chemical_state(chemical_state))
             return function(*args, **kwargs)
 
-    return wrapped
+    if not bounded_file_queries:
+        return wrapped
+
+    @wraps(function)
+    def bounded(*args, **kwargs):
+        arguments = function_signature.bind_partial(*args, **kwargs)
+        from molsysmt._private.h5msm import has_h5msm_path
+
+        source = arguments.arguments.get("molecular_system")
+        if not has_h5msm_path(source):
+            return wrapped(*args, **kwargs)
+        from molsysmt.form.file_h5msm._modular_query import query_scope
+
+        with query_scope(source):
+            return wrapped(*args, **kwargs)
+
+    return bounded
