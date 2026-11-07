@@ -5,40 +5,36 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-**Latest checkpoint — 2026-11-07:** main checkpoint `6d9f8b07a` contains
-all seven newly closed issues: #602/#632/#633/#634/#636/#637/#638. Independent
-complete public trees match the source and archive checkpoints: 141 initial
-paths, 22 #638 paths and ten subsequent #636/delivery paths. Audit-related
-closures are **26**, and accepted phase progress remains **40%**. The complete
-latest board has 570 issues, 98 open, through #638. No candidate is selected.
+**Latest checkpoint — 2026-11-07:** contribution #543 is merged and verified
+closed, with exact merge `0ddb99c2b` and public checkpoint `45e69bb10`.
+#635/#639 are independently verified closed; all thirty changed paths match the
+complete public tree. Audit-related closures are **28**, accepted phase progress
+remains **40%**, and the latest complete board has 571 issues, 97 open, through
+#639. Human source edits and immutable #632/#637 archives remain unchanged.
 
-The [initial delivery](../devtools/data/rotation_source_delivery_602_632_633_634_637_20261107.json),
-[XYZ delivery](../devtools/data/xyz_coordinate_representation_delivery_638_20261107.json)
-and [certificate delivery](../devtools/data/scientific_source_correspondence_delivery_636_20261107.json)
-retain separate source/board proof. #638 receiving passes 269 minimum-provider/
-ownership/doctest cases and six actual notebooks; its broad attempt retains
-7,977 passes and two new-fixture failures, corrected in separate receiving.
-#636 passes 23 runner controls and 107 actual molecular cases across 68 nodes
-with `--require-clean` on committed development source `970cf51b7`. Fourteen fast
-gates pass. Original failures, earlier ineligible development certificates and
-six HTML warnings remain recorded. Counts overlap; narrow clean scientific/source
-eligibility does not qualify installed packages or authorize publication.
+Owner receiving on exact Viewer `e4dd58cf0` passes **5,428 combined source
+cases**, all four actual Jupyter scenarios together (**17/6/8/8** steps),
+**107 molecular cases/68 nodes** with `--require-clean`, fourteen fast gates and
+HTML compilation with six retained underline warnings. Source fingerprints
+stay unchanged during receiving. Page errors match plain-Jupyter controls;
+this does not establish causal repair of the original #615 observation. The
+[source](../devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json),
+[completion](../devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json)
+and [delivery](../devtools/data/bound_tools_newer_host_delivery_635_639_20261107.json)
+receipts preserve the original failed smoke omission, expected route mutation,
+exact source/backend identities and independent board/public verification.
+Counts overlap; no installed/platform/human/candidate approval is inferred.
+Earlier #602/#632/#633/#634/#636/#637/#638 deliveries remain in their receipts
+and the dated progress log below.
 
-**Current newer-host qualification:** exact merge `0ddb99c2b` passes all
-5,428 combined cases, the four actual Jupyter scenarios together (17/6/8/8
-steps), 107 scientific cases/68 nodes with `--require-clean`, fourteen fast
-gates and HTML compilation with six retained warnings. Source receipts preserve
-the original failed smoke preflight and expected oracle mutation. #635/#639
-source corrections are complete; main delivery/board closeout follow. Public
-closures remain 26 and progress 40% until verified delivery. See the
-[completion receipt](../devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json).
-
-**Next:** receive published #543 head `42f5ed3bc` and #635's endpoint-aware
-panel guards/conformational work on its actual newer Viewer. Current owner
-results qualify exact Viewer `25061d9e9` only. Remaining #421 graphical,
-Jupyter/navigation, installed/human and #524 public-host/installed exits stay
-open. The earlier checkpoints below are dated history, superseded by this
-latest delivery where stated.
+**Next:** continue the remaining accepted #421 graphical families, beginning
+with Geometry/Rotate using the delivered native constructor; then its actual
+center/handedness/unit/selection geometry and popup receiving. Principal-axis/
+reference workflows, cell editing, further property/sequence/interaction/
+mechanics and full scientific-session GUI retain their agreed scope. #524's
+actual public-host/installed and exact final-candidate exits remain separate.
+No candidate is selected and no family is dropped. Earlier checkpoints below
+are dated history, superseded by this latest delivery where stated.
 
 **Earlier execution checkpoints:** phases 1 and 2 are published/closed. Phase-two source
 `3eb720444b97f77f9325acf52f55114ece0b5f9e` corrects #605/#607/#606/#608/#619;
@@ -1033,6 +1029,8 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-07 | Scientific source correspondence qualified | #636 source `970cf51b7` rejects unsafe starting/ending source while retaining reserved outputs; all 23 real-execution controls pass after nine original failures. Actual molecular `--require-clean` passes 107/68 nodes on the clean development commit. | Deliver and independently verify/close #636, then receive #635 and the newer exact host. Public closures 25, progress 40%; narrow source eligibility does not select a candidate. |
 
 | 2026-11-07 | Scientific source correction delivered | Public `6d9f8b07a` matches all ten changed paths and #636 is verified closed. Audit-related closures 26; complete board 570 issues/98 open. The narrow clean scientific/source certificate binds implementation `970cf51b7`; no candidate is selected. | Receive #635 and #543 head `42f5ed3bc` on its exact newer host, then remaining accepted graphical/installed/human exits. Progress remains 40%. |
+
+| 2026-11-07 | Newer-host contribution delivered | Public `45e69bb10` matches all thirty changed paths; #543 is verified merged at `0ddb99c2b`; #635/#639 are verified closed. Owner receiving passes 5,428 source cases, all four actual Jupyter scenarios (17/6/8/8), clean scientific 107/68, fast gates 14/14 and HTML native0 with six retained warnings. Complete board 571 issues/97 open, audit closures28, progress40%. | Continue accepted #421 graphical families, starting Rotate with the delivered constructor, without dropping remaining session/host/installed/human/final-candidate exits. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

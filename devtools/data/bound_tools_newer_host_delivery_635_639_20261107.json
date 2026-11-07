@@ -1,0 +1,161 @@
+{
+  "schema_version": "molsysmt.owner_newer_host_delivery@1",
+  "date": "2026-11-07",
+  "issues": [
+    "uibcdf/molsysmt#635",
+    "uibcdf/molsysmt#639"
+  ],
+  "published_checkpoint": "45e69bb10a7371e0fd6ac5685513f811b87b95b1",
+  "owner_merge": "0ddb99c2b31ba4f63c40c0c43da038895b21c70d",
+  "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+  "complete_public_tree": true,
+  "verified_paths": {
+    ".github/workflows/benchmarks.yml": {
+      "local": "b6d48a71722a40e9f2393ae25c216e10a75f7028",
+      "public": "b6d48a71722a40e9f2393ae25c216e10a75f7028"
+    },
+    ".github/workflows/ci-full.yaml": {
+      "local": "0892c13ace9c1a4b306d0b5204152a93b43f6a87",
+      "public": "0892c13ace9c1a4b306d0b5204152a93b43f6a87"
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "local": "57b768af79bda5290cca88a9439e6e1dbda40dec",
+      "public": "57b768af79bda5290cca88a9439e6e1dbda40dec"
+    },
+    ".github/workflows/ci-weekly.yaml": {
+      "local": "b1f26eea5ee1d2e3102f13e9891864c24c3942fe",
+      "public": "b1f26eea5ee1d2e3102f13e9891864c24c3942fe"
+    },
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": {
+      "local": "b0cca62ec7accfbd3581cb957636aa0b2cdba6b0",
+      "public": "b0cca62ec7accfbd3581cb957636aa0b2cdba6b0"
+    },
+    "devguide/archive/resolved_bugs/addon_panel_guards_discard_addressed_primary_state.md": {
+      "local": "f5c40d0535c7cb831b8a3b8c1bd1476582622f39",
+      "public": "f5c40d0535c7cb831b8a3b8c1bd1476582622f39"
+    },
+    "devguide/archive/resolved_bugs/smoke_command_omits_axis_angle_addon_regression.md": {
+      "local": "417c701949aefa336410460e6e5992e445fbc201",
+      "public": "417c701949aefa336410460e6e5992e445fbc201"
+    },
+    "devguide/molsysviewer_tools_gui_design.md": {
+      "local": "91a1ab270f51fd1a34ce676e5f1c876a3477ceb0",
+      "public": "91a1ab270f51fd1a34ce676e5f1c876a3477ceb0"
+    },
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": {
+      "local": "8b678d99c9b5e078d42e9936573dec899909b73f",
+      "public": "8b678d99c9b5e078d42e9936573dec899909b73f"
+    },
+    "devguide/pre_1_0_robustness_audit_20261106.md": {
+      "local": "7a58fc7b89514440f7b536ae0c9f579f0479cefd",
+      "public": "7a58fc7b89514440f7b536ae0c9f579f0479cefd"
+    },
+    "devguide/release_1_0_status.md": {
+      "local": "9f11c446ebfc79aeb7672e47e653418406475d4b",
+      "public": "9f11c446ebfc79aeb7672e47e653418406475d4b"
+    },
+    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json": {
+      "local": "e6b50091c92c4aac63762405429314c2041963fb",
+      "public": "e6b50091c92c4aac63762405429314c2041963fb"
+    },
+    "devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json": {
+      "local": "652bf481e93232b84fa07b994dbf9883b22a4e87",
+      "public": "652bf481e93232b84fa07b994dbf9883b22a4e87"
+    },
+    "devtools/data/molsysviewer_tools_conformation_receiving_20261106.json": {
+      "local": "000255c8a2e5b8f1e714322072cd289464d6978f",
+      "public": "000255c8a2e5b8f1e714322072cd289464d6978f"
+    },
+    "devtools/data/molsysviewer_tools_reconciliation_receiving_20261107.json": {
+      "local": "a31d66ba51e626184167fc0aeb9872584f29fb4d",
+      "public": "a31d66ba51e626184167fc0aeb9872584f29fb4d"
+    },
+    "devtools/dependency_contract.toml": {
+      "local": "8e0310a9aca2e93a2eba7ef84cfa23d1c62ea769",
+      "public": "8e0310a9aca2e93a2eba7ef84cfa23d1c62ea769"
+    },
+    "docs/content/course/Common_Core/16_Structural_Operations.AGENTS.md": {
+      "local": "696fee9b7073750b972eab71b734a3e95d617745",
+      "public": "696fee9b7073750b972eab71b734a3e95d617745"
+    },
+    "docs/content/course/Common_Core/16_Structural_Operations.ipynb": {
+      "local": "6f53211f555b43a2e76b807ce324164d3bab6344",
+      "public": "6f53211f555b43a2e76b807ce324164d3bab6344"
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "local": "5cdc940c85519ce92bc77d60a10f1b002fb88d53",
+      "public": "5cdc940c85519ce92bc77d60a10f1b002fb88d53"
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "local": "ac6aadbbf1909f907b6c93b702c974388e298775",
+      "public": "ac6aadbbf1909f907b6c93b702c974388e298775"
+    },
+    "docs/docs_manifest.yml": {
+      "local": "a5349456a05bd1003f3eee479de04dcaee78d274",
+      "public": "a5349456a05bd1003f3eee479de04dcaee78d274"
+    },
+    "molsysviewer_molsysmt/_analysis_panel.py": {
+      "local": "932c1ca130b8dcbfb35f20c99b0ae9ce663a0ade",
+      "public": "932c1ca130b8dcbfb35f20c99b0ae9ce663a0ade"
+    },
+    "molsysviewer_molsysmt/_analysis_panel_frontend.py": {
+      "local": "d47df0eae8e4772698a96472612cb2de6abcf7db",
+      "public": "d47df0eae8e4772698a96472612cb2de6abcf7db"
+    },
+    "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": {
+      "local": "e1c764bad8b1a4349acd3f5a71bf8b921333e063",
+      "public": "e1c764bad8b1a4349acd3f5a71bf8b921333e063"
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "local": "b08f47ad88e7cb7800a85412def75899b945c1be",
+      "public": "b08f47ad88e7cb7800a85412def75899b945c1be"
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "local": "333cf5d371b96f56f05368c1566fe356676fa0d4",
+      "public": "333cf5d371b96f56f05368c1566fe356676fa0d4"
+    },
+    "tests/molsysviewer_molsysmt/test_analysis_panel.py": {
+      "local": "ddfd77207185509741afbf79f6a4f8b30728ab20",
+      "public": "ddfd77207185509741afbf79f6a4f8b30728ab20"
+    },
+    "tests/molsysviewer_molsysmt/test_chemistry_panel.py": {
+      "local": "c761170582dd5dffa8d2bc3e760087430a6ec560",
+      "public": "c761170582dd5dffa8d2bc3e760087430a6ec560"
+    },
+    "tests/molsysviewer_molsysmt/test_geometry_panel.py": {
+      "local": "acba2184afb601f96ae2d66ad72e45a63058639d",
+      "public": "acba2184afb601f96ae2d66ad72e45a63058639d"
+    },
+    "tests/molsysviewer_molsysmt/test_system_panel.py": {
+      "local": "f7a692acfc137883f7204682ab82545330628a3d",
+      "public": "f7a692acfc137883f7204682ab82545330628a3d"
+    }
+  },
+  "verified_closed_issues": {
+    "635": "CLOSED",
+    "639": "CLOSED"
+  },
+  "pull_request": {
+    "number": 543,
+    "verified_state": "closed",
+    "verified_merged": true,
+    "head": "42f5ed3bc8f02c979b3351212554e588243de0a5",
+    "merge_commit": "0ddb99c2b31ba4f63c40c0c43da038895b21c70d"
+  },
+  "board": {
+    "total": 571,
+    "open": 97,
+    "latest": 639
+  },
+  "source_receiving": "devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json",
+  "completion_receiving": "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json",
+  "audit_related_closed_count": 28,
+  "accepted_plan_progress_percent": 40,
+  "remaining": [
+    "421RotateGUI using the delivered native constructor, other accepted families and complete scientific-session GUI",
+    "524actual public Viewer and installed qualification",
+    "615historical startup/canvas uncertainty",
+    "human/Qt acceptance and exact finalcandidate gates"
+  ],
+  "candidate_or_publication_selected": false
+}
