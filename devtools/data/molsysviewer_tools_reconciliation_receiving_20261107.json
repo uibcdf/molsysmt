@@ -1,0 +1,229 @@
+{
+  "schema_version": "molsysmt.viewer_tools_reconciliation_receiving@1",
+  "date": "2026-11-07",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#632",
+    "uibcdf/molsysmt#635"
+  ],
+  "contribution": "uibcdf/molsysmt#543",
+  "sources": {
+    "published_owner": "030c201a5846a5c10f19063fc362e633c0e64542",
+    "owner_review": "3f66f5931113c8011aae352ef628e80c00db56c0",
+    "qualified_contribution": "e119953435a25c72e9a65b7428f74b1c2430b4f1",
+    "reconciled_source": "11796a8a203ddd4f4f9d58bdc9ad3c20eb4d83f2",
+    "graphical_guard_followup": "878dc405f7bbca195f633a8b6f4fa1803f9dfe8d",
+    "viewer": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "native_scientific_sources_unchanged_from_published_owner": true,
+    "native_backend_rebuilt": false,
+    "owner_main_integrated": false,
+    "version_label_limit": "Unbuilt source overlays retain embedded/installed development version markers; exact source identity is the recorded Git commits and retained file digests, not those distribution labels."
+  },
+  "support": {
+    "cached_public_artifacts": [
+      {
+        "name": "smonitor-0.21.0-py_2",
+        "sha256": "62b6cbae37f7fa06374af87923792f00253020955d000294b1a7d37eb9d04e56",
+        "matched_payload_files": 50,
+        "retained_acquisition_scheme": "file",
+        "retained_acquisition_host": null,
+        "public_registry": {
+          "url": "https://api.anaconda.org/release/uibcdf/smonitor/0.21.0",
+          "basename": "noarch/smonitor-0.21.0-py_2.tar.bz2",
+          "labels": [
+            "staging",
+            "main"
+          ],
+          "sha256_matches": true
+        }
+      },
+      {
+        "name": "depdigest-0.15.1-py_0",
+        "sha256": "2765c692de4e6aacff4197c4226ebb42ec1f0df9edb27e92f196ef1390cb1850",
+        "matched_payload_files": 26,
+        "retained_acquisition_scheme": "https",
+        "retained_acquisition_host": "conda.anaconda.org",
+        "public_registry": {
+          "url": "https://api.anaconda.org/release/uibcdf/depdigest/0.15.1",
+          "basename": "noarch/depdigest-0.15.1-py_0.tar.bz2",
+          "labels": [
+            "staging",
+            "main"
+          ],
+          "sha256_matches": true
+        }
+      },
+      {
+        "name": "pyunitwizard-0.28.1-py_0",
+        "sha256": "d4654faf93ed4181bf331f7d382379e78f02784f71f678ad19d0ac43d8062cc6",
+        "matched_payload_files": 93,
+        "retained_acquisition_scheme": "https",
+        "retained_acquisition_host": "conda.anaconda.org",
+        "public_registry": {
+          "url": "https://api.anaconda.org/release/uibcdf/pyunitwizard/0.28.1",
+          "basename": "noarch/pyunitwizard-0.28.1-py_0.tar.bz2",
+          "labels": [
+            "staging",
+            "main"
+          ],
+          "sha256_matches": true
+        }
+      },
+      {
+        "name": "argdigest-0.15.0-py_0",
+        "sha256": "b0f22038a8ad1c888dca10adedaca0fa14d2383a685a97c0602b7ca05f29d6a1",
+        "matched_payload_files": 47,
+        "retained_acquisition_scheme": "https",
+        "retained_acquisition_host": "conda.anaconda.org",
+        "public_registry": {
+          "url": "https://api.anaconda.org/release/uibcdf/argdigest/0.15.0",
+          "basename": "noarch/argdigest-0.15.0-py_0.tar.bz2",
+          "labels": [
+            "staging",
+            "main"
+          ],
+          "sha256_matches": true
+        }
+      },
+      {
+        "name": "pytest-receptor-1.2.1-py_0",
+        "sha256": "77bf3694bc903f606d4323b88e3bb3aea9628618036b53073f5a5dbd5dbc73cb",
+        "matched_payload_files": 15,
+        "retained_acquisition_scheme": "https",
+        "retained_acquisition_host": "conda.anaconda.org",
+        "public_registry": {
+          "url": "https://api.anaconda.org/release/uibcdf/pytest-receptor/1.2.1",
+          "basename": "noarch/pytest-receptor-1.2.1-py_0.tar.bz2",
+          "labels": [
+            "staging",
+            "main"
+          ],
+          "sha256_matches": true
+        }
+      }
+    ],
+    "ackredit": "0.9.0 verified owner public payload, privately copied without modification for Jupyter",
+    "graphical_support_files_copied_and_verified": 303,
+    "pyunitwizard": "0.28.1 matches the controlled-source tag 25a4bc; this new receiving replaces no historical 0.29.1 execution.",
+    "environment_modified": false,
+    "solver_installed_qualification": false,
+    "exact_route_limit": "The five tested support artifacts independently match their currently public main-label registry SHA-256 values. This is not a solver-installed environment or a separately rebuilt controlled-support-source campaign."
+  },
+  "complete_python": {
+    "junit": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "5059",
+      "time": "235.485",
+      "timestamp": "2026-11-07T10:01:12.033643-06:00",
+      "hostname": "<local-development-host>"
+    },
+    "native_exit": 0,
+    "selected_inputs": 4747,
+    "changed_inputs": [],
+    "cleanup": {
+      "tracked": 36,
+      "survivors": [],
+      "errors": []
+    },
+    "scope": "Complete addon source plus three mandatory preflights; exact owner/native source and cached public controlled support versions; no actual graphical, installed, scientific-global or owner-main acceptance.",
+    "warnings": {
+      "total": 2958,
+      "distinct_groups": 12,
+      "intentional_memory_pressure": "Four tests set a 4096-byte budget; not observed host memory exhaustion."
+    }
+  },
+  "graphical": {
+    "junit": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "96.608",
+      "timestamp": "2026-11-07T10:13:57.991506-06:00",
+      "hostname": "<local-development-host>"
+    },
+    "native_exit": 0,
+    "seconds": 99.67237176303752,
+    "selected_inputs": 5050,
+    "changed_inputs": [],
+    "cleanup": {
+      "tracked": 24,
+      "survivors": [],
+      "errors": []
+    },
+    "ordered_steps": [
+      "Load TcTIM and open Analysis without calculating implicitly",
+      "Calculate explicit atom populations and verify native distances against coordinates",
+      "Inspect native minimum and maximum without changing molecular data",
+      "Inspect evaluated-empty neighbors and explicit nearest-count results",
+      "Page through TcTIM source indices without transferring the complete result",
+      "Use independent Analysis panels in canvas popup and detached Studio",
+      "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+      "Select participants and focus the visible structure without losing the row acknowledgement",
+      "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+      "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+      "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+      "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+      "Prepare independent conformation references from the unchanged real ensemble",
+      "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
+      "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
+      "Inspect and adopt conformational results through both real popup boundaries",
+      "Python verifies retained native data separate plots and deliberate structure navigation"
+    ],
+    "page_errors_retained": 7,
+    "baseline_page_errors_retained": 1,
+    "zero_page_error_claim": false,
+    "source_delta_after_python_receiving": "Only the browser driver changes executed inputs; all scientific/runtime/Python-test source bytes remain unchanged. Normal popup Studio close uncovers the graph; no forced click or deadline change.",
+    "credentials_removed": true
+  },
+  "retained_attempts": [
+    {
+      "scope": "Initial directed source/preflight receiving",
+      "outcome": "133 Analysis failures,36 passes; source635 identified obsolete None-target oracle, real panel mounting/state delivery succeeded."
+    },
+    {
+      "scope": "Exact-destination guard mutation",
+      "outcome": "Expected native 1; real-two-View check rejects acceptance of foreign routed state. Source restored; corrected panel selection 321 passes."
+    },
+    {
+      "scope": "First combined 17-step Jupyter attempt",
+      "outcome": "Native1 at popup graph click covered by independent Studio;5050inputs fixed,24owned processes closed. No numerical or scientific failure inferred."
+    }
+  ],
+  "unrelated_observation": {
+    "issue": "uibcdf/molsysmt#637",
+    "scope": "Legacy course-local validator selected in error; current canonical validator passes 156 notebooks. Owned guidance/entrypoint ambiguity is backlog, no course rewrite."
+  },
+  "private_artifact_sha256": {
+    "full.json": "9ea1e4906ad8554740e9ac5ef14d074430c6aca9668c58a343cc8915e036f1cc",
+    "full.xml": "ff96cf911f4e6232718d83a139b26c11c677a02a81fd6645125b32484e6796be",
+    "full.log": "b02228d785003e7df7cd3877e4f4e781e6c1c0273aa6d5a272f0f904fbbc881b",
+    "full-inputs-before.json": "08658c562f672c501a61c831068a734af202c1544d560eb34e2d0aa4f6e9250e",
+    "full-inputs-after.json": "08658c562f672c501a61c831068a734af202c1544d560eb34e2d0aa4f6e9250e",
+    "source-route.json": "54cb60a6453c520526f852d895c600da39dd3e181a1a204ad6509222807edb12",
+    "origins.log": "7489def5c0a17008720fd034b992346675600b40c23330067198d0269715213a",
+    "focused-checks.json": "cdf4220506c4506c271bd11fe8f9c2e70520ce60566b732a006a4621475248f0",
+    "focused.xml": "b7b484db948813d79770b1c91ab6aed2353ce00cc4cd0f2661bfca95e7753b19",
+    "635-mutation.json": "8d24b0ff654da689b5ae753e164236db732f8a041511ead5d77a323f841cc72b",
+    "635-mutation.xml": "745ab4a2bd47e6ef01f9aa61eaf0739afc88b30a43055d690c89c695089a0cbb",
+    "panels-02.json": "1411e74e03295d20d003114b73a42c3cca4ba50bb3d6631d173dba24bafbf139",
+    "panels-02.xml": "334eeb6712370eb92bc487c6a6a61dd738a0487c8db2b527806e9422da84b736",
+    "jupyter-03/invocation.json": "57f791faa0beb348ce09a9829b4ebaab3a1280814e1918dd5c02d5c33eb608df",
+    "jupyter-03/result.xml": "c5a1e49a48c5a98e2f0aba10e1e121a89819afc0091e66e7be6cffeb4db9de7c",
+    "jupyter-04/invocation.json": "6d0954e3e5cddbba3681550816bc878f6af19d88a0d20717b71fb751999ca7c9",
+    "jupyter-04/result.xml": "3bb49bd0096cc0e8be51589c8f1ccd88d8064fafa50c8a3db391c90e50bbd0f7",
+    "jupyter-04/pytest-tmp/test_actual_jupyter_analysis_d0/jupyter-analysis/full-result.json": "d2f768ea021a12830ab9bc02c10d0c96f3a609136a4c0c7ad2ca99bab498599e",
+    "support-registry-observation.json": "5711bc8fc4b343e046b56e7ca140ddebfed29bec521a85e51a9b97e59b9815a5"
+  },
+  "remaining": [
+    "Owner PR review/integration and updated-head hosted gates remain separate.",
+    "Other approved GUI families, complete scientific-session and postponed human/visible-Qt receiving remain required.",
+    "Viewer e4 general Linux 4 and source-pair Windows pass; its core 44 passes, but hosted live-Jupyter and source-pair Linux native-pick attempts fail and remain owned Viewer follow-up. General macOS cells remain pending in last observation.",
+    "No public floor bump, candidate, tag, package, Release, promotion or 1.0 readiness claim."
+  ]
+}

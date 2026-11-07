@@ -25,11 +25,12 @@ def mount(view, *, endpoint=None):
 
 
 def state(sent, endpoint=None):
+    destination = sent.primary_endpoint if endpoint is None else endpoint
     return [
         m["content"]["state"]
         for m in sent
         if m.get("op") == "addon_panel_message"
-        and m.get("target_endpoint_id") == endpoint
+        and m.get("target_endpoint_id") == destination
         and m.get("content", {}).get("type") == "state"
     ][-1]
 
@@ -57,8 +58,20 @@ def act(
     return state(sent, endpoint)
 
 
+class _CapturedMessages(list):
+    """Keep real envelopes and the independently known owning widget route."""
+
+    def __init__(self, view):
+        super().__init__()
+        self.primary_endpoint = (
+            f"widget-host:{view._binary_session_id}"
+            if view._runtime_router is not None
+            else None
+        )
+
+
 def transport(view):
-    sent = []
+    sent = _CapturedMessages(view)
     view.widget.send = lambda content, buffers=None: sent.append(content)
     view._ready = True
     return sent
@@ -74,6 +87,18 @@ def case():
             sent = transport(view)
             mount(view)
             yield view, sent
+
+
+def test_primary_state_reader_rejects_other_real_views_route(case):
+    view, sent = case
+    original = state(sent)
+    with msv.new_view(view.molsys) as other:
+        foreign = transport(other)
+        mount(other)
+        assert foreign.primary_endpoint != sent.primary_endpoint
+        assert state(foreign) is not original
+        sent.extend(foreign)
+        assert state(sent) is original
 
 
 def test_workspace_registration_keeps_lazy_expert_api_and_only_real_task(case):

@@ -60,6 +60,18 @@ installed closure stay open. Audit progress remains **40%**, with **26 verified
 audit-related closures**. No new candidate, tag, Release, promotion or remote
 matrix is selected.
 
+## Newer bound-tools receiving in isolation — 2026-11-07
+
+Published contribution `42f5ed3bc` is being received over owner `b10160f29`.
+Its source pins exact Viewer `e4dd58cf0`, adds conformational Analysis tasks and
+#635's exact-primary-endpoint oracle. The seventeen-step Analysis/Jupyter
+scenario is new receiving scope; prior owner evidence on Viewer `25061d9e9`
+is not transferred. Owner source fixes and immutable archives are preserved;
+duplicate pending #637 is not reintroduced. Incoming 5,059-case/17-step receipts
+are contributor evidence, not owner combined-tree acceptance. Main remains
+unchanged until reconciliation and relevant local checks complete. Progress
+stays 40%, audit-related closures 26.
+
 ## Audit execution and next correction — 2026-11-06
 
 The [robustness audit and action plan](pre_1_0_robustness_audit_20261106.md)

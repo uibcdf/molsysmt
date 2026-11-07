@@ -35,6 +35,27 @@ async function renderedDistance(p,tag,points,participants){
  const expected=Math.hypot(...points[0].map((v,j)=>v-points[1][j]));
  for(const g of geometry.geometry){const value=/Distance\s+(-?\d+(?:\.\d+)?)/.exec(g.label);assert.ok(value,g.label);assert.ok(Math.abs(Number(value[1])-expected)<0.011);}
 }
+async function conformationPanel(p,task,scope='indices'){
+ await p.bringToFront();await workspace(p);const panel=p.locator('.msm-analysis').first();
+ await panel.locator('[data-task]').selectOption(task);
+ await panel.locator('[data-first] [data-source]').selectOption('indices');await panel.locator('[data-first] [data-indices]').fill('4,0,2,4');
+ const context=panel.locator('[data-first] details');if(await context.getAttribute('open')===null)await context.locator('summary').click();await context.locator('[data-evaluate]').selectOption('index');await context.locator('[data-index]').fill('0');
+ await panel.locator('[data-structures]').selectOption(scope);if(scope==='indices')await panel.locator('[data-structure-indices]').fill('2,0,2');
+ if(['rmsd','least_rmsd'].includes(task))await panel.locator('[data-reference-structure]').fill('1');
+ await panel.locator('[data-calculate]').click();await panel.locator('[data-report]').waitFor({state:'visible'});return panel;
+}
+async function verifyPlot(p,task,expected){
+ const card=p.locator(`[data-molsysviewer-datacard^="molsysmt-${task}-"]`).first();await card.waitFor({state:'visible'});
+ const svg=card.locator('svg:has(polyline)');const points=await svg.locator('polyline').evaluate(node=>(node.getAttribute('points')||'').split(/\s+/).map(point=>point.split(',').map(Number)));
+ assert.equal(points.length,3);assert.ok(points[0][0]<points[1][0]&&points[1][0]<points[2][0]);
+ const [lo,hi]=[expected.indexOf(Math.min(...expected)),expected.indexOf(Math.max(...expected))];assert.ok(Math.abs(expected[hi]-expected[lo])>1e-12);
+ for(let i=0;i<3;i++)assert.ok(Math.abs((points[i][1]-points[lo][1])/(points[hi][1]-points[lo][1])-(expected[i]-expected[lo])/(expected[hi]-expected[lo]))<1e-6);
+ const text=await card.textContent();assert.match(text,/Structure index/);assert.match(text,/Length \(nm\)/);return {card,svg,points};
+}
+async function clickPlotPoint(svg,values){
+ const position=await svg.evaluate((node,values)=>{const point=node.createSVGPoint();point.x=values[0];point.y=values[1];const screen=point.matrixTransform(node.getScreenCTM()),rect=node.getBoundingClientRect();return {x:screen.x-rect.left,y:screen.y-rect.top};},values);
+ await svg.click({position});
+}
 try{
  browser=await chromium.launch({headless:true,executablePath:config.chromium,args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  const baseline=await browser.newPage();baseline.on('pageerror',error=>baselineErrors.push({error:String(error),stack:error.stack}));await baseline.goto(`http://127.0.0.1:${config.port}/lab/workspaces/analysis-plain-${Date.now()}/tree/plain.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});const plain=baseline.locator('.jp-NotebookPanel:visible .jp-Cell').first();await plain.filter({hasText:'PLAIN_JUPYTER_CONTROL_OK'}).waitFor();await execute(plain,baseline);await baseline.getByText('PLAIN_JUPYTER_CONTROL_OK 2',{exact:true}).waitFor();await baseline.close();
@@ -104,6 +125,42 @@ try{
   for(const index of [1,2]){await page.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');await page.locator('[data-molsysviewer-trajectory-step="next"]').click();await page.waitForFunction(index=>window.__controllers[1].trajectory.getTrajectoryState().currentFrame===index,index);await renderedDistance(page,tag,ensemble.points_angstrom[index],[4,0,4,5,2]);}
   await execute(page.locator('.jp-NotebookPanel:visible .jp-Cell').nth(4));await page.getByText('JUPYTER_ANALYSIS_ENSEMBLE_OK 3',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);
  });
- const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(error=>baselineErrors.some(baseline=>fingerprint(error)===fingerprint(baseline))),'A page error was introduced beyond the plain Jupyter control');const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native Analysis queries, bounded source-index pages, deliberately selected/focused participants and live Measures from source and both popups. Independent numerical, actual geometry/text-anchor/label and molecular-invariance checks, including duplicate participants, frozen rows versus visible structures and mass-weighted refusal. Not human Qt or installed qualification.'};await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
+ let conformations;
+ await step('Prepare independent conformation references from the unchanged real ensemble',async()=>{
+  await execute(page.locator('.jp-NotebookPanel:visible .jp-Cell').nth(5));await page.getByText('JUPYTER_CONFORMATION_ORACLES_OK 3',{exact:true}).waitFor();conformations=JSON.parse(await readFile(output+'/conformation-expected.json','utf8'));
+ });
+ await step('Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes',async()=>{
+  for(const task of ['rmsd','least_rmsd','gyration','rmsf']){
+   const p=await conformationPanel(page,task),rows=await numericRows(p),axis=task==='rmsf'?[4,0,2,4]:[2,0,2],values=task==='rmsf'?conformations[task]:axis.map(index=>conformations[task][index]);
+   assert.deepEqual(rows.map(row=>row[0]),axis);rows.forEach((row,i)=>close(row[1],values[i]));assert.equal(await p.locator('[data-distance-settings]').isVisible(),false);assert.equal(await p.locator('[data-add-live-distance]').isVisible(),false);assert.equal(await p.locator('[data-add-structure-plot]').isDisabled(),true);
+   if(task==='rmsf')assert.match(await p.locator('[data-plot-limit]').innerText(),/not indexed by one scalar per structure/);
+  }
+ });
+ await step('Add a correctly indexed core plot retain it after Clear and navigate by its actual point',async()=>{
+  const p=await conformationPanel(page,'gyration','all');assert.equal(await p.locator('[data-add-structure-plot]').isEnabled(),true);await p.locator('[data-add-structure-plot]').click();await p.locator('[data-status]').filter({hasText:'Added a trajectory plot'}).waitFor();
+  const {svg,points}=await verifyPlot(page,'gyration',conformations.gyration);await p.locator('[data-clear]').click();await p.locator('[data-report]').waitFor({state:'hidden'});
+  // Studio legitimately overlaps canvas cards. Close it through the ordinary
+  // toolbar before the pointer action; never force a click through the overlay.
+  const canvasOutput=page.locator('[data-molsysviewer-canvas-output]').last();await canvasOutput.scrollIntoViewIfNeeded();await canvasOutput.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');await canvasOutput.getByTitle('Panel mode (N / W)',{exact:true}).click();await p.waitFor({state:'hidden'});
+  await clickPlotPoint(svg,points[1]);await page.waitForFunction(()=>window.__controllers.at(-1).trajectory.getTrajectoryState().currentFrame===1);
+  await page.screenshot({path:output+'/conformation-core-plot.png',fullPage:true});
+ });
+ await step('Inspect and adopt conformational results through both real popup boundaries',async()=>{
+  const source=page.locator('[data-molsysviewer-canvas-output]').last();await source.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');const opened=page.waitForEvent('popup');await source.getByTitle('Open popup',{exact:true}).click();const canvas=await opened;record(canvas);await canvas.locator('#molsysviewer-loading').waitFor({state:'hidden'});
+  // The popup owns its Studio layout independently of the source. As with the
+  // primary canvas, use the normal toolbar to uncover the plot before clicking.
+  const popupPanel=canvas.locator('[data-molsysviewer-addons-panel="true"]');
+  if(await popupPanel.isVisible()){
+   await canvas.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await canvas.keyboard.press('Enter');await canvas.getByTitle('Panel mode (N / W)',{exact:true}).click();await popupPanel.waitFor({state:'hidden'});
+  }
+  const graph=await verifyPlot(canvas,'gyration',conformations.gyration);await clickPlotPoint(graph.svg,graph.points[2]);await canvas.waitForFunction(()=>window.__controllers.at(-1).trajectory.getTrajectoryState().currentFrame===2);await page.waitForFunction(()=>window.__controllers.at(-1).trajectory.getTrajectoryState().currentFrame===2);
+  const rmsf=await conformationPanel(canvas,'rmsf');const rows=await numericRows(rmsf);rows.forEach((row,i)=>close(row[1],conformations.rmsf[i]));
+  const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;record(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});
+  const rmsd=await conformationPanel(studio,'rmsd','all');await rmsd.locator('[data-add-structure-plot]').click();await rmsd.locator('[data-status]').filter({hasText:'Added a trajectory plot'}).waitFor();await verifyPlot(canvas,'rmsd',conformations.rmsd);await verifyPlot(page,'rmsd',conformations.rmsd);await rmsd.locator('[data-clear]').click();await rmsd.locator('[data-report]').waitFor({state:'hidden'});await verifyPlot(canvas,'rmsd',conformations.rmsd);await studio.screenshot({path:output+'/conformation-studio-popup.png'});await studio.close();await canvas.close();
+ });
+ await step('Python verifies retained native data separate plots and deliberate structure navigation',async()=>{
+  await execute(page.locator('.jp-NotebookPanel:visible .jp-Cell').nth(6));await page.getByText('JUPYTER_CONFORMATION_SCENE_OK 2',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);
+ });
+ const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(error=>baselineErrors.some(baseline=>fingerprint(error)===fingerprint(baseline))),'A page error was introduced beyond the plain Jupyter control');const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native geometric/conformational queries, bounded source-index pages, explicit participant and core Measure/plot adoption from source and both popups. Independent numerical, actual geometry/text/plot-axis and molecular-invariance checks, including duplicate participants, atom-versus-structure axes, frozen observations versus deliberate navigation and mass-weighted live-distance refusal. Not human Qt or installed qualification.'};await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
 }catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors},null,2));if(browser){for(const [i,p] of browser.contexts().flatMap(c=>c.pages()).entries())await writeFile(output+'/window-'+i+'-failure-dom.txt',await p.locator('body').innerText());}if(page){await page.screenshot({path:output+'/failure.png',fullPage:true});await writeFile(output+'/failure-dom.txt',await page.locator('body').innerText());}console.error(error);process.exitCode=1;}
 finally{if(browser)await browser.close();}

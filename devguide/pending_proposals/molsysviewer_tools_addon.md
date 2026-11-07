@@ -50,7 +50,15 @@ its results do not transfer automatically to this combination. #421 stays partia
 Copy system, plus Geometry / Translate, Center, Superpose structures and bounded
 periodic coordinate tasks, Chemistry stored-information/hydrogen inspection and
 explicit heavy-atom/hydrogen preparation and Analysis distance-family queries
-are implemented in this contribution.
+are implemented in this contribution. The isolated conformation follow-up adds
+raw/optimal RMSD, gyration, per-atom RMSF and deliberate core structure plots;
+its [receipt](../../devtools/data/molsysviewer_tools_conformation_receiving_20261106.json)
+records 133 panel passes, 36 preflight passes and 17 actual Jupyter/popup checks,
+with Viewer #314 still undergoing host integration. Other approved task
+families and complete-session acceptance remain required.
+The local `8a0583fbe` owner reconciliation separately passes 245 native/Analysis/
+preflight cases and the same 17-step Jupyter workflow with all 4,770 selected
+inputs unchanged; contribution delivery remains pending.
 Selection/lifecycle and independent-result controls are shared; native science
 and expert defaults are unchanged. The [receiving record](../../devtools/data/molsysviewer_tools_geometry_receiving_20261106.json)
 separates real Jupyter/popup and numerical evidence from pending hosted, owner,
@@ -3261,3 +3269,24 @@ not a single green full run. The [recovery receipt](../../devtools/data/molsysvi
 preserves original logs/input digests and all overlap/skip scopes. Corrected-head
 hosted receiving, owner/installed/human gates and remaining GUI families stay
 required. No publication or owner-main integration is authorized.
+
+## Owner receiving of the newer contribution — 2026-11-07
+
+Contribution head `42f5ed3bc8f02c979b3351212554e588243de0a5` is reconciled
+with owner `b10160f29` in isolation. Its #635 oracle binds messages to the exact
+owning primary endpoint and preserves popup routes; a real-two-View guard rejects
+foreign state. Its conformation tasks delegate RMSD, optimal-superposition RMSD,
+gyration and RMSF to existing native expert tools, preserving source axes and
+explicit plot adoption. New exact host is `e4dd58cf0`.
+
+The owner's resolved #632/#637 archives and newer #602/#633/#634/#636/#638
+source remain authoritative. The incoming #632 note expands the driver from
+twelve to seventeen ordered steps for conformation/plots; this is new #421
+receiving scope, not a rewrite or reopening of the immutable twelve-step record.
+The duplicate incoming #637 pending report is not reintroduced: canonical course
+validation/help/forwarding was already delivered and closed. Its original
+contribution remains recoverable at the head above. No course rewrite is inferred.
+
+Incoming source receipts retain their original execution scope and failures;
+owner paired-source and actual Jupyter receiving are pending on the combined
+tree. This reception selects no package, candidate, tag or release.

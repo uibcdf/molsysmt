@@ -43,3 +43,9 @@ Preserve the experimental addon bridge for native minimization: independent
 outputs by default, explicit in-place retained-axis coordinates, projection-only
 deferral/retry, native analysis invalidation and bounded single-structure CPU
 receiving. Keep local optimization distinct from equilibrium or global stability.
+
+Preserve the source-qualified Analysis bridge for raw/optimal RMSD, gyration and
+RMSF. Their calculations do not edit or automatically align source coordinates.
+Distinguish positional reference correspondence, per-structure scalar series and
+per-atom fluctuations. Core trajectory plots require complete canonical structure
+coverage; no repeated/subset or atom axis is padded or relabelled to fit it.

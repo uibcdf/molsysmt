@@ -1,0 +1,230 @@
+{
+  "schema_version": "molsysmt.owner_newer_host_source_receiving@1",
+  "date": "2026-11-07",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#635",
+    "uibcdf/molsysmt#639"
+  ],
+  "owner_commit": "b10160f29fef1d3017ebd38d0d470c934d46e299",
+  "incoming_commit": "42f5ed3bc8f02c979b3351212554e588243de0a5",
+  "source_not_yet_committed_during_receiving": true,
+  "viewer_snapshot": {
+    "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "method": "Full raw Git blob snapshot, independently matched to the tree.",
+    "matched_blob_count": 2462,
+    "original_archive_bytes": 73277440,
+    "original_archive_sha256": "aeee69f8ac6ffd5768402c0f98356c91c2986237ea5c5636f8d780f690e81363",
+    "frontend_present_in_original_archive": true,
+    "preparation_notes": [
+      "Two metadata acquisitions queried package.json at an incorrect root path; frontend metadata is under molsysviewer/js. No molecular/browser run had begun.",
+      "An archive-omission explanation was premature: the original archive contains the frontend package. No archive defect is claimed."
+    ],
+    "files": {
+      "molsysviewer/js/package.json": "e268203616626efae48f49a1d9f4301fedc671fda2c5fc91f926057b2e411afc",
+      "molsysviewer/js/package-lock.json": "d20e7b34bbc9901925e8a2c7d4109794c21ec4ee911245d402dcbe36a5c0a3fd",
+      "molsysviewer/viewer.js": "1c350481afcd8bd433e29c897de8896e39cfa5774c86ef15c1d014f04ae4dbcb"
+    }
+  },
+  "viewer_assets": {
+    "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "complete_public_tree": true,
+    "independently_matched_blobs": 2462,
+    "existing_tools": {
+      "esbuild": "0.27.0",
+      "playwright": "1.57.0"
+    },
+    "owner_harness_script": "npx esbuild tests/e2e/harness.ts --bundle --format=iife --global-name=Harness --outfile=tests/e2e/harness.bundle.js",
+    "harness_sha256": "8aee75ee4d76462c3da5b4d1699c44c1bec2b1a581a4d59eeea85ba458ad63db",
+    "runtime_bundle_sha256": "1c350481afcd8bd433e29c897de8896e39cfa5774c86ef15c1d014f04ae4dbcb",
+    "metadata_preparation_correction": "Installed owner tooling is playwright, not @playwright/test; no install or runtime rebuild occurred."
+  },
+  "helper_chrome_preflight": {
+    "scope": "Actual Chrome helper-global preflight only; not molecular/Jupyter receiving.",
+    "native_exit_observed": 0,
+    "elapsed_seconds": 5.527,
+    "stdout": "{\"global\":\"object\",\"geometry\":\"function\"}\n",
+    "stderr": ""
+  },
+  "preservation": {
+    "owner_paths": 5313,
+    "archived632_unchanged": true,
+    "omitted637_duplicate": "devguide/pending_bugs/course_guide_names_obsolete_validator.md",
+    "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525"
+  },
+  "runs": [
+    {
+      "name": "635-owner-focused",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/molsysviewer_molsysmt/test_system_panel.py",
+          "tests/molsysviewer_molsysmt/test_geometry_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_panel.py",
+          "tests/molsysviewer_molsysmt/test_analysis_panel.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "devtools/tests/test_native_viewer_integration.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/635-owner-focused/result.xml"
+        ],
+        "owner": "b10160f29",
+        "incoming": "42f5ed3bc",
+        "viewer": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "Owner combined-tree four panel, exact-route/foreign-view and native/preflight receiving. Includes signed independent conformational/unit axes; publicPUW0281,12workers. NoactualJupyter orinstalled acceptance.",
+        "native_exit_observed": 0,
+        "elapsed_seconds": 25.641
+      },
+      "private_artifact_sha256": {
+        "stdout.log": "545049e1bbc021fce6b3c4c3d7a77252ebd8a241e97304a962d28c46442e5fc7",
+        "preflight.json": "35107af06f061391121b1a4e9cd6ddbfeb8c270fc08a081439d1b7f49dd372dd",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "invocation.json": "f7d96e680ee992a6f173fa286bcb669dce2b3ca58791b9281499c6d60e6fab8a",
+        "result.xml": "dea01f83dbb24d53597d4b671767d9a7370c711544bac9dd0732877bac202950"
+      },
+      "junit": {
+        "tests": 356,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "635-owner-mutation",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "0",
+          "tests/molsysviewer_molsysmt/test_system_panel.py::test_primary_state_reader_rejects_other_real_views_route",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/635-owner-mutation/result.xml"
+        ],
+        "scope": "Deliberately remove destination filtering only in the test oracle; actual two-view guard must fail. Original bytes restored in finally; not a scientific/runtime defect.",
+        "native_exit_observed": 1,
+        "elapsed_seconds": 5.891,
+        "restored_source_sha256": "7ade164263b9d1e3bafc8b38855e482bcc82ae8c17006a3b9102c7f5ac9bc6e4"
+      },
+      "private_artifact_sha256": {
+        "stdout.log": "2cd9575fcaf27d992d32554f252d8c61ae847a60d845c003b89eb0e18b6152ed",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "invocation.json": "3b8243c9bb6d717e56278f9a847dff78f7fb0d832d3cc0ba3e0411b668db0697",
+        "result.xml": "fa90c92f817f8b2fd192b8e6e1e1fcf0651b5a77a28c35516c2e47542dd9b6e2"
+      },
+      "junit": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "635-owner-combined",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/molsysviewer_molsysmt",
+          "devtools/tests/test_smoke_addon_test_command.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "devtools/tests/test_native_viewer_integration.py",
+          "devtools/tests/test_execute_scientific_evidence.py",
+          "tests/structure/test_xyz_edit_representation.py",
+          "tests/structure/test_transform_input_ownership.py",
+          "tests/structure/test_get_rotation_matrix_from_axis_angle.py",
+          "tests/scientific_truth/structure/test_axis_angle_rotation.py",
+          "tests/form/XYZ/test_coordinate_publication.py",
+          "tests/documentation/test_center_examples.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/635-owner-combined/result.xml"
+        ],
+        "viewer": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "Complete addon and three mandatory preflights plus owner602/633/638and636 guards and affected executable cookbook.12workers,publicPUW0281. Distinct from actualJupyter/installed/human qualification.",
+        "native_exit_observed": 1,
+        "started": 1794074848.3803349,
+        "elapsed_seconds": 203.39,
+        "selected_inputs": 5035,
+        "changed_inputs": []
+      },
+      "private_artifact_sha256": {
+        "stdout.log": "39145d9875efb1d53adea8f5a4d7100d8e7d9333b2a07d8457c5a86f5ea96444",
+        "inputs-after.json": "0f36edd83383b3b933543afe265b9a08f7cafa8542c3f7c582e04beb4fb65e48",
+        "stderr.log": "56203c4381f5f1868e446fbb6d0b0e25c663dd9e3725f054424e1420893ff7c4",
+        "invocation.json": "38e8ed431313349ed9986c94432e9d54ca03a4a95af5f2cad9a38764f3729761",
+        "inputs-before.json": "0f36edd83383b3b933543afe265b9a08f7cafa8542c3f7c582e04beb4fb65e48",
+        "result.xml": "26657533a29316bf5b41a0b1fffa2e873aedeccf70003a53db567201ee8a10ab"
+      },
+      "junit": {
+        "tests": 5428,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "635-owner-combined-corrected",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/molsysviewer_molsysmt",
+          "devtools/tests/test_smoke_addon_test_command.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "devtools/tests/test_native_viewer_integration.py",
+          "devtools/tests/test_execute_scientific_evidence.py",
+          "tests/structure/test_xyz_edit_representation.py",
+          "tests/structure/test_transform_input_ownership.py",
+          "tests/structure/test_get_rotation_matrix_from_axis_angle.py",
+          "tests/scientific_truth/structure/test_axis_angle_rotation.py",
+          "tests/form/XYZ/test_coordinate_publication.py",
+          "tests/documentation/test_center_examples.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/635-owner-combined-corrected/result.xml"
+        ],
+        "viewer": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "Repeat complete owner paired selection after639adds its missing actual smoke argument. All native/addon/assertion/runtime sources unchanged; no selected test or gate removed.",
+        "native_exit_observed": 0,
+        "started": 1794075226.337382,
+        "elapsed_seconds": 232.248,
+        "selected_inputs": 5035,
+        "changed_inputs": []
+      },
+      "private_artifact_sha256": {
+        "stdout.log": "76724494ace8d38626602e8158b00a6b7150fb58c0bc79cf9eeaeb33b76665cc",
+        "inputs-after.json": "eb36b6a306a6e0a1c1385483b617c272f51736587a81ea38dfcc0a8deae56e2a",
+        "stderr.log": "db49671f22cf9a56c78780fafee056e59ca85d6bfcb408787ee79608d2223dbe",
+        "invocation.json": "5b508e727669ddbc935b5acec6d310972d45c83dddc9a4282957c251eeaef6dc",
+        "inputs-before.json": "eb36b6a306a6e0a1c1385483b617c272f51736587a81ea38dfcc0a8deae56e2a",
+        "result.xml": "256039576c5ecb97776c91ad5d84e11e2922d079256348bfaaf20bb1cb0bb89a"
+      },
+      "junit": {
+        "tests": 5428,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "disposition": [
+    "Owner source reception, not inherited qualification of the incoming branch. Exact newer Viewer2462blobs match the complete public tree and differ from prior250host evidence.",
+    "Initial preparation twice looked for frontend metadata at the wrong root path; frontend lives in molsysviewer/js. Original archive already contained it. A guessed @playwright/test package was corrected to installed playwright. No molecular/browser run had begun at those metadata failures.",
+    "Owner plus incoming tree preserves5313owned paths and immutable632/637archives. Duplicate pending637is not reintroduced; its branch history remains recoverable. Native scientific source/backend remain owned by the newer owner checkpoint.",
+    "All356directed controls pass. Deliberately dropping destination filtering in only the test oracle makes the actual two-view guard fail exactly once, native1; original bytes are restored before full receiving.",
+    "First complete owner campaign retains5427passes and one failed smoke-command completeness guard, native1. The owner602module omission is separately tracked639; no molecular or routing assertion fails.",
+    "639adds only the missing actual smoke argument, preserving complete discovery and one invocation. Repeated complete owner selection passes5428without errors/failures/skips. Input fingerprints remain unchanged during both campaigns.",
+    "The seventeen-step Analysis driver extends the historical twelve-step scenario. Its new conformation/plot scope remains421; do not rewrite or reopen the immutable632record.",
+    "Actual combined-source Jupyter, clean scientific/source, documentation/fast gates, main delivery and installed/human qualification remain distinct; no candidate/tag/publication is selected."
+  ],
+  "accepted_plan_progress_percent": 40
+}
