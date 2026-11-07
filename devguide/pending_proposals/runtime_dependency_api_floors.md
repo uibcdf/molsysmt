@@ -608,6 +608,16 @@ passes 97 cases/64 nodes without omissions. Scopes overlap and tracked human
 documentation/report edits make that certificate explicitly development-only.
 Source/public delivery is still distinct from installed-release qualification.
 
+## Public delivery of the consumer repair block — 2026-11-06
+
+Checkpoint `82bfa1c82f1d48035679fa4630e81a2506b67bd6` independently matches
+all 58 changed public blobs; #627/#628/#629 are verified closed as completed.
+The [delivery receipt](../../devtools/data/runtime_provider_delivery_627_629_20261106.json)
+keeps those source/board facts separate from installed/graphical qualification.
+No new externally reported issue appeared in the complete board refresh:
+561 total issues, 98 open; PR #543 remains at `8ab2f5474`. Remaining optional
+providers and actual host/installed closure keep #524 partial, progress 40%.
+
 ## Remaining scope and acceptance criteria
 
 Public checkpoint `f5c909e75d786a20d92f4b57e6fa2875a3ba651e` independently
@@ -622,8 +632,8 @@ retains these boundaries. This report stays partial.
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
   receiving and the redesigned host's eventual public release remain distinct;
   complete clean installed-runtime closure with the actual qualified host artifact.
-- Deliver the qualified MDAnalysis/ParmEd consumer defects (#628/#629),
-  then finish OpenFF/PyTraj/NGLView/Biopython. Distinguish an API-grounded floor and actual receiving
+- Finish OpenFF/PyTraj/NGLView/Biopython after the delivered MDAnalysis/ParmEd
+  consumer repairs (#628/#629). Distinguish an API-grounded floor and actual receiving
   from an incidental installation. MDTraj, OpenMM, PDBFixer, RDKit and the parser/NumPy
   dispositions above are received; OpenMMTools/Plotly runtime declarations are
   retired with their distinct unsupported-draft/documentation dispositions.

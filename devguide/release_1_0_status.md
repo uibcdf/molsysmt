@@ -182,6 +182,13 @@ retain original failures, provider origins and development-only limits. Remainin
 optional work is OpenFF, Biopython, NGLView and PyTraj plus the actual host and
 clean installed closure; #524 stays partial and accepted progress remains 40%.
 
+Public checkpoint `82bfa1c82` independently matches all 58 changed blobs.
+#627/#628/#629 are verified closed as completed: 17 audit-related issues are
+closed. The complete board has 561 issues, 98 open, and the unchanged PR #543
+head `8ab2f5474`. Fourteen fast gates pass. See the
+[delivery receipt](../devtools/data/runtime_provider_delivery_627_629_20261106.json).
+Accepted progress remains 40%; #524 is still partial.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign

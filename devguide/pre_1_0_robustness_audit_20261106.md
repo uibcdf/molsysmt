@@ -13,9 +13,10 @@ scopes overlap. Accepted progress is 40%; #613 and #620 are published and closed
 The #620 precision correction and #524 default-renderer declaration are delivered
 in public checkpoint `8d466268c`, with all 43 checked blobs independently matched. Remaining
 #524 review and the actual Viewer floor still prevent phase-three credit.
-No replacement candidate is selected. Current phase-three work is delivering
-#627/RDKit receiving and the qualified #628/#629 data-operation repairs under
-#524; the existing phase weights remain unchanged. Their final paired provider
+No replacement candidate is selected. Current phase-three work is the remaining optional-provider and actual
+host/installed closure under #524. Public checkpoint 82bfa1c82 independently
+matches all 58 checked blobs; #627/#628/#629 are verified closed, bringing the
+audit-related closed count to 17. The existing phase weights remain unchanged. Their final paired provider
 profiles pass 155 and 185 cases respectively without omissions; joint receiving
 passes 1,271 and scientific execution 97. Counts overlap. Remaining optional
 providers and actual host/installed closure still prevent phase-three credit.
@@ -884,6 +885,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | PDBFixer and runtime/docs separation qualified | Source fac0d8706 selects optional PDBFixer >=1.11; final minimum and newer profiles each pass 172 selected cases. Source 0a06a01c2 retires unsupported/runtime-misclassified declarations; 625 route/docs cases and 14 fast gates pass. The original network/harness failures are retained. Accepted progress stays 40%. | Verify batched public delivery, continue RDKit and remaining optional APIs, preserve actual Viewer/installed closure under #524. |
 | 2026-11-06 | RDKit API and fixture qualification | Source 883e4e45a selects optional RDKit 2024.3.4; 13b82905c repairs #627 reference fixtures. Minimum/newer profiles each pass 541 with one documented conditional omission; literal chemical/score assertions are retained. New #628/#629 data-loss baselines are reproduced and admitted as correctness work. Accepted progress stays 40%. | Deliver/close #627, finish MDAnalysis/ParmEd owner repairs and actual-provider receiving, then remaining optional and host/installed scope under #524. |
 | 2026-11-06 | MDAnalysis/ParmEd consumer repairs qualified | #628 source f81ba2025 and #629 source e270eda9b preserve represented metadata/geometry/chemistry and explicit target limits. Final actual-provider pairs pass 155 and 185 per profile without omissions; joint receiving passes 1,271, scientific execution 97/64 nodes. Source 33a702bfa aligns optional floors. Original failures and failed harness attempts remain in portable receipts; scopes overlap. Accepted progress stays 40%. | Independently receive the batched public sources and close #627/#628/#629, then finish OpenFF/Biopython/NGLView/PyTraj and actual host/installed closure. No new tag, candidate or remote workflow. |
+| 2026-11-06 | Consumer repair block delivered | Public checkpoint 82bfa1c82 independently matches all 58 changed blobs. #627/#628/#629 are verified completed; audit-related closed count 17. Complete acquisition has 561 issues/98 open and unchanged PR #543 at 8ab2f5474. Fourteen fast gates pass. Accepted progress remains 40%. | Finish remaining optional providers and actual host/installed closure under #524; keep graphical, installed-package and final-candidate qualification separate. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

@@ -1,0 +1,520 @@
+{
+  "schema_version": "molsysmt.runtime-provider-delivery@1",
+  "date": "2026-11-06",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "checkpoint": "82bfa1c82f1d48035679fa4630e81a2506b67bd6",
+  "independent_public_blob_receiving": [
+    {
+      "path": ".github/workflows/receive_public_argdigest.yaml",
+      "expected_blob": "9c474ac2ec941ad31bd62123934d80187428e6c8",
+      "remote_blob": "9c474ac2ec941ad31bd62123934d80187428e6c8",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/descriptor_sdf_reference_fixtures_duplicate_v3000_valence_on_supported_rdkit_wri.md",
+      "expected_blob": "344b3769b434b2b465c5f2129833af317c32adb0",
+      "remote_blob": "344b3769b434b2b465c5f2129833af317c32adb0",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/mdanalysis_copies_and_subsets_fail_or_discard_stored_bond_metadata.md",
+      "expected_blob": "909f754ee8d60720d34856c2b9572564b564c187",
+      "remote_blob": "909f754ee8d60720d34856c2b9572564b564c187",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/native_parmed_export_loses_coordinates_and_formal_charges_without_reporting_them.md",
+      "expected_blob": "6087ef225b2c549f723dd103a5a763e0ba985a07",
+      "remote_blob": "6087ef225b2c549f723dd103a5a763e0ba985a07",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/pending_proposals/runtime_dependency_api_floors.md",
+      "expected_blob": "adf997d3a05f8b2911b84ef2cb8a06d86270a955",
+      "remote_blob": "adf997d3a05f8b2911b84ef2cb8a06d86270a955",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "expected_blob": "1253052ab147b27f62ce6748a12aa9894ef7bf2c",
+      "remote_blob": "1253052ab147b27f62ce6748a12aa9894ef7bf2c",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "expected_blob": "877e760fd625dccccf6f52c4a30d530f046736e3",
+      "remote_blob": "877e760fd625dccccf6f52c4a30d530f046736e3",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/conda-envs/development_env.yaml",
+      "expected_blob": "c246a9dfbf9b6ae3ec73fb1d604e5d2a7b3128c5",
+      "remote_blob": "c246a9dfbf9b6ae3ec73fb1d604e5d2a7b3128c5",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/conda-envs/test_env.yaml",
+      "expected_blob": "988a502f4dea6d58944b4906f0f85e162b2bb198",
+      "remote_blob": "988a502f4dea6d58944b4906f0f85e162b2bb198",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/data/mdanalysis_runtime_receiving_524_628_20261106.json",
+      "expected_blob": "f6e2f42ad41a7d24617a279bc6d0fb6ff2fd9f44",
+      "remote_blob": "f6e2f42ad41a7d24617a279bc6d0fb6ff2fd9f44",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/data/parmed_runtime_receiving_524_629_20261106.json",
+      "expected_blob": "12e35e589708c62e5064bbe3fe5aeb537a9fe811",
+      "remote_blob": "12e35e589708c62e5064bbe3fe5aeb537a9fe811",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/data/pdbfixer_runtime_delivery_524_20261106.json",
+      "expected_blob": "f97227167ad37a5fc87d603d87723e781aa84d86",
+      "remote_blob": "f97227167ad37a5fc87d603d87723e781aa84d86",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/data/rdkit_runtime_receiving_524_627_20261106.json",
+      "expected_blob": "51cd9d365231cb00f4ba60e4c0c0ced812dce9b5",
+      "remote_blob": "51cd9d365231cb00f4ba60e4c0c0ced812dce9b5",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/data/runtime_provider_scientific_receiving_524_20261106.json",
+      "expected_blob": "49a65ad2d0e43785e31a527d94105a21d47d5684",
+      "remote_blob": "49a65ad2d0e43785e31a527d94105a21d47d5684",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/dependency_contract.toml",
+      "expected_blob": "675a9e7e1687fefb879171b05c31a98c8555c936",
+      "remote_blob": "675a9e7e1687fefb879171b05c31a98c8555c936",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/tests/test_audit_dependency_contract.py",
+      "expected_blob": "86b376fa9006f478b9ab04bdd147d78f075fe06b",
+      "remote_blob": "86b376fa9006f478b9ab04bdd147d78f075fe06b",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "expected_blob": "89923934203d2dd604998d89c503b600425760f9",
+      "remote_blob": "89923934203d2dd604998d89c503b600425760f9",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+      "expected_blob": "182a058e732a10600d2625080c9e69df051b7dab",
+      "remote_blob": "182a058e732a10600d2625080c9e69df051b7dab",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/cookbook/form_teleportation.ipynb",
+      "expected_blob": "cd06e77e0f55e8207d8f2c8444e8557160592fb8",
+      "remote_blob": "cd06e77e0f55e8207d8f2c8444e8557160592fb8",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/foundations/support/forms/classes.md",
+      "expected_blob": "81a72027257dc214f74d8dc838153f4a40e9d490",
+      "remote_blob": "81a72027257dc214f74d8dc838153f4a40e9d490",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb",
+      "expected_blob": "787eaf62e65e6159b144205238fe0bd9432d3439",
+      "remote_blob": "787eaf62e65e6159b144205238fe0bd9432d3439",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb",
+      "expected_blob": "545344001d7b6f8e19fdd1ba33a3477c0e26889e",
+      "remote_blob": "545344001d7b6f8e19fdd1ba33a3477c0e26889e",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/tools/form/class/mdanalysis/index.md",
+      "expected_blob": "4ff824d332b5addf117a182e0a9198fd5a2cbb27",
+      "remote_blob": "4ff824d332b5addf117a182e0a9198fd5a2cbb27",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb",
+      "expected_blob": "2bd556c3058995f0da8fc0010e0a67e73a0ae876",
+      "remote_blob": "2bd556c3058995f0da8fc0010e0a67e73a0ae876",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/tools/form/class/rdkit/rdkit_Mol.ipynb",
+      "expected_blob": "cb4b8f79789a9aced914155fee5e99f057dca3f3",
+      "remote_blob": "cb4b8f79789a9aced914155fee5e99f057dca3f3",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/_private/conversion_report.py",
+      "expected_blob": "73ea67c399339d5c57b8f31270d4fbe709a2f591",
+      "remote_blob": "73ea67c399339d5c57b8f31270d4fbe709a2f591",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/MDAnalysis_AtomGroup/__init__.py",
+      "expected_blob": "fae248290ced41b88b3b887773a2b4a8419d212a",
+      "remote_blob": "fae248290ced41b88b3b887773a2b4a8419d212a",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/MDAnalysis_AtomGroup/copy.py",
+      "expected_blob": "f7e9ce9563f60718e701bf5a3c0761a74e68b1ac",
+      "remote_blob": "f7e9ce9563f60718e701bf5a3c0761a74e68b1ac",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/MDAnalysis_AtomGroup/extract.py",
+      "expected_blob": "1c84140bb26ea2b8a007896e550342dc2da80757",
+      "remote_blob": "1c84140bb26ea2b8a007896e550342dc2da80757",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/MDAnalysis_Universe/_subset.py",
+      "expected_blob": "f4f825ae08ab5e1777a08a2fc6ba83f2fce54773",
+      "remote_blob": "f4f825ae08ab5e1777a08a2fc6ba83f2fce54773",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/MDAnalysis_Universe/copy.py",
+      "expected_blob": "066707fd4aa4fdb278c332bee1638dabcf04e1a2",
+      "remote_blob": "066707fd4aa4fdb278c332bee1638dabcf04e1a2",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/MDAnalysis_Universe/extract.py",
+      "expected_blob": "5f0dc470bd0b5d04ba17c725436b9c77fd8edbc4",
+      "remote_blob": "5f0dc470bd0b5d04ba17c725436b9c77fd8edbc4",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py",
+      "expected_blob": "58857875de8147ab0500b0fe5b07b15809ad9c5b",
+      "remote_blob": "58857875de8147ab0500b0fe5b07b15809ad9c5b",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/molsysmt_Topology/to_parmed_Structure.py",
+      "expected_blob": "1f355eaa736e10cc9b0ae4bc4b4990d8d574c89d",
+      "remote_blob": "1f355eaa736e10cc9b0ae4bc4b4990d8d574c89d",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/openmm_Topology/to_parmed_Structure.py",
+      "expected_blob": "d74aa8b054993b3349554e765783c6ccfb0dfc99",
+      "remote_blob": "d74aa8b054993b3349554e765783c6ccfb0dfc99",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/_chemical_state.py",
+      "expected_blob": "1f553bfdb8842cdbadeff5af54d4e3b4974ad294",
+      "remote_blob": "1f553bfdb8842cdbadeff5af54d4e3b4974ad294",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/_from_native.py",
+      "expected_blob": "368dd44ff39160ed812f8e3e35fe7fd08737cd86",
+      "remote_blob": "368dd44ff39160ed812f8e3e35fe7fd08737cd86",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/_mechanical.py",
+      "expected_blob": "55d080010b99467505e307cc4ab19c7611c94d57",
+      "remote_blob": "55d080010b99467505e307cc4ab19c7611c94d57",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/_read_native.py",
+      "expected_blob": "2f61d765996e7072c667a994faa138622bac9552",
+      "remote_blob": "2f61d765996e7072c667a994faa138622bac9552",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/get_mechanical_attributes.py",
+      "expected_blob": "8e0d0b75beb06eecc3216fce1175f194d04cea2f",
+      "remote_blob": "8e0d0b75beb06eecc3216fce1175f194d04cea2f",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/get_structural_attributes.py",
+      "expected_blob": "02e73e719d44a959dd1de0d5dcc53e56e97a46d9",
+      "remote_blob": "02e73e719d44a959dd1de0d5dcc53e56e97a46d9",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/has_attribute.py",
+      "expected_blob": "d22201081ed4695a054fb110ed93cc125e9c75d1",
+      "remote_blob": "d22201081ed4695a054fb110ed93cc125e9c75d1",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/to_molsysmt_MolSys.py",
+      "expected_blob": "6543c22556545c5717269ba6e77d944ab627cad7",
+      "remote_blob": "6543c22556545c5717269ba6e77d944ab627cad7",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/parmed_Structure/to_molsysmt_Structures.py",
+      "expected_blob": "b021d3c2c29118b9cb5161dd38149a1249455930",
+      "remote_blob": "b021d3c2c29118b9cb5161dd38149a1249455930",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "pyproject.toml",
+      "expected_blob": "23ec7fd0c18aaf6bb5a443e14eea12339a040f19",
+      "remote_blob": "23ec7fd0c18aaf6bb5a443e14eea12339a040f19",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/MDAnalysis_Universe/test_copy_and_subset_metadata.py",
+      "expected_blob": "1e2fb4ee748d7cb19b4a660d45aa9c8c7130b198",
+      "remote_blob": "1e2fb4ee748d7cb19b4a660d45aa9c8c7130b198",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/MDAnalysis_Universe/test_copy_connection_ownership.py",
+      "expected_blob": "9166807568db7d652b9ac7c1a0b6f1322f68ee38",
+      "remote_blob": "9166807568db7d652b9ac7c1a0b6f1322f68ee38",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/MDAnalysis_Universe/test_runtime_provider_contract.py",
+      "expected_blob": "e5f754f20ed251a8a21cf52edbc77d936b36b1cb",
+      "remote_blob": "e5f754f20ed251a8a21cf52edbc77d936b36b1cb",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py",
+      "expected_blob": "564391e0ec167e2a5fa4762679a95b869d4a9651",
+      "remote_blob": "564391e0ec167e2a5fa4762679a95b869d4a9651",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/openmm_Topology/test_to_parmed_Structure.py",
+      "expected_blob": "d8f974e99f0babb504537db43ab98c210b4c48ee",
+      "remote_blob": "d8f974e99f0babb504537db43ab98c210b4c48ee",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/parmed_Structure/test_bridge_contract.py",
+      "expected_blob": "eb34b067f44970e60b0f43bc05c88c666b6aec6c",
+      "remote_blob": "eb34b067f44970e60b0f43bc05c88c666b6aec6c",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/parmed_Structure/test_runtime_provider_contract.py",
+      "expected_blob": "235e321aa21a8538f052c886d4d6139a1d12158a",
+      "remote_blob": "235e321aa21a8538f052c886d4d6139a1d12158a",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/parmed_Structure/test_structural_and_charge_contract.py",
+      "expected_blob": "a824eb8af23147dda4560bdcb7c99b49a167e0ae",
+      "remote_blob": "a824eb8af23147dda4560bdcb7c99b49a167e0ae",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/rdkit_Mol/test_runtime_provider_contract.py",
+      "expected_blob": "f30d686082b7a1f7422d12d968824311ac218cc8",
+      "remote_blob": "f30d686082b7a1f7422d12d968824311ac218cc8",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/physchem/_sdf_reference.py",
+      "expected_blob": "c6979b565b6dd93341a88647f322b114206a35dd",
+      "remote_blob": "c6979b565b6dd93341a88647f322b114206a35dd",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/physchem/test_get_lipophilicity.py",
+      "expected_blob": "7d69ee6dc8c8e785cc4069650f396d289803ad21",
+      "remote_blob": "7d69ee6dc8c8e785cc4069650f396d289803ad21",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/physchem/test_get_tpsa.py",
+      "expected_blob": "c57cd49036c9c09c4023ae1f6d98010996592571",
+      "remote_blob": "c57cd49036c9c09c4023ae1f6d98010996592571",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/physchem/test_sdf_reference_valence.py",
+      "expected_blob": "1464951c46c736ec20850fab800a3009906345b5",
+      "remote_blob": "1464951c46c736ec20850fab800a3009906345b5",
+      "match": true,
+      "isError": false
+    }
+  ],
+  "issues": [
+    {
+      "issue": "uibcdf/molsysmt#627",
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T04:45:55Z"
+    },
+    {
+      "issue": "uibcdf/molsysmt#628",
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T04:45:59Z"
+    },
+    {
+      "issue": "uibcdf/molsysmt#629",
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T04:46:03Z"
+    }
+  ],
+  "accepted_plan_progress_percent": 40,
+  "audit_closed_issue_count": 17,
+  "central_handoff": {
+    "id": 6702430994,
+    "url": "https://github.com/uibcdf/molsyssuite/issues/137#issuecomment-6702430994",
+    "body": "MolSysMT's next #524 source checkpoint is published and independently received on main: 82bfa1c82f1d48035679fa4630e81a2506b67bd6 (58 changed blobs matched against GitHub).\n\nOptional provider declarations now include:\n- RDKit >=2024.3.4: consumed Conformer.SetPositions/CIP boundary; source 883e4e45ad86e065c092001dd973a02a991f227b.\n- MDAnalysis >=2.8.0: public NumPy2-compatible binaries and controlled topology guessing; source 33a702bfa638464848a77c57c642627595c759ed.\n- ParmEd >=4.3.1: consumed NumPy2 setters and imports after numpy.compat removal; same declaration commit. These remain optional and have no guessed upper bounds.\n\nConsumer fixes are separate from dependency minima: MolSysMT #627 fixes invalid descriptor reference fixtures; #628 preserves copy/subset metadata and available forces; #629 preserves represented native ParmEd geometry/chemistry with explicit target limitations. All three are closed with published guards and records. A newer provider alone does not repair the host omissions.\n\nActual public-provider source receiving: RDKit minimum/newer profiles each 541 passed and one documented conditional omission; MDAnalysis pairs each155 passed with zero omissions; ParmEd pairs each185 passed with zero omissions. Joint receiving1271 and registered scientific execution97/64 nodes pass; scopes overlap. Native exits, prior failures, artifact hashes and origins are retained in devtools/data/*runtime_receiving_524_*20261106.json at the checkpoint.\n\nPlease reflect these acquisition/dependency changes in the owning graph review. This requests that refresh, not a claim it has happened. OpenFF/Biopython/NGLView/PyTraj review and actual Viewer/clean installed closure remain due. No tag, Release, candidate replacement or remote matrix is selected by this checkpoint.",
+    "independently_verified": true,
+    "graph_refresh": "requested; owner-side completion not claimed"
+  },
+  "board_checkpoint": {
+    "date": "2026-11-06",
+    "issues_acquired_all_pages": 561,
+    "open_issues": 98,
+    "latest_number": 629,
+    "open_prs": [
+      {
+        "number": 543,
+        "title": "Add bound molecular tools and reviewed System, Geometry, Chemistry and Analysis tasks",
+        "head": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+        "updated_at": "2026-11-06T20:56:05Z"
+      }
+    ],
+    "new_since_626": [
+      {
+        "number": 629,
+        "title": "Native ParmEd export loses coordinates and formal charges without reporting them",
+        "state": "CLOSED",
+        "labels": [
+          {
+            "name": "bug"
+          },
+          {
+            "name": "form"
+          },
+          {
+            "name": "convert"
+          },
+          {
+            "name": "metadata"
+          }
+        ]
+      },
+      {
+        "number": 628,
+        "title": "MDAnalysis copies and subsets fail or discard stored bond metadata",
+        "state": "CLOSED",
+        "labels": [
+          {
+            "name": "bug"
+          },
+          {
+            "name": "form"
+          },
+          {
+            "name": "extract"
+          },
+          {
+            "name": "metadata"
+          }
+        ]
+      },
+      {
+        "number": 627,
+        "title": "Descriptor SDF reference fixtures duplicate V3000 valence on supported RDKit writers",
+        "state": "CLOSED",
+        "labels": [
+          {
+            "name": "bug"
+          },
+          {
+            "name": "tests"
+          },
+          {
+            "name": "in-progress"
+          },
+          {
+            "name": "form"
+          }
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "Independent source/blob and board receiving, not clean installed artifacts, Viewer acceptance, complete platform matrix or release qualification.",
+    "All work commits use the maintainer-requested skip-ci policy; no tag or release is selected."
+  ]
+}
