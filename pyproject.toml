@@ -31,7 +31,7 @@ requires-python = ">=3.11.0,<3.15.0"
 # Declare any run-time dependencies that should be installed with the package.
 dependencies = [
     "h5py>=3.11.0",
-    "numpy>=1.26,<3",
+    "numpy>=1.26",
     "pyunitwizard>=0.28.1",
     "pandas>=2.2.2",
     "jinja2>=3.1.2",
@@ -57,7 +57,8 @@ molsysmt-tools = "molsysviewer_molsysmt.tools"
 
 [project.optional-dependencies]
 soft = [
-  "mdtraj",
+  # Native atom export and topology copies preserve formal charges and chain labels (#524).
+  "mdtraj>=1.11.0",
   # MDTraj's transitive parser regression; keep Python 3.11 support (#484).
   "pyparsing!=3.3.3",
   "openmm",

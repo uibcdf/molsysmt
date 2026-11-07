@@ -2,11 +2,32 @@
 
 This is the maintained, repository-local route for changing a runtime
 dependency. The public package contract is the `dependencies` list and
-`requires-python` field in `pyproject.toml`. The form adapter's hard/soft
+`requires-python` field in `pyproject.toml`. Runtime features in selected
+`project.optional-dependencies` extras remain optional. The form adapter's hard/soft
 classification is owned separately by `molsysmt/_depdigest.py`. Exact source
 SHAs used while a coordinated Conda pair is staged live in the controlled
 source manifest named by `devtools/dependency_contract.toml`; those SHAs do
 not define public version floors.
+
+The inventory's `runtime_extras` classifies public runtime extras by name;
+currently it selects `soft`, independently of test and documentation tools.
+Their names, version constraints, extras, markers and URLs are read from
+pyproject.toml. An environment must match each optional provider it explicitly
+provisions. `optional_required` additionally protects deliberate feature coverage
+by name, including MDTraj, its parser and the two OpenFF providers in development
+and test environments. Missing nonrequired optional engines are allowed; recipes
+still provision only unconditional runtime requirements. Conda names such as
+`openff-toolkit-base` resolve to their public Python provider without a second
+version registry. Unknown extras, conflicting declarations and duplicate aliases
+cannot hide a missing provider.
+
+The auditor compares markers, requested extras and direct URLs as well as version
+specifiers. For example, a pip requirement disabled by a false Python marker
+cannot substitute for an unconditional required OpenFF provider. A matching
+static declaration still does not prove installation or availability on a lane;
+the actual installed-candidate checks remain separate. Lazy-import enforcement
+stays in `validate_dependencies.py`; optional coverage and bounds belong to this
+auditor rather than an independently maintained OpenFF version constant.
 
 `devtools/dependency_contract.toml` inventories the secondary surfaces. It
 contains paths, name translations (for example, Python `mmcif` to Conda
@@ -23,7 +44,7 @@ gates take the candidate SHA as an input instead.
 1. Decide whether it is a hard runtime requirement, a soft adapter/extra, or
    a build/test/docs-only tool. Do not infer the category from the environment
    where it happened to be installed.
-2. For a hard runtime requirement, edit `pyproject.toml` first. Update
+2. For a hard or runtime-optional requirement, edit `pyproject.toml` first. Update
    `_depdigest.py` if the form classification changes. For a changed source
    candidate, update the controlled-source manifest or the explicit Viewer
    workflow input as appropriate.
@@ -91,8 +112,8 @@ The first probes pass with Python 3.11 and exact selected providers against both
 NumPy 1.26.0 and 2.4.6. Separate source receiving with pandas 3.1.0 uncovered
 deprecated inplace summary-table drops; the public `info()` guard rejects all
 warnings and preserves counts, columns and result representations. Public Viewer
-floor/acquisition, existing sibling/optional-provider minima and the NumPy ABI
-restriction review remain pending under #524. This partial adoption does not
+floor/acquisition and remaining optional-provider minima stay pending under #524.
+The NumPy major-version restriction disposition is recorded below. This partial adoption does not
 authorize a release or certify unexecuted provider combinations.
 
 Default `info()` output uses Pandas Styler and its Jinja2 renderer. Jinja2 is
@@ -173,12 +194,39 @@ Future replacement qualification and retirement of this ceiling are tracked by
 A replacement may be a corrected build of 2026.2.0 or a later version. Withdrawal
 of a broken package alone does not qualify that replacement.
 
-## Optional MDTraj parser compatibility
+## Native NumPy ABI
+
+NumPy retains its `>=1.26` baseline. The former `<3` ceiling is removed because
+the inspected native bridge restricts runtime ABI rather than NumPy version
+major. Locked Rust NumPy 0.29.0 targets ABI `0x02000000` and rejects a greater
+runtime ABI; its module-layout loader accepts NumPy version majors >=2.
+Existing receiving executes the real extension under NumPy 1.26.0 and 2.4.6.
+It does not establish NumPy 3 compatibility. No native bridge, toolchain or exact
+build/release pin is changed by this metadata correction.
+
+MolSysMT's native-bridge and dependency maintainers own reassessment when NumPy
+introduces another ABI, the native bridge changes, or a concrete compatibility
+report arrives. Retain exact public artifacts and import origins, inspect the
+runtime ABI/API values, execute real extension calculations and receive affected
+consumers before claiming compatibility. A demonstrated incompatibility can
+justify a precise new restriction under the suite's version-bound rule. The
+[#524 record](pending_proposals/runtime_dependency_api_floors.md) retains the
+crate identity and source/installed evidence limits.
+
+## Optional MDTraj compatibility
+
+The optional provider floor is MDTraj 1.11.0. Version 1.10.3 supplies the atom
+`formal_charge` argument but loses charges and chain labels through topology
+copies. Upstream 1.11.0 includes the metadata-preserving copy corrections and
+supports Python 3.11. Native exports and public copies are guarded in
+`tests/form/mdtraj_Topology/test_runtime_provider_contract.py`. MolSysMT's own
+selected-subset metadata correction is separately owned by #623; a provider
+floor cannot repair a consumer omission.
 
 The optional `soft` extra and maintained development/test specifications exclude
 PyParsing 3.3.3 after its MDTraj selection regression (uibcdf/molsysmt#484).
 Keep the public and Conda compatibility constraints aligned; this does not add
-a hard dependency or raise MDTraj's floor on Python 3.11. Follow
+a hard dependency or raise the supported Python minimum. Follow
 uibcdf/molsysmt#486 when a corrected parser is published. The exact exclusion
 already permits successors, so receiving a fixed version does not require
 re-admitting the broken artifact. Qualify actual package imports before

@@ -11,7 +11,7 @@ dependencies:
   # resolved pyunitwizard 0.17.0 against a requirement of >=0.22.0, because the uibcdf
   # channel only builds py313 from 0.18.1 onwards, and `pip install . --no-deps` does
   # not check. An unsolvable environment is the correct failure here.
-  - numpy >=1.26,<3
+  - numpy >=1.26
   - pandas >=2.2.2
   - jinja2 >=3.1.2
   - h5py >=3.11.0

@@ -127,7 +127,7 @@ jobs:
           for python_version in 3.11 3.12 3.13 3.14; do
             test_prefix="$RUNNER_TEMP/rattler-abi3-py${python_version/./}"
             conda create --yes --prefix "$test_prefix" \
-              "python=$python_version" "numpy>=1.26,<3"
+              "python=$python_version" "numpy>=1.26"
             conda install --yes --prefix "$test_prefix" --no-deps "$package_path"
             conda run --prefix "$test_prefix" python \
               "$GITHUB_WORKSPACE/devtools/scripts/validate_installed_rust_extension.py"

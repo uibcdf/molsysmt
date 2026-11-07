@@ -229,7 +229,7 @@ jobs:
           path: wheelhouse
 
       - name: Install the current supported NumPy release
-        run: python -m pip install "numpy>=1.26,<3"
+        run: python -m pip install "numpy>=1.26"
 
       - name: Validate the installed abi3 extension
         run: >-
@@ -274,7 +274,7 @@ jobs:
           path: wheelhouse
 
       - name: Install the current supported NumPy release
-        run: python -m pip install "numpy>=1.26,<3"
+        run: python -m pip install "numpy>=1.26"
 
       - name: Validate the installed abi3 extension
         run: >-
@@ -404,7 +404,7 @@ jobs:
           path: wheelhouse
 
       - name: Install the current supported NumPy release
-        run: python -m pip install "numpy>=1.26,<3"
+        run: python -m pip install "numpy>=1.26"
 
       - name: Validate the installed abi3 extension
         run: >-

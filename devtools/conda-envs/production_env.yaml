@@ -6,7 +6,7 @@ dependencies:
 - python
 - pip
 - h5py >=3.11.0
-- numpy >=1.26,<3
+- numpy >=1.26
 - argdigest >=0.14.0
 - depdigest >=0.15.1
 - smonitor >=0.16.0

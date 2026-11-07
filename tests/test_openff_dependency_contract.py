@@ -3,38 +3,43 @@
 import tomllib
 from pathlib import Path
 
-import yaml
+from packaging.requirements import Requirement
+from packaging.version import Version
 
-from devtools.scripts.validate_dependencies import (
-    OPENFF_TEST_ENV_SPECS,
-    SOFT_DEPENDENCIES,
-)
+from devtools.scripts.audit_dependency_contract import audit
+from devtools.scripts.validate_dependencies import SOFT_DEPENDENCIES
 
 REPO = Path(__file__).resolve().parents[1]
 
 
-def _normalized_conda_dependencies(path):
-    payload = yaml.safe_load(path.read_text(encoding="utf-8"))
-    return {str(item).replace(" ", "") for item in payload["dependencies"]}
-
-
 def test_openff_runtime_bounds_are_in_ci_and_development_environments():
+    contract = tomllib.loads((REPO / "devtools/dependency_contract.toml").read_text())
+    environments = {entry["path"]: entry for entry in contract["environments"]}
     for relative_path in (
         "devtools/conda-envs/test_env.yaml",
         "devtools/conda-envs/development_env.yaml",
     ):
-        dependencies = _normalized_conda_dependencies(REPO / relative_path)
-        assert OPENFF_TEST_ENV_SPECS <= dependencies
+        assert {"openff-toolkit", "openff-units"} <= set(
+            environments[relative_path]["optional_required"]
+        )
+    assert audit(REPO) == []
 
 
 def test_openff_runtime_bounds_are_in_the_soft_dependency_extra():
     payload = tomllib.loads((REPO / "pyproject.toml").read_text(encoding="utf-8"))
     dependencies = {
-        item.replace(" ", "")
-        for item in payload["project"]["optional-dependencies"]["soft"]
+        requirement.name: requirement
+        for requirement in map(
+            Requirement, payload["project"]["optional-dependencies"]["soft"]
+        )
     }
-
-    assert {"openff-toolkit>=0.17.1", "openff-units>=0.3.0"} <= dependencies
+    for name, minimum in (("openff-toolkit", "0.17.1"), ("openff-units", "0.3.0")):
+        requirement = dependencies[name]
+        assert requirement.marker is None
+        assert any(
+            spec.operator in {">=", ">"} and Version(spec.version) >= Version(minimum)
+            for spec in requirement.specifier
+        )
 
 
 def test_dependency_validator_reads_openff_from_the_normative_registry():

@@ -23,7 +23,7 @@ CONTRACT = Path("devtools/dependency_contract.toml")
 PIN_LINE = re.compile(
     r"git\+https://github\.com/uibcdf/(?P<name>[A-Za-z0-9_.-]+)@(?P<sha>[0-9a-f]{40})"
 )
-SPEC_NAME = re.compile(r"^\s*(?P<name>[A-Za-z0-9_.-]+)(?:\s|[<>=!~]|$)")
+SPEC_NAME = re.compile(r"^\s*(?P<name>[A-Za-z0-9_.-]+)(?:\s|[<>=!~\[]|$)")
 
 
 @dataclass(frozen=True)
@@ -38,7 +38,9 @@ def _load_toml(path: Path) -> dict:
     return tomllib.loads(path.read_text(encoding="utf-8"))
 
 
-def _project_requirements(root: Path) -> tuple[dict[str, Requirement], Requirement]:
+def _project_requirements(
+    root: Path, runtime_extras: list[str]
+) -> tuple[dict[str, Requirement], dict[str, Requirement], Requirement]:
     project = _load_toml(root / "pyproject.toml")["project"]
     requirements = {
         canonicalize_name(parsed.name): parsed
@@ -46,7 +48,29 @@ def _project_requirements(root: Path) -> tuple[dict[str, Requirement], Requireme
     }
     if len(requirements) != len(project["dependencies"]):
         raise ValueError("pyproject.toml declares the same runtime dependency twice")
-    return requirements, Requirement(f"python{project['requires-python']}")
+    if (
+        not isinstance(runtime_extras, list)
+        or not all(isinstance(name, str) for name in runtime_extras)
+        or len(set(runtime_extras)) != len(runtime_extras)
+    ):
+        raise ValueError("runtime extras must be a list of unique public extra names")
+    optional = {}
+    for extra in runtime_extras:
+        if extra not in project.get("optional-dependencies", {}):
+            raise ValueError(f"unknown public runtime extra: {extra}")
+        for raw in project["optional-dependencies"][extra]:
+            requirement = Requirement(raw)
+            name = canonicalize_name(requirement.name)
+            if name in requirements:
+                raise ValueError(
+                    f"runtime optional dependency {name} is also unconditional"
+                )
+            if name in optional and optional[name] != requirement:
+                raise ValueError(
+                    f"conflicting runtime optional requirements for {name}"
+                )
+            optional[name] = requirement
+    return requirements, optional, Requirement(f"python{project['requires-python']}")
 
 
 def _name(raw: str) -> str:
@@ -136,6 +160,17 @@ def _observed_requirements(
     return observed, python
 
 
+def _constraint_text(requirement: Requirement) -> str:
+    text = str(requirement.specifier) or "(unbounded)"
+    if requirement.extras:
+        text = f"[{','.join(sorted(requirement.extras))}]{text}"
+    if requirement.url is not None:
+        text = f"@ {requirement.url}"
+    if requirement.marker is not None:
+        text += f"; {requirement.marker}"
+    return text
+
+
 def _compare_requirements(
     path: str,
     expected: dict[str, Requirement],
@@ -153,12 +188,17 @@ def _compare_requirements(
             continue
         if actual is None:
             findings.append(Finding(path, f"missing {requirement}"))
-        elif actual.specifier != requirement.specifier:
+        elif (
+            actual.specifier != requirement.specifier
+            or actual.marker != requirement.marker
+            or actual.extras != requirement.extras
+            or actual.url != requirement.url
+        ):
             findings.append(
                 Finding(
                     path,
-                    f"{name} declares {actual.specifier or '(unbounded)'}; "
-                    f"pyproject.toml requires {requirement.specifier or '(unbounded)'}",
+                    f"{name} declares {_constraint_text(actual)}; "
+                    f"pyproject.toml requires {_constraint_text(requirement)}",
                 )
             )
     return findings
@@ -247,13 +287,20 @@ def audit(root: Path) -> list[Finding]:
     config = _load_toml(root / CONTRACT)
     if config.get("schema") != 1:
         raise ValueError("unsupported dependency-contract schema")
-    project, python = _project_requirements(root)
+    project, optional, python = _project_requirements(root, config["runtime_extras"])
+    runtime_names = set(project) | set(optional)
     conda_names = {
         canonicalize_name(conda): canonicalize_name(public)
         for public, conda in config["conda_names"].items()
     }
-    if not set(conda_names.values()) <= set(project):
+    if len(conda_names) != len(config["conda_names"]):
+        raise ValueError("duplicate Conda name overrides")
+    if not set(conda_names.values()) <= runtime_names:
         raise ValueError("a Conda name override does not name a public dependency")
+    if any(
+        alias in runtime_names and alias != name for alias, name in conda_names.items()
+    ):
+        raise ValueError("a Conda name override shadows a different public dependency")
     findings: list[Finding] = []
     findings.extend(_registry_findings(root, set(project)))
     configured_recipes = set(config["recipes"].values())
@@ -312,9 +359,36 @@ def audit(root: Path) -> list[Finding]:
         for name in sorted(supplied - controlled - {"molsysviewer"}):
             findings.append(Finding(path, f"{name} has no audited source provider"))
         try:
+            optional_names = entry.get("optional_required", [])
+            if not isinstance(optional_names, list) or not all(
+                isinstance(name, str) for name in optional_names
+            ):
+                raise ValueError(
+                    "optional_required must be a list of public dependency names"
+                )
+            required_optional = {canonicalize_name(name) for name in optional_names}
+            if len(required_optional) != len(optional_names):
+                raise ValueError(
+                    "optional_required declares a dependency more than once"
+                )
+            for name in sorted(required_optional - set(optional)):
+                findings.append(
+                    Finding(
+                        path,
+                        f"required optional dependency {name} is not in runtime extras",
+                    )
+                )
             items = _environment_items(root / path)
-            observed, _ = _observed_requirements(items, set(project), conda_names)
+            observed, _ = _observed_requirements(items, runtime_names, conda_names)
             findings.extend(_compare_requirements(path, project, observed, supplied))
+            selected_optional = {
+                name: requirement
+                for name, requirement in optional.items()
+                if name in observed or name in required_optional
+            }
+            findings.extend(
+                _compare_requirements(path, selected_optional, observed, set())
+            )
             environments[path] = supplied
         except (OSError, ValueError) as exc:
             findings.append(Finding(path, str(exc)))

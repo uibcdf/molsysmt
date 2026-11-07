@@ -46,6 +46,198 @@ def test_current_dependency_routes_are_coherent():
     assert audit(ROOT) == []
 
 
+@pytest.mark.parametrize(
+    ("old", "new", "provider"),
+    [
+        ("- mdtraj >=1.11.0", "- mdtraj", "mdtraj"),
+        ("- mdtraj >=1.11.0", "- mdtraj >=1.10.2", "mdtraj"),
+        ("- mdtraj >=1.11.0", "- mdtraj >=1.11.2", "mdtraj"),
+        ("- pyparsing !=3.3.3", "- pyparsing", "pyparsing"),
+        ("- pyparsing !=3.3.3", "- pyparsing <3.3.3", "pyparsing"),
+    ],
+)
+def test_runtime_optional_constraints_cannot_drift(contract_tree, old, new, provider):
+    path = "devtools/conda-envs/test_env.yaml"
+    _replace(contract_tree / path, old, new)
+    assert any(
+        finding.path == path and f"{provider} declares" in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+def test_required_optional_coverage_cannot_be_removed(contract_tree):
+    path = "devtools/conda-envs/development_env.yaml"
+    _replace(contract_tree / path, "- mdtraj >=1.11.0\n", "")
+    assert any(
+        finding.path == path and finding.message == "missing mdtraj>=1.11.0"
+        for finding in audit(contract_tree)
+    )
+
+
+def test_unselected_optional_engines_remain_optional():
+    production = yaml.safe_load(
+        (ROOT / "devtools/conda-envs/production_env.yaml").read_text()
+    )["dependencies"]
+    assert not any(str(item).startswith("mdtraj") for item in production)
+    assert audit(ROOT) == []
+
+
+def test_new_runtime_optional_requirements_are_discovered_from_the_public_extra(
+    contract_tree,
+):
+    _replace(
+        contract_tree / "pyproject.toml",
+        "soft = [",
+        'soft = [\n  "example-optional>=2",',
+    )
+    path = "devtools/conda-envs/test_env.yaml"
+    _replace(
+        contract_tree / path,
+        "- pyparsing !=3.3.3",
+        "- pyparsing !=3.3.3\n- example-optional >=1",
+    )
+    assert any(
+        finding.path == path and "example-optional declares >=1" in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+def test_unknown_runtime_extra_cannot_silently_disable_optional_auditing(contract_tree):
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        'runtime_extras = ["soft"]',
+        'runtime_extras = ["not-a-public-extra"]',
+    )
+    with pytest.raises(ValueError, match="runtime extra"):
+        audit(contract_tree)
+
+
+def test_conda_alias_retains_the_public_optional_floor(contract_tree):
+    path = "devtools/conda-envs/test_env.yaml"
+    _replace(
+        contract_tree / path,
+        "- openff-toolkit-base >=0.17.1",
+        "- openff-toolkit-base >=0.16",
+    )
+    assert any(
+        finding.path == path and "openff-toolkit declares >=0.16" in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+@pytest.mark.parametrize("environment", ["test_env.yaml", "development_env.yaml"])
+def test_existing_openff_coverage_remains_required(contract_tree, environment):
+    path = f"devtools/conda-envs/{environment}"
+    _replace(contract_tree / path, "- openff-units >=0.3.0\n", "")
+    assert any(
+        finding.path == path and finding.message == "missing openff-units>=0.3.0"
+        for finding in audit(contract_tree)
+    )
+
+
+def test_optional_alias_cannot_hide_duplicate_providers(contract_tree):
+    path = "devtools/conda-envs/test_env.yaml"
+    _replace(
+        contract_tree / path,
+        "- openff-toolkit-base >=0.17.1",
+        "- openff-toolkit-base >=0.17.1\n- openff-toolkit >=0.17.1",
+    )
+    assert any(
+        finding.path == path
+        and finding.message == "duplicate runtime dependency: openff-toolkit"
+        for finding in audit(contract_tree)
+    )
+
+
+@pytest.mark.parametrize(
+    "replacement",
+    [
+        'openff-toolkit>=0.17.1; python_version < "3.0"',
+        'openff-toolkit>=0.17.1; sys_platform == "win32"',
+        "openff-toolkit[unreviewed]>=0.17.1",
+        "openff-toolkit @ https://example.invalid/unreviewed.whl",
+    ],
+)
+def test_required_optional_provider_must_not_hide_behind_a_pip_override(
+    contract_tree, replacement
+):
+    path = "devtools/conda-envs/test_env.yaml"
+    payload = yaml.safe_load((contract_tree / path).read_text())
+    payload["dependencies"].remove("openff-toolkit-base >=0.17.1")
+    pip = next(
+        item["pip"] for item in payload["dependencies"] if isinstance(item, dict)
+    )
+    pip.append(replacement)
+    (contract_tree / path).write_text(yaml.safe_dump(payload, sort_keys=False))
+    assert any(
+        finding.path == path and "openff-toolkit declares" in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+def test_absent_nonrequired_optional_provider_does_not_become_mandatory(contract_tree):
+    _replace(
+        contract_tree / "pyproject.toml",
+        "soft = [",
+        'soft = [\n  "example-optional>=2",',
+    )
+    assert audit(contract_tree) == []
+
+
+def test_matching_optional_extra_declarations_remain_parseable(contract_tree):
+    _replace(
+        contract_tree / "pyproject.toml",
+        "soft = [",
+        'soft = [\n  "example-optional[analysis]>=2",',
+    )
+    _replace(
+        contract_tree / "devtools/conda-envs/test_env.yaml",
+        "  - pytraj",
+        "  - pytraj\n  - example-optional[analysis]>=2",
+    )
+    assert audit(contract_tree) == []
+
+
+def test_required_optional_provider_must_have_a_public_declaration(contract_tree):
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        'optional_required = ["mdtraj",',
+        'optional_required = ["not-a-provider",',
+    )
+    assert any(
+        "required optional dependency not-a-provider is not in runtime extras"
+        == finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+@pytest.mark.parametrize("value", ['"mdtraj"', '["mdtraj", "mdtraj"]', "[false]"])
+def test_invalid_optional_coverage_declarations_fail(contract_tree, value):
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        'optional_required = ["mdtraj", "pyparsing", "openff-toolkit", "openff-units"]',
+        f"optional_required = {value}",
+    )
+    assert any(
+        "optional_required" in finding.message for finding in audit(contract_tree)
+    )
+
+
+def test_runtime_extras_cannot_disagree_about_the_same_provider(contract_tree):
+    _replace(
+        contract_tree / "pyproject.toml",
+        "[project.optional-dependencies]",
+        '[project.optional-dependencies]\nother = ["mdtraj>=1.11.2"]',
+    )
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        'runtime_extras = ["soft"]',
+        'runtime_extras = ["soft", "other"]',
+    )
+    with pytest.raises(ValueError, match="conflicting runtime optional requirements"):
+        audit(contract_tree)
+
+
 def test_hosted_audit_covers_dependency_only_changes():
     workflow = yaml.safe_load(
         (ROOT / ".github/workflows/ci-dependency-contract.yaml").read_text(
@@ -85,7 +277,7 @@ def test_conda_recipe_cannot_omit_a_public_runtime_dependency(contract_tree):
 
 def test_unbounded_conda_environment_cannot_hide_a_public_floor(contract_tree):
     path = contract_tree / "devtools/conda-envs/test_env.yaml"
-    _replace(path, "- numpy >=1.26,<3", "- numpy")
+    _replace(path, "- numpy >=1.26", "- numpy")
 
     assert any(
         finding.path == "devtools/conda-envs/test_env.yaml"

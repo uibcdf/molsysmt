@@ -3,9 +3,11 @@
 # second list of packages or versions.
 schema = 1
 controlled_sources = "devtools/controlled_sources.txt"
+runtime_extras = ["soft"]
 
 [conda_names]
 mmcif = "py-mmcif"
+openff-toolkit = "openff-toolkit-base"
 
 [recipes]
 conda_build = "devtools/conda-build/meta.yaml"
@@ -18,10 +20,12 @@ source_supplied = []
 [[environments]]
 path = "devtools/conda-envs/development_env.yaml"
 source_supplied = []
+optional_required = ["mdtraj", "pyparsing", "openff-toolkit", "openff-units"]
 
 [[environments]]
 path = "devtools/conda-envs/test_env.yaml"
 source_supplied = ["argdigest", "depdigest", "smonitor", "pyunitwizard", "molsysviewer"]
+optional_required = ["mdtraj", "pyparsing", "openff-toolkit", "openff-units"]
 
 [[environments]]
 path = "devtools/conda-envs/docs_env.yaml"

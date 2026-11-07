@@ -8,7 +8,7 @@ dependencies:
 - setuptools >=77.0.3
 - versioningit>=3.0
 - h5py >=3.11.0
-- numpy >=1.26,<3
+- numpy >=1.26
 - argdigest >=0.14.0
 - depdigest >=0.15.1
 - smonitor >=0.16.0
@@ -24,7 +24,7 @@ dependencies:
 - ambertools
 - openff-toolkit-base >=0.17.1
 - openff-units >=0.3.0
-- mdtraj
+- mdtraj >=1.11.0
 - pyparsing !=3.3.3
 - mdanalysis
 - biopython

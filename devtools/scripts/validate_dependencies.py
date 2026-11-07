@@ -3,8 +3,6 @@ import os
 import sys
 from collections import defaultdict
 
-import yaml
-
 # Configuration
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,10 +35,6 @@ def _load_soft_dependency_roots():
 
 
 SOFT_DEPENDENCIES = _load_soft_dependency_roots()
-OPENFF_TEST_ENV_SPECS = {
-    "openff-toolkit-base>=0.17.1",
-    "openff-units>=0.3.0",
-}
 # Files exempt from the check (infrastructure)
 EXEMPT_FILES = {
     os.path.join(SRC_ROOT, "_depdigest.py"),
@@ -114,15 +108,6 @@ def validate_codebase():
             if violations:
                 all_violations[file_path] = violations
 
-    test_env_path = os.path.join(
-        PROJECT_ROOT, "devtools", "conda-envs", "test_env.yaml"
-    )
-    with open(test_env_path, "r", encoding="utf-8") as file:
-        test_dependencies = {
-            str(item).replace(" ", "") for item in yaml.safe_load(file)["dependencies"]
-        }
-    missing_openff_specs = OPENFF_TEST_ENV_SPECS - test_dependencies
-
     if all_violations:
         print("\n[FAIL] Found top-level imports of soft dependencies:")
         for path, errs in all_violations.items():
@@ -130,16 +115,10 @@ def validate_codebase():
             print(f"  {rel_path}:")
             for line, mod in errs:
                 print(f"    Line {line}: import {mod}")
-    if missing_openff_specs:
-        print("\n[FAIL] OpenFF CI dependency bounds are incomplete:")
-        for spec in sorted(missing_openff_specs):
-            print(f"  missing: {spec}")
-
-    if all_violations or missing_openff_specs:
+    if all_violations:
         return False
 
     print("\n[PASS] No top-level imports of soft dependencies found.")
-    print("[PASS] OpenFF CI dependency bounds are complete.")
     return True
 
 

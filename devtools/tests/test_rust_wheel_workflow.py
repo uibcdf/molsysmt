@@ -183,7 +183,7 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     assert cibw["linux"]["environment"]["RUSTUP_TOOLCHAIN"] == "1.97.1"
     assert cibw["macos"]["environment"]["MACOSX_DEPLOYMENT_TARGET"] == "11.0"
     assert config["tool"]["distutils"]["bdist_wheel"]["py-limited-api"] == ("cp311")
-    assert "numpy>=1.26,<3" in config["project"]["dependencies"]
+    assert "numpy>=1.26" in config["project"]["dependencies"]
     assert "pyunitwizard>=0.28.1" in config["project"]["dependencies"]
     assert "argdigest>=0.14.0" in config["project"]["dependencies"]
     assert config["tool"]["setuptools"]["packages"]["find"]["include"] == [
