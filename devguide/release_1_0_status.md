@@ -134,6 +134,24 @@ receiving and preserved notebook content. Source publication and board closeout
 follow. Remaining PDBFixer/optional-provider, Viewer and clean installed work
 keep #524 partial and accepted audit progress at 40%; no new candidate is selected.
 
+Public OpenMM checkpoint `4d1d5949a` now independently matches all 24
+checked blobs; #625/#626 are closed as completed. The
+[delivery record](../devtools/data/openmm_runtime_delivery_625_626_20261106.json)
+retains the complete 558-issue board checkpoint (98 open), unchanged PR #543,
+and separate source/installed evidence boundaries. Fourteen fast gates pass.
+The audit has 14 closed owner/supplemental issues and stays at accepted 40%.
+Continue PDBFixer and remaining optional-provider work under partial #524.
+
+Optional PDBFixer >=1.11 is also locally qualified in `fac0d8706`: the
+minimum/public-support and newer profiles each pass 172 selected cases, with
+1.10's incomplete-cap counterexample retained. Runtime/docs separation
+`0a06a01c2` removes unsupported OpenMMTools acquisition and preserves Plotly's
+documentation route. Its 625 registry/route/docs cases and 14 fast gates pass.
+See the [receipt](../devtools/data/pdbfixer_runtime_receiving_524_20261106.json)
+for native exits, original DNS/harness failures, origins and scientific scope.
+Public delivery follows; #524 remains partial for other optional APIs and actual
+Viewer/installed closure. Accepted audit progress remains 40%.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign

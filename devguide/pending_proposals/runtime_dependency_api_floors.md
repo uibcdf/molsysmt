@@ -468,8 +468,59 @@ and declaration remain the next bounded task.
 The [OpenMM receipt](../../devtools/data/openmm_runtime_receiving_524_20261106.json)
 retains immutable source/artifact identities, actual origins, commands/native
 exits, initial failures, fixture corrections and Markdown-only notebook
-preservation. Source publication and #625/#626 board closeout follow. This
-report remains partial and audit progress remains 40%.
+preservation. Public checkpoint `4d1d5949aa6a717000ac5d01a6a818f0cc99aa5d` independently
+matches all 24 changed blobs; #625/#626 are verified closed as completed. The
+[delivery record](../../devtools/data/openmm_runtime_delivery_625_626_20261106.json)
+retains the source/board receiving. This report remains partial and audit
+progress remains 40%.
+
+## PDBFixer floor and non-runtime declarations — 2026-11-06
+
+Source `fac0d870606f85b4b501f8822b4a472c540dc1ed` selects optional
+`pdbfixer>=1.11`, retaining both the public pH engine and native alternatives.
+Its consumed cap-completion fix is upstream
+[b31b57b](https://github.com/openmm/pdbfixer/commit/b31b57b17fb24e96ba9c1f2df08666ccd1d9b56b),
+first in stable 1.11. Verified public Conda archives 1.10/1.11/1.12 have source
+payloads matching their upstream tags. No incidental installed version defines
+the floor, and no unsupported upper bound is added.
+
+The literal ACE–ALA–NME case distinguishes providers through the actual public
+`add_missing_hydrogens(..., pH=7.4, engine="PDBFixer")` route. The source has
+10 heavy atoms. Provider 1.10 produces only 15 atoms (cap H counts 0/0), fails
+the maintained assertion and cannot match the AMBER ACE template. Provider
+1.11 completes 22 atoms with ACE/ALA/NME H counts 3/5/4; a separate ForceField
+construction accepts 22 particles. The source remains unchanged. The explicit
+fixed-state route still requires RDKit; this is not fixed-state PDBFixer support
+or a general validation of hydrogen orientation/protonation.
+
+Final actual PDBFixer 1.11/OpenMM 8.2.0/public-support-floor receiving on existing
+Python 3.12 passes all 172 selected cases. PDBFixer 1.12/OpenMM 8.6.1 on existing
+Python 3.14 passes the same 172, with the ordinary SMonitor bridge. Both have
+zero omissions. The initial minimum attempt has 171 passes and one RCSB fixture
+setup error from sandbox DNS; that node separately recovers. A harness name
+collision overwrote the initial XML with the recovery, so original counts rely
+on its observed native terminal/invocation, not that XML. The final complete
+selection has distinct, non-overwriting artifacts and is authoritative. Warnings
+for unassessed placement, dropped attributes and legacy H5MSM remain explicit.
+
+Source `0a06a01c22906dfbde9ae69a05904200f4cd679c` separately retires unused
+runtime declarations. OpenMMTools has no supported runtime route; its two
+unexported drafts already fail on missing local utils imports. Retain those
+historical drafts and their signature waivers; revival needs a supported API,
+acquisition route, grounded provider contract and tests. Plotly has a real
+NGLView documentation consumer and moves to the `docs` extra/docs environment,
+with annotated development acquisition retained. It leaves runtime soft/DepDigest,
+the test environment and unrelated ArgDigest receiving. That receiving route
+also declares the accepted OpenMM/MDTraj minima. No showcase or generated HTML
+is removed, and no replacement protocol is invented.
+
+The [PDBFixer receipt](../../devtools/data/pdbfixer_runtime_receiving_524_20261106.json)
+retains exact public artifacts/origins, direct/public counterexamples, native
+exits, final receiving, the corrected evidence collision and notebook protection.
+Another 625 dependency/registry/controlled-route/documentation cases pass without
+omissions; 14 fast gates pass. These source profiles do not establish clean
+installed MolSysMT or a Viewer pair. Batched public delivery follows; #524 stays
+partial at accepted audit progress 40%.
 
 ## Remaining scope and acceptance criteria
 
@@ -485,13 +536,11 @@ retains these boundaries. This report stays partial.
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
   receiving and the redesigned host's eventual public release remain distinct;
   complete clean installed-runtime closure with the actual qualified host artifact.
-- Finish the remaining optional runtime-feature declarations: the
-  PDBFixer route and the unused OpenMMTools declaration, MDAnalysis, RDKit, OpenFF, ParmEd, PyTraj, NGLView,
-  Biopython and Plotly. Distinguish a delivered API floor from an incidental
-  development installation or unused declaration; source inspection alone is not
-  optional-engine qualification. MDTraj, OpenMM and the parser disposition above are received. Plotly has a
-  documentation-only consumer; preserve that route when retiring its runtime
-  declaration. The unexported OpenMMTools drafts have no supported runtime route.
+- Finish MDAnalysis, RDKit, OpenFF, ParmEd, PyTraj, NGLView and Biopython
+  runtime-feature review. Distinguish an API-grounded floor and actual receiving
+  from an incidental installation. MDTraj, OpenMM, PDBFixer and the parser/NumPy
+  dispositions above are received; OpenMMTools/Plotly runtime declarations are
+  retired with their distinct unsupported-draft/documentation dispositions.
 - For each retained bound/exclusion, record exact provider behavior, owner and
   reassessment condition. The NumPy version/ABI disposition above is complete;
   preserve exact development/build/release pins and any demonstrated restrictions.

@@ -627,6 +627,33 @@ IDs and metadata are preserved. Public receiving/board closure follow; these
 supplemental repairs add no progress weight. Remaining optional-provider,
 actual Viewer and clean installed closure keep phase 3 open at **40%**.
 
+**OpenMM block delivered:** public checkpoint
+`4d1d5949aa6a717000ac5d01a6a818f0cc99aa5d` independently matches all 24
+changed source/test/documentation/receipt blobs. #625 and #626 are verified
+closed as completed. The
+[delivery record](../devtools/data/openmm_runtime_delivery_625_626_20261106.json)
+retains that state and a complete board checkpoint: 558 issues, 98 open, and
+unchanged PR #543. Fourteen audit-related issues are closed; supplemental
+regressions do not change the accepted 40% milestone. All 14 fast gates pass;
+no new remote full-matrix or installed-artifact evidence is claimed.
+
+**PDBFixer and runtime/docs distinction qualified:** `fac0d8706` selects
+optional PDBFixer >=1.11 from the actual cap-completion counterexample. Both
+1.11/OpenMM 8.2/Python 3.12 and 1.12/OpenMM 8.6.1/Python 3.14 pass the same
+172 selected cases without omissions. The
+[receipt](../devtools/data/pdbfixer_runtime_receiving_524_20261106.json)
+retains the 1.10 failure, first network setup error, corrected harness artifact
+collision, exact origins and final complete receiving. It qualifies the existing
+pH route, not general H orientation, protonation or fixed-state PDBFixer support.
+
+`0a06a01c2` retires unsupported OpenMMTools runtime declarations and places
+Plotly with its real documentation-only consumer, preserving local regeneration.
+All 625 dependency/registry/controlled-route/docs controls and 14 fast gates pass.
+Public delivery follows. Remaining MDAnalysis/RDKit/OpenFF/ParmEd/PyTraj/NGLView/
+Biopython APIs and actual Viewer/installed closure keep #524 partial and the
+accepted phase progress at 40%. RDKit's consumed SetPositions API is now under
+source/artifact study; no unqualified new floor is declared.
+
 ### Phase 4 — Bound-tool contribution and graphical receiving
 
 **Initial position:** #421 partial; PR #543 open with conflicts at the audit
@@ -826,9 +853,11 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Precision delivered and closed | Public checkpoint `8d466268c` independently matches all 43 checked source/record blobs. #620 is verified closed as completed. Final fast gates pass 14/14; the queue-index check passes. No new remote run was dispatched; all three work commits carry `[skip ci]`. Accepted plan progress remains 40%. | Continue the remaining #524 provider/restriction review, preserving actual public Viewer-floor and installed closure dependencies; then the agreed addon/graphical receiving and contract closeout. |
 | 2026-11-06 | Support floors and periodic preparation qualified | Five required public support floors and optional Ackredit receive 581 passing consumer cases with 14 explicit optional study omissions, plus 133 parser/preparation/doctest passes. #524 `4f8b03364` removes duplicate deprecated sorting; #621 `2804f7954` corrects the missed MIC consumer. Exact-Pandas-3.1.0 combined receiving passes 965, documentation 543, scientific execution 97; scopes overlap. The original failures and unchanged notebook code/outputs are retained. Accepted progress stays 40%. | Publish and independently verify the sources/receipts, close #621, then continue optional-provider/NumPy-bound review and actual Viewer/installed closure. No additional progress weight or publication authorization. |
 | 2026-11-06 | Support/preparation delivery verified | Public checkpoint `ad6b71e97` matches all 14 checked source/record blobs. #621 is independently verified closed. All fourteen fast gates pass; complete board acquisition contains 553 issues, 97 open, and unchanged PR #543 at `8ab2f5474`. No newly numbered report changes the order. Accepted progress stays 40%. | Continue the remaining optional-provider minima/exclusion and NumPy ABI-bound review under #524, then actual Viewer acquisition and installed/graphical receiving. Work commits retain `[skip ci]`; no new remote workflow or release is selected. |
+| 2026-11-06 | OpenMM and optional constructor receiving | Source 80590ef76 repairs #625, 207d054cb repairs #626, and 3325cda95 declares optional OpenMM >=8.2.0. Both actual public OpenMM profiles pass 2,098 selected cases; ordinary joint receiving and four corrected legacy controls qualify diagnostics/docs/native routes. Original failures remain in the receipt. Accepted progress stays 40%. | Independently receive the batched source and close #625/#626, then continue PDBFixer and remaining optional-provider/Viewer/installed work under #524. |
+| 2026-11-06 | OpenMM block published and closed | Public checkpoint 4d1d5949a matches all 24 checked blobs; #625/#626 are verified closed. The full board has 558 issues, 98 open and unchanged PR #543. Fourteen audit-related issues are closed; accepted progress remains 40%. | Finish PDBFixer minimum receiving, distinguish unused runtime declarations from docs dependencies, then continue remaining optional APIs and actual host/installed closure. |
+| 2026-11-06 | PDBFixer and runtime/docs separation qualified | Source fac0d8706 selects optional PDBFixer >=1.11; final minimum and newer profiles each pass 172 selected cases. Source 0a06a01c2 retires unsupported/runtime-misclassified declarations; 625 route/docs cases and 14 fast gates pass. The original network/harness failures are retained. Accepted progress stays 40%. | Verify batched public delivery, continue RDKit and remaining optional APIs, preserve actual Viewer/installed closure under #524. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
 Preserve the receipt, original outcomes and links so a future reviewer can recover
 what was known, decided, implemented and qualified at each checkpoint.
-| 2026-11-06 | OpenMM and optional constructor receiving | Source 80590ef76 repairs #625, 207d054cb repairs #626, and 3325cda95 declares optional OpenMM >=8.2.0. Both actual public OpenMM profiles pass 2,098 selected cases; ordinary joint receiving and four corrected legacy controls qualify diagnostics/docs/native routes. Original failures remain in the receipt. Accepted progress stays 40%. | Independently receive the batched source and close #625/#626, then continue PDBFixer and remaining optional-provider/Viewer/installed work under #524. |

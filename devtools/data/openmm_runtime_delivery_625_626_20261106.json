@@ -1,0 +1,208 @@
+{
+  "schema_version": "molsysmt.openmm_runtime_delivery@1",
+  "date": "2026-11-06",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "source_checkpoint": "4d1d5949aa6a717000ac5d01a6a818f0cc99aa5d",
+  "public_blob_checks": [
+    {
+      "path": "devguide/archive/resolved_bugs/openmm_topology_copies_lose_chemical_metadata_and_extraction_misroutes_structure.md",
+      "expected_blob": "02eab3b785f185fd8f474bf3e1b1e741edb9d61b",
+      "observed_blob": "02eab3b785f185fd8f474bf3e1b1e741edb9d61b",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/pdbfixer_file_and_text_constructors_bypass_optional_dependency_guards.md",
+      "expected_blob": "cb798724c917118a647fbb21b095691dace96167",
+      "observed_blob": "cb798724c917118a647fbb21b095691dace96167",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/pending_proposals/runtime_dependency_api_floors.md",
+      "expected_blob": "433abb11dbb188ab79f540ff7ed939402daaaa87",
+      "observed_blob": "433abb11dbb188ab79f540ff7ed939402daaaa87",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "expected_blob": "c9195de152d197dfb224c371a67a61afdde7b41c",
+      "observed_blob": "c9195de152d197dfb224c371a67a61afdde7b41c",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "expected_blob": "c490f99080447a77488f9c0f1aaa34a613c38ad0",
+      "observed_blob": "c490f99080447a77488f9c0f1aaa34a613c38ad0",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/conda-envs/development_env.yaml",
+      "expected_blob": "b8915fa8da96d03bed3bf54659905277ef1a6101",
+      "observed_blob": "b8915fa8da96d03bed3bf54659905277ef1a6101",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/conda-envs/test_env.yaml",
+      "expected_blob": "4ae7027a4ab2acf2dcf09d6308151b9cd0a408f2",
+      "observed_blob": "4ae7027a4ab2acf2dcf09d6308151b9cd0a408f2",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/data/openmm_runtime_receiving_524_20261106.json",
+      "expected_blob": "3ca538df25269ee421ea07eb4aab32eff13329dc",
+      "observed_blob": "3ca538df25269ee421ea07eb4aab32eff13329dc",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/dependency_contract.toml",
+      "expected_blob": "fde903887872870f6b27d29d786657b95f1eb4e6",
+      "observed_blob": "fde903887872870f6b27d29d786657b95f1eb4e6",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/tests/test_audit_dependency_contract.py",
+      "expected_blob": "315c82a4aef48788b8f14ba59cc1f42426a9b1b9",
+      "observed_blob": "315c82a4aef48788b8f14ba59cc1f42426a9b1b9",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb",
+      "expected_blob": "d9b59d6042698561f8d866eade751a205e2b9519",
+      "observed_blob": "d9b59d6042698561f8d866eade751a205e2b9519",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb",
+      "expected_blob": "5f8b9eb9371f9eaee73a59743a63b729279f9b65",
+      "observed_blob": "5f8b9eb9371f9eaee73a59743a63b729279f9b65",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/basic/_extract_group_inventory.py",
+      "expected_blob": "fab37a6a4b65eff1d9e81a9ab50662d94c3348c9",
+      "observed_blob": "fab37a6a4b65eff1d9e81a9ab50662d94c3348c9",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/file_pdb/to_pdbfixer_PDBFixer.py",
+      "expected_blob": "49a1c8ef6a2114f237e37b6eba9497cce3906ae8",
+      "observed_blob": "49a1c8ef6a2114f237e37b6eba9497cce3906ae8",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/molsysmt_MolSysDict/extract.py",
+      "expected_blob": "12d49a1f177dbf94c1039d9b0763b06637b30e33",
+      "observed_blob": "12d49a1f177dbf94c1039d9b0763b06637b30e33",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/openmm_Topology/copy.py",
+      "expected_blob": "705aa7d43c907f3b11c2bc6df7a3198fc5b1ce27",
+      "observed_blob": "705aa7d43c907f3b11c2bc6df7a3198fc5b1ce27",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/openmm_Topology/extract.py",
+      "expected_blob": "54886a08462b2788a6a46d9b227eeca208aa662d",
+      "observed_blob": "54886a08462b2788a6a46d9b227eeca208aa662d",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/openmm_Topology/to_openmm_Topology.py",
+      "expected_blob": "81cba94427c7f6dd5f69e5578631b098fa46e241",
+      "observed_blob": "81cba94427c7f6dd5f69e5578631b098fa46e241",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/form/string_pdb_text/to_pdbfixer_PDBFixer.py",
+      "expected_blob": "975a14c310ac045db390094b4ba02b48ced12ac5",
+      "observed_blob": "975a14c310ac045db390094b4ba02b48ced12ac5",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "pyproject.toml",
+      "expected_blob": "272040b292443b12c366ae7e0f8a9b5590d3d5b7",
+      "observed_blob": "272040b292443b12c366ae7e0f8a9b5590d3d5b7",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/molsysmt_MolSysDict/test_atom_free_extraction.py",
+      "expected_blob": "b4cc32f0640eecaae6a0eceadb0ce78184983507",
+      "observed_blob": "b4cc32f0640eecaae6a0eceadb0ce78184983507",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/openmm_Topology/test_copy_and_extract_metadata.py",
+      "expected_blob": "acbcac0b1b8734ddfb32873856a8a7ca418003a5",
+      "observed_blob": "acbcac0b1b8734ddfb32873856a8a7ca418003a5",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/openmm_Topology/test_runtime_provider_contract.py",
+      "expected_blob": "bdf10d7bb25d1abcc4efee53c3c0e294c3c6e633",
+      "observed_blob": "bdf10d7bb25d1abcc4efee53c3c0e294c3c6e633",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/pdbfixer_PDBFixer/test_dependency_boundaries.py",
+      "expected_blob": "9cbd7d633663224b61e9c9820e0e7223e8c0abfe",
+      "observed_blob": "9cbd7d633663224b61e9c9820e0e7223e8c0abfe",
+      "match": true,
+      "isError": false
+    }
+  ],
+  "issues": [
+    {
+      "number": 625,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T03:09:06Z",
+      "url": "https://github.com/uibcdf/molsysmt/issues/625"
+    },
+    {
+      "number": 626,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T03:09:08Z",
+      "url": "https://github.com/uibcdf/molsysmt/issues/626"
+    }
+  ],
+  "accepted_plan_progress_percent": 40,
+  "additional_progress_points": 0,
+  "remote_workflow_dispatched": false,
+  "source_receiving_only": true,
+  "board_checkpoint": {
+    "complete_issue_count": 558,
+    "open_issue_count": 98,
+    "latest_issue": 626,
+    "open_pull_requests": [
+      {
+        "number": 543,
+        "head": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+        "title": "Add bound molecular tools and reviewed System, Geometry, Chemistry and Analysis tasks"
+      }
+    ]
+  }
+}
