@@ -8,6 +8,7 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentChoiceError
+from tests.physchem._sdf_reference import rdkit_v3000_with_declared_valences
 
 # Independent simple sums from Ertl et al. (2000), Table 1, angstrom²;
 # doi:10.1021/jm000942e. These are not experimental permeability claims.
@@ -33,24 +34,11 @@ def source_from_smiles(smiles):
 def test_tpsa_primary_fragment_sums_across_forms(smiles, expected, form, tmp_path):
     source = source_from_smiles(smiles)
     if form == "sdf":
-        from rdkit import Chem
-
         path = tmp_path / "molecule.sdf"
         # Explicit CTAB valences encode the known fixed-state H inventory.
         # Default VAL=0 leaves this evidence unspecified in the native reader.
-        block = Chem.MolToV3KMolBlock(source)
-        lines = block.splitlines()
-        in_atoms = False
-        for i, line in enumerate(lines):
-            if line == "M  V30 BEGIN ATOM":
-                in_atoms = True
-            elif line == "M  V30 END ATOM":
-                in_atoms = False
-            elif in_atoms:
-                atom = source.GetAtomWithIdx(int(line.split()[2]) - 1)
-                valence = atom.GetTotalValence()
-                lines[i] += f" VAL={valence if valence else -1}"
-        path.write_text("\n".join(lines) + "\n$$$$\n")
+        block = rdkit_v3000_with_declared_valences(source)
+        path.write_text(block + "$$$$\n")
         source = str(path)
     elif form == "h5msm":
         source = msm.convert(source, to_form=str(tmp_path / "molecule.h5msm"))

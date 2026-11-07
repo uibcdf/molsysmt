@@ -8,6 +8,7 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentChoiceError
+from tests.physchem._sdf_reference import rdkit_v3000_with_declared_valences
 
 
 def source(smiles):
@@ -35,19 +36,8 @@ def test_equivalent_forms_preserve_supplied_state_and_provider_score(
     molsys = Chem.Mol(original)
     if form == "sdf":
         path = tmp_path / "declared.sdf"
-        lines = Chem.MolToV3KMolBlock(molsys).splitlines()
-        in_atoms = False
-        for i, line in enumerate(lines):
-            if line == "M  V30 BEGIN ATOM":
-                in_atoms = True
-            elif line == "M  V30 END ATOM":
-                in_atoms = False
-            elif in_atoms:
-                valence = molsys.GetAtomWithIdx(
-                    int(line.split()[2]) - 1
-                ).GetTotalValence()
-                lines[i] += f" VAL={valence if valence else -1}"
-        path.write_text("\n".join(lines) + "\n$$$$\n")
+        block = rdkit_v3000_with_declared_valences(molsys)
+        path.write_text(block + "$$$$\n")
         molsys = str(path)
     elif form == "h5msm":
         molsys = msm.convert(molsys, to_form=str(tmp_path / "source.h5msm"))
