@@ -103,3 +103,15 @@ transfer. OpenMM Modeller represents only the first selected structure and its c
 These bridges do not parameterize the system. See {ref}`Cookbook_Form_Teleportation`
 for an executable example and {ref}`Tutorial_Form_parmed_Structure` for the
 ParmEd adapter scope.
+
+Independent copying and subsetting of `MDAnalysis.Universe` and `MDAnalysis.AtomGroup`
+preserve represented source data. This includes atom labels and formal charges,
+numerical bond orders, long or unknown stored bond type labels and per-bond guessed
+flags. External atom selections retain their requested order, with AtomGroup indices
+local to that group. Available coordinates, velocities, forces, cells and time follow
+selected structures; source data and reader position remain unchanged. Unrestricted
+extraction and same-form conversion can explicitly reuse the source with
+`copy_if_all=False`. Unsupported selected time axes raise explicitly. These operations
+retain declarations without perceiving missing chemistry; provider extensions need their
+own preservation contract. See {ref}`Tutorial_Form_MDAnalysis_Universe` and
+{ref}`Tutorial_Form_MDAnalysis_AtomGroup`.

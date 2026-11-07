@@ -1,6 +1,9 @@
 """Building faithful in-memory subsets of MDAnalysis universes."""
 
+from copy import deepcopy
+
 import numpy as np
+from depdigest import dep_digest
 
 from molsysmt._private.variables import is_all
 
@@ -13,30 +16,52 @@ def _indices(values, size):
     return np.atleast_1d(np.asarray(values, dtype=np.int64))
 
 
-def subset_universe(universe, atom_indices="all", structure_indices="all"):
-    """
-    Performing subset universe on form MDAnalysis.Universe.
-
-
-    Parameters
-    ----------
-    universe : object
-        Argument universe.
-    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
-    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
-
-    Returns
-    -------
-    object
-        Resulting object in object form.
-
-
-    .. versionadded:: 1.0.0
-    """
+@dep_digest("MDAnalysis")
+def copy_universe(universe):
+    """Copy a provider topology and its reader without Python's pickle fallback."""
+    if hasattr(universe, "trajectory") and universe.trajectory is not None:
+        return universe.copy()
 
     import MDAnalysis as mda
+
+    return mda.Universe(universe._topology.copy(), to_guess=())
+
+
+def _copy_connectivity(universe, output, atom_indices):
+    """Restrict stored connectivity fields without interpreting their values."""
+    index_map = {int(old): new for new, old in enumerate(atom_indices)}
+    for name in ("bonds", "angles", "dihedrals", "impropers"):
+        source = getattr(universe._topology, name, None)
+        if source is None:
+            continue
+        retained = [
+            index
+            for index, entry in enumerate(source.values)
+            if all(int(atom) in index_map for atom in entry)
+        ]
+        entries = [
+            tuple(index_map[int(atom)] for atom in source.values[index])
+            for index in retained
+        ]
+        replacement = type(source)(
+            entries,
+            types=deepcopy([source.types[index] for index in retained]),
+            guessed=deepcopy([source._guessed[index] for index in retained]),
+            order=deepcopy([source.order[index] for index in retained]),
+        )
+        if hasattr(output._topology, name):
+            output.del_TopologyAttr(name)
+        output.add_TopologyAttr(replacement)
+
+
+@dep_digest("MDAnalysis")
+def subset_universe(universe, atom_indices="all", structure_indices="all"):
+    """Materialize selected atoms and a representable in-memory structure axis."""
+    import MDAnalysis as mda
+
+    all_atoms = is_all(atom_indices)
+    if all_atoms and is_all(structure_indices):
+        return copy_universe(universe)
 
     atom_indices = _indices(atom_indices, universe.atoms.n_atoms)
     has_trajectory = hasattr(universe, "trajectory") and universe.trajectory is not None
@@ -53,16 +78,22 @@ def subset_universe(universe, atom_indices="all", structure_indices="all"):
             message="A Universe without a trajectory cannot apply structure indices.",
         )
 
-    output = mda.Merge(universe.atoms[atom_indices])
+    if all_atoms:
+        output = mda.Universe(universe._topology.copy(), to_guess=())
+    else:
+        output = mda.Merge(universe.atoms[atom_indices])
+        _copy_connectivity(universe, output, atom_indices)
     if not has_trajectory:
         return output
 
     source_frame = universe.trajectory.frame
     coordinates = []
     velocities = []
+    forces = []
     dimensions = []
     times = []
     velocities_are_available = True
+    forces_are_available = True
     dimensions_are_available = True
     time_is_available = True
     from .get_structural_attributes import _timestep_has_time
@@ -85,11 +116,19 @@ def subset_universe(universe, atom_indices="all", structure_indices="all"):
                 )
             else:
                 velocities_are_available = False
+            if getattr(timestep, "has_forces", False):
+                forces.append(
+                    np.asarray(universe.atoms.forces[atom_indices], dtype=np.float32)
+                )
+            else:
+                forces_are_available = False
             frame_dimensions = getattr(timestep, "dimensions", None)
             if frame_dimensions is None:
                 dimensions_are_available = False
             else:
-                dimensions.append(np.asarray(frame_dimensions, dtype=np.float32))
+                dimensions.append(
+                    np.array(frame_dimensions, dtype=np.float32, copy=True)
+                )
     finally:
         universe.trajectory[source_frame]
 
@@ -128,6 +167,7 @@ def subset_universe(universe, atom_indices="all", structure_indices="all"):
             if velocities_are_available
             else None
         ),
+        forces=np.asarray(forces, dtype=np.float32) if forces_are_available else None,
         dimensions=(
             np.asarray(dimensions, dtype=np.float32)
             if dimensions_are_available
