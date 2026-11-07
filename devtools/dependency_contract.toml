@@ -20,12 +20,12 @@ source_supplied = []
 [[environments]]
 path = "devtools/conda-envs/development_env.yaml"
 source_supplied = []
-optional_required = ["mdtraj", "pyparsing", "openmm", "openff-toolkit", "openff-units"]
+optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "openff-toolkit", "openff-units"]
 
 [[environments]]
 path = "devtools/conda-envs/test_env.yaml"
 source_supplied = ["argdigest", "depdigest", "smonitor", "pyunitwizard", "molsysviewer"]
-optional_required = ["mdtraj", "pyparsing", "openmm", "openff-toolkit", "openff-units"]
+optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "openff-toolkit", "openff-units"]
 
 [[environments]]
 path = "devtools/conda-envs/docs_env.yaml"

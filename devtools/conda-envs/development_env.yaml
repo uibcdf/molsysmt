@@ -20,7 +20,7 @@ dependencies:
 - tqdm >=4.65.0
 - matplotlib >=3.8.4
 - openmm>=8.2.0
-- pdbfixer
+- pdbfixer>=1.11
 - ambertools
 - openff-toolkit-base >=0.17.1
 - openff-units >=0.3.0

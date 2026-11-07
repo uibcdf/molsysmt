@@ -71,7 +71,8 @@ soft = [
   "parmed",
   "pytraj",
   "nglview",
-  "pdbfixer",
+  # The pH hydrogen engine must complete ACE/NME cappings (#524).
+  "pdbfixer>=1.11",
   "biopython",
   "plotly"
 ]
