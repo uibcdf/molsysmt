@@ -1,0 +1,123 @@
+{
+  "schema_version": "molsysmt.modular_h5_query_delivery@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#643",
+  "state": "public_source_closed",
+  "public_source": {
+    "public_main": "71a2c2b8ef807f9ddce300cfd3917c5a51f56a1a",
+    "tree_truncated": false,
+    "matched_paths": {
+      "devguide/SCALABILITY.md": "71389806091629f3f2eb89d597b598574c4ea045",
+      "devguide/pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md": "e6e341e55dcb0dcbd0f439d4997018b421649d89",
+      "devguide/pre_1_0_robustness_audit_20261106.md": "a8016c753a391fa33ffd26993601e01d79a2ef27",
+      "devguide/release_1_0_status.md": "8bb422abba3abb46aee5c42ac9f47d398ab7a862",
+      "devtools/data/modular_h5_query_receiving_643_20261107.json": "0761a473133b38415ad3bfbd16968213494fc630",
+      "devtools/data/pre_1_0_progress_scorecard_20261107.json": "dc2dbed4f5beed00a1fdde58f4503b4786a849cc",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb": "dc72228676d7342dc8c3c359d59499065d89cad5",
+      "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": "11db4389264a59c9f50a6b092119208888eb3e57",
+      "docs/content/course/Path_Alzheimer/48_Scalability_Heavy_Trajectories.ipynb": "2e883241664e136abfaac8e3372fa0608b9e5924",
+      "docs/content/user/cookbook/migrating_h5msm.md": "6e03fd6f1b8d587dc824ce5fd5decfb04b9e2338",
+      "docs/content/user/foundations/native_world/files/file_h5msm.md": "5457000685377940b6e468445222541cd1787b92",
+      "docs/content/user/tools/form/file/h5msm_05.md": "3be021704deff5479d15c82ad16d28e2d18e83d9",
+      "docs/docs_manifest.yml": "f87dc8cdf6d28994b68b959ed5008069aca83ba5",
+      "molsysmt/_private/chemical_state.py": "9fa1bbeb230dc69ffd3ade36393c4379b7da0ed0",
+      "molsysmt/_private/h5msm.py": "78bf14ee861ce753d900afc8b12ff10dbe77ba64",
+      "molsysmt/basic/get.py": "b975045d34c6e0156e836c7c1ef79e451a4c8d5a",
+      "molsysmt/basic/has_attribute.py": "e4412d87fb4c4cc0970bad2942dc22842d7e7dd5",
+      "molsysmt/basic/select.py": "f26e20569d3109e524f32fb45896d4c639db1411",
+      "molsysmt/basic/selector/_group_inventory.py": "8de1f9ee901281a55d6e60684ad42ba8c5ed0e62",
+      "molsysmt/basic/selector/molsysmt.py": "fd22705832f13c66d978e69a0e61f1f95c64d4fc",
+      "molsysmt/form/_h5msm05_alternate_location.py": "02f091f2c96b335b519c60fbdeaaf288812f06b0",
+      "molsysmt/form/_h5msm05_associations.py": "baaff5808885d439dbe12180162e7c2ebdd37cd4",
+      "molsysmt/form/_h5msm05_structures.py": "1f1485b5aabcdc406ddaadca1c40c2ffdedb379b",
+      "molsysmt/form/_query_delegation.py": "ac144f1d0bd632d7d093b5af393080a3b8feb498",
+      "molsysmt/form/file_h5msm/_modular_query.py": "80a9cf9d7df78d4271b63af8a5145081faec6871",
+      "molsysmt/form/file_h5msm/attributes.py": "de880d23afc98fdbfd4ea9ce1b460318689b3c5e",
+      "molsysmt/form/file_h5msm/get_structural_attributes.py": "3a0773e1b4a371973d7f01c1da376eb01a858e18",
+      "molsysmt/form/file_h5msm/get_topological_attributes.py": "778cb9105cbe2c4e1c4c412b780ec9460f931257",
+      "molsysmt/form/file_h5msm/has_attribute.py": "fd62d9d02b51ade42dcbb7fddea8eeda7e7f68ab",
+      "tests/form/file_h5msm/test_modular_query_projection.py": "adfbc1bb497eaf11d21030c3e4e0f1a733758127"
+    }
+  },
+  "scientific": {
+    "verdict": "pass",
+    "commit": "71a2c2b8ef807f9ddce300cfd3917c5a51f56a1a",
+    "tracked_source_dirty": false,
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0
+  },
+  "scientific_certificate_sha256": "641e743b8e4cdffc1e65abb19fd58cdb3628abd969f6ca1542b082cc93d455cf",
+  "scientific_scope": "Clean exact source; the certificate alone does not authorize a release or qualify installed artifacts.",
+  "consumer": {
+    "original_prototype": "ca59736a4ca7ed84f736a2b6b8cbaf48b29c2386",
+    "local_receiving_source": "ea410c573a0469e290ca9c2bebf5a40a89e64797",
+    "prototype_and_test_blobs_unchanged": {
+      "tests/molsysviewer_molsysmt/test_external_reference_panel.py": "a5aff3192946737bce85951b362731b604ed6266",
+      "molsysviewer_molsysmt/_geometry_panel.py": "50619e8c5ba878bc2d807fa57c98fe22bdfc749a",
+      "molsysviewer_molsysmt/_geometry_panel_frontend.py": "01357b662be7d67909b2ec018233e2514aaab6f1"
+    },
+    "receiving": {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<prototype>/.pytest_cache/external-reference-421/provider-received.xml",
+        "-n12",
+        "tests/molsysviewer_molsysmt/test_external_reference_panel.py",
+        "tests/molsysviewer_molsysmt/test_geometry_panel.py",
+        "tests/molsysviewer_molsysmt/test_structure_fitting_tools.py"
+      ],
+      "exit_code": 0,
+      "seconds": 34.482237949967384,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5192
+    },
+    "passed": 341,
+    "failed": 0,
+    "skipped": 0,
+    "guard": "tests/molsysviewer_molsysmt/test_external_reference_panel.py::test_reference_review_reads_only_one_coordinate_slab_without_fitting_or_copying",
+    "state": "Directed Python/provider receiving only; actual GUI Jupyter/Mol*/popup remains pending."
+  },
+  "issue_closeout": {
+    "number": 643,
+    "state": "closed",
+    "closed_at": "2026-11-07T22:34:13Z",
+    "verified_via": "Independent GitHub connector fetch after native close command exit 0"
+  },
+  "handoff": {
+    "repository": "uibcdf/molsysviewer",
+    "issue": 315,
+    "comment_id": 6713930007,
+    "scope": "Authorized source-only notice, no remote matrix or publication request."
+  },
+  "board_before_closeout": {
+    "complete_paginated_issues": 575,
+    "open": 97,
+    "latest": 643,
+    "new_since_643": [],
+    "open_pull_requests": []
+  },
+  "guard": "tests/form/file_h5msm/test_modular_query_projection.py",
+  "receiving": "devtools/data/modular_h5_query_receiving_643_20261107.json",
+  "progress": {
+    "weighted_percent_approx": 61,
+    "graphical_accepted": 22,
+    "graphical_total": 50,
+    "audit_related_source_closures": 33,
+    "milestone_bonus_for_discovered_bug": 0
+  },
+  "remaining": [
+    "Actual external-reference GUI Jupyter/Mol*/popup receiving under #421",
+    "Remaining agreed sequence/cell/task/session intents",
+    "Installed/platform/client, contract and exact-candidate/publication gates",
+    "Nightly/full-matrix backlog for skipped source commits; no gate waiver"
+  ]
+}

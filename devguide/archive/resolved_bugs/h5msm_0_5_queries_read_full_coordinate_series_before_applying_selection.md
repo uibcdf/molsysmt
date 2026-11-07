@@ -1,13 +1,13 @@
 ---
 summary: H5MSM 0.5 queries read full coordinate series before applying selection.
 issue: uibcdf/molsysmt#643
-status: active
+status: resolved
 opened: 2026-11-07
-closed:
+closed: 2026-11-07
 severity: high
 verification: measured
 area: [form, performance]
-guard:
+guard: tests/form/file_h5msm/test_modular_query_projection.py
 normative:
 blocked_by: []
 supersedes: []
@@ -78,7 +78,7 @@ requested scalar or projection. It watches ordinary indexing, `read_direct`
 and implicit array conversion. The separate 5,000-structure primitive probe
 still records both complete coordinate blocks for each operation and verifies
 the correct returned values. Its native exit 0 is diagnostic success, not query
-contract acceptance. The [baseline receipt](../../devtools/data/modular_h5_query_baseline_643_20261107.json)
+contract acceptance. The [baseline receipt](../../../devtools/data/modular_h5_query_baseline_643_20261107.json)
 records source blob correspondence, commands and contradictory I/O evidence.
 
 ## Implementation strategy
@@ -133,9 +133,10 @@ records source blob correspondence, commands and contradictory I/O evidence.
   then finish its actual Jupyter/Mol*/popup acceptance. This issue's correction
   is not by itself that GUI milestone or installed/final-candidate acceptance.
 
-## Current execution position — 2026-11-07
+## Local receiving before publication — 2026-11-07
 
-**Implemented and contract/parity-tested locally**, not yet public delivery.
+At this receiving checkpoint the implementation was locally contract/parity-tested,
+before public source delivery.
 The file-form owner now routes schema 0.5 queries to one scoped reader while
 retaining the real file form and the separate legacy handler. Public query
 boundaries no longer invoke the resident bridge. Structural codecs accept a
@@ -145,7 +146,7 @@ arrays, competing chemical stores, new dependencies or native-kernel changes.
 The lexical query scope shares required static decodes and closes owned handles
 on success and failure. No file cache survives a call.
 
-The [receiving receipt](../../devtools/data/modular_h5_query_receiving_643_20261107.json)
+The [receiving receipt](../../../devtools/data/modular_h5_query_receiving_643_20261107.json)
 retains every executed attempt. Original provider baseline: 18 failures.
 Receiving-1: sixteen passes/two empty-index failures. Integrated-1: 1,552
 passes/five alternate-site regressions. Integrated-2: 1,591 passes/three eager
@@ -184,3 +185,24 @@ close this bug with its executable guard. Actual external-reference GUI
 Jupyter/Mol*/popup acceptance remains with #421. Milestone progress remains
 approximately 61%, graphical acceptance 22/50, source closeouts 32; no prototype
 or discovered prerequisite receives bonus milestone credit.
+
+## Source closeout — 2026-11-07
+
+Published implementation `71a2c2b8ef807f9ddce300cfd3917c5a51f56a1a` is independently
+verified on main: all thirty changed paths match the complete public Git tree.
+Clean exact-source scientific execution passes 107 cases for all 68 registered
+nodes, with zero skipped/failed/error cases. This source certificate does not
+authorize an artifact or release.
+
+The original external-reference consumer guard also passes unchanged: local
+composition `ea410c573a0469e290ca9c2bebf5a40a89e64797` passes all 341 directed cases.
+Its three prototype files and the refusing I/O guard retain the exact bytes
+from `ca59736a4`. No private GUI reader, weakened assertion, schema bump, new
+dependency or native-kernel change was used. Actual graphical
+Jupyter/Mol*/popup receiving remains separate under #421.
+
+The [delivery receipt](../../../devtools/data/modular_h5_query_delivery_643_20261107.json)
+records public correspondence, clean scientific qualification, unchanged
+consumer receiving and source-only closeout. Full-suite nightly backlog,
+installed/client acceptance, exact candidate gates and publication authority
+remain due; the source correction does not waive them.

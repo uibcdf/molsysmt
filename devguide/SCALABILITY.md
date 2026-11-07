@@ -97,7 +97,7 @@ metadata; dense structural getters read only requested fields and atom/structure
 positions. MolSysMT expressions reuse scoped native inventory/chemical domains,
 and spatial expressions read their requested structures. One lexical query
 owns its static decoded domains and closes its HDF5 handles on every exit;
-there is no persistent file cache. This is the [#643 query correction](pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md).
+there is no persistent file cache. This is the [#643 query correction](archive/resolved_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md).
 
 This does not establish bounded memory for an entire public analysis. Static
 domains and explicit association maps may be decoded in full when required;

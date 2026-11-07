@@ -26,9 +26,8 @@ that front matter -- edit the entries, not this list.
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
 
-### In progress (2)
+### In progress (1)
 
-- [`h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md`](h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md) — [#643](https://github.com/uibcdf/molsysmt/issues/643) — H5MSM 0.5 queries read full coordinate series before applying selection. *(high, measured)*
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
 ### Partially resolved (6)
