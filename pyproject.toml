@@ -61,7 +61,8 @@ soft = [
   "mdtraj>=1.11.0",
   # MDTraj's transitive parser regression; keep Python 3.11 support (#484).
   "pyparsing!=3.3.3",
-  "openmm",
+  # Native atom exports pass formalCharge, including unknown values (#524).
+  "openmm>=8.2.0",
   "openmmtools",
   "MDAnalysis",
   "rdkit",
