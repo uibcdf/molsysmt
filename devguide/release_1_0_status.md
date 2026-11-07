@@ -22,26 +22,29 @@ contracts.
 
 ## Current correction checkpoint — 2026-11-07
 
-The #543 contribution is received on an isolated branch with exact Viewer
-`25061d9e9`; source merge `653ed8e0` and #632 guard correction `3f66f5931`
-are not yet delivered to main. The subsequent #602 native/expert rotation
-constructor and #633/#634/#637 corrections are locally qualified. The
-[receipt](../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json)
-records 7,764 integrated passes, 76 minimum-provider passes, 107 registered
-scientific passes across 68 nodes, five actually executed notebooks and 14
-passing fast gates. Counts overlap. Original failures, the development-only
-ineligible scientific certificate and six HTML underline warnings are retained.
-The four human-owned API stubs remain untouched.
+The bound-tool source, #602 native/expert rotation constructor and
+#632/#633/#634/#637 corrections are delivered on main in `684a5b0cb`;
+archived records are published in `2499dc53b`. Independent complete GitHub API
+trees match all 141 changed source paths and all changed archive paths. All
+five issues are verified closed as completed. The
+[delivery record](../devtools/data/rotation_source_delivery_602_632_633_634_637_20261107.json)
+keeps publication/board evidence separate from local receiving.
 
-Next: publish/independently receive this source block and close its verified
-issues; correct #638's silent integer-coordinate truncation and supported-rank
-publication, then #636's untracked-source certification gap. #635 separately
-requires receiving published PR head `42f5ed3bc` and its endpoint-aware panel
-guards on the newer host. Remaining #421
-actual graphical/Jupyter/navigation/installed/human and #524 public-host/clean
-installed exits remain open. The [audit plan](pre_1_0_robustness_audit_20261106.md)
-stays at **40%**, with **19 publicly verified audit-related closures**. No new
-candidate, tag, Release, promotion or remote matrix is selected.
+The [receiving receipt](../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json)
+records 7,764 integrated passes, 76 minimum-provider passes, 107 scientific
+passes across 68 nodes, five executed notebooks and 14 passing fast gates.
+Counts overlap. Original failures, the development-only ineligible scientific
+certificate and six HTML underline warnings remain retained. Four human-owned
+API stubs are unchanged.
+
+Next: correct #638's integer truncation/supported-rank publication and #636's
+untracked-source certification gap; separately receive published PR head
+`42f5ed3bc` and #635's endpoint guards on its actual newer Viewer. The current
+results qualify exact Viewer `25061d9e9` only. Remaining #421 graphical,
+Jupyter/navigation, installed and human acceptance and #524 public-host/clean
+installed closure stay open. Audit progress remains **40%**, with **24 verified
+audit-related closures**. No new candidate, tag, Release, promotion or remote
+matrix is selected.
 
 ## Audit execution and next correction — 2026-11-06
 

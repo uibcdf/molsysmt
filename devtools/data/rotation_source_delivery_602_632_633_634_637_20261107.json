@@ -1,0 +1,656 @@
+{
+  "schema_version": "molsysmt.rotation_source_delivery@1",
+  "date": "2026-11-07",
+  "source_receiving": "devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json",
+  "source_commit": "684a5b0cb9991e0538a0bd55bc934a5b57719a97",
+  "archive_commit": "2499dc53bec3aca8fd1dff59b9f9d4d25e5b03c2",
+  "published_source_paths": {
+    ".github/workflows/benchmarks.yml": {
+      "local": "bdb4670af77a8036940d704fe9affabb2b6017b9",
+      "public": "bdb4670af77a8036940d704fe9affabb2b6017b9"
+    },
+    ".github/workflows/ci-full.yaml": {
+      "local": "0a0a7b1f6e0243941a88d1a0916c1ca26e10cacc",
+      "public": "0a0a7b1f6e0243941a88d1a0916c1ca26e10cacc"
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "local": "4e8dc61277c102223ca69fff8f16d65e21c8ac0d",
+      "public": "4e8dc61277c102223ca69fff8f16d65e21c8ac0d"
+    },
+    ".github/workflows/ci-weekly.yaml": {
+      "local": "d07e9315132089d3a2e65f15aa4b8767fc0505d4",
+      "public": "d07e9315132089d3a2e65f15aa4b8767fc0505d4"
+    },
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": {
+      "local": "baf1c32e7067ca8378d4e4e8fbec5b5ababa8078",
+      "public": "baf1c32e7067ca8378d4e4e8fbec5b5ababa8078"
+    },
+    "AGENTS.md": {
+      "local": "a40dafd0e0146bd98f6853b2b603ff2c66ae2e1f",
+      "public": "a40dafd0e0146bd98f6853b2b603ff2c66ae2e1f"
+    },
+    "devguide/api_stability_registry.md": {
+      "local": "1339290caa8f6450bbc25d99907c25809ea42508",
+      "public": "1339290caa8f6450bbc25d99907c25809ea42508"
+    },
+    "devguide/molsysviewer_addon.md": {
+      "local": "7b43eaa8153575b776272d3bfd435728df0ba454",
+      "public": "7b43eaa8153575b776272d3bfd435728df0ba454"
+    },
+    "devguide/molsysviewer_tools_api_inventory.md": {
+      "local": "ffb77694d778cf74dcd3cfd33f2c7311dfd73c90",
+      "public": "ffb77694d778cf74dcd3cfd33f2c7311dfd73c90"
+    },
+    "devguide/molsysviewer_tools_gui_design.md": {
+      "local": "8e4aef3748514e54b96d729c06f95ce5864f0ac0",
+      "public": "8e4aef3748514e54b96d729c06f95ce5864f0ac0"
+    },
+    "devguide/pending_bugs/README.md": {
+      "local": "ee82e0970bbfe0636eccfefba002295c5e9762b1",
+      "public": "ee82e0970bbfe0636eccfefba002295c5e9762b1"
+    },
+    "devguide/pending_bugs/analysis_jupyter_wrapper_expects_obsolete_step_count.md": {
+      "local": "eb42b58797b8ec56cd01e12148835855eb973db2",
+      "public": "eb42b58797b8ec56cd01e12148835855eb973db2"
+    },
+    "devguide/pending_bugs/docs/README.md": {
+      "local": "162519862665fba453bea68abe581d9bd85a8beb",
+      "public": "162519862665fba453bea68abe581d9bd85a8beb"
+    },
+    "devguide/pending_bugs/docs/antiviral_geometry_example_selects_an_empty_inhibitor_population.md": {
+      "local": "331ff5d674240c0c48b3a50dd54891bc1dc92496",
+      "public": "331ff5d674240c0c48b3a50dd54891bc1dc92496"
+    },
+    "devguide/pending_bugs/docs/course_contributor_guide_names_obsolete_validator_entrypoint.md": {
+      "local": "09e99eee0f8e0528081b372a04d7e0fab07fc7d0",
+      "public": "09e99eee0f8e0528081b372a04d7e0fab07fc7d0"
+    },
+    "devguide/pending_bugs/independent_transforms_modify_source_xyz_coordinates.md": {
+      "local": "2c219799bde3444778b5295797ef959bc5cebe02",
+      "public": "2c219799bde3444778b5295797ef959bc5cebe02"
+    },
+    "devguide/pending_bugs/intermittent_jupyter_initial_canvas_timeout.md": {
+      "local": "89d52a78f64ed625afe93e9d6400a00856e8daac",
+      "public": "89d52a78f64ed625afe93e9d6400a00856e8daac"
+    },
+    "devguide/pending_bugs/jupyter_popup_addon_navigation_identity.md": {
+      "local": "c27c75104d5739ea30693d5866242a46031ab699",
+      "public": "c27c75104d5739ea30693d5866242a46031ab699"
+    },
+    "devguide/pending_bugs/jupyter_result_title_before_ack.md": {
+      "local": "42913ceef17d2cef8bff3e7400e80ff69a7ecbdd",
+      "public": "42913ceef17d2cef8bff3e7400e80ff69a7ecbdd"
+    },
+    "devguide/pending_bugs/molecular_task_rejection_diagnostic_lifetime.md": {
+      "local": "4b6c3e98cc7c0199e8d8abbed56144f9fe046429",
+      "public": "4b6c3e98cc7c0199e8d8abbed56144f9fe046429"
+    },
+    "devguide/pending_bugs/multimodel_alternate_location_fidelity_expectation.md": {
+      "local": "d48d08e2ed18ca486f58fade790bbdfa97ba115f",
+      "public": "d48d08e2ed18ca486f58fade790bbdfa97ba115f"
+    },
+    "devguide/pending_bugs/scientific_certificate_ignores_untracked_python_inputs.md": {
+      "local": "be8e6e4ca676aabdd929b8d3e3c19d55e946be60",
+      "public": "be8e6e4ca676aabdd929b8d3e3c19d55e946be60"
+    },
+    "devguide/pending_bugs/xyz_coordinate_edits_lose_rank_and_fractional_precision.md": {
+      "local": "4b26de9c10cbbd0ac03c15d0ca0f452d9ee1535e",
+      "public": "4b26de9c10cbbd0ac03c15d0ca0f452d9ee1535e"
+    },
+    "devguide/pending_proposals/README.md": {
+      "local": "5b20ecc1ceccd9e27475aaf5c3dd6456a5044d4e",
+      "public": "5b20ecc1ceccd9e27475aaf5c3dd6456a5044d4e"
+    },
+    "devguide/pending_proposals/ci_smoke_budget_covers_expanded_native_and_addon_tiers.md": {
+      "local": "b1031254cdad5c0f6e2293f65ba687cca118c60e",
+      "public": "b1031254cdad5c0f6e2293f65ba687cca118c60e"
+    },
+    "devguide/pending_proposals/molsysviewer_tools_addon.md": {
+      "local": "e09f63742833758f5035f29f70cca1508df0c769",
+      "public": "e09f63742833758f5035f29f70cca1508df0c769"
+    },
+    "devguide/pending_proposals/public_axis_angle_rotation_constructor.md": {
+      "local": "ac20a477459cd295884af6316b01e468499e62ac",
+      "public": "ac20a477459cd295884af6316b01e468499e62ac"
+    },
+    "devguide/periodic_tools_gui_qualification.md": {
+      "local": "04049cbf8af90661e6a75799f5debe7685a40e89",
+      "public": "04049cbf8af90661e6a75799f5debe7685a40e89"
+    },
+    "devguide/pre_1_0_robustness_audit_20261106.md": {
+      "local": "ea47885c64815717c315c77fc897948e07e7829b",
+      "public": "ea47885c64815717c315c77fc897948e07e7829b"
+    },
+    "devguide/release_1_0_status.md": {
+      "local": "92571145af8c3c157a88eda213cede1d8a5a1713",
+      "public": "92571145af8c3c157a88eda213cede1d8a5a1713"
+    },
+    "devguide/scientific_evidence_matrix.md": {
+      "local": "c22ce940e464effea06b951033aa5e2e82a3cf16",
+      "public": "c22ce940e464effea06b951033aa5e2e82a3cf16"
+    },
+    "devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json": {
+      "local": "5f5579c0310b00c18e865c2905bcf4d83123faea",
+      "public": "5f5579c0310b00c18e865c2905bcf4d83123faea"
+    },
+    "devtools/data/bound_tools_owner_jupyter_receiving_632_20261107.json": {
+      "local": "eadcd2353fc996b0728259abd4f2f8979f22a41e",
+      "public": "eadcd2353fc996b0728259abd4f2f8979f22a41e"
+    },
+    "devtools/data/bound_tools_owner_source_receiving_20261107.json": {
+      "local": "c6c057577557578d6a4c16e8d9368f2a42e0744f",
+      "public": "c6c057577557578d6a4c16e8d9368f2a42e0744f"
+    },
+    "devtools/data/molsysviewer_tools_analysis_receiving_20261106.json": {
+      "local": "113cf444acde16081ba5d9a256e6abf9fb7b54bb",
+      "public": "113cf444acde16081ba5d9a256e6abf9fb7b54bb"
+    },
+    "devtools/data/molsysviewer_tools_center_receiving_20261106.json": {
+      "local": "260a06f384ea70327e42356fe696bcfc13e495a0",
+      "public": "260a06f384ea70327e42356fe696bcfc13e495a0"
+    },
+    "devtools/data/molsysviewer_tools_chemistry_receiving_20261106.json": {
+      "local": "bece850bef9511e831e90f6085cf548942ebca88",
+      "public": "bece850bef9511e831e90f6085cf548942ebca88"
+    },
+    "devtools/data/molsysviewer_tools_fit_receiving_20261106.json": {
+      "local": "1a4ddd053d5881257a4eb10ece0b25ef3c2a1161",
+      "public": "1a4ddd053d5881257a4eb10ece0b25ef3c2a1161"
+    },
+    "devtools/data/molsysviewer_tools_force_receiving_20261106.json": {
+      "local": "dc68135a6566f14691c82627fa0c9ea1e5520c03",
+      "public": "dc68135a6566f14691c82627fa0c9ea1e5520c03"
+    },
+    "devtools/data/molsysviewer_tools_geometry_receiving_20261106.json": {
+      "local": "28d991caa62f26aa8c9ad5a7b5f841f2f600a93d",
+      "public": "28d991caa62f26aa8c9ad5a7b5f841f2f600a93d"
+    },
+    "devtools/data/molsysviewer_tools_pending_reader_receiving_20261106.json": {
+      "local": "ad00ed2edcbaf6507670941d6f2cec8e0867e58f",
+      "public": "ad00ed2edcbaf6507670941d6f2cec8e0867e58f"
+    },
+    "devtools/data/molsysviewer_tools_periodic_receiving_20261106.json": {
+      "local": "4086a0eeb5a8faabf37e637aae77f2a6ca30e385",
+      "public": "4086a0eeb5a8faabf37e637aae77f2a6ca30e385"
+    },
+    "devtools/data/molsysviewer_tools_preparation_receiving_20261106.json": {
+      "local": "96b9bae5a234fdd2f957e3d3e78d4bbeb31fce99",
+      "public": "96b9bae5a234fdd2f957e3d3e78d4bbeb31fce99"
+    },
+    "devtools/data/molsysviewer_tools_reference_full_recovery_20261106.json": {
+      "local": "f5262fd326d69c5d6eec067cc8d9b953b886a0ba",
+      "public": "f5262fd326d69c5d6eec067cc8d9b953b886a0ba"
+    },
+    "devtools/data/molsysviewer_tools_reference_receiving_20261106.json": {
+      "local": "712bd346b6162f418a7df31f806badd18cacf17d",
+      "public": "712bd346b6162f418a7df31f806badd18cacf17d"
+    },
+    "devtools/data/molsysviewer_tools_scene_adoption_receiving_20261106.json": {
+      "local": "c62db2f47950ea6c87d7098eb28470f5eb7e2c9c",
+      "public": "c62db2f47950ea6c87d7098eb28470f5eb7e2c9c"
+    },
+    "devtools/data/molsysviewer_tools_scene_integration_full_receiving_20261106.json": {
+      "local": "86d0c9d5abc35e8fa887e25babc19723f18fa486",
+      "public": "86d0c9d5abc35e8fa887e25babc19723f18fa486"
+    },
+    "devtools/data/molsysviewer_tools_scene_integration_receiving_20261106.json": {
+      "local": "5755a11f9945e17225cd6d32ff3e34d9c7278cc4",
+      "public": "5755a11f9945e17225cd6d32ff3e34d9c7278cc4"
+    },
+    "devtools/data/public_api_stability.json": {
+      "local": "d493f11194d1f9eefb18c129dd1947da0dd47c8d",
+      "public": "d493f11194d1f9eefb18c129dd1947da0dd47c8d"
+    },
+    "devtools/dependency_contract.toml": {
+      "local": "bc64101b85310774324cd4b1c891dcbd99f63014",
+      "public": "bc64101b85310774324cd4b1c891dcbd99f63014"
+    },
+    "devtools/scripts/validate_course.py": {
+      "local": "f5bcf6078b16cd94972fd733d23a8731d47c31aa",
+      "public": "f5bcf6078b16cd94972fd733d23a8731d47c31aa"
+    },
+    "devtools/scripts/viewer_tools_contract.py": {
+      "local": "649b65ae62de734beeb52d59e95f437fda6d4fd0",
+      "public": "649b65ae62de734beeb52d59e95f437fda6d4fd0"
+    },
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": {
+      "local": "be1dec77865bcf9490b9d92f19f4a3b480b0dd14",
+      "public": "be1dec77865bcf9490b9d92f19f4a3b480b0dd14"
+    },
+    "devtools/tests/test_native_viewer_integration.py": {
+      "local": "921233e4c06f6c029af4d9aaef31fa32e6474cf7",
+      "public": "921233e4c06f6c029af4d9aaef31fa32e6474cf7"
+    },
+    "devtools/tests/test_validate_course.py": {
+      "local": "0aa65cf3a0a4405b5dae7c12245472b687c5cf97",
+      "public": "0aa65cf3a0a4405b5dae7c12245472b687c5cf97"
+    },
+    "docs/api/structure/api_structure.rst": {
+      "local": "4c7b970212393face5a087b5dbfcfe8d6b8efdf1",
+      "public": "4c7b970212393face5a087b5dbfcfe8d6b8efdf1"
+    },
+    "docs/api/structure/autosummary/molsysmt.structure.get_rotation_matrix_from_axis_angle.rst": {
+      "local": "1826eb8c6b5a6112dbca86b8a8e5c6a2bf4db1e8",
+      "public": "1826eb8c6b5a6112dbca86b8a8e5c6a2bf4db1e8"
+    },
+    "docs/content/course/AGENTS.md": {
+      "local": "069efaa37a077d65e0c9895260250732651c8751",
+      "public": "069efaa37a077d65e0c9895260250732651c8751"
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.AGENTS.md": {
+      "local": "6273e40cda7803e0c32739685fcaa293e42f29ae",
+      "public": "6273e40cda7803e0c32739685fcaa293e42f29ae"
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "local": "73789406bfe916d45346192cbc989a106d534253",
+      "public": "73789406bfe916d45346192cbc989a106d534253"
+    },
+    "docs/content/course/Common_Core/13_Topological_Analysis.AGENTS.md": {
+      "local": "946d2cdd67b78119857b81e93bf79d8b3bf81909",
+      "public": "946d2cdd67b78119857b81e93bf79d8b3bf81909"
+    },
+    "docs/content/course/Common_Core/13_Topological_Analysis.ipynb": {
+      "local": "7a13b372e34b8d1e5472cfde9684c9ce8071791d",
+      "public": "7a13b372e34b8d1e5472cfde9684c9ce8071791d"
+    },
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.AGENTS.md": {
+      "local": "405ee21155c8e7cc244efeca1461e6ccc5b7080c",
+      "public": "405ee21155c8e7cc244efeca1461e6ccc5b7080c"
+    },
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": {
+      "local": "5b71119b0d5042971bfa069d563786d395be0b18",
+      "public": "5b71119b0d5042971bfa069d563786d395be0b18"
+    },
+    "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb": {
+      "local": "cee8df6aa881c6bdcdd638662cce5799de0e2bce",
+      "public": "cee8df6aa881c6bdcdd638662cce5799de0e2bce"
+    },
+    "docs/content/course/Path_Antiviral/46_Geometric_Transformations.AGENTS.md": {
+      "local": "8a1a7e024ea22b4e086216bfed8fa96a0559516b",
+      "public": "8a1a7e024ea22b4e086216bfed8fa96a0559516b"
+    },
+    "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb": {
+      "local": "4fd65a33d536eda726729ba95bdfec91b46dc2f6",
+      "public": "4fd65a33d536eda726729ba95bdfec91b46dc2f6"
+    },
+    "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb": {
+      "local": "499346565cb779ce42f3ca1a768eda1a8314f793",
+      "public": "499346565cb779ce42f3ca1a768eda1a8314f793"
+    },
+    "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb": {
+      "local": "b4c035b93b88c35ac860a37ef83857f4fa4ced74",
+      "public": "b4c035b93b88c35ac860a37ef83857f4fa4ced74"
+    },
+    "docs/content/course/devtools/validate_course.py": {
+      "local": "b72a66878eb24a5d90063c23088cffdfae8778e4",
+      "public": "b72a66878eb24a5d90063c23088cffdfae8778e4"
+    },
+    "docs/content/course/function_inventory.yml": {
+      "local": "fb1a194352beaa6edd1f1d9257a1a6873683abc7",
+      "public": "fb1a194352beaa6edd1f1d9257a1a6873683abc7"
+    },
+    "docs/content/user/cookbook/placing_selected_centers.md": {
+      "local": "05396de2902682d4543d89759bbc9a63a80b4f3b",
+      "public": "05396de2902682d4543d89759bbc9a63a80b4f3b"
+    },
+    "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": {
+      "local": "1537a9fcddf15f80c939b2c37d4411582fe6bab9",
+      "public": "1537a9fcddf15f80c939b2c37d4411582fe6bab9"
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "local": "82739dfb32ecaf11f90d1f01fad64fa572516bc7",
+      "public": "82739dfb32ecaf11f90d1f01fad64fa572516bc7"
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "local": "22e1b964ca84c115890c3c6510cf944c5a1d5490",
+      "public": "22e1b964ca84c115890c3c6510cf944c5a1d5490"
+    },
+    "docs/content/user/tools/structure/rotate.ipynb": {
+      "local": "07fb57fb43dfaeb9f2fe732a31427ee001e8e77c",
+      "public": "07fb57fb43dfaeb9f2fe732a31427ee001e8e77c"
+    },
+    "docs/content/user/tools/structure/rotate.nbconvert.last_run": {
+      "local": "7de0f966744e587c6afdf9d506556e0b17cd15c3",
+      "public": "7de0f966744e587c6afdf9d506556e0b17cd15c3"
+    },
+    "docs/docs_manifest.yml": {
+      "local": "022218ae774239a7f4079f87aade09fc3f43e548",
+      "public": "022218ae774239a7f4079f87aade09fc3f43e548"
+    },
+    "molsysmt/_private/argdigest/argument/angle.py": {
+      "local": "af54c9ff1d08eceac3e7ab5eff44d36d4ed48428",
+      "public": "af54c9ff1d08eceac3e7ab5eff44d36d4ed48428"
+    },
+    "molsysmt/_private/argdigest/argument/axis.py": {
+      "local": "f7132b4a967bbfd2f8de0e4fee0e4d14eb4d8538",
+      "public": "f7132b4a967bbfd2f8de0e4fee0e4d14eb4d8538"
+    },
+    "molsysmt/structure/__init__.py": {
+      "local": "0e01487771061f225da1757f2254e2a40977c8e8",
+      "public": "0e01487771061f225da1757f2254e2a40977c8e8"
+    },
+    "molsysmt/structure/get_rotation_matrix_from_axis_angle.py": {
+      "local": "1c9f7aa54bd7f93af9a1d725eb3adb6bd8e2a69e",
+      "public": "1c9f7aa54bd7f93af9a1d725eb3adb6bd8e2a69e"
+    },
+    "molsysmt/structure/rotate.py": {
+      "local": "2c62f8dbc380ee018c704674803d8f4a0310f461",
+      "public": "2c62f8dbc380ee018c704674803d8f4a0310f461"
+    },
+    "molsysmt/structure/translate.py": {
+      "local": "32dc874e32f6c8264671bd157f6ffbdd80fbcef2",
+      "public": "32dc874e32f6c8264671bd157f6ffbdd80fbcef2"
+    },
+    "molsysviewer_molsysmt/_analysis_panel.py": {
+      "local": "3086dc2ed97b471214558be6205e55f229189d90",
+      "public": "3086dc2ed97b471214558be6205e55f229189d90"
+    },
+    "molsysviewer_molsysmt/_analysis_panel_frontend.py": {
+      "local": "b4f573ff7ff0fd7d75d8b8a160fc9831ceda791d",
+      "public": "b4f573ff7ff0fd7d75d8b8a160fc9831ceda791d"
+    },
+    "molsysviewer_molsysmt/_basic.py": {
+      "local": "b0ba54e31f159c8bcdc522174bf66919214c4973",
+      "public": "b0ba54e31f159c8bcdc522174bf66919214c4973"
+    },
+    "molsysviewer_molsysmt/_build.py": {
+      "local": "d928b07ad307d6ece9842d9bae80dd5589092c0b",
+      "public": "d928b07ad307d6ece9842d9bae80dd5589092c0b"
+    },
+    "molsysviewer_molsysmt/_chemical_edits.py": {
+      "local": "ec08942f452f4abd5da87381305c9d4ce200e3d5",
+      "public": "ec08942f452f4abd5da87381305c9d4ce200e3d5"
+    },
+    "molsysviewer_molsysmt/_chemistry_panel.py": {
+      "local": "6606c970d39ad1257e829d25278efba158b0c89d",
+      "public": "6606c970d39ad1257e829d25278efba158b0c89d"
+    },
+    "molsysviewer_molsysmt/_chemistry_panel_frontend.py": {
+      "local": "56dd499e67f66c07d37295bacb92cd2d14537e06",
+      "public": "56dd499e67f66c07d37295bacb92cd2d14537e06"
+    },
+    "molsysviewer_molsysmt/_chemistry_preparation.py": {
+      "local": "fe5a02b4864c9803ef918a221560fb52d5a9a07b",
+      "public": "fe5a02b4864c9803ef918a221560fb52d5a9a07b"
+    },
+    "molsysviewer_molsysmt/_geometry_panel.py": {
+      "local": "a1ec965c0be90e35e63a8882e73933b441333f40",
+      "public": "a1ec965c0be90e35e63a8882e73933b441333f40"
+    },
+    "molsysviewer_molsysmt/_geometry_panel_frontend.py": {
+      "local": "e30e84256cb19fd8074a7e37df3e6c3c7e4a2007",
+      "public": "e30e84256cb19fd8074a7e37df3e6c3c7e4a2007"
+    },
+    "molsysviewer_molsysmt/_molecular_mechanics.py": {
+      "local": "e3daaec605d657d56003f6e1601fae0b0b226db1",
+      "public": "e3daaec605d657d56003f6e1601fae0b0b226db1"
+    },
+    "molsysviewer_molsysmt/_panel.py": {
+      "local": "2c0b00ea4778828690a5ae37b44151f2764ef243",
+      "public": "2c0b00ea4778828690a5ae37b44151f2764ef243"
+    },
+    "molsysviewer_molsysmt/_panel_frontend.py": {
+      "local": "dab4398996ef280c132dd2275d41b57de0985d69",
+      "public": "dab4398996ef280c132dd2275d41b57de0985d69"
+    },
+    "molsysviewer_molsysmt/_panel_widgets.py": {
+      "local": "9325c7d350738106c7d69f0d4942a06c344c6f2f",
+      "public": "9325c7d350738106c7d69f0d4942a06c344c6f2f"
+    },
+    "molsysviewer_molsysmt/_physchem.py": {
+      "local": "c4f7a66c8397ba70970d0235685514c315f9e121",
+      "public": "c4f7a66c8397ba70970d0235685514c315f9e121"
+    },
+    "molsysviewer_molsysmt/_structure.py": {
+      "local": "fe29c713dc8cf634d989ba266ce2ea8122f76fb9",
+      "public": "fe29c713dc8cf634d989ba266ce2ea8122f76fb9"
+    },
+    "molsysviewer_molsysmt/_task_panel.py": {
+      "local": "4de2808aa9af2a1ed5e8f8127ab65b9091b7b8a7",
+      "public": "4de2808aa9af2a1ed5e8f8127ab65b9091b7b8a7"
+    },
+    "molsysviewer_molsysmt/_topology.py": {
+      "local": "9ebcbcc1f8aafb172abc7811546b5ee9704662a8",
+      "public": "9ebcbcc1f8aafb172abc7811546b5ee9704662a8"
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "local": "0abbc8a47ef98f219f941227e226ec129c5ecaac",
+      "public": "0abbc8a47ef98f219f941227e226ec129c5ecaac"
+    },
+    "tests/documentation/test_center_examples.py": {
+      "local": "6b098f449c386b26e31b0419e6a1270d5e601d8a",
+      "public": "6b098f449c386b26e31b0419e6a1270d5e601d8a"
+    },
+    "tests/form/nglview_NGLWidget/test_conversion_boundary.py": {
+      "local": "789cd6b562a65492fcd08cd24423d408e5b9234f",
+      "public": "789cd6b562a65492fcd08cd24423d408e5b9234f"
+    },
+    "tests/form/pytraj_Trajectory/test_runtime_provider_contract.py": {
+      "local": "d1c48e84462a5c648d8170a06982cb52fb0d57ac",
+      "public": "d1c48e84462a5c648d8170a06982cb52fb0d57ac"
+    },
+    "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": {
+      "local": "04816bfa59cdff62ff6b4903942e6d791329dc2b",
+      "public": "04816bfa59cdff62ff6b4903942e6d791329dc2b"
+    },
+    "tests/molsysviewer_molsysmt/center_error_jupyter.mjs": {
+      "local": "9eb2b1b1ec51c012175ffae291161f50e69ea326",
+      "public": "9eb2b1b1ec51c012175ffae291161f50e69ea326"
+    },
+    "tests/molsysviewer_molsysmt/center_panel_jupyter.mjs": {
+      "local": "65a4426f6237d4370880279fc0dcbab6ee9d83f6",
+      "public": "65a4426f6237d4370880279fc0dcbab6ee9d83f6"
+    },
+    "tests/molsysviewer_molsysmt/chemistry_panel_jupyter.mjs": {
+      "local": "3a5598068efc27d5b049e060e894bfddfbae3bfd",
+      "public": "3a5598068efc27d5b049e060e894bfddfbae3bfd"
+    },
+    "tests/molsysviewer_molsysmt/chemistry_pending_jupyter.mjs": {
+      "local": "29b7245f36e91a78223bf0eb944e0d43deac3453",
+      "public": "29b7245f36e91a78223bf0eb944e0d43deac3453"
+    },
+    "tests/molsysviewer_molsysmt/chemistry_preparation_jupyter.mjs": {
+      "local": "bebf1e13ae06cdbdbb05677967a6831804b1d13f",
+      "public": "bebf1e13ae06cdbdbb05677967a6831804b1d13f"
+    },
+    "tests/molsysviewer_molsysmt/fit_panel_jupyter.mjs": {
+      "local": "5960bc494be29a4ff740b0b5ab0bfb02ca81dd72",
+      "public": "5960bc494be29a4ff740b0b5ab0bfb02ca81dd72"
+    },
+    "tests/molsysviewer_molsysmt/geometry_panel_jupyter.mjs": {
+      "local": "9e3f9f31e571d6e197cab371cde686fb96590757",
+      "public": "9e3f9f31e571d6e197cab371cde686fb96590757"
+    },
+    "tests/molsysviewer_molsysmt/jupyter_panel_controls.mjs": {
+      "local": "0b78be36ca0b1a70dc0d98059eeeee10b3043a9e",
+      "public": "0b78be36ca0b1a70dc0d98059eeeee10b3043a9e"
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "local": "1a5af43a64edfe654a453dd75bfc822c6a44836f",
+      "public": "1a5af43a64edfe654a453dd75bfc822c6a44836f"
+    },
+    "tests/molsysviewer_molsysmt/periodic_panel_jupyter.mjs": {
+      "local": "82b32166bfb0cea06e4b6d83f61a52b33e495ff9",
+      "public": "82b32166bfb0cea06e4b6d83f61a52b33e495ff9"
+    },
+    "tests/molsysviewer_molsysmt/result_panel_jupyter.mjs": {
+      "local": "e8724b65ffe570e5e3ba80a6a68bc92ce7ee4a77",
+      "public": "e8724b65ffe570e5e3ba80a6a68bc92ce7ee4a77"
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "local": "9e57519f5c6f20ef45fed98c4bf85ccafddc5cbd",
+      "public": "9e57519f5c6f20ef45fed98c4bf85ccafddc5cbd"
+    },
+    "tests/molsysviewer_molsysmt/test_analysis_panel.py": {
+      "local": "48a0b3d5967a4c3f20db24640818a2dddc9495c3",
+      "public": "48a0b3d5967a4c3f20db24640818a2dddc9495c3"
+    },
+    "tests/molsysviewer_molsysmt/test_axis_angle_rotation_tools.py": {
+      "local": "30b890f370fac09602b59a28c97c5bd2b85fcccb",
+      "public": "30b890f370fac09602b59a28c97c5bd2b85fcccb"
+    },
+    "tests/molsysviewer_molsysmt/test_build_audit_tools.py": {
+      "local": "11d650c369c1e5d61f6d5253eb4589d9538d19e8",
+      "public": "11d650c369c1e5d61f6d5253eb4589d9538d19e8"
+    },
+    "tests/molsysviewer_molsysmt/test_chemistry_panel.py": {
+      "local": "375928c48a45ca7ed0f19a0e88191c7028344a67",
+      "public": "375928c48a45ca7ed0f19a0e88191c7028344a67"
+    },
+    "tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py": {
+      "local": "b34f9fcba01a92ca1de4a7374f073ce6782cda14",
+      "public": "b34f9fcba01a92ca1de4a7374f073ce6782cda14"
+    },
+    "tests/molsysviewer_molsysmt/test_geometry_panel.py": {
+      "local": "e3aeafe8ad69ca4f72c4478797b3c7fa725e0902",
+      "public": "e3aeafe8ad69ca4f72c4478797b3c7fa725e0902"
+    },
+    "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py": {
+      "local": "8f68fb56ad360474a0c601f9fb2a7cf582d6632e",
+      "public": "8f68fb56ad360474a0c601f9fb2a7cf582d6632e"
+    },
+    "tests/molsysviewer_molsysmt/test_periodic_panel.py": {
+      "local": "a919aca0daecc4314ba7f1f420e317f4a4ee7379",
+      "public": "a919aca0daecc4314ba7f1f420e317f4a4ee7379"
+    },
+    "tests/molsysviewer_molsysmt/test_physchem_remainder_tools.py": {
+      "local": "e1aa9c2e29dae82ebda6c942712c47ca1c64aabe",
+      "public": "e1aa9c2e29dae82ebda6c942712c47ca1c64aabe"
+    },
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": {
+      "local": "1f894a4bb6750067c927e6dde4cb584fdd289160",
+      "public": "1f894a4bb6750067c927e6dde4cb584fdd289160"
+    },
+    "tests/molsysviewer_molsysmt/test_protonation_tools.py": {
+      "local": "aa61254ab39dbfc53ea7bc58ef7cfd6d3d610ed0",
+      "public": "aa61254ab39dbfc53ea7bc58ef7cfd6d3d610ed0"
+    },
+    "tests/molsysviewer_molsysmt/test_scientific_session.py": {
+      "local": "f9f35613dbede36c63cd1fd2744a84bf22ecd219",
+      "public": "f9f35613dbede36c63cd1fd2744a84bf22ecd219"
+    },
+    "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py": {
+      "local": "b99833037cf9d9c36c30da165fb86433f0125d19",
+      "public": "b99833037cf9d9c36c30da165fb86433f0125d19"
+    },
+    "tests/molsysviewer_molsysmt/test_structure_transform_tools.py": {
+      "local": "e9d26dc9ab8962ef2cac9846f20f78ca77ad1bac",
+      "public": "e9d26dc9ab8962ef2cac9846f20f78ca77ad1bac"
+    },
+    "tests/molsysviewer_molsysmt/test_system_panel.py": {
+      "local": "808d2a40c562b8dcb61177c1490cc8f3d82d51d5",
+      "public": "808d2a40c562b8dcb61177c1490cc8f3d82d51d5"
+    },
+    "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py": {
+      "local": "5d83bc3aedecf2e69e8cc71916cc368e7be85054",
+      "public": "5d83bc3aedecf2e69e8cc71916cc368e7be85054"
+    },
+    "tests/molsysviewer_molsysmt/test_topology_tools.py": {
+      "local": "0399f4ce9147a0d723db7d1cbef4cd2355c095db",
+      "public": "0399f4ce9147a0d723db7d1cbef4cd2355c095db"
+    },
+    "tests/scientific_truth/evidence/capabilities/structure.json": {
+      "local": "6da1c9d0761d74958c33698f3362c03b9d18bee7",
+      "public": "6da1c9d0761d74958c33698f3362c03b9d18bee7"
+    },
+    "tests/scientific_truth/evidence/registry.json": {
+      "local": "6d35ad78f835226d2757b78e5c84d20f01e16179",
+      "public": "6d35ad78f835226d2757b78e5c84d20f01e16179"
+    },
+    "tests/scientific_truth/structure/test_axis_angle_rotation.py": {
+      "local": "eb6a766c988909a64d920b424a58987489b0594e",
+      "public": "eb6a766c988909a64d920b424a58987489b0594e"
+    },
+    "tests/structure/test_get_rotation_matrix_from_axis_angle.py": {
+      "local": "ac158e40290ac349cdb2f3e95a1125fb7f361d7a",
+      "public": "ac158e40290ac349cdb2f3e95a1125fb7f361d7a"
+    },
+    "tests/structure/test_transform_input_ownership.py": {
+      "local": "5f8648a8912de591e6485f3a259f6ed66d26aa20",
+      "public": "5f8648a8912de591e6485f3a259f6ed66d26aa20"
+    }
+  },
+  "archive_paths": {
+    "devguide/archive/resolved_bugs/analysis_jupyter_wrapper_expects_obsolete_step_count.md": {
+      "local": "fcce8fb9381324ac08ba1d38cb929b521dfa8f48",
+      "public": "fcce8fb9381324ac08ba1d38cb929b521dfa8f48"
+    },
+    "devguide/archive/resolved_bugs/antiviral_geometry_example_selects_an_empty_inhibitor_population.md": {
+      "local": "e17f72e5054455ae9dea8f5c5525cfd91da6e5fb",
+      "public": "e17f72e5054455ae9dea8f5c5525cfd91da6e5fb"
+    },
+    "devguide/archive/resolved_bugs/course_contributor_guide_names_obsolete_validator_entrypoint.md": {
+      "local": "90eb12aed982c7e9b37414fdd0443f30279318b8",
+      "public": "90eb12aed982c7e9b37414fdd0443f30279318b8"
+    },
+    "devguide/archive/resolved_bugs/independent_transforms_modify_source_xyz_coordinates.md": {
+      "local": "967c7792d2de51c1775a7dfa4c024865a282f8e3",
+      "public": "967c7792d2de51c1775a7dfa4c024865a282f8e3"
+    },
+    "devguide/archive/resolved_proposals/public_axis_angle_rotation_constructor.md": {
+      "local": "ddbbbe44404840fd2e54a90d35597fab0d72e362",
+      "public": "ddbbbe44404840fd2e54a90d35597fab0d72e362"
+    },
+    "devguide/pending_bugs/README.md": {
+      "local": "e16719737385bd01b40d5298f7c2493327232357",
+      "public": "e16719737385bd01b40d5298f7c2493327232357"
+    },
+    "devguide/pending_bugs/docs/README.md": {
+      "local": "a906946fc2836a41c253157992d618453dd58d6f",
+      "public": "a906946fc2836a41c253157992d618453dd58d6f"
+    },
+    "devguide/pending_bugs/jupyter_popup_addon_navigation_identity.md": {
+      "local": "b7956d895d4b444746b51e10f379aa441c3c0d7d",
+      "public": "b7956d895d4b444746b51e10f379aa441c3c0d7d"
+    },
+    "devguide/pending_proposals/README.md": {
+      "local": "ae6db5c3f3e86a9e69132ac2ef27a6ff2d9504bd",
+      "public": "ae6db5c3f3e86a9e69132ac2ef27a6ff2d9504bd"
+    }
+  },
+  "api_trees_complete": true,
+  "verified_closed_issues": [
+    {
+      "number": 602,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T16:39:11Z",
+      "html_url": "https://github.com/uibcdf/molsysmt/issues/602"
+    },
+    {
+      "number": 632,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T16:39:01Z",
+      "html_url": "https://github.com/uibcdf/molsysmt/issues/632"
+    },
+    {
+      "number": 633,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T16:39:03Z",
+      "html_url": "https://github.com/uibcdf/molsysmt/issues/633"
+    },
+    {
+      "number": 634,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T16:39:06Z",
+      "html_url": "https://github.com/uibcdf/molsysmt/issues/634"
+    },
+    {
+      "number": 637,
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T16:39:09Z",
+      "html_url": "https://github.com/uibcdf/molsysmt/issues/637"
+    }
+  ],
+  "audit_related_closed_count": 24,
+  "accepted_plan_progress_percent": 40,
+  "limits": [
+    "Source and archived-record delivery only; actual host evidence remains exact Viewer 25061d9e9.",
+    "#635 newer-host receiving, #638 coordinate representation and #636 scientific source certificate remain open.",
+    "No tag, Release, candidate, installed-pair or human/Qt approval is selected."
+  ]
+}

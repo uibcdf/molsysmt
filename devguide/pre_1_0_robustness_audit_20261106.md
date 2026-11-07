@@ -5,25 +5,24 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-**Latest checkpoint — 2026-11-07:** #632 is committed in isolated receiving
-`3f66f5931`. #602's constructor and expert mirror, #633's borrowed-coordinate
-ownership correction, #634's explicit peptidic inhibitor example and #637's
-single course-checker route are locally qualified and awaiting source delivery.
-The [combined receipt](../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json)
-retains 7,764 integrated cases, 76 minimum-provider cases, 107 scientific cases
-across 68 nodes, all five executed notebooks and 14 passing fast gates. These
-scopes overlap. The scientific certificate is development-only and explicitly
-ineligible for release; HTML retains six title-underline warnings. Original
-failed executions remain recorded. Public audit closures remain **19** and
-accepted progress **40%** until delivery; no candidate is selected.
+**Latest checkpoint — 2026-11-07:** source `684a5b0cb` and archive
+`2499dc53b` are delivered on main. Independent complete public trees match all
+changed paths; #602/#632/#633/#634/#637 are verified closed. The
+[delivery record](../devtools/data/rotation_source_delivery_602_632_633_634_637_20261107.json)
+and [receiving receipt](../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json)
+retain separate publication/test evidence. Receiving includes 7,764 integrated,
+76 minimum-provider and 107 scientific cases across 68 nodes, all five executed
+notebooks and 14 passing fast gates. Scopes overlap; failed attempts, six HTML
+warnings and the development-only ineligible certificate are retained. Verified
+audit-related closures are **24**; accepted progress remains **40%**.
 
-New admitted correctness work is ordered **#638 coordinate rank/precision**, then
-**#636 untracked executable source in scientific certification**. Separately,
-receive #635's endpoint-aware panel guards on the newer exact Viewer source
-from published PR head `42f5ed3bc`; the current results qualify Viewer `25061d9e9` only. The complete
-board checkpoint has 570 issues, 105 open, through #638. Remaining #421 graphical,
-Jupyter/navigation, installed and human acceptance and #524 public-host/installed
-closure stay explicit; another passing local count does not complete those exits.
+Next, correct #638 coordinate rank/precision, then #636 untracked executable
+source in scientific certification. Receive published #543 head `42f5ed3bc`
+and #635's endpoint guards on the actual newer Viewer separately. Current
+results qualify exact Viewer `25061d9e9` only; remaining #421 graphical,
+Jupyter/navigation, installed/human and #524 public-host/installed exits are not
+complete. No candidate is selected. The older checkpoints below are dated
+history, superseded by this latest delivery where stated.
 
 **Current execution:** phases 1 and 2 are published/closed. Phase-two source
 `3eb720444b97f77f9325acf52f55114ece0b5f9e` corrects #605/#607/#606/#608/#619;
@@ -1002,6 +1001,8 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-07 | Four implemented GUI scenarios received | First campaign: three passes (Preparation6/Pending8/Periodic8), Analysis failed before browser at server readiness. Diagnostic Analysis completed nine steps before a root auxiliary-build error; exact-build correction plus preflight permits all twelve Analysis steps and the #632 wrapper to pass. Portable receipt retains all three executions and failed outcomes. | Finish source delivery/closeout of #632, then #602 and remaining agreed graphical families/full Jupyter/conformational receiving. Original readiness and #615 uncertainty remain; progress 40%, closed issues19. |
 
 | 2026-11-07 | Rotation/documentation block locally qualified | #602 native/expert constructor and #633/#634/#637 corrections pass 7,764 integrated cases; minimum providers 76, scientific 107/68 nodes, five notebooks across two campaigns and fast gates 14/14. Scopes overlap; scientific certificate explicitly ineligible; original failures and six HTML warnings retained. | Deliver the combined source and close only verified owner issues. Then correct #638 and #636 and receive #635 on its actual newer host. Progress 40%, public audit closures 19; no candidate or installed/human closure. |
+
+| 2026-11-07 | Rotation and guard block delivered | Main source `684a5b0cb` and archive `2499dc53b` match complete public API trees. #602/#632/#633/#634/#637 are verified closed, taking audit-related closures to 24; progress remains 40%. | Correct #638 and #636, receive #635/new exact host, and retain all broader graphical/installed/human/final-candidate exits. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
