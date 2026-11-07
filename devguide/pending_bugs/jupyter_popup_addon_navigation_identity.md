@@ -15,6 +15,21 @@ supersedes: []
 
 # Popup bootstrap navigation identity
 
+## Isolated owner receiving review — 2026-11-07
+
+The complete 5,009-case Python selection on isolated merge `653ed8e0` does not
+discover the explicit Jupyter guard. A read-only review finds its Analysis
+wrapper still expecting seven completed steps, while the current driver also
+performs five later row-selection/live-measure/ensemble steps. The driver records
+all twelve completed names. This is a stale wrapper expectation, not an observed
+graphical or scientific failure. The wrapper now requires the complete ordered
+twelve-name sequence rather than an anonymous count, tracked separately in
+[the #632 record](analysis_jupyter_wrapper_expects_obsolete_step_count.md);
+no driver assertion, title,
+deadline or numerical oracle is removed. Actual Jupyter receiving of this
+combined source and Viewer `25061d9e9` remains due. The original #614 and #615
+failures and historical campaigns below are retained.
+
 ## What
 
 Analysis and published Chemistry-preparation receiving look for the selectable

@@ -1,0 +1,459 @@
+{
+  "schema_version": "molsysmt.bound_tools_owner_jupyter_receiving@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "guard_defect": "uibcdf/molsysmt#632",
+  "source_merge": "653ed8e0b48020a6b6ccf7aeeb186290784eee71",
+  "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "asset_provisioning_original": {
+    "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+    "viewer_bundle": {
+      "path": "molsysviewer/viewer.js",
+      "sha256": "920a9996742c3a40e863cdf0497b347cfe470c37414d4e329d376432a033c406"
+    },
+    "shared_tooling_identity": {
+      "package.json": "e268203616626efae48f49a1d9f4301fedc671fda2c5fc91f926057b2e411afc",
+      "package-lock.json": "d20e7b34bbc9901925e8a2c7d4109794c21ec4ee911245d402dcbe36a5c0a3fd",
+      "playwright": "1.57.0",
+      "esbuild": "0.27.0"
+    },
+    "actions": [
+      "Linked existing verified-lock node_modules read-only for this snapshot; sibling unchanged."
+    ],
+    "build": {
+      "command": [
+        "<existing-esbuild>",
+        "tests/e2e/harness.ts",
+        "--bundle",
+        "--format=esm",
+        "--platform=browser",
+        "--outfile=tests/e2e/harness.bundle.js"
+      ],
+      "native_exit_observed": 0,
+      "stdout": "",
+      "stderr": "\n  tests/e2e/harness.bundle.js  7.3mb \u26a0\ufe0f\n\n\u26a1 Done in 600ms\n"
+    },
+    "harness_bundle_sha256": "7d1e4f6d437b18d85da299586c271579516fda20c1db18d517e76eec85c09ee1",
+    "scope": "Cache-only exact-source harness compilation; no dependency installation, runtime bundle rebuilding, sibling edits or graphical acceptance."
+  },
+  "asset_correction": {
+    "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+    "owner_build_script": "npx esbuild tests/e2e/harness.ts --bundle --format=iife --global-name=Harness --outfile=tests/e2e/harness.bundle.js",
+    "actual_command": [
+      "<existing-esbuild>",
+      "tests/e2e/harness.ts",
+      "--bundle",
+      "--format=iife",
+      "--global-name=Harness",
+      "--outfile=tests/e2e/harness.bundle.js"
+    ],
+    "build_native_exit_observed": 0,
+    "previous_incorrect_bundle_sha256": "7d1e4f6d437b18d85da299586c271579516fda20c1db18d517e76eec85c09ee1",
+    "corrected_bundle_sha256": "d50a2d019a9998e74fe5342866122e0c431c667978a34209a1d2e974f8d03bcf",
+    "browser_asset_preflight": {
+      "native_exit_observed": 0,
+      "stdout": "{\"global\":\"object\",\"inspectMeasurementGeometry\":\"function\"}\n",
+      "stderr": ""
+    },
+    "cause": "Root initially selected esm instead of the owner-declared iife/global-name=Harness build. The Analysis driver correctly failed at the missing helper. This is retained orchestration evidence, not a Viewer product defect.",
+    "scope": "Exact owner-declared harness build plus standalone public-function-presence execution, not molecular geometry or full Jupyter acceptance."
+  },
+  "campaigns": [
+    {
+      "name": "jupyter-25061-01",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_chemistry_preparation_and_reviewed_replacement",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_pending_chemistry_readers",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_periodic_geometry",
+          "--basetemp=<isolated-owner>/.pytest_cache/receiving-543/jupyter-25061-01/pytest-tmp",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/jupyter-25061-01/result.xml"
+        ],
+        "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+        "owner_isolated_merge": "653ed8e0b48020a6b6ccf7aeeb186290784eee71",
+        "modified_guard_sha256": "d93ab8ad4bf44fc9ed4be1e8a5430decdeff7e337f5985819e193cc49a2304bf",
+        "scope": "Explicit actual Jupyter/Python/Mol*/popup receiving; four scenarios serial to avoid competing kernels/browsers. Not installed/human/Qt acceptance.",
+        "started": 1794031760.7485158,
+        "native_exit_observed": 1,
+        "elapsed_seconds": 328.024
+      },
+      "junit": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "4",
+        "time": "325.814",
+        "timestamp": "2026-11-07T00:09:22.527967-06:00"
+      },
+      "results": [
+        {
+          "node_directory": "test_actual_jupyter_analysis_d0",
+          "credentials_removed": true
+        },
+        {
+          "node_directory": "test_actual_jupyter_chemistry_0",
+          "full-result.json": {
+            "checks": [
+              "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+              "Present the independent result in the notebook and keep it while changing tasks",
+              "Review Back preserves the original TcTIM and its chemical domain",
+              "Apply the reviewed result and render its independent copy in the original canvas",
+              "Inspect the adopted molecular data in the canvas popup and detached Studio",
+              "Python verifies one replacement, original preservation and independent result coordinates"
+            ],
+            "errors": [
+              {
+                "stage": "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Review Back preserves the original TcTIM and its chemical domain",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Python verifies one replacement, original preservation and independent result coordinates",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              }
+            ],
+            "baseline_errors": [
+              {
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              }
+            ],
+            "scope": "Actual TcTIM/Jupyter/Mol*/AnyWidget preparation, independent notebook result, heavy no-op 3983 atoms, hydrogen generation 7868 atoms, explicit losses, Back, conditional replacement and popup inspection. Source overlay; not human Qt or installed artifact qualification."
+          },
+          "full-result.json_sha256": "69a8086daba65bcbde62f44fbeeb1ee0840c522d6309b654b73b15faa8b48347",
+          "credentials_removed": true
+        },
+        {
+          "node_directory": "test_actual_jupyter_pending_ch0",
+          "full-result.json": {
+            "checks": [
+              "Mount actual Chemistry in the embedded TcTIM view",
+              "Inspect and page current primary with real keys while embedded scene stays inert",
+              "Restore the same mounted panel after updating and open the canvas popup",
+              "Inspect current primary from the paused live canvas popup",
+              "Restore canvas popup and mount Chemistry in detached Studio",
+              "Inspect and page current primary in detached paused Studio",
+              "Restore detached Studio without recreating its panel and close popups",
+              "Verify native molecular data revisions scene regions and result ownership"
+            ],
+            "errors": [
+              {
+                "stage": "Mount actual Chemistry in the embedded TcTIM view",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Inspect and page current primary with real keys while embedded scene stays inert",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Inspect and page current primary with real keys while embedded scene stays inert",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Inspect current primary from the paused live canvas popup",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Inspect current primary from the paused live canvas popup",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Inspect and page current primary in detached paused Studio",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Inspect and page current primary in detached paused Studio",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Verify native molecular data revisions scene regions and result ownership",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              }
+            ],
+            "baseline_errors": [
+              {
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              }
+            ],
+            "scope": "Actual Jupyter/AnyWidget/Mol*/canvas popup/detached Studio: pending native readers, real pointer/keyboard inputs, bounded pages, stale-scene sources disabled, exact reader DOM restored; three deliberate box edits only. Not human Qt acceptance."
+          },
+          "full-result.json_sha256": "897763850ccd2296ead4b1263f904dbefa5090f36e413c4ba8c99ded4621b17f",
+          "credentials_removed": true
+        },
+        {
+          "node_directory": "test_actual_jupyter_periodic_g0",
+          "full-result.json": {
+            "checks": [
+              "Render the source through the real notebook presentation surface",
+              "Review compact centered-box wrapping and Back without changing Mol* positions",
+              "Apply native compact wrapping and verify its actual centered image",
+              "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+              "Review per-atom temporal unwrapping and create an independent whole-system result",
+              "The periodic result keeps its View while moving between notebook and window",
+              "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+              "Python verifies all native arrays and drives a second structure of the rendered result"
+            ],
+            "errors": [
+              {
+                "stage": "Render the source through the real notebook presentation surface",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Python verifies all native arrays and drives a second structure of the rendered result",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              }
+            ],
+            "baseline_errors": [
+              {
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              }
+            ],
+            "scope": "Real local JupyterLab/ipykernel/AnyWidget, native compact/nearest wrapping and fixed-cell temporal unwrapping with independent lattice oracles, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification."
+          },
+          "full-result.json_sha256": "bc0f6477b77b59478b11b813d9292b58241657ea88dd5822ccd4756291110c87",
+          "credentials_removed": true
+        }
+      ],
+      "artifact_sha256": {
+        "invocation.json": "b711b68dc946952ca57f201d8a3cb01388981b54043fd6cea827893eb29e4464",
+        "result.xml": "fb39d2a60f9a53e181ab0b4e84361589db0c75361c05186c464a22068a297ea4",
+        "pytest.stdout.log": "e44a9b98b4e536e92dfcad5a3f4a8e74a5c893956514d4b6a3376fa121f9da7e",
+        "pytest.stderr.log": "765f436adcc1b70b77c1ce20dbf4759d9f6882f0a00b46092b66922e86e3423b"
+      }
+    },
+    {
+      "name": "jupyter-analysis-25061-diagnostic-02",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "--basetemp=<isolated-owner>/.pytest_cache/receiving-543/jupyter-analysis-25061-diagnostic-02/pytest-tmp",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/jupyter-analysis-25061-diagnostic-02/result.xml"
+        ],
+        "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+        "owner_isolated_merge": "653ed8e0b48020a6b6ccf7aeeb186290784eee71",
+        "receiving_helper_sha256": "8c326b22fc1f8eaa6fcec1730009e76b8b81f7bb0eeadb5bb20dd0586e708d65",
+        "guard_sha256": "d93ab8ad4bf44fc9ed4be1e8a5430decdeff7e337f5985819e193cc49a2304bf",
+        "scope": "One diagnostic Analysis receiving. Same readiness/browser/numerical/popup deadlines and exact12-step assertions; only opt-in server-startup stack/timing instrumentation added. Original 1failed/3passed campaign retained; no causal repair is implied by any later pass.",
+        "started": 1794032165.4658928,
+        "native_exit_observed": 1,
+        "elapsed_seconds": 53.555
+      },
+      "junit": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "1",
+        "skipped": "0",
+        "tests": "1",
+        "time": "51.515",
+        "timestamp": "2026-11-07T00:16:07.129440-06:00"
+      },
+      "results": [
+        {
+          "node_directory": "test_actual_jupyter_analysis_d0",
+          "full-failure.json": {
+            "stage": "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+            "error": "Error: page.waitForFunction: TypeError: Cannot read properties of undefined (reading 'inspectMeasurementGeometry')\n    at eval (eval at predicate (eval at evaluate (:290:30)), <anonymous>:2:87)\n    at predicate (eval at evaluate (:290:30), <anonymous>:7:23)\n    at next (eval at evaluate (:290:30), <anonymous>:29:29)\n    at eval (eval at evaluate (:290:30), <anonymous>:42:9)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+            "checks": [
+              "Load TcTIM and open Analysis without calculating implicitly",
+              "Calculate explicit atom populations and verify native distances against coordinates",
+              "Inspect native minimum and maximum without changing molecular data",
+              "Inspect evaluated-empty neighbors and explicit nearest-count results",
+              "Page through TcTIM source indices without transferring the complete result",
+              "Use independent Analysis panels in canvas popup and detached Studio",
+              "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+              "Select participants and focus the visible structure without losing the row acknowledgement",
+              "Mass-weighted observations retain participant actions and explain the disabled live conversion"
+            ],
+            "errors": [
+              {
+                "stage": "Load TcTIM and open Analysis without calculating implicitly",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+                "error": "SyntaxError: Failed to execute 'appendChild' on 'Node': Unexpected token 'export'",
+                "stack": "SyntaxError: Failed to execute 'appendChild' on 'Node': Unexpected token 'export'\n    at addScriptContent (eval at evaluate (:290:30), <anonymous>:7:21)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+              },
+              {
+                "stage": "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+                "error": "TypeError: Cannot read properties of undefined (reading 'inspectMeasurementGeometry')",
+                "stack": "TypeError: Cannot read properties of undefined (reading 'inspectMeasurementGeometry')\n    at eval (eval at predicate (eval at evaluate (:290:30)), <anonymous>:2:87)\n    at predicate (eval at evaluate (:290:30), <anonymous>:7:23)\n    at next (eval at evaluate (:290:30), <anonymous>:29:29)\n    at eval (eval at evaluate (:290:30), <anonymous>:42:9)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+              }
+            ]
+          },
+          "full-failure.json_sha256": "06cc33018a27490996b6fb1982a06b0efe48b06816c9b590ef403d139e77cdc9",
+          "server-startup.json": {
+            "scope": "Jupyter server readiness, before any browser or molecular cell",
+            "diagnostic_trace_after_seconds": 15,
+            "ready": true,
+            "elapsed_seconds": 2.519219258101657
+          },
+          "server-startup.json_sha256": "0fe4dc9f994562fb22f0fc28215d6632820b2436ec394ed34bf4edba307c4b55",
+          "credentials_removed": true
+        }
+      ],
+      "artifact_sha256": {
+        "invocation.json": "9f681deeacc9c7e8e54f9b5e0c8b0ee2772918721269802cfe3fd1b432a60eb3",
+        "result.xml": "983ed2426791554a85779e70d3856bedaf12a082f31c7638b1ffabbdc3f1aa6e",
+        "pytest.stdout.log": "a7e40faaa157748ba74bb571c0fb8998665e76ddce2ed984dc89ef7b4a92085f",
+        "pytest.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "jupyter-analysis-25061-correct-harness-03",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "--basetemp=<isolated-owner>/.pytest_cache/receiving-543/jupyter-analysis-25061-correct-harness-03/pytest-tmp",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/jupyter-analysis-25061-correct-harness-03/result.xml"
+        ],
+        "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+        "owner_isolated_merge": "653ed8e0b48020a6b6ccf7aeeb186290784eee71",
+        "receiving_helper_sha256": "8c326b22fc1f8eaa6fcec1730009e76b8b81f7bb0eeadb5bb20dd0586e708d65",
+        "guard_sha256": "d93ab8ad4bf44fc9ed4be1e8a5430decdeff7e337f5985819e193cc49a2304bf",
+        "harness_bundle_sha256": "d50a2d019a9998e74fe5342866122e0c431c667978a34209a1d2e974f8d03bcf",
+        "scope": "Analysis after correction to exact owner-declared harness build. Same deadlines and exact12-step assertions. Original1failed/3passed campaign and subsequent9-step diagnostic failure retained. Not installed/human/Qt acceptance.",
+        "started": 1794032448.9560971,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 79.964
+      },
+      "junit": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "77.943",
+        "timestamp": "2026-11-07T00:20:50.681865-06:00"
+      },
+      "results": [
+        {
+          "node_directory": "test_actual_jupyter_analysis_d0",
+          "full-result.json": {
+            "checks": [
+              "Load TcTIM and open Analysis without calculating implicitly",
+              "Calculate explicit atom populations and verify native distances against coordinates",
+              "Inspect native minimum and maximum without changing molecular data",
+              "Inspect evaluated-empty neighbors and explicit nearest-count results",
+              "Page through TcTIM source indices without transferring the complete result",
+              "Use independent Analysis panels in canvas popup and detached Studio",
+              "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+              "Select participants and focus the visible structure without losing the row acknowledgement",
+              "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+              "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+              "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+              "A repeated-population live Measure uses the visible structure and follows a real ensemble"
+            ],
+            "errors": [
+              {
+                "stage": "Load TcTIM and open Analysis without calculating implicitly",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              },
+              {
+                "stage": "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              }
+            ],
+            "baseline_errors": [
+              {
+                "error": "Error: No active debugger session",
+                "stack": "Error: No active debugger session\n    at h.displayModules (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (<loopback-origin>/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+              }
+            ],
+            "scope": "Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native Analysis queries, bounded source-index pages, deliberately selected/focused participants and live Measures from source and both popups. Independent numerical, actual geometry/text-anchor/label and molecular-invariance checks, including duplicate participants, frozen rows versus visible structures and mass-weighted refusal. Not human Qt or installed qualification."
+          },
+          "full-result.json_sha256": "a18f4f1736017746c4435a280a3f96bc96e4f080e2f582caf3946506a99be1a2",
+          "server-startup.json": {
+            "scope": "Jupyter server readiness, before any browser or molecular cell",
+            "diagnostic_trace_after_seconds": 15,
+            "ready": true,
+            "elapsed_seconds": 2.533414534991607
+          },
+          "server-startup.json_sha256": "8810de8a763ba11a7e9fea6b54b05e4d770b6f59463acebeba0fd14bcc62dbc3",
+          "credentials_removed": true
+        }
+      ],
+      "artifact_sha256": {
+        "invocation.json": "c879eaf5758bbc521044c6fd28cfe900630a6d83183bdc489345be5bc33bc02a",
+        "result.xml": "32551298371e495e118f34e51a7bcefd980baca2046001c7f8574c9165bf7dcc",
+        "pytest.stdout.log": "b6204029a408a98bd58ba559dd7da1d32490905628e1b3e4cfa4db40ead92406",
+        "pytest.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "current_guard_sha256": "d93ab8ad4bf44fc9ed4be1e8a5430decdeff7e337f5985819e193cc49a2304bf",
+  "current_driver_sha256": "8c326b22fc1f8eaa6fcec1730009e76b8b81f7bb0eeadb5bb20dd0586e708d65",
+  "disposition": [
+    "First campaign: three passes (Preparation6, Pending8, Periodic8) and Analysis failure before browser at server readiness; not a four-case pass.",
+    "Diagnostic Analysis: server ready in2.519seconds,9complete steps, then failed on missing window.Harness because root had built the auxiliary as ESM instead of the declared IIFE global. This is retained orchestration error, not a Viewer product defect.",
+    "Corrected exact owner build and required-global browser preflight pass; Analysis then passes its explicit wrapper and all12ordered steps (native0).",
+    "The original7-step Python expectation is now replaced by12explicit ordered names. No browser/numerical/title/popup/lifetime assertion or deadline was removed.",
+    "Server timing/stack instrumentation is test-only, opt-in for the diagnostic and corrected Analysis runs; scientific runtime source is unchanged.",
+    "This is three passes plus one separate successful receiving, with the original two failed Analysis attempts retained. Page errors and matched plain-Jupyter controls are preserved; no zero-page-error claim is made.",
+    "No causal closure of the first readiness observation or original first-canvas #615 is established. Other accepted #421 workflows, host #314 navigation, installed/candidate/human/Qt qualification remain separate."
+  ],
+  "main_integrated": false,
+  "progress_percent": 40
+}

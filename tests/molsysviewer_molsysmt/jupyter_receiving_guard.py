@@ -29,7 +29,20 @@ def test_actual_jupyter_analysis_distance_family(tmp_path):
         command.extend(["--provider-root", provider])
     subprocess.run(command, check=True, timeout=300)
     result = json.loads((output / "full-result.json").read_text())
-    assert len(result["checks"]) == 7
+    assert result["checks"] == [
+        "Load TcTIM and open Analysis without calculating implicitly",
+        "Calculate explicit atom populations and verify native distances against coordinates",
+        "Inspect native minimum and maximum without changing molecular data",
+        "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "Page through TcTIM source indices without transferring the complete result",
+        "Use independent Analysis panels in canvas popup and detached Studio",
+        "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+        "Select participants and focus the visible structure without losing the row acknowledgement",
+        "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+        "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+        "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+        "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+    ]
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
 

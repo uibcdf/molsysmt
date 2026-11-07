@@ -14,17 +14,37 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
-## Isolated owner reconciliation — 2026-11-06
+## Isolated owner reconciliation — 2026-11-07
 
-Owner `030c201a5` and contribution `8ab2f5474` are being reconciled without a
-commit or main integration. Native #605/#606/#607/#608/#613/#616 are resolved in
-the owner source; their archived records remain authoritative. The incoming
-addon restrictions and tests are unchanged until combined receiving establishes
-their next disposition. The five controlled workflows and inventory retain
-owner Viewer `42234de839ed047016f8f241ea5eb717cfeb07be`; the historical receiving
-below retains its own host identities. The newer published Viewer #314 source
-correction still needs the separate exact-host preflight and consumer receiving.
-No pytest, hosted gate, installed or graphical acceptance is claimed here.
+Isolated merge `653ed8e0b48020a6b6ccf7aeeb186290784eee71` combines owner
+`030c201a5` and contribution `8ab2f5474`. Native source, owner tests outside the
+addon and archived #605/#606/#607/#608/#613/#616 resolutions are preserved;
+the contribution's addon runtime and guards remain unchanged. This is committed
+source receiving on a separate branch, not main delivery or candidate selection.
+
+The exact published Viewer snapshot
+`25061d9e99baf07fa0dcb4021897958a226f0152` passes import/API preflight and the
+complete Python selection: **5,009 passed, zero failures/errors/skips** (4,974
+addon cases and 35 inventory/native-viewer guards). The unchanged Rust backend
+is reused. After that receiving, the five controlled workflows and dependency
+inventory now pin this host. All four dependency/devguide static checks pass.
+The [source receipt](../../devtools/data/bound_tools_owner_source_receiving_20261107.json)
+preserves identities, native exits, reconciliation checks and unsuccessful
+orchestration/preflight attempts without attributing them to product behavior.
+
+No actual Jupyter node is in that Python selection. Subsequent explicit GUI
+receiving passes Preparation (six steps), pending chemistry (eight) and periodic
+geometry (eight); Analysis separately passes all twelve ordered steps after
+correcting the root-prepared auxiliary build. The original campaign's Analysis
+server-readiness failure and subsequent missing-auxiliary diagnostic failure
+are retained in the [GUI receipt](../../devtools/data/bound_tools_owner_jupyter_receiving_632_20261107.json).
+#632 tracks the corrected stale seven-step wrapper. This is four implemented
+scenarios received across separate campaigns, not a single all-green campaign,
+all accepted GUI families or causal closure of #615.
+The conformational workflow for Viewer #314, #602, remaining accepted graphical
+families, hosted and installed qualification and postponed human acceptance
+remain due. Historical receiving below keeps its own host/source identities;
+its results do not transfer automatically to this combination. #421 stays partial.
 
 **Current source GUI — 2026-11-06:** System / Remove atoms, Extract subset and
 Copy system, plus Geometry / Translate, Center, Superpose structures and bounded

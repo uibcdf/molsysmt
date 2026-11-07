@@ -5354,3 +5354,50 @@ select it or claim its combined acceptance. The
 and [owning proposal](pending_proposals/molsysviewer_tools_addon.md) retain
 remaining source, graphical, installed and human/visible-Qt obligations. No
 pytest, new CI run, merge commit, main integration or publication is implied.
+
+## Bound-tools complete source receiving — 2026-11-07
+
+The earlier isolated-reconciliation entry is now superseded for execution state
+by merge `653ed8e0b48020a6b6ccf7aeeb186290784eee71` on a separate receiving
+branch, with parents owner `030c201a5` and contribution `8ab2f5474`. Main remains
+at the owner checkpoint; no main delivery or new candidate is claimed.
+
+Exact published Viewer source `25061d9e99baf07fa0dcb4021897958a226f0152` passes
+import/API preflight and complete combined Python receiving: **5,009 passed,
+zero failures/errors/skips**, reusing the unchanged native backend. This consists
+of 4,974 addon cases and 35 inventory/native-viewer guards; it includes no actual
+Jupyter node. Owner science/tests/archives and the incoming addon runtime/guards
+are preserved. The five controlled workflows and dependency inventory were
+aligned to this host after receiving; their four static checks pass. Native
+exits, identities, preservation and unsuccessful nonproduct attempts are in the
+[source receipt](../devtools/data/bound_tools_owner_source_receiving_20261107.json).
+
+#421 remains partial. #602, actual Jupyter/popup and conformational navigation
+receiving, remaining accepted graphical families, hosted/installed and postponed
+human/visible-Qt qualification stay open. Viewer #314's source correction is not
+its complete acceptance. Accepted audit progress remains **40%**, with 19
+audit-related issues closed. No remote matrix, tag, Release or promotion was
+authorized or dispatched by this source checkpoint.
+
+## Explicit bound-tools GUI receiving — 2026-11-07
+
+The exact `653ed8e0` / Viewer `25061d9e9` runtime combination now receives four
+implemented scenarios across separate executions. The first campaign has three
+passes (Preparation six steps, pending chemistry eight, periodic geometry eight)
+and an Analysis server-readiness failure before any browser. A diagnostic
+Analysis run reaches nine steps and fails on a root-prepared auxiliary built
+with the wrong format. Rebuilding only that test auxiliary by the exact host
+command and preflighting its required global/function permits the unchanged
+Analysis driver and corrected wrapper to complete all twelve steps (native
+zero, 79.964 seconds including pytest startup). The
+[GUI receipt](../devtools/data/bound_tools_owner_jupyter_receiving_632_20261107.json)
+preserves all outcomes, origins, hashes, native exits and page-error controls.
+
+#632 records the stale seven-step wrapper separately; the local correction
+requires the complete ordered twelve-name sequence. Source delivery/closeout
+remain pending. The initial server-readiness observation is not the original
+#615 canvas stage, and neither is causally closed. #602, all remaining accepted
+graphical families, the full Jupyter selection, #314 conformational navigation,
+hosted/installed and postponed human/Qt acceptance remain due. Accepted audit
+progress is still **40%**, with 19 closed audit-related issues. No publication
+or new remote matrix follows from these local source/GUI results.

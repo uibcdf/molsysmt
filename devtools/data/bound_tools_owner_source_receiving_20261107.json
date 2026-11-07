@@ -1,0 +1,243 @@
+{
+  "schema_version": "molsysmt.bound_tools_owner_source_receiving@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "contribution": "uibcdf/molsysmt#543",
+  "source": {
+    "owner": "030c201a5846a5c10f19063fc362e633c0e64542",
+    "contribution": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+    "merge_base": "40bb54d05182d4a87c48cc17a141b4152812421c",
+    "received_index_tree": "b38366cb14417877ddcc8ebe3ae2a4dc362c99af",
+    "isolated_merge_commit": "653ed8e0b48020a6b6ccf7aeeb186290784eee71",
+    "viewer": "25061d9e99baf07fa0dcb4021897958a226f0152",
+    "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "native_backend_rebuilt": false,
+    "main_integrated": false
+  },
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Linux x86_64",
+    "source_route": "Exact archived Viewer source + isolated MolSysMT worktree + previously verified public tooling payload; no install or environment mutation.",
+    "smonitor_pytest_bridge": "enabled",
+    "workers": 12
+  },
+  "runtime_preflight": {
+    "native_exit_observed": 0,
+    "origins_verified": true,
+    "host_api": [
+      "AddonSpec",
+      "AddonPanelWidget.read_only_actions",
+      "MolSysView.closed"
+    ],
+    "viewer_init_sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4"
+  },
+  "receiving": {
+    "command": [
+      "python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "-n",
+      "12",
+      "tests/molsysviewer_molsysmt",
+      "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+      "devtools/tests/test_native_viewer_integration.py",
+      "--junitxml=<private-evidence>/paired-source-25061d9e-01.xml"
+    ],
+    "native_exit_observed": 0,
+    "junit": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "5009",
+      "time": "238.291",
+      "timestamp": "2026-11-06T23:54:28.876460-06:00",
+      "hostname": "<local-development-host>"
+    },
+    "warnings": {
+      "total_observed": 2910,
+      "distinct_groups_observed": 12,
+      "summary": "Retained legacy-format, deliberate metadata-drop, precision-fallback, unit-stripping, NumPy/pandas, tiny configured memory-budget and invalid-input diagnostics. Four memory-budget warnings use an intentional 4096-byte test budget, not observed host memory exhaustion."
+    }
+  },
+  "reconciliation": {
+    "owner": "030c201a5846a5c10f19063fc362e633c0e64542",
+    "incoming": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+    "merge_base": "40bb54d05182d4a87c48cc17a141b4152812421c",
+    "incoming_changed_files": 99,
+    "owner_changed_files": 275,
+    "shared_changed_files": 8,
+    "shared_paths": [
+      "AGENTS.md",
+      "devguide/pending_bugs/README.md",
+      "devguide/release_1_0_status.md",
+      "devtools/dependency_contract.toml",
+      "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "docs/content/course/Common_Core/13_Topological_Analysis.ipynb",
+      "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+      "docs/docs_manifest.yml"
+    ],
+    "actual_merge_conflicted_files": [
+      "devguide/pending_bugs/README.md",
+      "devguide/release_1_0_status.md"
+    ],
+    "prior_review_note": "The earlier seven-overlap count used owner e5d1dd0f8; the authorized030c201a5 includes additional course Module13 prose, making eight shared paths. Both reviews identify the same two textual conflicts."
+  },
+  "preservation_at_received_index": {
+    "native_science": {
+      "reference": "030c201a5846a5c10f19063fc362e633c0e64542",
+      "checked_files": 3479,
+      "mismatches": []
+    },
+    "owner_tests_outside_addon": {
+      "reference": "030c201a5846a5c10f19063fc362e633c0e64542",
+      "checked_files": 1123,
+      "mismatches": []
+    },
+    "owner_archives": {
+      "reference": "030c201a5846a5c10f19063fc362e633c0e64542",
+      "checked_files": 520,
+      "mismatches": []
+    },
+    "owner_dependency_contract_5cd": {
+      "reference": "030c201a5846a5c10f19063fc362e633c0e64542",
+      "checked_files": 8,
+      "mismatches": []
+    },
+    "incoming_addon_runtime_and_guards": {
+      "reference": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+      "checked_files": 132,
+      "mismatches": []
+    },
+    "owner_release_ledger_prefix_preserved": true,
+    "owner_viewer_pins": {
+      ".github/workflows/benchmarks.yml": {
+        "owner_sha_occurrences": 1,
+        "incoming_sha_absent": true
+      },
+      ".github/workflows/ci-full.yaml": {
+        "owner_sha_occurrences": 2,
+        "incoming_sha_absent": true
+      },
+      ".github/workflows/ci-smoke.yaml": {
+        "owner_sha_occurrences": 1,
+        "incoming_sha_absent": true
+      },
+      ".github/workflows/ci-weekly.yaml": {
+        "owner_sha_occurrences": 1,
+        "incoming_sha_absent": true
+      },
+      ".github/workflows/sphinx_docs_to_gh_pages.yaml": {
+        "owner_sha_occurrences": 1,
+        "incoming_sha_absent": true
+      },
+      "devtools/dependency_contract.toml": {
+        "owner_sha_occurrences": 1,
+        "incoming_sha_absent": true
+      }
+    },
+    "main_human_files_unchanged": {
+      "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": true,
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": true,
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": true,
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": true
+    }
+  },
+  "course_preservation": [
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "protected_projection_sha256": "4f9472b8498f803df3929643c7980f55cd06940220d855904e21ccbf2be3b37d",
+      "code_outputs_metadata_ids_and_cell_order_unchanged_from_owner": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/13_Topological_Analysis.ipynb",
+      "protected_projection_sha256": "6671618055e79865c50e64911b755e093f7035d5982ca4f1ed8188d558fd6593",
+      "code_outputs_metadata_ids_and_cell_order_unchanged_from_owner": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+      "protected_projection_sha256": "86643c935511d9360d46917c1691f4dd2a6957ddc936d3a23af61b74fe4eecb3",
+      "code_outputs_metadata_ids_and_cell_order_unchanged_from_owner": true
+    }
+  ],
+  "pins_after_receiving": {
+    "from": "42234de839ed047016f8f241ea5eb717cfeb07be",
+    "to": "25061d9e99baf07fa0dcb4021897958a226f0152",
+    "files": [
+      ".github/workflows/benchmarks.yml",
+      ".github/workflows/ci-full.yaml",
+      ".github/workflows/ci-smoke.yaml",
+      ".github/workflows/ci-weekly.yaml",
+      ".github/workflows/sphinx_docs_to_gh_pages.yaml",
+      "devtools/dependency_contract.toml"
+    ],
+    "replacement_occurrences": 7,
+    "native_static_checks": [
+      {
+        "command": [
+          "python",
+          "devtools/scripts/audit_dependency_contract.py"
+        ],
+        "native_exit_observed": 0
+      },
+      {
+        "command": [
+          "python",
+          "devtools/scripts/validate_dependencies.py"
+        ],
+        "native_exit_observed": 0
+      },
+      {
+        "command": [
+          "python",
+          "devtools/scripts/validate_devguide.py"
+        ],
+        "native_exit_observed": 0
+      },
+      {
+        "command": [
+          "python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit_observed": 0
+      }
+    ],
+    "remote_workflows_dispatched": false
+  },
+  "retained_nonproduct_attempts": [
+    {
+      "name": "source-receiving-first-orchestration-failure.json",
+      "native_exit_observed": 1,
+      "pytest_started": false,
+      "cause": "Orchestration attempted git write-tree under a read-only Git sandbox; Git exited128 before constructing/writing the receiving invocation. Reuse the previously checked merge-tree receipt instead of performing a mutation in a read-only runner.",
+      "production_failure": false
+    },
+    {
+      "name": "host-preflight-authoring",
+      "native_exit_observed": 1,
+      "cause": "The preflight initially asserted an invented is_closed attribute; inspection established the actual public closed property. The corrected preflight passes. No host behavior changed."
+    },
+    {
+      "name": "initial-git-merge-sandbox",
+      "native_exit_observed": 128,
+      "cause": "Read-only Git sandbox denied ORIG_HEAD.lock; the authorized isolated merge succeeded with the appropriate Git write permission."
+    }
+  ],
+  "private_artifact_digests": {
+    "paired-source-25061d9e-01.xml": "3fde8f1c3f374d1dbeec0a28381463fad18f153cb1d17ce16864ecb2b1699a35",
+    "paired-source-25061d9e-01-invocation.json": "bd9a5e780bf75a6b01b1414731594d6b5eeaf22129d0ed542c0afccb6112ba19",
+    "handoff-manifest.json": "960e79fcc839a9a3ca770806dbeb3911d54ae4aa96a14f459a1c5f43f1b1ae89",
+    "source-receiving-first-orchestration-failure.json": "e6d1d4570209fdf09575f2946c6bbbbefca00d34e9fb8da032f66571eabe65bf",
+    "viewer250-pin-static-checks.json": "2899cbb8b39ca3f2f0cc25e9761e9a7d1a8a79ac8306b86ad4a1df1f2b6003b0"
+  },
+  "scope_and_remaining_exits": [
+    "Complete source Python receiving is contract evidence for this exact owner/contribution/host combination; historical failed contribution attempts remain separate.",
+    "The isolated merge commit adds host pins after receiving; no tested runtime source was changed by the pin update.",
+    "Actual Jupyter/popup and conformational navigation receiving against this host remain pending. No causal closure of #615 or host #314 is implied.",
+    "Native public axis-angle constructor #602 and remaining accepted graphical workflow families remain due.",
+    "Installed artifacts, public compatible Viewer floor, hosted exact-candidate matrices, human/visible-Qt receiving and publication decisions remain separate.",
+    "No phase-four milestone credit, new candidate, tag, Release or artifact promotion is claimed."
+  ]
+}

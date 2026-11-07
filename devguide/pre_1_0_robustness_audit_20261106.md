@@ -3,7 +3,7 @@
 **Role:** operational audit and correction-tracking packet.  
 **Owner:** [uibcdf/molsysmt#334](https://github.com/uibcdf/molsysmt/issues/334).  
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
-**Last tracking review:** 2026-11-06.  
+**Last tracking review:** 2026-11-07.  
 **Current execution:** phases 1 and 2 are published/closed. Phase-two source
 `3eb720444b97f77f9325acf52f55114ece0b5f9e` corrects #605/#607/#606/#608/#619;
 independent public-file and closed-board receiving is recorded below. Joint
@@ -37,6 +37,15 @@ phase-three credit. Public checkpoint `7e61fcc5c` now independently matches all
 39 changed blobs; #630/#631 are verified closed. The audit-related closed count
 is 19; accepted progress remains 40%. Optional-provider source review is
 delivered, with the compatible public Viewer/clean installed exit still open.
+
+Phase four now has isolated source merge `653ed8e0` over owner `030c201a5` and
+PR #543 head `8ab2f5474`. Exact Viewer source `25061d9e9` passes import/API
+preflight and **5,009 Python cases without failures or omissions**. The five
+controlled workflows and dependency inventory now pin that received host. This
+is separate-branch source receiving; actual Jupyter/popup, remaining graphical
+families, installed and human acceptance remain due. The
+[source receipt](../devtools/data/bound_tools_owner_source_receiving_20261107.json)
+retains the limits. Accepted progress remains **40%** and no candidate is selected.
 
 The subsequent #524 support-floor review qualifies the five retained required
 providers and optional public Ackredit without changing their floors. Native
@@ -749,6 +758,34 @@ remaining host/Qt limitations. Review/integration does not qualify installed
 packages or make experimental scientific profiles stable. Do not dispatch a
 duplicate matrix merely to monitor an existing run.
 
+**Source receiving — 2026-11-07:** isolated merge `653ed8e0b48020a6b6ccf7aeeb186290784eee71`
+preserves owner native science/tests/archives and the contribution's addon
+runtime/guards. The refreshed comparison has eight overlaps and the same two
+textual conflicts; the earlier seven-overlap count used an older owner. The
+exact published Viewer snapshot `25061d9e9` passes import/API preflight and
+5,009 Python cases (4,974 addon, 35 preflight), zero skips/failures/errors.
+Only after receiving were six pin-bearing files aligned to that host; four
+static checks pass. The [receipt](../devtools/data/bound_tools_owner_source_receiving_20261107.json)
+retains the original uncommitted tested tree, committed merge, native exits and
+unsuccessful nonproduct attempts. No actual Jupyter node was selected and main
+has not received this branch. Next: complete #602 and rerun admitted graphical
+workflows, retaining #609/#614's assertions and #615's original uncertainty.
+No phase-four credit or host #314 closure follows from Python receiving alone.
+
+**Explicit graphical receiving — 2026-11-07:** Preparation, pending chemistry
+and periodic geometry pass with six/eight/eight steps. Analysis separately
+passes its twelve-step wrapper after correcting the root-prepared test
+auxiliary to the exact host build. The original four-case campaign has three
+passes and one server-readiness failure; a diagnostic Analysis run then reaches
+nine steps and fails on the incorrectly built auxiliary. All attempts and
+source/asset identities are retained in the
+[GUI receipt](../devtools/data/bound_tools_owner_jupyter_receiving_632_20261107.json).
+New #632 owns the stale seven-step wrapper, now locally corrected and received.
+No driver assertion or deadline is removed. These four implemented scenarios
+do not replace the remaining accepted GUI families, full Jupyter campaign,
+conformational #314, installed or human acceptance. #615 remains uncertain.
+Accepted progress remains **40%**, with 19 audit-related issues closed.
+
 ### Phase 5 — Reconcile acceptance and public scientific claims
 
 **Initial position:** mixed implementation, closeout and scientific-disposition
@@ -924,6 +961,10 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Consumer repair block delivered | Public checkpoint 82bfa1c82 independently matches all 58 changed blobs. #627/#628/#629 are verified completed; audit-related closed count 17. Complete acquisition has 561 issues/98 open and unchanged PR #543 at 8ab2f5474. Fourteen fast gates pass. Accepted progress remains 40%. | Finish remaining optional providers and actual host/installed closure under #524; keep graphical, installed-package and final-candidate qualification separate. |
 | 2026-11-06 | Final optional-provider source block qualified | d850f6cc1 uses public alignment rows; 5cd744ebf declares supported optional acquisition/floors; e5d1dd0f8/fae9ab557 repair #630/#631. Final profiles pass Biopython 385 each, OpenFF 199 each and NGLView 104 each with no omissions; joint 798, scientific 97/64 nodes and fast gates 14/14 pass. HTML compilation exits 0 with four retained source-title warnings. Counts overlap; accepted progress stays 40%. | Publish and independently verify the block, close #630/#631, then receive the newer exact Viewer source and reconcile PR #543 while keeping public-host/clean installed closure explicit under #524. |
 | 2026-11-06 | Optional-provider block delivered | Public 7e61fcc5c matches all 39 checked blobs; #630/#631 are verified completed. Audit closed count 19, progress 40%. The complete board has 563 issues/98 open and unchanged PR #543. The central graph notice is independently received; refresh is not claimed complete. | Receive isolated owner+543 with exact newer published Viewer source; retain #524 public-host/clean installed closure and distinct graphical/release gates. |
+
+| 2026-11-07 | Isolated bound-tools source received | Merge `653ed8e0` reconciles owner `030c201a5` with contribution `8ab2f5474`; exact Viewer `25061d9e9` passes import/API preflight and 5,009 Python cases with zero failures/errors/skips. Owner source/test/archive and incoming runtime/guard preservation are checked. Five workflows plus the inventory now pin the received host; four static checks pass. | Complete #602 and actual Jupyter/popup/navigation receiving. Main, installed and human acceptance remain separate; progress 40%, closed audit issues 19. |
+
+| 2026-11-07 | Four implemented GUI scenarios received | First campaign: three passes (Preparation6/Pending8/Periodic8), Analysis failed before browser at server readiness. Diagnostic Analysis completed nine steps before a root auxiliary-build error; exact-build correction plus preflight permits all twelve Analysis steps and the #632 wrapper to pass. Portable receipt retains all three executions and failed outcomes. | Finish source delivery/closeout of #632, then #602 and remaining agreed graphical families/full Jupyter/conformational receiving. Original readiness and #615 uncertainty remain; progress 40%, closed issues19. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

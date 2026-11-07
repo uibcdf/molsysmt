@@ -464,17 +464,40 @@ def main():
         )
     )
     server = None
+    startup = {"scope": "Jupyter server readiness, before any browser or molecular cell"}
+    startup_path = output / "server-startup.json"
+    server_command = [sys.executable, "-m", "jupyterlab", "--no-browser"]
+    if os.environ.get("MOLSYSVIEWER_TRACE_JUPYTER_STARTUP") == "1":
+        # Diagnostic only: preserve the readiness deadline and server behavior.
+        server_command = [
+            sys.executable,
+            "-c",
+            "import faulthandler, runpy, sys; "
+            "faulthandler.enable(); "
+            "faulthandler.dump_traceback_later(15, repeat=False); "
+            "sys.argv = ['jupyterlab', '--no-browser']; "
+            "runpy.run_module('jupyterlab', run_name='__main__')",
+        ]
+        startup["diagnostic_trace_after_seconds"] = 15
     try:
         with (output / "server.log").open("w") as log:
+            startup_started = time.monotonic()
             server = subprocess.Popen(
-                [sys.executable, "-m", "jupyterlab", "--no-browser"],
+                server_command,
                 env=env,
                 stdout=log,
                 stderr=log,
             )
+            startup.update(pid=server.pid, ready=False)
+            startup_path.write_text(json.dumps(startup, indent=2))
             ready = False
             for _ in range(40):
                 if server.poll() is not None:
+                    startup.update(
+                        elapsed_seconds=time.monotonic() - startup_started,
+                        native_exit_observed=server.returncode,
+                    )
+                    startup_path.write_text(json.dumps(startup, indent=2))
                     raise RuntimeError(
                         "Isolated Jupyter exited; inspect the private server.log."
                     )
@@ -489,6 +512,10 @@ def main():
                         break
                 except (URLError, TimeoutError):
                     time.sleep(0.5)
+            startup.update(
+                ready=ready, elapsed_seconds=time.monotonic() - startup_started
+            )
+            startup_path.write_text(json.dumps(startup, indent=2))
             if not ready:
                 raise RuntimeError("Isolated Jupyter did not become ready.")
             subprocess.run(
