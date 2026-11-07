@@ -1,0 +1,315 @@
+{
+  "created_at": "2026-11-07T00:31:21.600139+00:00",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "pytest_workers": 12,
+  "environment_changed": false,
+  "backend_rebuilt_in_this_block": false,
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "development_providers": {
+    "numpy": {
+      "version": "2.4.6",
+      "origin": "shared development prefix: lib/python3.14/site-packages/numpy/__init__.py",
+      "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+    },
+    "pandas": {
+      "version": "2.3.3",
+      "origin": "shared development prefix: lib/python3.14/site-packages/pandas/__init__.py",
+      "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+    },
+    "jinja2": {
+      "version": "3.1.6",
+      "origin": "shared development prefix: lib/python3.14/site-packages/jinja2/__init__.py",
+      "module_sha256": "c717a93bd8bb0c7b2a910ae004476e2ed7e8cf6402b93ebf81b2f85d237585b5"
+    },
+    "pyunitwizard": {
+      "version": "0.29.1+6.gf82b618",
+      "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+      "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+    },
+    "argdigest": {
+      "version": "0.16.0+1.g6dabaf7",
+      "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+      "module_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+    },
+    "depdigest": {
+      "version": "0.15.1+3.ga27172b",
+      "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.22.0+15.g5ee88c1",
+      "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+      "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+    },
+    "pytest": {
+      "version": "9.1.1",
+      "origin": "shared development prefix: lib/python3.14/site-packages/pytest/__init__.py",
+      "module_sha256": "ee37885c9583f843390684dfb496907f87a0905128e7a3cf4ad227f49ff34c2d"
+    },
+    "pytest_receptor": {
+      "version": "1.2.1",
+      "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+      "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+    },
+    "pytest-xdist": {
+      "version": "3.8.0"
+    }
+  },
+  "owning_issue": "uibcdf/molsysmt#524",
+  "implementation_commit": "44fd0acf0788f1c9d06fe2a3a7446ad52c9e2550",
+  "implementation_file_sha256": {
+    "pyproject.toml": "9f9ff390868e99dd74569efe7bcc3b1784b694b3c54f4d6eb7b1f9ef8e5c22ca",
+    "molsysmt/_depdigest.py": "da97caf787ec0a303233b44be985cc00ac9600efd73147acf4ad84b1a277e762",
+    "devtools/conda-build/meta.yaml": "565f9093132c415f234bfbfaa7429c55874030cde38411c318f33c080191e542",
+    "devtools/rattler-build/recipe.yaml": "4c65d49a47e8fc796c5a7f16718c43635a07085fc95838b4e692105ee822b893",
+    "devtools/conda-envs/production_env.yaml": "366288e7f7a05456439e05eb49347cbbe043a7f1e49a5ea88047a00952c0a43b",
+    "devtools/conda-envs/development_env.yaml": "9750c4be6543995ee73566bd16ea2ff72c0bd2f7edffb50232c1c5f9fb74f52b",
+    "devtools/conda-envs/test_env.yaml": "770a9642bd2930da021af98224b84fd8757c121edb5053797d2b598ded859c50",
+    "devtools/conda-envs/docs_env.yaml": "d9814807a26f83aff1257075422f1a2c6379bda09efd403a158830a648100abe",
+    "devtools/tests/test_runtime_provider_apis.py": "ee74db0604e4c475291df06e1cd21de71890e8383d7b5c8e7ed47e78b02b44bd",
+    "tests/basic/test_info_runtime_renderer.py": "cdb595e2b2d1c5ec278c252d7ca2bed9f7aff8dcb9089019ebd7739f77a82250",
+    "molsysmt/basic/info.py": "26628ba18da4d80e4b7f07e513d76332cf6d8c7a2ebda3a91928858b25d9aafe",
+    "devguide/dependency_contract_audit.md": "bc9c901e4c9dbe404518e069656ce9318e5b4f31d1e17b090781bf77d4e9d095",
+    "docs/content/user/tools/basic/info.ipynb": "ecc153dfcc39883dbcaa7473d084f0492b861b59774e4de009c615a6665802d9",
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": "6cbd2c1071a9cfe015a6c1df637ceaae10e0dd221ef062693b00df01c039c95e"
+  },
+  "schema_version": "molsysmt.runtime_renderer_receiving@1",
+  "status": "partial",
+  "execution_environment": {
+    "pythonpath": [
+      ".",
+      ".pytest_cache/pr543-viewer-4223-20261105",
+      ".pytest_cache/stabilization-551/tooling/published"
+    ],
+    "variables": {
+      "MPLBACKEND": "Agg",
+      "OMP_NUM_THREADS": "1",
+      "OPENMM_CPU_THREADS": "1",
+      "GIT_CONFIG_COUNT": "1",
+      "GIT_CONFIG_KEY_0": "core.fsmonitor",
+      "GIT_CONFIG_VALUE_0": "false"
+    },
+    "interpreter": "Existing shared MolSysSuite CPython 3.14 development prefix."
+  },
+  "contract": "Declare the Jinja2 renderer needed by default public/native info() as a hard runtime dependency; preserve output and selection semantics.",
+  "floor_basis": {
+    "consumer": "The exact pandas 2.2.2 compat/_optional.py payload requires Jinja2 >=3.1.2 for Styler rendering.",
+    "wheel": "Jinja2-3.1.2-py3-none-any.whl",
+    "sha256": "6088930bfe239f0e6710546ab9c19c9ef35e29792895fed6e6e31a023a182a61",
+    "requires_dist": [
+      "MarkupSafe (>=2.0)",
+      "Babel (>=2.7) ; extra == 'i18n'"
+    ],
+    "acquisition": "Downloaded/unpacked only into ignored cache; not installed into either prefix."
+  },
+  "test_profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-renderer-before.xml",
+      "sha256": "5e87966e633958040c6a1f3a752d81ea65af67ecda18242365bdbb0a2acdb25b",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 13,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 12
+      },
+      "scope": "One declaration-guard failure and 12 passing provider/rendering controls expose the incidental installed renderer."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-renderer-floor-receiving.xml",
+      "sha256": "04fb57f0c84dc125a7bdf438e7784b3dbd73a93ca0e254a7f7ff14ed5f459821",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 35,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 35
+      },
+      "scope": "35 provider/route/public-native/strict-summary cases with exact Jinja2 3.1.2 on development Python 3.14."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-renderer-minimum311.xml",
+      "sha256": "4d520948d0dac14c66e5304cd7a47de4d4a9241419179c3f55255006024fbc4d",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7
+      },
+      "scope": "Seven isolated API/ABI probes with selected minimum-provider wheels and existing CPython 3.11; --confcutdir avoids full-package bootstrap."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/620-524-integrated.xml",
+      "sha256": "a3788f4b2a3fbcfaba076d3ef1689589ca218d148ad46a5eca900e5dba38c688",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 4592,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4592
+      },
+      "scope": "Joint structure/heavy/PBC/interactions/configuration/parallel/diagnostic/provider/rendering/route receiving; ordinary development providers.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/structure",
+        "tests/heavy",
+        "tests/pbc",
+        "tests/interactions",
+        "tests/basic/test_configuration_context.py",
+        "tests/basic/test_parallel_control.py",
+        "tests/_private/smonitor",
+        "tests/basic/test_info_runtime_renderer.py",
+        "tests/basic/test_info_pandas_compatibility.py",
+        "devtools/tests/test_runtime_provider_apis.py",
+        "devtools/tests/test_audit_dependency_contract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/620-524-integrated.xml"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/620-524-documentation.xml",
+      "sha256": "d22cd8bbac25712dad525c0beb953dab23512e881f8737cac08ecae730ef2100",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 599,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 599
+      },
+      "scope": "Documentation schema/directives/headings/workflows/source boundary, course, public API docs and four affected public doctests. Prose-only notebook changes preserve code and outputs.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "devtools/tests/test_documentation_notebook_schema.py",
+        "devtools/tests/test_documentation_directive_rendering.py",
+        "devtools/tests/test_documentation_heading_structure.py",
+        "devtools/tests/test_documentation_workflow.py",
+        "devtools/tests/test_documentation_source_boundary.py",
+        "devtools/tests/test_course_pca_examples.py",
+        "devtools/tests/test_course_takeaway_rendering.py",
+        "devtools/tests/test_validate_course.py",
+        "devtools/tests/test_validate_docstrings.py",
+        "devtools/tests/test_public_api_docs.py",
+        "--doctest-modules",
+        "molsysmt/structure/get_distances.py",
+        "molsysmt/structure/least_rmsd_fit.py",
+        "molsysmt/structure/least_rmsd_align.py",
+        "molsysmt/basic/info.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/620-524-documentation.xml"
+      ]
+    }
+  ],
+  "minimum_provider_origins": {
+    "python": "3.11.16",
+    "providers": {
+      "numpy": {
+        "version": "1.26.0",
+        "origin": ".pytest_cache/stabilization-524/numpy126/numpy/__init__.py",
+        "module_sha256": "11a9455eb4297e45351657f5a60f198c21831c7a395f8c59a7361fb2edf785e5"
+      },
+      "pandas": {
+        "version": "2.2.2",
+        "origin": ".pytest_cache/stabilization-524/minimum311/pandas/__init__.py",
+        "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+      },
+      "h5py": {
+        "version": "3.11.0",
+        "origin": ".pytest_cache/stabilization-524/minimum311/h5py/__init__.py",
+        "module_sha256": "23f92661084bd227615659414618fdf655e0558ff7ce1a739f4353b93899776a"
+      },
+      "matplotlib": {
+        "version": "3.8.4",
+        "origin": ".pytest_cache/stabilization-524/minimum311/matplotlib/__init__.py",
+        "module_sha256": "365aec1473388fa7e260e58d3f8520d1bbafc660de93d95e13b971eea67c45c4"
+      },
+      "networkx": {
+        "version": "3.3",
+        "origin": ".pytest_cache/stabilization-524/unpacked/networkx/networkx/__init__.py",
+        "module_sha256": "8152d75a7e98997ebc0a5f66986a6a3d92ed88821552a1a6532ceda917e1af2e"
+      },
+      "tqdm": {
+        "version": "4.65.0",
+        "origin": ".pytest_cache/stabilization-524/unpacked/tqdm/tqdm/__init__.py",
+        "module_sha256": "f6640d6124aa3fdf496acb9b102d4f3892cc9a1924047e9c259c4f211e46da94"
+      },
+      "jinja2": {
+        "version": "3.1.2",
+        "origin": ".pytest_cache/pre1-review-20261106/providers/jinja2-3.1.2/jinja2/__init__.py",
+        "module_sha256": "f2f19db83f32b70803e860d2aa961cda6dda53e4fb3ca38075dbd55e01abfc5b"
+      },
+      "markupsafe": {
+        "version": "3.0.3",
+        "origin": "existing CPython 3.11 prefix: lib/python3.11/site-packages/markupsafe/__init__.py",
+        "module_sha256": "bb57cb70d0b1d0ff04ecb4facf73977fa8a99d29a09ba69e7e77b9cbe77ba38d"
+      }
+    }
+  },
+  "minimum_provider_command": [
+    "python",
+    "-m",
+    "pytest",
+    "--receptor=llm",
+    "--confcutdir=devtools/tests",
+    "devtools/tests/test_runtime_provider_apis.py",
+    "--junitxml=.pytest_cache/pre1-review-20261106/524-renderer-minimum311.xml"
+  ],
+  "minimum_provider_environment": {
+    "python": "3.11.16",
+    "interpreter": "Existing read-only CPython 3.11 prefix; not created or modified.",
+    "pythonpath": [
+      ".pytest_cache/pre1-review-20261106/providers/jinja2-3.1.2",
+      ".pytest_cache/stabilization-524/numpy126",
+      ".pytest_cache/stabilization-524/minimum311",
+      ".pytest_cache/stabilization-524/unpacked/networkx",
+      ".pytest_cache/stabilization-524/unpacked/tqdm",
+      ".",
+      ".pytest_cache/stabilization-551/tooling/published"
+    ],
+    "variables": {
+      "MPLBACKEND": "Agg",
+      "OMP_NUM_THREADS": "1"
+    },
+    "test_warnings": 0,
+    "separate_origin_probe_notices": "Matplotlib config-cache notice and MarkupSafe __version__ deprecation came from the separate origin probe, not the seven-case pytest run."
+  },
+  "metadata_routes": [
+    "pyproject.toml",
+    "molsysmt/_depdigest.py",
+    "both Conda recipes",
+    "all four maintained runtime-bearing environments"
+  ],
+  "remaining_scope": [
+    "Actual public Viewer floor/acquisition, distinct from controlled source.",
+    "Remaining suite-provider and optional runtime-feature consumed APIs.",
+    "NumPy version/ABI bound disposition and provider reassessment conditions.",
+    "Clean installed-candidate closure and exact platform/Viewer pair gates."
+  ],
+  "limits": [
+    "Profiles overlap; their counts cannot be added as unique cases.",
+    "Local Linux source receiving is not clean installed-artifact, graphical, platform-matrix or release qualification.",
+    "Scientific certificate correctly retains pre-commit dirty source and release_eligible=false; tested source bytes are bound separately.",
+    "Four pre-existing human autosummary edits and the compiled backend remain unchanged.",
+    "Phase 3 still needs remaining #524 criteria; accepted overall plan progress stays 40%.",
+    "All work commits use [skip ci]; final exact-candidate gates remain due at agreed qualification checkpoints.",
+    "Provider-only probes do not qualify the complete MolSysMT installation.",
+    "Existing shared-environment pip-check conflicts recorded in #524 remain unchanged.",
+    "No environment, package install, downgrade or publication was performed.",
+    "Latest observed Viewer GitHub Release remains 0.24.0; source pins do not establish a newer public package floor."
+  ]
+}

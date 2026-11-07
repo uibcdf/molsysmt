@@ -9,9 +9,11 @@
 independent public-file and closed-board receiving is recorded below. Joint
 receiving passes 5,435 cases, final directed/documentation receiving passes
 1,195, and the scientific certificate passes 97 cases across 64 nodes. These
-scopes overlap. Accepted progress is 40%; #613 source is now published and its
-owner issue is independently verified closed. Phase 3 continues with #620 and independently
-actionable #524 work. No replacement candidate is selected.
+scopes overlap. Accepted progress is 40%; #613 is published and closed. The #620
+precision correction and #524 default-renderer declaration are locally qualified
+in `cb07e54af` and `44fd0acf0`; public delivery/precision closeout follow. Remaining
+#524 review and the actual Viewer floor still prevent phase-three credit.
+No replacement candidate is selected.
 
 The maintainer requests a durable record of the new audit, its reasoning, the
 remaining work and the order in which to strengthen MolSysMT before 1.0.
@@ -404,7 +406,7 @@ first corrected receiving passes 25 cases, including the same cases on controlle
 source from public ArgDigest 0.14.0. The implementation uses its supported
 key-domain contract without adopting a newer provider API or raising a floor.
 The independent public-call probe also discovers
-[#620](pending_bugs/rust_cpu_kernel_inputs_follow_an_unsupported_single_precision_setting.md):
+[#620](archive/resolved_bugs/rust_cpu_kernel_inputs_follow_an_unsupported_single_precision_setting.md):
 the global single-precision request sends float32 inputs to float64-only CPU
 bindings. This serially reproduced boundary defect needs disposition within
 phase 3 after #613; it does not require another precision backend or additional
@@ -431,6 +433,36 @@ also records all four ordinary workflows successful at the earlier PBC head
 installed candidate; finish this source block with its own unskipped head.
 Next: #620 precision-boundary disposition and #524 installed-runtime closure.
 Phase-three credit remains pending and total accepted progress remains 40%.
+
+**Precision and default renderer qualified locally:** #620 implementation
+`cb07e54af2a9be545b36d3fe8c64de34e0a0b132` preserves supported single-coordinate
+publication while retaining float64 CPU working values and emitting the typed
+`MSM-WARN-PRECISION-001` diagnostic. #524 implementation
+`44fd0acf0788f1c9d06fe2a3a7446ad52c9e2550` declares Jinja2 >=3.1.2 because
+default public/native `info()` consumes the supported Pandas renderer. Joint
+receiving passes 4,592 cases, documentation/public doctests 599, directed
+precision 39, and registered scientific execution 97 across 64 nodes. The
+renderer also has 35 exact-Jinja2-minimum cases and seven isolated actual API/ABI
+probes with selected provider minima on existing Python 3.11. Scopes overlap.
+The [precision receipt](../devtools/data/native_precision_receiving_620_20261106.json)
+and [renderer receipt](../devtools/data/runtime_renderer_receiving_524_20261106.json)
+retain source/backend identities, commands, original failures, warnings,
+unchanged notebook code/outputs and source-versus-installed limits.
+
+Public delivery and #620 closure follow independent source verification.
+#524 stays partial: suite/optional-provider APIs, NumPy restriction disposition,
+actual public Viewer acquisition/floor and installed closure remain explicit.
+Do not guess a Viewer minimum from a controlled source SHA; the last observed
+GitHub Release is still 0.24.0. Own the independent review while preserving the
+host dependency and later graphical/installed receiving.
+
+The maintainer renews the working-commit policy under #334: every development
+commit uses `[skip ci]`, pushes are batched and remote execution is reserved
+for agreed qualification checkpoints. Root AGENTS.md records it. This direction
+supersedes the automatic unskipped-head next step in the preceding dated
+checkpoint, without waiving any final exact-candidate gate. Existing #613 smoke
+42314744961 at `60ded0f7c` now concludes successfully; it does not qualify these
+new sources. Accepted plan progress remains **40%** until phase 3 reaches its exit.
 
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
@@ -642,6 +674,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Phase boundary board refresh | Complete paginated open inventory contains 98 issues and one PR after PBC closeout. No newly numbered open report changes the selected #613 next step. PR #543 remains open at `8ab2f5474b2e04c68d31ef2854a238984b645fc8`; its qualification remains separate. | Continue configuration correctness and installed-runtime closure, preserving the existing graphical and final-candidate dependencies. |
 | 2026-11-06 | Configuration source qualified | #613 correction `f60e25b7e` passes 4,438 integrated, 32 source-floor/doctest, 500 documentation and 97 scientific cases in overlapping scopes. Its receipt retains all failed attempts and process-global limitations. Independent serial precision mismatch is reported as #620 after complete seven-page acquisition; no new backend is required. Accepted plan progress remains 40%. | Publish/verify and close #613; resolve #620 and independently actionable #524 before phase-three credit. The existing phase-two smoke remains active in its bound-tool receiving step at inspection. |
 | 2026-11-06 | Configuration delivered; PBC CI terminal | Public checkpoint `1b1cc42e0` matches all 12 checked implementation/receipt/report blobs. #613 is independently verified closed. All four observed ordinary workflows at PBC head `16ecaae01`, including smoke 42312538781, conclude successfully. Accepted plan progress remains 40%; source and installed-release qualification stay separate. | Finish the configuration checkpoint with an unskipped head and inspect its applicable CI, then continue #620 and independently actionable #524. |
+| 2026-11-06 | Precision and default renderer qualified | #620 `cb07e54af` and partial #524 `44fd0acf0` pass 4,592 joint cases, 599 documentation/doctests and 97 scientific cases; scopes overlap. Directed precision has 39 passes; exact-Jinja2 receiving has 35 and isolated minimum-provider receiving seven. Seven notebook edits preserve code/outputs. #613 smoke 42314744961 succeeds at `60ded0f7c`. The maintainer renews `[skip ci]` on all work commits and batched pushes, superseding automatic unskipped heads for small work blocks. | Publish and independently verify the source and receipts, close #620, and finish independently actionable #524 review without inventing a public Viewer floor. Installed/graphical/final-candidate qualification remains separate. Accepted progress remains 40%. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

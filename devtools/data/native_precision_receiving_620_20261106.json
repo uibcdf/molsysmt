@@ -1,0 +1,385 @@
+{
+  "created_at": "2026-11-07T00:31:21.600139+00:00",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "pytest_workers": 12,
+  "environment_changed": false,
+  "backend_rebuilt_in_this_block": false,
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "development_providers": {
+    "numpy": {
+      "version": "2.4.6",
+      "origin": "shared development prefix: lib/python3.14/site-packages/numpy/__init__.py",
+      "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+    },
+    "pandas": {
+      "version": "2.3.3",
+      "origin": "shared development prefix: lib/python3.14/site-packages/pandas/__init__.py",
+      "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+    },
+    "jinja2": {
+      "version": "3.1.6",
+      "origin": "shared development prefix: lib/python3.14/site-packages/jinja2/__init__.py",
+      "module_sha256": "c717a93bd8bb0c7b2a910ae004476e2ed7e8cf6402b93ebf81b2f85d237585b5"
+    },
+    "pyunitwizard": {
+      "version": "0.29.1+6.gf82b618",
+      "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+      "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+    },
+    "argdigest": {
+      "version": "0.16.0+1.g6dabaf7",
+      "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+      "module_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+    },
+    "depdigest": {
+      "version": "0.15.1+3.ga27172b",
+      "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+      "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+    },
+    "smonitor": {
+      "version": "0.22.0+15.g5ee88c1",
+      "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+      "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+    },
+    "pytest": {
+      "version": "9.1.1",
+      "origin": "shared development prefix: lib/python3.14/site-packages/pytest/__init__.py",
+      "module_sha256": "ee37885c9583f843390684dfb496907f87a0905128e7a3cf4ad227f49ff34c2d"
+    },
+    "pytest_receptor": {
+      "version": "1.2.1",
+      "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+      "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+    },
+    "pytest-xdist": {
+      "version": "3.8.0"
+    }
+  },
+  "owning_issue": "uibcdf/molsysmt#620",
+  "implementation_commit": "cb07e54af2a9be545b36d3fe8c64de34e0a0b132",
+  "implementation_file_sha256": {
+    "devguide/CORE_SPECIFICATION.md": "d17b68f0a5a98debb02f760d87552afb3402016140c7a99f79ed94eb8235f686",
+    "devguide/performance_and_jit.md": "42c82a430c4fddc76ac395eeb6402976a8303ca9937ef7275cea4a9c90bedaae",
+    "devtools/tests/test_validate_course.py": "3f391968c71e23ef28bc8bfc0bb782aed2eb28f8340c6f95581d5360bcdfbedc",
+    "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb": "1d4adc3d044842b445208d8c9e470dd327d7b0f8ea64c8f66d9728200aa681c9",
+    "docs/content/user/cookbook/trajectory_performance_analysis.ipynb": "64de338ffd7fb80c05afe3ed28d3151125f3e1f3b455590a548974618e0c50d6",
+    "docs/content/user/foundations/governance/precision_and_types.md": "af8445fbca1618624d5604864e868118c1b216d4b9f248ac0f18491e770458b0",
+    "docs/content/user/tools/structure/get_distances.ipynb": "bba495f8b88a92cba91ef5064de0d540b297833d01299158d2f1488f1c8b3669",
+    "docs/content/user/tools/structure/least_rmsd_align.ipynb": "3c0bb84f884170417999e43093e65407ccdca10d4a66941550f5f428d47854fa",
+    "docs/content/user/tools/structure/least_rmsd_fit.ipynb": "d876dec3ce963d4c6d3a70ea120a296d5978f4d000b9b7cb0e6d3490a128f3c2",
+    "molsysmt/_private/execution/chunked_executor.py": "d967351f6a62b35c2cf8b6ebe86e689cd061ef7ab3d280c9f4d6f451c0cc880c",
+    "molsysmt/_private/numeric_precision.py": "21035387a466efe4e73db2df1125c1a99be226c199d2fdaaee28c529c8f6712b",
+    "molsysmt/_private/smonitor/__init__.py": "93b26338d3c9e4e93d4b6e9e992215b03a42fa2e387f7b1af44c2e934ec4a0d8",
+    "molsysmt/_private/smonitor/catalog.py": "941e2a0b9c13f4e2edf56d1f0f393bef9aa99b22e4b37bda5815cd07c439024b",
+    "molsysmt/_private/smonitor/warnings.py": "34244706a433070a24ea2b1c8b4c5f4b0ad104e885b4a7a999ef80180f61a877",
+    "molsysmt/configure/__init__.py": "effd206be3d99229049d17033f2b279d1cdf796eedbb5cf833ce993ef4f71489",
+    "molsysmt/lib/structure/_kernel_inputs.py": "784f9ac9d187c400931df8fa3097d614527b6e272aa1b9924a74a10981570481",
+    "molsysmt/structure/get_distances.py": "f4644c7fe138b831e284d17ddfba3942f0497db6d54ecdb916a4947b66ece866",
+    "molsysmt/structure/least_rmsd_align.py": "b036b63aac81979df642c4ae1a55f8f6edd41cb202105250e4f30ab4ac2b640c",
+    "molsysmt/structure/least_rmsd_fit.py": "84c4de2e3dd96966a64f6886c5443b81a75b6db71fc2977505a6d2be31c570d6",
+    "tests/_private/smonitor/test_xdist_warning_reconstruction.py": "ac65993a33832e695adfb50d5c2ab9ae0e0e0821ceaa0130e1e361dc0824b3b7",
+    "tests/structure/test_native_precision_policy.py": "5b886cd64a3124887da79a90f25f1f597449b6cda5998fc3b6c69e11775ede1a"
+  },
+  "schema_version": "molsysmt.native_precision_receiving@1",
+  "source_parent": "60ded0f7c833be16afcfcfef3b034ad7ff65b651",
+  "execution_environment": {
+    "pythonpath": [
+      ".",
+      ".pytest_cache/pr543-viewer-4223-20261105",
+      ".pytest_cache/stabilization-551/tooling/published"
+    ],
+    "variables": {
+      "MPLBACKEND": "Agg",
+      "OMP_NUM_THREADS": "1",
+      "OPENMM_CPU_THREADS": "1",
+      "GIT_CONFIG_COUNT": "1",
+      "GIT_CONFIG_KEY_0": "core.fsmonitor",
+      "GIT_CONFIG_VALUE_0": "false"
+    },
+    "interpreter": "Existing shared MolSysSuite CPython 3.14 development prefix."
+  },
+  "contract": {
+    "decision": "Preserve existing single-coordinate publication and explicitly diagnose effective float64 CPU arithmetic. No new backend.",
+    "working_values": "Canonical coordinate preparation and chunked CPU arithmetic retain float64 without pre-kernel float32 quantization.",
+    "diagnostic": "SMonitor PrecisionFallbackWarning, MSM-WARN-PRECISION-001, with requested/effective/backend fields and args-only reconstruction.",
+    "publication": "Operation-owned least-RMSD fitting/alignment single outputs remain. Native float64 storage holds quantized values; a plain quantity may retain float32 magnitudes. No RAM-halving promise.",
+    "validation": "Existing precision digester normalizes context aliases and rejects unsupported values before configuration publication.",
+    "units": "PyUnitWizard owns input alignment and application units; independent distance/RMSD controls cover nondefault standards.",
+    "atomicity": "Promoting the warning to an error prevents in-place fit publication."
+  },
+  "test_profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/620-before.xml",
+      "sha256": "8256ad42a8eaabbfc189a8780c3a555c73d997b8029207df42a3b27f61ef0241",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 23,
+        "failures": 21,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      },
+      "scope": "Initial 23-case counterexample: 21 failures, two double controls pass. Eager dtype mismatch and absent heavy/fit precision diagnostics."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/620-first-receiving.xml",
+      "sha256": "e93943b769693a47c8dce299ab9f4228cf31d6a01a3d8ccb79ab27da19c6bd2c",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 297,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 297
+      },
+      "scope": "First corrected precision/configuration/catalog/serialization profile, 297 cases."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/620-expanded-receiving.xml",
+      "sha256": "e4c26409df817a7cfa4f41000b2d0a001e0f1014d5daee4a3edd5113877ae71c",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 34,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 34
+      },
+      "scope": "Expanded directed public receiving, 34 cases."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/620-final-directed.xml",
+      "sha256": "66c03fd481b68ffe9bc2d0e10b906f962a0ae6bd78a83bf1a483a4ddbdbfc179",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 39,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 39
+      },
+      "scope": "Final 39-case precision policy: independent distances/RMSD; unit, eager/chunked, no-extra-copy, publication and error atomicity controls; shared-consumer parity, SASA and torsion editing."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/620-524-integrated.xml",
+      "sha256": "a3788f4b2a3fbcfaba076d3ef1689589ca218d148ad46a5eca900e5dba38c688",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 4592,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4592
+      },
+      "scope": "Joint structure/heavy/PBC/interactions/configuration/parallel/diagnostic/provider/rendering/route receiving; ordinary development providers.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/structure",
+        "tests/heavy",
+        "tests/pbc",
+        "tests/interactions",
+        "tests/basic/test_configuration_context.py",
+        "tests/basic/test_parallel_control.py",
+        "tests/_private/smonitor",
+        "tests/basic/test_info_runtime_renderer.py",
+        "tests/basic/test_info_pandas_compatibility.py",
+        "devtools/tests/test_runtime_provider_apis.py",
+        "devtools/tests/test_audit_dependency_contract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/620-524-integrated.xml"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/620-524-documentation.xml",
+      "sha256": "d22cd8bbac25712dad525c0beb953dab23512e881f8737cac08ecae730ef2100",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 599,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 599
+      },
+      "scope": "Documentation schema/directives/headings/workflows/source boundary, course, public API docs and four affected public doctests. Prose-only notebook changes preserve code and outputs.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "devtools/tests/test_documentation_notebook_schema.py",
+        "devtools/tests/test_documentation_directive_rendering.py",
+        "devtools/tests/test_documentation_heading_structure.py",
+        "devtools/tests/test_documentation_workflow.py",
+        "devtools/tests/test_documentation_source_boundary.py",
+        "devtools/tests/test_course_pca_examples.py",
+        "devtools/tests/test_course_takeaway_rendering.py",
+        "devtools/tests/test_validate_course.py",
+        "devtools/tests/test_validate_docstrings.py",
+        "devtools/tests/test_public_api_docs.py",
+        "--doctest-modules",
+        "molsysmt/structure/get_distances.py",
+        "molsysmt/structure/least_rmsd_fit.py",
+        "molsysmt/structure/least_rmsd_align.py",
+        "molsysmt/basic/info.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/620-524-documentation.xml"
+      ]
+    }
+  ],
+  "scientific_execution": {
+    "artifact": ".pytest_cache/pre1-review-20261106/620-scientific.json",
+    "sha256": "cc8e7e678d0a0883ba48cfbec057ac01d64d2f14f146cb6a8ccdc1980f85084c",
+    "command": [
+      "python",
+      "devtools/scripts/execute_scientific_evidence.py",
+      "--receptor=llm",
+      "--certificate",
+      ".pytest_cache/pre1-review-20261106/620-scientific.json"
+    ],
+    "process_exit_code": 0,
+    "summary": {
+      "schema_version": "molsysmt.scientific-evidence-execution@1",
+      "verdict": "pass",
+      "commit": "60ded0f7c833be16afcfcfef3b034ad7ff65b651",
+      "tracked_source_dirty": true,
+      "release_eligible": false,
+      "created_at": "2026-11-07T00:27:16.064306+00:00",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "registered_nodes": 64,
+      "collected_cases": 97,
+      "passed": 97,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0
+    },
+    "node_count": 64
+  },
+  "retained_warnings": {
+    "integrated": {
+      "total": 642,
+      "LegacyH5MSMWarning": 493,
+      "PrecisionFallbackWarning": 112,
+      "MemoryPressureWarning": 28,
+      "GpuNotAvailableWarning": 9
+    },
+    "documentation": {
+      "total": 792,
+      "RemovedInSphinx11Warning": 716,
+      "LegacyH5MSMWarning": 73,
+      "StructuralAttributeOffAxisWarning": 3
+    },
+    "scientific": {
+      "LegacyH5MSMWarning": 1
+    }
+  },
+  "documentation_preservation": {
+    "notebooks": {
+      "docs/content/user/tools/structure/get_distances.ipynb": {
+        "changed_markdown_cells": [
+          2
+        ],
+        "code_outputs_ids_metadata_preserved": true,
+        "sha256": "bba495f8b88a92cba91ef5064de0d540b297833d01299158d2f1488f1c8b3669"
+      },
+      "docs/content/user/tools/structure/least_rmsd_fit.ipynb": {
+        "changed_markdown_cells": [
+          6
+        ],
+        "code_outputs_ids_metadata_preserved": true,
+        "sha256": "d876dec3ce963d4c6d3a70ea120a296d5978f4d000b9b7cb0e6d3490a128f3c2"
+      },
+      "docs/content/user/tools/structure/least_rmsd_align.ipynb": {
+        "changed_markdown_cells": [
+          2
+        ],
+        "code_outputs_ids_metadata_preserved": true,
+        "sha256": "3c0bb84f884170417999e43093e65407ccdca10d4a66941550f5f428d47854fa"
+      },
+      "docs/content/user/cookbook/trajectory_performance_analysis.ipynb": {
+        "changed_markdown_cells": [
+          2
+        ],
+        "code_outputs_ids_metadata_preserved": true,
+        "sha256": "64de338ffd7fb80c05afe3ed28d3151125f3e1f3b455590a548974618e0c50d6"
+      },
+      "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb": {
+        "changed_markdown_cells": [
+          18
+        ],
+        "code_outputs_ids_metadata_preserved": true,
+        "sha256": "1d4adc3d044842b445208d8c9e470dd327d7b0f8ea64c8f66d9728200aa681c9"
+      },
+      "docs/content/user/tools/basic/info.ipynb": {
+        "changed_markdown_cells": [
+          5
+        ],
+        "code_outputs_ids_metadata_preserved": true,
+        "sha256": "ecc153dfcc39883dbcaa7473d084f0492b861b59774e4de009c615a6665802d9"
+      },
+      "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": {
+        "changed_markdown_cells": [
+          0
+        ],
+        "code_outputs_ids_metadata_preserved": true,
+        "sha256": "6cbd2c1071a9cfe015a6c1df637ceaae10e0dd221ef062693b00df01c039c95e"
+      }
+    },
+    "protected_human_sha256": {
+      "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+    },
+    "backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525"
+  },
+  "additional_checks": {
+    "ruff_check": "17 changed Python files pass",
+    "ruff_format": "17 changed Python files already formatted",
+    "dependency_contract": "pass",
+    "dependency_imports": "pass",
+    "course_structure": "156 notebooks pass",
+    "diff_whitespace": "pass",
+    "initial_fast_gate": {
+      "exit_code": 1,
+      "passed": 13,
+      "total": 14,
+      "cause": "Pending-bug index stale after report status update. Owning generator repairs it; final lifecycle gate follows."
+    },
+    "receipt_authoring": "An initial origin collector assumed all providers lived inside the prefix; it failed before writing a receipt. The collector now classifies existing editable siblings explicitly.",
+    "final_fast_gate": {
+      "command": [
+        "python",
+        "devtools/scripts/release_gate.py"
+      ],
+      "process_exit_code": 0,
+      "passed": 14,
+      "total": 14,
+      "scope": "Local source/metadata and corrected lifecycle indexes; not the full source/platform or installed-pair matrix."
+    },
+    "devguide_index": "pass after final closeout move"
+  },
+  "ci_observation": {
+    "head": "60ded0f7c833be16afcfcfef3b034ad7ff65b651",
+    "smoke_run_id": 42314744961,
+    "status": "completed",
+    "conclusion": "success",
+    "scope": "Prior configuration source only; no new workflow dispatched."
+  },
+  "limits": [
+    "Profiles overlap; their counts cannot be added as unique cases.",
+    "Local Linux source receiving is not clean installed-artifact, graphical, platform-matrix or release qualification.",
+    "Scientific certificate correctly retains pre-commit dirty source and release_eligible=false; tested source bytes are bound separately.",
+    "Four pre-existing human autosummary edits and the compiled backend remain unchanged.",
+    "Phase 3 still needs remaining #524 criteria; accepted overall plan progress stays 40%.",
+    "All work commits use [skip ci]; final exact-candidate gates remain due at agreed qualification checkpoints."
+  ]
+}

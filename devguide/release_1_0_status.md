@@ -43,13 +43,25 @@ receipt/report blobs, and #613 is verified closed. Its
 [delivery record](../devtools/data/configuration_serialization_delivery_613_20261106.json)
 keeps that separate acceptance and the remaining phase-three scope.
 
-Then resolve #620's separately reproduced precision-setting/kernel mismatch and
-advance independently actionable #524 installed-runtime work. A new precision
-backend is not required. #613 alone does not complete this block or increase its
-credited weight. All four observed ordinary workflows at PBC head `16ecaae01`,
-including smoke 42312538781, now pass; older phase-one smoke 42305861858 is also verified successful.
-Neither is a release matrix. Preserve the #616/#613 consumer reports on PR #543
-integration rather than reintroducing duplicate pending records.
+The #620 precision correction is locally qualified in `cb07e54af`, with supported
+single-coordinate publication retained and effective float64 CPU arithmetic
+diagnosed explicitly. Partial #524 source `44fd0acf0` declares the Jinja2 renderer
+needed by default `info()`. Joint receiving passes 4,592 cases, documentation/
+public doctests 599, and registered scientific execution 97 across 64 nodes.
+Profiles overlap. The [precision receipt](../devtools/data/native_precision_receiving_620_20261106.json)
+and [renderer receipt](../devtools/data/runtime_renderer_receiving_524_20261106.json)
+retain exact source/backend identities and original failures. Source delivery
+and #620 board closure follow independent public verification.
+
+Next, continue the remaining #524 provider/restriction review. Actual public
+Viewer floor/acquisition and clean installed closure remain due; do not infer
+them from source pins or extra-rich development environments. Phase 3 has no
+completed credit yet. #613 smoke 42314744961 at `60ded0f7c` now succeeds, as do
+the previously recorded PBC checks. Those are ordinary source checks, not a
+release matrix. Working commits use `[skip ci]` and pushes are batched under the
+maintainer's renewed direction; remote qualification stays with agreed checkpoints.
+Preserve the #616/#613 consumer reports on PR #543 integration rather than
+reintroducing duplicate pending records.
 
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,

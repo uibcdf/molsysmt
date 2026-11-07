@@ -193,6 +193,40 @@ explain the existing NumPy restriction. Public Viewer 0.24.0 is not sufficient
 for the redesigned addon merely because it supplies AddonSpec. None of these
 observations authorizes a public sibling release or changing its source.
 
+## Default styled-output closure — 2026-11-06
+
+The default public and native `info()` paths return Pandas Styler. Rendering
+that result requires Jinja2, which was available incidentally in the development
+environment but missing from the public runtime declaration. The supported
+Pandas 2.2.2 provider explicitly requires Jinja2 3.1.2 for this optional Pandas
+feature. MolSysMT makes that feature its default, so Jinja2 >=3.1.2 is now a
+hard requirement in pyproject.toml and the runtime classification, both recipes
+and all four maintained runtime-bearing environments. The public output and
+selection semantics remain unchanged.
+
+The original declaration guard fails while the existing renderer succeeds,
+exposing the hidden dependency rather than mistaking an extra-rich environment
+for a closed runtime contract. Corrected receiving passes 35 provider, route,
+public/native rendering and strict-summary cases using the exact public Jinja2
+3.1.2 wheel. Seven isolated provider probes also pass with the existing Python
+3.11 interpreter and the selected minimum NumPy, Pandas, h5py, Matplotlib,
+NetworkX and tqdm wheels. These execute actual HTML and a real NumPy-to-Rust
+distance call; they do not import and qualify the whole MolSysMT installation.
+
+No environment was created, installed over or downgraded. Source receiving,
+minimum API probes and a future clean installed-candidate qualification remain
+distinct. The remaining Viewer acquisition/floor, sibling/optional-provider and
+NumPy restriction reviews below still prevent closing #524.
+
+Source `44fd0acf0788f1c9d06fe2a3a7446ad52c9e2550` contains this renderer
+correction. Combined receiving with #620 passes 4,592 cases and the affected
+documentation/public-doctest profile 599. These scopes overlap the directed
+profiles above. The [renderer receipt](../../devtools/data/runtime_renderer_receiving_524_20261106.json)
+retains the exact wheel, import origins, source hashes, native exits, commands
+and limits. No clean installed-candidate or Viewer floor is claimed. The last
+observed Viewer GitHub Release remains 0.24.0; an actual compatible public
+artifact is still required before setting a new host minimum.
+
 ## Remaining scope and acceptance criteria
 
 - Qualify core API/ABI probes and align justified hard floors in source, both

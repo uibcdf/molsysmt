@@ -163,10 +163,12 @@ impact warrants it, while preserving the active task and its outstanding handoff
 - Never add a `Co-Authored-By` trailer to commit messages. Commit messages must contain only the subject line and, when necessary, a body — no attribution footers of any kind.
 - Keep focused commits local and batch direct pushes into meaningful work
   checkpoints. Do not push every small change solely to trigger remote tests;
-  run the relevant local checks during development. When an intermediate
-  internal-maintainer push is needed for collaboration or backup and CI can
-  be deferred, use `[skip ci]`. Finish each work block with an unskipped head
-  and inspect its applicable CI, or use the authorized exact-head manual route.
+  run the relevant local checks during development. During the maintainer-ordered
+  stabilization campaign under #334 (direction renewed on 2026-11-06), mark
+  development commits with `[skip ci]` and batch direct pushes. Reserve remote CI
+  for deliberately agreed qualification checkpoints; do not remove the marker
+  automatically just because a small work block ends. Use the authorized
+  exact-head manual route when qualification is due, and inspect its actual result.
   Every skipped commit remains in the nightly full-suite backlog
   until a complete Linux matrix passes. Do not use `[skip ci]` on a pull
   request. Release candidates require all mandatory exact-candidate gates
