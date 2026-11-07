@@ -5,6 +5,7 @@ LIBRARIES = {
     "ackredit": {"type": "soft", "pypi": "ackredit"},
     "numpy": {"type": "hard", "pypi": "numpy"},
     "pandas": {"type": "hard", "pypi": "pandas"},
+    "jinja2": {"type": "hard", "pypi": "jinja2"},
     "mmcif": {"type": "hard", "pypi": "mmcif"},
     "mdtraj": {"type": "soft", "pypi": "mdtraj"},
     "openmm": {"type": "soft", "pypi": "openmm"},

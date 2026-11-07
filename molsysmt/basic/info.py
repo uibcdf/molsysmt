@@ -94,6 +94,9 @@ def info(
       :func:`molsysmt.basic.select`. Atom indices are not converted to group,
       molecule or other element indices implicitly. System counts summarize
       the retained atom inventory; structure_indices remains independent.
+    - The default styled result uses Jinja2, a declared runtime dependency,
+      to render HTML. Explicit dataframe or dictionary results do not require
+      HTML rendering.
 
 
     See Also

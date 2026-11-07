@@ -95,6 +95,16 @@ floor/acquisition, existing sibling/optional-provider minima and the NumPy ABI
 restriction review remain pending under #524. This partial adoption does not
 authorize a release or certify unexecuted provider combinations.
 
+Default `info()` output uses Pandas Styler and its Jinja2 renderer. Jinja2 is
+therefore a hard runtime requirement rather than an incidental documentation
+dependency. Its floor follows the renderer API required by the supported
+Pandas minimum. The provider guard above renders actual HTML; the public/native
+guard in `tests/basic/test_info_runtime_renderer.py` exercises MolSys, Topology
+and Structures. An explicitly requested dataframe or dictionary does not
+render HTML. The active #524 record retains the exact minimum-provider probes
+and their limits; provider-only receiving does not qualify a complete installed
+MolSysMT runtime.
+
 ## Build-backend license contract
 
 The Setuptools requirement in `pyproject.toml` owns the source build minimum.

@@ -7,11 +7,35 @@ with a newer environment alone does not qualify declared minima or optional engi
 import io
 import subprocess
 import sys
+import tomllib
+from pathlib import Path
 
 import h5py
 import networkx as nx
 import numpy as np
 import pandas as pd
+from packaging.requirements import Requirement
+from packaging.version import Version
+
+
+def test_default_styler_renderer_is_a_declared_runtime_requirement():
+    root = Path(__file__).resolve().parents[2]
+    project = tomllib.loads((root / "pyproject.toml").read_text())["project"]
+    requirements = {
+        r.name.lower(): r for r in map(Requirement, project["dependencies"])
+    }
+    assert "jinja2" in requirements, (
+        "Default basic/native info() needs pandas Styler's renderer."
+    )
+    requirement = requirements["jinja2"]
+    # pandas 2.2.2's published compat/_optional.py requires Jinja2 >=3.1.2.
+    assert any(
+        s.operator == ">=" and Version(s.version) >= Version("3.1.2")
+        for s in requirement.specifier
+    )
+    import jinja2
+
+    assert requirement.specifier.contains(jinja2.__version__)
 
 
 def test_numpy_arrays_cross_native_bridge():
