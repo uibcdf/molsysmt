@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "published_source_commit": "c16b970a91cc23c93e2637e2569149e0c5d44f8c",
+  "scientific_certificate": {
+    "verdict": "pass",
+    "commit": "c16b970a91cc23c93e2637e2569149e0c5d44f8c",
+    "tracked_source_dirty": false,
+    "source_correspondence": true,
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0
+  },
+  "scientific_scope": "The clean-source scientific gate passes. This does not select a candidate or establish installed/platform/publication eligibility.",
+  "public_source_receiving": {
+    "source_commit": "c16b970a91cc23c93e2637e2569149e0c5d44f8c",
+    "complete_public_tree": true,
+    "public_truncated": false,
+    "checked_paths": {
+      "devguide/molsysviewer_tools_gui_design.md": "47177c2383dfcc6ea705e65f51118c1c88b219a9",
+      "devguide/pending_proposals/README.md": "d74dc555d71c5ffd24a2b5767aef8f10de559213",
+      "devguide/pending_proposals/molsysviewer_tools_addon.md": "3dc13ced3cc6a04b16fb41527b699f4a08c3a362",
+      "devguide/pre_1_0_robustness_audit_20261106.md": "1608d911b4d71cadbf3e0365d7426287107afd40",
+      "devguide/release_1_0_status.md": "e06090704cdbd217496f7d528252f3d007fa7fbe",
+      "devtools/data/molsysviewer_tools_rotation_receiving_20261107.json": "57972babd0a57355b03043da8f600c178aff4f8b",
+      "docs/content/course/Common_Core/16_Structural_Operations.AGENTS.md": "fcb187d35fadb011b01b10c1a35aec7ce218c41a",
+      "docs/content/course/Common_Core/16_Structural_Operations.ipynb": "a27b3501d4dc627a63fab83bf4083c683631e707",
+      "docs/content/user/tools/molsysviewer_tools.md": "2253acd5b36b9877eb5b95fc3db30912726bed7d",
+      "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "27eb4f825c81d507f345b023772ad4984c402b5e",
+      "docs/docs_manifest.yml": "bc547a99e396083c8f74e300c8a1904f04a5d767",
+      "molsysviewer_molsysmt/_geometry_panel.py": "33d012639a2195979d49afaebdc2c74d11f8e9d4",
+      "molsysviewer_molsysmt/_geometry_panel_frontend.py": "81e3895f8c22e27f71f799250f6aede1ca14d904",
+      "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "5114603e6f03512eec1f8556c24c5d9f26e3762c",
+      "tests/molsysviewer_molsysmt/rotate_panel_jupyter.mjs": "7755192dd18bc081606d7d6c86b7a6ef0e0ee6f2",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "c8bebc595dc43e84d1c2bae73411967f178b6abc",
+      "tests/molsysviewer_molsysmt/test_geometry_panel.py": "1fa9cd1bb933d1d9faf92b604b8111618ae761c6"
+    },
+    "all_match": true
+  },
+  "preservation": "Four root human-owned API stubs remain byte-identical and unstaged. Course code cells and saved outputs stay unchanged. No native scientific/Rust source or binary changes.",
+  "board": {
+    "issues": 571,
+    "open": 97,
+    "latest_issue": 639,
+    "open_pull_requests": 0,
+    "acquisition": "Complete paginated issue and open-PR REST inventories; private evidence retained."
+  },
+  "remaining": "Other accepted #421 graphical families; #524 actual public-host/installed review; postponed human Jupyter/visible Qt; exact final candidate/platform gates.",
+  "ci": "Maintainer-authorized [skip ci] source checkpoint. Remote full matrices are not run or waived; recovery stays in the existing #334/nightly full-suite backlog.",
+  "progress": {
+    "phase_percent": 40,
+    "audit_related_issue_closures": 28
+  }
+}

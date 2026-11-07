@@ -35,7 +35,13 @@ no zero-page-error claim is made. Secrets are removed. Source receiving does
 not close human Qt/visual acceptance, installed/platform qualification or #615.
 The original test-only stale-request sequencing failure is retained and explained.
 
-Source delivery and final source/documentation checks are being completed.
+Source `c16b970a9` is published on main; all seventeen changed paths match the
+complete public tree. Clean exact-source scientific execution passes **107
+cases/68 nodes**; fourteen fast controls and HTML compilation pass (six retained
+underline warnings). The [completion receipt](../../devtools/data/molsysviewer_tools_rotation_completion_20261107.json)
+records publication, certificate scope and preserved human work. No new remote
+matrix or installed qualification is claimed; the existing #334 recovery
+backlog remains due.
 Other accepted Geometry/reference/principal-axis/cell, property/sequence,
 interaction/mechanics and complete scientific-session GUI families remain
 required. Audit progress stays **40%**, with **28** audit-related closures.

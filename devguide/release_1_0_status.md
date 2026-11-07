@@ -34,9 +34,14 @@ The [rotation receipt](../devtools/data/molsysviewer_tools_rotation_receiving_20
 records 5,091 addon cases, 551 overlapping directed/native/route cases and seven
 actual Jupyter/Mol*/popup steps, with unchanged boxes/chemistry, coverage
 invalidation, selected/unselected coordinates and independent result identity.
-Baseline-matching page errors are retained. Final source/documentation checks
-and publication are in progress. Human visual/Qt, installed/platform and exact
-candidate gates remain pending. No publication authority is inferred.
+Baseline-matching page errors are retained. Source `c16b970a9` is published on
+main and all seventeen changed paths independently match the complete public
+tree. The [completion receipt](../devtools/data/molsysviewer_tools_rotation_completion_20261107.json)
+adds clean exact-source execution of 107 scientific cases/68 nodes, fourteen
+fast gates, HTML compilation with six retained underline warnings and preserved
+human work. Human visual/Qt, installed/platform and exact candidate gates remain
+pending. Remote full-suite recovery remains due under #334; no candidate or
+publication authority is inferred.
 
 The audit remains **40%** complete, with **28** audit-related issue closures.
 The complete board still has 571 issues, 97 open, latest #639. Next are the

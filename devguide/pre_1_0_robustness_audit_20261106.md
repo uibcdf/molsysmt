@@ -13,9 +13,13 @@ origin or fixed-point centers. The
 [rotation receipt](../devtools/data/molsysviewer_tools_rotation_receiving_20261107.json)
 records 5,091 addon cases, 551 overlapping directed/native/route cases and one
 actual seven-step Jupyter/Mol*/popup guard. It preserves the test-only original
-request-sequence failure and baseline-matching page errors. Source publication
-and final checks are in progress; human visual/Qt and installed/candidate gates
-remain independent. Accepted progress is **40%**; audit-related closures remain
+request-sequence failure and baseline-matching page errors. Source `c16b970a9`
+is published on main and all seventeen changed paths match the complete public
+tree. The [completion receipt](../devtools/data/molsysviewer_tools_rotation_completion_20261107.json)
+records clean exact-source scientific execution (**107 cases/68 nodes**), all
+fourteen fast gates, HTML compilation with six retained underline warnings and
+preserved human edits. Human visual/Qt and installed/candidate gates remain
+independent. The existing #334 remote full-suite recovery backlog is not waived. Accepted progress is **40%**; audit-related closures remain
 **28**. The complete board remains 571 issues, 97 open, through #639.
 
 **Next after this slice:** the other accepted #421 graphical families, beginning
