@@ -60,7 +60,22 @@ installed closure stay open. Audit progress remains **40%**, with **26 verified
 audit-related closures**. No new candidate, tag, Release, promotion or remote
 matrix is selected.
 
-## Newer bound-tools receiving in isolation — 2026-11-07
+## Newer bound-tools qualified source — 2026-11-07
+
+Owner merge `0ddb99c2b` over `b10160f29` receives contribution `42f5ed3bc`
+on exact public Viewer `e4dd58cf0`. It passes all 5,428 combined source cases,
+the four actual Jupyter scenarios together (17/6/8/8 ordered steps), 107 actual
+molecular cases/68 nodes with `--require-clean`, fourteen fast gates and HTML
+compilation with six retained underline warnings. The
+[source receipt](../devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json)
+and [completion receipt](../devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json)
+retain the expected route-oracle mutation and the original failed smoke omission.
+Page errors match plain-Jupyter controls; no #615 causal closure is inferred.
+#635/#639 source work is complete; main delivery/board verification follow.
+Remaining #421 accepted families/full GUI session, #524 public-host/installed
+and human/Qt/final-candidate exits remain separate. Progress40%, public closures26.
+
+## Initial newer bound-tools receiving — 2026-11-07
 
 Published contribution `42f5ed3bc` is being received over owner `b10160f29`.
 Its source pins exact Viewer `e4dd58cf0`, adds conformational Analysis tasks and

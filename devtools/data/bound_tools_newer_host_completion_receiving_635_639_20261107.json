@@ -1,0 +1,358 @@
+{
+  "schema_version": "molsysmt.owner_newer_host_completion_receiving@1",
+  "date": "2026-11-07",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#635",
+    "uibcdf/molsysmt#639"
+  ],
+  "owner_merge": "0ddb99c2b31ba4f63c40c0c43da038895b21c70d",
+  "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+  "source_receiving": "devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json",
+  "runs": [
+    {
+      "name": "635-owner-jupyter",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_chemistry_preparation_and_reviewed_replacement",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_pending_chemistry_readers",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_periodic_geometry",
+          "--basetemp=<isolated-owner>/.pytest_cache/receiving-543/635-owner-jupyter/pytest-tmp",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/635-owner-jupyter/result.xml"
+        ],
+        "owner_merge": "0ddb99c2b31ba4f63c40c0c43da038895b21c70d",
+        "viewer": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "Four actual Jupyter/Python/Chrome/Mol*/popup scenarios on clean owner merge; Analysis17,Preparation6,Pending8,Periodic8. Serial, existing interpreter/tools, publicPUW0281. No installed/human/Qt qualification.",
+        "native_exit_observed": 0,
+        "started": 1794075622.097215,
+        "elapsed_seconds": 358.591
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "948b2a5a6fa45842198dfdaf5c8e3979e7b101b4f3ae80b1435fa114bd594b10",
+        "owner-summary.json": "8ebbb848869fdd7d436253f8f27900224f6977fe375ed3bb3ecd2f56ba527036",
+        "result.xml": "91a30d816724fec75c90928d34204964053aee808e779683ea24a325a1f33fb1",
+        "stderr.log": "1b75d1f2831bb89eddb72ae3edc3454c70c5b2aca3fc9e549288c2e7337f9a6f",
+        "stdout.log": "402e3cfefca2254cf65924255f9065499df9f0f17f60d7dc56bc8ee0210f5f21"
+      },
+      "junit": {
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "635-owner-scientific",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--require-clean",
+          "--certificate",
+          "<isolated-owner>/.pytest_cache/receiving-543/635-owner-scientific/certificate.json"
+        ],
+        "owner_merge": "0ddb99c2b31ba4f63c40c0c43da038895b21c70d",
+        "viewer": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "Actual molecular registry with require-clean on the committed owner merge and newer exact host; narrow scientific/source proof, not candidate/installed/platform/publication acceptance.",
+        "native_exit_observed": 0,
+        "elapsed_seconds": 15.99
+      },
+      "private_artifact_sha256": {
+        "certificate.json": "298fe4f9024582b598a15946aecc83cf50b543e4d2e4d93e97bf00da7a398605",
+        "invocation.json": "1cf22be68f5d37feacc96c8abb70e42a1ddc07e22e6b7486b5fd979e2948089b",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "f6e175ee303803cd8b2e2c56355ae18b9d646e416416b940e554bea806a40d53"
+      }
+    },
+    {
+      "name": "635-owner-fast-gates",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/release_gate.py"
+        ],
+        "scope": "Fourteen fast source gates on ownermerge0ddb/exacte4ddhost; no pytest lane, scientific execution, installed or release authority.",
+        "native_exit_observed": 0,
+        "elapsed_seconds": 27.844
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "bc0618bc07bbbdf012edec282b250aac7639437e2013e66566f138c1e79295fb",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "fe377e9015b1443177d2d4ff17a8aec455e8a851b454602f39f41d60f17daee9"
+      }
+    },
+    {
+      "name": "635-owner-html",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "12",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<isolated-owner>/.pytest_cache/receiving-543/635-owner-html/html"
+        ],
+        "scope": "HTML compilation of received conformation/tool docs and existing saved notebook outputs; no notebook execution, autosummary regeneration or human-stub edits.",
+        "native_exit_observed": 0,
+        "elapsed_seconds": 48.897
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "567778a9d657226c7b824bcd622b6328de2e0628f7d7da73daa9c583229e881f",
+        "stderr.log": "5ceda77925ddf02433cd5c08c9d89740f91938b2bf7fe9e91d6726dfb0d95a88",
+        "stdout.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f"
+      }
+    }
+  ],
+  "actual_jupyter_scenarios": [
+    {
+      "scenario": "test_actual_jupyter_analysis_d0",
+      "ordered_checks": [
+        "Load TcTIM and open Analysis without calculating implicitly",
+        "Calculate explicit atom populations and verify native distances against coordinates",
+        "Inspect native minimum and maximum without changing molecular data",
+        "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "Page through TcTIM source indices without transferring the complete result",
+        "Use independent Analysis panels in canvas popup and detached Studio",
+        "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+        "Select participants and focus the visible structure without losing the row acknowledgement",
+        "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+        "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+        "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+        "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+        "Prepare independent conformation references from the unchanged real ensemble",
+        "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
+        "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
+        "Inspect and adopt conformational results through both real popup boundaries",
+        "Python verifies retained native data separate plots and deliberate structure navigation"
+      ],
+      "page_error_count": 7,
+      "baseline_error_count": 1,
+      "all_page_errors_match_plain_jupyter": true,
+      "page_error_fingerprints": {
+        "Error: No active debugger session|    at h.displayModules (http://127.0.0.1:34917/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)": 7
+      },
+      "settings_removed": true,
+      "server_settings_removed": true,
+      "result_sha256": "3378d78b84dbdad2d039620b84d0fb016ea84b188eeeef15587e0d3a2390339a",
+      "startup": {
+        "scope": "Jupyter server readiness, before any browser or molecular cell",
+        "diagnostic_trace_after_seconds": 15,
+        "pid": 2030424,
+        "ready": true,
+        "elapsed_seconds": 6.527814642060548
+      }
+    },
+    {
+      "scenario": "test_actual_jupyter_chemistry_0",
+      "ordered_checks": [
+        "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+        "Present the independent result in the notebook and keep it while changing tasks",
+        "Review Back preserves the original TcTIM and its chemical domain",
+        "Apply the reviewed result and render its independent copy in the original canvas",
+        "Inspect the adopted molecular data in the canvas popup and detached Studio",
+        "Python verifies one replacement, original preservation and independent result coordinates"
+      ],
+      "page_error_count": 3,
+      "baseline_error_count": 1,
+      "all_page_errors_match_plain_jupyter": true,
+      "page_error_fingerprints": {
+        "Error: No active debugger session|    at h.displayModules (http://127.0.0.1:36713/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)": 3
+      },
+      "settings_removed": true,
+      "server_settings_removed": true,
+      "result_sha256": "7ad5a0e907cb15c1270a72de7fb4e4746d2c8f8837e4a12ef3cf26acd69b2b94",
+      "startup": {
+        "scope": "Jupyter server readiness, before any browser or molecular cell",
+        "diagnostic_trace_after_seconds": 15,
+        "pid": 2031680,
+        "ready": true,
+        "elapsed_seconds": 2.5190119470935315
+      }
+    },
+    {
+      "scenario": "test_actual_jupyter_pending_ch0",
+      "ordered_checks": [
+        "Mount actual Chemistry in the embedded TcTIM view",
+        "Inspect and page current primary with real keys while embedded scene stays inert",
+        "Restore the same mounted panel after updating and open the canvas popup",
+        "Inspect current primary from the paused live canvas popup",
+        "Restore canvas popup and mount Chemistry in detached Studio",
+        "Inspect and page current primary in detached paused Studio",
+        "Restore detached Studio without recreating its panel and close popups",
+        "Verify native molecular data revisions scene regions and result ownership"
+      ],
+      "page_error_count": 8,
+      "baseline_error_count": 1,
+      "all_page_errors_match_plain_jupyter": true,
+      "page_error_fingerprints": {
+        "Error: No active debugger session|    at h.displayModules (http://127.0.0.1:47435/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)": 8
+      },
+      "settings_removed": true,
+      "server_settings_removed": true,
+      "result_sha256": "d01e82108c5a15b0580e75333ab1a759213f008b382aaf3bda0ebeb5d8f3d1f7",
+      "startup": {
+        "scope": "Jupyter server readiness, before any browser or molecular cell",
+        "diagnostic_trace_after_seconds": 15,
+        "pid": 2033304,
+        "ready": true,
+        "elapsed_seconds": 2.5187113999854773
+      }
+    },
+    {
+      "scenario": "test_actual_jupyter_periodic_g0",
+      "ordered_checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review compact centered-box wrapping and Back without changing Mol* positions",
+        "Apply native compact wrapping and verify its actual centered image",
+        "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+        "Review per-atom temporal unwrapping and create an independent whole-system result",
+        "The periodic result keeps its View while moving between notebook and window",
+        "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+        "Python verifies all native arrays and drives a second structure of the rendered result"
+      ],
+      "page_error_count": 2,
+      "baseline_error_count": 1,
+      "all_page_errors_match_plain_jupyter": true,
+      "page_error_fingerprints": {
+        "Error: No active debugger session|    at h.displayModules (http://127.0.0.1:48309/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)": 2
+      },
+      "settings_removed": true,
+      "server_settings_removed": true,
+      "result_sha256": "df21445bdf4fa07a0d6a272376b98d854db1d67f378102dc9604599f6f478269",
+      "startup": {
+        "scope": "Jupyter server readiness, before any browser or molecular cell",
+        "diagnostic_trace_after_seconds": 15,
+        "pid": 2034156,
+        "ready": true,
+        "elapsed_seconds": 2.5186509410850704
+      }
+    }
+  ],
+  "actual_scientific_certificate": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "0ddb99c2b31ba4f63c40c0c43da038895b21c70d",
+    "tracked_source_dirty": false,
+    "source_before": {
+      "commit": "0ddb99c2b31ba4f63c40c0c43da038895b21c70d",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_after": {
+      "commit": "0ddb99c2b31ba4f63c40c0c43da038895b21c70d",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_correspondence": true,
+    "release_eligible": true,
+    "created_at": "2026-11-07T18:28:23.398244+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "nodes": [
+      "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+      "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+      "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+      "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+      "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+      "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+      "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+      "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_constructed_matrix_drives_public_row_vector_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_extreme_finite_axis_still_produces_the_analytic_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_positive_body_diagonal_turn_cycles_cartesian_axes",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_signed_cartesian_quarter_turns_match_literal_matrices",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+    ]
+  },
+  "html_warning_count": 6,
+  "disposition": [
+    "Owner-combined actual Jupyter/Python/Mol*/Chrome/popup receiving passes all4selected scenarios together, native0. Analysis17,Preparation6,Pending8,Periodic8. Original deadlines and assertions remain unchanged.",
+    "Page errors remain7/3/8/2 respectively, each matching a plain-Jupyter baseline fingerprint; no zero-page-error claim or causal closure of earlier615startup/canvas uncertainty.",
+    "Actual scientific registry passes107cases/68nodes with require-clean on exact merge0ddb; source snapshots are clean and identical. This is narrow source/scientific eligibility, not a selected candidate or publication authorization.",
+    "All14fast gates pass. HTML native0 with six retained existing underline warnings; protected human API stubs are not edited/regenerated.",
+    "Earlier250host evidence, incoming contributor receipts, current5428case source receiving and this actual owner receiving remain separate overlapping scopes.",
+    "635exact-route guards and639smoke-argument correction are bounded completed source work; main delivery and board closure follow. Broader421families/full scientific session, public-host524/installed qualification and human/Qt acceptance remain separate."
+  ],
+  "accepted_plan_progress_percent": 40
+}

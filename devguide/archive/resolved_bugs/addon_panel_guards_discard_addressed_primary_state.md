@@ -1,9 +1,9 @@
 ---
 summary: Addon panel guards discard explicitly addressed primary-widget state.
 issue: uibcdf/molsysmt#635
-status: partial
+status: resolved
 opened: 2026-11-07
-closed:
+closed: 2026-11-07
 severity: medium
 verification: reproduced
 area: [tests, molsysviewer, panels]
@@ -60,5 +60,28 @@ After #639's one-argument correction, the complete combined owner selection
 passes **5,428 cases** without failures/errors/skips, retaining all three
 mandatory preflights, owner coordinate/constructor/certificate guards and
 independent conformation controls. The original failed campaign remains in the
-[owner receipt](../../devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json).
+[owner receipt](../../../devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json).
 Actual seventeen-step Jupyter receiving and source publication follow separately.
+
+## Resolution — 2026-11-07
+
+Owner merge `0ddb99c2b31ba4f63c40c0c43da038895b21c70d` receives the incoming
+exact-primary oracle without stripping envelopes or weakening foreign/popup
+identity. All 5,428 combined source cases pass after the separately owned #639
+workflow correction. The deliberately weakened oracle fails the real-two-View
+guard, and original bytes are restored before full qualification.
+
+All four selected actual Jupyter scenarios pass together: Analysis seventeen
+ordered steps, Preparation six, Pending Chemistry eight and Periodic eight.
+They retain numerical/source/scene/geometry/popup checks and original deadlines.
+Page errors match their plain-Jupyter controls; no zero-error or #615 causal
+closure is claimed. The actual molecular runner also passes 107 cases/68 nodes
+with `--require-clean` on the clean merge, all fourteen fast gates pass and HTML
+compiles with six retained existing warnings. The
+[completion receipt](../../../devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json)
+keeps exact host/source/backend identities and separate evidence scopes.
+
+This resolves #635's bounded guard compatibility. Main delivery/board verification
+follow in the ledger; remaining #421 families/full GUI session, #524 public-host/
+installed and postponed human/Qt acceptance remain open. No candidate or release
+is selected, and historical archives remain unchanged.

@@ -3290,3 +3290,24 @@ contribution remains recoverable at the head above. No course rewrite is inferre
 Incoming source receipts retain their original execution scope and failures;
 owner paired-source and actual Jupyter receiving are pending on the combined
 tree. This reception selects no package, candidate, tag or release.
+
+## Owner newer-host qualification — 2026-11-07
+
+Merge `0ddb99c2b` passes 5,428 complete addon/preflight/owner cases, then all
+four actual Jupyter scenarios together on exact public Viewer `e4dd58cf0`:
+Analysis17, Preparation6, Pending8 and Periodic8. All existing numerical,
+source/scene/coordinate and popup checks remain. Page errors match independent
+plain-Jupyter fingerprints; #615's earlier uncertainty is not causally closed.
+The [source receipt](../../devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json)
+and [completion receipt](../../devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json)
+retain the initial failed smoke omission, expected route mutation, corrected
+full profile, clean 107/68-node scientific certificate, fourteen fast gates and
+HTML native zero/six retained warnings. #639 repairs the owner-added test's
+hosted argument; #635 closes only the exact-route oracle theme after publication.
+
+Remaining accepted task families are those in the maintained GUI design, including
+Rotate now that its native constructor is delivered, principal-axis/reference
+workflows, cell editing and further property/sequence/interaction/mechanics
+integration. Complete scientific-session GUI and installed/human/host-floor
+qualification are separate exits. No family is dropped or stable/candidate
+classification inferred from this source block.

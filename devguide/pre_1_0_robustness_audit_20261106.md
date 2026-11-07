@@ -24,18 +24,14 @@ gates pass. Original failures, earlier ineligible development certificates and
 six HTML warnings remain recorded. Counts overlap; narrow clean scientific/source
 eligibility does not qualify installed packages or authorize publication.
 
-**Current isolated receiving:** head `42f5ed3bc` is reconciled over owner
-`b10160f29`, preserving 5,313 owner paths and the immutable #632/#637 archives.
-The exact newer Viewer `e4dd58cf0` independently matches all 2,462 public source
-blobs. Owner-directed receiving passes 356 cases; an intentionally weakened
-endpoint oracle is rejected by the real-two-View guard and its original bytes
-are restored. The first full owner campaign retains 5,427 passes and one failed
-command-completeness preflight. New #639 owns the missing #602 test argument in
-smoke; it is locally corrected without weakening the guard, and the full rerun passes **5,428 cases** without omissions. The
-[owner receipt](../devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json)
-retains original failures and unchanged input fingerprints. Actual seventeen-step
-Jupyter receiving and source/board delivery remain pending. This
-adds no phase weight; public closures remain 26 and progress remains 40%.
+**Current newer-host qualification:** exact merge `0ddb99c2b` passes all
+5,428 combined cases, the four actual Jupyter scenarios together (17/6/8/8
+steps), 107 scientific cases/68 nodes with `--require-clean`, fourteen fast
+gates and HTML compilation with six retained warnings. Source receipts preserve
+the original failed smoke preflight and expected oracle mutation. #635/#639
+source corrections are complete; main delivery/board closeout follow. Public
+closures remain 26 and progress 40% until verified delivery. See the
+[completion receipt](../devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json).
 
 **Next:** receive published #543 head `42f5ed3bc` and #635's endpoint-aware
 panel guards/conformational work on its actual newer Viewer. Current owner
