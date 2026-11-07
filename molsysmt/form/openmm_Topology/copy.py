@@ -1,45 +1,52 @@
+from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="openmm.Topology")
+@dep_digest("openmm")
 def copy(item, skip_digestion=False):
-    """
-    Creating a copy of an item of form openmm.Topology.
-
+    """Creating an independent OpenMM topology with its declared metadata.
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+    item : openmm.Topology
+        Source topology, which is left unchanged.
+    skip_digestion : bool
+        Whether to skip argument digestion for a trusted internal call.
+        The default is False.
 
     Returns
     -------
     openmm.Topology
-        Resulting object in openmm.Topology form.
+        Independent topology retaining labels, insertion codes, known and
+        unknown formal charges, bond type/order, empty inventory parents and
+        periodic box vectors. This form contains no coordinate structures.
 
+    See Also
+    --------
+    molsysmt.form.openmm_Topology.extract
+        Extracting atoms through the same metadata-preserving builder.
+    molsysmt.basic.copy
+        Copying any supported molecular-system form.
+
+    Examples
+    --------
+    >>> from openmm import app
+    >>> source = app.Topology()
+    >>> group = source.addResidue('LIG', source.addChain('A'))
+    >>> atom = source.addAtom('N', app.element.nitrogen, group, formalCharge=1)
+    >>> result = copy(source)
+    >>> result is source, next(result.atoms()).formalCharge
+    (False, 1)
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Form_openmm_Topology` and :ref:`Tutorial_Copy`.
 
     .. versionadded:: 1.0.0
     """
 
-    from openmm.app import Topology
+    from .extract import extract
 
-    new_item = Topology()
-    newAtoms = {}
-    for chain in item.chains():
-        newChain = new_item.addChain(chain.id)
-        for residue in chain.residues():
-            newResidue = new_item.addResidue(
-                residue.name, newChain, residue.id, residue.insertionCode
-            )
-            for atom in residue.atoms():
-                newAtom = new_item.addAtom(atom.name, atom.element, newResidue, atom.id)
-                newAtoms[atom] = newAtom
-    for bond in item.bonds():
-        new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
-    del newAtoms
-    new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
-    tmp_item = new_item
-
-    return tmp_item
+    return extract(item, copy_if_all=True, skip_digestion=True)

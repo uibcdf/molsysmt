@@ -13,99 +13,105 @@ def extract(
     copy_if_all=True,
     skip_digestion=False,
 ):
-    """
-    Extracting a subset of elements or structures from form openmm.Topology.
-
+    """Extracting atoms with preserved OpenMM topology and chemical metadata.
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
-    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+    item : openmm.Topology
+        Source topology, which is left unchanged.
+    atom_indices : int or array_like or str
+        Atom indices to retain. The default is ``'all'``. Explicit subsets
+        follow source atom order and coalesce repeated positions.
+    structure_indices : int or array_like or str
+        Unused compatibility argument: this form has no coordinate-structure
+        axis. The default is ``'all'``.
+    copy_if_all : bool
+        Whether ``'all'`` returns an independent copy. The default is True.
+        Explicit atom subsets always return an independent topology.
+    skip_digestion : bool
+        Whether to skip argument digestion for a trusted internal call.
+        The default is False.
 
     Returns
     -------
     openmm.Topology
-        Resulting object in openmm.Topology form.
+        Topology with dense retained atom, group and chain indices, original
+        labels/insertion codes, formal charges, remapped bond type/order and
+        independent periodic box vectors, stored by OpenMM in nanometers.
 
+    Notes
+    -----
+    Unknown formal charges remain unknown. Full copies preserve empty groups
+    and chains; explicit atom subsets omit parents with no retained atoms.
+    No chemical perception or coordinate calculation is performed.
+
+    See Also
+    --------
+    molsysmt.basic.extract
+        Extracting from any supported molecular-system form.
+    molsysmt.form.openmm_Topology.copy
+        Copying all represented topology data through this builder.
+
+    Examples
+    --------
+    >>> from openmm import app
+    >>> source = app.Topology()
+    >>> group = source.addResidue('LIG', source.addChain('A'))
+    >>> nitrogen = source.addAtom('N', app.element.nitrogen, group, formalCharge=1)
+    >>> oxygen = source.addAtom('O', app.element.oxygen, group)
+    >>> result = extract(source, atom_indices=[1])
+    >>> [(atom.index, atom.name, atom.formalCharge) for atom in result.atoms()]
+    [(0, 'O', None)]
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Form_openmm_Topology` and :ref:`Tutorial_Extract`.
 
     .. versionadded:: 1.0.0
     """
 
     from openmm.app import Topology
 
-    if hasattr(item, "topology"):
-        topology = item.topology
-    else:
-        topology = item
+    topology = item.topology if hasattr(item, "topology") else item
+    all_atoms = is_all(atom_indices)
+    if all_atoms and not copy_if_all:
+        return item
 
-    if is_all(atom_indices) and is_all(structure_indices):
-        if copy_if_all:
-            new_item = Topology()
-            newAtoms = {}
-            for chain in topology.chains():
-                newChain = new_item.addChain(chain.id)
-                for residue in chain.residues():
-                    newResidue = new_item.addResidue(
-                        residue.name, newChain, residue.id, residue.insertionCode
+    selected = None if all_atoms else set(atom_indices)
+    new_item = Topology()
+    new_atoms = {}
+    for chain in topology.chains():
+        new_chain = new_item.addChain(chain.id) if all_atoms else None
+        for group in chain.residues():
+            new_group = (
+                new_item.addResidue(
+                    group.name, new_chain, group.id, group.insertionCode
+                )
+                if all_atoms
+                else None
+            )
+            for atom in group.atoms():
+                if all_atoms or atom.index in selected:
+                    if new_chain is None:
+                        new_chain = new_item.addChain(chain.id)
+                    if new_group is None:
+                        new_group = new_item.addResidue(
+                            group.name, new_chain, group.id, group.insertionCode
+                        )
+                    new_atoms[atom] = new_item.addAtom(
+                        atom.name,
+                        atom.element,
+                        new_group,
+                        atom.id,
+                        formalCharge=atom.formalCharge,
                     )
-                    for atom in residue.atoms():
-                        newAtom = new_item.addAtom(
-                            atom.name, atom.element, newResidue, atom.id
-                        )
-                        newAtoms[atom] = newAtom
-            for bond in topology.bonds():
-                new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
-            del newAtoms
-            if hasattr(topology, "getPeriodicBoxVectors"):
-                new_item.setPeriodicBoxVectors(topology.getPeriodicBoxVectors())
-            elif hasattr(item, "getPeriodicBoxVectors"):
-                new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
-            tmp_item = new_item
-
-        else:
-            tmp_item = item
-    else:
-        new_item = Topology()
-        atom_indices_to_be_kept = atom_indices
-        newAtoms = {}
-        set_atom_indices = set(atom_indices_to_be_kept)
-        for chain in topology.chains():
-            needNewChain = True
-            for residue in chain.residues():
-                needNewResidue = True
-                for atom in residue.atoms():
-                    if atom.index in set_atom_indices:
-                        if needNewChain:
-                            newChain = new_item.addChain(chain.id)
-                            needNewChain = False
-                        if needNewResidue:
-                            newResidue = new_item.addResidue(
-                                residue.name,
-                                newChain,
-                                residue.id,
-                                residue.insertionCode,
-                            )
-                            needNewResidue = False
-                        newAtom = new_item.addAtom(
-                            atom.name, atom.element, newResidue, atom.id
-                        )
-                        newAtoms[atom] = newAtom
-        for bond in topology.bonds():
-            if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
-                new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
-        del newAtoms
-        if hasattr(topology, "getPeriodicBoxVectors"):
-            new_item.setPeriodicBoxVectors(topology.getPeriodicBoxVectors())
-        elif hasattr(item, "getPeriodicBoxVectors"):
-            new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
-        tmp_item = new_item
-
-    return tmp_item
+    for bond in topology.bonds():
+        if bond[0] in new_atoms and bond[1] in new_atoms:
+            new_item.addBond(
+                new_atoms[bond[0]], new_atoms[bond[1]], type=bond.type, order=bond.order
+            )
+    if hasattr(topology, "getPeriodicBoxVectors"):
+        new_item.setPeriodicBoxVectors(topology.getPeriodicBoxVectors())
+    elif hasattr(item, "getPeriodicBoxVectors"):
+        new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
+    return new_item

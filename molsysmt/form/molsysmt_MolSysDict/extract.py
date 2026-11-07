@@ -8,7 +8,7 @@ from molsysmt.native import MolSysDict, TopologyDict
 
 
 def _structure_count(structures):
-    """Returning the represented frame count without inventing structures."""
+    """Returning the represented structure count without inventing structures."""
 
     for key in ("structure_id", "time", "box", "coordinates"):
         value = structures.get(key)
@@ -86,7 +86,7 @@ def extract(
 
     extracted_topology = extract_topology(
         TopologyDict(data=topology_payload),
-        atom_indices=selected_atoms,
+        atom_indices="all" if is_all(atom_indices) else selected_atoms,
         copy_if_all=True,
         skip_digestion=True,
     ).to_dict(copy=False)

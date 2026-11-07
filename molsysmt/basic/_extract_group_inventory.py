@@ -22,6 +22,15 @@ def extract_inventory(
     else:
         from molsysmt.form import _dict_modules
 
+        # An unrestricted same-form class operation belongs to its adapter.
+        # A native round trip can discard provider-only inventory metadata.
+        if (
+            element is None
+            and to_form is None
+            and is_all(selection)
+            and _dict_modules[form].form_type == "class"
+        ):
+            return None
         if (
             element is None
             and to_form is None
