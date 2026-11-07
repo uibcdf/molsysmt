@@ -2,11 +2,65 @@
 
 import json
 import re
+import subprocess
+import sys
 from io import StringIO
 
 import pytest
 
 from devtools.scripts import validate_course
+
+ENTRYPOINTS = (
+    "devtools/scripts/validate_course.py",
+    "docs/content/course/devtools/validate_course.py",
+)
+
+
+def test_legacy_course_entrypoint_matches_the_maintained_checker(tmp_path):
+    results = [
+        subprocess.run(
+            [sys.executable, str(validate_course.REPO / relative)],
+            cwd=tmp_path,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        for relative in ENTRYPOINTS
+    ]
+    assert results[0].returncode == 0, results[0].stderr
+    assert "Course structure valid:" in results[0].stdout
+    assert results[1].returncode == results[0].returncode, results[1].stdout
+    assert results[1].stdout == results[0].stdout
+    assert results[1].stderr == results[0].stderr
+
+
+@pytest.mark.parametrize("relative", ENTRYPOINTS)
+def test_course_entrypoint_help_does_not_run_the_checker(relative, tmp_path):
+    result = subprocess.run(
+        [sys.executable, str(validate_course.REPO / relative), "--help"],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert "usage:" in result.stdout
+    assert "Course structure valid:" not in result.stdout
+    assert "modules compliant" not in result.stdout
+
+
+@pytest.mark.parametrize("relative", ENTRYPOINTS)
+def test_course_entrypoint_rejects_unknown_options(relative, tmp_path):
+    result = subprocess.run(
+        [sys.executable, str(validate_course.REPO / relative), "--not-a-course-option"],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 2
+    assert "unrecognized arguments" in result.stderr
+    assert "Course structure valid:" not in result.stdout
 
 
 def test_common_core_identity_and_numbering_are_fully_consolidated():

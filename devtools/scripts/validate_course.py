@@ -18,6 +18,7 @@ Exit code 0 on success, 1 on any violation. Imports nothing from MolSysMT.
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -146,4 +147,5 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    argparse.ArgumentParser(description=__doc__).parse_args()
     sys.exit(main())

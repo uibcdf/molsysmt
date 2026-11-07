@@ -158,6 +158,7 @@ Rule resolution hierarchy:
 ## 🛠️ Course Tooling & Tracking
 
 * `docs/content/course/function_inventory.yml`: Central inventory mapping functions, summaries, and `first_introduced_in` module path.
-* `docs/content/course/devtools/`: Contains `validate_course.py`, `polish_notebooks.py`, and `execute_notebooks.py`.
+* `devtools/scripts/validate_course.py`: Maintained structural checker; run `python devtools/scripts/validate_course.py`. Its result does not replace notebook execution or scientific validation.
+* `docs/content/course/devtools/`: Editorial/execution utilities. Its `validate_course.py` is only a compatibility forwarder to the maintained checker, not a separate set of course requirements.
 * `docs/content/course/pending_proposals/`: Tracks proposals for course enhancements.
 * `docs/content/course/pending_fixes/`: Tracks pending editorial and technical fixes.
