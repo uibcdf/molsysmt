@@ -1,6 +1,7 @@
 """Reviewed coordinate tasks over qualified native geometry adapters."""
 
 from dataclasses import dataclass
+from pathlib import Path
 from secrets import token_urlsafe
 from weakref import ref
 
@@ -35,6 +36,8 @@ _PARAMETERS = {
     "fit_expression": "",
     "fit_reference_expression": "",
     "fit_reference_structure": "0",
+    "fit_reference_kind": "system",
+    "fit_reference_filename": "",
     "cx": "0",
     "cy": "0",
     "cz": "0",
@@ -138,6 +141,8 @@ def _parameters(value):
         raise ValueError("Choose a length unit and the result destination.")
     if result["structures"] not in {"all", "current", "indices"}:
         raise ValueError("Choose which structures to transform.")
+    if result["fit_reference_kind"] not in {"system", "file"}:
+        raise ValueError("Choose the current system or an external reference file.")
     for key, limit in (
         ("axes_expression", 4096),
         ("axes_basis", 512),
@@ -157,6 +162,7 @@ def _parameters(value):
         ("source_expression", 4096),
         ("fit_expression", 4096),
         ("fit_reference_expression", 4096),
+        ("fit_reference_filename", 4096),
         ("fit_reference_structure", 64),
         ("target_expression", 4096),
         ("indices", 4096),
@@ -221,6 +227,89 @@ def _target_axes(parameters):
     return np.asarray(values, dtype=np.float64).reshape(3, 3)
 
 
+def _reference_file_identity(filename):
+    """Identify an ordinary local input without reading its coordinate series."""
+    try:
+        path = Path(filename).expanduser().resolve(strict=True)
+        if not path.is_file():
+            raise ValueError("The reference path must name a file.")
+        details = path.stat()
+    except (OSError, ValueError) as exc:
+        raise ValueError(
+            "Choose an existing local reference file accessible to this Python session."
+        ) from exc
+    return (
+        str(path),
+        details.st_dev,
+        details.st_ino,
+        details.st_size,
+        details.st_mtime_ns,
+        details.st_ctime_ns,
+    )
+
+
+def _fit_population(system, expression, fallback, structure_index):
+    """Resolve declared positional pairs through the native selection boundary."""
+    from molsysmt import basic
+
+    text = expression.strip()
+    selection = text if text else list(fallback)
+    if text.startswith("["):
+        import json
+
+        try:
+            selection = json.loads(text)
+        except ValueError as exc:
+            raise ValueError(
+                "Use an expression or a JSON list of atom indices."
+            ) from exc
+        if not isinstance(selection, list) or any(
+            isinstance(index, bool) or not isinstance(index, int) for index in selection
+        ):
+            raise ValueError(
+                "Ordered atom indices must be a flat JSON list of integers."
+            )
+    indices = np.asarray(
+        basic.select(
+            system,
+            selection=selection,
+            element="atom",
+            structure_indices=[structure_index],
+            chemical_state="reference",
+        ),
+        dtype=np.int64,
+    )
+    if indices.ndim != 1 or not indices.size:
+        raise ValueError("Choose a nonempty fitting atom population.")
+    return tuple(int(index) for index in indices)
+
+
+def _snapshot_reference(references):
+    """Retain one selected coordinate slab, with its explicit physical unit."""
+    from molsysmt import basic
+    from molsysmt import pyunitwizard as puw
+
+    coordinates = basic.get(
+        references.file[0],
+        element="atom",
+        selection=list(references.reference),
+        structure_indices=[references.reference_frame],
+        coordinates=True,
+    )
+    if coordinates is None:
+        raise ValueError("The reference file must provide molecular coordinates.")
+    values, unit = puw.get_value_and_unit(coordinates)
+    values = np.array(values, copy=True)
+    if values.shape != (1, len(references.reference), 3):
+        raise ValueError(
+            "Reference coordinates must retain one structure and the selected atom axis."
+        )
+    if _reference_file_identity(references.file[0]) != references.file:
+        raise ValueError("The reference file changed while reading. Review again.")
+    values.setflags(write=False)
+    return puw.quantity(values, unit)
+
+
 def _admit_periodic_profile(target, frames, *, temporal):
     """Bound the GUI's received native route; never repair a box or an image."""
     from molsysmt import basic
@@ -251,6 +340,8 @@ class _GeometryReferences:
     fit: tuple = ()
     reference: tuple = ()
     reference_frame: int | None = None
+    reference_total: int | None = None
+    file: tuple = ()
 
 
 @dataclass(frozen=True)
@@ -265,6 +356,7 @@ class _GeometryReview:
     indices: np.ndarray
     frames: tuple
     references: _GeometryReferences
+    reference_coordinates: object = None
 
 
 class _GeometryPanel(_MolecularTaskPanel):
@@ -325,6 +417,11 @@ class _GeometryPanel(_MolecularTaskPanel):
                 "n_target_atoms": len(review.references.target),
                 "n_fit_atoms": len(review.references.fit),
                 "reference_structure": review.references.reference_frame,
+                "reference_kind": "file" if review.references.file else "system",
+                "reference_filename": Path(review.references.file[0]).name
+                if review.references.file
+                else None,
+                "reference_n_structures": review.references.reference_total,
                 "n_structures": len(review.frames),
                 "selection_structure": review.frame,
                 "structure_indices": list(review.frames[:200]),
@@ -358,7 +455,12 @@ class _GeometryPanel(_MolecularTaskPanel):
             self._parameters["indices"],
             total,
             int(self._view.player.index),
+            allow_repeated=self._parameters["task"] == "fit",
         )
+        if self._parameters["task"] == "fit":
+            # Coordinate editing applies once per physical structure, in the
+            # first requested order; fitting atom-pair order is independent.
+            frames = list(dict.fromkeys(frames))
         from molsysmt import basic
 
         def population(expression, fallback, context_frame=frame):
@@ -420,6 +522,23 @@ class _GeometryPanel(_MolecularTaskPanel):
                 targets = population(self._parameters["target_expression"], ())
             references = _GeometryReferences(center=centers, target=targets)
         else:
+            if not atoms.size:
+                return status, total, frame, atoms, tuple(frames), references
+            reference_system = target
+            reference_total = total
+            file = ()
+            if self._parameters["fit_reference_kind"] == "file":
+                filename = self._parameters["fit_reference_filename"].strip()
+                if not filename:
+                    raise ValueError("Choose an external molecular reference file.")
+                file = _reference_file_identity(filename)
+                reference_system = file[0]
+                reference_total = basic.get(reference_system, n_structures=True)
+                if reference_total is None or int(reference_total) < 1:
+                    raise ValueError(
+                        "The reference file must provide molecular structures."
+                    )
+                reference_total = int(reference_total)
             text = self._parameters["fit_reference_structure"].strip()
             try:
                 reference_frame = int(text)
@@ -427,20 +546,29 @@ class _GeometryPanel(_MolecularTaskPanel):
                 raise ValueError(
                     "Choose an integer reference structure index."
                 ) from exc
-            if not 0 <= reference_frame < total:
+            if not 0 <= reference_frame < reference_total:
                 raise ValueError(
-                    "The reference structure index is outside this system."
+                    "The reference structure index is outside the chosen reference system."
                 )
-            fit = population(self._parameters["fit_expression"], atoms)
-            reference = population(
-                self._parameters["fit_reference_expression"], fit, reference_frame
+            fit = _fit_population(
+                target, self._parameters["fit_expression"], atoms, frame
+            )
+            reference = _fit_population(
+                reference_system,
+                self._parameters["fit_reference_expression"],
+                fit,
+                reference_frame,
             )
             if atoms.size and (len(fit) < 3 or len(reference) != len(fit)):
                 raise ValueError(
                     "A rigid fit needs at least three corresponding atom pairs with equal population sizes."
                 )
             references = _GeometryReferences(
-                fit=fit, reference=reference, reference_frame=reference_frame
+                fit=fit,
+                reference=reference,
+                reference_frame=reference_frame,
+                reference_total=reference_total,
+                file=file,
             )
         return status, total, frame, atoms, tuple(frames), references
 
@@ -450,6 +578,9 @@ class _GeometryPanel(_MolecularTaskPanel):
             return None
         atoms = atoms.copy()
         atoms.setflags(write=False)
+        reference_coordinates = (
+            _snapshot_reference(references) if references.file else None
+        )
         return _GeometryReview(
             token_urlsafe(24),
             ref(target),
@@ -461,6 +592,7 @@ class _GeometryPanel(_MolecularTaskPanel):
             atoms,
             frames,
             references,
+            reference_coordinates,
         )
 
     def _check_review(self, target, review):
@@ -476,6 +608,10 @@ class _GeometryPanel(_MolecularTaskPanel):
                 "The system or requested coordinate change changed. Review the coordinate change again."
             )
         _, total, frame, atoms, frames, references = self._resolve(target)
+        if references.file != review.references.file:
+            raise ValueError(
+                "The reference file changed. Review the coordinate change again."
+            )
         if (
             total != review.structures
             or frame != review.frame
@@ -561,9 +697,13 @@ class _GeometryPanel(_MolecularTaskPanel):
             parameters.update(
                 {
                     "selection_fit": list(references.fit),
-                    "reference_molecular_system": None,
-                    "reference_selection_fit": list(references.reference),
-                    "reference_structure_index": references.reference_frame,
+                    "reference_molecular_system": review.reference_coordinates,
+                    "reference_selection_fit": list(range(len(references.reference)))
+                    if references.file
+                    else list(references.reference),
+                    "reference_structure_index": 0
+                    if references.file
+                    else references.reference_frame,
                     "engine": "MolSysMT",
                     "use_gpu": False,
                 }
