@@ -5,37 +5,33 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-**Latest checkpoint — 2026-11-07:** source `684a5b0cb` and archive
-`2499dc53b` are delivered on main. Independent complete public trees match all
-changed paths; #602/#632/#633/#634/#637 are verified closed. The
-[delivery record](../devtools/data/rotation_source_delivery_602_632_633_634_637_20261107.json)
-and [receiving receipt](../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json)
-retain separate publication/test evidence. Receiving includes 7,764 integrated,
-76 minimum-provider and 107 scientific cases across 68 nodes, all five executed
-notebooks and 14 passing fast gates. Scopes overlap; failed attempts, six HTML
-warnings and the development-only ineligible certificate are retained. Verified
-audit-related closures are **25**; accepted progress remains **40%**.
+**Latest checkpoint — 2026-11-07:** main checkpoint `6d9f8b07a` contains
+all seven newly closed issues: #602/#632/#633/#634/#636/#637/#638. Independent
+complete public trees match the source and archive checkpoints: 141 initial
+paths, 22 #638 paths and ten subsequent #636/delivery paths. Audit-related
+closures are **26**, and accepted phase progress remains **40%**. The complete
+latest board has 570 issues, 98 open, through #638. No candidate is selected.
 
-#638 is delivered on main in `c4202c634`; all 22 changed paths match the
-complete public tree and the issue is verified closed. The
-[delivery receipt](../devtools/data/xyz_coordinate_representation_delivery_638_20261107.json)
-retains the complete 570-issue/99-open board snapshot and source identity;
-[receiving](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
-retains distinct passing and failed attempts. Public audit-related closures
-are now **25**, while progress remains **40%**. #636 now has qualified source `970cf51b7`: all 23 runner controls pass, and
-107 actual molecular cases across 68 nodes pass `--require-clean` on that clean
-committed development checkpoint. Source delivery/board closeout follow. The
-[receipt](../devtools/data/scientific_source_correspondence_receiving_636_20261107.json)
-retains the original nine failing controls and separates narrow scientific/source
-eligibility from candidate/installed/publication authority.
-Receive published #543 head `42f5ed3bc`
-and #635's endpoint guards on the actual newer Viewer separately. Current
-results qualify exact Viewer `25061d9e9` only; remaining #421 graphical,
-Jupyter/navigation, installed/human and #524 public-host/installed exits are not
-complete. No candidate is selected. The older checkpoints below are dated
-history, superseded by this latest delivery where stated.
+The [initial delivery](../devtools/data/rotation_source_delivery_602_632_633_634_637_20261107.json),
+[XYZ delivery](../devtools/data/xyz_coordinate_representation_delivery_638_20261107.json)
+and [certificate delivery](../devtools/data/scientific_source_correspondence_delivery_636_20261107.json)
+retain separate source/board proof. #638 receiving passes 269 minimum-provider/
+ownership/doctest cases and six actual notebooks; its broad attempt retains
+7,977 passes and two new-fixture failures, corrected in separate receiving.
+#636 passes 23 runner controls and 107 actual molecular cases across 68 nodes
+with `--require-clean` on committed development source `970cf51b7`. Fourteen fast
+gates pass. Original failures, earlier ineligible development certificates and
+six HTML warnings remain recorded. Counts overlap; narrow clean scientific/source
+eligibility does not qualify installed packages or authorize publication.
 
-**Current execution:** phases 1 and 2 are published/closed. Phase-two source
+**Next:** receive published #543 head `42f5ed3bc` and #635's endpoint-aware
+panel guards/conformational work on its actual newer Viewer. Current owner
+results qualify exact Viewer `25061d9e9` only. Remaining #421 graphical,
+Jupyter/navigation, installed/human and #524 public-host/installed exits stay
+open. The earlier checkpoints below are dated history, superseded by this
+latest delivery where stated.
+
+**Earlier execution checkpoints:** phases 1 and 2 are published/closed. Phase-two source
 `3eb720444b97f77f9325acf52f55114ece0b5f9e` corrects #605/#607/#606/#608/#619;
 independent public-file and closed-board receiving is recorded below. Joint
 receiving passes 5,435 cases, final directed/documentation receiving passes
@@ -1026,6 +1022,8 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-07 | XYZ coordinate representation qualified | #638 preserves original ranks/units/quantity owners, promotes independent integer storage and rejects unsafe integer publication. Minimum-provider/ownership/doctest receiving passes 269, scientific 107/68, all six notebooks and fast gates 14/14. Broad native-1 record retains 7,977 passes/two corrected fixture import errors; six HTML warnings remain. | Publish and independently verify/close #638, then correct #636 and receive #635/newer host. Public closures 24, progress 40%; no candidate. |
 
 | 2026-11-07 | Scientific source correspondence qualified | #636 source `970cf51b7` rejects unsafe starting/ending source while retaining reserved outputs; all 23 real-execution controls pass after nine original failures. Actual molecular `--require-clean` passes 107/68 nodes on the clean development commit. | Deliver and independently verify/close #636, then receive #635 and the newer exact host. Public closures 25, progress 40%; narrow source eligibility does not select a candidate. |
+
+| 2026-11-07 | Scientific source correction delivered | Public `6d9f8b07a` matches all ten changed paths and #636 is verified closed. Audit-related closures 26; complete board 570 issues/98 open. The narrow clean scientific/source certificate binds implementation `970cf51b7`; no candidate is selected. | Receive #635 and #543 head `42f5ed3bc` on its exact newer host, then remaining accepted graphical/installed/human exits. Progress remains 40%. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

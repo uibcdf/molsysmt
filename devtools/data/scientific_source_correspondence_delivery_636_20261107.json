@@ -1,0 +1,66 @@
+{
+  "schema_version": "molsysmt.scientific_source_correspondence_delivery@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#636",
+  "implementation_commit": "970cf51b7685420ad2fb89dfcef5514e51e3b8b2",
+  "published_checkpoint": "6d9f8b07a357cd055032e2c4a98cd5a8730dadfa",
+  "public_api_tree_complete": true,
+  "verified_source_paths": {
+    "devguide/archive/resolved_bugs/scientific_certificate_ignores_untracked_python_inputs.md": {
+      "local": "bc9d9a21e92837035829de1d0dd8fafb8873e13a",
+      "public": "bc9d9a21e92837035829de1d0dd8fafb8873e13a"
+    },
+    "devguide/pending_bugs/README.md": {
+      "local": "1a7ccfc55e4f14f520111597481b761cf9613a92",
+      "public": "1a7ccfc55e4f14f520111597481b761cf9613a92"
+    },
+    "devguide/pending_bugs/scientific_certificate_ignores_untracked_python_inputs.md": {
+      "local": null,
+      "public": null
+    },
+    "devguide/pre_1_0_robustness_audit_20261106.md": {
+      "local": "35e2b827dc7cc84f0be4e21a79cb5d404d9a167f",
+      "public": "35e2b827dc7cc84f0be4e21a79cb5d404d9a167f"
+    },
+    "devguide/release_1_0_status.md": {
+      "local": "81abe61290aac7c06a7e6df7c1b714ea8279ee4b",
+      "public": "81abe61290aac7c06a7e6df7c1b714ea8279ee4b"
+    },
+    "devguide/scientific_validation.md": {
+      "local": "491ee2381601bf58fb572e8456bf780305f36cf4",
+      "public": "491ee2381601bf58fb572e8456bf780305f36cf4"
+    },
+    "devtools/data/scientific_source_correspondence_receiving_636_20261107.json": {
+      "local": "4f07f218e64c838b9a565bd27386c589da6fd757",
+      "public": "4f07f218e64c838b9a565bd27386c589da6fd757"
+    },
+    "devtools/data/xyz_coordinate_representation_delivery_638_20261107.json": {
+      "local": "6087385770a7e7ed3635132d907f43f7452cc260",
+      "public": "6087385770a7e7ed3635132d907f43f7452cc260"
+    },
+    "devtools/scripts/execute_scientific_evidence.py": {
+      "local": "d595ce1910200102b0602dd950da9fb00b5662a2",
+      "public": "d595ce1910200102b0602dd950da9fb00b5662a2"
+    },
+    "devtools/tests/test_execute_scientific_evidence.py": {
+      "local": "8ba6556ab4e9ace1f353914545a2ecab1280c920",
+      "public": "8ba6556ab4e9ace1f353914545a2ecab1280c920"
+    }
+  },
+  "verified_issue_state": "CLOSED",
+  "board": {
+    "total": 570,
+    "open": 98,
+    "latest": 638
+  },
+  "receiving": "devtools/data/scientific_source_correspondence_receiving_636_20261107.json",
+  "audit_related_closed_count": 26,
+  "accepted_plan_progress_percent": 40,
+  "remaining": [
+    "635newer-host guard/conformation receiving from543head42f5ed3bc",
+    "421remaining graphical/Jupyter/installed/human exits",
+    "524actual public host and installed closure",
+    "exact finalcandidate platform/artifact gates"
+  ],
+  "release_or_candidate_selected": false
+}

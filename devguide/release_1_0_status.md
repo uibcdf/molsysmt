@@ -41,19 +41,22 @@ API stubs are unchanged.
 independently matched and the issue verified closed. The
 [delivery receipt](../devtools/data/xyz_coordinate_representation_delivery_638_20261107.json)
 records source/board acceptance; [receiving](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
-retains the passing controls and original failures. The complete board has
-570 issues, 99 open, through #638. Public audit-related closures are **25**.
+retains the passing controls, original failures and that stage's board snapshot.
 
-#636 is qualified in committed source `970cf51b7`: 23 actual runner controls
-pass, and the 107 molecular cases/68 nodes pass `--require-clean` with identical
-clean source snapshots. Its [receipt](../devtools/data/scientific_source_correspondence_receiving_636_20261107.json)
-retains original failed controls and the complete certificate. Scientific/source
-eligibility for this development checkpoint does not select a release candidate.
-Next: deliver/close #636 and separately receive published PR head
+#636 is delivered in public checkpoint `6d9f8b07a`, implementation
+`970cf51b7`; all ten changed paths match the public tree and the issue is
+verified closed. The [delivery receipt](../devtools/data/scientific_source_correspondence_delivery_636_20261107.json)
+keeps source/board verification separate from the 23 runner controls and
+107 actual molecular cases/68 nodes in its [receiving](../devtools/data/scientific_source_correspondence_receiving_636_20261107.json).
+The latter pass `--require-clean` on the clean development commit; narrow
+scientific/source eligibility does not select a release candidate. The complete
+board now has 570 issues, 98 open, through #638; audit-related closures are **26**.
+
+Next: receive published PR head
 `42f5ed3bc` and #635's endpoint guards on its actual newer Viewer. The current
 results qualify exact Viewer `25061d9e9` only. Remaining #421 graphical,
 Jupyter/navigation, installed and human acceptance and #524 public-host/clean
-installed closure stay open. Audit progress remains **40%**, with **25 verified
+installed closure stay open. Audit progress remains **40%**, with **26 verified
 audit-related closures**. No new candidate, tag, Release, promotion or remote
 matrix is selected.
 
