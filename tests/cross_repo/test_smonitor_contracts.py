@@ -187,3 +187,42 @@ def test_file_content_error_resolves_with_record_context():
 
     assert "DBREF2" in text
     assert "example.pdb" in text
+
+
+@pytest.mark.parametrize("profile", ["user", "dev", "qa", "agent"])
+@pytest.mark.parametrize("case", ["orthonormal", "right-handed", "structure-counts"])
+def test_structural_inconsistency_keeps_reason_and_conditional_hints(profile, case):
+    """Render actual basis/count rejections without assuming a comparison."""
+    import numpy as np
+    import smonitor
+
+    import molsysmt as msm
+    from molsysmt._private.smonitor import CODES, StructuralInconsistencyError
+    from molsysmt.native import Structures
+
+    smonitor.configure(profile=profile, codes=CODES)
+    structures = Structures(
+        coordinates=msm.pyunitwizard.quantity(np.zeros((2, 6, 3)), "nm")
+    )
+    with pytest.raises(StructuralInconsistencyError) as captured:
+        if case == "structure-counts":
+            other = Structures(
+                coordinates=msm.pyunitwizard.quantity(np.zeros((3, 6, 3)), "nm")
+            )
+            msm.get([structures, other], coordinates=True)
+        else:
+            axes = np.diag([2, 1, 1] if case == "orthonormal" else [1, 1, -1])
+            msm.structure.align_principal_axes(structures, axes=axes)
+
+    error = captured.value
+    reason = error.extra["reason"]
+    assert error.code == "MSM-ERR-STRUCT-003"
+    assert reason in str(error)
+    expected = "different structure axes" if case == "structure-counts" else case
+    assert expected in reason
+    text = str(error).lower()
+    assert "residues" not in text and "frames" not in text
+    assert "geometry" in text and "dimensions" in text
+    if profile in {"user", "agent"}:
+        assert "when comparing or merging" in text
+        assert "atoms, groups and structures" in text

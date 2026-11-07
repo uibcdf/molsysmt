@@ -1263,6 +1263,7 @@ def test_principal_axes_validate_every_structure_before_coordinate_publication(c
     result = act(view, sent, "apply", token=packet["review"]["token"])
     assert result["stage"] == "error", result["message"]
     assert "degenerate" in result["message"].lower()
+    assert "structure_index 0 (selection position 1)" in result["message"]
     np.testing.assert_array_equal(coords(view), before)
     current = view.addons.molsysmt.get_sync_status()
     # The coordinator records a new attempted operation, without publishing

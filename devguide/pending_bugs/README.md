@@ -20,13 +20,11 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (5)
+### Open (3)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
-- [`principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md`](principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md) — [#640](https://github.com/uibcdf/molsysmt/issues/640) — Principal-axis rejection reports a local position as a source structure index *(low, reproduced)*
-- [`structural_inconsistency_hints_assume_comparisons_and_retain_obsolete_axis_termi.md`](structural_inconsistency_hints_assume_comparisons_and_retain_obsolete_axis_termi.md) — [#641](https://github.com/uibcdf/molsysmt/issues/641) — Structural inconsistency hints assume comparisons and retain obsolete axis terminology *(low, reproduced)*
 
 ### In progress (1)
 

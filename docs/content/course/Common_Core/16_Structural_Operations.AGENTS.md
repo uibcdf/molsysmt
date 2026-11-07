@@ -63,3 +63,8 @@ inertia/covariance and weight choices, center restoration/subtraction and row
 basis targets. State arbitrary signs, degeneracy and disjoint-reference limits;
 keep native all-structure preflight and shared result/sync ownership separate
 from remaining external-reference and sequence-matching GUI workflows.
+
+
+Preserve degeneracy diagnostics in the molecular-system structure-index space,
+including the separate zero-based selection position and unchanged coordinates
+and interaction coverage on all-structure preflight rejection. IDs remain labels.

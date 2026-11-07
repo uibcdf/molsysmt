@@ -33,3 +33,8 @@ The canonical variable representing the input molecular system MUST be `molsys`,
    - MolSysViewer static view tag (`molsysviewer_htmlfile = '_static/views/tools_structure_align_principal_axes_1.html'`) + `msm.view(protein_aligned)`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
+
+
+Preserve degeneracy diagnostics in the molecular-system structure-index space,
+including the separate zero-based selection position and unchanged coordinates
+and interaction coverage on all-structure preflight rejection. IDs remain labels.

@@ -20,7 +20,38 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current principal-axis receiving — 2026-11-07
+## Current native diagnostic correction — 2026-11-07
+
+The native #640/#641 corrections are locally qualified. Degeneracy now names
+both the molecular-system structure index and selected-array position; shared
+structural hints retain the reason and use conditional comparison advice for
+all four SMonitor audiences. The
+[receiving receipt](../devtools/data/native_structure_diagnostics_receiving_640_641_20261107.json)
+records the final original-source baseline (60 diagnostic failures, two passing
+invalid-scope controls), 701 integrated passes, one doctest and two actual
+Jupyter scenarios (axes8/error-lifetime5). All fourteen fast controls and HTML
+compilation pass; six existing underline warnings and baseline-matching page
+errors remain visible. Four initial fixture/API/scope authoring attempts are
+retained separately. No runtime API or scientific criterion was weakened.
+
+Both owning records are archived with executable guards. Public source delivery,
+independent verification and issue/consumer closeout are being completed. The
+last complete board acquisition has 574 issues, 98 open, through #642, and no
+open PR. No newly numbered report changes the work order. Next is the accepted
+#421 external-reference workflow, followed by sequence-derived fitting, cell
+editing and the remaining task/session families. Native/expert external
+references already exist; the current fit panel still fixes its reference to
+the same molecular system, so expert availability does not close that GUI leaf.
+
+Milestone progress remains **approximately 61%**, with **22/50 accepted graphical
+intents** and **30 publicly closed audit-related issues** before this pair's
+closeout. These two diagnostic repairs add no milestone bonus. The graphical
+intent inventory has only 2.5 global weight points in the preserved hierarchical
+formula; its counter is reported separately so small GUI deliveries stay visible.
+Installed/public-host, contract, exact-candidate and human/Qt exits remain separate.
+No new candidate, tag, Release or promotion is selected.
+
+## Previous principal-axis receiving — 2026-11-07
 
 The accepted #421 principal-axis task is implemented and received through native
 tensor/center/basis operations. The

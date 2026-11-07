@@ -14,6 +14,20 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Native diagnostic follow-up — 2026-11-07
+
+#640/#641 now pass native and bound-consumer source receiving: 701 integrated
+cases, one doctest and actual principal-axis/error-lifetime Jupyter scenarios
+(eight/five steps). Molecular-system indices and selected positions are distinct;
+SMonitor keeps the native reason/code and conditional comparison advice. The
+[receiving record](../../devtools/data/native_structure_diagnostics_receiving_640_641_20261107.json)
+retains initial fixture failures, the final failing baseline and unchanged
+registered source inputs. Public delivery and owning issue closeout are being
+completed. Native expert external references already exist; the graphical
+fit workflow currently fixes the reference to the same molecular system.
+External references are the next finite accepted GUI package, with sequence
+matching, cell editing and all other accepted intents still required.
+
 ## Geometry/principal axes — owner receiving 2026-11-07
 
 Align principal axes is implemented through the unchanged flag-free native tool:

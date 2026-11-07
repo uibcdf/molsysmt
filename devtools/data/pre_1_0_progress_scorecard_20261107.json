@@ -813,8 +813,8 @@
   "new_priority": {
     "issue": "uibcdf/molsysmt#640",
     "also": "uibcdf/molsysmt#641",
-    "record": "devguide/pending_bugs/principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md",
-    "owner_verification": "Observed native diagnostic index/context and vocabulary defects; accepted correction remains pending.",
+    "record": "devguide/archive/resolved_bugs/principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md",
+    "owner_verification": "Both native corrections pass 701 integrated cases, one doctest and two actual Jupyter scenarios. Public delivery and source closeout are being completed.",
     "scope": "Correct these native diagnostics, then complete the next finite #421 reference/sequence/cell GUI package; preserve installed, contract and exact-candidate gates."
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
@@ -825,5 +825,12 @@
     "evidence": "devtools/data/interaction_evidence_catalog_delivery_642_20261107.json",
     "weighted_milestone_change": 0,
     "audit_related_source_closures": 30
+  },
+  "derived_graphical_tracking": {
+    "source": "phases/phase4/graphical-inventory",
+    "verified_source_intents": 22,
+    "total_intents": 50,
+    "global_weight_points": 2.5,
+    "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
   }
 }

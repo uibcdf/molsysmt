@@ -7,6 +7,7 @@ from molsysmt._private.smonitor import (
     NotImplementedMethodError,
     StructuralInconsistencyError,
 )
+from molsysmt._private.variables import is_all
 
 
 @signal(tags=["api", "structure"])
@@ -73,6 +74,9 @@ def align_principal_axes(
     Target axes are supplied as rows. Alignment is intentionally rejected when
     two principal moments are equal within numerical tolerance because the
     corresponding individual axes are not uniquely defined.
+    A degeneracy rejection identifies the molecular system's ``structure_index``
+    and its position in the requested structure selection, independently of IDs.
+    All selected structures are checked before any coordinates are changed.
 
 
     See Also
@@ -145,16 +149,22 @@ def align_principal_axes(
             syntax=syntax,
         )
 
-        for structure_index, structure_moments in enumerate(moments):
+        for selection_position, structure_moments in enumerate(moments):
             scale = max(
                 float(np.max(np.abs(structure_moments))),
                 np.finfo(np.float64).tiny,
             )
             if np.any(np.diff(structure_moments) <= 1.0e-10 * scale):
+                structure_index = (
+                    selection_position
+                    if is_all(structure_indices)
+                    else int(structure_indices[selection_position])
+                )
                 raise StructuralInconsistencyError(
                     reason=(
-                        "Principal axes are not unique because structure "
-                        f"{structure_index} has degenerate principal moments."
+                        "Principal axes are not unique because structure_index "
+                        f"{structure_index} (selection position {selection_position}) "
+                        "has degenerate principal moments."
                     ),
                     caller="molsysmt.structure.align_principal_axes",
                 )

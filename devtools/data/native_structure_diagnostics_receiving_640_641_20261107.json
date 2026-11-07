@@ -1,0 +1,250 @@
+{
+  "schema_version": "molsysmt.native_structure_diagnostics_receiving@1",
+  "date": "2026-11-07",
+  "issues": [
+    "uibcdf/molsysmt#640",
+    "uibcdf/molsysmt#641"
+  ],
+  "baseline_source": "69df0d17e7e13ff6bcc2930a7dd99ad967badfae",
+  "scope": "Contract-tested native diagnostic corrections and bound-consumer propagation. No numerical algorithm change, installed artifact qualification or publication authority.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "contracts": {
+    "640": "Report molecular-system structure_index and the separate zero-based selection position, independently of ID labels; preserve preflight atomicity and invalid-index validation.",
+    "641": "Preserve code/type/reason under all four audiences, general geometry/dimension/index guidance and conditional comparison advice with groups/structures terminology."
+  },
+  "new_cases": {
+    "index_and_atomicity": 48,
+    "invalid_scope_controls": 2,
+    "four_audience_actual_rejections": 12
+  },
+  "runs": {
+    "baseline": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/diagnostics-640-641/baseline.xml",
+        "-n12",
+        "tests/structure/align_principal_axes/test_rejection_indices.py",
+        "tests/cross_repo/test_smonitor_contracts.py::test_structural_inconsistency_keeps_reason_and_conditional_hints"
+      ],
+      "exit_code": 1,
+      "seconds": 7.341227673925459,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5185,
+      "counts": {
+        "tests": 62,
+        "failures": 60,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "integrated": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/diagnostics-640-641/integrated.xml",
+        "-n12",
+        "tests/structure/align_principal_axes",
+        "tests/scientific_truth/structure/test_principal_axes.py",
+        "tests/_private/smonitor",
+        "tests/_private/test_smonitor_catalog_integrity.py",
+        "tests/cross_repo/test_smonitor_contracts.py",
+        "tests/molsysviewer_molsysmt/test_geometry_panel.py",
+        "tests/molsysviewer_molsysmt/test_structure_axes_tools.py"
+      ],
+      "exit_code": 0,
+      "seconds": 25.01582572190091,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5185,
+      "counts": {
+        "tests": 701,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "warnings": {
+        "LegacyH5MSMWarning": 313
+      }
+    },
+    "doctest": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/diagnostics-640-641/doctest.xml",
+        "-n12",
+        "--doctest-modules",
+        "molsysmt/structure/align_principal_axes.py"
+      ],
+      "exit_code": 0,
+      "seconds": 6.624981662956998,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5185,
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "gui": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/diagnostics-640-641/gui.xml",
+        "-n0",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_principal_axes",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_rejected_operation_diagnostic",
+        "--basetemp=<owner>/.pytest_cache/diagnostics-640-641/gui"
+      ],
+      "exit_code": 0,
+      "seconds": 87.27904065302573,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5185,
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "html": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "sphinx",
+        "-q",
+        "-j",
+        "12",
+        "-b",
+        "html",
+        "-D",
+        "nb_execution_mode=off",
+        "-D",
+        "autosummary_generate=0",
+        "docs",
+        "<owner>/.pytest_cache/diagnostics-640-641/html"
+      ],
+      "exit_code": 0,
+      "seconds": 59.13308572699316,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5185,
+      "retained_warnings": 6
+    },
+    "fast": {
+      "command": [
+        "<existing-development-python>",
+        "devtools/scripts/release_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 20.75645381794311,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5186,
+      "gates_passed": 14
+    }
+  },
+  "support_boundaries": {
+    "argdigest": "Existing public index validation remains authoritative; no new arguments or bypass.",
+    "smonitor": "Owning MolSysMT catalogue changes only; preserve application policy and structured reason/code.",
+    "pyunitwizard": "Reuse native physical geometry; coordinates/units are unchanged on rejection.",
+    "depdigest": "No new dependency or optional acquisition boundary.",
+    "ackredit": "No new scientific calculation; original method provenance is unchanged."
+  },
+  "documentation": "Native docstring, User Guide, Common Core structural operations and developer diagnostics updated; both notebook code/output populations unchanged.",
+  "remaining": [
+    "Independent publication/issue closeout; then the next accepted external-reference/sequence/cell GUI package.",
+    "Human/Qt, actual public-host/clean installed, contract and final-candidate exits remain separate."
+  ],
+  "browser_scenarios": [
+    {
+      "scenario": "jupyter-center-errors",
+      "steps": [
+        "Render the source through the real notebook presentation surface",
+        "Review a native center-of-mass request under the explicit partial application policy",
+        "The native error remains visible after its automatic synchronized refresh",
+        "Python verifies that the rejected native call did not mutate the system",
+        "A new user choice clears the diagnostic and requires a new review"
+      ],
+      "page_errors": 2,
+      "plain_baseline_errors": 1,
+      "fingerprints_match_plain_baseline": true
+    },
+    {
+      "scenario": "jupyter-axes",
+      "steps": [
+        "Render the source through the real notebook presentation surface",
+        "Review principal-axis options and cancel without copying or moving the system",
+        "Apply inertia alignment and compare actual Mol* vertices with independent tensor invariants",
+        "Capture the unchanged source reference for a distinct mass-weighted result",
+        "Create a centered covariance result in explicit row axes and inspect its actual geometry",
+        "The principal-axis result keeps its identity across window and notebook destinations",
+        "Principal-axis definitions weights and target rows survive both popup boundaries",
+        "Python verifies every selected and unselected atom and structure"
+      ],
+      "page_errors": 3,
+      "plain_baseline_errors": 1,
+      "fingerprints_match_plain_baseline": true
+    }
+  ],
+  "original_authoring_attempts": [
+    {
+      "name": "fixture-constructor-attempt",
+      "native_exit": 1,
+      "tests": 62,
+      "failures": 60,
+      "status": "Fixture/API/scope authoring failures mixed with actual source rejections; not the final diagnostic baseline."
+    },
+    {
+      "name": "fixture-import-attempt",
+      "native_exit": 1,
+      "tests": 68,
+      "failures": 68,
+      "status": "Fixture/API/scope authoring failures mixed with actual source rejections; not the final diagnostic baseline."
+    },
+    {
+      "name": "fixture-method-attempt",
+      "native_exit": 1,
+      "tests": 62,
+      "failures": 60,
+      "status": "Fixture/API/scope authoring failures mixed with actual source rejections; not the final diagnostic baseline."
+    },
+    {
+      "name": "fixture-scope-attempt",
+      "native_exit": 1,
+      "tests": 68,
+      "failures": 68,
+      "status": "Fixture/API/scope authoring failures mixed with actual source rejections; not the final diagnostic baseline."
+    }
+  ],
+  "style": {
+    "ruff_check_dot": 0,
+    "ruff_format_check_dot": 0,
+    "formatted_files_checked": 4534,
+    "git_diff_check": 0
+  },
+  "board": {
+    "issues": 574,
+    "open": 98,
+    "latest": 642,
+    "open_prs": []
+  }
+}
