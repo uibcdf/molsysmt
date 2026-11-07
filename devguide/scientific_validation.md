@@ -35,10 +35,30 @@ other:
    validates the registry and then executes exactly its unique cited nodes. A
    certificate passes only when every node collects and every collected case
    passes with zero failures, errors, or skips. `--certificate PATH` writes the
-   exact commit, tracked-source state, Python version, platform, counts, and node
-   inventory as JSON. Release workflows add `--require-clean`, so a certificate
-   cannot describe modified tracked source as if it were the named commit;
-   untracked workflow artifacts do not invalidate it.
+   exact commit, Python version, platform, counts and node inventory as JSON,
+   with Git source snapshots immediately before and after execution. Release
+   workflows add `--require-clean`: both snapshots must name the same known
+   commit, have no tracked modifications and have no nonignored untracked source
+   inputs. A hook that deletes itself, source restored during the test, or a
+   changed commit cannot hide a dirty starting snapshot.
+
+   Untracked paths are treated as source/configuration/reference inputs by
+   default, without guessing from their extension. Four exact workflow-output
+   paths are reserved and listed separately: root
+   `scientific-evidence-certificate.json`, `junit.xml`, `coverage.xml`, and
+   `.pytest-receptor/events.jsonl`. They must not be used as scientific inputs;
+   a matching basename inside `tests/` or another directory is not exempt.
+   Git-ignored build/cache artifacts remain excluded. Put other outputs outside
+   the checkout or in its established ignored artifact directory; changing an
+   output's name must not conceal scientific input.
+
+   Certificates retain `source_before`, `source_after` and
+   `source_correspondence`; legacy `commit` and `tracked_source_dirty` report the
+   final snapshot. Ordinary developer execution can pass while source
+   correspondence is false, but then `release_eligible` is false. This bounded
+   repository-source check is not runtime authentication: ignored native bytes,
+   external dependencies, installed artifacts and the controlled environment
+   retain their independent release gates.
 
 The `validated` classification means that an independent, assertion-bearing
 oracle is registered for the declared claim. It becomes current release evidence

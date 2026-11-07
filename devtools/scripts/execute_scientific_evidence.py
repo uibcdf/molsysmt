@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 import subprocess
 import sys
@@ -49,26 +50,61 @@ def _junit_counts(path: Path) -> dict[str, int]:
     }
 
 
-def _git_state(repo_root: Path) -> tuple[str, bool | None]:
-    """Return the checked-out commit and whether tracked source is dirty."""
+WORKFLOW_OUTPUT_PATHS = frozenset(
+    {
+        "scientific-evidence-certificate.json",
+        "junit.xml",
+        "coverage.xml",
+        ".pytest-receptor/events.jsonl",
+    }
+)
+
+
+def _git_state(repo_root: Path) -> dict:
+    """Capture nonignored source separately from reserved workflow outputs."""
+    state = {
+        "commit": "unknown",
+        "tracked_source_dirty": None,
+        "untracked_source_paths": None,
+        "untracked_workflow_artifacts": None,
+    }
+    git = ["git", "-c", "core.fsmonitor=false"]
     revision = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
+        [*git, "rev-parse", "--verify", "HEAD"],
         cwd=repo_root,
         capture_output=True,
         text=True,
         check=False,
     )
     if revision.returncode != 0:
-        return "unknown", None
+        return state
+    state["commit"] = revision.stdout.strip()
     status = subprocess.run(
-        ["git", "status", "--porcelain", "--untracked-files=no"],
+        [*git, "status", "--porcelain=v1", "-z", "--untracked-files=all"],
         cwd=repo_root,
         capture_output=True,
-        text=True,
         check=False,
     )
-    dirty = bool(status.stdout.strip()) if status.returncode == 0 else None
-    return revision.stdout.strip(), dirty
+    if status.returncode != 0:
+        return state
+    dirty, inputs, artifacts = False, [], []
+    records = iter(status.stdout.split(b"\0"))
+    for record in records:
+        if not record:
+            continue
+        code, path = record[:2], os.fsdecode(record[3:])
+        if code == b"??":
+            (artifacts if path in WORKFLOW_OUTPUT_PATHS else inputs).append(path)
+        else:
+            dirty = True
+            if b"R" in code or b"C" in code:
+                next(records, None)  # A rename/copy has a second NUL-delimited path.
+    state.update(
+        tracked_source_dirty=dirty,
+        untracked_source_paths=sorted(inputs),
+        untracked_workflow_artifacts=sorted(artifacts),
+    )
+    return state
 
 
 def execute_nodes(
@@ -80,6 +116,7 @@ def execute_nodes(
     require_clean: bool = False,
 ) -> tuple[bool, dict]:
     """Execute registered nodes and return their certificate verdict and payload."""
+    source_before = _git_state(repo_root)
     with tempfile.TemporaryDirectory(prefix="molsysmt-scientific-evidence-") as tmp:
         junit_path = Path(tmp) / "junit.xml"
         command = [
@@ -109,14 +146,26 @@ def execute_nodes(
         and counts["errors"] == 0
         and counts["skipped"] == 0
     )
-    commit, tracked_source_dirty = _git_state(repo_root)
-    release_eligible = tests_passed and tracked_source_dirty is False
+    source_after = _git_state(repo_root)
+    source_correspondence = (
+        source_before["commit"] != "unknown"
+        and source_before["commit"] == source_after["commit"]
+        and all(
+            source["tracked_source_dirty"] is False
+            and source["untracked_source_paths"] == []
+            for source in (source_before, source_after)
+        )
+    )
+    release_eligible = tests_passed and source_correspondence
     verdict = tests_passed and (not require_clean or release_eligible)
     certificate = {
         "schema_version": "molsysmt.scientific-evidence-execution@1",
         "verdict": "pass" if verdict else "fail",
-        "commit": commit,
-        "tracked_source_dirty": tracked_source_dirty,
+        "commit": source_after["commit"],
+        "tracked_source_dirty": source_after["tracked_source_dirty"],
+        "source_before": source_before,
+        "source_after": source_after,
+        "source_correspondence": source_correspondence,
         "release_eligible": release_eligible,
         "created_at": datetime.now(UTC).isoformat(),
         "python": platform.python_version(),
@@ -155,7 +204,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--require-clean",
         action="store_true",
-        help="fail unless tracked source matches the named Git commit",
+        help="fail unless source matches one known Git commit before and after execution",
     )
     args = parser.parse_args(argv)
 
@@ -187,9 +236,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Scientific evidence execution certificate: PASS — {summary}.")
         if not certificate["release_eligible"]:
             print(
-                "Development evidence only: tracked source differs from the named "
-                "commit or this is not a Git checkout, so this certificate is not "
-                "release-eligible."
+                "Development evidence only: source correspondence to one Git commit "
+                "is not established. Inspect source_before/source_after; this "
+                "certificate is not release-eligible."
             )
         return 0
     print(f"Scientific evidence execution certificate: FAIL — {summary}.")

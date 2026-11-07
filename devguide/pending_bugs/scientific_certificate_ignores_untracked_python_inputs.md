@@ -1,14 +1,14 @@
 ---
 summary: Scientific certificate release eligibility ignores untracked Python inputs.
 issue: uibcdf/molsysmt#636
-status: open
+status: partial
 opened: 2026-11-07
 closed:
 severity: high
 verification: reproduced
 area: [validation, release, provenance]
-guard:
-normative:
+guard: devtools/tests/test_execute_scientific_evidence.py
+normative: devguide/scientific_validation.md
 blocked_by: []
 supersedes: []
 ---
@@ -61,3 +61,37 @@ cases across 68 nodes, with zero errors/failures/skips. It explicitly reports
 tracked modifications and `release_eligible=false`. This honest development
 certificate does not use the gap to claim a clean candidate. Repair #636 before
 final exact-candidate source eligibility in phase six of the robustness plan.
+
+## Corrected source boundary and original guard — 2026-11-07
+
+The maintained real-Git guard reproduces nine failures and twelve passes before
+correction. The nine failures are six untracked code/config/reference cases,
+two actually loaded hooks (including a self-deleting hook), and a real commit
+change during otherwise passing execution. No Git cleanliness response is mocked.
+
+The runner now captures complete NUL-delimited Git status before and after the
+actual pytest run. Nonignored untracked paths default to scientific source;
+only four exact reserved workflow output paths are separated as artifacts.
+Ignored builds/caches remain outside this check. Both snapshots must be clean
+and name the same known commit for release eligibility. Legacy final-state fields
+are preserved; additive snapshots and source-correspondence fields expose why
+a developer certificate is ineligible. Failure/skip/collection rejection remains.
+
+The maintained scientific guide defines the artifact paths and limits. They are
+reserved outputs, not a way to hide scientific references; matching basenames
+inside source directories are rejected. This repository check does not
+authenticate ignored binaries or external providers; their gates remain separate.
+Receiving and delivery follow; no candidate or publication is selected.
+
+## Guard receiving — 2026-11-07
+
+All **23 runner controls pass**, including original failure/skip/uncollectable
+and non-Git refusal, actual loaded and self-deleting hooks, six untracked
+source/config/reference paths, clean and reserved/ignored artifact positives,
+a real changed commit, tracked source restored during execution and honest
+ineligible developer execution. The original 21-case baseline has nine failures
+and twelve passes; its native exit one is retained. New controls use independent
+temporary Git repositories and execute real pytest nodes, not molecular oracles
+or fabricated Git status. Whole-tree Ruff lint/format and developer-guide
+validation pass. Next receive the actual registered molecular nodes on the
+committed clean development checkpoint before source delivery and closure.
