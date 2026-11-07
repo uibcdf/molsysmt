@@ -146,7 +146,14 @@ try{
   await page.screenshot({path:output+'/conformation-core-plot.png',fullPage:true});
  });
  await step('Inspect and adopt conformational results through both real popup boundaries',async()=>{
-  const source=page.locator('[data-molsysviewer-canvas-output]').last();await source.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');const opened=page.waitForEvent('popup');await source.getByTitle('Open popup',{exact:true}).click();const canvas=await opened;record(canvas);await canvas.locator('#molsysviewer-loading').waitFor({state:'hidden'});const graph=await verifyPlot(canvas,'gyration',conformations.gyration);await clickPlotPoint(graph.svg,graph.points[2]);await canvas.waitForFunction(()=>window.__controllers.at(-1).trajectory.getTrajectoryState().currentFrame===2);await page.waitForFunction(()=>window.__controllers.at(-1).trajectory.getTrajectoryState().currentFrame===2);
+  const source=page.locator('[data-molsysviewer-canvas-output]').last();await source.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');const opened=page.waitForEvent('popup');await source.getByTitle('Open popup',{exact:true}).click();const canvas=await opened;record(canvas);await canvas.locator('#molsysviewer-loading').waitFor({state:'hidden'});
+  // The popup owns its Studio layout independently of the source. As with the
+  // primary canvas, use the normal toolbar to uncover the plot before clicking.
+  const popupPanel=canvas.locator('[data-molsysviewer-addons-panel="true"]');
+  if(await popupPanel.isVisible()){
+   await canvas.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await canvas.keyboard.press('Enter');await canvas.getByTitle('Panel mode (N / W)',{exact:true}).click();await popupPanel.waitFor({state:'hidden'});
+  }
+  const graph=await verifyPlot(canvas,'gyration',conformations.gyration);await clickPlotPoint(graph.svg,graph.points[2]);await canvas.waitForFunction(()=>window.__controllers.at(-1).trajectory.getTrajectoryState().currentFrame===2);await page.waitForFunction(()=>window.__controllers.at(-1).trajectory.getTrajectoryState().currentFrame===2);
   const rmsf=await conformationPanel(canvas,'rmsf');const rows=await numericRows(rmsf);rows.forEach((row,i)=>close(row[1],conformations.rmsf[i]));
   const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;record(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});
   const rmsd=await conformationPanel(studio,'rmsd','all');await rmsd.locator('[data-add-structure-plot]').click();await rmsd.locator('[data-status]').filter({hasText:'Added a trajectory plot'}).waitFor();await verifyPlot(canvas,'rmsd',conformations.rmsd);await verifyPlot(page,'rmsd',conformations.rmsd);await rmsd.locator('[data-clear]').click();await rmsd.locator('[data-report]').waitFor({state:'hidden'});await verifyPlot(canvas,'rmsd',conformations.rmsd);await studio.screenshot({path:output+'/conformation-studio-popup.png'});await studio.close();await canvas.close();

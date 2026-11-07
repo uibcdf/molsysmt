@@ -1,7 +1,7 @@
 ---
 summary: Addon panel guards discard explicitly addressed primary-widget state.
 issue: uibcdf/molsysmt#635
-status: active
+status: partial
 opened: 2026-11-07
 closed:
 severity: medium
@@ -28,3 +28,15 @@ The same `target_endpoint_id == endpoint` default occurs in the System, Geometry
 ## Proposed correction and acceptance
 
 Bind captured messages to the exact expected primary endpoint of their real View. Preserve actual message envelopes, explicit popup targets and strict identity checks; do not strip targets or accept arbitrary widget-host prefixes. Add a real-two-View isolation check so a foreign primary state cannot satisfy the oracle. Rerun the affected panel guards, mandatory addon preflights and complete paired-source selection; retain the original failing attempt. Deliver through PR #543 for owner review, without modifying owner main or claiming installed/publication acceptance.
+
+## Local receiving — 2026-11-07
+
+The shared capture oracle retains every actual envelope and binds its exact
+primary destination independently from the owning View. System, Geometry,
+Chemistry and Analysis reuse it. All 321 panel cases pass. A deliberate
+foreign-route acceptance mutation fails the real-two-View guard; its original
+source is restored without a Git checkout. The full paired-source addon and
+three mandatory preflights then pass 5,059 cases without omissions on
+`11796a8a`, with 4,747 selected inputs unchanged and 36 owned processes closed.
+This is local source receiving; PR delivery, owner integration and board
+closeout remain pending. Scientific runtime code is unchanged by this fix.

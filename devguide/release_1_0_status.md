@@ -33,10 +33,11 @@ conformation/plot actions, making seventeen required ordered steps.
 First source receiving retains 133 Analysis failures and 36 passing preflight
 cases: #635 identifies an obsolete primary-endpoint expectation in test helpers,
 not a failed scientific calculation. The corrected four-panel receiving passes
-321 cases with cached public support payloads. In particular PUW0.28.1 matches
+321 cases with cached public support payloads. In particular PUW 0.28.1 matches
 the controlled source version; this is a new measured closure, not reuse of the
-older PUW0.29.1 execution. Full addon and actual seventeen-step Jupyter receiving
-remain due. No owner-main integration, installed floor, candidate or publication
+older PUW 0.29.1 execution. The complete addon plus three mandatory preflights now pass 5,059 cases
+without omissions on `11796a8a`, retaining 4,747 fixed inputs and closing all
+36 owned processes. Actual seventeen-step Jupyter receiving remains due. No owner-main integration, installed floor, candidate or publication
 is inferred. Original owner/source receipts keep their original scope.
 
 ## Conformation task receiving — 2026-11-06
@@ -5441,3 +5442,16 @@ graphical families, the full Jupyter selection, #314 conformational navigation,
 hosted/installed and postponed human/Qt acceptance remain due. Accepted audit
 progress is still **40%**, with 19 closed audit-related issues. No publication
 or new remote matrix follows from these local source/GUI results.
+
+
+### Retained current Jupyter attempt — 2026-11-07
+
+The first combined seventeen-step receiving attempt fails at popup plot
+navigation: the popup's independent Studio layout covers the plotted point.
+The real click is refused after 30 seconds; no click is forced through the card.
+The directed guard now closes that local Studio through its ordinary toolbar
+before resolving/clicking the plotted point, as its primary-canvas case already
+does. Every numerical, axis, popup, molecular-invariance and deadline assertion
+is preserved. Repeat receiving is due. Separately #637 records an obsolete
+course-local validator named by contributor guidance; the canonical validator
+passes 156 notebooks and no course content is changed to satisfy obsolete rules.

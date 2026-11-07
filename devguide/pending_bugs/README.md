@@ -20,19 +20,20 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (4)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
+- [`course_guide_names_obsolete_validator.md`](course_guide_names_obsolete_validator.md) — [#637](https://github.com/uibcdf/molsysmt/issues/637) — Course contributor guide names an obsolete validator entrypoint. *(low, reproduced)*
 
-### In progress (2)
+### In progress (1)
 
-- [`addon_panel_guards_discard_addressed_primary_state.md`](addon_panel_guards_discard_addressed_primary_state.md) — [#635](https://github.com/uibcdf/molsysmt/issues/635) — Addon panel guards discard explicitly addressed primary-widget state. *(medium, reproduced)*
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
-### Partially resolved (8)
+### Partially resolved (9)
 
+- [`addon_panel_guards_discard_addressed_primary_state.md`](addon_panel_guards_discard_addressed_primary_state.md) — [#635](https://github.com/uibcdf/molsysmt/issues/635) — Addon panel guards discard explicitly addressed primary-widget state. *(medium, reproduced)*
 - [`analysis_jupyter_wrapper_expects_obsolete_step_count.md`](analysis_jupyter_wrapper_expects_obsolete_step_count.md) — [#632](https://github.com/uibcdf/molsysmt/issues/632) — Analysis Jupyter wrapper expects seven steps after expansion to twelve. *(medium, measured)*
 - [`devguide_board_sync_truncates_issue_history.md`](devguide_board_sync_truncates_issue_history.md) — [#587](https://github.com/uibcdf/molsysmt/issues/587) — Devguide board reconciliation falsely loses issues older than its capped inventory. *(medium, reproduced)*
 - [`jupyter_popup_addon_navigation_identity.md`](jupyter_popup_addon_navigation_identity.md) — [#614](https://github.com/uibcdf/molsysmt/issues/614) — Jupyter popup receiving loses the current Add-ons header during bootstrap. *(medium, reproduced)*
