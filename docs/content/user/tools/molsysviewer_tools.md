@@ -5704,3 +5704,55 @@ first. Current source receiving is serial; concurrent native configuration
 restoration has an owner correction under MolSysMT #613; combined addon receiving
 remains due. Human GUI acceptance,
 installed artifacts and full platform qualification remain separate.
+
+## Inspecting conformations through Molecular tools
+
+In **Molecular tools > Analysis**, the **Conformations** task group offers four
+native calculations without editing coordinates or creating scene content:
+
+- **RMSD without superposition** compares stored positions with an explicit
+  reference structure of the current system, retaining translation and rotation.
+- **RMSD after optimal superposition** calculates the minimum rigid-fit RMSD.
+  It does not apply that fit to the molecular system; use Geometry for an edit.
+- **Radius of gyration** measures the spread about the selected population's
+  center. Choose uniform weights or MolSysMT's standard atomic mass table.
+  Mass weighting retains native element support and unit-policy prerequisites;
+  it neither reads an invented stored-mass field nor assigns molecular data.
+- **Atomic fluctuations (RMSF)** measures each selected atom about its average
+  position over the requested structures. It does not align the input first.
+  A single selected structure therefore gives zero fluctuation.
+
+Choose atoms through the same selection editor and specify current, all or
+ordered structure indices. Atom order and repetitions are retained; repeated
+structures contribute repeatedly to RMSF's average. RMSD defaults to the same
+source atom indices on both sides. A separate reference population explicitly
+declares positional pairing; equal counts and labels do not establish chemical
+identity. Selection contexts and the coordinate reference structure remain
+separate, explicit choices. This panel uses MolSysMT CPU calculations over stored
+nonperiodic coordinates, without wrapping, reconstruction or preparation.
+The expert Python signatures, defaults and external-reference options are intact.
+
+Results retain native quantities in Python and show up to fifty source-index
+rows at a time, in nm with nine significant digits. RMSD/gyration rows are indexed
+by structure; RMSF rows are indexed by atom across the selected structures.
+Selecting or focusing a row uses its source participants in the visible structure
+without navigating or fitting it. These actions require a synchronized scene.
+
+**Add trajectory plot** deliberately creates a core Plots card only for a scalar
+series covering every loaded structure once, in index order. Partial, reordered
+or repeated scopes are not sorted, padded or relabelled to fit that axis; choose
+**All structures** to calculate the required coverage. Atom-indexed RMSF cannot
+be passed to this structure-axis renderer. The core plot keeps full numerical
+values, names its structure/length axes and navigates the corresponding structure
+when a point is clicked. A repeated adoption updates the same card. The plot
+remains after clearing the mounted calculation report, and visual retry reuses
+the calculation rather than performing science again. Other result-axis plots
+retain their separate renderer/integration work.
+
+Changed source/revision, relevant selection membership, inputs or panel lifetime
+expire the calculation. Raw external edits are not automatically observed. Pending
+scene synchronization admits explicit molecular-data readers but blocks plot and
+participant actions. Native calculation and metadata can still need substantial
+memory; bounded browser pages are not a universal RAM guarantee or a general
+scientific-result store. Human, installed and full-platform acceptance remain
+separate from source receiving.

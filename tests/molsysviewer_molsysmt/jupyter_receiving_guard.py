@@ -42,6 +42,11 @@ def test_actual_jupyter_analysis_distance_family(tmp_path):
         "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
         "Create core Measures through canvas and detached Studio popups with mirrored geometry",
         "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+        "Prepare independent conformation references from the unchanged real ensemble",
+        "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
+        "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
+        "Inspect and adopt conformational results through both real popup boundaries",
+        "Python verifies retained native data separate plots and deliberate structure navigation",
     ]
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()

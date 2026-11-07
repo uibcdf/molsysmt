@@ -20,6 +20,46 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Isolated bound-tools reconciliation — 2026-11-07
+
+The Viewer contributor reconciles owner review `3f66f593` and qualified
+contribution `e1199534` on an isolated branch for PR #543. Scientific/native
+sources remain byte-equivalent to published owner `030c201a`; the verified
+backend is reused without rebuilding. All seven controlled host pins select
+published Viewer `e4dd58cf`. The owner review's startup, credential and twelve
+Jupyter actions are retained and the contribution adds five explicit
+conformation/plot actions, making seventeen required ordered steps.
+
+First source receiving retains 133 Analysis failures and 36 passing preflight
+cases: #635 identifies an obsolete primary-endpoint expectation in test helpers,
+not a failed scientific calculation. The corrected four-panel receiving passes
+321 cases with cached public support payloads. In particular PUW0.28.1 matches
+the controlled source version; this is a new measured closure, not reuse of the
+older PUW0.29.1 execution. Full addon and actual seventeen-step Jupyter receiving
+remain due. No owner-main integration, installed floor, candidate or publication
+is inferred. Original owner/source receipts keep their original scope.
+
+## Conformation task receiving — 2026-11-06
+
+The isolated contribution adds read-only RMSD, optimal-superposition RMSD,
+gyration and atom-indexed RMSF, plus deliberate core structure-plot adoption.
+All 133 Analysis panel cases pass with independent numerical, unit, reference,
+axis and lifecycle controls. The actual Jupyter/Mol*/AnyWidget workflow passes
+17 steps through TcTIM, a real three-conformation ensemble and both popup
+boundaries, with source inputs unchanged throughout. The
+[receipt](../devtools/data/molsysviewer_tools_conformation_receiving_20261106.json)
+retains prior failed attempts and the causal Viewer #314 host prerequisite.
+This source work is not yet delivered or owner-integrated; complete/current
+hosted, installed and postponed human acceptance remain separate. All other
+approved GUI families and the complete scientific-session target stay required.
+
+Local merge `8a0583fbe` also receives the owner's `4a80c2294` adapter-load and
+deposited-model-label repairs. All 245 directed native/Analysis/preflight cases
+pass, and the repeated 17-step Jupyter workflow retains all 4,770 selected
+source inputs, both heads and worktree statuses. The ten original course code
+cells execute on that merged source. These are separate receiving scopes, not
+a new complete addon run or an owner-main integration.
+
 ## Audit execution and next correction — 2026-11-06
 
 The [robustness audit and action plan](pre_1_0_robustness_audit_20261106.md)

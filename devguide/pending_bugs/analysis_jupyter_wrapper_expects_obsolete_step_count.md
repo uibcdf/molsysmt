@@ -15,6 +15,15 @@ supersedes: []
 
 # Analysis Jupyter wrapper step contract
 
+## Contribution reconciliation — 2026-11-07
+
+The isolated PR #543 reconciliation also receives five conformation/plot steps
+from the qualified contribution. Its guard therefore requires all seventeen
+ordered names, preserving the owner's twelve-name baseline and its startup,
+asset and credential controls. This is a source correction pending receiving
+against the new combined tree and exact Viewer checkpoint; the twelve-step
+results below retain their original source and scope.
+
 ## What
 
 At isolated merge `653ed8e0`, the explicit Python Analysis guard expects seven

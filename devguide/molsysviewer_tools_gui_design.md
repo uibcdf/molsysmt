@@ -9,7 +9,9 @@ lifecycle, bounded metadata and independent-result presentation are shared.
 Chemistry adds stored-information and hydrogen-inventory inspection, plus explicit
 heavy-atom and hydrogen preparation with reviewed independent-result replacement.
 Analysis adds native distances, extrema, neighborhoods and explicit selected-row
-selection/focus/live-Measure actions. Rotate, further Chemistry
+selection/focus/live-Measure actions. Its isolated follow-up adds raw/optimal
+RMSD, gyration, per-atom RMSF and deliberate core structure plots; the receipt
+below preserves that source's pending host integration. Rotate, further Chemistry
 assignments/construction and remaining Analysis families remain proposed; no placeholder
 panel/button is registered. Human Jupyter/visible Qt acceptance remains
 postponed, separate from automated Jupyter/Mol*/native numerical receiving.
@@ -411,20 +413,45 @@ acknowledgement while refreshing, without restoring stale drafts or allowing
 old scene requests through synchronization recovery. Empty results offer no
 invented row. No second public scene-action service or expert wrapper is added.
 
+### Conformation tables and core plots — source contract 2026-11-06
+
+Analysis offers raw RMSD, optimal-superposition RMSD, radius of gyration and
+per-atom RMSF through the unchanged public structure wrappers. Calculations
+retain ordered/repeated atoms and structures, explicit initial reference
+structure and positional atom correspondence. No input fitting, periodic
+reconstruction or preparation occurs implicitly. Gyration exposes uniform or
+native standard atomic-mass weighting and its unit-policy prerequisites; RMSF
+does not align its input and keeps an atom axis across the requested structures.
+
+Mounted reports retain native quantities and send at most fifty source-index
+rows per page, displaying nm with nine significant digits. Participant actions
+reuse core selection/focus in the visible structure without seeking a result
+row. Deliberate plot adoption is separate from calculation and admits only one
+finite scalar for each loaded structure, exactly once in canonical index order.
+Never pad missing observations, discard repeats, sort requested indices or label
+RMSF atoms as structures to obtain a plot. Core owns each adopted card, its
+axes, navigation, visibility and lifetime; Clear/unmount does not remove it.
+Repeated adoption updates the same report-derived card, and retry reuses the
+native result. Relevant source/revision/context changes retire the report;
+pending synchronization blocks scene actions while admitting declared readers.
+
+The [conformation receipt](../devtools/data/molsysviewer_tools_conformation_receiving_20261106.json)
+keeps independent coordinate oracles, native unit/axis/lifecycle cases and the
+17-step actual Jupyter/popup workflow separate from owner, hosted, installed
+and postponed human acceptance. Viewer #314 receives actual plot-origin Python
+authority and mirrored navigation; local playhead movement alone is insufficient.
+
 ### Remaining Analysis integration — planned
 
 Qualify report/context dependencies before offering deliberate row navigation.
 The present row actions never navigate implicitly.
 
-Continue structural series through public RMSD, least-RMSD, radius-of-gyration
-and RMSF tools with explicit reference/weighting/structure choices. RMSF does
-not align its input; any preparation remains a separate deliberate operation.
-Reuse core plot rendering where its axis contract applies. Its present
-trajectory cards require a finite value for each loaded structure; never pad
-uncomputed structures with zero, relabel atom indices as structures, or sort/
-discard requested indices to obtain a plot. Other mappings need their own
-reviewed renderer contract. These remain required implementation/receiving
-tasks under #421, not implemented buttons or expert API aliases.
+Further structural observables and PCA, property/sequence/connectivity and
+mechanical results, qualified interaction adoption and other result-axis
+renderers remain required implementation/receiving work under #421. Native
+expert exposure does not complete those GUI tasks or the full session ledger.
+Reuse core owners where the result's actual mapping applies; another axis needs
+its own reviewed renderer contract, not an implicit scientific transformation.
 
 ### Chemistry preparation and explicit replacement — source contract 2026-11-06
 

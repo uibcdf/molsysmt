@@ -1,0 +1,177 @@
+{
+  "schema": "molsysmt.viewer_tools_conformation_receiving@1",
+  "date": "2026-11-06",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#314"
+  ],
+  "status": "Local committed conformation source and owner4a80 reconciliation pass directed native/addon and actual Jupyter gates; delivery and final full gates pending",
+  "source": {
+    "contribution_parent": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+    "included_native_owner": "40bb54d05182d4a87c48cc17a141b4152812421c",
+    "viewer_head": "1bff5884265f90339f4dbf856523427969ff56db",
+    "viewer_correction": "Uncommitted #314 plot intent correction; published source identity not yet assigned",
+    "viewer_runtime_sha256": "920a9996742c3a40e863cdf0497b347cfe470c37414d4e329d376432a033c406",
+    "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "rust_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "qualification": "Explicit Python 3.14.7 shared development source overlays; not a clean installed solver result; no native science or expert signature changes"
+  },
+  "contracts": [
+    "Four native read-only conformation tools with ordered/repeated source atoms and structures, explicit initial reference and positional pairing",
+    "Uniform versus native standard atomic mass weighting for gyration with complete unit policy; no stored-mass invention or hidden assignment",
+    "RMSF retains its atom axis and never aligns inputs; stored nonperiodic coordinates are not wrapped or reconstructed",
+    "At most fifty displayed source-index rows per page in nm with nine significant digits; full native quantities stay in Python",
+    "Deliberate core plots require canonical complete one-scalar-per-structure coverage; no sorting, zero padding, repeat deletion or atom-axis relabeling",
+    "Core owns adopted plot navigation/lifetime/history; repeated adoption is stable and retries reuse the report without recalculation",
+    "Pending/stale/changed membership/source/revision/panel lifetime guards retain existing host ownership and reader/scene boundaries"
+  ],
+  "validation": {
+    "panel": {
+      "private_log": "msv-conformation-panel-final-20261106.log",
+      "sha256": "55acaf30379c944af58a77fc23a5cb852763111b6ebbb307507830223bd13460",
+      "passed": 133,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 43.99,
+      "warnings": 137,
+      "warning_scope": "133 expected legacy-H5MSM warnings and four deliberately tiny-budget MemoryPressureWarning controls"
+    },
+    "preflight": {
+      "private_log": "msv-conformation-preflight-20261106.log",
+      "sha256": "53e0c4420419ef3ec6061116f16d4376f0939838795b19bae0412be2c3560341",
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.43
+    },
+    "actual_jupyter": {
+      "private_receipt": "msv-conformation-jupyter-r4-receipt-20261106.json",
+      "receipt_sha256": "b1d2be3304b6658cecfdf1131719f7d2082809ff00f0c920218850e4ae38d2c0",
+      "exit_code": 0,
+      "seconds": 119.6523684731219,
+      "checks": [
+        "Load TcTIM and open Analysis without calculating implicitly",
+        "Calculate explicit atom populations and verify native distances against coordinates",
+        "Inspect native minimum and maximum without changing molecular data",
+        "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "Page through TcTIM source indices without transferring the complete result",
+        "Use independent Analysis panels in canvas popup and detached Studio",
+        "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+        "Select participants and focus the visible structure without losing the row acknowledgement",
+        "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+        "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+        "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+        "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+        "Prepare independent conformation references from the unchanged real ensemble",
+        "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
+        "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
+        "Inspect and adopt conformational results through both real popup boundaries",
+        "Python verifies retained native data separate plots and deliberate structure navigation"
+      ],
+      "selected_inputs": 4768,
+      "inputs_heads_statuses_unchanged": true,
+      "page_errors": 7,
+      "plain_baseline_errors": 1,
+      "diagnostic": "Observed debugger errors match the independently retained plain-Jupyter baseline; not a zero-page-error claim. Actual plotted source sample1/popup sample2 yield native index2 and callbacks[1,2].",
+      "scope": "Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native geometric/conformational queries, bounded source-index pages, explicit participant and core Measure/plot adoption from source and both popups. Independent numerical, actual geometry/text/plot-axis and molecular-invariance checks, including duplicate participants, atom-versus-structure axes, frozen observations versus deliberate navigation and mass-weighted live-distance refusal. Not human Qt or installed qualification."
+    },
+    "independent_science": "Direct coordinate RMSD, independent SVD/Kabsch optimum, geometric and standard-mass gyration, and RMSF references on genuine pentalanine conformations[0,8,3], including pm/angstrom/nm policies, repeated/ordered axes and all-source invariance",
+    "style": "Affected Python Ruff check/format and Node driver syntax pass",
+    "documentation": "156-notebook course structure/manifest/labels and offline devguide/index checks pass; affected User Guide and explanatory course bridge updated",
+    "frontend_syntax": "Expanded ESM and actual Jupyter driver both pass node --check"
+  },
+  "course": {
+    "path": "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+    "code_cells": 10,
+    "all_code_outputs_ids_metadata_preserved": true,
+    "changed_markdown_cells": [
+      0
+    ],
+    "scope": "One explanatory bridge updated; no executable course scenario removed or replaced",
+    "execution": {
+      "code_cells": 10,
+      "failed": 0,
+      "private_log": "msv-conformation-course-and-esm-20261106.log",
+      "log_sha256": "c7e18d456732c47ef91a78575ee5f1d36df45f3c4773b1b53aa8ce60d9590db3",
+      "mode": "Sequential original Python cells in isolated shared-source process; original notebook code, outputs and metadata are not rewritten"
+    }
+  },
+  "working_source_sha256": {
+    "molsysviewer_molsysmt/_analysis_panel.py": "6ec59ae450f3e1eda5eee05fe062d19c6d18d4eb8f9c2f7e4f69221fac33362f",
+    "molsysviewer_molsysmt/_analysis_panel_frontend.py": "f96335048f43a126a340fd7d505f024c2cb946234c4ab12b931f240101d712b6",
+    "tests/molsysviewer_molsysmt/test_analysis_panel.py": "b7f158ae05946207f7685a8d68dbcd6c349245def3094e727787b472667d3e70",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "a0f129eba9f529b19d5784a77e23c24dfe4dc41cc5ebfb2baf6c11b810c0a2f7",
+    "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": "cc6018babc92ac09c586ab07a37e1eac3f368e1a0646269dfe1ee6c19dc44e8b"
+  },
+  "retained_attempts": [
+    {
+      "private_log": "msv-conformation-focused-20261106.log",
+      "observation": "39 passes and two test errors: invented stored mass accessor; native table semantics retained"
+    },
+    {
+      "private_log": "msv-conformation-masses-final-20261106.log",
+      "observation": "Two tests omitted mass dimension in unit policy; corrected tests include explicit native unit prerequisites"
+    },
+    {
+      "private_log": "msv-conformation-panel-full-20261106.log",
+      "observation": "131 passes/two test failures over pending transport and unmount lifecycle; host-owned semantics retained"
+    },
+    {
+      "private_log": "msv-conformation-lifecycle-corrected-20261106.log",
+      "observation": "Four passes/one test failure from querying a blocked core record reader while pending; final assertion observes emitted ops and invariants"
+    },
+    {
+      "private_receipt": "msv-conformation-jupyter-r3-receipt-20261106.json",
+      "observation": "Sixteen steps pass before final Python index assertion reveals genuine Viewer#314; earlier R1/R2 fix SVG targeting and ordinary Studio occlusion without force click"
+    }
+  ],
+  "remaining": [
+    "Publish and receive Viewer#314 causal correction before pinning contribution routes",
+    "Owner PR delivery, new complete addon and exact-head hosted/platform gates",
+    "Every remaining Geometry/Chemistry/Analysis renderer and complete scientific-session family",
+    "Installed qualification and explicitly postponed human Jupyter/visible Qt acceptance",
+    "Candidate/tag/package operations and both1.0 publications stay paused"
+  ],
+  "later_owner_receiving": {
+    "merged_source": "8a0583fbecddd54a2b22a2621b9fff5be33483d3",
+    "feature_commit": "b358847cd0203b674ffa62ba90a15ed1a7c6f524",
+    "owner_source": "4a80c22941090257d8ef78df09c944831413ee31",
+    "native_changes": "Owner#600 retains deposited mmCIF structure labels; owner#601 preserves adapter-load diagnostics. No addon/Rust changes in the merge. Official generated index resolves the only conflict.",
+    "combined_tests": {
+      "passed": 245,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 136.76,
+      "warnings": 137,
+      "private_log": "msv-conformation-owner-integration-20261106.log",
+      "sha256": "c64209b4bcbe166b09572deddba5fe4f978c69089045d3e2d382a81fbcbfa8c8",
+      "scope": "Six native adapter/validation/model-axis modules plus complete Analysis module and all three required addon preflight modules; directed receiving, not full addon or installed/platform gate"
+    },
+    "actual_jupyter": {
+      "checks": 17,
+      "exit_code": 0,
+      "seconds": 108.07167589198798,
+      "selected_inputs": 4770,
+      "inputs_heads_statuses_unchanged": true,
+      "private_receipt": "msv-conformation-jupyter-r5-receipt-20261106.json",
+      "receipt_sha256": "1e4b573aa4b1609a78414e54957e7e3a97d87ce45054a2995823b5481bb7254b",
+      "browser_result_sha256": "fe5b3ee96d79ed95d7e9f9bfb8d344da6b206b62a3c2a22154a64cc06b9f6264",
+      "source_before": "8a0583fbecddd54a2b22a2621b9fff5be33483d3",
+      "source_after": "8a0583fbecddd54a2b22a2621b9fff5be33483d3",
+      "viewer_before": "1bff5884265f90339f4dbf856523427969ff56db",
+      "viewer_after": "1bff5884265f90339f4dbf856523427969ff56db",
+      "page_errors": 7,
+      "plain_baseline_errors": 1,
+      "scope": "Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native geometric/conformational queries, bounded source-index pages, explicit participant and core Measure/plot adoption from source and both popups. Independent numerical, actual geometry/text/plot-axis and molecular-invariance checks, including duplicate participants, atom-versus-structure axes, frozen observations versus deliberate navigation and mass-weighted live-distance refusal. Not human Qt or installed qualification."
+    },
+    "course": {
+      "executed_original_cells": 10,
+      "failed": 0,
+      "private_log": "msv-conformation-course-merged-20261106.log",
+      "sha256": "9ecf44fc3b647d564ef41c1fb058b3eeeaf2a83475f4b2c3f5f2536926cce86f",
+      "scope": "Same original course executable content on owner4a80 merged source; notebook not rewritten"
+    }
+  }
+}

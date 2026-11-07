@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from tests.molsysviewer_molsysmt.test_system_panel import transport
+from tests.molsysviewer_molsysmt.test_system_panel import state, transport
 
 puw = msm.pyunitwizard
 
@@ -22,16 +22,6 @@ def mount(view, endpoint=None):
         }
     )
     return view._active_panel_widgets[endpoint][2]
-
-
-def state(sent, endpoint=None):
-    return [
-        m["content"]["state"]
-        for m in sent
-        if m.get("op") == "addon_panel_message"
-        and m.get("target_endpoint_id") == endpoint
-        and m.get("content", {}).get("type") == "state"
-    ][-1]
 
 
 def act(

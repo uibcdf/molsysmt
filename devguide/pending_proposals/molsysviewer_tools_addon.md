@@ -50,7 +50,15 @@ its results do not transfer automatically to this combination. #421 stays partia
 Copy system, plus Geometry / Translate, Center, Superpose structures and bounded
 periodic coordinate tasks, Chemistry stored-information/hydrogen inspection and
 explicit heavy-atom/hydrogen preparation and Analysis distance-family queries
-are implemented in this contribution.
+are implemented in this contribution. The isolated conformation follow-up adds
+raw/optimal RMSD, gyration, per-atom RMSF and deliberate core structure plots;
+its [receipt](../../devtools/data/molsysviewer_tools_conformation_receiving_20261106.json)
+records 133 panel passes, 36 preflight passes and 17 actual Jupyter/popup checks,
+with Viewer #314 still undergoing host integration. Other approved task
+families and complete-session acceptance remain required.
+The local `8a0583fbe` owner reconciliation separately passes 245 native/Analysis/
+preflight cases and the same 17-step Jupyter workflow with all 4,770 selected
+inputs unchanged; contribution delivery remains pending.
 Selection/lifecycle and independent-result controls are shared; native science
 and expert defaults are unchanged. The [receiving record](../../devtools/data/molsysviewer_tools_geometry_receiving_20261106.json)
 separates real Jupyter/popup and numerical evidence from pending hosted, owner,
