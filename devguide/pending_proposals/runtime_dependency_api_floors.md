@@ -654,6 +654,19 @@ finishes finite optional-provider source qualification, not #524's compatible
 public Viewer floor or clean installed closure. Public delivery/board closeout
 of the new corrections follows; accepted audit progress remains 40%.
 
+## Final optional-provider delivery — 2026-11-06
+
+Public checkpoint `7e61fcc5c924669f197dcf31a9a5686e796d2670` independently
+matches all 39 changed blobs. #630/#631 are verified closed as completed; the
+audit-related closed count is 19. The complete board has 563 issues, 98 open,
+and unchanged PR #543 at `8ab2f5474`. The
+[delivery receipt](../../devtools/data/remaining_optional_runtime_delivery_630_631_20261106.json)
+retains source/board receiving and the independently verified
+[central graph notice](https://github.com/uibcdf/molsyssuite/issues/137#issuecomment-6702909839).
+Owner-side graph refresh is requested, not claimed complete. Optional-provider
+source review is delivered; #524 stays partial for the compatible public
+Viewer floor and clean installed closure. Accepted plan progress remains 40%.
+
 ## Remaining scope and acceptance criteria
 
 The latest local profiles pass 385/385 for Biopython minimum/newer, 86/86 for
@@ -687,11 +700,11 @@ retains these boundaries. This report stays partial.
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
   receiving and the redesigned host's eventual public release remain distinct;
   complete clean installed-runtime closure with the actual qualified host artifact.
-- Publish and independently receive the final optional-provider source block;
-  close #630/#631 with their guards and archived records. The API-grounded
-  optional floors, Conda-only routes and finite consumer qualification are now
-  complete locally. Runtime declarations retired as unsupported/docs-only keep
-  those distinct dispositions. This does not supply a public Viewer floor.
+- The final optional-provider source block, guards and #630/#631 closeout are
+  delivered as recorded above. Retain these API-grounded floors, Conda-only
+  routes and finite consumer evidence while completing the actual host/installed
+  exit. Retired unsupported/docs-only declarations keep their distinct
+  dispositions. Source receiving does not supply a public Viewer floor.
 - For each retained bound/exclusion, record exact provider behavior, owner and
   reassessment condition. The NumPy version/ABI disposition above is complete;
   preserve exact development/build/release pins and any demonstrated restrictions.

@@ -1,0 +1,322 @@
+{
+  "schema_version": "molsysmt.remaining_optional_provider_delivery@1",
+  "date": "2026-11-06",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "checkpoint": "7e61fcc5c924669f197dcf31a9a5686e796d2670",
+  "independent_public_blob_receiving": [
+    {
+      "path": ".github/workflows/receive_public_argdigest.yaml",
+      "expected_blob": "d13771ced104e6c4def1ffe54f4fd0628a3bbd45",
+      "public_blob": "d13771ced104e6c4def1ffe54f4fd0628a3bbd45",
+      "match": true
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/native_nglview_conversion_forwards_molsysmt_validation_keywords_to_widgets.md",
+      "expected_blob": "945e4325f29b9c3e6c21284fac075af1bfe03f48",
+      "public_blob": "945e4325f29b9c3e6c21284fac075af1bfe03f48",
+      "match": true
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/standalone_nglview_html_export_includes_unrequested_molecular_widget_state.md",
+      "expected_blob": "5f398a4e30cf7654f90658c6e35c11cd031d2548",
+      "public_blob": "5f398a4e30cf7654f90658c6e35c11cd031d2548",
+      "match": true
+    },
+    {
+      "path": "devguide/dependency_contract_audit.md",
+      "expected_blob": "e24cb0a3d1fffdc35a4205086efe6c67dda48ad7",
+      "public_blob": "e24cb0a3d1fffdc35a4205086efe6c67dda48ad7",
+      "match": true
+    },
+    {
+      "path": "devguide/pending_proposals/runtime_dependency_api_floors.md",
+      "expected_blob": "ac13ca9edb15c22df49033867c24ca00f6d2fa6b",
+      "public_blob": "ac13ca9edb15c22df49033867c24ca00f6d2fa6b",
+      "match": true
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "expected_blob": "2e8c177f96fec57b192c7abbad67d39d4c7b459e",
+      "public_blob": "2e8c177f96fec57b192c7abbad67d39d4c7b459e",
+      "match": true
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "expected_blob": "c6c65d895186256201034a47d5e596f02bcbedef",
+      "public_blob": "c6c65d895186256201034a47d5e596f02bcbedef",
+      "match": true
+    },
+    {
+      "path": "devtools/conda-envs/development_env.yaml",
+      "expected_blob": "6219022830cda6b47d54a3bd9eca4fbfbe57a4a4",
+      "public_blob": "6219022830cda6b47d54a3bd9eca4fbfbe57a4a4",
+      "match": true
+    },
+    {
+      "path": "devtools/conda-envs/test_env.yaml",
+      "expected_blob": "9aeed9f559207ada465b74cccbf7fbdee040f746",
+      "public_blob": "9aeed9f559207ada465b74cccbf7fbdee040f746",
+      "match": true
+    },
+    {
+      "path": "devtools/data/nglview_runtime_receiving_524_630_631_20261106.json",
+      "expected_blob": "491a4dca6a59426d69bde526e1fac052605a9808",
+      "public_blob": "491a4dca6a59426d69bde526e1fac052605a9808",
+      "match": true
+    },
+    {
+      "path": "devtools/data/remaining_optional_runtime_receiving_524_20261106.json",
+      "expected_blob": "a35cb9cf6ea381a6740d32a87db9b4a0dafbddf2",
+      "public_blob": "a35cb9cf6ea381a6740d32a87db9b4a0dafbddf2",
+      "match": true
+    },
+    {
+      "path": "devtools/data/runtime_provider_delivery_627_629_20261106.json",
+      "expected_blob": "2f56039260970c31f42964ebad5a4b1ca05f33ba",
+      "public_blob": "2f56039260970c31f42964ebad5a4b1ca05f33ba",
+      "match": true
+    },
+    {
+      "path": "devtools/dependency_contract.toml",
+      "expected_blob": "ceff81f23de671f6006a5fca2dd0eee04502c2a9",
+      "public_blob": "ceff81f23de671f6006a5fca2dd0eee04502c2a9",
+      "match": true
+    },
+    {
+      "path": "devtools/scripts/audit_dependency_contract.py",
+      "expected_blob": "559e3d981560d1109824bc954e206986d80d0deb",
+      "public_blob": "559e3d981560d1109824bc954e206986d80d0deb",
+      "match": true
+    },
+    {
+      "path": "devtools/tests/test_audit_dependency_contract.py",
+      "expected_blob": "979288159727e6058b436d725166690e6014fbcf",
+      "public_blob": "979288159727e6058b436d725166690e6014fbcf",
+      "match": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb",
+      "expected_blob": "16a8cb2293bfe7df46645feb7655070c337b4c52",
+      "public_blob": "16a8cb2293bfe7df46645feb7655070c337b4c52",
+      "match": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/13_Topological_Analysis.ipynb",
+      "expected_blob": "ff3493922e3194c59f4de2644a5710952c2ebcd8",
+      "public_blob": "ff3493922e3194c59f4de2644a5710952c2ebcd8",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/biopython/biopython_PDBStructure.ipynb",
+      "expected_blob": "cad80ad38cfb5675d2173707ecaa448ceaee1204",
+      "public_blob": "cad80ad38cfb5675d2173707ecaa448ceaee1204",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/biopython/biopython_Seq.ipynb",
+      "expected_blob": "d78a2f9d14ccda619feadac63fb8001252d677ba",
+      "public_blob": "d78a2f9d14ccda619feadac63fb8001252d677ba",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/biopython/biopython_SeqRecord.ipynb",
+      "expected_blob": "7b5807087d219f6424830bb2f0280d1e23c97256",
+      "public_blob": "7b5807087d219f6424830bb2f0280d1e23c97256",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/openff/openff_Molecule.ipynb",
+      "expected_blob": "9d429be1582448d34e9919ddb8ee28703f823daf",
+      "public_blob": "9d429be1582448d34e9919ddb8ee28703f823daf",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/openff/openff_Topology.ipynb",
+      "expected_blob": "ba19386d862e11088b6dc09ddaf11dfe04770b76",
+      "public_blob": "ba19386d862e11088b6dc09ddaf11dfe04770b76",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/pytraj/pytraj_Topology.ipynb",
+      "expected_blob": "ef460f698a4c214bc58ecfbf387963352afe7b48",
+      "public_blob": "ef460f698a4c214bc58ecfbf387963352afe7b48",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/pytraj/pytraj_Trajectory.ipynb",
+      "expected_blob": "256ab1ff4e06111d847c6e414285ab1a0e259f65",
+      "public_blob": "256ab1ff4e06111d847c6e414285ab1a0e259f65",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb",
+      "expected_blob": "9430db38b017836ca37ea4f7815ff581740988cc",
+      "public_blob": "9430db38b017836ca37ea4f7815ff581740988cc",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/third_party/nglview/write_html.ipynb",
+      "expected_blob": "2364adaef196cdfbd3cfd239fd84a1c8afc2c2eb",
+      "public_blob": "2364adaef196cdfbd3cfd239fd84a1c8afc2c2eb",
+      "match": true
+    },
+    {
+      "path": "molsysmt/_depdigest.py",
+      "expected_blob": "fdfefa3e4fb9eba10572493e4afb01e0ae115d03",
+      "public_blob": "fdfefa3e4fb9eba10572493e4afb01e0ae115d03",
+      "match": true
+    },
+    {
+      "path": "molsysmt/_private/smonitor/catalog.py",
+      "expected_blob": "8736a5d5fb0580ce46f9de2c5cefd988a1bbeb3e",
+      "public_blob": "8736a5d5fb0580ce46f9de2c5cefd988a1bbeb3e",
+      "match": true
+    },
+    {
+      "path": "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py",
+      "expected_blob": "61585fcb38fb03860e64caea143adcfeb4e20da1",
+      "public_blob": "61585fcb38fb03860e64caea143adcfeb4e20da1",
+      "match": true
+    },
+    {
+      "path": "molsysmt/form/pytraj_Trajectory/_runtime.py",
+      "expected_blob": "3b3441740c8eadb0df827995f0b667db76c0b42d",
+      "public_blob": "3b3441740c8eadb0df827995f0b667db76c0b42d",
+      "match": true
+    },
+    {
+      "path": "molsysmt/third_party/nglview/write_html.py",
+      "expected_blob": "c8bc7da7133b23e463f170973770571a3b6d2d34",
+      "public_blob": "c8bc7da7133b23e463f170973770571a3b6d2d34",
+      "match": true
+    },
+    {
+      "path": "molsysmt/topology/get_sequence_alignment.py",
+      "expected_blob": "5970a71b31039a2b6e559050bb6e9f3c3da7e808",
+      "public_blob": "5970a71b31039a2b6e559050bb6e9f3c3da7e808",
+      "match": true
+    },
+    {
+      "path": "pyproject.toml",
+      "expected_blob": "7de3fae730b1da713d7fd3174254f23646a8a303",
+      "public_blob": "7de3fae730b1da713d7fd3174254f23646a8a303",
+      "match": true
+    },
+    {
+      "path": "tests/form/biopython_Seq/test_runtime_provider_contract.py",
+      "expected_blob": "1d18526b623316828b718926d29eb348dbf8b93e",
+      "public_blob": "1d18526b623316828b718926d29eb348dbf8b93e",
+      "match": true
+    },
+    {
+      "path": "tests/form/nglview_NGLWidget/test_conversion_boundary.py",
+      "expected_blob": "640c0754e3fa48cdbf6549d1d1dd784b6a4f7608",
+      "public_blob": "640c0754e3fa48cdbf6549d1d1dd784b6a4f7608",
+      "match": true
+    },
+    {
+      "path": "tests/form/nglview_NGLWidget/test_runtime_provider_contract.py",
+      "expected_blob": "2c98c9c1347e8fc957e51512eabda4927d6ef372",
+      "public_blob": "2c98c9c1347e8fc957e51512eabda4927d6ef372",
+      "match": true
+    },
+    {
+      "path": "tests/form/pytraj_Trajectory/test_runtime_provider_contract.py",
+      "expected_blob": "662979c66ad403a5f261c059a7164baf9f469b0c",
+      "public_blob": "662979c66ad403a5f261c059a7164baf9f469b0c",
+      "match": true
+    },
+    {
+      "path": "tests/test_openff_dependency_contract.py",
+      "expected_blob": "19b1c8184f936245bb29ea7b06553f11d06918fa",
+      "public_blob": "19b1c8184f936245bb29ea7b06553f11d06918fa",
+      "match": true
+    },
+    {
+      "path": "tests/third_party/nglview/test_write_html.py",
+      "expected_blob": "54e1977cd40baef8b8dfa87b62edb97af75365be",
+      "public_blob": "54e1977cd40baef8b8dfa87b62edb97af75365be",
+      "match": true
+    }
+  ],
+  "closed_issues": [
+    {
+      "issue": "uibcdf/molsysmt#630",
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T05:37:29Z"
+    },
+    {
+      "issue": "uibcdf/molsysmt#631",
+      "state": "closed",
+      "state_reason": "completed",
+      "closed_at": "2026-11-07T05:37:32Z"
+    }
+  ],
+  "audit_closed_issue_count": 19,
+  "accepted_plan_progress_percent": 40,
+  "board_checkpoint": {
+    "date": "2026-11-06",
+    "complete_issue_count": 563,
+    "open_issue_count": 98,
+    "latest_number": 631,
+    "new_since_629": [
+      {
+        "number": 631,
+        "title": "Standalone NGLView HTML export includes unrequested molecular widget state",
+        "state": "CLOSED",
+        "labels": [
+          {
+            "name": "bug"
+          },
+          {
+            "name": "form"
+          },
+          {
+            "name": "docs"
+          }
+        ]
+      },
+      {
+        "number": 630,
+        "title": "Native NGLView conversion forwards MolSysMT validation keywords to widgets",
+        "state": "CLOSED",
+        "labels": [
+          {
+            "name": "bug"
+          },
+          {
+            "name": "form"
+          },
+          {
+            "name": "deps"
+          }
+        ]
+      }
+    ],
+    "open_prs": [
+      {
+        "number": 543,
+        "head": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+        "title": "Add bound molecular tools and reviewed System, Geometry, Chemistry and Analysis tasks"
+      }
+    ]
+  },
+  "central_handoff": {
+    "id": 6702909839,
+    "url": "https://github.com/uibcdf/molsyssuite/issues/137#issuecomment-6702909839",
+    "body": "MolSysMT's final optional-provider source checkpoint is public on main: 7e61fcc5c924669f197dcf31a9a5686e796d2670. Independent receiving matches all 39 changed blobs. #630/#631 are verified closed; no tag, Release, candidate replacement or remote matrix was selected.\n\nNew graph/acquisition details:\n- Biopython >=1.80 and NGLView >=3.0.4 remain optional pip distributions, grounded in consumed public APIs.\n- PyTraj is an optional capability acquired through conda-forge AmberTools. DepDigest explicitly disables its obsolete pip route. No universal numeric PyTraj/AmberTools equivalence is asserted; native ABI guards remain.\n- OpenFF Toolkit >=0.17.1 and Units >=0.3.0 retain their API floors. Their ordinary PyPI inventories currently contain only yanked files. Floors therefore live once in pyproject.toml [tool.molsysmt.provider-requirements], keyed by openff.toolkit/openff.units; these are non-installer provider constraints. They are removed from the pip soft extra.\n- DepDigest owns their disabled pip routes, conda-forge channel and actual packages openff-toolkit-base/openff-units. The route inventory requires the capabilities by name, and the auditor derives aliases and checks constraints without comparing a Conda artifact version to anomalous Python metadata.\n\nPlease include these optional/provider edges when refreshing the central graph. This local non-installer table is a concrete receiving case for the graph parser; it does not automatically establish a suite-wide schema or adoption. Its owner contract and negative controls are committed with the source. The old exact Units 0.3.0 payload reports Python version 0.0.0; the receipt preserves that anomaly rather than rewriting it or claiming a clean pip closure.\n\nFinal source receiving: Biopython pairs each 385 passes, OpenFF/runtime/route pairs each 199, NGLView pairs each 104, with no omissions. Joint receiving 798, scientific execution 97 cases/64 nodes and all 14 fast gates pass. Counts overlap. HTML compilation succeeds with four retained existing source-title warnings. Public-artifact hashes, origins, prior failures and source/installed/browser limits are in devtools/data/remaining_optional_runtime_receiving_524_20261106.json and nglview_runtime_receiving_524_630_631_20261106.json.\n\n#524 remains partial for the actual compatible public Viewer floor and clean installed closure. Graph refresh is requested, not claimed complete.",
+    "independently_verified": true,
+    "graph_refresh": "requested, owner-side completion not claimed"
+  },
+  "remaining": [
+    "Compatible public Viewer floor and clean installed closure under #524.",
+    "Owner+PR543/exact newer Viewer source receiving and admitted Jupyter/popup workflows; source integration is not installed/browser/human acceptance.",
+    "The remaining audit phases and exact-candidate release gates."
+  ],
+  "limits": [
+    "No new remote matrix, tag, Release, candidate replacement or promotion was selected.",
+    "All work commits retain the maintainer-requested skip-ci policy; exact release gates are not waived.",
+    "Graph refresh was requested and independently received; central owner-side adoption is not claimed."
+  ]
+}

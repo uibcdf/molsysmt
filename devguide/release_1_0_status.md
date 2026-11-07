@@ -223,6 +223,23 @@ Candidate selection and the publication pause remain unchanged; exact-platform, 
 graphical and release gates are still due. The earlier fifteen-issue campaign
 retains its original completed evidence below.
 
+Final optional-provider delivery is public as `7e61fcc5c`, with all 39 checked
+blobs independently matched. #630/#631 are verified closed: **19 audit-related
+issues closed**, accepted plan progress **40%**. Complete board acquisition has
+563 issues, 98 open and unchanged PR #543. The
+[delivery receipt](../devtools/data/remaining_optional_runtime_delivery_630_631_20261106.json)
+records the verified central #137 notice and requested graph refresh. #524's
+source review is delivered; actual compatible public-host/clean installed
+closure remains separate.
+
+The next actionable source route is isolated reconciliation of #543/#421 with
+the corrected owner and published Viewer `25061d9e`. The Viewer #314 record
+reports source/Jupyter R4/browser-core receiving but remains partial. Preserve
+its pending hosted/installed/human exits, the current archived owner fixes and
+the sibling checkout's unrelated edits. The audit packet's phase-four entry
+records the finite comparison/test route. No new host pin, source merge,
+release candidate or remote workflow is selected by this read-only review.
+
 ## Maintainer-ordered resolution goal — 2026-11-06
 
 The maintainer explicitly authorizes resolution in this order:

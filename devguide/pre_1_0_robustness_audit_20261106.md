@@ -33,7 +33,10 @@ profiles pass 199 and NGLView profiles 104 without omissions; joint receiving
 passes 798, scientific execution 97/64 nodes and all 14 fast gates pass. HTML
 compilation exits zero with four retained title-underline warnings. Source
 delivery/board closeout and actual host/installed closure still prevent
-phase-three credit.
+phase-three credit. Public checkpoint `7e61fcc5c` now independently matches all
+39 changed blobs; #630/#631 are verified closed. The audit-related closed count
+is 19; accepted progress remains 40%. Optional-provider source review is
+delivered, with the compatible public Viewer/clean installed exit still open.
 
 The subsequent #524 support-floor review qualifies the five retained required
 providers and optional public Ackredit without changing their floors. Native
@@ -721,6 +724,25 @@ identify the accepted workflows. Neither the dated 246/248 source-path count nor
 the initial task subset replaces that inventory. Do not silently drop an accepted
 workflow to pass qualification or demand a GUI for every expert API path.
 
+**Next source-integration route, reviewed 2026-11-06:** PR #543 remains at
+`8ab2f5474b2e04c68d31ef2854a238984b645fc8`. A read-only comparison against
+owner `e5d1dd0f8` identifies 99 contributed paths, seven owner overlaps and two
+textual conflicts in the queue index/release ledger. Reconcile the contribution
+in isolation, preserving the owner repairs and archived #605/#606/#607/#608/
+#613/#616 records rather than reintroducing their pending copies. Refresh the
+comparison against the final owner checkpoint before modifying it.
+
+Published Viewer source `25061d9e99baf07fa0dcb4021897958a226f0152` supplies the
+causal #314 correction and the host APIs needed by the Analysis panel. Its
+public owning record is still partial: it reports 17 Jupyter R4 checks and
+44/44 browser-core suites, while hosted/installed/human acceptance remains due.
+Receive an exact snapshot rather than the dirty sibling working tree. Align
+the five affected workflow routes/inventory to one actually received host SHA;
+the older 42234de8/239c8dd7 pins are not evidence for that new combination.
+Run the complete bound-tool selection and its inventory/native-viewer guards,
+then the admitted Jupyter/popup cases. This can advance locally without
+inventing a public package version or closing #421/#314 prematurely.
+
 **Exit:** the agreed expert and graphical workflows receive the exact combined
 sources, with full applicable tests, actual Jupyter/popup acceptance and explicit
 remaining host/Qt limitations. Review/integration does not qualify installed
@@ -901,6 +923,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | MDAnalysis/ParmEd consumer repairs qualified | #628 source f81ba2025 and #629 source e270eda9b preserve represented metadata/geometry/chemistry and explicit target limits. Final actual-provider pairs pass 155 and 185 per profile without omissions; joint receiving passes 1,271, scientific execution 97/64 nodes. Source 33a702bfa aligns optional floors. Original failures and failed harness attempts remain in portable receipts; scopes overlap. Accepted progress stays 40%. | Independently receive the batched public sources and close #627/#628/#629, then finish OpenFF/Biopython/NGLView/PyTraj and actual host/installed closure. No new tag, candidate or remote workflow. |
 | 2026-11-06 | Consumer repair block delivered | Public checkpoint 82bfa1c82 independently matches all 58 changed blobs. #627/#628/#629 are verified completed; audit-related closed count 17. Complete acquisition has 561 issues/98 open and unchanged PR #543 at 8ab2f5474. Fourteen fast gates pass. Accepted progress remains 40%. | Finish remaining optional providers and actual host/installed closure under #524; keep graphical, installed-package and final-candidate qualification separate. |
 | 2026-11-06 | Final optional-provider source block qualified | d850f6cc1 uses public alignment rows; 5cd744ebf declares supported optional acquisition/floors; e5d1dd0f8/fae9ab557 repair #630/#631. Final profiles pass Biopython 385 each, OpenFF 199 each and NGLView 104 each with no omissions; joint 798, scientific 97/64 nodes and fast gates 14/14 pass. HTML compilation exits 0 with four retained source-title warnings. Counts overlap; accepted progress stays 40%. | Publish and independently verify the block, close #630/#631, then receive the newer exact Viewer source and reconcile PR #543 while keeping public-host/clean installed closure explicit under #524. |
+| 2026-11-06 | Optional-provider block delivered | Public 7e61fcc5c matches all 39 checked blobs; #630/#631 are verified completed. Audit closed count 19, progress 40%. The complete board has 563 issues/98 open and unchanged PR #543. The central graph notice is independently received; refresh is not claimed complete. | Receive isolated owner+543 with exact newer published Viewer source; retain #524 public-host/clean installed closure and distinct graphical/release gates. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
