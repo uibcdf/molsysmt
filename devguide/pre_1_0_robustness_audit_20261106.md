@@ -9,9 +9,9 @@
 independent public-file and closed-board receiving is recorded below. Joint
 receiving passes 5,435 cases, final directed/documentation receiving passes
 1,195, and the scientific certificate passes 97 cases across 64 nodes. These
-scopes overlap. Accepted progress is 40%; #613 is published and closed. The #620
-precision correction and #524 default-renderer declaration are locally qualified
-in `cb07e54af` and `44fd0acf0`; public delivery/precision closeout follow. Remaining
+scopes overlap. Accepted progress is 40%; #613 and #620 are published and closed.
+The #620 precision correction and #524 default-renderer declaration are delivered
+in public checkpoint `8d466268c`, with all 43 checked blobs independently matched. Remaining
 #524 review and the actual Viewer floor still prevent phase-three credit.
 No replacement candidate is selected.
 
@@ -464,6 +464,22 @@ checkpoint, without waiving any final exact-candidate gate. Existing #613 smoke
 42314744961 at `60ded0f7c` now concludes successfully; it does not qualify these
 new sources. Accepted plan progress remains **40%** until phase 3 reaches its exit.
 
+**Public precision closeout and partial renderer delivery:** checkpoint
+`8d466268c3750aafe3fb1eac19fa03f1dc6df144` publishes both corrections and their
+records. Independent GitHub retrieval matches all 43 checked blobs, and #620 is
+independently verified closed as completed. All fourteen final fast gates and
+the regenerated queue-index check pass; the initial stale-index failure remains
+in the receipt. The [delivery record](../devtools/data/precision_renderer_delivery_620_20261106.json)
+preserves this public receiving separately from scientific/platform/installed
+qualification. #524 remains partial and is the next independent review. Accepted
+progress stays **40%**; no new remote workflow, candidate or publication is selected.
+
+The complete boundary inventory now contains 552 issues, 97 open, and the one
+open PR #543 at the unchanged `8ab2f5474b2e04c68d31ef2854a238984b645fc8`.
+There is no newly numbered issue after #620 in this acquisition. The delivery
+record retains the inventory digest and selected observations; no new report
+changes the #524 next step.
+
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
   applicable per-call overrides, including real decorated calls. Distinguish
@@ -675,6 +691,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Configuration source qualified | #613 correction `f60e25b7e` passes 4,438 integrated, 32 source-floor/doctest, 500 documentation and 97 scientific cases in overlapping scopes. Its receipt retains all failed attempts and process-global limitations. Independent serial precision mismatch is reported as #620 after complete seven-page acquisition; no new backend is required. Accepted plan progress remains 40%. | Publish/verify and close #613; resolve #620 and independently actionable #524 before phase-three credit. The existing phase-two smoke remains active in its bound-tool receiving step at inspection. |
 | 2026-11-06 | Configuration delivered; PBC CI terminal | Public checkpoint `1b1cc42e0` matches all 12 checked implementation/receipt/report blobs. #613 is independently verified closed. All four observed ordinary workflows at PBC head `16ecaae01`, including smoke 42312538781, conclude successfully. Accepted plan progress remains 40%; source and installed-release qualification stay separate. | Finish the configuration checkpoint with an unskipped head and inspect its applicable CI, then continue #620 and independently actionable #524. |
 | 2026-11-06 | Precision and default renderer qualified | #620 `cb07e54af` and partial #524 `44fd0acf0` pass 4,592 joint cases, 599 documentation/doctests and 97 scientific cases; scopes overlap. Directed precision has 39 passes; exact-Jinja2 receiving has 35 and isolated minimum-provider receiving seven. Seven notebook edits preserve code/outputs. #613 smoke 42314744961 succeeds at `60ded0f7c`. The maintainer renews `[skip ci]` on all work commits and batched pushes, superseding automatic unskipped heads for small work blocks. | Publish and independently verify the source and receipts, close #620, and finish independently actionable #524 review without inventing a public Viewer floor. Installed/graphical/final-candidate qualification remains separate. Accepted progress remains 40%. |
+| 2026-11-06 | Precision delivered and closed | Public checkpoint `8d466268c` independently matches all 43 checked source/record blobs. #620 is verified closed as completed. Final fast gates pass 14/14; the queue-index check passes. No new remote run was dispatched; all three work commits carry `[skip ci]`. Accepted plan progress remains 40%. | Continue the remaining #524 provider/restriction review, preserving actual public Viewer-floor and installed closure dependencies; then the agreed addon/graphical receiving and contract closeout. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

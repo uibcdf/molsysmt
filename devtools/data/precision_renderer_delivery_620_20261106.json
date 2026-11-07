@@ -1,0 +1,275 @@
+{
+  "schema_version": "molsysmt.precision_renderer_delivery@1",
+  "created_at": "2026-11-07T00:35:34.413Z",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "published_checkpoint": "8d466268c3750aafe3fb1eac19fa03f1dc6df144",
+  "implementation_commits": {
+    "uibcdf/molsysmt#620": "cb07e54af2a9be545b36d3fe8c64de34e0a0b132",
+    "uibcdf/molsysmt#524": "44fd0acf0788f1c9d06fe2a3a7446ad52c9e2550"
+  },
+  "verification_method": "Independent GitHub connector retrieval at the published checkpoint; compare each reported Git blob SHA with the local Git content hash.",
+  "verified_files": [
+    {
+      "path": "devguide/CORE_SPECIFICATION.md",
+      "git_blob_sha": "bfbb70551efb7337bc5603f9ace91ea20d24d8af",
+      "public_match": true
+    },
+    {
+      "path": "devguide/performance_and_jit.md",
+      "git_blob_sha": "3a3f0090f6715cacfd44727e1e43359a3b461bd6",
+      "public_match": true
+    },
+    {
+      "path": "devtools/tests/test_validate_course.py",
+      "git_blob_sha": "6d832bd4352fcdfb52d747266f1051ba48be8df2",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb",
+      "git_blob_sha": "43cd249bd3c477f6eda844e2a772c974dce2c3b1",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/user/cookbook/trajectory_performance_analysis.ipynb",
+      "git_blob_sha": "543b1d27b8a67a18b6b766463c0fe5ee51c7bf67",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/user/foundations/governance/precision_and_types.md",
+      "git_blob_sha": "d91de71bd6c8572ddd92e4abc972749c3150e784",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_distances.ipynb",
+      "git_blob_sha": "54f85d012aa0b95e352e83c1b3b80b2f80ff34d8",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/user/tools/structure/least_rmsd_align.ipynb",
+      "git_blob_sha": "b45003f47f7f946d9fd83b02c17764336ddba44f",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/user/tools/structure/least_rmsd_fit.ipynb",
+      "git_blob_sha": "656ade4ff2d8113580b414a2314ad8899f03f614",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/_private/execution/chunked_executor.py",
+      "git_blob_sha": "6ab01061f8acb496b0fd1bd287ef52100a337430",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/_private/numeric_precision.py",
+      "git_blob_sha": "52b8b80c425bf51fab232a5843433d8b86118179",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/_private/smonitor/__init__.py",
+      "git_blob_sha": "6a7d72779339de497ed24b20cbc0aae73932fc39",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/_private/smonitor/catalog.py",
+      "git_blob_sha": "774a64c7cb2c063559932fa2244e7982929c47ee",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/_private/smonitor/warnings.py",
+      "git_blob_sha": "d680316df575261787afd0f3bb927b2170f86cb0",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/configure/__init__.py",
+      "git_blob_sha": "db22c3e9f4b0cf569b0dac0ecccb25f8fab67da5",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/lib/structure/_kernel_inputs.py",
+      "git_blob_sha": "9548ce57ee956f7d9555284db946be9561a4aa08",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/structure/get_distances.py",
+      "git_blob_sha": "a9b3345f2cc6414477920b13bee690b550a82159",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/structure/least_rmsd_align.py",
+      "git_blob_sha": "f5c46e786b3bdf2d2cc981b14ba814333ee44873",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/structure/least_rmsd_fit.py",
+      "git_blob_sha": "9600c2f8b3c4d09aa40c3e5f8a1f0b0df4a223e7",
+      "public_match": true
+    },
+    {
+      "path": "tests/_private/smonitor/test_xdist_warning_reconstruction.py",
+      "git_blob_sha": "b06a76837159831e16adf97497db8f4a12e60ebc",
+      "public_match": true
+    },
+    {
+      "path": "tests/structure/test_native_precision_policy.py",
+      "git_blob_sha": "11298d8af95e2cb848c6e738d6463c4df9e7b003",
+      "public_match": true
+    },
+    {
+      "path": "pyproject.toml",
+      "git_blob_sha": "08af621361c7d5e809a3d77a8042f5be77621298",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/_depdigest.py",
+      "git_blob_sha": "87a3bdbc91dd3ad06eab87e828b6c8bd28d85903",
+      "public_match": true
+    },
+    {
+      "path": "devtools/conda-build/meta.yaml",
+      "git_blob_sha": "157be7eb1f42ba83545a687b16aa3d7283b26acb",
+      "public_match": true
+    },
+    {
+      "path": "devtools/rattler-build/recipe.yaml",
+      "git_blob_sha": "8ae65e389e8f1abcb8a644952da3e35c3f232a34",
+      "public_match": true
+    },
+    {
+      "path": "devtools/conda-envs/production_env.yaml",
+      "git_blob_sha": "619cf5739b66bc7a417e873b50cb47aee0984f35",
+      "public_match": true
+    },
+    {
+      "path": "devtools/conda-envs/development_env.yaml",
+      "git_blob_sha": "fee0c1f09dbd74629598ca7d900b4e96f9b2bcc6",
+      "public_match": true
+    },
+    {
+      "path": "devtools/conda-envs/test_env.yaml",
+      "git_blob_sha": "f2a40ee6d72ec19f71f41f7ac752a485c608c889",
+      "public_match": true
+    },
+    {
+      "path": "devtools/conda-envs/docs_env.yaml",
+      "git_blob_sha": "5741304e19a37805f5aff48de5e2407884fff0f2",
+      "public_match": true
+    },
+    {
+      "path": "devtools/tests/test_runtime_provider_apis.py",
+      "git_blob_sha": "0f428ec278b7767124c77a61147172a4e205944e",
+      "public_match": true
+    },
+    {
+      "path": "tests/basic/test_info_runtime_renderer.py",
+      "git_blob_sha": "48c2236b66b64ca34cf08ccf5a1d9da614b51c27",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/basic/info.py",
+      "git_blob_sha": "202aff1f44fa9cc12dc37533264cfa9a48748fc8",
+      "public_match": true
+    },
+    {
+      "path": "devguide/dependency_contract_audit.md",
+      "git_blob_sha": "c38660570f871aa9776b1c342f75221690348982",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/user/tools/basic/info.ipynb",
+      "git_blob_sha": "999c71b16ab6c92ac0294c7b2572cee74d62ed24",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+      "git_blob_sha": "c50cb39c58dbf96254cda2e22143b4b36eddbeb3",
+      "public_match": true
+    },
+    {
+      "path": "AGENTS.md",
+      "git_blob_sha": "b393f8fca2c52f12f7e093b441aa82c46b843ecc",
+      "public_match": true
+    },
+    {
+      "path": "devguide/pending_bugs/README.md",
+      "git_blob_sha": "fc9281e85c371a5bff8cf4bd18593879070a0cfd",
+      "public_match": true
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/rust_cpu_kernel_inputs_follow_an_unsupported_single_precision_setting.md",
+      "git_blob_sha": "12c68281b5b63fccde94db00b59d3eaaddd50c5a",
+      "public_match": true
+    },
+    {
+      "path": "devguide/pending_proposals/runtime_dependency_api_floors.md",
+      "git_blob_sha": "d4f461ebe91a6730a16e6add8b9d66fc61ecfdb9",
+      "public_match": true
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "git_blob_sha": "2b8b1972ca9c9d898ff81d4ff6d7a49612b99b05",
+      "public_match": true
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "git_blob_sha": "8fa4580dc3c059ddf9ced1ee45c8c29494867dae",
+      "public_match": true
+    },
+    {
+      "path": "devtools/data/native_precision_receiving_620_20261106.json",
+      "git_blob_sha": "f9f976a71864d8f06df4419b5f11bd4b183f6d85",
+      "public_match": true
+    },
+    {
+      "path": "devtools/data/runtime_renderer_receiving_524_20261106.json",
+      "git_blob_sha": "7d0a3915d8b825b342cd5ee21e1d351dfa6c1ae8",
+      "public_match": true
+    }
+  ],
+  "verification_errors": [],
+  "precision_issue": {
+    "number": 620,
+    "state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-07T00:34:55Z",
+    "url": "https://github.com/uibcdf/molsysmt/issues/620"
+  },
+  "renderer_issue": {
+    "number": 524,
+    "status": "partial",
+    "remaining_scope": "Actual Viewer acquisition/floor, suite/optional-provider APIs, NumPy restriction disposition and clean installed closure."
+  },
+  "accepted_plan_progress_percent": 40,
+  "remote_ci": {
+    "new_run_dispatched": false,
+    "working_commits": "[skip ci]",
+    "observed_prior_head": "60ded0f7c833be16afcfcfef3b034ad7ff65b651",
+    "prior_smoke_run": 42314744961,
+    "prior_smoke_conclusion": "success",
+    "scope": "Prior configuration source only. New commits remain due for agreed exact-head qualification and nightly backlog."
+  },
+  "qualification_limits": [
+    "Source publication and closed issue are not an installed-pair, platform, graphical or release qualification.",
+    "The development scientific certificate retains dirty source and release_eligible=false.",
+    "Four pre-existing human autosummary edits and the compiled extension remain unchanged.",
+    "No tag, Release, artifact replacement or promotion is performed or authorized."
+  ],
+  "board_review": {
+    "acquisition": "Owning devguide_issue._remote_state complete paginated issue acquisition plus complete paginated open-PR REST inventory.",
+    "artifact": ".pytest_cache/pre1-review-20261106/phase3-boundary-board.json",
+    "sha256": "cf585b04c61500696ce302fd7b6fbe139a485382dc6eccb5a148f80550c78a53",
+    "issues_total": 552,
+    "open_issues": 97,
+    "newer_than_620": [],
+    "open_prs": [
+      {
+        "number": 543,
+        "title": "Add bound molecular tools and reviewed System, Geometry, Chemistry and Analysis tasks",
+        "head_sha": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+        "base": "main",
+        "draft": false,
+        "updated_at": "2026-11-06T20:56:05Z"
+      }
+    ],
+    "disposition": "No newly numbered report changes the #524 next step. PR #543 stays at the previously reviewed head and its graphical receiving remains separate."
+  }
+}

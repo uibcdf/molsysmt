@@ -227,6 +227,11 @@ and limits. No clean installed-candidate or Viewer floor is claimed. The last
 observed Viewer GitHub Release remains 0.24.0; an actual compatible public
 artifact is still required before setting a new host minimum.
 
+Public checkpoint `8d466268c` independently matches all 43 checked precision,
+renderer and tracking blobs. The [delivery receipt](../../devtools/data/precision_renderer_delivery_620_20261106.json)
+records that verification and #620 closure. This delivers the renderer subset;
+it does not close this review or qualify the future installed pair.
+
 ## Remaining scope and acceptance criteria
 
 - Qualify core API/ABI probes and align justified hard floors in source, both

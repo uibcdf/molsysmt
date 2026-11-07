@@ -50,8 +50,11 @@ needed by default `info()`. Joint receiving passes 4,592 cases, documentation/
 public doctests 599, and registered scientific execution 97 across 64 nodes.
 Profiles overlap. The [precision receipt](../devtools/data/native_precision_receiving_620_20261106.json)
 and [renderer receipt](../devtools/data/runtime_renderer_receiving_524_20261106.json)
-retain exact source/backend identities and original failures. Source delivery
-and #620 board closure follow independent public verification.
+retain exact source/backend identities and original failures. Public checkpoint
+`8d466268c` independently matches all 43 checked source/record blobs, and #620 is
+verified closed as completed. The [delivery receipt](../devtools/data/precision_renderer_delivery_620_20261106.json)
+records that separate receiving. All fourteen final fast gates pass; no new
+remote workflow is dispatched.
 
 Next, continue the remaining #524 provider/restriction review. Actual public
 Viewer floor/acquisition and clean installed closure remain due; do not infer
