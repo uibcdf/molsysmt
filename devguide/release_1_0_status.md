@@ -83,6 +83,16 @@ retains the separate public receiving and fresh complete board snapshot:
 provider/NumPy restrictions, actual Viewer acquisition and installed closure.
 No new remote CI or release is selected; progress remains 40%.
 
+Optional MDTraj review also reproduces #622: a full-length invalid atom subset
+could return the complete native Topology. Source `35a0457f0` validates its atom
+domain before that shortcut, without changing attribute-query repetition or
+structure order. Final receiving passes 1,971 source/documentation cases without
+omissions. The [owning record](archive/resolved_bugs/topology_extraction_accepts_invalid_atom_subsets_as_the_complete_source.md)
+and [receipt](../devtools/data/topology_extraction_receiving_622_20261106.json)
+retain original failures, protected-source checks and limits. Public delivery
+and board closure follow. This adds no audit weight; #524 optional-floor,
+NumPy, Viewer and clean installed qualification remain active.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign

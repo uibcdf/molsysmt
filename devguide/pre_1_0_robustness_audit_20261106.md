@@ -251,7 +251,7 @@ inventing a published version or treating the whole dependency review as done.
 
 | Work class | Reports | Required disposition and owner |
 | --- | --- | --- |
-| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619/#620/#621 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
+| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619/#620/#621/#622 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
 | Declared installed runtime | #524 | MolSysMT owns its manifests, default-output contract and installed receiving. A Viewer minimum depends on an actual qualified host artifact; provider limitations stay with their providers. |
 | Public scientific meaning | #473, #475, #582 | Review the exposed claim and evidence. Correct a misleading contract or agree an explicit bounded disposition; an unavailable paper does not justify invented units, and a stored request must not be advertised as an effective engine control. Wider models or tuning are not automatically required. |
 | Implemented contracts awaiting acceptance | #549, #250, #254 | Complete the remaining owning criteria and final-candidate/client receiving. Source delivery, scientific validation and public stability are separate decisions. |
@@ -527,6 +527,21 @@ complete inventory contains 553 issues, 97 open, and the unchanged PR #543 head;
 no newly numbered issue after #621 changes the next work. Continue the remaining
 #524 optional-provider and NumPy review while preserving the actual host/artifact
 dependencies. Accepted progress remains **40%**, without extra regression points.
+
+**Native extraction counterexample during optional receiving:** #524's MDTraj
+review establishes that the native charge-export API requires at least 1.10.3;
+its existing unbounded declaration is not yet corrected or qualified here. The
+same work exposes [#622](archive/resolved_bugs/topology_extraction_accepts_invalid_atom_subsets_as_the_complete_source.md):
+native Topology treated any full-length atom list as complete coverage, even
+with duplicates or invalid positions. Source `35a0457f0` validates the owner
+before that shortcut and retains sorted unique subsets, copy/alias semantics,
+hierarchy, empty results and repeated attribute queries. The original 27 failing
+rejection cases are retained; final integrated receiving passes 1,971 cases
+without omissions, including documentation and doctests. The
+[receipt](../devtools/data/topology_extraction_receiving_622_20261106.json)
+separates authoring mistakes, overlapping runs and source/installed evidence.
+The correction shares native-integrity scope without extra percentage credit;
+public delivery/board closeout follow. Continue #524 after this bounded repair.
 
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all

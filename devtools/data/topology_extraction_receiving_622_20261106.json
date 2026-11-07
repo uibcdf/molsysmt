@@ -1,0 +1,148 @@
+{
+  "schema_version": "molsysmt.topology_extraction_receiving@1",
+  "created_at": "2026-11-07T01:40:28.538003+00:00",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "owner_issue": "uibcdf/molsysmt#622",
+  "source_commit": "35a0457f015a197d1daa65c5bc6fe1b4f7f9bf0c",
+  "baseline_commit": "0d0f2fe0b2e5e2ebc0551107b112c0b0790541a4",
+  "platform": "Linux x86_64",
+  "python": "3.14.7",
+  "runtime": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "mdtraj": "1.11.1",
+    "argdigest": "0.16.0+1.g6dabaf7",
+    "depdigest": "0.15.1+3.ga27172b",
+    "smonitor": "0.21.0+1.gd6b2394",
+    "pytest-receptor": "1.2.1+22.g00a31c4"
+  },
+  "native_backend": {
+    "path": "molsysmt/_rust.abi3.so",
+    "sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "rebuilt_this_block": false
+  },
+  "test_profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/622-extraction-counterexamples.xml",
+      "sha256": "bf53327ccb4fe8fca77bb5e10fe1c604119c0851187b59f5ac314dc83f058515",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 36,
+        "failures": 31,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5
+      },
+      "scope": "Original authoring run: 27 real rejection failures, four fixture dtype assumptions, five positive passes."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/622-extraction-counterexamples-valid-fixture.xml",
+      "sha256": "9d409533eb552b9c7b4d2e01a21c92c9effbf20187cde54b349efe1c120e6e5f",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 36,
+        "failures": 27,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 9
+      },
+      "scope": "Corrected fixture on original source: 27 rejection failures, nine positive controls pass."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/622-extraction-integrated.xml",
+      "sha256": "1d9a435814d0677ce10b0a22cc5d733ea907da70011cda4773eebb6b779a6ad6",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 1381,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1380
+      },
+      "scope": "First repair: 1380 assertions pass; one new doctest uses an unavailable package-level Topology binding."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/622-extraction-final-boundary.xml",
+      "sha256": "dcc1d0209b81edd30bd2c74c330fd36bd7b92e51c78a5e61e8422fe54ed356c4",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 10
+      },
+      "scope": "Five trusted raw-value rejection cases and native Topology doctests after correcting the import."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/622-extraction-documentation-final.xml",
+      "sha256": "812facfc97d3f9501559af75f025a59c93e0615dfc875daa8b473830e2ddd046",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 1971,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1971
+      },
+      "scope": "Final owner/raw-value/public extraction/conversion/composition, native doctests and full documentation tests."
+    }
+  ],
+  "scope": "Source receiving in the existing development environment; not a clean installed package or platform matrix.",
+  "semantics": {
+    "rejection": "Validate flat integer uniqueness and bounds before the complete-axis shortcut; source tables stay unchanged.",
+    "normalization": "Reuse one sorted array for uniqueness and hierarchy extraction. All retains its original shortcut.",
+    "preserved": "Copy/alias policy, sorted native subsets, hierarchy/string labels, empty subsets and ordered/repeated attribute queries.",
+    "diagnostics": "Existing ArgDigest boundary and SMonitor ArgumentError; no new dependency or scientific method.",
+    "unrelated": "No structure-axis repetition, permutation or chemical-state ownership changes."
+  },
+  "notebook_preservation": {
+    "docs/content/user/tools/basic/extract.ipynb": {
+      "only_markdown_cell_changed": 6,
+      "code_outputs_ids_metadata_preserved": true,
+      "sha256": "7e72f15c88650a49fcb67a15629e45ed41e11960095b6437d672d07745f0a837"
+    },
+    "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": {
+      "only_markdown_cell_changed": 3,
+      "code_outputs_ids_metadata_preserved": true,
+      "sha256": "02bb857df8f420f77e1da267f108df028019be1fdb1553716565fc5a081adc49"
+    },
+    "docs/content/user/cookbook/group_free_hierarchy.ipynb": {
+      "only_markdown_cell_changed": 17,
+      "code_outputs_ids_metadata_preserved": true,
+      "sha256": "5bfdee354be0fa138336ccf1634f2e2fedcec363e431655f53eb03e4e96e9516"
+    }
+  },
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "progress": {
+    "accepted_percent": 40,
+    "extra_credit_for_regression": 0
+  },
+  "remaining": "Public source delivery and issue closure; #524 optional-provider/NumPy/Viewer/installed-runtime scope and later audit phases remain active.",
+  "fast_gates": {
+    "process_exit_code": 0,
+    "passed": 14,
+    "total": 14,
+    "scope": "All fourteen fast gates on the final correction and completed local records. Exact-candidate heavy gates remain required.",
+    "initial_attempt": {
+      "process_exit_code": 1,
+      "passed": 13,
+      "total": 14,
+      "reason": "Pending report index had not yet been regenerated; completed report lifecycle and regeneration repair it."
+    }
+  },
+  "ruff": {
+    "lint_exit_code": 0,
+    "format_check_exit_code": 0,
+    "paths": [
+      "molsysmt/native/topology.py",
+      "molsysmt/basic/extract.py",
+      "tests/native/test_topology_operations.py"
+    ]
+  }
+}
