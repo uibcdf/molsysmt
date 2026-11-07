@@ -1,0 +1,258 @@
+{
+  "schema_version": "molsysmt.optional_runtime_delivery@1",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "published_checkpoint": "f5c909e75d786a20d92f4b57e6fa2875a3ba651e",
+  "implementation_commits": {
+    "uibcdf/molsysmt#623": "0ea1e04d7ba59f0d3cb4e378b1667f53dc18975f",
+    "uibcdf/molsysmt#524": "962b2c68e4e71d1245a293b9e7a2c5a47db00160"
+  },
+  "verification_method": "Independent GitHub connector retrieval and exact Git blob comparisons for every changed source/test/documentation/receiving file.",
+  "verified_files": [
+    {
+      "path": ".github/workflows/ci-rust-wheels.yaml",
+      "local_sha": "6408d9f4e11fec1620ab5ec023d8c2b688327b83",
+      "public_sha": "6408d9f4e11fec1620ab5ec023d8c2b688327b83",
+      "match": true
+    },
+    {
+      "path": ".github/workflows/test_conda_abi3.yaml",
+      "local_sha": "44f67259106584ab6d5b466d73b7b6946ab42e59",
+      "public_sha": "44f67259106584ab6d5b466d73b7b6946ab42e59",
+      "match": true
+    },
+    {
+      "path": ".github/workflows/test_conda_rattler.yaml",
+      "local_sha": "853972ba26903d65a9ff7c4e2dd59757247085c1",
+      "public_sha": "853972ba26903d65a9ff7c4e2dd59757247085c1",
+      "match": true
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/mdtraj_topology_subsets_lose_chemical_metadata_and_retain_sparse_hierarchy_indic.md",
+      "local_sha": "46a47a8a20f11f77bcbd37b077079a499d1b70b9",
+      "public_sha": "46a47a8a20f11f77bcbd37b077079a499d1b70b9",
+      "match": true
+    },
+    {
+      "path": "devguide/dependency_contract_audit.md",
+      "local_sha": "78d00e8373aae8b37754dba4b9803ccff7fd64fb",
+      "public_sha": "78d00e8373aae8b37754dba4b9803ccff7fd64fb",
+      "match": true
+    },
+    {
+      "path": "devguide/forms_and_conversions.md",
+      "local_sha": "e63bfd5a2afea231d048c2d3d5a036bca61ef67f",
+      "public_sha": "e63bfd5a2afea231d048c2d3d5a036bca61ef67f",
+      "match": true
+    },
+    {
+      "path": "devguide/pending_proposals/runtime_dependency_api_floors.md",
+      "local_sha": "c0725eed5f2af95880816f5e78a3c596b9b594f7",
+      "public_sha": "c0725eed5f2af95880816f5e78a3c596b9b594f7",
+      "match": true
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "local_sha": "023aedfd357eaabe2c475705c78b8a81dbd9393d",
+      "public_sha": "023aedfd357eaabe2c475705c78b8a81dbd9393d",
+      "match": true
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "local_sha": "147aed2c07e9c4f7f87c910c97e7cf1711a2b8f2",
+      "public_sha": "147aed2c07e9c4f7f87c910c97e7cf1711a2b8f2",
+      "match": true
+    },
+    {
+      "path": "devtools/conda-build/meta.yaml",
+      "local_sha": "64cb6754cf6504efc5c3971e7b347efb73d04e69",
+      "public_sha": "64cb6754cf6504efc5c3971e7b347efb73d04e69",
+      "match": true
+    },
+    {
+      "path": "devtools/conda-envs/development_env.yaml",
+      "local_sha": "d4b0b28954fb123f65b29fce7b2d3b870f4ba4a1",
+      "public_sha": "d4b0b28954fb123f65b29fce7b2d3b870f4ba4a1",
+      "match": true
+    },
+    {
+      "path": "devtools/conda-envs/docs_env.yaml",
+      "local_sha": "5fabe88765f4a86b85ccf24bcd7099c1047f23da",
+      "public_sha": "5fabe88765f4a86b85ccf24bcd7099c1047f23da",
+      "match": true
+    },
+    {
+      "path": "devtools/conda-envs/production_env.yaml",
+      "local_sha": "e6a7de1001424b10ed1db1afcb2165fdb9abe2d4",
+      "public_sha": "e6a7de1001424b10ed1db1afcb2165fdb9abe2d4",
+      "match": true
+    },
+    {
+      "path": "devtools/conda-envs/test_env.yaml",
+      "local_sha": "577c86f9f18273880f2821f262572ba660112f48",
+      "public_sha": "577c86f9f18273880f2821f262572ba660112f48",
+      "match": true
+    },
+    {
+      "path": "devtools/data/mdtraj_subset_receiving_623_20261106.json",
+      "local_sha": "eb5500fbdaa0194016a8dd49ed64fe0f24bba094",
+      "public_sha": "eb5500fbdaa0194016a8dd49ed64fe0f24bba094",
+      "match": true
+    },
+    {
+      "path": "devtools/data/optional_runtime_receiving_524_20261106.json",
+      "local_sha": "040a40c01c6f1275840499a8998a42a8248d84ee",
+      "public_sha": "040a40c01c6f1275840499a8998a42a8248d84ee",
+      "match": true
+    },
+    {
+      "path": "devtools/dependency_contract.toml",
+      "local_sha": "c325b8bd0f58acd60b041f8b73839d322986c874",
+      "public_sha": "c325b8bd0f58acd60b041f8b73839d322986c874",
+      "match": true
+    },
+    {
+      "path": "devtools/rattler-build/recipe.yaml",
+      "local_sha": "06d74aa11f3ec0742a3723b75f349c1769dc4a2a",
+      "public_sha": "06d74aa11f3ec0742a3723b75f349c1769dc4a2a",
+      "match": true
+    },
+    {
+      "path": "devtools/scripts/audit_dependency_contract.py",
+      "local_sha": "f4e9b3de186410f415d2ce8221eeb9403369491f",
+      "public_sha": "f4e9b3de186410f415d2ce8221eeb9403369491f",
+      "match": true
+    },
+    {
+      "path": "devtools/scripts/validate_dependencies.py",
+      "local_sha": "893f82021458702a130852a22a4057d1804507f4",
+      "public_sha": "893f82021458702a130852a22a4057d1804507f4",
+      "match": true
+    },
+    {
+      "path": "devtools/tests/test_audit_dependency_contract.py",
+      "local_sha": "bd95f55f75c0f691663e0fcb8b21c4d6563cdd10",
+      "public_sha": "bd95f55f75c0f691663e0fcb8b21c4d6563cdd10",
+      "match": true
+    },
+    {
+      "path": "devtools/tests/test_rust_wheel_workflow.py",
+      "local_sha": "1d52d293848e42164e9a2e50c049f80e60762e75",
+      "public_sha": "1d52d293848e42164e9a2e50c049f80e60762e75",
+      "match": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+      "local_sha": "902a6d7b6b3b1130e95f957960212bda84b1a0ed",
+      "public_sha": "902a6d7b6b3b1130e95f957960212bda84b1a0ed",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+      "local_sha": "495ef0db7b3a44091762221bfb07eff6b91033d6",
+      "public_sha": "495ef0db7b3a44091762221bfb07eff6b91033d6",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/foundations/support/forms/classes.md",
+      "local_sha": "4a97db1bf5effe6f9bc1688c0da8be90d3533798",
+      "public_sha": "4a97db1bf5effe6f9bc1688c0da8be90d3533798",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/basic/extract.ipynb",
+      "local_sha": "72ceac4abb7573264a92212b9ecfe808e860aa68",
+      "public_sha": "72ceac4abb7573264a92212b9ecfe808e860aa68",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb",
+      "local_sha": "3e7ca9b9c8f4fc86b0cb1cda2d645f215a4c8735",
+      "public_sha": "3e7ca9b9c8f4fc86b0cb1cda2d645f215a4c8735",
+      "match": true
+    },
+    {
+      "path": "molsysmt/form/mdtraj_Topology/extract.py",
+      "local_sha": "6913ac0c6929319458ca3d27ae1512e816c6b3da",
+      "public_sha": "6913ac0c6929319458ca3d27ae1512e816c6b3da",
+      "match": true
+    },
+    {
+      "path": "pyproject.toml",
+      "local_sha": "73a0c0a0b1d882daf2bb64d4ce01e3c6afe27bb1",
+      "public_sha": "73a0c0a0b1d882daf2bb64d4ce01e3c6afe27bb1",
+      "match": true
+    },
+    {
+      "path": "tests/form/mdtraj_Topology/test_extract_metadata.py",
+      "local_sha": "2ec3f719b55cc58b5fc619bad416378bdd56865a",
+      "public_sha": "2ec3f719b55cc58b5fc619bad416378bdd56865a",
+      "match": true
+    },
+    {
+      "path": "tests/form/mdtraj_Topology/test_runtime_provider_contract.py",
+      "local_sha": "94353ca678c599f7ea990c844fd17f3be4c1848c",
+      "public_sha": "94353ca678c599f7ea990c844fd17f3be4c1848c",
+      "match": true
+    },
+    {
+      "path": "tests/test_openff_dependency_contract.py",
+      "local_sha": "9dcbcc1a2281ba3182d2ff9c53041e04c5356e47",
+      "public_sha": "9dcbcc1a2281ba3182d2ff9c53041e04c5356e47",
+      "match": true
+    }
+  ],
+  "owner_closure": {
+    "issue": "uibcdf/molsysmt#623",
+    "state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-07T02:14:34Z"
+  },
+  "shared_handoff": {
+    "issue": "uibcdf/molsyssuite#137",
+    "comment_id": 6700875331,
+    "url": "https://github.com/uibcdf/molsyssuite/issues/137#issuecomment-6700875331",
+    "comment_body_independently_matches": true,
+    "graph_refresh": "Requested from its owner; not claimed completed."
+  },
+  "results": {
+    "minimum_mdtraj_profile_passed": 1191,
+    "newer_mdtraj_profile_passed": 1191,
+    "route_documentation_profile_passed": 654,
+    "minimum_python312_directed_passed": 9,
+    "paired_parser332_passed": 72,
+    "paired_parser333_failed": 28,
+    "paired_parser333_passed": 44,
+    "fast_gates_passed": 14,
+    "fast_gates_total": 14,
+    "scope_note": "Source receiving; scopes overlap and are not summed. No clean installed MolSysMT pair or full platform-matrix qualification."
+  },
+  "remaining": {
+    "uibcdf/molsysmt#524": "Other optional-provider floors and actual public Viewer/clean installed closure remain partial.",
+    "plan": "Remaining phases preserve their original owners and exits."
+  },
+  "accepted_progress_percent": 40,
+  "extra_progress_points": 0,
+  "remote_workflow_dispatched": false,
+  "publication": "No package, tag, Release or promotion selected.",
+  "protected_state": "Four human autosummary edits and existing native backend remain unchanged.",
+  "created_at": "2026-11-07T02:16:17.625135+00:00",
+  "board_snapshot": {
+    "issues": 556,
+    "open": 98,
+    "latest": 624,
+    "new_after_623": [
+      {
+        "number": 624,
+        "title": "Provide a resource-owning small-molecule collection interface with source mappings",
+        "state": "OPEN"
+      }
+    ],
+    "pulls": [
+      {
+        "number": 543,
+        "title": "Add bound molecular tools and reviewed System, Geometry, Chemistry and Analysis tasks",
+        "head": "8ab2f5474b2e04c68d31ef2854a238984b645fc8"
+      }
+    ]
+  }
+}

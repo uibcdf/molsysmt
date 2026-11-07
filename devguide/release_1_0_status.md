@@ -113,6 +113,16 @@ the 3.3.3 exclusion (28 failures there; all 72 pass on 3.3.2). Source receipts a
 Public delivery/closure follow. #524 remains partial for the other optional
 providers and actual Viewer/installed closure; accepted audit progress stays 40%.
 
+Public checkpoint `f5c909e75` independently matches all 32 checked blobs;
+#623 is verified closed. The
+[delivery receipt](../devtools/data/optional_runtime_delivery_623_20261106.json)
+records fourteen passing fast gates, whole-tree Ruff receiving and the verified
+MolSysSuite #137 source handoff. Its graph refresh remains owned follow-up.
+A complete board refresh finds new #624, an explicitly unprioritized collection
+capability proposal, and the unchanged PR #543. No new demonstrated bug changes
+the current #524 work order. Accepted progress remains 40%; no publication or
+remote full-matrix evidence is inferred from this source checkpoint.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign

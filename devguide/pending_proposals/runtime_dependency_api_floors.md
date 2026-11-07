@@ -430,6 +430,15 @@ rebuilt or bypassed by this metadata disposition.
 
 ## Remaining scope and acceptance criteria
 
+Public checkpoint `f5c909e75d786a20d92f4b57e6fa2875a3ba651e` independently
+matches all 32 checked source/test/documentation/receiving blobs. #623 is
+verified closed as completed. The immutable
+[central #137 handoff](https://github.com/uibcdf/molsyssuite/issues/137#issuecomment-6700875331)
+is published and its body independently verified; graph refresh was requested
+from its owner and is not claimed completed. The
+[delivery receipt](../../devtools/data/optional_runtime_delivery_623_20261106.json)
+retains these boundaries. This report stays partial.
+
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
   receiving and the redesigned host's eventual public release remain distinct;
   complete clean installed-runtime closure with the actual qualified host artifact.
@@ -441,8 +450,9 @@ rebuilt or bypassed by this metadata disposition.
 - For each retained bound/exclusion, record exact provider behavior, owner and
   reassessment condition. The NumPy version/ABI disposition above is complete;
   preserve exact development/build/release pins and any demonstrated restrictions.
-- Run dependency-route and pertinent runtime checks, then report immutable
-  owner evidence to uibcdf/molsyssuite#137. Keep #524 open until this review is complete.
+- Continue the pertinent route/runtime checks for the remaining providers and
+  retain the central #137 source/graph handoff as adoption advances. Keep #524
+  open until the whole review and installed closure are complete.
 
 ## Provenance
 

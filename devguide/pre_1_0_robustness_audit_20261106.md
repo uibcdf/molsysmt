@@ -576,6 +576,20 @@ source/installed limits. Other optional-provider floors and actual Viewer/
 installed closure remain due. Public delivery and #623 board closure follow;
 accepted progress remains **40%**, with no bonus for supplemental regressions.
 
+**Optional-runtime/subset public closeout:** published checkpoint
+`f5c909e75d786a20d92f4b57e6fa2875a3ba651e` independently matches all 32 changed
+public blobs. #623 is independently verified closed; #524 stays partial. All
+fourteen fast gates and whole-tree Ruff lint/format pass. The
+[delivery receipt](../devtools/data/optional_runtime_delivery_623_20261106.json)
+retains the verified central #137 handoff and its still-pending graph refresh.
+The fresh complete board contains 556 issues, 98 open, with unchanged PR #543.
+New #624 is a heterogeneous small-molecule collection capability proposal for
+PharmacophoreMT, explicitly requesting no immediate priority or closure; it
+demonstrates no new correctness blocker. Retain that design review alongside
+the growth backlog while continuing #524's remaining optional-provider and
+actual Viewer/installed work. No remote workflow, package or release is selected;
+accepted progress remains **40%**.
+
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
   applicable per-call overrides, including real decorated calls. Distinguish
