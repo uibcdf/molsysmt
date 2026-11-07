@@ -512,7 +512,7 @@ sections:
         status: in_progress
         pages:
           - name: result
-            description: Sparse queries, bounded pages, independent copies, provenance, geometry and chemical owner invalidation, state inventory publication, replacement and HDF5 writing.
+            description: Sparse queries, bounded pages, independent copies, provenance, geometry and chemical owner invalidation, state inventory publication, replacement and HDF5 writing, preserving complete evidence catalogs/codes after invalidation.
             file: docs/content/user/tools/interactions/result.md
             agents_file: docs/content/user/tools/interactions/result.md.AGENTS.md
           - name: get_hbond_sites
@@ -826,7 +826,7 @@ sections:
         description: Conversion workflows, operational verification causes, deposited CIF model-label correspondence, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership and public capability inspection.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
-        description: Sparse queries, independent copies, geometry and chemical owner notification, finite torsion rejection and scoped invalidation, state inventory publication, structure replacement and H5MSM persistence.
+        description: Sparse queries, independent copies, geometry and chemical owner notification, finite torsion rejection and scoped invalidation, state inventory publication, structure replacement and H5MSM persistence with complete evidence catalog/code identity.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants

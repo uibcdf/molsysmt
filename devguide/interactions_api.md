@@ -745,7 +745,14 @@ semantics; `between_selections` supports disjoint atom sets.
 `load` provide construction,
 inspection, and standalone HDF5 round trips. The current file schema version
 is 2; readers also accept schema 1. It is independent of H5MSM 0.5.
-`load` materializes the result in memory.
+`load` materializes the result in memory. The complete stored evidence-label
+catalog and original numeric codes are preserved, including unused entries,
+noncanonical label order, and analyses with no remaining observations or no
+evaluated structures. The reader supplies that table and its numeric column to
+the typed constructor; it does not rebuild a catalog from active strings. Native
+integer/dtype/range and cross-column validation remains authoritative. This
+contract applies to codec 1 and 2, standalone `.h5i`, named H5MSM collections and
+public full-system/layer conversion routes, without a format-version change.
 `to_dict()` exposes `occurrence_indices`, the `int64` row positions in the
 complete analysis. They distinguish parallel observations with the same
 structure and relation, remain unchanged in filtered views and H5MSM round

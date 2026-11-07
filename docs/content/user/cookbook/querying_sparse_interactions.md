@@ -265,7 +265,15 @@ retired row blocks while preserving the updated handles. Release `updated`,
 the compacted result requires memory for new columns; unused relation definitions
 stay in its catalog. Compaction is optional before saving.
 
-Frame invalidation shares read-only columns and does not recalculate anything.
+An invalidated analysis can retain evidence labels even after its last
+occurrence is removed. Saving and loading preserves that complete catalog,
+its original order and numeric codes. Zero occurrences therefore do not imply
+an empty evidence-label table. Use the complete `InteractionsDict` payload when
+checking persistence fidelity, in addition to querying active observations and
+evaluated coverage. The same guarantee applies to standalone `.h5i` files and
+to named analyses in full or interaction-only H5MSM.
+
+Structure invalidation shares read-only columns and does not recalculate anything.
 Selected queries and HDF5 saving avoid packing the complete surviving analysis.
 Saving traverses active blocks in numeric windows and preserves any existing
 complete-column cache. Typed dictionary export, pickle and remapping may still

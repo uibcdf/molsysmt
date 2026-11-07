@@ -48,3 +48,8 @@ projection and pending other consumer migration, including unknown new groups,
 persistence and interaction invalidation.
 Retain explicit conversion source context, selected-group contradiction refusal
 and unchanged input declarations during one-letter queries.
+
+
+Preserve InteractionsDict's complete evidence table/code identity through .h5i
+and named H5MSM persistence, including unused labels after invalidation. Keep
+producer identity and evaluated-empty versus unevaluated coverage distinct.

@@ -21,11 +21,15 @@ records all 21 changed/deleted public paths and clean exact-source scientific
 execution of 107 cases/68 nodes. All fourteen fast gates and HTML compilation
 pass, with six retained underline warnings. Newly reported #640 and #641 own
 native diagnostic index/context and vocabulary corrections; neither is hidden
-inside the GUI. New #642 reports HDF5 evidence-catalog loss after interaction
-invalidation.
-Its owning [report](pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md)
-records inspected native source and published DockingMT evidence; independent
-owner reproduction is next. Prioritize that data-integrity correction, then
+inside the GUI. #642 now has a source-qualified evidence-catalog correction. Its owning
+[report](archive/resolved_bugs/interactions_hdf5_readback_discards_evidence_catalog.md)
+records 32 original failures/16 passing controls, 3,098 integrated passes,
+eleven doctests and eight complete typed/two-analysis checks using the immutable
+DockingMT carrier. The [receiving receipt](../devtools/data/interaction_evidence_catalog_receiving_642_20261107.json)
+retains the exact input digests and historical failed outcomes. Complete catalogs,
+codes, coverage and producer metadata survive standalone/full/layer/public
+conversion routes under normal and pm/fs policies. Public delivery and consumer
+handoff are being completed before
 #640/#641 messages and external-reference/sequence workflows,
 cell editing and the other accepted families. The implementation is published
 on main; these records retain its completed source receiving and pending exits.
@@ -455,6 +459,21 @@ invalidates a credited claim, reopen its affected leaf until corrected. #640/
 is neither a scientific quality/coverage measure, a time prediction nor a
 probability of publication readiness. Phase 6 remains zero, and the existing
 publication pause and exact-artifact gates remain fully applicable.
+
+### Reporting progress during execution
+
+This percentage describes this audit's accepted work packages, not the fraction
+of the entire MolSysMT library implemented or an estimate of remaining hours.
+At each delivery checkpoint, report separately (1) newly accepted milestone
+leaves and their weighted change, (2) supplemental correctness repairs delivered,
+and (3) pending acceptance owned locally or by another component. Name the next
+finite package. A supplemental repair can remove a real release risk while
+leaving this milestone percentage unchanged. Do not count more tests, repeated
+checks or metadata closeout as extra implementation. Phases 5 and 6 retain 25
+points of genuinely pending work; source fixes do not silently receive those
+contract/candidate/publication points. Prefer relevant affected checks and reuse
+valid evidence; broaden a passing campaign only for a new change, failure or
+unresolved concern.
 
 To reproduce the arithmetic from the canonical snapshot:
 
@@ -1153,3 +1172,5 @@ Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
 Preserve the receipt, original outcomes and links so a future reviewer can recover
 what was known, decided, implemented and qualified at each checkpoint.
+
+| 2026-11-07 | Evidence-catalog correction source-qualified | #642 retains the complete stored label table and numeric codes through the typed constructor. Original reader: 32 failed/16 passing controls; correction: 3,098 integrated passes, eleven doctests, eight typed/two-analysis checks on the immutable real carrier. Historical consumer failures and producer metadata stay unchanged; no detector replay. | Complete public source/consumer handoff, then #640/#641 and the next finite accepted GUI package. Supplemental repair adds no milestone bonus: approximately 61%; installed and candidate exits stay separate. |

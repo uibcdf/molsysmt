@@ -40,9 +40,12 @@ on the exact clean source. All fourteen fast controls and HTML compilation
 pass, with six retained underline warnings. #640/#641 now record the observed
 native diagnostic defects. The implementation and current tracking records
 retain separate source and publication acceptance.
-New #642 is the next priority: HDF5 readback loses retained evidence catalogs
-after interaction invalidation. The [owning report](pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md)
-distinguishes inspected native source from pending independent reproduction.
+#642 is now source-qualified: its [owning report](archive/resolved_bugs/interactions_hdf5_readback_discards_evidence_catalog.md)
+records 32 original failures/16 controls, 3,098 integrated passes, eleven
+doctests and eight complete typed/two-analysis checks on the immutable DockingMT
+carrier. Full evidence catalogs/codes and producer identity survive all four
+public storage routes, including zero occurrences. Public source delivery and
+consumer handoff are being completed; installed client receiving remains separate.
 Then correct #640/#641 messages and continue external-reference/sequence, cell and
 all other accepted graphical/session families. Installed/platform/candidate and
 postponed human visual/Qt gates remain separate; publication stays paused.
@@ -52,8 +55,8 @@ now credits verified partial work with the original phase weights; its canonical
 scorecard and detailed acceptance/evidence tree live with the audit. The retired
 40% phase-exit count is preserved below as dated history. Do not interpret the
 implementation/source-delivery estimate as publication readiness. The board has
-574 issues, 99 open, through #642. The new persistence defect precedes message
-cleanup and GUI expansion.
+574 issues, 99 open, through #642. The persistence correction is delivered before message
+cleanup and GUI expansion; source qualification does not clear installed gates.
 
 ## Previous Geometry/Rotate checkpoint — 2026-11-07
 

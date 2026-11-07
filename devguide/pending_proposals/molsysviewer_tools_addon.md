@@ -44,7 +44,7 @@ native diagnostic defects independently, without a GUI translation. Native
 scientific/Rust sources and binary are unchanged. Implementation source is published on main; current tracking preserves its
 completed source receiving and independently pending exits. External references,
 sequence matching, cell editing and all other accepted families remain required.
-New #642 now precedes those continuations: the [persistence report](../pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md) owns evidence-catalog loss after invalidation/readback, with independent owner reproduction still pending. Human/installed/candidate exits are separate. The [audit's milestone accounting](../pre_1_0_robustness_audit_20261106.md#progress-estimate-for-the-authorized-execution)
+#642 now has a source-qualified [persistence correction](../archive/resolved_bugs/interactions_hdf5_readback_discards_evidence_catalog.md): complete catalog/code fidelity passes 3,098 integrated cases, eleven doctests and eight typed/two-analysis checks on the immutable DockingMT carrier. Its public source handoff is being completed before #640/#641 diagnostics and the remaining GUI work. Human/installed/candidate exits are separate. The [audit's milestone accounting](../pre_1_0_robustness_audit_20261106.md#progress-estimate-for-the-authorized-execution)
 now credits verified partial deliveries while preserving the original weights,
 full scope and independent publication gates.
 

@@ -261,11 +261,19 @@ interactions.save("observations.h5i")
 restored = msm.Interactions.load("observations.h5i")
 ```
 
+Persistence preserves the complete evidence-label table and its numeric codes,
+including unused labels and their original order. Invalidating every evaluated
+structure can leave zero occurrences and unevaluated coverage while retaining
+that catalog. `.h5i` and named H5MSM readback keep it intact; saving or loading
+does not infer a smaller table from the surviving observations. Fully empty
+coverage and evaluated-empty coverage remain distinct, and original producer
+and execution metadata retain their existing meanings.
+
 The standalone HDF5 file is versioned and separate from H5MSM. `load` reads
 the complete result into memory. Saving writes active observations in small
 numeric windows, including analyses with invalidated or recalculated structures.
 It does not create or change a cache of complete occurrence columns. Existing
-observations, frame metadata and HDF5 caches still occupy memory. Detectors
+observations, structure metadata and HDF5 caches still occupy memory. Detectors
 continue to return resident results; direct detector-to-file output,
 append/resume and public lazy file-backed queries remain unavailable. The disulfide
 candidate and both hydrogen-bond detectors have optional `Interactions`

@@ -812,8 +812,9 @@
   ],
   "new_priority": {
     "issue": "uibcdf/molsysmt#642",
-    "record": "devguide/pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md",
-    "owner_verification": "Source inspected; independent reproduction next.",
+    "record": "devguide/archive/resolved_bugs/interactions_hdf5_readback_discards_evidence_catalog.md",
+    "owner_verification": "Source-qualified: baseline 32 failed/16 controls; 3,098 integrated passes, eleven doctests and eight complete typed/two-analysis carrier checks. Public delivery/handoff is being completed.",
     "scope": "Required typed persistence fidelity. Prioritize before message cleanup and further GUI. It affects unaccepted persistence/session/contract qualification, not evidence for the already fixed specific native composition corrections."
-  }
+  },
+  "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time."
 }

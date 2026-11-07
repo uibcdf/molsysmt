@@ -1901,9 +1901,11 @@ class Interactions(NativeQueries):
         Active observations are written in bounded numeric windows, including
         invalidated or recalculated analyses. Saving does not pack complete
         occurrence columns or populate a materialization cache. Existing
-        source buffers, frame metadata and HDF5 caches remain in memory.
+        source buffers, structure metadata and HDF5 caches remain in memory.
         This writes resident data; detector-to-file output and append/resume
         semantics are not provided.
+        The complete evidence-label catalog and its numeric codes are retained,
+        including unused entries after invalidation or recalculation.
 
         See Also
         --------
@@ -1959,6 +1961,8 @@ class Interactions(NativeQueries):
         -----
         Typed cross-column invariants are checked while decoding. Skipping filename
         digestion does not disable file/schema validation or introduce lazy queries.
+        The stored evidence catalog keeps its original order, unused entries and
+        numeric codes even when no occurrences or evaluated structures remain.
 
         See Also
         --------
@@ -2035,9 +2039,8 @@ class Interactions(NativeQueries):
             participant_atoms=group["participant_atoms"][:],
             occurrence_structures=group["occurrence_structures"][:],
             occurrence_relations=group["occurrence_relations"][:],
-            occurrence_evidence=[
-                evidence_labels[index] for index in group["occurrence_evidence"][:]
-            ],
+            occurrence_evidence=group["occurrence_evidence"][:],
+            evidence_labels=evidence_labels,
             measurements={
                 name: dataset[:] for name, dataset in group["measurements"].items()
             },

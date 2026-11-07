@@ -1,0 +1,347 @@
+{
+  "schema_version": "molsysmt.interaction_evidence_catalog_receiving@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#642",
+  "consumer_issue": "uibcdf/dockingmt#80",
+  "baseline_source": "26e2793d629c17bda6f9e670ad24a95d272c059a",
+  "scope": "Implemented, contract-tested and public-route parity-tested provider source. Not installed consumer binding, package/platform/session qualification or publication authority.",
+  "correction": "Pass stored numeric occurrence_evidence and full evidence_labels to the existing typed constructor; preserve unused labels/order/codes without changing schema or normalizing the catalog.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "new_regressions": {
+    "total": 56,
+    "route_state_policy": 48,
+    "malformed_codes": 5,
+    "legacy_codec_one": 3,
+    "routes": [
+      "Interactions.save/load",
+      "h5msm.write_layers/read_layers",
+      "h5msm.write/read",
+      "public convert full system"
+    ],
+    "states": [
+      "packed",
+      "partial",
+      "evaluated-empty",
+      "unevaluated",
+      "empty-control",
+      "used-control"
+    ],
+    "policies": [
+      [
+        "nm",
+        "ps",
+        "radians",
+        "dalton"
+      ],
+      [
+        "pm",
+        "fs",
+        "radians",
+        "dalton"
+      ]
+    ],
+    "assertions": "Complete InteractionsDict fields, numeric values/shapes/dtypes, sequence types, maps, images, producer/execution, source independence and evaluated coverage."
+  },
+  "runs": {
+    "baseline": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n12",
+        "tests/interactions/test_evidence_catalog_persistence.py"
+      ],
+      "native_exit": 1,
+      "passed": 16,
+      "failed": 32,
+      "skipped": 0,
+      "selection_note": "Initial 48-case route/state/policy fixture before eight extra guards were added."
+    },
+    "directed": {
+      "native_exit": 0,
+      "passed": 194,
+      "failed": 0,
+      "skipped": 0,
+      "note": "Overlaps integrated; not additive."
+    },
+    "integrated": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n12",
+        "tests/interactions",
+        "tests/form/file_h5msm",
+        "tests/form/molsysmt_H5MSMFileHandler",
+        "tests/form/molsysmt_InteractionsDict",
+        "tests/native/test_molsys_interactions.py",
+        "tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py",
+        "tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py"
+      ],
+      "native_exit": 0,
+      "passed": 3098,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": {
+        "legacy_04": 671,
+        "legacy_03": 31,
+        "deliberate_memory_budget": 17
+      }
+    },
+    "doctest": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n12",
+        "--doctest-modules",
+        "molsysmt/interactions/result.py"
+      ],
+      "native_exit": 0,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    "consumer_typed": {
+      "command": [
+        "<existing-development-python>",
+        "<retained-consumer-audit-probe.py>"
+      ],
+      "native_exit": 0,
+      "seconds": 16.195583180058748,
+      "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+      "result": {
+        "checks": [
+          {
+            "profile": "normal",
+            "route": "molsys",
+            "full_typed_payload_equal": true,
+            "analyses": [
+              "hbonds",
+              "hydrophobic"
+            ]
+          },
+          {
+            "profile": "normal",
+            "route": "convert",
+            "full_typed_payload_equal": true,
+            "analyses": [
+              "hbonds",
+              "hydrophobic"
+            ]
+          },
+          {
+            "profile": "normal",
+            "route": "layers",
+            "full_typed_payload_equal": true,
+            "analyses": [
+              "hbonds",
+              "hydrophobic"
+            ]
+          },
+          {
+            "profile": "normal",
+            "route": "standalone",
+            "full_typed_payload_equal": true,
+            "analyses": [
+              "hbonds",
+              "hydrophobic"
+            ]
+          },
+          {
+            "profile": "pm-fs",
+            "route": "molsys",
+            "full_typed_payload_equal": true,
+            "analyses": [
+              "hbonds",
+              "hydrophobic"
+            ]
+          },
+          {
+            "profile": "pm-fs",
+            "route": "convert",
+            "full_typed_payload_equal": true,
+            "analyses": [
+              "hbonds",
+              "hydrophobic"
+            ]
+          },
+          {
+            "profile": "pm-fs",
+            "route": "layers",
+            "full_typed_payload_equal": true,
+            "analyses": [
+              "hbonds",
+              "hydrophobic"
+            ]
+          },
+          {
+            "profile": "pm-fs",
+            "route": "standalone",
+            "full_typed_payload_equal": true,
+            "analyses": [
+              "hbonds",
+              "hydrophobic"
+            ]
+          }
+        ],
+        "historical_bound_file_now_matches_prewrite_payload": true,
+        "original_public_derivation_replayed_without_detectors": true,
+        "old_consumer_failure_preserved": true,
+        "immutable_input_hashes_unchanged": true,
+        "analyses": [
+          "hbonds",
+          "hydrophobic"
+        ],
+        "n_atoms": 3238,
+        "n_structures": 1,
+        "original_scientific_producer": "5952053328aac6f737e22906e984c0f9eb938dd7",
+        "scope": "Current provider source only; not DockingMT installed binding or a new artifact qualification."
+      }
+    },
+    "fast": {
+      "command": [
+        "<existing-development-python>",
+        "devtools/scripts/release_gate.py"
+      ],
+      "native_exit": 0,
+      "seconds": 24.01886018901132,
+      "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+      "gates_passed": 14
+    },
+    "html": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "sphinx",
+        "-q",
+        "-j",
+        "12",
+        "-b",
+        "html",
+        "-D",
+        "nb_execution_mode=off",
+        "-D",
+        "autosummary_generate=0",
+        "docs",
+        "<owner>/.pytest_cache/issue-642/html"
+      ],
+      "native_exit": 0,
+      "seconds": 50.33970173401758,
+      "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+      "retained_warnings": "Six existing short title underlines; no autosummary generation or notebook execution."
+    }
+  },
+  "consumer_custody": {
+    "consumer_commit": "d71fd6b114392a95fcbbf65c78a19608d92ee79f",
+    "manifest_sha256": "b4a676022aa26f0508fadd87bb5f1dee21d9e7650edf4ebe085599c4313793ef",
+    "verified_files": [
+      {
+        "path": "attempts/normal-02/frozen-profile_worker.py.txt.gz",
+        "stored_sha256": "91b8c309b3ef02a17ea0e6cbeef5f93e256512b584a13b91fd42471937183923",
+        "decoded_sha256": "17d118ccc972afae23e1a8045826788b83402a72c59d397d7854290d4217653a",
+        "stored_bytes": 7923,
+        "decoded_bytes": 28376
+      },
+      {
+        "path": "attempts/normal-02/output/retained_pose/analyses-before.json.gz",
+        "stored_sha256": "8b76c4297336a290d097ba013cd2fd927a9263807a55b08b3cd98a56f5dab84e",
+        "decoded_sha256": "74a53e43c0f641f3e54eb204a0aad2a6ddb86e8344e56e35c3094715c56469f2",
+        "stored_bytes": 5862,
+        "decoded_bytes": 20959
+      },
+      {
+        "path": "attempts/normal-02/output/retained_pose/analyses-restored.json.gz",
+        "stored_sha256": "c15d54c7eee597b172aaff6d5fea66e0d02a79bc59ce470554786b954de6ee38",
+        "decoded_sha256": "12c9cbf88fb0505d2738c30cba59e4a41a05db698dc35161706c5d6df05b8035",
+        "stored_bytes": 5852,
+        "decoded_bytes": 20929
+      },
+      {
+        "path": "attempts/normal-02/output/retained_pose/analysis-roundtrip-differences.json.gz",
+        "stored_sha256": "54316435a02533347b4ece525e48da38c8eec500b3f06006e8dfa1ac57c94ca3",
+        "decoded_sha256": "93b28d41fe0cbf1ad5678f5f48a2ecaba643d45d93ebc909cbdc3de9906df5fd",
+        "stored_bytes": 105,
+        "decoded_bytes": 94
+      },
+      {
+        "path": "attempts/normal-02/output/retained_pose/bound_carrier.h5msm.gz",
+        "stored_sha256": "bb74580917e99da80d7ff14b626c32bf9c66682e80dde72234b6329ae1012f38",
+        "decoded_sha256": "1f6306e2085b828ef115f409eea3af6d5cef299e661e552cdebc608aa1070c8a",
+        "stored_bytes": 503224,
+        "decoded_bytes": 3148431
+      },
+      {
+        "path": "attempts/normal-02/resource-outcome.json.gz",
+        "stored_sha256": "1e4b95e809c74c467efb6b96b829359d702366f283677a158e57117c449252d2",
+        "decoded_sha256": "53ad0c5c3cf6b27d9f2440ad628ce7f2bbdc20f956888abe14af7d84e8422457",
+        "stored_bytes": 500,
+        "decoded_bytes": 880
+      },
+      {
+        "path": "devguide/validation/data/3ptb_interactions_hosted_5952053/normal/interactions/retained_pose.h5msm.gz",
+        "commit": "daa6da9cecad53eddbb83663b8d3ffec2e431097",
+        "stored_sha256": "0ce19594e2463a128c3dd3cedbd5e9f2ef149a3bf9064ee919b64248ce0b5523",
+        "decoded_sha256": "02f463d0e1f65794250ac39069d219fbeb12de13744e3661251b984fb6c417fe",
+        "stored_bytes": 501186,
+        "decoded_bytes": 3169391
+      }
+    ],
+    "manifest_entry_count": 210,
+    "owner_verified_manifest_members": 6,
+    "separate_original_carriers": 1,
+    "all_210_members_independently_verified_by_owner": false,
+    "consumer_reported_provider_source": "9e1f1b1ad8bf09446374ab6f04ca7208e2717936",
+    "stored_producer_version": {
+      "molsysmt": "0.23.0+368.g00abb958f"
+    }
+  },
+  "support_boundaries": {
+    "argdigest": "Existing typed constructor validates integer/dtype/int32 and cross-column bounds; five invalid-file controls protect this route.",
+    "pyunitwizard": "Existing quantity policy remains authoritative; default and pm/fs tested without changing installed prefix.",
+    "depdigest": "No new dependency or acquisition route.",
+    "smonitor": "Existing native exceptions retained; no new diagnostic.",
+    "ackredit": "No new scientific algorithm or third-party calculation; preservation of original provenance, not a new attribution event."
+  },
+  "preserved_attempts": [
+    "UTF-8 binary connector and gh raw-mode transport fail; successful JSON/base64 acquisition hashes before molecular operations.",
+    "Standalone audit probe initially imports pytest-only tests namespace and fails before molecular work.",
+    "First passing real-carrier probe normalizes full diagnostic content; subsequent typed probe additionally checks every sequence type and both standalone analyses. Neither is installed consumer qualification."
+  ],
+  "documentation": {
+    "user_guide": true,
+    "cookbook": true,
+    "course": "Common_Core/04_Native_Forms.ipynb markdown only; code and saved outputs unchanged",
+    "format_bump": false
+  },
+  "remaining": [
+    "Independent public source delivery/closure and consumer handoff.",
+    "DockingMT installed binding receiving stays owned by DockingMT #80.",
+    "Required full-suite/candidate/platform and complete session gates remain due under #334."
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "platform": "linux",
+    "providers": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    }
+  },
+  "style": {
+    "ruff_check_dot": 0,
+    "ruff_format_check_dot": 0,
+    "formatted_files_checked": 4533,
+    "git_diff_check": 0,
+    "course_code_and_saved_outputs_unchanged": true
+  }
+}
