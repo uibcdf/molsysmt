@@ -1,30 +1,58 @@
+from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="file:pdb")
+@dep_digest("pdbfixer")
 def to_pdbfixer_PDBFixer(
     item, atom_indices="all", structure_indices="all", skip_digestion=False
 ):
     """
-    Converting from file:pdb to pdbfixer.PDBFixer.
+    Converting a PDB file to a PDBFixer object.
 
+    PDBFixer is imported only when this conversion is requested. Its constructor
+    reads the PDB file before the requested atom and structure subset is extracted.
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
-    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+    item : str
+        Path to the PDB file to read.
+    atom_indices : str, int, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include. Use 'all' to retain every atom.
+    structure_indices : str, int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Whether to skip MolSysMT's internal argument digestion and validation mechanism.
 
     Returns
     -------
     pdbfixer.PDBFixer
-        Resulting object in pdbfixer.PDBFixer form.
+        PDBFixer object containing the requested subset.
 
+    Raises
+    ------
+    LibraryNotFoundError
+        If the optional PDBFixer package is unavailable.
+    ImportError
+        If PDBFixer or one of its dependencies fails to import. The original
+        exception is preserved.
+
+    Notes
+    -----
+    Dependency availability is checked even when ``skip_digestion=True``.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> pdb_path = str(msm.systems['Trp-Cage']['1l2y.pdb'])
+    >>> molsys = to_pdbfixer_PDBFixer(pdb_path)
+    >>> molsys.topology.getNumAtoms()
+    304
+
+    .. admonition:: Tutorial with more examples
+
+       See :ref:`Tutorial_Form_pdbfixer_PDBFixer` for PDBFixer capabilities and availability.
 
     .. versionadded:: 1.0.0
     """
