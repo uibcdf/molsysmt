@@ -76,9 +76,12 @@ The same broader review discovers #621's missed phase-two MIC caller; source
 3.1.0 receiving passes 965, documentation 543 and scientific execution 97 cases;
 profiles overlap. See the [support-floor receipt](../devtools/data/runtime_support_floor_receiving_524_20261106.json)
 and [#621 receipt](../devtools/data/periodic_fixed_state_hydrogens_receiving_621_20261106.json).
-Public delivery and #621 closure follow verification. #524 remains partial for
-optional-provider/NumPy restrictions, actual Viewer acquisition and installed
-closure. No new remote CI or publication is selected; progress remains 40%.
+Public checkpoint `ad6b71e97` matches all 14 checked source/record blobs, and
+#621 is independently verified closed as completed. The [delivery receipt](../devtools/data/support_preparation_delivery_621_20261106.json)
+retains the separate public receiving and fresh complete board snapshot:
+553 issues, 97 open, and unchanged PR #543. #524 remains partial for optional-
+provider/NumPy restrictions, actual Viewer acquisition and installed closure.
+No new remote CI or release is selected; progress remains 40%.
 
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,

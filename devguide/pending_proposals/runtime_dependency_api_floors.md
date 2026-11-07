@@ -324,6 +324,12 @@ controls pass without warnings, including the existing chemical owner's empty,
 reversed and metadata-bearing tables. Scopes overlap. #621's separate receiving
 binds its consumer correction and preserves its responsibility independently.
 
+Public checkpoint `ad6b71e97` independently matches all 14 checked preparation,
+placement and receiving blobs. #621 is independently verified closed; this
+review remains partial. The [delivery receipt](../../devtools/data/support_preparation_delivery_621_20261106.json)
+retains the verification and complete board checkpoint without treating source
+receiving as an installed-runtime or release certificate.
+
 ## Remaining scope and acceptance criteria
 
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source

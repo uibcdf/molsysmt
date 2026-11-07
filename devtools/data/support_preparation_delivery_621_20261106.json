@@ -1,0 +1,132 @@
+{
+  "schema_version": "molsysmt.support_preparation_delivery@1",
+  "created_at": "2026-11-07T01:11:53.874Z",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "published_checkpoint": "ad6b71e97626e01f67197b76f34cd6a031abe916",
+  "implementation_commits": {
+    "uibcdf/molsysmt#621": "2804f7954fa14be72844bf6a30c37988f2dad71b",
+    "uibcdf/molsysmt#524": "4f8b0336425292608490b8217e43de2d003ca6f1"
+  },
+  "verification_method": "Independent GitHub connector retrieval of all changed source/test/documentation and receiving records; compare public Git blob SHAs to local content hashes.",
+  "verified_files": [
+    {
+      "path": "molsysmt/_private/fixed_hydrogens.py",
+      "git_blob_sha": "fab12f25226cde54082b9e0895fe8197400a2fda",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/build/add_missing_hydrogens.py",
+      "git_blob_sha": "d6f5725317eec603ed2571f416d43e189b1ef944",
+      "public_match": true
+    },
+    {
+      "path": "tests/build/add_missing_hydrogens/test_fixed_state.py",
+      "git_blob_sha": "8013841f146dc1b23f2db1e9ce42456ceb947e19",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/user/tools/build/fixed_state_hydrogens.md",
+      "git_blob_sha": "a44d01d99914a6a654367f1857e62dd20544adac",
+      "public_match": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "git_blob_sha": "412575a19c084a79aa562db3bb3742889efb5ebc",
+      "public_match": true
+    },
+    {
+      "path": "molsysmt/build/_native_placers.py",
+      "git_blob_sha": "88c90f38ac7b9914b23ddd02f449a16c62bd78fd",
+      "public_match": true
+    },
+    {
+      "path": "tests/build/test_native_placers.py",
+      "git_blob_sha": "8aa6c3209b789e7a1ed4307e23b5fd21a94a9228",
+      "public_match": true
+    },
+    {
+      "path": "tests/build/test_native_placement_provider_compatibility.py",
+      "git_blob_sha": "c3afcefe79c5ca636a87cdcf3a175c4a6685b43c",
+      "public_match": true
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/periodic_fixed_state_hydrogen_addition_calls_a_retired_mic_helper_signature.md",
+      "git_blob_sha": "62b63ae03f09c7d883ad4b885c64e5b185c418ea",
+      "public_match": true
+    },
+    {
+      "path": "devguide/pending_proposals/runtime_dependency_api_floors.md",
+      "git_blob_sha": "d2a5e75e0971233fcfcaca15281e96661d6069f4",
+      "public_match": true
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "git_blob_sha": "853f86843bdc8ac1921912d9fe260a1066048c10",
+      "public_match": true
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "git_blob_sha": "49af722c4b8f83df27ae4bd7106ab44f8fabc67f",
+      "public_match": true
+    },
+    {
+      "path": "devtools/data/periodic_fixed_state_hydrogens_receiving_621_20261106.json",
+      "git_blob_sha": "9ed183c49ddbee980ce6ce924917b73de8204449",
+      "public_match": true
+    },
+    {
+      "path": "devtools/data/runtime_support_floor_receiving_524_20261106.json",
+      "git_blob_sha": "b90f4739712791f961d533436523323c74c39064",
+      "public_match": true
+    }
+  ],
+  "verification_errors": [],
+  "periodic_hydrogen_issue": {
+    "number": 621,
+    "state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-07T01:09:37Z",
+    "url": "https://github.com/uibcdf/molsysmt/issues/621"
+  },
+  "runtime_review": {
+    "number": 524,
+    "status": "partial",
+    "completed_subset": "Retained five required support-provider floors received from actual public main-channel payloads; redundant deprecated native-placement sorting removed.",
+    "remaining_scope": [
+      "Optional runtime-feature minima and existing exclusions.",
+      "NumPy version/ABI ceiling disposition.",
+      "Actual public Viewer acquisition/floor and clean installed runtime closure.",
+      "Immutable delivery to MolSysSuite #137 once the complete review is finished."
+    ]
+  },
+  "board_review": {
+    "artifact": ".pytest_cache/pre1-review-20261106/621-boundary-board.json",
+    "sha256": "0d175e4a5497dc7a55b34a63234e7e4e9e91de00aabfd8ba4eff8b9166f882ff",
+    "complete_paginated_acquisition": true,
+    "issues_total": 553,
+    "open_issues": 97,
+    "newer_than_621": [],
+    "open_prs": [
+      {
+        "number": 543,
+        "title": "Add bound molecular tools and reviewed System, Geometry, Chemistry and Analysis tasks",
+        "head_sha": "8ab2f5474b2e04c68d31ef2854a238984b645fc8",
+        "base": "main",
+        "draft": false,
+        "updated_at": "2026-11-06T20:56:05Z"
+      }
+    ]
+  },
+  "accepted_plan_progress_percent": 40,
+  "remote_execution": {
+    "new_workflow_dispatched": false,
+    "working_commits": "[skip ci]",
+    "note": "Full exact-head/platform, installed-pair and graphical qualification remain due at agreed checkpoints; no artifact, tag or Release is published."
+  },
+  "limits": [
+    "Local profiles overlap and are not a complete installed or release certificate.",
+    "Four pre-existing human autosummary edits and the compiled backend remain unchanged.",
+    "No additional weight is credited for correcting the phase-two consumer regression.",
+    "The fourteen optional ArgDigest ownership-study skips remain explicit rather than being counted as qualified minimum-provider behavior."
+  ]
+}

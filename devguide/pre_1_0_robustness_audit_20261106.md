@@ -19,8 +19,9 @@ The subsequent #524 support-floor review qualifies the five retained required
 providers and optional public Ackredit without changing their floors. Native
 placement drops redundant deprecated sorting. A missed consumer of the phase-two
 MIC signature is recorded as #621 and corrected locally in `2804f7954`; it adds
-no weight or new method. Final source receiving is recorded below; delivery and
-#621 closure follow independent public verification. Accepted progress stays 40%.
+no weight or new method. Public checkpoint `ad6b71e97` independently matches all
+14 checked source/record blobs, and #621 is verified closed. Accepted progress
+stays 40%; optional-provider, NumPy and actual Viewer/installed closure remain.
 
 The maintainer requests a durable record of the new audit, its reasoning, the
 remaining work and the order in which to strengthen MolSysMT before 1.0.
@@ -516,6 +517,17 @@ retains exact source/backend identities and unchanged course code/outputs.
 Public delivery and closure follow. Remaining optional-provider, NumPy-bound,
 actual Viewer and installed-runtime work still prevents phase-three credit.
 
+**Public preparation closeout:** checkpoint
+`ad6b71e97626e01f67197b76f34cd6a031abe916` delivers the #621 correction and
+#524 placement/support-floor records. Independent GitHub retrieval matches all
+14 checked blobs; #621 is independently verified closed as completed. All
+fourteen fast gates pass. The [delivery receipt](../devtools/data/support_preparation_delivery_621_20261106.json)
+keeps this separate from installed/graphical/platform qualification. A fresh
+complete inventory contains 553 issues, 97 open, and the unchanged PR #543 head;
+no newly numbered issue after #621 changes the next work. Continue the remaining
+#524 optional-provider and NumPy review while preserving the actual host/artifact
+dependencies. Accepted progress remains **40%**, without extra regression points.
+
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
   applicable per-call overrides, including real decorated calls. Distinguish
@@ -729,6 +741,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Precision and default renderer qualified | #620 `cb07e54af` and partial #524 `44fd0acf0` pass 4,592 joint cases, 599 documentation/doctests and 97 scientific cases; scopes overlap. Directed precision has 39 passes; exact-Jinja2 receiving has 35 and isolated minimum-provider receiving seven. Seven notebook edits preserve code/outputs. #613 smoke 42314744961 succeeds at `60ded0f7c`. The maintainer renews `[skip ci]` on all work commits and batched pushes, superseding automatic unskipped heads for small work blocks. | Publish and independently verify the source and receipts, close #620, and finish independently actionable #524 review without inventing a public Viewer floor. Installed/graphical/final-candidate qualification remains separate. Accepted progress remains 40%. |
 | 2026-11-06 | Precision delivered and closed | Public checkpoint `8d466268c` independently matches all 43 checked source/record blobs. #620 is verified closed as completed. Final fast gates pass 14/14; the queue-index check passes. No new remote run was dispatched; all three work commits carry `[skip ci]`. Accepted plan progress remains 40%. | Continue the remaining #524 provider/restriction review, preserving actual public Viewer-floor and installed closure dependencies; then the agreed addon/graphical receiving and contract closeout. |
 | 2026-11-06 | Support floors and periodic preparation qualified | Five required public support floors and optional Ackredit receive 581 passing consumer cases with 14 explicit optional study omissions, plus 133 parser/preparation/doctest passes. #524 `4f8b03364` removes duplicate deprecated sorting; #621 `2804f7954` corrects the missed MIC consumer. Exact-Pandas-3.1.0 combined receiving passes 965, documentation 543, scientific execution 97; scopes overlap. The original failures and unchanged notebook code/outputs are retained. Accepted progress stays 40%. | Publish and independently verify the sources/receipts, close #621, then continue optional-provider/NumPy-bound review and actual Viewer/installed closure. No additional progress weight or publication authorization. |
+| 2026-11-06 | Support/preparation delivery verified | Public checkpoint `ad6b71e97` matches all 14 checked source/record blobs. #621 is independently verified closed. All fourteen fast gates pass; complete board acquisition contains 553 issues, 97 open, and unchanged PR #543 at `8ab2f5474`. No newly numbered report changes the order. Accepted progress stays 40%. | Continue the remaining optional-provider minima/exclusion and NumPy ABI-bound review under #524, then actual Viewer acquisition and installed/graphical receiving. Work commits retain `[skip ci]`; no new remote workflow or release is selected. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
