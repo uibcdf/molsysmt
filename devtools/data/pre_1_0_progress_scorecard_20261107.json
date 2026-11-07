@@ -811,24 +811,23 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#643",
-    "consumer": "uibcdf/molsysmt#421",
-    "record": "devguide/pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md",
-    "owner_verification": "Locally implemented; 1,921 integrated cases/eighty new provider guards, three doctest nodes and fourteen fast gates pass. Independent probe observes zero coordinate reads for counts/numeric selection and one requested atom/structure window. Public source and graphical receiving remain pending.",
-    "scope": "Correct the general modular-file/query owner, then complete the original external-reference GUI intent. Preserve every remaining task/session, installed/contract/candidate exit.",
-    "receiving": "devtools/data/modular_h5_query_receiving_643_20261107.json"
+    "issue": "uibcdf/molsysmt#421",
+    "consumer": "uibcdf/molsysviewer#315",
+    "record": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+    "owner_verification": "#643 public-source fix verified closed; clean scientific 107/68 and unchanged original external-reference consumer guard (341 directed cases) pass. Actual external-reference GUI receiving remains pending.",
+    "scope": "Finish actual external-reference Jupyter/Mol*/popup acceptance, then the remaining agreed sequence/cell/task/session intents and contract/installed/candidate exits.",
+    "delivery": "devtools/data/modular_h5_query_delivery_643_20261107.json"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#640",
-      "uibcdf/molsysmt#641"
+      "uibcdf/molsysmt#643"
     ],
-    "source": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
+    "source": "71a2c2b8ef807f9ddce300cfd3917c5a51f56a1a",
     "state": "public_source_closed",
-    "evidence": "devtools/data/native_structure_diagnostics_delivery_640_641_20261107.json",
+    "evidence": "devtools/data/modular_h5_query_delivery_643_20261107.json",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 32
+    "audit_related_source_closures": 33
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -839,10 +838,11 @@
   },
   "unaccepted_graphical_prototype": {
     "milestone": "phase4/graphical-inventory/fitting/external-reference",
-    "source": "ca59736a4",
+    "source": "ea410c573a0469e290ca9c2bebf5a40a89e64797",
     "visibility": "local_unmerged_branch",
     "prerequisite": "uibcdf/molsysmt#643",
     "accepted": false,
-    "evidence": "devtools/data/modular_h5_query_baseline_643_20261107.json"
+    "evidence": "devtools/data/modular_h5_query_delivery_643_20261107.json",
+    "prerequisite_state": "source_closed"
   }
 }

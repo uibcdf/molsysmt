@@ -5,22 +5,31 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-## Current modular-query receiving — 2026-11-07
+## Current modular-query delivery — 2026-11-07
 
-The #643 provider correction is locally implemented and passes **1,921**
-integrated cases (including eighty new actual-I/O guards), three doctest nodes
-and fourteen fast gates. The independent 5,000-structure probe now reads no
-coordinates for counts/numeric selection and only five atoms of one structure
-for the projected coordinate request. The [owning report](pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
-and [receiving receipt](../devtools/data/modular_h5_query_receiving_643_20261107.json)
-retain failed attempts, fixture corrections, exact scope and memory limits.
-This is local source evidence; no issue closure, published provider fix or GUI
-milestone is claimed yet. HTML builds and the rendered query scope is checked, with six retained
-existing title-underline warnings. Next: clean scientific qualification and the
-unchanged original external-reference guard, then public source closeout and
-actual #421 graphical receiving. Progress remains **approximately 61%**, graphical
-**22/50**, closed audit-related issues **32**. Contract/installed/candidate exits
-and every remaining agreed family remain required.
+#643 is fixed on public main at `71a2c2b8ef807f9ddce300cfd3917c5a51f56a1a` and
+independently verified closed. All thirty changed paths match the complete
+public tree. Receiving passes 1,921 integrated cases (eighty new provider
+cases), three doctest nodes, fourteen fast gates and HTML with six retained
+existing title warnings. Clean exact-source scientific execution passes
+107 cases / all 68 registered nodes, with zero skips/failures/errors.
+
+The unchanged external-reference prototype now passes **341 directed cases**,
+including its original 5,000-structure read-window guard. The
+[delivery receipt](../devtools/data/modular_h5_query_delivery_643_20261107.json)
+records the public blobs, exact scientific source, unchanged prototype/test
+bytes, closure and authorized Viewer #315 handoff (comment 6713930007).
+[The archived report](archive/resolved_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
+retains all failed attempts and the explicit static/map/external-backend limits.
+Next: actual external-reference Jupyter/Mol*/popup receiving, then the remaining
+agreed fitting/cell/task/session intents. The prototype remains local/unmerged;
+its graphical leaf is not accepted yet.
+
+Progress remains **approximately 61%**, **22/50 graphical intents accepted**,
+and **33 closed audit-related source issues**. The closure adds no milestone
+bonus. All contract/installed/platform/human/final-candidate requirements and
+nightly/full-matrix backlog remain due. No release candidate, tag or artifact
+is selected or authorized by this source checkpoint.
 
 ## Previous external-reference prerequisite — 2026-11-07
 
@@ -29,7 +38,7 @@ prototype (`ca59736a4`). Its explicit ordered atom pairs and physical-unit
 snapshot pass 339 directed cases, but a strengthened HDF5 I/O guard refuses
 unrequested full-series reads (340 passes/one failure). The public query layer
 materializes H5MSM 0.5 before applying even scalar/selected requests. The
-[owning #643 report](pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
+[owning #643 report](archive/resolved_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
 and [independent baseline](../devtools/data/modular_h5_query_baseline_643_20261107.json)
 record a 5,000-structure primitive probe and eighteen failing standalone form
 regressions on runtime bytes matching public `07f04d9e8`. The original source
@@ -1263,3 +1272,4 @@ what was known, decided, implemented and qualified at each checkpoint.
 | 2026-11-07 | Native diagnostic corrections locally qualified | #640 maps source structure indices separately from selected positions. #641 preserves reason/code/type and general conditional guidance across all four audiences. Original baseline: 60 failed/2 controls; receiving: 701 cases, one doctest, two actual Jupyter scenarios, 14 fast gates and HTML with six retained warnings. | Public main `49d1a720f` independently matches twenty changed/deleted paths; both issues are verified closed. Clean scientific execution passes 107/68 nodes. Viewer #315 receives comment 6712967862. Continue the accepted #421 external-reference GUI workflow. Progress approximately 61%; graphical intents22/50. No installed/candidate or human acceptance is inferred. |
 
 | 2026-11-07 | External-reference prototype exposes provider I/O prerequisite | Local prototype ca59736a4 retains only selected unit-bearing anchors, but the stronger real HDF5 window guard finds full-series public-query reads. Initial/expanded 324/339 passes and final 340pass/1fail scopes overlap. Independent #643 probe and eighteen provider failures match public runtime 07f04d9e8. | Repair the general H5MSM query route, then finish the original graphical acceptance without a private reader or relaxed guard. Progress61%, graphical22/50, source closures32; no candidate or installed acceptance. |
+| 2026-11-07 | Modular-query source fix delivered and consumer guard received | #643 published at 71a2c2b8e; all thirty changed paths match the public tree. 1,921 integrated, three doctest nodes, fourteen fast gates and HTML pass. Clean exact-source scientific execution passes 107 cases/68 nodes. The original external-reference guard/prototype bytes remain unchanged; local composition ea410c573 passes 341 directed cases. | #643 independently verified closed; authorized Viewer #315 comment 6713930007. Continue actual external-reference Jupyter/Mol*/popup receiving and all remaining scope. Progress61%, graphical22/50, source closures33; no candidate/installed/publication acceptance. |

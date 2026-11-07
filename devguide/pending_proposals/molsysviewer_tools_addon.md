@@ -8,11 +8,20 @@ verification: inspected
 area: [api, molsysviewer, addons]
 guard:
 normative:
-blocked_by: [uibcdf/molsysviewer#304, uibcdf/molsysviewer#314, uibcdf/molsysmt#643]
+blocked_by: [uibcdf/molsysviewer#304, uibcdf/molsysviewer#314]
 supersedes: []
 ---
 
 # Bound MolSysMT tools addon for MolSysViewer
+
+## External-reference provider receiving — 2026-11-07
+
+#643 is corrected on public main at `71a2c2b8e`: dense H5MSM queries no longer
+load the coordinate series before applying selections. The unchanged local
+prototype at `ea410c573` passes 341 directed cases, including its original
+5,000-structure I/O guard. The prototype remains unmerged and unaccepted as a
+GUI feature. Next: actual external-reference Jupyter/Mol*/popup receiving,
+followed by the remaining fitting/cell/task/session intents.
 
 ## Native diagnostic follow-up — 2026-11-07
 
@@ -31,7 +40,7 @@ fit workflow currently fixes the reference to the same molecular system.
 External references are the next finite accepted GUI package, with sequence
 matching, cell editing and all other accepted intents still required.
 
-## External-reference implementation prerequisite — 2026-11-07
+## Previous external-reference implementation prerequisite — 2026-11-07
 
 Local unmerged prototype `ca59736a4` adds a kernel-accessible file reference,
 independent structure scope, explicit ordered atom pairs and a unit-bearing
@@ -40,12 +49,12 @@ Its expanded directed scopes pass 339 cases before the stronger window test;
 the latter records 340 passes/one real provider I/O failure. Those populations
 overlap and do not establish graphical acceptance or bounded reader memory.
 
-The public H5MSM compatibility bridge reads the full coordinate series before
-scalar/selected queries. [#643](../pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
-now owns independent reproduction and the provider correction. The GUI must
-keep using public queries, not a private file decoder. Fix that prerequisite,
-then receive actual external-reference Jupyter/Mol*/popup geometry before
-crediting the accepted intent. All other accepted families remain required.
+At the original checkpoint, the public H5MSM compatibility bridge read the
+full coordinate series before scalar/selected queries. [#643](../archive/resolved_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
+records independent reproduction and the now-published provider correction.
+The GUI keeps using public queries. The prerequisite and unchanged directed
+I/O guard now pass; actual external-reference Jupyter/Mol*/popup geometry
+remains required before crediting the accepted intent. All other accepted families remain required.
 
 ## Next finite slice: an external molecular fitting reference
 
