@@ -38,6 +38,13 @@ MolSys's weak ownership link. Copying an enclosing `MolSys` binds the copied
 topology to that copied system and preserves its single chemical-state authority.
 These paths copy tables eagerly. See {ref}`Independent Copies <user-foundations-molsys-copying>`.
 
+An extracted inventory has one position per retained source atom. Explicit atom
+subsets must therefore be unique and in range, even when their length equals
+the source atom count. Native extraction retains ascending source atom order;
+attribute queries may instead repeat positions. Direct `Topology.extract()`
+returns the source for a valid full set unless `copy_if_all=True`, whereas the
+form-agnostic `msm.extract()` defaults to copying. See {ref}`Tutorial_Extract`.
+
 - **String Identifier Invariant**: All element IDs (`atom_id`, `group_id`, `molecule_id`, `entity_id`, `chain_id`) are strictly normalized and stored as **string** representations.
 - **Hierarchical Index Links**: Structural parent-child relationships use integer 0-indexed vectors (`group_index`, `chain_index`, `molecule_index`, `entity_index`).
 - **Chain Labels During Addition**: With `keep_ids=True`, native addition preserves explicit chain IDs and names, even when two chains share a label. Incoming positional chain indices are offset independently. `keep_ids=False` regenerates local IDs.

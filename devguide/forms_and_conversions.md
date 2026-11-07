@@ -140,7 +140,12 @@ membership comparisons still apply.
 
 Conversion retains native sorted atom-extraction order; direct attribute queries
 retain requested atom order/repetitions. Structure indices retain order and
-repetitions in both. H5MSM stores the primary array and sparse alternatives
+repetitions in both. Native Topology extraction requires a flat unique in-range
+atom subset, including an explicit full-length list; list length alone does not
+establish complete coverage. Invalid lists raise ArgumentError before copying
+or returning a source alias. `all` and a valid explicit complete set retain the
+method's `copy_if_all` contract; use `permute_atoms` for an explicit atom order.
+H5MSM stores the primary array and sparse alternatives
 without inventing missing values. The owning regression is
 `tests/form/mmcif_PdbxContainers_DataContainer/test_primary_occupancy.py`.
 

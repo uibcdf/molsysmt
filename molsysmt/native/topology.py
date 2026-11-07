@@ -5,7 +5,7 @@ import pandas as pd
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError
+from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 from molsysmt._private.variables import is_all
 
 from . import _chemical_state as _chemical_storage
@@ -647,7 +647,61 @@ class Topology(NativeQueries):
     @signal(tags=["native"])
     @arg_digest()
     def extract(self, atom_indices="all", copy_if_all=False, skip_digestion=False):
-        """Return a subset topology with the selected atoms and associated hierarchy."""
+        """Extracting a unique atom subset and its associated stable hierarchy.
+
+        Parameters
+        ----------
+        atom_indices : str or array_like
+            Unique in-range atom indices to retain, sorted into ascending source
+            order. The default is ``'all'``. An empty subset is allowed.
+        copy_if_all : bool
+            Whether a full-set extraction returns an independent copy. The
+            default is False, which returns this topology for ``'all'`` or an
+            explicit permutation of all source positions.
+        skip_digestion : bool
+            Whether to skip argument digestion for a trusted internal call.
+            The default is False. Inventory-domain checks still apply.
+
+        Returns
+        -------
+        molsysmt.Topology
+            Selected atoms and their associated hierarchy. Partial subsets
+            are independent of the source.
+
+        Raises
+        ------
+        ArgumentError
+            If explicit indices are not a flat, unique, in-range integer subset.
+
+        Notes
+        -----
+        Extraction constructs an inventory axis, unlike attribute queries whose
+        selections can repeat positions. Use atom permutation when an explicit
+        atom order is required. Chemical states are not part of this object.
+
+        See Also
+        --------
+        molsysmt.basic.extract
+            Extracting from any supported form.
+        molsysmt.basic.permute_atoms
+            Applying a declared complete atom order.
+
+        Examples
+        --------
+        >>> from molsysmt.native import Topology
+        >>> molsys = Topology(n_atoms=3)
+        >>> molsys.atoms['atom_id'] = ['A', 'B', 'C']
+        >>> molsys.extract(atom_indices=[2, 0]).atoms['atom_id'].tolist()
+        ['A', 'C']
+        >>> molsys.extract(atom_indices=[2, 1, 0]) is molsys
+        True
+
+        .. admonition:: User guide
+
+           See :ref:`Tutorial_Extract` for extraction and selection contracts.
+
+        .. versionadded:: 1.0.0
+        """
 
         if is_all(atom_indices):
             if copy_if_all:
@@ -655,15 +709,43 @@ class Topology(NativeQueries):
             else:
                 return self
 
-        elif len(atom_indices) == self.atoms.shape[0]:
+        invalid_indices = (
+            "atom_indices must contain flat unique valid source atom indices."
+        )
+        try:
+            atoms = np.asarray(atom_indices)
+        except (TypeError, ValueError) as error:
+            raise ArgumentError(
+                "atom_indices",
+                caller="molsysmt.native.Topology.extract",
+                message=invalid_indices,
+            ) from error
+        if atoms.ndim != 1 or (atoms.size and atoms.dtype.kind not in "iu"):
+            raise ArgumentError(
+                "atom_indices",
+                caller="molsysmt.native.Topology.extract",
+                message=invalid_indices,
+            )
+        atom_indices = np.sort(atoms)
+        if atom_indices.size and (
+            atom_indices[0] < 0
+            or atom_indices[-1] >= self.n_atoms
+            or np.any(atom_indices[1:] == atom_indices[:-1])
+        ):
+            raise ArgumentError(
+                "atom_indices",
+                caller="molsysmt.native.Topology.extract",
+                message=invalid_indices,
+            )
+        atom_indices = atom_indices.astype(np.int64, copy=False)
+
+        if len(atom_indices) == self.atoms.shape[0]:
             if copy_if_all:
                 return self.copy()
             else:
                 return self
 
         else:
-            atom_indices = np.sort(np.asarray(atom_indices, dtype=np.int64))
-
             tmp_item = Topology(skip_digestion=True)
             tmp_item.atoms = self.atoms.iloc[atom_indices].copy()
             tmp_item.atoms.index = pd.RangeIndex(len(tmp_item.atoms))

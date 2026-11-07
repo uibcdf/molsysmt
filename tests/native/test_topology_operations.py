@@ -1,10 +1,11 @@
 import pickle
 
+import numpy as np
 import pandas as pd
 import pytest
 
 import molsysmt as msm
-from molsysmt._private.smonitor import StructuralInconsistencyError
+from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 from molsysmt.native import MolSys, Topology
 from molsysmt.native._chemical_state import (
     Bonds_DataFrame,
@@ -1109,3 +1110,104 @@ def test_get_atom_indices_filters_across_hierarchy_levels():
     assert topology.get_atom_indices(entity_name="peptide 0") == [0, 1]
     assert topology.get_atom_indices(chain_name="B") == [2, 3]
     assert topology.get_atom_indices(atom_id=["0", "1"], entity_id="40") == [0, 1]
+
+
+@pytest.mark.parametrize(
+    "atom_indices",
+    [[0, 1, 2, 4], [-1, 0, 1, 2], [3, 0, 1, 3], [1, 1], [-1], [4]],
+)
+@pytest.mark.parametrize("copy_if_all", [False, True])
+@pytest.mark.parametrize("skip_digestion", [False, True])
+def test_extract_rejects_invalid_atom_subsets_without_changing_source(
+    atom_indices, copy_if_all, skip_digestion
+):
+    topology = build_minimal_topology()
+    before = {
+        name: getattr(topology, name).copy(deep=True)
+        for name in ("atoms", "groups", "molecules", "entities", "chains")
+    }
+
+    with pytest.raises(ArgumentError, match="unique valid"):
+        topology.extract(
+            atom_indices=atom_indices,
+            copy_if_all=copy_if_all,
+            skip_digestion=skip_digestion,
+        )
+
+    for name, table in before.items():
+        pd.testing.assert_frame_equal(getattr(topology, name), table)
+
+
+@pytest.mark.parametrize("route", ["extract", "convert_native", "convert_mdtraj"])
+def test_topology_public_extraction_rejects_repeated_atoms(route):
+    topology = build_minimal_topology()
+    before = topology.atoms.copy(deep=True)
+    if route == "convert_mdtraj":
+        pytest.importorskip("mdtraj")
+
+    with pytest.raises(ArgumentError, match="unique valid"):
+        if route == "extract":
+            msm.extract(topology, selection=[3, 0, 1, 3])
+        else:
+            msm.convert(
+                topology,
+                selection=[3, 0, 1, 3],
+                to_form=(
+                    "mdtraj.Topology"
+                    if route == "convert_mdtraj"
+                    else "molsysmt.Topology"
+                ),
+            )
+
+    pd.testing.assert_frame_equal(topology.atoms, before)
+
+
+@pytest.mark.parametrize("copy_if_all", [False, True])
+@pytest.mark.parametrize(
+    ("atom_indices", "expected"),
+    [("all", [0, 1, 2, 3]), ([3, 2, 1, 0], [0, 1, 2, 3]), ([3, 1], [1, 3]), ([], [])],
+)
+def test_extract_valid_atom_domains_keep_order_copy_and_hierarchy(
+    atom_indices, expected, copy_if_all
+):
+    topology = build_minimal_topology()
+    topology.atoms["atom_id"] = pd.array(topology.atoms["atom_id"], dtype="string")
+    result = topology.extract(atom_indices=atom_indices, copy_if_all=copy_if_all)
+
+    assert result.atoms["atom_id"].tolist() == [str(i) for i in expected]
+    assert (result is topology) == (len(expected) == 4 and not copy_if_all)
+    assert str(result.atoms["atom_id"].dtype) == "string"
+    if expected == [1, 3]:
+        assert result.atoms["group_index"].tolist() == [0, 1]
+        assert result.groups["group_id"].tolist() == ["10", "11"]
+        assert result.molecules["molecule_id"].tolist() == ["30", "31"]
+        assert result.entities["entity_id"].tolist() == ["40", "41"]
+        assert result.atoms["chain_index"].tolist() == [0, 1]
+        assert result.chains["chain_id"].tolist() == ["A", "B"]
+    if result is not topology and expected:
+        result.atoms.at[0, "atom_name"] = "changed"
+        assert topology.atoms["atom_name"].tolist() == ["N", "CA", "O", "H"]
+
+
+def test_attribute_queries_still_preserve_atom_repetitions():
+    topology = build_minimal_topology()
+    assert topology.get(selection=[3, 0, 3], atom_name=True) == ["H", "N", "H"]
+
+
+@pytest.mark.parametrize(
+    "atom_indices",
+    [
+        None,
+        [[0, 1]],
+        [[0], [1, 2]],
+        [0.0, 1.0],
+        [True, False],
+        np.array([0, 2**64 - 1], dtype=np.uint64),
+    ],
+)
+def test_extract_trusted_values_cannot_create_an_invalid_inventory_axis(atom_indices):
+    topology = build_minimal_topology()
+    before = topology.atoms.copy(deep=True)
+    with pytest.raises(ArgumentError, match="unique valid"):
+        topology.extract(atom_indices=atom_indices, skip_digestion=True)
+    pd.testing.assert_frame_equal(topology.atoms, before)

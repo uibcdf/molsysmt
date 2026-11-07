@@ -74,6 +74,9 @@ def extract(
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+    - Native topology extraction requires unique in-range atom indices and
+      retains ascending source atom order. Attribute queries can instead repeat
+      atom positions. Use ``permute_atoms`` for a declared complete atom order.
     - When the input is an H5MSM file, extracting a subset to the same file
       form requires a distinct ``output_filename``. Use
       ``to_form='molsysmt.MolSys'`` for an in-memory subset.
