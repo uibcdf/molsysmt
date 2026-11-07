@@ -3,7 +3,28 @@
 **Role:** operational audit and correction-tracking packet.  
 **Owner:** [uibcdf/molsysmt#334](https://github.com/uibcdf/molsysmt/issues/334).  
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
-**Last tracking review:** 2026-11-07.  
+**Last tracking review:** 2026-11-07.
+
+**Latest checkpoint — 2026-11-07:** #632 is committed in isolated receiving
+`3f66f5931`. #602's constructor and expert mirror, #633's borrowed-coordinate
+ownership correction, #634's explicit peptidic inhibitor example and #637's
+single course-checker route are locally qualified and awaiting source delivery.
+The [combined receipt](../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json)
+retains 7,764 integrated cases, 76 minimum-provider cases, 107 scientific cases
+across 68 nodes, all five executed notebooks and 14 passing fast gates. These
+scopes overlap. The scientific certificate is development-only and explicitly
+ineligible for release; HTML retains six title-underline warnings. Original
+failed executions remain recorded. Public audit closures remain **19** and
+accepted progress **40%** until delivery; no candidate is selected.
+
+New admitted correctness work is ordered **#638 coordinate rank/precision**, then
+**#636 untracked executable source in scientific certification**. Separately,
+receive #635's endpoint-aware panel guards on the newer exact Viewer source
+from published PR head `42f5ed3bc`; the current results qualify Viewer `25061d9e9` only. The complete
+board checkpoint has 570 issues, 105 open, through #638. Remaining #421 graphical,
+Jupyter/navigation, installed and human acceptance and #524 public-host/installed
+closure stay explicit; another passing local count does not complete those exits.
+
 **Current execution:** phases 1 and 2 are published/closed. Phase-two source
 `3eb720444b97f77f9325acf52f55114ece0b5f9e` corrects #605/#607/#606/#608/#619;
 independent public-file and closed-board receiving is recorded below. Joint
@@ -716,6 +737,8 @@ snapshot. Its successful smoke and pending full matrix are separate evidence.
 | --- | --- |
 | #543/#421 integration | Reconcile the contribution with the corrected native source and a named Viewer source. Review expert mirrors, edits, detached results and graphical actions separately. Keep scientific algorithms and units with their native owners. |
 | #602 rotation constructor | Review the smallest reusable public boundary over existing mathematical kernels for the agreed Rotate task. Specify axis validation, explicit angular units, handedness and row-vector active-rotation convention. Require analytic signed rotations, scaling/degeneracy and unit controls. No new algorithm/backend is implied. |
+| #638 XYZ representation | Correct accepted rank-one/two/three publication and integer coordinate arithmetic without silent fractional truncation. Test supported quantity libraries, selections, unit policy, readonly and in-place failure atomicity at the coordinate-owner boundary. |
+| #635 newer-host panel receiving | Use actual primary endpoint identity while preserving popup routing and rejecting another view's endpoint. Receive exact newer Viewer bytes separately; never transfer older-host evidence. |
 | #590/#591/#603 outcomes and layout | Receive durable completion/rejection messages and actual Jupyter layout. Refresh must not replay science, revive a consumed token or erase the relevant native diagnostic. Distinguish already implemented contribution fixes from owner integration and graphical acceptance. |
 | #609/#614 asynchronous receiving | Follow acknowledged presentation and actual attached/current panel identity. Retain exact title, numerical, lifetime and popup assertions; sleeps, forced clicks and accepted placeholders are not repairs. |
 | #615 initial canvas | Preserve the original intermittent failure and early stack/timing instrumentation. Establish its causal stage on recurrence or an evidenced bounded environment disposition. A later passing run alone does not establish repair. |
@@ -929,6 +952,18 @@ receiving; the table concerns each issue's remaining extension scope.
 | Wider forms and internal layout | #519, #438, #181 | Resource-owning FASTA, H5MSM module-location review and broader conversion profiles remain bounded independent work. Prioritize actual included-workflow defects without requiring every declared edge before 1.0. |
 | Provider/performance follow-up | #403, #486, #530, #128, #382 | Retain qualified compatibility protections until actual replacement receiving. Profile additional query/startup/storage work before redesign; no unmeasured speedup or automatic provider upgrade. |
 
+### Newly admitted certification prerequisite — #636
+
+Before any final-candidate certificate, exclude untracked executable or
+source-affecting inputs from a falsely clean Git identity. A real temporary Git
+checkout with one tracked passing test and an actually loaded untracked
+`conftest.py` currently receives `release_eligible=true`. Preserve the supported
+untracked output-artifact route while rejecting source/config/reference inputs;
+require real-Git clean, dirty, loaded-hook and artifact controls. The current
+107-case certificate is already dirty/ineligible and makes no candidate claim.
+The owning [report](pending_bugs/scientific_certificate_ignores_untracked_python_inputs.md)
+keeps the defect separate from the registered scientific result.
+
 ## Progress log
 
 Add rows rather than replacing earlier measurements. A completion row names the
@@ -965,6 +1000,8 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-07 | Isolated bound-tools source received | Merge `653ed8e0` reconciles owner `030c201a5` with contribution `8ab2f5474`; exact Viewer `25061d9e9` passes import/API preflight and 5,009 Python cases with zero failures/errors/skips. Owner source/test/archive and incoming runtime/guard preservation are checked. Five workflows plus the inventory now pin the received host; four static checks pass. | Complete #602 and actual Jupyter/popup/navigation receiving. Main, installed and human acceptance remain separate; progress 40%, closed audit issues 19. |
 
 | 2026-11-07 | Four implemented GUI scenarios received | First campaign: three passes (Preparation6/Pending8/Periodic8), Analysis failed before browser at server readiness. Diagnostic Analysis completed nine steps before a root auxiliary-build error; exact-build correction plus preflight permits all twelve Analysis steps and the #632 wrapper to pass. Portable receipt retains all three executions and failed outcomes. | Finish source delivery/closeout of #632, then #602 and remaining agreed graphical families/full Jupyter/conformational receiving. Original readiness and #615 uncertainty remain; progress 40%, closed issues19. |
+
+| 2026-11-07 | Rotation/documentation block locally qualified | #602 native/expert constructor and #633/#634/#637 corrections pass 7,764 integrated cases; minimum providers 76, scientific 107/68 nodes, five notebooks across two campaigns and fast gates 14/14. Scopes overlap; scientific certificate explicitly ineligible; original failures and six HTML warnings retained. | Deliver the combined source and close only verified owner issues. Then correct #638 and #636 and receive #635 on its actual newer host. Progress 40%, public audit closures 19; no candidate or installed/human closure. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

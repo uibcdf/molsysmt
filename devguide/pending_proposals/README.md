@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (36)
+### Open (35)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -65,7 +65,6 @@ Entries carrying front matter under
 - [`post_1_0_streaming_interactions_and_h5msm_append.md`](post_1_0_streaming_interactions_and_h5msm_append.md) — [#336](https://github.com/uibcdf/molsysmt/issues/336) — Post-1.0 streaming interactions and H5MSM append *(inspected)*
 - [`post_1_0_water_paths_beyond_two_mediators.md`](post_1_0_water_paths_beyond_two_mediators.md) — [#338](https://github.com/uibcdf/molsysmt/issues/338) — Post-1.0 water paths beyond two mediators *(inspected)*
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*
-- [`public_axis_angle_rotation_constructor.md`](public_axis_angle_rotation_constructor.md) — [#602](https://github.com/uibcdf/molsysmt/issues/602) — Provide a public axis-angle rotation constructor for molecular consumers. *(inspected)*
 - [`qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md`](qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md) — [#530](https://github.com/uibcdf/molsysmt/issues/530) — Qualify corrected MDTraj batch SASA and retire independent-structure evaluation *(inspected)*
 - [`qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md`](qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md) — [#486](https://github.com/uibcdf/molsysmt/issues/486) — Qualify PyParsing 3.3.4 or its published successor for MDTraj selections *(upstream)*
 - [`read_only_geometry_and_steric_plausibility_assessment.md`](read_only_geometry_and_steric_plausibility_assessment.md) — [#555](https://github.com/uibcdf/molsysmt/issues/555) — Provide explicit read-only molecular geometry and steric plausibility assessment. *(inspected)*
@@ -88,7 +87,7 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (16)
+### Partially resolved (17)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
@@ -106,6 +105,7 @@ Entries carrying front matter under
 - [`pilot_ackredit_in_interaction_calculations.md`](pilot_ackredit_in_interaction_calculations.md) — [#27](https://github.com/uibcdf/molsysmt/issues/27) — Pilot Ackredit in interaction calculations *(measured)*
 - [`promote_chemical_states_to_a_native_molsys_domain.md`](promote_chemical_states_to_a_native_molsys_domain.md) — [#254](https://github.com/uibcdf/molsysmt/issues/254) — Promote ChemicalStates to an independent native MolSys domain *(measured)*
   Blocked by uibcdf/molsysmt#334.
+- [`public_axis_angle_rotation_constructor.md`](public_axis_angle_rotation_constructor.md) — [#602](https://github.com/uibcdf/molsysmt/issues/602) — Provide a public axis-angle rotation constructor for molecular consumers. *(measured)*
 - [`remove_avoidable_biopython_dependencies_from_core_sequence_operations.md`](remove_avoidable_biopython_dependencies_from_core_sequence_operations.md) — [#243](https://github.com/uibcdf/molsysmt/issues/243) — Remove avoidable Biopython dependencies from core sequence operations *(reproduced)*
 - [`runtime_dependency_api_floors.md`](runtime_dependency_api_floors.md) — [#524](https://github.com/uibcdf/molsysmt/issues/524) — Ground runtime dependency floors and restrictions in consumed APIs. *(measured)*
 

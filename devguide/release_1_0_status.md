@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-11-06
+**Last updated:** 2026-11-07
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -19,6 +19,29 @@ The execution plan defines scope, order, weights, and exit criteria. Detailed
 bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
+
+## Current correction checkpoint — 2026-11-07
+
+The #543 contribution is received on an isolated branch with exact Viewer
+`25061d9e9`; source merge `653ed8e0` and #632 guard correction `3f66f5931`
+are not yet delivered to main. The subsequent #602 native/expert rotation
+constructor and #633/#634/#637 corrections are locally qualified. The
+[receipt](../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json)
+records 7,764 integrated passes, 76 minimum-provider passes, 107 registered
+scientific passes across 68 nodes, five actually executed notebooks and 14
+passing fast gates. Counts overlap. Original failures, the development-only
+ineligible scientific certificate and six HTML underline warnings are retained.
+The four human-owned API stubs remain untouched.
+
+Next: publish/independently receive this source block and close its verified
+issues; correct #638's silent integer-coordinate truncation and supported-rank
+publication, then #636's untracked-source certification gap. #635 separately
+requires receiving published PR head `42f5ed3bc` and its endpoint-aware panel
+guards on the newer host. Remaining #421
+actual graphical/Jupyter/navigation/installed/human and #524 public-host/clean
+installed exits remain open. The [audit plan](pre_1_0_robustness_audit_20261106.md)
+stays at **40%**, with **19 publicly verified audit-related closures**. No new
+candidate, tag, Release, promotion or remote matrix is selected.
 
 ## Audit execution and next correction — 2026-11-06
 

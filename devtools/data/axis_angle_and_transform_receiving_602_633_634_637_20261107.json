@@ -1,0 +1,561 @@
+{
+  "schema_version": "molsysmt.axis_angle_and_transform_receiving@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#602",
+  "related_issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#633",
+    "uibcdf/molsysmt#634",
+    "uibcdf/molsysmt#635",
+    "uibcdf/molsysmt#636",
+    "uibcdf/molsysmt#637",
+    "uibcdf/molsysmt#638"
+  ],
+  "base_commit": "3f66f5931113c8011aae352ef628e80c00db56c0",
+  "tracked_source_dirty_during_receiving": true,
+  "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "python": "3.14.7",
+  "minimum_provider_preflight": {
+    "native_exit_observed": 0,
+    "stdout": "{\"argdigest\": \"<owner-checkout>/.pytest_cache/pre1-review-20261106/providers/argdigest-0.14.0/argdigest/__init__.py\", \"pyunitwizard\": \"<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py\"}\n",
+    "stderr": ""
+  },
+  "runs": [
+    {
+      "name": "602-focused-public-puw-01",
+      "private_artifact_sha256": {
+        "invocation.json": "0580f34a53d6e9082800cadcbe3079308c3290238d4b23b99fee75aa45060a95",
+        "preflight.json": "0651267707b3304bfabe0cdcdc9772269c20f85c1b97f71627e0bbea22113d8e",
+        "pytest.stderr.log": "2082e10d459b6295733253945fed6a16c29ae99f40124d02d4f2dcaa69adaec0",
+        "pytest.stdout.log": "3e2e1e4af60b667293da510b73885575a4828e06cf9a5df7068483d99276435e",
+        "result.xml": "dd600f893ed10215b1f874ce3b9efef35df01eb68f486bf4d5c93327a1783afa"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "--doctest-modules",
+          "tests/structure/test_get_rotation_matrix_from_axis_angle.py",
+          "tests/scientific_truth/structure/test_axis_angle_rotation.py",
+          "tests/scientific_truth/structure/test_rigid_transformations.py",
+          "tests/_private/argdigest/test_geometry_transform_digesters.py",
+          "tests/molsysviewer_molsysmt/test_axis_angle_rotation_tools.py",
+          "tests/molsysviewer_molsysmt/test_structure_transform_tools.py",
+          "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "molsysmt/structure/get_rotation_matrix_from_axis_angle.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/602-focused-public-puw-01/result.xml"
+        ],
+        "scope": "New602contract/analytic/signedgeometry/unit/extreme-input/doctest and expert-facade receiving with affected existing transform/dihedral/inventory guards. PublicPUW0.28.1payload; unchangedRustbackend. NoGUIclaim.",
+        "started": 1794032783.5797498,
+        "native_exit_observed": 1,
+        "elapsed_seconds": 31.639
+      },
+      "junit": {
+        "tests": 266,
+        "failures": 11,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 255
+      }
+    },
+    {
+      "name": "633-before",
+      "private_artifact_sha256": {
+        "invocation.json": "da88cda5b29bee56318b4f69516d910d5c825f63e25a8884884b72b87bfca4d4",
+        "pytest.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "pytest.stdout.log": "d1cb47d3dd2ac360ab2cb775dcc76bfeb31a396b634d4ac5ac4c537bb64b1c24",
+        "result.xml": "f6cb191ec155667e43e6a07779370c922c0557054d7180819f957a81dc58301c"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/structure/test_transform_input_ownership.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/633-before/result.xml"
+        ],
+        "scope": "633guards before changing native transform source; publicPUW0.28.1; all failures retained.",
+        "started": 1794033289.5784433,
+        "native_exit_observed": 1,
+        "elapsed_seconds": 10.76
+      },
+      "junit": {
+        "tests": 57,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 51
+      }
+    },
+    {
+      "name": "602-633-focused-public-puw-02",
+      "private_artifact_sha256": {
+        "invocation.json": "4f100b5a428ef101bb95d8e2e52de566a14df0e00aad4957387c1df129aa4203",
+        "pytest.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "pytest.stdout.log": "40b7abf1073b6f7a21d0bae30c49e1e8de3f8b6572d4ecf4d0bb74fe3c3bf5f6",
+        "result.xml": "0edbe3e100e538eda0cf9efd28ca767748cf479eaed745149ee30900a846177a"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "--doctest-modules",
+          "tests/structure/test_get_rotation_matrix_from_axis_angle.py",
+          "tests/structure/test_transform_input_ownership.py",
+          "tests/scientific_truth/structure/test_axis_angle_rotation.py",
+          "tests/scientific_truth/structure/test_rigid_transformations.py",
+          "tests/_private/argdigest/test_geometry_transform_digesters.py",
+          "tests/molsysviewer_molsysmt/test_axis_angle_rotation_tools.py",
+          "tests/molsysviewer_molsysmt/test_structure_transform_tools.py",
+          "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "molsysmt/structure/get_rotation_matrix_from_axis_angle.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/602-633-focused-public-puw-02/result.xml"
+        ],
+        "scope": "602and633new/affected contract/analytic/unit/doctest/expert guards after the selected-coordinate ownership fix; first266case/11failure and original63357case/6failure receipts remain. PublicPUW0.28.1.",
+        "started": 1794033411.9553404,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 21.595
+      },
+      "junit": {
+        "tests": 324,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 324
+      }
+    },
+    {
+      "name": "602-min-argdigest-03",
+      "private_artifact_sha256": {
+        "invocation.json": "61e0022d432fa160cdf405f78a8f2ffc93b50e70c0d56fcdaa3f9ef4cb0983e4",
+        "preflight.json": "a6e5c2be3ebfab574e531457567a6fb2e229eea2154a3a4cccfe259636757ccb",
+        "pytest.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "pytest.stdout.log": "44ed444d0fc4eedb0b6f0418397b7ec8e19833217acc925dbcb21067ff9d4448",
+        "result.xml": "4fef01ec65f46d287cee22cc10c039a02de23c42c4b4232d8525f9918d74d67d"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "--doctest-modules",
+          "tests/structure/test_get_rotation_matrix_from_axis_angle.py",
+          "tests/scientific_truth/structure/test_axis_angle_rotation.py",
+          "tests/molsysviewer_molsysmt/test_axis_angle_rotation_tools.py",
+          "molsysmt/structure/get_rotation_matrix_from_axis_angle.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/602-min-argdigest-03/result.xml"
+        ],
+        "scope": "New602native/analytic/expert/doctest on declared publicArgDigest0.14.0 and publicPUW0.28.1; no new floor inferred from development copies.",
+        "started": 1794033541.636675,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 10.934
+      },
+      "junit": {
+        "tests": 76,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 76
+      }
+    },
+    {
+      "name": "602-633-broad-04",
+      "private_artifact_sha256": {
+        "invocation.json": "f5cee4b46d7e55bc6fb1b2bacbe17581fc71400aee3022aa08cba657a5d36ce4",
+        "pytest.stderr.log": "d1787d18d85a7f7cf32e9245969ef46beb820cef3a8df88b1f9fc6f7286ffe20",
+        "pytest.stdout.log": "1b0768fe6f5a568e743fca055a2e6bd892f8a2329b69886ae5db3a85cc5ad9c3",
+        "result.xml": "80d8acc64b6b1b24d11452712871be7c1cf5378ca74f8bd8a7a9d19100ecb0ac"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/structure",
+          "tests/scientific_truth/structure",
+          "tests/molsysviewer_molsysmt",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "devtools/tests/test_native_viewer_integration.py",
+          "tests/documentation/test_center_examples.py",
+          "tests/documentation/test_source_boundary.py",
+          "tests/documentation/test_notebook_schema.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/602-633-broad-04/result.xml"
+        ],
+        "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+        "scope": "Full native structure/analytic structure and complete bound-tool Python selection, inventory/nativeViewer and affected executable documentation guards after602/633. PublicPUW0.28.1,12workers. NoactualJupyter/installed/human acceptance implied.",
+        "started": 1794033636.4607716,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 247.478
+      },
+      "junit": {
+        "tests": 7764,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7764
+      }
+    },
+    {
+      "name": "602-notebooks-05",
+      "private_artifact_sha256": {
+        "antiviral-original-full.log": "7e59be2ff7dc3933a53a0bcc28cda264059049c5f9fce7e295a15df049ffbcc5",
+        "invocation.json": "52a2d101d3fb7652d3a9afc43a6cb4d67d8a166a018b22ee5f22d665f53c1e70",
+        "stderr.log": "748911e8bce59ba91dabcf159ed2ab8279f834450beff0381988995d28cd80c1",
+        "stdout.log": "62066c14af27fd95caed0c427664e629781ed775a02953518b720397e4cffc03"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "docs/execute_notebooks.py",
+          "-q",
+          "-n",
+          "12",
+          "-f",
+          "docs/content/user/tools/structure/rotate.ipynb",
+          "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb"
+        ],
+        "kernel_interpreter": "<existing-development-python>",
+        "scope": "Execute all five changed documentation notebooks using existing development Python, publicPUW0.28.1 and exact receivedViewer snapshot. Isolated kernel/runtime files, no environment installation. Existing source examples preserved; actual outputs are newly executed. Public molecular input downloads may occur. Not GUI/candidate acceptance.",
+        "input_sha256": {
+          "docs/content/user/tools/structure/rotate.ipynb": "980242eb1a6090946f595f3ab5bcc77f81a622a2d75fdb9ee9b2c06c9c4c1759",
+          "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb": "7c67ac43eff723942d63940305f8f2b02e3598a2aa4ecf43d898d2a7d937ceea",
+          "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb": "4f92ef0ef0b32f65fabfbe519a07839bfdda450a18c53eefd298d015f2ab36bc",
+          "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb": "8e47a11611ff411a1fc2f86b11b77c6b7cbe57b0b53f9d3d95003630ae257d55",
+          "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb": "b2a452b44620cee91105d8741672f0e67f22e614c086254349a7cb55369423fc"
+        },
+        "started": 1794033981.6202123,
+        "native_exit_observed": 1,
+        "elapsed_seconds": 71.507,
+        "output_sha256": {
+          "docs/content/user/tools/structure/rotate.ipynb": "92bd8d35f41f40f05017d48c462aa64661a0d3856a4d01ae1e6ac37876c77d0a",
+          "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb": "02d63ead82d2c261b98fefb575f74dc8e27188daebd61308a8758c138b4a6426",
+          "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb": "fc0af76c2e4b7fe78af95558571294b5a4e9872050a688837853520f8f7ac053",
+          "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb": "8e47a11611ff411a1fc2f86b11b77c6b7cbe57b0b53f9d3d95003630ae257d55",
+          "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb": "fd177ab987218ba5d21263ce226dc8e8fc40343c43042752c40d4e2de620d9ed"
+        }
+      }
+    },
+    {
+      "name": "602-notebook-antiviral-06",
+      "private_artifact_sha256": {
+        "invocation.json": "0a044f16b125ceeb947a1e984c5c38c0116cf724cefcdbc8cf40ff547090e94c",
+        "stderr.log": "50118f2577f4f07c85dbbae8fb3c740a7bb572dff13642bd65813c7161ee7f32",
+        "stdout.log": "d9db880062fe2792b0a8a46dd8192d1381715b26a8e52f1084604bd88d631900"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "docs/execute_notebooks.py",
+          "-q",
+          "-n",
+          "12",
+          "-f",
+          "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb"
+        ],
+        "scope": "Real corrected634Antiviral notebook, original input route and assertions; existing interpreter/publicPUW/exactViewer snapshot. Four other unchanged notebooks already passed in first five-file campaign.",
+        "input_sha256": "df1182ce975cd9448f5b751806d32340d4cc5b4d2ae151049334ea35260dc2a7",
+        "started": 1794066314.1883671,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 13.389,
+        "output_sha256": "fc40c282e180c563a34d5247266f34a7ed9512efeaf022b57418cb8c93e1222a"
+      }
+    },
+    {
+      "name": "602-scientific-07",
+      "private_artifact_sha256": {
+        "certificate.json": "915c0aa8f01a4aca2436adaadb6e49f4081ba4f59e305de526b19322c5b36efb",
+        "invocation.json": "865b5040222024a90f9a68019a61ff7d054368ecaf874b2ae580cf077dd6266b",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "dee2ad802b2ecf9265d6562a10d845d0af05a7b55495b77fa82d6a11591b6c58"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--certificate",
+          "<isolated-owner>/.pytest_cache/receiving-543/602-scientific-07/certificate.json"
+        ],
+        "scope": "Registered molecular scientific nodes, developer-only certificate on modified source. No require-clean or release-eligibility claim; separately reproduced636untracked-source counterexample remains open. Runner deliberately serial/no:xdist.",
+        "started": 1794067044.7522864,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 17.08
+      }
+    },
+    {
+      "name": "602-docs-html-08",
+      "private_artifact_sha256": {
+        "invocation.json": "d61ce48caf604b2482e28907fb56f674cae0452dfde6a9357d5dd9d95b795299",
+        "stderr.log": "6e843118eb7e67e79f8b820e7c3334eed03f1c820b1af2ae6235d69ab92e0766",
+        "stdout.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "12",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<isolated-owner>/.pytest_cache/receiving-543/602-docs-html-08/html"
+        ],
+        "scope": "HTML compilation of actual saved notebook outputs/API/docs; notebook execution and autosummary regeneration disabled. Existing protected human API stubs are not regenerated.",
+        "started": 1794067236.140679,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 76.027
+      }
+    },
+    {
+      "name": "637-before",
+      "private_artifact_sha256": {
+        "invocation.json": "2ff59ad52fca781b1e6fc4307de6466cc0fefd0c25f23a6a69322657fd1f975c",
+        "result.xml": "918b928e6cf823d38792ff643c6efe9f770ed0379b272848cab4f16e1ad89122",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "e31a5dd65ad61b59f5b347459312be102376271dddf2dffcd950ac33880e95da"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "devtools/tests/test_validate_course.py",
+          "-k",
+          "entrypoint",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/637-before/result.xml"
+        ],
+        "scope": "637real CLI guards before entrypoint correction; original outputs retained.",
+        "native_exit_observed": 1
+      },
+      "junit": {
+        "tests": 5,
+        "failures": 5,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      }
+    },
+    {
+      "name": "637-after",
+      "private_artifact_sha256": {
+        "invocation.json": "d7c35c2afe98546090627d9c513080a8d4a6f6bb5e18ec3584d6e741fe78f348",
+        "result.xml": "8e5d2d13a96bf6022491cd0fe455c2347435abc21627d5b57c341f227f0000ce",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "4e941583d6a2cf11daca0171e9d7d2db886bf5bb6fc6e1b9da008e243912020e"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "devtools/tests/test_validate_course.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/637-after/result.xml"
+        ],
+        "scope": "637real CLI routing/help/unknown-option controls and existing canonical-course/navigation guards after forwarding correction.",
+        "native_exit_observed": 0
+      },
+      "junit": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7
+      }
+    },
+    {
+      "name": "602-fast-gates-09",
+      "private_artifact_sha256": {
+        "invocation.json": "1af8c613a0f975cb3b381a270bcc05cae397d1a3022fb907a2fe19f36946ebd8",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "f0c9cec5a2a14e296523f46a6a4135f0eaf3bcf4e84edc6e4b08a856ab737662"
+      },
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/release_gate.py"
+        ],
+        "scope": "Fourteen offline/fast source gates only, not sourceCI/installed/exactcandidate or publication. New635/636/638 remain open.",
+        "started": 1794068769.9850106,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 24.494
+      }
+    }
+  ],
+  "scientific_development_certificate": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "3f66f5931113c8011aae352ef628e80c00db56c0",
+    "tracked_source_dirty": true,
+    "release_eligible": false,
+    "created_at": "2026-11-07T15:57:41.812379+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0
+  },
+  "source_sha256": {
+    "devtools/scripts/validate_course.py": "9bf82a8af6e5bdd73540e5f253cf70c0ccafc7f2296651952421c7fb21d273ce",
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": "b5e85de0a363384121c3706548c558548a2e0d524173075ffc228419a0100288",
+    "devtools/tests/test_validate_course.py": "b94ce8c130842e86e70bce231e006b8b148f7512d7fe415c782e639e11722588",
+    "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb": "02d63ead82d2c261b98fefb575f74dc8e27188daebd61308a8758c138b4a6426",
+    "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb": "fc40c282e180c563a34d5247266f34a7ed9512efeaf022b57418cb8c93e1222a",
+    "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb": "fd177ab987218ba5d21263ce226dc8e8fc40343c43042752c40d4e2de620d9ed",
+    "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb": "fc0af76c2e4b7fe78af95558571294b5a4e9872050a688837853520f8f7ac053",
+    "docs/content/course/devtools/validate_course.py": "4e182797cc14324f96b49ead4b91004af6de051bbf614beee86b686ed9e74b0c",
+    "docs/content/user/tools/structure/rotate.ipynb": "92bd8d35f41f40f05017d48c462aa64661a0d3856a4d01ae1e6ac37876c77d0a",
+    "molsysmt/_private/argdigest/argument/angle.py": "8a6cd4a16bee1b3447bee93db7c714a60d51584ddf3872904c76f4b9fa306ace",
+    "molsysmt/_private/argdigest/argument/axis.py": "820cb29154695a668492f7a9d8b80b9863659047312f4b65e42728cc711b452a",
+    "molsysmt/structure/__init__.py": "34476855a346fd336b31bb67d81f53a2e28c613f12f5f7460718e114105bccb1",
+    "molsysmt/structure/get_rotation_matrix_from_axis_angle.py": "cc299a83910d906dd8d9a97cc0c06489d5e4b6dc887d6ae307ec5ee5e0ab5412",
+    "molsysmt/structure/rotate.py": "feda6743c8c6105689c18a045f6e6f3a5be0b55557b46e2c7dd1f0e0a1f594d6",
+    "molsysmt/structure/translate.py": "5884c8cf39f8edeccd59565ef944fb19239539fe7d91d269b8c65bd29a0a44e7",
+    "molsysviewer_molsysmt/_basic.py": "f5364f14a57f8256559ac36267b9c244efcbe362f14749455fcf948e0e3db32d",
+    "molsysviewer_molsysmt/_structure.py": "55eb71ffb3dec6d46af0971cc8fccdd2a121d709332e8412e369813458d2ffec",
+    "tests/documentation/test_center_examples.py": "c4315ad63a9f02ac852b743314bee66c268be24c642646b4c173a2811d99242e",
+    "tests/form/nglview_NGLWidget/test_conversion_boundary.py": "8dc002a16f0dff2da0e5436517a6f7fb1d93ce86377c195557c1b8af1f9d50c8",
+    "tests/form/pytraj_Trajectory/test_runtime_provider_contract.py": "0fdd85f43e1ef46ed7fd318af12b87a22ceff7c46e5e15728af82856da4fdfb5",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "c58098eb601c41f6896d7b6c5ae7e60425c1e84e2cfdb0dae1fdf282f61f2387",
+    "tests/molsysviewer_molsysmt/test_axis_angle_rotation_tools.py": "545798bb39c80dd1bbf2988dd148afd94671865c39d64de451fea794278ab17c",
+    "tests/molsysviewer_molsysmt/test_structure_dihedral_tools.py": "717cea92f596afb0dd90146d99699871f84e299e2365bb620d1c3c668aa2a18a",
+    "tests/molsysviewer_molsysmt/test_structure_transform_tools.py": "c3f357a67d9661283bbfc6e7daf8f2575d67919e158773934ef44a4b35a0dbff",
+    "tests/scientific_truth/structure/test_axis_angle_rotation.py": "5085fb426a0b50345c3b92fdfbef092fce0e2804e868bcde47555f1d7d2322ba",
+    "tests/structure/test_get_rotation_matrix_from_axis_angle.py": "17cba596ff11081fb6718ec429d7918fb35cc4da2f84e81db7aa844f955c75f0",
+    "tests/structure/test_transform_input_ownership.py": "53d6430c755438b6e1b43f00dd55576c86dce07a62ef5bbdf922fbcfa4f5952c"
+  },
+  "executed_notebooks": [
+    {
+      "path": "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb",
+      "sha256": "02d63ead82d2c261b98fefb575f74dc8e27188daebd61308a8758c138b4a6426",
+      "code_cells": 5,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb",
+      "sha256": "fc40c282e180c563a34d5247266f34a7ed9512efeaf022b57418cb8c93e1222a",
+      "code_cells": 2,
+      "execution_counts": [
+        1,
+        2
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb",
+      "sha256": "fd177ab987218ba5d21263ce226dc8e8fc40343c43042752c40d4e2de620d9ed",
+      "code_cells": 2,
+      "execution_counts": [
+        1,
+        2
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb",
+      "sha256": "fc0af76c2e4b7fe78af95558571294b5a4e9872050a688837853520f8f7ac053",
+      "code_cells": 5,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/user/tools/structure/rotate.ipynb",
+      "sha256": "92bd8d35f41f40f05017d48c462aa64661a0d3856a4d01ae1e6ac37876c77d0a",
+      "code_cells": 11,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "error_outputs": 0
+    }
+  ],
+  "additional_private_artifacts": {
+    "634-final-offline.xml": "700fb44c1579816c41a3c6e4042e2ef94c2582df973fd0581d730370d4b5732e",
+    "scientific-untracked-source-negative-control.json": "e268ca9a58ada26d5209e3bfa6a715b453aba55acba7d569531e5e4f900c7098",
+    "scientific-untracked-source-execution-control.json": "27a7e0c88d14a36717449ab2b5cdd506b63c7328be47435c9df3b8f9c328fd1f",
+    "xyz-rank-and-integer-inspection.json": "0aefef31ef242a3618ba605358ca2df510289bf3801ed2b51a2d5e4c5bb39fb1",
+    "board-before-source-closeout.json": "7aef73d054770d685e457b7a5385e380e43837d822855bf30ccd18a348bfda1a"
+  },
+  "retained_input_controls": {
+    "602-antiviral-input/6lu7.bcif.gz": "033135f2a67384eb05dc8dff54115e41fc6bb093fa9143e544a18953f4cea16a",
+    "602-antiviral-input/6lu7.pdb": "385497151c2c093d764ffbc694589c2c1db35be638e49d715d4d8af38903966e"
+  },
+  "disposition": [
+    "The 324, 76, 7764 and 107 passing-case scopes overlap; never add them as unique coverage. Pytest uses the published receptor and 12 workers; the governed scientific runner deliberately runs serially.",
+    "Initial 266-case receiving retains eleven failures. Six ownership failures among the 57-case original guard are repaired by owned selected-coordinate storage; the added captured-center case makes 58 guards.",
+    "All five changed notebooks actually execute across two campaigns: four pass in the first native-1 campaign and the corrected Antiviral passes separately with native 0. The original empty-selection failure remains retained.",
+    "Separate retained PDB/BCIF inputs document the chain/entity diagnosis; they do not assert byte identity of a fresh notebook download. The compound is a covalently connected peptidic inhibitor; its artificial rigid rotation is a geometry exercise, not a valid chemical pose.",
+    "The offline Antiviral guard ultimately passes against two complete public-build peptide populations, an independent signed rotation and unchanged unselected coordinates. Earlier fixture authoring failures remain cached and are not used as proof of the original defect.",
+    "HTML compilation exits 0 with six retained underline warnings: four previously observed and two isolated copies of protected human-owned stubs. No regeneration or modification of those human files occurs.",
+    "Seven actual CLI guards pass for #637 after five original failures; standard help, rejection of unknown flags and maintained-checker parity are required.",
+    "All fourteen fast gates pass. They do not execute the full exact-candidate platform or installed-package gates.",
+    "The #636 negative control actually loads an untracked Python hook and wrongly obtains release eligibility; this is evidence of an OPEN gate defect, not molecular qualification. The actual 107-case development certificate is explicitly dirty and ineligible.",
+    "The #638 probe still demonstrates integer truncation and accepted-rank publication failure; canonical-rank floating ownership guards do not qualify those representations.",
+    "Newer Viewer e4dd58cf panel-guard receiving remains #635; evidence on exact Viewer 25061d9e must not be transferred to the newer host.",
+    "Source publication and board closeout remain distinct. No candidate, tag, Release, installed, human or Qt acceptance is selected or implied.",
+    "Final whole-tree Ruff check and format check pass. Six owned code/test files receive whitespace-only formatting after their behavioral receiving; the two prior-provider guard files and Jupyter startup helper are included explicitly. No assertion or executable behavior changes."
+  ],
+  "accepted_plan_progress_percent": 40,
+  "incoming_published_head_not_received": "42f5ed3bc8f02c979b3351212554e588243de0a5"
+}
