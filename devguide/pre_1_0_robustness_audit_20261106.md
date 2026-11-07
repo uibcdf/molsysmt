@@ -16,8 +16,13 @@ notebooks and 14 passing fast gates. Scopes overlap; failed attempts, six HTML
 warnings and the development-only ineligible certificate are retained. Verified
 audit-related closures are **24**; accepted progress remains **40%**.
 
-Next, correct #638 coordinate rank/precision, then #636 untracked executable
-source in scientific certification. Receive published #543 head `42f5ed3bc`
+#638 is now locally corrected and qualified: 269 minimum-provider/ownership/
+doctest cases pass; all six notebooks execute, scientific receiving passes
+107/68 nodes and fast gates pass 14/14. The broad attempt retains 7,977 passes
+and two new-fixture import failures; those fixtures pass separately after their
+import-only correction. The [receipt](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
+preserves these distinct outcomes. Source delivery and board closure follow.
+Next, correct #636 untracked executable source in scientific certification. Receive published #543 head `42f5ed3bc`
 and #635's endpoint guards on the actual newer Viewer separately. Current
 results qualify exact Viewer `25061d9e9` only; remaining #421 graphical,
 Jupyter/navigation, installed/human and #524 public-host/installed exits are not
@@ -1003,6 +1008,8 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-07 | Rotation/documentation block locally qualified | #602 native/expert constructor and #633/#634/#637 corrections pass 7,764 integrated cases; minimum providers 76, scientific 107/68 nodes, five notebooks across two campaigns and fast gates 14/14. Scopes overlap; scientific certificate explicitly ineligible; original failures and six HTML warnings retained. | Deliver the combined source and close only verified owner issues. Then correct #638 and #636 and receive #635 on its actual newer host. Progress 40%, public audit closures 19; no candidate or installed/human closure. |
 
 | 2026-11-07 | Rotation and guard block delivered | Main source `684a5b0cb` and archive `2499dc53b` match complete public API trees. #602/#632/#633/#634/#637 are verified closed, taking audit-related closures to 24; progress remains 40%. | Correct #638 and #636, receive #635/new exact host, and retain all broader graphical/installed/human/final-candidate exits. |
+
+| 2026-11-07 | XYZ coordinate representation qualified | #638 preserves original ranks/units/quantity owners, promotes independent integer storage and rejects unsafe integer publication. Minimum-provider/ownership/doctest receiving passes 269, scientific 107/68, all six notebooks and fast gates 14/14. Broad native-1 record retains 7,977 passes/two corrected fixture import errors; six HTML warnings remain. | Publish and independently verify/close #638, then correct #636 and receive #635/newer host. Public closures 24, progress 40%; no candidate. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

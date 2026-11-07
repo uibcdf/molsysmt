@@ -1,0 +1,425 @@
+{
+  "schema_version": "molsysmt.xyz_coordinate_representation_receiving@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#638",
+  "base_commit": "a91e78ffa",
+  "tracked_source_dirty_during_receiving": true,
+  "viewer_commit": "25061d9e99baf07fa0dcb4021897958a226f0152",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "source_sha256": {
+    "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb": "dae63d21cdead5c963b6154b55904005b65125212f9768ccb989a2227b6a9cfa",
+    "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb": "c568dab5f7ce405cb043780e065488bda9977197e50a60d584218dabaf4f8829",
+    "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb": "88a59b59ff8573e4c5e6b150ac3471318d1a950b6eb971985deea030c14ba91c",
+    "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb": "7c6b1f60ade1f46ec0df3ad3b2895e6dec4fd5924fed773c278749a9a5c725fc",
+    "docs/content/user/tools/structure/rotate.ipynb": "fd21e3be55aee1eb10e0d20d331c7af82155b813e2ec8cd668ab62fbac97f411",
+    "docs/content/user/tools/structure/rotate.nbconvert.last_run": "16a22143e468bd2ed989a16fad45c7901e657374a9f09a7549c443684203900f",
+    "docs/content/user/tools/structure/translate.ipynb": "390124985c541217e09eaa6ebce7748447398773d5ce84e9e0b3f32acf74b9f5",
+    "docs/content/user/tools/structure/translate.nbconvert.last_run": "4de3d84d34728a2a9c7cfdd385dcbfa0d20b3ebfee3073837d3c37d1ca96ae29",
+    "molsysmt/_private/coordinate_edit.py": "91ee1fde10101ec1d02bfa9c31012966eb275e60ac9946ea0229e7a698035850",
+    "molsysmt/form/XYZ/set.py": "077e3ede260ee86d1659f980a13bb421eac6fe5910d68a90be6cd458a260d4db",
+    "molsysmt/structure/rotate.py": "c58ae5d528bd1a5ef4bbae8ffeb717f9a8de2fb0a7d4498fb1686f23a72039bb",
+    "molsysmt/structure/translate.py": "ed4e8bab30b0e51545ba1f3c7fb6c7f7fb52826863e78d6216f2439b886df0d2",
+    "tests/form/XYZ/test_coordinate_publication.py": "4ff0f8518849386d26ba329cc594025d74243b0bc25a3b20c78c12bc12e678cd",
+    "tests/structure/test_xyz_edit_representation.py": "1cb8ac275234c1bb002d75480e7d69e82554e9be7ce4c817f441c1a355a6804a"
+  },
+  "minimum_provider_origins": {
+    "argdigest_origin": "<owner-checkout>/.pytest_cache/pre1-review-20261106/providers/argdigest-0.14.0/argdigest/__init__.py",
+    "pyunitwizard_origin": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+    "pyunitwizard_version": "0.28.1"
+  },
+  "runs": [
+    {
+      "name": "638-before",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/structure/test_xyz_edit_representation.py",
+          "tests/form/XYZ/test_coordinate_publication.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/638-before/result.xml"
+        ],
+        "scope": "Real public XYZ rank/dtype/unit/quantity-owner receiving before638 correction. Expected failures are retained, not candidate evidence.",
+        "started": 1794069965.3091333,
+        "native_exit_observed": 1,
+        "elapsed_seconds": 19.627
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "461000124bad19318259a1ad78b4bee70d0962e3d64181d439b555f717d4621b",
+        "result.xml": "216a9bfa51026befd98344ed2e038aeb50226b8fade8791e7cd5c7eca33bf4fb",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "8705a5685ff8bd2e3ea250ebc83e1d43f6a3008c77f2c7fb909263bddcff4738"
+      },
+      "junit": {
+        "tests": 156,
+        "errors": 0,
+        "failures": 135,
+        "skipped": 0,
+        "passed": 21
+      }
+    },
+    {
+      "name": "638-after-01",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/structure/test_xyz_edit_representation.py",
+          "tests/form/XYZ/test_coordinate_publication.py",
+          "tests/structure/test_transform_input_ownership.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/638-after-01/result.xml"
+        ],
+        "scope": "638 public coordinate representation and preserved633ownership after general target/arithmetic and XYZ-adapter correction. Exact250Viewer/publicPUW0281.",
+        "started": 1794070087.801007,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 11.424
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "538b4eaae846d28a4cddf9a660d566117a418fc9b0676689a2d9035a2ed26660",
+        "result.xml": "8db73d86073d49655959cbfdcb28d47c5c5ea1b4ac1651e6db60c737bbcb99c2",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "d4ba18499eb80f93faed9a8380643c32584cccee3f457e58bf7940e73b0a4864"
+      },
+      "junit": {
+        "tests": 214,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "passed": 214
+      }
+    },
+    {
+      "name": "638-broad-02",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/structure",
+          "tests/form/XYZ",
+          "tests/scientific_truth/structure",
+          "tests/molsysviewer_molsysmt",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "devtools/tests/test_native_viewer_integration.py",
+          "tests/documentation/test_center_examples.py",
+          "tests/documentation/test_source_boundary.py",
+          "tests/documentation/test_notebook_schema.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/638-broad-02/result.xml"
+        ],
+        "scope": "Full native structure, XYZ adapters, analytic structure, complete bound-tool Python selection and affected executable documentation after638; exact250Viewer/publicPUW0281,12workers. NoactualJupyter/installed/human acceptance.",
+        "started": 1794070355.9987302,
+        "native_exit_observed": 1,
+        "elapsed_seconds": 253.182
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "5dc24c45b29b5f051e78ef17e010b91bf39567701a4d736a0ee8de51e708d4a3",
+        "result.xml": "e3032e0523f396028d1a16278c8ecab9dcbcadc57632b0485de6647a1ea7cc66",
+        "stderr.log": "9f86c2a9464466a7bd3f73aeaa6c9a87f441d6e0b28f5fb00d0189ce305c065c",
+        "stdout.log": "2a533d55a8193dc8760759077c517fed5dfe88e46d1766e47e0a6145ca5dc7ca"
+      },
+      "junit": {
+        "tests": 7979,
+        "errors": 0,
+        "failures": 2,
+        "skipped": 0,
+        "passed": 7977
+      }
+    },
+    {
+      "name": "638-minimum-and-fixture-03",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "--doctest-modules",
+          "tests/structure/test_xyz_edit_representation.py",
+          "tests/form/XYZ/test_coordinate_publication.py",
+          "tests/structure/test_transform_input_ownership.py",
+          "molsysmt/structure/rotate.py",
+          "molsysmt/structure/translate.py",
+          "--junitxml=<isolated-owner>/.pytest_cache/receiving-543/638-minimum-and-fixture-03/result.xml"
+        ],
+        "scope": "All expanded638and633representation/ownership plus rotate/translate public doctests on declared publicArgDigest0.14.0 and publicPUW0.28.1; fixes only the two new composite test fixtures native import. Broad native1 original is retained.",
+        "started": 1794070683.6181068,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 21.528
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "5c41f0a37f22e6111c452691e7e9958f6284e58ab400a30ad07a6484708fb59d",
+        "preflight.json": "901dd1c7ee568de4a1c44792bb5fc99c34d0c3cb1bc43e9c74e1ab721f17713c",
+        "result.xml": "8cb199697e0c0195034ce95f0622e26e934a3bdcffe0d98fb23be1a69127bfab",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "637e733aa92aa7eff727ff80bdbdaaa5fa8e649f929bbc8d2f1ded583764fa1c"
+      },
+      "junit": {
+        "tests": 269,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "passed": 269
+      }
+    },
+    {
+      "name": "638-notebooks-04",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "docs/execute_notebooks.py",
+          "-q",
+          "-n",
+          "12",
+          "-f",
+          "docs/content/user/tools/structure/rotate.ipynb",
+          "docs/content/user/tools/structure/translate.ipynb",
+          "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb"
+        ],
+        "scope": "Actual six affected notebooks on corrected638 source, existing exact interpreter, exact250Viewer and publicPUW0281. Private kernel/config/runtime files only; no environment installation.",
+        "started": 1794070767.9647424,
+        "native_exit_observed": 1,
+        "elapsed_seconds": 20.881
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "7be3c0ec8a6bc95edd5ff2fdd5b12785b5a076d0ed80662a2871745f48894b0d",
+        "notebook-0-sandbox-denial.log": "17acd6b02f661237bf204ece2a4a9efca162415632f6b4018a030db435e08a6f",
+        "notebook-1-sandbox-denial.log": "daa5f954c74ee8d4a66069654a8bf9664e8ef45b562bb8efffea8b2bca1e84ff",
+        "notebook-2-sandbox-denial.log": "3e1869b2bd3a2f0f146d7914066d1fb33a5cfbba2cc46899bf80899be9b56129",
+        "notebook-3-sandbox-denial.log": "e297199faa0d6f78f90c8832212f238ef64b899faed1fdbdfb3dfdb51f2d93ac",
+        "notebook-4-sandbox-denial.log": "9637f98da64acba273c5a42dffc8b75d8b52273a11a1e2f529dd4d9c494f2e9e",
+        "notebook-5-sandbox-denial.log": "e88e667a773cac0d2af8cfef591b78daed31aa5465b9af18539ae49a561703ef",
+        "stderr.log": "f65fc7f2b0992d93e553f2cb5e7588f9d8d2a4ae4da2227389710d1117d336e3",
+        "stdout.log": "3b91a1e013731be9d2f71af9792cbb045a7eb0ad9950b78624f554282edf221e"
+      }
+    },
+    {
+      "name": "638-notebooks-05",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "docs/execute_notebooks.py",
+          "-q",
+          "-n",
+          "12",
+          "-f",
+          "docs/content/user/tools/structure/rotate.ipynb",
+          "docs/content/user/tools/structure/translate.ipynb",
+          "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb",
+          "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb"
+        ],
+        "scope": "Identical six actual notebooks; local Jupyter sockets permitted after retained sandbox socket denial. Existing interpreter/publicPUW0281/exact250Viewer; no install or environment replacement.",
+        "started": 1794070977.616011,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 66.424
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "2cc6d5286759b48a0e0355b2c5bee81ca9dc67212b52860bcce48c99fc58515a",
+        "stderr.log": "9d641e3cf3ea1761d5d786b7009b6b7fc7c484c8f27ec8503cef47209d15a961",
+        "stdout.log": "90f6f14417191e1d72140b88d309889a538b00b67ac312f9a5307ac2421b253f"
+      }
+    },
+    {
+      "name": "638-scientific-06",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--certificate",
+          "<isolated-owner>/.pytest_cache/receiving-543/638-scientific-06/certificate.json"
+        ],
+        "scope": "638 development source receiving only; scientific certificate explicitly dirty/ineligible, fourteen fast gates not finalcandidate, HTML from real saved outputs without regeneration.",
+        "started": 1794071109.153729,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 17.669
+      },
+      "private_artifact_sha256": {
+        "certificate.json": "4213aba39e79db6ebf35f559a57f693399d0ed5678a23508cdb7cd6fb9e4d09b",
+        "invocation.json": "3c066171b3320f219444b1a97b82212216033bfa1d8a844cfcac1fb4a62fb652",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "a4751f439ada25d07ec243a55e348c4f3b655334a6b5be1fee018e84568a042b"
+      }
+    },
+    {
+      "name": "638-fast-gates-07",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/release_gate.py"
+        ],
+        "scope": "638 development source receiving only; scientific certificate explicitly dirty/ineligible, fourteen fast gates not finalcandidate, HTML from real saved outputs without regeneration.",
+        "started": 1794071126.8231695,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 23.498
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "140709032dbd7d2c2e5eb348acc454cbf7f6fde3a47589555ff42b0ba967aad1",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "fed24d573f291c6b23b1a90fa6e50f1b3975c985b545f03fcf127caf7aa0f861"
+      }
+    },
+    {
+      "name": "638-html-08",
+      "invocation": {
+        "command": [
+          "<existing-development-python>",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "12",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<isolated-owner>/.pytest_cache/receiving-543/638-html-08/html"
+        ],
+        "scope": "638 development source receiving only; scientific certificate explicitly dirty/ineligible, fourteen fast gates not finalcandidate, HTML from real saved outputs without regeneration.",
+        "started": 1794071150.3218577,
+        "native_exit_observed": 0,
+        "elapsed_seconds": 59.355
+      },
+      "private_artifact_sha256": {
+        "invocation.json": "467a53a5185b15f9e2be9343c7857a8af553feb42b9c6f8fad7283bfa421db0c",
+        "stderr.log": "29ba34921e7cd8a9eb023d54090b52af5fb1d945ca17212128df88d059cb11c1",
+        "stdout.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f"
+      }
+    }
+  ],
+  "scientific_development_certificate": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "a91e78ffa97eb08fdeb44a7be58e7d037954963c",
+    "tracked_source_dirty": true,
+    "release_eligible": false,
+    "created_at": "2026-11-07T17:05:26.794575+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0
+  },
+  "actual_executed_notebooks": [
+    {
+      "path": "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb",
+      "sha256": "dae63d21cdead5c963b6154b55904005b65125212f9768ccb989a2227b6a9cfa",
+      "code_cells": 5,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb",
+      "sha256": "c568dab5f7ce405cb043780e065488bda9977197e50a60d584218dabaf4f8829",
+      "code_cells": 2,
+      "execution_counts": [
+        1,
+        2
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb",
+      "sha256": "88a59b59ff8573e4c5e6b150ac3471318d1a950b6eb971985deea030c14ba91c",
+      "code_cells": 2,
+      "execution_counts": [
+        1,
+        2
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb",
+      "sha256": "7c6b1f60ade1f46ec0df3ad3b2895e6dec4fd5924fed773c278749a9a5c725fc",
+      "code_cells": 5,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/user/tools/structure/rotate.ipynb",
+      "sha256": "fd21e3be55aee1eb10e0d20d331c7af82155b813e2ec8cd668ab62fbac97f411",
+      "code_cells": 11,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "error_outputs": 0
+    },
+    {
+      "path": "docs/content/user/tools/structure/translate.ipynb",
+      "sha256": "390124985c541217e09eaa6ebce7748447398773d5ce84e9e0b3f32acf74b9f5",
+      "code_cells": 8,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "error_outputs": 0
+    }
+  ],
+  "html_warning_count": 6,
+  "disposition": [
+    "Original156-case counterexample:135failed,21passed,native1. First corrected receiving:214passed including all58ownership guards.",
+    "Expanded broad profile:7977passed,two failed new composite fixtures,native1. Both failures precede the operation at a mistaken removed top-level MolSys import. The fixture is corrected to native.MolSys; runtime code and numerical expectations are unchanged. Do not claim the broad run had zero failures.",
+    "All expanded representation/ownership controls and both public transform doctests then pass269cases with zero omissions on actual publicArgDigest0.14.0 and PyUnitWizard0.28.1. Counts overlap with broad and earlier receiving.",
+    "The correction computes owned selected integer magnitudes in float64 and promotes independent integer XYZ targets while preserving their rank, units and quantity owner. Native/composite owners share the private target boundary; basic.copy retains its original dtype contract.",
+    "The XYZ setter converts to destination units/quantity library and validates safe integer dtype and broadcast shape before publishing at original rank. Floating or narrowing integer-target writes reject before mutation, including mathematically integral floating inputs.",
+    "Four quantity owners (Pint/OpenMM/unyt/Astropy), two application quantity/unit policies, signed independent geometry, reordered axes, readonly sources, integer/floating storage, both mutation modes and composite/basiccopy controls are received.",
+    "The first six-notebook attempt fails before kernel startup because local sockets are sandbox-denied; its original logs are retained. The same six notebooks pass with local sockets allowed, existing interpreter and no environment/package installation.",
+    "Notebook edits were prose-only before actual reexecution; their saved code and old outputs were verified unchanged then. Current outputs and run marks are newly executed; do not claim old outputs remain identical.",
+    "Registered scientific execution passes107cases/68nodes on explicitly modified development source and is release-ineligible. Open636 remains a separate final-candidate prerequisite.",
+    "All14fast gates pass. HTML compiles native0, retaining six preexisting title-underline warnings, including isolated copies of protected human stubs.",
+    "This is source/consumer qualification on exact Viewer25061d9e9, not actualnewhost635, installed, graphical, human or finalcandidate qualification. No public API signature, Rust kernel, floor, new scientific method or release identity is introduced."
+  ],
+  "accepted_plan_progress_percent": 40
+}

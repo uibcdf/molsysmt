@@ -71,7 +71,8 @@ def rotate(
         If ``rotation`` is not a supported type.
     StructuralInconsistencyError
         If the number of per-structure or per-atom matrices cannot be broadcast to
-        the selected coordinates.
+        the selected coordinates, or if an in-place floating update targets
+        integer XYZ storage.
 
 
     Notes
@@ -80,6 +81,11 @@ def rotate(
     and handedness are therefore preserved.
     Independent outputs leave source coordinates unchanged, including XYZ
     coordinate quantities. Computation does not edit borrowed input storage.
+    XYZ inputs of shape (3,), (n_atoms, 3) or (n_structures, n_atoms, 3)
+    retain their shape, units and quantity library. An independent result
+    promotes integer XYZ storage to float64; existing floating dtype is kept.
+    In-place edits require floating XYZ storage. An integer destination rejects
+    floating coordinate updates before any write rather than truncating them.
 
 
     See Also
@@ -109,7 +115,11 @@ def rotate(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import copy, get, set
+    from molsysmt._private.coordinate_edit import (
+        copy_for_coordinate_edit,
+        editable_coordinate_values,
+    )
+    from molsysmt.basic import get, set
     from molsysmt.structure import translate
 
     coordinates = get(
@@ -126,7 +136,7 @@ def rotate(
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
     # A getter may return borrowed XYZ storage; publish edits only after success.
-    coordinates = np.array(coordinates, copy=True)
+    coordinates = editable_coordinate_values(coordinates)
 
     if isinstance(rotation, np.ndarray):
         shape = rotation.shape
@@ -185,7 +195,7 @@ def rotate(
         del (coordinates, rotation_center)
 
     else:
-        tmp_molecular_system = copy(molecular_system)
+        tmp_molecular_system = copy_for_coordinate_edit(molecular_system)
         set(
             tmp_molecular_system,
             selection=selection,

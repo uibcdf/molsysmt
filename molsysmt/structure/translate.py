@@ -59,13 +59,38 @@ def translate(
     ------
     StructuralInconsistencyError
         If the shape of ``translation`` is not compatible with any of the supported
-        broadcasting modes for the given coordinate array.
+        broadcasting modes for the given coordinate array, or if an in-place
+        floating update targets integer XYZ storage.
 
+
+    Notes
+    -----
+    Independent outputs leave the source unchanged. XYZ inputs of shape (3,),
+    (n_atoms, 3) or (n_structures, n_atoms, 3) retain their original shape, units
+    and quantity library. Independent results promote integer XYZ storage to
+    float64 while keeping existing floating dtype. In-place edits require
+    floating XYZ storage: floating updates to integer destinations reject
+    before any write. This avoids fractional coordinate truncation.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> import numpy as np
+    >>> point = msm.pyunitwizard.quantity(np.array([1, 0, 0]), 'nm')
+    >>> moved = msm.structure.translate(point, translation='[0.25, 0, 0] nm')
+    >>> msm.pyunitwizard.get_value(moved, to_unit='nm').tolist()
+    [1.25, 0.0, 0.0]
+    >>> msm.pyunitwizard.get_value(point).tolist()
+    [1, 0, 0]
 
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import copy, get, set
+    from molsysmt._private.coordinate_edit import (
+        copy_for_coordinate_edit,
+        editable_coordinate_values,
+    )
+    from molsysmt.basic import get, set
 
     coordinates = get(
         molecular_system,
@@ -79,7 +104,7 @@ def translate(
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
     # A getter may return borrowed XYZ storage; publish edits only after success.
-    coordinates = np.array(coordinates, copy=True)
+    coordinates = editable_coordinate_values(coordinates)
     translation = puw.get_value(translation, to_unit=length_unit)
 
     if translation.shape == (1, 1, 3):
@@ -108,7 +133,7 @@ def translate(
         )
         del (coordinates, translation)
     else:
-        tmp_molecular_system = copy(molecular_system)
+        tmp_molecular_system = copy_for_coordinate_edit(molecular_system)
         set(
             tmp_molecular_system,
             selection=selection,

@@ -37,8 +37,17 @@ Counts overlap. Original failures, the development-only ineligible scientific
 certificate and six HTML underline warnings remain retained. Four human-owned
 API stubs are unchanged.
 
-Next: correct #638's integer truncation/supported-rank publication and #636's
-untracked-source certification gap; separately receive published PR head
+#638 now has qualified source: independent integer XYZ edits preserve fractions,
+accepted storage ranks and units/quantity owners survive publication, and unsafe
+in-place integer updates reject before writes. Its
+[receipt](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
+retains 269 passing minimum-provider/ownership/doctest cases, all six executed
+notebooks, 107 scientific cases/68 nodes and fourteen fast gates. The broad
+7,977-pass/two-fixture-failure attempt is retained alongside the corrected
+fixture receiving. Source publication/board verification follow.
+
+Next: deliver #638, correct #636's untracked-source certification gap, and
+separately receive published PR head
 `42f5ed3bc` and #635's endpoint guards on its actual newer Viewer. The current
 results qualify exact Viewer `25061d9e9` only. Remaining #421 graphical,
 Jupyter/navigation, installed and human acceptance and #524 public-host/clean

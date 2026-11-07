@@ -164,3 +164,5 @@ reconstruction is a separate operation.
 - {ref}`Rotate <Tutorial_Rotate>`
 - {func}`molsysmt.structure.get_rotation_matrix_from_axis_angle`
 :::
+
+Raw XYZ coordinate quantities may have shape `(3,)`, `(n_atoms, 3)` or `(n_structures, n_atoms, 3)`. Rotation and translation preserve this storage shape, its unit and its quantity library. Independent results promote integer storage to float64; existing floating dtype is kept. Use floating storage for in-place edits: floating updates to integer XYZ reject before any write rather than discard fractions. Ordinary copying preserves the original dtype.

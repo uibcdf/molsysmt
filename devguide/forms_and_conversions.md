@@ -980,3 +980,20 @@ read without trajectory allocation. Reaching the declared form is not a claim
 that every attribute survives a conversion. Implementation/guards are owned by
 uibcdf/molsysmt#476, uibcdf/molsysmt#477 and the execution scope in
 [conversion execution](conversion_execution.md).
+
+## XYZ coordinate edits
+
+XYZ accepts length quantities of shape `(3,)`, `(n_atoms, 3)` and
+`(n_structures, n_atoms, 3)`. Queries normalize the coordinate axis to rank three;
+coordinate assignment and independent rigid transforms preserve the source's
+original storage rank, unit and quantity library. A different application unit
+policy does not reinterpret the destination's magnitude.
+
+Rotation and translation compute on owned selected-coordinate values. Independent
+results promote integer XYZ storage to float64 so fractional results survive;
+existing floating storage retains its dtype. In-place floating or narrowing
+updates to integer XYZ reject before publication. Construct floating coordinate
+storage or request an independent transform. Ordinary `basic.copy()` retains the
+original dtype and does not perform this geometric promotion. These guarantees
+also cover complementary native-inventory/XYZ compositions. Floating computation
+retains the limitations of its representable numerical precision.

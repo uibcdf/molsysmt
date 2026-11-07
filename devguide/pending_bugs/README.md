@@ -20,10 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (5)
+### Open (4)
 
 - [`scientific_certificate_ignores_untracked_python_inputs.md`](scientific_certificate_ignores_untracked_python_inputs.md) — [#636](https://github.com/uibcdf/molsysmt/issues/636) — Scientific certificate release eligibility ignores untracked Python inputs. *(high, reproduced)*
-- [`xyz_coordinate_edits_lose_rank_and_fractional_precision.md`](xyz_coordinate_edits_lose_rank_and_fractional_precision.md) — [#638](https://github.com/uibcdf/molsysmt/issues/638) — XYZ coordinate edits lose supported ranks and fractional precision. *(high, reproduced)*
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
