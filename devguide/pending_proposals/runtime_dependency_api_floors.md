@@ -17,8 +17,10 @@ supersedes: []
 **Reported:** central adoption request under uibcdf/molsyssuite#137.
 **Status:** partial; numerical, rendering and support-provider floors have actual
 source API/ABI receiving. Pandas 3.1 summary and native-placement compatibility
-are repaired. Viewer acquisition, optional-provider/restriction review and clean
-installed closure remain open; no MolSysMT candidate artifact is qualified here.
+are repaired. MDTraj/PyParsing constraints, the NumPy ceiling disposition and
+optional-route auditing are received below. Other optional-provider review,
+Viewer acquisition and clean installed closure remain open; no MolSysMT
+candidate artifact is qualified here.
 
 ## What
 
@@ -330,16 +332,115 @@ review remains partial. The [delivery receipt](../../devtools/data/support_prepa
 retains the verification and complete board checkpoint without treating source
 receiving as an installed-runtime or release certificate.
 
+## MDTraj metadata floor and parser exclusion — 2026-11-06
+
+The formerly unbounded optional MDTraj declaration now selects `>=1.11.0`,
+aligned with development and test environments. MDTraj stays optional. The
+native exporter always passes `formal_charge`, including unknown values;
+1.10.2 rejects that keyword. Version 1.10.3 accepts it but its topology copy
+loses chain labels and charges. Seven initial export probes passed there,
+without qualifying its copy contract. A broader run exposes the missing chain
+label; directed public-copy controls then fail on the same provider.
+
+The inspected upstream 1.11.0 source contains
+[chain-label preservation](https://github.com/mdtraj/mdtraj/commit/801d4074ab7a36d560cbd5f46e088de56a60dad5)
+and [formal-charge preservation](https://github.com/mdtraj/mdtraj/commit/6b59e16f2f9362b9b99bc2313d1136688f6516a5).
+Its published metadata retains Python >=3.11. This grounds the selected floor
+in consumed operations rather than choosing the newest provider, whose 1.11.2
+requires Python >=3.12. Exact public wheels are hash-verified and imported from
+an unpacked cache; no environment is created or downgraded.
+
+Final source receiving passes 1,191 cases with 1.11.0/Python 3.13 and the same
+1,191 cases with published 1.11.2/Python 3.14, without failures or omissions.
+The minimum profile uses the already received public support-library floors.
+The newer profile uses the ordinary development support providers; it is not
+a second published-support or installed-package qualification. Nine directed
+export/copy cases also pass on 1.11.0/Python 3.12. Public Python metadata admits
+3.11; its full lane remains part of the final candidate matrix.
+
+The source review additionally reveals MolSysMT's separate selected-subset
+metadata defect [#623](../archive/resolved_bugs/mdtraj_topology_subsets_lose_chemical_metadata_and_retain_sparse_hierarchy_indic.md).
+The final profiles include its maintained controls and repair; raising a provider
+floor alone would not fix that consumer omission.
+
+The parser exclusion stays `pyparsing!=3.3.3`. A paired Python 3.12/MDTraj 1.11.0
+public population profile passes all 72 cases with 3.3.2, while the hash-verified
+3.3.3 wheel fails 28 and passes 44, including <=/>= and nested-expression
+counterexamples. This confirms a real incompatibility at the selected provider
+floor. The owning successor qualification remains #486; do not re-admit the
+broken artifact or claim a future fix from a version number alone.
+
+Original failures are retained separately: the 1.10.2 API counterexample,
+the initial repeated-selection fixture assumption corrected during #622,
+the 1.10.3 copy failure, a Python-3.12 broad profile missing optional RDKit,
+and a Python-3.13 pytest initialization failure because sandboxing denied the
+rerun plugin's local IPC socket. The latter stops before collection; the
+unchanged test profile passes when its local IPC is permitted. No test assertion
+or required profile is disabled to turn either receiving limitation into a pass.
+
+## Optional-route audit receiving — 2026-11-06
+
+The former route auditor ignored runtime optional requirements. It now reads
+the names and complete constraints of the inventory-selected `soft` extra from
+pyproject.toml. Environment entries are checked when present, while a names-only
+`optional_required` list retains intended MDTraj/parser/OpenFF coverage. Recipes
+continue to require only unconditional runtime packages. Conda's toolkit-base
+alias resolves to the public OpenFF provider; missing nonrequired engines remain
+allowed. No independently maintained version table is introduced.
+
+The executable OpenFF version constants are removed from the lazy-import
+validator; that tool retains its import-boundary responsibility. The existing
+OpenFF tests still protect known capability minima, accepting a justified later
+floor without exact-string duplication. The generalized route tests protect
+both OpenFF presence and constraint equality in development/test environments.
+
+Independent review found a meaningful coverage hole: a pip requirement with an
+always-false Python marker could appear to satisfy required OpenFF coverage.
+The comparison now includes markers, extras and URLs as well as version ranges.
+A well-formed matching extra remains parseable; a false or unreviewed override
+cannot impersonate the declared provider. The original mutation failures and
+the intermediate extras-token parsing failure remain evidence, not waived tests.
+
+Joint source receiving passes 654 route/provider/workflow/documentation cases
+without omissions, including 35 audit cases and seven real provider operations.
+The static audit does not prove that a solver installed the providers, interpret
+every future conditional-platform contract, or replace clean installed receiving.
+
+## NumPy version and ABI disposition — 2026-11-06
+
+Retain `numpy>=1.26` and remove the former `<3` ceiling from public metadata,
+both recipes, four runtime-bearing environments and three artifact-test
+workflows. Exact Rust/toolchain, Python and release pins remain unchanged.
+
+Locked Rust NumPy 0.29.0, registry checksum
+`6a5b15d63a5ff39e378daed0e1340d3a5964703ea9712eb09a0dc66fade996f4`,
+defines ABI `0x02000000` in `src/npyffi/numpyconfig.rs` and rejects a greater
+runtime ABI in `src/npyffi/array.rs`. Its module-layout branch accepts version
+majors >=2. This is an actual ABI restriction, not evidence that a NumPy 3
+version necessarily uses another ABI. The suite's incompatibility-based bound
+rule does not justify that guessed version-family exclusion.
+
+Existing exact NumPy 1.26.0/2.4.6 probes execute the real unchanged extension;
+the current joint provider profile also exercises it. No NumPy 3 artifact is
+qualified. The native bridge and dependency maintainers own reassessment on
+an ABI transition, a bridge change or a concrete compatibility report. Retain
+exact artifacts/import origins, runtime ABI/API values and real calculations;
+a demonstrated mismatch can justify a precise restriction. The bridge is not
+rebuilt or bypassed by this metadata disposition.
+
 ## Remaining scope and acceptance criteria
 
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
   receiving and the redesigned host's eventual public release remain distinct;
   complete clean installed-runtime closure with the actual qualified host artifact.
-- Review every optional runtime-feature declaration, including the documented
-  PyParsing exclusion; source-inventory inspection is not optional-engine qualification.
+- Finish the remaining optional runtime-feature declarations: OpenMM and its
+  OpenMMTools/PDBFixer routes, MDAnalysis, RDKit, OpenFF, ParmEd, PyTraj, NGLView,
+  Biopython and Plotly. Distinguish a delivered API floor from an incidental
+  development installation or unused declaration; source inspection alone is not
+  optional-engine qualification. MDTraj and the parser disposition above are received.
 - For each retained bound/exclusion, record exact provider behavior, owner and
-  reassessment condition. Finish the NumPy version/ABI-bound disposition;
-  preserve exact development/build/release pins.
+  reassessment condition. The NumPy version/ABI disposition above is complete;
+  preserve exact development/build/release pins and any demonstrated restrictions.
 - Run dependency-route and pertinent runtime checks, then report immutable
   owner evidence to uibcdf/molsyssuite#137. Keep #524 open until this review is complete.
 

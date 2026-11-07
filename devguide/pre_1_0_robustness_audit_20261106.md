@@ -251,7 +251,7 @@ inventing a published version or treating the whole dependency review as done.
 
 | Work class | Reports | Required disposition and owner |
 | --- | --- | --- |
-| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619/#620/#621/#622 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
+| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619/#620/#621/#622/#623 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
 | Declared installed runtime | #524 | MolSysMT owns its manifests, default-output contract and installed receiving. A Viewer minimum depends on an actual qualified host artifact; provider limitations stay with their providers. |
 | Public scientific meaning | #473, #475, #582 | Review the exposed claim and evidence. Correct a misleading contract or agree an explicit bounded disposition; an unavailable paper does not justify invented units, and a stored request must not be advertised as an effective engine control. Wider models or tuning are not automatically required. |
 | Implemented contracts awaiting acceptance | #549, #250, #254 | Complete the remaining owning criteria and final-candidate/client receiving. Source delivery, scientific validation and public stability are separate decisions. |
@@ -552,6 +552,29 @@ records that separate acceptance. All fourteen fast gates pass; work commits
 carry `[skip ci]` and no remote workflow is dispatched. Continue #524's actual
 optional-provider floor receiving, then the remaining NumPy/Viewer/installed
 closure. Accepted plan progress remains **40%**.
+
+**MDTraj and optional-contract source checkpoint:** #623 in `0ea1e04d7` repairs
+the external topology subset's lost charges/labels and sparse hierarchy indices,
+preserving source order, unknown assignments and source independence. Its
+[record](archive/resolved_bugs/mdtraj_topology_subsets_lose_chemical_metadata_and_retain_sparse_hierarchy_indic.md)
+and [receipt](../devtools/data/mdtraj_subset_receiving_623_20261106.json)
+retain eight original failures, positive controls and metadata-preserving
+documentation edits. Final receiving passes 1,191 cases each on public
+MDTraj 1.11.0/Python 3.13 and 1.11.2/Python 3.14, without omissions.
+
+Partial #524 in `962b2c68e` selects the API-grounded optional floor >=1.11.0
+after rejecting 1.10.3's copy behavior. Its route auditor now checks public
+optional constraints/required coverage and rejects conditional pip overrides,
+without duplicating executable OpenFF version constants. A 654-case profile
+receives routes, real provider operations, workflow contracts and documentation.
+Paired PyParsing controls pass 72 on 3.3.2 and fail 28 on 3.3.3, preserving the
+exact exclusion and #486 follow-up. The NumPy `<3` ceiling is removed: the
+unchanged bridge has an explicit ABI boundary, without evidence for a version-
+major ban. The [optional-runtime receipt](../devtools/data/optional_runtime_receiving_524_20261106.json)
+retains public wheels, actual imports, failed attempts, independent review and
+source/installed limits. Other optional-provider floors and actual Viewer/
+installed closure remain due. Public delivery and #623 board closure follow;
+accepted progress remains **40%**, with no bonus for supplemental regressions.
 
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all

@@ -99,6 +99,20 @@ public blobs, and #622 is verified closed as completed. Its
 retains the source/board evidence. All fourteen fast gates pass. No new remote
 workflow is dispatched; progress remains 40% and #524 is the next active work.
 
+The subsequent #524/#623 source block is qualified locally. #623 source
+`0ea1e04d7` preserves MDTraj subset charges/labels and dense hierarchy indices;
+partial #524 `962b2c68e` declares the metadata-preserving optional minimum,
+generalizes optional-provider contract auditing and removes the unsupported
+NumPy-major ceiling while retaining the real ABI guard. Final actual MDTraj
+1.11.0 and 1.11.2 profiles each pass 1,191 cases; the route/provider/workflow/
+documentation profile passes 654, and nine directed minimum-provider cases pass
+on Python 3.12. Scopes overlap. The paired parser population profile preserves
+the 3.3.3 exclusion (28 failures there; all 72 pass on 3.3.2). Source receipts are
+[subset receiving](../devtools/data/mdtraj_subset_receiving_623_20261106.json) and
+[optional-runtime receiving](../devtools/data/optional_runtime_receiving_524_20261106.json).
+Public delivery/closure follow. #524 remains partial for the other optional
+providers and actual Viewer/installed closure; accepted audit progress stays 40%.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign

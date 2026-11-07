@@ -1,0 +1,597 @@
+{
+  "created_at": "2026-11-07T02:10:50.688583+00:00",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "platform": "Linux x86_64",
+  "baseline_commit": "aecc510429cb4fb63b5324e5eab3925b08fc543f",
+  "native_backend": {
+    "path": "molsysmt/_rust.abi3.so",
+    "sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "rebuilt_this_block": false
+  },
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "accepted_progress_percent": 40,
+  "extra_progress_points": 0,
+  "qualification_limit": "Source checkout receiving, not clean installed MolSysMT artifacts, full platform matrix or release qualification.",
+  "schema_version": "molsysmt.mdtraj_subset_receiving@1",
+  "owner_issue": "uibcdf/molsysmt#623",
+  "source_commit": "0ea1e04d7ba59f0d3cb4e378b1667f53dc18975f",
+  "dependency_commit": "962b2c68e4e71d1245a293b9e7a2c5a47db00160",
+  "profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/623-mdtraj-subset-counterexamples.xml",
+      "sha256": "741f9f885255460e43029389bc20699c31edf014c6b1afb1cbe8a730039b12f9",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 14,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 6
+      },
+      "scope": "Original owner: eight metadata-loss failures and six valid/full-copy/empty controls."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/623-mdtraj-subset-directed.xml",
+      "sha256": "fac734cff18f34c7ff671fcc54c35bac07851c98d3d6001f91159827f6abb749",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 15
+      },
+      "scope": "Final ordinary provider: fourteen maintained assertions plus public adapter doctest."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_final.xml",
+      "sha256": "78b5c93d2edfdfa743b71cd5fb0c085719f3315df632cbc5a7131dfba162ee8b",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 1191,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1191
+      },
+      "scope": "Final 1.11.0 public wheel/support-floor profile includes #623 controls and adapter doctest.",
+      "profile": "metadata313",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_final-invocation.json",
+      "invocation_sha256": "9858504e40f8930eb90b172b40663087e9bf581805a9e7963480495370191f5a",
+      "origins": {
+        "python": "3.13.14",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/numpy/__init__.py",
+            "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "tests/physchem/get_sasa",
+        "tests/scientific_truth/external/mdtraj",
+        "molsysmt/form/mdtraj_Topology/extract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_final.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-latest314-adapters_final.xml",
+      "sha256": "80954e134909065af6d6fad85f308b52b63289633a2abf4bd6483934cf0ef7db",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 1191,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1191
+      },
+      "scope": "Final published MDTraj1.11.2 wheel with ordinary development support providers; source receiving only.",
+      "profile": "latest314",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-latest314-adapters_final-invocation.json",
+      "invocation_sha256": "7047ab7ba700a5e891865fb81d1fe378f95bbe426c874a798e21b10cbb52b5e1",
+      "origins": {
+        "python": "3.14.7",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.2",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/numpy/__init__.py",
+            "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.29.1+6.gf82b618",
+            "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.16.0+1.g6dabaf7",
+            "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+            "module_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+          },
+          "depdigest": {
+            "version": "0.15.1+3.ga27172b",
+            "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.22.0+15.g5ee88c1",
+            "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+            "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "tests/physchem/get_sasa",
+        "tests/scientific_truth/external/mdtraj",
+        "molsysmt/form/mdtraj_Topology/extract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-latest314-adapters_final.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-623-routes-documentation.xml",
+      "sha256": "9d98be720c90aba494aa983b37e42289eb673eaf796df9665bce4ac8cdd2b62e",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 654,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 654
+      },
+      "scope": "Full affected documentation and related runtime-tool receiving; scopes overlap."
+    }
+  ],
+  "documentation_preservation": {
+    "issue": "uibcdf/molsysmt#623",
+    "scope": "Documentation prose only; no notebook execution.",
+    "cell_indices_are_zero_based": true,
+    "notebooks": [
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb",
+        "file_sha256_before": "b11b3bf9108b2e1653fa722f606530ba540bacc1d448e85d014481a8ce5bb1d2",
+        "file_sha256_after": "c427867a6a53266925feb10047228ecdc9530c87c5906479194bf5c06bf2f3e7",
+        "cell_count_before": 6,
+        "cell_count_after": 6,
+        "changed_markdown_cells": [
+          {
+            "index": 1,
+            "id": "c6fc00c8",
+            "source_before": [
+              "(Tutorial_Form_mdtraj_Topology)=\n",
+              "# Topology\n",
+              "\n",
+              "*Form adapter and capabilities for mdtraj.Topology.*\n",
+              "\n",
+              "- **Technical Form Name:** `mdtraj.Topology`\n",
+              "- **Form Type:** `class`\n",
+              "\n",
+              ":::{versionadded} 1.0.0\n",
+              ":::\n",
+              "\n",
+              ":::{admonition} API documentation\n",
+              ":class: dropdown\n",
+              "\n",
+              "- Form adapter module: {mod}`molsysmt.form.mdtraj_Topology`\n",
+              ":::\n",
+              "\n",
+              "## Overview\n",
+              "\n",
+              "`mdtraj.Topology` is a supported representation form in MolSysMT. Form adapter and capabilities for mdtraj.Topology.\n",
+              "\n",
+              "When converting native group-free or partially grouped systems, external-only\n",
+              "UNL/fallback parents satisfy MDTraj's hierarchy requirement. Source chemistry\n",
+              "and hierarchy remain unchanged. See {ref}`Cookbook_Group_Free_Hierarchy` for the\n",
+              "metadata-selector limits and executed examples.\n"
+            ],
+            "source_after": [
+              "(Tutorial_Form_mdtraj_Topology)=\n",
+              "# Topology\n",
+              "\n",
+              "*Form adapter and capabilities for mdtraj.Topology.*\n",
+              "\n",
+              "- **Technical Form Name:** `mdtraj.Topology`\n",
+              "- **Form Type:** `class`\n",
+              "\n",
+              ":::{versionadded} 1.0.0\n",
+              ":::\n",
+              "\n",
+              ":::{admonition} API documentation\n",
+              ":class: dropdown\n",
+              "\n",
+              "- Form adapter module: {mod}`molsysmt.form.mdtraj_Topology`\n",
+              ":::\n",
+              "\n",
+              "## Overview\n",
+              "\n",
+              "`mdtraj.Topology` is a supported representation form in MolSysMT. Form adapter and capabilities for mdtraj.Topology.\n",
+              "\n",
+              "When converting native group-free or partially grouped systems, external-only\n",
+              "UNL/fallback parents satisfy MDTraj's hierarchy requirement. Source chemistry\n",
+              "and hierarchy remain unchanged. See {ref}`Cookbook_Group_Free_Hierarchy` for the\n",
+              "metadata-selector limits and executed examples.\n",
+              "\n",
+              "When you extract an atom subset from an existing `mdtraj.Topology`, only\n",
+              "parents containing retained atoms are included, with dense local atom, group\n",
+              "and chain indices. Chain IDs, group sequence labels (including `resSeq=0`) and\n",
+              "segment IDs, atom serials, known or unknown formal charges, and retained bond\n",
+              "types and orders keep their source values. The source stays unchanged. This\n",
+              "topology form has no coordinates or structure axis.\n"
+            ]
+          },
+          {
+            "index": 3,
+            "id": "c3278f5d",
+            "source_before": [
+              "## Implemented operations\n",
+              "\n",
+              "The form adapter module {mod}`molsysmt.form.mdtraj_Topology` implements the following functions and modules:\n",
+              "\n",
+              "| Function / Module | Description |\n",
+              "|---|---|\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.extract.extract` | Extracts a subset of atoms, groups, or structures into a new `mdtraj.Topology` instance. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.copy.copy` | Creates an independent deep copy of the `mdtraj.Topology` object in memory. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.add.add` | Adds elements from another system into an existing `mdtraj.Topology` instance. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.merge.merge` | Merges multiple systems into a single combined `mdtraj.Topology` object. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.append_structures.append_structures` | Appends new coordinate frames or trajectories to the structures container. |\n",
+              "| {mod}`~molsysmt.form.mdtraj_Topology.get_topological_attributes` | Module containing getters for topological attributes. |\n",
+              "| {mod}`~molsysmt.form.mdtraj_Topology.get_structural_attributes` | Module containing getters for structural attributes. |\n",
+              "| {mod}`~molsysmt.form.mdtraj_Topology.set` | Module containing setters for updating coordinates, box dimensions, or attributes in-place. |\n",
+              "| {mod}`~molsysmt.form.mdtraj_Topology.iterators` | Module providing iterators for streaming trajectory frames and structures. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.has_attribute.has_attribute` | Checks whether a specific attribute name is supported by `mdtraj.Topology`. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.is_form.is_form` | Returns `True` if the provided object is an instance of `mdtraj.Topology`. |\n",
+              "\n",
+              ":::{note}\n",
+              ":class: dropdown\n",
+              "\n",
+              "Each form adapter in MolSysMT implements only the specific functions that are meaningful for its data model.\n",
+              ":::\n"
+            ],
+            "source_after": [
+              "## Implemented operations\n",
+              "\n",
+              "The form adapter module {mod}`molsysmt.form.mdtraj_Topology` implements the following functions and modules:\n",
+              "\n",
+              "| Function / Module | Description |\n",
+              "|---|---|\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.extract.extract` | Extracts selected atoms with their retained group and chain hierarchy, labels and chemical metadata; this topology has no structure axis. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.copy.copy` | Creates an independent deep copy of the `mdtraj.Topology` object in memory. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.add.add` | Adds elements from another system into an existing `mdtraj.Topology` instance. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.merge.merge` | Merges multiple systems into a single combined `mdtraj.Topology` object. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.append_structures.append_structures` | Appends new coordinate frames or trajectories to the structures container. |\n",
+              "| {mod}`~molsysmt.form.mdtraj_Topology.get_topological_attributes` | Module containing getters for topological attributes. |\n",
+              "| {mod}`~molsysmt.form.mdtraj_Topology.get_structural_attributes` | Module containing getters for structural attributes. |\n",
+              "| {mod}`~molsysmt.form.mdtraj_Topology.set` | Module containing setters for updating coordinates, box dimensions, or attributes in-place. |\n",
+              "| {mod}`~molsysmt.form.mdtraj_Topology.iterators` | Module providing iterators for streaming trajectory frames and structures. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.has_attribute.has_attribute` | Checks whether a specific attribute name is supported by `mdtraj.Topology`. |\n",
+              "| {func}`~molsysmt.form.mdtraj_Topology.is_form.is_form` | Returns `True` if the provided object is an instance of `mdtraj.Topology`. |\n",
+              "\n",
+              ":::{note}\n",
+              ":class: dropdown\n",
+              "\n",
+              "Each form adapter in MolSysMT implements only the specific functions that are meaningful for its data model.\n",
+              ":::\n"
+            ]
+          }
+        ],
+        "all_other_cells_exactly_preserved": true,
+        "code_cells_exactly_preserved": true,
+        "all_outputs_exactly_preserved": true,
+        "all_cell_ids_exactly_preserved": true,
+        "all_cell_metadata_exactly_preserved": true,
+        "notebook_metadata_exactly_preserved": true,
+        "all_non_markdown_source_data_sha256_before": "ee215d1d0795610dac2a2369318a757fdd91e6f8a511f4996142dde09db48249",
+        "all_non_markdown_source_data_sha256_after": "ee215d1d0795610dac2a2369318a757fdd91e6f8a511f4996142dde09db48249",
+        "headings_exactly_preserved": true,
+        "anchors_exactly_preserved": true,
+        "table_changes": [
+          {
+            "before": "| {func}`~molsysmt.form.mdtraj_Topology.extract.extract` | Extracts a subset of atoms, groups, or structures into a new `mdtraj.Topology` instance. |",
+            "after": "| {func}`~molsysmt.form.mdtraj_Topology.extract.extract` | Extracts selected atoms with their retained group and chain hierarchy, labels and chemical metadata; this topology has no structure axis. |"
+          }
+        ]
+      },
+      {
+        "path": "docs/content/user/tools/basic/extract.ipynb",
+        "file_sha256_before": "7e72f15c88650a49fcb67a15629e45ed41e11960095b6437d672d07745f0a837",
+        "file_sha256_after": "da68bebec7def55a2372ff865f05722fe88f09c79465bc739b33665b9f0584b0",
+        "cell_count_before": 13,
+        "cell_count_after": 13,
+        "changed_markdown_cells": [
+          {
+            "index": 6,
+            "id": null,
+            "source_before": [
+              "We will extract only the protein and benzene entities from the system by using a selection based on `entity_name`.\n",
+              "For ViewerJSON, an explicit atom list preserves your order and remaps retained\n",
+              "bonds and their aligned order/type columns. Repeated atom indices are rejected.\n",
+              "Structure lists preserve order and repetitions. Selected graphics data are copied\n",
+              "after selection; discarded structures are not copied. See\n",
+              "{ref}`ViewerJSON <user-foundations-native-world-classes-molsysmt-viewerjson>`.\n",
+              "\n",
+              "For native Topology and MolSys atom subsets, supply unique in-range indices.\n",
+              "Atoms retain ascending source order: `[3, 1]` selects source positions 1 and 3.\n",
+              "An explicit full-length list must also contain every source position exactly\n",
+              "once. Repeated or out-of-range atom indices are rejected. Attribute queries\n",
+              "may repeat atom positions; structure-index lists preserve order and repetitions.\n",
+              "Use `msm.permute_atoms()` when you need a declared complete atom order.\n",
+              "The direct `Topology.extract()` method returns its source for a full set by\n",
+              "default; pass `copy_if_all=True` for an independent full copy. The public\n",
+              "`msm.extract()` defaults to copying.\n"
+            ],
+            "source_after": [
+              "We will extract only the protein and benzene entities from the system by using a selection based on `entity_name`.\n",
+              "For ViewerJSON, an explicit atom list preserves your order and remaps retained\n",
+              "bonds and their aligned order/type columns. Repeated atom indices are rejected.\n",
+              "Structure lists preserve order and repetitions. Selected graphics data are copied\n",
+              "after selection; discarded structures are not copied. See\n",
+              "{ref}`ViewerJSON <user-foundations-native-world-classes-molsysmt-viewerjson>`.\n",
+              "\n",
+              "For native Topology and MolSys atom subsets, supply unique in-range indices.\n",
+              "Atoms retain ascending source order: `[3, 1]` selects source positions 1 and 3.\n",
+              "An explicit full-length list must also contain every source position exactly\n",
+              "once. Repeated or out-of-range atom indices are rejected. Attribute queries\n",
+              "may repeat atom positions; structure-index lists preserve order and repetitions.\n",
+              "Use `msm.permute_atoms()` when you need a declared complete atom order.\n",
+              "The direct `Topology.extract()` method returns its source for a full set by\n",
+              "default; pass `copy_if_all=True` for an independent full copy. The public\n",
+              "`msm.extract()` defaults to copying.\n",
+              "\n",
+              "For a `mdtraj.Topology` input, extraction keeps selected atoms in source order\n",
+              "and creates only their retained groups and chains. Local atom, group and chain\n",
+              "indices are dense, while source labels, atom serials, known or unknown formal\n",
+              "charges, and retained bond types and orders are preserved. Repeated atom indices\n",
+              "select each atom once. The source topology stays unchanged; this form has no\n",
+              "coordinates or structure axis. See {ref}`Tutorial_Form_mdtraj_Topology`.\n"
+            ]
+          }
+        ],
+        "all_other_cells_exactly_preserved": true,
+        "code_cells_exactly_preserved": true,
+        "all_outputs_exactly_preserved": true,
+        "all_cell_ids_exactly_preserved": true,
+        "all_cell_metadata_exactly_preserved": true,
+        "notebook_metadata_exactly_preserved": true,
+        "all_non_markdown_source_data_sha256_before": "d6b86cfe2ce92c7d9646871daa7cc414f7ddd463ff772d2b188386d1d7a5e6cb",
+        "all_non_markdown_source_data_sha256_after": "d6b86cfe2ce92c7d9646871daa7cc414f7ddd463ff772d2b188386d1d7a5e6cb",
+        "headings_exactly_preserved": true,
+        "anchors_exactly_preserved": true,
+        "table_changes": []
+      },
+      {
+        "path": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+        "file_sha256_before": "5bfdee354be0fa138336ccf1634f2e2fedcec363e431655f53eb03e4e96e9516",
+        "file_sha256_after": "680c338917b51b02e3d3f11d20c97c373b3fc2c3f4413322e3c9f36fa810f17d",
+        "cell_count_before": 35,
+        "cell_count_after": 35,
+        "changed_markdown_cells": [
+          {
+            "index": 4,
+            "id": "fb110c7a",
+            "source_before": [
+              "## Selecting through MDTraj\n",
+              "\n",
+              "MDTraj requires a residue and chain for every target atom. For missing native\n",
+              "groups, the adapter creates UNL placeholders per known molecule and chain, or\n",
+              "per atom when molecule membership is unknown. Missing chains use a fallback\n",
+              "chain. These parents exist only in the external target. UNL does not imply a\n",
+              "protein or water assignment. Selectors such as `resid` use this target metadata,\n",
+              "not missing native group indices. A declared group with conflicting known\n",
+              "chains is rejected rather than silently reassigned.\n"
+            ],
+            "source_after": [
+              "## Selecting through MDTraj\n",
+              "\n",
+              "MDTraj requires a residue and chain for every target atom. For missing native\n",
+              "groups, the adapter creates UNL placeholders per known molecule and chain, or\n",
+              "per atom when molecule membership is unknown. Missing chains use a fallback\n",
+              "chain. These parents exist only in the external target. UNL does not imply a\n",
+              "protein or water assignment. Selectors such as `resid` use this target metadata,\n",
+              "not missing native group indices. A declared group with conflicting known\n",
+              "chains is rejected rather than silently reassigned.\n",
+              "\n",
+              "After conversion, extracting an atom subset from the resulting\n",
+              "`mdtraj.Topology` retains its group and chain labels, atom serials, formal\n",
+              "charges and retained bond types and orders. Only parents containing selected\n",
+              "atoms remain, with dense local atom, group and chain indices. Unknown formal\n",
+              "charges stay unknown, and the external source topology is unchanged. See\n",
+              "{ref}`Tutorial_Form_mdtraj_Topology` for this topology's extraction contract.\n"
+            ]
+          }
+        ],
+        "all_other_cells_exactly_preserved": true,
+        "code_cells_exactly_preserved": true,
+        "all_outputs_exactly_preserved": true,
+        "all_cell_ids_exactly_preserved": true,
+        "all_cell_metadata_exactly_preserved": true,
+        "notebook_metadata_exactly_preserved": true,
+        "all_non_markdown_source_data_sha256_before": "5d0175e7031d9124ebc90d2510c00b9f87ca326f6f04e1cf4e7a6f2c5fdd09b0",
+        "all_non_markdown_source_data_sha256_after": "5d0175e7031d9124ebc90d2510c00b9f87ca326f6f04e1cf4e7a6f2c5fdd09b0",
+        "headings_exactly_preserved": true,
+        "anchors_exactly_preserved": true,
+        "table_changes": []
+      },
+      {
+        "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+        "file_sha256_before": "02bb857df8f420f77e1da267f108df028019be1fdb1553716565fc5a081adc49",
+        "file_sha256_after": "b03f3d9330a1aecc13426f7858eb00be1916322739a4115f09cf12a59a4e0a3e",
+        "cell_count_before": 13,
+        "cell_count_after": 13,
+        "changed_markdown_cells": [
+          {
+            "index": 3,
+            "id": null,
+            "source_before": [
+              "`msm.extract()` creates a new independent molecular system containing only the selected atoms or components, leaving the original system untouched. A partial `MolSys` with topology and chemical states but no structures can also select atom indices: absent coordinates remain absent. With topology, atom subsets follow sorted source indices. Selecting structure indices requires a declared structure axis; topology and chemistry alone do not provide one. See the [H5MSM 0.5 guide](../../user/tools/form/file/h5msm_05.md) for supported partial-file workflows:\n",
+              "For a ViewerJSON graphics payload, explicit atom extraction preserves your\n",
+              "requested order and remaps retained bond endpoints and aligned bond columns.\n",
+              "Atom indices must be unique; structure lists preserve order and repetitions.\n",
+              "Discarded structures are not copied. This is graphics extraction, not a full\n",
+              "native-domain archive. See\n",
+              "{ref}`ViewerJSON <user-foundations-native-world-classes-molsysmt-viewerjson>`.\n",
+              "\n",
+              "For native inventory extraction, atom indices must be unique and in range.\n",
+              "A full-length list is still validated, and a nonconsecutive atom subset retains\n",
+              "ascending source order. Repeated positions belong to attribute queries, not\n",
+              "new atom inventories. Structure lists retain their order and repetitions.\n",
+              "For intentional atom reordering, use `msm.permute_atoms()` as shown below.\n",
+              "Unlike the copying default of `msm.extract()`, direct `Topology.extract()`\n",
+              "returns the source on a valid full set unless `copy_if_all=True`.\n"
+            ],
+            "source_after": [
+              "`msm.extract()` creates a new independent molecular system containing only the selected atoms or components, leaving the original system untouched. A partial `MolSys` with topology and chemical states but no structures can also select atom indices: absent coordinates remain absent. With topology, atom subsets follow sorted source indices. Selecting structure indices requires a declared structure axis; topology and chemistry alone do not provide one. See the [H5MSM 0.5 guide](../../user/tools/form/file/h5msm_05.md) for supported partial-file workflows:\n",
+              "For a ViewerJSON graphics payload, explicit atom extraction preserves your\n",
+              "requested order and remaps retained bond endpoints and aligned bond columns.\n",
+              "Atom indices must be unique; structure lists preserve order and repetitions.\n",
+              "Discarded structures are not copied. This is graphics extraction, not a full\n",
+              "native-domain archive. See\n",
+              "{ref}`ViewerJSON <user-foundations-native-world-classes-molsysmt-viewerjson>`.\n",
+              "\n",
+              "For native inventory extraction, atom indices must be unique and in range.\n",
+              "A full-length list is still validated, and a nonconsecutive atom subset retains\n",
+              "ascending source order. Repeated positions belong to attribute queries, not\n",
+              "new atom inventories. Structure lists retain their order and repetitions.\n",
+              "For intentional atom reordering, use `msm.permute_atoms()` as shown below.\n",
+              "Unlike the copying default of `msm.extract()`, direct `Topology.extract()`\n",
+              "returns the source on a valid full set unless `copy_if_all=True`.\n",
+              "\n",
+              "When your input is `mdtraj.Topology`, extraction preserves chain and group\n",
+              "labels, atom serials, known or unknown formal charges, and retained bond types\n",
+              "and orders. Only parents containing selected atoms remain, giving you dense\n",
+              "local atom, group and chain indices without changing the source. Atoms stay in\n",
+              "source order and repeated positions select each atom once. This form has no\n",
+              "coordinates or structure axis. See {ref}`Tutorial_Form_mdtraj_Topology`.\n"
+            ]
+          }
+        ],
+        "all_other_cells_exactly_preserved": true,
+        "code_cells_exactly_preserved": true,
+        "all_outputs_exactly_preserved": true,
+        "all_cell_ids_exactly_preserved": true,
+        "all_cell_metadata_exactly_preserved": true,
+        "notebook_metadata_exactly_preserved": true,
+        "all_non_markdown_source_data_sha256_before": "4e386a7a2b9cf6b475a08800942b5e5d433c12106af504f1dc92a26ce17099e5",
+        "all_non_markdown_source_data_sha256_after": "4e386a7a2b9cf6b475a08800942b5e5d433c12106af504f1dc92a26ce17099e5",
+        "headings_exactly_preserved": true,
+        "anchors_exactly_preserved": true,
+        "table_changes": []
+      }
+    ],
+    "markdown_page": {
+      "path": "docs/content/user/foundations/support/forms/classes.md",
+      "file_sha256_before": "cd9a46d42ed6124333d8f84187f1c7f28d4b42ce8ab0d6d01a0193a8b8b672db",
+      "file_sha256_after": "93fe7abd6d859459d8c1596fad2d4419ef399a80dc9988572e12086d00380b5c",
+      "inserted_before": "MDTraj\u2013ParmEd trajectory conversion preserves the selected coordinate structures",
+      "inserted_paragraph": "Local indices in an external topology identify positions rather than source\nlabels. Extracting a `mdtraj.Topology` atom subset produces dense atom, group\nand chain indices while preserving retained parent labels, atom serials, formal\ncharges and bond types and orders. Empty parents are omitted, unknown formal\ncharges stay unknown, and the source is unchanged. This MDTraj form has no\ncoordinate structures. See {ref}`Tutorial_Form_mdtraj_Topology`.\n\n",
+      "all_original_content_exactly_preserved": true,
+      "headings_anchors_and_tables_exactly_preserved": true
+    }
+  },
+  "semantics": {
+    "preserved": "Known/unknown formal charges, atom serials, chain/group labels including resSeq0, segment IDs, retained bond type/order and source independence.",
+    "indexing": "Construct retained parents only; atom/group/chain indices are dense, with existing source atom order and external deduplication.",
+    "cost": "Selected-position set membership is retained. No trajectory, dense pair matrix or extra chemical store is constructed. No performance benchmark is claimed.",
+    "boundaries": "Existing ArgDigest/DepDigest boundary remains. No geometry, scientific method, chemistry inference or unit conversion is introduced."
+  },
+  "remaining": "Public delivery and owner closure; #524 and remaining plan phases stay partial.",
+  "fast_gates": {
+    "process_exit_code": 0,
+    "passed": 14,
+    "total": 14,
+    "scope": "Final source and completed local records; heavy exact-candidate gates remain due."
+  }
+}

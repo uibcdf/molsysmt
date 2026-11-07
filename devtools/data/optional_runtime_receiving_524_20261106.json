@@ -1,0 +1,1341 @@
+{
+  "created_at": "2026-11-07T02:10:50.688583+00:00",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "platform": "Linux x86_64",
+  "baseline_commit": "aecc510429cb4fb63b5324e5eab3925b08fc543f",
+  "native_backend": {
+    "path": "molsysmt/_rust.abi3.so",
+    "sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "rebuilt_this_block": false
+  },
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "accepted_progress_percent": 40,
+  "extra_progress_points": 0,
+  "qualification_limit": "Source checkout receiving, not clean installed MolSysMT artifacts, full platform matrix or release qualification.",
+  "schema_version": "molsysmt.optional_runtime_receiving@1",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "source_commit": "962b2c68e4e71d1245a293b9e7a2c5a47db00160",
+  "related_source_commit": "0ea1e04d7ba59f0d3cb4e378b1667f53dc18975f",
+  "public_wheels": [
+    {
+      "version": "1.10.2",
+      "filename": "mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/bb/da/c2a0bc6808d350a3fd59fa70c0b4300b04b2045ed5e2edef93cc114ab8b3/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "de76f061a6f4148227734c1ccab51d5dc6865078167bce478acd5f73d965b498",
+      "requires_python": ">=3.9",
+      "yanked": false,
+      "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 7814436,
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+    },
+    {
+      "version": "1.10.3",
+      "filename": "mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/30/6b/424ac2a6845367d4fe86f05a8ba8b29d9872a810cfe634c4372d2cee4bd9/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "771b61db65aa5981470688bfe363178e280429720ca859d08bb9387fdb03ec60",
+      "requires_python": ">=3.9",
+      "yanked": false,
+      "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 7816807,
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+    },
+    {
+      "version": "1.10.3",
+      "filename": "mdtraj-1.10.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/26/b7/cd45c6bae1566572d96bda6e749c63886c9c6ded079e34615376de5fe26e/mdtraj-1.10.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "1c083e080d1ddf3eb25acec343f4efe93671e1508e17f61b656db8c3a50a38d1",
+      "requires_python": ">=3.9",
+      "yanked": false,
+      "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 7800597,
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64"
+    },
+    {
+      "version": "1.11.2",
+      "filename": "mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/40/fc/11fd697a6fea5ac3af6e41f0f472e5070ffd8e66f8975f679fe09a92daf9/mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "e8d8e372372036c82d1f0a3c83f087a4e84c231bd061de8c779db6c338a5889d",
+      "yanked": false,
+      "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "size_bytes": 11519780,
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64"
+    },
+    {
+      "version": "3.3.3",
+      "filename": "pyparsing-3.3.3-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/38/bb/d215ee7c73b61497b28a5503f9f53523f294fcc936762b7caf90e0c1c2b5/pyparsing-3.3.3-py3-none-any.whl",
+      "sha256": "ece8c00a69cf01b45d0b1dedabb469c90d8caf996d4fda40f147627a122849a4",
+      "yanked": false,
+      "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/pyparsing-3.3.3-py3-none-any.whl",
+      "size_bytes": 126420,
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/pyparsing-3.3.3-py3-none-any"
+    },
+    {
+      "version": "1.11.0",
+      "filename": "mdtraj-1.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/09/dc/37bd8a22c66d05a293979d8d8cf1de5e6c03d21ebd6950b6a839c8d8a16b/mdtraj-1.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "6c34002c49282d208fdd34cd1b2578859bc7377a22ebd66a194efa1fc17395e5",
+      "requires_python": ">=3.11",
+      "yanked": false,
+      "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 8023237,
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64"
+    },
+    {
+      "version": "1.11.0",
+      "filename": "mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/50/af/7d65be36619befb29b51b6118a97121de6685720af7f4cfd6ff1902ca7eb/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "01eb00d9b62f22056303fb8e4be0f85257a2ce1003f1e6274393bbcc977badaf",
+      "requires_python": ">=3.11",
+      "yanked": false,
+      "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 8028112,
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+    },
+    {
+      "version": "1.11.0",
+      "filename": "mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/b5/c4/4a2e8db0f24c1deb85f4719d54a0a52c56403e17db61ddd72a95d39e07d6/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "46def167a429af5834f4f26a80bca372518952519847c1ceffd0163814b1164e",
+      "requires_python": ">=3.11",
+      "yanked": false,
+      "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 7983336,
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64"
+    }
+  ],
+  "profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-older312-directed.xml",
+      "sha256": "060ddbe03e0d883de969c263a87e374782204820539bc9b57777c73de064c495",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 7,
+        "failures": 5,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      },
+      "scope": "Initial fixture authoring on MDTraj1.10.2: distinct keyword, selection and metadata failures retained.",
+      "profile": "older312",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-older312-directed-invocation.json",
+      "invocation_sha256": "13a8f1389b11ba883c4ef842aa63fb221c73716d27a4101b04ff22269b083f20",
+      "engine_wheel": {
+        "version": "1.10.2",
+        "filename": "mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/bb/da/c2a0bc6808d350a3fd59fa70c0b4300b04b2045ed5e2edef93cc114ab8b3/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "de76f061a6f4148227734c1ccab51d5dc6865078167bce478acd5f73d965b498",
+        "requires_python": ">=3.9",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 7814436,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "mdtraj": {
+            "version": "1.10.2",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "93ab3ee3d8d37780036f57845cb04928d84014d6621d4b18fa520a0e69a5d61c"
+          },
+          "numpy": {
+            "version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "module_sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology/test_runtime_provider_contract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-older312-directed.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-older312-counterexamples.xml",
+      "sha256": "0e0ba070c4db4fe742b850ed9ffe81c446e3e7bfaa1059d5d35345e073dcb380",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 7,
+        "failures": 5,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      },
+      "scope": "Corrected unique selection: MDTraj1.10.2 rejects formal_charge; two empty controls pass.",
+      "profile": "older312",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-older312-counterexamples-invocation.json",
+      "invocation_sha256": "7ac6881aa35121cf16edeadad03138161077bca881c0a7921f4d4aa12037ded4",
+      "engine_wheel": {
+        "version": "1.10.2",
+        "filename": "mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/bb/da/c2a0bc6808d350a3fd59fa70c0b4300b04b2045ed5e2edef93cc114ab8b3/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "de76f061a6f4148227734c1ccab51d5dc6865078167bce478acd5f73d965b498",
+        "requires_python": ">=3.9",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 7814436,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "mdtraj": {
+            "version": "1.10.2",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "93ab3ee3d8d37780036f57845cb04928d84014d6621d4b18fa520a0e69a5d61c"
+          },
+          "numpy": {
+            "version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "module_sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology/test_runtime_provider_contract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-older312-counterexamples.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-floor312-directed.xml",
+      "sha256": "35e78ed97ed30e2af07c2b51412a40441b6ad7bb8447ed817fa8761585089ff0",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7
+      },
+      "scope": "MDTraj1.10.3 accepts charge-export API; this does not qualify topology copies.",
+      "profile": "floor312",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-floor312-directed-invocation.json",
+      "invocation_sha256": "94c5217b5ed25fed10b066c4cabb9b5f014435a3f1d4bdd3171fe2c47e933bed",
+      "engine_wheel": {
+        "version": "1.10.3",
+        "filename": "mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/30/6b/424ac2a6845367d4fe86f05a8ba8b29d9872a810cfe634c4372d2cee4bd9/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "771b61db65aa5981470688bfe363178e280429720ca859d08bb9387fdb03ec60",
+        "requires_python": ">=3.9",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 7816807,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "mdtraj": {
+            "version": "1.10.3",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "93ab3ee3d8d37780036f57845cb04928d84014d6621d4b18fa520a0e69a5d61c"
+          },
+          "numpy": {
+            "version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "module_sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology/test_runtime_provider_contract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-floor312-directed.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-floor312-adapters.xml",
+      "sha256": "8063d8332053cf0242ecb311f12436c68c34081a66cecb27e09915a04da3b1b8",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 1174,
+        "failures": 24,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1150
+      },
+      "scope": "Original 1.10.3 broad run: 23 missing optional RDKit failures in reused Python3.12 plus one real chain-label failure.",
+      "profile": "floor312",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-floor312-adapters-invocation.json",
+      "invocation_sha256": "fef9f45c488c2f7de52998c0b870d668606b825ed4a7da46d02c110a4ecd6aeb",
+      "engine_wheel": {
+        "version": "1.10.3",
+        "filename": "mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/30/6b/424ac2a6845367d4fe86f05a8ba8b29d9872a810cfe634c4372d2cee4bd9/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "771b61db65aa5981470688bfe363178e280429720ca859d08bb9387fdb03ec60",
+        "requires_python": ">=3.9",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 7816807,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "mdtraj": {
+            "version": "1.10.3",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "93ab3ee3d8d37780036f57845cb04928d84014d6621d4b18fa520a0e69a5d61c"
+          },
+          "numpy": {
+            "version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "module_sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "tests/physchem/get_sasa",
+        "tests/scientific_truth/external/mdtraj",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-floor312-adapters.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-floor312-metadata.xml",
+      "sha256": "edb8d1515305d805f139df8fabe09c23c947fb0243555cea013eb95deec37d99",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 9,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 6
+      },
+      "scope": "1.10.3 public-copy loss and inadequate provisional declaration; six export controls pass.",
+      "profile": "floor312",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-floor312-metadata-invocation.json",
+      "invocation_sha256": "61aa8d3852e1979571f9316116f497ef1fa540f83d5f97f7494652423b4164de",
+      "engine_wheel": {
+        "version": "1.10.3",
+        "filename": "mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/30/6b/424ac2a6845367d4fe86f05a8ba8b29d9872a810cfe634c4372d2cee4bd9/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "771b61db65aa5981470688bfe363178e280429720ca859d08bb9387fdb03ec60",
+        "requires_python": ">=3.9",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 7816807,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "mdtraj": {
+            "version": "1.10.3",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.10.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "93ab3ee3d8d37780036f57845cb04928d84014d6621d4b18fa520a0e69a5d61c"
+          },
+          "numpy": {
+            "version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "module_sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology/test_runtime_provider_contract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-floor312-metadata.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters.xml",
+      "process_exit_code": 3,
+      "counts": null,
+      "scope": "Initial Python3.13 pytest initialization stops because local IPC is sandboxed.",
+      "artifact_created": false,
+      "profile": "metadata313",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters-invocation.json",
+      "invocation_sha256": "ab649f0adc2045f1b9e77582e6e54f240234af7b1dc5626484a89c8524b76032",
+      "engine_wheel": {
+        "version": "1.11.0",
+        "filename": "mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/b5/c4/4a2e8db0f24c1deb85f4719d54a0a52c56403e17db61ddd72a95d39e07d6/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "46def167a429af5834f4f26a80bca372518952519847c1ceffd0163814b1164e",
+        "requires_python": ">=3.11",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 7983336,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.13.14",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/numpy/__init__.py",
+            "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "tests/physchem/get_sasa",
+        "tests/scientific_truth/external/mdtraj",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_received.xml",
+      "sha256": "b5deb28fd438ecc26416e4f53154ec55f1256a09c2065a0ae51ff790d8075f23",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 1176,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1176
+      },
+      "scope": "Same broad 1.11.0 profile passes with local IPC allowed, before #623-specific controls.",
+      "profile": "metadata313",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_received-invocation.json",
+      "invocation_sha256": "e718492c65f48fc5b20d886e1ee1e4048bba549e8d5045c8d0bca30ff1d73a09",
+      "engine_wheel": {
+        "version": "1.11.0",
+        "filename": "mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/b5/c4/4a2e8db0f24c1deb85f4719d54a0a52c56403e17db61ddd72a95d39e07d6/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "46def167a429af5834f4f26a80bca372518952519847c1ceffd0163814b1164e",
+        "requires_python": ">=3.11",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 7983336,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.13.14",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/numpy/__init__.py",
+            "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "tests/physchem/get_sasa",
+        "tests/scientific_truth/external/mdtraj",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_received.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_final.xml",
+      "sha256": "78b5c93d2edfdfa743b71cd5fb0c085719f3315df632cbc5a7131dfba162ee8b",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 1191,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1191
+      },
+      "scope": "Final 1.11.0 public wheel/support-floor profile includes #623 controls and adapter doctest.",
+      "profile": "metadata313",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_final-invocation.json",
+      "invocation_sha256": "9858504e40f8930eb90b172b40663087e9bf581805a9e7963480495370191f5a",
+      "engine_wheel": {
+        "version": "1.11.0",
+        "filename": "mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/b5/c4/4a2e8db0f24c1deb85f4719d54a0a52c56403e17db61ddd72a95d39e07d6/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "46def167a429af5834f4f26a80bca372518952519847c1ceffd0163814b1164e",
+        "requires_python": ">=3.11",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 7983336,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.13.14",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/numpy/__init__.py",
+            "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.13/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "tests/physchem/get_sasa",
+        "tests/scientific_truth/external/mdtraj",
+        "molsysmt/form/mdtraj_Topology/extract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-metadata313-adapters_final.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-latest314-adapters_final.xml",
+      "sha256": "80954e134909065af6d6fad85f308b52b63289633a2abf4bd6483934cf0ef7db",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 1191,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1191
+      },
+      "scope": "Final published MDTraj1.11.2 wheel with ordinary development support providers; source receiving only.",
+      "profile": "latest314",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-latest314-adapters_final-invocation.json",
+      "invocation_sha256": "7047ab7ba700a5e891865fb81d1fe378f95bbe426c874a798e21b10cbb52b5e1",
+      "engine_wheel": {
+        "version": "1.11.2",
+        "filename": "mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/40/fc/11fd697a6fea5ac3af6e41f0f472e5070ffd8e66f8975f679fe09a92daf9/mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+        "sha256": "e8d8e372372036c82d1f0a3c83f087a4e84c231bd061de8c779db6c338a5889d",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+        "size_bytes": 11519780,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64"
+      },
+      "origins": {
+        "python": "3.14.7",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.2",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.2-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/numpy/__init__.py",
+            "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.29.1+6.gf82b618",
+            "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.16.0+1.g6dabaf7",
+            "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+            "module_sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+          },
+          "depdigest": {
+            "version": "0.15.1+3.ga27172b",
+            "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.22.0+15.g5ee88c1",
+            "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+            "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/molsysmt_Topology/test_mdtraj_missing_hierarchy.py",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "tests/physchem/get_sasa",
+        "tests/scientific_truth/external/mdtraj",
+        "molsysmt/form/mdtraj_Topology/extract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-latest314-adapters_final.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-directed.xml",
+      "sha256": "829fb700179ea6dcf2aa6676a9b0923b20f92ed75bc38e4f7069ddd0464bc847",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 9
+      },
+      "scope": "Final 1.11.0 minimum metadata/export/copy assertions on existing Python3.12.",
+      "profile": "metadata312",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-directed-invocation.json",
+      "invocation_sha256": "c600263436841156f5ddccf6a6b86e25908dfdcc480806e4b0fce22de72cddc7",
+      "engine_wheel": {
+        "version": "1.11.0",
+        "filename": "mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/50/af/7d65be36619befb29b51b6118a97121de6685720af7f4cfd6ff1902ca7eb/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "01eb00d9b62f22056303fb8e4be0f85257a2ce1003f1e6274393bbcc977badaf",
+        "requires_python": ">=3.11",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 8028112,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "module_sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/form/mdtraj_Topology/test_runtime_provider_contract.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-directed.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-parser_broken.xml",
+      "sha256": "41d48750b9fe4c84611cb867bd726e255b7f98c0b82f4c8428eb85869b95a083",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 72,
+        "failures": 28,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 44
+      },
+      "scope": "Paired negative: exact PyParsing3.3.3 regresses symbolic comparisons and compound populations.",
+      "profile": "metadata312",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-parser_broken-invocation.json",
+      "invocation_sha256": "1bfbcd3f990780c218c36d3ce59ef93e026060e13e29fa544b52f770e953b3bd",
+      "engine_wheel": {
+        "version": "1.11.0",
+        "filename": "mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/50/af/7d65be36619befb29b51b6118a97121de6685720af7f4cfd6ff1902ca7eb/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "01eb00d9b62f22056303fb8e4be0f85257a2ce1003f1e6274393bbcc977badaf",
+        "requires_python": ">=3.11",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 8028112,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "module_sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.3",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/pyparsing-3.3.3-py3-none-any/pyparsing/__init__.py",
+            "module_sha256": "1044324626b725bd5b0a58ef95f1477e99720a7665dca42ba93d142d9be458f0"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "parser_wheel": {
+        "version": "3.3.3",
+        "filename": "pyparsing-3.3.3-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/38/bb/d215ee7c73b61497b28a5503f9f53523f294fcc936762b7caf90e0c1c2b5/pyparsing-3.3.3-py3-none-any.whl",
+        "sha256": "ece8c00a69cf01b45d0b1dedabb469c90d8caf996d4fda40f147627a122849a4",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/pyparsing-3.3.3-py3-none-any.whl",
+        "size_bytes": 126420,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/pyparsing-3.3.3-py3-none-any"
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-parser_broken.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-parser.xml",
+      "sha256": "7effa86928a80e2947e1d22041de45702e28480f666882b90708a64ded265972",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 72,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 72
+      },
+      "scope": "Paired positive: PyParsing3.3.2 passes all public population controls with same 1.11.0/Python3.12.",
+      "profile": "metadata312",
+      "invocation_artifact": ".pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-parser-invocation.json",
+      "invocation_sha256": "0de994f869a7cbe9f4131f38d4bbb1ca9c3e3c8192bdd083dbe2d5254c328a6f",
+      "engine_wheel": {
+        "version": "1.11.0",
+        "filename": "mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/50/af/7d65be36619befb29b51b6118a97121de6685720af7f4cfd6ff1902ca7eb/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "sha256": "01eb00d9b62f22056303fb8e4be0f85257a2ce1003f1e6274393bbcc977badaf",
+        "requires_python": ">=3.11",
+        "yanked": false,
+        "artifact": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size_bytes": 8028112,
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "mdtraj": {
+            "version": "1.11.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdtraj-review/mdtraj-1.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64/mdtraj/__init__.py",
+            "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+          },
+          "numpy": {
+            "version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "module_sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyparsing": {
+            "version": "3.3.2",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pyparsing/__init__.py",
+            "module_sha256": "08c1cce44cc9489825cfe3c2012bff9395b5e2d46486b09fe86488e0aacf2f6e"
+          },
+          "pyunitwizard": {
+            "version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/basic/select/test_mdtraj_comparisons.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-mdtraj-metadata312-parser.xml"
+      ],
+      "command_note": "Portable interpreter label; exact invocation bytes and hash retained in the local invocation artifact."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-optional-audit-counterexamples.xml",
+      "sha256": "1672ee30a60b14a3513bc6ac5e2416d7fa4d17c9eeeabb9a8c79162fdaa21c01",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 9,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1
+      },
+      "scope": "Original auditor ignores eight substantive optional constraint/coverage counterexamples; one positive control passes."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-optional-audit-directed.xml",
+      "sha256": "ee016095c239abcd383ae298b7ce650ad5b91636b115c38ac81d4fa7da782483",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 23,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 23
+      },
+      "scope": "First generalized optional audit receiving, before independent marker review."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-optional-marker-counterexamples.xml",
+      "sha256": "edc9faf3788faf5cf0878b99d8721fd646497487f649407bfc8872b424ed1e59",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 4,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1
+      },
+      "scope": "Two false/unreviewed marker bypasses plus one expectation exposing extras-token parsing; direct-URL mismatch already rejects."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-optional-audit-reviewed.xml",
+      "sha256": "1e7e444949ad32c6fcd5036d475fb088ae0bb74eea43a7766b2d866bd5ec061f",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 37,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 36
+      },
+      "scope": "After field comparison, 36 pass; one extras-token case still needs the pre-parser grammar fix."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-623-routes-documentation.xml",
+      "sha256": "9d98be720c90aba494aa983b37e42289eb673eaf796df9665bce4ac8cdd2b62e",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 654,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 654
+      },
+      "scope": "Final 654 route/provider/installed-validator/workflow/documentation tests; includes 35 audit tests and seven provider operations."
+    }
+  ],
+  "dispositions": {
+    "mdtraj": "Optional >=1.11.0; export keyword and metadata-preserving copy API ground the floor. Supports Python>=3.11 in published metadata; full Python3.11 lane remains due.",
+    "pyparsing": "Retain !=3.3.3 after paired actual-package negative/positive receiving; successor qualification remains #486.",
+    "numpy": "Remove unmeasured <3 ceiling, keep >=1.26 and native ABI guard. No NumPy3 compatibility claim.",
+    "numpy_crate": {
+      "package": "numpy",
+      "version": "0.29.0",
+      "registry_checksum": "6a5b15d63a5ff39e378daed0e1340d3a5964703ea9712eb09a0dc66fade996f4",
+      "target_abi": "0x02000000",
+      "reviewed_paths": [
+        "src/npyffi/numpyconfig.rs",
+        "src/npyffi/array.rs"
+      ],
+      "behavior": "Rejects greater runtime ABI; version-major>=2 selects the numpy._core module layout."
+    },
+    "optional_audit": "Names-only inventory; constraints including markers, extras and URLs come from pyproject. Required feature coverage and aliases remain protected; recipes remain hard-only.",
+    "support_libraries": "Minimum profile imports the previously verified published floor payloads. Newer profile uses normal development providers; do not label those all published packages."
+  },
+  "independent_review": {
+    "optional_auditor": "Marker bypass found, reproduced and repaired. Remaining test literals guard known capability floors and allow later minima.",
+    "numpy": "No literal NumPy3 incompatibility established; remove cap under the suite version-bound rule."
+  },
+  "existing_numpy_evidence": "devtools/data/runtime_renderer_receiving_524_20261106.json",
+  "ruff": {
+    "lint_exit_code": 0,
+    "format_exit_code": 0,
+    "formatted_files_checked": 4486
+  },
+  "remaining": [
+    "Other optional-provider declarations and actual feature floors.",
+    "Actual public Viewer acquisition/floor and complete clean installed-runtime closure.",
+    "Immutable shared registry/graph handoff after source delivery."
+  ],
+  "fast_gates": {
+    "process_exit_code": 0,
+    "passed": 14,
+    "total": 14,
+    "scope": "Final source and completed local records; heavy exact-candidate gates remain due."
+  }
+}
