@@ -543,6 +543,16 @@ separates authoring mistakes, overlapping runs and source/installed evidence.
 The correction shares native-integrity scope without extra percentage credit;
 public delivery/board closeout follow. Continue #524 after this bounded repair.
 
+**Native extraction delivered:** checkpoint
+`b206781edfb2dfd4f8120de4930cf82725fb1ad7` independently matches all twelve
+checked source/record blobs. #622 is verified closed as completed, with its
+source commit and addressable guard. The
+[delivery receipt](../devtools/data/topology_extraction_delivery_622_20261106.json)
+records that separate acceptance. All fourteen fast gates pass; work commits
+carry `[skip ci]` and no remote workflow is dispatched. Continue #524's actual
+optional-provider floor receiving, then the remaining NumPy/Viewer/installed
+closure. Accepted plan progress remains **40%**.
+
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
   applicable per-call overrides, including real decorated calls. Distinguish

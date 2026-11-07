@@ -1,0 +1,110 @@
+{
+  "schema_version": "molsysmt.topology_extraction_delivery@1",
+  "created_at": "2026-11-07T01:43:26.634956+00:00",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "owner_issue": "uibcdf/molsysmt#622",
+  "implementation_commit": "35a0457f015a197d1daa65c5bc6fe1b4f7f9bf0c",
+  "published_checkpoint": "b206781edfb2dfd4f8120de4930cf82725fb1ad7",
+  "verification_method": "Independent GitHub connector retrieval of every changed source, test, documentation and receiving file; exact Git blob identity comparison.",
+  "verified_files": [
+    {
+      "path": "devguide/archive/resolved_bugs/topology_extraction_accepts_invalid_atom_subsets_as_the_complete_source.md",
+      "local_sha": "2ec56ce51d37590db96771a23170c0bd5127f02f",
+      "public_sha": "2ec56ce51d37590db96771a23170c0bd5127f02f",
+      "match": true
+    },
+    {
+      "path": "devguide/forms_and_conversions.md",
+      "local_sha": "d2ccd8473fb2771d5cc9fe2d79de66a48130d274",
+      "public_sha": "d2ccd8473fb2771d5cc9fe2d79de66a48130d274",
+      "match": true
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "local_sha": "c9360feedc9d7a2c53fbd689b67249f0390a5898",
+      "public_sha": "c9360feedc9d7a2c53fbd689b67249f0390a5898",
+      "match": true
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "local_sha": "df1bd2ff6ce9b2e862e9052a91bddcb606d98f7b",
+      "public_sha": "df1bd2ff6ce9b2e862e9052a91bddcb606d98f7b",
+      "match": true
+    },
+    {
+      "path": "devtools/data/topology_extraction_receiving_622_20261106.json",
+      "local_sha": "917e873ab56ccba778f0483e99fe6978711c6eed",
+      "public_sha": "917e873ab56ccba778f0483e99fe6978711c6eed",
+      "match": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+      "local_sha": "c7f6158111d12a976ddee9fae1a11894b6337b54",
+      "public_sha": "c7f6158111d12a976ddee9fae1a11894b6337b54",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+      "local_sha": "5a50db33461156616d0787c18aa9657496af4813",
+      "public_sha": "5a50db33461156616d0787c18aa9657496af4813",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+      "local_sha": "fbfc3de0f321f38e9290ac7ecb426ff0ade4fc64",
+      "public_sha": "fbfc3de0f321f38e9290ac7ecb426ff0ade4fc64",
+      "match": true
+    },
+    {
+      "path": "docs/content/user/tools/basic/extract.ipynb",
+      "local_sha": "920d05d1e3130b7ba412a82803ab133926a3c32f",
+      "public_sha": "920d05d1e3130b7ba412a82803ab133926a3c32f",
+      "match": true
+    },
+    {
+      "path": "molsysmt/basic/extract.py",
+      "local_sha": "a6e6fae278412696e8b858d18bdd3872dd6bde11",
+      "public_sha": "a6e6fae278412696e8b858d18bdd3872dd6bde11",
+      "match": true
+    },
+    {
+      "path": "molsysmt/native/topology.py",
+      "local_sha": "e356e4970ba728b43c79a4253e0f4dd88fbe4eb7",
+      "public_sha": "e356e4970ba728b43c79a4253e0f4dd88fbe4eb7",
+      "match": true
+    },
+    {
+      "path": "tests/native/test_topology_operations.py",
+      "local_sha": "550ea8d4df3999e3179b7d53d9c531ed358fff27",
+      "public_sha": "550ea8d4df3999e3179b7d53d9c531ed358fff27",
+      "match": true
+    }
+  ],
+  "issue_closure": {
+    "state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-07T01:42:33Z"
+  },
+  "source_receiving": {
+    "passed": 1971,
+    "failed": 0,
+    "skipped": 0,
+    "fast_gates_passed": 14,
+    "fast_gates_total": 14,
+    "overlap_note": "Intermediate scopes overlap and are not summed."
+  },
+  "progress": {
+    "accepted_percent": 40,
+    "additional_points": 0,
+    "reason": "Supplemental native-integrity correction shares an accepted milestone."
+  },
+  "limitations": [
+    "No installed-artifact or platform-matrix qualification.",
+    "No new remote CI dispatch, candidate, tag, Release or promotion.",
+    "Phase-three optional-provider, NumPy, actual Viewer and installed-runtime closure remain pending."
+  ],
+  "protected_state": {
+    "four_human_autosummary_edits": "Preserved and excluded from commits.",
+    "native_backend": "Unchanged."
+  }
+}

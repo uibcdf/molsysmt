@@ -93,6 +93,12 @@ retain original failures, protected-source checks and limits. Public delivery
 and board closure follow. This adds no audit weight; #524 optional-floor,
 NumPy, Viewer and clean installed qualification remain active.
 
+Checkpoint `b206781ed` is now independently verified against all twelve changed
+public blobs, and #622 is verified closed as completed. Its
+[delivery receipt](../devtools/data/topology_extraction_delivery_622_20261106.json)
+retains the source/board evidence. All fourteen fast gates pass. No new remote
+workflow is dispatched; progress remains 40% and #524 is the next active work.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign
