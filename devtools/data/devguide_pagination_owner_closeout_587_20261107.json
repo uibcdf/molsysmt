@@ -1,0 +1,129 @@
+{
+  "schema_version": "molsysmt.pagination_owner_closeout@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#587",
+  "implementation_commit": "96191e07e6c0ba755b53e14c785ad953e7aa55f3",
+  "received_source": "e84b8a99bd8aae8d1f92cbea72574b443ed2d57e",
+  "implementation_and_guard_blobs": {
+    "devtools/scripts/devguide_issue.py": "7e114828c0178a5505236197ef6bd3c70f425ded",
+    "devtools/tests/test_devguide_issue_pagination.py": "a8ec800dad5ac4aa2e4987b662dba34b2470e6e6"
+  },
+  "state": "Owner source accepted; issue independently verified closed; archival delivery prepared.",
+  "original_control": {
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "/tmp/molsysmt-pagination-original-587.py"
+    ],
+    "exit_code": 1,
+    "seconds": 1.9311542648356408,
+    "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "scope": "local source; not installed package or human Qt acceptance",
+    "changed_inputs": [],
+    "checked_inputs": 5196
+  },
+  "original_control_scope": "Only the historical _remote_state function from 8c2661293 was loaded in an isolated test process; repository files were unchanged. The existing pagination guard refuses its capped command.",
+  "current_guards": {
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "--junitxml=<owner>/.pytest_cache/external-reference-421/owner-closeout-guards.xml",
+      "-n12",
+      "devtools/tests/test_devguide_issue_pagination.py",
+      "tests/conversion_truth/test_pdb_fidelity.py",
+      "tests/build/solve_atoms_with_alternate_location",
+      "tests/basic/get/test_alternate_location_indices.py",
+      "tests/form/molsysmt_MolSys/test_alternate_location_selection.py"
+    ],
+    "exit_code": 0,
+    "seconds": 11.731559065869078,
+    "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "scope": "local source; not installed package or human Qt acceptance",
+    "changed_inputs": [],
+    "checked_inputs": 5196
+  },
+  "current_guard_cases": 103,
+  "current_pagination_cases": 5,
+  "scope": "Transport guards plus alternate-location/PDB fidelity controls; counts overlap other published campaigns and are not a new full suite.",
+  "live_reconciliation": {
+    "complete_issues": 575,
+    "legacy_capped_issues": 500,
+    "legacy_misses": [
+      22,
+      25
+    ],
+    "current_old_records": {
+      "22": {
+        "number": 22,
+        "title": "Hbonds output formats",
+        "state": "CLOSED",
+        "labels": [
+          {
+            "name": "enhancement"
+          }
+        ]
+      },
+      "25": {
+        "number": 25,
+        "title": "Proteins, small molecules and entities names",
+        "state": "OPEN",
+        "labels": [
+          {
+            "name": "proposal"
+          },
+          {
+            "name": "partial"
+          },
+          {
+            "name": "attribute"
+          },
+          {
+            "name": "docs"
+          }
+        ]
+      }
+    },
+    "independent_views": {
+      "22": {
+        "number": 22,
+        "state": "CLOSED",
+        "title": "Hbonds output formats"
+      },
+      "25": {
+        "number": 25,
+        "state": "OPEN",
+        "title": "Proteins, small molecules and entities names"
+      }
+    }
+  },
+  "meaning": "The corrected full acquisition retains the real old issues absent from the actual capped command. Independent issue views agree. Empty/failing acquisition does not become a false missing-issue result.",
+  "guard": "devtools/tests/test_devguide_issue_pagination.py::test_remote_state_keeps_old_issues_beyond_five_pages_and_filters_prs",
+  "native_runtime_changes": false,
+  "remaining": [
+    "Separate #612 exact-head full-source evidence before joint phase-five acceptance",
+    "All remaining agreed graphical, contract, installed, platform and exact-candidate requirements"
+  ],
+  "issue_closeout": {
+    "state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-07T23:19:40Z",
+    "independently_verified": true
+  },
+  "shared_review_handoffs": [
+    {
+      "issue": "uibcdf/molsyssuite#171",
+      "comment_id": 6714393150
+    },
+    {
+      "issue": "uibcdf/moli#85",
+      "comment_id": 6714393717
+    }
+  ],
+  "public_source_verification": {
+    "commit": "e84b8a99bd8aae8d1f92cbea72574b443ed2d57e",
+    "complete_tree": true,
+    "implementation_and_guard_blobs_match": true,
+    "meaning": "The implementation and regression guard are already public; this record closes their owner acceptance, not sibling adoption."
+  }
+}

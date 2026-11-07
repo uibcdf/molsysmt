@@ -1,9 +1,9 @@
 ---
 summary: Devguide board reconciliation falsely loses issues older than its capped inventory.
 issue: uibcdf/molsysmt#587
-status: partial
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-07
 severity: medium
 verification: reproduced
 area: [docs]
@@ -45,7 +45,31 @@ cannot become a successful missing-issue result. The local working instruction
 and reporting contract preserve these distinctions. Tests and live acquisition
 keep real label/status drift visible rather than hiding it.
 
-Scientific/addon runtime remains unchanged from the separately qualified
+At the original transport checkpoint, scientific/addon runtime was unchanged from the separately qualified
 8725a460c source. This is a tooling follow-up with its own guard and receipt;
-it does not relabel the prior 4,506-case gate as a new full execution. Owner
-review/integration remains pending, so the report stays partial until accepted.
+it does not relabel the prior 4,506-case gate as a new full execution. Owner review/integration was still pending at that checkpoint. The following
+closeout records its eventual receiving.
+
+## Owner closeout — 2026-11-07
+
+The implementation is already public in main at
+`96191e07e6c0ba755b53e14c785ad953e7aa55f3`. The accepted current main
+`e84b8a99bd8aae8d1f92cbea72574b443ed2d57e` retains exactly the same implementation
+and regression-guard blobs. The maintainer authorized direct owner integration;
+PR #543 has been received and no longer represents pending integration.
+
+The historical capped function fails the existing guard (one failure/native
+exit 1). Current receiving passes 103 cases, including five transport guards
+and the separate alternate-location/PDB controls. The actual capped GitHub
+command acquires 500 issues and misses #22 and #25. The corrected collector
+acquires all 575 issues; independent direct views agree that #22 is closed and
+#25 remains open. Failed/empty transport is guarded separately from a valid
+empty inventory. No runtime, algorithm, dependency or scientific contract is
+changed by this owner closeout.
+
+The [closeout receipt](../../../devtools/data/devguide_pagination_owner_closeout_587_20261107.json)
+retains commands, unchanged source fingerprints, the failing historical control,
+real capped/full acquisition and independent views. Shared review stays with
+uibcdf/molsyssuite#171 and uibcdf/moli#85; source delivery does not claim their
+adoption. #612's distinct full-source qualification and all installed/platform/
+final-candidate requirements remain due.

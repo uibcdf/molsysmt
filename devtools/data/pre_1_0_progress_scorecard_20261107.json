@@ -717,8 +717,10 @@
           "id": "612-587",
           "requirement": "Reconcile #612/#587 actual acceptance and closeout",
           "state": "pending",
-          "evidence": [],
-          "review": ""
+          "evidence": [
+            "devtools/data/devguide_pagination_owner_closeout_587_20261107.json"
+          ],
+          "review": "#587 is accepted and independently verified closed. The joint leaf remains pending until #612 receives its affected-fidelity and exact-head full-source acceptance; no partial credit is added."
         },
         {
           "id": "549",
@@ -813,11 +815,11 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#587",
-    "related": "uibcdf/molsysmt#612",
-    "record": "devguide/pending_bugs/devguide_board_sync_truncates_issue_history.md",
-    "owner_verification": "Both original reports and live comments have been reviewed. Pagination source/transport guards are already delivered; #587 needs owner closeout. #612 retains explicit affected-fidelity and exact-head full-suite obligations.",
-    "scope": "Receive and close already-delivered requirements without reimplementing corrected code. Preserve all remaining sequence/cell/task/session and contract/installed/candidate work."
+    "issue": "uibcdf/molsysmt#612",
+    "completed_related": "uibcdf/molsysmt#587",
+    "record": "devguide/pending_bugs/multimodel_alternate_location_fidelity_expectation.md",
+    "owner_verification": "#587 is independently verified closed, with current transport guards, a failing historical control and complete live board acquisition. #612 passes affected controls but retains its own explicit exact-head full-suite obligation.",
+    "scope": "Receive the already-corrected stable-ID semantics and round-trip fidelity without weakening atomicity or reimplementing corrected runtime code. Preserve every remaining graphical, contract, installed and candidate requirement."
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
@@ -844,5 +846,13 @@
     "weighted_milestone_change": 0.05681818181817988,
     "graphical_accepted": 23,
     "graphical_total": 50
+  },
+  "last_owner_closeout": {
+    "issue": "uibcdf/molsysmt#587",
+    "implementation_source": "96191e07e6c0ba755b53e14c785ad953e7aa55f3",
+    "state": "public_source_closed",
+    "evidence": "devtools/data/devguide_pagination_owner_closeout_587_20261107.json",
+    "weighted_milestone_change": 0,
+    "audit_related_source_closures": 34
   }
 }

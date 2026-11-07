@@ -5,7 +5,32 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-## Current external-reference source delivery — 2026-11-07
+## Current pagination owner closeout — 2026-11-07
+
+#587 is accepted and independently verified closed. The implementation and
+regression guard from `96191e07e6c0ba755b53e14c785ad953e7aa55f3` are unchanged
+on public main `e84b8a99bd8aae8d1f92cbea72574b443ed2d57e`. Its historical
+capped function fails the existing guard; current receiving passes **103 cases**,
+including **five pagination controls**. Actual complete acquisition finds
+575 issues, while the old 500-entry command loses #22 and #25; independent
+issue views confirm their correct states. These are transport/fidelity controls,
+not a new complete molecular test suite.
+
+The [owner receipt](../devtools/data/devguide_pagination_owner_closeout_587_20261107.json)
+retains the original failure, current execution, source correspondence, verified
+closure and authorized handoffs to uibcdf/molsyssuite#171 (6714393150) and
+uibcdf/moli#85 (6714393717). Their adoption remains separate. The
+[archived report](archive/resolved_bugs/devguide_board_sync_truncates_issue_history.md)
+records the local resolution.
+
+There are now **34 closed audit-related source issues**. Milestone progress
+remains **approximately 61%**, with **23/50 graphical intents accepted**. The
+joint #612/#587 milestone is still pending: #612 requires its own affected
+fidelity and exact-head full-suite acceptance. Continue that work, preserving
+every remaining graphical, contract, installed, platform and final-candidate
+requirement. Source closeout does not authorize publication.
+
+## Previous external-reference source delivery — 2026-11-07
 
 The #421 external-file fitting intent is accepted in sources on main at
 `b3f4fd4cb38f98eb5d96d2617f6f1977c91717e1`. All fifteen changed paths match the
