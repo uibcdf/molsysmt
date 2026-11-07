@@ -278,7 +278,7 @@ def write_associations(root, links):
             child.create_dataset("indices", data=indices, compression="gzip", **options)
 
 
-def read_associations(root, sizes):
+def read_associations(root, sizes, *, axes=None):
     """Read and revalidate optional cross-layer links."""
     if "associations" not in root:
         return None
@@ -291,6 +291,8 @@ def read_associations(root, sizes):
     links = []
     for index in range(count):
         child = group[str(index)]
+        if axes is not None and child.attrs["axis"] not in axes:
+            continue
         mapping = child.attrs["mapping"]
         if mapping == "identity":
             if len(child):

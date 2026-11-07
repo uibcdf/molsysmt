@@ -64,8 +64,9 @@ load. It also works on an open `H5MSMFileHandler` and leaves that handler open.
 Indices are dimensionless positions, independent of stored structure IDs. Empty
 selections return `[]`; `structure_indices=None` returns `None`; invalid positions
 raise `ArgumentError`. Existing unit checks and legacy warnings still apply.
-This guarantee does not extend the separate resident-load contract for general
-0.5 queries.
+H5MSM 0.5 also supports metadata-only axis queries and projected dense structural
+queries. Resident conversion remains a separate operation; see
+{ref}`user-tools-form-h5msm-05` for the query scope and limits.
 
 The modular 0.5 format preserves structure and chemical-state populations
 independently. Structure-to-state indices are stored explicitly when the two
@@ -77,5 +78,5 @@ Reference-state choice and unknown associations remain separate. See
 ## Performance and Storage Invariants
 
 - **Gzip & LZF Chunk Compression**: Trajectory coordinate datasets are chunked along the structure axis and compressed using Gzip (level 4) or LZF.
-- **Selective I/O**: Legacy 0.3/0.4 handlers support dataset slicing. General 0.5 conversion and `get()` currently load resident domains before subset extraction. Explicit `read_layers()` avoids unrelated layers; it does not promise file-backed arbitrary queries.
+- **Selective I/O**: Legacy 0.3/0.4 handlers support dataset slicing. H5MSM 0.5 `get()` projects requested dense fields and atom/structure positions; counts use metadata. Static queries load required inventory/chemistry without coordinate series. Full conversion and `read_layers()` remain resident operations. Results and downstream analyses need their own memory budget.
 - **Schema 0.4 Invariants**: Stable atom inventories and isotopes are isolated from chemical state definitions.

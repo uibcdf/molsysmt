@@ -676,7 +676,7 @@ sections:
             description: Header axis counts, eager structural queries and ordered subset export through StructuresDict.
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
-            description: Modular persistence, topology layer-4 naming declarations, layer-3 atom/molecule and layer-2 chain/group membership, independent projected reads, typed history, complementary file composition, shared axes, explicit state maps and legacy migration.
+            description: Modular persistence, topology layer-4 naming declarations, layer-3 atom/molecule and layer-2 chain/group membership, scoped file queries with repeated/nonconsecutive projections, independent projected reads, typed history, complementary file composition, shared axes, explicit state maps and legacy migration.
           - file: docs/content/user/tools/form/file/file_structures_yaml.ipynb
             agents_file: docs/content/user/tools/form/file/file_structures_yaml.ipynb.AGENTS.md
             description: Structures YAML 0.2 quantity records, sparse alternate geometry, local indices and explicit 0.1 migration.
@@ -860,7 +860,7 @@ sections:
         description: Named aromatic analyses from composed chemical and structural domains.
       - file: docs/content/user/cookbook/migrating_h5msm.md
         agents_file: docs/content/user/cookbook/migrating_h5msm.md.AGENTS.md
-        description: Source-preserving migration, complementary file composition, imported occupancy and missing-value persistence, ordered assembly generators and analyses without coordinates.
+        description: Source-preserving migration, direct projected 0.5 queries, complementary file composition, imported occupancy and missing-value persistence, ordered assembly generators and analyses without coordinates.
   showcase:
     path: docs/content/showcase
     status: in_progress

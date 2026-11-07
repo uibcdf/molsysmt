@@ -14,8 +14,9 @@ selected atoms and structures. It accepts complete or partial native `MolSys`,
 analyses are stored with a `MolSys`. `msm.convert` and `msm.h5msm.read` read 0.5;
 `msm.h5msm.read` also accepts 0.3 and 0.4 and warns with a migration
 instruction. The older file-form adapters remain available for legacy 0.3/0.4
-operations. General 0.5 file queries currently materialize a native `MolSys`;
-use `msm.h5msm.read_layers` to load only selected layers.
+operations. Public `get`, `select` and `has_attribute` query 0.5 paths directly;
+they do not first load the complete coordinate series. Use
+`msm.h5msm.read_layers` when you want resident native domains.
 `molsysmt.H5MSMFileHandler` supports only 0.3 and 0.4: requesting that target
 for a 0.5 file raises `FormatError` before loading its domains. The direct
 constructor rejects it too. A resident load or selected-layer read is the
@@ -24,6 +25,37 @@ supported alternative, not a 0.5 file-backed handler. See
 Native `MolSys` round trips also support structures and attached interactions
 without topology or chemical states, provided their atom and structure axes
 are explicitly linked in the file.
+
+## Querying selected data
+
+For a file containing these atom and structure positions:
+
+```python
+n_structures = msm.get("trajectory_05.h5msm", n_structures=True)
+coordinates = msm.get(
+    "trajectory_05.h5msm", element="atom", selection=[4, 1, 4],
+    structure_indices=[9, 2, 9], coordinates=True,
+)
+```
+
+The count reads metadata, and coordinates read only the requested rows and
+atoms. The output shape is `(3, 3, 3)`; both axes preserve order and repetitions.
+Stored lengths use nm, and returned quantities follow your PyUnitWizard policy.
+Box-derived properties read box vectors, and total energy reads the two energy
+columns. Unrequested dense structural fields and interaction observations stay
+unloaded. Native inventory/chemical-state domains are decoded once per public
+query when required, rather than once per requested attribute. Their memory
+cost still depends on those static domains. Required associations are checked;
+an ambiguous shared atom axis is rejected.
+
+Numeric selections use axis metadata. MolSysMT selection expressions reuse
+these static domains; spatial expressions may read coordinates for all their
+candidate atoms, but only in the requested structures. External selection
+backends retain their conversion behavior. Sparse alternate-site queries can
+read their offset/index metadata; this is not an out-of-core guarantee for
+every attribute or downstream analysis. File handles close at the query boundary,
+and later queries observe later file changes. `msm.convert` and `read_layers`
+remain resident loads, including when conversion extracts a subset afterward.
 
 Each analysis's `software` dictionary retains the versions that produced its
 observations. For example, a Buch result records the MolSysMT version used

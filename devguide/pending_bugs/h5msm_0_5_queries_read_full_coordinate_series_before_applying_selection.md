@@ -135,10 +135,52 @@ records source blob correspondence, commands and contradictory I/O evidence.
 
 ## Current execution position — 2026-11-07
 
-The primitive probe and eighteen independent provider regressions reproduce the
-defect; implementation has not begun. The GUI
-prototype and failing I/O test are preserved separately, and main still has the
-previous qualified implementation. Next: implement and qualify the schema-aware file/query owner against those
-regressions, without weakening validation or exposing a fake legacy handler. Milestone progress remains approximately 61%, graphical
-acceptance 22/50, and source-closeout count 32. The new defect is a prerequisite,
-not bonus progress and not a reason to drop any remaining accepted family.
+**Implemented and contract/parity-tested locally**, not yet public delivery.
+The file-form owner now routes schema 0.5 queries to one scoped reader while
+retaining the real file form and the separate legacy handler. Public query
+boundaries no longer invoke the resident bridge. Structural codecs accept a
+field projection; original atom/structure order and repetitions survive. Static
+native domains and existing selectors are reused without fake coordinate
+arrays, competing chemical stores, new dependencies or native-kernel changes.
+The lexical query scope shares required static decodes and closes owned handles
+on success and failure. No file cache survives a call.
+
+The [receiving receipt](../../devtools/data/modular_h5_query_receiving_643_20261107.json)
+retains every executed attempt. Original provider baseline: 18 failures.
+Receiving-1: sixteen passes/two empty-index failures. Integrated-1: 1,552
+passes/five alternate-site regressions. Integrated-2: 1,591 passes/three eager
+chemical-selector failures and one incorrect fixture expectation. `None`
+validly resolves the declared reference; this now has a positive guard, while
+invalid/ambiguous states explicitly require `StructuralInconsistencyError`.
+Integrated-3 passes 1,595, integrated-4 passes 1,619, and the final wider
+receiving passes **1,921**. These populations overlap and are not additive.
+The final population contains **eighty new provider cases**, real nonempty
+unrequested interaction observations, physical-unit contexts, malformed schemas,
+spatial masks, scoped chemistry, composites, lifetime and immutable-source
+checks. Three public doctest nodes and all fourteen fast gates pass. Source
+fingerprints stay unchanged during each recorded campaign. Course edits change
+only narrative cells; code and saved outputs are preserved.
+
+The independent 5,000-structure probe now observes **zero coordinate reads**
+for counts and numeric selection, and one `(4999, [0, 1, 2, 3, 4], ...)` read
+for the five requested atoms, returned in their original requested order.
+That is fifteen coordinate scalars/120 uncompressed bytes logically selected,
+instead of 150,000/1,200,000 per operation. This is dataset-window evidence,
+not a physical-disk, decompression, total-RAM or timing measurement.
+
+Static domains and required explicit association maps can still be decoded in
+full; sparse alternate-site queries can retain complete offset/index vectors.
+The projected expression guarantee covers MolSysMT syntax. External selection
+backends retain their conversion behavior. Resident conversion/layer loads and
+downstream result accumulation remain separately budgeted. These limits are
+explicit in the public guide and scalability contract; the change does not
+claim a universal lazy molecular-system object.
+
+HTML builds with exit 0 and six retained existing title-underline warnings;
+the rendered query section and its limits are checked. Next: finish clean
+exact-source scientific qualification, receive the
+original external-reference I/O guard, then publish/verify the owning source and
+close this bug with its executable guard. Actual external-reference GUI
+Jupyter/Mol*/popup acceptance remains with #421. Milestone progress remains
+approximately 61%, graphical acceptance 22/50, source closeouts 32; no prototype
+or discovered prerequisite receives bonus milestone credit.

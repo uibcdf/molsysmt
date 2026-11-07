@@ -10,6 +10,43 @@ MODULAR_HANDLER_REASON = (
 )
 
 
+def has_h5msm_path(item):
+    """Recognize file-query candidates without importing their adapter or reading."""
+    if isinstance(item, (list, tuple)):
+        return any(has_h5msm_path(part) for part in item)
+    return isinstance(item, (str, Path)) and str(item).endswith(".h5msm")
+
+
+def query_inventory_candidates(item):
+    """Supply real static file domains to selectors without resident conversion."""
+    candidates = item if isinstance(item, (list, tuple)) else [item]
+    if not has_h5msm_path(item):
+        return candidates, False
+    from molsysmt.form.file_h5msm._modular_query import current_queries
+
+    readers = {
+        str(Path(query.file.filename).resolve()): query
+        for query in current_queries(item)
+    }
+    result = []
+    for candidate in candidates:
+        query = (
+            readers.get(str(Path(candidate).resolve()))
+            if isinstance(candidate, (str, Path))
+            else None
+        )
+        if query is None:
+            result.append(candidate)
+            continue
+        query._validate_axes()
+        result.extend(
+            domain
+            for name in ("topology", "chemical_states")
+            if (domain := query.domain(name)) is not None
+        )
+    return result, bool(readers)
+
+
 def validate_h5msm_handler_target(item, to_form):
     """Reject a legacy-handler target before materializing any 0.5 domains."""
     targets = to_form if isinstance(to_form, (list, tuple)) else [to_form]

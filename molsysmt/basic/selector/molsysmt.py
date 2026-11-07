@@ -58,7 +58,10 @@ def select_standard(item, selection):
 
     chemical_states = None
     native_topologies = []
-    for candidate in item if isinstance(item, (list, tuple)) else [item]:
+    from molsysmt._private.h5msm import query_inventory_candidates
+
+    candidates, file_context = query_inventory_candidates(item)
+    for candidate in candidates:
         if isinstance(candidate, Topology):
             native_topologies.append(candidate)
         elif isinstance(candidate, MolSys):
@@ -67,7 +70,9 @@ def select_standard(item, selection):
         elif isinstance(candidate, ChemicalStates):
             chemical_states = candidate
 
-    if len(native_topologies) == 1:
+    if file_context:
+        tmp_item = native_topologies[-1] if native_topologies else None
+    elif len(native_topologies) == 1:
         tmp_item = native_topologies[0]
     elif not native_topologies and chemical_states is not None:
         tmp_item = None
@@ -357,11 +362,12 @@ def select_bonds_standard(item, selection):
         Selection string or boolean/integer array specifying elements.
     """
 
+    from molsysmt._private.h5msm import query_inventory_candidates
     from molsysmt._private.smonitor import StructuralInconsistencyError
     from molsysmt.basic import convert
     from molsysmt.native import ChemicalStates, MolSys
 
-    candidates = item if isinstance(item, (list, tuple)) else [item]
+    candidates, file_context = query_inventory_candidates(item)
     owners = [
         candidate.chemical_states if isinstance(candidate, MolSys) else candidate
         for candidate in candidates
@@ -370,6 +376,8 @@ def select_bonds_standard(item, selection):
     states = (
         owners[0]
         if len(owners) == 1
+        else owners[-1]
+        if file_context and owners
         else convert(item, to_form="molsysmt.MolSys").chemical_states
     )
     if states is None:

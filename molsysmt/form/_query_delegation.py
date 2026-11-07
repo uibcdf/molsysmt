@@ -34,3 +34,27 @@ def make_native_getter(name, target, form, read_source):
     result = namespace[name]
     result.__doc__ = target.__doc__.replace("molsysmt.MolSys", form)
     return result
+
+
+def make_routed_getter(name, target, form, route):
+    """Validate an adapter signature once before schema-aware dispatch."""
+    parameters = inspect.signature(target).parameters
+    declaration = ", ".join(str(value) for value in parameters.values())
+    arguments = ", ".join(
+        f"{key}={key}" for key in parameters if key not in {"item", "skip_digestion"}
+    )
+    namespace = {
+        "__name__": target.__module__,
+        "arg_digest": arg_digest,
+        "route": route,
+        "target": target,
+        "form": form,
+    }
+    exec(
+        f"@arg_digest(form=form)\ndef {name}({declaration}):\n"
+        f"    return route(target, item, {arguments})\n",
+        namespace,
+    )
+    result = namespace[name]
+    result.__doc__ = target.__doc__
+    return result

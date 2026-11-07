@@ -8,7 +8,7 @@ from molsysmt._private.variables import is_all, is_iterable_of_iterables
 
 @signal(tags=["api", "get"])
 @arg_digest()
-@resolve_chemical_state
+@resolve_chemical_state(bounded_file_queries=True)
 def get(
     molecular_system,
     element="system",
@@ -81,6 +81,13 @@ def get(
 
     Notes
     -----
+    H5MSM 0.5 paths retain their file form during queries. Axis counts use
+    metadata; dense structural fields read only the requested atom/structure
+    positions, including their order and repetitions. Static queries share
+    decoded inventory/chemistry within the call without loading coordinate
+    series or named interaction observations. Results follow the active
+    PyUnitWizard unit policy. Full resident conversion is a separate operation.
+
     Scalar mechanics attributes also use Boolean request flags. For example,
     ``constraints=True`` reads the stored policy, while ``constraints=False``
     omits that attribute. A stored Boolean setting is returned as data when
@@ -292,7 +299,6 @@ def _get(
     **kwargs,
 ):
     """Execute a validated query using general or known-native providers."""
-    from molsysmt._private.h5msm import maybe_read_modular_h5msm
     from molsysmt.attribute import (
         attributes,
     )
@@ -309,7 +315,6 @@ def _get(
         query = partial(_get, _native=_native)
     else:
         query = get
-        molecular_system = maybe_read_modular_h5msm(molecular_system)
         from molsysmt.native._query_domains import compose_query_domains
 
         molecular_system = compose_query_domains(molecular_system)

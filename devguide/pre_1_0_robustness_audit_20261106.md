@@ -5,7 +5,24 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-## Current external-reference prerequisite — 2026-11-07
+## Current modular-query receiving — 2026-11-07
+
+The #643 provider correction is locally implemented and passes **1,921**
+integrated cases (including eighty new actual-I/O guards), three doctest nodes
+and fourteen fast gates. The independent 5,000-structure probe now reads no
+coordinates for counts/numeric selection and only five atoms of one structure
+for the projected coordinate request. The [owning report](pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
+and [receiving receipt](../devtools/data/modular_h5_query_receiving_643_20261107.json)
+retain failed attempts, fixture corrections, exact scope and memory limits.
+This is local source evidence; no issue closure, published provider fix or GUI
+milestone is claimed yet. HTML builds and the rendered query scope is checked, with six retained
+existing title-underline warnings. Next: clean scientific qualification and the
+unchanged original external-reference guard, then public source closeout and
+actual #421 graphical receiving. Progress remains **approximately 61%**, graphical
+**22/50**, closed audit-related issues **32**. Contract/installed/candidate exits
+and every remaining agreed family remain required.
+
+## Previous external-reference prerequisite — 2026-11-07
 
 The next #421 graphical slice has a local, unmerged external-reference
 prototype (`ca59736a4`). Its explicit ordered atom pairs and physical-unit

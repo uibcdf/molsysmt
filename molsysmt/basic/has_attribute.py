@@ -6,7 +6,7 @@ from molsysmt._private.chemical_state import resolve_chemical_state
 
 @signal(tags=["api", "get"])
 @arg_digest()
-@resolve_chemical_state
+@resolve_chemical_state(bounded_file_queries=True)
 def has_attribute(
     molecular_system,
     attribute,
@@ -58,8 +58,11 @@ def has_attribute(
       :ref:`Introduction_Selection`.
     - For native multi-state systems, ``chemical_state`` resolves availability
       without changing the topology's reference state.
-    - Explicit integer state selection currently requires a native Topology or
-      MolSys.
+    - Explicit integer state selection requires a native chemical-state owner,
+      a compatible native composition or an H5MSM 0.5 chemical-state layer.
+    - H5MSM 0.5 structural availability uses schema/field metadata without
+      loading coordinate series. Static availability uses only the required
+      native inventory/chemistry; file handles close on success or failure.
     - For a partial native MolSys, availability depends on the domains that
       are present. A missing topology or structures domain does not count as
       an available attribute even with ``include_none=True``.
@@ -94,10 +97,8 @@ def has_attribute(
     """
 
     from molsysmt import get_form
-    from molsysmt._private.h5msm import maybe_read_modular_h5msm
     from molsysmt.form import _dict_modules
 
-    molecular_system = maybe_read_modular_h5msm(molecular_system)
     forms_in = get_form(molecular_system)
 
     if not isinstance(forms_in, (list, tuple)):

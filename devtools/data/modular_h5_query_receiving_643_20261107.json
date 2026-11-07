@@ -1,0 +1,340 @@
+{
+  "schema_version": "molsysmt.modular_h5_query_receiving@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#643",
+  "base_source": "bef1b589074c4f514e75f48142c9ab6a654b9ef4",
+  "state": "Locally contract/parity-tested implementation; publication and clean-source scientific qualification pending.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "changed_payload_sha256": {
+    "devguide/SCALABILITY.md": "330232e09f3dc2d43f4eabe485318337f09158c1c2c7fd57d19fadc771bdfd32",
+    "docs/content/course/Common_Core/04_Native_Forms.ipynb": "fffa54aaec32f5ba038738a35b3608201c28de854b65416c8b218f9d88fb1fd1",
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": "19fe465ec70af6fcac5cc67420c13283e0dd3423951a7243d55af143f3996038",
+    "docs/content/course/Path_Alzheimer/48_Scalability_Heavy_Trajectories.ipynb": "c1ebeb1f28ced930e5c7ab2aca7bcb3c4a6ae043cd2fbd2069bc4efb1aeb13b3",
+    "docs/content/user/cookbook/migrating_h5msm.md": "9d304ce57cb365945fb5511c5c6d74c4520a6fbef790fd9574ebfab42e662cda",
+    "docs/content/user/foundations/native_world/files/file_h5msm.md": "dbefab69a8b73ecee2b7a6d784152346a7bffa73aff8ff87cf8434eb495f9177",
+    "docs/content/user/tools/form/file/h5msm_05.md": "165d9b7f869c056a11c50e395fac908fc972b443347bc765f716303910daebf6",
+    "docs/docs_manifest.yml": "a5ebee7e981229dd7f5f70d888e6f2cf0e0d1b31b73ccf55f78859dc7a1fb8f9",
+    "molsysmt/_private/chemical_state.py": "fb2f016740a650e178e3174840a5d34c24495c71748b9d6cc68d1e388e810ecf",
+    "molsysmt/_private/h5msm.py": "0f727598baacadcf7e8cd11732444b5da8329cbd1e6d01e488f2226b823ad59d",
+    "molsysmt/basic/get.py": "47019c23a4b3f50aee6abb450c22037b4d2ee01ec7415422ed043768deecf237",
+    "molsysmt/basic/has_attribute.py": "8570e1a8c76c446420a4b48a964825e6fd73b26534f8d17ef3910b18ec383e7b",
+    "molsysmt/basic/select.py": "03eaa10603143f6ef34cabf2f43d8fcabf883bff3a0ece49b872e4730ded360f",
+    "molsysmt/basic/selector/_group_inventory.py": "201b974b76a2b3098c8f783adcca05cc7363a1a7434234110e2768373395e83e",
+    "molsysmt/basic/selector/molsysmt.py": "b5731ebf1f0cd822b0191623092a8b0960631fdbb1fe57fa342709985d387dd8",
+    "molsysmt/form/_h5msm05_alternate_location.py": "d6ca518261656d85978611facc58441229f4b2e691a8d44689b793528d02a383",
+    "molsysmt/form/_h5msm05_associations.py": "bf061a4bae4a8cc9335b207faa297e2d8a5cda085a137118f2ca83a40399e59a",
+    "molsysmt/form/_h5msm05_structures.py": "b31fbdd50db3e287141511a4d65b489916727fbd37f5104c3e25fc697cb0c9c7",
+    "molsysmt/form/_query_delegation.py": "59aec10fc442722b7c3afd75f07defd102e3308808e6ce4a2e8cc8e641ca8fb3",
+    "molsysmt/form/file_h5msm/attributes.py": "6870a9cfd4e8110ebaa30fe729e0dc557fe7d2307fbadc8a6f4922d9dc1e629b",
+    "molsysmt/form/file_h5msm/get_structural_attributes.py": "de5d28e59e14e407df580b24c4085e90ebd61948a23447e5f3072e16672b47ed",
+    "molsysmt/form/file_h5msm/get_topological_attributes.py": "23927dff554e2f8fb4ea2517eea6d5778a11ba7b25cedf0bd8ac053a1b328322",
+    "molsysmt/form/file_h5msm/has_attribute.py": "21caf5baf27b8e9570f882dc0fe757f896b96a75e71b0b9ede71ac1a05432667",
+    "molsysmt/form/file_h5msm/_modular_query.py": "1aa533b6b3dec6bb264ca48d6e6a124bf483065ddc93982eb47bbd2efc151a3c",
+    "tests/form/file_h5msm/test_modular_query_projection.py": "46429256eec15df16790384739fb0f9c002fb0867a4dead3b4e183772ed2d366"
+  },
+  "checks": {
+    "baseline": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/h5-query-643/baseline.xml",
+        "-n12",
+        "tests/form/file_h5msm/test_modular_query_projection.py"
+      ],
+      "exit_code": 1,
+      "seconds": 8.936109432019293,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5188,
+      "tests": {
+        "passed": 0,
+        "failed": 18,
+        "skipped": 0
+      }
+    },
+    "receiving-1": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/h5-query-643/receiving-1.xml",
+        "-n12",
+        "tests/form/file_h5msm/test_modular_query_projection.py"
+      ],
+      "exit_code": 1,
+      "seconds": 8.831844330066815,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5190,
+      "tests": {
+        "passed": 16,
+        "failed": 2,
+        "skipped": 0
+      }
+    },
+    "integrated-1": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/h5-query-643/integrated-1.xml",
+        "-n12",
+        "tests/form/file_h5msm",
+        "tests/basic/get",
+        "tests/basic/select",
+        "tests/basic/test_get_attributes.py",
+        "tests/basic/test_structure_axis.py",
+        "tests/basic/test_structure_index_types.py"
+      ],
+      "exit_code": 1,
+      "seconds": 47.62315421598032,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5190,
+      "tests": {
+        "passed": 1552,
+        "failed": 5,
+        "skipped": 0
+      }
+    },
+    "integrated-2": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/h5-query-643/integrated-2.xml",
+        "-n12",
+        "tests/form/file_h5msm",
+        "tests/basic/get",
+        "tests/basic/select",
+        "tests/basic/test_get_attributes.py",
+        "tests/basic/test_structure_axis.py",
+        "tests/basic/test_structure_index_types.py"
+      ],
+      "exit_code": 1,
+      "seconds": 47.64983189222403,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5190,
+      "tests": {
+        "passed": 1591,
+        "failed": 4,
+        "skipped": 0
+      }
+    },
+    "integrated-3": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/h5-query-643/integrated-3.xml",
+        "-n12",
+        "tests/form/file_h5msm",
+        "tests/basic/get",
+        "tests/basic/select",
+        "tests/basic/test_get_attributes.py",
+        "tests/basic/test_structure_axis.py",
+        "tests/basic/test_structure_index_types.py"
+      ],
+      "exit_code": 0,
+      "seconds": 47.537595252972096,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5190,
+      "tests": {
+        "passed": 1595,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "integrated-4": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/h5-query-643/integrated-4.xml",
+        "-n12",
+        "tests/form/file_h5msm",
+        "tests/basic/get",
+        "tests/basic/select",
+        "tests/basic/test_get_attributes.py",
+        "tests/basic/test_structure_axis.py",
+        "tests/basic/test_structure_index_types.py"
+      ],
+      "exit_code": 0,
+      "seconds": 50.43248671502806,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5190,
+      "tests": {
+        "passed": 1619,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "integrated-final": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/h5-query-643/integrated-final.xml",
+        "-n12",
+        "tests/form/file_h5msm",
+        "tests/basic/get",
+        "tests/basic/select",
+        "tests/basic/test_get_attributes.py",
+        "tests/basic/test_structure_axis.py",
+        "tests/basic/test_structure_index_types.py",
+        "tests/native/test_native_queries.py",
+        "tests/native/test_chemical_state_queries.py",
+        "tests/native/test_chemical_state_field_queries.py",
+        "tests/native/test_chemical_states_owner.py",
+        "tests/native/test_molsys_chemical_state_association.py",
+        "tests/native/test_h5msm_file_handler.py",
+        "tests/interactions/test_h5msm05.py",
+        "tests/interactions/test_public_molsys_h5msm_workflow.py"
+      ],
+      "exit_code": 0,
+      "seconds": 51.00043241889216,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5190,
+      "tests": {
+        "passed": 1921,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "doctests": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/h5-query-643/doctests.xml",
+        "-n12",
+        "--doctest-modules",
+        "molsysmt/basic/get.py",
+        "molsysmt/basic/select.py",
+        "molsysmt/basic/has_attribute.py"
+      ],
+      "exit_code": 0,
+      "seconds": 8.158261518925428,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5190,
+      "tests": {
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "fast": {
+      "command": [
+        "<existing-development-python>",
+        "devtools/scripts/release_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 25.50176245579496,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5190
+    },
+    "html": {
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "sphinx",
+        "-q",
+        "-j",
+        "12",
+        "-b",
+        "html",
+        "-D",
+        "nb_execution_mode=off",
+        "-D",
+        "autosummary_generate=0",
+        "docs",
+        "<owner>/.pytest_cache/h5-query-643/html"
+      ],
+      "exit_code": 0,
+      "seconds": 54.80032962420955,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5191,
+      "warnings": "Six retained existing RST title-underline warnings; native exit 0.",
+      "rendered_text_checks": [
+        "Querying selected data section",
+        "Shared per-query static decoding",
+        "External selection backend limit"
+      ],
+      "checker_note": "First literal sentence assertion encountered a rendered line break; whitespace-normalized visible text contains all required statements. No documentation output or build status was changed to satisfy it."
+    }
+  },
+  "counts_overlap": true,
+  "fixture_correction": "Integrated-2 included one invalid test expectation: chemical_state=None validly resolves the declared reference. Final guards test that positive behavior and explicitly require StructuralInconsistencyError for ambiguous/invalid populations.",
+  "independent_probe": {
+    "fixture_structures": 5000,
+    "fixture_atoms": 10,
+    "original_full_coordinate_scalars_per_operation": 150000,
+    "original_full_coordinate_uncompressed_bytes_per_operation": 1200000,
+    "after_coordinate_reads": {
+      "n_structures": [],
+      "select": [],
+      "coordinates": [
+        "(4999, array([0, 1, 2, 3, 4]), Ellipsis)"
+      ]
+    },
+    "selected_coordinate_scalars": 15,
+    "selected_coordinate_uncompressed_bytes": 120,
+    "interpretation": "Logical Dataset windows only; not physical disk reads, decompression, total RAM/RSS or a timing benchmark. Native value/shape assertions pass."
+  },
+  "guard": "tests/form/file_h5msm/test_modular_query_projection.py",
+  "provider_cases": 80,
+  "admitted_scope": [
+    "Dense stored/derived structural fields; repeated/reordered/empty axes and explicit units",
+    "Metadata counts and numeric selection; no unrequested structural or interaction-observation columns",
+    "MolSysMT static/chemical/spatial selection and masks, explicit states and state associations",
+    "Mixed/bulk/native-file composites and last-provider precedence",
+    "Schema/unit/type/cardinality/association rejection before structural delivery",
+    "Scoped static decoding, closed owned handles, read-only inputs, no cross-call stale cache",
+    "Legacy 0.3/0.4 handler/conversion/iteration contracts preserved"
+  ],
+  "limits": [
+    "Static domains and required association maps can be loaded in full",
+    "Sparse alternate-site offset/index metadata can be loaded in full",
+    "External selection backends retain conversion routes; no universal lazy API claim",
+    "Full resident conversion, selected-layer reading and output accumulation remain separately budgeted"
+  ],
+  "remaining": [
+    "Clean exact-source scientific execution",
+    "Receive original unchanged external-reference public-query I/O guard",
+    "Public source delivery/issue closeout",
+    "Actual GUI Jupyter/Mol*/popup, installed/client and final-candidate acceptance remain separate"
+  ],
+  "progress": {
+    "weighted_percent_approx": 61,
+    "graphical_accepted": 22,
+    "graphical_total": 50,
+    "closed_audit_related_issues": 32,
+    "new_milestone_credit": 0
+  }
+}

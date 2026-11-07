@@ -21,7 +21,7 @@ from .selector import _dict_indices_to_selection, _dict_select
 
 @signal(tags=["api", "selection"])
 @arg_digest()
-@resolve_chemical_state
+@resolve_chemical_state(bounded_file_queries=True)
 def select(
     molecular_system,
     selection="all",
@@ -109,8 +109,13 @@ def select(
       empty selection.
     - With ``element='bond'``, MolSysMT predicates over canonical bond
       attributes are evaluated directly and return bond indices.
-    - Explicit integer state selection requires native ChemicalStates, MolSys or
-      an explicit native domain composition and the MolSysMT selection syntax.
+    - Explicit integer state selection requires native ChemicalStates, MolSys,
+      an explicit native domain composition, or a compatible H5MSM 0.5 path,
+      and the MolSysMT selection syntax.
+    - On H5MSM 0.5, numeric selections read axis metadata. MolSysMT expressions
+      use the required static domains, and spatial expressions read only their
+      requested structures. External selection backends retain their conversion
+      behavior and are not covered by this projected-file guarantee.
     - A structure selection spanning multiple associated states cannot return
       one ordinary atom-index selection and is rejected.
 
@@ -154,11 +159,9 @@ def select(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt._private.h5msm import maybe_read_modular_h5msm
     from molsysmt.basic import get, where_is_attribute
     from molsysmt.form import _dict_modules
 
-    molecular_system = maybe_read_modular_h5msm(molecular_system)
 
     if (
         chemical_state != "reference"

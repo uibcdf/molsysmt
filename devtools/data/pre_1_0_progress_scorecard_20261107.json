@@ -814,8 +814,9 @@
     "issue": "uibcdf/molsysmt#643",
     "consumer": "uibcdf/molsysmt#421",
     "record": "devguide/pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md",
-    "owner_verification": "Independent primitive probe and eighteen provider regressions reproduce eager structural reads on public runtime bytes. No correction implemented yet.",
-    "scope": "Correct the general modular-file/query owner, then complete the original external-reference GUI intent. Preserve every remaining task/session, installed/contract/candidate exit."
+    "owner_verification": "Locally implemented; 1,921 integrated cases/eighty new provider guards, three doctest nodes and fourteen fast gates pass. Independent probe observes zero coordinate reads for counts/numeric selection and one requested atom/structure window. Public source and graphical receiving remain pending.",
+    "scope": "Correct the general modular-file/query owner, then complete the original external-reference GUI intent. Preserve every remaining task/session, installed/contract/candidate exit.",
+    "receiving": "devtools/data/modular_h5_query_receiving_643_20261107.json"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
