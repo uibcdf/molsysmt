@@ -811,10 +811,19 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#642",
-    "record": "devguide/archive/resolved_bugs/interactions_hdf5_readback_discards_evidence_catalog.md",
-    "owner_verification": "Source-qualified: baseline 32 failed/16 controls; 3,098 integrated passes, eleven doctests and eight complete typed/two-analysis carrier checks. Public delivery/handoff is being completed.",
-    "scope": "Required typed persistence fidelity. Prioritize before message cleanup and further GUI. It affects unaccepted persistence/session/contract qualification, not evidence for the already fixed specific native composition corrections."
+    "issue": "uibcdf/molsysmt#640",
+    "also": "uibcdf/molsysmt#641",
+    "record": "devguide/pending_bugs/principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md",
+    "owner_verification": "Observed native diagnostic index/context and vocabulary defects; accepted correction remains pending.",
+    "scope": "Correct these native diagnostics, then complete the next finite #421 reference/sequence/cell GUI package; preserve installed, contract and exact-candidate gates."
   },
-  "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time."
+  "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
+  "last_supplemental_delivery": {
+    "issue": "uibcdf/molsysmt#642",
+    "source": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+    "state": "public_source_closed",
+    "evidence": "devtools/data/interaction_evidence_catalog_delivery_642_20261107.json",
+    "weighted_milestone_change": 0,
+    "audit_related_source_closures": 30
+  }
 }

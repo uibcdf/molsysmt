@@ -28,8 +28,11 @@ eleven doctests and eight complete typed/two-analysis checks using the immutable
 DockingMT carrier. The [receiving receipt](../devtools/data/interaction_evidence_catalog_receiving_642_20261107.json)
 retains the exact input digests and historical failed outcomes. Complete catalogs,
 codes, coverage and producer metadata survive standalone/full/layer/public
-conversion routes under normal and pm/fs policies. Public delivery and consumer
-handoff are being completed before
+conversion routes under normal and pm/fs policies. Source `4d8af6c34` is published on main, all eighteen changed/deleted paths
+independently match the complete public tree, and #642 is verified closed.
+The [delivery receipt](../devtools/data/interaction_evidence_catalog_delivery_642_20261107.json)
+records clean exact-source scientific execution (107 cases/68 nodes) and the
+DockingMT #80 handoff (comment 6712753798). Continue with
 #640/#641 messages and external-reference/sequence workflows,
 cell editing and the other accepted families. The implementation is published
 on main; these records retain its completed source receiving and pending exits.
@@ -41,8 +44,9 @@ recognizes verified partial milestones with the original six phase weights.
 The [method and phase breakdown](#progress-estimate-for-the-authorized-execution)
 explain the change from the retired 40% phase-exit count. This is a remeasurement
 of delivered work; candidate/installed/platform/sign-off gates remain pending.
-Audit-related closures are now 29; the board has 574 issues, 99 open, through
-#642. Scope and publication authority are unchanged.
+Audit-related source closures are now **30**. The last complete board acquisition
+before closeout has 574 issues, 99 open, through #642; #642 is now independently
+verified closed. Scope and publication authority are unchanged.
 
 **Previous Rotate checkpoint — 2026-11-07:** the accepted #421 Geometry/Rotate
 slice is implemented and locally received on exact Viewer `e4dd58cf0`.
@@ -1173,4 +1177,4 @@ owners and archive the dated packet through the owning release/reporting route.
 Preserve the receipt, original outcomes and links so a future reviewer can recover
 what was known, decided, implemented and qualified at each checkpoint.
 
-| 2026-11-07 | Evidence-catalog correction source-qualified | #642 retains the complete stored label table and numeric codes through the typed constructor. Original reader: 32 failed/16 passing controls; correction: 3,098 integrated passes, eleven doctests, eight typed/two-analysis checks on the immutable real carrier. Historical consumer failures and producer metadata stay unchanged; no detector replay. | Complete public source/consumer handoff, then #640/#641 and the next finite accepted GUI package. Supplemental repair adds no milestone bonus: approximately 61%; installed and candidate exits stay separate. |
+| 2026-11-07 | Evidence-catalog correction source-qualified | #642 retains the complete stored label table and numeric codes through the typed constructor. Original reader: 32 failed/16 passing controls; correction: 3,098 integrated passes, eleven doctests, eight typed/two-analysis checks on the immutable real carrier. Historical consumer failures and producer metadata stay unchanged; no detector replay. | Public main `4d8af6c34` independently matches all eighteen changed/deleted paths; #642 is verified closed and DockingMT #80 receives comment 6712753798. Clean scientific execution passes 107/68 nodes. Continue #640/#641 and the next finite accepted GUI package. Supplemental repair adds no milestone bonus: approximately 61%; installed and candidate exits stay separate. |

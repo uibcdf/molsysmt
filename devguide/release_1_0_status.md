@@ -33,7 +33,7 @@ their native ownership. The original test-only attempted-operation-ID
 assumption and baseline-matching page errors remain visible.
 
 #603 is source-received, archived and verified closed against main source
-`96b73b3f3`; audit-related closures are now 29. The
+`96b73b3f3`; audit-related closures at that checkpoint were 29. The
 [completion receipt](../devtools/data/molsysviewer_tools_principal_axes_completion_20261107.json)
 records independent public-tree verification and 107 scientific cases/68 nodes
 on the exact clean source. All fourteen fast controls and HTML compilation
@@ -44,8 +44,12 @@ retain separate source and publication acceptance.
 records 32 original failures/16 controls, 3,098 integrated passes, eleven
 doctests and eight complete typed/two-analysis checks on the immutable DockingMT
 carrier. Full evidence catalogs/codes and producer identity survive all four
-public storage routes, including zero occurrences. Public source delivery and
-consumer handoff are being completed; installed client receiving remains separate.
+public storage routes, including zero occurrences. Source `4d8af6c34` is published on main; all eighteen changed/deleted paths
+independently match the complete public tree and #642 is verified closed.
+The [delivery receipt](../devtools/data/interaction_evidence_catalog_delivery_642_20261107.json)
+records clean exact-source scientific execution (107 cases/68 nodes), preserved
+human work and the DockingMT #80 handoff (comment 6712753798). Audit-related
+source closures are now **30**; installed client receiving remains separate.
 Then correct #640/#641 messages and continue external-reference/sequence, cell and
 all other accepted graphical/session families. Installed/platform/candidate and
 postponed human visual/Qt gates remain separate; publication stays paused.
@@ -54,8 +58,9 @@ The [current audited milestone measure](pre_1_0_robustness_audit_20261106.md#pro
 now credits verified partial work with the original phase weights; its canonical
 scorecard and detailed acceptance/evidence tree live with the audit. The retired
 40% phase-exit count is preserved below as dated history. Do not interpret the
-implementation/source-delivery estimate as publication readiness. The board has
-574 issues, 99 open, through #642. The persistence correction is delivered before message
+implementation/source-delivery estimate as publication readiness. The last complete board acquisition before
+this closeout has 574 issues, 99 open, through #642; #642 is now independently
+verified closed. The persistence correction is delivered before message
 cleanup and GUI expansion; source qualification does not clear installed gates.
 
 ## Previous Geometry/Rotate checkpoint — 2026-11-07

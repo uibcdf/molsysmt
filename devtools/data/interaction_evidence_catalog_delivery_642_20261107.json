@@ -1,0 +1,165 @@
+{
+  "schema_version": "molsysmt.interaction_evidence_catalog_delivery@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#642",
+  "implementation_source": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+  "public_source_verification": {
+    "source": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+    "public_main": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+    "complete_public_tree": true,
+    "public_tree_sha": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+    "checked_changed_paths": [
+      {
+        "path": "devguide/archive/resolved_bugs/interactions_hdf5_readback_discards_evidence_catalog.md",
+        "blob_sha": "cb8f9c7a40af11e9e85ad53ed6cb660aeb9384aa"
+      },
+      {
+        "path": "devguide/interactions_api.md",
+        "blob_sha": "fe5cb690f5e69f9889dd9f2c02508a25590c0b65"
+      },
+      {
+        "path": "devguide/pending_bugs/README.md",
+        "blob_sha": "13910d9085b230ba87d4b5708dab8414365f5802"
+      },
+      {
+        "path": "devguide/pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md",
+        "deleted": true
+      },
+      {
+        "path": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+        "blob_sha": "4b738482b082f974097a0ec20adee83203bb75ae"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "blob_sha": "e8f421a08fee8f86e869eddac877185a0fe26034"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "blob_sha": "05f988d298b9cf46e8181a54229ed2015b09262e"
+      },
+      {
+        "path": "devtools/data/interaction_evidence_catalog_receiving_642_20261107.json",
+        "blob_sha": "4339b62fa44cc02521707d9830a3deb0ddcdece8"
+      },
+      {
+        "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+        "blob_sha": "7df7aa0041bff6d1c1cbe2d530835cad9530012e"
+      },
+      {
+        "path": "docs/content/course/Common_Core/04_Native_Forms.AGENTS.md",
+        "blob_sha": "d9f00f833b73881f9fa937bc96e5da2dfc58f10c"
+      },
+      {
+        "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+        "blob_sha": "e2a2ac782848581ca946d39e7ada1055b42a4020"
+      },
+      {
+        "path": "docs/content/user/cookbook/querying_sparse_interactions.md",
+        "blob_sha": "53c2755ecd15609b2e297a609fbf50e807fae31b"
+      },
+      {
+        "path": "docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md",
+        "blob_sha": "b1e61a6bfb0308100bcff9ce8332719be14adae9"
+      },
+      {
+        "path": "docs/content/user/tools/interactions/result.md",
+        "blob_sha": "0ec9db6c3279736f70f96401ead598e046cc4efa"
+      },
+      {
+        "path": "docs/content/user/tools/interactions/result.md.AGENTS.md",
+        "blob_sha": "9575b686b9fdde24add24c4b248014206ab1ec40"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "blob_sha": "621f29a856465a505506b51bebf783e1a28029f5"
+      },
+      {
+        "path": "molsysmt/interactions/result.py",
+        "blob_sha": "64f8c632f6a63fdce060116fcc086d9462ca3560"
+      },
+      {
+        "path": "tests/interactions/test_evidence_catalog_persistence.py",
+        "blob_sha": "3292bdac8c2e4dbf2c847eb6c4635e50dac1c9e0"
+      }
+    ],
+    "all_match": true
+  },
+  "issue_closeout": {
+    "state": "closed",
+    "independently_verified": true,
+    "closed_at": "2026-11-07T20:40:50Z",
+    "guard": "tests/interactions/test_evidence_catalog_persistence.py::test_complete_evidence_catalog_payload_survives_all_public_storage_routes"
+  },
+  "consumer_handoff": {
+    "issue": "uibcdf/dockingmt#80",
+    "comment_id": 6712753798,
+    "source": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+    "scope": "Published provider-source fix and custody/route receiving; consumer owns its installed binding acceptance. No detector replay or package qualification."
+  },
+  "scientific": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+    "source_before": {
+      "commit": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_after": {
+      "commit": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_correspondence": true,
+    "release_eligible": true,
+    "created_at": "2026-11-07T20:39:22.291204+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0
+  },
+  "scientific_certificate_sha256": "c260a2f298da816769abbd1e4d30c6c3b75e30639d5d23958e92a5599e097fba",
+  "scientific_flag_scope": "The source-correspondence eligibility flag is narrow evidence only; no release candidate, installed artifacts, platform matrix or publication approval is established.",
+  "local_controls": {
+    "ruff_check_dot": 0,
+    "ruff_format_check_dot": 0,
+    "fast_gates": "14/14 pass",
+    "html_native_exit": 0,
+    "html_warnings": 6,
+    "course_code_and_saved_outputs_unchanged": true
+  },
+  "board": {
+    "complete_acquisition_before_close": {
+      "issues": 574,
+      "open": 99,
+      "latest": 642
+    },
+    "open_prs": [],
+    "642_independently_verified_closed": true
+  },
+  "audit": {
+    "approximate_milestone_percent": 61,
+    "weighted_milestone_change": 0,
+    "audit_related_source_closures": 30,
+    "next": [
+      "Required native diagnostics #640/#641",
+      "Accepted #421 external-reference/sequence and cell workflows; remaining task/session families",
+      "Installed/default-host, contract and exact-candidate exits remain independent"
+    ]
+  },
+  "preserved_human_paths": [
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst"
+  ],
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "publication": "One authorized interim main push with [skip ci]; no remote matrix dispatched. #334 mandatory full-suite/candidate backlog remains due; no tag/Release/promotion."
+}
