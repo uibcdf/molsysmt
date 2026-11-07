@@ -373,6 +373,83 @@ def is_conversion_audit_exhaustive(source_form, target_form):
     return (source_form, target_form) in _EXHAUSTIVE_AUDIT_PAIRS
 
 
+def _audit_parmed_export(item, source_form, selection, structure_indices, syntax):
+    """Inspect the bounded native/OpenMM provider limitations before creation."""
+    from molsysmt._private.variables import is_all
+    from molsysmt.form.parmed_Structure._from_native import export_limitations
+
+    if is_all(selection):
+        atom_indices = "all"
+    else:
+        from molsysmt.basic import select
+
+        atom_indices = select(
+            item, selection=selection, syntax=syntax, skip_digestion=True
+        )
+    if source_form == "openmm.Topology":
+        from molsysmt.form.openmm_Topology.extract import extract
+        from molsysmt.form.parmed_Structure._from_native import (
+            openmm_export_limitations,
+        )
+
+        selected = extract(
+            item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True
+        )
+        limitations = openmm_export_limitations(selected)
+    else:
+        selected = item.extract(
+            atom_indices=atom_indices,
+            **(
+                {"structure_indices": structure_indices}
+                if source_form == "molsysmt.MolSys"
+                else {}
+            ),
+            copy_if_all=False,
+            skip_digestion=True,
+        )
+        is_molsys = source_form == "molsysmt.MolSys"
+        limitations = export_limitations(
+            selected.topology if is_molsys else selected,
+            selected.chemical_states if is_molsys else None,
+            selected.structures if is_molsys else None,
+            selected.molecular_mechanics if is_molsys else None,
+        )
+        if is_molsys:
+            from molsysmt.form.parmed_Structure._from_native import (
+                state_association_limitations,
+            )
+
+            limitations.extend(state_association_limitations(selected))
+            structures = selected.structures
+            if structures is not None:
+                for attribute in (
+                    "structure_id",
+                    "time",
+                    "velocities",
+                    "b_factor",
+                    "occupancy",
+                    "alternate_location",
+                    "bioassembly",
+                    "temperature",
+                    "potential_energy",
+                    "kinetic_energy",
+                ):
+                    if getattr(structures, attribute, None) is not None:
+                        limitations.append(
+                            (
+                                attribute,
+                                f"This ParmEd export does not preserve native {attribute} data.",
+                                "structures",
+                            )
+                        )
+    return [
+        ConversionIssue(
+            attribute=attribute, reason=reason, kind="adapter_limitation", scope=scope
+        )
+        for attribute, reason, scope in limitations
+    ]
+
+
 def _canonical_target_form(to_form):
     from molsysmt.form import _dict_modules
 
@@ -1237,6 +1314,16 @@ def build_conversion_report(
             )
         )
         source_module = _dict_modules[source_form]
+        if target_form == "parmed.Structure" and source_form in {
+            "molsysmt.MolSys",
+            "molsysmt.Topology",
+            "openmm.Topology",
+        }:
+            issues.extend(
+                _audit_parmed_export(
+                    source_item, source_form, selection, structure_indices, syntax
+                )
+            )
         inspection_item = source_item
         inspection_form = source_form
         inspection_module = source_module
@@ -1428,6 +1515,17 @@ def build_conversion_report(
                 )
     same_form = source_form == target_form
     audited_scopes = get_conversion_audit_scopes(source_form, target_form)
+    if target_form == "parmed.Structure" and source_form in {
+        "molsysmt.MolSys",
+        "molsysmt.Topology",
+        "openmm.Topology",
+    }:
+        # This bounded instance audit is not an exhaustive route profile.
+        audited_scopes = tuple(
+            dict.fromkeys(
+                (*audited_scopes, "topology", "structures", "molecular_mechanics")
+            )
+        )
     if (
         source_form == "file:sdf"
         or target_form == "file:sdf"

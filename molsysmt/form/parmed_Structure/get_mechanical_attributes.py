@@ -16,25 +16,46 @@ def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        ParmEd structure with optional atom or assigned AtomType charges.
     indices : object, default='all'
-        Argument indices.
+        Atom indices (0-based) to retain. The default includes every atom.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    quantity or none
+        Assigned partial charges in elementary charge units, or None when all
+        selected atoms lack assignments. An explicit zero is a known charge.
+
+    Raises
+    ------
+    NotWithThisFormError
+        If selected atoms mix known and unknown assignments. Select the known
+        atoms or convert to native MolSys to retain a nullable mechanics column.
 
 
     .. versionadded:: 1.0.0
     """
 
-    values = np.asarray([atom.charge for atom in item.atoms], dtype=np.float64)
+    from ._mechanical import assigned_partial_charges
+
+    values = assigned_partial_charges(item)
     if not is_all(indices):
-        values = values[indices]
-    return puw.quantity(values, "elementary_charge", standardized=True)
+        values = [values[index] for index in indices]
+    if not values or all(value is None for value in values):
+        return None
+    if any(value is None for value in values):
+        from molsysmt._private.smonitor import NotWithThisFormError
+
+        raise NotWithThisFormError(
+            form="parmed.Structure",
+            requested_attribute="partial_charge",
+            message="Selected ParmEd atoms mix assigned and unknown partial charges; no zero substitution or missing-number convention is applied.",
+        )
+    return puw.quantity(
+        np.asarray(values, dtype=float), "elementary_charge", standardized=True
+    )
 
 
 @arg_digest(form="parmed.Structure")
@@ -46,14 +67,19 @@ def get_partial_charge_from_system(item, skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        ParmEd structure with optional atom or assigned AtomType charges.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    quantity or none
+        Assigned atom charges in elementary charge units, or None when absent.
+
+    Raises
+    ------
+    NotWithThisFormError
+        If the atoms mix known and unknown assignments. No zero is inferred.
 
 
     .. versionadded:: 1.0.0

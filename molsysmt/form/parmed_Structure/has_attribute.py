@@ -40,9 +40,11 @@ def has_attribute(
                 for atom in molecular_system.atoms
             )
         elif attribute == "partial_charge":
-            output = bool(molecular_system.atoms) and all(
-                getattr(atom, "charge", None) is not None
-                for atom in molecular_system.atoms
+            from ._mechanical import assigned_partial_charges
+
+            output = any(
+                value is not None
+                for value in assigned_partial_charges(molecular_system)
             )
         elif attribute == "atom_is_aromatic":
             output = any(
@@ -69,13 +71,17 @@ def has_attribute(
             output = column in bond_table and bond_table[column].notna().any()
         elif attribute == "connectivity_completeness":
             output = hasattr(molecular_system, "bonds")
+        elif attribute == "coordinates":
+            output = molecular_system.get_coordinates("all") is not None
         elif attribute in {
-            "coordinates",
             "structure_id",
             "structure_index",
             "n_structures",
         }:
-            output = molecular_system.get_coordinates("all") is not None
+            output = (
+                molecular_system.get_coordinates("all") is not None
+                or molecular_system.get_box("all") is not None
+            )
         elif attribute in {
             "box",
             "box_angles",

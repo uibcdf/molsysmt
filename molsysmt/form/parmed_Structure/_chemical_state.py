@@ -119,16 +119,18 @@ def bond_table_from_structure(structure):
                 else:
                     row["fractional_bond_order"] = numeric_order
 
-        if qualitative_name in _INTEGRAL_QUALITATIVE_ORDERS:
-            row["bond_order"] = _INTEGRAL_QUALITATIVE_ORDERS[qualitative_name]
-        elif qualitative_name in _FRACTIONAL_QUALITATIVE_ORDERS:
-            row["fractional_bond_order"] = _FRACTIONAL_QUALITATIVE_ORDERS[
-                qualitative_name
-            ]
+        # The numeric order and qualitative label are independent ParmEd
+        # fields. Do not overwrite a supplied numeric order with a label.
+        if (
+            qualitative_name in _INTEGRAL_QUALITATIVE_ORDERS
+            or qualitative_name in _FRACTIONAL_QUALITATIVE_ORDERS
+        ):
+            row["is_aromatic"] = False
         elif qualitative_name == "AROMATIC":
             row["is_aromatic"] = True
         elif qualitative_name in _DATIVE_TYPES:
             row["bond_type"] = "dative"
+            row["is_aromatic"] = False
 
         rows.append(row)
 

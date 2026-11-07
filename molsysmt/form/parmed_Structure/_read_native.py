@@ -4,7 +4,6 @@ import pandas as pd
 from molsysmt._private.name_resolution import (
     classify_group_name as get_group_type_from_group_name,
 )
-from molsysmt.element.atom import get_atom_type_from_atom_name
 
 
 def read_native(item, atom_indices="all", skip_digestion=False):
@@ -29,6 +28,8 @@ def read_native(item, atom_indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
+
+    from parmed.periodic_table import Element
 
     from molsysmt._private.variables import is_all
     from molsysmt.native import MolSys
@@ -60,12 +61,10 @@ def read_native(item, atom_indices="all", skip_digestion=False):
         # ParmEd serials start at 1 usually, number attribute is the serial
         atom_id.append(str(atom.number))
         atom_name.append(atom.name)
-        source_atom_type = getattr(atom, "type", None)
-        atom_type.append(
-            str(source_atom_type)
-            if source_atom_type not in {None, ""}
-            else get_atom_type_from_atom_name(atom.name)
-        )
+        # ParmEd's ``type`` is a force-field label. Stable native atom_type is
+        # the explicitly supplied element; unknown elements are not perceived.
+        number = getattr(atom, "atomic_number", 0)
+        atom_type.append(Element[number] if 0 < number < len(Element) else None)
         group_index_of_atoms.append(atom.residue.idx)
 
     tmp_item.atoms["atom_id"] = atom_id
@@ -97,10 +96,10 @@ def read_native(item, atom_indices="all", skip_digestion=False):
     chain_id = []
     chain_name = []
     for cid in unique_chain_ids:
-        # If chain is empty string, default to 'A' if it's the only one, or use a label
-        label = cid if cid != "" else "A"
-        chain_id.append(str(label))
-        chain_name.append(str(label))
+        # An explicit empty external label is still a label, not a request to
+        # generate or rename a chain.
+        chain_id.append(str(cid))
+        chain_name.append(str(cid))
 
     tmp_item.chains["chain_id"] = chain_id
     tmp_item.chains["chain_name"] = chain_name

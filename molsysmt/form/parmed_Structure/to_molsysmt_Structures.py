@@ -12,7 +12,8 @@ def to_molsysmt_Structures(
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        ParmEd structure with optional coordinate structures and per-structure
+        or shared crystallographic cells.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -23,7 +24,9 @@ def to_molsysmt_Structures(
     Returns
     -------
     molsysmt.Structures
-        Resulting object in molsysmt.Structures form.
+        Selected structures with coordinates and cell vectors in nanometers.
+        A box-only source retains its selected structure axis and has no
+        coordinates; absent coordinates are never synthesized.
 
 
     .. versionadded:: 1.0.0

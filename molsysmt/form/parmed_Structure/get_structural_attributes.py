@@ -1,4 +1,4 @@
-"""Delivering ParmEd coordinate frames, unit cells, and B factors."""
+"""Delivering ParmEd coordinate structures, unit cells, and B factors."""
 
 import numpy as np
 
@@ -11,7 +11,12 @@ form = "parmed.Structure"
 
 def _selected_frame_indices(item, structure_indices):
     coordinates = item.get_coordinates("all")
-    n_structures = 0 if coordinates is None else coordinates.shape[0]
+    boxes = item.get_box("all") if coordinates is None else None
+    n_structures = (
+        (0 if boxes is None else len(boxes))
+        if coordinates is None
+        else coordinates.shape[0]
+    )
     if is_all(structure_indices):
         return np.arange(n_structures, dtype=np.int64)
     return np.asarray(structure_indices, dtype=np.int64)

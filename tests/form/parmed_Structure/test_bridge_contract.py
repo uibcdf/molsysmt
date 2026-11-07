@@ -38,7 +38,9 @@ def _source(form):
                 )
         atoms = list(topology.atoms)
         for index in range(3):
-            topology.add_bond(atoms[index], atoms[index + 1])
+            # Geometry assertions use explicit known single bonds. Unknown
+            # orders have a separate rejection contract at the ParmEd boundary.
+            topology.add_bond(atoms[index], atoms[index + 1], order=1)
         if form == "mdtraj.Topology":
             return topology
         return md.Trajectory(
