@@ -350,6 +350,10 @@ sections:
             agents_file: docs/content/user/tools/structure/center.ipynb.AGENTS.md
             description: Rigid translations with contained source centers, exclusive coordinate or initial-selection targets, weights, units and structure scopes.
             status: reviewed
+          - name: rotate
+            file: docs/content/user/tools/structure/rotate.ipynb
+            agents_file: docs/content/user/tools/structure/rotate.ipynb.AGENTS.md
+            description: Active row-coordinate rotations, explicit axis-angle construction, unchanged inputs, centers and existing matrix or SciPy inputs.
           - name: principal_component_analysis
             file: docs/content/user/tools/structure/principal_component_analysis.ipynb
             agents_file: docs/content/user/tools/structure/principal_component_analysis.ipynb.AGENTS.md
@@ -708,7 +712,7 @@ sections:
       - name: placing_selected_centers
         file: docs/content/user/cookbook/placing_selected_centers.md
         agents_file: docs/content/user/cookbook/placing_selected_centers.md.AGENTS.md
-        description: Rigid movement with contained source centers, explicit points or initial target centers and physical units.
+        description: Rigid movement with contained source centers, explicit destinations, captured-center axis-angle rotations and physical units.
         status: reviewed
       - name: copying_disk_systems
         file: docs/content/user/cookbook/copying_disk_systems.md

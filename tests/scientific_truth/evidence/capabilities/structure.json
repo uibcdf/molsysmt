@@ -476,5 +476,44 @@
     "contract_test_area": "tests/structure/get_secondary_structure",
     "scientific_evidence": [],
     "gap": "No governed independent assignment oracle is registered. Existing backend/shape/vocabulary tests do not establish independent DSSP accuracy; obtain a versioned assignment reference or independent implementation with declared conventions."
+  },
+  "molsysmt.structure.get_rotation_matrix_from_axis_angle": {
+    "domain": "structure",
+    "status": "validated",
+    "claim": "Constructing one active right-handed proper rotation matrix from a finite nonzero axis and an explicitly unit-bearing scalar angle.",
+    "units": [
+      "degrees",
+      "radians",
+      "dimensionless"
+    ],
+    "periodic_behavior": "Angle periodicity; no periodic-box lookup, edit or reconstruction.",
+    "contract_test_area": "tests/structure",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_signed_cartesian_quarter_turns_match_literal_matrices",
+        "oracle": "Independent literal signed x/y/z quarter-turn matrices; positive z maps positive x to positive y.",
+        "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_positive_body_diagonal_turn_cycles_cartesian_axes",
+        "oracle": "Positive 120-degree rotation around [1,1,1] cycles positive x to y to z.",
+        "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_extreme_finite_axis_still_produces_the_analytic_rotation",
+        "oracle": "Positive z quarter-turn literal matrix at smallest positive and largest finite float64 axis scales.",
+        "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_constructed_matrix_drives_public_row_vector_rotation",
+        "oracle": "Explicit Cartesian row-coordinate images and sqrt(2) pair distances after a positive z quarter turn.",
+        "tolerance": "float64_kernel_atol"
+      }
+    ],
+    "gap": null
   }
 }

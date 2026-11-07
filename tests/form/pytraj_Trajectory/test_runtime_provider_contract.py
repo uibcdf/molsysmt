@@ -44,7 +44,9 @@ def test_optional_pytraj_declares_only_the_supported_conda_route():
         )
 
 
-def test_absent_pytraj_reports_the_bundle_route_without_importing_the_engine(monkeypatch):
+def test_absent_pytraj_reports_the_bundle_route_without_importing_the_engine(
+    monkeypatch,
+):
     original = checker.is_installed
     monkeypatch.setattr(
         checker,

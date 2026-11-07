@@ -464,7 +464,9 @@ def main():
         )
     )
     server = None
-    startup = {"scope": "Jupyter server readiness, before any browser or molecular cell"}
+    startup = {
+        "scope": "Jupyter server readiness, before any browser or molecular cell"
+    }
     startup_path = output / "server-startup.json"
     server_command = [sys.executable, "-m", "jupyterlab", "--no-browser"]
     if os.environ.get("MOLSYSVIEWER_TRACE_JUPYTER_STARTUP") == "1":

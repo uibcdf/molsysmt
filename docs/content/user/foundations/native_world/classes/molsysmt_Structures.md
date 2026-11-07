@@ -47,6 +47,13 @@ as that reference and preserves its O-H geometry. See
 {ref}`Tutorial_Make_water_box` for a checked tilted-cell example. Canonical native
 nm storage and the application's quantity-presentation policy are distinct.
 
+Proper active rotations act on row-vector coordinates as `coordinates @ R.T`.
+The matrix is dimensionless: a unit-free axis and an explicit degree or radian
+angle define its orientation independently of coordinate length units. Public
+coordinate rotation preserves stored boxes; periodic reconstruction remains a
+separate operation. See the {ref}`axis-angle example <Tutorial_Rotate_axis_angle>`
+for construction and application to a molecular system.
+
 ## Aligned Observables
 
 Temperature, potential energy and kinetic energy can be supplied directly to

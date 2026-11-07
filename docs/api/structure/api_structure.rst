@@ -25,6 +25,7 @@ API Structure
    get_radius_of_gyration
    get_rmsd
    get_rmsf
+   get_rotation_matrix_from_axis_angle
    get_secondary_structure
    least_rmsd_align
    least_rmsd_fit

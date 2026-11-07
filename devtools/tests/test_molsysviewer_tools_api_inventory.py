@@ -250,6 +250,16 @@ def test_inventory_records_real_complete_and_missing_public_routes():
     ]:
         assert rows[path]["declaration_status"] == "not_implemented_stub"
         assert not rows[path]["exposed"]
+    assert rows["structure.get_rotation_matrix_from_axis_angle"]["exposed"]
+    assert (
+        rows["structure.get_rotation_matrix_from_axis_angle"]["primary_parameter"]
+        is None
+    )
+    assert (
+        rows["structure.get_rotation_matrix_from_axis_angle"]["input_kind"]
+        == "explicit_inputs"
+    )
+    assert inventory["modules"]["structure"]["missing"] == []
     assert "h5msm.arg_digest" not in rows
     assert (
         rows["hbonds.get_buch_hbonds"]["implementation"]

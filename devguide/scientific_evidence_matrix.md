@@ -17,10 +17,10 @@ belong to both. APIs outside these scopes are not certified by this matrix.
 
 | Status | Stable APIs | Claimed APIs |
 | --- | ---: | ---: |
-| validated | 42 | 1 |
+| validated | 42 | 2 |
 | partial | 1 | 7 |
 | gap | 0 | 1 |
-| total | 43 | 9 |
+| total | 43 | 10 |
 
 ## Governed tolerances
 
@@ -91,6 +91,7 @@ belong to both. APIs outside these scopes are not certified by this matrix.
 | `molsysmt.physchem.get_secondary_structure_propensity` | experimental | partial | Reference lookup of sixty dimensionless weighted Levitt P_ij values for twenty standard amino-acid names and three explicit categories, matching detailed Tables III–V; no prediction or observed assignment claim. | versioned-reference: `tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups` (float64_kernel_atol) | Evidence certifies the bounded reference lookup, not the original population-analysis implementation, prediction accuracy, observed secondary structure, modified-group substitutions or aggregate molecular observables. Additional scale families remain unaudited. |
 | `molsysmt.physchem.get_tpsa` | experimental | partial | Bounded N/O Ertl fragment sums for ethanol, dimethyl ether and acetic acid, with area-unit conversion. Broader form/element-scope checks are contract/provider parity, not permeability validation. Bounded atomic-context and hydrogen-attribution controls also cover the selected-contribution extension. | versioned-reference: `tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums` (float64_kernel_atol)<br>versioned-reference: `tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context` (float64_kernel_atol) | Only bounded original-fragment sums independently checked; no general transport/permeability, solvent exposure, metal/radical, arbitrary unsupported chemistry or all-fragment scientific validation. N/O and N/O/S/P remain explicit provider variants. |
 | `molsysmt.structure.get_rmsf` | experimental | validated | Unaligned per-atom RMSF about the selected ensemble mean on a three-structure analytic fixture. | analytic: `tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance` (float64_kernel_atol) | — |
+| `molsysmt.structure.get_rotation_matrix_from_axis_angle` | experimental | validated | Constructing one active right-handed proper rotation matrix from a finite nonzero axis and an explicitly unit-bearing scalar angle. | analytic: `tests/scientific_truth/structure/test_axis_angle_rotation.py::test_signed_cartesian_quarter_turns_match_literal_matrices` (float64_kernel_atol)<br>analytic: `tests/scientific_truth/structure/test_axis_angle_rotation.py::test_positive_body_diagonal_turn_cycles_cartesian_axes` (float64_kernel_atol)<br>analytic: `tests/scientific_truth/structure/test_axis_angle_rotation.py::test_extreme_finite_axis_still_produces_the_analytic_rotation` (float64_kernel_atol)<br>analytic: `tests/scientific_truth/structure/test_axis_angle_rotation.py::test_constructed_matrix_drives_public_row_vector_rotation` (float64_kernel_atol) | — |
 | `molsysmt.structure.get_secondary_structure` | experimental | gap | Secondary-structure assignment for protein groups through the supported backend. | — | No governed independent assignment oracle is registered. Existing backend/shape/vocabulary tests do not establish independent DSSP accuracy; obtain a versioned assignment reference or independent implementation with declared conventions. |
 
 ## Experimental symbols outside the reviewed scopes

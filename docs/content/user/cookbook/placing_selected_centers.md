@@ -119,6 +119,39 @@ points reject before writes. Reflection reverses handedness; chemical-state
 assignments are unchanged. Native setters invalidate interaction coverage for
 the edited structures, and preserve it on rejected plane inputs.
 
+(Cookbook_Placing_Selected_Centers_Rotation)=
+## Rotating around a captured center
+
+Capture the moving population's center, then construct an orientation from an
+axis and a unit-bearing angle. For the original C/D coordinates above, the
+center is [11, 0, 0] nm. A positive 90-degree z rotation puts C and D at
+[11, -1, 0] and [11, 1, 0] nm, preserving their 2 nm separation and leaving A/B
+fixed. The independent result preserves the original system:
+
+```python
+rotation_center = msm.structure.get_center(molsys, selection=[2, 3])
+rotation_matrix = msm.structure.get_rotation_matrix_from_axis_angle(
+    axis=[0, 0, 1], angle='90 degrees')
+molsys_rotated = msm.structure.rotate(
+    molsys, selection=[2, 3], rotation=rotation_matrix,
+    rotation_center=rotation_center)
+rotated = puw.get_value(msm.get(molsys_rotated, coordinates=True), to_unit='nm')
+np.testing.assert_allclose(
+    rotated, [[[2, 0, 0], [4, 0, 0], [11, -1, 0], [11, 1, 0]]],
+    rtol=0, atol=1e-12)
+np.testing.assert_allclose(
+    np.linalg.norm(rotated[0, 3] - rotated[0, 2]), 2.0, rtol=0, atol=1e-12)
+np.testing.assert_array_equal(
+    puw.get_value(msm.get(molsys, coordinates=True), to_unit='nm'),
+    [[[2, 0, 0], [4, 0, 0], [10, 0, 0], [12, 0, 0]]])
+```
+
+The constructor returns a dimensionless matrix; `rotation_center` keeps its
+length units. This example captures one center for one structure. For multiple
+structures, prepare centers matching the selected structure scope as described
+in the {ref}`Rotate tutorial <Tutorial_Rotate>`. Boxes are unchanged and periodic
+reconstruction is a separate operation.
+
 :::{seealso}
 :class: dropdown
 
@@ -128,4 +161,6 @@ the edited structures, and preserve it on rejected plane inputs.
 - {func}`molsysmt.structure.center`
 - {ref}`Move away <Tutorial_Move_away>`
 - {ref}`Flip <Tutorial_Flip>`
+- {ref}`Rotate <Tutorial_Rotate>`
+- {func}`molsysmt.structure.get_rotation_matrix_from_axis_angle`
 :::

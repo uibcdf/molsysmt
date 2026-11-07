@@ -12,6 +12,7 @@ from .center import center
 from .translate import translate
 from .move_away import move_away
 from .rotate import rotate
+from .get_rotation_matrix_from_axis_angle import get_rotation_matrix_from_axis_angle
 from .flip import flip
 from .get_angles import get_angles
 from .get_dihedral_angles import get_dihedral_angles

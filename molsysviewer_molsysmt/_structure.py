@@ -8,6 +8,7 @@ from ._basic import _native_documentation
 
 class _StructureTools:
     _NAMES = (
+        "get_rotation_matrix_from_axis_angle",
         "get_distances",
         "get_vectors",
         "get_center",
@@ -48,6 +49,19 @@ class _StructureTools:
         from molsysmt import structure
 
         return self._owner._read(getattr(structure, name), parameters, extra)
+
+    @_native_documentation(
+        "get_rotation_matrix_from_axis_angle", module="structure", bind_primary=False
+    )
+    @signal(tags=["addon", "structure", "utility"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_rotation_matrix_from_axis_angle(self, axis, angle, skip_digestion=False):
+        from molsysmt.structure import get_rotation_matrix_from_axis_angle
+
+        self._owner._view()
+        return get_rotation_matrix_from_axis_angle(
+            axis=axis, angle=angle, skip_digestion=skip_digestion
+        )
 
     @_native_documentation("get_distances", module="structure")
     @signal(tags=["addon", "structure"])

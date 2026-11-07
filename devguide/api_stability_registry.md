@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 171 |
+| experimental | 172 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -158,6 +158,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.structure.get_radius_of_gyration` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_rmsd` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_rmsf` | experimental | active | pre-1.0 |
+| `molsysmt.structure.get_rotation_matrix_from_axis_angle` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_secondary_structure` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_symmetry_corrected_rmsd` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_vectors` | experimental | active | pre-1.0 |

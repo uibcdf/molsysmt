@@ -130,7 +130,7 @@ def test_structure_family_matches_reviewed_public_native_exports(view):
         if not name.startswith("_") and inspect.isfunction(value)
     }
     assert set(dir(view.addons.molsysmt.structure)) == exports
-    assert len(exports) == 28
+    assert len(exports) == 29
 
 
 @pytest.mark.parametrize("name", TOOLS)

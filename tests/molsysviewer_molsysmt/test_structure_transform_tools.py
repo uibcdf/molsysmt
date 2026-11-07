@@ -70,6 +70,7 @@ def test_signature_help_namespace_and_explicit_integration_controls(view):
     assert set(dir(view.addons.molsysmt.structure)) == set(
         READERS
         + (
+            "get_rotation_matrix_from_axis_angle",
             "translate",
             "rotate",
             "flip",

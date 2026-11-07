@@ -2667,6 +2667,13 @@
       "owner": "root",
       "documentation": "docs/content/user/tools/physchem/chemical_templates.md",
       "contract_tests": "tests/physchem/test_get_chemical_template.py"
+    },
+    "molsysmt.structure.get_rotation_matrix_from_axis_angle": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "structure",
+      "documentation": "docs/content/user/tools/structure/rotate.ipynb",
+      "contract_tests": "tests/structure/test_get_rotation_matrix_from_axis_angle.py"
     }
   },
   "pre_1_0_namespace_moves": {

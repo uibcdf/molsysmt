@@ -55,6 +55,18 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
             + "The remaining parameters and returns follow the native function below. "
             "Its examples show ordinary MolSysMT calls.\n" + rest
         )
+        if module == "structure" and name == "get_rotation_matrix_from_axis_angle":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "An open empty view is sufficient. Axis and angle remain explicit; "
+                "the current primary, coordinates, box and pending edits are not "
+                "read or synchronized. Native validation, angular units, trusted "
+                "skip_digestion inputs and matrix ownership remain unchanged. "
+                "There is no selection, in_place or update_view control and no "
+                "scene/history change. The returned matrix remains caller-owned "
+                "after owner closure; new calls through a closed owner reject. "
+                "Applying the matrix is a separate structure.rotate operation.\n"
+            )
         if module == "build" and name == "make_water_box":
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
