@@ -21,7 +21,9 @@ placement drops redundant deprecated sorting. A missed consumer of the phase-two
 MIC signature is recorded as #621 and corrected locally in `2804f7954`; it adds
 no weight or new method. Public checkpoint `ad6b71e97` independently matches all
 14 checked source/record blobs, and #621 is verified closed. Accepted progress
-stays 40%; optional-provider, NumPy and actual Viewer/installed closure remain.
+stays 40%; remaining optional-provider and actual Viewer/installed closure remain.
+The later MDTraj/NumPy and OpenMM checkpoints below supersede those parts of
+the initial dependency-review queue.
 
 The maintainer requests a durable record of the new audit, its reasoning, the
 remaining work and the order in which to strengthen MolSysMT before 1.0.
@@ -605,6 +607,26 @@ accepted progress remains **40%**.
 **Exit:** calls respect their declared configuration authority, and default
 supported operations work in the declared installed runtime.
 
+**OpenMM and constructor-boundary receiving:** optional OpenMM >=8.2.0 is
+implemented in `3325cda9526fa1cdaa3daca90fbd03687fb14208`. Actual public
+8.2.0/Python 3.12 and 8.6.1/Python 3.14 each pass the same 2,098 selected
+provider cases without omissions. The first supplies the public support floors;
+the second retains the ordinary SMonitor bridge. Original older-wheel ABI,
+metadata, copy and fixture failures remain in the
+[receipt](../devtools/data/openmm_runtime_receiving_524_20261106.json).
+
+The review also repairs #625's unguarded PDBFixer file/text constructors in
+`80590ef769cf9336b9f4fd45f452b453f1fe72c0` and #626's OpenMM copy/extraction
+metadata and structure-dispatch defects in
+`207d054cbc3281e43a291d759d9160ebadf61c9d`. Their maintained guards preserve
+absence/transitive-failure distinctions, known/unknown chemistry, periodic boxes,
+empty inventory parents, source identity and copy policy. Ordinary joint
+receiving passes 1,060 cases; its two new invalid legacy-fixture labels are
+corrected and all four fixture cases pass separately. Notebook code, outputs,
+IDs and metadata are preserved. Public receiving/board closure follow; these
+supplemental repairs add no progress weight. Remaining optional-provider,
+actual Viewer and clean installed closure keep phase 3 open at **40%**.
+
 ### Phase 4 — Bound-tool contribution and graphical receiving
 
 **Initial position:** #421 partial; PR #543 open with conflicts at the audit
@@ -809,3 +831,4 @@ Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
 Preserve the receipt, original outcomes and links so a future reviewer can recover
 what was known, decided, implemented and qualified at each checkpoint.
+| 2026-11-06 | OpenMM and optional constructor receiving | Source 80590ef76 repairs #625, 207d054cb repairs #626, and 3325cda95 declares optional OpenMM >=8.2.0. Both actual public OpenMM profiles pass 2,098 selected cases; ordinary joint receiving and four corrected legacy controls qualify diagnostics/docs/native routes. Original failures remain in the receipt. Accepted progress stays 40%. | Independently receive the batched source and close #625/#626, then continue PDBFixer and remaining optional-provider/Viewer/installed work under #524. |

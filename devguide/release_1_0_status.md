@@ -123,6 +123,17 @@ capability proposal, and the unchanged PR #543. No new demonstrated bug changes
 the current #524 work order. Accepted progress remains 40%; no publication or
 remote full-matrix evidence is inferred from this source checkpoint.
 
+The OpenMM follow-up selects optional >=8.2.0 in `3325cda95`, with the
+minimum API grounded in formal-charge export. Actual public 8.2.0/Python 3.12
+and 8.6.1/Python 3.14 each pass 2,098 selected provider cases without omissions.
+It also fixes #625's PDBFixer availability boundaries (`80590ef76`) and #626's
+OpenMM copy/subset chemistry and topology-only structure dispatch (`207d054cb`).
+The [receipt](../devtools/data/openmm_runtime_receiving_524_20261106.json)
+retains initial failures, native exits, actual artifacts/origins, ordinary bridge
+receiving and preserved notebook content. Source publication and board closeout
+follow. Remaining PDBFixer/optional-provider, Viewer and clean installed work
+keep #524 partial and accepted audit progress at 40%; no new candidate is selected.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign

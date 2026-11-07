@@ -428,6 +428,49 @@ exact artifacts/import origins, runtime ABI/API values and real calculations;
 a demonstrated mismatch can justify a precise restriction. The bridge is not
 rebuilt or bypassed by this metadata disposition.
 
+## OpenMM receiving and optional-boundary repairs — 2026-11-06
+
+Optional `openmm>=8.2.0` is grounded in the native exporter's unconditional
+`formalCharge` keyword, including unknown values. Upstream first introduces
+that API in `fb50d37665b43dbb3df0c136931cd9b8d7ae6d92`; the first stable
+8.2.0 tag is `53770948682c40bd460b39830d4e0f0fd3a4b868`. The preceding
+8.1.2 source signature lacks it. Development/test acquisition and names-only
+optional coverage agree with pyproject.toml; OpenMM remains optional.
+
+Exact public wheels are hash-verified and unpacked without replacing any
+shared installation. Actual OpenMM 8.2.0/Python 3.12 and 8.6.1/Python 3.14
+each pass the same 2,098-case topology, Context, Simulation, Modeller,
+mechanics, reporter and analytical-force selection without omissions. Both
+execute a Reference harmonic energy control of 0.5 kJ/mol. The minimum profile
+uses the received public support floors and the documented old-SMonitor bridge
+exception; the ordinary newer profile keeps its normal bridge. Neither is
+clean installed MolSysMT or whole-platform qualification.
+
+The attempted older public 8.1.1 wheel fails its NumPy 2 bindings before the
+physical/API call. That is a retained unsupported-provider counterexample,
+not proof that the formalCharge call itself raises TypeError. The original
+8.2 declaration/copy probe also retains two failures: unbounded metadata and
+the distinct consumer bug [#626](../archive/resolved_bugs/openmm_topology_copies_lose_chemical_metadata_and_extraction_misroutes_structure.md).
+Its source `207d054cbc3281e43a291d759d9160ebadf61c9d` preserves copy/subset
+chemistry, labels, boxes and topology-only structure compatibility. Raising
+a provider floor alone would not repair those omissions.
+
+The same review finds [#625](../archive/resolved_bugs/pdbfixer_file_and_text_constructors_bypass_optional_dependency_guards.md):
+file/text PDBFixer constructors lacked execution-time availability guards.
+Source `80590ef769cf9336b9f4fd45f452b453f1fe72c0` adds the existing DepDigest
+boundary, preserving unrelated import causes and native-only conversions.
+Its 26 guards, present-provider controls and public examples pass with the
+ordinary SMonitor bridge. This diagnoses availability; it does not establish
+a PDBFixer scientific/version floor. Public artifacts 1.10/1.11/1.12 already
+provide a useful separate cap-completion counterexample; its broader receiving
+and declaration remain the next bounded task.
+
+The [OpenMM receipt](../../devtools/data/openmm_runtime_receiving_524_20261106.json)
+retains immutable source/artifact identities, actual origins, commands/native
+exits, initial failures, fixture corrections and Markdown-only notebook
+preservation. Source publication and #625/#626 board closeout follow. This
+report remains partial and audit progress remains 40%.
+
 ## Remaining scope and acceptance criteria
 
 Public checkpoint `f5c909e75d786a20d92f4b57e6fa2875a3ba651e` independently
@@ -442,11 +485,13 @@ retains these boundaries. This report stays partial.
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
   receiving and the redesigned host's eventual public release remain distinct;
   complete clean installed-runtime closure with the actual qualified host artifact.
-- Finish the remaining optional runtime-feature declarations: OpenMM and its
-  OpenMMTools/PDBFixer routes, MDAnalysis, RDKit, OpenFF, ParmEd, PyTraj, NGLView,
+- Finish the remaining optional runtime-feature declarations: the
+  PDBFixer route and the unused OpenMMTools declaration, MDAnalysis, RDKit, OpenFF, ParmEd, PyTraj, NGLView,
   Biopython and Plotly. Distinguish a delivered API floor from an incidental
   development installation or unused declaration; source inspection alone is not
-  optional-engine qualification. MDTraj and the parser disposition above are received.
+  optional-engine qualification. MDTraj, OpenMM and the parser disposition above are received. Plotly has a
+  documentation-only consumer; preserve that route when retiring its runtime
+  declaration. The unexported OpenMMTools drafts have no supported runtime route.
 - For each retained bound/exclusion, record exact provider behavior, owner and
   reassessment condition. The NumPy version/ABI disposition above is complete;
   preserve exact development/build/release pins and any demonstrated restrictions.
