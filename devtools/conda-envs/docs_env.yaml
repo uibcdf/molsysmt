@@ -27,6 +27,8 @@ dependencies:
   # MolSysViewer do that configuration at import time.
   - scipy
   - matplotlib >=3.8.4
+  # Regenerating the NGLView showcase contact-map HTML.
+  - plotly
   - argdigest >=0.14.0
   - depdigest >=0.15.1
   - smonitor >=0.16.0

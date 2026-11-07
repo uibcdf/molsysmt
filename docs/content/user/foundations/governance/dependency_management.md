@@ -9,8 +9,16 @@ MolSysMT seamlessly interoperates with dozens of third-party libraries across th
 
 Dependency status is managed centrally through **DepDigest** ([https://www.uibcdf.org/depdigest](https://www.uibcdf.org/depdigest)) via `molsysmt._depdigest`:
 
-- **Hard Dependencies**: Core essential libraries required for basic operation (e.g. NumPy, SciPy, PyUnitWizard, ArgDigest, SMonitor).
-- **Soft Dependencies**: Optional feature-enabling packages (e.g. MDTraj, OpenMM, MDAnalysis, ParmEd, PyTraj, NGLView, PDBFixer, BioPython, Plotly).
+- **Hard Dependencies**: Core libraries required for basic operation, such as
+  NumPy, pandas, PyUnitWizard, ArgDigest and SMonitor.
+- **Soft Dependencies**: Optional feature-enabling packages, such as MDTraj,
+  OpenMM, MDAnalysis, ParmEd, PyTraj, NGLView, PDBFixer and Biopython.
+
+Documentation tools have a separate installation route. For example, Plotly
+belongs to the `docs` extra and the documentation environment because the
+NGLView showcase uses it to generate an interactive contact map. It does not
+enable a MolSysMT runtime form or calculation. The development environment
+also includes that documentation tool for local regeneration.
 
 ---
 

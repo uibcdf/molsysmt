@@ -9,7 +9,6 @@ LIBRARIES = {
     "mmcif": {"type": "hard", "pypi": "mmcif"},
     "mdtraj": {"type": "soft", "pypi": "mdtraj"},
     "openmm": {"type": "soft", "pypi": "openmm"},
-    "openmmtools": {"type": "soft", "pypi": "openmmtools"},
     "MDAnalysis": {"type": "soft", "pypi": "MDAnalysis"},
     "parmed": {"type": "soft", "pypi": "parmed"},
     "pytraj": {"type": "soft", "pypi": "pytraj"},
@@ -19,7 +18,6 @@ LIBRARIES = {
     "Bio": {"type": "soft", "pypi": "biopython", "conda": "biopython"},
     "rdkit": {"type": "soft", "pypi": "rdkit"},
     "openff.toolkit": {"type": "soft", "pypi": "openff-toolkit"},
-    "plotly": {"type": "soft", "pypi": "plotly"},
     "yaml": {"type": "soft", "pypi": "PyYAML"},
     "cupy": {"type": "soft", "pypi": "cupy"},
 }

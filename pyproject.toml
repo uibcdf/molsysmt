@@ -63,7 +63,6 @@ soft = [
   "pyparsing!=3.3.3",
   # Native atom exports pass formalCharge, including unknown values (#524).
   "openmm>=8.2.0",
-  "openmmtools",
   "MDAnalysis",
   "rdkit",
   "openff-toolkit>=0.17.1",
@@ -73,14 +72,15 @@ soft = [
   "nglview",
   # The pH hydrogen engine must complete ACE/NME cappings (#524).
   "pdbfixer>=1.11",
-  "biopython",
-  "plotly"
+  "biopython"
 ]
 test = [
   "pytest>=6.1.2",
   "pytest-runner"
 ]
 docs = [
+  # Interactive contact-map generation for the NGLView documentation.
+  "plotly",
   "sphinx",
   "pydata-sphinx-theme",
   "myst-nb",

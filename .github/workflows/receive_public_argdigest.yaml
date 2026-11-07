@@ -40,8 +40,8 @@ jobs:
             python=3.14 argdigest=0.17.1 smonitor=0.21.0 depdigest=0.15.1
             pyunitwizard>=0.28.1 molsysviewer ackredit>=0.9.0 setuptools-rust>=1.10
             setuptools>=77.0.3 versioningit>=3 pytest pytest-xdist pytest-receptor=1.1.0
-            pyyaml packaging pint scipy openmm mdtraj pyparsing!=3.3.3
-            mdanalysis rdkit parmed biopython ipywidgets anywidget plotly beartype
+            pyyaml packaging pint scipy openmm>=8.2.0 mdtraj>=1.11.0 pyparsing!=3.3.3
+            mdanalysis rdkit parmed biopython ipywidgets anywidget beartype
             pydantic traitlets>=5 nglview jinja2
 
       - name: Isolate the external LEaP reference from the Python consumer
