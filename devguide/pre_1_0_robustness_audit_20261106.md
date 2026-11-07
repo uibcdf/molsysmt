@@ -15,6 +15,13 @@ in public checkpoint `8d466268c`, with all 43 checked blobs independently matche
 #524 review and the actual Viewer floor still prevent phase-three credit.
 No replacement candidate is selected.
 
+The subsequent #524 support-floor review qualifies the five retained required
+providers and optional public Ackredit without changing their floors. Native
+placement drops redundant deprecated sorting. A missed consumer of the phase-two
+MIC signature is recorded as #621 and corrected locally in `2804f7954`; it adds
+no weight or new method. Final source receiving is recorded below; delivery and
+#621 closure follow independent public verification. Accepted progress stays 40%.
+
 The maintainer requests a durable record of the new audit, its reasoning, the
 remaining work and the order in which to strengthen MolSysMT before 1.0.
 Individual issues own their defects and acceptance criteria. This packet connects
@@ -243,7 +250,7 @@ inventing a published version or treating the whole dependency review as done.
 
 | Work class | Reports | Required disposition and owner |
 | --- | --- | --- |
-| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
+| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619/#620/#621 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
 | Declared installed runtime | #524 | MolSysMT owns its manifests, default-output contract and installed receiving. A Viewer minimum depends on an actual qualified host artifact; provider limitations stay with their providers. |
 | Public scientific meaning | #473, #475, #582 | Review the exposed claim and evidence. Correct a misleading contract or agree an explicit bounded disposition; an unavailable paper does not justify invented units, and a stored request must not be advertised as an effective engine control. Wider models or tuning are not automatically required. |
 | Implemented contracts awaiting acceptance | #549, #250, #254 | Complete the remaining owning criteria and final-candidate/client receiving. Source delivery, scientific validation and public stability are separate decisions. |
@@ -480,6 +487,35 @@ There is no newly numbered issue after #620 in this acquisition. The delivery
 record retains the inventory digest and selected observations; no new report
 changes the #524 next step.
 
+**Support floors and preparation receiving:** the retained public PyUnitWizard
+0.28.1, mmCIF 1.1.1, ArgDigest 0.14.0, DepDigest 0.15.1 and SMonitor 0.16.0
+payloads match independent Anaconda main-channel identities. Source receiving
+passes 581 cases, with 14 explicit optional ownership-study omissions at the
+older ArgDigest floor; a separate 133-case CCD/preparation/doctest profile has
+no omissions. Public Ackredit 0.9.0 is imported from a separately verified
+archive; its 62 Python files also match the older local-build cache despite
+different archive hashes. Do not confuse source parity with canonical artifact
+identity or the source floor profile with installed-runtime qualification.
+
+The #524 placement correction `4f8b03364` removes duplicate build-level bond
+normalization in favor of the existing ChemicalStates setter. Six warning-strict
+public native/dictionary controls cover two structures and old atom/bond/coordinate
+preservation. Combined exact-Pandas-3.1.0 receiving passes 965 cases; thirteen
+additional owner/placement controls pass without warnings. The original failed
+attempts remain in the [support-floor receipt](../devtools/data/runtime_support_floor_receiving_524_20261106.json).
+
+The broader selection also reveals a missed phase-two consumer signature:
+[#621](archive/resolved_bugs/periodic_fixed_state_hydrogen_addition_calls_a_retired_mic_helper_signature.md)
+breaks fixed-state H preparation with a periodic box. Source `2804f7954` updates
+that caller without a new geometry formula, backend or private compatibility
+shim. Three existing failures and twelve new rotated/skewed compact/split unit
+controls protect it. Directed receiving passes 60 cases, affected documentation
+543, and scientific execution 97 across 64 nodes. These scopes overlap the
+combined/provider selections. The [#621 receipt](../devtools/data/periodic_fixed_state_hydrogens_receiving_621_20261106.json)
+retains exact source/backend identities and unchanged course code/outputs.
+Public delivery and closure follow. Remaining optional-provider, NumPy-bound,
+actual Viewer and installed-runtime work still prevents phase-three credit.
+
 - For **#613**, choose the supported concurrency model at the configuration
   owner. Protect aliases, nesting, exceptions, unrelated observers and all
   applicable per-call overrides, including real decorated calls. Distinguish
@@ -692,6 +728,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | Configuration delivered; PBC CI terminal | Public checkpoint `1b1cc42e0` matches all 12 checked implementation/receipt/report blobs. #613 is independently verified closed. All four observed ordinary workflows at PBC head `16ecaae01`, including smoke 42312538781, conclude successfully. Accepted plan progress remains 40%; source and installed-release qualification stay separate. | Finish the configuration checkpoint with an unskipped head and inspect its applicable CI, then continue #620 and independently actionable #524. |
 | 2026-11-06 | Precision and default renderer qualified | #620 `cb07e54af` and partial #524 `44fd0acf0` pass 4,592 joint cases, 599 documentation/doctests and 97 scientific cases; scopes overlap. Directed precision has 39 passes; exact-Jinja2 receiving has 35 and isolated minimum-provider receiving seven. Seven notebook edits preserve code/outputs. #613 smoke 42314744961 succeeds at `60ded0f7c`. The maintainer renews `[skip ci]` on all work commits and batched pushes, superseding automatic unskipped heads for small work blocks. | Publish and independently verify the source and receipts, close #620, and finish independently actionable #524 review without inventing a public Viewer floor. Installed/graphical/final-candidate qualification remains separate. Accepted progress remains 40%. |
 | 2026-11-06 | Precision delivered and closed | Public checkpoint `8d466268c` independently matches all 43 checked source/record blobs. #620 is verified closed as completed. Final fast gates pass 14/14; the queue-index check passes. No new remote run was dispatched; all three work commits carry `[skip ci]`. Accepted plan progress remains 40%. | Continue the remaining #524 provider/restriction review, preserving actual public Viewer-floor and installed closure dependencies; then the agreed addon/graphical receiving and contract closeout. |
+| 2026-11-06 | Support floors and periodic preparation qualified | Five required public support floors and optional Ackredit receive 581 passing consumer cases with 14 explicit optional study omissions, plus 133 parser/preparation/doctest passes. #524 `4f8b03364` removes duplicate deprecated sorting; #621 `2804f7954` corrects the missed MIC consumer. Exact-Pandas-3.1.0 combined receiving passes 965, documentation 543, scientific execution 97; scopes overlap. The original failures and unchanged notebook code/outputs are retained. Accepted progress stays 40%. | Publish and independently verify the sources/receipts, close #621, then continue optional-provider/NumPy-bound review and actual Viewer/installed closure. No additional progress weight or publication authorization. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

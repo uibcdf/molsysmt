@@ -15,9 +15,10 @@ supersedes: []
 # Reviewing runtime provider contracts
 
 **Reported:** central adoption request under uibcdf/molsyssuite#137.
-**Status:** partial; five core floors are aligned and their exact APIs/ABI are
-received locally. Pandas 3.1 summary compatibility is repaired. Viewer, sibling
-and optional-provider review remains open; no public artifact is qualified.
+**Status:** partial; numerical, rendering and support-provider floors have actual
+source API/ABI receiving. Pandas 3.1 summary and native-placement compatibility
+are repaired. Viewer acquisition, optional-provider/restriction review and clean
+installed closure remain open; no MolSysMT candidate artifact is qualified here.
 
 ## What
 
@@ -232,14 +233,102 @@ renderer and tracking blobs. The [delivery receipt](../../devtools/data/precisio
 records that verification and #620 closure. This delivers the renderer subset;
 it does not close this review or qualify the future installed pair.
 
+## Native placement and newer Pandas — 2026-11-06
+
+The recorded `_native_placers.py` deprecations still reproduce on current main
+with exact unpacked Pandas 3.1.0. Six new public guards fail on `Pandas4Warning`
+when restoring hydrogens/heavy atoms or adding cappings, using both MolSys and
+MolSysDict inputs with two structures. All warnings are errors; filtering only
+FutureWarning would miss this provider's deprecation category.
+
+The build helper repeats endpoint normalization and ordering immediately before
+the existing ChemicalStates setter performs the same work. Remove that duplicate
+private helper and let the established chemical owner normalize typed storage.
+The replacement guards check expected groups/counts, canonical bond pairs and
+nullable dtypes, retained old bonds and coordinates, both structures, result form
+and input independence. This changes no placement formula, public signature,
+supported chemistry or source/provider floor. Original private-helper tests are
+superseded by the public pipeline controls and existing chemical-owner tests.
+
+The first test-authoring attempt also exposes a fixture error: MolSysDict 0.2
+correctly rejects the builder's experimental mechanics domain. The fixture now
+omits that domain explicitly before transport; this does not change production
+persistence or discard user data. The corrected original receiving has six
+failures from the one reproduced Pandas deprecation, not six independent bugs.
+
+Corrected combined receiving passes 965 native-placement, chemical-storage,
+periodic and vector cases on exact Pandas 3.1.0, without failures or omissions.
+Production placement no longer emits the deprecated sort/reset warnings. Two
+Pandas4Warning instances remain in an existing test fixture's own `drop` call;
+the other 120 warnings are retained molecular/legacy-format diagnostics. The six
+new public controls reject every warning and pass. Their first post-repair run
+also exposed an invalid test lookup of nonexistent `MolSys.n_atoms`; it now uses
+the supported native `get(n_atoms=True)`. No public attribute is added for a test.
+
+That broader receiving independently discovers #621: a fixed-state H consumer
+retains the MIC helper's pre-phase-two signature. Its dedicated owner record and
+regression distinguish this correction from the Pandas compatibility repair.
+
+## Support-provider floor receiving — 2026-11-06
+
+Independent Anaconda release queries confirm the selected exact noarch builds
+under `main`: PyUnitWizard 0.28.1 build py_0, mmCIF 1.1.1 build py_0, ArgDigest
+0.14.0 build py_0, DepDigest 0.15.1 build py_0 and SMonitor 0.16.0 build py_1.
+Archive SHA-256 and every imported Python payload match the existing cache.
+PyUnitWizard's cache had a historical staging URL; the public main endpoint now
+independently supplies the same artifact identity. No provider is installed or
+replaced in the shared development environment.
+
+| Provider floor received | Actual consumed boundary and receiving |
+| --- | --- |
+| PyUnitWizard 0.28.1 | Active-policy authority, quantity conversion/context, float64 coordinate preparation and QuantityRecord/RecordError serialization through public structures YAML and CCD records. |
+| mmCIF 1.1.1 | IoAdapter text input, BinaryCifReader, PdbxReader with selectList, DataContainer/DataCategory getters and explicit/gzipped/CCD resource handling. |
+| ArgDigest 0.14.0 | AliasTable, Domain, FunctionContract, caller helpers, scientific-array pipeline and strict Boolean bypass; native context, precision and argument-contract controls. |
+| DepDigest 0.15.1 | DeclaredRegistry with adapter loading, lookup/failure causes, retry/refresh, visibility and selective public conversion; availability guards remain separate from metadata inspection. |
+| SMonitor 0.16.0 | Signal, catalog diagnostics, structured exception/warning bundles, profile resolution and warning reconstruction; no dependency on the newer private catalog helper because the host retains its documented fallback. |
+
+The selected source profile passes 581 cases and explicitly skips 14 optional
+ownership-study cases that require ArgDigest >=0.17.0. Those omissions do not
+establish coverage at 0.14.0 and do not justify raising the runtime floor merely
+to run an optional study. A separate 133-case profile passes actual CCD parsing,
+fixed-state preparation including the #621 controls, and the three public
+preparation doctests with these same public provider payloads. Scopes overlap.
+
+As in the earlier floor harness, only the development distribution's newer
+`smonitor` pytest bridge is disabled with `-p no:smonitor`, because that entry
+point is absent in 0.16.0. The SMonitor core, real catalog/handler tests,
+Pytest Receptor and xdist remain active. Ordinary development qualification
+keeps its normal plugin enabled. This is not clean installed-runtime closure
+or optional-engine/version-matrix qualification.
+
+Optional Ackredit 0.9.0 is also received from its actual public `main` archive.
+The historical locally built cache archive has a different container SHA-256;
+all 62 Python files nevertheless match the public payload byte-for-byte. The
+current floor profile imports a separately unpacked, hash-verified public
+archive. Earlier code-level receiving is source-parity evidence, not proof of
+that local archive's canonical installed-artifact identity. No Ackredit runtime
+defect was found; no provider issue or source modification is warranted by a
+different local build container alone.
+
+These results ground the retained support-provider floors. The reviewed values
+in pyproject.toml remain unchanged. Finish the remaining optional-feature and
+NumPy restriction review and the actual Viewer acquisition boundary below;
+these source profiles do not close #524.
+
+Placement source `4f8b0336425292608490b8217e43de2d003ca6f1` and the
+[support-floor receipt](../../devtools/data/runtime_support_floor_receiving_524_20261106.json)
+retain all three changed placement/test files, actual public artifacts and
+import origins, original failed attempts, commands, exits and the fourteen
+explicit ownership-study omissions. Thirteen additional strict Pandas/placement
+controls pass without warnings, including the existing chemical owner's empty,
+reversed and metadata-bearing tables. Scopes overlap. #621's separate receiving
+binds its consumer correction and preserves its responsibility independently.
+
 ## Remaining scope and acceptance criteria
 
-- Qualify core API/ABI probes and align justified hard floors in source, both
-  recipes and runtime-bearing environments; retain optionality and Python support.
-- Review the existing suite-provider floors (mmcif, PyUnitWizard, ArgDigest,
-  DepDigest, SMonitor), recording consumed APIs rather than replacing them blindly.
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
-  receiving and the redesigned host's eventual public release remain distinct.
+  receiving and the redesigned host's eventual public release remain distinct;
+  complete clean installed-runtime closure with the actual qualified host artifact.
 - Review every optional runtime-feature declaration, including the documented
   PyParsing exclusion; source-inventory inspection is not optional-engine qualification.
 - For each retained bound/exclusion, record exact provider behavior, owner and

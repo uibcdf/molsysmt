@@ -1,0 +1,582 @@
+{
+  "created_at": "2026-11-07T01:05:17.441728+00:00",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "pytest_workers": 12,
+  "environment_changed": false,
+  "backend_rebuilt": false,
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "owning_issue": "uibcdf/molsysmt#524",
+  "implementation_commit": "4f8b0336425292608490b8217e43de2d003ca6f1",
+  "implementation_file_sha256": {
+    "molsysmt/build/_native_placers.py": "0621392ecc3c9d04b8175faaf1c6feec175fd5525daf9b422714ece4f8ddec0f",
+    "tests/build/test_native_placers.py": "fee2c31ff580719589480eeaab5cfc54f839fe2b7c7b2a01555ce9a856abd2d7",
+    "tests/build/test_native_placement_provider_compatibility.py": "99f1a94bbde5109cc956cf956d2e054e9d0d70e4086a31db58650a7fb9c4838e"
+  },
+  "schema_version": "molsysmt.runtime_support_floor_receiving@1",
+  "status": "partial",
+  "metadata_floors_changed": false,
+  "placement_contract": {
+    "change": "Remove build._sort_bonds_inplace and its two redundant calls. The existing ChemicalStates setter owns normalization, canonical ordering, nullable dtypes and chemical metadata.",
+    "guard": "tests/build/test_native_placement_provider_compatibility.py: six public MolSys/MolSysDict preparation cases with two structures, every warning promoted to error, exact old-atom/coordinate preservation and retained bonds.",
+    "superseded_tests": "Three tests of the deleted private helper are replaced by public pipeline controls plus existing chemical-owner strict ordering/metadata controls.",
+    "unchanged": "Scientific placement, supported chemistry, units and public signatures."
+  },
+  "test_profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-placement-before.xml",
+      "sha256": "0a238469589c77a5b65adb2000e4b793cbb1ec677797800ee72031cbe70531c8",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 6,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "scope": "Initial test authoring: three actual Pandas deprecations and three fixture rejections because MolSysDict deliberately excludes experimental mechanics."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-placement-counterexamples.xml",
+      "sha256": "614a14a47093d0e6450040d266e606140a048a7323cd4fc79a676d54cf952efe",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 6,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "scope": "Corrected original fixture: six Pandas4Warning failures; every warning is an error, not just FutureWarning."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-placement-pandas31.xml",
+      "sha256": "c743a06bc940d9717d066677f269d43885aee3cf4e2319cf853485e2ca082095",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 253,
+        "failures": 9,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 244
+      },
+      "scope": "First expanded receiving: 244 pass; six newly authored MolSys.n_atoms test lookup mistakes and three independent #621 consumer failures."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-524-pandas31-integrated.xml",
+      "sha256": "27e9402f26fb3fd7c1efd98e6026d4c7105b533fdf1d0cf2b51fe49893e4fddc",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 965,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 965
+      },
+      "scope": "Exact Pandas 3.1.0 overlay: native placement, two chemical-owner modules, complete PBC selection and public vectors. 965 cases; no skips.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/build/test_native_placement_provider_compatibility.py",
+        "tests/build/test_native_placers.py",
+        "tests/build/add_missing_hydrogens",
+        "tests/build/add_missing_heavy_atoms",
+        "tests/build/add_missing_terminal_cappings",
+        "tests/native/test_chemical_state_storage.py",
+        "tests/native/test_chemical_state_edits.py",
+        "tests/pbc",
+        "tests/structure/test_get_vectors.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/621-524-pandas31-integrated.xml"
+      ],
+      "pythonpath": [
+        ".pytest_cache/stabilization-524/unpacked/pandas",
+        ".",
+        ".pytest_cache/pr543-viewer-4223-20261105",
+        ".pytest_cache/stabilization-551/tooling/published"
+      ],
+      "retained_warnings": {
+        "total": 122,
+        "fixture_Pandas4Warning": 2,
+        "molecular_or_legacy_diagnostics": 120,
+        "fixture_location": "tests/build/add_missing_hydrogens/test_fixed_state.py:229; existing inplace drop in input construction, not production placement."
+      }
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-524-directed.xml",
+      "sha256": "96f3b6cd57cbbdead510451d874fc9ee7a83739fb3681b2bf7e5e9dd2f4c7d0f",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 60,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 60
+      },
+      "scope": "Ordinary development Pandas: complete fixed-state H tests plus six public placement compatibility cases; 60 pass.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/build/add_missing_hydrogens/test_fixed_state.py",
+        "tests/build/test_native_placement_provider_compatibility.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/621-524-directed.xml"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-placement-owner-pandas31.xml",
+      "sha256": "ecde4dafe33444d87b6440a590c3fb3a60e7afd738fe399755324cf134e0b544",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 13
+      },
+      "scope": "Thirteen public-placement and existing owner strict Pandas controls, including empty/reversed/unsorted typed tables and metadata; zero warnings."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/524-support-public-floors.xml",
+      "sha256": "43061023559cceacd3d82a2daa044f95084ef441f27ac5ce4eb343a0359185fc",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 595,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 14,
+        "passed": 581
+      },
+      "scope": "581 actual consumer cases pass with all five required support floors and public Ackredit 0.9.0; 14 optional ArgDigest ownership-study cases explicitly skip at 0.14.0.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/cross_repo/test_smonitor_contracts.py",
+        "tests/_private/smonitor",
+        "tests/_private/test_smonitor_catalog_integrity.py",
+        "tests/basic/test_configuration_context.py",
+        "tests/structure/test_native_precision_policy.py",
+        "tests/form/test_declared_registry_integration.py",
+        "tests/form/file_structures_yaml/test_alternate_quantity_records.py",
+        "tests/form/mmcif_PdbxContainers_DataContainer",
+        "tests/form/file_cif/test_to_molsysmt_native.py",
+        "tests/form/file_cif_gz/test_to_molsysmt_native.py",
+        "tests/form/file_bcif/test_to_molsysmt_native.py",
+        "tests/form/file_bcif_gz/test_to_molsysmt_native.py",
+        "tests/test_ackredit.py",
+        "tests/interactions/test_scientific_attribution.py",
+        "tests/_private/argdigest/test_digester_contract.py",
+        "tests/_private/argdigest/test_scientific_array_digesters.py",
+        "tests/_private/argdigest/test_contract_ownership_receiving.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-support-public-floors.xml"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-524-support-floor-parser.xml",
+      "sha256": "93e85693fae13598e2fde94ecd0c680f06babf986e82eeb12994fedf2e0fb5e4",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 133,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 133
+      },
+      "scope": "133 additional public CCD/source parsing, fixed-state H and preparation doctest cases on the same exact support-provider floors; zero skips.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/physchem/test_get_chemical_template.py",
+        "tests/physchem/test_ccd_reference_chemistry.py",
+        "tests/build/add_missing_hydrogens/test_fixed_state.py",
+        "--doctest-modules",
+        "molsysmt/build/add_missing_hydrogens.py",
+        "molsysmt/build/add_missing_heavy_atoms.py",
+        "molsysmt/build/add_missing_terminal_cappings.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/621-524-support-floor-parser.xml"
+      ],
+      "retained_warnings": {
+        "StructuralAttributeDropWarning": 5
+      }
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-documentation.xml",
+      "sha256": "19b5db4fe6b31fb72516e53211fdb44bcc0ff3d2900b25cef91f5af67195f8bb",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 543,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 543
+      },
+      "scope": "543 notebook-schema, heading, course and public API documentation cases; prose-only course change retains executable payloads.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "devtools/tests/test_documentation_notebook_schema.py",
+        "devtools/tests/test_documentation_heading_structure.py",
+        "devtools/tests/test_validate_course.py",
+        "devtools/tests/test_public_api_docs.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/621-documentation.xml"
+      ],
+      "retained_warnings": {
+        "RemovedInSphinx11Warning": 202,
+        "LegacyH5MSMWarning": 3
+      }
+    }
+  ],
+  "public_artifacts": {
+    "created_at": "2026-11-07T00:48:02.907194+00:00",
+    "providers": [
+      {
+        "name": "ackredit",
+        "version": "0.9.0",
+        "build": "py_0",
+        "basename": "noarch/ackredit-0.9.0-py_0.tar.bz2",
+        "labels": [
+          "staging",
+          "main"
+        ],
+        "public_main": true,
+        "sha256": "37661090f6ad19a74b8155d8a4d4b4a068c9099f4ceba0743b3abfe887e97fe1",
+        "cached_archive_sha256": "99e6f9b9f0a3b0a22c66e476230dddabd2ba0017c59beb3253fbadc781d665c6",
+        "cached_archive_matches_public": false,
+        "public_payload_python_files_match": 62,
+        "different_cached_python_files": [],
+        "api_endpoint": "https://api.anaconda.org/release/uibcdf/ackredit/0.9.0",
+        "payload_origin": ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0",
+        "runtime_depends": [
+          "argdigest >=0.13.0",
+          "depdigest >=0.11.0",
+          "python >=3.11,<3.15",
+          "pyyaml >=6",
+          "smonitor >=0.16.0"
+        ]
+      },
+      {
+        "name": "argdigest",
+        "version": "0.14.0",
+        "build": "py_0",
+        "basename": "noarch/argdigest-0.14.0-py_0.tar.bz2",
+        "labels": [
+          "staging",
+          "main"
+        ],
+        "public_main": true,
+        "sha256": "983dca0f6bd0944d81fb1efc01e1dfa5c951e95abac6e7a0a08a13b7370d3b9e",
+        "cached_archive_sha256": "983dca0f6bd0944d81fb1efc01e1dfa5c951e95abac6e7a0a08a13b7370d3b9e",
+        "cached_archive_matches_public": true,
+        "public_payload_python_files_match": 37,
+        "different_cached_python_files": [],
+        "api_endpoint": "https://api.anaconda.org/release/uibcdf/argdigest/0.14.0",
+        "payload_origin": "existing Conda cache: argdigest-0.14.0-py_0",
+        "runtime_depends": [
+          "depdigest >=0.11.0",
+          "python >=3.11,<3.15",
+          "smonitor >=0.16.0"
+        ]
+      },
+      {
+        "name": "depdigest",
+        "version": "0.15.1",
+        "build": "py_0",
+        "basename": "noarch/depdigest-0.15.1-py_0.tar.bz2",
+        "labels": [
+          "staging",
+          "main"
+        ],
+        "public_main": true,
+        "sha256": "2765c692de4e6aacff4197c4226ebb42ec1f0df9edb27e92f196ef1390cb1850",
+        "cached_archive_sha256": "2765c692de4e6aacff4197c4226ebb42ec1f0df9edb27e92f196ef1390cb1850",
+        "cached_archive_matches_public": true,
+        "public_payload_python_files_match": 17,
+        "different_cached_python_files": [],
+        "api_endpoint": "https://api.anaconda.org/release/uibcdf/depdigest/0.15.1",
+        "payload_origin": "existing Conda cache: depdigest-0.15.1-py_0",
+        "runtime_depends": [
+          "python >=3.11,<3.15",
+          "smonitor >=0.13.0"
+        ]
+      },
+      {
+        "name": "py-mmcif",
+        "version": "1.1.1",
+        "build": "py_0",
+        "basename": "noarch/py-mmcif-1.1.1-py_0.tar.bz2",
+        "labels": [
+          "main"
+        ],
+        "public_main": true,
+        "sha256": "dff089e19d9d6282e94dce5f7ef64717b04a44fd83a3a7b46d1d94b2d318d933",
+        "cached_archive_sha256": "dff089e19d9d6282e94dce5f7ef64717b04a44fd83a3a7b46d1d94b2d318d933",
+        "cached_archive_matches_public": true,
+        "public_payload_python_files_match": 24,
+        "different_cached_python_files": [],
+        "api_endpoint": "https://api.anaconda.org/release/uibcdf/py-mmcif/1.1.1",
+        "payload_origin": "existing Conda cache: py-mmcif-1.1.1-py_0",
+        "runtime_depends": [
+          "msgpack-python",
+          "python >=3.8",
+          "requests >=2.25"
+        ]
+      },
+      {
+        "name": "pyunitwizard",
+        "version": "0.28.1",
+        "build": "py_0",
+        "basename": "noarch/pyunitwizard-0.28.1-py_0.tar.bz2",
+        "labels": [
+          "staging",
+          "main"
+        ],
+        "public_main": true,
+        "sha256": "d4654faf93ed4181bf331f7d382379e78f02784f71f678ad19d0ac43d8062cc6",
+        "cached_archive_sha256": "d4654faf93ed4181bf331f7d382379e78f02784f71f678ad19d0ac43d8062cc6",
+        "cached_archive_matches_public": true,
+        "public_payload_python_files_match": 84,
+        "different_cached_python_files": [],
+        "api_endpoint": "https://api.anaconda.org/release/uibcdf/pyunitwizard/0.28.1",
+        "payload_origin": "existing Conda cache: pyunitwizard-0.28.1-py_0",
+        "runtime_depends": [
+          "argdigest >=0.14.0",
+          "depdigest >=0.11.0",
+          "numpy",
+          "pint",
+          "python >=3.11,<3.15",
+          "smonitor >=0.16.0"
+        ]
+      },
+      {
+        "name": "smonitor",
+        "version": "0.16.0",
+        "build": "py_1",
+        "basename": "noarch/smonitor-0.16.0-py_1.tar.bz2",
+        "labels": [
+          "staging",
+          "main"
+        ],
+        "public_main": true,
+        "sha256": "a7f0ea073786354695c606e89959e67fcd4afc910a42683bba00955eb17163d7",
+        "cached_archive_sha256": "a7f0ea073786354695c606e89959e67fcd4afc910a42683bba00955eb17163d7",
+        "cached_archive_matches_public": true,
+        "public_payload_python_files_match": 36,
+        "different_cached_python_files": [],
+        "api_endpoint": "https://api.anaconda.org/release/uibcdf/smonitor/0.16.0",
+        "payload_origin": "existing Conda cache: smonitor-0.16.0-py_1",
+        "runtime_depends": [
+          "python >=3.11,<3.15"
+        ]
+      }
+    ],
+    "errors": [],
+    "environment_modified": false,
+    "initial_attempt": "A strict cache-identity probe failed on the locally built Ackredit archive before writing its receipt. This acquisition preserves every provider outcome and receives the actual public payload separately."
+  },
+  "floor_import_origins": {
+    "python": "3.14.7",
+    "providers": {
+      "pyunitwizard": {
+        "version": "0.28.1",
+        "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "mmcif": {
+        "version": "1.1.1",
+        "origin": "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages/mmcif/__init__.py",
+        "module_sha256": "4c038245503928953375159410bcf28234ba3ad3539fb47f8cc1d310dfc657d9"
+      },
+      "argdigest": {
+        "version": "0.14.0",
+        "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+        "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+      },
+      "depdigest": {
+        "version": "0.15.1",
+        "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "smonitor": {
+        "version": "0.16.0",
+        "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+        "module_sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+      },
+      "ackredit": {
+        "version": "0.9.0",
+        "origin": ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages/ackredit/__init__.py",
+        "module_sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "origin": "shared development prefix: lib/python3.14/site-packages/numpy/__init__.py",
+        "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+      },
+      "pandas": {
+        "version": "2.3.3",
+        "origin": "shared development prefix: lib/python3.14/site-packages/pandas/__init__.py",
+        "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+      },
+      "pytest_receptor": {
+        "version": "1.2.1",
+        "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+        "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+      }
+    }
+  },
+  "floor_environment": {
+    "pythonpath": [
+      "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+      "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+      "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+      "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+      "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+      ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+      ".",
+      ".pytest_cache/pr543-viewer-4223-20261105",
+      ".pytest_cache/stabilization-551/tooling/published"
+    ],
+    "disabled_entrypoint": "Only the development distribution newer smonitor pytest bridge, absent in public 0.16.0. Core SMonitor, actual catalog/handler tests, Pytest Receptor and xdist remain active; normal development runs keep the bridge.",
+    "optional_ownership_study": "Fourteen tests deliberately require ArgDigest >=0.17.0 and remain explicit skips; do not count them as 0.14.0 evidence."
+  },
+  "source_import_inventory": {
+    "artifact": ".pytest_cache/pre1-review-20261106/524-consumed-provider-imports.json",
+    "sha256": "b28a029b4797e22aa0bb3e783cafe261144f1bc6231a84ab61f4249a0bd183c8",
+    "scope": "AST import inventory at source d6f1d95c5; not full dynamic call coverage.",
+    "support_symbols": {
+      "mmcif": [
+        "mmcif.io.BinaryCifReader.BinaryCifReader",
+        "mmcif.io.IoAdapter",
+        "mmcif.io.PdbxReader.PdbxReader"
+      ],
+      "pyunitwizard": [
+        "pyunitwizard",
+        "pyunitwizard.record.QuantityRecord",
+        "pyunitwizard.record.RecordError"
+      ],
+      "argdigest": [
+        "argdigest.AliasTable",
+        "argdigest.Domain",
+        "argdigest.FunctionContract",
+        "argdigest.arg_digest",
+        "argdigest.core.caller.caller_is_one_of",
+        "argdigest.core.caller.caller_matches",
+        "argdigest.core.caller.caller_startswith",
+        "argdigest.pipelines.science.to_float64_array"
+      ],
+      "depdigest": [
+        "depdigest",
+        "depdigest.DeclaredRegistry",
+        "depdigest.check_dependency",
+        "depdigest.dep_digest",
+        "depdigest.get_info",
+        "depdigest.is_installed"
+      ],
+      "smonitor": [
+        "smonitor.integrations.CatalogException",
+        "smonitor.integrations.CatalogWarning",
+        "smonitor.integrations.DiagnosticBundle",
+        "smonitor.integrations.FormatError",
+        "smonitor.integrations.InconsistencyError",
+        "smonitor.integrations._catalog_entry",
+        "smonitor.integrations.context_extra",
+        "smonitor.integrations.emit_from_catalog",
+        "smonitor.integrations.ensure_configured",
+        "smonitor.integrations.merge_extra",
+        "smonitor.signal"
+      ]
+    }
+  },
+  "receiving_limits": {
+    "cache_Ackredit": "Local build container differs from the public archive, but all 62 Python files match. Current receiving unpacks/imports the independently hash-verified canonical public archive. Earlier source parity is distinct from artifact identity.",
+    "initial_probe": "Strict artifact-cache identity probe failed on Ackredit before writing its receipt; replacement acquisition preserves outcomes and receives the canonical archive. No provider runtime defect was found.",
+    "broad_import_inventory_search": "An overly broad ignored-cache filename scan was interrupted with exit 130 and supplies no evidence; subsequent bounded existing-cache paths identify providers.",
+    "scientific_receiving": {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-scientific.json",
+      "sha256": "74598c26c79e4c8b14e5e6bf12293d23e5f659565d648f6e91ab001d4412f53a",
+      "command": [
+        "python",
+        "devtools/scripts/execute_scientific_evidence.py",
+        "--receptor=llm",
+        "--certificate",
+        ".pytest_cache/pre1-review-20261106/621-scientific.json"
+      ],
+      "process_exit_code": 0,
+      "summary": {
+        "schema_version": "molsysmt.scientific-evidence-execution@1",
+        "verdict": "pass",
+        "commit": "d6f1d95c54f36760ebcaf7e8a096b972559b8354",
+        "tracked_source_dirty": true,
+        "release_eligible": false,
+        "created_at": "2026-11-07T01:00:41.887177+00:00",
+        "python": "3.14.7",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+        "registered_nodes": 64,
+        "collected_cases": 97,
+        "passed": 97,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0
+      },
+      "node_count": 64,
+      "retained_warnings": {
+        "LegacyH5MSMWarning": 1
+      }
+    }
+  },
+  "remaining_scope": [
+    "Optional runtime-feature minima and current exclusions, including MDTraj/PyParsing.",
+    "Disposition of the existing NumPy version ceiling against the actual rust-numpy ABI guard; no NumPy 3 artifact was tested.",
+    "Actual public Viewer acquisition/floor and clean installed runtime closure.",
+    "Immutable owner delivery under MolSysSuite #137 after these criteria are complete."
+  ],
+  "limits": [
+    "Profiles overlap and must not be summed as unique cases.",
+    "Source/controlled-provider receiving is not a clean installed runtime, graphical acceptance, full platform matrix or release certificate.",
+    "Scientific certificate correctly retains pre-commit dirty source and release_eligible=false. Tested source bytes are bound separately.",
+    "Four pre-existing human autosummary edits and the compiled backend remain unchanged.",
+    "No new workflow, tag, Release, upload or promotion is performed. Work commits use [skip ci].",
+    "Phase-three review remains incomplete; accepted plan progress stays 40%."
+  ],
+  "additional_checks": {
+    "fast_gate": {
+      "command": [
+        "python",
+        "devtools/scripts/release_gate.py"
+      ],
+      "process_exit_code": 0,
+      "passed": 14,
+      "total": 14,
+      "scope": "Local fast source/metadata gates only; full matrix and installed pair remain due."
+    },
+    "ruff_check": "Six affected Python files pass",
+    "ruff_format": "Six affected Python files already formatted",
+    "devguide_index": "pass",
+    "whitespace_diff": "pass",
+    "course_structure": "156 notebooks pass",
+    "human_files_and_backend": "Four protected human files and existing compiled backend unchanged."
+  }
+}

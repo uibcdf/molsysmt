@@ -66,6 +66,20 @@ maintainer's renewed direction; remote qualification stays with agreed checkpoin
 Preserve the #616/#613 consumer reports on PR #543 integration rather than
 reintroducing duplicate pending records.
 
+The subsequent #524 support-floor review now receives five required published
+providers: 581 consumer cases pass with 14 explicit optional ArgDigest-study
+omissions, and 133 additional parser/preparation/doctest cases pass without
+omissions. Existing floors are retained. Placement source `4f8b03364` removes
+redundant deprecated Pandas sorting and uses ChemicalStates normalization.
+The same broader review discovers #621's missed phase-two MIC caller; source
+`2804f7954` restores the periodic fixed-state H boundary. Combined exact-Pandas-
+3.1.0 receiving passes 965, documentation 543 and scientific execution 97 cases;
+profiles overlap. See the [support-floor receipt](../devtools/data/runtime_support_floor_receiving_524_20261106.json)
+and [#621 receipt](../devtools/data/periodic_fixed_state_hydrogens_receiving_621_20261106.json).
+Public delivery and #621 closure follow verification. #524 remains partial for
+optional-provider/NumPy restrictions, actual Viewer acquisition and installed
+closure. No new remote CI or publication is selected; progress remains 40%.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign

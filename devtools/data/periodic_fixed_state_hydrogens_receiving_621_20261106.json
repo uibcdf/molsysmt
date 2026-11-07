@@ -1,0 +1,270 @@
+{
+  "created_at": "2026-11-07T01:05:17.441728+00:00",
+  "plan_issue": "uibcdf/molsysmt#334",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "pytest_workers": 12,
+  "environment_changed": false,
+  "backend_rebuilt": false,
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "owning_issue": "uibcdf/molsysmt#621",
+  "implementation_commit": "2804f7954fa14be72844bf6a30c37988f2dad71b",
+  "implementation_file_sha256": {
+    "molsysmt/_private/fixed_hydrogens.py": "f19c0b903e55241a908c9dfec655dc5100ea1d386b08f54eba6912a1463aae0e",
+    "molsysmt/build/add_missing_hydrogens.py": "bd120f9d85edd275456b7766df8831482511a2d4d5751dd1fb8eb62bc391458e",
+    "tests/build/add_missing_hydrogens/test_fixed_state.py": "fb863fb0a4a5569a4726f39c78ee695e4d8ad81646b888634c9e75159cabc9e8",
+    "docs/content/user/tools/build/fixed_state_hydrogens.md": "2b937d72c626fd666a3e40bc10aa92a9ca74d18f5ce151e2faa6870edac090d7",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "0afc9f3905b3589f82797b8563cb8225117e6c8ebccc55a49299640b6bac172e"
+  },
+  "schema_version": "molsysmt.periodic_fixed_state_hydrogens_receiving@1",
+  "source_parent": "d6f1d95c54f36760ebcaf7e8a096b972559b8354",
+  "introduced_by": "3eb720444b97f77f9325acf52f55114ece0b5f9e",
+  "contract": {
+    "correction": "Update the sole missed consumer to the supported two-argument general MIC helper; remove its obsolete inverse calculation. No compatibility shim or new formula.",
+    "supported": "Compact periodic input preserves the original pose, box, chemical state and structure/state link. Split bonded inputs reject before publication.",
+    "units": "Literal compact/split controls cover rotated orthogonal and skewed row cells under nm/angstrom/pm application policies, with angstrom box input.",
+    "scientific_attribution": "RDKit placement and existing Ackredit references are unchanged; this is a call-boundary repair.",
+    "independence": "Successful and rejected results retain unchanged source atoms, old positions, bonds and boxes."
+  },
+  "test_profiles": [
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/fixed-hydrogens-mic-counterexamples.xml",
+      "sha256": "b241790ee6e193eb6e4e5335fac0ea0e7cfb638112e9ac6ade4f8026424892ee",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 9,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 6
+      },
+      "scope": "Three pre-existing fixed-state periodic failures on ordinary Pandas, six independent placement controls pass."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-expanded-counterexamples.xml",
+      "sha256": "b73635a6f37b436c13224bd630f95b8c71ba3f718a0e2167095147615fd9af8a",
+      "process_exit_code": 1,
+      "counts": {
+        "tests": 12,
+        "failures": 12,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "scope": "Twelve added rotated/skewed, compact/split, unit-policy controls fail on the same TypeError before repair."
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-524-directed.xml",
+      "sha256": "96f3b6cd57cbbdead510451d874fc9ee7a83739fb3681b2bf7e5e9dd2f4c7d0f",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 60,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 60
+      },
+      "scope": "Ordinary development Pandas: complete fixed-state H tests plus six public placement compatibility cases; 60 pass.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/build/add_missing_hydrogens/test_fixed_state.py",
+        "tests/build/test_native_placement_provider_compatibility.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/621-524-directed.xml"
+      ]
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-524-pandas31-integrated.xml",
+      "sha256": "27e9402f26fb3fd7c1efd98e6026d4c7105b533fdf1d0cf2b51fe49893e4fddc",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 965,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 965
+      },
+      "scope": "Exact Pandas 3.1.0 overlay: native placement, two chemical-owner modules, complete PBC selection and public vectors. 965 cases; no skips.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/build/test_native_placement_provider_compatibility.py",
+        "tests/build/test_native_placers.py",
+        "tests/build/add_missing_hydrogens",
+        "tests/build/add_missing_heavy_atoms",
+        "tests/build/add_missing_terminal_cappings",
+        "tests/native/test_chemical_state_storage.py",
+        "tests/native/test_chemical_state_edits.py",
+        "tests/pbc",
+        "tests/structure/test_get_vectors.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/621-524-pandas31-integrated.xml"
+      ],
+      "pythonpath": [
+        ".pytest_cache/stabilization-524/unpacked/pandas",
+        ".",
+        ".pytest_cache/pr543-viewer-4223-20261105",
+        ".pytest_cache/stabilization-551/tooling/published"
+      ],
+      "retained_warnings": {
+        "total": 122,
+        "fixture_Pandas4Warning": 2,
+        "molecular_or_legacy_diagnostics": 120,
+        "fixture_location": "tests/build/add_missing_hydrogens/test_fixed_state.py:229; existing inplace drop in input construction, not production placement."
+      }
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-524-support-floor-parser.xml",
+      "sha256": "93e85693fae13598e2fde94ecd0c680f06babf986e82eeb12994fedf2e0fb5e4",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 133,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 133
+      },
+      "scope": "133 additional public CCD/source parsing, fixed-state H and preparation doctest cases on the same exact support-provider floors; zero skips.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-p",
+        "no:smonitor",
+        "-n",
+        "12",
+        "tests/physchem/test_get_chemical_template.py",
+        "tests/physchem/test_ccd_reference_chemistry.py",
+        "tests/build/add_missing_hydrogens/test_fixed_state.py",
+        "--doctest-modules",
+        "molsysmt/build/add_missing_hydrogens.py",
+        "molsysmt/build/add_missing_heavy_atoms.py",
+        "molsysmt/build/add_missing_terminal_cappings.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/621-524-support-floor-parser.xml"
+      ],
+      "retained_warnings": {
+        "StructuralAttributeDropWarning": 5
+      }
+    },
+    {
+      "artifact": ".pytest_cache/pre1-review-20261106/621-documentation.xml",
+      "sha256": "19b5db4fe6b31fb72516e53211fdb44bcc0ff3d2900b25cef91f5af67195f8bb",
+      "process_exit_code": 0,
+      "counts": {
+        "tests": 543,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 543
+      },
+      "scope": "543 notebook-schema, heading, course and public API documentation cases; prose-only course change retains executable payloads.",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "devtools/tests/test_documentation_notebook_schema.py",
+        "devtools/tests/test_documentation_heading_structure.py",
+        "devtools/tests/test_validate_course.py",
+        "devtools/tests/test_public_api_docs.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/621-documentation.xml"
+      ],
+      "retained_warnings": {
+        "RemovedInSphinx11Warning": 202,
+        "LegacyH5MSMWarning": 3
+      }
+    }
+  ],
+  "scientific_execution": {
+    "artifact": ".pytest_cache/pre1-review-20261106/621-scientific.json",
+    "sha256": "74598c26c79e4c8b14e5e6bf12293d23e5f659565d648f6e91ab001d4412f53a",
+    "command": [
+      "python",
+      "devtools/scripts/execute_scientific_evidence.py",
+      "--receptor=llm",
+      "--certificate",
+      ".pytest_cache/pre1-review-20261106/621-scientific.json"
+    ],
+    "process_exit_code": 0,
+    "summary": {
+      "schema_version": "molsysmt.scientific-evidence-execution@1",
+      "verdict": "pass",
+      "commit": "d6f1d95c54f36760ebcaf7e8a096b972559b8354",
+      "tracked_source_dirty": true,
+      "release_eligible": false,
+      "created_at": "2026-11-07T01:00:41.887177+00:00",
+      "python": "3.14.7",
+      "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+      "registered_nodes": 64,
+      "collected_cases": 97,
+      "passed": 97,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0
+    },
+    "node_count": 64,
+    "retained_warnings": {
+      "LegacyH5MSMWarning": 1
+    }
+  },
+  "documentation_preservation": {
+    "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+    "changed_markdown_cells": [
+      6
+    ],
+    "code_outputs_ids_metadata_preserved": true,
+    "sha256": "0afc9f3905b3589f82797b8563cb8225117e6c8ebccc55a49299640b6bac172e"
+  },
+  "execution_environment": {
+    "ordinary_pythonpath": [
+      ".",
+      ".pytest_cache/pr543-viewer-4223-20261105",
+      ".pytest_cache/stabilization-551/tooling/published"
+    ],
+    "variables": {
+      "MPLBACKEND": "Agg",
+      "OMP_NUM_THREADS": "1",
+      "OPENMM_CPU_THREADS": "1",
+      "GIT_CONFIG_COUNT": "1",
+      "GIT_CONFIG_KEY_0": "core.fsmonitor",
+      "GIT_CONFIG_VALUE_0": "false"
+    }
+  },
+  "limits": [
+    "Profiles overlap and must not be summed as unique cases.",
+    "Source/controlled-provider receiving is not a clean installed runtime, graphical acceptance, full platform matrix or release certificate.",
+    "Scientific certificate correctly retains pre-commit dirty source and release_eligible=false. Tested source bytes are bound separately.",
+    "Four pre-existing human autosummary edits and the compiled backend remain unchanged.",
+    "No new workflow, tag, Release, upload or promotion is performed. Work commits use [skip ci].",
+    "Phase-three review remains incomplete; accepted plan progress stays 40%."
+  ],
+  "additional_checks": {
+    "fast_gate": {
+      "command": [
+        "python",
+        "devtools/scripts/release_gate.py"
+      ],
+      "process_exit_code": 0,
+      "passed": 14,
+      "total": 14,
+      "scope": "Local fast source/metadata gates only; full matrix and installed pair remain due."
+    },
+    "ruff_check": "Six affected Python files pass",
+    "ruff_format": "Six affected Python files already formatted",
+    "devguide_index": "pass",
+    "whitespace_diff": "pass",
+    "course_structure": "156 notebooks pass",
+    "human_files_and_backend": "Four protected human files and existing compiled backend unchanged."
+  }
+}
