@@ -78,6 +78,8 @@ def translate(
     )
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
+    # A getter may return borrowed XYZ storage; publish edits only after success.
+    coordinates = np.array(coordinates, copy=True)
     translation = puw.get_value(translation, to_unit=length_unit)
 
     if translation.shape == (1, 1, 3):

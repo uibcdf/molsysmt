@@ -24,7 +24,7 @@ def rotate(
     """
     Rotate atomic coordinates of a selection by a given rotation.
 
-    The rotation is applied frame-by-frame.  If a ``rotation_center`` is provided,
+    The rotation is applied structure by structure. If a ``rotation_center`` is provided,
     the coordinates are first translated so that the center sits at the origin,
     rotated, then translated back.
 
@@ -70,7 +70,7 @@ def rotate(
     NotImplementedMethodError
         If ``rotation`` is not a supported type.
     StructuralInconsistencyError
-        If the number of per-frame or per-atom matrices cannot be broadcast to
+        If the number of per-structure or per-atom matrices cannot be broadcast to
         the selected coordinates.
 
 
@@ -78,6 +78,8 @@ def rotate(
     -----
     MolSysMT uses active proper rotations on row-vector coordinates. Distances
     and handedness are therefore preserved.
+    Independent outputs leave source coordinates unchanged, including XYZ
+    coordinate quantities. Computation does not edit borrowed input storage.
 
 
     See Also
@@ -86,6 +88,8 @@ def rotate(
         Translate selected coordinates.
     :func:`molsysmt.structure.least_rmsd_fit`
         Estimate and apply a least-RMSD rigid transformation.
+    :func:`molsysmt.structure.get_rotation_matrix_from_axis_angle`
+        Construct a matrix from an explicit axis and angular quantity.
 
 
     Examples
@@ -121,6 +125,8 @@ def rotate(
         coordinates = translate(coordinates, translation=-rotation_center)
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
+    # A getter may return borrowed XYZ storage; publish edits only after success.
+    coordinates = np.array(coordinates, copy=True)
 
     if isinstance(rotation, np.ndarray):
         shape = rotation.shape
@@ -128,7 +134,7 @@ def rotate(
         if shape[0] not in (1, coordinates.shape[0]):
             raise StructuralInconsistencyError(
                 reason=(
-                    f"Rotation matrices provide {shape[0]} frames but the "
+                    f"Rotation matrices provide {shape[0]} structures but the "
                     f"coordinate selection contains {coordinates.shape[0]}."
                 ),
                 caller="molsysmt.structure.rotate",
