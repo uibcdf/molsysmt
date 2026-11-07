@@ -22,11 +22,41 @@ cases, one doctest and actual principal-axis/error-lifetime Jupyter scenarios
 SMonitor keeps the native reason/code and conditional comparison advice. The
 [receiving record](../../devtools/data/native_structure_diagnostics_receiving_640_641_20261107.json)
 retains initial fixture failures, the final failing baseline and unchanged
-registered source inputs. Public delivery and owning issue closeout are being
-completed. Native expert external references already exist; the graphical
+registered source inputs. Source `49d1a720f` is public on main, all twenty changed/deleted paths match
+the complete public tree, and both issues are verified closed. Clean scientific
+execution passes 107 cases/68 nodes; Viewer #315 receives comment 6712967862.
+The [delivery record](../../devtools/data/native_structure_diagnostics_delivery_640_641_20261107.json)
+keeps installed/platform/candidate and human acceptance separate. Native expert external references already exist; the graphical
 fit workflow currently fixes the reference to the same molecular system.
 External references are the next finite accepted GUI package, with sequence
 matching, cell editing and all other accepted intents still required.
+
+## Next finite slice: an external molecular fitting reference
+
+Inspection of `_geometry_panel.py` shows that its fit review currently resolves
+reference atoms/structure only against the current molecular system and its
+apply step always passes `reference_molecular_system=None`. Native
+`structure.least_rmsd_fit` and the bound adapter already support a separate,
+form-agnostic reference; a new fitting algorithm is unnecessary.
+
+Expose an explicit external reference input and its independent reference
+structure and fitting selection through the reviewed panel. Preserve declared
+ordered atom correspondence, a separately chosen moving population, physical
+units and the native method. Reference data remain caller-owned inputs: no
+hidden edit, lock or scene synchronization of another view. Review must avoid
+an eager copy of an entire trajectory. Apply must retain managed edit/result
+publication, all-structure rejection atomicity, fixed boxes, analysis coverage
+invalidation and synchronization-only recovery.
+
+Receive a genuinely distinct reference under unequal source/reference structure
+counts, nonconsecutive/repeated source scopes, mixed physical units and an
+independent fitting atom order. Test missing/changed reference, unavailable
+coordinates, mismatched or degenerate anchors and unchanged reference data;
+check every selected/unselected coordinate and both current/independent effects.
+Actual Jupyter, Mol* geometry and popup controls must exercise the external
+reference before this leaf receives credit. A duplicate source result alone is
+insufficient. Sequence-derived correspondence is the following separate intent;
+no hidden sequence matching is added to the explicit-pair workflow.
 
 ## Geometry/principal axes — owner receiving 2026-11-07
 

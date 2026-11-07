@@ -5,9 +5,10 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-## Current native diagnostic correction — 2026-11-07
+## Current native diagnostic delivery — 2026-11-07
 
-The native #640/#641 corrections are locally qualified. Degeneracy now names
+The native #640/#641 corrections are published on main at `49d1a720f` and
+independently verified closed. Degeneracy now names
 both the molecular-system structure index and selected-array position; shared
 structural hints retain the reason and use conditional comparison advice for
 all four SMonitor audiences. The
@@ -19,17 +20,20 @@ compilation pass; six existing underline warnings and baseline-matching page
 errors remain visible. Four initial fixture/API/scope authoring attempts are
 retained separately. No runtime API or scientific criterion was weakened.
 
-Both owning records are archived with executable guards. Public source delivery,
-independent verification and issue/consumer closeout are being completed. The
-last complete board acquisition has 574 issues, 98 open, through #642, and no
-open PR. No newly numbered report changes the work order. Next is the accepted
+Both owning records are archived with executable guards. All twenty changed/
+deleted paths independently match the complete public Git tree. The
+[delivery receipt](../devtools/data/native_structure_diagnostics_delivery_640_641_20261107.json)
+records clean exact-source scientific execution (107 cases/68 nodes), verified
+closures and the MolSysViewer #315 handoff (comment 6712967862). The last complete
+board acquisition before these two closures has 574 issues, 98 open, through
+#642, and no open PR. No newly numbered report changes the work order. Next is the accepted
 #421 external-reference workflow, followed by sequence-derived fitting, cell
 editing and the remaining task/session families. Native/expert external
 references already exist; the current fit panel still fixes its reference to
 the same molecular system, so expert availability does not close that GUI leaf.
 
 Milestone progress remains **approximately 61%**, with **22/50 accepted graphical
-intents** and **30 publicly closed audit-related issues** before this pair's
+intents** and **32 publicly closed audit-related issues** after this pair's
 closeout. These two diagnostic repairs add no milestone bonus. The graphical
 intent inventory has only 2.5 global weight points in the preserved hierarchical
 formula; its counter is reported separately so small GUI deliveries stay visible.
@@ -1210,4 +1214,4 @@ what was known, decided, implemented and qualified at each checkpoint.
 
 | 2026-11-07 | Evidence-catalog correction source-qualified | #642 retains the complete stored label table and numeric codes through the typed constructor. Original reader: 32 failed/16 passing controls; correction: 3,098 integrated passes, eleven doctests, eight typed/two-analysis checks on the immutable real carrier. Historical consumer failures and producer metadata stay unchanged; no detector replay. | Public main `4d8af6c34` independently matches all eighteen changed/deleted paths; #642 is verified closed and DockingMT #80 receives comment 6712753798. Clean scientific execution passes 107/68 nodes. Continue #640/#641 and the next finite accepted GUI package. Supplemental repair adds no milestone bonus: approximately 61%; installed and candidate exits stay separate. |
 
-| 2026-11-07 | Native diagnostic corrections locally qualified | #640 maps source structure indices separately from selected positions. #641 preserves reason/code/type and general conditional guidance across all four audiences. Original baseline: 60 failed/2 controls; receiving: 701 cases, one doctest, two actual Jupyter scenarios, 14 fast gates and HTML with six retained warnings. | Finish public source/issue closeout, then the accepted #421 external-reference GUI workflow. Progress approximately 61%; graphical intents22/50. No installed/candidate or human acceptance is inferred. |
+| 2026-11-07 | Native diagnostic corrections locally qualified | #640 maps source structure indices separately from selected positions. #641 preserves reason/code/type and general conditional guidance across all four audiences. Original baseline: 60 failed/2 controls; receiving: 701 cases, one doctest, two actual Jupyter scenarios, 14 fast gates and HTML with six retained warnings. | Public main `49d1a720f` independently matches twenty changed/deleted paths; both issues are verified closed. Clean scientific execution passes 107/68 nodes. Viewer #315 receives comment 6712967862. Continue the accepted #421 external-reference GUI workflow. Progress approximately 61%; graphical intents22/50. No installed/candidate or human acceptance is inferred. |

@@ -811,20 +811,23 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#640",
-    "also": "uibcdf/molsysmt#641",
-    "record": "devguide/archive/resolved_bugs/principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md",
-    "owner_verification": "Both native corrections pass 701 integrated cases, one doctest and two actual Jupyter scenarios. Public delivery and source closeout are being completed.",
-    "scope": "Correct these native diagnostics, then complete the next finite #421 reference/sequence/cell GUI package; preserve installed, contract and exact-candidate gates."
+    "issue": "uibcdf/molsysmt#421",
+    "milestone": "phase4/graphical-inventory/fitting/external-reference",
+    "record": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+    "owner_verification": "Native/expert separate-reference support exists. The panel currently fixes its reference to the source system; external-reference GUI receiving remains pending.",
+    "scope": "Complete the declared external-reference graphical workflow, then sequence matching and cell editing, preserving every remaining accepted task/session family and installed/contract/candidate exits."
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
-    "issue": "uibcdf/molsysmt#642",
-    "source": "4d8af6c34cb6b3f9e22833771b246d8767ef85e9",
+    "issues": [
+      "uibcdf/molsysmt#640",
+      "uibcdf/molsysmt#641"
+    ],
+    "source": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
     "state": "public_source_closed",
-    "evidence": "devtools/data/interaction_evidence_catalog_delivery_642_20261107.json",
+    "evidence": "devtools/data/native_structure_diagnostics_delivery_640_641_20261107.json",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 30
+    "audit_related_source_closures": 32
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",

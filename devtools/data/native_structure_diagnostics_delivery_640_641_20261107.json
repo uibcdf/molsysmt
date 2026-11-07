@@ -1,0 +1,169 @@
+{
+  "schema_version": "molsysmt.native_structure_diagnostics_delivery@1",
+  "date": "2026-11-07",
+  "implementation_source": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
+  "public_source": {
+    "source": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
+    "public_main": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
+    "complete_public_tree": true,
+    "checked_paths": [
+      {
+        "path": "devguide/archive/resolved_bugs/principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md",
+        "blob": "f1aec939b4912a6837b0e099204d630962b845a9"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/structural_inconsistency_hints_assume_comparisons_and_retain_obsolete_axis_termi.md",
+        "blob": "7d2631745589f6f9626997c46cb7397391c6bd49"
+      },
+      {
+        "path": "devguide/pending_bugs/README.md",
+        "blob": "db16dddd40615de1f003e6b15ae1a16ef7abd28a"
+      },
+      {
+        "path": "devguide/pending_bugs/principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md",
+        "deleted": true
+      },
+      {
+        "path": "devguide/pending_bugs/structural_inconsistency_hints_assume_comparisons_and_retain_obsolete_axis_termi.md",
+        "deleted": true
+      },
+      {
+        "path": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+        "blob": "fad7ed71a9008dcc0e0ae68e8ddf3b712293351b"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "blob": "92a4f9a4631e281a77365cf6df3ecf9e6ace5189"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "blob": "7a41fd8f2f820ad53805cf9dab629de823552872"
+      },
+      {
+        "path": "devtools/data/native_structure_diagnostics_receiving_640_641_20261107.json",
+        "blob": "939682ff80f17826ec8659c85c994c91b547c205"
+      },
+      {
+        "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+        "blob": "fa7cc7d35894f11685b167c22a7c0f07cb36eb03"
+      },
+      {
+        "path": "docs/content/course/Common_Core/16_Structural_Operations.AGENTS.md",
+        "blob": "55a0af9b4bfd052d2f82206beeb4ca112a940e03"
+      },
+      {
+        "path": "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+        "blob": "4d2b23ac16c792f7ba41b968564d775502df6fa9"
+      },
+      {
+        "path": "docs/content/developer/diagnostics_and_telemetry/smonitor.md",
+        "blob": "1a9d8b28d189621cd205b71d5f021d0f1a4f7916"
+      },
+      {
+        "path": "docs/content/user/tools/structure/align_principal_axes.ipynb",
+        "blob": "ecb55506bad0afc6b0cd14c3dcb690db03cf072a"
+      },
+      {
+        "path": "docs/content/user/tools/structure/align_principal_axes.ipynb.AGENTS.md",
+        "blob": "f9a53ecbd3ca0c5fc8c4d1640c833142f850a049"
+      },
+      {
+        "path": "molsysmt/_private/smonitor/catalog.py",
+        "blob": "18bf0571960b7886066e273bab4440707bcf70e5"
+      },
+      {
+        "path": "molsysmt/structure/align_principal_axes.py",
+        "blob": "6533cc3e493a5c9eb58cbc18381969d3ef090fb6"
+      },
+      {
+        "path": "tests/cross_repo/test_smonitor_contracts.py",
+        "blob": "3943bba714dc2f160a910853f859ccef0b1f03eb"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_geometry_panel.py",
+        "blob": "140440b65047cb9523a06873e8eafab6d8298692"
+      },
+      {
+        "path": "tests/structure/align_principal_axes/test_rejection_indices.py",
+        "blob": "169308f5f2db44abd4923d073e982cbc705165fa"
+      }
+    ]
+  },
+  "issues": [
+    {
+      "number": 640,
+      "state": "closed",
+      "independently_verified": true,
+      "closed_at": "2026-11-07T21:01:09Z"
+    },
+    {
+      "number": 641,
+      "state": "closed",
+      "independently_verified": true,
+      "closed_at": "2026-11-07T21:01:16Z"
+    }
+  ],
+  "scientific": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
+    "source_before": {
+      "commit": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_after": {
+      "commit": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_correspondence": true,
+    "release_eligible": true,
+    "created_at": "2026-11-07T20:59:26.945260+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0
+  },
+  "scientific_certificate_sha256": "f463128788541a64d9e73a72768426f3a6d93597f7c7bdb327cee9b403f58524",
+  "scientific_flag_scope": "Clean source-correspondence eligibility only; not candidate selection, installed artifacts/platform acceptance or publication approval.",
+  "consumer_handoff": {
+    "issue": "uibcdf/molsysviewer#315",
+    "comment_id": 6712967862,
+    "source": "49d1a720faabccf8e4e53b7f15fa7a300118e33d",
+    "viewer_source": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab"
+  },
+  "preservation": {
+    "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "four_human_api_stub_hashes_unchanged": true,
+    "two_notebook_code_and_output_populations_unchanged": true
+  },
+  "progress": {
+    "reported_approximate_percent": 61,
+    "accepted_graphical_intents": 22,
+    "total_graphical_intents": 50,
+    "audit_related_public_source_closures": 32,
+    "weighted_milestone_change": 0
+  },
+  "next": {
+    "issue": "uibcdf/molsysmt#421",
+    "milestone": "phase4/graphical-inventory/fitting/external-reference",
+    "source_finding": "Native least_rmsd_fit and its bound adapter already support separate references. The current Geometry panel resolves reference atoms/structure against the source and always supplies reference_molecular_system=None. GUI delivery remains pending.",
+    "preserve": [
+      "Form-agnostic native calculation and atom correspondence",
+      "Independent reference structure/selection axes and physical units",
+      "Caller-owned reference unchanged; no hidden edit/synchronization of another view",
+      "Review validity, all-structure native rejection atomicity, target coverage and fixed boxes",
+      "Current and complete independent results plus synchronization-only retry",
+      "Actual Jupyter/Mol*/popup receiving; later sequence-derived matching remains a distinct accepted intent"
+    ]
+  },
+  "remaining": "Actual public Viewer floor/clean installed, remaining GUI/session families, contract/scientific claims, human/Qt and final exact-candidate/platform/artifact gates remain required. Publication pause unchanged; no new remote matrix, tag, Release or promotion."
+}
