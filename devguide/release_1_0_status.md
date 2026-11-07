@@ -5455,3 +5455,18 @@ does. Every numerical, axis, popup, molecular-invariance and deadline assertion
 is preserved. Repeat receiving is due. Separately #637 records an obsolete
 course-local validator named by contributor guidance; the canonical validator
 passes 156 notebooks and no course content is changed to satisfy obsolete rules.
+
+
+### Current reconciled receiving — 2026-11-07
+
+All 5,059 addon/preflight Python cases pass on `11796a8a`, without omissions.
+After the browser-driver-only popup visibility correction, all seventeen
+ordered Jupyter steps pass on `878dc405` in 99.67 seconds, with 5,050 fixed inputs
+and all 24 owned processes closed. Normal toolbar clicks, numerical oracles,
+source axes, popup actions and original deadlines remain intact. Matching
+plain-Jupyter page errors and original failed attempts remain explicit.
+The [receiving record](../devtools/data/molsysviewer_tools_reconciliation_receiving_20261107.json)
+separates the two executed source scopes, public-support provenance and
+remaining complete-session/hosted/human acceptance. In particular the Viewer
+covering checkpoint is not globally green; no owner-main or installed/public
+compatibility claim is made. PR delivery and owner review follow.
