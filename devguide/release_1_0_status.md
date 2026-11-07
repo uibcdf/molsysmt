@@ -20,23 +20,28 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current external-reference graphical receiving — 2026-11-07
+## Current external-reference source delivery — 2026-11-07
 
-The #421 external-file fitting workflow is locally implemented and passes
-5,297 integrated cases plus both actual external/same-system Jupyter scenarios
-(eight steps each). The [receiving receipt](../devtools/data/molsysviewer_tools_external_reference_receiving_20261107.json)
-records the independent analytical coordinate oracle, actual Mol* geometry,
-units, partial edits, unchanged reference file, coverage, independent results
-and popup controls. The observed premature blank captures prompted an explicit
-core focus/render-completion check; all attempts and baseline-matching page
-errors remain recorded. Fourteen fast gates and HTML pass with six existing
-underline warnings. Next: clean-source scientific qualification and public
-source verification, then accept this one intent and review ready contract
-closeouts alongside the remaining sequence/cell/task/session scope.
+The #421 external-file fitting intent is accepted in sources on main at
+`b3f4fd4cb38f98eb5d96d2617f6f1977c91717e1`. All fifteen changed paths match the
+complete public tree. Receiving passes **5,297 integrated cases**, the original
+provider read-window guard and both actual external/same-system Jupyter/Mol*
+scenarios (**eight steps each**). Clean exact-source scientific execution passes
+**107 cases / 68 nodes**, with zero skips/failures/errors. Fourteen fast gates
+and HTML pass; six existing title warnings and baseline-matching page errors
+remain recorded. The
+[delivery receipt](../devtools/data/molsysviewer_tools_external_reference_delivery_20261107.json)
+retains the public correspondence, scientific source and authorized Viewer #315
+handoff (comment 6714264760). The receiving record preserves all attempts,
+including premature blank captures and the stronger explicit focus/render check.
 
-Progress remains **approximately 61%**, graphical **22/50** and source issue
-closures **33** until delivery. Installed/platform/human/final-candidate gates
-and publication authority remain separate; no other accepted family is dropped.
+Progress is **approximately 61%**, now **23/50 graphical intents accepted** and
+**33 audit-related source issues closed**. The existing external-reference leaf
+adds about 0.057 weighted points; this is not a new weight or issue-count bonus.
+The addon remains partial. Next: reconcile the already-delivered #587 pagination
+closeout and #612's owning evidence, while retaining every remaining sequence/
+cell/task/session and contract/installed/platform/human/final-candidate exit.
+No new tag, candidate, artifact, remote matrix or publication is authorized.
 
 ## Previous modular-query delivery — 2026-11-07
 

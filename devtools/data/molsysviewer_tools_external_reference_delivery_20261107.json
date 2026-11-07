@@ -1,0 +1,71 @@
+{
+  "schema_version": "molsysmt.external_reference_delivery@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "state": "verified_source_intent",
+  "milestone": "phase4/graphical-inventory/fitting/external-reference",
+  "public_source": {
+    "public_main": "b3f4fd4cb38f98eb5d96d2617f6f1977c91717e1",
+    "tree_truncated": false,
+    "matched_paths": {
+      "devguide/pending_proposals/molsysviewer_tools_addon.md": "d13b21572101f7fd53adfa51cb01e74c1be2d156",
+      "devguide/pre_1_0_robustness_audit_20261106.md": "90a97832093ee48c725f554b59ad223d44a76816",
+      "devguide/release_1_0_status.md": "7e2cda4d7391dea279dbf65db5aa7cffc5f7389f",
+      "devtools/data/molsysviewer_tools_external_reference_receiving_20261107.json": "b7211a6ceef64a35e9659da002dacf02b6c3151c",
+      "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb": "3b4eee739119bf1193ce48100a92bbf1c806337f",
+      "docs/content/user/cookbook/aligning_components_by_sequence.md": "b3d38e9cc53686b3213cf6843e416dddc5aeccf7",
+      "docs/content/user/tools/molsysviewer_tools.md": "af43882569fca2cd803e13c1151a5706183ab0a8",
+      "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "b5edc8cd6bea81256ea294ca63ef5bdc77e06f2b",
+      "docs/docs_manifest.yml": "508a20dd925970e2fda070e5cc087b24c4781033",
+      "molsysviewer_molsysmt/_geometry_panel.py": "50619e8c5ba878bc2d807fa57c98fe22bdfc749a",
+      "molsysviewer_molsysmt/_geometry_panel_frontend.py": "01357b662be7d67909b2ec018233e2514aaab6f1",
+      "tests/molsysviewer_molsysmt/fit_external_panel_jupyter.mjs": "3b208d88007141630f678205e763b1b9c9153e51",
+      "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "0e416c76e06b2d5876f9e75bada261440980e91b",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "5a00566b68f442a2f1d1439cff6cf76ada6e6add",
+      "tests/molsysviewer_molsysmt/test_external_reference_panel.py": "a5aff3192946737bce85951b362731b604ed6266"
+    }
+  },
+  "receiving": "devtools/data/molsysviewer_tools_external_reference_receiving_20261107.json",
+  "scientific": {
+    "verdict": "pass",
+    "commit": "b3f4fd4cb38f98eb5d96d2617f6f1977c91717e1",
+    "tracked_source_dirty": false,
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0
+  },
+  "scientific_certificate_sha256": "5073d5c50ba02551f16dfac668e11c4e3b9206283885baa7a4733074715925fc",
+  "handoff": {
+    "repository": "uibcdf/molsysviewer",
+    "issue": 315,
+    "comment_id": 6714264760,
+    "scope": "Authorized source-intent delivery; no matrix/candidate/publication request."
+  },
+  "board_checkpoint": {
+    "complete_paginated_issues": 575,
+    "open": 96,
+    "latest": 643,
+    "new_since_643": [],
+    "open_pull_requests": []
+  },
+  "acceptance": "The one declared external-reference graphical/source intent is received; the overall addon remains partial. Native expert APIs, sequence-derived correspondence and every other agreed intent retain their separate scope.",
+  "remaining": [
+    "Review already-delivered #587 pagination closeout and #612 owning full-suite requirement",
+    "Sequence-derived fitting, broader periodic/cell assignment and remaining task/session families",
+    "Contract/installed/client/platform/human/final-candidate and publication exits",
+    "Nightly/full-matrix backlog for skipped source commits remains due"
+  ],
+  "progress": {
+    "weighted_percent_before": 60.99213286713287,
+    "weighted_percent_after": 61.04895104895105,
+    "reported_approximate_percent": 61,
+    "graphical_accepted": 23,
+    "graphical_total": 50,
+    "source_issue_closures": 33,
+    "meaning": "One existing declared leaf accepted; no defect-count or test-count bonus."
+  }
+}

@@ -14,7 +14,21 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
-## External-reference graphical receiving — 2026-11-07
+## External-reference source delivery — 2026-11-07
+
+Source `b3f4fd4cb` is public on main, all fifteen changed paths independently
+match the complete public tree, and clean exact-source scientific execution
+passes 107 cases / all 68 registered nodes. The
+[delivery receipt](../../devtools/data/molsysviewer_tools_external_reference_delivery_20261107.json)
+records the complete receiving, Viewer #315 handoff (comment 6714264760) and
+acceptance of the one declared external-reference source intent. Graphical
+tracking advances to 23/50; overall weighted progress remains approximately61%.
+The proposal remains partial, with all other families and installed/human/
+final-candidate acceptance required. Review ready #587/#612 owner closeouts
+before continuing sequence/cell/task/session work; no code reimplementation is
+needed merely to reconcile those delivered corrections.
+
+## External-reference local receiving before publication — 2026-11-07
 
 **Locally implemented and received**, pending clean-source scientific
 qualification and public delivery. Geometry accepts a kernel-accessible file

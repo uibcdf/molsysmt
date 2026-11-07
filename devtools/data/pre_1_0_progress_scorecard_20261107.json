@@ -2,14 +2,14 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "96b73b3f3d00a0df8eb2f6535cbbc86f27503da4",
+  "qualified_source": "b3f4fd4cb38f98eb5d96d2617f6f1977c91717e1",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 60.99213286713287,
+  "weighted_milestone_percent": 61.04895104895105,
   "reported_approximate_percent": 61,
   "phases": [
     {
@@ -119,7 +119,7 @@
         }
       ],
       "verified_fraction": 0.6666666666666666,
-      "credited_points": 6.666666666666667
+      "credited_points": 6.666666666666666
     },
     {
       "id": "phase4",
@@ -343,9 +343,11 @@
                 {
                   "id": "external-reference",
                   "requirement": "Receive an external molecular reference workflow",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_external_reference_delivery_20261107.json"
+                  ],
+                  "review": "Published source b3f4fd4cb; 5,297 integrated and paired actual Jupyter/Mol* workflows (eight steps each), clean scientific 107/68, explicit core focus/render completion and immutable reference/coverage checks. Installed/human/candidate acceptance remains separate."
                 },
                 {
                   "id": "sequence-fit",
@@ -703,8 +705,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.573018648018648,
-      "credited_points": 14.3254662004662
+      "verified_fraction": 0.5752913752913753,
+      "credited_points": 14.382284382284382
     },
     {
       "id": "phase5",
@@ -811,12 +813,11 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#421",
-    "consumer": "uibcdf/molsysviewer#315",
-    "record": "devguide/pending_proposals/molsysviewer_tools_addon.md",
-    "owner_verification": "#643 public-source fix verified closed; clean scientific 107/68 and unchanged original external-reference consumer guard (341 directed cases) pass. Actual external-reference GUI receiving remains pending.",
-    "scope": "Finish actual external-reference Jupyter/Mol*/popup acceptance, then the remaining agreed sequence/cell/task/session intents and contract/installed/candidate exits.",
-    "delivery": "devtools/data/modular_h5_query_delivery_643_20261107.json"
+    "issue": "uibcdf/molsysmt#587",
+    "related": "uibcdf/molsysmt#612",
+    "record": "devguide/pending_bugs/devguide_board_sync_truncates_issue_history.md",
+    "owner_verification": "Both original reports and live comments have been reviewed. Pagination source/transport guards are already delivered; #587 needs owner closeout. #612 retains explicit affected-fidelity and exact-head full-suite obligations.",
+    "scope": "Receive and close already-delivered requirements without reimplementing corrected code. Preserve all remaining sequence/cell/task/session and contract/installed/candidate work."
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
@@ -831,18 +832,17 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 22,
+    "verified_source_intents": 23,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
   },
-  "unaccepted_graphical_prototype": {
+  "last_graphical_delivery": {
+    "source": "b3f4fd4cb38f98eb5d96d2617f6f1977c91717e1",
     "milestone": "phase4/graphical-inventory/fitting/external-reference",
-    "source": "ea410c573a0469e290ca9c2bebf5a40a89e64797",
-    "visibility": "local_unmerged_branch",
-    "prerequisite": "uibcdf/molsysmt#643",
-    "accepted": false,
-    "evidence": "devtools/data/modular_h5_query_delivery_643_20261107.json",
-    "prerequisite_state": "source_closed"
+    "evidence": "devtools/data/molsysviewer_tools_external_reference_delivery_20261107.json",
+    "weighted_milestone_change": 0.05681818181817988,
+    "graphical_accepted": 23,
+    "graphical_total": 50
   }
 }
