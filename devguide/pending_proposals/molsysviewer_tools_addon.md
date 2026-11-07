@@ -8,11 +8,239 @@ verification: inspected
 area: [api, molsysviewer, addons]
 guard:
 normative:
-blocked_by: []
+blocked_by: [uibcdf/molsysmt#602, uibcdf/molsysviewer#304, uibcdf/molsysviewer#314]
 supersedes: []
 ---
 
 # Bound MolSysMT tools addon for MolSysViewer
+
+## Isolated owner reconciliation — 2026-11-06
+
+Owner `030c201a5` and contribution `8ab2f5474` are being reconciled without a
+commit or main integration. Native #605/#606/#607/#608/#613/#616 are resolved in
+the owner source; their archived records remain authoritative. The incoming
+addon restrictions and tests are unchanged until combined receiving establishes
+their next disposition. The five controlled workflows and inventory retain
+owner Viewer `42234de839ed047016f8f241ea5eb717cfeb07be`; the historical receiving
+below retains its own host identities. The newer published Viewer #314 source
+correction still needs the separate exact-host preflight and consumer receiving.
+No pytest, hosted gate, installed or graphical acceptance is claimed here.
+
+**Current source GUI — 2026-11-06:** System / Remove atoms, Extract subset and
+Copy system, plus Geometry / Translate, Center, Superpose structures and bounded
+periodic coordinate tasks, Chemistry stored-information/hydrogen inspection and
+explicit heavy-atom/hydrogen preparation and Analysis distance-family queries
+are implemented in this contribution.
+Selection/lifecycle and independent-result controls are shared; native science
+and expert defaults are unchanged. The [receiving record](../../devtools/data/molsysviewer_tools_geometry_receiving_20261106.json)
+separates real Jupyter/popup and numerical evidence from pending hosted, owner,
+installed and postponed human acceptance. The
+[Center receipt](../../devtools/data/molsysviewer_tools_center_receiving_20261106.json)
+adds geometric/mass-weighted centering, per-structure point/selection references
+and shared rejected-operation diagnostics (#603), with 114 panel checks, 172
+native/route controls and five actual Jupyter scenarios. Rotate awaits native
+#602; other required Geometry, Chemistry and Analysis tasks remain planned.
+
+## Analysis row adoption — source receiving 2026-11-06
+
+The contribution implements selected-row core selection, visible-structure focus
+and geometric live distances. It reuses core APIs under the existing action
+lock and resolves row participants in Python from the retained report, with
+identity/revision/membership/page checks. Scene actions are not pending readers.
+Periodic and mass-weighted observations retain participant actions but refuse
+nonequivalent live conversion. Core Measures survive clearing/unmounting the
+report, retain participant multiplicity and follow the visible structure rather
+than a frozen scalar or implicit row navigation. Expert native APIs are unchanged.
+
+The [row-adoption receipt](../../devtools/data/molsysviewer_tools_scene_adoption_receiving_20261106.json)
+records numerical, lifecycle, native-axis and actual Jupyter/Mol*/popup receiving,
+including TcTIM and a real three-structure ensemble. It retains original failed
+test-authoring diagnostics, exact source fingerprints and the distinction between
+camera enclosure and measurement means. The complete new addon/hosted gates,
+owner review/integration, installed and postponed human acceptance stay separate.
+All remaining Geometry, Chemistry, Analysis and session families remain required.
+
+## Analysis distance-family receiving — 2026-11-06
+
+**Complete implemented-task Jupyter receiving:** clean b18d5d823 / Viewer
+737f9bc3 passes all eleven scenarios and 76 steps in 671.62 s, with 4,456
+selected source inputs unchanged. All observed page-error fingerprints match
+the corresponding plain-Jupyter control; no zero-error claim or causal closure
+of #615 is made. This receives the implemented tasks, not all required families
+or human/installed/owner acceptance.
+
+**Contribution host checkpoint:** at this recorded checkpoint, all five source
+workflows and the dependency inventory pinned published Viewer `239c8dd74815a660159a95970e9136d7beebfdd2`,
+receiving numeric region recovery and measurement geometry/value/lifecycle fixes
+under Viewer #307–#313. Complete local Python/core, hosted E2E, four Linux
+Python cells and Linux/Windows source-pair jobs pass; macOS is still queued. The new scientific-session
+module is explicitly retained in the smoke tier. Earlier 8f8c442e full/smoke
+receipts keep their original host; source-route checks, actual Jupyter and hosted
+receiving on this follow-up retain their own gates. Public dependency floors,
+experimental classifications, packages and candidate freezes are unchanged.
+
+
+Clean published 8f8c442e now passes the complete 4,775-case addon collection
+without skips (1094.35 s), with all 4,209 input hashes and both checkout
+identities/status unchanged. Official smoke 42233782220 passes 6,042 native
+cases/23 optional skips and 4,771 addon cases/four optional Ackredit skips.
+Those gates keep their original Viewer e920faf9/controlled 177e19a8 inputs.
+The subsequent Viewer #307 and new headless session guards are separate inputs:
+87 affected/preflight cases pass, and final two session guards pass in 4.03 s.
+They receive actual TcTIM removal/coordinate analysis/H5MSM and scene recovery,
+plus real nonempty ensemble hbonds and evaluated-empty/unevaluated scope.
+Native append continuation after canonical string recovery was open under
+#616 at that checkpoint. The owner has since delivered its
+[resolution](../archive/resolved_bugs/h5msm_component_dtype_append_rejection.md);
+combined addon receiving remains due, without a chemistry-table workaround. Full current GUI/session,
+owner, hosted, installed and postponed human qualification remain distinct.
+
+Analysis registers Distances, Minimum distance, Maximum distance and Neighbor
+search over unchanged expert/native structure tools. It resolves two independent
+atom populations, optionally their geometric/mass centers, and ordered/repeated
+structures. Native self/tie/periodic conventions and atom-axis maps are explicit;
+calculation adds no numerical algorithm, scientific preparation, representation
+or universal result store. Explicit row actions delegate scene effects to core. Reports use bounded nm pages and retire native disk
+storage on Clear, changed inputs/context and unmount. Pending primary reads
+retain the existing exact declaration/old-scene isolation contract.
+
+The [receipt](../../devtools/data/molsysviewer_tools_analysis_receiving_20261106.json)
+retains 49 focused cases, 357 affected panel/packaging checks and actual TcTIM
+Jupyter receiving with independent coordinate references. The initial notebook
+oracle used incompatible NumPy axes and was corrected without weakening checks.
+A later popup bootstrap selector failure is separately tracked in #614 and
+corrected through one shared receiving helper; owner and final full-suite
+acceptance remain separate. The new report-retirement response path also keeps
+the initial state distinct from a cleanup acknowledgement.
+
+The helper campaign passes Chemistry preparation and pending readers but times
+out before the first Analysis canvas; that uncertainty remains open under #615.
+Analysis then passes all seven steps separately in 39.36 s, with a 3.357631 s
+initial Python cell. The runner captures stacks at 15 s while keeping its 30 s
+canvas deadline. This is two-plus-one receiving, not an explained initialization
+failure or a single green three-case campaign. Latest full source receiving is
+still pending.
+
+That serial receiving did not establish concurrent native configuration safety.
+The owner has since delivered the process-global serialization
+[correction for #613](../archive/resolved_bugs/concurrent_configuration_contexts_leak_gpu_policy.md).
+Combined consumer receiving remains due; no addon-only lock or provider
+scientific repair is added. Complete Analysis property/series/sequence/mechanics/plot and core visual
+adoption families, Chemistry construction/assignments, remaining Geometry and
+whole-session save/recovery remain required, as do installed and postponed
+human qualification. Both 1.0 publications stay paused.
+
+## Chemistry preparation and reviewed replacement — 2026-11-06
+
+The [preparation receipt](../../devtools/data/molsysviewer_tools_preparation_receiving_20261106.json)
+records native heavy-atom completion and two explicit H-generation modes over
+the unchanged expert build wrappers. Heavy completion maps the atom editor to
+whole groups, retaining every structure. Hydrogen preparation distinguishes
+template/pH approximation from prepared-state RDKit placement, with one-source-
+structure admission and explicit prerequisites. No hidden extraction or chemical
+repair is introduced. Independent results retain native diagnostics/history;
+attribute-availability differences do not certify value or chemical fidelity.
+
+Use in this view has Back, scene-reset/copy disclosure and single-use review.
+Candidate object/revision is validated and copied under its reader; Viewer #306
+atomically checks source identity/revision before replacement. Presented result
+Views remain independent; stale managed source/result reviews reject without
+overwriting current work. External raw-array writes still require reconciliation.
+Leaving the panel also releases the replacement token. These operations are not
+declared pending readers. Controlled source routes now pin published Viewer
+177e19a8fa06e37484a801da1711cc99acbc8f2d; expert/public dependency floors are unchanged.
+
+Actual TcTIM/Jupyter receiving prepares 7,868 atoms from 3,983, exposes native
+B-factor/occupancy losses, verifies Back/source preservation, conditionally
+loads an independent copy and inspects it in both popup hosts. The preparation
+and existing pending-reader scenarios are checked together. Earlier 4,699-case
+full-addon evidence remains scoped to 699fc69be and Viewer 2e17ee6f, not this
+new preparation source. Owner integration, latest hosted full qualification,
+installed artifacts and postponed human acceptance remain pending.
+
+Full source matrix 42215709260 is not green: the inspected Python 3.13 cell
+has 33 failures, 29,192 passes, 112 skips and 40 deselections. Reproductions
+confirm the previously reported classifier/catalogue/GRO families; #594–#598
+retain their separate owner issues. New #612 asks the owner to reconcile the
+alternate-location fidelity expectation with the accepted stable-ID preflight;
+the one native failing case is reproduced independently of Viewer. No native
+repair, source workaround or test weakening is included here. This qualification
+debt does not remove the required construction, assignments, Analysis, Geometry
+and end-to-end save/recover families from the active plan. Both 1.0 publications
+remain paused.
+
+## Chemistry inspection receiving — 2026-11-06
+
+The clean source 699fc69be now completes all 4,699 addon cases without skips
+(1090.15 s), with every warning retained. Official smoke 42215709274 passes
+both tiers: 6,042 native cases/23 optional skips and 4,695 addon cases/four
+optional Ackredit skips. Full platform matrices, owner integration, installed
+packages and postponed human acceptance remain distinct. The newer conditional
+replacement request in uibcdf/molsysviewer#306 and future preparation interface
+are not qualified by those original-host results.
+
+The [source receipt](../../devtools/data/molsysviewer_tools_chemistry_receiving_20261106.json)
+records two explicit-state native reports, 42 focused cases within 363 native/
+panel controls and actual synchronized Jupyter/Mol*/popup receiving. Presence,
+unknowns, native field coverage, connectivity scope and unassessed checks stay
+distinct. Reports have bounded 50-row source-index pages, an explicit mounted
+lifetime and no preparation, scene adoption or generic persistence effects.
+Expert scientific signatures and native source remain unchanged.
+
+Controlled host 2e17ee6f13333e5efd3726b353ade5c8cdc77b0b supplies declared incoming readers and interactive
+recovery under uibcdf/molsysviewer#304. The same mounted reader is temporarily
+placed in the sheet; native input/pages work while old-scene selections and
+scene shortcuts remain blocked. Synchronization restores its original DOM
+and original live-element inert values. Chemistry retires stale requests and
+refreshes only in admitted states. The
+[pending-reader receipt](../../devtools/data/molsysviewer_tools_pending_reader_receiving_20261106.json)
+retains eight synchronized Jupyter passes and the separate eight-step pending
+case after a driver navigation correction (50.40 s), plus the failed full
+attempt and native-reader host oracle. No single green nine-case run is claimed. Full latest-source/hosted, owner integration, postponed
+human and installed gates remain separate. Chemistry preparation/construction,
+Analysis and the whole scientific session still require their own receiving.
+
+The earlier clean periodic source dd34c371c completed all 4,657 addon cases in
+1072.21 s without skips. Its 2,732 warnings and exact inputs are retained; it
+does not qualify a full collection on these new Chemistry inputs.
+
+## Periodic coordinate receiving — 2026-11-06
+
+The [source receipt](../../devtools/data/molsysviewer_tools_periodic_receiving_20261106.json)
+records 58 new periodic panel cases within a 356-case System/Geometry/PBC gate,
+63 route/reporting controls and seven actual Jupyter/Mol*/popup scenarios.
+Wrap coordinates offers primary, centered-primary and nearest images with
+explicit reference points, units and component/atomwise grouping. Unwrap
+trajectory follows a deliberately ordered structure sequence per atom.
+Current edits and independent results preserve boxes, selected scope and
+synchronization-only recovery. No native science or expert signature changes.
+
+This remains an experimental, partial source family. The owner has repaired
+native #605–#608. The retained addon restrictions still need exact combined
+receiving of general-cell validation, changing-cell temporal behavior, general
+orientation and unit-independent near-zero origins. Temporary admission and its
+review/removal checkpoint are explicit in
+[periodic qualification](../periodic_tools_gui_qualification.md); no consumer
+scientific repair is substituted. Cell editing and full periodic support remain
+required. Receiving-harness #609 now awaits acknowledged window presentation
+before checking titles; all seven scenarios pass without weakening assertions.
+Owner integration, full latest-source/hosted gates, postponed human acceptance
+and installed qualification remain separate. Both 1.0 publications stay paused.
+
+## Superposition receiving — 2026-11-06
+
+The [source receipt](../../devtools/data/molsysviewer_tools_fit_receiving_20261106.json)
+adds reviewed unweighted native Kabsch fitting, explicit moving/fit/reference
+populations and same-system reference structure, current/independent effects
+and fixed-box/coverage semantics. All 315 affected native/panel cases and six
+actual Jupyter scenarios pass; 63 route/reporting controls pass separately.
+The clean prior Center source completed all 4,568 addon cases in 1040.89 s,
+without skips. That result retains its exact source; the new fit slice keeps
+its own hosted/full/installed gates. Sequence correspondence, other reference
+workflows, principal-axis orientation and periodic/cell tools remain required.
+Native algorithms and expert signatures/defaults are unchanged. Human acceptance
+is postponed and neither 1.0 publication is authorized.
+
 
 ## Owner receiving checkpoint — 2026-11-05
 
@@ -2907,3 +3135,109 @@ and explicit-state rejections. Final combined receiving passes 2,021 cases
 without omissions; documentation/doctests pass 569. Owning archived bug records
 retain exact scope, commands, environment and warnings. No rendering, automatic
 attachment, session or package-publication behavior is introduced.
+
+
+## Analysis row adoption and owner-base reconciliation — 2026-11-06
+
+Published contribution `fa119ac122b0ad025c9679b13b3af79bf2f21fb5` passes the
+complete addon collection: 4,821 passed, zero failures or skips, 2,837 warnings
+in 1,205.27 seconds. All 4,957 selected source/runtime/backend inputs and both
+source heads remain unchanged. This retains native basis `ed09f6453` and
+Viewer code `239c8dd7`; it does not qualify later owner-main Python changes.
+The separate owner-base merge passes 121 Analysis/preflight cases and 12 actual
+TcTIM/three-structure Jupyter steps, including both popups, participant
+selection/focus and frame-following core Measures. Five matching Jupyter
+debugger errors remain explicit against the plain-Jupyter control.
+
+The [combined receiving receipt](../../devtools/data/molsysviewer_tools_scene_integration_receiving_20261106.json)
+retains exact sources, unchanged Rust-tree reuse, private evidence digests and
+the four newly available native routes still requiring expert-addon admission:
+force reading, protonation assessment, atom-name correspondence and chemical
+reference templates. The two MD functions remain native stubs. This is source
+receiving, not installed qualification, owner approval or postponed human
+acceptance. All previously approved GUI and complete scientific-session work
+remains required; publication remains paused.
+
+
+## Native force reader received by the expert facade — 2026-11-06
+
+The explicit `molecular_mechanics.get_forces` mirror receives native #572 on
+contribution basis `2bb52b77c`, with the current primary implicit and all other
+scientific parameters/defaults preserved. It reads the complete model before
+filtering returned atoms, retains explicit structure order/repetition, empty
+axes and force quantities, and never seeks or updates the scene. Pending reads,
+replacement/close lifetime and detached ownership retain the shared reader
+contract. The mechanical module passes 149 cases; 175 native/affected/preflight
+cases, one new guide block and six inherited help doctests pass separately.
+Independent references cover CPU/Reference, a central energy gradient and
+selected Reference PME boxes. No engine or scientific algorithm is authored
+in the addon.
+
+The [force receiving receipt](../../devtools/data/molsysviewer_tools_force_receiving_20261106.json)
+retains original test-authoring failures, exact source inputs, units, source/scene
+checks and the unchanged course executable content. Source exposure becomes
+243/248 paths, with all six mechanics functions. Atom-name correspondence,
+chemical templates and protonation assessment still need expert admission;
+managed assessment application and all remaining GUI families retain their own
+work. This is not complete latest-source/hosted/installed or postponed human
+acceptance, and publications remain paused.
+
+
+### Complete reconciled Analysis baseline — 2026-11-06
+
+The clean published parent `2bb52b77c` / Viewer `db337d94` now passes the
+complete addon collection: 4,827 passed, zero failures/skips, 2,838 warnings,
+1,134.99 seconds. All 5,001 selected inputs, source heads and contribution
+status are unchanged. The [complete receiving receipt](../../devtools/data/molsysviewer_tools_scene_integration_full_receiving_20261106.json)
+retains original hashes/log digests. This receives the combined owner base and
+Analysis tasks; it precedes the force addition and does not replace that
+addition's scoped tests or its future exact full/hosted gates.
+
+
+## Chemical references and managed protonation — 2026-11-06
+
+Three further exact expert mirrors receive the native atom-name correspondence,
+explicit CCD reference factory and source-bound protonation assessment. CCD
+construction may run before molecular loading; it retains the caller's source,
+native descriptor/hydrogen policies and independent coordinate-free output.
+Name matching retains query/reference source-index columns and exact label/element
+semantics, without chemical identity inference. Assessment remains the native
+single-use object. Its raw `apply` does not become an implicitly observed edit.
+
+Managed in-place reconciliation now prepares one public assessment under the
+existing host edit lock, checks its atom maps/structure scope and applies that
+same decision once. Deferred maps, sparse saved observations, historical coverage,
+no-ops and prepublication rejection retain their contracts. A visual failure is
+recovered by synchronization only; an unexpected postpublication error remains
+uncertain. The native independent default is unchanged and no scientific rules,
+automatic H addition, charge assignment or environmental-pKa claim are added.
+
+The [reference receipt](../../devtools/data/molsysviewer_tools_reference_receiving_20261106.json)
+retains 333 affected/preflight passes and 99 native controls separately from the
+later deposited-reference, rejection and surviving-observation tests. Five guide
+blocks and twenty inherited help doctests pass. The original test-authoring
+failures remain recorded; missing descriptor evidence and a no-op are explicitly
+unassessed/no_op native outcomes. Only existing course prose is changed, with
+executable cells/outputs/IDs preserved. Source path exposure is 246/248; the two
+native MD stubs remain omitted. Complete latest-source, owner/hosted/installed and
+postponed human gates remain pending, along with every previously approved GUI
+and scientific-session family. Neither this count nor these scoped tests close
+the overall addon objective or authorize publication.
+
+### Complete reference collection and namespace recovery — 2026-11-06
+
+Frozen af8eabcd8 / Viewer d33e97bc executes every one of 4,974 addon cases:
+4,966 pass and eight fail, with all 5,288 selected inputs, both source heads and
+worktree statuses unchanged. Hosted smoke 42286603304 also reaches all cases:
+4,960 pass, the same eight fail and six optional Ackredit cases skip; its native
+suite separately passes 6,042 cases with 23 optional skips. The common failure
+is one strict build-namespace expectation missing assess_protonation. Runtime
+exports and scientific calculations are not changed by its correction.
+
+Adding that exact function to the expected set retains strict namespace,
+signature and digestion assertions. All 63 affected module cases pass, including
+the original eight. This covers 4,974 distinct local cases across attempts,
+not a single green full run. The [recovery receipt](../../devtools/data/molsysviewer_tools_reference_full_recovery_20261106.json)
+preserves original logs/input digests and all overlap/skip scopes. Corrected-head
+hosted receiving, owner/installed/human gates and remaining GUI families stay
+required. No publication or owner-main integration is authorized.

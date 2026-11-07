@@ -1,0 +1,356 @@
+{
+  "schema": "molsysmt.molsysviewer-tools-center-receiving@1",
+  "date": "2026-11-06",
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#602",
+    "uibcdf/molsysmt#603",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#301"
+  ],
+  "contribution_base": "1e7a4273b905ca020815658f23ba645d40817226",
+  "viewer_source": "49dba88ae992088259a6f0891b59dfc8730f5183",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "native_core_diff_from_basis": "none; git diff --quiet ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6 -- molsysmt exits 0",
+  "python": "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "source_files": {
+    "molsysviewer_molsysmt/__init__.py": {
+      "sha256": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+      "size_bytes": 235
+    },
+    "molsysviewer_molsysmt/_api.py": {
+      "sha256": "295f8359723cdbb7f0a9d8ee485ae0f0667a963492e815bac794f3c3d183faf5",
+      "size_bytes": 4239
+    },
+    "molsysviewer_molsysmt/_argdigest.py": {
+      "sha256": "120434327a9b31dceb126bab6bbd00dc88cd08e88393c0f74ab2c8dd7d7ad648",
+      "size_bytes": 1046
+    },
+    "molsysviewer_molsysmt/_attribute.py": {
+      "sha256": "253778e27fa8fecad7878568452ba5c6d8f536f31a2439b51b210b8401454b50",
+      "size_bytes": 9874
+    },
+    "molsysviewer_molsysmt/_basic.py": {
+      "sha256": "952876fdb539dc998aa5a94ba3c65004db3e1eb261afb8081ef22403647e4ca4",
+      "size_bytes": 93995
+    },
+    "molsysviewer_molsysmt/_build.py": {
+      "sha256": "a72aa60b09ca646ab6930c0f52184df1306fa6540a6bf73d0152805de285fa49",
+      "size_bytes": 44979
+    },
+    "molsysviewer_molsysmt/_chemical_edits.py": {
+      "sha256": "93f81026f0642818ea3b7006c108f42f43c564ae4c37f77e179a1adfd1dbe2e7",
+      "size_bytes": 2982
+    },
+    "molsysviewer_molsysmt/_chemical_states.py": {
+      "sha256": "54eb604f0d2f7e8e85699782890e259917457589cc6edf60301b0e89581e34d3",
+      "size_bytes": 9146
+    },
+    "molsysviewer_molsysmt/_composition.py": {
+      "sha256": "0db08f265e88c76e499488b8504706a4dd3cb9722ddb387db9458e689c556089",
+      "size_bytes": 3655
+    },
+    "molsysviewer_molsysmt/_element.py": {
+      "sha256": "607c67e2eb303b6646d76effda34d61b24f3a39ac46f320b0e53669b336ca3e1",
+      "size_bytes": 6947
+    },
+    "molsysviewer_molsysmt/_element_common.py": {
+      "sha256": "e132788a349eb3d2004356812ad19f4aee21a186ff0965721d05478171c68d1e",
+      "size_bytes": 2147
+    },
+    "molsysviewer_molsysmt/_element_domains.py": {
+      "sha256": "7723bf325646abaa97a2c09368b71e0b42ed30807b893a9df3796e4512f07c12",
+      "size_bytes": 12002
+    },
+    "molsysviewer_molsysmt/_element_hierarchy.py": {
+      "sha256": "cb7e10e0e417286d6dd11ec4bab3c776f0e303119830c9c2bfaec104446eebe6",
+      "size_bytes": 8639
+    },
+    "molsysviewer_molsysmt/_element_labels.py": {
+      "sha256": "fc5650452397eb0663a1741fea7de3b089400af254968f35d2a6c12b4c6f128c",
+      "size_bytes": 6555
+    },
+    "molsysviewer_molsysmt/_element_templates.py": {
+      "sha256": "318129e46fbbe8a79f6fc723c7bc2925a558bf52e4f59c1822cd1b5b0f4750b2",
+      "size_bytes": 11069
+    },
+    "molsysviewer_molsysmt/_files.py": {
+      "sha256": "4f5dafc12b9e92453847996b93fb2c85c4b06e2931b73ae3cecfe71cd3e3f434",
+      "size_bytes": 5692
+    },
+    "molsysviewer_molsysmt/_geometry.py": {
+      "sha256": "872462cca0b87bb28dda17d9d8d336dd1ecef8e5ae1617fc990f3b6a05a7e413",
+      "size_bytes": 12020
+    },
+    "molsysviewer_molsysmt/_geometry_panel.py": {
+      "sha256": "9b3145eb39b80dee3954adbb55d9cf6a800ce82464d8fcb9463a414f6fb74d04",
+      "size_bytes": 16156
+    },
+    "molsysviewer_molsysmt/_geometry_panel_frontend.py": {
+      "sha256": "f16fd95e92a40b72a5fe9902e884db631e3eacb703a6d4078a20fa9b90539390",
+      "size_bytes": 13330
+    },
+    "molsysviewer_molsysmt/_interactions.py": {
+      "sha256": "55fa52fe35feea0b28b1a9b1e866c6ef75f140bbaafd7d954338035ed7559ff4",
+      "size_bytes": 25611
+    },
+    "molsysviewer_molsysmt/_molecular_mechanics.py": {
+      "sha256": "853846bd3bf41244bea91fed00c611cc8b330ecd55ef604ff28293f34b29df1f",
+      "size_bytes": 11225
+    },
+    "molsysviewer_molsysmt/_panel.py": {
+      "sha256": "f231ca1ab8e66931b449e78bd74d96932cd9d7a234092f01f123078cebed2796",
+      "size_bytes": 14145
+    },
+    "molsysviewer_molsysmt/_panel_frontend.py": {
+      "sha256": "96635c801859553dd0cd26ed4055a4f20fe658a4c9fd3f02dd88463b77902e9e",
+      "size_bytes": 12440
+    },
+    "molsysviewer_molsysmt/_panel_widgets.py": {
+      "sha256": "72f3dc60de6778e747e2ad76623449f1d71e24064c8d9e73e51686234d8f6d72",
+      "size_bytes": 6318
+    },
+    "molsysviewer_molsysmt/_pbc.py": {
+      "sha256": "c1ad7049c751745dfde304d74e516423b6a54ebbf6eae9e245b6e6fd2b3305ee",
+      "size_bytes": 8669
+    },
+    "molsysviewer_molsysmt/_physchem.py": {
+      "sha256": "99f76ea9d68f1768c2626702d14d3a0aafe7adbc88dfc5b41c58839f0913ce92",
+      "size_bytes": 28968
+    },
+    "molsysviewer_molsysmt/_structure.py": {
+      "sha256": "0c313e4679928cf2461dad72575a82537426c965708a7f54178d0a3904ce70ce",
+      "size_bytes": 35696
+    },
+    "molsysviewer_molsysmt/_supported.py": {
+      "sha256": "01698c198f5eca4deaf4220c33ed8ed769609db5b732c6dec06b56ae9bd566a5",
+      "size_bytes": 2855
+    },
+    "molsysviewer_molsysmt/_task_panel.py": {
+      "sha256": "70478853c311271ae33edb53d6e128bab6a8d8481aec7b3eb25f2d3501f6d272",
+      "size_bytes": 14044
+    },
+    "molsysviewer_molsysmt/_topology.py": {
+      "sha256": "d1524cf733672ef3cc7eb12887396186f814f261cfbb83b95a0ee70d10bd6f8f",
+      "size_bytes": 2324
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "sha256": "3e138e0813d7a7b1ab6d1919086a04e86a575c7d27be51ca4700cef720a1ced7",
+      "size_bytes": 2405
+    },
+    "tests/molsysviewer_molsysmt/test_geometry_panel.py": {
+      "sha256": "642c77740b71f86f7ba2ad4e50f59651dbafa06c27ce9c3c58501a7dbd82243f",
+      "size_bytes": 20521
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "6a994d50c275f73cd5d4092c878a132fded44fa1e0eb1936688e2a9952f0f22f",
+      "size_bytes": 4432
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "8c3777e2a6f094272b9f17c8c6adea42d4b740bff87867eace71ccc32051b8e5",
+      "size_bytes": 15109
+    },
+    "tests/molsysviewer_molsysmt/center_panel_jupyter.mjs": {
+      "sha256": "1ba8a76e27a1bb1a974fb21defa06dd9b6a8866b5e25a90da5c6fcadcdda2caa",
+      "size_bytes": 11315
+    },
+    "tests/molsysviewer_molsysmt/center_error_jupyter.mjs": {
+      "sha256": "3c67d0818fdc7843fa5dc5c01c8f5e0f17f8e8e8bd84a166fcae4c824b9c598f",
+      "size_bytes": 7938
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "sha256": "72a39804d270f811b9d83bdce622f2f3efc5d6482d2e4365a72c2f9994edb024",
+      "size_bytes": 280010
+    }
+  },
+  "capabilities": [
+    "Reviewed geometric/mass-weighted Center with fixed source references and point/selection destinations per processed structure",
+    "Nonconsecutive structures, current managed edit or independent whole-system result, fixed box and no implicit wrapping",
+    "Bounded native rejection diagnostics surviving automatic refresh and expiring on task/input/context/lifecycle changes",
+    "Accepted full-session milestone with System, Geometry, Chemistry, Analysis and separate persistence acceptance ledger"
+  ],
+  "checks": [
+    {
+      "scope": "shared System/Geometry panels",
+      "outcome": "passed",
+      "passed": 114,
+      "duration_seconds": 35.97,
+      "log": "/tmp/msv-center-panels-diagnostic-final-20261106.log",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_geometry_panel.py tests/molsysviewer_molsysmt/test_system_panel.py",
+      "scientific_reference": "Actual pentalanine conformations [0,8,3]; NumPy weighted/geometric displacement oracle; atom/structure subset, independent result and fixed-box checks under pm/ps/radians/dalton application policy"
+    },
+    {
+      "scope": "native geometry, distribution, reporting and expert inventory",
+      "outcome": "passed",
+      "passed": 172,
+      "duration_seconds": 45.71,
+      "log": "/tmp/msv-center-native-and-route-guards-20261106.log",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_structure_transform_tools.py tests/test_distribution_manifests.py devtools/tests/test_validate_devguide.py devtools/tests/test_molsysviewer_tools_api_inventory.py"
+    },
+    {
+      "scope": "actual Jupyter/Mol*/popups",
+      "outcome": "passed",
+      "passed": 5,
+      "duration_seconds": 233.7,
+      "log": "/tmp/msv-center-diagnostic-jupyter-20261106.log",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+      "scenarios": [
+        {
+          "scenario": "jupyter",
+          "receipt": "/tmp/msv-center-diagnostic-jupyter-20261106/test_actual_jupyter_review_and0/jupyter/full-result.json",
+          "sha256": "b1f9ef48b03844153d4be1278dbfe39300b0d37e2c684a712e91ce863efbaa95",
+          "checks": [
+            "Execute real notebook with source-pinned Python 3.14 kernel",
+            "Native review is 165 waters / 3818 retained; Back does not edit",
+            "Confirm traverses real widget comms, native edit and Mol* rendering",
+            "Empty ion selection and remount retain a bounded draft without a review",
+            "Canvas popup and Studio popup share the actual Jupyter authority",
+            "Kernel verifies actual inventory and exactly two managed edits"
+          ],
+          "page_errors": 2,
+          "plain_jupyter_baseline_errors": 1
+        },
+        {
+          "scenario": "jupyter-results",
+          "receipt": "/tmp/msv-center-diagnostic-jupyter-20261106/test_actual_jupyter_independen0/jupyter-results/full-result.json",
+          "sha256": "f15ae19cc839f7d0f6dd2b6963e187f2b47b7ab3b43233422e8bff6b24407023",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Extract ordered nonconsecutive structures without editing the source",
+            "Notebook delivery from fullscreen explains how to reach the result",
+            "Changing destination reuses one View through rapid window/notebook cycles",
+            "Copy opens a separate live View in an external window without recomputing",
+            "Detached Studio can open and close an independent result without closing its source",
+            "Python recovers both Views and source closure preserves them"
+          ],
+          "page_errors": 2,
+          "plain_jupyter_baseline_errors": 1
+        },
+        {
+          "scenario": "jupyter-geometry",
+          "receipt": "/tmp/msv-center-diagnostic-jupyter-20261106/test_actual_jupyter_geometry_t0/jupyter-geometry/full-result.json",
+          "sha256": "022e6900ed8e212efdd21fba983fb11af61d15b2849883dee3fa8d077e1414b2",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review and cancel translation without changing the molecular system",
+            "Confirm the saved subset once through live Jupyter comms",
+            "Translate an independent whole-system result and display it below the source",
+            "The same result can move to its own live window and back",
+            "Geometry is reachable in canvas and detached Studio popups with its draft",
+            "Python verifies the numerical results and unchanged source of the independent calculation"
+          ],
+          "page_errors": 2,
+          "plain_jupyter_baseline_errors": 1
+        },
+        {
+          "scenario": "jupyter-center",
+          "receipt": "/tmp/msv-center-diagnostic-jupyter-20261106/test_actual_jupyter_geometry_c0/jupyter-center/full-result.json",
+          "sha256": "801034fa5fe32fdb899d20dcdbe61822c5ccb2bcfae91242ad784f6fde2c6029",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review centering and cancel while actual Mol* coordinates stay unchanged",
+            "Apply centering and verify the actual displayed coordinates analytically",
+            "Create an independent result centered on another selection in the current structure",
+            "The centered result keeps its identity across window and notebook destinations",
+            "Center task and its references survive canvas and Studio popups",
+            "Python verifies every selected and unselected atom and structure"
+          ],
+          "page_errors": 2,
+          "plain_jupyter_baseline_errors": 1
+        },
+        {
+          "scenario": "jupyter-center-errors",
+          "receipt": "/tmp/msv-center-diagnostic-jupyter-20261106/test_actual_jupyter_rejected_o0/jupyter-center-errors/full-result.json",
+          "sha256": "9155e2cc60a63ab4742840cdb3c253c7e10b7a96cb9528d69c8c00ec2d8e56b8",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review a native center-of-mass request under the explicit partial application policy",
+            "The native error remains visible after its automatic synchronized refresh",
+            "Python verifies that the rejected native call did not mutate the system",
+            "A new user choice clears the diagnostic and requires a new review"
+          ],
+          "page_errors": 2,
+          "plain_jupyter_baseline_errors": 1
+        }
+      ],
+      "boundary": "Real kernel/comms/provider panel and actual Mol* unit.conformation positions; native mass-policy rejection is intentional. Test-only renderer observation exposes the real model for comm receipts without replacing scientific execution."
+    },
+    {
+      "scope": "Ruff",
+      "outcome": "passed",
+      "commands": [
+        "python -m ruff check .",
+        "python -m ruff format --check ."
+      ],
+      "formatted_files": 4427
+    },
+    {
+      "scope": "owner devguide",
+      "outcome": "passed",
+      "commands": [
+        "python devtools/scripts/validate_devguide.py",
+        "python devtools/scripts/devguide_index.py --check"
+      ]
+    }
+  ],
+  "retained_failures": [
+    {
+      "scope": "Center test fixtures before correction",
+      "facts": "Initial fixture used unsupported basic.get mass=True; later partial application policy omitted a mass unit for mass weighting. Corrected to physchem.get_mass and explicit dalton. No product unit fallback or native repair. Logs retain original failures."
+    },
+    {
+      "scope": "browser receiving driver",
+      "facts": "First Center driver did not open Reference atoms disclosure before filling its hidden field. Driver corrected; no UI workaround. /tmp/msv-center-geometry-jupyter-20261106.log retains the failure and a passing Translate scenario."
+    },
+    {
+      "scope": "four-scenario Jupyter source initialization",
+      "facts": "/tmp/msv-center-all-jupyter-final-20261106.log: 3 passed, 1 failed (results initial controller wait, 120 seconds, no source/browser exception). Exact cause remains unknown. Added private native initialization-stack diagnostic; isolated results rerun passes 60.62s and final five-scenario run passes without increasing timeouts. Previous failure is not relabeled passing."
+    },
+    {
+      "scope": "native rejection diagnostic",
+      "facts": "Actual comm trace and visible mismatch reproduced #603 before correction; retained /tmp/msv-center-error-repro-20261106/full-failure.json. Native data/revision stayed unchanged."
+    },
+    {
+      "scope": "new diagnostic expiry test",
+      "facts": "/tmp/msv-task-diagnostic-unit-20261106.log: 62 passed, 2 failed because the new test called nonexistent PlayerManager.set_frame. Corrected test to public go_to_structure; final shared lane passes 114."
+    }
+  ],
+  "hosted_at_checkpoint": {
+    "viewer_core": {
+      "run": 42176308961,
+      "state": "queued",
+      "test_success": 4,
+      "test_queued": 4,
+      "unrelated_skipped": 1
+    },
+    "viewer_browser": {
+      "run": 42176308960,
+      "state": "success"
+    },
+    "viewer_ruff": {
+      "run": 42176309177,
+      "state": "success"
+    },
+    "viewer_experimental_qt": {
+      "run": 42176309061,
+      "state": "success"
+    },
+    "prior_owner_contribution": {
+      "source": "1e7a4273b905ca020815658f23ba645d40817226",
+      "run": 42177054116,
+      "build_success": 1,
+      "tests_queued": 8,
+      "qualifies_this_center_change": false
+    }
+  },
+  "pending": [
+    "Owner PR review/integration and exact new-head hosted CI",
+    "Postponed human Jupyter/visible Qt acceptance",
+    "Exact installed-package qualification",
+    "Public native axis-angle constructor #602 before Rotate GUI",
+    "Remaining Geometry alignment/PBC/cell families, Chemistry/Analysis task families and complete 1TCD/ensemble save/recover session"
+  ],
+  "publication": "No tag/package/candidate freeze or 1.0 publication authorized; 0.25.0 remains unfrozen."
+}

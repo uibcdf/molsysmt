@@ -1,0 +1,124 @@
+{
+  "schema": "molsysmt.viewer_tools_integration_receiving@1",
+  "date": "2026-11-06",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "status": "Frozen contribution full addon passes; scoped owner-base integration passes; exact integrated full/hosted/installed/human acceptance remains pending",
+  "source": {
+    "contribution": "fa119ac122b0ad025c9679b13b3af79bf2f21fb5",
+    "merged_owner_main": "882b65b9cdd2d66ff8c68d0069b9728e6b715840",
+    "integration_identity": "Consecutive non-fast-forward merges into contribution branch; scoped validation preceded the owner documentation/test-only closeout, with no intervening molecular/addon/Rust source change",
+    "viewer": "fabf2d220c5d3cb906343005efb060670c84bdf0",
+    "viewer_controlled_code": "239c8dd74815a660159a95970e9136d7beebfdd2",
+    "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "rust_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "rust_note": "The merged owner and frozen contribution have identical Rust trees. The existing qualified binary is reused; no rebuild or native scientific algorithm change in this contribution.",
+    "scoped_validation_owner_basis": "faab727ca5b5c9078e2f2e505971fc0ea1cf1a8d"
+  },
+  "frozen_contribution_full_addon": {
+    "source": "fa119ac122b0ad025c9679b13b3af79bf2f21fb5",
+    "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+    "command": "python -m pytest --receptor=llm -o receptor_rerun_command=\"python -m pytest\" tests/molsysviewer_molsysmt",
+    "exit_code": 0,
+    "passed": 4821,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 2837,
+    "pytest_seconds": 1205.27,
+    "wrapper_seconds": 1211.4803935079835,
+    "selected_input_count": 4957,
+    "selected_inputs_unchanged": true,
+    "heads_unchanged": true,
+    "contribution_status_unchanged": true,
+    "private_receipt": "msv-analysis-scene-full-addon-receipt-20261106.json",
+    "private_receipt_sha256": "02fb69d216f20338efe1036ecb562724a62a788905ba0a8e3d3f6371833fdd7a",
+    "private_log": "msv-analysis-scene-full-addon-20261106.log",
+    "private_log_sha256": "36535bdbcc40688481f4fc31fb44754ec73960099a9db027030feda7ea9ec356",
+    "scope": "This complete gate qualifies fa119ac12 with its ed09f6453 scientific basis. It does not certify the newer merged owner Python source."
+  },
+  "merged_owner_scoped_receiving": {
+    "preflight": {
+      "passed": 121,
+      "failed": 0,
+      "exit_code": 0,
+      "warnings": 89,
+      "seconds": 26.19,
+      "selection": [
+        "tests/molsysviewer_molsysmt/test_analysis_panel.py",
+        "devtools/tests/test_smoke_addon_test_command.py",
+        "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+        "devtools/tests/test_native_viewer_integration.py"
+      ],
+      "private_log": "msv-analysis-scene-integration-preflight-20261106.log"
+    },
+    "actual_jupyter": {
+      "passed_steps": 12,
+      "exit_code": 0,
+      "private_artifact": "msv-analysis-scene-integrated-jupyter-20261106",
+      "result_sha256": "debbae753d5125e9ffe296a406939905c5f12b5b2d6a2d7fe3cce364ff361904",
+      "page_errors": 5,
+      "plain_jupyter_baseline_errors": 1,
+      "diagnostic": "All five page errors match the retained plain-Jupyter No active debugger session control. This is not a zero-page-error claim.",
+      "checks": [
+        "Load TcTIM and open Analysis without calculating implicitly",
+        "Calculate explicit atom populations and verify native distances against coordinates",
+        "Inspect native minimum and maximum without changing molecular data",
+        "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "Page through TcTIM source indices without transferring the complete result",
+        "Use independent Analysis panels in canvas popup and detached Studio",
+        "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+        "Select participants and focus the visible structure without losing the row acknowledgement",
+        "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+        "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+        "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+        "A repeated-population live Measure uses the visible structure and follows a real ensemble"
+      ]
+    },
+    "ruff": "check . and format --check . pass; 4474 files already formatted",
+    "devguide": "validate_devguide and generated indexes pass before recording this receipt",
+    "source_fingerprints": {
+      "molsysviewer_molsysmt/_analysis_panel.py": "a79b25f1be780957a6172a4e217758eba272d5bf3674fe658fcc678426aad91f",
+      "molsysviewer_molsysmt/_analysis_panel_frontend.py": "df56678bf975233772004a3e6e374ddfb394173723fd45e85cd06ce86576dfad",
+      "tests/molsysviewer_molsysmt/test_analysis_panel.py": "461094e31cf0fa68d410b645e53cad003ee63da2476f8aec1d57495b8197b538",
+      "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": "ddfe7386f45721741eabad6c4d1a2b5951a29eb9d38b314ae4de231f59fd7e55",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "047efd62f9ebff7eff33f5b48e6b9548cef0a51b1802642f24a9a6a27b08fce1",
+      "tests/molsysviewer_molsysmt/jupyter_panel_controls.mjs": "9b1bc7ed65da40c8a0b9154167f5414e120fd449c6e761ae13219a604eef5f39"
+    },
+    "source_exposure": {
+      "native_paths": 248,
+      "exposed_paths": 242,
+      "missing": [
+        "topology.get_atom_name_correspondence",
+        "physchem.get_chemical_template",
+        "build.assess_protonation",
+        "molecular_mechanics.get_forces",
+        "molecular_dynamics.run_NPT_equilibration",
+        "molecular_dynamics.run_NVT_equilibration"
+      ],
+      "scope": "Source exposure only. The two MD paths are native stubs. The four new native capabilities require separate bound-consumer receiving."
+    },
+    "later_owner_closeout": {
+      "source": "882b65b9cdd2d66ff8c68d0069b9728e6b715840",
+      "previous": "faab727ca5b5c9078e2f2e505971fc0ea1cf1a8d",
+      "molecular_addon_rust_source_diff": [],
+      "note": "Owner closes 594 through 598 and adds a source-ID test control. Scoped addon/Jupyter evidence remains applicable to identical runtime sources; original full collection remains tied to fa119ac12."
+    }
+  },
+  "environment": {
+    "python": "3.14.7",
+    "profile": "Named shared Linux development environment with explicit scientific source overlays; not a clean solver-installed qualification",
+    "pip_check": "Eight existing shared-workspace/auxiliary dependency findings remain; no clean closure claim or environment mutation. Central workspace receiving remains under uibcdf/molsyssuite#82.",
+    "metadata_note": "Editable ArgDigest and PyUnitWizard metadata may lag their explicitly recorded imported source. These results qualify the exercised source, not a package capability floor."
+  },
+  "remaining": [
+    "Owner review/integration of PR543; never push or merge owner main from this session",
+    "Exact integrated full/platform/hosted gates and installed-package qualification",
+    "Separate native force/protonation/correspondence/template consumer admission",
+    "All approved Geometry/Chemistry/Analysis/plot and complete scientific-session families",
+    "Human Jupyter and visible Qt acceptance remains postponed",
+    "Candidate/tag/package operations and both 1.0 publications remain paused"
+  ]
+}

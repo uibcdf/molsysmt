@@ -80,7 +80,17 @@ def test_installed_backend_requires_a_file_inventory():
         installed.validate_native_viewer_metadata(distribution)
 
 
-@pytest.mark.parametrize("module", ["_attribute.py", "_chemical_edits.py"])
+@pytest.mark.parametrize(
+    "module",
+    [
+        "_attribute.py",
+        "_chemical_edits.py",
+        "_panel_widgets.py",
+        "_task_panel.py",
+        "_geometry_panel.py",
+        "_geometry_panel_frontend.py",
+    ],
+)
 def test_installed_metadata_requires_received_tools_source(module):
     with pytest.raises(RuntimeError, match="files are missing"):
         installed.validate_native_viewer_metadata(

@@ -1,0 +1,32 @@
+{
+  "schema": "molsysmt.viewer_tools_integration_full_receiving@1",
+  "date": "2026-11-06",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "source": "2bb52b77c52edbca98a11c621cee499437a80832",
+  "viewer": "db337d94755b00ca523fcc633aee9f888ac3cbb0",
+  "viewer_code": "239c8dd74815a660159a95970e9136d7beebfdd2",
+  "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "exit_code": 0,
+  "passed": 4827,
+  "failed": 0,
+  "skipped": 0,
+  "warnings": 2838,
+  "pytest_seconds": 1134.99,
+  "wrapper_seconds": 1141.218467778992,
+  "started": "2026-11-06T18:57:46.012547+00:00",
+  "finished": "2026-11-06T19:16:47.234305+00:00",
+  "selected_input_count": 5001,
+  "selected_inputs_unchanged": true,
+  "heads_unchanged": true,
+  "contribution_status_unchanged": true,
+  "selected_input_manifest_sha256": "6907bdd2d62c421212979785930d9ae2f0733fe7cffbd8447db39d5f13352b8d",
+  "manifest_encoding": "UTF-8 canonical json.dumps with sort_keys=True and separators=(comma,colon)",
+  "private_receipt": "msv-analysis-scene-integrated-full-addon-receipt-20261106.json",
+  "private_receipt_sha256": "a5dfe3808bf77eb1143f00bac1b203bec69ff9e47c433908c55cd0cfc9f6afbc",
+  "private_log": "msv-analysis-scene-integrated-full-addon-20261106.log",
+  "private_log_sha256": "849c36d08c0d5efed564283da0682561eade63ea7d0279883f4cc7a2fe9e029d",
+  "scope": "Complete addon collection on published 2bb52b77c with owner basis 882b65b9c. Subsequent force wrapper is qualified separately; this gate does not qualify that later source. Source-only named Linux environment with explicit provider overlay, not clean installed/platform or human acceptance. Both 1.0 publications remain paused."
+}

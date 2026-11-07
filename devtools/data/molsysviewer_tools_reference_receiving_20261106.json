@@ -1,0 +1,183 @@
+{
+  "schema": "molsysmt.viewer_tools_reference_receiving@1",
+  "date": "2026-11-06",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#557",
+    "uibcdf/molsysmt#576",
+    "uibcdf/molsysviewer#264"
+  ],
+  "status": "Three exact native mirrors and managed protonation pass scoped receiving; owner/full/hosted/installed/human acceptance remain separate",
+  "source": {
+    "contribution_parent": "38147a9f8b4e6c33b7d038ecf39603861495f541",
+    "included_owner_main": "882b65b9cdd2d66ff8c68d0069b9728e6b715840",
+    "viewer": "069079137ee8882af6c4980b32a727c696324140",
+    "viewer_controlled_code": "239c8dd74815a660159a95970e9136d7beebfdd2",
+    "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+    "rust_tree": "32cfb07b9c26ae9ad3ed379c1b76fab85669cf67",
+    "rust_binary_sha256": "f32ed73f7ef3cf3225e12fbc56b9c4236a4452d758c94661f41860ad00d82c1c",
+    "scope": "Named Python 3.14.7 Linux source environment and explicit provider overlay; unchanged native Rust binary; not a clean solver installation or published package qualification",
+    "environment": "Existing editable metadata and eight known pip-check findings retain MolSysSuite#82 tracking; no dependency installation or scientific/native change in this contribution"
+  },
+  "contracts": [
+    "Exact native function paths/signatures and skip_digestion; scientific defaults and native result classes retained",
+    "Atom-name matching binds the current serialized primary and returns source-index query/reference columns in query order; exact label/element matching is not chemical identity authentication",
+    "CCD template factory keeps component/source/method/H/descriptor/search inputs explicit, works from an empty open view and returns independent coordinate-free native data with provenance and unassessed evidence",
+    "Protonation assessment is the native source-bound single-use result with detached public report maps; raw apply is not an automatically managed Viewer edit",
+    "Managed reconciliation prepares one public assessment under the host edit lock, validates bidirectional atom maps and unchanged structure scope, then applies that exact decision once",
+    "Native independent default, all-source-structure removal, units, named sparse analyses, evaluated-empty/unassessed scope, no-ops and deferred edit composition retained",
+    "Prepublication rejection preserves prior data and pending maps; visual failure exposes completed science and sync-only retry; unexpected postpublication failure remains uncertain",
+    "No H addition, chemical state assignment, charge model, environmental pKa, implicit result adoption or hidden preparation introduced"
+  ],
+  "validation": {
+    "affected_and_preflight": {
+      "passed": 333,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 174.69,
+      "warnings": 128,
+      "scope": "Eight affected/preflight modules; precedes six later added cases",
+      "private_log": "msv-reference-tools-expanded-20261106.log",
+      "log_sha256": "7020378274442c2263d32bffe6ce1f28b683172485d3a08f23a0b69a78cc8e5e"
+    },
+    "native_public_controls": {
+      "passed": 99,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 16.96,
+      "private_log": "msv-reference-tools-native-controls-20261106.log",
+      "log_sha256": "009534fda1c33fa29d056d27772c62675dd898b9a252eb2ca652a687f41e5db7"
+    },
+    "final_protonation_module": {
+      "passed": 67,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 28.56,
+      "warnings": 1,
+      "scope": "Includes final prepublication and surviving-observation cases; overlaps prior 333-case gate",
+      "private_log": "msv-protonation-managed-final-20261106.log",
+      "log_sha256": "810b6324c57cf155b33018a7a9c5b75d0368290fc0fdc8f892c8988816479f0a"
+    },
+    "deposited_reference_composition": {
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.01,
+      "scope": "1HSG/MK1 and 1STP/BTN; fixture repeats a deposited pose, not a real experimental ensemble",
+      "private_log": "msv-reference-tools-deposited-20261106.log",
+      "log_sha256": "a99e5dbd39652572806441db7e2ec37a9e2c1a83f15b0696f4dcd99773ba46ac"
+    },
+    "native_prepublication_rejection": {
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.01,
+      "private_log": "msv-protonation-atomic-rejection-20261106.log",
+      "log_sha256": "a99e5dbd39652572806441db7e2ec37a9e2c1a83f15b0696f4dcd99773ba46ac"
+    },
+    "surviving_observations": {
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.67,
+      "private_log": "msv-protonation-managed-observations-20261106.log",
+      "log_sha256": "fb4f0e997d87f7e3071e36fbeeb8d0d42919db0eac76b7506290df9294bc6b2d"
+    }
+  },
+  "documentation": {
+    "executed_examples": {
+      "guide_blocks": 5,
+      "inherited_help_doctests": 20,
+      "failed": 0,
+      "private_log": "msv-reference-tools-doc-examples-20261106.log",
+      "log_sha256": "6bb793d6ec519c179a4718a62f4e708908a841e0496532d9f02e2ad206114cea"
+    },
+    "course_preservation": {
+      "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+        "changed_markdown_cells": [
+          13,
+          25
+        ],
+        "code_cells": 12,
+        "all_code_outputs_ids_metadata_preserved": true
+      },
+      "docs/content/course/Common_Core/13_Topological_Analysis.ipynb": {
+        "changed_markdown_cells": [
+          1
+        ],
+        "code_cells": 11,
+        "all_code_outputs_ids_metadata_preserved": true
+      }
+    },
+    "course_structure": "156 notebooks, toctrees, manifest and labels pass",
+    "ruff": "Whole-tree check and format pass; 4474 files already formatted"
+  },
+  "retained_attempts": [
+    {
+      "result": "49 passed, 2 failed, 110 deselected. Test assumptions incorrectly expected a missing descriptor to raise and a no-op status to be applied. Corrected expectations to native unassessed/no_op; no product/scientific change.",
+      "private_log": "msv-reference-tools-focused-20261106.log",
+      "log_sha256": "3a164d5aba7e943ff97185c4629919868ccc3b2d9024aa832628b6e3f2a889ef"
+    },
+    {
+      "result": "7 affected cases pass after correcting those native-contract expectations",
+      "private_log": "msv-reference-tools-corrected-20261106.log",
+      "log_sha256": "375e6db2006d3a54de451b56046806635ff6b7f98b45628724e352e9a9e16211"
+    },
+    {
+      "result": "53 passed, 5 failed. Tests used an invented Whole.atom_indices accessor; corrected to actual public get/select and shape.info APIs. Scientific assertions retained.",
+      "private_log": "msv-protonation-managed-20261106.log",
+      "log_sha256": "0d10f95b19e0665c339a37e8b17ae773442f6797428add450969603f02c862e5"
+    }
+  ],
+  "working_source_sha256": {
+    "devtools/tests/test_molsysviewer_tools_api_inventory.py": "7598fc10d1c129c224d0d9124ef202a46c9cf532c388325c3561f8dfc7ed156c",
+    "molsysviewer_molsysmt/_basic.py": "387efa75f8012a6297fcdf15d55595db1a36d69e17792a0947a84b28ece7812b",
+    "molsysviewer_molsysmt/_build.py": "18fb88d03d46c17eede9657c33f61951c35d1d5b3f1ae61c76f2e1621261b501",
+    "molsysviewer_molsysmt/_chemical_edits.py": "6d6a3b363093c2d3d90a983cad643ec170493945e1103a64dc7667b20399c0b5",
+    "molsysviewer_molsysmt/_physchem.py": "38cdb48d6b7a6492bb512287555a724dc03cecd983cf4d3e26f7bb800280bb49",
+    "molsysviewer_molsysmt/_topology.py": "c712017a08c1ad133b66c7c9ab8dc501963a18161779048039a8f810460dd278",
+    "tests/molsysviewer_molsysmt/test_physchem_remainder_tools.py": "3001e84be0c0158245a3acc09d2842da653f0b9d260c1b4c0aa8f1b752b52bd9",
+    "tests/molsysviewer_molsysmt/test_physchem_tables_tools.py": "0e0ac0e3ace5388da3f3d1843ebd25fcea56f0b9c0cdd6996cc29ddc89321e08",
+    "tests/molsysviewer_molsysmt/test_protonation_tools.py": "41ca0e988daa1bd96821b89f4c2a7938f5d3cf1ff238f1ebdb2e33424982fb30",
+    "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py": "de2145e6daed11b8afc46a94d3f09097e90594ecf136689cab59b6ecfe403770",
+    "tests/molsysviewer_molsysmt/test_topology_tools.py": "5dd51ba2e1e4489f8533b5cd207c32eb0208488b2198995a28e92b8388db31e3"
+  },
+  "hash_scope": "Post-run capture of the final reviewed working runtime/tests; no before/after immutability claim for the earlier overlapping scoped runs",
+  "path_inventory": {
+    "exposed": 246,
+    "declared": 248,
+    "missing": [
+      "molecular_dynamics.run_NPT_equilibration",
+      "molecular_dynamics.run_NVT_equilibration"
+    ],
+    "scope": "Two unconditional native MD stubs remain unexposed. Path exposure does not prove every mode, scientific guarantee, GUI family or installed qualification."
+  },
+  "remaining": [
+    "Complete addon run on the final frozen source, including force and reference/protonation changes; prior 4827-case parent gate has its own earlier inputs",
+    "Owner review/integration through PR543; no owner-main push/merge authority",
+    "Exact-source hosted/platform and installed-artifact qualification",
+    "All previously approved GUI and full TcTIM/ensemble scientific-session families remain required",
+    "Human Jupyter/visible Qt acceptance remains explicitly postponed",
+    "Candidate/tag/package operations and both 1.0 publications remain paused"
+  ],
+  "owner_base_integration": {
+    "source_producer": "c877038d90c0979713bb66c2ce9f372bd6461322",
+    "included_owner_main": "40bb54d05182d4a87c48cc17a141b4152812421c",
+    "owner_scope": "Prepared PDBQT coordinate projection and strict metadata validation; owner science and course changes preserved",
+    "addon_runtime_and_tests_unchanged": true,
+    "passed": 117,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 5.85,
+    "scope": "Native correspondence digestion, PDBQT coordinate projection/docs and addon API/source/hosted-command preflight; not the complete addon collection",
+    "private_log": "msv-reference-owner-integration-20261106.log",
+    "log_sha256": "d85c5bd0332d381dc2f990d3636b5b7652e41d7caa6afd8c99cd72467dd77c66",
+    "checks": [
+      "devguide links/schema/lifecycle",
+      "156-course-notebook structure/manifest/labels",
+      "dependency contract audit",
+      "whole-tree Ruff check/format (4481 files)"
+    ],
+    "full_addon_gate": "Pending on the final frozen source; original 333/99/67 scopes keep their earlier inputs"
+  }
+}

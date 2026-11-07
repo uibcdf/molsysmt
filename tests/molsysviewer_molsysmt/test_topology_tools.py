@@ -72,6 +72,7 @@ def test_namespace_is_explicit_without_invented_root_aliases(view):
     assert set(dir(tools.topology)) == {
         "get_sequence_alignment",
         "get_sequence_identity",
+        "get_atom_name_correspondence",
     }
     assert not hasattr(tools.topology, "get_bondgraph")
     assert not hasattr(tools.chemical_states, "unreviewed_tool")

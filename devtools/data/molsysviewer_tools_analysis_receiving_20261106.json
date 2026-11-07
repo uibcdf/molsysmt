@@ -1,0 +1,597 @@
+{
+  "schema": "molsysmt.molsysviewer-tools-analysis-receiving@1",
+  "date": "2026-11-06",
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "4f1710c5e66f7c9d5e9065fc82a7bd602824e611",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "viewer_source": "e920faf95c375ff7d3fcb326c7c0d2f3d1951b3e",
+  "viewer_controlled_source": "177e19a8fa06e37484a801da1711cc99acbc8f2d",
+  "host_runtime": "2e17ee6f13333e5efd3726b353ade5c8cdc77b0b",
+  "host_source_relation": "e920faf9 changes developer evidence only; runtime and public code remain those of 177e19a8.",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "python": {
+    "environment": "molsyssuite@uibcdf_3.14",
+    "version": "3.14.7"
+  },
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#304",
+    "uibcdf/molsysmt#613",
+    "uibcdf/molsysmt#614",
+    "uibcdf/molsysmt#615",
+    "uibcdf/molsysmt#616"
+  ],
+  "source_files": {
+    "molsysviewer_molsysmt/_analysis_panel.py": {
+      "sha256": "2281afb939063a1b29c58520ad4d678a4d384118c0ee332d13c36f29d552f397",
+      "size_bytes": 19067
+    },
+    "molsysviewer_molsysmt/_analysis_panel_frontend.py": {
+      "sha256": "2236904215ef3361d93a6be1862f17a060ceb95ed04f3ce10199c116b80c13f7",
+      "size_bytes": 16389
+    },
+    "molsysviewer_molsysmt/_task_panel.py": {
+      "sha256": "9d08261dced50136ca0fd6da19cb044c268df58f64168cf9ba6186c854d8e30e",
+      "size_bytes": 14410
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "sha256": "bbb6138da9c34ae32137ddb53ca1d7e9933e7dbac01fc57415b01f9b47314819",
+      "size_bytes": 3158
+    },
+    "tests/molsysviewer_molsysmt/test_analysis_panel.py": {
+      "sha256": "83d8a9c93f66af6afee51651caef725d974bd8f5643e0de48b4ac0a31abffbf0",
+      "size_bytes": 14642
+    },
+    "tests/molsysviewer_molsysmt/jupyter_panel_controls.mjs": {
+      "sha256": "c5f9d24bf69c51ac75d72b2464d42eba8d79b711ac98026e9e983682b0e8f1b5",
+      "size_bytes": 1035
+    },
+    "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": {
+      "sha256": "46f1c7e8dd146deea9d77e83905b0e40b5a830c3553fd8fa91e1339d677de3ee",
+      "size_bytes": 9292
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "0b42541df97ab6974e05d79ecc774074df0dfe3a5a5b878ac4e9e10fa8596298",
+      "size_bytes": 30017
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "ec48defa1efe45667222040f8b67ecea3034c195b8ed9f6bf11198c05f5e68ad",
+      "size_bytes": 9292
+    },
+    "devtools/scripts/viewer_tools_contract.py": {
+      "sha256": "9a286d3bdacc5ebd7116907fba08d91cdfb02b6987051b9ae87de00f6594f21a",
+      "size_bytes": 3742
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "sha256": "251d9363c2f13e45d5d8331a4a48e8cfe52581fe87de1387b95e3412078076e0",
+      "size_bytes": 16841
+    }
+  },
+  "logs": {
+    "msv-analysis-panel-focused-20261106.log": {
+      "sha256": "51c1cc17fd04a19cfdd745a5fd5ff7c664d6e1ca0ed5b089f06e2c8874616f51",
+      "size_bytes": 4366
+    },
+    "msv-analysis-panel-focused-qualified-20261106.log": {
+      "sha256": "3c01e29715da1d698e757f46b1094c6acda3d5eaa0f0b7c9af8130ca11415434",
+      "size_bytes": 488
+    },
+    "msv-analysis-panel-expanded-20261106.log": {
+      "sha256": "78c8ac747ec727870505e1ca3438ddd9fc35e13adcae89d5f0abd0eb62baa885",
+      "size_bytes": 501
+    },
+    "msv-analysis-shared-panel-regression-20261106.log": {
+      "sha256": "279ddb4384b156343051ff6f46109e14f9ab5b39a8aef8eb2e9e8e990f6a4d19",
+      "size_bytes": 835
+    },
+    "msv-analysis-jupyter-20261106.log": {
+      "sha256": "666ee0b14ace97afc917ad4d0d94ba101749be441c1f585dbe65faf600675e36",
+      "size_bytes": 2692
+    },
+    "msv-analysis-jupyter-oracle-fixed-20261106.log": {
+      "sha256": "30bee97f15b0d4ea9353d274a4b4672eafd19e80b0d29436ccd640acade9bc4d",
+      "size_bytes": 33
+    },
+    "msv-analysis-jupyter-retirement-20261106.log": {
+      "sha256": "a347bfd821b96a82c80045491f89d5a4903256afea8a682bd2a5db6fd7caf295",
+      "size_bytes": 3116
+    },
+    "msv-analysis-jupyter-retirement-qualified-20261106.log": {
+      "sha256": "eca9807424043df5dd9bcebfac707b43418beda2ee1e1aea4958449239cedf5c",
+      "size_bytes": 3410
+    },
+    "msv-native-config-overlap-20261106.json": {
+      "sha256": "aed77c324565923368f17d49ad729bcbaf2da547ff225549d50d619bdcaf3a84",
+      "size_bytes": 276
+    },
+    "msv-analysis-three-jupyter-20261106.log": {
+      "sha256": "f450844bfed16b8ad3575771f1707733175eb5a77a86c1450f90b0725fbd00dc",
+      "size_bytes": 2756
+    },
+    "msv-analysis-jupyter-init-trace-20261106.log": {
+      "sha256": "f868c73620487345380dbbad22c2ae82ee36bd5a7aac201b192fb8f734b210ee",
+      "size_bytes": 33
+    },
+    "msv-analysis-owner-governance-20261106.log": {
+      "sha256": "2baf7056efbed132a8b3c83d34bacb600d96fc6169b62ee41d0756921a4ef1da",
+      "size_bytes": 257
+    }
+  },
+  "qualification": [
+    {
+      "scope": "Initial source",
+      "outcome": "35 passed/4 failed in 11.04 s; test-only mass API, delete-method and request-counter assumptions corrected."
+    },
+    {
+      "scope": "Focused native/panel and numerical oracle",
+      "outcome": "39 passed in 10.79 s; expanded to 49 passed in 15.19 s; all legacy and intentional tiny-budget memory warnings retained."
+    },
+    {
+      "scope": "Affected shared System/Geometry/periodic/Chemistry/Analysis and packaging preflight",
+      "outcome": "357 passed in 88.07 s; 263 warnings in three groups retained."
+    },
+    {
+      "scope": "First actual TcTIM/Jupyter Analysis",
+      "outcome": "Notebook initialization failed on incompatible NumPy oracle axes; corrected endpoint broadcasting keeps independent expectations."
+    },
+    {
+      "scope": "Corrected notebook oracle",
+      "outcome": "Seven real Jupyter/Mol*/popup steps passed, 40.63 s; source coordinate, chemical-domain and scene-object equality verified."
+    },
+    {
+      "scope": "Final input-retirement refinement",
+      "outcome": "Initial packet ID 0 was confused with an absent cleanup ID; positive-request guard corrected. Later five scientific/paging steps passed before an independent navigation selector failure under #614."
+    },
+    {
+      "scope": "Shared helper receiving",
+      "outcome": "Three-case campaign: 2 passed/1 initial-canvas failure, 243.40 s. Chemistry preparation/pending reader passed. Scoped final Analysis passes all seven steps in 39.36 s with an initial cell duration of 3.357631 s. The earlier initialization observation stays open under #615; no single green three-case run is claimed."
+    },
+    {
+      "scope": "Owner distribution/documentation/dependency/reporting controls",
+      "outcome": "106 passed, 13.27 s; 504 Sphinx deprecation warnings retained. Ruff check/format pass on 4436 files; dependency and devguide validators pass."
+    }
+  ],
+  "contracts": {
+    "scope": "Distances, native extrema and cutoff/count neighborhoods; atom/center populations, explicit contexts, ordered/repeated structures and native self/tie/PBC conventions. Expert signatures/defaults and algorithms remain unchanged.",
+    "quantity": "Pages convert only requested native values to explicit nm, nine significant display digits; full Python precision remains native.",
+    "resources": "Flat Cartesian distances request public native heavy_mode force. Native disk handles are paged and cleaned on expiry/clear/unmount. Other modes retain native resource behavior; no universal RAM/disk/cancellation guarantee.",
+    "lifetime": "One private report per mounted panel; stale managed source, relevant input/frame/scene membership expires it. No raw external observation, generic scientific store, persistence or automatic scene adoption.",
+    "concurrency": "Current consumer gates are serial. Native configure.context GPU policy leaks across overlapping calls and leaves wrong restoration; independently reproduced under #613, not repaired downstream."
+  },
+  "previous_published_smoke": {
+    "source": "4f1710c5e66f7c9d5e9065fc82a7bd602824e611",
+    "run": 42226585269,
+    "conclusion": "success",
+    "preflight": 36,
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "native_seconds": 641.91,
+    "addon_passed": 4722,
+    "addon_skipped": 4,
+    "addon_seconds": 714.59,
+    "skips": "Optional Ackredit/unyt/astropy native tests and four optional Ackredit addon cases. Does not qualify new Analysis source."
+  },
+  "pending": [
+    "Current hosted gates, owner integration and remaining required GUI/session families. Complete actual-Jupyter receiving on b18d5d823 / 737f9bc3 passes 11 scenarios and 76 steps; #615 remains unexplained.",
+    "Postponed human Jupyter/visible Qt and installed artifacts.",
+    "Remaining Geometry, Chemistry construction/assignments, Analysis series/properties/sequence/mechanics/plots and qualified visual adoption.",
+    "Full task-family/GUI session completion and native H5MSM continuation #616 remain pending. Both 1.0 publications and candidate freezes remain paused."
+  ],
+  "actual_jupyter": {
+    "jupyter-preparation": {
+      "checks": [
+        "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+        "Present the independent result in the notebook and keep it while changing tasks",
+        "Review Back preserves the original TcTIM and its chemical domain",
+        "Apply the reviewed result and render its independent copy in the original canvas",
+        "Inspect the adopted molecular data in the canvas popup and detached Studio",
+        "Python verifies one replacement, original preservation and independent result coordinates"
+      ],
+      "scope": "Actual TcTIM/Jupyter/Mol*/AnyWidget preparation, independent notebook result, heavy no-op 3983 atoms, hydrogen generation 7868 atoms, explicit losses, Back, conditional replacement and popup inspection. Source overlay; not human Qt or installed artifact qualification.",
+      "receipt": {
+        "sha256": "2d73ebfd3d8b80e01aa7f0f452fa4fef1b9601988d76f587ffe79c9a4ec8c9af",
+        "size_bytes": 6094
+      },
+      "observed_page_errors": 3,
+      "baseline_page_errors": 1
+    },
+    "jupyter-chemistry-pending": {
+      "checks": [
+        "Mount actual Chemistry in the embedded TcTIM view",
+        "Inspect and page current primary with real keys while embedded scene stays inert",
+        "Restore the same mounted panel after updating and open the canvas popup",
+        "Inspect current primary from the paused live canvas popup",
+        "Restore canvas popup and mount Chemistry in detached Studio",
+        "Inspect and page current primary in detached paused Studio",
+        "Restore detached Studio without recreating its panel and close popups",
+        "Verify native molecular data revisions scene regions and result ownership"
+      ],
+      "scope": "Actual Jupyter/AnyWidget/Mol*/canvas popup/detached Studio: pending native readers, real pointer/keyboard inputs, bounded pages, stale-scene sources disabled, exact reader DOM restored; three deliberate box edits only. Not human Qt acceptance.",
+      "receipt": {
+        "sha256": "1b98cf9184c75ae75648cb4071dd1afc01de532d96bcdeb5abae0f3ef8aa8872",
+        "size_bytes": 12736
+      },
+      "observed_page_errors": 8,
+      "baseline_page_errors": 1
+    },
+    "jupyter-analysis": {
+      "checks": [
+        "Load TcTIM and open Analysis without calculating implicitly",
+        "Calculate explicit atom populations and verify native distances against coordinates",
+        "Inspect native minimum and maximum without changing molecular data",
+        "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "Page through TcTIM source indices without transferring the complete result",
+        "Use independent Analysis panels in canvas popup and detached Studio",
+        "Python verifies every molecular coordinate chemical domain and scene object unchanged"
+      ],
+      "scope": "Actual TcTIM/Jupyter/Mol*/AnyWidget Analysis distances, extrema, empty and nearest neighborhoods, bounded source-index pages and both popup hosts, with independent coordinate oracles and unchanged source. Not human Qt or installed qualification.",
+      "receipt": {
+        "sha256": "77a4ebdf66ab482bfdf1acad319bf56f53877ccbf31276e1e654d6c402a65f92",
+        "size_bytes": 4788
+      },
+      "observed_page_errors": 2,
+      "baseline_page_errors": 1
+    }
+  },
+  "full_addon_collection": {
+    "source": "8f8c442e09edaf2f54492e0c09f6fe16ff4cd6f8",
+    "viewer_source": "e920faf95c375ff7d3fcb326c7c0d2f3d1951b3e",
+    "viewer_controlled_source": "177e19a8fa06e37484a801da1711cc99acbc8f2d",
+    "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "passed": 4775,
+    "skipped": 0,
+    "exit": 0,
+    "pytest_seconds": 1094.35,
+    "wrapper_seconds": 1099.5455537820235,
+    "warnings": 2794,
+    "warning_groups": 11,
+    "source_inputs": 4209,
+    "source_unchanged": true,
+    "source_inventory_sha256": "3ca89dc1d2f7a855c4ad116c5fc7b7ceef0f9a4bd983aba6ddd36aeb3f95c680",
+    "clean_addon_checkout": true,
+    "human_sandbox_status_preserved": true,
+    "evidence": {
+      "log": "msv-analysis-full-addon-20261106.log",
+      "sha256": "37c5e51aac7a63be9730bab8871a3fc4f6693062a14e6949b17d33fad80d939b",
+      "bytes": 2334
+    },
+    "scope": "Clean published Analysis source before the later Viewer #307 fix and two new scientific-session guards. Not a full collection on those later inputs."
+  },
+  "scientific_session_receiving": {
+    "guard": "tests/molsysviewer_molsysmt/test_scientific_session.py",
+    "guard_sha256": "417d8a5b5d2ef0f680fab0e131f4a14ba2cc05c59ac07e787b86dc8c9e6ad632",
+    "passed": 2,
+    "skipped": 0,
+    "seconds": 4.03,
+    "evidence": {
+      "log": "msv-scientific-session-final-qualified-20261106.log",
+      "sha256": "aee011aca5bd2b45fd7f3b8cd5ba681337058c60d4da22d6944049af5efc2b97",
+      "bytes": 287
+    },
+    "source_profile": "Native ed09f6453 / addon runtime 8f8c442e with published Viewer 737f9bc349e84414be75163e0566a42fe7e480d2. New session guards are test-only source added after that addon runtime checkpoint.",
+    "tctim": {
+      "initial_atoms": 3983,
+      "removed_water_ion_atoms": 165,
+      "retained_atoms": 3818,
+      "alpha_carbons": 497,
+      "checks": "Exact retained/translated coordinates, independent RMSD and geometric radius oracle under pm policy, full stable inventory and chemical fields/nulls, structural attributes/box/time, region/selection/annotation/measurement state, H5MSM and session recovery, independent reopened view."
+    },
+    "ensemble": {
+      "source_structure_indices": [
+        0,
+        8,
+        2
+      ],
+      "processed_structure_indices": [
+        2,
+        0
+      ],
+      "checks": "Real nonempty Buch observations with default 0.23 nm criterion and independent H-A distance; evaluated-empty structure 0 versus unevaluated structure 1; full interaction dictionary, occurrence references, roles/participants, measurements/units/parameters/method and scene preserved."
+    },
+    "dtype_boundary": "Only declared nullable string representation is normalized for comparisons; source non-null values must be strings. This does not fix or qualify subsequent source append under MolSysMT #616.",
+    "not_qualified": "Headless expert workflow only; not the complete required family ledger, GUI session receiving, human review, installed packages or publication."
+  },
+  "analysis_hosted_smoke": {
+    "source": "8f8c442e09edaf2f54492e0c09f6fe16ff4cd6f8",
+    "run": 42233782220,
+    "conclusion": "success",
+    "preflight_passed": 36,
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "native_seconds": 621.45,
+    "addon_passed": 4771,
+    "addon_skipped": 4,
+    "addon_seconds": 710.2,
+    "skip_reasons": {
+      "native": {
+        "ackredit_absent": 21,
+        "unyt_absent": 1,
+        "astropy_absent": 1
+      },
+      "addon": {
+        "ackredit_absent": 4
+      }
+    },
+    "log_sha256": "e48ebc5cd4bf10294c654d367d19df7455e3df60a86881bf45088da69b7429cd",
+    "scope": "Original published Analysis head and controlled Viewer 177e19a8, before subsequent Viewer #307/session receiving. Not installed artifact qualification."
+  },
+  "subsequent_controlled_host": {
+    "viewer_source": "737f9bc349e84414be75163e0566a42fe7e480d2",
+    "reason": "Viewer #307 restores numeric region metadata through state/session recovery; required by the new scientific-session guards. No new public API or runtime bundle.",
+    "runtime": "2e17ee6f13333e5efd3726b353ade5c8cdc77b0b",
+    "routes": {
+      ".github/workflows/benchmarks.yml": "6f5e77389c6a4d8264cb0cfc2505997d95fd3ba6faffdf034c9488dc103be4dc",
+      ".github/workflows/ci-full.yaml": "648ef02bf6df32bb42639d47853d1abd0535c73feda574ca528eae2ff63bccc2",
+      ".github/workflows/ci-smoke.yaml": "bdb7b50cd5384eb8aa8f34714500f08d33cf5d8056a7205137ae203a37a33a2e",
+      ".github/workflows/ci-weekly.yaml": "23c85e9872debba055fce472bece53d9df78eb03b843ad8ac937f4b1b76d2add",
+      ".github/workflows/sphinx_docs_to_gh_pages.yaml": "859e37bf1c739b9bcaffbd5ca2dc885478242aef26043d90e12209c55be1a1a9",
+      "devtools/dependency_contract.toml": "0638494be329143616dc8e451aaedb907e5d337160c677ec0e5371a09ca62ff3"
+    },
+    "qualification": "Two final expert/session guards and the 87-case affected/preflight gate pass on identical corrected host code. Full 4775-case clean and hosted-smoke results above retain the prior host. New actual-Jupyter, hosted and installed gates remain separate.",
+    "local_gate": {
+      "passed": 92,
+      "skipped": 0,
+      "seconds": 6.13,
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_scientific_session.py devtools/tests/test_smoke_addon_test_command.py devtools/tests/test_molsysviewer_tools_api_inventory.py devtools/tests/test_native_viewer_integration.py devtools/tests/test_validate_devguide.py",
+      "log": "msv-session-controlled-host-validation-20261106.log",
+      "sha256": "4e4b768c040d479397d0c4b7a7c08287807b487d9bb388e1c68e4a01bd6d5e93",
+      "boundary": "Published corrected Viewer; current new test and controlled workflow inputs only. No repeated complete 4777-case collection is claimed."
+    },
+    "static_checks": "Ruff check/format: 4437 files pass; dependency audit and devguide validator/index pass; native algorithms and course executable inputs unchanged."
+  },
+  "complete_current_jupyter": {
+    "addon_source": "b18d5d82366808e8c170295f6fe483ffb58094bc",
+    "viewer_source": "737f9bc349e84414be75163e0566a42fe7e480d2",
+    "passed": 11,
+    "skipped": 0,
+    "steps": 76,
+    "pytest_seconds": 671.62,
+    "wrapper_seconds": 675.5728753011208,
+    "tracked_source_inputs": 4456,
+    "source_unchanged": true,
+    "clean_addon_checkout": true,
+    "human_viewer_worktree_status_unchanged": true,
+    "log_sha256": "2534f90c292e47c7d70c2a557f5904debd056a64ebc21f5f90203b1c8d1edc3f",
+    "wrapper_receipt_sha256": "772a421ab9c18754b2fb5011f0e031a803ef1abe6ad536bffa5bbcd81c668925",
+    "scenarios": [
+      {
+        "scenario": "jupyter-analysis",
+        "checks": [
+          "Load TcTIM and open Analysis without calculating implicitly",
+          "Calculate explicit atom populations and verify native distances against coordinates",
+          "Inspect native minimum and maximum without changing molecular data",
+          "Inspect evaluated-empty neighbors and explicit nearest-count results",
+          "Page through TcTIM source indices without transferring the complete result",
+          "Use independent Analysis panels in canvas popup and detached Studio",
+          "Python verifies every molecular coordinate chemical domain and scene object unchanged"
+        ],
+        "receipt_sha256": "d691fc67e37b71d7e368ef14155d373ac2578de10408f83ca42ad4f5aafca496",
+        "initial_cell_seconds": 4.979011,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-preparation",
+        "checks": [
+          "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+          "Present the independent result in the notebook and keep it while changing tasks",
+          "Review Back preserves the original TcTIM and its chemical domain",
+          "Apply the reviewed result and render its independent copy in the original canvas",
+          "Inspect the adopted molecular data in the canvas popup and detached Studio",
+          "Python verifies one replacement, original preservation and independent result coordinates"
+        ],
+        "receipt_sha256": "2d44d9e416cdbc81bba39d7a7ede6200bf0e16ca1397997d21f6b9014252d6a8",
+        "initial_cell_seconds": 3.597561,
+        "observed_page_errors": 3,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-chemistry",
+        "checks": [
+          "Render bundled TcTIM and open Chemistry without starting an assessment",
+          "Inspect actual stored fields with distinct present partial and missing coverage",
+          "Read bounded source-index pages without recalculating the molecular system",
+          "Inspect a duplicate numeric selection and expose unassessed scientific checks",
+          "Keep unknown hydrogen counts distinct from zero and indexed atoms",
+          "Use the same native reports and clear only panel data in both popup hosts",
+          "Python verifies every source coordinate chemical domain scene and revision is unchanged"
+        ],
+        "receipt_sha256": "8b2c9ae7c96937f79340ae6e6f69b4abffc4772c1101574f6f632175744ebba3",
+        "initial_cell_seconds": 5.001528,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-center",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review centering and cancel while actual Mol* coordinates stay unchanged",
+          "Apply centering and verify the actual displayed coordinates analytically",
+          "Create an independent result centered on another selection in the current structure",
+          "The centered result keeps its identity across window and notebook destinations",
+          "Center task and its references survive canvas and Studio popups",
+          "Python verifies every selected and unselected atom and structure"
+        ],
+        "receipt_sha256": "166bc52e91d05232e6e94b4d558ff4eccb8b82ad75658bed09b48ce5467e8ce4",
+        "initial_cell_seconds": 3.267739,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-fit",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review explicit fitting atoms and cancel without changing rendered coordinates",
+          "Apply rigid superposition and compare actual Mol* positions with the independent SVD oracle",
+          "Create a separate result fitted to another explicit reference structure",
+          "The superposed result preserves its identity across window and notebook destinations",
+          "Fitting references remain explicit in canvas and detached Studio popups",
+          "Python verifies every selected/unselected atom and structure against the independent oracle",
+          "Independent notebook Views bind saved-choice inputs to their own datalist"
+        ],
+        "receipt_sha256": "a7681d4f9a0623c7d20f66e21554c9acc32bdbb2d976b8ae9e6ee7b0d7c52e7e",
+        "initial_cell_seconds": 3.26986,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-geometry",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review and cancel translation without changing the molecular system",
+          "Confirm the saved subset once through live Jupyter comms",
+          "Translate an independent whole-system result and display it below the source",
+          "The same result can move to its own live window and back",
+          "Geometry is reachable in canvas and detached Studio popups with its draft",
+          "Python verifies the numerical results and unchanged source of the independent calculation"
+        ],
+        "receipt_sha256": "d420b47dbb7cb03dc77e18f4d74d67616ccb068962bcb4724a0fdfe9e09271d8",
+        "initial_cell_seconds": 3.771304,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-results",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Extract ordered nonconsecutive structures without editing the source",
+          "Notebook delivery from fullscreen explains how to reach the result",
+          "Changing destination reuses one View through rapid window/notebook cycles",
+          "Copy opens a separate live View in an external window without recomputing",
+          "Detached Studio can open and close an independent result without closing its source",
+          "Python recovers both Views and source closure preserves them"
+        ],
+        "receipt_sha256": "780f3083800f317709f1e4d5c4ab97da5a140621da46dcf5a3b7fcdbc535375c",
+        "initial_cell_seconds": 5.094646,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-chemistry-pending",
+        "checks": [
+          "Mount actual Chemistry in the embedded TcTIM view",
+          "Inspect and page current primary with real keys while embedded scene stays inert",
+          "Restore the same mounted panel after updating and open the canvas popup",
+          "Inspect current primary from the paused live canvas popup",
+          "Restore canvas popup and mount Chemistry in detached Studio",
+          "Inspect and page current primary in detached paused Studio",
+          "Restore detached Studio without recreating its panel and close popups",
+          "Verify native molecular data revisions scene regions and result ownership"
+        ],
+        "receipt_sha256": "5ce97eaf6e26c71449189a14174a3424be83d4fdf8e8f8accb3b58f58fcb1714",
+        "initial_cell_seconds": 3.65875,
+        "observed_page_errors": 8,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-periodic",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review compact centered-box wrapping and Back without changing Mol* positions",
+          "Apply native compact wrapping and verify its actual centered image",
+          "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+          "Review per-atom temporal unwrapping and create an independent whole-system result",
+          "The periodic result keeps its View while moving between notebook and window",
+          "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+          "Python verifies all native arrays and drives a second structure of the rendered result"
+        ],
+        "receipt_sha256": "8cd137be0d604518a6b137f7f2c3c99dcdf64ec6e9e46efea6f6a04abd6b9177",
+        "initial_cell_seconds": 3.507885,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter-center-errors",
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review a native center-of-mass request under the explicit partial application policy",
+          "The native error remains visible after its automatic synchronized refresh",
+          "Python verifies that the rejected native call did not mutate the system",
+          "A new user choice clears the diagnostic and requires a new review"
+        ],
+        "receipt_sha256": "2a2273376474067fa71c79c2ffb751207212b9d5f37a4fd265518411ba4558db",
+        "initial_cell_seconds": 3.287835,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      },
+      {
+        "scenario": "jupyter",
+        "checks": [
+          "Execute real notebook with source-pinned Python 3.14 kernel",
+          "Native review is 165 waters / 3818 retained; Back does not edit",
+          "Confirm traverses real widget comms, native edit and Mol* rendering",
+          "Empty ion selection and remount retain a bounded draft without a review",
+          "Canvas popup and Studio popup share the actual Jupyter authority",
+          "Kernel verifies actual inventory and exactly two managed edits"
+        ],
+        "receipt_sha256": "ab33ee306de3595cb219a79f186fb0012860ac67253864e15d5387ff78729030",
+        "initial_cell_seconds": 3.325236,
+        "observed_page_errors": 2,
+        "plain_control_page_errors": 1,
+        "all_page_error_fingerprints_match_plain_control": true
+      }
+    ],
+    "page_error_boundary": "All observed errors match their plain-Jupyter control fingerprint (No active debugger session). This is not a zero-page-error claim.",
+    "initialization_boundary": "All eleven initial cells complete in this campaign; this does not establish the cause/repair of earlier #615.",
+    "source_boundary": "Clean published b18d5d823 / Viewer 737f9bc3. Native ed09f6453 and fixed PyUnitWizard profile; actual Jupyter/Mol*/popups, not human Qt or installed artifacts."
+  },
+  "pandas_string_storage_follow_up": {
+    "published_source": "b18d5d82366808e8c170295f6fe483ffb58094bc",
+    "hosted_run": 42239788034,
+    "hosted_conclusion": "failure",
+    "preflight_passed": 36,
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "addon_passed": 4772,
+    "addon_failed": 1,
+    "addon_skipped": 4,
+    "pandas_hosted": "3.1.1",
+    "pandas_local": "2.3.3",
+    "cause": "The consumer comparison admitted object -> nullable string but not the equivalent StringDtype(na_value=nan) -> StringDtype(na_value=pd.NA).",
+    "local_reproduction": {
+      "failed": 1,
+      "passed": 3
+    },
+    "correction": "Test-only, temporary comparison copies: require strings and exactly matching null masks, then canonicalize both declared string backings. No native or scientific edit.",
+    "qualified_cases": 10,
+    "qualified_seconds": 6.49,
+    "negative_controls": "Changed chemical label and changed null mask must fail under every collected backing.",
+    "case_admission": "The NaN-backed constructor case is collected only when the installed pandas exposes that representation; no skips or new runtime floor.",
+    "source_sha256": "9593cb0f67ffca6c6c1ac2ba9b1a6cdf846e44b1f0aca01c2480d185d99f5452",
+    "evidence": {
+      "hosted_failure": {
+        "name": "msv-session-smoke-42239788034-failed-20261106.log",
+        "sha256": "cf82e9bade9bfcade4b4e6477f3fece5b50aaeff9274ffc2722b82c597f5082e"
+      },
+      "local_reproduction": {
+        "name": "msv-session-string-storage-reproduced-20261106.log",
+        "sha256": "0c0805b0bf2e67b8c88ca47c19181abfc9bd6a0ad0a34a0e4add8ebfc23558ae"
+      },
+      "local_qualified": {
+        "name": "msv-session-string-storage-final-20261106.log",
+        "sha256": "731ef7e8da65a5f16e6ec1598ed9f9750119a13bb4c7206beae131912e8889d7"
+      }
+    },
+    "pending": "New exact-head hosted recovery; native #616 remains unresolved. Complete 11-scenario GUI receiving remains applicable to unchanged runtime/driver inputs.",
+    "affected_preflight": {
+      "passed": 100,
+      "skipped": 0,
+      "seconds": 8.39,
+      "warnings": 7,
+      "log": "msv-session-string-storage-preflight-final-20261106.log",
+      "sha256": "870dd33d7054ae2401f02fcd2519b0523475c5685d8643db63818b101a6e395e",
+      "scope": "Ten session/negative-control cases plus exact smoke/inventory/native-bridge and devguide controls. Does not claim a new full addon collection or pandas 3.1.1 installed qualification."
+    }
+  }
+}

@@ -114,6 +114,7 @@ def test_signatures_help_digestion_and_no_invented_scientific_inputs(view, name)
         "apply_chemical_template",
         "normalize_aromatic_bond_orders",
         "get_peptide_chemical_template",
+        "get_chemical_template",
     }
 
 

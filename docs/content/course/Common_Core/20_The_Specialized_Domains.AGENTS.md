@@ -35,8 +35,11 @@ Preserve the expert-addon nonbonded-energy pointer in Section 6: native energy
 units and single-structure CPU NoCutoff receiving remain distinct from mixed
 partition limits and periodic/overlap qualification. Distinguish the #572 native
 provider force route and its complete-model selection/structure/unit contract
-from the addon force method that remains unexposed and unqualified. Keep all
-original executable cells, outputs and notebook metadata.
+from its received serialized addon mirror and separate installed qualification.
+Preserve first-structure versus explicit ordered axes, pending reads, detached
+quantities and the absence of implicit force arrows or scene synchronization.
+Keep CPU/Reference and selected Reference PME receiving distinct from GPU
+qualification. Keep all original executable cells, outputs and notebook metadata.
 
 Preserve received native #559 engine-owned platform resolution and bounded
 CPU/Reference consumer controls, while retaining device/GPU and physical-model

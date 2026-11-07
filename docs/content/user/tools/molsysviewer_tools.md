@@ -88,7 +88,7 @@ exposure, not unconditional scientific accuracy, stability or installed compatib
 
 The initial `view.addons.molsysmt.molecular_mechanics` slice provides explicit
 `get_engine_forcefield` resource lookup and primary-bound
-`get_degrees_of_freedom`, `get_potential_energy`,
+`get_degrees_of_freedom`, `get_potential_energy`, `get_forces`,
 `get_non_bonded_potential_energy` and `potential_energy_minimization`.
 The minimizer retains independent output by default and supports managed
 in-place coordinate updates. Other mechanical calculations retain their separate
@@ -108,8 +108,9 @@ explicit independent-builder and conditional-result ownership.
 Peptide construction from the loaded sequence and amino-acid mutation are
 available as independent native results, with reconstruction limits below.
 
-The qualified source contribution also provides the System task panel described
-below. Other graphical tasks and some scientific modes remain under development. This is not a complete MolSysMT mirror
+The qualified source contribution also provides System and Geometry tasks;
+Chemistry inspection is being received in source, as described below. Further graphical tasks and some scientific modes
+remain under development. This is not a complete MolSysMT mirror
 or a claim that the currently published package pair contains these tools.
 
 The received `view.addons.molsysmt.element` slice contains eight explicit-input
@@ -1198,7 +1199,7 @@ This MolSysMT guide owns the capabilities and use of the MolSysMT tools addon.
 
 ## Inspecting mechanical resources and calculating energy
 
-Four queries and a minimizer are available under `tools.molecular_mechanics`. Resource lookup keeps
+Five queries and a minimizer are available under `tools.molecular_mechanics`. Resource lookup keeps
 its explicit inputs and works before loading a system. Degree counting and energy read
 the current primary through the same serialized reader as the other scientific
 queries. These queries do not change the scene, adopt an OpenMM object or add an
@@ -1346,13 +1347,54 @@ outputs directly. Reads include completed pending edits without scene projection
 or history changes. Cross axes must be disjoint; repeated/shared members within
 one partition axis retain the native contract.
 
-`get_forces` is still unexposed in the addon. The scientific provider's native
-MolSys route is implemented under
-[#572](https://github.com/uibcdf/molsysmt/issues/572), with complete-model atom
-filtering, explicit structure axes and physical units. Its source receiving
-does not qualify addon exposure or installed delivery. The addon adds no
-consumer-side parameterization or placeholder method. See the
-{ref}`native force tutorial <Tutorial_Get_forces>` for the provider contract.
+### Reading atomic forces
+
+`get_forces` evaluates the complete current system with the native declared
+model, then selects the returned atoms. Selecting two atoms does not remove
+the other atoms from their physical environment. These are raw potential
+forces, not constraint reactions or accelerations.
+
+The default `structure_indices=None` reads the first structure and returns
+`(n_atoms, 3)`, irrespective of the visible structure. An explicit structure
+selection retains a leading axis, including order and repetitions. With
+`magnitude=True`, the final component axis is replaced by the Euclidean norm.
+Empty atom or structure selections retain typed empty axes.
+
+```python
+import molsysviewer as msv
+import molsysmt as msm
+
+with msv.demo["pentalanine"] as source:
+    with msv.new_view(source.molsys, structure_indices=[0, 8, 3]) as view:
+        mechanics = view.addons.molsysmt.molecular_mechanics
+        forces = mechanics.get_forces(
+            selection=[0, 5, 0],
+            structure_indices=[2, 0, 2],
+            platform="Reference",
+        )
+        assert forces.shape == (3, 3, 3)
+        assert msm.pyunitwizard.get_unit(forces) == msm.pyunitwizard.unit("kJ/(mol*nm)")
+        magnitudes = mechanics.get_forces(
+            selection=[0, 5, 0],
+            structure_indices=[2, 0, 2],
+            magnitude=True,
+            platform="Reference",
+        )
+        assert magnitudes.shape == (3, 3)
+```
+
+Returned quantities follow your PyUnitWizard policy and own their data. Reads
+include completed pending coordinate edits without synchronizing the scene.
+They neither add force arrows nor change coordinates, saved analyses, history
+or the visible structure. There is no `update_view` control.
+
+Native model requests, chemical-state prerequisites, per-structure periodic
+boxes, unsupported overrides and numerical memory diagnostics remain explicit.
+No chemistry repair, minimization, alternative engine or platform fallback is
+introduced. Source receiving covers CPU/Reference NoCutoff models and selected
+Reference PME boxes; this does not qualify arbitrary models, GPU devices or
+installed packages. See the {ref}`native force tutorial <Tutorial_Get_forces>`
+for the provider's complete model, streaming and memory contract.
 
 ### Relaxing coordinates
 
@@ -1442,6 +1484,7 @@ does not imply arbitrary periodic partition accuracy.
 Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
 {func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`,
 {func}`molsysmt.molecular_mechanics.get_potential_energy`,
+{func}`molsysmt.molecular_mechanics.get_forces`,
 {func}`molsysmt.molecular_mechanics.potential_energy_minimization`.
 
 ## Computing geometry on the current system
@@ -3009,6 +3052,45 @@ They do not determine oxidation states, geometry or coordination numbers.
 Water recognition does not certify a water force field or hydrogen-bond roles.
 No H, coordinates, charges or aromatic assignments are generated. See
 {ref}`Tutorial_Get_water_sites` and {ref}`Tutorial_Get_metal_coordination_sites`.
+
+## Constructing an explicit CCD reference
+
+`physchem.get_chemical_template(component_id, source, ...)` keeps both required
+inputs explicit. It works in an open empty view and never reads or changes the
+current molecular system. A local path, directory or byte definition remains
+offline; choose `source="rcsb"` deliberately for a network request. The CCD
+identifier is a reference label, not a component index in the current system.
+
+```python
+import molsysviewer as msv
+
+definition = b"""data_HEL
+_chem_comp.id HEL
+_chem_comp_atom.atom_id HE
+_chem_comp_atom.type_symbol He
+_chem_comp_atom.charge 0
+_chem_comp_atom.pdbx_aromatic_flag N
+_chem_comp_atom.pdbx_stereo_config N
+"""
+with msv.new_view() as view:
+    reference = view.addons.molsysmt.physchem.get_chemical_template(
+        "HEL", source=definition, method="ccd_tables",
+    )
+    assert reference["template"].structures is None
+    assert reference["report"]["status"] == "unassessed"
+    assert view.molsys is None
+```
+
+The native default `ccd_canonical_descriptor` uses optional RDKit and the
+explicit descriptor program to interpret the selected reference. `ccd_tables`
+retains declarations and unknown interpretation; it does not fabricate complete
+chemistry. Missing descriptors remain explicitly unassessed, without selecting
+another program. Exceeding `max_matches` raises rather than certifying a
+truncated consensus. Choose `stored_counts` or `explicit_atoms` for H inventory;
+neither policy supplies H coordinates. The result retains source bytes/hashes,
+projection maps, attribution and native elementary-charge conventions. It is
+coordinate-free, independently owned and never applied or loaded automatically.
+See {ref}`Tutorial_Get_Chemical_Template` for the full scientific contract.
 
 ## Assessing and applying explicit chemical templates
 
@@ -4653,6 +4735,43 @@ an independent copied system when saving H5MSM; graphical attachment remains a
 separate qualified core workflow. All detector contracts remain experimental.
 
 
+## Matching selected atom names explicitly
+
+`topology.get_atom_name_correspondence()` matches unique names and elements
+from the current primary to an explicit reference. With no reference, it uses
+the current system. `reference_selection=None` means the same selection as the
+query, including positional indices; it does not mean every reference atom.
+
+```python
+import molsysmt as msm
+import molsysviewer as msv
+import numpy as np
+
+with msv.new_view(msm.systems["caffeine"]["caffeine.sdf"]) as view:
+    order = np.arange(view.molsys.get_n_atoms())[::-1]
+    reference = msm.permute_atoms(view.molsys, atom_indices=order)
+    pairs = view.addons.molsysmt.topology.get_atom_name_correspondence(
+        reference_molecular_system=reference,
+    )
+    assert pairs.dtype == np.int64
+    np.testing.assert_array_equal(pairs[:, 0], np.arange(len(order)))
+    np.testing.assert_array_equal(pairs[:, 1], order)
+```
+
+The detached int64 columns are current-system and reference **source indices**,
+in query selection order. Repeated indices, missing/duplicate names, differing
+name sets or incompatible elements are refused. Select a single appropriate
+scope when names repeat across groups. Neither coordinates nor chemical
+assignments establish this map; exact labels do not prove chemical identity.
+The explicit reference remains caller-owned and must stay stable during use.
+
+For `physchem.assess_chemical_template`, the required columns are template then
+observed source. When the primary is the observed system and the reference is
+the template, explicitly pass `atom_correspondence=pairs[:, [1, 0]]`. Keep the
+exhaustive selection and chemistry/graph assessment; do not substitute label
+matching for them. Reads include pending data without changing the scene.
+See {ref}`Tutorial_Get_Atom_Name_Correspondence`.
+
 ## Keeping atom correspondence and independent atom order
 
 Use `tools.basic.compose_atom_maps(atom_maps)` to compose explicit native map
@@ -4896,12 +5015,14 @@ contracts. This is source receiving, not published-package or universal scientif
 qualification.
 
 
-## Reconciling reference-rule hydrogens independently
+(reconciling-reference-rule-hydrogens-independently)=
+## Assessing and reconciling reference-rule hydrogens
 
 `view.addons.molsysmt.build.reconcile_protonation` returns a separate molecular
-system with hydrogens removed according to the native reference rules. It keeps
-`pH`, `engine`, `in_place` and `skip_digestion` from the native signature. This
-addon currently admits **only `in_place=False`**, its default.
+system by default, removing hydrogens according to the native reference rules.
+It preserves `pH`, `engine`, `in_place` and `skip_digestion`, with keyword-only
+`update_view` controlling projection for admitted in-place edits. Independent
+results are never adopted by this flag.
 
 ```python
 import molsysmt as msm
@@ -4939,18 +5060,60 @@ the view. The independent result is never adopted implicitly. Full native
 copying/subsetting can materialize coordinates and is not an out-of-core
 trajectory promise. Cached methods follow replacement and closed-view rules.
 
-`in_place=True` raises `NotImplementedError` before scientific execution because
-the addon has not yet received the native prepared-removal correspondence for
-managed scene remapping. The provider now offers
-{func}`molsysmt.build.assess_protonation` and a source-bound
-{class}`molsysmt.build.ProtonationAssessment`: inspect its detached positional map,
-then apply that same decision once. See {ref}`Tutorial_Protonation_Assessment`.
-This provider route does not by itself qualify managed execution in the addon.
-The addon does not infer identity from counts, labels or
-coordinates and does not call private protonation rules. There is no
-`update_view`, `selection`, `structure_indices` or `return_report` argument on
-this mirror. Native digestion is forwarded; the integration admission boolean
-is checked even with `skip_digestion=True`.
+### Inspecting a prepared decision
+
+`build.assess_protonation()` returns the ordinary native source-bound
+`ProtonationAssessment`, without changing the source, copying its coordinate
+trajectory or attaching an analysis. Inspect its detached maps and coverage
+before deciding whether removal is appropriate:
+
+```python
+with msv.new_view(molsys) as view:
+    assessment = view.addons.molsysmt.build.assess_protonation(pH=12.0)
+    report = assessment.to_dict()
+    assert len(report["removed_atom_indices"]) == 6
+    assert view.molsys.get_n_atoms() == 596
+    candidate = assessment.apply(view.molsys)
+    assert candidate.get_n_atoms() == 590
+    assert view.molsys.get_n_atoms() == 596
+```
+
+The maps use positional indices, including `-1` for removed atoms, and preserve
+all source structures. Unknown/unassessed groups remain explicit even when
+nothing is removed. Applying the same decision succeeds once, including no-op
+copies; incompatible source identity, inventory or chemistry requires a new
+assessment. Coordinate edits on unchanged native axes retain the decision and
+use current coordinates at application. The native object's `apply()` requires
+its explicit source and is not a managed addon method. Prefer independent
+output; raw native in-place writes are not automatically observed by the view.
+See {ref}`Tutorial_Protonation_Assessment`.
+
+### Updating the current system
+
+Use the bound reconciliation method for a managed in-place removal. It prepares
+one public assessment under the edit lock, checks its bidirectional maps and
+applies that same decision once. The default updates the scene immediately:
+
+```python
+with msv.new_view(molsys) as view:
+    tools = view.addons.molsysmt
+    assert tools.build.reconcile_protonation(pH=12.0, in_place=True) is None
+    assert view.molsys.get_n_atoms() == 590
+    assert tools.get_sync_status()["state"] == "synchronized"
+```
+
+`update_view=False` defers only the scene; science has already changed the
+current system. `tools.sync_view()` later projects that result without repeating
+pH inference or removal. True no-ops preserve domains and managed revision,
+although an update can finish earlier pending work. Native atomic failures
+preserve prior pending edits; a visual failure exposes
+`SystemEditSyncError.science_completed=True` and the native result `None`.
+Retry synchronization, not the calculation. Unexpected postpublication failures
+remain uncertain and require explicit recovery. Scene history is not molecular
+Undo. The addon never guesses identity from names, IDs or coordinates and never
+calls private protonation criteria. There are no `selection`, `structure_indices`
+or `return_report` additions. Integration booleans remain validated even when
+native digestion is skipped.
 
 
 ## Creating another visualization and using compatibility aliases
@@ -5097,8 +5260,12 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
-Extraction/copy result presentation uses the separate flow below; other task
-panels remain planned.
+Extraction/copy result presentation uses the separate flow below. Geometry
+offers Translate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory.
+Chemistry offers the two source inspection tasks and explicit heavy-atom/hydrogen
+preparation described below. Analysis offers native distance and neighborhood
+queries. Further Geometry, Chemistry construction/assignments and other Analysis
+tasks remain planned.
 Automated Jupyter and popup transport checks do not replace human Jupyter/visible
 Qt observations, owner integration or installed-artifact qualification.
 
@@ -5139,3 +5306,401 @@ implicitly display a result. Native data saving and explicit replacement retain
 their own routes; this GUI slice does not yet add those destinations.
 Automated browser/native-window ownership evidence does not replace postponed
 human Jupyter/visible Qt observations or installed-package qualification.
+
+
+## Translating molecular coordinates through Geometry
+
+In **Molecular tools > Geometry**, **Translate** moves molecular coordinates,
+not the camera. Choose atoms using Whole system, a canvas/saved selection, a
+region or explicit MolSysMT expression/atom indices. Expression evaluation uses
+one stated structure and the reference chemical state, resolving a fixed atom
+population for the operation. An empty selection never means the whole system.
+
+Choose **All structures**, **Current structure** or distinct explicit indices
+such as `2, 0`. Enter Δx, Δy and Δz with the explicit Å or nm unit. The vector
+uses the molecular Cartesian axes, independently of the camera orientation.
+Choose **Current system** to edit molecular data and synchronize the scene, or
+**Independent result** to copy the whole system and change only the selected
+atoms/structures. The latter retains every source structure and uses the same
+explicit presentation destinations and result ownership described above.
+
+**Review translation** shows the resolved atom/structure counts, vector, units
+and effect before execution. **Back** leaves data unchanged. A changed target,
+managed revision, selection membership, structure context or request expires
+the review. Confirmation is single-use. The expert `structure.translate` API
+keeps its native independent default, broadcasting, arguments and return type.
+
+The periodic box stays fixed and coordinates are not automatically wrapped.
+Affected native analysis coverage is invalidated rather than recalculated.
+Scene Undo does not restore edited molecular coordinates. If science completed
+but scene projection failed, use the canvas **Update view** action; do not apply
+the translation a second time. Independent systems and Views consume memory;
+this GUI does not promise streaming transforms or a trajectory-size RAM bound.
+Source/browser receiving does not replace postponed human Jupyter/visible Qt
+acceptance, owner review or exact installed-package qualification. Rotate and
+other Geometry tools remain planned.
+
+
+## Centering molecular coordinates through Geometry
+
+Choose **Center** in **Molecular tools > Geometry** to place a selected source
+center at a destination by translating molecular coordinates. Select the atoms
+to move, the structures to process, and **Geometric center** or **Center of mass**.
+Each processed structure gets its own displacement. The operation does not rotate
+coordinates or move the camera.
+
+The default source reference uses every moving atom. Expand **Reference atoms**
+to give a MolSysMT expression selecting a smaller reference population, such as
+alpha carbons within a selected protein. Every source reference atom must belong
+to the moving selection. Reference expressions resolve to fixed populations in
+the stated selection structure and reference chemical state; they are not
+reevaluated independently in every processed structure.
+
+Choose **Explicit point** with x, y and z in Å or nm, or **Geometric center of a
+selection** with an explicit MolSysMT expression. The latter uses that target
+population's initial geometric center separately in each processed structure;
+target atoms may lie outside the moving selection. Stored Cartesian coordinates
+are used directly. Periodic reconstruction and wrapping are separate operations.
+The periodic box stays fixed.
+
+**Review centering** shows the moving, source-reference and target-reference
+populations, processed structures and destination before execution. **Back**
+leaves the molecular data unchanged. Choose **Current system** for a managed
+molecular edit and scene update, or **Independent result** for a copy retaining
+every source atom and structure and changing only the chosen subset. The result
+uses the same explicit presentation and lifetime rules as Translate. Scene Undo
+does not restore changed coordinates; affected stored analyses may need
+recalculation.
+
+Center of mass delegates mass assignment and unit validation to MolSysMT.
+Applications that install a partial custom unit policy must include a mass
+standard when requesting mass-weighted operations. A rejected request keeps its
+diagnostic visible through automatic refreshes; adjust the input and review
+again. A completed edit with a failed scene update instead needs **Update view**,
+without repeating the scientific operation. The expert `structure.center` API
+retains its complete native arguments, weighting options and return semantics.
+
+
+## Superposing molecular structures through Geometry
+
+Choose **Superpose structures** in **Molecular tools > Geometry** for a rigid,
+unweighted least-RMSD fit with the Kabsch method. **Atoms to move** chooses the
+complete population that should move together. Choose
+**All structures**, **Current structure** or distinct explicit structure indices.
+Set **Reference structure in this system** to an existing structure index. The
+reference uses its initial coordinates; it need not belong to the processed
+structures. This task rotates/translates molecular data, not the camera, and
+uses the qualified MolSysMT CPU route.
+
+By default, every moving atom is also a fit atom, paired with the same atom index
+in the reference structure. Expand **Fitting atoms and correspondence** to use a
+smaller fitting population, such as alpha carbons, or different reference atoms.
+**Fit atom expression** selects in the stated selection context; **Reference
+atom expression** selects in the reference structure. An empty fit expression
+uses all moving atoms. An empty reference expression uses the same fit indices.
+
+Expressions resolve fixed, unique populations in ascending system-index order.
+The two populations must have equal sizes and are paired by position. This GUI
+does not infer sequence or atom-name correspondence. Check chemical matching
+explicitly when using different populations. Fit atoms can lie outside the
+moving selection: they determine the transformation, but only the moving atoms
+change. At least three non-collinear corresponding points are required. Native
+geometry validation covers every requested structure before any coordinate
+write. Periodic reconstruction and sequence-based matching are separate tasks.
+
+**Review superposition** states the moving/fitting counts, reference structure,
+method and affected structure scope. **Back** leaves the data untouched. Changing
+the references, request, managed system revision or selection context expires
+the confirmation. **Current system** uses the managed edit/scene update;
+**Independent result** copies the whole system, changing only the requested
+atoms and structures. The explicit presentation/lifetime rules described above
+apply, including Python recovery of the independent View.
+
+The periodic box stays fixed and coordinates are not wrapped. A rigid transform
+preserves distances within a moving population, but can change distances to
+stationary atoms and periodic images. Stored analysis coverage follows the
+native coordinate edits. Scene Undo cannot restore these coordinates. A failed
+scene update after completed science needs **Update view**, without repeating
+the fit. The expert `structure.least_rmsd_fit` API retains its complete inputs,
+external references and native return semantics. This GUI slice's source/browser
+checks remain distinct from human acceptance and installed qualification.
+
+
+## Choosing periodic images through Geometry
+
+Choose **Wrap coordinates** in **Molecular tools > Geometry** to place selected
+atoms in periodic images using each processed structure's stored box. Choose
+**Atoms to wrap** and All, Current or distinct structure indices in their desired
+order. The operation edits molecular coordinates; it does not move the camera,
+infer a box or change the box vectors.
+
+**Periodic placement** offers three meanings. **Primary box from origin** puts
+fractional positions in the primary parallelepiped starting at the stated
+origin. **Primary box around center** uses a parallelepiped centered on the
+stated point. **Nearest periodic image** chooses the nearest Cartesian image to
+the reference point. The centered parallelepiped and nearest-image choices can
+differ for skew cells. Enter the point in Å or nm; no camera-axis conversion is
+performed.
+
+**Selected covalent components** is the grouping default. The native operation
+reconstructs bonded blocks using provided bonds among the selected atoms, then
+places their centers in the requested cell. Atoms may extend outside the cell.
+**Each atom separately** places each atom's image independently and can leave
+molecules split across opposite faces. No bonds are detected or inferred, and
+unselected atoms never move; a selection cutting a bonded component can change
+its distances to stationary atoms.
+
+**Review periodic wrapping** states the population, structure scope, placement,
+point, units and grouping. Back changes nothing. Current system uses one managed
+edit and scene update; Independent result copies the whole system and changes
+only the selected atoms and structures. The explicit result destinations and
+ownership rules above apply. Native analysis coverage follows coordinate edits;
+Scene Undo does not restore them. Retry only **Update view** after a completed
+calculation whose scene projection failed.
+
+The current development GUI admits conventional lower-triangular box vectors.
+It rejects other orientations before a molecular edit, pending consumer receiving
+of the native correction in [#607](https://github.com/uibcdf/molsysmt/issues/607). This is a
+qualification boundary of the current editor, not a definition of every valid
+physical box or a new restriction on the expert wrapper. General orientation
+remains required work. A stored box is necessary; the graphical cell editor
+still needs to receive the delivered native factory validation
+([#605](https://github.com/uibcdf/molsysmt/issues/605)).
+
+The owner has corrected the handling of very small nonzero reference points
+([#608](https://github.com/uibcdf/molsysmt/issues/608)). The development editor
+still needs combined receiving across application length standards. This source
+editor is experimental; general periodic-reference and release qualification
+remain pending. The addon does not replace the origin or force a unit policy.
+
+## Restoring temporal continuity through Geometry
+
+Choose **Unwrap trajectory** for per-atom continuity in an explicitly ordered
+sequence of at least two structures. Choose **Atoms to unwrap**, then All or
+explicit distinct indices in the intended temporal order. The first selected
+sample anchors continuity. Native unwrapping places subsequent samples using
+periodic image displacements; it does not reconstruct a molecule split within
+one structure. Use component wrapping for that separate purpose.
+
+Skipped intervals and large unobserved displacements can make the real image
+history ambiguous. A set of independent conformations is not automatically a
+time series. Review the supplied order and choose Current system or Independent
+result explicitly. Only the chosen atoms and structures change; an independent
+result retains all source structures in their original storage order. Unselected
+structures keep their original coordinates and the box vectors stay fixed.
+
+The current GUI admits an identical periodic cell across the selected sequence,
+in the conventional orientation described above. Varying-cell support is
+pending consumer receiving of the delivered native correction in
+[#606](https://github.com/uibcdf/molsysmt/issues/606). The limitation is explicit
+and temporary; the full periodic task family is not yet complete. The expert
+`pbc.unwrap` route retains the native signature, supplied order and result/error
+semantics, with the reported native limits. Human Jupyter/visible Qt acceptance,
+owner integration and installed-package qualification remain separate.
+
+## Inspecting stored chemistry through Molecular tools
+
+In **Molecular tools > Chemistry**, choose **Inspect stored chemistry**, choose
+an atom population and click **Inspect chemistry**. This experimental source
+task reuses `physchem.get_chemical_readiness`; it reports stored information
+without adding atoms, assigning bonds/charges, choosing protonation or changing
+the scene. The expert method keeps its native arguments and result dictionary.
+
+**Selection context** chooses the one structure being inspected. **Chemical
+state** offers the reference state, the state associated with that structure,
+or an explicit state index. The selection uses the reference context; its fixed
+atom population is then inspected in the chosen state. Absent or ambiguous
+states remain unassessed. A report for one structure does not assess all other
+structures in a trajectory or ensemble.
+
+The summary separates present, partial, missing, unsupported, conflicting and
+empty fields. **What was not assessed** lists scientific checks that were not
+performed. Presence of a charge, bond order or other stored value does not
+certify valence, protonation, aromaticity, conformer quality or readiness for a
+later calculation. Coordinates report finite-position flags assessed in nm;
+formal charges retain elementary-charge units. No global ready flag is offered.
+
+**Inspect source indices and values** pages through native atom or bond indices,
+values and declared origins. At most 50 rows are transferred at a time; long
+labels are shortened to 200 characters. Paging reuses the report without
+recalculating. Selected-incident bonds can include outside atoms. Connectivity
+checks of the whole state are labelled separately from the selected population.
+The expert API returns the complete native report.
+
+The mounted panel holds one report in memory. **Clear report** or leaving the
+panel releases that report without deleting molecular data. A source revision,
+structure context, input or relevant scene-membership change expires it.
+Arbitrary external native writes are not automatically observed; inspect again
+after explicit external edits. This private report is not attached to the scene
+or saved automatically in H5MSM. Full report construction can scale with the
+source system; bounded pages do not promise a universal RAM limit.
+
+## Inspecting hydrogen inventory through Molecular tools
+
+Choose **Hydrogen inventory** and click **Inspect hydrogens**. The native
+`physchem.get_hydrogen_inventory` report distinguishes indexed H atoms and
+neighbors from stored non-indexed H annotations. Its status, count convention,
+issues and unassessed checks remain visible. Unknown native counts (`-1`) are
+shown as **Unknown**; a known zero remains **0**. An observed explicit H count
+does not establish how many H atoms should be added or the appropriate
+protonation state.
+
+Paged tables show per-atom counts, parent–H pairs, selected explicit H indices
+and native inventory issues. Parent–H pairs can include an H outside the chosen
+parent population. No hydrogen is added, removed, inferred or adopted by this
+inspection. Use a separate explicit preparation tool when that is your intent.
+
+These panels require a qualified source host with the declared read-only addon
+request contract. Pending scientific reads use the current primary rather than
+old scene indices; selections/regions from an outdated scene are refused. While a scene update is pending, a Chemistry panel that is already open
+remains available inside the recovery sheet. You can choose a primary-system
+selection, inspect the report and turn its pages with the mouse or keyboard.
+The scene remains paused. Use **Update view** to synchronize it and return the
+same panel to Studio. Opening another panel or using old scene selections
+requires completing that update first.
+
+This workflow has source receiving in Jupyter and both popup hosts (Viewer
+#304). Human visible Qt/Jupyter acceptance, owner integration and installed
+packages retain their separate qualification.
+
+## Preparing independent systems through Molecular tools
+
+In **Molecular tools > Chemistry**, choose **Add missing heavy atoms** or **Add
+missing hydrogens**. These experimental source tasks call the same native
+`view.addons.molsysmt.build` functions as Python. They create a separate system;
+they do not silently edit the current one or prepare it for another calculation.
+
+**Add missing heavy atoms** uses the atom selector to choose contributing groups.
+A partially selected group is still a whole group for template completion. The
+selection context resolves that population; the native operation considers every
+source structure. Choose MolSysMT or the optional PDBFixer explicitly. Template
+placement is an estimate, not refinement; unsupported or conflicting gaps can
+remain unassessed. Native diagnostics are retained in the Python output. The
+native engine can stop if attributes would be lost, or omit attributes with a
+diagnostic. PDBFixer admits only the omission policy. New atoms do not acquire
+inferred force-field parameters, and atom indices can change.
+
+**Add missing hydrogens** applies to the complete system and requires one source
+structure in this panel. To work from an ensemble or trajectory, first use
+**System > Extract subset** to create the intended single-structure system. No
+structure or component is extracted implicitly. Choose between:
+
+- **Template-based pH approximation:** choose the pH and MolSysMT, OpenMM or
+  PDBFixer explicitly. This uses fixed free-amino-acid pKa thresholds, not an
+  environmental pKa predictor. Existing hydrogens are not removed. This native
+  route can discard attributes and does not offer the strict preservation policy.
+- **Prepared chemical state:** explicitly use RDKit and choose the chemical
+  state. This requires one isolated prepared component with declared chemistry,
+  complete connectivity and hydrogen inventory. It places local H on the supplied
+  pose, without choosing protonation, minimizing or reconstructing periodic
+  images. The native versioned report remains in the result's preparation history;
+  the panel transfers only bounded metadata. This mode does not apply a pH.
+
+Give the result an optional name and choose **Prepare separate system**. Review
+the atom/structure counts, native diagnostics and source attributes that became
+unavailable. Attribute-name availability is not proof that every value or chemical
+interpretation was preserved. The result can be shown below the notebook or in
+a separate window; the desktop host uses a new window. Its Python reference is
+available in the result card. Preparing and copying molecular data can materialize
+the full result in memory; no out-of-core promise is made.
+
+**Use in this view…** opens an inline replacement review. **Back** leaves molecular
+data unchanged. **Replace system** loads a separate copy of the prepared result
+and resets the current scene: existing regions, selections, shapes and other scene
+objects are not transferred. Scene Undo cannot restore this molecular replacement.
+The independently presented result remains separate and editable.
+
+Replacement is conditional on the original source object and its managed revision
+remaining current, and on the reviewed result not changing through managed edits.
+An expired review is rejected rather than overwriting later work. Arbitrary raw
+array writes or edits through another owner are not observed automatically;
+reconcile them explicitly. A qualified Viewer host with conditional replacement
+is required for this action. Replacement failure retains the host's explicit
+recovery semantics; it is not a promise to roll back a failed molecular load.
+
+**Create another result** releases an unpresented result but leaves presented
+views open. **Close result** closes that result view; **Clear report** releases
+only an inspection report. Leaving the panel releases its unpresented result.
+Preparation, presentation and replacement remain disabled while the scene needs
+synchronization; the declared inspection readers keep their separate recovery
+contract. A prepared result is not a scientific-readiness certificate or an
+equilibrated structure.
+
+## Calculating distances and neighborhoods through Molecular tools
+
+In **Molecular tools > Analysis**, choose **Distances**, **Minimum distance**,
+**Maximum distance** or **Neighbor search**. These experimental source tasks
+reuse the corresponding `view.addons.molsysmt.structure` tools. Calculating a
+result changes neither molecular data nor the scene.
+
+Choose two populations, or switch to **Within one population**. Each population
+has its own atom selector and selection context. The fixed selected atoms are
+then used in every requested structure; this is not a new spatial selection in
+each structure. **Calculate structures** offers the current structure, all
+structures or explicit indices in order, including repeats such as `2, 0, 2`.
+Indices in the table refer to the source system, not positions in that list.
+
+**Endpoints and calculation settings** offers individual atoms, one geometric
+center or one mass-weighted center for each population. A center is labelled as
+a population center, not as an atom. Centers use the supplied coordinates;
+periodic molecules split across a box boundary are not reconstructed implicitly.
+Choosing periodic distances does not repair such a center.
+
+Distances normally evaluates the Cartesian product. **Corresponding endpoints**
+uses equal-length populations in supplied order and preserves repeated atom
+occurrences. Within-population Cartesian results include self distances and
+both directions. Minimum and maximum report the native extremal pair in each
+structure; ties retain the first local pair. These numerical pairs are not a
+list of unique physical interactions or hydrogen bonds.
+
+Neighbor search uses either an **inclusive distance cutoff**, with an explicit
+length unit, or a **number of nearest neighbors**. Within one population,
+native self matches are excluded; explicitly supplying two overlapping
+populations can include zero-distance matches. Results are directed and retain
+native distance/tie ordering. A successfully evaluated scope with no neighbors
+shows an empty result, rather than missing data or a failed calculation.
+
+Periodic minimum-image distances are an explicit option. If no stored box is
+available, the report states that native nonperiodic distances were used.
+Invalid geometry or unsupported prerequisites remain native diagnostics.
+
+The table displays at most 50 rows per page and distances in nm, with nine
+significant digits. Full native precision and output options remain in Python.
+Changing pages does not recalculate. Flat Cartesian distance queries request
+MolSysMT block mode and can use native temporary disk storage. The panel reads
+and converts only the requested values for each page. Centers, corresponding
+pairs, extrema and nearest-count searches retain their native resource behavior;
+coordinates and indexing can still require substantial memory. Paging is not a
+universal RAM limit, disk-capacity guarantee or cancellation mechanism.
+
+**Clear result**, changed inputs/source or leaving the panel releases its private
+result and any native temporary storage it owns. An independent explicit scope
+can survive an unrelated visible-structure change; a scope that depends on the
+current structure expires. Managed edits and scene selection/region changes
+invalidate dependent results. Arbitrary raw writes are not observed automatically.
+Reports are not added to the scene or saved automatically in H5MSM.
+
+To use a result in the scene, choose its row. **Select participants** selects
+its atoms. **Focus participants** frames those atoms in the visible structure.
+**Add live distance** creates a core Measure from the atom or geometric-center
+endpoints, retaining repeated atom occurrences. None of these actions navigates
+to the calculated structure. The live distance follows the visible structure;
+the numerical row remains the original observation. Adding it may calculate
+values across every loaded structure.
+
+A periodic observation or mass-weighted center cannot become that nonperiodic
+geometric live distance; the panel explains the disabled action. You can still
+select or focus its participants. A deliberately added Measure remains in
+**Studio > Measures** after clearing the report or leaving the addon and uses
+the core's visibility, history and scene persistence. Choosing another page,
+input or result clears the chosen row. Changing a current canvas selection can
+expire a report that depended on it. The three scene actions require an updated,
+synchronized scene and are separate from the declared calculation readers.
+
+An already open Analysis panel can calculate from current molecular data during
+pending scene synchronization, using explicit primary-data populations. Old
+canvas selections, saved selections and regions require updating the scene
+first. Current source receiving is serial; concurrent native configuration
+restoration has an owner correction under MolSysMT #613; combined addon receiving
+remains due. Human GUI acceptance,
+installed artifacts and full platform qualification remain separate.

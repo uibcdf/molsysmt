@@ -1,0 +1,235 @@
+{
+  "schema": "molsysmt.molsysviewer-tools-preparation-receiving@1",
+  "date": "2026-11-06",
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_parent": "ff5dd59ac38fa20c132dde40bc2d8f05848549d2",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "viewer_source": "177e19a8fa06e37484a801da1711cc99acbc8f2d",
+  "viewer_javascript_runtime": "2e17ee6f13333e5efd3726b353ade5c8cdc77b0b",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "python": {
+    "environment": "molsyssuite@uibcdf_3.14",
+    "version": "3.14.7"
+  },
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#306",
+    "uibcdf/molsysmt#612"
+  ],
+  "source_files": {
+    "molsysviewer_molsysmt/_chemistry_panel.py": {
+      "sha256": "93ee44023f0ca96516dfad0561c218ed0adec9dd89baa7b230dae5e95056fb9d",
+      "size_bytes": 17902
+    },
+    "molsysviewer_molsysmt/_chemistry_panel_frontend.py": {
+      "sha256": "2fe2614afb785c78adc1c382df7ae2ad0eb19ab20c1ecb288608b6f8e195042f",
+      "size_bytes": 22335
+    },
+    "molsysviewer_molsysmt/_chemistry_preparation.py": {
+      "sha256": "11cdb449d470467c3ffd92ac165609625b106f5bb5b493d465e312aca5f9bec7",
+      "size_bytes": 12814
+    },
+    "molsysviewer_molsysmt/_task_panel.py": {
+      "sha256": "2e65049b0d7184ea0c45d87085d2ef5a7eb74ad9e4c42f64631e5914ae276627",
+      "size_bytes": 14217
+    },
+    "tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py": {
+      "sha256": "b2a9f7db8960f7ed877b25cad350283b67581c758d20f39d2e2adfb81ae9a615",
+      "size_bytes": 13190
+    },
+    "tests/molsysviewer_molsysmt/chemistry_preparation_jupyter.mjs": {
+      "sha256": "64d6302ead0efd0e9b925b427cfe1292f925cbb9058f759e280eb2376570bd45",
+      "size_bytes": 9589
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "d01f899d038f805640b09f6e65b48b51042895e6c6aa6fafaf36e80ff0938279",
+      "size_bytes": 27775
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "a42fefbbdd1d338eb0fd40204bc1aac31a0fc72bbe9d10c424ee0f31cad16099",
+      "size_bytes": 8488
+    },
+    "devtools/scripts/viewer_tools_contract.py": {
+      "sha256": "258f8fe594738164b8e1b2c9e0f5c869026aee620a903c0b5b980856f0fa3f1a",
+      "size_bytes": 3629
+    },
+    "devtools/dependency_contract.toml": {
+      "sha256": "9c7d024a88fa2530beb609accbcc965d4c20140c5c34ed36f3e5a565ddc1d97a",
+      "size_bytes": 1882
+    }
+  },
+  "retained_logs": {
+    "msv-chemistry-preparation-focused-20261106.log": {
+      "sha256": "16f6d628554fcd5085be7c68918256fa49ff52fd7ea382c3713a23f2a991b4aa",
+      "size_bytes": 3166
+    },
+    "msv-chemistry-preparation-focused-qualified-20261106.log": {
+      "sha256": "b75815a150add92bd496717ed16a8a4c1c84804eef3cb355b3c7376bfa40d9e1",
+      "size_bytes": 488
+    },
+    "msv-chemistry-preparation-final-regression-20261106.log": {
+      "sha256": "1af1d29ca662dc460c22847155d8c8159cd6635e301a343882e398dd4fd940dc",
+      "size_bytes": 601
+    },
+    "msv-chemistry-preparation-lifetime-final-20261106.log": {
+      "sha256": "6b3df37300d87289a834d518845c2412d5da17bb33e0a5d88493c1a363c28bb6",
+      "size_bytes": 489
+    },
+    "msv-chemistry-preparation-jupyter-20261106.log": {
+      "sha256": "a93fd82e5363218210a50edfd116181dcdeae7d8e3a996eee77cf9fabc06e566",
+      "size_bytes": 34
+    },
+    "msv-chemistry-preparation-jupyter-final-20261106.log": {
+      "sha256": "ef1afb591c1c36f472db48145ab63332a59baad8c636fc16f89a79a7ebb22a64",
+      "size_bytes": 58
+    },
+    "msv-owner699-py313-native-failure-20261106.log": {
+      "sha256": "82920d0e32821b594fa85478373f131d118a6a7337c94f403b414df4573e3fbc",
+      "size_bytes": 240702
+    },
+    "msv-owner699-matrix-pollution-reproduction-20261106.log": {
+      "sha256": "f890ad2a3272403dd1c1ae623d7f5c907ecd335dafea42125a069906418035e1",
+      "size_bytes": 5509
+    },
+    "msv-owner-alternate-axis-test-20261106.log": {
+      "sha256": "f877315974aa6bcdb78dedd6688209c54e3a23c9e8830f09b8e4d9f5a0f7fc15",
+      "size_bytes": 1612
+    },
+    "msv-chemistry-preparation-jupyter-release-token-20261106.log": {
+      "sha256": "a7e25dbb0094a2f6abac4eb24447c8adfc63ed764502d5eb5f13e0bf1d10f624",
+      "size_bytes": 58
+    },
+    "msv-chemistry-preparation-documentation-20261106.log": {
+      "sha256": "ae88dc6096f3bf02b18df74616c539cf4cedc0dad591b7f7b5bd90d87ace5d75",
+      "size_bytes": 256
+    },
+    "msv-chemistry-preparation-devguide-20261106.log": {
+      "sha256": "8cc12b6b4c06b709c9465cc22dcae9abfed5164de73be5ef1de064117fff7e5c",
+      "size_bytes": 35
+    },
+    "msv-chemistry-preparation-ruff-format-20261106.log": {
+      "sha256": "0654773b6e2c43ad5090f8ccb20a99472b44c9580f276f1f9602bc2034632ba8",
+      "size_bytes": 29
+    }
+  },
+  "contracts": {
+    "expert_api": "Unchanged public scientific signatures/defaults/returns; private GUI orchestration only.",
+    "heavy": "Atom editor resolves to complete groups through public stable hierarchy; all structures, native/PDBFixer and actual strict/intersection admission.",
+    "hydrogens": "One source structure; no implicit extraction; explicit legacy pH approximation versus prepared-state RDKit, with native prerequisites and histories.",
+    "replacement": "Single-use review and Back; result copied under candidate identity/revision check, then source identity/revision checked atomically by host replace; scene reset and copy costs explicit.",
+    "limits": "No raw-array/other-owner observation, environmental-pKa prediction, automatic preparation, rollback, universal RAM bound or readiness certification. Attribute-name availability is not value/meaning validation."
+  },
+  "local_validation": [
+    {
+      "scope": "Original 24 preparation cases",
+      "outcome": "24 passed, 8.98 s; three new scope cases added later; no scientific mocks."
+    },
+    {
+      "scope": "Preparation, inspection, System, Geometry and explicit packaging preflight",
+      "outcome": "250 passed, 53.61 s; 152 warnings retained. Before final explicit unmount-token release."
+    },
+    {
+      "scope": "Final lifetime, preparation and inspection",
+      "outcome": "69 passed, 18.86 s; nine warnings retained; includes explicit unmount token expiration."
+    },
+    {
+      "scope": "First actual TcTIM/Jupyter preparation run",
+      "outcome": "1 passed, 143.71 s; six steps, source 3983 atoms preserved until explicit adoption of 7868 atoms; independent result and both popup inspections."
+    },
+    {
+      "scope": "Simplified final frontend and pending reader recovery",
+      "outcome": "2 passed, 201.16 s; six preparation and eight pending-reader steps. This earlier result predates final explicit unmount-token release; the later result is recorded separately."
+    },
+    {
+      "scope": "Final explicit token-release source: actual Jupyter preparation plus pending-reader recovery",
+      "outcome": "2 passed, 192.66 s; six actual TcTIM preparation and eight recovery-reader steps. No skips; isolated Jupyter tokens/config removed."
+    },
+    {
+      "scope": "Documentation, dependency routes and developer-guide controls",
+      "outcome": "70 passed, 14.54 s; 504 Sphinx deprecation warnings retained; developer-guide/index validation and dependency audit pass. Ruff check and format pass on 4433 files."
+    }
+  ],
+  "hosted_reconciliation": {
+    "previous_full_addon": {
+      "source": "699fc69be57ac0e89f9bced3fd4f39139ccabf38",
+      "host": "2e17ee6f13333e5efd3726b353ade5c8cdc77b0b",
+      "outcome": "4699 passed, zero skips, 1090.15 s; does not qualify new preparation source."
+    },
+    "previous_smoke": {
+      "run": 42215709274,
+      "outcome": "success; 6042 native passes/23 optional skips, 4695 addon passes/four optional Ackredit skips."
+    },
+    "previous_full_source": {
+      "run": 42215709260,
+      "inspected_job": 127885168430,
+      "python": "3.13",
+      "passed": 29192,
+      "failed": 33,
+      "skipped": 112,
+      "deselected": 40,
+      "seconds": 2081.11,
+      "issues": [
+        "uibcdf/molsysmt#594",
+        "uibcdf/molsysmt#595",
+        "uibcdf/molsysmt#596",
+        "uibcdf/molsysmt#597",
+        "uibcdf/molsysmt#598",
+        "uibcdf/molsysmt#612"
+      ],
+      "local_cross_scope_reproduction": "28 failed, 234 passed in 45.99 s; classifier/GRO/catalogue families. Separate native alternate case fails in 1.07 s.",
+      "latest_observation": "All four Linux test jobs failed; all four macOS jobs remain queued. No rerun, cancellation or alternate head is presented as a passing original matrix."
+    },
+    "host_exact": {
+      "source": "177e19a8fa06e37484a801da1711cc99acbc8f2d",
+      "e2e_run": 42221924107,
+      "e2e_outcome": "success",
+      "ci_run": 42221924099,
+      "observed": "Four Linux test cells success; four macOS queued, one expected skip. Not complete."
+    }
+  },
+  "pending": [
+    "Latest-source complete hosted platform qualification and owner integration via PR only.",
+    "Postponed human Jupyter/visible Qt acceptance and installed artifact qualification.",
+    "Required Geometry/reference/cell, further Chemistry assignments/construction, complete Analysis and whole-session persistence.",
+    "Both 1.0 publications and candidate freezes remain paused."
+  ],
+  "actual_jupyter": {
+    "jupyter-preparation": {
+      "checks": [
+        "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+        "Present the independent result in the notebook and keep it while changing tasks",
+        "Review Back preserves the original TcTIM and its chemical domain",
+        "Apply the reviewed result and render its independent copy in the original canvas",
+        "Inspect the adopted molecular data in the canvas popup and detached Studio",
+        "Python verifies one replacement, original preservation and independent result coordinates"
+      ],
+      "scope": "Actual TcTIM/Jupyter/Mol*/AnyWidget preparation, independent notebook result, heavy no-op 3983 atoms, hydrogen generation 7868 atoms, explicit losses, Back, conditional replacement and popup inspection. Source overlay; not human Qt or installed artifact qualification.",
+      "baseline_page_errors": 1,
+      "observed_page_errors": 3,
+      "receipt": {
+        "sha256": "4f9d8b301d9508c34d6bac99908eb732a2ccc6e4f8539cca4f643091bdbfaa76",
+        "size_bytes": 6094
+      }
+    },
+    "jupyter-chemistry-pending": {
+      "checks": [
+        "Mount actual Chemistry in the embedded TcTIM view",
+        "Inspect and page current primary with real keys while embedded scene stays inert",
+        "Restore the same mounted panel after updating and open the canvas popup",
+        "Inspect current primary from the paused live canvas popup",
+        "Restore canvas popup and mount Chemistry in detached Studio",
+        "Inspect and page current primary in detached paused Studio",
+        "Restore detached Studio without recreating its panel and close popups",
+        "Verify native molecular data revisions scene regions and result ownership"
+      ],
+      "scope": "Actual Jupyter/AnyWidget/Mol*/canvas popup/detached Studio: pending native readers, real pointer/keyboard inputs, bounded pages, stale-scene sources disabled, exact reader DOM restored; three deliberate box edits only. Not human Qt acceptance.",
+      "baseline_page_errors": 1,
+      "observed_page_errors": 8,
+      "receipt": {
+        "sha256": "4d59225be46a9cfd2dc00386d7ba8deb1cfbf5bd140f55508c14ebc1f071e7a9",
+        "size_bytes": 12736
+      }
+    }
+  }
+}

@@ -146,6 +146,14 @@ adoption are tracked by `uibcdf/molsyssuite#61`; the central rollout is pending.
 
 ## Local reporting tools
 
+When adding or removing source modules in `molsysviewer_molsysmt`, update the
+explicit reviewed `TOOLS_FILES` inventory in
+`devtools/scripts/viewer_tools_contract.py`. Before publishing, run the hosted
+preflight tests in `test_smoke_addon_test_command.py`,
+`test_molsysviewer_tools_api_inventory.py` and `test_native_viewer_integration.py`
+under `devtools/tests/`. Preserve rejection of missing, retired and unreviewed
+files; do not replace explicit review with automatic glob admission.
+
 Read `devguide/reporting_protocol.md` and `devguide/AGENTS.md` for the local
 report paths and metadata. `python devtools/scripts/devguide_issue.py open`
 scaffolds an owning issue and report; use its documented close/sync routes.

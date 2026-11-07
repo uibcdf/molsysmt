@@ -1,35 +1,24 @@
 """Frontend for the qualified System task; the host supplies workspace chrome."""
 
-ESM = r"""
+from ._panel_widgets import RESULT_MARKUP, SELECTION_MARKUP, SHARED_JS
+
+ESM = (
+    SHARED_JS
+    + r"""
 export function render({model, el}) {
   const abort = new AbortController();
   const options = {signal: abort.signal};
   const initial = {source:'none', value:'', expression:'', indices:'', context:'current', structure_index:0};
   let draft = {...initial, ...(model.get('system_draft') || {})};
   let context = {}, review = null, sequence = 0, busy = false, stage = 'select', message = '';
-  let draftStamp=0,lastRemove=0,lastRemoveStamp=0;
+  let draftStamp=0,requestStamp=0;
   let task='remove',result=null,resultDraft={structures:'all',indices:'',title:''},destinations=[];
   let alive=true;
   el.innerHTML = `<section class="msm-system" aria-label="Molecular system tools">
     <label>System task<select data-task aria-label="System task"><option value="remove">Remove atoms</option><option value="extract">Extract subset</option><option value="copy">Copy system</option></select></label>
     <h2 data-heading>Remove atoms</h2><p class="msm-context" data-context>Loading system information…</p>
     <p class="msm-hint" data-purpose>Remove atoms from molecular data. To change visibility, use Regions.</p>
-    <div data-editor><label>Choose atoms<select data-source aria-label="Choose atoms">
-      <option value="none">Choose a selection…</option><option value="category">Molecular category</option>
-      <option value="current">Current canvas selection</option><option value="saved">Saved selection</option>
-      <option value="region">Region</option><option value="expression">Selection expression</option>
-      <option value="indices">Atom indices</option></select></label>
-    <label data-category-label hidden>Category<select data-category aria-label="Molecular category">
-      <option value="">Choose a category…</option><option value="water">Water</option><option value="ions">Ions</option></select></label>
-    <label data-name-label hidden>Name<input data-name aria-label="Saved selection or region name" maxlength="4096" list="msm-system-choices"></label>
-    <datalist id="msm-system-choices"></datalist><p class="msm-hint" data-truncated hidden>Showing the first 200 names. You can enter any existing name.</p>
-    <label data-expression-label hidden>MolSysMT expression<input data-expression aria-label="MolSysMT expression" maxlength="4096" placeholder="group_type=='water'"></label>
-    <label data-indices-label hidden>Atom indices<input data-indices aria-label="Atom indices" maxlength="4096" placeholder="0, 2, 4"></label>
-    <details><summary>Selection context</summary>
-      <label>Evaluate selection in<select data-evaluate aria-label="Selection structure context"><option value="current">Current structure</option><option value="index">Structure index</option></select></label>
-      <label data-index-label hidden>Structure index<input data-index aria-label="Structure index" type="number" min="0" step="1"></label>
-      <p class="msm-hint">Expressions use the reference chemical state. Structure indices start at 0.</p>
-    </details></div>
+__SELECTION_EDITOR__
     <p class="msm-scope" data-removal-scope>Removing an atom removes it from every structure.</p>
     <div data-result-editor hidden>
       <label data-structure-scope-label>Include structures<select data-structure-scope aria-label="Result structures"><option value="all">All structures</option><option value="current">Current structure</option><option value="indices">Structure indices</option></select></label>
@@ -38,10 +27,7 @@ export function render({model, el}) {
       <p class="msm-hint">The result is independent and keeps the source unchanged. Creating it materializes molecular data in memory; large trajectories may require substantial memory. Scene decorations are not copied.</p>
       <button data-create-result>Create result</button>
     </div>
-    <div data-result hidden><h3 data-result-heading></h3><p data-result-summary></p><p class="msm-hint" data-result-provenance></p>
-      <div class="msm-actions"><button data-show-notebook>Show in notebook</button><button data-show-window>Open in new window</button><button data-new-result>Create another result</button><button data-discard-result>Close result</button></div>
-      <details><summary>Python reference</summary><code data-result-handle></code></details>
-    </div>
+__RESULT_CARD__
     <div data-review hidden><h3>Review removal</h3><p class="msm-hint" data-review-selection></p><dl class="msm-stats">
       <div><dt>Remove</dt><dd data-remove-count></dd></div><div><dt>Keep</dt><dd data-keep-count></dd></div><div><dt>Structures</dt><dd data-structures></dd></div></dl>
       <p class="msm-hint" data-review-context></p>
@@ -52,8 +38,9 @@ export function render({model, el}) {
     <p class="msm-status" role="status" aria-live="polite" data-status></p>
   </section>`;
   const q = key => el.querySelector(`[data-${key}]`);
-  const choicesId='msm-system-choices-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
-  el.querySelector('datalist').id=choicesId;q('name').setAttribute('list',choicesId);
+  const renderSelection=selectionEditor(el,options,patch=>{Object.assign(draft,patch);changed();});
+  const renderResult=resultCard(el,model,options,{result:()=>result,busy:()=>busy,request,
+    update:(value,text)=>{busy=value;message=text;if(alive)render();}});
   function render() {
     q('task').value=task;
     for(const option of q('task').options)option.disabled=option.value!=='remove'&&!destinations.length;
@@ -65,30 +52,10 @@ export function render({model, el}) {
     q('structure-scope').value=resultDraft.structures;
     for(const [key,value] of [['result-indices',resultDraft.indices],['result-title',resultDraft.title]])if(document.activeElement!==q(key))q(key).value=value;
     q('create-result').disabled=busy||!context.can_review||(task==='extract'&&draft.source==='none');
-    q('result').hidden=!result;
-    if(result){
-      q('result-heading').textContent=result.title;
-      q('result-summary').textContent=`${result.n_atoms.toLocaleString()} ${result.n_atoms===1?'atom':'atoms'} · ${result.n_structures.toLocaleString()} ${result.n_structures===1?'structure':'structures'}`;
-      q('result-provenance').textContent=`Source structures, in order: ${result.structure_indices.join(', ')}${result.structures_truncated?'…':''}.`+(context.target_revision!==result.source_revision?' The source has changed since this result was created.':'');
-      q('result-handle').textContent=`view.addons.manager.presentations.get(${JSON.stringify(result.id)})`;
-    }
-    for(const [key,destination] of [['show-notebook','notebook'],['show-window','window']]){q(key).hidden=!destinations.includes(destination);q(key).disabled=busy;}
-    q('discard-result').disabled=busy;
-    q('new-result').disabled=busy;
+    renderResult(result,context,destinations,busy);
     q('context').textContent = !context.has_system ? 'Load a system in Studio > Load first.' :
       context.n_atoms !== undefined ? `${context.n_atoms.toLocaleString()} atoms · ${context.n_structures} ${context.n_structures===1?'structure':'structures'}` : 'Molecular data need explicit recovery.';
-    q('source').value = draft.source;
-    q('category').value = draft.value;
-    for (const [key, value] of [['name', draft.value], ['expression',draft.expression], ['indices',draft.indices], ['evaluate',draft.context], ['index',draft.structure_index]]) {
-      if (document.activeElement !== q(key)) q(key).value = value;
-    }
-    q('category-label').hidden = draft.source !== 'category';
-    q('name-label').hidden = !['saved','region'].includes(draft.source);
-    q('expression-label').hidden = draft.source !== 'expression';q('indices-label').hidden = draft.source !== 'indices';
-    q('index-label').hidden = draft.context !== 'index';
-    q('truncated').hidden = !context.choices_truncated || !['saved','region'].includes(draft.source);
-    const names = draft.source === 'saved' ? context.saved || [] : context.regions || [];
-    el.querySelector('datalist').replaceChildren(...names.map(name => {const o=document.createElement('option');o.value=name;return o;}));
+    renderSelection(draft,context);
     for (const input of el.querySelectorAll('input, select')) input.disabled = busy;
     q('review').hidden = !review||task!=='remove';q('editor').hidden=!!review||task==='copy'||!!result;
     q('preview').hidden = !!review||task!=='remove';
@@ -111,7 +78,7 @@ export function render({model, el}) {
   function request(action,extra={}) {
     if (busy && action!=='refresh') return;
     const token=review?.token;busy=true;sequence++;
-    if(action==='remove'){lastRemove=sequence;lastRemoveStamp=draftStamp;}
+    requestStamp=draftStamp;
     if(action!=='remove')review=null;
     render();
     model.send({type:'action',id:action,payload:{request_id:sequence,draft:{...draft},...(token?{token}:{}),...extra}});
@@ -121,30 +88,12 @@ export function render({model, el}) {
   q('result-indices').addEventListener('input',()=>{resultDraft.indices=q('result-indices').value;},options);
   q('result-title').addEventListener('input',()=>{resultDraft.title=q('result-title').value;},options);
   q('create-result').addEventListener('click',()=>request('result.create',{result_draft:{...resultDraft}}),options);
-  q('discard-result').addEventListener('click',()=>request('result.discard'),options);
-  q('new-result').addEventListener('click',()=>request('result.new'),options);
-  async function present(destination){
-    if(busy||!result)return;
-    busy=true;message='Opening result…';render();
-    try{const notice=await model.present_view(result.id,destination);message=notice||(destination==='notebook'?'Result shown below the original canvas.':'Result opened in its own window.');}
-    catch(error){message=String(error.message||error);}
-    finally{busy=false;if(alive)render();}
-  }
-  q('show-notebook').addEventListener('click',()=>present('notebook'),options);
-  q('show-window').addEventListener('click',()=>present('window'),options);
-  q('source').addEventListener('change',()=>{draft.source=q('source').value;draft.value='';changed();},options);
-  q('category').addEventListener('change',()=>{draft.value=q('category').value;changed();},options);
-  for (const [key, field] of [['name','value'],['expression','expression'],['indices','indices']]) q(key).addEventListener('input',()=>{draft[field]=q(key).value;changed();},options);
-  q('evaluate').addEventListener('change',()=>{draft.context=q('evaluate').value;changed();},options);
-  q('index').addEventListener('input',()=>{draft.structure_index=Number(q('index').value);changed();},options);
   for(const [key,action] of [['preview','review'],['confirm','remove'],['back','back'],['refresh','refresh']])q(key).addEventListener('click',()=>request(action),options);
   function onState(msg) {
     if(msg?.type==='presentation_closed'&&result?.id===msg.id){result=null;message='Result view closed.';if(!busy)request('refresh');else render();return;}
     if(msg?.type!=='state' || typeof msg.state?.request_id!=='number')return;
-    if(msg.state.request_id < sequence){
-      if(msg.state.request_id===lastRemove && draftStamp===lastRemoveStamp && msg.state.stage==='done' && msg.state.context?.target_revision===context.target_revision){message=msg.state.message;render();}
-      return;
-    }
+    if(msg.state.request_id < sequence)return;
+    if(requestStamp!==draftStamp){busy=false;request('refresh');return;}
     const state=msg.state;busy=false;draft={...initial,...state.draft};context=state.context || {};review=state.review || null;stage=state.stage;message=state.message || '';task=state.task||'remove';result=state.result||null;resultDraft={...resultDraft,...state.result_draft};destinations=state.destinations||[];render();
     if(review)q('confirm').focus();else if(['done','error','sync_required'].includes(stage))q('status').setAttribute('tabindex','-1');
   }
@@ -161,6 +110,10 @@ export function render({model, el}) {
   return () => {alive=false;abort.abort();model.off('msg:custom',onState);model.off('viewer:frame-changed',onContextChange);model.off('viewer:selection-changed',onContextChange);model.off('viewer:system-sync-changed',onSystemSync);review=null;el.replaceChildren();};
 }
 """
+)
+ESM = ESM.replace("__SELECTION_EDITOR__", SELECTION_MARKUP).replace(
+    "__RESULT_CARD__", RESULT_MARKUP
+)
 
 CSS = """
 .msm-system{display:flex;flex-direction:column;gap:12px;padding:10px;color:#eef1f5;font:13px/1.5 system-ui,sans-serif}
@@ -170,4 +123,5 @@ CSS = """
 .msm-system :focus-visible{outline:2px solid #a6c5eb;outline-offset:2px}.msm-system .msm-context,.msm-system .msm-hint{font-size:12px;color:#b9c4d3}.msm-system details{font-size:12px}.msm-system summary{cursor:pointer}.msm-system details label{margin-top:10px}.msm-system .msm-scope,.msm-system [data-review]{padding:10px;border:1px solid #596473;border-radius:7px}.msm-system [data-review]>*+*{margin-top:10px}.msm-system .msm-actions{display:flex;gap:7px;flex-wrap:wrap}.msm-system .msm-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}.msm-system dt{font-size:11px;color:#b9c4d3}.msm-system dd{margin:3px 0 0;font-size:18px;font-variant-numeric:tabular-nums}.msm-system .msm-status{min-height:20px}.msm-system [hidden]{display:none!important}
 .msm-system .msm-stats dt,.msm-system .msm-stats dd{display:block;float:none;clear:none;width:auto;max-width:none}
 .msm-system [data-result-editor]{display:flex;flex-direction:column;gap:12px}.msm-system [data-result]>*+*{margin-top:8px}.msm-system [data-result-handle]{display:block;overflow-wrap:anywhere;font-size:11px;margin-top:8px}
+.msm-system [data-wrap],.msm-system [data-periodic],.msm-system [data-fit],.msm-system [data-center]{display:flex;flex-direction:column;gap:12px}.msm-system [data-transform]{display:flex;flex-direction:column;gap:12px}.msm-system .msm-vector{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 """

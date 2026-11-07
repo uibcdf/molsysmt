@@ -1,0 +1,74 @@
+{
+  "schema": "molsysmt.viewer_tools_reference_full_recovery@1",
+  "date": "2026-11-06",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysviewer#264"
+  ],
+  "source": {
+    "original_contribution": "af8eabcd8963b1684449044511ea98a057222914",
+    "original_viewer": "d33e97bc04388330f6516f2902083dda96cff50d",
+    "viewer_code": "239c8dd74815a660159a95970e9136d7beebfdd2",
+    "owner_main": "40bb54d05182d4a87c48cc17a141b4152812421c",
+    "pyunitwizard": "02d0015fa7d3149d92c0e632b8e584f6a47c37dc"
+  },
+  "local_complete_attempt": {
+    "passed": 4966,
+    "failed": 8,
+    "skipped": 0,
+    "warnings": 2907,
+    "pytest_seconds": 1390.71,
+    "wrapper_seconds": 1404.1163245318457,
+    "exit_code": 1,
+    "started": "2026-11-06T20:19:19.752510+00:00",
+    "finished": "2026-11-06T20:42:43.877494+00:00",
+    "selected_input_count": 5288,
+    "selected_inputs_unchanged": true,
+    "heads_unchanged": true,
+    "both_worktree_statuses_unchanged": true,
+    "private_receipt": "msv-reference-full-addon-receipt-20261106.json",
+    "receipt_sha256": "24b495dbc40e89dfbb4d879b99a8cf5515d895ccecfe633cd006eeb816261442",
+    "private_log": "msv-reference-full-addon-20261106.log",
+    "log_sha256": "bdb0522ea49d0c6d253a8cd9348f3411f35a4dc1e7c406bbf69f634096e234ff",
+    "selected_manifest_sha256": "9b06717269ce32818b991d290cf3aa2307ba5973935b3fe50603d901f832d74e"
+  },
+  "hosted_original": {
+    "run": 42286603304,
+    "job": 128128923932,
+    "conclusion": "failure",
+    "preflight_passed": 36,
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "addon_passed": 4960,
+    "addon_failed": 8,
+    "addon_skipped": 6,
+    "addon_skip_reason": "Ackredit optional dependency unavailable",
+    "addon_seconds": 813.1,
+    "private_decoded_log": "msv-reference-smoke-42286603304-original.log",
+    "decoded_log_sha256": "30ac74dc474a26c2c1981542e71f5dc3fa8a4d6966be48c5556c789af701aca5"
+  },
+  "cause": "Eight parametrizations of one strict build-namespace assertion omitted the newly implemented assess_protonation. Runtime exports are correct; the stale explicit expectation is not a scientific calculation failure.",
+  "correction": {
+    "file": "tests/molsysviewer_molsysmt/test_build_audit_tools.py",
+    "change": "Add exactly assess_protonation to the expected build namespace; retain exact-set equality, native signatures/digestion and all scientific assertions",
+    "runtime_and_science_changed": false,
+    "guard": "tests/molsysviewer_molsysmt/test_build_audit_tools.py::test_explicit_native_signature_and_local_only_skip_control"
+  },
+  "affected_recovery": {
+    "passed": 63,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 9,
+    "seconds": 15.69,
+    "exit_code": 0,
+    "private_log": "msv-build-audit-namespace-final-20261106.log",
+    "log_sha256": "601c541b7cabb7d6a096f7c44efa886c53b1376394d5854ad9a5f29316184f42"
+  },
+  "scope": "The original complete 4974-case attempt is failed and preserved. Its 4966 passing cases plus the eight corrected guard cases cover 4974 distinct cases across attempts, not one green complete run. The 63-case recovery overlaps 55 original passes. Hosted/platform/installed and owner/human acceptance remain separate.",
+  "remaining": [
+    "Inspect corrected-head automatic CI; do not relabel the original red run",
+    "Structural-series GUI work is isolated and not included in this source or its recovery",
+    "Every approved GUI/scientific-session family remains required; human acceptance is postponed",
+    "Both 1.0 publications and all candidate/tag/package operations remain paused"
+  ]
+}

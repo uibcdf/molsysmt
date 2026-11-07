@@ -1,0 +1,395 @@
+{
+  "schema": "molsysviewer.molecular-tools-geometry-receiving@1",
+  "date": "2026-11-06",
+  "issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#301",
+    "uibcdf/molsysviewer#302",
+    "uibcdf/molsysviewer#303",
+    "uibcdf/molsysmt#421"
+  ],
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "viewer_base": "3aa9b0f9",
+  "selection_fix_commit": "04db965b",
+  "owner_base": "fc3cf9dd7adf1e4bbc3959582a0d492648f1e0ea",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "viewer_source_files": {
+    "molsysviewer/system_edits.py": {
+      "sha256": "73fdacd093a5acdf9af104462b69906afd8b0461391aeae6622f0cd882b7cb30",
+      "size_bytes": 23666
+    },
+    "molsysviewer/presentations.py": {
+      "sha256": "2bf9de358659a81fb3f8012d69b09a9f53d86f655661dee062e6436bc26ae909",
+      "size_bytes": 10720
+    },
+    "molsysviewer/widget.py": {
+      "sha256": "48256385faf77492a04d950fe5cff5b0101a7e42f094549ba706b84710eb87a6",
+      "size_bytes": 5325
+    },
+    "molsysviewer/js/src/index.ts": {
+      "sha256": "10b60e4ece04ee7b0bb4b259f81a560f057d74f0ccfa0734764369ab2d110ca1",
+      "size_bytes": 79605
+    },
+    "molsysviewer/js/src/managers/popup-host.ts": {
+      "sha256": "6b7ae8b53d8f2fe88bb5207deba713cf9e06896c3f228a441662cf92da6f62eb",
+      "size_bytes": 21188
+    },
+    "molsysviewer/js/src/managers/viewer-controller.ts": {
+      "sha256": "13c99f16f5e894c70a925f4b0a8fe26fd62f38d7195b55b56ad7bca07bfa8189",
+      "size_bytes": 235806
+    },
+    "molsysviewer/js/tests/unit/addon-panel-lifecycle.test.ts": {
+      "sha256": "971841b2b3e795d16f26824b12de5ee91ecd753ce1c951ebabc8e1cafecd91c0",
+      "size_bytes": 9677
+    },
+    "tests/test_managed_system_edits.py": {
+      "sha256": "31dbe880b6862d519aaa3c6fa41bd8471d0e0b14bfbf8f63e206863a42c08ac5",
+      "size_bytes": 12007
+    },
+    "tests/test_repr_mimebundle.py": {
+      "sha256": "215117c14746723d4ff0348155d94d665f6882287b27e88301d3325969680572",
+      "size_bytes": 880
+    }
+  },
+  "addon_source_files": {
+    "molsysviewer_molsysmt/_panel.py": {
+      "sha256": "2c81501886e6322af05056816d1af8dfc7cc35522cf8160a89db6d0b081c1266",
+      "size_bytes": 13961
+    },
+    "molsysviewer_molsysmt/_panel_frontend.py": {
+      "sha256": "91902edc3caca87155a708e7f0c15af90a7d24233fe3121d81c27ca2a475ab26",
+      "size_bytes": 12578
+    },
+    "molsysviewer_molsysmt/_task_panel.py": {
+      "sha256": "b4a959a852431449df4a4f651836605aa87661f73108ebb83dc5563c21c08990",
+      "size_bytes": 12174
+    },
+    "molsysviewer_molsysmt/_panel_widgets.py": {
+      "sha256": "5745af5362afc9814aa6251464d3909146c99b7cc9c29a2fb3c4cfbc8b917a45",
+      "size_bytes": 6292
+    },
+    "molsysviewer_molsysmt/_geometry_panel.py": {
+      "sha256": "0b5c0525423ab67f6291c0e5dbf9fbdda71e6ab865c1753b868c6dd790173d0b",
+      "size_bytes": 11395
+    },
+    "molsysviewer_molsysmt/_geometry_panel_frontend.py": {
+      "sha256": "256cb8be98904bbedf8324889131e8d87788dbf64581e1fc4fb5c9de2db4f6e2",
+      "size_bytes": 9183
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "sha256": "7967b50201ac6c38d1b0c6b50014bbc83a88a3fcefc766bd5a1d6caa55feb405",
+      "size_bytes": 2383
+    },
+    "tests/molsysviewer_molsysmt/test_system_panel.py": {
+      "sha256": "ffa3f88d394658668b94e6d128c36e72004fbed5eefd355f11013be62ca8998d",
+      "size_bytes": 21506
+    },
+    "tests/molsysviewer_molsysmt/test_geometry_panel.py": {
+      "sha256": "4e64d19e20a1922b75287c0a3c54daf666200d6cd18afc1abb2329b16d9ce7ed",
+      "size_bytes": 11749
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "b3eb45d7c319b9dd3273ed28ece7799cfe3f07df8304be6c7d575e3e76309858",
+      "size_bytes": 2819
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "b90af000f41d7a03d4dc839f597ea1ef3c62e36906b40fe9f9a10d0e6e03a842",
+      "size_bytes": 11896
+    },
+    "tests/molsysviewer_molsysmt/geometry_panel_jupyter.mjs": {
+      "sha256": "8dccad1ea5bbaefca8e3a1ae038e888e99df0649530fd878fa6dc0a596dfc5ce",
+      "size_bytes": 11049
+    },
+    "tests/molsysviewer_molsysmt/result_panel_jupyter.mjs": {
+      "sha256": "899b3c074bfb5e1bffde422403cc1fcd28db4c23d9bb568bba3ecc64f2fd5ab7",
+      "size_bytes": 10547
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.mjs": {
+      "sha256": "6daaa475356433103cb13dd66300aad722b76b339809b83c67d0db9ba31d0fa2",
+      "size_bytes": 11410
+    },
+    "devtools/scripts/viewer_tools_contract.py": {
+      "sha256": "dd742caec8573827db88cd0fa5e48021be18d35326652b972d5d3e398619720c",
+      "size_bytes": 3455
+    },
+    "devtools/tests/test_native_viewer_integration.py": {
+      "sha256": "e3ae87e3bb05b3cc775a6b04cd71ef7ea656343bd14bb78d4b0422ff447b45f0",
+      "size_bytes": 9295
+    }
+  },
+  "native_algorithm_changes": [],
+  "owner_course_executable_changes": [],
+  "scope": "Routine Linux/Python 3.14 source receiving. Expert scientific API/defaults unchanged. System and Geometry Translate implemented in the owner contribution, not owner-integrated or installed-artifact qualified.",
+  "local_validation": {
+    "host_coordinator": {
+      "sha256": "d50b29e479c8e368b700036def3b51dfd307721cbaac461c399175a73a6d455e",
+      "size_bytes": 327,
+      "file": "selection-confirmation-expanded-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 13 passed | 5.57s | 14 warnings"
+      ],
+      "text": "PASS exit=0 | 13 passed | 5.57s | 14 warnings\n\nwarnings: 14 in 1 groups\n  LegacyH5MSMWarning x14 | /tmp/msv-jupyter-receiving-20261105/molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n\n"
+    },
+    "host_selection_boundaries": {
+      "sha256": "32d83276502c3014087d2df5c1e7bcf74dc52a63f07cb5ac75bdc949bcc872ef",
+      "size_bytes": 328,
+      "file": "selection-guard-boundaries-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 351 passed | 7.96s | 40 warnings"
+      ],
+      "text": "PASS exit=0 | 351 passed | 7.96s | 40 warnings\n\nwarnings: 40 in 1 groups\n  LegacyH5MSMWarning x40 | /tmp/msv-jupyter-receiving-20261105/molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n\n"
+    },
+    "presentation_ci_repairs": {
+      "sha256": "d2ee25be04387ac2cc51baf5ac72f48b04d23a571f06be8194440492394fa536",
+      "size_bytes": 356,
+      "file": "results-ci-repair-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 226 passed | 23.89s | 10 warnings"
+      ],
+      "text": "receptor: 100% 226/226 24s\nPASS exit=0 | 226 passed | 23.89s | 10 warnings\n\nwarnings: 10 in 1 groups\n  LegacyH5MSMWarning x10 | /tmp/msv-jupyter-receiving-20261105/molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n\n"
+    },
+    "shared_system_geometry": {
+      "sha256": "dbc189e803ad9e6286f0a8ef350f2d38366d85bc26513dfd2664f9244bbedcb9",
+      "size_bytes": 317,
+      "file": "msv-shared-panels-final-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 83 passed | 23.46s | 81 warnings"
+      ],
+      "text": "receptor: 100% 83/83 23s\nPASS exit=0 | 83 passed | 23.46s | 81 warnings\n\nwarnings: 81 in 1 groups\n  LegacyH5MSMWarning x81 | molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n\n"
+    },
+    "geometry_native_transforms": {
+      "sha256": "42737f415fa5dbb325261d92aada10fd54e636e8e7448d91ef9762c2843128b7",
+      "size_bytes": 460,
+      "file": "msv-translation-final-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 142 passed | 49.57s | 146 warnings"
+      ],
+      "text": "receptor: 60% 86/142 31s\nreceptor: 80% 114/142 41s\nreceptor: 100% 142/142 50s\nPASS exit=0 | 142 passed | 49.57s | 146 warnings\n\nwarnings: 146 in 2 groups\n  LegacyH5MSMWarning x145 | molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n  RuntimeWarning x1 | numpy/linalg/_linalg.py:2407 | invalid value encountered in det\n\n"
+    },
+    "source_distribution_and_smoke_contract": {
+      "sha256": "f5a082ed6b59a636d77db2e01fc025a7da0110fa2e196da20f56080cada80fd8",
+      "size_bytes": 33,
+      "file": "msv-geometry-source-contract-final-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 36 passed | 4.21s"
+      ],
+      "text": "PASS exit=0 | 36 passed | 4.21s\n\n"
+    },
+    "actual_jupyter": {
+      "sha256": "5c5a84656b1f24a44f635fbbe35384093a34dbc181fd7f0a3826878f2235000d",
+      "size_bytes": 81,
+      "file": "msv-translation-all-jupyter-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 3 passed | 153.68s"
+      ],
+      "text": "receptor: 66% 2/3 107s\nreceptor: 100% 3/3 154s\nPASS exit=0 | 3 passed | 153.68s\n\n"
+    },
+    "viewer_core_initial_sandbox": {
+      "sha256": "10f186ebc1c4af9c3f78b7e1ff30eddc9c707578ed11352e5f81779ac9815da6",
+      "size_bytes": 14875,
+      "file": "core-final-20261106.log",
+      "outcomes": [
+        "FAIL exit=1 | 25 failed, 6 errors, 3429 passed, 21 skipped, 15 deselected | 557.04s | 1290 warnings | 11 root causes"
+      ],
+      "text": "receptor: 20% 697/3481 154s\nreceptor: 40% 1393/3481 262s\nreceptor: 60% 2089/3481 427s\nreceptor: 80% 2785/3481 449s\nreceptor: 100% 3481/3481 557s\nFAIL exit=1 | 25 failed, 6 errors, 3429 passed, 21 skipped, 15 deselected | 557.04s | 1290 warnings | 11 root causes\n\n[1] OSError | 8 tests | call\n    python3.14/asyncio/base_events.py:1641\n    OSError: could not bind on any address out of [('127.0.0.1', 0)]\n    frames: tests/test_internal_render_worker_host.py:161 -> python3.14/asyncio/runners.py:205 (ext) -> ... -> tests/test_internal_render_worker_host.py:49 -> molsysviewer/remote/internal_worker_host.py:145 -> site-packages/aiohttp/web_runner.py:138 (ext) -> python3.14/asyncio/base_events.py:1641 (ext)\n    tests:\n      tests/test_internal_render_worker_host.py::test_internal_host_authenticates_registration_and_preserves_binary_frames\n      tests/test_internal_render_worker_host.py::test_internal_host_rejects_a_worker_with_the_wrong_session_identity\n      tests/test_remote_session_service.py::test_auth_and_client_websocket_have_limits_separate_from_molecular_uploads\n      +5 more\n    rerun: pytest tests/test_internal_render_worker_host.py tests/test_remote_session_service.py -q\n\n[2] AssertionError | 7 tests | call\n    tests/test_exported_page_opens_from_disk.py:72\n    AssertionError: node:internal/modules/run_main:107\n          triggerUncaughtException(\n          ^\n\n      browserType.launch: Target page, context or browser has been closed\n      Browser logs:\n\n      <launching> /usr/bin/google-chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-\n    ... [3089 characters omitted; original=4589; retained=1500; sha256=2a4618a52818; see full report] ...\n    end>\n\n          at /home/diego/repos@uibcdf/molsysviewer/devtools/e2e/open_exported_page.mjs:9:32\n\n      Node.js v24.21.0\n\n    assert 1 == 0\n     +  where 1 = CompletedProcess(args=['node', '/home/diego/repos@uibcdf/molsysviewer/devtools/e2e/open_exported_page.mjs', '/tmp/pyte...1b[22m\\n\\n    at /home/diego/repos@uibcdf/molsysviewer/devtools/e2e/open_exported_page.mjs:9:32\\n\\nNode.js v24.21.0\\n').returncode\n    6 other messages:\n      AssertionError: node:internal/modules/run_main:107\n      AssertionError: node:internal/modules/run_main:107\n      AssertionError: node:internal/modules/run_main:107\n      +3 more\n    frames: tests/test_exported_page_opens_from_disk.py:83 -> tests/test_exported_page_opens_from_disk.py:72\n    captured stderr (tests/test_exported_page_opens_from_disk.py::test_a_matching_pair_stays_quiet):\n      WARNING: H5MSM 0.4 is deprecated; reading remains supported. (Hint: Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to_05(source, output). Docs: https://www.uibcdf.org/MolSysMT)\n    captured stderr (tests/test_exported_page_opens_from_disk.py::test_a_scene_from_another_release_says_so):\n      WARNING: H5MSM 0.4 is deprecated; reading remains supported. (Hint: Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to_05(source, output). Docs: https://www.uibcdf.org/MolSysMT)\n    captured stderr (tests/test_exported_page_opens_from_disk.py::test_a_self_contained_export_renders_with_no_server_and_no_network):\n      WARNING: H5MSM 0.4 is deprecated; reading remains supported. (Hint: Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to_05(source, output). Docs: https://www.uibcdf.org/MolSysMT)\n    tests:\n      tests/test_exported_page_opens_from_disk.py::test_a_matching_pair_stays_quiet\n      tests/test_exported_page_opens_from_disk.py::test_a_scene_from_another_release_says_so\n      tests/test_exported_page_opens_from_disk.py::test_a_self_contained_export_renders_with_no_server_and_no_network\n      +4 more\n    rerun: pytest tests/test_exported_page_opens_from_disk.py -q\n\n[3] AssertionError | 6 tests | setup\n    tests/test_js_source_coverage.py:66\n    AssertionError: TAP version 13\n      # Subtest: /tmp/pytest-of-diego/pytest-2003/js-coverage0/mapped.mjs\n      ok 1 - /tmp/pytest-of-diego/pytest-2003/js-coverage0/mapped.mjs\n        ---\n        duration_ms: 225.032523\n        type: 'test'\n        ...\n      1..1\n      # tests 1\n      # suites 0\n      # pass 1\n      # fail 0\n      # cancelled 0\n      # skipped 0\n      # todo 0\n      # duration_ms 243.321034\n\n    assert 'measure the real UI model' in \"TAP version 13\\n# Subtest: /tmp/pytest-of-diego/pytest-2003/js-coverage0/mapped.mjs\\nok 1 - /tmp/pytest-of-diego/pyte......\\n1..1\\n# tests 1\\n# suites 0\\n# pass 1\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 243.321034\\n\"\n     +  where \"TAP version 13\\n# Subtest: /tmp/pytest-of-diego/pytest-2003/js-coverage0/mapped.mjs\\nok 1 - /tmp/pytest-of-diego/pyte......\\n1..1\\n# tests 1\\n# suites 0\\n# pass 1\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 243.321034\\n\" = CompletedProcess(args=['/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/node', '/home/diego/repos@uibcdf... tests 1\\n# suites 0\\n# pass 1\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 243.321034\\n\", stderr='').stdout\n    tests:\n      tests/test_js_source_coverage.py::test_real_production_functions_are_covered_and_unmapped_runner_is_rejected\n      tests/test_js_source_coverage.py::test_report_gate_rejects_broken_or_nonproduction_coverage[empty]\n      tests/test_js_source_coverage.py::test_report_gate_rejects_broken_or_nonproduction_coverage[false-full]\n      +3 more\n    rerun: pytest tests/test_js_source_coverage.py -q\n\n[4] PermissionError | 2 tests | call\n    lib/python3.14/socket.py:236\n    PermissionError: [Errno 1] Operation not permitted\n    frames: tests/test_headless_export_resources.py:41 -> tests/test_headless_export_resources.py:26 -> lib/python3.14/contextlib.py:141 (ext) -> molsysviewer/_private/html_server.py:44 -> lib/python3.14/socketserver.py:453 (ext) -> lib/python3.14/socket.py:236 (ext)\n    tests:\n      tests/test_headless_export_resources.py::test_html_server_releases_socket_thread_and_workspace_on_exit[False]\n      tests/test_headless_export_resources.py::test_html_server_releases_socket_thread_and_workspace_on_exit[True]\n    rerun: pytest tests/test_headless_export_resources.py -q\n\n[5] OSError | 2 tests | call\n    molsysviewer/tools/preview.py:77\n    OSError: no free port between 8000 and 8019. Pass another `port`.\n    1 other message:\n      OSError: no free port between 8931 and 8950. Pass another `port`.\n    frames: tests/test_preview_server.py:33 -> tests/test_preview_server.py:24 -> ../smonitor/smonitor/core/decorator.py:330 -> molsysviewer/_private/argdigest/digest.py:26 -> ../smonitor/smonitor/core/decorator.py:330 -> ../argdigest/argdigest/core/decorator.py:509 -> molsysviewer/tools/preview.py:77\n    captured stderr (tests/test_preview_server.py::test_preview_moves_on_when_the_port_is_taken):\n      ERROR: no free port between 8931 and 8950. Pass another `port`.\n    captured stderr (tests/test_preview_server.py::test_preview_serves_the_directory):\n      ERROR: no free port between 8000 and 8019. Pass another `port`.\n    tests:\n      tests/test_preview_server.py::test_preview_moves_on_when_the_port_is_taken\n      tests/test_preview_server.py::test_preview_serves_the_directory\n    rerun: pytest tests/test_preview_server.py -q\n\n[6] AssertionError | 1 test | call\n    tests/test_devguide_links.py:92\n    AssertionError: links unavailable in a clean checkout:\n        devguide/pending_bugs/README.md -> addon_workspace_entry_and_order.md\n        devguide/pending_bugs/README.md -> managed_edit_selection_confirmation.md\n    assert ['devguide/pe...firmation.md'] == []\n\n      Left contains 2 more items, first extra item: 'devguide/pending_bugs/README.md -> addon_workspace_entry_and_order.md'\n      Use -v to get more diff\n    rerun: pytest tests/test_devguide_links.py::test_relative_links_resolve_in_a_clean_checkout -q\n\n[7] AssertionError | 1 test | call\n    tests/test_headless_export_resources.py:89\n    AssertionError: WARNING: H5MSM 0.4 is deprecated; reading remains supported. (Hint: Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to_05(source, output). Docs: https://www.uibcdf.org/MolSysMT)\n      Traceback (most recent call last):\n        File \"<string>\", line 8, in <module>\n          view._export_image_headless_playwright(sys.argv[2], width_px=320, height_px=240, timeout_s=45)\n          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        File \"/tmp/pytest-of-diego/pytest-2003/test_real_png_export_from_read0/installed/molsysviewer/viewer/core.py\", line 3495, in _export_image_headless_playwright\n          with runtime_html_server(viewer_js_path) as host:\n               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^\n        File \"/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/lib/python3.14/contextlib.py\", line 141, in __enter__\n          return next(self.gen)\n        File \"/tmp/pytest-of-diego/pytest-2003/test_real_png_export_from_read0/installed/molsysviewer/_private/html_server.py\", line 44, in runtime_html_server\n          with HTTPServer((\"127.0.0.1\", 0), Handle\n    ... [582 characters omitted; original=2082; retained=1500; sha256=39a3cd83e438; see full report] ...\n          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n      PermissionError: [Errno 1] Operation not permitted\n\n    assert 1 == 0\n     +  where 1 = CompletedProcess(args=['/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python', '-c', '\\nimport pathlib...n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\nPermissionError: [Errno 1] Operation not permitted\\n').returncode\n    rerun: pytest tests/test_headless_export_resources.py::test_real_png_export_from_read_only_package -q\n\n[8] AssertionError | 1 test | call\n    tests/test_preview_server.py:92\n    AssertionError:\n    assert 'is serving' in ''\n    rerun: pytest tests/test_preview_server.py::test_blocking_preview_exits_on_interrupt_and_preserves_caller_directory -q\n\n[9] AssertionError | 1 test | call\n    tests/test_remote_cli.py:212\n    AssertionError: assert 4 == 0\n     +  where 4 = <function main at 0x7b80b31d14e0>(['pentalanine', '--demo', '--render-on', 'client', '--port', '0', ...])\n     +    where <function main at 0x7b80b31d14e0> = server_cli.main\n    captured stderr (tests/test_remote_cli.py::test_client_rendering_cli_runs_a_real_demo_session_and_emits_json):\n      WARNING: H5MSM 0.4 is deprecated; reading remains supported. (Hint: Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to_05(source, output). Docs: https://www.uibcdf.org/MolSysMT)\n      molsysviewer-server: session failed: could not bind on any address out of [('127.0.0.1', 0)]\n    rerun: pytest tests/test_remote_cli.py::test_client_rendering_cli_runs_a_real_demo_session_and_emits_json -q\n\n[10] AssertionError | 1 test | call\n    tests/test_remote_cli.py:260\n    AssertionError: server exited without a session-ready record\n    assert ''\n    rerun: pytest tests/test_remote_cli.py::test_foreground_server_process_reports_ready_and_stops -q\n\n[11] AssertionError | 1 test | call | tests/test_remote_cli.py:307\n\nwarnings: 1290 in 16 groups\n  LegacyH5MSMWarning x1262 | /tmp/msv-jupyter-receiving-20261105/molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n  StructuralAttributeDropWarning x6 | ../argdigest/argdigest/core/decorator.py:509 | Structural attributes were discarded during concatenation: b_factor, occupancy. Use attribute_policy='strict'...\n  IncompatibleBoxWarning x4 | ../argdigest/argdigest/core/decorator.py:509 | Atoms were added under a periodic box that does not match the one of the target system: the added atoms have n...\n  DeprecationWarning x3 | ../argdigest/argdigest/core/decorator.py:202 | annotations.add_label() is deprecated; use add() instead.\n  DeprecationWarning x3 | ../argdigest/argdigest/core/decorator.py:202 | The group_index parameter is deprecated. Use selection or atom_indices instead.\n  IncompatibleBoxWarning x2 | ../argdigest/argdigest/core/decorator.py:509 | Atoms were added under a periodic box that does not match the one of the target system: the target system has...\n  DeprecationWarning x1 | molsysviewer/scene_history.py:71 | 'radii' is deprecated; use 'radius'.\n  DeprecationWarning x1 | molsysviewer/scene_history.py:71 | 'colors' is deprecated; use 'color'.\n  IncompatibleBoxWarning x1 | ../argdigest/argdigest/core/decorator.py:509 | Atoms were added under a periodic box that does not match the one of the target system: the boxes differ, firs...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'second' overlaps visible represented region(s) first. Overlapping region representations can produce z...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'element-cpk' overlaps visible represented region(s) chain-id. Overlapping region representations can p...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'my-cpk' overlaps visible represented region(s) my-chain. Overlapping region representations can produc...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'f2' overlaps visible represented region(s) f1. Overlapping region representations can produce z-fighti...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'sweep' overlaps visible represented region(s) reg. Overlapping region representations can produce z-fi...\n  StateStructureDiffersWarning x1 | ../argdigest/argdigest/core/decorator.py:699 | This state was saved from a different system (1441 atoms; this one has 22), so its stored atom indices do not...\n  StructureStreamFallbackWarning x1 | molsysviewer/viewer/core.py:1080 | Array-native stream failed; using JSON fallback: no acknowledgement within 30s while awaiting 'waiting_begin_a...\n\nskipped: 21 in 6 groups\n  x14 | template has no placeholders\n  x2 | Requires installed scientific artifacts\n  x2 | requires an explicitly selected real Chromium/GPU environment\n  +3 more\n\nfull report: .pytest_cache/d/receptor/last-run.txt\n\n"
+    },
+    "viewer_core": {
+      "sha256": "b3afce624564d67b432daae0dc299c89bc4493b198a6e80a2f5665015b528277",
+      "size_bytes": 3216,
+      "file": "core-qualified-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 3464 passed, 21 skipped, 15 deselected | 545.83s | 1290 warnings"
+      ],
+      "text": "receptor: 20% 697/3485 114s\nreceptor: 40% 1394/3485 257s\nreceptor: 60% 2091/3485 424s\nreceptor: 80% 2788/3485 445s\nreceptor: 100% 3485/3485 546s\nPASS exit=0 | 3464 passed, 21 skipped, 15 deselected | 545.83s | 1290 warnings\n\nwarnings: 1290 in 16 groups\n  LegacyH5MSMWarning x1262 | /tmp/msv-jupyter-receiving-20261105/molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n  StructuralAttributeDropWarning x6 | ../argdigest/argdigest/core/decorator.py:509 | Structural attributes were discarded during concatenation: b_factor, occupancy. Use attribute_policy='strict'...\n  IncompatibleBoxWarning x4 | ../argdigest/argdigest/core/decorator.py:509 | Atoms were added under a periodic box that does not match the one of the target system: the added atoms have n...\n  DeprecationWarning x3 | ../argdigest/argdigest/core/decorator.py:202 | annotations.add_label() is deprecated; use add() instead.\n  DeprecationWarning x3 | ../argdigest/argdigest/core/decorator.py:202 | The group_index parameter is deprecated. Use selection or atom_indices instead.\n  IncompatibleBoxWarning x2 | ../argdigest/argdigest/core/decorator.py:509 | Atoms were added under a periodic box that does not match the one of the target system: the target system has...\n  DeprecationWarning x1 | molsysviewer/scene_history.py:71 | 'radii' is deprecated; use 'radius'.\n  DeprecationWarning x1 | molsysviewer/scene_history.py:71 | 'colors' is deprecated; use 'color'.\n  IncompatibleBoxWarning x1 | ../argdigest/argdigest/core/decorator.py:509 | Atoms were added under a periodic box that does not match the one of the target system: the boxes differ, firs...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'second' overlaps visible represented region(s) first. Overlapping region representations can produce z...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'element-cpk' overlaps visible represented region(s) chain-id. Overlapping region representations can p...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'my-cpk' overlaps visible represented region(s) my-chain. Overlapping region representations can produc...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'f2' overlaps visible represented region(s) f1. Overlapping region representations can produce z-fighti...\n  RegionOverlapWarning x1 | molsysviewer/scene_history.py:71 | Region 'sweep' overlaps visible represented region(s) reg. Overlapping region representations can produce z-fi...\n  StateStructureDiffersWarning x1 | ../argdigest/argdigest/core/decorator.py:699 | This state was saved from a different system (1441 atoms; this one has 22), so its stored atom indices do not...\n  StructureStreamFallbackWarning x1 | molsysviewer/viewer/core.py:1080 | Array-native stream failed; using JSON fallback: no acknowledgement within 30s while awaiting 'waiting_begin_a...\n\nskipped: 21 in 6 groups\n  x14 | template has no placeholders\n  x2 | Requires installed scientific artifacts\n  x2 | requires an explicitly selected real Chromium/GPU environment\n  +3 more\n\n"
+    },
+    "environment_recovery": {
+      "sha256": "a9f92ad2a2ca35487d8f94899925e2952af75457b14adc5e38de53220509a64f",
+      "size_bytes": 549,
+      "file": "core-environment-recovery-20261106.log",
+      "outcomes": [
+        "PASS exit=0 | 64 passed, 1 skipped | 69.12s | 9 warnings"
+      ],
+      "text": "receptor: 20% 13/65 24s\nreceptor: 40% 26/65 27s\nreceptor: 60% 39/65 27s\nreceptor: 80% 52/65 32s\nreceptor: 100% 65/65 69s\nPASS exit=0 | 64 passed, 1 skipped | 69.12s | 9 warnings\n\nwarnings: 9 in 1 groups\n  LegacyH5MSMWarning x9 | /tmp/msv-jupyter-receiving-20261105/molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...\n\nskipped: 1 in 1 group\n  x1 | requires an explicitly selected real Chromium/GPU environment\n\n"
+    }
+  },
+  "javascript_unit_lane": {
+    "sha256": "b5a389940c983fcf19590e05cd5c921238c5dcce84a4a53c07ad7d7b815dfce7",
+    "size_bytes": 813,
+    "outcome": "passed; aggregated Node output reports one top-level test; no invented individual-case total"
+  },
+  "actual_jupyter": {
+    "jupyter-geometry": {
+      "receipt": {
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Review and cancel translation without changing the molecular system",
+          "Confirm the saved subset once through live Jupyter comms",
+          "Translate an independent whole-system result and display it below the source",
+          "The same result can move to its own live window and back",
+          "Geometry is reachable in canvas and detached Studio popups with its draft",
+          "Python verifies the numerical results and unchanged source of the independent calculation"
+        ],
+        "errors": [
+          {
+            "stage": "Render the source through the real notebook presentation surface",
+            "error": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          },
+          {
+            "stage": "Python verifies the numerical results and unchanged source of the independent calculation",
+            "error": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          }
+        ],
+        "baseline_errors": [
+          {
+            "error": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:51105/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          }
+        ],
+        "scope": "Real local JupyterLab/ipykernel/AnyWidget, saved selection translation, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification."
+      },
+      "sha256": "7f9bce56162c4bb970d291a04c208f6747b1ffc71674ec46d3bbdd9c57ebb4b8",
+      "size_bytes": 4740
+    },
+    "jupyter-results": {
+      "receipt": {
+        "checks": [
+          "Render the source through the real notebook presentation surface",
+          "Extract ordered nonconsecutive structures without editing the source",
+          "Notebook delivery from fullscreen explains how to reach the result",
+          "Changing destination reuses one View through rapid window/notebook cycles",
+          "Copy opens a separate live View in an external window without recomputing",
+          "Detached Studio can open and close an independent result without closing its source",
+          "Python recovers both Views and source closure preserves them"
+        ],
+        "errors": [
+          {
+            "stage": "Render the source through the real notebook presentation surface",
+            "error": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          },
+          {
+            "stage": "Python recovers both Views and source closure preserves them",
+            "error": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          }
+        ],
+        "baseline_errors": [
+          {
+            "error": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46773/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          }
+        ],
+        "scope": "Real local JupyterLab/ipykernel/AnyWidget, ordered native extraction, independent Mol* Views, notebook and browser-window presentation including detached Studio. Not visible human Qt qualification."
+      },
+      "sha256": "edaba2d5deb811b7739ec44ead6a04e6f480619c82af58dda1bab515db2046d6",
+      "size_bytes": 4705
+    },
+    "jupyter": {
+      "receipt": {
+        "baseline_errors": [
+          {
+            "message": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          }
+        ],
+        "scope": "Actual local JupyterLab server, ipykernel, anywidget/ipywidgets comms, real Mol* rendering and both popup lifecycles in headless Chromium. Not human visible Qt or installed-package qualification.",
+        "checks": [
+          "Execute real notebook with source-pinned Python 3.14 kernel",
+          "Native review is 165 waters / 3818 retained; Back does not edit",
+          "Confirm traverses real widget comms, native edit and Mol* rendering",
+          "Empty ion selection and remount retain a bounded draft without a review",
+          "Canvas popup and Studio popup share the actual Jupyter authority",
+          "Kernel verifies actual inventory and exactly two managed edits"
+        ],
+        "errors": [
+          {
+            "stage": "Execute real notebook with source-pinned Python 3.14 kernel",
+            "message": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          },
+          {
+            "stage": "Kernel verifies actual inventory and exactly two managed edits",
+            "message": "Error: No active debugger session",
+            "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46919/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+          }
+        ],
+        "final_atoms": 3817,
+        "managed_edits": 2,
+        "python_source": "/tmp/msv-jupyter-receiving-20261105"
+      },
+      "sha256": "8909096e01e330ccb4f2bf7b323ebd0fd5ac458b9e541c3fe662583fa9ee29c8",
+      "size_bytes": 4701
+    }
+  },
+  "retained_failures": [
+    "The initial broad core run in the restricted sandbox had 3429 passes, 25 failures and 6 setup errors. Loopback/socket and browser/Node IPC restrictions affected execution; two unindexed report links also failed the clean-checkout guard. NODE_TEST_CONTEXT and NODE_OPTIONS were absent, so the inherited-variable hypothesis was not confirmed. The same affected selection outside the sandbox passed 64 with one explicit GPU skip; the complete qualified run then passed 3464 with 21 justified skips and 15 deselected Qt-runtime cases. Reports were staged; no tests or gates were weakened.",
+    "The first System confirmation run passed 49 cases and failed active-selection revalidation; it identified the additional exact active-event host reader, now guarded with saved readers.",
+    "The first Geometry file had 29 setup errors from an incorrect test-fixture apply_system_edit() call. The fixture now sets its explicit box through the already qualified addon coordinator; no product bypass was added.",
+    "The first Geometry browser run completed five checks before its driver clicked a stale mode selector during detached-Studio hydration. Waiting for the real workspace tab fixes the driver, without accepting a missing panel.",
+    "The next combined browser run passed Geometry but failed System because the host ignored entry_panel/order and opened Geometry. Viewer #303 records that product defect and its correction.",
+    "The first source-contract selection had 35 passes and one failure: the new Geometry test was missing from the explicit hosted smoke command. It is now included; the guard is unchanged.",
+    "Viewer CI 42168035122 on the earlier runtime failed the same three assertions on all four Linux minors: stale generated capability audit, illegal private popup-window access, and obsolete mocked MIME delegation expectation. All original logs are retained; corrections preserve the new presentation contract and add real-widget cleanup checks."
+  ],
+  "pending": [
+    "Hosted exact-head CI for the newly committed Viewer and owner PR",
+    "Scientific owner review/integration of PR #543",
+    "Human Jupyter/visible Qt acceptance explicitly postponed",
+    "Rotate and remaining Chemistry/Analysis tasks",
+    "Installed artifact qualification and separately authorized publications"
+  ],
+  "resource_lifecycle": "All three receiving runs use isolated loopback Jupyter servers/kernels/browser instances, close their own resources in finally, and assert removal of private settings/config files. No user server or notebook is stopped. Unrelated Viewer scratch files and four native-owner RST changes remain untouched.",
+  "viewer_pinned_commit": "49dba88ae992088259a6f0891b59dfc8730f5183",
+  "host_closeout": "Viewer #302/#303 are closed in source; full core and three Jupyter scenarios pass. New hosted CI is separate.",
+  "rendered_geometry_receiving": {
+    "outcome": "PASS exit=0 | 1 passed | 45.33s\n\n",
+    "log_sha256": "51f68974ee486e99c798d08499fdc3ec28d218aec5f19284b34bf063fc65107d",
+    "receipt_sha256": "adcb9531ef8f26d9403943bf0846b2e08f3896dab58f38d94ab26524574857d9",
+    "receipt": {
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review and cancel translation without changing the molecular system",
+        "Confirm the saved subset once through live Jupyter comms",
+        "Translate an independent whole-system result and display it below the source",
+        "The same result can move to its own live window and back",
+        "Geometry is reachable in canvas and detached Studio popups with its draft",
+        "Python verifies the numerical results and unchanged source of the independent calculation"
+      ],
+      "errors": [
+        {
+          "stage": "Render the source through the real notebook presentation surface",
+          "error": "Error: No active debugger session",
+          "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+        },
+        {
+          "stage": "Python verifies the numerical results and unchanged source of the independent calculation",
+          "error": "Error: No active debugger session",
+          "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+        }
+      ],
+      "baseline_errors": [
+        {
+          "error": "Error: No active debugger session",
+          "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:60153/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+        }
+      ],
+      "scope": "Real local JupyterLab/ipykernel/AnyWidget, saved selection translation, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification."
+    },
+    "extra_assertions": "Actual Mol* unit conformation coordinates remain unchanged on Back, equal the analytical [1,-2,3] angstrom selected-atom displacement after source editing, and equal the additional [20,0,0] angstrom displacement in the independent result. Source native/frame assertions remain in the same test."
+  },
+  "updated_routes": {
+    "text": "PASS exit=0 | 48 passed | 4.72s\n\n",
+    "sha256": "f3e18d205e37288a2c984ce0538e5cef6ea2d2a813dd9bdcff80610c0ef50d34"
+  },
+  "host_report_closeout": {
+    "text": "PASS exit=0 | 314 passed | 1.93s\n\n",
+    "sha256": "d19d9d0d5a3bc0da52cbe883950e7167582d1d2249f00b8f30c6cdfaa123cfc6"
+  },
+  "registered_viewer_ci": {
+    "commit": "49dba88ae992088259a6f0891b59dfc8730f5183",
+    "core_run": 42176308961,
+    "observation": "gh-run-receptor: pending, eight queued test jobs and one unrelated skip, no artifacts at inspection; not a passing hosted result."
+  }
+}

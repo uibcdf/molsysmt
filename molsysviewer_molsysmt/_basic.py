@@ -848,6 +848,50 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "Only already declared aromatic bonds are normalized to fractional "
                 "order 1.5. This does not perceive aromaticity or guess chemistry.\n"
             )
+        if module == "topology" and name == "get_atom_name_correspondence":
+            function.__doc__ += (
+                "\nView integration\n----------------\n"
+                "Reads stable atom names/elements from the serialized current "
+                "primary, including completed pending edits. The explicit "
+                "reference remains caller-owned; keep it stable for the call. "
+                "Native None defaults, selection order, duplicate-name/index "
+                "refusal and detached int64 query/reference source-index pairs "
+                "remain unchanged. This exact label match neither proves "
+                "chemical identity nor assigns chemistry, aligns coordinates "
+                "or adopts a reference. No scene/history change, visible-frame "
+                "choice, synchronization or update_view control is added.\n"
+            )
+        if module == "build" and name == "assess_protonation":
+            function.__doc__ += (
+                "\nView integration\n----------------\n"
+                "Prepares one native source-bound assessment through the "
+                "serialized current-primary reader, including pending edits. "
+                "It does not remove atoms, copy the coordinate trajectory, "
+                "synchronize the scene or attach a stored analysis. Native pH "
+                "approximation, naming/reference coverage, bidirectional atom "
+                "maps and one-use/stale-source guards remain explicit. The "
+                "returned native object's to_dict() owns its report data. Its "
+                "apply() is an ordinary native operation with an explicit "
+                "source argument, not a managed addon edit; use independent "
+                "output by default and adopt it deliberately. Raw native "
+                "in-place mutation is not automatically observed by the view. "
+                "No proxy, chemistry inference, automatic application or "
+                "update_view control is introduced here.\n"
+            )
+        if module == "physchem" and name == "get_chemical_template":
+            function.__doc__ += (
+                "\nView integration\n----------------\n"
+                "Explicit-input factory available before loading a system while "
+                "the owner remains open. component_id names the selected CCD "
+                "definition, not a current-system atom/group/component index. "
+                "The required source stays explicit; offline input never "
+                "silently selects the network. Native method, H policy, "
+                "descriptor/search limits, optional engines, source digests "
+                "and detached attribution remain unchanged. The independent "
+                "coordinate-free template is not applied or loaded. No "
+                "current-primary read, synchronization, preparation, "
+                "update_view control or scene/history change is added.\n"
+            )
         if module == "physchem" and name == "get_peptide_chemical_template":
             function.__doc__ += (
                 "This explicit-input factory works before a system is loaded while "

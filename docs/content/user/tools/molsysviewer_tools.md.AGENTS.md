@@ -487,9 +487,15 @@ Keep internal versus disjoint cross contributions, two-sided partitions and
 received mixed #561 axes explicit, including their singleton flat-side matrix
 axis. Forward inputs and native results without consumer-side reshaping.
 Retain the independent NoCutoff pair-energy reference and separate periodic/
-overlap/scientific limits. Distinguish the #572 native provider force route from
-addon exposure and installed qualification, which remain pending. Do not expose
-an unreceived force method or add consumer-side parameterization.
+overlap/scientific limits. Preserve the received #572 force mirror as a serialized
+primary reader: full-model evaluation followed by atom filtering; explicit
+structure axes/order/repetition, first-structure legacy default, magnitudes,
+empty axes and application force units. Keep independent CPU/Reference and
+selected Reference PME receiving separate from arbitrary models, GPU devices
+and installed qualification. Preserve raw-potential rather than constraint-force
+meaning, native model/chemical-state/memory diagnostics, unchanged source and
+scene, pending reads and detached results. Never add consumer parameterization,
+preparation, visible-structure substitution, force arrows or update_view.
 
 
 Preserve solvate as explicit independent construction, with native engine/model,
@@ -501,14 +507,33 @@ Forward native random_seed and skip_digestion rather than retaining a local-only
 Keep direct OpenMM parity separate from geometric references, and derive nominal
 TIP3P tolerances from the bundled PDB precision rather than exact ideal geometry.
 
-Preserve the independent reconcile_protonation route, its exact native parameters
-and explicit refusal of managed in_place=True before science pending public
-removal-correspondence receiving. The native provider's prepared assessment can
-be documented independently; it does not qualify managed addon execution.
-Keep fixed-pKa approximation, declared named-state and
-unassessed-group limits distinct from chemical readiness; there is no hidden
-charge/H/state preparation, private chemistry helper, identity inference or
-scene adoption. Native results and named analyses retain extraction semantics.
+Preserve the native independent reconcile_protonation default and explicit
+managed in_place=True receiving through a single public ProtonationAssessment.
+Keep native pH/engine/skip arguments, keyword-only update_view, positional
+bidirectional maps, all structures and source/scene ownership explicit. Never
+repeat inference, guess correspondence or call private protonation rules. Keep
+native no-op domain/revision behavior, composition with pending maps, atomic
+prepublication rejection, uncertain postpublication failures and synchronization-
+only retry after completed science. Scene history is not molecular Undo.
+
+Preserve assess_protonation as a serialized current-primary reader returning the
+ordinary native assessment, not a proxy or implicit application. Reports are
+detached, plans are source-bound/single-use, and native apply requires its explicit
+source. Its raw native in-place mode is outside host coordination; no automatic
+observation is promised. Keep fixed-pKa, named-state and unassessed coverage
+separate from chemical readiness and H/charge/state preparation.
+
+Preserve get_chemical_template as an explicit CCD factory available without a
+loaded primary. Source authority, offline/network choice, descriptor/search
+limits, H policy and original source/producer provenance remain native. The
+coordinate-free template is independent and never applied or loaded. Missing
+descriptors remain unassessed, not a fallback to another source/program.
+Preserve exact-name correspondence with query/reference source columns, unique
+names/elements and explicit scopes. It is neither identity authentication nor
+chemical matching; template assessment requires the explicit reversed column
+order when the observed system is the bound primary. Keep pending reads,
+replacement/close lifetime and separate chemical/graph validation explicit.
+
 
 
 Keep basic.view as a loaded-primary native visualization bridge returning a
@@ -533,8 +558,14 @@ private tokens, no coordinate-copy preview, bounded frontend metadata and native
 independent Python defaults. Preserve drafts across navigation but expire reviews.
 Pending commands remain gated; use the host canvas Update view control and
 managed-state notification for reconciliation, never repeat completed science.
-Keep the first panel distinct from planned Geometry/Chemistry/Analysis panels
-and from installed, visible Qt/Jupyter/popup qualification.
+Keep System tasks distinct from Geometry / Translate and from planned Rotate,
+Chemistry and Analysis tasks. Preserve the shared selection/result vocabulary,
+explicit displacement units and molecular Cartesian axes, selected structures,
+fixed box, native coverage invalidation and single-use confirmation. Independent
+translation copies the whole system rather than extracting the chosen atoms;
+native expert defaults and result types stay unchanged. Automated source and
+Jupyter/popup receiving remain distinct from postponed human visual acceptance,
+owner integration and installed-package qualification.
 
 Preserve the explicit independent build.add_ions mirror with native species,
 counts, charge source, seed, periodic clearance, attempts, form and report controls.
@@ -551,3 +582,79 @@ Preserve native #559 platform resolution, structured unavailable-registration
 diagnostics and later device errors without fallback. Keep CPU/Reference
 consumer receiving separate from optional GPU/plugin execution and from the
 unchanged scientific/input limits of each mechanical function.
+
+
+Preserve Geometry Center as a reviewed native translation using explicit source
+and destination populations, per-structure centers and declared length units.
+Mass weighting belongs to the native operation and respects the application's
+unit policy; never add implicit mass defaults or a graphical centering formula.
+Keep fixed-box/no-wrap and independent whole-system-result semantics explicit.
+Shared task diagnostics retain bounded text through automatic same-context
+refreshes and expire with new intent/context/lifecycle; old replies must not
+restore an obsolete draft, confirmation or error. Preserve native validation,
+source ownership and synchronization-only retry without scientific replay.
+
+
+Preserve Superpose structures as native unweighted Kabsch fitting with explicit
+moving/fitting populations and the initial reference pose from the same system.
+Declare the qualified CPU route, fixed index-order correspondence and lack of
+sequence/name matching; validate geometry through the native owner, not a GUI
+matrix implementation. Keep reference/structure order, subset effects, fixed
+box, coverage, atomic rejection and synchronization-only retry. Expert external
+references and complete signatures remain unchanged. Native sequence matching,
+principal-axis orientation and further periodic tools retain their planned scope.
+
+
+Preserve periodic GUI tasks as public native pbc delegation through existing
+coordinate edit/result adapters. Keep primary-origin, centered-primary and
+nearest-image semantics distinct, with explicit length units and provided-bond
+component versus atomwise grouping. Temporal unwrapping follows supplied order
+per atom, not within-structure molecular reconstruction. Preserve boxes, exact
+selected scope, source ownership, coverage and synchronization-only retry.
+Keep interim source admission visible: exact lower-triangular cells (#607) and
+fixed selected cells for temporal unwrapping (#606). Do not copy/reorient cells
+or implement periodic formulas in the addon. Native #605–#608 are owner-resolved;
+retain consumer admission until exact combined receiving. Cell editing remains
+required and must receive the delivered #605 validation; general-cell support is
+not silently deferred or declared complete.
+Keep complete expert native signatures and their actual limits distinct from
+this graphical admission. Follow devguide/periodic_tools_gui_qualification.md.
+
+Preserve Chemistry inspection as read-only native chemical-readiness/hydrogen
+reports over one explicit structure and stated chemical state. Distinguish
+stored presence from validation and unknown non-indexed H from zero. Keep
+reference-context populations, whole-state versus incident connectivity, native
+units/indices/evidence, bounded 50-row pages and mounted-report lifetimes. Do
+not add preparation or adoption to those inspection actions, a global readiness
+flag or generic persistence.
+Preserve the declared pending-reader contract in Viewer #304: only an already
+mounted reader is temporarily hosted by the recovery sheet, with scene inputs
+blocked and exact DOM/state restoration after synchronization. Retire stale
+requests and refresh only in admitted states; editing/busy states promise no
+reader reply. Keep source qualification separate from installed and postponed
+human acceptance.
+
+Preserve separate explicit Chemistry preparation tasks over public build tools.
+Heavy-atom completion resolves the atom editor to whole groups across all source
+structures; unknown/unassessed scope and native attribute policies remain visible.
+Hydrogen generation distinguishes template/pH approximation from prepared-state
+RDKit addition, with explicit engines/states and single-structure prerequisites.
+Never hide extraction, protonation, periodic reconstruction or minimization.
+Keep independent results distinct from the current system. Use in this view
+requires Back/confirmation, explicit scene-reset/copy costs, managed source and
+candidate revision guards, and the host's conditional replacement boundary.
+Preserve presented result ownership, native warnings/history and the limits of
+attribute-name comparisons and external raw-edit observation. Python expert
+signatures, defaults and native returns remain unchanged.
+
+Preserve Analysis distance/extrema/neighborhood tasks as public native structure
+delegation, with explicit populations/contexts, structures and repeated-index
+order, centers/weights, PBC and native self/tie conventions. Map native local
+endpoint positions back to source atoms without copying scientific algorithms.
+Keep centers distinct from atom identities, empty results from uncalculated
+ones, and requested from actually available PBC. Pages convert only requested
+values to nm and release native disk resources on expiry/clear/unmount. No
+universal RAM bound, whole periodic-center reconstruction, numerical precision
+loss in Python, scientific result store or automatic scene adoption is added.
+Retain declared pending readers, independent native numerical oracles and the
+separate serial/concurrent, installed and human qualification scopes.

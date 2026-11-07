@@ -3,7 +3,27 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 
-**Owner update — 2026-11-06:** the prepared native #572/#576 source is now
+**Current reference receiving — 2026-11-06:** the expert facade additionally
+receives `topology.get_atom_name_correspondence`,
+`physchem.get_chemical_template` and `build.assess_protonation`. The first and
+third bind the serialized current primary; the CCD factory keeps its scientific
+inputs explicit and returns an independent coordinate-free reference, including
+from an empty open view. Native result types, source authority, units and
+experimental scientific limits are retained. Managed in-place
+`build.reconcile_protonation` now consumes one public native assessment and its
+bidirectional positional maps under the host edit lock. Its native independent
+default is unchanged; keyword-only `update_view` controls scene projection and
+`sync_view()` retries a visual failure without repeating science.
+
+The [reference receiving receipt](../devtools/data/molsysviewer_tools_reference_receiving_20261106.json)
+records scoped contract/parity tests, real deposited-reference composition,
+native controls and executable help/course checks. Source exposure is **246/248**;
+only the two unconditional native MD stubs remain unexposed. This counts callable
+paths, not every mode, scientific guarantee or graphical task. The complete
+latest-source addon gate, owner review/integration, hosted/platform/installed
+qualification and postponed human observations remain separate obligations.
+
+**Earlier owner update — 2026-11-06:** the prepared native #572/#576 source was
 integrated on main. `build.assess_protonation` is a new native-only route and
 remains explicitly missing from the bound inventory; object application and
 managed correspondence are not yet admitted to the addon. The existing bound
@@ -11,6 +31,26 @@ managed correspondence are not yet admitted to the addon. The existing bound
 counts below describe their original snapshot, not complete exposure of these
 new native operations. The smoke inventory guard checks this exact known gap
 while continuing to refuse any other missing build route.
+
+**Force-reader receiving — 2026-11-06:** the native #572 route is now explicitly
+bound as `molecular_mechanics.get_forces`. Source exposure is 243/248 paths,
+including all six mechanical functions. The 149-case mechanical module receives
+full-model atom filtering, ordered/repeated/empty atom and structure axes,
+application force units, pending reads, detached output and source/scene
+preservation, with independent CPU/Reference models, a central energy gradient
+and selected Reference PME boxes. Three new native factories/readers still
+need admission: atom-name correspondence, chemical templates and protonation
+assessment; the two MD entries remain native stubs. Owner/integrated full,
+hosted, installed and postponed human gates retain their separate scope.
+
+**Previous consumer integration snapshot — 2026-11-06:** the source inventory reports
+242 exposed paths out of 248 declared paths. The new gaps are
+`topology.get_atom_name_correspondence`, `physchem.get_chemical_template`,
+`build.assess_protonation` and `molecular_mechanics.get_forces`; the two MD
+functions remain native stubs. These are explicit admission tasks, not
+scientific implementations to reproduce in the addon. The
+[combined receiving receipt](../devtools/data/molsysviewer_tools_scene_integration_receiving_20261106.json)
+keeps exposure distinct from scoped/full, owner and installed qualification.
 
 **Snapshot:** 2026-11-05, contribution PR #543 head
 `f7b305b3a126109aff5909e857ea7c53981486e8`, including owner main `ed09f6453`.
@@ -114,11 +154,13 @@ maps. Solvation receives exact counts and nullable/source-label preservation,
 and forwards native random_seed and skip_digestion. Resource lookup receives
 independent lists and distinct OBC1/OBC2 recipes; energies and stored constraint
 policies are checked against explicit OpenMM on a qualified small source.
-Only System / Remove atoms is graphical. Native effective-recipe/control
-reporting #582 remains separate; owner main now resolves attribution conflict
-#583, with its consumer evidence archived. Native MolSys
-forces #572, managed protonation maps #576 and the two MD stubs retain their
-separate dispositions. Source exposure does not establish universal scientific
+The maintained GUI design records the later System, Geometry, Chemistry and
+Analysis source tasks, including explicit Analysis-to-core row actions. Native
+effective-recipe/control reporting #582 retains its scope; owner main resolves
+attribution conflict #583 and its consumer evidence remains archived. Native
+forces #572 and protonation correspondence #576 are delivered on owner main,
+but their bound-consumer admission still requires its own receiving. The two
+MD stubs retain their separate dispositions. Source exposure does not establish universal scientific
 or installed qualification; exact receipts retain their input and scope.
 
 ## Naming-contract cutover — 2026-11-05
@@ -169,13 +211,13 @@ none certifies a published installed pair.
 | Namespace | Exposed source paths | Declared native paths | Remaining |
 | --- | ---: | ---: | ---: |
 | basic | 26 | 26 | 0 |
-| topology | 2 | 2 | 0 |
+| topology | 3 | 3 | 0 |
 | chemical_states | 9 | 9 | 0 |
 | structure | 28 | 28 | 0 |
 | pbc | 13 | 13 | 0 |
-| physchem | 34 | 34 | 0 |
-| build | 31 | 31 | 0 |
-| molecular_mechanics | 5 | 6 | 1 |
+| physchem | 35 | 35 | 0 |
+| build | 32 | 32 | 0 |
+| molecular_mechanics | 6 | 6 | 0 |
 | interactions (canonical families) | 15 | 15 | 0 |
 | element and declared children | 57 | 57 | 0 |
 | h5msm file utilities | 7 | 7 | 0 |
@@ -184,8 +226,8 @@ none certifies a published installed pair.
 | supported-capability reports | 4 | 4 | 0 |
 | legacy molecular_dynamics declarations | 0 | 2 | 2 |
 
-These are 242 exposed out of 245 inspected public callable paths. This is not
-245 independent scientific capabilities: the historical hbonds routes alias
+These are 246 exposed out of 248 inspected public callable paths at the
+2026-11-06 reference-receiving snapshot. This is not 248 independent scientific capabilities: the historical hbonds routes alias
 canonical interaction functions. Constants, classes/methods, form adapters,
 configuration, raw low-level kernels, datasets and third-party bridges are outside this functional
 inventory. The output records implementation identities so aliases remain
@@ -263,11 +305,11 @@ and installed/platform qualification remain separate.
    Keyword-only update_view controls projection; its local skip_digestion does
    not bypass native validation. The CPU reference scopes threads explicitly
    and restores the previous process default; product settings are unchanged.
-   Two native mechanical
-   routes remain unexposed; `get_forces` currently accepts OpenMM Context/Simulation
-   rather than the View's MolSys, which needs an owner input-contract decision.
-   Native #561 owns the mixed-partition nonbonded-energy failure; keep that
-   route unexposed until its selection contract and correction are received.
+   All six mechanical functions now have explicit source mirrors. The #572
+   native MolSys force reader evaluates the complete model before filtering
+   atoms, preserving structure axes and raw potential-force units. Native #561
+   mixed partition/flat nonbonded axes are separately received; preserve their
+   singleton flat-side axis and native disjoint-cross contract.
    Keep force field, engine, atom correspondence,
    units, provider availability and preparation prerequisites explicit. The
    minimizer retains native saved-analysis invalidation and projection-only

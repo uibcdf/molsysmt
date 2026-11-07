@@ -1,0 +1,359 @@
+{
+  "schema": "molsysmt.molsysviewer-tools-periodic-receiving@1",
+  "date": "2026-11-06",
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_base": "de8cc8605bc23a0f86c5f7e3a02294142ef944be",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "viewer_checkout": "f22d65007ea017a200240e6b936605e74d1cbe00",
+  "viewer_runtime_source": "49dba88ae992088259a6f0891b59dfc8730f5183",
+  "viewer_code_changes_since_runtime": "none; intervening commits change devguide evidence only",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "python": {
+    "version": "3.14.7",
+    "environment": "molsyssuite@uibcdf_3.14",
+    "interpreter": "explicit qualified environment interpreter"
+  },
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#602",
+    "uibcdf/molsysmt#605",
+    "uibcdf/molsysmt#606",
+    "uibcdf/molsysmt#607",
+    "uibcdf/molsysmt#608",
+    "uibcdf/molsysmt#609",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#301"
+  ],
+  "source_files": {
+    "molsysviewer_molsysmt/_geometry_panel.py": {
+      "sha256": "1a88a0fada90c8ab2e1b42ab7ce416ca49e41402adc8a49f53ca93974cb659b3",
+      "size_bytes": 21637
+    },
+    "molsysviewer_molsysmt/_geometry_panel_frontend.py": {
+      "sha256": "72ce070365db074077dbe8a0492b17a248d7c3bfe1cb0da9462948d9e88fbdd9",
+      "size_bytes": 20262
+    },
+    "molsysviewer_molsysmt/_panel_frontend.py": {
+      "sha256": "1be3d4daede8c72ab3c8bf59319c97e4095123855106d978cb60b04ebde752de",
+      "size_bytes": 12515
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "sha256": "c75699c60814cd30f85af93919eac90f9a9fb19dc442d1c02d4597ed8fb1b6ea",
+      "size_bytes": 2428
+    },
+    "tests/molsysviewer_molsysmt/test_periodic_panel.py": {
+      "sha256": "c6986dfd2d845e4296917db3233526559808146641068cc3207135a6f04495b4",
+      "size_bytes": 11992
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "af2e1f9d78a208bcd8cda566e603878fded7c751060bff882ed5de9eac6a727e",
+      "size_bytes": 20484
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "6f6beb71520c8bff2ea528edf05fc42efad47168f1d03cff3ab79f9600b0a676",
+      "size_bytes": 6021
+    },
+    "tests/molsysviewer_molsysmt/periodic_panel_jupyter.mjs": {
+      "sha256": "e6e42c59f03cf28dbc35a12f0b54944dc08694517c6678a393e29bf8e266cc7f",
+      "size_bytes": 12520
+    },
+    "tests/molsysviewer_molsysmt/geometry_panel_jupyter.mjs": {
+      "sha256": "22af384e14e80f9718cf5f461c658ee6f0a475315786dc9d3659c046d38bf111",
+      "size_bytes": 11157
+    },
+    "tests/molsysviewer_molsysmt/center_panel_jupyter.mjs": {
+      "sha256": "4bfdd022bb775465f6933d3494def25b47f15f8c78e131bf901fe4f6ee525504",
+      "size_bytes": 11423
+    },
+    "tests/molsysviewer_molsysmt/fit_panel_jupyter.mjs": {
+      "sha256": "27bb8efae8d750d429cd9262e6bd60f1703460083e10312993c445a6c93b63ab",
+      "size_bytes": 13064
+    },
+    "tests/molsysviewer_molsysmt/result_panel_jupyter.mjs": {
+      "sha256": "9267f34b521146755a7660913eb940f48c63ca5eecb8425babf1c35e3297e855",
+      "size_bytes": 10761
+    },
+    ".github/workflows/ci-smoke.yaml": {
+      "sha256": "d643bc96ed6fe3d2e80c128ea23047d97fbd9ed479dbd04a88db54af0d3ba828",
+      "size_bytes": 16534
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "sha256": "cf388fe4473e9e75b59184faddce377b5045ab72210753920820e82e545c7736",
+      "size_bytes": 287377
+    }
+  },
+  "contract": {
+    "operations": [
+      "molsysmt.pbc.wrap_to_pbc",
+      "molsysmt.pbc.wrap_to_mic",
+      "molsysmt.pbc.unwrap"
+    ],
+    "placement": "Primary from origin, primary around center, nearest Cartesian image; explicit angstrom/nm reference point; selected provided-bond components or individual atoms.",
+    "temporal": "Per-atom nearest-image continuity in the supplied structure sequence; first selected sample anchors the trajectory. Not within-structure covalent reconstruction.",
+    "scope": "Exact moving atoms and chosen structure order, managed current edit or independent full-system result, retained stored boxes, native coverage invalidation and synchronization-only projection retry.",
+    "science_owner": "Public MolSysMT operations and existing expert adapters; no consumer image, reconstruction, rotation, box-validity formula or unit-policy override.",
+    "interim_admission": {
+      "orientation": "Exact lower-triangular row-vector cells; temporary guard for #607, not a physical definition.",
+      "temporal_cell": "Identical selected boxes while #606 remains unrepaired.",
+      "review_by": "2026-11-13",
+      "owner": "MolSysMT native owner and addon receiver in #421; Viewer integration #264",
+      "removal": "Receive exact owner fixes and independent lattice/unit/order/atomicity controls for the formerly unsupported cases before removing each guard."
+    },
+    "known_unrepaired": "#608 near-zero origins remain application-unit dependent; passing declared positive cases does not qualify this case. No origin replacement, consumer threshold or unit-policy workaround exists. Periodic family remains experimental/partial and cannot clear publication or 1.0.",
+    "required_cell_editor": "#605 native physical-domain validation is still pending; no nonfunctional cell editor is registered. Full periodic/cell work remains required, not deferred."
+  },
+  "checks": [
+    {
+      "scope": "new periodic GUI panel cases",
+      "state": "passed",
+      "passed": 58,
+      "skipped": 0,
+      "exit": 0,
+      "duration_seconds": 18.15,
+      "log": "/tmp/msv-periodic-panel-qualified-20261106.log",
+      "log_sha256": "47b9a4366dae4a52ca54ede53e45b9cb71f637db77b4b7de0708a34b9d19d859",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_periodic_panel.py"
+    },
+    {
+      "scope": "affected System/Geometry/native PBC collection",
+      "state": "passed",
+      "passed": 356,
+      "skipped": 0,
+      "exit": 0,
+      "duration_seconds": 91.71,
+      "log": "/tmp/msv-periodic-native-panels-final-20261106.log",
+      "log_sha256": "32b86952dc6579db51a6d292e0bcb8321679ba514aff6881ba67753f9b995ad9",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_geometry_panel.py tests/molsysviewer_molsysmt/test_periodic_panel.py tests/molsysviewer_molsysmt/test_system_panel.py tests/molsysviewer_molsysmt/test_pbc_tools.py tests/molsysviewer_molsysmt/test_pbc_edit_tools.py"
+    },
+    {
+      "scope": "distribution/reporting/expert API inventory",
+      "state": "passed",
+      "passed": 63,
+      "skipped": 0,
+      "exit": 0,
+      "duration_seconds": 3.5,
+      "log": "/tmp/msv-periodic-records-final-20261106.log",
+      "log_sha256": "140865277fbcb46dada827858a58816d7985941c362b35bd778b080f4e894dd1",
+      "command": "python -m pytest --receptor=llm tests/test_distribution_manifests.py devtools/tests/test_validate_devguide.py devtools/tests/test_molsysviewer_tools_api_inventory.py"
+    },
+    {
+      "scope": "actual Jupyter/Mol*/popups after acknowledged presentation guard",
+      "state": "passed",
+      "passed": 7,
+      "skipped": 0,
+      "exit": 0,
+      "duration_seconds": 322.92,
+      "log": "/tmp/msv-periodic-ack-jupyter-20261106.log",
+      "log_sha256": "0a8aabfe6444393d46b8e0eb07173431e1235d68717885796b1202827dcfea61",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+      "scenario_steps": 48,
+      "scenarios": [
+        {
+          "name": "jupyter-center",
+          "receipt": "/tmp/msv-periodic-ack-jupyter-20261106/test_actual_jupyter_geometry_c0/jupyter-center/full-result.json",
+          "sha256": "3ec35741f28ec92ab6c8153f3bcc2037d5b2c8826d7aea868d252c2967afd97e",
+          "size_bytes": 4753,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review centering and cancel while actual Mol* coordinates stay unchanged",
+            "Apply centering and verify the actual displayed coordinates analytically",
+            "Create an independent result centered on another selection in the current structure",
+            "The centered result keeps its identity across window and notebook destinations",
+            "Center task and its references survive canvas and Studio popups",
+            "Python verifies every selected and unselected atom and structure"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_error_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-fit",
+          "receipt": "/tmp/msv-periodic-ack-jupyter-20261106/test_actual_jupyter_geometry_s0/jupyter-fit/full-result.json",
+          "sha256": "d70dd0d4d10288ac84b3e33b3e0e1d7fdaa2d54c4869be1c9b0a92edd782aa9d",
+          "size_bytes": 4954,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review explicit fitting atoms and cancel without changing rendered coordinates",
+            "Apply rigid superposition and compare actual Mol* positions with the independent SVD oracle",
+            "Create a separate result fitted to another explicit reference structure",
+            "The superposed result preserves its identity across window and notebook destinations",
+            "Fitting references remain explicit in canvas and detached Studio popups",
+            "Python verifies every selected/unselected atom and structure against the independent oracle",
+            "Independent notebook Views bind saved-choice inputs to their own datalist"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_error_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-geometry",
+          "receipt": "/tmp/msv-periodic-ack-jupyter-20261106/test_actual_jupyter_geometry_t0/jupyter-geometry/full-result.json",
+          "sha256": "8a88fe40a504e5007bba818324b5a90c527b2b176ecb4a78e22431a06a673e9b",
+          "size_bytes": 4740,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review and cancel translation without changing the molecular system",
+            "Confirm the saved subset once through live Jupyter comms",
+            "Translate an independent whole-system result and display it below the source",
+            "The same result can move to its own live window and back",
+            "Geometry is reachable in canvas and detached Studio popups with its draft",
+            "Python verifies the numerical results and unchanged source of the independent calculation"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_error_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-results",
+          "receipt": "/tmp/msv-periodic-ack-jupyter-20261106/test_actual_jupyter_independen0/jupyter-results/full-result.json",
+          "sha256": "a29e1a7a6dc6f28e61422cbf804fa3c4db306f7dd0c17bd1c85362759b635c95",
+          "size_bytes": 4705,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Extract ordered nonconsecutive structures without editing the source",
+            "Notebook delivery from fullscreen explains how to reach the result",
+            "Changing destination reuses one View through rapid window/notebook cycles",
+            "Copy opens a separate live View in an external window without recomputing",
+            "Detached Studio can open and close an independent result without closing its source",
+            "Python recovers both Views and source closure preserves them"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_error_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-periodic",
+          "receipt": "/tmp/msv-periodic-ack-jupyter-20261106/test_actual_jupyter_periodic_g0/jupyter-periodic/full-result.json",
+          "sha256": "7e80e26f645ae28f5a33820e6b59fd6433204adf40aa8c426a8a0d4e5bec5227",
+          "size_bytes": 4957,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review compact centered-box wrapping and Back without changing Mol* positions",
+            "Apply native compact wrapping and verify its actual centered image",
+            "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+            "Review per-atom temporal unwrapping and create an independent whole-system result",
+            "The periodic result keeps its View while moving between notebook and window",
+            "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+            "Python verifies all native arrays and drives a second structure of the rendered result"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_error_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter-center-errors",
+          "receipt": "/tmp/msv-periodic-ack-jupyter-20261106/test_actual_jupyter_rejected_o0/jupyter-center-errors/full-result.json",
+          "sha256": "221f1e268bc65f66c886d5a86a663e88dd3fa30615660682a1e5e129377d56eb",
+          "size_bytes": 4546,
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review a native center-of-mass request under the explicit partial application policy",
+            "The native error remains visible after its automatic synchronized refresh",
+            "Python verifies that the rejected native call did not mutate the system",
+            "A new user choice clears the diagnostic and requires a new review"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_error_fingerprints": 1,
+          "unexpected_page_errors": 0
+        },
+        {
+          "name": "jupyter",
+          "receipt": "/tmp/msv-periodic-ack-jupyter-20261106/test_actual_jupyter_review_and0/jupyter/full-result.json",
+          "sha256": "f53d4f0c612131219a54ea4efbc5073f58a6b8ae1adeeedf2c73b7a1eaba3fcf",
+          "size_bytes": 4701,
+          "checks": [
+            "Execute real notebook with source-pinned Python 3.14 kernel",
+            "Native review is 165 waters / 3818 retained; Back does not edit",
+            "Confirm traverses real widget comms, native edit and Mol* rendering",
+            "Empty ion selection and remount retain a bounded draft without a review",
+            "Canvas popup and Studio popup share the actual Jupyter authority",
+            "Kernel verifies actual inventory and exactly two managed edits"
+          ],
+          "page_error_occurrences": 2,
+          "plain_baseline_error_fingerprints": 1,
+          "unexpected_page_errors": 0
+        }
+      ]
+    }
+  ],
+  "independent_oracles": "NumPy fractional placement and finite lattice enumeration, genuine pentalanine conformations [0,8,3], [2,0] structure order, orthogonal/triclinic fixed/changing wrap cells, reference points, component reconstruction and selected/unselected data. Nondefault pm/angstrom policies exercise fixed-unit boundaries. Actual Mol* Unit.conformation.position compared with independent angstrom arrays.",
+  "preserved_failures": [
+    {
+      "observation": "Initial four tests demanded bitwise equality for the selected temporal anchor after a native angstrom/nm conversion.",
+      "disposition": "Numerical anchor assertion uses 1e-14 nm; observed difference 4.44e-16 nm. Unselected atoms/structures remain bitwise checked. No runtime/scientific fix or relaxation of lattice truth."
+    },
+    {
+      "observation": "First full seven-scenario run passed in 321.97 s, followed by a 33.41 s periodic title receiving failure.",
+      "log": "/tmp/msv-periodic-jupyter-current-20261106.log",
+      "owner_issue": "uibcdf/molsysmt#609",
+      "disposition": "Five source drivers now wait for the actual result-card presentation acknowledgement before asserting exact titles; no sleeps, deadline extensions or placeholder-title acceptance. Final seven scenarios pass in 322.92 s."
+    }
+  ],
+  "native_failures": [
+    {
+      "issue": 605,
+      "observed": "Incompatible [10,10,170] degree cell returns NaN; zero/negative dimensions admitted. Valid orthogonal control determinant is 24 nm^3.",
+      "state": "open"
+    },
+    {
+      "issue": 606,
+      "observed": "Later same-triclinic transition uses first orthogonal classification: native [-1.1,-0.2,0] nm instead of lattice [-0.1,-0.2,0] nm.",
+      "state": "open"
+    },
+    {
+      "issue": 607,
+      "observed": "Rotated row-vector orthogonal box maps [5,6,7] nm to [5,6,2], instead of primary [-3,0,2] or nearest [1,0,2].",
+      "state": "open"
+    },
+    {
+      "issue": 608,
+      "observed": "Same [1e-5,0,0] nm origin returns x=0 nm under nm/angstrom policies and x=3 nm under pm.",
+      "state": "open"
+    }
+  ],
+  "prior_full_collection": {
+    "source": "55cb9f58f5fe84e1bfd506871f5bbc8ed8fa85c7",
+    "passed": 4568,
+    "skipped": 0,
+    "duration_seconds": 1040.89,
+    "boundary": "Prior clean Center source only; no full current-periodic-source collection is claimed."
+  },
+  "static_checks": {
+    "ruff": "check and format pass; 4428 formatted files",
+    "diff": "git diff --check passes",
+    "native_source": "molsysmt scientific source remains unchanged from native basis",
+    "dependency_contract": "PASS; declared public requirements and controlled-source acquisition routes agree",
+    "devguide": "validate_devguide.py and devguide_index.py --check pass",
+    "javascript": "All five changed browser drivers pass node --check; actual Jupyter receiving executes the embedded Geometry ESM"
+  },
+  "hosted_observation": {
+    "source": "de8cc8605bc23a0f86c5f7e3a02294142ef944be",
+    "run": 42191107008,
+    "state": "queued/in_progress",
+    "jobs": "build succeeded, four scientific jobs in progress and four queued; five artifacts visible",
+    "boundary": "Prior Fit source, not this uncommitted periodic slice. No green full CI claim."
+  },
+  "not_qualified": [
+    "owner review and integration",
+    "exact latest-head hosted matrix",
+    "human Jupyter/visible Qt acceptance (explicitly postponed)",
+    "clean installed packages and publication",
+    "general periodic/cell family pending native #605\u2013#608",
+    "remaining Geometry reference/sequence/orientation, Chemistry, Analysis and full scientific session persistence"
+  ],
+  "publication": "Both 1.0 publications paused; no tag, candidate freezing, package build or promotion authorized by this receipt.",
+  "latest_full_collection": {
+    "state": "passed",
+    "source": "dd34c371cbe78ba2ddd884266c0915d0783fb831",
+    "passed": 4657,
+    "skipped": 0,
+    "exit": 0,
+    "duration_seconds": 1072.21,
+    "warnings": 2732,
+    "warning_groups": 10,
+    "log": "/tmp/msv-periodic-full-addon-20261106.log",
+    "log_sha256": "9ae59756ed90185f0fc9faa1200bfebf2934ba4be820152d0818ae823e25534b",
+    "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "boundary": "Completed on the clean published periodic source; all 14 recorded source digests unchanged. This does not qualify subsequent Chemistry or other new runtime changes."
+  }
+}

@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (35)
+### Open (36)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -65,6 +65,7 @@ Entries carrying front matter under
 - [`post_1_0_streaming_interactions_and_h5msm_append.md`](post_1_0_streaming_interactions_and_h5msm_append.md) — [#336](https://github.com/uibcdf/molsysmt/issues/336) — Post-1.0 streaming interactions and H5MSM append *(inspected)*
 - [`post_1_0_water_paths_beyond_two_mediators.md`](post_1_0_water_paths_beyond_two_mediators.md) — [#338](https://github.com/uibcdf/molsysmt/issues/338) — Post-1.0 water paths beyond two mediators *(inspected)*
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*
+- [`public_axis_angle_rotation_constructor.md`](public_axis_angle_rotation_constructor.md) — [#602](https://github.com/uibcdf/molsysmt/issues/602) — Provide a public axis-angle rotation constructor for molecular consumers. *(inspected)*
 - [`qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md`](qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md) — [#530](https://github.com/uibcdf/molsysmt/issues/530) — Qualify corrected MDTraj batch SASA and retire independent-structure evaluation *(inspected)*
 - [`qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md`](qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md) — [#486](https://github.com/uibcdf/molsysmt/issues/486) — Qualify PyParsing 3.3.4 or its published successor for MDTraj selections *(upstream)*
 - [`read_only_geometry_and_steric_plausibility_assessment.md`](read_only_geometry_and_steric_plausibility_assessment.md) — [#555](https://github.com/uibcdf/molsysmt/issues/555) — Provide explicit read-only molecular geometry and steric plausibility assessment. *(inspected)*
@@ -87,10 +88,11 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (15)
+### Partially resolved (16)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
+- [`ci_smoke_budget_covers_expanded_native_and_addon_tiers.md`](ci_smoke_budget_covers_expanded_native_and_addon_tiers.md) — [#611](https://github.com/uibcdf/molsysmt/issues/611) — Rebudget the expanded native-plus-addon smoke after measured 25-minute exhaustion. *(measured)*
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
 - [`evaluate_aaindex_modlamp_and_peptides_for_additional_physicochemical_observables.md`](evaluate_aaindex_modlamp_and_peptides_for_additional_physicochemical_observables.md) — [#485](https://github.com/uibcdf/molsysmt/issues/485) — Evaluate AAindex, modlAMP and Peptides for additional physicochemical observables *(inspected)*
 - [`execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md`](execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md) — [#181](https://github.com/uibcdf/molsysmt/issues/181) — Execute every declared conversion edge in the test suite, not only audit it statically. *(measured)*
@@ -98,6 +100,7 @@ Entries carrying front matter under
 - [`fixed_state_hbond_site_directions.md`](fixed_state_hbond_site_directions.md) — [#375](https://github.com/uibcdf/molsysmt/issues/375) — Expose reusable fixed-state hydrogen-bond site directions through public geometry tools. *(measured)*
 - [`local_molecule_names_and_external_enrichment.md`](local_molecule_names_and_external_enrichment.md) — [#25](https://github.com/uibcdf/molsysmt/issues/25) — Separate supported local molecule labels from future database enrichment. *(inspected)*
 - [`molsysviewer_tools_addon.md`](molsysviewer_tools_addon.md) — [#421](https://github.com/uibcdf/molsysmt/issues/421) — Implement a bound MolSysMT tools addon with a scientific API mirror. *(inspected)*
+  Blocked by uibcdf/molsysmt#602, uibcdf/molsysviewer#304, uibcdf/molsysviewer#314.
 - [`native_query_shortcuts.md`](native_query_shortcuts.md) — [#128](https://github.com/uibcdf/molsysmt/issues/128) — Native objects query their domains without universal form dispatch *(measured)*
 - [`organize_interaction_detection_by_family_before_1_0.md`](organize_interaction_detection_by_family_before_1_0.md) — [#250](https://github.com/uibcdf/molsysmt/issues/250) — Organize interaction detection by family before 1.0 *(measured)*
 - [`pilot_ackredit_in_interaction_calculations.md`](pilot_ackredit_in_interaction_calculations.md) — [#27](https://github.com/uibcdf/molsysmt/issues/27) — Pilot Ackredit in interaction calculations *(measured)*

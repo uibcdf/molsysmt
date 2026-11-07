@@ -5325,3 +5325,32 @@ No new functional export, GPU/device qualification or scientific workaround is
 introduced. Native #583/#584, #582/#572/#576 and proposed #587 remain explicit;
 owner review, hosted CI, remaining tasks and installed qualification are pending.
 Both 1.0 publications remain paused.
+
+
+## Isolated bound-tools source reconciliation — 2026-11-06
+
+An isolated receiving branch combines owner `030c201a5` and PR #543 contribution
+`8ab2f5474b2e04c68d31ef2854a238984b645fc8`. This is an uncommitted integration
+state, not a main-branch delivery or a qualified candidate. Owner native science,
+dependency floors/acquisition metadata and resolved records remain authoritative.
+The incoming pending copies of #605/#606/#607/#608/#613/#616 are omitted because
+their owner resolutions are already archived; their original PR history and
+receiving receipts remain available.
+
+The contribution adds the reviewed System, Geometry, Chemistry and Analysis
+source tasks, native force and prepared-protonation consumers, and their guards.
+Its dated 246/248 path inventory is exposure, not complete scientific, mode or
+graphical acceptance. The original 4,974-case collection has eight failures; the
+63-case affected recovery is separate, as recorded in the
+[contribution recovery receipt](../devtools/data/molsysviewer_tools_reference_full_recovery_20261106.json).
+Those historical results do not qualify this owner/contribution combination.
+
+The five controlled workflows and dependency inventory retain owner Viewer
+`42234de839ed047016f8f241ea5eb717cfeb07be` pending the separate preflight and
+receiving of a newer exact published host. Viewer #314 has a source correction
+in `25061d9e99baf07fa0dcb4021897958a226f0152`; this reconciliation does not yet
+select it or claim its combined acceptance. The
+[phase-four plan](pre_1_0_robustness_audit_20261106.md#phase-4--bound-tool-contribution-and-graphical-receiving)
+and [owning proposal](pending_proposals/molsysviewer_tools_addon.md) retain
+remaining source, graphical, installed and human/visible-Qt obligations. No
+pytest, new CI run, merge commit, main integration or publication is implied.

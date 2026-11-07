@@ -1,0 +1,316 @@
+{
+  "schema": "molsysmt.molsysviewer-tools-superposition-receiving@1",
+  "date": "2026-11-06",
+  "owner_pr": "https://github.com/uibcdf/molsysmt/pull/543",
+  "contribution_base": "55cb9f58f5fe84e1bfd506871f5bbc8ed8fa85c7",
+  "native_basis": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+  "viewer_checkout": "ce0ecd84c49e7eef0deb1ebf0a218fc737b91338",
+  "viewer_runtime_source": "49dba88ae992088259a6f0891b59dfc8730f5183",
+  "viewer_code_changes_since_runtime": "none; intervening commit changes five devguide files only",
+  "provider_overlay": "pyunitwizard 02d0015fa7d3149d92c0e632b8e584f6a47c37dc",
+  "python": "molsyssuite@uibcdf_3.14 explicit interpreter",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#602",
+    "uibcdf/molsysmt#603",
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#301"
+  ],
+  "source_files": {
+    "molsysviewer_molsysmt/_geometry_panel.py": {
+      "sha256": "dac31ed14816a36df66129b8b068ca9006b7f4979d95bf0e7eaba2eaf9162123",
+      "size_bytes": 18379
+    },
+    "molsysviewer_molsysmt/_geometry_panel_frontend.py": {
+      "sha256": "af9543bd6623f57e8b33fc8ec91c4f1c5d0b8203d851472b513127fa38a9472d",
+      "size_bytes": 15887
+    },
+    "molsysviewer_molsysmt/_panel_frontend.py": {
+      "sha256": "b0fe21c36143bff2da4bebc491ad253df375518f9369b6969826ba7f790dc246",
+      "size_bytes": 12463
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "sha256": "6f6bdd1a5cf712a97396751e6b58bf44409523c89328da9c68214c6be99bbfa2",
+      "size_bytes": 2416
+    },
+    "tests/molsysviewer_molsysmt/test_geometry_panel.py": {
+      "sha256": "de54f9fbe00859f081eb82d8dca2811e92f2a731bb33a1a22c0231e557ef8111",
+      "size_bytes": 29904
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "3266b15111baf08debcdf16fedd682ce5fe63cf5e856e454330318bbc06b7fdd",
+      "size_bytes": 17221
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "2b4d76c3020d16e0916dc6d3fc58c2429a0b3d9479124414c6493ae4d7b35db1",
+      "size_bytes": 5224
+    },
+    "tests/molsysviewer_molsysmt/fit_panel_jupyter.mjs": {
+      "sha256": "5ed9b29fc1bc69ae4a0aa47b953f66fa60ff0ef1b8b8ec69177473cf2c511167",
+      "size_bytes": 12956
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "sha256": "6b84adafbb0109f03c4ce4928bde0d41b5698fcee7c2329eecc7b2c109118f07",
+      "size_bytes": 282908
+    },
+    "molsysviewer_molsysmt/_panel_widgets.py": {
+      "sha256": "057ee03691b2c14eb3523c8e22384ba66dca918d5ddcd7362e881050661665a2",
+      "size_bytes": 6354
+    }
+  },
+  "contract": {
+    "operation": "molsysmt.structure.least_rmsd_fit",
+    "method": "unweighted Kabsch; explicit MolSysMT CPU GUI route",
+    "reference": "Initial coordinates in an explicit structure of the same bound system; external references remain available in the full expert API. Further GUI reference/sequence/orientation workflows remain planned.",
+    "populations": "Moving atoms and optional source/reference expressions resolve to fixed unique ascending-index populations in their stated structure contexts. Pairing is positional and user-declared, without chemical/sequence inference. Fit atoms may lie outside the moving selection.",
+    "effect": "Managed current edit or independent full-system result; only selected atoms/structures change, fixed box, no automatic periodic reconstruction/wrapping. Native validation checks all structures before writes; science is not replayed on projection retry."
+  },
+  "prior_full_collection": {
+    "source": "55cb9f58f5fe84e1bfd506871f5bbc8ed8fa85c7",
+    "state": "passed",
+    "passed": 4568,
+    "skipped": 0,
+    "exit": 0,
+    "duration_seconds": 1040.89,
+    "warnings": 2643,
+    "warning_groups": 10,
+    "log": "/tmp/msv-center-full-addon-20261106.log",
+    "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt",
+    "boundary": "Completed on clean published Center source before applying any new fit changes. Does not certify a full collection on this new superposition source."
+  },
+  "checks": [
+    {
+      "scope": "System/Geometry plus existing expert transform/fitting guards",
+      "state": "passed",
+      "passed": 315,
+      "exit": 0,
+      "duration_seconds": 106.57,
+      "log": "/tmp/msv-fit-geometry-native-final-20261106.log",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_geometry_panel.py tests/molsysviewer_molsysmt/test_system_panel.py tests/molsysviewer_molsysmt/test_structure_fitting_tools.py tests/molsysviewer_molsysmt/test_structure_transform_tools.py",
+      "oracles": "NumPy SVD/Kabsch on actual pentalanine conformations [0,8,3]; full/partial moving sets, explicit/identity correspondences, processed [2,0], initial reference 1, nondefault units, fixed boxes, unchanged unselected data and independent outputs. Native late-degenerate-frame rejection preserves all input data/revision. Native coverage and projection-only retry tested."
+    },
+    {
+      "scope": "distribution/reporting/expert inventory",
+      "state": "passed",
+      "passed": 63,
+      "exit": 0,
+      "duration_seconds": 3.96,
+      "log": "/tmp/msv-fit-route-guards-20261106.log",
+      "command": "python -m pytest --receptor=llm tests/test_distribution_manifests.py devtools/tests/test_validate_devguide.py devtools/tests/test_molsysviewer_tools_api_inventory.py"
+    },
+    {
+      "scope": "six actual Jupyter/Mol*/popup scenarios",
+      "state": "passed",
+      "passed": 6,
+      "exit": 0,
+      "duration_seconds": 272.77,
+      "log": "/tmp/msv-fit-jupyter-final-20261106.log",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+      "scenarios": [
+        {
+          "name": "jupyter",
+          "receipt": "/tmp/msv-fit-jupyter-final-20261106/test_actual_jupyter_review_and0/jupyter/full-result.json",
+          "sha256": "6a375bf3d346dddd6355d40b9c83e1d688b64338aff86fab4a0b49f2dc5f6756",
+          "checks": [
+            "Execute real notebook with source-pinned Python 3.14 kernel",
+            "Native review is 165 waters / 3818 retained; Back does not edit",
+            "Confirm traverses real widget comms, native edit and Mol* rendering",
+            "Empty ion selection and remount retain a bounded draft without a review",
+            "Canvas popup and Studio popup share the actual Jupyter authority",
+            "Kernel verifies actual inventory and exactly two managed edits"
+          ],
+          "page_errors": 2,
+          "matching_plain_baseline_errors": 1
+        },
+        {
+          "name": "jupyter-results",
+          "receipt": "/tmp/msv-fit-jupyter-final-20261106/test_actual_jupyter_independen0/jupyter-results/full-result.json",
+          "sha256": "524ca8713a2eea08a45eb84e2a110a3d281443f19cf2977badb673885f353791",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Extract ordered nonconsecutive structures without editing the source",
+            "Notebook delivery from fullscreen explains how to reach the result",
+            "Changing destination reuses one View through rapid window/notebook cycles",
+            "Copy opens a separate live View in an external window without recomputing",
+            "Detached Studio can open and close an independent result without closing its source",
+            "Python recovers both Views and source closure preserves them"
+          ],
+          "page_errors": 2,
+          "matching_plain_baseline_errors": 1
+        },
+        {
+          "name": "jupyter-geometry",
+          "receipt": "/tmp/msv-fit-jupyter-final-20261106/test_actual_jupyter_geometry_t0/jupyter-geometry/full-result.json",
+          "sha256": "da54605effcb7b32fe6b720e4d72039bf6758bf8dc16495fe1c91d7f50472914",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review and cancel translation without changing the molecular system",
+            "Confirm the saved subset once through live Jupyter comms",
+            "Translate an independent whole-system result and display it below the source",
+            "The same result can move to its own live window and back",
+            "Geometry is reachable in canvas and detached Studio popups with its draft",
+            "Python verifies the numerical results and unchanged source of the independent calculation"
+          ],
+          "page_errors": 2,
+          "matching_plain_baseline_errors": 1
+        },
+        {
+          "name": "jupyter-center",
+          "receipt": "/tmp/msv-fit-jupyter-final-20261106/test_actual_jupyter_geometry_c0/jupyter-center/full-result.json",
+          "sha256": "d42e36d4a30dad6cb1aef96e19aebf421d075581e2648216ee0fb0d69e31cfd8",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review centering and cancel while actual Mol* coordinates stay unchanged",
+            "Apply centering and verify the actual displayed coordinates analytically",
+            "Create an independent result centered on another selection in the current structure",
+            "The centered result keeps its identity across window and notebook destinations",
+            "Center task and its references survive canvas and Studio popups",
+            "Python verifies every selected and unselected atom and structure"
+          ],
+          "page_errors": 2,
+          "matching_plain_baseline_errors": 1
+        },
+        {
+          "name": "jupyter-center-errors",
+          "receipt": "/tmp/msv-fit-jupyter-final-20261106/test_actual_jupyter_rejected_o0/jupyter-center-errors/full-result.json",
+          "sha256": "2e8dcba817c75ec37d9c14bfd15bc49f29131679b17ee2d1265863f1fe117419",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review a native center-of-mass request under the explicit partial application policy",
+            "The native error remains visible after its automatic synchronized refresh",
+            "Python verifies that the rejected native call did not mutate the system",
+            "A new user choice clears the diagnostic and requires a new review"
+          ],
+          "page_errors": 2,
+          "matching_plain_baseline_errors": 1
+        },
+        {
+          "name": "jupyter-fit",
+          "receipt": "/tmp/msv-fit-jupyter-final-20261106/test_actual_jupyter_geometry_s0/jupyter-fit/full-result.json",
+          "sha256": "5d25dad2123dd3214675939a8687eae8281c0463f8935302af87af3de2227c22",
+          "checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review explicit fitting atoms and cancel without changing rendered coordinates",
+            "Apply rigid superposition and compare actual Mol* positions with the independent SVD oracle",
+            "Create a separate result fitted to another explicit reference structure",
+            "The superposed result preserves its identity across window and notebook destinations",
+            "Fitting references remain explicit in canvas and detached Studio popups",
+            "Python verifies every selected/unselected atom and structure against the independent oracle"
+          ],
+          "page_errors": 2,
+          "matching_plain_baseline_errors": 1
+        }
+      ],
+      "boundary": "Real kernel and provider actions; current and independent result Mol* Unit.conformation positions compared with independently generated angstrom SVD-oracle arrays. Source preservation, destination reuse, both popup types and native trajectory arrays verified. Does not replace human Qt/Jupyter acceptance. This six-scenario run preceded the final caption-only UI change; the final affected System and fitting scenarios are separately qualified below."
+    },
+    {
+      "scope": "first affected receiving",
+      "state": "passed",
+      "panel_cases": 88,
+      "panel_seconds": 24.79,
+      "jupyter_scenarios": 1,
+      "jupyter_seconds": 48.65,
+      "logs": [
+        "/tmp/msv-fit-panel-first-20261106.log",
+        "/tmp/msv-fit-jupyter-first-20261106.log"
+      ],
+      "overlaps_final_scopes": true
+    },
+    {
+      "scope": "Ruff and JavaScript syntax",
+      "state": "passed",
+      "commands": [
+        "python -m ruff check .",
+        "python -m ruff format --check .",
+        "node --check /tmp/msv-fit-panel-esm-20261106.mjs",
+        "node --check tests/molsysviewer_molsysmt/fit_panel_jupyter.mjs"
+      ]
+    },
+    {
+      "scope": "final Atoms to move accessibility caption and shared System selection markup",
+      "state": "passed",
+      "passed": 2,
+      "exit": 0,
+      "duration_seconds": 93.14,
+      "log": "/tmp/msv-fit-caption-jupyter-20261106.log",
+      "command": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_superposition tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups",
+      "boundary": "Actual Jupyter fit reruns all seven scientific/presentation checks and asserts the accessible Atoms to move combobox. Actual System reruns its six checks. No backend/scientific input changes since the 315-case run."
+    },
+    {
+      "scope": "final fitting plus multiple-View saved-choice isolation",
+      "state": "passed",
+      "passed": 1,
+      "exit": 0,
+      "duration_seconds": 50.11,
+      "log": "/tmp/msv-fit-final-multiple-views-20261106.log",
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review explicit fitting atoms and cancel without changing rendered coordinates",
+        "Apply rigid superposition and compare actual Mol* positions with the independent SVD oracle",
+        "Create a separate result fitted to another explicit reference structure",
+        "The superposed result preserves its identity across window and notebook destinations",
+        "Fitting references remain explicit in canvas and detached Studio popups",
+        "Python verifies every selected/unselected atom and structure against the independent oracle",
+        "Independent notebook Views bind saved-choice inputs to their own datalist"
+      ],
+      "boundary": "Eight actual Jupyter steps. All seven fitting/scientific/presentation checks retained; added actual input.list DOM ownership and distinct parent/child saved-choice options. The suspected collision is disproved; existing per-render IDs already isolate lists. No datalist runtime fix or issue is invented."
+    }
+  ],
+  "retained_evidence": "Earlier receipts retain original fixture, browser-initialization, environment and native-diagnostic failures. No scientific assertion, timeout, required test or known issue is suppressed by this change.",
+  "pending": [
+    "Owner review/integration and exact new-head CI",
+    "Full new-source collection where required by CI/release cadence; prior complete collection is separately scoped",
+    "Postponed human Jupyter/visible Qt acceptance and exact installed qualification",
+    "Rotate native constructor #602, remaining alignment/reference/orientation and periodic/cell tasks",
+    "Chemistry, Analysis and complete real 1TCD/ensemble save-and-recover workflow"
+  ],
+  "publication": "No new release, tag, package, candidate freeze or 1.0 publication. 0.25.0 remains unfrozen.",
+  "pre_caption_source_files": {
+    "molsysviewer_molsysmt/_geometry_panel.py": {
+      "sha256": "dac31ed14816a36df66129b8b068ca9006b7f4979d95bf0e7eaba2eaf9162123",
+      "size_bytes": 18379
+    },
+    "molsysviewer_molsysmt/_geometry_panel_frontend.py": {
+      "sha256": "845b94596da6490ff22ab9a8d174483cee21052485d128fb6fb3e4d3ca91157c",
+      "size_bytes": 15718
+    },
+    "molsysviewer_molsysmt/_panel_frontend.py": {
+      "sha256": "b0fe21c36143bff2da4bebc491ad253df375518f9369b6969826ba7f790dc246",
+      "size_bytes": 12463
+    },
+    "molsysviewer_molsysmt/tools.py": {
+      "sha256": "6f6bdd1a5cf712a97396751e6b58bf44409523c89328da9c68214c6be99bbfa2",
+      "size_bytes": 2416
+    },
+    "tests/molsysviewer_molsysmt/test_geometry_panel.py": {
+      "sha256": "de54f9fbe00859f081eb82d8dca2811e92f2a731bb33a1a22c0231e557ef8111",
+      "size_bytes": 29904
+    },
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": {
+      "sha256": "3266b15111baf08debcdf16fedd682ce5fe63cf5e856e454330318bbc06b7fdd",
+      "size_bytes": 17221
+    },
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": {
+      "sha256": "bf1434d444e35ce60f22b2e07f0a844e3d76bb0e4ff0e08f2192c9f867768ee8",
+      "size_bytes": 5224
+    },
+    "tests/molsysviewer_molsysmt/fit_panel_jupyter.mjs": {
+      "sha256": "b1bdb477e2e913847bac3a4146adf7ac178e7497590df88dcb88bb99383aa46d",
+      "size_bytes": 11155
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "sha256": "a79d5988f3963de74aeded585bcdb4c8a3993fb5146a7bc75ead5153b801d791",
+      "size_bytes": 282853
+    }
+  },
+  "retained_test_construction_observation": {
+    "log": "/tmp/msv-datalist-repro-20261106.log",
+    "fact": "All eight browser steps and actual list association succeeded; the pytest guard still expected seven steps and failed 8 == 7. Updated the guard to require the added eighth step and strengthened actual option isolation assertions. Final run passes; original failure is retained."
+  },
+  "prior_source_hosted_smoke": {
+    "source": "55cb9f58f5fe84e1bfd506871f5bbc8ed8fa85c7",
+    "run": 42185219831,
+    "state": "success",
+    "qualifies_new_fit_source": false
+  }
+}

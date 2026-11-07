@@ -14,6 +14,7 @@ from rdkit.Chem import rdDepictor
 
 import molsysmt as msm
 from molsysmt.native import Structures
+from tests.physchem.test_ccd_template_application import deposited as deposited
 
 puw = msm.pyunitwizard
 SITES = ("get_water_sites", "get_metal_coordination_sites")
@@ -23,6 +24,7 @@ NAMES = (
     *TEMPLATES,
     "normalize_aromatic_bond_orders",
     "get_peptide_chemical_template",
+    "get_chemical_template",
 )
 PROVENANCE = dict(
     identity="methanol",
@@ -165,7 +167,7 @@ def test_explicit_signature_digestion_help_and_no_implicit_adoption(sites_view, 
     method = getattr(sites_view.addons.molsysmt.physchem, name)
     native = inspect.signature(getattr(msm.physchem, name))
     parameters = list(native.parameters.values())
-    if name != "get_peptide_chemical_template":
+    if name not in {"get_peptide_chemical_template", "get_chemical_template"}:
         parameters = parameters[1:]
     assert inspect.signature(method) == native.replace(parameters=parameters)
     assert method.digestion_plan is not None
@@ -175,6 +177,8 @@ def test_explicit_signature_digestion_help_and_no_implicit_adoption(sites_view, 
     assert "\nmolecular_system :" not in doc
     if name == "get_peptide_chemical_template":
         assert "explicit-input factory works before" in doc
+    elif name == "get_chemical_template":
+        assert "Explicit-input factory available before" in doc
     else:
         assert "current view.molsys" in doc
     with pytest.raises(UnknownArgumentError):
@@ -443,3 +447,218 @@ def test_pending_reads_do_not_adopt_and_cached_readers_follow_replacement(
     sites_view.close()
     with pytest.raises(RuntimeError, match="closed view"):
         method()
+
+
+@pytest.mark.parametrize("storage", ["bytes", "file", "gzip", "directory"])
+@pytest.mark.parametrize("hydrogen_policy", ["stored_counts", "explicit_atoms"])
+@pytest.mark.parametrize("skip", [False, True])
+def test_generic_ccd_factory_preserves_explicit_source_and_native_template(
+    tmp_path, storage, hydrogen_policy, skip
+):
+    import gzip
+    from hashlib import sha256
+    from pathlib import Path
+
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        snapshot,
+        unchanged,
+    )
+
+    raw = (
+        Path(__file__).parents[1] / "physchem/data/chemical_templates/BTN.cif"
+    ).read_bytes()
+    stored = gzip.compress(raw, mtime=0) if storage == "gzip" else raw
+    source = stored
+    if storage != "bytes":
+        path = tmp_path / ("BTN.cif.gz" if storage == "gzip" else "BTN.cif")
+        path.write_bytes(stored)
+        source = tmp_path if storage == "directory" else path
+    with msv.new_view() as view:
+        before = snapshot(view)
+        result = view.addons.molsysmt.physchem.get_chemical_template(
+            "btn", source=source, hydrogen_policy=hydrogen_policy, skip_digestion=skip
+        )
+        assert result["report"]["status"] == "constructed"
+        assert result["template"].structures is None
+        assert result["template"].get_n_atoms() == (
+            16 if hydrogen_policy == "stored_counts" else 32
+        )
+        assert result["report"]["n_source_atoms"] == 32
+        assert result["report"]["n_stored_hydrogens"] == (
+            16 if hydrogen_policy == "stored_counts" else 0
+        )
+        assert (
+            result["report"]["source"]["resource_sha256"] == sha256(stored).hexdigest()
+        )
+        atom_map = result["report"]["atom_map"]
+        keep = atom_map["output_to_source_atom_indices"]
+        np.testing.assert_array_equal(
+            atom_map["source_to_output_atom_indices"][keep], np.arange(len(keep))
+        )
+        expected = msm.physchem.get_chemical_template(
+            "btn", source=source, hydrogen_policy=hydrogen_policy, skip_digestion=skip
+        )
+        for key in result:
+            if key == "template":
+                for table in ("atoms", "groups", "chains", "molecules", "entities"):
+                    pd.testing.assert_frame_equal(
+                        getattr(result[key].topology, table),
+                        getattr(expected[key].topology, table),
+                    )
+                assert result[key].chemical_states._inventory_equals(
+                    expected[key].chemical_states
+                )
+                same(
+                    result[key].chemical_states.get_preparation_history(),
+                    expected[key].chemical_states.get_preparation_history(),
+                )
+            else:
+                same(result[key], expected[key])
+        result["template_provenance"]["identity"] = "caller edit"
+        assert expected["template_provenance"]["identity"] != "caller edit"
+        unchanged(view, before)
+    assert result["template"].get_n_atoms() == len(keep)
+
+
+@pytest.mark.parametrize("loaded", [False, True])
+def test_generic_ccd_factory_table_policy_pending_and_closed_owner(loaded):
+    from pathlib import Path
+
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        snapshot,
+    )
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        unchanged as assert_unchanged,
+    )
+
+    source = Path(__file__).parents[1] / "physchem/data/chemical_templates/BTN.cif"
+    with msv.demo["pentalanine"] if loaded else msv.new_view() as view:
+        if loaded:
+            view.addons.molsysmt.structure.translate(
+                translation="[0.1,0,0] nm", in_place=True, update_view=False
+            )
+        before = snapshot(view)
+        call = view.addons.molsysmt.physchem.get_chemical_template
+        result = call("BTN", source, method="ccd_tables")
+        assert result["template"].structures is None
+        assert result["report"]["status"] == "unassessed"
+        assert_unchanged(view, before)
+    with pytest.raises(RuntimeError, match="closed view"):
+        call("BTN", source)
+
+
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {"component_id": "ABSENT"},
+        {"method": "unknown"},
+        {"hydrogen_policy": "unknown"},
+        {"max_matches": 0},
+    ],
+)
+def test_generic_ccd_factory_keeps_native_failures_without_fallback(
+    tmp_path, parameters
+):
+    from pathlib import Path
+
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        snapshot,
+    )
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        unchanged as assert_unchanged,
+    )
+
+    kwargs = dict(
+        component_id="BTN",
+        source=Path(__file__).parents[1] / "physchem/data/chemical_templates/BTN.cif",
+    )
+    kwargs.update(parameters)
+    with msv.new_view() as view:
+        before = snapshot(view)
+        with pytest.raises(Exception) as native:
+            msm.physchem.get_chemical_template(**kwargs)
+        with pytest.raises(type(native.value)) as actual:
+            view.addons.molsysmt.physchem.get_chemical_template(**kwargs)
+        assert str(actual.value) == str(native.value)
+        assert_unchanged(view, before)
+
+
+def test_generic_ccd_missing_descriptor_program_stays_explicitly_unassessed():
+    from pathlib import Path
+
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import snapshot
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        unchanged as assert_unchanged,
+    )
+
+    source = Path(__file__).parents[1] / "physchem/data/chemical_templates/BTN.cif"
+    with msv.new_view() as view:
+        before = snapshot(view)
+        result = view.addons.molsysmt.physchem.get_chemical_template(
+            "BTN", source, descriptor_program="not-a-program"
+        )
+        expected = msm.physchem.get_chemical_template(
+            "BTN", source, descriptor_program="not-a-program"
+        )
+        same(result["report"], expected["report"])
+        assert result["report"]["status"] == "unassessed"
+        assert result["report"]["descriptor"]["program"] == "not-a-program"
+        assert not result["report"]["descriptor"]["assignment_consensus_complete"]
+        assert_unchanged(view, before)
+
+
+def test_generic_ccd_and_bound_label_map_compose_with_independent_chemical_transfer(
+    deposited,
+):
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import snapshot
+    from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
+        unchanged as assert_unchanged,
+    )
+
+    # The native fixture repeats one pinned deposited pose to test three axes;
+    # it is not an experimentally observed conformational ensemble.
+    molsys, record, ccd = deposited
+    with msv.new_view(molsys) as view:
+        before = snapshot(view)
+        tools = view.addons.molsysmt
+        selection = msm.select(
+            view.molsys, selection=f"group_index=={record['group_index']}"
+        )
+        with puw.context(standard_units=["pm", "fs", "coulomb"]):
+            definition = tools.physchem.get_chemical_template(
+                record["component_id"], ccd
+            )
+            observed_to_template = tools.topology.get_atom_name_correspondence(
+                selection=selection,
+                reference_molecular_system=definition["template"],
+                reference_selection="all",
+            )
+            options = dict(
+                template=definition["template"],
+                selection=selection,
+                atom_correspondence=observed_to_template[:, [1, 0]],
+                template_provenance=definition["template_provenance"],
+            )
+            assessment = tools.physchem.assess_chemical_template(**options)
+            assert assessment["status"] == "compatible"
+            result = tools.physchem.apply_chemical_template(**options)
+        output = result["molecular_system"]
+        assert result["report"]["status"] == "applied"
+        assert output is not view.molsys
+        assert output.get_n_atoms() == view.molsys.get_n_atoms()
+        assert output.structures.n_structures == 3
+        np.testing.assert_array_equal(
+            puw.get_value(output.structures.coordinates, to_unit="nm"),
+            puw.get_value(view.molsys.structures.coordinates, to_unit="nm"),
+        )
+        np.testing.assert_array_equal(observed_to_template[:, 0], selection)
+        observed_names = view.molsys.topology.atoms.loc[
+            observed_to_template[:, 0], "atom_name"
+        ].tolist()
+        template_names = (
+            definition["template"]
+            .topology.atoms.loc[observed_to_template[:, 1], "atom_name"]
+            .tolist()
+        )
+        assert observed_names == template_names
+        assert_unchanged(view, before)

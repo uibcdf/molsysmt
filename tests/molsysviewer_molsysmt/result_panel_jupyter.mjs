@@ -71,6 +71,7 @@ try{
   const popup=page.waitForEvent('popup');await panel().locator('[data-show-window]').click();const child=await popup;
   record(child);await child.locator('canvas').waitFor();await child.locator('#molsysviewer-loading').waitFor({state:'hidden'});
   await page.waitForFunction(()=>window.__controllers.length===3&&window.__controllers[2].getStructureData()?.elementCount===62);
+  await panel().locator('[data-status]').filter({hasText:'Result opened in its own window.'}).waitFor();
   assert.equal(await child.title(),'Copy review');
   await panel().locator('[data-show-window]').click();assert.equal(browser.contexts()[0].pages().length,2);
   await child.screenshot({path:output+'/independent-window.png'});
@@ -85,7 +86,9 @@ try{
   const controls=studio.locator('.msm-system');await controls.locator('[data-task]').selectOption('copy');await controls.locator('[data-heading]').filter({hasText:'Copy system'}).waitFor();
   await controls.locator('[data-result-title]').fill('Temporary result');await controls.locator('[data-create-result]').click();await controls.locator('[data-result-heading]').filter({hasText:'Temporary result'}).waitFor();
   const resultOpened=browser.contexts()[0].waitForEvent('page');await controls.locator('[data-show-window]').click();const independent=await resultOpened;record(independent);
-  await independent.locator('canvas').waitFor();await independent.locator('#molsysviewer-loading').waitFor({state:'hidden'});assert.equal(await independent.title(),'Temporary result');
+  await independent.locator('canvas').waitFor();await independent.locator('#molsysviewer-loading').waitFor({state:'hidden'});
+  await controls.locator('[data-status]').filter({hasText:'Result opened in its own window.'}).waitFor();
+  assert.equal(await independent.title(),'Temporary result');
   await independent.close();await studio.close();await canvas.close();
   await page.waitForFunction(()=>document.querySelectorAll('[data-molsysviewer-result]').length===2);
  });

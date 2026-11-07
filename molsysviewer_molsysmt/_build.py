@@ -4,7 +4,7 @@ from argdigest import arg_digest
 from smonitor import signal
 
 from ._basic import _native_documentation
-from ._chemical_edits import _run_add_missing_bonds
+from ._chemical_edits import _run_add_missing_bonds, _run_reconcile_protonation
 from ._geometry import _run_alternate_locations
 
 
@@ -63,6 +63,36 @@ def _bond_edit_documentation(function):
     return function
 
 
+def _protonation_edit_documentation(function):
+    function = _native_documentation("reconcile_protonation", module="build")(function)
+    function.__doc__ += (
+        "\nView integration\n----------------\n"
+        "update_view : bool, keyword-only, default=True\n"
+        "    Reconcile an admitted in-place atom removal. False defers scene "
+        "projection only; sync_view() retries without repeating science.\n"
+        "The native in_place=False default returns an independent system through "
+        "the serialized current-primary reader, including pending edits; this "
+        "flag never adopts that output. In-place execution prepares one public "
+        "native ProtonationAssessment under the host edit lock, validates its "
+        "bidirectional positional atom maps and unchanged structure axis, and "
+        "applies that same decision once. The addon neither repeats pH inference "
+        "nor guesses identity from names, IDs or coordinates. Native source "
+        "state, fixed-pKa approximation, unassessed/naming limits, chemistry, "
+        "all-structure projection and None in-place return remain unchanged. "
+        "No H addition, charge assignment, chemical-state selection or readiness "
+        "certificate is introduced. Native no-ops preserve domains and managed "
+        "revision; an update may still synchronize earlier pending edits. "
+        "Named analyses follow native subset remapping without recalculation; "
+        "scene history is not molecular Undo. Native prepublication failures "
+        "preserve prior pending work. A projection failure exposes "
+        "science_completed=True and scientific_result=None; retry synchronization, "
+        "not protonation calculation. Unexpected postpublication errors remain "
+        "uncertain and require explicit recovery. Scientific output can be "
+        "resident; no out-of-core or universal memory bound is promised.\n"
+    )
+    return function
+
+
 def _independent_build_documentation(name, *, local_skip=False):
     def decorate(function):
         function = _native_documentation(name, module="build")(function)
@@ -91,7 +121,6 @@ def _independent_build_documentation(name, *, local_skip=False):
                 "mutate",
                 "build_peptide",
                 "solvate",
-                "reconcile_protonation",
             }
             else "returns a separate molecular system, optionally with its report; "
         )
@@ -126,23 +155,7 @@ def _independent_build_documentation(name, *, local_skip=False):
                 "Full native copying may materialize coordinates and is not "
                 "an out-of-core trajectory promise.\n"
             )
-        if name == "reconcile_protonation":
-            function.__doc__ += (
-                "Only the native independent route (in_place=False) is received. "
-                "in_place=True raises NotImplementedError before scientific "
-                "execution: the native tool provides no public removal "
-                "correspondence for managed scene remapping. No update_view "
-                "control, private chemistry helper or name/coordinate matching "
-                "is added. The pH approximation, stored naming contexts and "
-                "unsupported/unassessed groups retain their native meaning. "
-                "Removal affects every source structure and does not select "
-                "a chemical state, add missing H, assign charges, predict an "
-                "environmental pKa or certify chemical readiness. Retained "
-                "coordinates, source mappings and analyses follow native "
-                "extraction; inspect the independent output before explicitly "
-                "replacing the viewed system.\n"
-            )
-        elif name == "solvate":
+        if name == "solvate":
             function.__doc__ += (
                 "Solvation explicitly creates a new solvent/ion system using the "
                 "requested native engine and its stored/default force-field "
@@ -341,6 +354,7 @@ class _BuildTools:
         "add_ions",
         "make_water_box",
         "reconcile_protonation",
+        "assess_protonation",
         "get_residue_chemical_coverage",
         "get_covalent_bond_candidates",
         "get_peptide_bond_candidates",
@@ -1038,7 +1052,16 @@ class _BuildTools:
             },
         )
 
-    @_independent_build_documentation("reconcile_protonation")
+    @_native_documentation("assess_protonation", module="build")
+    @signal(tags=["addon", "build", "read"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def assess_protonation(self, pH=7.4, engine="MolSysMT", skip_digestion=False):
+        return self._call(
+            "assess_protonation",
+            {"pH": pH, "engine": engine, "skip_digestion": skip_digestion},
+        )
+
+    @_protonation_edit_documentation
     @signal(tags=["addon", "build", "preparation"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
     def reconcile_protonation(
@@ -1047,28 +1070,18 @@ class _BuildTools:
         engine="MolSysMT",
         in_place=False,
         skip_digestion=False,
+        *,
+        update_view=True,
     ):
-        from molsysmt._private.argdigest.argument.in_place import digest_in_place
-
-        # This flag controls integration admission even with digestion skipped.
-        in_place = digest_in_place(
-            in_place, caller="molsysviewer_molsysmt.build.reconcile_protonation"
-        )
-        self._owner._target()
-        if in_place:
-            raise NotImplementedError(
-                "Managed in-place protonation reconciliation requires public "
-                "native removal correspondence. Use in_place=False to inspect "
-                "an independent result before explicitly loading it."
-            )
-        return self._call(
-            "reconcile_protonation",
+        return _run_reconcile_protonation(
+            self._owner,
             {
                 "pH": pH,
                 "engine": engine,
                 "in_place": in_place,
                 "skip_digestion": skip_digestion,
             },
+            update_view,
         )
 
     @_bond_edit_documentation
