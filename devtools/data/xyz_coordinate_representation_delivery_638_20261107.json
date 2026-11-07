@@ -1,0 +1,113 @@
+{
+  "schema_version": "molsysmt.xyz_coordinate_representation_delivery@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#638",
+  "source_commit": "c4202c634cd1ce83974d79d96b8c7ba851aa82f3",
+  "public_api_tree_complete": true,
+  "verified_source_paths": {
+    "devguide/archive/resolved_bugs/xyz_coordinate_edits_lose_rank_and_fractional_precision.md": {
+      "local": "0ec0d5b379f2556f2d1a4289e3a321c8545f44f5",
+      "public": "0ec0d5b379f2556f2d1a4289e3a321c8545f44f5"
+    },
+    "devguide/forms_and_conversions.md": {
+      "local": "b3cfdcb2fc29adb8a3ddd252fa9c27a2534abab7",
+      "public": "b3cfdcb2fc29adb8a3ddd252fa9c27a2534abab7"
+    },
+    "devguide/pending_bugs/README.md": {
+      "local": "8956c32ce1d26e4c9f7dfffc4454850f0cc5ba78",
+      "public": "8956c32ce1d26e4c9f7dfffc4454850f0cc5ba78"
+    },
+    "devguide/pending_bugs/xyz_coordinate_edits_lose_rank_and_fractional_precision.md": {
+      "local": null,
+      "public": null
+    },
+    "devguide/pre_1_0_robustness_audit_20261106.md": {
+      "local": "70aa5b5703e30d5def8f43a986b2df52531fc2c4",
+      "public": "70aa5b5703e30d5def8f43a986b2df52531fc2c4"
+    },
+    "devguide/release_1_0_status.md": {
+      "local": "aaabf9570896299396b21540237df8cb7f1b3a32",
+      "public": "aaabf9570896299396b21540237df8cb7f1b3a32"
+    },
+    "devtools/data/xyz_coordinate_representation_receiving_638_20261107.json": {
+      "local": "9adb7221baebfd6289c2a9e8b3babab2cd4b3850",
+      "public": "9adb7221baebfd6289c2a9e8b3babab2cd4b3850"
+    },
+    "docs/content/course/Path_Alzheimer/46_Geometric_Transformations.ipynb": {
+      "local": "f6fb0eae045d27e4d24af61b3b4e80b2165983be",
+      "public": "f6fb0eae045d27e4d24af61b3b4e80b2165983be"
+    },
+    "docs/content/course/Path_Antiviral/46_Geometric_Transformations.ipynb": {
+      "local": "d023567b054ef808e60aee10fed8e1a092fa61d7",
+      "public": "d023567b054ef808e60aee10fed8e1a092fa61d7"
+    },
+    "docs/content/course/Path_Biophysics/46_Geometric_Transformations.ipynb": {
+      "local": "cfb13603333e5c25a59524342ab392468bf67a5c",
+      "public": "cfb13603333e5c25a59524342ab392468bf67a5c"
+    },
+    "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb": {
+      "local": "bd3272cd261dceb7756472dd77acf69df13439bd",
+      "public": "bd3272cd261dceb7756472dd77acf69df13439bd"
+    },
+    "docs/content/user/cookbook/placing_selected_centers.md": {
+      "local": "74d6270e28a9b9e7ef8929e8e415c52d50d68939",
+      "public": "74d6270e28a9b9e7ef8929e8e415c52d50d68939"
+    },
+    "docs/content/user/tools/structure/rotate.ipynb": {
+      "local": "02b4a4fed47cd3dba746d90f12cab65634e36c2a",
+      "public": "02b4a4fed47cd3dba746d90f12cab65634e36c2a"
+    },
+    "docs/content/user/tools/structure/rotate.nbconvert.last_run": {
+      "local": "77a4fc358dba193c60f2546fee5eb689d4f98aed",
+      "public": "77a4fc358dba193c60f2546fee5eb689d4f98aed"
+    },
+    "docs/content/user/tools/structure/translate.ipynb": {
+      "local": "d16d58e78a735dd142c5c73adbc74e41a2494439",
+      "public": "d16d58e78a735dd142c5c73adbc74e41a2494439"
+    },
+    "docs/content/user/tools/structure/translate.nbconvert.last_run": {
+      "local": "a9ee921b06b0c0626db7617f8a609d8cf595ff70",
+      "public": "a9ee921b06b0c0626db7617f8a609d8cf595ff70"
+    },
+    "molsysmt/_private/coordinate_edit.py": {
+      "local": "9600da28283e0577797d7e8320e3cc95803a213a",
+      "public": "9600da28283e0577797d7e8320e3cc95803a213a"
+    },
+    "molsysmt/form/XYZ/set.py": {
+      "local": "018377657ba74baa41d0589d4919a9cde0893a08",
+      "public": "018377657ba74baa41d0589d4919a9cde0893a08"
+    },
+    "molsysmt/structure/rotate.py": {
+      "local": "c98f08ab06a57121b4a72a1a4ce583f7710ace6e",
+      "public": "c98f08ab06a57121b4a72a1a4ce583f7710ace6e"
+    },
+    "molsysmt/structure/translate.py": {
+      "local": "4c325d53b7524a6a1cd4c42a547618d35863dbcf",
+      "public": "4c325d53b7524a6a1cd4c42a547618d35863dbcf"
+    },
+    "tests/form/XYZ/test_coordinate_publication.py": {
+      "local": "5c30e1f2b67b1ba99dae34d5992d81ecf9e30f86",
+      "public": "5c30e1f2b67b1ba99dae34d5992d81ecf9e30f86"
+    },
+    "tests/structure/test_xyz_edit_representation.py": {
+      "local": "4791487c1f516a5496f28bd0f822639e8fd926ec",
+      "public": "4791487c1f516a5496f28bd0f822639e8fd926ec"
+    }
+  },
+  "verified_issue_state": "CLOSED",
+  "board": {
+    "total": 570,
+    "open": 99,
+    "latest": 638
+  },
+  "receiving": "devtools/data/xyz_coordinate_representation_receiving_638_20261107.json",
+  "audit_related_closed_count": 25,
+  "accepted_plan_progress_percent": 40,
+  "remaining": [
+    "636scientific-source correspondence",
+    "635exact newer host receiving",
+    "421graphical/Jupyter/installed/human acceptance",
+    "524public host/installed closure"
+  ],
+  "release_or_candidate_selected": false
+}

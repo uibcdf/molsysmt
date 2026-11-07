@@ -37,21 +37,19 @@ Counts overlap. Original failures, the development-only ineligible scientific
 certificate and six HTML underline warnings remain retained. Four human-owned
 API stubs are unchanged.
 
-#638 now has qualified source: independent integer XYZ edits preserve fractions,
-accepted storage ranks and units/quantity owners survive publication, and unsafe
-in-place integer updates reject before writes. Its
-[receipt](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
-retains 269 passing minimum-provider/ownership/doctest cases, all six executed
-notebooks, 107 scientific cases/68 nodes and fourteen fast gates. The broad
-7,977-pass/two-fixture-failure attempt is retained alongside the corrected
-fixture receiving. Source publication/board verification follow.
+#638 is delivered on main in `c4202c634`, with all 22 changed paths
+independently matched and the issue verified closed. The
+[delivery receipt](../devtools/data/xyz_coordinate_representation_delivery_638_20261107.json)
+records source/board acceptance; [receiving](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
+retains the passing controls and original failures. The complete board has
+570 issues, 99 open, through #638. Public audit-related closures are **25**.
 
-Next: deliver #638, correct #636's untracked-source certification gap, and
+Next: correct #636's untracked-source certification gap, and
 separately receive published PR head
 `42f5ed3bc` and #635's endpoint guards on its actual newer Viewer. The current
 results qualify exact Viewer `25061d9e9` only. Remaining #421 graphical,
 Jupyter/navigation, installed and human acceptance and #524 public-host/clean
-installed closure stay open. Audit progress remains **40%**, with **24 verified
+installed closure stay open. Audit progress remains **40%**, with **25 verified
 audit-related closures**. No new candidate, tag, Release, promotion or remote
 matrix is selected.
 

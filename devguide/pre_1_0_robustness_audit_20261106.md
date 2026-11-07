@@ -14,15 +14,17 @@ retain separate publication/test evidence. Receiving includes 7,764 integrated,
 76 minimum-provider and 107 scientific cases across 68 nodes, all five executed
 notebooks and 14 passing fast gates. Scopes overlap; failed attempts, six HTML
 warnings and the development-only ineligible certificate are retained. Verified
-audit-related closures are **24**; accepted progress remains **40%**.
+audit-related closures are **25**; accepted progress remains **40%**.
 
-#638 is now locally corrected and qualified: 269 minimum-provider/ownership/
-doctest cases pass; all six notebooks execute, scientific receiving passes
-107/68 nodes and fast gates pass 14/14. The broad attempt retains 7,977 passes
-and two new-fixture import failures; those fixtures pass separately after their
-import-only correction. The [receipt](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
-preserves these distinct outcomes. Source delivery and board closure follow.
-Next, correct #636 untracked executable source in scientific certification. Receive published #543 head `42f5ed3bc`
+#638 is delivered on main in `c4202c634`; all 22 changed paths match the
+complete public tree and the issue is verified closed. The
+[delivery receipt](../devtools/data/xyz_coordinate_representation_delivery_638_20261107.json)
+retains the complete 570-issue/99-open board snapshot and source identity;
+[receiving](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
+retains distinct passing and failed attempts. Public audit-related closures
+are now **25**, while progress remains **40%**. Next, correct #636 untracked
+executable source in scientific certification.
+Receive published #543 head `42f5ed3bc`
 and #635's endpoint guards on the actual newer Viewer separately. Current
 results qualify exact Viewer `25061d9e9` only; remaining #421 graphical,
 Jupyter/navigation, installed/human and #524 public-host/installed exits are not
