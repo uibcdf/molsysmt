@@ -93,7 +93,9 @@ H5MSM 0.4 file and handler iterators retain their legacy schema route.
 
 This source capability alone does not establish bounded memory for an entire
 public operation. Other public preflight calls can still materialize a 0.5
-file, and sparse/dense output storage needs its own budget.
+file, and sparse/dense output storage needs its own budget. The [#643 query report](pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md)
+tracks the eager public-query compatibility bridge; a small retained result
+does not establish bounded source I/O or allocation.
 
 ### Force evaluation working estimates
 

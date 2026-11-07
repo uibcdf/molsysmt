@@ -811,11 +811,11 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#421",
-    "milestone": "phase4/graphical-inventory/fitting/external-reference",
-    "record": "devguide/pending_proposals/molsysviewer_tools_addon.md",
-    "owner_verification": "Native/expert separate-reference support exists. The panel currently fixes its reference to the source system; external-reference GUI receiving remains pending.",
-    "scope": "Complete the declared external-reference graphical workflow, then sequence matching and cell editing, preserving every remaining accepted task/session family and installed/contract/candidate exits."
+    "issue": "uibcdf/molsysmt#643",
+    "consumer": "uibcdf/molsysmt#421",
+    "record": "devguide/pending_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md",
+    "owner_verification": "Independent primitive probe and eighteen provider regressions reproduce eager structural reads on public runtime bytes. No correction implemented yet.",
+    "scope": "Correct the general modular-file/query owner, then complete the original external-reference GUI intent. Preserve every remaining task/session, installed/contract/candidate exit."
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
@@ -835,5 +835,13 @@
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
+  },
+  "unaccepted_graphical_prototype": {
+    "milestone": "phase4/graphical-inventory/fitting/external-reference",
+    "source": "ca59736a4",
+    "visibility": "local_unmerged_branch",
+    "prerequisite": "uibcdf/molsysmt#643",
+    "accepted": false,
+    "evidence": "devtools/data/modular_h5_query_baseline_643_20261107.json"
   }
 }

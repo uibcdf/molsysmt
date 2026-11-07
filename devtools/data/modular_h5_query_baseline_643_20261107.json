@@ -1,0 +1,79 @@
+{
+  "schema_version": "molsysmt.modular_h5_query_baseline@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#643",
+  "runtime_source": "07f04d9e8b7702348dc1c365796558435e195c97",
+  "runtime_paths_match_public_source": {
+    "molsysmt/basic/get.py": "9e3eea0ecc2e743a211e6f2eea10a0805ab1c7bf",
+    "molsysmt/basic/select.py": "a1503a405a5b8343c9899b4c033fb94f112476e8",
+    "molsysmt/basic/has_attribute.py": "772d86ecd8681754acb6a624912fe4ed5d7202c8",
+    "molsysmt/_private/h5msm.py": "4d6e3b5289af88cb885227606dda1b2d6b277520",
+    "molsysmt/form/_h5msm05_modular.py": "b12634d99569cd3d1714a1272b1deddf75d5cf04",
+    "molsysmt/form/_h5msm05_structures.py": "2758e00bb94850350c641693a16b143d1c507f76",
+    "molsysmt/native/_structure_array.py": "06ece9347c0cab776791fb1438be5611c941803e"
+  },
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "status": "Reproduced failure; correction not implemented.",
+  "independent_probe": {
+    "native_exit": 0,
+    "fixture": {
+      "structures": 5000,
+      "atoms": 10,
+      "coordinate_scalars": 150000,
+      "coordinate_uncompressed_bytes": 1200000
+    },
+    "operations": {
+      "n_structures": [
+        "slice(0, 4369, None)",
+        "slice(4369, 5000, None)"
+      ],
+      "select": [
+        "slice(0, 4369, None)",
+        "slice(4369, 5000, None)"
+      ],
+      "coordinates": [
+        "slice(0, 4369, None)",
+        "slice(4369, 5000, None)"
+      ]
+    },
+    "result_scope": "Assertions verify correct scalar/count/ordered atoms and selected coordinate shape. The coordinate read trace contradicts required projected I/O; probe exit 0 is not contract acceptance.",
+    "cause": "Public query calls maybe_read_modular_h5msm before dispatch; resident read_molsys_file loads all structural series."
+  },
+  "provider_regressions": {
+    "command": [
+      "<existing-development-python>",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "--junitxml=<owner>/.pytest_cache/h5-query-643/baseline.xml",
+      "-n12",
+      "tests/form/file_h5msm/test_modular_query_projection.py"
+    ],
+    "exit_code": 1,
+    "seconds": 8.936109432019293,
+    "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "scope": "local source; not installed package or human Qt acceptance",
+    "changed_inputs": [],
+    "checked_inputs": 5188,
+    "tests": 18,
+    "passed": 0,
+    "failed": 18,
+    "skipped": 0,
+    "first_refusal": "Unrequested /structures/structure_id payload read before the requested scalar/projection.",
+    "guard_scope": "Native-value parity plus actual HDF5 dataset windows, including read_direct and implicit array conversion. A small returned shape alone cannot pass."
+  },
+  "graphical_prototype": {
+    "source": "ca59736a4",
+    "visibility": "Local unmerged branch feat/external-reference-geometry-421-20261107; not public delivery.",
+    "initial_directed_passes": 324,
+    "expanded_directed_passes": 339,
+    "stronger_io_campaign": {
+      "passed": 340,
+      "failed": 1,
+      "native_exit": 1
+    },
+    "counts_overlap": true,
+    "accepted_milestone": false
+  },
+  "remaining": "Implement/qualify the general file-query provider, then receive the unchanged public-query graphical composition. No private GUI HDF5 reader, weakened I/O assertion, schema bump or publication authority."
+}
