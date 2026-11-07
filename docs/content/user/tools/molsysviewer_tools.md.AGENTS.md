@@ -596,13 +596,17 @@ source ownership and synchronization-only retry without scientific replay.
 
 
 Preserve Superpose structures as native unweighted Kabsch fitting with explicit
-moving/fitting populations and the initial reference pose from the same system.
+moving/fitting populations and an initial current-system or external-file reference.
 Declare the qualified CPU route, fixed index-order correspondence and lack of
 sequence/name matching; validate geometry through the native owner, not a GUI
 matrix implementation. Keep reference/structure order, subset effects, fixed
-box, coverage, atomic rejection and synchronization-only retry. Expert external
-references and complete signatures remain unchanged. Sequence-matching and
-external-reference GUI workflows retain their own pending scope; principal-axis
+box, coverage, atomic rejection and synchronization-only retry. Retain independent
+atom/structure counts, positional ordered JSON pairs, first-occurrence source
+structure deduplication, unit-bearing selected-reference snapshots, ordinary
+file-change expiry and public projected H5MSM queries. References stay read-only
+and unadopted. Canvas focus remains an explicit core action. Expert external
+references and complete signatures remain unchanged. Sequence-matching GUI
+workflows retain their own pending scope; principal-axis
 orientation and periodic task receiving are recorded separately.
 
 

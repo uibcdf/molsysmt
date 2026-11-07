@@ -69,6 +69,13 @@ atom-name pairs reject before publication. No chain assignment or periodic
 reconstruction is performed. Use `least_rmsd_fit` for arbitrary ordered atom
 pairs rather than sequence-derived atom-name correspondences.
 
+For an already declared ordered atom pairing, the graphical **Molecular tools >
+Geometry > Superpose structures** task can use an external coordinate file.
+Choose the kernel-accessible path, its reference structure and explicit atom
+lists. That workflow performs rigid fitting with your correspondence; the
+sequence-derived mapping in this recipe remains an expert Python operation.
+See {ref}`user-tools-molsysviewer`.
+
 :::{seealso}
 :class: dropdown
 

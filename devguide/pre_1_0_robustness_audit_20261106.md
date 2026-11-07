@@ -5,7 +5,25 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-## Current modular-query delivery — 2026-11-07
+## Current external-reference graphical receiving — 2026-11-07
+
+The #421 external-file fitting workflow is locally implemented and passes
+5,297 integrated cases plus both actual external/same-system Jupyter scenarios
+(eight steps each). The [receiving receipt](../devtools/data/molsysviewer_tools_external_reference_receiving_20261107.json)
+records the independent analytical coordinate oracle, actual Mol* geometry,
+units, partial edits, unchanged reference file, coverage, independent results
+and popup controls. The observed premature blank captures prompted an explicit
+core focus/render-completion check; all attempts and baseline-matching page
+errors remain recorded. Fourteen fast gates and HTML pass with six existing
+underline warnings. Next: clean-source scientific qualification and public
+source verification, then accept this one intent and review ready contract
+closeouts alongside the remaining sequence/cell/task/session scope.
+
+Progress remains **approximately 61%**, graphical **22/50** and source issue
+closures **33** until delivery. Installed/platform/human/final-candidate gates
+and publication authority remain separate; no other accepted family is dropped.
+
+## Previous modular-query delivery — 2026-11-07
 
 #643 is fixed on public main at `71a2c2b8ef807f9ddce300cfd3917c5a51f56a1a` and
 independently verified closed. All thirty changed paths match the complete

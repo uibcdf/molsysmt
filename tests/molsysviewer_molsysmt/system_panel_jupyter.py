@@ -62,6 +62,7 @@ def main():
             "center",
             "center-errors",
             "fit",
+            "fit-external",
             "periodic",
             "chemistry",
             "chemistry-pending",
@@ -197,6 +198,7 @@ def main():
         "center",
         "center-errors",
         "fit",
+        "fit-external",
         "periodic",
     }:
         initial = initial[: initial.index("view = msv.demo")] + (
@@ -325,6 +327,47 @@ def main():
             "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates,to_unit='nm'),_fit_result_expected,atol=1e-10)\n"
             "assert result.molsys is not view.molsys and result.player.n_structures==3\n"
             "print('JUPYTER_FIT_NATIVE_OK',len(records))\n"
+        )
+    if args.scenario == "fit-external":
+        initial = initial.removesuffix("view\n") + (
+            "import hashlib\nimport json\nimport numpy as np\n"
+            "from molsysmt.native import Structures\n"
+            "_base=source_coordinates[0].copy()\n"
+            "_turn=np.array([[0,-1,0],[1,0,0],[0,0,1]],dtype=float)\n"
+            "source_coordinates=np.stack([_base@r.T+t for r,t in [(_turn,[1.2,-.3,.6]),(np.eye(3),[-.5,.4,.2]),(_turn.T,[.3,1.4,-.8])]])\n"
+            "_boxes=msm.pyunitwizard.quantity(np.tile(np.eye(3)*3,(3,1,1)),'nm')\n"
+            "view.addons.molsysmt.basic.set(coordinates=msm.pyunitwizard.quantity(source_coordinates,'nm'),box=_boxes)\n"
+            "_source_revision=view.addons.molsysmt.get_sync_status()['target_revision']\n"
+            "view.molsys.interactions={'coverage':msm.Interactions.from_records([],n_atoms=62,n_structures=3,method='existing-coverage',evaluated_structure_indices=[0,1,2])}\n"
+            "_original_coverage=view.molsys.interactions['coverage']\n"
+            "_ref_turn=np.array([[1,0,0],[0,0,-1],[0,1,0]],dtype=float)\n"
+            "_reference=np.stack([_base[[7,19,0,11,3,0,2,4,6,8]]@_ref_turn.T+np.array([3.1,-2.2,.7])+i*.1 for i in range(7)])\n"
+            f"_reference_path=Path({str(output / 'external-reference.h5msm')!r})\n"
+            "msm.h5msm.write_layers(_reference_path,structures=Structures(coordinates=msm.pyunitwizard.quantity(_reference,'nm')))\n"
+            "_reference_digest=hashlib.sha256(_reference_path.read_bytes()).hexdigest()\n"
+            "_fit_source_expected=source_coordinates.copy()\n"
+            "_fit_source_expected[np.ix_([2,0],range(10))]=_base[:10]@_ref_turn.T+np.array([3.1,-2.2,.7])+.6\n"
+            "_fit_result_expected=_fit_source_expected.copy()\n"
+            "_fit_result_expected[0,:10]=_base[:10]@_ref_turn.T+np.array([3.1,-2.2,.7])\n"
+            f"Path({str(output / 'fit-external-expected.json')!r}).write_text(json.dumps({{'reference_filename':str(_reference_path),'source_angstrom':(_fit_source_expected*10).tolist(),'result_angstrom':(_fit_result_expected*10).tolist()}}))\n"
+            "_unit_policy=msm.pyunitwizard.context(standard_units=['pm','ps','radians'])\n"
+            "_unit_policy.__enter__()\nview\n"
+        )
+        final = (
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),_fit_source_expected,atol=1e-10)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_source_revision+1\n"
+            "records=view.addons.manager.presentations.records()\nassert len(records)==1\n"
+            "result=view.addons.manager.presentations.get(records[0]['id'])\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates,to_unit='nm'),_fit_result_expected,atol=1e-10)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),msm.pyunitwizard.get_value(_boxes,to_unit='nm'))\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(result.molsys.structures.box,to_unit='nm'),msm.pyunitwizard.get_value(_boxes,to_unit='nm'))\n"
+            "assert result.molsys is not view.molsys and result.player.n_structures==3\n"
+            "np.testing.assert_array_equal(view.molsys.interactions['coverage'].evaluated_structure_indices,[1])\n"
+            "np.testing.assert_array_equal(result.molsys.interactions['coverage'].evaluated_structure_indices,[1])\n"
+            "np.testing.assert_array_equal(_original_coverage.evaluated_structure_indices,[0,1,2])\n"
+            "assert hashlib.sha256(_reference_path.read_bytes()).hexdigest()==_reference_digest\n"
+            "_unit_policy.__exit__(None,None,None)\n"
+            "print('JUPYTER_EXTERNAL_FIT_NATIVE_OK',len(records))\n"
         )
     if args.scenario == "periodic":
         initial = (
@@ -649,6 +692,8 @@ def main():
                         if args.scenario == "periodic"
                         else Path(__file__).with_name("fit_panel_jupyter.mjs")
                         if args.scenario == "fit"
+                        else Path(__file__).with_name("fit_external_panel_jupyter.mjs")
+                        if args.scenario == "fit-external"
                         else Path(__file__).with_name("center_error_jupyter.mjs")
                         if args.scenario == "center-errors"
                         else Path(__file__).with_name("axes_panel_jupyter.mjs")

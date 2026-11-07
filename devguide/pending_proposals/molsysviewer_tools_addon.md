@@ -14,6 +14,33 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## External-reference graphical receiving — 2026-11-07
+
+**Locally implemented and received**, pending clean-source scientific
+qualification and public delivery. Geometry accepts a kernel-accessible file
+reference with independent atom/structure counts and positional ordered JSON
+atom lists. Review retains only one selected unit-bearing reference slab;
+public queries supply it through the corrected #643 provider. Ordinary file
+changes expire confirmation. Native Kabsch retains scientific ownership.
+
+The [receiving receipt](../../devtools/data/molsysviewer_tools_external_reference_receiving_20261107.json)
+retains 5,297 integrated passes, 341 directed/provider passes, the original I/O
+failure and all actual browser attempts. External-reference and prior
+same-system scenarios pass together (eight steps each), including analytical
+native/Mol* coordinates, pm policy, partial edits, complete independent results,
+fixed boxes, coverage, untouched reference bytes and both popup boundaries.
+The first passing numerical scenario had premature empty screenshots; the
+stronger visual check adds an explicit core Focus All, a committed representation
+and completed camera transition. One intermediate locator failure is retained;
+the final captures visibly contain molecular geometry. Baseline-matching page
+errors remain visible. Fourteen fast gates and HTML pass with six existing
+underline warnings. Course edits preserve code and saved outputs.
+
+The graphical leaf remains uncredited until its public-source acceptance.
+Sequence-derived alignment, broader periodic/cell editing, remaining tasks and
+complete session receiving remain required. Installed/platform/human/final-
+candidate gates and publication authorization are not established here.
+
 ## External-reference provider receiving — 2026-11-07
 
 #643 is corrected on public main at `71a2c2b8e`: dense H5MSM queries no longer

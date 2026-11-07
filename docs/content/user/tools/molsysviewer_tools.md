@@ -5432,20 +5432,32 @@ retains its complete native arguments, weighting options and return semantics.
 Choose **Superpose structures** in **Molecular tools > Geometry** for a rigid,
 unweighted least-RMSD fit with the Kabsch method. **Atoms to move** chooses the
 complete population that should move together. Choose
-**All structures**, **Current structure** or distinct explicit structure indices.
-Set **Reference structure in this system** to an existing structure index. The
-reference uses its initial coordinates; it need not belong to the processed
-structures. This task rotates/translates molecular data, not the camera, and
-uses the qualified MolSysMT CPU route.
+**All structures**, **Current structure** or explicit structure indices.
+Repeated structure indices are applied once, in their first requested order.
+**Reference molecular system** chooses the current system or an **External
+molecular file**. Enter the reference structure index in that chosen system;
+its number of structures can differ from the moving system. The reference uses
+its initial coordinates and need not belong to the processed structures.
+The task uses the qualified MolSysMT CPU route. Use the canvas **Focus All**
+action when you want to bring changed geometry into view; camera navigation
+remains a separate choice.
+
+An external path must be accessible to the Python kernel running your notebook.
+Coordinate-bearing registered files are supported, including H5MSM 0.5 with only
+a Structures layer and PDB references. The reference remains a separate,
+read-only input. It does not replace the current system or acquire its atoms,
+chemistry or structures.
 
 By default, every moving atom is also a fit atom, paired with the same atom index
 in the reference structure. Expand **Fitting atoms and correspondence** to use a
 smaller fitting population, such as alpha carbons, or different reference atoms.
-**Fit atom expression** selects in the stated selection context; **Reference
-atom expression** selects in the reference structure. An empty fit expression
-uses all moving atoms. An empty reference expression uses the same fit indices.
+**Fit atoms: expression or ordered indices** selects in the stated source
+context; **Reference fit atoms: expression or ordered indices** selects in the
+chosen reference structure. An empty fit input uses all moving atoms. An empty
+reference input uses the same fit indices in the chosen reference system.
 
 Expressions resolve fixed, unique populations in ascending system-index order.
+Flat JSON index lists such as `[4, 0, 2]` preserve the stated order and repetitions.
 The two populations must have equal sizes and are paired by position. This GUI
 does not infer sequence or atom-name correspondence. Check chemical matching
 explicitly when using different populations. Fit atoms can lie outside the
@@ -5455,9 +5467,14 @@ geometry validation covers every requested structure before any coordinate
 write. Periodic reconstruction and sequence-based matching are separate tasks.
 
 **Review superposition** states the moving/fitting counts, reference structure,
-method and affected structure scope. **Back** leaves the data untouched. Changing
+method and affected structure scope. External references also show the filename
+and their own structure count. Review captures only the selected reference
+coordinates in one structure, with explicit physical units; it does not fit a
+system or copy a coordinate trajectory. The H5MSM query reads that projection
+directly. **Back** leaves the data untouched. Changing
 the references, request, managed system revision or selection context expires
-the confirmation. **Current system** uses the managed edit/scene update;
+the confirmation. A detected external-file modification, replacement or removal
+also expires confirmation; review it again. **Current system** uses the managed edit/scene update;
 **Independent result** copies the whole system, changing only the requested
 atoms and structures. The explicit presentation/lifetime rules described above
 apply, including Python recovery of the independent View.

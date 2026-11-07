@@ -1,0 +1,295 @@
+{
+  "schema_version": "molsysmt.external_reference_receiving@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "source_base": "2820959bb18f72dac246edd5caa23b9367356048",
+  "original_prototype": "ca59736a4ca7ed84f736a2b6b8cbaf48b29c2386",
+  "provider_fix": "71a2c2b8ef807f9ddce300cfd3917c5a51f56a1a",
+  "public_base": "bc2a3d9514838555c2afbd5965100a89366f2f85",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "state": "Locally received in directed, integrated and actual Jupyter/Mol* workflows; clean-source scientific qualification and public delivery pending.",
+  "checks": {
+    "provider-received": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/external-reference-421/provider-received.xml",
+        "-n12",
+        "tests/molsysviewer_molsysmt/test_external_reference_panel.py",
+        "tests/molsysviewer_molsysmt/test_geometry_panel.py",
+        "tests/molsysviewer_molsysmt/test_structure_fitting_tools.py"
+      ],
+      "exit_code": 0,
+      "seconds": 34.482237949967384,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5192,
+      "tests": {
+        "passed": 341,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "gui-external-1": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/external-reference-421/gui-external-1.xml",
+        "-n0",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_external_reference",
+        "--basetemp=<owner>/.pytest_cache/external-reference-421/gui-external-1"
+      ],
+      "exit_code": 0,
+      "seconds": 53.61051203194074,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5194,
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "gui-external-2": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/external-reference-421/gui-external-2.xml",
+        "-n0",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_external_reference",
+        "--basetemp=<owner>/.pytest_cache/external-reference-421/gui-external-2"
+      ],
+      "exit_code": 1,
+      "seconds": 39.97693125391379,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5194,
+      "tests": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      }
+    },
+    "gui-external-3": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/external-reference-421/gui-external-3.xml",
+        "-n0",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_external_reference",
+        "--basetemp=<owner>/.pytest_cache/external-reference-421/gui-external-3"
+      ],
+      "exit_code": 0,
+      "seconds": 57.332567842211574,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5194,
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "integrated-external": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/external-reference-421/integrated-external.xml",
+        "-n12",
+        "tests/molsysviewer_molsysmt",
+        "tests/form/file_h5msm/test_modular_query_projection.py"
+      ],
+      "exit_code": 0,
+      "seconds": 234.48343088198453,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5194,
+      "tests": {
+        "passed": 5297,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "gui-fit-pair": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/external-reference-421/gui-fit-pair.xml",
+        "-n0",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_external_reference",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_superposition",
+        "--basetemp=<owner>/.pytest_cache/external-reference-421/gui-fit-pair"
+      ],
+      "exit_code": 0,
+      "seconds": 105.90126101183705,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5194,
+      "tests": {
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "fast": {
+      "command": [
+        "<existing-development-python>",
+        "devtools/scripts/release_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 24.23474003514275,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5194
+    },
+    "html": {
+      "command": [
+        "<existing-development-python>",
+        "-m",
+        "sphinx",
+        "-q",
+        "-j",
+        "12",
+        "-b",
+        "html",
+        "-D",
+        "nb_execution_mode=off",
+        "-D",
+        "autosummary_generate=0",
+        "docs",
+        "<owner>/.pytest_cache/external-reference-421/html"
+      ],
+      "exit_code": 0,
+      "seconds": 50.1786728228908,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "changed_inputs": [],
+      "checked_inputs": 5194
+    }
+  },
+  "counts_overlap": true,
+  "actual_graphical_receiving": {
+    "checks": [
+      "Render the source through the real notebook presentation surface",
+      "Reject a missing external reference without changing rendered coordinates",
+      "Review ordered pairs against seven external structures and cancel without writes",
+      "Apply the external fit and verify actual Mol* positions against the analytical transform",
+      "Create an independent result using another structure of the same external file",
+      "The external result retains its identity between notebook and independent window",
+      "External file and ordered-pair controls survive canvas and detached Studio popups",
+      "Python verifies all structures atoms units boxes coverage and the untouched reference file"
+    ],
+    "source_atoms": 62,
+    "source_structures": 3,
+    "reference_atoms": 10,
+    "reference_structures": 7,
+    "reference_structure": 6,
+    "moving_atoms": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "fitting_atoms": [
+      19,
+      3,
+      11,
+      0,
+      7
+    ],
+    "reference_atoms_in_pair_order": [
+      1,
+      4,
+      3,
+      2,
+      0
+    ],
+    "requested_structures": [
+      2,
+      0,
+      2
+    ],
+    "applied_structures": [
+      2,
+      0
+    ],
+    "unit_policy": "pm, ps, radians; native truth checked in nm and actual Mol* coordinates in angstrom",
+    "independent_oracle": "Analytical proper rigid transforms of bundled coordinates; no native fitting method used to calculate expected coordinates.",
+    "verification": "All native structures and atoms, selected and untouched populations, source/result boxes, named coverage and unchanged external file digest; current-system and complete independent-result ownership; actual Mol* coordinates, notebook/window identity and detached Studio controls.",
+    "camera_and_rendering": "Explicit core Focus All, positive actual representation count, completed camera transition and two animation frames; images visually inspected. Molecular fitting does not request automatic camera navigation.",
+    "page_errors": [
+      {
+        "stage": "Render the source through the real notebook presentation surface",
+        "error": "Error: No active debugger session",
+        "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+      },
+      {
+        "stage": "Python verifies all structures atoms units boxes coverage and the untouched reference file",
+        "error": "Error: No active debugger session",
+        "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+      }
+    ],
+    "baseline_errors": [
+      {
+        "error": "Error: No active debugger session",
+        "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:46597/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+      }
+    ],
+    "page_error_test": "Every observed error fingerprint matches the plain-Jupyter control; repeated occurrences are retained.",
+    "private_image_sha256": {
+      "fit-external-independent.png": "3b76761bae878426d70ced065ab8c1dac77f43d485c61e2e1d868ca1f2548fce",
+      "fit-external-studio.png": "e490e0ff5cf7565e34ef1457ec5fbe36051cf1bef25b2c1e6616b57261796c81"
+    },
+    "scope": "Local Chromium/JupyterLab/ipykernel/AnyWidget/Mol* on exact Viewer e4dd58cf; not human Qt or installed-pair/platform acceptance."
+  },
+  "attempt_accounting": {
+    "gui-external-1": "Eight numerical/comm steps passed, but inspected screenshots were premature and empty; this attempt alone does not qualify visible rendering.",
+    "gui-external-2": "Failed during explicit result focus because an unscoped locator matched both hidden and visible canvas menu items. The corrected locator uses the one visible semantic menuitem.",
+    "gui-external-3": "Eight steps passed with explicit core focus, committed representations/camera and visible molecular rendering.",
+    "gui-fit-pair": "Both independent external-reference and original same-system eight-step scenarios pass together.",
+    "provider_reproduction": "Original 340-pass/1-fail I/O run is retained in the #643 baseline; the guard is unchanged and now passes."
+  },
+  "rendered_documentation_checks": [
+    "External molecular file chooser",
+    "Ordered JSON atom correspondence",
+    "Observed file changes expire review",
+    "Explicit core Focus All"
+  ],
+  "remaining": [
+    "Clean exact-source scientific execution",
+    "Public source delivery and independent correspondence verification",
+    "Source acceptance of the external-reference leaf after delivery; every other agreed family remains required",
+    "Installed/platform/contract/candidate gates and publication authorization remain separate"
+  ],
+  "progress_before_delivery": {
+    "weighted_approximate_percent": 61,
+    "graphical_verified": 22,
+    "graphical_total": 50,
+    "source_issue_closures": 33
+  }
+}
