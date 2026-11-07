@@ -117,8 +117,8 @@ def get_sequence_alignment(
         alignment = aligner.align(tmp_ref_seq, tmp_seq)
         del (aligner, Align, tmp_ref_seq, tmp_seq)
 
-        seq_ref = alignment[alignment_index]._get_row(0)
-        seq = alignment[alignment_index]._get_row(1)
+        seq_ref = alignment[alignment_index][0]
+        seq = alignment[alignment_index][1]
 
     else:
         raise NotImplementedMethodError(
