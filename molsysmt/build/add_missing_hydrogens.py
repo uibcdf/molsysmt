@@ -107,7 +107,9 @@ def add_missing_hydrogens(
     Missing H are appended; existing H are never removed or repositioned.
     No receptor refinement, minimization or heavy-atom conformer generation runs.
     Supply compact periodic coordinates; split molecules are rejected rather than
-    reconstructed implicitly. Named interactions become unevaluated on an expanded
+    reconstructed implicitly. This check uses the full row-vector box, including
+    rotated orthogonal and triclinic cells. Equivalent compatible length units
+    preserve the compactness decision. Named interactions become unevaluated on an expanded
     output; no-addition outputs retain their analyses. Multiple states/structures,
     metals, radicals, query atoms and virtual isotopic additions are unsupported.
     Successful fixed-state operations retain both terminal-attachment and

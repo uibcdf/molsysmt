@@ -318,6 +318,59 @@ def test_periodic_compact_pose_box_and_frame_link_and_split_rejection():
 
 
 @pytest.mark.parametrize(
+    "box",
+    [
+        [[0.0, 2.0, 0.0], [-2.0, 0.0, 0.0], [0.0, 0.0, 2.0]],
+        [[2.0, 0.0, 0.0], [0.9, 1.8, 0.0], [0.4, 0.3, 2.0]],
+    ],
+    ids=["rotated-orthogonal", "skewed"],
+)
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+@pytest.mark.parametrize("split", [False, True])
+def test_periodic_mic_pose_validation_preserves_physical_units(box, unit, split):
+    box = np.asarray(box)
+    source = prepared("CC", [[2.0, 2.0, 2.0], [3.5, 2.0, 2.0]])
+    source.structures.box = puw.quantity(box[None] * 10.0, "angstrom")
+    msm.set(source, structure_chemical_state_index=[0])
+    if split:
+        xyz = puw.get_value(source.structures.coordinates, to_unit="nm").copy()
+        xyz[0, 1] += box[0]
+        source.structures.coordinates = puw.quantity(xyz, "nm")
+    before = source.copy()
+    with puw.context(standard_units=[unit, "ps"]):
+        if split:
+            with pytest.raises(
+                StructuralInconsistencyError, match="split across periodic images"
+            ):
+                hydrogenate(source)
+        else:
+            output = hydrogenate(source)["molecular_system"]
+            assert output.get(n_atoms=True) == 8
+            np.testing.assert_array_equal(
+                puw.get_value(output.structures.coordinates, to_unit="nm")[:, :2],
+                puw.get_value(before.structures.coordinates, to_unit="nm"),
+            )
+            np.testing.assert_allclose(
+                puw.get_value(output.structures.box, to_unit="nm"),
+                box[None],
+                rtol=0,
+                atol=1e-15,
+            )
+            np.testing.assert_array_equal(output._structure_chemical_state_indices, [0])
+    np.testing.assert_array_equal(
+        puw.get_value(source.structures.coordinates, to_unit="nm"),
+        puw.get_value(before.structures.coordinates, to_unit="nm"),
+    )
+    np.testing.assert_array_equal(
+        puw.get_value(source.structures.box, to_unit="nm"),
+        puw.get_value(before.structures.box, to_unit="nm"),
+    )
+    pd.testing.assert_frame_equal(
+        source.chemical_states.get_bonds(), before.chemical_states.get_bonds()
+    )
+
+
+@pytest.mark.parametrize(
     "kwargs",
     [
         dict(pH=7.4, engine="RDKit", mode="fixed_chemical_state"),

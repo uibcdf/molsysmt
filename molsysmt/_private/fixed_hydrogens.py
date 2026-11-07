@@ -39,10 +39,9 @@ def _validate_pose(source, pairs):
         box = validate_box_array(
             puw.get_value(source.structures.box, to_unit="nm"), 1, caller=_CALLER
         )[0]
-        inverse = np.linalg.inv(box)
         if any(
             not np.allclose(
-                vector, _minimum_image_vector(vector, box, inverse), rtol=0, atol=1e-10
+                vector, _minimum_image_vector(vector, box), rtol=0, atol=1e-10
             )
             for vector in displacement
         ):

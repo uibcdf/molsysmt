@@ -90,6 +90,11 @@ Supply an already compact periodic ligand. A bond requiring another periodic
 image is rejected; reconstruct explicitly with `msm.pbc.wrap_to_mic()` first.
 The source coordinates and box remain unchanged by H addition.
 
+The compactness check uses the full row-vector box, including rotated orthogonal
+and triclinic cells. Coordinate and box values are interpreted in their physical
+length units. Changing the application's standard length unit does not change
+whether the same component is compact or split across images.
+
 With `attribute_policy='intersection'`, unsupported atom-aligned attributes
 (velocities, B-factors and occupancies), system observables and force-field
 parameters are dropped with a diagnostic and named in the report. New values are
