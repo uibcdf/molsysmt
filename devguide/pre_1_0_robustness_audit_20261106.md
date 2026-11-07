@@ -22,8 +22,12 @@ complete public tree and the issue is verified closed. The
 retains the complete 570-issue/99-open board snapshot and source identity;
 [receiving](../devtools/data/xyz_coordinate_representation_receiving_638_20261107.json)
 retains distinct passing and failed attempts. Public audit-related closures
-are now **25**, while progress remains **40%**. Next, correct #636 untracked
-executable source in scientific certification.
+are now **25**, while progress remains **40%**. #636 now has qualified source `970cf51b7`: all 23 runner controls pass, and
+107 actual molecular cases across 68 nodes pass `--require-clean` on that clean
+committed development checkpoint. Source delivery/board closeout follow. The
+[receipt](../devtools/data/scientific_source_correspondence_receiving_636_20261107.json)
+retains the original nine failing controls and separates narrow scientific/source
+eligibility from candidate/installed/publication authority.
 Receive published #543 head `42f5ed3bc`
 and #635's endpoint guards on the actual newer Viewer separately. Current
 results qualify exact Viewer `25061d9e9` only; remaining #421 graphical,
@@ -958,17 +962,25 @@ receiving; the table concerns each issue's remaining extension scope.
 | Wider forms and internal layout | #519, #438, #181 | Resource-owning FASTA, H5MSM module-location review and broader conversion profiles remain bounded independent work. Prioritize actual included-workflow defects without requiring every declared edge before 1.0. |
 | Provider/performance follow-up | #403, #486, #530, #128, #382 | Retain qualified compatibility protections until actual replacement receiving. Profile additional query/startup/storage work before redesign; no unmeasured speedup or automatic provider upgrade. |
 
-### Newly admitted certification prerequisite — #636
+### Scientific source correspondence — #636
 
-Before any final-candidate certificate, exclude untracked executable or
-source-affecting inputs from a falsely clean Git identity. A real temporary Git
-checkout with one tracked passing test and an actually loaded untracked
-`conftest.py` currently receives `release_eligible=true`. Preserve the supported
-untracked output-artifact route while rejecting source/config/reference inputs;
-require real-Git clean, dirty, loaded-hook and artifact controls. The current
-107-case certificate is already dirty/ineligible and makes no candidate claim.
-The owning [report](pending_bugs/scientific_certificate_ignores_untracked_python_inputs.md)
-keeps the defect separate from the registered scientific result.
+The original `3f66f5931` runner admitted a real temporary Git checkout whose
+untracked `conftest.py` demonstrably ran: its one tracked test passed and the
+certificate incorrectly reported release eligibility. The earlier #602/#638
+molecular certificates were already dirty/ineligible and did not use that gap.
+
+Correction `970cf51b7` now checks tracked state, all nonignored untracked inputs
+and identical known commits before/after execution, retaining four exact
+reserved workflow outputs. Its 23 controls pass, including loaded/self-deleting
+hooks, restored tracked source, changed commits and clean/artifact positives.
+Actual molecular execution passes 107 cases across 68 nodes with
+`--require-clean` on that clean development commit. This narrow scientific/source
+eligibility is distinct from a final candidate, ignored native/provider identity,
+installed-pair/platform qualification and publication. The owning
+[report](archive/resolved_bugs/scientific_certificate_ignores_untracked_python_inputs.md)
+and [receipt](../devtools/data/scientific_source_correspondence_receiving_636_20261107.json)
+retain the original failed outcomes. Final candidates must rerun their own
+exact-source gate; this development checkpoint does not waive it.
 
 ## Progress log
 
@@ -1012,6 +1024,8 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-07 | Rotation and guard block delivered | Main source `684a5b0cb` and archive `2499dc53b` match complete public API trees. #602/#632/#633/#634/#637 are verified closed, taking audit-related closures to 24; progress remains 40%. | Correct #638 and #636, receive #635/new exact host, and retain all broader graphical/installed/human/final-candidate exits. |
 
 | 2026-11-07 | XYZ coordinate representation qualified | #638 preserves original ranks/units/quantity owners, promotes independent integer storage and rejects unsafe integer publication. Minimum-provider/ownership/doctest receiving passes 269, scientific 107/68, all six notebooks and fast gates 14/14. Broad native-1 record retains 7,977 passes/two corrected fixture import errors; six HTML warnings remain. | Publish and independently verify/close #638, then correct #636 and receive #635/newer host. Public closures 24, progress 40%; no candidate. |
+
+| 2026-11-07 | Scientific source correspondence qualified | #636 source `970cf51b7` rejects unsafe starting/ending source while retaining reserved outputs; all 23 real-execution controls pass after nine original failures. Actual molecular `--require-clean` passes 107/68 nodes on the clean development commit. | Deliver and independently verify/close #636, then receive #635 and the newer exact host. Public closures 25, progress 40%; narrow source eligibility does not select a candidate. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

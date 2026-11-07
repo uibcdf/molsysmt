@@ -1,9 +1,9 @@
 ---
 summary: Scientific certificate release eligibility ignores untracked Python inputs.
 issue: uibcdf/molsysmt#636
-status: partial
+status: resolved
 opened: 2026-11-07
-closed:
+closed: 2026-11-07
 severity: high
 verification: reproduced
 area: [validation, release, provenance]
@@ -95,3 +95,25 @@ temporary Git repositories and execute real pytest nodes, not molecular oracles
 or fabricated Git status. Whole-tree Ruff lint/format and developer-guide
 validation pass. Next receive the actual registered molecular nodes on the
 committed clean development checkpoint before source delivery and closure.
+
+## Resolution — 2026-11-07
+
+Implementation `970cf51b7685420ad2fb89dfcef5514e51e3b8b2` passes the actual
+registered molecular runner with `--require-clean`: 107 cases across 68 nodes,
+zero failures/errors/skips, identical known commits before/after, both tracked
+states clean and both untracked-source lists empty. The certificate's
+`release_eligible=true` is the narrow scientific/source eligibility result for
+that development checkpoint, not a selected candidate or publication approval.
+The [portable receipt](../../../devtools/data/scientific_source_correspondence_receiving_636_20261107.json)
+retains original negative outcomes, the 23 passing tool controls and the complete
+actual molecular certificate. No Git response or oracle result is fabricated.
+
+The named guard fails if loaded untracked input, restored source or a changed
+commit can again qualify, and retains legitimate clean/artifact positives.
+Source delivery and board verification are recorded separately in the release
+ledger. #635/newer-host, broader #421 and #524 installed/public-host acceptance
+and exact final-candidate gates remain separate.
+
+All fourteen final fast source gates pass. The complete public API, dependency,
+form delivery, course and documentation-governance scopes are retained; no
+remote matrix or publication step follows automatically.

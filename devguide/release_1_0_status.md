@@ -44,8 +44,12 @@ records source/board acceptance; [receiving](../devtools/data/xyz_coordinate_rep
 retains the passing controls and original failures. The complete board has
 570 issues, 99 open, through #638. Public audit-related closures are **25**.
 
-Next: correct #636's untracked-source certification gap, and
-separately receive published PR head
+#636 is qualified in committed source `970cf51b7`: 23 actual runner controls
+pass, and the 107 molecular cases/68 nodes pass `--require-clean` with identical
+clean source snapshots. Its [receipt](../devtools/data/scientific_source_correspondence_receiving_636_20261107.json)
+retains original failed controls and the complete certificate. Scientific/source
+eligibility for this development checkpoint does not select a release candidate.
+Next: deliver/close #636 and separately receive published PR head
 `42f5ed3bc` and #635's endpoint guards on its actual newer Viewer. The current
 results qualify exact Viewer `25061d9e9` only. Remaining #421 graphical,
 Jupyter/navigation, installed and human acceptance and #524 public-host/clean
