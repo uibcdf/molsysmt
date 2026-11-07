@@ -737,7 +737,7 @@ CODES = {
     "MSM-ERR-DEP-001": {
         "title": "Missing library",
         "user_message": "Library '{library}' is not installed.",
-        "user_hint": "Install '{library}' to use this functionality. Docs: {doc_url} | Issues: {issues_url}",
+        "user_hint": "Install a provider for '{library}' using its supported acquisition route. Docs: {doc_url} | Issues: {issues_url}",
         "dev_message": "Missing library '{library}' required by '{caller}'.",
         "dev_hint": "Add dependency or guard optional path. Issues: {issues_url}",
         "qa_message": "Missing library '{library}' required by '{caller}'.",

@@ -21,6 +21,7 @@ dependencies:
 - matplotlib >=3.8.4
 - openmm>=8.2.0
 - pdbfixer>=1.11
+# Supplies the supported PyTraj build as well as the AmberTools executables.
 - ambertools
 - openff-toolkit-base >=0.17.1
 - openff-units >=0.3.0
@@ -29,21 +30,19 @@ dependencies:
 - mdanalysis>=2.8.0
 - rdkit>=2024.3.4
 - parmed>=4.3.1
-- biopython
+- biopython>=1.80
 - ipywidgets
 - py-mmcif >=1.1.1
 # Documentation-only contact-map generation; not a runtime engine.
 - plotly
 - anywidget
-- nglview
+- nglview>=3.0.4
 - pytest
 - pytest-receptor=1.1.0
 - pytest-cov
 - codecov
 - pytest-xdist
 - ruff=0.16.5
-- pip:
-  - pytraj
 - jupyterlab
 - sphinx
 - pydata-sphinx-theme

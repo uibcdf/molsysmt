@@ -42,8 +42,362 @@ def _replace(path: Path, old: str, new: str) -> None:
     path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
 
+def _replace_provider_table(root: Path, replacement: str) -> None:
+    path = root / "pyproject.toml"
+    text = path.read_text()
+    start = text.index("[tool.molsysmt.provider-requirements]")
+    end = text.index("\n[", start + 1)
+    path.write_text(text[:start] + replacement + "\n" + text[end:])
+
+
 def test_current_dependency_routes_are_coherent():
     assert audit(ROOT) == []
+
+
+def test_optional_conda_only_route_does_not_require_a_pypi_alias(contract_tree):
+    _replace(
+        contract_tree / "molsysmt/_depdigest.py",
+        "LIBRARIES = {",
+        'LIBRARIES = {\n    "example_engine": {"type": "soft", "pypi": None, '
+        '"conda": "example-bundle", "channel": "conda-forge"},',
+    )
+    assert audit(contract_tree) == []
+
+
+@pytest.mark.parametrize(
+    ("metadata", "message"),
+    [
+        ('{"type": "hard", "pypi": None}', "has no public Python distribution route"),
+        ('{"type": "unknown", "pypi": None}', "unknown dependency classification"),
+        ('{"type": "soft", "pypi": false}', "invalid Python distribution route"),
+        ('{"type": "soft", "pypi": ""}', "invalid Python distribution route"),
+    ],
+)
+def test_disabled_pip_route_does_not_hide_invalid_classification(
+    contract_tree, metadata, message
+):
+    # The fixture is Python source, not JSON.
+    metadata = metadata.replace("false", "False")
+    _replace(
+        contract_tree / "molsysmt/_depdigest.py",
+        "LIBRARIES = {",
+        f'LIBRARIES = {{\n    "example_engine": {metadata},',
+    )
+    assert any(message in finding.message for finding in audit(contract_tree))
+
+
+@pytest.mark.parametrize("environment", ["development_env.yaml", "test_env.yaml"])
+def test_required_conda_provider_cannot_be_removed(contract_tree, environment):
+    path = f"devtools/conda-envs/{environment}"
+    _replace(contract_tree / path, "- ambertools\n", "")
+    assert any(
+        finding.path == path
+        and "missing Conda provider pytraj: ambertools" in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+@pytest.mark.parametrize(
+    ("conda", "pip", "message"),
+    [
+        (["ambertools", "pytraj >=2.0.6"], [], "standalone dependency pytraj"),
+        (["ambertools"], ["pytraj>=2.0.6"], "standalone dependency pytraj"),
+        (["ambertools"], ["ambertools"], "pip override for Conda provider pytraj"),
+        (["ambertools", "ambertools"], [], "duplicate Conda provider pytraj"),
+        (["ambertools", "ambertools <23.0"], [], "duplicate Conda provider pytraj"),
+        (["ambertools >=26"], [], "unqualified constraint for Conda provider pytraj"),
+        (
+            ["ambertools[unreviewed]"],
+            [],
+            "unqualified constraint for Conda provider pytraj",
+        ),
+        (
+            ["ambertools; python_version < '3.0'"],
+            [],
+            "unqualified constraint for Conda provider pytraj",
+        ),
+        (
+            ["ambertools @ https://example.invalid/bundle.whl"],
+            [],
+            "unqualified constraint for Conda provider pytraj",
+        ),
+    ],
+)
+def test_required_conda_provider_rejects_overrides_and_invented_floors(
+    contract_tree, conda, pip, message
+):
+    path = "devtools/conda-envs/test_env.yaml"
+    payload = yaml.safe_load((contract_tree / path).read_text())
+    payload["dependencies"].remove("ambertools")
+    payload["dependencies"].extend(conda)
+    if pip:
+        payload["dependencies"].append({"pip": pip})
+    (contract_tree / path).write_text(yaml.safe_dump(payload, sort_keys=False))
+    assert any(
+        finding.path == path and message in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+@pytest.mark.parametrize(
+    ("channels", "message"),
+    [
+        (["uibcdf", "ambermd"], "missing declared channel conda-forge"),
+        ("conda-forge", "environment channels must be a list"),
+        ([False], "environment channels must be a list"),
+    ],
+)
+def test_conda_provider_requires_its_declared_channel(contract_tree, channels, message):
+    path = "devtools/conda-envs/test_env.yaml"
+    payload = yaml.safe_load((contract_tree / path).read_text())
+    payload["channels"] = channels
+    (contract_tree / path).write_text(yaml.safe_dump(payload, sort_keys=False))
+    assert any(
+        finding.path == path and message in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+@pytest.mark.parametrize(
+    ("value", "message"),
+    [
+        ('"pytraj"', "must be a list of registry capability names"),
+        ("[false]", "must be a list of registry capability names"),
+        ('["pytraj", "pytraj"]', "declares a capability more than once"),
+        ('["not_a_provider"]', "unknown Conda provider capability not_a_provider"),
+        ('["pytraj>=2.0.6"]', "unknown Conda provider capability pytraj>=2.0.6"),
+        ('["nglview"]', "is not a soft Conda-only provider"),
+    ],
+)
+def test_conda_provider_inventory_uses_unique_known_capabilities(
+    contract_tree, value, message
+):
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        'conda_provider_required = ["pytraj", "openff.toolkit", "openff.units"]',
+        f"conda_provider_required = {value}",
+    )
+    assert any(message in finding.message for finding in audit(contract_tree))
+
+
+def test_misspelled_provider_inventory_cannot_disable_acquisition_checks(contract_tree):
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        'conda_provider_required = ["pytraj", "openff.toolkit", "openff.units"]',
+        'conda_providers_required = ["pytraj"]',
+    )
+    assert any(
+        "unknown environment inventory fields" in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+@pytest.mark.parametrize(
+    ("old", "new", "message"),
+    [
+        ('"pypi": None', '"pypi": "pytraj"', "is not a soft Conda-only provider"),
+        ('"conda": "ambertools"', '"conda": None', "invalid Conda package route"),
+        ('"conda": "ambertools"', '"conda": False', "invalid Conda package route"),
+        ('"conda": "ambertools"', '"conda": ""', "invalid Conda package route"),
+        (
+            '"conda": "ambertools"',
+            '"conda": "ambertools>=26"',
+            "invalid Conda package route",
+        ),
+        ('"channel": "conda-forge"', '"channel": None', "invalid Conda channel"),
+        ('"channel": "conda-forge"', '"channel": False', "invalid Conda channel"),
+        ('"channel": "conda-forge"', '"channel": ""', "invalid Conda channel"),
+    ],
+)
+def test_conda_provider_routes_come_from_valid_registry_metadata(
+    contract_tree, old, new, message
+):
+    _replace(contract_tree / "molsysmt/_depdigest.py", old, new)
+    assert any(message in finding.message for finding in audit(contract_tree))
+
+
+@pytest.mark.parametrize("requirement", ["pytraj>=2.0.6", "ambertools>=26"])
+@pytest.mark.parametrize("extra", ["soft", "test"])
+def test_conda_only_provider_cannot_gain_a_fake_public_pip_route(
+    contract_tree, requirement, extra
+):
+    _replace(
+        contract_tree / "pyproject.toml",
+        f"{extra} = [",
+        f'{extra} = [\n  "{requirement}",',
+    )
+    assert any(
+        "Conda-only provider pytraj has a public pip requirement" in finding.message
+        for finding in audit(contract_tree)
+    )
+
+
+def test_another_required_conda_provider_uses_its_own_registry_route(contract_tree):
+    _replace(
+        contract_tree / "molsysmt/_depdigest.py",
+        "LIBRARIES = {",
+        'LIBRARIES = {\n    "example_engine": {"type": "soft", "pypi": None, '
+        '"conda": "example-bundle", "channel": "example-channel"},',
+    )
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        'conda_provider_required = ["pytraj", "openff.toolkit", "openff.units"]',
+        'conda_provider_required = ["pytraj", "openff.toolkit", "openff.units", "example_engine"]',
+    )
+    path = contract_tree / "devtools/conda-envs/development_env.yaml"
+    payload = yaml.safe_load(path.read_text())
+    payload["dependencies"].append("example-bundle")
+    payload["channels"].append("example-channel")
+    path.write_text(yaml.safe_dump(payload, sort_keys=False))
+    assert audit(contract_tree) == []
+
+
+@pytest.mark.parametrize(
+    ("replacement", "message"),
+    [
+        ("[tool.molsysmt]\nprovider-requirements = false", "must be a table"),
+        ("[tool.molsysmt]\nprovider-requirements = []", "must be a table"),
+        (
+            '[tool.molsysmt.provider-requirements]\n"openff.toolkit" = false',
+            "invalid provider requirement",
+        ),
+        (
+            '[tool.molsysmt.provider-requirements]\n"openff.toolkit" = []',
+            "invalid provider requirement",
+        ),
+        (
+            '[tool.molsysmt.provider-requirements]\n"unknown.engine" = "example>=1"',
+            "unknown provider-requirements capability",
+        ),
+        (
+            '[tool.molsysmt.provider-requirements]\n"nglview" = "nglview>=3.0.4"',
+            "is not Conda-only",
+        ),
+        (
+            '[tool.molsysmt.provider-requirements]\n"openff.toolkit" = "openff-toolkit"',
+            "must declare only version constraints",
+        ),
+        (
+            '[tool.molsysmt.provider-requirements]\n"openff.toolkit" = "openff-toolkit>=0.17.1; python_version < \'3.0\'"',
+            "must declare only version constraints",
+        ),
+        (
+            '[tool.molsysmt.provider-requirements]\n"openff.toolkit" = "openff-toolkit[extra]>=0.17.1"',
+            "must declare only version constraints",
+        ),
+        (
+            '[tool.molsysmt.provider-requirements]\n"openff.toolkit" = "openff-toolkit @ https://example.invalid/toolkit.whl"',
+            "must declare only version constraints",
+        ),
+        (
+            '[tool.molsysmt.provider-requirements]\n"openff.toolkit" = "openff-toolkit>=0.17.1"\n"openff.units" = "OpenFF_Toolkit>=0.3.0"',
+            "duplicate provider requirement distribution",
+        ),
+    ],
+)
+def test_noninstaller_provider_requirements_validate_schema_and_identity(
+    contract_tree, replacement, message
+):
+    _replace_provider_table(contract_tree, replacement)
+    with pytest.raises(ValueError, match=message):
+        audit(contract_tree)
+
+
+def test_provider_conda_packages_cannot_be_duplicated(contract_tree):
+    _replace(
+        contract_tree / "molsysmt/_depdigest.py",
+        '"conda": "openff-units"',
+        '"conda": "openff-toolkit-base"',
+    )
+    with pytest.raises(ValueError, match="duplicate provider Conda package"):
+        audit(contract_tree)
+
+
+def test_derived_provider_alias_cannot_be_redeclared_in_the_inventory(contract_tree):
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        "[conda_names]",
+        '[conda_names]\nopenff-toolkit = "openff-toolkit-base"',
+    )
+    with pytest.raises(ValueError, match="must be derived from DepDigest only"):
+        audit(contract_tree)
+
+
+def test_an_alternate_alias_cannot_invent_a_conda_provider_package(contract_tree):
+    _replace(
+        contract_tree / "devtools/dependency_contract.toml",
+        "[conda_names]",
+        '[conda_names]\nopenff-toolkit = "made-up-toolkit"',
+    )
+    path = contract_tree / "devtools/conda-envs/docs_env.yaml"
+    payload = yaml.safe_load(path.read_text())
+    payload["dependencies"].append("made-up-toolkit >=0.17.1")
+    path.write_text(yaml.safe_dump(payload, sort_keys=False))
+    with pytest.raises(ValueError, match="must be derived from DepDigest only"):
+        audit(contract_tree)
+
+
+@pytest.mark.parametrize("extra", ["soft", "test"])
+@pytest.mark.parametrize(
+    "requirement",
+    ["openff-toolkit>=0.17.1", "openff-toolkit-base>=0.17.1", "openff-units>=0.3.0"],
+)
+def test_versioned_conda_provider_cannot_be_advertised_as_a_pip_installer(
+    contract_tree, extra, requirement
+):
+    _replace(
+        contract_tree / "pyproject.toml",
+        f"{extra} = [",
+        f'{extra} = [\n  "{requirement}",',
+    )
+    with pytest.raises(ValueError, match="has a public pip requirement"):
+        audit(contract_tree)
+
+
+@pytest.mark.parametrize(
+    "requirement",
+    ["openff-toolkit>=0.17.1", "openff-toolkit-base>=0.17.1", "openff-units>=0.3.0"],
+)
+def test_observed_nonrequired_provider_still_uses_its_conda_route(
+    contract_tree, requirement
+):
+    path = "devtools/conda-envs/docs_env.yaml"
+    payload = yaml.safe_load((contract_tree / path).read_text())
+    payload["dependencies"].append({"pip": [requirement]})
+    (contract_tree / path).write_text(yaml.safe_dump(payload, sort_keys=False))
+    assert any(
+        finding.path == path
+        and (
+            "standalone dependency openff-toolkit" in finding.message
+            or "pip override for Conda provider openff." in finding.message
+        )
+        for finding in audit(contract_tree)
+    )
+
+
+def test_absent_nonrequired_versioned_providers_remain_optional(contract_tree):
+    path = contract_tree / "devtools/dependency_contract.toml"
+    path.write_text(path.read_text().replace(', "openff.toolkit", "openff.units"', ""))
+    for environment in ("development_env.yaml", "test_env.yaml"):
+        path = contract_tree / "devtools/conda-envs" / environment
+        _replace(path, "- openff-toolkit-base >=0.17.1\n", "")
+        _replace(path, "- openff-units >=0.3.0\n", "")
+    assert audit(contract_tree) == []
+
+
+def test_provider_floor_changes_are_read_from_pyproject_not_a_second_registry(
+    contract_tree,
+):
+    _replace(
+        contract_tree / "pyproject.toml",
+        '"openff.units" = "openff-units>=0.3.0"',
+        '"openff.units" = "openff-units>=0.3.1"',
+    )
+    assert any(
+        "openff-units declares >=0.3.0; pyproject.toml requires >=0.3.1"
+        in finding.message
+        for finding in audit(contract_tree)
+    )
 
 
 @pytest.mark.parametrize(
@@ -164,9 +518,8 @@ def test_required_optional_provider_must_not_hide_behind_a_pip_override(
     path = "devtools/conda-envs/test_env.yaml"
     payload = yaml.safe_load((contract_tree / path).read_text())
     payload["dependencies"].remove("openff-toolkit-base >=0.17.1")
-    pip = next(
-        item["pip"] for item in payload["dependencies"] if isinstance(item, dict)
-    )
+    pip = []
+    payload["dependencies"].append({"pip": pip})
     pip.append(replacement)
     (contract_tree / path).write_text(yaml.safe_dump(payload, sort_keys=False))
     assert any(
@@ -190,11 +543,10 @@ def test_matching_optional_extra_declarations_remain_parseable(contract_tree):
         "soft = [",
         'soft = [\n  "example-optional[analysis]>=2",',
     )
-    _replace(
-        contract_tree / "devtools/conda-envs/test_env.yaml",
-        "  - pytraj",
-        "  - pytraj\n  - example-optional[analysis]>=2",
-    )
+    path = contract_tree / "devtools/conda-envs/test_env.yaml"
+    payload = yaml.safe_load(path.read_text())
+    payload["dependencies"].append({"pip": ["example-optional[analysis]>=2"]})
+    path.write_text(yaml.safe_dump(payload, sort_keys=False))
     assert audit(contract_tree) == []
 
 
@@ -215,7 +567,7 @@ def test_required_optional_provider_must_have_a_public_declaration(contract_tree
 def test_invalid_optional_coverage_declarations_fail(contract_tree, value):
     _replace(
         contract_tree / "devtools/dependency_contract.toml",
-        'optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "mdanalysis", "rdkit", "parmed", "openff-toolkit", "openff-units"]',
+        'optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "mdanalysis", "rdkit", "parmed", "biopython", "nglview"]',
         f"optional_required = {value}",
     )
     assert any(

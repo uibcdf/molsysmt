@@ -67,15 +67,15 @@ soft = [
   "MDAnalysis>=2.8.0",
   # Coordinate export/CIP use Conformer.SetPositions, available since 2024.03.4 (#524).
   "rdkit>=2024.3.4",
-  "openff-toolkit>=0.17.1",
-  "openff-units>=0.3.0",
   # Coordinate arrays and imports must support NumPy 2.3 and later (#524).
   "parmed>=4.3.1",
-  "pytraj",
-  "nglview",
+  # PyTraj is supplied by Conda-forge AmberTools; its pip project is obsolete (#524).
+  # Public HTML export must support ipywidgets 8's widget-state API (#524).
+  "nglview>=3.0.4",
   # The pH hydrogen engine must complete ACE/NME cappings (#524).
   "pdbfixer>=1.11",
-  "biopython"
+  # Operational public alignment-row indexing is available since 1.80 (#524).
+  "biopython>=1.80"
 ]
 test = [
   "pytest>=6.1.2",
@@ -99,6 +99,11 @@ dev = [
   "pytest-cov",
   "ruff==0.16.5"
 ]
+
+[tool.molsysmt.provider-requirements]
+# Supported Conda-only providers; these constraints are not pip installers (#524).
+"openff.toolkit" = "openff-toolkit>=0.17.1"
+"openff.units" = "openff-units>=0.3.0"
 
 [tool.setuptools]
 # This subkey is a beta stage development and keys may change in the future, see https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html for more details

@@ -41,8 +41,8 @@ jobs:
             pyunitwizard>=0.28.1 molsysviewer ackredit>=0.9.0 setuptools-rust>=1.10
             setuptools>=77.0.3 versioningit>=3 pytest pytest-xdist pytest-receptor=1.1.0
             pyyaml packaging pint scipy openmm>=8.2.0 mdtraj>=1.11.0 pyparsing!=3.3.3
-            mdanalysis>=2.8.0 rdkit>=2024.3.4 parmed>=4.3.1 biopython ipywidgets anywidget beartype
-            pydantic traitlets>=5 nglview jinja2
+            mdanalysis>=2.8.0 rdkit>=2024.3.4 parmed>=4.3.1 biopython>=1.80 ipywidgets anywidget beartype
+            pydantic traitlets>=5 nglview>=3.0.4 jinja2
 
       - name: Isolate the external LEaP reference from the Python consumer
         shell: bash -el {0}

@@ -7,7 +7,6 @@ runtime_extras = ["soft"]
 
 [conda_names]
 mmcif = "py-mmcif"
-openff-toolkit = "openff-toolkit-base"
 
 [recipes]
 conda_build = "devtools/conda-build/meta.yaml"
@@ -20,12 +19,15 @@ source_supplied = []
 [[environments]]
 path = "devtools/conda-envs/development_env.yaml"
 source_supplied = []
-optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "mdanalysis", "rdkit", "parmed", "openff-toolkit", "openff-units"]
+optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "mdanalysis", "rdkit", "parmed", "biopython", "nglview"]
+# Capability names only; package and channel are owned by the DepDigest registry.
+conda_provider_required = ["pytraj", "openff.toolkit", "openff.units"]
 
 [[environments]]
 path = "devtools/conda-envs/test_env.yaml"
 source_supplied = ["argdigest", "depdigest", "smonitor", "pyunitwizard", "molsysviewer"]
-optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "mdanalysis", "rdkit", "parmed", "openff-toolkit", "openff-units"]
+optional_required = ["mdtraj", "pyparsing", "openmm", "pdbfixer", "mdanalysis", "rdkit", "parmed", "biopython", "nglview"]
+conda_provider_required = ["pytraj", "openff.toolkit", "openff.units"]
 
 [[environments]]
 path = "devtools/conda-envs/docs_env.yaml"

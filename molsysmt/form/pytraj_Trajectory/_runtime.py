@@ -48,7 +48,8 @@ def ensure_safe_runtime() -> None:
             form="pytraj.Trajectory",
             message=(
                 "The installed PyTraj extension contains the obsolete Frame.__del__ "
-                "finalizer and can abort under Python 3.13. Install a current "
-                "Cython 3-compatible PyTraj build before using pytraj.Trajectory."
+                "finalizer and can abort under Python 3.13 and later. Install a "
+                "compatible PyTraj build from Conda-forge AmberTools before using "
+                "pytraj.Trajectory."
             ),
         )

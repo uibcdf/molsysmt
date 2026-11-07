@@ -23,7 +23,7 @@ CONTRACT = Path("devtools/dependency_contract.toml")
 PIN_LINE = re.compile(
     r"git\+https://github\.com/uibcdf/(?P<name>[A-Za-z0-9_.-]+)@(?P<sha>[0-9a-f]{40})"
 )
-SPEC_NAME = re.compile(r"^\s*(?P<name>[A-Za-z0-9_.-]+)(?:\s|[<>=!~\[]|$)")
+SPEC_NAME = re.compile(r"^\s*(?P<name>[A-Za-z0-9_.-]+)(?:\s|[<>=!~;\[]|$)")
 
 
 @dataclass(frozen=True)
@@ -115,24 +115,31 @@ def _recipe_items(path: Path) -> list[str]:
     return items
 
 
-def _environment_items(path: Path) -> list[str]:
+def _environment_routes(path: Path) -> tuple[list[str], list[str], list[str]]:
+    """Keep Conda and pip acquisition distinct while reading an environment."""
     content = yaml.safe_load(path.read_text(encoding="utf-8"))
     dependencies = content.get("dependencies") if isinstance(content, dict) else None
     if not isinstance(dependencies, list):
         raise ValueError("environment has no dependencies list")
-    items = []
+    channels = content.get("channels", [])
+    if not isinstance(channels, list) or not all(
+        isinstance(channel, str) and channel.strip() for channel in channels
+    ):
+        raise ValueError("environment channels must be a list of nonempty strings")
+    conda = []
+    pip = []
     for dependency in dependencies:
         if isinstance(dependency, str):
-            items.append(dependency)
+            conda.append(dependency)
         elif isinstance(dependency, dict) and set(dependency) == {"pip"}:
             if not isinstance(dependency["pip"], list) or not all(
                 isinstance(item, str) for item in dependency["pip"]
             ):
                 raise ValueError("pip dependencies must be a list of strings")
-            items.extend(dependency["pip"])
+            pip.extend(dependency["pip"])
         else:
             raise ValueError(f"unsupported environment dependency: {dependency!r}")
-    return items
+    return conda, pip, channels
 
 
 def _observed_requirements(
@@ -222,8 +229,8 @@ def _controlled_names(path: Path) -> set[str]:
     return names
 
 
-def _registry_findings(root: Path, project: set[str]) -> list[Finding]:
-    """Compare hard/soft form classification with public runtime metadata."""
+def _registry_libraries(root: Path) -> dict:
+    """Read provider metadata without importing MolSysMT or optional engines."""
     path = "molsysmt/_depdigest.py"
     tree = ast.parse((root / path).read_text(encoding="utf-8"))
     declaration = next(
@@ -241,10 +248,38 @@ def _registry_findings(root: Path, project: set[str]) -> list[Finding]:
     if declaration is None:
         raise ValueError("the DepDigest LIBRARIES registry is missing")
     libraries = ast.literal_eval(declaration.value)
+    if not isinstance(libraries, dict):
+        raise ValueError("the DepDigest LIBRARIES registry must be a mapping")
+    return libraries
+
+
+def _registry_findings(libraries: dict, project: set[str]) -> list[Finding]:
+    """Compare hard/soft form classification with public runtime metadata."""
+    path = "molsysmt/_depdigest.py"
     findings = []
-    for metadata in libraries.values():
-        name = canonicalize_name(metadata["pypi"])
+    for library, metadata in libraries.items():
         kind = metadata["type"]
+        if kind not in {"hard", "soft"}:
+            findings.append(
+                Finding(path, f"unknown dependency classification {kind!r}")
+            )
+            continue
+        distribution = metadata.get("pypi", library)
+        if distribution is None:
+            if kind == "hard":
+                findings.append(
+                    Finding(
+                        path,
+                        f"hard form dependency {library} has no public Python distribution route",
+                    )
+                )
+            continue
+        if not isinstance(distribution, str) or not distribution.strip():
+            findings.append(
+                Finding(path, f"invalid Python distribution route for {library}")
+            )
+            continue
+        name = canonicalize_name(distribution)
         if kind == "hard" and name not in project:
             findings.append(
                 Finding(
@@ -258,9 +293,182 @@ def _registry_findings(root: Path, project: set[str]) -> list[Finding]:
                     f"soft form dependency {name} is an unconditional runtime requirement",
                 )
             )
-        elif kind not in {"hard", "soft"}:
+    return findings
+
+
+def _provider_requirements(
+    root: Path, libraries: dict, public_python_names: set[str]
+) -> tuple[dict[str, Requirement], dict[str, str]]:
+    """Read non-installer provider constraints and derive their Conda aliases."""
+    tools = _load_toml(root / "pyproject.toml").get("tool", {})
+    if not isinstance(tools, dict):
+        raise ValueError("tool must be a table")
+    owner = tools.get("molsysmt", {})
+    if not isinstance(owner, dict):
+        raise ValueError("tool.molsysmt must be a table")
+    declarations = owner.get("provider-requirements", {})
+    if not isinstance(declarations, dict):
+        raise ValueError(
+            "provider-requirements must be a table of capability requirements"
+        )
+    requirements = {}
+    names = set()
+    aliases = {}
+    for library, raw in declarations.items():
+        metadata = libraries.get(library)
+        if metadata is None:
+            raise ValueError(f"unknown provider-requirements capability {library}")
+        if metadata.get("type") != "soft" or metadata.get("pypi", library) is not None:
+            raise ValueError(
+                f"provider-requirements capability {library} is not Conda-only"
+            )
+        if not isinstance(raw, str) or not raw.strip():
+            raise ValueError(f"invalid provider requirement for {library}")
+        name, requirement = _requirement(raw, {})
+        if (
+            not requirement.specifier
+            or requirement.marker
+            or requirement.extras
+            or requirement.url
+        ):
+            raise ValueError(
+                f"provider requirement for {library} must declare only version constraints"
+            )
+        if name in names:
+            raise ValueError(f"duplicate provider requirement distribution: {name}")
+        names.add(name)
+        package = metadata.get("conda")
+        if not isinstance(package, str) or not package.strip():
+            raise ValueError(f"invalid Conda package route for {library}")
+        package_name, parsed = _requirement(package, {})
+        if parsed.specifier or parsed.marker or parsed.extras or parsed.url:
+            raise ValueError(f"invalid Conda package route for {library}")
+        channel = metadata.get("channel")
+        if not isinstance(channel, str) or not channel.strip():
+            raise ValueError(f"invalid Conda channel for {library}")
+        if package_name in aliases:
+            raise ValueError(f"duplicate provider Conda package: {package_name}")
+        if {name, package_name} & public_python_names:
+            raise ValueError(
+                f"Conda-only provider {library} has a public pip requirement"
+            )
+        aliases[package_name] = name
+        requirements[library] = requirement
+    return requirements, aliases
+
+
+def _conda_provider_findings(
+    path: str,
+    required: list[str],
+    libraries: dict,
+    conda: list[str],
+    pip: list[str],
+    channels: list[str],
+    public_python_names: set[str],
+    provider_requirements: dict[str, Requirement],
+) -> list[Finding]:
+    """Check declared Conda-only acquisition, without asserting provider ABI support."""
+    if not isinstance(required, list) or not all(
+        isinstance(name, str) and name.strip() for name in required
+    ):
+        raise ValueError(
+            "conda_provider_required must be a list of registry capability names"
+        )
+    if len(set(required)) != len(required):
+        raise ValueError("conda_provider_required declares a capability more than once")
+    selected = set(required)
+    observed_names = {_name(raw) for raw in [*conda, *pip]}
+    for library, metadata in libraries.items():
+        if metadata.get("type") != "soft" or metadata.get("pypi", library) is not None:
+            continue
+        names = {canonicalize_name(library.split(".")[0])}
+        package = metadata.get("conda")
+        if isinstance(package, str) and package.strip():
+            names.add(_name(package))
+        if library in provider_requirements:
+            names.add(canonicalize_name(provider_requirements[library].name))
+        if names & observed_names:
+            selected.add(library)
+    findings = []
+    for library in sorted(selected):
+        metadata = libraries.get(library)
+        if metadata is None:
             findings.append(
-                Finding(path, f"unknown dependency classification {kind!r}")
+                Finding(path, f"unknown Conda provider capability {library}")
+            )
+            continue
+        if metadata.get("type") != "soft" or metadata.get("pypi", library) is not None:
+            findings.append(
+                Finding(path, f"{library} is not a soft Conda-only provider")
+            )
+            continue
+        package = metadata.get("conda")
+        if not isinstance(package, str) or not package.strip():
+            findings.append(Finding(path, f"invalid Conda package route for {library}"))
+            continue
+        try:
+            package_name, expected = _requirement(package, {})
+        except ValueError:
+            findings.append(Finding(path, f"invalid Conda package route for {library}"))
+            continue
+        if expected.specifier or expected.extras or expected.marker or expected.url:
+            findings.append(Finding(path, f"invalid Conda package route for {library}"))
+            continue
+        channel = metadata.get("channel")
+        if not isinstance(channel, str) or not channel.strip():
+            findings.append(Finding(path, f"invalid Conda channel for {library}"))
+            continue
+        if channel not in channels:
+            findings.append(
+                Finding(path, f"missing declared channel {channel} for {library}")
+            )
+        standalone_names = {canonicalize_name(library.split(".")[0])}
+        requirement = provider_requirements.get(library)
+        if requirement is not None:
+            standalone_names.add(canonicalize_name(requirement.name))
+        names = standalone_names | {package_name}
+        for name in sorted(names & public_python_names):
+            findings.append(
+                Finding(
+                    path,
+                    f"Conda-only provider {library} has a public pip requirement {name}",
+                )
+            )
+        for standalone in sorted((standalone_names - {package_name}) & observed_names):
+            findings.append(
+                Finding(
+                    path,
+                    f"standalone dependency {standalone} overrides Conda provider {library}",
+                )
+            )
+        if any(_name(raw) == package_name for raw in pip):
+            findings.append(
+                Finding(
+                    path, f"pip override for Conda provider {library}: {package_name}"
+                )
+            )
+        provider_items = [raw for raw in conda if _name(raw) == package_name]
+        if not provider_items:
+            findings.append(
+                Finding(path, f"missing Conda provider {library}: {package_name}")
+            )
+            continue
+        if len(provider_items) > 1:
+            findings.append(
+                Finding(path, f"duplicate Conda provider {library}: {package_name}")
+            )
+            continue
+        _, actual = _requirement(provider_items[0], {})
+        if requirement is None and (
+            actual.specifier or actual.extras or actual.marker or actual.url
+        ):
+            findings.append(
+                Finding(
+                    path,
+                    f"unqualified constraint for Conda provider {library}: "
+                    f"{actual}; registry declares acquisition through {package_name} "
+                    "without a universal version floor",
+                )
             )
     return findings
 
@@ -288,6 +496,25 @@ def audit(root: Path) -> list[Finding]:
     if config.get("schema") != 1:
         raise ValueError("unsupported dependency-contract schema")
     project, optional, python = _project_requirements(root, config["runtime_extras"])
+    libraries = _registry_libraries(root)
+    project_metadata = _load_toml(root / "pyproject.toml")["project"]
+    public_python_names = {
+        canonicalize_name(Requirement(raw).name)
+        for declarations in [
+            project_metadata["dependencies"],
+            *project_metadata.get("optional-dependencies", {}).values(),
+        ]
+        for raw in declarations
+    }
+    providers, provider_aliases = _provider_requirements(
+        root, libraries, public_python_names
+    )
+    optional.update(
+        {
+            canonicalize_name(requirement.name): requirement
+            for requirement in providers.values()
+        }
+    )
     runtime_names = set(project) | set(optional)
     conda_names = {
         canonicalize_name(conda): canonicalize_name(public)
@@ -295,6 +522,11 @@ def audit(root: Path) -> list[Finding]:
     }
     if len(conda_names) != len(config["conda_names"]):
         raise ValueError("duplicate Conda name overrides")
+    if provider_aliases.keys() & conda_names.keys() or (
+        set(provider_aliases.values()) & set(conda_names.values())
+    ):
+        raise ValueError("provider Conda aliases must be derived from DepDigest only")
+    conda_names.update(provider_aliases)
     if not set(conda_names.values()) <= runtime_names:
         raise ValueError("a Conda name override does not name a public dependency")
     if any(
@@ -302,7 +534,7 @@ def audit(root: Path) -> list[Finding]:
     ):
         raise ValueError("a Conda name override shadows a different public dependency")
     findings: list[Finding] = []
-    findings.extend(_registry_findings(root, set(project)))
+    findings.extend(_registry_findings(libraries, set(project)))
     configured_recipes = set(config["recipes"].values())
     actual_recipes = {
         str(path.relative_to(root))
@@ -359,6 +591,16 @@ def audit(root: Path) -> list[Finding]:
         for name in sorted(supplied - controlled - {"molsysviewer"}):
             findings.append(Finding(path, f"{name} has no audited source provider"))
         try:
+            unknown_fields = set(entry) - {
+                "path",
+                "source_supplied",
+                "optional_required",
+                "conda_provider_required",
+            }
+            if unknown_fields:
+                raise ValueError(
+                    f"unknown environment inventory fields: {sorted(unknown_fields)}"
+                )
             optional_names = entry.get("optional_required", [])
             if not isinstance(optional_names, list) or not all(
                 isinstance(name, str) for name in optional_names
@@ -378,13 +620,32 @@ def audit(root: Path) -> list[Finding]:
                         f"required optional dependency {name} is not in runtime extras",
                     )
                 )
-            items = _environment_items(root / path)
+            conda, pip, channels = _environment_routes(root / path)
+            findings.extend(
+                _conda_provider_findings(
+                    path,
+                    entry.get("conda_provider_required", []),
+                    libraries,
+                    conda,
+                    pip,
+                    channels,
+                    public_python_names,
+                    providers,
+                )
+            )
+            items = [*conda, *pip]
             observed, _ = _observed_requirements(items, runtime_names, conda_names)
             findings.extend(_compare_requirements(path, project, observed, supplied))
             selected_optional = {
                 name: requirement
                 for name, requirement in optional.items()
-                if name in observed or name in required_optional
+                if name in observed
+                or name in required_optional
+                or any(
+                    canonicalize_name(providers[capability].name) == name
+                    for capability in entry.get("conda_provider_required", [])
+                    if capability in providers
+                )
             }
             findings.extend(
                 _compare_requirements(path, selected_optional, observed, set())

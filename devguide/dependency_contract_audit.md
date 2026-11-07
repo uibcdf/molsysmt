@@ -3,7 +3,10 @@
 This is the maintained, repository-local route for changing a runtime
 dependency. The public package contract is the `dependencies` list and
 `requires-python` field in `pyproject.toml`. Runtime features in selected
-`project.optional-dependencies` extras remain optional. The form adapter's hard/soft
+`project.optional-dependencies` extras remain optional. Supported constraints for
+providers acquired outside pip live in that file's
+`tool.molsysmt.provider-requirements` table; this table is not an installer extra.
+The form adapter's hard/soft
 classification is owned separately by `molsysmt/_depdigest.py`. Exact source
 SHAs used while a coordinated Conda pair is staged live in the controlled
 source manifest named by `devtools/dependency_contract.toml`; those SHAs do
@@ -14,10 +17,12 @@ currently it selects `soft`, independently of test and documentation tools.
 Their names, version constraints, extras, markers and URLs are read from
 pyproject.toml. An environment must match each optional provider it explicitly
 provisions. `optional_required` additionally protects deliberate feature coverage
-by name, including MDTraj, its parser and the two OpenFF providers in development
+by name, including MDTraj and its parser. `conda_provider_required` protects
+Conda-only capabilities, including PyTraj and both OpenFF providers in development
 and test environments. Missing nonrequired optional engines are allowed; recipes
-still provision only unconditional runtime requirements. Conda names such as
-`openff-toolkit-base` resolve to their public Python provider without a second
+still provision only unconditional runtime requirements. Versioned Conda-only
+providers join the auditor's optional requirements through the non-installer
+table. Their package names and channels come from DepDigest, without a second
 version registry. Unknown extras, conflicting declarations and duplicate aliases
 cannot hide a missing provider.
 
@@ -231,3 +236,53 @@ uibcdf/molsysmt#486 when a corrected parser is published. The exact exclusion
 already permits successors, so receiving a fixed version does not require
 re-admitting the broken artifact. Qualify actual package imports before
 changing the verified development baseline or claiming compatibility.
+
+## Conda-only optional providers
+
+The PyTraj provider is acquired through Conda-forge AmberTools. The standalone
+pip project is obsolete for current Python. DepDigest owns this route with
+`pypi=None`, `conda="ambertools"`, and `channel="conda-forge"`; it remains a soft
+provider and is not promoted to a mandatory runtime dependency or a fabricated
+PyPI alias. The development/test environments select AmberTools directly.
+
+OpenFF Toolkit and Units also use Conda-forge acquisition. The registered routes
+are `openff.toolkit` through `openff-toolkit-base` and `openff.units` through
+`openff-units`, both with `pypi=None`. Their supported constraints remain in
+`pyproject.toml` under `tool.molsysmt.provider-requirements`.
+
+The table keys identify capabilities; the values identify providers and version
+constraints for audit comparison. They do not claim a usable PyPI installer or
+request pip installation. DepDigest's package name derives the Toolkit base
+alias, so it is not repeated in the route inventory. Provider requirements must
+use registered soft Conda-only capabilities, distinct distribution/package
+identities and version constraints without markers, extras or direct URLs.
+
+An environment inventory can require such a route using
+`conda_provider_required = ["pytraj", "openff.toolkit", "openff.units"]`.
+These are exact capability keys in the
+DepDigest registry, without package versions. The auditor derives the package
+and channel from that owner, keeps Conda and pip entries separate, and rejects
+missing/duplicate bundles, standalone overrides, disabled-route pip requirements
+and constraints that disagree with `pyproject.toml`. PyTraj has no declared
+universal version floor; its AmberTools acquisition remains unversioned. A bundle
+version is not interpreted as a PyTraj version. Invalid
+or unknown capability declarations fail explicitly. No second package/version
+mapping is maintained in the route inventory.
+
+An explicitly provisioned Conda-only provider follows the same route even in an
+environment that does not require it for coverage. A pip override in the docs
+environment cannot bypass these checks. Absent nonrequired providers remain
+optional. Disabled-route packages cannot reappear in any public pip extra.
+
+This static check verifies acquisition declarations, not a resolver result,
+native ABI or scientific engine behavior. A declared channel's presence does
+not prove which artifact a solver chooses. Retain exact URLs/hashes, import
+origins and actual engine tests for receiving. PyTraj's extension ABI differs
+between bundles sharing a version label; the existing finalizer and chain-ID
+checks remain necessary. Reassess the acquisition baseline with provider/build
+evidence rather than assigning an AmberTools version to PyTraj.
+
+The auditor compares declared Conda constraints; it does not infer Conda package
+versions from installed Python distribution metadata. Those identities can
+differ, including the received OpenFF Units minimum's Python metadata. Retain
+the actual package artifact and its provider execution evidence separately.
