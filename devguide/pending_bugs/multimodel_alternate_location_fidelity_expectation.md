@@ -1,13 +1,13 @@
 ---
 summary: Reconcile multi-model alternate-location fidelity with stable-ID preflight.
 issue: uibcdf/molsysmt#612
-status: open
+status: active
 opened: 2026-11-06
 closed:
 severity: medium
 verification: reproduced
 area: [build, convert, tests, molsysviewer]
-guard:
+guard: tests/conversion_truth/test_pdb_fidelity.py::test_pdb_multimodel_alternate_locations_share_a_canonical_atom_axis
 normative:
 blocked_by: []
 supersedes: []
@@ -61,3 +61,36 @@ consumer classifier, ID substitution or downstream scientific workaround is adde
 The complete 543-issue inventory and related alternate-location reports were
 reviewed before opening this follow-up. No native repair or test change is
 included in the reporting contribution.
+
+
+## Owner acceptance review — 2026-11-07
+
+Current main already contains the corrected fixture expectation from
+`ab789897bad51a7258f366aadc01840895d6366e`. The stable-ID preflight is retained:
+a single canonical atom axis cannot publish serial 1 in one structure and
+serial 2 in another. An occupancy-based conflicting request must fail before
+any primary coordinate or ID changes. Choosing A explicitly is valid across
+both structures. No label substitution or consumer workaround is accepted.
+
+The existing affected battery passes 103 cases, including five independent
+pagination controls for #587. That overlapping scope is not the full source
+suite required by this report. #587 is separately accepted and closed.
+
+Owner receiving strengthens the existing PDB round-trip guard beyond shapes:
+primary and alternate coordinates in nanometers, occupancies, B factors in
+square nanometers, alternate labels and serials, and stable primary atom and
+structure IDs are compared with the literal two-model fixture. Atomic rejection
+and valid explicit-A resolution remain in the same test. Runtime code and the
+scientific decision are unchanged.
+
+The strengthened affected battery passes 103 cases (native exit 0). The
+unmodified historical test body from `ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6`,
+executed as an isolated negative control against the current runtime, still
+fails once at the stable-ID preflight (native exit 1). This preserves the
+original disagreement rather than weakening the scientific safety boundary.
+
+Next: commit the reviewed inputs and execute the complete default source suite
+on that exact clean commit. Retain
+all native outcomes and source fingerprints; do not close this report from
+focused passes alone. Local full-source evidence does not replace the required
+platform, installed-pair or final-candidate gates under #334.
