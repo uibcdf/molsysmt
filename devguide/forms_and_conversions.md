@@ -145,6 +145,14 @@ atom subset, including an explicit full-length list; list length alone does not
 establish complete coverage. Invalid lists raise ArgumentError before copying
 or returning a source alias. `all` and a valid explicit complete set retain the
 method's `copy_if_all` contract; use `permute_atoms` for an explicit atom order.
+
+For `mdtraj.Topology`, explicit atom extraction retains source atom order and
+the form's existing coalescing of repeated positions. Retained parents alone
+are constructed, so local atom/group/chain indices are dense. Chain labels,
+group sequence labels including zero, segment labels, serials, known/unknown
+formal charges and bond type/order survive selection. The source is unchanged;
+no chemical interpretation or coordinate calculation occurs. This external form
+has no structure axis. Unrestricted extraction retains its copy/alias policy.
 H5MSM stores the primary array and sparse alternatives
 without inventing missing values. The owning regression is
 `tests/form/mmcif_PdbxContainers_DataContainer/test_primary_occupancy.py`.

@@ -13,28 +13,55 @@ def extract(
     copy_if_all=True,
     skip_digestion=False,
 ):
-    """
-    Extracting a subset of elements or structures from form mdtraj.Topology.
-
+    """Extracting atoms with preserved metadata and a compact MDTraj hierarchy.
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
-    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
-    skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+    item : mdtraj.Topology
+        Source topology, which is left unchanged.
+    atom_indices : int or array_like or str
+        Atom indices to retain. The default is ``'all'``. Explicit subsets
+        follow source atom order and coalesce repeated positions.
+    structure_indices : int or array_like or str
+        Unused compatibility argument: this form has no structure axis.
+        The default is ``'all'``.
+    copy_if_all : bool
+        Whether ``'all'`` returns an independent copy. The default is True.
+        Explicit atom subsets always return an independent topology.
+    skip_digestion : bool
+        Whether to skip argument digestion for a trusted internal call.
+        The default is False.
 
     Returns
     -------
     mdtraj.Topology
-        Resulting object in mdtraj.Topology form.
+        Selected topology with dense atom, group and chain indices, retained
+        labels, atom serials and formal charges, and remapped bond metadata.
 
+    Notes
+    -----
+    Unknown formal charges remain unknown. Explicit zero group sequence labels
+    are preserved. Empty groups and chains are not copied into a subset.
+    No chemical perception or coordinate calculation is performed.
+
+    See Also
+    --------
+    molsysmt.basic.extract
+        Extracting from any supported molecular-system form.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> from molsysmt.native import MolSys
+    >>> molsys = MolSys(n_atoms=2)
+    >>> molsys.topology.atoms['atom_type'] = ['C', 'O']
+    >>> topology = msm.convert(molsys, to_form='mdtraj.Topology')
+    >>> extract(topology, atom_indices=[1]).n_atoms
+    1
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Form_mdtraj_Topology` and :ref:`Tutorial_Extract`.
 
     .. versionadded:: 1.0.0
     """
@@ -53,27 +80,32 @@ def extract(
             tmp_item = item
     else:
         from mdtraj.core.topology import Topology
-        from mdtraj.utils import ilen
 
         atom_indices_to_be_kept = set(atom_indices)
         newTopology = Topology()
         old_atom_to_new_atom = {}
 
-        for chain in item._chains:
-            newChain = newTopology.add_chain()
-            for residue in chain._residues:
-                resSeq = getattr(residue, "resSeq", None) or residue.index
-                newResidue = newTopology.add_residue(
-                    residue.name, newChain, resSeq, residue.segment_id
-                )
-                for atom in residue._atoms:
+        for chain in item.chains:
+            newChain = None
+            for residue in chain.residues:
+                newResidue = None
+                for atom in residue.atoms:
                     if atom.index in atom_indices_to_be_kept:
-                        try:  # OpenMM Topology objects don't have serial attributes, so we have to check first.
-                            serial = atom.serial
-                        except AttributeError:
-                            serial = None
+                        if newChain is None:
+                            newChain = newTopology.add_chain(chain_id=chain.chain_id)
+                        if newResidue is None:
+                            newResidue = newTopology.add_residue(
+                                residue.name,
+                                newChain,
+                                resSeq=residue.resSeq,
+                                segment_id=residue.segment_id,
+                            )
                         newAtom = newTopology.add_atom(
-                            atom.name, atom.element, newResidue, serial=serial
+                            atom.name,
+                            atom.element,
+                            newResidue,
+                            serial=atom.serial,
+                            formal_charge=atom.formal_charge,
                         )
                         old_atom_to_new_atom[atom] = newAtom
 
@@ -94,17 +126,6 @@ def extract(
                 pass
                 # we only put bonds into the new topology if both of their partners
                 # were indexed and thus HAVE a new atom
-
-        # Delete empty residues
-        newTopology._residues = [r for r in newTopology._residues if len(r._atoms) > 0]
-        for chain in newTopology._chains:
-            chain._residues = [r for r in chain._residues if len(r._atoms) > 0]
-
-        # Delete empty chains
-        newTopology._chains = [c for c in newTopology._chains if len(c._residues) > 0]
-        # Re-set the numAtoms and numResidues
-        newTopology._numAtoms = ilen(newTopology.atoms)
-        newTopology._numResidues = ilen(newTopology.residues)
 
         tmp_item = newTopology
 

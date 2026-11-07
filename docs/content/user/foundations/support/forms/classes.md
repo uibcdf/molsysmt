@@ -89,6 +89,13 @@ with a group-position selection preserves selection order and repetitions.
 Selecting `SeqRecord` positions is unsupported because its annotations and
 features would require an explicit remapping policy.
 
+Local indices in an external topology identify positions rather than source
+labels. Extracting a `mdtraj.Topology` atom subset produces dense atom, group
+and chain indices while preserving retained parent labels, atom serials, formal
+charges and bond types and orders. Empty parents are omitted, unknown formal
+charges stay unknown, and the source is unchanged. This MDTraj form has no
+coordinate structures. See {ref}`Tutorial_Form_mdtraj_Topology`.
+
 MDTraj–ParmEd trajectory conversion preserves the selected coordinate structures
 and available periodic cells. Atom subsets retain source order; explicit structure
 lists also reorder the cells. A topology-only MDTraj input has no coordinates to
