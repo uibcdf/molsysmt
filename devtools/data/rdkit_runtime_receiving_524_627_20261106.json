@@ -1,0 +1,862 @@
+{
+  "schema_version": "molsysmt.rdkit_runtime_receiving@1",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "related_issue": "uibcdf/molsysmt#627",
+  "date": "2026-11-06",
+  "source_commits": {
+    "fixture_repair": "13b82905c870253ef52224ad5801d399b69db22a",
+    "runtime_floor": "883e4e45ad86e065c092001dd973a02a991f227b"
+  },
+  "source_files": {
+    "pyproject.toml": "51b9470c93eab472de6c1d5122ae49afdaa37af578fdbc7d3c67bfe69bed7de6",
+    "devtools/conda-envs/development_env.yaml": "74d59a364b8d478be09ffc4ba6bcf7f50cedb924948253a2c37cf60432cedf01",
+    "devtools/conda-envs/test_env.yaml": "e5c134489ff8f894dc15dde4d7761140d1bd8fb67a7a79f32b988c08831cb702",
+    ".github/workflows/receive_public_argdigest.yaml": "e3cf4b755d7c27c5c60f1343fe366d1a7a16f205d25bfdb0babc371f3ce9d384",
+    "devtools/dependency_contract.toml": "20f9579dc872be96c4053d7cb8b7d7f9a284cec8f93188c31e00e47b9ff7226c",
+    "devtools/tests/test_audit_dependency_contract.py": "847fc599c99eb01f20d289e1d4c775c35280b7d15636be71bcdce5fd4b68b2e9",
+    "tests/form/rdkit_Mol/test_runtime_provider_contract.py": "7cb62a13db1e348261ee2da164e60f3329543f3cbc130262a7da275ce2db3091",
+    "docs/content/user/tools/form/class/rdkit/rdkit_Mol.ipynb": "37d3eb9bcd07d4c9d3df83e53b5ac207304bbaf3824a179330cc3d1882ab18f9",
+    "tests/physchem/_sdf_reference.py": "85e013e52db41906df2cdbcb8b6b5f3ea0470594a89ef9bc5e419d3ae87a8566",
+    "tests/physchem/test_sdf_reference_valence.py": "9ac8b3fd45dc0251b19812306dcfb8fb1e7701c6f41c09ddda81a48fadcaa264",
+    "tests/physchem/test_get_tpsa.py": "6ac4279db6142ca94c82d4165747c132e496d1eb8ae9d16032fa478e44fcff04",
+    "tests/physchem/test_get_lipophilicity.py": "e6f9df334d619fe66e1a894a18382ef6ebfee32fdb01aa7ba98a5f7571cd3ebf"
+  },
+  "declared_minimum": "rdkit>=2024.3.4",
+  "provider_review_before_root_pytest": {
+    "issue": "uibcdf/molsysmt#524",
+    "recommendation": "rdkit>=2024.3.4; keep optional",
+    "source_head_at_api_probe": "0a06a01c22906dfbde9ae69a05904200f4cd679c",
+    "source_head_at_final_receipt": "dd60ee7d6855a21f24759def1d387abfbbb6a818",
+    "rdkit_consumer_changes_between_these_heads": [],
+    "source_consumer_sha256": {
+      "molsysmt/_private/autodock_assignment.py": "bccc881a14db6066743dcf0a4d8cc4814f71d3477c22991c5831c897fb4534fd",
+      "molsysmt/_private/ccd_descriptor.py": "c59238f506cfde1c6b9a79a06d45a7442f3376e83f3544f8308e4f3af5102077",
+      "molsysmt/_private/fixed_hydrogens.py": "f19c0b903e55241a908c9dfec655dc5100ea1d386b08f54eba6912a1463aae0e",
+      "molsysmt/_private/hydrogen_projection.py": "b58622c24f8fe9fe43fc336bd412a9dedbe2621dc63ac4d357c003d476b01823",
+      "molsysmt/_private/partial_charges.py": "51a330838bbd486061fac559c372b7c327b4f36eff2afb46705a8627ebdab5ab",
+      "molsysmt/_private/stereochemistry.py": "ed2274d4a5f22b16103ddd0bc66b59ebb836aa284aeadc731e30b32d01e79dff",
+      "molsysmt/build/assign_autodock_atom_types.py": "34198708e1b4dd6488f593e30df3d51b983e727338244d5aace3a2f52ea6170e",
+      "molsysmt/build/assign_partial_charges.py": "30a4993db5392dcdef5e70aec3c7d591829203704fe001d8ad6edf7e5314072c",
+      "molsysmt/chemical_states/_atom_correspondences.py": "1f47fabf6ec8137e8700fa8d1a7c8056f94ff0c20c5e634d29d48a11c7cc5671",
+      "molsysmt/chemical_states/_correspondence_constraints.py": "5c80cf054eb3e718afbfc55785d71965e31c4141dc4bfa59ae7b09043a441891",
+      "molsysmt/chemical_states/get_atom_correspondences.py": "1fd9c0202e352ba9e02ea212547f797d6d79cbb95217b4dacc07bffb56926762",
+      "molsysmt/chemical_states/get_rotatable_bonds.py": "d76f15e4ae5dd10b4e08ec52c1c8019437e92333ae4fdb5d8ed5f410f14f2e77",
+      "molsysmt/chemical_states/get_substructure_matches.py": "45e4590f762ca2d3a5da193e3cb5e6b2f2e854237a4b17aecac5bc598a8b1d51",
+      "molsysmt/form/file_smi/to_rdkit_Mol.py": "6fd3f102efc5d07849fa2769742849572672c14471f61be7d3fa47fdf44c57b7",
+      "molsysmt/form/molsysmt_MolSys/to_rdkit_Mol.py": "641f151f91d2ed12baa767357ec23d556757a020c49f05b26a3551c3761be295",
+      "molsysmt/form/rdkit_Mol/_read_native.py": "fea6325c25f2873058456dc296fce783627af3e7b585b80f4198cd5522b275cc",
+      "molsysmt/form/rdkit_Mol/extract.py": "f2d6b8d51492bb7ced5c8d24b7a2ca852c2fdfcfbe5c1ab4b0945e3db1ac0ee9",
+      "molsysmt/form/rdkit_Mol/to_file_smi.py": "d2b6daabd2e6d050a5218a73a94e45220abac0cfa09eebdbb29a9261f3fe77ab",
+      "molsysmt/form/rdkit_Mol/to_string_smiles.py": "9ad481cfcf0a94575a979d0a979fa0c1b09817b08168a87f1d934f89626c0add",
+      "molsysmt/form/string_smiles/is_form.py": "108bdd7b99ccf56dc8a4a1857805d08fe383b9585b26db188d26db0207e87337",
+      "molsysmt/form/string_smiles/to_rdkit_Mol.py": "9d4ec7183f71ab7ed513bdf4d782081be1b994712e3f513ada9504abc5b8f752",
+      "molsysmt/physchem/_molecular_descriptors.py": "08f18758044bb7b9df9cde8099356fda6d19d806c55ebfa6df4db544f6d31c97",
+      "molsysmt/physchem/get_aromaticity.py": "2727c155177cbc016c181b25b8eeb1bd7a2aa2452ccae047db7ed4f97bc6c220",
+      "molsysmt/physchem/get_cip_stereochemistry.py": "de8b1191f05f0ba8ed793da2667fc20e1ff4bbf627807c51aa04b5396cd8e9c2",
+      "molsysmt/structure/get_symmetry_corrected_rmsd.py": "971ef6854a2bfb35eb31c54b6988606c768eb3a1ee1a8816132c6144c67697fe",
+      "molsysmt/native/_structure_array.py": "bdd86cd3a5e4664894658ef65c92ecb252206f5dbbb0f47dc2071276d693b051",
+      "molsysmt/native/structures.py": "a2bd7a72d06c4bcb0ac322c20cfebf060cc2fd008f8727bc154ac7c5209680f8",
+      "molsysmt/_private/argdigest/argument/coordinates.py": "8a389c5db3b2627b97cb554e526c6d9a4174775331839c094b3477179bcd379e"
+    },
+    "native_extensions_sha256": {
+      "molsysmt/_rust.abi3.so": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525"
+    },
+    "basis": [
+      {
+        "capability": "SubstructMatchParameters.atomProperties/bondProperties",
+        "consumer": "molsysmt/chemical_states/_correspondence_constraints.py:125-127",
+        "introduction_commit": "70427aa9b4aedffd89c00c41800eb6d4a9d5c087",
+        "first_stable_tag": "Release_2023_09_1",
+        "tag_commit": "568b9db0cb68043d629088cb02defb4a9011ad1f",
+        "upstream_source": "https://github.com/rdkit/rdkit/blob/568b9db0cb68043d629088cb02defb4a9011ad1f/Code/GraphMol/Wrap/Mol.cpp#L335"
+      },
+      {
+        "capability": "RemoveNonExplicit3DChirality",
+        "consumer": "molsysmt/_private/stereochemistry.py:299",
+        "introduction_commit": "d5d4d194ec801872f47cbc42f03ef52d11ef12a4",
+        "first_stable_tag": "Release_2024_03_1",
+        "tag_commit": "ba0b6f3bafb391c17d7da9783f09817a4ba0f8f1"
+      },
+      {
+        "capability": "Conformer.SetPositions",
+        "consumers": [
+          "molsysmt/form/molsysmt_MolSys/to_rdkit_Mol.py:284",
+          "molsysmt/physchem/get_cip_stereochemistry.py:249"
+        ],
+        "introduction_commit": "806a5e931afa0f5de9d5a815c167049e6b58570f",
+        "release_backport_commit": "64282ca95680a994d3531a1caa3e939227b6387e",
+        "first_stable_tag": "Release_2024_03_4",
+        "tag_commit": "201fe1ad9c0ea2838506b7eac9c3ed692b13acd2",
+        "prior_tag": "Release_2024_03_3",
+        "prior_tag_commit": "5d3c7f1df98829bb0f909f83037f508741f7a404",
+        "upstream_source": "https://github.com/rdkit/rdkit/blob/201fe1ad9c0ea2838506b7eac9c3ed692b13acd2/Code/GraphMol/Wrap/Conformer.cpp#L139",
+        "release_notes": "https://github.com/rdkit/rdkit/blob/201fe1ad9c0ea2838506b7eac9c3ed692b13acd2/ReleaseNotes.md"
+      }
+    ],
+    "actual_probe_results": {
+      "2023.9.1_cp311_numpy1.26.0": {
+        "passed": 4,
+        "failed": 2,
+        "missing": [
+          "Conformer.SetPositions",
+          "RemoveNonExplicit3DChirality"
+        ],
+        "returncode": 1
+      },
+      "2024.3.4_cp311_numpy1.26.0": {
+        "passed": 6,
+        "failed": 0,
+        "returncode": 0
+      },
+      "2024.3.4_cp311_numpy2.4.6": {
+        "passed": 6,
+        "failed": 0,
+        "returncode": 0
+      },
+      "2024.3.4_cp312_numpy2.3.5_native": {
+        "passed": 4,
+        "failed_setup_comparisons": 1,
+        "returncode": 1,
+        "setup_failure": "Strided case stopped before export on an inappropriate exact equality assertion after angstrom/nanometer conversion; maximum difference8.8817842e-16. Original script/output retained."
+      },
+      "2024.3.4_cp312_numpy2.3.5_corrected_stride_scope": {
+        "passed": 4,
+        "failed": 0,
+        "returncode": 0,
+        "source_immutability": true,
+        "scope": "Fortran and row-strided inputs through public Structures.append and coordinate property assignment, canonical native storage and public conversion."
+      },
+      "2025.9.5_public_cp314_numpy2.4.6": {
+        "returncode": 0,
+        "scope": "Origin-checked Python/compiled-wheel import and SMILES parse/write only; full receiving remains pending."
+      }
+    },
+    "stride_disposition": {
+      "provider_bug": "Initial SetPositions assumes C strides; fixed by PR8150 in Release_2024_09_5, commit7ea9d81a1133fd0536dbb02492bac9e858c3e45d. Direct2024.3.4 provider probes reproduce different coordinate values.",
+      "host_boundary": "Native _StructureArray._freeze normalizes accepted noncontiguous coordinates through C-order bytes into protected float64 blocks before both consumers. Valid values/units and source/input immutability pass. No host defect or higher runtime floor established.",
+      "correction_evidence": "strides-2024.3.4.stdout.json"
+    },
+    "artifact_receipt": "artifact-receipt.json",
+    "numpy1_reuse_receipt": "numpy126-reuse-receipt.json",
+    "api_probe_receipt": "api-probe-summary.json",
+    "native_probe_receipt": "native-2024.3.4-summary.json",
+    "stride_receipt": "strides-2024.3.4-summary.json",
+    "newer_origin_receipt": "newer-wheel-origin-receipt.json",
+    "maintained_guard": "tests/form/rdkit_Mol/test_runtime_provider_contract.py",
+    "maintained_cases": 8,
+    "guard_status": "Final authored version; Ruff lint/format and diff checks pass; no pytest launched by this subagent.",
+    "proposed_finite_receiving_scope": [
+      "tests/form/rdkit_Mol",
+      "tests/form/molsysmt_MolSys/test_to_rdkit_Mol.py",
+      "tests/physchem/test_get_cip_stereochemistry.py",
+      "tests/physchem/test_get_aromaticity.py",
+      "tests/physchem/test_get_tpsa.py",
+      "tests/physchem/test_get_lipophilicity.py",
+      "tests/topology/test_get_atom_correspondences.py",
+      "tests/topology/get_substructure_matches",
+      "tests/topology/test_get_rotatable_bonds.py",
+      "tests/structure/test_get_symmetry_corrected_rmsd.py",
+      "tests/form/file_sdf/test_stereochemistry.py",
+      "tests/build/test_assign_partial_charges.py",
+      "tests/build/test_assign_autodock_atom_types.py",
+      "tests/build/add_missing_hydrogens/test_fixed_state.py",
+      "tests/scientific_truth/physchem/test_tpsa.py",
+      "tests/scientific_truth/physchem/test_lipophilicity.py"
+    ],
+    "limitations": [
+      "This is development receiving on Linux x86_64, not a clean installed-artifact qualification or full scientific/platform/Python matrix.",
+      "Pytest is owned by the root agent; no pytest process was launched by this subagent.",
+      "A package floor does not imply wheel availability on every supported Python/OS; later compatible wheels can satisfy the range.",
+      "Artifacts are extracted into ignored cache only; no install, dependency replacement, environment creation, production edit or external write was performed by this subagent."
+    ],
+    "maintained_guard_sha256": "7cb62a13db1e348261ee2da164e60f3329543f3cbc130262a7da275ce2db3091",
+    "guard_source_immutability": "Each applicable case checks native inventory/bonds, public-query chemical atom fields, coordinates and caller-owned arrays as relevant."
+  },
+  "public_wheels": [
+    {
+      "version": "2023.9.1",
+      "metadata_url": "https://pypi.org/pypi/rdkit/2023.9.1/json",
+      "metadata_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/pypi-2023.9.1.json",
+      "metadata_sha256": "67c42add75f2e69509b84a4972506a80d47fd6d2cd7d5813f68e31422401ae7e",
+      "filename": "rdkit-2023.9.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/68/4e/dcb72d55678b946ce5e066aa0564f921c70c06c3f7802d9f5325727b8824/rdkit-2023.9.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size": 30513768,
+      "sha256": "075449d53011cebec1ed46d5b160a17ee6e1f9a1f933205215e3c52ad08fc33f",
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2023.9.1",
+      "requires_dist": [
+        "numpy",
+        "Pillow"
+      ],
+      "upload_time_iso_8601": "2023-10-25T10:53:37.090356Z",
+      "installed": false
+    },
+    {
+      "version": "2024.3.4",
+      "metadata_url": "https://pypi.org/pypi/rdkit/2024.3.4/json",
+      "metadata_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/pypi-2024.3.4.json",
+      "metadata_sha256": "a41eeee49d68e45349f660cb424df47a9cb8101d6f195003b7b152dec80d1607",
+      "filename": "rdkit-2024.3.4-cp311-cp311-manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/1c/97/0607d4be6bec9cc612c6b48a1b679e696c0c12f942fea616f112c88fe095/rdkit-2024.3.4-cp311-cp311-manylinux_2_28_x86_64.whl",
+      "size": 33127671,
+      "sha256": "7b9c364ba14afe17bc712d62a3aacc5d51c7eb556d894342a2f98a8947bd0581",
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4",
+      "requires_dist": [
+        "numpy",
+        "Pillow"
+      ],
+      "upload_time_iso_8601": "2024-08-06T08:48:24.339796Z",
+      "installed": false
+    },
+    {
+      "version": "2024.3.4",
+      "metadata_url": "https://pypi.org/pypi/rdkit/2024.3.4/json",
+      "metadata_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/pypi-2024.3.4.json",
+      "metadata_sha256": "a41eeee49d68e45349f660cb424df47a9cb8101d6f195003b7b152dec80d1607",
+      "filename": "rdkit-2024.3.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/17/b8/4b0fe28fd74be1735b8c359dca34186cf5aa4ef2d5931eb476ced0cfba60/rdkit-2024.3.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "size": 33046776,
+      "sha256": "0a97a73702b5ce69a3c3218bff0acee38b10d70cc09f7cdf7a2d984d39ac9d21",
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312",
+      "requires_dist": [
+        "numpy",
+        "Pillow"
+      ],
+      "upload_time_iso_8601": "2024-08-06T08:48:45.871513Z",
+      "installed": false
+    },
+    {
+      "version": "2025.9.5",
+      "metadata_url": "https://pypi.org/pypi/rdkit/2025.9.5/json",
+      "metadata_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/pypi-2025.9.5.json",
+      "metadata_sha256": "f70468d3b740b60d330b2d25e1b7964b4c0cc44992ab9ae782d5e7763aa28623",
+      "filename": "rdkit-2025.9.5-cp314-cp314-manylinux_2_28_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/65/c6/c1a4796ac4b428829c8a388f8e4096adfb0963226b2b45eeb2676b92b7e5/rdkit-2025.9.5-cp314-cp314-manylinux_2_28_x86_64.whl",
+      "size": 36674240,
+      "sha256": "94b6173fb9c7701d2479018a69c057429f2507a4cfe5ee1f2e430b0f8b0d7afc",
+      "unpacked": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2025.9.5-cp314",
+      "requires_dist": [
+        "numpy",
+        "Pillow"
+      ],
+      "upload_time_iso_8601": "2026-02-16T08:49:29.236333Z",
+      "installed": false
+    }
+  ],
+  "api_probes": {
+    "source_head": "0a06a01c22906dfbde9ae69a05904200f4cd679c",
+    "script_sha256": "69ca8924b85dab459b6cef7f538c1905f01a5708be331c2d269181ff3878778e",
+    "runs": [
+      {
+        "profile": "api-2023.9.1-numpy126",
+        "command": [
+          "existing interpreter ackredit-py311 prefix/bin/python",
+          ".pytest_cache/pre1-review-20261106/providers/rdkit-review/probe_rdkit_api.py",
+          "2023.9.1",
+          "numpy126"
+        ],
+        "returncode": 1,
+        "stdout_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/api-2023.9.1-numpy126.stdout.json",
+        "stderr_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/api-2023.9.1-numpy126.stderr.log",
+        "passed": [
+          "property_constrained_matches",
+          "molecular_and_atomic_descriptors",
+          "gasteiger",
+          "aromaticity"
+        ],
+        "failed": [
+          {
+            "name": "numpy_conformer_positions",
+            "error": "AttributeError: 'Conformer' object has no attribute 'SetPositions'"
+          },
+          {
+            "name": "accurate_cip_and_3d_cleanup",
+            "error": "AttributeError: module 'rdkit.Chem' has no attribute 'RemoveNonExplicit3DChirality'"
+          }
+        ]
+      },
+      {
+        "profile": "api-2024.3.4-numpy126",
+        "command": [
+          "existing interpreter ackredit-py311 prefix/bin/python",
+          ".pytest_cache/pre1-review-20261106/providers/rdkit-review/probe_rdkit_api.py",
+          "2024.3.4",
+          "numpy126"
+        ],
+        "returncode": 0,
+        "stdout_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/api-2024.3.4-numpy126.stdout.json",
+        "stderr_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/api-2024.3.4-numpy126.stderr.log",
+        "passed": [
+          "property_constrained_matches",
+          "numpy_conformer_positions",
+          "accurate_cip_and_3d_cleanup",
+          "molecular_and_atomic_descriptors",
+          "gasteiger",
+          "aromaticity"
+        ],
+        "failed": []
+      },
+      {
+        "profile": "api-2024.3.4-numpy2",
+        "command": [
+          "existing interpreter ackredit-py311 prefix/bin/python",
+          ".pytest_cache/pre1-review-20261106/providers/rdkit-review/probe_rdkit_api.py",
+          "2024.3.4",
+          "numpy2"
+        ],
+        "returncode": 0,
+        "stdout_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/api-2024.3.4-numpy2.stdout.json",
+        "stderr_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/api-2024.3.4-numpy2.stderr.log",
+        "passed": [
+          "property_constrained_matches",
+          "numpy_conformer_positions",
+          "accurate_cip_and_3d_cleanup",
+          "molecular_and_atomic_descriptors",
+          "gasteiger",
+          "aromaticity"
+        ],
+        "failed": []
+      }
+    ]
+  },
+  "native_probes": {
+    "command": [
+      "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+      ".pytest_cache/pre1-review-20261106/providers/rdkit-review/probe_rdkit_native.py",
+      "2024.3.4"
+    ],
+    "returncode": 1,
+    "passed": [
+      "native_rdkit_coordinate_roundtrip",
+      "native_anchored_and_supplied_correspondences",
+      "native_molecular_and_atomic_descriptors",
+      "native_coordinate_cip"
+    ],
+    "failed": [
+      {
+        "name": "native_strided_coordinate_export",
+        "error": "AssertionError: \nArrays are not equal\n\nMismatched elements: 5 / 9 (55.6%)\nMax absolute difference among violations: 8.8817842e-16\nMax relative difference among violations: 1.77635684e-16\n ACTUAL: array([[0., 3., 6.],\n       [1., 4., 7.],\n       [2., 5., 8.]])\n DESIRED: array([[0., 3., 6.],\n       [1., 4., 7.],\n       [2., 5., 8.]])"
+      }
+    ]
+  },
+  "stride_probes": {
+    "command": [
+      "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+      ".pytest_cache/pre1-review-20261106/providers/rdkit-review/probe_rdkit_strides.py"
+    ],
+    "returncode": 0,
+    "passed": 4,
+    "native_source_unchanged": true,
+    "native_export_handles_noncontiguous_input": true,
+    "provider_direct_stride_limit_exposed_to_native": false
+  },
+  "reused_numpy1_receipt": {
+    "reused_receipt": "devtools/data/runtime_provider_floor_receiving_524_20261103.json",
+    "filename": "numpy-1.26.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "wheel_path": ".pytest_cache/stabilization-524/wheels311/numpy-1.26.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "sha256": "e062aa24638bb5018b7841977c360d2f5917268d125c833a686b7cbabbec496c",
+    "unpacked_path": ".pytest_cache/stabilization-524/numpy126",
+    "wheel_members_byte_verified": 889,
+    "installed": false
+  },
+  "newer_origin": {
+    "returncode": 0,
+    "scope": "Published wheel import, compiled module origin, NumPy origin and one SMILES parse/write only; no pytest or native receiving.",
+    "executable": "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+    "numpy": {
+      "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py",
+      "version": "2.4.6"
+    },
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "rdkit": {
+      "extension_origin": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2025.9.5-cp314/rdkit/Chem/rdchem.so",
+      "origin": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2025.9.5-cp314/rdkit/__init__.py",
+      "version": "2025.09.5"
+    },
+    "smiles": "CCO"
+  },
+  "documentation": {
+    "issue": "uibcdf/molsysmt#524",
+    "path": "docs/content/user/tools/form/class/rdkit/rdkit_Mol.ipynb",
+    "before_sha256": "92f14732c98914770a4250a792d76de9c722675aee2cc9b209e222c80bd1de7c",
+    "after_sha256": "37d3eb9bcd07d4c9d3df83e53b5ac207304bbaf3824a179330cc3d1882ab18f9",
+    "changed_markdown_cell_indices": [
+      1
+    ],
+    "cell_count": 6,
+    "all_code_cells_unchanged": true,
+    "all_outputs_unchanged": true,
+    "all_execution_counts_unchanged": true,
+    "all_cell_ids_unchanged": true,
+    "all_cell_metadata_unchanged": true,
+    "all_notebook_metadata_and_format_unchanged": true,
+    "other_markdown_cells_unchanged": true,
+    "reviewed_related_paths": {
+      "docs/content/user/foundations/support/third_party_bridges.md": "Already identifies RDKit as a soft dependency; no conflicting version claim.",
+      "docs/content/user/foundations/support/forms/classes.md": "RDKit graph/conformer representation; no conflicting version claim.",
+      "docs/content/user/foundations/support/forms/files.md": "Optional stereo provider remains explicit; native SDF route remains independent.",
+      "docs/content/user/cookbook/preparing_charged_participants.ipynb": "Explicit optional RDKit conversion; no lower-version claim.",
+      "docs/content/user/cookbook/saving_pi_pi_interactions.ipynb": "Explicit optional RDKit SMILES conversion; no lower-version claim.",
+      "docs/content/user/cookbook/group_free_hierarchy.ipynb": "Stored assignments and no implicit provider invocation; no lower-version claim.",
+      "docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb": "Native SDF parsing versus optional stereo provider remains explicit; no conflicting floor.",
+      "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "Explicit RDKit fixed-state hydrogen/preparation scope; no conflicting floor.",
+      "docs/content/course/Common_Core/19_Structures_and_Trajectories.ipynb": "RDKit preparation is optional; no conflicting floor.",
+      "docs/content/course/Path_Enzyme/46_Geometric_Transformations.ipynb": "Explicit RDKit conformer generation; no conflicting floor."
+    },
+    "review_limit": "Source review of relevant version/optional-provider statements; no execution or scientific requalification.",
+    "execution": "Not run: only Markdown changed; code fingerprints and outputs preserved.",
+    "source_head": "dd60ee7d6855a21f24759def1d387abfbbb6a818"
+  },
+  "runs": [
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/524-rdkit-floor312-features.xml",
+      "junit_sha256": "992ce19358281183d8d4ea5e1089c8fa753ba280ff50c57dd14d1cd69541dabd",
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/rdkit_Mol",
+          "tests/form/string_smiles",
+          "tests/topology/test_get_atom_correspondences.py",
+          "tests/topology/test_correspondence_attribution.py",
+          "tests/structure/test_get_symmetry_corrected_rmsd.py",
+          "tests/test_correspondence_axis_units.py",
+          "tests/physchem/test_get_cip_stereochemistry.py",
+          "tests/physchem/test_chemical_template_stereochemistry.py",
+          "tests/physchem/test_get_tpsa.py",
+          "tests/physchem/test_get_lipophilicity.py",
+          "tests/physchem/test_get_partial_charges.py",
+          "tests/physchem/test_get_aromaticity.py",
+          "tests/physchem/test_get_aromatic_rings.py",
+          "tests/physchem/test_normalize_aromatic_bond_orders.py",
+          "tests/build/add_missing_hydrogens/test_fixed_state.py",
+          "tests/chemical_states/test_graph_only_h5msm_preparation.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-rdkit-floor312-features.xml"
+        ],
+        "public_wheel": {
+          "version": "2024.3.4",
+          "metadata_url": "https://pypi.org/pypi/rdkit/2024.3.4/json",
+          "metadata_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/pypi-2024.3.4.json",
+          "metadata_sha256": "a41eeee49d68e45349f660cb424df47a9cb8101d6f195003b7b152dec80d1607",
+          "filename": "rdkit-2024.3.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/17/b8/4b0fe28fd74be1735b8c359dca34186cf5aa4ef2d5931eb476ced0cfba60/rdkit-2024.3.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+          "size": 33046776,
+          "sha256": "0a97a73702b5ce69a3c3218bff0acee38b10d70cc09f7cdf7a2d984d39ac9d21",
+          "unpacked": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312",
+          "requires_dist": [
+            "numpy",
+            "Pillow"
+          ],
+          "upload_time_iso_8601": "2024-08-06T08:48:45.871513Z",
+          "installed": false
+        },
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-rdkit-floor312-features-origins.json",
+        "new_test_sha256": "7cb62a13db1e348261ee2da164e60f3329543f3cbc130262a7da275ce2db3091",
+        "probe_exit_code": 0,
+        "process_exit_code": 1
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "rdkit": {
+            "distribution_version": "2024.3.4",
+            "module_version": "2024.03.4",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312/rdkit/__init__.py",
+            "sha256": "e987eae7024995c10c605b3f101e7e5b49423280578cca2ce703487c4c5bbb82"
+          },
+          "rdkit.Chem.rdchem": {
+            "distribution_version": "2024.3.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312/rdkit/Chem/rdchem.so",
+            "sha256": "0bf0034c4435cf1e95afe323a4732b74566391edcd00cd6a3f7bd76de98ece4f"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "counts": {
+        "tests": 535,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 1
+      },
+      "seconds": 27.736,
+      "unsuccessful_nodes": [
+        {
+          "node": "tests.physchem.test_get_tpsa::test_tpsa_primary_fragment_sums_across_forms[sdf-CC(=O)[O-]-40.13]",
+          "message": "molsysmt._private.smonitor.exceptions.FormatError: The data does not follow the expected format: Unsupported or repeated V3000 atom property 'VAL=1'.. Check the source of the data and its format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "node": "tests.physchem.test_get_lipophilicity::test_equivalent_forms_preserve_supplied_state_and_provider_score[sdf-CC[NH3+]]",
+          "message": "molsysmt._private.smonitor.exceptions.FormatError: The data does not follow the expected format: Unsupported or repeated V3000 atom property 'VAL=4'.. Check the source of the data and its format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "node": "tests.physchem.test_get_lipophilicity::test_equivalent_forms_preserve_supplied_state_and_provider_score[sdf-C[N+](=O)[O-]]",
+          "message": "molsysmt._private.smonitor.exceptions.FormatError: The data does not follow the expected format: Unsupported or repeated V3000 atom property 'VAL=4'.. Check the source of the data and its format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        },
+        {
+          "node": "tests.physchem.test_get_lipophilicity::test_equivalent_forms_preserve_supplied_state_and_provider_score[sdf-[NH3+]CC(=O)[O-]]",
+          "message": "molsysmt._private.smonitor.exceptions.FormatError: The data does not follow the expected format: Unsupported or repeated V3000 atom property 'VAL=4'.. Check the source of the data and its format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+        }
+      ],
+      "skips": [
+        {
+          "node": "tests.form.string_smiles.test_is_form::test_is_form_cco_without_rdkit",
+          "reason": "with rdkit CCO is recognized as valid SMILES"
+        }
+      ]
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/524-rdkit-floor312-features_fixed.xml",
+      "junit_sha256": "6316fd9f2a7f7d360c758ee8e879d58daa1e399bdac2be564a78ff6deae35c4c",
+      "invocation": {
+        "profile": "floor312",
+        "selection": "features_fixed",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/rdkit_Mol",
+          "tests/form/string_smiles",
+          "tests/topology/test_get_atom_correspondences.py",
+          "tests/topology/test_correspondence_attribution.py",
+          "tests/structure/test_get_symmetry_corrected_rmsd.py",
+          "tests/test_correspondence_axis_units.py",
+          "tests/physchem/test_get_cip_stereochemistry.py",
+          "tests/physchem/test_chemical_template_stereochemistry.py",
+          "tests/physchem/test_sdf_reference_valence.py",
+          "tests/physchem/test_get_tpsa.py",
+          "tests/physchem/test_get_lipophilicity.py",
+          "tests/physchem/test_get_partial_charges.py",
+          "tests/physchem/test_get_aromaticity.py",
+          "tests/physchem/test_get_aromatic_rings.py",
+          "tests/physchem/test_normalize_aromatic_bond_orders.py",
+          "tests/build/add_missing_hydrogens/test_fixed_state.py",
+          "tests/chemical_states/test_graph_only_h5msm_preparation.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-rdkit-floor312-features_fixed.xml"
+        ],
+        "public_wheel": {
+          "version": "2024.3.4",
+          "metadata_url": "https://pypi.org/pypi/rdkit/2024.3.4/json",
+          "metadata_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/pypi-2024.3.4.json",
+          "metadata_sha256": "a41eeee49d68e45349f660cb424df47a9cb8101d6f195003b7b152dec80d1607",
+          "filename": "rdkit-2024.3.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/17/b8/4b0fe28fd74be1735b8c359dca34186cf5aa4ef2d5931eb476ced0cfba60/rdkit-2024.3.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+          "size": 33046776,
+          "sha256": "0a97a73702b5ce69a3c3218bff0acee38b10d70cc09f7cdf7a2d984d39ac9d21",
+          "unpacked": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312",
+          "requires_dist": [
+            "numpy",
+            "Pillow"
+          ],
+          "upload_time_iso_8601": "2024-08-06T08:48:45.871513Z",
+          "installed": false
+        },
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-rdkit-floor312-features_fixed-origins.json",
+        "new_test_sha256": "7cb62a13db1e348261ee2da164e60f3329543f3cbc130262a7da275ce2db3091",
+        "probe_exit_code": 0,
+        "process_exit_code": 0
+      },
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "rdkit": {
+            "distribution_version": "2024.3.4",
+            "module_version": "2024.03.4",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312/rdkit/__init__.py",
+            "sha256": "e987eae7024995c10c605b3f101e7e5b49423280578cca2ce703487c4c5bbb82"
+          },
+          "rdkit.Chem.rdchem": {
+            "distribution_version": "2024.3.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2024.3.4-cp312/rdkit/Chem/rdchem.so",
+            "sha256": "0bf0034c4435cf1e95afe323a4732b74566391edcd00cd6a3f7bd76de98ece4f"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "counts": {
+        "tests": 542,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      "seconds": 28.408,
+      "unsuccessful_nodes": [],
+      "skips": [
+        {
+          "node": "tests.form.string_smiles.test_is_form::test_is_form_cco_without_rdkit",
+          "reason": "with rdkit CCO is recognized as valid SMILES"
+        }
+      ]
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/524-rdkit-newer314-features_fixed.xml",
+      "junit_sha256": "fb2516f574251364cd3852bf422fc263984c12053268a1d2c4ce753200e2bcc7",
+      "invocation": {
+        "profile": "newer314",
+        "selection": "features_fixed",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/rdkit_Mol",
+          "tests/form/string_smiles",
+          "tests/topology/test_get_atom_correspondences.py",
+          "tests/topology/test_correspondence_attribution.py",
+          "tests/structure/test_get_symmetry_corrected_rmsd.py",
+          "tests/test_correspondence_axis_units.py",
+          "tests/physchem/test_get_cip_stereochemistry.py",
+          "tests/physchem/test_chemical_template_stereochemistry.py",
+          "tests/physchem/test_sdf_reference_valence.py",
+          "tests/physchem/test_get_tpsa.py",
+          "tests/physchem/test_get_lipophilicity.py",
+          "tests/physchem/test_get_partial_charges.py",
+          "tests/physchem/test_get_aromaticity.py",
+          "tests/physchem/test_get_aromatic_rings.py",
+          "tests/physchem/test_normalize_aromatic_bond_orders.py",
+          "tests/build/add_missing_hydrogens/test_fixed_state.py",
+          "tests/chemical_states/test_graph_only_h5msm_preparation.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-rdkit-newer314-features_fixed.xml"
+        ],
+        "public_wheel": {
+          "version": "2025.9.5",
+          "metadata_url": "https://pypi.org/pypi/rdkit/2025.9.5/json",
+          "metadata_file": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/pypi-2025.9.5.json",
+          "metadata_sha256": "f70468d3b740b60d330b2d25e1b7964b4c0cc44992ab9ae782d5e7763aa28623",
+          "filename": "rdkit-2025.9.5-cp314-cp314-manylinux_2_28_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/65/c6/c1a4796ac4b428829c8a388f8e4096adfb0963226b2b45eeb2676b92b7e5/rdkit-2025.9.5-cp314-cp314-manylinux_2_28_x86_64.whl",
+          "size": 36674240,
+          "sha256": "94b6173fb9c7701d2479018a69c057429f2507a4cfe5ee1f2e430b0f8b0d7afc",
+          "unpacked": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2025.9.5-cp314",
+          "requires_dist": [
+            "numpy",
+            "Pillow"
+          ],
+          "upload_time_iso_8601": "2026-02-16T08:49:29.236333Z",
+          "installed": false
+        },
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2025.9.5-cp314",
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-rdkit-newer314-features_fixed-origins.json",
+        "new_test_sha256": "7cb62a13db1e348261ee2da164e60f3329543f3cbc130262a7da275ce2db3091",
+        "probe_exit_code": 0,
+        "process_exit_code": 0
+      },
+      "origins": {
+        "python": "3.14.7",
+        "providers": {
+          "rdkit": {
+            "distribution_version": "2025.9.5",
+            "module_version": "2025.09.5",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2025.9.5-cp314/rdkit/__init__.py",
+            "sha256": "eca4a895c02c16eadbe7887ed1463c7ed75b86b222f0843d1c090c331e7c40a7"
+          },
+          "rdkit.Chem.rdchem": {
+            "distribution_version": "2025.9.5",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/rdkit-review/unpacked-2025.9.5-cp314/rdkit/Chem/rdchem.so",
+            "sha256": "f52b53d79f02f000c33d88099f20afbe31859e990780136bc1bc3f88925e14ca"
+          },
+          "numpy": {
+            "distribution_version": "2.4.6",
+            "module_version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/numpy/__init__.py",
+            "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.29.1+6.gf82b618",
+            "module_version": "0.29.1+6.gf82b618",
+            "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.16.0+1.g6dabaf7",
+            "module_version": "0.16.0+1.g6dabaf7",
+            "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+            "sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1+3.ga27172b",
+            "module_version": "0.15.1+3.ga27172b",
+            "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.21.0+1.gd6b2394",
+            "module_version": "0.22.0+15.g5ee88c1",
+            "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+            "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      },
+      "counts": {
+        "tests": 542,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      "seconds": 35.494,
+      "unsuccessful_nodes": [],
+      "skips": [
+        {
+          "node": "tests.form.string_smiles.test_is_form::test_is_form_cco_without_rdkit",
+          "reason": "with rdkit CCO is recognized as valid SMILES"
+        }
+      ]
+    }
+  ],
+  "accepted_plan_progress_percent": 40,
+  "additional_progress_points": 0,
+  "limits": [
+    "Source checkout receiving, not clean installed MolSysMT artifacts, all interpreter/platform combinations or a qualified Viewer pair.",
+    "The minimum profile uses public support-library floors and only the documented old-SMonitor bridge exception; the newer profile keeps the ordinary bridge.",
+    "Both final profiles pass541 and omit one conditional negative-string case: CCO is valid SMILES when RDKit is present. Positive CCO parsing/conversion is independently exercised in the selected native guards; do not call these zero-omission profiles.",
+    "The original four failures are malformed test-generated duplicateVAL fields. Production parser already supportsVAL and correctly rejects repeated properties; no production parser or descriptor implementation is changed.",
+    "A direct old RDKit strided-array limitation is not exposed through the consumed native routes: existing frozen Structures stores canonical contiguous blocks. Retain that measured protection rather than raising the floor for an unexposed provider defect.",
+    "The initial exact unit-roundtrip comparator in an exploratory stride probe failed at8.88e-16; the physical-tolerance comparison was corrected while source/input immutability stayed exact. Original attempt remains in the provider review.",
+    "No environment was installed over, created or downgraded; the native backend was not rebuilt."
+  ],
+  "backend": {
+    "path": "molsysmt/_rust.abi3.so",
+    "sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525"
+  }
+}

@@ -522,6 +522,92 @@ omissions; 14 fast gates pass. These source profiles do not establish clean
 installed MolSysMT or a Viewer pair. Batched public delivery follows; #524 stays
 partial at accepted audit progress 40%.
 
+## RDKit API and fixture receiving — 2026-11-06
+
+Source `883e4e45ad86e065c092001dd973a02a991f227b` selects optional
+`rdkit>=2024.3.4`, aligned with development/test acquisition, controlled
+ArgDigest receiving and names-only coverage. The previously absent direct
+RDKit declaration in the development environment is explicit now.
+
+Constrained property matching arrives in 2023.09.1, 3D chirality cleanup in
+2024.03.1, and the consumed Conformer.SetPositions array API first appears in
+stable Release_2024_03_4 (`201fe1ad9c0ea2838506b7eac9c3ed692b13acd2`).
+The verified 2023.9.1 wheel lacks the latter two APIs. Actual 2024.3.4 array/API
+probes pass with both NumPy 1.26 and 2.4; the source change does not merely select
+the newest installed provider. Its direct strided-array limitation is not
+exposed by the consumed paths: existing native Structures freeze canonical
+contiguous blocks. Four native unit/layout cases protect that boundary.
+
+Paired public 2024.3.4/Python 3.12/public-support-floor and 2025.9.5/Python 3.14
+profiles each pass 541 cases and omit one conditional negative-string case:
+CCO is valid SMILES with RDKit installed. Positive CCO parsing/conversion is
+separately exercised. The selection covers native coordinates/chemistry,
+correspondence, symmetry RMSD, coordinate CIP, aromaticity, molecular/atomic
+scores, partial charges and fixed-state H preparation. These are not
+zero-omission profiles or whole-platform/installed qualification.
+
+The first minimum run passes 530, fails four and omits one. Those four are
+malformed reference fixtures [#627](../archive/resolved_bugs/descriptor_sdf_reference_fixtures_duplicate_v3000_valence_on_supported_rdkit_wri.md),
+not a native parser defect: older conforming writers already emit VAL and the
+tests appended it again. Source `13b82905c870253ef52224ad5801d399b69db22a`
+shares a small independent-writer fixture helper, preserving matching fields,
+adding only missing evidence and rejecting conflicts/duplicates. Scientific
+score/state assertions and production parsing are unchanged; seven new guards
+exercise both writer variants regardless of installed version. The
+[receipt](../../devtools/data/rdkit_runtime_receiving_524_627_20261106.json)
+retains exact artifacts/origins, all attempts, units/immutability and the
+preexisting contiguous-storage protection. Public delivery/627 closure follow.
+
+The parallel optional review reproduces two more included-operation defects:
+[#628](https://github.com/uibcdf/molsysmt/issues/628) has MDAnalysis
+copy/subset bond-evidence and force loss plus two copy failures (native baseline
+26 failed, four passed); [#629](https://github.com/uibcdf/molsysmt/issues/629)
+has native/OpenMM-to-ParmEd charge/geometry/ID loss (valid baseline 15 failed,
+two passed). An earlier 629 attempt also retains 12 invalid test-root-class
+imports, corrected only in the fixtures. These distinct consumer defects must
+be repaired and qualified; a newer provider floor does not solve them.
+Both consumer repairs and finite paired actual-provider receiving are now
+complete as recorded below; public delivery and issue closeout follow.
+
+The prior PDBFixer/runtime-docs checkpoint is public as
+`dd60ee7d6855a21f24759def1d387abfbbb6a818`; all 16 checked files independently
+match GitHub. The
+[delivery record](../../devtools/data/pdbfixer_runtime_delivery_524_20261106.json)
+retains the verified
+[central graph handoff](https://github.com/uibcdf/molsyssuite/issues/137#issuecomment-6701640436).
+Graph refresh was requested, not claimed complete. This report remains partial;
+accepted audit progress is 40% and no candidate artifact is selected.
+
+## MDAnalysis and ParmEd consumer receiving — 2026-11-06
+
+Source `f81ba2025` repairs #628's provider copy/subset routes without chemical
+reconstruction. It preserves nullable/long connection labels, numeric orders,
+guessed flags and available forces. Full-context AtomGroup copying and compact
+extraction are documented separately. Actual public MDAnalysis 2.8/Python 3.12
+and 2.10/Python 3.14 profiles each pass 155 cases without omissions. The
+[receipt](../../devtools/data/mdanalysis_runtime_receiving_524_628_20261106.json)
+retains the 26-failure/four-pass baseline, two failed harness/probe attempts,
+the refuted connection-alias hypothesis, public artifacts and visible warnings.
+
+Source `e270eda9b` repairs #629 with direct explicit-domain native ParmEd export,
+faithful represented geometry/chemistry/labels and honest unknown mechanical
+assignments. Unsupported target semantics have typed rejection and bounded
+preflight findings. Actual public ParmEd 4.3.1/Python 3.12/OpenMM 8.2 and
+ParmEd 4.3.1/Python 3.14/OpenMM 8.6.1 profiles each pass 185 without omissions.
+The [receipt](../../devtools/data/parmed_runtime_receiving_524_629_20261106.json)
+retains the valid 15-failure/two-pass baseline and distinguishes twelve earlier
+test-authoring errors. This does not certify every ParmEd writer or simulation.
+
+Source `33a702bfa` aligns optional `MDAnalysis>=2.8.0` and `parmed>=4.3.1`
+acquisition and audit coverage. The former grounds public NumPy2 builds and
+controlled guessing; the latter fixes consumed NumPy2 setters and imports
+after `numpy.compat` removal. No guessed upper bound or hard dependency is added.
+Joint conversion/descriptor/documentation receiving passes 1,271; registered
+[scientific execution](../../devtools/data/runtime_provider_scientific_receiving_524_20261106.json)
+passes 97 cases/64 nodes without omissions. Scopes overlap and tracked human
+documentation/report edits make that certificate explicitly development-only.
+Source/public delivery is still distinct from installed-release qualification.
+
 ## Remaining scope and acceptance criteria
 
 Public checkpoint `f5c909e75d786a20d92f4b57e6fa2875a3ba651e` independently
@@ -536,9 +622,9 @@ retains these boundaries. This report stays partial.
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
   receiving and the redesigned host's eventual public release remain distinct;
   complete clean installed-runtime closure with the actual qualified host artifact.
-- Finish MDAnalysis, RDKit, OpenFF, ParmEd, PyTraj, NGLView and Biopython
-  runtime-feature review. Distinguish an API-grounded floor and actual receiving
-  from an incidental installation. MDTraj, OpenMM, PDBFixer and the parser/NumPy
+- Deliver the qualified MDAnalysis/ParmEd consumer defects (#628/#629),
+  then finish OpenFF/PyTraj/NGLView/Biopython. Distinguish an API-grounded floor and actual receiving
+  from an incidental installation. MDTraj, OpenMM, PDBFixer, RDKit and the parser/NumPy
   dispositions above are received; OpenMMTools/Plotly runtime declarations are
   retired with their distinct unsupported-draft/documentation dispositions.
 - For each retained bound/exclusion, record exact provider behavior, owner and

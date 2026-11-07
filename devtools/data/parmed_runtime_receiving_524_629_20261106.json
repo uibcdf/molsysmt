@@ -1,0 +1,1598 @@
+{
+  "date": "2026-11-06",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "runtime_floor_source": {
+    "commit": "33a702bfa638464848a77c57c642627595c759ed",
+    "files_sha256": {
+      ".github/workflows/receive_public_argdigest.yaml": "67ca1daff575710e1f4eb42c8f6af6ea411b1e718abd27cd37554933a644211d",
+      "devtools/conda-envs/development_env.yaml": "cd5fe0f3321905e0d5299b880637ba3cef12aee05d50aa92c409df7ba66c4325",
+      "devtools/conda-envs/test_env.yaml": "2f780dfcd3ed808bd9f725102a6cd67bff6c0fd9a7bd3069817f6c7f098d987e",
+      "devtools/dependency_contract.toml": "cb0ba45042852271c7b766f14f933dd7acbc6b286069b0ef45ce9ee76825d808",
+      "devtools/tests/test_audit_dependency_contract.py": "e8a5bfda01626230d82b0bd8dd54a112ec6d5c7176940699338d511e4c2a48c4",
+      "pyproject.toml": "3bf4c4efc51794838ff5661cf45dde996b90f4bd56a457a8d1dbbf1d86a73a4b",
+      "tests/form/MDAnalysis_Universe/test_runtime_provider_contract.py": "e3db008e8a7003bc599c10ed72f1a570522f324d9b1df6d69a498a1472d69e0f",
+      "tests/form/parmed_Structure/test_runtime_provider_contract.py": "ca0cfb9717e79e7314d7d5879e05ac51400a9e728bfc7bdcd1245882a4448cfb"
+    }
+  },
+  "integrated_receiving": {
+    "stem": "524-627-628-629-integrated-conversion",
+    "invocation": {
+      "command": [
+        "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/basic/convert/test_conversion_preflight.py",
+        "tests/basic/convert/test_stored_mechanics_options.py",
+        "tests/basic/convert/one_to_one/test_convert_from_molsysmt_MolSys.py",
+        "tests/basic/test_copy.py",
+        "tests/basic/test_extract.py",
+        "tests/basic/test_extract_extended.py",
+        "tests/form/rdkit_Mol",
+        "tests/form/file_sdf",
+        "tests/physchem/test_get_tpsa.py",
+        "tests/physchem/test_get_lipophilicity.py",
+        "tests/physchem/test_get_partial_charges.py",
+        "tests/physchem/test_sdf_reference_valence.py",
+        "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py",
+        "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py",
+        "devtools/tests/test_audit_dependency_contract.py",
+        "devtools/tests/test_installed_runtime_dependencies.py",
+        "devtools/tests/test_documentation_source_boundary.py",
+        "devtools/tests/test_documentation_notebook_schema.py",
+        "devtools/tests/test_documentation_workflow.py",
+        "devtools/tests/test_public_api_docs.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-627-628-629-integrated-conversion.xml"
+      ],
+      "profile": "Ordinary Python3.14/default SMonitor bridge after the shared conversion-report and mechanical/element readback changes; inherited actual providers.",
+      "process_exit_code": 0
+    },
+    "junit": ".pytest_cache/pre1-review-20261106/524-627-628-629-integrated-conversion.xml",
+    "junit_sha256": "be27c72b39a4e11eb8d34f71e87845e0b34c550b545673d73b7603d8212bf7e6",
+    "counts": {
+      "tests": 1271,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "seconds": 67.57,
+    "unsuccessful_nodes": []
+  },
+  "accepted_plan_progress_percent": 40,
+  "additional_progress_points": 0,
+  "backend": {
+    "path": "molsysmt/_rust.abi3.so",
+    "sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "rebuilt": false
+  },
+  "limits": [
+    "Finite Linux source-checkout receiving using public provider payloads, not clean installed MolSysMT artifacts or the full interpreter/platform matrix.",
+    "Minimum profiles use public support-library floors and the documented old-SMonitor bridge exception; ordinary newer profiles retain the default bridge.",
+    "No shared environment was created, installed over or downgraded. Public payloads were unpacked into a task-local ignored cache.",
+    "Scopes overlap; case counts must not be added as independent coverage. No new remote CI, release, tag or candidate qualification is claimed."
+  ],
+  "schema_version": "molsysmt.parmed_runtime_receiving@1",
+  "related_issue": "uibcdf/molsysmt#629",
+  "declared_minimum": "parmed>=4.3.1",
+  "repair_source": {
+    "commit": "e270eda9b875cb273b3774ca84f23639de4417e4",
+    "files_sha256": {
+      "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917",
+      "molsysmt/_private/conversion_report.py": "0d9bf36b7a725e44136d95b4ccf1dd426333f37bf29a82035c6350493432ef71",
+      "molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py": "d4d37d714ffc4046eb1b1bb4cc6d8410c38b1824a5828d2b3a16b888e80934e0",
+      "molsysmt/form/molsysmt_Topology/to_parmed_Structure.py": "5de5e1e9631266a49f55e9408405940136c1b9c10fcfc158fcd172a827273e02",
+      "molsysmt/form/openmm_Topology/to_parmed_Structure.py": "9c1a36a47c9306470fb1f52ecad279b01e4ab0a7b886e5b9921bc3a4de51d772",
+      "molsysmt/form/parmed_Structure/_chemical_state.py": "9875549959eafcd39718d60a25c9da314a3db93ee107d6ef6a4c16ce8d31ef58",
+      "molsysmt/form/parmed_Structure/_from_native.py": "629670017f0c9b9f34640cd944c2e7d98cc8a4aa8fbe1705af39f3177d36bf84",
+      "molsysmt/form/parmed_Structure/_mechanical.py": "b7eb362a6660d917af1bdb654395fc773c2134ce8366edde51ad33ec3b60bdb2",
+      "molsysmt/form/parmed_Structure/_read_native.py": "c5eaf23282d8a3b7e088d5cc46c867a4f37e127314940558df9c0b8d09413acd",
+      "molsysmt/form/parmed_Structure/get_mechanical_attributes.py": "67c8d65fff215183629b15da8c0606e9bb1f72bedfea67f92f4d043595997dfa",
+      "molsysmt/form/parmed_Structure/get_structural_attributes.py": "fd23418aec025c5319022bb74c4588180b3ec3e5314886f700be18d1951c2d50",
+      "molsysmt/form/parmed_Structure/has_attribute.py": "3d95d2fb78cf1d15c8999dd0102629e15db2417157e884de8c8dfa116dd72386",
+      "molsysmt/form/parmed_Structure/to_molsysmt_MolSys.py": "ec416407060074c955e05cbf587095b70b134444af7acbd4274dbe2eb97096d4",
+      "molsysmt/form/parmed_Structure/to_molsysmt_Structures.py": "9e5ea5f1c2a599b82163de93d19d293018857313090e47b74de092f61280d5af",
+      "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py": "bcf798cfd6705b2cb9c9fd8cf94ad7129ce98f8c747bcb899982095fa1783e0b",
+      "tests/form/openmm_Topology/test_to_parmed_Structure.py": "6136e482d31550fa6f56631024ada041f328c3618e7cb0d21b893effd5c54971",
+      "tests/form/parmed_Structure/test_bridge_contract.py": "9293f0ea707337387b564dc95d5e84f7ee4e275baf9d66ce33493d8451c1b940",
+      "tests/form/parmed_Structure/test_structural_and_charge_contract.py": "489c2c1e51933ab18cf3994cc8b345ad884e6ff564bf90b9d2736c50fd9bbd2b"
+    }
+  },
+  "provider_review_before_root_pytest": {
+    "candidate_optional_requirement": "parmed>=4.3.1",
+    "reason": "4.0.0 introduces consumed chemistry fields; 4.3.0 fixes NumPy 2 coordinate/box handling; 4.3.1 removes an eager numpy.compat import that fails under NumPy >=2.3, including the current Python 3.14 profile.",
+    "source_boundaries": [
+      {
+        "version": "4.0.0",
+        "commit": "719b2290fba59e409bcfd2cea57ec3d7a5419c05",
+        "capability": "Atom formal_charge/aromatic, Bond qualitative_type and QualitativeBondType. All absent in 3.4.4, commit d0fa4b60be562d9a77f660452f7713de0b7375e4."
+      },
+      {
+        "version": "4.3.0",
+        "commit": "3a0b8af01b3133fb6471c8acc2c8538d38582de3",
+        "capability": "Replace np.array(...copy=False) in consumed Structure coordinate/box setters and several writers."
+      },
+      {
+        "version": "4.3.1",
+        "commit": "9fa8b08b760f57d45a271854ffa4a17f3f2647c0",
+        "capability": "Remove eager numpy.compat import from parmed/utils/netcdf.py."
+      }
+    ],
+    "artifact_verification": ".pytest_cache/pre1-review-20261106/providers/parmed-review/artifact-verification.json",
+    "initial_probes_with_exact_commands_and_origins": ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe-comparison.json",
+    "recovered_native_probe": ".pytest_cache/pre1-review-20261106/providers/parmed-review/native431-numpy246-py314-export-observation.json",
+    "recovered_native_probe_command": [
+      "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+      "-B",
+      ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+      ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages",
+      ".pytest_cache/pre1-review-20261106/providers/parmed-review/native431-numpy246-py314-export-observation.json",
+      "native",
+      "export-only"
+    ],
+    "recovered_native_probe_environment": {
+      "PYTHONPATH": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages:.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "OPENMM_CPU_THREADS": "1"
+    },
+    "recovered_native_probe_exit": 0,
+    "native_ingestion_checks": {
+      "chemistry_api": "passed",
+      "coordinates": "passed",
+      "box": "passed",
+      "native_ingestion": "passed"
+    },
+    "consumer_export_fidelity_observation": {
+      "export_formal_charge": [
+        null,
+        null,
+        null
+      ],
+      "source_formal_charge": [
+        1,
+        0,
+        -1
+      ],
+      "export_coordinates_present": false,
+      "export_box_present": true,
+      "report_outcome": "lossy",
+      "report_issues": [
+        {
+          "attribute": "bond_joins_components",
+          "message": "ConversionIssue(attribute='bond_joins_components', reason='parmed.Structure cannot represent the supplied bond_joins_components semantics.', kind='unsupported', scope='chemical_state')"
+        },
+        {
+          "attribute": "component_completeness",
+          "message": "ConversionIssue(attribute='component_completeness', reason='parmed.Structure cannot represent the supplied component_completeness semantics.', kind='unsupported', scope='chemical_state')"
+        },
+        {
+          "attribute": "component_evidence",
+          "message": "ConversionIssue(attribute='component_evidence', reason='parmed.Structure cannot represent the supplied component_evidence semantics.', kind='unsupported', scope='chemical_state')"
+        }
+      ],
+      "scope": "Observation, not a claim that full native export fidelity passed."
+    },
+    "additional_failed_attempts": [
+      {
+        "receipt": "native431-numpy246-py314-initial-authoring-failure.json",
+        "exit": 1,
+        "classification": "Probe assertion needed np.asarray(nullable_partial_charge, dtype=float), matching the maintained repository test."
+      },
+      {
+        "receipt": "native431-numpy246-py314-recovered.json",
+        "exit": 1,
+        "classification": "Reverse export tried two structure-specific boxes through OpenMM topology, which accepts one box."
+      },
+      {
+        "receipt": "native431-numpy246-py314-selected.json",
+        "exit": 1,
+        "classification": "Explicit single-structure export drops coordinates but retains a box; public MolSys reimport then rejects box length 1 against zero structures."
+      },
+      {
+        "operation": "Initial summary serialization",
+        "exit": 1,
+        "classification": "Cache-only authoring error: relative Path.relative_to(absolute cwd); corrected by resolving the cache root."
+      }
+    ],
+    "python_eligibility": {
+      "pypi_requires_python": ">=3.8",
+      "pypi_installation_state": "4.3.1 sdist downloaded and hash-verified; no build or pip installation executed.",
+      "published_conda_linux_routes": {
+        "311": {
+          "basename": "linux-64/parmed-4.3.1-py311h74232ed_1.conda",
+          "sha256": "63674546498c9f6a19137af9da07f402f5e1f177d4adf5c52a2c030757dc1702",
+          "depends": [
+            "numpy >=1.14",
+            "pandas",
+            "python",
+            "libgcc >=14",
+            "libstdcxx >=14",
+            "python_abi 3.11.* *_cp311"
+          ],
+          "executed_current_release_in_this_study": false
+        },
+        "312": {
+          "basename": "linux-64/parmed-4.3.1-py312he864675_1.conda",
+          "sha256": "7667ae3680cc6cc3a8e25436a699602a2f82030987386d1bf2108195f4bc1c5c",
+          "depends": [
+            "numpy >=1.14",
+            "pandas",
+            "python",
+            "libstdcxx >=14",
+            "libgcc >=14",
+            "python_abi 3.12.* *_cp312"
+          ],
+          "executed_current_release_in_this_study": false
+        },
+        "313": {
+          "basename": "linux-64/parmed-4.3.1-py313hc4ed87d_1.conda",
+          "sha256": "fd4e4bc8ce3aeaec9e6c6c4bb7f31e0772cbb4a197a2e82482570fa233d98333",
+          "depends": [
+            "numpy >=1.14",
+            "pandas",
+            "python",
+            "libgcc >=14",
+            "libstdcxx >=14",
+            "python_abi 3.13.* *_cp313"
+          ],
+          "executed_current_release_in_this_study": false
+        },
+        "314": {
+          "basename": "linux-64/parmed-4.3.1-py314ha51126d_1.conda",
+          "sha256": "641179b6820e55ce3c13507ebe5fc2b210e18d4e4f61f0339223e3f1e9bdbf08",
+          "depends": [
+            "numpy >=1.14",
+            "pandas",
+            "python",
+            "libgcc >=14",
+            "libstdcxx >=14",
+            "python_abi 3.14.* *_cp314"
+          ],
+          "executed_current_release_in_this_study": true
+        }
+      },
+      "limits": "Current 4.3.1 native/API ingestion executed on Python 3.14 only. Published routes do not certify a full interpreter/platform matrix."
+    },
+    "existing_receiving_scope": [
+      "tests/form/parmed_Structure/test_chemical_state_fidelity.py",
+      "tests/form/parmed_Structure/test_structural_and_charge_contract.py",
+      "tests/form/parmed_Structure/test_bridge_contract.py",
+      "tests/form/parmed_Structure/test_parity.py",
+      "tests/form/file_mol2/test_chemical_contract.py"
+    ],
+    "source_only_or_unexecuted_limits": [
+      "Older adapters intentionally tolerate missing chemistry attributes; 4.0.0 is the chemistry API introduction rather than a universal basic-topology failure boundary.",
+      "Long-standing GromacsTopologyFile.from_structure/write and parameterized Gromacs file routes were source-inspected, not executed.",
+      "No full reverse native-export fidelity qualification: observed formal-charge and coordinate loss is a separate MolSysMT consumer issue, not fixed by raising ParmEd's floor.",
+      "No pytest, installation, environment creation, shared-package mutation, production edit, issue, commit or remote write occurred."
+    ]
+  },
+  "public_artifacts": {
+    "recorded_at": "2026-11-07T03:33:40.802513+00:00",
+    "artifacts": [
+      {
+        "version": "4.0.0",
+        "filename": "parmed-4.0.0-py311hcafe171_0.conda",
+        "url": "https://conda.anaconda.org/conda-forge/linux-64/parmed-4.0.0-py311hcafe171_0.conda",
+        "acquisition": "downloaded official Conda-forge artifact",
+        "archive_sha256": "e7fda53ce393de9dc3c0e58bb0d65f47ea1d59b08f8a6ac2dbb17b0b3018c4b6",
+        "verified_official_hash": true,
+        "size": 1499471,
+        "metadata_url": "https://api.anaconda.org/release/conda-forge/parmed/4.0.0",
+        "metadata_sha256": "1e9c4f18abf05958e36173a8fad29ff59b0b38490ce280864290374da080a2ef",
+        "depends": [
+          "libgcc-ng >=12",
+          "libstdcxx-ng >=12",
+          "numpy >=1.14",
+          "pandas",
+          "python >=3.11,<3.12.0a0",
+          "python_abi 3.11.* *_cp311"
+        ],
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0",
+        "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages",
+        "upstream_tag": "4.0.0",
+        "upstream_commit": "719b2290fba59e409bcfd2cea57ec3d7a5419c05",
+        "sources": {
+          "parmed/structure.py": {
+            "sha256": "55b5dae1c9b4b46eca8051d3c05c243bb482265410892f3e4b6a6c3bb0338966",
+            "matches_upstream_tag": true
+          },
+          "parmed/topologyobjects.py": {
+            "sha256": "fa6a3410aa0196052a8ff49b33fdc8b16b64b656ff6c413b541ea92e592ca79d",
+            "matches_upstream_tag": true
+          },
+          "parmed/utils/netcdf.py": {
+            "sha256": "d8ccedc293f7b13588490aab7a3756c37d01731a680304a41c4527c8925454df",
+            "matches_upstream_tag": true
+          }
+        }
+      },
+      {
+        "version": "4.3.0",
+        "filename": "parmed-4.3.0-py312ha9124a0_1.conda",
+        "url": "https://conda.anaconda.org/conda-forge/linux-64/parmed-4.3.0-py312ha9124a0_1.conda",
+        "acquisition": "downloaded official Conda-forge artifact",
+        "archive_sha256": "f61558d5b3615cd03251892f0e3543432a944e27e99a3d0d3666610798dba713",
+        "verified_official_hash": true,
+        "size": 19385778,
+        "metadata_url": "https://api.anaconda.org/release/conda-forge/parmed/4.3.0",
+        "metadata_sha256": "c535d2e5a3419177df180ad59da6fa835f35a5a8bae789351a69f73cdf085b50",
+        "depends": [
+          "libgcc >=13",
+          "libstdcxx >=13",
+          "numpy >=1.14",
+          "pandas",
+          "python >=3.12,<3.13.0a0",
+          "python_abi 3.12.* *_cp312"
+        ],
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1",
+        "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages",
+        "upstream_tag": "4.3.0",
+        "upstream_commit": "f82923ab6b5cbbb63d818930f043c9ce64c02604",
+        "sources": {
+          "parmed/structure.py": {
+            "sha256": "29bd54bb808e5b5c610240f329718c87f7e16d17bd2516924de629e44433cac0",
+            "matches_upstream_tag": true
+          },
+          "parmed/topologyobjects.py": {
+            "sha256": "6ffac900b2f177ca64e2cf701a0b0bcf6301c42e3d2a98bc3d4995eee12250b8",
+            "matches_upstream_tag": true
+          },
+          "parmed/utils/netcdf.py": {
+            "sha256": "d8ccedc293f7b13588490aab7a3756c37d01731a680304a41c4527c8925454df",
+            "matches_upstream_tag": true
+          }
+        }
+      },
+      {
+        "version": "4.3.1",
+        "filename": "parmed-4.3.1-py314ha51126d_1.conda",
+        "url": "https://conda.anaconda.org/conda-forge/linux-64/parmed-4.3.1-py314ha51126d_1.conda",
+        "acquisition": "copied existing archive, independently checked against official metadata",
+        "archive_sha256": "641179b6820e55ce3c13507ebe5fc2b210e18d4e4f61f0339223e3f1e9bdbf08",
+        "verified_official_hash": true,
+        "size": 19722368,
+        "metadata_url": "https://api.anaconda.org/release/conda-forge/parmed/4.3.1",
+        "metadata_sha256": "c33d00f0ae17de63ebe37b93b0a8cafdbca9dd12c1460c38b5010e8a24de99fc",
+        "depends": [
+          "numpy >=1.14",
+          "pandas",
+          "python",
+          "libgcc >=14",
+          "libstdcxx >=14",
+          "python_abi 3.14.* *_cp314"
+        ],
+        "unpacked": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1",
+        "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages",
+        "upstream_tag": "4.3.1",
+        "upstream_commit": "9fa8b08b760f57d45a271854ffa4a17f3f2647c0",
+        "sources": {
+          "parmed/structure.py": {
+            "sha256": "29bd54bb808e5b5c610240f329718c87f7e16d17bd2516924de629e44433cac0",
+            "matches_upstream_tag": true
+          },
+          "parmed/topologyobjects.py": {
+            "sha256": "6ffac900b2f177ca64e2cf701a0b0bcf6301c42e3d2a98bc3d4995eee12250b8",
+            "matches_upstream_tag": true
+          },
+          "parmed/utils/netcdf.py": {
+            "sha256": "8c4bd0a63ca657e68dde45b4a1588b6df25229cbf0ab9835228caeabb3593946",
+            "matches_upstream_tag": true
+          }
+        }
+      }
+    ],
+    "failed_attempts": [
+      {
+        "operation": "https://api.anaconda.org/package/conda-forge/parmed with a 30-second read timeout",
+        "exit_code": 1,
+        "exception": "TimeoutError: The read operation timed out",
+        "recovery": "Used official release-specific metadata endpoints successfully."
+      }
+    ],
+    "pypi_selected": {
+      "version": "4.3.1",
+      "url": "https://files.pythonhosted.org/packages/a0/f5/65d3c930767aece106b97443eda3a37de8b9e6a183b7d999a670b50c161f/parmed-4.3.1.tar.gz",
+      "filename": "parmed-4.3.1.tar.gz",
+      "sha256": "1f26bfcad2d9e1344fda343fe0199fd36ae9a02f64669010bf47e30f9ce0918c",
+      "verified_official_hash": true,
+      "requires_python": ">=3.8",
+      "size": 20197667,
+      "state": "Downloaded and hash-verified; not built, installed or imported."
+    },
+    "pypi_inventory": {
+      "3.4.4": [
+        {
+          "filename": "ParmEd-3.4.4.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/74/f2/6f19ed34378c32ac1b5304f58bc6e6086e14a725af589c7b3fa35deaff07/ParmEd-3.4.4.tar.gz",
+          "requires_python": null,
+          "sha256": "96dd9e4d7de413d83b18a85c971dd1ea957077d435e4b9041f3b160a666f8647"
+        }
+      ],
+      "4.0.0": [
+        {
+          "filename": "ParmEd-4.0.0.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/6b/b6/040189f8ecb7fc2233d408b2c575ca0a1383c2fe6945c3462015c156bae5/ParmEd-4.0.0.tar.gz",
+          "requires_python": null,
+          "sha256": "35d0ca6ae2e136f6ae02bd0a465a621518eff440531e2a136e3d6bab3b43029b"
+        }
+      ],
+      "4.3.0": [
+        {
+          "filename": "parmed-4.3.0.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/15/29/80bc4fa049e166e0b8eda2a7220c5473809f2f96bb15f1f117abfb8dad7c/parmed-4.3.0.tar.gz",
+          "requires_python": ">=3.8",
+          "sha256": "3d0208f56507649b5af91bbb128f650a6f86de1b5a9af780e6479145e5362ea3"
+        }
+      ],
+      "4.3.1": [
+        {
+          "filename": "parmed-4.3.1.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/a0/f5/65d3c930767aece106b97443eda3a37de8b9e6a183b7d999a670b50c161f/parmed-4.3.1.tar.gz",
+          "requires_python": ">=3.8",
+          "sha256": "1f26bfcad2d9e1344fda343fe0199fd36ae9a02f64669010bf47e30f9ce0918c"
+        }
+      ]
+    }
+  },
+  "public_minimum_artifact": {
+    "issue": "uibcdf/molsysmt#524",
+    "acquisition_native_exit": 0,
+    "archive_sha256": "7667ae3680cc6cc3a8e25436a699602a2f82030987386d1bf2108195f4bc1c5c",
+    "metadata_sha256": "a04d875b15f2baf8f140558322e0006f891ca9aae5b92c49ae6ade5f6dfae193",
+    "artifact_url": "https://conda.anaconda.org/conda-forge/linux-64/parmed-4.3.1-py312he864675_1.conda",
+    "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py312he864675_1/lib/python3.12/site-packages",
+    "dependencies": [
+      "numpy >=1.14",
+      "pandas",
+      "python",
+      "libstdcxx >=14",
+      "libgcc >=14",
+      "python_abi 3.12.* *_cp312"
+    ],
+    "runtime_import_receipt": ".pytest_cache/pre1-review-20261106/providers/parmed-review/py312-runtime-import.json",
+    "runtime_import_native_exit": 0,
+    "native_extension_import_exit": 0,
+    "all_frozen_629_executable_sources_unchanged": true,
+    "documentation_after_sha256": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917",
+    "pytest_executed": false,
+    "installed": false,
+    "scope": "Official artifact acquisition, hash verification, unpacking, import/linkage inspection and markdown-only compatibility rationale."
+  },
+  "provider_comparison": [
+    {
+      "profile": "api400-numpy126-py311",
+      "command": [
+        "existing interpreter Peptides_Landscape@uibcdf_3.11 prefix/bin/python",
+        "-B",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/api400-numpy126-py311.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OPENMM_CPU_THREADS": "1"
+      },
+      "native_exit_code": 0,
+      "receipt": ".pytest_cache/pre1-review-20261106/providers/parmed-review/api400-numpy126-py311.json",
+      "result": {
+        "python": "existing interpreter Peptides_Landscape@uibcdf_3.11 prefix/bin/python",
+        "python_version": "3.11.10 | packaged by conda-forge | (main, Oct 16 2024, 01:27:36) [GCC 13.3.0]",
+        "argv": [
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/api400-numpy126-py311.json"
+        ],
+        "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "native_conversion_requested": false,
+        "checks": {
+          "chemistry_api": "passed",
+          "coordinates": "passed",
+          "box": "passed"
+        },
+        "numpy_version": "1.26.4",
+        "numpy_origin": "existing interpreter Peptides_Landscape@uibcdf_3.11 prefix/lib/python3.11/site-packages/numpy/__init__.py",
+        "numpy_extension": {
+          "path": "existing interpreter Peptides_Landscape@uibcdf_3.11 prefix/lib/python3.11/site-packages/numpy/core/_multiarray_umath.cpython-311-x86_64-linux-gnu.so",
+          "sha256": "9226d24891a947d115b245e1b97832b22dd352e22dff26e452bc55b717cc3721"
+        },
+        "parmed_version": "4.0.0",
+        "parmed_origin": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages/parmed/__init__.py",
+        "signatures": {
+          "Atom": "(list=None, atomic_number=0, name='', type='', charge=None, mass=0.0, nb_idx=0, solvent_radius=0.0, screen=0.0, tree='BLA', join=0.0, irotat=0.0, occupancy=0.0, bfactor=0.0, altloc='', number=-1, rmin=None, epsilon=None, rmin14=None, epsilon14=None, formal_charge=None, hybridization=None, aromatic=None)",
+          "Bond": "(atom1, atom2, type=None, order=1.0, qualitative_type=None)"
+        },
+        "parmed_extension": {
+          "path": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages/parmed/amber/_rdparm.cpython-311-x86_64-linux-gnu.so",
+          "sha256": "3a088d8052293d70078456feae7607b02ed55c1e622a1a689c078d2b2874c43d"
+        },
+        "warnings": [
+          "builtin type SwigPyPacked has no __module__ attribute",
+          "builtin type SwigPyObject has no __module__ attribute",
+          "builtin type swigvarlink has no __module__ attribute"
+        ],
+        "outcome": "bounded checks completed",
+        "native_exit_code": 0
+      }
+    },
+    {
+      "profile": "api400-numpy200-py311",
+      "command": [
+        "existing interpreter Peptides_Landscape@uibcdf_3.11 prefix/bin/python",
+        "-B",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/api400-numpy200-py311.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages:existing Conda cache: numpy-2.0.0-py311h1461c94_0/lib/python3.11/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OPENMM_CPU_THREADS": "1"
+      },
+      "native_exit_code": 1,
+      "receipt": ".pytest_cache/pre1-review-20261106/providers/parmed-review/api400-numpy200-py311.json",
+      "result": {
+        "python": "existing interpreter Peptides_Landscape@uibcdf_3.11 prefix/bin/python",
+        "python_version": "3.11.10 | packaged by conda-forge | (main, Oct 16 2024, 01:27:36) [GCC 13.3.0]",
+        "argv": [
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/api400-numpy200-py311.json"
+        ],
+        "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages:existing Conda cache: numpy-2.0.0-py311h1461c94_0/lib/python3.11/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "native_conversion_requested": false,
+        "checks": {
+          "chemistry_api": "passed"
+        },
+        "numpy_version": "2.0.0",
+        "numpy_origin": "existing Conda cache: numpy-2.0.0-py311h1461c94_0/lib/python3.11/site-packages/numpy/__init__.py",
+        "numpy_extension": {
+          "path": "existing Conda cache: numpy-2.0.0-py311h1461c94_0/lib/python3.11/site-packages/numpy/_core/_multiarray_umath.cpython-311-x86_64-linux-gnu.so",
+          "sha256": "451ed1eff1596a8a7401b4a9d9592746a0816455dcf9d19efa70bf80e3d74356"
+        },
+        "parmed_version": "4.0.0",
+        "parmed_origin": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages/parmed/__init__.py",
+        "signatures": {
+          "Atom": "(list=None, atomic_number=0, name='', type='', charge=None, mass=0.0, nb_idx=0, solvent_radius=0.0, screen=0.0, tree='BLA', join=0.0, irotat=0.0, occupancy=0.0, bfactor=0.0, altloc='', number=-1, rmin=None, epsilon=None, rmin14=None, epsilon14=None, formal_charge=None, hybridization=None, aromatic=None)",
+          "Bond": "(atom1, atom2, type=None, order=1.0, qualitative_type=None)"
+        },
+        "parmed_extension": {
+          "path": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages/parmed/amber/_rdparm.cpython-311-x86_64-linux-gnu.so",
+          "sha256": "3a088d8052293d70078456feae7607b02ed55c1e622a1a689c078d2b2874c43d"
+        },
+        "outcome": "failed",
+        "failure_phase": "Structure.coordinates assignment",
+        "exception": {
+          "type": "builtins.ValueError",
+          "message": "Unable to avoid copy while creating an array as requested.\nIf using `np.array(obj, copy=False)` replace it with `np.asarray(obj)` to allow a copy when needed (no behavior change in NumPy 1.x).\nFor more details, see https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword.",
+          "traceback": "Traceback (most recent call last):\n  File \".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py\", line 50, in <module>\n    structure.coordinates = coordinates\n    ^^^^^^^^^^^^^^^^^^^^^\n  File \".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.0.0-py311hcafe171_0/lib/python3.11/site-packages/parmed/structure.py\", line 1726, in coordinates\n    coords = np.array(value, dtype=np.float64, copy=False, subok=True)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Unable to avoid copy while creating an array as requested.\nIf using `np.array(obj, copy=False)` replace it with `np.asarray(obj)` to allow a copy when needed (no behavior change in NumPy 1.x).\nFor more details, see https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword.\n"
+        },
+        "native_exit_code": 1
+      }
+    },
+    {
+      "profile": "api430-numpy226-py312",
+      "command": [
+        "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "-B",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/api430-numpy226-py312.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages:existing Conda cache: numpy-2.2.6-py312h72c5963_0/lib/python3.12/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OPENMM_CPU_THREADS": "1"
+      },
+      "native_exit_code": 0,
+      "receipt": ".pytest_cache/pre1-review-20261106/providers/parmed-review/api430-numpy226-py312.json",
+      "result": {
+        "python": "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "python_version": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "argv": [
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/api430-numpy226-py312.json"
+        ],
+        "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages:existing Conda cache: numpy-2.2.6-py312h72c5963_0/lib/python3.12/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "native_conversion_requested": false,
+        "checks": {
+          "chemistry_api": "passed",
+          "coordinates": "passed",
+          "box": "passed"
+        },
+        "numpy_version": "2.2.6",
+        "numpy_origin": "existing Conda cache: numpy-2.2.6-py312h72c5963_0/lib/python3.12/site-packages/numpy/__init__.py",
+        "numpy_extension": {
+          "path": "existing Conda cache: numpy-2.2.6-py312h72c5963_0/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so",
+          "sha256": "3d821872db4282784667966aedc4b7fa713f4c24d310afaa46bc98e4dd1f9287"
+        },
+        "parmed_version": "4.3.0",
+        "parmed_origin": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages/parmed/__init__.py",
+        "signatures": {
+          "Atom": "(list=None, atomic_number=0, name='', type='', charge=None, mass=0.0, nb_idx=0, solvent_radius=0.0, screen=0.0, tree='BLA', join=0.0, irotat=0.0, occupancy=0.0, bfactor=0.0, altloc='', number=-1, rmin=None, epsilon=None, rmin14=None, epsilon14=None, formal_charge=None, hybridization=None, aromatic=None)",
+          "Bond": "(atom1, atom2, type=None, order=1.0, qualitative_type=None)"
+        },
+        "parmed_extension": {
+          "path": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages/parmed/amber/_rdparm.cpython-312-x86_64-linux-gnu.so",
+          "sha256": "c1c509d31697912ab32eb9b0eac4b52652aeba6c6ee42f8139338e3e46fe6879"
+        },
+        "warnings": [
+          "`np.compat`, which was used during the Python 2 to 3 transition, is deprecated since 1.26.0, and will be removed"
+        ],
+        "outcome": "bounded checks completed",
+        "native_exit_code": 0
+      }
+    },
+    {
+      "profile": "api430-numpy235-py312",
+      "command": [
+        "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "-B",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/api430-numpy235-py312.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OPENMM_CPU_THREADS": "1"
+      },
+      "native_exit_code": 1,
+      "receipt": ".pytest_cache/pre1-review-20261106/providers/parmed-review/api430-numpy235-py312.json",
+      "result": {
+        "python": "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "python_version": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "argv": [
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/api430-numpy235-py312.json"
+        ],
+        "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "native_conversion_requested": false,
+        "checks": {},
+        "numpy_version": "2.3.5",
+        "numpy_origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py",
+        "numpy_extension": {
+          "path": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so",
+          "sha256": "a836da18ba1c05d96d4361d9a2fd5aaad67d7bb43cfd9d68771d6bfb0b58da4b"
+        },
+        "outcome": "failed",
+        "failure_phase": "ParmEd import",
+        "exception": {
+          "type": "builtins.ModuleNotFoundError",
+          "message": "No module named 'numpy.compat'",
+          "traceback": "Traceback (most recent call last):\n  File \".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py\", line 29, in <module>\n    import parmed as pmd\n  File \".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages/parmed/__init__.py\", line 23, in <module>\n    from . import amber, charmm, gromacs, dlpoly, namd, openmm, rosetta, tinker, entos\n  File \".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages/parmed/amber/__init__.py\", line 14, in <module>\n    from .netcdffiles import NetCDFTraj, NetCDFRestart\n  File \".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages/parmed/amber/netcdffiles.py\", line 25, in <module>\n    from ..utils.netcdf import netcdf_file as NetCDFFile\n  File \".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.0-py312ha9124a0_1/lib/python3.12/site-packages/parmed/utils/netcdf.py\", line 46, in <module>\n    from numpy.compat import asbytes, asstr\nModuleNotFoundError: No module named 'numpy.compat'\n"
+        },
+        "native_exit_code": 1
+      }
+    },
+    {
+      "profile": "native431-numpy246-py314",
+      "command": [
+        "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+        "-B",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages",
+        ".pytest_cache/pre1-review-20261106/providers/parmed-review/native431-numpy246-py314.json",
+        "native"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OPENMM_CPU_THREADS": "1"
+      },
+      "native_exit_code": 1,
+      "receipt": ".pytest_cache/pre1-review-20261106/providers/parmed-review/native431-numpy246-py314.json",
+      "result": {
+        "python": "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+        "python_version": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+        "argv": [
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/native431-numpy246-py314.json",
+          "native"
+        ],
+        "pythonpath": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+        "native_conversion_requested": true,
+        "checks": {
+          "chemistry_api": "passed",
+          "coordinates": "passed",
+          "box": "passed"
+        },
+        "numpy_version": "2.4.6",
+        "numpy_origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py",
+        "numpy_extension": {
+          "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/_core/_multiarray_umath.cpython-314-x86_64-linux-gnu.so",
+          "sha256": "f606e050ba80c6ec93078daf44ecd5c6cf40bd8cf6f262f6e44ade0278e26d2f"
+        },
+        "parmed_version": "4.3.1",
+        "parmed_origin": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages/parmed/__init__.py",
+        "signatures": {
+          "Atom": "(list=None, atomic_number=0, name='', type='', charge=None, mass=0.0, nb_idx=0, solvent_radius=0.0, screen=0.0, tree='BLA', join=0.0, irotat=0.0, occupancy=0.0, bfactor=0.0, altloc='', number=-1, rmin=None, epsilon=None, rmin14=None, epsilon14=None, formal_charge=None, hybridization=None, aromatic=None)",
+          "Bond": "(atom1, atom2, type=None, order=1.0, qualitative_type=None)"
+        },
+        "parmed_extension": {
+          "path": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py314ha51126d_1/lib/python3.14/site-packages/parmed/amber/_rdparm.cpython-314-x86_64-linux-gnu.so",
+          "sha256": "a2bd47491591ac5f2b42f25ed79bca388b1b05120ab7025ccbcff82840a74566"
+        },
+        "molsysmt_origin": "molsysmt/__init__.py",
+        "outcome": "failed",
+        "failure_phase": "public ParmEd to native conversion",
+        "exception": {
+          "type": "builtins.TypeError",
+          "message": "ufunc 'isnan' not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule ''safe''",
+          "traceback": "Traceback (most recent call last):\n  File \".pytest_cache/pre1-review-20261106/providers/parmed-review/probe_provider.py\", line 70, in <module>\n    np.testing.assert_allclose(native.molecular_mechanics.partial_charge, [.1, .2, -.3])\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/testing/_private/utils.py\", line 1768, in assert_allclose\n    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                         verbose=verbose, header=header, equal_nan=equal_nan,\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                         strict=strict)\n                         ^^^^^^^^^^^^^^\n  File \"existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/testing/_private/utils.py\", line 889, in assert_array_compare\n    val = comparison(x, y)\n  File \"existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/testing/_private/utils.py\", line 1763, in compare\n    return np._core.numeric.isclose(x, y, rtol=rtol, atol=atol,\n           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                                   equal_nan=equal_nan)\n                                   ^^^^^^^^^^^^^^^^^^^^\n  File \"existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/_core/numeric.py\", line 2511, in isclose\n    result |= isnan(x) & isnan(y)\n              ~~~~~^^^\nTypeError: ufunc 'isnan' not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule ''safe''\n"
+        },
+        "native_exit_code": 1
+      }
+    }
+  ],
+  "baselines": [
+    {
+      "stem": "629-native-export-counterexamples",
+      "invocation": {
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py",
+          "tests/form/openmm_Topology/test_to_parmed_Structure.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/629-native-export-counterexamples.xml"
+        ],
+        "profile": "Existing Python3.14/ParmEd4.3.1/OpenMM8.6.1, provider floor already received; ParMed production adapters unchanged.",
+        "process_exit_code": 1
+      },
+      "junit": ".pytest_cache/pre1-review-20261106/629-native-export-counterexamples.xml",
+      "junit_sha256": "384437a4b70637b29cc099529aa6e95920dd05b07695efff12eec28c92725b45",
+      "counts": {
+        "tests": 17,
+        "failures": 17,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 7.911,
+      "unsuccessful_nodes": [
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[nm-True-3]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[nm-False-1]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_keeps_requested_structures_and_canonical_atom_subset[structures0]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_topology_only_export_does_not_recover_attached_chemistry[False]",
+          "message": "AssertionError: assert ['-1', '-1', '-1', '-1'] == ['101', '202', '303', '404']\n  \n  At index 0 diff: '-1' != '101'\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.openmm_Topology.test_to_parmed_Structure::test_openmm_to_parmed_retains_charges_serials_and_independent_bond_order[selection1]",
+          "message": "assert [None, None] == [1, -1]\n  \n  At index 0 diff: None != 1\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_empty_native_export_is_an_empty_parmed_structure[False]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'MolSys'"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[nm-True-1]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[angstrom-False-3]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[angstrom-True-3]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[nm-False-3]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[angstrom-True-1]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_chemistry_serials_and_labels_are_preserved",
+          "message": "assert [None, None, None, None] == [1, 0, -1, None]\n  \n  At index 0 diff: None != 1\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[angstrom-False-1]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_keeps_requested_structures_and_canonical_atom_subset[structures1]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'Structures'. Did you mean: 'structure'?"
+        },
+        {
+          "node": "tests.form.openmm_Topology.test_to_parmed_Structure::test_openmm_to_parmed_retains_charges_serials_and_independent_bond_order[all]",
+          "message": "assert [None, None, None] == [1, None, -1]\n  \n  At index 0 diff: None != 1\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_empty_native_export_is_an_empty_parmed_structure[True]",
+          "message": "AttributeError: module 'molsysmt' has no attribute 'MolSys'"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_topology_only_export_does_not_recover_attached_chemistry[True]",
+          "message": "AssertionError: assert ['-1', '-1', '-1', '-1'] == ['101', '202', '303', '404']\n  \n  At index 0 diff: '-1' != '101'\n  Use -v to get more diff"
+        }
+      ]
+    },
+    {
+      "stem": "629-native-export-valid-counterexamples",
+      "invocation": {
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py",
+          "tests/form/openmm_Topology/test_to_parmed_Structure.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/629-native-export-valid-counterexamples.xml"
+        ],
+        "profile": "Same provider/source as first baseline; corrected only unsupported root class names to public native imports.",
+        "process_exit_code": 1
+      },
+      "junit": ".pytest_cache/pre1-review-20261106/629-native-export-valid-counterexamples.xml",
+      "junit_sha256": "4695ecc36e3591693b62cedce78af3cee8df36f602a2a890b64423885bc02d72",
+      "counts": {
+        "tests": 17,
+        "failures": 15,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 6.72,
+      "unsuccessful_nodes": [
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[nm-False-3]",
+          "message": "AssertionError: assert None is not None\n +  where None = get_coordinates('all')\n +    where get_coordinates = <Structure 4 atoms; 2 residues; 2 bonds; NOT parameterized>.get_coordinates"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_chemistry_serials_and_labels_are_preserved",
+          "message": "assert [None, None, None, None] == [1, 0, -1, None]\n  \n  At index 0 diff: None != 1\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[angstrom-False-1]",
+          "message": "AssertionError: assert None is not None\n +  where None = get_coordinates('all')\n +    where get_coordinates = <Structure 4 atoms; 2 residues; 2 bonds; NOT parameterized>.get_coordinates"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[angstrom-True-1]",
+          "message": "AssertionError: assert None is not None\n +  where None = get_coordinates('all')\n +    where get_coordinates = <Structure 4 atoms; 2 residues; 2 bonds; PBC (orthogonal); NOT parameterized>.get_coordinates"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[nm-False-1]",
+          "message": "AssertionError: assert None is not None\n +  where None = get_coordinates('all')\n +    where get_coordinates = <Structure 4 atoms; 2 residues; 2 bonds; NOT parameterized>.get_coordinates"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[nm-True-1]",
+          "message": "AssertionError: assert None is not None\n +  where None = get_coordinates('all')\n +    where get_coordinates = <Structure 4 atoms; 2 residues; 2 bonds; PBC (orthogonal); NOT parameterized>.get_coordinates"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[nm-True-3]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentLengthError: openmm.Topology only accepts a single-frame box. Ensure the list/array length matches the target dimension. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_topology_only_export_does_not_recover_attached_chemistry[False]",
+          "message": "AssertionError: assert ['-1', '-1', '-1', '-1'] == ['101', '202', '303', '404']\n  \n  At index 0 diff: '-1' != '101'\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.openmm_Topology.test_to_parmed_Structure::test_openmm_to_parmed_retains_charges_serials_and_independent_bond_order[all]",
+          "message": "assert [None, None, None] == [1, None, -1]\n  \n  At index 0 diff: None != 1\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_topology_only_export_does_not_recover_attached_chemistry[True]",
+          "message": "AssertionError: assert ['-1', '-1', '-1', '-1'] == ['101', '202', '303', '404']\n  \n  At index 0 diff: '-1' != '101'\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.openmm_Topology.test_to_parmed_Structure::test_openmm_to_parmed_retains_charges_serials_and_independent_bond_order[selection1]",
+          "message": "assert [None, None] == [1, -1]\n  \n  At index 0 diff: None != 1\n  Use -v to get more diff"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_keeps_requested_structures_and_canonical_atom_subset[structures1]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentLengthError: openmm.Topology only accepts a single-frame box. Ensure the list/array length matches the target dimension. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[angstrom-True-3]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentLengthError: openmm.Topology only accepts a single-frame box. Ensure the list/array length matches the target dimension. Docs: https://www.uibcdf.org/MolSysMT"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_carries_all_structures_and_aligned_boxes[angstrom-False-3]",
+          "message": "AssertionError: assert None is not None\n +  where None = get_coordinates('all')\n +    where get_coordinates = <Structure 4 atoms; 2 residues; 2 bonds; NOT parameterized>.get_coordinates"
+        },
+        {
+          "node": "tests.form.molsysmt_MolSys.test_to_parmed_Structure::test_native_export_keeps_requested_structures_and_canonical_atom_subset[structures0]",
+          "message": "molsysmt._private.smonitor.exceptions.ArgumentLengthError: openmm.Topology only accepts a single-frame box. Ensure the list/array length matches the target dimension. Docs: https://www.uibcdf.org/MolSysMT"
+        }
+      ]
+    }
+  ],
+  "owner_snapshot_before_root_pytest": {
+    "issue": "uibcdf/molsysmt#629",
+    "recorded_at_utc": "2026-11-07T04:16:24.171562+00:00",
+    "source_and_tests_frozen": true,
+    "pytest_executed_by_this_agent": false,
+    "root_qualification_pending": true,
+    "source_sha256": {
+      "molsysmt/_private/conversion_report.py": "0d9bf36b7a725e44136d95b4ccf1dd426333f37bf29a82035c6350493432ef71",
+      "molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py": "d4d37d714ffc4046eb1b1bb4cc6d8410c38b1824a5828d2b3a16b888e80934e0",
+      "molsysmt/form/molsysmt_Topology/to_parmed_Structure.py": "5de5e1e9631266a49f55e9408405940136c1b9c10fcfc158fcd172a827273e02",
+      "molsysmt/form/openmm_Topology/to_parmed_Structure.py": "9c1a36a47c9306470fb1f52ecad279b01e4ab0a7b886e5b9921bc3a4de51d772",
+      "molsysmt/form/parmed_Structure/_from_native.py": "629670017f0c9b9f34640cd944c2e7d98cc8a4aa8fbe1705af39f3177d36bf84",
+      "molsysmt/form/parmed_Structure/_mechanical.py": "b7eb362a6660d917af1bdb654395fc773c2134ce8366edde51ad33ec3b60bdb2",
+      "molsysmt/form/parmed_Structure/_chemical_state.py": "9875549959eafcd39718d60a25c9da314a3db93ee107d6ef6a4c16ce8d31ef58",
+      "molsysmt/form/parmed_Structure/_read_native.py": "c5eaf23282d8a3b7e088d5cc46c867a4f37e127314940558df9c0b8d09413acd",
+      "molsysmt/form/parmed_Structure/get_mechanical_attributes.py": "67c8d65fff215183629b15da8c0606e9bb1f72bedfea67f92f4d043595997dfa",
+      "molsysmt/form/parmed_Structure/get_structural_attributes.py": "fd23418aec025c5319022bb74c4588180b3ec3e5314886f700be18d1951c2d50",
+      "molsysmt/form/parmed_Structure/has_attribute.py": "3d95d2fb78cf1d15c8999dd0102629e15db2417157e884de8c8dfa116dd72386",
+      "molsysmt/form/parmed_Structure/to_molsysmt_MolSys.py": "ec416407060074c955e05cbf587095b70b134444af7acbd4274dbe2eb97096d4",
+      "molsysmt/form/parmed_Structure/to_molsysmt_Structures.py": "9e5ea5f1c2a599b82163de93d19d293018857313090e47b74de092f61280d5af",
+      "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py": "bcf798cfd6705b2cb9c9fd8cf94ad7129ce98f8c747bcb899982095fa1783e0b",
+      "tests/form/openmm_Topology/test_to_parmed_Structure.py": "6136e482d31550fa6f56631024ada041f328c3618e7cb0d21b893effd5c54971",
+      "tests/form/parmed_Structure/test_bridge_contract.py": "9293f0ea707337387b564dc95d5e84f7ee4e275baf9d66ce33493d8451c1b940",
+      "tests/form/parmed_Structure/test_structural_and_charge_contract.py": "489c2c1e51933ab18cf3994cc8b345ad884e6ff564bf90b9d2736c50fd9bbd2b",
+      "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917"
+    },
+    "runtime": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "executable": "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+      "numpy": {
+        "version": "2.4.6",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py"
+      },
+      "parmed": {
+        "version": "4.3.1",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/parmed/__init__.py"
+      },
+      "openmm": {
+        "version": "8.6.1",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/openmm/__init__.py"
+      },
+      "molsysmt_origin": "molsysmt/__init__.py"
+    },
+    "plain_probe_attempts": [
+      {
+        "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt1.json",
+        "native_exit": 0,
+        "scope": "Three initial public route cases; cache script later extended."
+      },
+      {
+        "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt2.json",
+        "native_exit": 1,
+        "scope": "Extended probe; expected typed rejections passed; probe authoring error tried to mutate a read-only native box view."
+      },
+      {
+        "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt3.json",
+        "native_exit": 0,
+        "scope": "Four bounded case groups; copied native box values before changing probe input."
+      }
+    ],
+    "final_smoke_script_sha256": "98df4c0bd0c63171690421ff3a5507f6fc8d67d62b49e2fc95e26405cacd4204",
+    "ruff": {
+      "final_native_exit": 0,
+      "output": "All checks passed!",
+      "scope": "17 changed executable files in source/tests; earlier import-order-only attempt exited1 then fixed."
+    },
+    "diff_check_native_exit": 0,
+    "documentation_preservation_receipt": ".pytest_cache/pre1-review-20261106/629-documentation-preservation.json",
+    "limits": [
+      "No pytest, new environment, installation, simulation, commit or remote write by this agent.",
+      "Direct smoke is bounded evidence, not whole adapter, floor matrix or scientific validation.",
+      "ParmEd route audit remains nonexhaustive."
+    ],
+    "dependency_validator": {
+      "command": "env PYTHONDONTWRITEBYTECODE=1 existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python devtools/scripts/validate_dependencies.py",
+      "native_exit": 0,
+      "output": "[PASS] No top-level imports of soft dependencies found."
+    },
+    "report_path": "devguide/pending_bugs/native_parmed_export_loses_coordinates_and_formal_charges_without_reporting_them.md",
+    "report_sha256": "5b35bebe0de2d990ea5aad39ffca59b72293dd32c102ae8be7265a216de906bc",
+    "empty_chain_amendment": {
+      "changed_code_paths": [
+        "molsysmt/form/parmed_Structure/_read_native.py",
+        "tests/form/parmed_Structure/test_structural_and_charge_contract.py"
+      ],
+      "guard": "tests/form/parmed_Structure/test_structural_and_charge_contract.py::test_explicit_empty_chain_label_survives_ingestion_and_native_roundtrip",
+      "behavior": "Preserve a supplied empty chain label as empty during ingestion and native roundtrip; do not invent A.",
+      "forward_builder_inspection": "Native exporter and OpenMM exporter already preserve explicit empty strings. No chain-generation policy was changed.",
+      "pytest_executed": false,
+      "ruff_native_exit": 0,
+      "ruff_format_native_exit": 0,
+      "diff_check_native_exit": 0,
+      "previous_receipt": "629-owner-receipt-pre-emptychain.json"
+    },
+    "floor_documentation_amendment": {
+      "reason": "Explain optional ParmEd>=4.3.1 baseline for NumPy2.3+ import compatibility and NumPy2 coordinate/box support.",
+      "all_frozen_executable_sources_unchanged": true,
+      "preservation_receipt": ".pytest_cache/pre1-review-20261106/629-documentation-preservation.json",
+      "recorded_at_utc": "2026-11-07T04:20:51.737652+00:00"
+    }
+  },
+  "documentation_preservation": {
+    "issue": "uibcdf/molsysmt#629",
+    "recorded_at_utc": "2026-11-07T03:59:35.599831+00:00",
+    "notebook": "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb",
+    "before_sha256": "1d1262f4ce361431ac25140566aeaaeefce5417c69b1f0486c92184771f61001",
+    "after_sha256": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917",
+    "changed_cells": [
+      {
+        "index": 1,
+        "id": "7199a448",
+        "cell_type": "markdown",
+        "section": "Overview",
+        "change": "Append optional dependency, native export fidelity, domain ownership and explicit representation-limit guidance."
+      }
+    ],
+    "invariants": {
+      "top_level_except_cells": {
+        "before_sha256": "f18c1ddc63ad951d67b09c14f0af8f77691e1b4c25f09175a1a8c9c0430bd65e",
+        "after_sha256": "f18c1ddc63ad951d67b09c14f0af8f77691e1b4c25f09175a1a8c9c0430bd65e",
+        "unchanged": true
+      },
+      "cell_order": {
+        "before_sha256": "02946419bdac00678f1b1c2ebe143c95afb5553f2eb5b2345fe2ed281f4190f1",
+        "after_sha256": "02946419bdac00678f1b1c2ebe143c95afb5553f2eb5b2345fe2ed281f4190f1",
+        "unchanged": true
+      },
+      "all_cell_ids": {
+        "before_sha256": "e7f30f6a43680782d0f673250649ff272be8ef1b08e7ae203384fd230f1a32ee",
+        "after_sha256": "e7f30f6a43680782d0f673250649ff272be8ef1b08e7ae203384fd230f1a32ee",
+        "unchanged": true
+      },
+      "all_cell_metadata": {
+        "before_sha256": "54ed99b19038a2749f18c610dcec11025e0d17267db53d4f8e451c170fde9c91",
+        "after_sha256": "54ed99b19038a2749f18c610dcec11025e0d17267db53d4f8e451c170fde9c91",
+        "unchanged": true
+      },
+      "all_code_cells": {
+        "before_sha256": "08b779ad7324255047cb6ac3f97d653de56d3047ba2642dd4fdbd4e16223aba0",
+        "after_sha256": "08b779ad7324255047cb6ac3f97d653de56d3047ba2642dd4fdbd4e16223aba0",
+        "unchanged": true
+      },
+      "all_outputs": {
+        "before_sha256": "dc554c59620895ae84699344e6bedd64520665960e85e520f76ceb87ba2ac08a",
+        "after_sha256": "dc554c59620895ae84699344e6bedd64520665960e85e520f76ceb87ba2ac08a",
+        "unchanged": true
+      },
+      "all_execution_counts": {
+        "before_sha256": "ea1f7826c00d391486073e6253906800dc0aedab473bbae5d4dd5f71e699046a",
+        "after_sha256": "ea1f7826c00d391486073e6253906800dc0aedab473bbae5d4dd5f71e699046a",
+        "unchanged": true
+      },
+      "all_cells_except_overview": {
+        "before_sha256": "54ae0141de0d00941d1e9ed26803786960b83255c1eb9450a39548ae8292f374",
+        "after_sha256": "54ae0141de0d00941d1e9ed26803786960b83255c1eb9450a39548ae8292f374",
+        "unchanged": true
+      },
+      "overview_except_source": {
+        "before_sha256": "a54f74e4e3cbc2a2a81f855b83cbc25edee6204950e48849c30451c24f413a90",
+        "after_sha256": "a54f74e4e3cbc2a2a81f855b83cbc25edee6204950e48849c30451c24f413a90",
+        "unchanged": true
+      }
+    },
+    "reviewed_unchanged": [
+      {
+        "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+        "sha256": "0afc9f3905b3589f82797b8563cb8225117e6c8ebccc55a49299640b6bac172e",
+        "changed": false,
+        "disposition": "Reviewed native/chemical preparation, optional providers, fixed-state RDKit and bridge lifecycle guidance. It makes no conflicting native-to-ParmEd export claim; existing code and outputs remain applicable."
+      },
+      {
+        "path": "docs/content/user/cookbook/form_teleportation.ipynb",
+        "sha256": "5831119271633b0e2f1fde37fc72d5a0296296ba2f6fb9f5e4f3addd1d78f460",
+        "changed": false,
+        "disposition": "Reviewed the ParmEd bridge narrative and executed MDTraj-ParmEd-OpenMM example. It describes alignment, units, topology-only absence and lack of parameter assignment consistently with the native export contract; no example changes needed."
+      },
+      {
+        "path": "docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb",
+        "sha256": "5e4ef605476bd35317cb025cb5690fdca75edb8baf204f2f6306d2509e6e2599",
+        "changed": false,
+        "disposition": "Reviewed mutation and completion guidance. It contains no ParmEd export claim and retains independent native reconstruction limits; no example changes needed."
+      }
+    ],
+    "execution": "No notebook execution or pytest performed; all code and saved outputs remain unchanged.",
+    "scope": "Only the ParmEd form overview and this portable preservation receipt were written.",
+    "updated_at_utc": "2026-11-07T04:18:50.482902+00:00",
+    "amendments": [
+      {
+        "issue": "uibcdf/molsysmt#524",
+        "previous_after_sha256": "cbde263debb7260ad5dfca677758706ac1bd3d6e6268514beea9ae7b9cfcb0bb",
+        "after_sha256": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917",
+        "changed_cell": {
+          "index": 1,
+          "id": "7199a448",
+          "cell_type": "markdown",
+          "section": "Overview"
+        },
+        "reason": "Explain the optional ParmEd >=4.3.1 baseline: 4.3.0 fixes NumPy 2 coordinate/box assignment and 4.3.1 removes the obsolete numpy.compat import absent from NumPy 2.3 and newer. This is a bounded API compatibility rationale, not a full interpreter/platform qualification claim.",
+        "all_pre_629_invariant_hashes_retained": true
+      }
+    ]
+  },
+  "receiving": [
+    {
+      "stem": "524-629-parmed-floor312-features",
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py",
+          "tests/form/openmm_Topology/test_to_parmed_Structure.py",
+          "tests/form/parmed_Structure",
+          "tests/form/file_mol2/test_chemical_contract.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--doctest-modules",
+          "molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py",
+          "molsysmt/form/molsysmt_Topology/to_parmed_Structure.py",
+          "molsysmt/form/openmm_Topology/to_parmed_Structure.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-629-parmed-floor312-features.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py312he864675_1/lib/python3.12/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/openmm-review/OpenMM-8.2.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-629-parmed-floor312-features-origins.json",
+        "frozen_owner": {
+          "issue": "uibcdf/molsysmt#629",
+          "recorded_at_utc": "2026-11-07T04:16:24.171562+00:00",
+          "source_and_tests_frozen": true,
+          "pytest_executed_by_this_agent": false,
+          "root_qualification_pending": true,
+          "source_sha256": {
+            "molsysmt/_private/conversion_report.py": "0d9bf36b7a725e44136d95b4ccf1dd426333f37bf29a82035c6350493432ef71",
+            "molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py": "d4d37d714ffc4046eb1b1bb4cc6d8410c38b1824a5828d2b3a16b888e80934e0",
+            "molsysmt/form/molsysmt_Topology/to_parmed_Structure.py": "5de5e1e9631266a49f55e9408405940136c1b9c10fcfc158fcd172a827273e02",
+            "molsysmt/form/openmm_Topology/to_parmed_Structure.py": "9c1a36a47c9306470fb1f52ecad279b01e4ab0a7b886e5b9921bc3a4de51d772",
+            "molsysmt/form/parmed_Structure/_from_native.py": "629670017f0c9b9f34640cd944c2e7d98cc8a4aa8fbe1705af39f3177d36bf84",
+            "molsysmt/form/parmed_Structure/_mechanical.py": "b7eb362a6660d917af1bdb654395fc773c2134ce8366edde51ad33ec3b60bdb2",
+            "molsysmt/form/parmed_Structure/_chemical_state.py": "9875549959eafcd39718d60a25c9da314a3db93ee107d6ef6a4c16ce8d31ef58",
+            "molsysmt/form/parmed_Structure/_read_native.py": "c5eaf23282d8a3b7e088d5cc46c867a4f37e127314940558df9c0b8d09413acd",
+            "molsysmt/form/parmed_Structure/get_mechanical_attributes.py": "67c8d65fff215183629b15da8c0606e9bb1f72bedfea67f92f4d043595997dfa",
+            "molsysmt/form/parmed_Structure/get_structural_attributes.py": "fd23418aec025c5319022bb74c4588180b3ec3e5314886f700be18d1951c2d50",
+            "molsysmt/form/parmed_Structure/has_attribute.py": "3d95d2fb78cf1d15c8999dd0102629e15db2417157e884de8c8dfa116dd72386",
+            "molsysmt/form/parmed_Structure/to_molsysmt_MolSys.py": "ec416407060074c955e05cbf587095b70b134444af7acbd4274dbe2eb97096d4",
+            "molsysmt/form/parmed_Structure/to_molsysmt_Structures.py": "9e5ea5f1c2a599b82163de93d19d293018857313090e47b74de092f61280d5af",
+            "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py": "bcf798cfd6705b2cb9c9fd8cf94ad7129ce98f8c747bcb899982095fa1783e0b",
+            "tests/form/openmm_Topology/test_to_parmed_Structure.py": "6136e482d31550fa6f56631024ada041f328c3618e7cb0d21b893effd5c54971",
+            "tests/form/parmed_Structure/test_bridge_contract.py": "9293f0ea707337387b564dc95d5e84f7ee4e275baf9d66ce33493d8451c1b940",
+            "tests/form/parmed_Structure/test_structural_and_charge_contract.py": "489c2c1e51933ab18cf3994cc8b345ad884e6ff564bf90b9d2736c50fd9bbd2b",
+            "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917"
+          },
+          "runtime": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "executable": "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+            "numpy": {
+              "version": "2.4.6",
+              "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py"
+            },
+            "parmed": {
+              "version": "4.3.1",
+              "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/parmed/__init__.py"
+            },
+            "openmm": {
+              "version": "8.6.1",
+              "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/openmm/__init__.py"
+            },
+            "molsysmt_origin": "molsysmt/__init__.py"
+          },
+          "plain_probe_attempts": [
+            {
+              "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt1.json",
+              "native_exit": 0,
+              "scope": "Three initial public route cases; cache script later extended."
+            },
+            {
+              "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt2.json",
+              "native_exit": 1,
+              "scope": "Extended probe; expected typed rejections passed; probe authoring error tried to mutate a read-only native box view."
+            },
+            {
+              "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt3.json",
+              "native_exit": 0,
+              "scope": "Four bounded case groups; copied native box values before changing probe input."
+            }
+          ],
+          "final_smoke_script_sha256": "98df4c0bd0c63171690421ff3a5507f6fc8d67d62b49e2fc95e26405cacd4204",
+          "ruff": {
+            "final_native_exit": 0,
+            "output": "All checks passed!",
+            "scope": "17 changed executable files in source/tests; earlier import-order-only attempt exited1 then fixed."
+          },
+          "diff_check_native_exit": 0,
+          "documentation_preservation_receipt": ".pytest_cache/pre1-review-20261106/629-documentation-preservation.json",
+          "limits": [
+            "No pytest, new environment, installation, simulation, commit or remote write by this agent.",
+            "Direct smoke is bounded evidence, not whole adapter, floor matrix or scientific validation.",
+            "ParmEd route audit remains nonexhaustive."
+          ],
+          "dependency_validator": {
+            "command": "env PYTHONDONTWRITEBYTECODE=1 existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python devtools/scripts/validate_dependencies.py",
+            "native_exit": 0,
+            "output": "[PASS] No top-level imports of soft dependencies found."
+          },
+          "report_path": "devguide/pending_bugs/native_parmed_export_loses_coordinates_and_formal_charges_without_reporting_them.md",
+          "report_sha256": "5b35bebe0de2d990ea5aad39ffca59b72293dd32c102ae8be7265a216de906bc",
+          "empty_chain_amendment": {
+            "changed_code_paths": [
+              "molsysmt/form/parmed_Structure/_read_native.py",
+              "tests/form/parmed_Structure/test_structural_and_charge_contract.py"
+            ],
+            "guard": "tests/form/parmed_Structure/test_structural_and_charge_contract.py::test_explicit_empty_chain_label_survives_ingestion_and_native_roundtrip",
+            "behavior": "Preserve a supplied empty chain label as empty during ingestion and native roundtrip; do not invent A.",
+            "forward_builder_inspection": "Native exporter and OpenMM exporter already preserve explicit empty strings. No chain-generation policy was changed.",
+            "pytest_executed": false,
+            "ruff_native_exit": 0,
+            "ruff_format_native_exit": 0,
+            "diff_check_native_exit": 0,
+            "previous_receipt": "629-owner-receipt-pre-emptychain.json"
+          },
+          "floor_documentation_amendment": {
+            "reason": "Explain optional ParmEd>=4.3.1 baseline for NumPy2.3+ import compatibility and NumPy2 coordinate/box support.",
+            "all_frozen_executable_sources_unchanged": true,
+            "preservation_receipt": ".pytest_cache/pre1-review-20261106/629-documentation-preservation.json",
+            "recorded_at_utc": "2026-11-07T04:20:51.737652+00:00"
+          }
+        },
+        "probe_exit_code": 0,
+        "process_exit_code": 0
+      },
+      "junit": ".pytest_cache/pre1-review-20261106/524-629-parmed-floor312-features.xml",
+      "junit_sha256": "029e45bd2e2adb00420f72db46504fc1444c5f1357dec9556cf1128b2b875869",
+      "counts": {
+        "tests": 185,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 9.951,
+      "unsuccessful_nodes": [],
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "parmed": {
+            "distribution_version": "4.3.1",
+            "module_version": "4.3.1",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py312he864675_1/lib/python3.12/site-packages/parmed/__init__.py",
+            "sha256": "1088e7d24a12c0076138d06ede6b0622798b0bd711490f2bb74791f0d8f68ec5"
+          },
+          "parmed.amber._rdparm": {
+            "distribution_version": "4.3.1",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/parmed-review/parmed-4.3.1-py312he864675_1/lib/python3.12/site-packages/parmed/amber/_rdparm.cpython-312-x86_64-linux-gnu.so",
+            "sha256": "701a30596496db5813037d3af7db13f9035fb59a48da57f5c7631d113f51a46c"
+          },
+          "openmm": {
+            "distribution_version": "8.2.0",
+            "module_version": "8.2",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/openmm-review/OpenMM-8.2.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64/openmm/__init__.py",
+            "sha256": "b0ecdd72b160c71f057adc68bb29eba66b653f3615ac6d4cffa0ef5ef3a32f7a"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      }
+    },
+    {
+      "stem": "524-629-parmed-newer314-features",
+      "invocation": {
+        "profile": "newer314",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py",
+          "tests/form/openmm_Topology/test_to_parmed_Structure.py",
+          "tests/form/parmed_Structure",
+          "tests/form/file_mol2/test_chemical_contract.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--doctest-modules",
+          "molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py",
+          "molsysmt/form/molsysmt_Topology/to_parmed_Structure.py",
+          "molsysmt/form/openmm_Topology/to_parmed_Structure.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-629-parmed-newer314-features.xml"
+        ],
+        "pythonpath": [
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-629-parmed-newer314-features-origins.json",
+        "frozen_owner": {
+          "issue": "uibcdf/molsysmt#629",
+          "recorded_at_utc": "2026-11-07T04:16:24.171562+00:00",
+          "source_and_tests_frozen": true,
+          "pytest_executed_by_this_agent": false,
+          "root_qualification_pending": true,
+          "source_sha256": {
+            "molsysmt/_private/conversion_report.py": "0d9bf36b7a725e44136d95b4ccf1dd426333f37bf29a82035c6350493432ef71",
+            "molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py": "d4d37d714ffc4046eb1b1bb4cc6d8410c38b1824a5828d2b3a16b888e80934e0",
+            "molsysmt/form/molsysmt_Topology/to_parmed_Structure.py": "5de5e1e9631266a49f55e9408405940136c1b9c10fcfc158fcd172a827273e02",
+            "molsysmt/form/openmm_Topology/to_parmed_Structure.py": "9c1a36a47c9306470fb1f52ecad279b01e4ab0a7b886e5b9921bc3a4de51d772",
+            "molsysmt/form/parmed_Structure/_from_native.py": "629670017f0c9b9f34640cd944c2e7d98cc8a4aa8fbe1705af39f3177d36bf84",
+            "molsysmt/form/parmed_Structure/_mechanical.py": "b7eb362a6660d917af1bdb654395fc773c2134ce8366edde51ad33ec3b60bdb2",
+            "molsysmt/form/parmed_Structure/_chemical_state.py": "9875549959eafcd39718d60a25c9da314a3db93ee107d6ef6a4c16ce8d31ef58",
+            "molsysmt/form/parmed_Structure/_read_native.py": "c5eaf23282d8a3b7e088d5cc46c867a4f37e127314940558df9c0b8d09413acd",
+            "molsysmt/form/parmed_Structure/get_mechanical_attributes.py": "67c8d65fff215183629b15da8c0606e9bb1f72bedfea67f92f4d043595997dfa",
+            "molsysmt/form/parmed_Structure/get_structural_attributes.py": "fd23418aec025c5319022bb74c4588180b3ec3e5314886f700be18d1951c2d50",
+            "molsysmt/form/parmed_Structure/has_attribute.py": "3d95d2fb78cf1d15c8999dd0102629e15db2417157e884de8c8dfa116dd72386",
+            "molsysmt/form/parmed_Structure/to_molsysmt_MolSys.py": "ec416407060074c955e05cbf587095b70b134444af7acbd4274dbe2eb97096d4",
+            "molsysmt/form/parmed_Structure/to_molsysmt_Structures.py": "9e5ea5f1c2a599b82163de93d19d293018857313090e47b74de092f61280d5af",
+            "tests/form/molsysmt_MolSys/test_to_parmed_Structure.py": "bcf798cfd6705b2cb9c9fd8cf94ad7129ce98f8c747bcb899982095fa1783e0b",
+            "tests/form/openmm_Topology/test_to_parmed_Structure.py": "6136e482d31550fa6f56631024ada041f328c3618e7cb0d21b893effd5c54971",
+            "tests/form/parmed_Structure/test_bridge_contract.py": "9293f0ea707337387b564dc95d5e84f7ee4e275baf9d66ce33493d8451c1b940",
+            "tests/form/parmed_Structure/test_structural_and_charge_contract.py": "489c2c1e51933ab18cf3994cc8b345ad884e6ff564bf90b9d2736c50fd9bbd2b",
+            "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917"
+          },
+          "runtime": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "executable": "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+            "numpy": {
+              "version": "2.4.6",
+              "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py"
+            },
+            "parmed": {
+              "version": "4.3.1",
+              "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/parmed/__init__.py"
+            },
+            "openmm": {
+              "version": "8.6.1",
+              "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/openmm/__init__.py"
+            },
+            "molsysmt_origin": "molsysmt/__init__.py"
+          },
+          "plain_probe_attempts": [
+            {
+              "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt1.json",
+              "native_exit": 0,
+              "scope": "Three initial public route cases; cache script later extended."
+            },
+            {
+              "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt2.json",
+              "native_exit": 1,
+              "scope": "Extended probe; expected typed rejections passed; probe authoring error tried to mutate a read-only native box view."
+            },
+            {
+              "command": "env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENMM_CPU_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=.:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python .pytest_cache/pre1-review-20261106/629-owner-smoke.py .pytest_cache/pre1-review-20261106/629-owner-smoke-attempt3.json",
+              "native_exit": 0,
+              "scope": "Four bounded case groups; copied native box values before changing probe input."
+            }
+          ],
+          "final_smoke_script_sha256": "98df4c0bd0c63171690421ff3a5507f6fc8d67d62b49e2fc95e26405cacd4204",
+          "ruff": {
+            "final_native_exit": 0,
+            "output": "All checks passed!",
+            "scope": "17 changed executable files in source/tests; earlier import-order-only attempt exited1 then fixed."
+          },
+          "diff_check_native_exit": 0,
+          "documentation_preservation_receipt": ".pytest_cache/pre1-review-20261106/629-documentation-preservation.json",
+          "limits": [
+            "No pytest, new environment, installation, simulation, commit or remote write by this agent.",
+            "Direct smoke is bounded evidence, not whole adapter, floor matrix or scientific validation.",
+            "ParmEd route audit remains nonexhaustive."
+          ],
+          "dependency_validator": {
+            "command": "env PYTHONDONTWRITEBYTECODE=1 existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python devtools/scripts/validate_dependencies.py",
+            "native_exit": 0,
+            "output": "[PASS] No top-level imports of soft dependencies found."
+          },
+          "report_path": "devguide/pending_bugs/native_parmed_export_loses_coordinates_and_formal_charges_without_reporting_them.md",
+          "report_sha256": "5b35bebe0de2d990ea5aad39ffca59b72293dd32c102ae8be7265a216de906bc",
+          "empty_chain_amendment": {
+            "changed_code_paths": [
+              "molsysmt/form/parmed_Structure/_read_native.py",
+              "tests/form/parmed_Structure/test_structural_and_charge_contract.py"
+            ],
+            "guard": "tests/form/parmed_Structure/test_structural_and_charge_contract.py::test_explicit_empty_chain_label_survives_ingestion_and_native_roundtrip",
+            "behavior": "Preserve a supplied empty chain label as empty during ingestion and native roundtrip; do not invent A.",
+            "forward_builder_inspection": "Native exporter and OpenMM exporter already preserve explicit empty strings. No chain-generation policy was changed.",
+            "pytest_executed": false,
+            "ruff_native_exit": 0,
+            "ruff_format_native_exit": 0,
+            "diff_check_native_exit": 0,
+            "previous_receipt": "629-owner-receipt-pre-emptychain.json"
+          },
+          "floor_documentation_amendment": {
+            "reason": "Explain optional ParmEd>=4.3.1 baseline for NumPy2.3+ import compatibility and NumPy2 coordinate/box support.",
+            "all_frozen_executable_sources_unchanged": true,
+            "preservation_receipt": ".pytest_cache/pre1-review-20261106/629-documentation-preservation.json",
+            "recorded_at_utc": "2026-11-07T04:20:51.737652+00:00"
+          }
+        },
+        "probe_exit_code": 0,
+        "process_exit_code": 0
+      },
+      "junit": ".pytest_cache/pre1-review-20261106/524-629-parmed-newer314-features.xml",
+      "junit_sha256": "e31b011b70418177d6db59764589123d6fa3f461eba03adb0559f72373c82926",
+      "counts": {
+        "tests": 185,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 8.689,
+      "unsuccessful_nodes": [],
+      "origins": {
+        "python": "3.14.7",
+        "providers": {
+          "parmed": {
+            "distribution_version": "4.3.1",
+            "module_version": "4.3.1",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/parmed/__init__.py",
+            "sha256": "1088e7d24a12c0076138d06ede6b0622798b0bd711490f2bb74791f0d8f68ec5"
+          },
+          "parmed.amber._rdparm": {
+            "distribution_version": "4.3.1",
+            "module_version": null,
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/parmed/amber/_rdparm.cpython-314-x86_64-linux-gnu.so",
+            "sha256": "a2bd47491591ac5f2b42f25ed79bca388b1b05120ab7025ccbcff82840a74566"
+          },
+          "openmm": {
+            "distribution_version": "8.6.1",
+            "module_version": "8.6.1",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/openmm/__init__.py",
+            "sha256": "c513bcdf3407fb0efdffc8f2f4e61d4de40b0a6612c3017af948e0245bf319ab"
+          },
+          "numpy": {
+            "distribution_version": "2.4.6",
+            "module_version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/numpy/__init__.py",
+            "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.29.1+6.gf82b618",
+            "module_version": "0.29.1+6.gf82b618",
+            "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.16.0+1.g6dabaf7",
+            "module_version": "0.16.0+1.g6dabaf7",
+            "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+            "sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1+3.ga27172b",
+            "module_version": "0.15.1+3.ga27172b",
+            "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.21.0+1.gd6b2394",
+            "module_version": "0.22.0+15.g5ee88c1",
+            "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+            "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      }
+    }
+  ],
+  "repair_contract": [
+    "Direct native exporter accepts explicit stable Topology, ChemicalStates, Structures and MolecularMechanics domains without requiring OpenMM internally.",
+    "Preserve selected coordinates/box structure order and repetition, reference formal charges/aromaticity, representable numeric labels, independent numeric/qualitative bond fields, and known atom mechanical assignments.",
+    "Topology alone remains stable inventory. Preserve explicit empty chain labels; do not generate A on ingestion.",
+    "Unknown partial charge remains unknown rather than the provider public getter fallback0. No force-field parameterization or extra chemistry inference.",
+    "Reject unrepresentable unknown numeric orders, noncanonical integer label spelling, incompatible independent bond order slots, state association and raw rotated/reflected cells; bounded preflight reports the affected fields.",
+    "Retain box-only structure axes without inventing coordinates; use PUW and existing PBC reductions, documenting the existing angle quantization."
+  ],
+  "attempt_dispositions": [
+    "Initial17-case failure contains12 test-authoring errors using nonexistent root class exports. Only imports were corrected before the valid unchanged-production baseline:15 failures,2 passes.",
+    "Final public ParmEd4.3.1/Python3.12/OpenMM8.2 and existing public ParmEd4.3.1/Python3.14/OpenMM8.6.1 profiles each pass185, no skips/errors/failures, native exit0.",
+    "A plain owner-probe failure attempted to mutate a read-only box view; the probe copied input first. The original attempt remains recorded, not classified as a production defect.",
+    "Public4.0 fails NumPy2 coordinate setter copy=False; public4.3 fails imports after NumPy2.3 removes numpy.compat. Floor4.3.1 resolves both consumed boundaries; no guessed ceiling.",
+    "Conversion audit remains explicitly nonexhaustive. Arbitrary string IDs, all chemical-state collections, unsupported structure fields, parameterized file writers and complete molecular simulation are not certified."
+  ],
+  "scientific_receiving": {
+    "path": "devtools/data/runtime_provider_scientific_receiving_524_20261106.json",
+    "native_exit_observed": 0,
+    "passed": 97,
+    "registered_nodes": 64,
+    "skipped": 0,
+    "release_eligible": false
+  }
+}

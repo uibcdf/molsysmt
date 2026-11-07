@@ -1,0 +1,2403 @@
+{
+  "date": "2026-11-06",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "runtime_floor_source": {
+    "commit": "33a702bfa638464848a77c57c642627595c759ed",
+    "files_sha256": {
+      ".github/workflows/receive_public_argdigest.yaml": "67ca1daff575710e1f4eb42c8f6af6ea411b1e718abd27cd37554933a644211d",
+      "devtools/conda-envs/development_env.yaml": "cd5fe0f3321905e0d5299b880637ba3cef12aee05d50aa92c409df7ba66c4325",
+      "devtools/conda-envs/test_env.yaml": "2f780dfcd3ed808bd9f725102a6cd67bff6c0fd9a7bd3069817f6c7f098d987e",
+      "devtools/dependency_contract.toml": "cb0ba45042852271c7b766f14f933dd7acbc6b286069b0ef45ce9ee76825d808",
+      "devtools/tests/test_audit_dependency_contract.py": "e8a5bfda01626230d82b0bd8dd54a112ec6d5c7176940699338d511e4c2a48c4",
+      "pyproject.toml": "3bf4c4efc51794838ff5661cf45dde996b90f4bd56a457a8d1dbbf1d86a73a4b",
+      "tests/form/MDAnalysis_Universe/test_runtime_provider_contract.py": "e3db008e8a7003bc599c10ed72f1a570522f324d9b1df6d69a498a1472d69e0f",
+      "tests/form/parmed_Structure/test_runtime_provider_contract.py": "ca0cfb9717e79e7314d7d5879e05ac51400a9e728bfc7bdcd1245882a4448cfb"
+    }
+  },
+  "integrated_receiving": {
+    "stem": "524-627-628-629-integrated-conversion",
+    "invocation": {
+      "command": [
+        "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/basic/convert/test_conversion_preflight.py",
+        "tests/basic/convert/test_stored_mechanics_options.py",
+        "tests/basic/convert/one_to_one/test_convert_from_molsysmt_MolSys.py",
+        "tests/basic/test_copy.py",
+        "tests/basic/test_extract.py",
+        "tests/basic/test_extract_extended.py",
+        "tests/form/rdkit_Mol",
+        "tests/form/file_sdf",
+        "tests/physchem/test_get_tpsa.py",
+        "tests/physchem/test_get_lipophilicity.py",
+        "tests/physchem/test_get_partial_charges.py",
+        "tests/physchem/test_sdf_reference_valence.py",
+        "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py",
+        "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py",
+        "devtools/tests/test_audit_dependency_contract.py",
+        "devtools/tests/test_installed_runtime_dependencies.py",
+        "devtools/tests/test_documentation_source_boundary.py",
+        "devtools/tests/test_documentation_notebook_schema.py",
+        "devtools/tests/test_documentation_workflow.py",
+        "devtools/tests/test_public_api_docs.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/524-627-628-629-integrated-conversion.xml"
+      ],
+      "profile": "Ordinary Python3.14/default SMonitor bridge after the shared conversion-report and mechanical/element readback changes; inherited actual providers.",
+      "process_exit_code": 0
+    },
+    "junit": ".pytest_cache/pre1-review-20261106/524-627-628-629-integrated-conversion.xml",
+    "junit_sha256": "be27c72b39a4e11eb8d34f71e87845e0b34c550b545673d73b7603d8212bf7e6",
+    "counts": {
+      "tests": 1271,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "seconds": 67.57,
+    "unsuccessful_nodes": []
+  },
+  "accepted_plan_progress_percent": 40,
+  "additional_progress_points": 0,
+  "backend": {
+    "path": "molsysmt/_rust.abi3.so",
+    "sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "rebuilt": false
+  },
+  "limits": [
+    "Finite Linux source-checkout receiving using public provider payloads, not clean installed MolSysMT artifacts or the full interpreter/platform matrix.",
+    "Minimum profiles use public support-library floors and the documented old-SMonitor bridge exception; ordinary newer profiles retain the default bridge.",
+    "No shared environment was created, installed over or downgraded. Public payloads were unpacked into a task-local ignored cache.",
+    "Scopes overlap; case counts must not be added as independent coverage. No new remote CI, release, tag or candidate qualification is claimed."
+  ],
+  "schema_version": "molsysmt.mdanalysis_runtime_receiving@1",
+  "related_issue": "uibcdf/molsysmt#628",
+  "declared_minimum": "MDAnalysis>=2.8.0",
+  "repair_source": {
+    "commit": "f81ba20255e37df2fcc972f9015dcd17f6763d1b",
+    "files_sha256": {
+      "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb": "0778419fd201435be89d44a0c2ca88469c9c163a01a4a982ccbfaf4b4c95d904",
+      "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": "392010dfbf5475c17a2b3d82d1b28386c3f4eefb59f1bb91ff01f05087aca56c",
+      "docs/content/user/cookbook/form_teleportation.ipynb": "5831119271633b0e2f1fde37fc72d5a0296296ba2f6fb9f5e4f3addd1d78f460",
+      "docs/content/user/foundations/support/forms/classes.md": "bb4624c3974c012adb6815e21f03637ebafd8947ccfa967d0b9078c46daf1f23",
+      "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb": "1a863ed839b35e7ec22f6c087a440039d83423b32add5823fd5817d402d50f62",
+      "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb": "f07fa410ff96546cc31d5a9622ffb11e259336aa91d0505671c5c2751243405a",
+      "docs/content/user/tools/form/class/mdanalysis/index.md": "a5ee4dc7f9aaa06398fa7027b9250466230e4d7b2f41dbdd374a5a2077e6ef4e",
+      "molsysmt/form/MDAnalysis_AtomGroup/__init__.py": "55a07ff6aa31bfc65381c298eec4a37fec44b8d83a87b6d64ad048de221aacff",
+      "molsysmt/form/MDAnalysis_AtomGroup/copy.py": "91bb71d5bf4429fd7133a0cbce85dbd57c62a92087320bcc422e615f111ca867",
+      "molsysmt/form/MDAnalysis_AtomGroup/extract.py": "170324bc01b3b4d279b0415dd164d67ec63455edcf3698c5eaefefde47a4f72e",
+      "molsysmt/form/MDAnalysis_Universe/_subset.py": "ef93beeb3bbb3c725319dcc9acf026cfcd1920977c312c7059092fa85b02819d",
+      "molsysmt/form/MDAnalysis_Universe/copy.py": "1d54c072f21c5603717fcd22062a73d2870d818777b4ff6c0882780b0056ce86",
+      "molsysmt/form/MDAnalysis_Universe/extract.py": "ec0f1166937f864b773ac3baad4b5539a47e3ff1f0d11fce297874a66b4d9b79",
+      "tests/form/MDAnalysis_Universe/test_copy_and_subset_metadata.py": "ece4d0dae0cc15215cebca19a30c0cc4ce38454b2c32d362658b70a745986afa",
+      "tests/form/MDAnalysis_Universe/test_copy_connection_ownership.py": "7875a7166ef1ce4f7784e9b1cec13de2efbfbb52c3410ae4bd22a9a5364a77e4"
+    }
+  },
+  "provider_review_before_root_pytest": {
+    "provider": "MDAnalysis",
+    "recommendation": {
+      "minimum_candidate": "2.8.0",
+      "status": "source-grounded and small provider/public-route probes executed; no pytest qualification",
+      "rationale": "FormalCharges chemistry exists from 2.3.0; official CPython 3.11 wheels exist from 2.4.0. Release 2.8.0 introduces public NumPy 2-built wheels and passes the consumed array API probes on the recorded pairs. The latest installed version is not the floor rationale.",
+      "python314_limitation": "Release 2.8.0 officially supports Python 3.10 through 3.13. No 2.8.0 Python 3.14 source-build or runtime qualification is claimed. The current Python 3.14 reproduction uses 2.10.0 separately."
+    },
+    "official_sources": [
+      "https://www.mdanalysis.org/2024/11/22/release-2.8.0/",
+      "https://www.mdanalysis.org/2024/01/04/release-2.7.0/",
+      "https://pypi.org/pypi/MDAnalysis/2.8.0/json",
+      "https://pypi.org/pypi/MDAnalysis/2.7.0/json"
+    ],
+    "executed_provider_probes": {
+      "2.8.0": {
+        "python": "3.11.9 | packaged by conda-forge | (main, Apr 19 2024, 18:36:13) [GCC 12.3.0]",
+        "numpy": {
+          "version": "2.0.0",
+          "origin": "existing interpreter CPPs-PhysChemSpace@uibcdf_3.11 prefix/lib/python3.11/site-packages/numpy/__init__.py"
+        },
+        "mdanalysis": {
+          "version": "2.8.0",
+          "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp311/MDAnalysis/__init__.py"
+        },
+        "status": "passed_with_observed_merge_chemical_loss",
+        "checks": {
+          "chemical_arrays_and_topology_translation": "passed",
+          "universe_reader_arrays_time_cells_velocities_cursor": "passed",
+          "atomgroup_merge_subset_indices_formal_charges_and_memoryreader": "passed",
+          "selected_multistructure_pdb_formal_charge_roundtrip": "passed"
+        },
+        "merge_chemical_fidelity": {
+          "status": "loss_observed",
+          "row_atom_ids": [
+            [
+              11,
+              12
+            ],
+            [
+              13,
+              12
+            ]
+          ],
+          "expected_order": [
+            2,
+            null
+          ],
+          "observed_order": [
+            null,
+            null
+          ],
+          "expected_guessed": [
+            true,
+            false
+          ],
+          "observed_guessed": [
+            false,
+            false
+          ],
+          "expected_types": [
+            "opaque-class",
+            "dative"
+          ],
+          "observed_types_repr": [
+            "np.bytes_(b'opaque-c')",
+            "np.bytes_(b'dative')"
+          ],
+          "note": "Provider Merge omits order/guessed and converts types to S8. This is reported separately from the passing index/array checks."
+        },
+        "error": null
+      },
+      "2.8.0-numpy126": {
+        "python": "3.11.10 | packaged by conda-forge | (main, Oct 16 2024, 01:27:36) [GCC 13.3.0]",
+        "numpy": {
+          "version": "1.26.4",
+          "origin": "existing interpreter Peptides_Landscape@uibcdf_3.11 prefix/lib/python3.11/site-packages/numpy/__init__.py"
+        },
+        "mdanalysis": {
+          "version": "2.8.0",
+          "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp311/MDAnalysis/__init__.py"
+        },
+        "status": "passed_with_observed_merge_chemical_loss",
+        "checks": {
+          "chemical_arrays_and_topology_translation": "passed",
+          "universe_reader_arrays_time_cells_velocities_cursor": "passed",
+          "atomgroup_merge_subset_indices_formal_charges_and_memoryreader": "passed",
+          "selected_multistructure_pdb_formal_charge_roundtrip": "passed"
+        },
+        "merge_chemical_fidelity": {
+          "status": "loss_observed",
+          "row_atom_ids": [
+            [
+              11,
+              12
+            ],
+            [
+              13,
+              12
+            ]
+          ],
+          "expected_order": [
+            2,
+            null
+          ],
+          "observed_order": [
+            null,
+            null
+          ],
+          "expected_guessed": [
+            true,
+            false
+          ],
+          "observed_guessed": [
+            false,
+            false
+          ],
+          "expected_types": [
+            "opaque-class",
+            "dative"
+          ],
+          "observed_types_repr": [
+            "b'opaque-c'",
+            "b'dative'"
+          ],
+          "note": "Provider Merge omits order/guessed and converts types to S8. This is reported separately from the passing index/array checks."
+        },
+        "error": null
+      },
+      "2.8.0-py312-numpy235": {
+        "python": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "numpy": {
+          "version": "2.3.5",
+          "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py"
+        },
+        "mdanalysis": {
+          "version": "2.8.0",
+          "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312/MDAnalysis/__init__.py"
+        },
+        "status": "passed_with_observed_merge_chemical_loss",
+        "checks": {
+          "chemical_arrays_and_topology_translation": "passed",
+          "universe_reader_arrays_time_cells_velocities_cursor": "passed",
+          "atomgroup_merge_subset_indices_formal_charges_and_memoryreader": "passed",
+          "selected_multistructure_pdb_formal_charge_roundtrip": "passed"
+        },
+        "merge_chemical_fidelity": {
+          "status": "loss_observed",
+          "row_atom_ids": [
+            [
+              11,
+              12
+            ],
+            [
+              13,
+              12
+            ]
+          ],
+          "expected_order": [
+            2,
+            null
+          ],
+          "observed_order": [
+            null,
+            null
+          ],
+          "expected_guessed": [
+            true,
+            false
+          ],
+          "observed_guessed": [
+            false,
+            false
+          ],
+          "expected_types": [
+            "opaque-class",
+            "dative"
+          ],
+          "observed_types_repr": [
+            "np.bytes_(b'opaque-c')",
+            "np.bytes_(b'dative')"
+          ],
+          "note": "Provider Merge omits order/guessed and converts types to S8. This is reported separately from the passing index/array checks."
+        },
+        "error": null
+      }
+    },
+    "negative_comparator": {
+      "version": "2.7.0",
+      "numpy": {
+        "version": "2.0.0",
+        "origin": "existing interpreter CPPs-PhysChemSpace@uibcdf_3.11 prefix/lib/python3.11/site-packages/numpy/__init__.py"
+      },
+      "error": {
+        "type": "ValueError",
+        "message": "numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject"
+      },
+      "evidence": "probe-2.7.0-attempt-02-result.json"
+    },
+    "public_reproduction": {
+      "candidate": "public-candidate-2.8.0-py312-result.json",
+      "current_installed": "public-current-py314-result.json",
+      "minimal": "minimal_public_reproducer.py",
+      "minimal_output": "minimal-public-current-py314-stdout.txt"
+    },
+    "independent_correctness_findings": [
+      {
+        "mechanism": "MDAnalysis.Merge does not forward order/guessed and converts bond types to fixed-width bytes S8. MolSysMT subset helper delegates directly.",
+        "before": {
+          "order": [
+            1.5,
+            2,
+            null
+          ],
+          "types": [
+            "aromatic",
+            "opaque-class",
+            "dative"
+          ],
+          "guessed": [
+            false,
+            true,
+            false
+          ]
+        },
+        "after": {
+          "order": [
+            null,
+            null,
+            null
+          ],
+          "types_repr": [
+            "b'aromatic'",
+            "b'opaque-c'",
+            "b'dative'"
+          ],
+          "guessed": [
+            false,
+            false,
+            false
+          ]
+        },
+        "affected": "Universe/AtomGroup public full/subset extraction and same-form conversion, AtomGroup-to-Universe conversion",
+        "preserved": "Atom IDs, names, formal charges, selected structures and time, source coordinates, cursor and metadata snapshots.",
+        "not_fixed_by_floor": "Observed on public 2.8.0 and installed 2.10.0. Identical Merge source was inspected at f44c1e09001791b302840f90390275d11ef69497, not executed."
+      },
+      {
+        "mechanism": "Universe independent-copy adapter uses copy.deepcopy; provider Timestep __deepcopy__ does not accept memo.",
+        "error": "TypeError: __deepcopy__() takes exactly 0 positional arguments (1 given)",
+        "observed_versions": [
+          "2.8.0 on Python 3.12",
+          "2.10.0 on Python 3.14"
+        ]
+      },
+      {
+        "mechanism": "The AtomGroup form has no copy operation; the public copy function directly accesses it.",
+        "error": "AttributeError: module 'molsysmt.form.MDAnalysis_AtomGroup' has no attribute 'copy'",
+        "observed_versions": [
+          "2.8.0 on Python 3.12",
+          "2.10.0 on Python 3.14"
+        ]
+      }
+    ],
+    "root_pytest_scope_12_workers": [
+      "tests/form/MDAnalysis_Topology/test_chemical_state_fidelity.py",
+      "tests/form/MDAnalysis_Topology/test_contract.py",
+      "tests/form/MDAnalysis_Universe/test_structural_contract.py",
+      "tests/form/MDAnalysis_Universe/test_pdb_multiframe.py",
+      "tests/form/MDAnalysis_Universe/test_parity.py",
+      "tests/form/MDAnalysis_AtomGroup/test_subset_contract.py",
+      "tests/form/MDAnalysis_AtomGroup/test_parity.py"
+    ],
+    "test_gap": "Existing subset tests check bond endpoints but lack independent order, type and guessed preservation under external reconstruction. Add a meaningful regression after the owning issue duplicate check. No dedicated MDAnalysis PDBParser route test was found.",
+    "ownership": "Root will check duplicates and file a separate MolSysMT correctness issue. No issue or network write was performed.",
+    "changes": "Ignored review cache only; no environment was installed, created or downgraded. No manifests, production source or tests were mutated. No pytest was run."
+  },
+  "public_artifacts": [
+    {
+      "version": "2.7.0",
+      "metadata_url": "https://pypi.org/pypi/MDAnalysis/2.7.0/json",
+      "filename": "MDAnalysis-2.7.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/b1/b7/8283e114b1addda0ec0ff13171655254bc47cee9b2d57b4ca72d6f70ed47/MDAnalysis-2.7.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256_expected": "1fd4b24cfb5fc63e9ae758251af947702f1a033f9bb38e54e206453c6afd3db0",
+      "sha256_observed": "1fd4b24cfb5fc63e9ae758251af947702f1a033f9bb38e54e206453c6afd3db0",
+      "size": 10607396,
+      "extracted": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.7.0-cp311"
+    },
+    {
+      "version": "2.8.0",
+      "metadata_url": "https://pypi.org/pypi/MDAnalysis/2.8.0/json",
+      "filename": "MDAnalysis-2.8.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/74/f9/f58f1a37ce0ae03ab481ca1169bee89f08961597d04987535dd1cbb7020d/MDAnalysis-2.8.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256_expected": "afeca1bf295fdd6c574197430d371463b1b5cef36e02a8a92dfdb3e5b2e6e3b3",
+      "sha256_observed": "afeca1bf295fdd6c574197430d371463b1b5cef36e02a8a92dfdb3e5b2e6e3b3",
+      "size": 12984394,
+      "extracted": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp311"
+    },
+    {
+      "version": "2.8.0",
+      "metadata_url": "https://pypi.org/pypi/MDAnalysis/2.8.0/json",
+      "filename": "MDAnalysis-2.8.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/de/0d/eff6f0f900974c491e648937f64d24ef2d1eaf0a949791891baa015c4933/MDAnalysis-2.8.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256_expected": "239a1297dc18ef3523941551fc306c356e2215c4b116c2d351e8487b86dc8ced",
+      "sha256_observed": "239a1297dc18ef3523941551fc306c356e2215c4b116c2d351e8487b86dc8ced",
+      "size": 12881793,
+      "extracted": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312"
+    }
+  ],
+  "newer_public_wheel": {
+    "version": "2.10.0",
+    "metadata_url": "https://pypi.org/pypi/MDAnalysis/2.10.0/json",
+    "filename": "mdanalysis-2.10.0-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "url": "https://files.pythonhosted.org/packages/52/b5/b7cbae73988bf7868009980c66a5d74725c99d2e2f11e0a566d0219ae53d/mdanalysis-2.10.0-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "sha256_expected": "e81edd2ae46de176e87276aebd9720bcede7d8385f2d872031eb55c6e3a83128",
+    "sha256_observed": "e81edd2ae46de176e87276aebd9720bcede7d8385f2d872031eb55c6e3a83128",
+    "size": 13179357,
+    "archive": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/mdanalysis-2.10.0-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "extracted": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.10.0-cp314",
+    "scope": "Acquired and safely extracted only; no installation, import, pytest or environment change."
+  },
+  "additional_minimum_dependency": {
+    "needed_cache_module_only": "fasteners",
+    "version": "0.17.3",
+    "original_metadata": "existing interpreter Peptides_Landscape@uibcdf_3.11 prefix/lib/python3.11/site-packages/fasteners-0.17.3.dist-info",
+    "module_source": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/existing-pure-python-dependencies/fasteners",
+    "isolated_overlay": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/min-cp312-fasteners",
+    "ordering": "The earlier probes appended the whole existing dependency cache after the existing interpreter site-packages; fasteners alone was actually loaded from that cache. This isolated overlay contains only the identical fasteners source files.",
+    "files_sha256": {
+      "version.py": "1e61a22d7dd04b75cbdc0c17c51c510b4f3dc526d85627dd73eda7b93cd55d0e",
+      "lock.py": "b8928dbe4a452049a8654919580ea144e134d315ac4306e4e838447845ae66f4",
+      "process_lock.py": "655d47687644395f1b0259e47af81f33b330042e3711e9b7e87bdfd07da968a2",
+      "__init__.py": "85fd001c6581c6bfbb9f1b4e97462d88025a595af6e638426db1d3639fd6cfc5",
+      "_utils.py": "e7f8e17d215627777556331f872a4eb63429092b95c5801fa6b560c5b70db51e",
+      "pywin32/pywintypes.py": "46439d1019d8126dfbbe59fadc2d22b646050520142913bf52b448a1fb213822",
+      "pywin32/win32file.py": "337a78edbe8c1f80c0aba1c4f5f9428e2f2346413ea61a2b9b936691ffa673dd",
+      "pywin32/__init__.py": "3429a3b6a212f8620e91e5b292d0d813b8598a93fd13e16205065f17cf23e9de",
+      "pywin32/win32con.py": "3c52cb48ffc271a64b0b1124dc86bf73a0c3174aa4aa8b4c37cfdd59aa57b11d"
+    }
+  },
+  "connection_alias_hypothesis": [
+    {
+      "python": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+      "MDAnalysis": {
+        "version": "2.8.0",
+        "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312/MDAnalysis/__init__.py"
+      },
+      "numpy": {
+        "version": "2.3.5",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py"
+      },
+      "routes": {
+        "provider_topology_copy-trajectory-False": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_universe_copy-trajectory-False": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_atomgroup_copy-trajectory-False": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_full_extract-trajectory-False": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "provider_topology_copy-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_universe_copy-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_atomgroup_copy-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_full_extract-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "provider_universe_copy-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_structure_subset-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        }
+      }
+    },
+    {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "MDAnalysis": {
+        "version": "2.10.0",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/MDAnalysis/__init__.py"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py"
+      },
+      "routes": {
+        "provider_topology_copy-trajectory-False": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_universe_copy-trajectory-False": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_atomgroup_copy-trajectory-False": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_full_extract-trajectory-False": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "provider_topology_copy-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_universe_copy-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_atomgroup_copy-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_full_extract-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "provider_universe_copy-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        },
+        "public_structure_subset-trajectory-True": {
+          "before": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "source_after": {
+            "values": [
+              [
+                0,
+                1
+              ]
+            ],
+            "types": [
+              "original unrecognized type"
+            ],
+            "guessed": [
+              true
+            ],
+            "order": [
+              1.5
+            ]
+          },
+          "output_after": {
+            "values": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "types": [
+              "original unrecognized type",
+              "new independent long type"
+            ],
+            "guessed": [
+              true,
+              false
+            ],
+            "order": [
+              1.5,
+              2
+            ]
+          },
+          "shared_lists": {
+            "values": false,
+            "types": false,
+            "_guessed": false,
+            "order": false
+          },
+          "source_unchanged": true
+        }
+      }
+    }
+  ],
+  "baseline": {
+    "stem": "628-copy-subset-counterexamples",
+    "invocation": {
+      "command": [
+        "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n",
+        "12",
+        "tests/form/MDAnalysis_Universe/test_copy_and_subset_metadata.py",
+        "--junitxml=.pytest_cache/pre1-review-20261106/628-copy-subset-counterexamples.xml"
+      ],
+      "profile": "Ordinary Python3.14/current MDAnalysis2.10, production unchanged; native baseline.",
+      "process_exit_code": 1
+    },
+    "junit": ".pytest_cache/pre1-review-20261106/628-copy-subset-counterexamples.xml",
+    "junit_sha256": "b80ecd63870cb02f8cd4c7845cdfba668538f60447b962409c7e01f06cae0c21",
+    "counts": {
+      "tests": 30,
+      "failures": 26,
+      "errors": 0,
+      "skipped": 0
+    },
+    "seconds": 7.465,
+    "unsuccessful_nodes": [
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[atoms_and_structures-extract-universe]",
+        "message": "AssertionError: assert {(11, 12): (N...ive'), False)} == {(11, 12): (2...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_structure_selection_preserves_stored_forces[extract-universe]",
+        "message": "assert False\n +  where False = < Timestep 0 with unit cell dimensions [ 22.  32.  42.  82.  92. 102.] >.has_forces\n +    where < Timestep 0 with unit cell dimensions [ 22.  32.  42.  82.  92. 102.] > = <MemoryReader with 2 frames of 5 atoms>.ts"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[structures-to_universe-universe]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[atoms_and_structures-same_form-universe]",
+        "message": "AssertionError: assert {(11, 12): (N...ive'), False)} == {(11, 12): (2...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[structures-same_form-universe]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[all-same_form-universe]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_copy_preserves_stored_data_independently[universe]",
+        "message": "TypeError: __deepcopy__() takes exactly 0 positional arguments (1 given)"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_missing_bond_type_does_not_erase_other_stored_types[universe]",
+        "message": "AssertionError: assert {(10, 11): (N... None, False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, None, False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, None, False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, None, False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, None, False)} != {(12, 13): (1, None, False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[structures-extract-universe]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[all-extract-universe]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[all-to_universe-universe]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[atoms_and_structures-to_universe-universe]",
+        "message": "AssertionError: assert {(11, 12): (N...ive'), False)} == {(11, 12): (2...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_structure_selection_preserves_stored_forces[extract-atomgroup]",
+        "message": "assert False\n +  where False = < Timestep 0 with unit cell dimensions [ 22.  32.  42.  82.  92. 102.] >.has_forces\n +    where < Timestep 0 with unit cell dimensions [ 22.  32.  42.  82.  92. 102.] > = <MemoryReader with 2 frames of 5 atoms>.ts"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[atoms_and_structures-same_form-atomgroup]",
+        "message": "AssertionError: assert {(11, 12): (N...ive'), False)} == {(11, 12): (2...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[all-same_form-atomgroup]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[structures-to_universe-atomgroup]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_structure_selection_preserves_stored_forces[same_form-universe]",
+        "message": "assert False\n +  where False = < Timestep 0 with unit cell dimensions [ 22.  32.  42.  82.  92. 102.] >.has_forces\n +    where < Timestep 0 with unit cell dimensions [ 22.  32.  42.  82.  92. 102.] > = <MemoryReader with 2 frames of 5 atoms>.ts"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_structure_selection_preserves_stored_forces[same_form-atomgroup]",
+        "message": "assert False\n +  where False = < Timestep 0 with unit cell dimensions [ 22.  32.  42.  82.  92. 102.] >.has_forces\n +    where < Timestep 0 with unit cell dimensions [ 22.  32.  42.  82.  92. 102.] > = <MemoryReader with 2 frames of 5 atoms>.ts"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[structures-same_form-atomgroup]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[all-extract-atomgroup]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[atoms_and_structures-to_universe-atomgroup]",
+        "message": "AssertionError: assert {(11, 12): (N...ive'), False)} == {(11, 12): (2...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[structures-extract-atomgroup]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_missing_bond_type_does_not_erase_other_stored_types[atomgroup]",
+        "message": "AssertionError: assert {(10, 11): (N... None, False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, None, False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, None, False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, None, False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, None, False)} != {(12, 13): (1, None, False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_copy_preserves_stored_data_independently[atomgroup]",
+        "message": "AttributeError: module 'molsysmt.form.MDAnalysis_AtomGroup' has no attribute 'copy'"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[all-to_universe-atomgroup]",
+        "message": "AssertionError: assert {(10, 11): (N...ive'), False)} == {(10, 11): (1...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(10, 11): (None, np.bytes_(b'aromatic'), False)} != {(10, 11): (1.5, 'aromatic', False)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      },
+      {
+        "node": "tests.form.MDAnalysis_Universe.test_copy_and_subset_metadata::test_public_extraction_preserves_stored_data[atoms_and_structures-extract-atomgroup]",
+        "message": "AssertionError: assert {(11, 12): (N...ive'), False)} == {(11, 12): (2...ative', True)}\n  \n  Differing items:\n  {(11, 12): (None, np.bytes_(b'unrecogn'), False)} != {(11, 12): (2, 'unrecognized bond class longer than eight', True)}\n  {(13, 14): (None, np.bytes_(b'dative'), False)} != {(13, 14): (None, 'dative', True)}\n  {(12, 13): (None, np.bytes_(b'single'), False)} != {(12, 13): (1, 'single', False)}\n  Use -v to get more diff"
+      }
+    ]
+  },
+  "harness_failures": [
+    {
+      "stem": "524-628-mda-floor312-features",
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/MDAnalysis_Topology",
+          "tests/form/MDAnalysis_Universe",
+          "tests/form/MDAnalysis_AtomGroup",
+          "tests/form/MDAnalysis_topology_PDBParser",
+          "tests/chemical_states/test_namespace.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--doctest-modules",
+          "molsysmt/form/MDAnalysis_Universe/copy.py",
+          "molsysmt/form/MDAnalysis_AtomGroup/copy.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-628-mda-floor312-features.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312",
+          ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/existing-pure-python-dependencies",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-628-mda-floor312-features-origins.json",
+        "frozen_source": {
+          "molsysmt/form/MDAnalysis_Universe/_subset.py": "ef93beeb3bbb3c725319dcc9acf026cfcd1920977c312c7059092fa85b02819d",
+          "molsysmt/form/MDAnalysis_Universe/copy.py": "1d54c072f21c5603717fcd22062a73d2870d818777b4ff6c0882780b0056ce86",
+          "molsysmt/form/MDAnalysis_Universe/extract.py": "ec0f1166937f864b773ac3baad4b5539a47e3ff1f0d11fce297874a66b4d9b79",
+          "molsysmt/form/MDAnalysis_AtomGroup/copy.py": "91bb71d5bf4429fd7133a0cbce85dbd57c62a92087320bcc422e615f111ca867",
+          "molsysmt/form/MDAnalysis_AtomGroup/extract.py": "170324bc01b3b4d279b0415dd164d67ec63455edcf3698c5eaefefde47a4f72e",
+          "molsysmt/form/MDAnalysis_AtomGroup/__init__.py": "55a07ff6aa31bfc65381c298eec4a37fec44b8d83a87b6d64ad048de221aacff",
+          "tests/form/MDAnalysis_Universe/test_copy_and_subset_metadata.py": "ece4d0dae0cc15215cebca19a30c0cc4ce38454b2c32d362658b70a745986afa",
+          "devguide/pending_bugs/mdanalysis_copies_and_subsets_fail_or_discard_stored_bond_metadata.md": "376f373d314570196458339b261818906cac786f0c8e49cf117ac9982ba7eca3",
+          "docs/content/user/foundations/support/forms/classes.md": "bb4624c3974c012adb6815e21f03637ebafd8947ccfa967d0b9078c46daf1f23",
+          "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb": "f07fa410ff96546cc31d5a9622ffb11e259336aa91d0505671c5c2751243405a",
+          "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb": "1a863ed839b35e7ec22f6c087a440039d83423b32add5823fd5817d402d50f62",
+          "docs/content/user/cookbook/form_teleportation.ipynb": "5831119271633b0e2f1fde37fc72d5a0296296ba2f6fb9f5e4f3addd1d78f460",
+          "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb": "0778419fd201435be89d44a0c2ca88469c9c163a01a4a982ccbfaf4b4c95d904",
+          "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": "392010dfbf5475c17a2b3d82d1b28386c3f4eefb59f1bb91ff01f05087aca56c",
+          "tests/form/MDAnalysis_Universe/test_copy_connection_ownership.py": "7875a7166ef1ce4f7784e9b1cec13de2efbfbb52c3410ae4bd22a9a5364a77e4"
+        },
+        "probe_exit_code": 0,
+        "process_exit_code": 5
+      },
+      "junit": ".pytest_cache/pre1-review-20261106/524-628-mda-floor312-features.xml",
+      "junit_sha256": "26ea342e58244810076d7e7053c0fa94b73a76f20140abdbcfc7786219a978ed",
+      "counts": {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 5.019,
+      "unsuccessful_nodes": [],
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "MDAnalysis": {
+            "distribution_version": "2.8.0",
+            "module_version": "2.8.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312/MDAnalysis/__init__.py",
+            "sha256": "749fc83f07a9a994cee709ab1c5fcb90a9701503b75873eb8a0234a2b914b7ff"
+          },
+          "MDAnalysis.lib._cutil": {
+            "distribution_version": "2.8.0",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312/MDAnalysis/lib/_cutil.cpython-312-x86_64-linux-gnu.so",
+            "sha256": "af56682401ca2c4399fddaf7888f7a7978d44aeb9747ca836246c190ec4f3576"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          },
+          "fasteners": {
+            "distribution_version": null,
+            "module_version": "0.17.3",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/existing-pure-python-dependencies/fasteners/__init__.py",
+            "sha256": "85fd001c6581c6bfbb9f1b4e97462d88025a595af6e638426db1d3639fd6cfc5"
+          }
+        }
+      }
+    },
+    {
+      "stem": "524-628-mda-newer314-features_received",
+      "invocation": {
+        "profile": "newer314",
+        "selection": "features_received",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/MDAnalysis_Topology",
+          "tests/form/MDAnalysis_Universe",
+          "tests/form/MDAnalysis_AtomGroup",
+          "tests/chemical_states/test_namespace.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--doctest-modules",
+          "molsysmt/form/MDAnalysis_Universe/copy.py",
+          "molsysmt/form/MDAnalysis_AtomGroup/copy.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-628-mda-newer314-features_received.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.10.0-cp314",
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-628-mda-newer314-features_received-origins.json",
+        "frozen_source": {
+          "molsysmt/form/MDAnalysis_Universe/_subset.py": "ef93beeb3bbb3c725319dcc9acf026cfcd1920977c312c7059092fa85b02819d",
+          "molsysmt/form/MDAnalysis_Universe/copy.py": "1d54c072f21c5603717fcd22062a73d2870d818777b4ff6c0882780b0056ce86",
+          "molsysmt/form/MDAnalysis_Universe/extract.py": "ec0f1166937f864b773ac3baad4b5539a47e3ff1f0d11fce297874a66b4d9b79",
+          "molsysmt/form/MDAnalysis_AtomGroup/copy.py": "91bb71d5bf4429fd7133a0cbce85dbd57c62a92087320bcc422e615f111ca867",
+          "molsysmt/form/MDAnalysis_AtomGroup/extract.py": "170324bc01b3b4d279b0415dd164d67ec63455edcf3698c5eaefefde47a4f72e",
+          "molsysmt/form/MDAnalysis_AtomGroup/__init__.py": "55a07ff6aa31bfc65381c298eec4a37fec44b8d83a87b6d64ad048de221aacff",
+          "tests/form/MDAnalysis_Universe/test_copy_and_subset_metadata.py": "ece4d0dae0cc15215cebca19a30c0cc4ce38454b2c32d362658b70a745986afa",
+          "devguide/pending_bugs/mdanalysis_copies_and_subsets_fail_or_discard_stored_bond_metadata.md": "376f373d314570196458339b261818906cac786f0c8e49cf117ac9982ba7eca3",
+          "docs/content/user/foundations/support/forms/classes.md": "bb4624c3974c012adb6815e21f03637ebafd8947ccfa967d0b9078c46daf1f23",
+          "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb": "f07fa410ff96546cc31d5a9622ffb11e259336aa91d0505671c5c2751243405a",
+          "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb": "1a863ed839b35e7ec22f6c087a440039d83423b32add5823fd5817d402d50f62",
+          "docs/content/user/cookbook/form_teleportation.ipynb": "5831119271633b0e2f1fde37fc72d5a0296296ba2f6fb9f5e4f3addd1d78f460",
+          "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb": "0778419fd201435be89d44a0c2ca88469c9c163a01a4a982ccbfaf4b4c95d904",
+          "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": "392010dfbf5475c17a2b3d82d1b28386c3f4eefb59f1bb91ff01f05087aca56c",
+          "tests/form/MDAnalysis_Universe/test_copy_connection_ownership.py": "7875a7166ef1ce4f7784e9b1cec13de2efbfbb52c3410ae4bd22a9a5364a77e4",
+          "docs/content/user/tools/form/class/mdanalysis/index.md": "a5ee4dc7f9aaa06398fa7027b9250466230e4d7b2f41dbdd374a5a2077e6ef4e"
+        },
+        "probe_exit_code": 1
+      }
+    }
+  ],
+  "receiving": [
+    {
+      "stem": "524-628-mda-floor312-features_received",
+      "invocation": {
+        "profile": "floor312",
+        "selection": "features_received",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/MDAnalysis_Topology",
+          "tests/form/MDAnalysis_Universe",
+          "tests/form/MDAnalysis_AtomGroup",
+          "tests/chemical_states/test_namespace.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--doctest-modules",
+          "molsysmt/form/MDAnalysis_Universe/copy.py",
+          "molsysmt/form/MDAnalysis_AtomGroup/copy.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-628-mda-floor312-features_received.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312",
+          ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/min-cp312-fasteners",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-628-mda-floor312-features_received-origins.json",
+        "frozen_source": {
+          "molsysmt/form/MDAnalysis_Universe/_subset.py": "ef93beeb3bbb3c725319dcc9acf026cfcd1920977c312c7059092fa85b02819d",
+          "molsysmt/form/MDAnalysis_Universe/copy.py": "1d54c072f21c5603717fcd22062a73d2870d818777b4ff6c0882780b0056ce86",
+          "molsysmt/form/MDAnalysis_Universe/extract.py": "ec0f1166937f864b773ac3baad4b5539a47e3ff1f0d11fce297874a66b4d9b79",
+          "molsysmt/form/MDAnalysis_AtomGroup/copy.py": "91bb71d5bf4429fd7133a0cbce85dbd57c62a92087320bcc422e615f111ca867",
+          "molsysmt/form/MDAnalysis_AtomGroup/extract.py": "170324bc01b3b4d279b0415dd164d67ec63455edcf3698c5eaefefde47a4f72e",
+          "molsysmt/form/MDAnalysis_AtomGroup/__init__.py": "55a07ff6aa31bfc65381c298eec4a37fec44b8d83a87b6d64ad048de221aacff",
+          "tests/form/MDAnalysis_Universe/test_copy_and_subset_metadata.py": "ece4d0dae0cc15215cebca19a30c0cc4ce38454b2c32d362658b70a745986afa",
+          "devguide/pending_bugs/mdanalysis_copies_and_subsets_fail_or_discard_stored_bond_metadata.md": "376f373d314570196458339b261818906cac786f0c8e49cf117ac9982ba7eca3",
+          "docs/content/user/foundations/support/forms/classes.md": "bb4624c3974c012adb6815e21f03637ebafd8947ccfa967d0b9078c46daf1f23",
+          "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb": "f07fa410ff96546cc31d5a9622ffb11e259336aa91d0505671c5c2751243405a",
+          "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb": "1a863ed839b35e7ec22f6c087a440039d83423b32add5823fd5817d402d50f62",
+          "docs/content/user/cookbook/form_teleportation.ipynb": "5831119271633b0e2f1fde37fc72d5a0296296ba2f6fb9f5e4f3addd1d78f460",
+          "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb": "0778419fd201435be89d44a0c2ca88469c9c163a01a4a982ccbfaf4b4c95d904",
+          "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": "392010dfbf5475c17a2b3d82d1b28386c3f4eefb59f1bb91ff01f05087aca56c",
+          "tests/form/MDAnalysis_Universe/test_copy_connection_ownership.py": "7875a7166ef1ce4f7784e9b1cec13de2efbfbb52c3410ae4bd22a9a5364a77e4",
+          "docs/content/user/tools/form/class/mdanalysis/index.md": "a5ee4dc7f9aaa06398fa7027b9250466230e4d7b2f41dbdd374a5a2077e6ef4e"
+        },
+        "probe_exit_code": 0,
+        "process_exit_code": 0
+      },
+      "junit": ".pytest_cache/pre1-review-20261106/524-628-mda-floor312-features_received.xml",
+      "junit_sha256": "e2776aa3228dfe9101bada1de56e9df79a6b54d90a307a5bceef16871bbc21de",
+      "counts": {
+        "tests": 155,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 17.925,
+      "unsuccessful_nodes": [],
+      "origins": {
+        "python": "3.12.12",
+        "providers": {
+          "MDAnalysis": {
+            "distribution_version": "2.8.0",
+            "module_version": "2.8.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312/MDAnalysis/__init__.py",
+            "sha256": "749fc83f07a9a994cee709ab1c5fcb90a9701503b75873eb8a0234a2b914b7ff"
+          },
+          "MDAnalysis.lib._cutil": {
+            "distribution_version": "2.8.0",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.8.0-cp312/MDAnalysis/lib/_cutil.cpython-312-x86_64-linux-gnu.so",
+            "sha256": "af56682401ca2c4399fddaf7888f7a7978d44aeb9747ca836246c190ec4f3576"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          },
+          "fasteners": {
+            "distribution_version": null,
+            "module_version": "0.17.3",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/min-cp312-fasteners/fasteners/__init__.py",
+            "sha256": "85fd001c6581c6bfbb9f1b4e97462d88025a595af6e638426db1d3639fd6cfc5"
+          }
+        }
+      }
+    },
+    {
+      "stem": "524-628-mda-newer314-features_received_verified",
+      "invocation": {
+        "profile": "newer314",
+        "selection": "features_received_verified",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/MDAnalysis_Topology",
+          "tests/form/MDAnalysis_Universe",
+          "tests/form/MDAnalysis_AtomGroup",
+          "tests/chemical_states/test_namespace.py",
+          "devtools/tests/test_audit_dependency_contract.py",
+          "--doctest-modules",
+          "molsysmt/form/MDAnalysis_Universe/copy.py",
+          "molsysmt/form/MDAnalysis_AtomGroup/copy.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/524-628-mda-newer314-features_received_verified.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.10.0-cp314",
+          ".",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "origins": ".pytest_cache/pre1-review-20261106/524-628-mda-newer314-features_received_verified-origins.json",
+        "frozen_source": {
+          "molsysmt/form/MDAnalysis_Universe/_subset.py": "ef93beeb3bbb3c725319dcc9acf026cfcd1920977c312c7059092fa85b02819d",
+          "molsysmt/form/MDAnalysis_Universe/copy.py": "1d54c072f21c5603717fcd22062a73d2870d818777b4ff6c0882780b0056ce86",
+          "molsysmt/form/MDAnalysis_Universe/extract.py": "ec0f1166937f864b773ac3baad4b5539a47e3ff1f0d11fce297874a66b4d9b79",
+          "molsysmt/form/MDAnalysis_AtomGroup/copy.py": "91bb71d5bf4429fd7133a0cbce85dbd57c62a92087320bcc422e615f111ca867",
+          "molsysmt/form/MDAnalysis_AtomGroup/extract.py": "170324bc01b3b4d279b0415dd164d67ec63455edcf3698c5eaefefde47a4f72e",
+          "molsysmt/form/MDAnalysis_AtomGroup/__init__.py": "55a07ff6aa31bfc65381c298eec4a37fec44b8d83a87b6d64ad048de221aacff",
+          "tests/form/MDAnalysis_Universe/test_copy_and_subset_metadata.py": "ece4d0dae0cc15215cebca19a30c0cc4ce38454b2c32d362658b70a745986afa",
+          "devguide/pending_bugs/mdanalysis_copies_and_subsets_fail_or_discard_stored_bond_metadata.md": "376f373d314570196458339b261818906cac786f0c8e49cf117ac9982ba7eca3",
+          "docs/content/user/foundations/support/forms/classes.md": "bb4624c3974c012adb6815e21f03637ebafd8947ccfa967d0b9078c46daf1f23",
+          "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb": "f07fa410ff96546cc31d5a9622ffb11e259336aa91d0505671c5c2751243405a",
+          "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb": "1a863ed839b35e7ec22f6c087a440039d83423b32add5823fd5817d402d50f62",
+          "docs/content/user/cookbook/form_teleportation.ipynb": "5831119271633b0e2f1fde37fc72d5a0296296ba2f6fb9f5e4f3addd1d78f460",
+          "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb": "0778419fd201435be89d44a0c2ca88469c9c163a01a4a982ccbfaf4b4c95d904",
+          "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": "392010dfbf5475c17a2b3d82d1b28386c3f4eefb59f1bb91ff01f05087aca56c",
+          "tests/form/MDAnalysis_Universe/test_copy_connection_ownership.py": "7875a7166ef1ce4f7784e9b1cec13de2efbfbb52c3410ae4bd22a9a5364a77e4",
+          "docs/content/user/tools/form/class/mdanalysis/index.md": "a5ee4dc7f9aaa06398fa7027b9250466230e4d7b2f41dbdd374a5a2077e6ef4e"
+        },
+        "probe_exit_code": 0,
+        "process_exit_code": 0
+      },
+      "junit": ".pytest_cache/pre1-review-20261106/524-628-mda-newer314-features_received_verified.xml",
+      "junit_sha256": "d9a4042d153f8ad60e1bb577e2b972ee449fb1ce4d7843f4f5847c7dbeec3af8",
+      "counts": {
+        "tests": 155,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "seconds": 17.065,
+      "unsuccessful_nodes": [],
+      "origins": {
+        "python": "3.14.7",
+        "providers": {
+          "MDAnalysis": {
+            "distribution_version": "2.10.0",
+            "module_version": "2.10.0",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.10.0-cp314/MDAnalysis/__init__.py",
+            "sha256": "174efc72f77fd700b60b6633f61c5ffa1140935a05ff389d8f907f2233a264f7"
+          },
+          "MDAnalysis.lib._cutil": {
+            "distribution_version": "2.10.0",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/mdanalysis-review/wheel-2.10.0-cp314/MDAnalysis/lib/_cutil.cpython-314-x86_64-linux-gnu.so",
+            "sha256": "dd60bd8e2758bac9bdc28cebc0215a75d77cc55cbc4f3a336ab27dec408a059f"
+          },
+          "numpy": {
+            "distribution_version": "2.4.6",
+            "module_version": "2.4.6",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/numpy/__init__.py",
+            "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter prefix: lib/python3.14/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.29.1+6.gf82b618",
+            "module_version": "0.29.1+6.gf82b618",
+            "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.16.0+1.g6dabaf7",
+            "module_version": "0.16.0+1.g6dabaf7",
+            "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+            "sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1+3.ga27172b",
+            "module_version": "0.15.1+3.ga27172b",
+            "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.21.0+1.gd6b2394",
+            "module_version": "0.22.0+15.g5ee88c1",
+            "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+            "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        }
+      }
+    }
+  ],
+  "repair_contract": [
+    "Use the provider copy protocol; preserve detached topology, reader context and source cursor.",
+    "Restore retained Bonds/Angles/Dihedrals/Impropers types, order and guessed flags after Merge, including long and nullable types; copy available forces with structure arrays.",
+    "AtomGroup copy intentionally retains the full independently copied parent Universe; extract creates a compact selected Universe.",
+    "The suspected connection-object sharing was not reproduced on actual 2.8/2.10 public routes; no unnecessary clone/reconstruction was introduced."
+  ],
+  "attempt_dispositions": [
+    "The original 30-case baseline has 26 failures and 4 passes. Both final profiles have 155 passes, no skips/errors/failures and observed native exit0.",
+    "The first root floor invocation exited5: a nonexistent test directory was selected. It is not a qualification pass.",
+    "The first newer root origin probe exited1 by incorrectly requiring fasteners, which that provider does not use. Pytest was not invoked; the probe was corrected without installing that dependency.",
+    "The minimum final profile prepends only the verified fasteners0.17.3 module, not the earlier broad dependency-copy cache.",
+    "MDAnalysis2.11 Merge source was inspected, not executed. Minimum2.8 has no claimed Python3.14 qualification; that interpreter uses public2.10.",
+    "Nine visible provider PDB-default warnings remain in each final receiving. Existing irregular-time rejection remains; arbitrary reader attributes and every writer format are outside this finite contract."
+  ],
+  "scientific_receiving": {
+    "path": "devtools/data/runtime_provider_scientific_receiving_524_20261106.json",
+    "native_exit_observed": 0,
+    "passed": 97,
+    "registered_nodes": 64,
+    "skipped": 0,
+    "release_eligible": false
+  }
+}

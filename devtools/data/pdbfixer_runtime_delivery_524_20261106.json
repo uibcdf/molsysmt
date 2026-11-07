@@ -1,0 +1,132 @@
+{
+  "schema_version": "molsysmt.pdbfixer_runtime_delivery@1",
+  "date": "2026-11-06",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "public_checkpoint": "dd60ee7d6855a21f24759def1d387abfbbb6a818",
+  "files": [
+    {
+      "path": ".github/workflows/receive_public_argdigest.yaml",
+      "expected_blob": "f851f7c5033a1729372d23c0230640d3081c2c86",
+      "observed_blob": "f851f7c5033a1729372d23c0230640d3081c2c86",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/pending_proposals/runtime_dependency_api_floors.md",
+      "expected_blob": "5b08e36992a8105ff15323dcd6fed4aca11b1de2",
+      "observed_blob": "5b08e36992a8105ff15323dcd6fed4aca11b1de2",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "expected_blob": "0090771e0c356fb0f1cacc2f78df16ad7900c0a8",
+      "observed_blob": "0090771e0c356fb0f1cacc2f78df16ad7900c0a8",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "expected_blob": "470cfd622dd15d95eb04fb76b7dbc9f056ac93ee",
+      "observed_blob": "470cfd622dd15d95eb04fb76b7dbc9f056ac93ee",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/conda-envs/development_env.yaml",
+      "expected_blob": "94183142162b936ba297d000b1dca0e49e09cde9",
+      "observed_blob": "94183142162b936ba297d000b1dca0e49e09cde9",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/conda-envs/docs_env.yaml",
+      "expected_blob": "fd2acc2ce74d0397cd90ad76cdc316488ea0c881",
+      "observed_blob": "fd2acc2ce74d0397cd90ad76cdc316488ea0c881",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/conda-envs/test_env.yaml",
+      "expected_blob": "21ffe895d1cd31d079610f85f1bb907101411366",
+      "observed_blob": "21ffe895d1cd31d079610f85f1bb907101411366",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/data/openmm_runtime_delivery_625_626_20261106.json",
+      "expected_blob": "bcaf9927c544de11acdcf6ac371296748056bdd7",
+      "observed_blob": "bcaf9927c544de11acdcf6ac371296748056bdd7",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/data/pdbfixer_runtime_receiving_524_20261106.json",
+      "expected_blob": "cdfe470d139e1b87e218e2ba9fbf7ef23e939f93",
+      "observed_blob": "cdfe470d139e1b87e218e2ba9fbf7ef23e939f93",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/dependency_contract.toml",
+      "expected_blob": "1f379788c4780ec9a9cdbb40e00c42dd2f505485",
+      "observed_blob": "1f379788c4780ec9a9cdbb40e00c42dd2f505485",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "devtools/tests/test_audit_dependency_contract.py",
+      "expected_blob": "11392e46938682c0775ecd8b962fef2a25df7e3a",
+      "observed_blob": "11392e46938682c0775ecd8b962fef2a25df7e3a",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/foundations/governance/dependency_management.md",
+      "expected_blob": "e321d6ec980491ceefb6daa3df44e37d312df58e",
+      "observed_blob": "e321d6ec980491ceefb6daa3df44e37d312df58e",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb",
+      "expected_blob": "7b15f04389907c7971b3cbd01e6ea4ddc9712c14",
+      "observed_blob": "7b15f04389907c7971b3cbd01e6ea4ddc9712c14",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "molsysmt/_depdigest.py",
+      "expected_blob": "2d1e2445b20179449200d3f3ac95e7a847c2a017",
+      "observed_blob": "2d1e2445b20179449200d3f3ac95e7a847c2a017",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "pyproject.toml",
+      "expected_blob": "ebd678dacd13db39886491add8e382264ade2138",
+      "observed_blob": "ebd678dacd13db39886491add8e382264ade2138",
+      "match": true,
+      "isError": false
+    },
+    {
+      "path": "tests/form/pdbfixer_PDBFixer/test_runtime_provider_contract.py",
+      "expected_blob": "dd73d58e6613f4bbdfb66bc56cb379c9dc8344ff",
+      "observed_blob": "dd73d58e6613f4bbdfb66bc56cb379c9dc8344ff",
+      "match": true,
+      "isError": false
+    }
+  ],
+  "central_handoff": {
+    "issue": "uibcdf/molsyssuite#137",
+    "id": 6701640436,
+    "url": "https://github.com/uibcdf/molsyssuite/issues/137#issuecomment-6701640436",
+    "body": "Follow-up consumer receiving for MolSysMT #524 is now public on main at `dd60ee7d6855a21f24759def1d387abfbbb6a818`; independent GitHub retrieval matches all 16 files in this checkpoint, following the separately verified 24-file OpenMM block at `4d1d5949aa6a717000ac5d01a6a818f0cc99aa5d`.\n\n- Optional OpenMM is `>=8.2.0`: native export always passes `formalCharge`, including unknown values. Exact public 8.2.0/Python 3.12 and 8.6.1/Python 3.14 each pass the same 2,098 selected provider cases. Consumer metadata/copy omissions found during receiving were repaired and #625/#626 are closed with maintained guards.\n- Optional PDBFixer is `>=1.11`: the public pH hydrogen route on capped alanine reproduces incomplete ACE/NME with 1.10 (15 rather than 22 atoms); 1.11 completes the caps and parameterizes 22 particles. Final 1.11/OpenMM 8.2 and 1.12/OpenMM 8.6.1 profiles each pass 172 cases. This is the legacy pH route; explicit fixed-state H completion still requires RDKit.\n- OpenMMTools has no supported runtime consumer and leaves the runtime soft extra/DepDigest registry. Historical unexported dynamics drafts remain unsupported. Plotly leaves runtime declarations and is retained in the docs extra/docs environment plus annotated development acquisition for its NGLView contact-map generator.\n\nThe authoritative values remain in pyproject.toml; development/test acquisition and names-only coverage are aligned. The controlled ArgDigest receiver also carries the accepted OpenMM/MDTraj minima. Another 625 registry/route/documentation controls and all 14 fast gates pass. Source receipts retain public artifact hashes/origins, original failures, a corrected evidence-file collision, warnings and scope: `devtools/data/openmm_runtime_receiving_524_20261106.json` and `devtools/data/pdbfixer_runtime_receiving_524_20261106.json`.\n\nPlease refresh the central dependency graph/adoption view against these published declarations. That owner-side refresh is requested, not claimed complete here. MolSysMT #524 stays partial for the remaining optional API review and actual Viewer/clean installed closure; this checkpoint does not qualify a new installed MolSysMT/Viewer pair.",
+    "independently_verified": true,
+    "graph_refresh": "requested from owner; not claimed complete"
+  },
+  "accepted_plan_progress_percent": 40,
+  "audit_related_issues_closed": 14,
+  "source_receiving_only": true,
+  "no_new_tag_or_release": true
+}

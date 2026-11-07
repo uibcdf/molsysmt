@@ -152,6 +152,36 @@ for native exits, original DNS/harness failures, origins and scientific scope.
 Public delivery follows; #524 remains partial for other optional APIs and actual
 Viewer/installed closure. Accepted audit progress remains 40%.
 
+RDKit source `883e4e45a` selects optional >=2024.3.4 from the consumed
+coordinate/CIP API. The paired public-provider profiles each pass 541 and omit
+one conditional negative-string case, with positive CCO parsing independently
+covered. Source `13b82905c` fixes #627's duplicate-VAL reference fixtures;
+production parsing and scientific score assertions are unchanged. See the
+[receipt](../devtools/data/rdkit_runtime_receiving_524_627_20261106.json).
+Public receiving/627 closeout follow. The parallel review admits #628/#629 as
+reproduced existing-operation data loss: MDAnalysis copy/subset metadata/forces,
+and ParmEd native export coordinates/charges/IDs. Their owning repairs and paired
+consumer receiving are now complete as recorded below. Audit progress stays
+40%; 14 issues are already closed and no replacement candidate is selected.
+
+PDBFixer checkpoint `dd60ee7d6` independently matches all 16 public files and
+the central #137 notice body is verified. The
+[delivery record](../devtools/data/pdbfixer_runtime_delivery_524_20261106.json)
+records the requested graph refresh without claiming owner-side completion.
+
+The #628 repair `f81ba2025` passes 155 cases on each actual public MDAnalysis
+2.8/Python 3.12 and 2.10/Python 3.14 profile. #629 source `e270eda9b` passes 185
+on each actual public ParmEd 4.3.1/Python 3.12 and 3.14 profile. Both have zero
+omissions. Optional floors are aligned in `33a702bfa`. Shared conversion/docs
+receiving passes 1,271 and scientific execution 97 cases/64 nodes, no omissions;
+counts overlap. Source/public delivery still precedes actual issue closeout.
+The [MDAnalysis receipt](../devtools/data/mdanalysis_runtime_receiving_524_628_20261106.json),
+[ParmEd receipt](../devtools/data/parmed_runtime_receiving_524_629_20261106.json)
+and [scientific record](../devtools/data/runtime_provider_scientific_receiving_524_20261106.json)
+retain original failures, provider origins and development-only limits. Remaining
+optional work is OpenFF, Biopython, NGLView and PyTraj plus the actual host and
+clean installed closure; #524 stays partial and accepted progress remains 40%.
+
 Four human autosummary edits remain outside the commits. Candidate selection
 and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign

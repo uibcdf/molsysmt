@@ -13,7 +13,12 @@ scopes overlap. Accepted progress is 40%; #613 and #620 are published and closed
 The #620 precision correction and #524 default-renderer declaration are delivered
 in public checkpoint `8d466268c`, with all 43 checked blobs independently matched. Remaining
 #524 review and the actual Viewer floor still prevent phase-three credit.
-No replacement candidate is selected.
+No replacement candidate is selected. Current phase-three work is delivering
+#627/RDKit receiving and the qualified #628/#629 data-operation repairs under
+#524; the existing phase weights remain unchanged. Their final paired provider
+profiles pass 155 and 185 cases respectively without omissions; joint receiving
+passes 1,271 and scientific execution 97. Counts overlap. Remaining optional
+providers and actual host/installed closure still prevent phase-three credit.
 
 The subsequent #524 support-floor review qualifies the five retained required
 providers and optional public Ackredit without changing their floors. Native
@@ -253,7 +258,7 @@ inventing a published version or treating the whole dependency review as done.
 
 | Work class | Reports | Required disposition and owner |
 | --- | --- | --- |
-| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619/#620/#621/#622/#623 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
+| Demonstrated correctness within included behavior | #618, #616, #605–#608, #613, subsequent #619/#620/#621/#622/#623/#625/#626/#627/#628/#629 | Correct the reproduced behavior and retain valid positive controls in the native, PBC or configuration owner. An experimental label does not excuse incorrect atom correspondence or numerical results. |
 | Declared installed runtime | #524 | MolSysMT owns its manifests, default-output contract and installed receiving. A Viewer minimum depends on an actual qualified host artifact; provider limitations stay with their providers. |
 | Public scientific meaning | #473, #475, #582 | Review the exposed claim and evidence. Correct a misleading contract or agree an explicit bounded disposition; an unavailable paper does not justify invented units, and a stored request must not be advertised as an effective engine control. Wider models or tuning are not automatically required. |
 | Implemented contracts awaiting acceptance | #549, #250, #254 | Complete the remaining owning criteria and final-candidate/client receiving. Source delivery, scientific validation and public stability are separate decisions. |
@@ -654,6 +659,27 @@ Biopython APIs and actual Viewer/installed closure keep #524 partial and the
 accepted phase progress at 40%. RDKit's consumed SetPositions API is now under
 source/artifact study; no unqualified new floor is declared.
 
+**RDKit receiving; new concrete data-operation defects:** `883e4e45a`
+declares the API-grounded optional 2024.3.4 floor; `13b82905c` repairs #627's
+malformed descriptor fixtures. Both exact public RDKit profiles pass 541 with
+one conditional SMILES-negative omission; positive CCO conversion and all eight
+native API/unit/CIP/chemistry guards pass. Seven fixture guards retain strict
+VAL handling and all prior score/state assertions. The
+[receipt](../devtools/data/rdkit_runtime_receiving_524_627_20261106.json)
+separates native contiguous-storage protection from an unexposed provider
+stride limitation. Publication and #627 board closeout follow.
+
+Parallel studies independently reproduce #628 (MDAnalysis copy/subset bond
+annotations/forces; baseline: 26 failed/four passed) and #629 (ParmEd native export
+charge/coordinate/ID loss; valid baseline: 15 failed/two passed). They are admitted
+correctness work in phase 3, with no new weighting or feature scope. Those
+repairs are now qualified in f81ba2025/e270eda9b: 155/185 cases per public-provider
+profile, plus 1,271 joint and 97 scientific cases in overlapping scopes. Public
+delivery/board closeout follows; floors alone do not repair consumer omissions. Remaining provider/host/installed
+acceptance keeps progress at 40%. PDBFixer source/dd60ee7d6 and all 16 public
+blobs plus the central #137 handoff are independently received in the
+[delivery record](../devtools/data/pdbfixer_runtime_delivery_524_20261106.json).
+
 ### Phase 4 — Bound-tool contribution and graphical receiving
 
 **Initial position:** #421 partial; PR #543 open with conflicts at the audit
@@ -856,6 +882,8 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | OpenMM and optional constructor receiving | Source 80590ef76 repairs #625, 207d054cb repairs #626, and 3325cda95 declares optional OpenMM >=8.2.0. Both actual public OpenMM profiles pass 2,098 selected cases; ordinary joint receiving and four corrected legacy controls qualify diagnostics/docs/native routes. Original failures remain in the receipt. Accepted progress stays 40%. | Independently receive the batched source and close #625/#626, then continue PDBFixer and remaining optional-provider/Viewer/installed work under #524. |
 | 2026-11-06 | OpenMM block published and closed | Public checkpoint 4d1d5949a matches all 24 checked blobs; #625/#626 are verified closed. The full board has 558 issues, 98 open and unchanged PR #543. Fourteen audit-related issues are closed; accepted progress remains 40%. | Finish PDBFixer minimum receiving, distinguish unused runtime declarations from docs dependencies, then continue remaining optional APIs and actual host/installed closure. |
 | 2026-11-06 | PDBFixer and runtime/docs separation qualified | Source fac0d8706 selects optional PDBFixer >=1.11; final minimum and newer profiles each pass 172 selected cases. Source 0a06a01c2 retires unsupported/runtime-misclassified declarations; 625 route/docs cases and 14 fast gates pass. The original network/harness failures are retained. Accepted progress stays 40%. | Verify batched public delivery, continue RDKit and remaining optional APIs, preserve actual Viewer/installed closure under #524. |
+| 2026-11-06 | RDKit API and fixture qualification | Source 883e4e45a selects optional RDKit 2024.3.4; 13b82905c repairs #627 reference fixtures. Minimum/newer profiles each pass 541 with one documented conditional omission; literal chemical/score assertions are retained. New #628/#629 data-loss baselines are reproduced and admitted as correctness work. Accepted progress stays 40%. | Deliver/close #627, finish MDAnalysis/ParmEd owner repairs and actual-provider receiving, then remaining optional and host/installed scope under #524. |
+| 2026-11-06 | MDAnalysis/ParmEd consumer repairs qualified | #628 source f81ba2025 and #629 source e270eda9b preserve represented metadata/geometry/chemistry and explicit target limits. Final actual-provider pairs pass 155 and 185 per profile without omissions; joint receiving passes 1,271, scientific execution 97/64 nodes. Source 33a702bfa aligns optional floors. Original failures and failed harness attempts remain in portable receipts; scopes overlap. Accepted progress stays 40%. | Independently receive the batched public sources and close #627/#628/#629, then finish OpenFF/Biopython/NGLView/PyTraj and actual host/installed closure. No new tag, candidate or remote workflow. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.
