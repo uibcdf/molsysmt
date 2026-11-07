@@ -1,4 +1,4 @@
-"""Analytic translation checks through actual provider/host panel routing."""
+"""Analytic coordinate checks through actual provider/host panel routing."""
 
 import molsysviewer as msv
 import numpy as np
@@ -236,7 +236,7 @@ def test_unmount_discards_unpresented_result_and_restores_only_bounded_draft(cas
 
 
 @pytest.mark.parametrize("policy", ["angstrom", "pm"])
-@pytest.mark.parametrize("task", ["translate", "center", "fit"])
+@pytest.mark.parametrize("task", ["translate", "rotate", "center", "fit"])
 def test_gui_units_and_native_coverage_survive_nondefault_application_policy(
     case, policy, task
 ):
@@ -272,6 +272,8 @@ def test_gui_units_and_native_coverage_survive_nondefault_application_policy(
     expected = before.copy()
     if task == "translate":
         expected[np.ix_([2, 0], [2, 4], range(3))] += [0.1, 0, 0]
+    elif task == "rotate":
+        expected = _rotated_z(before, [2, 4], [2, 0], "geometric")
     elif task == "center":
         for frame in [2, 0]:
             expected[frame, [2, 4]] -= before[frame, [2, 4]].mean(axis=0)
@@ -287,14 +289,15 @@ def test_gui_units_and_native_coverage_survive_nondefault_application_policy(
     )
 
 
-def test_projection_retry_does_not_repeat_native_translation(case, monkeypatch):
+@pytest.mark.parametrize("task", ["translate", "rotate"])
+def test_projection_retry_does_not_repeat_native_translation(case, monkeypatch, task):
     view, sent = case
     packet = act(
         view,
         sent,
         "review",
         draft={"source": "all"},
-        parameters={"dx": "1", "unit": "nm"},
+        parameters={"task": task, "dx": "1", "unit": "nm"},
     )
     rebuild = view._rebuild_view_from_current_molsys
 
@@ -305,13 +308,18 @@ def test_projection_retry_does_not_repeat_native_translation(case, monkeypatch):
     monkeypatch.setattr(view, "_rebuild_view_from_current_molsys", reject_projection)
     result = act(view, sent, "apply", token=packet["review"]["token"])
     assert result["stage"] == "sync_required"
-    np.testing.assert_allclose(coords(view), before + [1, 0, 0])
+    expected = (
+        before + [1, 0, 0]
+        if task == "translate"
+        else _rotated_z(before, list(range(before.shape[1])), [0, 1, 2], "geometric")
+    )
+    np.testing.assert_allclose(coords(view), expected)
     revision = view.addons.molsysmt.get_sync_status()["target_revision"]
     monkeypatch.setattr(view, "_rebuild_view_from_current_molsys", rebuild)
     view._handle_frontend_event(
         {"event": "interaction_context_action", "action": "sync_system_edits"}
     )
-    np.testing.assert_allclose(coords(view), before + [1, 0, 0])
+    np.testing.assert_allclose(coords(view), expected)
     assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
     assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
 
@@ -789,3 +797,265 @@ def test_superposition_reference_changes_expire_the_single_use_review(case, chan
     assert rejected["stage"] == "error" and "expired" in rejected["message"]
     np.testing.assert_array_equal(coords(view), before)
     assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
+
+
+def _rotated_z(before, atoms, structures, center_kind, sign=1):
+    """Independent signed quarter turn, without the matrix construction under test."""
+    expected = before.copy()
+    for structure in structures:
+        center = (
+            before[structure, atoms].mean(axis=0)
+            if center_kind == "geometric"
+            else np.array([0.1, -0.2, 0.3])
+            if center_kind == "point"
+            else np.zeros(3)
+        )
+        relative = before[structure, atoms] - center
+        expected[structure, atoms, 0] = center[0] - sign * relative[:, 1]
+        expected[structure, atoms, 1] = center[1] + sign * relative[:, 0]
+    return expected
+
+
+@pytest.mark.parametrize(
+    "source", ["saved", "current", "region", "indices", "expression", "all"]
+)
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("center_kind", ["geometric", "origin", "point"])
+def test_rotation_centers_selection_order_units_and_independent_ownership(
+    case, source, effect, center_kind, monkeypatch
+):
+    view, sent = case
+    target, before = view.molsys, coords(view)
+    box = puw.get_value(target.structures.box, to_unit="nm").copy()
+    revision = view.addons.molsysmt.get_sync_status()["target_revision"]
+    calls = []
+    native_center = msm.structure.get_center
+
+    def center(*args, **kwargs):
+        calls.append(kwargs)
+        if effect == "update":
+            assert view.addons.molsysmt.get_sync_status()["state"] == "editing"
+        result = native_center(*args, **kwargs)
+        assert puw.get_value(result).shape == (2, 1, 3)
+        return result
+
+    monkeypatch.setattr(msm.structure, "get_center", center)
+    with puw.context(standard_units=["pm", "ps", "radians"]):
+        packet = act(
+            view,
+            sent,
+            "review",
+            draft={
+                "source": source,
+                "value": "chosen",
+                "indices": "2,4,2",
+                "expression": "atom_index in [2,4]",
+            },
+            parameters={
+                "task": "rotate",
+                "rotation_center_kind": center_kind,
+                "cx": "1",
+                "cy": "-2",
+                "cz": "3",
+                "center_unit": "angstrom",
+                "structures": "indices",
+                "indices": "2,0",
+                "effect": effect,
+            },
+        )
+        assert packet["stage"] == "review", packet["message"]
+        assert packet["review"]["structure_indices"] == [2, 0]
+        assert not calls, "Review must not calculate structure-dependent centers."
+        np.testing.assert_array_equal(coords(view), before)
+        packet = act(view, sent, "apply", token=packet["review"]["token"])
+    assert packet["stage"] == ("done" if effect == "update" else "result"), packet[
+        "message"
+    ]
+    atoms = list(range(target.get_n_atoms())) if source == "all" else [2, 4]
+    expected = _rotated_z(before, atoms, [2, 0], center_kind)
+    assert len(calls) == int(center_kind == "geometric")
+    if calls:
+        assert calls[0]["selection"] == atoms
+        assert calls[0]["structure_indices"] == [2, 0]
+        assert calls[0]["weights"] is None
+    output = (
+        view
+        if effect == "update"
+        else view.addons.manager.presentations.get(packet["result"]["id"])
+    )
+    np.testing.assert_allclose(coords(output), expected, atol=1e-12)
+    np.testing.assert_array_equal(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"), box
+    )
+    assert view.molsys is target
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + int(
+        effect == "update"
+    )
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+        assert output.player.n_structures == 3
+        assert not np.shares_memory(
+            puw.get_value(output.molsys.structures.coordinates),
+            puw.get_value(target.structures.coordinates),
+        )
+        assert packet["result"]["operation"] == "molsysmt.structure.rotate"
+        assert packet["result"]["effect_label"] == "Rotated"
+        assert packet["result"]["affected_structures"] == [2, 0]
+        act(view, sent, "result.discard")
+        assert output.closed
+
+
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {"ax": "0", "ay": "0", "az": "0"},
+        {"ax": "nan"},
+        {"az": "inf"},
+        {"angle": "nan"},
+        {"angle": "inf"},
+        {"angle": ""},
+        {"angle": 90},
+        {"angle_unit": "nm"},
+        {"rotation_center_kind": "camera"},
+        {"ax": "x"},
+        {"rotation_center_kind": "point", "cx": "nan"},
+    ],
+)
+def test_rotation_rejects_undefined_axis_angle_and_center_before_edit(case, parameters):
+    view, sent = case
+    before, status = coords(view), view.addons.molsysmt.get_sync_status()
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={"task": "rotate", **parameters},
+    )
+    assert packet["stage"] == "error"
+    assert not packet.get("review")
+    np.testing.assert_array_equal(coords(view), before)
+    assert view.addons.molsysmt.get_sync_status() == status
+
+
+@pytest.mark.parametrize("angle,unit", [("-90", "degree"), (str(-np.pi / 2), "radian")])
+def test_negative_rotation_and_explicit_angular_units(case, angle, unit):
+    view, sent = case
+    before = coords(view)
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "indices", "indices": "2,4"},
+        parameters={
+            "task": "rotate",
+            "angle": angle,
+            "angle_unit": unit,
+            "rotation_center_kind": "origin",
+            "structures": "current",
+        },
+    )
+    assert packet["stage"] == "review", packet["message"]
+    packet = act(view, sent, "apply", token=packet["review"]["token"])
+    assert packet["stage"] == "done", packet["message"]
+    np.testing.assert_allclose(
+        coords(view), _rotated_z(before, [2, 4], [0], "origin", sign=-1), atol=1e-12
+    )
+
+
+@pytest.mark.parametrize("angle", ["0", "0.000001"])
+def test_rotation_does_not_suppress_zero_or_small_requested_edit(case, angle):
+    view, sent = case
+    before = coords(view)
+    revision = view.addons.molsysmt.get_sync_status()["target_revision"]
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={"task": "rotate", "angle": angle, "rotation_center_kind": "origin"},
+    )
+    assert packet["stage"] == "review", packet["message"]
+    assert act(view, sent, "apply", token=packet["review"]["token"])["stage"] == "done"
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + 1
+    if angle == "0":
+        np.testing.assert_allclose(coords(view), before, atol=1e-15)
+    else:
+        assert np.max(np.abs(coords(view) - before)) > 1e-9
+
+
+@pytest.mark.parametrize("change", ["axis", "angle", "center", "structures", "peer"])
+def test_rotation_review_expires_on_scope_parameters_and_peer_edits(case, change):
+    view, sent = case
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "indices", "indices": "2,4"},
+        parameters={"task": "rotate"},
+    )
+    assert packet["stage"] == "review", packet["message"]
+    patch = {
+        "axis": {"az": "-1"},
+        "angle": {"angle": "45"},
+        "center": {"rotation_center_kind": "origin"},
+        "structures": {"structures": "current"},
+    }
+    if change == "peer":
+        view._endpoint_transfers.register("rotation-peer", "canvas")
+        mount(view, endpoint="rotation-peer")
+        peer = act(
+            view,
+            sent,
+            "review",
+            endpoint="rotation-peer",
+            draft={"source": "all"},
+            parameters={"dx": "1"},
+        )
+        assert (
+            act(
+                view,
+                sent,
+                "apply",
+                endpoint="rotation-peer",
+                token=peer["review"]["token"],
+            )["stage"]
+            == "done"
+        )
+    before, status = coords(view), view.addons.molsysmt.get_sync_status()
+    extra = (
+        {}
+        if change == "peer"
+        else {"parameters": {**packet["parameters"], **patch[change]}}
+    )
+    # Peer invalidations are unsolicited state packets (request_id=0).
+    # A real frontend retains its own increasing request sequence.
+    result = act(
+        view,
+        sent,
+        "apply",
+        token=packet["review"]["token"],
+        request_id=packet["request_id"] + 1,
+        **extra,
+    )
+    assert result["stage"] == "error"
+    np.testing.assert_array_equal(coords(view), before)
+    assert view.addons.molsysmt.get_sync_status() == status
+
+
+def test_rotation_review_never_copies_a_molecular_trajectory(case, monkeypatch):
+    view, sent = case
+
+    def reject_copy(*args, **kwargs):
+        raise AssertionError("Review must not copy the molecular trajectory.")
+
+    monkeypatch.setattr(view.molsys, "copy", reject_copy)
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={"task": "rotate", "effect": "result"},
+    )
+    assert packet["stage"] == "review", packet["message"]
+    assert packet["review"]["n_atoms"] == view.molsys.get_n_atoms()
+    assert act(view, sent, "back")["stage"] == "select"

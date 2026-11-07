@@ -5261,7 +5261,7 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
 Extraction/copy result presentation uses the separate flow below. Geometry
-offers Translate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory.
+offers Translate, Rotate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory.
 Chemistry offers the two source inspection tasks and explicit heavy-atom/hydrogen
 preparation described below. Analysis offers native distance and neighborhood
 queries. Further Geometry, Chemistry construction/assignments and other Analysis
@@ -5337,8 +5337,54 @@ but scene projection failed, use the canvas **Update view** action; do not apply
 the translation a second time. Independent systems and Views consume memory;
 this GUI does not promise streaming transforms or a trajectory-size RAM bound.
 Source/browser receiving does not replace postponed human Jupyter/visible Qt
-acceptance, owner review or exact installed-package qualification. Rotate and
-other Geometry tools remain planned.
+acceptance, owner review or exact installed-package qualification. Further
+Geometry tools remain planned.
+
+
+## Rotating molecular coordinates through Geometry
+
+Choose **Rotate** in **Molecular tools > Geometry** to rotate molecular data
+about a specified Cartesian axis. The axis is expressed in the system's
+coordinates, independently of the camera. Enter three unit-free components of
+a finite nonzero axis and a signed angle with explicit **Degrees** or
+**Radians**. Positive angles follow the right-hand rule: +90 degrees about +z
+maps +x to +y. Axis length does not change the rotation.
+
+Choose atoms and structures with the same controls as Translate. GUI atom
+indices are deduplicated, so repeated entries do not weight the center.
+Structure indices must be distinct and retain their requested order, such as
+`2, 0`. The default **Rotation center** is the unweighted geometric center of
+the selected atoms, computed separately in each processed structure. You can
+instead choose **Coordinate origin** or a **Fixed point**, with x, y and z
+in explicit Å or nm. Centers use stored coordinates, without reconstructing
+periodic images. This friendly default does not change the expert
+`structure.rotate` default `rotation_center=None`.
+
+**Review rotation** states the axis, signed angle and unit, center definition,
+resolved atom/structure counts and effect. Review resolves a fixed selection
+and validates parameters without calculating centers or copying a trajectory.
+**Back** leaves the system unchanged. Confirmation validates the target,
+revision, populations and complete request again; per-structure centers are
+calculated inside the serialized operation, immediately before native rotation.
+Changed parameters, structure/selection context or another window's molecular
+edit expire the review.
+
+Choose **Current system** for one managed edit and scene update, or
+**Independent result** for a complete separate system that changes only the
+selected atoms and structures. Presentation, lifetime and memory costs follow
+Translate. No rotation is implicitly discarded because it is small or zero.
+Native public {func}`molsysmt.structure.get_rotation_matrix_from_axis_angle`,
+{func}`molsysmt.structure.get_center` and {func}`molsysmt.structure.rotate`
+provide validation, units, geometry and coordinate publication.
+
+The periodic box stays fixed; coordinates are neither wrapped nor reconstructed.
+A rigid rotation preserves Euclidean distances within the rotated population
+but need not preserve minimum-image distances with a fixed lattice. Affected
+stored interaction coverage is invalidated by native coordinate publication.
+Scene Undo does not restore molecular coordinates. If rotation completed and
+projection failed, use **Update view** to retry synchronization only; do not
+apply the rotation again. Automated source/Jupyter receiving is separate from
+human Jupyter/visible Qt acceptance and installed-package qualification.
 
 
 ## Centering molecular coordinates through Geometry

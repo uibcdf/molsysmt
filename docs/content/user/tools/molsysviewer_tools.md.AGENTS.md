@@ -558,7 +558,7 @@ private tokens, no coordinate-copy preview, bounded frontend metadata and native
 independent Python defaults. Preserve drafts across navigation but expire reviews.
 Pending commands remain gated; use the host canvas Update view control and
 managed-state notification for reconciliation, never repeat completed science.
-Keep System tasks distinct from Geometry / Translate and from planned Rotate,
+Keep System tasks distinct from Geometry / Translate and Rotate, and from planned
 Chemistry and Analysis tasks. Preserve the shared selection/result vocabulary,
 explicit displacement units and molecular Cartesian axes, selected structures,
 fixed box, native coverage invalidation and single-use confirmation. Independent
@@ -669,3 +669,16 @@ must never masquerade as a trajectory axis. Adopt a core structure plot only
 for complete canonical structure coverage without sorting, padding or discarding
 requested observations. Keep deliberate plot ownership/retry and pending/stale
 guards distinct from calculation, with full native precision retained in Python.
+
+
+Preserve Geometry/Rotate's molecular Cartesian axis, explicit signed degree/radian
+angle and independent camera semantics. The default center is the selected
+atoms' unweighted geometric center in each processed structure; alternatives
+are the coordinate origin and a fixed unit-bearing point. Deduplicate GUI
+atom indices and retain distinct requested structure order. Review must not
+calculate centers or copy a trajectory. Resolve centers only inside the
+serialized apply operation using native get_center; delegate axis-angle and
+coordinate rotation to their native public tools. Keep fixed-box/MIC limits,
+full independent results, coverage invalidation, expiring single-use reviews
+and synchronization-only retry. Source/browser tests do not accept human Qt
+or installed packages.

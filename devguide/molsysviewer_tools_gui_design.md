@@ -3,6 +3,15 @@
 **Role:** proposed GUI design under uibcdf/molsysmt#421 and
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
+**Rotate update — 2026-11-07:** owner source implements the accepted axis/angle
+and three-center design below through native tools. The
+[rotation receipt](../devtools/data/molsysviewer_tools_rotation_receiving_20261107.json)
+records 5,091 addon cases, 551 overlapping directed cases and seven actual
+Jupyter/Mol*/popup steps. Per-structure centers are computed only inside
+serialized apply; independent results retain the full system. Human visual/Qt,
+installed and final-candidate acceptance remain separate. Other accepted
+families are not dropped by this delivery.
+
 **Status — 2026-11-06:** contribution source implements System / Remove atoms,
 Extract subset and Copy system, plus Geometry / Translate, Center, Superpose structures and qualified periodic tools. Selection controls,
 lifecycle, bounded metadata and independent-result presentation are shared.
@@ -232,13 +241,13 @@ visible Qt qualification.
 ### Next Geometry slice: translation and rotation — design review 2026-11-05
 
 **Implementation update — 2026-11-06:** Translate is implemented as the first
-Geometry slice; Center and Superpose structures are now implemented in contribution source. Rotate remains proposed pending #602. The maintainer keeps human System/Jupyter/Qt
+Geometry slice; Center and Superpose structures are implemented. Rotate is now implemented in owner source using the delivered #602 constructor; its receiving evidence is recorded in the dated update above. The maintainer keeps human System/Jupyter/Qt
 acceptance postponed. That deferral does not accept the UI or block preparation
 of this next slice. Register Geometry only when actual tasks and their guards
 exist. Preserve System as a separately pending acceptance item.
 
 Use one Geometry task picker for implemented **Translate**, **Center** and
-**Superpose structures**, adding **Rotate** when its native prerequisite is received, with the
+**Superpose structures** and **Rotate**, with the
 same selection/result vocabulary as System. Both edit molecular coordinates;
 they do not change the camera. Directions use the molecular Cartesian axes,
 independently of the camera orientation. Keep one task form visible at a time.

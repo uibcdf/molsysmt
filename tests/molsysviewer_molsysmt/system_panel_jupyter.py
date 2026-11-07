@@ -57,6 +57,7 @@ def main():
             "system",
             "results",
             "geometry",
+            "rotate",
             "center",
             "center-errors",
             "fit",
@@ -188,7 +189,14 @@ def main():
             "view.close()\nassert not subset_view.closed and not copy_view.closed\n"
             "print('JUPYTER_INDEPENDENT_RESULTS_OK', len(records))\n"
         )
-    if args.scenario in {"geometry", "center", "center-errors", "fit", "periodic"}:
+    if args.scenario in {
+        "geometry",
+        "rotate",
+        "center",
+        "center-errors",
+        "fit",
+        "periodic",
+    }:
         initial = initial[: initial.index("view = msv.demo")] + (
             "with msv.demo['pentalanine'] as seed:\n"
             "    view = msv.new_view(seed.molsys, structure_indices=[0, 8, 3])\n"
@@ -208,6 +216,12 @@ def main():
             "assert result.molsys is not view.molsys and result.player.n_structures == 3\n"
             "print('JUPYTER_GEOMETRY_NATIVE_OK', len(records))\n"
         )
+    if args.scenario == "rotate":
+        initial = (
+            initial.removesuffix("view\n")
+            + "import numpy as np\nview.addons.molsysmt.basic.set(box=msm.pyunitwizard.quantity(np.tile(np.eye(3)*5,(3,1,1)),'nm'))\n_rotation_revision=view.addons.molsysmt.get_sync_status()['target_revision']\n_rotation_box=msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm').copy()\n_rotation_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n_rotation_analysis=msm.interactions.hbonds.get_buch_hbonds(view.molsys,structure_indices='all',pbc=False,output_type='molsysmt.Interactions')\nview.interactions.attach(_rotation_analysis,name='science',assume_aligned=True)\nview\n"
+        )
+        final = "expected=source_coordinates.copy()\nfor structure in [2,0]:\n    center=source_coordinates[structure,:10].mean(axis=0)\n    relative=source_coordinates[structure,:10]-center\n    expected[structure,:10,0]=center[0]-relative[:,1]\n    expected[structure,:10,1]=center[1]+relative[:,0]\nnp.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),expected,atol=1e-12)\nassert view.addons.molsysmt.get_sync_status()['target_revision']==_rotation_revision+1\nrecords=view.addons.manager.presentations.records()\nassert len(records)==1\nresult=view.addons.manager.presentations.get(records[0]['id'])\ncandidate=expected.copy()\ncenter=np.array([0.1,-0.2,0.3])\nrelative=expected[0,:10]-center\ncandidate[0,:10,0]=center[0]+relative[:,1]\ncandidate[0,:10,1]=center[1]-relative[:,0]\nnp.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates,to_unit='nm'),candidate,atol=1e-12)\nassert result.molsys is not view.molsys and result.player.n_structures==3\nassert not np.shares_memory(msm.pyunitwizard.get_value(result.molsys.structures.coordinates),msm.pyunitwizard.get_value(view.molsys.structures.coordinates))\nfor molecular_system in [view.molsys,result.molsys]:\n    np.testing.assert_array_equal(msm.pyunitwizard.get_value(molecular_system.structures.box,to_unit='nm'),_rotation_box)\n    np.testing.assert_equal(msm.convert(molecular_system.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),_rotation_chemistry)\n    np.testing.assert_array_equal(molecular_system.interactions['science'].evaluated_structure_indices,[1])\nnp.testing.assert_array_equal(_rotation_analysis.evaluated_structure_indices,[0,1,2])\nprint('JUPYTER_ROTATE_NATIVE_OK',len(records))\n"
     if args.scenario == "center":
         final = (
             "import numpy as np\nexpected = source_coordinates.copy()\n"
@@ -574,6 +588,8 @@ def main():
                         if args.scenario == "fit"
                         else Path(__file__).with_name("center_error_jupyter.mjs")
                         if args.scenario == "center-errors"
+                        else Path(__file__).with_name("rotate_panel_jupyter.mjs")
+                        if args.scenario == "rotate"
                         else Path(__file__).with_name("center_panel_jupyter.mjs")
                         if args.scenario == "center"
                         else Path(__file__).with_name("geometry_panel_jupyter.mjs")

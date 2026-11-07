@@ -14,6 +14,12 @@ from ._task_panel import _MolecularTaskPanel, _structures
 
 _PARAMETERS = {
     "task": "translate",
+    "ax": "0",
+    "ay": "0",
+    "az": "1",
+    "angle": "90",
+    "angle_unit": "degree",
+    "rotation_center_kind": "geometric",
     "wrap_mode": "primary",
     "wrap_compact": "component",
     "ox": "0",
@@ -42,6 +48,7 @@ _PARAMETERS = {
 }
 _COMPLETED = {
     "translate": "Translation applied. The view is up to date.",
+    "rotate": "Rotation applied. The view is up to date.",
     "center": "Centering applied. The view is up to date.",
     "fit": "Superposition applied. The view is up to date.",
     "wrap": "Periodic wrapping applied. The view is up to date.",
@@ -50,6 +57,7 @@ _COMPLETED = {
 
 _OPERATIONS = {
     "translate": ("structure", "translate"),
+    "rotate": ("structure", "rotate"),
     "center": ("structure", "center"),
     "fit": ("structure", "least_rmsd_fit"),
     "wrap": ("pbc", "wrap_to_pbc"),
@@ -66,6 +74,7 @@ def _operation(parameters):
 
 _RESULT_TITLES = {
     "translate": "Translated system",
+    "rotate": "Rotated system",
     "center": "Centered system",
     "fit": "Superposed system",
     "wrap": "Wrapped system",
@@ -73,6 +82,7 @@ _RESULT_TITLES = {
 }
 _EFFECT_LABELS = {
     "translate": "Translated",
+    "rotate": "Rotated",
     "center": "Centered",
     "fit": "Superposed",
     "wrap": "Wrapped",
@@ -86,6 +96,10 @@ def _parameters(value):
     result = dict(_PARAMETERS, **value)
     if result["task"] not in _OPERATIONS:
         raise ValueError("Choose a supported Geometry task.")
+    if result["angle_unit"] not in {"degree", "radian"} or result[
+        "rotation_center_kind"
+    ] not in {"geometric", "origin", "point"}:
+        raise ValueError("Choose an explicit angle unit and rotation center.")
     if result["wrap_mode"] not in {"primary", "centered", "nearest"} or result[
         "wrap_compact"
     ] not in {"component", "atom"}:
@@ -106,6 +120,10 @@ def _parameters(value):
     if result["structures"] not in {"all", "current", "indices"}:
         raise ValueError("Choose which structures to transform.")
     for key, limit in (
+        ("ax", 64),
+        ("ay", 64),
+        ("az", 64),
+        ("angle", 64),
         ("ox", 64),
         ("oy", 64),
         ("oz", 64),
@@ -143,6 +161,20 @@ def _length_vector(parameters, kind="translation"):
     if not np.all(np.isfinite(values)):
         raise ValueError("Enter three finite length values.")
     return puw.quantity(values, parameters[unit])
+
+
+def _rotation(parameters):
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.structure import get_rotation_matrix_from_axis_angle
+
+    try:
+        axis = [float(parameters[key]) for key in ("ax", "ay", "az")]
+        angle = float(parameters["angle"])
+    except ValueError as exc:
+        raise ValueError("Enter a finite nonzero axis and a finite angle.") from exc
+    return get_rotation_matrix_from_axis_angle(
+        axis, puw.quantity(angle, parameters["angle_unit"])
+    )
 
 
 def _admit_periodic_profile(target, frames, *, temporal):
@@ -307,6 +339,12 @@ class _GeometryPanel(_MolecularTaskPanel):
         references = _GeometryReferences()
         if self._parameters["task"] == "translate":
             _length_vector(self._parameters)
+        elif self._parameters["task"] == "rotate":
+            _rotation(self._parameters)
+            if self._parameters["rotation_center_kind"] == "point":
+                _length_vector(self._parameters, "center")
+            elif self._parameters["rotation_center_kind"] == "geometric":
+                references = _GeometryReferences(center=tuple(int(i) for i in atoms))
         elif self._parameters["task"] in {"wrap", "unwrap"}:
             temporal = self._parameters["task"] == "unwrap"
             if temporal and len(frames) < 2:
@@ -408,6 +446,25 @@ class _GeometryPanel(_MolecularTaskPanel):
         }
         if review.parameters["task"] == "translate":
             parameters["translation"] = _length_vector(review.parameters)
+        elif review.parameters["task"] == "rotate":
+            from molsysmt.structure import get_center
+
+            parameters["rotation"] = _rotation(review.parameters)
+            kind = review.parameters["rotation_center_kind"]
+            # Apply-time only: this check shares the managed edit/read lock.
+            parameters["rotation_center"] = (
+                get_center(
+                    target,
+                    selection=atoms.tolist(),
+                    structure_indices=list(frames),
+                    weights=None,
+                    engine="MolSysMT",
+                )
+                if kind == "geometric"
+                else _length_vector(review.parameters, "center")
+                if kind == "point"
+                else None
+            )
         elif review.parameters["task"] in {"wrap", "unwrap"}:
             parameters["engine"] = "MolSysMT"
             if review.parameters["task"] == "wrap":

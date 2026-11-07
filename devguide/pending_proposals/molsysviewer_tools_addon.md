@@ -8,11 +8,37 @@ verification: inspected
 area: [api, molsysviewer, addons]
 guard:
 normative:
-blocked_by: [uibcdf/molsysmt#602, uibcdf/molsysviewer#304, uibcdf/molsysviewer#314]
+blocked_by: [uibcdf/molsysviewer#304, uibcdf/molsysviewer#314]
 supersedes: []
 ---
 
 # Bound MolSysMT tools addon for MolSysViewer
+
+## Geometry/Rotate — owner source receiving 2026-11-07
+
+Geometry now implements **Rotate** through the delivered native #602 constructor,
+`get_center(weights=None)` and `rotate`. The axis is molecular Cartesian;
+angles carry explicit degree/radian units. The default center is the unique
+selected atoms' unweighted geometric center separately in each processed
+structure; origin and a fixed unit-bearing point are alternatives. Review
+neither computes centers nor copies a trajectory. Final validation and native
+center calculation share the serialized apply operation, preserving `[2,0]`
+order and `(n_structures,1,3)` centers. Native expert defaults are unchanged.
+
+The [rotation receipt](../../devtools/data/molsysviewer_tools_rotation_receiving_20261107.json)
+records **5,091 addon cases**, **551 directed/native/route cases** (overlapping
+selections) and a new actual Jupyter/Mol*/popup scenario with **seven steps**.
+The latter checks actual signed rotated vertices, independent result identity,
+all native coordinates and structures, unchanged chemistry/box, and invalidated
+analysis coverage. Two page errors match the plain-Jupyter baseline fingerprint;
+no zero-page-error claim is made. Secrets are removed. Source receiving does
+not close human Qt/visual acceptance, installed/platform qualification or #615.
+The original test-only stale-request sequencing failure is retained and explained.
+
+Source delivery and final source/documentation checks are being completed.
+Other accepted Geometry/reference/principal-axis/cell, property/sequence,
+interaction/mechanics and complete scientific-session GUI families remain
+required. Audit progress stays **40%**, with **28** audit-related closures.
 
 ## Isolated owner reconciliation — 2026-11-07
 
@@ -66,8 +92,9 @@ installed and postponed human acceptance. The
 [Center receipt](../../devtools/data/molsysviewer_tools_center_receiving_20261106.json)
 adds geometric/mass-weighted centering, per-structure point/selection references
 and shared rejected-operation diagnostics (#603), with 114 panel checks, 172
-native/route controls and five actual Jupyter scenarios. Rotate awaits native
-#602; other required Geometry, Chemistry and Analysis tasks remain planned.
+native/route controls and five actual Jupyter scenarios. The native #602 prerequisite is now delivered and Rotate is being received in
+owner source (see the dated update above); other required Geometry, Chemistry
+and Analysis tasks remain planned.
 
 ## Analysis row adoption — source receiving 2026-11-06
 

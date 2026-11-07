@@ -20,7 +20,31 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current correction checkpoint — 2026-11-07
+## Current Geometry/Rotate checkpoint — 2026-11-07
+
+The #421 Rotate panel is implemented and locally received on exact Viewer
+`e4dd58cf0`: native Cartesian axis-angle construction, explicit degree/radian
+units and selected-atom geometric centers per structure, origin or a fixed
+unit-bearing point. Review avoids center computation and trajectory copying;
+apply computes centers within the serialized native operation. Current-system
+edits and full independent results reuse the existing lifecycle and
+synchronization-only recovery.
+
+The [rotation receipt](../devtools/data/molsysviewer_tools_rotation_receiving_20261107.json)
+records 5,091 addon cases, 551 overlapping directed/native/route cases and seven
+actual Jupyter/Mol*/popup steps, with unchanged boxes/chemistry, coverage
+invalidation, selected/unselected coordinates and independent result identity.
+Baseline-matching page errors are retained. Final source/documentation checks
+and publication are in progress. Human visual/Qt, installed/platform and exact
+candidate gates remain pending. No publication authority is inferred.
+
+The audit remains **40%** complete, with **28** audit-related issue closures.
+The complete board still has 571 issues, 97 open, latest #639. Next are the
+remaining accepted #421 reference/principal-axis, cell and other task families,
+without dropping property/sequence/interaction/mechanics or full session GUI.
+The previous #543/#635/#639 source delivery remains recorded below.
+
+## Previous correction checkpoint — 2026-11-07
 
 Main receives #543 at exact merge `0ddb99c2b`, public checkpoint `45e69bb10`.
 All thirty changed paths independently match the complete public tree. #543
@@ -41,9 +65,9 @@ closed. Four human-owned API stubs and immutable owner archives stay unchanged.
 Earlier rotation/XYZ/source-certificate corrections are retained on main and in
 the audit's dated log. No new candidate, tag, Release or promotion is selected.
 
-Next: continue accepted #421 graphical families, starting Geometry/Rotate now
-that the native constructor is delivered, then actual rendered center/handedness/
-unit/selection and popup receiving. The design's other reference/principal-axis,
+The next step at that checkpoint was Geometry/Rotate, now implemented locally
+and received above with actual rendered center/handedness/unit/selection and
+popup checks. The design's other reference/principal-axis,
 cell, property/sequence/interaction/mechanics and complete scientific-session
 families remain required. #524 actual public-host/installed and human/Qt/exact
 final-candidate qualification retain their independent exits. This source

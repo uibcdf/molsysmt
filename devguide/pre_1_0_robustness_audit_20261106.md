@@ -5,7 +5,26 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-**Latest checkpoint — 2026-11-07:** contribution #543 is merged and verified
+**Current Rotate checkpoint — 2026-11-07:** the accepted #421 Geometry/Rotate
+slice is implemented and locally received on exact Viewer `e4dd58cf0`.
+Native axis-angle/rotation/center tools retain their scientific ownership;
+the GUI adds explicit signed angular units and per-structure selection,
+origin or fixed-point centers. The
+[rotation receipt](../devtools/data/molsysviewer_tools_rotation_receiving_20261107.json)
+records 5,091 addon cases, 551 overlapping directed/native/route cases and one
+actual seven-step Jupyter/Mol*/popup guard. It preserves the test-only original
+request-sequence failure and baseline-matching page errors. Source publication
+and final checks are in progress; human visual/Qt and installed/candidate gates
+remain independent. Accepted progress is **40%**; audit-related closures remain
+**28**. The complete board remains 571 issues, 97 open, through #639.
+
+**Next after this slice:** the other accepted #421 graphical families, beginning
+with reference/principal-axis workflows and explicit cell editing. Property,
+sequence, interaction/mechanics and complete scientific-session GUI remain in
+scope. #524's actual public-host/installed gates remain separate. No release
+candidate, tag, Release or promotion is selected.
+
+**Previous delivery checkpoint — 2026-11-07:** contribution #543 is merged and verified
 closed, with exact merge `0ddb99c2b` and public checkpoint `45e69bb10`.
 #635/#639 are independently verified closed; all thirty changed paths match the
 complete public tree. Audit-related closures are **28**, accepted phase progress
@@ -27,9 +46,9 @@ Counts overlap; no installed/platform/human/candidate approval is inferred.
 Earlier #602/#632/#633/#634/#636/#637/#638 deliveries remain in their receipts
 and the dated progress log below.
 
-**Next:** continue the remaining accepted #421 graphical families, beginning
-with Geometry/Rotate using the delivered native constructor; then its actual
-center/handedness/unit/selection geometry and popup receiving. Principal-axis/
+**Previous next step (now implemented locally above):** Geometry/Rotate using
+the delivered native constructor and its actual center/handedness/unit/selection
+geometry and popup receiving. Principal-axis/
 reference workflows, cell editing, further property/sequence/interaction/
 mechanics and full scientific-session GUI retain their agreed scope. #524's
 actual public-host/installed and exact final-candidate exits remain separate.

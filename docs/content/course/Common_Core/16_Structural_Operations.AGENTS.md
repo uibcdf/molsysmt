@@ -49,3 +49,10 @@ RMSF. Their calculations do not edit or automatically align source coordinates.
 Distinguish positional reference correspondence, per-structure scalar series and
 per-atom fluctuations. Core trajectory plots require complete canonical structure
 coverage; no repeated/subset or atom axis is padded or relabelled to fit it.
+
+
+Preserve the Geometry/Rotate bridge: molecular-axis signed angle with explicit
+degree/radian units, per-structure unweighted selection center as the GUI
+default, explicit origin/fixed point alternatives, serialized apply-time native
+centers and full independent results. Keep the camera and box distinction,
+minimum-image limits, unchanged native expert defaults and projection-only retry.

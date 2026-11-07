@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "scope": "Local source implementation and automated receiving; not an installed package, platform matrix, release candidate or human visual acceptance.",
+  "baseline_molsysmt_commit": "f5b4ffa9f99a2ee7ff56281312c4ac1a2bd32cef",
+  "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+  "python": "3.14.7",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "design": {
+    "operation": "molsysmt.structure.rotate",
+    "matrix": "molsysmt.structure.get_rotation_matrix_from_axis_angle",
+    "center": "molsysmt.structure.get_center(weights=None)",
+    "axis": "Molecular Cartesian coordinates, independent of camera orientation; unit-free finite nonzero vector.",
+    "angle": "Explicit signed degree/radian; positive quarter-turn about +z maps +x to +y.",
+    "centers": [
+      "Per-structure unweighted geometric center of unique selected atoms (GUI default)",
+      "Coordinate origin",
+      "Fixed explicit length-bearing point"
+    ],
+    "review": "No center computation or molecular trajectory copy. Apply-time centers share the serialized managed edit/read operation; native shape (n_structures,1,3) and requested order are retained.",
+    "effects": "Managed current-system edit and scene update, or full independent result changing only requested atoms/structures.",
+    "periodicity": "Box stays fixed. No wrapping/reconstruction; Euclidean rigidity is not a MIC-invariance promise.",
+    "lifecycle": "Native analysis coverage invalidation; expiring single-use reviews; completed science is never replayed to recover projection."
+  },
+  "tests": {
+    "addon": {
+      "passed": 5091,
+      "native_exit": 0,
+      "seconds": 220.806,
+      "workers": 12,
+      "selection": "tests/molsysviewer_molsysmt (before adding the independently received no-copy-review case)"
+    },
+    "native": {
+      "passed": 551,
+      "native_exit": 0,
+      "seconds": 25.445,
+      "workers": 12,
+      "selection": [
+        "tests/molsysviewer_molsysmt/test_geometry_panel.py",
+        "devtools/tests/test_smoke_addon_test_command.py",
+        "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+        "devtools/tests/test_native_viewer_integration.py",
+        "devtools/tests/test_execute_scientific_evidence.py",
+        "tests/structure/test_xyz_edit_representation.py",
+        "tests/structure/test_transform_input_ownership.py",
+        "tests/structure/test_get_rotation_matrix_from_axis_angle.py",
+        "tests/scientific_truth/structure/test_axis_angle_rotation.py",
+        "tests/form/XYZ/test_coordinate_publication.py",
+        "tests/documentation/test_center_examples.py"
+      ]
+    },
+    "gui": {
+      "passed": 1,
+      "native_exit": 0,
+      "seconds": 52.521,
+      "workers": 0,
+      "guard": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_rotation",
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review a molecular-axis rotation and cancel without changing Mol* vertices",
+        "Apply a signed quarter turn about each structure centroid and inspect actual vertices",
+        "Create an independent negative-radian rotation about a unit-bearing fixed point",
+        "The rotated result keeps its identity across window and notebook destinations",
+        "Rotation axis angle and fixed point survive canvas and Studio popups",
+        "Python verifies every selected and unselected atom and structure"
+      ],
+      "page_errors": 2,
+      "plain_jupyter_baseline_errors": 1,
+      "errors_match_baseline": true,
+      "credentials_removed": true,
+      "scientific_checks": "Independent signed quarter-turn oracle for actual Mol* vertices; all selected/unselected native atoms/structures, unchanged chemistry/box, original versus invalidated analysis coverage and separate result ownership."
+    },
+    "overlap": "The 5091-case addon and 551-case directed selections overlap; their counts must not be added.",
+    "fast": {
+      "passed": 14,
+      "native_exit": 0,
+      "seconds": 23.5415478029754,
+      "command": "python devtools/scripts/release_gate.py",
+      "scope": "Fast source controls only; not the full release gate."
+    },
+    "html": {
+      "native_exit": 0,
+      "seconds": 49.81790168094449,
+      "warnings": 6,
+      "scope": "HTML compilation, saved notebook outputs and no autosummary regeneration. Four known build underline warnings and two isolated unedited copies of human-owned API stubs remain; the four root human files are unchanged."
+    }
+  },
+  "remaining": [
+    "Other accepted #421 graphical families",
+    "Actual installed/public-host qualification under #524",
+    "Postponed human Jupyter/visible Qt acceptance",
+    "Exact final candidate and platform gates"
+  ],
+  "progress": {
+    "accepted_phase_percent": 40,
+    "audit_related_issue_closures": 28,
+    "board_issue_count": 571,
+    "open_issues": 97,
+    "latest_issue": 639
+  },
+  "publication": "Source delivery pending; no new candidate/tag/Release/promotion authorized.",
+  "initial_test_attempt": {
+    "passed": 153,
+    "failed": 1,
+    "native_exit": 1,
+    "reason": "The new peer-staleness test reused a request number after an unsolicited request_id=0 packet. The test now preserves the frontend sequence; provider/scientific code was not changed to satisfy it.",
+    "evidence": "Private initial JUnit retained; directed final selection passes the corrected case."
+  },
+  "input_sha256_after_receiving": {
+    "molsysviewer_molsysmt/_geometry_panel.py": "2020b74a98822936f8a0182e7a7fa5d3f39d1c85c5937514df1eb418b1e1f0d8",
+    "molsysviewer_molsysmt/_geometry_panel_frontend.py": "bd2387b289201a81aaadf5b9e9a9ddf23edd6db7db4b2f23d3dbe34504db0ebf",
+    "tests/molsysviewer_molsysmt/test_geometry_panel.py": "412e63f6607a3928123cc1a03e495c0a3b949bf00275f4eec0786c04f83533dd",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "8d59bc503213701ccebbe15231fa4bb64a6ab7b6312637722c96dd5bf2bf2102",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "0dda282a9dc9513bf608f9e9d81d6c68464b322b33094d830ee0a470e690a1f1",
+    "tests/molsysviewer_molsysmt/rotate_panel_jupyter.mjs": "24fd41a75f2d57e5452e3199e769c19ae7ffd61fd403bb6a382582b8a13de74d"
+  },
+  "public_scientific_source_changes": "None. Existing native axis-angle/center/rotate primitives and the Rust binary are reused unchanged."
+}
