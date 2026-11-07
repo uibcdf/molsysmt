@@ -21,9 +21,4 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
-### Partially resolved (2)
-
-- [`antiviral_geometry_example_selects_an_empty_inhibitor_population.md`](antiviral_geometry_example_selects_an_empty_inhibitor_population.md) — [#634](https://github.com/uibcdf/molsysmt/issues/634) — Antiviral geometry example selects an empty inhibitor population in 6LU7. *(medium, reproduced)*
-- [`course_contributor_guide_names_obsolete_validator_entrypoint.md`](course_contributor_guide_names_obsolete_validator_entrypoint.md) — [#637](https://github.com/uibcdf/molsysmt/issues/637) — Course contributor guide names an obsolete validator entrypoint. *(low, reproduced)*
-
 <!-- /generated -->

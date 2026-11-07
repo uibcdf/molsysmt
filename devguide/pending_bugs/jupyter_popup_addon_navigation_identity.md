@@ -24,7 +24,7 @@ performs five later row-selection/live-measure/ensemble steps. The driver record
 all twelve completed names. This is a stale wrapper expectation, not an observed
 graphical or scientific failure. The wrapper now requires the complete ordered
 twelve-name sequence rather than an anonymous count, tracked separately in
-[the #632 record](analysis_jupyter_wrapper_expects_obsolete_step_count.md);
+[the #632 record](../archive/resolved_bugs/analysis_jupyter_wrapper_expects_obsolete_step_count.md);
 no driver assertion, title,
 deadline or numerical oracle is removed. Actual Jupyter receiving of this
 combined source and Viewer `25061d9e9` remains due. The original #614 and #615

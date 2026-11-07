@@ -1,9 +1,9 @@
 ---
 summary: Provide a public axis-angle rotation constructor for molecular consumers.
 issue: uibcdf/molsysmt#602
-status: partial
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-07
 verification: measured
 area: [structure, math, molsysviewer]
 guard: tests/structure/test_get_rotation_matrix_from_axis_angle.py
@@ -152,4 +152,17 @@ Python/source-eligibility gap before exact-candidate certification. #635 require
 separate panel-guard receiving on the newer host and does not retroactively
 qualify that host through this block's exact Viewer 25061d9e9 evidence.
 
-The portable [combined receiving receipt](../../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json) retains native exits, original failed attempts, source fingerprints and the separately incomplete candidate/host gates. All fourteen final fast source gates pass.
+The portable [combined receiving receipt](../../../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json) retains native exits, original failed attempts, source fingerprints and the separately incomplete candidate/host gates. All fourteen final fast source gates pass.
+
+## Resolution — 2026-11-07
+
+The correction is delivered on main in checkpoint
+`684a5b0cb9991e0538a0bd55bc934a5b57719a97`. An independent, complete GitHub
+API tree matches all 141 changed source/record paths against the local commit.
+The guard named in this record protects the stated boundary; its receiving and
+original failures are retained in the linked portable receipt. The earlier
+local/pending statements describe prior stages, not the current disposition.
+
+This closes this bounded correction only. #421 graphical/installed/human scope,
+#524 public-host/installed closure and the separate #635/#636/#638 work remain
+open. No final-candidate, stability promotion or release approval is implied.

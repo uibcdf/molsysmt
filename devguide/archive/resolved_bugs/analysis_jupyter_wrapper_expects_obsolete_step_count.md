@@ -1,9 +1,9 @@
 ---
 summary: Analysis Jupyter wrapper expects seven steps after expansion to twelve.
 issue: uibcdf/molsysmt#632
-status: partial
+status: resolved
 opened: 2026-11-07
-closed:
+closed: 2026-11-07
 severity: medium
 verification: measured
 area: [tests, jupyter, molsysviewer]
@@ -70,7 +70,7 @@ native exit zero, all twelve ordered steps complete in 79.964 seconds including
 pytest startup. Jupyter readiness is measured at 2.533 seconds. The source,
 coordinate, page, row, live-measure geometry, popup and real-ensemble checks
 remain unchanged, as do all deadlines. The
-[portable receipt](../../devtools/data/bound_tools_owner_jupyter_receiving_632_20261107.json)
+[portable receipt](../../../devtools/data/bound_tools_owner_jupyter_receiving_632_20261107.json)
 retains three campaigns separately, exact source/asset hashes and matched
 plain-Jupyter page-error controls. The actual guard now verifies the complete
 twelve-name sequence. This proves the local wrapper correction; public source
@@ -86,3 +86,16 @@ observation and #615's separate canvas uncertainty are not causally closed.
   shorten the driver, enlarge waits or accept placeholder/numerical substitutes.
 - Source, graphical, installed and postponed human/Qt qualification remain
   separate under #421. This correction adds no phase weight or release authority.
+
+## Resolution — 2026-11-07
+
+The correction is delivered on main in checkpoint
+`684a5b0cb9991e0538a0bd55bc934a5b57719a97`. An independent, complete GitHub
+API tree matches all 141 changed source/record paths against the local commit.
+The guard named in this record protects the stated boundary; its receiving and
+original failures are retained in the linked portable receipt. The earlier
+local/pending statements describe prior stages, not the current disposition.
+
+This closes this bounded correction only. #421 graphical/installed/human scope,
+#524 public-host/installed closure and the separate #635/#636/#638 work remain
+open. No final-candidate, stability promotion or release approval is implied.

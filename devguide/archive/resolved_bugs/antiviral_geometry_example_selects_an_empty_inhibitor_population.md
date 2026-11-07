@@ -1,9 +1,9 @@
 ---
 summary: Antiviral geometry example selects an empty inhibitor population in 6LU7.
 issue: uibcdf/molsysmt#634
-status: partial
+status: resolved
 opened: 2026-11-07
-closed:
+closed: 2026-11-07
 severity: medium
 verification: reproduced
 area: [docs, course, structure]
@@ -78,3 +78,16 @@ are retained but are not evidence of native classification or geometry defects.
 Source/public delivery and issue closeout remain pending.
 
 The portable [combined receiving receipt](../../../devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json) retains native exits, original failed attempts, source fingerprints and the separately incomplete candidate/host gates. All fourteen final fast source gates pass.
+
+## Resolution — 2026-11-07
+
+The correction is delivered on main in checkpoint
+`684a5b0cb9991e0538a0bd55bc934a5b57719a97`. An independent, complete GitHub
+API tree matches all 141 changed source/record paths against the local commit.
+The guard named in this record protects the stated boundary; its receiving and
+original failures are retained in the linked portable receipt. The earlier
+local/pending statements describe prior stages, not the current disposition.
+
+This closes this bounded correction only. #421 graphical/installed/human scope,
+#524 public-host/installed closure and the separate #635/#636/#638 work remain
+open. No final-candidate, stability promotion or release approval is implied.

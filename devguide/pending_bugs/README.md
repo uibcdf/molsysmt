@@ -32,10 +32,8 @@ that front matter -- edit the entries, not this list.
 
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
-### Partially resolved (9)
+### Partially resolved (7)
 
-- [`independent_transforms_modify_source_xyz_coordinates.md`](independent_transforms_modify_source_xyz_coordinates.md) — [#633](https://github.com/uibcdf/molsysmt/issues/633) — Independent rotation and translation modify source XYZ coordinates. *(high, reproduced)*
-- [`analysis_jupyter_wrapper_expects_obsolete_step_count.md`](analysis_jupyter_wrapper_expects_obsolete_step_count.md) — [#632](https://github.com/uibcdf/molsysmt/issues/632) — Analysis Jupyter wrapper expects seven steps after expansion to twelve. *(medium, measured)*
 - [`devguide_board_sync_truncates_issue_history.md`](devguide_board_sync_truncates_issue_history.md) — [#587](https://github.com/uibcdf/molsysmt/issues/587) — Devguide board reconciliation falsely loses issues older than its capped inventory. *(medium, reproduced)*
 - [`jupyter_popup_addon_navigation_identity.md`](jupyter_popup_addon_navigation_identity.md) — [#614](https://github.com/uibcdf/molsysmt/issues/614) — Jupyter popup receiving loses the current Add-ons header during bootstrap. *(medium, reproduced)*
 - [`jupyter_result_title_before_ack.md`](jupyter_result_title_before_ack.md) — [#609](https://github.com/uibcdf/molsysmt/issues/609) — Jupyter result-window guards read titles before presentation acknowledgement. *(medium, reproduced)*
