@@ -1,0 +1,65 @@
+{
+  "schema_version": "molsysmt.principal_axes_completion@1",
+  "date": "2026-11-07",
+  "source": "96b73b3f3d00a0df8eb2f6535cbbc86f27503da4",
+  "source_receiving": "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json",
+  "public_source": {
+    "source_commit": "96b73b3f3d00a0df8eb2f6535cbbc86f27503da4",
+    "public_tree_complete": true,
+    "all_paths_match": true,
+    "paths": {
+      "devguide/archive/resolved_bugs/molecular_task_rejection_diagnostic_lifetime.md": "798488bb86a18f44bba5bf2409f66786fc7e2edb",
+      "devguide/molsysviewer_tools_gui_design.md": "f7f33492dde472c3d41215bac1b679b12176b9f9",
+      "devguide/pending_bugs/README.md": "13910d9085b230ba87d4b5708dab8414365f5802",
+      "devguide/pending_bugs/molecular_task_rejection_diagnostic_lifetime.md": null,
+      "devguide/pending_bugs/principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md": "1bf54a5f85bb46e6be4620bae6a91a814166d42c",
+      "devguide/pending_bugs/structural_inconsistency_hints_assume_comparisons_and_retain_obsolete_axis_termi.md": "1abc14c7e1b49791fdc4537fc20b6f293db91705",
+      "devguide/pending_proposals/molsysviewer_tools_addon.md": "2b4528732b90ed4555c19f5662704c1ec55efc16",
+      "devguide/pre_1_0_robustness_audit_20261106.md": "fc5084642046c922c9cb2425f58e57677da28442",
+      "devguide/release_1_0_status.md": "8239e10d002f2e9899be40654d6d0007427f5eac",
+      "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json": "ba8235304abbe48b2258398d3a8de11263fd4c52",
+      "docs/content/course/Common_Core/16_Structural_Operations.AGENTS.md": "d4a1c221bc645ec96fde34af1d41040159731129",
+      "docs/content/course/Common_Core/16_Structural_Operations.ipynb": "4d56914808e4fac5670a5d8d52e81d3c46ef2aeb",
+      "docs/content/user/tools/molsysviewer_tools.md": "b16a681e758ee8773db71d54a29b8d43ac585d75",
+      "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "31a965b95931557e95146df8a868cf8b22409d14",
+      "docs/docs_manifest.yml": "1cadce4daba12297831216249f836fc25641c26d",
+      "molsysviewer_molsysmt/_geometry_panel.py": "dc99508cb354207ba0d917224079b9c6860459e1",
+      "molsysviewer_molsysmt/_geometry_panel_frontend.py": "f8cfc956ed4d07a1ec4b4a266569696648d62689",
+      "tests/molsysviewer_molsysmt/axes_panel_jupyter.mjs": "acc2ba8269abd42b1b87f380c8f3546f4c6a0ff6",
+      "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "f9f68621b83c277edf1d1a9996d78ea4531efc11",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "911cabaa258dbe12ea741f75b533bcd70458b0a5",
+      "tests/molsysviewer_molsysmt/test_geometry_panel.py": "442d8531289808b08455cd617ce7ec5d8a76a63b"
+    }
+  },
+  "scientific_execution": {
+    "commit": "96b73b3f3d00a0df8eb2f6535cbbc86f27503da4",
+    "verdict": "pass",
+    "tracked_source_dirty": false,
+    "source_correspondence": true,
+    "registered_nodes": 68,
+    "collected_cases": 107,
+    "passed": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0
+  },
+  "scope": "Exact clean-source science and source delivery only. Human/installed/platform/candidate/authorization exits remain independently pending.",
+  "ci": "Maintainer-authorized [skip ci] checkpoint; existing #334 full-suite recovery backlog remains due.",
+  "owner_closeout": {
+    "603": "Verified CLOSED through complete paginated board inventory",
+    "audit_related_issue_closures": 29,
+    "board_at_review": {
+      "issues": 574,
+      "open": 99,
+      "latest": 642
+    },
+    "new_priority": "#642 typed HDF5 evidence catalog fidelity; inspected source and published consumer evidence, independent owner reproduction next.",
+    "other_reports": "#640/#641 remain open; no native diagnostic code change is claimed."
+  },
+  "tracking": {
+    "scorecard": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+    "meaning": "Verified partial source milestones with unchanged six phase weights; separate from publication gates.",
+    "board_reconciliation": "Native exit 0 after synchronizing derived labels, declaring the existing Jupyter/initialization areas and normalizing #612 conversion to canonical convert. No bug outcome/body/title was changed by label synchronization."
+  }
+}

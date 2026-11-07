@@ -34,14 +34,19 @@ run is retained: its three test-only failures expected an unchanged attempted-
 operation identifier after a clean native rejection. Corrected assertions retain
 all coordinate/revision/sync guarantees; runtime code was not changed for them.
 
-#603's shared diagnostic correction is now owner-received and archived; final
-public issue closeout follows source verification. #640/#641 track two observed
+#603's shared diagnostic correction is owner-received, archived and verified
+closed against public source `96b73b3f3`. The
+[completion record](../../devtools/data/molsysviewer_tools_principal_axes_completion_20261107.json)
+verifies all 21 changed/deleted paths and 107 scientific cases/68 nodes on clean
+exact source. Fourteen fast gates and HTML compilation pass, retaining six
+baseline underline warnings. #640/#641 track two observed
 native diagnostic defects independently, without a GUI translation. Native
-scientific/Rust sources and binary are unchanged. Final fast/documentation/
-clean-source scientific receiving and publication follow. External references,
+scientific/Rust sources and binary are unchanged. Implementation source is published on main; current tracking preserves its
+completed source receiving and independently pending exits. External references,
 sequence matching, cell editing and all other accepted families remain required.
-Human/installed/candidate exits are separate. Progress accounting is being
-revised at the maintainer's request; the former phase-closure indicator was 40%.
+New #642 now precedes those continuations: the [persistence report](../pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md) owns evidence-catalog loss after invalidation/readback, with independent owner reproduction still pending. Human/installed/candidate exits are separate. The [audit's milestone accounting](../pre_1_0_robustness_audit_20261106.md#progress-estimate-for-the-authorized-execution)
+now credits verified partial deliveries while preserving the original weights,
+full scope and independent publication gates.
 
 ## Geometry/Rotate — owner source receiving 2026-11-07
 

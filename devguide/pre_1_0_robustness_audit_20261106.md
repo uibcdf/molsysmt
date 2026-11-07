@@ -15,22 +15,30 @@ inputs and baseline-matching page errors are retained. Native tensor/basis/
 center validation, unit/rigidity truth, independent ownership, boxes/chemistry,
 coverage and synchronization-only retry remain delegated unchanged.
 
-#603 is now source-received and archived; public issue closeout follows source
-verification. Newly reported #640 and #641 own native diagnostic index/context
-and vocabulary corrections; neither is hidden inside the GUI. Next address
-those bounded native messages, then external-reference/sequence workflows,
-cell editing and the other accepted families. Final fast/documentation/clean-
-source scientific receiving and main delivery are being completed. No native
-scientific/Rust source or binary was changed by this GUI slice.
+#603 is source-received, archived and independently verified closed against
+published source `96b73b3f3`. The [completion receipt](../devtools/data/molsysviewer_tools_principal_axes_completion_20261107.json)
+records all 21 changed/deleted public paths and clean exact-source scientific
+execution of 107 cases/68 nodes. All fourteen fast gates and HTML compilation
+pass, with six retained underline warnings. Newly reported #640 and #641 own
+native diagnostic index/context and vocabulary corrections; neither is hidden
+inside the GUI. New #642 reports HDF5 evidence-catalog loss after interaction
+invalidation.
+Its owning [report](pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md)
+records inspected native source and published DockingMT evidence; independent
+owner reproduction is next. Prioritize that data-integrity correction, then
+#640/#641 messages and external-reference/sequence workflows,
+cell editing and the other accepted families. The implementation is published
+on main; these records retain its completed source receiving and pending exits.
+No native scientific/Rust source or binary was changed by this GUI slice.
 
-**Progress-accounting review:** the maintainer correctly observes that the old
-40% credits only fully exited phases and hides substantial phase-three/four
-work. Preserve those dated observations, original six phase weights, scope and
-publication gates. A requirement-level partial-delivery scorecard is being
-prepared below; it will distinguish source/implementation progress from the
-conditions needed to publish and will not infer readiness from tests or issue
-counts. Until that audited recalculation is recorded, 40% is a legacy
-phase-exit observation rather than a useful current implementation estimate.
+**Current audited implementation/source-delivery progress: approximately 61%.**
+The [requirement-level scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
+recognizes verified partial milestones with the original six phase weights.
+The [method and phase breakdown](#progress-estimate-for-the-authorized-execution)
+explain the change from the retired 40% phase-exit count. This is a remeasurement
+of delivered work; candidate/installed/platform/sign-off gates remain pending.
+Audit-related closures are now 29; the board has 574 issues, 99 open, through
+#642. Scope and publication authority are unchanged.
 
 **Previous Rotate checkpoint — 2026-11-07:** the accepted #421 Geometry/Rotate
 slice is implemented and locally received on exact Viewer `e4dd58cf0`.
@@ -398,25 +406,84 @@ completed campaigns retain their results and are not reset by this baseline.
 | Phase 5: contract closeout and scientific/public claims | 10% | 0% |
 | Phase 6: exact candidate, required qualification and publication decision | 15% | 0% |
 
-Phase 1 contributes 10 percentage points per independently qualified/published
-native correction; phase 2 contributes five per accepted numerical correction.
-Other blocks contribute their weight when their stated exit is evidenced. Mark
-partial work in prose without turning an unexecuted exit into completed weight.
-Weights emphasize cross-domain integrity, numerical behavior and the broad
-joint graphical receiving. Revisit them only for a documented scope change;
-preserve the old baseline and explain any resulting percentage change. Link
-each credited contribution to its report/receipt. The release ledger links this
-estimate rather than maintaining an independent percentage.
+**Current operational measure — 2026-11-07: approximately 61%.**
+The maintainer correctly identified that the former all-or-nothing measure
+kept reporting 40% while phases 3 and 4 delivered substantial accepted source
+work. The [milestone scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
+now owns the detailed requirement tree, acceptance evidence and arithmetic.
+The six weights above remain **20/20/10/25/10/15**. Scope, scientific criteria
+and mandatory publication gates are unchanged. This is an accounting correction
+that recognizes earlier delivered work, not 21 newly implemented points in this
+turn. The unrounded result is about 60.99; report it as **approximately 61%**
+to avoid implying an effort estimate with decimal precision.
 
-**Current checkpoint: 40%**, credited to the two phase-one corrections (20 points)
-and the four phase-two numerical milestones (20 points), with public delivery,
-addressable guards and owner closure independently verified. The separate #619
-mechanism shares #608's unit-invariance milestone without adding weight. The
-[delivery receipt](../devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json)
-records all 27 verified public blobs and five closed PBC issues.
-Remaining contribution: phase 3 10%, phase 4 25%, phase 5
-10%, phase 6 15%. This is the progress of the authorized plan, not a 1.0 readiness
-score or a delivery-time prediction.
+| Phase | Preserved weight | Verified milestone credit | Main remaining exit |
+| --- | ---: | ---: | --- |
+| 1 | 20 | 20.0 | Closed native corrections; retain guards. |
+| 2 | 20 | 20.0 | Closed numerical corrections; retain guards. |
+| 3 | 10 | 6.7 | Actual public Viewer floor and clean installed closure. |
+| 4 | 25 | 14.3 | Remaining GUI/reference/cell/property/session families and owning acceptance. |
+| 5 | 10 | 0.0 | Requirement-level contract/scientific-claim closeout. |
+| 6 | 15 | 0.0 | Exact candidate, artifacts, mandatory gates and publication authorization. |
+
+Credit verified leaves, not entire unfinished phases. Within a phase, the named
+requirement packages have equal shares; nested GUI families have equal family
+shares and explicit intent/task leaves within that family. A verified-source
+leaf scores one, a pending leaf zero; parent values average their children.
+For example, phase 3 receives two of three packages (configuration/precision
+and non-Viewer provider-contract receiving); actual installed/public-Viewer
+closure remains zero. Phase 4 receives integration, delivered native/endpoint
+prerequisites and actual navigation truth, plus qualified portions of outcomes
+and the explicit graphical inventory. Complete source tasks do not claim that
+an entire family or publication exit is satisfied.
+
+The scorecard makes the accepted GUI intents finite and reviewable. It does
+not require a field for every expert argument, invent another scientific
+algorithm or silently omit external references, sequence matching, broader
+periodic/cell handling, preparation/assignments/construction, remaining
+observables/mechanics or a complete scientific session. Source qualification
+and pending human/installed acceptance stay separate. A pending leaf can have
+existing code: it has not yet met this audit's requirement-level acceptance.
+In particular, phase 5 receives no credit merely because older implementation
+exists; its closeout and scientific-claim review still needs completion.
+
+Every credited source package links its relevant executed receiving and public
+source evidence. File existence, a green unrelated gate, raw test counts or
+issue counts are insufficient. Supplemental bugs add no bonus; if new evidence
+invalidates a credited claim, reopen its affected leaf until corrected. #640/
+#641 retain their required native diagnostic dispositions. This planning index
+is neither a scientific quality/coverage measure, a time prediction nor a
+probability of publication readiness. Phase 6 remains zero, and the existing
+publication pause and exact-artifact gates remain fully applicable.
+
+To reproduce the arithmetic from the canonical snapshot:
+
+```python
+import json
+from fractions import Fraction
+
+with open('devtools/data/pre_1_0_progress_scorecard_20261107.json') as stream:
+    scorecard = json.load(stream)
+
+def fraction(item):
+    if 'children' in item:
+        return sum((fraction(child) for child in item['children']), Fraction()) / len(item['children'])
+    return Fraction(item['state'] == 'verified_source')
+
+points = sum((phase['weight'] * fraction(phase) for phase in scorecard['phases']), Fraction())
+print(f'Approximately {round(float(points))}%')
+```
+
+**Preserved legacy phase-exit baseline:** the former 40% credited the two
+phase-one corrections at ten points each and the four phase-two numerical
+milestones at five points each. #619 shares #608's unit-invariance milestone
+without adding weight. The [phase-two delivery](../devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json)
+retains all 27 verified public blobs and five closed issues. Subsequent dated
+40% observations below remain historical evidence under that retired accounting
+rule. The release ledger links this current measure rather than maintaining
+an independent progress definition. Update the scorecard and this derived
+snapshot together when accepting another milestone; retain its original
+source/guard and any resulting remeasurement rationale.
 
 ### Phase 1 — Native composition and persistence continuity
 

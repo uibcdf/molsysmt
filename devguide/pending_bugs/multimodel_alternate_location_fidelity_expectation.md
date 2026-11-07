@@ -6,7 +6,7 @@ opened: 2026-11-06
 closed:
 severity: medium
 verification: reproduced
-area: [build, conversion, tests, molsysviewer]
+area: [build, convert, tests, molsysviewer]
 guard:
 normative:
 blocked_by: []

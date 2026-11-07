@@ -41,7 +41,7 @@
       "source_inputs_checked": 5178,
       "changed_source_inputs": [],
       "command": [
-        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "<existing-development-python>",
         "-m",
         "pytest",
         "--receptor=llm",
@@ -71,7 +71,7 @@
       "source_inputs_checked": 5178,
       "changed_source_inputs": [],
       "command": [
-        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "<existing-development-python>",
         "-m",
         "pytest",
         "--receptor=llm",
@@ -93,7 +93,7 @@
       "source_inputs_checked": 5178,
       "changed_source_inputs": [],
       "command": [
-        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "<existing-development-python>",
         "-m",
         "pytest",
         "--receptor=llm",
@@ -257,5 +257,6 @@
     "Other accepted chemistry/analysis/refinement/session families",
     "Actual public Viewer floor and installed/runtime/candidate/platform gates",
     "Postponed human visual/Qt acceptance"
-  ]
+  ],
+  "command_path_note": "Public commands normalize the existing interpreter and owner checkout paths; original private invocations and source commit 96b73b3f3 preserve exact execution identities."
 }

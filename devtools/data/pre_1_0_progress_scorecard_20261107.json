@@ -1,0 +1,819 @@
+{
+  "schema_version": "molsysmt.pre1-progress@1",
+  "date": "2026-11-07",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "qualified_source": "96b73b3f3d00a0df8eb2f6535cbbc86f27503da4",
+  "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
+  "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
+  "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
+  "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
+  "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
+  "legacy_phase_exit_percent": 40,
+  "weighted_milestone_percent": 60.99213286713287,
+  "reported_approximate_percent": 61,
+  "phases": [
+    {
+      "id": "phase1",
+      "weight": 20,
+      "requirement": "Selected composition and recovered append",
+      "children": [
+        {
+          "id": "selected-composition",
+          "requirement": "Preserve selected atom-domain correspondence and publication",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/pre_1_0_robustness_phase1_receiving_20261106.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "recovered-append",
+          "requirement": "Receive recovered append with semantic inventory fidelity",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/pre_1_0_robustness_phase1_receiving_20261106.json"
+          ],
+          "review": ""
+        }
+      ],
+      "verified_fraction": 1.0,
+      "credited_points": 20.0
+    },
+    {
+      "id": "phase2",
+      "weight": 20,
+      "requirement": "Periodic construction, images, continuity and units",
+      "children": [
+        {
+          "id": "physical-cell",
+          "requirement": "Validate physical cell construction",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "oriented-bases",
+          "requirement": "Receive general admitted row-vector bases against lattice truth",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "temporal-cells",
+          "requirement": "Receive actual transition-cell temporal continuity",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "physical-units",
+          "requirement": "Receive physical origins and unit-invariant cell admission",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/pre_1_0_robustness_phase2_delivery_20261106.json"
+          ],
+          "review": ""
+        }
+      ],
+      "verified_fraction": 1.0,
+      "credited_points": 20.0
+    },
+    {
+      "id": "phase3",
+      "weight": 10,
+      "requirement": "Configuration and installed-runtime closure",
+      "children": [
+        {
+          "id": "configuration-authority",
+          "requirement": "Receive configuration authority and supported precision disposition",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/configuration_serialization_delivery_613_20261106.json",
+            "devtools/data/precision_renderer_delivery_620_20261106.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "nonviewer-provider-contracts",
+          "requirement": "Deliver non-Viewer provider floor/API/ABI review, default renderer and restriction dispositions",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/remaining_optional_runtime_delivery_630_631_20261106.json",
+            "devtools/data/runtime_provider_delivery_627_629_20261106.json",
+            "devtools/data/optional_runtime_delivery_623_20261106.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "actual-installed-defaults",
+          "requirement": "Receive actual public Viewer floor and clean minimum/newer installed default workflows",
+          "state": "pending",
+          "evidence": [],
+          "review": "Source/API receiving is not the clean installed closure required by #524."
+        }
+      ],
+      "verified_fraction": 0.6666666666666666,
+      "credited_points": 6.666666666666667
+    },
+    {
+      "id": "phase4",
+      "weight": 25,
+      "requirement": "Addon integration and required graphical receiving",
+      "children": [
+        {
+          "id": "source-integration",
+          "requirement": "Integrate the corrected native/expert contribution and exact host, with complete applicable Python receiving",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/bound_tools_newer_host_delivery_635_639_20261107.json",
+            "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "rotation-boundary",
+          "requirement": "Receive reusable axis-angle, handedness and angular-unit boundary",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/axis_angle_and_transform_receiving_602_633_634_637_20261107.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "xyz-publication",
+          "requirement": "Receive rank/quantity/precision-safe XYZ publication",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/xyz_coordinate_representation_delivery_638_20261107.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "host-endpoints",
+          "requirement": "Receive owning primary endpoints, popup routes and foreign-view rejection",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/bound_tools_newer_host_source_receiving_635_639_20261107.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "outcomes-layout",
+          "requirement": "Receive durable outcomes and actual layout",
+          "children": [
+            {
+              "id": "removal-outcome",
+              "requirement": "Complete owning #590 closeout and acceptance review",
+              "state": "pending",
+              "evidence": [],
+              "review": ""
+            },
+            {
+              "id": "layout",
+              "requirement": "Complete owning #591 layout acceptance review",
+              "state": "pending",
+              "evidence": [],
+              "review": ""
+            },
+            {
+              "id": "rejected-outcome",
+              "requirement": "Receive #603 rejection retention and expiry through actual refresh",
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+              ],
+              "review": ""
+            }
+          ]
+        },
+        {
+          "id": "async-receiving",
+          "requirement": "Receive addressed asynchronous presentation without weakened assertions",
+          "children": [
+            {
+              "id": "acknowledged-presentation",
+              "requirement": "Complete #609 owning acceptance review",
+              "state": "pending",
+              "evidence": [],
+              "review": ""
+            },
+            {
+              "id": "current-panel",
+              "requirement": "Complete #614 owning acceptance review",
+              "state": "pending",
+              "evidence": [],
+              "review": ""
+            }
+          ]
+        },
+        {
+          "id": "initial-canvas",
+          "requirement": "Resolve #615 causal stage or receive an evidenced bounded environment disposition",
+          "state": "pending",
+          "evidence": [],
+          "review": "Later passing startup/canvas runs do not establish repair."
+        },
+        {
+          "id": "navigation-authority",
+          "requirement": "Receive corrected plot-selected structure agreement in Python and actual canvas/popup paths",
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+          ],
+          "review": ""
+        },
+        {
+          "id": "gate-performance-semantics",
+          "requirement": "Receive finite gate semantics and comparable performance roles",
+          "children": [
+            {
+              "id": "finite-suite-budget",
+              "requirement": "Complete #611 applicable full-tier/budget review",
+              "state": "pending",
+              "evidence": [],
+              "review": ""
+            },
+            {
+              "id": "baseline-comparability",
+              "requirement": "Complete #567 benchmark comparability review",
+              "state": "pending",
+              "evidence": [],
+              "review": ""
+            }
+          ]
+        },
+        {
+          "id": "graphical-inventory",
+          "requirement": "Receive every accepted task family and complete-session intent",
+          "children": [
+            {
+              "id": "system",
+              "requirement": "System inventory, selection and independent results",
+              "children": [
+                {
+                  "id": "remove",
+                  "requirement": "Remove atoms with reviewed all-structure inventory effect",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "extract",
+                  "requirement": "Extract an ordered subset to an independent result",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "copy",
+                  "requirement": "Copy the complete system with independent lifetime",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+                  ],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "transforms",
+              "requirement": "Explicit translation, rotation and centering",
+              "children": [
+                {
+                  "id": "translate",
+                  "requirement": "Translate selected coordinates with physical units",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "rotate",
+                  "requirement": "Rotate about explicit/per-structure centers with handedness",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_rotation_completion_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "center",
+                  "requirement": "Center with explicit moving/source/destination semantics",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+                  ],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "fitting",
+              "requirement": "Structural fitting, reference and principal-axis workflows",
+              "children": [
+                {
+                  "id": "same-system-fit",
+                  "requirement": "Superpose to a declared initial structure in the same system",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "principal-axes",
+                  "requirement": "Orient principal axes with native tensors, weights and target rows",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "external-reference",
+                  "requirement": "Receive an external molecular reference workflow",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "sequence-fit",
+                  "requirement": "Receive sequence-derived component alignment",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "periodic-cell",
+              "requirement": "Periodic coordinates and explicit cell assignment",
+              "children": [
+                {
+                  "id": "wrap-bounded",
+                  "requirement": "Receive currently admitted wrapping GUI profiles",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "unwrap-bounded",
+                  "requirement": "Receive currently admitted temporal-unwrapping GUI profile",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "general-periodic",
+                  "requirement": "Receive broader delivered general-orientation/changing-cell native corrections in the GUI",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "cell-assignment",
+                  "requirement": "Receive explicit physical cell editing",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "chemistry-audits",
+              "requirement": "Chemistry facts, readiness and preparation assessments",
+              "children": [
+                {
+                  "id": "stored-chemistry",
+                  "requirement": "Inspect stored chemistry with explicit assessed/unknown scope",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "hydrogen-inventory",
+                  "requirement": "Inspect hydrogen inventory without preparing chemistry",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "readiness-assessment",
+                  "requirement": "Receive general readiness/missing-chemistry assessments",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "state-assessment",
+                  "requirement": "Receive explicit protonation/chemical-state assessments",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "chemistry-repair",
+              "requirement": "Explicit repairs and assignments",
+              "children": [
+                {
+                  "id": "heavy-atom-repair",
+                  "requirement": "Receive supported heavy-atom repair and reviewed independent replacement",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "hydrogen-addition",
+                  "requirement": "Receive explicit legacy/fixed-state hydrogen preparation",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "bond-repair",
+                  "requirement": "Receive supported missing-bond repair",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "terminal-completion",
+                  "requirement": "Receive declared terminal completion",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "capping",
+                  "requirement": "Receive explicit terminal capping",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "atom-typing",
+                  "requirement": "Receive declared atom typing",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "charge-assignment",
+                  "requirement": "Receive declared charge assignment",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "protonation-reconciliation",
+                  "requirement": "Receive assessed managed/independent protonation reconciliation",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "construction",
+              "requirement": "Construction, solvent and ions",
+              "children": [
+                {
+                  "id": "peptide",
+                  "requirement": "Receive peptide construction",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "water-cell",
+                  "requirement": "Receive explicit water-cell construction",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "assembly",
+                  "requirement": "Receive declared biological assembly construction",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "solvation",
+                  "requirement": "Receive explicit model/engine-selected solvation",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "ion-placement",
+                  "requirement": "Receive explicit whole-water ion replacement",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "refinement",
+              "requirement": "Receive native model/engine-selected coordinate minimization",
+              "state": "pending",
+              "evidence": [],
+              "review": ""
+            },
+            {
+              "id": "geometric-analysis",
+              "requirement": "Geometry, neighborhoods and structural series",
+              "children": [
+                {
+                  "id": "distances",
+                  "requirement": "Receive native distances and row adoption",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "minimum",
+                  "requirement": "Receive minimum distances",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "maximum",
+                  "requirement": "Receive maximum distances",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "neighbors",
+                  "requirement": "Receive explicit neighbor criteria and evaluated-empty results",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "contacts",
+                  "requirement": "Receive the contact-query intent",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "vectors",
+                  "requirement": "Receive vector observations",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "angles",
+                  "requirement": "Receive angular observations",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "torsions",
+                  "requirement": "Receive torsional observations",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "raw-rmsd",
+                  "requirement": "Receive raw reference RMSD",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "optimal-rmsd",
+                  "requirement": "Receive optimal-superposition RMSD without editing coordinates",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "gyration",
+                  "requirement": "Receive radius of gyration and weighting",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "rmsf",
+                  "requirement": "Receive atom-indexed RMSF",
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/bound_tools_newer_host_completion_receiving_635_639_20261107.json"
+                  ],
+                  "review": ""
+                },
+                {
+                  "id": "pca",
+                  "requirement": "Receive PCA and its native axis/degeneracy/memory contracts",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "other-analysis",
+              "requirement": "Properties, sequence/connectivity, interactions and mechanics",
+              "children": [
+                {
+                  "id": "properties",
+                  "requirement": "Receive physicochemical/property and secondary-structure results",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "sequence-connectivity",
+                  "requirement": "Receive sequence/connectivity reports",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "interactions",
+                  "requirement": "Receive qualified interaction workflows through their core owner without a duplicate store",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                },
+                {
+                  "id": "mechanics",
+                  "requirement": "Receive declared mechanical quantities and provenance",
+                  "state": "pending",
+                  "evidence": [],
+                  "review": ""
+                }
+              ]
+            },
+            {
+              "id": "complete-session",
+              "requirement": "Receive actual complete molecular/analysis/scene save, recover and continue session",
+              "state": "pending",
+              "evidence": [],
+              "review": ""
+            }
+          ]
+        }
+      ],
+      "verified_fraction": 0.573018648018648,
+      "credited_points": 14.3254662004662
+    },
+    {
+      "id": "phase5",
+      "weight": 10,
+      "requirement": "Contract closeout and scientific/public claims",
+      "children": [
+        {
+          "id": "612-587",
+          "requirement": "Reconcile #612/#587 actual acceptance and closeout",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "549",
+          "requirement": "Receive #549 remaining producer/composite/client scope",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "250-254",
+          "requirement": "Agree #250/#254 surface stability and final-candidate/Viewer acceptance",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "473-475",
+          "requirement": "Agree #473/#475 scientific meaning or bounded disposition",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "378-610",
+          "requirement": "Receive #378/#610 public namespace/composition examples",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "582",
+          "requirement": "Receive requested/effective engine-neutral mechanics claims",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "334-ledger",
+          "requirement": "Complete #334 final current-state/claim reconciliation",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        }
+      ],
+      "review": "Existing source is not claimed absent. No phase-five credit until its requirement-level acceptance review is completed.",
+      "verified_fraction": 0.0,
+      "credited_points": 0.0
+    },
+    {
+      "id": "phase6",
+      "weight": 15,
+      "requirement": "Exact candidate, required qualification and publication decision",
+      "children": [
+        {
+          "id": "agree-pair",
+          "requirement": "Agree exact compatible sources, versions, builds and scope",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "freeze-qualify",
+          "requirement": "Freeze clean candidate and pass mandatory exact-source/wheel/installed/documentation gates",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "artifacts-clients",
+          "requirement": "Receive immutable artifacts, actual import/dependency closure and client/session behavior",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "failed-gate-disposition",
+          "requirement": "Complete applicable candidate-attempt accounting and failed-scope return",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        },
+        {
+          "id": "authorize-publish-archive",
+          "requirement": "Obtain final authorization, publish and verify public artifacts/Zenodo",
+          "state": "pending",
+          "evidence": [],
+          "review": ""
+        }
+      ],
+      "verified_fraction": 0.0,
+      "credited_points": 0.0
+    }
+  ],
+  "new_priority": {
+    "issue": "uibcdf/molsysmt#642",
+    "record": "devguide/pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md",
+    "owner_verification": "Source inspected; independent reproduction next.",
+    "scope": "Required typed persistence fidelity. Prioritize before message cleanup and further GUI. It affects unaccepted persistence/session/contract qualification, not evidence for the already fixed specific native composition corrections."
+  }
+}

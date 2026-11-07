@@ -28,8 +28,9 @@ that front matter -- edit the entries, not this list.
 - [`principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md`](principal_axis_rejection_reports_a_local_position_as_a_source_structure_index.md) — [#640](https://github.com/uibcdf/molsysmt/issues/640) — Principal-axis rejection reports a local position as a source structure index *(low, reproduced)*
 - [`structural_inconsistency_hints_assume_comparisons_and_retain_obsolete_axis_termi.md`](structural_inconsistency_hints_assume_comparisons_and_retain_obsolete_axis_termi.md) — [#641](https://github.com/uibcdf/molsysmt/issues/641) — Structural inconsistency hints assume comparisons and retain obsolete axis terminology *(low, reproduced)*
 
-### In progress (1)
+### In progress (2)
 
+- [`interactions_hdf5_readback_discards_evidence_catalog.md`](interactions_hdf5_readback_discards_evidence_catalog.md) — [#642](https://github.com/uibcdf/molsysmt/issues/642) — HDF5 interaction readback discards unused evidence labels and changes catalog codes. *(high, inspected)*
 - [`reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md`](reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md) — [#549](https://github.com/uibcdf/molsysmt/issues/549) — Reconcile legacy amino-acid name mappings with native protonation labels *(medium, reproduced)*
 
 ### Partially resolved (6)

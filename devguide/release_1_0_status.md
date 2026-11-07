@@ -32,18 +32,28 @@ selection, units, fixed boxes/chemistry, invalidation and result lifetime retain
 their native ownership. The original test-only attempted-operation-ID
 assumption and baseline-matching page errors remain visible.
 
-#603's source correction is received and archived; final public closeout follows
-verification. #640/#641 now record the observed native diagnostic defects.
-Final source/scientific/documentation checks and main delivery are in progress.
-Then correct those messages and continue external-reference/sequence, cell and
+#603 is source-received, archived and verified closed against main source
+`96b73b3f3`; audit-related closures are now 29. The
+[completion receipt](../devtools/data/molsysviewer_tools_principal_axes_completion_20261107.json)
+records independent public-tree verification and 107 scientific cases/68 nodes
+on the exact clean source. All fourteen fast controls and HTML compilation
+pass, with six retained underline warnings. #640/#641 now record the observed
+native diagnostic defects. The implementation and current tracking records
+retain separate source and publication acceptance.
+New #642 is the next priority: HDF5 readback loses retained evidence catalogs
+after interaction invalidation. The [owning report](pending_bugs/interactions_hdf5_readback_discards_evidence_catalog.md)
+distinguishes inspected native source from pending independent reproduction.
+Then correct #640/#641 messages and continue external-reference/sequence, cell and
 all other accepted graphical/session families. Installed/platform/candidate and
 postponed human visual/Qt gates remain separate; publication stays paused.
 
-The maintainer requested a more informative progress measure. The
-[audit](pre_1_0_robustness_audit_20261106.md#progress-estimate-for-the-authorized-execution)
-is recalculating verified partial milestones with the original phase weights.
-The previous 40% was a phase-exit count that omitted partial work; it is retained
-as dated history, not presented as current implementation progress.
+The [current audited milestone measure](pre_1_0_robustness_audit_20261106.md#progress-estimate-for-the-authorized-execution)
+now credits verified partial work with the original phase weights; its canonical
+scorecard and detailed acceptance/evidence tree live with the audit. The retired
+40% phase-exit count is preserved below as dated history. Do not interpret the
+implementation/source-delivery estimate as publication readiness. The board has
+574 issues, 99 open, through #642. The new persistence defect precedes message
+cleanup and GUI expansion.
 
 ## Previous Geometry/Rotate checkpoint — 2026-11-07
 
