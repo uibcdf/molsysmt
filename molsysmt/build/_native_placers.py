@@ -23,21 +23,6 @@ import pandas as pd
 from molsysmt._private.residue_templates import load_residue_template
 
 # ---------------------------------------------------------------------------
-# Bonds sort utility (works on any DataFrame, not only Bonds_DataFrame)
-# ---------------------------------------------------------------------------
-
-
-def _sort_bonds_inplace(bonds_df):
-    """Sort bond pairs so atom1_index <= atom2_index, then sort by (atom1, atom2)."""
-    mask = bonds_df["atom1_index"] > bonds_df["atom2_index"]
-    bonds_df.loc[mask, ["atom1_index", "atom2_index"]] = bonds_df.loc[
-        mask, ["atom2_index", "atom1_index"]
-    ].values
-    bonds_df.sort_values(by=["atom1_index", "atom2_index"], inplace=True)
-    bonds_df.reset_index(drop=True, inplace=True)
-
-
-# ---------------------------------------------------------------------------
 # Kabsch placement of missing atoms within an existing group
 # ---------------------------------------------------------------------------
 
@@ -363,7 +348,6 @@ def append_atoms_to_molsys(
     # Remap all atom indices to account for the sort reordering
     if old_to_new:
         new_bonds = _remap_bond_atom_indices(new_bonds, old_to_new)
-    _sort_bonds_inplace(new_bonds)
     new_states._set_chemical_state_bonds(new_bonds)
 
     # --- Assemble new MolSys ---
@@ -986,7 +970,6 @@ def rebuild_molsys_with_new_groups(
     if new_bonds_rows:
         bonds_df["atom1_index"] = bonds_df["atom1_index"].astype("Int64")
         bonds_df["atom2_index"] = bonds_df["atom2_index"].astype("Int64")
-        _sort_bonds_inplace(bonds_df)
 
     # --- Coordinates ---
     new_coords = np.stack(new_atom_coords, axis=1)  # (n_structures, n_new_atoms, 3)

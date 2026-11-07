@@ -7,13 +7,11 @@ higher-level add_missing_heavy_atoms / add_missing_terminal_cappings tests.
 """
 
 import numpy as np
-import pandas as pd
 import pytest
 
 from molsysmt.build._native_placers import (
     _normalize,
     _perpendicular_component,
-    _sort_bonds_inplace,
     append_atoms_to_molsys,
     load_residue_template,
     place_ace_group,
@@ -83,41 +81,6 @@ class TestLoadResidueTemplate:
     def test_result_is_cached(self, ala_template):
         second = load_residue_template("ALA")
         assert second is ala_template  # same object — cache hit
-
-
-# ---------------------------------------------------------------------------
-# _sort_bonds_inplace
-# ---------------------------------------------------------------------------
-
-
-class TestSortBondsInplace:
-    def _make_bonds_df(self, pairs):
-        df = pd.DataFrame(pairs, columns=["atom1_index", "atom2_index"])
-        df["atom1_index"] = df["atom1_index"].astype("Int64")
-        df["atom2_index"] = df["atom2_index"].astype("Int64")
-        return df
-
-    def test_flips_reversed_pairs(self):
-        df = self._make_bonds_df([(5, 2), (0, 3)])
-        _sort_bonds_inplace(df)
-        assert df.loc[0, "atom1_index"] <= df.loc[0, "atom2_index"]
-        assert df.loc[1, "atom1_index"] <= df.loc[1, "atom2_index"]
-
-    def test_sorted_by_atom1_then_atom2(self):
-        df = self._make_bonds_df([(3, 4), (1, 2), (1, 0)])
-        _sort_bonds_inplace(df)
-        a1 = df["atom1_index"].tolist()
-        a2 = df["atom2_index"].tolist()
-        assert a1 == sorted(a1)  # primary sort
-        # within same a1, a2 must be sorted too
-        for i in range(len(a1) - 1):
-            if a1[i] == a1[i + 1]:
-                assert a2[i] <= a2[i + 1]
-
-    def test_index_is_reset(self):
-        df = self._make_bonds_df([(9, 1), (3, 0)])
-        _sort_bonds_inplace(df)
-        assert list(df.index) == list(range(len(df)))
 
 
 # ---------------------------------------------------------------------------
