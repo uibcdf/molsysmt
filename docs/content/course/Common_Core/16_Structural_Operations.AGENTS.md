@@ -56,3 +56,10 @@ degree/radian units, per-structure unweighted selection center as the GUI
 default, explicit origin/fixed point alternatives, serialized apply-time native
 centers and full independent results. Keep the camera and box distinction,
 minimum-image limits, unchanged native expert defaults and projection-only retry.
+
+
+Preserve the principal-axis GUI bridge's separate moving/reference populations,
+inertia/covariance and weight choices, center restoration/subtraction and row
+basis targets. State arbitrary signs, degeneracy and disjoint-reference limits;
+keep native all-structure preflight and shared result/sync ownership separate
+from remaining external-reference and sequence-matching GUI workflows.

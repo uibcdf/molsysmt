@@ -58,6 +58,7 @@ def main():
             "results",
             "geometry",
             "rotate",
+            "axes",
             "center",
             "center-errors",
             "fit",
@@ -192,6 +193,7 @@ def main():
     if args.scenario in {
         "geometry",
         "rotate",
+        "axes",
         "center",
         "center-errors",
         "fit",
@@ -215,6 +217,65 @@ def main():
             "np.testing.assert_allclose(msm.pyunitwizard.get_value(result.molsys.structures.coordinates, to_unit='nm'), expected)\n"
             "assert result.molsys is not view.molsys and result.player.n_structures == 3\n"
             "print('JUPYTER_GEOMETRY_NATIVE_OK', len(records))\n"
+        )
+    if args.scenario == "axes":
+        initial = initial.removesuffix("view\n") + (
+            "import numpy as np\n"
+            "import json\n"
+            "view.addons.molsysmt.basic.set(box=msm.pyunitwizard.quantity(np.tile(np.eye(3)*5,(3,1,1)),'nm'))\n"
+            "_axes_revision=view.addons.molsysmt.get_sync_status()['target_revision']\n"
+            "_axes_box=msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm').copy()\n"
+            "_axes_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "_axes_analysis=msm.interactions.hbonds.get_buch_hbonds(view.molsys,structure_indices='all',pbc=False,output_type='molsysmt.Interactions')\n"
+            "view.interactions.attach(_axes_analysis,name='science',assume_aligned=True)\n"
+            "_axes_basis=np.array([[0.,1.,0.],[0.,0.,1.],[1.,0.,0.]])\n"
+            "_axes_weights=msm.pyunitwizard.get_value(msm.physchem.get_mass(view.molsys,element='atom',selection=list(range(8))),to_unit='dalton')\n"
+            "def _principal_oracle(base,weights,kind,basis,centered):\n"
+            "    center=np.average(base[:8],axis=0,weights=weights)\n"
+            "    delta=base[:8]-center\n"
+            "    covariance=(delta*weights[:,None]).T@delta/weights.sum()\n"
+            "    eigenvalues=np.linalg.eigvalsh(covariance)\n"
+            "    if kind=='inertia': eigenvalues=eigenvalues[::-1]\n"
+            "    return {'before_angstrom':(base*10).tolist(),'target_center_angstrom':(np.zeros(3) if centered else center*10).tolist(),'target_variances_angstrom2':(eigenvalues*100).tolist(),'weights':weights.tolist(),'basis':basis.tolist()}\n"
+        )
+        initial += f"Path({str(output / 'axes-source-oracle.json')!r}).write_text(json.dumps(_principal_oracle(source_coordinates[0],np.ones(8),'inertia',np.eye(3),False)))\nview\n"
+        axes_middle = (
+            "_axes_source_received=msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm').copy()\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_axes_revision+1\n"
+        )
+        axes_middle += f"Path({str(output / 'axes-result-oracle.json')!r}).write_text(json.dumps(_principal_oracle(_axes_source_received[0],_axes_weights,'geometric',_axes_basis,True)))\nprint('JUPYTER_AXES_REFERENCE_OK')\n"
+        final = (
+            "def _verify_principal_native(base,after,structures,weights,kind,basis,centered):\n"
+            "    for structure in structures:\n"
+            "        center=np.average(base[structure,:8],axis=0,weights=weights)\n"
+            "        delta=base[structure,:8]-center\n"
+            "        covariance=(delta*weights[:,None]).T@delta/weights.sum()\n"
+            "        _,vectors=np.linalg.eigh(covariance)\n"
+            "        if kind=='inertia': vectors=vectors[:,::-1]\n"
+            "        projected=(after[structure,:8]-(0 if centered else center))@basis.T\n"
+            "        np.testing.assert_allclose(projected**2,(delta@vectors)**2,atol=1e-10)\n"
+            "        np.testing.assert_allclose(np.linalg.norm(after[structure,:8,None]-after[structure,None,:8],axis=-1),np.linalg.norm(base[structure,:8,None]-base[structure,None,:8],axis=-1),atol=1e-12)\n"
+            "        np.testing.assert_allclose(np.linalg.det(after[structure,[1,2,3]]-after[structure,0]),np.linalg.det(base[structure,[1,2,3]]-base[structure,0]),atol=1e-12)\n"
+            "        np.testing.assert_array_equal(after[structure,8:],base[structure,8:])\n"
+            "    for structure in set(range(3))-set(structures):\n"
+            "        np.testing.assert_array_equal(after[structure],base[structure])\n"
+            "source_after=msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm')\n"
+            "_verify_principal_native(source_coordinates,source_after,[2,0],np.ones(8),'inertia',np.eye(3),False)\n"
+            "np.testing.assert_array_equal(source_after,_axes_source_received)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_axes_revision+1\n"
+            "records=view.addons.manager.presentations.records()\n"
+            "assert len(records)==1\n"
+            "result=view.addons.manager.presentations.get(records[0]['id'])\n"
+            "candidate=msm.pyunitwizard.get_value(result.molsys.structures.coordinates,to_unit='nm')\n"
+            "_verify_principal_native(_axes_source_received,candidate,[0],_axes_weights,'geometric',_axes_basis,True)\n"
+            "assert result.molsys is not view.molsys and result.player.n_structures==3\n"
+            "assert not np.shares_memory(msm.pyunitwizard.get_value(result.molsys.structures.coordinates),msm.pyunitwizard.get_value(view.molsys.structures.coordinates))\n"
+            "for molecular_system in [view.molsys,result.molsys]:\n"
+            "    np.testing.assert_array_equal(msm.pyunitwizard.get_value(molecular_system.structures.box,to_unit='nm'),_axes_box)\n"
+            "    np.testing.assert_equal(msm.convert(molecular_system.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),_axes_chemistry)\n"
+            "    np.testing.assert_array_equal(molecular_system.interactions['science'].evaluated_structure_indices,[1])\n"
+            "np.testing.assert_array_equal(_axes_analysis.evaluated_structure_indices,[0,1,2])\n"
+            "print('JUPYTER_AXES_NATIVE_OK',len(records))\n"
         )
     if args.scenario == "rotate":
         initial = (
@@ -417,6 +478,8 @@ def main():
         + initial
     )
     cells = [initial, final]
+    if args.scenario == "axes":
+        cells = [initial, axes_middle, final]
     if args.scenario == "chemistry-preparation":
         cells = [initial, "verify_preparation_source()\n", final]
     if args.scenario == "chemistry-pending":
@@ -588,6 +651,8 @@ def main():
                         if args.scenario == "fit"
                         else Path(__file__).with_name("center_error_jupyter.mjs")
                         if args.scenario == "center-errors"
+                        else Path(__file__).with_name("axes_panel_jupyter.mjs")
+                        if args.scenario == "axes"
                         else Path(__file__).with_name("rotate_panel_jupyter.mjs")
                         if args.scenario == "rotate"
                         else Path(__file__).with_name("center_panel_jupyter.mjs")

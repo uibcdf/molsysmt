@@ -5,7 +5,34 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-**Current Rotate checkpoint — 2026-11-07:** the accepted #421 Geometry/Rotate
+**Current principal-axis checkpoint — 2026-11-07:** Align principal axes is
+implemented and source-received on exact Viewer `e4dd58cf0`. The
+[receiving record](../devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json)
+passes **5,569 combined cases** and **seven actual Jupyter scenarios** (48
+ordered steps): axes8, rejection5, System6, results7, Translate7, Center7,
+Superpose8. Original failed test assumptions, unchanged registered source
+inputs and baseline-matching page errors are retained. Native tensor/basis/
+center validation, unit/rigidity truth, independent ownership, boxes/chemistry,
+coverage and synchronization-only retry remain delegated unchanged.
+
+#603 is now source-received and archived; public issue closeout follows source
+verification. Newly reported #640 and #641 own native diagnostic index/context
+and vocabulary corrections; neither is hidden inside the GUI. Next address
+those bounded native messages, then external-reference/sequence workflows,
+cell editing and the other accepted families. Final fast/documentation/clean-
+source scientific receiving and main delivery are being completed. No native
+scientific/Rust source or binary was changed by this GUI slice.
+
+**Progress-accounting review:** the maintainer correctly observes that the old
+40% credits only fully exited phases and hides substantial phase-three/four
+work. Preserve those dated observations, original six phase weights, scope and
+publication gates. A requirement-level partial-delivery scorecard is being
+prepared below; it will distinguish source/implementation progress from the
+conditions needed to publish and will not infer readiness from tests or issue
+counts. Until that audited recalculation is recorded, 40% is a legacy
+phase-exit observation rather than a useful current implementation estimate.
+
+**Previous Rotate checkpoint — 2026-11-07:** the accepted #421 Geometry/Rotate
 slice is implemented and locally received on exact Viewer `e4dd58cf0`.
 Native axis-angle/rotation/center tools retain their scientific ownership;
 the GUI adds explicit signed angular units and per-structure selection,

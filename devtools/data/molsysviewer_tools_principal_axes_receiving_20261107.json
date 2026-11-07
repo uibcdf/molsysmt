@@ -1,0 +1,261 @@
+{
+  "schema_version": "molsysmt.principal_axes_receiving@1",
+  "date": "2026-11-07",
+  "issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#603",
+    "uibcdf/molsysmt#640",
+    "uibcdf/molsysmt#641"
+  ],
+  "baseline_source": "aadefc11df537622602770be2044aa6b75c0f73d",
+  "viewer_source": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+  "python": "3.14.7",
+  "scope": "Implemented, contract-tested and independent tensor/rigid-invariant source receiving; not installed packages, platform matrix, human visual/Qt acceptance or candidate approval.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "contract": {
+    "native_tool": "molsysmt.structure.align_principal_axes",
+    "moment_types": [
+      "inertia",
+      "geometric"
+    ],
+    "weights": [
+      "uniform",
+      "standard atomic masses"
+    ],
+    "reference": "Fixed independent atom population in the stated selection structure; may overlap or be disjoint from moving atoms.",
+    "center": "Keep the initial weighted reference center or subtract without restoration. Excluded reference atoms remain unchanged.",
+    "target": "Cartesian basis or nine unit-free values as three right-handed orthonormal row vectors.",
+    "validation": "Review parses/resolves without eigensolve or trajectory copy. Flag-free native validation computes and checks all selected structures before publication.",
+    "limits": "Native eigenvalue ordering, arbitrary eigenvector signs and degeneracy criteria remain authoritative. No temporal sign continuity, periodic reconstruction, lattice rotation or numerical fallback.",
+    "effects": "Managed current-system edit/sync or complete independent system; only requested atoms and distinct ordered structures change. Native coverage invalidation and synchronization-only retry."
+  },
+  "runs": {
+    "addon": {
+      "passed": 5569,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "native_exit": 0,
+      "seconds": 302.828,
+      "workers": 12,
+      "source_inputs_checked": 5178,
+      "changed_source_inputs": [],
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/axes-421/addon.xml",
+        "-n12",
+        "tests/molsysviewer_molsysmt",
+        "devtools/tests/test_smoke_addon_test_command.py",
+        "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+        "devtools/tests/test_native_viewer_integration.py",
+        "devtools/tests/test_execute_scientific_evidence.py",
+        "tests/structure/test_xyz_edit_representation.py",
+        "tests/structure/test_transform_input_ownership.py",
+        "tests/structure/test_get_rotation_matrix_from_axis_angle.py",
+        "tests/scientific_truth/structure/test_axis_angle_rotation.py",
+        "tests/form/XYZ/test_coordinate_publication.py",
+        "tests/documentation/test_center_examples.py"
+      ]
+    },
+    "gui": {
+      "passed": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "native_exit": 0,
+      "seconds": 78.077,
+      "workers": 0,
+      "source_inputs_checked": 5178,
+      "changed_source_inputs": [],
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/axes-421/gui.xml",
+        "-n0",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_principal_axes",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_rejected_operation_diagnostic",
+        "--basetemp=<owner>/.pytest_cache/axes-421/gui"
+      ]
+    },
+    "gui-base": {
+      "passed": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "native_exit": 0,
+      "seconds": 254.303,
+      "workers": 0,
+      "source_inputs_checked": 5178,
+      "changed_source_inputs": [],
+      "command": [
+        "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<owner>/.pytest_cache/axes-421/gui-base.xml",
+        "-n0",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_independent_result_views",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_translation",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_centering",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_superposition",
+        "--basetemp=<owner>/.pytest_cache/axes-421/gui-base"
+      ]
+    },
+    "fast": {
+      "native_exit": 0,
+      "seconds": 23.448314191075042,
+      "scope": "Fourteen fast controls"
+    },
+    "html": {
+      "native_exit": 0,
+      "seconds": 69.9128530099988,
+      "scope": "HTML compilation with six retained baseline underline warnings; saved outputs and no autosummary regeneration."
+    }
+  },
+  "gui_scenarios": [
+    {
+      "name": "jupyter-center-errors",
+      "steps": 5,
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review a native center-of-mass request under the explicit partial application policy",
+        "The native error remains visible after its automatic synchronized refresh",
+        "Python verifies that the rejected native call did not mutate the system",
+        "A new user choice clears the diagnostic and requires a new review"
+      ],
+      "page_errors": 2,
+      "plain_jupyter_baseline_errors": 1,
+      "all_errors_match_baseline": true,
+      "credentials_removed": true
+    },
+    {
+      "name": "jupyter-axes",
+      "steps": 8,
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review principal-axis options and cancel without copying or moving the system",
+        "Apply inertia alignment and compare actual Mol* vertices with independent tensor invariants",
+        "Capture the unchanged source reference for a distinct mass-weighted result",
+        "Create a centered covariance result in explicit row axes and inspect its actual geometry",
+        "The principal-axis result keeps its identity across window and notebook destinations",
+        "Principal-axis definitions weights and target rows survive both popup boundaries",
+        "Python verifies every selected and unselected atom and structure"
+      ],
+      "page_errors": 3,
+      "plain_jupyter_baseline_errors": 1,
+      "all_errors_match_baseline": true,
+      "credentials_removed": true
+    },
+    {
+      "name": "jupyter-geometry",
+      "steps": 7,
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review and cancel translation without changing the molecular system",
+        "Confirm the saved subset once through live Jupyter comms",
+        "Translate an independent whole-system result and display it below the source",
+        "The same result can move to its own live window and back",
+        "Geometry is reachable in canvas and detached Studio popups with its draft",
+        "Python verifies the numerical results and unchanged source of the independent calculation"
+      ],
+      "page_errors": 2,
+      "plain_jupyter_baseline_errors": 1,
+      "all_errors_match_baseline": true,
+      "credentials_removed": true
+    },
+    {
+      "name": "jupyter-center",
+      "steps": 7,
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review centering and cancel while actual Mol* coordinates stay unchanged",
+        "Apply centering and verify the actual displayed coordinates analytically",
+        "Create an independent result centered on another selection in the current structure",
+        "The centered result keeps its identity across window and notebook destinations",
+        "Center task and its references survive canvas and Studio popups",
+        "Python verifies every selected and unselected atom and structure"
+      ],
+      "page_errors": 2,
+      "plain_jupyter_baseline_errors": 1,
+      "all_errors_match_baseline": true,
+      "credentials_removed": true
+    },
+    {
+      "name": "jupyter",
+      "steps": 6,
+      "checks": [
+        "Execute real notebook with source-pinned Python 3.14 kernel",
+        "Native review is 165 waters / 3818 retained; Back does not edit",
+        "Confirm traverses real widget comms, native edit and Mol* rendering",
+        "Empty ion selection and remount retain a bounded draft without a review",
+        "Canvas popup and Studio popup share the actual Jupyter authority",
+        "Kernel verifies actual inventory and exactly two managed edits"
+      ],
+      "page_errors": 2,
+      "plain_jupyter_baseline_errors": 1,
+      "all_errors_match_baseline": true,
+      "credentials_removed": true
+    },
+    {
+      "name": "jupyter-results",
+      "steps": 7,
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Extract ordered nonconsecutive structures without editing the source",
+        "Notebook delivery from fullscreen explains how to reach the result",
+        "Changing destination reuses one View through rapid window/notebook cycles",
+        "Copy opens a separate live View in an external window without recomputing",
+        "Detached Studio can open and close an independent result without closing its source",
+        "Python recovers both Views and source closure preserves them"
+      ],
+      "page_errors": 2,
+      "plain_jupyter_baseline_errors": 1,
+      "all_errors_match_baseline": true,
+      "credentials_removed": true
+    },
+    {
+      "name": "jupyter-fit",
+      "steps": 8,
+      "checks": [
+        "Render the source through the real notebook presentation surface",
+        "Review explicit fitting atoms and cancel without changing rendered coordinates",
+        "Apply rigid superposition and compare actual Mol* positions with the independent SVD oracle",
+        "Create a separate result fitted to another explicit reference structure",
+        "The superposed result preserves its identity across window and notebook destinations",
+        "Fitting references remain explicit in canvas and detached Studio popups",
+        "Python verifies every selected/unselected atom and structure against the independent oracle",
+        "Independent notebook Views bind saved-choice inputs to their own datalist"
+      ],
+      "page_errors": 2,
+      "plain_jupyter_baseline_errors": 1,
+      "all_errors_match_baseline": true,
+      "credentials_removed": true
+    }
+  ],
+  "original_attempt": {
+    "selection": "Directed native/panel/route selection",
+    "passed": 704,
+    "failed": 3,
+    "exit": 1,
+    "reason": "New tests incorrectly expected the coordinator attempted-operation ID to stay unchanged after a clean native rejection. They now verify preserved coordinates, revision, pending/sync fields and the new attempted-operation identity. No runtime/scientific code changed for this test correction.",
+    "evidence": "Private initial-native log, JUnit and invocation retained."
+  },
+  "diagnostics": [
+    "#640 preserves the observed local-position/source-structure-index confusion in the native degeneracy reason.",
+    "#641 owns misleading comparison/count advice and obsolete axis vocabulary in the common structural-inconsistency hint. Neither is corrected inside the GUI."
+  ],
+  "remaining": [
+    "External-system reference GUI",
+    "Sequence-matching GUI",
+    "Explicit cell editing and wider received native periodic profiles",
+    "Other accepted chemistry/analysis/refinement/session families",
+    "Actual public Viewer floor and installed/runtime/candidate/platform gates",
+    "Postponed human visual/Qt acceptance"
+  ]
+}

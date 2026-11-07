@@ -14,6 +14,12 @@ from ._task_panel import _MolecularTaskPanel, _structures
 
 _PARAMETERS = {
     "task": "translate",
+    "axes_expression": "",
+    "axes_type": "inertia",
+    "axes_weights": "uniform",
+    "axes_center": "preserve",
+    "axes_target": "cartesian",
+    "axes_basis": "1 0 0; 0 1 0; 0 0 1",
     "ax": "0",
     "ay": "0",
     "az": "1",
@@ -47,6 +53,7 @@ _PARAMETERS = {
     "title": "",
 }
 _COMPLETED = {
+    "axes": "Principal-axis alignment applied. The view is up to date.",
     "translate": "Translation applied. The view is up to date.",
     "rotate": "Rotation applied. The view is up to date.",
     "center": "Centering applied. The view is up to date.",
@@ -56,6 +63,7 @@ _COMPLETED = {
 }
 
 _OPERATIONS = {
+    "axes": ("structure", "align_principal_axes"),
     "translate": ("structure", "translate"),
     "rotate": ("structure", "rotate"),
     "center": ("structure", "center"),
@@ -73,6 +81,7 @@ def _operation(parameters):
 
 
 _RESULT_TITLES = {
+    "axes": "Principal-axis aligned system",
     "translate": "Translated system",
     "rotate": "Rotated system",
     "center": "Centered system",
@@ -81,6 +90,7 @@ _RESULT_TITLES = {
     "unwrap": "Unwrapped trajectory",
 }
 _EFFECT_LABELS = {
+    "axes": "Aligned",
     "translate": "Translated",
     "rotate": "Rotated",
     "center": "Centered",
@@ -96,6 +106,15 @@ def _parameters(value):
     result = dict(_PARAMETERS, **value)
     if result["task"] not in _OPERATIONS:
         raise ValueError("Choose a supported Geometry task.")
+    if (
+        result["axes_type"] not in {"inertia", "geometric"}
+        or result["axes_weights"] not in {"uniform", "masses"}
+        or result["axes_center"] not in {"preserve", "origin"}
+        or result["axes_target"] not in {"cartesian", "custom"}
+    ):
+        raise ValueError(
+            "Choose supported principal-axis, weighting and target options."
+        )
     if result["angle_unit"] not in {"degree", "radian"} or result[
         "rotation_center_kind"
     ] not in {"geometric", "origin", "point"}:
@@ -120,6 +139,8 @@ def _parameters(value):
     if result["structures"] not in {"all", "current", "indices"}:
         raise ValueError("Choose which structures to transform.")
     for key, limit in (
+        ("axes_expression", 4096),
+        ("axes_basis", 512),
         ("ax", 64),
         ("ay", 64),
         ("az", 64),
@@ -175,6 +196,29 @@ def _rotation(parameters):
     return get_rotation_matrix_from_axis_angle(
         axis, puw.quantity(angle, parameters["angle_unit"])
     )
+
+
+def _target_axes(parameters):
+    if parameters["axes_target"] == "cartesian":
+        return None
+    try:
+        values = [
+            float(word)
+            for word in parameters["axes_basis"]
+            .replace(";", " ")
+            .replace(",", " ")
+            .split()
+        ]
+    except ValueError as exc:
+        raise ValueError(
+            "Enter nine finite unit-free target-axis components in row order."
+        ) from exc
+    if len(values) != 9 or not np.all(np.isfinite(values)):
+        raise ValueError(
+            "Enter nine finite unit-free target-axis components in row order."
+        )
+    # Native alignment owns orthonormality and handedness admission at apply.
+    return np.asarray(values, dtype=np.float64).reshape(3, 3)
 
 
 def _admit_periodic_profile(target, frames, *, temporal):
@@ -337,7 +381,12 @@ class _GeometryPanel(_MolecularTaskPanel):
             return tuple(int(i) for i in np.unique(indices))
 
         references = _GeometryReferences()
-        if self._parameters["task"] == "translate":
+        if self._parameters["task"] == "axes":
+            _target_axes(self._parameters)
+            references = _GeometryReferences(
+                fit=population(self._parameters["axes_expression"], atoms)
+            )
+        elif self._parameters["task"] == "translate":
             _length_vector(self._parameters)
         elif self._parameters["task"] == "rotate":
             _rotation(self._parameters)
@@ -444,7 +493,20 @@ class _GeometryPanel(_MolecularTaskPanel):
             "in_place": True,
             "skip_digestion": False,
         }
-        if review.parameters["task"] == "translate":
+        if review.parameters["task"] == "axes":
+            # This native API is flag-free; its ordinary validation always runs.
+            parameters.pop("skip_digestion")
+            parameters.update(
+                principal_axes_of_selection=list(references.fit),
+                principal_axes_type=review.parameters["axes_type"],
+                weights=None
+                if review.parameters["axes_weights"] == "uniform"
+                else "masses",
+                axes=_target_axes(review.parameters),
+                center=review.parameters["axes_center"] == "origin",
+                engine="MolSysMT",
+            )
+        elif review.parameters["task"] == "translate":
             parameters["translation"] = _length_vector(review.parameters)
         elif review.parameters["task"] == "rotate":
             from molsysmt.structure import get_center

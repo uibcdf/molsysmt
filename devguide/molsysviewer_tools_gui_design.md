@@ -3,6 +3,20 @@
 **Role:** proposed GUI design under uibcdf/molsysmt#421 and
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
+**Principal-axis implementation — 2026-11-07:** the next owner slice adds
+Align principal axes through the existing native operation and managed edit/
+result routes. The GUI distinguishes moving/reference populations, moment
+definition, equal/standard-mass weights, center restoration/subtraction and
+Cartesian/explicit row bases. Review performs no eigensolve or trajectory copy;
+native validation owns proper bases, moment ordering, signs and degeneracy.
+Unit, independent tensor/rigidity, disjoint-population and all-structure rejection
+receiving passes in the 5,569-case combined selection. Seven actual Jupyter
+scenarios pass, including eight principal-axis steps and five rejection-lifetime
+steps; the [receipt](../devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json)
+retains exact source/host scope, original failed assertions and baseline errors. External-system reference
+and sequence-matching workflows retain their separate accepted scope. This
+implementation does not close #421 or imply human/installed acceptance.
+
 **Rotate update — 2026-11-07:** owner source implements the accepted axis/angle
 and three-center design below through native tools. The
 [rotation receipt](../devtools/data/molsysviewer_tools_rotation_receiving_20261107.json)
@@ -586,8 +600,8 @@ GUI result or an automatic post-1.0 exclusion.
 | Surface / task family | Reused scientific and host owners | Required receiving |
 | --- | --- | --- |
 | System inventory, selection, removal, subset and copy | Core System/selection; basic remove/extract/copy; host edit/presentation services | Current three tasks have source and real Jupyter guards. Retain all-structure inventory semantics and independent output ownership. |
-| Geometry explicit translation, rotation and centering | structure translate/rotate/center/get_center | Translate and Center implemented with analytical/native/Mol* receiving. The public constructor from #602 is delivered; the Rotate task and its actual graphical receiving remain due. Preserve centers, handedness, units, selections and actual rendered coordinates. |
-| Geometry structural comparison/fitting and principal-axis alignment | structure least_rmsd_fit/least_rmsd_align/align_principal_axes | Superpose structures implements rigid fitting within the current system, with explicit moving/fitting/reference populations, initial reference structure and user-declared index pairing. Sequence-derived matching, principal-axis orientation and other reference workflows remain required work. Preserve native degeneracy/prerequisite errors. |
+| Geometry explicit translation, rotation and centering | structure translate/rotate/center/get_center | Translate, Center and Rotate are implemented with native/analytical and actual Jupyter/Mol*/popup receiving; Rotate is delivered in owner c16b970a9. Human/installed acceptance remains separate. Preserve centers, handedness, units, selections and actual rendered coordinates. |
+| Geometry structural comparison/fitting and principal-axis alignment | structure least_rmsd_fit/least_rmsd_align/align_principal_axes | Superpose structures implements rigid fitting within the current system, with explicit moving/fitting/reference populations, initial reference structure and user-declared index pairing. Principal-axis orientation is implemented and received through independent tensor/rigidity and actual rendered/popup checks. Sequence-derived matching and external-system reference workflows remain required. Preserve native degeneracy/prerequisite errors. |
 | Geometry periodic coordinates and cell assignment | pbc wrap_to_pbc/wrap_to_mic/unwrap, public cell factories and admitted basic.set | Wrap coordinates and Unwrap trajectory retain the bounded source profile in periodic_tools_gui_qualification.md. Receive the delivered native general-orientation (#607), varying-cell temporal (#606), reference-point (#608) and factory-validation (#605) corrections; cell editing remains unimplemented. Preserve explicit units/order/effects and native validation. |
 | Chemistry readiness and preparation audits | build audit readers, physchem chemical-readiness/H inventory, chemical_states reports | Preserve reference/state and assessed/unassessed scope. Reports do not prepare or assign chemistry. |
 | Chemistry explicit repair and assignments | Received build/physchem atom/bond/H/terminal and typing/charge tools | State method/model and prerequisites; use qualified maps for managed edits or independent results. No inferred identity by equal counts/names. |

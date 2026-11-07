@@ -5261,7 +5261,7 @@ These controls do not observe arbitrary external edits to `view.molsys`.
 Molecular data remain owned by the view's single current MolSys. The panel
 uses the same native selection and removal preparation as the expert API.
 Extraction/copy result presentation uses the separate flow below. Geometry
-offers Translate, Rotate, Center, Superpose structures, Wrap coordinates and Unwrap trajectory.
+offers Translate, Rotate, Center, Superpose structures, Align principal axes, Wrap coordinates and Unwrap trajectory.
 Chemistry offers the two source inspection tasks and explicit heavy-atom/hydrogen
 preparation described below. Analysis offers native distance and neighborhood
 queries. Further Geometry, Chemistry construction/assignments and other Analysis
@@ -5470,6 +5470,60 @@ scene update after completed science needs **Update view**, without repeating
 the fit. The expert `structure.least_rmsd_fit` API retains its complete inputs,
 external references and native return semantics. This GUI slice's source/browser
 checks remain distinct from human acceptance and installed qualification.
+
+
+## Orienting molecular principal axes through Geometry
+
+Choose **Align principal axes** in **Molecular tools > Geometry** to orient
+selected molecular coordinates using a reference atom population. This changes
+the molecular data, independently of the camera. Choose the moving atoms and
+all structures, the current structure or distinct explicit indices such as
+`2, 0`. GUI atom indices are deduplicated; structure order is retained.
+
+**Moment definition** selects the native inertia tensor or geometric covariance.
+**Reference atom weights** independently chooses equal atom weights (default)
+or standard atomic masses. Mass weighting delegates to the native property
+owner and requires a mass standard in a partial application unit policy.
+It does not use force-field masses or prepare chemistry. Native moments are
+ordered increasingly within their definition, so the two definitions have
+different spatial-axis ordering. Individual eigenvector signs are arbitrary;
+there is no promise of temporal sign continuity. Degenerate moments reject
+because the individual principal axes are not uniquely defined.
+
+By default the moving atoms also define the axes. Expand **Atoms defining the
+principal axes** to give a different MolSysMT expression. It resolves once in
+the stated selection structure and reference chemical state. Reference atoms
+may overlap or be disjoint from the moving selection. Unselected reference
+atoms do not move: their initial geometry determines a transformation, rather
+than imposing a final orientation on atoms excluded from movement.
+
+**Reference center** either keeps the initial weighted reference center or
+subtracts it without restoration. Subtraction places the reference center at
+the origin when the reference population moves with the selection; it does
+not move excluded reference atoms. Each processed structure uses its own
+initial reference geometry. **Target axes** defaults to the molecular Cartesian
+basis. An **Explicit right-handed basis** accepts nine unit-free numbers as
+three row vectors, for example `0 1 0; 0 0 1; 1 0 0`. Native validation requires
+an orthonormal, right-handed basis.
+
+**Review principal-axis alignment** shows the moving/reference populations,
+structure order, tensor, weights, center treatment, target and effect. Review
+resolves populations without computing principal axes or copying a trajectory.
+On confirmation, {func}`molsysmt.structure.align_principal_axes` validates the
+basis and moments for all processed structures before coordinate publication.
+The native owner also controls signs, degeneracy tolerances, units and execution
+settings; the addon supplies no eigensolver or numerical fallback. A rejected
+operation leaves a diagnostic that you can correct and review again.
+
+Choose **Current system** for a managed edit and scene update or **Independent
+result** for a complete separate system changing only the requested atoms and
+structures. The box stays fixed and periodic images are not reconstructed or
+wrapped. Euclidean rigidity does not guarantee fixed-lattice minimum-image
+invariance. Native setters invalidate affected stored analysis coverage.
+Changed parameters, source/revision, reference population or structure context
+expire the single-use review. After completed science with failed projection,
+**Update view** retries synchronization only. Source/Jupyter receiving does
+not replace postponed human visible/Qt or installed-package qualification.
 
 
 ## Choosing periodic images through Geometry

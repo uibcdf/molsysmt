@@ -1,11 +1,11 @@
 ---
 summary: Molecular task panels lose rejected-operation diagnostics during automatic synchronization refresh.
 issue: uibcdf/molsysmt#603
-status: partial
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-07
 severity: medium
-verification: reproduced
+verification: measured
 area: [molsysviewer, gui]
 guard: tests/molsysviewer_molsysmt/test_geometry_panel.py::test_missing_mass_unit_policy_rejects_before_write_and_can_be_retried
 normative:
@@ -73,3 +73,28 @@ choice and obtains a fresh review. Source receipt:
 [Center receiving](../../devtools/data/molsysviewer_tools_center_receiving_20261106.json).
 Owner integration and exact-head hosted qualification remain pending; the issue
 stays open rather than declaring the contribution already integrated.
+
+
+## Resolution — 2026-11-07
+
+The contribution is now integrated through owner merge `0ddb99c2b` and public
+checkpoint `aadefc11d`; the shared diagnostic implementation is unchanged in
+this subsequent principal-axis receiving. The owner receives the exact public
+Viewer `e4dd58cf0`, with all 5,569 combined panel/native/route cases passing.
+The addressable guard above verifies a real missing-mass-standard rejection,
+unchanged molecular data, retention through refresh and a valid retry. Shared
+expiry guards cover new input, task, structure, revision and mounted lifetime.
+
+The [principal-axis receiving record](../../../devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json)
+also records the actual five-step Jupyter rejected-operation diagnostic scenario:
+a native failure remains visible after a newer synchronized refresh, a new user
+choice expires it, and Python verifies unchanged coordinates/revision. It runs
+alongside the new axes scenario, while five other actual System/result/Geometry
+scenarios pass separately. Their source inputs stay unchanged. Page errors match
+plain-Jupyter control fingerprints and secrets are removed.
+
+This source defect is resolved; postponed human visual/Qt and installed/platform/
+exact-candidate qualification remain independently owned release obligations.
+The maintainer-authorized local receiving and publication route does not claim
+a new hosted full matrix or causal closure of #615. No unit fallback, scientific
+replay or native validation change was used to obtain passing evidence.

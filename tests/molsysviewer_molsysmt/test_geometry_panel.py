@@ -1059,3 +1059,321 @@ def test_rotation_review_never_copies_a_molecular_trajectory(case, monkeypatch):
     assert packet["stage"] == "review", packet["message"]
     assert packet["review"]["n_atoms"] == view.molsys.get_n_atoms()
     assert act(view, sent, "back")["stage"] == "select"
+
+
+@pytest.mark.parametrize("kind", ["inertia", "geometric"])
+@pytest.mark.parametrize("weighting", ["uniform", "masses"])
+@pytest.mark.parametrize("centered", [False, True])
+@pytest.mark.parametrize("custom_basis", [False, True])
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("reference", ["moving", "disjoint"])
+def test_principal_axis_panel_matches_independent_tensor_invariants(
+    case, kind, weighting, centered, custom_basis, effect, reference
+):
+    from tests.molsysviewer_molsysmt.test_structure_axes_tools import covariance
+
+    view, sent = case
+    target, before = view.molsys, coords(view)
+    box = puw.get_value(target.structures.box, to_unit="nm").copy()
+    revision = view.addons.molsysmt.get_sync_status()["target_revision"]
+    moving = list(range(8))
+    fit = moving if reference == "moving" else list(range(10, 16))
+    numerical_weights = (
+        np.ones(len(fit))
+        if weighting == "uniform"
+        else puw.get_value(
+            msm.physchem.get_mass(target, element="atom", selection=fit),
+            to_unit="dalton",
+        )
+    )
+    basis = (
+        np.array([[0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [1.0, 0.0, 0.0]])
+        if custom_basis
+        else np.eye(3)
+    )
+    with puw.context(standard_units=["pm", "ps", "radians", "dalton"]):
+        packet = act(
+            view,
+            sent,
+            "review",
+            draft={"source": "indices", "indices": "0,1,2,3,4,5,6,7,2"},
+            parameters={
+                "task": "axes",
+                "axes_type": kind,
+                "axes_weights": weighting,
+                "axes_center": "origin" if centered else "preserve",
+                "axes_target": "custom" if custom_basis else "cartesian",
+                "axes_basis": "0 1 0; 0 0 1; 1 0 0",
+                "axes_expression": ""
+                if reference == "moving"
+                else "atom_index in [10,11,12,13,14,15]",
+                "structures": "indices",
+                "indices": "2,0",
+                "effect": effect,
+            },
+        )
+        assert packet["stage"] == "review", packet["message"]
+        assert packet["review"]["n_fit_atoms"] == len(fit)
+        assert packet["review"]["structure_indices"] == [2, 0]
+        np.testing.assert_array_equal(coords(view), before)
+        packet = act(view, sent, "apply", token=packet["review"]["token"])
+    assert packet["stage"] == ("done" if effect == "update" else "result"), packet[
+        "message"
+    ]
+    output = (
+        view
+        if effect == "update"
+        else view.addons.manager.presentations.get(packet["result"]["id"])
+    )
+    after = coords(output)
+    unchanged = sorted(set(range(target.get_n_atoms())) - set(moving))
+    for structure in [2, 0]:
+        center, cov = covariance(before[structure, fit], numerical_weights)
+        _, eigenvectors = np.linalg.eigh(cov)
+        if kind == "inertia":
+            eigenvectors = eigenvectors[:, ::-1]
+        projected = (after[structure, moving] - (0 if centered else center)) @ basis.T
+        expected = (before[structure, moving] - center) @ eigenvectors
+        # Individual eigenvector signs are arbitrary; squared projections and
+        # proper rigid geometry independently constrain the published result.
+        np.testing.assert_allclose(projected**2, expected**2, atol=1e-11)
+        initial = before[structure, moving]
+        final = after[structure, moving]
+        np.testing.assert_allclose(
+            np.linalg.norm(initial[:, None] - initial[None, :], axis=-1),
+            np.linalg.norm(final[:, None] - final[None, :], axis=-1),
+            atol=1e-12,
+        )
+        np.testing.assert_allclose(
+            np.linalg.det(final[[1, 2, 3]] - final[0]),
+            np.linalg.det(initial[[1, 2, 3]] - initial[0]),
+            atol=1e-12,
+        )
+        np.testing.assert_array_equal(
+            after[structure, unchanged], before[structure, unchanged]
+        )
+    np.testing.assert_array_equal(after[1], before[1])
+    np.testing.assert_array_equal(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"), box
+    )
+    assert view.molsys is target
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + int(
+        effect == "update"
+    )
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+        assert output.player.n_structures == 3
+        assert (
+            packet["result"]["operation"] == "molsysmt.structure.align_principal_axes"
+        )
+        assert not np.shares_memory(
+            puw.get_value(output.molsys.structures.coordinates),
+            puw.get_value(target.structures.coordinates),
+        )
+        act(view, sent, "result.discard")
+
+
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {"axes_type": "unknown"},
+        {"axes_weights": "charges"},
+        {"axes_center": "average"},
+        {"axes_target": "camera"},
+        {"axes_target": "custom", "axes_basis": "1 0 0"},
+        {"axes_target": "custom", "axes_basis": "1 0 0; 0 nan 0; 0 0 1"},
+        {"axes_target": "custom", "axes_basis": "identity"},
+        {"axes_expression": "atom_name=='DOES_NOT_EXIST'"},
+    ],
+)
+def test_principal_axis_panel_rejects_invalid_requests_during_review(case, parameters):
+    view, sent = case
+    before, status = coords(view), view.addons.molsysmt.get_sync_status()
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={"task": "axes", **parameters},
+    )
+    assert packet["stage"] == "error"
+    np.testing.assert_array_equal(coords(view), before)
+    assert view.addons.molsysmt.get_sync_status() == status
+
+
+@pytest.mark.parametrize("basis", ["1 0 0; 0 1 0; 0 0 -1", "2 0 0; 0 1 0; 0 0 1"])
+def test_native_principal_axis_admission_rejects_bad_bases_before_writes(case, basis):
+    view, sent = case
+    before, status = coords(view), view.addons.molsysmt.get_sync_status()
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={"task": "axes", "axes_target": "custom", "axes_basis": basis},
+    )
+    assert packet["stage"] == "review", packet["message"]
+    result = act(view, sent, "apply", token=packet["review"]["token"])
+    assert result["stage"] == "error", result["message"]
+    np.testing.assert_array_equal(coords(view), before)
+    current = view.addons.molsysmt.get_sync_status()
+    # The coordinator records a new attempted operation, without publishing
+    # coordinates, advancing the revision or leaving pending scene work.
+    assert current["operation_id"].startswith(
+        "molsysmt.structure.align_principal_axes:"
+    )
+    assert {**current, "operation_id": status["operation_id"]} == status
+
+
+def test_principal_axis_panel_reviews_without_geometry_or_copy(case, monkeypatch):
+    view, sent = case
+
+    def reject(*args, **kwargs):
+        raise AssertionError(
+            "Review cannot compute principal axes or copy a trajectory."
+        )
+
+    monkeypatch.setattr(msm.structure, "get_principal_axes", reject)
+    monkeypatch.setattr(view.molsys, "copy", reject)
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "all"},
+        parameters={"task": "axes", "effect": "result"},
+    )
+    assert packet["stage"] == "review", packet["message"]
+    assert act(view, sent, "back")["stage"] == "select"
+
+
+def test_principal_axes_validate_every_structure_before_coordinate_publication(case):
+    view, sent = case
+    xyz = coords(view)
+    xyz[0, :8] = np.column_stack([np.arange(8), np.zeros((8, 2))])
+    view.addons.molsysmt.basic.set(coordinates=puw.quantity(xyz, "nm"))
+    before, status = coords(view), view.addons.molsysmt.get_sync_status()
+    packet = act(
+        view,
+        sent,
+        "review",
+        draft={"source": "indices", "indices": "0,1,2,3,4,5,6,7"},
+        parameters={"task": "axes", "structures": "indices", "indices": "2,0"},
+    )
+    assert packet["stage"] == "review", packet["message"]
+    result = act(view, sent, "apply", token=packet["review"]["token"])
+    assert result["stage"] == "error", result["message"]
+    assert "degenerate" in result["message"].lower()
+    np.testing.assert_array_equal(coords(view), before)
+    current = view.addons.molsysmt.get_sync_status()
+    # The coordinator records a new attempted operation, without publishing
+    # coordinates, advancing the revision or leaving pending scene work.
+    assert current["operation_id"].startswith(
+        "molsysmt.structure.align_principal_axes:"
+    )
+    assert {**current, "operation_id": status["operation_id"]} == status
+
+
+def test_principal_axis_projection_retry_does_not_recalculate(case, monkeypatch):
+    view, sent = case
+    operation = msm.structure.align_principal_axes
+    calls = []
+
+    def align(*args, **kwargs):
+        calls.append(kwargs)
+        assert view.addons.molsysmt.get_sync_status()["state"] == "editing"
+        return operation(*args, **kwargs)
+
+    monkeypatch.setattr(msm.structure, "align_principal_axes", align)
+    packet = act(
+        view, sent, "review", draft={"source": "all"}, parameters={"task": "axes"}
+    )
+    assert packet["stage"] == "review", packet["message"]
+    rebuild = view._rebuild_view_from_current_molsys
+
+    def reject(*args, **kwargs):
+        raise RuntimeError(
+            "Injected projection failure after native principal-axis alignment"
+        )
+
+    monkeypatch.setattr(view, "_rebuild_view_from_current_molsys", reject)
+    assert (
+        act(view, sent, "apply", token=packet["review"]["token"])["stage"]
+        == "sync_required"
+    )
+    assert len(calls) == 1 and "skip_digestion" not in calls[0]
+    after, status = coords(view), view.addons.molsysmt.get_sync_status()
+    monkeypatch.setattr(view, "_rebuild_view_from_current_molsys", rebuild)
+    view._handle_frontend_event(
+        {"event": "interaction_context_action", "action": "sync_system_edits"}
+    )
+    assert len(calls) == 1
+    np.testing.assert_array_equal(coords(view), after)
+    assert (
+        view.addons.molsysmt.get_sync_status()["target_revision"]
+        == status["target_revision"]
+    )
+    assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
+
+
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("policy", ["angstrom", "pm"])
+def test_principal_axis_publication_preserves_chemistry_boxes_and_scope(
+    case, effect, policy
+):
+    view, sent = case
+    original = msm.interactions.hbonds.get_buch_hbonds(
+        view.molsys,
+        structure_indices="all",
+        pbc=False,
+        output_type="molsysmt.Interactions",
+    )
+    view.interactions.attach(original, name="science", assume_aligned=True)
+    chemistry = msm.convert(
+        view.molsys.chemical_states, to_form="molsysmt.ChemicalStatesDict"
+    ).to_dict()
+    box = puw.get_value(view.molsys.structures.box, to_unit="nm").copy()
+    before = coords(view)
+    with puw.context(standard_units=[policy, "ps", "radians", "dalton"]):
+        packet = act(
+            view,
+            sent,
+            "review",
+            draft={"source": "all"},
+            parameters={
+                "task": "axes",
+                "axes_weights": "masses",
+                "structures": "indices",
+                "indices": "2,0",
+                "effect": effect,
+            },
+        )
+        assert packet["stage"] == "review", packet["message"]
+        packet = act(view, sent, "apply", token=packet["review"]["token"])
+    assert packet["stage"] == ("done" if effect == "update" else "result"), packet[
+        "message"
+    ]
+    output = (
+        view
+        if effect == "update"
+        else view.addons.manager.presentations.get(packet["result"]["id"])
+    )
+    np.testing.assert_equal(
+        msm.convert(
+            output.molsys.chemical_states, to_form="molsysmt.ChemicalStatesDict"
+        ).to_dict(),
+        chemistry,
+    )
+    np.testing.assert_array_equal(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"), box
+    )
+    np.testing.assert_array_equal(original.evaluated_structure_indices, [0, 1, 2])
+    np.testing.assert_array_equal(
+        output.molsys.interactions["science"].evaluated_structure_indices, [1]
+    )
+    np.testing.assert_array_equal(coords(output)[1], before[1])
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+        np.testing.assert_array_equal(
+            view.molsys.interactions["science"].evaluated_structure_indices, [0, 1, 2]
+        )
+        act(view, sent, "result.discard")

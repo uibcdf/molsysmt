@@ -601,8 +601,9 @@ Declare the qualified CPU route, fixed index-order correspondence and lack of
 sequence/name matching; validate geometry through the native owner, not a GUI
 matrix implementation. Keep reference/structure order, subset effects, fixed
 box, coverage, atomic rejection and synchronization-only retry. Expert external
-references and complete signatures remain unchanged. Native sequence matching,
-principal-axis orientation and further periodic tools retain their planned scope.
+references and complete signatures remain unchanged. Sequence-matching and
+external-reference GUI workflows retain their own pending scope; principal-axis
+orientation and periodic task receiving are recorded separately.
 
 
 Preserve periodic GUI tasks as public native pbc delegation through existing
@@ -682,3 +683,15 @@ coordinate rotation to their native public tools. Keep fixed-box/MIC limits,
 full independent results, coverage invalidation, expiring single-use reviews
 and synchronization-only retry. Source/browser tests do not accept human Qt
 or installed packages.
+
+
+Preserve Geometry/Align principal axes as native delegation with independent
+moving/reference populations, equal/standard-mass weights, inertia/covariance,
+center restoration/subtraction and Cartesian/explicit row-basis targets. Keep
+increasing native moment ordering, arbitrary signs, degeneracy rejection and
+disjoint-reference semantics visible. Review must neither compute axes nor
+copy a trajectory; native all-structure admission precedes publication. The
+flag-free native API always validates. Keep ordered distinct structures,
+proper rigidity, unchanged chemistry/box, coverage invalidation, independent
+full results, expiring reviews and synchronization-only retry. External-system
+reference and sequence workflows remain separate accepted work.

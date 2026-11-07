@@ -20,7 +20,32 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current Geometry/Rotate checkpoint — 2026-11-07
+## Current principal-axis receiving — 2026-11-07
+
+The accepted #421 principal-axis task is implemented and received through native
+tensor/center/basis operations. The
+[receiving record](../devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json)
+passes 5,569 combined cases and seven actual Jupyter/Mol*/popup scenarios,
+including eight principal-axis and five error-lifetime steps. Registered
+source/config inputs are unchanged during all three campaigns. Shared outcome,
+selection, units, fixed boxes/chemistry, invalidation and result lifetime retain
+their native ownership. The original test-only attempted-operation-ID
+assumption and baseline-matching page errors remain visible.
+
+#603's source correction is received and archived; final public closeout follows
+verification. #640/#641 now record the observed native diagnostic defects.
+Final source/scientific/documentation checks and main delivery are in progress.
+Then correct those messages and continue external-reference/sequence, cell and
+all other accepted graphical/session families. Installed/platform/candidate and
+postponed human visual/Qt gates remain separate; publication stays paused.
+
+The maintainer requested a more informative progress measure. The
+[audit](pre_1_0_robustness_audit_20261106.md#progress-estimate-for-the-authorized-execution)
+is recalculating verified partial milestones with the original phase weights.
+The previous 40% was a phase-exit count that omitted partial work; it is retained
+as dated history, not presented as current implementation progress.
+
+## Previous Geometry/Rotate checkpoint — 2026-11-07
 
 The #421 Rotate panel is implemented and locally received on exact Viewer
 `e4dd58cf0`: native Cartesian axis-angle construction, explicit degree/radian

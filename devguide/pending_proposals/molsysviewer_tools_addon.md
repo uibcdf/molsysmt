@@ -14,6 +14,35 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Geometry/principal axes — owner receiving 2026-11-07
+
+Align principal axes is implemented through the unchanged flag-free native tool:
+independent moving/reference populations; inertia/covariance and equal/standard-
+mass weights; initial-center preservation/subtraction; Cartesian or explicit
+right-handed row bases. Review computes no axes and copies no trajectory.
+Native all-structure validation, arbitrary signs and degeneracy are preserved.
+
+The [receiving record](../../devtools/data/molsysviewer_tools_principal_axes_receiving_20261107.json)
+passes **5,569 combined cases** and **seven actual Jupyter scenarios**: axes8,
+rejection5, System6, independent results7, Translate7, Center7 and Superpose8.
+Independent covariance/projection, distances and signed volumes constrain actual
+Mol* and native geometry, including disjoint references and reordered structures.
+Boxes/chemistry/source ownership, analysis coverage and projection-only retry are
+retained. All 5,178 registered source/config inputs stay unchanged during each
+campaign; page errors match plain-Jupyter baselines. The initial 704/707 directed
+run is retained: its three test-only failures expected an unchanged attempted-
+operation identifier after a clean native rejection. Corrected assertions retain
+all coordinate/revision/sync guarantees; runtime code was not changed for them.
+
+#603's shared diagnostic correction is now owner-received and archived; final
+public issue closeout follows source verification. #640/#641 track two observed
+native diagnostic defects independently, without a GUI translation. Native
+scientific/Rust sources and binary are unchanged. Final fast/documentation/
+clean-source scientific receiving and publication follow. External references,
+sequence matching, cell editing and all other accepted families remain required.
+Human/installed/candidate exits are separate. Progress accounting is being
+revised at the maintainer's request; the former phase-closure indicator was 40%.
+
 ## Geometry/Rotate — owner source receiving 2026-11-07
 
 Geometry now implements **Rotate** through the delivered native #602 constructor,
@@ -3339,8 +3368,8 @@ HTML native zero/six retained warnings. #639 repairs the owner-added test's
 hosted argument; #635 closes only the exact-route oracle theme after publication.
 
 Remaining accepted task families are those in the maintained GUI design, including
-Rotate now that its native constructor is delivered, principal-axis/reference
-workflows, cell editing and further property/sequence/interaction/mechanics
+external-system reference and sequence workflows, cell editing and further
+property/sequence/interaction/mechanics
 integration. Complete scientific-session GUI and installed/human/host-floor
 qualification are separate exits. No family is dropped or stable/candidate
 classification inferred from this source block.
