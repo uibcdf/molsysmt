@@ -22,7 +22,7 @@ dependencies:
 - mdtraj >=1.11.0
 - pyparsing !=3.3.3
 - mdanalysis
-- rdkit
+- rdkit>=2024.3.4
 - parmed
 - biopython
 - ipywidgets

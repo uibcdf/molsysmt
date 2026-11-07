@@ -64,7 +64,8 @@ soft = [
   # Native atom exports pass formalCharge, including unknown values (#524).
   "openmm>=8.2.0",
   "MDAnalysis",
-  "rdkit",
+  # Coordinate export/CIP use Conformer.SetPositions, available since 2024.03.4 (#524).
+  "rdkit>=2024.3.4",
   "openff-toolkit>=0.17.1",
   "openff-units>=0.3.0",
   "parmed",
